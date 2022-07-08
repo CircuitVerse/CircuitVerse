@@ -102,34 +102,36 @@
   }
 }
 
-.commontator .pagination a, .commontator .pagination span, .commontator .pagination em {
-  color: #026e57;
-  position: relative;
-  display: block;
-  padding: 0.5rem 0.75rem;
-  margin-left: -1px;
-  line-height: 1.25;
-  background-color: #fff;
+.commontator .pagination a,
+.commontator .pagination span,
+.commontator .pagination em {
+  background-color: $white;
   border: 1px solid #dee2e6;
-  margin-right: 0;
+  color: $secondary-green;
+  display: block;
   font-style: normal;
+  line-height: 1.25;
+  margin-left: -1px;
+  margin-right: 0;
+  padding: .5rem .75rem;
+  position: relative;
 }
 
 .commontator .pagination .current {
-  background-color: #42b983;
-  border-color: #42b983;
-  color: #fff;
+  background-color: $primary-green;
+  border-color: $primary-green;
+  color: $white;
 }
 
 .commontator .pagination .disabled {
   margin-right: 0px;
   border: 1px solid #dee2e6;
-  padding: 0.5rem 0.75rem;
-  color: #026e57;
+  padding: .5rem .75rem;
+  color: $secondary-green;
 }
 
 .commontator .pagination a:hover, .commontator .pagination span:hover {
-  color: #42b983;
+  color: $primary-green;
   background-color: #e9ecef;
   border-color: #dee2e6;
 }
