@@ -124,18 +124,19 @@
 }
 
 .commontator .pagination .disabled {
-  margin-right: 0px;
   border: 1px solid #dee2e6;
-  padding: .5rem .75rem;
   color: $secondary-green;
+  margin-right: 0;
+  padding: .5rem .75rem;
 }
 
-.commontator .pagination a:hover, .commontator .pagination span:hover {
-  color: $primary-green;
+.commontator .pagination a:hover,
+.commontator .pagination span:hover {
   background-color: #e9ecef;
   border-color: #dee2e6;
+  color: $primary-green;
 }
 
 .comment-pagination {
-  justify-content: center !important;
+  justify-content: center;
 }
