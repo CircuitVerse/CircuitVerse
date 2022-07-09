@@ -27,7 +27,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   # POST /api/v1/groups/:group_id/assignments
   def create
     @assignment = @group.assignments.new(assignment_create_params)
-    authorize @assignment, :admin_access?
+    authorize @assignment, :mentor_access?
     @assignment.status = "open"
     @assignment.deadline = 1.year.from_now if @assignment.deadline.nil?
     @assignment.save!
@@ -135,6 +135,6 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     end
 
     def check_access
-      authorize @assignment, :admin_access?
+      authorize @assignment, :mentor_access?
     end
 end

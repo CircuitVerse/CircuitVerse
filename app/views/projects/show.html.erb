@@ -16,7 +16,7 @@
   type: "article",
   site_name: Rails.configuration.site_name
   } %>
-<div class="container">
+<div class="container" data-controller="projects">
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
@@ -102,10 +102,10 @@
               <% if policy(@project).user_access? %>
                 <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("launch_simulator") %></a>
               <% else %>
-                <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
-                  <i class="fas fa-code"></i>
-                  <span><%= t("projects.show.project_embed") %></span>
-                </a>
+                <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embed" data-toggle="modal">
+                <i class="fas fa-code"></i>
+                <span><%= t("projects.show.project_embed") %></span>
+              </a>
               <% end %>
               <% if policy(@project).author_access? %>
                 <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
@@ -141,19 +141,12 @@
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
-              <a class="btn secondary-button projects-self-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedSelf()">
+              <a class="btn secondary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
                 <i class="fas fa-code"></i>
                 <span><%= t("projects.show.project_embed") %></span>
               </a>
-            </p>
+              </p>
           <% end %>
-          <div class="collapse" id="collapseExample">
-            <div class="projects-embed-text-container">
-              <label for="embedTextArea"></label>
-              <textarea id="embedTextArea" class="projects-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
-            </div>
-            <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
-          </div>
         </div>
       </div>
     </div>
@@ -204,6 +197,7 @@
     <%= render partial: "add_collaborator_modal" %>
     <%= render partial: "delete_project_confirmation_modal" %>
     <%= render partial: "delete_collaboration_confirmation_modal" %>
+    <%= render(ProjectEmbedComponent.new(@project)) %>
 
 </div>
 
@@ -225,26 +219,6 @@
   })
 </script>
 <script>
-  function embedOther() {
-    if(document.getElementsByClassName("projects-others-embed-button")[0].ariaExpanded=="false") {
-      document.getElementsByClassName("projects-others-embed-button")[0].classList.add("active");
-    }
-    else {
-      document.getElementsByClassName("projects-others-embed-button")[0].classList.remove("active");
-    }
-    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
-  }
-
-  function embedSelf() {
-    if(document.getElementsByClassName("projects-self-embed-button")[0].ariaExpanded=="false") {
-      document.getElementsByClassName("projects-self-embed-button")[0].classList.add("active");
-    }
-    else {
-      document.getElementsByClassName("projects-self-embed-button")[0].classList.remove("active");
-    }
-    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
-  }
-
   function toggleStar(toggle) {
     $.ajax({
       url: "<%= change_stars_path(@project) %>",
@@ -266,7 +240,6 @@
     });
   }
 </script>
-
 <% if user_signed_in? %>
   <script type="application/ld+json">
     {
