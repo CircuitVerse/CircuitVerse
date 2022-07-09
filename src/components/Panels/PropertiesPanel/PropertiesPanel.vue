@@ -60,6 +60,7 @@ function showPropertiesPanel() {
     // 3. Properties Panel showing Circiut Element Properties
 
     if (layoutModeGet()) {
+        console.log('Currently in Layout Mode')
         panelType.value = 1
         // will look into it later !!!
     } else if (

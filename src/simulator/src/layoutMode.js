@@ -410,6 +410,7 @@ export function toggleLayoutTitle() {
  * @category layoutMode
  */
 function cancelLayout() {
+    console.log('Layout mode cancel')
     if (layoutModeGet()) {
         // eslint-disable-next-line no-use-before-define
         toggleLayoutMode()
@@ -421,6 +422,7 @@ function cancelLayout() {
  * @category layoutMode
  */
 function saveLayout() {
+    console.log('save layout')
     if (layoutModeGet()) {
         for (let i = 0; i < tempBuffer.Input.length; i++) {
             tempBuffer.Input[i].parent.layoutProperties.x =
@@ -446,6 +448,7 @@ function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
+    console.log('toggle layout mode')
     hideProperties()
     if (layoutModeGet()) {
         layoutModeSet(false)
