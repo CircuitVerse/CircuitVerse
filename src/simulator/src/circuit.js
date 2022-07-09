@@ -106,7 +106,7 @@ export function switchCircuit(id) {
  * Switched to a random circuit
  * @category circuit
  */
-function deleteCurrentCircuit(scopeId = globalScope.id) {
+export function deleteCurrentCircuit(scopeId = globalScope.id) {
     const scope = scopeList[scopeId]
     if (Object.keys(scopeList).length <= 1) {
         showError(

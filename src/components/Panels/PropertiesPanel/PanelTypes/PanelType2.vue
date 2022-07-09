@@ -59,16 +59,15 @@
     <p>
         <button
             type="button"
-            class="objectPropertyAttributeChecked btn btn-xs custom-btn--primary"
-            name="toggleLayoutMode"
-            @click="dummy"
+            class="panelButton btn btn-xs custom-btn--primary"
+            @click="toggleLayoutMode"
         >
             Edit Layout
         </button>
         <button
             type="button"
-            class="objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary"
-            name="deleteCurrentCircuit"
+            class="panelButton btn btn-xs custom-btn--tertiary"
+            @click="deleteCurrentCircuit"
         >
             Delete Circuit
         </button>
@@ -76,6 +75,7 @@
 </template>
 
 <script lang="ts" setup>
+import { deleteCurrentCircuit } from '#/simulator/src/circuit'
 import { getProjectName } from '#/simulator/src/data/save'
 import { toggleLayoutMode } from '#/simulator/src/layoutMode'
 import simulationArea from '#/simulator/src/simulationArea'
@@ -84,7 +84,11 @@ console.log('layout mode')
 // onMounted(() => {
 //     const circuitName = globalScope.name
 // })
-function dummy() {
-    toggleLayoutMode()
-}
 </script>
+
+<style scoped>
+.panelButton {
+    width: 100%;
+    margin-bottom: 5px;
+}
+</style>
