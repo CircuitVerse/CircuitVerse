@@ -283,6 +283,7 @@ export function objectPropertyAttributeCheckedUpdate() {
 
 export function checkPropertiesUpdate(value = 0) {
     // console.log('update check')
+
     $('.objectPropertyAttribute').on(
         'change keyup paste click',
         objectPropertyAttributeUpdate

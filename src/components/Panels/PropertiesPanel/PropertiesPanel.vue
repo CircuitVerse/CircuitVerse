@@ -76,6 +76,5 @@ function showPropertiesPanel() {
         panelType.value = 3
         panelBodyHeader.value = propertiesPanelObj.value.objectType
     }
-    // console.log('hello')
 }
 </script>

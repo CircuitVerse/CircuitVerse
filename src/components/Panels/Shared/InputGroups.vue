@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <p>
         <span>{{ propertyName }}</span>
         <div class="input-group">
             <div class="input-group-prepend">
@@ -33,7 +33,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </p>
 </template>
 
 <script lang="ts" setup>
@@ -42,7 +42,8 @@ const props = defineProps({
     propertyValue: { type: Number, default: 0 },
     propertyValueType: { type: String, default: 'number' },
     valueMin: { type: String, default: '0' },
-    valueMax: { type: String, default: '100' },
+    valueMax: { type: String, default: '100000000000000' },
+    stepSize: { type: String, default: '1' },
     propertyInputName: { type: String, default: 'Property_Input_Name' },
     propertyInputId: { type: String, default: 'Property_Input_Id' },
 })
@@ -51,8 +52,10 @@ const props = defineProps({
 function increaseValue() {
     const ele = document.getElementById(props.propertyInputId)
     var value = parseInt(ele.value, 10)
+    var step = parseInt(props.stepSize, 10)
     value = isNaN(value) ? 0 : value
-    if (value < props.valueMax) value++
+    step = isNaN(step) ? 1 : step
+    if (value + step <= props.valueMax) value = value + step
     else return
     props.propertyValue = value
     ele.value = value
@@ -64,8 +67,10 @@ function increaseValue() {
 function decreaseValue() {
     const ele = document.getElementById(props.propertyInputId)
     var value = parseInt(ele.value, 10)
+    var step = parseInt(props.stepSize, 10)
     value = isNaN(value) ? 0 : value
-    if (value > props.valueMin) value--
+    step = isNaN(step) ? 1 : step
+    if (value - step >= props.valueMin) value = value - step
     else return
     props.propertyValue = value
     ele.value = value
