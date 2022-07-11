@@ -90,7 +90,7 @@ export const GenerateCircuit = (outputListNamesInteger, inputListNames, output, 
     else {
         drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
     }
-}
+};
 
 /**
  * The prompt for combinational analysis
@@ -110,7 +110,6 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
         width: 'auto',
         buttons: [
             {
-                id:'combinationAnalysisNextBtn',
                 style: 'padding: 5px',
                 text: 'Next',
                 click() {
@@ -185,7 +184,6 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
         width: 'auto',
         buttons: [
             {
-                id:'combinationalAnalysisGenerateBtn',
                 style: 'padding: 6px',
                 text: 'Generate Circuit',
                 click() {
