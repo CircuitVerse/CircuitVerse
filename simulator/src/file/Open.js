@@ -1,6 +1,6 @@
 import load from "../data/load";
 
-var circuitData = {};
+var circuitData = null;
 const GetDialogData = () => '<div><div><label for="CircuitDataFile">Choose a File</label><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
 
 export const ImportCircuitFiles = () => {
@@ -9,7 +9,7 @@ export const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').dialog({
         resizable: false,
         close() {
-            load(circuitData);
+            circuitData && load(circuitData);
         },
         buttons: [{
             text: 'Close',
