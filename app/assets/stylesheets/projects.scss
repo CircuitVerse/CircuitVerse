@@ -150,12 +150,35 @@
 .projects-embed-text {
   border: 1.5px solid $secondary-green;
   font-size: 12px;
+  outline-color: $secondary-green;
   text-align: left;
 }
 
+.embed-container {
+  background-color: $slightblack;
+}
+
 .projectshow-embed-text-confirmation {
-  display: block;
+  display: none;
   text-align: right;
+}
+
+.embed-input-fields {
+  display: flex;
+
+  .col-form-label {
+    padding-left: 0;
+  }
+
+  b {
+    display: block;
+    width: 100px;
+  }
+}
+
+.embed-link-textarea {
+  font-size: 12px;
+  width: 100%;
 }
 
 .projects-collaborators-container {
@@ -237,4 +260,38 @@
   margin-left: 5px;
 }
 
+.advance-embed-field {
+  .advance-embed-header {
+    align-items: center;
+    cursor: pointer;
+    display: flex;
+
+    h6 {
+      margin: 0;
+    }
+  }
+
+  .form-check-inline {
+    margin-right: 0;
+  }
+
+  .primary-checkpoint-container h6 {
+    margin-right: 0;
+  }
+
+  .embed-input-fields {
+    padding: 10px;
+  }
+
+  .dropdown {
+    border-bottom: 0;
+    border-left: .3em solid transparent;
+    border-right: .3em solid transparent;
+    border-top: .3em solid;
+    content: '';
+    display: inline-block;
+    margin-left: .255em;
+    transition: .3s ease-in-out;
+  }
+}
 // collaborators tags input closes

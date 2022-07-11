@@ -7,7 +7,7 @@ class ProjectPolicy < ApplicationPolicy
     @user = user
     @project = project
     simulator_error = "Project has been moved or deleted. If you are the owner"\
-            " of the project, Please check your project access privileges."
+                      " of the project, Please check your project access privileges."
     @simulator_exception = CustomAuthException.new(simulator_error)
   end
 
@@ -30,7 +30,8 @@ class ProjectPolicy < ApplicationPolicy
     (project.project_access_type != "Private" \
     || (!user.nil? && project.author_id == user.id) \
     || (!user.nil? && !project.assignment_id.nil? \
-      && project.assignment.group.mentor_id == user.id) \
+      && ((project.assignment.group.primary_mentor_id == user.id) \
+        || project.assignment.group.group_members.exists?(user_id: user.id, mentor: true))) \
     || (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) \
     || (!user.nil? && user.admin))
   end

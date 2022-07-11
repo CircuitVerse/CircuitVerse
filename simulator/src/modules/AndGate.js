@@ -170,5 +170,5 @@ AndGate.prototype.verilogType = "and";
  */
 AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=and-gate";
+    "https://docs.circuitverse.org/#/chapter4/4gates?id=and-gate";
 AndGate.prototype.objectType = "AndGate";

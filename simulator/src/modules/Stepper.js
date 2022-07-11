@@ -95,5 +95,5 @@ Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by sel
  * @type {string}
  * @category modules
  */
-Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=stepper';
+Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/2input?id=stepper';
 Stepper.prototype.objectType = 'Stepper';

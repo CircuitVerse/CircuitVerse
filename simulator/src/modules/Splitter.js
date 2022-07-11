@@ -283,5 +283,5 @@ Splitter.prototype.tooltipText = 'Splitter ToolTip: Split multiBit Input into sm
  * @type {string}
  * @category modules
  */
-Splitter.prototype.helplink = 'https://docs.circuitverse.org/#/splitter';
+Splitter.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/8misc?id=splitter';
 Splitter.prototype.objectType = 'Splitter';

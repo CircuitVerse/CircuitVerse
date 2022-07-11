@@ -56,8 +56,8 @@
           <%= link_to t("back"), group_path(@group), class: "anchor-text" %>
           <br> <br>
           <hr class="assignments-horizontal-rule">
-          <% if policy(@assignment).admin_access? %>
-            <h3 class="assignments-submission-heading"><%= t("assignments.assignment_data.submissions") %></h3>
+          <% if policy(@assignment).mentor_access? %>
+          <h3 class="assignments-submission-heading"><%= t("assignments.assignment_data.submissions") %></h3>
             <script>
               $( function() {
                 $('.list-group-item-action').on('click', function (e) {
