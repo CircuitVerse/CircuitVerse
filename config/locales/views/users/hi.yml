@@ -33,6 +33,7 @@ hi:
         groups_user_mentor_to: "आपके द्वारा निर्देशित समूह:"
         total_members: "कुल सदस्य: %{group_member_count}"
         groups_user_belong_to: "आप जिन समूहों में हैं:"
+        groups_user_owns: "आपके अपने समूह:"
       index:
         title: "%{name} - आपके सर्किट"
         alt_title: "Nil - आपके सर्किट"

@@ -10,6 +10,6 @@ module GroupMembersHelper
   end
 
   def membersCardViewerDetail(group)
-    policy(group).admin_access? ? "col-7 groups-members-card-details" : "col-11 groups-members-card-details groups-members-card-details-non-admin"
+    policy(group).admin_access? ? "col-6 groups-members-card-details" : "col-11 groups-members-card-details groups-members-card-details-non-admin"
   end
 end

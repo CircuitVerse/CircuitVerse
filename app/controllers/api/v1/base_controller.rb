@@ -55,7 +55,7 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def invalid_resource!(errors = [])
-    api_error(status: 422, errors: errors)
+    api_error(status: 422, errors: "invalid resource")
   end
 
   def paginate(resource)

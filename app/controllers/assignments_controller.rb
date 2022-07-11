@@ -43,7 +43,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.new
     @assignment.group_id = params[:group_id]
     @assignment.deadline = 1.week.from_now
-    authorize @assignment, :admin_access?
+    authorize @assignment, :mentor_access?
   end
 
   # GET /assignments/1/edit
@@ -84,7 +84,7 @@ class AssignmentsController < ApplicationController
     # params[:deadline] = params[:deadline].to_time
 
     @assignment = @group.assignments.new(params)
-    authorize @assignment, :admin_access?
+    authorize @assignment, :mentor_access?
 
     @assignment.description = description
     @assignment.status = "open"
@@ -179,7 +179,7 @@ class AssignmentsController < ApplicationController
     end
 
     def check_access
-      authorize @assignment, :admin_access?
+      authorize @assignment, :mentor_access?
     end
 
     def sanitize_assignment_description
