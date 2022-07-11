@@ -5,7 +5,7 @@
         :panel-type="panelType"
         :panel-body-header="panelBodyHeader"
     />
-    <!-- <LayoutProperty v-else /> -->
+    <LayoutProperty v-else />
 </template>
 
 <script lang="ts" setup>
@@ -15,7 +15,10 @@ import { ref, toRaw } from '@vue/reactivity'
 import simulationArea from '#/simulator/src/simulationArea'
 import { onMounted } from 'vue'
 import { checkPropertiesUpdate, prevPropertyObjSet } from '#/simulator/src/ux'
-import { layoutModeGet } from '#/simulator/src/layoutMode'
+import {
+    layoutModeGet,
+    setupLayoutModePanelListeners,
+} from '#/simulator/src/layoutMode'
 
 const inLayoutMode = ref(false)
 const panelBodyHeader = ref('PROJECT PROPERTIES')
@@ -49,7 +52,7 @@ function showPropertiesPanel() {
         ) {
             panelType.value = 1
         } else {
-            panelType.value = 2
+            panelType.value = 3
         }
     } else {
         if (

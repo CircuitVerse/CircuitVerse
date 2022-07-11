@@ -250,4 +250,11 @@
     </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { setupLayoutModePanelListeners } from '#/simulator/src/layoutMode'
+import { onMounted } from '@vue/runtime-core'
+
+onMounted(() => {
+    setupLayoutModePanelListeners()
+})
+</script>
