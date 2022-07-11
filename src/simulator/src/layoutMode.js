@@ -409,7 +409,7 @@ export function toggleLayoutTitle() {
  * just toggles back to normal mode
  * @category layoutMode
  */
-function cancelLayout() {
+export function cancelLayout() {
     if (layoutModeGet()) {
         // eslint-disable-next-line no-use-before-define
         toggleLayoutMode()
@@ -446,7 +446,11 @@ function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
-    hideProperties()
+    // hideProperties()
+    // lines from hideProperty function() <---
+    prevPropertyObjSet(undefined)
+    $('.objectPropertyAttribute').unbind('change keyup paste click')
+
     if (layoutModeGet()) {
         layoutModeSet(false)
         $('#layoutDialog').fadeOut()
@@ -460,7 +464,7 @@ export function toggleLayoutMode() {
     } else {
         layoutModeSet(true)
         verilogModeSet(false)
-        $('#layoutDialog').fadeIn()
+        // $('#layoutDialog').fadeIn()
         $('.layoutElementPanel').fadeIn()
         $('.elementPanel').fadeOut()
         $('.timing-diagram-panel').fadeOut()

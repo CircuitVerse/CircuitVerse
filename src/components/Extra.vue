@@ -363,7 +363,7 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Layout Panel -->
-    <div id="layoutDialog" class="draggable-panel draggable-panel-css">
+    <!-- <div id="layoutDialog" class="draggable-panel draggable-panel-css">
         <div class="panel-header">
             Layout
             <span class="fas fa-minus-square minimize"></span>
@@ -611,7 +611,7 @@
                 </button>
             </div>
         </div>
-    </div>
+    </div> -->
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
