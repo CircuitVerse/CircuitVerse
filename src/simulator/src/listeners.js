@@ -44,6 +44,7 @@ var unit = 10
 var listenToSimulator = true
 
 export default function startListeners() {
+    console.log('---')
     $('#deleteSelected').on('click', () => {
         deleteSelected()
     })

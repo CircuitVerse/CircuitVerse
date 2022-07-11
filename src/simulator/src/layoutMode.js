@@ -420,7 +420,7 @@ export function cancelLayout() {
  * Store all data into layout and exit
  * @category layoutMode
  */
-function saveLayout() {
+export function saveLayout() {
     if (layoutModeGet()) {
         for (let i = 0; i < tempBuffer.Input.length; i++) {
             tempBuffer.Input[i].parent.layoutProperties.x =
@@ -464,7 +464,7 @@ export function toggleLayoutMode() {
     } else {
         layoutModeSet(true)
         verilogModeSet(false)
-        // $('#layoutDialog').fadeIn()
+        $('#layoutDialog').fadeIn()
         $('.layoutElementPanel').fadeIn()
         $('.elementPanel').fadeOut()
         $('.timing-diagram-panel').fadeOut()
@@ -483,10 +483,12 @@ export function toggleLayoutMode() {
 }
 
 export function setupLayoutModePanelListeners() {
+    console.log('-------')
     $('#decreaseLayoutWidth').on('click', () => {
         decreaseLayoutWidth()
     })
     $('#increaseLayoutWidth').on('click', () => {
+        console.log('inc layout width')
         increaseLayoutWidth()
     })
     $('#decreaseLayoutHeight').on('click', () => {

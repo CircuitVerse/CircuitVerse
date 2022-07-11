@@ -133,6 +133,7 @@ export function setup() {
     if (!embed) {
         setupUI()
     }
+    console.log('start_lis')
     startListeners()
     if (!embed) {
         keyBinder()
