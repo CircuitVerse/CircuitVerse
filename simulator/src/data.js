@@ -6,7 +6,7 @@ import save from './data/save';
 import load from './data/load';
 import createSaveAsImgPrompt from './data/saveImage';
 import {
-    clearProject, newProject, saveOffline, openOffline, recoverProject, downloadProject,
+    clearProject, newProject, saveOffline, openOffline, recoverProject,
 } from './data/project';
 import { newCircuit, createNewCircuitScope } from './circuit';
 import { createCombinationalAnalysisPrompt } from './combinationalAnalysis';
@@ -34,7 +34,6 @@ logixFunction.createSaveAsImgPrompt = createSaveAsImgPrompt;
 logixFunction.clearProject = clearProject;
 logixFunction.newProject = newProject;
 logixFunction.saveOffline = saveOffline;
-logixFunction.downloadProject = downloadProject;
 logixFunction.newCircuit = newCircuit;
 logixFunction.createOpenLocalPrompt = openOffline;
 logixFunction.recoverProject = recoverProject;
