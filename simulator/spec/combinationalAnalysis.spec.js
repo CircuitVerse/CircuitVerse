@@ -5,7 +5,8 @@
 import CodeMirror from 'codemirror';
 import { setup } from '../src/setup';
 import { runAll } from '../src/testbench';
-import { createCombinationalAnalysisPrompt, performAction } from '../src/combinationalAnalysis';
+import testData from './testData/gates-testdata.json';
+import { createCombinationalAnalysisPrompt, GenerateCircuit, performCombinationalAnalysis } from '../src/combinationalAnalysis';
 
 jest.mock('codemirror');
 describe('Combinational Analysis Testing', () => {
@@ -17,45 +18,19 @@ describe('Combinational Analysis Testing', () => {
     });
 
     test('Boolean Expression working', () => {
-        expect(() => performAction('', '', 'AB')).not.toThrow();
+        expect(() => performCombinationalAnalysis('', '', 'AB')).not.toThrow();
     });
 
     test('Generating Circuit', () => {
-        expect(() => $('#combinationalAnalysisGenerateBtn').click()).not.toThrow();
+        expect(() => GenerateCircuit([13], ['A', 'B'], [0, 0, 0, 1], 'AB')).not.toThrow();
     });
 
     test('testing Combinational circuit', () => {
-        const testdata = {
-            "type": "comb",
-            "title": "combinationalAnalysis",
-            "groups": [
-              {
-                "label": "testgroup",
-                "inputs": [
-                  {
-                    "label": "A",
-                    "bitWidth": 1,
-                    "values": [ "0", "0", "1", "1" ]
-                  },
-                  {
-                    "label": "B",
-                    "bitWidth": 1,
-                    "values": [ "0", "1", "0", "1"]
-                  }
-                ],
-                "outputs": [
-                  {
-                    "label": "AB",
-                    "bitWidth": 1,
-                    "values": [ "0", "0", "0", "1"]
-                  }
-                ],
-                "n": 4
-              }
-            ]
-        };
+        testData.AndGate.groups[0].inputs[0].label = 'A';
+        testData.AndGate.groups[0].inputs[1].label = 'B';
+        testData.AndGate.groups[0].outputs[0].label = 'AB';
 
-        const result = runAll(testdata);
+        const result = runAll(testData.AndGate);
         expect(result.summary.passed).toBe(4);
     });
 });
