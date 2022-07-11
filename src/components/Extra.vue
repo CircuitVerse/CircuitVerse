@@ -362,11 +362,6 @@
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
-    <!-- Layout Panel -->
-    <!-- <LayoutProperty /> -->
-    <!-- --------------------------------------------------------------------------------------------- -->
-
-    <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Dialog Box - Save -->
     <div
         id="saveImageDialog"
@@ -701,5 +696,4 @@
 <script lang="ts" setup>
 import ElementsPanel from './Panels/ElementsPanel/ElementsPanel.vue'
 import PropertiesPanel from './Panels/PropertiesPanel/PropertiesPanel.vue'
-import LayoutProperty from './Panels/PropertiesPanel/LayoutProperty/LayoutProperty.vue'
 </script>

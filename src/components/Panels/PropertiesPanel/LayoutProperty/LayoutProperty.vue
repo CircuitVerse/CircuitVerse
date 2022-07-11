@@ -3,38 +3,34 @@
         <PanelHeader :header-title="$t('simulator.panel_header.layout')" />
         <div id="layout-body" class="layout-body panel-body">
             <div class="">
-                <button
+                <v-btn
                     id="decreaseLayoutWidth"
-                    class="zoomButton btn-lg"
                     title="Decrease Width"
-                >
-                    <span class="fa fa-minus" aria-hidden="true"></span>
-                </button>
+                    variant="text"
+                    icon="mdi-minus"
+                />
                 <span>Width</span>
-                <button
+                <v-btn
                     id="increaseLayoutWidth"
-                    class="zoomButton btn-lg"
                     title="Increase Width"
-                >
-                    <span class="fa fa-plus" aria-hidden="true"></span>
-                </button>
+                    variant="text"
+                    icon="mdi-plus"
+                />
             </div>
             <div class="">
-                <button
+                <v-btn
                     id="decreaseLayoutHeight"
-                    class="zoomButton btn-lg"
                     title="Decrease Height"
-                >
-                    <span class="fa fa-minus" aria-hidden="true"></span>
-                </button>
+                    variant="text"
+                    icon="mdi-minus"
+                />
                 <span>Height</span>
-                <button
+                <v-btn
                     id="increaseLayoutHeight"
-                    class="zoomButton btn-lg"
                     title="Increase Height"
-                >
-                    <span class="fa fa-plus" aria-hidden="true"></span>
-                </button>
+                    variant="text"
+                    icon="mdi-plus"
+                />
             </div>
             <div class="">
                 <span>Reset all nodes:</span>
@@ -117,6 +113,7 @@ onMounted(() => {
     border: 2px solid white;
     border-radius: 0.6rem;
 }
+
 .v-btn.layoutBtn:active {
     border: 2px solid white;
 }
