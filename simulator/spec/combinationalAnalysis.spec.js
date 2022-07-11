@@ -13,11 +13,7 @@ describe('Combinational Analysis Testing', () => {
     CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: (text) => {} });
     setup();
 
-    test('createCombinationalAnalysisPrompt working', () => {
-        expect(() => createCombinationalAnalysisPrompt()).not.toThrow();
-    });
-
-    test('Boolean Expression working', () => {
+    test('performCombinationalAnalysis function working', () => {
         expect(() => performCombinationalAnalysis('', '', 'AB')).not.toThrow();
     });
 

@@ -119,7 +119,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
             },
         ],
     });
-    // $("#combinationalAnalysis").checkBo();
+    $("#combinationalAnalysis").checkBo();
 }
 /**
  * This funciton hashes the output array and makes required JSON using
