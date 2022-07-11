@@ -483,7 +483,6 @@ export function toggleLayoutMode() {
 }
 
 export function setupLayoutModePanelListeners() {
-    console.log('-------')
     $('#decreaseLayoutWidth').on('click', () => {
         decreaseLayoutWidth()
     })
