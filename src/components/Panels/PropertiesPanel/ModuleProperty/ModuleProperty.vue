@@ -11,14 +11,14 @@
                 <ElementProperty
                     v-if="panelType == 2"
                     :key="panleBodyData"
-                    :data="panleBodyData"
+                    :obj="panleBodyData"
                 />
                 <SubcircuitProperty
                     v-if="panelType == 3"
                     :key="panleBodyData"
-                    :data="panleBodyData"
+                    :obj="panleBodyData"
                 />
-                <HelpButton :key="panleBodyData" :data="panleBodyData" />
+                <HelpButton :key="panleBodyData" :obj="panleBodyData" />
             </div>
         </div>
     </div>
@@ -29,6 +29,7 @@ import PanelHeader from '#/components/Panels/Shared/PanelHeader.vue'
 import HelpButton from '#/components/Panels/Shared/HelpButton.vue'
 import ElementProperty from '#/components/Panels/PropertiesPanel/ModuleProperty/ElementProperty/ElementProperty.vue'
 import ProjectProperty from '#/components/Panels/PropertiesPanel/ModuleProperty/ProjectProperty/ProjectProperty.vue'
+import SubcircuitPropert from '#/components/Panels/PropertiesPanel/ModuleProperty/SubcircuitProperty/SubcircuitProperty.vue'
 import { toRefs } from '@vue/reactivity'
 
 const props = defineProps({

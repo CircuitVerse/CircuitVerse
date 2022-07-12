@@ -56,8 +56,7 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-    data: { type: Object, default: undefined },
+    obj: { type: Object, default: undefined },
 })
-const obj = props.data
 const labelDirections = ['RIGHT', 'DOWN', 'LEFT', 'UP']
 </script>

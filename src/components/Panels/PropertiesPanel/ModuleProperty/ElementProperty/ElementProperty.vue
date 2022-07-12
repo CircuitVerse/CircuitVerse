@@ -114,11 +114,8 @@
 import { escapeHtml } from '#/simulator/src/utils'
 import InputGroups from '#/components/Panels/Shared/InputGroups.vue'
 import DropdownSelect from '#/components/Panels/Shared/DropdownSelect.vue'
-import { isReactive, toRefs } from '@vue/reactivity'
 const props = defineProps({
-    data: { type: Object, default: undefined },
+    obj: { type: Object, default: undefined },
 })
-console.log('Hello from element-property.vue')
-const obj = props.data
 const labelDirections = ['RIGHT', 'DOWN', 'LEFT', 'UP']
 </script>

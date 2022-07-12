@@ -12,10 +12,9 @@
 
 <script lang="ts" setup>
 const props = defineProps({
-    data: { type: Object, default: undefined },
+    obj: { type: Object, default: undefined },
 })
-const obj = props.data
-var helplink = obj && obj.helplink
+var helplink = props.obj && props.obj.helplink
 function helpButtonClick() {
 	window.open(helplink)
 }
