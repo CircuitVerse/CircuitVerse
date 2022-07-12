@@ -1177,7 +1177,7 @@ input:checked + .slider:before {
 }
 
 #layoutDialog {
-    display: none;
+    /* display: none; */
     right: 10px;
     top: 90px;
     width: 220px;

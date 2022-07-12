@@ -409,7 +409,7 @@ export function toggleLayoutTitle() {
  * just toggles back to normal mode
  * @category layoutMode
  */
-function cancelLayout() {
+export function cancelLayout() {
     if (layoutModeGet()) {
         // eslint-disable-next-line no-use-before-define
         toggleLayoutMode()
@@ -420,7 +420,7 @@ function cancelLayout() {
  * Store all data into layout and exit
  * @category layoutMode
  */
-function saveLayout() {
+export function saveLayout() {
     if (layoutModeGet()) {
         for (let i = 0; i < tempBuffer.Input.length; i++) {
             tempBuffer.Input[i].parent.layoutProperties.x =
@@ -446,7 +446,11 @@ function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
-    hideProperties()
+    // hideProperties()
+    // lines from hideProperty function() <---
+    prevPropertyObjSet(undefined)
+    $('.objectPropertyAttribute').unbind('change keyup paste click')
+
     if (layoutModeGet()) {
         layoutModeSet(false)
         $('#layoutDialog').fadeOut()

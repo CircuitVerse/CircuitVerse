@@ -79,11 +79,7 @@ import { deleteCurrentCircuit } from '#/simulator/src/circuit'
 import { getProjectName } from '#/simulator/src/data/save'
 import { toggleLayoutMode } from '#/simulator/src/layoutMode'
 import simulationArea from '#/simulator/src/simulationArea'
-import InputGroups from '../../Shared/InputGroups.vue'
-// console.log('layout mode')
-// onMounted(() => {
-//     const circuitName = globalScope.name
-// })
+import InputGroups from '#/components/Panels/Shared/InputGroups.vue'
 </script>
 
 <style scoped>

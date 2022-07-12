@@ -103,7 +103,7 @@ function setupEnvironment() {
  * @category setup
  */
 function setupElementLists() {
-    console.log('hello from elements list panel setup')
+    // console.log('hello from elements list panel setup')
     // $('#menu').empty()
 
     window.circuitElementList = metadata.circuitElementList
@@ -125,7 +125,7 @@ function setupElementLists() {
  * @category setup
  */
 export function setup() {
-    console.log('hello from set up')
+    // console.log('hello from set up')
     let embed = false
     const startListeners = embed ? startEmbedListeners : startMainListeners
     setupElementLists()
@@ -133,6 +133,7 @@ export function setup() {
     if (!embed) {
         setupUI()
     }
+    // console.log('start_lis')
     startListeners()
     if (!embed) {
         keyBinder()

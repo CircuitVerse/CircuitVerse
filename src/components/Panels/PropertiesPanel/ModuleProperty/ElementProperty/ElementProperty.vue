@@ -112,11 +112,10 @@
 
 <script lang="ts" setup>
 import { escapeHtml } from '#/simulator/src/utils'
-import InputGroups from '../../Shared/InputGroups.vue'
-import DropdownSelect from '../../Shared/DropdownSelect.vue'
+import InputGroups from '#/components/Panels/Shared/InputGroups.vue'
+import DropdownSelect from '#/components/Panels/Shared/DropdownSelect.vue'
 const props = defineProps({
-    data: { type: Object, default: undefined },
+    obj: { type: Object, default: undefined },
 })
-const obj = props.data
 const labelDirections = ['RIGHT', 'DOWN', 'LEFT', 'UP']
 </script>
