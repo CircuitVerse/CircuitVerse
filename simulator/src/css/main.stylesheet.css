@@ -2172,9 +2172,10 @@ input[type='range']::-webkit-slider-thumb {
   font-size: 8px;
 }
 #TouchCe-panel {
+    color: var(--text-panel);
   width: 220px;
-top: 80px;
-right: 80px;
+  top: 80px;
+  right: 80px;
   display: flex;
   border-radius: 5px;
   z-index: 100;
@@ -2185,12 +2186,13 @@ right: 80px;
   visibility: hidden;
   font-size: 12px;
   height: 300px;
+  background-color: var(--primary);
 }
 #TouchCe-panel::before {
 position: absolute;
 top: 5px;
 content: "";
-right: calc(50% - 142px);
+right: calc(50% - 147px);
 border-style: solid;
 border-width: 0px 15px 15px 15px;
 transform: rotate(90deg);
@@ -2198,7 +2200,7 @@ transition: background .5s ease-out;
 padding-top: 30px;
 
 }
-.touch-Ce-Menu {
+.Touch-Ce-Menu {
 border-radius: 5px;
 z-index: 100;
 transition: background .5s ease-out;
@@ -2315,7 +2317,7 @@ font-weight: bold;
 }
 #touch-module-property {
   display: inline;
-  width: 220px;
+  /* width: 220px; */
   top: 90px;
   right: 80px;
   position: fixed;
@@ -2602,7 +2604,7 @@ font-size: 15px;
 }
 
 @media screen and (max-device-width: 823px) {
-  .touch-Ce-Menu{
+  .Touch-Ce-Menu{
     top: 10%;
     height: 250px;
     width:  220px;

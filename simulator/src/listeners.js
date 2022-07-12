@@ -1236,6 +1236,8 @@ function onTapliveMenu(index) {
         break;
     case 2: undo();
         break;
+    case 3: redo();
+        break;
     default:
         break;
     }

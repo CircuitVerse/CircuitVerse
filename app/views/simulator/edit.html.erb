@@ -188,7 +188,7 @@
 <div class="smallscreen-navbar">
 
   <div id="ProjectID">Undefined</div>
-   
+
   <div class="smallNavbar-navbar-ul">Project<i class="fas fa-chevron-down ulicon"></i></div>
     <div class="Smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> New Project</li>
@@ -198,14 +198,14 @@
     <li class="SmallScreen-Navbar-li"> Clear Project</li>
     <li class="SmallScreen-Navbar-li"> Recover Project</li>
     </div>
-    
+
     <div class="smallNavbar-navbar-ul">Circuits<i class="fas fa-chevron-down ulicon"></i></div>
     <div class="Smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> New Circuit + </li>
     <li class="SmallScreen-Navbar-li"> New Verilog Module</li>
     <li class="SmallScreen-Navbar-li"> Insert SubCircuit</li>
     </div>
-    
+
     <div class="smallNavbar-navbar-ul">Tools<i class="fas fa-chevron-down ulicon"></i> </div>
     <div class="Smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> Combinational Analysis</li>
@@ -214,7 +214,7 @@
     <li class="SmallScreen-Navbar-li"> Theme</li>
     <li class="SmallScreen-Navbar-li"> Export Verilog</li>
     </div>
-    
+
     <div class="smallNavbar-navbar-ul">Help <i class="fas fa-chevron-down ulicon"></i></div>
     <div class="Smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> Tutorial</li>
@@ -224,7 +224,7 @@
     </div>
 
     <div class="smallNavbar-navbar-ul">
-    
+
     <% if user_signed_in? %>
      <%= current_user.name %></div>
     <div class="Smallscreen-navbar-inner">
@@ -236,8 +236,8 @@
     <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
   <% end %>
       </div>
-      
-  
+
+
 
   <div id="logoWrap">
   <a href="/"><span class='touchNavlogo'> </span></a>
@@ -286,15 +286,15 @@
       <button class='custom-btn--primary touch-panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
       <button class='custom-btn--primary touch-panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
       <button class='custom-btn--primary touch-panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
-      
+
        </div>
        <div id="touch-cycle-unit">
-       1 cycle = 
+       1 cycle =
       <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
       Units
       </div>
       <span id='touch-timing-diagram-log'></span>
-      
+
     <div id="plot-touchpanel">
       <canvas id="plotArea-touchpanel"
       ></canvas>
@@ -329,6 +329,7 @@ data-target=".issue"
 <ul><i class="fas fa-compress-arrows-alt liveMenuIcon"></i></ul>
 <ul><i class="fas fa-trash-alt liveMenuIcon"></i></ul>
 <ul><i class="fas fa-undo liveMenuIcon"></i></ul>
+<ul><i class="fas fa-redo liveMenuIcon"></i></ul>
 </div>
 
 <!-- /.Potriad Mode Lock -->
@@ -464,8 +465,8 @@ data-target=".issue"
     <div class="layout-body">
       <div>
         <p class="text-center mb-2">Select a theme: </p>
-          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">    
-            <optgroup label="Light Themes">     
+          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">
+            <optgroup label="Light Themes">
               <option>default</option>
               <option>solarized</option>
               <option>elegant</option>
