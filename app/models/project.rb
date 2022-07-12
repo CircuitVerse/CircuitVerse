@@ -36,6 +36,7 @@ class Project < ApplicationRecord
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
+  accepts_nested_attributes_for :project_datum
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     tags: :name
   }, using: {
@@ -135,6 +136,10 @@ class Project < ApplicationRecord
     self.tags = names.split(",").map(&:strip).uniq.map do |n|
       Tag.where(name: n.strip).first_or_create!
     end
+  end
+
+  def public?
+    project_access_type == "Public"
   end
 
   def featured?

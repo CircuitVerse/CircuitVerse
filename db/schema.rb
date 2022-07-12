@@ -2,15 +2,15 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_23_103800) do
+ActiveRecord::Schema.define(version: 2021_12_08_142725) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -213,6 +213,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_103800) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "mentor", default: false
     t.index ["group_id", "user_id"], name: "index_group_members_on_group_id_and_user_id", unique: true
     t.index ["group_id"], name: "index_group_members_on_group_id"
     t.index ["user_id"], name: "index_group_members_on_user_id"
@@ -220,14 +221,20 @@ ActiveRecord::Schema.define(version: 2021_07_23_103800) do
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
-    t.bigint "mentor_id"
+    t.bigint "primary_mentor_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
-    t.index ["mentor_id"], name: "index_groups_on_mentor_id"
+    t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
+  end
+
+  create_table "issue_circuit_data", force: :cascade do |t|
+    t.text "data"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "mailkick_opt_outs", force: :cascade do |t|
@@ -417,7 +424,7 @@ ActiveRecord::Schema.define(version: 2021_07_23_103800) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "users", column: "mentor_id"
+  add_foreign_key "groups", "users", column: "primary_mentor_id"
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"

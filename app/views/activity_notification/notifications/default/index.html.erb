@@ -11,10 +11,6 @@
         </span></span>
       <% end %>
     </h1>
-    <div class="d-flex align-items-center justify-content-center" style="height: 350px;">
-       Browser notifications are:&nbsp;<strong id="browser-notifications-status">disabled</strong>&nbsp;&nbsp;
-      <button class="btn btn-success" id="browser-notifications-permission-request">Enable</button>
-    </div>
   </div>
   <div class="notifications">
     <% if @index_options[:with_group_members] %>
@@ -23,6 +19,10 @@
       <%= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :default) %>
       <%#= render_notification @notifications, @index_options.slice(:routing_scope, :devise_default_routes).merge(fallback: :text) %>
     <% end %>
+  </div>
+  <div class="d-flex align-items-center justify-content-center" style="height: 150px;">
+     Browser notifications are:&nbsp;<strong id="browser-notifications-status">disabled</strong>&nbsp;&nbsp;
+    <button class="btn btn-success" id="browser-notifications-permission-request">Enable</button>
   </div>
 </div>
 

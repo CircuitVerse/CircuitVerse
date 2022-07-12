@@ -18,7 +18,7 @@
 
 .groups-members-scroll-row {
   max-height: 525px;
-  max-width: 1030px;
+  max-width: 1108px;
   overflow-y: auto;
 }
 
@@ -89,6 +89,19 @@
   }
 }
 
+.groups-close-mini-button {
+  background-color: $primary-red;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
 .groups-delete-mini-button {
   background-color: $primary-red;
   cursor: pointer;
@@ -145,20 +158,57 @@
   background-color: $card-green;
   border: 1px solid $secondary-green;
   display: inline-block;
-  height: 90px;
+  height: 100px;
   margin: 18px 10px;
+  padding: 0 15px;
+  width: 350px;
+}
+
+.groups-members-card-viewer {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
+  display: inline-block;
+  height: 70px;
+  margin: 10px;
   padding: 15px;
-  width: 300px;
+  width: 200px;
+  white-space: nowrap;
 }
 
 .groups-members-card-details {
   padding-right: 0;
+  padding-top: 20px;
   text-align: left;
 
   i {
     margin-right: 3px;
     margin-top: 0;
     padding-bottom: 5px;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  align-items: center;
+  display: flex;
+  padding-top: 0;
+  
+  i {
+    margin-right: 15px;
+    padding-bottom: 0;
+  }
+
+  .groups-members-card-name-container {
+    height: auto;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  &:hover {
+    .tooltiptext {
+      left: 21%;
+      opacity: 1;
+      visibility: visible;
+    }
   }
 }
 
@@ -191,7 +241,7 @@
 
 .groups-members-card-button {
   margin-right: 0;
-  padding: 15px 15px 15px 0;
+  padding: 0 0 15px;
   text-align: right;
   transition: padding-top .2s ease-in;
 
@@ -213,7 +263,7 @@
   }
 
   .groups-members-card {
-    width: 270px;
+    width: 350px;
   }
 }
 
@@ -257,8 +307,7 @@
 
   .groups-members-card {
     margin: 10px 0;
-    padding: 10px;
-    width: 270px;
+    width: 310px;
   }
 }
 //group details ends
@@ -305,7 +354,7 @@
 }
 
 @media (max-width: 991px) and (min-width: 720px) {
-  .groups-center-imagee {
+  .groups-center-image {
     margin-top: 80px;
   }
 }
@@ -374,7 +423,7 @@
 .groups-mentor-card-view-mini-button {
   background: $primary-green;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -392,7 +441,7 @@
 .groups-mentor-card-edit-mini-button {
   background: $mini-button-blue;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -410,6 +459,7 @@
 .groups-mentor-card-delete-mini-button {
   background: $primary-red;
   transition: transform .2s ease-in;
+  width: 100px;
 
   img {
     height: 20px;
@@ -421,6 +471,12 @@
     color: $white;
     text-decoration: none;
     transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 970px) {
+  .groups-card {
+    width: 315px;
   }
 }
 
@@ -451,4 +507,29 @@
     display: inline;
   }
 }
+
+.groups-members-card {
+
+  .row {
+    flex-wrap: nowrap;
+  }
+
+  .group-member-button-container {
+    width: 100%;
+
+    .groups-mentor-card-mini-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-button {
+      width: 142px;
+    }
+
+    .groups-reopen-mini-button {
+      margin: 0;
+    }
+  }
+}
+
 //groups ends

@@ -1,0 +1,38 @@
+en:
+  assignments:
+    group_name: "Group: %{name}"
+    deadline: "Deadline:"
+    remaining_time_error: "(something went wrong when loading script)"
+    form:
+      grade_scale_cant_change: "(Cannot be changed once set)"
+      cannot_be_edited: "%{graded} - Cannot be edited"
+      enable_element_restriction: "Enable elements restriction:"
+      time_remaining: "Time remaining: %{time}"
+      no_grade: "No Grade"
+      letter: "Letter(A-F)"
+      percent: "Percent(1-100)"
+      custom: "Custom"
+    edit:
+      edit_assignment: "Edit Assignment"
+    new:
+      title: "%{name} - New Assignment"
+      new_assignment_heading: "New Assignment"
+    show:
+      title: "%{name} - Assignment Details"
+      assignment_details_heading: "ASSIGNMENT DETAILS"
+    assignment_data:
+      name_html: "<strong>Name:</strong> %{name}"
+      group_html: "<strong>Group:</strong> %{group_name}"
+      time_remaining_html: "<strong>Time Remaining:</strong> %{time_remaining}"
+      graded_html: "<strong>Graded:</strong> %{graded}"
+      description: "Description:"
+      restricted_elements_html: "<strong>Restricted Circuited Elements:<strong> %{restricted_circuit_elements}"
+      export_grades: "Export Grades"
+      submissions: "Submissions :"
+      no_submissions: "No submissions yet!"
+      grades_and_remarks: "Grades & Remarks"
+      grade: "Grade"
+      remarks: "Remarks"
+      grading_scale_percent: "Assignments can be graded with percentage (1-100)"
+      grading_scale_letter: "Assignments can be graded with any of letters A/B/C/D/E/F"
+      remove: "Remove"

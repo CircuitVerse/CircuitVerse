@@ -13,7 +13,7 @@ function sh(x) {
  * Spec Constants
  * Size Spec Diagram - https://app.diagrams.net/#G1HFoesRvNyDap95sNJswTy3nH09emDriC
  * NOTE: Since DPR is set on page load, changing of screen in runtime will not work well
- * @TODO 
+ * @TODO
  *  - Support for color themes
  *  - Replace constants with functions? - Can support Zoom in and Zoom out of canvas then
  */
@@ -143,9 +143,9 @@ const plotArea = {
         // For user interactions like buttons - calculate time since clock tick
         var timePeriod = simulationArea.timePeriod;
         var executionDelay = (this.executionStartTime - this.cycleTime);
-        var delayFraction = executionDelay / timePeriod; 
+        var delayFraction = executionDelay / timePeriod;
         // Add time since clock tick
-        time += delayFraction; 
+        time += delayFraction;
         return time;
     },
     // Auto calibrate clock simulation units based on usage
@@ -160,8 +160,8 @@ const plotArea = {
         var time = this.cycleCount;
         var timePeriod = simulationArea.timePeriod;
         var delay = new Date().getTime() - this.cycleTime;
-        var delayFraction = delay / timePeriod; 
-        time += delayFraction; 
+        var delayFraction = delay / timePeriod;
+        time += delayFraction;
         return time;
     },
     update() {
@@ -185,12 +185,12 @@ const plotArea = {
         else {
             $(ptA.tdLog).css('background-color', normalColor);
         }
-        
+
         var width = this.width;
         var endTime = this.getCurrentTime();
-    
+
         if (this.autoScroll) {
-            // Formula used: 
+            // Formula used:
             // (endTime - x) * cycleWidth = width - timeLineStartX;
             // x = endTime - (width - timeLineStartX) / cycleWidth
             this.cycleOffset = Math.max(0, endTime - (width - timeLineStartX) / cycleWidth);
@@ -200,15 +200,16 @@ const plotArea = {
             // Friction
             plotArea.scrollAcc *= 0.95;
             // No negative numbers allowed, so negative scroll to 0
-            if (this.cycleOffset < 0) 
+            if (this.cycleOffset < 0)
                 plotArea.scrollAcc = this.cycleOffset / 5;
-            // Set position to 0, to avoid infinite scrolling 
+            // Set position to 0, to avoid infinite scrolling
             if (Math.abs(this.cycleOffset) < 0.01) this.cycleOffset = 0;
         }
     },
     render() {
-        var width = this.width;
-        var height = this.height;
+        var { width, height } = this;
+        this.canvas.height = height;
+        this.canvas.width = width;
         var endTime = this.getCurrentTime();
         // Reset canvas
         this.clear();
@@ -217,7 +218,7 @@ const plotArea = {
         // Background Color
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, width, height);
-        
+
         ctx.lineWidth = sh(1);
         ctx.font = `${sh(15)}px Raleway`;
         ctx.textAlign = 'left';
@@ -255,11 +256,11 @@ const plotArea = {
                 }
             }
         }
-        
+
         // Flag Labels
         ctx.textAlign = 'left';
         for (var i = 0; i < globalScope.Flag.length; i++) {
-            var startHeight = getFlagStartY(i); 
+            var startHeight = getFlagStartY(i);
             ctx.fillStyle = foregroundColor;
             ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight);
             ctx.fillStyle = textColor;
@@ -275,7 +276,7 @@ const plotArea = {
         ctx.strokeStyle = waveFormColor;
         ctx.textAlign = 'center';
         var endX = Math.min(getCycleStartX(endTime), width);
-        
+
         for (var i = 0; i < globalScope.Flag.length; i++) {
             var plotValues = globalScope.Flag[i].plotValues;
             var startHeight = getFlagStartY(i) + waveFormPadding;
@@ -288,8 +289,8 @@ const plotArea = {
             // Find correct index to start plotting from
             var j = 0;
             // Using caching for optimal performance
-            if (globalScope.Flag[i].cachedIndex) { 
-                j = globalScope.Flag[i].cachedIndex; 
+            if (globalScope.Flag[i].cachedIndex) {
+                j = globalScope.Flag[i].cachedIndex;
             }
             // Move to beyond timeLineStartX
             while (j + 1 < plotValues.length && getCycleStartX(plotValues[j][0]) < timeLineStartX) {
@@ -311,12 +312,12 @@ const plotArea = {
                     if(j + 1 != plotValues.length) {
                         // Next one also is out of bound, so skip this one completely
                         var x1 = getCycleStartX(plotValues[j + 1][0]);
-                        if (x1 < timeLineStartX) 
+                        if (x1 < timeLineStartX)
                             continue;
                     }
                     x = timeLineStartX;
                 }
-                
+
                 var value = plotValues[j][1];
                 if(value === undefined) {
                     if (state == WAVEFORM_STARTED) {
@@ -364,7 +365,7 @@ const plotArea = {
                     var x1 = Math.max(x, timeLineStartX);
                     var x2 = Math.min(endX, width);
                     var textPositionX = (x1 + x2) / 2 ;
-                    
+
                     ctx.font = `${sh(9)}px Times New Roman`;
                     ctx.fillStyle = 'white';
                     ctx.fillText(convertors.dec2hex(value), textPositionX, yMid + sh(3));
@@ -386,11 +387,12 @@ const plotArea = {
     // Driver function to render and update
     plot() {
         if (embed) return;
-        if (globalScope.Flag.length == 0) {
-            this.canvas.width = this.canvas.height = 0;
+        if (globalScope.Flag.length === 0) {
+            this.canvas.width = 0;
+            this.canvas.height = 0;
             return;
         }
-        
+
         this.update();
         this.render();
     },

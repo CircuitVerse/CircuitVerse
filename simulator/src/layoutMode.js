@@ -382,10 +382,10 @@ export function toggleLayoutMode() {
             $('#touchMenu').fadeIn();
             $(' #liveMenu').fadeIn();
             $('#touchElement-property').fadeIn();
-        }    
+        }
         if ((window.screen.width > 1367)) {
             $('.timing-diagram-panel').fadeIn();
-        } 
+        }
         globalScope.centerFocus(false);
         if(globalScope.verilogMetadata.isVerilogCircuit)
             verilogModeSet(true);
@@ -395,15 +395,16 @@ export function toggleLayoutMode() {
         verilogModeSet(false);
         $('#layoutDialog').fadeIn();
         $('.layoutElementPanel').fadeIn();
-        if (!(window.screen.width > 1367)) {   
+        if (!(window.screen.width > 1367)) {
             $('#touchMenu').fadeOut();
             $(' #liveMenu').fadeOut();
             $('#touchElement-property').fadeOut();
-        }  
+        }
         $('.elementPanel').fadeOut();
         $('.timing-diagram-panel').fadeOut();
+        $('.testbench-manual-panel').fadeOut();
         fillSubcircuitElements();
-        
+
         globalScope.ox = 0;
         globalScope.oy = 0;
         globalScope.scale = DPR * 1.3;

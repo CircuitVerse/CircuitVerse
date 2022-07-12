@@ -15,7 +15,7 @@
         <div class="field form-group">
           <h6><%= f.label :email %></h6>
           <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class:"form-control form-input" %>
+            <%= f.email_field :email, autofocus: true, class:"form-control form-input user-email-input" %>
           </div>
         </div>
         <div class="field form-group">
@@ -36,7 +36,7 @@
         </div>
         <% if devise_mapping.rememberable? -%>
           <div class="form-group newproject-checkbox">
-            <label class="primary-checkpoint-container users-primary-checkpoint"><h6><%= t("users.sessions.remember_me") %></h6>
+            <label class="primary-checkpoint-container users-primary-checkpoint"><h6 class="right-shift"><%= t("users.sessions.remember_me") %></h6>
               <%= f.check_box :remember_me %>
               <div class="primary-checkpoint"></div>
             </label>
@@ -60,5 +60,9 @@
     </div>
   </div>
 </div>
-
+<script>
+    $(".users-forgot-password-text").on('click', () => {
+      localStorage.setItem('Email', $(".user-email-input").val());
+    });
+</script>
 <script src="/js/togglePassword.js"></script>

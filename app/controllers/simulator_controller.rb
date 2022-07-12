@@ -66,9 +66,30 @@ class SimulatorController < ApplicationController
     render plain: "success"
   end
 
+  def view_issue_circuit_data
+    unless current_user&.admin?
+      render plain: "Only admins can view issue circuit data", status: :unauthorized
+      return
+    end
+
+    issue_circuit_data = IssueCircuitDatum.find(params[:id])
+    render plain: issue_circuit_data.data
+  end
+
   def post_issue
-    url = ENV["SLACK_ISSUE_HOOK_URL"]
-    HTTP.post(url, json: { text: params[:text] })
+    url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
+
+    # Post the issue circuit data
+    issue_circuit_data = IssueCircuitDatum.new
+    issue_circuit_data.data = params[:circuit_data]
+    issue_circuit_data.save!
+
+    issue_circuit_data_id = issue_circuit_data.id
+
+    # Send it over to slack hook
+    circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
+    text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
+    HTTP.post(url, json: { text: text })
     head :ok, content_type: "text/html"
   end
 
@@ -92,8 +113,8 @@ class SimulatorController < ApplicationController
   end
 
   def verilog_cv
-    url = "http://127.0.0.1:3040/getJSON"
-    response = HTTP.post(url, json: { "code": params[:code] })
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+    response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
   end
 

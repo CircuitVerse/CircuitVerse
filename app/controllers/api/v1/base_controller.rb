@@ -4,7 +4,9 @@ class Api::V1::BaseController < ActionController::API
   include Pundit
   include CustomErrors
   include ActionController::RequestForgeryProtection
-  protect_from_forgery with: :exception, if: -> { request.headers["Authorization"].blank? && current_user }
+  protect_from_forgery with: :exception, if: lambda {
+                                               request.headers["Authorization"].blank? && current_user
+                                             }
 
   DEFAULT_PER_PAGE = 5
 
@@ -53,7 +55,7 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def invalid_resource!(errors = [])
-    api_error(status: 422, errors: errors)
+    api_error(status: 422, errors: "invalid resource")
   end
 
   def paginate(resource)
@@ -81,6 +83,7 @@ class Api::V1::BaseController < ActionController::API
   private
 
     def paginated_url(base_url, page)
-      page ? "#{base_url}?page[number]=#{page}" : nil
+      seperator = base_url.index("?").nil? ? "?" : "&"
+      "#{base_url}#{seperator}page[number]=#{page}" if page
     end
 end

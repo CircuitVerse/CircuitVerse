@@ -18,14 +18,13 @@ import {
 } from './engine';
 import { changeScale, findDimensions } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import {
-    hideProperties, deleteSelected, uxvar, fullView, createElement,
-} from './ux';
+import { hideProperties, deleteSelected, uxvar, fullView, createElement, exitFullView } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
 } from './restrictedElementDiv';
 import { removeMiniMap, updatelastMinimapShown } from './minimap';
 import undo from './data/undo';
+import redo from "./data/redo";
 import { copy, paste, selectAll } from './events';
 // Import save from './data/save';
 import { verilogModeGet } from './Verilog2CV';
@@ -128,7 +127,7 @@ const isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1 || navigat
 // Function to getCoordinate
 //  *If touch is enable then it will return touch coordinate
 //  *else it will return mouse coordinate
-// 
+//
 export function getCoordinate(e) {
     if (simulationArea.touch) {
         returnCoordinate.x = e.touches[0].clientX;
@@ -147,7 +146,7 @@ export function getCoordinate(e) {
 
 // Function for Pinch zoom
 //  *This function is used to ZoomIN and Zoomout on Simulator using touch
-// 
+//
 export function pinchZoom(e, globalScope) {
     e.preventDefault();
     gridUpdateSet(true);
@@ -166,7 +165,7 @@ export function pinchZoom(e, globalScope) {
     }
     if (pinchZ >= 2) {
         pinchZ = 2;
-    } 
+    }
     else if (pinchZ <= 0.5) {
         pinchZ = 0.5;
     }
@@ -188,12 +187,12 @@ export function pinchZoom(e, globalScope) {
     gridUpdateSet(true);
     scheduleUpdate(1);
 }
-// 
+//
 // Function to start the pan in simulator
 // Works for both touch and Mouse
 // For now variable name starts from mouse like mouseDown are used both
 // touch and mouse will change in future
-// 
+//
 function panStart(e) {
     coordinate = getCoordinate(e);
     simulationArea.mouseDown = true;
@@ -226,12 +225,12 @@ function panStart(e) {
     scheduleUpdate(1);
     $('.dropdown.open').removeClass('open');
 }
-// 
+//
 // Function to pan in simulator
 // Works for both touch and Mouse
 // For now variable name starts from mouse like mouseDown are used both
 // touch and mouse will change in future
-// 
+//
 function panMove(e) {
 // If only one  it touched
 // pan left or right
@@ -277,7 +276,7 @@ function panMove(e) {
 // Function for Panstop on simulator
 // *For now variable name starts with mouse like mouseDown are used both
 //  touch and mouse will change in future
-// 
+//
 
 function panStop(e) {
     simulationArea.mouseDown = false;
@@ -344,12 +343,18 @@ export default function startListeners() {
     $('#undoButton').on('click', () => {
         undo();
     });
-
-    $('#viewButton').on('click', () => {
+    $('#redoButton').on('click',() => {
+        redo();
+    })
+    $('#viewButton').on('click',() => {
         fullView();
     });
 
-    $('#projectName').on('click', () => {
+    $(document).on('keyup', (e) => {
+        if (e.key === "Escape") exitFullView();
+    });
+
+    $('#projectName').on('click',() => {
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById('projname').select();
@@ -376,9 +381,9 @@ export default function startListeners() {
             simulationArea.lastSelected.newElement = false;
         }
 
-        // 
+        //
         // Handling restricted circuit elements
-        // 
+        //
 
         if (simulationArea.lastSelected && restrictedElements.includes(simulationArea.lastSelected.objectType) && !globalScope.restrictedCircuitElementsUsed.includes(simulationArea.lastSelected.objectType)) {
             globalScope.restrictedCircuitElementsUsed.push(simulationArea.lastSelected.objectType);
@@ -407,7 +412,7 @@ export default function startListeners() {
     // Implementating touch listerners
     //    *All Main basic touch listerners are
     //     present here
-    // 
+    //
     document.getElementById('simulationArea').addEventListener('touchstart', (e) => {
         simulationArea.touch = true;
         panStart(e);
@@ -446,8 +451,14 @@ export default function startListeners() {
             simulationArea.controlDown = true;
         }
 
-        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122) { // Detect the special CTRL-Z code
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122 && !simulationArea.shiftDown) { // detect the special CTRL-Z code
             undo();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 122 && simulationArea.shiftDown) { // detect the special Cmd + shift + z code (macOs)
+            redo();
+        }
+        if (simulationArea.controlDown && e.key.charCodeAt(0) == 121 && !simulationArea.shiftDown) { // detect the special ctrl + Y code (windows)
+            redo();
         }
 
         if (listenToSimulator) {
@@ -765,21 +776,34 @@ export default function startListeners() {
         }
 
         let htmlIcons = '';
-        const result = elementPanelList.filter((ele) => ele.toLowerCase().includes(value));
-        if (!result.length) {
-            searchResults.text('No elements found ...');
-        } else {
-            result.forEach((e) => {
-                // eslint-disable-next-line no-use-before-define
-                htmlIcons += createIcon(e);
-            });
-            searchResults.html(htmlIcons);
-            $('.filterElements').mousedown(createElement);
+        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
+        var finalResult = [];
+        for(const j in result) {
+            if (Object.prototype.hasOwnProperty.call(result, j)) {
+                for (const category in elementHierarchy) {
+                     if(Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
+                        const categoryData = elementHierarchy[category];
+                         for (let i = 0; i < categoryData.length; i++) {
+                             if(result[j] == categoryData[i].label) {
+                                 finalResult.push(categoryData[i]);
+                            }
+                        }
+                    }
+                }
+            }
         }
+    if(!finalResult.length) searchResults.text('No elements found ...');
+    else {
+        finalResult.forEach( e => htmlIcons += createIcon(e));
+        searchResults
+          .html(htmlIcons);
+        $('.filterElements').mousedown(createElement);
+    }
     });
+
     function createIcon(element) {
-        return `<div class="${element} icon logixModules filterElements" id="${element}" title="${element}">
-            <img  src= "/img/${element}.svg" >
+        return `<div class="${element.name} icon logixModules filterElements" id="${element.name}" title="${element.label}">
+            <img  src= "/img/${element.name}.svg" alt="element's image" >
         </div>`;
     }
 
@@ -847,7 +871,7 @@ export default function startListeners() {
     timingDiagramQuerySelector.addEventListener('touchend', () => {
         dragEnd();
     });
-    
+
     layoutQuerySelector.addEventListener('touchstart', (e) => {
         $('.timing-diagram-panel').draggable().draggable('enable');
         timingDiagramListner.style.position = 'absolute';
@@ -963,12 +987,12 @@ function zoomSliderListeners() {
     });
 
     var buttoncolor = 'var(--touch-menu)';
-    
+
     /**
  * Mobile navbar
  */
     smallnavbar = document.getElementById('smallNavbarMenu-btn');
-    
+
     function ChangeIconColor(Id, color) {
         if(Id.style.backgroundColor === color) {
             Id.style.backgroundColor = '';
@@ -997,7 +1021,7 @@ function zoomSliderListeners() {
         openCloseSmallNavbar();
         e.preventDefault();
     });
- 
+
     function openCloseSmallNavbar() {
         navMenuButtonHeight = document.getElementsByClassName('smallscreen-navbar')[0].offsetHeight;
         navMenuButton = document.getElementsByClassName('smallscreen-navbar');
@@ -1011,8 +1035,8 @@ function zoomSliderListeners() {
         var Uniqueprojectname = getProjectName();
         projectname.innerHTML = `<p>${Uniqueprojectname}<p>`;
     }
-    
- 
+
+
     /** Improved Collapsible navbar */
     var smallScreemInner = document.getElementsByClassName('Smallscreen-navbar-inner');
     var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
@@ -1049,16 +1073,16 @@ function zoomSliderListeners() {
             SmallScreenLi[index].addEventListener('click', (e) => {
                 onTapColor(SmallScreenLi, index, '#A0937D');
                 onTapSmallNavbar(index);
-                setTimeout(() => { 
+                setTimeout(() => {
                     onTapColor(SmallScreenLi, index, ''); }, 100);
                 e.preventDefault();
             });
         }(j));
     }
-  
 
-    // Function for Touchmenu 
-   
+
+    // Function for Touchmenu
+
     var TouchMenuButton = document.getElementsByClassName('touchMenuIcon');
     var panelclose = document.getElementsByClassName('panelclose');
     for(var touchi = 0; touchi < TouchMenuButton.length; touchi++) {
@@ -1088,13 +1112,13 @@ function zoomSliderListeners() {
 
     /** Function for QuicKMenu */
     var quickMenu = document.getElementsByClassName('quicMenu-align');
-    // here lenght-2 is done because last two button are used for diff purpose 
+    // here lenght-2 is done because last two button are used for diff purpose
     for(var quickmenui = 0; quickmenui < quickMenu.length - 2; quickmenui++) {
         (function(index) {
             quickMenu[index].addEventListener('click', (e) => {
                 onTapColor(quickMenu, index, buttoncolor);
                 onQuickmenuTap(index);
-                setTimeout(() => { 
+                setTimeout(() => {
                     onTapColor(quickMenu, index, ''); }, 100);
                 e.preventDefault();
             });
@@ -1111,9 +1135,9 @@ function zoomSliderListeners() {
         }
     });
 
-    // Function for live Menu 
+    // Function for live Menu
     //  Undo,Delete,Fit to screen
-    // 
+    //
     var liveMenu = document.getElementsByClassName('liveMenuIcon');
     for(var liveMenui = 0; liveMenui < liveMenu.length; liveMenui++) {
         (function(index) {
@@ -1140,16 +1164,16 @@ function zoomSliderListeners() {
 }
 
 /**
- * 
- * Function to return id or class of panel according to screen width 
+ *
+ * Function to return id or class of panel according to screen width
  */
 export function currentScreen() {
-    if (window.screen.width > 1367) { 
+    if (window.screen.width > 1367) {
         uniqid.modulePropertyInner = '#moduleProperty-inner';
         uniqid.PlotAreaId = 'plotArea';
         uniqid.plotID = 'plot';
         uniqid.tdLog = '#timing-diagram-log';
-    } 
+    }
     else {
         uniqid.modulePropertyInner = '#moduleProperty-inner-2';
         uniqid.PlotAreaId = 'plotArea-touchpanel';
@@ -1171,10 +1195,10 @@ function getID(index) {
 function openCurrMenu(index) {
     $('#Help').removeClass('show');
     var element = getID(index);
-    if(element.style.visibility === 'visible') { 
+    if(element.style.visibility === 'visible') {
         element.style.visibility = 'hidden';
     }
-    else { 
+    else {
         element.style.visibility = 'visible';
     }
     for(var i = 0; i < 4; i++) {
@@ -1205,7 +1229,7 @@ function onTapColor(classList, currentIndex, color) {
 function onTapliveMenu(index) {
     switch (index) {
     case 0: globalScope.centerFocus(false);
-        updateCanvasSet(true); 
+        updateCanvasSet(true);
         gridUpdateSet(true);
         break;
     case 1: deleteSelected();
@@ -1213,7 +1237,7 @@ function onTapliveMenu(index) {
     case 2: undo();
         break;
     default:
-        break;    
+        break;
     }
 }
 function onQuickmenuTap(i) {
@@ -1226,60 +1250,60 @@ function onQuickmenuTap(i) {
         break;
     case 3: createSaveAsImgPrompt();
         break;
-    case 4: document.execCommand('copy'); 
-        simulationArea.shiftDown = false; 
-        isCopy = true; 
+    case 4: document.execCommand('copy');
+        simulationArea.shiftDown = false;
+        isCopy = true;
         break;
-    case 5: paste(localStorage.getItem('clipboardData')); 
+    case 5: paste(localStorage.getItem('clipboardData'));
         isCopy = false;
         break;
     default:
         break;
     }
-} 
+}
 function onTapSmallNavbar(i) {
     switch (i) {
-    case 0: logixFunction.newProject(); 
+    case 0: logixFunction.newProject();
         closeNavmenu();
         break;
-    case 1: logixFunction.save(); 
+    case 1: logixFunction.save();
         break;
-    case 2: logixFunction.saveOffline(); 
+    case 2: logixFunction.saveOffline();
         break;
-    case 3: logixFunction.createOpenLocalPrompt(); 
+    case 3: logixFunction.createOpenLocalPrompt();
         closeNavmenu(); // createSaveAsImgPrompt();
         break;
-    case 4: logixFunction.clearProject(); 
+    case 4: logixFunction.clearProject();
         closeNavmenu();
         break;
-    case 5: logixFunction.recoverProject(); 
+    case 5: logixFunction.recoverProject();
         closeNavmenu();
         break;
-    case 6: logixFunction.newCircuit(); 
+    case 6: logixFunction.newCircuit();
         closeNavmenu();
         break;
-    case 7: logixFunction.newVerilogModule(); 
+    case 7: logixFunction.newVerilogModule();
         closeNavmenu();
         break;
-    case 8: logixFunction.createSubCircuitPrompt(); 
+    case 8: logixFunction.createSubCircuitPrompt();
         closeNavmenu();
         break;
-    case 9: logixFunction.createCombinationalAnalysisPrompt(); 
+    case 9: logixFunction.createCombinationalAnalysisPrompt();
         closeNavmenu();
         break;
-    case 10: logixFunction.bitconverter(); 
+    case 10: logixFunction.bitconverter();
         closeNavmenu();
         break;
-    case 11: createSaveAsImgPrompt(); 
+    case 11: createSaveAsImgPrompt();
         closeNavmenu();
         break;
-    case 12: logixFunction.colorThemes(); 
+    case 12: logixFunction.colorThemes();
         closeNavmenu();
         break;
-    case 13: logixFunction.generateVerilog(); 
+    case 13: logixFunction.generateVerilog();
         closeNavmenu();
         break;
-    case 14: logixFunction.showTourGuide(); 
+    case 14: logixFunction.showTourGuide();
         closeNavmenu();
         break;
     case 15: window.open('https://docs.circuitverse.org');
@@ -1294,6 +1318,6 @@ function onTapSmallNavbar(i) {
     }
 }
 function closeNavmenu() {
-    navMenuButton[0].style.height = '0'; 
+    navMenuButton[0].style.height = '0';
     smallnavbar.classList.remove('active');
 }

@@ -1,5 +1,5 @@
 
-/* 
+/*
 ************
 * This stylesheet is to be made modular later
 ************
@@ -180,7 +180,7 @@ input[type="text"]:focus {
   text-overflow: ellipsis;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
   .projectName {
     visibility: hidden;
   }
@@ -209,6 +209,11 @@ input[type="text"]:focus {
 }
 
 
+@media(max-width: 991px) {
+  .user-field {
+    visibility: hidden;
+  }
+}
 
 .signIn-btn {
   color: var(--text-primary);
@@ -317,7 +322,7 @@ input[type="text"]:focus {
 .draggable-panel-css {
   border-radius: 5px;
   z-index: 100;
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
   position: fixed;
 }
 
@@ -365,7 +370,7 @@ input[type="text"]:focus {
   opacity: 1;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
   .navbar-nav .dropdown-menu {
     position: absolute;
     float: none;
@@ -561,6 +566,7 @@ div.icon img {
   -khtml-user-drag: none;
   -moz-user-drag: none;
   -o-user-drag: none;
+  pointer-events: none;
   width: 100%;
   display: inline-block;
 }
@@ -612,7 +618,7 @@ div.icon img {
 #tabsBar .placeholder {
   justify-content: space-between;
   padding: 1px;
-  display: inline-block; 
+  display: inline-block;
   margin: 2px;
   text-align: center;
   /* min-width: 110px; */
@@ -630,7 +636,7 @@ div.icon img {
   justify-content: space-between;
   border-radius: 3px;
   padding: 1px;
-  display: inline-block; 
+  display: inline-block;
   margin: 2px;
   text-align: center;
   /* min-width: 110px; */
@@ -690,7 +696,7 @@ div.icon img {
 .timing-diagram-panel {
   border-radius: 5px;
   z-index: 100;
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
   position: fixed;
   cursor: pointer;
   left: 300px;
@@ -708,8 +714,205 @@ div.icon img {
   cursor: move;
 }
 
+/* Testbench UI Styling begin */
+
+.testbench-manual-panel {
+  border-radius: 5px;
+  z-index: 100;
+  transition: background .5s ease-out;
+  position: fixed;
+  cursor: pointer;
+  left: 10px;
+  top: 470px;
+}
+
+.testbench-manual-panel .panel-header {
+  border-radius: 5px;
+  border-top-right-radius: 5px;
+  padding: 3px;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+  text-align: left;
+  cursor: move;
+}
+
+.tb-case-arrow {
+  border: solid var(--text-panel);
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.tb-case-arrow-right {
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.tb-case-arrow-left {
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+}
+
+.testbench-manual-panel .panel-body {
+  width: 700px;
+}
+
+.testbench-manual-panel b {
+  font-weight: bold;
+}
+
+.tb-manual-test-data {
+  /*text-align: center;*/
+  margin-top: 10px;
+  border-bottom: 1px solid var(--br-secondary);
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.tb-manual-test-data .tb-data {
+  margin-right: 10px;
+}
+
+.tb-data span {
+  vertical-align: middle;
+  display: inline-block;
+  max-width: 200px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.tb-data#data-title {
+  float: left;
+}
+
+.tb-data#data-type {
+  float: right;
+}
+
+.tb-manual-table {
+  position: relative;
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--text-panel);
+  max-width: 650px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.tb-manual-table td, .tb-manual-table th {
+
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  min-width: 80px;
+}
+
+.tb-manual-table th {
+  background: var(--table-head-dark);
+  height: 50px;
+}
+
+.testbench-manual-panel-buttons {
+  position: relative;
+  display: table-cell;
+  flex-wrap: wrap;
+  right: 0px;
+  text-align: left;
+  width: 200px;
+}
+
+.testbench-runall-label {
+  display: none;
+}
+
+.tb-dialog-button {
+  display: inline;
+  margin: 8px;
+  border-radius: 5px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+
+}
+
+.tb-manual-test-buttons {
+  display: flex;
+  margin-top: 20px;
+  margin-left: 30px;
+  margin-right: 30px;
+  height: 25px;
+  overflow: auto;
+}
+
+.tb-manual-test-buttons .tb-case-button-left {
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  width: 24px;
+}
+
+.tb-manual-test-buttons .tb-case-button-right {
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 24px;
+}
+
+.tb-manual-test-buttons .tb-test-label {
+  position: relative;
+  top: 0px;
+  line-height: 25px;
+  height: 25px;
+  margin: 0px;
+  padding-left: 2px;
+  padding-right: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #C4C4C4;
+  color: black;
+}
+
+.tb-manual-test-buttons .tb-test-label.group-label {
+  text-align: center;
+  width: 100px;
+}
+
+.tb-manual-test-buttons .tb-test-label.case-label {
+  text-align: center;
+  width: 40px;
+}
+
+.tb-group-buttons {
+  float: left;
+}
+
+.tb-case-buttons {
+  float:right;
+}
+
+.tb-test-null {
+  width: 350px !important;
+}
+
+.validation-ui-table td, .validation-ui-table th {
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  min-width: 80px;
+  color: white;
+}
+
+/* Testbench UI styling end */
+
 #plotArea {
   padding: 3px;
+  width: 100%;
 }
 
 #verilogEditorPanel {
@@ -757,7 +960,7 @@ div.icon img {
   outline: none;
 }
 
-.moduleProperty input, 
+.moduleProperty input,
 .moduleProperty textarea {
   background-color: transparent;
   margin-top: 7px;
@@ -767,13 +970,13 @@ div.icon img {
 }
 
 .moduleProperty select,
-.moduleProperty input, 
+.moduleProperty input,
 .moduleProperty textarea {
   border-radius: 7px !important;
 }
 
 .moduleProperty input:focus,
-.moduleProperty select:focus, 
+.moduleProperty select:focus,
 .moduleProperty textarea {
   outline-width: 0;
   outline: none;
@@ -861,6 +1064,19 @@ input:checked + .slider:before {
 .custom-btn--tertiary {
   border-radius: 1px;
 }
+/* Used to force auto width on secondary button */
+.custom-btn--basic {
+  border-radius: 1px;
+  border: solid 1px;
+  background-color: transparent;
+  display: inline-block;
+  background: var(--table-head-dark);
+}
+
+.custom-btn--basic:focus {
+  border: solid 1px;
+}
+
 
 #HelpButton {
   background-color: transparent;
@@ -1152,7 +1368,7 @@ input:checked + .slider:before {
   border-radius: 1px;
 }
 .navbar {
-  transition: background .5s ease-out; 
+  transition: background .5s ease-out;
 }
 
 
@@ -1162,13 +1378,13 @@ input:checked + .slider:before {
   min-width: 85px;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 991px) {
   .navbar .nav.pull-right {
     display: none;
   }
 }
 
-@media(max-width:992px) {
+@media(max-width:991px) {
   .nav-dropdown {
     text-align: center;
     padding-top: 20px;
@@ -1192,7 +1408,7 @@ input:checked + .slider:before {
 #combinationalAnalysis p input {
   border: 1px solid white;
   background: transparent;
-font: inherit;
+  font: inherit;
   text-align: center;
 }
 
@@ -1236,6 +1452,7 @@ font: inherit;
 .content-table tbody {
   display: table-row-group;
   overflow: auto !important;
+  margin-left: 52px;
 }
 
 .output {
@@ -1243,6 +1460,19 @@ font: inherit;
 }
 
 /*! combinationalAnalysis dialog styling end here */
+
+#setTestbenchData input {
+  border: 1px solid white;
+  background: transparent;
+  text-align: center;
+  font: inherit;
+  color: white;
+}
+
+#setTestbenchData p {
+  font: inherit;
+  color: white;
+}
 
 /** openProjectDialog styling starts here */
 
@@ -1548,6 +1778,33 @@ input[type='range']::-webkit-slider-thumb {
 
 /*! Color them dialog styles ends here*/
 
+/*! Custom Color theme dialog styles starts here*/
+
+.ui-dialog[aria-describedby="CustomColorThemesDialog"] {
+    min-width: 760px;
+    user-select: none;
+  }
+
+  #CustomColorThemesDialog {
+    height: 400px !important;
+    background: none;
+    overflow: auto;
+  }
+
+  #CustomColorThemesDialog label {
+    color: var(--text-panel);
+    width: 60%;
+    height: 30px;
+  }
+
+  #CustomColorThemesDialog input {
+    cursor: pointer;
+    width: 30%;
+    height: 30px;
+  }
+
+  /*! Custom Color theme dialog styles ends here*/
+
 
 
 
@@ -1736,7 +1993,7 @@ input[type='range']::-webkit-slider-thumb {
     width: 250px;
     padding-bottom: 15px;
   }
-  
+
   #tabsBar button {
     order: 99; /* could have better solution */
     width: 25px;
@@ -1754,7 +2011,7 @@ input[type='range']::-webkit-slider-thumb {
     overflow-x: hidden;
     transition: 0.5s;
     text-align: left;
-    
+
   }
   .smallscreen-navbar-inner{
     margin: 0 auto;
@@ -1766,7 +2023,7 @@ input[type='range']::-webkit-slider-thumb {
     overflow-y: auto;
     max-height: 125px;
   }
-  
+
   .smallscreen-navbar-inner li{
     position: relative;
     list-style-type:none;
@@ -1783,7 +2040,7 @@ input[type='range']::-webkit-slider-thumb {
     vertical-align: top;
   }
   .smallNavbar-navbar-ul{
-    
+
     display:flex;
     font-family: inherit;
     font-weight: bold;
@@ -1792,9 +2049,9 @@ input[type='range']::-webkit-slider-thumb {
     padding: 25px;
     width: 100%;
     text-align:  left;
-  
+
   }
- 
+
   .smallNavbar-navbar-ul .ulicon{
     position: absolute;
     text-align: right;
@@ -1815,16 +2072,16 @@ input[type='range']::-webkit-slider-thumb {
     text-align: center;
     margin: 55px;
   }
-  
+
   .mobileUserSignIn{
     font-size: 20px;
   }
-  
+
   .fa-chevron-down{
     font-size: 20px;
     padding-left: 20px;
   }
-  
+
 
 .ce-panel{
   display: none;
@@ -1865,12 +2122,12 @@ input[type='range']::-webkit-slider-thumb {
   transform: translateY(5px);
 }
 #smallNavbarMenu-btn.active::before{
- 
+
   transform:translateY(0px) rotate(45deg);
-  
+
  }
  #smallNavbarMenu-btn.active::after{
-   
+
    transform: translateY(0px)rotate(-45deg);
  }
 
@@ -1880,7 +2137,7 @@ input[type='range']::-webkit-slider-thumb {
   height: 40px;
   overflow-y: scroll;
   padding-right: 50px;
-  
+
 }
 .circuits {
   height: 27px;
@@ -1940,7 +2197,7 @@ transform: rotate(90deg);
 transition: background .5s ease-out;
 padding-top: 30px;
 
-} 
+}
 .touch-Ce-Menu {
 border-radius: 5px;
 z-index: 100;
@@ -2070,7 +2327,7 @@ font-weight: bold;
   z-index: 100;
   padding: 15px;
   box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
-  
+
 }
 #moduleProperty-inner-2 {
   display: inline;
@@ -2220,8 +2477,8 @@ font-size: 15px;
   text-align: center;
   font-size: 12px;
   overflow: scroll;
-  max-height: 250px; 
-  box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px; 
+  max-height: 250px;
+  box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
 }
 
 
@@ -2237,7 +2494,7 @@ font-size: 15px;
 .QuickMenuIcon{
  font-size: 12px;
   padding: 10px;
- 
+
 }
 .QuickMenuIcon:hover{
   background-color: #42b983;
@@ -2247,7 +2504,7 @@ font-size: 15px;
   height: 30px;
   padding: 5px;
   font-size: 12px;
-  transition: 0.5s; 
+  transition: 0.5s;
   border-radius: 0px;
   transition: background .5s ease-out;
   margin: 5px;
@@ -2341,7 +2598,7 @@ font-size: 15px;
     top: 25%;
     right: 8%;
   }
-  
+
 }
 
 @media screen and (max-device-width: 823px) {
@@ -2358,7 +2615,7 @@ font-size: 15px;
 #TouchCe-panel::before {
   top: 11%;
   right: calc(50% - 132px);
-} 
+}
 #touch-module-property{
   height: 250px;
   width: 220px;
@@ -2415,7 +2672,7 @@ font-size: 15px;
 }
 
 .QuickMenuIcon{
-  
+
    padding: 10px;
 }
  .quicMenu-align{
@@ -2483,13 +2740,13 @@ padding-bottom: 20px;
 }
 }
 @media screen and (max-device-width: 640px) {
-   
+
 }
 @media screen and (max-device-width: 780px) {
-  
+
 }
 @media screen and (max-device-width: 736px) {
-  
+
 }
 
 

@@ -51,7 +51,7 @@ describe ProjectsController, type: :request do
           expect do
             get user_project_path(@author, @project)
             @project.reload
-          end.to change { @project.view }.by(0)
+          end.not_to change { @project.view }
         end
       end
     end
@@ -105,7 +105,7 @@ describe ProjectsController, type: :request do
     context "project is not an assignment" do
       it "creates a fork" do
         expect do
-          get create_fork_project_path(@project)
+          post create_fork_project_path(@project)
           @user.reload
         end.to change { @user.projects.count }.by(1)
         expect(@user.projects.order("created_at").last.forked_project_id).to eq(@project.id)
@@ -114,13 +114,13 @@ describe ProjectsController, type: :request do
 
     context "project is an assignment" do
       before do
-        group = FactoryBot.create(:group, mentor: FactoryBot.create(:user))
+        group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
         assignment = FactoryBot.create(:assignment, group: group)
         @assignment_project = FactoryBot.create(:project, author: @author, assignment: assignment)
       end
 
       it "throws error" do
-        get create_fork_project_path(@assignment_project)
+        post create_fork_project_path(@assignment_project)
         check_project_access_error(response)
       end
     end

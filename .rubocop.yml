@@ -1,10 +1,12 @@
+inherit_from: .rubocop_todo.yml
+
 require:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-performance
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.1
   NewCops: enable
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
@@ -18,9 +20,11 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'bin/**/*'
+    - 'bundle/**/*'
+    - 'docs/**/*'
 
 Layout/LineLength:
-  Max: 100
+  Max: 120
 
 Metrics/BlockLength:
   Exclude:
@@ -31,6 +35,17 @@ Metrics/MethodLength:
   Max: 15 # can be reduced
   Exclude:
     - 'spec/**/*' # not a big deal in spec helper methods
+    - 'app/controllers/about_controller.rb'
+    - 'app/controllers/assignments_controller.rb'
+    - 'app/controllers/circuitverse_controller.rb'
+    - 'app/controllers/collaborations_controller.rb'
+    - 'app/controllers/grades_controller.rb'
+    - 'app/controllers/group_members_controller.rb'
+    - 'app/controllers/lti_controller.rb'
+    - 'app/jobs/assignment_deadline_submission_job.rb'
+    - 'app/models/grade.rb'
+    - 'app/services/lti_score_submission.rb'
+
 
 Metrics/ModuleLength:
   Exclude:
@@ -248,3 +263,56 @@ Style/ClassAndModuleChildren:
 
 RSpec/MultipleExpectations:
   Max: 5
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/FactoryBot/SyntaxMethods:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+   Max: 6
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/RepeatedExampleGroupDescription:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - 'spec/factories/*'
+
+Lint/MissingSuper:
+  Exclude:
+    - 'app/policies/*'
+
+RSpec/FilePath:
+  Enabled: false
+
+Style/HashSyntax:
+  EnforcedShorthandSyntax: 'never'
+
+Naming/BlockForwarding:
+  Enabled: false

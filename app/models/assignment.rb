@@ -41,6 +41,12 @@ class Assignment < ApplicationRecord
     end
   end
 
+  def clean_restricted_elements
+    restricted_elements = JSON.parse restrictions
+    restricted_elements.map! { |element| ERB::Util.html_escape element }
+    restricted_elements.to_json
+  end
+
   def graded?
     grading_scale != "no_scale"
   end

@@ -69,7 +69,7 @@
           <a style="text-decoration:none;
               position: fixed;
               bottom: 0px;
-              right: 0px;
+              right: 25px;
               padding: 8px;
               font-family: Verdana;
               font-size: 12px;
@@ -95,7 +95,7 @@
     logix_project_id = '<%= @logix_project_id %>'
         embed=true;
         <% if @project&.assignment_id.present? %>
-          restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
+          restrictedElements = JSON.parse('<%= raw @project&.assignment.clean_restricted_elements %>');
         <% else %>
           restrictedElements = [];
         <% end %>
