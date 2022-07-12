@@ -32,7 +32,7 @@ class AssignmentDecorator < SimpleDelegator
   end
 
   def restricted_features
-     assignment.feature_restrictions.presence || "None"
+    assignment.feature_restrictions.presence || "None"
   end
 
   def closed?
