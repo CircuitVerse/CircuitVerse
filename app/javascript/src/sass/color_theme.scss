@@ -251,10 +251,16 @@ $output-rect: blue;
   color: var(--text-panel);
 }
 
-#exitViewBtn {
+#exitViewBtn,
+#exitReplay,
+#startReplay {
   border: 1px solid var(--br-primary);
 }
-.ce-hidden,.prop-hidden, #exitViewBtn {
+.ce-hidden,
+.prop-hidden,
+#exitViewBtn,
+#exitReplay,
+#startReplay {
   color: var(--text-panel);
   background: var(--primary);
 }

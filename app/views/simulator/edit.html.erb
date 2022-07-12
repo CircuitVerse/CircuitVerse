@@ -31,6 +31,7 @@
            <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="replayCircuit">Replay Circuit</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" onclick="old_ui_redirect()">View Previous UI</a></li>
         </ul>
       </li>
@@ -651,6 +652,21 @@
   >
     <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a
   >
+</div>
+
+<!---replayUI--->
+<div id="replay">
+  <div class="progress player-bar" id="progress">
+    <div class="progress-bar" role="progressbar" style="width: 1%"></div>
+  </div>
+  <div class="player text-center">
+    <button type="button" name="button_fbw" id="button_fbw" class="btn"></button>
+    <button type="button" name="button_bw" id="button_bw" class="btn"></button>
+    <button type="button" name="button_play" id="button_play" class="btn play-icon"></button>
+    <button type="button" name="button_stop" id="button_stop" class="btn"></button>
+    <button type="button" name="button_fw" id="button_fw" class="btn"></button>
+    <button type="button" name="button_ffw" id="button_ffw" class="btn"></button>
+  </div>
 </div>
 
 <!---issue reporting system-modal---->

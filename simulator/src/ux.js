@@ -22,6 +22,18 @@ import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
+import {
+    setInitialValues,
+    replay,
+    stopReplay,
+    setProgressValue,
+    buttonBackPress,
+    buttonForwardPress,
+    buttonRewindPress,
+    buttonFastforwardPress,
+    buttonStopPress,
+    buttonPlayPress,
+} from './data/replay';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -282,6 +294,7 @@ export function prevPropertyObjGet() {
  */
 export function showProperties(obj) {
     if (obj === prevPropertyObjGet()) return;
+    // if in full view mode || replay mode then return 
     hideProperties();
     prevPropertyObjSet(obj);
     if(layoutModeGet()){
@@ -640,6 +653,65 @@ export function fullView () {
     $('#exitView').append(markUp);
     $('#exitViewBtn').on('click', exitFullView);
 }
+
+export function exitReplayView(){
+    $('.navbar').show();
+    $('.modules').show();
+    $('.report-sidebar').show();
+    $('#tabsBar').show();
+    $('#exitReplay').remove();
+    $('#blurPart').remove();
+    $('#moduleProperty').show();
+    $('.timing-diagram-panel').show();
+    $('.testbench-manual-panel').show();
+     $("#replay").css("display", "none");
+}
+
+
+/** 
+   Function to set up UI for Replaying circuit
+**/
+export function replayCircuit(scope = globalScope) {
+    setInitialValues(scope);    
+    var exitButton = `<button id='exitReplay'>Exit Replay</button>`;
+    // var blurHTML = `<div id="blurPart"></div>`
+    $("#replay").css("display", "block");
+    $('.navbar').hide()
+    $('.modules').hide()
+    $('.report-sidebar').hide()
+    $('#tabsBar').hide()
+    $('#moduleProperty').hide()
+    $('.timing-diagram-panel').hide();
+    $('.testbench-manual-panel').hide();
+    $('#exitView').append(exitButton);
+    $("#exitReplay").on("click", () => {
+        stopReplay(scope);
+        exitReplayView();
+    });
+
+    $("#progress").on("click", (e) => {
+        setProgressValue(e.offsetX, scope);
+    })
+    $("#button_fbw").on("click", () => {
+        buttonRewindPress();
+    });
+    $("#button_bw").on("click", () => {
+        buttonBackPress();
+    });
+    $("#button_play").on("click", () => {
+        buttonPlayPress(scope);
+    });
+    $("#button_stop").on("click", () => {
+        buttonStopPress(scope);
+    });
+    $("#button_fw").on("click", () => {
+        buttonForwardPress();
+    });
+    $("#button_ffw").on("click", () => {
+        buttonFastforwardPress();
+    });
+}
+
 /** 
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/
