@@ -9,12 +9,12 @@
                 <div id="moduleProperty-header">{{ panelBodyHeader }}</div>
                 <ProjectProperty v-if="panelType == 1" />
                 <ElementProperty
-                    v-if="panelType == 2"
+                    v-else-if="panelType == 2"
                     :key="panleBodyData"
                     :obj="panleBodyData"
                 />
                 <SubcircuitProperty
-                    v-if="panelType == 3"
+                    v-else-if="panelType == 3"
                     :key="panleBodyData"
                     :obj="panleBodyData"
                 />

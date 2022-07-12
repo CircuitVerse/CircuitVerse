@@ -15,10 +15,7 @@ import { ref, toRaw } from '@vue/reactivity'
 import simulationArea from '#/simulator/src/simulationArea'
 import { onMounted } from 'vue'
 import { checkPropertiesUpdate, prevPropertyObjSet } from '#/simulator/src/ux'
-import {
-    layoutModeGet,
-    setupLayoutModePanelListeners,
-} from '#/simulator/src/layoutMode'
+import { layoutModeGet } from '#/simulator/src/layoutMode'
 
 const inLayoutMode = ref(false)
 const panelBodyHeader = ref('PROJECT PROPERTIES')

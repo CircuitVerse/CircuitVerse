@@ -91,8 +91,8 @@
 
 <script lang="ts" setup>
 import { setupLayoutModePanelListeners } from '#/simulator/src/layoutMode'
+import PanelHeader from '#/components/Panels/Shared/PanelHeader.vue'
 import { onMounted } from '@vue/runtime-core'
-import PanelHeader from '../../Shared/PanelHeader.vue'
 
 onMounted(() => {
     setupLayoutModePanelListeners()
