@@ -13,6 +13,11 @@
                     :key="panleBodyData"
                     :data="panleBodyData"
                 />
+                <SubcircuitProperty
+                    v-if="panelType == 3"
+                    :key="panleBodyData"
+                    :data="panleBodyData"
+                />
                 <HelpButton :key="panleBodyData" :data="panleBodyData" />
             </div>
         </div>

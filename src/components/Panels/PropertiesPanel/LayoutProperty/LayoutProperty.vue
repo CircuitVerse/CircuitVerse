@@ -34,9 +34,7 @@
             </div>
             <div class="">
                 <span>Reset all nodes:</span>
-                <v-btn id="layoutResetNodes" variant="text" icon>
-                    <v-icon>mdi-sync</v-icon>
-                </v-btn>
+                <v-btn id="layoutResetNodes" variant="text" icon="mdi-sync" />
             </div>
             <div class="layout-title">
                 <span>Title</span>
@@ -46,30 +44,26 @@
                         class="layoutBtn"
                         active-class="no-active"
                         variant="outlined"
-                        icon
-                        ><v-icon>mdi-chevron-up</v-icon></v-btn
-                    >
+                        icon="mdi-chevron-up"
+                    />
                     <v-btn
                         id="layoutTitleDown"
                         class="layoutBtn"
                         variant="outlined"
-                        icon
-                        ><v-icon>mdi-chevron-down</v-icon></v-btn
-                    >
+                        icon="mdi-chevron-down"
+                    />
                     <v-btn
                         id="layoutTitleLeft"
                         class="layoutBtn"
                         variant="outlined"
-                        icon
-                        ><v-icon>mdi-chevron-left</v-icon></v-btn
-                    >
+                        icon="mdi-chevron-left"
+                    />
                     <v-btn
                         id="layoutTitleRight"
                         class="layoutBtn"
                         variant="outlined"
-                        icon
-                        ><v-icon>mdi-chevron-right</v-icon></v-btn
-                    >
+                        icon="mdi-chevron-right"
+                    />
                 </div>
             </div>
             <div class="layout-title--enable">

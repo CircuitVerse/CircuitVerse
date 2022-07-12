@@ -487,7 +487,6 @@ export function setupLayoutModePanelListeners() {
         decreaseLayoutWidth()
     })
     $('#increaseLayoutWidth').on('click', () => {
-        console.log('inc layout width')
         increaseLayoutWidth()
     })
     $('#decreaseLayoutHeight').on('click', () => {

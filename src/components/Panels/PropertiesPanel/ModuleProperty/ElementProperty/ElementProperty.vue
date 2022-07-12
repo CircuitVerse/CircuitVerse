@@ -120,7 +120,5 @@ const props = defineProps({
 })
 console.log('Hello from element-property.vue')
 const obj = props.data
-console.log(isReactive(obj))
-console.log(isReactive(props.data))
 const labelDirections = ['RIGHT', 'DOWN', 'LEFT', 'UP']
 </script>

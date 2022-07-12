@@ -41,7 +41,6 @@ function showPropertiesPanel() {
     // 1. Properties Panel in Layout mode
     // 2. Properties Panel showing Project Properties
     // 3. Properties Panel showing Circiut Element Properties
-    console.log(inLayoutMode.value)
     if (inLayoutMode.value) {
         // will look into it later !!!
         if (
@@ -51,8 +50,10 @@ function showPropertiesPanel() {
             ) !== -1
         ) {
             panelType.value = 1
+            // when we cancel layout mode -> show project properties
         } else {
             panelType.value = 3
+            panelBodyHeader.value = propertiesPanelObj.value.objectType
         }
     } else {
         if (
@@ -61,14 +62,11 @@ function showPropertiesPanel() {
                 simulationArea.lastSelected.objectType
             ) !== -1
         ) {
-            console.log('in here 2 - why not displaying')
             panelType.value = 1
             panelBodyHeader.value = 'PROJECT PROPERTIES'
             if (simulationArea.lastSelected === undefined)
                 propertiesPanelObj.value = undefined
         } else {
-            console.log('in here 3 - why not displaying')
-            console.log(propertiesPanelObj.value)
             panelType.value = 2
             panelBodyHeader.value = propertiesPanelObj.value.objectType
         }
