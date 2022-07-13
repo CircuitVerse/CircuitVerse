@@ -37,6 +37,7 @@ import '../vendor/jquery-ui.min'
  * @category setup
  */
 export function resetup() {
+    console.log('hello from re setup')
     DPR = window.devicePixelRatio || 1
     if (lightMode) {
         DPR = 1
@@ -102,7 +103,8 @@ function setupEnvironment() {
  * @category setup
  */
 function setupElementLists() {
-    $('#menu').empty()
+    // console.log('hello from elements list panel setup')
+    // $('#menu').empty()
 
     window.circuitElementList = metadata.circuitElementList
     window.annotationList = metadata.annotationList
@@ -116,37 +118,6 @@ function setupElementLists() {
         ...annotationList,
     ] // Order of update
     window.renderOrder = [...moduleList.slice().reverse(), 'wires', 'allNodes'] // Order of render
-
-    function createIcon(element) {
-        const elementImg = new URL(
-            `../../assets/img/${element.name}.svg`,
-            import.meta.url
-        ).href
-        return `<div class="icon logixModules" id="${element.name}" title="${element.label}">
-            <img src= "${elementImg}" alt="${element.name}" >
-        </div>`
-    }
-
-    window.elementHierarchy = metadata.elementHierarchy
-    window.elementPanelList = []
-    for (const category in elementHierarchy) {
-        let htmlIcons = ''
-        const categoryData = elementHierarchy[category]
-        for (let i = 0; i < categoryData.length; i++) {
-            const element = categoryData[i]
-            if (!element.name.startsWith('verilog')) {
-                htmlIcons += createIcon(element)
-                window.elementPanelList.push(element.label)
-            }
-        }
-
-        const accordionData = `<div class="panelHeader">${category}</div>
-        <div class="panel customScroll">
-        ${htmlIcons}
-        </div>`
-
-        $('#menu').append(accordionData)
-    }
 }
 
 /**
@@ -154,7 +125,7 @@ function setupElementLists() {
  * @category setup
  */
 export function setup() {
-    console.log('hello from set up')
+    // console.log('hello from set up')
     let embed = false
     const startListeners = embed ? startEmbedListeners : startMainListeners
     setupElementLists()
@@ -162,6 +133,7 @@ export function setup() {
     if (!embed) {
         setupUI()
     }
+    // console.log('start_lis')
     startListeners()
     if (!embed) {
         keyBinder()

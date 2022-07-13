@@ -106,8 +106,9 @@ export function switchCircuit(id) {
  * Switched to a random circuit
  * @category circuit
  */
-function deleteCurrentCircuit(scopeId = globalScope.id) {
-    const scope = scopeList[scopeId]
+export function deleteCurrentCircuit(scopeId = globalScope.id) {
+    let scope = scopeList[scopeId]
+    if (scope == undefined) scope = scopeList[globalScope.id]
     if (Object.keys(scopeList).length <= 1) {
         showError(
             'At least 2 circuits need to be there in order to delete a circuit.'
