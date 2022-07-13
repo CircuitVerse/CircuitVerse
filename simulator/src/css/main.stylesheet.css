@@ -645,6 +645,7 @@ div.icon img {
 }
 
 #tabsBar .circuits > span {
+  font-size: 20px;
   display: inline-block;
   padding: 2px 5px;
 }
