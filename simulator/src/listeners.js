@@ -1032,16 +1032,22 @@ function zoomSliderListeners() {
             navMenuButton[0].style.height = '0';
         }
         var projectname = document.getElementById('ProjectID');
-        var Uniqueprojectname = getProjectName();
-        projectname.innerHTML = `<p>${Uniqueprojectname}<p>`;
+        var Uniqueprojectname = getProjectName() || 'Untitled';
+        projectname.innerHTML = `<p>${Uniqueprojectname}<p>` ;
     }
 
 
     /** Improved Collapsible navbar */
-    var smallScreemInner = document.getElementsByClassName('Smallscreen-navbar-inner');
+    var smallScreemInner = document.getElementsByClassName('smallscreen-navbar-inner');
     var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
     var ulicon = document.getElementsByClassName('ulicon');
     function NavCollapsible(index) {
+        for(var i = 0; i < smallNavbarUl.length - 1; i++) {
+            if(i !== index) {
+                ulicon[i].classList.remove('active');
+                smallScreemInner[i].style.height = '0%';
+            }
+        }
         if(smallScreemInner[index].style.height === '100%') {
             smallScreemInner[index].style.height = '0%';
             ulicon[index].classList.remove('active');
@@ -1050,19 +1056,11 @@ function zoomSliderListeners() {
             smallScreemInner[index].style.height = '100%';
             ulicon[index].classList.toggle('active');
         }
-        for(var i = 0; i < smallNavbarUl.length - 1; i++) {
-            if(i !== index) {
-                ulicon[i].classList.remove('active');
-                smallScreemInner[i].style.height = '0%';
-            }
-        }
     }
-    // var ulicon = document.getElementsByClassName('ulicon');
 
     for(var i = 0; i < smallNavbarUl.length; i++) {
         (function(index) {
             smallNavbarUl[index].addEventListener('click', () => {
-                // ulicon[index].classList.toggle('active');
                 NavCollapsible(index);
             });
         }(i));

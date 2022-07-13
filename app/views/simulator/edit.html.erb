@@ -187,10 +187,10 @@
 <!-- navBar-for-small-screen -->
 <div class="smallscreen-navbar">
 
-  <div id="ProjectID">Undefined</div>
+  <div id="ProjectID">Untitled</div>
 
   <div class="smallNavbar-navbar-ul">Project<i class="fas fa-chevron-down ulicon"></i></div>
-    <div class="Smallscreen-navbar-inner">
+    <div class="smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> New Project</li>
     <li class="SmallScreen-Navbar-li"> Save Online</li>
     <li class="SmallScreen-Navbar-li"> Save Offine</li>
@@ -200,14 +200,14 @@
     </div>
 
     <div class="smallNavbar-navbar-ul">Circuits<i class="fas fa-chevron-down ulicon"></i></div>
-    <div class="Smallscreen-navbar-inner">
+    <div class="smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> New Circuit + </li>
     <li class="SmallScreen-Navbar-li"> New Verilog Module</li>
     <li class="SmallScreen-Navbar-li"> Insert SubCircuit</li>
     </div>
 
     <div class="smallNavbar-navbar-ul">Tools<i class="fas fa-chevron-down ulicon"></i> </div>
-    <div class="Smallscreen-navbar-inner">
+    <div class="smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> Combinational Analysis</li>
     <li class="SmallScreen-Navbar-li"> Hex-Bin-Dec Converter</li>
     <li class="SmallScreen-Navbar-li"> Download Image</li>
@@ -216,7 +216,7 @@
     </div>
 
     <div class="smallNavbar-navbar-ul">Help <i class="fas fa-chevron-down ulicon"></i></div>
-    <div class="Smallscreen-navbar-inner">
+    <div class="smallscreen-navbar-inner">
     <li class="SmallScreen-Navbar-li"> Tutorial</li>
     <li class="SmallScreen-Navbar-li"> User Manual</li>
     <li class="SmallScreen-Navbar-li"> Learn Digital Logic</li>
@@ -227,7 +227,7 @@
 
     <% if user_signed_in? %>
      <%= current_user.name %></div>
-    <div class="Smallscreen-navbar-inner">
+    <div class="smallscreen-navbar-inner">
       <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
       <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
       <div class="dropdown-divider"></div>

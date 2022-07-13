@@ -201,7 +201,7 @@ $touch-menu:#454545;
 }
 
 .dropdown-menu > li > a:hover {
-  color: var(--text-navbar--alt) !important; 
+  color: var(--text-navbar--alt) !important;
   background: var(--bg-text);
 }
 
@@ -348,7 +348,7 @@ $touch-menu:#454545;
   border: 1px solid var(--br-circuit-cur);
 }
 
-.moduleProperty input, 
+.moduleProperty input,
 .moduleProperty textarea {
   color: var(--text-panel);
 }
@@ -659,7 +659,7 @@ select {
   border: 1px solid var(--br-primary);
   color: var(--text-panel);
 }
- // Css for mobile version UI 
+ // Css for mobile version UI
 .smallscreen-navbar {
   background-color: var(--primary);
   color: var(--text-panel);
@@ -690,7 +690,7 @@ select {
   background: var(--text-panel);
 }
 #smallNavbarMenu-btn.active::before {
- 
+
   box-shadow: 0 0 0 var(--text-panel);
  }
 
@@ -757,7 +757,7 @@ select {
   background-color: var(--primary);
   border: 1px solid var(--br-secondary);
   color: var(--text-panel);
-  
+
 }
 .ce-name {
   border-bottom: 2px solid var(--br-secondary);
@@ -768,7 +768,7 @@ select {
 .quickMenu-name {
   border-bottom: 2px solid var(--br-secondary);
 }
-.modulepropertiesInput input, 
+.modulepropertiesInput input,
 .modulepropertiesInput textarea {
   background-color: var(--primary);
   border: 2px solid var(--br-secondary);
@@ -776,7 +776,7 @@ select {
 }
 
 .modulepropertiesInput select,
-.modulepropertiesInput input, 
+.modulepropertiesInput input,
 .modulepropertiesInput textarea {
   background-color: var(--primary);
   border: 2px solid var(--br-secondary);
@@ -784,7 +784,7 @@ select {
 }
 
 .modulepropertiesInput input:focus,
-.modulepropertiesInput select:focus, 
+.modulepropertiesInput select:focus,
 .modulepropertiesInput textarea {
   background-color: var(--primary);
   border: 2px solid var(--br-secondary);

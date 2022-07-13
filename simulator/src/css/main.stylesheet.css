@@ -2108,24 +2108,22 @@ input[type='range']::-webkit-slider-thumb {
 #smallNavbarMenu-btn::before{
  content: '';
  position: absolute;
- width: 15px;
- height: 1px;
- transition: 0.5s;
+ width: 20px;
+ height: 2px;
  transform:translateY(-5px);
+ transition: 0.1s;
 }
 #smallNavbarMenu-btn::after{
   content: '';
   position: absolute;
-  width: 15px;
-  height: 1px;
-  transition:0.5s;
+  width: 20px;
+  height: 2px;
+  transition:0.1s;
   transform: translateY(5px);
 }
 #smallNavbarMenu-btn.active::before{
-
   transform:translateY(0px) rotate(45deg);
-
- }
+}
  #smallNavbarMenu-btn.active::after{
 
    transform: translateY(0px)rotate(-45deg);
@@ -2172,7 +2170,7 @@ input[type='range']::-webkit-slider-thumb {
   font-size: 8px;
 }
 #TouchCe-panel {
-    color: var(--text-panel);
+  color: var(--text-panel);
   width: 220px;
   top: 80px;
   right: 80px;
