@@ -19,8 +19,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   def create
     dummy = GroupMember.new
     dummy.group_id = params[:group_id]
-    group = Group.find(:group_id)
-    authorize group.members.new, :primary_mentor?
+    authorize dummy, :primary_mentor?
     @group = Group.find(params[:group_id])
     is_mentor = false
     is_mentor = params[:mentor] if params[:mentor]
