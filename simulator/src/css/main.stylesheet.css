@@ -1977,6 +1977,9 @@ input[type='range']::-webkit-slider-thumb {
   }
 }
 @media screen and (max-device-width: 1366px) {
+  .testbench-manual-panel{
+    display: none;
+  }
   #logoWrap{
     height: 100px;
     text-align: right;
@@ -2581,7 +2584,7 @@ font-size: 15px;
   border: none;
   border-radius: 0;
   transition: background .5s ease-out;
-  ;
+
 }
 
 .mobilepanelHeader:hover {
