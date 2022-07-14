@@ -645,7 +645,6 @@ div.icon img {
 }
 
 #tabsBar .circuits > span {
-  font-size: 20px;
   display: inline-block;
   padding: 2px 5px;
 }
@@ -655,10 +654,12 @@ div.icon img {
 }
 
 #tabsBar button {
+  font-size: 15px;
+  font-weight: lighter;
   order: 99; /* could have better solution */
   width: 20px;
   align-items: center;
-  padding: 1px;
+  padding: 2px 1px;
   text-decoration: none;
   outline: none;
   border-radius: 1px;
@@ -1977,8 +1978,15 @@ input[type='range']::-webkit-slider-thumb {
   }
 }
 @media screen and (max-device-width: 1366px) {
+  #tabsBar button {
+    font-size: 18px;
+    padding: 2px;
+  }
   .testbench-manual-panel{
     display: none;
+  }
+  .tabsCloseButton {
+    font-size: 20px;
   }
   #logoWrap{
     height: 100px;
