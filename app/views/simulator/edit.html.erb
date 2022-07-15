@@ -161,7 +161,7 @@
   <!-- /.navbar-collapse -->
 </nav>
 <div id="tabsBar" class="noSelect pointerCursor">
-  <button class="logixButton" id="createNewCircuitScope" onclick=""><i class="fas fa-plus"></i></button>
+  <button name="logixButton" class="logixButton" id="createNewCircuitScope" onclick=""><i class="fas fa-plus"></i></button>
 </div>
 <div title="Export Verilog" id="verilog-export-code-window-div" style="display:none"><textarea id="verilog-export-code-window"></textarea></div>
 <div id="code-window" class='code-window'><textarea id="codeTextArea"></textarea></div>
@@ -290,7 +290,7 @@
        </div>
        <div id="touch-cycle-unit">
        1 cycle =
-      <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
+      <input name="timing-diagram-units" id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
       Units
       </div>
       <span id='touch-timing-diagram-log'></span>
@@ -459,7 +459,7 @@
     <div class="layout-body">
       <div>
         <p class="text-center mb-2">Select a theme: </p>
-          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">
+          <select name="selectVerilogTheme" id="selectVerilogTheme" class="applyTheme" style="width:90%;">
             <optgroup label="Light Themes">
               <option>default</option>
               <option>solarized</option>
