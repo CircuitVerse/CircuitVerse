@@ -59,8 +59,7 @@ export const tour = [
             offset: 0,
         },
     },
-    
-    
+
     // {
     //     element: '#delCirGuide',
     //     popover: {
@@ -90,7 +89,7 @@ export const tour = [
             offset: 0,
         },
     },
-    
+
 ];
 
 export const touchTour = [
@@ -151,7 +150,7 @@ export const tutorialWrapper = () => {
                     description: 'Select any element by clicking on it & then click anywhere on the grid to place the element.',
                     position: 'right',
                     offset: $($(e.target).next()).height() + $(e.target).offset().top - 45,
-                }
+                },
             });
             localStorage.setItem('tutorials', 'done');
         }
@@ -170,14 +169,13 @@ const animatedTourDriver = new Driver({
 
 export function showTourGuide() {
     $('.draggable-panel .maximize').trigger('click');
-    if (window.screen.width > 1367) { 
-        animatedTourDriver.defineSteps(tour); 
-    }
-    else { 
-        animatedTourDriver.defineSteps(touchTour); 
+    if (window.screen.width > 1367) {
+        animatedTourDriver.defineSteps(tour);
+    } else {
+        animatedTourDriver.defineSteps(touchTour);
     }
     animatedTourDriver.start();
     localStorage.setItem('tutorials_tour_done', true);
 }
 
-export default showTourGuide; 
+export default showTourGuide;

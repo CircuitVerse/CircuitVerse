@@ -1033,7 +1033,7 @@ function zoomSliderListeners() {
         }
         var projectname = document.getElementById('ProjectID');
         var Uniqueprojectname = getProjectName() || 'Untitled';
-        projectname.innerHTML = `<p>${Uniqueprojectname}<p>` ;
+        projectname.innerHTML = `<p>${Uniqueprojectname}<p>`;
     }
 
 
