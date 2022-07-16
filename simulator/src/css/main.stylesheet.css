@@ -1879,10 +1879,6 @@ input[type='range']::-webkit-slider-thumb {
   display: none;
 }
 
-
-#smallNavbarMenu-btn{
-  display: none;
-}
 #TouchCe-panel{
   display: none;
 }
@@ -2183,7 +2179,7 @@ input[type='range']::-webkit-slider-thumb {
 }
 #TouchCe-panel {
   color: var(--text-panel);
-  width: 220px;
+  width: 235px;
   top: 80px;
   right: 80px;
   display: flex;
@@ -2202,7 +2198,7 @@ input[type='range']::-webkit-slider-thumb {
 position: absolute;
 top: 5px;
 content: "";
-right: calc(50% - 147px);
+right: calc(50% - 154px);
 border-style: solid;
 border-width: 0px 15px 15px 15px;
 transform: rotate(90deg);
@@ -2215,14 +2211,13 @@ border-radius: 5px;
 z-index: 100;
 transition: background .5s ease-out;
 position: fixed;
-width: 220px;
+width: 235px;
 top: 90px;
 right: 80px;
 overflow: auto;
 overflow-x: hidden;
 height: 300px;
 margin: auto;
-padding-top: 10px;
 box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
 }
 .ce-name{
@@ -2326,20 +2321,19 @@ font-weight: bold;
   padding-top: 30px;
 }
 #touch-module-property {
+  border-radius: 5px;
   display: inline;
-  /* width: 220px; */
   top: 90px;
   right: 80px;
   position: fixed;
   overflow: scroll;
-  height: 350px;
+  height: 330px;
   visibility: none;
   margin: auto;
   transition: background .5s ease-out;
   z-index: 100;
   padding: 15px;
   box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
-
 }
 #moduleProperty-inner-2 {
   display: inline;
@@ -2615,21 +2609,20 @@ font-size: 15px;
 
 @media screen and (max-device-width: 823px) {
   .Touch-Ce-Menu{
+    padding-top: 10px;
     top: 10%;
-    height: 250px;
-    width:  220px;
+    right: 93px;
+    width:  230px;
     font-size: small;
   }
 #TouchCe-panel{
   top:9%;
-  right: 7%;
+  right: 9%;
 }
 #TouchCe-panel::before {
   top: 11%;
-  right: calc(50% - 132px);
 }
 #touch-module-property{
-  height: 250px;
   width: 220px;
 }
 #touchElement-property {
@@ -2659,7 +2652,7 @@ font-size: 15px;
 #touchtD-popover{
   width: 350px;
   top: 20%;
-  right: 8.5%;
+  right: 8.6%;
 }
 #touchtD-popover::before {
   top: 200%;
@@ -2751,15 +2744,3 @@ padding-bottom: 20px;
   height: 200px;
 }
 }
-@media screen and (max-device-width: 640px) {
-
-}
-@media screen and (max-device-width: 780px) {
-
-}
-@media screen and (max-device-width: 736px) {
-
-}
-
-
-

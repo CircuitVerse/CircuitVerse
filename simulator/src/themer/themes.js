@@ -380,5 +380,6 @@ export default {
         "--node-norm": "#008000",
         "--splitter": "#000",
         "--output-rect": "#0000ff",
+        "--touch-menu": "#A0937D",
     },
 };

@@ -117,7 +117,7 @@ function getTap(e) {
     } else {
     // Single tap
     }
-
+    openCurrMenu(-1);
     lastTap = currentTime;
     e.preventDefault();
 }
@@ -1191,16 +1191,17 @@ function getID(index) {
     return 0;
 }
 function openCurrMenu(index) {
-    $('#Help').removeClass('show');
-    var element = getID(index);
-    if(element.style.visibility === 'visible') {
-        element.style.visibility = 'hidden';
+    if (index != -1) {
+        $('#Help').removeClass('show');
+        var element = getID(index);
+        if (element.style.visibility === 'visible') {
+            element.style.visibility = 'hidden';
+        } else {
+            element.style.visibility = 'visible';
+        }
     }
-    else {
-        element.style.visibility = 'visible';
-    }
-    for(var i = 0; i < 4; i++) {
-        if(i !== index) {
+    for (var i = 0; i < 4; i++) {
+        if (i !== index) {
             var closelemnt = getID(i);
             closelemnt.style.visibility = 'hidden';
         }
