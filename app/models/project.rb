@@ -19,6 +19,8 @@ class Project < ApplicationRecord
   has_many :user_ratings, through: :stars, dependent: :destroy, source: "user"
   belongs_to :assignment, optional: true
 
+  has_noticed_notifications model_name: "Notification"
+  has_many :notifications, through: :author, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
