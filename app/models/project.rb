@@ -97,6 +97,7 @@ class Project < ApplicationRecord
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
+    ForkNotification.with(user: user, project: forked_project).deliver_later(forked_project.author)
     forked_project
   end
 
