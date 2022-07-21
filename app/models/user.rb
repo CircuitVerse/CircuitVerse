@@ -27,6 +27,9 @@ class User < ApplicationRecord
 
   has_many :pending_invitations, foreign_key: :email, primary_key: :email
 
+  # noticed configuration
+  has_many :notifications, as: :recipient, dependent: :destroy
+
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
@@ -59,9 +62,6 @@ class User < ApplicationRecord
     text :educational_institute
     text :country
   end
-
-  acts_as_target printable_name: :name, email: :email
-  acts_as_notifier printable_name: :name
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|

@@ -71,8 +71,6 @@ Rails.application.routes.draw do
 
   # users
 
-  notify_to :users, controller: "users/notifications"
-
   scope "/users" do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
     get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"

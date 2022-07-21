@@ -362,6 +362,9 @@ GEM
       racc (~> 1.4)
     nokogiri (1.13.6-x64-mingw32)
       racc (~> 1.4)
+    noticed (1.5.9)
+      http (>= 4.0.0)
+      rails (>= 5.2.0)
     oauth (0.5.8)
     oauth2 (1.4.9)
       faraday (>= 0.17.3, < 3.0)
@@ -717,6 +720,7 @@ DEPENDENCIES
   mailkick
   meta-tags
   newrelic_rpm (~> 8.8)
+  noticed (~> 1.5)
   oj (~> 3.13)
   omniauth
   omniauth-facebook
