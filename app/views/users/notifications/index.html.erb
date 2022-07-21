@@ -1,5 +1,26 @@
-<% @notifications.each do |notification| %>
-    <li>
-        <%= link_to notification.to_notification.message, notification.to_notification.url %>
-    </li>
-<% end %>
+<div class="container">
+  <h1><strong>Notifications</strong></h1>
+  <div class="d-flex justify-content-between mt-3">
+    <div class="tab_container">
+      <span class="active">All</span>
+      <span>Unread</span>
+    </div>
+    <div>
+      <a class="anchor-text" href="#" >Mark all as read</a>
+    </div>
+  </div>
+  <div class="d-flex flex-column bd-highlight mb-3 mt-3 notifications_container">
+    <% @notifications.each do |notification| %>
+      <%= link_to notification.to_notification.url, class: 'mb-2 mt-2 notification' do %>
+        <div class="d-flex align-items-center">
+          <span><i class="<%= notification.to_notification.icon %>"></i></span>
+          <div class="d-flex flex-column message_wrapper">
+            <span class="message"><%= notification.to_notification.message %></span>
+            <span class="timestamp">14 Oct, 2022</span>
+          </div>
+          <span class="unseen_active"></span>
+        </div>        
+      <% end %>
+    <% end %>
+  </div>
+</div>

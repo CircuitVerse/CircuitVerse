@@ -1,7 +1,4 @@
-# To deliver this notification:
-#
-# ForkNotification.with(post: @post).deliver_later(current_user)
-# ForkNotification.with(post: @post).deliver(current_user)
+# frozen_string_literal: true
 
 class ForkNotification < Noticed::Base
   # Add your delivery methods
@@ -21,6 +18,10 @@ class ForkNotification < Noticed::Base
     user = User.find(params[:user][:id])
     project = Project.find(params[:project][:id])
     "#{user.name} Forked your Project '#{project.name}'"
+  end
+
+  def icon
+    "fas fa-code-branch"
   end
 
   def url

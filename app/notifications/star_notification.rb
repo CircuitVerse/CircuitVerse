@@ -1,7 +1,4 @@
-# To deliver this notification:
-#
-# StarNotification.with(post: @post).deliver_later(current_user)
-# StarNotification.with(post: @post).deliver(current_user)
+# frozen_string_literal: true
 
 class StarNotification < Noticed::Base
   # Add your delivery methods
@@ -21,6 +18,10 @@ class StarNotification < Noticed::Base
     user = User.find(params[:user][:id])
     project = Project.find(params[:project][:id])
     "#{user.name} starred your Project '#{project.name}'"
+  end
+
+  def icon
+    "far fa-star fa-thin"
   end
 
   def url

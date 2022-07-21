@@ -414,4 +414,61 @@
   overflow-y: scroll;
   padding: 10px;
 }
+
+// notification page
+.tab_container span {
+  margin-right: 20px;
+  padding-bottom: 5px;
+}
+.tab_container .active {
+  font-weight: bold;
+  border-bottom: 3px solid $primary-green;
+}
+.notification {
+  position: relative;
+  border: 1.5px solid #00000029;
+  border-radius: 3px;
+  box-shadow: 0 0 5px 1px $shadow-black;
+  padding: 12px 24px;
+
+  i {
+    background: #0000001f;
+    font-size: 22px;
+    color: $secondary-green;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+
+  .fa-star {
+    padding: 12px 10px;
+  }
+
+  .fa-code-branch {
+    padding: 12px 15px;    
+  }
+
+  .message {
+    color: #212529;
+    font-size: 17px;
+  }
+
+  .timestamp {
+    font-size: 14px;
+    color: $iframe-container-grey;
+  }
+
+  .unseen_active {
+    width: 12px;
+    height: 12px;
+    background: #026e57;
+    border-radius: 50%;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+}
+.notification:hover {
+  text-decoration: none;
+  background-color: #0000000a;
+}
 //user profile ends
