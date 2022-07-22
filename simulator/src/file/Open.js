@@ -1,22 +1,24 @@
-import load from "../data/load";
+import load from '../data/load';
 
 var circuitData = null;
 const GetDialogData = () => '<div><div><label for="CircuitDataFile">Choose a File</label><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
 
-export const ImportCircuitFiles = () => {
+const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').empty();
-    $('#ImportCircuitFilesDialog').append(GetDialogData())
+    $('#ImportCircuitFilesDialog').append(GetDialogData());
     $('#ImportCircuitFilesDialog').dialog({
         resizable: false,
         close() {
-            circuitData && load(circuitData);
+            if (circuitData) load(circuitData);
         },
-        buttons: [{
-            text: 'Close',
-            click() {
-                $(this).dialog('close');
+        buttons: [
+            {
+                text: 'Close',
+                click() {
+                    $(this).dialog('close');
+                },
             },
-        }],
+        ],
     });
     $('#ImportCircuitFilesDialog').focus();
 
@@ -35,5 +37,6 @@ export const ImportCircuitFiles = () => {
             alert('File Not Supported !');
         }
     });
-
 };
+
+export default ImportCircuitFiles;

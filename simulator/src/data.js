@@ -19,8 +19,8 @@ import {
 } from './Verilog2CV';
 import { generateVerilog } from './verilog';
 import { bitConverterDialog } from './utils';
-import { ExportCircuitFiles } from './file/SaveAs';
-import { ImportCircuitFiles } from './file/Open';
+import ExportCircuitFiles from './file/SaveAs';
+import ImportCircuitFiles from './file/Open';
 
 // Hack to restart tour guide
 function showTourGuideHelper() {

@@ -7,6 +7,7 @@ const GetDialogData = () => {
     Input.name = 'fileName';
     Input.setAttribute('placeholder', fileName);
     Input.id = 'filename';
+    Input.defaultValue = fileName;
     const Label = document.createElement('label');
     Label.setAttribute('for', 'filename');
     Label.textContent = 'File Name';
@@ -19,22 +20,24 @@ const GetDialogData = () => {
 /**
  * To Export Circuit Files
  */
-export const ExportCircuitFiles = () => {
+const ExportCircuitFiles = () => {
     $('#ExportCircuitFilesDialog').empty();
     $('#ExportCircuitFilesDialog').append(GetDialogData());
     $('#ExportCircuitFilesDialog').dialog({
-      resizable: false,
-      buttons: [
-        {
-          text: 'Save',
-          click() {
-            var fileName = $('#projectName').text().trim() || 'untitled';
-            const circuitData = generateSaveData(fileName);
-            fileName = fileName.split('.')[0] + '.cv';
-            download(fileName, circuitData);
-            $(this).dialog('close');
-          },
-        }],
+        resizable: false,
+        buttons: [
+            {
+                text: 'Save',
+                click() {
+                    var fileName = $('#filename').val() || 'untitled';
+                    const circuitData = generateSaveData(fileName);
+                    fileName = fileName.split('.')[0] + '.cv';
+                    download(fileName, circuitData);
+                    $(this).dialog('close');
+                },
+            }],
     });
     $('#ExportCircuitFilesDialog').focus();
 };
+
+export default ExportCircuitFiles;

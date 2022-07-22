@@ -8,7 +8,7 @@ import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
 import { generateSaveData, getProjectName, setProjectName } from './save';
 import load from './load';
-import { ImportCircuitFiles } from '../file/Open';
+import ImportCircuitFiles from '../file/Open';
 /**
  * Helper function to recover unsaved data
  * @category data
