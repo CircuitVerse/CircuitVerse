@@ -20,7 +20,7 @@ class Project < ApplicationRecord
   belongs_to :assignment, optional: true
 
   has_noticed_notifications model_name: "Notification"
-  has_many :notifications, through: :author, dependent: :destroy
+  has_many :notifications, through: :author
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
@@ -97,7 +97,10 @@ class Project < ApplicationRecord
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
-    ForkNotification.with(user: user, project: forked_project).deliver_later(forked_project.author)
+    @project = Project.find(id)
+    if @project.author != user
+      ForkNotification.with(user: user, project: forked_project).deliver_later(@project.author)
+    end
     forked_project
   end
 
@@ -108,20 +111,6 @@ class Project < ApplicationRecord
       UserMailer.forked_project_email(author, forked_project, self).deliver_later
     end
   end
-
-  acts_as_notifiable :users,
-                     # Notification targets as :targets is a necessary option
-                     targets: lambda { |project, _key|
-                       [project.forked_project.author]
-                     },
-                     notifier: :author,
-                     printable_name: lambda { |project|
-                       "forked your project \"#{project.name}\""
-                     },
-                     notifiable_path: :project_notifiable_path,
-                     optional_targets: {
-                       CustomOptionalTarget::WebPush => {}
-                     }
 
   def project_notifiable_path
     user_project_path(forked_project.author, forked_project)
