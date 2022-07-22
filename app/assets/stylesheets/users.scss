@@ -419,6 +419,7 @@
 .tab_container span {
   margin-right: 20px;
   padding-bottom: 5px;
+  cursor: pointer;
 }
 .tab_container .active {
   font-weight: bold;
@@ -467,6 +468,7 @@
     top: 15px;
   }
 }
+
 .notification:hover {
   text-decoration: none;
   background-color: #0000000a;

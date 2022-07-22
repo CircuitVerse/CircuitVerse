@@ -1,15 +1,15 @@
-<div class="container">
+<div class="container" data-controller="notifications" >
   <h1><strong>Notifications</strong></h1>
   <div class="d-flex justify-content-between mt-3">
     <div class="tab_container">
-      <span class="active">All</span>
-      <span>Unread</span>
+      <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications" >All</span>
+      <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications">Unread</span>
     </div>
     <div>
       <a class="anchor-text" href="#">Mark all as read</a>
     </div>
   </div>
-  <div class="d-flex flex-column bd-highlight mb-3 mt-3 notifications_container">
+  <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-3 mt-3 notifications_container">
     <% @notifications.each do |notification| %>
       <%= link_to notification.to_notification.url, class: 'mb-2 mt-2 notification' do %>
         <div class="d-flex align-items-center">
@@ -28,13 +28,29 @@
         </div>   
       <% end %>
     <% end %>
-    <% if @notifications.count == 0 %>
-        <div class="col-12 row center-row">
-          <div class="search-no-results-image">
-            <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
-            <h6>You do not have any notifications!</h6>
-          </div>
-      </div>
+  </div>
+  <div id="unread-notifications-div" class="d-none flex-column bd-highlight mb-3 mt-3 notifications_container">
+    <% @notifications.each do |notification| %>
+      <% if notification.unread? %>
+        <%= link_to notification.to_notification.url, class: 'mb-2 mt-2 notification' do %>
+          <div class="d-flex align-items-center">
+            <span><i class="<%= notification.to_notification.icon %>"></i></span>
+            <div class="d-flex flex-column message_wrapper">
+              <strong><span class="message"><%= notification.to_notification.message %></span></strong>
+              <span class="timestamp"><%= notification.created_at %></span>
+            </div>
+            <span class="unseen_active"></span>
+          </div>   
+        <% end %>
+      <% end %>
     <% end %>
   </div>
+  <% if @notifications.count == 0 %>
+    <div class="col-12 row center-row">
+      <div class="search-no-results-image">
+        <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+        <h6>You do not have any notifications!</h6>
+      </div>
+    </div>
+  <% end %>
 </div>
