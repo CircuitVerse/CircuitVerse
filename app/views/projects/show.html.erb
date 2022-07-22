@@ -130,7 +130,6 @@
               <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal"><%= t("projects.show.project_collaborator_add") %></a>
             </p>
           <% end %>
-          <p id="restricted_features"></p>
           <% if policy(@project).user_access? %>
             <hr class="projects-horizontal-rule">
             <p>
@@ -214,7 +213,6 @@
       if(restricted_feature.includes('Copy / Paste')) {
         $('#copy_paste').attr("style", "display:none")
       }
-      $('#restricted_features').html(`<strong>Restricted Features :</strong> ${restricted_feature}`);
     }
     <% end %>
     $("#deleteprojectModal").on("show.bs.modal", function(e) {
