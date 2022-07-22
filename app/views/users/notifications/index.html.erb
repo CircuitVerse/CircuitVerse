@@ -15,12 +15,26 @@
         <div class="d-flex align-items-center">
           <span><i class="<%= notification.to_notification.icon %>"></i></span>
           <div class="d-flex flex-column message_wrapper">
-            <span class="message"><%= notification.to_notification.message %></span>
-            <span class="timestamp">14 Oct, 2022</span>
+            <% if notification.unread? %>
+              <strong><span class="message"><%= notification.to_notification.message %></span></strong>
+            <% else %>
+              <span class="message"><%= notification.to_notification.message %></span>
+            <% end %>
+            <span class="timestamp"><%= notification.created_at %></span>
           </div>
-          <span class="unseen_active"></span>
+          <% if notification.unread? %>
+            <span class="unseen_active"></span>
+          <% end %>
         </div>   
       <% end %>
+    <% end %>
+    <% if @notifications.count == 0 %>
+        <div class="col-12 row center-row">
+          <div class="search-no-results-image">
+            <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+            <h6>You do not have any notifications!</h6>
+          </div>
+      </div>
     <% end %>
   </div>
 </div>
