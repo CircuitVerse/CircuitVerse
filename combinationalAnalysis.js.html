@@ -107,6 +107,78 @@ var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----
 var sampleInputListNames = ['A', 'B'];
 var sampleOutputListNames = ['X'];
 
+export const performCombinationalAnalysis = (inputNameList, outputNameList, booleanNameExpression, scope = globalScope) => {
+    var flag = 0;
+    var inputList = stripTags(inputNameList).split(',');
+    var outputList = stripTags(outputNameList).split(',');
+    var booleanExpression = booleanNameExpression;
+    inputList = inputList.map((x) => x.trim());
+    inputList = inputList.filter((e) => e);
+    outputList = outputList.map((x) => x.trim());
+    outputList = outputList.filter((e) => e);
+    booleanExpression = booleanExpression.replace(/ /g, '');
+    booleanExpression = booleanExpression.toUpperCase();
+
+    var booleanInputVariables = [];
+    for (var i = 0; i &lt; booleanExpression.length; i++) {
+        if ((booleanExpression[i] >= 'A' &amp;&amp; booleanExpression[i] &lt;= 'Z')) {
+            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
+                booleanInputVariables.push(booleanExpression[i]);
+            }
+        }
+    }
+    booleanInputVariables.sort();
+    if (inputList.length > 0 &amp;&amp; outputList.length > 0 &amp;&amp; booleanInputVariables.length == 0) {
+        createBooleanPrompt(inputList, outputList, null, scope);
+    }
+    else if (booleanInputVariables.length > 0 &amp;&amp; inputList.length == 0 &amp;&amp; outputList.length == 0) {
+        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
+        if(output != null) {
+            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
+        }
+    }
+    else if ((inputList.length == 0 || outputList.length == 0) &amp;&amp; booleanInputVariables == 0) {
+        alert('Enter Input / Output Variable(s) OR Boolean Function!');
+    }
+    else {
+        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
+    }
+};
+
+export const GenerateCircuit = (outputListNamesInteger, inputListNames, output, outputListNames, scope = globalScope) => {
+    var data = generateBooleanTableData(outputListNamesInteger);
+    // passing the hash values to avoid spaces being passed which is causing a problem
+    var minimizedCircuit = [];
+    let inputCount = inputListNames.length;
+    for (const output in data) {
+        let oneCount = data[output][1].length; // Number of ones
+        let zeroCount = data[output][0].length; // Number of zeroes
+        if(oneCount == 0) {
+            // Hardcode to 0 as output
+            minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
+        }
+        else if(zeroCount == 0) {
+            // Hardcode to 1 as output
+            minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
+        }
+        else {
+            // Perform KMap like minimzation
+            const temp = new BooleanMinimize(
+                inputListNames.length,
+                data[output][1].map(Number),
+                data[output].x.map(Number),
+            );
+            minimizedCircuit.push(temp.result);
+        }
+    }
+    if (output == null) {
+        drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
+    }
+    else {
+        drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
+    }
+};
+
 /**
  * The prompt for combinational analysis
  * @param {Scope=} - the circuit in which we want combinational analysis
@@ -128,43 +200,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                 style: 'padding: 5px',
                 text: 'Next',
                 click() {
-                    var inputList = stripTags($("#inputNameList").val()).split(',');
-                    var outputList = stripTags($("#outputNameList").val()).split(',');
-                    var booleanExpression = $('#booleanExpression').val();
-                    inputList = inputList.map((x) => x.trim());
-                    inputList = inputList.filter((e) => e);
-                    outputList = outputList.map((x) => x.trim());
-                    outputList = outputList.filter((e) => e);
-                    booleanExpression = booleanExpression.replace(/ /g, '');
-                    booleanExpression = booleanExpression.toUpperCase();
-
-                    var booleanInputVariables = [];
-                    for (var i = 0; i &lt; booleanExpression.length; i++) {
-                        if ((booleanExpression[i] >= 'A' &amp;&amp; booleanExpression[i] &lt;= 'Z')) {
-                            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
-                                booleanInputVariables.push(booleanExpression[i]);
-                            }
-                        }
-                    }
-                    booleanInputVariables.sort();
-
-                    if (inputList.length > 0 &amp;&amp; outputList.length > 0 &amp;&amp; booleanInputVariables.length == 0) {
-                        $(this).dialog('close');
-                        createBooleanPrompt(inputList, outputList, null, scope);
-                    }
-                    else if (booleanInputVariables.length > 0 &amp;&amp; inputList.length == 0 &amp;&amp; outputList.length == 0) {
-                        $(this).dialog('close');
-                        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
-                        if(output != null) {
-                            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
-                        }
-                    }
-                    else if ((inputList.length == 0 || outputList.length == 0) &amp;&amp; booleanInputVariables == 0) {
-                        alert('Enter Input / Output Variable(s) OR Boolean Function!');
-                    }
-                    else {
-                        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
-                    }
+                    performCombinationalAnalysis($("#inputNameList").val(), $("#outputNameList").val(), $('#booleanExpression').val());
                 },
             },
         ],
@@ -239,37 +275,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
                 text: 'Generate Circuit',
                 click() {
                     $(this).dialog('close');
-                    var data = generateBooleanTableData(outputListNamesInteger);
-                    // passing the hash values to avoid spaces being passed which is causing a problem
-                    var minimizedCircuit = [];
-                    let inputCount = inputListNames.length;
-                    for (const output in data) {
-                        let oneCount = data[output][1].length; // Number of ones
-                        let zeroCount = data[output][0].length; // Number of zeroes
-                        if(oneCount == 0) {
-                            // Hardcode to 0 as output
-                            minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
-                        }
-                        else if(zeroCount == 0) {
-                            // Hardcode to 1 as output
-                            minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
-                        }
-                        else {
-                            // Perform KMap like minimzation
-                            const temp = new BooleanMinimize(
-                                inputListNames.length,
-                                data[output][1].map(Number),
-                                data[output].x.map(Number),
-                            );
-                            minimizedCircuit.push(temp.result);
-                        }
-                    }
-                    if (output == null) {
-                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
-                    }
-                    else {
-                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
-                    }
+                    GenerateCircuit(outputListNamesInteger, inputListNames, output, outputListNames);
                 },
             },
             {
@@ -452,7 +458,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
  * @param {Array}  inputListNames - labels for input nodes
  * @param {String} booleanExpression - boolean expression which is to be solved
  */
-function solveBooleanFunction(inputListNames, booleanExpression) {
+export function solveBooleanFunction(inputListNames, booleanExpression) {
     let i;
     let j;
     let output = [];
