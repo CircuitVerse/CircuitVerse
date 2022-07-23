@@ -416,6 +416,16 @@
 }
 
 // notification page
+.notification-container {
+  width: 558px;
+}
+.notification_heading {
+  margin-top: 10px;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 30px;
+  color: #212529;
+}
 .tab_container span {
   margin-right: 20px;
   padding-bottom: 5px;
@@ -423,19 +433,19 @@
 }
 .tab_container .active {
   font-weight: bold;
-  border-bottom: 3px solid $primary-green;
+  border-bottom: 3px solid $notification-icons;
 }
 .notification {
   position: relative;
-  border: 1.5px solid #00000029;
-  border-radius: 3px;
-  box-shadow: 0 0 5px 1px $shadow-black;
-  padding: 12px 24px;
+  border-radius: 4px;
+  box-shadow: 0px 1px 4px rgba(63, 63, 68, 0.15), 0px 0px 1px rgba(0, 0, 0, 0.5);
+  padding: 14px 24px;
+  height: 78px;
 
   i {
-    background: #0000001f;
+    background: #F0F0F0;
     font-size: 22px;
-    color: $secondary-green;
+    color: $notification-icons;
     border-radius: 50%;
     margin-right: 20px;
   }
@@ -450,7 +460,7 @@
 
   .message {
     color: #212529;
-    font-size: 17px;
+    font-size: 16px;
   }
 
   .timestamp {
@@ -461,7 +471,7 @@
   .unseen_active {
     width: 12px;
     height: 12px;
-    background: #026e57;
+    background: #219653;
     border-radius: 50%;
     position: absolute;
     right: 15px;
