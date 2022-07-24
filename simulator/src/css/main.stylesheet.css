@@ -1837,15 +1837,42 @@ canvas {
     overflow: auto;
 }
 
-#ImportCircuitFilesDialog label {
-    color: var(--text-panel);
-    width: 30%;
-    height: 30px;
+#fileName {
+    font-size: 15px;
+    margin: 10px auto;
 }
 
-#ImportCircuitFilesDialog input {
-    width: 50%;
-    height: 30px;
+#ImportCircuitFilesDialog label{
+    color: var(--text-panel);
+}
+
+#message-box {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    border: 2px dashed white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: var(--text-panel);
+}
+
+#message-box i{
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+#CircuitDataFile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
 }
 
 /*! File Open dialog styles ends here*/

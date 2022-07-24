@@ -71,13 +71,13 @@ export function getTabsOrder() {
  * @return {JSON}
  * @category data
  */
-export function generateSaveData(name) {
+export function generateSaveData(name, setName = true) {
     data = {};
 
     // Prompts for name, defaults to Untitled
     name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
     data.name = stripTags(name);
-    setProjectName(data.name);
+    if (setName) setProjectName(data.name);
 
     // Save project details
     data.timePeriod = simulationArea.timePeriod;

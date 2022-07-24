@@ -1,7 +1,7 @@
 import load from '../data/load';
 
 var circuitData = null;
-const GetDialogData = () => '<div><div><label for="CircuitDataFile">Choose a File</label><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
+const GetDialogData = () => `<div><label for="CircuitDataFile">Choose file</label><div id="message-box"><i class="fas fa-plus"></i><br/>Browse files or Drag & Drop files here<div id="fileName">No file chosen!!</div><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>`;
 
 const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').empty();
