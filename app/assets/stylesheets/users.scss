@@ -414,8 +414,60 @@
   overflow-y: scroll;
   padding: 10px;
 }
+// notification dropdown
+.nvbar-3 {
+  position: relative;
+
+  .notification-count {
+    position: absolute;
+    background: $notification-icons;
+    color: white;
+    font-size: 10px;
+    height: 15px;
+    font-weight: bold;
+    width: 15px;
+    text-align: center;
+    border-radius: 50%;
+    right: 10px;
+    top: 4px;
+  }
+}
+
+.dropdown-notification {
+  width: 450px;
+  padding: 13px 15px;
+
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .cancel-button {
+    background: none;
+    border: none;
+    font-size: 20px;
+  }
+}
 
 // notification page
+.notification-icon {
+  height: 30px;
+  padding-top: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+
+.nb-notification {
+  position: relative;
+  padding: 18px 0;
+  border-bottom: 1px solid #F4F4F4;
+}
+
 .notification-container {
   width: 558px;
 }
@@ -435,13 +487,8 @@
   font-weight: bold;
   border-bottom: 3px solid $notification-icons;
 }
-.notification {
-  position: relative;
-  border-radius: 4px;
-  box-shadow: 0px 1px 4px rgba(63, 63, 68, 0.15), 0px 0px 1px rgba(0, 0, 0, 0.5);
-  padding: 14px 24px;
-  height: 78px;
 
+.notification, .nb-notification {
   i {
     background: #F0F0F0;
     font-size: 22px;
@@ -467,15 +514,29 @@
     font-size: 14px;
     color: $iframe-container-grey;
   }
+}
 
+.notification {
+  position: relative;
+  border-radius: 4px;
+  box-shadow: 0px 1px 4px rgba(63, 63, 68, 0.15), 0px 0px 1px rgba(0, 0, 0, 0.5);
+  padding: 14px 24px;
+  height: 78px;
+}
+
+.unseen_active {
+  width: 12px;
+  height: 12px;
+  background: #219653;
+  border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+
+.nb-notification {
   .unseen_active {
-    width: 12px;
-    height: 12px;
-    background: #219653;
-    border-radius: 50%;
-    position: absolute;
-    right: 15px;
-    top: 15px;
+    top: 22px;
   }
 }
 

@@ -1,0 +1,43 @@
+<% if user_signed_in? %>
+  <div class="navbar-nav nav-item dropdown">
+    <li class="nav-item px-1 nvbar-3" id="navbar-dropdown-3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+      <%= image_tag("SVGs/notificationIcon.svg", :alt=>"Notification Icon", :class=>"notification-icon" ) %>
+      <span class="notification-count"><%= @notifications.count %></span>
+    </li>
+    <div class="dropdown-menu dropdown-menu-right dropdown-notification" aria-labelledby="navbar-dropdown-3">
+      <div class="d-flex align-items-center justify-content-between">
+        <strong><h4>Notifications</h4></strong>
+        <button class="cancel-button">&#10005;</button>
+      </div>
+      <% @notifications.each do |notification| %>
+        <%= link_to notification.to_notification.url do %>
+          <div class="d-flex align-items-center nb-notification">
+            <span><i class="<%= notification.to_notification.icon %>"></i></span>
+            <div class="d-flex flex-column message_wrapper">
+              <% if notification.unread? %>
+                <strong><span class="message"><%= notification.to_notification.message %></span></strong>
+                <strong><span class="timestamp"><%= notification.created_at %></span></strong>
+              <% else %>
+                <span class="message"><%= notification.to_notification.message %></span>
+                <span class="timestamp"><%= notification.created_at %></span>
+              <% end %>
+            </div>
+            <% if notification.unread? %>
+              <span class="unseen_active"></span>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      <% if @notifications.count == 0 %>
+        <div class="col-12 row center-row">
+          <div class="search-no-results-image">
+            <h6>You do not have any notifications!</h6>
+          </div>
+        </div>
+      <% end %>
+      <div class="d-flex align-items-center justify-content-center mb-2 mt-3">
+        <%= link_to "See all", notifications_path(current_user), :class=>"anchor-text" %>
+      </div>
+    </div>
+  </div>
+<% end %>

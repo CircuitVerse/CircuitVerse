@@ -40,6 +40,7 @@
       <li class="nav-item px-1">
         <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t("layout.link_to_about") %></a>
       </li>
+      <%= render "layouts/notifications" %>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1">
