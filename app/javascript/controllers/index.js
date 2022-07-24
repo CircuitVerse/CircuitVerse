@@ -4,8 +4,10 @@
 
 import { application } from './application';
 
+import AssignmentController from './assignment_controller';
 import GroupsController from './groups_controller';
 import ProjectsController from './projects_controller';
 
 application.register('groups', GroupsController);
 application.register('projects', ProjectsController);
+application.register('assignment', AssignmentController);

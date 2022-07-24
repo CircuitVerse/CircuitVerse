@@ -202,4 +202,8 @@ a:not([href]):not([tabindex]) {
     transition: .2s ease-in-out;
   }
 }
+
+.restricted-feature-list {
+  display: none;
+}
 //assignment details ends

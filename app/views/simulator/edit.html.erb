@@ -704,6 +704,18 @@
 </div>
 
 <script>
+<% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
+let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
+if(restricted_feature.includes('Combinational Analysis Tool')) {
+  $('#createCombinationalAnalysisPrompt').attr("style", "display:none")
+}
+if(restricted_feature.includes('Verilog tools')) {
+  $('#generateVerilog').attr("style", "display:none")
+}
+<% end %>
+</script>
+
+<script>
   const embed = false;
   user_id = "<%= user_signed_in? ? " #{current_user.id.to_s} - #{current_user.name}" : "Guest user" %>";
   var listenToSimulator=true
