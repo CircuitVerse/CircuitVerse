@@ -100,7 +100,7 @@ gem "webpush"
 gem "bootsnap", require: false
 gem "rexml"
 
-gem "font-awesome-sass", "~> 5.13.1"
+gem "font-awesome-sass", "~> 6.1.2"
 
 gem "disposable_mail", "~> 0.1"
 gem "flipper-redis"
