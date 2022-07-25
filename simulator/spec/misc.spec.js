@@ -63,4 +63,9 @@ describe('Simulator Misc-Elements Testing', () => {
         const result = runAll(testData.SplitterUnEqual);
         expect(result.summary.passed).toBe(8);
     });
+
+    test('Force Gate working', () => {
+        const result = runAll(testData.ForceGate);
+        expect(result.summary.passed).toBe(2);
+    });
 });
