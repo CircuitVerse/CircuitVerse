@@ -1,7 +1,11 @@
 import load from '../data/load';
+import { generateSaveData } from '../data/save';
+
+const scopeSchema = ['layout', 'verilogMetadata', 'allNodes', 'id', 'name', 'restrictedCircuitElementsUsed', 'nodes'];
+const JSONSchema = ['name', 'timePeriod', 'clockEnabled', 'projectId', 'focussedCircuit', 'orderedTabs', 'scopes'];
 
 var circuitData = null;
-const GetDialogData = () => `<div><label for="CircuitDataFile">Choose file</label><div id="message-box"><i class="fas fa-plus"></i><br/>Browse files or Drag & Drop files here<div id="fileName">No file chosen!!</div><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>`;
+const GetDialogData = () => '<div><label for="CircuitDataFile">Choose file</label><div id="message-box"><i class="fas fa-plus"></i><br/>Browse files or Drag & Drop files here<div id="fileName">No file chosen!!</div><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
 
 const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').empty();
@@ -22,20 +26,40 @@ const ImportCircuitFiles = () => {
     });
     $('#ImportCircuitFilesDialog').focus();
 
+    function ValidateData(circuitData) {
+        try {
+            circuitData = JSON.parse(circuitData);
+            if (JSON.stringify(Object.keys(circuitData)) !== JSON.stringify(JSONSchema)) throw new Error(`Invalid JSON data`);
+            circuitData.scopes.forEach((scope) => {
+                const keys = Object.keys(scope); // get scope keys
+                scopeSchema.forEach((key) => {
+                    if (!keys.includes(key)) throw new Error('Invalid Scope data');
+                });
+            });
+            load(circuitData);
+            return true;
+        } catch (error) {
+            $('#fileName').html(`<div class="text-danger">${error}</div>`);
+            return false;
+        }
+    }
+
     function receivedText(e) {
-        circuitData = JSON.parse(e.target.result);
-        load(circuitData);
-        $('#ImportCircuitFilesDialog').dialog('close');
+        // backUp data
+        const backUp = JSON.parse(generateSaveData($('#projectName').text().trim(), false));
+        const valid = ValidateData(e.target.result); // validate data
+        if (!valid) {
+            // fallback
+            load(backUp);
+        } else {
+            $('#ImportCircuitFilesDialog').dialog('close');
+        }
     }
     $('#CircuitDataFile').on('change', (event) => {
         var File = event.target.files[0];
-        if (File !== null && File.name.split('.')[1] === 'cv') {
-            var fr = new FileReader();
-            fr.onload = receivedText;
-            fr.readAsText(File);
-        } else {
-            alert('File Not Supported !');
-        }
+        var fr = new FileReader();
+        fr.onload = receivedText;
+        fr.readAsText(File);
     });
 };
 
