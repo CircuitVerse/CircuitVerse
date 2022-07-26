@@ -1,8 +1,8 @@
 <div class="container notification-container" data-controller="notifications" >
   <h1 class="notification_heading">Notifications</h1>
   <div class="d-flex justify-content-between mt-3">
-    <div class="tab_container">
-      <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications" >All</span>
+    <div class="tab-container">
+      <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications">All</span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications">Unread</span>
     </div>
     <div>
@@ -24,9 +24,9 @@
             <% end %>
           </div>
           <% if notification.unread? %>
-            <span class="unseen_active"></span>
+            <span class="unseen-active"></span>
           <% end %>
-        </div>   
+        </div>
       <% end %>
     <% end %>
   </div>
@@ -40,8 +40,8 @@
               <strong><span class="message"><%= notification.to_notification.message %></span></strong>
               <span class="timestamp"><%= notification.created_at %></span>
             </div>
-            <span class="unseen_active"></span>
-          </div>   
+            <span class="unseen-active"></span>
+          </div>
         <% end %>
       <% end %>
     <% end %>

@@ -478,22 +478,22 @@
   font-size: 30px;
   color: #212529;
 }
-.tab_container span {
+.tab-container span {
+  cursor: pointer;
   margin-right: 20px;
   padding-bottom: 5px;
-  cursor: pointer;
 }
-.tab_container .active {
-  font-weight: bold;
+.tab-container .active {
   border-bottom: 3px solid $notification-icons;
+  font-weight: bold;
 }
 
 .notification, .nb-notification {
   i {
     background: #F0F0F0;
-    font-size: 22px;
-    color: $notification-icons;
     border-radius: 50%;
+    color: $notification-icons;
+    font-size: 22px;
     margin-right: 20px;
   }
 
@@ -502,7 +502,7 @@
   }
 
   .fa-code-branch {
-    padding: 12px 15px;    
+    padding: 12px 15px;
   }
 
   .message {
@@ -524,10 +524,10 @@
   height: 78px;
 }
 
-.unseen_active {
+.unseen-active {
   width: 12px;
   height: 12px;
-  background: #219653;
+  background: $primary-green;
   border-radius: 50%;
   position: absolute;
   right: 15px;
@@ -535,13 +535,13 @@
 }
 
 .nb-notification {
-  .unseen_active {
+  .unseen-active {
     top: 22px;
   }
 }
 
 .notification:hover {
-  text-decoration: none;
   background-color: #0000000a;
+  text-decoration: none;
 }
 //user profile ends
