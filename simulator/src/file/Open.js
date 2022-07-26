@@ -5,7 +5,7 @@ const scopeSchema = ['layout', 'verilogMetadata', 'allNodes', 'id', 'name', 'res
 const JSONSchema = ['name', 'timePeriod', 'clockEnabled', 'projectId', 'focussedCircuit', 'orderedTabs', 'scopes'];
 
 var circuitData = null;
-const GetDialogData = () => '<div><label for="CircuitDataFile">Choose file</label><div id="message-box"><i class="fas fa-plus"></i><br/>Browse files or Drag & Drop files here<div id="fileName">No file chosen!!</div><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
+const GetDialogData = () => '<div><label for="CircuitDataFile">Choose file</label><div id="message-box"><i class="fas fa-plus"></i><br/>Browse files or Drag & Drop files here<div id="message">No file chosen!!</div><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
 
 const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').empty();
@@ -39,7 +39,7 @@ const ImportCircuitFiles = () => {
             load(circuitData);
             return true;
         } catch (error) {
-            $('#fileName').html(`<div class="text-danger">${error}</div>`);
+            $('#message').text(`${error}`);
             return false;
         }
     }

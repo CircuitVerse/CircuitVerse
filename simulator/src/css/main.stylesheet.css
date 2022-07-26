@@ -1837,9 +1837,9 @@ canvas {
     overflow: auto;
 }
 
-#fileName {
-    font-size: 15px;
-    margin: 10px auto;
+#message {
+    color: rgb(167, 0, 0);
+    margin: 20px auto;
 }
 
 #ImportCircuitFilesDialog label{
