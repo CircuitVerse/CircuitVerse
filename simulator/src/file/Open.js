@@ -28,15 +28,15 @@ const ImportCircuitFiles = () => {
 
     function ValidateData(fileData) {
         try {
-            const parse_fileData = JSON.parse(fileData);
-            if (JSON.stringify(Object.keys(parse_fileData)) !== JSON.stringify(JSONSchema)) throw new Error('Invalid JSON data');
-            parse_fileData.scopes.forEach((scope) => {
+            const parsedFileDate = JSON.parse(fileData);
+            if (JSON.stringify(Object.keys(parsedFileDate)) !== JSON.stringify(JSONSchema)) throw new Error('Invalid JSON data');
+            parsedFileDate.scopes.forEach((scope) => {
                 const keys = Object.keys(scope); // get scope keys
                 scopeSchema.forEach((key) => {
                     if (!keys.includes(key)) throw new Error('Invalid Scope data');
                 });
             });
-            load(parse_fileData);
+            load(parsedFileDate);
             return true;
         } catch (error) {
             $('#message').text(`${error}`);
