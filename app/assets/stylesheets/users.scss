@@ -420,7 +420,7 @@
 
   .notification-count {
     position: absolute;
-    background: $notification-icons;
+    background: $primary-green;
     color: white;
     font-size: 10px;
     height: 15px;
@@ -456,10 +456,10 @@
 
 // notification page
 .notification-icon {
-  height: 30px;
-  padding-top: 10px;
-  margin: 0 10px;
-  cursor: pointer;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 
 .nb-notification {
