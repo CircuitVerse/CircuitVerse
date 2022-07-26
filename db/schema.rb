@@ -75,6 +75,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_044222) do
     t.json "restrictions", default: "[]"
     t.string "lti_consumer_key"
     t.string "lti_shared_secret"
+    t.jsonb "feature_restrictions", default: {}
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 

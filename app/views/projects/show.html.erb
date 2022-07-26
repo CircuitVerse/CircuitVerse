@@ -108,7 +108,7 @@
               </a>
               <% end %>
               <% if policy(@project).author_access? %>
-                <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
+                <%= link_to create_fork_project_path(@project),id:"copy_paste", class: "btn primary-button projects-primary-button", method: :post do %>
                   <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
                   <span><%= t("projects.show.project_copy") %></span>
                 <% end %>
@@ -126,7 +126,7 @@
             </p>
           <% end %>
           <% if policy(@project).author_access? %>
-            <p>
+            <p id="collaboration_button">
               <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal"><%= t("projects.show.project_collaborator_add") %></a>
             </p>
           <% end %>
@@ -205,6 +205,16 @@
 
 <script>
   $(document).ready(function() {
+    <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %> {
+      let restricted_feature = '<%= @project.assignment.feature_restrictions %>';
+      if(restricted_feature.includes('Allow Collaborators')) {
+        $('#collaboration_button').attr("style", "display:none")
+      }
+      if(restricted_feature.includes('Copy / Paste')) {
+        $('#copy_paste').attr("style", "display:none")
+      }
+    }
+    <% end %>
     $("#deleteprojectModal").on("show.bs.modal", function(e) {
         let author = $(e.relatedTarget).data('currentauthor');
         let project = $(e.relatedTarget).data('currentproject');
