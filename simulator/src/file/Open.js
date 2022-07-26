@@ -26,17 +26,17 @@ const ImportCircuitFiles = () => {
     });
     $('#ImportCircuitFilesDialog').focus();
 
-    function ValidateData(circuitData) {
+    function ValidateData(fileData) {
         try {
-            circuitData = JSON.parse(circuitData);
-            if (JSON.stringify(Object.keys(circuitData)) !== JSON.stringify(JSONSchema)) throw new Error(`Invalid JSON data`);
-            circuitData.scopes.forEach((scope) => {
+            const parse_fileData = JSON.parse(fileData);
+            if (JSON.stringify(Object.keys(parse_fileData)) !== JSON.stringify(JSONSchema)) throw new Error('Invalid JSON data');
+            parse_fileData.scopes.forEach((scope) => {
                 const keys = Object.keys(scope); // get scope keys
                 scopeSchema.forEach((key) => {
                     if (!keys.includes(key)) throw new Error('Invalid Scope data');
                 });
             });
-            load(circuitData);
+            load(parse_fileData);
             return true;
         } catch (error) {
             $('#message').text(`${error}`);

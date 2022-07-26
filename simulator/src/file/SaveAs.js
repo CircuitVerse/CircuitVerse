@@ -31,7 +31,7 @@ const ExportCircuitFiles = () => {
                 click() {
                     var fileName = $('#filename').val() || 'untitled';
                     const circuitData = generateSaveData(fileName.split('.')[0], false);
-                    fileName = fileName.split('.')[0] + '.cv';
+                    fileName = `${fileName.split('.')[0]}.cv`;
                     download(fileName, circuitData);
                     $(this).dialog('close');
                 },
