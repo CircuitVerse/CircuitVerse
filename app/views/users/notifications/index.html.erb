@@ -6,8 +6,7 @@
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications">Unread</span>
     </div>
     <div>
-      <%= link_to "Mark all as read", mark_all_as_read(current_user) %>
-      <a class="anchor-text" href="#">Mark all as read</a>
+      <%= link_to "Mark all as read", mark_all_as_read_url(current_user), class: "anchor-text" %>
     </div>
   </div>
   <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-3 mt-3 notifications_container">
@@ -30,9 +29,17 @@
         </div>
       <% end %>
     <% end %>
+    <% if @notifications.count == 0 %>
+      <div class="col-12 row center-row">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+          <h6>You do not have any notifications!</h6>
+        </div>
+      </div>
+    <% end %>
   </div>
   <div id="unread-notifications-div" class="d-none flex-column bd-highlight mb-3 mt-3 notifications_container">
-    <% @notifications.each do |notification| %>
+    <% @unread.each do |notification| %>
       <% if notification.unread? %>
         <%= link_to notification.to_notification.url, class: 'mb-2 mt-2 notification' do %>
           <div class="d-flex align-items-center">
@@ -46,13 +53,13 @@
         <% end %>
       <% end %>
     <% end %>
-  </div>
-  <% if @notifications.count == 0 %>
-    <div class="col-12 row center-row">
-      <div class="search-no-results-image">
-        <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
-        <h6>You do not have any notifications!</h6>
+    <% if @unread.count == 0 %>
+      <div class="col-12 row center-row">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+          <h6>You do not have any unread notifications!</h6>
+        </div>
       </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
