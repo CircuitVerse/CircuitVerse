@@ -56,7 +56,6 @@ class ApplicationController < ActionController::Base
     end
 
     def set_notifications
-      @notifications = Notification.where(recipient: current_user).newest_first.limit(5)
       @unread = Notification.where(recipient: current_user).newest_first.limit(5).unread
     end
 

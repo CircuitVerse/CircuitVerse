@@ -17,10 +17,10 @@
           <div class="d-flex flex-column message_wrapper">
             <% if notification.unread? %>
               <strong><span class="message"><%= notification.to_notification.message %></span></strong>
-              <strong><span class="timestamp"><%= notification.created_at %></span></strong>
+              <strong><span class="timestamp"><%= get_time_in_words(notification.created_at) %> ago</span></strong>
             <% else %>
               <span class="message"><%= notification.to_notification.message %></span>
-              <span class="timestamp"><%= notification.created_at %></span>
+              <span class="timestamp"><%= get_time_in_words(notification.created_at) %> ago</span>
             <% end %>
           </div>
           <% if notification.unread? %>
@@ -46,7 +46,7 @@
             <span><i class="<%= notification.to_notification.icon %>"></i></span>
             <div class="d-flex flex-column message_wrapper">
               <strong><span class="message"><%= notification.to_notification.message %></span></strong>
-              <strong><span class="timestamp"><%= notification.created_at %></span></strong>
+              <strong><span class="timestamp"><%= get_time_in_words(notification.created_at) %> ago</span></strong>
             </div>
             <span class="unseen-active"></span>
           </div>
