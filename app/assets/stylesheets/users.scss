@@ -419,23 +419,23 @@
   position: relative;
 
   .notification-count {
-    position: absolute;
     background: $primary-green;
-    color: white;
-    font-size: 10px;
-    height: 15px;
-    font-weight: bold;
-    width: 15px;
-    text-align: center;
     border-radius: 50%;
+    color: $white;
+    font-size: 10px;
+    font-weight: bold;
+    height: 15px;
+    position: absolute;
     right: 10px;
+    text-align: center;
     top: 4px;
+    width: 15px;
   }
 }
 
 .dropdown-notification {
-  width: 450px;
   padding: 13px 15px;
+  width: 450px;
 
   h4 {
     font-size: 20px;
@@ -449,7 +449,7 @@
 
   .cancel-button {
     background: none;
-    border: none;
+    border: 0;
     font-size: 20px;
   }
 }
@@ -463,20 +463,19 @@
 }
 
 .nb-notification {
-  position: relative;
+  border-bottom: 1px solid $notification-container-boxshadow;
   padding: 18px 0;
-  border-bottom: 1px solid #F4F4F4;
+  position: relative;
 }
 
 .notification-container {
   width: 558px;
 }
-.notification_heading {
-  margin-top: 10px;
+.notification-heading {
+  font-size: 30px;
   font-style: normal;
   font-weight: 600;
-  font-size: 30px;
-  color: #212529;
+  margin-top: 10px;
 }
 .tab-container span {
   cursor: pointer;
@@ -488,9 +487,10 @@
   font-weight: bold;
 }
 
-.notification, .nb-notification {
+.notification,
+.nb-notification {
   i {
-    background: #F0F0F0;
+    background: #f0f0f0;
     border-radius: 50%;
     color: $notification-icons;
     font-size: 22px;
@@ -506,22 +506,22 @@
   }
 
   .message {
-    color: #212529;
+    color: $navbar-dark-grey;
     font-size: 16px;
   }
 
   .timestamp {
-    font-size: 14px;
     color: $iframe-container-grey;
+    font-size: 14px;
   }
 }
 
 .notification {
-  position: relative;
   border-radius: 4px;
-  box-shadow: 0px 1px 4px rgba(63, 63, 68, 0.15), 0px 0px 1px rgba(0, 0, 0, 0.5);
-  padding: 14px 24px;
+  box-shadow: 0 1px 4px rgba(63, 63, 68, .15), 0 0 1px rgba(0, 0, 0, 0.5);
   height: 78px;
+  padding: 14px 24px;
+  position: relative;
 }
 
 .unseen-active {
