@@ -81,3 +81,11 @@ hi:
       login_with_sso: "सिंगल साइन ऑन"
     unlocks:
       resend_unlock_instructions: "अनलॉक करने के निर्देश फिर से भेजें"
+    notifications:
+      heading: "नोटिफिकेशन्स"
+      all: "सभी"
+      unread: "अपठित"
+      mark_as_read_button: "सभी को पढ़ा हुआ मार्क करें"
+      no_notifications: "आपके पास कोई नोटिफिकेशन्स नहीं है!"
+      no_unread_notifications: "आपके पास कोई अपठित नोटिफिकेशन्स नहीं है!"
+      see_all : "सभी देखें"

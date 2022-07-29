@@ -81,3 +81,11 @@ en:
       login_with_sso: "Single Sign On"
     unlocks:
       resend_unlock_instructions: "Resend unlock instructions"
+    notifications:
+      heading: "Notifications"
+      all: "All"
+      unread: "Unread"
+      mark_as_read_button: "Mark all as read"
+      no_notifications: "You do not have any notifications!"
+      no_unread_notifications: "You do not have any unread notifications!"
+      see_all : "See All"

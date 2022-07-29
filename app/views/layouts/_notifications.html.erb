@@ -8,7 +8,7 @@
     </li>
     <div class="dropdown-menu dropdown-menu-right dropdown-notification" aria-labelledby="navbar-dropdown-3">
       <div class="d-flex align-items-center justify-content-between">
-        <strong><h4>Notifications</h4></strong>
+        <strong><h4><%= t("users.notifications.heading") %></h4></strong>
         <button class="cancel-button">&#10005;</button>
       </div>
       <% @unread.each do |notification| %>
@@ -33,12 +33,12 @@
       <% if @unread.count == 0 %>
         <div class="col-12 row center-row">
           <div class="search-no-results-image">
-            <h6>You do not have any new notifications!</h6>
+            <h6><%= t("users.notifications.no_unread_notifications") %></h6>
           </div>
         </div>
       <% end %>
       <div class="d-flex align-items-center justify-content-center mb-2 mt-3">
-        <%= link_to "See all", notifications_path(current_user), :class=>"anchor-text" %>
+        <%= link_to t("users.notifications.see_all"), notifications_path(current_user), :class=>"anchor-text" %>
       </div>
     </div>
   </div>

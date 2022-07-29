@@ -1,12 +1,12 @@
 <div class="container notification-container" data-controller="notifications" >
-  <h1 class="notification-heading">Notifications</h1>
+  <h1 class="notification-heading"><%= t("users.notifications.heading") %></h1>
   <div class="d-flex justify-content-between mt-3">
     <div class="tab-container">
-      <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications">All</span>
-      <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications">Unread</span>
+      <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
+      <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
     </div>
     <div>
-      <%= link_to "Mark all as read", mark_all_as_read_url(current_user), class: "anchor-text" %>
+      <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), class: "anchor-text" %>
     </div>
   </div>
   <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-3 mt-3 notifications_container">
@@ -33,7 +33,7 @@
       <div class="col-12 row center-row">
         <div class="search-no-results-image">
           <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
-          <h6>You do not have any notifications!</h6>
+          <h6><%= t("users.notifications.no_notifications") %></h6>
         </div>
       </div>
     <% end %>
@@ -57,7 +57,7 @@
       <div class="col-12 row center-row">
         <div class="search-no-results-image">
           <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
-          <h6>You do not have any unread notifications!</h6>
+          <h6><%= t("users.notifications.no_unread_notifications") %></h6>
         </div>
       </div>
     <% end %>
