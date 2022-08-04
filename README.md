@@ -6,6 +6,6 @@ The project focuses on replacing JqueryUI with a modern frontend framework.
 
 1. Decoupling the Simulator from backend
 2. Dividing into Components
-3. Sate Management
+3. State Management
 4. Refactoring CSS
 5. Internationalization using Vue-i18n
