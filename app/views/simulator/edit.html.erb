@@ -53,6 +53,13 @@
           <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
+      <li class="dropdown nav-dropdown">
+        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.view") %><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+         <li><a class="dropdown-item text-left pl-1" id="testbench_Link">Testbench</a></li>
+         <li><a class="dropdown-item text-left pl-1" id="timing_Diagram">Timing Diagram</a></li>
+        </ul>
+      </li>
       <li class="dropdown tour-help nav-dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
@@ -190,7 +197,7 @@
     <div class="accordion" id="subcircuitMenu"></div>
   </div>
 </div>
-<div class="timing-diagram-panel draggable-panel">
+<div id="TimingDiagram" class="timing-diagram-panel draggable-panel" style="display:none;">
 <div class="panel-header">Timing Diagram
   <span class="fas fa-minus-square minimize panel-button"></span>
   <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
@@ -219,7 +226,7 @@
     </div>
   </div>
 </div>
-<div class="testbench-manual-panel draggable-panel noSelect defaultCursor">
+<div id="testbenchDialog"  style="display: none;" class="testbench-manual-panel draggable-panel noSelect defaultCursor">
   <div class="panel-header">Testbench
     <span class="fas fa-minus-square minimize panel-button"></span>
     <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
@@ -304,8 +311,8 @@
     <div class="layout-body">
       <div>
         <p class="text-center mb-2">Select a theme: </p>
-          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">    
-            <optgroup label="Light Themes">     
+          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">
+            <optgroup label="Light Themes">
               <option>default</option>
               <option>solarized</option>
               <option>elegant</option>
@@ -702,7 +709,24 @@
     </div>
   </div>
 </div>
+<script>
+  // To hide and show testbench and Timing Diagram dialogs
+  $('#testbench_Link').click((event) => {
+    if ($('#testbenchDialog').css('display') === 'none') {
+        $('#testbenchDialog').show();
+      } else {
+        $('#testbenchDialog').hide();
+      }
+  });
 
+  $('#timing_Diagram').click((event) => {
+    if ($('#TimingDiagram').css('display') === 'none') {
+        $('#TimingDiagram').show();
+      } else {
+        $('#TimingDiagram').hide();
+      }
+  });
+</script>
 <script>
 <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
 let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
