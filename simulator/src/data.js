@@ -13,12 +13,15 @@ import { generateVerilog } from './verilog';
 import { bitConverterDialog } from './utils';
 
 const logixFunction = {};
-logixFunction.save = save;
+logixFunction.saveOnline = save;
+logixFunction.saveOnlineButton = save;
 logixFunction.load = load;
 logixFunction.createSaveAsImgPrompt = createSaveAsImgPrompt;
+logixFunction.createSaveAsImgPromptButton = createSaveAsImgPrompt;
 logixFunction.clearProject = clearProject;
 logixFunction.newProject = newProject;
 logixFunction.saveOffline = saveOffline;
+logixFunction.saveOfflineButton = saveOffline;
 logixFunction.newCircuit = newCircuit;
 logixFunction.createOpenLocalPrompt = openOffline;
 logixFunction.recoverProject = recoverProject;

@@ -25,7 +25,7 @@
              <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
           <% end %>
           <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="saveOnline">Save Online</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
            <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
@@ -98,11 +98,11 @@
       </svg>
       </span></div>
       <div>
-        <button type="button" class="quick-btn-save-online logixButton" id="save" title="Save Online" onclick="">
+        <button type="button" class="quick-btn-save-online logixButton" id="saveOnlineButton" title="Save Online" onclick="">
         </button>
       </div>
       <div>
-        <button type="button" class="quick-btn-save logixButton"  id="saveOffline" title="Save Offline" onclick="">
+        <button type="button" class="quick-btn-save logixButton"  id="saveOfflineButton" title="Save Offline" onclick="">
         </button>
       </div>
       <div>
@@ -110,7 +110,7 @@
         </button>
       </div>
       <div>
-        <button type="button" class="quick-btn-download logixButton" id="createSaveAsImgPrompt" title="Download as Image" onclick="">
+        <button type="button" class="quick-btn-download logixButton" id="createSaveAsImgPromptButton" title="Download as Image" onclick="">
         </button>
       </div>
       <div>
