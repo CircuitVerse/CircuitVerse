@@ -1,6 +1,6 @@
 en:
   simulator:
-    nav_item: 
+    nav_item:
       project: "Project"
       circuit: "Circuit"
       tools: "Tools"

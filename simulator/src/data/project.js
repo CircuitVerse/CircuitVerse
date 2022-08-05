@@ -6,9 +6,9 @@
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
 import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
-import {generateSaveData, getProjectName, setProjectName} from './save';
+import { generateSaveData, getProjectName, setProjectName } from './save';
 import load from './load';
-
+import ImportCircuitFiles from '../file/Open';
 /**
  * Helper function to recover unsaved data
  * @category data
@@ -25,7 +25,6 @@ export function recoverProject() {
     }
 }
 
-
 /**
  * Prompt to restore from localStorage
  * @category data
@@ -38,9 +37,9 @@ export function openOffline() {
         flag = false;
         $('#openProjectDialog').append(`<label class="option custom-radio"><input type="radio" name="projectId" value="${id}" />${projectList[id]}<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject('${id}')"></i></label>`);
     }
-    if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>');
+    if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create or upload a new one and save it!</p>');
     $('#openProjectDialog').dialog({
-        resizable:false,
+        resizable: false,
         width: 'auto',
         buttons: !flag ? [{
             id: 'Open_offline_btn',
@@ -51,7 +50,13 @@ export function openOffline() {
                 window.projectId = $('input[name=projectId]:checked').val();
                 $(this).dialog('close');
             },
-        }] : [],
+        }] : [{
+            text: 'Open CV File',
+            click() {
+                $(this).dialog('close');
+                ImportCircuitFiles();
+            },
+        }],
 
     });
 }
@@ -64,7 +69,6 @@ var projectSaved = true;
 export function projectSavedSet(param) {
     projectSaved = param;
 }
-
 
 /**
  * Helper function to store to localStorage -- needs to be deprecated/removed
@@ -107,7 +111,6 @@ window.onbeforeunload = function () {
     // eslint-disable-next-line consistent-return
     return 'Are u sure u want to leave? Any unsaved changes may not be recoverable';
 };
-
 
 /**
  * Function to clear project
