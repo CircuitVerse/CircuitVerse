@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
     end
 
     def set_notifications
-      @unread = Notification.where(recipient: current_user).newest_first.limit(5).unread
+      @unread = NoticedNotification.where(recipient: current_user).newest_first.limit(5).unread
     end
 
     def storable_location?

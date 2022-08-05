@@ -7,7 +7,7 @@ class Star < ApplicationRecord
   belongs_to :project
   after_create_commit :notify_recipient
   before_destroy :cleanup_notification
-  has_noticed_notifications model_name: "Notification"
+  has_noticed_notifications model_name: "NoticedNotification"
 
   def star_notifiable_path
     user_project_path(project.author, project)

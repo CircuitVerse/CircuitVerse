@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_21_044222) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_05_052628) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -250,7 +250,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_044222) do
     t.index ["user_type", "user_id"], name: "index_mailkick_opt_outs_on_user_type_and_user_id"
   end
 
-  create_table "notifications", force: :cascade do |t|
+  create_table "noticed_notifications", force: :cascade do |t|
     t.string "recipient_type", null: false
     t.bigint "recipient_id", null: false
     t.string "type", null: false
@@ -258,11 +258,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_044222) do
     t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["read_at"], name: "index_notifications_on_read_at"
-    t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient"
+    t.index ["read_at"], name: "index_noticed_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
-  create_table "old_notifications", force: :cascade do |t|
+  create_table "notifications", force: :cascade do |t|
     t.string "target_type", null: false
     t.bigint "target_id", null: false
     t.string "notifiable_type", null: false
@@ -277,11 +277,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_044222) do
     t.datetime "opened_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["group_owner_id"], name: "index_old_notifications_on_group_owner_id"
-    t.index ["group_type", "group_id"], name: "index_old_notifications_on_group_type_and_group_id"
-    t.index ["notifiable_type", "notifiable_id"], name: "index_old_notifications_on_notifiable_type_and_notifiable_id"
-    t.index ["notifier_type", "notifier_id"], name: "index_old_notifications_on_notifier_type_and_notifier_id"
-    t.index ["target_type", "target_id"], name: "index_old_notifications_on_target_type_and_target_id"
+    t.index ["group_owner_id"], name: "index_notifications_on_group_owner_id"
+    t.index ["group_type", "group_id"], name: "index_notifications_on_group_type_and_group_id"
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
+    t.index ["notifier_type", "notifier_id"], name: "index_notifications_on_notifier_type_and_notifier_id"
+    t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
   end
 
   create_table "pending_invitations", force: :cascade do |t|
