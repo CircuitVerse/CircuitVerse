@@ -104,6 +104,20 @@ class Project < ApplicationRecord
     forked_project
   end
 
+  acts_as_notifiable :users,
+  # Notification targets as :targets is a necessary option
+  targets: lambda { |project, _key|
+    [project.forked_project.author]
+  },
+  notifier: :author,
+  printable_name: lambda { |project|
+    "forked your project \"#{project.name}\""
+  },
+  notifiable_path: :project_notifiable_path,
+  optional_targets: {
+    CustomOptionalTarget::WebPush => {}
+  }
+
   def send_mail
     if forked_project_id.nil?
       UserMailer.new_project_email(author, self).deliver_later if project_submission == false
