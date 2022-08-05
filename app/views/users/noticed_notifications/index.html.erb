@@ -1,3 +1,9 @@
+<% if @unread.count == 0 %>
+  <% content_for :title, "Notifications" %>
+<% else %>
+  <% content_for :title, "(#{@unread.count}) - Notifications" %>
+<% end %>
+
 <div class="container notification-container" data-controller="notifications" >
   <h1 class="notification-heading"><%= t("users.notifications.heading") %></h1>
   <div class="d-flex justify-content-between mt-3">

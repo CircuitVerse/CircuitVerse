@@ -1,7 +1,4 @@
-# To deliver this notification:
-#
-# PreviousNotification.with(post: @post).deliver_later(current_user)
-# PreviousNotification.with(post: @post).deliver(current_user)
+# frozen_string_literal: true
 
 class PreviousNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
@@ -23,7 +20,7 @@ class PreviousNotification < Noticed::Base
   def icon
     if params[:type] == "Star"
       "far fa-star fa-thin"
-    else 
+    else
       "fas fa-code-branch"
     end
   end

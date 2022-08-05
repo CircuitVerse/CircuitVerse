@@ -10,7 +10,6 @@ class Star < ApplicationRecord
   has_noticed_notifications model_name: "NoticedNotification"
 
   acts_as_notifiable :users,
-  # Notification targets as :targets is a necessary option
   targets: lambda { |star, _key|
     [star.project.author]
   },
