@@ -16,14 +16,19 @@ class PreviousNotification < Noticed::Base
   # Define helper methods to make rendering easier.
   #
   def message
-    "Hello"
+    user = User.find(params[:user_id])
+    "#{user.name} #{params[:message]}"
   end
 
   def icon
-    "far fa-star fa-thin"
+    if params[:type] == "Star"
+      "far fa-star fa-thin"
+    else 
+      "fas fa-code-branch"
+    end
   end
 
-  def URL
-    root_path
+  def url
+    params[:path]
   end
 end

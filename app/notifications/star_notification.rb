@@ -17,7 +17,7 @@ class StarNotification < Noticed::Base
   def message
     user = User.find(params[:user][:id])
     project = Project.find(params[:project][:id])
-    "#{user.name} starred your Project '#{project.name}'"
+    "#{user.name} starred your Project \"#{project.name}\""
   end
 
   def icon

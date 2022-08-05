@@ -8,7 +8,9 @@ class PopulateNotificationData < ActiveRecord::Migration[7.0]
         :type => "PreviousNotification",
         :params => {
           user_id: data.notifier_id,
-          path: data.notifiable_path
+          path: data.notifiable_path,
+          message: data.notifiable.printable_notifiable_name(data.target),
+          type: data.notifiable_type
         },
         :read_at => data.opened_at
       )
