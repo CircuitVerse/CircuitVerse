@@ -83,6 +83,15 @@ describe ProjectsController, type: :request do
       end
     end
 
+    context "star notification" do
+      it "notify author" do
+        get change_stars_path(@project), xhr: true
+        expect do
+          StarNotification.with(user: @user, project: @project).deliver_later(@project.author)
+        end.to change { @author.noticed_notifications.count }.by(1)
+      end
+    end
+
     context "user has already starred" do
       before do
         FactoryBot.create(:star, project: @project, user: @user)
@@ -109,6 +118,15 @@ describe ProjectsController, type: :request do
           @user.reload
         end.to change { @user.projects.count }.by(1)
         expect(@user.projects.order("created_at").last.forked_project_id).to eq(@project.id)
+      end
+    end
+
+    context "fork notification" do
+      it "notify author" do
+        get change_stars_path(@project), xhr: true
+        expect do
+          ForkNotification.with(user: @user, project: @project).deliver_later(@project.author)
+        end.to change { @author.noticed_notifications.count }.by(1)
       end
     end
 
