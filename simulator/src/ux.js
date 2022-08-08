@@ -345,9 +345,9 @@ export function showProperties(obj) {
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
         if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
 
-        if (obj.changeInputSize) { $(moduleProperty.modulePropertyInner).append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
+        if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
 
-        if (!obj.propagationDelayFixed) { $(moduleProperty.modulePropertyInner).append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
+        if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
 
         if (!obj.disableLabel)
         $(moduleProperty.modulePropertyInner).append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
@@ -501,63 +501,6 @@ export function deleteSelected() {
     scheduleUpdate();
     updateRestrictedElementsInScope();
 }
-
-/**
- * listener for opening the prompt for bin conversion
- * @category ux
- */
-$('#bitconverter').on('click',() => {
-    $('#bitconverterprompt').dialog({
-    resizable:false,
-        buttons: [
-            {
-                text: 'Reset',
-                click() {
-                    $('#decimalInput').val('0');
-                    $('#binaryInput').val('0');
-                    $('#octalInput').val('0');
-                    $('#hexInput').val('0');
-                },
-            },
-        ],
-    });
-});
-
-// convertors
-const convertors = {
-    dec2bin: (x) => `0b${x.toString(2)}`,
-    dec2hex: (x) => `0x${x.toString(16)}`,
-    dec2octal: (x) => `0${x.toString(8)}`,
-};
-
-function setBaseValues(x) {
-    if (isNaN(x)) return;
-    $('#binaryInput').val(convertors.dec2bin(x));
-    $('#octalInput').val(convertors.dec2octal(x));
-    $('#hexInput').val(convertors.dec2hex(x));
-    $('#decimalInput').val(x);
-}
-
-$('#decimalInput').on('keyup', () => {
-    var x = parseInt($('#decimalInput').val(), 10);
-    setBaseValues(x);
-});
-
-$('#binaryInput').on('keyup', () => {
-    var x = parseInt($('#binaryInput').val(), 2);
-    setBaseValues(x);
-});
-
-$('#hexInput').on('keyup', () => {
-    var x = parseInt($('#hexInput').val(), 16);
-    setBaseValues(x);
-});
-
-$('#octalInput').on('keyup', () => {
-    var x = parseInt($('#octalInput').val(), 8);
-    setBaseValues(x);
-});
-
 export function setupPanels() {
     $('#dragQPanel')
         .on('mousedown', () => $('.quick-btn').draggable({ disabled: false, containment: 'window' }))

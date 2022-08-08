@@ -66,12 +66,12 @@ function startListeners() {
         }
     });
     window.addEventListener('mousemove', onMouseMove);
-  
-    
+
+
     window.addEventListener('keydown', function(e) {
 
-        if(document.activeElement.tagName == "INPUT") return; 
-        
+        if(document.activeElement.tagName == "INPUT") return;
+
         if(listenToSimulator){
         // If mouse is focusing on input element, then override any action
         // if($(':focus').length){
@@ -102,7 +102,7 @@ function startListeners() {
           simulationArea.controlDown = true;
         }
 
-        
+
         // zoom in (+)
         if ((simulationArea.controlDown && (e.keyCode == 187 || e.keyCode == 171))||e.keyCode==107) {
             e.preventDefault();
@@ -239,7 +239,7 @@ function startListeners() {
             e.preventDefault();
             window.open('https://docs.circuitverse.org/', '_blank');
         }
-    }       
+    }
   })
 
 
@@ -250,7 +250,7 @@ function startListeners() {
             simulationArea.lastSelected.dblclick();
         }
 
-//       not needed becasue we do that with one click , but leaving it as it is will not harm 
+//       not needed becasue we do that with one click , but leaving it as it is will not harm
         if (!simulationArea.shiftDown) {
             simulationArea.multipleObjectSelections = [];
         }
@@ -279,7 +279,7 @@ function startListeners() {
 
     document.addEventListener('cut', function(e) {
 
-        if(document.activeElement.tagName == "INPUT") return; 
+        if(document.activeElement.tagName == "INPUT") return;
 
         if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -307,7 +307,7 @@ function startListeners() {
 
     document.addEventListener('copy', function(e) {
 
-        if(document.activeElement.tagName == "INPUT") return; 
+        if(document.activeElement.tagName == "INPUT") return;
 
         if(listenToSimulator){
         simulationArea.copyList = simulationArea.multipleObjectSelections.slice();
@@ -334,7 +334,7 @@ function startListeners() {
 
     document.addEventListener('paste', function(e) {
 
-        if(document.activeElement.tagName == "INPUT") return; 
+        if(document.activeElement.tagName == "INPUT") return;
 
         if(listenToSimulator){
         var data;
@@ -483,7 +483,7 @@ $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 });
 
-// direction is only 1 or -1 
+// direction is only 1 or -1
 function handleZoom(direction) {
     if (globalScope.scale > 0.5 * DPR) {
       changeScale(direction * 0.1 * DPR);
@@ -492,11 +492,11 @@ function handleZoom(direction) {
     }
     gridUpdate = true;
   }
-  
+
   function ZoomIn() {
     handleZoom(1);
   }
-  
+
   function ZoomOut() {
     handleZoom(-1);
   }

@@ -2,7 +2,7 @@
     "name": "misc",
     "timePeriod": 500,
     "clockEnabled": true,
-    "projectId": "HhiaxytWIHYjH3B15SW3",
+    "projectId": "Z66aSelqsnFvwJteATxg",
     "focussedCircuit": 60033074305,
     "orderedTabs": [
         "60033074305"
@@ -11,7 +11,7 @@
         {
             "layout": {
                 "width": 100,
-                "height": 300,
+                "height": 320,
                 "title_x": 50,
                 "title_y": 13,
                 "titleEnabled": true
@@ -271,7 +271,8 @@
                     "label": "",
                     "connections": [
                         17,
-                        22
+                        22,
+                        72
                     ]
                 },
                 {
@@ -485,7 +486,8 @@
                     "label": "",
                     "connections": [
                         39,
-                        41
+                        41,
+                        69
                     ]
                 },
                 {
@@ -707,116 +709,81 @@
                     "connections": [
                         62
                     ]
-                }
-            ],
-            "testbenchData": {
-                "currentCase": 0,
-                "currentGroup": 0,
-                "testData": {
-                    "type": "comb",
-                    "title": "Adder",
-                    "groups": [
-                        {
-                            "label": "Group 1",
-                            "inputs": [
-                                {
-                                    "label": "inp1",
-                                    "bitWidth": 1,
-                                    "values": [
-                                        "0",
-                                        "0",
-                                        "0",
-                                        "0",
-                                        "1",
-                                        "1",
-                                        "1",
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "label": "inp2",
-                                    "bitWidth": 1,
-                                    "values": [
-                                        "0",
-                                        "0",
-                                        "1",
-                                        "1",
-                                        "0",
-                                        "0",
-                                        "1",
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "label": "inp3",
-                                    "bitWidth": 1,
-                                    "values": [
-                                        "0",
-                                        "1",
-                                        "0",
-                                        "1",
-                                        "0",
-                                        "1",
-                                        "0",
-                                        "1"
-                                    ]
-                                }
-                            ],
-                            "outputs": [
-                                {
-                                    "label": "Adder-out1",
-                                    "bitWidth": 1,
-                                    "values": [
-                                        "0",
-                                        "1",
-                                        "1",
-                                        "0",
-                                        "1",
-                                        "0",
-                                        "0",
-                                        "1"
-                                    ],
-                                    "results": [
-                                        "0",
-                                        "1",
-                                        "1",
-                                        "0",
-                                        "1",
-                                        "0",
-                                        "0",
-                                        "1"
-                                    ]
-                                },
-                                {
-                                    "label": "Adder-out2",
-                                    "bitWidth": 1,
-                                    "values": [
-                                        "0",
-                                        "0",
-                                        "0",
-                                        "1",
-                                        "0",
-                                        "1",
-                                        "1",
-                                        "1"
-                                    ],
-                                    "results": [
-                                        "0",
-                                        "0",
-                                        "0",
-                                        "1",
-                                        "0",
-                                        "1",
-                                        "1",
-                                        "1"
-                                    ]
-                                }
-                            ],
-                            "n": 8
-                        }
+                },
+                {
+                    "x": -20,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        72
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        70
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        71
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": 700,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        44,
+                        70
+                    ]
+                },
+                {
+                    "x": 60,
+                    "y": 700,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        69,
+                        67
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        68
+                    ]
+                },
+                {
+                    "x": -170,
+                    "y": 640,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        23,
+                        66
                     ]
                 }
-            },
+            ],
             "id": 60033074305,
             "name": "Main",
             "Input": [
@@ -885,7 +852,7 @@
                             "output1": 7
                         },
                         "values": {
-                            "state": 1
+                            "state": 0
                         },
                         "constructorParamaters": [
                             "RIGHT",
@@ -1273,6 +1240,29 @@
                             }
                         ]
                     }
+                },
+                {
+                    "x": 170,
+                    "y": 640,
+                    "objectType": "Output",
+                    "label": "Force-out",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 71
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 300,
+                                "id": "iHSRiMZgMM6EXgN1xPfJ"
+                            }
+                        ]
+                    }
                 }
             ],
             "Splitter": [
@@ -1512,6 +1502,48 @@
                     }
                 }
             ],
+            "ForceGate": [
+                {
+                    "x": 60,
+                    "y": 640,
+                    "objectType": "ForceGate",
+                    "label": "force gate",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "output1": 68,
+                            "inp1": 66,
+                            "inp2": 67
+                        }
+                    }
+                },
+                {
+                    "x": 60,
+                    "y": 640,
+                    "objectType": "ForceGate",
+                    "label": "force gate",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "output1": 68,
+                            "inp1": 66,
+                            "inp2": 67
+                        }
+                    }
+                }
+            ],
             "restrictedCircuitElementsUsed": [],
             "nodes": [
                 10,
@@ -1530,7 +1562,10 @@
                 50,
                 55,
                 56,
-                63
+                63,
+                69,
+                70,
+                72
             ]
         }
     ]

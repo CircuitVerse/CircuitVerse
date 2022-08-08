@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ActionController::API
-  include Pundit
+  include Pundit::Authorization
   include CustomErrors
   include ActionController::RequestForgeryProtection
   protect_from_forgery with: :exception, if: lambda {
