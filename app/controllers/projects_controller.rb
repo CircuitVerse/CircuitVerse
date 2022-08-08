@@ -34,7 +34,6 @@ class ProjectsController < ApplicationController
     end
     @collaboration = @project.collaborations.new
     @admin_access = true
-    mark_notification_as_read
     commontator_thread_show(@project)
   end
 
@@ -148,11 +147,5 @@ class ProjectsController < ApplicationController
     # Sanitize description before passing to view
     def sanitize_project_description
       @project.description = sanitize_description(@project.description)
-    end
-
-    def mark_notification_as_read
-      return unless current_user
-
-      @project.notifications_as_project.where(recipient: current_user).update_all(read_at: Time.zone.now)
     end
 end

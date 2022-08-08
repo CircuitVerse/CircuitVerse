@@ -12,16 +12,16 @@
         <button class="cancel-button">&#10005;</button>
       </div>
       <% @unread.each do |notification| %>
-        <%= link_to notification.to_notification.url do %>
+        <%= link_to mark_as_read_path(notification.id), method: :post do %>
           <div class="d-flex align-items-center nb-notification">
             <span><i class="<%= notification.to_notification.icon %>"></i></span>
             <div class="d-flex flex-column message_wrapper">
               <% if notification.unread? %>
                 <strong><span class="message"><%= notification.to_notification.message %></span></strong>
-                <strong><span class="timestamp"><%= get_time_in_words(notification.created_at) %> ago</span></strong>
+                <strong><span class="timestamp"><%= get_time_in_words(notification.created_at) %></span></strong>
               <% else %>
                 <span class="message"><%= notification.to_notification.message %></span>
-                <span class="timestamp"><%= get_time_in_words(notification.created_at) %> ago</span>
+                <span class="timestamp"><%= get_time_in_words(notification.created_at) %></span>
               <% end %>
             </div>
             <% if notification.unread? %>
