@@ -11,7 +11,7 @@
         <strong><h4><%= t("users.notifications.heading") %></h4></strong>
         <button class="cancel-button">&#10005;</button>
       </div>
-      <% @unread.each do |notification| %>
+      <% @notification.each do |notification| %>
         <%= link_to mark_as_read_path(notification.id), method: :post do %>
           <div class="d-flex align-items-center nb-notification">
             <span><i class="<%= notification.to_notification.icon %>"></i></span>
@@ -30,7 +30,7 @@
           </div>
         <% end %>
       <% end %>
-      <% if @unread.count == 0 %>
+      <% if @notification.count == 0 %>
         <div class="col-12 row center-row">
           <div class="search-no-results-image">
             <h6><%= t("users.notifications.no_unread_notifications") %></h6>

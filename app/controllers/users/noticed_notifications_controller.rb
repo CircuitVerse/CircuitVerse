@@ -11,6 +11,7 @@ class Users::NoticedNotificationsController < ApplicationController
   def mark_as_read
     notification = NoticedNotification.find(params[:id])
     notification.update(read_at: Time.zone.now)
+    notification.save!
     if notification.type == "PreviousNotification"
       redirect_to notification.params[:url]
     else

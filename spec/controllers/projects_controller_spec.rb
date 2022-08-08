@@ -86,9 +86,7 @@ describe ProjectsController, type: :request do
     context "star notification" do
       it "notify author" do
         get change_stars_path(@project), xhr: true
-        expect do
-          StarNotification.with(user: @user, project: @project).deliver_later(@project.author)
-        end.to change { @author.noticed_notifications.count }.by(1)
+        expect(@author.noticed_notifications.count).to eq(1)
       end
     end
 
@@ -124,9 +122,7 @@ describe ProjectsController, type: :request do
     context "fork notification" do
       it "notify author" do
         get change_stars_path(@project), xhr: true
-        expect do
-          ForkNotification.with(user: @user, project: @project).deliver_later(@project.author)
-        end.to change { @author.noticed_notifications.count }.by(1)
+        expect(@author.noticed_notifications.count).to eq(1)
       end
     end
 
