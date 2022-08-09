@@ -13,7 +13,8 @@ class Users::NoticedNotificationsController < ApplicationController
     notification.update(read_at: Time.zone.now)
     notification.save!
     if notification.type == "PreviousNotification"
-      redirect_to notification.params[:url]
+      redirect_url = "#{Rails.env.development? ? 'http://localhost:3000' : 'https://circuitverse.org/'}#{notification.params[:path]}"
+      redirect_to redirect_url
     else
       project = Project.find(notification.params[:project][:id])
       redirect_to user_project_path(project.author, project)
