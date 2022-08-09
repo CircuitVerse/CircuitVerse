@@ -28,6 +28,8 @@
           <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="ExportCircuitFiles">Export as file</a></li>
+          <li><a class="dropdown-item logixButton text-left pl-1" id="ImportCircuitFiles">Import file</a></li>
            <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
@@ -102,7 +104,7 @@
         </button>
       </div>
       <div>
-        <button type="button" class="quick-btn-save logixButton"  id="saveOffline" title="Save Offline" onclick="">
+        <button type="button" class="quick-btn-save logixButton" id="ExportCircuitFiles" title="Export as file" onclick="">
         </button>
       </div>
       <div>
@@ -304,8 +306,8 @@
     <div class="layout-body">
       <div>
         <p class="text-center mb-2">Select a theme: </p>
-          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;">    
-            <optgroup label="Light Themes">     
+          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;" aria-label="select verilog theme">
+            <optgroup label="Light Themes">
               <option>default</option>
               <option>solarized</option>
               <option>elegant</option>
@@ -613,6 +615,20 @@
   </div>
 </div>
 
+<div
+  id="ExportCircuitFilesDialog"
+  class='customScroll'
+  tabindex="0"
+  style="display: none;"
+  title="Export as file"
+></div>
+<div
+  id="ImportCircuitFilesDialog"
+  class='customScroll'
+  tabindex="0"
+  style="display: none;"
+  title="Import as file"
+></div>
 <div
   id="combinationalAnalysis"
   style="display: none;"

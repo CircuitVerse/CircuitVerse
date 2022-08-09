@@ -190,7 +190,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
                 document.getElementById('circname').select();
             }, 100);
         });
-        
+
         $('.tabsCloseButton').on('click',function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
@@ -200,7 +200,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         }
         dots(false);
     }
-    
+
     return scope;
 }
 
@@ -248,7 +248,7 @@ export default class Scope {
         this.oy = 0;
         this.scale = DPR;
         this.stack = [];
-        
+
         this.initialize();
 
         // Setting default layout
