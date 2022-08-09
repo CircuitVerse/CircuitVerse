@@ -89,3 +89,5 @@ en:
       no_notifications: "You do not have any notifications!"
       no_unread_notifications: "You do not have any unread notifications!"
       see_all : "See All"
+      fork_notification: "%{user} forked your Project %{project}"
+      star_notification: "%{user} starred your Project %{project}"

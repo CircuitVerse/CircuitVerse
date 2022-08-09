@@ -183,8 +183,8 @@
 }
 
 .dropdown-menu {
-  border: none;
-  box-shadow: 0 0 10px 1px #d5d5d5;
+  border: 0;
+  box-shadow: 0 0 10px 1px $shadow-grey;
   top: 90%;
 }
 

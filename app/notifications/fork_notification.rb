@@ -17,7 +17,7 @@ class ForkNotification < Noticed::Base
   def message
     user = User.find(params[:user][:id])
     project = Project.find(params[:project][:id])
-    "#{user.name} Forked your Project \"#{project.name}\""
+    t("users.notifications.fork_notification", user: user.name, project: project.name)
   end
 
   def icon

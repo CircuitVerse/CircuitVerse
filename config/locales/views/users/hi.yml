@@ -89,3 +89,5 @@ hi:
       no_notifications: "आपके पास कोई नोटिफिकेशन्स नहीं है!"
       no_unread_notifications: "आपके पास कोई अपठित नोटिफिकेशन्स नहीं है!"
       see_all : "सभी देखें"
+      fork_notification: "%{user} ने आपके प्रोजेक्ट %{project} को फोर्क किया"
+      star_notification: "%{user} ने आपका प्रोजेक्ट %{project} स्टार किया"

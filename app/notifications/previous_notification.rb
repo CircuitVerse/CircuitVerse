@@ -14,7 +14,12 @@ class PreviousNotification < Noticed::Base
   #
   def message
     user = User.find(params[:user_id])
-    "#{user.name} #{params[:message]}"
+    project = Project.find(params[:project_id])
+    if params[:type] == "Star"
+      t("users.notifications.star_notification", user: user.name, project: project.name)
+    else
+      t("users.notifications.fork_notification", user: user.name, project: project.name)
+    end
   end
 
   def icon
