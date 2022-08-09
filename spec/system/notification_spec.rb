@@ -27,12 +27,12 @@ describe "Notifcation", type: :system do
     end
 
     it "render all notifications" do
-      expect(page).to have_text("#{@user.name} Forked your Project \"#{@project.name}\"")
+      expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
     end
 
     it "render all unread notifications" do
       page.find("#unread-notifications").click
-      expect(page).to have_text("#{@user.name} Forked your Project \"#{@project.name}\"")
+      expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
     end
 
     it "mark all notifications as read" do
@@ -41,7 +41,7 @@ describe "Notifcation", type: :system do
     end
 
     it "mark notification as read" do
-      click_on "#{@user.name} Forked your Project \"#{@project.name}\""
+      click_on "#{@user.name} forked your Project #{@project.name}"
       expect(@author.noticed_notifications.read.count).to eq(1)
     end
   end
