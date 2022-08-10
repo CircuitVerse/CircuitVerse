@@ -13,7 +13,12 @@ class Users::NoticedNotificationsController < ApplicationController
     notification.update(read_at: Time.zone.now)
     notification.save!
     if notification.params[:migrated] == true
-      project = Project.find(notification.params[:project_id])
+      if notification.type == "StarNotification"
+        project = Project.find(notification.params[:project_id])
+      else
+        forked_project = Project.find(notification.params[:project_id])
+        project = Project.find(forked_project.forked_project_id)
+      end
     else
       project = Project.find(notification.params[:project][:id])
     end
