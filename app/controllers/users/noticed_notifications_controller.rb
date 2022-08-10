@@ -12,7 +12,7 @@ class Users::NoticedNotificationsController < ApplicationController
     notification = NoticedNotification.find(params[:id])
     notification.update(read_at: Time.zone.now)
     notification.save!
-    if notification.type == "PreviousNotification"
+    if notification.params[:migrated] == true
       project = Project.find(notification.params[:project_id])
     else
       project = Project.find(notification.params[:project][:id])
