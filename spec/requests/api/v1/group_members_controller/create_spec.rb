@@ -47,6 +47,48 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       end
     end
 
+    context "when primary mentor is signed in and add mentors to the group" do
+      let(:mentor_params) do
+        {
+          group_id: group.id,
+          emails: "test@test.com, newuser@test.com, invalid",
+          mentor: true
+        }
+      end
+
+      before do
+        token = get_auth_token(primary_mentor)
+        post "/api/v1/groups/#{group.id}/members",
+              headers: { Authorization: "Token #{token}" },
+              params: mentor_params, as: :json
+      end
+
+      it "add mentors to the group" do
+        expect(GroupMember.mentor.count).to eq(1)
+      end
+    end
+
+    context "when primary mentor is signed in and add members to the group" do
+      let(:member_params) do
+        {
+          group_id: group.id,
+          emails: "test@test.com, newuser@test.com, invalid",
+          mentor: false
+        }
+      end
+
+      before do
+        token = get_auth_token(primary_mentor)
+        post "/api/v1/groups/#{group.id}/members",
+              headers: { Authorization: "Token #{token}" },
+              params: member_params, as: :json
+      end
+
+      it "add mentors to the group" do
+        expect(GroupMember.member.count).to eq(1)
+      end
+    end
+
     context "when authorized and has access to add group members" do
       before do
         token = get_auth_token(primary_mentor)
