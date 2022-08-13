@@ -11,17 +11,7 @@ class Users::NoticedNotificationsController < ApplicationController
   def mark_as_read
     notification = NoticedNotification.find(params[:id])
     notification.update(read_at: Time.zone.now)
-    notification.save!
-    if notification.params[:migrated] == true
-      if notification.type == "StarNotification"
-        project = Project.find(notification.params[:project_id])
-      else
-        forked_project = Project.find(notification.params[:project_id])
-        project = Project.find(forked_project.forked_project_id)
-      end
-    else
-      project = Project.find(notification.params[:project][:id])
-    end
+    project = Project.find(notification.params[:project_id])
     redirect_to user_project_path(project.author, project)
   end
 

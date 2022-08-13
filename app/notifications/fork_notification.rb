@@ -4,14 +4,8 @@ class ForkNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
 
   def message
-    if params[:migrated] == true
-      user = User.find(params[:user_id])
-      forked_project = Project.find(params[:project_id])
-      project = Project.find(forked_project.forked_project_id)
-    else
-      user = User.find(params[:user][:id])
-      project = Project.find(params[:project][:id])
-    end
+    user = User.find(params[:user_id])
+    project = Project.find(params[:project_id])
     t("users.notifications.fork_notification", user: user.name, project: project.name)
   end
 

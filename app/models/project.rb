@@ -29,6 +29,7 @@ class Project < ApplicationRecord
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
+  has_many :notifications, as: :notifiable
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
@@ -99,7 +100,7 @@ class Project < ApplicationRecord
     )
     @project = Project.find(id)
     if @project.author != user
-      ForkNotification.with(user: user, project: @project).deliver_later(@project.author)
+      ForkNotification.with(user_id: user.id, project_id: @project.id).deliver_later(@project.author)
     end
     forked_project
   end
