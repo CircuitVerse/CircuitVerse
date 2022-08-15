@@ -3,7 +3,6 @@
 # rubocop:disable Metrics/ClassLength
 
 require "pg_search"
-require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
@@ -104,20 +103,6 @@ class Project < ApplicationRecord
     end
     forked_project
   end
-
-  acts_as_notifiable :users,
-  # Notification targets as :targets is a necessary option
-  targets: lambda { |project, _key|
-    [project.forked_project.author]
-  },
-  notifier: :author,
-  printable_name: lambda { |project|
-    "forked your project \"#{project.name}\""
-  },
-  notifiable_path: :project_notifiable_path,
-  optional_targets: {
-    CustomOptionalTarget::WebPush => {}
-  }
 
   def send_mail
     if forked_project_id.nil?

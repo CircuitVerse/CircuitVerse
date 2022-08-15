@@ -94,7 +94,6 @@ gem "pg", "~> 1.3.5"
 gem "meta-tags"
 
 # Notifications
-gem "activity_notification"
 gem "webpush"
 
 gem "bootsnap", require: false

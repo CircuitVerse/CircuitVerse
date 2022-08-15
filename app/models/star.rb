@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "custom_optional_target/web_push"
-
 class Star < ApplicationRecord
   belongs_to :user
   belongs_to :project
@@ -9,21 +7,6 @@ class Star < ApplicationRecord
   before_destroy :cleanup_notification
   has_many :notifications, as: :notifiable
   has_noticed_notifications model_name: "NoticedNotification"
-
-  acts_as_notifiable :users,
-  targets: lambda { |star, _key|
-    [star.project.author]
-  },
-  notifier: :user,
-  printable_name: ->(star) { "starred your project \"#{star.project.name}\"" },
-  notifiable_path: :star_notifiable_path,
-  optional_targets: {
-    CustomOptionalTarget::WebPush => {}
-  }
-
-  def star_notifiable_path
-    user_project_path(project.author, project)
-  end
 
   private
 

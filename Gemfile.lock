@@ -70,11 +70,6 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    activity_notification (2.2.3)
-      i18n (>= 0.5.0)
-      jquery-rails (>= 3.1.1)
-      railties (>= 5.0.0, < 7.1)
-      swagger-blocks (>= 3.0.0)
     acts_as_votable (0.13.2)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
@@ -610,7 +605,6 @@ GEM
       rails (>= 3)
       sunspot (= 2.5.0)
     sunspot_solr (2.6.0)
-    swagger-blocks (3.0.0)
     sync (0.5.0)
     term-ansicolor (1.7.1)
       tins (~> 1.0)
@@ -675,7 +669,6 @@ PLATFORMS
   x64-mingw32
 
 DEPENDENCIES
-  activity_notification
   acts_as_votable (~> 0.13.2)
   ahoy_matey
   aws-sdk-rails

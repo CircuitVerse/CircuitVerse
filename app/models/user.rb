@@ -93,16 +93,6 @@ class User < ApplicationRecord
     )
   end
 
-  def send_push_notification(message, url = "")
-    push_subscriptions.each do |subscription|
-      subscription.send_push_notification(message, url)
-    rescue Webpush::Unauthorized
-      # Expired subscription, maybe user cleared browser data or revoked
-      # notification permission
-      push_subscriptions.destroy(subscription)
-    end
-  end
-
   def flipper_id
     "User:#{id}"
   end
