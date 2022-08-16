@@ -39,7 +39,7 @@ describe Users::NoticedNotificationsController, type: :request do
     end
 
     it "mark notification as read" do
-      post mark_as_read_path(@notification)
+      post mark_as_read_path(id: @author.id, notification_id: @notification)
       expect(@author.noticed_notifications.read.count).to eq(1)
     end
   end

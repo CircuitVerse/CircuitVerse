@@ -12,7 +12,7 @@
         <button class="cancel-button">&#10005;</button>
       </div>
       <% @notification.each do |notification| %>
-        <%= link_to mark_as_read_path(notification.id), method: :post do %>
+        <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post do %>
           <div class="d-flex align-items-center nb-notification">
             <span><i class="<%= notification.to_notification.icon %>"></i></span>
             <div class="d-flex flex-column message_wrapper">
