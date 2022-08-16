@@ -94,7 +94,6 @@ gem "pg", "~> 1.3.5"
 gem "meta-tags"
 
 # Notifications
-gem "activity_notification"
 gem "webpush"
 
 gem "bootsnap", require: false
@@ -114,6 +113,7 @@ gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
 gem "sprockets", "~> 4.1"
 gem "strong_migrations"
+gem 'rails-data-migrations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
@@ -174,3 +174,5 @@ gem "jsbundling-rails", "~> 1.0"
 
 gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
+
+gem "noticed", "~> 1.5"
