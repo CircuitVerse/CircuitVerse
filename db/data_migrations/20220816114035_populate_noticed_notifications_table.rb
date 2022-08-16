@@ -1,9 +1,9 @@
-class PopulateNoticedNotificationsTable < ActiveRecord::Migration[7.0]
+class PopulateNoticedNotificationsTable < ActiveRecord::DataMigration
   class Notification < ActiveRecord::Base
     belongs_to :notifiable, polymorphic: true
   end
 
-  def change
+  def up
     Notification.where(migrated: false).find_each do |notification|
       NoticedNotification.transaction do
         new_notification = NoticedNotification.create!(

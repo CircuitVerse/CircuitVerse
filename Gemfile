@@ -113,6 +113,7 @@ gem "recaptcha"
 gem "simple_discussion", "~> 1.3"
 gem "sprockets", "~> 4.1"
 gem "strong_migrations"
+gem 'rails-data-migrations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
