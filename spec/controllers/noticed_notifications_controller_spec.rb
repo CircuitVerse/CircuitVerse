@@ -15,7 +15,7 @@ describe Users::NoticedNotificationsController, type: :request do
         :noticed_notification,
         recipient: @author,
         params:
-          { user: @user, project: @project },
+          { user_id: @user.id, project_id: @project.id },
         read_at: nil
       )
     end
@@ -33,7 +33,7 @@ describe Users::NoticedNotificationsController, type: :request do
         :noticed_notification,
         recipient: @author,
         params:
-          { user: @user, project: @project },
+          { user_id: @user.id, project_id: @project.id },
         read_at: nil
       )
     end
@@ -50,7 +50,7 @@ describe Users::NoticedNotificationsController, type: :request do
         :noticed_notification,
         recipient: @author,
         params:
-          { user: @user, project: @project },
+          { user_id: @user.id, project_id: @project.id },
         read_at: nil
       )
     end
