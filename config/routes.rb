@@ -163,6 +163,9 @@ Rails.application.routes.draw do
       post "/oauth/signup", to: "authentication#oauth_signup"
       get  "/public_key.pem", to: "authentication#public_key"
       post "/password/forgot", to: "authentication#forgot_password"
+      get "/notifications", to: "notifications#index"
+      post "/notifications/mark_as_read/:notification_id", to: "notifications#mark_as_read"
+      get "/notifications/mark_all_as_read", to: "notifications#mark_all_as_read"
       get "/me", to: "users#me"
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
