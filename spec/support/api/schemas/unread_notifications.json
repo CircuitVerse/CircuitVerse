@@ -1,0 +1,46 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "recipient_type": { "type": "string" },
+              "recipient_id": { "type": "integer" },
+              "type": { "type": "string" },
+              "params": {
+                "type": "object",
+                "properties": {
+                  "user_id": { "type": "integer" },
+                  "project_id": { "type": "integer" }
+                },
+                "required": ["user_id", "project_id"]
+              },
+              "read_at": { "type": null },
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" },
+              "unread": { "type": "boolean" }
+            },
+            "required": [
+              "recipient_type",
+              "recipient_id",
+              "type",
+              "params",
+              "read_at",
+              "created_at",
+              "updated_at"
+            ]
+          }
+        },
+        "required": ["id", "type", "attributes"]
+      }
+    }
+  },
+  "required": ["data"]
+}
