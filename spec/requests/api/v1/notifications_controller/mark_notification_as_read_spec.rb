@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Api::V1::NotificationsController, "#mark_as_read", type: :request do
@@ -30,7 +32,7 @@ RSpec.describe Api::V1::NotificationsController, "#mark_as_read", type: :request
       it "mark notification as read" do
         token = get_auth_token(@author)
         post "/api/v1/notifications/mark_as_read/#{@notification.id}",
-            headers: { Authorization: "Token #{token}" }, as: :json
+             headers: { Authorization: "Token #{token}" }, as: :json
         expect(response).to have_http_status(:created)
         expect(response).to match_response_schema("read_notification")
       end
