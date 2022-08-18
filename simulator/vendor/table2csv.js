@@ -53,7 +53,7 @@ jQuery.fn.table2CSV = function(options) {
         var url='data:text/csv;charset=utf8,' + encodeURIComponent(mydata);
         window.open(url);
         return true;
-    } 
+    }
     else {
         var mydata = csvData.join('\n');
         if(options.transform_gt_lt){

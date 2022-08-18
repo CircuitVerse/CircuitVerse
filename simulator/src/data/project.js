@@ -9,6 +9,7 @@ import { checkIfBackup } from './backupCircuit';
 import { generateSaveData, getProjectName, setProjectName } from './save';
 import load from './load';
 import ImportCircuitFiles from '../file/Open';
+import { alertDialog } from '../dialogs/alertDialog';
 /**
  * Helper function to recover unsaved data
  * @category data
@@ -105,7 +106,7 @@ window.onbeforeunload = function () {
 
     if (!checkToSave()) return;
 
-    alert('You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?');
+    alertDialog('You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?');
     const data = generateSaveData('Untitled');
     localStorage.setItem('recover', data);
     // eslint-disable-next-line consistent-return

@@ -29,6 +29,7 @@ import { setupCodeMirrorEnvironment } from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
 import '../vendor/jquery-ui.min.css';
 import '../vendor/jquery-ui.min';
+import { alertDialog } from './dialogs/alertDialog';
 
 window.width = undefined;
 window.height = undefined;
@@ -165,7 +166,7 @@ export function setup() {
                     $('.loadingIcon').fadeOut();
                 },
                 failure() {
-                    alert('Error: could not load ');
+                    alertDialog('Error: could not load ');
                     $('.loadingIcon').fadeOut();
                 },
             });
