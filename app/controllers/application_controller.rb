@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
+  before_action :set_notifications, if: :current_user
   around_action :switch_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
@@ -52,6 +53,11 @@ class ApplicationController < ActionController::Base
 
     def extract_locale_from_accept_language_header
       request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first
+    end
+
+    def set_notifications
+      @unread = NoticedNotification.where(recipient: current_user).unread
+      @notification = NoticedNotification.where(recipient: current_user).newest_first.limit(5)
     end
 
     def storable_location?

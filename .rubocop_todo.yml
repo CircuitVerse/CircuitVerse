@@ -213,5 +213,4 @@ Layout/LineLength:
     - 'app/controllers/about_controller.rb'
     - 'app/helpers/group_members_helper.rb'
     - 'app/helpers/utils.rb'
-    - 'app/lib/custom_optional_target/web_push.rb'
     - 'app/models/user.rb'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_30_120750) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -249,6 +249,18 @@ ActiveRecord::Schema.define(version: 2022_04_30_120750) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_mailkick_opt_outs_on_email"
     t.index ["user_type", "user_id"], name: "index_mailkick_opt_outs_on_user_type_and_user_id"
+  end
+
+  create_table "noticed_notifications", force: :cascade do |t|
+    t.string "recipient_type", null: false
+    t.bigint "recipient_id", null: false
+    t.string "type", null: false
+    t.jsonb "params"
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["read_at"], name: "index_noticed_notifications_on_read_at"
+    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
   end
 
   create_table "notifications", force: :cascade do |t|

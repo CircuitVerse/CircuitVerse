@@ -114,7 +114,8 @@
 }
 
 #navbar-dropdown-1,
-#navbar-dropdown-2 {
+#navbar-dropdown-2,
+#navbar-dropdown-3 {
   &:hover {
     color: $primary-green;
   }
@@ -179,6 +180,12 @@
   max-width: 100px;
   min-width: 100px;
   padding-left: 5px;
+}
+
+.dropdown-menu {
+  border: 0;
+  box-shadow: 0 0 10px 1px $shadow-grey;
+  top: 90%;
 }
 
 //breakpoints
