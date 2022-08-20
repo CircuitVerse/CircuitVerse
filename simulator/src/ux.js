@@ -474,7 +474,7 @@ export function hideProperties() {
  * @param {HTML} unsafe - the html which we wants to escape
  * @category ux
  */
-function escapeHtml(unsafe) {
+export function escapeHtml(unsafe) {
     return unsafe
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')

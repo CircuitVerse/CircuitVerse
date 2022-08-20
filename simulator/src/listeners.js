@@ -18,7 +18,7 @@ import {
 } from './engine';
 import { changeScale, findDimensions } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
-import { hideProperties, deleteSelected, uxvar, fullView, createElement, exitFullView } from './ux';
+import { hideProperties, deleteSelected, uxvar, fullView, createElement, exitFullView, escapeHtml } from './ux';
 import {
     updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted,
 } from './restrictedElementDiv';
@@ -1032,7 +1032,7 @@ function zoomSliderListeners() {
             navMenuButton[0].style.height = '0';
         }
         var projectname = document.getElementById('ProjectID');
-        var Uniqueprojectname = getProjectName() || 'Untitled';
+        var Uniqueprojectname = escapeHtml(getProjectName()) || 'Untitled';
         projectname.innerHTML = `<p>${Uniqueprojectname}<p>`;
     }
 
