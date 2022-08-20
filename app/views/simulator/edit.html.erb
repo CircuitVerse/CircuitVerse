@@ -163,7 +163,7 @@
   <!-- /.navbar-collapse -->
 </nav>
 <div id="tabsBar" class="noSelect pointerCursor">
-  <button name="logixButton" class="logixButton" id="createNewCircuitScope" onclick=""><i class="fas fa-plus"></i></button>
+  <button name="logixButton" class="logixButton" id="createNewCircuitScope" onclick="" aria-label='logix button'><i class="fas fa-plus"></i></button>
 </div>
 <div title="Export Verilog" id="verilog-export-code-window-div" style="display:none"><textarea id="verilog-export-code-window"></textarea></div>
 <div id="code-window" class='code-window'><textarea id="codeTextArea"></textarea></div>
@@ -290,7 +290,7 @@
        </div>
        <div id="touch-cycle-unit">
        1 cycle =
-      <input name="timing-diagram-units" id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
+      <input name="timing-diagram-units" id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000" aria-label='timing diagram units'>
       Units
       </div>
       <span id='touch-timing-diagram-log'></span>

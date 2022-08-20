@@ -331,11 +331,11 @@ export function showProperties(obj) {
     else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'} aria-label='project''></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}' aria-label='clock time'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' aria-label='clock enabled'> <span class='slider'></span></label></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' aria-label='lite mode'> <span class='slider'></span> </label></p>`);
         $(moduleProperty.modulePropertyInner).append("<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button> </p>");
         // $('#moduleProperty-inner').append("<p>  ");
     } else {
@@ -343,14 +343,14 @@ export function showProperties(obj) {
 
         $(moduleProperty.modulePropertyInner).append(`<div class='moduleProperty-header'>${obj.objectType}</div>`);
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
-        if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
+        if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth} aria-label='bitwidth'></p>`); }
 
         if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
 
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
 
         if (!obj.disableLabel)
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text' name='setLabel' autocomplete='off' value='${escapeHtml(obj.label)}' aria-label='label'></p>`);
 
         var s;
         if (!obj.labelDirectionFixed) {
