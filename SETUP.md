@@ -9,7 +9,7 @@ If you have any setup problems, please ensure you have read through all the inst
 There are several ways to run your own instance of CircuitVerse:
 
 ### Gitpod Cloud Environment
-[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment. 
+[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
 
 Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod) and pull requests can be created following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
 
@@ -89,7 +89,7 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
    - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
       1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
       2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
-      3. To use OSS CAD Suite 
+      3. To use OSS CAD Suite
 
       **Other Linux distros and macOS**
       ```shell
@@ -170,7 +170,11 @@ bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 
 
 ## Tests
-Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec`
+
+Before making a pull request, it is a good idea to check that all tests are passing locally.
+
+- To run the system tests, run `bundle exec rspec` .
+- To run the simulator tests, run `yarn run test` .
 
 **Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
 
