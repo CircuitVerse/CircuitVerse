@@ -2,7 +2,7 @@
     "name": "Ripple-carry-adder",
     "timePeriod": 500,
     "clockEnabled": true,
-    "projectId": "blHgS52qzg06LmRf3qIy",
+    "projectId": "4XoG4GWmQZ9NS4om0iHI",
     "focussedCircuit": 93663071628,
     "orderedTabs": [
         "93663071628",
@@ -1936,7 +1936,7 @@
                     "x": 10,
                     "y": 0,
                     "type": 1,
-                    "bitWidth": "16",
+                    "bitWidth": 16,
                     "label": "",
                     "connections": [
                         7
@@ -1946,7 +1946,7 @@
                     "x": 10,
                     "y": 0,
                     "type": 1,
-                    "bitWidth": "16",
+                    "bitWidth": 16,
                     "label": "",
                     "connections": [
                         12
@@ -1956,7 +1956,7 @@
                     "x": -10,
                     "y": 30,
                     "type": 0,
-                    "bitWidth": "16",
+                    "bitWidth": 16,
                     "label": "",
                     "connections": [
                         5
@@ -2006,7 +2006,7 @@
                     "x": -10,
                     "y": 30,
                     "type": 0,
-                    "bitWidth": "16",
+                    "bitWidth": 16,
                     "label": "",
                     "connections": [
                         6
@@ -2761,11 +2761,11 @@
                             "output1": 5
                         },
                         "values": {
-                            "state": 10557
+                            "state": 14332
                         },
                         "constructorParamaters": [
                             "DOWN",
-                            "16",
+                            16,
                             {
                                 "x": 0,
                                 "y": 60,
@@ -2787,11 +2787,11 @@
                             "output1": 6
                         },
                         "values": {
-                            "state": 6
+                            "state": 24572
                         },
                         "constructorParamaters": [
                             "DOWN",
-                            "16",
+                            16,
                             {
                                 "x": 0,
                                 "y": 20,
@@ -2813,7 +2813,7 @@
                             "output1": 76
                         },
                         "values": {
-                            "state": 0
+                            "state": 1
                         },
                         "constructorParamaters": [
                             "RIGHT",
@@ -2855,7 +2855,7 @@
                     "x": 1020,
                     "y": 740,
                     "objectType": "Output",
-                    "label": "",
+                    "label": "Sum",
                     "direction": "UP",
                     "labelDirection": "DOWN",
                     "propagationDelay": 0,
@@ -2865,7 +2865,7 @@
                         },
                         "constructorParamaters": [
                             "UP",
-                            "16",
+                            16,
                             {
                                 "x": 100,
                                 "y": 20,

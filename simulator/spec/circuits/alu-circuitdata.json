@@ -2,7 +2,7 @@
     "name": "ALU-74LS181",
     "timePeriod": 500,
     "clockEnabled": true,
-    "projectId": "yEWaPaWBX6cwdjJfusxv",
+    "projectId": "eWFjA0GCvFw4aqbmWcc4",
     "focussedCircuit": 33755305138,
     "orderedTabs": [
         "33755305138",
@@ -7203,7 +7203,7 @@
                     "x": 40,
                     "y": 0,
                     "type": 1,
-                    "bitWidth": "4",
+                    "bitWidth": 4,
                     "label": "",
                     "connections": [
                         1
@@ -7213,7 +7213,7 @@
                     "x": -10,
                     "y": 30,
                     "type": 0,
-                    "bitWidth": "4",
+                    "bitWidth": 4,
                     "label": "",
                     "connections": [
                         0
@@ -7329,7 +7329,7 @@
                     "x": 40,
                     "y": 0,
                     "type": 1,
-                    "bitWidth": "4",
+                    "bitWidth": 4,
                     "label": "",
                     "connections": [
                         13
@@ -7339,7 +7339,7 @@
                     "x": -10,
                     "y": 30,
                     "type": 0,
-                    "bitWidth": "4",
+                    "bitWidth": 4,
                     "label": "",
                     "connections": [
                         12
@@ -7541,7 +7541,7 @@
                     "x": 40,
                     "y": 0,
                     "type": 1,
-                    "bitWidth": "4",
+                    "bitWidth": 4,
                     "label": "",
                     "connections": [
                         33
@@ -7551,7 +7551,7 @@
                     "x": -10,
                     "y": 30,
                     "type": 0,
-                    "bitWidth": "4",
+                    "bitWidth": 4,
                     "label": "",
                     "connections": [
                         32
@@ -7956,11 +7956,11 @@
                             "output1": 0
                         },
                         "values": {
-                            "state": 12
+                            "state": 15
                         },
                         "constructorParamaters": [
                             "RIGHT",
-                            "4",
+                            4,
                             {
                                 "x": 0,
                                 "y": 100,
@@ -7982,11 +7982,11 @@
                             "output1": 12
                         },
                         "values": {
-                            "state": 2
+                            "state": 12
                         },
                         "constructorParamaters": [
                             "RIGHT",
-                            "4",
+                            4,
                             {
                                 "x": 0,
                                 "y": 20,
@@ -8008,7 +8008,7 @@
                             "output1": 26
                         },
                         "values": {
-                            "state": 0
+                            "state": 1
                         },
                         "constructorParamaters": [
                             "RIGHT",
@@ -8034,7 +8034,7 @@
                             "output1": 29
                         },
                         "values": {
-                            "state": 0
+                            "state": 1
                         },
                         "constructorParamaters": [
                             "RIGHT",
@@ -8060,11 +8060,11 @@
                             "output1": 32
                         },
                         "values": {
-                            "state": 15
+                            "state": 4
                         },
                         "constructorParamaters": [
                             "RIGHT",
-                            "4",
+                            4,
                             {
                                 "x": 0,
                                 "y": 80,
@@ -8089,7 +8089,7 @@
                         },
                         "constructorParamaters": [
                             "LEFT",
-                            "4",
+                            4,
                             {
                                 "x": 100,
                                 "y": 40,
@@ -8102,7 +8102,7 @@
                     "x": 1090,
                     "y": 260,
                     "objectType": "Output",
-                    "label": "",
+                    "label": "A=B",
                     "direction": "LEFT",
                     "labelDirection": "RIGHT",
                     "propagationDelay": 0,
