@@ -18,6 +18,7 @@ import {
     showMessage,
     showError,
     truncateString,
+    escapeHtml,
 } from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
@@ -150,9 +151,9 @@ export function createNewCircuitScope() {
  */
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
-    if (verilogModeGet()) { verilogModeSet(false);}
-    name = name || prompt('Enter circuit name:','Untitled-Circuit');
-    name = stripTags(name);
+    if (verilogModeGet()) { verilogModeSet(false); }
+    name = name || prompt('Enter circuit name:', 'Untitled-Circuit');
+    name = escapeHtml(stripTags(name));
     if (!name) return;
     const scope = new Scope(name);
     if (id) scope.id = id;
@@ -211,7 +212,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
  */
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
-    name = stripTags(name);
+    name = escapeHtml(stripTags(name));
     $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
 }
