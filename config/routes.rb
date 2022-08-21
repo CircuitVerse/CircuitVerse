@@ -71,8 +71,6 @@ Rails.application.routes.draw do
 
   # users
 
-  notify_to :users, controller: "users/notifications"
-
   scope "/users" do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
     get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
@@ -80,7 +78,9 @@ Rails.application.routes.draw do
     get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
     get "/:id/", to: "users/circuitverse#index", as: "user_projects"
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
-    get "/:id/notifications", to: "users/notifications#index", as: "notifications"
+    get "/:id/notifications", to: "users/noticed_notifications#index", as: "notifications"
+    get "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
+    post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read", as: "mark_as_read"
   end
 
   post "/push/subscription/new", to: "push_subscription#create"

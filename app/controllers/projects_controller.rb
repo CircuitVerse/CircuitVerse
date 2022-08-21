@@ -47,7 +47,6 @@ class ProjectsController < ApplicationController
       @star.user_id = current_user.id
       @star.project_id = @project.id
       @star.save
-      @star.notify :users
       render js: "2"
     else
       star.destroy
@@ -59,7 +58,6 @@ class ProjectsController < ApplicationController
     authorize @project
     @project_new = @project.fork(current_user)
     @project_new.save!
-    @project_new.notify :users, key: "project.fork"
     redirect_to user_project_path(current_user, @project_new)
   end
 

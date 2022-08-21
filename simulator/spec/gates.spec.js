@@ -12,7 +12,7 @@ import { runAll } from '../src/testbench';
 
 jest.mock('codemirror');
 
-describe('Simulator Gates Testing', () => {
+describe('Simulator Gates Working', () => {
     CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: (text) => {} });
     setup();
 
@@ -20,37 +20,37 @@ describe('Simulator Gates Testing', () => {
         expect(() => load(circuitData)).not.toThrow();
     });
 
-    test('AND gate testing', () => {
+    test('AND gate working', () => {
         const result = runAll(testData.AndGate);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('NAND gate testing', () => {
+    test('NAND gate working', () => {
         const result = runAll(testData.nandGate);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('NOR gate testing', () => {
+    test('NOR gate working', () => {
         const result = runAll(testData.norGate);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('NOT gate testing', () => {
+    test('NOT gate working', () => {
         const result = runAll(testData.notGate);
         expect(result.summary.passed).toBe(2);
     });
 
-    test('OR gate testing', () => {
+    test('OR gate working', () => {
         const result = runAll(testData.OrGate);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('XNOR gate testing', () => {
+    test('XNOR gate working', () => {
         const result = runAll(testData.xnorGate);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('XOR gate testing', () => {
+    test('XOR gate working', () => {
         const result = runAll(testData.xorGate);
         expect(result.summary.passed).toBe(4);
     });

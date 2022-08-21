@@ -22,7 +22,7 @@ import createSaveAsImgPrompt from '../src/data/saveImage';
 
 jest.mock('codemirror');
 
-describe('data dir working', () => {
+describe('Data dir Testing', () => {
     CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: (text) => {} });
     window.confirm = jest.fn(() => true);
     setup();
