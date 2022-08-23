@@ -23,8 +23,8 @@ module SimulatorHelper
   def sanitize_data(project, data)
     return data if project&.assignment_id.blank? || data.blank?
 
-    data = Oj.load(data)
-    saved_restricted_elements = Oj.load(project.assignment.restrictions)
+    data = Oj.safe_load(data)
+    saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
     scopes = data["scopes"] || []
 
     parsed_scopes = scopes.each_with_object([]) do |scope, new_scopes|
