@@ -13,6 +13,7 @@ import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
 import simulationArea from './simulationArea';
 import { findDimensions } from './canvasApi';
+import { alertDialog } from './dialogs/alertDialog';
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
@@ -51,10 +52,10 @@ export const performCombinationalAnalysis = (inputNameList, outputNameList, bool
         }
     }
     else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
-        alert('Enter Input / Output Variable(s) OR Boolean Function!');
+        alertDialog('Enter Input / Output Variable(s) OR Boolean Function!');
     }
     else {
-        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
+        alertDialog('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
     }
 };
 
@@ -377,12 +378,12 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
     let output = [];
 
     if (booleanExpression.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01+'() ]/g) != null) {
-        alert('One of the characters is not allowed.');
+        alertDialog('One of the characters is not allowed.');
         return;
     }
 
     if (inputListNames.length > 8) {
-        alert('You can only have 8 variables at a time.');
+        alertDialog('You can only have 8 variables at a time.');
         return;
     }
 

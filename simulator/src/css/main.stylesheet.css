@@ -1932,3 +1932,12 @@ canvas {
     /* margin-bottom: 5px; */
     border-radius: 3px;
 }
+.ui-dialog[aria-describedby="alertDialog"] {
+    min-width: 500px;
+    user-select: none;
+    color: white !important;
+}
+
+.alertDialogBox{
+    color: white !important;
+}

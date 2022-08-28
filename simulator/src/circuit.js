@@ -34,6 +34,7 @@ import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 import { updateTestbenchUI } from './testbench';
+import { alertDialog } from './dialogs/alertDialog';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -110,7 +111,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
     }
     if (dependencies) {
         dependencies = `\nThe following circuits are depending on '${scope.name}': ${dependencies}\nDelete subcircuits of ${scope.name} before trying to delete ${scope.name}`;
-        alert(dependencies);
+        alertDialog(dependencies);
         return;
     }
 

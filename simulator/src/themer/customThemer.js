@@ -4,6 +4,7 @@ import { dots } from '../canvasApi';
 import themeOptions from './themes';
 import updateThemeForStyle from './themer';
 import { CreateAbstraction } from './customThemeAbstraction';
+import { alertDialog } from '../dialogs/alertDialog';
 
 /**
  *
@@ -149,7 +150,7 @@ export const CustomColorThemes = () => {
             fr.readAsText(File);
             $('#importThemeFile').val('');
         } else {
-            alert('File Not Supported !');
+            alertDialog('File Not Supported !');
         }
     });
 };
