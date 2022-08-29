@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> modules/Output.js</title>
+  <title> embedListeners.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>modules/Output.js</h1>
+                    <h1>embedListeners.js</h1>
                 </header>
                 
 
@@ -85,231 +85,278 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
-import simulationArea from "../simulationArea";
-import { correctWidth, fillText, rect2, oppositeDirection } from "../canvasApi";
-import { getNextPosition } from "../modules";
-import { generateId } from "../utils";
-import { colors } from "../themer/themer";
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-alert */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-plusplus */
+/* eslint-disable func-names */
+/* eslint-disable prefer-const */
+/* eslint-disable no-undef */
+/* eslint-disable max-len */
+// Listeners when circuit is embedded
+// Refer listeners.js
+import simulationArea from './simulationArea';
+import {
+    scheduleUpdate, update, updateSelectionsAndPane, wireToBeCheckedSet, updatePositionSet, updateSimulationSet, updateCanvasSet, gridUpdateSet, errorDetectedSet,
+} from './engine';
+import { changeScale } from './canvasApi';
+import {
+    ZoomIn, ZoomOut, pinchZoom, getCoordinate,
+} from './listeners';
 
-function bin2dec(binString) {
-    return parseInt(binString, 2);
+const unit = 10;
+let embedCoordinate;
+/** *Function embedPanStart
+    *This function hepls to initialize mouse and touch
+    *For now variable name starts with mouse like mouseDown are used both
+     touch and mouse will change in future
+*/
+function embedPanStart(e) {
+    embedCoordinate = getCoordinate(e);
+    errorDetectedSet(false);
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+
+    simulationArea.lastSelected = undefined;
+    simulationArea.selected = false;
+    simulationArea.hover = undefined;
+    const rect = simulationArea.canvas.getBoundingClientRect();
+    simulationArea.mouseDownRawX = (embedCoordinate.x - rect.left) * DPR;
+    simulationArea.mouseDownRawY = (embedCoordinate.y - rect.top) * DPR;
+    simulationArea.mouseDownX = Math.round(((simulationArea.mouseDownRawX - globalScope.ox) / globalScope.scale) / unit) * unit;
+    simulationArea.mouseDownY = Math.round(((simulationArea.mouseDownRawY - globalScope.oy) / globalScope.scale) / unit) * unit;
+    simulationArea.mouseDown = true;
+    simulationArea.oldx = globalScope.ox;
+    simulationArea.oldy = globalScope.oy;
+    e.preventDefault();
+    scheduleUpdate(1);
 }
 
-function dec2bin(dec, bitWidth = undefined) {
-    // only for positive nos
-    var bin = dec.toString(2);
-    if (bitWidth == undefined) return bin;
-    return "0".repeat(bitWidth - bin.length) + bin;
-}
+/** *Function embedPanMove
+    *This function hepls to move simulator and its elements using touch and mouse
+    *For now variable name starts with mouse like mouseDown are used both
+     touch and mouse will change in future
+*/
+function embedPanMove(e) {
+    embedCoordinate = getCoordinate(e);
+    if (!simulationArea.touch || e.touches.length === 1) {
+        const rect = simulationArea.canvas.getBoundingClientRect();
+        simulationArea.mouseRawX = (embedCoordinate.x - rect.left) * DPR;
+        simulationArea.mouseRawY = (embedCoordinate.y - rect.top) * DPR;
+        simulationArea.mouseXf = (simulationArea.mouseRawX - globalScope.ox) / globalScope.scale;
+        simulationArea.mouseYf = (simulationArea.mouseRawY - globalScope.oy) / globalScope.scale;
+        simulationArea.mouseX = Math.round(simulationArea.mouseXf / unit) * unit;
+        simulationArea.mouseY = Math.round(simulationArea.mouseYf / unit) * unit;
+        updateCanvasSet(true);
+        if (simulationArea.lastSelected == globalScope.root) {
+            updateCanvasSet(true);
+            let fn;
+            fn = function () {
+                updateSelectionsAndPane();
+            };
 
-/**
- * @class
- * Output
- * @extends CircuitElement
- * @param {number} x - x coordinate of element.
- * @param {number} y - y coordinate of element.
- * @param {Scope=} scope - Cirucit on which element is drawn
- * @param {string=} dir - direction of element
- * @param {number=} inputLength - number of input nodes
- * @param {number=} bitWidth - bit width per node.
- * @category modules
- */
-export default class Output extends CircuitElement {
-    constructor(
-        x,
-        y,
-        scope = globalScope,
-        dir = "LEFT",
-        bitWidth = 1,
-        layoutProperties
-    ) {
-        // Calling base class constructor
-        super(x, y, scope, dir, bitWidth);
-        /* this is done in this.baseSetup() now
-        this.scope['Output'].push(this);
-        */
-        if (layoutProperties) {
-            this.layoutProperties = layoutProperties;
+            scheduleUpdate(0, 20, fn);
         } else {
-            this.layoutProperties = {};
-            this.layoutProperties.x = scope.layout.width;
-            this.layoutProperties.y = getNextPosition(
-                scope.layout.width,
-                scope
-            );
-            this.layoutProperties.id = generateId();
-        }
-
-        this.rectangleObject = false;
-        this.directionFixed = true;
-        this.orientationFixed = false;
-        this.setDimensions(this.bitWidth * 10, 10);
-        this.inp1 = new Node(this.bitWidth * 10, 0, 0, this);
-    }
-
-    /**
-     * @memberof Output
-     * function to generate verilog for output
-     * @return {string}
-     */
-    generateVerilog() {
-        return `assign ${this.label} = ${this.inp1.verilogLabel};`;
-    }
-
-    /**
-     * @memberof Output
-     * fn to create save Json Data of object
-     * @return {JSON}
-     */
-    customSave() {
-        const data = {
-            nodes: {
-                inp1: findNode(this.inp1),
-            },
-            constructorParamaters: [
-                this.direction,
-                this.bitWidth,
-                this.layoutProperties,
-            ],
-        };
-        return data;
-    }
-
-    /**
-     * @memberof Output
-     * function to change bitwidth of the element
-     * @param {number} bitWidth - new bitwidth
-     */
-    newBitWidth(bitWidth) {
-        if (bitWidth &lt; 1) return;
-        const diffBitWidth = bitWidth - this.bitWidth;
-        this.state = undefined;
-        this.inp1.bitWidth = bitWidth;
-        this.bitWidth = bitWidth;
-        this.setWidth(10 * this.bitWidth);
-
-        if (this.direction === "RIGHT") {
-            this.x -= 10 * diffBitWidth;
-            this.inp1.x = 10 * this.bitWidth;
-            this.inp1.leftx = 10 * this.bitWidth;
-        } else if (this.direction === "LEFT") {
-            this.x += 10 * diffBitWidth;
-            this.inp1.x = -10 * this.bitWidth;
-            this.inp1.leftx = 10 * this.bitWidth;
+            scheduleUpdate(0, 200);
         }
     }
 
-    /**
-     * @memberof Output
-     * function to draw element
-     */
-    customDraw() {
-        this.state = this.inp1.value;
-        var ctx = simulationArea.context;
-        ctx.beginPath();
-        ctx.strokeStyle = [colors["out_rect"], colors["stroke_alt"]][
-            +(this.inp1.value === undefined)
-        ];
-        ctx.fillStyle = colors["fill"];
-        ctx.lineWidth = correctWidth(3);
-        const xx = this.x;
-        const yy = this.y;
-
-        rect2(
-            ctx,
-            -10 * this.bitWidth,
-            -10,
-            20 * this.bitWidth,
-            20,
-            xx,
-            yy,
-            "RIGHT"
-        );
-        if (
-            (this.hover &amp;&amp; !simulationArea.shiftDown) ||
-            simulationArea.lastSelected === this ||
-            simulationArea.multipleObjectSelections.contains(this)
-        ) {
-            ctx.fillStyle = colors["hover_select"];
-        }
-
-        ctx.fill();
-        ctx.stroke();
-
-        ctx.beginPath();
-        ctx.font = "20px Raleway";
-        ctx.fillStyle = colors["input_text"];
-        ctx.textAlign = "center";
-        let bin;
-        if (this.state === undefined) {
-            bin = "x".repeat(this.bitWidth);
-        } else {
-            bin = dec2bin(this.state, this.bitWidth);
-        }
-
-        for (let k = 0; k &lt; this.bitWidth; k++) {
-            fillText(
-                ctx,
-                bin[k],
-                xx - 10 * this.bitWidth + 10 + k * 20,
-                yy + 5
-            );
-        }
-        ctx.fill();
-    }
-
-    /**
-     * @memberof Output
-     * function to change direction of Output
-     * @param {string} dir - new direction
-     */
-    newDirection(dir) {
-        if (dir === this.direction) return;
-        this.direction = dir;
-        this.inp1.refresh();
-        if (dir === "RIGHT" || dir === "LEFT") {
-            this.inp1.leftx = 10 * this.bitWidth;
-            this.inp1.lefty = 0;
-        } else {
-            this.inp1.leftx = 10; // 10*this.bitWidth;
-            this.inp1.lefty = 0;
-        }
-
-        this.inp1.refresh();
-        this.labelDirection = oppositeDirection[this.direction];
-    }
-
-    generateVerilog() {
-        return "assign " + this.verilogLabel + " = " + this.inp1.verilogLabel + ";"
+    if (simulationArea.touch &amp;&amp; e.touches.length === 2) {
+        pinchZoom(e);
     }
 }
 
-/**
- * @memberof Output
- * Help Tip
- * @type {string}
- * @category modules
- */
-Output.prototype.tooltipText =
-    "Output ToolTip: Simple output element showing output in binary.";
+/** *Function embedPanEnd
+    *This function update simulator after mouse and touch end
+    *For now variable name starts with mouse like mouseDown are used both
+     touch and mouse will change in future
+*/
+function embedPanEnd() {
+    simulationArea.mouseDown = false;
+    errorDetectedSet(false);
+    updateSimulationSet(true);
+    updatePositionSet(true);
+    updateCanvasSet(true);
+    gridUpdateSet(true);
+    wireToBeCheckedSet(1);
 
-/**
- * @memberof Output
- * Help URL
- * @type {string}
- * @category modules
- */
-Output.prototype.helplink = "https://docs.circuitverse.org/#/chapter4/3output?id=output-1";
+    scheduleUpdate(1);
+}
 
-/**
- * @memberof Output
- * @type {number}
- * @category modules
- */
-Output.prototype.propagationDelay = 0;
-Output.prototype.objectType = "Output";
+/** *Function BlockElementPan
+    *This function block the pan of elements since in embed simulator you can only view simulator NOT update
+*/
+function blockElementPan() {
+    const ele = document.getElementById('elementName');
+    if (globalScope &amp;&amp; simulationArea &amp;&amp; simulationArea.objectList) {
+        let { objectList } = simulationArea;
+        objectList = objectList.filter((val) => val !== 'wires');
+
+        for (let i = 0; i &lt; objectList.length; i++) {
+            for (let j = 0; j &lt; globalScope[objectList[i]].length; j++) {
+                if (globalScope[objectList[i]][j].isHover()) {
+                    ele.style.display = 'block';
+                    if (objectList[i] === 'SubCircuit') {
+                        ele.innerHTML = `Subcircuit: ${globalScope.SubCircuit[j].data.name}`;
+                    } else {
+                        ele.innerHTML = `CircuitElement: ${objectList[i]}`;
+                    }
+
+                    return;
+                }
+            }
+        }
+    }
+
+    ele.style.display = 'none';
+    document.getElementById('elementName').innerHTML = '';
+}
+
+export default function startListeners() {
+    window.addEventListener('keyup', (e) => {
+        scheduleUpdate(1);
+        if (e.keyCode == 16) {
+            simulationArea.shiftDown = false;
+        }
+
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = false;
+        }
+    });
+    // All event listeners starts from here
+    document.getElementById('simulationArea').addEventListener('mousedown', (e) => {
+        simulationArea.touch = false;
+        embedPanStart(e);
+    });
+    document.getElementById('simulationArea').addEventListener('mousemove', () => {
+        simulationArea.touch = false;
+        blockElementPan();
+    });
+    document.getElementById('simulationArea').addEventListener('touchstart', (e) => {
+        simulationArea.touch = true;
+        embedPanStart(e);
+    });
+    document.getElementById('simulationArea').addEventListener('touchmove', (e) => {
+        simulationArea.touch = true;
+        blockElementPan();
+    });
+    window.addEventListener('mousemove', (e) => {
+        embedPanMove(e);
+    });
+    window.addEventListener('touchmove', (e) => {
+        embedPanMove(e);
+    });
+    window.addEventListener('mouseup', () => {
+        embedPanEnd();
+    });
+    window.addEventListener('mousedown', function () {
+        this.focus();
+    });
+
+    window.addEventListener('touchend', () => {
+        embedPanEnd();
+    });
+    window.addEventListener('touchstart', function () {
+        this.focus();
+    });
+    function MouseScroll(event) {
+        updateCanvasSet(true);
+
+        event.preventDefault();
+        const deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
+        const scrolledUp = deltaY &lt; 0;
+        const scrolledDown = deltaY > 0;
+
+        if (event.ctrlKey) {
+            if (scrolledUp &amp;&amp; globalScope.scale > 0.5 * DPR) {
+                changeScale(-0.1 * DPR);
+            }
+
+            if (scrolledDown &amp;&amp; globalScope.scale &lt; 4 * DPR) {
+                changeScale(0.1 * DPR);
+            }
+        } else {
+            if (scrolledUp &amp;&amp; globalScope.scale &lt; 4 * DPR) {
+                changeScale(0.1 * DPR);
+            }
+
+            if (scrolledDown &amp;&amp; globalScope.scale > 0.5 * DPR) {
+                changeScale(-0.1 * DPR);
+            }
+        }
+
+        updateCanvasSet(true);
+        gridUpdateSet(true);
+        update(); // Schedule update not working, this is INEFFICENT
+    }
+    document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
+    document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
+    // eslint-disable-next-line complexity
+    window.addEventListener('keydown', (e) => {
+        errorDetectedSet(false);
+        updateSimulationSet(true);
+        updatePositionSet(true);
+
+        // Zoom in (+)
+        if (e.key == 'Meta' || e.key == 'Control') {
+            simulationArea.controlDown = true;
+        }
+
+        if (simulationArea.controlDown &amp;&amp; (e.keyCode == 187 || e.KeyCode == 171)) {
+            e.preventDefault();
+            ZoomIn();
+        }
+
+        // Zoom out (-)
+        if (simulationArea.controlDown &amp;&amp; (e.keyCode == 189 || e.Keycode == 173)) {
+            e.preventDefault();
+            ZoomOut();
+        }
+
+        if (simulationArea.mouseRawX &lt; 0 || simulationArea.mouseRawY &lt; 0 || simulationArea.mouseRawX > width || simulationArea.mouseRawY > height) {
+            return;
+        }
+
+        scheduleUpdate(1);
+        updateCanvasSet(true);
+
+        if (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected.keyDown) {
+            if (e.key.toString().length == 1 || e.key.toString() == 'Backspace') {
+                simulationArea.lastSelected.keyDown(e.key.toString());
+                return;
+            }
+        }
+
+        if (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected.keyDown2) {
+            if (e.key.toString().length == 1) {
+                simulationArea.lastSelected.keyDown2(e.key.toString());
+                return;
+            }
+        }
+
+        // If (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected.keyDown3) {
+        //     if (e.key.toString() != "Backspace" &amp;&amp; e.key.toString() != "Delete") {
+        //         simulationArea.lastSelected.keyDown3(e.key.toString());
+        //         return;
+        //     }
+
+        // }
+
+        if (e.key == 'T' || e.key == 't') {
+            simulationArea.changeClockTime(prompt('Enter Time:'));
+        }
+    });
+    document.getElementById('simulationArea').addEventListener('dblclick', () => {
+        scheduleUpdate(2);
+        if (simulationArea.lastSelected &amp;&amp; simulationArea.lastSelected.dblclick !== undefined) {
+            simulationArea.lastSelected.dblclick();
+        }
+    });
+}
+
+// eslint-disable-next-line no-unused-vars
+const isIe = (navigator.userAgent.toLowerCase().indexOf('msie') != -1
+    || navigator.userAgent.toLowerCase().indexOf('trident') != -1);
 </code></pre>
         </article>
     </section>
