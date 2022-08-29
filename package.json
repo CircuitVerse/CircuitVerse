@@ -17,7 +17,7 @@
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",
     "@commitlint/cli": "^17.0.2",
-    "@commitlint/config-conventional": "^16.2.4",
+    "@commitlint/config-conventional": "^17.1.0",
     "chokidar": "^3.5.3",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.0",
