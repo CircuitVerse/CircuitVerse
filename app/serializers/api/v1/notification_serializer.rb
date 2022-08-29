@@ -6,7 +6,5 @@ class Api::V1::NotificationSerializer
   attributes :recipient_type, :recipient_id, :type,
              :params, :read_at, :created_at, :updated_at
 
-  attributes :unread do |notification|
-    notification.unread?
-  end
+  attributes :unread, &:unread?
 end
