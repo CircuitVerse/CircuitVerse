@@ -132,8 +132,13 @@ function setupElementLists() {
         <div class="panel customScroll">
         ${htmlIcons}
         </div>`;
+        const touchaccordionData = `<div class="mobilepanelHeader">${category}</div>
+        <div class="panel customScroll">
+        ${htmlIcons}
+        </div>`;
 
         $('#menu').append(accordionData);
+        $('#menu2').append(touchaccordionData);
     }
 }
 

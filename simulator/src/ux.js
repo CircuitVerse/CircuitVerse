@@ -20,6 +20,7 @@ import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
 import { setupBitConvertor} from './utils';
+import { currentScreen } from './listeners';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
 
@@ -184,6 +185,11 @@ export function setupUI() {
         active: false,
         heightStyle: 'content',
     });
+    $('#menu2, #subcircuitMenu').accordion({
+        collapsible: true,
+        active: false,
+        heightStyle: 'content',
+    });
 
     $('.logixModules').mousedown(createElement);
 
@@ -275,6 +281,7 @@ export function prevPropertyObjGet() {
     return prevPropertyObj;
 }
 
+var moduleProperty = currentScreen();
 /**
  * show properties of an object.
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
@@ -294,71 +301,71 @@ export function showProperties(obj) {
 
         $('#moduleProperty').show();
         $('#layoutDialog').hide();
-        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + obj.objectType + "</div>");
+        $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + obj.objectType + "</div>");
 
         if (obj.subcircuitMutableProperties && obj.canShowInSubcircuit) {
             for (let attr in obj.subcircuitMutableProperties) {
                 var prop = obj.subcircuitMutableProperties[attr];
                 if (obj.subcircuitMutableProperties[attr].type == "number") {
                     var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='number'  name='" + prop.func + "' min='" + (prop.min || 0) + "' max='" + (prop.max || 200) + "' value=" + obj[attr] + "></p>";
-                    $('#moduleProperty-inner').append(s);
+                    $(moduleProperty.modulePropertyInner).append(s);
                 }
                 else if (obj.subcircuitMutableProperties[attr].type == "text") {
                     var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='text'  name='" + prop.func + "' maxlength='" + (prop.maxlength || 200) + "' value=" + obj[attr] + "></p>";
-                    $('#moduleProperty-inner').append(s);
+                    $(moduleProperty.modulePropertyInner).append(s);
                 }
                 else if (obj.subcircuitMutableProperties[attr].type == "checkbox"){
                     var s = "<p>" + prop.name + "<label class='switch'> <input type='checkbox' " + ["", "checked"][obj.subcircuitMetadata.showLabelInSubcircuit + 0] + " class='objectPropertyAttributeChecked' name='" + prop.func + "'> <span class='slider'></span> </label></p>";
-                    $('#moduleProperty-inner').append(s);
+                    $(moduleProperty.modulePropertyInner).append(s);
                 }
             }
             if (!obj.labelDirectionFixed) {
                 if(!obj.subcircuitMetadata.labelDirection) obj.subcircuitMetadata.labelDirection = obj.labelDirection;
                 var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "UP")] + " >UP</option>" + "</select>");
                 s.val(obj.subcircuitMetadata.labelDirection);
-                $('#moduleProperty-inner').append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
+                $(moduleProperty.modulePropertyInner).append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
             }
         }
 
     }
     else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
-        $('#moduleProperty-inner').append("<div id='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $('#moduleProperty-inner').append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}'></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' > <span class='slider'></span></label></p>`);
-        $('#moduleProperty-inner').append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' > <span class='slider'></span> </label></p>`);
-        $('#moduleProperty-inner').append("<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button> </p>");
+        $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + 'Project Properties' + '</div>');
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}' aria-label='project'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}' aria-label='clock time'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' aria-label='clock enabled'> <span class='slider'></span></label></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' aria-label='lite mode'> <span class='slider'></span> </label></p>`);
+        $(moduleProperty.modulePropertyInner).append("<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button> </p>");
         // $('#moduleProperty-inner').append("<p>  ");
     } else {
         $('#moduleProperty').show();
 
-        $('#moduleProperty-inner').append(`<div id='moduleProperty-header'>${obj.objectType}</div>`);
+        $(moduleProperty.modulePropertyInner).append(`<div class='moduleProperty-header'>${obj.objectType}</div>`);
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
-        if (!obj.fixedBitWidth) { $('#moduleProperty-inner').append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth}></p>`); }
+        if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth} aria-label='bitwidth'></p>`); }
 
         if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
 
         if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
 
         if (!obj.disableLabel)
-        $('#moduleProperty-inner').append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text'  name='setLabel' autocomplete='off'  value='${escapeHtml(obj.label)}'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text' name='setLabel' autocomplete='off' value='${escapeHtml(obj.label)}' aria-label='label'></p>`);
 
         var s;
         if (!obj.labelDirectionFixed) {
             s = $(`${"<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.labelDirection === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.labelDirection === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'UP')]} >UP</option>` + '</select>');
             s.val(obj.labelDirection);
-            $('#moduleProperty-inner').append(`<p><span>Label Direction:</span> ${$(s).prop('outerHTML')}</p>`);
+            $(moduleProperty.modulePropertyInner).append(`<p><span>Label Direction:</span> ${$(s).prop('outerHTML')}</p>`);
         }
 
 
         if (!obj.directionFixed) {
             s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP</option>` + '</select>');
-            $('#moduleProperty-inner').append(`<p><span>Direction:</span> ${$(s).prop('outerHTML')}</p>`);
+            $(moduleProperty.modulePropertyInner).append(`<p><span>Direction:</span> ${$(s).prop('outerHTML')}</p>`);
         } else if (!obj.orientationFixed) {
             s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP</option>` + '</select>');
-            $('#moduleProperty-inner').append(`<p><span>Orientation:</span> ${$(s).prop('outerHTML')}</p>`);
+            $(moduleProperty.modulePropertyInner).append(`<p><span>Orientation:</span> ${$(s).prop('outerHTML')}</p>`);
         }
 
         if (obj.mutableProperties) {
@@ -366,17 +373,17 @@ export function showProperties(obj) {
                 var prop = obj.mutableProperties[attr];
                 if (obj.mutableProperties[attr].type === 'number') {
                     s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
-                    $('#moduleProperty-inner').append(s);
+                    $(moduleProperty.modulePropertyInner).append(s);
                 } else if (obj.mutableProperties[attr].type === 'text') {
                     s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text' autocomplete='off'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
-                    $('#moduleProperty-inner').append(s);
+                    $(moduleProperty.modulePropertyInner).append(s);
                 } else if (obj.mutableProperties[attr].type === 'button') {
                     s = `<p class='btn-parent'><button class='objectPropertyAttribute btn custom-btn--secondary' type='button'  name='${prop.func}'>${prop.name}</button></p>`;
-                    $('#moduleProperty-inner').append(s);
+                    $(moduleProperty.modulePropertyInner).append(s);
                 }
                 else if (obj.mutableProperties[attr].type === 'textarea') {
                     s = `<p><span>${prop.name}</span><textarea class='objectPropertyAttribute' type='text' autocomplete='off' rows="9" name='${prop.func}'>${obj[attr]}</textarea></p>`;
-                    $('#moduleProperty-inner').append(s);
+                    $(moduleProperty.modulePropertyInner).append(s);
                 }
             }
         }
@@ -384,7 +391,7 @@ export function showProperties(obj) {
 
     var helplink = obj && (obj.helplink);
     if (helplink) {
-        $('#moduleProperty-inner').append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
+        $(moduleProperty.modulePropertyInner).append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
         $('#HelpButton').on('click',() => {
             window.open(helplink);
         });
@@ -457,7 +464,7 @@ export function showProperties(obj) {
  * @category ux
  */
 export function hideProperties() {
-    $('#moduleProperty-inner').empty();
+    $(moduleProperty.modulePropertyInner).empty();
     $('#moduleProperty').hide();
     prevPropertyObjSet(undefined);
     $('.objectPropertyAttribute').unbind('change keyup paste click');
@@ -467,7 +474,7 @@ export function hideProperties() {
  * @param {HTML} unsafe - the html which we wants to escape
  * @category ux
  */
-function escapeHtml(unsafe) {
+export function escapeHtml(unsafe) {
     return unsafe
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')

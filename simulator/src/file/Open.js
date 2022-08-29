@@ -1,5 +1,6 @@
 import load from '../data/load';
 import { generateSaveData } from '../data/save';
+import { escapeHtml } from '../ux';
 
 const scopeSchema = ['layout', 'verilogMetadata', 'allNodes', 'id', 'name', 'restrictedCircuitElementsUsed', 'nodes'];
 const JSONSchema = ['name', 'timePeriod', 'clockEnabled', 'projectId', 'focussedCircuit', 'orderedTabs', 'scopes'];
@@ -46,7 +47,7 @@ const ImportCircuitFiles = () => {
 
     function receivedText(e) {
         // backUp data
-        const backUp = JSON.parse(generateSaveData($('#projectName').text().trim(), false));
+        const backUp = JSON.parse(generateSaveData(escapeHtml($('#projectName').text()).trim(), false));
         const valid = ValidateData(e.target.result); // validate data
         if (!valid) {
             // fallback
