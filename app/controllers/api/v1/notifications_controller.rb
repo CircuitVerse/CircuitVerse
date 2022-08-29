@@ -16,7 +16,7 @@ class Api::V1::NotificationsController < Api::V1::BaseController
     render json: Api::V1::NotificationSerializer.new(@notification), status: :created
   end
 
-  # GET /api/v1/notifications/mark_all_as_read
+  # PATCH /api/v1/notifications/mark_all_as_read
   def mark_all_as_read
     NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now)
     @notifications = NoticedNotification.where(recipient: current_user).newest_first
