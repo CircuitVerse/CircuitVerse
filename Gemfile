@@ -95,6 +95,7 @@ gem "meta-tags"
 
 # Notifications
 gem "webpush"
+gem "serviceworker-rails"
 
 gem "bootsnap", require: false
 gem "rexml"
