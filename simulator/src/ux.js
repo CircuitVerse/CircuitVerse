@@ -216,33 +216,33 @@ export function setupUI() {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 
-    $('#report').on('click',function(){
-         var message=$('#issuetext').val();
-         var email=$('#emailtext').val();
-         message += "\nEmail:"+ email
-         message += "\nURL: " + window.location.href;
-         message += `\nUser Id: ${window.user_id}`
-         postUserIssue(message)
-         $('#issuetext').hide();
-         $('#emailtext').hide();
-         $('#report').hide();
-         $('#report-label').hide();
-         $('#email-label').hide();
+    $('#report').on('click', function() {
+        var message=$('#issuetext').val();
+        var email=$('#emailtext').val();
+        message += "\nEmail:"+ email
+        message += "\nURL: " + window.location.href;
+        message += `\nUser Id: ${window.user_id}`
+        postUserIssue(message)
+        $('#issuetext').hide();
+        $('#emailtext').hide();
+        $('#report').hide();
+        $('#report-label').hide();
+        $('#email-label').hide();
         })
-       $('.issue').on('hide.bs.modal', function(e) {
-         listenToSimulator=true
-         $('#result').html("");
-         $('#issuetext').show();
-         $('#emailtext').show();
-         $('#issuetext').val("");
-         $('#emailtext').val("");
-         $('#report').show();
-         $('#report-label').show();
-         $('#email-label').show();
-     })
-     $('#reportIssue').on('click',function(){
-       listenToSimulator=false
-     })
+    $('.issue').on('hide.bs.modal', function(e) {
+        listenToSimulator=true
+        $('#result').html("");
+        $('#issuetext').show();
+        $('#emailtext').show();
+        $('#issuetext').val("");
+        $('#emailtext').val("");
+        $('#report').show();
+        $('#report-label').show();
+        $('#email-label').show();
+    })
+    $('#reportIssue').on('click',function(){
+      listenToSimulator=false
+    })
 
     // $('#saveAsImg').on('click',function(){
     //     saveAsImg();
@@ -345,12 +345,12 @@ export function showProperties(obj) {
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
         if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth} aria-label='bitwidth'></p>`); }
 
-        if (obj.changeInputSize) { $('#moduleProperty-inner').append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
+        if (obj.changeInputSize) { $(moduleProperty.modulePropertyInner).append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize}></p>`); }
 
-        if (!obj.propagationDelayFixed) { $('#moduleProperty-inner').append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
+        if (!obj.propagationDelayFixed) { $(moduleProperty.modulePropertyInner).append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay}></p>`); }
 
         if (!obj.disableLabel)
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text' name='setLabel' autocomplete='off' value='${escapeHtml(obj.label)}' aria-label='label'></p>`);
+            $(moduleProperty.modulePropertyInner).append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text' name='setLabel' autocomplete='off' value='${escapeHtml(obj.label)}' aria-label='label'></p>`);
 
         var s;
         if (!obj.labelDirectionFixed) {
