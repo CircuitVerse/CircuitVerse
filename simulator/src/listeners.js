@@ -1166,7 +1166,7 @@ function zoomSliderListeners() {
  * Function to return id or class of panel according to screen width
  */
 export function currentScreen() {
-    if (window.screen.width > 1367) {
+    if (window.screen.width > 1000) {
         uniqid.modulePropertyInner = '#moduleProperty-inner';
         uniqid.PlotAreaId = 'plotArea';
         uniqid.plotID = 'plot';

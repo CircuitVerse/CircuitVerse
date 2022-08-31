@@ -169,7 +169,7 @@ const animatedTourDriver = new Driver({
 
 export function showTourGuide() {
     $('.draggable-panel .maximize').trigger('click');
-    if (window.screen.width > 1367) {
+    if (window.screen.width > 1000) {
         animatedTourDriver.defineSteps(tour);
     } else {
         animatedTourDriver.defineSteps(touchTour);
