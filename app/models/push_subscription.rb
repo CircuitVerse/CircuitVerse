@@ -3,7 +3,7 @@
 class PushSubscription < ApplicationRecord
   belongs_to :user
 
-  def send_push_notification(message, url = "")
+  def send_push_notification(message, url)
     payload = {
       body: message,
       url: url

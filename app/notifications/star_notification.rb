@@ -2,6 +2,7 @@
 
 class StarNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
+  deliver_by :webpush, class: "DeliveryMethods::Webpush"
 
   def message
     user = User.find(params[:user_id])

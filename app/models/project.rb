@@ -99,7 +99,7 @@ class Project < ApplicationRecord
     )
     @project = Project.find(id)
     if @project.author != user
-      ForkNotification.with(user_id: user.id, project_id: @project.id).deliver_later(@project.author)
+      ForkNotification.with(user_id: user.id, project_id: @project.id, webpush_type: "fork").deliver_later(@project.author)
     end
     forked_project
   end
