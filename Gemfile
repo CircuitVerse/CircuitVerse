@@ -149,6 +149,7 @@ group :development do
   gem "rubocop"
   gem "spring"
   gem "sunspot_solr"
+  gem "bundler-audit", "~> 0.9.1"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

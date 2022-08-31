@@ -21,7 +21,7 @@ install:
   - set PATH=C:\Ruby30-x64\bin;%PATH%
   - ruby -v
   - bundle config --local path vendor/bundle
-  - bundle install --with postgresql
+  - bundle install
   - yarn
 
 build: off
