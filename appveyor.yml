@@ -16,7 +16,7 @@ services:
 install:
   - ps: Install-Product node $env:nodejs_version
   - choco install imagemagick.app -y
-  - choco install postgresql14
+  # - choco install postgresql14
   - refreshenv
   - set PATH=C:\Ruby30-x64\bin;%PATH%
   - ruby -v
