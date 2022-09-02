@@ -89,7 +89,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.3.5"
+gem "pg", "~> 1.4.3"
 
 gem "meta-tags"
 
