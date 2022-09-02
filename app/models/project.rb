@@ -18,7 +18,8 @@ class Project < ApplicationRecord
   has_many :user_ratings, through: :stars, dependent: :destroy, source: "user"
   belongs_to :assignment, optional: true
 
-  has_many :noticed_notifications, as: :recipient, dependent: :destroy
+  has_noticed_notifications model_name: "NoticedNotification"
+  has_many :noticed_notifications, through: :author
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
@@ -98,7 +99,7 @@ class Project < ApplicationRecord
     )
     @project = Project.find(id)
     if @project.author != user
-      ForkNotification.with(user_id: user.id, project_id: @project.id).deliver_later(@project.author)
+      ForkNotification.with(user: user, project: @project).deliver_later(@project.author)
     end
     forked_project
   end

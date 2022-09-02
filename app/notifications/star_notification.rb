@@ -4,8 +4,8 @@ class StarNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
 
   def message
-    user = User.find(params[:user_id])
-    project = Project.find(params[:project_id])
+    user = params[:user]
+    project = params[:project]
     t("users.notifications.star_notification", user: user.name, project: project.name)
   end
 
