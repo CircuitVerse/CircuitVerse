@@ -21,6 +21,7 @@ install:
   - refreshenv
   - set PATH=C:\Ruby30-x64\bin;%PATH%
   - ruby -v
+  - bundle config build.nokogiri --use-system-libraries
   - bundle config --local path vendor/bundle
   - bundle install
   - yarn
@@ -32,7 +33,6 @@ before_test:
   - gem install bundler
   - gem -v
   - bundle -v
-  - bundle config build.nokogiri --use-system-libraries
   - copy config\database.appveyor.yml config\database.yml
   - ruby bin\rake db:create
   - ruby bin\rails db:schema:load
