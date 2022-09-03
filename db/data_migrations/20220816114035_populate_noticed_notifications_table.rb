@@ -11,8 +11,8 @@ class PopulateNoticedNotificationsTable < ActiveRecord::DataMigration
           :recipient_id => notification.target_id,
           :type => (notification.notifiable_type == "Star" ? "StarNotification" : "ForkNotification"),
           :params => {
-            user: User.find(notification.notifier_id),
-            project: (notification.notifiable_type == "Star" ? Project.find(notification.notifiable.project_id) : Project.find(notification.notifiable.forked_project_id))
+            user_id: notification.notifier_id,
+            project_id: (notification.notifiable_type == "Star" ? notification.notifiable.project_id : notification.notifiable.forked_project_id)
           },
           :read_at => notification.opened_at
         )
