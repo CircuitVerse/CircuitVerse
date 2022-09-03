@@ -89,7 +89,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.3.5"
+gem "pg", "~> 1.4.3"
 
 gem "meta-tags"
 
@@ -149,6 +149,7 @@ group :development do
   gem "rubocop"
   gem "spring"
   gem "sunspot_solr"
+  gem "bundler-audit", "~> 0.9.1"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -161,7 +162,7 @@ gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 8.8"
+gem "newrelic_rpm", "~> 8.10"
 
 gem "oj", "~> 3.13"
 
