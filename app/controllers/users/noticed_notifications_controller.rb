@@ -16,7 +16,7 @@ class Users::NoticedNotificationsController < ApplicationController
   end
 
   def mark_all_as_read
-    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now)
+    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
     redirect_to notifications_path(current_user)
   end
 end
