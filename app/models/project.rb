@@ -98,7 +98,7 @@ class Project < ApplicationRecord
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
     @project = Project.find(id)
-    if @project.author != user # rubocop:disable Style/IfUnlessModifier
+    if @project.author != user # rubocop:disable Style/IfUnlessModifier 
       ForkNotification.with(user: user, project: @project).deliver_later(@project.author)
     end
     forked_project
