@@ -1,5 +1,6 @@
 import simulationArea from './simulationArea';
 import {convertors} from './utils';
+import { currentScreen } from './listeners';
 
 var DPR = window.devicePixelRatio || 1;
 
@@ -12,7 +13,7 @@ function sh(x) {
  * Spec Constants
  * Size Spec Diagram - https://app.diagrams.net/#G1HFoesRvNyDap95sNJswTy3nH09emDriC
  * NOTE: Since DPR is set on page load, changing of screen in runtime will not work well
- * @TODO 
+ * @TODO
  *  - Support for color themes
  *  - Replace constants with functions? - Can support Zoom in and Zoom out of canvas then
  */
@@ -29,6 +30,7 @@ var foregroundColor = '#eee';
 var textColor = 'black';
 var waveFormColor = 'cyan';
 var timeLineStartX = flagLabelWidth + padding;
+var ptA = currentScreen();
 
 // Helper functions for canvas
 
@@ -51,7 +53,7 @@ function getCycleStartX(cycleNumber) {
 const plotArea = {
     cycleOffset: 0, // Determines timeline offset
     DPR: window.devicePixelRatio || 1,
-    canvas: document.getElementById('plotArea'),
+    canvas: document.getElementById(ptA.PlotAreaId),
     cycleCount: 0, // Number of clock cycles passed
     cycleTime: 0, // Time of last clock tick (in ms)
     executionStartTime: 0, // Last time play() function ran in engine.js (in ms)
@@ -114,16 +116,18 @@ const plotArea = {
     resize() {
         var oldHeight = this.height;
         var oldWidth = this.width;
-        this.width = document.getElementById('plot').clientWidth * this.DPR;
+        this.width = document.getElementById(ptA.plotID).clientWidth * this.DPR;
         this.height = getFullHeight(globalScope.Flag.length);
         if (oldHeight == this.height && oldWidth == this.width) return;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
+        document.getElementById(ptA.PlotAreaId).style.height = this.canvas.height / this.DPR;
+        document.getElementById(ptA.PlotAreaId).style.width = this.canvas.width / this.DPR;
         this.plot();
     },
     // Setup function, called on page load
     setup() {
-        this.canvas = document.getElementById('plotArea');
+        this.canvas = document.getElementById(ptA.PlotAreaId);
         if (!embed) {
             this.ctx = this.canvas.getContext('2d');
         }
@@ -139,9 +143,9 @@ const plotArea = {
         // For user interactions like buttons - calculate time since clock tick
         var timePeriod = simulationArea.timePeriod;
         var executionDelay = (this.executionStartTime - this.cycleTime);
-        var delayFraction = executionDelay / timePeriod; 
+        var delayFraction = executionDelay / timePeriod;
         // Add time since clock tick
-        time += delayFraction; 
+        time += delayFraction;
         return time;
     },
     // Auto calibrate clock simulation units based on usage
@@ -156,8 +160,8 @@ const plotArea = {
         var time = this.cycleCount;
         var timePeriod = simulationArea.timePeriod;
         var delay = new Date().getTime() - this.cycleTime;
-        var delayFraction = delay / timePeriod; 
-        time += delayFraction; 
+        var delayFraction = delay / timePeriod;
+        time += delayFraction;
         return time;
     },
     update() {
@@ -168,25 +172,25 @@ const plotArea = {
         var unitUsed = this.unitUsed;
         var units = this.cycleUnit;
         var utilization = Math.round(unitUsed * 10000 / units) / 100;
-        $('#timing-diagram-log').html(`Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`);
+        $(ptA.tdLog).html(`Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`);
         if (utilization >= 90 || utilization <= 10) {
             var recommendedUnit = Math.max(20, Math.round(unitUsed * 3));
-            $('#timing-diagram-log').append(` Recommended Units: ${recommendedUnit}`);
-            $('#timing-diagram-log').css('background-color', dangerColor);
+            $(ptA.tdLog).append(` Recommended Units: ${recommendedUnit}`);
+            $(ptA.tdLog).css('background-color', dangerColor);
             if (utilization >= 100) {
                 this.clear();
                 return;
             }
         }
         else {
-            $('#timing-diagram-log').css('background-color', normalColor);
+            $(ptA.tdLog).css('background-color', normalColor);
         }
-        
+
         var width = this.width;
         var endTime = this.getCurrentTime();
-    
+
         if (this.autoScroll) {
-            // Formula used: 
+            // Formula used:
             // (endTime - x) * cycleWidth = width - timeLineStartX;
             // x = endTime - (width - timeLineStartX) / cycleWidth
             this.cycleOffset = Math.max(0, endTime - (width - timeLineStartX) / cycleWidth);
@@ -196,9 +200,9 @@ const plotArea = {
             // Friction
             plotArea.scrollAcc *= 0.95;
             // No negative numbers allowed, so negative scroll to 0
-            if (this.cycleOffset < 0) 
+            if (this.cycleOffset < 0)
                 plotArea.scrollAcc = this.cycleOffset / 5;
-            // Set position to 0, to avoid infinite scrolling 
+            // Set position to 0, to avoid infinite scrolling
             if (Math.abs(this.cycleOffset) < 0.01) this.cycleOffset = 0;
         }
     },
@@ -214,7 +218,7 @@ const plotArea = {
         // Background Color
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, width, height);
-        
+
         ctx.lineWidth = sh(1);
         ctx.font = `${sh(15)}px Raleway`;
         ctx.textAlign = 'left';
@@ -252,11 +256,11 @@ const plotArea = {
                 }
             }
         }
-        
+
         // Flag Labels
         ctx.textAlign = 'left';
         for (var i = 0; i < globalScope.Flag.length; i++) {
-            var startHeight = getFlagStartY(i); 
+            var startHeight = getFlagStartY(i);
             ctx.fillStyle = foregroundColor;
             ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight);
             ctx.fillStyle = textColor;
@@ -272,7 +276,7 @@ const plotArea = {
         ctx.strokeStyle = waveFormColor;
         ctx.textAlign = 'center';
         var endX = Math.min(getCycleStartX(endTime), width);
-        
+
         for (var i = 0; i < globalScope.Flag.length; i++) {
             var plotValues = globalScope.Flag[i].plotValues;
             var startHeight = getFlagStartY(i) + waveFormPadding;
@@ -285,8 +289,8 @@ const plotArea = {
             // Find correct index to start plotting from
             var j = 0;
             // Using caching for optimal performance
-            if (globalScope.Flag[i].cachedIndex) { 
-                j = globalScope.Flag[i].cachedIndex; 
+            if (globalScope.Flag[i].cachedIndex) {
+                j = globalScope.Flag[i].cachedIndex;
             }
             // Move to beyond timeLineStartX
             while (j + 1 < plotValues.length && getCycleStartX(plotValues[j][0]) < timeLineStartX) {
@@ -308,12 +312,12 @@ const plotArea = {
                     if(j + 1 != plotValues.length) {
                         // Next one also is out of bound, so skip this one completely
                         var x1 = getCycleStartX(plotValues[j + 1][0]);
-                        if (x1 < timeLineStartX) 
+                        if (x1 < timeLineStartX)
                             continue;
                     }
                     x = timeLineStartX;
                 }
-                
+
                 var value = plotValues[j][1];
                 if(value === undefined) {
                     if (state == WAVEFORM_STARTED) {
@@ -361,7 +365,7 @@ const plotArea = {
                     var x1 = Math.max(x, timeLineStartX);
                     var x2 = Math.min(endX, width);
                     var textPositionX = (x1 + x2) / 2 ;
-                    
+
                     ctx.font = `${sh(9)}px Times New Roman`;
                     ctx.fillStyle = 'white';
                     ctx.fillText(convertors.dec2hex(value), textPositionX, yMid + sh(3));
@@ -445,7 +449,7 @@ export function setupTimingListeners() {
         if (isNaN(timeUnits) || timeUnits < 1) return;
         plotArea.cycleUnit = timeUnits;
     })
-    document.getElementById('plotArea').addEventListener('mousedown', (e) => {
+    document.getElementById(ptA.PlotAreaId).addEventListener('mousedown', (e) => {
         var rect = plotArea.canvas.getBoundingClientRect();
         var x = sh(e.clientX - rect.left);
         plotArea.scrollAcc = 0;
@@ -455,16 +459,45 @@ export function setupTimingListeners() {
         plotArea.mouseDownX = x;
         plotArea.mouseDownTime = new Date().getTime();
     });
-    document.getElementById('plotArea').addEventListener('mouseup', (e) => {
+    document.getElementById(ptA.PlotAreaId).addEventListener('mouseup', (e) => {
         plotArea.mouseDown = false;
         var time = new Date().getTime() - plotArea.mouseDownTime;
         var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
         plotArea.scrollAcc = offset * frameInterval / time;
     });
 
-    document.getElementById('plotArea').addEventListener('mousemove', (e) => {
+    document.getElementById(ptA.PlotAreaId).addEventListener('mousemove', (e) => {
         var rect = plotArea.canvas.getBoundingClientRect();
         var x = sh(e.clientX - rect.left);
+        if (plotArea.mouseDown) {
+            plotArea.cycleOffset -= (x - plotArea.mouseX) / cycleWidth;
+            plotArea.mouseX = x;
+        } else {
+            plotArea.mouseDown = false;
+        }
+    });
+
+
+    document.getElementById(ptA.PlotAreaId).addEventListener('touchstart', (e) => {
+        var rect = plotArea.canvas.getBoundingClientRect();
+        var x = sh(e.touches[0].clientX - rect.left);
+        plotArea.scrollAcc = 0;
+        plotArea.autoScroll = false;
+        plotArea.mouseDown = true;
+        plotArea.mouseX = x;
+        plotArea.mouseDownX = x;
+        plotArea.mouseDownTime = new Date().getTime();
+    });
+    document.getElementById(ptA.PlotAreaId).addEventListener('touchend', (e) => {
+        plotArea.mouseDown = false;
+        var time = new Date().getTime() - plotArea.mouseDownTime;
+        var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
+        plotArea.scrollAcc = offset * frameInterval / time;
+    });
+
+    document.getElementById(ptA.PlotAreaId).addEventListener('touchmove', (e) => {
+        var rect = plotArea.canvas.getBoundingClientRect();
+        var x = sh(e.touches[0].clientX - rect.left);
         if (plotArea.mouseDown) {
             plotArea.cycleOffset -= (x - plotArea.mouseX) / cycleWidth;
             plotArea.mouseX = x;

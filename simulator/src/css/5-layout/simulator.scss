@@ -151,6 +151,15 @@
   opacity: 0;
 }
 
+@media screen and (max-device-width: 1366px){
+  #Help {
+    bottom: 60px;
+    left: 150px;
+    margin-left: -125px;
+    right: 500px;
+  }
+}
+
 #Help.show {
   visibility: visible;
   /* Show the snackbar */

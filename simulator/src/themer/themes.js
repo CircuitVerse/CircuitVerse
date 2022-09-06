@@ -51,7 +51,8 @@ export default {
         "--node-norm": "green",
         "--splitter": "black",
         "--output-rect": "blue",
-        "--table-head-dark": "#3d3d3d",
+        "--disable": "#6c8b93",
+        "--touch-menu": "#7d7d7d",
     },
     "Night Sky": {
         "--text-navbar--alt": "#fff",
@@ -104,7 +105,7 @@ export default {
         "--node-norm": "#FFC231",
         "--splitter": "#0284A8",
         "--disable": "#4F74B0",
-        "--table-head-dark": "#000000",
+        "--touch-menu": "#665627",
     },
     "Lite-born Spring": {
         "--text-navbar--alt": "#000",
@@ -159,7 +160,7 @@ export default {
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
         "--disable": "#656565",
-        "--table-head-dark": "#ffffff",
+        "--touch-menu": "#BBBFCA",
     },
     "G&W": {
         "--text-navbar--alt": "#000",
@@ -214,7 +215,7 @@ export default {
         "--node-norm": "#FFC231",
         "--splitter": "#00B462",
         "--disable": "#656565",
-        "--table-head-dark": "#ffffff",
+        "--touch-menu": "#BBBFCA",
     },
     "High Contrast": {
         "--text-navbar--alt": "#000",
@@ -269,7 +270,7 @@ export default {
         "--node-norm": "#F38518",
         "--splitter": "#21de5a",
         "--disable": "#262626",
-        "--table-head-dark": "#000000",
+        "--touch-menu": "#F38518",
     },
     "Color Blind": {
         "--text-navbar--alt": "#000",
@@ -324,6 +325,7 @@ export default {
         "--node-norm": "#c59434",
         "--splitter": "#836222",
         "--disable": "#956c6a",
+        "--touch-menu": "#A0937D",
         "--table-head-dark": "#2e2b21",
     },
     "Custom Theme": JSON.parse(localStorage.getItem('Custom Theme')) || {
@@ -378,5 +380,6 @@ export default {
         "--node-norm": "#008000",
         "--splitter": "#000",
         "--output-rect": "#0000ff",
+        "--touch-menu": "#A0937D",
     },
 };
