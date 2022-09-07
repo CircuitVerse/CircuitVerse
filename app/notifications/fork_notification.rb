@@ -5,8 +5,8 @@ class ForkNotification < Noticed::Base
   deliver_by :webpush, class: "DeliveryMethods::Webpush"
 
   def message
-    user = User.find(params[:user_id])
-    project = Project.find(params[:project_id])
+    user = params[:user]
+    project = params[:project]
     t("users.notifications.fork_notification", user: user.name, project: project.name)
   end
 

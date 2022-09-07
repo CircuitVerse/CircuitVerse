@@ -96,6 +96,13 @@ describe AssignmentsController, type: :request do
         }
       }
     end
+    let(:mentor_update_params) do
+      {
+        assignment: {
+          description: "updated description"
+        }
+      }
+    end
 
     context "when primary_mentor is signed in" do
       it "updates the assignment" do
@@ -104,14 +111,6 @@ describe AssignmentsController, type: :request do
         @assignment.reload
         expect(@assignment.description).to eq("updated description <br> with line break")
       end
-    end
-
-    let(:mentor_update_params) do
-      {
-        assignment: {
-          description: "updated description"
-        }
-      }
     end
 
     context "when a mentor is signed in" do

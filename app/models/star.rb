@@ -5,7 +5,7 @@ class Star < ApplicationRecord
   belongs_to :project
   after_create_commit :notify_recipient
   before_destroy :cleanup_notification
-  has_many :notifications, as: :notifiable
+  has_many :notifications, as: :notifiable, dependent: :destroy
   has_noticed_notifications model_name: "NoticedNotification"
 
   private
@@ -13,7 +13,7 @@ class Star < ApplicationRecord
     def notify_recipient
       return if user.id == project.author_id
 
-      StarNotification.with(user_id: user.id, project_id: project.id, webpush_type: "star").deliver_later(project.author)
+      StarNotification.with(user: user, project: project, webpush_type: "star").deliver_later(project.author)
     end
 
     def cleanup_notification
