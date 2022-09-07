@@ -24,7 +24,7 @@ RSpec.describe Api::V1::NotificationsController, "#index", type: :request do
           :noticed_notification,
           recipient: @author,
           params:
-            { user_id: @user.id, project_id: @project.id },
+            { user: @user, project: @project },
           read_at: nil
         )
       end

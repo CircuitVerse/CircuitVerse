@@ -24,15 +24,15 @@ RSpec.describe Api::V1::NotificationsController, "#mark_as_read", type: :request
           :noticed_notification,
           recipient: @author,
           params:
-            { user_id: @user.id, project_id: @project.id },
+            { user: @user, project: @project },
           read_at: nil
         )
       end
 
       it "mark notification as read" do
         token = get_auth_token(@author)
-        post "/api/v1/notifications/mark_as_read/#{@notification.id}",
-             headers: { Authorization: "Token #{token}" }, as: :json
+        patch "/api/v1/notifications/mark_as_read/#{@notification.id}",
+              headers: { Authorization: "Token #{token}" }, as: :json
         expect(response).to have_http_status(:created)
         expect(response).to match_response_schema("read_notification")
       end
