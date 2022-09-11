@@ -40,7 +40,7 @@ const ImportCircuitFiles = () => {
             load(parsedFileDate);
             return true;
         } catch (error) {
-            $('#message').text(`${error}`);
+            $('#message').text('Invalid file format');
             return false;
         }
     }
