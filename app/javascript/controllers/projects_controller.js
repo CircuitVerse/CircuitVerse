@@ -1,10 +1,21 @@
 /* eslint-disable class-methods-use-this */
 import { Controller } from 'stimulus';
+import SlimSelect from 'slim-select';
 
 var flag = false;
 
 export default class extends Controller {
     // eslint-disable-next-line class-methods-use-this
+    connect() {
+        var select = new SlimSelect({
+            select: '#multiple',
+            addable: function (value) {
+                return value;
+            },
+            placeholder: 'Click for suggested tags!'
+        })
+    }
+
     copy() {
         const textarea = document.getElementById('result');
         var x = document.querySelector('.projectshow-embed-text-confirmation');

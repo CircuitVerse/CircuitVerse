@@ -25,9 +25,18 @@
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :project_name, class: 'form-control form-input' %>
   </div>
-  <div class="field form-group projects-tag-form-group">
+  <div class="field form-group projects-tag-form-group" data-controller="projects" >
     <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
-    <%= form.text_field :tag_list, class: 'form-control form-input' %>
+    <div class="content">
+      <div class="ding">
+        <select id="multiple" multiple>
+          <option data-placeholder="true"></option>
+          <option value="value1" selected>Value 1</option>
+          <option value="value2">Value 2</option>
+          <option value="value3">Value 3</option>
+        </select>
+      </div>
+    </div>
   </div>
   <div class="field form-group">
     <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>
