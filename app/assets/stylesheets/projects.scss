@@ -401,6 +401,11 @@
   cursor: pointer;
 }
 
+.ss-list {
+  overflow-y: scroll;
+  height: 190px;
+}
+
 .ss-list .ss-disabled {
   display: none;
 }

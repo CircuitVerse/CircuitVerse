@@ -39,7 +39,9 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1/edit
-  def edit; end
+  def edit
+    @suggested_tags = @project.name
+  end
 
   def change_stars
     star = Star.find_by(user_id: current_user.id, project_id: @project.id)

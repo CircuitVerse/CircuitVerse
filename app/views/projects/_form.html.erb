@@ -12,7 +12,7 @@
 <% end %>
 
 <%= form_with(model: [ @project.author, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
-  <div data-controller="projects">
+  <div data-controller="projects" data-projects-circuitdata-value="<%= @project.project_datum.data %>" >
     <% if project.errors.any? %>
       <div id="error-message">
         <ul>

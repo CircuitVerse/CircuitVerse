@@ -5,13 +5,26 @@ import SlimSelect from 'slim-select';
 var flag = false;
 var select;
 export default class extends Controller {
+
+    static values = { circuitdata: String }
     // eslint-disable-next-line class-methods-use-this
     connect() {
+        var suggested_tags = [];
+        const circuit_data = JSON.parse(this.circuitdataValue)
+        console.log(circuit_data['scopes'][0]);
+        for(var key in circuit_data['scopes'][0]) {
+            let data = circuit_data['scopes'][0][key][0]
+            if(typeof data === 'object' && typeof data.objectType != 'undefined'){
+                suggested_tags.push({ text: data.objectType});
+            }            
+        }
+        console.log(suggested_tags);
         select = new SlimSelect({
             select: '#multiple',
             addable: function (value) {
-                return value.toLocaleLowerCase();
+                return value;
             },
+            data: suggested_tags,
             searchPlaceholder: 'Search for suggested tags or add your customized tags!',
             placeholder: 'Click for suggested tags!'
         })
