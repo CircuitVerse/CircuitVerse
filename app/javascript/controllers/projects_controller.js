@@ -3,17 +3,26 @@ import { Controller } from 'stimulus';
 import SlimSelect from 'slim-select';
 
 var flag = false;
-
+var select;
 export default class extends Controller {
     // eslint-disable-next-line class-methods-use-this
     connect() {
-        var select = new SlimSelect({
+        select = new SlimSelect({
             select: '#multiple',
             addable: function (value) {
-                return value;
+                return value.toLocaleLowerCase();
             },
+            searchPlaceholder: 'Search for suggested tags or add your customized tags!',
             placeholder: 'Click for suggested tags!'
         })
+    }
+
+    generateTags() {
+        var input = document.createElement("input");
+        input.setAttribute("type", "hidden");
+        input.setAttribute("name", "tag_list");
+        input.setAttribute("value", select.selected());
+        document.getElementById("projectForm").appendChild(input);
     }
 
     copy() {
