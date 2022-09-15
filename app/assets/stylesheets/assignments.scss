@@ -169,7 +169,6 @@ a:not([href]):not([tabindex]) {
 }
 //breakpoints
 @media (max-width: 400px) {
-
   .assignments-data {
     max-width: 100%;
   }
@@ -188,19 +187,49 @@ a:not([href]):not([tabindex]) {
   max-width: 100%;
 }
 
-.primary-checkpoint {
-  background-color: $white;
-  border: 1px solid $secondary-green;
+.primary-checkpoint-container {
+  display: inline-flex;
+  align-items: center;
   cursor: pointer;
-  padding-left: 4px;
-  padding-top: 4px;
-  text-align: center;
+}
 
-  &:hover {
-    border-color: $primary-green;
-    opacity: 1;
-    transition: .2s ease-in-out;
-  }
+.checkbox__input {
+  display: none;
+}
+
+.checkbox__box {
+  width: 1.25em;
+  height: 1.25em;
+  border: 2px solid #026e57;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  flex-shrink: 0;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.checkbox__box::after {
+  content: "\2714";
+  color: #ffffff;
+  transform: scale(0);
+  transition: transform 0.2s;
+}
+
+.checkbox__input:checked + .checkbox__box {
+  background: #42b983;
+  border-color: #42b983;
+}
+
+.checkbox__input:checked + .checkbox__box::after {
+  transform: scale(1);
+}
+
+.font {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 14px;
 }
 
 .restricted-feature-list {
