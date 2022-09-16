@@ -6,30 +6,69 @@ var flag = false;
 var select;
 export default class extends Controller {
 
-    static values = { circuitdata: String }
+    static values = { circuitdata: String, tagdata: String, name: String }
     // eslint-disable-next-line class-methods-use-this
     connect() {
-        var suggested_tags = [];
-        const circuit_data = JSON.parse(this.circuitdataValue)
-        console.log(circuit_data['scopes'][0]);
-        for(var key in circuit_data['scopes'][0]) {
-            let data = circuit_data['scopes'][0][key][0]
-            if(typeof data === 'object' && typeof data.objectType != 'undefined'){
-                suggested_tags.push({ text: data.objectType});
-            }            
+        var project_name = this.nameValue.split(' ');
+        // project tags
+        var project_tag_list = this.tagdataValue.split(', ');
+        const indexOfEmptyValue = project_tag_list.indexOf('');
+        if (indexOfEmptyValue > -1) { // only splice array when item is found
+            project_tag_list.splice(indexOfEmptyValue, 1);
         }
-        console.log(suggested_tags);
+        for(let i in project_tag_list) {
+            project_tag_list[i] = project_tag_list[i].toLocaleLowerCase();
+        }
+        // suggested tags list
+        var suggested_circuit_element_list = [];
+        // fetching the circuit used elements
+        const circuit_data = JSON.parse(this.circuitdataValue)
+        // storing the fetched circuit_data to suggested_circuit_element_list
+        for(var key in circuit_data['scopes'][0]) {
+            let data = circuit_data['scopes'][0][key][0];
+            // if the data is object and contain objectType property then it is an object of used element in the circuit
+            if(typeof data === 'object' && typeof data.objectType != 'undefined'){
+                suggested_circuit_element_list.push(data.objectType.toLocaleLowerCase());
+            }
+        }
+        // filter tags which are already selected
+        suggested_circuit_element_list = suggested_circuit_element_list.filter(function(tag) {
+            return !project_tag_list.includes(tag);
+        })
+        // final suggested tags array
+        const suggested_tags = [];
+        // pushing selected tags
+        for(let i in project_tag_list) {
+            suggested_tags.push({
+                text: project_tag_list[i].toLocaleLowerCase(),
+                selected: true
+            })
+        }
+        // pushing suggested tags
+        for(let i in suggested_circuit_element_list) {
+            suggested_tags.push({
+                text: suggested_circuit_element_list[i]
+            })
+        }
+        // pushing name data
+        for(let i in project_name) {
+            suggested_tags.push({
+                text: project_name[i].toLocaleLowerCase()
+            })
+        }
+        // slim select initialisation
         select = new SlimSelect({
             select: '#multiple',
             addable: function (value) {
-                return value;
+                return value.toLocaleLowerCase();
             },
             data: suggested_tags,
             searchPlaceholder: 'Search for suggested tags or add your customized tags!',
-            placeholder: 'Click for suggested tags!'
+            placeholder: 'Click for suggested tags or add your customized tags!'
         })
     }
 
+    // adding hidden input field for selected tags and appending it to the projectForm
     generateTags() {
         var input = document.createElement("input");
         input.setAttribute("type", "hidden");

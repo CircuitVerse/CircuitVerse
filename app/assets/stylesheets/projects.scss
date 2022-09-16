@@ -403,7 +403,7 @@
 
 .ss-list {
   overflow-y: scroll;
-  height: 190px;
+  max-height: 190px;
 }
 
 .ss-list .ss-disabled {

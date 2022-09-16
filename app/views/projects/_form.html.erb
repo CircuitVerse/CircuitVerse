@@ -12,7 +12,7 @@
 <% end %>
 
 <%= form_with(model: [ @project.author, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
-  <div data-controller="projects" data-projects-circuitdata-value="<%= @project.project_datum.data %>" >
+  <div data-controller="projects" data-projects-circuitdata-value="<%= @project.project_datum.data %>" data-projects-tagdata-value="<%= @project.tag_list %>" data-projects-name-value="<%= @project.name %>" >
     <% if project.errors.any? %>
       <div id="error-message">
         <ul>
@@ -27,15 +27,9 @@
       <%= form.text_field :name, id: :project_name, class: 'form-control form-input' %>
     </div>
     <div class="field form-group projects-tag-form-group">
-      <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
+      <h6><%= form.label :tag_list %></h6>
       <select id="multiple" multiple>
         <option data-placeholder="true"></option>
-        <% @project.tags.each do |tag| %>
-          <option value="<%= tag.name %>" selected><%= tag.name %></option>
-        <% end %>
-        <option value="tag1" selected>Tag 1</option>
-        <option value="tag2">Tag 2</option>
-        <option value="tag3">Tag 3</option>
       </select>
     </div>
     <div class="field form-group">
