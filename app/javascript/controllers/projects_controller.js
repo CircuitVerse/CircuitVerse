@@ -58,7 +58,7 @@ export default class extends Controller {
         }
         // slim select initialisation
         select = new SlimSelect({
-            select: '#multiple',
+            select: '#tag_list',
             addable: function (value) {
                 return value.toLocaleLowerCase();
             },

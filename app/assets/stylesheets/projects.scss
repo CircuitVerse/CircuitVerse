@@ -302,20 +302,20 @@
   background-color: #fff;
   border: 1px solid #026e57;
   border-radius: 0;
-  max-width: 100%;
+  color: #495057;
   display: block;
-  width: 100%;
-  height: calc(1.5em + 0.75rem + 2px);
-  padding: 0.375rem 0.75rem;
   font-size: 1rem;
   font-weight: 400;
+  height: calc(1.5em + .75rem + 2px);
   line-height: 1.5;
-  color: #495057;
+  max-width: 100%;
+  padding: .375rem .75rem;
+  width: 100%;
 }
 
 .ss-search {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .ss-value {

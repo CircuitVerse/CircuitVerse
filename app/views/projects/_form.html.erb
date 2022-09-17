@@ -12,7 +12,7 @@
 <% end %>
 
 <%= form_with(model: [ @project.author, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
-  <div data-controller="projects" data-projects-circuitdata-value="<%= @project.project_datum.data %>" data-projects-tagdata-value="<%= @project.tag_list %>" data-projects-name-value="<%= @project.name %>" >
+  <div data-controller="projects" data-projects-circuitdata-value="<%= @project.project_datum.data %>" data-projects-tagdata-value="<%= @project.tag_list %>" data-projects-name-value="<%= @project.name %>">
     <% if project.errors.any? %>
       <div id="error-message">
         <ul>
@@ -28,7 +28,7 @@
     </div>
     <div class="field form-group projects-tag-form-group">
       <h6><%= form.label :tag_list %></h6>
-      <select id="multiple" multiple>
+      <select name="tag_list" id="tag_list" multiple>
         <option data-placeholder="true"></option>
       </select>
     </div>
@@ -44,7 +44,7 @@
       <h6><%= form.label :description %></h6>
       <%= render :partial => 'editor/index', :locals => {:content => @project.description} %>
     </div>
-    <div class="field form-group" onclick="beforeSubmit()" data-action="click->projects#generateTags" >
+    <div class="field form-group" onclick="beforeSubmit()" data-action="click->projects#generateTags">
       <%= form.submit class: 'btn primary-button' %> &nbsp;
       <%= link_to t("back"), :back, class: 'anchor-text' %>
     </div>
