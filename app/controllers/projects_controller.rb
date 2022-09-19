@@ -40,6 +40,8 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
+    return unless Flipper.enabled?(:suggest_tags)
+
     @suggested_tags = []
     # generating tags from the circuit elements used
     circuit_data = JSON.parse(@project.project_datum.data)
@@ -162,6 +164,8 @@ class ProjectsController < ApplicationController
     end
 
     def sanitize_tags
+      return unless Flipper.enabled?(:suggest_tags)
+
       params[:project][:tag_list] = params[:tag_list]
     end
 
