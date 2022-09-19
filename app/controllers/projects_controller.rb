@@ -40,7 +40,25 @@ class ProjectsController < ApplicationController
 
   # GET /projects/1/edit
   def edit
-    @suggested_tags = @project.name
+    @suggested_tags = []
+    # generating tags from the circuit elements used
+    circuit_data = JSON.parse(@project.project_datum.data)
+    circuit_data["scopes"][0].each do |key, _value|
+      temp_data = circuit_data["scopes"][0][key][0]
+      if temp_data.instance_of?(Hash) && temp_data.key?("objectType")
+        @suggested_tags.push(temp_data["objectType"].downcase)
+      end
+    end
+    # generating tags from the circuit name
+    project_name_tag = @project.name.split
+    project_name_tag.each do |tag|
+      @suggested_tags.push(tag.downcase)
+    end
+    # project tag list
+    @project_tag_list = @project.tag_list.split(', ')
+    @project_tag_list.map!(&:downcase)
+    # removing tags which are already present
+    @suggested_tags -= @project_tag_list
   end
 
   def change_stars

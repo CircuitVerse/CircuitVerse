@@ -6,57 +6,22 @@ var flag = false;
 var select;
 export default class extends Controller {
 
-    static values = { circuitdata: String, tagdata: String, name: String }
+    static values = { suggesttags: Array, taglist: Array}
     // eslint-disable-next-line class-methods-use-this
     connect() {
-        var project_name = this.nameValue.split(' ');
-        // project tags
-        var project_tag_list = this.tagdataValue.split(', ');
-        const indexOfEmptyValue = project_tag_list.indexOf('');
-        if (indexOfEmptyValue > -1) { // only splice array when item is found
-            project_tag_list.splice(indexOfEmptyValue, 1);
-        }
-        for(let i in project_tag_list) {
-            project_tag_list[i] = project_tag_list[i].toLocaleLowerCase();
-        }
-        // suggested tags list
-        var suggested_circuit_element_list = [];
-        // fetching the circuit used elements
-        const circuit_data = JSON.parse(this.circuitdataValue)
-        // storing the fetched circuit_data to suggested_circuit_element_list
-        for(var key in circuit_data['scopes'][0]) {
-            let data = circuit_data['scopes'][0][key][0];
-            // if the data is object and contain objectType property then it is an object of used element in the circuit
-            if(typeof data === 'object' && typeof data.objectType != 'undefined'){
-                suggested_circuit_element_list.push(data.objectType.toLocaleLowerCase());
-            }
-        }
-        // filter tags which are already selected
-        suggested_circuit_element_list = suggested_circuit_element_list.filter(function(tag) {
-            return !project_tag_list.includes(tag);
-        })
-        // final suggested tags array
         const suggested_tags = [];
-        // pushing selected tags
-        for(let i in project_tag_list) {
+        for(let i in this.suggesttagsValue) {
             suggested_tags.push({
-                text: project_tag_list[i].toLocaleLowerCase(),
+                text: this.suggesttagsValue[i]
+            })
+        }
+        for(let i in this.taglistValue) {
+            suggested_tags.push({
+                text: this.taglistValue[i],
                 selected: true
             })
         }
-        // pushing suggested tags
-        for(let i in suggested_circuit_element_list) {
-            suggested_tags.push({
-                text: suggested_circuit_element_list[i]
-            })
-        }
-        // pushing name data
-        for(let i in project_name) {
-            suggested_tags.push({
-                text: project_name[i].toLocaleLowerCase()
-            })
-        }
-        // slim select initialisation
+        console.log(suggested_tags);
         select = new SlimSelect({
             select: '#tag_list',
             addable: function (value) {

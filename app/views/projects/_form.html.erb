@@ -12,7 +12,7 @@
 <% end %>
 
 <%= form_with(model: [ @project.author, @project] , local: true, multipart: true, id:"projectForm") do |form| %>
-  <div data-controller="projects" data-projects-circuitdata-value="<%= @project.project_datum.data %>" data-projects-tagdata-value="<%= @project.tag_list %>" data-projects-name-value="<%= @project.name %>">
+  <div data-controller="projects" data-projects-taglist-value="<%= @project_tag_list %>" data-projects-suggesttags-value="<%= @suggested_tags %>">
     <% if project.errors.any? %>
       <div id="error-message">
         <ul>
