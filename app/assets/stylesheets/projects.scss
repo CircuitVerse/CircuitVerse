@@ -299,8 +299,8 @@
 
 // slim-select
 .ss-values {
-  background-color: #fff;
-  border: 1px solid #026e57;
+  background-color: $white;
+  border: 1px solid $secondary-green;
   border-radius: 0;
   color: #495057;
   display: block;
@@ -319,12 +319,12 @@
 }
 
 .ss-value {
-  background-color: #42b983;
-  border-radius: 0.25rem;
-  color: #fff;
+  background-color: $primary-green;
+  border-radius: .25rem;
+  color: $white;
   display: inline-block;
-  padding: 0 0.4em;
   margin-right: 5px;
+  padding: 0 .4em;
 
   .ss-value-delete {
     margin-left: 10px;

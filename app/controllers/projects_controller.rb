@@ -57,7 +57,7 @@ class ProjectsController < ApplicationController
       @suggested_tags.push(tag.downcase)
     end
     # project tag list
-    @project_tag_list = @project.tag_list.split(', ')
+    @project_tag_list = @project.tag_list.split(", ")
     @project_tag_list.map!(&:downcase)
     # removing tags which are already present
     @suggested_tags -= @project_tag_list
