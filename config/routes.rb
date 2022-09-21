@@ -98,6 +98,10 @@ Rails.application.routes.draw do
     match 'launch', to: 'lti#launch', via: [:get, :post] 
   end
 
+  # contest
+  get "/contests", to: "contests#index", as: "contests"
+  get "/contests/:id", to: "contests#show", as: "contest_page"
+
   mount Commontator::Engine => "/commontator"
 
   # simulator
