@@ -4,7 +4,7 @@ import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
 import { colors } from "../themer/themer";
-import { gateGenerateVerilog } from '../utils';
+import { gateGenerateVerilog, gateGenerateVHDL } from '../utils';
 
 /**
  * @class
@@ -137,6 +137,10 @@ export default class AndGate extends CircuitElement {
 
     generateVerilog() {
         return gateGenerateVerilog.call(this, '&');
+    }
+
+    generateVHDL() {
+        return gateGenerateVHDL.call(this, "and");
     }
 }
 

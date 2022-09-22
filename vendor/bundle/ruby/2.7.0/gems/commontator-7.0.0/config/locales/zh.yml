@@ -1,0 +1,103 @@
+---
+zh: &zh
+  activerecord:
+    attributes:
+      commontator/comment:
+        body: 留言
+        creator: 留言者
+        editor: 編輯
+        thread: 討論
+        parent: 家长留言
+      commontator/subscription:
+        subscriber: 訂閱者
+        thread: 討論
+      commontator/thread:
+        commontable: 可以留言
+    errors:
+      models:
+        commontator/comment:
+          attributes:
+            body:
+              double_posted: 已經有一筆相同的留言。
+    models:
+      commontator/comment:
+        one: 留言
+        other: 留言
+      commontator/subscription:
+        one: 訂閱
+        other: 訂閱
+      commontator/thread:
+        one: 討論
+        other: 討論
+  commontator:
+    anonymous: 匿名
+    comment:
+      actions:
+        cancel: 取消
+        confirm_delete: 確定要刪除這筆留言嗎？
+        create: 發佈
+        delete: 刪除
+        edit: 編輯
+        new: 新留言
+        undelete: 未刪除
+        update: 修改留言
+        reply: 回复评论
+      errors:
+        already_deleted: 此留言已經被刪除了
+        create: 此留言無法發佈因為：
+        not_deleted: 此留言未被刪除
+        update: 此留言無法被修改因為：
+      status:
+        created_at: 於%{created_at}發佈
+        deleted_by: 被%{deleter_name}刪除
+        updated_at: 最在於%{updated_at}被%{editor_name}修改
+        replying: 回复%{creator_name}
+        reply_pages: 回复页面：
+    email:
+      comment_created:
+        body: "%{creator_name}留言於%{commontable_name}"
+        subject: "%{creator_name}於%{commontable_name}發佈了一則留言"
+      thread_link_html: <a href="%{comment_url}">點此處</a>看%{commontable_name}的所有留言
+    require_login: 你需要先登入
+    subscription:
+      actions:
+        subscribe: 訂閱
+        unsubscribe: 取消訂閱
+      errors:
+        already_subscribed: 你已經訂閱過了
+        not_subscribed: 你沒有訂閱過
+    thread:
+      actions:
+        show_all: 列出所有留言
+        filter: 過濾留言
+        close: 關閉討論
+        confirm_close: 你確定要關閉此討論嗎？
+        reopen: 回復討論
+        show: 打開留言
+        hide: 关闭留言
+      errors:
+        already_closed: 此討論已經被關閉
+        not_closed: 此討論尚未被關閉
+      status:
+        cannot_post: 現在還不能發佈
+        closed: 留言已經被%{closer_name}關閉
+        open: 留言
+        pages: 留言页面：
+  time:
+    formats:
+      commontator: "%Y年%m月%d日 於 %H:%M %Z"
+
+zh-CN:
+  <<: *zh
+
+zh-HK:
+  <<: *zh
+
+zh-TW:
+  <<: *zh
+
+zh-YUE:
+  <<: *zh
+  time:
+    formats:
+      commontator: "%Y年%m月%d號 於 %H:%M %Z"

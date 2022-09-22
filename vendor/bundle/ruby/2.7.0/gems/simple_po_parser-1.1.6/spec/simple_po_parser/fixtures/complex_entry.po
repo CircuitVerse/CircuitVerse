@@ -1,0 +1,21 @@
+# translator-comment
+#
+#. extract
+#: reference1
+#: reference2
+#, flag
+#| msgctxt "previous context"
+#| msgid ""
+#|  "multiline\n"
+#|"previous messageid"
+#| msgid_plural "previous msgid_plural"
+msgctxt "Context"
+msgid "msgid"
+msgid_plural ""
+"multiline msgid_plural\n"
+""
+msgstr[0] "msgstr 0"
+msgstr[1] ""
+"msgstr 1 multiline 1\n"
+"msgstr 1 line 2\n"
+msgstr[2] "msgstr 2"

@@ -1,0 +1,138 @@
+have_header: checking for unistd.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <unistd.h>
+/* end */
+
+--------------------
+
+have_header: checking for linux/aio_abi.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <linux/aio_abi.h>
+/* end */
+
+--------------------
+
+have_header: checking for linux/io_uring.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <linux/io_uring.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/select.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/select.h>
+/* end */
+
+--------------------
+
+have_type: checking for port_event_t in poll.h... -------------------- no
+
+"gcc -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC   -c conftest.c"
+conftest.c:6:9: error: unknown type name ‘port_event_t’
+    6 | typedef port_event_t conftest_type;
+      |         ^~~~~~~~~~~~
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <poll.h>
+4: 
+5: /*top*/
+6: typedef port_event_t conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_header: checking for sys/epoll.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/epoll.h>
+/* end */
+
+--------------------
+
+have_header: checking for sys/event.h... -------------------- no
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+conftest.c:3:10: fatal error: sys/event.h: No such file or directory
+    3 | #include <sys/event.h>
+      |          ^~~~~~~~~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/event.h>
+/* end */
+
+--------------------
+
+have_type: checking for port_event_t in port.h... -------------------- no
+
+"gcc -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC   -c conftest.c"
+conftest.c:3:10: fatal error: port.h: No such file or directory
+    3 | #include <port.h>
+      |          ^~~~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <port.h>
+4: 
+5: /*top*/
+6: typedef port_event_t conftest_type;
+7: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_header: checking for sys/resource.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/resource.h>
+/* end */
+
+--------------------
+
