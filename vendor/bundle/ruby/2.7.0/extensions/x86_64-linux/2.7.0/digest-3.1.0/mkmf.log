@@ -1,0 +1,37 @@
+have_type: checking for u_int8_t... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+"gcc -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: /*top*/
+4: typedef u_int8_t conftest_type;
+5: int conftestval[sizeof(conftest_type)?1:-1];
+/* end */
+
+--------------------
+
+have_header: checking for sys/cdefs.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I.    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <sys/cdefs.h>
+/* end */
+
+--------------------
+

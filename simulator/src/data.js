@@ -18,6 +18,7 @@ import {
     resetVerilogCode,
 } from './Verilog2CV';
 import { generateVerilog } from './verilog';
+import { generateVHDL } from "./vhdl";
 import { bitConverterDialog } from './utils';
 import ExportCircuitFiles from './file/SaveAs';
 import ImportCircuitFiles from './file/Open';
@@ -47,6 +48,7 @@ logixFunction.newVerilogModule = createVerilogCircuit;
 logixFunction.saveVerilogCode = saveVerilogCode;
 logixFunction.resetVerilogCode = resetVerilogCode;
 logixFunction.generateVerilog = generateVerilog;
+logixFunction.generateVHDL = generateVHDL;
 logixFunction.bitconverter = bitConverterDialog;
 logixFunction.createNewCircuitScope = createNewCircuitScope;
 logixFunction.ExportCircuitFiles = ExportCircuitFiles;
