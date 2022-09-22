@@ -11,7 +11,6 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
-
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,8 +58,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
     t.text "link"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "assignments", force: :cascade do |t|
@@ -234,8 +233,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
 
   create_table "issue_circuit_data", force: :cascade do |t|
     t.text "data"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "mailkick_opt_outs", force: :cascade do |t|
@@ -245,8 +244,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
     t.boolean "active", default: true, null: false
     t.string "reason"
     t.string "list"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_mailkick_opt_outs_on_email"
     t.index ["user_type", "user_id"], name: "index_mailkick_opt_outs_on_user_type_and_user_id"
   end
@@ -276,8 +275,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
     t.bigint "notifier_id"
     t.text "parameters"
     t.datetime "opened_at"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["group_owner_id"], name: "index_notifications_on_group_owner_id"
     t.index ["group_type", "group_id"], name: "index_notifications_on_group_type_and_group_id"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
@@ -297,8 +296,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
   create_table "project_data", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.text "data"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_project_data_on_project_id", unique: true
   end
 
@@ -329,8 +328,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
     t.string "p256dh"
     t.string "auth"
     t.bigint "user_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
   end
 
@@ -355,8 +354,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
     t.datetime "subscribed_to_email_at"
     t.datetime "unsubscribed_to_email_at"
     t.text "optional_targets"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["key"], name: "index_subscriptions_on_key"
     t.index ["target_type", "target_id", "key"], name: "index_subscriptions_on_target_type_and_target_id_and_key", unique: true
     t.index ["target_type", "target_id"], name: "index_subscriptions_on_target_type_and_target_id"

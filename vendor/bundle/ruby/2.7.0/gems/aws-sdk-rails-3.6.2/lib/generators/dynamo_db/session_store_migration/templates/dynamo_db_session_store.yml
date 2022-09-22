@@ -1,0 +1,70 @@
+# Uncomment and manipulate the key value pairs below
+# in order to configure the DynamoDB Session Store Application.
+
+# [String] The secret key for HMAC encryption. This defaults to
+# `Rails.application.secret_key_base`. You can use a different key if desired.
+#
+# secret_key: SECRET_KEY
+
+# [String] Session table name.
+#
+# table_name: Sessions
+
+# [String] Session table hash key name.
+#
+# table_key: session_id
+
+# [Boolean] Define as true or false depending on if you want a strongly
+# consistent read.
+# See AWS DynamoDB documentation for table consistent_read for more
+# information on this setting.
+#
+# consistent_read: true
+
+# [Integer] Maximum number of reads consumed per second before
+# DynamoDB returns a ThrottlingException. See AWS DynamoDB documentation
+# or table read_capacity for more information on this setting.
+#
+# read_capacity: 10
+
+# [Integer] Maximum number of writes consumed per second before
+# DynamoDB returns a ThrottlingException. See AWS DynamoDB documentation
+# or table write_capacity for more information on this setting.
+#
+# write_capacity: 5
+
+# [Boolean] Define as true or false depending on whether you want all errors to be
+# raised up the stack.
+#
+# raise_errors: false
+
+# [Integer] Maximum number of seconds earlier
+# from the current time that a session was created.
+# By default this is 7 days.
+#
+# max_age: 604800
+
+# [Integer] Maximum number of seconds
+# before the current time that the session was last accessed.
+# By default this is 5 hours.
+#
+# max_stale: 18000
+
+# [Boolean] Define as true or false for whether you want to enable locking
+# for all accesses to session data.
+#
+# enable_locking: false
+
+# [Integer] Time in milleseconds after which lock will expire.
+#
+# lock_expiry_time: 500
+
+# [Integer] Time in milleseconds to wait before retrying to obtain
+# lock once an attempt to obtain lock has been made and has failed.
+#
+# lock_retry_delay: 500
+
+# [Integer] Maximum time in seconds to wait to acquire lock
+# before giving up.
+#
+# lock_max_wait_time: 1

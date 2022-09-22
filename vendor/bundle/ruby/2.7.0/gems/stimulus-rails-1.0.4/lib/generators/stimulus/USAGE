@@ -1,0 +1,15 @@
+Description:
+============
+    Generates a new Stimulus controller at the passed path. If running under node,
+    it'll also call the stimulus:manifest:update task to update the controllers/index.js.
+
+Examples:
+=========
+    bin/rails generate stimulus chat
+
+    creates: app/javascript/controllers/chat_controller.js
+
+
+    bin/rails generate stimulus nested/chat
+
+    creates: app/javascript/controllers/nested/chat_controller.js

@@ -1,0 +1,129 @@
+name: Source gem
+
+on: [push, pull_request]
+
+jobs:
+  job_build_gem:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+
+      - name: Build source gem
+        run: gem build pg.gemspec
+
+      - name: Upload source gem
+        uses: actions/upload-artifact@v2
+        with:
+          name: source-gem
+          path: "*.gem"
+
+  job_test_gem:
+    name: Test built gem
+    needs: job_build_gem
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows
+            ruby: "head"
+            PGVERSION: 14.2-1-windows-x64
+            PGVER: "14"
+          - os: windows
+            ruby: "2.5"
+            PGVERSION: 9.4.26-1-windows-x64
+            PGVER: "9.4"
+          - os: ubuntu
+            ruby: "head"
+            PGVER: "14"
+          - os: ubuntu
+            ruby: "3.1"
+            PGVER: "12"
+          - os: ubuntu
+            ruby: "2.5"
+            PGVER: "9.3"
+          - os: ubuntu
+            ruby: "truffleruby"
+            PGVER: "13"
+          - os: ubuntu
+            ruby: "truffleruby-head"
+            PGVER: "14"
+          - os: macos
+            ruby: "head"
+            PGVERSION: 14.2-1-osx
+            PGVER: "14"
+
+    runs-on: ${{ matrix.os }}-latest
+    env:
+      PGVERSION: ${{ matrix.PGVERSION }}
+      PGVER: ${{ matrix.PGVER }}
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Download gem from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: source-gem
+
+      - name: Install required packages Windows
+        if: matrix.os == 'windows'
+        shell: cmd
+        run: ridk exec sh -c "pacman --sync --needed --noconfirm  ${MINGW_PACKAGE_PREFIX}-gcc"
+
+      - name: Download PostgreSQL Windows
+        if: matrix.os == 'windows'
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          function Unzip {
+              param([string]$zipfile, [string]$outpath)
+              [System.IO.Compression.ZipFile]::ExtractToDirectory($zipfile, $outpath)
+          }
+
+          $(new-object net.webclient).DownloadFile("http://get.enterprisedb.com/postgresql/postgresql-$env:PGVERSION-binaries.zip", "postgresql-binaries.zip")
+          Unzip "postgresql-binaries.zip" "."
+          echo "$pwd/pgsql/bin"  | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          echo "PGUSER=$env:USERNAME"  | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "PGPASSWORD="  | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - name: Download PostgreSQL Ubuntu
+        if: matrix.os == 'ubuntu'
+        run: |
+          echo "deb http://apt.postgresql.org/pub/repos/apt/ focal-pgdg main $PGVER" | sudo tee -a /etc/apt/sources.list.d/pgdg.list
+          wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+          sudo apt -y update
+          sudo apt -y --allow-downgrades install postgresql-$PGVER libpq5=$PGVER* libpq-dev=$PGVER*
+          echo /usr/lib/postgresql/$PGVER/bin >> $GITHUB_PATH
+
+      - name: Download PostgreSQL Macos
+        if: matrix.os == 'macos'
+        run: |
+          wget https://get.enterprisedb.com/postgresql/postgresql-$PGVERSION-binaries.zip && \
+          unzip postgresql-$PGVERSION-binaries.zip && \
+          echo `pwd`/pgsql/bin >> $GITHUB_PATH
+
+      - run: gem update --system
+      - run: bundle install
+
+      - run: gem install --local *.gem --verbose
+
+      - name: Run specs
+        env:
+          PG_DEBUG: 0
+        run: ruby -rpg -S rspec spec/**/*_spec.rb -cfdoc
+
+      - name: Print logs if job failed
+        if: ${{ failure() && matrix.os == 'windows' }}
+        run: ridk exec cat tmp_test_specs/*.log
+
+      - name: Print logs if job failed
+        if: ${{ failure() && matrix.os != 'windows' }}
+        run: cat tmp_test_specs/*.log
