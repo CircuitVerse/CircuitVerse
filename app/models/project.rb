@@ -28,6 +28,7 @@ class Project < ApplicationRecord
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
+  has_one :submission, dependent: :destroy
   has_many :notifications, as: :notifiable
 
   scope :public_and_not_forked,
