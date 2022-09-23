@@ -6,4 +6,7 @@ class ContestsController < ApplicationController
 
   def show
   end
+
+  def admin
+  end
 end

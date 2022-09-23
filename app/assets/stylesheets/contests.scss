@@ -117,6 +117,8 @@
 
   &:hover {
     background: $secondary-green;
+    text-decoration: none;
+    color: white;
   }
 }
 
@@ -142,4 +144,22 @@
 .contest-header-sub-description {
   color: #4f4f4f;
   font-size: 14px;
+}
+
+.contest-container-close-button {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  border: none;
+  background: #ff5959;
+  color: white;
+  border-radius: 5px;
+  font-size: 14px;
+  padding: 2px 5px;
+
+  &:hover {
+    text-decoration: none;
+    color: white;
+    box-shadow: 0 0 5px 0px #0000004d;
+  }
 }
