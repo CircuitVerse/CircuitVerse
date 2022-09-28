@@ -1,0 +1,263 @@
+"pkg-config --exists openssl"
+| pkg-config --libs openssl
+=> "-lssl -lcrypto\n"
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.    -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.    -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lssl -lcrypto -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+| pkg-config --cflags-only-I openssl
+=> "\n"
+| pkg-config --cflags-only-other openssl
+=> "\n"
+| pkg-config --libs-only-l openssl
+=> "-lssl -lcrypto\n"
+package configuration for openssl
+incflags: 
+cflags: 
+ldflags: 
+libs: -lssl -lcrypto
+
+have_header: checking for openssl/bio.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC   conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <openssl/bio.h>
+/* end */
+
+--------------------
+
+have_func: checking for DTLS_method() in openssl/ssl.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <openssl/ssl.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))DTLS_method; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for TLS_server_method() in openssl/ssl.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <openssl/ssl.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))TLS_server_method; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for SSL_CTX_set_min_proto_version(NULL, 0) in openssl/ssl.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <openssl/ssl.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: 
+17: int t(void) { SSL_CTX_set_min_proto_version(NULL, 0); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for X509_STORE_up_ref()... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:14:57: error: ‘X509_STORE_up_ref’ undeclared (first use in this function)
+   14 | int t(void) { void ((*volatile p)()); p = (void ((*)()))X509_STORE_up_ref; return !p; }
+      |                                                         ^~~~~~~~~~~~~~~~~
+conftest.c:14:57: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))X509_STORE_up_ref; return !p; }
+/* end */
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void X509_STORE_up_ref();
+15: int t(void) { X509_STORE_up_ref(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for SSL_CTX_set_ecdh_auto(NULL, 0) in openssl/ssl.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <openssl/ssl.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: 
+17: int t(void) { SSL_CTX_set_ecdh_auto(NULL, 0); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for SSL_get1_peer_certificate() in openssl/ssl.h... -------------------- no
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:16:57: error: ‘SSL_get1_peer_certificate’ undeclared (first use in this function); did you mean ‘SSL_get_peer_certificate’?
+   16 | int t(void) { void ((*volatile p)()); p = (void ((*)()))SSL_get1_peer_certificate; return !p; }
+      |                                                         ^~~~~~~~~~~~~~~~~~~~~~~~~
+      |                                                         SSL_get_peer_certificate
+conftest.c:16:57: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <openssl/ssl.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))SSL_get1_peer_certificate; return !p; }
+/* end */
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.     -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC  conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic      -lssl -lcrypto -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lssl -lcrypto -lm   -lc"
+/usr/bin/ld: /tmp/ccslexbk.o: in function `t':
+/workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/puma-5.6.4/ext/puma_http11/conftest.c:17: undefined reference to `SSL_get1_peer_certificate'
+collect2: error: ld returned 1 exit status
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <openssl/ssl.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: extern void SSL_get1_peer_certificate();
+17: int t(void) { SSL_get1_peer_certificate(); return 0; }
+/* end */
+
+--------------------
+

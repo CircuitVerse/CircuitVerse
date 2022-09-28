@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### [Added]
+
+- [Task 002] : (Multiplexer.js/Modules.js) Add ModuleVHDL and generateVHDL functions
+- [Task 002] : (vhdl.js) Change moduleVerilog to moduleVHDL
+
 ## [release-001] - 2022-09-22
 
 ### [Added]

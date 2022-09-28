@@ -273,6 +273,11 @@ export default class Multiplexer extends CircuitElement {
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
+    generateVHDL() {
+        Multiplexer.selSizes.add(this.controlSignalSize);
+        return CircuitElement.prototype.generateVerilog.call(this);
+    }
+
     //generate the needed modules
     static moduleVerilog() {
         var output = "";
@@ -303,6 +308,40 @@ export default class Multiplexer extends CircuitElement {
                 output += `      ${j} : out = in${j};\n`;
             }
             output += "    endcase\n";
+            output += "endmodule\n";
+            output += "\n";
+        }
+
+        return output;
+    }
+
+    static moduleVHDL() {
+        var output = "";
+
+        for (var size of Multiplexer.selSizes) {
+            var numInput = 1 << size;
+            var inpString = "";
+            for (var j = 0; j < numInput; j++) {
+                inpString += `in${j}, `;
+            }
+            output += "\n"
+            output += "  with sel select\n"
+            output += "    out <="
+            
+            for (var j = 0; j < numInput; j++) {
+                var lastInput = numInput - 1
+                var zeros
+                for(var i = 0; i < lastInput.toString(2).length; i++){
+                    zeros += '0'
+                }
+                var k = zeros + j.toString(2)
+
+                if(j==0){
+                    output += ` in${j} when "${k.slice(-(lastInput.toString(2).length))}"\n`
+                }else{
+                    output += `           in${j} when "${k.slice(-(lastInput.toString(2).length))}"\n`
+                }
+            }
             output += "endmodule\n";
             output += "\n";
         }

@@ -1,0 +1,24 @@
+Description:
+    rails generator for aws-record models
+
+    Pass the name of the model (preferably in singular form), and an optional list of attributes
+
+    Attributes are declarations of the fields that you wish to store within a model. You can pass
+    a type and list of options for each attribtue in the form: `name:type:options` if you do not provide
+    a type, it is assumed that the attribute is of type `string_attr`
+
+    Each model should have an hkey, if one is not present a `uuid:hkey` will be created for you.
+
+    Timestamps are not added by default but you can add them using the `--timestamps` flag
+    More information can be found at: https://github.com/awslabs/aws-record-generator/blob/master/README.md
+    
+    You don't have to think up every attribute up front, but it helps to
+    sketch out a few so you can start working with the resource immediately.
+
+Example:
+    rails generate aws_record:model Forum forum_uuid:hkey post_id:rkey post_title post_body tags:sset:default_value{Set.new} created_at:datetime:d_attr_name{PostCreatedAtTime} moderation:boolean:default_value{false}
+
+    This will create:
+        app/models/forum.rb
+        db/table_config/forum_config.rb
+        lib/tasks/table_config_migrate_task.rake # This is created once the first time the generator is run

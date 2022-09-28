@@ -1,0 +1,109 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.8/ext/nio4r
+/home/gitpod/.rvm/rubies/ruby-3.0.3/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.0.3/lib/ruby/3.0.0 -r ./siteconf20220923-3076-ny5ldh.rb extconf.rb
+checking for unistd.h... yes
+checking for linux/aio_abi.h... yes
+checking for linux/io_uring.h... yes
+checking for sys/select.h... yes
+checking for port_event_t in poll.h... no
+checking for sys/epoll.h... yes
+checking for sys/event.h... no
+checking for port_event_t in port.h... no
+checking for sys/resource.h... yes
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.8/ext/nio4r
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.8/ext/nio4r
+make DESTDIR\=
+compiling bytebuffer.c
+compiling monitor.c
+compiling nio4r_ext.c
+In file included from nio4r_ext.c:6:
+../libev/ev.c:573:48: warning: "/*" within comment [-Wcomment]
+  573 | /*#define MIN_INTERVAL  0.00000095367431640625 /* 1/2**20, good till 2200 */
+      |                                                 
+In file included from nio4r_ext.c:6:
+../libev/ev.c: In function ‘ecb_binary32_to_binary16’:
+../libev/ev.c:1510:13: warning: comparison of integer expressions of different signedness: ‘unsigned int’ and ‘int’ [-Wsign-compare]
+ 1510 |       if (e < (14 - 24)) /* might not be sharp, but is good enough */
+      |             ^
+In file included from nio4r_ext.c:6:
+../libev/ev.c: At top level:
+../libev/ev.c:2136:31: warning: ‘ev_default_loop_ptr’ initialized and declared ‘extern’
+ 2136 |   EV_API_DECL struct ev_loop *ev_default_loop_ptr = 0; /* needs to be initialised to make it a definition despite extern */
+      |                               ^~~~~~~~~~~~~~~~~~~
+../libev/ev.c: In function ‘array_nextsize’:
+../libev/ev.c:2249:19: warning: comparison of integer expressions of different signedness: ‘int’ and ‘long unsigned int’ [-Wsign-compare]
+ 2249 |   if (elem * ncur > MALLOC_ROUND - sizeof (void *) * 4)
+      |                   ^
+In file included from ../libev/ev.c:3086,
+                 from nio4r_ext.c:6:
+../libev/ev_linuxaio.c: In function ‘linuxaio_poll’:
+../libev/ev_linuxaio.c:467:10: warning: suggest explicit braces to avoid ambiguous ‘else’ [-Wdangling-else]
+  467 |       if (ecb_expect_false (res < 0))
+      |          ^
+In file included from ../libev/ev.c:3089,
+                 from nio4r_ext.c:6:
+../libev/ev_iouring.c: In function ‘iouring_sqe_submit’:
+../libev/ev_iouring.c:298:31: warning: "/*" within comment [-Wcomment]
+  298 |   /*ECB_MEMORY_FENCE_RELEASE; /* for the time being we assume this is not needed */
+      |                                
+In file included from nio4r_ext.c:6:
+../libev/ev.c: In function ‘ev_io_start’:
+../libev/ev.c:4417:34: warning: suggest parentheses around arithmetic in operand of ‘|’ [-Wparentheses]
+ 4417 |   fd_change (EV_A_ fd, w->events & EV__IOFDSET | EV_ANFD_REIFY);
+      |                        ~~~~~~~~~~^~~~~~~~~~~~~
+../libev/ev.c: At top level:
+../libev/ev.c:5682:27: warning: "/*" within comment [-Wcomment]
+ 5682 | /* EV_STAT     0x00001000 /* stat data changed */
+      |                            
+../libev/ev.c:5683:27: warning: "/*" within comment [-Wcomment]
+ 5683 | /* EV_EMBED    0x00010000 /* embedded event loop needs sweep */
+      |                            
+In file included from nio4r_ext.c:6:
+../libev/ev.c: In function ‘evpipe_write’:
+../libev/ev.c:2798:11: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+ 2798 |           write (evpipe [1], &counter, sizeof (uint64_t));
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:2810:11: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+ 2810 |           write (evpipe [1], &(evpipe [1]), 1);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c: In function ‘pipecb’:
+../libev/ev.c:2831:11: warning: ignoring return value of ‘read’, declared with attribute warn_unused_result [-Wunused-result]
+ 2831 |           read (evpipe [1], &counter, sizeof (uint64_t));
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:2845:11: warning: ignoring return value of ‘read’, declared with attribute warn_unused_result [-Wunused-result]
+ 2845 |           read (evpipe [0], &dummy, sizeof (dummy));
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+nio4r_ext.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+compiling selector.c
+selector.c: In function ‘NIO_Selector_synchronize’:
+selector.c:301:26: warning: passing argument 1 of ‘rb_ensure’ from incompatible pointer type [-Wincompatible-pointer-types]
+  301 |         return rb_ensure(func, (VALUE)args, NIO_Selector_unlock, self);
+      |                          ^~~~
+      |                          |
+      |                          VALUE (*)(VALUE *) {aka long unsigned int (*)(long unsigned int *)}
+In file included from /home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/ruby.h:38,
+                 from /home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby.h:38,
+                 from nio4r.h:10,
+                 from selector.c:6:
+/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/internal/iterator.h:53:17: note: expected ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE *)’ {aka ‘long unsigned int (*)(long unsigned int *)’}
+   53 | VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+      |                 ^~~~~~~~~~~~~~~
+selector.c: In function ‘NIO_Selector_wakeup’:
+selector.c:499:5: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  499 |     write(selector->wakeup_writer, "\0", 1);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+selector.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+linking shared-object nio4r_ext.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/nio4r-2.5.8/ext/nio4r
+make DESTDIR\= install
+/usr/bin/install -m 0755 nio4r_ext.so ./.gem.20220923-3076-r5cik7

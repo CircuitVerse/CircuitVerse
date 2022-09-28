@@ -1,0 +1,25 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+/home/gitpod/.rvm/rubies/ruby-3.0.3/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.0.3/lib/ruby/3.0.0 -r ./siteconf20220923-3076-439doy.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+make DESTDIR\=
+compiling bcrypt_ext.c
+compiling crypt_blowfish.c
+gcc  -D__SKIP_GNU     -c -o x86.o x86.S
+compiling crypt_gensalt.c
+compiling wrapper.c
+wrapper.c:182:60: warning: ‘struct crypt_data’ declared inside parameter list will not be visible outside of this definition or declaration
+  182 | char *crypt_r(const char *key, const char *setting, struct crypt_data *data)
+      |                                                            ^~~~~~~~~~
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+linking shared-object bcrypt_ext.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+make DESTDIR\= install
+/usr/bin/install -m 0755 bcrypt_ext.so ./.gem.20220923-3076-ovlqnc

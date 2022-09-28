@@ -1,0 +1,13 @@
+default: &default
+  acl: public-read
+development:
+  <<: *default
+  key: 54321
+production:
+  <<: *default
+  key: 12345
+test:
+  <<: *default
+  bucket: <%= ENV['S3_BUCKET'] %>
+  access_key_id: <%= ENV['S3_KEY'] %>
+  secret_access_key: <%= ENV['S3_SECRET'] %>

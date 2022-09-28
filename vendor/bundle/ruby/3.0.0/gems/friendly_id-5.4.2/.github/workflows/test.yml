@@ -1,0 +1,49 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - 'master'
+  pull_request:
+jobs:
+  test:
+    strategy:
+      matrix:
+        database: [ mysql, postgresql ]
+        gemfile: [ '6.0', '5.2' ]
+        ruby: [ '2.7', '2.6', '2.5' ]
+      fail-fast: false
+    runs-on: ubuntu-latest
+    name: ${{ matrix.ruby }} ${{ matrix.database }} rails-${{ matrix.gemfile }}
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo apt-get update && sudo apt-get install libpq-dev postgresql-client libmysqlclient-dev mysql-client libsqlite3-dev -y
+    - uses: ruby/setup-ruby@v1
+      with:
+        bundler-cache: true
+        ruby-version: ${{ matrix.ruby }}
+    - run: bundle exec rake db:create db:up
+    - run: bundle exec rake test
+
+    env:
+      BUNDLE_GEMFILE: gemfiles/Gemfile.rails-${{ matrix.gemfile }}.rb
+      CI: true
+      COVERALLS: true
+      DB: ${{ matrix.database }}
+      MYSQL_PASSWORD: root
+      PGHOST: localhost
+      PGPORT: 5432
+      PGUSER: postgres
+      RAILS_ENV: test
+
+    services:
+      postgres:
+        image: postgres:11.5
+        ports: ["5432:5432"]
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      mysql:
+        image: mysql:5.7
+        ports: ["3306:3306"]
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 5
+        env:
+          MYSQL_ROOT_PASSWORD: root

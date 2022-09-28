@@ -129,8 +129,8 @@ export var vhdl = {
         // Add Circuit Element - Module Specific Verilog Code
         for (var element in elementTypesUsed) {
             // If element has custom verilog
-            if (modules[element] && modules[element].moduleVerilog) {
-                output += modules[element].moduleVerilog();
+            if (modules[element] && modules[element].moduleVHDL) {
+                output += modules[element].moduleVHDL();
             }
         }
 
