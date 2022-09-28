@@ -1,41 +1,50 @@
 <div class="container">
+  <% if notice %>
+    <div class="row" id='alertdiv'>
+      <div class="alert alert-success alert-dismissible container text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <h6><%= notice %></h6>
+      </div>
+    </div>
+  <% end %>
   <div class="column contests-header">
-    <h3 class="contests-header-title">WEEKLY CONTESTS</h3>
+    <h3 class="contests-header-title">CONTESTS</h3>
     <p class="contests-header-description">Contests where students show off their amazing circuits and best ones are featured on our homepage!</p>
   </div>
   <div class="contest-page-line"></div>
   <div class="contests-list-wrapper row center-row">
-    <%= link_to contest_page_path(1), class: "text-decoration-none" do %>
-      <div class="col-lg-3">
-        <div class="contest-container">
-          <div class="contest-container-header">
-            <div class="contest-container-status-live">
-              <span class="contest-container-status-dot"></span>
-              <span class="contest-container-status-text">LIVE</span>
-            </div>
-          </div>
-          <div class="contest-container-details">
-            <h5 class="contest-container-details-number">Contest #23</h5>
-            <h5 class="contest-container-details-entries">Entries: 25</h5>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <% for i in 1..5 %>
+    <% @contests.each do |contest| %>
+      <%= link_to contest_page_path(contest.id), class: "text-decoration-none" do %>
         <div class="col-lg-3">
           <div class="contest-container">
-      <div class="contest-container-header">
-        <div class="contest-container-status">
-          <span class="contest-container-status-dot"></span>
-          <span class="contest-container-status-text">Completed</span>
+            <div class="contest-container-header">
+              <% if contest.status === 'Live' %>
+                <div class="contest-container-status-live">
+                  <span class="contest-container-status-dot"></span>
+                  <span class="contest-container-status-text">LIVE</span>
+                </div>
+              <% else %>
+                <div class="contest-container-status">
+                  <span class="contest-container-status-dot"></span>
+                  <span class="contest-container-status-text">Completed</span>
+                </div>
+              <% end %>
+            </div>
+            <div class="contest-container-details">
+              <h5 class="contest-container-details-number">Contest #<%= contest.id %></h5>
+              <h5 class="contest-container-details-entries">Entries: <%= contest.submissions.count %></h5>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="contest-container-details">
-        <h5 class="contest-container-details-number">Contest #23</h5>
-        <h5 class="contest-container-details-entries">Entries: 25</h5>
-      </div>
-    </div>
-    </div>
+      <% end %>
     <% end %>
   </div>
+  <% if @contests.empty? %>
+    <div class="col-12 row center-row d-flex justify-content-center">
+      <div class="search-no-results-image">
+        <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+        <h6>There are no live or completed contests.</h6>
+      </div>
+    </div>
+  <% end %>
 </div>

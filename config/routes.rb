@@ -102,6 +102,7 @@ Rails.application.routes.draw do
   get "/contests/admin", to: "contests#admin"
   get "/contests", to: "contests#index", as: "contests"
   get "/contests/:id", to: "contests#show", as: "contest_page"
+  post "/contests/host", to: "contests#create", as: "new_contest"
 
   mount Commontator::Engine => "/commontator"
 
