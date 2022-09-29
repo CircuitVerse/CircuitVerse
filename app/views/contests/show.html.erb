@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="contest" data-contest-timeleft-value="<%= @contest.deadline %>">
   <% if notice %>
     <div class="row" id='alertdiv'>
       <div class="alert alert-success alert-dismissible container text-center">
@@ -13,7 +13,7 @@
       <p class="mb-0 contest-header-description">Get a chance to get featured on our website and show off your circuit to <%= @user_count %> users! </p>
     </div>
     <div class="d-flex flex-column align-items-center">
-      <span class="contest-header-timer">Time Left: 05:45:22</span>
+      <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">05:45:22</span></span>
       <button class="contest-submission-button">Register your circuit</button>
     </div>
   </div>

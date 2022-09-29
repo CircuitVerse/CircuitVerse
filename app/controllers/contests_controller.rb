@@ -24,7 +24,7 @@ class ContestsController < ApplicationController
   # POST /contest/create
   def create
     @contest = Contest.new
-    @contest.deadline = 1.week.from_now
+    @contest.deadline = 1.month.from_now
     @contest.status = "Live"
     respond_to do |format|
       if @contest.save
