@@ -18,7 +18,22 @@ class ContestsController < ApplicationController
 
   # GET /contests/admin
   def admin
-    @contests = Contest.all
+    @contests = Contest.all.order(id: :desc)
+  end
+
+  def close_contest
+    @contest = Contest.find(params[:id])
+    @contest.deadline = Time.zone.now
+    @contest.status = "Completed"
+    respond_to do |format|
+      if @contest.save
+        format.html { redirect_to contest_page_path(@contest.id), notice: "Contest was successfully ended." }
+        format.json { render :show, status: :created, location: @contest }
+      else
+        format.html { render :admin }
+        format.json { render json: @contest.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # POST /contest/create
