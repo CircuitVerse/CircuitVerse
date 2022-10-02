@@ -11,9 +11,13 @@
       <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
     </div>
-    <div>
-      <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), class: "anchor-text" %>
-    </div>
+
+    <% if @unread.count != 0 %>
+      <div>
+        <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), class: "anchor-text" %>
+      </div>
+    <% end %>
+    
   </div>
   <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-3 mt-3 notifications_container">
     <% @notifications.each do |notification| %>
