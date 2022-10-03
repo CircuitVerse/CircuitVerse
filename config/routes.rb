@@ -104,6 +104,8 @@ Rails.application.routes.draw do
   get "/contests/:id", to: "contests#show", as: "contest_page"
   post "/contests/host", to: "contests#create", as: "new_contest"
   put "/contests/:id/close", to: "contests#close_contest", as: "close_contest"
+  get "/contests/:id/new_submission", to: "contests#new_submission", as: "new_submission"
+  post "/contests/:id/create_submission", to: "contests#create_submission", as: "create_submission"
 
   mount Commontator::Engine => "/commontator"
 

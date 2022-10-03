@@ -15,7 +15,9 @@
     <% if @contest.status == 'Live' %>
       <div class="d-flex flex-column align-items-center">
         <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">...</span></span>
-        <button class="contest-submission-button">Register your circuit</button>
+        <%= link_to new_submission_path(@contest.id), class: "contest-submission-button" do %>
+          <span>Register your circuit</span>
+        <% end %>
       </div>
     <% else %>
       <div class="d-flex flex-column align-items-center">

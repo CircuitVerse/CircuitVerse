@@ -61,6 +61,23 @@ class ContestsController < ApplicationController
     end
   end
 
+  # GET /contests/new_submission
+  def new_submission
+    @projects = current_user.projects
+    @contest = Contest.find(params[:id])
+    @submission = Submission.new
+  end
+
+  # POST /contests/:id/create_submission
+  def create_submission
+    @submission = Submission.new
+    @submission.project_id = params[:submission][:project_id]
+    @submission.contest_id = params[:contest_id]
+    if @submission.save
+      redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully added."
+    end
+  end
+
   private
 
     def authorize_admin
