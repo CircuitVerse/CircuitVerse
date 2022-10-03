@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" data-controller="contest">
   <% if notice %>
     <div class="row" id='alertdiv'>
       <div class="alert alert-success alert-dismissible container text-center">
@@ -20,10 +20,10 @@
       <%= link_to contest_page_path(contest.id), class: "text-decoration-none" do %>
         <div class="col-lg-3">
           <div class="contest-container">
-            <% if contest.status === 'Live' %>
+            <% if contest.status == 'Live' %>
               <div class="contest-container-header">
                 <div class="contest-container-close">
-                  <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal"}, class:"contest-container-close-button" do %>
+                  <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal", contest: contest.id}, class:"contest-container-close-button" do %>
                     <span>Close</span>
                   <% end %>
                 </div>            
@@ -46,7 +46,7 @@
             </div>
           </div>
         </div>
-        <%= render partial: "close_contest_confirmation", locals: { contest: contest } %>
+        <%= render partial: "close_contest_confirmation" %>
       <% end %>
     <% end %>
   </div>

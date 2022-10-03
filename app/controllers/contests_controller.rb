@@ -78,6 +78,13 @@ class ContestsController < ApplicationController
     end
   end
 
+  # PUT /contests/:id/withdraw
+  def withdraw
+    @submission = Submission.find(params[:submission_id])
+    @submission.destroy!
+    redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully removed."
+  end
+
   private
 
     def authorize_admin

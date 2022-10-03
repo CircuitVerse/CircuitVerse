@@ -33,7 +33,7 @@
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
       <% @submissions.each do |submission| %>
-        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count} %>
+        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
       <% end %>
     </div>
   <% end %>
@@ -44,7 +44,9 @@
   </div>
   <div id="my-circuits-div" class="row center-row circuit-page">
     <% @submissions.each do |submission| %>
-      <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count} %>
+        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
     <% end %>
   </div>
+  <%= render partial: "view" %>
+  <%= render partial: "withdraw_submission_confirmation" %>
 </div>
