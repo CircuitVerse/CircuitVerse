@@ -8,6 +8,10 @@ export default class extends Controller {
         this.setAdminModals();
     }
 
+    enableSubmitButton() {
+        document.getElementById('submission-submit-button').disabled = false;
+    }
+
     setAdminModals() {
         $("#close-contest-confirmation-modal").on("show.bs.modal", function (e) {
             let contest = $(e.relatedTarget).data('contest');

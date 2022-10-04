@@ -1,4 +1,12 @@
-<div class="container projects-new-container">
+<% if notice %>
+  <div class="row" id='alertdiv'>
+    <div class="alert alert-success alert-dismissible container text-center">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <h6><%= notice %></h6>
+    </div>
+  </div>
+<% end %>
+<div class="container projects-new-container" data-controller="contest">
   <div class="">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-row">
       <h1 class="submain-heading">Project Submission</h1>
@@ -13,7 +21,7 @@
         <% @projects.each do |project| %>
           <div class="project-submission">
             <div class="project-submission-detail">
-              <%= form.radio_button :project_id, project.id %>
+              <%= form.radio_button :project_id, project.id, "data-action": "click->contest#enableSubmitButton" %>
               <i class="fas fa-code-branch ml-2"></i>
               <strong><span><%= project.author.name %> / <%= project.name %></span></strong>
             </div>
@@ -23,7 +31,7 @@
           </div>
         <% end %>
         <%= hidden_field_tag "contest_id", @contest.id %>
-        <%= form.submit "Submit", class: "btn primary-button" %>
+        <%= form.submit "Submit", class: "btn primary-button", id: "submission-submit-button", disabled: true %>
       <% end %>
     </div>
   </div>
