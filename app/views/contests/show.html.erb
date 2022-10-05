@@ -35,8 +35,8 @@
       <span class="contest-header-sub-description">The winning projects will get featured on our website and will be awarded as CircuitVerse special tag.</span>
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
-      <% @submissions.each do |submission| %>
-        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
+      <% if !@winner.nil? %>
+        <%= render partial: "submission", locals: {project: @winner.project, votes: @winner.submission_votes.count, submission: @winner, contest: @contest} %>
       <% end %>
     </div>
   <% end %>

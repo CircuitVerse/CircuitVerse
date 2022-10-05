@@ -2,6 +2,7 @@
 
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  before_action :sortlist_the_winners, only: %i[close_contest]
   # before_action :authorize_admin, only: %i[admin]
 
   # GET /contests
@@ -14,6 +15,7 @@ class ContestsController < ApplicationController
     @contest = Contest.find(params[:id])
     @submissions = @contest.submissions
     @user_count = User.count
+    @winner = Submission.where(winner: true, contest_id: @contest.id).first
   end
 
   # GET /contests/admin
@@ -22,7 +24,7 @@ class ContestsController < ApplicationController
   end
 
   def close_contest
-    @contest = Contest.find(params[:id])
+    @contest = Contest.find(params[:contest_id])
     @contest.deadline = Time.zone.now
     @contest.status = "Completed"
     respond_to do |format|
@@ -109,6 +111,18 @@ class ContestsController < ApplicationController
       end
     end
     redirect_to contest_page_path(params[:contest_id]), notice: notice
+  end
+
+  def sortlist_the_winners
+    @contest = Contest.find(params[:contest_id])
+    @most_voted_submission = Submission.where(contest_id: @contest.id).order("submission_votes_count DESC").limit(1).first
+    return if @most_voted_submission.nil?
+
+    @most_voted_submission.winner = true
+    @project = Project.find(@most_voted_submission.project_id)
+    FeaturedCircuit.create(project_id: @project.id)
+    ContestWinnerNotification.with(project: @project).deliver_later(@project.author)
+    @most_voted_submission.save!
   end
 
   private

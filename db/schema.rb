@@ -365,7 +365,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_150006) do
   create_table "submissions", force: :cascade do |t|
     t.bigint "contest_id"
     t.bigint "project_id"
-    t.bigint "submission_vote_count", default: 0
+    t.bigint "submission_votes_count", default: 0
     t.boolean "winner", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

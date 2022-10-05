@@ -14,6 +14,8 @@ class Users::NoticedNotificationsController < ApplicationController
     if notification.type == "ContestNotification"
       contest = notification.params[:contest]
       redirect_to contest_page_path(contest.id)
+    elsif notification.type == "ContestWinnerNotification"
+      redirect_to featured_circuits_path
     else
       project = notification.params[:project]
       redirect_to user_project_path(project.author, project)

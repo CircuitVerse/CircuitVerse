@@ -14,11 +14,12 @@ export default class extends Controller {
 
     setAdminModals() {
         $("#close-contest-confirmation-modal").on("show.bs.modal", function (e) {
-            let contest = $(e.relatedTarget).data('contest');
+            let contest = $(e.relatedTarget).data('contest').id;
             $(e.currentTarget).find('#close-contest-button').attr("href",
-                `/contests/${contest}/close`);
+                `/contests/${contest}/close_contest`);
         })
     }
+
     setShowModals() {
         $("#projectModal").on("show.bs.modal", function (e) {
             let projectSlug = $(e.relatedTarget).data('project').slug;
