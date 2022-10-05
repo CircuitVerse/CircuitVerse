@@ -29,4 +29,4 @@ production:
   username: <%= ENV['DB_USERNAME']%>
   password: <%= ENV['DB_PASSWORD']%>
   host: localhost
-  database: circuitverse_production 
+  database: circuitverse_production
