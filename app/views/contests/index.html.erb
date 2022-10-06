@@ -8,8 +8,8 @@
     </div>
   <% end %>
   <div class="column contests-header">
-    <h3 class="contests-header-title">CONTESTS</h3>
-    <p class="contests-header-description">Contests where students show off their amazing circuits and best ones are featured on our homepage!</p>
+    <h3 class="contests-header-title"><%= t("contest.heading") %></h3>
+    <p class="contests-header-description"><%= t("contest.index.subtitle") %></p>
   </div>
   <div class="contest-page-line"></div>
   <div class="contests-list-wrapper row center-row">
@@ -21,18 +21,18 @@
               <% if contest.status === 'Live' %>
                 <div class="contest-container-status-live">
                   <span class="contest-container-status-dot"></span>
-                  <span class="contest-container-status-text">LIVE</span>
+                  <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
                 </div>
               <% else %>
                 <div class="contest-container-status">
                   <span class="contest-container-status-dot"></span>
-                  <span class="contest-container-status-text">Completed</span>
+                  <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
                 </div>
               <% end %>
             </div>
             <div class="contest-container-details">
-              <h5 class="contest-container-details-number">Contest #<%= contest.id %></h5>
-              <h5 class="contest-container-details-entries">Entries: <%= contest.submissions.count %></h5>
+              <h5 class="contest-container-details-number"><%= t("contest.contest_container.contest_id") %> #<%= contest.id %></h5>
+              <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
             </div>
           </div>
         </div>
@@ -43,7 +43,7 @@
     <div class="col-12 row center-row d-flex justify-content-center">
       <div class="search-no-results-image">
         <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
-        <h6>There are no live or completed contests.</h6>
+        <h6><%= t("contest.no_contest") %></h6>
       </div>
     </div>
   <% end %>

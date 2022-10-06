@@ -2,15 +2,15 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header secondary-modal-header">
-        <h4 class="modal-title">Withdraw Submission</h4>
+        <h4 class="modal-title"><%= t("contest.withdraw_submission_modal.heading") %></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to withdraw your submission from contest?</p>
+        <p><%= t("contest.withdraw_submission_modal.description") %></p>
       </div>
       <div class="modal-footer">
         <%= link_to "#", id: "withdraw-submission-button", class: "btn primary-delete-button", method: :delete do %>
-          <span>Withdraw</span>
+          <span><%= t("contest.withdraw") %></span>
         <% end %>
       </div>
     </div>
