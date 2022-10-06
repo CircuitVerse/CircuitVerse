@@ -14,7 +14,7 @@
       <div>
         <%= link_to t("view"), '#', class: "previewButton btn primary-button", data: {toggle: "modal", target: "#projectModal", project: project} %>
         <% if project.author == current_user && contest.status == 'Live' %>
-          <%= link_to "Withdraw", '#', class: "previewButton btn primary-button danger-primary-button", data: {toggle: "modal", target: "#withdraw-submission-confirmation-modal", submission: submission, contest: contest}  %>
+          <%= link_to "Withdraw", '#', class: "previewButton btn primary-button danger-primary-button", data: {toggle: "modal", target: "#withdraw-submission-confirmation-modal", submission: submission, contest: contest} %>
         <% elsif project.author != current_user && contest.status == 'Live' %>
           <%= link_to "Vote", vote_submission_path(contest.id, submission.id), class: "previewButton btn primary-button", method: :post %>
         <% end %>
