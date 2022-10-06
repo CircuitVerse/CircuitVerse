@@ -11,7 +11,7 @@
       <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
     </div>
-    <% if @unread.positive? %>
+    <% if @unread.count.positive? %>
       <div>
         <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), class: "anchor-text" %>
       </div>
