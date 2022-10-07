@@ -16,6 +16,7 @@ import { changeInputSize } from "../modules";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import Scope, { scopeList } from "../circuit";
 
 export default class Multiplexer extends CircuitElement {
     constructor(
@@ -275,7 +276,7 @@ export default class Multiplexer extends CircuitElement {
 
     generateVHDL() {
         Multiplexer.selSizes.add(this.controlSignalSize);
-        return CircuitElement.prototype.generateVerilog.call(this);
+        return CircuitElement.prototype.generateVHDL.call(this);
     }
 
     //generate the needed modules
@@ -316,37 +317,80 @@ export default class Multiplexer extends CircuitElement {
     }
 
     static moduleVHDL() {
-        var output = "";
+        var output = "\n";
+        var mux = Object.values(scopeList)[0].Multiplexer
 
-        for (var size of Multiplexer.selSizes) {
-            var numInput = 1 << size;
-            var inpString = "";
-            for (var j = 0; j < numInput; j++) {
-                inpString += `in${j}, `;
+        for(var i = 0; i < mux.length; i++){
+            if(mux[i].bitWidth == 1){
+                output += '\n//-------------Mux1-------------\n'
+                output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
+                output += `\nENTITY Mux1 IS\n`
+                output += `  PORT (\n`
+                output += `    in0, in1, sel: IN  STD_LOGIC;\n`
+                output += `            x: OUT STD_LOGIC`
+                output += `);\n`
+                output += `END ENTITY;\n`
+                output += `\n`
+                output += `ARCHITECTURE rtl OF Mux1 IS\n`
+                output += `  BEGIN\n`
+                output += `    WITH sel SELECT\n`
+		        output += `      x <= in0 WHEN '0',\n`
+			    output += `           in1 WHEN OTHERS;\n`
+                output += `END ARCHITECTURE;\n`
+                
+                break
             }
-            output += "\n"
-            output += "  with sel select\n"
-            output += "    out <="
-            
-            for (var j = 0; j < numInput; j++) {
-                var lastInput = numInput - 1
-                var zeros
-                for(var i = 0; i < lastInput.toString(2).length; i++){
-                    zeros += '0'
-                }
-                var k = zeros + j.toString(2)
-
-                if(j==0){
-                    output += ` in${j} when "${k.slice(-(lastInput.toString(2).length))}"\n`
-                }else{
-                    output += `           in${j} when "${k.slice(-(lastInput.toString(2).length))}"\n`
-                }
-            }
-            output += "endmodule\n";
-            output += "\n";
         }
 
-        return output;
+        for(var p = 1; p < 10; p++){
+            for(var i = 0; i < mux.length; i++){
+                if(mux[i].bitWidth == p + 1){
+                    output += `\n//-------------Mux${mux[i].bitWidth}-------------\n`
+                    output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
+                    output += `\nENTITY Mux${mux[i].bitWidth} IS\n`
+                    output += `  PORT (\n    `
+    
+                    for(var d = 0; d < Math.pow(2, mux[i].bitWidth); d++){
+                        output += `in${d}, `
+                    }
+    
+                    output += `sel: IN STD_LOGIC_VECTOR `
+                    output += `(${mux[i].bitWidth - 1} DOWNTO 0);\n`
+                    output += `    x: OUT STD_LOGIC_VECTOR `
+                    output += `(${mux[i].bitWidth - 1} DOWNTO 0)`
+                    output += `);\n`
+                    output += `END ENTITY;\n`
+                    output += `\n`
+                    output += `ARCHITECTURE rtl OF Mux${mux[i].bitWidth} IS\n`
+                    output += `  BEGIN\n`
+                    output += `    WITH sel SELECT\n`
+                    output += `      x <=`
+                    
+                    for (var j = 0; j < Math.pow(2,mux[i].bitWidth); j++) {
+                        var zeros = ''
+                        
+                        for(var k = 0; k < mux[i].bitWidth; k++){
+                            zeros += '0'
+                        }
+                        var k = zeros + j.toString(2)
+                    
+                        if(j===0){
+                            output += ` in${j} WHEN "${k.slice(-(mux[i].bitWidth))}",\n`
+                        }else if(j!==0 && j<Math.pow(2,mux[i].bitWidth) - 1){
+                            output += `           in${j} WHEN "${k.slice(-(mux[i].bitWidth))}",\n`
+                        } else{
+                            output += `           in${j} WHEN "${k.slice(-(mux[i].bitWidth))}";\n`
+                        }
+                    }
+    
+                    output += `END ARCHITECTURE;\n`
+                    
+                    break
+                }
+            }
+        }
+
+        return output
     }
     //reset the sized before Verilog generation
     static resetVerilog() {

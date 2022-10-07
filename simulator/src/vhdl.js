@@ -169,14 +169,14 @@ export var vhdl = {
         this.resetLabels(scope);
         this.setLabels(scope);
 
-        output += "use IEEE.std_logic_1164.all;\n\n";
+        output += "library IEEE;\nuse IEEE.std_logic_1164.all;\n\n";
         output += this.generateHeaderVHDL(scope);
         output += this.generateInputList(scope);
         output += this.generateOutputList(scope);
         output +=
-            "end portas;\n\narchiterture " +
+            ");\nEND ENTITY;\n\nARCHITECTURE " +
             sanitizeLabel(scope.name) +
-            " of portas is\n"; // generate output first to be consistent
+            " OF portas IS\n"; // generate output first to be consistent
 
         // Note: processGraph function populates scope.verilogWireList
         var res = "    " + this.processGraph(scope, elementTypesUsed);
@@ -188,23 +188,21 @@ export var vhdl = {
             wireList = wireList.filter((x) => !x.includes("["));
             if (wireList.length == 0) continue;
             if (bitWidth == 1)
-                output += "  signal " + wireList.join(", ") + ";\n";
+                output += "  SIGNAL " + wireList.join(", ") + ": STD_LOGIC;\n";
             else
-                output +=
-                    "  signal [" +
-                    (bitWidth - 1) +
-                    ":0] " +
-                    wireList.join(", ") +
-                    ";\n";
+                output += "  SIGNAL " + wireList.join(", ") + ": STD_LOGIC_VECTOR (" + (bitWidth - 1) + " DOWNTO 0);\n"
         }
-
-        output += "  begin\n";
+        if(scope.Multiplexer.length != 0){
+            output += ""
+        } else{
+            output += "  BEGIN\n";
+        }
 
         // Append Wire connections and module instantiations
         output += res;
 
         // Append footer
-        output += "end " + sanitizeLabel(scope.name) + ";";
+        output += "END " + sanitizeLabel(scope.name) + ";";
 
         return output;
     },
@@ -250,11 +248,30 @@ export var vhdl = {
                 verilogResolvedSet.add(elem);
             }
         }
+        var Mux = 0;
+        var orderedSet;
+       orderedSet = Array.from(verilogResolvedSet)
 
-        // Generate connection verilog code and module instantiations
-        for (var elem of verilogResolvedSet) {
-            res += elem.generateVHDL() + "\n";
+       for(i=0; i<orderedSet.length; i++){
+        if(orderedSet[i].objectType === 'Multiplexer'){
+            orderedSet.unshift(orderedSet[i])
+            i++
+            orderedSet.splice(i,1)
         }
+       }
+
+       var VHDLSet = new Set(orderedSet)
+        
+        // Generate connection verilog code and module instantiations
+        for (var elem of VHDLSet) {
+            if((Mux==0) && (elem.objectType == 'Multiplexer')){
+                res += elem.generateVHDL() + "\n";
+                Mux=1
+            } else if(elem.objectType != 'Multiplexer'){
+                res += elem.generateVHDL() + "\n";
+            }
+        }
+        
         return res;
     },
 
@@ -319,7 +336,7 @@ export var vhdl = {
     },
     generateHeaderVHDL: function (scope = globalScope) {
         // Example: module HalfAdder (a,b,s,c);
-        var res = "entity portas is \n"; /*+ //sanitizeLabel(scope.name);*/
+        var res = "ENTITY portas IS \n  PORT(\n";
         return res;
     },
     generateHeaderHelper: function (scope = globalScope) {
@@ -352,17 +369,13 @@ export var vhdl = {
         }
 
         var res = "";
-        for (var bitWidth in inputs) {
-            if (inputs[bitWidth].length == 0) continue;
-            if (bitWidth == 1)
-                res += "port(\n  " + inputs[1].join(", ") + ": in std_logic;\n";
-            else
-                res +=
-                    "port [" +
-                    (bitWidth - 1) +
-                    ":0] " +
-                    inputs[bitWidth].join(", ") +
-                    ";: in std_logic;\n";
+
+        for(var i = 0; i < scope.Input.length; i++){
+            if(scope.Input[i].bitWidth == 1){
+                res += `    ${scope.Input[i].verilogLabel}: IN STD_LOGIC;\n`
+            }else{
+                res += `    ${scope.Input[i].verilogLabel}: IN STD_LOGIC_VECTOR (${scope.Input[i].bitWidth - 1} DOWNTO 0);\n`
+            }
         }
 
         return res;
@@ -376,16 +389,21 @@ export var vhdl = {
             else outputs[scope.Output[i].bitWidth] = [scope.Output[i].label];
         }
         var res = "";
-        for (var bitWidth in outputs) {
-            if (bitWidth == 1)
-                res += "  " + outputs[1].join(",  ") + ": out std_logic);\n";
-            else
-                res +=
-                    "  " +
-                    (bitWidth - 1) +
-                    ":0] " +
-                    outputs[bitWidth].join(", ") +
-                    ": out std_logic);\n";
+        
+        for(var i = 0; i < scope.Output.length; i++){
+            if(i != scope.Output.length - 1) {
+                if(scope.Output[i].bitWidth == 1){
+                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC;\n`
+                }else{
+                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC_VECTOR (${scope.Output[i].bitWidth - 1} DOWNTO 0);\n`
+                }
+            } else{
+                if(scope.Output[i].bitWidth == 1){
+                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC`
+                }else{
+                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC_VECTOR (${scope.Output[i].bitWidth - 1} DOWNTO 0)`
+                }
+            }
         }
 
         return res;

@@ -848,6 +848,76 @@ export default class CircuitElement {
         return res;
     }
 
+    generateVHDL() {
+        // // Example: and and_1(_out, _out, _Q[0]);
+        var mux = this.scope.Multiplexer;
+        var element = '';
+        
+        if(mux.length != 0){
+            for(var i = 0; i < mux.length; i++){
+                if(mux[i].bitWidth == 1){
+                    element += `\n  COMPONENT Mux1 IS\n`
+                    element += `    PORT (\n`
+                    element += `      in0, in1, sel: IN  STD_LOGIC;\n`
+                    element += `      x: OUT STD_LOGIC`
+                    element += `);\n`
+                    element += `  END COMPONENT;\n`
+                    break
+                }
+            }
+
+            for(var d = 2; d < 10; d++){
+                for(var i = 0; i < mux.length; i++){
+                    if(mux[i].bitWidth == d){
+                        element += `\n  COMPONENT Mux${d} IS\n`
+                        element += `    PORT (\n      `
+                        for(var k = 0; k < Math.pow(2, d); k++) {
+                            element += `in${k}, `
+                        }
+
+                        element += `sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n`
+                        element += `      x: OUT STD_LOGIC_VECTOR (${d-1} DOWNTO 0)`
+                        element += `);\n`
+                        element += `  END COMPONENT;\n`
+                        break
+                    }
+                }
+            }
+            
+            element += "\BEGIN\n"
+
+            for(var i = 0; i < mux.length; i++){
+                if(mux[i].bitWidth == 1){
+                    element += `\n  multiplexer${i}: Mux1 PORT MAP(\n`
+                    for(var d = 0; d < mux[i].inp.length; d++){
+                        element += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
+                    }
+                    element += `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`
+                    element += `    x => ${mux[i].output1.verilogLabel}`
+                    element += `);\n`
+                }
+            }
+
+            for(var k = 2; k < 10; k++){
+                for(var i = 0; i < mux.length; i++){
+                    if(mux[i].bitWidth == k){
+                        element += `\n  multiplexer${i}: Mux${k} PORT MAP(\n`
+                        for(var d = 0; d < mux[i].inp.length; d++){
+                            element += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
+                        }
+                        element += `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`
+                        element += `    x => ${mux[i].output1.verilogLabel}`
+                        element += `);\n`
+                    }
+                }
+            }
+            
+        }
+
+        return element
+        
+    }
+
     /**
      * Toggles the visibility of the labels of subcircuit elements. Called by event handlers in ux.js
     **/
