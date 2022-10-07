@@ -7,20 +7,25 @@ class ContestsController < ApplicationController
 
   # GET /contests
   def index
-    @contests = Contest.all.order(id: :desc)
+    @contests = Contest.all.paginate(:page => params[:page]).order("id desc").limit(Contest.per_page)
+    respond_to do |format|
+      format.html
+      format.json { render json: @contests }
+      format.js
+    end
   end
 
   # GET /contests/:id
   def show
     @contest = Contest.find(params[:id])
-    @submissions = @contest.submissions
+    @submissions = @contest.submissions.paginate(:page => params[:page]).limit(6)
     @user_count = User.count
     @winner = Submission.where(winner: true, contest_id: @contest.id).first
   end
 
   # GET /contests/admin
   def admin
-    @contests = Contest.all.order(id: :desc)
+    @contests = Contest.all.paginate(:page => params[:page]).order("id desc").limit(Contest.per_page)
   end
 
   def close_contest
