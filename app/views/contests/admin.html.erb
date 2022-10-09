@@ -20,7 +20,7 @@
       <%= link_to contest_page_path(contest.id), class: "text-decoration-none" do %>
         <div class="col-lg-3">
           <div class="contest-container">
-            <% if contest.status == 'Live' %>
+            <% if contest.live? %>
               <div class="contest-container-header">
                 <div class="contest-container-close">
                   <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal", contest: contest}, class:"contest-container-close-button" do %>

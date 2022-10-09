@@ -31,7 +31,7 @@ class ContestsController < ApplicationController
   def close_contest
     @contest = Contest.find(params[:contest_id])
     @contest.deadline = Time.zone.now
-    @contest.status = "Completed"
+    @contest.status = :completed
     respond_to do |format|
       if @contest.save
         format.html { redirect_to contest_page_path(@contest.id), notice: "Contest was successfully ended." }
@@ -47,15 +47,15 @@ class ContestsController < ApplicationController
   def create
     # checking for any other live contest, if found mark is as completed
     Contest.all.each do |contest|
-      if contest.status == "Live"
-        contest.status = "Completed"
+      if contest.live?
+        contest.status = :completed
         contest.deadline = Time.zone.now
         contest.save
       end
     end
     @contest = Contest.new
     @contest.deadline = 1.month.from_now
-    @contest.status = "Live"
+    @contest.status = :live
     respond_to do |format|
       if @contest.save
         ContestNotification.with(contest: @contest).deliver_later(User.all)

@@ -5,10 +5,10 @@ class ContestDeadlineJob < ApplicationJob
 
   def perform(contest_id)
     contest = Contest.find_by(id: contest_id)
-    return if contest.nil? || (contest.status != "Live")
+    return if contest.nil? || (contest.completed?)
 
     contest.with_lock do
-      if Time.zone.now - contest.deadline >= -10 && (contest.status == "Live")
+      if Time.zone.now - contest.deadline >= -10 && (contest.live?)
         most_voted_submission = Submission.where(contest_id: contest_id)
                                           .order("submission_votes_count DESC")
                                           .limit(1)
@@ -20,7 +20,7 @@ class ContestDeadlineJob < ApplicationJob
           ContestWinnerNotification.with(project: project).deliver_later(project.author)
           most_voted_submission.save!
         end
-        contest.status = "Completed"
+        contest.status = :completed
         contest.save!
       end
     end
