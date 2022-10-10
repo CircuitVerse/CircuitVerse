@@ -13,6 +13,8 @@ en:
       disable_button: "Contest Ended!"
       winners: "Winners"
       winners_description: "The winning projects will get featured on our website and will be awarded as CircuitVerse special tag."
+      user_submissions: "Your Submissions"
+      user_submissions_description: "You can withdraw your submission from contest."
       contest_entries: "Contest Entries(%{submission_count})"
       contest_entries_description: "Vote for your favourite entries and help us choose our winners for this week! One user gets 3 votes."
     votes: "Votes"

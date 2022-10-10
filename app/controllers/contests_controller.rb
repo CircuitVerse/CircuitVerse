@@ -17,7 +17,8 @@ class ContestsController < ApplicationController
   # GET /contests/:id
   def show
     @contest = Contest.find(params[:id])
-    @submissions = @contest.submissions.paginate(:page => params[:page]).limit(6)
+    @user_submission = @contest.submissions.where(user_id: current_user.id)
+    @submissions = @contest.submissions.where.not(user_id: current_user.id).paginate(:page => params[:page]).limit(6)
     @user_count = User.count
     if @contest.completed?
       @winner = ContestWinner.find_by(contest_id: @contest.id).submission
@@ -84,6 +85,7 @@ class ContestsController < ApplicationController
       @submission = Submission.new
       @submission.project_id = params[:submission][:project_id]
       @submission.contest_id = params[:contest_id]
+      @submission.user_id = current_user.id
       if @submission.save
         redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully added."
       end
