@@ -12,10 +12,27 @@ class Assignment < ApplicationRecord
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
+  after_commit :notify_recipient 
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
+
+  has_noticed_notifications model_name: "NoticedNotification"
+  has_many :noticed_notifications, through: :author
+  has_many :notifications, as: :notifiable
+  before_destroy :cleanup_notification
+
+  def notify_recipient
+    group.group_members.each do |group_member|
+     # NewAssignmentNotification.with(user: group_member.user, assingment: @assingment).deliver(group_member.user)
+      NewAssignmentNotification.with(assingment: @assingment).deliver(group_member.user)
+    end
+  end
+
+  def cleanup_notification
+    notifications_as_star.destroy_all
+  end
 
   def send_new_assignment_mail
     group.group_members.each do |group_member|
