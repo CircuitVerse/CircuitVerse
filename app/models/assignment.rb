@@ -13,7 +13,7 @@ class Assignment < ApplicationRecord
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
-  after_commit :notify_recipient 
+  after_commit :notify_recipient
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
