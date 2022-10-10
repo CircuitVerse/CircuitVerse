@@ -8,11 +8,12 @@ class Assignment < ApplicationRecord
   }, if: :lti_integrated?
   belongs_to :group
   has_many :projects, class_name: "Project", dependent: :nullify
+  before_destroy :cleanup_notification
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
-  after_commit :notify_recipient
+  after_commit :notify_recipient 
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
@@ -21,11 +22,10 @@ class Assignment < ApplicationRecord
   has_noticed_notifications model_name: "NoticedNotification"
   has_many :noticed_notifications, through: :author
   has_many :notifications, as: :notifiable
-  before_destroy :cleanup_notification
 
   def notify_recipient
     group.group_members.each do |group_member|
-     # NewAssignmentNotification.with(user: group_member.user, assingment: @assingment).deliver(group_member.user)
+      # NewAssignmentNotification.with(user: group_member.user, assingment: @assingment).deliver(group_member.user)
       NewAssignmentNotification.with(assingment: @assingment).deliver(group_member.user)
     end
   end
