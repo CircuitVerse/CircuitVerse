@@ -5,21 +5,11 @@ class ContestDeadlineJob < ApplicationJob
 
   def perform(contest_id)
     contest = Contest.find_by(id: contest_id)
-    return if contest.nil? || (contest.completed?)
+    return if contest.nil? || contest.completed?
 
     contest.with_lock do
-      if Time.zone.now - contest.deadline >= -10 && (contest.live?)
-        most_voted_submission = Submission.where(contest_id: contest_id)
-                                          .order("submission_votes_count DESC")
-                                          .limit(1)
-                                          .first
-        if !most_voted_submission.nil?
-          most_voted_submission.winner = true
-          project = Project.find(most_voted_submission.project_id)
-          FeaturedCircuit.create(project_id: project.id)
-          ContestWinnerNotification.with(project: project).deliver_later(project.author)
-          most_voted_submission.save!
-        end
+      if Time.zone.now - contest.deadline >= 0 && contest.live?
+        ShortlistContestWinner.new(contest.id)
         contest.status = :completed
         contest.save!
       end
