@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_22_150006) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_10_033123) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -127,6 +127,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_150006) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
+  end
+
+  create_table "contest_winners", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "submission_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_contest_winners_on_contest_id"
+    t.index ["project_id"], name: "index_contest_winners_on_project_id"
+    t.index ["submission_id"], name: "index_contest_winners_on_submission_id"
   end
 
   create_table "contests", force: :cascade do |t|
@@ -454,6 +465,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_22_150006) do
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
+  add_foreign_key "contest_winners", "contests"
+  add_foreign_key "contest_winners", "projects"
+  add_foreign_key "contest_winners", "submissions"
   add_foreign_key "custom_mails", "users"
   add_foreign_key "featured_circuits", "projects"
   add_foreign_key "forum_posts", "forum_threads"

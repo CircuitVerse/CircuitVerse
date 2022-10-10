@@ -7,7 +7,7 @@ class ContestsController < ApplicationController
 
   # GET /contests
   def index
-    @contests = Contest.all.paginate(:page => params[:page]).order("id desc").limit(Contest.per_page)
+    @contests = Contest.all.paginate(:page => params[:page]).order("id DESC").limit(Contest.per_page)
     respond_to do |format|
       format.html
       format.json { render json: @contests }
@@ -20,12 +20,12 @@ class ContestsController < ApplicationController
     @contest = Contest.find(params[:id])
     @submissions = @contest.submissions.paginate(:page => params[:page]).limit(6)
     @user_count = User.count
-    @winner = Submission.where(winner: true, contest_id: @contest.id).first
+    @winner = ContestWinner.find_by(contest_id: @contest.id).submission
   end
 
   # GET /contests/admin
   def admin
-    @contests = Contest.all.paginate(:page => params[:page]).order("id desc").limit(Contest.per_page)
+    @contests = Contest.all.paginate(:page => params[:page]).order("id DESC").limit(Contest.per_page)
   end
 
   def close_contest
@@ -123,16 +123,15 @@ class ContestsController < ApplicationController
     @most_voted_submission = Submission.where(contest_id: @contest.id).order("submission_votes_count DESC").limit(1).first
     return if @most_voted_submission.nil?
 
+    contest_winner = ContestWinner.new
+    contest_winner.contest_id = @contest.id
+    contest_winner.submission_id = @most_voted_submission.id
+    contest_winner.project_id = @most_voted_submission.project_id
+    contest_winner.save!
     @most_voted_submission.winner = true
     @project = Project.find(@most_voted_submission.project_id)
     FeaturedCircuit.create(project_id: @project.id)
     ContestWinnerNotification.with(project: @project).deliver_later(@project.author)
     @most_voted_submission.save!
   end
-
-  private
-
-    def authorize_admin
-      authorize Announcement.new, :admin?
-    end
 end
