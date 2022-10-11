@@ -12,8 +12,8 @@ class Users::NoticedNotificationsController < ApplicationController
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
     project = notification.params[:project]
-    assignment = notification.params[:assignment]
-    redirect_to user_project_path(project.author, project, assignment)
+    # assignment = notification.params[:assignment]
+    redirect_to user_project_path(project.author, project)
   end
 
   def mark_all_as_read
