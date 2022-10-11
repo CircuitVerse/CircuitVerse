@@ -51,9 +51,9 @@ class ContestsController < ApplicationController
     # checking for any other live contest, if found mark is as completed
     Contest.all.each do |contest|
       if contest.live?
-        contest.status = :completed
-        contest.deadline = Time.zone.now
-        contest.save
+        notice = "Concurrent contests are not allowed, close other contests before creating a new one."
+        redirect_to contests_admin_path, notice: notice
+        return
       end
     end
     @contest = Contest.new

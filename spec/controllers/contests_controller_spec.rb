@@ -34,18 +34,6 @@ describe ContestsController, type: :request do
     end
   end
 
-  describe "#create" do
-    it "creates a new contest and close other" do
-      get contests_admin_path
-      post new_contest_path
-
-      expect(response.status).to eq(302)
-      expect(Contest.count).to eq(2)
-      expect(Contest.where(status: "live").count).to eq(1)
-      expect(Contest.last.status).to eq("live")
-    end
-  end
-
   describe "#close_contest" do
     it "close the live contest" do
       get contests_admin_path
@@ -55,6 +43,34 @@ describe ContestsController, type: :request do
       expect(response.status).to eq(302)
       expect(Contest.last.status).to eq("completed")
       expect(Contest.where(status: "live").count).to eq(0)
+    end
+  end
+
+  describe "#create" do
+    before do
+      close_contest_path(@contest.id)
+      get contests_admin_path
+    end
+
+    context "when there is not live contest" do
+      it "creates a new contest" do
+        post new_contest_path
+
+        expect(response.status).to eq(302)
+        expect(Contest.where(status: "live").count).to eq(1)
+      end
+    end
+
+    context "when there is live contest" do
+      before do
+        post new_contest_path
+      end
+
+      it "does not allow to create concurrent live contest" do
+        expect do
+          post new_contest_path
+        end.not_to change(Contest.where(status: "live"), :count)
+      end
     end
   end
 
