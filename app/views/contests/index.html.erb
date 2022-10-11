@@ -14,7 +14,7 @@
   <div class="contest-page-line"></div>
   <div class="contests-list-wrapper row center-row">
     <% @contests.each do |contest| %>
-      <%= link_to contest_page_path(contest.id), class: "text-decoration-none" do %>
+      <%= link_to contest_page_path(contest.id), class: "text-decoration-none", id: "contest-#{contest.id}" do %>
         <div class="col-lg-3">
           <div class="contest-container">
             <div class="contest-container-header">
