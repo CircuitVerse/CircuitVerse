@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [release-002] - 2022-10-11
+
 ### [Added]
 
 - [Task 002] : (Multiplexer.js) Add ModuleVHDL and generateVHDL functions
