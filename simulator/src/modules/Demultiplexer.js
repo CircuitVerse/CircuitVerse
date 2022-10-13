@@ -327,8 +327,10 @@ export default class Demultiplexer extends CircuitElement {
                 output += `      BEGIN\n`
                 output += `        IF(sel = "0") THEN\n`
 		        output += `          out0 <= in;\n`
+		        output += `          out1 <= "0";\n`
 			    output += `        ELSE\n`
                 output += `          out1 <= in;\n`
+                output += `          out0 <= "0";\n`
                 output += `        END IF;\n`
                 output += `    END PROCESS;\n`
                 output += `END ARCHITECTURE;\n`
