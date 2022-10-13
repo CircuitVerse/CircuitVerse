@@ -15,6 +15,7 @@ import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import Scope, { scopeList } from "../circuit";
 
 export default class Demultiplexer extends CircuitElement {
     constructor(
@@ -301,6 +302,118 @@ export default class Demultiplexer extends CircuitElement {
             output += "  end\n";
             output += "endmodule\n";
         }
+
+        return output;
+    }
+
+    static moduleVHDL() {
+        var output = "\n";
+        var demux = Object.values(scopeList)[0].Demultiplexer
+
+        for(var i = 0; i < demux.length; i++){
+            if(demux[i].bitWidth == 1){
+                output += '\n//-------------Demux1-------------\n'
+                output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
+                output += `\nENTITY Demux1 IS\n`
+                output += `  PORT (\n`
+                output += `    in, sel: IN  STD_LOGIC;\n`
+                output += `    out0, out1: OUT STD_LOGIC`
+                output += `);\n`
+                output += `END ENTITY;\n`
+                output += `\n`
+                output += `ARCHITECTURE rtl OF Demux1 IS\n`
+                output += `  BEGIN\n`
+                output += `    PROCESS(in, sel)\n`
+                output += `      BEGIN\n`
+                output += `        IF(sel = "0") THEN\n`
+		        output += `          out0 <= in;\n`
+			    output += `        ELSE\n`
+                output += `          out1 <= in;\n`
+                output += `        END IF;\n`
+                output += `    END PROCESS;\n`
+                output += `END ARCHITECTURE;\n`
+                
+                break
+            }
+        }
+
+        for(var p = 1; p < 10; p++){
+            for(var i = 0; i < demux.length; i++){
+                if(demux[i].bitWidth == p + 1){
+                    output += `\n//-------------Demux${demux[i].bitWidth}-------------\n`
+                    output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
+                    output += `\nENTITY Demux${demux[i].bitWidth} IS\n`
+                    output += `  PORT (\n`
+                    output += `    in0, sel: IN STD_LOGIC_VECTOR (${demux[i].bitWidth - 1} DOWNTO 0);\n    `
+
+                    for(var d = 0; d < Math.pow(2, demux[i].bitWidth); d++){
+                        if(d == (Math.pow(2, demux[i].bitWidth) - 1)) {
+                            output += `out${d}`
+                        } else{
+                            output += `out${d}, `
+                        }
+                    }
+
+                    output += `: OUT STD_LOGIC_VECTOR `
+                    output += `(${demux[i].bitWidth - 1} DOWNTO 0)`
+                    output += `);\n`
+                    output += `END ENTITY;\n`
+                    output += `\n`
+                    output += `ARCHITECTURE rtl OF Demux${demux[i].bitWidth} IS\n`
+                    output += `  BEGIN\n`
+                    output += `    PROCESS(in0, sel)\n`
+                    output += `      BEGIN\n`
+                    
+                    for (var j = 0; j < Math.pow(2,demux[i].bitWidth); j++) {
+                        var zeros = ''
+                        
+                        for(var k = 0; k < demux[i].bitWidth; k++){
+                            zeros += '0'
+                        }
+                        var k = zeros + j.toString(2)
+                    
+                        if(j===0){
+                            output += `        IF(sel = "${k.slice(-(demux[i].bitWidth))}") THEN\n`
+                            for (var p = 0; p < Math.pow(2,demux[i].bitWidth); p++){
+                                if(p==j) {
+                                    output += `          out${j} <= in0;\n`
+                                }
+                                else{
+                                    output += `          out${p} <= "${zeros}";\n`
+                                }
+                            }
+                        }else if(j!==0 && j<Math.pow(2,demux[i].bitWidth) - 1){
+                            output += `        ELSIF(sel = "${k.slice(-(demux[i].bitWidth))}") THEN\n`
+                            for (var p = 0; p < Math.pow(2,demux[i].bitWidth); p++){
+                                if(p==j) {
+                                    output += `          out${j} <= in0;\n`
+                                }
+                                else{
+                                    output += `          out${p} <= "${zeros}";\n`
+                                }
+                            }
+                        } else{
+                            output += `        ELSE\n`
+                            for (var p = 0; p < Math.pow(2,demux[i].bitWidth); p++){
+                                if(p==j) {
+                                    output += `          out${j} <= in0;\n`
+                                }
+                                else{
+                                    output += `          out${p} <= "${zeros}";\n`
+                                }
+                            }
+                        }
+                    }
+
+                    output += `        END IF;\n`
+                    output += `    END PROCESS;\n`
+                    output += `END ARCHITECTURE;\n`
+                    
+                    break
+                }
+            }
+        }
+        
 
         return output;
     }
