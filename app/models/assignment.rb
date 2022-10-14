@@ -20,8 +20,6 @@ class Assignment < ApplicationRecord
   has_many :grades, dependent: :destroy
 
   has_noticed_notifications model_name: "NoticedNotification"
-  has_many :noticed_notifications, through: :author
-  has_many :notifications, as: :notifiable  # rubocop:disable Rails/HasManyOrHasOneDependent
 
   def notify_recipient
     @assignment = Assignment.find(id)
