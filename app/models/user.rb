@@ -28,6 +28,7 @@ class User < ApplicationRecord
   has_many :pending_invitations, foreign_key: :email, primary_key: :email
 
   # noticed configuration
+  has_noticed_notifications model_name: "NoticedNotification"
   has_many :noticed_notifications, as: :recipient, dependent: :destroy
 
   # Multiple push_subscriptions over many devices
