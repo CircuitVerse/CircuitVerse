@@ -13,11 +13,8 @@ class Users::NoticedNotificationsController < ApplicationController
     notification.update(read_at: Time.zone.now)
     if notification.type == "NewAssignmentNotification"
       assignment = notification.params[:assignment]
-      #group = assignment.group
-      #group = notification.params[:group]
-      group = Group.find(params[:group_id])
+      group = assignment.group
       redirect_to group_assignment_path(group, assignment)
-      #redirect_to assignment_show_path(group, assignment)
     else
       project = notification.params[:project]
       redirect_to user_project_path(project.author, project)

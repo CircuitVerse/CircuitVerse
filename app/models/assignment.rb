@@ -25,8 +25,8 @@ class Assignment < ApplicationRecord
     @assignment = Assignment.find(id)
     group.group_members.each do |group_member|
       # NewAssignmentNotification.with(user: group_member.user, assingment: @assingment).deliver(group_member.user)
-      NewAssignmentNotification.with(assingment: @assignment).deliver(group_member.user)
-    end
+      NewAssignmentNotification.with(assignment: @assignment).deliver_later(group_member.user)
+      end
   end
 
   def cleanup_notification
