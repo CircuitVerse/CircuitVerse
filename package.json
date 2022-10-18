@@ -24,7 +24,7 @@
     "eslint-plugin-import": "^2.26.0",
     "husky": ">=6",
     "jest": "^28.1.0",
-    "jest-environment-jsdom": "^28.1.0",
+    "jest-environment-jsdom": "^29.2.1",
     "jsdoc": "3.6.10",
     "lint-staged": ">=13",
     "livereload": "^0.9.3",
