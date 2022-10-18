@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+## [release-003] - 2022-10-18
+
+### [Added]
+
+- [Task 003] : (Demultiplexer.js) Add ModuleVHDL, generateVHDL and generatePortMapVHDL functions
+- [Task 003] : (circuitElement.js) Create generateVHDL to Demultiplexer circuit.
+- [Task 003] : (vhdl.js) Add conditional call to function generateVHDL of mux and demux.
+
 ## [release-002] - 2022-10-11
 
 ### [Added]
