@@ -851,6 +851,7 @@ export default class CircuitElement {
     generateVHDL() {
         // // Example: and and_1(_out, _out, _Q[0]);
         var mux = this.scope.Multiplexer;
+        var demux = this.scope.Demultiplexer;
         var element = '';
         
         if(mux.length != 0){
@@ -883,39 +884,118 @@ export default class CircuitElement {
                     }
                 }
             }
-            
-            element += "\BEGIN\n"
-
-            for(var i = 0; i < mux.length; i++){
-                if(mux[i].bitWidth == 1){
-                    element += `\n  multiplexer${i}: Mux1 PORT MAP(\n`
-                    for(var d = 0; d < mux[i].inp.length; d++){
-                        element += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
-                    }
-                    element += `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`
-                    element += `    x => ${mux[i].output1.verilogLabel}`
-                    element += `);\n`
-                }
-            }
-
-            for(var k = 2; k < 10; k++){
-                for(var i = 0; i < mux.length; i++){
-                    if(mux[i].bitWidth == k){
-                        element += `\n  multiplexer${i}: Mux${k} PORT MAP(\n`
-                        for(var d = 0; d < mux[i].inp.length; d++){
-                            element += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
-                        }
-                        element += `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`
-                        element += `    x => ${mux[i].output1.verilogLabel}`
-                        element += `);\n`
-                    }
-                }
-            }
-            
-        }
-
-        return element
+        } 
         
+        if(demux.length != 0){
+            for(var i = 0; i < demux.length; i++){
+                if(demux[i].bitWidth == 1){
+                    element += `\n  COMPONENT Demux1 IS\n`
+                    element += `    PORT (\n`
+                    element += `      in0, sel: IN  STD_LOGIC;\n`
+                    element += `      out0, out1: OUT STD_LOGIC`
+                    element += `);\n`
+                    element += `  END COMPONENT;\n`
+                    break
+                }
+            }
+
+            for(var d = 2; d < 10; d++){
+                for(var i = 0; i < demux.length; i++){
+                    if(demux[i].bitWidth == d){
+                        element += `\n  COMPONENT Demux${d} IS\n`
+                        element += `    PORT (\n`
+                        element += `      in0, sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n      `
+                        for(var k = 0; k < Math.pow(2, d); k++){
+                            if(k == (Math.pow(2, d) - 1)){
+                                element += `out${k}:`
+                            } else{
+                                element += `out${k}, `
+                            }
+                        }
+                        element += ` OUT STD_LOGIC_VECTOR (${d-1} DOWNTO 0)`
+                        element += `);\n`
+                        element += `  END COMPONENT;\n`
+                        break
+                    }
+                }
+            }
+        }
+        return element
+    }
+
+    generatePortMapVHDL(){
+            // // Example: and and_1(_out, _out, _Q[0]);
+            var mux = this.scope.Multiplexer;
+            var demux = this.scope.Demultiplexer;
+            var portmap = '';
+            portmap += "\BEGIN\n"
+            
+            if(mux.length != 0){
+                for(var i = 0; i < mux.length; i++){
+                    if(mux[i].bitWidth == 1){
+                        portmap += `\n  multiplexer${i}: Mux1 PORT MAP(\n`
+                        for(var d = 0; d < mux[i].inp.length; d++){
+                            portmap += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
+                        }
+                        portmap += `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`
+                        portmap += `    x => ${mux[i].output1.verilogLabel}`
+                        portmap += `);\n`
+                    }
+                }
+    
+                for(var k = 2; k < 10; k++){
+                    for(var i = 0; i < mux.length; i++){
+                        if(mux[i].bitWidth == k){
+                            portmap += `\n  multiplexer${i}: Mux${k} PORT MAP(\n`
+                            for(var d = 0; d < mux[i].inp.length; d++){
+                                portmap += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
+                            }
+                            portmap += `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`
+                            portmap += `    x => ${mux[i].output1.verilogLabel}`
+                            portmap += `);\n`
+                        }
+                    }
+                }
+                
+            }
+    
+            if(demux.length != 0){
+                for(var i = 0; i < demux.length; i++){
+                    if(demux[i].bitWidth == 1){
+                        portmap += `\n  demultiplexer${i}: Demux1 PORT MAP(\n`
+                        portmap += `    in0 => ${demux[i].input.verilogLabel},\n`
+                        portmap += `    sel => ${demux[i].controlSignalInput.verilogLabel},\n`
+                        for(var d = 0; d < demux[i].output1.length; d++){
+                            if(d !== (demux[i].output1.length - 1)){
+                                portmap += `    out${d} => ${demux[i].output1[d].verilogLabel},\n`
+                            }else {
+                                portmap += `    out${d} => ${demux[i].output1[d].verilogLabel}`
+                            }
+                        }
+                        portmap += `);\n`
+                    }
+                }
+    
+                for(var k = 2; k < 10; k++){
+                    for(var i = 0; i < demux.length; i++){
+                        if(demux[i].bitWidth == k){
+                            portmap += `\n  demultiplexer${i}: Demux${k} PORT MAP(\n`
+                            portmap += `    in0 => ${demux[i].input.verilogLabel},\n`
+                            portmap += `    sel => ${demux[i].controlSignalInput.verilogLabel},\n`
+                            for(var d = 0; d < demux[i].output1.length; d++){
+                                if(d !== (demux[i].output1.length - 1)){
+                                    portmap += `    out${d} => ${demux[i].output1[d].verilogLabel},\n`
+                                }else {
+                                    portmap += `    out${d} => ${demux[i].output1[d].verilogLabel}`
+                                }
+                            }
+                            portmap += `);\n`
+                        }
+                    }
+                }
+                
+            }
+            return portmap
     }
 
     /**

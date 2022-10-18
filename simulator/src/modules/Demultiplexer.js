@@ -316,21 +316,21 @@ export default class Demultiplexer extends CircuitElement {
                 output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
                 output += `\nENTITY Demux1 IS\n`
                 output += `  PORT (\n`
-                output += `    in, sel: IN  STD_LOGIC;\n`
+                output += `    in0, sel: IN  STD_LOGIC;\n`
                 output += `    out0, out1: OUT STD_LOGIC`
                 output += `);\n`
                 output += `END ENTITY;\n`
                 output += `\n`
                 output += `ARCHITECTURE rtl OF Demux1 IS\n`
                 output += `  BEGIN\n`
-                output += `    PROCESS(in, sel)\n`
+                output += `    PROCESS(in0, sel)\n`
                 output += `      BEGIN\n`
-                output += `        IF(sel = "0") THEN\n`
-		        output += `          out0 <= in;\n`
-		        output += `          out1 <= "0";\n`
+                output += `        IF(sel = '0') THEN\n`
+		        output += `          out0 <= in0;\n`
+		        output += `          out1 <= '0';\n`
 			    output += `        ELSE\n`
-                output += `          out1 <= in;\n`
-                output += `          out0 <= "0";\n`
+                output += `          out1 <= in0;\n`
+                output += `          out0 <= '0';\n`
                 output += `        END IF;\n`
                 output += `    END PROCESS;\n`
                 output += `END ARCHITECTURE;\n`

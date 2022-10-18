@@ -20,6 +20,7 @@ import "codemirror/addon/hint/anyword-hint.js";
 import "codemirror/addon/hint/show-hint.js";
 import "codemirror/addon/display/autorefresh.js";
 import { openInNewTab, copyToClipboard, showMessage } from "./utils";
+import Demultiplexer from "./modules/Demultiplexer";
 
 var editora;
 
@@ -192,7 +193,7 @@ export var vhdl = {
             else
                 output += "  SIGNAL " + wireList.join(", ") + ": STD_LOGIC_VECTOR (" + (bitWidth - 1) + " DOWNTO 0);\n"
         }
-        if(scope.Multiplexer.length != 0){
+        if((scope.Multiplexer.length != 0) || (scope.Demultiplexer.length != 0)){
             output += ""
         } else{
             output += "  BEGIN\n";
@@ -248,9 +249,18 @@ export var vhdl = {
                 verilogResolvedSet.add(elem);
             }
         }
-        var Mux = 0;
+        var componentVHDL = 0;
+        var portVHDL = 0;
         var orderedSet;
        orderedSet = Array.from(verilogResolvedSet)
+
+       for(i=0; i<orderedSet.length; i++){
+        if(orderedSet[i].objectType === 'Demultiplexer'){
+            orderedSet.unshift(orderedSet[i])
+            i++
+            orderedSet.splice(i,1)
+        }
+       }
 
        for(i=0; i<orderedSet.length; i++){
         if(orderedSet[i].objectType === 'Multiplexer'){
@@ -260,14 +270,27 @@ export var vhdl = {
         }
        }
 
+       console.log(orderedSet)
+
        var VHDLSet = new Set(orderedSet)
         
         // Generate connection verilog code and module instantiations
         for (var elem of VHDLSet) {
-            if((Mux==0) && (elem.objectType == 'Multiplexer')){
+            if((componentVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer'))){
                 res += elem.generateVHDL() + "\n";
-                Mux=1
-            } else if(elem.objectType != 'Multiplexer'){
+                componentVHDL=1
+            }
+        }
+
+        for (var elem of VHDLSet) {
+            if((portVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer'))){
+                res += elem.generatePortMapVHDL() + "\n";
+                portVHDL=1
+            }
+        }
+
+        for (var elem of VHDLSet) {
+            if((elem.objectType != 'Multiplexer') && (elem.objectType != 'Demultiplexer')){
                 res += elem.generateVHDL() + "\n";
             }
         }
