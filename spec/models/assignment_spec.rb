@@ -37,6 +37,14 @@ RSpec.describe Assignment, type: :model do
       end.to have_enqueued_job.on_queue("mailers")
     end
 
+    it "sends new assignment notification" do
+      expect do
+        @assignment = FactoryBot.create(:assignment, group: @group, status: "open")
+        NewAssignmentNotification.with(assignment: @assignment).deliver_later(group.first.user)
+        expect(@author.noticed_notifications.count).to eq(1)
+      end
+    end
+
     it "sends assignment update mail" do
       expect do
         @assignment.send_update_mail
