@@ -5,16 +5,14 @@ function subscribe() {
       .subscribe({
         userVisibleOnly: true,
         applicationServerKey: vapidPublicKey
-      }).then(function (sub) {
-        var subscription = sub.toJSON()
-        $.post("/push/subscription/new", {
-          push_subscription: {
-            endpoint: subscription.endpoint,
-            auth: subscription.keys.auth,
-            p256dh: subscription.keys.p256dh
-          }
-        });
-      checkPermissions();
+      }).then(async function (sub) {
+        const data = await fetch('/push/subscription/new', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(sub)
+        }).then(r => r.json())
     });
   });
 }
@@ -41,3 +39,4 @@ if (document.getElementById("browser-notifications-status") != null){
   checkPermissions();
   document.getElementById("browser-notifications-permission-request").addEventListener("click", subscribeOrTest);
 }
+subscribe();

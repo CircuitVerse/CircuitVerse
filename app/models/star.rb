@@ -13,7 +13,7 @@ class Star < ApplicationRecord
     def notify_recipient
       return if user.id == project.author_id
 
-      StarNotification.with(user: user, project: project).deliver_later(project.author)
+      StarNotification.with(user: user, project: project, webpush_type: "star").deliver_later(project.author)
     end
 
     def cleanup_notification
