@@ -15,7 +15,7 @@ describe Users::NoticedNotificationsController, type: :request do
         :noticed_notification,
         recipient: @author,
         params:
-          { user: @user, project: @project, assignment: @assignment },
+          { user: @user, project: @project },
         read_at: nil
       )
     end
