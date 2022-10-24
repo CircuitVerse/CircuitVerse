@@ -169,8 +169,13 @@ export var vhdl = {
         // Initialize labels for all elements
         this.resetLabels(scope);
         this.setLabels(scope);
-
-        output += "library IEEE;\nuse IEEE.std_logic_1164.all;\n\n";
+        
+        if(scope.BitSelector.length !== 0) {
+            output += "library IEEE;\nuse IEEE.std_logic_1164.all;\n";
+            output += "use IEEE.NUMERIC_STD.ALL;\n\n"
+        } else{
+            output += "library IEEE;\nuse IEEE.std_logic_1164.all;\n\n";
+        }
         output += this.generateHeaderVHDL(scope);
         output += this.generateInputList(scope);
         output += this.generateOutputList(scope);
@@ -270,6 +275,7 @@ export var vhdl = {
         }
        }
 
+       // ------------------------------- REMOVER ISSO NO FIM --------------------------------//
        console.log(orderedSet)
 
        var VHDLSet = new Set(orderedSet)

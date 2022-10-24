@@ -10,6 +10,7 @@ import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
 import { fillSubcircuitElements } from './ux';
 import { generateNodeName } from './verilogHelpers';
+import { scopeList } from './circuit';
 
 /**
  * Base class for circuit elements.
@@ -852,7 +853,9 @@ export default class CircuitElement {
         // // Example: and and_1(_out, _out, _Q[0]);
         var mux = this.scope.Multiplexer;
         var demux = this.scope.Demultiplexer;
+        var bitselector1 = this.scope.BitSelector;
         var element = '';
+        //console.log(this.scope)
         
         if(mux.length != 0){
             for(var i = 0; i < mux.length; i++){
@@ -919,6 +922,46 @@ export default class CircuitElement {
                     }
                 }
             }
+        }
+
+        if(bitselector1.length != 0){
+            // for(var i = 0; i < bitselector.length; i++){
+            //     if(bitselector[i].bitWidth == 1){
+            //         element += `\n  COMPONENT BitSelector1 IS\n`
+            //         element += `    PORT (\n`
+            //         element += `      in0, sel: IN  STD_LOGIC;\n`
+            //         element += `      out0: OUT STD_LOGIC`
+            //         element += `);\n`
+            //         element += `  END COMPONENT;\n`
+            //         break
+            //     }
+            // }
+
+            // for(var d = 1; d < 10; d++){
+            //     for(var i = 0; i < bitselector.length; i++){
+            //         if(bitselector[i].bitWidth == d){
+            //             element += `\n  COMPONENT BitSelector${d} IS\n`
+            //             element += `    PORT (\n`
+            //             element += `      in0, sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n`
+            //             element += `      out0: OUT STD_LOGIC`
+            //             element += `);\n`
+            //             element += `  END COMPONENT;\n`
+            //             break
+            //         }
+            //     }
+            // }
+
+            // for(var i = 0; i < bitselector.length; i++){
+            //     element += `\n  COMPONENT BitSelector${bitselector[i].bitWidth} IS\n`
+            //     element += `    PORT (\n`
+            //     element += `      in0: IN  STD_LOGIC_VECTOR (${bitselector[i].bitWidth-1} DOWNTO 0);\n`
+            //     element += `      sel: IN  STD_LOGIC_VECTOR (${bitselector[i].selectorBitWidth-1} DOWNTO 0);\n`
+            //     element += `      out0: OUT STD_LOGIC`
+            //     element += `);\n`
+            //     element += `  END COMPONENT;\n`
+            // }
+            element += 'BITSELECTOR FODA BAGARAI'
+
         }
         return element
     }

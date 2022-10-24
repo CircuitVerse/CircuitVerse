@@ -1,5 +1,13 @@
 ## [Unreleased]
 
+### [Added]
+
+- [Task 004] : (BitSelector.js) Add generateVHDL function.
+
+### [Changed]
+
+- [Task 004] : (vhdl.js) Add conditional to import ieee Math library.
+
 ## [release-003] - 2022-10-18
 
 ### [Added]
