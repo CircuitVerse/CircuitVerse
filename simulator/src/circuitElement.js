@@ -853,34 +853,41 @@ export default class CircuitElement {
         // // Example: and and_1(_out, _out, _Q[0]);
         var mux = this.scope.Multiplexer;
         var demux = this.scope.Demultiplexer;
-        var bitselector1 = this.scope.BitSelector;
         var element = '';
-        //console.log(this.scope)
         
         if(mux.length != 0){
-            for(var i = 0; i < mux.length; i++){
-                if(mux[i].bitWidth == 1){
-                    element += `\n  COMPONENT Mux1 IS\n`
-                    element += `    PORT (\n`
-                    element += `      in0, in1, sel: IN  STD_LOGIC;\n`
-                    element += `      x: OUT STD_LOGIC`
-                    element += `);\n`
-                    element += `  END COMPONENT;\n`
-                    break
-                }
-            }
-
-            for(var d = 2; d < 10; d++){
+            for(var d = 1; d <= 10; d++){
                 for(var i = 0; i < mux.length; i++){
-                    if(mux[i].bitWidth == d){
+                    if(mux[i].controlSignalSize == d){
                         element += `\n  COMPONENT Mux${d} IS\n`
                         element += `    PORT (\n      `
+                        
                         for(var k = 0; k < Math.pow(2, d); k++) {
-                            element += `in${k}, `
+                            if(k !== (Math.pow(2, d) - 1)){
+                                element += `in${k}, `
+                            } else{
+                                element += `in${k}`
+                            }
                         }
 
-                        element += `sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n`
-                        element += `      x: OUT STD_LOGIC_VECTOR (${d-1} DOWNTO 0)`
+                        if(mux[i].bitWidth === 1){
+                            element += `: IN  STD_LOGIC;\n`
+                        } else{
+                            element += `: IN  STD_LOGIC_VECTOR (${mux[i].bitWidth-1} DOWNTO 0);\n`
+                        }
+
+                        if(d === 1){
+                            element += `      sel: IN  STD_LOGIC;\n`
+                        } else{
+                            element += `      sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n`
+                        }
+
+                        if(mux[i].bitWidth === 1){
+                            element += `      x: OUT STD_LOGIC`
+                        } else{
+                            element += `      x: OUT STD_LOGIC_VECTOR (${mux[i].bitWidth-1} DOWNTO 0)`
+                        }
+
                         element += `);\n`
                         element += `  END COMPONENT;\n`
                         break
@@ -890,24 +897,28 @@ export default class CircuitElement {
         } 
         
         if(demux.length != 0){
-            for(var i = 0; i < demux.length; i++){
-                if(demux[i].bitWidth == 1){
-                    element += `\n  COMPONENT Demux1 IS\n`
-                    element += `    PORT (\n`
-                    element += `      in0, sel: IN  STD_LOGIC;\n`
-                    element += `      out0, out1: OUT STD_LOGIC`
-                    element += `);\n`
-                    element += `  END COMPONENT;\n`
-                    break
-                }
-            }
 
-            for(var d = 2; d < 10; d++){
+            for(var d = 1; d <= 10; d++){
                 for(var i = 0; i < demux.length; i++){
-                    if(demux[i].bitWidth == d){
+                    if(demux[i].controlSignalSize == d){
                         element += `\n  COMPONENT Demux${d} IS\n`
                         element += `    PORT (\n`
-                        element += `      in0, sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n      `
+                        element += `      in0: IN STD_LOGIC`
+                        
+                        if(demux[i].bitWidth != 1){
+                            element += `_VECTOR (${demux[i].bitWidth-1} DOWNTO 0);\n`
+                        }else{
+                            element += `;\n`
+                        }
+
+                        element += `      sel: IN STD_LOGIC`
+                        
+                        if(demux[i].controlSignalSize != 1){
+                            element += `_VECTOR (${d-1} DOWNTO 0);\n      `
+                        }else{
+                            element += `;\n      `
+                        }
+
                         for(var k = 0; k < Math.pow(2, d); k++){
                             if(k == (Math.pow(2, d) - 1)){
                                 element += `out${k}:`
@@ -915,53 +926,19 @@ export default class CircuitElement {
                                 element += `out${k}, `
                             }
                         }
-                        element += ` OUT STD_LOGIC_VECTOR (${d-1} DOWNTO 0)`
+
+                        element += ` OUT STD_LOGIC`
+                        
+                        if(demux[i].bitWidth != 1){
+                            element += `_VECTOR (${demux[i].bitWidth-1} DOWNTO 0)`
+                        }
+
                         element += `);\n`
                         element += `  END COMPONENT;\n`
                         break
                     }
                 }
             }
-        }
-
-        if(bitselector1.length != 0){
-            // for(var i = 0; i < bitselector.length; i++){
-            //     if(bitselector[i].bitWidth == 1){
-            //         element += `\n  COMPONENT BitSelector1 IS\n`
-            //         element += `    PORT (\n`
-            //         element += `      in0, sel: IN  STD_LOGIC;\n`
-            //         element += `      out0: OUT STD_LOGIC`
-            //         element += `);\n`
-            //         element += `  END COMPONENT;\n`
-            //         break
-            //     }
-            // }
-
-            // for(var d = 1; d < 10; d++){
-            //     for(var i = 0; i < bitselector.length; i++){
-            //         if(bitselector[i].bitWidth == d){
-            //             element += `\n  COMPONENT BitSelector${d} IS\n`
-            //             element += `    PORT (\n`
-            //             element += `      in0, sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n`
-            //             element += `      out0: OUT STD_LOGIC`
-            //             element += `);\n`
-            //             element += `  END COMPONENT;\n`
-            //             break
-            //         }
-            //     }
-            // }
-
-            // for(var i = 0; i < bitselector.length; i++){
-            //     element += `\n  COMPONENT BitSelector${bitselector[i].bitWidth} IS\n`
-            //     element += `    PORT (\n`
-            //     element += `      in0: IN  STD_LOGIC_VECTOR (${bitselector[i].bitWidth-1} DOWNTO 0);\n`
-            //     element += `      sel: IN  STD_LOGIC_VECTOR (${bitselector[i].selectorBitWidth-1} DOWNTO 0);\n`
-            //     element += `      out0: OUT STD_LOGIC`
-            //     element += `);\n`
-            //     element += `  END COMPONENT;\n`
-            // }
-            element += 'BITSELECTOR FODA BAGARAI'
-
         }
         return element
     }
@@ -975,7 +952,7 @@ export default class CircuitElement {
             
             if(mux.length != 0){
                 for(var i = 0; i < mux.length; i++){
-                    if(mux[i].bitWidth == 1){
+                    if(mux[i].controlSignalSize == 1){
                         portmap += `\n  multiplexer${i}: Mux1 PORT MAP(\n`
                         for(var d = 0; d < mux[i].inp.length; d++){
                             portmap += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
@@ -988,7 +965,7 @@ export default class CircuitElement {
     
                 for(var k = 2; k < 10; k++){
                     for(var i = 0; i < mux.length; i++){
-                        if(mux[i].bitWidth == k){
+                        if(mux[i].controlSignalSize == k){
                             portmap += `\n  multiplexer${i}: Mux${k} PORT MAP(\n`
                             for(var d = 0; d < mux[i].inp.length; d++){
                                 portmap += `    in${d} => ${mux[i].inp[d].verilogLabel},\n`
@@ -1004,7 +981,7 @@ export default class CircuitElement {
     
             if(demux.length != 0){
                 for(var i = 0; i < demux.length; i++){
-                    if(demux[i].bitWidth == 1){
+                    if(demux[i].controlSignalSize == 1){
                         portmap += `\n  demultiplexer${i}: Demux1 PORT MAP(\n`
                         portmap += `    in0 => ${demux[i].input.verilogLabel},\n`
                         portmap += `    sel => ${demux[i].controlSignalInput.verilogLabel},\n`
@@ -1021,7 +998,7 @@ export default class CircuitElement {
     
                 for(var k = 2; k < 10; k++){
                     for(var i = 0; i < demux.length; i++){
-                        if(demux[i].bitWidth == k){
+                        if(demux[i].controlSignalSize == k){
                             portmap += `\n  demultiplexer${i}: Demux${k} PORT MAP(\n`
                             portmap += `    in0 => ${demux[i].input.verilogLabel},\n`
                             portmap += `    sel => ${demux[i].controlSignalInput.verilogLabel},\n`

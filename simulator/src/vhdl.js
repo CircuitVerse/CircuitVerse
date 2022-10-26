@@ -422,15 +422,15 @@ export var vhdl = {
         for(var i = 0; i < scope.Output.length; i++){
             if(i != scope.Output.length - 1) {
                 if(scope.Output[i].bitWidth == 1){
-                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC;\n`
+                    res += `    ${scope.Output[i].verilogLabel}: OUT STD_LOGIC;\n`
                 }else{
-                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC_VECTOR (${scope.Output[i].bitWidth - 1} DOWNTO 0);\n`
+                    res += `    ${scope.Output[i].verilogLabel}: OUT STD_LOGIC_VECTOR (${scope.Output[i].bitWidth - 1} DOWNTO 0);\n`
                 }
             } else{
                 if(scope.Output[i].bitWidth == 1){
-                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC`
+                    res += `    ${scope.Output[i].verilogLabel}: OUT STD_LOGIC`
                 }else{
-                    res += `    ${scope.Output[i].verilogLabel}: out STD_LOGIC_VECTOR (${scope.Output[i].bitWidth - 1} DOWNTO 0)`
+                    res += `    ${scope.Output[i].verilogLabel}: OUT STD_LOGIC_VECTOR (${scope.Output[i].bitWidth - 1} DOWNTO 0)`
                 }
             }
         }

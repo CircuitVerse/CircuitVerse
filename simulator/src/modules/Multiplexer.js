@@ -320,66 +320,76 @@ export default class Multiplexer extends CircuitElement {
         var output = "\n";
         var mux = Object.values(scopeList)[0].Multiplexer
 
-        for(var i = 0; i < mux.length; i++){
-            if(mux[i].bitWidth == 1){
-                output += '\n//-------------Mux1-------------\n'
-                output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
-                output += `\nENTITY Mux1 IS\n`
-                output += `  PORT (\n`
-                output += `    in0, in1, sel: IN  STD_LOGIC;\n`
-                output += `            x: OUT STD_LOGIC`
-                output += `);\n`
-                output += `END ENTITY;\n`
-                output += `\n`
-                output += `ARCHITECTURE rtl OF Mux1 IS\n`
-                output += `  BEGIN\n`
-                output += `    WITH sel SELECT\n`
-		        output += `      x <= in0 WHEN '0',\n`
-			    output += `           in1 WHEN OTHERS;\n`
-                output += `END ARCHITECTURE;\n`
-                
-                break
-            }
-        }
-
-        for(var p = 1; p < 10; p++){
+        for(var p = 0; p < 10; p++){
             for(var i = 0; i < mux.length; i++){
-                if(mux[i].bitWidth == p + 1){
-                    output += `\n//-------------Mux${mux[i].bitWidth}-------------\n`
+                if(mux[i].controlSignalSize == p + 1){
+                    output += `\n//-------------Mux${mux[i].controlSignalSize}-------------\n`
                     output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
-                    output += `\nENTITY Mux${mux[i].bitWidth} IS\n`
+                    output += `\nENTITY Mux${mux[i].controlSignalSize} IS\n`
                     output += `  PORT (\n    `
-    
-                    for(var d = 0; d < Math.pow(2, mux[i].bitWidth); d++){
-                        output += `in${d}, `
+                    for(var d = 0; d < Math.pow(2, mux[i].controlSignalSize); d++){
+                        if(d === (Math.pow(2, mux[i].controlSignalSize) - 1)){
+                            output += `in${d}`
+                        } else{
+                            output += `in${d}, `
+                        }
                     }
-    
-                    output += `sel: IN STD_LOGIC_VECTOR `
-                    output += `(${mux[i].bitWidth - 1} DOWNTO 0);\n`
-                    output += `    x: OUT STD_LOGIC_VECTOR `
-                    output += `(${mux[i].bitWidth - 1} DOWNTO 0)`
+                    
+                    if(mux[i].bitWidth !== 1){
+                        output += `: IN STD_LOGIC_VECTOR `
+                        output += `(${mux[i].bitWidth - 1} DOWNTO 0);\n    `
+                    }else {
+                        output += `: IN STD_LOGIC;\n    `
+                    }
+
+                    if(mux[i].controlSignalSize !== 1){
+                        output += `sel: IN STD_LOGIC_VECTOR `
+                        output += `(${mux[i].controlSignalSize - 1} DOWNTO 0);\n`
+                    } else{
+                        output += `sel: IN STD_LOGIC;\n`
+                    }
+
+                    if(mux[i].bitWidth !== 1){
+                        output += `    x: OUT STD_LOGIC_VECTOR `
+                        output += `(${mux[i].bitWidth - 1} DOWNTO 0)`
+                    } else{
+                        output += `    x: OUT STD_LOGIC`
+                    }
+
                     output += `);\n`
                     output += `END ENTITY;\n`
                     output += `\n`
-                    output += `ARCHITECTURE rtl OF Mux${mux[i].bitWidth} IS\n`
+                    output += `ARCHITECTURE rtl OF Mux${mux[i].controlSignalSize} IS\n`
                     output += `  BEGIN\n`
                     output += `    WITH sel SELECT\n`
                     output += `      x <=`
                     
-                    for (var j = 0; j < Math.pow(2,mux[i].bitWidth); j++) {
+                    for (var j = 0; j < Math.pow(2,mux[i].controlSignalSize); j++) {
                         var zeros = ''
                         
-                        for(var k = 0; k < mux[i].bitWidth; k++){
+                        for(var k = 0; k < mux[i].controlSignalSize; k++){
                             zeros += '0'
                         }
                         var k = zeros + j.toString(2)
                     
                         if(j===0){
-                            output += ` in${j} WHEN "${k.slice(-(mux[i].bitWidth))}",\n`
-                        }else if(j!==0 && j<Math.pow(2,mux[i].bitWidth) - 1){
-                            output += `           in${j} WHEN "${k.slice(-(mux[i].bitWidth))}",\n`
+                            if(mux[i].controlSignalSize == 1) {
+                                output += ` in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
+                            }else {
+                                output += ` in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
+                            }
+                        }else if(j!==0 && j<Math.pow(2,mux[i].controlSignalSize) - 1){
+                            if(mux[i].controlSignalSize == 1){
+                                output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
+                            } else {
+                                output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
+                            }
                         } else{
-                            output += `           in${j} WHEN "${k.slice(-(mux[i].bitWidth))}";\n`
+                            if(mux[i].controlSignalSize == 1){
+                                output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}';\n`
+                            } else{
+                                output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}";\n`
+                            }
                         }
                     }
     
@@ -392,6 +402,7 @@ export default class Multiplexer extends CircuitElement {
 
         return output
     }
+
     //reset the sized before Verilog generation
     static resetVerilog() {
         Multiplexer.selSizes = new Set();
