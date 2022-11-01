@@ -2,6 +2,9 @@
 
 ### [Added]
 
+- [Task 005] : (BitSelector.js) Add generateVHDL function.
+- [Task 005] : (circuitElement.js) Add PROCESS conditional after portmap.
+- [Task 005] : (vhdl.js) Add error bitwidth and PROCESS conditional.
 - [Task 004] : (BitSelector.js) Add generateVHDL function.
 
 ### [Changed]
