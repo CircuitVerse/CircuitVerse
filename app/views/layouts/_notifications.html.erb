@@ -10,7 +10,6 @@
       <div class="d-flex align-items-center justify-content-between">
         <strong><h4><%= t("users.notifications.heading") %></h4></strong>
         <button class="cancel-button">&#10005;</button>
-        
       </div>
       <% @notification.each do |notification| %>
         <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post do %>
