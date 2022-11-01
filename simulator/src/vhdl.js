@@ -20,14 +20,31 @@ import "codemirror/addon/hint/anyword-hint.js";
 import "codemirror/addon/hint/show-hint.js";
 import "codemirror/addon/display/autorefresh.js";
 import { openInNewTab, copyToClipboard, showMessage } from "./utils";
-import Demultiplexer from "./modules/Demultiplexer";
 
 var editora;
 
 export function generateVHDL() {
     var dialog = $("#vhdl-export-code-window-div");
     var data = vhdl.exportVHDL();
-    editora.setValue(data);
+    var bitselectorkeys = Object.keys(scopeList)
+    var bitselectorerror = false
+
+    for (var i = 0; i < scopeList[bitselectorkeys].BitSelector.length; i++){
+        if(scopeList[bitselectorkeys].BitSelector[i].output1.connections[0].bitWidth != 1){
+            editora.setValue("//ERROR\n// CircuitVerse's BitSelector only allows output with size 1 bit width.")
+            bitselectorerror = true
+            break
+        } else if (Math.pow(2, scopeList[bitselectorkeys].BitSelector[i].bitSelectorInp.bitWidth) > scopeList[bitselectorkeys].BitSelector[i].inp1.bitWidth ) {
+            editora.setValue("//ERROR\n// ERRO DE LARGURA")
+            bitselectorerror = true
+            break
+        }
+    }
+    
+    if(bitselectorerror === false){
+        editora.setValue(data);
+    }
+
     $("#vhdl-export-code-window-div .CodeMirror").css(
         "height",
         $(window).height() - 200
@@ -171,7 +188,7 @@ export var vhdl = {
         this.setLabels(scope);
         
         if(scope.BitSelector.length !== 0) {
-            output += "library IEEE;\nuse IEEE.std_logic_1164.all;\n";
+            output += "library IEEE;\nuse IEEE.std_logic_1164.all;\nuse IEEE.std_logic_unsigned.all;\n";
             output += "use IEEE.NUMERIC_STD.ALL;\n\n"
         } else{
             output += "library IEEE;\nuse IEEE.std_logic_1164.all;\n\n";
@@ -204,8 +221,29 @@ export var vhdl = {
             output += "  BEGIN\n";
         }
 
+        console.log(scopeList[Object.keys(scopeList)].Demultiplexer.length)
+        if((scopeList[Object.keys(scopeList)].Demultiplexer.length === 0) && (scopeList[Object.keys(scopeList)].Multiplexer.length === 0)){
+            if(scopeList[Object.keys(scopeList)].BitSelector.length != 0) {
+                output += `  PROCESS(`
+                
+                for(var i = 0; i < scopeList[Object.keys(scopeList)].BitSelector.length; i++){
+                    if(i === scopeList[Object.keys(scopeList)].BitSelector.length - 1){
+                        output += `${scopeList[Object.keys(scopeList)].BitSelector[i].inp1.verilogLabel}, ${scopeList[Object.keys(scopeList)].BitSelector[i].bitSelectorInp.verilogLabel}`
+                    } else{
+                        output += `${scopeList[Object.keys(scopeList)].BitSelector[i].inp1.verilogLabel}, ${scopeList[Object.keys(scopeList)].BitSelector[i].bitSelectorInp.verilogLabel},`
+                    }
+                }
+    
+                output += `)\n  BEGIN\n`
+            }
+        }
+
         // Append Wire connections and module instantiations
         output += res;
+
+        if(scopeList[Object.keys(scopeList)].BitSelector.length != 0) {
+            output += `  END PROCESS;\n`
+        }
 
         // Append footer
         output += "END " + sanitizeLabel(scope.name) + ";";

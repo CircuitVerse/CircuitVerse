@@ -1009,12 +1009,27 @@ export default class CircuitElement {
                                     portmap += `    out${d} => ${demux[i].output1[d].verilogLabel}`
                                 }
                             }
-                            portmap += `);\n`
+                            portmap += `);\n\n`
                         }
                     }
                 }
                 
             }
+
+            if(scopeList[Object.keys(scopeList)].BitSelector.length != 0) {
+                portmap += `  PROCESS(`
+                
+                for(var i = 0; i < scopeList[Object.keys(scopeList)].BitSelector.length; i++){
+                    if(i === scopeList[Object.keys(scopeList)].BitSelector.length - 1){
+                        portmap += `${scopeList[Object.keys(scopeList)].BitSelector[i].inp1.verilogLabel}, ${scopeList[Object.keys(scopeList)].BitSelector[i].bitSelectorInp.verilogLabel}`
+                    } else{
+                        portmap += `${scopeList[Object.keys(scopeList)].BitSelector[i].inp1.verilogLabel}, ${scopeList[Object.keys(scopeList)].BitSelector[i].bitSelectorInp.verilogLabel},`
+                    }
+                }
+    
+                portmap += `)\n    BEGIN\n`
+            }
+
             return portmap
     }
 
