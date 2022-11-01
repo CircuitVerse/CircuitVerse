@@ -95,7 +95,38 @@ body {
     color: $primary-green;
   }
 }
+.anchor-text-left {
+  color: $secondary-green;
+  font-weight: 500;
+  text-decoration: underline;
+  text-align: left;
+  position: absolute;
+  left: 0px;
+  width: 300px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
+  &:hover {
+    color: $primary-green;
+  }
+}
+.anchor-text-right {
+  color: $secondary-green;
+  font-weight: 500;
+  text-decoration: underline;
+  text-align: right;
+  position: absolute;
+  right: 0px;
+  width: 300px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  &:hover {
+    color: $primary-green;
+  }
+}
 //pagination
 .page-link {
   color: $secondary-green;
