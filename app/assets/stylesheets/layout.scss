@@ -98,14 +98,14 @@ body {
 .anchor-text-left {
   color: $secondary-green;
   font-weight: 500;
-  text-decoration: underline;
-  text-align: left;
-  position: absolute;
-  left: 0px;
-  width: 300px;
-  padding: 20px;
-  margin-top: 20px;
+  left: 0;
   margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  position: absolute;
+  text-align: left;
+  text-decoration: underline;
+  width: 300px;
 
   &:hover {
     color: $primary-green;
@@ -114,14 +114,14 @@ body {
 .anchor-text-right {
   color: $secondary-green;
   font-weight: 500;
-  text-decoration: underline;
-  text-align: right;
-  position: absolute;
-  right: 0px;
-  width: 300px;
-  padding: 20px;
-  margin-top: 20px;
+  right: 0;
   margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  position: absolute;
+  text-align: right;
+  text-decoration: underline;
+  width: 300px;
 
   &:hover {
     color: $primary-green;
