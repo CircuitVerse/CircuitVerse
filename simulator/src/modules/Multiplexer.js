@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import {generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateZeros} from '../helperVHDL'
 /**
  * @class
  * Multiplexer
@@ -16,7 +17,7 @@ import { changeInputSize } from "../modules";
  * @category modules
  */
 import { colors } from "../themer/themer";
-import Scope, { scopeList } from "../circuit";
+import { scopeList } from "../circuit";
 
 export default class Multiplexer extends CircuitElement {
     constructor(
@@ -323,77 +324,96 @@ export default class Multiplexer extends CircuitElement {
         for(var p = 0; p < 10; p++){
             for(var i = 0; i < mux.length; i++){
                 if(mux[i].controlSignalSize == p + 1){
-                    output += `\n//-------------Mux${mux[i].controlSignalSize}-------------\n`
-                    output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
-                    output += `\nENTITY Mux${mux[i].controlSignalSize} IS\n`
-                    output += `  PORT (\n    `
-                    for(var d = 0; d < Math.pow(2, mux[i].controlSignalSize); d++){
-                        if(d === (Math.pow(2, mux[i].controlSignalSize) - 1)){
-                            output += `in${d}`
-                        } else{
-                            output += `in${d}, `
-                        }
-                    }
+                    output += generateHeaderVhdlEntity('Mux', mux[i].controlSignalSize)
+                    // output += `\n//-------------Mux${mux[i].controlSignalSize}-------------\n`
+                    // output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
+                    // output += `\nENTITY Mux${mux[i].controlSignalSize} IS\n`
+                    // output += `  PORT (\n    `
+
+                    output += generateSpacings(4)
+                    output += generatePortsIO('in', mux[i].controlSignalSize)
+                    // for(var d = 0; d < Math.pow(2, mux[i].controlSignalSize); d++){
+                    //     if(d === (Math.pow(2, mux[i].controlSignalSize) - 1)){
+                    //         output += `in${d}`
+                    //     } else{
+                    //         output += `in${d}, `
+                    //     }
+                    // }
+
+                    output += generateSTDType(mux[i].bitWidth)
                     
-                    if(mux[i].bitWidth !== 1){
-                        output += `: IN STD_LOGIC_VECTOR `
-                        output += `(${mux[i].bitWidth - 1} DOWNTO 0);\n    `
-                    }else {
-                        output += `: IN STD_LOGIC;\n    `
-                    }
-
-                    if(mux[i].controlSignalSize !== 1){
-                        output += `sel: IN STD_LOGIC_VECTOR `
-                        output += `(${mux[i].controlSignalSize - 1} DOWNTO 0);\n`
-                    } else{
-                        output += `sel: IN STD_LOGIC;\n`
-                    }
-
-                    if(mux[i].bitWidth !== 1){
-                        output += `    x: OUT STD_LOGIC_VECTOR `
-                        output += `(${mux[i].bitWidth - 1} DOWNTO 0)`
-                    } else{
-                        output += `    x: OUT STD_LOGIC`
-                    }
-
-                    output += `);\n`
-                    output += `END ENTITY;\n`
-                    output += `\n`
-                    output += `ARCHITECTURE rtl OF Mux${mux[i].controlSignalSize} IS\n`
-                    output += `  BEGIN\n`
-                    output += `    WITH sel SELECT\n`
-                    output += `      x <=`
+                    // if(mux[i].bitWidth !== 1){
+                    //     output += `: IN STD_LOGIC_VECTOR `
+                    //     output += `(${mux[i].bitWidth - 1} DOWNTO 0);\n    `
+                    // }else {
+                    //     output += `: IN STD_LOGIC;\n    `
+                    // }
+                    output += generateSpacings(4)
+                    output += generatePortsIO('sel', 0)
+                    output += generateSTDType(mux[i].controlSignalSize)
+                    // if(mux[i].controlSignalSize !== 1){
+                    //     output += `sel: IN STD_LOGIC_VECTOR `
+                    //     output += `(${mux[i].controlSignalSize - 1} DOWNTO 0);\n`
+                    // } else{
+                    //     output += `sel: IN STD_LOGIC;\n`
+                    // }
+                    output += generateSpacings(4)
+                    output += generatePortsIO('x', 0)
+                    output += generateSTDType(mux[i].bitWidth)
+                    // if(mux[i].bitWidth !== 1){
+                    //     output += `    x: OUT STD_LOGIC_VECTOR `
+                    //     output += `(${mux[i].bitWidth - 1} DOWNTO 0)`
+                    // } else{
+                    //     output += `    x: OUT STD_LOGIC`
+                    // }
+                    output += generateFooterEntity()
+                    // output += `);\n`
+                    // output += `END ENTITY;\n`
+                    // output += `\n`
+                    
+                    output += generateArchitetureHeader('Mux', mux[i].controlSignalSize)
+                    // output += `ARCHITECTURE rtl OF Mux${mux[i].controlSignalSize} IS\n`
+                    // output += `  BEGIN\n`
+                    // output += `    WITH sel SELECT\n`
+                    // output += `      x <=`
+                    var arr = []
+                    
                     
                     for (var j = 0; j < Math.pow(2,mux[i].controlSignalSize); j++) {
-                        var zeros = ''
+                        // var zeros = ''
                         
-                        for(var k = 0; k < mux[i].controlSignalSize; k++){
-                            zeros += '0'
-                        }
-                        var k = zeros + j.toString(2)
-                    
-                        if(j===0){
-                            if(mux[i].controlSignalSize == 1) {
-                                output += ` in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
-                            }else {
-                                output += ` in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
-                            }
-                        }else if(j!==0 && j<Math.pow(2,mux[i].controlSignalSize) - 1){
-                            if(mux[i].controlSignalSize == 1){
-                                output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
-                            } else {
-                                output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
-                            }
-                        } else{
-                            if(mux[i].controlSignalSize == 1){
-                                output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}';\n`
-                            } else{
-                                output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}";\n`
-                            }
-                        }
+                        // for(var k = 0; k < mux[i].controlSignalSize; k++){
+                        //     zeros += '0'
+                        // }
+                        // var k = zeros + j.toString(2)
+
+                        var k = generateZeros(mux[i].controlSignalSize, j)
+
+                        arr[j] = `in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}'`
+                        // output += new Array(Math.pow(2,mux[i].controlSignalSize)).fill().join('\n')
+                        // if(j===0){
+                        //     if(mux[i].controlSignalSize == 1) {
+                        //         output += ` in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
+                        //     }else {
+                        //         output += ` in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
+                        //     }
+                        // }else if(j!==0 && j<Math.pow(2,mux[i].controlSignalSize) - 1){
+                        //     if(mux[i].controlSignalSize == 1){
+                        //         output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
+                        //     } else {
+                        //         output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
+                        //     }
+                        // } else{
+                        //     if(mux[i].controlSignalSize == 1){
+                        //         output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}';\n`
+                        //     } else{
+                        //         output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}";\n`
+                        //     }
+                        // }
                     }
+                    output += arr.join(`,\n${generateSpacings(4)}`)
     
-                    output += `END ARCHITECTURE;\n`
+                    output += `;\nEND ARCHITECTURE;\n`
                     
                     break
                 }
