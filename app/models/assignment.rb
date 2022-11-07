@@ -8,7 +8,6 @@ class Assignment < ApplicationRecord
   }, if: :lti_integrated?
   belongs_to :group
   has_many :projects, class_name: "Project", dependent: :nullify
-  before_destroy :cleanup_notification
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
@@ -19,17 +18,13 @@ class Assignment < ApplicationRecord
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
 
-  has_noticed_notifications model_name: "NoticedNotification"
+  has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
   def notify_recipient
     @assignment = Assignment.find(id)
     group.group_members.each do |group_member|
-      NewAssignmentNotification.with(assignment: @assignment).deliver_later(group_member.user)
+      NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)
     end
-  end
-
-  def cleanup_notification
-    notifications_as_assignment.destroy_all
   end
 
   def send_new_assignment_mail
