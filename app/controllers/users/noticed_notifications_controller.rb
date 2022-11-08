@@ -19,4 +19,9 @@ class Users::NoticedNotificationsController < ApplicationController
     NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
     redirect_to notifications_path(current_user)
   end
+
+  def delete_all_notifications
+    NoticedNotification.where(recipient: current_user).destroy_all
+    redirect_to notifications_path(current_user)
+  end
 end
