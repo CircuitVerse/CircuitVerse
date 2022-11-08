@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
+import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateZeros, generateLogicDemux} from '../helperVHDL'
 /**
  * @class
  * Demultiplexer
@@ -309,127 +310,29 @@ export default class Demultiplexer extends CircuitElement {
     static moduleVHDL() {
         var output = "\n";
         var demux = Object.values(scopeList)[0].Demultiplexer
+        var demuxComponent = []
 
-        for(var p = 0; p < 10; p++){
-            for(var i = 0; i < demux.length; i++){
-                if(demux[i].controlSignalSize == p + 1){
-                    output += `\n//-------------Demux${demux[i].controlSignalSize}-------------\n`
-                    output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
-                    output += `\nENTITY Demux${demux[i].controlSignalSize} IS\n`
-                    output += `  PORT (\n`
-                    output += `    in0: IN STD_LOGIC`
-                    
-                    if(demux[i].bitWidth != 1) {
-                        output += `_VECTOR (${demux[i].bitWidth - 1} DOWNTO 0);\n`
-                    } else{
-                        output += `;\n`
-                    }
-
-                    output += `    sel: IN STD_LOGIC`
-
-                    if(demux[i].controlSignalSize != 1) {
-                        output += `_VECTOR (${demux[i].controlSignalSize - 1} DOWNTO 0);\n    `
-                    } else{
-                        output += `;\n    `
-                    }
-
-                    for(var d = 0; d < Math.pow(2, demux[i].controlSignalSize); d++){
-                        if(d == (Math.pow(2, demux[i].controlSignalSize) - 1)) {
-                            output += `out${d}`
-                        } else{
-                            output += `out${d}, `
-                        }
-                    }
-
-                    output += `: OUT STD_LOGIC`
-
-                    if(demux[i].bitWidth != 1) {
-                        output += `_VECTOR (${demux[i].bitWidth - 1} DOWNTO 0)`
-                    }
-
-                    output += `);\n`
-                    output += `END ENTITY;\n`
-                    output += `\n`
-                    output += `ARCHITECTURE rtl OF Demux${demux[i].controlSignalSize} IS\n`
-                    output += `  BEGIN\n`
-                    output += `    PROCESS(in0, sel)\n`
-                    output += `      BEGIN\n`
-                    
-                    for (var j = 0; j < Math.pow(2,demux[i].controlSignalSize); j++) {
-                        var zeros = ''
-                        
-                        for(var k = 0; k < demux[i].bitWidth; k++){
-                            zeros += '0'
-                        }
-                        var k = zeros + j.toString(2)
-                    
-                        if(j===0){
-                            if(demux[i].controlSignalSize == 1){
-                                output += `        IF(sel = '${k.slice(-(demux[i].controlSignalSize))}') THEN\n`
-                            } else{
-                                output += `        IF(sel = "${k.slice(-(demux[i].controlSignalSize))}") THEN\n`
-                            }
-
-                            for (var p = 0; p < Math.pow(2,demux[i].controlSignalSize); p++){
-                                if(p==j) {
-                                    output += `          out${j} <= in0;\n`
-                                }
-                                else{
-                                    if(demux[i].bitWidth == 1){
-                                        output += `          out${p} <= '${zeros}';\n`
-                                    } else{
-                                        output += `          out${p} <= "${zeros}";\n`
-                                    }
-                                }
-                            }
-                        }else if(j!==0 && j<Math.pow(2,demux[i].controlSignalSize) - 1){
-
-                            if(demux[i].controlSignalInput == 1){
-                                output += `        ELSIF(sel = '${k.slice(-(demux[i].controlSignalSize))}') THEN\n`
-                            }else {
-                                output += `        ELSIF(sel = "${k.slice(-(demux[i].controlSignalSize))}") THEN\n`
-                            }
-
-                            for (var p = 0; p < Math.pow(2,demux[i].controlSignalSize); p++){
-                                if(p==j) {
-                                    output += `          out${j} <= in0;\n`
-                                }
-                                else{
-                                    if(demux[i].bitWidth == 1){
-                                        output += `          out${p} <= '${zeros}';\n`
-                                    } else{
-                                        output += `          out${p} <= "${zeros}";\n`
-                                    }
-                                }
-                            }
-                        } else{
-                            output += `        ELSE\n`
-                            for (var p = 0; p < Math.pow(2,demux[i].controlSignalSize); p++){
-                                if(p==j) {
-                                    output += `          out${j} <= in0;\n`
-                                }
-                                else{
-                                    if(demux[i].bitWidth == 1){
-                                        output += `          out${p} <= '${zeros}';\n`
-                                    } else{
-                                        output += `          out${p} <= "${zeros}";\n`
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    output += `        END IF;\n`
-                    output += `    END PROCESS;\n`
-                    output += `END ARCHITECTURE;\n`
-                    
-                    break
-                }
-            }
+        for(var i = 0; i < demux.length; i++){
+            demuxComponent = [...demuxComponent, {
+                header: generateHeaderVhdlEntity('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),
+                portsin: generatePortsIO('in', 0),
+                stdin: generateSTDType('IN', demux[i].bitWidth),
+                portsel: generatePortsIO('sel', 0),
+                stdsel: generateSTDType('IN', demux[i].controlSignalSize),
+                portsout: generatePortsIO('out', demux[i].bitWidth),
+                stdout: generateSTDType('OUT', demux[i].bitWidth),
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),
+                openProcess: `${generateSpacings(4)}PROCESS(in0, sel)\n${generateSpacings(6)}BEGIN\n${generateSpacings(8)}`,
+                logic: generateLogicDemux(demux[i].controlSignalSize, demux[i].bitWidth),
+                endprocess: `${generateSpacings(8)}END IF;\n${generateSpacings(4)}END PROCESS;`,
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`,
+            }]
         }
-        
-
-        return output;
+        const demuxFiltered = removeDuplicateComponent(demuxComponent)
+        demuxFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.footer + el.architeture + el.openProcess + el.logic + el.endprocess + el.end)
+        return output
     }
 
     //reset the sized before Verilog generation

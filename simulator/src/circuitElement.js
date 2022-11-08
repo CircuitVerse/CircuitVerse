@@ -10,6 +10,7 @@ import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
 import { fillSubcircuitElements } from './ux';
 import { generateNodeName } from './verilogHelpers';
+import { generateSTDType, generatePortsIO, generateComponentHeader, removeDuplicateComponent} from './helperVHDL';
 import { scopeList } from './circuit';
 
 /**
@@ -854,47 +855,25 @@ export default class CircuitElement {
         var mux = this.scope.Multiplexer;
         var demux = this.scope.Demultiplexer;
         var element = '';
+        var objmux = []
         
         if(mux.length != 0){
-            for(var d = 1; d <= 10; d++){
-                for(var i = 0; i < mux.length; i++){
-                    if(mux[i].controlSignalSize == d){
-                        element += `\n  COMPONENT Mux${d} IS\n`
-                        element += `    PORT (\n      `
-                        
-                        for(var k = 0; k < Math.pow(2, d); k++) {
-                            if(k !== (Math.pow(2, d) - 1)){
-                                element += `in${k}, `
-                            } else{
-                                element += `in${k}`
-                            }
-                        }
-
-                        if(mux[i].bitWidth === 1){
-                            element += `: IN  STD_LOGIC;\n`
-                        } else{
-                            element += `: IN  STD_LOGIC_VECTOR (${mux[i].bitWidth-1} DOWNTO 0);\n`
-                        }
-
-                        if(d === 1){
-                            element += `      sel: IN  STD_LOGIC;\n`
-                        } else{
-                            element += `      sel: IN  STD_LOGIC_VECTOR (${d-1} DOWNTO 0);\n`
-                        }
-
-                        if(mux[i].bitWidth === 1){
-                            element += `      x: OUT STD_LOGIC`
-                        } else{
-                            element += `      x: OUT STD_LOGIC_VECTOR (${mux[i].bitWidth-1} DOWNTO 0)`
-                        }
-
-                        element += `);\n`
-                        element += `  END COMPONENT;\n`
-                        break
-                    }
-                }
+            for(var i = 0; i < mux.length; i++){
+                objmux = [...objmux, {
+                    header: generateComponentHeader('Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
+                    portsin: generatePortsIO('in', mux[i].controlSignalSize),
+                    stdin: generateSTDType('IN', mux[i].bitWidth),
+                    portsel: generatePortsIO('sel', 0),
+                    stdsel: generateSTDType('IN', mux[i].controlSignalSize),
+                    portsout: generatePortsIO('x', 0),
+                    stdout: generateSTDType('OUT', mux[i].bitWidth),
+                    end: `  );\n  END COMPONENT;\n`,
+                    identificator: `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`
+                }]
             }
-        } 
+            const muxFiltered = removeDuplicateComponent(objmux)
+            muxFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.end)
+        }
         
         if(demux.length != 0){
 
