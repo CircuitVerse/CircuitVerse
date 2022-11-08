@@ -65,11 +65,11 @@ export function verilogModeSet(mode) {
     if (mode == verilogMode) return
     verilogMode = mode
     if (mode) {
-        $('#code-window').show()
-        $('.elementPanel').hide()
-        $('.timing-diagram-panel').hide()
-        $('.quick-btn').hide()
-        $('#verilogEditorPanel').show()
+        document.getElementById('code-window').style.display = 'block';
+        document.querySelector('.elementPanel').style.display = 'none';
+        document.querySelector('.timing-diagram-panel').style.display = 'none';
+        document.querySelector('.quick-btn').style.display = 'none';
+        document.getElementById('verilogEditorPanel').style.display = 'block';
         if (!embed) {
             simulationArea.lastSelected = globalScope.root
             showProperties(undefined)
@@ -77,11 +77,11 @@ export function verilogModeSet(mode) {
         }
         resetVerilogCode()
     } else {
-        $('#code-window').hide()
-        $('.elementPanel').show()
-        $('.timing-diagram-panel').show()
-        $('.quick-btn').show()
-        $('#verilogEditorPanel').hide()
+        document.getElementById('code-window').style.display = 'none';
+        document.querySelector('.elementPanel').style.display = 'block';
+        document.querySelector('.timing-diagram-panel').style.display = 'block';
+        document.querySelector('.quick-btn').style.display = 'block';
+        document.getElementById('verilogEditorPanel').style.display = 'none';
     }
 }
 
@@ -182,17 +182,17 @@ export default function generateVerilogCircuit(
 ) {
     const url = '/simulator/verilogcv'
     var params = { code: verilogCode }
-    $.ajax({
-        url: url,
-        type: 'POST',
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader(
-                'X-CSRF-Token',
-                $('meta[name="csrf-token"]').attr('content')
-            )
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         },
-        data: params,
-        success: function (response) {
+        body: params
+    }).then((response) => {
+        var errorCode = response.status
+        if (errorCode == 500) {
+            showError('Could not connect to Yosys');
+        } else {
             var circuitData = response
             scope.initialize()
             for (var id in scope.verilogMetadata.subCircuitScopeIds)
@@ -209,19 +209,12 @@ export default function generateVerilogCircuit(
             )
             changeCircuitName(circuitData.name)
             showMessage('Verilog Circuit Successfully Created')
-            $('#verilogOutput').empty()
-        },
-        error: function (XMLHttpRequest, textStatus, errorThrown) {
-            var errorCode = XMLHttpRequest.status
-            if (errorCode == 500) {
-                showError('Could not connect to Yosys')
-            } else {
-                showError('There is some issue with the code')
-                var errorMessage = XMLHttpRequest.responseJSON
-                $('#verilogOutput').html(errorMessage.message)
-            }
-        },
-        failure: function (err) {},
+            document.getElementById('verilogOutput').innerHTML = "";
+        }
+    }).catch((error) => {
+        showError('There is some issue with the code');
+        var errorMessage = error
+        document.getElementById('verilogOutput').innerHTML = errorMessage
     })
 }
 
