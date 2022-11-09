@@ -2,6 +2,10 @@
 
 ### [Added]
 
+- [Task 006] : (CircuitElement.js) Refactoring generateVHDL and generatePortMap functions.
+- [Task 006] : (Demultiplexer.js) Refactoring generateVHDL function.
+- [Task 006] : (Multiplexer.js) Refactoring generateVHDL function.
+- [Task 006] : (helperVHDL.js) Add functions to generate vhdl code.
 - [Task 005] : (BitSelector.js) Add generateVHDL function.
 - [Task 005] : (circuitElement.js) Add PROCESS conditional after portmap.
 - [Task 005] : (vhdl.js) Add error bitwidth and PROCESS conditional.

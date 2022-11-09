@@ -863,11 +863,11 @@ export default class CircuitElement {
                 objmux = [...objmux, {
                     header: generateComponentHeader('Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
                     portsin: generatePortsIO('in', mux[i].controlSignalSize),
-                    stdin: generateSTDType('IN', mux[i].bitWidth),
+                    stdin: generateSTDType('IN', mux[i].bitWidth) + ';\n',
                     portsel: generatePortsIO('sel', 0),
-                    stdsel: generateSTDType('IN', mux[i].controlSignalSize),
+                    stdsel: generateSTDType('IN', mux[i].controlSignalSize) + ';\n',
                     portsout: generatePortsIO('x', 0),
-                    stdout: generateSTDType('OUT', mux[i].bitWidth),
+                    stdout: generateSTDType('OUT', mux[i].bitWidth) + '\n',
                     end: `  );\n  END COMPONENT;\n`,
                     identificator: `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`
                 }]
@@ -881,12 +881,12 @@ export default class CircuitElement {
                 objdemux = [...objdemux, {
                     header: generateComponentHeader('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),
                     portsin: generatePortsIO('in0', 0),
-                    stdin: generateSTDType('IN', demux[i].bitWidth),
+                    stdin: generateSTDType('IN', demux[i].bitWidth) + ';\n',
                     portsel: generatePortsIO('sel', 0),
-                    stdsel: generateSTDType('IN', demux[i].controlSignalSize),
+                    stdsel: generateSTDType('IN', demux[i].controlSignalSize)+ ';\n',
                     portsout: generatePortsIO('out', demux[i].controlSignalSize),
-                    stdout: generateSTDType('OUT', demux[i].bitWidth),
-                    end: `);\n  END COMPONENT;\n`,
+                    stdout: generateSTDType('OUT', demux[i].bitWidth)+ '\n',
+                    end: `    );\n  END COMPONENT;\n`,
                     identificator: `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`,
                     
                 }]
@@ -911,7 +911,7 @@ export default class CircuitElement {
                     objmux = [...objmux, 
                     {
                         header: generateHeaderPortmap('multiplexer', i, 'Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
-                        inputs: generatePortMapIOS('in', mux[i].inp),
+                        inputs: generatePortMapIOS('in', mux[i].inp) + ',\n',
                         sel: `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`,
                         output: `    x => ${mux[i].output1.verilogLabel}`,
                         end: `);\n`
@@ -934,21 +934,18 @@ export default class CircuitElement {
                 }
                 objdemux.forEach(el => portmap += el.header + el.inputs + el.sel + el.output + el.end)
             }
-
-            if(scopeList[Object.keys(scopeList)].BitSelector.length != 0) {
-                portmap += `  PROCESS(`
-                
-                for(var i = 0; i < scopeList[Object.keys(scopeList)].BitSelector.length; i++){
-                    if(i === scopeList[Object.keys(scopeList)].BitSelector.length - 1){
-                        portmap += `${scopeList[Object.keys(scopeList)].BitSelector[i].inp1.verilogLabel}, ${scopeList[Object.keys(scopeList)].BitSelector[i].bitSelectorInp.verilogLabel}`
-                    } else{
-                        portmap += `${scopeList[Object.keys(scopeList)].BitSelector[i].inp1.verilogLabel}, ${scopeList[Object.keys(scopeList)].BitSelector[i].bitSelectorInp.verilogLabel},`
-                    }
+            const BitSelectorObject = scopeList[Object.keys(scopeList)].BitSelector
+            const hasBitSelector = (BitSelectorObject.length != 0)
+            let bitSelectorProcess = []
+            
+            if(hasBitSelector) {
+                portmap += `\n  PROCESS(`
+                for(var i = 0; i < BitSelectorObject.length; i++){
+                    bitSelectorProcess[i] = `${BitSelectorObject[i].inp1.verilogLabel}, ${BitSelectorObject[i].bitSelectorInp.verilogLabel}`
                 }
-    
+                portmap += bitSelectorProcess.join(',')
                 portmap += `)\n    BEGIN\n`
             }
-
             return portmap
     }
 
