@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateZeros, generateLogicMux} from '../helperVHDL'
 /**
  * @class
  * Multiplexer
@@ -16,7 +17,7 @@ import { changeInputSize } from "../modules";
  * @category modules
  */
 import { colors } from "../themer/themer";
-import Scope, { scopeList } from "../circuit";
+import { scopeList } from "../circuit";
 
 export default class Multiplexer extends CircuitElement {
     constructor(
@@ -319,89 +320,31 @@ export default class Multiplexer extends CircuitElement {
     static moduleVHDL() {
         var output = "\n";
         var mux = Object.values(scopeList)[0].Multiplexer
+        var muxComponent = []
 
-        for(var p = 0; p < 10; p++){
-            for(var i = 0; i < mux.length; i++){
-                if(mux[i].controlSignalSize == p + 1){
-                    output += `\n//-------------Mux${mux[i].controlSignalSize}-------------\n`
-                    output += 'library IEEE;\nuse IEEE.std_logic_1164.all;\n'
-                    output += `\nENTITY Mux${mux[i].controlSignalSize} IS\n`
-                    output += `  PORT (\n    `
-                    for(var d = 0; d < Math.pow(2, mux[i].controlSignalSize); d++){
-                        if(d === (Math.pow(2, mux[i].controlSignalSize) - 1)){
-                            output += `in${d}`
-                        } else{
-                            output += `in${d}, `
-                        }
-                    }
-                    
-                    if(mux[i].bitWidth !== 1){
-                        output += `: IN STD_LOGIC_VECTOR `
-                        output += `(${mux[i].bitWidth - 1} DOWNTO 0);\n    `
-                    }else {
-                        output += `: IN STD_LOGIC;\n    `
-                    }
-
-                    if(mux[i].controlSignalSize !== 1){
-                        output += `sel: IN STD_LOGIC_VECTOR `
-                        output += `(${mux[i].controlSignalSize - 1} DOWNTO 0);\n`
-                    } else{
-                        output += `sel: IN STD_LOGIC;\n`
-                    }
-
-                    if(mux[i].bitWidth !== 1){
-                        output += `    x: OUT STD_LOGIC_VECTOR `
-                        output += `(${mux[i].bitWidth - 1} DOWNTO 0)`
-                    } else{
-                        output += `    x: OUT STD_LOGIC`
-                    }
-
-                    output += `);\n`
-                    output += `END ENTITY;\n`
-                    output += `\n`
-                    output += `ARCHITECTURE rtl OF Mux${mux[i].controlSignalSize} IS\n`
-                    output += `  BEGIN\n`
-                    output += `    WITH sel SELECT\n`
-                    output += `      x <=`
-                    
-                    for (var j = 0; j < Math.pow(2,mux[i].controlSignalSize); j++) {
-                        var zeros = ''
-                        
-                        for(var k = 0; k < mux[i].controlSignalSize; k++){
-                            zeros += '0'
-                        }
-                        var k = zeros + j.toString(2)
-                    
-                        if(j===0){
-                            if(mux[i].controlSignalSize == 1) {
-                                output += ` in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
-                            }else {
-                                output += ` in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
-                            }
-                        }else if(j!==0 && j<Math.pow(2,mux[i].controlSignalSize) - 1){
-                            if(mux[i].controlSignalSize == 1){
-                                output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}',\n`
-                            } else {
-                                output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}",\n`
-                            }
-                        } else{
-                            if(mux[i].controlSignalSize == 1){
-                                output += `           in${j} WHEN '${k.slice(-(mux[i].controlSignalSize))}';\n`
-                            } else{
-                                output += `           in${j} WHEN "${k.slice(-(mux[i].controlSignalSize))}";\n`
-                            }
-                        }
-                    }
-    
-                    output += `END ARCHITECTURE;\n`
-                    
-                    break
-                }
-            }
+        for(var i = 0; i < mux.length; i++){
+            muxComponent = [...muxComponent, {
+                header: generateHeaderVhdlEntity('Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
+                portsin: generatePortsIO('in', mux[i].controlSignalSize),
+                stdin: generateSTDType('IN', mux[i].bitWidth)+ ';\n',
+                portsel: generatePortsIO('sel', 0),
+                stdsel: generateSTDType('IN', mux[i].controlSignalSize)+ ';\n',
+                portsout: generatePortsIO('x', 0),
+                stdout: generateSTDType('OUT', mux[i].bitWidth)+ '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
+                startlogic: `${generateSpacings(4)}WITH sel SELECT\n${generateSpacings(4)}x <= `,
+                logic: generateLogicMux(mux[i].controlSignalSize),
+                end: `;\nEND ARCHITECTURE;\n`,
+                identificator: `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`,
+            }]
         }
-
+        const muxFiltered = removeDuplicateComponent(muxComponent)
+        muxFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.footer + el.architeture + el.startlogic + el.logic + el.end)
         return output
     }
+
+
 
     //reset the sized before Verilog generation
     static resetVerilog() {
