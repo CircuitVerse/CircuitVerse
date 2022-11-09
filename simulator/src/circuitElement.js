@@ -854,9 +854,11 @@ export default class CircuitElement {
         // // Example: and and_1(_out, _out, _Q[0]);
         let mux = this.scope.Multiplexer;
         let demux = this.scope.Demultiplexer;
+        let decoder = this.scope.Decoder;
         let element = '';
         let objmux = []
         let objdemux = []
+        let objdecoder = []
         
         if(mux.length != 0){
             for(var i = 0; i < mux.length; i++){
@@ -894,6 +896,23 @@ export default class CircuitElement {
             const demuxFiltered = removeDuplicateComponent(objdemux)
             demuxFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.end)
         }
+
+        if(decoder.length != 0){
+            for(var i = 0; i < decoder.length; i++){
+                objdecoder = [...objdecoder, 
+                {
+                    header: generateComponentHeader('Decoder', `bit${decoder[i].bitWidth}`),
+                    portsin: generatePortsIO('in', 0),
+                    stdin: generateSTDType('IN', decoder[i].bitWidth) + ';\n',
+                    portsout: generatePortsIO('out', decoder[i].bitWidth),
+                    stdout: generateSTDType('OUT', 1)+ '\n',
+                    end: `    );\n  END COMPONENT;\n`,
+                    identificator: `bit${decoder[i].bitWidth}`,
+                }]
+            }
+            const decoderFiltered = removeDuplicateComponent(objdecoder)
+            decoderFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsout + el.stdout + el.end)
+        }
         return element
     }
 
@@ -901,8 +920,10 @@ export default class CircuitElement {
             // // Example: and and_1(_out, _out, _Q[0]);
             let mux = this.scope.Multiplexer;
             let demux = this.scope.Demultiplexer;
+            let decoder = this.scope.Decoder; 
             let objmux = []
             let objdemux = []
+            let objdecoder = []
             let portmap = '';
             portmap += "\BEGIN\n"
             
@@ -934,6 +955,21 @@ export default class CircuitElement {
                 }
                 objdemux.forEach(el => portmap += el.header + el.inputs + el.sel + el.output + el.end)
             }
+            
+            if(decoder.length != 0){
+                for(var i = 0; i < decoder.length; i++){
+                    objdecoder = [...objdecoder, 
+                    {
+                        header: generateHeaderPortmap('decoder', i, 'Decoder', `bit${decoder[i].bitWidth}`),
+                        inputs: `    in0 => ${decoder[i].input.verilogLabel},\n`,
+                        output: generatePortMapIOS('out', decoder[i].output1),
+                        end: `);\n`
+                    }]
+                }
+                objdecoder.forEach(el => portmap += el.header + el.inputs + el.output + el.end)
+            }
+
+
             const BitSelectorObject = scopeList[Object.keys(scopeList)].BitSelector
             const hasBitSelector = (BitSelectorObject.length != 0)
             let bitSelectorProcess = []

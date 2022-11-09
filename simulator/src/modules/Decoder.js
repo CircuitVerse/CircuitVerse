@@ -233,6 +233,11 @@ export default class Decoder extends CircuitElement {
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
+    generateVHDL() {
+        Decoder.selSizes.add(this.bitWidth);
+        return CircuitElement.prototype.generateVHDL.call(this);
+    }
+
     static moduleVerilog() {
         var output = "";
     
@@ -267,6 +272,14 @@ export default class Decoder extends CircuitElement {
             output += "  end\n";
             output += "endmodule\n";
         }
+    
+        return output;
+    }
+
+    static moduleVHDL() {
+        var output = "TESTING";
+    
+        
     
         return output;
     }
