@@ -26,7 +26,7 @@ export const generatePortsIO = (type, idx) => {
     let portsArray = []
     const isOnePort = idx === 0
     
-    for(var i = 0; i < portsQuantity; i++){
+    for(let i = 0; i < portsQuantity; i++){
         isOnePort
         ? portsArray[i] = `${type}`
         : portsArray[i] = `${type}${i}`
@@ -71,7 +71,7 @@ export const generateArchitetureHeader = (component, index)  => {
 export const generateZeros = (quantity, position) => {
     let zeros = ''
     
-    for(var i = 0; i < quantity; i++){
+    for(let i = 0; i < quantity; i++){
         zeros += '0'
     }
 
@@ -84,8 +84,8 @@ export const generateLogicMux = (quantity) => {
 
     quotationmark = (quantity > 1) ? '"' : "'"
     
-    for (var j = 0; j < Math.pow(2,quantity); j++) {
-        var k = generateZeros(quantity, j)
+    for (let j = 0; j < Math.pow(2,quantity); j++) {
+        let k = generateZeros(quantity, j)
         output[j] = `in${j} WHEN ${quotationmark}${k.slice(-(quantity))}${quotationmark}`
     }
 
@@ -98,25 +98,24 @@ export const generateLogicDemux = (quantity, bitwidth) => {
     const quotationbit = (bitwidth > 1) ? '"' : "'"
     const iterations = Math.pow(2,quantity)
     
-    for (var j = 0; j < iterations; j++) {
+    for (let j = 0; j < iterations; j++) {
         const isFirstConditional = (j === 0)
         const isLastConditional = (j === iterations - 1)
+        
         let conditional = (isFirstConditional
             ? 'IF'
-            : isLastConditional 
-                ? 'ELSE' 
-                : 'ELSIF'
+            : isLastConditional ? 'ELSE' : 'ELSIF'
         )
-        var controlsignalnumber = generateZeros(quantity, j)
-        var bitwidthzeros = generateZeros(bitwidth-1, 0)
+        let controlsignalnumber = generateZeros(quantity, j)
+        let bitwidthzeros = generateZeros(bitwidth - 1, 0)
         const isNotElse = (conditional !== 'ELSE') ? `(sel = ${quotationcontrol}${controlsignalnumber.slice(-(quantity))}${quotationcontrol}) THEN` : ''
         
         output[j] = `${conditional}${isNotElse}\n`
         
-        for (var p = 0; p < iterations; p++){
+        for (let p = 0; p < iterations; p++){
             output[j] += (p===j)
-                ? output[j] += `${generateSpacings(10)}out${j} <= in0;\n` 
-                : output[j] += `${generateSpacings(10)}out${p} <= ${quotationbit}${bitwidthzeros.slice(-(bitwidth))}${quotationbit};\n`
+                ? `${generateSpacings(10)}out${j} <= in0;\n` 
+                : `${generateSpacings(10)}out${p} <= ${quotationbit}${bitwidthzeros.slice(-(bitwidth))}${quotationbit};\n`
         }
     }
 
@@ -146,4 +145,20 @@ export const generateComponentHeader = (name, identificator) => {
     parseComponent = component.toString().replace(regexComma, "")
 
     return parseComponent
+}
+
+export const generateHeaderPortmap = (component, index, acronym, identificator) => {
+    return `\n  ${component}${index}: ${acronym}${identificator} PORT MAP (\n`
+}
+
+export const generatePortMapIOS = (type, objectIo) => {
+    let ios = []
+    
+    objectIo.forEach((el, index) => {
+        ios[index] = `    ${type}${index} => ${el.verilogLabel}`
+    })
+
+    const ports = ios.join(',\n')
+    
+    return ports
 }

@@ -308,9 +308,9 @@ export default class Demultiplexer extends CircuitElement {
     }
 
     static moduleVHDL() {
-        var output = "\n";
-        var demux = Object.values(scopeList)[0].Demultiplexer
-        var demuxComponent = []
+        let output = "\n";
+        let demux = Object.values(scopeList)[0].Demultiplexer
+        let demuxComponent = []
 
         for(var i = 0; i < demux.length; i++){
             demuxComponent = [...demuxComponent, {
