@@ -427,11 +427,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
   add_foreign_key "custom_mails", "users"
   add_foreign_key "featured_circuits", "projects"
   add_foreign_key "forum_posts", "forum_threads"
-  add_foreign_key "forum_posts", "users"
+  add_foreign_key "forum_posts", "users", on_delete: :cascade
   add_foreign_key "forum_subscriptions", "forum_threads"
   add_foreign_key "forum_subscriptions", "users"
   add_foreign_key "forum_threads", "forum_categories"
-  add_foreign_key "forum_threads", "users"
+  add_foreign_key "forum_threads", "users", on_delete: :cascade
   add_foreign_key "grades", "assignments"
   add_foreign_key "grades", "projects"
   add_foreign_key "grades", "users"
