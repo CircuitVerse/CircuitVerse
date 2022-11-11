@@ -315,11 +315,11 @@ export default class Demultiplexer extends CircuitElement {
         for(var i = 0; i < demux.length; i++){
             demuxComponent = [...demuxComponent, {
                 header: generateHeaderVhdlEntity('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),
-                portsin: generatePortsIO('in', 0),
-                stdin: generateSTDType('IN', demux[i].bitWidth) + ',\n',
+                portsin: generatePortsIO('in0', 0),
+                stdin: generateSTDType('IN', demux[i].bitWidth) + ';\n',
                 portsel: generatePortsIO('sel', 0),
-                stdsel: generateSTDType('IN', demux[i].controlSignalSize) + ',\n',
-                portsout: generatePortsIO('out', demux[i].bitWidth),
+                stdsel: generateSTDType('IN', demux[i].controlSignalSize) + ';\n',
+                portsout: generatePortsIO('out', demux[i].controlSignalSize),
                 stdout: generateSTDType('OUT', demux[i].bitWidth) + '\n',
                 footer: generateFooterEntity(),
                 architeture: generateArchitetureHeader('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),

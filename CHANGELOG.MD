@@ -2,6 +2,10 @@
 
 ### [Added]
 
+- [Task 007] : (helperVHDL.js) Add generateLogicDecoder function
+- [Task 007] : (Decoder.js) Add ModuleVHDL, generateVHDL and generatePortMapVHDL functions
+- [Task 007] : (circuitElement.js) Create generateVHDL to Decoder circuit.
+- [Task 007] : (vhdl.js) Add conditional call to function generateVHDL of decoder.
 - [Task 006] : (CircuitElement.js) Refactoring generateVHDL and generatePortMap functions.
 - [Task 006] : (Demultiplexer.js) Refactoring generateVHDL function.
 - [Task 006] : (Multiplexer.js) Refactoring generateVHDL function.
@@ -14,6 +18,7 @@
 ### [Changed]
 
 - [Task 004] : (vhdl.js) Add conditional to import ieee Math library.
+- [Task 007] : (Demultiplexer.js) Change generatecomponent in to in0
 
 ## [release-003] - 2022-10-18
 

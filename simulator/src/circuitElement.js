@@ -902,7 +902,7 @@ export default class CircuitElement {
                 objdecoder = [...objdecoder, 
                 {
                     header: generateComponentHeader('Decoder', `bit${decoder[i].bitWidth}`),
-                    portsin: generatePortsIO('in', 0),
+                    portsin: generatePortsIO('in0', 0),
                     stdin: generateSTDType('IN', decoder[i].bitWidth) + ';\n',
                     portsout: generatePortsIO('out', decoder[i].bitWidth),
                     stdout: generateSTDType('OUT', 1)+ '\n',
