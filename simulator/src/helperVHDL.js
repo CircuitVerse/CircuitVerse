@@ -118,6 +118,36 @@ export const generateLogicDemux = (quantity, bitwidth) => {
     return output.join(`${generateSpacings(9)}`)
 }
 
+export const generateLogicDecoder = (quantity) => {
+    let output = []
+    const quotationbit = (quantity > 1) ? '"' : "'"
+    const iterations = Math.pow(2, quantity)
+    let conditional = ''
+    let bitwidthzeros = ''
+    
+    for (let j = 0; j < iterations; j++) {
+        const isFirstConditional = (j === 0)
+        const isLastConditional = (j === iterations - 1)
+        
+        conditional = (isFirstConditional
+            ? 'IF'
+            : isLastConditional ? 'ELSE' : 'ELSIF'
+        )
+        bitwidthzeros = generateZeros(quantity, j)
+        const isNotElse = (conditional !== 'ELSE') ? `(in0 = ${quotationbit}${bitwidthzeros.slice(-(quantity))}${quotationbit}) THEN` : ''
+        
+        output[j] = `${conditional}${isNotElse}\n`
+        
+        for (let p = 0; p < iterations; p++){
+            output[j] += (p===j)
+                ? `${generateSpacings(10)}out${j} <= '1';\n` 
+                : `${generateSpacings(10)}out${p} <= '0';\n`
+        }
+    }
+
+    return output.join(`${generateSpacings(9)}`)
+}
+
 export const removeDuplicateComponent = (component) => {
     const setComponent = new Set();
         
