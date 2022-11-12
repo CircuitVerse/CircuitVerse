@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [release-004] - 2022-11-11
+
 ### [Added]
 
 - [Task 007] : (helperVHDL.js) Add generateLogicDecoder function
