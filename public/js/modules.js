@@ -384,6 +384,42 @@ Multiplexer.moduleVerilog = function () {
 
     return output;
 }
+
+Multiplexer.moduleVHDL = function () {
+    var output = "";
+
+    for (var size of Multiplexer.selSizes) {
+        var numInput = 1 << size;
+        var inpString = "";
+        for (var j = 0; j < numInput; j++) {
+            inpString += `in${j}, `;
+        }
+        output += `\nmodule **********${numInput}(out, ${inpString}sel);\n`;
+
+        output += "  parameter WIDTH = 1;\n";
+        output += "  output reg [WIDTH-1:0] out;\n";
+
+        output += "  input [WIDTH-1:0] "
+        for (var j = 0; j < numInput-1; j++) {
+            output += `in${j}, `;
+        }
+        output += "in" + (numInput-1) + ";\n";
+
+        output += `  input [${size-1}:0] sel;\n`;
+        output += "  \n";
+
+        output += "  always @ (*)\n";
+        output += "    case (sel)\n";
+        for (var j = 0; j < numInput; j++) {
+            output += `      ${j} : out = in${j};\n`;
+        }
+        output += "    endcase\n";
+        output += "endmodule\n";
+        output += "\n";
+    }
+
+    return output;
+}
 //reset the sized before Verilog generation
 Multiplexer.resetVerilog = function () {
     Multiplexer.selSizes = new Set();

@@ -1,0 +1,150 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ext/nokogiri
+/home/gitpod/.rvm/rubies/ruby-3.1.2/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.1.2/lib/ruby/3.1.0 -r ./siteconf20220927-1025-sv54b0.rb extconf.rb
+checking for whether -std=c99 is accepted as CFLAGS... yes
+checking for whether -Wno-declaration-after-statement is accepted as CFLAGS... yes
+checking for whether -g is accepted as CFLAGS... yes
+checking for whether -Winline is accepted as CFLAGS... yes
+checking for whether -Wmissing-noreturn is accepted as CFLAGS... yes
+Building nokogiri using packaged libraries.
+Static linking is enabled.
+Cross build is disabled.
+Using mini_portile version 2.8.0
+checking for iconv... yes
+---------- IMPORTANT NOTICE ----------
+Building Nokogiri with a packaged version of libxml2-2.9.14.
+Configuration options: --host\=x86_64-pc-linux-gnu --enable-static --disable-shared --libdir\=/workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ports/x86_64-linux/libxml2/2.9.14/lib --with-iconv\=yes --disable-dependency-tracking --without-python --without-readline --with-c14n --with-debug --with-threads --disable-shared --enable-static CFLAGS\=-O2\ -U_FORTIFY_SOURCE\ -g\ -fPIC
+The following patches are being applied:
+  - 0001-Remove-script-macro-support.patch
+  - 0002-Update-entities-to-remove-handling-of-ssi.patch
+  - 0003-libxml2.la-is-in-top_builddir.patch
+  - 0004-use-glibc-strlen.patch
+  - 0005-avoid-isnan-isinf.patch
+  - 0006-update-automake-files-for-arm64.patch
+  - 0008-htmlParseComment-handle-abruptly-closed-comments.patch
+  - 0009-allow-wildcard-namespaces.patch
+
+The Nokogiri maintainers intend to provide timely security updates, but if
+this is a concern for you and want to use your OS/distro system library
+instead, then abort this installation process and install nokogiri as
+instructed at:
+
+  https://nokogiri.org/tutorials/installing_nokogiri.html#installing-using-standard-system-libraries
+
+Note, however, that nokogiri cannot guarantee compatibility with every
+version of libxml2 that may be provided by OS/package vendors.
+
+[{:url=>
+   "https://mirror.csclub.uwaterloo.ca/gnome/sources/libxml2/2.9/libxml2-2.9.14.tar.xz",
+  :sha256=>"60d74a257d1ccec0475e749cba2f21559e48139efba6ff28224357c7c798dfee"}]
+Extracting libxml2-2.9.14.tar.xz into tmp/x86_64-pc-linux-gnu/ports/libxml2/2.9.14... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0001-Remove-script-macro-support.patch... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0002-Update-entities-to-remove-handling-of-ssi.patch... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0003-libxml2.la-is-in-top_builddir.patch... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0004-use-glibc-strlen.patch... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0005-avoid-isnan-isinf.patch... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0006-update-automake-files-for-arm64.patch... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0008-htmlParseComment-handle-abruptly-closed-comments.patch... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxml2/0009-allow-wildcard-namespaces.patch... OK
+Running 'configure' for libxml2 2.9.14... OK
+Running 'compile' for libxml2 2.9.14... OK
+Running 'install' for libxml2 2.9.14... OK
+Activating libxml2 2.9.14 (from /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ports/x86_64-linux/libxml2/2.9.14)...
+Using mini_portile version 2.8.0
+---------- IMPORTANT NOTICE ----------
+Building Nokogiri with a packaged version of libxslt-1.1.35.
+Configuration options: --host\=x86_64-pc-linux-gnu --enable-static --disable-shared --libdir\=/workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ports/x86_64-linux/libxslt/1.1.35/lib --disable-dependency-tracking --without-python --without-crypto --with-debug --with-libxml-prefix\=/workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ports/x86_64-linux/libxml2/2.9.14 --disable-shared --enable-static CFLAGS\=-O2\ -U_FORTIFY_SOURCE\ -g\ -fPIC
+The following patches are being applied:
+  - 0001-update-automake-files-for-arm64.patch
+
+The Nokogiri maintainers intend to provide timely security updates, but if
+this is a concern for you and want to use your OS/distro system library
+instead, then abort this installation process and install nokogiri as
+instructed at:
+
+  https://nokogiri.org/tutorials/installing_nokogiri.html#installing-using-standard-system-libraries
+
+[{:url=>
+   "https://mirror.csclub.uwaterloo.ca/gnome/sources/libxslt/1.1/libxslt-1.1.35.tar.xz",
+  :sha256=>"8247f33e9a872c6ac859aa45018bc4c4d00b97e2feac9eebc10c93ce1f34dd79"}]
+Extracting libxslt-1.1.35.tar.xz into tmp/x86_64-pc-linux-gnu/ports/libxslt/1.1.35... OK
+Running git apply with /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/patches/libxslt/0001-update-automake-files-for-arm64.patch... OK
+Running 'configure' for libxslt 1.1.35... OK
+Running 'compile' for libxslt 1.1.35... OK
+Running 'install' for libxslt 1.1.35... OK
+Activating libxslt 1.1.35 (from /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ports/x86_64-linux/libxslt/1.1.35)...
+checking for whether -DNOKOGIRI_PACKAGED_LIBRARIES is accepted as CPPFLAGS... yes
+checking for whether -DNOKOGIRI_LIBXML2_PATCHES="\"0001-Remove-script-macro-support.patch 0002-Update-entities-to-remove-handling-of-ssi.patch 0003-libxml2.la-is-in-top_builddir.patch 0004-use-glibc-strlen.patch 0005-avoid-isnan-isinf.patch 0006-update-automake-files-for-arm64.patch 0008-htmlParseComment-handle-abruptly-closed-comments.patch 0009-allow-wildcard-namespaces.patch\"" is accepted as CPPFLAGS... yes
+checking for -llzma... yes
+checking for whether -DNOKOGIRI_LIBXSLT_PATCHES="\"0001-update-automake-files-for-arm64.patch\"" is accepted as CPPFLAGS... yes
+checking for xmlParseDoc() in libxml/parser.h... yes
+checking for xsltParseStylesheetDoc() in libxslt/xslt.h... yes
+checking for exsltFuncRegister() in libexslt/exslt.h... yes
+Using mini_portile version 2.8.0
+---------- IMPORTANT NOTICE ----------
+Building Nokogiri with a packaged version of libgumbo-1.0.0-nokogiri.
+Configuration options: --disable-shared --enable-static CFLAGS\=-fPIC
+[]
+Copying gumbo-parser files into tmp/x86_64-pc-linux-gnu/ports/libgumbo/1.0.0-nokogiri/gumbo-parser...
+Running 'compile' for libgumbo 1.0.0-nokogiri... OK
+Activating libgumbo 1.0.0-nokogiri (from ports/x86_64-linux/libgumbo/1.0.0-nokogiri)...
+checking for whether -I/workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ext/nokogiri/ports/x86_64-linux/libgumbo/1.0.0-nokogiri/include is accepted as CPPFLAGS... yes
+checking for gumbo_parse_with_options() in gumbo.h... yes
+checking for xmlHasFeature()... yes
+checking for xmlFirstElementChild()... yes
+checking for xmlRelaxNGSetParserStructuredErrors()... yes
+checking for xmlRelaxNGSetValidStructuredErrors()... yes
+checking for xmlSchemaSetValidStructuredErrors()... yes
+checking for xmlSchemaSetParserStructuredErrors()... yes
+checking for rb_gc_location()... yes
+checking for rb_category_warning()... yes
+checking for vasprintf()... yes
+checking for whether -DNOKOGIRI_OTHER_LIBRARY_VERSIONS="\"libgumbo:1.0.0-nokogiri\"" is accepted as CPPFLAGS... yes
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ext/nokogiri
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ext/nokogiri
+make DESTDIR\=
+compiling gumbo.c
+compiling html4_document.c
+compiling html4_element_description.c
+compiling html4_entity_lookup.c
+compiling html4_sax_parser_context.c
+compiling html4_sax_push_parser.c
+compiling libxml2_backwards_compat.c
+compiling nokogiri.c
+compiling test_global_handlers.c
+compiling xml_attr.c
+compiling xml_attribute_decl.c
+compiling xml_cdata.c
+compiling xml_comment.c
+compiling xml_document.c
+compiling xml_document_fragment.c
+compiling xml_dtd.c
+compiling xml_element_content.c
+compiling xml_element_decl.c
+compiling xml_encoding_handler.c
+compiling xml_entity_decl.c
+compiling xml_entity_reference.c
+compiling xml_namespace.c
+compiling xml_node.c
+compiling xml_node_set.c
+compiling xml_processing_instruction.c
+compiling xml_reader.c
+compiling xml_relax_ng.c
+compiling xml_sax_parser.c
+compiling xml_sax_parser_context.c
+compiling xml_sax_push_parser.c
+compiling xml_schema.c
+compiling xml_syntax_error.c
+compiling xml_text.c
+compiling xml_xpath_context.c
+compiling xslt_stylesheet.c
+linking shared-object nokogiri/nokogiri.so
+Cleaning files only used during build.
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/nokogiri-1.13.8/ext/nokogiri
+make DESTDIR\= install
+/usr/bin/install -m 0755 nokogiri.so ./.gem.20220927-1025-2y4x9a/nokogiri
+installing nokogiri libraries

@@ -135,7 +135,7 @@ export function gateGenerateVHDL(gate, invert = false) {
     }
 
     var res = "";
-    if (outputs.length == 1) res += outputs[0].verilogLabel;
+    if (outputs.length == 1) res += '    ' + outputs[0].verilogLabel;
     else res += `{${outputs.map((x) => x.verilogLabel).join(", ")}}`;
 
     res += " <= ";
