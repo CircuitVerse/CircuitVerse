@@ -140,7 +140,7 @@ export default class AndGate extends CircuitElement {
     }
 
     generateVHDL() {
-        return gateGenerateVHDL.call(this, "and");
+        return gateGenerateVHDL.call(this, "AND");
     }
 }
 

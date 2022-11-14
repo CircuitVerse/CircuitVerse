@@ -855,10 +855,12 @@ export default class CircuitElement {
         let mux = this.scope.Multiplexer;
         let demux = this.scope.Demultiplexer;
         let decoder = this.scope.Decoder;
+        let dlatch = this.scope.Dlatch;
         let element = '';
         let objmux = []
         let objdemux = []
         let objdecoder = []
+        let objdlatch = []
         
         if(mux.length != 0){
             for(var i = 0; i < mux.length; i++){
@@ -913,6 +915,25 @@ export default class CircuitElement {
             const decoderFiltered = removeDuplicateComponent(objdecoder)
             decoderFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsout + el.stdout + el.end)
         }
+
+        if(dlatch.length != 0){
+            for(var i = 0; i < dlatch.length; i++){
+                objdlatch = [...objdlatch, 
+                {
+                    header: generateComponentHeader('Dlatch', `bit${dlatch[i].bitWidth}`),
+                    portsin: generatePortsIO('in0', 0),
+                    stdin: generateSTDType('IN', dlatch[i].bitWidth) + ';\n',
+                    portsclock: generatePortsIO('clock', 0),
+                    stdclock: generateSTDType('IN', 1) + ';\n',
+                    portsout: generatePortsIO('q', 1),
+                    stdout: generateSTDType('OUT', dlatch[i].bitWidth)+ '\n',
+                    end: `    );\n  END COMPONENT;\n`,
+                    identificator: `bit${dlatch[i].bitWidth}`,
+                }]
+            }
+            const dlatchFiltered = removeDuplicateComponent(objdlatch)
+            dlatchFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsclock + el.stdclock + el.portsout + el.stdout + el.end)
+        }
         return element
     }
 
@@ -921,9 +942,11 @@ export default class CircuitElement {
             let mux = this.scope.Multiplexer;
             let demux = this.scope.Demultiplexer;
             let decoder = this.scope.Decoder; 
+            let dlatch = this.scope.Dlatch; 
             let objmux = []
             let objdemux = []
             let objdecoder = []
+            let objdlatch = []
             let portmap = '';
             portmap += "\BEGIN\n"
             
@@ -967,6 +990,22 @@ export default class CircuitElement {
                     }]
                 }
                 objdecoder.forEach(el => portmap += el.header + el.inputs + el.output + el.end)
+            }
+
+            if(dlatch.length != 0){
+                for(var i = 0; i < dlatch.length; i++){
+                    objdlatch = [...objdlatch, 
+                    {
+                        header: generateHeaderPortmap('dlatch', i, 'Dlatch', `bit${dlatch[i].bitWidth}`),
+                        inputs: `    in0 => ${dlatch[i].dInp.verilogLabel},\n`,
+                        clock: `    clock => ${dlatch[i].clockInp.verilogLabel},\n`,
+                        output: `    q0 => ${dlatch[i].qOutput.verilogLabel},\n`,
+                        notoutput: `    q1 => ${dlatch[i].qInvOutput.verilogLabel}\n`,
+                        end: `);\n`
+
+                    }]
+                }
+                objdlatch.forEach(el => portmap += el.header + el.inputs + el.clock + el.output + el.notoutput + el.end)
             }
 
 
