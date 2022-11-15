@@ -153,18 +153,7 @@ export var vhdl = {
                 output += modules[element].moduleVHDL();
             }
         }
-
-        var report = this.generateReport(elementTypesUsed);
-        var testbench = this.generateTestBenchCode(DUTs);
-
-        return report + testbench + output;
-    },
-    generateReport: function (elementTypesUsed) {
-        var output = "";
         return output;
-    },
-    generateTestBenchCode: function (DUTs) {
-        return "";
     },
     // Recursive DFS function
     exportVHDLScope: function (id, visited, dependencyList, elementTypesUsed) {
@@ -196,12 +185,12 @@ export var vhdl = {
         output += this.generateInputList(scope);
         output += this.generateOutputList(scope);
         output +=
-            ");\nEND ENTITY;\n\nARCHITECTURE " +
+            "\n  );\nEND ENTITY;\n\nARCHITECTURE " +
             sanitizeLabel(scope.name) +
             " OF portas IS\n";
 
         // Note: processGraph function populates scope.verilogWireList
-        var res = "    " + this.processGraph(scope, elementTypesUsed);
+        var res = this.processGraph(scope, elementTypesUsed);
 
         // Generate Wire Initialization Code
         for (var bitWidth = 1; bitWidth <= 32; bitWidth++) {
@@ -209,10 +198,7 @@ export var vhdl = {
             // Hack for splitter
             wireList = wireList.filter((x) => !x.includes("["));
             if (wireList.length == 0) continue;
-            if (bitWidth == 1)
-                output += "  SIGNAL " + wireList.join(", ") + ": STD_LOGIC;\n";
-            else
-                output += "  SIGNAL " + wireList.join(", ") + ": STD_LOGIC_VECTOR (" + (bitWidth - 1) + " DOWNTO 0);\n"
+            output += "  SIGNAL " + wireList.join(", ") + ": STD_LOGIC;\n"; + generateSTDType("", bitWidth) + ";\n"
         }
 
         
@@ -221,6 +207,7 @@ export var vhdl = {
         } else{
             output += "  BEGIN\n";
         }
+
         const ScopeComponents = scopeList[Object.keys(scopeList)]
         if((!hasComponent(ScopeComponents.Demultiplexer)) && (!hasComponent(ScopeComponents.Multiplexer)) && (!hasComponent(ScopeComponents.Decoder)) && (!hasComponent(ScopeComponents.Dlatch))){
             if(hasComponent(ScopeComponents.BitSelector)) {
@@ -254,7 +241,7 @@ export var vhdl = {
         scope.verilogWireList = [];
         for (var i = 0; i <= 32; i++) scope.verilogWireList.push(new Array());
 
-        var verilogResolvedSet = new Set();
+        var vhdlResolvedSet = new Set();
 
         // Start DFS from inputs
         for (var i = 0; i < inputList.length; i++) {
@@ -268,7 +255,7 @@ export var vhdl = {
             if (errorDetectedGet()) return;
             var elem = scope.stack.pop();
 
-            if (verilogResolvedSet.has(elem)) continue;
+            if (vhdlResolvedSet.has(elem)) continue;
 
             // Process verilog creates variable names and adds elements to DFS stack
             elem.processVerilog();
@@ -285,47 +272,47 @@ export var vhdl = {
                 elem.objectType != "Input" &&
                 elem.objectType != "Clock"
             ) {
-                verilogResolvedSet.add(elem);
+                vhdlResolvedSet.add(elem);
             }
         }
-        var componentVHDL = 0;
-        var portVHDL = 0;
-        var orderedSet;
-       orderedSet = Array.from(verilogResolvedSet)
+        let componentVHDL = 0;
+        let portVHDL = 0;
+        let orderedSet;
+        orderedSet = Array.from(vhdlResolvedSet)
 
-       for(i = 0; i < orderedSet.length; i++){
-        if(orderedSet[i].objectType === 'Demultiplexer'){
-            orderedSet.unshift(orderedSet[i])
-            i++
-            orderedSet.splice(i,1)
+        for(i = 0; i < orderedSet.length; i++){
+            if(orderedSet[i].objectType === 'Demultiplexer'){
+                orderedSet.unshift(orderedSet[i])
+                i++
+                orderedSet.splice(i,1)
+            }
         }
-       }
 
-       for(i = 0; i < orderedSet.length; i++){
-        if(orderedSet[i].objectType === 'Multiplexer'){
-            orderedSet.unshift(orderedSet[i])
-            i++
-            orderedSet.splice(i,1)
+        for(i = 0; i < orderedSet.length; i++){
+            if(orderedSet[i].objectType === 'Multiplexer'){
+                orderedSet.unshift(orderedSet[i])
+                i++
+                orderedSet.splice(i,1)
+            }
         }
-       }
 
-       for(i = 0; i < orderedSet.length; i++){
-        if(orderedSet[i].objectType === 'Decoder'){
-            orderedSet.unshift(orderedSet[i])
-            i++
-            orderedSet.splice(i,1)
+        for(i = 0; i < orderedSet.length; i++){
+            if(orderedSet[i].objectType === 'Decoder'){
+                orderedSet.unshift(orderedSet[i])
+                i++
+                orderedSet.splice(i,1)
+            }
         }
-       }
 
-       for(i = 0; i < orderedSet.length; i++){
-        if(orderedSet[i].objectType === 'Dlatch'){
-            orderedSet.unshift(orderedSet[i])
-            i++
-            orderedSet.splice(i,1)
+        for(i = 0; i < orderedSet.length; i++){
+            if(orderedSet[i].objectType === 'Dlatch'){
+                orderedSet.unshift(orderedSet[i])
+                i++
+                orderedSet.splice(i,1)
+            }
         }
-       }
 
-       let VHDLSet = new Set(orderedSet)
+        let VHDLSet = new Set(orderedSet)
         
         // Generate connection verilog code and module instantiations
         for (var elem of VHDLSet) {
@@ -412,23 +399,6 @@ export var vhdl = {
     },
     generateHeaderVHDL: function (scope = globalScope) {
         return "ENTITY portas IS \n  PORT(\n";
-    },
-    generateHeaderHelper: function (scope = globalScope) {
-        // Example: (a,b,s,c);
-        var res = "(";
-        var pins = [];
-        for (var i = 0; i < scope.Output.length; i++) {
-            pins.push(scope.Output[i].label);
-        }
-        for (var i = 0; i < scope.Clock.length; i++) {
-            pins.push(scope.Clock[i].label);
-        }
-        for (var i = 0; i < scope.Input.length; i++) {
-            pins.push(scope.Input[i].label);
-        }
-        res += pins.join(", ");
-        res += ");\n";
-        return res;
     },
     generateInputList: function (scope = globalScope) {
         // Example 1: in0: IN STD_LOGIC_VECTOR (1 DOWNTO 0);

@@ -280,7 +280,7 @@ export default class Decoder extends CircuitElement {
 
     static moduleVHDL() {
         let output = "\n";
-        let decoder = Object.values(scopeList)[0].Decoder
+        const decoder = Object.values(scopeList)[0].Decoder
         let decoderComponent = []
 
         for(var i = 0; i < decoder.length; i++){

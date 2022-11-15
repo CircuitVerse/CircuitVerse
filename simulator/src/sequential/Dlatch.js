@@ -115,7 +115,7 @@ export default class Dlatch extends CircuitElement {
 
     static moduleVHDL() {
         let output = "\n";
-        let dlatch = Object.values(scopeList)[0].Dlatch
+        const dlatch = Object.values(scopeList)[0].Dlatch
         let dlatchComponent = []
 
         for(var i = 0; i < dlatch.length; i++){
