@@ -13,6 +13,7 @@
     <a href="https://learn.circuitverse.org/">Learn</a>
     <span> | </span>
     <a herf="https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ">Slack</a>
+    <span> | </span>
   </h3>
   
  ------------------------------------------------ 
