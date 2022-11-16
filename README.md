@@ -25,7 +25,7 @@ To get community support, you can:
 * Ask for help at our [Github Discussions](https://github.com/CircuitVerse/CircuitVerse/discussions).
 * If you found a bug, please submit an [issue on Github](https://github.com/CircuitVerse/CircuitVerse/issues/new/choose)
 
-If you need commercial support, please [contact](mailto:support@circuitverse.org) MindsDB team.
+If you need commercial support, please [Contact](mailto:support@circuitverse.org) MindsDB team.
 
 ## Code of Conduct
 We follow the [Code of Conduct](code-of-conduct.md) of the [CircuitVerse](https://circuitverse.org) Community.
