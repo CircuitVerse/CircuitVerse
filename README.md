@@ -11,8 +11,12 @@
     <a href="https://github.com/CircuitVerse">Contribute</a>
     <span> | </span>
     <a href="https://learn.circuitverse.org/">Learn</a>
+    <span> | </span>
+    <a herf="https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ">Slack</a>
   </h3>
-
+  
+ ------------------------------------------------ 
+  
 [CircuitVerse](https://circuitverse.org) is a free, open-source platform which allows users to construct digital logic circuits online. We also offer the [Interactive Book](https://learn.circuitverse.org) which teaches users on the fundamentals of modern, digital circuits. Please also see our [documentation](https://docs.circuitverse.org) or [GitHub Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/).
 
 ## Community
