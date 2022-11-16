@@ -12,7 +12,7 @@
     <span> | </span>
     <a href="https://learn.circuitverse.org/">Learn</a>
     <span> | </span>
-    <a href="[https://learn.circuitverse.org/](https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ)">Slack</a>
+    <a href="https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ">Slack</a>
   </h3>
   
  ------------------------------------------------ 
