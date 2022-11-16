@@ -466,10 +466,10 @@
   border-bottom: 1px solid $notification-container-boxshadow;
   padding: 18px 0;
   position: relative;
+  align-items: start !important;
 
-  .unseen-active {
-    left: 50px;
-    top: 22px;
+  .message_wrapper {
+    flex: 1;
   }
 }
 
@@ -499,7 +499,7 @@
     border-radius: 50%;
     color: $notification-icons;
     font-size: 22px;
-    margin-right: 20px;
+    margin-right: 15px;
   }
 
   .fa-star {
@@ -533,10 +533,9 @@
   background: $primary-green;
   border-radius: 50%;
   height: 12px;
-  position: absolute;
-  right: 15px;
-  top: 15px;
   width: 12px;
+  margin-left: 5px;
+  margin-top: 5px;
 }
 
 .notification:hover {
