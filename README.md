@@ -2,6 +2,7 @@
 [![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=Financial+Contributors&style=for-the-badge&logo=open+collective)](https://opencollective.com/CircuitVerse) 
 [![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci&style=for-the-badge&logo=circleci)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
 [![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls&style=for-the-badge&logo=coveralls)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
+[![Work Flow](https://img.shields.io/badge/CircuitVerse-Workflow-green?style=flat-square)]
 -----
  <h3 align="center">
     <a href="https://circuitverse.org/">Website</a>
