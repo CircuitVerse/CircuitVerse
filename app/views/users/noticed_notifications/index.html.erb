@@ -13,7 +13,7 @@
     </div>
     <% if @unread.count.positive? %>
       <div>
-        <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), class: "anchor-text" %>
+        <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), :method=> :patch, class: "anchor-text" %>
       </div>
     <% end %>
   </div>

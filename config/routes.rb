@@ -79,7 +79,8 @@ Rails.application.routes.draw do
     get "/:id/", to: "users/circuitverse#index", as: "user_projects"
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
     get "/:id/notifications", to: "users/noticed_notifications#index", as: "notifications"
-    get "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
+    patch "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
+    patch "/:id/notifications/read_all_notifications", to: "users/noticed_notifications#read_all_notifications", as: "read_all_notifications"
     post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read", as: "mark_as_read"
   end
 
