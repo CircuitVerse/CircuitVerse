@@ -464,11 +464,10 @@
 
 .nb-notification {
   border-bottom: 1px solid $notification-container-boxshadow;
-  padding: 18px 0;
+  padding: 18px 4px;
   position: relative;
-  align-items: start !important;
 
-  .message_wrapper {
+  .message-wrapper {
     flex: 1;
   }
 }
@@ -533,9 +532,19 @@
   background: $primary-green;
   border-radius: 50%;
   height: 12px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
   width: 12px;
+}
+.unseen-active-modal {
+  background: $primary-green;
+  border-radius: 50%;
+  height: 15px;
   margin-left: 5px;
+  margin-right: 10px;
   margin-top: 5px;
+  width: 15px;
 }
 
 .notification:hover {
