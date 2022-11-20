@@ -59,6 +59,11 @@
   }
 }
 
+.primary-checkpoint-remember-me {
+  @extend .primary-checkpoint;
+  top: -38px;
+}
+
 .right-shift {
   margin-left: 30px;
 }
