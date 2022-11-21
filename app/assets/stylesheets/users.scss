@@ -50,7 +50,6 @@
   padding-top: 4px;
   position: relative;
   text-align: center;
-  top: 5px;
 
   &:hover {
     border-color: $primary-green;
@@ -61,6 +60,10 @@
 
 .primary-checkpoint-remember-me {
   top: -38px;
+}
+
+.primary-checkpoint-subscribe-mails {
+  top: 6px;
 }
 
 .right-shift {
