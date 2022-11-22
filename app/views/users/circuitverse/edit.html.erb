@@ -39,7 +39,7 @@
           <div class="field form-group users-edit-primary-checkpoint">
             <label for="profile_subscribed" class="primary-checkpoint-container"><h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
               <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
-              <div class="primary-checkpoint primary-checkpoint-subscribe-mails"></div>
+              <div class="primary-checkpoint"></div>
             </label>
           </div>
           <button type="submit" class="btn primary-button users-edit-primary-button"><%= t("save") %></button>

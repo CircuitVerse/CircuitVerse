@@ -32,7 +32,7 @@ function htmlInlineFeatureCheckbox(elementName, checked) {
         .concat(elementName, '" value="')
         .concat(elementName, '" ')
         .concat('>\n')
-        .concat('<div class="primary-checkpoint primary-checkpoint-assignments"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
+        .concat('<div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
         .concat(elementName, '</span></label>\n</div>');
 }
 
