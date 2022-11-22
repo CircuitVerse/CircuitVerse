@@ -36,7 +36,7 @@
 
 .users-primary-checkpoint {
   h6 {
-    display: block;
+    display: inline;
     margin-bottom: 0;
     margin-right: 10px;
   }
@@ -50,17 +50,13 @@
   padding-top: 4px;
   position: relative;
   text-align: center;
-  top: 5px;
+  top: 6px;
 
   &:hover {
     border-color: $primary-green;
     opacity: 1;
     transition: .2s ease-in-out;
   }
-}
-
-.right-shift {
-  margin-left: 30px;
 }
 
 .users-text-container {
