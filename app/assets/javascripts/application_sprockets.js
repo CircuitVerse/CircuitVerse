@@ -27,4 +27,5 @@
 //= require jquery-resizable-dom/dist/jquery-resizable.min.js
 //= require trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.min.js
 //= require trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js
-//= require bootstrap-tagsinput/dist/bootstrap-tagsinput.js
+//= require select2
+
