@@ -27,18 +27,18 @@ export default class extends Controller {
             const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
             const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            newLinesIntoSpacesSplitted.forEach((value) => $('.group_mentor_emails').append('<option selected="selected">'+value+'</option>'));
+            newLinesIntoSpacesSplitted.forEach((value) => $('#group_mentor_emails').append('<option selected="selected">' + value + '</option>'));
             $('.add-mentor-button').attr('disabled', false);
         } else {
             const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            pastedEmailsSplittedBySpace.forEach((value) => $('.group_mentor_emails').append('<option selected="selected">'+value+'</option>'));
+            pastedEmailsSplittedBySpace.forEach((value) => $('#group_mentor_emails').append('<option selected="selected">' + value + '</option>'));
             $('.add-mentor-button').attr('disabled', false);
         }
     }
 
     addMentorToGroup() {
-        $('.group_mentor_emails').select2({
+        $('#group_mentor_emails').select2({
             tags: true,
             multiple: true,
             tokenSeparators: [',', ' '],
@@ -61,7 +61,7 @@ export default class extends Controller {
             tags: true,
             multiple: true,
             tokenSeparators: [',', ' '],
-          });
+        });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input');
         $('.add-members-button').attr('disabled', true);
@@ -85,12 +85,12 @@ export default class extends Controller {
                 const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
                 const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                newLinesIntoSpacesSplitted.forEach((value) => $('#group_member_emails').append('<option selected="selected">'+value+'</option>'));
+                newLinesIntoSpacesSplitted.forEach((value) => $('#group_member_emails').append('<option selected="selected">' + value + '</option>'));
                 $('.add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                pastedEmailsSplittedBySpace.forEach((value) => $('#group_member_emails').append('<option selected="selected">'+value+'</option>'));
+                pastedEmailsSplittedBySpace.forEach((value) => $('#group_member_emails').append('<option selected="selected">' + value + '</option>'));
                 $('.add-members-button').attr('disabled', false);
             }
         });

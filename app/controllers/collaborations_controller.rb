@@ -18,8 +18,7 @@ class CollaborationsController < ApplicationController
     authorize @project, :author_access?
 
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
-    collaboration_emails = Utils.parse_mails_except_current_user(collaboration_params[:emails],
-                                                                 current_user)
+    collaboration_emails = collaboration_params[:emails].select {|email| Devise.email_regexp.match?(email)}
 
     newly_added = collaboration_emails - already_present
 
@@ -84,6 +83,6 @@ class CollaborationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collaboration_params
-      params.require(:collaboration).permit(:user_id, :project_id, :emails)
+      params.require(:collaboration).permit(:user_id, :project_id, emails: [])
     end
 end

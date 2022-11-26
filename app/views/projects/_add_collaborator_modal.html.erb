@@ -25,7 +25,7 @@
         </div>
         <div class="form-group">
           <%= form.label :emails %>
-          <%= form.select :emails,[ ],{},{ class:'form-select' }%>
+          <%= form.select :emails,[ ],{},{ class:'form-select', multiple: true } %>
         </div>
         <div class="modal-footer">
           <%= form.submit class: 'btn primary-button add-collaborators-button' %>
@@ -48,17 +48,16 @@ $(document).ready(() => {
 
   $('.add-collaborators-button').attr('disabled', true); // setting submit button to disabled initially
 
-  $('.select2-selection input').on('click', () => { //checking for 1 because there is already a child (input tag)
-    if($('.select2-selection__rendered').children().length > 1) {
+  $('.select2-container').on('keyup', () => {
+    if($('.select2-selection__rendered').children().length > 1) { // checking for 1 because there is already a child (input tag)
       $('.add-collaborators-button').attr('disabled', false);
     } else {
       $('.add-collaborators-button').attr('disabled', true);
     }
   });
 
-  $('.select2-container').on('keyup', () => { // if
-   user deletes tags using mouse click instead of backspace
-    if($('.select2-selection__rendered').children().length > 1) { 
+  $('.select2-selection input').on('click', () => { //checking for 1 because there is already a child (input tag)
+  if($('.select2-selection__rendered').children().length > 1) {
       $('.add-collaborators-button').attr('disabled', false);
     } else {
       $('.add-collaborators-button').attr('disabled', true);
@@ -78,12 +77,12 @@ $(document).ready(() => {
       const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' '); // converting new lines in to spaces
       const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' '); // splitting emails by space
       this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
-      newLinesIntoSpacesSplitted.forEach(value => $('#collaboration_emails').append('<option selected="selected">'+value+'</option>')); // adding each value as an input
+      newLinesIntoSpacesSplitted.forEach(value =>$('#collaboration_emails').append('<option selected="selected">' + value + '</option>')); // adding each value as an input
       $('.add-collaborators-button').attr('disabled', false)
     } else {
       const pastedEmailsSplittedBySpace = pastedEmails.split(' '); // splitting emails by space
       this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
-      pastedEmailsSplittedBySpace.forEach(value => $('#collaboration_emails').append('<option selected="selected">'+value+'</option>')); // adding each value as an input
+      pastedEmailsSplittedBySpace.forEach(value => $('#collaboration_emails').append('<option selected="selected">' + value + '</option>')); // adding each value as an input
       $('.add-collaborators-button').attr('disabled', false)
     }
   });
