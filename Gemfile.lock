@@ -173,7 +173,7 @@ GEM
     country_select (6.1.1)
       countries (~> 4.2)
       sort_alphabetical (~> 1.1)
-    coveralls_reborn (0.23.1)
+    coveralls_reborn (0.25.0)
       simplecov (>= 0.18.1, < 0.22.0)
       term-ansicolor (~> 1.6)
       thor (>= 0.20.3, < 2.0)
@@ -627,7 +627,7 @@ GEM
     thor (1.2.1)
     tilt (2.0.10)
     timeout (0.3.0)
-    tins (1.31.1)
+    tins (1.32.1)
       sync
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
@@ -693,7 +693,7 @@ DEPENDENCIES
   coffee-rails (~> 5.0)
   commontator (~> 7.0.0)
   country_select (~> 6.0)
-  coveralls_reborn (~> 0.23.1)
+  coveralls_reborn (~> 0.25.0)
   devise
   devise_saml_authenticatable
   disposable_mail!
