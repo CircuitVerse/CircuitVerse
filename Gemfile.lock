@@ -1,3 +1,9 @@
+GIT
+  remote: https://github.com/CircuitVerse/disposable_email.git
+  revision: b47303bcd6c51726d5027e9aa816b3ca1e0b3a3a
+  specs:
+    disposable_mail (0.1.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -118,7 +124,7 @@ GEM
       parser (>= 2.4)
       smart_properties
     bindex (0.8.1)
-    bootsnap (1.12.0)
+    bootsnap (1.15.0)
       msgpack (~> 1.2)
     bugsnag (6.24.2)
       concurrent-ruby (~> 1.0)
@@ -189,7 +195,6 @@ GEM
       ruby-saml (~> 1.7)
     diff-lcs (1.5.0)
     digest (3.1.0)
-    disposable_mail (0.1.7)
     docile (1.4.0)
     domain_name (0.5.20190701)
       unf (>= 0.0.5, < 1.0.0)
@@ -336,7 +341,7 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.0)
     minitest (5.16.3)
-    msgpack (1.5.2)
+    msgpack (1.6.0)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     nested_form (0.3.2)
@@ -356,10 +361,10 @@ GEM
       timeout
     newrelic_rpm (8.8.0)
     nio4r (2.5.8)
-    nokogiri (1.13.8)
+    nokogiri (1.13.9)
       mini_portile2 (~> 2.8.0)
       racc (~> 1.4)
-    nokogiri (1.13.8-x64-mingw32)
+    nokogiri (1.13.9-x64-mingw32)
       racc (~> 1.4)
     noticed (1.5.9)
       http (>= 4.0.0)
@@ -692,7 +697,7 @@ DEPENDENCIES
   coveralls_reborn (~> 0.23.1)
   devise
   devise_saml_authenticatable
-  disposable_mail (~> 0.1)
+  disposable_mail!
   dotenv-rails
   erb_lint
   factory_bot_rails
@@ -778,4 +783,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.2.32
+   2.2.33
