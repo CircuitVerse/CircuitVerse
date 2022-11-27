@@ -37,6 +37,11 @@ jobs:
         uses: ruby/setup-ruby@v1 # v1.115.3
         with:
           bundler-cache: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile  --immutable
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Build assets
@@ -59,7 +64,5 @@ jobs:
           bundler-cache: true
       - name: Security audit dependencies
         run:  bundle exec bundler-audit --update
-      - name: Security audit application code
-        run: bundle exec brakeman -q -w2
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
