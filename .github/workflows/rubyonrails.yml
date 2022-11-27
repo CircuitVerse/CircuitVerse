@@ -33,15 +33,16 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-      # Add or replace dependency steps here
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1 # v1.115.3
         with:
           bundler-cache: true
-      # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
-      # Add or replace test runners here
+      - name: Configure keys
+        run: |
+          openssl genrsa -out config/private.pem 2048
+          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
       - name: Run tests
         run: bundle exec rspec
 
@@ -54,7 +55,6 @@ jobs:
         uses: ruby/setup-ruby@v1 # v1.115.3
         with:
           bundler-cache: true
-      # Add or replace any other lints here
       - name: Security audit dependencies
         run:  bundle exec bundler-audit --update
       - name: Security audit application code
