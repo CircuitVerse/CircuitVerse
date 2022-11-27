@@ -15,7 +15,7 @@
         <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post do %>
           <div class="d-flex align-items-center nb-notification">
             <span><i class="<%= notification.to_notification.icon %>"></i></span>
-            <div class="d-flex flex-column message_wrapper">
+            <div class="d-flex flex-column message-wrapper">
               <% if notification.unread? %>
                 <strong><span class="message"><%= notification.to_notification.message %></span></strong>
                 <strong><span class="timestamp"><%= "#{time_ago_in_words(notification.created_at)} ago, #{notification.created_at.to_fs(:long)}" %></span></strong>
@@ -25,7 +25,7 @@
               <% end %>
             </div>
             <% if notification.unread? %>
-              <span class="unseen-active"></span>
+              <span class="unseen-active-modal"></span>
             <% end %>
           </div>
         <% end %>
