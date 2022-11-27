@@ -1800,6 +1800,86 @@ canvas {
 
 /*! Custom Color theme dialog styles ends here*/
 
+/*! File SaveAs dialog styles starts here*/
+
+.ui-dialog[aria-describedby="ExportCircuitFilesDialog"] {
+    min-width: 560px;
+    user-select: none;
+}
+
+#ExportCircuitFilesDialog {
+    background: none;
+    overflow: auto;
+}
+
+#ExportCircuitFilesDialog label {
+    color: var(--text-panel);
+    width: 20%;
+}
+
+#ExportCircuitFilesDialog input {
+    width: 75%;
+    height: 30px;
+    border: 1px solid white;
+    background: transparent;
+    font: inherit;
+    text-align: center;
+}
+
+/*! File Save As dialog styles ends here*/
+
+/*! File Open dialog styles starts here*/
+
+.ui-dialog[aria-describedby="ImportCircuitFilesDialog"] {
+    min-width: 560px;
+    user-select: none;
+}
+
+#ImportCircuitFilesDialog {
+    background: none;
+    overflow: auto;
+}
+
+#message {
+    color: rgb(167, 0, 0);
+    margin: 20px auto;
+}
+
+#ImportCircuitFilesDialog label {
+    color: var(--text-panel);
+}
+
+#message-box {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    border: 2px dashed white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    color: var(--text-panel);
+}
+
+#message-box i {
+    font-size: 20px;
+    border: 2px solid white;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+#CircuitDataFile {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+}
+
+/*! File Open dialog styles ends here*/
+
 .code-window .CodeMirror {
     height: calc(100% - 78px);
     overflow: scroll;
