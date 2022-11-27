@@ -39,6 +39,8 @@ jobs:
           bundler-cache: true
       - name: Set up database schema
         run: bin/rails db:schema:load
+      - name: Build assets
+        run: yarn run build
       - name: Configure keys
         run: |
           openssl genrsa -out config/private.pem 2048
