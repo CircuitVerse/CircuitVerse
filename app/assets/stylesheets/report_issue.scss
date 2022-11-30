@@ -1,0 +1,21 @@
+.report-sidebar a {
+  bottom: 30px;
+  color: $white;
+  font-size: 13px;
+  padding: 10px;
+  position: fixed;
+  right: -245px;
+  text-decoration: none;
+  transition: .3s;
+  width: 286px;
+  z-index: 999;
+}
+
+.report-sidebar span {
+  font-size: 1.2em;
+  padding-right: 20px;
+}
+
+.report-sidebar a:hover {
+  right: 0;
+}

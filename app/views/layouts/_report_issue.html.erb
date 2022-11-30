@@ -1,0 +1,108 @@
+<!---issue reporting-system----->
+<div class="report-sidebar">
+  <a
+    type="button"
+    class="btn btn-primary text-light"
+    data-toggle="modal"
+    data-target=".issue"
+  >
+    <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue / Suggest a feature</a
+  >
+</div>
+
+<!---issue reporting system-modal---->
+<div
+  class="modal fade issue"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="container my-2">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <div class="container text-center">
+          <h4>Report an issue / Suggest a feature</h4>
+        </div>
+        <hr />
+        <div class="container my-2 text-center" id="result"></div>
+        <label id="report-label" style="font-weight: lighter;"
+          ><b>Describe your issue / feature:</b></label
+        >
+        <div class="form-group">
+          <textarea
+            class="form-control border-primary"
+            id="issuetext"
+            rows="3"
+          ></textarea>
+        </div>
+        <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
+        <div class="form-group">
+          <input class="form-control border-primary"  type="email" id="emailtext" rows="3"/>
+        </div>
+        <div class="container">
+          <center>
+            <button type="submit" id="report" class="btn btn-primary">
+              Report
+            </button>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+async function postUserIssue(message) {
+    $.ajax({
+        url: '/simulator/post_issue',
+        type: 'POST',
+        beforeSend: function(xhr) {
+            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        data: {
+            "text": message,
+        },
+        success: function(response) {
+            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+        },
+        failure: function(err) {
+            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+        }
+    });
+}
+
+$('button').click(function(){
+    if (this.id== 'report'){
+     var message=$('#issuetext').val();
+     var email=$('#emailtext').val();
+     message += "\nEmail:"+ email
+     message += "\nURL: " + window.location.href;
+     message += `\nUser Id: <%= user_signed_in? ? " #{current_user.id.to_s} : #{current_user.name}" : "Guest user" %>`
+     postUserIssue(message)
+     $('#issuetext').hide();
+     $('#emailtext').hide();
+     $('#report').hide();
+     $('#report-label').hide();
+     $('#email-label').hide();
+   }
+    })
+   $('.issue').on('hide.bs.modal', function(e) {
+     $('#result').html("");
+     $('#issuetext').show();
+     $('#emailtext').show();
+     $('#issuetext').val("");
+     $('#emailtext').val("");
+     $('#report').show();
+     $('#report-label').show();
+     $('#email-label').show();
+ })
+</script>
