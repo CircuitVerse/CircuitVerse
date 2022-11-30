@@ -1,15 +1,6 @@
-# This workflow uses actions that are not certified by GitHub.  They are
-# provided by a third-party and are governed by separate terms of service,
-# privacy policy, and support documentation.
-#
-# This workflow will install a prebuilt Ruby version, install dependencies, and
-# run tests and linters.
 name: "Ruby on Rails CI"
 on:
-  push:
-    branches: [ "github_action" ]
-  pull_request:
-    branches: [ "github_action" ]
+  [push, pull_request, workflow_dispatch]
 jobs:
   test:
     runs-on: ubuntu-latest
