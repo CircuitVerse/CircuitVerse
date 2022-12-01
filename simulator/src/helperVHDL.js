@@ -199,3 +199,33 @@ export const hasComponent = (component) => {
         return true
     }
 }
+
+export const cantGenerate = (component) => {
+    const scope = [
+        component.JKflipFlop,
+        component.SRflipFlop,
+        component.DflipFlop,
+        component.MSB,
+        component.LSB,
+        component.PriorityEncoder,
+        component.TflipFlop,
+
+    ]
+
+    const scopeNames = [
+        'JKflipFlop',
+        'SRflipFlop',
+        'DflipFlop',
+        'MSB',
+        'LSB',
+        'PriorityEncoder',
+        'TflipFlop',
+    ]
+    let output = ''
+    
+    scope.forEach((el, index) => {
+        output += hasComponent(el) ? `// Can't generate ${scopeNames[index]} VHDL code!\n` : ''
+    })
+
+    return output
+}

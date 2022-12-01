@@ -20,7 +20,7 @@ import "codemirror/addon/hint/anyword-hint.js";
 import "codemirror/addon/hint/show-hint.js";
 import "codemirror/addon/display/autorefresh.js";
 import { openInNewTab, copyToClipboard, showMessage } from "./utils";
-import { generateSTDType, hasComponent } from "./helperVHDL";
+import { generateSTDType, hasComponent, cantGenerate } from "./helperVHDL";
 
 var editora;
 
@@ -28,8 +28,8 @@ export function generateVHDL() {
     var dialog = $("#vhdl-export-code-window-div");
     let data = vhdl.exportVHDL();
     let bitselectorerror = false
-    const bitSelectorIndex = Object.keys(scopeList)
-    const bitSelector = scopeList[bitSelectorIndex].BitSelector
+    const scopeIndex = Object.keys(scopeList)
+    const bitSelector = scopeList[scopeIndex].BitSelector
 
     for (var i = 0; i < bitSelector.length; i++){
         if(bitSelector[i].output1.connections[0].bitWidth != 1){
@@ -42,8 +42,11 @@ export function generateVHDL() {
             break
         }
     }
+
+   editora.setValue(cantGenerate(scopeList[scopeIndex]))
     
-    if(bitselectorerror === false){
+    
+    if(bitselectorerror === false && cantGenerate(scopeList[scopeIndex]) === ''){
         editora.setValue(data);
     }
 
@@ -61,7 +64,7 @@ export function generateVHDL() {
                 text: "Download VHDL File",
                 click() {
                     var fileName = getProjectName() || "Untitled";
-                    download(fileName + ".v", editora.getValue());
+                    download(fileName + ".vhd", editora.getValue());
                 },
             },
             {
