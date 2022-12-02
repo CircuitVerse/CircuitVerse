@@ -296,7 +296,7 @@ $touch-menu:#454545;
 [data-title]:after {
   content: attr(data-title);
   background-color: var(--bg-icons) !important;
-  color: var(--br-primary) ! important;
+  color: var(--text-panel) !important;
   border: 1px solid var(--br-primary);
 }
 
