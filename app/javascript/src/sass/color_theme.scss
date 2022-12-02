@@ -287,10 +287,21 @@ $touch-menu:#454545;
   background-color: white;
 }
 
-.custom-tooltip-styling {
+[data-title]:hover:after {
+  opacity: 1;
+  transition: all 0.1s ease 0.5s;
+  visibility: visible;
+}
+
+[data-title]:after {
+  content: attr(data-title);
   background-color: var(--bg-icons) !important;
-  color: var(--text-panel) !important;
+  color: var(--br-primary) ! important;
   border: 1px solid var(--br-primary);
+}
+
+[data-title] {
+  position: relative;
 }
 
 .icon:hover {
