@@ -148,6 +148,15 @@ export const generateLogicDecoder = (quantity) => {
     return output.join(`${generateSpacings(9)}`)
 }
 
+export const generateLogicdlatch = () => {
+    let output = [
+        "IF(clock = '1') THEN",
+        generateSpacings(10) + "q0 <= in0;",
+        generateSpacings(10) + "q1 <= NOT in0;\n",
+    ]
+    return output.join('\n')
+}
+
 export const removeDuplicateComponent = (component) => {
     const setComponent = new Set();
         
@@ -183,4 +192,40 @@ export const generatePortMapIOS = (type, objectIo) => {
     })
     
     return ios.join(',\n')
+}
+
+export const hasComponent = (component) => {
+    if (component.length !== 0) {
+        return true
+    }
+}
+
+export const cantGenerate = (component) => {
+    const scope = [
+        component.JKflipFlop,
+        component.SRflipFlop,
+        component.DflipFlop,
+        component.MSB,
+        component.LSB,
+        component.PriorityEncoder,
+        component.TflipFlop,
+
+    ]
+
+    const scopeNames = [
+        'JKflipFlop',
+        'SRflipFlop',
+        'DflipFlop',
+        'MSB',
+        'LSB',
+        'PriorityEncoder',
+        'TflipFlop',
+    ]
+    let output = ''
+    
+    scope.forEach((el, index) => {
+        output += hasComponent(el) ? `// Can't generate ${scopeNames[index]} VHDL code!\n` : ''
+    })
+
+    return output
 }

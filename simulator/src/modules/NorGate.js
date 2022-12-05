@@ -150,7 +150,7 @@ export default class NorGate extends CircuitElement {
     }
 
     generateVHDL() {
-        return gateGenerateVHDL.call(this, "or", true);
+        return gateGenerateVHDL.call(this, "OR", true);
     }
 }
 
