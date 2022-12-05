@@ -318,9 +318,9 @@ export default class Multiplexer extends CircuitElement {
     }
 
     static moduleVHDL() {
-        var output = "\n";
-        var mux = Object.values(scopeList)[0].Multiplexer
-        var muxComponent = []
+        let output = "\n";
+        const mux = Object.values(scopeList)[0].Multiplexer
+        let muxComponent = []
 
         for(var i = 0; i < mux.length; i++){
             muxComponent = [...muxComponent, {

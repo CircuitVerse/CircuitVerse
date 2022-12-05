@@ -140,7 +140,7 @@ export default class NandGate extends CircuitElement {
     }
 
     generateVHDL() {
-        return gateGenerateVHDL.call(this, "and", true);
+        return gateGenerateVHDL.call(this, "AND", true);
     }
 }
 

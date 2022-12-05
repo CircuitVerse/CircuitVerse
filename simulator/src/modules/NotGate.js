@@ -96,7 +96,7 @@ export default class NotGate extends CircuitElement {
     
     generateVHDL() {
         return (
-            this.output1.verilogLabel + " <= (" + this.inp1.verilogLabel + ")';"
+            this.output1.verilogLabel + " <= NOT (" + this.inp1.verilogLabel + ");"
         );
     }
 }

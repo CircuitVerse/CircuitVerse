@@ -2,7 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
-import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateZeros, generateLogicDemux} from '../helperVHDL'
+import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateLogicDemux} from '../helperVHDL'
 /**
  * @class
  * Demultiplexer
@@ -309,7 +309,7 @@ export default class Demultiplexer extends CircuitElement {
 
     static moduleVHDL() {
         let output = "\n";
-        let demux = Object.values(scopeList)[0].Demultiplexer
+        const demux = Object.values(scopeList)[0].Demultiplexer
         let demuxComponent = []
 
         for(var i = 0; i < demux.length; i++){

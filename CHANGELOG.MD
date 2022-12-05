@@ -1,5 +1,19 @@
 ## [Unreleased]
 
+### [Added]
+
+- [Task 008] : (circuitElement.js) Add Dlatch generateVHDL and generatePortmap
+- [Task 008] : (helperVHDL.js) Add generateLogicDlatch and hasComponent functions
+- [Task 008] : (vhdl.js) refactoring code 
+- [Task 008] : (AndGate.js) Change simbol on generateVHDL function
+- [Task 008] : (NandGate.js) Change simbol on generateVHDL function
+- [Task 008] : (NorGate.js) Change simbol on generateVHDL function
+- [Task 008] : (NotGate.js) Change simbol on generateVHDL function
+- [Task 008] : (OrGate.js) Change simbol on generateVHDL function
+- [Task 008] : (XnorGate.js) Change simbol on generateVHDL function
+- [Task 008] : (XorGate.js) Change simbol on generateVHDL function
+- [Task 008] : (Dlatch.js) Add ModuleVHDL function
+
 ## [release-004] - 2022-11-11
 
 ### [Added]

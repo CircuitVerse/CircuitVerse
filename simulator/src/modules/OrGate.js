@@ -142,7 +142,7 @@ export default class OrGate extends CircuitElement {
     }
 
     generateVHDL() {
-        return gateGenerateVHDL.call(this, "or");
+        return gateGenerateVHDL.call(this, "OR");
     }
 }
 

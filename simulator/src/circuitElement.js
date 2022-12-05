@@ -10,7 +10,7 @@ import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
 import { fillSubcircuitElements } from './ux';
 import { generateNodeName } from './verilogHelpers';
-import { generateSTDType, generatePortsIO, generateComponentHeader, removeDuplicateComponent, generateHeaderPortmap, generatePortMapIOS, generateSpacings} from './helperVHDL';
+import { generateSTDType, generatePortsIO, generateComponentHeader, removeDuplicateComponent, generateHeaderPortmap, generatePortMapIOS, generateSpacings, hasComponent} from './helperVHDL';
 import { scopeList } from './circuit';
 
 /**
@@ -852,25 +852,24 @@ export default class CircuitElement {
 
     generateVHDL() {
         // // Example: and and_1(_out, _out, _Q[0]);
-        let mux = this.scope.Multiplexer;
-        let demux = this.scope.Demultiplexer;
-        let decoder = this.scope.Decoder;
+        const mux = this.scope.Multiplexer;
+        const demux = this.scope.Demultiplexer;
+        const decoder = this.scope.Decoder;
+        const dlatch = this.scope.Dlatch;
         let element = '';
-        let objmux = []
-        let objdemux = []
-        let objdecoder = []
-        
-        if(mux.length != 0){
+
+        if(hasComponent(mux)){
+            let objmux = []
             for(var i = 0; i < mux.length; i++){
                 objmux = [...objmux, {
                     header: generateComponentHeader('Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
-                    portsin: generatePortsIO('in', mux[i].controlSignalSize),
+                    portsin: generateSpacings(2) + generatePortsIO('in', mux[i].controlSignalSize),
                     stdin: generateSTDType('IN', mux[i].bitWidth) + ';\n',
-                    portsel: generatePortsIO('sel', 0),
+                    portsel: generateSpacings(2) + generatePortsIO('sel', 0),
                     stdsel: generateSTDType('IN', mux[i].controlSignalSize) + ';\n',
-                    portsout: generatePortsIO('x', 0),
+                    portsout: generateSpacings(2) + generatePortsIO('x', 0),
                     stdout: generateSTDType('OUT', mux[i].bitWidth) + '\n',
-                    end: `  );\n  END COMPONENT;\n`,
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
                     identificator: `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`
                 }]
             }
@@ -878,17 +877,18 @@ export default class CircuitElement {
             muxFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.end)
         }
         
-        if(demux.length != 0){
+        if(hasComponent(demux)){
+            let objdemux = []
             for(var i = 0; i < demux.length; i++){
                 objdemux = [...objdemux, {
                     header: generateComponentHeader('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),
-                    portsin: generatePortsIO('in0', 0),
+                    portsin: generateSpacings(2) + generatePortsIO('in0', 0),
                     stdin: generateSTDType('IN', demux[i].bitWidth) + ';\n',
-                    portsel: generatePortsIO('sel', 0),
+                    portsel: generateSpacings(2) + generatePortsIO('sel', 0),
                     stdsel: generateSTDType('IN', demux[i].controlSignalSize)+ ';\n',
-                    portsout: generatePortsIO('out', demux[i].controlSignalSize),
+                    portsout: generateSpacings(2) + generatePortsIO('out', demux[i].controlSignalSize),
                     stdout: generateSTDType('OUT', demux[i].bitWidth)+ '\n',
-                    end: `    );\n  END COMPONENT;\n`,
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
                     identificator: `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`,
                     
                 }]
@@ -897,37 +897,56 @@ export default class CircuitElement {
             demuxFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.end)
         }
 
-        if(decoder.length != 0){
+        if(hasComponent(decoder)){
+            let objdecoder = []
             for(var i = 0; i < decoder.length; i++){
                 objdecoder = [...objdecoder, 
                 {
                     header: generateComponentHeader('Decoder', `bit${decoder[i].bitWidth}`),
-                    portsin: generatePortsIO('in0', 0),
+                    portsin: generateSpacings(2) + generatePortsIO('in0', 0),
                     stdin: generateSTDType('IN', decoder[i].bitWidth) + ';\n',
-                    portsout: generatePortsIO('out', decoder[i].bitWidth),
+                    portsout: generateSpacings(2) + generatePortsIO('out', decoder[i].bitWidth),
                     stdout: generateSTDType('OUT', 1)+ '\n',
-                    end: `    );\n  END COMPONENT;\n`,
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
                     identificator: `bit${decoder[i].bitWidth}`,
                 }]
             }
             const decoderFiltered = removeDuplicateComponent(objdecoder)
             decoderFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsout + el.stdout + el.end)
         }
+
+        if(hasComponent(dlatch)){
+            let objdlatch = []
+            for(var i = 0; i < dlatch.length; i++){
+                objdlatch = [...objdlatch, 
+                {
+                    header: generateComponentHeader('Dlatch', `bit${dlatch[i].bitWidth}`),
+                    portsin: generateSpacings(2) + generatePortsIO('in0', 0),
+                    stdin: generateSTDType('IN', dlatch[i].bitWidth) + ';\n',
+                    portsclock: generateSpacings(2) + generatePortsIO('clock', 0),
+                    stdclock: generateSTDType('IN', 1) + ';\n',
+                    portsout: generateSpacings(2) + generatePortsIO('q', 1),
+                    stdout: generateSTDType('OUT', dlatch[i].bitWidth)+ '\n',
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
+                    identificator: `bit${dlatch[i].bitWidth}`,
+                }]
+            }
+            const dlatchFiltered = removeDuplicateComponent(objdlatch)
+            dlatchFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsclock + el.stdclock + el.portsout + el.stdout + el.end)
+        }
         return element
     }
 
     generatePortMapVHDL(){
             // // Example: and and_1(_out, _out, _Q[0]);
-            let mux = this.scope.Multiplexer;
-            let demux = this.scope.Demultiplexer;
-            let decoder = this.scope.Decoder; 
-            let objmux = []
-            let objdemux = []
-            let objdecoder = []
-            let portmap = '';
-            portmap += "\BEGIN\n"
+            const mux = this.scope.Multiplexer;
+            const demux = this.scope.Demultiplexer;
+            const decoder = this.scope.Decoder;
+            const dlatch = this.scope.Dlatch;
+            let portmap = "\BEGIN\n";
             
-            if(mux.length != 0){
+            if(hasComponent(mux)){
+                let objmux = []
                 for(var i = 0; i < mux.length; i++){
                     objmux = [...objmux, 
                     {
@@ -935,14 +954,15 @@ export default class CircuitElement {
                         inputs: generatePortMapIOS('in', mux[i].inp) + ',\n',
                         sel: `    sel => ${mux[i].controlSignalInput.verilogLabel},\n`,
                         output: `    x => ${mux[i].output1.verilogLabel}`,
-                        end: `);\n`
+                        end: `\n  );\n`
 
                     }]
                 }
                 objmux.forEach(el => portmap += el.header + el.inputs + el.sel + el.output + el.end)
             }
     
-            if(demux.length != 0){
+            if(hasComponent(demux)){
+                let objdemux = []
                 for(var i = 0; i < demux.length; i++){
                     objdemux = [...objdemux, 
                     {
@@ -950,35 +970,53 @@ export default class CircuitElement {
                         inputs: `    in0 => ${demux[i].input.verilogLabel},\n`,
                         sel: `    sel => ${demux[i].controlSignalInput.verilogLabel},\n`,
                         output: generatePortMapIOS('out', demux[i].output1),
-                        end: `);\n`
+                        end: `\n  );\n`
                     }]
                 }
                 objdemux.forEach(el => portmap += el.header + el.inputs + el.sel + el.output + el.end)
             }
             
-            if(decoder.length != 0){
+            if(hasComponent(decoder)){
+                let objdecoder = []
                 for(var i = 0; i < decoder.length; i++){
                     objdecoder = [...objdecoder, 
                     {
                         header: generateHeaderPortmap('decoder', i, 'Decoder', `bit${decoder[i].bitWidth}`),
                         inputs: `    in0 => ${decoder[i].input.verilogLabel},\n`,
                         output: generatePortMapIOS('out', decoder[i].output1),
-                        end: `);\n`
+                        end: `\n  );\n`
                     }]
                 }
                 objdecoder.forEach(el => portmap += el.header + el.inputs + el.output + el.end)
             }
 
+            if(hasComponent(dlatch)){
+                let objdlatch = []
+                for(var i = 0; i < dlatch.length; i++){
+                    objdlatch = [...objdlatch, 
+                    {
+                        header: generateHeaderPortmap('dlatch', i, 'Dlatch', `bit${dlatch[i].bitWidth}`),
+                        inputs: `    in0 => ${dlatch[i].dInp.verilogLabel},\n`,
+                        clock: `    clock => ${dlatch[i].clockInp.verilogLabel},\n`,
+                        output: `    q0 => ${dlatch[i].qOutput.verilogLabel},\n`,
+                        notoutput: `    q1 => ${dlatch[i].qInvOutput.verilogLabel}\n`,
+                        end: `\n  );\n`
+
+                    }]
+                }
+                objdlatch.forEach(el => portmap += el.header + el.inputs + el.clock + el.output + el.notoutput + el.end)
+            }
 
             const BitSelectorObject = scopeList[Object.keys(scopeList)].BitSelector
-            const hasBitSelector = (BitSelectorObject.length != 0)
-            let bitSelectorProcess = []
             
-            if(hasBitSelector) {
+            if(hasComponent(BitSelectorObject)) {
+                let bitSelectorProcess = []
                 portmap += `\n  PROCESS(`
-                for(var i = 0; i < BitSelectorObject.length; i++){
-                    bitSelectorProcess[i] = `${BitSelectorObject[i].inp1.verilogLabel}, ${BitSelectorObject[i].bitSelectorInp.verilogLabel}`
-                }
+
+                BitSelectorObject.forEach((el, index) => {
+                    bitSelectorProcess[index] = `${el.inp1.verilogLabel}, ${el.bitSelectorInp.verilogLabel}`
+                })
+
                 portmap += bitSelectorProcess.join(',')
                 portmap += `)\n    BEGIN\n`
             }

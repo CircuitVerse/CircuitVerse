@@ -165,7 +165,7 @@ export default class XnorGate extends CircuitElement {
     }
 
     generateVHDL() {
-        return gateGenerateVHDL.call(this, "xor", true);
+        return gateGenerateVHDL.call(this, "XOR", true);
     }
 }
 
