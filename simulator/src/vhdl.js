@@ -37,7 +37,7 @@ export function generateVHDL() {
             bitselectorerror = true
             break
         } else if (Math.pow(2, bitSelector[i].bitSelectorInp.bitWidth) > bitSelector[i].inp1.bitWidth ) {
-            editora.setValue("//ERROR\n// ERRO DE LARGURA")
+            editora.setValue("//ERROR\n// The bit width of the select input must be the square root of the bit input.")
             bitselectorerror = true
             break
         }
