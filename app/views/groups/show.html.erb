@@ -32,6 +32,12 @@
       <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#add-mentor-to-modal" data-action="click->groups#addMentorToGroup" ><%= t("groups.show.add_mentors_btn") %></button>
     <% end %>
   </div>
+  <% if @group.group_members.mentor.present?%>
+    <% else %>
+      <ul>
+        <li class="null-text"><%= t("groups.show.no_mentors") %></li>
+      </ul>
+    <% end %>
   <hr>
   <div class="row center-row groups-members-scroll-row">
     <%= render partial: "group_mentors", locals: {group: @group} %>
@@ -42,6 +48,11 @@
       <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#addmemberModal" data-action="click->groups#addMemberToGroup" ><%= t("groups.show.add_members_btn") %></button>
     <% end %>
   </div>
+    <% if @group.group_members_count < 1 %>
+      <ul>
+        <li class="null-text" ><%= t("groups.show.no_members") %></li>
+      </ul>
+    <% end %>
   <hr>
   <div class="row center-row groups-members-scroll-row">
     <%= render partial: "group_members", locals: {group: @group} %>
@@ -52,6 +63,11 @@
       <%= link_to t("groups.show.assignment.add_assignment_btn"), new_group_assignment_path(@group), class: "btn primary-button groups-primary-button" %>
     <% end %>
   </div>
+    <% if @group.assignments.empty?%>
+      <ul>
+        <li class="null-text"><%= t("groups.show.no_assignments") %></li>
+      </ul>
+    <% end %>
   <hr>
   <table class="table table-borderless groups-table">
     <thead class="groups-table-heading">
