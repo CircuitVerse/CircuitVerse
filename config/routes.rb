@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   resources :privacy, only: :index
 
   scope "/groups" do
+    get "/:id", to: "groups#show", as: "group_show"
     get "/:group_id/assignments/:id/reopen", to: "assignments#reopen", as: "reopen_group_assignment"
     put "/:group_id/assignments/:id/close", to: "assignments#close", as: "close_group_assignment"
     get "/:group_id/assignments/:id/start", to: "assignments#start", as: "assignment_start"

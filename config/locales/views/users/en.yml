@@ -91,3 +91,4 @@ en:
       see_all : "See All"
       fork_notification: "%{user} forked your Project %{project}"
       star_notification: "%{user} starred your Project %{project}"
+      new_group_notification: "You have been added to a new group- %{group}"
