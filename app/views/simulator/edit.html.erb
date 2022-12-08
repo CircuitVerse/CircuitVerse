@@ -16,7 +16,7 @@
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  <div class="collapse navbar-collapse" style="justify-content: space-between;" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
@@ -64,10 +64,29 @@
             <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
-     </ul>
-       <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+      </ul>
+      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
           Untitled
-       </span>
+      </span>
+
+      <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
+        <li class="dropdown pull-right">
+          <% if user_signed_in? %>
+            <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
+              <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+              <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+            </ul>
+          <% else %>
+            <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+          <% end %>
+        </li>
+      </ul>
+
+    </div>
 
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn' id='quick-btn-id'>
       <div id='dragQPanel' class='panel-drag'>
@@ -141,24 +160,6 @@
           <button class="zoom-slider-increment" id="increment">+</button>
         </div>
       </div>
-
-    </div>
-    <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
-      <li class="dropdown pull-right">
-        <% if user_signed_in? %>
-          <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
-            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
-            <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
-            <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
-          </ul>
-        <% else %>
-          <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
-        <% end %>
-      </li>
-    </ul>
   </div>
   <!-- /.navbar-collapse -->
 </nav>
