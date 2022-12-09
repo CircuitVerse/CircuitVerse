@@ -58,12 +58,6 @@
       <%= link_to t("groups.show.assignment.add_assignment_btn"), new_group_assignment_path(@group), class: "btn primary-button groups-primary-button" %>
     <% end %>
   </div>
-    <% if @group.assignments.empty? %>
-      <hr>
-      <% if @group.assignments.empty? %>
-        <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
-      <% end %>
-    <% end %>
   <table class="table table-borderless groups-table">
     <% if @group.assignments.empty? %>
       <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
