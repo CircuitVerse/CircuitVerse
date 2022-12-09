@@ -27,7 +27,7 @@ en:
       add_mentors_btn: "+ Add Mentors"
       no_mentors_html: "There are no mentors in this group, click <strong>+ Add Mentors</strong> button to add mentors."
       no_members_html: "There are no members in this group, click <strong>+ Add Members</strong> button to add members."
-      no_assignments_html: "There are no assignments in the group, click <strong>+ Add Assignments</strong> button to start an assignment."
+      no_assignments_html: "There are no assignments in the group, click <strong>+ Add Assignment</strong> button to start an assignment."
       assignment:
         heading: "ASSIGNMENTS:"
         add_assignment_btn: "+ Add Assignment"
