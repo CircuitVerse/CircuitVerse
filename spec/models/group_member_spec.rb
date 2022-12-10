@@ -28,10 +28,12 @@ RSpec.describe GroupMember, type: :model do
         group_member.send_welcome_email
       end.to have_enqueued_job.on_queue("mailers")
     end
+
     it "sends welcome notification" do
       group_member = FactoryBot.create(:group_member, user: @user, group: @group)
-      group_member.send_welcome_notification
-      expect(@user.noticed_notifications.count).to eq(2)
+      expect do
+        group_member.send_welcome_notification
+      end.to change { @user.noticed_notifications.count }.by(1)
     end
   end
 end

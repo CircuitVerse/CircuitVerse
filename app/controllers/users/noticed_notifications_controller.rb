@@ -11,13 +11,10 @@ class Users::NoticedNotificationsController < ApplicationController
   def mark_as_read
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
-    if notification.type == "NewGroupNotification"
-      group = notification.params[:group][:group_id]
-      redirect_to group_show_path(group)
-    else
-      project = notification.params[:project]
-      redirect_to user_project_path(project.author, project)
-    end
+    answer = NotifyUser.new(params).call
+    return redirect_to group_path(answer.first_param) if answer.type == "new_group"
+
+    redirect_to user_project_path(answer.first_param, answer.second)
   end
 
   def mark_all_as_read
