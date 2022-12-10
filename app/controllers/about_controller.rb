@@ -31,6 +31,14 @@ class AboutController < ApplicationController
                 img: "https://avatars.githubusercontent.com/u/42182955?s=96&v=4", link: "https://github.com/Shivansh2407" },
               { name: "Abhishek Zade",
                 img: "https://avatars.githubusercontent.com/u/66520848?s=96&v=4", link: "https://github.com/ZadeAbhishek" }]
+              { name: "Vedant Jain",
+                img: "https://avatars.githubusercontent.com/u/76901313?v=4", link: "https://github.com/vedant-jain03" },
+              { name: "Aman Singh",
+                img: "https://avatars.githubusercontent.com/u/77198905?v=4", link: "https://github.com/aman-singh7" },
+              { name: "Devjit Choudhury",
+                img: "https://avatars.githubusercontent.com/u/61665451?v=4", link: "https://github.com/devartstar" },
+              { name: "Pulkit Gupta",
+                img: "https://avatars.githubusercontent.com/u/76155456?v=4", link: "https://github.com/pulkit-30" }
 
     @mentors = []
 
