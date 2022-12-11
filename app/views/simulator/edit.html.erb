@@ -16,9 +16,9 @@
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" style="justify-content: space-between;" id="bs-example-navbar-collapse-1">
+  <div class="collapse navbar-collapse justify-content-between"  id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
@@ -36,7 +36,7 @@
           <li><a class="dropdown-item logixButton text-left pl-1" onclick="old_ui_redirect()">View Previous UI</a></li>
         </ul>
       </li>
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="createNewCircuitScope">New Circuit + </a></li>
@@ -44,7 +44,7 @@
           <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
@@ -55,7 +55,7 @@
           <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
-      <li class="dropdown tour-help nav-dropdown">
+      <li class="dropdown tour-help nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
