@@ -29,6 +29,18 @@ class SimpleDiscussion::ApplicationController < ::ApplicationController
     end
   end
 
+  def truncate(text, length = 30, _end_string = '...')
+    if text
+      if text.length <= length
+        return text
+      else
+        return text[0..length]
+      end
+    else
+      return "..."
+    end
+  end
+
   private
 
   def redirect_to_root
