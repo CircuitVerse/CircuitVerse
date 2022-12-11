@@ -29,7 +29,7 @@ class SimpleDiscussion::ApplicationController < ::ApplicationController
     end
   end
 
-  def truncate(text, length = 30, _end_string = '...')
+  def truncate(text, length = 30, default_string = '...')
     if text
       if text.length <= length
         return text
@@ -37,7 +37,7 @@ class SimpleDiscussion::ApplicationController < ::ApplicationController
         return text[0..length]
       end
     else
-      return "..."
+      return default_string
     end
   end
 
