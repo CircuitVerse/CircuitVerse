@@ -10,6 +10,7 @@
     <div class="tab-container">
       <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
+      <span id="settings" class="notifications-tab" data-action="click->notifications#activeSettings">Settings</span>
     </div>
     <% if @unread.count.positive? %>
       <div>
@@ -70,4 +71,73 @@
       </div>
     <% end %>
   </div>
+
+<hr>
+<div id = "settings" class= "d-sett notification-settings">
+  <div class = "" >
+      <div>
+        <h2 class="mb-2 mt-2 "><%= t("users.notifications.heading_settings") %></h2>
+        <br>
+      </div>
+
+    <div>
+        <% if @user.star && @user.fork == "true" %>
+          <h6 class="mb-2 mt-2 "><%= t("users.notifications.disable_all") %></h6>
+          <br>
+            <%= link_to "disable all events" ,disable_notifications_path(), method: :post, class: 'notification danger-text' %>
+        <%else %>
+            <h6 class="mb-2 mt-2 "><%= t("users.notifications.enable_all") %></h6>
+          <br>
+            <%= link_to "enable all events" ,enable_notifications_path(), method: :post, class: 'notification anchor-text' %>
+        <% end %>
+        <br>
+        <br>
+        <br>
+        </div>
+    </div>
+    <div>
+        <h3 class="mb-2 mt-2 "><%= t("users.notifications.events_settings") %></h3>
+        <hr>
+      </div>
+
+<div class="container-fluid settings-fill-container-fluid">
+  <div class="container">
+    <div class="row center-row settings-center-content">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 settings-left-text">
+        <h4><%= t("users.notifications.fork") %></h4>
+        <p><%= t("users.notifications.star_description") %></p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <br>
+      <% if @user.fork == "true" %>
+        <%= link_to "disable" ,disable_fork_notifications_path(), method: :post, class: 'notification danger-text' %>
+      <% else %>
+        <%= link_to "enable" ,enable_fork_notifications_path(), method: :post, class: 'notification anchor-text' %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<br>
+<div class="container-fluid settings-fill-container-fluid">
+  <div class="container">
+    <div class="row center-row settings-center-content">
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 settings-left-text">
+        <h4><%= t("users.notifications.star") %></h4>
+        <p><%= t("users.notifications.star_description") %></p>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+      <br>
+      <% if @user.star == "true" %>
+        <%= link_to "disable" ,disable_star_notifications_path(), method: :post, class: 'notification danger-text' %>
+      <% else %>
+        <%= link_to "enable" ,enable_star_notifications_path(), method: :post, class: ' notification anchor-text' %>
+      <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
 </div>

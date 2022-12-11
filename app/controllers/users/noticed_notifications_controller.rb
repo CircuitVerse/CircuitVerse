@@ -6,6 +6,47 @@ class Users::NoticedNotificationsController < ApplicationController
   def index
     @notifications = NoticedNotification.where(recipient: current_user).newest_first
     @unread = NoticedNotification.where(recipient: current_user).newest_first.unread
+    @user = User.find(params[:id])
+  end
+
+  def enable
+    recipient = current_user
+    recipient.update!(star: "true", fork: "true")
+    redirect_back(fallback_location: root_path)
+  end
+
+  def disable
+    recipient = current_user
+    recipient.update!(star: "false", fork: "false")
+    redirect_back(fallback_location: root_path)
+  end
+
+  def enable_star
+    recipient = current_user
+    recipient.update!(star: "true")
+    redirect_back(fallback_location: root_path)
+  end
+
+  def enable_fork
+    recipient = current_user
+    recipient.update!(fork: "true")
+    redirect_back(fallback_location: root_path)
+  end
+
+  def disable_star
+    recipient = current_user
+    recipient.update!(star: "false")
+    redirect_back(fallback_location: root_path)
+  end
+
+  def disable_fork
+    recipient = current_user
+    recipient.update!(fork: "false")
+    redirect_back(fallback_location: root_path)
+  end
+
+  def edit
+    @user = User.find(params[:id])
   end
 
   def mark_as_read

@@ -524,6 +524,13 @@
   position: relative;
 }
 
+.danger-text {
+  color: red;
+}
+.danger-text:hover {
+  color: red;
+}
+
 .unseen-active {
   background: $primary-green;
   border-radius: 50%;
@@ -547,4 +554,43 @@
   background-color: #0000000a;
   text-decoration: none;
 }
+
+.setting-heading {
+  align-items: right;
+  text-align: right;
+  margin-right: 20px;
+  padding-right: 20px;
+}
+.notification-button {
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(63, 63, 68, .15), 0 0 1px rgba(0, 0, 0, .5);
+  height: 48px;
+  padding: 4px 4px;
+  position: relative;
+}
+
+.teacher-main-description-container {
+  margin-bottom: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px;
+}
+
+.settings-fill-container-fluid {
+  background-color: $card-green;
+  padding: 40px 0;
+}
+
+.settings-container-fluid {
+  padding: 40px 0;
+}
+
+.settings-center-content {
+  align-items: center;
+}
+
+.settings-left-text {
+  text-align: left;
+}
+
 //user profile ends

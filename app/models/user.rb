@@ -53,6 +53,8 @@ class User < ApplicationRecord
 
   scope :subscribed, -> { where(subscribed: true) }
 
+  store :preferences, accessors: %i[star fork new_group]
+
   include PgSearch::Model
 
   pg_search_scope :text_search, against: %i[name educational_institute country]
