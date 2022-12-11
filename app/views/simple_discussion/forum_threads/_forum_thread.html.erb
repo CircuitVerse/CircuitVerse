@@ -22,7 +22,7 @@
           • <%= t('asked_time_ago', time: time_ago_in_words(forum_thread.created_at), author: forum_thread.user.name) %>
         </div>
 
-        <p class="text-muted"><%= truncate(forum_thread.forum_posts.first.body, length: 200) %></p>
+        <p class="text-muted"><%= truncate(forum_thread.forum_posts.first ? forum_thread.forum_posts.first.body : "No Posts", length: 200) %></p>
       </div>
 
       <div class="col-sm-2 text-center">
