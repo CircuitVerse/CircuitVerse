@@ -12,12 +12,11 @@ class ForkNotification < Noticed::Base
   def fork_notifications?
     project = params[:project]
     recipient = project.author
-    if recipient.preferences[:fork] == "true"
-      return true
-    else
-      return false
-    end    
+    return true if recipient.preferences[:fork] == "true"
+
+    false
   end
+
   def icon
     "fas fa-code-branch"
   end

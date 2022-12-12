@@ -12,11 +12,9 @@ class StarNotification < Noticed::Base
   def star_notifications?
     project = params[:project]
     recipient = project.author
-    if recipient.preferences[:star]  == "true"
-      return true
-    else
-      return false
-    end    
+    return true if recipient.preferences[:star] == "true"
+
+    false
   end
 
   def icon

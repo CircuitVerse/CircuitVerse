@@ -71,21 +71,19 @@
       </div>
     <% end %>
   </div>
-
 <hr>
 <div id = "settings" class= "d-sett notification-settings">
   <div class = "" >
-      <div>
-        <h2 class="mb-2 mt-2 "><%= t("users.notifications.heading_settings") %></h2>
-        <br>
-      </div>
-
+    <div>
+      <h2 class="mb-2 mt-2 "><%= t("users.notifications.heading_settings") %></h2>
+      <br>
+    </div>
     <div>
         <% if @user.star && @user.fork == "true" %>
           <h6 class="mb-2 mt-2 "><%= t("users.notifications.disable_all") %></h6>
           <br>
-            <%= link_to "disable all events" ,disable_notifications_path(), method: :post, class: 'notification danger-text' %>
-        <%else %>
+          <%= link_to "disable all events" ,disable_notifications_path(), method: :post, class: 'notification danger-text' %>
+        <% else %>
             <h6 class="mb-2 mt-2 "><%= t("users.notifications.enable_all") %></h6>
           <br>
             <%= link_to "enable all events" ,enable_notifications_path(), method: :post, class: 'notification anchor-text' %>
@@ -99,7 +97,6 @@
         <h3 class="mb-2 mt-2 "><%= t("users.notifications.events_settings") %></h3>
         <hr>
       </div>
-
 <div class="container-fluid settings-fill-container-fluid">
   <div class="container">
     <div class="row center-row settings-center-content">
