@@ -67,8 +67,8 @@ class User < ApplicationRecord
   end
 
   def set_preferences
-    self.preferences[:star] = "true"    
-    self.preferences[:fork] = "true"    
+    preferences[:star] = "true"
+    preferences[:fork] = "true"
   end
 
   def create_members_from_invitations

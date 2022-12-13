@@ -82,11 +82,11 @@
         <% if @user.star && @user.fork == "true" %>
           <h6 class="mb-2 mt-2 "><%= t("users.notifications.disable_all") %></h6>
           <br>
-          <%= link_to "disable all events" ,disable_notifications_path(), method: :post, class: 'notification danger-text' %>
+          <%= link_to "disable all events" ,disable_all_notifications_path(), method: :patch, class: 'notification danger-text' %>
         <% else %>
             <h6 class="mb-2 mt-2 "><%= t("users.notifications.enable_all") %></h6>
           <br>
-            <%= link_to "enable all events" ,enable_notifications_path(), method: :post, class: 'notification anchor-text' %>
+            <%= link_to "enable all events" ,enable_all_notifications_path(), method: :patch, class: 'notification anchor-text' %>
         <% end %>
         <br>
         <br>
@@ -97,44 +97,34 @@
         <h3 class="mb-2 mt-2 "><%= t("users.notifications.events_settings") %></h3>
         <hr>
       </div>
-<div class="container-fluid settings-fill-container-fluid">
-  <div class="container">
-    <div class="row center-row settings-center-content">
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 settings-left-text">
-        <h4><%= t("users.notifications.fork") %></h4>
-        <p><%= t("users.notifications.star_description") %></p>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <br>
-      <% if @user.fork == "true" %>
-        <%= link_to "disable" ,disable_fork_notifications_path(), method: :post, class: 'notification danger-text' %>
-      <% else %>
-        <%= link_to "enable" ,enable_fork_notifications_path(), method: :post, class: 'notification anchor-text' %>
-      <% end %>
-      </div>
-    </div>
-  </div>
-</div>
-
-<br>
-<div class="container-fluid settings-fill-container-fluid">
-  <div class="container">
-    <div class="row center-row settings-center-content">
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 settings-left-text">
-        <h4><%= t("users.notifications.star") %></h4>
-        <p><%= t("users.notifications.star_description") %></p>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-      <br>
-      <% if @user.star == "true" %>
-        <%= link_to "disable" ,disable_star_notifications_path(), method: :post, class: 'notification danger-text' %>
-      <% else %>
-        <%= link_to "enable" ,enable_star_notifications_path(), method: :post, class: ' notification anchor-text' %>
-      <% end %>
+<%= fields_for @user ,:preferences do |w| %>
+  <% @user.preferences.each do |key,value| %>
+  <div class="container-fluid settings-fill-container-fluid">
+    <div class="container">
+      <div class="row center-row settings-center-content">
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 settings-left-text">
+          <h4><%= w.label key%></h4>
+          <% if key == "star" %>
+          <p><%= t("users.notifications.star_description") %></p>
+          <% else %>
+          <p><%= t("users.notifications.fork_description") %></p>
+          <% end %>
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+        <br>
+      &nbsp;
+      &nbsp;
+        <% if value == "true" %>
+          <%= link_to "disable" ,disable_notifications_path(params[:id], type: key), method: :patch, class: 'notification danger-text' %>
+        <% else %>
+          <%= link_to "enable" ,enable_notifications_path(params[:id], type: key), method: :patch, class: ' notification anchor-text' %>
+        <% end %>
+        </div>
       </div>
     </div>
   </div>
-
-</div>
-</div>
+<hr>
+  <% end %>
+<% end %>
+  </div>
 </div>
