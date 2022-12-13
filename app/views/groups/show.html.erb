@@ -34,7 +34,7 @@
   </div>
   <hr>
   <% if @group.group_members.mentor.blank? %>
-      <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+    <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
   <% end %>
   <div class="row center-row groups-members-scroll-row">
     <%= render partial: "group_mentors", locals: {group: @group} %>
@@ -58,6 +58,7 @@
       <%= link_to t("groups.show.assignment.add_assignment_btn"), new_group_assignment_path(@group), class: "btn primary-button groups-primary-button" %>
     <% end %>
   </div>
+  <hr>
   <table class="table table-borderless groups-table">
     <% if @group.assignments.empty? %>
       <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
