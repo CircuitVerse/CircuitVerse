@@ -9,37 +9,8 @@ class Users::NoticedNotificationsController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def enable
-    recipient = current_user
-    notific_type = params[:type]
-    if notific_type == "star"
-      recipient.update!(star: "true")
-    else
-      recipient.update!(fork: "true")
-    end
-    redirect_back(fallback_location: root_path)
-  end
-
-  def disable
-    recipient = current_user
-    notific_type = params[:type]
-    if notific_type == "star"
-      recipient.update!(star: "false")
-    else
-      recipient.update!(fork: "false")
-    end
-    redirect_back(fallback_location: root_path)
-  end
-
-  def enable_all
-    recipient = current_user
-    recipient.update!(star: "true", fork: "true")
-    redirect_back(fallback_location: root_path)
-  end
-
-  def disable_all
-    recipient = current_user
-    recipient.update!(star: "false", fork: "false")
+  def edit
+    NotificationPreference.new(params).call
     redirect_back(fallback_location: root_path)
   end
 

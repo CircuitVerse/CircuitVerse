@@ -82,11 +82,11 @@
         <% if @user.star && @user.fork == "true" %>
           <h6 class="mb-2 mt-2 "><%= t("users.notifications.disable_all") %></h6>
           <br>
-          <%= link_to "disable all events" ,disable_all_notifications_path(), method: :patch, class: 'notification danger-text' %>
+          <%= link_to "disable all events" ,edit_notifications_path(params[:id], active: "true", count: "2"), method: :patch, class: 'notification danger-text' %>
         <% else %>
             <h6 class="mb-2 mt-2 "><%= t("users.notifications.enable_all") %></h6>
           <br>
-            <%= link_to "enable all events" ,enable_all_notifications_path(), method: :patch, class: 'notification anchor-text' %>
+            <%= link_to "enable all events" ,edit_notifications_path(params[:id], active: "false", count: "2"), method: :patch, class: 'notification anchor-text' %>
         <% end %>
         <br>
         <br>
@@ -103,7 +103,7 @@
     <div class="container">
       <div class="row center-row settings-center-content">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 settings-left-text">
-          <h4><%= w.label key%></h4>
+          <h4><%= w.label key %></h4>
           <% if key == "star" %>
           <p><%= t("users.notifications.star_description") %></p>
           <% else %>
@@ -115,9 +115,9 @@
       &nbsp;
       &nbsp;
         <% if value == "true" %>
-          <%= link_to "disable" ,disable_notifications_path(params[:id], type: key), method: :patch, class: 'notification danger-text' %>
+          <%= link_to "disable" ,edit_notifications_path(params[:id], type: key, active: value, count: "1"), method: :patch, class: 'notification danger-text' %>
         <% else %>
-          <%= link_to "enable" ,enable_notifications_path(params[:id], type: key), method: :patch, class: ' notification anchor-text' %>
+          <%= link_to "enable" ,edit_notifications_path(params[:id], type: key, active: value, count: "1"), method: :patch, class: ' notification anchor-text' %>
         <% end %>
         </div>
       </div>
