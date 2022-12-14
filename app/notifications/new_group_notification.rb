@@ -6,7 +6,8 @@ class NewGroupNotification < Noticed::Base
   def message
     @group = params[:group][:group_id]
     group = Group.find(@group)
-    t("users.notifications.new_group_notification", group: group.name)
+    user = group.primary_mentor.name
+    t("users.notifications.new_group_notification", group: group.name, user: user)
   end
 
   def icon
