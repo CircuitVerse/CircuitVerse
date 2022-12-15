@@ -1,4 +1,71 @@
+$button-border-radius: 8px;
+$link-inactive-color: #555555;
+$link-active-color: #000000;
+
 .simple_discussion {
   margin: 0 auto;
   width: 95%;
+
+  // Primary button for Simple Discussion Forum
+  // Background Color filled
+  .green-btn {
+    background-color: #4DDB9B;
+    border-color: #4DDB9B;
+    color: #FFFFFF;
+    border-radius: $button-border-radius;
+
+    &:hover {
+      // border shadow with blur
+      box-shadow: 0 0 0 0.2rem rgba(77, 219, 155, 0.5);
+    }
+  }
+
+  // Outline button for Simple Discussion Forum
+  .green-outline-btn{
+    background-color: #FFFFFF;
+    border-color: #4DDB9B;
+    color: #4DDB9B;
+    border-radius: $button-border-radius;
+
+    &:hover {
+      // border shadow with blur
+      box-shadow: 0 0 0 0.2rem rgba(77, 219, 155, 0.5);
+    }
+  }
+
+  .forum-thread-filters{
+    // Div inside the forum thread filters link
+    .btn-link{
+      padding: 10px 12px;
+      border-radius: $button-border-radius;
+      cursor: pointer;
+      color: $link-inactive-color;
+      font-weight: 500;
+      
+      i{
+        margin-right: 14px;
+      }
+
+      &:hover{
+        background-color: #F3F4F6;
+        color: $link-active-color;
+        font-weight: 500;
+        text-decoration: none!important;
+      }
+
+    }
+
+    // Main links
+    a{
+      text-decoration: none!important;
+      margin-bottom: 5px;
+
+      &.active{
+        .btn-link{
+          color: $link-active-color;
+          background-color: #F3F4F6;
+        }
+      }
+    }
+  }
 }
