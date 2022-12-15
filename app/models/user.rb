@@ -53,7 +53,7 @@ class User < ApplicationRecord
 
   scope :subscribed, -> { where(subscribed: true) }
 
-  store :preferences, accessors: [ :star, :fork ], coder: JSON
+  store :preferences, accessors: %i[star fork], coder: JSON
   after_commit :set_preferences, on: :create
 
   include PgSearch::Model
