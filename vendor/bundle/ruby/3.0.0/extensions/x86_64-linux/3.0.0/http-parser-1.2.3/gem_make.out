@@ -1,5 +1,0 @@
-current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/http-parser-1.2.3/ext
-/usr/bin/ruby3.0 -I/usr/lib/ruby/vendor_ruby -rrubygems /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/rake-13.0.6/exe/rake RUBYARCHDIR\=/home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/extensions/x86_64-linux/3.0.0/http-parser-1.2.3 RUBYLIBDIR\=/home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/extensions/x86_64-linux/3.0.0/http-parser-1.2.3
-x86_64-linux-gnu-gcc -fexceptions -O -fno-omit-frame-pointer -fno-strict-aliasing -Wall -Wextra -O3 -fPIC   -o x86_64-linux/http-parser/http_parser.o -c ./http-parser/http_parser.c
-mkdir -p x86_64-linux/http-parser
-x86_64-linux-gnu-gcc -shared -o x86_64-linux/libhttp-parser-ext.so x86_64-linux/http-parser/http_parser.o -fexceptions 

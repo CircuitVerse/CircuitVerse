@@ -21,7 +21,7 @@
     <div>
     <% if @notification.count.positive? %>
       <div>
-        <%= link_to t("users.notifications.clear_all"), clear_all_url(current_user), class: "anchor-text primary-delete-button", data: {toggle: "modal", target: "#clear_all"} %>
+        <%= link_to t("users.notifications.delete_all_notifications"), delete_all_notifications_url(current_user), class: "anchor-text" %>
       </div>
   <% end %>
     </div>
@@ -79,6 +79,4 @@
       </div>
     <% end %>
   </div>
-  <%= render partial: "clear_all_confirmation_modal" %>
 </div>
-

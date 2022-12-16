@@ -1,6 +1,0 @@
-# translator-comment
-#. extract
-#: reference1
-msgctxt "Context"
-msgid "msgid"
-msgstr "translated"

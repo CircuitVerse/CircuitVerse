@@ -1,6 +1,0 @@
----
-en:
-  errors:
-    attributes:
-      email:
-        undisposable: "domain is blocked"

@@ -1,9 +1,0 @@
-# Lefthook (https://github.com/evilmartians/lefthook) is a git hooks manager
-# Install it on your machine by running `gem install lefthook`
-pre-commit:
-  parallel: true
-  commands:
-    rubocop:
-      files: git diff --name-only --staged
-      glob: "*.rb"
-      run: rubocop --force-exclusion {files}

@@ -1,3 +1,0 @@
-[submodule "tasks/release"]
-	path = tasks/release
-	url = https://github.com/aws/aws-sdk-ruby-release-tools.git
