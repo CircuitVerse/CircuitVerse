@@ -1,0 +1,22 @@
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20221201-24303-6c3ajh.rb extconf.rb
+creating Makefile
+
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+make DESTDIR\= clean
+
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+make DESTDIR\=
+compiling bcrypt_ext.c
+compiling crypt_blowfish.c
+compiling crypt_gensalt.c
+compiling wrapper.c
+wrapper.c:182:60: warning: ‘struct crypt_data’ declared inside parameter list will not be visible outside of this definition or declaration
+  182 | char *crypt_r(const char *key, const char *setting, struct crypt_data *data)
+      |                                                            ^~~~~~~~~~
+x86_64-linux-gnu-gcc  -D__SKIP_GNU -Wdate-time -D_FORTIFY_SOURCE=2    -c -o x86.o x86.S
+linking shared-object bcrypt_ext.so
+
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bcrypt-3.1.16/ext/mri
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 bcrypt_ext.so ./.gem.20221201-24303-ojflao

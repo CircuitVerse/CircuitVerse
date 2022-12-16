@@ -1,0 +1,7 @@
+sudo: false
+language: ruby
+rvm:
+  - 2.3.4
+  - 2.4.1
+  - 2.5.0
+script: bundle exec appraisal install && bundle exec appraisal rake && rubocop --fail-level R

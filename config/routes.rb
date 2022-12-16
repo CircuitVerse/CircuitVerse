@@ -80,7 +80,7 @@ Rails.application.routes.draw do
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
     get "/:id/notifications", to: "users/noticed_notifications#index", as: "notifications"
     get "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
-    get "/:id/notifications/delete_all_notifications", to: "users/noticed_notifications#delete_all_notifications", as: "delete_all_notifications"
+    delete "/:id/notifications/clear_all", to: "users/noticed_notifications#clear_all", as: "clear_all"
     post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read", as: "mark_as_read"
   end
 
@@ -167,6 +167,7 @@ Rails.application.routes.draw do
       get "/notifications", to: "notifications#index"
       patch "/notifications/mark_as_read/:notification_id", to: "notifications#mark_as_read"
       patch "/notifications/mark_all_as_read", to: "notifications#mark_all_as_read"
+      delete "/notifications/clear_all", to: "notifications#clear_all"
       get "/me", to: "users#me"
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]

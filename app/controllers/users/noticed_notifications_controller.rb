@@ -20,8 +20,9 @@ class Users::NoticedNotificationsController < ApplicationController
     redirect_to notifications_path(current_user)
   end
 
-  def delete_all_notifications
+  def clear_all
     NoticedNotification.where(recipient: current_user).destroy_all
     redirect_to notifications_path(current_user)
   end
+
 end

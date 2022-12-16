@@ -1,0 +1,16 @@
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/strscan-3.0.4/ext/strscan
+/usr/bin/ruby3.0 -I /usr/lib/ruby/vendor_ruby -r ./siteconf20221201-24303-404575.rb extconf.rb
+checking for onig_region_memsize() in ruby.h... yes
+creating Makefile
+
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/strscan-3.0.4/ext/strscan
+make DESTDIR\= clean
+
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/strscan-3.0.4/ext/strscan
+make DESTDIR\=
+compiling strscan.c
+linking shared-object strscan.so
+
+current directory: /home/palashbaderia/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/strscan-3.0.4/ext/strscan
+make DESTDIR\= install
+/usr/bin/install -c -m 0755 strscan.so ./.gem.20221201-24303-xiw77i
