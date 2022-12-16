@@ -11,7 +11,11 @@ class NotificationPreference < ApplicationController
 
   def call
     if @count == "1"
-      change_preferences
+      if @notific_type == "star"
+        update_star
+      else
+        update_fork
+      end
     else
       update_all
     end
@@ -19,20 +23,19 @@ class NotificationPreference < ApplicationController
 
   private
 
-    def change_preferences
-      case @notific_type
-      when "fork"
-        if @active == "true"
-          @recipient.update!(fork: "false")
-        else
-          @recipient.update!(fork: "true")
-        end
+    def update_fork
+      if @active == "true"
+        @recipient.update!(fork: "false")
       else
-        if @active == "true"
-          @recipient.update!(star: "false")
-        else
-          @recipient.update!(star: "true")
-        end
+        @recipient.update!(fork: "true")
+      end
+    end
+
+    def update_star
+      if @active == "true"
+        @recipient.update!(star: "false")
+      else
+        @recipient.update!(star: "true")
       end
     end
 
