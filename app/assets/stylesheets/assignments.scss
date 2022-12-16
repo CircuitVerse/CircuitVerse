@@ -195,6 +195,7 @@ a:not([href]):not([tabindex]) {
   padding-left: 4px;
   padding-top: 4px;
   text-align: center;
+  top: 6px;
 
   &:hover {
     border-color: $primary-green;

@@ -57,8 +57,7 @@ describe Users::NoticedNotificationsController, type: :request do
 
     it "mark all notifications as read" do
       sign_in @author
-      get mark_all_as_read_path(id: @author)
-      @notification.reload
+      patch mark_all_as_read_path(id: @author.id, notification_id: @notification)
       expect(@author.noticed_notifications.read.count).to eq(1)
     end
   end
