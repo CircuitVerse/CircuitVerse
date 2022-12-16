@@ -8,6 +8,7 @@
 /.bundle
 /.idea
 test_results
+/vendor
 
 public/assets/
 
@@ -49,7 +50,6 @@ dump.rdb
 public/sitemap.xml.gz
 coverage
 .vscode
-
 solr/data
 solr/test/data
 solr/development/data
