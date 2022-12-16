@@ -10,7 +10,7 @@
     <div class="tab-container">
       <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
-      <span id="settings" class="notifications-tab" data-action="click->notifications#activeSettings"> <%=t("users.notifications.settings")%></span>
+      <span id="settings" class="notifications-tab" data-action="click->notifications#activeSettings"> <%= t("users.notifications.settings") %></span>
     </div>
     <% if @unread.count.positive? %>
       <div>
