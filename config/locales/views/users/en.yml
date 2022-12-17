@@ -102,4 +102,4 @@ en:
       fork: "Fork Notification"
       fork_description: "Notified whenever someone forks your project"
       fork_notification: "%{user} forked your Project %{project}"
-
+      new_assignment_notification: "You have been assigned a new assignment '%{assignment_name}'"
