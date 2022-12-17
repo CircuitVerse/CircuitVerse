@@ -21,7 +21,7 @@
         <div class="assignments-data">
           <p><%= t("assignments.assignment_data.name_html", name: @assignment.name) %></p>
           <p><%= t("assignments.assignment_data.group_html", group_name: @assignment.group.name) %></p>
-          <p><strong><%= t("assignments.deadline") %></strong><span class="assignments-deadline" data-year=<%= deadline_year(@assignment) %>
+          <p><strong><%= t("assignments.deadline") %></strong> <span class="assignments-deadline" data-year=<%= deadline_year(@assignment) %>
             data-month=<%= deadline_month(@assignment) %> data-day=<%= deadline_day(@assignment) %>
             data-hour=<%= deadline_hour(@assignment) %> data-minute=<%= deadline_minute(@assignment) %>
             data-second=<%= deadline_second(@assignment) %>><%= @assignment.deadline %></span></p>
