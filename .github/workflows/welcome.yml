@@ -14,7 +14,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FIRST_ISSUE: |
             👋 @{{ author }}
-             Thanks for opening your first issue here! Be sure to follow the issue template!
+             Thanks for opening your first issue here! 
 
 #           FIRST_PR: |
 #             👋 @{{ author }}
@@ -22,4 +22,4 @@ jobs:
 
           FIRST_PR_MERGED: |
             🎉 @{{ author }}
-            Congrats on merging your first pull request! We here at behaviorbot are proud of you!
+            Congrats on merging your first pull request! You can checkout the contribution guidelines [here](https://github.com/CircuitVerse/CircuitVerse/blob/master/CONTRIBUTING.md).
