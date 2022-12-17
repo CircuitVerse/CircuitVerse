@@ -92,3 +92,4 @@ en:
       fork_notification: "%{user} forked your Project %{project}"
       star_notification: "%{user} starred your Project %{project}"
       new_assignment_notification: "You have been assigned a new assignment '%{assignment_name}'"
+      clear_all: "Clear all"
