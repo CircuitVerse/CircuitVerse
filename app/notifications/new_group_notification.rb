@@ -11,6 +11,6 @@ class NewGroupNotification < Noticed::Base
   end
 
   def icon
-    "far fa-clipboard"
+    "fa fa-users"
   end
 end
