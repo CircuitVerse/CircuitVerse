@@ -1,6 +1,6 @@
 <%= cache forum_thread do %>
   <div class="forum-thread d-flex flex-row mb-4">
-    <div class="mx-4">
+    <div class="mx-4 d-none d-md-block">
       <img class="avatar" src="<%= gravatar_url_for(forum_thread.user.email, size: 30) %>" />
     </div>
     <div class="thread-container">
