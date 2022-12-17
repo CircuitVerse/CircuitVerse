@@ -1,6 +1,7 @@
 $button-border-radius: 8px;
 $link-inactive-color: #555555;
 $link-active-color: #000000;
+$brand-color: #4DDB9B;
 
 .simple_discussion {
   margin: 0 auto;
@@ -9,8 +10,8 @@ $link-active-color: #000000;
   // Primary button for Simple Discussion Forum
   // Background Color filled
   .green-btn {
-    background-color: #4DDB9B;
-    border-color: #4DDB9B;
+    background-color: $brand-color;
+    border-color: $brand-color;
     color: #FFFFFF;
     border-radius: $button-border-radius;
 
@@ -23,8 +24,8 @@ $link-active-color: #000000;
   // Outline button for Simple Discussion Forum
   .green-outline-btn{
     background-color: #FFFFFF;
-    border-color: #4DDB9B;
-    color: #4DDB9B;
+    border-color: $brand-color;
+    color: $brand-color;
     border-radius: $button-border-radius;
 
     &:hover {
@@ -71,5 +72,74 @@ $link-active-color: #000000;
 
   .custom-select{
     border-radius: $button-border-radius;
+  }
+
+  .forum-thread{
+    .avatar{
+      border-radius: 50%;
+    }
+
+    .thread-container{
+      width: 100%;
+      text-decoration: none;
+      .thread-header{
+        .thread-title{
+          font-size: 1.1rem;
+          font-weight: 700;
+          text-decoration: none;
+          color: #000000;
+          letter-spacing: 1.025px;
+        }
+        .icons{
+          font-weight: 500;
+          i{
+            margin-right: 5px;
+            font-size: 1.2rem;
+          }
+
+          .chat-icon{
+            i{
+              color: #D3DFE2;
+            }
+          }
+          .solved-tag{
+            i{
+              color: $brand-color;
+            }
+          }
+          .unsolved-tag{
+            i{
+              color: #F29D38;
+            }
+          }
+        }
+      }
+
+      .thread-content{
+        text-align: justify;
+        color: $link-inactive-color;
+        font-weight: 400;
+      }
+
+      .thread-author{
+        font-weight: 600;
+        color: $link-inactive-color;
+        span{
+          color: #1d1d1d;
+          font-weight: 600;
+        }
+      }
+
+      .category-chip{
+        height: fit-content;
+        padding: 2px 15px;
+        font-size: 0.9rem;
+        // background-color: #F3F4F6;
+        font-weight: 600;
+        border-radius: 20px;
+        border-width: 0.8px;
+        border-style: solid;
+      }
+    }
   }
 }
