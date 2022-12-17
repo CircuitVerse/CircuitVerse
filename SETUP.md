@@ -127,12 +127,14 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
 
 ### Enabling/Disabling features with Flipper 
-By default `:forum` and `:recaptcha` features are set to false.These can be enabled either via rails console or Flipper dashboard.
-```
+By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
+```ruby
 rails c
-# enable features (:recaptcha, :forum)
+
+# Enable features (:recaptcha, :forum)
 > Flipper.enable :recaptcha
-# disable features (:project_comments, :lms_integration)
+
+# Disable features (:project_comments, :lms_integration)
 > Flipper.disable :forum
 ```
 Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
