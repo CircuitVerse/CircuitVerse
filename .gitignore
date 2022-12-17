@@ -8,6 +8,7 @@
 /.bundle
 /.idea
 test_results
+/vendor
 
 public/assets/
 
@@ -17,6 +18,7 @@ public/assets/
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
+/db/schema.rb
 
 # Ignore all logfiles and tempfiles.
 /log/*

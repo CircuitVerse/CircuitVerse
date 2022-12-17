@@ -11,12 +11,17 @@
       <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
     </div>
-    <% if @unread.count.positive? %>
-      <div>
+  <div>
+      <% if @unread.count.positive? %>
         <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), :method=> :patch, class: "anchor-text" %>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+      <% if @notification.count.positive? %>
+        <%= link_to '#', data: {toggle: "modal", target: "#clear_all_modal_confirmation" }, class: "anchor-text-danger" do %>
+          <span><%= t("users.notifications.clear_all") %></span>
+        <% end %>
+      <% end %>
+    </div>
+    </div>
   <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-10 mt-3 notifications_container">
     <% @notifications.each do |notification| %>
       <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: 'mb-2 mt-2 notification' do %>
@@ -70,4 +75,5 @@
       </div>
     <% end %>
   </div>
+    <%= render partial: "clear_all_confirmation_modal" %>
 </div>
