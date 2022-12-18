@@ -2,12 +2,12 @@
   <div class="col-md-11 block-inline mb-2">
     <h4 style="display:inline"><%= icon "fas", "thumb-tack", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h4>
     <% if @forum_thread.solved? %>
-      <div class="px-4 solved-tag" style="display:inline">
+      <div class="px-3 solved-tag" style="display:inline">
         <%= icon "far", "check-circle" %>
         Solved
       </div>
     <% else  %>
-      <div class="px-4 unsolved-tag" style="display:inline">
+      <div class="px-3 unsolved-tag" style="display:inline">
         <%= icon "far", "question-circle" %>
         Open
       </div>
