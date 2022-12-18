@@ -1,7 +1,7 @@
 <%= cache forum_thread do %>
   <div class="forum-thread d-flex flex-row mb-4">
     <div class="mx-4 d-none d-md-block">
-      <img class="avatar" src="<%= gravatar_url_for(forum_thread.user.email, size: 30) %>" >
+      <img class="avatar" src="<%= gravatar_url_for(forum_thread.user.email,size: 30) %>" alt="user avatar">
     </div>
     <div class="thread-container">
       <div class="thread-header d-flex flex-row justify-content-between mb-1">

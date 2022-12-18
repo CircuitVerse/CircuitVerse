@@ -6,7 +6,7 @@
         <%= icon "far", "check-circle" %>
         Solved
       </div>
-    <% else  %>
+    <% else %>
       <div class="px-3 unsolved-tag" style="display:inline">
         <%= icon "far", "question-circle" %>
         Open
@@ -35,8 +35,6 @@
 </div>
 
 <%= render partial: "simple_discussion/forum_posts/forum_post", collection: @forum_thread.forum_posts.includes(:user).sorted %>
-
-
 <%= render partial: "simple_discussion/forum_posts/form" if user_signed_in? %>
 
-<%= render partial: "login_bar" if !user_signed_in?%>
+<%= render partial: "login_bar" if !user_signed_in? %>
