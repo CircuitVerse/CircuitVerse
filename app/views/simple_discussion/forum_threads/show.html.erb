@@ -1,6 +1,9 @@
 <div class="row">
-  <div class="col-md-11">
-    <h1><%= icon "fas", "thumb-tack", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h1>
+  <div class="col-md-11 block-inline mb-1">
+    <h4 style="display:inline"><%= icon "fas", "thumb-tack", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h4>
+    <div class="px-4 solved-tag" style="display:inline">
+      <%= icon "far", "check-circle" %> Solved
+    </div>
   </div>
 
   <% if is_moderator_or_owner?(@forum_thread) %>
@@ -14,10 +17,14 @@
 
 </div>
 
-<p class="thread-details">
-  <strong><%= category_link(@forum_thread.forum_category) %></strong>
-  • <%= t('asked_time_ago', time: time_ago_in_words(@forum_thread.created_at), author: @forum_thread.user.name) %>
-</p>
+<div class="d-flex mb-3">
+  <div class="thread-details-custom">
+    Created by <span><%= @forum_thread.user.name %></span> • <span><%= time_ago_in_words(@forum_thread.created_at) %></span> ago
+  </div>
+  <div class="category-chip mx-3" style="color: <%= @forum_thread.forum_category.color %>; border-color: <%= @forum_thread.forum_category.color %>">
+    <%= @forum_thread.forum_category.name %>
+  </div>
+</div>
 
 <%= render partial: "simple_discussion/forum_posts/forum_post", collection: @forum_thread.forum_posts.includes(:user).sorted %>
 

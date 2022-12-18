@@ -2,6 +2,7 @@ $button-border-radius: 8px;
 $link-inactive-color: #555555;
 $link-active-color: #000000;
 $brand-color: #4DDB9B;
+$thread-opened-color: #F29D38;
 
 .simple_discussion {
   margin: 0 auto;
@@ -87,7 +88,7 @@ $brand-color: #4DDB9B;
           font-size: 1.1rem;
           font-weight: 700;
           text-decoration: none;
-          color: #000000;
+          color: #171a1e!important;
           letter-spacing: 1.025px;
         }
         .icons{
@@ -109,7 +110,7 @@ $brand-color: #4DDB9B;
           }
           .unsolved-tag{
             i{
-              color: #F29D38;
+              color: $thread-opened-color;
             }
           }
         }
@@ -126,20 +127,37 @@ $brand-color: #4DDB9B;
         color: $link-inactive-color;
         span{
           color: #1d1d1d;
-          font-weight: 600;
         }
       }
+    }
+  }
 
-      .category-chip{
-        height: fit-content;
-        padding: 2px 15px;
-        font-size: 0.9rem;
-        // background-color: #F3F4F6;
-        font-weight: 600;
-        border-radius: 20px;
-        border-width: 0.8px;
-        border-style: solid;
-      }
+  .category-chip{
+    height: fit-content;
+    padding: 2px 15px;
+    font-size: 0.9rem;
+    // background-color: #F3F4F6;
+    font-weight: 600;
+    border-radius: 20px;
+    border-width: 0.1px;
+    border-style: solid;
+  }
+
+  .solved-tag{
+    font-weight: 500;
+    i{
+      color: $brand-color;
+      margin-right: 3px;
+      font-size: 1.4rem;
+    }
+  }
+
+  .thread-details-custom{
+    font-weight: 500;
+    color: $link-inactive-color;
+    span{
+      font-weight: 600;
+      color: #1d1d1d;
     }
   }
 }
