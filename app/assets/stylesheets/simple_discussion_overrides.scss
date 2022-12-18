@@ -6,7 +6,7 @@ $link-active-color: #000;
 $brand-color: #4ddb9b;
 $thread-opened-color: #f29d38;
 $button-background-color: #fff;
-$button-hover-shadow-color: rgba(77, 219, 155, 0.5);
+$button-hover-shadow-color: rgba(77, 219, 155, .5);
 $forum-thread-filter-btn-link-hover-background: #f3f4f6;
 
 .simple_discussion {
@@ -48,6 +48,10 @@ $forum-thread-filter-btn-link-hover-background: #f3f4f6;
       cursor: pointer;
       font-weight: 500;
       padding: 10px 12px;
+
+      i {
+        margin-right: 14px;
+      }
     }
 
     .btn-link:hover {
@@ -57,18 +61,12 @@ $forum-thread-filter-btn-link-hover-background: #f3f4f6;
       text-decoration: none;
     }
 
-    .btn-link i {
-      margin-right: 14px;
-    }
-
     // Main links
     a {
       margin-bottom: 5px;
       text-decoration: none;
-    }
-
-    a .active {
-      .btn-link {
+      
+      .active .btn-link {
         background-color: $forum-thread-filter-btn-link-hover-background;
         color: $link-active-color;
       }
@@ -89,13 +87,13 @@ $forum-thread-filter-btn-link-hover-background: #f3f4f6;
       width: 100%;
 
       .thread-header .thread-title {
+        color: #171a1e!important;
         font-size: 1.1rem;
         font-weight: 700;
-        text-decoration: none;
-        color: #171a1e!important;
         letter-spacing: 1.025px;
+        text-decoration: none;
       }
-      
+
       .thread-header .icons {
         font-weight: 500;
         i {
