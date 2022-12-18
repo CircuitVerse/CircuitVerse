@@ -1,10 +1,13 @@
 $button-border-radius: 8px;
 $post-body-border-radius: 8px;
 $avatar-image-border-radius: 8px;
-$link-inactive-color: #555555;
-$link-active-color: #000000;
-$brand-color: #4DDB9B;
-$thread-opened-color: #F29D38;
+$link-inactive-color: #555;
+$link-active-color: #000;
+$brand-color: #4ddb9b;
+$thread-opened-color: #f29d38;
+$button-background-color: #fff;
+$button-hover-shadow-color: rgba(77, 219, 155, 0.5);
+$forum-thread-filter-btn-link-hover-background: #f3f4f6;
 
 .simple_discussion {
   margin: 0 auto;
@@ -15,105 +18,104 @@ $thread-opened-color: #F29D38;
   .green-btn {
     background-color: $brand-color;
     border-color: $brand-color;
-    color: #FFFFFF;
     border-radius: $button-border-radius;
+    color: $button-background-color;
 
     &:hover {
       // border shadow with blur
-      box-shadow: 0 0 0 0.2rem rgba(77, 219, 155, 0.5);
+      box-shadow: 0 0 0 .2rem $button-hover-shadow-color;
     }
   }
 
   // Outline button for Simple Discussion Forum
-  .green-outline-btn{
-    background-color: #FFFFFF;
+  .green-outline-btn {
+    background-color: $button-background-color;
     border-color: $brand-color;
-    color: $brand-color;
     border-radius: $button-border-radius;
+    color: $brand-color;
 
     &:hover {
       // border shadow with blur
-      box-shadow: 0 0 0 0.2rem rgba(77, 219, 155, 0.5);
+      box-shadow: 0 0 0 .2rem $button-hover-shadow-color;
     }
   }
 
-  .forum-thread-filters{
+  .forum-thread-filters {
     // Div inside the forum thread filters link
-    .btn-link{
-      padding: 10px 12px;
+    .btn-link {
       border-radius: $button-border-radius;
-      cursor: pointer;
       color: $link-inactive-color;
+      cursor: pointer;
       font-weight: 500;
-      
-      i{
-        margin-right: 14px;
-      }
+      padding: 10px 12px;
+    }
 
-      &:hover{
-        background-color: #F3F4F6;
-        color: $link-active-color;
-        font-weight: 500;
-        text-decoration: none!important;
-      }
+    .btn-link:hover {
+      background-color: $forum-thread-filter-btn-link-hover-background;
+      color: $link-active-color;
+      font-weight: 500;
+      text-decoration: none;
+    }
 
+    .btn-link i {
+      margin-right: 14px;
     }
 
     // Main links
-    a{
-      text-decoration: none!important;
+    a {
       margin-bottom: 5px;
+      text-decoration: none;
+    }
 
-      &.active{
-        .btn-link{
-          color: $link-active-color;
-          background-color: #F3F4F6;
-        }
+    a .active {
+      .btn-link {
+        background-color: $forum-thread-filter-btn-link-hover-background;
+        color: $link-active-color;
       }
     }
   }
 
-  .custom-select{
+  .custom-select {
     border-radius: $button-border-radius;
   }
 
-  .forum-thread{
-    .avatar{
+  .forum-thread {
+    .avatar {
       border-radius: 50%;
     }
 
-    .thread-container{
-      width: 100%;
+    .thread-container {
       text-decoration: none;
-      .thread-header{
-        .thread-title{
-          font-size: 1.1rem;
-          font-weight: 700;
-          text-decoration: none;
-          color: #171a1e!important;
-          letter-spacing: 1.025px;
-        }
-        .icons{
-          font-weight: 500;
-          i{
-            margin-right: 5px;
-            font-size: 1.2rem;
-          }
+      width: 100%;
 
-          .chat-icon{
-            i{
-              color: #D3DFE2;
-            }
+      .thread-header .thread-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: #171a1e!important;
+        letter-spacing: 1.025px;
+      }
+      
+      .thread-header .icons {
+        font-weight: 500;
+        i {
+          margin-right: 5px;
+          font-size: 1.2rem;
+        }
+
+        .chat-icon {
+          i{
+            color: #D3DFE2;
           }
-          .solved-tag{
-            i{
-              color: $brand-color;
-            }
+        }
+        .solved-tag {
+          i{
+            color: $brand-color;
           }
-          .unsolved-tag{
-            i{
-              color: $thread-opened-color;
-            }
+        }
+        .unsolved-tag {
+          i{
+            color: $thread-opened-color;
           }
         }
       }
