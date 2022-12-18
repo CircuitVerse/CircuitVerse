@@ -35,9 +35,9 @@
 
   <div class="form-group text-right">
     <% if f.object.new_record? %>
-      <%= f.button t('ask_your_question'), class: "btn btn-primary", data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> #{t('saving')}"} %>
+      <%= f.button t('ask_your_question'), class: "btn green-btn", data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> #{t('saving')}"} %>
     <% else %>
-      <%= f.button "Update Thread", class: "btn btn-primary", data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> #{t('saving')}"} %>
+      <%= f.button "Update Thread", class: "btn green-btn", data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> #{t('saving')}"} %>
     <% end %>
   </div>
 
