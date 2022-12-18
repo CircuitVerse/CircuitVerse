@@ -38,3 +38,5 @@
 
 
 <%= render partial: "simple_discussion/forum_posts/form" if user_signed_in? %>
+
+<%= render partial: "login_bar" if !user_signed_in?%>
