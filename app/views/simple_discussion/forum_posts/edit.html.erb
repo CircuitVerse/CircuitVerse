@@ -1,24 +1,34 @@
-<p><small><%= link_to "← Back to the thread", simple_discussion.forum_thread_path(@forum_thread) %></small></p>
+<%= link_to simple_discussion.forum_thread_path(@forum_thread), class: "btn btn-outline-secondary" do %>
+  <%= icon("fas", "arrow-left") %>&nbsp;&nbsp;
+  <%= t('back_to_thread') %>
+<% end %>
 
-<h2><%= content_tag :span, "Pinned", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h2>
 
-<p class="thread-details">
-  <strong><%= category_link(@forum_thread.forum_category) %></strong>
-  • <%= t('asked_time_ago', time: time_ago_in_words(@forum_thread.created_at), author: @forum_thread.user.name) %>
-</p>
-</p>
+<div class="block-inline mb-1 mt-3">
+  <h4 style="display:inline"><%= icon "fas", "thumb-tack", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h4>
+  <div class="px-4 solved-tag" style="display:inline">
+    <%= icon "far", "check-circle" %> Solved
+  </div>
+</div>
 
-<br />
+<div class="d-flex mb-4">
+  <div class="thread-details-custom">
+    Created by <span><%= @forum_thread.user.name %></span> • <span><%= time_ago_in_words(@forum_thread.created_at) %></span> ago
+  </div>
+  <div class="category-chip mx-3" style="color: <%= @forum_thread.forum_category.color %>; border-color: <%= @forum_thread.forum_category.color %>">
+    <%= @forum_thread.forum_category.name %>
+  </div>
+</div>
 
-<%= content_tag :div, id: dom_id(@forum_post), class: forum_post_classes(@forum_post) do %>
-  <div class="card-header">
-    <div>
-      <%= avatar_tag(@forum_post.user.email) %>
-      <strong class="forum-post-user"><%= @forum_post.user.name %></strong>
-      <small>
-        <%= t('commented_on')%>
-        <%= link_to @forum_post.created_at.strftime("%b %d, %Y"), simple_discussion.forum_thread_url(@forum_thread, anchor: "forum_post_#{@forum_post.id}") %>:
-      </small>
+
+<%= content_tag :div, id: dom_id(@forum_post), class:  '{forum_post_classes(@forum_post)}p-0 border-0' do %>
+  <div class="form-user-details">
+    <div class="user-details d-flex flex-row">
+      <div class="user-avatar mr-2" ><img src="<%= gravatar_url_for(@forum_post.user.email, size: 30) %>" /></div>
+      <div class="details d-flex flex-column justify-content-between">
+        <p class="title"><%= @forum_post.user.name %> <%= forum_user_badge(@forum_post.user) %></p>
+        <p class="subtitle"><%= t('on ') %>  <%= @forum_post.created_at.strftime("%b %d, %Y") %></p>
+      </div>
     </div>
   </div>
 

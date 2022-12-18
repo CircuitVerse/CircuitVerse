@@ -1,9 +1,17 @@
 <div class="row">
   <div class="col-md-11 block-inline mb-2">
     <h4 style="display:inline"><%= icon "fas", "thumb-tack", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h4>
-    <div class="px-4 solved-tag" style="display:inline">
-      <%= icon "far", "check-circle" %> Solved
-    </div>
+    <% if @forum_thread.solved? %>
+      <div class="px-4 solved-tag" style="display:inline">
+        <%= icon "far", "check-circle" %>
+        Solved
+      </div>
+    <% else  %>
+      <div class="px-4 unsolved-tag" style="display:inline">
+        <%= icon "far", "question-circle" %>
+        Open
+      </div>
+    <% end %>
   </div>
 
   <% if is_moderator_or_owner?(@forum_thread) %>

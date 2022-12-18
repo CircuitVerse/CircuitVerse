@@ -154,6 +154,16 @@ $thread-opened-color: #F29D38;
     }
   }
 
+
+  .unsolved-tag{
+    font-weight: 500;
+    i{
+      color: $thread-opened-color;
+      margin-right: 3px;
+      font-size: 1.4rem;
+    }
+  }
+
   .thread-details-custom{
     font-weight: 500;
     color: $link-inactive-color;
@@ -166,40 +176,41 @@ $thread-opened-color: #F29D38;
   .forum-post{
     padding: 10px;
     border-radius: $post-body-border-radius;
-    .forum-post-header{
-      p{
-        padding: 0;
-        margin: 0;
-      }
-      .user-details{
-        .user-avatar{
-          border-radius: $avatar-image-border-radius;
-          width: fit-content;
-          height: fit-content;
-          overflow: hidden;
-          img{
-            width: 40px;
-            height: 40px;
-            object-fit: cover;
-          }
-        }
-        .details{
-          font-weight: 600; 
-          .title{
-            color: $link-active-color;
-          }
-          .subtitle{
-           color: $link-inactive-color;
-           font-size: 0.9rem;
-          }
-        }
-      }
-
-    }
 
     &:hover{
       background-color: #F4F3F3;
     }
+  }
+
+  .forum-post .forum-post-header, .form-user-details{
+    p{
+      padding: 0;
+      margin: 0;
+    }
+    .user-details{
+      .user-avatar{
+        border-radius: $avatar-image-border-radius;
+        width: fit-content;
+        height: fit-content;
+        overflow: hidden;
+        img{
+          width: 40px;
+          height: 40px;
+          object-fit: cover;
+        }
+      }
+      .details{
+        font-weight: 600; 
+        .title{
+          color: $link-active-color;
+        }
+        .subtitle{
+         color: $link-inactive-color;
+         font-size: 0.9rem;
+        }
+      }
+    }
+
   }
 
 }

@@ -26,7 +26,6 @@
         <p class="title"><%= forum_post.user.name %> <%= forum_user_badge(forum_post.user) %></p>
         <p class="subtitle"><%= t('on ') %>  <%= forum_post.created_at.strftime("%b %d, %Y") %></p>
       </div>
-
     </div>
   </div>
 
@@ -35,7 +34,7 @@
   </div>
 
   <% if @forum_thread.solved? && forum_post.solved? %>
-    <div class="card-footer border-0 bg-transparent pt-0">
+    <div class="card-footer border-0 bg-transparent pt-0 mb-0">
       <div class="pull-right">
         <strong class="text-success"><%= icon("fas","check") %> <%= t('solved') %></strong>
         <% if is_moderator_or_owner?(@forum_thread) %>
@@ -45,10 +44,10 @@
     </div>
 
   <% elsif is_moderator_or_owner?(@forum_thread) %>
-    <div class="card-footer border-0 bg-transparent pt-0" style="background-color: #e1fff2; color: #4DDB9B; font-size: 1.1rem; font-weight: 500">
+    <div class="card-footer border-0 bg-transparent pt-0 mb-0" style="background-color: #e1fff2; color: #4DDB9B; font-size: 1.05rem; font-weight: 500">
       <div class="pull-right">
         <%= link_to simple_discussion.solved_forum_thread_forum_post_path(@forum_thread, forum_post), method: :put do %>
-          <%= icon("fas", "check") %>
+          <%= icon("fas", "check") %>&nbsp;&nbsp;
           <%= t('mark_as_solved') %>
         <% end %>
       </div>
