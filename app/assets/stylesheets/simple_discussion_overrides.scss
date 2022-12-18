@@ -85,51 +85,45 @@ $forum-thread-filter-btn-link-hover-background: #f3f4f6;
     .thread-container {
       text-decoration: none;
       width: 100%;
+    }
 
-      .thread-header-title {
-        color: #171a1e;
-        font-size: 1.1rem;
-        font-weight: 700;
-        letter-spacing: 1.025px;
-        text-decoration: none;
+    .thread-header-title {
+      color: #171a1e;
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 1.025px;
+      text-decoration: none;
+    }
+
+    .thread-header-icons {
+      font-weight: 500;
+      i {
+        margin-right: 5px;
+        font-size: 1.2rem;
       }
 
-      .thread-header-icons {
-        font-weight: 500;
-        i {
-          margin-right: 5px;
-          font-size: 1.2rem;
-        }
-
-        .chat-icon {
-          i{
-            color: #D3DFE2;
-          }
-        }
-        .solved-tag {
-          i{
-            color: $brand-color;
-          }
-        }
-        .unsolved-tag {
-          i{
-            color: $thread-opened-color;
-          }
-        }
+      .chat-icon i {
+        color: #D3DFE2;
       }
-
-      .thread-content{
-        text-align: justify;
-        color: $link-inactive-color;
-        font-weight: 400;
+      .solved-tag i {
+        color: $brand-color;
       }
+      .unsolved-tag i {
+        color: $thread-opened-color;
+      }
+    }
 
-      .thread-author{
-        font-weight: 600;
-        color: $link-inactive-color;
-        span{
-          color: #1d1d1d;
-        }
+    .thread-content{
+      text-align: justify;
+      color: $link-inactive-color;
+      font-weight: 400;
+    }
+
+    .thread-author{
+      font-weight: 600;
+      color: $link-inactive-color;
+      span{
+        color: #1d1d1d;
       }
     }
   }
