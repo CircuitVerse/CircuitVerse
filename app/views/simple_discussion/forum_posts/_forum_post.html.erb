@@ -17,7 +17,7 @@
       </div>
     <% end %>
     <div class="user-details d-flex flex-row">
-      <div class="user-avatar mr-2" ><img src="<%= gravatar_url_for(forum_post.user.email, size: 30) alt="avatar of user" %>" ></div>
+      <div class="user-avatar mr-2" ><img src="<%= gravatar_url_for(forum_post.user.email, size: 30) %>" alt="avatar of user" ></div>
       <div class="details d-flex flex-column justify-content-between">
         <p class="title"><%= forum_post.user.name %> <%= forum_user_badge(forum_post.user) %></p>
         <p class="subtitle"><%= t('on ') %>  <%= forum_post.created_at.strftime("%b %d, %Y") %></p>
