@@ -2,8 +2,6 @@
   <%= icon("fas", "arrow-left") %>&nbsp;&nbsp;
   <%= t('back_to_thread') %>
 <% end %>
-
-
 <div class="block-inline mb-1 mt-3">
   <h4 style="display:inline"><%= icon "fas", "thumb-tack", class: "text-muted" if @forum_thread.pinned? %> <%= @forum_thread.title %></h4>
   <% if @forum_thread.solved? %>
@@ -11,7 +9,7 @@
       <%= icon "far", "check-circle" %>
       Solved
     </div>
-  <% else  %>
+  <% else %>
     <div class="px-3 unsolved-tag" style="display:inline">
       <%= icon "far", "question-circle" %>
       Open
@@ -32,7 +30,7 @@
 <%= content_tag :div, id: dom_id(@forum_post), class:  '{forum_post_classes(@forum_post)}p-0 border-0' do %>
   <div class="form-user-details">
     <div class="user-details d-flex flex-row">
-      <div class="user-avatar mr-2" ><img src="<%= gravatar_url_for(@forum_post.user.email, size: 30) %>" /></div>
+      <div class="user-avatar mr-2" ><img src="<%= gravatar_url_for(@forum_post.user.email, size: 30) %>" ></div>
       <div class="details d-flex flex-column justify-content-between">
         <p class="title"><%= @forum_post.user.name %> <%= forum_user_badge(@forum_post.user) %></p>
         <p class="subtitle"><%= t('on ') %>  <%= @forum_post.created_at.strftime("%b %d, %Y") %></p>
