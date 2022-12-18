@@ -65,7 +65,7 @@ $forum-thread-filter-btn-link-hover-background: #f3f4f6;
     a {
       margin-bottom: 5px;
       text-decoration: none;
-      
+
       .active .btn-link {
         background-color: $forum-thread-filter-btn-link-hover-background;
         color: $link-active-color;
@@ -86,15 +86,15 @@ $forum-thread-filter-btn-link-hover-background: #f3f4f6;
       text-decoration: none;
       width: 100%;
 
-      .thread-header .thread-title {
-        color: #171a1e!important;
+      .thread-header-title {
+        color: #171a1e;
         font-size: 1.1rem;
         font-weight: 700;
         letter-spacing: 1.025px;
         text-decoration: none;
       }
 
-      .thread-header .icons {
+      .thread-header-icons {
         font-weight: 500;
         i {
           margin-right: 5px;
