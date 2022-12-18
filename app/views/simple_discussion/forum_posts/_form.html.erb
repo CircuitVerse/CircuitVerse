@@ -1,0 +1,28 @@
+<div class="mt-4"></div>
+<%= form_for [@forum_thread, @forum_post],
+  url: (@forum_post.persisted? ? simple_discussion.forum_thread_forum_post_path(@forum_thread, @forum_post) : simple_discussion.forum_thread_forum_posts_path(@forum_thread)),
+  html: { data: { behavior: "comment-form" } } do |f| %>
+
+  <% if @forum_post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@forum_post.errors.count, "error") %> prohibited this forum_post from being saved:</h2>
+
+      <ul>
+        <% @forum_post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="d-block position-relative">
+  <div class="form-group">
+    <%= f.text_area :body, placeholder: t('add_a_comment'), rows: 8, class: "form-control simplemde", data: { behavior: "comment-body" } %>
+  </div>
+  <%= f.button "#{f.object.new_record? ? t('comment') : t('update_comment')  }", class: "btn green-btn position-absolute", style: "bottom: 10px; right: 10px", data: {disable_with: "<i class='fa fa-spinner fa-spin'></i> #{t('saving_comment')}"} %>
+</div>
+
+  <%# Describe text formatting options here with a link %>
+  <%#= link_to "Parsed with Markdown", "https://guides.github.com/features/mastering-markdown/", target: "_blank" %>
+
+<% end %>

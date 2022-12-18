@@ -1,0 +1,17 @@
+<select class="custom-select w-auto mr-auto mb-4" onchange="window.location.href=this.value" name="choose_category">
+  <option value="<%= simple_discussion.forum_threads_path %>" <% if request.path == simple_discussion.forum_threads_path %> selected <% end %>>All Catgeories&nbsp;&nbsp;&nbsp;</option>
+  <% ForumCategory.sorted.each do |category| %>
+    <option value="<%= simple_discussion.forum_category_forum_threads_path(category) %>" <% if request.path == simple_discussion.forum_category_forum_threads_path(category) %> selected <% end %> ><%= category.name %>&nbsp;&nbsp;&nbsp;</option>
+  <% end %>
+</select>
+<% if @forum_threads.none? %>
+  <div><%= t('search_not_found') %>. <%= t('check_out') %> <%= link_to t('latest_questions'), simple_discussion.forum_threads_path %> <%= t('instead') %> </div>
+<% else %>
+
+  <%= render partial: "simple_discussion/forum_threads/forum_thread", collection: @forum_threads %>
+
+  <div class="forum-threads-nav text-center">
+    <%= will_paginate @forum_threads, url_builder: simple_discussion, renderer: SimpleDiscussion::BootstrapLinkRenderer %>
+  </div>
+
+<% end %>

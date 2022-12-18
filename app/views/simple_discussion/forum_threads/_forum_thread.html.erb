@@ -1,0 +1,43 @@
+<%= cache forum_thread do %>
+  <div class="forum-thread d-flex flex-row mb-4">
+    <div class="mx-4 d-none d-md-block">
+      <img class="avatar" src="<%= gravatar_url_for(forum_thread.user.email,size: 30) %>" alt="user avatar">
+    </div>
+    <div class="thread-container">
+      <div class="thread-header d-flex flex-row justify-content-between mb-1">
+        <%= link_to simple_discussion.forum_thread_path(forum_thread), class: "thread-header-title" do %>
+          <%= icon "fas", "thumb-tack", class: "text-muted" if forum_thread.pinned? %> <%= forum_thread.title %>
+        <% end %>
+        <div class="thread-header-icons d-flex flex-row">
+          <div class="chat-icon mr-3">
+            <%= icon "fas", "comments" %>
+            <%= forum_thread.forum_posts_count %>
+          </div>
+
+          <% if forum_thread.solved? %>
+            <div class="solved-tag">
+              <%= icon "far", "check-circle" %>
+              Solved
+            </div>
+          <% else %>
+            <div class="unsolved-tag">
+              <%= icon "far", "question-circle" %>
+              Open
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="thread-content mb-2">
+        <%= truncate(forum_thread.forum_posts.first ? forum_thread.forum_posts.first.body : "No Posts", length: 400) %>
+      </div>
+
+      <div class="thread-author d-flex flex-row  align-items-center">
+        <p class="p-0 m-0 mr-3">Created By <span><%= forum_thread.user.name %></span> • <span><%= time_ago_in_words(forum_thread.created_at) %></span> ago</p>
+        <div class="category-chip" style="color: <%= forum_thread.forum_category.color %>; border-color: <%= forum_thread.forum_category.color %>">
+          <%= forum_thread.forum_category.name %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

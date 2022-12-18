@@ -1,0 +1,67 @@
+<div class="row simple_discussion mt-2">
+  <div class="col-md-2 mb-3">
+
+    <div class="col">
+      <%= link_to t('ask_a_question'), simple_discussion.new_forum_thread_path, class: "btn green-btn btn-block mb-4" %>
+
+      <div class="forum-thread-filters">
+        <%= forum_link_to simple_discussion.forum_threads_path, exact: true do %>
+          <div class="btn-link">
+              <%= icon "fa-fw fas", "bars" %>
+              <%= t('.all_threads') %>
+          </div>
+        <% end %>
+
+        <% if user_signed_in? %>
+          <%= forum_link_to simple_discussion.mine_forum_threads_path do %>
+            <div class="btn-link">
+              <%= icon "fa-fw far", "user-circle" %>
+              <%= t('.my_questions') %>
+            </div>
+          <% end %>
+          <%= forum_link_to simple_discussion.participating_forum_threads_path do %>
+            <div class="btn-link">
+              <%= icon "fa-fw far", "comment-alt" %>
+              <%= t('.participating') %>
+            </div>
+          <% end %>
+        <% end %>
+
+        <%= forum_link_to simple_discussion.answered_forum_threads_path do %>
+          <div class="btn-link">
+            <%= icon "fa-fw far", "check-circle" %>
+            <%= t('.answered') %>
+          </div>
+        <% end %>
+
+        <%= forum_link_to simple_discussion.unanswered_forum_threads_path do %>
+          <div class="btn-link">
+            <%= icon "fa-fw far", "question-circle" %>
+            <%= t('.unanswered') %>
+          </div>
+        <% end %>
+      </div>
+      <% if @forum_thread.present? && @forum_thread.persisted? %>
+        <div class="mt-3">
+          <%# User has not posted in the thread or subscribed %>
+          <%= link_to simple_discussion.forum_thread_notifications_path(@forum_thread), method: :post, class: "btn green-outline-btn btn-block" do %>
+            <% if @forum_thread.subscribed? current_user %>
+              <%= icon "fa-fw fas", "bell-slash" %> <%= t('.unsubscribe') %>
+            <% else %>
+              <%= icon "fa-fw fas", "bell" %>
+              <%= t('.suscribe') %>
+            <% end %>
+          <% end %>
+          <small><%= @forum_thread.subscribed_reason(current_user) %></small>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+
+  <div class="col-md-10 mb-3">
+    <%= yield %>
+  </div>
+</div>
+
+<% parent_layout("application") %>
