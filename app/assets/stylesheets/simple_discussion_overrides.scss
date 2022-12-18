@@ -1,4 +1,6 @@
 $button-border-radius: 8px;
+$post-body-border-radius: 8px;
+$avatar-image-border-radius: 8px;
 $link-inactive-color: #555555;
 $link-active-color: #000000;
 $brand-color: #4DDB9B;
@@ -160,4 +162,44 @@ $thread-opened-color: #F29D38;
       color: #1d1d1d;
     }
   }
+
+  .forum-post{
+    padding: 10px;
+    border-radius: $post-body-border-radius;
+    .forum-post-header{
+      p{
+        padding: 0;
+        margin: 0;
+      }
+      .user-details{
+        .user-avatar{
+          border-radius: $avatar-image-border-radius;
+          width: fit-content;
+          height: fit-content;
+          overflow: hidden;
+          img{
+            width: 40px;
+            height: 40px;
+            object-fit: cover;
+          }
+        }
+        .details{
+          font-weight: 600; 
+          .title{
+            color: $link-active-color;
+          }
+          .subtitle{
+           color: $link-inactive-color;
+           font-size: 0.9rem;
+          }
+        }
+      }
+
+    }
+
+    &:hover{
+      background-color: #F4F3F3;
+    }
+  }
+
 }
