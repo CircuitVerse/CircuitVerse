@@ -1,4 +1,21 @@
+// Colors of the button is depend on this brand-color
+$brand-color: #4ddb9b; 
+// Color for icon and text of `Closed` / `solved` tag
+$thread-solved-color: #4ddb9b; 
+// Color for icon and text of `Opened` / `Unsolved` tag
+$thread-unsolved-color: #f29d38; 
+// Button background color for primary buttons
+$button-background-color: #fff;
+// Shadown color when hovering over the buttons
+$button-hover-shadow-color: rgba(77, 219, 155, .5); 
+$link-active-color: #000;
+$link-inactive-color: #555;
+// Color for thread filter buttons on hover
+$forum-thread-filter-btn-link-hover-background: #f3f4f6;
+
+
 .simple_discussion {
   margin: 0 auto;
   width: 95%;
 }
+
