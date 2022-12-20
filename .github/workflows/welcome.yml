@@ -14,7 +14,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           FIRST_ISSUE: |
             👋 @{{ author }}
-             Thanks for opening your first issue here! 
+             Thanks for opening your first issue here. We are glad to see your interest in enhancing CircuitVerse. We recommend getting this reviewed by the community once in the slack #community channel. 
 
 #           FIRST_PR: |
 #             👋 @{{ author }}
