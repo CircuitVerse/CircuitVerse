@@ -22,4 +22,4 @@ jobs:
 
           FIRST_PR_MERGED: |
             🎉 @{{ author }}
-            Congrats on merging your first pull request! You can checkout the contribution guidelines [here](https://github.com/CircuitVerse/CircuitVerse/blob/master/CONTRIBUTING.md).
+            Congratulations on getting your first pull request merged. Welcome to the CircuitVerse community. We hope you continue contributing to CircuitVerse and improving CircuitVerse. You can check out the contribution guidelines [here](https://github.com/CircuitVerse/CircuitVerse/blob/master/CONTRIBUTING.md).
