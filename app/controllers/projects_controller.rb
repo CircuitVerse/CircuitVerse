@@ -11,6 +11,7 @@ class ProjectsController < ApplicationController
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
+  before_action :sanitize_tags, only: %i[create update]
   before_action :sanitize_project_description, only: %i[show edit]
 
   # GET /projects
@@ -38,7 +39,29 @@ class ProjectsController < ApplicationController
   end
 
   # GET /projects/1/edit
-  def edit; end
+  def edit
+    return unless Flipper.enabled?(:suggest_tags)
+
+    @suggested_tags = []
+    # generating tags from the circuit elements used
+    circuit_data = JSON.parse(@project.project_datum.data)
+    circuit_data["scopes"][0].each do |key, _value|
+      temp_data = circuit_data["scopes"][0][key][0]
+      if temp_data.instance_of?(Hash) && temp_data.key?("objectType")
+        @suggested_tags.push(temp_data["objectType"].downcase)
+      end
+    end
+    # generating tags from the circuit name
+    project_name_tag = @project.name.split
+    project_name_tag.each do |tag|
+      @suggested_tags.push(tag.downcase)
+    end
+    # project tag list
+    @project_tag_list = @project.tag_list.split(", ")
+    @project_tag_list.map!(&:downcase)
+    # removing tags which are already present
+    @suggested_tags -= @project_tag_list
+  end
 
   def change_stars
     star = Star.find_by(user_id: current_user.id, project_id: @project.id)
@@ -138,6 +161,12 @@ class ProjectsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
       params.require(:project).permit(:name, :project_access_type, :description, :tag_list, :tags)
+    end
+
+    def sanitize_tags
+      return unless Flipper.enabled?(:suggest_tags)
+
+      params[:project][:tag_list] = params[:tag_list]
     end
 
     def sanitize_name
