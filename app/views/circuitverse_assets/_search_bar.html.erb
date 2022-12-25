@@ -1,9 +1,12 @@
 <div class="px-2">
-  <%= form_tag("/search", method: "get", id: 'search-box', class: 'search-bar-form') do %>
-    <%= select_tag :resource , options_for_select([ "u/", "p/" ], selected: params[:resource]), id: "search_type" %>
+  <%= form_tag("/search", method: "get", id: 'search-box', class: 'search-bar-form hidden-search-bar') do %>
+    <%= select_tag :resource , options_for_select([ ["u/", "Users"], ["p/", "Projects"] ], selected: params[:resource]), id: "search_type" %>
     <%= text_field_tag :q,params[:q], placeholder: "Search for projects/users (p/ or u/)", autocomplete:"off", class: "form-input" %>
     <button type="submit" name="button" value="Submit">
      <i class="fa fa-search" tabindex="0" aria-label="search"></i>
     </button>
+    <span>
+     <i id="search-toggle" class="fa fa-search" tabindex="0" aria-label="search"></i>
+    </span>
   <% end %>
 </div>

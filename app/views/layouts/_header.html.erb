@@ -47,7 +47,7 @@
         <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t("layout.link_to_about") %></a>
       </div>
     </ul>
-    <div class="large-screen-element ml-auto">
+    <div class="large-screen-element ml-auto" id="large-screen-search">
       <%= render "circuitverse_assets/search_bar"%>
     </div>
       <div class="nav-item px-2">
@@ -76,8 +76,32 @@
         </div>
       <% end %>
   </div>
-
 </nav>
 
 <script type="text/javascript">
+  search = document.querySelector('#search_type')
+	const form = document.getElementById("large-screen-search").children[0].children[0]
+  const list = [form.children[0], form.children[1], form.children[2], form.children[0].children[0], form.children[0].children[1] ]
+	const toggle = form.children[3].children[0]
+  console.log(list)
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('click', (e) => {
+	    const clickedElement = e.target
+
+	    if (clickedElement == toggle) {
+        form.classList.add("whole-search-bar")
+        form.classList.remove("hidden-search-bar")
+	    }
+      else if (list.includes(clickedElement)){
+        console.log(true)
+        form.classList.add("whole-search-bar")
+        form.classList.remove("hidden-search-bar")
+      }
+      else {
+        form.classList.remove("whole-search-bar")
+        form.classList.add("hidden-search-bar")
+      }
+    });
+  });
 </script>
