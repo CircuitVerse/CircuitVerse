@@ -1,9 +1,9 @@
-<div class="container navbar-search-container">
-  <div class="row center-row">
-  <%= form_tag("/search", method: "get", id: 'search-box', class: 'navbar-search-bar-form') do %>
-    <%= select_tag :resource , options_for_select([ "Users", "Projects" ],selected: params[:resource]), class: "navbar-search-bar-select", id: "search_type" %>
-    <%= text_field_tag :q,params[:q], placeholder: "Search for projects or users", autocomplete:"off", class: "form-control form-input navbar-search-bar-input" %>
-    <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
+<div class="px-2">
+  <%= form_tag("/search", method: "get", id: 'search-box', class: 'search-bar-form') do %>
+    <%= select_tag :resource , options_for_select([ "u/", "p/" ], selected: params[:resource]), id: "search_type" %>
+    <%= text_field_tag :q,params[:q], placeholder: "Search for projects/users (p/ or u/)", autocomplete:"off", class: "form-input" %>
+    <button type="submit" name="button" value="Submit">
+     <i class="fa fa-search" tabindex="0" aria-label="search"></i>
+    </button>
   <% end %>
-  </div>
 </div>
