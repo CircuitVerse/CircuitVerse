@@ -179,4 +179,4 @@ gem "jsbundling-rails", "~> 1.0"
 gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
 
-gem "noticed", "~> 1.5"
+gem "noticed", "~> 1.6"

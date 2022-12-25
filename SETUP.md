@@ -9,7 +9,7 @@ If you have any setup problems, please ensure you have read through all the inst
 There are several ways to run your own instance of CircuitVerse:
 
 ### Gitpod Cloud Environment
-[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment. 
+[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
 
 Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod) and pull requests can be created following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
 
@@ -63,7 +63,8 @@ cd CircuitVerse
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template)
+4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template): 
+     * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
@@ -89,7 +90,7 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
    - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
       1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
       2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
-      3. To use OSS CAD Suite 
+      3. To use OSS CAD Suite
 
       **Other Linux distros and macOS**
       ```shell
@@ -125,6 +126,19 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
+
+### Enabling/Disabling features with Flipper 
+By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
+```ruby
+rails c
+
+# Enable features (:recaptcha, :forum)
+> Flipper.enable :recaptcha
+
+# Disable features (:project_comments, :lms_integration)
+> Flipper.disable :forum
+```
+Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
 ### Additional setup instructions
 [Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
@@ -170,7 +184,11 @@ bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 
 
 ## Tests
-Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec`
+
+Before making a pull request, it is a good idea to check that all tests are passing locally.
+
+- To run the system tests, run `bundle exec rspec` .
+- To run the simulator tests, run `yarn run test` .
 
 **Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
 

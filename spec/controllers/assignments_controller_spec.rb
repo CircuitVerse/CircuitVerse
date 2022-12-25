@@ -213,6 +213,13 @@ describe AssignmentsController, type: :request do
             { description: "group assignment", name: "Test Name" } }
         end.to change(Assignment, :count).by(1)
       end
+
+      it "sends notifications to group members" do
+        sign_in @primary_mentor
+        post group_assignments_path(@group), params: { assignment:
+          { description: "group assignment", name: "Test Name" } }
+        expect(@member.noticed_notifications.count).to eq(1)
+      end
     end
 
     context "when a mentor is logged in" do

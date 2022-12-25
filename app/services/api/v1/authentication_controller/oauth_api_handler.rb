@@ -33,7 +33,7 @@ class Api::V1::AuthenticationController
       end
 
       def facebook_user
-        @response = HTTP.get("https://graph.facebook.com/v2.12/me"\
+        @response = HTTP.get("https://graph.facebook.com/v2.12/me" \
                              "?fields=name,email&access_token=#{@access_token}")
       end
 
