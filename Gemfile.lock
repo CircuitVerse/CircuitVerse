@@ -173,11 +173,11 @@ GEM
     country_select (6.1.1)
       countries (~> 4.2)
       sort_alphabetical (~> 1.1)
-    coveralls_reborn (0.23.1)
-      simplecov (>= 0.18.1, < 0.22.0)
-      term-ansicolor (~> 1.6)
-      thor (>= 0.20.3, < 2.0)
-      tins (~> 1.16)
+    coveralls_reborn (0.26.0)
+      simplecov (~> 0.22.0)
+      term-ansicolor (~> 1.7)
+      thor (~> 1.2)
+      tins (~> 1.32)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -582,7 +582,7 @@ GEM
       rails (>= 4.2)
       will_paginate (>= 3.1.0)
     simple_po_parser (1.1.6)
-    simplecov (0.21.2)
+    simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
@@ -627,7 +627,7 @@ GEM
     thor (1.2.1)
     tilt (2.0.10)
     timeout (0.3.1)
-    tins (1.31.1)
+    tins (1.32.1)
       sync
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
@@ -695,7 +695,7 @@ DEPENDENCIES
   coffee-rails (~> 5.0)
   commontator (~> 7.0.0)
   country_select (~> 6.0)
-  coveralls_reborn (~> 0.23.1)
+  coveralls_reborn (~> 0.26.0)
   devise
   devise_saml_authenticatable
   disposable_mail!
