@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM ruby:3.1.2 as builder
+FROM --platform=$BUILDPLATFORM ruby:3.1.3 as builder
 
 ARG BUILDPLATFORM 
 ENV NODE_ENV=production
@@ -34,7 +34,7 @@ RUN rm -rf node_modules  spec
 
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
-FROM --platform=$BUILDPLATFORM ruby:3.1.2-slim as app
+FROM --platform=$BUILDPLATFORM ruby:3.1.3-slim as app
 
 COPY --from=builder /usr/src/app /usr/src/app
 
