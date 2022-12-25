@@ -81,9 +81,8 @@
 <script type="text/javascript">
   search = document.querySelector('#search_type')
 	const form = document.getElementById("large-screen-search").children[0].children[0]
-  const list = [form.children[0], form.children[1], form.children[2], form.children[0].children[0], form.children[0].children[1] ]
+  const list = [form.children[0], form.children[1], form.children[2].children[0], form.children[0].children[0], form.children[0].children[1]]
 	const toggle = form.children[3].children[0]
-  console.log(list)
 
   document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', (e) => {
@@ -94,7 +93,6 @@
         form.classList.remove("hidden-search-bar")
 	    }
       else if (list.includes(clickedElement)){
-        console.log(true)
         form.classList.add("whole-search-bar")
         form.classList.remove("hidden-search-bar")
       }
