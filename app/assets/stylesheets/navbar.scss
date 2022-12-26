@@ -31,24 +31,24 @@
 }
 
 .navbar-simulator-text {
-  color: white;
-  border-radius: 4px;
   background-color: $primary-green;
+  border-radius: 4px;
+  color: $white;
   font-weight: 500;
   transition: all .3s ease-in;
+
   &:hover {
     background-color: $secondary-green;
-    color : white
+    color : $white;
   }
-
 }
 
 .navbar-login-button {
   border: 2px solid $primary-green;
   color: $navbar-dark-grey;
-  width: 80px;
   font-weight: 500;
   transition: all .3s ease-in;
+  width: 80px;
 
   &:hover {
     background: $primary-green;
@@ -169,65 +169,74 @@
   box-shadow: 0 0 10px 1px $shadow-grey;
   top: 90%;
 }
+
 .small-screen-element {
   display: none;
 }
 
 .search-bar-form {
+  align-items: center;
+  border: 2px solid lightgray;
+  border-radius: 4px;
   display: flex;
   flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-  width: 40px;
   height: 40px;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  transition: all 0.5s;
+  justify-content: space-between;
+  transition: all .5s;
+  width: 40px;
+
   input {
-    width: 80%;
+    border: 0;
     height: 35px;
     outline: none;
-    border: none;
     padding-left: 10px;
+    width: 80%;
   }
+
   select {
-    outline: none;
-    border: none;
-    width: 40px;
-    height: 35px;
-    color: gray;
     background-color: #EFEFEF;
-  }
-  button {
-    width: 30px;
-    height: 30px;
-    background-color: $white;
-    border: none;
+    border: 0;
+    color: gray;
+    height: 35px;
     outline: none;
+    width: 40px;
   }
-  span {
+
+  button {
+    background-color: $white;
+    border: 0;
+    height: 30px;
+    outline: none;
     width: 30px;
+  }
+
+  span {
+    cursor: pointer;
     height: 30px;
     margin-left: 8px;
     margin-top: 4px;
-    cursor: pointer;
+    width: 30px;
   }
 }
 
 .whole-search-bar {
   width: 360px;
+
   input {
     display: block;
   }
+
   select {
     display: block;
   }
+
   button {
     display: block;
-    width: 35px;
     height: 35px;
-    padding-left: 5px
+    padding-left: 5px;
+    width: 35px;
   }
+
   span {
     display: none;
   }
@@ -243,14 +252,13 @@
   }
   button {
     display: none;
-    width: 35px;
     height: 35px;
-    padding-left: 5px
+    padding-left: 5px;
+    width: 35px;
   }
   span {
     display: block;
   }
-
 }
 
 //breakpoints
@@ -258,36 +266,46 @@
   .navbar-simulator-text {
     display: none;
   }
+
   #notification-button {
     display: none;
   }
+
   .large-screen-element {
     display: none;
   }
+
   .small-screen-element {
     display: block;
   }
+
   .links {
     border-bottom: 3px solid #EFEFEF;
     font-weight: bold;
   }
+
   .navbar-username-truncate {
     max-width: 90px;
   }
+
   .search-bar-form {
     order: 1;
     width: 100%;
+
     input {
+      border: 0;
       display: block;
       outline: none;
-      border:none;
     }
+
     select {
       display: block;
     }
+
     span {
       display: none;
     }
+
     button {
       display: block;
     }
@@ -307,6 +325,7 @@
   .navbar-search-bar-select {
     width: 50px;
   }
+
   .navbar-logo {
     height: 65px;
   }

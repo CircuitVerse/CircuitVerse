@@ -20,7 +20,7 @@
   <div class="collapse navbar-collapse" id="collapsed-navbar">
     <ul class="navbar-nav navigationBar-item ml-2">
       <div class="small-screen-element py-1">
-        <%= render "circuitverse_assets/search_bar"%>
+        <%= render "circuitverse_assets/search_bar" %>
       </div>
       <div class="navbar-nav nav-item dropdown links">
         <div class="nav-item px-1">
@@ -48,13 +48,13 @@
       </div>
     </ul>
     <div class="large-screen-element ml-auto" id="large-screen-search">
-      <%= render "circuitverse_assets/search_bar"%>
+      <%= render "circuitverse_assets/search_bar" %>
     </div>
       <div class="nav-item px-2">
         <a class="btn navbar-simulator-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
       </div>
       <div class="large-screen-element">
-        <%= render "layouts/notifications"%>
+        <%= render "layouts/notifications" %>
       </div>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown px-2">
@@ -70,7 +70,7 @@
           </div>
         </div>
       </div>
-      <% else%>
+      <% else %>
         <div class="nav-item px-2 large-screen-element">
           <a class="btn navbar-login-button <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="/users/sign_in"><%= t("login") %></a>
         </div>
@@ -79,19 +79,18 @@
 </nav>
 
 <script type="text/javascript">
-  search = document.querySelector('#search_type')
-	const form = document.getElementById("large-screen-search").children[0].children[0]
+  const form = document.getElementById("large-screen-search").children[0].children[0]
   const list = [form.children[0], form.children[1], form.children[2].children[0], form.children[0].children[0], form.children[0].children[1]]
-	const toggle = form.children[3].children[0]
+  const toggle = form.children[3].children[0]
 
   document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('click', (e) => {
-	    const clickedElement = e.target
+      const clickedElement = e.target
 
-	    if (clickedElement == toggle) {
+      if (clickedElement == toggle) {
         form.classList.add("whole-search-bar")
         form.classList.remove("hidden-search-bar")
-	    }
+      }
       else if (list.includes(clickedElement)){
         form.classList.add("whole-search-bar")
         form.classList.remove("hidden-search-bar")
