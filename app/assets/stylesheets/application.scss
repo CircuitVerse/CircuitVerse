@@ -1,6 +1,5 @@
 @import "theme";
 @import "bootstrap/scss/bootstrap";
-@import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.css';
 @import 'autoComplete';
 @import "font-awesome-sprockets";
 @import "font-awesome";
@@ -26,3 +25,5 @@
 @import 'users';
 @import 'commontator';
 @import 'announcements';
+@import 'select2.css';
+@import 'select2_overrides';

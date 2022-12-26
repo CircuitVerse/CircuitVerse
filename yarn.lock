@@ -2385,11 +2385,6 @@ bootstrap-input-spinner@^3.1.14:
   resolved "https://registry.yarnpkg.com/bootstrap-input-spinner/-/bootstrap-input-spinner-3.1.14.tgz#886ad5b2aa31e38dcdce4a0bf9f4a15bae21aec1"
   integrity sha512-dpXW8q5IY83sjRGa7kglGS8iOFigRvAIcGnOhLuHTJ5VfTjDC0Htqt5paWfRdtHJzr/nYL5VoGvMt6OXoOHrSw==
 
-bootstrap-tagsinput@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/bootstrap-tagsinput/-/bootstrap-tagsinput-0.7.1.tgz#ffe3b06bbe2a106945ef2814568005a94f211937"
-  integrity sha1-/+Owa74qEGlF7ygUVoAFqU8hGTc=
-
 bootstrap@^4.6.1:
   version "4.6.1"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-4.6.1.tgz#bc25380c2c14192374e8dec07cf01b2742d222a2"
