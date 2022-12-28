@@ -4,8 +4,9 @@ GIT
   specs:
     disposable_mail (0.1.7)
 
-PATH
-  remote: /Users/vaibhavupreti/Desktop/simple_discussion
+GIT
+  remote: https://github.com/CircuitVerse/simple_discussion.git
+  revision: 622094cf5fb7654fb9e9a275886fe1ddcb638f52
   specs:
     simple_discussion (1.3.0)
       font-awesome-sass (>= 5.13.0)
