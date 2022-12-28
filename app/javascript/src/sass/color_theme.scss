@@ -196,15 +196,6 @@ $touch-menu:#454545;
   color: #fff !important;
 }
 
-.signOut-btn {
-  color: #fff !important;
-  padding: 7px 0 7px 10px;
-  width: 90%;
-  margin: auto;
-  transition: all .2s ease-in-out;
-  text-align: left;
-}
-
 .signIn-btn {
   color: #fff !important;
 }
@@ -212,13 +203,6 @@ $touch-menu:#454545;
 .dropdown-menu > li > a:hover {
   color: var(--text-navbar--alt) !important;
   background: var(--bg-text);
-}
-
-.signOut-btn:hover {
-  color: var(--text-navbar--alt) !important;
-  background: var(--bg-text);
-  border-radius: 7px;
-  opacity: 1;
 }
 
 #contextMenu {

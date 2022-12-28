@@ -12,6 +12,10 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
 
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'        
+  end
+  
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do

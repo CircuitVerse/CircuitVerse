@@ -152,7 +152,7 @@
             <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
             <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
             <div class="dropdown-divider"></div>
-            <li><%= button_to "Sign Out", destroy_user_session_path, :method => "delete", class: "dropdown-item signOut-btn" %></li>
+            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
           </ul>
         <% else %>
           <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
