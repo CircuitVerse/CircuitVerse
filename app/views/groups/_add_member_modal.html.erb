@@ -25,7 +25,7 @@
           </div>
           <div class="form-group">
             <%= form.label :emails %>
-            <%= form.text_area :emails, id: :group_member_emails, rows: 4, class: 'form-control form-input', 'data-role': 'tagsinput' %>
+            <%= form.select :emails,[ ],{},{ class: 'form-select', multiple: true } %>
           </div>
           <div class="modal-footer">
             <%= form.submit  class: 'add-members-button btn primary-button' %>
