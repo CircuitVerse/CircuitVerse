@@ -14,7 +14,7 @@ export function updateRestrictedElementsList() {
         restrictedStr = restrictedStr.slice(0, -2)
     }
 
-    $('#restrictedElementsDiv--list').html(restrictedStr)
+    document.getElementById('restrictedElementsDiv--list').innerHTML = restrictedStr
 }
 
 export function updateRestrictedElementsInScope(scope = globalScope) {
@@ -33,14 +33,12 @@ export function updateRestrictedElementsInScope(scope = globalScope) {
 }
 
 export function showRestricted() {
-    $('#restrictedDiv').removeClass('display--none')
+    document.getElementById('restrictedDiv').classList.remove('display--none')
     // Show no help text for restricted elements
-    $('#Help').removeClass('show')
-    $('#restrictedDiv').html(
-        'The element has been restricted by mentor. Usage might lead to deduction in marks'
-    )
+    document.getElementById('Help').classList.remove('show')
+    document.getElementById('restrictedDiv').innerHTML = 'The element has been restricted by mentor. Usage might lead to deduction in marks'
 }
 
 export function hideRestricted() {
-    $('#restrictedDiv').addClass('display--none')
+    document.getElementById('restrictedDiv').classList.add('display--none')
 }
