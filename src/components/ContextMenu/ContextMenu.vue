@@ -82,14 +82,3 @@ export default {
     },
 }
 </script>
-
-// /* // Cant procced with logic sice Canvas Area Compoennet is nor defined yet.
-// Plan :- // 1. To have a data property : showContextMenu : false // 2. This
-will be passed to Paretn Component( Simulator ) // 3. From Simulator will be
-passed down to Cnavas Area Compoent // 4. In Canavs Area will check for //
-document.getElementById('canvasArea').oncontextmenu = showContextMenu; // then
-make showContextMenu : true // 5. In this ContextMenu file will check for the
-state showContextMenu to call the // function showContextMenu() which is in
-ux.js // 6. In siluator Parent component will check for a click in any component
-except context menu // It will make make showContextMenu : false // and will
-stop displaying the context menu // */

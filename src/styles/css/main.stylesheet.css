@@ -373,7 +373,7 @@ input[type='text']:focus {
 
 @media (max-width: 991px) {
     .navbar-nav .dropdown-menu {
-        position: absolute;
+        position: absolute !important;
         float: none;
     }
 }
@@ -649,8 +649,8 @@ div.icon img {
     display: block;
     align-items: center;
     z-index: 99;
-    position: absolute;
-    top: 47px;
+    /* position: absolute;
+    top: 47px; */
 }
 
 .embed-tabs {

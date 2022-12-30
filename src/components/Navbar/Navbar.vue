@@ -1,7 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark header">
         <Logo :cvlogo="navbarLogo" />
-        <Hamburger v-if="showSidebar()" />
+        <Hamburger v-if="showSidebar" />
 
         <div id="bs-example-navbar-collapse-1" class="collapse navbar-collapse">
             <NavbarLinks :navbar-data="navbarData" />
@@ -12,51 +12,39 @@
             >
                 Untitled
             </span>
-
-            <QuickButton />
-
             <User
                 :is-user-signed-in="isUserSignedIn"
                 :user-data="userDropdownItems"
             />
         </div>
     </nav>
+    <QuickButton />
 </template>
 
-<script>
-import QuickButton from './QuickButton/QuickButton.vue'
-import User from './User/User.vue'
-import NavbarLinks from './NavbarLinks/NavbarLinks.vue'
+<script lang="ts" setup>
+import QuickButton from '@/Navbar/QuickButton/QuickButton.vue'
+import User from '@/Navbar/User/User.vue'
+import NavbarLinks from '@/Navbar/NavbarLinks/NavbarLinks.vue'
 
-import navbarData from './NavbarData.json'
-import userDropdownItems from './UserData.json'
+import navbarData from '#/assets/constants/Navbar/NAVBAR_DATA'
+import userDropdownItems from '#/assets/constants/Navbar/USER_DATA'
 
-import Logo from '../Logo/Logo.vue'
-import Hamburger from './Hamburger/Hamburger.vue'
+import Logo from '@/Logo/Logo.vue'
+import Hamburger from '@/Navbar/Hamburger/Hamburger.vue'
+import { ref, onMounted } from 'vue'
 
-export default {
-    name: 'Navbar',
-    components: {
-        Logo,
-        Hamburger,
-        QuickButton,
-        User,
-        NavbarLinks,
-    },
-    data() {
-        return {
-            navbarLogo: 'logo',
-            minWidthToShowSidebar: 992,
-            navbarData: navbarData,
-            userDropdownItems: userDropdownItems,
-            isUserSignedIn: true,
-        }
-    },
-    methods: {
-        showSidebar() {
-            return window.innerWidth < this.minWidthToShowSidebar ? true : false
-        },
-    },
+const navbarLogo = ref('logo')
+const minWidthToShowSidebar = ref(992)
+const isUserSignedIn = ref(false)
+const showSidebar = ref(false)
+showSidebar.value =
+    window.innerWidth < minWidthToShowSidebar.value ? true : false
+onMounted(() => {
+    window.addEventListener('resize', checkShowSidebar)
+})
+function checkShowSidebar() {
+    showSidebar.value =
+        window.innerWidth < minWidthToShowSidebar.value ? true : false
 }
 </script>
 

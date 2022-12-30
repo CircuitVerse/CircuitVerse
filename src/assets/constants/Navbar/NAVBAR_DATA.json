@@ -1,54 +1,54 @@
 [
     {
         "id": "1",
-        "text": "Project",
+        "text": "project",
         "spanClass": "caret",
         "dropdownItems": [
             {
                 "id": "1",
-                "item": "New Project",
+                "item": "new_project",
                 "itemid": "newProject",
                 "attributes": []
             },
             {
                 "id": "2",
-                "item": "Save Online",
+                "item": "save_online",
                 "itemid": "save",
                 "attributes": []
             },
             {
                 "id": "3",
-                "item": "Save Offline",
+                "item": "save_offline",
                 "itemid": "saveOffline",
                 "attributes": []
             },
             {
                 "id": "4",
-                "item": "Open Offline",
+                "item": "open_offline",
                 "itemid": "createOpenLocalPrompt",
                 "attributes": []
             },
             {
                 "id": "5",
-                "item": "Clear Project",
+                "item": "clear_project",
                 "itemid": "clearProject",
                 "attributes": []
             },
             {
                 "id": "6",
-                "item": "Recover Project",
+                "item": "recover_project",
                 "itemid": "recoverProject",
                 "attributes": []
             },
             {
                 "id": "7",
-                "item": "Preview Circuit",
+                "item": "preview_circuit",
                 "itemid": "fullViewOption",
                 "attributes": []
             },
             {
                 "id": "8",
-                "item": "View Previous UI",
+                "item": "view_previous_ui",
                 "itemid": "",
                 "attributes": [
                     {
@@ -61,24 +61,24 @@
     },
     {
         "id": "2",
-        "text": "Circuit",
+        "text": "circuit",
         "spanClass": "caret",
         "dropdownItems": [
             {
                 "id": "1",
-                "item": "New Circuit +",
+                "item": "new_circuit",
                 "itemid": "newCircuit",
                 "attributes": []
             },
             {
                 "id": "2",
-                "item": "New Verilog \n Module",
+                "item": "new_verilog_module_html",
                 "itemid": "newVerilogModule",
                 "attributes": []
             },
             {
                 "id": "3",
-                "item": "Insert SubCircuit",
+                "item": "insert_subcircuit",
                 "itemid": "createSubCircuitPrompt",
                 "attributes": []
             }
@@ -86,42 +86,42 @@
     },
     {
         "id": "3",
-        "text": "Tools",
+        "text": "tools",
         "spanClass": "caret",
         "dropdownItems": [
             {
                 "id": "1",
-                "item": "Combinational \n Analysis",
+                "item": "combinational_analysis_html",
                 "itemid": "createCombinationalAnalysisPrompt",
                 "attributes": []
             },
             {
                 "id": "2",
-                "item": "Hex-Bin-Dec \n Converter",
+                "item": "hex_bin_dec_converter_html",
                 "itemid": "bitconverter",
                 "attributes": []
             },
             {
                 "id": "3",
-                "item": "Download Image",
+                "item": "download_image",
                 "itemid": "createSaveAsImgPrompt",
                 "attributes": []
             },
             {
                 "id": "4",
-                "item": "Themes",
+                "item": "themes",
                 "itemid": "colorThemes",
                 "attributes": []
             },
             {
                 "id": "5",
-                "item": "Custom Shortcut",
+                "item": "custom_shortcut",
                 "itemid": "customShortcut",
                 "attributes": []
             },
             {
                 "id": "6",
-                "item": "Export Verilog",
+                "item": "export_verilog",
                 "itemid": "generateVerilog",
                 "attributes": []
             }
@@ -129,18 +129,18 @@
     },
     {
         "id": "4",
-        "text": "Help",
+        "text": "help",
         "spanClass": "caret",
         "dropdownItems": [
             {
                 "id": "1",
-                "item": "Tutorial Guide",
+                "item": "tutorial_guide",
                 "itemid": "showTourGuide",
                 "attributes": []
             },
             {
                 "id": "2",
-                "item": "User Manual",
+                "item": "user_manual",
                 "itemid": "",
                 "attributes": [
                     {
@@ -167,7 +167,7 @@
             },
             {
                 "id": "3",
-                "item": "Learn Digital Logic",
+                "item": "learn_digital_logic",
                 "itemid": "",
                 "attributes": [
                     {
@@ -194,7 +194,7 @@
             },
             {
                 "id": "4",
-                "item": "Discussion Forum",
+                "item": "discussion_forum",
                 "itemid": "",
                 "attributes": [
                     {

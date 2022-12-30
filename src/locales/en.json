@@ -11,15 +11,21 @@
         "made_with_circuitverse": "Made With CircuitVerse",
         "nav": {
             "untitled_project": "Untitled",
-            "dashboard": "Dashboard",
-            "my_groups": "My Groups",
             "sign_out": "Sign Out",
             "sign_in": "Sign In",
+            "user_dropdown": {
+                "dashboard": "Dashboard",
+                "my_groups": "My Groups",
+                "notifications": "Notifications"
+            },
             "project": {
                 "heading": "Project",
                 "project_page": "Project Page",
                 "new_project": "New Project",
                 "open_offline": "Open Offline",
+                "save_online": "Save Online",
+                "save_offline": "Save Offline",
+                "preview_circuit": "Preview Circuit",
                 "clear_project": "Clear Project",
                 "recover_project": "Recover Project",
                 "view_previous_ui": "View Previous UI"
@@ -27,14 +33,16 @@
             "circuit": {
                 "heading": "Circuit",
                 "new_circuit": "New Circuit +",
-                "new_verilog_module_html": "New Verilog <br> Module"
+                "insert_subcircuit": "Insert SubCircuit",
+                "new_verilog_module_html": "New Verilog\nModule"
             },
             "tools": {
                 "heading": "Tools",
-                "combinational_analysis_html": "Combinational<br>Analysis",
-                "hex_bin_dec_converter_html": "Hex-Bin-Dec<br>Converter",
+                "combinational_analysis_html": "Combinational\nAnalysis",
+                "hex_bin_dec_converter_html": "Hex-Bin-Dec\nConverter",
                 "download_image": "Download Image",
                 "themes": "Themes",
+                "export_verilog": "Export Verilog",
                 "custom_shortcut": "Custom Shortcut"
             },
             "help": {

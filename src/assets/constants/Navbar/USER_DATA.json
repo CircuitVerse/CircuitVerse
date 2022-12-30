@@ -1,19 +1,19 @@
 [
     {
         "id": "1",
-        "item": "Dashboard",
+        "item": "dashboard",
         "itemid": "",
         "attributes": []
     },
     {
         "id": "2",
-        "item": "My Groups",
+        "item": "my_groups",
         "itemid": "",
         "attributes": []
     },
     {
         "id": "3",
-        "item": "Notifications",
+        "item": "notifications",
         "itemid": "",
         "attributes": []
     }

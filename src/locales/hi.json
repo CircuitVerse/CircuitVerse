@@ -11,15 +11,21 @@
         "made_with_circuitverse": "सर्किटवर्स में बनाया गया",
         "nav": {
             "untitled_project": "शीर्षकहीन",
-            "dashboard": "डैशबोर्ड",
-            "my_groups": "मेरे समूह",
             "sign_out": "साइन आउट",
             "sign_in": "साइन इन करें",
+            "user_dropdown": {
+                "dashboard": "डैशबोर्ड",
+                "my_groups": "मेरे समूह",
+                "notifications": "सूचनाएं"
+            },
             "project": {
                 "heading": "परियोजना",
                 "project_page": "परियोजना का पेज",
                 "new_project": "नयी परियोजना",
                 "open_offline": "ऑफ़लाइन खोलें",
+                "save_online": "ऑनलाइन सहेजें",
+                "save_offline": "ऑफ़लाइन सहेजें",
+                "preview_circuit": "पूर्वावलोकन सर्किट",
                 "clear_project": "परियोजना क्लियर करें",
                 "recover_project": "परियोजना पुनर्प्राप्त करें",
                 "view_previous_ui": "पिछला UI देखें"
@@ -27,14 +33,16 @@
             "circuit": {
                 "heading": "सर्किट",
                 "new_circuit": "नया सर्किट +",
-                "new_verilog_module_html": "नया वेरिलोग <br> मॉड्यूल"
+                "insert_subcircuit": "सब-सर्किट डालें",
+                "new_verilog_module_html": "नया वेरिलोग\nमॉड्यूल"
             },
             "tools": {
                 "heading": "उपकरण",
-                "combinational_analysis_html": "कॉम्बिनेशनल<br>एनालिसिस",
-                "hex_bin_dec_converter_html": "Hex-Bin-Dec<br>कनवर्टर",
+                "combinational_analysis_html": "कॉम्बिनेशनल\nएनालिसिस",
+                "hex_bin_dec_converter_html": "Hex-Bin-Dec\nकनवर्टर",
                 "download_image": "छवि डाउनलोड करें",
                 "themes": "थीम",
+                "export_verilog": "निर्यात Verilog",
                 "custom_shortcut": "कस्टम शॉर्टकट"
             },
             "help": {

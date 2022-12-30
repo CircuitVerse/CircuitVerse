@@ -11,49 +11,30 @@
                 aria-expanded="false"
                 >Devjit Choudhury<span class="caret acc-caret"></span
             ></a>
-            <!-- <ul class="dropdown-menu">
-                <li 
-                    :key="userDropdownItem.id" 
-                    v-for="userDropdownItem in userData"
-                >
-                    <a class="dropdown-item" >
-                        {{userDropdownItem.item}}
-                    </a>
-                </li>
-                <div class="dropdown-divider"></div>
-                <li>
-                    <a class="dropdown-item" rel="nofollow" data-method="delete">Sign Out</a>
-                </li>
-            </ul> -->
-            <DropDown :list-items="userData" drop-down-type="user" />
+            <DropDown
+                :list-items="userData"
+                drop-down-header="user_dropdown"
+                drop-down-type="user"
+            />
         </li>
         <li v-else class="dropdown pull-right">
             <a
                 class="navbar-nav signIn-btn user-field"
                 href="https://circuitverse.org/users/sign_in"
             >
-                Sign In
+                {{ $t('simulator.nav.sign_in') }}
             </a>
         </li>
     </ul>
 </template>
 
-<script>
-import DropDown from '../../Dropdown/DropDown.vue'
+<script lang="ts" setup>
+import DropDown from '@/Dropdown/DropDown.vue'
 
-export default {
-    name: 'User',
-    components: {
-        DropDown,
-    },
-    props: {
-        isUserSignedIn: {
-            type: Boolean,
-            default: false,
-        },
-        userData: Array,
-    },
-}
+const props = defineProps({
+    isUserSignedIn: { type: Boolean, default: false },
+    userData: { type: Array, default: () => [] },
+})
 </script>
 
 <style scoped>

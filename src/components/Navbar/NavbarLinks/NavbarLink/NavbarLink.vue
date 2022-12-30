@@ -7,28 +7,25 @@
             role="button"
             aria-haspopup="true"
             aria-expanded="false"
-            >{{ navbarItem.text }}<span></span>
+        >
+            {{ $t('simulator.nav.' + navbarItem.text + '.heading') }}
+            <span></span>
         </a>
 
         <DropDown
             :list-items="navbarItem.dropdownItems"
+            :drop-down-header="navbarItem.text"
             drop-down-type="navLink"
         />
     </li>
 </template>
 
-<script>
-import DropDown from '../../../Dropdown/DropDown.vue'
+<script lang="ts" setup>
+import DropDown from '@/Dropdown/DropDown.vue'
 
-export default {
-    name: 'NavbarLink',
-    components: {
-        DropDown,
-    },
-    props: {
-        navbarItem: Object,
-    },
-}
+const props = defineProps({
+    navbarItem: { type: Object, default: () => {} },
+})
 </script>
 
 <style scoped>

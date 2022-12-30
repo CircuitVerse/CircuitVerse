@@ -13,11 +13,7 @@
     </button>
 </template>
 
-<script>
-export default {
-    name: 'Hamburger',
-}
-</script>
+<script lang="ts" setup></script>
 
 <style>
 @import url('./Hamburger.css');

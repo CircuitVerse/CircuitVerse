@@ -178,11 +178,7 @@
     </div>
 </template>
 
-<script>
-export default {
-    name: 'QuickButton',
-}
-</script>
+<script lang="ts" setup></script>
 
 <style scoped>
 /* @import url('./QuickButton.css'); */
