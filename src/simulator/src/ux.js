@@ -70,13 +70,15 @@ function hideContextMenu() {
  */
 function showContextMenu() {
     if (layoutModeGet()) return false // Hide context menu when it is in Layout Mode
-    document.getElementById('contextMenu').style.visibility = 'visible';
-    document.getElementById('contextMenu').style.opacity = 1;
+    $('#contextMenu').css({
+        visibility: 'visible',
+        opacity: 1,
+    })
 
     var windowHeight =
-    document.getElementById('simulationArea').clientHeight - document.getElementById('contextMenu').clientHeight - 10
+        $('#simulationArea').height() - $('#contextMenu').height() - 10
     var windowWidth =
-    document.getElementById('simulationArea').clientWidth - document.getElementById('contextMenu').clientWidth - 10
+        $('#simulationArea').width() - $('#contextMenu').width() - 10
     // for top, left, right, bottom
     var topPosition
     var leftPosition
@@ -85,35 +87,43 @@ function showContextMenu() {
     if (ctxPos.y > windowHeight && ctxPos.x <= windowWidth) {
         //When user click on bottom-left part of window
         leftPosition = ctxPos.x
-        bottomPosition = document.body.clientHeight - ctxPos.y
-        document.getElementById('contextMenu').style.left = `${leftPosition}px`;
-        document.getElementById('contextMenu').style.bottom = `${bottomPosition}px`;
-        document.getElementById('contextMenu').style.right = 'auto';
-        document.getElementById('contextMenu').style.top = 'auto';  
+        bottomPosition = $(window).height() - ctxPos.y
+        $('#contextMenu').css({
+            left: `${leftPosition}px`,
+            bottom: `${bottomPosition}px`,
+            right: 'auto',
+            top: 'auto',
+        })
     } else if (ctxPos.y > windowHeight && ctxPos.x > windowWidth) {
         //When user click on bottom-right part of window
-        bottomPosition = document.body.clientHeight - ctxPos.y
-        rightPosition = document.body.clientWidth - ctxPos.x
-        document.getElementById('contextMenu').style.left = 'auto';
-        document.getElementById('contextMenu').style.bottom = `${bottomPosition}px`;
-        document.getElementById('contextMenu').style.right = `${rightPosition}px`;
-        document.getElementById('contextMenu').style.top = 'auto';
+        bottomPosition = $(window).height() - ctxPos.y
+        rightPosition = $(window).width() - ctxPos.x
+        $('#contextMenu').css({
+            left: 'auto',
+            bottom: `${bottomPosition}px`,
+            right: `${rightPosition}px`,
+            top: 'auto',
+        })
     } else if (ctxPos.y <= windowHeight && ctxPos.x <= windowWidth) {
         //When user click on top-left part of window
         leftPosition = ctxPos.x
         topPosition = ctxPos.y
-        document.getElementById('contextMenu').style.left = `${leftPosition}px`;
-        document.getElementById('contextMenu').style.bottom = 'auto';
-        document.getElementById('contextMenu').style.right = 'auto';
-        document.getElementById('contextMenu').style.top = `${topPosition}px`;
+        $('#contextMenu').css({
+            left: `${leftPosition}px`,
+            bottom: 'auto',
+            right: 'auto',
+            top: `${topPosition}px`,
+        })
     } else {
         //When user click on top-right part of window
-        rightPosition = document.body.clientWidth - ctxPos.x
+        rightPosition = $(window).width() - ctxPos.x
         topPosition = ctxPos.y
-        document.getElementById('contextMenu').style.left = 'auto';
-        document.getElementById('contextMenu').style.bottom = 'auto';
-        document.getElementById('contextMenu').style.right = `${rightPosition}px`;
-        document.getElementById('contextMenu').style.top = `${topPosition}px`;
+        $('#contextMenu').css({
+            left: 'auto',
+            bottom: 'auto',
+            right: `${rightPosition}px`,
+            top: `${topPosition}px`,
+        })
     }
     ctxPos.visible = true
     return false
@@ -125,7 +135,7 @@ function showContextMenu() {
  * @category ux
  */
 export function setupUI() {
-    var ctxEl = document.getElementById('contextMenu');
+    var ctxEl = document.getElementById('contextMenu')
     document.addEventListener('mousedown', (e) => {
         // Check if mouse is not inside the context menu and menu is visible
         if (
@@ -145,7 +155,7 @@ export function setupUI() {
         ctxPos.x = e.clientX
         ctxPos.y = e.clientY
     })
-    document.getElementById('canvasArea').addEventListener("contextmenu",showContextMenu);
+    document.getElementById('canvasArea').oncontextmenu = showContextMenu
 
     // commenting jquery-ui (not working)
     // $('#sideBar').resizable({
@@ -158,42 +168,41 @@ export function setupUI() {
     //     heightStyle: 'content',
     // });
 
-    document.getElementsByClassName('logixButton').addEventListener('click', function () {
+    $('.logixButton').on('click', function () {
         logixFunction[this.id]()
-    });
-
+    })
     // var dummyCounter=0;
 
     // calling apply on select theme in dropdown
-    document.getElementsByClassName('applyTheme').addEventListener('change', function () {
+    $('.applyTheme').on('change', function () {
         applyVerilogTheme()
     })
 
-    document.getElementById('report').addEventListener('click', function () {
-        var message = document.getElementById('issuetext').value
-        var email = document.getElementById('emailtext').value
+    $('#report').on('click', function () {
+        var message = $('#issuetext').val()
+        var email = $('#emailtext').val()
         message += '\nEmail:' + email
         message += '\nURL: ' + window.location.href
         message += `\nUser Id: ${window.user_id}`
         postUserIssue(message)
-        document.getElementById('issuetext').style.display = "none";
-        document.getElementById('emailtext').style.display = "none";
-        document.getElementById('report').style.display = "none";
-        document.getElementById('report-label').style.display = "none";
-        document.getElementById('email-label').style.display = "none";
+        $('#issuetext').hide()
+        $('#emailtext').hide()
+        $('#report').hide()
+        $('#report-label').hide()
+        $('#email-label').hide()
     })
-    document.getElementsByClassName('issue').addEventListener('hide.bs.modal', function (e) {
+    $('.issue').on('hide.bs.modal', function (e) {
         listenToSimulator = true
-        document.getElementById('result').innerHTML = '';
-        document.getElementById('issuetext').style.display = "block";
-        document.getElementById('emailtext').style.display = "block";
-        document.getElementById('issuetext').value = '';
-        document.getElementById('emailtext').value = '';
-        document.getElementById('report').style.display = "block";
-        document.getElementById('report-label').style.display = "block";
-        document.getElementById('email-label').style.display = "block";
+        $('#result').html('')
+        $('#issuetext').show()
+        $('#emailtext').show()
+        $('#issuetext').val('')
+        $('#emailtext').val('')
+        $('#report').show()
+        $('#report-label').show()
+        $('#email-label').show()
     })
-    document.getElementById('reportIssue').addEventListener('click', function () {
+    $('#reportIssue').on('click', function () {
         listenToSimulator = false
     })
 
@@ -224,17 +233,17 @@ export function prevPropertyObjGet() {
 }
 
 function checkValidBitWidth() {
-    const selector = document.querySelector("[name='newBitWidth']")
+    const selector = $("[name='newBitWidth']")
     if (
         selector === undefined ||
-        selector.value > 32 ||
-        selector.value < 1 ||
-        isNaN(selector.value)
+        selector.val() > 32 ||
+        selector.val() < 1 ||
+        !$.isNumeric(selector.val())
     ) {
         // fallback to previously saves state
-        selector.value = selector.getAttribute('old-val')
+        selector.val(selector.attr('old-val'))
     } else {
-        selector.getAttribute('old-val', selector.value)
+        selector.attr('old-val', selector.val())
     }
 }
 
@@ -275,12 +284,12 @@ export function objectPropertyAttributeCheckedUpdate() {
 export function checkPropertiesUpdate(value = 0) {
     // console.log('update check')
 
-    document.getElementsByClassName('objectPropertyAttribute').addEventListener(
+    $('.objectPropertyAttribute').on(
         'change keyup paste click',
         objectPropertyAttributeUpdate
     )
 
-    document.getElementsByClassName('objectPropertyAttributeChecked').addEventListener(
+    $('.objectPropertyAttributeChecked').on(
         'change keyup paste click',
         objectPropertyAttributeCheckedUpdate
     )
@@ -602,10 +611,10 @@ export function showProperties(obj) {
  * @category ux
  */
 export function hideProperties() {
-    document.getElementById('moduleProperty-inner').innerHTML = "";
-    document.getElementById('moduleProperty').style.display = "none";
+    $('#moduleProperty-inner').empty()
+    $('#moduleProperty').hide()
     prevPropertyObjSet(undefined)
-    document.getElementsByClassName('objectPropertyAttribute').removeEventListener('change keyup paste click');
+    $('.objectPropertyAttribute').unbind('change keyup paste click')
 }
 /**
  * checkss the input is safe or not
@@ -657,17 +666,17 @@ export function deleteSelected() {
  * listener for opening the prompt for bin conversion
  * @category ux
  */
-document.getElementById('bitconverter').addEventListener('click', () => {
-    document.getElementById('bitconverterprompt').show({
+$('#bitconverter').on('click', () => {
+    $('#bitconverterprompt').dialog({
         resizable: false,
         buttons: [
             {
                 text: 'Reset',
                 click() {
-                    document.getElementById('decimalInput').value = '0';
-                    document.getElementById('binaryInput').value = '0';
-                    document.getElementById('octalInput').value = '0';
-                    document.getElementById('hexInput').value = '0';
+                    $('#decimalInput').val('0')
+                    $('#binaryInput').val('0')
+                    $('#octalInput').val('0')
+                    $('#hexInput').val('0')
                 },
             },
         ],
@@ -683,38 +692,41 @@ const convertors = {
 
 function setBaseValues(x) {
     if (isNaN(x)) return
-    document.getElementById('binaryInput').value = convertors.dec2bin(x);
-    document.getElementById('octalInput').value = convertors.dec2octal(x);
-    document.getElementById('hexInput').value = convertors.dec2hex(x);
-    document.getElementById('decimalInput').value = x;
+    $('#binaryInput').val(convertors.dec2bin(x))
+    $('#octalInput').val(convertors.dec2octal(x))
+    $('#hexInput').val(convertors.dec2hex(x))
+    $('#decimalInput').val(x)
 }
 
-document.getElementById('decimalInput').addEventListener('keyup', () => {
-    var x = parseInt(document.getElementById('decimalInput').value, 10)
+$('#decimalInput').on('keyup', () => {
+    var x = parseInt($('#decimalInput').val(), 10)
     setBaseValues(x)
 })
 
-document.getElementById('binaryInput').addEventListener('keyup', () => {
-    var x = parseInt(document.getElementById('binaryInput').value, 2)
+$('#binaryInput').on('keyup', () => {
+    var x = parseInt($('#binaryInput').val(), 2)
     setBaseValues(x)
 })
 
-document.getElementById('hexInput').addEventListener('keyup', () => {
-    var x = parseInt(document.getElementById('hexInput').value, 16)
+$('#hexInput').on('keyup', () => {
+    var x = parseInt($('#hexInput').val(), 16)
     setBaseValues(x)
 })
 
-document.getElementById('octalInput').addEventListener('keyup', () => {
-    var x = parseInt(document.getElementById('octalInput').value, 8)
+$('#octalInput').on('keyup', () => {
+    var x = parseInt($('#octalInput').val(), 8)
     setBaseValues(x)
 })
 
 export function setupPanels() {
-    document.getElementById('dragQPanel')
-        .addEventListener('mousedown', () =>
-        document.getElementsByClassName('quick-btn').setAttribute("draggable", "true")
+    $('#dragQPanel')
+        .on('mousedown', () =>
+            $('.quick-btn').draggable({
+                disabled: false,
+                containment: 'window',
+            })
         )
-        .addEventListener('mouseup', () => $('.quick-btn').setAttribute("draggable", "false"))
+        .on('mouseup', () => $('.quick-btn').draggable({ disabled: true }))
 
     setupPanelListeners('.elementPanel')
     setupPanelListeners('.layoutElementPanel')
@@ -725,20 +737,20 @@ export function setupPanels() {
     setupPanelListeners('.testbench-manual-panel')
 
     // Minimize Timing Diagram (takes too much space)
-    document.getElementsByClassName('timing-diagram-panel .minimize').click();
+    $('.timing-diagram-panel .minimize').trigger('click')
 
     // Update the Testbench Panel UI
     updateTestbenchUI()
     // Minimize Testbench UI
-    document.getElementsByClassName('testbench-manual-panel .minimize').click();
+    $('.testbench-manual-panel .minimize').trigger('click')
 
     // Hack because minimizing panel then maximizing sets visibility recursively
     // updateTestbenchUI calls some hide()s which are undone by maximization
     // TODO: Remove hack
-    document.getElementsByClassName('testbench-manual-panel .maximize').addEventListener('click', setupTestbenchUI);
+    $('.testbench-manual-panel .maximize').on('click', setupTestbenchUI)
 
-    document.getElementById('projectName').addEventListener('click', () => {
-        document.querySelector("input[name='setProjectName']").focus().select()
+    $('#projectName').on('click', () => {
+        $("input[name='setProjectName']").focus().select()
     })
 }
 
@@ -748,68 +760,68 @@ function setupPanelListeners(panelSelector) {
     var maximizeSelector = `${panelSelector} .maximize`
     var bodySelector = `${panelSelector} > .panel-body`
     // Drag Start
-    document.querySelector(headerSelector).addEventListener('mousedown', () =>
-    document.querySelector(panelSelector).setAttribute("draggable", "true")
+    $(headerSelector).on('mousedown', () =>
+        $(panelSelector).draggable({ disabled: false, containment: 'window' })
     )
     // Drag End
-    document.querySelector(headerSelector).addEventListener('mouseup', () =>
-        document.querySelector(panelSelector).setAttribute("draggable", "false"))
-
+    $(headerSelector).on('mouseup', () =>
+        $(panelSelector).draggable({ disabled: true })
+    )
     // Current Panel on Top
-    document.querySelector(panelSelector).addEventListener('mousedown', () => {
-        document.getElementsByClassName(`draggable-panel:not(${panelSelector})`).style.zIndex = '99';
-        document.querySelector(panelSelector).style.zIndex = '100';
+    $(panelSelector).on('mousedown', () => {
+        $(`.draggable-panel:not(${panelSelector})`).css('z-index', '99')
+        $(panelSelector).css('z-index', '100')
     })
     var minimized = false
-    document.querySelector(headerSelector).addEventListener('dblclick', () =>
+    $(headerSelector).on('dblclick', () =>
         minimized
-            ? document.querySelector(maximizeSelector).click()
-            : document.querySelector(minimizeSelector).click()
+            ? $(maximizeSelector).trigger('click')
+            : $(minimizeSelector).trigger('click')
     )
     // Minimize
-    document.querySelector(minimizeSelector).addEventListener('click', () => {
-        document.querySelector(bodySelector).style.display = 'none';
-        document.querySelector(minimizeSelector).style.display = 'none';
-        document.querySelector(maximizeSelector).style.display = 'block';
+    $(minimizeSelector).on('click', () => {
+        $(bodySelector).hide()
+        $(minimizeSelector).hide()
+        $(maximizeSelector).show()
         minimized = true
     })
     // Maximize
-    document.querySelectodocument.querySelector(maximizeSelector).addEventListener('click', () => {
-        document.querySelector(bodySelector).style.display = 'block';
-        document.querySelector(minimizeSelector).style.display = 'block';
-        document.querySelector(maximizeSelector).style.display = 'none';
+    $(maximizeSelector).on('click', () => {
+        $(bodySelector).show()
+        $(minimizeSelector).show()
+        $(maximizeSelector).hide()
         minimized = false
     })
 }
 
 export function exitFullView() {
-   document.getElementsByClassName('navbar').style.display = 'block';
-    document.getElementsByClassName('modules').style.display = 'block';
-    document.getElementsByClassName('report-sidebar').style.display = 'block';
-    document.getElementById('tabsBar').style.display = 'block';
-    document.getElementById('exitViewBtn').remove();
-    document.getElementById('moduleProperty').style.display = 'block';
-    document.getElementsByClassName('timing-diagram-panel').style.display = 'block';
-    document.getElementsByClassName('testbench-manual-panel').style.display = 'block';
+    $('.navbar').show()
+    $('.modules').show()
+    $('.report-sidebar').show()
+    $('#tabsBar').show()
+    $('#exitViewBtn').remove()
+    $('#moduleProperty').show()
+    $('.timing-diagram-panel').show()
+    $('.testbench-manual-panel').show()
 }
 
 export function fullView() {
     const markUp = `<button id='exitViewBtn' >Exit Full Preview</button>`
-    document.getElementsByClassName('navbar').style.display = 'none';
-    document.getElementsByClassName('modules').style.display = 'none';
-    document.getElementsByClassName('report-sidebar').style.display = 'none';
-    document.getElementById('tabsBar').style.display = 'none';
-    document.getElementById('moduleProperty').style.display = 'none';
-    document.getElementsByClassName('timing-diagram-panel').style.display = 'none';
-    document.getElementsByClassName('testbench-manual-panel').style.display = 'none';
-    document.getElementById('exitView').append(markUp)
-    document.getElementById('exitViewBtn').addEventListener('click', exitFullView)
+    $('.navbar').hide()
+    $('.modules').hide()
+    $('.report-sidebar').hide()
+    $('#tabsBar').hide()
+    $('#moduleProperty').hide()
+    $('.timing-diagram-panel').hide()
+    $('.testbench-manual-panel').hide()
+    $('#exitView').append(markUp)
+    $('#exitViewBtn').on('click', exitFullView)
 }
 /** 
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/
 export function fillSubcircuitElements() {
-    document.getElementById('subcircuitMenu').innerHTML = "";
+    $('#subcircuitMenu').empty()
     var subCircuitElementExists = false
     for (let el of circuitElementList) {
         if (globalScope[el].length === 0) continue
@@ -838,16 +850,16 @@ export function fillSubcircuitElements() {
         }
         tempHTML += '</div>'
         subCircuitElementExists = subCircuitElementExists || available
-        if (available) document.getElementById('subcircuitMenu').append(tempHTML)
+        if (available) $('#subcircuitMenu').append(tempHTML)
     }
 
     if (subCircuitElementExists) {
-        document.getElementById('subcircuitMenu').accordion('refresh')
+        $('#subcircuitMenu').accordion('refresh')
     } else {
-        document.getElementById('subcircuitMenu').append('<p>No layout elements available</p>')
+        $('#subcircuitMenu').append('<p>No layout elements available</p>')
     }
 
-    document.getElementsByClassName('subcircuitModule').addEventListener("mousedown", function () {
+    $('.subcircuitModule').mousedown(function () {
         let elementName = this.dataset.elementName
         let elementIndex = this.dataset.elementId
 
@@ -865,12 +877,13 @@ async function postUserIssue(message) {
 
     let result
     try {
-        result = await fetch('https://api.imgur.com/3/image', {
-            method: 'POST',
-            body: {
+        result = await $.ajax({
+            url: 'https://api.imgur.com/3/image',
+            type: 'POST',
+            data: {
                 image: img,
             },
-            body: JSON.stringify(data),
+            dataType: 'json',
             headers: {
                 Authorization: 'Client-ID 9a33b3b370f1054',
             },
@@ -891,19 +904,28 @@ async function postUserIssue(message) {
         circuitData = `Circuit data generation failed: ${err}`
     }
 
-    fetch('/simulator/post_issue', {
-        method: 'POST',
-        headers: {
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+    $.ajax({
+        url: '/simulator/post_issue',
+        type: 'POST',
+        beforeSend: function (xhr) {
+            xhr.setRequestHeader(
+                'X-CSRF-Token',
+                $('meta[name="csrf-token"]').attr('content')
+            )
         },
-        body: {
+        data: {
             text: message,
             circuit_data: circuitData,
         },
-        }).then(function (response) {
-            document.getElementById('result').innerHTML =  "<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.";
-        })
-        .catch(function (error){
-            document.getElementById('result').innerHTML = "<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org";
-        });
+        success: function (response) {
+            $('#result').html(
+                "<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform."
+            )
+        },
+        failure: function (err) {
+            $('#result').html(
+                "<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org"
+            )
+        },
+    })
 }
