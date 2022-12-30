@@ -24,13 +24,10 @@ import { openInNewTab, copyToClipboard, showMessage } from './utils'
 var editor
 
 export function generateVerilog() {
-    var dialog = $('#verilog-export-code-window-div')
+    var dialog = document.getElementById('verilog-export-code-window-div')
     var data = verilog.exportVerilog()
     editor.setValue(data)
-    $('#verilog-export-code-window-div .CodeMirror').css(
-        'height',
-        $(window).height() - 200
-    )
+    document.querySelector('#verilog-export-code-window-div .CodeMirror').style.height = window.innerHeight - 200;
     dialog.dialog({
         resizable: false,
         width: '90%',
