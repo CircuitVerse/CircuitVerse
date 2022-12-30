@@ -6,8 +6,8 @@ class ProjectPolicy < ApplicationPolicy
   def initialize(user, project)
     @user = user
     @project = project
-    simulator_error = "Project has been moved or deleted. If you are the owner"\
-                      " of the project, Please check your project access privileges."
+    simulator_error = "Project has been moved or deleted. If you are the owner " \
+                      "of the project, Please check your project access privileges."
     @simulator_exception = CustomAuthException.new(simulator_error)
   end
 
@@ -37,7 +37,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def check_direct_view_access?
-    (project.project_access_type == "Public"  \
+    (project.project_access_type == "Public" \
     || (project.project_submission == false && !user.nil? && project.author_id == user.id) \
     || (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) \
     || (!user.nil? && user.admin))
