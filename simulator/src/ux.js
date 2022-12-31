@@ -73,6 +73,20 @@ function showContextMenu() {
         visibility: 'visible',
         opacity: 1,
     });
+    
+    // Displaying options which are feasible
+    const menu_items_with_no_selection = $('#contextMenu li:nth-child(n+2):nth-child(-n+4)');
+    if(!simulationArea.lastSelected) {
+        menu_items_with_no_selection
+        .css({
+            display: 'none'
+        })
+    } else {
+        menu_items_with_no_selection
+        .css({
+            display: 'block'
+        })
+    }
 
     var windowHeight = $("#simulationArea").height() - $("#contextMenu").height() - 10;
     var windowWidth = $("#simulationArea").width() - $("#contextMenu").width() - 10;
