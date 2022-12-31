@@ -18,14 +18,9 @@ COPY Gemfile.lock /circuitverse/Gemfile.lock
 COPY package.json /circuitverse/package.json
 COPY yarn.lock /circuitverse/yarn.lock
 
-RUN gem install bundler
-RUN bundle install  --without production
-RUN yarn install
+RUN gem install bundler && bundle install  --without production && yarn install
 
 # copy source
 COPY . /circuitverse
-RUN yarn build
-
 # generate key-pair for jwt-auth
-RUN openssl genrsa -out /circuitverse/config/private.pem 2048
-RUN openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem
+RUN yarn build && openssl genrsa -out /circuitverse/config/private.pem 2048 && openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem
