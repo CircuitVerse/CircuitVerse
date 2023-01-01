@@ -21,8 +21,10 @@
             <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-            <%= f.check_box :remove_picture, id: "remove_pic", class:"remove-pic" %>
-            <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
+            <%= f.check_box :remove_picture, id: "remove_pic", class:"remove-pic"  %>
+            <label for="remove_pic" 
+            onClick="remove()"
+            class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture")  %></label>
           </div>
           <div class="field form-group">
             <h6><%= f.label :country %></h6>
@@ -67,6 +69,13 @@
   });
 </script>
 <script>
+
+  function remove()
+  {
+    $("#imgedit").attr("src", "/assets/thumb/Default-51ecc8a52348f20e7db5b8519e0535de1495413cd3c000b55bbd33a87f275231.jpg");
+
+  }
+
   function readURL(input) {
     if (input.files && input.files[0]) {
     var reader = new FileReader();
