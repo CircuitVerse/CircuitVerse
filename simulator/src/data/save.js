@@ -321,6 +321,13 @@ async function generateImageForOnline() {
  * @exports save
  */
 export default async function save() {
+    // Asking user name before starting the process of save
+    const projectNameByUser = prompt("Enter Project Name:");
+    // If user clicks 'Cancel' we should call the function off
+    if(projectNameByUser === null) return;
+
+    const data = generateSaveData(projectNameByUser);
+    
     if(layoutModeGet())
         toggleLayoutMode();
 
