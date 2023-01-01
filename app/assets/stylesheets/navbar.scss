@@ -7,8 +7,8 @@
 }
 
 .navbar-brand {
-  padding: 0;
   margin-top: 5px;
+  padding: 0;
 }
 
 .navbar-logo {
@@ -17,12 +17,12 @@
 }
 
 .navbar-search-icon-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
   height: 40px;
   position: relative;
   width: 40px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
 
   .search-icon {
     cursor: pointer;
@@ -58,17 +58,17 @@
 }
 
 .nav-item {
+  align-items: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 }
 
 .nav-link {
+  align-items: center;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
 }
 
 .navbar-simulator-text {
