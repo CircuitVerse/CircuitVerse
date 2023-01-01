@@ -26,7 +26,8 @@ RUN RAILS_ENV=production \
 		DISABLE_FLIPPER=true \
     bundle exec rails assets:precompile && \
 	  yarn cache clean
-    && rm -rf node_modules  spec && bundle exec bootsnap precompile --gemfile app/ lib/
+	  
+RUN rm -rf node_modules  spec && bundle exec bootsnap precompile --gemfile app/ lib/
 
 FROM --platform=$BUILDPLATFORM ruby:3.1.3-slim as app
 
