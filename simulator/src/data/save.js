@@ -75,7 +75,7 @@ export function generateSaveData(name, setName = true) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    name = getProjectName() || name || 'Untitled';
     data.name = stripTags(name);
     if (setName) setProjectName(data.name);
 
