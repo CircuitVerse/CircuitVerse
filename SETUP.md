@@ -68,9 +68,35 @@ cd CircuitVerse
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
-7. Run bin/dev to run application server, background job queue and asset compiler
 
-Navigate to `localhost:3000` in your web browser to access the website.
+
+### Running circuitverse on a development server.
+
+#### Linux
+1. To start Redis server: `sudo systemctl start redis`
+2. To start PostgreSQL server:`sudo service postgresql start`
+3. Run bin/dev to run application server.
+4. Navigate to `localhost:3000` in your web browser to access the website.
+
+**Note:** By default, the postgres user has no password and can hence only connect if ran by the postgres system user. The following command will assign it:`sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"`
+
+#### Windows
+1. To start Redis Server:
+     * Open Run Window by Win key + R
+     * Type services.msc
+     * Search Redis service
+     * Click stop, start or restart the service option.
+2. To start PostgreSQL server:
+     * First, you need to find the PostgreSQL database directory, it can be something like C:\Program Files\PostgreSQL\10.4\data. Then open Command Prompt and execute this command: `pg_ctl -D "C:\Program Files\PostgreSQL\9.6\data" start`
+3. Run bin/dev to run application server.
+4. Navigate to `localhost:3000` in your web browser to access the website.
+
+#### MacOS
+1. To start Redis Server: `brew services start redis`
+2. To start PostgreSQL: `pg_ctl -D /usr/local/var/postgres start`
+3. Run bin/dev to run application server.
+4. Navigate to `localhost:3000` in your web browser to access the website.
+
 
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
