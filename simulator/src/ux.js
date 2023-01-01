@@ -76,12 +76,12 @@ function showContextMenu() {
     // Displaying options which are feasible
     const menuItemsWithNoSelection = $('#contextMenu li:nth-child(n+2):nth-child(-n+4)');
     if(!simulationArea.lastSelected) {
-        menu_items_with_no_selection
+        menuItemsWithNoSelection
         .css({
             display: 'none'
         })
     } else {
-        menu_items_with_no_selection
+        menuItemsWithNoSelection
         .css({
             display: 'block'
         })
