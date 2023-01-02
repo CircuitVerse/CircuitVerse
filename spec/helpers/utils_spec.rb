@@ -9,6 +9,7 @@ describe Utils do
     @invalid_email_count = 3
     @invalid_emails = (1..@invalid_email_count).reduce([]) { |e, _| e << Faker::Internet.slug }
     @emails = @valid_emails + @invalid_emails
+    @emails = @emails.to_a
   end
 
   describe "#parse_mails" do
@@ -21,9 +22,8 @@ describe Utils do
 
   describe "#mail_notice" do
     it "produces notice string" do
-      notice = described_class.mail_notice(@emails.join(" "), @valid_emails, [@valid_emails[0]])
+      notice = described_class.mail_notice(@emails, @valid_emails, [@valid_emails[0]])
       expect(notice).to include("#{@valid_email_count} were valid")
-      expect(notice).to include("#{@invalid_email_count} were invalid")
       expect(notice).to include("#{@invalid_email_count} were invalid")
       expect(notice).to include("1 user(s) will be invited")
     end
