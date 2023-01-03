@@ -1,0 +1,96 @@
+<template>
+    <v-dialog
+        v-model="SimulatorState.dialogBox.open_project_dialog"
+        :persistent="false"
+    >
+        <v-card class="messageBoxContent">
+            <v-card-text>
+                <p class="dialogHeader">Open Offline</p>
+                <v-btn
+                    size="x-small"
+                    icon
+                    class="dialogClose"
+                    @click="
+                        SimulatorState.dialogBox.open_project_dialog = false
+                    "
+                >
+                    <v-icon>mdi-close</v-icon>
+                </v-btn>
+                <div id="openProjectDialog" title="Open Project">
+                    <label
+                        v-for="(projectName, projectId) in projectList"
+                        :key="projectId"
+                        class="option custom-radio"
+                    >
+                        <input
+                            type="radio"
+                            name="projectId"
+                            :value="projectId"
+                        />
+                        {{ projectName }}<span></span>
+                        <i
+                            class="fa fa-trash deleteOfflineProject"
+                            @click="deleteOfflineProject(projectId)"
+                        ></i>
+                    </label>
+                    <p v-if="JSON.stringify(projectList) == '{}'">
+                        Looks like no circuit has been saved yet. Create a new
+                        one and save it!
+                    </p>
+                </div>
+            </v-card-text>
+            <v-card-actions>
+                <v-btn
+                    v-if="JSON.stringify(projectList) != '{}'"
+                    class="messageBtn"
+                    block
+                    @click="openProjectOffline()"
+                >
+                    BUTTON
+                </v-btn>
+            </v-card-actions>
+        </v-card>
+    </v-dialog>
+</template>
+
+<script lang="ts" setup>
+import load from '#/simulator/src/data/load'
+import { useState } from '#/store/SimulatorStore/state'
+import { onMounted, onUpdated, ref, toRaw } from '@vue/runtime-core'
+const SimulatorState = useState()
+const projectList = ref({})
+onMounted(() => {
+    SimulatorState.dialogBox.open_project_dialog = false
+})
+
+onUpdated(() => {
+    console.log('on updated')
+    var data = localStorage.getItem('projectList')
+    console.log(data)
+    projectList.value = JSON.parse(localStorage.getItem('projectList')) || {}
+    console.log(toRaw(projectList.value))
+    if (JSON.stringify(projectList.value) == '{}') {
+        console.log('true')
+    } else {
+        console.log('false')
+    }
+})
+
+function deleteOfflineProject(id) {
+    console.log('Hello from ok')
+    localStorage.removeItem(id)
+    const temp = JSON.parse(localStorage.getItem('projectList')) || {}
+    delete temp[id]
+    console.log(temp)
+    projectList.value = temp
+    localStorage.setItem('projectList', JSON.stringify(temp))
+}
+
+function openProjectOffline() {
+    SimulatorState.dialogBox.open_project_dialog = false
+    let ele = $('input[name=projectId]:checked')
+    if (!ele.val()) return
+    load(JSON.parse(localStorage.getItem(ele.val())))
+    window.projectId = ele.val()
+}
+</script>

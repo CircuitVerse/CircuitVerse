@@ -44,15 +44,12 @@
         :circuit-item="circuitToBeDeleted"
         :button-list="buttonArr"
         :input-list="inputArr"
+        input-class="tabsbarInput"
         :is-persistent="persistentShow"
         :message-text="messageVal"
         @button-click="
-            (selectedOption, circuitItem, circuitNameVal) =>
-                dialogBoxConformation(
-                    selectedOption,
-                    circuitItem,
-                    circuitNameVal
-                )
+            (selectedOption, circuitItem) =>
+                dialogBoxConformation(selectedOption, circuitItem)
         "
     />
 </template>
@@ -64,6 +61,7 @@ import { ref } from '@vue/reactivity'
 import { computed, onMounted, onUpdated } from '@vue/runtime-core'
 import {
     createNewCircuitScope,
+    deleteCurrentCircuit,
     getDependenciesList,
     scopeList,
     switchCircuit,
@@ -77,7 +75,7 @@ const updateCount = ref(0)
 const persistentShow = ref(false)
 const messageVal = ref('')
 const buttonArr = ref([{}])
-const inputArr = ref([''])
+const inputArr = ref([{}])
 const circuitToBeDeleted = ref({})
 
 function clearMessageBoxFields() {
@@ -153,23 +151,14 @@ function deleteCircuit(circuitItem) {
         SimulatorState.circuit_list.splice(index, 1)
     }
 
-    let scope = scopeList[circuitItem.id]
-    if (scope == undefined) scope = scopeList[globalScope.id]
-
-    if (scope.verilogMetadata.isVerilogCircuit) {
-        scope.initialize()
-        for (var id in scope.verilogMetadata.subCircuitScopeIds)
-            delete scopeList[id]
-    }
-    $(`#${scope.id}`).remove()
-    delete scopeList[scope.id]
-    switchCircuit(Object.keys(scopeList)[0])
-
+    deleteCurrentCircuit(circuitItem.id)
     showMessage('Circuit was successfully closed')
     updateCount.value++
 }
 
-function dialogBoxConformation(selectedOption, circuitItem, circuitNameVal) {
+
+function dialogBoxConformation(selectedOption, circuitItem) {
+
     SimulatorState.dialogBox.create_circuit = false
     if (selectedOption == 'confirmDeletion') {
         deleteCircuit(circuitItem)
@@ -178,7 +167,7 @@ function dialogBoxConformation(selectedOption, circuitItem, circuitNameVal) {
         showMessage('Circuit was not closed')
     }
     if (selectedOption == 'confirmCreation') {
-        createNewCircuitScope(circuitNameVal)
+        createNewCircuitScope(inputArr.value[0].val)
     }
 }
 
@@ -196,7 +185,18 @@ function createNewCircuit() {
             emitOption: 'cancelCreation',
         },
     ]
-    inputArr.value = ['Enter Circuit Name']
+
+    inputArr.value = [
+        {
+            text: 'Enter Circuit Name',
+            val: '',
+            placeholder: 'Untitled-Circuit',
+            id: 'circuitName',
+            class: 'inputField',
+            style: '',
+            type: 'text',
+        },
+    ]
 }
 
 function dragOptions() {
@@ -223,9 +223,5 @@ function tabsbarClasses(id) {
 <style scoped>
 .list-group {
     display: inline;
-}
-
-.tabsbar-close {
-    font-size: 13px;
 }
 </style>

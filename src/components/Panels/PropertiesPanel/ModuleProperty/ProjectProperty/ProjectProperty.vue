@@ -87,7 +87,6 @@ const circuitId = ref(0)
 const circuitName = ref('Untitled-Cirucit')
 
 
-
 onMounted(() => {
     // checking if circuit or tab is switched
     setInterval(() => {

@@ -6,13 +6,7 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Verilog Code Editor -->
-    <div
-        id="verilog-export-code-window-div"
-        title="Export Verilog"
-        style="display: none"
-    >
-        <textarea id="verilog-export-code-window"></textarea>
-    </div>
+    <ExportVerilog />
     <div id="code-window" class="code-window">
         <textarea id="codeTextArea"></textarea>
     </div>
@@ -354,105 +348,24 @@
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
-    <div id="customShortcutDialog" title="Keybinding Preference"></div>
+    <CustomShortcut />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Dialog Box - Save -->
-    <div
-        id="saveImageDialog"
-        class="noSelect"
-        style="display: none"
-        title="Render Image"
-    >
-        <div class="download-dialog-section-1">
-            <label class="option custom-radio inline"
-                ><input
-                    type="radio"
-                    name="imgType"
-                    value="png"
-                    checked="checked" />PNG<span></span
-            ></label>
-            <label class="option custom-radio inline"
-                ><input type="radio" name="imgType" value="jpeg" />JPEG<span
-                ></span
-            ></label>
-            <label class="option custom-radio inline"
-                ><input type="radio" name="imgType" value="svg" />SVG<span
-                ></span
-            ></label>
-            <label class="option custom-radio inline"
-                ><input type="radio" name="imgType" value="bmp" />BMP<span
-                ></span
-            ></label>
-            <label class="option custom-radio inline"
-                ><input type="radio" name="imgType" value="gif" />GIF<span
-                ></span
-            ></label>
-            <label class="option custom-radio inline"
-                ><input type="radio" name="imgType" value="tiff" />TIFF<span
-                ></span
-            ></label>
-        </div>
-        <div class="download-dialog-section-2">
-            <div
-                class="option inline btn-group btn-group-toggle"
-                style="border: none"
-                data-toggle="buttons"
-            >
-                <div id="radio-full" class="btn" role="button">
-                    <input type="radio" name="view" value="full" /> Full Circuit
-                    View
-                </div>
-                <div id="radio-current" class="btn active" role="button">
-                    <input
-                        type="radio"
-                        name="view"
-                        value="current"
-                        checked="checked"
-                    />Current View
-                </div>
-            </div>
-            <div class="download-dialog-section-2_2">
-                <label class="cb-checkbox"
-                    ><input
-                        type="checkbox"
-                        name="transparent"
-                        value="transparent"
-                    />Transparent Background</label
-                >
-            </div>
-        </div>
-        <div class="download-dialog-section-3">
-            <span>Resolution:</span>
-            <label class="option custom-radio inline"
-                ><input
-                    type="radio"
-                    name="resolution"
-                    value="1"
-                    checked="checked" />1x<span></span
-            ></label>
-            <label class="option custom-radio inline"
-                ><input type="radio" name="resolution" value="2" />2x<span
-                ></span
-            ></label>
-            <label class="option custom-radio inline"
-                ><input type="radio" name="resolution" value="4" />4x<span
-                ></span
-            ></label>
-        </div>
-    </div>
+    <SaveImage />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Dialog Box - Custom Themes -->
-    <div
+    <!-- <div
         id="colorThemesDialog"
         class="customScroll colorThemesDialog"
         tabindex="0"
         style="display: none"
         title="Select Theme"
-    ></div>
+    ></div> -->
+    <ApplyThemes />
     <div
         id="CustomColorThemesDialog"
         class="customScroll"
@@ -525,11 +438,7 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Dialog Box - Combinational Analysis -->
-    <div
-        id="combinationalAnalysis"
-        style="display: none"
-        title="BooleanLogicTable"
-    ></div>
+    <CombinationalAnalysis />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -548,64 +457,16 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Dialog Box - Insert Subcircuit -->
-    <div
-        id="insertSubcircuitDialog"
-        class="subcircuitdialog"
-        title="Insert SubCircuit"
-    ></div>
+    <InsertSubcircuit />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- Dialog Box - Open Project -->
-    <div
-        id="openProjectDialog"
-        style="display: none"
-        title="Open Project"
-    ></div>
+    <OpenOffline />
     <!-- --------------------------------------------------------------------------------------------- -->
 
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <div
-        id="bitconverterprompt"
-        title="Dec-Bin-Hex-Converter"
-        style="display: none"
-    >
-        <label>Decimal value</label><br /><input
-            id="decimalInput"
-            type="text"
-            value="16"
-            label="Decimal"
-            name="text1"
-        /><br /><br />
-        <label>Binary value</label><br /><input
-            id="binaryInput"
-            type="text"
-            value="0b10000"
-            label="Binary"
-            name="text1"
-        /><br /><br />
-        <label>Binary-coded decimal value</label><br /><input
-            id="bcdInput"
-            type="text"
-            value="10110"
-            label="BCD"
-            name="text1"
-        /><br /><br />
-        <label>Octal value</label><br /><input
-            id="octalInput"
-            type="text"
-            value="020"
-            label="Octal"
-            name="text1"
-        /><br /><br />
-        <label>Hexadecimal value</label><br /><input
-            id="hexInput"
-            type="text"
-            value="0x10"
-            label="Hex"
-            name="text1"
-        /><br /><br />
-    </div>
+    <!-- Dialog Box - Hex Bin Dec --------------------------------------------------------------------------------------------- -->
+    <HexBinDec />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -693,4 +554,12 @@
 import ElementsPanel from './Panels/ElementsPanel/ElementsPanel.vue'
 import PropertiesPanel from './Panels/PropertiesPanel/PropertiesPanel.vue'
 import TabsBar from './TabsBar/TabsBar.vue'
+import CombinationalAnalysis from './DialogBox/CombinationalAnalysis.vue'
+import HexBinDec from './DialogBox/HexBinDec.vue'
+import SaveImage from './DialogBox/SaveImage.vue'
+import ApplyThemes from './DialogBox/Themes/ApplyThemes.vue'
+import ExportVerilog from './DialogBox/ExportVerilog.vue'
+import CustomShortcut from './DialogBox/CustomShortcut.vue'
+import InsertSubcircuit from './DialogBox/InsertSubcircuit.vue'
+import OpenOffline from './DialogBox/OpenOffline.vue'
 </script>

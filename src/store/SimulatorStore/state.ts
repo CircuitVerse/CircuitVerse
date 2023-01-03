@@ -1,9 +1,12 @@
 import { defineStore } from 'pinia'
 
+// use camel case variable names
 export interface State {
     title: string
     circuit_list: []
     dialogBox: Object
+    createCircuit: Object
+    combinationalAnalysis: Object
 }
 
 export const useState = defineStore({
@@ -24,6 +27,15 @@ export const useState = defineStore({
                 exportverilog_dialog: false,
                 save_project_dialog: false,
                 open_project_dialog: false,
+            },
+            createCircuit: {
+                circuitName: 'Untitled Circuit',
+            },
+            combinationalAnalysis: {
+                inputNameList: 'eg. In A, In B',
+                outputNameList: 'eg. Out X, Out Y',
+                booleanExpression: 'Example: (AB)',
+                decimalColumnBox: false,
             },
         }
     },

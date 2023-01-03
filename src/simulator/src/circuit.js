@@ -38,6 +38,8 @@ import { changeInputSize } from './modules'
 import { verilogModeGet, verilogModeSet } from './Verilog2CV'
 import { updateTestbenchUI } from './testbench'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+import { toRef, toRefs } from 'vue'
+
 
 export const circuitProperty = {
     toggleLayoutMode,
@@ -105,6 +107,7 @@ export function getDependenciesList(scopeId) {
     let scope = scopeList[scopeId]
     if (scope == undefined) scope = scopeList[globalScope.id]
 
+
     let dependencies = ''
     for (id in scopeList) {
         if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
@@ -126,45 +129,17 @@ export function getDependenciesList(scopeId) {
  * @category circuit
  */
 export function deleteCurrentCircuit(scopeId = globalScope.id) {
-    const scope = scopeList[scopeId]
-    if (Object.keys(scopeList).length <= 1) {
-        showError(
-            'At least 2 circuits need to be there in order to delete a circuit.'
-        )
-        return
-    }
-    let dependencies = ''
-    for (id in scopeList) {
-        if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
-            if (dependencies === '') {
-                dependencies = scopeList[id].name
-            } else {
-                dependencies += `, ${scopeList[id].name}`
-            }
-        }
-    }
-    if (dependencies) {
-        dependencies = `\nThe following circuits are depending on '${scope.name}': ${dependencies}\nDelete subcircuits of ${scope.name} before trying to delete ${scope.name}`
-        alert(dependencies)
-        return
-    }
+    let scope = scopeList[scopeId]
+    if (scope == undefined) scope = scopeList[globalScope.id]
 
-    const confirmation = confirm(
-        `Are you sure want to close: ${scope.name}\nThis cannot be undone.`
-    )
-    if (confirmation) {
-        if (scope.verilogMetadata.isVerilogCircuit) {
-            scope.initialize()
-            for (var id in scope.verilogMetadata.subCircuitScopeIds)
-                delete scopeList[id]
-        }
-        $(`#${scope.id}`).remove()
-        delete scopeList[scope.id]
-        switchCircuit(Object.keys(scopeList)[0])
-        showMessage('Circuit was successfully closed')
-    } else {
-        showMessage('Circuit was not closed')
+    if (scope.verilogMetadata.isVerilogCircuit) {
+        scope.initialize()
+        for (var id in scope.verilogMetadata.subCircuitScopeIds)
+            delete scopeList[id]
     }
+    $(`#${scope.id}`).remove()
+    delete scopeList[scope.id]
+    switchCircuit(Object.keys(scopeList)[0])
 }
 
 /**
@@ -188,6 +163,8 @@ export function createNewCircuitScope(name = 'Untitled-Circuit') {
  * @category circuit
  */
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
+    const simulatorStore = SimulatorStore()
+    const { circuit_list } = toRefs(simulatorStore)
     if (layoutModeGet()) {
         toggleLayoutMode()
     }
@@ -203,7 +180,8 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     let currCircuit = {
         id: scope.id,
     }
-    SimulatorStore().circuit_list.push(currCircuit)
+
+    circuit_list.value.push(currCircuit)
     if (isVerilog) {
         scope.verilogMetadata.isVerilogCircuit = true
         scope.verilogMetadata.isMainCircuit = isVerilogMain

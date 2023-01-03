@@ -20,43 +20,50 @@ import 'codemirror/addon/hint/anyword-hint.js'
 import 'codemirror/addon/hint/show-hint.js'
 import 'codemirror/addon/display/autorefresh.js'
 import { openInNewTab, copyToClipboard, showMessage } from './utils'
-
+import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 var editor
 
 export function generateVerilog() {
-    var dialog = document.getElementById('verilog-export-code-window-div')
-    var data = verilog.exportVerilog()
-    editor.setValue(data)
-    document.querySelector('#verilog-export-code-window-div .CodeMirror').style.height = window.innerHeight - 200;
-    dialog.dialog({
-        resizable: false,
-        width: '90%',
-        height: 'auto',
-        position: { my: 'center', at: 'center', of: window },
-        buttons: [
-            {
-                text: 'Download Verilog File',
-                click() {
-                    var fileName = getProjectName() || 'Untitled'
-                    download(fileName + '.v', editor.getValue())
-                },
-            },
-            {
-                text: 'Copy to Clipboard',
-                click() {
-                    copyToClipboard(editor.getValue())
-                    showMessage('Code has been copied')
-                },
-            },
-            {
-                text: 'Try in EDA Playground',
-                click() {
-                    copyToClipboard(editor.getValue())
-                    openInNewTab('https://www.edaplayground.com/x/XZpY')
-                },
-            },
-        ],
-    })
+    console.log('Generate Verilog Circuit')
+    const simulatorStore = SimulatorStore()
+    simulatorStore.dialogBox.exportverilog_dialog = true
+    // var dialog = $('#verilog-export-code-window-div')
+    // var data = verilog.exportVerilog()
+    // console.log(data)
+    // editor.setValue(data)
+    // $('#verilog-export-code-window-div .CodeMirror').css(
+    //     'height',
+    //     $(window).height() - 200
+    // )
+    // dialog.dialog({
+    //     resizable: false,
+    //     width: '90%',
+    //     height: 'auto',
+    //     position: { my: 'center', at: 'center', of: window },
+    //     buttons: [
+    //         {
+    //             text: 'Download Verilog File',
+    //             click() {
+    //                 var fileName = getProjectName() || 'Untitled'
+    //                 download(fileName + '.v', editor.getValue())
+    //             },
+    //         },
+    //         {
+    //             text: 'Copy to Clipboard',
+    //             click() {
+    //                 copyToClipboard(editor.getValue())
+    //                 showMessage('Code has been copied')
+    //             },
+    //         },
+    //         {
+    //             text: 'Try in EDA Playground',
+    //             click() {
+    //                 copyToClipboard(editor.getValue())
+    //                 openInNewTab('https://www.edaplayground.com/x/XZpY')
+    //             },
+    //         },
+    //     ],
+    // })
 }
 
 export function setupVerilogExportCodeWindow() {

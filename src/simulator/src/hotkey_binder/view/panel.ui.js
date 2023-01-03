@@ -1,37 +1,4 @@
-import { defaultKeys } from '../defaultKeys'
 import { setUserKeys } from '../model/actions'
-
-/**
- * function to generate the specific HTML for the hotkey panel
- * @param {object} metadata keycombo object
- */
-const createElements = (metadata) => {
-    let elements = ``
-    Object.entries(metadata).forEach((entry) => {
-        elements += `
-        <div>
-        <span id='edit-icon'></span>
-        <div><span id='command'>${entry[0]}</span>
-        <span id='keyword'></span>
-        </div>
-    </div>
-    `
-    })
-    return `<div id="preference" class="customScroll">${elements}</div>`
-}
-
-export const markUp = createElements(defaultKeys)
-
-export const editPanel = `<div id="edit" tabindex="0">
-<span style="font-size: 14px;">Press Desire Key Combination & press Enter or press ESC to cancel.</span>
-<div id="pressedKeys"></div>
-<div id="warning"></div>
-</div>`
-
-export const heading = `<div id="heading">
-  <span>Command</span>
-  <span>Keymapping</span>
-</div>`
 
 /**
  * fn to update the htokey panel UI with the currently set configuration

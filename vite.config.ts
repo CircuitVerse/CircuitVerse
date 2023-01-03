@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'url'
 import vueI18n from '@intlify/vite-plugin-vue-i18n'
+import svgLoader from 'vite-svg-loader'
 
 // https://github.com/vuetifyjs/vuetify-loader/tree/next/packages/vite-plugin
 import vuetify from 'vite-plugin-vuetify'
@@ -20,6 +21,7 @@ export default defineConfig({
                 new URL('./src/locales/**', import.meta.url)
             ),
         }),
+        svgLoader(),
     ],
     resolve: {
         alias: {

@@ -16,11 +16,13 @@
         "@mdi/font": "5.9.55",
         "bootstrap": "^4.6.1",
         "codemirror": "^5.65.1",
+        "codemirror-editor-vue3": "^2.1.7",
         "dom-to-image": "^2.6.0",
         "driver.js": "^0.9.8",
         "esbuild": "^0.14.45",
         "jquery": "^3.6.0",
         "pinia": "^2.0.14",
+        "vite-svg-loader": "^3.4.0",
         "vue": "^3.2.25",
         "vue-i18n": "^9.1.10",
         "vue-router": "^4.0.15",
@@ -45,6 +47,7 @@
         "vite": "^2.9.13",
         "vite-plugin-vuetify": "^1.0.0-alpha.0",
         "vue-cli-plugin-vuetify": "~2.5.1",
+        "vue-svg-loader": "^0.16.0",
         "vue-tsc": "^0.34.7"
     }
 }

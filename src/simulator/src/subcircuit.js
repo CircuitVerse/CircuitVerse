@@ -19,6 +19,7 @@ import { colors } from './themer/themer'
 import { layoutModeGet } from './layoutMode'
 import { verilogModeGet } from './Verilog2CV'
 import { sanitizeLabel } from './verilogHelpers'
+import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 /**
  * Function to load a subcicuit
  * @category subcircuit
@@ -33,10 +34,14 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
+    console.log('Hello')
     if (verilogModeGet() || layoutModeGet()) {
         showError('Subcircuit cannot be inserted in this mode')
         return
     }
+    const simulatorStore = SimulatorStore()
+    simulatorStore.dialogBox.insertsubcircuit_dialog = true
+    /*
     $('#insertSubcircuitDialog').empty()
     let flag = true
     for (id in scopeList) {
@@ -79,6 +84,7 @@ export function createSubCircuitPrompt(scope = globalScope) {
               ]
             : [],
     })
+    */
 }
 
 /**

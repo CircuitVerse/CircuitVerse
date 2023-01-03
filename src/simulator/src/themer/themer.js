@@ -1,7 +1,7 @@
 import { dots } from '../canvasApi'
 import themeOptions from './themes'
 import themeCardSvg from './themeCardSvg'
-import { CustomColorThemes } from './customThemer'
+import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 
 /**
  * Extracts canvas theme colors from CSS-Variables and returns a JSON Object
@@ -82,7 +82,7 @@ export let colors = getCanvasColors()
  * 1) Sets CSS Variables for UI elements
  * 2) Sets color variable for Canvas elements
  */
-function updateThemeForStyle(themeName) {
+export function updateThemeForStyle(themeName) {
     const selectedTheme = themeOptions[themeName]
     if (selectedTheme === undefined) return
     const html = document.getElementsByTagName('html')[0]
@@ -92,15 +92,13 @@ function updateThemeForStyle(themeName) {
     colors = getCanvasColors()
 }
 
-export default updateThemeForStyle
-
 /**
  * Theme Preview Card SVG
  * Sets the SVG colors according to theme
  * @param {string} themeName Name of theme
  * @returns {SVG}
  */
-const getThemeCardSvg = (themeName) => {
+export const getThemeCardSvg = (themeName) => {
     const colors = themeOptions[themeName]
     let svgIcon = $(themeCardSvg)
 
@@ -119,7 +117,11 @@ const getThemeCardSvg = (themeName) => {
     $('.svgChev', svgIcon).attr('stroke', colors['--br-secondary'])
 
     $('.svgHeader', svgIcon).attr('fill', colors['--primary'])
-
+    let temp = svgIcon.prop('outerHTML')
+    console.log('----------')
+    console.log('===OKK===')
+    console.log(temp)
+    console.log('----------')
     return svgIcon.prop('outerHTML')
 }
 
@@ -150,51 +152,55 @@ export const getThemeCard = (themeName, selected) => {
  * Create Color Themes Dialog
  */
 export const colorThemes = () => {
-    const selectedTheme = localStorage.getItem('theme')
-    $('#colorThemesDialog').empty()
-    const themes = Object.keys(themeOptions)
-    themes.forEach((theme) => {
-        if (theme === selectedTheme) {
-            $('#colorThemesDialog').append(getThemeCard(theme, true))
-        } else {
-            $('#colorThemesDialog').append(getThemeCard(theme, false))
-        }
-    })
+    console.log('Hello')
+    const simulatorStore = SimulatorStore()
+    simulatorStore.dialogBox.theme_dialog = true
 
-    $('.selected label').trigger('click')
-    $('#colorThemesDialog').dialog({
-        resizable: false,
-        close() {
-            // Rollback to previous theme
-            updateThemeForStyle(localStorage.getItem('theme'))
-            updateBG()
-        },
-        buttons: [
-            {
-                text: 'Apply Theme',
-                click() {
-                    // check if any theme is selected or not
-                    if ($('.selected label').text()) {
-                        localStorage.removeItem('Custom Theme')
-                        localStorage.setItem(
-                            'theme',
-                            $('.selected label').text()
-                        )
-                    }
-                    $('.set').removeClass('set')
-                    $('.selected').addClass('set')
-                    $(this).dialog('close')
-                },
-            },
-            {
-                text: 'Custom Theme',
-                click() {
-                    CustomColorThemes()
-                    $(this).dialog('close')
-                },
-            },
-        ],
-    })
+    // const selectedTheme = localStorage.getItem('theme')
+    // $('#colorThemesDialog').empty()
+    // const themes = Object.keys(themeOptions)
+    // themes.forEach((theme) => {
+    //     if (theme === selectedTheme) {
+    //         $('#colorThemesDialog').append(getThemeCard(theme, true))
+    //     } else {
+    //         $('#colorThemesDialog').append(getThemeCard(theme, false))
+    //     }
+    // })
+
+    // $('.selected label').trigger('click')
+    // $('#colorThemesDialog').dialog({
+    //     resizable: false,
+    //     close() {
+    //         // Rollback to previous theme
+    //         updateThemeForStyle(localStorage.getItem('theme'))
+    //         updateBG()
+    //     },
+    //     buttons: [
+    //         {
+    //             text: 'Apply Theme',
+    //             click() {
+    //                 // check if any theme is selected or not
+    //                 if ($('.selected label').text()) {
+    //                     localStorage.removeItem('Custom Theme')
+    //                     localStorage.setItem(
+    //                         'theme',
+    //                         $('.selected label').text()
+    //                     )
+    //                 }
+    //                 $('.set').removeClass('set')
+    //                 $('.selected').addClass('set')
+    //                 $(this).dialog('close')
+    //             },
+    //         },
+    //         {
+    //             text: 'Custom Theme',
+    //             click() {
+    //                  CustomColorThemes()
+    //                 $(this).dialog('close')
+    //             },
+    //         },
+    //     ],
+    // })
 
     $('#colorThemesDialog').focus()
     $('.ui-dialog[aria-describedby="colorThemesDialog"]').on('click', () =>
@@ -214,8 +220,7 @@ export const colorThemes = () => {
     })
 }
 
-const updateBG = () => dots(true, false, true)
-
+export const updateBG = () => dots(true, false, true)
 ;(() => {
     if (!localStorage.getItem('theme'))
         localStorage.setItem('theme', 'Default Theme')

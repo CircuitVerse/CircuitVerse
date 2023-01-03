@@ -135,9 +135,9 @@ export function setup() {
     }
     // console.log('start_lis')
     startListeners()
-    if (!embed) {
-        keyBinder()
-    }
+    // if (!embed) {
+    //     keyBinder()
+    // }
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {

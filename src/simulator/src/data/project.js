@@ -8,6 +8,7 @@ import { showMessage, showError, generateId } from '../utils'
 import { checkIfBackup } from './backupCircuit'
 import { generateSaveData, getProjectName, setProjectName } from './save'
 import load from './load'
+import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 
 /**
  * Helper function to recover unsaved data
@@ -30,6 +31,9 @@ export function recoverProject() {
  * @category data
  */
 export function openOffline() {
+    const simulatorStore = SimulatorStore()
+    simulatorStore.dialogBox.open_project_dialog = true
+    /*
     $('#openProjectDialog').empty()
     const projectList = JSON.parse(localStorage.getItem('projectList'))
     let flag = true
@@ -69,6 +73,7 @@ export function openOffline() {
               ]
             : [],
     })
+    */
 }
 /**
  * Flag for project saved or not

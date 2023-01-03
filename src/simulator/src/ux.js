@@ -20,7 +20,6 @@ import { updateRestrictedElementsInScope } from './restrictedElementDiv'
 import { paste } from './events'
 import { setProjectName, getProjectName } from './data/save'
 import { changeScale } from './canvasApi'
-import updateTheme from './themer/themer'
 import { generateImage, generateSaveData } from './data/save'
 import { setupVerilogExportCodeWindow } from './verilog'
 import { setupBitConvertor } from './utils'
@@ -214,7 +213,7 @@ export function setupUI() {
     // });
     // $('#moduleProperty').draggable();
     setupPanels()
-    setupVerilogExportCodeWindow()
+    // setupVerilogExportCodeWindow()
     setupBitConvertor()
 }
 
@@ -667,6 +666,7 @@ export function deleteSelected() {
  * @category ux
  */
 $('#bitconverter').on('click', () => {
+    console.log('something clicked')
     $('#bitconverterprompt').dialog({
         resizable: false,
         buttons: [
