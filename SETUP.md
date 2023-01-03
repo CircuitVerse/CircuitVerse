@@ -28,7 +28,7 @@ Instructions are available in our [wiki](https://github.com/CircuitVerse/Circuit
 ### Manual Setup (Local Environment)
 #### Dependencies
 **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
-- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help.
+- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help 
 - [Ruby](https://www.ruby-lang.org/en/) (`ruby-3.0.3`)
 - [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
 - [Yarn](https://yarnpkg.com/) - JavaScript package manager
@@ -58,6 +58,14 @@ cd CircuitVerse
 git clone https://github.com/<username>/CircuitVerse.git
 cd CircuitVerse
 ```
+#### Installation Guide(Dependencies)
+
+-  Git  - [https://git-scm.com/book/en/v2/Getting-Started-Installing-Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- Ruby - [https://www.ruby-lang.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/) 
+- PostgreSQL - [https://wiki.postgresql.org/wiki/Detailed_installation_guides](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
+- Yarn - [https://www.hostinger.in/tutorials/how-to-install-yarn](https://www.hostinger.in/tutorials/how-to-install-yarn)
+- Redis - [https://redis.io/docs/getting-started/](https://redis.io/docs/getting-started/)
+- ImageMagick - [https://imagemagick.org/script/download.php](https://imagemagick.org/script/download.php)
 
 #### Setup
 1. Install Ruby bundler : `gem install bundler`
@@ -87,12 +95,13 @@ cd CircuitVerse
      * Search Redis service
      * Click stop, start or restart the service option.
 2. To start PostgreSQL server:
-     * First, you need to find the PostgreSQL database directory, it can be something like C:\Program Files\PostgreSQL\10.4\data. Then open Command Prompt and execute this command: `pg_ctl -D "C:\Program Files\PostgreSQL\9.6\data" start`
+     * First, you need to find the PostgreSQL database directory, it can be something like `C:\Program Files\PostgreSQL\{version}\data`.Then open Command Prompt and execute this command: `pg_ctl -D "C:\Program Files\PostgreSQL\{version}\data" start`
+     * **Note** : {version} - refers to the respective version installed.
 3. Run bin/dev to run application server.
 4. Navigate to `localhost:3000` in your web browser to access the website.
 
 #### MacOS
-1. To start Redis Server: `brew services start redis`
+1. To start Redis Server: `redis-server`
 2. To start PostgreSQL: `pg_ctl -D /usr/local/var/postgres start`
 3. Run bin/dev to run application server.
 4. Navigate to `localhost:3000` in your web browser to access the website.
