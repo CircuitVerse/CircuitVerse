@@ -200,32 +200,84 @@ export const hasComponent = (component) => {
     }
 }
 
-export const cantGenerate = (component) => {
-    const scope = [
-        component.JKflipFlop,
-        component.SRflipFlop,
-        component.DflipFlop,
-        component.MSB,
-        component.LSB,
-        component.PriorityEncoder,
-        component.TflipFlop,
-
-    ]
-
-    const scopeNames = [
-        'JKflipFlop',
-        'SRflipFlop',
-        'DflipFlop',
-        'MSB',
-        'LSB',
-        'PriorityEncoder',
-        'TflipFlop',
-    ]
+export const hasExtraPorts = (enable, preset, reset)  => {
     let output = ''
-    
-    scope.forEach((el, index) => {
-        output += hasComponent(el) ? `// Can't generate ${scopeNames[index]} VHDL code!\n` : ''
-    })
+
+    output += hasComponent(enable) ? ', enable' : ''
+    output += hasComponent(preset) ? ', preset' : ''
+    output += hasComponent(reset) ? ', reset' : ''
 
     return output
+}
+
+export const generateLogicDFlipFlop = (dflipflopcomponent) => {
+    const hasReset = (dflipflopcomponent.reset.connections.length > 0) ? true : false
+    const hasEnable = (dflipflopcomponent.en.connections.length > 0) ? true : false
+    const hasPreset = (dflipflopcomponent.preset.connections.length > 0) ? true : false
+    const regexComma = /,/g
+    let output = []
+
+    if(hasReset && hasEnable && hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF(reset = '1') THEN\n`,
+            `            q0 <= preset;\n`,
+            `            q1 <= NOT preset;\n`,
+            `          ELSE\n`,
+            `            IF(enable = '1') THEN\n`,
+            `              q0 <= inp;\n`,
+            `              q1 <= NOT inp;\n`,
+            `            ELSE\n`,
+            `              q0 <= '0';\n`,
+            `              q1 <= '1';\n`,
+            `            END IF;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && hasEnable && !hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF reset = '0' AND enable = '1' THEN\n`,
+            `              q0 <= inp;\n`,
+            `              q1 <= NOT inp;\n`,
+            `          ELSE\n`,
+            `              q0 <= '0';\n`,
+            `              q1 <= '1';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && !hasEnable && hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF(reset = '1') THEN\n`,
+            `            q0 <= preset;\n`,
+            `            q1 <= NOT preset;\n`,
+            `          ELSE\n`,
+            `            q0 <= inp;\n`,
+            `            q1 <= NOT inp;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (!hasReset && hasEnable) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF(enable = '1') THEN\n`,
+            `            q0 <= inp;\n`,
+            `            q1 <= NOT inp;\n`,
+            `          ELSE\n`,
+            `            q0 <= '0';\n`,
+            `            q1 <= '1';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          q0 <= inp;\n`,
+            `          q1 <= NOT inp;\n`,
+            `        END IF;\n`
+        ]
+    }
+
+    return output.join().replace(regexComma, '')
 }
