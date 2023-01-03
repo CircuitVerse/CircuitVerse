@@ -82,6 +82,15 @@ body {
 @media (max-width: 768px) {
   .center-image {
     display: none;
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+@media  (max-width: 768px) {
+  .center-text{
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
   }
 }
 
