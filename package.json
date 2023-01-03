@@ -24,6 +24,7 @@
         "vue": "^3.2.25",
         "vue-i18n": "^9.1.10",
         "vue-router": "^4.0.15",
+        "vuedraggable": "^4.1.0",
         "vuetify": "^3.0.0-beta.0",
         "webfontloader": "^1.0.0"
     },

@@ -15,11 +15,12 @@
         <span>Circuit:</span>
         <input
             id="circname"
+            :key="circuitId"
             class="objectPropertyAttribute"
             type="text"
             autocomplete="off"
             name="changeCircuitName"
-            :value="'Untitled' || globalScope.name"
+            :value="circuitName"
         />
     </p>
 
@@ -80,6 +81,22 @@ import { getProjectName } from '#/simulator/src/data/save'
 import { toggleLayoutMode } from '#/simulator/src/layoutMode'
 import simulationArea from '#/simulator/src/simulationArea'
 import InputGroups from '#/components/Panels/Shared/InputGroups.vue'
+import { ref } from '@vue/reactivity'
+import { onMounted } from '@vue/runtime-core'
+const circuitId = ref(0)
+const circuitName = ref('Untitled-Cirucit')
+
+
+
+onMounted(() => {
+    // checking if circuit or tab is switched
+    setInterval(() => {
+        if (circuitId.value != globalScope.id) {
+            circuitName.value = globalScope.name
+            circuitId.value = globalScope.id
+        }
+    }, 100)
+})
 </script>
 
 <style scoped>

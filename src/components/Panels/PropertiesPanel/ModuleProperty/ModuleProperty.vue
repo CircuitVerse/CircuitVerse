@@ -30,7 +30,8 @@ import HelpButton from '#/components/Panels/Shared/HelpButton.vue'
 import ElementProperty from '#/components/Panels/PropertiesPanel/ModuleProperty/ElementProperty/ElementProperty.vue'
 import ProjectProperty from '#/components/Panels/PropertiesPanel/ModuleProperty/ProjectProperty/ProjectProperty.vue'
 import SubcircuitPropert from '#/components/Panels/PropertiesPanel/ModuleProperty/SubcircuitProperty/SubcircuitProperty.vue'
-import { toRefs } from '@vue/reactivity'
+import { ref, toRefs } from '@vue/reactivity'
+import { onMounted } from '@vue/runtime-core'
 
 const props = defineProps({
     panleBodyData: { type: Object, default: undefined },

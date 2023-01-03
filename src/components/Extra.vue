@@ -1,11 +1,7 @@
 <template>
     <!-- --------------------------------------------------------------------------------------------- -->
     <!-- TabsBar -->
-    <div id="tabsBar" class="noSelect pointerCursor">
-        <button id="createNewCircuitScope" class="logixButton" onclick="">
-            &#43;
-        </button>
-    </div>
+    <TabsBar />
     <!-- --------------------------------------------------------------------------------------------- -->
 
     <!-- --------------------------------------------------------------------------------------------- -->
@@ -696,4 +692,5 @@
 <script lang="ts" setup>
 import ElementsPanel from './Panels/ElementsPanel/ElementsPanel.vue'
 import PropertiesPanel from './Panels/PropertiesPanel/PropertiesPanel.vue'
+import TabsBar from './TabsBar/TabsBar.vue'
 </script>

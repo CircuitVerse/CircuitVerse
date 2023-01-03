@@ -37,6 +37,7 @@ import { changeClockEnable } from './sequential'
 import { changeInputSize } from './modules'
 import { verilogModeGet, verilogModeSet } from './Verilog2CV'
 import { updateTestbenchUI } from './testbench'
+import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 
 export const circuitProperty = {
     toggleLayoutMode,
@@ -48,6 +49,7 @@ export const circuitProperty = {
     changeInputSize,
     changeLightMode,
 }
+
 export var scopeList = {}
 export function resetScopeList() {
     scopeList = {}
@@ -99,6 +101,23 @@ export function switchCircuit(id) {
     updateRestrictedElementsList()
 }
 
+export function getDependenciesList(scopeId) {
+    let scope = scopeList[scopeId]
+    if (scope == undefined) scope = scopeList[globalScope.id]
+
+    let dependencies = ''
+    for (id in scopeList) {
+        if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
+            if (dependencies === '') {
+                dependencies = scopeList[id].name
+            } else {
+                dependencies += `, ${scopeList[id].name}`
+            }
+        }
+    }
+    return dependencies
+}
+
 /**
  * Deletes the current circuit
  * Ensures that at least one circuit is there
@@ -107,8 +126,7 @@ export function switchCircuit(id) {
  * @category circuit
  */
 export function deleteCurrentCircuit(scopeId = globalScope.id) {
-    let scope = scopeList[scopeId]
-    if (scope == undefined) scope = scopeList[globalScope.id]
+    const scope = scopeList[scopeId]
     if (Object.keys(scopeList).length <= 1) {
         showError(
             'At least 2 circuits need to be there in order to delete a circuit.'
@@ -152,9 +170,9 @@ export function deleteCurrentCircuit(scopeId = globalScope.id) {
 /**
  * Wrapper function around newCircuit to be called from + button on UI
  */
-export function createNewCircuitScope() {
+export function createNewCircuitScope(name = 'Untitled-Circuit') {
     simulationArea.lastSelected = undefined
-    const scope = newCircuit()
+    const scope = newCircuit(name)
     if (!embed) {
         showProperties(simulationArea.lastSelected)
         updateTestbenchUI()
@@ -182,6 +200,10 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     const scope = new Scope(name)
     if (id) scope.id = id
     scopeList[scope.id] = scope
+    let currCircuit = {
+        id: scope.id,
+    }
+    SimulatorStore().circuit_list.push(currCircuit)
     if (isVerilog) {
         scope.verilogMetadata.isVerilogCircuit = true
         scope.verilogMetadata.isMainCircuit = isVerilogMain
@@ -190,47 +212,40 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     $('.circuits').removeClass('current')
     if (!isVerilog || isVerilogMain) {
         if (embed) {
-            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${
-                scope.id
-            }'><span class='circuitName noSelect'>${truncateString(
-                name,
-                18
-            )}</span></div>`
-            $('#tabsBar').append(html)
-            $('#tabsBar').addClass('embed-tabs')
+            // added calss - embed-tab using vue logic
+            // var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${
+            //     scope.id
+            // }'><span class='circuitName noSelect'>${truncateString(
+            //     name,
+            //     18
+            // )}</span></div>`
+            // $('#tabsBar').append(html)
+            // $('#tabsBar').addClass('embed-tabs')
         } else {
-            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${
-                scope.id
-            }'><span class='circuitName noSelect'>${truncateString(
-                name,
-                18
-            )}</span><span class ='tabsCloseButton' id='${
-                scope.id
-            }'  >x</span></div>`
-            $('#tabsBar').children().last().before(html)
+            // logic implemented in vue
         }
 
         // Remove listeners
-        $('.circuits').off('click')
+        //$('.circuits').off('click')
         $('.circuitName').off('click')
-        $('.tabsCloseButton').off('click')
+        //$('.tabsCloseButton').off('click')
 
-        // Add listeners
-        $('.circuits').on('click', function () {
-            switchCircuit(this.id)
-        })
+        // switch circuit function moved inside vue component
 
         $('.circuitName').on('click', (e) => {
             simulationArea.lastSelected = globalScope.root
             setTimeout(() => {
+                // here link with the properties panel
                 document.getElementById('circname').select()
             }, 100)
         })
 
-        $('.tabsCloseButton').on('click', function (e) {
-            e.stopPropagation()
-            deleteCurrentCircuit(this.id)
-        })
+        // moved inside vue - component
+        // $('.tabsCloseButton').on('click', function (e) {
+        //     e.stopPropagation()
+        //     deleteCurrentCircuit(this.id)
+        // })
+
         if (!embed) {
             showProperties(scope.root)
         }

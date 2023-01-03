@@ -1,3 +1,4 @@
+import { useActions } from './store/SimulatorStore/actions'
 import { createApp } from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'
@@ -19,8 +20,8 @@ import './styles/tutorials.scss'
 loadFonts()
 
 createApp(App)
+    .use(createPinia())
     .use(vuetify)
     .use(router)
-    .use(createPinia())
     .use(i18n)
     .mount('#app')
