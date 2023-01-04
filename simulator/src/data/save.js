@@ -334,8 +334,6 @@ export default async function save() {
     projectSavedSet(true);
 
     $('.loadingIcon').fadeIn();
-    const data = generateSaveData();
-
     const projectName = getProjectName();
     var imageData = await generateImageForOnline();
 
