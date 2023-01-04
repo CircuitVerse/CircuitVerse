@@ -176,7 +176,7 @@
 
 .search-bar-form {
   align-items: center;
-  border: 2px solid lightgray;
+  border: 2px solid #d3d3d3;
   border-radius: 4px;
   display: flex;
   flex-wrap: nowrap;
@@ -194,9 +194,9 @@
   }
 
   select {
-    background-color: #EFEFEF;
+    background-color: #efefef;
     border: 0;
-    color: gray;
+    color: #808080;
     height: 35px;
     outline: none;
     width: 40px;
@@ -244,18 +244,22 @@
 
 .hidden-search-bar {
   width: 40px;
+
   input {
     display: none;
   }
+
   select {
     display: none;
   }
+
   button {
     display: none;
     height: 35px;
     padding-left: 5px;
     width: 35px;
   }
+
   span {
     display: block;
   }
@@ -280,7 +284,7 @@
   }
 
   .links {
-    border-bottom: 3px solid #EFEFEF;
+    border-bottom: 3px solid #efefef;
     font-weight: bold;
   }
 
