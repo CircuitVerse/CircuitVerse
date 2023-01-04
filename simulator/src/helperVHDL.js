@@ -260,14 +260,9 @@ export const generateLogicDFlipFlop = (dflipflopcomponent) => {
         ]
     } else if (!hasReset && hasEnable) {
         output = [
-            `IF clock'EVENT AND clock = '1' THEN\n`,
-            `          IF(enable = '1') THEN\n`,
-            `            q0 <= inp;\n`,
-            `            q1 <= NOT inp;\n`,
-            `          ELSE\n`,
-            `            q0 <= '0';\n`,
-            `            q1 <= '1';\n`,
-            `          END IF;\n`,
+            `IF clock'EVENT AND clock = '1' AND enable = '1' THEN\n`,
+            `          q0 <= inp;\n`,
+            `          q1 <= NOT inp;\n`,
             `        END IF;\n`
         ]
     } else {
