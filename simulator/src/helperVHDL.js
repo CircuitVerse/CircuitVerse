@@ -276,3 +276,91 @@ export const generateLogicDFlipFlop = (dflipflopcomponent) => {
 
     return output.join().replace(regexComma, '')
 }
+
+export const generateArchitetureHeaderTFlipFlop = (component, index)  => {
+    const regexComma = /,/g
+    const header = [
+        `ARCHITECTURE rtl OF ${component}${index} IS\n`,
+        generateSpacings(2),
+        'SIGNAL tmp: STD_LOGIC;\n',
+        generateSpacings(2),
+        `BEGIN\n`,
+    ]
+
+    return header.toString().replace(regexComma, "")
+}
+
+export const generateLogicTFlipFlop = (tflipflopcomponent) => {
+    const hasReset = (tflipflopcomponent.reset.connections.length > 0) ? true : false
+    const hasEnable = (tflipflopcomponent.en.connections.length > 0) ? true : false
+    const hasPreset = (tflipflopcomponent.preset.connections.length > 0) ? true : false
+    const regexComma = /,/g
+    let output = []
+
+    if(hasReset && hasEnable && hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF(reset = '1') THEN\n`,
+            `            tmp <= preset;\n`,
+            `          ELSE\n`,
+            `            IF(enable = '1') THEN\n`,
+            `              IF inp = '0' THEN\n`,
+            `                tmp <= tmp;\n`,
+            `              ELSE\n`,
+            `                tmp <= NOT tmp;\n`,
+            `              END IF;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && hasEnable && !hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF reset = '0' AND enable = '1' THEN\n`,
+            `            IF inp = '0' THEN\n`,
+            `              tmp <= tmp;\n`,
+            `            ELSE\n`,
+            `              tmp <= NOT tmp;\n`,
+            `            END IF;\n`,
+            `          ELSIF reset = '1' THEN\n`,
+            `              tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && !hasEnable && hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF(reset = '1') THEN\n`,
+            `            tmp <= preset;\n`,
+            `          ELSE\n`,
+            `            IF inp = '0' THEN\n`,
+            `              tmp <= tmp;\n`,
+            `            ELSE\n`,
+            `              tmp <= NOT tmp;\n`,
+            `            END IF;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (!hasReset && hasEnable) {
+        output = [
+            `IF clock'EVENT AND clock = '1' AND enable = '1' THEN\n`,
+            `          IF inp = '0' THEN\n`,
+            `            tmp <= tmp;\n`,
+            `          ELSE\n`,
+            `            tmp <= NOT tmp;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF inp = '0' THEN\n`,
+            `            tmp <= tmp;\n`,
+            `          ELSE\n`,
+            `            tmp <= NOT tmp;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    }
+
+    return output.join().replace(regexComma, '')
+}
