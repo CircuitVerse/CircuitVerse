@@ -352,7 +352,7 @@ GEM
     mini_magick (4.11.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.1)
-    minitest (5.16.3)
+    minitest (5.17.0)
     msgpack (1.6.0)
     multi_xml (0.6.0)
     nested_form (0.3.2)
@@ -494,7 +494,7 @@ GEM
       ffi (~> 1.0)
     recaptcha (5.9.0)
       json
-    redcarpet (1.17.2)
+    redcarpet (3.5.1)
     redis (4.6.0)
     regexp_parser (2.5.0)
     responders (3.0.1)
@@ -644,7 +644,7 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.5)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2022.3)
+    tzinfo-data (1.2022.7)
       tzinfo (>= 1.0.0)
     unf (0.1.4)
       unf_ext
@@ -757,7 +757,7 @@ DEPENDENCIES
   rails-i18n (~> 7.0.3)
   rails_admin (>= 3.0.0.rc3, < 4)
   recaptcha
-  redcarpet
+  redcarpet (~> 3.3, >= 3.3.4)
   redis (~> 4.6)
   rexml
   rspec-rails (~> 5.1)

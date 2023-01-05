@@ -4,8 +4,13 @@ module ForumHelper
   include SimpleDiscussion::ForumPostsHelper
 
   def formatted_content(text)
-    options = %I[hard_wrap filter_html autolink tables]
-    md = Redcarpet.new(text, *options).to_html
-    sanitize(md)
+    options = {
+      hard_wrap: true,
+      filter_html: true,
+      autolink: true,
+      tables: true
+    }
+    md = Redcarpet::Markdown.new(Redcarpet::Render::HTML, options)
+    sanitize(md.render(text))
   end
 end
