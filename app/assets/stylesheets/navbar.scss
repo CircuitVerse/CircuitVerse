@@ -122,6 +122,13 @@
   text-overflow: ellipsis;
 }
 
+.navbar-profile-picture {
+  border-radius: 50%;
+  height: 40px;
+  object-fit: cover;
+  width: 40px;
+}
+
 .affix {
   box-shadow: 0 8px 6px -6px $shadow-grey;
 }
@@ -176,7 +183,7 @@
 
 .search-bar-form {
   align-items: center;
-  border: 2px solid #d3d3d3;
+  border: 2px solid $lightgrey;
   border-radius: 4px;
   display: flex;
   flex-wrap: nowrap;
@@ -194,10 +201,10 @@
   }
 
   select {
-    background-color: #efefef;
+    background-color: $lightgrey;
     border: 0;
-    color: #808080;
-    height: 35px;
+    color: $grey;
+    height: 36px;
     outline: none;
     width: 40px;
   }
@@ -242,6 +249,12 @@
   }
 }
 
+.navbar-profile-section {
+  align-items: center;
+  display: flex;
+  gap: 10px;
+}
+
 .hidden-search-bar {
   width: 40px;
 
@@ -283,8 +296,13 @@
     display: block;
   }
 
+  .navbar-profile-picture {
+    height: 32px;
+    width: 32px;
+  }
+
   .links {
-    border-bottom: 3px solid #efefef;
+    border-bottom: 3px solid $lightgrey;
     font-weight: bold;
   }
 
