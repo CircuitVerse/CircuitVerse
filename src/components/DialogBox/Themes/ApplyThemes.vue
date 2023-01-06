@@ -35,14 +35,36 @@
                                 @click="changeTheme($event)"
                             ></div>
                             <span>
-                                <DefaultTheme v-if="theme == 'Default Theme'" />
-                                <NightSky v-if="theme == 'Night Sky'" />
-                                <LitebornSpring
-                                    v-if="theme == 'Lite-born Spring'"
+                                <img
+                                    v-if="theme == 'Default Theme'"
+                                    src="../../../assets/themes/DefaultTheme.svg"
+                                    style="display: block"
                                 />
-                                <GnW v-if="theme == 'G&W'" />
-                                <HighContrast v-if="theme == 'High Contrast'" />
-                                <ColorBlind v-if="theme == 'Color Blind'" />
+                                <img
+                                    v-if="theme == 'Night Sky'"
+                                    src="../../../assets/themes/NightSky.svg"
+                                    style="display: block"
+                                />
+                                <img
+                                    v-if="theme == 'Lite-born Spring'"
+                                    src="../../../assets/themes/LitebornSpring.svg"
+                                    style="display: block"
+                                />
+                                <img
+                                    v-if="theme == 'G&W'"
+                                    src="../../../assets/themes/GnW.svg"
+                                    style="display: block"
+                                />
+                                <img
+                                    v-if="theme == 'High Contrast'"
+                                    src="../../../assets/themes/HighContrast.svg"
+                                    style="display: block"
+                                />
+                                <img
+                                    v-if="theme == 'Color Blind'"
+                                    src="../../../assets/themes/ColorBlind.svg"
+                                    style="display: block"
+                                />
                             </span>
                             <span id="themeNameBox" class="themeNameBox">
                                 <input
@@ -130,12 +152,6 @@ import {
     updateThemeForStyle,
 } from '#/simulator/src/themer/themer'
 const SimulatorState = useState()
-import DefaultTheme from '#/assets/themes/DefaultTheme.svg'
-import NightSky from '#/assets/themes/NightSky.svg'
-import LitebornSpring from '#/assets/themes/LitebornSpring.svg'
-import GnW from '#/assets/themes/GnW.svg'
-import HighContrast from '#/assets/themes/HighContrast.svg'
-import ColorBlind from '#/assets/themes/ColorBlind.svg'
 import { CreateAbstraction } from '#/simulator/src/themer/customThemeAbstraction'
 const themes = ref([''])
 const customThemes = ref([''])
