@@ -63,7 +63,7 @@ cd CircuitVerse
 -  Git  - [https://git-scm.com/book/en/v2/Getting-Started-Installing-Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 - Ruby - [https://www.ruby-lang.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/) 
 - PostgreSQL - [https://wiki.postgresql.org/wiki/Detailed_installation_guides](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
-- Yarn - [https://www.hostinger.in/tutorials/how-to-install-yarn](https://www.hostinger.in/tutorials/how-to-install-yarn)
+- Yarn - [https://classic.yarnpkg.com/lang/en/docs/install/](https://classic.yarnpkg.com/lang/en/docs/install/)
 - Redis - [https://redis.io/docs/getting-started/](https://redis.io/docs/getting-started/)
 - ImageMagick - [https://imagemagick.org/script/download.php](https://imagemagick.org/script/download.php)
 
