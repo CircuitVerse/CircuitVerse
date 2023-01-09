@@ -92,3 +92,5 @@ en:
       fork_notification: "%{user} forked your Project %{project}"
       star_notification: "%{user} starred your Project %{project}"
       new_assignment_notification: "You have been assigned a new assignment '%{assignment_name}'"
+      forum_thread_notification: "%{user} posted a new thread '%{thread}'"
+      comment_notif: "%{user} commented '%{mssg}' on thread '%{thread}'"
