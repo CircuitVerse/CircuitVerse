@@ -103,7 +103,7 @@
 </div>
 
 <div id="commontator-comment-<%= comment.id %>-pagination" class="pagination">
-  <div id="commontator-comment-<%= comment.id %>-will-paginate" class="will-paginate">
+  <div id="commontator-comment-<%= comment.id %>-will-paginate" class="will-paginate comment-pagination">
     <%= will_paginate nested_children,
                       renderer: Commontator::LinkRenderer,
                       name: t('commontator.comment.status.reply_pages'),
