@@ -80,13 +80,13 @@ body {
 
 //breakpoints
 @media (max-width: 768px) {
-  .center-image {
+.center-image {
     display: none;
     flex: 0 0 100%;
     max-width: 100%;
   }
-  
-  .center-text {
+
+.center-text {
     flex: 0 0 100%;
     max-width: 100%;
   }
