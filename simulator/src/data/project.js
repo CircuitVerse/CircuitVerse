@@ -76,9 +76,9 @@ export function projectSavedSet(param) {
  */
 export function saveOffline() {
     // Asking user name before starting the process of save
-    const projectNameByUser = prompt('Enter Project Name:');
-    // If user clicks 'Cancel' we should call the function off
-    if (projectNameByUser === null) return;
+    let projectNameByUser = '';
+    if(getProjectName() === 'Untitled')
+     projectNameByUser = prompt("Enter Project Name:");
     const data = generateSaveData(projectNameByUser);
     localStorage.setItem(projectId, data);
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
