@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-# rubocop:disable all
 class ForumPost < ApplicationRecord
   belongs_to :forum_thread, counter_cache: true, touch: true
   belongs_to :user
+  # rubocop:disable Rails/RedundantPresenceValidationOnBelongsTo
   validates :user_id, :body, presence: true
-
+  # rubocop:enable Rails/RedundantPresenceValidationOnBelongsTo
   scope :sorted, -> { order(:created_at) }
 
   after_update :solve_forum_thread, if: :solved?

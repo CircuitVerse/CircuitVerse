@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-# rubocop:disable all
 class ForumThread < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
   belongs_to :forum_category
   belongs_to :user
+  # rubocop:disable all
   has_many :forum_posts
   has_many :forum_subscriptions
-  has_many :optin_subscribers, -> { where(forum_subscriptions: {subscription_type: :optin }) }, through: :forum_subscriptions, source: :user
+  has_many :optin_subscribers, -> { where(forum_subscriptions: { subscription_type: :optin }) }, through: :forum_subscriptions, source: :user
   has_many :optout_subscribers, -> { where(forum_subscriptions: { subscription_type: :optout }) }, through: :forum_subscriptions, source: :user
   has_many :users, through: :forum_posts
 
@@ -17,6 +17,7 @@ class ForumThread < ApplicationRecord
   validates :user_id, :title, presence: true
   validates_associated :forum_posts
 
+  # rubocop:enable all
   scope :pinned_first, -> { order(pinned: :desc) }
   scope :solved, -> { where(solved: true) }
   scope :sorted, -> { order(updated_at: :desc) }
@@ -59,13 +60,14 @@ class ForumThread < ApplicationRecord
     end
   end
 
+  # rubocop:disable all 
   def subscribed_reason(user)
     return I18n.t(".not_receiving_notifications") if user.nil?
 
     subscription = subscription_for(user)
 
     if subscription.present?
-      if subscription.subscription_type == "optout" # rubocop:disable Style/CaseLikeIf
+      if subscription.subscription_type == "optout"
         I18n.t(".ignoring_thread")
       elsif subscription.subscription_type == "optin"
         I18n.t(".receiving_notifications_because_subscribed")
@@ -76,6 +78,7 @@ class ForumThread < ApplicationRecord
       I18n.t(".not_receiving_notifications")
     end
   end
+  # rubocop:enable all
 
   def notify_moderators
     User.where(admin: true).find_each do |moderators|
