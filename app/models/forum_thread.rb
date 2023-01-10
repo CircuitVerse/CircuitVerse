@@ -60,12 +60,15 @@ class ForumThread < ApplicationRecord
     end
   end
 
-  # rubocop:disable all 
   def subscribed_reason(user)
     return I18n.t(".not_receiving_notifications") if user.nil?
 
-    subscription = subscription_for(user)
+    subscription_type
+  end
+  # rubocop:disable all 
 
+  def subscription_type
+    subscription = subscription_for(user)
     if subscription.present?
       if subscription.subscription_type == "optout"
         I18n.t(".ignoring_thread")
