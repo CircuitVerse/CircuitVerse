@@ -65,23 +65,26 @@ class ForumThread < ApplicationRecord
 
     subscription_type
   end
-  # rubocop:disable all 
 
   def subscription_type
     subscription = subscription_for(user)
     if subscription.present?
-      if subscription.subscription_type == "optout"
-        I18n.t(".ignoring_thread")
-      elsif subscription.subscription_type == "optin"
-        I18n.t(".receiving_notifications_because_subscribed")
-      end
+      type_check
     elsif forum_posts.where(user_id: user.id).any?
       I18n.t(".receiving_notifications_because_posted")
     else
       I18n.t(".not_receiving_notifications")
     end
   end
-  # rubocop:enable all
+
+  def type_check
+    case subscription.subscription_type
+    when "output"
+      I18n.t(".ignoring_thread")
+    else
+      I18n.t(".receiving_notifications_because_subscribed")
+    end
+  end
 
   def notify_moderators
     User.where(admin: true).find_each do |moderators|
