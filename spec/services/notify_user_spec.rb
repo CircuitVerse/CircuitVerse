@@ -93,7 +93,7 @@ RSpec.describe NotifyUser, type: :service do
         @notification = FactoryBot.create(
           :noticed_notification,
           recipient: @user,
-          type: "None",
+          type: "NoType",
           params:
             { user: @user },
           read_at: nil

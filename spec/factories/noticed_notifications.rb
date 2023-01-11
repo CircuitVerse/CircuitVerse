@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :noticed_notification do
-    type { ['StarNotification', 'ForkNotification', 'NewAssignmentNotification', 'None'] }
+    type { %w[StarNotification ForkNotification NewAssignmentNotification NoType] }
   end
 end
