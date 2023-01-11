@@ -11,7 +11,7 @@ class Users::NoticedNotificationsController < ApplicationController
   def mark_as_read
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
-    answer = NotifyUser.new(params).call
+    answer = NotifyUser.new(notification_id: params[:notification_id]).call
     return redirect_to group_assignment_path(answer.first_param, answer.second) if answer.type == "new_assignment"
 
     redirect_to user_project_path(answer.first_param, answer.second)

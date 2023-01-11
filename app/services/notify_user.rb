@@ -2,17 +2,14 @@
 
 class NotifyUser
   Result = Struct.new(:success, :type, :first_param, :second)
-  def initialize(params)
-    @notification = NoticedNotification.find(params[:notification_id])
+  def initialize(notification_id:)
+    @notification = NoticedNotification.find(notification_id)
     @assignment = @notification.params[:assignment]
     @project = @notification.params[:project]
   end
 
   def call
-    result = type_check
-    return result if result.success == "true"
-
-    false
+    type_check
   end
 
   private
@@ -25,7 +22,7 @@ class NotifyUser
       elsif @notification.type == "NewAssignmentNotification"
         Result.new("true", "new_assignment", @assignment.group, @assignment)
       else
-        Result.new("false", "no_type", root_path)
+        Result.new("false", "no_type")
       end
     end
 end
