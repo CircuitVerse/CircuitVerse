@@ -10,6 +10,6 @@ class ForumThreadNotification < Noticed::Base
   end
 
   def icon
-    "fa fa-comments"
+    "far fa-comments"
   end
 end
