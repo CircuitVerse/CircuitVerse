@@ -4,13 +4,7 @@ require "rails_helper"
 require "nokogiri"
 
 RSpec.describe LtiScoreSubmission, type: :service do
-  let(:assignment) { instance_double(Assignment, lti_consumer_key: "key", lti_shared_secret: "secret") }
-  let(:lis_result_sourced_id) { "xS213j" }
-  let(:score) { "0.74" }
-  let(:lis_outcome_service_url) { "http://www.imsglobal.org/lis/oms1p0/pox" }
-  let(:oauth_token) { double }
-
-  subject do # robocop:disable RSpec/LeadingSubject
+  subject do
     described_class.new(
       assignment: assignment,
       lis_result_sourced_id: lis_result_sourced_id,
@@ -18,6 +12,12 @@ RSpec.describe LtiScoreSubmission, type: :service do
       lis_outcome_service_url: lis_outcome_service_url
     )
   end
+
+  let(:assignment) { instance_double(Assignment, lti_consumer_key: "key", lti_shared_secret: "secret") }
+  let(:lis_result_sourced_id) { "xS213j" }
+  let(:score) { "0.74" }
+  let(:lis_outcome_service_url) { "http://www.imsglobal.org/lis/oms1p0/pox" }
+  let(:oauth_token) { double }
 
   describe "#call" do
     let(:oauth_token) { instance_double(OAuth::AccessToken) }
