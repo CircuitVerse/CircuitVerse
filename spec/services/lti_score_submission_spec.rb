@@ -62,7 +62,6 @@ RSpec.describe LtiScoreSubmission, type: :service do
     it "validates XML" do
       xml = Nokogiri::XML(subject.send(:score_body).to_xml)
       xml.remove_namespaces!
-      # puts score_xml
       expect(xml.at_xpath("//imsx_version").text).to eq("V1.0")
       expect(xml.at_xpath("//sourcedId").text).to eq(lis_result_sourced_id)
       expect(xml.at_xpath("//textString").text).to eq(score)
