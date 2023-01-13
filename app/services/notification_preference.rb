@@ -11,10 +11,15 @@ class NotificationPreference < ApplicationController
 
   def call
     if @count == "1"
-      if @notific_type == "star"
+      case @notific_type
+      when "star"
         update_star
-      else
+      when "fork"
         update_fork
+      when "new_assignment"
+        update_new_assignment
+      else
+        foo
       end
     else
       update_all
@@ -39,11 +44,19 @@ class NotificationPreference < ApplicationController
       end
     end
 
+    def update_new_assignment
+      if @active == "true"
+        @recipient.update!(new_assignment: "false")
+      else
+        @recipient.update!(new_assignment: "true")
+      end
+    end
+
     def update_all
       if @active == "true"
-        @recipient.update!(star: "false", fork: "false")
+        @recipient.update!(star: "false", fork: "false", new_assignment: "false")
       else
-        @recipient.update!(star: "true", fork: "true")
+        @recipient.update!(star: "true", fork: "true", new_assignment: "true")
       end
     end
 end

@@ -103,4 +103,6 @@ hi:
       fork_notification: "%{user} ने आपके प्रोजेक्ट %{project} को फोर्क किया"
       fork_description: "अधिसूचित जब भी कोई आपकी प्रोजेक्ट को फोर्क करता है"
       star_notification: "%{user} ने आपका प्रोजेक्ट %{project} स्टार किया"
+      new_assignment: "नया असाइनमेंट नोटिफिकेशन"
+      new_assignment_description: "अधिसूचित जब भी नया असाइनमेंट सौंपा जाता है"
       new_assignment_notification: "आपको एक नया कार्य सौंपा गया है! - '%{assignment_name}'"
