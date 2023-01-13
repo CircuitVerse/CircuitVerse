@@ -63,7 +63,8 @@ cd CircuitVerse
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template)
+4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template): 
+     * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
@@ -125,6 +126,19 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
+
+### Enabling/Disabling features with Flipper 
+By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
+```ruby
+rails c
+
+# Enable features (:recaptcha, :forum)
+> Flipper.enable :recaptcha
+
+# Disable features (:project_comments, :lms_integration)
+> Flipper.disable :forum
+```
+Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
 ### Additional setup instructions
 [Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
