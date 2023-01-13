@@ -10,6 +10,7 @@
     <div class="tab-container">
       <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
+      <span id="settings" class="notifications-tab" data-action="click->notifications#activeSettings"> <%= t("users.notifications.settings") %></span>
     </div>
     <% if @unread.count.positive? %>
       <div>
@@ -69,5 +70,60 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <hr>
+  <div id="settings-div" class="d-none notification-settings">
+    <div class="d-sett-h">
+      <h2 class="mb-2 mt-2 "><%= t("users.notifications.heading_settings") %></h2>
+      <br>
+      <% if @user.star && @user.fork == "true" && @user.new_assignment== "true" %>
+        <h6 class="mb-2 mt-2 "><%= t("users.notifications.disable_all") %></h6>
+        <br>
+        <%= link_to "disable all events" ,edit_notifications_path(params[:id], active: "true", count: "2"), method: :patch, class: 'notification danger-text' %>
+      <% else %>
+          <h6 class="mb-2 mt-2 "><%= t("users.notifications.enable_all") %></h6>
+        <br>
+          <%= link_to "enable all events" ,edit_notifications_path(params[:id], active: "false", count: "2"), method: :patch, class: 'notification anchor-text' %>
+      <% end %>
+      <br>
+      <br>
+      <br>
+      <h3 class="mb-2 mt-2 "><%= t("users.notifications.events_settings") %></h3>
+    </div>
+    <div class="d-sett-n">
+      <hr>
+        <%= fields_for @user ,:preferences do |w| %>
+          <% @user.preferences.each do |key,value| %>
+          <div class="container-fluid settings-fill-container-fluid">
+            <div class="container">
+              <div class="row center-row settings-center-content">
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 settings-left-text">
+                  <h4><%= w.label key %></h4>
+                  <% if key == "star" %>
+                  <p><%= t("users.notifications.star_description") %></p>
+                  <% elsif key == "new_assignment" %>
+                  <p><%= t("users.notifications.new_assignment_description") %></p>
+                  <% else %>
+                  <p><%= t("users.notifications.fork_description") %></p>
+                  <% end %>
+                </div>
+                
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <br>
+              &nbsp;
+              &nbsp;
+                <% if value == "true" %>
+                  <%= link_to "disable" ,edit_notifications_path(params[:id], type: key, active: value, count: "1"), method: :patch, class: 'notification danger-text' %>
+                <% else %>
+                  <%= link_to "enable" ,edit_notifications_path(params[:id], type: key, active: value, count: "1"), method: :patch, class: ' notification anchor-text' %>
+                <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <% end %>
+        <% end %>
+    </div>
   </div>
 </div>

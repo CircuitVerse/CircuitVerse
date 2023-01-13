@@ -6,6 +6,12 @@ class Users::NoticedNotificationsController < ApplicationController
   def index
     @notifications = NoticedNotification.where(recipient: current_user).newest_first
     @unread = NoticedNotification.where(recipient: current_user).newest_first.unread
+    @user = User.find(params[:id])
+  end
+
+  def edit
+    NotificationPreference.new(params).call
+    redirect_back(fallback_location: root_path)
   end
 
   def mark_as_read

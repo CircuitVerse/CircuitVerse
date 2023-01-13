@@ -53,6 +53,9 @@ class User < ApplicationRecord
 
   scope :subscribed, -> { where(subscribed: true) }
 
+  store :preferences, accessors: %i[star fork new_assignment], coder: JSON
+  after_commit :set_preferences, on: :create
+
   include PgSearch::Model
 
   pg_search_scope :text_search, against: %i[name educational_institute country]
@@ -61,6 +64,12 @@ class User < ApplicationRecord
     text :name
     text :educational_institute
     text :country
+  end
+
+  def set_preferences
+    preferences[:star] = "true"
+    preferences[:fork] = "true"
+    preferences[:new_assignment] = "true"
   end
 
   def create_members_from_invitations
