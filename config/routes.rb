@@ -82,6 +82,7 @@ Rails.application.routes.draw do
     patch "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
     patch "/:id/notifications/read_all_notifications", to: "users/noticed_notifications#read_all_notifications", as: "read_all_notifications"
     post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read", as: "mark_as_read"
+    delete "/:id/notifications/clear_all", to: "users/noticed_notifications#clear_all", as: "clear_all_notification"
   end
 
   post "/push/subscription/new", to: "push_subscription#create"
@@ -96,7 +97,7 @@ Rails.application.routes.draw do
 
   # lti
   scope "lti"  do
-    match 'launch', to: 'lti#launch', via: [:get, :post] 
+    match 'launch', to: 'lti#launch', via: [:get, :post]
   end
 
   mount Commontator::Engine => "/commontator"
@@ -108,7 +109,7 @@ Rails.application.routes.draw do
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
-    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data" 
+    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data"
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"

@@ -44,5 +44,10 @@ describe "Notifcation", type: :system do
       click_on "#{@user.name} forked your Project #{@project.name}"
       expect(@author.noticed_notifications.read.count).to eq(1)
     end
+
+    it "clear all" do
+      click_on "Click All"
+      expect(@author.noticed_notifications.count).to eq(0)
+    end
   end
 end

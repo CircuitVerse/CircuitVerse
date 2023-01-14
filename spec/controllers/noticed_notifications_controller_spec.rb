@@ -61,4 +61,22 @@ describe Users::NoticedNotificationsController, type: :request do
       expect(@author.noticed_notifications.read.count).to eq(1)
     end
   end
+
+  describe "#clear" do
+    before do
+      @notification = FactoryBot.create(
+        :noticed_notification,
+        recipient: @author,
+        params:
+          { user: @user, project: @project },
+        read_at: nil
+      )
+    end
+
+    it "clear all notifications" do
+      sign_in @author
+      delete clear_all_notification_url(@author)
+      expect(@author.noticed_notifications.count).to eq(0)
+    end
+  end
 end
