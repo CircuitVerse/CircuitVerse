@@ -91,8 +91,8 @@ class Api::V1::CommentsController < Api::V1::BaseController
     def load_index_resource
       @commontator_thread = Commontator::Thread.find(params[:thread_id])
       @project = @commontator_thread.commontable
-      security_transgression_unless @project.project_access_type == "Public"\
-                                    || (current_user && @project.author == current_user\
+      security_transgression_unless @project.project_access_type == "Public" \
+                                    || (current_user && @project.author == current_user \
                                     && @commontator_thread.can_be_read_by?(current_user))
     end
 
