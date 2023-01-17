@@ -4,10 +4,11 @@ class Users::NoticedNotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-
-    @notifications = NoticedNotification.where(recipient: current_user)
+    @notifications = NoticedNotification
+      .where(recipient: current_user)
       .newest_first.paginate(page: params[:page], per_page: 10)
-    @unread = NoticedNotification.where(recipient: current_user)
+    @unread = NoticedNotification
+      .where(recipient: current_user)
       .newest_first.unread.paginate(page: params[:page], per_page: 10)
   end
 
