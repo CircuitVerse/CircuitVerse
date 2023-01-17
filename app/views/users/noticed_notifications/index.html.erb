@@ -18,7 +18,7 @@
     <% end %>
   </div>
   <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-10 mt-3 notifications_container">
-    <% @notifications.each do |notification| %>
+    <% @notifications.each_with_index do |notification, index| %>
       <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: 'mb-2 mt-2 notification' do %>
         <div class="d-flex align-items-center notification-div">
           <span><i class="<%= notification.to_notification.icon %>"></i></span>
@@ -43,6 +43,10 @@
           <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
           <h6><%= t("users.notifications.no_notifications") %></h6>
         </div>
+      </div>
+    <% else %>
+      <div class="container pagination-cont">
+        <%= will_paginate @notifications, renderer: NotificationPaginateRenderer %>
       </div>
     <% end %>
   </div>
