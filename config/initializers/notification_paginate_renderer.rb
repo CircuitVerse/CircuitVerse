@@ -7,8 +7,6 @@ class NotificationPaginateRenderer < WillPaginate::ActionView::LinkRenderer
 
     if page == current_page
      tag("li", link(page, page, class: 'page-link', rel: rel_value(page)), class: "page-item active")
-    else
-      tag("li", link(page, "notifications?page=#{page}", class: 'page-link', rel: rel_value(page)), class: "page-item ")
     end
     # link(page, page, class: 'page-link', rel: rel_value(page))
   end
