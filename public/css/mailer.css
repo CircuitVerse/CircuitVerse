@@ -33,7 +33,7 @@ body {
 }
 
 .mailer-social-link {
-  margin: 10px;
+  margin: 5px;
 }
 
 .mailer-copyright-text {
@@ -107,7 +107,7 @@ body {
   }
 
   .mailer-social-image {
-    width: 30px;
+    min-width: 55px;
   }
 
   .mailer-welcome-text {
@@ -129,7 +129,7 @@ body {
   }
 
   .mailer-social-image {
-    width: 45px;
+    min-width: 56px;
   }
 
   .mailer-welcome-text {
