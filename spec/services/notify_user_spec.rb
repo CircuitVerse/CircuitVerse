@@ -10,6 +10,9 @@ RSpec.describe NotifyUser, type: :service do
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @assignment = FactoryBot.create(:assignment, group: @group)
     @project = FactoryBot.create(:project, author: @user)
+    @category = FactoryBot.create(:forum_category)
+    @thread = FactoryBot.create(:forum_thread, forum_category_id: @category.id, user_id: @user.id)
+    @post = FactoryBot.create(:forum_post, forum_thread_id: @thread.id, user_id: @user.id)
   end
 
   describe "#call" do
@@ -85,6 +88,30 @@ RSpec.describe NotifyUser, type: :service do
       it "returns assignment's group and assignment as first_param and second" do
         expect(result.first_param).to eq(@notification.params[:assignment].group)
         expect(result.second).to eq(@notification.params[:assignment])
+      end
+    end
+
+    describe "ForumThreadNotification" do
+      before do
+        @notification = FactoryBot.create(
+          :noticed_notification,
+          recipient: @user,
+          type: "ForumThreadNotification",
+          params:
+            { thread: @thread },
+          read_at: nil
+        )
+      end
+
+      let(:result) { described_class.new(notification_id: @notification.id).call }
+
+      it "returns result as success with type 'forum_thread'" do
+        expect(result.success).to eq("true")
+        expect(result.type).to eq("forum_thread")
+      end
+
+      it "returns assignment's group and assignment as first_param and second" do
+        expect(result.first_param).to eq(@notification.params[:forum_thread])
       end
     end
 
