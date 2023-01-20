@@ -438,7 +438,7 @@ GEM
     pundit (2.2.0)
       activesupport (>= 3.0.0)
     racc (1.6.1)
-    rack (2.2.4)
+    rack (2.2.6.2)
     rack-attack (6.6.1)
       rack (>= 1.0, < 3)
     rack-protection (2.1.0)
