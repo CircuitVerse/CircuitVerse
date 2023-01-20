@@ -2,6 +2,6 @@
 
 FactoryBot.define do
   factory :forum_post do
-    body {Faker::Lorem.sentence}
+    body { Faker::Lorem.sentence }
   end
 end

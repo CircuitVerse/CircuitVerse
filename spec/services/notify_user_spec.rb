@@ -12,7 +12,6 @@ RSpec.describe NotifyUser, type: :service do
     @project = FactoryBot.create(:project, author: @user)
     @category = FactoryBot.create(:forum_category)
     @thread = FactoryBot.create(:forum_thread, forum_category_id: @category.id, user_id: @user.id)
-    @post = FactoryBot.create(:forum_post, forum_thread_id: @thread.id, user_id: @user.id)
   end
 
   describe "#call" do
@@ -91,6 +90,32 @@ RSpec.describe NotifyUser, type: :service do
       end
     end
 
+    describe "ForumCommentNotification" do
+      before do
+        @post = FactoryBot.create(:forum_post, forum_thread_id: @thread.id, user_id: @user.id)
+        @notification = FactoryBot.create(
+          :noticed_notification,
+          recipient: @user,
+          type: "ForumCommentNotification",
+          params:
+          { forum_thread: @thread, forum_post: @post },
+          read_at: nil
+        )
+      end
+
+      let(:result) { described_class.new(notification_id: @notification.id).call }
+
+      it "returns result as success with type 'forum_comment'" do
+        expect(result.success).to eq("true")
+        expect(result.type).to eq("forum_comment")
+      end
+
+      it "returns thread and post as first_param and second" do
+        expect(result.first_param).to eq(@notification.params[:forum_thread])
+        expect(result.second).to eq(@notification.params[:forum_post].id)
+      end
+    end
+
     describe "ForumThreadNotification" do
       before do
         @notification = FactoryBot.create(
@@ -98,7 +123,7 @@ RSpec.describe NotifyUser, type: :service do
           recipient: @user,
           type: "ForumThreadNotification",
           params:
-            { thread: @thread },
+            { forum_thread: @thread },
           read_at: nil
         )
       end
@@ -110,7 +135,7 @@ RSpec.describe NotifyUser, type: :service do
         expect(result.type).to eq("forum_thread")
       end
 
-      it "returns assignment's group and assignment as first_param and second" do
+      it "returns thread as first_param" do
         expect(result.first_param).to eq(@notification.params[:forum_thread])
       end
     end

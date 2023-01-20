@@ -2,8 +2,7 @@
 
 FactoryBot.define do
   factory :forum_thread do
-    title {"Thread name"}
-    slug {"rails"}
+    title { "Thread name" }
+    slug { "rails" }
   end
 end
-
