@@ -117,19 +117,6 @@ Rails.application.routes.draw do
     get "/embed/:id", to: "simulator#embed", as: "simulator_embed"
   end
 
-  scope "/simulator_old" do
-    get "/:id", to: "simulator_old#show", as: "simulator_old"
-    get "/edit/:id", to: "simulator_old#edit", as: "simulator_old_edit"
-    post "/get_data", to: "simulator_old#get_data"
-    post "/post_issue", to: "simulator_old#post_issue"
-    post "/update_data", to: "simulator_old#update"
-    post "/update_image", to: "simulator_old#update_image"
-    post "/create_data", to: "simulator_old#create"
-    post "/verilogcv", to: "simulator_old#verilog_cv"
-    get "/", to: "simulator_old#new", as: "simulator_old_new"
-    get "/embed/:id", to: "simulator_old#embed"
-  end
-
   scope "/testbench" do
     get "/", to: "testbench#creator", as: "testbench_creator"
   end
