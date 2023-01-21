@@ -769,8 +769,8 @@ function setupPanelListeners(panelSelector) {
     )
     // Current Panel on Top
     $(panelSelector).on('mousedown', () => {
-        $(`.draggable-panel:not(${panelSelector})`).css('z-index', '99')
-        $(panelSelector).css('z-index', '100')
+        $(`.draggable-panel:not(${panelSelector})`).css('z-index', '70')
+        $(panelSelector).css('z-index', '71')
     })
     var minimized = false
     $(headerSelector).on('dblclick', () =>

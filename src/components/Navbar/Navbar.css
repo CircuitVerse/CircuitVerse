@@ -249,7 +249,7 @@
 
 .draggable-panel-css {
     border-radius: 5px;
-    z-index: 100;
+    z-index: 70;
     transition: background 0.5s ease-out;
     position: fixed;
 }
