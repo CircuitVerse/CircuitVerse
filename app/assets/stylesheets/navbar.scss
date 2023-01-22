@@ -53,11 +53,68 @@
   border: 2px solid $primary-green;
   color: $navbar-dark-grey;
   font-weight: 500;
-  transition: all .3s ease-in;
+  transition: all 0.3s ease-in;
+  z-index: 0;
+  position: relative;
 
   &:hover {
     background: $primary-green;
     color: $white;
+  }
+
+  &::before {
+    position: absolute;
+    content: "";
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    left: -2px;
+    top: -2px;
+    background: linear-gradient(
+      124deg,
+      #ff2400,
+      #e81d1d,
+      #e8b71d,
+      #e3e81d,
+      #1de840,
+      #1ddde8,
+      #2b1de8,
+      #dd00f3,
+      #dd00f3
+    );
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    animation: move 20s linear infinite;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    border-radius: 10px;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+
+  &::after {
+    z-index: -1;
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    left: 0;
+    top: 0;
+  }
+
+  @keyframes move {
+    0% {
+      background-position: 0 0;
+    }
+    50% {
+      background-position: 400% 0;
+    }
+    100% {
+      background-position: 0 0;
+    }
   }
 }
 
@@ -73,7 +130,7 @@
   &::after {
     margin-left: 0;
     padding-left: 0;
-    vertical-align: .5em;
+    vertical-align: 0.5em;
   }
 }
 
@@ -161,16 +218,16 @@
   -webkit-appearance: none;
   appearance: none; // to hide the default dropdown icon
   background-color: $card-green;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
     // svg dropdown icon
     linear-gradient(
         to bottom,
         $white 0%,
         $white 100%
       ); // background gradient color for select bar
-  background-position: right .3em top 50%, 0 0; // arrow icon position (0.3em from the right, 50% vertical) , then gradient position
+  background-position: right 0.3em top 50%, 0 0; // arrow icon position (0.3em from the right, 50% vertical) , then gradient position
   background-repeat: no-repeat, repeat;
-  background-size: .45em auto, 100%; // icon size, then gradient
+  background-size: 0.45em auto, 100%; // icon size, then gradient
   border: 1px solid $primary-green;
   cursor: pointer;
   font-size: 18px;
