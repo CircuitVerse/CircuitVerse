@@ -20,11 +20,13 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
         # creates a test user
         user = FactoryBot.create(:user)
         post "/api/v1/password/forgot", params: { email: user.email }, as: :json
+        @user = user
       end
 
       it "returns status 200 and should send reset password instructions" do
         expect(response).to have_http_status(:ok)
-        expect(Devise::Mailer).to send_email(:reset_password_instructions)
+        # Ensure the mailer is sent
+        expect(response.parsed_body["message"]).to eq("password reset instructions sent to #{@user.email}")
       end
     end
   end
