@@ -4,6 +4,8 @@
   top: 0;
   width: 100%;
   z-index: 100;
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .navbar-logo {
@@ -108,7 +110,7 @@
   margin-top: 0;
   padding: 20px;
   position: fixed;
-  top: 96px;
+  top: 80px;
   width: 100%;
   z-index: 90;
 }
