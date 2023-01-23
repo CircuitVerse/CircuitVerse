@@ -93,3 +93,5 @@ en:
       star_notification: "%{user} starred your Project %{project}"
       new_group_notification: "%{user} added you to a new group %{group}"
       new_assignment_notification: "You have been assigned a new assignment '%{assignment_name}'"
+      forum_thread_notification: "%{user} posted a new thread '%{thread}'"
+      comment_notif: "%{user} commented on thread '%{thread}'"
