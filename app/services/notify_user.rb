@@ -18,7 +18,8 @@ class NotifyUser
 
   private
 
-    def type_check # robocop:disable Metrics/MethodLength
+    # robocop:disable Metrics/MethodLength
+    def type_check
       case @notification.type
       when "NewGroupNotification"
         @group = @notification.params[:group][:group_id]
@@ -38,4 +39,5 @@ class NotifyUser
         Result.new("false", "no_type", root_path)
       end
     end
+    # robocop:enable Metrics/MethodLength
 end
