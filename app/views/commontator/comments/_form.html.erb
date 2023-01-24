@@ -35,7 +35,7 @@
 
   <div class="field comments-field">
     <%=
-      form.text_area :body, rows: '1', id: new_record ?
+      form.text_area :body, rows: '3', id: new_record ?
         comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
                               "commontator-comment-#{comment.parent.id}-reply" :
         "commontator-comment-#{comment.id}-edit-body"
