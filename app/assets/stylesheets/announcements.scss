@@ -6,7 +6,7 @@
   flex-wrap: wrap;
   font-size: 13px;
   justify-content: center;
-  min-height: 40px;
+  min-height: 35px;
   min-width: 100vw;
   overflow-wrap: break-word;
   position: fixed;
@@ -31,11 +31,6 @@
 
 @media(max-width: 992px) {
   .announcements-content-wrapper {
-    font-size: 1rem;
-    padding-bottom: .6rem;
-
-    span {
-      flex: 100%;
-    }
+    font-size: 9px;
   }
 }
