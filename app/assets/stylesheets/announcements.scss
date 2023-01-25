@@ -1,25 +1,31 @@
 .announcements-content-wrapper {
   align-items: center;
   background: $primary-green;
-  border-radius: .3rem;
   color: $white;
   display: flex;
   flex-wrap: wrap;
-  font-size: 1.2rem;
+  font-size: 13px;
+  position: fixed;
+  top: 0;
   justify-content: center;
-  margin-top: .3rem;
   overflow-wrap: break-word;
+  min-width: 100vw;
+  min-height: 40px;
+  z-index: 1;
 
-  span {
-    display: inline-block;
-    flex: 50%;
-    margin-right: 1rem;
-    margin-top: 1rem;
-    text-align: center;
+  p {
+    margin-bottom: 0;
   }
 
   a {
-    background: $secondary-red;
+    color: $white;
+    font-weight: bold;
+    margin-left: 10px;
+    border-bottom: 1px dotted $white;
+
+    &:hover {
+      text-decoration: none;
+    }
   }
 }
 
