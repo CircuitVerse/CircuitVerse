@@ -858,6 +858,8 @@ export default class CircuitElement {
         const dlatch = this.scope.Dlatch;
         const dflipflop = this.scope.DflipFlop
         const tflipflop = this.scope.TflipFlop
+        const jkflipflop = this.scope.JKflipFlop
+        const srflipflop = this.scope.SRflipFlop
         let element = '';
 
         if(hasComponent(mux)){
@@ -996,6 +998,64 @@ export default class CircuitElement {
             const tflipflopFiltered = removeDuplicateComponent(objtflipflop)
             tflipflopFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsclock + el.stdclock + el.portsenable + el.stdenable + el.portsreset + el.stdreset + el.portspreset + el.stdpreset + el.portsout + el.stdout + el.end)
         }
+
+        if(hasComponent(jkflipflop)){
+            let objjkflipflop = []
+            for(var i = 0; i < jkflipflop.length; i++){
+                objjkflipflop = [...objjkflipflop, 
+                {
+                    header: generateComponentHeader('JKFlipFlop', `bit${jkflipflop[i].bitWidth}`),
+                    portsin: generateSpacings(2) + generatePortsIO('J, K', 0),
+                    stdin: generateSTDType('IN', jkflipflop[i].bitWidth) + ';\n',
+                    portsclock: generateSpacings(2) + generatePortsIO('clock', 0),
+                    stdclock: generateSTDType('IN', 1) + ';',
+                    
+                    portsenable: hasComponent(jkflipflop[i].en.connections) ? '\n' + generateSpacings(2) + generatePortsIO('enable', 0) : '',
+                    stdenable: hasComponent(jkflipflop[i].en.connections) ? generateSTDType('IN', 1) + ';' : '',
+                    
+                    portsreset: hasComponent(jkflipflop[i].reset.connections) ? '\n' + generateSpacings(2) + generatePortsIO('reset', 0) : '',
+                    stdreset: hasComponent(jkflipflop[i].reset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                    
+                    portspreset: hasComponent(jkflipflop[i].preset.connections) ? '\n' + generateSpacings(2) + generatePortsIO('preset', 0) : '',
+                    stdpreset: hasComponent(jkflipflop[i].preset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                    
+                    portsout: '\n' + generateSpacings(2) + generatePortsIO('q', 1),
+                    stdout: generateSTDType('OUT', jkflipflop[i].bitWidth)+ '\n',
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
+                    identificator: `bit${jkflipflop[i].bitWidth}`,
+                }]
+            }
+            const jkflipflopFiltered = removeDuplicateComponent(objjkflipflop)
+            jkflipflopFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsclock + el.stdclock + el.portsenable + el.stdenable + el.portsreset + el.stdreset + el.portspreset + el.stdpreset + el.portsout + el.stdout + el.end)
+        }
+
+        if(hasComponent(srflipflop)){
+            let objsrflipflop = []
+            for(var i = 0; i < srflipflop.length; i++){
+                objsrflipflop = [...objsrflipflop, 
+                {
+                    header: generateComponentHeader('SRFlipFlop', `bit${srflipflop[i].bitWidth}`),
+                    portsin: generateSpacings(2) + generatePortsIO('S, R', 0),
+                    stdin: generateSTDType('IN', srflipflop[i].bitWidth) + ';\n',
+                    
+                    portsenable: hasComponent(srflipflop[i].en.connections) ? '\n' + generateSpacings(2) + generatePortsIO('enable', 0) : '',
+                    stdenable: hasComponent(srflipflop[i].en.connections) ? generateSTDType('IN', 1) + ';' : '',
+                    
+                    portsreset: hasComponent(srflipflop[i].reset.connections) ? '\n' + generateSpacings(2) + generatePortsIO('reset', 0) : '',
+                    stdreset: hasComponent(srflipflop[i].reset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                    
+                    portspreset: hasComponent(srflipflop[i].preset.connections) ? '\n' + generateSpacings(2) + generatePortsIO('preset', 0) : '',
+                    stdpreset: hasComponent(srflipflop[i].preset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                    
+                    portsout: '\n' + generateSpacings(2) + generatePortsIO('q', 1),
+                    stdout: generateSTDType('OUT', srflipflop[i].bitWidth)+ '\n',
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
+                    identificator: `bit${srflipflop[i].bitWidth}`,
+                }]
+            }
+            const srflipflopFiltered = removeDuplicateComponent(objsrflipflop)
+            srflipflopFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsenable + el.stdenable + el.portsreset + el.stdreset + el.portspreset + el.stdpreset + el.portsout + el.stdout + el.end)
+        }
         return element
     }
 
@@ -1007,6 +1067,9 @@ export default class CircuitElement {
             const dlatch = this.scope.Dlatch;
             const dflipflop = this.scope.DflipFlop;
             const tflipflop = this.scope.TflipFlop;
+            const jkflipflop = this.scope.JKflipFlop;
+            const srflipflop = this.scope.SRflipFlop;
+            console.log(this.scope.SRflipFlop)
             let portmap = "\BEGIN\n";
             
             if(hasComponent(mux)){
@@ -1109,6 +1172,47 @@ export default class CircuitElement {
                     }]
                 }
                 objtflipflop.forEach(el => portmap += el.header + el.inputs + el.clock + el.reset + el.preset + el.enable + el.output + el.notoutput + el.end)
+            }
+
+            if(hasComponent(jkflipflop)){
+                let objjkflipflop = []
+                for(var i = 0; i < jkflipflop.length; i++){
+                    objjkflipflop = [...objjkflipflop, 
+                    {
+                        header: generateHeaderPortmap('JKFlipflop', i, 'JKFlipFlop', `bit${jkflipflop[i].bitWidth}`),
+                        JInput: `    J => ${jkflipflop[i].J.verilogLabel},\n`,
+                        KInput: `    K => ${jkflipflop[i].K.verilogLabel},\n`,
+                        clock: `    clock => ${jkflipflop[i].clockInp.verilogLabel},\n`,
+                        reset: hasComponent(jkflipflop[i].reset.connections) ? `    reset => ${jkflipflop[i].reset.verilogLabel},\n` : '',
+                        preset: hasComponent(jkflipflop[i].preset.connections) ? `    preset => ${jkflipflop[i].preset.verilogLabel},\n` : '',
+                        enable: hasComponent(jkflipflop[i].en.connections) ? `    enable => ${jkflipflop[i].en.verilogLabel},\n` : '',
+                        output: `    q0 => ${jkflipflop[i].qOutput.verilogLabel},\n`,
+                        notoutput: `    q1 => ${jkflipflop[i].qInvOutput.verilogLabel}\n`,
+                        end: `\n  );\n`
+
+                    }]
+                }
+                objjkflipflop.forEach(el => portmap += el.header + el.JInput + el.KInput + el.clock + el.reset + el.preset + el.enable + el.output + el.notoutput + el.end)
+            }
+
+            if(hasComponent(srflipflop)){
+                let objsrflipflop = []
+                for(var i = 0; i < srflipflop.length; i++){
+                    objsrflipflop = [...objsrflipflop, 
+                    {
+                        header: generateHeaderPortmap('SRFlipFlop', i, 'SRFlipFlop', `bit${srflipflop[i].bitWidth}`),
+                        SInput: `    S => ${srflipflop[i].S.verilogLabel},\n`,
+                        RInput: `    R => ${srflipflop[i].R.verilogLabel},\n`,
+                        reset: hasComponent(srflipflop[i].reset.connections) ? `    reset => ${srflipflop[i].reset.verilogLabel},\n` : '',
+                        preset: hasComponent(srflipflop[i].preset.connections) ? `    preset => ${srflipflop[i].preset.verilogLabel},\n` : '',
+                        enable: hasComponent(srflipflop[i].en.connections) ? `    enable => ${srflipflop[i].en.verilogLabel},\n` : '',
+                        output: `    q0 => ${srflipflop[i].qOutput.verilogLabel},\n`,
+                        notoutput: `    q1 => ${srflipflop[i].qInvOutput.verilogLabel}\n`,
+                        end: `\n  );\n`
+
+                    }]
+                }
+                objsrflipflop.forEach(el => portmap += el.header + el.SInput + el.RInput + el.reset + el.preset + el.enable + el.output + el.notoutput + el.end)
             }
 
             const BitSelectorObject = scopeList[Object.keys(scopeList)].BitSelector

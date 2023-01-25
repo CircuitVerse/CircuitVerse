@@ -265,7 +265,21 @@ export const generateLogicDFlipFlop = (dflipflopcomponent) => {
             `          q1 <= NOT inp;\n`,
             `        END IF;\n`
         ]
-    } else {
+    } 
+    else if (hasReset && !hasEnable && !hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF reset = '1' THEN\n`,
+            `            q0 <= '0';\n`,
+            `            q1 <= '1';\n`,
+            `          ELSE\n`,
+            `            q0 <= inp;\n`,
+            `            q1 <= NOT inp;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    }
+    else {
         output = [
             `IF clock'EVENT AND clock = '1' THEN\n`,
             `          q0 <= inp;\n`,
@@ -358,6 +372,177 @@ export const generateLogicTFlipFlop = (tflipflopcomponent) => {
             `          ELSE\n`,
             `            tmp <= NOT tmp;\n`,
             `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    }
+
+    return output.join().replace(regexComma, '')
+}
+
+export const generateLogicJKFlipFlop = (tflipflopcomponent) => {
+    const hasReset = (tflipflopcomponent.reset.connections.length > 0) ? true : false
+    const hasEnable = (tflipflopcomponent.en.connections.length > 0) ? true : false
+    const hasPreset = (tflipflopcomponent.preset.connections.length > 0) ? true : false
+    const regexComma = /,/g
+    let output = []
+
+    if(hasReset && hasEnable && hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF(reset = '1') THEN\n`,
+            `            tmp <= preset;\n`,
+            `          ELSE\n`,
+            `            IF(enable = '1') THEN\n`,
+            `              IF J = '1' AND K = '1' THEN\n`,
+            `                tmp <= NOT tmp;\n`,
+            `              ELSIF J = '1' AND K = '0' THEN\n`,
+            `                tmp <= '1';\n`,
+            `              ELSIF J = '0' AND K = '1' THEN\n`,
+            `                tmp <= '0';\n`,
+            `              END IF;\n`,
+            `            END IF;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`,
+
+        ]
+    } else if (hasReset && hasEnable && !hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF reset = '0' AND enable = '1' THEN\n`,
+            `            IF J = '1' AND K = '1' THEN\n`,
+            `              tmp <= NOT tmp;\n`,
+            `            ELSIF J = '1' AND K = '0' THEN\n`,
+            `              tmp <= '1';\n`,
+            `            ELSIF J = '0' AND K = '1' THEN\n`,
+            `              tmp <= '0';\n`,
+            `            END IF;\n`,
+            `          ELSIF reset = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && !hasEnable && hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF(reset = '1') THEN\n`,
+            `            tmp <= preset;\n`,
+            `          ELSE\n`,
+            `            IF J = '1' AND K = '1' THEN\n`,
+            `              tmp <= NOT tmp;\n`,
+            `            ELSIF J = '1' AND K = '0' THEN\n`,
+            `              tmp <= '1';\n`,
+            `            ELSIF J = '0' AND K = '1' THEN\n`,
+            `              tmp <= '0';\n`,
+            `            END IF;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (!hasReset && hasEnable) {
+        output = [
+            `IF clock'EVENT AND clock = '1' AND enable = '1' THEN\n`,
+            `          IF J = '1' AND K = '1' THEN\n`,
+            `            tmp <= NOT tmp;\n`,
+            `          ELSIF J = '1' AND K = '0' THEN\n`,
+            `            tmp <= '1';\n`,
+            `          ELSIF J = '0' AND K = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && !hasEnable && !hasPreset) {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF reset = '0' THEN\n`,
+            `            IF J = '1' AND K = '1' THEN\n`,
+            `              tmp <= NOT tmp;\n`,
+            `            ELSIF J = '1' AND K = '0' THEN\n`,
+            `              tmp <= '1';\n`,
+            `            ELSIF J = '0' AND K = '1' THEN\n`,
+            `              tmp <= '0';\n`,
+            `            END IF;\n`,
+            `          ELSE\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else {
+        output = [
+            `IF clock'EVENT AND clock = '1' THEN\n`,
+            `          IF J = '1' AND K = '1' THEN\n`,
+            `            tmp <= NOT tmp;\n`,
+            `          ELSIF J = '1' AND K = '0' THEN\n`,
+            `            tmp <= '1';\n`,
+            `          ELSIF J = '0' AND K = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    }
+
+    return output.join().replace(regexComma, '')
+}
+
+export const generateLogicSRFlipFlop = (srflipflopcomponent) => {
+    const hasReset = (srflipflopcomponent.reset.connections.length > 0) ? true : false
+    const hasEnable = (srflipflopcomponent.en.connections.length > 0) ? true : false
+    const hasPreset = (srflipflopcomponent.preset.connections.length > 0) ? true : false
+    const regexComma = /,/g
+    let output = []
+
+    if(hasReset && hasEnable && hasPreset) {
+        output = [
+            `IF(reset = '1') THEN\n`,
+            `          tmp <= preset;\n`,
+            `        ELSE\n`,
+            `          IF(enable = '1') THEN\n`,
+            `            IF S = '1' AND R = '0' THEN\n`,
+            `              tmp <= '1';\n`,
+            `            ELSIF S = '0' AND R = '1' THEN\n`,
+            `              tmp <= '0';\n`,
+            `            END IF;\n`,
+            `          END IF;\n`,
+            `        END IF;\n`,
+        ]
+    } else if (hasReset && hasEnable && !hasPreset) {
+        output = [
+            `IF reset = '0' AND enable = '1' THEN\n`,
+            `          IF S = '1' AND R = '0' THEN\n`,
+            `            tmp <= '1';\n`,
+            `          ELSIF S = '0' AND R = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        ELSIF reset = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && !hasEnable && hasPreset) {
+        output = [
+            `IF(reset = '1') THEN\n`,
+            `          tmp <= preset;\n`,
+            `        ELSE\n`,
+            `          IF S = '1' AND R = '0' THEN\n`,
+            `            tmp <= '1';\n`,
+            `          ELSIF S = '0' AND R = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (!hasReset && hasEnable) {
+        output = [
+            `IF enable = '1' THEN\n`,
+            `          IF S = '1' AND R = '0' THEN\n`,
+            `            tmp <= '1';\n`,
+            `          ELSIF S = '0' AND R = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else {
+        output = [
+            `IF S = '1' AND R = '0' THEN\n`,
+            `          tmp <= '1';\n`,
+            `        ELSIF S = '0' AND R = '1' THEN\n`,
+            `          tmp <= '0';\n`,
             `        END IF;\n`
         ]
     }
