@@ -5,12 +5,12 @@
   display: flex;
   flex-wrap: wrap;
   font-size: 13px;
+  justify-content: center;
+  min-height: 40px;
+  min-width: 100vw;
+  overflow-wrap: break-word;
   position: fixed;
   top: 0;
-  justify-content: center;
-  overflow-wrap: break-word;
-  min-width: 100vw;
-  min-height: 40px;
   z-index: 1;
 
   p {
@@ -18,10 +18,10 @@
   }
 
   a {
+    border-bottom: 1px dotted $white;
     color: $white;
     font-weight: bold;
     margin-left: 10px;
-    border-bottom: 1px dotted $white;
 
     &:hover {
       text-decoration: none;
