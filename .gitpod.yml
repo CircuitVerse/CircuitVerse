@@ -2,31 +2,45 @@ image:
   file: .gitpod.Dockerfile
 
 ports:
-  - port: 3000
-    onOpen: open-preview
+  - port: 3000 # client (rails-web)
+    onOpen: open-browser
+  - port: 5432 # postgres
+    onOpen: ignore
+  - port: 6379 # redis
+    onOpen: ignore
+  - port: 8982 # sunspot solr
+    onOpen: ignore
+  - port: 7982
+    onOpen: ignore
+  - port: 3035
+    onOpen: ignore
+
 tasks:
-  - init: >
+  - name: CircuitVerse
+    before: >
+      redis-server --daemonize yes
+    # init is not executed for prebuilt workspaces and restarts,
+    # so we should put all the heavy initialization here
+    init: >
+      echo "Installing rvm" &&
       rvm autolibs disable &&
       rvm install 3.2.0 &&
       nvm install 14 &&
+      echo "Installing ruby bundler" &&
       gem install bundler &&
-      cp config/database.example.yml config/database.yml &&
-      createuser -s postgres &&
-      (redis-server &) &&
+      echo "Installing ruby dependencies" &&
       bundle install --without production --path vendor/bundle &&
+      echo "Installing yarn dependencies" &&
       yarn &&
+      cp config/database.example.yml config/database.yml &&
+      echo "Creating postgres user" &&
+      createuser -s postgres &&
+      echo "Setting up database" &&
       bundle exec rails db:create &&
       bundle exec rails db:schema:load &&
       bundle exec rails db:migrate &&
       bundle exec rails db:seed
     command: >
-      sleep 5 &&
-      redis-server --daemonize yes &&
-      bundle install --without production --path vendor/bundle &&
-      yarn &&
-      bundle exec rails db:create &&
-      bundle exec rails db:schema:load &&
-      bundle exec rails db:migrate &&
       bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed &&
       bin/dev
