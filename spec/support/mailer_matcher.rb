@@ -1,4 +1,4 @@
-# From https://dev.to/jbranchaud/test-actionmailer-deliverlater-in-rspec-controller-tests-44h7
+# frozen_string_literal: true
 
 require "rspec/expectations"
 
