@@ -5,9 +5,7 @@ module AnnouncementsHelper
     Announcement.current
   end
 
-  def show_announcement(announcement)
-    # rubocop:disable Layout/LineLength
-    announcement.count.positive? ? "navbar navbar-announcement navbar-expand-lg bg-white" : "navbar navbar-expand-lg bg-white"
-    # rubocop:enable Layout/LineLength
+  def show_announcement
+    current_announcement ? "navbar navbar-announcement navbar-expand-lg bg-white" : "navbar navbar-expand-lg bg-white"
   end
 end

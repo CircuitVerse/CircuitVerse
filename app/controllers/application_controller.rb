@@ -6,7 +6,6 @@ class ApplicationController < ActionController::Base
 
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications, if: :current_user
-  before_action :set_announcement
   around_action :switch_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
@@ -71,9 +70,5 @@ class ApplicationController < ActionController::Base
 
     def after_sign_in_path_for(resource_or_scope)
       stored_location_for(resource_or_scope) || super
-    end
-
-    def set_announcement
-      @announcements = Announcement.all
     end
 end
