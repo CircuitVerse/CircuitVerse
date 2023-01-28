@@ -97,7 +97,7 @@ export default class NandGate extends CircuitElement {
             return;
         }
         for (let i = 0; i < this.inputSize; i++) {
-            if(this.inp[i].value == undefined) {
+            if (this.inp[i].value === undefined) {
                 this.inp[i].value = 1;
             }
         }
