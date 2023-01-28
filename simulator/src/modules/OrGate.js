@@ -92,9 +92,9 @@ export default class OrGate extends CircuitElement {
         if (this.isResolvable() === false) {
             return;
         }
-        for (let i = 0; i < this.inputSize; i++){
+        for (let i = 0; i < this.inputSize; i++) {
             if(this.inp[i].value == undefined) {
-                this.inp[i].value = 0;
+                this.inp[i].value = 1;
             }
         }
         for (let i = 1; i < this.inputSize; i++)
