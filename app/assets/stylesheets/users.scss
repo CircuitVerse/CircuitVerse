@@ -460,11 +460,11 @@
 
 .nb-notification {
   border-bottom: 1px solid $notification-container-boxshadow;
-  padding: 18px 0;
+  padding: 18px 4px;
   position: relative;
 
-  .unseen-active {
-    top: 22px;
+  .message-wrapper {
+    flex: 1;
   }
 }
 
@@ -494,10 +494,22 @@
     border-radius: 50%;
     color: $notification-icons;
     font-size: 22px;
-    margin-right: 20px;
+    margin-right: 15px;
   }
 
   .fa-star {
+    padding: 12px 10px;
+  }
+
+  .fa-comment {
+    padding: 10px;
+  }
+
+  .fa-comments {
+    padding: 10px;
+  }
+
+  .fa-clipboard {
     padding: 12px 10px;
   }
 
@@ -532,6 +544,15 @@
   right: 15px;
   top: 15px;
   width: 12px;
+}
+.unseen-active-modal {
+  background: $primary-green;
+  border-radius: 50%;
+  height: 15px;
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-top: 5px;
+  width: 15px;
 }
 
 .notification:hover {

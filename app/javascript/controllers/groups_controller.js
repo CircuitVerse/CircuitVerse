@@ -1,5 +1,4 @@
 import { Controller } from 'stimulus';
-import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
 
 export default class extends Controller {
     connect() {
@@ -28,27 +27,36 @@ export default class extends Controller {
             const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
             const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            newLinesIntoSpacesSplitted.forEach((value) => $('#group_mentor_emails').tagsinput('add', value));
+            newLinesIntoSpacesSplitted.forEach((value) => {
+                var tags = $('<option/>', { text: value });
+                $('#group_mentor_emails').append(tags);
+                $('#group_mentor_emails option').prop('selected', true);
+            });
             $('.add-mentor-button').attr('disabled', false);
         } else {
             const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            pastedEmailsSplittedBySpace.forEach((value) => $('#group_mentor_emails').tagsinput('add', value));
+            pastedEmailsSplittedBySpace.forEach((value) => {
+                var tags = $('<option/>', { text: value });
+                $('#group_mentor_emails').append(tags);
+                $('#group_mentor_emails option').prop('selected', true);
+            });
             $('.add-mentor-button').attr('disabled', false);
         }
     }
 
     addMentorToGroup() {
-        $('#group_mentor_emails').tagsinput({
-            trimValue: true,
-            confirmKeys: [13, 44, 32],
+        $('#group_mentor_emails').select2({
+            tags: true,
+            multiple: true,
+            tokenSeparators: [',', ' '],
         });
-        $('.bootstrap-tagsinput input').attr('maxlength', '30');
-        $('.bootstrap-tagsinput input').attr('id', 'group_email_input_mentor');
-        $('.bootstrap-tagsinput input').attr('data-action', 'paste->groups#mentorInputPaste');
+        $('.select2-selection input').attr('maxlength', '30');
+        $('.select2-selection input').attr('id', 'group_email_input_mentor');
         $('.add-mentor-button').attr('disabled', true);
-        $('.bootstrap-tagsinput input').on('keyup click', () => {
-            if ($('.bootstrap-tagsinput').children().length > 1) {
+        $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
+        $('.select2-container').on('keyup click', () => {
+            if ($('.select2-selection__rendered').children().length > 1) {
                 $('.add-mentor-button').attr('disabled', false);
             } else {
                 $('.add-mentor-button').attr('disabled', true);
@@ -57,22 +65,22 @@ export default class extends Controller {
     }
 
     addMemberToGroup() {
-        $('#group_member_emails').tagsinput({
-            trimValue: true,
-            confirmKeys: [13, 44, 32],
+        $('#group_member_emails').select2({
+            tags: true,
+            multiple: true,
+            tokenSeparators: [',', ' '],
         });
-
-        $('.bootstrap-tagsinput input').attr('maxlength', '30');
-        $('.bootstrap-tagsinput input').attr('id', 'group_email_input');
+        $('.select2-selection input').attr('maxlength', '30');
+        $('.select2-selection input').attr('id', 'group_email_input');
         $('.add-members-button').attr('disabled', true);
-        $('.bootstrap-tagsinput input').on('keyup click', () => {
-            if ($('.bootstrap-tagsinput').children().length > 1) {
+        $('.select2-container').on('keyup click', () => {
+            if ($('.select2-selection__rendered').children().length > 1) {
                 $('.add-members-button').attr('disabled', false);
             } else {
                 $('.add-members-button').attr('disabled', true);
             }
         });
-        document.querySelector('.bootstrap-tagsinput input').addEventListener('paste', (e) => {
+        document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
             e.preventDefault();
             let pastedEmails = '';
             if (window.clipboardData && window.clipboardData.getData) {
@@ -85,12 +93,20 @@ export default class extends Controller {
                 const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
                 const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                newLinesIntoSpacesSplitted.forEach((value) => $('#group_member_emails').tagsinput('add', value));
+                newLinesIntoSpacesSplitted.forEach((value) => {
+                    var tags = $('<option/>', { text: value });
+                    $('#group_member_emails').append(tags);
+                    $('#group_member_emails option').prop('selected', true);
+                });
                 $('.add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                pastedEmailsSplittedBySpace.forEach((value) => $('#group_member_emails').tagsinput('add', value));
+                pastedEmailsSplittedBySpace.forEach((value) => {
+                    var tags = $('<option/>', { text: value });
+                    $('#group_member_emails').append(tags);
+                    $('#group_member_emails option').prop('selected', true);
+                });
                 $('.add-members-button').attr('disabled', false);
             }
         });

@@ -7,7 +7,7 @@ ports:
 tasks:
   - init: >
       rvm autolibs disable &&
-      rvm install 3.0.3 &&
+      rvm install 3.2.0 &&
       nvm install 14 &&
       gem install bundler &&
       cp config/database.example.yml config/database.yml &&

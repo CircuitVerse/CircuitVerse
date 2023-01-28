@@ -1,4 +1,3 @@
-<script src="https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
 
 <div id="collaboratorModal" class="modal fade" role="dialog">
   <div class="modal-dialog primary-modal-dialog">
@@ -24,7 +23,7 @@
         </div>
         <div class="form-group">
           <%= form.label :emails %>
-          <%= form.text_area :emails, id: :emails, rows: 5, 'data-role': 'tagsinput', class: 'form-control form-input' %>
+          <%= form.select :emails,[ ],{},{ class:'form-select', multiple: true } %>
         </div>
         <div class="modal-footer">
           <%= form.submit class: 'btn primary-button add-collaborators-button' %>
@@ -37,33 +36,33 @@
 
 <script>
 $(document).ready(() => {
-  // docs: http://bootstrap-tagsinput.github.io/bootstrap-tagsinput/examples/
-  $('#emails').tagsinput({
-    trimValue: true,
-    confirmKeys: [13, 44, 32],
+  $('#collaboration_emails').select2({
+    tags: true,
+    multiple: true,
+    tokenSeparators: [',', ' '],
   });
-
-  $('.bootstrap-tagsinput input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
+  
+  $('.select2-selection input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
 
   $('.add-collaborators-button').attr('disabled', true); // setting submit button to disabled initially
 
-  $('.bootstrap-tagsinput input').on('keyup', () => {
-    if($('.bootstrap-tagsinput').children().length > 1) { // checking for 1 because there is already a child (input tag)
+  $('.select2-container').on('keyup', () => {
+    if($('.select2-selection__rendered').children().length > 1) { // checking for 1 because there is already a child (input tag)
       $('.add-collaborators-button').attr('disabled', false);
     } else {
       $('.add-collaborators-button').attr('disabled', true);
     }
   });
 
-  $('.bootstrap-tagsinput').on('click', () => { // if user deletes tags using mouse click instead of backspace
-    if($('.bootstrap-tagsinput').children().length > 1) {
+  $('.select2-selection input').on('click', () => { //checking for 1 because there is already a child (input tag)
+  if($('.select2-selection__rendered').children().length > 1) {
       $('.add-collaborators-button').attr('disabled', false);
     } else {
       $('.add-collaborators-button').attr('disabled', true);
     }
   })
 
-  document.querySelector('.bootstrap-tagsinput input').addEventListener('paste', (e) => { // listening for paste event
+  document.querySelector('.select2-selection input').addEventListener('paste', (e) => { // listening for paste event
     e.preventDefault();
     let pastedEmails = '';
     if (window.clipboardData && window.clipboardData.getData) { // IE
@@ -76,12 +75,20 @@ $(document).ready(() => {
       const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' '); // converting new lines in to spaces
       const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' '); // splitting emails by space
       this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
-      newLinesIntoSpacesSplitted.forEach(value => $('#emails').tagsinput('add', value)) // adding each value as an input
+      newLinesIntoSpacesSplitted.forEach(value => {
+        var tags = $("<option/>", { text: value });
+        $('#collaboration_emails').append(tags);
+        $('#collaboration_emails option').prop('selected',true);
+      }); // adding each value as an input
       $('.add-collaborators-button').attr('disabled', false)
     } else {
       const pastedEmailsSplittedBySpace = pastedEmails.split(' '); // splitting emails by space
       this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
-      pastedEmailsSplittedBySpace.forEach(value => $('#emails').tagsinput('add', value)) // adding each value as an input
+      pastedEmailsSplittedBySpace.forEach(value => {
+        var tags = $("<option/>", { text: value });
+        $('#collaboration_emails').append(tags);
+        $('#collaboration_emails option').prop('selected',true);
+      }); // adding each value as an input
       $('.add-collaborators-button').attr('disabled', false)
     }
   });
