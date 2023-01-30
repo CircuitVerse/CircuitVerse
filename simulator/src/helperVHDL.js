@@ -323,6 +323,7 @@ export const generateLogicTFlipFlop = (tflipflopcomponent) => {
             `              ELSE\n`,
             `                tmp <= NOT tmp;\n`,
             `              END IF;\n`,
+            `            END IF;\n`,
             `          END IF;\n`,
             `        END IF;\n`
         ]
@@ -535,6 +536,18 @@ export const generateLogicSRFlipFlop = (srflipflopcomponent) => {
             `          ELSIF S = '0' AND R = '1' THEN\n`,
             `            tmp <= '0';\n`,
             `          END IF;\n`,
+            `        END IF;\n`
+        ]
+    } else if (hasReset && !hasEnable && !hasPreset) {
+        output = [
+            `IF reset = '0' THEN\n`,
+            `          IF S = '1' AND R = '0' THEN\n`,
+            `            tmp <= '1';\n`,
+            `          ELSIF S = '0' AND R = '1' THEN\n`,
+            `            tmp <= '0';\n`,
+            `          END IF;\n`,
+            `        ELSE\n`,
+            `          tmp <= '0';\n`,
             `        END IF;\n`
         ]
     } else {
