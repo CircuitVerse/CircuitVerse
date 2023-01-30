@@ -1,5 +1,10 @@
 ## [Unreleased]
 
+### [Fixed]
+
+- [Task 009] : (helperVHDL.js) Fix SRFlipFlop logic
+- [Task 009] : (helperVHDL.js) Fix TFlipFlop logic
+
 ### [Added]
 
 - [Task 008] : (circuitElement.js) Add Dlatch generateVHDL and generatePortmap

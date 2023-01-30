@@ -162,7 +162,6 @@ export default class DflipFlop extends CircuitElement {
         let output = "\n";
         const dflipflop = Object.values(scopeList)[0].DflipFlop
         let dflipflopcomponent = []
-        console.log(dflipflop)
         let enable = []
         let preset = []
         let reset = []
