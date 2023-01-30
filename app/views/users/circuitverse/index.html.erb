@@ -44,7 +44,7 @@
           <p class="search-user-details-text"><%= t("users.circuitverse.educational_institutes_html",educational_institute: @profile.educational_institute) %></p>
           <p class="search-user-details-text"><%= t("users.circuitverse.country_html", country_name: @profile.country_name) %></p>
           <% if policy(@user).edit? %>
-            <a class="btn primary-button" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
+            <a class="user-btn btn primary-button" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
         </div>
       </div>
@@ -52,9 +52,9 @@
   </div>
   <div class="row">
     <div class="col-12 users-circuits-navbar">
-      <div class="users-circuits-navbar-buttons">
-        <button id="my-circuits" class="btn users-circuits-tab active"><%= t("users.circuitverse.index.my_circuits") %></button>
-        <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
+      <div class="component-flex users-circuits-navbar-buttons">
+        <button id="my-circuits" class="user-btn btn users-circuits-tab active"><%= t("users.circuitverse.index.my_circuits") %></button>
+        <button id="favourite-circuits" class="user-btn btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
       </div>
       <div>

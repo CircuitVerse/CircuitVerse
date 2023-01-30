@@ -313,6 +313,7 @@
 .users-circuits-navbar {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 
   input {
@@ -560,3 +561,16 @@
   text-decoration: none;
 }
 //user profile ends
+
+@media(max-width:300px){
+  .users-circuits-navbar-buttons {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .user-btn {
+    width: 100%;
+  }
+}

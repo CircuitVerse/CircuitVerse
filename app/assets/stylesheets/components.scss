@@ -334,3 +334,20 @@
     color: $white;
   }
 }
+
+.component-flex {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+@media(max-width:530px){
+  .social-card {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 40px 0 20px;
+    width: 100%;
+  }
+}
