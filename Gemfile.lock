@@ -557,7 +557,7 @@ GEM
     rubyzip (2.3.2)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
-    sanitize (6.0.0)
+    sanitize (6.0.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     sass-rails (6.0.0)
