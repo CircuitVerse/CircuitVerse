@@ -27,7 +27,6 @@ tasks:
       bundle exec rails db:create &&
       bundle exec rails db:schema:load &&
       bundle exec rails db:migrate &&
-      bundle exec rake sunspot:solr:start &&
       bundle exec rails db:seed &&
       bin/dev
 github:
