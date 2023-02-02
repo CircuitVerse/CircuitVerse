@@ -103,8 +103,8 @@ class User < ApplicationRecord
     admin?
   end
 
-  def user_contest_votes(contest)
-    SubmissionVote.where(user_id: id, contest_id: contest).count
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 
   private

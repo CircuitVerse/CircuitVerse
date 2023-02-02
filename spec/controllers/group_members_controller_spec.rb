@@ -13,8 +13,7 @@ describe GroupMembersController, type: :request do
       {
         group_member: {
           group_id: @group.id,
-          emails: "#{@already_present.email}
-           #{FactoryBot.create(:user).email} #{Faker::Internet.email}"
+          emails: [@already_present.email, FactoryBot.create(:user).email, Faker::Internet.email]
         }
       }
     end

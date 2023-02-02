@@ -4,7 +4,7 @@ module SimulatorHelper
   def return_image_file(data_url)
     str = data_url[("data:image/jpeg;base64,".length)..]
     if str.to_s.empty?
-      path = Rails.root.join("public/images/default.png")
+      path = Rails.public_path.join("images/default.png")
       image_file = File.open(path, "rb")
 
     else

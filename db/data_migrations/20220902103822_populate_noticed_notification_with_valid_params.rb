@@ -9,6 +9,8 @@ class PopulateNoticedNotificationWithValidParams < ActiveRecord::DataMigration
       else
         notification.destroy!
       end
+     rescue ActiveRecord::RecordNotFound => e
+      puts e.message
     end
   end
 end
