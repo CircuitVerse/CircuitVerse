@@ -33,6 +33,8 @@ gem "terser"
 
 # Use CoffeeScript for .coffee assets and views
 gem "coffee-rails", "~> 5.0"
+gem "select2-rails"
+gem 'redcarpet', '~> 3.3', '>= 3.3.4'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -63,7 +65,7 @@ gem "sunspot_rails"
 gem "will_paginate", "~> 3.3.1"
 gem "will_paginate-bootstrap"
 
-gem "country_select", "~> 6.0"
+gem "country_select", "~> 8.0"
 gem "geocoder"
 
 # for authorization layer
@@ -89,12 +91,11 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.3.5"
+gem "pg", "~> 1.4.3"
 
 gem "meta-tags"
 
 # Notifications
-gem "activity_notification"
 gem "webpush"
 
 gem "bootsnap", require: false
@@ -102,7 +103,7 @@ gem "rexml"
 
 gem "font-awesome-sass", "~> 5.13.1"
 
-gem "disposable_mail", "~> 0.1"
+gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
 gem "flipper-ui"
 gem "friendly_id", "~> 5.4.2"
@@ -111,15 +112,16 @@ gem "jsonapi-serializer"
 gem "jwt"
 gem "rails-i18n", "~> 7.0.3"
 gem "recaptcha"
-gem "simple_discussion", "~> 1.3"
+gem "simple_discussion", github: "CircuitVerse/simple_discussion"
 gem "sprockets", "~> 4.1"
 gem "strong_migrations"
+gem 'rails-data-migrations'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
   # Adds support for Capybara system testing and selenium driver
-  gem "coveralls_reborn", "~> 0.23.1", require: false
+  gem "coveralls_reborn", "~> 0.26.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
@@ -149,6 +151,7 @@ group :development do
   gem "rubocop"
   gem "spring"
   gem "sunspot_solr"
+  gem "bundler-audit", "~> 0.9.1"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -161,7 +164,7 @@ gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 8.8"
+gem "newrelic_rpm", "~> 8.14"
 
 gem "oj", "~> 3.13"
 
@@ -174,3 +177,5 @@ gem "jsbundling-rails", "~> 1.0"
 
 gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
+
+gem "noticed", "~> 1.6"

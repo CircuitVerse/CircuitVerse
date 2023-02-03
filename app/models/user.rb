@@ -27,6 +27,9 @@ class User < ApplicationRecord
 
   has_many :pending_invitations, foreign_key: :email, primary_key: :email
 
+  # noticed configuration
+  has_many :noticed_notifications, as: :recipient, dependent: :destroy
+
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
@@ -60,9 +63,6 @@ class User < ApplicationRecord
     text :country
   end
 
-  acts_as_target printable_name: :name, email: :email
-  acts_as_notifier printable_name: :name
-
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
       GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
@@ -93,22 +93,16 @@ class User < ApplicationRecord
     )
   end
 
-  def send_push_notification(message, url = "")
-    push_subscriptions.each do |subscription|
-      subscription.send_push_notification(message, url)
-    rescue Webpush::Unauthorized
-      # Expired subscription, maybe user cleared browser data or revoked
-      # notification permission
-      push_subscriptions.destroy(subscription)
-    end
-  end
-
   def flipper_id
     "User:#{id}"
   end
 
   def moderator?
     admin?
+  end
+
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
   end
 
   private

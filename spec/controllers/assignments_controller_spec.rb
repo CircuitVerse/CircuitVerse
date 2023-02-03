@@ -96,6 +96,13 @@ describe AssignmentsController, type: :request do
         }
       }
     end
+    let(:mentor_update_params) do
+      {
+        assignment: {
+          description: "updated description"
+        }
+      }
+    end
 
     context "when primary_mentor is signed in" do
       it "updates the assignment" do
@@ -104,14 +111,6 @@ describe AssignmentsController, type: :request do
         @assignment.reload
         expect(@assignment.description).to eq("updated description <br> with line break")
       end
-    end
-
-    let(:mentor_update_params) do
-      {
-        assignment: {
-          description: "updated description"
-        }
-      }
     end
 
     context "when a mentor is signed in" do
@@ -213,6 +212,13 @@ describe AssignmentsController, type: :request do
           post group_assignments_path(@group), params: { assignment:
             { description: "group assignment", name: "Test Name" } }
         end.to change(Assignment, :count).by(1)
+      end
+
+      it "sends notifications to group members" do
+        sign_in @primary_mentor
+        post group_assignments_path(@group), params: { assignment:
+          { description: "group assignment", name: "Test Name" } }
+        expect(@member.noticed_notifications.count).to eq(1)
       end
     end
 

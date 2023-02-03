@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ActionController::API
-  include Pundit
+  include Pundit::Authorization
   include CustomErrors
   include ActionController::RequestForgeryProtection
   protect_from_forgery with: :exception, if: lambda {
@@ -54,7 +54,7 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 404, errors: "resource not found")
   end
 
-  def invalid_resource!(errors = [])
+  def invalid_resource!(_errors = [])
     api_error(status: 422, errors: "invalid resource")
   end
 

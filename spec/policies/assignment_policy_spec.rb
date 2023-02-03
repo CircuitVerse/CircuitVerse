@@ -59,7 +59,7 @@ describe AssignmentPolicy do
     context "assignment is graded and past deadline" do
       let(:assignment) do
         FactoryBot.create(:assignment,
-                          group: @group, grading_scale: :letter, deadline: Time.zone.now - 1.day)
+                          group: @group, grading_scale: :letter, deadline: 1.day.ago)
       end
 
       it { is_expected.to permit(:can_be_graded) }
@@ -68,7 +68,7 @@ describe AssignmentPolicy do
     context "assignment is ungraded" do
       let(:assignment) do
         FactoryBot.create(:assignment, group: @group,
-                                       deadline: Time.zone.now - 1.day, grading_scale: :no_scale)
+                                       deadline: 1.day.ago, grading_scale: :no_scale)
       end
 
       it { is_expected.not_to permit(:can_be_graded) }
@@ -77,7 +77,7 @@ describe AssignmentPolicy do
     context "assignment is graded but deadline has not passed" do
       let(:assignment) do
         FactoryBot.create(:assignment, group: @group,
-                                       deadline: Time.zone.now + 1.day, grading_scale: :letter)
+                                       deadline: 1.day.from_now, grading_scale: :letter)
       end
 
       it { is_expected.not_to permit(:can_be_graded) }

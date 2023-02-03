@@ -4,7 +4,7 @@ module SimulatorHelper
   def return_image_file(data_url)
     str = data_url[("data:image/jpeg;base64,".length)..]
     if str.to_s.empty?
-      path = Rails.root.join("public/images/default.png")
+      path = Rails.public_path.join("images/default.png")
       image_file = File.open(path, "rb")
 
     else
@@ -23,8 +23,8 @@ module SimulatorHelper
   def sanitize_data(project, data)
     return data if project&.assignment_id.blank? || data.blank?
 
-    data = Oj.load(data)
-    saved_restricted_elements = Oj.load(project.assignment.restrictions)
+    data = Oj.safe_load(data)
+    saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
     scopes = data["scopes"] || []
 
     parsed_scopes = scopes.each_with_object([]) do |scope, new_scopes|

@@ -144,7 +144,7 @@ export function openInNewTab(url) {
 
 export function copyToClipboard(text) {
     const textarea = document.createElement('textarea');
-    
+
     // Move it off-screen.
     textarea.style.cssText = 'position: absolute; left: -99999em';
 
@@ -154,11 +154,11 @@ export function copyToClipboard(text) {
 
     document.body.appendChild(textarea);
       textarea.value = text;
-  
+
       // Check if there is any content selected previously.
       const selected = document.getSelection().rangeCount > 0 ?
         document.getSelection().getRangeAt(0) : false;
-  
+
       // iOS Safari blocks programmatic execCommand copying normally, without this hack.
       // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
       if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
@@ -175,10 +175,10 @@ export function copyToClipboard(text) {
       else {
         textarea.select();
       }
-  
+
       try {
         const result = document.execCommand('copy');
-  
+
         // Restore previous selection.
         if (selected) {
           document.getSelection().removeAllRanges();
@@ -232,10 +232,10 @@ export var convertors = {
     dec2bin: x => "0b" + x.toString(2),
     dec2hex: x => "0x" + x.toString(16),
     dec2octal: x => "0" + x.toString(8),
-    dec2bcd: x => parseInt(x.toString(10), 16).toString(2), 
+    dec2bcd: x => parseInt(x.toString(10), 16).toString(2),
 }
 
-function setBaseValues(x) {
+export function setBaseValues(x) {
     if (isNaN(x)) return;
     $("#binaryInput").val(convertors.dec2bin(x));
     $("#bcdInput").val(convertors.dec2bcd(x));
@@ -245,7 +245,7 @@ function setBaseValues(x) {
 }
 
 export function parseNumber(num) {
-    if (num instanceof Number) return num; 
+    if (num instanceof Number) return num;
     if (num.slice(0, 2).toLocaleLowerCase() == '0b')
         return parseInt(num.slice(2), 2);
     if (num.slice(0, 2).toLocaleLowerCase() == '0x')
@@ -266,7 +266,7 @@ export function setupBitConvertor() {
         var x;
         if (inp.slice(0, 2) == '0b')
             x = parseInt(inp.slice(2), 2);
-        else 
+        else
             x = parseInt(inp, 2);
         setBaseValues(x);
     })

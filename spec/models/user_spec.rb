@@ -12,6 +12,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:groups) }
     it { is_expected.to have_many(:collaborations) }
     it { is_expected.to have_many(:collaborated_projects) }
+    it { is_expected.to have_many(:noticed_notifications) }
   end
 
   describe "callbacks" do
