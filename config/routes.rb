@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => "/sidekiq"
-    mount Flipper::UI.app(Flipper) => "/flipper"
   end
+  mount Flipper::UI.app(Flipper) => "/flipper"
 
   devise_scope :user do  
     get '/users/sign_out' => 'devise/sessions#destroy'        
@@ -104,15 +104,17 @@ Rails.application.routes.draw do
   end
 
   # contest
-  get "/contests/admin", to: "contests#admin", as: "contests_admin"
-  get "/contests", to: "contests#index", as: "contests"
-  get "/contests/:id", to: "contests#show", as: "contest_page"
-  post "/contests/host", to: "contests#create", as: "new_contest"
-  put "/contests/:contest_id/close_contest", to: "contests#close_contest", as: "close_contest"
-  get "/contests/:id/new_submission", to: "contests#new_submission", as: "new_submission"
-  post "/contests/:id/create_submission", to: "contests#create_submission", as: "create_submission"
-  delete "/contests/:contest_id/withdraw/:submission_id", to: "contests#withdraw", as: "withdraw_submission"
-  post "/contests/:contest_id/upvote/:submission_id", to: "contests#upvote", as: "vote_submission"
+  if Flipper.enabled?(:contest)
+    get "/contests/admin", to: "contests#admin", as: "contests_admin"
+    get "/contests", to: "contests#index", as: "contests"
+    get "/contests/:id", to: "contests#show", as: "contest_page"
+    post "/contests/host", to: "contests#create", as: "new_contest"
+    put "/contests/:contest_id/close_contest", to: "contests#close_contest", as: "close_contest"
+    get "/contests/:id/new_submission", to: "contests#new_submission", as: "new_submission"
+    post "/contests/:id/create_submission", to: "contests#create_submission", as: "create_submission"
+    delete "/contests/:contest_id/withdraw/:submission_id", to: "contests#withdraw", as: "withdraw_submission"
+    post "/contests/:contest_id/upvote/:submission_id", to: "contests#upvote", as: "vote_submission"
+  end
 
   mount Commontator::Engine => "/commontator"
 

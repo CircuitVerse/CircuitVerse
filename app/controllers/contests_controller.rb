@@ -2,7 +2,7 @@
 
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  # before_action :authorize_admin, only: %i[admin]
+  before_action :authorize_admin, only: %i[admin]
 
   # GET /contests
   def index
