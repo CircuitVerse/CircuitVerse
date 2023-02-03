@@ -32,6 +32,9 @@ export function backUp(scope = globalScope) {
     // Storing all nodes
     data.allNodes = scope.allNodes.map(extract);
 
+    // Storing test attached to scope
+    data.testbenchData = scope.testbenchData;
+
     // Storing other details
     data.id = scope.id;
     data.name = scope.name;
@@ -58,6 +61,7 @@ export function scheduleBackup(scope = globalScope) {
     var backup = JSON.stringify(backUp(scope));
     if (scope.backups.length === 0 || scope.backups[scope.backups.length - 1] !== backup) {
         scope.backups.push(backup);
+        scope.history = [];
         scope.timeStamp = new Date().getTime();
         projectSavedSet(false);
     }

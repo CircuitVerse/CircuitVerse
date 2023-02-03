@@ -7,7 +7,7 @@ class Api::V1::ThreadsController < Api::V1::BaseController
   # PUT /api/v1/threads/:id/close
   def close
     if @commontator_thread.close(current_user)
-      render json: { "message": "thread closed" }
+      render json: { message: "thread closed" }
     else
       api_error(status: 409, errors: "thread is already closed")
     end
@@ -16,7 +16,7 @@ class Api::V1::ThreadsController < Api::V1::BaseController
   # PUT /api/v1/threads/:id/reopen
   def reopen
     if @commontator_thread.reopen
-      render json: { "message": "thread reopened" }
+      render json: { message: "thread reopened" }
     else
       api_error(status: 409, errors: "thread is already opened")
     end
@@ -27,7 +27,7 @@ class Api::V1::ThreadsController < Api::V1::BaseController
     security_transgression_unless @commontator_thread.can_subscribe?(current_user)
 
     if @commontator_thread.subscribe(current_user)
-      render json: { "message": "thread subscribed" }
+      render json: { message: "thread subscribed" }
     else
       api_error(status: 409, errors: "thread already subscribed")
     end
@@ -38,7 +38,7 @@ class Api::V1::ThreadsController < Api::V1::BaseController
     security_transgression_unless @commontator_thread.can_subscribe?(current_user)
 
     if @commontator_thread.unsubscribe(current_user)
-      render json: { "message": "thread unsubscribed" }
+      render json: { message: "thread unsubscribed" }
     else
       api_error(status: 409, errors: "thread not subscribed")
     end

@@ -23,7 +23,7 @@ RSpec.describe Api::V1::ThreadsController, "#close", type: :request do
         project.commontator_thread.close(user)
         token = get_auth_token(user)
         put "/api/v1/threads/#{project.commontator_thread.id}/close",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status conflict & 'thread is already closed' error" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::ThreadsController, "#close", type: :request do
       before do
         token = get_auth_token(user)
         put "/api/v1/threads/#{project.commontator_thread.id}/close",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status success & 'thread closed' message" do

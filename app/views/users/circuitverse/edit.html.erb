@@ -1,8 +1,6 @@
 
 <% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name ) %>
 
-<link href="/css/typeahead.min.css" rel="stylesheet">
-
 <div class="container projects-new-container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -23,6 +21,8 @@
             <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
+            <%= f.check_box :remove_picture, id: "remove_pic", class:"remove-pic" %>
+            <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
           </div>
           <div class="field form-group">
             <h6><%= f.label :country %></h6>
@@ -30,7 +30,7 @@
           </div>
           <div class="field form-group">
             <h6><%= f.label :educational_institute %></h6>
-            <%= f.text_field :educational_institute, { class: "typeahead form-control form-input", autocomplete:"off" } %>
+            <%= f.text_field :educational_institute, { class: "autocomplete form-control form-input", autocomplete:"off" } %>
           </div>
           <div class="field form-group">
             <h6><%= f.label :locale %></h6>
@@ -79,18 +79,51 @@
   }
 </script>
 <script>
-  var searchSelector = 'input.typeahead';
-  var bloodhound = new Bloodhound({
-    datumTokenizer: function (d) {
-    return Bloodhound.tokenizers.whitespace(d.value);
-  },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    remote: '/users/educational_institute/typeahead/%QUERY',
-    limit: 50
+  const SELECTOR = '.autocomplete';
+  DOMPurify.setConfig({ ALLOWED_TAGS: [] });
+  const purify = dt => String(DOMPurify.sanitize(String(dt))).trim();
+
+  const autoCompleteJS = new autoComplete({
+    selector: SELECTOR,
+    data: {
+      src: async function(query) {
+        try {
+          const response = await fetch(
+            `/users/educational_institute/typeahead/${encodeURIComponent(query)}`
+          );
+
+          if (!response.ok) {
+            throw new Error('Invalid Query');
+          }
+
+          const data = await response.json();
+          const filtered = [];
+          let purifiedData;
+
+          for (const result of data) {
+            purifiedData = purify(result.name);
+            if (purifiedData !== '') {
+              filtered.push({ name: purifiedData });
+            }
+          }
+          return filtered;
+        } catch (error) {
+          return error;
+        }
+      },
+      keys: ['name']
+    },
+    resultsList: {
+      class: 'autocomplete-list'
+    },
+    resultItem: {
+      class: 'autocomplete-list-item',
+    }
   });
-  bloodhound.initialize();
-  $(searchSelector).typeahead(null, {
-    displayKey: 'name',
-    source: bloodhound.ttAdapter()
+
+  $(SELECTOR).on('selection', function(event) {
+    const feedback = event.detail;
+    const selection = feedback.selection.value[feedback.selection.key];
+    autoCompleteJS.input.value = selection;
   });
 </script>
