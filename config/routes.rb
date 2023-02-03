@@ -9,8 +9,8 @@ Rails.application.routes.draw do
 
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => "/sidekiq"
+    mount Flipper::UI.app(Flipper) => "/flipper"
   end
-  mount Flipper::UI.app(Flipper) => "/flipper"
 
   devise_scope :user do  
     get '/users/sign_out' => 'devise/sessions#destroy'        
@@ -104,7 +104,7 @@ Rails.application.routes.draw do
   end
 
   # contest
-  if Flipper.enabled?(:contest)
+  authenticate :user, ->(u) { u.admin? } do
     get "/contests/admin", to: "contests#admin", as: "contests_admin"
     get "/contests", to: "contests#index", as: "contests"
     get "/contests/:id", to: "contests#show", as: "contest_page"

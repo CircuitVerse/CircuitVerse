@@ -5,7 +5,7 @@ class Contest < ApplicationRecord
   has_many :submissions, dependent: :destroy
   has_many :submission_votes, dependent: :destroy
   after_commit :set_deadline_job, constraints: lambda {
-    Flipper.enabled?(:contest)
+    Flipper.enabled?(:contest) && current_user.admin?
   }
   has_one :contest_winner, dependent: :destroy
 
