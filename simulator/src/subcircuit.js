@@ -151,13 +151,15 @@ export default class SubCircuit extends CircuitElement {
             this.version = this.savedData.version || "1.0";
 
             this.id = this.savedData.id;
+            this.label = this.savedData.label || "";
+            this.labelDirection = this.savedData.labelDirection || "RIGHT";
             for (var i = 0; i < this.savedData.inputNodes.length; i++) {
                 this.inputNodes.push(
                     this.scope.allNodes[this.savedData.inputNodes[i]]
                 );
                 this.inputNodes[i].parent = this;
                 this.inputNodes[i].layout_id =
-                    subcircuitScope.Input[i].layoutProperties.id;
+                    subcircuitScope.Input[i]?.layoutProperties.id;
             }
             for (var i = 0; i < this.savedData.outputNodes.length; i++) {
                 this.outputNodes.push(
@@ -165,7 +167,7 @@ export default class SubCircuit extends CircuitElement {
                 );
                 this.outputNodes[i].parent = this;
                 this.outputNodes[i].layout_id =
-                    subcircuitScope.Output[i].layoutProperties.id;
+                    subcircuitScope.Output[i]?.layoutProperties.id;
             }
             if (this.version == "1.0") {
                 // For backward compatibility
@@ -215,14 +217,14 @@ export default class SubCircuit extends CircuitElement {
      */
     makeConnections() {
         for (let i = 0; i < this.inputNodes.length; i++) {
-            this.localScope.Input[i].output1.connectWireLess(
+            this.localScope.Input[i]?.output1.connectWireLess(
                 this.inputNodes[i]
             );
             this.localScope.Input[i].output1.subcircuitOverride = true;
         }
 
         for (let i = 0; i < this.outputNodes.length; i++) {
-            this.localScope.Output[i].inp1.connectWireLess(this.outputNodes[i]);
+            this.localScope.Output[i]?.inp1.connectWireLess(this.outputNodes[i]);
             this.outputNodes[i].subcircuitOverride = true;
         }
     }
@@ -232,13 +234,13 @@ export default class SubCircuit extends CircuitElement {
      */
     removeConnections() {
         for (let i = 0; i < this.inputNodes.length; i++) {
-            this.localScope.Input[i].output1.disconnectWireLess(
+            this.localScope.Input[i]?.output1.disconnectWireLess(
                 this.inputNodes[i]
             );
         }
 
         for (let i = 0; i < this.outputNodes.length; i++) {
-            this.localScope.Output[i].inp1.disconnectWireLess(
+            this.localScope.Output[i]?.inp1.disconnectWireLess(
                 this.outputNodes[i]
             );
         }
@@ -467,7 +469,7 @@ export default class SubCircuit extends CircuitElement {
         if (subcircuitScope.timeStamp > this.lastUpdated) {
             this.reBuildCircuit();
         }
-        
+
         // Should this be done here or only when this.reBuildCircuit() is called?
         {
             this.localScope.reset();
@@ -479,7 +481,7 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * Procedure after a element is clicked inside a subcircuit 
+     * Procedure after a element is clicked inside a subcircuit
     **/
     click() {
         var elementClicked = this.getElementHover();
@@ -507,7 +509,7 @@ export default class SubCircuit extends CircuitElement {
             }
         }
     }
-    
+
     /**
       * Sets the elements' wasClicked property in the subcircuit to false
     **/
@@ -539,13 +541,6 @@ export default class SubCircuit extends CircuitElement {
         }
     }
 
-    isResolvable() {
-        if (CircuitElement.prototype.isResolvable.call(this)) {
-            return true;
-        }
-        return false;
-    }
-
     /**
      * Procedure if any element is double clicked inside a subcircuit
     **/
@@ -563,6 +558,8 @@ export default class SubCircuit extends CircuitElement {
             x: this.x,
             y: this.y,
             id: this.id,
+            label: this.label,
+            labelDirection: this.labelDirection,
             inputNodes: this.inputNodes.map(findNode),
             outputNodes: this.outputNodes.map(findNode),
             version: this.version,
@@ -571,33 +568,21 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * not used because for now everythiing is added onto the globalscope
+     * By design, subcircuit element's input and output nodes are wirelessly
+     * connected to the localscope (clone of the scope of the subcircuit's
+     * circuit). So it is almost like the actual circuit is copied in the
+     * location of the subcircuit element. Therefore no resolve needed.
      */
-    resolve() {
-        // deprecated
-        // var subcircuitScope = this.localScope;//scopeList[this.id];
-        // // this.scope.pending.clean(this); // To remove any pending instances
-        // // return;
-        //
-        // for (i = 0; i < subcircuitScope.Input.length; i++) {
-        //     subcircuitScope.Input[i].state = this.inputNodes[i].value;
-        // }
-        //
-        // for (i = 0; i < subcircuitScope.Input.length; i++) {
-        //     simulationArea.simulationQueue.add(subcircuitScope.Input[i]);
-        // }
-        // play(subcircuitScope);
-        //
-        // for (i = 0; i < subcircuitScope.Output.length; i++) {
-        //     this.outputNodes[i].value = subcircuitScope.Output[i].inp1.value;
-        // }
-        // for (i = 0; i < subcircuitScope.Output.length; i++) {
-        //     this.scope.stack.push(this.outputNodes[i]);
-        // }
-    }
-
     isResolvable() {
         return false;
+    }
+
+    /**
+     * If element not resolvable (always in subcircuits), removePropagation
+     * is called on it.
+     */
+    removePropagation() {
+        // Leave this to the scope of the subcircuit. Do nothing.
     }
 
     verilogName(){
@@ -650,7 +635,7 @@ export default class SubCircuit extends CircuitElement {
         ctx.beginPath();
         rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
         if(!this.elementHover) {
-            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) 
+            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this))
                 ctx.fillStyle = colors["hover_select"];
         }
         ctx.fill();

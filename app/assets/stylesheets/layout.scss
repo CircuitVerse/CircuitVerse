@@ -48,6 +48,10 @@ body {
   text-align: justify;
 }
 
+.centered-paragraph {
+  margin: 30px 0;
+  text-align: center;
+}
 //alignment
 .alert {
   display: block;
@@ -59,6 +63,12 @@ body {
   margin-right: auto;
   max-width: 1344px;
   text-align: center;
+}
+
+.div-flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .center-image {
@@ -85,7 +95,38 @@ body {
     color: $primary-green;
   }
 }
+.anchor-text-left {
+  color: $secondary-green;
+  font-weight: 500;
+  left: 0;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  position: absolute;
+  text-align: left;
+  text-decoration: underline;
+  width: 300px;
 
+  &:hover {
+    color: $primary-green;
+  }
+}
+.anchor-text-right {
+  color: $secondary-green;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  text-decoration: underline;
+  width: 300px;
+
+  &:hover {
+    color: $primary-green;
+  }
+}
 //pagination
 .page-link {
   color: $secondary-green;

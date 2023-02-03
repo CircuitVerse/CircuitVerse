@@ -1,0 +1,19 @@
+<div id="projectModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog ">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("users.circuitverse.preview_project") %></h4>
+        <button type="button" class="close close-modal" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="embed-responsive embed-responsive-4by3 feature feature-preview users-iframe-container">
+          <iframe src="" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= link_to t("fork"), '#', class: "btn primary-button", id: "project-fork-button", method: :post %>
+        <%= link_to t("more"), '#', class: "btn primary-button", id: "project-more-button", target: "_blank" %>
+      </div>
+    </div>
+  </div>
+</div>

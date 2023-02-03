@@ -32,7 +32,7 @@ class GroupsController < ApplicationController
         notice = "Group member was successfully added."
       end
     elsif Group.exists?(group_token: params[:token])
-      notice = "Url is expired, request a new one from owner of the group."
+      notice = "Url is expired, request a new one from the primary mentor of the group."
     else
       notice = "Invalid url"
     end
@@ -50,7 +50,7 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
-    @group = current_user.groups_mentored.new(group_params)
+    @group = current_user.groups_owned.new(group_params)
 
     respond_to do |format|
       if @group.save
@@ -82,7 +82,9 @@ class GroupsController < ApplicationController
   def destroy
     @group.destroy
     respond_to do |format|
-      format.html { redirect_to user_groups_path(current_user), notice: "Group was successfully deleted." }
+      format.html do
+        redirect_to user_groups_path(current_user), notice: "Group was successfully deleted."
+      end
       format.json { head :no_content }
     end
   end
@@ -96,7 +98,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :mentor_id)
+      params.require(:group).permit(:name, :primary_mentor_id)
     end
 
     def check_show_access

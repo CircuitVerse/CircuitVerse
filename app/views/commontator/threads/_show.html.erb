@@ -60,7 +60,7 @@
         <% end %>
 
         <%= link_to t("commontator.thread.actions.#{close_string}"),
-                    commontator.polymorphic_path([close_string, thread]),
+                    commontator.polymorphic_path([close_string.to_sym, thread]),
                     data: is_closed ? {} :
                                       { confirm: t('commontator.thread.actions.confirm_close') },
                     method: :put,
@@ -104,7 +104,6 @@
     <%= render partial: 'commontator/threads/reply', locals: { thread: thread, user: user } %>
   <% end %>
 </div>
-
-<script type="text/javascript">
-  <%= render partial: 'commontator/threads/hide_show_links.js', locals: { thread: thread } %>
+<script>
+  <%= render partial: 'commontator/threads/hide_show_links', locals: { thread: thread }, formats: :js %>
 </script>

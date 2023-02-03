@@ -27,7 +27,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         put "/api/v1/comments/#{comment.id}/delete",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status forbidden" do
@@ -41,7 +41,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
         comment.delete_by(creator)
         token = get_auth_token(creator)
         put "/api/v1/comments/#{comment.id}/delete",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status conflict & 'already deleted' error" do
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
       before do
         token = get_auth_token(creator)
         put "/api/v1/comments/#{comment.id}/delete",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
 
         # reload comment to update comment params after being deleted
         comment.reload

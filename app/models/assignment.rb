@@ -2,16 +2,30 @@
 
 class Assignment < ApplicationRecord
   validates :name, length: { minimum: 1 }
+  validates :grading_scale, inclusion: {
+    in: %w[percent],
+    message: "needs to be fixed at 1-100 for passing the grade back to LMS"
+  }, if: :lti_integrated?
   belongs_to :group
   has_many :projects, class_name: "Project", dependent: :nullify
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
   after_commit :send_update_mail, on: :update
+  after_create_commit :notify_recipient
 
   enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
+
+  has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
+
+  def notify_recipient
+    @assignment = Assignment.find(id)
+    group.group_members.each do |group_member|
+      NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)
+    end
+  end
 
   def send_new_assignment_mail
     group.group_members.each do |group_member|
@@ -37,12 +51,22 @@ class Assignment < ApplicationRecord
     end
   end
 
+  def clean_restricted_elements
+    restricted_elements = JSON.parse restrictions
+    restricted_elements.map! { |element| ERB::Util.html_escape element }
+    restricted_elements.to_json
+  end
+
   def graded?
     grading_scale != "no_scale"
   end
 
   def elements_restricted?
     restrictions != "[]"
+  end
+
+  def lti_integrated?
+    lti_consumer_key.present? && lti_shared_secret.present?
   end
 
   def project_order

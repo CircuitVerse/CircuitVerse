@@ -20,6 +20,19 @@ class GradesController < ApplicationController
     @grade.user_id = current_user.id
     @grade.remarks = remarks
 
+    if Flipper.enabled?(:lms_integration, current_user) && session[:is_lti]
+      # pass grade back to the LMS if session is LTI
+      project = Project.find(grade_params[:project_id])
+      assignment = Assignment.find(grade_params[:assignment_id])
+      score = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
+      LtiScoreSubmission.new(
+        assignment: assignment,
+        lis_result_sourced_id: project.lis_result_sourced_id,
+        score: score,
+        lis_outcome_service_url: session[:lis_outcome_service_url]
+      ).call # LTI score submission, see app/helpers/lti_helper.rb
+    end
+
     unless @grade.save
       render json: { error: "Grade is invalid" },
              status: :bad_request

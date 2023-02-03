@@ -113,7 +113,7 @@ export default class Decoder extends CircuitElement {
         for (let i = 0; i < this.output1.length; i++) {
             this.output1[i].value = 0;
         }
-        this.output1[this.input.value].value = 1;
+        if(this.input.value !== undefined) this.output1[this.input.value].value = 1; // if input is undefined, don't change output
         for (let i = 0; i < this.output1.length; i++) {
             simulationArea.simulationQueue.add(this.output1[i]);
         }
@@ -286,5 +286,5 @@ export default class Decoder extends CircuitElement {
 Decoder.prototype.tooltipText =
     "Decoder ToolTip : Converts coded inputs into coded outputs.";
 Decoder.prototype.helplink =
-    "https://docs.circuitverse.org/#/decodersandplexers?id=decoder";
+    "https://docs.circuitverse.org/#/chapter4/5muxandplex?id=decoder";
 Decoder.prototype.objectType = "Decoder";

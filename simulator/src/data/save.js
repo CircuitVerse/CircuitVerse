@@ -71,13 +71,13 @@ export function getTabsOrder() {
  * @return {JSON}
  * @category data
  */
-export function generateSaveData(name) {
+export function generateSaveData(name, setName = true) {
     data = {};
 
     // Prompts for name, defaults to Untitled
     name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
     data.name = stripTags(name);
-    setProjectName(data.name);
+    if (setName) setProjectName(data.name);
 
     // Save project details
     data.timePeriod = simulationArea.timePeriod;
@@ -117,7 +117,7 @@ export function generateSaveData(name) {
 }
 
 // Helper function to download text
-function download(filename, text) {
+export function download(filename, text) {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     pom.setAttribute('download', filename);
@@ -285,7 +285,7 @@ async function generateImageForOnline() {
         var baseHeight = Math.round(baseWidth / ratio);
         $(node).css('height', baseHeight);
         $(node).css('width', baseWidth);
-        
+
         var data = await domtoimage.toJpeg(node);
         $(node).css('width', prevWidth);
         $(node).css('height', prevHeight);
@@ -313,7 +313,7 @@ async function generateImageForOnline() {
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
-    
+
 }
 /**
  * Function called when you save acircuit online

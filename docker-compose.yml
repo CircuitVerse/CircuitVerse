@@ -9,6 +9,7 @@ services:
     depends_on:
       - db
       - redis
+      - mailcatcher
     build: .
     command: bundle exec sidekiq -q default -q mailers
     volumes:
@@ -35,16 +36,15 @@ services:
     environment:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
-      WEBPACKER_DEV_SERVER_HOST: "webpacker"
+      DOCKER_ENVIRONMENT: 'true'
   redis:
     image: redis
-  webpacker:
+  asset_build:
     build: .
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
-      - WEBPACKER_DEV_SERVER_HOST=0.0.0.0
-    entrypoint: /circuitverse/bin/docker_webpacker_run
+    command: yarn build --watch
     volumes:
       - .:/circuitverse
       - /circuitverse/.bundle
@@ -52,6 +52,12 @@ services:
     ports:
       - '127.0.0.1:3035:3035'
 
-# volumes:
-# app:
-# public:
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports:
+      - '127.0.0.1:1080:1080'
+      - '127.0.0.1:1025:1025'
+
+volumes:
+  app:
+  public:

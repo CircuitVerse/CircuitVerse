@@ -1,0 +1,43 @@
+@import '../../../../node_modules/bootstrap/scss/bootstrap.scss';
+//importing font awesome
+$fa-font-path: "../../../../node_modules/@fortawesome/fontawesome-free/webfonts";
+@import "../../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "../../../../node_modules/@fortawesome/fontawesome-free/scss/solid.scss";
+
+
+.subcircuitdialog {
+  display: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+.side {
+  width: 330px;
+  max-width: 500px;
+  min-width: 200px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.report-sidebar a {   
+  color: $white;
+  font-size: 13px;
+  padding: 10px;
+  position: fixed;
+  right: -119px;
+  text-decoration: none;
+  bottom: 30px;
+  transition: .3s;
+  width: 160px;
+  z-index: 999;
+}
+
+.report-sidebar span {
+  font-size: 1.2em;
+  padding-right: 20px;
+}
+
+.report-sidebar a:hover {
+  right: 0;
+}
