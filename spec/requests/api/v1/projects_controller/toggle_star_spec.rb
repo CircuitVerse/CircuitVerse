@@ -22,7 +22,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/0/toggle-star",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :not_found" do
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/toggle-star",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & starred message" do
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
         FactoryBot.create(:star, project: project, user: user)
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/toggle-star",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :ok & starred message" do

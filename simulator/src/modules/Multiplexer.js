@@ -324,7 +324,7 @@ export default class Multiplexer extends CircuitElement {
 Multiplexer.prototype.tooltipText =
     "Multiplexer ToolTip : Multiple inputs and a single line output.";
 Multiplexer.prototype.helplink =
-    "https://docs.circuitverse.org/#/decodersandplexers?id=multiplexer";
+    "https://docs.circuitverse.org/#/chapter4/5muxandplex?id=multiplexer";
 
 /**
  * @memberof Multiplexer
@@ -336,7 +336,7 @@ Multiplexer.prototype.mutableProperties = {
     controlSignalSize: {
         name: "Control Signal Size",
         type: "number",
-        max: "32",
+        max: "10",
         min: "1",
         func: "changeControlSignalSize",
     },

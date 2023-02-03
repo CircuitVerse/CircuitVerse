@@ -35,18 +35,17 @@ class Users::CircuitverseController < ApplicationController
 
   def groups
     @user = authorize @user
-    @groups_mentored = Group.where(id: Group.joins(:mentor).where(mentor: @user))
-                            .select("groups.*, COUNT(group_members.id) as group_member_count")
-                            .joins("left outer join group_members on \
-                              (group_members.group_id = groups.id)")
-                            .group("groups.id")
+    @groups_owned = Group.where(id: Group.joins(:primary_mentor).where(primary_mentor: @user))
+                         .select("groups.*, COUNT(group_members.id) as group_member_count")
+                         .left_outer_joins(:group_members)
+                         .group("groups.id")
   end
 
   private
 
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale)
+                                   :subscribed, :locale, :remove_picture)
     end
 
     def set_user

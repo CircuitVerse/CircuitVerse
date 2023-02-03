@@ -184,5 +184,5 @@ ALU.prototype.tooltipText = 'ALU ToolTip: 0: A&B, 1:A|B, 2:A+B, 4:A&~B, 5:A|~B, 
  * @type {string}
  * @category modules
  */
-ALU.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=alu';
+ALU.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/8misc?id=alu';
 ALU.prototype.objectType = 'ALU';
