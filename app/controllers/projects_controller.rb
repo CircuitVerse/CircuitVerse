@@ -47,7 +47,6 @@ class ProjectsController < ApplicationController
       @star.user_id = current_user.id
       @star.project_id = @project.id
       @star.save
-      @star.notify :users
       render js: "2"
     else
       star.destroy
@@ -59,7 +58,6 @@ class ProjectsController < ApplicationController
     authorize @project
     @project_new = @project.fork(current_user)
     @project_new.save!
-    @project_new.notify :users, key: "project.fork"
     redirect_to user_project_path(current_user, @project_new)
   end
 
@@ -70,7 +68,10 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully created."
+        end
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -85,7 +86,10 @@ class ProjectsController < ApplicationController
     @project.description = params["description"]
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -99,7 +103,9 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed." }
+      format.html do
+        redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end

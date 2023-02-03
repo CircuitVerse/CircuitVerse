@@ -15,10 +15,15 @@ services:
   # Install scripts. (runs after repo cloning)
 install:
   - ps: Install-Product node $env:nodejs_version
+  - choco install imagemagick.app -y
+  - ridk exec sh -c "pacman -S ${MINGW_PACKAGE_PREFIX}-postgresql --noconfirm"
+  # - ridk exec sh -c "pacman -S libxml2 --noconfirm"
+  - refreshenv
   - set PATH=C:\Ruby30-x64\bin;%PATH%
   - ruby -v
+  # - bundle config build.nokogiri --use-system-libraries
   - bundle config --local path vendor/bundle
-  - bundle install --with postgresql
+  - bundle install
   - yarn
 
 build: off
@@ -34,7 +39,7 @@ before_test:
   - yarn build
   - openssl genrsa  -out config/private.pem 2048
   - openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
-
+  - magick identify -version
 
 test_script:
   - bundle exec rspec --format RspecJunitFormatter --out test_results/rspec.xml --format progress --tag ~@skip_windows

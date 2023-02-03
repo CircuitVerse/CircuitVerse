@@ -9,7 +9,7 @@ class SimulatorController < ApplicationController
   before_action :set_user_project, only: %i[update edit update_image]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
-  skip_before_action :verify_authenticity_token, only: %i[get_data create]
+  skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
     Flipper.enabled?(:lms_integration, current_user)
@@ -113,7 +113,7 @@ class SimulatorController < ApplicationController
   end
 
   def verilog_cv
-    url = ENV.fetch("YOSYS_PATH", "http://127.0.0.1:3040") + "/getJSON"
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
   end

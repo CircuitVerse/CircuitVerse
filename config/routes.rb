@@ -12,8 +12,12 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
 
+  devise_scope :user do  
+    get '/users/sign_out' => 'devise/sessions#destroy'        
+  end
+  
   # resources :assignment_submissions
-  resources :group_members, only: %i[create destroy]
+  resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
     member do
@@ -56,7 +60,7 @@ Rails.application.routes.draw do
   get "/users/edit", to: redirect('/')
   devise_for :users, controllers: {
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
-    sessions: "users/sessions"
+    sessions: "users/sessions", :saml_sessions => "users/saml_sessions"
   }
 
   # Circuitverse web pages resources
@@ -71,8 +75,6 @@ Rails.application.routes.draw do
 
   # users
 
-  notify_to :users, controller: "users/notifications"
-
   scope "/users" do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
     get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
@@ -80,7 +82,10 @@ Rails.application.routes.draw do
     get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
     get "/:id/", to: "users/circuitverse#index", as: "user_projects"
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
-    get "/:id/notifications", to: "users/notifications#index", as: "notifications"
+    get "/:id/notifications", to: "users/noticed_notifications#index", as: "notifications"
+    patch "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
+    patch "/:id/notifications/read_all_notifications", to: "users/noticed_notifications#read_all_notifications", as: "read_all_notifications"
+    post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read", as: "mark_as_read"
   end
 
   post "/push/subscription/new", to: "push_subscription#create"
@@ -114,19 +119,6 @@ Rails.application.routes.draw do
     post "/verilogcv", to: "simulator#verilog_cv"
     get "/", to: "simulator#new", as: "simulator_new"
     get "/embed/:id", to: "simulator#embed", as: "simulator_embed"
-  end
-
-  scope "/simulator_old" do
-    get "/:id", to: "simulator_old#show", as: "simulator_old"
-    get "/edit/:id", to: "simulator_old#edit", as: "simulator_old_edit"
-    post "/get_data", to: "simulator_old#get_data"
-    post "/post_issue", to: "simulator_old#post_issue"
-    post "/update_data", to: "simulator_old#update"
-    post "/update_image", to: "simulator_old#update_image"
-    post "/create_data", to: "simulator_old#create"
-    post "/verilogcv", to: "simulator_old#verilog_cv"
-    get "/", to: "simulator_old#new", as: "simulator_old_new"
-    get "/embed/:id", to: "simulator_old#embed"
   end
 
   scope "/testbench" do
@@ -163,10 +155,14 @@ Rails.application.routes.draw do
       post "/oauth/signup", to: "authentication#oauth_signup"
       get  "/public_key.pem", to: "authentication#public_key"
       post "/password/forgot", to: "authentication#forgot_password"
+      get "/notifications", to: "notifications#index"
+      patch "/notifications/mark_as_read/:notification_id", to: "notifications#mark_as_read"
+      patch "/notifications/mark_all_as_read", to: "notifications#mark_all_as_read"
       get "/me", to: "users#me"
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
+      get "/projects/search", to: "projects#search"
       resources :projects, only: %i[index show update destroy] do
         member do
           get "toggle-star", to: "projects#toggle_star"
@@ -183,9 +179,11 @@ Rails.application.routes.draw do
       end
       post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
       resources :grades, only: %i[update destroy]
-      get "/groups/mentored", to: "groups#groups_mentored"
+      get "/groups/owned", to: "groups#groups_owned"
       resources :groups, only: %i[index show update destroy]
       delete "/group/members/:id", to: "group_members#destroy"
+      put "/group/members/:id", to: "group_members#update"
+      patch "/group/members/:id", to: "group_members#update"
       resources :groups do
         resources :members, controller: "group_members", shallow: true, only: %i[index create]
         resources :assignments, shallow: true

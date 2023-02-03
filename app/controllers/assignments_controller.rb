@@ -42,8 +42,8 @@ class AssignmentsController < ApplicationController
   def new
     @assignment = Assignment.new
     @assignment.group_id = params[:group_id]
-    @assignment.deadline = Time.zone.now + 1.week
-    authorize @assignment, :admin_access?
+    @assignment.deadline = 1.week.from_now
+    authorize @assignment, :mentor_access?
   end
 
   # GET /assignments/1/edit
@@ -54,7 +54,7 @@ class AssignmentsController < ApplicationController
   def reopen
     authorize @assignment
     @assignment.status = "open"
-    @assignment.deadline = Time.zone.now + 1.day
+    @assignment.deadline = 1.day.from_now
     @assignment.save
 
     redirect_to edit_group_assignment_path(@group, @assignment)
@@ -84,11 +84,11 @@ class AssignmentsController < ApplicationController
     # params[:deadline] = params[:deadline].to_time
 
     @assignment = @group.assignments.new(params)
-    authorize @assignment, :admin_access?
+    authorize @assignment, :mentor_access?
 
     @assignment.description = description
     @assignment.status = "open"
-    @assignment.deadline = Time.zone.now + 1.year if @assignment.deadline.nil?
+    @assignment.deadline = 1.year.from_now if @assignment.deadline.nil?
 
     if Flipper.enabled?(:lms_integration, current_user)
       @assignment.lti_consumer_key = lti_consumer_key
@@ -170,16 +170,16 @@ class AssignmentsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_create_params
       params.require(:assignment).permit(:name, :deadline, :description, :grading_scale,
-                                         :restrictions)
+                                         :restrictions, :feature_restrictions)
     end
 
     def assignment_update_params
       params.require(:assignment).permit(:name, :deadline, :description,
-                                         :restrictions)
+                                         :restrictions, :feature_restrictions)
     end
 
     def check_access
-      authorize @assignment, :admin_access?
+      authorize @assignment, :mentor_access?
     end
 
     def sanitize_assignment_description

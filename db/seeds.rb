@@ -50,10 +50,11 @@ Project.create([{ name: "Full Adder",
                   project_access_type: "Public",
                   description: "description" }])
 
-# groups
-Rails.logger.debug "Creating Groups"
-group = Group.create(name: "group1",
-                     mentor_id: users.first.id)
+#groups
+puts "Creating Groups"
+group = Group.create(name: 'group1',
+  primary_mentor_id: users.first.id,
+)
 GroupMember.create(group_id: group.id,
                    user_id: users.second.id)
 

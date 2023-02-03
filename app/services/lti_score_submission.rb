@@ -13,11 +13,7 @@ class LtiScoreSubmission
       lis_outcome_service_url,
       score_body.to_xml, "Content-Type" => "application/xml"
     )
-    if /\bsuccess\b/.match?(response.body)
-      true # grade submission success
-    else
-      false # grade submission failed
-    end
+    /\bsuccess\b/.match?(response.body)
   end
 
   private

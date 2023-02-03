@@ -3,13 +3,10 @@
 require "rails_helper"
 
 describe "Group management", type: :system do
-  before(:all) do
+  before do
     @user = FactoryBot.create(:user)
     @user2 = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @user)
-  end
-
-  before do
+    @group = FactoryBot.create(:group, primary_mentor: @user)
     driven_by(:selenium_chrome_headless)
     login_as(@user, scope: :user)
   end
@@ -39,8 +36,11 @@ describe "Group management", type: :system do
     click_button "+ Add Members"
     execute_script "document.getElementById('addmemberModal').style.display='block'"
     execute_script "document.getElementById('addmemberModal').style.opacity=1"
-    fill_in "group_email_input", with: @user2.email
-    fill_in "group_email_input", with: " "
+    execute_script "var new_email = document.createElement('option')
+                    new_email.innerHTML = 'example@gmail.com'
+                    document.getElementById('group_member_emails').appendChild(new_email)"
+    select "example@gmail.com", from: "group_member[emails][]"
+    execute_script "document.getElementById('group_email_input').click()"
     click_button "Add members"
 
     expect(page).to have_text(

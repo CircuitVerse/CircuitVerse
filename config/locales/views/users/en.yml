@@ -33,6 +33,7 @@ en:
         groups_user_mentor_to: "GROUPS YOU MENTOR:"
         total_members: "Total Members: %{group_member_count}"
         groups_user_belong_to: "GROUPS YOU'RE IN:"
+        groups_user_owns: "GROUPS YOU OWN:"
       index:
         title: "%{name} - Circuits"
         alt_title: "Nil - Circuits"
@@ -77,5 +78,19 @@ en:
       remember_me: "Remember Me"
     shared:
       login_with: "Login With"
+      login_with_sso: "Single Sign On"
     unlocks:
       resend_unlock_instructions: "Resend unlock instructions"
+    notifications:
+      heading: "Notifications"
+      all: "All"
+      unread: "Unread"
+      mark_as_read_button: "Mark all as read"
+      no_notifications: "You do not have any notifications!"
+      no_unread_notifications: "You do not have any unread notifications!"
+      see_all : "See All"
+      fork_notification: "%{user} forked your Project %{project}"
+      star_notification: "%{user} starred your Project %{project}"
+      new_assignment_notification: "You have been assigned a new assignment '%{assignment_name}'"
+      forum_thread_notification: "%{user} posted a new thread '%{thread}'"
+      comment_notif: "%{user} commented on thread '%{thread}'"

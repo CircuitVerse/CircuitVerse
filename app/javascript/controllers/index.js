@@ -2,7 +2,14 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from './application';
 
-import GroupsController from "./groups_controller.js"
-application.register("groups", GroupsController)
+import AssignmentController from './assignment_controller';
+import GroupsController from './groups_controller';
+import ProjectsController from './projects_controller';
+import NotificationsController from './notifications_controller';
+
+application.register('groups', GroupsController);
+application.register('projects', ProjectsController);
+application.register('notifications', NotificationsController);
+application.register('assignment', AssignmentController);

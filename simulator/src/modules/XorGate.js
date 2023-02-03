@@ -185,5 +185,5 @@ XorGate.prototype.changeInputSize = changeInputSize;
  */
 XorGate.prototype.verilogType = "xor";
 XorGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=xor-gate";
+    "https://docs.circuitverse.org/#/chapter4/4gates?id=xor-gate";
 XorGate.prototype.objectType = "XorGate";

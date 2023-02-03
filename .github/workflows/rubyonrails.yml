@@ -1,0 +1,59 @@
+name: "Ruby on Rails CI"
+on:
+  [push, pull_request, workflow_dispatch]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+      redis:
+        image: redis:alpine
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1 # v1.115.3
+        with:
+          bundler-cache: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile  --immutable
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+      - name: Build assets
+        run: yarn run build
+      - name: Configure keys
+        run: |
+          openssl genrsa -out config/private.pem 2048
+          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+      - name: Run tests
+        run: bundle exec rspec
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1 # v1.115.3
+        with:
+          bundler-cache: true
+      - name: Security audit dependencies
+        run:  bundle exec bundler-audit --update
+      - name: Lint Ruby files
+        run: bundle exec rubocop --parallel
