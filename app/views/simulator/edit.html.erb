@@ -803,7 +803,7 @@
   class="subcircuitdialog"
   title="Insert SubCircuit"
 ></div>
-<div id="insertSubcircuitcontent"><span><p><%= t("simulator.insert_Subcircuitcontent.") %></p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit" onclick ='return $("#insertSubcircuitDialog").dialog("close");'>New Circuit +</a></div>
+<div id="insertSubcircuitcontent"><span><p><%= t("simulator.insert_Subcircuitcontent.") %></p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit">New Circuit +</a></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
     <label >Decimal value</label><br><input  type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
@@ -873,6 +873,12 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('#newCircuit').click(function () {
+    return $('#insertSubcircuitDialog').dialog('close');
+  });
+</script>
 
 <script>
 <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
