@@ -9,9 +9,7 @@ class FeaturedCircuit < ApplicationRecord
   private
 
     def project_public
-      if project.project_access_type != "Public"
-        errors.add(:project, "Featured projects have to be public")
-      end
+      errors.add(:project, "Featured projects have to be public") if project.project_access_type != "Public"
     end
 
     def featured_circuit_email

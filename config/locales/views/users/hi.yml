@@ -33,6 +33,7 @@ hi:
         groups_user_mentor_to: "आपके द्वारा निर्देशित समूह:"
         total_members: "कुल सदस्य: %{group_member_count}"
         groups_user_belong_to: "आप जिन समूहों में हैं:"
+        groups_user_owns: "आपके अपने समूह:"
       index:
         title: "%{name} - आपके सर्किट"
         alt_title: "Nil - आपके सर्किट"
@@ -77,5 +78,19 @@ hi:
       remember_me: "मेरा लॉगिन याद रखे "
     shared:
       login_with: "इनके उपयोग द्वारा लॉग इन करें"
+      login_with_sso: "सिंगल साइन ऑन"
     unlocks:
       resend_unlock_instructions: "अनलॉक करने के निर्देश फिर से भेजें"
+    notifications:
+      heading: "नोटिफिकेशन्स"
+      all: "सभी"
+      unread: "अपठित"
+      mark_as_read_button: "सभी को पढ़ा हुआ मार्क करें"
+      no_notifications: "आपके पास कोई नोटिफिकेशन्स नहीं है!"
+      no_unread_notifications: "आपके पास कोई अपठित नोटिफिकेशन्स नहीं है!"
+      see_all : "सभी देखें"
+      fork_notification: "%{user} ने आपके प्रोजेक्ट %{project} को फोर्क किया"
+      star_notification: "%{user} ने आपका प्रोजेक्ट %{project} स्टार किया"
+      new_assignment_notification: "आपको एक नया कार्य सौंपा गया है! - '%{assignment_name}'"
+      forum_thread_notification: "%{user} ने एक नया सूत्र '%{thread}' पोस्ट किया"
+      comment_notif: "%{user} ने '%{thread}' पर टिप्पणी की"

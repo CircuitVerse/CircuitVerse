@@ -230,13 +230,14 @@
     $("#projectModal").on("show.bs.modal", function(e) {
         let projectSlug = $(e.relatedTarget).data('currentproject').slug;
         let projectId = $(e.relatedTarget).data('currentproject').id;
+        let authorId = $(e.relatedTarget).data('currentproject').author_id;
         var id = projectSlug ? projectSlug : projectId;
         $(e.currentTarget).find('#project-launch-button').attr("href",
         "/simulator/edit/" + id);
         $(e.currentTarget).find('#project-fork-button').attr("href",
         "/projects/create_fork/" + projectId.toString());
         $(e.currentTarget).find('#project-more-button').attr("href",
-        "/users/" + <%= @user.id.to_s %> + "/projects/" + id);
+        "/users/" + authorId + "/projects/" + id);
     });
   });
 </script>

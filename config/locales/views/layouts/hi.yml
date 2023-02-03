@@ -27,7 +27,7 @@ hi:
       language: "भाषा चुने"
     mailer:
       join_us: "हमसे जुड़ें"
-      copyright_text: "कॉपीराइट © 2021 सर्किटवर्स। सर्वाधिकार सुरक्षित। किसी भी समस्या के लिए, हमसे संपर्क करें support@circuitverse.org"
+      copyright_text: "कॉपीराइट © %{time_current_year} सर्किटवर्स। सर्वाधिकार सुरक्षित। किसी भी समस्या के लिए, हमसे संपर्क करें support@circuitverse.org"
       unsubscribe_email_notifications: "ईमेल सूचनाओं से सदस्यता समाप्त करें"
     simulator:
       title: "सर्किटवर्स - डिजिटल सर्किट सिम्युलेटर ऑनलाइन"

@@ -20,8 +20,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
     context "with invalid access token" do
       before do
         post "/api/v1/oauth/signup", params: {
-          "access_token": "invalid_access_token",
-          "provider": "google"
+          access_token: "invalid_access_token",
+          provider: "google"
         }, as: :json
       end
 
@@ -34,8 +34,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
     context "with unsupported provider type" do
       before do
         post "/api/v1/oauth/signup", params: {
-          "access_token": "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
-          "provider": "unsupported_provider"
+          access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+          provider: "unsupported_provider"
         }, as: :json
       end
 
@@ -48,8 +48,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
     context "with empty email & valid provider" do
       before do
         post "/api/v1/oauth/signup", params: {
-          "access_token": "empty_email_token",
-          "provider": "google"
+          access_token: "empty_email_token",
+          provider: "google"
         }, as: :json
       end
 
@@ -72,8 +72,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
 
     def oauth_params
       {
-        "access_token": "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
-        "provider": "google"
+        access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+        provider: "google"
       }
     end
   end

@@ -9,7 +9,7 @@ If you have any setup problems, please ensure you have read through all the inst
 There are several ways to run your own instance of CircuitVerse:
 
 ### Gitpod Cloud Environment
-[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment. 
+[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
 
 Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod) and pull requests can be created following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
 
@@ -63,22 +63,82 @@ cd CircuitVerse
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template)
+4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template): 
+     * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
-7. Start Sidekiq (background processes & job queue): `bundle exec sidekiq -e development -q default -q mailers `
-1. ./bin/webpack-dev-server for Hot Module reload for  fast development or transpile using ./bin/webpack.
+7. Run bin/dev to run application server, background job queue and asset compiler
 
-Then, local development can be started with `rails s -b 127.0.0.1`. Navigate to `localhost:3000` in your web browser to access the website.
+Navigate to `localhost:3000` in your web browser to access the website.
 
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
 - [Run Terminal as a login shell](https://rvm.io/integration/gnome-terminal/) so ruby and rails will be available.
 
+#### (Optional) yosys installation for Verilog RTL Synthesis
+If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
+1. Install yosys
+2. Setup and run CircuitVerse's yosys2digitaljs-server.
+
+##### Installation steps
+1. **Install yosys**
+   - Many Linux distibutions provide yosys binaries which is easy to install & small in package size. For Example,
+**For Debina/Ubunutu**:
+  ```sudo apt install yosys```
+   - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
+      1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
+      2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
+      3. To use OSS CAD Suite
+
+      **Other Linux distros and macOS**
+      ```shell
+      export PATH="<extracted_location>/oss-cad-suite/bin:$PATH"
+
+      or
+
+      source <extracted_location>/oss-cad-suite/environment
+      ```
+      **Windows**
+      ```
+      from existing shell:
+      <extracted_location>\oss-cad-suite\environment.bat
+
+      to create new shell window:
+      <extracted_location>\oss-cad-suite\start.bat
+      ```
+1. **Setup CircuitVerse yosys2digitaljs-server**
+    - In your local CircuitVerse Repository:
+      ```sh
+      git clone https://github.com/CircuitVerse/yosys2digitaljs-server.git
+
+      cd yosys2digitaljs-server
+
+      yarn
+
+      cd ..
+      ```
+    - To use CircuitVerse yosys2digitaljs-server:
+      ```sh
+      bin/yosys
+      ```
+
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
+
+### Enabling/Disabling features with Flipper 
+By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
+```ruby
+rails c
+
+# Enable features (:recaptcha, :forum)
+> Flipper.enable :recaptcha
+
+# Disable features (:project_comments, :lms_integration)
+> Flipper.disable :forum
+```
+Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
 ### Additional setup instructions
 [Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
@@ -111,7 +171,7 @@ Password: password
 
 You can include `binding.pry` anywhere inside the code to open the `pry` console.
 
-CircuitVerse uses webpack to bundle the javascript module and assets. To see any changes made to the simulator code without refreshing (hot reload), start `bin/webpack-dev-server`
+<!-- CircuitVerse uses webpack to bundle the javascript module and assets. To see any changes made to the simulator code without refreshing (hot reload), start `bin/webpack-dev-server` -->
 
 
 ## Production
@@ -124,7 +184,11 @@ bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 
 
 ## Tests
-Before making a pull request, it is a good idea to check that all tests are passing locally. To run the system tests, run `bundle exec rspec`
+
+Before making a pull request, it is a good idea to check that all tests are passing locally.
+
+- To run the system tests, run `bundle exec rspec` .
+- To run the simulator tests, run `yarn run test` .
 
 **Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
 
@@ -137,10 +201,10 @@ openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 ```
 
 ## Third Party Services
-The `.env` file only needs to be used if you would like to link to third party services (Facebook, Google, GitHub, Slack, Bugsnap and Recaptcha)
+The `.env` file only needs to be used if you would like to link to third party services (Facebook, Google, GitHub, Gitlab, Slack, Bugsnap and Recaptcha)
 
 1. Create an app on the third party service [(instructions)](https://github.com/CircuitVerse/CircuitVerse/wiki/Create-Apps)
-2. Make the following changes in your Google, Facebook or Github app:
-   1.  Update the `site url` field with the URL of your instance, and update the `callback url` field with `<url>/users/auth/google`, `<url>/users/auth/facebook` or `<url>/users/auth/github` respectively.
+2. Make the following changes in your Google, Facebook, GitHub or Gitlab app:
+   1.  Update the `site url` field with the URL of your instance, and update the `callback url` field with `<url>/users/auth/google`, `<url>/users/auth/facebook`, `<url>/users/auth/github` or `<url>/users/auth/gitlab`  respectively.
 3. Configure your `id` and `secret` environment variables in `.env`. If `.env` does not exist, copy the template from `.env.example`.
 4. After adding the environment variables, run `dotenv rails server` to start the application.

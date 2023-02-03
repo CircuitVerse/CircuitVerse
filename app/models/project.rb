@@ -3,7 +3,6 @@
 # rubocop:disable Metrics/ClassLength
 
 require "pg_search"
-require "custom_optional_target/web_push"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
@@ -19,6 +18,8 @@ class Project < ApplicationRecord
   has_many :user_ratings, through: :stars, dependent: :destroy, source: "user"
   belongs_to :assignment, optional: true
 
+  has_noticed_notifications model_name: "NoticedNotification"
+  has_many :noticed_notifications, through: :author
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
@@ -27,6 +28,7 @@ class Project < ApplicationRecord
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
+  has_many :notifications, as: :notifiable
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
@@ -36,6 +38,7 @@ class Project < ApplicationRecord
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
+  accepts_nested_attributes_for :project_datum
   pg_search_scope :text_search, against: %i[name description], associated_against: {
     tags: :name
   }, using: {
@@ -94,6 +97,10 @@ class Project < ApplicationRecord
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
+    @project = Project.find(id)
+    if @project.author != user # rubocop:disable Style/IfUnlessModifier
+      ForkNotification.with(user: user, project: @project).deliver_later(@project.author)
+    end
     forked_project
   end
 
@@ -104,20 +111,6 @@ class Project < ApplicationRecord
       UserMailer.forked_project_email(author, forked_project, self).deliver_later
     end
   end
-
-  acts_as_notifiable :users,
-                     # Notification targets as :targets is a necessary option
-                     targets: lambda { |project, _key|
-                       [project.forked_project.author]
-                     },
-                     notifier: :author,
-                     printable_name: lambda { |project|
-                       "forked your project \"#{project.name}\""
-                     },
-                     notifiable_path: :project_notifiable_path,
-                     optional_targets: {
-                       CustomOptionalTarget::WebPush => {}
-                     }
 
   def project_notifiable_path
     user_project_path(forked_project.author, forked_project)

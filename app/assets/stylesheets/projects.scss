@@ -150,12 +150,35 @@
 .projects-embed-text {
   border: 1.5px solid $secondary-green;
   font-size: 12px;
+  outline-color: $secondary-green;
   text-align: left;
 }
 
+.embed-container {
+  background-color: $slightblack;
+}
+
 .projectshow-embed-text-confirmation {
-  display: block;
+  display: none;
   text-align: right;
+}
+
+.embed-input-fields {
+  display: flex;
+
+  .col-form-label {
+    padding-left: 0;
+  }
+
+  b {
+    display: block;
+    width: 100px;
+  }
+}
+
+.embed-link-textarea {
+  font-size: 12px;
+  width: 100%;
 }
 
 .projects-collaborators-container {
@@ -202,39 +225,3 @@
 }
 //project details ends
 
-// collaborators tags input
-.bootstrap-tagsinput {
-  border: 1px solid $secondary-green;
-  cursor: text;
-  font-size: 1rem;
-  line-height: 1.25;
-  margin: 0;
-  max-height: 180px;
-  min-height: 150px;
-  overflow-y: scroll;
-  padding: .5rem .75rem;
-  transition: border-color .15s ease-in-out;
-  width: 100%;
-
-  .label-info {
-    background-color: $primary-green;
-    border-radius: .25rem;
-    color: $white;
-    display: inline-block;
-    margin-bottom: .4em;
-    padding: 0 .4em .15em;
-	}
-
-  input {
-    border: 0;
-  }
-}
-
-.tag [data-role="remove"]::after {
-  content: '\00d7';
-  cursor: pointer;
-  font-size: 18px;
-  margin-left: 5px;
-}
-
-// collaborators tags input closes

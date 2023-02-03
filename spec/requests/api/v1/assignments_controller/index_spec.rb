@@ -5,8 +5,8 @@ require "rails_helper"
 RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
   describe "list all assignments" do
     let!(:user) { FactoryBot.create(:user) }
-    let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
     let!(:group_member) { FactoryBot.create(:group_member, group: group, user: user) }
     let!(:assignments) { FactoryBot.create_list(:assignment, 3, group: group) }
 
@@ -25,7 +25,7 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         get "/api/v1/groups/#{group.id}/assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -34,11 +34,11 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
       end
     end
 
-    context "when authorized as mentor to fetch assignments" do
+    context "when authorized as primary_mentor to fetch assignments" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(primary_mentor)
         get "/api/v1/groups/#{group.id}/assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all assignments that belongs to the group" do
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
       before do
         token = get_auth_token(group_member.user)
         get "/api/v1/groups/#{group.id}/assignments",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all assignments that belongs to the group" do

@@ -1,0 +1,45 @@
+<body style="font-family: sans-serif;">
+    <br><br>
+    <div class="container" style="position: relative;">
+        <h1 style="text-align: center" id="tb-creator-head"><b>Create Test</b></h1>
+        <div class="test-title">
+            <div style="width: 20%; font-weight: bolder;">Title:</div>
+            <div id="test-title-label" contenteditable="true">Untitled</div>
+        </div>
+        <button class="tablink tablink-no-override" id="seqSelect" onclick="changeTestMode('seq') && addGroup();">Sequential Test</button>
+        <button class="tablink tab-selected tablink-no-override" id="combSelect" onclick="changeTestMode('comb') && addGroup();">Combinational Test</button>
+        <!-- Default table -->
+        <table class="tb-table label-table ui-sortable" id="testBenchTable">
+            <tr>
+                <th colspan="1"></th>
+                <th colspan="0" id="tb-inputs-head">INPUTS<button class="table-button" id="plus-1" onclick="addInput()">+</button>
+                <th colspan="0" id="tb-outputs-head">OUTPUTS<button class="table-button" id="plus-1" onclick="addOutput()">+</button>
+            </tr>
+            <tr>
+                <th>Label</th>
+            </tr>
+            <tr>
+                <td>Bitwidth</td>
+            </tr>
+        </table>
+        <div id="dataGroup">
+            <div id="data-group-1" class="data-group">
+                <h3 id="data-group-title-1" contenteditable="true">Group 1</h3>
+                <h5 class="data-group-info">Click + to add tests to the group</h5>
+                <table class="tb-table" id="data-table-1">
+                    <tbody></tbody>
+                </table>
+                <button class="lower-button plus-button latest-button" id="plus-1" onclick="addCase(0)">+</button>
+            </div>
+        </div>
+        <div class="buttons-alignment" style="display: inline-flex;">
+            <button class="lower-button" onclick="addGroup()">New Group</button>
+        </div>
+            <div style="float: right; display: inline-block;" class="right-button-group">
+                <button class="lower-button" onclick="clickUpload();">Import from CSV</button>
+                <button class="lower-button" onclick="exportAsCSV();">Export as CSV</button>
+                <input id='csvFileInput' type='file' accept=".csv" onchange="importFromCSV()" hidden/>
+            </div>
+    </div>
+
+</body>

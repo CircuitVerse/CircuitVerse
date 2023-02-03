@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Project, type: :model do
   before do
     @user = FactoryBot.create(:user)
-    group = FactoryBot.create(:group, mentor: @user)
+    group = FactoryBot.create(:group, primary_mentor: @user)
     @assignment = FactoryBot.create(:assignment, group: group)
   end
 
@@ -18,6 +18,7 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:collaborations) }
     it { is_expected.to have_many(:collaborators) }
     it { is_expected.to have_one(:featured_circuit) }
+    it { is_expected.to have_many(:noticed_notifications) }
   end
 
   describe "validity" do
