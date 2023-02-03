@@ -51,7 +51,7 @@ describe ProjectsController, type: :request do
           expect do
             get user_project_path(@author, @project)
             @project.reload
-          end.to change { @project.view }.by(0)
+          end.not_to change { @project.view }
         end
       end
     end
@@ -80,6 +80,13 @@ describe ProjectsController, type: :request do
         expect do
           get change_stars_path(@project), xhr: true
         end.to change(Star, :count).by(1)
+      end
+    end
+
+    context "star notification" do
+      it "notify author" do
+        get change_stars_path(@project), xhr: true
+        expect(@author.noticed_notifications.count).to eq(1)
       end
     end
 
@@ -112,9 +119,16 @@ describe ProjectsController, type: :request do
       end
     end
 
+    context "fork notification" do
+      it "notify author" do
+        get change_stars_path(@project), xhr: true
+        expect(@author.noticed_notifications.count).to eq(1)
+      end
+    end
+
     context "project is an assignment" do
       before do
-        group = FactoryBot.create(:group, mentor: FactoryBot.create(:user))
+        group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
         assignment = FactoryBot.create(:assignment, group: group)
         @assignment_project = FactoryBot.create(:project, author: @author, assignment: assignment)
       end

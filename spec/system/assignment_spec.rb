@@ -4,15 +4,16 @@ require "rails_helper"
 
 describe "Assignments", type: :system do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @member = FactoryBot.create(:user)
     FactoryBot.create(:group_member, group: @group, user: @member)
+    driven_by(:selenium_chrome_headless)
   end
 
-  context "when user is mentor" do
+  context "when user is primary_mentor" do
     it "creates assignment" do
-      sign_in @mentor
+      sign_in @primary_mentor
       visit new_group_assignment_path(@group)
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
@@ -27,7 +28,7 @@ describe "Assignments", type: :system do
     end
 
     it "does not create assignment when name is blank" do
-      sign_in @mentor
+      sign_in @primary_mentor
       visit new_group_assignment_path(@group)
 
       name = nil
@@ -41,7 +42,7 @@ describe "Assignments", type: :system do
     end
 
     it "is able to edit assignment" do
-      sign_in @mentor
+      sign_in @primary_mentor
       @assignment = FactoryBot.create(:assignment, group: @group)
       visit edit_group_assignment_path(@group, @assignment)
       name = Faker::Lorem.word
@@ -75,7 +76,7 @@ describe "Assignments", type: :system do
     find("#assignment_deadline", visible: true).send_keys :enter
     fill_in_editor ".trumbowyg-editor", with: description
 
-    select "percent", from: "assignment_grading_scale" if :grading == true
+    select "Percent(1-100)", from: "assignment_grading_scale" if grading == true
 
     page.find("#label-restrict-elements").click
     page.find("#label-Input").click

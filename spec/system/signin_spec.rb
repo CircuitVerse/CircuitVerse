@@ -4,11 +4,8 @@ require "rails_helper"
 
 describe "Sign In", type: :system do
   before do
-    driven_by(:selenium)
+    driven_by(:selenium_chrome_headless)
     @user = FactoryBot.create(:user)
-  end
-
-  before do
     visit "/users/sign_in"
   end
 

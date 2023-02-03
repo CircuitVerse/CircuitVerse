@@ -29,7 +29,7 @@ class LtiController < ApplicationController
     @user = User.find_by(email: @email_from_lms)
 
     if @user.present? # user is present in cv
-      if @user.id == @group.mentor_id # user is teacher
+      if @user.id == @group.primary_mentor_id # user is teacher
         # passwordless sign_in the user as the authenticity is verified via lms
         sign_in(@user)
         lms_auth_success_notice = t("lti.launch.notice_lms_auth_success_teacher",

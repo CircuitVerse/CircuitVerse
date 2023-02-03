@@ -4,15 +4,15 @@ require "rails_helper"
 
 RSpec.describe PendingInvitation, type: :model do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
   end
 
   describe "associations" do
     it { is_expected.to belong_to(:group) }
   end
 
-  describe "callbacks", :focus do
+  describe "callbacks" do
     it "alls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_pending_invitation_mail)
       FactoryBot.create(:pending_invitation, group: @group)
