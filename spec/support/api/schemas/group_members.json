@@ -15,6 +15,7 @@
               "user_id": { "type": "integer" },
               "created_at": { "type": "string" },
               "updated_at": { "type": "string" },
+              "mentor": { "type": "boolean"},
               "name": { "type": "string" },
               "email": { "type": "string" }
             },
@@ -23,6 +24,7 @@
               "user_id",
               "created_at",
               "updated_at",
+              "mentor",
               "name",
               "email"
             ]
