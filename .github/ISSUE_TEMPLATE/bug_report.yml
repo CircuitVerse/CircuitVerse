@@ -57,14 +57,12 @@ body:
     render: markdown
   validations:
     required: false
-body:
 - type: input
   attributes:
     label: Additional context
     description: Add any other context about the problem here
   validations:
     required: false
-body:
 - type: dropdown
   attributes:
     label: Are you working on this issue?
