@@ -12,14 +12,8 @@ body:
       required: true
 - type: textarea
   attributes:
-    label: Current Behavior
-    description: A concise description of what you're experiencing.
-  validations:
-    required: false
-- type: textarea
-  attributes:
-    label: Expected Behavior
-    description: A concise description of what you expected to happen.
+    label: Describe the bug
+    description:  A clear and concise description of what the bug is.
   validations:
     required: false
 - type: textarea
@@ -27,10 +21,16 @@ body:
     label: Steps To Reproduce
     description: Steps to reproduce the behavior.
     placeholder: |
-      1. In this environment...
-      2. With this config...
-      3. Run '...'
-      4. See error...
+      1. Go to'...'
+      2. Click on'...'
+      3. Scroll down to'...'
+      4. See error
+  validations:
+    required: false
+- type: textarea
+  attributes:
+    label: Expected Behavior
+    description: A clear and concise description of what you expected to happen.
   validations:
     required: false
 - type: textarea
