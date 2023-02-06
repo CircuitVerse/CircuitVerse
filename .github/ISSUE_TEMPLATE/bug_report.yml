@@ -1,6 +1,6 @@
 name: 🐞 Bug
 description: Create a report to help us improve
-title: ""
+title: "🐞 Bug"
 labels: ["🐞 bug", "pending triage"]
 body:
 - type: checkboxes
