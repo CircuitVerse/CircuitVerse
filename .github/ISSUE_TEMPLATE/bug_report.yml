@@ -15,7 +15,7 @@ body:
     label: Describe the bug
     description:  A clear and concise description of what the bug is
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Steps To Reproduce
@@ -26,13 +26,13 @@ body:
       3. Scroll down to'...'
       4. See error
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Expected Behavior
     description: A clear and concise description of what you expected to happen
   validations:
-    required: false
+    required: true
 - type: textarea
   attributes:
     label: Screenshots
