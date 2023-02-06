@@ -7,6 +7,8 @@
 
 ### [Added]
 
+- [Task 010] : (helperVHDL) Add LogicMSB
+- [Task 010] : (circuitElement.js) Add MSB generateVHDL and generateportmap
 - [Task 008] : (circuitElement.js) Add Dlatch generateVHDL and generatePortmap
 - [Task 008] : (helperVHDL.js) Add generateLogicDlatch and hasComponent functions
 - [Task 008] : (vhdl.js) refactoring code 
