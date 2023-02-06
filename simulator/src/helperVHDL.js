@@ -19,6 +19,21 @@ export const generateHeaderVhdlEntity = (component, index) => {
     return header.toString().replace(regexComma, "")
 }
 
+export const generateHeaderVhdlWithNumericLib = (component, index) => {
+    const regexComma = /,/g
+    const header = [
+    `\n//-------------${component}${index}-------------\n`,
+    'library IEEE;\n',
+    'use IEEE.std_logic_1164.all;\n',
+    'use IEEE.numeric_std.all;\n',
+    `\nENTITY ${component}${index} IS\n`,
+    generateSpacings(2),
+    'PORT (\n',
+    ]
+
+    return header.toString().replace(regexComma, "")
+}
+
 export const generatePortsIO = (type, idx) => {
     const portsQuantity = Math.pow(2, idx)
     let portsArray = []
@@ -55,7 +70,7 @@ export const generateArchitetureHeader = (component, index)  => {
     const regexComma = /,/g
     const header = [
         `ARCHITECTURE rtl OF ${component}${index} IS\n`,
-        generateSpacings(2),
+        component === 'MSB' ? `  SIGNAL reset: INTEGER := 0;\n${generateSpacings(2)}` : generateSpacings(2),
         `BEGIN\n`,
     ]
 
@@ -561,4 +576,24 @@ export const generateLogicSRFlipFlop = (srflipflopcomponent) => {
     }
 
     return output.join().replace(regexComma, '')
+}
+
+export const generateLogicMSB = (quantity) => {
+    let output = []
+    
+    output = [
+        `${generateSpacings(4)}process (inp) is\n`,
+        `${generateSpacings(6)}BEGIN\n`,
+        `${generateSpacings(8)}enabled <= '0';\n`,
+        `${generateSpacings(8)}FOR i IN ${quantity-1} DOWNTO 0 LOOP\n`,
+        `${generateSpacings(10)}IF inp(i) = '1' THEN\n`,
+        `${generateSpacings(12)}enabled <= i;\n`,
+        `${generateSpacings(12)}EXIT;\n`,
+        `${generateSpacings(10)}END IF;\n`,
+        `${generateSpacings(8)}END LOOP;\n`,
+        `${generateSpacings(4)}END PROCESS;\n\n`,
+        `${generateSpacings(4)}out1 <= std_logic_vector(to_unsigned(enabled, out1'length));\n`
+    ]
+
+    return output.join('')
 }

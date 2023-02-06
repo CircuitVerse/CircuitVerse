@@ -856,11 +856,15 @@ export default class CircuitElement {
         const demux = this.scope.Demultiplexer;
         const decoder = this.scope.Decoder;
         const dlatch = this.scope.Dlatch;
-        const dflipflop = this.scope.DflipFlop
-        const tflipflop = this.scope.TflipFlop
-        const jkflipflop = this.scope.JKflipFlop
-        const srflipflop = this.scope.SRflipFlop
+        const dflipflop = this.scope.DflipFlop;
+        const tflipflop = this.scope.TflipFlop;
+        const jkflipflop = this.scope.JKflipFlop;
+        const srflipflop = this.scope.SRflipFlop;
+        const msb = this.scope.MSB;
+        // const lsb = this.scope.LSB;
+        // const priorityEncoder = this.scope.PriorityEncoder;
         let element = '';
+        console.log(msb)
 
         if(hasComponent(mux)){
             let objmux = []
@@ -1056,6 +1060,26 @@ export default class CircuitElement {
             const srflipflopFiltered = removeDuplicateComponent(objsrflipflop)
             srflipflopFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portsenable + el.stdenable + el.portsreset + el.stdreset + el.portspreset + el.stdpreset + el.portsout + el.stdout + el.end)
         }
+
+        if(hasComponent(msb)){
+            let objmsb = []
+            for(var i = 0; i < msb.length; i++){
+                objmsb = [...objmsb, 
+                {
+                    header: generateComponentHeader('MSB', `bit${msb[i].bitWidth}`),
+                    portsin: generateSpacings(2) + generatePortsIO('inp', 0),
+                    stdin: generateSTDType('IN', msb[i].bitWidth) + ';\n',
+                    portenabled: generateSpacings(2) + generatePortsIO('enabled', 0),
+                    stdenabled: generateSTDType('OUT', 1) + ';\n',
+                    portsout: generateSpacings(2) + generatePortsIO('out1', 0),
+                    stdout: generateSTDType('OUT', msb[i].bitWidth) + '\n',
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
+                    identificator: `bit${msb[i].bitWidth}`,
+                }]
+            }
+            const msbFiltered = removeDuplicateComponent(objmsb)
+            msbFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portenabled + el.stdenabled + el.portsout + el.stdout + el.end)
+        }
         return element
     }
 
@@ -1069,7 +1093,9 @@ export default class CircuitElement {
             const tflipflop = this.scope.TflipFlop;
             const jkflipflop = this.scope.JKflipFlop;
             const srflipflop = this.scope.SRflipFlop;
-            console.log(this.scope.SRflipFlop)
+            const msb = this.scope.MSB;
+            // const lsb = this.scope.LSB;
+            // const priorityEncoder = this.scope.PriorityEncoder;
             let portmap = "\BEGIN\n";
             
             if(hasComponent(mux)){
@@ -1213,6 +1239,22 @@ export default class CircuitElement {
                     }]
                 }
                 objsrflipflop.forEach(el => portmap += el.header + el.SInput + el.RInput + el.reset + el.preset + el.enable + el.output + el.notoutput + el.end)
+            }
+
+            if(hasComponent(msb)){
+                let objmsb = []
+                for(var i = 0; i < msb.length; i++){
+                    objmsb = [...objmsb, 
+                    {
+                        header: generateHeaderPortmap('MSB', i, 'MSB', `bit${msb[i].bitWidth}`),
+                        input: `    inp => ${msb[i].inp1.verilogLabel},\n`,
+                        enabled: `    enabled => ${msb[i].enable.verilogLabel},\n`,
+                        output: `    out1 => ${msb[i].output1.verilogLabel}`,
+                        end: `\n  );\n`
+
+                    }]
+                }
+                objmsb.forEach(el => portmap += el.header + el.input + el.enabled + el.output + el.end)
             }
 
             const BitSelectorObject = scopeList[Object.keys(scopeList)].BitSelector
