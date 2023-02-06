@@ -1,4 +1,4 @@
-name: "⭐️ Feature request"
+name: ⭐️ Feature request
 description: Suggest an idea for this project
 title: "Feature "
 labels: ["🌟 feature", "pending triage"]
@@ -20,7 +20,7 @@ body:
     label: Describe alternatives you've considered
     description: A clear and concise description of any alternative solutions or features you've considered
   validations:
-    required: true
+    required: false
 - type: input
   attributes:
     label: Additional context
@@ -29,7 +29,7 @@ body:
     required: false
 - type: dropdown
   attributes:
-    label: Are you working on this issue?
+    label: Are you working on this?
     options:
       - 'Yes'
       - 'No'
