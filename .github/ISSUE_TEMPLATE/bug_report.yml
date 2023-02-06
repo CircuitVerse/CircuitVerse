@@ -67,7 +67,7 @@ body:
   attributes:
     label: Are you working on this issue?
     options:
-      - Yes
-      - No
+      - 'Yes'
+      - 'No'
   validations:
     required: true
