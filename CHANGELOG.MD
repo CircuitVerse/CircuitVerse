@@ -2,11 +2,13 @@
 
 ### [Fixed]
 
+- [Task 011] : (helperVHDL.js) Fix LogicMSB
 - [Task 009] : (helperVHDL.js) Fix SRFlipFlop logic
 - [Task 009] : (helperVHDL.js) Fix TFlipFlop logic
 
 ### [Added]
 
+- [Task 011] : (helperVHDL) Add LogicLSB
 - [Task 010] : (helperVHDL) Add LogicMSB
 - [Task 010] : (circuitElement.js) Add MSB generateVHDL and generateportmap
 - [Task 008] : (circuitElement.js) Add Dlatch generateVHDL and generatePortmap
