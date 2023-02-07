@@ -861,10 +861,10 @@ export default class CircuitElement {
         const jkflipflop = this.scope.JKflipFlop;
         const srflipflop = this.scope.SRflipFlop;
         const msb = this.scope.MSB;
-        // const lsb = this.scope.LSB;
+        const lsb = this.scope.LSB;
         // const priorityEncoder = this.scope.PriorityEncoder;
         let element = '';
-        console.log(msb)
+        
 
         if(hasComponent(mux)){
             let objmux = []
@@ -1080,6 +1080,26 @@ export default class CircuitElement {
             const msbFiltered = removeDuplicateComponent(objmsb)
             msbFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portenabled + el.stdenabled + el.portsout + el.stdout + el.end)
         }
+
+        if(hasComponent(lsb)){
+            let objlsb = []
+            for(var i = 0; i < lsb.length; i++){
+                objlsb = [...objlsb, 
+                {
+                    header: generateComponentHeader('LSB', `bit${lsb[i].bitWidth}`),
+                    portsin: generateSpacings(2) + generatePortsIO('inp', 0),
+                    stdin: generateSTDType('IN', lsb[i].bitWidth) + ';\n',
+                    portenabled: generateSpacings(2) + generatePortsIO('enabled', 0),
+                    stdenabled: generateSTDType('OUT', 1) + ';\n',
+                    portsout: generateSpacings(2) + generatePortsIO('out1', 0),
+                    stdout: generateSTDType('OUT', lsb[i].bitWidth) + '\n',
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
+                    identificator: `bit${lsb[i].bitWidth}`,
+                }]
+            }
+            const lsbFiltered = removeDuplicateComponent(objlsb)
+            lsbFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portenabled + el.stdenabled + el.portsout + el.stdout + el.end)
+        }
         return element
     }
 
@@ -1094,7 +1114,7 @@ export default class CircuitElement {
             const jkflipflop = this.scope.JKflipFlop;
             const srflipflop = this.scope.SRflipFlop;
             const msb = this.scope.MSB;
-            // const lsb = this.scope.LSB;
+            const lsb = this.scope.LSB;
             // const priorityEncoder = this.scope.PriorityEncoder;
             let portmap = "\BEGIN\n";
             
@@ -1255,6 +1275,22 @@ export default class CircuitElement {
                     }]
                 }
                 objmsb.forEach(el => portmap += el.header + el.input + el.enabled + el.output + el.end)
+            }
+
+            if(hasComponent(lsb)){
+                let objlsb = []
+                for(var i = 0; i < lsb.length; i++){
+                    objlsb = [...objlsb, 
+                    {
+                        header: generateHeaderPortmap('LSB', i, 'LSB', `bit${lsb[i].bitWidth}`),
+                        input: `    inp => ${lsb[i].inp1.verilogLabel},\n`,
+                        enabled: `    enabled => ${lsb[i].enable.verilogLabel},\n`,
+                        output: `    out1 => ${lsb[i].output1.verilogLabel}`,
+                        end: `\n  );\n`
+
+                    }]
+                }
+                objlsb.forEach(el => portmap += el.header + el.input + el.enabled + el.output + el.end)
             }
 
             const BitSelectorObject = scopeList[Object.keys(scopeList)].BitSelector
