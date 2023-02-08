@@ -174,7 +174,7 @@ GEM
       rails (>= 6.0)
       sprockets-rails
       will_paginate
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.0)
     connection_pool (2.2.5)
     countries (5.3.0)
       unaccent (~> 0.3)
@@ -431,7 +431,7 @@ GEM
     public_suffix (5.0.1)
     puma (5.6.4)
       nio4r (~> 2.0)
-    pundit (2.2.0)
+    pundit (2.3.0)
       activesupport (>= 3.0.0)
     racc (1.6.2)
     rack (2.2.6.2)
@@ -635,7 +635,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (2.0.5)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     tzinfo-data (1.2022.7)
       tzinfo (>= 1.0.0)
