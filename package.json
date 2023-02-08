@@ -45,7 +45,7 @@
     "dom-to-image": "^2.6.0",
     "dompurify": "^2.3.8",
     "driver.js": "^0.9.8",
-    "esbuild": "^0.14.39",
+    "esbuild": "^0.17.6",
     "esbuild-plugin-sass": "^1.0.1",
     "esbuild-rails": "^1.0.3",
     "jquery": "^3.6.0",
