@@ -18,13 +18,19 @@
   background-color: $card-green;
   margin-top: 15px;
   padding: 10px 20px;
-
+  
   form{
+    background-color: $white;
     border: 1px solid $form-input-gray;
     padding: 8px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+
+    &:focus-within {
+      border: 1px solid $form-input-green;
+      box-shadow: 0px 0px 8px $form-input-green;
+    }
   }
 }
 
@@ -75,7 +81,7 @@
     padding: 10px;
 
     &:focus {
-g      outline: 0;
+      outline: 0;
       box-shadow: 0 0 0 2px $form-input-focus-green;
     }
   }
@@ -121,7 +127,7 @@ g      outline: 0;
     padding: 8px;
     &:focus-within {
       border: 1px solid $form-input-green;
-      box-shadow: 0px 0px 10px $form-input-green;
+      box-shadow: 0px 0px 8px $form-input-green;
     }
   }
 }
