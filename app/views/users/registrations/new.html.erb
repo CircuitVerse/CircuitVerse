@@ -20,26 +20,26 @@
           </div>
         <% end %>
         <div class="field form-group">
-          <h6><%= f.label :name %></h6>
+          <h6><label for="user_name">Name</label></h6>
           <div class="input-group">
-            <%= f.text_field :name, autofocus: true ,class:"form-control form-input" %>
+            <input autofocus="autofocus" class="form-control form-input" type="text" name="user[name]" id="user_name">
           </div>
         </div>
         <div class="field form-group">
-          <h6><%= f.label :email %></h6>
+          <h6><label for="user_email">Email</label></h6>
           <div class="input-group">
-            <%= f.email_field :email, class:"form-control form-input" %>
+            <input class="form-control form-input" type="email" value="" name="user[email]" id="user_email">
           </div>
         </div>
         <div class="field form-group">
           <h6>
-            <%= f.label :password %>
+            <label for="user_password">Password</label>
             <% if @minimum_password_length %>
               <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
             <% end %>
           </h6>
         <div class="input-group form-input">
-          <%= f.password_field :password, autocomplete: "off" ,class:"form-control users-password-input" %>
+          <input autocomplete="off" class="form-control users-password-input" type="password" name="user[password]" id="user_password">
           <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
             <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
           </div>
