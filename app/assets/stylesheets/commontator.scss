@@ -18,6 +18,14 @@
   background-color: $card-green;
   margin-top: 15px;
   padding: 10px 20px;
+
+  form{
+    border: 1px solid $form-input-gray;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .avatar {
@@ -110,7 +118,7 @@
     flex-direction: column;
     border: 1px solid $form-input-gray;
     border-radius: 8px;
-    padding: 8px;app
+    padding: 8px;
     &:focus-within {
       border: 1px solid $form-input-green;
       box-shadow: 0px 0px 10px $form-input-green;
