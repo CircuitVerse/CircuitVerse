@@ -1,5 +1,7 @@
 ## [Unreleased]
 
+## [release-005] - 2023-02-13
+
 ### [Fixed]
 
 - [Task 011] : (helperVHDL.js) Fix LogicMSB
@@ -7,6 +9,7 @@
 - [Task 009] : (helperVHDL.js) Fix TFlipFlop logic
 
 ### [Added]
+
 - [Task 012] : (helperVHDL.js) Add generateLogicPriorityEncoder function
 - [Task 012] : (PriorityEncoder.js) Add ModuleVHDL, generateVHDL and generatePortMapVHDL functions
 - [Task 012] : (circuitElement.js) Create generateVHDL to PriorityEncoder circuit.
@@ -16,7 +19,7 @@
 - [Task 010] : (circuitElement.js) Add MSB generateVHDL and generateportmap
 - [Task 008] : (circuitElement.js) Add Dlatch generateVHDL and generatePortmap
 - [Task 008] : (helperVHDL.js) Add generateLogicDlatch and hasComponent functions
-- [Task 008] : (vhdl.js) refactoring code 
+- [Task 008] : (vhdl.js) refactoring code
 - [Task 008] : (AndGate.js) Change simbol on generateVHDL function
 - [Task 008] : (NandGate.js) Change simbol on generateVHDL function
 - [Task 008] : (NorGate.js) Change simbol on generateVHDL function
@@ -68,6 +71,7 @@
 ## [release-001] - 2022-09-22
 
 ### [Added]
+
 - [Task 001] : (vhdl.js) Create vhdl.js file.
 
 ### [Changed]
