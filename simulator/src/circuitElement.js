@@ -10,7 +10,7 @@ import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
 import { fillSubcircuitElements } from './ux';
 import { generateNodeName } from './verilogHelpers';
-import { generateSTDType, generatePortsIO, generateComponentHeader, removeDuplicateComponent, generateHeaderPortmap, generatePortMapIOS, generateSpacings, hasComponent} from './helperVHDL';
+import { generateSTDType, generatePortsIO, generateComponentHeader, removeDuplicateComponent, generateHeaderPortmap, generatePortMapIOS, generateSpacings, hasComponent, generatePortsIOPriorityEnc} from './helperVHDL';
 import { scopeList } from './circuit';
 
 /**
@@ -862,7 +862,7 @@ export default class CircuitElement {
         const srflipflop = this.scope.SRflipFlop;
         const msb = this.scope.MSB;
         const lsb = this.scope.LSB;
-        // const priorityEncoder = this.scope.PriorityEncoder;
+        const priorityEncoder = this.scope.PriorityEncoder;
         let element = '';
         
 
@@ -1090,7 +1090,7 @@ export default class CircuitElement {
                     portsin: generateSpacings(2) + generatePortsIO('inp', 0),
                     stdin: generateSTDType('IN', lsb[i].bitWidth) + ';\n',
                     portenabled: generateSpacings(2) + generatePortsIO('enabled', 0),
-                    stdenabled: generateSTDType('OUT', 1) + ';\n',
+                    stdenabled: generateSTDType('IN', 1) + ';\n',
                     portsout: generateSpacings(2) + generatePortsIO('out1', 0),
                     stdout: generateSTDType('OUT', lsb[i].bitWidth) + '\n',
                     end: generateSpacings(4) + ');\n  END COMPONENT;\n',
@@ -1099,6 +1099,26 @@ export default class CircuitElement {
             }
             const lsbFiltered = removeDuplicateComponent(objlsb)
             lsbFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portenabled + el.stdenabled + el.portsout + el.stdout + el.end)
+        }
+
+        if(hasComponent(priorityEncoder)){
+            let objpriorityEncoder = []
+            for(var i = 0; i < priorityEncoder.length; i++){
+                objpriorityEncoder = [...objpriorityEncoder, 
+                {
+                    header: generateComponentHeader('PriorityEncoder', `bit${priorityEncoder[i].bitWidth}`),
+                    portsin: generateSpacings(2) + generatePortsIO('inp', priorityEncoder[i].bitWidth),
+                    stdin: generateSTDType('IN', 1) + ';\n',
+                    portenabled: generateSpacings(2) + generatePortsIO('enabled', 0),
+                    stdenabled: generateSTDType('IN', 1) + ';\n',
+                    portsout: generateSpacings(2) + generatePortsIOPriorityEnc('out', priorityEncoder[i].bitWidth),
+                    stdout: generateSTDType('OUT', 1) + '\n',
+                    end: generateSpacings(4) + ');\n  END COMPONENT;\n',
+                    identificator: `bit${priorityEncoder[i].bitWidth}`,
+                }]
+            }
+            const priorityEncoderFiltered = removeDuplicateComponent(objpriorityEncoder)
+            priorityEncoderFiltered.forEach(el => element += el.header + el.portsin + el.stdin + el.portenabled + el.stdenabled + el.portsout + el.stdout + el.end)
         }
         return element
     }
@@ -1115,7 +1135,7 @@ export default class CircuitElement {
             const srflipflop = this.scope.SRflipFlop;
             const msb = this.scope.MSB;
             const lsb = this.scope.LSB;
-            // const priorityEncoder = this.scope.PriorityEncoder;
+            const priorityEncoder = this.scope.PriorityEncoder;
             let portmap = "\BEGIN\n";
             
             if(hasComponent(mux)){
@@ -1291,6 +1311,41 @@ export default class CircuitElement {
                     }]
                 }
                 objlsb.forEach(el => portmap += el.header + el.input + el.enabled + el.output + el.end)
+            }
+
+            if(hasComponent(priorityEncoder)){
+                let objpriorityEncoder = []
+                let inputsArray = []
+                let outputsArray = []
+                let inputString = ''
+                let outputString =''
+                
+                for(var i = 0; i < priorityEncoder.length; i++){
+                    priorityEncoder[i].inp1.forEach((inp, idx) => {
+                        inputsArray[idx] = `    inp${idx} => ${inp.verilogLabel}`
+                    })
+                    
+                    priorityEncoder[i].output1.forEach((out, idx) => {
+                        outputsArray[idx] = `    out${idx} => ${out.verilogLabel}`
+                    })
+
+                    inputString = inputsArray.join(',\n')
+                    outputString = outputsArray.join(',\n')
+
+                    objpriorityEncoder = [...objpriorityEncoder, 
+                    {
+                        header: generateHeaderPortmap('PriorityEncoder', i, 'PriorityEncoder', `bit${priorityEncoder[i].bitWidth}`),
+                        input: inputString + ',\n',
+                        enabled: `    enabled => ${priorityEncoder[i].enable.verilogLabel},\n`,
+                        output: outputString,
+                        end: `\n  );\n`
+
+                    }]
+                }
+
+                inputsArray = []
+                outputsArray = []
+                objpriorityEncoder.forEach(el => portmap += el.header + el.input + el.enabled + el.output + el.end)
             }
 
             const BitSelectorObject = scopeList[Object.keys(scopeList)].BitSelector
