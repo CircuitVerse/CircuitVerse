@@ -198,18 +198,23 @@ export var vhdl = {
             // Hack for splitter
             wireList = wireList.filter((x) => !x.includes("["));
             if (wireList.length == 0) continue;
-            output += "  SIGNAL " + wireList.join(",") + generateSTDType("", bitWidth) + ";\n"
+            
+            scope.PriorityEncoder.forEach((component) => {
+                wireList = wireList.filter((x) => !x.includes(component.enable.verilogLabel))
+            })
+            
+            output += "  SIGNAL " + wireList.join(", ") + generateSTDType("", bitWidth) + ";\n"
         }
 
         
-        if((hasComponent(scope.Multiplexer)) || (hasComponent(scope.Demultiplexer)) || (hasComponent(scope.Decoder)) || (hasComponent(scope.Dlatch)) || (hasComponent(scope.DflipFlop)) || (hasComponent(scope.TflipFlop)) || (hasComponent(scope.JKflipFlop)) || (hasComponent(scope.SRflipFlop)) || (hasComponent(scope.MSB)) || (hasComponent(scope.LSB))){
+        if((hasComponent(scope.Multiplexer)) || (hasComponent(scope.Demultiplexer)) || (hasComponent(scope.Decoder)) || (hasComponent(scope.Dlatch)) || (hasComponent(scope.DflipFlop)) || (hasComponent(scope.TflipFlop)) || (hasComponent(scope.JKflipFlop)) || (hasComponent(scope.SRflipFlop)) || (hasComponent(scope.MSB)) || (hasComponent(scope.LSB)) || (hasComponent(scope.PriorityEncoder))){
             output += ""
         } else{
             output += "  BEGIN\n";
         }
 
         const ScopeComponents = scopeList[Object.keys(scopeList)]
-        if((!hasComponent(ScopeComponents.Demultiplexer)) && (!hasComponent(ScopeComponents.Multiplexer)) && (!hasComponent(ScopeComponents.Decoder)) && (!hasComponent(ScopeComponents.Dlatch)) && (!hasComponent(scope.DflipFlop)) && (!hasComponent(scope.TflipFlop)) && (!hasComponent(scope.JKflipFlop)) && (!hasComponent(scope.SRflipFlop)) && (!hasComponent(scope.MSB)) && (!hasComponent(scope.LSB))){
+        if((!hasComponent(ScopeComponents.Demultiplexer)) && (!hasComponent(ScopeComponents.Multiplexer)) && (!hasComponent(ScopeComponents.Decoder)) && (!hasComponent(ScopeComponents.Dlatch)) && (!hasComponent(scope.DflipFlop)) && (!hasComponent(scope.TflipFlop)) && (!hasComponent(scope.JKflipFlop)) && (!hasComponent(scope.SRflipFlop)) && (!hasComponent(scope.MSB)) && (!hasComponent(scope.LSB)) && (!hasComponent(scope.PriorityEncoder))){
             if(hasComponent(ScopeComponents.BitSelector)) {
                 output += `  PROCESS(`
                 let outputProcessed = []
@@ -360,25 +365,33 @@ export var vhdl = {
             }
         }
 
+        for(i = 0; i < orderedSet.length; i++){
+            if(orderedSet[i].objectType === 'PriorityEncoder'){
+                orderedSet.unshift(orderedSet[i])
+                i++
+                orderedSet.splice(i,1)
+            }
+        }
+
         let VHDLSet = new Set(orderedSet)
         
         // Generate connection verilog code and module instantiations
         for (var elem of VHDLSet) {
-            if((componentVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer') || (elem.objectType == 'Decoder') || (elem.objectType == 'Dlatch')) || (elem.objectType == 'DflipFlop') || (elem.objectType == 'TflipFlop') || (elem.objectType == 'JKflipFlop') || (elem.objectType == 'SRflipFlop') || (elem.objectType == 'MSB') || (elem.objectType == 'LSB')){
+            if((componentVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer') || (elem.objectType == 'Decoder') || (elem.objectType == 'Dlatch')) || (elem.objectType == 'DflipFlop') || (elem.objectType == 'TflipFlop') || (elem.objectType == 'JKflipFlop') || (elem.objectType == 'SRflipFlop') || (elem.objectType == 'MSB') || (elem.objectType == 'LSB') || (elem.objectType == 'PriorityEncoder')){
                 res += elem.generateVHDL() + "\n";
                 componentVHDL=1
             }
         }
 
         for (var elem of VHDLSet) {
-            if((portVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer') || (elem.objectType == 'Decoder') || (elem.objectType == 'Dlatch') || (elem.objectType == 'DflipFlop') || (elem.objectType == 'TflipFlop') || (elem.objectType == 'JKflipFlop') || (elem.objectType == 'SRflipFlop') || (elem.objectType == 'MSB') || (elem.objectType == 'LSB'))){
+            if((portVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer') || (elem.objectType == 'Decoder') || (elem.objectType == 'Dlatch') || (elem.objectType == 'DflipFlop') || (elem.objectType == 'TflipFlop') || (elem.objectType == 'JKflipFlop') || (elem.objectType == 'SRflipFlop') || (elem.objectType == 'MSB') || (elem.objectType == 'LSB') || (elem.objectType == 'PriorityEncoder'))){
                 res += elem.generatePortMapVHDL() + "\n";
                 portVHDL=1
             }
         }
 
         for (var elem of VHDLSet) {
-            if((elem.objectType != 'Multiplexer') && (elem.objectType != 'Demultiplexer') && (elem.objectType != 'Decoder') && (elem.objectType != 'Dlatch') && (elem.objectType != 'DflipFlop') && (elem.objectType != 'TflipFlop') && (elem.objectType != 'JKflipFlop') && (elem.objectType != 'SRflipFlop') && (elem.objectType != 'MSB') && (elem.objectType != 'LSB')){
+            if((elem.objectType != 'Multiplexer') && (elem.objectType != 'Demultiplexer') && (elem.objectType != 'Decoder') && (elem.objectType != 'Dlatch') && (elem.objectType != 'DflipFlop') && (elem.objectType != 'TflipFlop') && (elem.objectType != 'JKflipFlop') && (elem.objectType != 'SRflipFlop') && (elem.objectType != 'MSB') && (elem.objectType != 'LSB') && (elem.objectType != 'PriorityEncoder')){
                 res += elem.generateVHDL() + "\n";
             }
         }

@@ -7,7 +7,10 @@
 - [Task 009] : (helperVHDL.js) Fix TFlipFlop logic
 
 ### [Added]
-
+- [Task 012] : (helperVHDL.js) Add generateLogicPriorityEncoder function
+- [Task 012] : (PriorityEncoder.js) Add ModuleVHDL, generateVHDL and generatePortMapVHDL functions
+- [Task 012] : (circuitElement.js) Create generateVHDL to PriorityEncoder circuit.
+- [Task 012] : (vhdl.js) Add conditional call to function generateVHDL of PriorityEncoder.
 - [Task 011] : (helperVHDL) Add LogicLSB
 - [Task 010] : (helperVHDL) Add LogicMSB
 - [Task 010] : (circuitElement.js) Add MSB generateVHDL and generateportmap

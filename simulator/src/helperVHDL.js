@@ -48,6 +48,20 @@ export const generatePortsIO = (type, idx) => {
     return generateSpacings(4) + portsArray.join(', ')
 }
 
+export const generatePortsIOPriorityEnc = (type, idx) => {
+    let portsArray = []
+    const isOnePort = (idx === 0)
+    
+    for(let i = 0; i < idx; i++){
+        (isOnePort)
+            ? portsArray[i] = `${type}`
+            : portsArray[i] = `${type}${i}`
+    }
+
+    return generateSpacings(4) + portsArray.join(', ')
+}
+
+
 export const generateSTDType = (type, width) => {
     return (width !== 1)
         ? `: ${type} STD_LOGIC_VECTOR (${width - 1} DOWNTO 0)`
@@ -618,4 +632,33 @@ export const generateLogicLSB = (quantity) => {
     ]
 
     return output.join('')
+}
+
+export const generateLogicpriorityEncoder = (quantity) => {
+    let output = []
+    const initializeConditional = [
+        `    PROCESS(${generatePortsIO('inp', quantity).replace('    ','') + ', enabled'})\n`,
+        `    BEGIN\n`,
+        `    IF enabled = '1' THEN\n`,
+        `      IF `
+    ]
+    const finishConditional = `      END IF;\n    END IF;\n  END PROCESS;`
+
+    for (let i = Math.pow(quantity, 2) - 1; i >= 0; i--) {
+        output.push(`inp${i} = '1' THEN\n${assertOutput(i, quantity)}`);
+    }
+
+    return initializeConditional.join('') +  output.join("      ELSIF ").replace("ELSIF inp0 = '1' THEN", "ELSE") + finishConditional
+}
+
+
+export const assertOutput = (value, bitwidth) => {
+    const valorBinario = value.toString(2).padStart(bitwidth, "0");
+    let output = "";
+
+    for (let i = 0; i < bitwidth; i++) {
+        output += `        out${i} <= '${valorBinario[i]}';\n`;
+    }
+
+    return output;
 }
