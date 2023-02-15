@@ -243,6 +243,25 @@
   max-width: 100%;
 }
 
+.form-group {
+
+  .field_with_errors {
+    width: 100%;
+  }
+}
+
+.form-input {
+
+  .form-control:last-child {
+    padding-right: 45px;
+  }
+
+  .input-group-addon {
+    position: absolute;
+    right: 0;
+  }
+}
+
 @media (max-width: 400px) {
 
   .form-container {
