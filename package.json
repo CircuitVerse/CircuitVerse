@@ -12,7 +12,7 @@
     "lint": "eslint ./simulator",
     "postinstall": "opencollective-postinstall || true",
     "prepare": "husky install",
-    "build": "node esbuild.config.js"
+    "build": "node esbuild --bundle --loader:=css"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",

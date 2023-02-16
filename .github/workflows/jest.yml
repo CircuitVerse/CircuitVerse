@@ -6,7 +6,7 @@ on:
       - "simulator/**"
       - "package.json"
       - "yarn.lock"
-      - "esbuild.config.js"
+      - "esbuild --bundle --loader:=css"
       - "jest.config.js"
   pull_request:
     # The branches below must be a subset of the branches above
@@ -15,7 +15,7 @@ on:
       - "simulator/**"
       - "package.json"
       - "yarn.lock"
-      - "esbuild.config.js"
+      - "esbuild --bundle --loader:=css"
       - "jest.config.js"
 jobs:
   test:
