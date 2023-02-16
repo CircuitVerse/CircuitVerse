@@ -1493,6 +1493,16 @@ input:checked + .slider:before {
     overflow: visible;
 }
 
+#insertSubcircuitcontent p {
+  color: white;
+  font-size: 16px;
+}
+
+#insertSubcircuitcontent a {
+  color: white;
+  margin-bottom: 7px;
+} 
+
 #insertSubcircuitDialog > p {
     margin-bottom: 0;
 }
