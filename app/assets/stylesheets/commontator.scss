@@ -87,6 +87,24 @@
   }
 }
 
+.comment-formatting-buttons{
+  height: 0;
+}
+
+.formatting-button{
+  border: 0;
+  width: 28px;
+  margin: 8px 2px;
+  font-family: inherit;
+  border-radius: 4px;
+  background-color: $white;
+  font-size: 18px;
+
+  &:hover{
+    background-color: $form-input-focus-green;
+  }
+}
+
 .edit-action {
   background-color: $mini-button-blue;
   border-radius: 50%;
