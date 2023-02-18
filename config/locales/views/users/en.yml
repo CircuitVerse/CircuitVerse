@@ -6,7 +6,7 @@ en:
       resend_confirmation_instructions: "Resend confirmation instructions"
     circuitverse:
       delete_group_confirmation: "Are you sure you want to delete this group?"
-      delete_user_confirmation: "Are you sure you want to delete your account? This action can't be reverted back." 
+      delete_user_confirmation: "Are you sure you want to delete your account? This action can't be rolled back." 
       preview_project: "Project Preview"
       member_since_html: "<strong>Member since:</strong> %{member_since} days"
       educational_institutes_html: "<strong>Educational Institution:</strong> %{educational_institute}"
@@ -22,7 +22,7 @@ en:
         country_select_placeholder: "Prefer Not To Enter"
         select_locale_prompt: "Select the locale"
         subscribe_mail_checkpoint: "Subscribed to mails?"
-        delete_account_heading: "Delete your Account"
+        delete_account_heading: "Delete Your Account"
         delete_account_notice: "Proceed with caution! This action cannot be reversed."
         delete_account: "Delete Account"
       groups:
