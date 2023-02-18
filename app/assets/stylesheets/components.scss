@@ -275,11 +275,10 @@
   display: inline-block;
   height: 25px;
   margin-top: 15px;
+  position: absolute;
+  top: 6px;
   width: 25px;
   border-radius: 4px;
-  position: absolute;
-  bottom: 0;
-  top: 6px;
 
   &::after {
     content: '';
