@@ -326,7 +326,6 @@ export default async function save() {
 
     projectSavedSet(true);
 
-    $('.loadingIcon').fadeIn();
     const data = generateSaveData();
 
     const projectName = getProjectName();
@@ -343,6 +342,7 @@ export default async function save() {
         // Create new project - this part needs to be improved and optimised
         const form = $('<form/>', {
             action: '/simulator/create_data',
+            target:'_blank',
             method: 'post',
         });
         form.append(
@@ -377,6 +377,10 @@ export default async function save() {
 
         $('body').append(form);
         form.submit();
+        const url_projectName = projectName.replace(/\s+/g, '-').toLowerCase();
+        setInterval(()=>{
+            window.location.href =`/simulator/edit/${url_projectName}`;
+        },1000);
     } else {
         // updates project - this part needs to be improved and optimised
         $.ajax({
