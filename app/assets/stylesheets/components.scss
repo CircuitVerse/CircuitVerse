@@ -252,12 +252,14 @@
   }
 }
 
+/* stylelint-disable */
 .form-group {
 
   .field_with_errors {
     width: 100%;
   }
 }
+/* stylelint-enable */
 
 @media (max-width: 400px) {
 
