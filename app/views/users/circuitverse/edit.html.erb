@@ -126,4 +126,12 @@
     const selection = feedback.selection.value[feedback.selection.key];
     autoCompleteJS.input.value = selection;
   });
+  let remove_pic = document.getElementById("remove_pic");
+remove_pic.onclick = function () {
+    let imgedit = document.getElementById("imgedit");
+    imgedit.setAttribute(
+        "src",
+        "/assets/thumb/Default-51ecc8a52348f20e7db5b8519e0535de1495413cd3c000b55bbd33a87f275231.jpg"
+    );
+};
 </script>
