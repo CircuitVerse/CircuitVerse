@@ -45,7 +45,7 @@
 }
 
 .timestamp {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .body {
@@ -63,7 +63,8 @@
     padding: 10px;
 
     &:focus {
-      box-shadow: 0 0 0 .3rem $form-input-focus-green;
+      box-shadow: 0 0 0 0.3rem $form-input-focus-green;
+      height: 300px;
       outline: 0;
     }
   }
@@ -104,7 +105,7 @@
 }
 
 //breakpoints
-@media(max-width: 400px){
+@media (max-width: 400px) {
   .comments-comment {
     margin: 5px;
     padding: 10px;
