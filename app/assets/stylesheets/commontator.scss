@@ -16,7 +16,7 @@
 
 .comments-comment {
   background-color: $card-green;
-  hyphens: auto;
+  hyphens: auto; //adds hypens automatically when words are brokne with overflow-wrap
   margin-top: 15px;
   overflow-wrap: break-word;
   padding: 10px 20px;
