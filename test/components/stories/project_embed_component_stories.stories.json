@@ -1,0 +1,13 @@
+{
+  "title": "Project Embed Component",
+  "stories": [
+    {
+      "name": "project_embed",
+      "parameters": {
+        "server": {
+          "id": "project_embed_component/project_embed"
+        }
+      }
+    }
+  ]
+}
