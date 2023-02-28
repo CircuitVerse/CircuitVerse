@@ -218,15 +218,15 @@
   }
 }
 
-.groups-members-card-avatar{
+.groups-members-card-avatar {
   img {
     height: 60px;
-    padding: 10px 0 8px 0;
-    width: 40px;
+    padding: 10px 0 8px;
     transform: translateX(-5px);
     transition: all .5s;
+    width: 40px;
 
-    &:hover{
+    &:hover {
       transform: scale(2.25);
     }
   }
@@ -238,9 +238,9 @@
   max-width: 92px;
   overflow: hidden;
   padding-top: 1px;
-  white-space: nowrap;
   text-overflow: ellipsis;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .groups-members-card-name {
