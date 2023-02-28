@@ -12,12 +12,15 @@
     "lint": "eslint ./simulator",
     "postinstall": "opencollective-postinstall || true",
     "prepare": "husky install",
-    "build": "node esbuild.config.js"
+    "build": "node esbuild.config.js",
+    "storybook": "start-storybook"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.18.2",
     "@commitlint/cli": "^17.0.2",
     "@commitlint/config-conventional": "^17.4.4",
+    "@storybook/addon-controls": "^6.5.16",
+    "@storybook/server": "^6.5.16",
     "canvas": "^2.9.1",
     "chokidar": "^3.5.3",
     "eslint": "^7.32.0",

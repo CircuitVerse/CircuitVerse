@@ -1,0 +1,13 @@
+{
+  "title": "Example Component",
+  "stories": [
+    {
+      "name": "hello_world",
+      "parameters": {
+        "server": {
+          "id": "example_component/hello_world"
+        }
+      }
+    }
+  ]
+}
