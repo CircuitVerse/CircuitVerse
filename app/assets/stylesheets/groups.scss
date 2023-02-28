@@ -183,13 +183,13 @@
 
 .groups-members-card-details {
   padding-right: 0;
-  padding-top: 20px;
+  padding-top: 5px;
   text-align: left;
 
   i {
-    margin-right: 3px;
-    margin-top: 0;
-    padding-bottom: 5px;
+    margin-right: 10px;
+    margin-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
@@ -218,13 +218,29 @@
   }
 }
 
+.groups-members-card-avatar{
+  img {
+    height: 60px;
+    padding: 10px 0 8px 0;
+    width: 40px;
+    transform: translateX(-5px);
+    transition: all .5s;
+
+    &:hover{
+      transform: scale(2.25);
+    }
+  }
+}
+
 .groups-members-card-name-container {
   display: inline-block;
-  height: 25px;
-  max-width: 110px;
+  height: 30px;
+  max-width: 92px;
   overflow: hidden;
   padding-top: 1px;
+  white-space: nowrap;
   text-overflow: ellipsis;
+  vertical-align: middle;
 }
 
 .groups-members-card-name {
@@ -265,17 +281,17 @@
 //breakpoints
 @media (max-width: 1200px) {
   .groups-members-scroll-row {
-    max-width: 920px;
+    max-width: 930px;
   }
 
   .groups-members-card {
-    width: 350px;
+    width: 320px;
   }
 }
 
 @media (max-width: 992px) {
   .groups-members-scroll-row {
-    max-width: 610px;
+    max-width: 680px;
   }
 }
 
