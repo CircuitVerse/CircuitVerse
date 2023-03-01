@@ -5,8 +5,7 @@
         <div class="<%= membersCardViewerDetail(group) %>">
           <span class="groups-members-card-avatar">
           <% if member.user.profile_picture.present? %>
-          <%= image_tag(member.user.profile_picture.url, alt: member.user.name, title: "#{member.user.name}\n#{member.user.email}") %>
-          <% else %>
+          <%= link_to image_tag(member.user.profile_picture.url, alt: member.user.name, title: "#{member.user.name}\n#{member.user.email}"), user_path(member.user.id) %>          <% else %>
           <i class="fa fa-user default-profile-icon"></i>
           <% end %>
           </span>

@@ -220,14 +220,15 @@
 
 .groups-members-card-avatar{
   img {
-    height: 60px;
-    padding: 10px 0 8px 0;
-    width: 40px;
-    transform: translateX(-5px);
+    height: 50px;
+    margin-bottom: 10px;
+    width: 50px;
+    border-radius: 50%;
+    transform: translate(-5px,5px);
     transition: all .5s;
 
     &:hover{
-      transform: scale(2.25);
+      transform: scale(2);
     }
   }
 }
