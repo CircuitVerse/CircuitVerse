@@ -218,7 +218,7 @@
   }
 }
 
-.groups-members-card-avatar{
+.groups-members-card-avatar {
   img {
     height: 50px;
     margin-bottom: 10px;
@@ -226,6 +226,7 @@
     border-radius: 50%;
     transform: translate(-5px,5px);
     transition: all .5s;
+    width: 40px;
 
     &:hover{
       transform: scale(2);
@@ -239,9 +240,9 @@
   max-width: 92px;
   overflow: hidden;
   padding-top: 1px;
-  white-space: nowrap;
   text-overflow: ellipsis;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .groups-members-card-name {
