@@ -105,7 +105,8 @@
 }
 
 .projects-details-description {
-  height: 150px;
+  max-height: 150px;
+  margin-bottom: 10px;
   margin-top: -8px;
   overflow-y: auto;
   padding-top: 0;
