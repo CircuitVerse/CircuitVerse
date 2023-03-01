@@ -196,7 +196,8 @@
 .groups-members-card-details-non-admin {
   align-items: center;
   display: flex;
-  transform: translate(0px, -15px);
+  transform: translate(0, -15px);
+  
   i {
     margin-right: 15px;
     padding-bottom: 0;
