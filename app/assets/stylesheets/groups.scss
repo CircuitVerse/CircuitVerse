@@ -174,8 +174,9 @@
   background-color: $card-green;
   border: 1px solid $secondary-green;
   display: inline-block;
-  height: 70px;
+  height: 90px;
   margin: 10px;
+  margin-bottom: 20px;
   padding: 15px;
   width: 200px;
   white-space: nowrap;
@@ -196,11 +197,11 @@
 .groups-members-card-details-non-admin {
   align-items: center;
   display: flex;
-  transform: translate(0, -15px);
+  padding-top: 0;
   
   i {
     margin-right: 15px;
-    padding-bottom: 0;
+    padding-bottom: 15px;
   }
 
   .groups-members-card-name-container {
@@ -220,9 +221,9 @@
 
 .groups-members-card-avatar {
   img {
-    border-radius: 50%;
+	  border-radius: 50%;
     height: 50px;
-    margin-bottom: 10px;
+	  margin-bottom: 10px;
     transform: translate(-5px, 5px);
     transition: all .5s;
     width: 50px;
