@@ -19,17 +19,17 @@
   margin-top: 15px;
   padding: 10px 20px;
   
-  form{
+  form {
     background-color: $white;
     border: 1px solid $form-input-gray;
-    padding: 8px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
+    padding: 8px;
 
     &:focus-within {
       border: 1px solid $form-input-green;
-      box-shadow: 0px 0px 8px $form-input-green;
+      box-shadow: 0 0 8px $form-input-green;
     }
   }
 }
@@ -71,7 +71,7 @@
   border-bottom: 1px solid $form-input-gray;
   border-radius: 0;
 
-  &:focus-within{
+  &:focus-within {
     border-bottom: 1px solid $form-input-green;
   }
 
@@ -81,26 +81,26 @@
     padding: 10px;
 
     &:focus {
-      outline: 0;
       box-shadow: 0 0 0 2px $form-input-focus-green;
+      outline: 0;
     }
   }
 }
 
-.comment-formatting-buttons{
+.comment-formatting-buttons {
   height: 0;
 }
 
-.formatting-button{
-  border: 0;
-  width: 28px;
-  margin: 8px 2px;
-  font-family: inherit;
-  border-radius: 4px;
+.formatting-button {
   background-color: $white;
+  border: 0;
+  border-radius: 4px;
+  font-family: inherit;
   font-size: 18px;
+  margin: 8px 2px;
+  width: 28px;
 
-  &:hover{
+  &:hover {
     background-color: $form-input-focus-green;
   }
 }
@@ -137,15 +137,17 @@
 
 .new-comment {
   display: block;
+  
   form {
-    display: flex;
-    flex-direction: column;
     border: 1px solid $form-input-gray;
     border-radius: 8px;
+    display: flex;
+    flex-direction: column;
     padding: 8px;
+    
     &:focus-within {
       border: 1px solid $form-input-green;
-      box-shadow: 0px 0px 8px $form-input-green;
+      box-shadow: 0 0 8px $form-input-green;
     }
   }
 }
