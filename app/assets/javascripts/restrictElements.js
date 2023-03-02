@@ -1,63 +1,65 @@
-function handleMainCheckbox() {
-    $('#restrict-elements').change(function (e) {
+const handleMainCheckbox = () => {
+    const restrictElements = document.querySelector('#restrict-elements');
+    const restrictedElementsList = document.querySelector(
+        '.restricted-elements-list',
+    );
+    restrictElements.addEventListener('change', (e) => {
         e.preventDefault();
-        var radio = $(e.currentTarget);
+        const radio = e.target;
 
-        if (radio.is(':checked')) {
-            $('.restricted-elements-list').css("display", "block");
+        if (radio.checked) {
+            restrictedElementsList.style.display = 'block';
         } else {
-            $('.restricted-elements-list').css("display", "none");
+            restrictedElementsList.style.display = 'none';
         }
     });
-    $('#restrict-elements').trigger('change');
-}
 
-function restrictionsMap(restrictions) {
-    var map = {};
-    for (var i = 0; i < restrictions.length; i++) {
-        map[restrictions[i]] = true;
-    }
-    return map;
-}
+    restrictElements.dispatchEvent(new Event('change'));
+};
 
-function htmlRowName(name) {
-    return "<h6 class=\"circuit-element-category\"> ".concat(name, " </h6>");
-}
+const restrictionsMap = (restrictions) => restrictions.reduce((acc, restriction) => ({
+    ...acc,
+    [restriction]: true,
+}), {});
 
-function htmlInlineCheckbox(elementName, checked) {
-    return '\n <div class="form-check form-check-inline"> \n <label class="form-check-label primary-checkpoint-container" id = "label-'
-        .concat(elementName, '" for="checkbox-')
-        .concat(elementName, '">')
-        .concat('<input class="form-check-input element-restriction" type="checkbox" id="checkbox-')
-        .concat(elementName, '" value="')
-        .concat(elementName, '" ')
-        .concat('>\n')
-        .concat('<div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
-        .concat(elementName, "</span></label>\n</div>");
-}
+const htmlRowName = (name) => `<h6 class="circuit-element-category"> ${name} </h6>`;
 
-function generateRow(name, elements, restrictionMap) {
-    var html = htmlRowName(name);
-    for (var i = 0; i < elements.length; i++) {
-        var element = elements[i];
-        var checked = restrictionMap[element] ? 'checked' : '';
+const htmlInlineCheckbox = (elementName, checked) => `
+      <div class="form-check form-check-inline">
+        <label class="form-check-label primary-checkpoint-container" id="label-${elementName}" for="checkbox-${elementName}">
+          <input class="form-check-input element-restriction" type="checkbox" id="checkbox-${elementName}" value="${elementName}" ${
+    checked ? 'checked' : ''
+}>
+          <div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          ${elementName}
+        </label>
+      </div>
+    `;
+
+const generateRow = (name, elements, restrictionMap) => {
+    let html = htmlRowName(name);
+    for (let i = 0; i < elements.length; i++) {
+        const element = elements[i];
+        const checked = restrictionMap[element] ? 'checked' : '';
         html += htmlInlineCheckbox(element, checked);
     }
     return html;
-}
+};
 
-function loadHtml(elementHierarchy, restrictionMap) {
-    for (var i = 0; i < Object.entries(elementHierarchy).length; i++) {
-        var category = Object.entries(elementHierarchy)[i];
-        var html = generateRow(category[0], category[1], restrictionMap);
-        $('.restricted-elements-list').append(html);
-    }
-}
+const loadHtml = (elementHierarchy, restrictionMap) => {
+    const restrictedElementsList = document.querySelector(
+        '.restricted-elements-list',
+    );
 
-function loadRestrictions(restrictions) {
+    Object.entries(elementHierarchy).forEach(([name, elements]) => {
+        const html = generateRow(name, elements, restrictionMap);
+        restrictedElementsList.insertAdjacentHTML('beforeend', html);
+    });
+};
+
+const loadRestrictions = (restrictions) => {
     handleMainCheckbox();
-    var _metadata = metadata;
-    var elementHierarchy = _metadata.elementHierarchy;
-    var restrictionMap = restrictionsMap(restrictions);
+    const { elementHierarchy } = metadata;
+    const restrictionMap = restrictionsMap(restrictions);
     loadHtml(elementHierarchy, restrictionMap);
-}
+};
