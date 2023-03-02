@@ -18,7 +18,7 @@
   background-color: $card-green;
   margin-top: 15px;
   padding: 10px 20px;
-  
+
   form {
     background-color: $white;
     border: 1px solid $form-input-gray;
@@ -137,14 +137,14 @@
 
 .new-comment {
   display: block;
-  
+
   form {
     border: 1px solid $form-input-gray;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
     padding: 8px;
-    
+
     &:focus-within {
       border: 1px solid $form-input-green;
       box-shadow: 0 0 8px $form-input-green;
@@ -164,7 +164,7 @@
   }
 
   .comments-field {
-    margin-top: 2px;
     margin-bottom: 32px;
+    margin-top: 2px;
   }
 }
