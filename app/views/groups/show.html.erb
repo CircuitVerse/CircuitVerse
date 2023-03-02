@@ -33,6 +33,9 @@
     <% end %>
   </div>
   <hr>
+  <% if @group.group_members.mentor.blank? %>
+    <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+  <% end %>
   <div class="row center-row groups-members-scroll-row">
     <%= render partial: "group_mentors", locals: {group: @group} %>
   </div>
@@ -43,6 +46,9 @@
     <% end %>
   </div>
   <hr>
+  <% if @group.group_members.member.blank? %>
+      <span class="null-text"><%= t("groups.show.no_members_html") %></span>
+  <% end %>
   <div class="row center-row groups-members-scroll-row">
     <%= render partial: "group_members", locals: {group: @group} %>
   </div>
@@ -54,17 +60,21 @@
   </div>
   <hr>
   <table class="table table-borderless groups-table">
-    <thead class="groups-table-heading">
-      <tr>
-        <th><%= t("groups.show.assignment.assignment_table_head.name") %></th>
-        <th><%= t("groups.show.assignment.assignment_table_head.deadline") %></th>
-        <th><%= t("groups.show.assignment.assignment_table_head.grading") %></th>
-        <th><%= t("groups.show.assignment.assignment_table_head.actions") %></th>
-        <% unless policy(@group).admin_access? %>
-          <th><%= t("groups.show.assignment.assignment_table_head.grade") %></th>
-        <% end %>
-      </tr>
-    </thead>
+    <% if @group.assignments.empty? %>
+      <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
+    <% else %>
+      <thead class="groups-table-heading">
+        <tr>
+          <th><%= t("groups.show.assignment.assignment_table_head.name") %></th>
+          <th><%= t("groups.show.assignment.assignment_table_head.deadline") %></th>
+          <th><%= t("groups.show.assignment.assignment_table_head.grading") %></th>
+          <th><%= t("groups.show.assignment.assignment_table_head.actions") %></th>
+          <% unless policy(@group).admin_access? %>
+            <th><%= t("groups.show.assignment.assignment_table_head.grade") %></th>
+          <% end %>
+        </tr>
+      </thead>
+    <% end %>
     <tbody class="groups-expanded-table">
       <% @group.assignments.includes(projects: :grade).each do |assignment| %>
         <tr class="groups-table-rows">
