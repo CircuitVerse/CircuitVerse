@@ -60,7 +60,7 @@
       <div class="navbar-nav nav-item dropdown px-2">
         <div class="nav-item">
           <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown navbar-profile-section" id="navbar-dropdown-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
-            <%= image_tag current_user.profile_picture.url(:medium), class: "navbar-profile-picture" alt: "User's Profile picture" %>
+            <%= image_tag current_user.profile_picture.url(:medium), class: "navbar-profile-picture", alt: "User's Profile picture" %>
             <div class="navbar-username-truncate small-screen-element"><%= current_user.name %></div>
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-1">
