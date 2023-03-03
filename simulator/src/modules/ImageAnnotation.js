@@ -201,6 +201,7 @@ ImageAnnotation.prototype.mutableProperties = {
     },
 };
 ImageAnnotation.prototype.objectType = 'ImageAnnotation';
+ImageAnnotation.prototype.helplink = "https://docs.circuitverse.org/#/chapter4/7annotation?id=imageannotation";
 ImageAnnotation.prototype.rectangleObject = false;
 ImageAnnotation.prototype.mutableProperties = {
     imageUrl: {
