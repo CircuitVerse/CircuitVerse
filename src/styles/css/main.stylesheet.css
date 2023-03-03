@@ -678,7 +678,8 @@ div.icon img {
     justify-content: space-between;
     border-radius: 3px;
     padding: 1px;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     margin: 2px;
     text-align: center;
     /* min-width: 110px; */
@@ -699,7 +700,10 @@ div.icon img {
     order: 99; /* could have better solution */
     width: 20px;
     align-items: center;
-    padding: 1px;
+    display: inline;
+    font-size: 20px;
+    text-align: center;
+    padding-bottom: 5px;
     text-decoration: none;
     outline: none;
     border-radius: 1px;
