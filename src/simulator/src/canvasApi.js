@@ -122,42 +122,62 @@ export function dots(
     transparentBackground = false,
     force = false
 ) {
-    var scale = unit * globalScope.scale
-    var ox = globalScope.ox % scale // offset
-    var oy = globalScope.oy % scale // offset
+    const scale = unit * globalScope.scale
+    const ox = globalScope.ox % scale // offset
+    const oy = globalScope.oy % scale // offset
 
-    document.getElementById('backgroundArea').style.left = (ox - scale) / DPR
-    document.getElementById('backgroundArea').style.top = (oy - scale) / DPR
+    const backgroundCtx = backgroundArea.context
+    if (!backgroundCtx) return
+
+    const canvasWidth = backgroundArea.canvas.width // max X distance
+    const canvasHeight = backgroundArea.canvas.height // max Y distance
+
+    backgroundArea.canvas.style.left = `${(ox - scale) / DPR}px` // adjust left position of canvas
+    backgroundArea.canvas.style.top = `${(oy - scale) / DPR}px` // adjust top position of canvas
+
     if (globalScope.scale === simulationArea.prevScale && !force) return
 
-    if (!backgroundArea.context) return
-    simulationArea.prevScale = globalScope.scale
+    simulationArea.prevScale = globalScope.scale // set the previous scale to current scale
 
-    var canvasWidth = backgroundArea.canvas.width // max X distance
-    var canvasHeight = backgroundArea.canvas.height // max Y distance
-
-    var ctx = backgroundArea.context
-    ctx.beginPath()
+    backgroundCtx.beginPath()
     backgroundArea.clear()
-    ctx.strokeStyle = colors['canvas_stroke']
-    ctx.lineWidth = 1
+
     if (!transparentBackground) {
-        ctx.fillStyle = colors['canvas_fill']
-        ctx.rect(0, 0, canvasWidth, canvasHeight)
-        ctx.fill()
+        backgroundCtx.fillStyle = colors['canvas_fill']
+        backgroundCtx.fillRect(0, 0, canvasWidth, canvasHeight)
     }
 
+    if (dots) {
+        backgroundCtx.fillStyle = colors['dot_fill']
+        for (let i = 0; i < canvasWidth; i += scale) {
+            for (let j = 0; j < canvasHeight; j += scale) {
+                backgroundCtx.beginPath()
+                backgroundCtx.arc(i, j, scale / 10, 0, Math.PI * 2)
+                backgroundCtx.fill()
+            }
+        }
+    }
+
+    backgroundCtx.strokeStyle = colors['canvas_stroke']
+    backgroundCtx.lineWidth = 1
+
     if (!embed) {
-        var correction = 0.5 * (ctx.lineWidth % 2)
-        for (var i = 0; i < canvasWidth; i += scale) {
-            ctx.moveTo(Math.round(i + correction) - correction, 0)
-            ctx.lineTo(Math.round(i + correction) - correction, canvasHeight)
+        const correction = 0.5 * (backgroundCtx.lineWidth % 2)
+        for (let i = 0; i < canvasWidth; i += scale) {
+            backgroundCtx.moveTo(Math.round(i + correction) - correction, 0)
+            backgroundCtx.lineTo(
+                Math.round(i + correction) - correction,
+                canvasHeight
+            )
         }
-        for (var j = 0; j < canvasHeight; j += scale) {
-            ctx.moveTo(0, Math.round(j + correction) - correction)
-            ctx.lineTo(canvasWidth, Math.round(j + correction) - correction)
+        for (let j = 0; j < canvasHeight; j += scale) {
+            backgroundCtx.moveTo(0, Math.round(j + correction) - correction)
+            backgroundCtx.lineTo(
+                canvasWidth,
+                Math.round(j + correction) - correction
+            )
         }
-        ctx.stroke()
+        backgroundCtx.stroke()
     }
 
     // Old Code
