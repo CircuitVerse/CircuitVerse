@@ -95,7 +95,7 @@
                             v-for="customTheme in customThemes"
                             :key="customTheme"
                         >
-                            <label :for="customTheme">
+                            <label :for="customTheme" class="customColorLabel">
                                 {{ customTheme }}
                                 ({{
                                     customThemesList[customTheme].description

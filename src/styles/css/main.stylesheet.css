@@ -1936,6 +1936,29 @@ canvas {
     border-radius: 3px;
 }
 
+/* CustomColorInput Styles Starts Here */
+.customColorInput{
+    cursor: pointer;
+    width: 30%;
+    height: 30px;
+    overflow: visible;
+    position: relative;
+    top: 8px;
+    appearance: auto;
+    background-color: buttonface;
+    color: buttontext;
+    border-width: 1px;
+    border-style: solid;
+    border-color: buttonborder;
+    border-image: initial;
+    padding: 1px 2px;
+    
+}
+.customColorLabel{
+    width: 60%;
+    height: 30px;
+}
+
 /* Vue Dialog Box Styles STARTS */
 
 .inputField {
@@ -1985,7 +2008,7 @@ canvas {
 
 .messageBoxContent {
     height: auto;
-    min-width: 300px;
+    width: 760px;
     justify-content: center;
     margin: auto;
     backdrop-filter: blur(5px);
@@ -1994,6 +2017,13 @@ canvas {
     background: var(--bg-primary-moz) !important;
     background-color: var(--bg-primary-chr) !important;
     color: white;
+}
+
+/* media query for .messageBoxContent */
+@media screen and (max-width: 991px) {
+    .messageBoxContent{
+        width: 100%;
+    }
 }
 
 .tabsbarInput {
