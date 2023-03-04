@@ -1,0 +1,20 @@
+<div class="">
+  <div class="">
+    <div class="">
+      <div class="">
+        <%= image_tag @profile.profile_picture.url(:medium), alt: "profile picture", class: "" %>
+     </div>
+    </div>
+    <div class="">
+      <h4 class=""><%= @profile.name %></h4>
+      <div class="">
+        <p class=""><%= t("users.circuitverse.member_since_html", member_since: @profile.member_since) %></p>
+        <p class=""><%= t("users.circuitverse.educational_institutes_html",educational_institute: @profile.educational_institute) %></p>
+        <p class=""><%= t("users.circuitverse.country_html", country_name: @profile.country_name) %></p>
+        <% if show_edit_link? %>
+          <a class="" href="<%= profile_edit_path(@current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
