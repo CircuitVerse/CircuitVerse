@@ -87,8 +87,8 @@ function converter(feildChange) {
     if (feildChange == 'decimalInput') decimalConvertor()
     if (feildChange == 'binaryInput') binaryConvertor()
     if (feildChange == 'bcdInput') bcdConvertor()
-    if (feildChange == 'octalInput') decimalConvertor()
-    if (feildChange == 'hexInput') octalConvertor()
+    if (feildChange == 'octalInput') octalConvertor()
+    if (feildChange == 'hexInput') hexConvertor()
 }
 
 function decimalConvertor() {
@@ -119,7 +119,7 @@ function bcdConvertor() {
             i++
         }
     }
-    return setBaseValues(x)
+    return setBaseValues(num)
 }
 
 function octalConvertor() {
