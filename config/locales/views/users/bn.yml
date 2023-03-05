@@ -7,7 +7,7 @@ bn:
     circuitverse:
       delete_group_confirmation: "আপনি কি নিশ্চিত যে আপনি এই গোষ্ঠীটি মুছতে চান?"
       delete_user_confirmation: "আপনি আপনার অ্যাকাউন্ট মুছে ফেলতে চান আপনি কি নিশ্চিত? এই ক্রিয়াটি ফিরিয়ে আনা যাবে না।"
-      preview_project: "Project Preview"
+      preview_project: "প্রকল্পের পূর্বরূপ"
       member_since_html: "<strong>সদস্য:</strong> %{member_since} দিন থেকে"
       educational_institutes_html: "<strong>শিক্ষা প্রতিষ্ঠান:</strong> %{educational_institute}"
       country_html: "<strong>দেশ:</strong> %{country_name}"
