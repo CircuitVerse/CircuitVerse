@@ -106,11 +106,13 @@
 
 .projects-details-description {
   height: 150px;
-  margin-top: -8px;
   overflow-y: auto;
-  padding-top: 0;
   text-align: left;
   word-wrap: break-word;
+
+  p {
+    margin-top: 12px;
+  }
 }
 
 .projects-horizontal-rule {
@@ -222,6 +224,14 @@
   .projects-collaborators-button-container {
     margin-top: 5px;
   }
+}
+
+.project-access {
+  border: 2px solid lightgray;
+  border-radius: 14px;
+  padding: 6px 12px;
+  color: gray;
+  height: 30px;
 }
 //project details ends
 

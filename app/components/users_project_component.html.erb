@@ -1,32 +1,118 @@
 <% if check_direct_view_access? %>
-  <div class="users-circuits-column circuit-card-js">
-    <div class="card text-center users-card">
-      <div class="card-header users-card-header">
-        <div class="users-card-name">
-          <p><%= @project.name %></p>
-          <span class="tooltiptext"><%= @project.name %></span>
+  <div class="users-project-card">
+    <div class="project-info-container">
+      <div class="users-card-body">
+        <div class="d-flex align-items-center">
+          <a href="<%= user_project_path(@project.author_id, @project) %>" class="project-name" target="_blank"><%= @project.name %></a>
+          <span class="badge project-access"><%= @project.project_access_type %></span>
         </div>
-        <div class="users-tag-container">
-          <% if !@project.assignment_id.nil? %>
-            <span class="badge search-tag"><%= t("assignment") %></span>
-          <% end %>
-            <span class="badge search-tag"><%= @project.project_access_type %></span>
-        </div>
-      </div>
-      <div class="card-body users-card-body">
-        <img class="users-card-image" src="<%= @project.image_preview.url %>" alt="<%= @project.name %>">
-      </div>
-      <div class="card-footer users-card-footer">
-        <% if user_access? %>
-          <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button" target="_blank"><%= t("launch") %></a>
-        <% else %>
-            <%= link_to create_fork_project_path(@project), class: "btn primary-button", target: "_blank", method: :post do %>
-            <span><%= t("fork") %></span>
-          <% end %>
+        <% if !@project.forked_project.nil? %>
+          <strong><span><%= t("projects.show.project_forked_from") %> </span></strong>
+          <span><%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text",method: :post %></span>
         <% end %>
-          <%= link_to t("view"), '#', class: "previewButton btn primary-button", data: {toggle: "modal", target: "#projectModal", currentproject: @project} %>
-          <a href="<%= user_project_path(@project.author_id, @project) %>" class="btn primary-button" target="_blank"><%= t("more") %></a>
+        <% if !@project.description.nil? %>
+          <span class="projects-details-description"><%= sanitize@project.description %></span>
+        <% end %>
+        <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
+          <strong><%= t("projects.show.project_updated_at") %> </strong>
+          <% if @project.updated_at >= 14.days.ago %>
+            <%= time_ago_in_words(@project.updated_at, include_seconds: true) + " ago" %>
+          <% else %>
+            <%= @project.updated_at.strftime("%b %d, %Y") %>
+          <% end %>
+        </p>
+        <div class="project-stats">
+          <span class="star-count">
+            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="mr-1">
+              <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z" fill="#9B9B9B"></path>
+            </svg>
+            <%= @project.stars.count %>
+          </span>
+          <span class="counts">
+            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="mr-1">
+              <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z" fill="#9B9B9B"></path>
+            </svg>
+            <%= @project.forks.count %>
+          </span>
+          <span class="counts">
+            <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="mr-1">
+              <path fill-rule="evenodd" d="M1.679 7.932c.412-.621 1.242-1.75 2.366-2.717C5.175 4.242 6.527 3.5 8 3.5c1.473 0 2.824.742 3.955 1.715 1.124.967 1.954 2.096 2.366 2.717a.119.119 0 010 .136c-.412.621-1.242 1.75-2.366 2.717C10.825 11.758 9.473 12.5 8 12.5c-1.473 0-2.824-.742-3.955-1.715C2.92 9.818 2.09 8.69 1.679 8.068a.119.119 0 010-.136zM8 2c-1.981 0-3.67.992-4.933 2.078C1.797 5.169.88 6.423.43 7.1a1.619 1.619 0 000 1.798c.45.678 1.367 1.932 2.637 3.024C4.329 13.008 6.019 14 8 14c1.981 0 3.67-.992 4.933-2.078 1.27-1.091 2.187-2.345 2.637-3.023a1.619 1.619 0 000-1.798c-.45-.678-1.367-1.932-2.637-3.023C11.671 2.992 9.981 2 8 2zm0 8a2 2 0 100-4 2 2 0 000 4z" fill="#9B9B9B"></path>
+            </svg>
+            <%= @project.view %> views
+          </span> 
+        </div>
       </div>
+      <%= link_to '#', class: "previewButton", data: {toggle: "modal", target: "#projectModal", currentproject: @project} do %>
+        <%= image_tag @project.image_preview.url, alt: @project.name, class: "users-card-image" %>
+        <span>Preview</span>
+      <% end %>
+    </div>
+    <div class="project-actions">
+      <% if @project.stars.exists?(user_id: current_user) %>
+        <%# <i id="toggleStarButton" class="fas fa-star btn action-button" aria-hidden="true" onclick="toggleStar()"></i> %>
+        <div class="btn action-button">
+        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00001 0.21875C7.12252 0.218671 7.24261 0.252887 7.34668 0.317526C7.45075 0.382165 7.53465 0.474645 7.58888 0.5845L9.23563 3.92262L12.9194 4.45812C13.0405 4.47572 13.1544 4.52686 13.248 4.60575C13.3416 4.68465 13.4113 4.78816 13.4491 4.90458C13.487 5.021 13.4915 5.1457 13.4623 5.26457C13.433 5.38344 13.371 5.49175 13.2834 5.57725L10.6181 8.176L11.2473 11.844C11.268 11.9647 11.2546 12.0888 11.2085 12.2022C11.1624 12.3157 11.0854 12.414 10.9864 12.486C10.8873 12.558 10.7701 12.6008 10.648 12.6097C10.5258 12.6186 10.4037 12.5931 10.2953 12.5361L7.00001 10.8036L3.70476 12.5361C3.59642 12.593 3.47434 12.6185 3.3523 12.6096C3.23026 12.6008 3.11312 12.558 3.0141 12.4861C2.91509 12.4142 2.83815 12.3161 2.79197 12.2028C2.74579 12.0895 2.73221 11.9655 2.75276 11.8449L3.38276 8.17513L0.715757 5.57725C0.627877 5.49178 0.565693 5.38341 0.536252 5.26441C0.50681 5.14541 0.511288 5.02055 0.549178 4.90396C0.587068 4.78738 0.656855 4.68374 0.75063 4.60478C0.844406 4.52583 0.958422 4.47472 1.07976 4.45725L4.76351 3.92262L6.41113 0.5845C6.46536 0.474645 6.54926 0.382165 6.65334 0.317526C6.75741 0.252887 6.87749 0.218671 7.00001 0.21875Z" fill="#FFB60A"/>
+        </svg>
+        Unstar
+        </div>
+      <% else %>
+        <%# <i id="toggleStarButton" class="far fa-star btn action-button" aria-hidden="true" onclick="toggleStar()"></i> %>
+        <div class="btn action-button">
+        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+          <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z" fill="#9B9B9B"></path>
+        </svg>
+        Star
+        </div>
+      <% end %>
+      <% if user_access? %>
+        <a href="<%= simulator_edit_path(@project) %>" class="btn action-button" target="_blank">
+          <svg width="18" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g clip-path="url(#clip0_243_414)">
+              <path d="M12.5667 8V12.5667H3.43333V3.43333H8H8.1V3.33333V2V1.9H8H3.33333C2.53778 1.9 1.9 2.5451 1.9 3.33333V12.6667C1.9 13.4549 2.53778 14.1 3.33333 14.1H12.6667C13.4552 14.1 14.1 13.4552 14.1 12.6667V8V7.9H14H12.6667H12.5667V8ZM9.33333 1.9H9.23333V2V3.33333V3.43333H9.33333H11.4852L5.10262 9.81596L5.03191 9.88667L5.10262 9.95738L6.04262 10.8974L6.11333 10.9681L6.18404 10.8974L12.5667 4.51476V6.66667V6.76667H12.6667H14H14.1V6.66667V2V1.9H14H9.33333Z" fill="#757575" stroke="#757575" stroke-width="0.2"/>
+            </g>
+            <defs>
+              <clipPath id="clip0_243_414">
+                <rect width="16" height="16" fill="white"/>
+              </clipPath>
+            </defs>
+          </svg>
+          <%= t("launch_simulator") %>
+        </a>
+      <% else %>
+        <%= link_to create_fork_project_path(@project), class: "btn action-button", target: "_blank", method: :post do %>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-repo-forked mr-2">
+            <path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z" fill="#9B9B9B"></path>
+          </svg>
+          <span><%= t("fork") %></span>
+        <% end %>
+      <% end %>
+      
     </div>
   </div>
+<% end %>
+
+<% content_for :javascript do %>
+  <script>
+    function toggleStar(toggle) {
+      $.ajax({
+        url: "<%= change_stars_path(@project) %>",
+        type: 'GET',
+        beforeSend: function (xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+        },
+        success: function (response) {
+          if(response == "1"){
+            document.getElementById('toggleStarButton').classList.remove("fas");
+            document.getElementById('toggleStarButton').classList.add("far");
+            }
+          else{
+            document.getElementById('toggleStarButton').classList.remove("far");
+            document.getElementById('toggleStarButton').classList.add("fas");
+            }
+          document.getElementById("star-count").innerHTML = (response == "1") ? (Number(document.getElementById("star-count").innerHTML)-1) : (Number(document.getElementById("star-count").innerHTML)+1);
+        }
+      });
+    }
+  </script>
 <% end %>
