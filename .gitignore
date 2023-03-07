@@ -77,3 +77,4 @@ yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
 .yarn
+vendor
