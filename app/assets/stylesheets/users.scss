@@ -16,7 +16,7 @@
   border-radius: 100%;
   height: 240px;
   width: 240px;
-  border: 8px solid #E6E6E6;
+  border: 6px solid #E6E6E6;
   object-fit: contain;
 }
 
@@ -234,9 +234,19 @@
 }
 
 .users-user-name {
+  font-size: 36px;
   font-weight: bolder;
   padding: 16px 0px;
   text-align: left;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 270px;
+  white-space: nowrap;
+}
+
+.users-name-picture {
+  display: flex;
+  flex-direction: column;
 }
 
 .users-circuits-container {
@@ -304,10 +314,9 @@
 }
 
 .users-circuits-navbar {
-  align-items: center;
+  border-bottom: 1px solid lightgray;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid lightgray;
 
   input {
     border: 2px solid lightgray;
@@ -338,6 +347,12 @@
   flex-wrap: nowrap;
   justify-content: center;
   padding-top: 20px;
+  width: 100%;
+}
+
+.circuits-search-container {
+  min-width: 400px;
+  width: 40%;
 }
 
 .fa.fa-search.user-circuits-search-icon {
@@ -577,18 +592,20 @@
     }
 }
 .dashboard-container {
-  max-width: 1600px;
-  width: 100%;
-  width: 100%;
+  display: flex;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  max-width: 1600px;
+  width: 100%;
 }
 
-.users-circuit-tabs {
+.users-circuits-tabs {
   display: flex;
-  border-bottom: 2px solid lightgray;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
 .project-stats {
@@ -628,28 +645,24 @@
     }
   }
 }
-//user profile ends
 
 .previewButton {
   border-radius: 4px;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
   font-size: 14px;
   font-weight: 600;
   transition: 0.3s ease;
-  width: 60%;
+  width: 80%;
 
   span {
     position: relative;
-    top: 40%;
-    left: -50%;
+    bottom: 55%;
+    left: 42%;
     color: black;
     font-size: 20px;
     font-weight: 600;
     opacity: 0;
     transition: 0.3s ease;
-    z-index: 100;
   }
   &:hover {
     img {
@@ -664,10 +677,73 @@
 
 .project-info-container {
   display: flex;
-  flex-direction: row;
   gap: 20px;
   margin-top: 20px;
   justify-content: space-around;
 }
 
+@media (max-width: 991px) {
+  .dashboard-container {
+    flex-direction: column;
+  }
+  
+  .users-profile-picture {
+    width: 90px;
+    height: 90px;
+  }
+  
+  .users-user-name {
+    font-size: 24px;
+    width: 200px;
+  }
 
+  .users-name-picture {
+    display: inline-flex;
+    flex-direction: row;
+    gap: 16px;
+    align-items: center;
+
+    h1 {
+      margin: 0px;
+    }
+  }
+
+  .users-circuits-navbar {
+    flex-direction: column-reverse;
+    width: 100%;
+  }
+
+  .users-details-container {
+    padding: 16px;
+    margin: 0px;
+    width: 100%;
+    max-width: none;
+  }
+
+  .project-info-container {
+    flex-direction: column;
+  }
+
+  .users-card-body, .users-project-card {
+    width: 100%;
+  }
+
+  .users-card-body {
+    > div:first-of-type {
+      justify-content: space-between;
+    }
+  }
+  .previewButton {
+    width: 100%;
+
+    .users-card-image {
+      width: 100%;
+    }
+  }
+  .circuits-search-container {
+    min-width: 250px;
+    width: 100%;
+  }
+}
+
+//user profile ends

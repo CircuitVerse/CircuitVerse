@@ -2,16 +2,22 @@
   <div class="users-project-card">
     <div class="project-info-container">
       <div class="users-card-body">
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center mb-4">
           <a href="<%= user_project_path(@project.author_id, @project) %>" class="project-name" target="_blank"><%= @project.name %></a>
           <span class="badge project-access"><%= @project.project_access_type %></span>
         </div>
+        <%# forked info if any %>
         <% if !@project.forked_project.nil? %>
-          <strong><span><%= t("projects.show.project_forked_from") %> </span></strong>
-          <span><%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text",method: :post %></span>
+          <p>
+            <strong><span><%= t("projects.show.project_forked_from") %></span></strong>
+            <span><%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text",method: :post %></span>
+          </p>
         <% end %>
+        <%# description info if any %>
         <% if !@project.description.nil? %>
-          <span class="projects-details-description"><%= sanitize@project.description %></span>
+          <span class="projects-details-description">
+            <%= sanitize truncate(@project.description, length: 500, separator: ' ', escape: false) %>
+          </span>
         <% end %>
         <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
           <strong><%= t("projects.show.project_updated_at") %> </strong>
@@ -22,7 +28,7 @@
           <% end %>
         </p>
         <div class="project-stats">
-          <span class="star-count">
+          <span class="counts">
             <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="mr-1">
               <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z" fill="#9B9B9B"></path>
             </svg>
@@ -48,22 +54,30 @@
       <% end %>
     </div>
     <div class="project-actions">
-      <% if @project.stars.exists?(user_id: current_user) %>
-        <%# <i id="toggleStarButton" class="fas fa-star btn action-button" aria-hidden="true" onclick="toggleStar()"></i> %>
-        <div class="btn action-button">
-        <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00001 0.21875C7.12252 0.218671 7.24261 0.252887 7.34668 0.317526C7.45075 0.382165 7.53465 0.474645 7.58888 0.5845L9.23563 3.92262L12.9194 4.45812C13.0405 4.47572 13.1544 4.52686 13.248 4.60575C13.3416 4.68465 13.4113 4.78816 13.4491 4.90458C13.487 5.021 13.4915 5.1457 13.4623 5.26457C13.433 5.38344 13.371 5.49175 13.2834 5.57725L10.6181 8.176L11.2473 11.844C11.268 11.9647 11.2546 12.0888 11.2085 12.2022C11.1624 12.3157 11.0854 12.414 10.9864 12.486C10.8873 12.558 10.7701 12.6008 10.648 12.6097C10.5258 12.6186 10.4037 12.5931 10.2953 12.5361L7.00001 10.8036L3.70476 12.5361C3.59642 12.593 3.47434 12.6185 3.3523 12.6096C3.23026 12.6008 3.11312 12.558 3.0141 12.4861C2.91509 12.4142 2.83815 12.3161 2.79197 12.2028C2.74579 12.0895 2.73221 11.9655 2.75276 11.8449L3.38276 8.17513L0.715757 5.57725C0.627877 5.49178 0.565693 5.38341 0.536252 5.26441C0.50681 5.14541 0.511288 5.02055 0.549178 4.90396C0.587068 4.78738 0.656855 4.68374 0.75063 4.60478C0.844406 4.52583 0.958422 4.47472 1.07976 4.45725L4.76351 3.92262L6.41113 0.5845C6.46536 0.474645 6.54926 0.382165 6.65334 0.317526C6.75741 0.252887 6.87749 0.218671 7.00001 0.21875Z" fill="#FFB60A"/>
-        </svg>
-        Unstar
-        </div>
+      <% if @project.stars.exists?(user_id: @current_user) %>
+        <button class="btn action-button">
+          <svg width="16" height="16" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7.00001 0.21875C7.12252 0.218671 7.24261 0.252887 7.34668 0.317526C7.45075 0.382165 7.53465 0.474645 7.58888 0.5845L9.23563 3.92262L12.9194 4.45812C13.0405 4.47572 13.1544 4.52686 13.248 4.60575C13.3416 4.68465 13.4113 4.78816 13.4491 4.90458C13.487 5.021 13.4915 5.1457 13.4623 5.26457C13.433 5.38344 13.371 5.49175 13.2834 5.57725L10.6181 8.176L11.2473 11.844C11.268 11.9647 11.2546 12.0888 11.2085 12.2022C11.1624 12.3157 11.0854 12.414 10.9864 12.486C10.8873 12.558 10.7701 12.6008 10.648 12.6097C10.5258 12.6186 10.4037 12.5931 10.2953 12.5361L7.00001 10.8036L3.70476 12.5361C3.59642 12.593 3.47434 12.6185 3.3523 12.6096C3.23026 12.6008 3.11312 12.558 3.0141 12.4861C2.91509 12.4142 2.83815 12.3161 2.79197 12.2028C2.74579 12.0895 2.73221 11.9655 2.75276 11.8449L3.38276 8.17513L0.715757 5.57725C0.627877 5.49178 0.565693 5.38341 0.536252 5.26441C0.50681 5.14541 0.511288 5.02055 0.549178 4.90396C0.587068 4.78738 0.656855 4.68374 0.75063 4.60478C0.844406 4.52583 0.958422 4.47472 1.07976 4.45725L4.76351 3.92262L6.41113 0.5845C6.46536 0.474645 6.54926 0.382165 6.65334 0.317526C6.75741 0.252887 6.87749 0.218671 7.00001 0.21875Z" fill="#FFB60A"/>
+          </svg>
+          <span>Unstar</span>
+        </button>
       <% else %>
-        <%# <i id="toggleStarButton" class="far fa-star btn action-button" aria-hidden="true" onclick="toggleStar()"></i> %>
-        <div class="btn action-button">
-        <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
-          <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z" fill="#9B9B9B"></path>
-        </svg>
-        Star
-        </div>
+        <% if !@current_user %>
+        <a href="/users/sign_in" class="btn action-button" target="_blank">
+          <% flash[:notice] = "Please login to access this page." %>
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+            <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z" fill="#9B9B9B"></path>
+          </svg>
+          <span>Star</span>
+        </a>
+        <% else %>
+        <button class="btn action-button" onclick="toggleStar(<% @project.id %>)">
+          <svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true">
+            <path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25zm0 2.445L6.615 5.5a.75.75 0 01-.564.41l-3.097.45 2.24 2.184a.75.75 0 01.216.664l-.528 3.084 2.769-1.456a.75.75 0 01.698 0l2.77 1.456-.53-3.084a.75.75 0 01.216-.664l2.24-2.183-3.096-.45a.75.75 0 01-.564-.41L8 2.694v.001z" fill="#9B9B9B"></path>
+          </svg>
+          <span>Star</span>
+        </button>
+        <% end %>
       <% end %>
       <% if user_access? %>
         <a href="<%= simulator_edit_path(@project) %>" class="btn action-button" target="_blank">
@@ -94,25 +108,39 @@
 
 <% content_for :javascript do %>
   <script>
-    function toggleStar(toggle) {
-      $.ajax({
-        url: "<%= change_stars_path(@project) %>",
-        type: 'GET',
-        beforeSend: function (xhr) {
-          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-        },
-        success: function (response) {
-          if(response == "1"){
-            document.getElementById('toggleStarButton').classList.remove("fas");
-            document.getElementById('toggleStarButton').classList.add("far");
-            }
-          else{
-            document.getElementById('toggleStarButton').classList.remove("far");
-            document.getElementById('toggleStarButton').classList.add("fas");
-            }
-          document.getElementById("star-count").innerHTML = (response == "1") ? (Number(document.getElementById("star-count").innerHTML)-1) : (Number(document.getElementById("star-count").innerHTML)+1);
-        }
-      });
+    // function toggleStar(toggle) {
+    //   $.ajax({
+    //     url: "<%= change_stars_path(@project) %>",
+    //     type: 'GET',
+    //     beforeSend: function (xhr) {
+    //       xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+    //     },
+    //     success: function (response) {
+    //       if(response == "1"){
+    //         document.getElementById('toggleStarButton').classList.remove("fas");
+    //         document.getElementById('toggleStarButton').classList.add("far");
+    //         }
+    //       else{
+    //         document.getElementById('toggleStarButton').classList.remove("far");
+    //         document.getElementById('toggleStarButton').classList.add("fas");
+    //         }
+    //       document.getElementById("star-count").innerHTML = (response == "1") ? (Number(document.getElementById("star-count").innerHTML)-1) : (Number(document.getElementById("star-count").innerHTML)+1);
+    //     }
+    //   });
+    // }
+    const project_card = document.querySelector(".users-project-card")
+    project_card.addEventListner("click", (e)=> {
+      console.log(e)
+    })
+    
+    const toggleStar = async (project_id) => {
+      try {
+        const res = await fetch(`/api/v1/projects/${project_id}/toggle-star`)
+      }
+      console.log(res)
+      catch (err) {
+        console.error(error);
+      } 
     }
   </script>
 <% end %>

@@ -29,21 +29,26 @@
     </div>
   </div>
 <% end %>
-<div class="d-flex dashboard-container">
+<div class="dashboard-container">
   <%= render(UserProfileComponent.new(profile: @profile, current_user: current_user)) %>
-  <div class="col">
+  <div class="col mr-5">
     <div class="users-circuits-navbar">
         <div class="users-circuits-tabs">
-          <button id="my-circuits" class="btn users-circuits-tab active"><%= t("users.circuitverse.index.my_circuits") %></button>
+          <% if @profile != current_user %>
+            <button id="my-circuits" class="btn users-circuits-tab active"><%= t("users.circuitverse.index.all_circuits") %></button>
+          <% else %>
+            <button id="my-circuits" class="btn users-circuits-tab active"><%= t("users.circuitverse.index.my_circuits") %></button>
+          <% end %>
           <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
           <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
         </div>
-        <div>
-        <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search" placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
+        <div class="circuits-search-container">
+          <i class="fas fa-search search-icon-dashboard"></i>
+          <input type="search" class="users-circuits-search" placeholder="<%= t("users.circuitverse.index.search_circuits") %>">
         </div>
     </div>
     <div class="users-circuits-container">
-      <div id="my-circuits-div" class="row circuit-page">
+      <div id="my-circuits-div" class="row center-row circuit-page">
         <% if @user.projects.blank? %>
         <div class="col-12">
           <div class="search-no-results-image">
@@ -115,6 +120,19 @@
     "name" : "<%= @user.name %>"
   }
 }
+</script>
+
+<%# for user star count toggle %>
+<script type="text/javascript">
+  const toggleStar = async (project_id) => {
+    try {
+      const res = await fetch(`/api/v1/projects/${project_id}/toggle-star`)
+    }
+    console.log(res)
+    catch (err) {
+      console.error(error);
+    } 
+  }
 </script>
 
 <%= render partial: "view_project_modal" %>
