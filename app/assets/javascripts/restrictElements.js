@@ -27,8 +27,7 @@ const htmlRowName = (name) => `<h6 class="circuit-element-category"> ${name} </h
 const htmlInlineCheckbox = (elementName, checked) => `
       <div class="form-check form-check-inline">
         <label class="form-check-label primary-checkpoint-container" id="label-${elementName}" for="checkbox-${elementName}">
-          <input class="form-check-input element-restriction" type="checkbox" id="checkbox-${elementName}" value="${elementName}" ${
-    checked ? 'checked' : ''
+          <input class="form-check-input element-restriction" type="checkbox" id="checkbox-${elementName}" value="${elementName}" ${checked ? 'checked' : ''
 }>
           <div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           ${elementName}
