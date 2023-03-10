@@ -39,7 +39,7 @@
 
   &:hover {
     background-color: $secondary-green;
-    color : $white;
+    color: $white;
   }
 }
 
@@ -284,10 +284,6 @@
     display: none;
   }
 
-  #notification-button {
-    display: none;
-  }
-
   .large-screen-element {
     display: none;
   }
@@ -302,7 +298,7 @@
   }
 
   .links {
-    border-bottom: 3px solid $lightgrey;
+    border-bottom: 2px solid $lightgrey;
     font-weight: bold;
   }
 
