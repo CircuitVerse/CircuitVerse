@@ -17,8 +17,8 @@ const handleMainCheckbox = () => {
     restrictElements.dispatchEvent(new Event('change'));
 };
 
-const restrictionsMap = (restrictions) => restrictions.reduce((acc, restriction) => ({
-    ...acc,
+const restrictionsMap = (restrictions = []) => restrictions.reduce((map, restriction) => ({
+    ...map,
     [restriction]: true,
 }), {});
 
