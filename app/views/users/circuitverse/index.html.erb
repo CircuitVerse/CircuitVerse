@@ -122,21 +122,19 @@
 }
 </script>
 
-<%# for user star count toggle %>
+<%= render partial: "view_project_modal" %>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3"></script>
+
+<%# for toggle stars %>
 <script type="text/javascript">
-  const toggleStar = async (project_id) => {
-    try {
-      const res = await fetch(`/api/v1/projects/${project_id}/toggle-star`)
-    }
-    console.log(res)
-    catch (err) {
-      console.error(error);
-    } 
+  function toggleStar(button) {
+    var project_id = button.getAttribute("data-project_id")
+    $.get('/api/v1/projects/' + project_id + '/toggle-star', function(response) {
+      location.reload();
+    });
   }
 </script>
 
-<%= render partial: "view_project_modal" %>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3"></script>
 <%# for user projects search %>
 <script type="text/javascript">
 
