@@ -2,7 +2,7 @@
 
 class UserMailer < ApplicationMailer
   def custom_email(user, mail)
-    return if user.opted_out?
+    return if user.subscribed?("circuitverse")
 
     @user = user
     @mail = mail
@@ -16,7 +16,7 @@ class UserMailer < ApplicationMailer
   end
 
   def new_project_email(user, project)
-    return if user.opted_out?
+    return if user.subscribed?("circuitverse")
 
     @user = user
     @project = project
@@ -24,7 +24,7 @@ class UserMailer < ApplicationMailer
   end
 
   def forked_project_email(user, old_project, new_project)
-    return if user.opted_out?
+    return if user.subscribed?("circuitverse")
 
     @user = user
     @old_project = old_project
@@ -33,7 +33,7 @@ class UserMailer < ApplicationMailer
   end
 
   def featured_circuit_email(user, project)
-    return if user.opted_out?
+    return if user.subscribed?("circuitverse")
 
     @user = user
     @project = project

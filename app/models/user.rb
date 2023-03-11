@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  mailkick_user
+  has_subscriptions
   require "pg_search"
   include SimpleDiscussion::ForumUser
 

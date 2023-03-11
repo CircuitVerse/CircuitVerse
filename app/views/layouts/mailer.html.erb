@@ -29,7 +29,7 @@
     </div>
     <h5 class="mailer-copyright-text"><%= t("layout.mailer.copyright_text",time_current_year: Time.current.year) %></h6>
     <% unless @is_preview %>
-      <h5> <%= link_to t("layout.mailer.unsubscribe_email_notifications"), mailkick_unsubscribe_url %> </h6>
+      <h5> <%= link_to t("layout.mailer.unsubscribe_email_notifications"), mailkick_unsubscribe_url(@user, "circuitverse") %> </h6>
     <% end %>
   </body>
 </html>

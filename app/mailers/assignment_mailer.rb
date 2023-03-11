@@ -2,7 +2,7 @@
 
 class AssignmentMailer < ApplicationMailer
   def new_assignment_email(user, assignment)
-    return if user.opted_out?
+    return if user.subscribed?("circuitverse")
 
     @assignment = assignment
     @user = user
@@ -11,7 +11,7 @@ class AssignmentMailer < ApplicationMailer
   end
 
   def update_assignment_email(user, assignment)
-    return if user.opted_out?
+    return if user.subscribed?("circuitverse")
 
     @assignment = assignment
     @user = user
