@@ -102,13 +102,12 @@
   transition: width .6s cubic-bezier(.25, 1, .5, 1);
   width: 0;
 }
-.mentorship-program-card{
+.mentorship-program-card {
   border: 0;
   display: inline-block;
   margin-bottom: 15px;
   margin-top: 15px;
   width: 250px;
-  
   img {
     max-width: 50%;
   }
@@ -117,8 +116,9 @@
     padding-top: 0;
     padding-bottom: 0;
     padding: 1rem;
-    p{margin-top: 0;
-      margin-bottom: 0;}
+    p {margin-bottom: 0;
+      margin-top: 0;
+    }
   }
 }
 @media (hover: hover) and (pointer: fine) {
