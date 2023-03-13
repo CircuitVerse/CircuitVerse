@@ -62,7 +62,7 @@
         </div>
         <% else %>
           <% @user.projects.each do |project| %>
-            <%= render(UsersProjectComponent.new(project: project, current_user: current_user))%>
+            <%= render(UsersProjectComponent.new(project: project, current_user: current_user)) %>
           <% end %>
         <% end %>
       </div>
@@ -80,7 +80,7 @@
           </div>
         <% else %>
           <% @projects.each do |project| %>
-            <%= render(UsersProjectComponent.new(project: project, current_user: current_user))%>
+            <%= render(UsersProjectComponent.new(project: project, current_user: current_user)) %>
           <% end %>
         <% end %>
       </div>
@@ -100,14 +100,12 @@
         <% else %>
           <%# <%= render partial: "dashboard" , locals: {projects: collaborated_projects} %> %>
           <% collaborated_projects.each do |project| %>
-            <%= render(UsersProjectComponent.new(project: project, current_user: current_user))%>
+            <%= render(UsersProjectComponent.new(project: project, current_user: current_user)) %>
           <% end %>
         <% end %>
       </div>
     </div>
   </div>
-  
-  
 </div>
 
 <script type="application/ld+json">
@@ -144,7 +142,6 @@
   var projects = $('.users-project-card'); // collecting all the title tags
   projectList = [];
   projects.each((i, project) => projectList.push({title: getTitle(project), domObj: project}));
-  console.log(projectList)
   const options = {
     // isCaseSensitive: false,
     // includeScore: false,

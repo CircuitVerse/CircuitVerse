@@ -11,6 +11,9 @@ hi:
       public: "पब्लिक"
       private: "प्राइवेट"
       limited_access: "लिमिटेड एक्सेस"
+    star_actions:
+      star: "तारांकित करें"
+      unstar: "अतारांकित करें"
     edit:
       title: "%{name} - परियोजना एडिट करें"
       main_heading: "परियोजना एडिट करें"

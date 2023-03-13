@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require "#{Rails.root}/app/policies/project_policy.rb"
+
+require Rails.root.join('app/policies/project_policy.rb')
 
 class UsersProjectComponent < ViewComponent::Base
   attr_reader :current_user
@@ -21,5 +22,4 @@ class UsersProjectComponent < ViewComponent::Base
   def user_access?
     policy(current_user).user_access?
   end
-
 end

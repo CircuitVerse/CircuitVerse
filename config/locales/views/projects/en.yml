@@ -11,6 +11,9 @@ en:
       public: "Public"
       private: "Private"
       limited_access: "Limited access"
+    star_actions:
+      star: "Star"
+      unstar: "Unstar"
     edit:
       title: "%{name} - Edit Project"
       main_heading: "Edit Project"

@@ -1,5 +1,6 @@
 # frozen_string_literal: true
-require "#{Rails.root}/app/policies/user_policy.rb"
+
+require Rails.root.join('app/policies/user_policy.rb')
 
 class UserProfileComponent < ViewComponent::Base
   attr_reader :current_user
