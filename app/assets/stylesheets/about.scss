@@ -30,7 +30,7 @@
 .about-contributor-image {
   border: 2px solid $primary-green;
   border-radius: 50%;
-  transition: all 0.3s ease-in;
+  transition: all .3s ease-in;
   width: 100%;
 
   &:hover {
@@ -95,11 +95,11 @@
 .team-underline::before {
   background-color: $primary-green;
   bottom: 0;
-  content: "";
+  content: '';
   height: 2px;
   position: absolute;
   right: 0;
-  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  transition: width .6s cubic-bezier(.25, 1, .5, 1);
   width: 0;
 }
 
@@ -109,7 +109,6 @@
   margin-bottom: 15px;
   margin-top: 15px;
   width: 250px;
-
   img {
     max-width: 50%;
   }
@@ -118,7 +117,6 @@
     padding: 1rem;
     padding-bottom: 0;
     padding-top: 0;
-
     p {
       margin-bottom: 0;
       margin-top: 0;
