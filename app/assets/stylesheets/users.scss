@@ -13,7 +13,7 @@
 }
 
 .users-profile-picture {
-  border: 6px solid #E6E6E6;
+  border: 6px solid $action-button-bg;
   border-radius: 100%;
   height: 240px;
   object-fit: contain;
@@ -262,7 +262,7 @@
 }
 
 .users-project-card {
-  border: 2px solid lightgray;
+  border: 2px solid $lightgrey;
   border-radius: 4px;
   display: inline-block;
   margin-bottom: 15px;
@@ -291,7 +291,7 @@
 }
 
 .users-card-body {
-  color: #757575;
+  color: $project-lightgrey;
   width: 80%;
 }
 
@@ -314,21 +314,22 @@
 }
 
 .users-circuits-navbar {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid $lightgrey;
   display: flex;
   justify-content: space-between;
 
   input {
-    border: 2px solid lightgray;
+    border: 2px solid $lightgrey;
     border-radius: 4px;
-    color: #343A40;
+    color: $profile-grey;
     font-size: 16px;
     margin-bottom: 8px;
     padding: 7px 10px 7px 48px;
     transition: .2s ease-in-out;
 
     ::placeholder {
-      color: #343A40;
+      color: $profile-grey
+      ;
     }
 
     &:focus {
@@ -339,7 +340,7 @@
 .search-icon-dashboard {
   margin-bottom: -60px;
   margin-left: 16px;
-  color: #343A40;
+  color: $profile-grey;
 }
 .users-circuits-search {
   align-items: center;
@@ -378,7 +379,7 @@
   }
 
   &.active {
-    border-bottom: 3px solid #F85959;
+    border-bottom: 3px solid $dashboard-active-tab;
     color: $black;
 
     &:hover {
@@ -588,7 +589,7 @@
   
     strong {
       font-weight: 700;
-      color: #9B9B9B;
+      color: $profile-text;
     }
 }
 .dashboard-container {
@@ -609,7 +610,7 @@
 }
 
 .project-stats {
-  color: #989898;
+  color: $profile-text;
   display: flex;
   gap: 20px;
   margin-bottom: 12px;
@@ -623,8 +624,8 @@
 
 .action-button {
   align-items: center;
-  background-color: #F0F0F0;
-  color: #757575;
+  background-color: $action-button-bg;
+  color: $project-lightgrey;
   display: inline-flex;
   height: 38px;
   gap: 10px;
@@ -658,7 +659,7 @@
     position: relative;
     bottom: 55%;
     left: 42%;
-    color: black;
+    color: $black;
     font-size: 20px;
     font-weight: 600;
     opacity: 0;
@@ -666,7 +667,6 @@
   }
   &:hover {
     img {
-      // filter: grayscale(2);
       opacity: 0.5;
     }
     span {

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require Rails.root.join('app/policies/project_policy.rb')
+require Rails.root.join("app/policies/project_policy.rb")
 
 class UsersProjectComponent < ViewComponent::Base
   attr_reader :current_user

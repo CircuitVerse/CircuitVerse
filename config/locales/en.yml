@@ -2,7 +2,7 @@ en:
   edit: "Edit"
   show: "Show"
   delete: "Delete"
-  view: "View"
+  preview: "Preview"
   launch_simulator: "Launch Simulator"
   email_us_heading: "Email us at"
   join_at_slack_heading: "Join and chat with us at"

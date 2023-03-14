@@ -52,7 +52,7 @@
       </div>
       <%= link_to '#', class: "previewButton", data: {toggle: "modal", target: "#projectModal", currentproject: @project} do %>
         <%= image_tag @project.image_preview.url, alt: @project.name, class: "users-card-image" %>
-        <span>Preview</span>
+        <span><%= t("preview") %></span>
       <% end %>
     </div>
     <div class="project-actions">
@@ -106,4 +106,3 @@
     </div>
   </div>
 <% end %>
-
