@@ -408,9 +408,14 @@ export function play(scope = globalScope, resetNodes = false) {
             forceResetNodesSet(true);
         }
     }
-    // Check for TriState Contentions
+    // Check for TriState  and ControlledInverter Contentions
     if (simulationArea.contentionPending.length) {
+        if(simulationArea.contentionPending[0].objectType === 'TriState'){
         showError('Contention at TriState');
+        }
+        if(simulationArea.contentionPending[0].objectType === 'ControlledInverter'){
+            showError('Contention at ControlledInverter');
+        }
         forceResetNodesSet(true);
         errorDetectedSet(true);
     }

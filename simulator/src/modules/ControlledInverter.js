@@ -71,10 +71,15 @@ export default class ControlledInverter extends CircuitElement {
                 ((~this.inp1.value >>> 0) << (32 - this.bitWidth)) >>>
                 (32 - this.bitWidth);
             simulationArea.simulationQueue.add(this.output1);
-        }
-        if (this.state.value === 0) {
-            this.output1.value = undefined;
-        }
+    }
+        else {
+            if (this.output1.value !== undefined && this.output1.oldValue !== undefined && !simulationArea.contentionPending.contains(this)) {
+              this.output1.value = undefined;
+              simulationArea.simulationQueue.add(this.output1);
+            }
+          }
+        this.output1.oldValue = this.output1.value;
+        simulationArea.contentionPending.clean(this);
     }
 
     /**
