@@ -13,7 +13,7 @@ class MigrateMailkickData < ActiveRecord::DataMigration
           {
             subscriber_type: user.class.name,
             subscriber_id: user.id,
-            list: "sales",
+            list: "circuitverse",
             created_at: now,
             updated_at: now
           }

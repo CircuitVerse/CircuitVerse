@@ -109,5 +109,6 @@ class User < ApplicationRecord
 
     def send_welcome_mail
       UserMailer.welcome_email(self).deliver_later
+      subscribe("circuitverse")
     end
 end

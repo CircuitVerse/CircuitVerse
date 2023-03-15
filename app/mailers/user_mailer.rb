@@ -2,11 +2,9 @@
 
 class UserMailer < ApplicationMailer
   def custom_email(user, mail)
-    return if user.subscribed?("circuitverse")
-
     @user = user
     @mail = mail
-    mail(to: user.email, subject: mail.subject)
+    mail_if_subscribed(user.email, mail.subject, user)
   end
 
   def welcome_email(user)
@@ -16,27 +14,21 @@ class UserMailer < ApplicationMailer
   end
 
   def new_project_email(user, project)
-    return if user.subscribed?("circuitverse")
-
     @user = user
     @project = project
-    mail(to: @user.email, subject: "New Project Created")
+    mail_if_subscribed(@user.email, "New Project Created", user)
   end
 
   def forked_project_email(user, old_project, new_project)
-    return if user.subscribed?("circuitverse")
-
     @user = user
     @old_project = old_project
     @new_project = new_project
-    mail(to: @user.email, subject: "New Project Created")
+    mail_if_subscribed(@user.email, "New Project Created", user)
   end
 
   def featured_circuit_email(user, project)
-    return if user.subscribed?("circuitverse")
-
     @user = user
     @project = project
-    mail(to: @user.email, subject: "Your project is now featured!")
+    mail_if_subscribed(@user.email, "Your project is now featured!", user)
   end
 end

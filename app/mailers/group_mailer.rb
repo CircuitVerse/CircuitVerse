@@ -2,19 +2,15 @@
 
 class GroupMailer < ApplicationMailer
   def new_group_email(user, group)
-    return if user.subscribed?("circuitverse")
-
     @mentor = user
     @user = @mentor
     @group = group
-    mail(to: @mentor.email, subject: "New Group Created ")
+    mail_if_subscribed(@mentor.email, "New Group Created ", user)
   end
 
   def new_member_email(user, group)
-    return if user.subscribed?("circuitverse")
-
     @user = user
     @group = group
-    mail(to: @user.email, subject: "Added to a New group")
+    mail_if_subscribed(@user.email, "Added to a New group", user)
   end
 end
