@@ -27,6 +27,7 @@ class Users::CircuitverseController < ApplicationController
 
   def update
     if @profile.update(profile_params)
+      handle_subscription(profile_params)
       redirect_to user_projects_path(current_user)
     else
       render :edit
@@ -51,5 +52,13 @@ class Users::CircuitverseController < ApplicationController
     def set_user
       @profile = current_user
       @user = User.find(params[:id])
+    end
+
+    def handle_subscription(profile_params)
+      if profile_params[:subscribed] == "1"
+        @user.subscribe("circuitverse")
+      else
+        @user.unsubscribe("circuitverse")
+      end
     end
 end

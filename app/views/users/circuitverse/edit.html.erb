@@ -38,7 +38,7 @@
           </div>
           <div class="field form-group users-edit-primary-checkpoint">
             <label for="profile_subscribed" class="primary-checkpoint-container"><h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
-              <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
+              <%= f.check_box :subscribed, checked: @profile.subscribed?("circuitverse"), id: "profile_subscribed" %>
               <div class="primary-checkpoint"></div>
             </label>
           </div>
