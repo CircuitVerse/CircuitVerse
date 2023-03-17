@@ -192,7 +192,8 @@ $touch-menu:#454545;
   border-top: 1.5px solid var(--primary);
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu>li>a,
+.dropdown-menu-button {
   color: #fff !important;
 }
 
@@ -200,7 +201,8 @@ $touch-menu:#454545;
   color: #fff !important;
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu>li>a:hover,
+.dropdown-menu-button:hover {
   color: var(--text-navbar--alt) !important;
   background: var(--bg-text);
 }

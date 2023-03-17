@@ -353,7 +353,8 @@ input[type="text"]:focus {
     top: 14.5px;
 }
 
-.dropdown-menu > li > a {
+.dropdown-menu>li>a,
+.dropdown-menu-button {
     padding: 7px 0;
     width: 90%;
     margin: auto;
@@ -362,7 +363,8 @@ input[type="text"]:focus {
     padding-left: 10px;
 }
 
-.dropdown-menu > li > a:hover {
+.dropdown-menu>li>a:hover,
+.dropdown-menu-button:hover {
     border-radius: 7px;
     opacity: 1;
 }
