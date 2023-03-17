@@ -1,4 +1,0 @@
-bn:
-  will_paginate:
-    previous_label: "&#8592; পূর্ববর্তী"
-    next_label: "পরবর্তী &#8594;"
