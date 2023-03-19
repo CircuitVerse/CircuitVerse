@@ -20,7 +20,14 @@ export function recoverProject() {
             load(data);
         }
         localStorage.removeItem('recover');
-    } else {
+    } else if(localStorage.getItem('autosave')){
+        var data = JSON.parse(localStorage.getItem('autosave'));
+        if (confirm(`Would you like to recover: ${data.name}`)) {
+            load(data);
+        }
+        localStorage.removeItem('autosave');    
+    }
+    else {
         showError('No recover project found');
     }
 }
@@ -100,18 +107,20 @@ function checkToSave() {
  * Prompt user to save data if unsaved
  * @category data
  */
-window.onbeforeunload = function () {
+window.addEventListener('beforeunload', function (event) {
     if (projectSaved || embed) return;
-
     if (!checkToSave()) return;
-
-    alert('You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?');
+    
+    event.preventDefault();
+    event.returnValue = '';
     const data = generateSaveData('Untitled');
     localStorage.setItem('recover', data);
-    // eslint-disable-next-line consistent-return
-    return 'Are u sure u want to leave? Any unsaved changes may not be recoverable';
-};
+    const confirmationMessage = 'You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?';
+    return confirmationMessage;
+  });
 
+
+ 
 /**
  * Function to clear project
  * @category data

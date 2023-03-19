@@ -30,7 +30,7 @@ import {
     forceResetNodesSet, changeLightMode,
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
-import { setProjectName, getProjectName } from './data/save';
+import { setProjectName, getProjectName, autosave } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
@@ -57,6 +57,7 @@ export function switchCircuit(id) {
 
     // globalScope.fixLayout();
     scheduleBackup();
+    autosave();
     if (id === globalScope.id) return;
     $('.circuits').removeClass('current');
     simulationArea.lastSelected = undefined;

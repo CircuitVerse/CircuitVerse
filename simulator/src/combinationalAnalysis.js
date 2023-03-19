@@ -13,6 +13,7 @@ import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
 import simulationArea from './simulationArea';
 import { findDimensions } from './canvasApi';
+import { autosave } from './data/save';
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
@@ -99,6 +100,7 @@ export const GenerateCircuit = (outputListNamesInteger, inputListNames, output, 
  */
 export function createCombinationalAnalysisPrompt(scope = globalScope) {
     scheduleBackup();
+    autosave();
     $('#combinationalAnalysis').empty();
     $('#combinationalAnalysis').append("<p>Enter Input names separated by commas: <input id='inputNameList' type='text'  placeHolder='eg. In A, In B'></p>");
     $('#combinationalAnalysis').append("<p>Enter Output names separated by commas: <input id='outputNameList' type='text'  placeHolder='eg. Out X, Out Y'></p>");

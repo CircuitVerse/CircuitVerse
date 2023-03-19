@@ -407,3 +407,8 @@ export default async function save() {
     // Restore everything
     resetup();
 }
+
+export function autosave() {
+    const data = generateSaveData('Untitled');
+    localStorage.setItem('autosave', data);
+}

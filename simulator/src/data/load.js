@@ -1,5 +1,5 @@
 import { resetScopeList, newCircuit, switchCircuit } from '../circuit';
-import { setProjectName } from './save';
+import { autosave, setProjectName } from './save';
 import {
  scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet 
 } from '../engine';
@@ -214,6 +214,7 @@ export default function load(data) {
         updateRestrictedElementsInScope();
 
         scheduleBackup();
+        autosave();
     }
 
     // Restore clock

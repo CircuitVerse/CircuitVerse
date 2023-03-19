@@ -29,7 +29,7 @@ import { copy, paste, selectAll } from './events';
 // Import save from './data/save';
 import { verilogModeGet } from './Verilog2CV';
 import { setupTimingListeners } from './plotArea';
-import { getProjectName } from './data/save';
+import { autosave, getProjectName } from './data/save';
 import logixFunction from './data';
 import createSaveAsImgPrompt from './data/saveImage';
 
@@ -222,6 +222,7 @@ function panStart(e) {
     simulationArea.oldy = globalScope.oy;
     e.preventDefault();
     scheduleBackup();
+    autosave();
     scheduleUpdate(1);
     $('.dropdown.open').removeClass('open');
 }

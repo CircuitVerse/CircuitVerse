@@ -8,6 +8,7 @@ import { changeClockEnable } from './sequential';
 import { play } from './engine';
 import Scope from './circuit';
 import { showMessage, escapeHtml } from './utils';
+import { autosave } from './data/save';
 
 /**
  * @typedef {number} RunContext
@@ -171,6 +172,7 @@ export class TestbenchData {
  */
 function creatorOpenPrompt(creatorWindow) {
     scheduleBackup();
+    autosave();
     const windowSVG = `
     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="white" class="bi bi-window" viewBox="0 0 16 16">
       <path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
