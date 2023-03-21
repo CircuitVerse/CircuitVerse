@@ -14,6 +14,7 @@ describe Users::NoticedNotificationsController, type: :request do
       @notification = FactoryBot.create(
         :noticed_notification,
         recipient: @author,
+        type: "StarNotification",
         params:
           { user: @user, project: @project },
         read_at: nil
@@ -32,6 +33,7 @@ describe Users::NoticedNotificationsController, type: :request do
       @notification = FactoryBot.create(
         :noticed_notification,
         recipient: @author,
+        type: "StarNotification",
         params:
           { user: @user, project: @project },
         read_at: nil
@@ -49,6 +51,7 @@ describe Users::NoticedNotificationsController, type: :request do
       @notification = FactoryBot.create(
         :noticed_notification,
         recipient: @author,
+        type: "StarNotification",
         params:
           { user: @user, project: @project },
         read_at: nil
