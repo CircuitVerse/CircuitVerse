@@ -34,12 +34,18 @@
   <% end %>
 
   <div class="comments-field">
-    <%=
-      form.text_area :body, rows: '4', id: new_record ?
-        comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
-                              "commontator-comment-#{comment.parent.id}-reply" :
-        "commontator-comment-#{comment.id}-edit-body",class:"form-control"
-    %>
+  <%=
+    form.text_area :body, rows: '2', id: new_record ?
+      comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
+                            "commontator-comment-#{comment.parent.id}-reply" :
+      "commontator-comment-#{comment.id}-edit-body", class: "form-control autoresize", data: {min_height: "48px"} do %>
+      <% end %>
+      <div class="comment-formatting-buttons">
+        <button type="button" class="formatting-button" title="Bold" data-format="b"><b>B</b></button>
+        <button type="button" class="formatting-button" title="italic" data-format="i"><i>I</i></button>
+        <button type="button" class="formatting-button" title="underline" data-format="ins"><ins>U</ins></button>
+        <button type="button" class="formatting-button" title="strike-through" data-format="del"><del>S</del></button>
+      </div>
   </div>
 
   <div class="submit">
@@ -51,3 +57,48 @@
     %>
   </div>
 <% end %>
+
+<script>
+  const textareas = document.querySelectorAll('.autoresize');
+
+  textareas.forEach(textarea => {
+    textarea.addEventListener('input', () => {
+      const minRows = parseInt(textarea.getAttribute('rows'));
+      const lineHeight = parseInt(getComputedStyle(textarea).lineHeight);
+      const paddingTop = parseInt(getComputedStyle(textarea).paddingTop);
+      const paddingBottom = parseInt(getComputedStyle(textarea).paddingBottom);
+      const height = textarea.scrollHeight - paddingTop - paddingBottom;
+      const rows = Math.max(minRows, Math.floor(height / lineHeight));
+      textarea.setAttribute('rows', rows);
+    });
+    textarea.setAttribute('rows', textarea.getAttribute('rows'));
+  });
+
+  const formattingButtons = document.querySelectorAll('.formatting-button');
+
+  formattingButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const format = button.dataset.format;
+      const textarea = button.closest('.comments-field').querySelector('.autoresize');
+      const text = textarea.value;
+      const start = textarea.selectionStart;
+      const end = textarea.selectionEnd;
+      let newText = '';
+
+      if (start === end) {
+        const tag = `<${format}>`;
+        newText = text.substring(0, start) + tag + text.substring(start) + `</${format}>`;
+        textarea.value = newText;
+        textarea.focus();
+        textarea.setSelectionRange(start + tag.length, start + tag.length);
+      } else {
+        const selectedText = text.substring(start, end);
+        newText = text.substring(0, start) + `<${format}>${selectedText}</${format}>` + text.substring(end);
+        textarea.value = newText;
+        textarea.focus();
+        textarea.setSelectionRange(start, end + format.length * 2 + 5);
+      }
+    });
+  });
+</script>
+

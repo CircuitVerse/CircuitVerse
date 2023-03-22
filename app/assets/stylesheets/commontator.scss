@@ -18,6 +18,20 @@
   background-color: $card-green;
   margin-top: 15px;
   padding: 10px 20px;
+
+  form {
+    background-color: $white;
+    border: 1px solid $form-input-gray;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+
+    &:focus-within {
+      border: 1px solid $form-input-green;
+      box-shadow: 0 0 8px $form-input-green;
+    }
+  }
 }
 
 .avatar {
@@ -54,18 +68,40 @@
 }
 
 .comments-field {
-  border: 1px solid $secondary-green;
+  border-bottom: 1px solid $form-input-gray;
   border-radius: 0;
+
+  &:focus-within {
+    border-bottom: 1px solid $form-input-green;
+  }
 
   textarea {
     border: 0;
-    border-radius: 0;
+    border-radius: 4px;
     padding: 10px;
 
     &:focus {
-      box-shadow: 0 0 0 .3rem $form-input-focus-green;
+      box-shadow: 0 0 0 2px $form-input-focus-green;
       outline: 0;
     }
+  }
+}
+
+.comment-formatting-buttons {
+  height: 0;
+}
+
+.formatting-button {
+  background-color: $white;
+  border: 0;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: 18px;
+  margin: 8px 2px;
+  width: 28px;
+
+  &:hover {
+    background-color: $form-input-focus-green;
   }
 }
 
@@ -101,6 +137,19 @@
 
 .new-comment {
   display: block;
+
+  form {
+    border: 1px solid $form-input-gray;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 8px;
+
+    &:focus-within {
+      border: 1px solid $form-input-green;
+      box-shadow: 0 0 8px $form-input-green;
+    }
+  }
 }
 
 //breakpoints
@@ -115,6 +164,7 @@
   }
 
   .comments-field {
-    margin-top: 40px;
+    margin-bottom: 32px;
+    margin-top: 2px;
   }
 }
