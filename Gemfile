@@ -101,7 +101,7 @@ gem "webpush"
 gem "bootsnap", require: false
 gem "rexml"
 
-gem "font-awesome-sass", "~> 5.13.1"
+gem "font-awesome-sass", "~> 6.3.0"
 
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
