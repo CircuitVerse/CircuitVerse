@@ -16,9 +16,9 @@
   <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
@@ -36,7 +36,7 @@
           <li><a class="dropdown-item logixButton text-left pl-1" onclick="old_ui_redirect()">View Previous UI</a></li>
         </ul>
       </li>
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="createNewCircuitScope">New Circuit + </a></li>
@@ -44,7 +44,7 @@
           <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
@@ -55,7 +55,7 @@
           <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
-      <li class="dropdown tour-help nav-dropdown">
+      <li class="dropdown tour-help nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
@@ -64,10 +64,29 @@
             <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
-     </ul>
-       <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+      </ul>
+      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
           Untitled
-       </span>
+      </span>
+
+      <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
+        <li class="dropdown pull-right">
+          <% if user_signed_in? %>
+            <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
+              <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+              <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+            </ul>
+          <% else %>
+            <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+          <% end %>
+        </li>
+      </ul>
+
+    </div>
 
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn' id='quick-btn-id'>
       <div id='dragQPanel' class='panel-drag'>
@@ -141,24 +160,6 @@
           <button class="zoom-slider-increment" id="increment">+</button>
         </div>
       </div>
-
-    </div>
-    <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
-      <li class="dropdown pull-right">
-        <% if user_signed_in? %>
-          <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
-            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
-            <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
-            <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
-          </ul>
-        <% else %>
-          <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
-        <% end %>
-      </li>
-    </ul>
   </div>
   <!-- /.navbar-collapse -->
 </nav>
@@ -799,6 +800,7 @@
   class="subcircuitdialog"
   title="Insert SubCircuit"
 ></div>
+<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit">New Circuit +</a></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
     <label >Decimal value</label><br><input  type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
@@ -868,6 +870,12 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('#newCircuit').click(function () {
+    return $('#insertSubcircuitDialog').dialog('close');
+  });
+</script>
 
 <script>
 <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>

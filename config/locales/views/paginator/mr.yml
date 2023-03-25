@@ -1,0 +1,4 @@
+mr:
+  will_paginate:
+    previous_label: "&#8592; मागील"
+    next_label: "पुढील &#8594;"
