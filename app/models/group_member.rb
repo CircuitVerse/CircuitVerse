@@ -9,7 +9,7 @@ class GroupMember < ApplicationRecord
   scope :mentor, -> { where(mentor: true) }
   scope :member, -> { where(mentor: false) }
 
-  has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
+  has_noticed_notifications param_name: :group, model_name: "NoticedNotification", dependent: :destroy
 
   def send_welcome_notification
     NewGroupNotification.with(group: self).deliver_later(user)
