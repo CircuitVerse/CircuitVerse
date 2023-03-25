@@ -1,0 +1,8 @@
+mr:
+  simulator:
+    nav_item:
+      project: "प्रकल्प"
+      circuit: "सर्किट"
+      tools: "डिव्हाइस"
+      help: "मदत"
+    insert_Subcircuitcontent: "अवलंबित्व म्हणून हे सर्किट नसलेले दुसरे कोणतेही सर्किट दिसत नाही. एक नवीन तयार करा!"
