@@ -1,0 +1,44 @@
+mr:
+  groups:
+    add_member_description: "स्वल्पविराम/स्पेसेस किंवा वेगळ्या ओळींनी विभक्त केलेले ईमेल आयडी प्रविष्ट करा. जर वापरकर्त्याने प्रवेश केला नसेल, तर त्यांना एक ईमेल आयडी पाठवला जाईल आणि त्यांना साइन अप करण्याची विनंती केली जाईल."
+    add_mentor_description_html: "<p>मार्गदर्शक हे करू शकतात:</p><ul><li>असाइनमेंट तयार आणि हटवू शकतात</li><li>ग्रेड असाइनमेंट</li><li>बंद असाइनमेंट पुन्हा उघडू शकतात</li></ul>"
+    promote_member_confirmation: "तुम्‍हाला खात्री आहे की तुम्‍ही या सदस्‍याला मेंटॉर म्‍हणून प्रमोट करू इच्छिता?"
+    demote_mentor_confirmation: "तुमची खात्री आहे की तुम्ही या मार्गदर्शकाची सदस्य म्हणून अवनत करू इच्छिता?"
+    use_alternative: "किंवा वापरा"
+    invite_link_btn: "दुव्याद्वारे आमंत्रित करा"
+    remove_assignment_message: "तुमची खात्री आहे की तुम्ही ही असाइनमेंट हटवू इच्छिता?"
+    remove_member_message: "तुमची खात्री आहे की तुम्ही हा सदस्य काढू इच्छिता?"
+    make_member: "सदस्य तयार करा"
+    make_mentor: "एक मार्गदर्शक तयार करा"
+    edit:
+      title: "%{name} - गटाचे नाव संपादित करा"
+      main_heading: "गटाचे नाव संपादित करा"
+    new:
+      title: "सर्किटवर्स - नवीन गट"
+      main_heading: "नवीन गट"
+      main_description_html: "विद्यार्थ्‍यांसाठी प्रोजेक्‍ट सेट करण्‍यासाठी आणि ग्रेड देण्‍यासाठी मार्गदर्शकांद्वारे गटांचा वापर केला जाऊ शकतो.
+          तुम्ही <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>येथे</a> दस्तऐवज वाचू शकता."
+    show:
+      edit_name_btn: "नाव संपादित करा"
+      primary_mentor_heading: "प्राथमिक मार्गदर्शक:"
+      mentor_name_heading: "मार्गदर्शक:"
+      group_members_heading: "सदस्य"
+      add_members_btn: "+ सदस्य जोडा"
+      add_mentors_btn: "+ मेंटमार्गदर्शक जोडा"
+      no_mentors_html: "या गटामध्ये कोणतेही संरक्षक नाहीत, सदस्य जोडण्यासाठी <strong>+ सदस्य जोडा</strong> बटणावर क्लिक करा."
+      no_members_html: "गटात एकही सदस्य नाही, सदस्य जोडण्यासाठी <strong>+ Mentor जोडा</strong> बटणावर क्लिक करा."
+      no_assignments_html: "गटामध्ये कोणतेही असाइनमेंट नाही, असाइनमेंट सुरू करण्यासाठी <strong>+ असाइनमेंट जोडा</strong> बटणावर क्लिक करा."
+      assignment:
+        heading: "असाइनमेंट"
+        add_assignment_btn: "+ असाइनमेंट जोडा"
+        assignment_table_head:
+          name: "नाव"
+          deadline: "वेळेची मर्यादा"
+          grading: "प्रतवारी"
+          actions: "क्रिया"
+          grade: "ग्रेड"
+        time_remaining_html: "<strong>उर्वरित वेळ:</strong> %{time_remaining}"
+        start_working_btn: "काम चालू करा"
+        see_work_done: "तुमचे काम पहा"
+        not_submitted: "सादर केले नाही"
+        show_submission: "सबमिशन पहा"

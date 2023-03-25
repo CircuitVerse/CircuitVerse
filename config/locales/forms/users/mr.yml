@@ -1,0 +1,11 @@
+mr:
+  helpers:
+    label:
+      user:
+        email: "ई-मेल"
+        name: "नाव"
+        country: "देश"
+        educational_institute: "शैक्षणिक संस्था"
+        locale: "भाषा"
+        password: "पासवर्ड"
+        password_confirmation: "पासवर्ड पुष्टी करा"
