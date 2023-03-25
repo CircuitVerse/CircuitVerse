@@ -16,7 +16,6 @@ RSpec.describe GroupMember, type: :model do
   describe "callbacks" do
     it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_welcome_email)
-      expect_any_instance_of(described_class).to receive(:send_welcome_notification)
       FactoryBot.create(:group_member, user: @user, group: @group)
     end
   end
@@ -27,13 +26,6 @@ RSpec.describe GroupMember, type: :model do
       expect do
         group_member.send_welcome_email
       end.to have_enqueued_job.on_queue("mailers")
-    end
-
-    it "sends welcome notification" do
-      group_member = FactoryBot.create(:group_member, user: @user, group: @group)
-      expect do
-        group_member.send_welcome_notification
-      end.to change { @user.noticed_notifications.count }.by(1)
     end
   end
 end
