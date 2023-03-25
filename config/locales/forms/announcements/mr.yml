@@ -1,0 +1,12 @@
+mr:
+  helpers:
+    label:
+      announcement:
+        body: "घोषणा संस्था"
+        link: "अधिक जाणून घ्या"
+        start_date: "प्रारंभ दिवस"
+        end_date: "कालबाह्यता दिवस"
+    submit:
+      announcement:
+        create: "नवीन घोषणा तयार करा"
+        update: "अद्यतन घोषणा"
