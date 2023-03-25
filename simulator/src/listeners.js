@@ -1121,7 +1121,7 @@ function zoomSliderListeners() {
                 }, 100);
                 e.preventDefault();
             }
-            quickMenu[index].addEventListener('touchend', function (e) { touchClick(e) });
+            quickMenu[index].addEventListener('touchend', e => touchClick(e) );
         }(quickmenui));
     }
     quickMenu[6].addEventListener('click', (e) => {
