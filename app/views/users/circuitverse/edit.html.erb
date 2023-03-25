@@ -21,8 +21,8 @@
             <p><%= image_tag @profile.profile_picture.url(:thumb), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-            <%= f.check_box :remove_picture, id: "remove_pic", class:"remove-pic" %>
-            <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
+            <%= f.text_field :remove_picture, id:"remove_pic", class:"remove-pic", value:"1" %>
+            <label for="remove_pic" class="users-remove-image-button" onclick="rempic()"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
           </div>
           <div class="field form-group">
             <h6><%= f.label :country %></h6>
@@ -75,7 +75,12 @@
       .attr('src', e.target.result);
     };
     reader.readAsDataURL(input.files[0]);
+    document.getElementById("remove_pic").value = "0";
     }
+  }
+  function rempic(){
+    document.getElementById('imgedit').src='/assets/thumb/Default.jpg';
+    document.getElementById('remove_pic').value = '1';
   }
 </script>
 <script>
