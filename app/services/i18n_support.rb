@@ -5,7 +5,8 @@ class I18nSupport
     [
       %w[English en],
       %w[Hindi hi],
-      %w[Bengali bn]
+      %w[Bengali bn],
+      %w[Marathi mr]
     ]
   end
 end
