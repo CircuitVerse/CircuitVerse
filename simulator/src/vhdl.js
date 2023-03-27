@@ -20,7 +20,7 @@ import "codemirror/addon/hint/anyword-hint.js";
 import "codemirror/addon/hint/show-hint.js";
 import "codemirror/addon/display/autorefresh.js";
 import { openInNewTab, copyToClipboard, showMessage } from "./utils";
-import { generateSTDType, hasComponent } from "./helperVHDL";
+import { generateSTDType, hasComponent, removeDuplicateComponent } from "./helperVHDL";
 
 var editora;
 
@@ -75,7 +75,7 @@ export function generateVHDL() {
                 text: "Try in EDA Playground",
                 click() {
                     copyToClipboard(editora.getValue());
-                    openInNewTab("https://www.edaplayground.com/x/XZpY");
+                    openInNewTab("https://www.edaplayground.com/x/KCFA");
                 },
             },
         ],
@@ -375,13 +375,19 @@ export var vhdl = {
 
         let VHDLSet = new Set(orderedSet)
         
+        let componentArray = []
         // Generate connection verilog code and module instantiations
         for (var elem of VHDLSet) {
             if((componentVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer') || (elem.objectType == 'Decoder') || (elem.objectType == 'Dlatch')) || (elem.objectType == 'DflipFlop') || (elem.objectType == 'TflipFlop') || (elem.objectType == 'JKflipFlop') || (elem.objectType == 'SRflipFlop') || (elem.objectType == 'MSB') || (elem.objectType == 'LSB') || (elem.objectType == 'PriorityEncoder')){
-                res += elem.generateVHDL() + "\n";
+                componentArray = [...componentArray, elem.generateVHDL()]
                 componentVHDL=1
             }
         }
+        const componentArrayFiltered = removeDuplicateComponent(componentArray)
+
+        componentArrayFiltered.forEach(el => res += el + "\n")
+
+        console.log(res)
 
         for (var elem of VHDLSet) {
             if((portVHDL==0) && ((elem.objectType == 'Demultiplexer') || (elem.objectType == 'Multiplexer') || (elem.objectType == 'Decoder') || (elem.objectType == 'Dlatch') || (elem.objectType == 'DflipFlop') || (elem.objectType == 'TflipFlop') || (elem.objectType == 'JKflipFlop') || (elem.objectType == 'SRflipFlop') || (elem.objectType == 'MSB') || (elem.objectType == 'LSB') || (elem.objectType == 'PriorityEncoder'))){

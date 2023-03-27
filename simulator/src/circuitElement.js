@@ -1191,8 +1191,8 @@ export default class CircuitElement {
                         header: generateHeaderPortmap('dlatch', i, 'Dlatch', `bit${dlatch[i].bitWidth}`),
                         inputs: `    in0 => ${dlatch[i].dInp.verilogLabel},\n`,
                         clock: `    clock => ${dlatch[i].clockInp.verilogLabel},\n`,
-                        output: `    q0 => ${dlatch[i].qOutput.verilogLabel},\n`,
-                        notoutput: `    q1 => ${dlatch[i].qInvOutput.verilogLabel}\n`,
+                        output: `    q0 => ${dlatch[i].qOutput.verilogLabel}`,
+                        notoutput: hasComponent(dlatch[i].qInvOutput.verilogLabel) ? `,\n    q1 => ${dlatch[i].qInvOutput.verilogLabel}\n` : '',
                         end: `\n  );\n`
 
                     }]
@@ -1211,8 +1211,8 @@ export default class CircuitElement {
                         reset: hasComponent(dflipflop[i].reset.connections) ? `    reset => ${dflipflop[i].reset.verilogLabel},\n` : '',
                         preset: hasComponent(dflipflop[i].preset.connections) ? `    preset => ${dflipflop[i].preset.verilogLabel},\n` : '',
                         enable: hasComponent(dflipflop[i].en.connections) ? `    enable => ${dflipflop[i].en.verilogLabel},\n` : '',
-                        output: `    q0 => ${dflipflop[i].qOutput.verilogLabel},\n`,
-                        notoutput: `    q1 => ${dflipflop[i].qInvOutput.verilogLabel}\n`,
+                        output: `    q0 => ${dflipflop[i].qOutput.verilogLabel}`,
+                        notoutput: hasComponent(dflipflop[i].qInvOutput.verilogLabel) ? `,\n    q1 => ${dflipflop[i].qInvOutput.verilogLabel}\n` : '',
                         end: `\n  );\n`
 
                     }]
@@ -1231,8 +1231,8 @@ export default class CircuitElement {
                         reset: hasComponent(tflipflop[i].reset.connections) ? `    reset => ${tflipflop[i].reset.verilogLabel},\n` : '',
                         preset: hasComponent(tflipflop[i].preset.connections) ? `    preset => ${tflipflop[i].preset.verilogLabel},\n` : '',
                         enable: hasComponent(tflipflop[i].en.connections) ? `    enable => ${tflipflop[i].en.verilogLabel},\n` : '',
-                        output: `    q0 => ${tflipflop[i].qOutput.verilogLabel},\n`,
-                        notoutput: `    q1 => ${tflipflop[i].qInvOutput.verilogLabel}\n`,
+                        output: `    q0 => ${tflipflop[i].qOutput.verilogLabel}`,
+                        notoutput: hasComponent(tflipflop[i].qInvOutput.verilogLabel) ? `,\n    q1 => ${tflipflop[i].qInvOutput.verilogLabel}\n` : '',
                         end: `\n  );\n`
 
                     }]
@@ -1252,11 +1252,12 @@ export default class CircuitElement {
                         reset: hasComponent(jkflipflop[i].reset.connections) ? `    reset => ${jkflipflop[i].reset.verilogLabel},\n` : '',
                         preset: hasComponent(jkflipflop[i].preset.connections) ? `    preset => ${jkflipflop[i].preset.verilogLabel},\n` : '',
                         enable: hasComponent(jkflipflop[i].en.connections) ? `    enable => ${jkflipflop[i].en.verilogLabel},\n` : '',
-                        output: `    q0 => ${jkflipflop[i].qOutput.verilogLabel},\n`,
-                        notoutput: `    q1 => ${jkflipflop[i].qInvOutput.verilogLabel}\n`,
+                        output: `    q0 => ${jkflipflop[i].qOutput.verilogLabel}`,
+                        notoutput: hasComponent(jkflipflop[i].qInvOutput.connections) ? `,\n    q1 => ${jkflipflop[i].qInvOutput.verilogLabel}\n` : '',
                         end: `\n  );\n`
 
                     }]
+                    console.log(jkflipflop[i].qInvOutput)
                 }
                 objjkflipflop.forEach(el => portmap += el.header + el.JInput + el.KInput + el.clock + el.reset + el.preset + el.enable + el.output + el.notoutput + el.end)
             }
@@ -1272,8 +1273,8 @@ export default class CircuitElement {
                         reset: hasComponent(srflipflop[i].reset.connections) ? `    reset => ${srflipflop[i].reset.verilogLabel},\n` : '',
                         preset: hasComponent(srflipflop[i].preset.connections) ? `    preset => ${srflipflop[i].preset.verilogLabel},\n` : '',
                         enable: hasComponent(srflipflop[i].en.connections) ? `    enable => ${srflipflop[i].en.verilogLabel},\n` : '',
-                        output: `    q0 => ${srflipflop[i].qOutput.verilogLabel},\n`,
-                        notoutput: `    q1 => ${srflipflop[i].qInvOutput.verilogLabel}\n`,
+                        output: `    q0 => ${srflipflop[i].qOutput.verilogLabel}`,
+                        notoutput: hasComponent(srflipflop[i].qInvOutput.verilogLabel) ? `,\n    q1 => ${srflipflop[i].qInvOutput.verilogLabel}\n` : '',
                         end: `\n  );\n`
 
                     }]
