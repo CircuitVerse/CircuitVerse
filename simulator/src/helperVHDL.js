@@ -325,7 +325,7 @@ export const generateArchitetureHeaderTFlipFlop = (component, index)  => {
     const header = [
         `ARCHITECTURE rtl OF ${component}${index} IS\n`,
         generateSpacings(2),
-        'SIGNAL tmp: STD_LOGIC;\n',
+        `SIGNAL tmp: STD_LOGIC := '0';\n`,
         generateSpacings(2),
         `BEGIN\n`,
     ]
