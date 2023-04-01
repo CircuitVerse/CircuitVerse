@@ -70,7 +70,6 @@ export default {
                 deleteSelected()
             } else if (id == 4) {
                 undo()
-                undo()
             } else if (id == 5) {
                 createNewCircuitScope()
             } else if (id == 6) {
