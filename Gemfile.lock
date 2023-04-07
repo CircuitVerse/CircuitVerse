@@ -375,7 +375,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
-    oj (3.13.11)
+    oj (3.14.3)
     omniauth (2.1.1)
       hashie (>= 3.4.6)
       rack (>= 2.2.3)
@@ -725,7 +725,7 @@ DEPENDENCIES
   meta-tags
   newrelic_rpm (~> 8.14)
   noticed (~> 1.6)
-  oj (~> 3.13)
+  oj (~> 3.14)
   omniauth
   omniauth-facebook
   omniauth-github
