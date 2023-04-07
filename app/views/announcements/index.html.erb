@@ -8,7 +8,7 @@
           <div class="mb-3 border border-success">
             <span class="d-flex justify-content-center overflow-hidden"><%== announcement.body %></span>
             <%= link_to t("edit"), edit_announcement_url(announcement), class: "anchor-text" %>
-            <%= link_to t("delete"), announcement_url(announcement),method: :delete, data: {confirm:'Are you sure?'},class: "anchor-text" %>
+            <%= link_to t("delete"), announcement_url(announcement), method: :delete, data: { confirm: "Are you sure?" }, class: "anchor-text" %>
           </div>
         <% end %>
       <% else %>

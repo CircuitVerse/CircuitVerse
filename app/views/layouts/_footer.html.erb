@@ -37,7 +37,7 @@
             <a href="/teachers"><h6><%= t("layout.link_to_teachers") %></h6></a>
             <a href="/about"><h6><%= t("layout.link_to_about") %></h6></a>
             <% if Flipper.enabled?(:forum) %>
-              <h6><%= link_to t("layout.footer.link_to_forum") , simple_discussion_path %></h6>
+              <h6><%= link_to t("layout.footer.link_to_forum"), simple_discussion_path %></h6>
             <% end %>
           </div>
         </div>
@@ -75,7 +75,7 @@
     </div>
     <div class="row">
       <div class="col-12 text-white text-left footer-copyright-text">
-  <p><%= t("layout.footer.copyright_text",time_current_year: Time.current.year) %></p>
+  <p><%= t("layout.footer.copyright_text", time_current_year: Time.current.year) %></p>
       </div>
     </div>
   </div>
