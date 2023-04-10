@@ -7,21 +7,21 @@
 <% content_for :title, t("circuitverse.index.title") %>
 
 <% set_meta_tags twitter: {
-  card: "summary_large_image",
-  title: yield(:title),
-  description: Rails.configuration.site_description,
-  image: {
-    src: "#{Rails.configuration.site_url}img/circuitverseBanner2.png"
-  }
-} %>
+     card: "summary_large_image",
+     title: yield(:title),
+     description: Rails.configuration.site_description,
+     image: {
+       src: "#{Rails.configuration.site_url}img/circuitverseBanner2.png"
+     }
+   } %>
 
 <% set_meta_tags og: {
-  title: yield(:title),
-  image: "#{Rails.configuration.site_url}img/circuitverseBanner2.png",
-  description: Rails.configuration.site_description,
-  type: "article",
-  site_name: Rails.configuration.site_name
-} %>
+     title: yield(:title),
+     image: "#{Rails.configuration.site_url}img/circuitverseBanner2.png",
+     description: Rails.configuration.site_description,
+     type: "article",
+     site_name: Rails.configuration.site_name
+   } %>
 
     <% if notice %>
     <div class="row" id='alertdiv'>
@@ -31,6 +31,7 @@
       </div>
     </div>
     <% end %>
+    <%= render "announcements/announcement" %>
     <div class="container">
       <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -44,7 +45,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", :class => "home-image-cover" %>
+          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", class: "home-image-cover" %>
         </div>
       </div>
       <div class="row">
@@ -62,7 +63,7 @@
       <div class="row center-row justify-content-center">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card home-feature-card">
-            <%= image_tag "homepage/export-hd.png", alt: "Export HD", :class => "card-img-top" %>
+            <%= image_tag "homepage/export-hd.png", alt: "Export HD", class: "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title"><%= t("circuitverse.index.features.item1_heading") %></h5>
               <p class="card-text"><%= t("circuitverse.index.features.item1_text") %></p>
@@ -71,7 +72,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card home-feature-card">
-            <%= image_tag "homepage/combinations analysis.png", alt: "Combinational Analysis", :class => "card-img-top" %>
+            <%= image_tag "homepage/combinations analysis.png", alt: "Combinational Analysis", class: "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title"><%= t("circuitverse.index.features.item2_heading") %></h5>
               <p class="card-text"><%= t("circuitverse.index.features.item2_text") %></p>
@@ -80,7 +81,7 @@
         </div>
         <div class="col-xs-12 col-s-12 col-md-6 col-lg-4">
           <div class="card home-feature-card">
-            <%= image_tag "homepage/embed.png", alt: "Embed", :class => "card-img-top" %>
+            <%= image_tag "homepage/embed.png", alt: "Embed", class: "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title"><%= t("circuitverse.index.features.item3_heading") %></h5>
               <p class="card-text"><%= t("circuitverse.index.features.item3_text") %></p>
@@ -89,7 +90,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card home-feature-card">
-            <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", :class => "card-img-top" %>
+            <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", class: "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title"><%= t("circuitverse.index.features.item4_heading") %></h5>
               <p class="card-text"><%= t("circuitverse.index.features.item4_text") %></p>
@@ -98,7 +99,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card home-feature-card">
-            <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", :class => "card-img-top" %>
+            <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", class: "card-img-top" %>
             <div class="card-body">
               <h5 class="card-title"><%= t("circuitverse.index.features.item5_heading") %></h5>
               <p class="card-text"><%= t("circuitverse.index.features.item5_text") %></p>
@@ -117,7 +118,7 @@
       <div class="row center-row justify-content-center">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card circuit-card">
-            <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", :class => "card-img-top circuit-card-image examples-circuit-card-image" %>
+            <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", class: "card-img-top circuit-card-image examples-circuit-card-image" %>
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p><%= t("circuitverse.index.featured_examples.circuit1_text") %></p>
@@ -129,7 +130,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card circuit-card">
-            <%= image_tag "homepage/sap.jpg", alt: "SAP-1", :class => "card-img-top circuit-card-image examples-circuit-card-image" %>
+            <%= image_tag "homepage/sap.jpg", alt: "SAP-1", class: "card-img-top circuit-card-image examples-circuit-card-image" %>
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p><%= t("circuitverse.index.featured_examples.circuit2_text") %></p>
@@ -141,7 +142,7 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
           <div class="card circuit-card">
-            <%= image_tag "homepage/fullAdder.jpg", alt: "Full Adder", class: "card-img-top circuit-card-image examples-circuit-card-image", height: '180', width: '288' %>
+            <%= image_tag "homepage/fullAdder.jpg", alt: "Full Adder", class: "card-img-top circuit-card-image examples-circuit-card-image", height: "180", width: "288" %>
             <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
                 <p><%= t("circuitverse.index.featured_examples.circuit3_text") %></p>
@@ -166,12 +167,12 @@
             <p><%= t("circuitverse.index.editor_picks.main_description") %></p>
           </div>
         </div>
-        <% cache :featured_circuits, expires_in: 6.hours do%>
+        <% cache :featured_circuits, expires_in: 6.hours do %>
           <div class="row center-row justify-content-center">
             <% @featured_circuits.each do |circuit| %>
               <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
                 <div class="card circuit-card">
-                  <%= image_tag circuit.image_preview.url, alt: circuit.name, class: "card-img-top circuit-card-image", height: '180', width: '288' %>
+                  <%= image_tag circuit.image_preview.url, alt: circuit.name, class: "card-img-top circuit-card-image", height: "180", width: "288" %>
                   <div class="card-footer circuit-card-footer">
                     <div class="circuit-card-name">
                       <p><%= circuit.name %></p>
@@ -191,7 +192,7 @@
         </div>
       </div>
     </div>
-    <% cache "recent-projects-#{params[:page]}", expires_in: 10.minutes do%>
+    <% cache "recent-projects-#{params[:page]}", expires_in: 10.minutes do %>
       <div class="container" id="recent">
         <div class="row center-row home-circuit-card-row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -203,7 +204,7 @@
           <% @projects.each do |project| %>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
               <div class="card circuit-card">
-                <%= image_tag project.image_preview.url, alt: project.name, :class => "card-img-top circuit-card-image" %>
+                <%= image_tag project.image_preview.url, alt: project.name, class: "card-img-top circuit-card-image" %>
                 <div class="card-footer circuit-card-footer">
                   <div class="circuit-card-name">
                     <p><%= project.name %></p>
