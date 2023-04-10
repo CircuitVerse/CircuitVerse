@@ -39,23 +39,4 @@ class Users::NoticedNotificationsController < ApplicationController
     NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
     redirect_back(fallback_location: root_path)
   end
-
-  private
-
-    def notification_path(answer)
-      case answer.type
-      when "new_group"
-        redirect_to group_path(answer.first_param)
-      when "new_assignment"
-        redirect_to group_assignment_path(answer.first_param, answer.second)
-      when "star", "fork"
-        redirect_to user_project_path(answer.first_param, answer.second)
-      when "forum_comment"
-        redirect_to simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
-      when "forum_thread"
-        redirect_to simple_discussion.forum_thread_path(answer.first_param)
-      else
-        redirect_to root_path
-      end
-    end
 end

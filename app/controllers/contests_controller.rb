@@ -63,7 +63,8 @@ class ContestsController < ApplicationController
     @contest.status = :live
     respond_to do |format|
       if @contest.save
-        ContestNotification.with(contest: @contest).deliver_later(User.all)
+        # the notifications are added as true for admins now, this need to change to User.all
+        ContestNotification.with(contest: @contest).deliver_later(User.where(admin: true))
         format.html { redirect_to contest_page_path(@contest.id), notice: "Contest was successfully started." }
         format.json { render :show, status: :created, location: @contest }
       else
