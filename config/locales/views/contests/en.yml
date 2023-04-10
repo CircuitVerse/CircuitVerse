@@ -31,6 +31,7 @@ en:
     new_submission_page:
       heading: "Project Submission"
       select_your_circuit: "Select your circuit"
+      select_your_circuit_description: "Only public projects are allowed in the contest."
     close_contest_modal:
       heading: "Close a Contest"
       description: "Are you sure you want to close this contest?"

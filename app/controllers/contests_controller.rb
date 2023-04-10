@@ -2,7 +2,6 @@
 
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :authorize_admin, only: %i[admin]
 
   # GET /contests
   def index
@@ -27,10 +26,12 @@ class ContestsController < ApplicationController
 
   # GET /contests/admin
   def admin
+    authorize Contest, :admin?
     @contests = Contest.all.paginate(:page => params[:page]).order("id DESC").limit(Contest.per_page)
   end
 
   def close_contest
+    authorize Contest, :admin?
     @contest = Contest.find(params[:contest_id])
     ShortlistContestWinner.new(@contest.id)
     @contest.deadline = Time.zone.now
@@ -49,6 +50,7 @@ class ContestsController < ApplicationController
   # POST /contest/create
   def create
     # checking for any other live contest, if found mark is as completed
+    authorize Contest, :admin?
     Contest.all.each do |contest|
       if contest.live?
         notice = "Concurrent contests are not allowed, close other contests before creating a new one."
@@ -61,7 +63,8 @@ class ContestsController < ApplicationController
     @contest.status = :live
     respond_to do |format|
       if @contest.save
-        ContestNotification.with(contest: @contest).deliver_later(User.all)
+        # the notifications are added as true for admins now, this need to change to User.all
+        ContestNotification.with(contest: @contest).deliver_later(User.where(admin: true))
         format.html { redirect_to contest_page_path(@contest.id), notice: "Contest was successfully started." }
         format.json { render :show, status: :created, location: @contest }
       else
