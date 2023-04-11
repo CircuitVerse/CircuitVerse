@@ -753,7 +753,7 @@ div.icon img {
 }
 
 .testbench-manual-panel .panel-body {
-    width: 700px;
+    width: 100%;
 }
 
 .testbench-manual-panel b {
@@ -840,8 +840,8 @@ div.icon img {
 .tb-manual-test-buttons {
     display: flex;
     margin-top: 20px;
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 10px;
+    margin-right: 10px;
     height: 25px;
     overflow: auto;
 }
