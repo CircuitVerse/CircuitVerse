@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_13_051332) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,7 +19,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.bigint "user_id"
     t.string "name"
     t.json "properties"
-    t.datetime "time"
+    t.datetime "time", precision: nil
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
     t.index ["user_id"], name: "index_ahoy_events_on_user_id"
     t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
@@ -48,7 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.string "app_version"
     t.string "os_version"
     t.string "platform"
-    t.datetime "started_at"
+    t.datetime "started_at", precision: nil
     t.index ["user_id"], name: "index_ahoy_visits_on_user_id"
     t.index ["visit_token"], name: "index_ahoy_visits_on_visit_token", unique: true
   end
@@ -56,18 +56,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "announcements", force: :cascade do |t|
     t.text "body"
     t.text "link"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.datetime "start_date", precision: nil
+    t.datetime "end_date", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", null: false
+    t.datetime "deadline", precision: nil, null: false
     t.text "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "group_id"
     t.string "status"
     t.integer "grading_scale", default: 0
@@ -82,8 +82,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "collaborations", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["project_id"], name: "index_collaborations_on_project_id"
     t.index ["user_id"], name: "index_collaborations_on_user_id"
   end
@@ -95,11 +95,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.integer "editor_id"
     t.integer "thread_id", null: false
     t.text "body", null: false
-    t.datetime "deleted_at"
+    t.datetime "deleted_at", precision: nil
     t.integer "cached_votes_up", default: 0
     t.integer "cached_votes_down", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "parent_id"
     t.index ["cached_votes_down"], name: "index_commontator_comments_on_cached_votes_down"
     t.index ["cached_votes_up"], name: "index_commontator_comments_on_cached_votes_up"
@@ -112,8 +112,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.string "subscriber_type", null: false
     t.integer "subscriber_id", null: false
     t.integer "thread_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["subscriber_id", "subscriber_type", "thread_id"], name: "index_commontator_subscriptions_on_s_id_and_s_type_and_t_id", unique: true
     t.index ["thread_id"], name: "index_commontator_subscriptions_on_thread_id"
   end
@@ -121,11 +121,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "commontator_threads", id: :serial, force: :cascade do |t|
     t.string "commontable_type"
     t.integer "commontable_id"
-    t.datetime "closed_at"
+    t.datetime "closed_at", precision: nil
     t.string "closer_type"
     t.integer "closer_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
   end
 
@@ -133,15 +133,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.text "subject"
     t.text "content"
     t.boolean "sent", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_custom_mails_on_user_id"
   end
 
   create_table "featured_circuits", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "project_id"
     t.index ["project_id"], name: "index_featured_circuits_on_project_id"
   end
@@ -150,8 +150,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.string "name", null: false
     t.string "slug", null: false
     t.string "color", default: "000000"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "forum_posts", id: :serial, force: :cascade do |t|
@@ -159,16 +159,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.integer "user_id"
     t.text "body"
     t.boolean "solved", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "forum_subscriptions", id: :serial, force: :cascade do |t|
     t.integer "forum_thread_id"
     t.integer "user_id"
     t.string "subscription_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "forum_threads", id: :serial, force: :cascade do |t|
@@ -179,8 +179,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.integer "forum_posts_count", default: 0
     t.boolean "pinned", default: false
     t.boolean "solved", default: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -196,8 +196,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
 
   create_table "grades", force: :cascade do |t|
     t.string "grade"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "project_id"
     t.bigint "user_id"
     t.bigint "assignment_id"
@@ -211,8 +211,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "group_members", force: :cascade do |t|
     t.bigint "group_id"
     t.bigint "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.boolean "mentor", default: false
     t.index ["group_id", "user_id"], name: "index_group_members_on_group_id_and_user_id", unique: true
     t.index ["group_id"], name: "index_group_members_on_group_id"
@@ -222,11 +222,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "groups", force: :cascade do |t|
     t.string "name"
     t.bigint "primary_mentor_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.integer "group_members_count"
     t.string "group_token"
-    t.datetime "token_expires_at"
+    t.datetime "token_expires_at", precision: nil
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end
@@ -274,9 +274,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.string "notifier_type"
     t.bigint "notifier_id"
     t.text "parameters"
-    t.datetime "opened_at"
+    t.datetime "opened_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "migrated", default: false
     t.index ["group_owner_id"], name: "index_notifications_on_group_owner_id"
     t.index ["group_type", "group_id"], name: "index_notifications_on_group_type_and_group_id"
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
@@ -287,8 +288,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "pending_invitations", force: :cascade do |t|
     t.bigint "group_id"
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["group_id", "email"], name: "index_pending_invitations_on_group_id_and_email", unique: true
     t.index ["group_id"], name: "index_pending_invitations_on_group_id"
   end
@@ -306,8 +307,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.bigint "author_id"
     t.bigint "forked_project_id"
     t.string "project_access_type", default: "Public"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.bigint "assignment_id"
     t.boolean "project_submission", default: false
     t.string "image_preview"
@@ -336,8 +337,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "stars", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["project_id"], name: "index_stars_on_project_id"
     t.index ["user_id", "project_id"], name: "index_stars_on_user_id_and_project_id", unique: true
     t.index ["user_id"], name: "index_stars_on_user_id"
@@ -349,10 +350,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.string "key", null: false
     t.boolean "subscribing", default: true, null: false
     t.boolean "subscribing_to_email", default: true, null: false
-    t.datetime "subscribed_at"
-    t.datetime "unsubscribed_at"
-    t.datetime "subscribed_to_email_at"
-    t.datetime "unsubscribed_to_email_at"
+    t.datetime "subscribed_at", precision: nil
+    t.datetime "unsubscribed_at", precision: nil
+    t.datetime "subscribed_to_email_at", precision: nil
+    t.datetime "unsubscribed_to_email_at", precision: nil
     t.text "optional_targets"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -364,38 +365,38 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
   create_table "taggings", force: :cascade do |t|
     t.bigint "project_id"
     t.bigint "tag_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.index ["project_id"], name: "index_taggings_on_project_id"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
 
   create_table "tags", force: :cascade do |t|
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
+    t.datetime "reset_password_sent_at", precision: nil
+    t.datetime "remember_created_at", precision: nil
     t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
+    t.datetime "current_sign_in_at", precision: nil
+    t.datetime "last_sign_in_at", precision: nil
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: nil, null: false
+    t.datetime "updated_at", precision: nil, null: false
     t.string "provider"
     t.string "uid"
     t.string "profile_picture_file_name"
     t.string "profile_picture_content_type"
     t.bigint "profile_picture_file_size"
-    t.datetime "profile_picture_updated_at"
+    t.datetime "profile_picture_updated_at", precision: nil
     t.boolean "admin", default: false
     t.string "country"
     t.string "educational_institute"
@@ -413,8 +414,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_10_160508) do
     t.boolean "vote_flag"
     t.string "vote_scope"
     t.integer "vote_weight"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", precision: nil
+    t.datetime "updated_at", precision: nil
     t.index ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
     t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
   end
