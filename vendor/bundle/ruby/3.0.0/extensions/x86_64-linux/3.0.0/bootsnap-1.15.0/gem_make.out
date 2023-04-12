@@ -1,0 +1,15 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.15.0/ext/bootsnap
+/home/gitpod/.rvm/rubies/ruby-3.0.3/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.0.3/lib/ruby/3.0.0 -r ./siteconf20230411-7666-z0bhuq.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.15.0/ext/bootsnap
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.15.0/ext/bootsnap
+make DESTDIR\=
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/bootsnap-1.15.0/ext/bootsnap
+make DESTDIR\= install
+/usr/bin/install -m 0755 bootsnap.so ./.gem.20230411-7666-w9wh3h/bootsnap

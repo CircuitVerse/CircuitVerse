@@ -1,4 +1,4 @@
-<%= form_with(model: custom_mail, local: true, multipart: true, id:"mailsForm") do |form| %>
+<%= form_with(model: custom_mail, local: true, multipart: true, id: "mailsForm") do |form| %>
   <div class="field form-group">
     <h6><%= form.label :subject %></h6>
     <div class="input-group">
@@ -8,7 +8,7 @@
   <div class="field form-group" id="description">
     <h6><%= form.label :content %></h6>
     <div class="input-group">
-      <%= render :partial => 'editor/index', :locals => {:content => custom_mail.content} %>
+      <%= render partial: "editor/index", locals: { content: custom_mail.content } %>
     </div>
   </div>
   <div onclick="before_submit()">

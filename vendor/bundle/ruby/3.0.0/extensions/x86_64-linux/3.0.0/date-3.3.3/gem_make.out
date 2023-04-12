@@ -1,0 +1,21 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/date-3.3.3/ext/date
+/home/gitpod/.rvm/rubies/ruby-3.0.3/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.0.3/lib/ruby/3.0.0 -r ./siteconf20230411-7666-ton2x4.rb extconf.rb
+checking for rb_category_warn()... yes
+checking for timezone in time.h with  -Werror... yes
+checking for altzone in time.h with  -Werror... no
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/date-3.3.3/ext/date
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/date-3.3.3/ext/date
+make DESTDIR\=
+compiling date_core.c
+compiling date_parse.c
+compiling date_strftime.c
+compiling date_strptime.c
+linking shared-object date_core.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/date-3.3.3/ext/date
+make DESTDIR\= install
+/usr/bin/install -m 0755 date_core.so ./.gem.20230411-7666-2i6b8b

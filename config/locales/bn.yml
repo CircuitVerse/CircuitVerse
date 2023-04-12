@@ -1,0 +1,65 @@
+bn:
+  edit: "সম্পাদনা"
+  show: "দেখান"
+  delete: "মুছে ফেলুন"
+  view: "দেখুন"
+  launch_simulator: "সিমুলেটর চালু করুন"
+  email_us_heading: "আমাদের ইমেইল করুন"
+  join_at_slack_heading: "আমাদের সাথে চ্যাট করুন"
+  join_at_slack_description: "Slack চ্যানেল"
+  welcome_back_text: "ডিজিটাল সার্কিট ইউনিভার্স এ আপনাকে স্বাগতম!"
+  save: "সংরক্ষণ করুন"
+  back: "পিছনে যান"
+  login: "লগ ইন"
+  sign_up: "সাইন আপ"
+  sign_out: "সাইন আউট"
+  assignment: "অ্যাসাইনমেন্ট"
+  launch: "শুরু করুন"
+  fork: "ফর্ক"
+  more: "আরও"
+  submit: "জমা দিন"
+  features_heading: "বৈশিষ্ট্যসমূহ"
+  features_description: "ড্র্যাগ-এন্ড-ড্রপ, কপি/পেস্ট, জুম এবং আরও অনেক কিছু সহ একটি আধুনিক এবং স্বজ্ঞাত ইউজার ইন্টারফেসের সাথে দ্রুত এবং সহজে সার্কিট ডিজাইন করুন।"
+  add_members: "সদস্য যোগ করুন"
+  add_mentors: "মেন্টর যোগ করুন"
+  remove: "সরান"
+  reopen: "পুনরায় খুলুন"
+  close: "বন্ধ করুন"
+  not_available: "উপলব্ধ নয়"
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "আধা মিনিট"
+      less_than_x_seconds:
+        one: "1 সেকেন্ড" # default was: "less than 1 second"
+        other: "%{count} সেকেন্ড" # default was: "less than %{count} seconds"
+      x_seconds:
+        one: "1 সেকেন্ড"
+        other: "%{count} সেকেন্ড"
+      less_than_x_minutes:
+        one: "1 মিনিট" # default was: "less than a minute"
+        other: "%{count} মিনিট" # default was: "less than %{count} minutes"
+      x_minutes:
+        one: "1 মিনিট"
+        other: "%{count} মিনিট"
+      about_x_hours:
+        one: "1 ঘন্টা" # default was: "about 1 hour"
+        other: "%{count} ঘন্টা" # default was: "about %{count} hours"
+      x_days:
+        one: "1 দিন"
+        other: "%{count} দিন"
+      about_x_months:
+        one: "1 মাস" # default was: "about 1 month"
+        other: "%{count} মাস" # default was: "about %{count} months"
+      x_months:
+        one: "1 মাস"
+        other: "%{count} মাস"
+      about_x_years:
+        one: "1 বছর" # default was: "about 1 year"
+        other: "%{count} বছর" # default was: "about %{count} years"
+      over_x_years:
+        one: "1 বছর" # default was: "over 1 year"
+        other: "%{count} বছর" # default was: "over %{count} years"
+      almost_x_years:
+        one: "1 বছর" # default was: "almost 1 year"
+        other: "%{count} বছর" # default was: "almost %{count} years"

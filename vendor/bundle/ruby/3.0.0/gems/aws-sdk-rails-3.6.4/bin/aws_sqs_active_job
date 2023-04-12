@@ -1,0 +1,5 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/aws/rails/sqs_active_job/poller'
+
+Aws::Rails::SqsActiveJob::Poller.new.run

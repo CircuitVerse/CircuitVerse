@@ -9,7 +9,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
     return if assignment.nil? || (assignment.status == "closed")
 
     assignment.with_lock do
-      return if assignment.nil? || (assignment.status == "closed")
+      next if assignment.nil? || (assignment.status == "closed")
 
       if Time.zone.now - assignment.deadline >= -10 && (assignment.status == "open")
         assignment.projects.each do |proj|

@@ -1,0 +1,107 @@
+version: "3.9"
+services:
+  elasticsearch7:
+    image: elasticsearch:7.16.2
+    ports:
+      - "9200:9200"
+    environment:
+      - discovery.type=single-node
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    mem_limit: 1g
+  elasticsearch8:
+    image: elasticsearch:8.4.2
+    ports:
+      - "9250:9250"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - http.port=9250
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+    mem_limit: 1g
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_password
+      MYSQL_DATABASE: app
+    expose:
+      - "3306"
+    volumes:
+      - mysql:/var/lib/mysql
+  rabbitmq:
+    image: rabbitmq:3.9.12
+    restart: always
+    environment:
+      RABBITMQ_NODENAME: rabbit
+    expose:
+      - "5672"
+      - "15672"
+      - "25672"
+      - "4369"
+  memcached:
+    image: memcached:1.6.12
+    restart: always
+    expose:
+      - "11211"
+  mongodb:
+    image: mongo:5.0.4
+    restart: always
+    volumes:
+      - /data/db
+    expose:
+      - "27017"
+  postgres:
+    image: postgres:14.2
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: postgres_password
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    expose:
+      - "5432"
+  redis:
+    image: redis:6.2.6
+    restart: always
+    volumes:
+      - /var/lib/redis
+    expose:
+      - "6379"
+  app:
+    build:
+      context: .
+      args:
+        - ruby_version=${RUBY_VERSION:-3.1}
+    image: newrelic_rpm
+    tty: true
+    stdin_open: true
+    environment:
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: mysql_root_password
+      DATABASE_NAME: app
+      MYSQL_HOST: mysql
+      POSTGRES_USERNAME: admin
+      POSTGRES_PASSWORD: postgres_password
+    command: ["irb"]
+    volumes:
+      - ".:/usr/src/app"
+    depends_on:
+      - elasticsearch7
+      - elasticsearch8
+      - mysql
+      - memcached
+      - mongodb
+      - postgres
+      - rabbitmq
+      - redis
+    sysctls:
+      - "net.ipv6.conf.all.disable_ipv6=0"
+volumes:
+  mongodb:
+    driver: local
+  mysql:
+    driver: local
+  postgres:
+    driver: local

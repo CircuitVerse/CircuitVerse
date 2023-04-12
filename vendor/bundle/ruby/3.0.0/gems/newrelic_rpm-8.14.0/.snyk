@@ -1,0 +1,11 @@
+exclude:
+  global:
+    # The project Dockerfile is only used to orchestrate container usage for
+    # local development with containers that are not to be exposed to the
+    # outside world. We use vanilla "ruby" images and do not layer on any
+    # additional software dependencies or configurations ourselves that would
+    # change the original "ruby" images' security profile. We defer all
+    # security mitigation for the images to the "ruby" image maintainers (who
+    # themselves are periodically updating their base Ubuntu layers to mitigate
+    # issues).
+    - Dockerfile
