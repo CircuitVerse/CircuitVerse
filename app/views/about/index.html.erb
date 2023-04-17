@@ -52,6 +52,45 @@
   <br><br>
   <hr>
   <div class="container">
+      <div class="row center-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h2 class="main-heading"><%= t("about.mentorship_programs_heading") %></h2>
+          <p class="main-description"><%= t("about.mentorship_programs_description") %></p>
+          <br><br>
+          <div class="mentorship-programs-list">
+            <div class="card mentorship-program-card"><%= image_tag "SVGs/gsoc-logo.svg", height: "100", width: "100", alt: "Email Icon", class: "card-img-top" %>
+              <div class="card-body">
+                <p class=" fw-bolder mentorship-program-1"><%= t("about.program_gsoc") %></p>
+                <p class="mentorship_program_time"><%= t("about.program_gsoc_timeline") %></p>
+              </div>
+            </div>
+            <div class="card mentorship-program-card"><%= image_tag "SVGs/gsod-logo.svg", height: "100", width: "100", alt: "Email Icon", class: "card-img-top" %>
+              <div class="card-body">
+                <p class=" fw-bolder mentorship-program-2"><%= t("about.program_gsod") %></p>
+                <p class="mentorship_program_time"><%= t("about.program_gsod_timeline") %></p>
+              </div>
+            </div>
+            <div class="card mentorship-program-card"> 
+              <%= image_tag "SVGs/gci-logo.svg", height: "100", width: "50", alt: "Email Icon", class: "card-img-top" %>
+              <div class="card-body">
+                <p class=" fw-bolder mentorship-program-3"><%= t("about.program_gci") %></p>
+                <p class="mentorship_program_time"><%= t("about.program_gci_timeline") %></p>
+              </div>
+            </div>          
+            <div class="card mentorship-program-card"> 
+              <%= image_tag "PNGs/foss-united-logo.png", height: "80", width: "80", alt: "Email Icon", class: "card-img-top" %>
+              <div class="card-body">
+                <p class=" fw-bolder mentorship-program-4"><%= t("about.program_fosshack") %></p>
+                <p class="mentorship_program_time"><%= t("about.program_fosshack_timeline") %></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>   
+   <br><br>
+   <hr>     
+  <div class="container">
     <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h2 class="main-heading"><%= t("about.mentors_team_heading") %></h2>
@@ -107,47 +146,8 @@
         <a class="btn primary-button about-primary-button" href="/contribute"><%= t("about.become_contributor") %></a>
       </div>
     </div>
-    <br><br>
-  <hr>
-    <div class="container">
-      <div class="row center-row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <h2 class="main-heading"><%= t("about.mentorship_programs_heading") %></h2>
-          <p class="main-description"><%= t("about.mentorship_programs_description") %></p>
-          <br><br>
-          <div class="mentorship-programs-list">
-            <div class="card mentorship-program-card"><%= image_tag "SVGs/gsoc-logo.svg", height: "100", width: "100", alt: "Email Icon", class: "card-img-top" %>
-              <div class="card-body">
-                <p class=" fw-bolder mentorship-program-1"><%= t("about.program_gsoc") %></p>
-                <p class="mentorship_program_time"><%= t("about.program_gsoc_timeline") %></p>
-              </div>
-            </div>
-            <div class="card mentorship-program-card"><%= image_tag "SVGs/gsod-logo.svg", height: "100", width: "100", alt: "Email Icon", class: "card-img-top" %>
-              <div class="card-body">
-                <p class=" fw-bolder mentorship-program-2"><%= t("about.program_gsod") %></p>
-                <p class="mentorship_program_time"><%= t("about.program_gsod_timeline") %></p>
-              </div>
-            </div>
-            <div class="card mentorship-program-card"> 
-              <%= image_tag "SVGs/gci-logo.svg", height: "100", width: "50", alt: "Email Icon", class: "card-img-top" %>
-              <div class="card-body">
-                <p class=" fw-bolder mentorship-program-3"><%= t("about.program_gci") %></p>
-                <p class="mentorship_program_time"><%= t("about.program_gci_timeline") %></p>
-              </div>
-            </div>          
-            <div class="card mentorship-program-card"> 
-              <%= image_tag "PNGs/foss-united-logo.png", height: "80", width: "80", alt: "Email Icon", class: "card-img-top" %>
-              <div class="card-body">
-                <p class=" fw-bolder mentorship-program-4"><%= t("about.program_fosshack") %></p>
-                <p class="mentorship_program_time"><%= t("about.program_fosshack_timeline") %></p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <br><br>  
   </div>
-
 <script type="text/javascript">
   async function getContributors(url){
     let apiData = await fetch(url);
