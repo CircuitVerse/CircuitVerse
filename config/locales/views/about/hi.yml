@@ -20,7 +20,7 @@ hi:
     become_contributor: "एक योगदानकर्ता बनें"
     mentorship_programs_heading: "मेंटरशिप कार्यक्रम" 
     mentorship_programs_description: "सर्किटवर्स विभिन्न सलाह कार्यक्रमों में भाग लेता रहा है, जिनमें शामिल हैं:"
-    program_gsoc: "गूगल गूगल समर ऑफ कोड "
+    program_gsoc: "गूगल समर ऑफ कोड "
     program_gsoc_timeline_html: "<a href='https://summerofcode.withgoogle.com/archive/2020/organizations/5373782455222272' target='_blank'>2020</a>, <a href='https://summerofcode.withgoogle.com/archive/2021/organizations/6293580166987776' target='_blank'>2021</a>, <a href='https://summerofcode.withgoogle.com/archive/2022/organizations/circuitverseorg' target='_blank'>2022</a>, <a href='https://summerofcode.withgoogle.com/programs/2023/organizations' target='_blank'>2023</a>"
     program_gsod: "गूगल सीज़न ऑफ डॉक्स "
     program_gsod_timeline_html: "<a href='https://developers.google.com/season-of-docs/docs/2020/participants/project-circuitverse-dvls' target='_blank'>2022</a>"
