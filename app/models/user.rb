@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  mailkick_user
+  has_subscriptions
   require "pg_search"
   include SimpleDiscussion::ForumUser
 
@@ -109,5 +109,6 @@ class User < ApplicationRecord
 
     def send_welcome_mail
       UserMailer.welcome_email(self).deliver_later
+      subscribe("circuitverse")
     end
 end

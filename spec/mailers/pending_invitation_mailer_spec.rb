@@ -4,8 +4,9 @@ require "rails_helper"
 
 RSpec.describe PendingInvitationMailer, type: :mailer do
   before do
-    @group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user), name: "Test group")
-    @pending_invitation = FactoryBot.create(:pending_invitation, group: @group)
+    @user = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @user, name: "Test group")
+    @pending_invitation = FactoryBot.create(:pending_invitation, group: @group, email: @user.email)
   end
 
   describe "#new_pending_email" do

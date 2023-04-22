@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CircuitVerse/disposable_email.git
-  revision: b47303bcd6c51726d5027e9aa816b3ca1e0b3a3a
+  revision: 2b466bc90327829ed98d2b4a8ad99f4435c0615a
   specs:
     disposable_mail (0.1.7)
 
@@ -333,8 +333,8 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailkick (0.4.3)
-      activesupport (>= 5)
+    mailkick (1.1.2)
+      activesupport (>= 5.2)
     marcel (1.0.2)
     matrix (0.4.2)
     meta-tags (2.16.0)
