@@ -39,10 +39,10 @@
       <% end %>
       <div class="d-flex align-items-center justify-content-center mb-2 mt-3">
         <% if @unread.count.positive? %>
-          <%= link_to t("users.notifications.mark_as_read_button"), read_all_notifications_url(current_user), :method=> :patch, class: "anchor-text-left" %>
-          <%= link_to t("users.notifications.see_all"), notifications_path(current_user), :class=>"anchor-text-right" %>
+          <%= link_to t("users.notifications.mark_as_read_button"), read_all_notifications_url(current_user), method: :patch, class: "anchor-text-left" %>
+          <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text-right" %>
         <% else %>
-        <%= link_to t("users.notifications.see_all"), notifications_path(current_user), :class=>"anchor-text" %>
+        <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text" %>
         <% end %>
       </div>
     </div>

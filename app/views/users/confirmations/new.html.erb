@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
-      <%= image_tag "SVGs/login.svg", alt: "Login Logo", :class => "users-image" %>
+      <%= image_tag "SVGs/login.svg", alt: "Login Logo", class: "users-image" %>
       <h5 class="users-image-text"><%= t("welcome_back_text") %></h5>
     </div>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
@@ -12,7 +12,7 @@
           <div class="field form-group">
             <h6><%= f.label :email %></h6>
             <div class="input-group">
-              <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class:"form-control form-input" %>
+              <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control form-input" %>
             </div>
           </div>
           <div class="field form-group">

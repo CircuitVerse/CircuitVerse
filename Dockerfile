@@ -1,4 +1,4 @@
-FROM ruby:3.2.0
+FROM ruby:3.2.1
 
 # set up workdir
 RUN mkdir /circuitverse
