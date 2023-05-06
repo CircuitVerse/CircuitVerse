@@ -122,7 +122,7 @@
 }
 
 .users-text-container {
-  border-color: rgb(194, 193, 193);
+  border-color: $box-grey-cover;
   border-radius: 5px;
   border-style: solid;
   border-width: 2px;
@@ -205,7 +205,7 @@
   border-radius: 3px;
   border-style: solid;
   border-width: 0;
-  box-shadow: 2px 2px 5px rgb(211, 210, 210);
+  box-shadow: 2px 2px 5px $box-grey-cover;
   color: $iframe-container-grey;
   display: flex;
   font-weight: 700;
@@ -226,12 +226,12 @@
   }
 
   &.facebook {
-    background-color: #3b5998;
+    background-color: $blue-facebook-bg;
     color: $white;
   }
 
   &.github {
-    background-color: #333333;
+    background-color: $github-black-bg;
     color: $white;
   }
 
@@ -241,11 +241,11 @@
 .mail-icon-login-div {
   align-items: center;
   background-color: $primary-green;
-  border-color: black;
+  border-color: $black;
   border-radius: 3px;
   border-style: solid;
   border-width: 0;
-  box-shadow: 2px 2px 5px rgb(211, 210, 210);
+  box-shadow: 2px 2px 5px $box-grey-cover;
   color: $white;
   display: flex;
   height: 3.5em;
