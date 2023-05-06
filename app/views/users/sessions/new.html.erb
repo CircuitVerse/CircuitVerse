@@ -4,7 +4,6 @@
       <%= image_tag "SVGs/login.svg", alt: "Login Sketch", class: "users-image" %>
       <h5><%= t("welcome_back_text") %></h5>
     </div>
-
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="form-container">
         <h1 class="users-main-heading"><%= t("login") %></h1>
@@ -12,14 +11,12 @@
         <% flash.each do |key, value| %>
           <div class="error-message"><%= value %></div>
         <% end %>
-                
         <%#Inputs start from this block%>
         <div class="field form-group" id="email-login-id">
           <div class="input-group">
             <%= f.email_field :email, autofocus: true, class: "form-control form-input user-email-input",placeholder: "Email Address" %>
           </div>
         </div>
-
         <div class="field form-group" id="email-password-login-id">
           <div class="input-group form-input rounded h:3.5em">
             <%= f.password_field :password, autocomplete: "off", class: "form-control users-password-input",placeholder: "Password" %>
@@ -28,12 +25,10 @@
             </div>
           </div>
         </div>
-        
         <div class="field form-group" id="forgot-pass-remember-me-id">
           <div class="input-group">
             <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
               <%= link_to t("users.sessions.forgot_password"), new_password_path(resource_name), class: "anchor-text users-forgot-password-text" %>
-
               <%#Remember-me button code-block below%>
               <% if devise_mapping.rememberable? -%>
                 <div class="field form-group">
@@ -43,11 +38,9 @@
                   </label>
                 </div>
               <% end -%>
-            
             <% end -%>
           </div>
         </div>
-        
         <%#Sign-In and New-to-circuitverse Code-Block below %>
         <div class="field form-group">
           <div class="input-group">
@@ -55,17 +48,14 @@
               <%= recaptcha_tags %>
             <% end %>
             <%= f.submit t("loginbutton"), class: "btn primary-button users-login-primary-button",id:'email-signin-button' %>
-            
             <%#This code below renders _links.html.erb%>
             <%= render "users/shared/links" %>
-
             <div class="users-text-container">
               <span class="users-text"><%= t("users.ask_new_user") %></span>
               <%= link_to t("sign_up"), new_registration_path(resource_name),class: "anchor-text anchor-text-signup-mainpage" %>
             </div>
           </div>
         </div>
-        
       </div>
       <% end %>
     </div>
