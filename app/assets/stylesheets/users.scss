@@ -46,7 +46,7 @@
   justify-content: center;
   margin-left: 9em;
   width: 8em;
-  
+
   h6 {
     display: inline;
     margin-bottom: 0;
@@ -66,6 +66,7 @@
     margin-left: 6.3em;
   }
 }
+
 @media (max-width:773px) {
   .users-primary-checkpoint {
     margin-left: 6.5em;
@@ -217,7 +218,7 @@
   text-decoration: none;
   transition: all .2s ease-in-out;
   width: 31em;
-  
+
   &:hover {
     color: $iframe-container-grey;
     text-decoration: none;
@@ -252,7 +253,7 @@
   padding: 1em;
   transition: all .2s ease-in-out;
   width: 31em;
-  
+
   .email-login-text {
     font-weight: 700;
     margin-top: 1em;
@@ -303,13 +304,13 @@
       margin-left: -3.4em;
       margin-right: 2.3em;
     }
-    
+
     &.facebook-logo {
       margin-left: -2.2em;
       margin-right: 1.5em;
       width: 3em;
     }
-    
+
     &.github-logo {
       margin-left: -3.7em;
       margin-right: 1.6em;
