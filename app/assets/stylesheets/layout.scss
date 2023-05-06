@@ -63,6 +63,12 @@ body {
   margin-right: auto;
   max-width: 1344px;
   text-align: center;
+  display: flex;
+  justify-content: center;
+
+  &.logintabs{
+    margin-top: -3em;
+  }
 }
 
 .div-flex-center {
@@ -95,6 +101,25 @@ body {
     color: $primary-green;
   }
 }
+
+.anchor-text-signup-mainpage{
+  text-decoration: none;
+  margin-left: 5em;
+}
+
+@media (max-width:992px){
+  .anchor-text-signup-mainpage{
+    margin-left: 0em;
+  }
+}
+
+@media (max-width:766px){
+  .anchor-text-signup-mainpage{
+    margin-left: 3em;
+  }
+}
+
+
 .anchor-text-left {
   color: $secondary-green;
   font-weight: 500;
@@ -127,6 +152,7 @@ body {
     color: $primary-green;
   }
 }
+
 //pagination
 .page-link {
   color: $secondary-green;

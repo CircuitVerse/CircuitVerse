@@ -1,7 +1,7 @@
 en:
   users:
     minimum_password_length: "(Minimum %{minimum_password_length} characters)"
-    ask_new_user: "New User?"
+    ask_new_user: "New to CircuitVerse?"
     confirmations:
       resend_confirmation_instructions: "Resend confirmation instructions"
     circuitverse:
