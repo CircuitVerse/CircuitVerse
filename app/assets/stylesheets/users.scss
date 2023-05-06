@@ -46,7 +46,6 @@
   justify-content: center;
   margin-left: 9em;
   width: 8em;
-  
   h6 {
     display: inline;
     margin-bottom: 0;
@@ -107,12 +106,12 @@
   background-color: $white;
   border: 1px solid $secondary-green;
   cursor: pointer;
+  margin-top: -.5em;
   padding-left: 4px;
   padding-top: 4px;
   position: relative;
   text-align: center;
   top: 6px;
-  margin-top: -.5em;
 
   &:hover {
     border-color: $primary-green;
@@ -122,16 +121,16 @@
 }
 
 .users-text-container {
-  margin-top: 20px;
-  width: 100em;
-  display: flex;
-  justify-content: center;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  border-style: solid;
   border-color: rgb(194, 193, 193);
   border-radius: 5px;
+  border-style: solid;
   border-width: 2px;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  width: 100em;
 }
 
 //breakpoints
@@ -167,13 +166,13 @@
 }
 
 .users-social-links {
-  padding-top: 10px;
-  width: 1.5em;
   // border-style: solid;
   // border-color: $red;
   display: flex;
   justify-content: center;
   margin-bottom: .5em;
+  padding-top: 10px;
+  width: 1.5em;
 
   &.google-logo {
     margin-left: -4.8em;
@@ -218,7 +217,6 @@
   text-decoration: none;
   transition: all .2s ease-in-out;
   width: 31em;
-  
   &:hover {
     color: $iframe-container-grey;
     text-decoration: none;
@@ -227,93 +225,91 @@
 
   &.facebook {
     background-color: #3b5998;
-    color:$white;
+    color: $white;
   }
 
   &.github {
     background-color: #333333;
-    color:$white;
+    color: $white;
   }
 
 }
 
 //mail-icon-login-div
-.mail-icon-login-div{
-  border-style: solid;
+.mail-icon-login-div {
+  align-items: center;
+  background-color: $primary-green;
   border-color: black;
   border-radius: 3px;
+  border-style: solid;
   border-width: 0px;
-  background-color: $primary-green;
-
+  box-shadow: 2px 2px 5px rgb(211, 210, 210);
+  color: $white;
   display: flex;
-  align-items: center;
-  color:$white;
-  padding: 1em;
-  width: 31em;
   height: 3.5em;
-
-
-  .email-login-text{
+  margin-bottom: 1em;
+  padding: 1em;
+  transition: all 0.2s ease-in-out;
+  width: 31em;
+  
+  .email-login-text {
     margin-top: 1em;
     font-weight: 700;
   }
 
-  transition: all 0.2s ease-in-out;
-  &:hover{
+  &:hover {
     transform:scale(1.1);
     cursor: pointer;
   }
 
-  box-shadow: 2px 2px 5px rgb(211, 210, 210);
-  margin-bottom: 1em;
 }
 
-.mail-icon-image{
-  height:1.5em;
+.mail-icon-image {
+  height: 1.5em;
   margin-right: 2.3em;
   margin-left: 5.5em;
 }
 
-@media (max-width:1200px){
-  .other-login-links{
-    width:26em;
+@media (max-width:1200px) {
+  .other-login-links {
+    width: 26em;
   }
 
-  .mail-icon-login-div{
-    width:26em;
+  .mail-icon-login-div {
+    width: 26em;
   }
 
-  .mail-icon-image{
+  .mail-icon-image {
     margin-left: 3em;
   }
 }
 
-@media (max-width:992px){
-  .other-login-links{
-    width:19em;
+@media (max-width:992px) {
+  .other-login-links {
+    width: 19em;
   }
 
-  .mail-icon-login-div{
-    width:19em;
+  .mail-icon-login-div {
+    width: 19em;
   }
 
-  .mail-icon-image{
+  .mail-icon-image {
     margin-left: 0.3em;
   }
 
-  .users-social-links{
-    &.google-logo{
+  .users-social-links {
+    &.google-logo {
       margin-left: -3.4em;
       margin-right: 2.3em;
     }
   
-    &.facebook-logo{
+    &.facebook-logo {
       margin-left: -2.2em;
-      width:3em;
+      width: 3em;
       margin-right: 1.5em;
     }
   
-    &.github-logo{
+    &.github-logo {
       margin-left: -3.7em;
       margin-right: 1.6em;
       width: 3em;
@@ -323,20 +319,20 @@
 }
 
 //toggle-css for email-login
-#email-login-id{
-  display:none;
+#email-login-id {
+  display: none;
 }
 
-#email-password-login-id{
-  display:none;
+#email-password-login-id {
+  display: none;
 }
 
-#forgot-pass-remember-me-id{
-  display:none;
+#forgot-pass-remember-me-id {
+  display: none;
 }
 
-#email-signin-button{
-  display:none;
+#email-signin-button {
+  display: none;
 }
 
 //login-register
@@ -358,19 +354,19 @@
 .users-password-input {
   // border: 0;
   height: 100%;
-  border-width: 0px;
+  border-width: 0;
   text-indent: 1em;
 
-  &::placeholder{
-    color:$black;
-    opacity:0.8;
+  &::placeholder {
+    color: $black;
+    opacity: .8;
   }
 }
 
 .users-forgot-password-text {
   // margin-left: auto;
   // text-align: right;
-  text-align:left;
+  text-align: left;
   // border-style: solid;
   // border-color: $red;
 }
