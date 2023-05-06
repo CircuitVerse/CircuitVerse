@@ -66,7 +66,7 @@ body {
   display: flex;
   justify-content: center;
 
-  &.logintabs{
+  &.logintabs {
     margin-top: -3em;
   }
 }
@@ -102,19 +102,19 @@ body {
   }
 }
 
-.anchor-text-signup-mainpage{
-  text-decoration: none;
+.anchor-text-signup-mainpage {
   margin-left: 5em;
+  text-decoration: none;
 }
 
 @media (max-width:992px){
-  .anchor-text-signup-mainpage{
-    margin-left: 0em;
+  .anchor-text-signup-mainpage {
+    margin-left: 0;
   }
 }
 
 @media (max-width:766px){
-  .anchor-text-signup-mainpage{
+  .anchor-text-signup-mainpage {
     margin-left: 3em;
   }
 }
