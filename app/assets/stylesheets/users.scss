@@ -46,6 +46,7 @@
   justify-content: center;
   margin-left: 9em;
   width: 8em;
+  
   h6 {
     display: inline;
     margin-bottom: 0;
@@ -65,7 +66,6 @@
     margin-left: 6.3em;
   }
 }
-
 @media (max-width:773px) {
   .users-primary-checkpoint {
     margin-left: 6.5em;
@@ -217,6 +217,7 @@
   text-decoration: none;
   transition: all .2s ease-in-out;
   width: 31em;
+  
   &:hover {
     color: $iframe-container-grey;
     text-decoration: none;
@@ -242,32 +243,32 @@
   border-color: black;
   border-radius: 3px;
   border-style: solid;
-  border-width: 0px;
+  border-width: 0;
   box-shadow: 2px 2px 5px rgb(211, 210, 210);
   color: $white;
   display: flex;
   height: 3.5em;
   margin-bottom: 1em;
   padding: 1em;
-  transition: all 0.2s ease-in-out;
+  transition: all .2s ease-in-out;
   width: 31em;
   
   .email-login-text {
-    margin-top: 1em;
     font-weight: 700;
+    margin-top: 1em;
   }
 
   &:hover {
-    transform:scale(1.1);
     cursor: pointer;
+    transform: scale(1.1);
   }
 
 }
 
 .mail-icon-image {
   height: 1.5em;
-  margin-right: 2.3em;
   margin-left: 5.5em;
+  margin-right: 2.3em;
 }
 
 @media (max-width:1200px) {
@@ -294,7 +295,7 @@
   }
 
   .mail-icon-image {
-    margin-left: 0.3em;
+    margin-left: .3em;
   }
 
   .users-social-links {
@@ -302,13 +303,13 @@
       margin-left: -3.4em;
       margin-right: 2.3em;
     }
-  
+    
     &.facebook-logo {
       margin-left: -2.2em;
-      width: 3em;
       margin-right: 1.5em;
+      width: 3em;
     }
-  
+    
     &.github-logo {
       margin-left: -3.7em;
       margin-right: 1.6em;
@@ -341,20 +342,20 @@
 }
 
 .password-icon {
-  color: $secondary-green;
-  width: 40px;
-  height: 100%;
-  display: flex;
   align-items: center;
+  color: $secondary-green;
+  display: flex;
+  height: 100%;
   padding-right: 3em;
+  width: 40px;
   // border-style: solid;
   // border-color: $red;
 }
 
 .users-password-input {
   // border: 0;
-  height: 100%;
   border-width: 0;
+  height: 100%;
   text-indent: 1em;
 
   &::placeholder {
@@ -374,10 +375,10 @@
 .users-login-primary-button {
   margin-top: 20px;
   padding: 8px 25px;
-  padding-top: 15px;
   padding-bottom: 15px;
-  width: 100em;
+  padding-top: 15px;
   transform: scale(1.02);
+  width: 100em;
 }
 //login-register ends
 
