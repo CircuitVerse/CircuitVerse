@@ -316,8 +316,6 @@
   justify-content: space-between;
 
   input {
-    border: 0;
-    border-left: 1px solid $form-border-grey;
     border-radius: 0;
     font-size: 16px;
     margin: 0;
@@ -336,6 +334,7 @@
 }
 .users-circuits-search {
   align-items: center;
+  border: 2px solid $primary-green;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
