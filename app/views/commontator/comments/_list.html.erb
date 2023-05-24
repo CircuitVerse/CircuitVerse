@@ -6,7 +6,8 @@
 
 <% nested_comments.each do |comment, nested_children| %>
   <div id="commontator-comment-<%= comment.id %>" class="comment">
-render partial: "commontator/comments/show", formats: [:html], locals: {
+    <%=
+      render partial: 'commontator/comments/show', formats: [ :html ], locals: {
         user: user, comment: comment, nested_children: nested_children
       }
     %>

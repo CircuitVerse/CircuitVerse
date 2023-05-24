@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CircuitVerse/disposable_email.git
-  revision: b47303bcd6c51726d5027e9aa816b3ca1e0b3a3a
+  revision: e90182d085c720bc9361246177fbada38f79179f
   specs:
     disposable_mail (0.1.7)
 
