@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CircuitVerse/disposable_email.git
-  revision: b47303bcd6c51726d5027e9aa816b3ca1e0b3a3a
+  revision: e90182d085c720bc9361246177fbada38f79179f
   specs:
     disposable_mail (0.1.7)
 
@@ -345,7 +345,7 @@ GEM
     mime-types-data (3.2022.0105)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
+    mini_portile2 (2.8.2)
     minitest (5.18.0)
     msgpack (1.6.0)
     multi_xml (0.6.0)
@@ -361,8 +361,8 @@ GEM
       net-protocol
     newrelic_rpm (8.14.0)
     nio4r (2.5.8)
-    nokogiri (1.14.2)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.15.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     noticed (1.6.0)
       http (>= 4.0.0)

@@ -71,7 +71,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
 
   # PUT /api/v1/comments/:id/downvote
   def downvote
-    security_transgression_unless @comment.can_be_voted_on_by?(current_user) && \
+    security_transgression_unless @comment.can_be_voted_on_by?(current_user) &&
                                   @comment.thread.config.comment_voting.to_sym == :ld
 
     @comment.downvote_from current_user
