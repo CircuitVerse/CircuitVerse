@@ -51,7 +51,7 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
     context "when authorized but tries to create duplicate grade" do
       before do
         FactoryBot.create(
-          :grade, project: project, assignment: assignment, \
+          :grade, project: project, assignment: assignment,
                   user_id: primary_mentor.id, grade: "A", remarks: "Good"
         )
         token = get_auth_token(primary_mentor)
