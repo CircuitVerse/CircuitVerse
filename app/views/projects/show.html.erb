@@ -1,3 +1,10 @@
+# this file is worthy being coz it has delete & embeded button
+class DeleteButtonComponent < ViewComponent::Base
+  def initialize(data:, **attrs)
+    @data = data
+    @attrs = attrs
+  end
+end
 <% content_for :title, "CircuitVerse - #{@project.name}" %>
 <% content_for :description, @project.description %>
 <% set_meta_tags author: @project.author.name %>
@@ -140,6 +147,9 @@
               <%= link_to "#", class: "btn secondary-button", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
+              <% end %>
+              <%= render(ButtonComponent.new(class: "button", data: {})) do %>
+                Click me!
               <% end %>
               <a class="btn secondary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
                 <i class="fas fa-code"></i>
