@@ -48,7 +48,6 @@ dump.rdb
 
 public/sitemap.xml.gz
 coverage
-.vscode
 
 solr/data
 solr/test/data
@@ -79,5 +78,5 @@ yosys2digitaljs-server
 
 
 # Ignore all files of .vscode except launch.json
-/.vscode/*
+.vscode/*
 !.vscode/launch.json
