@@ -118,8 +118,8 @@ gem "strong_migrations"
 gem 'rails-data-migrations'
 
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  # Adds support for debug
+  gem "debug", "~>1.7.1"
   # Adds support for Capybara system testing and selenium driver
   gem "coveralls_reborn", "~> 0.26.0", require: false
   gem "erb_lint", require: false
