@@ -8,6 +8,7 @@
 /.bundle
 /.idea
 test_results
+tmp
 
 public/assets/
 
