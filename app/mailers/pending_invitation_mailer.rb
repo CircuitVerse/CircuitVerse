@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class PendingInvitationMailer < ApplicationMailer
-  
   # @param [PendingInvitation] pending_invitation
   # @return [void]
   def new_pending_email(pending_invitation)

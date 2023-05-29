@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class GroupMailer < ApplicationMailer
-
   # @param [User] user
   # @param [Group] group
   # @return [void]

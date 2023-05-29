@@ -15,7 +15,6 @@
 #
 
 class Announcement < ApplicationRecord
-
   # @return [Announcement]
   def self.current
     order("created_at desc").first

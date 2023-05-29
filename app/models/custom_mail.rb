@@ -17,7 +17,6 @@
 #
 #  index_custom_mails_on_user_id  (user_id)
 
-
 class CustomMail < ApplicationRecord
   belongs_to :sender, class_name: "User", foreign_key: :user_id
 end

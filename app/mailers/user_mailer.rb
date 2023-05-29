@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
-
   # @param [User] user
   # @param [CustomMail] mail
   # @return [void]
@@ -35,7 +34,7 @@ class UserMailer < ApplicationMailer
   # @param [User] user
   # @param [Project] old_project
   # @param [Project] new_project
-  # @return [void]  
+  # @return [void]
   def forked_project_email(user, old_project, new_project)
     return if user.opted_out?
 

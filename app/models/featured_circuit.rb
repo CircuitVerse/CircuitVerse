@@ -15,7 +15,6 @@
 #  index_featured_circuits_on_project_id  (project_id)
 #
 
-
 class FeaturedCircuit < ApplicationRecord
   belongs_to :project
 

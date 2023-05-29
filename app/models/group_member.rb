@@ -28,7 +28,6 @@ class GroupMember < ApplicationRecord
   scope :mentor, -> { where(mentor: true) }
   scope :member, -> { where(mentor: false) }
 
-  
   def send_welcome_email
     GroupMailer.new_member_email(user, group).deliver_later
   end

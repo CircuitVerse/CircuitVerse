@@ -17,7 +17,6 @@
 #  index_taggings_on_tag_id      (tag_id)
 #
 
-
 class Tagging < ApplicationRecord
   belongs_to :project
   belongs_to :tag

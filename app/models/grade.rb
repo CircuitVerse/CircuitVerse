@@ -21,7 +21,6 @@
 #  index_grades_on_project_id_and_assignment_id  (project_id,assignment_id) UNIQUE
 #
 
-
 class Grade < ApplicationRecord
   LETTER_MATCH = /^(A|B|C|D|E|F)$/
   PERCENT_MATCH = /^[0-9][0-9]?$|^100$/

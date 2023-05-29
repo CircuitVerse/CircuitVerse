@@ -31,8 +31,6 @@
 #  index_projects_on_searchable          (searchable) USING gin
 #  index_projects_on_slug_and_author_id  (slug,author_id) UNIQUE
 
-
-
 require "pg_search"
 class Project < ApplicationRecord
   extend FriendlyId
@@ -143,7 +141,6 @@ class Project < ApplicationRecord
     forked_project
   end
 
-
   def send_mail
     if forked_project_id.nil?
       UserMailer.new_project_email(author, self).deliver_later if project_submission == false
@@ -157,7 +154,7 @@ class Project < ApplicationRecord
   end
 
   # @param [String] name
-  # @return [Array<Project>] returns a list of projects with the given tag  
+  # @return [Array<Project>] returns a list of projects with the given tag
   def self.tagged_with(name)
     Tag.find_by!(name: name).projects
   end
