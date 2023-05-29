@@ -130,6 +130,8 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  # Adds support for Solargraph LSP
+  gem 'solargraph-rails', '~> 0.3.1'
 end
 
 group :test do
