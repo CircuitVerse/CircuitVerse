@@ -265,7 +265,7 @@
 #     @param id [Integer]
 #     @return [self]
 #   @overload find_by(*kwargs)
-#     @return [Array<self>]
+#     @return [self]
 #   @overload find(list)
 #     @param list [Array]
 #     @return [Array<self>]
