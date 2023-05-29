@@ -1,5 +1,29 @@
 # frozen_string_literal: true
 
+#
+# == Schema Information
+#
+# Table name: assignments
+#
+#  id            :bigint           not null, primary key
+#  name          :string
+#  deadline      :datetime
+#  description   :text
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  group_id      :bigint
+#  grading_scale :integer          default(0)
+#  grades_finalized :boolean      default(FALSE)
+#  restrictions :json             default("[]")
+#  lti_consumer_key :string
+#  lti_shared_secret :string
+#  feature_restrictions :jsonb    default("{}")
+#
+# Indexes
+#
+#  index_assignments_on_group_id  (group_id)
+#
+
 class Assignment < ApplicationRecord
   validates :name, length: { minimum: 1 }
   validates :grading_scale, inclusion: {

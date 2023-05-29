@@ -1,5 +1,25 @@
 # frozen_string_literal: true
 
+#
+# == Schema Information
+#
+# Table name: groups
+#
+#  id                    :bigint           not null, primary key
+#  name                  :string
+#  primary_mentor_id     :bigint
+#  created_at            :datetime         not null
+#  updated_at            :datetime         not null
+#  group_members_count   :integer
+#  group_token           :string
+#  token_expires_at      :datetime
+#
+# Indexes
+#
+#  index_groups_on_primary_mentor_id  (primary_mentor_id)
+#  index_groups_on_group_token        (group_token) UNIQUE
+
+
 class Group < ApplicationRecord
   has_secure_token :group_token
   validates :name, length: { minimum: 1 }, presence: true

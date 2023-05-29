@@ -2,6 +2,37 @@
 
 # rubocop:disable Metrics/ClassLength
 
+#
+# == Schema Information
+#
+# Table name: projects
+#
+#  id                   :bigint           not null, primary key
+#  name                 :string
+#  author_id            :bigint
+#  forked_project_id    :bigint
+#  project_access_type  :string
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  assignment_id        :bigint
+#  project_submission   :boolean          default(FALSE)
+#  image_preview        :string
+#  description          :text
+#  view                 :bigint           default(1)
+#  slug                 :string
+#  searchable           :tsvector
+#  lis_result_sourced_id :string
+#
+# Indexes
+#
+#  index_projects_on_assignment_id      (assignment_id)
+#  index_projects_on_author_id           (author_id)
+#  index_projects_on_forked_project_id   (forked_project_id)
+#  index_projects_on_searchable          (searchable) USING gin
+#  index_projects_on_slug_and_author_id  (slug,author_id) UNIQUE
+
+
+
 require "pg_search"
 class Project < ApplicationRecord
   extend FriendlyId

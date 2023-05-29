@@ -1,5 +1,23 @@
 # frozen_string_literal: true
 
+#
+# == Schema Information
+#
+# Table name: push_subscriptions
+#
+#  id         :bigint           not null, primary key
+#  endpoint   :string
+#  p256dh     :string
+#  auth       :string
+#  user_id    :bigint
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_push_subscriptions_on_user_id  (user_id)
+#
+
 class PushSubscription < ApplicationRecord
   belongs_to :user
 

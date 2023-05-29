@@ -1,5 +1,27 @@
 # frozen_string_literal: true
 
+#
+# == Schema Information
+#
+# Table name: grades
+#
+#  id            :bigint           not null, primary key
+#  grade         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  project_id    :bigint
+#  user_id       :bigint
+#  assignment_id :bigint
+#
+# Indexes
+#
+#  index_grades_on_assignment_id  (assignment_id)
+#  index_grades_on_project_id     (project_id)
+#  index_grades_on_user_id        (user_id)
+#  index_grades_on_project_id_and_assignment_id  (project_id,assignment_id) UNIQUE
+#
+
+
 class Grade < ApplicationRecord
   LETTER_MATCH = /^(A|B|C|D|E|F)$/
   PERCENT_MATCH = /^[0-9][0-9]?$|^100$/
