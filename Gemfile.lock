@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/CircuitVerse/disposable_email.git
-  revision: b47303bcd6c51726d5027e9aa816b3ca1e0b3a3a
+  revision: e90182d085c720bc9361246177fbada38f79179f
   specs:
     disposable_mail (0.1.7)
 
@@ -125,12 +125,11 @@ GEM
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
-    better_html (1.0.16)
-      actionview (>= 4.0)
-      activesupport (>= 4.0)
+    better_html (2.0.1)
+      actionview (>= 6.0)
+      activesupport (>= 6.0)
       ast (~> 2.0)
       erubi (~> 1.4)
-      html_tokenizer (~> 0.0.6)
       parser (>= 2.4)
       smart_properties
     bindex (0.8.1)
@@ -209,10 +208,9 @@ GEM
     dotenv-rails (2.7.6)
       dotenv (= 2.7.6)
       railties (>= 3.2)
-    erb_lint (0.1.1)
+    erb_lint (0.4.0)
       activesupport
-      better_html (~> 1.0.7)
-      html_tokenizer
+      better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
       rainbow
       rubocop
@@ -263,7 +261,6 @@ GEM
     hirb (0.7.3)
     hiredis (0.6.3)
     hkdf (0.3.0)
-    html_tokenizer (0.0.7)
     htmlentities (4.3.4)
     http (4.4.0)
       addressable (~> 2.3)
@@ -328,7 +325,7 @@ GEM
     listen (3.7.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    loofah (2.19.1)
+    loofah (2.20.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.8.1)
@@ -348,7 +345,7 @@ GEM
     mime-types-data (3.2022.0105)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.1)
+    mini_portile2 (2.8.2)
     minitest (5.18.0)
     msgpack (1.6.0)
     multi_xml (0.6.0)
@@ -364,8 +361,8 @@ GEM
       net-protocol
     newrelic_rpm (8.14.0)
     nio4r (2.5.8)
-    nokogiri (1.14.2)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.15.2)
+      mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     noticed (1.6.0)
       http (>= 4.0.0)
@@ -407,7 +404,7 @@ GEM
       omniauth (~> 2.0)
     orm_adapter (0.5.0)
     parallel (1.22.1)
-    parser (3.2.0.0)
+    parser (3.2.2.0)
       ast (~> 2.4.1)
     pg (1.4.5)
     pg (1.4.5-x64-mingw32)
@@ -491,7 +488,7 @@ GEM
       json
     redcarpet (3.5.1)
     redis (4.6.0)
-    regexp_parser (2.6.2)
+    regexp_parser (2.7.0)
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -518,18 +515,18 @@ GEM
     rspec-support (3.11.0)
     rspec_junit_formatter (0.5.1)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.43.0)
+    rubocop (1.49.0)
       json (~> 2.3)
       parallel (~> 1.10)
       parser (>= 3.2.0.0)
       rainbow (>= 2.2.2, < 4.0)
       regexp_parser (>= 1.8, < 3.0)
       rexml (>= 3.2.5, < 4.0)
-      rubocop-ast (>= 1.24.1, < 2.0)
+      rubocop-ast (>= 1.28.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.24.1)
-      parser (>= 3.1.1.0)
+    rubocop-ast (1.28.0)
+      parser (>= 3.2.1.0)
     rubocop-performance (1.14.2)
       rubocop (>= 1.7.0, < 2.0)
       rubocop-ast (>= 0.4.0)
@@ -541,7 +538,7 @@ GEM
       rubocop (~> 1.19)
     ruby-graphviz (1.2.5)
       rexml
-    ruby-progressbar (1.11.0)
+    ruby-progressbar (1.13.0)
     ruby-saml (1.14.0)
       nokogiri (>= 1.10.5)
       rexml
@@ -591,7 +588,7 @@ GEM
     simplecov_json_formatter (0.1.4)
     sitemap_generator (6.2.1)
       builder (~> 3.0)
-    smart_properties (1.15.0)
+    smart_properties (1.17.0)
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
