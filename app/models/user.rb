@@ -102,6 +102,7 @@ class User < ApplicationRecord
     text :country
   end
 
+  # @return [void]
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
       GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
@@ -109,11 +110,14 @@ class User < ApplicationRecord
     end
   end
 
+  # From Access Token, get user. If user does not exist, create one.
+  # @return [User] Return User object
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data["email"]).first
     name = data["name"] || data["nickname"]
     # Uncomment the section below if you want users to be created if they don't exist
+    # @type [User]
     user ||= User.create(name: name,
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
@@ -132,10 +136,12 @@ class User < ApplicationRecord
     )
   end
 
+  # @return [String] Return the flipper id of the user
   def flipper_id
     "User:#{id}"
   end
 
+  # @return [Boolean] Return true if user is moderator
   def moderator?
     admin?
   end

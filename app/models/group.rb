@@ -38,10 +38,12 @@ class Group < ApplicationRecord
     GroupMailer.new_group_email(primary_mentor, self).deliver_later
   end
 
+  # @return [Boolean] Return true if the token is valid
   def has_valid_token?
     token_expires_at.present? && token_expires_at > Time.zone.now
   end
 
+  # @return [void]
   def reset_group_token
     transaction do
       regenerate_group_token

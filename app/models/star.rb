@@ -27,13 +27,15 @@ class Star < ApplicationRecord
   has_noticed_notifications model_name: "NoticedNotification"
 
   private
-
+  
+    # @return [void]
     def notify_recipient
       return if user.id == project.author_id
 
       StarNotification.with(user: user, project: project).deliver_later(project.author)
     end
 
+    # @return [void]
     def cleanup_notification
       notifications_as_star.destroy_all
     end

@@ -36,6 +36,7 @@ class Grade < ApplicationRecord
 
   private
 
+    # @return [Boolean] Return if valid grade according to grading_scale
     def grading_scale
       valid = case assignment.grading_scale
               when "no_scale"
@@ -51,10 +52,12 @@ class Grade < ApplicationRecord
       errors.add(:grade, "Grade does not match scale or assignment cannot be graded") unless valid
     end
 
+    # @return [void]
     def assignment_project
       errors.add(:project, "is not a part of the assignment") if project&.assignment_id != assignment&.id
     end
 
+    # @return [CSV] Return CSV file of submissions for the assignment
     def self.to_csv(assignment_id)
       attributes = %w[email name grade remarks]
       group_members = User.joins(group_members: :assignments)

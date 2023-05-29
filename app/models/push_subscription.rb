@@ -21,6 +21,9 @@
 class PushSubscription < ApplicationRecord
   belongs_to :user
 
+  # @param [String] message
+  # @param [String] url
+  # @return [Net::HTTPRequest] Returns a Net::HTTPRequest object
   def send_push_notification(message, url = "")
     payload = {
       body: message,
