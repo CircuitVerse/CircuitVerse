@@ -14,6 +14,7 @@
 #  group_id      :bigint
 #  grading_scale :integer          default(0)
 #  grades_finalized :boolean      default(FALSE)
+#  status        :varchar          default("open")
 #  restrictions :json             default("[]")
 #  lti_consumer_key :string
 #  lti_shared_secret :string
@@ -44,6 +45,7 @@ class Assignment < ApplicationRecord
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
+  # @return [void]
   def notify_recipient
     @assignment = Assignment.find(id)
     group.group_members.each do |group_member|
@@ -51,12 +53,14 @@ class Assignment < ApplicationRecord
     end
   end
 
+  # @return [void]
   def send_new_assignment_mail
     group.group_members.each do |group_member|
       AssignmentMailer.new_assignment_email(group_member.user, self).deliver_later
     end
   end
 
+  # @return [void]
   def send_update_mail
     if status != "closed"
       group.group_members.each do |group_member|
@@ -65,6 +69,7 @@ class Assignment < ApplicationRecord
     end
   end
 
+  # @return [void]
   def set_deadline_job
     if status != "closed"
       if (deadline - Time.zone.now).positive?
@@ -75,29 +80,36 @@ class Assignment < ApplicationRecord
     end
   end
 
+  # @return [String] Return restricted elements in JSON String format
   def clean_restricted_elements
     restricted_elements = JSON.parse restrictions
     restricted_elements.map! { |element| ERB::Util.html_escape element }
     restricted_elements.to_json
   end
 
+  # @return [Boolean] Return true if the assignment is graded
   def graded?
     grading_scale != "no_scale"
   end
 
+  # @return [Boolean] Return true if the assignment has any element restriction
   def elements_restricted?
     restrictions != "[]"
   end
 
+  # @return [Boolean] Return true if the assignment has LTI integration
   def lti_integrated?
     lti_consumer_key.present? && lti_shared_secret.present?
   end
 
+  # Retrieves projects, eager loads associated grade and author records, sorts them by the name of the author
+  # @return [Array<ProjectDecorator>] Return decorated project objects.
   def project_order
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
             .map { |project| ProjectDecorator.new(project) }
   end
 
+  # @return [void]
   def check_reopening_status
     projects.each do |proj|
       next unless proj.project_submission == true

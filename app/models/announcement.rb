@@ -15,10 +15,13 @@
 #
 
 class Announcement < ApplicationRecord
+
+  # @return [Announcement]
   def self.current
     order("created_at desc").first
   end
 
+  # @return [Boolean]
   def exists?
     persisted?
   end
