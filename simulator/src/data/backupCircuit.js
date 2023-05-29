@@ -1,4 +1,5 @@
 import { projectSavedSet } from './project';
+import { autosave } from './save';
 /* eslint-disable no-param-reassign */
 function extract(obj) {
     return obj.saveObject();
@@ -63,6 +64,11 @@ export function scheduleBackup(scope = globalScope) {
         scope.backups.push(backup);
         scope.history = [];
         scope.timeStamp = new Date().getTime();
+
+        //Calling the autosave function after a delay of 0.1 second, to allow scheduleBackup() function to complete its execution first
+        setTimeout(() => {
+            autosave();
+        }, 100);
         projectSavedSet(false);
     }
 
