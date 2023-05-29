@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class GroupMailer < ApplicationMailer
+
+  # @param [User] user
+  # @param [Group] group
+  # @return [void]
   def new_group_email(user, group)
     return if user.opted_out?
 
@@ -9,6 +13,9 @@ class GroupMailer < ApplicationMailer
     mail(to: @mentor.email, subject: "New Group Created ")
   end
 
+  # @param [User] user
+  # @param [Group] group
+  # @return [void]
   def new_member_email(user, group)
     return if user.opted_out?
 
