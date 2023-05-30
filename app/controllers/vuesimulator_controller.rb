@@ -3,9 +3,9 @@
 
 class VuesimulatorController < ApplicationController
   def simulatorvue
-    html = File.read(Rails.root.join("public", "simulatorvue", "index.html"))
+    html = File.read(Rails.root.join('public', 'simulatorvue', 'index.html'))
     sanitized_html = sanitize(html)
-    render html: sanitized_html.html_safe, layout: false
+    render html: sanitized_html, layout: false
   end
 
   private
