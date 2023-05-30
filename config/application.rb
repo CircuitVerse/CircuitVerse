@@ -24,7 +24,7 @@ module Logix
 
     # configuring middleware
     config.middleware.use Rack::Attack
-    
+
     # configuring forum
     overrides = "#{Rails.root}/app/overrides"
     Rails.autoloaders.main.ignore(overrides)
@@ -34,6 +34,9 @@ module Logix
         load override
       end
     end
+
+    # configuring concern modules
+    config.autoload_paths += Dir["#{config.root}/app/models/concerns"]
 
     # Site config
     config.site_url = "https://circuitverse.org/"

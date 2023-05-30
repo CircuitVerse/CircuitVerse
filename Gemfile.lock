@@ -106,6 +106,9 @@ GEM
     aws-sdk-dynamodb (1.76.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
+    aws-sdk-kms (1.58.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sigv4 (~> 1.1)
     aws-sdk-rails (3.6.4)
       aws-record (~> 2)
       aws-sdk-ses (~> 1)
@@ -113,6 +116,10 @@ GEM
       aws-sessionstore-dynamodb (~> 2)
       concurrent-ruby (~> 1)
       railties (>= 5.2.0)
+    aws-sdk-s3 (1.116.0)
+      aws-sdk-core (~> 3, >= 3.127.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
     aws-sdk-ses (1.47.0)
       aws-sdk-core (~> 3, >= 3.127.0)
       aws-sigv4 (~> 1.1)
@@ -682,6 +689,7 @@ DEPENDENCIES
   acts_as_votable (~> 0.13.2)
   ahoy_matey
   aws-sdk-rails
+  aws-sdk-s3 (~> 1.116)
   bootsnap
   bugsnag (~> 6.24)
   bundler-audit (~> 0.9.1)
@@ -709,6 +717,7 @@ DEPENDENCIES
   hiredis
   http
   i18n-js
+  image_processing (~> 1.12)
   ims-lti (~> 1.2, < 2.0)
   inline_svg
   invisible_captcha (~> 2.0)

@@ -54,8 +54,9 @@ class SimulatorController < ApplicationController
     @project.project_datum.data = sanitize_data(@project, params[:data])
 
     image_file = return_image_file(params[:image])
-
+    # Comment later
     @project.image_preview = image_file
+    attach_circuit_preview
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
@@ -100,8 +101,9 @@ class SimulatorController < ApplicationController
     @project.author = current_user
 
     image_file = return_image_file(params[:image])
-
+    # Comment later while serving with ActiveStorage
     @project.image_preview = image_file
+    attach_circuit_preview
     @project.save!
     image_file.close
 
@@ -145,5 +147,16 @@ class SimulatorController < ApplicationController
 
     def check_view_access
       authorize @project, :view_access?
+    end
+
+    def attach_circuit_preview
+      image_file = return_image_file(params[:image])
+      # Change to image_preview while serving with ActiveStorage 
+      @project.circuit_preview.attach(
+        io: File.open(image_file),
+        filename: "circuit_preview.jpeg",
+        content_type: "img/jpeg"
+      )
+      image_file.close
     end
 end
