@@ -20,7 +20,6 @@ class ApplicationPolicy
   # @param [User] user
   # @param [ApplicationRecord] record
   def initialize(user, record)
-    record.fin
     raise Pundit::NotAuthorizedError, "User must be logged in" unless user
 
     @user = user
