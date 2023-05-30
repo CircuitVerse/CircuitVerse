@@ -5,7 +5,7 @@ module SearchHelper
   MAX_RESULTS_PER_PAGE = 5
 
   # @param [String] resource
-  # TODO: query_params ??
+  # @param [Hash] query_params
   def query(resource, query_params)
     case resource
     when "Users"

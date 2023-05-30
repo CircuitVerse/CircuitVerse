@@ -4,7 +4,7 @@
 class ApplicationPolicy
   # @return [User]
   attr_reader :user
-  # @return [Object]
+  # @return [ApplicationRecord]
   attr_reader :record
 
   class CustomAuthException < StandardError
@@ -18,8 +18,9 @@ class ApplicationPolicy
   end
 
   # @param [User] user
-  # @param [Object] record
+  # @param [ApplicationRecord] record
   def initialize(user, record)
+    record.fin
     raise Pundit::NotAuthorizedError, "User must be logged in" unless user
 
     @user = user
