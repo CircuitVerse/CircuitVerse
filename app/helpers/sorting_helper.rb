@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: Document this module
 module SortingHelper
   def self.sort_fields(sort, allowed)
     allowed = allowed.map(&:to_s)

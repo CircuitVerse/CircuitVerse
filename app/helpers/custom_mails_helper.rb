@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# TODO: check after deliver_later
 module CustomMailsHelper
   BATCH_SIZE = 1000
 
