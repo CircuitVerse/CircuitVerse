@@ -2,7 +2,7 @@
 
 class NotifyUser
   Result = Struct.new(:success, :type, :first_param, :second)
-  
+
   # @param [Hash] params
   def initialize(params)
     # @type [NoticedNotification]
@@ -24,6 +24,7 @@ class NotifyUser
   end
 
   private
+
     # @return [Result]
     def type_check
       case @notification.type

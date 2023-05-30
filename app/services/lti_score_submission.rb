@@ -22,6 +22,7 @@ class LtiScoreSubmission
   end
 
   private
+
     # @return [String]
     attr_reader :lis_result_sourced_id
     # @return [Assignment]

@@ -29,6 +29,7 @@ class Api::V1::AuthenticationController
     end
 
     private
+
       def google_user
         # @type [HTTP::Response]
         @response = HTTP.auth("Bearer #{@access_token}")
