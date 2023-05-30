@@ -75,6 +75,7 @@ class User < ApplicationRecord
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
                                       default_url: ":style/Default.jpg"
+  # @return [String]
   attr_accessor :remove_picture
 
   before_validation { profile_picture.clear if remove_picture == "1" }
