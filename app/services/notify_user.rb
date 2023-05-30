@@ -2,13 +2,20 @@
 
 class NotifyUser
   Result = Struct.new(:success, :type, :first_param, :second)
+  
+  # @param [Hash] params
   def initialize(params)
+    # @type [NoticedNotification]
     @notification = NoticedNotification.find(params[:notification_id])
+    # @type [Assignment]
     @assignment = @notification.params[:assignment]
+    # @type [Project]
     @project = @notification.params[:project]
+    # @type [SimpleDiscussion::ForumThread]
     @thread = @notification.params[:forum_thread]
   end
 
+  # @return [Boolean]
   def call
     result = type_check
     return result if result.success == "true"
@@ -17,7 +24,7 @@ class NotifyUser
   end
 
   private
-
+    # @return [Result]
     def type_check
       case @notification.type
       when "StarNotification"
@@ -27,6 +34,7 @@ class NotifyUser
       when "NewAssignmentNotification"
         Result.new("true", "new_assignment", @assignment.group, @assignment)
       when "ForumCommentNotification"
+        # @type [SimpleDiscussion::ForumPost]
         @post = @notification.params[:forum_post]
         Result.new("true", "forum_comment", @thread, @post.id)
       when "ForumThreadNotification"

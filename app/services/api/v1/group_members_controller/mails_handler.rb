@@ -2,9 +2,17 @@
 
 class Api::V1::GroupMembersController
   class MailsHandler
-    attr_reader :added_mails, :invalid_mails, :pending_mails
+    # @return [Array<String>]
+    attr_reader :added_mails
+    # @return [Array<String>]
+    attr_reader :invalid_mails
+    # @return [Array<String>]
+    attr_reader :pending_mails
 
     # initialize the class with mails, group and current_user to be used in class
+    # @param [String] mails
+    # @param [Group] group
+    # @param [User] current_user
     def initialize(mails, group, current_user)
       @mails = mails
       @group = group
@@ -17,6 +25,7 @@ class Api::V1::GroupMembersController
     end
 
     # parse emails as valid, invalid or existing mails
+    # @return [void]
     def parse
       @mails.split(",").each do |email|
         email = email.strip
@@ -32,6 +41,8 @@ class Api::V1::GroupMembersController
       ).pluck(:email)
     end
 
+    # Create invitation or group_member for valid mails
+    # @return [void]
     def create_invitation_or_group_member
       newly_added = @valid_mails - @existing_mails
 
