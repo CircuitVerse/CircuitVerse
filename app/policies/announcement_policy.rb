@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
 class AnnouncementPolicy < ApplicationPolicy
-  attr_reader :user, :announcement
+  # @return [User]
+  attr_reader :user
+  # @return [Announcement]
+  attr_reader :announcement
 
+  # @param [User] user
+  # @param [Announcement] announcement
   def initialize(user, announcement)
     @user = user
     @announcement = announcement
