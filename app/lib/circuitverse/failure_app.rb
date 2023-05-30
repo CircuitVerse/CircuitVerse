@@ -10,6 +10,7 @@ module Circuitverse
       end
     end
 
+    # @return [Hash]
     def json_api_error_response
       self.status = 401
       self.content_type = "application/json"
