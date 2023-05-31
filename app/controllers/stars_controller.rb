@@ -74,7 +74,7 @@ class StarsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    # @return [ActionController::Parameters] 
+    # @return [ActionController::Parameters]
     def star_params
       params.require(:star).permit(:user_id, :project_id)
     end

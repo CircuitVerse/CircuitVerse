@@ -78,7 +78,7 @@ class CustomMailsController < ApplicationController
       # @type [CustomMail]
       @mail = CustomMail.find(params[:id])
     end
-    
+
     # @param params [ActionController::Parameters]
     def custom_mails_params
       params.require(:custom_mail).permit(:subject, :content)
