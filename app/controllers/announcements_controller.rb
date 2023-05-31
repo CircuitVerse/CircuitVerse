@@ -5,7 +5,9 @@ class AnnouncementsController < ApplicationController
   before_action :authorize_admin
 
   def index
+    # @type [Array<Announcement>]
     @announcements = Announcement.all
+    # @type [User]
     @user = current_user
   end
 
@@ -47,6 +49,8 @@ class AnnouncementsController < ApplicationController
       authorize Announcement.new, :admin?
     end
 
+    # Only allow a list of trusted parameters through.
+    # @return [ActionController::Parameters]
     def announcement_params
       params.require(:announcement).permit(:body, :link, :start_date, :end_date)
     end
