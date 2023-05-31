@@ -29,6 +29,7 @@ services:
       - ./config/database.docker.yml:/circuitverse/config/database.yml
     ports:
       - "3000:3000"
+      - "3002:3002"
     depends_on:
       - db
       - redis
@@ -37,6 +38,7 @@ services:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: 'true'
+      HOST_CURRENT_DIRECTORY: $PWD
   redis:
     image: redis
   asset_build:
