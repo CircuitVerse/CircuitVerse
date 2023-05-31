@@ -124,6 +124,33 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       bin/yosys
       ```
 
+### Additional Steps to `Enable Autocompletion`
+
+**VS Code**
+
+Install [Ruby Solargraph](https://marketplace.visualstudio.com/items?itemName=castwide.solargraph) extenstion in VSCode
+
+1. Native Installation 
+    
+    No extra configuration requied
+
+2. Docker based Installation
+
+    - Go to Settings
+    - Search "solargraph"
+    - Look for "Solargraph: External Server"
+    - Click "Edit settings.json"
+    - In the JSON, add this details
+    ```json
+    {
+      ....
+      "solargraph.externalServer": {
+          "host": "localhost",
+          "port": 3002
+      }
+    }
+    ```
+
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
 
