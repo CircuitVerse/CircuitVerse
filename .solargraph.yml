@@ -6,7 +6,8 @@ exclude:
 - test/**/*
 - vendor/**/*
 - ".bundle/**/*"
-require: []
+require:
+- simple_discussion
 domains: []
 reporters:
 - rubocop

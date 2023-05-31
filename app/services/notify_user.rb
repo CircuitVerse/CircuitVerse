@@ -11,7 +11,6 @@ class NotifyUser
     @assignment = @notification.params[:assignment]
     # @type [Project]
     @project = @notification.params[:project]
-    # @type [SimpleDiscussion::ForumThread]
     @thread = @notification.params[:forum_thread]
   end
 
@@ -35,7 +34,6 @@ class NotifyUser
       when "NewAssignmentNotification"
         Result.new("true", "new_assignment", @assignment.group, @assignment)
       when "ForumCommentNotification"
-        # @type [SimpleDiscussion::ForumPost]
         @post = @notification.params[:forum_post]
         Result.new("true", "forum_comment", @thread, @post.id)
       when "ForumThreadNotification"
