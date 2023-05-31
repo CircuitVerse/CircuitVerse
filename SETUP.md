@@ -151,6 +151,9 @@ Install [Ruby Solargraph](https://marketplace.visualstudio.com/items?itemName=ca
     }
     ```
 
+**To configure Solargraph for Other IDE, [Check this docs for guide](https://github.com/castwide/solargraph#using-solargraph)**
+
+
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
 
