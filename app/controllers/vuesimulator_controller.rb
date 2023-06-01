@@ -10,7 +10,7 @@ class VuesimulatorController < ApplicationController
 
   private
 
-  def sanitize(html)
-    ActionController::Base.helpers.sanitize(html)
-  end
+    def sanitize(html)
+      ActionController::Base.helpers.sanitize(html)
+    end
 end
