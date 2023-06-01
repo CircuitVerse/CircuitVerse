@@ -42,6 +42,7 @@ const vuePlugin = {
     name: 'vuePlugin',
     setup(build) {
         build.onStart(() => {
+            // eslint-disable-next-line no-console
             console.log(`Building Vue site: ${new Date(Date.now()).toLocaleString()}`);
             buildVue();
         });
