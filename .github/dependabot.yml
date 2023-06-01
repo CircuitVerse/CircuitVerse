@@ -18,3 +18,11 @@ updates:
   schedule:
     interval: "weekly"
 
+# Update the git submodules
+- package-ecosystem: "gitsubmodule"
+  directory: "/"
+  schedule:
+    interval: "daily"
+  labels:
+    - "dependencies"
+    - "automerge"
