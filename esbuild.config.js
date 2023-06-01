@@ -2,6 +2,8 @@ const path = require('path');
 const esbuild = require('esbuild');
 const rails = require('esbuild-rails');
 const sassPlugin = require('esbuild-plugin-sass');
+const { execSync } = require('child_process');
+const readline = require('readline');
 
 const watchDirectories = [
     './app/javascript/**/*.js',
@@ -30,6 +32,22 @@ const watchPlugin = {
     },
 };
 
+async function buildVue() {
+    execSync('git submodule update --init --remote', { cwd: process.cwd() });
+    execSync('npm install', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+    execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+}
+
+const vuePlugin = {
+    name: 'vuePlugin',
+    setup(build) {
+        build.onStart(() => {
+            console.log(`Building Vue site: ${new Date(Date.now()).toLocaleString()}`);
+            buildVue();
+        });
+    },
+};
+
 async function run() {
     const context = await esbuild.context({
         entryPoints: ['application.js', 'simulator.js', 'testbench.js'],
@@ -40,10 +58,21 @@ async function run() {
         loader: {
             '.png': 'file', '.svg': 'file', '.ttf': 'file', '.woff': 'file', '.woff2': 'file', '.eot': 'file',
         },
-        plugins: [rails(), sassPlugin(), watchPlugin],
+        plugins: [rails(), sassPlugin(), vuePlugin, watchPlugin],
     });
 
     if (watch) {
+        const rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout,
+        });
+
+        rl.on('line', (input) => {
+            if (input.trim() === 'r' || input.trim() === 'R') {
+                execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+            }
+        });
+
         await context.watch();
     } else {
         await context.rebuild();
