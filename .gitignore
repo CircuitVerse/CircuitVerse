@@ -76,3 +76,7 @@ config/private.pem
 yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
+
+config/credentials.yml.enc
+config/master.key
+pids/

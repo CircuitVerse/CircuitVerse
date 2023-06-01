@@ -200,6 +200,16 @@ openssl genrsa -out config/private.pem 2048
 openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 ```
 
+## Distributed Tracing using Opentelmetry
+
+To start Jaegar Dashboard and get traces.
+```bash
+cd otel
+docker-compose up -d
+export OTEL_EXPORTER_OTLP_ENDPOINT=http://0.0.0.0:4318
+```
+
+
 ## Third Party Services
 The `.env` file only needs to be used if you would like to link to third party services (Facebook, Google, GitHub, Gitlab, Slack, Bugsnap and Recaptcha)
 
