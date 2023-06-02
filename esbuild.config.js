@@ -33,9 +33,14 @@ const watchPlugin = {
 };
 
 async function buildVue() {
-    execSync('git submodule update --init --remote', { cwd: process.cwd() });
-    execSync('npm install', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
-    execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+    try {
+        execSync('git submodule update --init --remote', { cwd: process.cwd() });
+        execSync('npm install', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+        execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+    } catch (error) {
+        console.error(`Error building Vue site: ${error} : ${new Date(Date.now()).toLocaleString()}`);
+        process.exit(1);
+    }
 }
 
 const vuePlugin = {
@@ -70,7 +75,13 @@ async function run() {
 
         rl.on('line', (input) => {
             if (input.trim() === 'r' || input.trim() === 'R') {
+                try{
                 execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+                }
+                catch(error){
+                    console.error(`Error building Vue site: ${error} : ${new Date(Date.now()).toLocaleString()}`);
+                    buildVue();
+                }
             }
         });
 
