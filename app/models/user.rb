@@ -48,9 +48,6 @@ class User < ApplicationRecord
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
   before_validation { profile_picture.clear if remove_picture == "1" }
-  # While serving With ActiveStorage
-  # has_one_attached :profile_picture
-  # before_validation { profile_picture.purge if remove_picture == "1" }
 
   attr_accessor :remove_picture
 
