@@ -60,4 +60,4 @@ services:
 
 volumes:
   app:
-  public:
+  public: 
