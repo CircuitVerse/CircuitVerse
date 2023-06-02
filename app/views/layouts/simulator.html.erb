@@ -4,12 +4,8 @@
     <%= csrf_meta_tags %>
     <script>window.locale = "<%= I18n.locale %>"</script>
     <script src="/js/pace.js"></script>
-    <%= vite_client_tag %>
-    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    <script>
-      window.jQuery = window.$ = jQuery;
-    </script>
+    <script src="/js/vendor/jquery.min.js"></script>
+
     <%= favicon_link_tag "favicon.ico" %>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <%= render "layouts/google_analytics" %>
@@ -17,6 +13,7 @@
 
   <body>
     <%= yield %>
-    <%= vite_javascript_tag 'simulator' %>
+    <script src="/js/vendor/bootstrap.bundle.min.js"></script>
+    <%= vite_javascript_tag 'simulator'%>
   </body>
 </html>
