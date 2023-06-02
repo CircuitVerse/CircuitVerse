@@ -31,10 +31,10 @@
     "lint-staged": ">=13",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.21",
-    "optionator": "^0.9.1",
-    "sass": "^1.62.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^15.1.0",
+    "postcss-preset-env": "^8.4.2",
     "vite": "^4.3.0",
-    "vite-plugin-env-compatible": "^1.1.1",
     "vite-plugin-ruby": "^3.2.0"
   },
   "dependencies": {
@@ -59,9 +59,6 @@
     "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
-    "postcss-flexbugs-fixes": "^5.0.2",
-    "postcss-import": "^15.1.0",
-    "postcss-preset-env": "^8.4.2",
     "stimulus": "^3.2.1",
     "trumbowyg": "^2.25.1",
     "turbolinks": "^5.2.0"
