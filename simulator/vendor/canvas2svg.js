@@ -11,7 +11,7 @@
  *  Copyright (c) 2014 Gliffy Inc.
  */
 
-(function () {
+;(function () {
     "use strict";
 
     var STYLES, ctx, CanvasGradient, CanvasPattern, namedEntities;
