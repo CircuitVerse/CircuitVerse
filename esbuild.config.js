@@ -13,7 +13,7 @@ const watchDirectories = [
 ];
 
 const watch = process.argv.includes('--watch');
-const build_vue_simulator = process.env.BUILD_VUE === 'true';
+const buildVueSimulator = process.env.BUILD_VUE === 'true';
 
 const watchPlugin = {
     name: 'watchPlugin',
@@ -44,7 +44,7 @@ async function buildVue() {
             execSync('npm install', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
             execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
         } else {
-            throw new Error('package.json or package-lock.json is not found inside submodule directory')
+            throw new Error('package.json or package-lock.json is not found inside submodule directory');
         }
     } catch (err) {
         // eslint-disable-next-line no-console
@@ -57,7 +57,7 @@ const vuePlugin = {
     name: 'vuePlugin',
     setup(build) {
         build.onStart(() => {
-            if (build_vue_simulator) {
+            if (buildVueSimulator) {
                 // eslint-disable-next-line no-console
                 console.log(`Building Vue site: ${new Date(Date.now()).toLocaleString()}`);
             }
@@ -66,7 +66,7 @@ const vuePlugin = {
 };
 
 async function run() {
-    if (build_vue_simulator) {
+    if (buildVueSimulator) {
         await buildVue();
     }
     const context = await esbuild.context({
@@ -82,7 +82,7 @@ async function run() {
     });
 
     if (watch) {
-        if (build_vue_simulator) {
+        if (buildVueSimulator) {
             const rl = readline.createInterface({
                 input: process.stdin,
                 output: process.stdout,
