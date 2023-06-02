@@ -117,6 +117,9 @@ gem "sprockets", "~> 4.1"
 gem "strong_migrations"
 gem 'rails-data-migrations'
 
+# For Vite rails
+gem 'vite_rails' 
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
