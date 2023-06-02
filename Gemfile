@@ -119,7 +119,7 @@ gem 'rails-data-migrations'
 
 group :development, :test do
   # Adds support for debug
-  gem "debug", "~>1.8"
+  gem "debug"
   # Adds support for Capybara system testing and selenium driver
   gem "coveralls_reborn", "~> 0.26.0", require: false
   gem "erb_lint", require: false

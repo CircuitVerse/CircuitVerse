@@ -700,7 +700,7 @@ DEPENDENCIES
   commontator (~> 7.0.0)
   country_select (~> 8.0)
   coveralls_reborn (~> 0.26.0)
-  debug (~> 1.8)
+  debug
   devise
   devise_saml_authenticatable
   disposable_mail!
