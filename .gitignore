@@ -76,3 +76,11 @@ config/private.pem
 yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
+
+# Vite Ruby
+/public/vite*
+node_modules
+# Vite uses dotenv and suggests to ignore local-only env files. See
+# https://vitejs.dev/guide/env-and-mode.html#env-files
+*.local
+
