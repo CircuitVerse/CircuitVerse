@@ -1,3 +1,4 @@
 web: bundle exec rails server -p 3000
 js: yarn build --watch
 worker: bundle exec sidekiq
+vite: bin/vite dev
