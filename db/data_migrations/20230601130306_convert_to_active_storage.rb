@@ -53,13 +53,12 @@ class ConvertToActiveStorage < ActiveRecord::DataMigration
     trap("INT") do
       # If interrupted it is still running projects migration
       interrupted = true
-      puts "Keyboard interrupt received. Saving progress and exiting gracefully..."
-      return
+      puts "Keyboard interrupt received."
     end
 
     User.where("id > ?", counter).find_each do |user|
       if interrupted
-        break
+        puts "Cannot exit until avatar upload is complete..."
       end
       next if user.profile_picture.blank? || ActiveStorage::Attachment.where(record_id: user.id).present?
 
@@ -123,7 +122,7 @@ class ConvertToActiveStorage < ActiveRecord::DataMigration
         puts "Continuing Migrating pfps from user_id - #{number}"
         return ["pfp", number]
       when /migrated project with id: /
-        puts "Continuing Migrating image_preview from user_id - #{number}"
+        puts "Continuing Migrating image_preview from id - #{number}"
         return ["image_preview", number]
       else
         puts "No matching action for the last line: #{last_line}, manual action needed"
