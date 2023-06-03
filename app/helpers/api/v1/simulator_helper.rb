@@ -38,7 +38,7 @@ module Api::V1::SimulatorHelper
         new_scopes.push(scope)
       end
     end
-  
+
     def find_restricted_elements_used(scope, saved_restricted_elements)
       saved_restricted_elements.each_with_object([]) do |element, restricted_elements_used|
         restricted_elements_used.push(element) if scope[element].present?
