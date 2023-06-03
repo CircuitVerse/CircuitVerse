@@ -8,6 +8,7 @@
 /.bundle
 /.idea
 test_results
+tmp
 
 public/assets/
 
@@ -48,7 +49,6 @@ dump.rdb
 
 public/sitemap.xml.gz
 coverage
-.vscode
 
 solr/data
 solr/test/data
@@ -76,6 +76,11 @@ config/private.pem
 yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
+
 storage/
 config/credentials.yml.enc
 /config/master.key
+
+# Ignore all files of .vscode except launch.json
+.vscode/*
+!.vscode/launch.json

@@ -77,6 +77,32 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
 - [Run Terminal as a login shell](https://rvm.io/integration/gnome-terminal/) so ruby and rails will be available.
 
+#### Additional instructions for Debugging
+[debug](https://github.com/ruby/debug) gem has been used fro debuggin purpose.
+
+**Debugging with VSCode**
+1. Install [VSCode rdbg Ruby Debugger](VSCode rdbg Ruby Debugge) extenstion.
+    >  Use v1.0.0 of this extenstion
+2. Run the app by `./bin/dev`
+3. Go to Debug Menu
+4. Choose `Attach Debugger`
+5. Now you can set breakpoint and  debug
+
+**Debugging with Chrome**
+
+1. Run the app by `./bin/dev chrome_debug`
+2. Chrome Devtools will be open
+3. In Chrome, Move to `Filesystem` and add `CircuitVerse` folder to workspace
+4. Now you can open any file and set breakpoint to debug
+
+**Debugging with VSCode (Docker)**
+1. Install [VSCode rdbg Ruby Debugger](VSCode rdbg Ruby Debugge) extenstion.
+    >  Use v1.0.0 of this extenstion
+2. Run by `docker compose up`
+3. Go to Debug Menu
+4. Choose `(Docker) Attach Debugger[:3001]`
+5. Now you can set breakpoint and  debug from VSCode 
+
 #### (Optional) yosys installation for Verilog RTL Synthesis
 If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
 1. Install yosys
