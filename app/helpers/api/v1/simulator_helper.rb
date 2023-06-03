@@ -32,16 +32,16 @@ module Api::V1::SimulatorHelper
 
   private
 
-  def parse_scopes(scopes, saved_restricted_elements)
-    scopes.each_with_object([]) do |scope, new_scopes|
-      scope["restrictedCircuitElementsUsed"] = find_restricted_elements_used(scope, saved_restricted_elements)
-      new_scopes.push(scope)
+    def parse_scopes(scopes, saved_restricted_elements)
+      scopes.each_with_object([]) do |scope, new_scopes|
+        scope["restrictedCircuitElementsUsed"] = find_restricted_elements_used(scope, saved_restricted_elements)
+        new_scopes.push(scope)
+      end
     end
-  end
-
-  def find_restricted_elements_used(scope, saved_restricted_elements)
-    saved_restricted_elements.each_with_object([]) do |element, restricted_elements_used|
-      restricted_elements_used.push(element) if scope[element].present?
+  
+    def find_restricted_elements_used(scope, saved_restricted_elements)
+      saved_restricted_elements.each_with_object([]) do |element, restricted_elements_used|
+        restricted_elements_used.push(element) if scope[element].present?
+      end
     end
-  end
 end
