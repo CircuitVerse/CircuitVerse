@@ -8,6 +8,7 @@
 /.bundle
 /.idea
 test_results
+tmp
 
 public/assets/
 
@@ -48,7 +49,6 @@ dump.rdb
 
 public/sitemap.xml.gz
 coverage
-.vscode
 
 solr/data
 solr/test/data
@@ -77,10 +77,13 @@ yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
 
+# Ignore all files of .vscode except launch.json
+.vscode/*
+!.vscode/launch.json
+
 # Vite Ruby
 /public/vite*
 node_modules
 # Vite uses dotenv and suggests to ignore local-only env files. See
 # https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
-
