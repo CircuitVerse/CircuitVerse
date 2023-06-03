@@ -45,22 +45,22 @@ class Api::V1::SimulatorController < Api::V1::BaseController
       @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
       @project.project_datum.data = sanitize_data(@project, params[:data])
     end
-  
+
     def update_project_params
       @image_file = return_image_file(params[:image])
       @project.image_preview = @image_file
       @project.name = sanitize(params[:name])
     end
-  
+
     def handle_image_file_cleanup
       @image_file.close
       File.delete(@image_file) if check_to_delete(params[:image])
     end
-  
+
     def set_project
       @project = Project.friendly.find(params[:id])
     end
-  
+
     # FIXME: remove this logic after fixing production data
     # def set_user_project
     #   @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
@@ -68,11 +68,11 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     def set_user_project
       @project = current_user.projects.friendly.find(params[:id])
     end
-  
+
     def check_edit_access
       authorize @project, :check_edit_access?
     end
-  
+
     def check_view_access
       authorize @project, :check_view_access?
     end
