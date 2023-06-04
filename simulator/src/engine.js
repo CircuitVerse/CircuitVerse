@@ -19,6 +19,19 @@ import { verilogModeGet } from './Verilog2CV';
  * Core of the simulation and rendering algorithm.
  */
 
+
+/**
+ * Define the states of simulator
+ * @type {boolean}
+ * @category engine
+ */
+export const states = {
+    NORMAL: true,
+    ERROR: false,
+}
+
+export const defaultState = states.NORMAL;
+
 /**
  * @type {number} engine
  * @category engine
@@ -52,7 +65,7 @@ export function willBeUpdatedSet(param) {
 }
 
 /**
- * true if we have an element selected and 
+ * true if we have an element selected and
  * is used when we are paning the grid.
  * @type {boolean}
  * @category engine
@@ -61,7 +74,7 @@ var objectSelection = false;
 
 /**
  * used to set the value of object selection,
- * @param {boolean} param 
+ * @param {boolean} param
  * @category engine
  */
 export function objectSelectionSet(param) {
@@ -77,7 +90,7 @@ var updatePosition = true;
 
 /**
  * used to set the value of updatePosition.
- * @param {boolean} param 
+ * @param {boolean} param
  * @category engine
  */
 export function updatePositionSet(param) {
@@ -374,45 +387,50 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * @category engine
  */
 export function play(scope = globalScope, resetNodes = false) {
-    if (errorDetected) return; // Don't simulate until error is fixed
-    if (loading === true) return; // Don't simulate until loaded
+    try {
+        if (errorDetected) return; // Don't simulate until error is fixed
+        if (loading === true) return; // Don't simulate until loaded
 
-    simulationArea.simulationQueue.reset();
-    plotArea.setExecutionTime(); // Waveform thing
-    // Reset Nodes if required
-    if (resetNodes || forceResetNodes) {
-        scope.reset();
         simulationArea.simulationQueue.reset();
-        forceResetNodesSet(false);
-    }
-
-    // To store list of circuitselements that have shown contention but kept temporarily
-    // Mainly to resolve tristate bus issues
-    simulationArea.contentionPending = [];
-    // add inputs to the simulation queue
-    scope.addInputs();
-    // to check if we have infinite loop in circuit
-    let stepCount = 0;
-    let elem;
-    while (!simulationArea.simulationQueue.isEmpty()) {
-        if (errorDetected) {
+        plotArea.setExecutionTime(); // Waveform thing
+        // Reset Nodes if required
+        if (resetNodes || forceResetNodes) {
+            scope.reset();
             simulationArea.simulationQueue.reset();
-            return;
+            forceResetNodesSet(false);
         }
-        elem = simulationArea.simulationQueue.pop();
-        elem.resolve();
-        stepCount++;
-        if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
-            showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
-            errorDetectedSet(true);
+
+        // To store list of circuitselements that have shown contention but kept temporarily
+        // Mainly to resolve tristate bus issues
+        simulationArea.contentionPending = [];
+        // add inputs to the simulation queue
+        scope.addInputs();
+        // to check if we have infinite loop in circuit
+        let stepCount = 0;
+        let elem;
+        while (!simulationArea.simulationQueue.isEmpty()) {
+            if (errorDetected) {
+                simulationArea.simulationQueue.reset();
+                return;
+            }
+            elem = simulationArea.simulationQueue.pop();
+            elem.resolve();
+            stepCount++;
+            if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
+                showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
+                errorDetectedSet(true);
+                forceResetNodesSet(true);
+            }
+        }
+        // Check for TriState Contentions
+        if (simulationArea.contentionPending.length) {
+            showError('Contention at TriState');
             forceResetNodesSet(true);
+            errorDetectedSet(true);
         }
-    }
-    // Check for TriState Contentions
-    if (simulationArea.contentionPending.length) {
-        showError('Contention at TriState');
-        forceResetNodesSet(true);
-        errorDetectedSet(true);
+    } catch (error) {
+       currentState = !currentState;
+       showError('Simulator is in an Error State.');
     }
 }
 
