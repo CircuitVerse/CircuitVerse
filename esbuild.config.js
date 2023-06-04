@@ -4,7 +4,6 @@ const esbuild = require('esbuild');
 const rails = require('esbuild-rails');
 const sassPlugin = require('esbuild-plugin-sass');
 const { execSync } = require('child_process');
-const readline = require('readline');
 
 const watchDirectories = [
     './app/javascript/**/*.js',
@@ -42,7 +41,7 @@ async function buildVue() {
 
         if (fs.existsSync(packageJsonPath) && fs.existsSync(packageLockJsonPath)) {
             execSync('npm install', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
-            execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
+            execSync(watch? 'npm run build -- --watch' : 'npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
         } else {
             throw new Error('package.json or package-lock.json is not found inside submodule directory');
         }
@@ -66,9 +65,6 @@ const vuePlugin = {
 };
 
 async function run() {
-    if (buildVueSimulator) {
-        await buildVue();
-    }
     const context = await esbuild.context({
         entryPoints: ['application.js', 'simulator.js', 'testbench.js'],
         bundle: true,
@@ -82,23 +78,6 @@ async function run() {
     });
 
     if (watch) {
-        if (buildVueSimulator) {
-            const rl = readline.createInterface({
-                input: process.stdin,
-                output: process.stdout,
-            });
-
-            rl.on('line', (input) => {
-                if (input.trim().toLowerCase() === 'r') {
-                    const nodeModulesPath = path.join(process.cwd(), 'cv-frontend-vue', 'node_modules');
-                    if (fs.existsSync(nodeModulesPath)) {
-                        execSync('npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
-                    } else {
-                        buildVue();
-                    }
-                }
-            });
-        }
         await context.watch();
     } else {
         await context.rebuild();
@@ -106,6 +85,9 @@ async function run() {
     }
 }
 
+if (buildVueSimulator) {
+    buildVue();
+}
 run().catch(() => {
     process.exit(1);
 });
