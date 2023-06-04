@@ -35,22 +35,39 @@ const watchPlugin = {
 
 async function buildVue() {
     try {
-        execSync('git submodule update --init --remote', { cwd: process.cwd() });
-        const packageJsonPath = path.join(process.cwd(), 'cv-frontend-vue', 'package.json');
-        const packageLockJsonPath = path.join(process.cwd(), 'cv-frontend-vue', 'package-lock.json');
-
-        if (fs.existsSync(packageJsonPath) && fs.existsSync(packageLockJsonPath)) {
-            execSync('npm install', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
-            execSync(watch? 'npm run build -- --watch' : 'npm run build', { cwd: path.join(process.cwd(), 'cv-frontend-vue') });
-        } else {
-            throw new Error('package.json or package-lock.json is not found inside submodule directory');
-        }
+        updateGitSubmodule();
+        validatePackageJsonAndLock();
+        installAndBuildPackage();
     } catch (err) {
-        // eslint-disable-next-line no-console
-        console.error(`Error building Vue simulator: ${new Date(Date.now()).toLocaleString()}\n\n${err}`);
-        process.exit(1);
+        logErrorAndExit(err);
     }
 }
+
+function updateGitSubmodule() {
+    execSync('git submodule update --init --remote', { cwd: process.cwd() });
+}
+
+function validatePackageJsonAndLock() {
+    const packageJsonPath = path.join(process.cwd(), 'cv-frontend-vue', 'package.json');
+    const packageLockJsonPath = path.join(process.cwd(), 'cv-frontend-vue', 'package-lock.json');
+
+    if (!fs.existsSync(packageJsonPath) || !fs.existsSync(packageLockJsonPath)) {
+        throw new Error('package.json or package-lock.json is not found inside submodule directory');
+    }
+}
+
+function installAndBuildPackage() {
+    const vueDir = path.join(process.cwd(), 'cv-frontend-vue');
+    execSync('npm install', { cwd: vueDir });
+    execSync(watch ? 'npm run build -- --watch' : 'npm run build', { cwd: vueDir });
+}
+
+function logErrorAndExit(err) {
+    // eslint-disable-next-line no-console
+    console.error(`Error building Vue simulator: ${new Date(Date.now()).toLocaleString()}\n\n${err}`);
+    process.exit(1);
+}
+
 
 const vuePlugin = {
     name: 'vuePlugin',
