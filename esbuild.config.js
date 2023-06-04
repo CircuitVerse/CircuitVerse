@@ -33,16 +33,6 @@ const watchPlugin = {
     },
 };
 
-async function buildVue() {
-    try {
-        updateGitSubmodule();
-        validatePackageJsonAndLock();
-        installAndBuildPackage();
-    } catch (err) {
-        logErrorAndExit(err);
-    }
-}
-
 function updateGitSubmodule() {
     execSync('git submodule update --init --remote', { cwd: process.cwd() });
 }
@@ -68,6 +58,15 @@ function logErrorAndExit(err) {
     process.exit(1);
 }
 
+async function buildVue() {
+    try {
+        updateGitSubmodule();
+        validatePackageJsonAndLock();
+        installAndBuildPackage();
+    } catch (err) {
+        logErrorAndExit(err);
+    }
+}
 
 const vuePlugin = {
     name: 'vuePlugin',
