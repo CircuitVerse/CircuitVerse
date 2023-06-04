@@ -65,7 +65,7 @@ export function willBeUpdatedSet(param) {
 }
 
 /**
- * true if we have an element selected and
+ * true if we have an element selected and 
  * is used when we are paning the grid.
  * @type {boolean}
  * @category engine
@@ -74,7 +74,7 @@ var objectSelection = false;
 
 /**
  * used to set the value of object selection,
- * @param {boolean} param
+ * @param {boolean} param 
  * @category engine
  */
 export function objectSelectionSet(param) {
@@ -90,7 +90,7 @@ var updatePosition = true;
 
 /**
  * used to set the value of updatePosition.
- * @param {boolean} param
+ * @param {boolean} param 
  * @category engine
  */
 export function updatePositionSet(param) {
