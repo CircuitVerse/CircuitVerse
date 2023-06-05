@@ -45,6 +45,8 @@ services:
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
+      - BUILD_VUE=true
+      - IS_DOCKER_ENVIRONMENT=true
     command: yarn build --watch
     volumes:
       - .:/circuitverse:rw
