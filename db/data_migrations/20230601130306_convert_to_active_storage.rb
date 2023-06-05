@@ -1,28 +1,24 @@
 # frozen_string_literal: true
 
 require "logger"
+require "redis"
 
 class ConvertToActiveStorage < ActiveRecord::DataMigration
   def up
     log_file = Rails.root.join("log/active_storage_migration.log")
-    if File.exist?(log_file)
-      result = rerun(log_file)
+    redis = Redis.new
+
+    if redis.exists("project_counter") == 1
+      pcounter = redis.get("project_counter").to_i
       original_stdout = $stdout.dup
       $stdout.reopen(log_file, "w")
       $stdout.sync = true
+      puts "Running all tasks and logging outputs to #{log_file}"
+      puts "Continuing migrating from project_id #{pcounter + 1}"
       begin
-        if result[0] == "pfp"
-          # Wont be needed
-          migrate_paperclip_assets(result[1])
-          migrate_carrierwave_assets
-        elsif result[0] == "image_preview"
-          # Only part that will be used.
-          migrate_carrierwave_assets(result[1])
-        else
-          puts "manual action needed"
-        end
+        migrate_carrierwave_assets(pcounter)
       rescue StandardError => e
-        puts "Error occured -#{e.message}"
+        puts "Unexpected Error : #{e.message}"
       ensure
         $stdout.reopen(original_stdout)
       end
@@ -79,6 +75,7 @@ class ConvertToActiveStorage < ActiveRecord::DataMigration
   end
 
   def migrate_carrierwave_assets(pcounter = 0)
+    redis = Redis.new
     log_output("MIGRATING PROJECT image_preview to ActiveStorage \n")
     interrupted = false
     trap("INT") do
@@ -101,6 +98,7 @@ class ConvertToActiveStorage < ActiveRecord::DataMigration
         )
         puts "migrated project with id: #{project.id}"
         image_file.close
+        redis.set("project_counter", project.id)
       rescue StandardError => e
         puts "Error occurred while attaching circuit_preview for project id: #{project.id} - #{e.message}"
       end
@@ -111,23 +109,5 @@ class ConvertToActiveStorage < ActiveRecord::DataMigration
   def log_output(message)
     puts message
     $stdout.flush
-  end
-
-  def rerun(file_path)
-    File.open(file_path, "r") do |file|
-      last_line = file.readlines.second_to_last
-      number = last_line.scan(/\d+/).first.to_i
-      case last_line
-      when /migrated pfp with id: /
-        puts "Continuing Migrating pfps from user_id - #{number}"
-        return ["pfp", number]
-      when /migrated project with id: /
-        puts "Continuing Migrating image_preview from id - #{number}"
-        return ["image_preview", number]
-      else
-        puts "No matching action for the last line: #{last_line}, manual action needed"
-        return ["nota"]
-      end
-    end
   end
 end
