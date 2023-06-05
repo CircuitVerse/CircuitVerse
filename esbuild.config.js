@@ -13,6 +13,7 @@ const watchDirectories = [
 
 const watch = process.argv.includes('--watch');
 const buildVueSimulator = process.env.BUILD_VUE === 'true';
+const isDockerEnvironment = process.env.IS_DOCKER_ENVIRONMENT === 'true';
 
 const watchPlugin = {
     name: 'watchPlugin',
@@ -60,7 +61,9 @@ function logErrorAndExit(err) {
 
 async function buildVue() {
     try {
-        updateGitSubmodule();
+        if (!isDockerEnvironment) {
+            updateGitSubmodule();
+        }
         validatePackageJsonAndLock();
         installAndBuildPackage();
     } catch (err) {
