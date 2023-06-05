@@ -60,11 +60,12 @@ class ConvertToActiveStorage < ActiveRecord::DataMigration
 
       begin
         image_file = File.open(user.profile_picture.path)
-        user.avatar.attach(
+        blob = ActiveStorage::Blob.create_and_upload!(
           io: image_file,
           filename: user.profile_picture_file_name,
           content_type: user.profile_picture_content_type
         )
+        user.avatar.attach(blob)
         image_file.close
         puts "migrated pfp with user_id: #{user.id}"
       rescue StandardError => e
@@ -91,11 +92,12 @@ class ConvertToActiveStorage < ActiveRecord::DataMigration
 
       begin
         image_file = File.open(project.image_preview.path)
-        project.circuit_preview.attach(
+        blob = ActiveStorage::Blob.create_and_upload!(
           io: image_file,
           filename: project.image_preview.identifier,
           content_type: "image/jpeg"
         )
+        project.circuit_preview.attach(blob)
         puts "migrated project with id: #{project.id}"
         image_file.close
         redis.set("project_counter", project.id)
