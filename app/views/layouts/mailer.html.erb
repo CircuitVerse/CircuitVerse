@@ -27,7 +27,7 @@
         <a href="https://github.com/CircuitVerse/CircuitVerse"><%= inline_svg_tag "SVGs/github.svg", alt: "Github Logo", class: "mailer-social-image" %></a>
       </div>
     </div>
-    <h5 class="mailer-copyright-text"><%= t("layout.mailer.copyright_text",time_current_year: Time.current.year) %></h6>
+    <h5 class="mailer-copyright-text"><%= t("layout.mailer.copyright_text", time_current_year: Time.current.year) %></h6>
     <% unless @is_preview %>
       <h5> <%= link_to t("layout.mailer.unsubscribe_email_notifications"), mailkick_unsubscribe_url %> </h6>
     <% end %>
