@@ -4,8 +4,6 @@ class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
-  # Remove after serving with ActiveStorage
-  extend PaperclipToActiveStorage
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
 
   # Include default devise modules. Others available are:
@@ -34,20 +32,20 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
+  before_destroy :purge_avatar
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  # Mirror uploads to ActiveStorage
-  pap_with_as :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
-                                default_url: ":style/Default.jpg"
+  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
+                                      default_url: ":style/Default.jpg"
 
-  # Using another column: just for backfilling, new uploads go to same
+  # Mirror and backfill uploads
   has_one_attached :avatar
 
   # validations for user
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
-  before_validation { profile_picture.clear if remove_picture == "1" }
+  before_validation { profile_picture.clear && avatar.purge if remove_picture == "1" }
 
   attr_accessor :remove_picture
 
@@ -114,5 +112,9 @@ class User < ApplicationRecord
 
     def send_welcome_mail
       UserMailer.welcome_email(self).deliver_later
+    end
+
+    def purge_avatar
+      avatar.purge
     end
 end

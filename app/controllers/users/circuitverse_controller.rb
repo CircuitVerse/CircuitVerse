@@ -27,6 +27,7 @@ class Users::CircuitverseController < ApplicationController
 
   def update
     if @profile.update(profile_params)
+      attach_avatar unless @profile.remove_picture == "1"
       redirect_to user_projects_path(current_user)
     else
       render :edit
@@ -45,11 +46,18 @@ class Users::CircuitverseController < ApplicationController
 
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture)
+                                   :subscribed, :locale, :remove_picture, :avatar)
     end
 
     def set_user
       @profile = current_user
       @user = User.find(params[:id])
+    end
+
+    def attach_avatar
+      @profile.avatar.attach(
+        io: File.open(@profile.profile_picture.path),
+        filename: "avatar.jpeg"
+      )
     end
 end

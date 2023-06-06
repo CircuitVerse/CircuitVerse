@@ -35,9 +35,6 @@ module Logix
       end
     end
 
-    # configuring concern modules
-    config.autoload_paths += Dir["#{config.root}/app/models/concerns"]
-
     # Site config
     config.site_url = "https://circuitverse.org/"
     config.site_name = "CircuitVerse"

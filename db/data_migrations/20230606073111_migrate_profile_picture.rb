@@ -6,46 +6,29 @@ require "redis"
 class MigrateProfilePicture < ActiveRecord::DataMigration
   def up
     log_file = Rails.root.join("log/profile_picture_migration.log")
+    custom_logger = Logger.new(log_file)
+    Rails.logger = custom_logger
     redis = Redis.new
-    original_stdout = $stdout.dup
-    $stdout.reopen(log_file, "w")
-    $stdout.sync = true
-    if redis.exists("user_counter") == 1
-      user_counter = redis.get("user_counter").to_i
-      puts "Continuing migrating from user_id #{user_counter + 1}"
-      begin
-        migrate_paperclip_assets(user_counter)
-      rescue StandardError => e
-        puts "Unexpected Error : #{e.message}"
-      ensure
-        $stdout.reopen(original_stdout)
-      end
+    if redis.exists("last_migrated_user_id") == 1
+      last_migrated_user_id = redis.get("last_migrated_user_id").to_i
+      Rails.logger.info "Continuing migrating from user_id #{last_migrated_user_id + 1}"
+      migrate_paperclip_assets(last_migrated_user_id)
     else
-      Logger.new(log_file)
-      puts "Running all tasks and logging outputs to #{log_file}"
-      begin
-        migrate_paperclip_assets
-      rescue Interrupt
-        puts "Interrupted!"
-        return
-      ensure
-        $stdout.reopen(original_stdout)
-      end
-      $stdout.sync = true
+      Rails.logger.info "Migrating User pfp to ActiveStorage & logging output to - #{log_file}"
+      Rails.logger.info "Total User profile_pictures to be migrated- #{User.where.not(profile_picture_file_name: nil).count}"
+      migrate_paperclip_assets
     end
   end
 
-  def migrate_paperclip_assets(user_counter = 0)
-    puts "MIGRATING USER profile_picture to ActiveStorage \n"
-    puts "Total User profile_pictures to be migrated- #{User.where.not(profile_picture_file_name: nil).count}"
+  def migrate_paperclip_assets(last_migrated_user_id = 0)
     redis = Redis.new
     interrupted = false
     trap("INT") do
       interrupted = true
-      puts "Keyboard interrupt received... Saving progress and exiting gracefully..."
+      puts "Keyboard interrupt received. Saving progress and exiting gracefully..."
     end
 
-    User.where("id > ?", user_counter).find_each do |user|
+    User.where("id > ?", last_migrated_user_id).find_each do |user|
       if interrupted
         break
       end
@@ -60,13 +43,11 @@ class MigrateProfilePicture < ActiveRecord::DataMigration
         )
         user.avatar.attach(blob)
         image_file.close
-        puts "migrated pfp with user_id: #{user.id}"
-        redis.set("user_counter", user.id)
-        sleep(3.seconds)
+        Rails.logger.info "migrated pfp with user_id: #{user.id}"
+        redis.set("last_migrated_user_id", user.id)
       rescue StandardError => e
-        puts "Error occurred while attaching profile picture for user_id: #{user.id} - #{e.message}"
+        Rails.logger.info "Error occurred while attaching profile picture for user_id: #{user.id} - #{e.message}"
       end
     end
-    puts "*" * 60
   end
 end
