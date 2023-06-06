@@ -1,0 +1,2 @@
+[build]
+  command = "npm run build && mkdir -p ./dist && cp -r ../public/* ./dist/ && mv ./dist/simulatorvue/index.html ./dist/"

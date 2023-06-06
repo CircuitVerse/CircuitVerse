@@ -1,16 +1,13 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import index from '../pages/index.vue'
 import simulator from '../pages/simulator.vue'
 
 const routes = [
     {
         path: '/',
-        // name: 'index',
-        // component: index,
-        redirect: '/simulator',
+        redirect: '/simulatorvue', // @TODO: update later back to /simulator
     },
     {
-        path: '/simulator',
+        path: '/simulatorvue', // @TODO: update later back to /simulator
         name: 'simulator',
         component: simulator,
     },
