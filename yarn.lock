@@ -2442,10 +2442,10 @@ bluebird@^3.7.2:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
-bootstrap-input-spinner@^3.1.14:
-  version "3.1.14"
-  resolved "https://registry.yarnpkg.com/bootstrap-input-spinner/-/bootstrap-input-spinner-3.1.14.tgz#886ad5b2aa31e38dcdce4a0bf9f4a15bae21aec1"
-  integrity sha512-dpXW8q5IY83sjRGa7kglGS8iOFigRvAIcGnOhLuHTJ5VfTjDC0Htqt5paWfRdtHJzr/nYL5VoGvMt6OXoOHrSw==
+bootstrap-input-spinner@^3.3.2:
+  version "3.3.2"
+  resolved "https://registry.yarnpkg.com/bootstrap-input-spinner/-/bootstrap-input-spinner-3.3.2.tgz#c4d2e8f02566a5e2c9e09990bb4c8de42a875df3"
+  integrity sha512-m2q7odn5m51BcnMDy1P/bX71R9VFI69XTEVlWfGUkrpMdDX9VMpRoxpC/N/GZDgdwD7/PWJntVwak4qp41FwTg==
 
 bootstrap@^4.6.1:
   version "4.6.2"
