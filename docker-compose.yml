@@ -15,8 +15,8 @@ services:
     volumes:
       - /circuitverse/.bundle
       - /circuitverse/node_modules
-      - .:/circuitverse
-      - ./config/database.docker.yml:/circuitverse/config/database.yml
+      - .:/circuitverse:rw
+      - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
     environment:
       REDIS_URL: "redis://redis:6379/0"
   web:
@@ -25,10 +25,11 @@ services:
     volumes:
       - /circuitverse/.bundle
       - /circuitverse/node_modules
-      - .:/circuitverse
-      - ./config/database.docker.yml:/circuitverse/config/database.yml
+      - .:/circuitverse:rw
+      - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
     ports:
       - "3000:3000"
+      - "3001:3001"
       - "3002:3002"
     depends_on:
       - db
@@ -48,7 +49,7 @@ services:
       - RAILS_ENV=development
     command: yarn build --watch
     volumes:
-      - .:/circuitverse
+      - .:/circuitverse:rw
       - /circuitverse/.bundle
       - /circuitverse/node_modules
     ports:
