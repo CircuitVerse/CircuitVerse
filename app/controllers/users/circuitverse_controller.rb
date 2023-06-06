@@ -27,7 +27,7 @@ class Users::CircuitverseController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      attach_avatar unless @profile.remove_picture == "1"
+      attach_avatar unless @profile.remove_picture == "1" || @profile.profile_picture.blank?
       redirect_to user_projects_path(current_user)
     else
       render :edit
