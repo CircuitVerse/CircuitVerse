@@ -179,3 +179,5 @@ gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
 
 gem "noticed", "~> 1.6"
+
+gem 'database_consistency', group: :development, require: false
