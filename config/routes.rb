@@ -161,6 +161,8 @@ Rails.application.routes.draw do
       resources :simulator, only: %i[show] do
         collection do
           post "update", to: "simulator#update"
+          post "create_data", to: "simulator#create_data"
+          post "post_issue", to: "simulator#post_issue"
         end
         member do
           get "edit", to: "simulator#edit"

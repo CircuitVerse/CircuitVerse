@@ -39,6 +39,56 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     end
   end
 
+  # POST api/v1/simulator/create
+  def create_data
+    @project = Project.new
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
+    @project.name = sanitize(params[:name])
+    @project.author = current_user
+
+    image_file = return_image_file(params[:image])
+
+    @project.image_preview = image_file
+    if @project.save
+      image_file.close
+      File.delete(image_file) if check_to_delete(params[:image])
+      render json: { status: "success", project: @project }, status: :created
+    else
+      render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+
+  # POST api/v1/simulator/post_issue
+  def post_issue
+    url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
+
+    # Post the issue circuit data
+    issue_circuit_data = IssueCircuitDatum.new
+    issue_circuit_data.data = params[:circuit_data]
+    issue_circuit_data.save!
+
+    issue_circuit_data_id = issue_circuit_data.id
+
+    # Send it over to slack hook
+    circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
+    text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
+    response = HTTP.post(url, json: { text: text })
+
+    if response.success?
+      render json: { status: "success", issue_circuit_data_id: issue_circuit_data_id }, status: :ok
+    else
+      render json: { status: "error", error: response.to_s }, status: response.code
+    end
+  end
+
+  # POST api/v1/simulator/verilog_cv
+  def verilog_cv
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+    response = HTTP.post(url, json: { code: params[:code] })
+    render json: response.to_s, status: response.code
+  end
+
   private
 
     def build_project_datum
