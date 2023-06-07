@@ -71,6 +71,8 @@ class Project < ApplicationRecord
 
   after_update :check_and_remove_featured
 
+  before_destroy :purge_circuit_preview
+
   self.per_page = 6
 
   acts_as_commontable
@@ -170,6 +172,10 @@ class Project < ApplicationRecord
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
+    end
+
+    def purge_circuit_preview
+      circuit_preview.purge if circuit_preview.attached?
     end
 end
 # rubocop:enable Metrics/ClassLength
