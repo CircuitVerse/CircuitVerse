@@ -4,20 +4,24 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :authenticate_user!, only: %i[update edit]
-  before_action :set_project, only: %i[show edit]
-  before_action :check_view_access, only: %i[show]
+  before_action :authenticate_user!, only: %i[create update edit]
+  before_action :set_project, only: %i[data edit]
   before_action :set_user_project, only: %i[update]
+  before_action :check_view_access, only: %i[data]
   before_action :check_edit_access, only: %i[edit update]
-  # skip_before_action :verify_authenticity_token, only: %i[show update]
+  # skip_before_action :verify_authenticity_token, only: %i[data create update verilog_cv]
+
+  def self.policy_class
+    ProjectPolicy
+  end
 
   # Get api/v1/simulator/:id/edit
   def edit
     render json: Api::V1::UserSerializer.new(current_user)
   end
 
-  # GET api/v1/simulator/:id
-  def show
+  # GET api/v1/simulator/:id/data
+  def data
     @data = ProjectDatum.find_by(project: @project)
     if @data
       render json: @data.data, status: :ok
@@ -26,7 +30,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     end
   end
 
-  # POST api/v1/simulator/update
+  # POST api/v1/simulator/update_data
   def update
     build_project_datum
     update_project_params
@@ -39,8 +43,8 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     end
   end
 
-  # POST api/v1/simulator/create
-  def create_data
+  # POST api/v1/simulator/create_data
+  def create
     @project = Project.new
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
@@ -57,7 +61,6 @@ class Api::V1::SimulatorController < Api::V1::BaseController
       render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
 
   # POST api/v1/simulator/post_issue
   def post_issue

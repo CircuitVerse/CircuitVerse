@@ -158,14 +158,15 @@ Rails.application.routes.draw do
       get "/notifications", to: "notifications#index"
       patch "/notifications/mark_as_read/:notification_id", to: "notifications#mark_as_read"
       patch "/notifications/mark_all_as_read", to: "notifications#mark_all_as_read"
-      resources :simulator, only: %i[show] do
+      resources :simulator, only: %i[] do
         collection do
           post "update", to: "simulator#update"
-          post "create_data", to: "simulator#create_data"
+          post "create_data", to: "simulator#create"
           post "post_issue", to: "simulator#post_issue"
         end
         member do
           get "edit", to: "simulator#edit"
+          get "data", to: "simulator#data"
         end
       end
       get "/me", to: "users#me"
