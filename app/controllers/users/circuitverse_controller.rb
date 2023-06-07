@@ -7,6 +7,8 @@ class Users::CircuitverseController < ApplicationController
 
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
+  before_action :remove_previous_avatar, only: [:update]
+  after_action :attach_avatar, only: [:update]
 
   def index
     @profile = ProfileDecorator.new(@user)
@@ -27,7 +29,6 @@ class Users::CircuitverseController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      attach_avatar
       redirect_to user_projects_path(current_user)
     else
       render :edit
@@ -57,10 +58,12 @@ class Users::CircuitverseController < ApplicationController
     def attach_avatar
       return if no_attachment?
 
-      @profile.avatar.attach(
-        io: File.open(@profile.profile_picture.path),
-        filename: "avatar.jpeg"
-      )
+      pfp_present = params[:user][:profile_picture].present? && @profile.profile_picture.present?
+      @profile.avatar.attach(io: File.open(@profile.profile_picture.path), filename: "avatar.jpeg") if pfp_present
+    end
+
+    def remove_previous_avatar
+      @profile.avatar.purge if params[:user][:profile_picture].present? && @profile.avatar.attached?
     end
 
     def no_attachment?

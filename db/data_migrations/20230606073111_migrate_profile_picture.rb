@@ -14,7 +14,7 @@ class MigrateProfilePicture < ActiveRecord::DataMigration
       Rails.logger.info "Continuing migrating from user_id #{last_migrated_user_id + 1}"
       migrate_paperclip_assets(last_migrated_user_id)
     else
-      Rails.logger.info "Migrating User pfp to ActiveStorage & logging output to - #{log_file}"
+      puts "Migrating User pfp to ActiveStorage & logging output to - #{log_file}"
       Rails.logger.info "Total User profile_pictures to be migrated- #{User.where.not(profile_picture_file_name: nil).count}"
       migrate_paperclip_assets
     end

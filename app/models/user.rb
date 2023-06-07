@@ -115,6 +115,6 @@ class User < ApplicationRecord
     end
 
     def purge_avatar
-      avatar.purge
+      avatar.purge if avatar.attached?
     end
 end

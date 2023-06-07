@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
   before_action :sanitize_project_description, only: %i[show edit]
+  before_action :purge_circuit_preview, only: [:destroy]
 
   # GET /projects
   # GET /projects.json
@@ -101,7 +102,6 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project.circuit_preview.purge
     @project.destroy
     respond_to do |format|
       format.html do
@@ -148,5 +148,9 @@ class ProjectsController < ApplicationController
     # Sanitize description before passing to view
     def sanitize_project_description
       @project.description = sanitize_description(@project.description)
+    end
+
+    def purge_circuit_preview
+      @project.circuit_preview.purge if @project.circuit_preview.attached?
     end
 end
