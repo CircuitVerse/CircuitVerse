@@ -84,6 +84,7 @@ Go to `Preferences > Package Settings > LSP > Settings` and paste this configura
 2. Docker Based Installation
 
     a. Install [coc-nvim](https://github.com/neoclide/coc.nvim)
+    
     b. Install `coc-solargraph` by coc-nvim by running this command
     ```
     :CocInstall coc-solargraph
