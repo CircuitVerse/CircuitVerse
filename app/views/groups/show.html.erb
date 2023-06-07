@@ -344,7 +344,7 @@
   <%= render partial: "promote_member_confirmation_modal" %>
 </div>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   $(document).ready(function() {
     $('.groups-assignment-deadline').each(function() {
       let month = $(this).data("month") -1;

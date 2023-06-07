@@ -16,7 +16,7 @@
   </div>
 <% end %>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   function before_submit() {
   $('<input />').attr('type', 'hidden')
     .attr('name', 'custom_mail[content]')

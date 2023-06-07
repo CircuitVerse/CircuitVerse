@@ -1,4 +1,4 @@
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   $(document).ready(function(){
     $("#alertdiv").delay(5000).fadeOut(600);
   });
@@ -223,7 +223,7 @@
     <% end %>
 
     <% if user_signed_in? %>
-    <script>
+    <script nonce="<%= request.content_security_policy_nonce %>">
         if(localStorage.getItem("recover_login")){
             window.location.href = "/simulator"
         }

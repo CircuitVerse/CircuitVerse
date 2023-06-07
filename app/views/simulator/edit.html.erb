@@ -1,10 +1,10 @@
 <% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
 
-<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
-<script src="/js/plugins/checkBo.min.js"></script>
-<script src="/js/plugins/bootstrap-input-spinner.js"></script>
+<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" nonce="<%= request.content_security_policy_nonce %>"></script>
+<script src="/js/plugins/checkBo.min.js" nonce="<%= request.content_security_policy_nonce %>"></script>
+<script src="/js/plugins/bootstrap-input-spinner.js" nonce="<%= request.content_security_policy_nonce %>"></script>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   userSignedIn = <%= user_signed_in? %>;
   __logix_project_id = "<%= @logix_project_id %>";
   __projectName = "<%= @projectName %>"
@@ -818,13 +818,13 @@
   </div>
 </div>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   $('#newCircuit').click(function () {
     return $('#insertSubcircuitDialog').dialog('close');
   });
 </script>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
 <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
 let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
 if(restricted_feature.includes('Combinational Analysis Tool')) {
@@ -836,7 +836,7 @@ if(restricted_feature.includes('Verilog tools')) {
 <% end %>
 </script>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   const embed = false;
   user_id = "<%= user_signed_in? ? " #{current_user.id} - #{current_user.name}" : "Guest user" %>";
   var listenToSimulator=true
@@ -848,7 +848,7 @@ if(restricted_feature.includes('Verilog tools')) {
 </script>
 
 <!-- on hover for dropdowns -->
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   $('.dropdown-toggle').hover(function () {
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
@@ -857,9 +857,9 @@ if(restricted_feature.includes('Verilog tools')) {
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
-<script type="text/javascript" src="/js/metadata.json"></script>
+<script type="text/javascript" src="/js/metadata.json" nonce="<%= request.content_security_policy_nonce %>"></script>
 
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
 
 $(function(){
     $(".btn-group-toggle").twbsToggleButtons();
@@ -871,4 +871,4 @@ $(".download-dialog-section-2_2").checkBo();
 });
 
 </script>
-<script src="/js/data.js"></script>
+<script src="/js/data.js" nonce="<%= request.content_security_policy_nonce %>"></script>

@@ -1,6 +1,6 @@
 <textarea id="trumbowyg"> <%= content %> </textarea>
 
-<script type="text/javascript">
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   $(document).ready(function() {
     $('#trumbowyg').trumbowyg({
       svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg",

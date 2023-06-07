@@ -36,7 +36,7 @@
     </div>
   </div>
 </div>
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   $('.user-email-input').val(localStorage.getItem("Email"));
   localStorage.removeItem("Email");
 </script>

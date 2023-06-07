@@ -1,5 +1,5 @@
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1"></script>
-<script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1" nonce="<%= request.content_security_policy_nonce %>"></script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());

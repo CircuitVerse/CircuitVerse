@@ -129,9 +129,9 @@
 </script>
 
 <%= render partial: "view_project_modal" %>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3" nonce="<%= request.content_security_policy_nonce %>"></script>
 <%# for user projects search %>
-<script type="text/javascript">
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
 
   function getTitle(circuitDiv) {
       return $('.users-card-name p', circuitDiv)[0].textContent;
@@ -201,7 +201,7 @@
 
 </script>
 
-<script type="text/javascript">
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   $(function() {
     $('#favourite-circuits-div').hide();
     $('#collaborator-circuits-div').hide();

@@ -27,7 +27,7 @@
     <%= yield %>
     <%= render "layouts/footer" %>
 
-    <script type="text/javascript">
+    <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
       // In this script tag we are checking alert's and if there is alert this code will be execute
       $(document).ready(function() {
         if (document.querySelector(".alert")) {

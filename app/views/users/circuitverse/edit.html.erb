@@ -57,7 +57,7 @@
   </div>
 </div>
 <%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
-<script type="text/javascript">
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   $(document).ready(function() {
     $("#deleteuserModal").on("show.bs.modal", function(e) {
         let user = $(e.relatedTarget).data('currentuser');
@@ -66,7 +66,7 @@
     });
   });
 </script>
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   function readURL(input) {
     if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -78,7 +78,7 @@
     }
   }
 </script>
-<script>
+<script nonce="<%= request.content_security_policy_nonce %>">
   const SELECTOR = '.autocomplete';
   DOMPurify.setConfig({ ALLOWED_TAGS: [] });
   const purify = dt => String(DOMPurify.sanitize(String(dt))).trim();

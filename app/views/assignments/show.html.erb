@@ -58,7 +58,7 @@
           <hr class="assignments-horizontal-rule">
           <% if policy(@assignment).mentor_access? %>
           <h3 class="assignments-submission-heading"><%= t("assignments.assignment_data.submissions") %></h3>
-            <script>
+            <script nonce="<%= request.content_security_policy_nonce %>">
               $( function() {
                 $('.list-group-item-action').on('click', function (e) {
                   e.preventDefault()
@@ -163,8 +163,8 @@
     </div>
   </div>
 </div>
-<script src="/js/grading.js"> </script>
-<script type="text/javascript">
+<script src="/js/grading.js" nonce="<%= request.content_security_policy_nonce %>"> </script>
+<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   $(document).ready(function() {
     $('.assignments-deadline').each(function(){
       let month = $('.assignments-deadline').data("month") -1;
