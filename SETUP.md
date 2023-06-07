@@ -72,6 +72,8 @@ cd CircuitVerse
 
 Navigate to `localhost:3000` in your web browser to access the website.
 
+#### Follow this documentation [LSP-SETUP.MD](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.MD) for `Enable Autocompletion in IDE`
+
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
@@ -149,36 +151,6 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       ```sh
       bin/yosys
       ```
-
-### Additional Steps to `Enable Autocompletion`
-
-**VS Code**
-
-Install [Ruby Solargraph](https://marketplace.visualstudio.com/items?itemName=castwide.solargraph) extenstion in VSCode
-
-1. Native Installation 
-    
-    No extra configuration requied
-
-2. Docker based Installation
-
-    - Go to Settings
-    - Search "solargraph"
-    - Look for "Solargraph: External Server"
-    - Click "Edit settings.json"
-    - In the JSON, add this details
-    ```json
-    {
-      ....
-      "solargraph.externalServer": {
-          "host": "localhost",
-          "port": 3002
-      }
-    }
-    ```
-
-**To configure Solargraph for Other IDE, [Check this docs for guide](https://github.com/castwide/solargraph#using-solargraph)**
-
 
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
