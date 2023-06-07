@@ -19,3 +19,5 @@ linters:
         Enabled: false
       Layout/InitialIndentation:
         Enabled: false
+      Style/MultilineTernaryOperator:
+        Enabled: false
