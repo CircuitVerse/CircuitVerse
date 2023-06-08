@@ -9,13 +9,13 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   before_action :set_user_project, only: %i[update]
   before_action :check_view_access, only: %i[data]
   before_action :check_edit_access, only: %i[edit update]
-  # skip_before_action :verify_authenticity_token, only: %i[data create update verilog_cv]
+  # skip_before_action :verify_authenticity_token, only: %i[data create update verilogcv]
 
   def self.policy_class
     ProjectPolicy
   end
 
-  # Get api/v1/simulator/:id/edit
+  # GET api/v1/simulator/:id/edit
   def edit
     render json: Api::V1::UserSerializer.new(current_user)
   end
@@ -30,7 +30,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     end
   end
 
-  # POST api/v1/simulator/update_data
+  # PATCH api/v1/simulator/update
   def update
     build_project_datum
     update_project_params
@@ -43,7 +43,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     end
   end
 
-  # POST api/v1/simulator/create_data
+  # POST api/v1/simulator/create
   def create
     @project = Project.new
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
@@ -85,8 +85,8 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     end
   end
 
-  # POST api/v1/simulator/verilog_cv
-  def verilog_cv
+  # POST api/v1/simulator/verilogcv
+  def verilogcv
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     response = HTTP.post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code

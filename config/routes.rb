@@ -160,13 +160,14 @@ Rails.application.routes.draw do
       patch "/notifications/mark_all_as_read", to: "notifications#mark_all_as_read"
       resources :simulator, only: %i[] do
         collection do
-          post "update", to: "simulator#update"
-          post "create_data", to: "simulator#create"
-          post "post_issue", to: "simulator#post_issue"
+          patch :update, path: "update"
+          post :create, path: "create"
+          post :post_issue, path: "post_issue"
+          post :verilogcv, path: "verilogcv"
         end
         member do
-          get "edit", to: "simulator#edit"
-          get "data", to: "simulator#data"
+          get :edit
+          get :data
         end
       end
       get "/me", to: "users#me"
