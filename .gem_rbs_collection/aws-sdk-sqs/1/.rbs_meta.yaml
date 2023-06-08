@@ -1,0 +1,9 @@
+---
+name: aws-sdk-sqs
+version: '1'
+source:
+  type: git
+  name: ruby/gem_rbs_collection
+  revision: 280d44d7671abfa909f2966fbef94bca5be082de
+  remote: https://github.com/ruby/gem_rbs_collection.git
+  repo_dir: gems

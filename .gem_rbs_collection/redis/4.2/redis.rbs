@@ -1,0 +1,206 @@
+class Redis
+  type time = Integer | Float
+
+  type sentinel = { host: String, port: Integer?, password: String? }
+
+  type node = String
+            | { host: String?, port: Integer?, db: Integer?, password: String?, path: String?, url: String? }
+
+  # Create a new client instance
+  #
+  # @param [Hash] options
+  # @option options [String] :url (value of the environment variable REDIS_URL) a Redis URL, for a TCP connection:
+  #   `redis://:[password]@[hostname]:[port]/[db]` (password, port and database are optional), for a unix socket
+  #    connection: `unix://[path to Redis socket]`. This overrides all other options.
+  # @option options [String] :host ("127.0.0.1") server hostname
+  # @option options [Integer] :port (6379) server port
+  # @option options [String] :path path to server socket (overrides host and port)
+  # @option options [Float] :timeout (5.0) timeout in seconds
+  # @option options [Float] :connect_timeout (same as timeout) timeout for initial connect in seconds
+  # @option options [String] :password Password to authenticate against server
+  # @option options [Integer] :db (0) Database to select after initial connect
+  # @option options [Symbol] :driver Driver to use, currently supported: `:ruby`, `:hiredis`, `:synchrony`
+  # @option options [String] :id ID for the client connection, assigns name to current connection by sending
+  #   `CLIENT SETNAME`
+  # @option options [Hash, Integer] :tcp_keepalive Keepalive values, if Integer `intvl` and `probe` are calculated
+  #   based on the value, if Hash `time`, `intvl` and `probes` can be specified as a Integer
+  # @option options [Integer] :reconnect_attempts Number of attempts trying to connect
+  # @option options [Boolean] :inherit_socket (false) Whether to use socket in forked process or not
+  # @option options [Array] :sentinels List of sentinels to contact
+  # @option options [Symbol] :role (:master) Role to fetch via Sentinel, either `:master` or `:slave`
+  # @option options [Array<String, Hash{Symbol => String, Integer}>] :cluster List of cluster nodes to contact
+  # @option options [Boolean] :replica Whether to use readonly replica nodes in Redis Cluster or not
+  # @option options [Class] :connector Class of custom connector
+  #
+  # @return [Redis] a new client instance
+  def initialize: (?url: String,
+                   ?scheme: String,
+                   ?host: String,
+                   ?port: Integer,
+                   ?db: Integer,
+                   ?path: String,
+                   ?sentinels: Array[sentinel],
+                   ?role: :master | :slave,
+                   ?cluster: Array[node],
+                   ?repliace: boolish,
+                   ?timeout: time,
+                   ?connect_timeout: time,
+                   ?read_timeout: time,
+                   ?write_timeout: time,
+                   ?reconnect_attempts: Integer,
+                   ?reconnect_delay: Float,
+                   ?reconnect_delay_max: Float,
+                   ?password: String,
+                   ?driver: Symbol,
+                   ?inherit_socket: boolish,
+                   ?ssl_params: Hash[Symbol, untyped]) -> void
+
+  # Set the string value of a key.
+  #
+  # @param [String] key
+  # @param [String] value
+  # @param [Hash] options
+  #   - `:ex => Integer`: Set the specified expire time, in seconds.
+  #   - `:px => Integer`: Set the specified expire time, in milliseconds.
+  #   - `:nx => true`: Only set the key if it does not already exist.
+  #   - `:xx => true`: Only set the key if it already exist.
+  #   - `:keepttl => true`: Retain the time to live associated with the key.
+  # @return [String, Boolean] `"OK"` or true, false if `:nx => true` or `:xx => true`
+  def set: ((String | Symbol) key, top value, ?ex: Integer?, ?px: Integer?, ?nx: boolish, ?xx: boolish, ?keepttl: boolish) -> (String | bool)
+
+  # Get the value of a key.
+  #
+  # @param [String] key
+  # @return [String]
+  def get: ((String | Symbol) key) -> String?
+
+
+  # Set one or more values.
+  #
+  # @example
+  #   redis.mset("key1", "v1", "key2", "v2")
+  #     # => "OK"
+  #
+  # @param [Array<String>] args array of keys and values
+  # @return [String] `"OK"`
+  #
+  # @see #mapped_mset
+  def mset: (*String args) -> String
+
+  # Get the values of all the given keys.
+  #
+  # @example
+  #   redis.mget("key1", "key2")
+  #     # => ["v1", "v2"]
+  #
+  # @param [Array<String>] keys
+  # @return [Array<String>] an array of values for the specified keys
+  #
+  # @see #mapped_mget
+  def mget: (*String keys) -> Array[String?]
+          | [T] (*String keys) { (Array[String?]) -> T } -> T
+
+
+  # Decrement the integer value of a key by one.
+  #
+  # @example
+  #   redis.decr("value")
+  #     # => 4
+  #
+  # @param [String] key
+  # @return [Integer] value after decrementing it
+  def decr: (String key) -> Integer
+
+  # Decrement the integer value of a key by the given number.
+  #
+  # @example
+  #   redis.decrby("value", 5)
+  #     # => 0
+  #
+  # @param [String] key
+  # @param [Integer] decrement
+  # @return [Integer] value after decrementing it
+  def decrby: (String key, Integer decrement) -> Integer
+
+  # Increment the integer value of a key by one.
+  #
+  # @example
+  #   redis.incr("value")
+  #     # => 6
+  #
+  # @param [String] key
+  # @return [Integer] value after incrementing it
+  def incr: (String key) -> Integer
+
+  # Increment the integer value of a key by the given integer number.
+  #
+  # @example
+  #   redis.incrby("value", 5)
+  #     # => 10
+  #
+  # @param [String] key
+  # @param [Integer] increment
+  # @return [Integer] value after incrementing it
+  def incrby: (String key, Integer increment) -> Integer
+
+  interface _Pipelined
+    def get: (String key) -> Future[String?]
+
+    def set: (String key, top value, ?ex: Integer?, ?px: Integer?, ?nx: boolish, ?xx: boolish, ?keepttl: boolish) -> Future[String]
+
+    def decr: (String key) -> Future[Integer]
+
+    def decrby: (String key, Integer decrement) -> Future[Integer]
+
+    def incr: (String key) -> Future[Integer]
+
+    def incrby: (String key, Integer increment) -> Future[Integer]
+  end
+
+  def pipelined: () { (self & _Pipelined) -> void } -> Array[String | Integer]
+
+    # Mark the start of a transaction block.
+  #
+  # Passing a block is optional.
+  #
+  # @example With a block
+  #   redis.multi do |multi|
+  #     multi.set("key", "value")
+  #     multi.incr("counter")
+  #   end # => ["OK", 6]
+  #
+  # @example Without a block
+  #   redis.multi
+  #     # => "OK"
+  #   redis.set("key", "value")
+  #     # => "QUEUED"
+  #   redis.incr("counter")
+  #     # => "QUEUED"
+  #   redis.exec
+  #     # => ["OK", 6]
+  #
+  # @yield [multi] the commands that are called inside this block are cached
+  #   and written to the server upon returning from it
+  # @yieldparam [Redis] multi `self`
+  #
+  # @return [String, Array<...>]
+  #   - when a block is not given, `OK`
+  #   - when a block is given, an array with replies
+  #
+  # @see #watch
+  # @see #unwatch
+  def multi: () -> String
+           | () { (self) -> void } -> Array[String | Integer]
+
+  # Ping the server.
+  #
+  # @param [optional, String] message
+  # @return [String] `PONG`
+  def ping: (?String? message) -> String
+
+  def zcard: (_ToS key) -> Integer
+  def zadd: (_ToS key, *untyped args, ?nx: bool, ?ch: bool, ?incr: bool) -> (bool | Integer | Float)
+          | (_ToS key, *untyped args, ?xx: bool, ?ch: bool, ?incr: bool) -> (bool | Integer | Float)
+  def zincrby: (_ToS key, Integer|Float|"-inf"|"+inf" increment, String member) -> Float
+  def zrem: (_ToS key, String|Array[String] member) -> (bool | Integer)
+end

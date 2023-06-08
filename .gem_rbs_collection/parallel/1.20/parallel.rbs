@@ -1,0 +1,83 @@
+module Parallel
+  class Break < StandardError
+    attr_reader value: untyped
+
+    def initialize: (?untyped value) -> void
+  end
+
+  class Kill < Break
+  end
+
+  Stop: Object
+
+  VERSION: String
+
+  Version: String
+
+  def self.all?: [T] (Enumerable[T] | (^() -> T | untyped) array, # TODO: `T | Stop` should be better than `T | untyped`.
+                      ?in_processes: Integer,
+                      ?in_threads: Integer,
+                      ?progress: _ToStr,
+                      ?start: ^(T item, Integer index) -> untyped,
+                      ?finish: ^(T item, Integer index, untyped result) -> untyped) { (T) -> boolish } -> bool
+
+  def self.any?: [T] (Enumerable[T] | (^() -> T | untyped) array,
+                      ?in_processes: Integer,
+                      ?in_threads: Integer,
+                      ?progress: _ToStr,
+                      ?start: ^(T item, Integer index) -> untyped,
+                      ?finish: ^(T item, Integer index, untyped result) -> untyped) { (T) -> boolish } -> bool
+
+  def self.each: [T, U] (Enumerable[T] array,
+                         ?in_processes: Integer,
+                         ?in_threads: Integer,
+                         ?progress: _ToStr,
+                         ?start: ^(T item, Integer index) -> untyped,
+                         ?finish: ^(T item, Integer index, U result) -> untyped) { (T) -> U } -> Enumerable[U]
+               | [T, U] ((^() -> T | untyped) array,
+                         ?in_processes: Integer,
+                         ?in_threads: Integer,
+                         ?progress: _ToStr,
+                         ?start: ^(T item, Integer index) -> untyped,
+                         ?finish: ^(T item, Integer index, U result) -> untyped) { (T) -> U } -> (^() -> T | untyped)
+
+  def self.each_with_index: [T, U] (Enumerable[T] array,
+                                    ?in_processes: Integer,
+                                    ?in_threads: Integer,
+                                    ?progress: _ToStr,
+                                    ?start: ^(T item, Integer index) -> untyped,
+                                    ?finish: ^(T item, Integer index, U result) -> untyped) { (T, Integer) -> U } -> Enumerable[T]
+                          | [T, U] ((^() -> T | untyped) array,
+                                    ?in_processes: Integer,
+                                    ?in_threads: Integer,
+                                    ?progress: _ToStr,
+                                    ?start: ^(T item, Integer index) -> untyped,
+                                    ?finish: ^(T item, Integer index, U result) -> untyped) { (T, Integer) -> U } -> (^() -> T | untyped)
+
+  def self.flat_map: [T, U] (Enumerable[T] array,
+                             ?in_processes: Integer,
+                             ?in_threads: Integer,
+                             ?progress: _ToStr,
+                             ?start: ^(T item, Integer index) -> untyped,
+                             ?finish: ^(T item, Integer index, U result) -> untyped) { (T) -> U } -> Array[U]
+
+  def self.map: [T, U] (Enumerable[T] | (^() -> T | untyped) array,
+                        ?in_processes: Integer,
+                        ?in_threads: Integer,
+                        ?progress: _ToStr,
+                        ?start: ^(T item, Integer index) -> untyped,
+                        ?finish: ^(T item, Integer index, U result) -> untyped) { (T) -> U } -> Array[U]
+
+  def self.map_with_index: [T, U] (Enumerable[T] | (^() -> T | untyped) array,
+                                   ?in_processes: Integer,
+                                   ?in_threads: Integer,
+                                   ?progress: _ToStr,
+                                   ?start: ^(T item, Integer index) -> untyped,
+                                   ?finish: ^(T item, Integer index, U result) -> untyped) { (T, Integer) -> U } -> Array[U]
+
+  def self.physical_processor_count: () -> Integer
+
+  def self.processor_count: () -> Integer
+
+  def self.worker_number: () -> Integer
+end

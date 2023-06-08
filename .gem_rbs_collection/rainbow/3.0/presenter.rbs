@@ -1,0 +1,209 @@
+module Rainbow
+  class Presenter < String
+    # Sets color of this text.
+    def color: (*Symbol values) -> instance
+
+    alias foreground color
+
+    alias fg color
+
+    # Sets background color of this text.
+    def background: (*Symbol values) -> instance
+
+    alias bg background
+
+    # Resets terminal to default colors/backgrounds.
+    #
+    # It shouldn't be needed to use this method because all methods
+    # append terminal reset code to end of string.
+    def reset: () -> instance
+
+    # Turns on bright/bold for this text.
+    def bright: () -> instance
+
+    alias bold bright
+
+    # Turns on faint/dark for this text (not well supported by terminal
+    # emulators).
+    def faint: () -> instance
+
+    # Turns on italic style for this text (not well supported by terminal
+    # emulators).
+    def italic: () -> instance
+
+    # Turns on underline decoration for this text.
+    def underline: () -> instance
+
+    # Turns on blinking attribute for this text (not well supported by terminal
+    # emulators).
+    def blink: () -> instance
+
+    # Inverses current foreground/background colors.
+    def inverse: () -> instance
+
+    # Hides this text (set its color to the same as background).
+    def hide: () -> instance
+
+    def black: () -> instance
+
+    def red: () -> instance
+
+    def green: () -> instance
+
+    def yellow: () -> instance
+
+    def blue: () -> instance
+
+    def magenta: () -> instance
+
+    def cyan: () -> instance
+
+    def white: () -> instance
+
+    # We take care of X11 color method call here.
+    # Such as #aqua, #ghostwhite.
+    def method_missing: (untyped method_name, *untyped args) -> untyped
+
+    def respond_to_missing?: (untyped method_name, *untyped args) -> bool
+
+    def wrap_with_sgr: (untyped codes) -> instance
+
+    def aliceblue: () -> instance
+    def antiquewhite: () -> instance
+    def aqua: () -> instance
+    def aquamarine: () -> instance
+    def azure: () -> instance
+    def beige: () -> instance
+    def bisque: () -> instance
+    def blanchedalmond: () -> instance
+    def blueviolet: () -> instance
+    def brown: () -> instance
+    def burlywood: () -> instance
+    def cadetblue: () -> instance
+    def chartreuse: () -> instance
+    def chocolate: () -> instance
+    def coral: () -> instance
+    def cornflower: () -> instance
+    def cornsilk: () -> instance
+    def crimson: () -> instance
+    def darkblue: () -> instance
+    def darkcyan: () -> instance
+    def darkgoldenrod: () -> instance
+    def darkgray: () -> instance
+    def darkgreen: () -> instance
+    def darkkhaki: () -> instance
+    def darkmagenta: () -> instance
+    def darkolivegreen: () -> instance
+    def darkorange: () -> instance
+    def darkorchid: () -> instance
+    def darkred: () -> instance
+    def darksalmon: () -> instance
+    def darkseagreen: () -> instance
+    def darkslateblue: () -> instance
+    def darkslategray: () -> instance
+    def darkturquoise: () -> instance
+    def darkviolet: () -> instance
+    def deeppink: () -> instance
+    def deepskyblue: () -> instance
+    def dimgray: () -> instance
+    def dodgerblue: () -> instance
+    def firebrick: () -> instance
+    def floralwhite: () -> instance
+    def forestgreen: () -> instance
+    def fuchsia: () -> instance
+    def gainsboro: () -> instance
+    def ghostwhite: () -> instance
+    def gold: () -> instance
+    def goldenrod: () -> instance
+    def gray: () -> instance
+    def greenyellow: () -> instance
+    def honeydew: () -> instance
+    def hotpink: () -> instance
+    def indianred: () -> instance
+    def indigo: () -> instance
+    def ivory: () -> instance
+    def khaki: () -> instance
+    def lavender: () -> instance
+    def lavenderblush: () -> instance
+    def lawngreen: () -> instance
+    def lemonchiffon: () -> instance
+    def lightblue: () -> instance
+    def lightcoral: () -> instance
+    def lightcyan: () -> instance
+    def lightgoldenrod: () -> instance
+    def lightgray: () -> instance
+    def lightgreen: () -> instance
+    def lightpink: () -> instance
+    def lightsalmon: () -> instance
+    def lightseagreen: () -> instance
+    def lightskyblue: () -> instance
+    def lightslategray: () -> instance
+    def lightsteelblue: () -> instance
+    def lightyellow: () -> instance
+    def lime: () -> instance
+    def limegreen: () -> instance
+    def linen: () -> instance
+    def maroon: () -> instance
+    def mediumaquamarine: () -> instance
+    def mediumblue: () -> instance
+    def mediumorchid: () -> instance
+    def mediumpurple: () -> instance
+    def mediumseagreen: () -> instance
+    def mediumslateblue: () -> instance
+    def mediumspringgreen: () -> instance
+    def mediumturquoise: () -> instance
+    def mediumvioletred: () -> instance
+    def midnightblue: () -> instance
+    def mintcream: () -> instance
+    def mistyrose: () -> instance
+    def moccasin: () -> instance
+    def navajowhite: () -> instance
+    def navyblue: () -> instance
+    def oldlace: () -> instance
+    def olive: () -> instance
+    def olivedrab: () -> instance
+    def orange: () -> instance
+    def orangered: () -> instance
+    def orchid: () -> instance
+    def palegoldenrod: () -> instance
+    def palegreen: () -> instance
+    def paleturquoise: () -> instance
+    def palevioletred: () -> instance
+    def papayawhip: () -> instance
+    def peachpuff: () -> instance
+    def peru: () -> instance
+    def pink: () -> instance
+    def plum: () -> instance
+    def powderblue: () -> instance
+    def purple: () -> instance
+    def rebeccapurple: () -> instance
+    def rosybrown: () -> instance
+    def royalblue: () -> instance
+    def saddlebrown: () -> instance
+    def salmon: () -> instance
+    def sandybrown: () -> instance
+    def seagreen: () -> instance
+    def seashell: () -> instance
+    def sienna: () -> instance
+    def silver: () -> instance
+    def skyblue: () -> instance
+    def slateblue: () -> instance
+    def slategray: () -> instance
+    def snow: () -> instance
+    def springgreen: () -> instance
+    def steelblue: () -> instance
+    def tan: () -> instance
+    def teal: () -> instance
+    def thistle: () -> instance
+    def tomato: () -> instance
+    def turquoise: () -> instance
+    def violet: () -> instance
+    def webgray: () -> instance
+    def webgreen: () -> instance
+    def webmaroon: () -> instance
+    def webpurple: () -> instance
+    def wheat: () -> instance
+    def whitesmoke: () -> instance
+    def yellowgreen: () -> instance
+  end
+end

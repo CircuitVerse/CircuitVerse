@@ -1,0 +1,7 @@
+module Rainbow
+  def self.enabled: () -> bool
+
+  def self.enabled=: (bool value) -> bool
+
+  def self.uncolor: (String string) -> String
+end

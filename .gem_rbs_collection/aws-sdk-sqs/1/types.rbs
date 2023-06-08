@@ -1,0 +1,150 @@
+# WARNING ABOUT GENERATED CODE
+#
+# This file is generated. See the generator README.md for more information:
+# https://github.com/ruby/gem_rbs_collection/blob/main/generators/aws-sdk-rbs-generator/README.md
+#
+# WARNING ABOUT GENERATED CODE
+
+module Aws
+  module SQS
+    module Types
+      type aws_account_id_list = ::Array[string]
+      type action_name_list = ::Array[string]
+      type add_permission_request = { queue_url: string, label: string, aws_account_ids: aws_account_id_list, actions: action_name_list }
+      type attribute_name_list = ::Array[queue_attribute_name]
+      class BatchResultErrorEntry
+        attr_accessor id: string
+        attr_accessor sender_fault: boolean
+        attr_accessor code: string
+        attr_accessor message: string
+      end
+      type batch_result_error_entry_list = ::Array[BatchResultErrorEntry]
+      type binary = ::String
+      type binary_list = ::Array[binary]
+      type boolean = bool
+      type boxed_integer = ::Integer
+      type change_message_visibility_batch_request = { queue_url: string, entries: change_message_visibility_batch_request_entry_list }
+      type change_message_visibility_batch_request_entry = { id: string, receipt_handle: string, visibility_timeout: integer? }
+      type change_message_visibility_batch_request_entry_list = ::Array[change_message_visibility_batch_request_entry]
+      class ChangeMessageVisibilityBatchResult
+        attr_accessor successful: change_message_visibility_batch_result_entry_list
+        attr_accessor failed: batch_result_error_entry_list
+      end
+      class ChangeMessageVisibilityBatchResultEntry
+        attr_accessor id: string
+      end
+      type change_message_visibility_batch_result_entry_list = ::Array[ChangeMessageVisibilityBatchResultEntry]
+      type change_message_visibility_request = { queue_url: string, receipt_handle: string, visibility_timeout: integer }
+      type create_queue_request = { queue_name: string, attributes: queue_attribute_map?, tags: tag_map? }
+      class CreateQueueResult
+        attr_accessor queue_url: string
+      end
+      type delete_message_batch_request = { queue_url: string, entries: delete_message_batch_request_entry_list }
+      type delete_message_batch_request_entry = { id: string, receipt_handle: string }
+      type delete_message_batch_request_entry_list = ::Array[delete_message_batch_request_entry]
+      class DeleteMessageBatchResult
+        attr_accessor successful: delete_message_batch_result_entry_list
+        attr_accessor failed: batch_result_error_entry_list
+      end
+      class DeleteMessageBatchResultEntry
+        attr_accessor id: string
+      end
+      type delete_message_batch_result_entry_list = ::Array[DeleteMessageBatchResultEntry]
+      type delete_message_request = { queue_url: string, receipt_handle: string }
+      type delete_queue_request = { queue_url: string }
+      type get_queue_attributes_request = { queue_url: string, attribute_names: attribute_name_list? }
+      class GetQueueAttributesResult
+        attr_accessor attributes: queue_attribute_map
+      end
+      type get_queue_url_request = { queue_name: string, queue_owner_aws_account_id: string? }
+      class GetQueueUrlResult
+        attr_accessor queue_url: string
+      end
+      type integer = ::Integer
+      type list_dead_letter_source_queues_request = { queue_url: string, next_token: token?, max_results: boxed_integer? }
+      class ListDeadLetterSourceQueuesResult
+        attr_accessor queue_urls: queue_url_list
+        attr_accessor next_token: token
+      end
+      type list_queue_tags_request = { queue_url: string }
+      class ListQueueTagsResult
+        attr_accessor tags: tag_map
+      end
+      type list_queues_request = { queue_name_prefix: string?, next_token: token?, max_results: boxed_integer? }
+      class ListQueuesResult
+        attr_accessor queue_urls: queue_url_list
+        attr_accessor next_token: token
+      end
+      class Message
+        attr_accessor message_id: string
+        attr_accessor receipt_handle: string
+        attr_accessor md5_of_body: string
+        attr_accessor body: string
+        attr_accessor attributes: message_system_attribute_map
+        attr_accessor md5_of_message_attributes: string
+        attr_accessor message_attributes: message_body_attribute_map_output
+      end
+      type message_attribute_name = ::String
+      type message_attribute_name_list = ::Array[message_attribute_name]
+      class MessageAttributeValue
+        attr_accessor string_value: string
+        attr_accessor binary_value: binary
+        attr_accessor string_list_values: string_list
+        attr_accessor binary_list_values: binary_list
+        attr_accessor data_type: string
+      end
+      type message_attribute_value = { string_value: string?, binary_value: binary?, string_list_values: string_list?, binary_list_values: binary_list?, data_type: string }
+      type message_body_attribute_map_output = ::Hash[string, MessageAttributeValue]
+      type message_body_attribute_map_input = ::Hash[string, message_attribute_value]
+      type message_body_system_attribute_map = ::Hash[message_system_attribute_name_for_sends, message_system_attribute_value]
+      type message_list = ::Array[Message]
+      type message_system_attribute_map = ::Hash[message_system_attribute_name, string]
+      type message_system_attribute_name = ("SenderId" | "SentTimestamp" | "ApproximateReceiveCount" | "ApproximateFirstReceiveTimestamp" | "SequenceNumber" | "MessageDeduplicationId" | "MessageGroupId" | "AWSTraceHeader")
+      type message_system_attribute_name_for_sends = ("AWSTraceHeader")
+      type message_system_attribute_value = { string_value: string?, binary_value: binary?, string_list_values: string_list?, binary_list_values: binary_list?, data_type: string }
+      type purge_queue_request = { queue_url: string }
+      type queue_attribute_map = ::Hash[queue_attribute_name, string]
+      type queue_attribute_name = ("All" | "Policy" | "VisibilityTimeout" | "MaximumMessageSize" | "MessageRetentionPeriod" | "ApproximateNumberOfMessages" | "ApproximateNumberOfMessagesNotVisible" | "CreatedTimestamp" | "LastModifiedTimestamp" | "QueueArn" | "ApproximateNumberOfMessagesDelayed" | "DelaySeconds" | "ReceiveMessageWaitTimeSeconds" | "RedrivePolicy" | "FifoQueue" | "ContentBasedDeduplication" | "KmsMasterKeyId" | "KmsDataKeyReusePeriodSeconds" | "DeduplicationScope" | "FifoThroughputLimit" | "RedriveAllowPolicy" | "SqsManagedSseEnabled")
+      type queue_url_list = ::Array[string]
+      type receive_message_request = { queue_url: string, attribute_names: attribute_name_list?, message_attribute_names: message_attribute_name_list?, max_number_of_messages: integer?, visibility_timeout: integer?, wait_time_seconds: integer?, receive_request_attempt_id: string? }
+      class ReceiveMessageResult
+        attr_accessor messages: message_list
+      end
+      type remove_permission_request = { queue_url: string, label: string }
+      type send_message_batch_request = { queue_url: string, entries: send_message_batch_request_entry_list }
+      type send_message_batch_request_entry = { id: string, message_body: string, delay_seconds: integer?, message_attributes: message_body_attribute_map_input?, message_system_attributes: message_body_system_attribute_map?, message_deduplication_id: string?, message_group_id: string? }
+      type send_message_batch_request_entry_list = ::Array[send_message_batch_request_entry]
+      class SendMessageBatchResult
+        attr_accessor successful: send_message_batch_result_entry_list
+        attr_accessor failed: batch_result_error_entry_list
+      end
+      class SendMessageBatchResultEntry
+        attr_accessor id: string
+        attr_accessor message_id: string
+        attr_accessor md5_of_message_body: string
+        attr_accessor md5_of_message_attributes: string
+        attr_accessor md5_of_message_system_attributes: string
+        attr_accessor sequence_number: string
+      end
+      type send_message_batch_result_entry_list = ::Array[SendMessageBatchResultEntry]
+      type send_message_request = { queue_url: string, message_body: string, delay_seconds: integer?, message_attributes: message_body_attribute_map_input?, message_system_attributes: message_body_system_attribute_map?, message_deduplication_id: string?, message_group_id: string? }
+      class SendMessageResult
+        attr_accessor md5_of_message_body: string
+        attr_accessor md5_of_message_attributes: string
+        attr_accessor md5_of_message_system_attributes: string
+        attr_accessor message_id: string
+        attr_accessor sequence_number: string
+      end
+      type set_queue_attributes_request = { queue_url: string, attributes: queue_attribute_map }
+      type string = ::String
+      type string_list = ::Array[string]
+      type tag_key = ::String
+      type tag_key_list = ::Array[tag_key]
+      type tag_map = ::Hash[tag_key, tag_value]
+      type tag_queue_request = { queue_url: string, tags: tag_map }
+      type tag_value = ::String
+      type token = ::String
+      type untag_queue_request = { queue_url: string, tag_keys: tag_key_list }
+    end
+  end
+end

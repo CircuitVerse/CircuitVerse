@@ -1,0 +1,48 @@
+# WARNING ABOUT GENERATED CODE
+#
+# This file is generated. See the generator README.md for more information:
+# https://github.com/ruby/gem_rbs_collection/blob/main/generators/aws-sdk-rbs-generator/README.md
+#
+# WARNING ABOUT GENERATED CODE
+
+module Aws
+  module SQS
+    module Errors
+      class ServiceError < Aws::Errors::ServiceError
+      end
+
+      class BatchEntryIdsNotDistinct < ServiceError
+      end
+      class BatchRequestTooLong < ServiceError
+      end
+      class EmptyBatchRequest < ServiceError
+      end
+      class InvalidAttributeName < ServiceError
+      end
+      class InvalidBatchEntryId < ServiceError
+      end
+      class InvalidIdFormat < ServiceError
+      end
+      class InvalidMessageContents < ServiceError
+      end
+      class MessageNotInflight < ServiceError
+      end
+      class OverLimit < ServiceError
+      end
+      class PurgeQueueInProgress < ServiceError
+      end
+      class QueueDeletedRecently < ServiceError
+      end
+      class QueueDoesNotExist < ServiceError
+      end
+      class QueueNameExists < ServiceError
+      end
+      class ReceiptHandleIsInvalid < ServiceError
+      end
+      class TooManyEntriesInBatchRequest < ServiceError
+      end
+      class UnsupportedOperation < ServiceError
+      end
+    end
+  end
+end

@@ -1,0 +1,808 @@
+module Sidekiq
+  NAME: ::String
+
+  LICENSE: ::String
+
+  DEFAULTS: ::Hash[Symbol, untyped]
+
+  DEFAULT_WORKER_OPTIONS: ::Hash[String, untyped]
+
+  FAKE_INFO: ::Hash[String, String]
+
+  def self.`❨╯°□°❩╯︵┻━┻`: () -> nil
+
+  def self.options: () -> Hash[(Symbol | String), untyped]
+
+  def self.options=: (Hash[(Symbol | String), untyped] opts) -> void
+
+  #
+  # Configuration for Sidekiq server, use like:
+  #
+  #   Sidekiq.configure_server do |config|
+  #     config.redis = { :namespace => 'myapp', :size => 25, :url => 'redis://myhost:8877/0' }
+  #     config.server_middleware do |chain|
+  #       chain.add MyServerHook
+  #     end
+  #   end
+  def self.configure_server: () { (self config) -> void } -> void
+
+  #
+  # Configuration for Sidekiq client, use like:
+  #
+  #   Sidekiq.configure_client do |config|
+  #     config.redis = { :namespace => 'myapp', :size => 1, :url => 'redis://myhost:8877/0' }
+  #   end
+  def self.configure_client: () { (self config) -> void } -> void
+
+  def self.server?: () -> bool
+
+  def self.redis: () { (Redis conn) -> void } -> void
+
+  def self.redis_info: () -> Hash[String, String]
+
+  def self.redis_pool: () -> untyped
+
+  def self.redis=: (untyped hash) -> void
+
+  def self.client_middleware: () ?{ (Sidekiq::Middleware::Chain) -> untyped } -> Sidekiq::Middleware::Chain
+
+  def self.server_middleware: () ?{ (Sidekiq::Middleware::Chain) -> untyped } -> Sidekiq::Middleware::Chain
+
+  def self.default_server_middleware: () -> Sidekiq::Middleware::Chain
+
+  def self.default_worker_options=: (Hash[(String | Symbol), untyped] hash) -> void
+
+  def self.default_worker_options: () -> Hash[String, untyped]
+
+  #
+  # Death handlers are called when all retries for a job have been exhausted and
+  # the job dies.  It's the notification to your application
+  # that this job will not succeed without manual intervention.
+  #
+  # Sidekiq.configure_server do |config|
+  #   config.death_handlers << ->(job, ex) do
+  #   end
+  # end
+  def self.death_handlers: () -> Array[^(Sidekiq::Job, Exception) -> void]
+
+  def self.load_json: (String string) -> untyped
+
+  def self.dump_json: (untyped object) -> String
+
+  def self.log_formatter: () -> Sidekiq::Logger::Formatters::Base
+
+  def self.log_formatter=: (untyped log_formatter) -> void
+
+  def self.logger: () -> Sidekiq::Logger
+
+  def self.logger=: (untyped logger) -> void
+
+  def self.pro?: () -> bool
+
+  # How frequently Redis should be checked by a random Sidekiq process for
+  # scheduled and retriable jobs. Each individual process will take turns by
+  # waiting some multiple of this value.
+  #
+  # See sidekiq/scheduled.rb for an in-depth explanation of this value
+  def self.average_scheduled_poll_interval=: ((Time | untyped) interval) -> void
+
+  # Register a proc to handle any error which occurs within the Sidekiq process.
+  #
+  #   Sidekiq.configure_server do |config|
+  #     config.error_handlers << proc {|ex,ctx_hash| MyErrorService.notify(ex, ctx_hash) }
+  #   end
+  #
+  # The default error handler logs errors to Sidekiq.logger.
+  def self.error_handlers: () -> Array[Proc]
+
+  # Register a block to run at a point in the Sidekiq lifecycle.
+  # :startup, :quiet or :shutdown are valid events.
+  #
+  #   Sidekiq.configure_server do |config|
+  #     config.on(:shutdown) do
+  #       puts "Goodbye cruel world!"
+  #     end
+  #   end
+  def self.on: (Symbol event) ?{ () -> void } -> void
+
+  # We are shutting down Sidekiq but what about workers that
+  # are working on some long job?  This error is
+  # raised in workers that have not finished within the hard
+  # timeout limit.  This is needed to rollback db transactions,
+  # otherwise Ruby's Thread#kill will commit.  See #377.
+  # DO NOT RESCUE THIS ERROR IN YOUR WORKERS
+  class Shutdown < Interrupt
+  end
+
+  class CLI
+    def self.instance: () -> Sidekiq::CLI
+
+    def launcher: () -> untyped
+  end
+
+  class Client
+    def initialize: (?untyped? redis_pool) -> void
+
+    attr_accessor redis_pool: untyped
+
+    ##
+    # Define client-side middleware:
+    #
+    #   client = Sidekiq::Client.new
+    #   client.middleware do |chain|
+    #     chain.use MyClientMiddleware
+    #   end
+    #   client.push('class' => 'SomeWorker', 'args' => [1,2,3])
+    #
+    # All client instances default to the globally-defined
+    # Sidekiq.client_middleware but you can change as necessary.
+    #
+    def middleware: () ?{ (Sidekiq::Middleware::Chain) -> void } -> Sidekiq::Middleware::Chain
+
+    ##
+    # The main method used to push a job to Redis.  Accepts a number of options:
+    #
+    #   queue - the named queue to use, default 'default'
+    #   class - the worker class to call, required
+    #   args - an array of simple arguments to the perform method, must be JSON-serializable
+    #   at - timestamp to schedule the job (optional), must be Numeric (e.g. Time.now.to_f)
+    #   retry - whether to retry this job if it fails, default true or an integer number of retries
+    #   backtrace - whether to save any error backtrace, default false
+    #
+    # If class is set to the class name, the jobs' options will be based on Sidekiq's default
+    # worker options. Otherwise, they will be based on the job class's options.
+    #
+    # Any options valid for a worker class's sidekiq_options are also available here.
+    #
+    # All options must be strings, not symbols.  NB: because we are serializing to JSON, all
+    # symbols in 'args' will be converted to strings.  Note that +backtrace: true+ can take quite a bit of
+    # space in Redis; a large volume of failing jobs can start Redis swapping if you aren't careful.
+    #
+    # Returns a unique Job ID.  If middleware stops the job, nil will be returned instead.
+    #
+    # Example:
+    #   push('queue' => 'my_queue', 'class' => MyWorker, 'args' => ['foo', 1, :bat => 'bar'])
+    #
+    def push: (Hash[String, untyped] item) -> String?
+
+    ##
+    # Push a large number of jobs to Redis. This method cuts out the redis
+    # network round trip latency.  I wouldn't recommend pushing more than
+    # 1000 per call but YMMV based on network quality, size of job args, etc.
+    # A large number of jobs can cause a bit of Redis command processing latency.
+    #
+    # Takes the same arguments as #push except that args is expected to be
+    # an Array of Arrays.  All other keys are duplicated for each job.  Each job
+    # is run through the client middleware pipeline and each job gets its own Job ID
+    # as normal.
+    #
+    # Returns an array of the of pushed jobs' jids.  The number of jobs pushed can be less
+    # than the number given if the middleware stopped processing for one or more jobs.
+    def push_bulk: (Hash[String, untyped] items) -> Array[String]
+
+    # Allows sharding of jobs across any number of Redis instances.  All jobs
+    # defined within the block will use the given Redis connection pool.
+    #
+    #   pool = ConnectionPool.new { Redis.new }
+    #   Sidekiq::Client.via(pool) do
+    #     SomeWorker.perform_async(1,2,3)
+    #     SomeOtherWorker.perform_async(1,2,3)
+    #   end
+    #
+    # Generally this is only needed for very large Sidekiq installs processing
+    # thousands of jobs per second.  I do not recommend sharding unless
+    # you cannot scale any other way (e.g. splitting your app into smaller apps).
+    def self.via: (untyped pool) { () -> void } -> void
+
+    def self.push: (Hash[untyped, untyped] item) -> String?
+
+    def self.push_bulk: (Hash[untyped, untyped] items) -> Array[String]
+
+    # Resque compatibility helpers.  Note all helpers
+    # should go through Worker#client_push.
+    #
+    # Example usage:
+    #   Sidekiq::Client.enqueue(MyWorker, 'foo', 1, :bat => 'bar')
+    #
+    # Messages are enqueued to the 'default' queue.
+    #
+    def self.enqueue: (Class klass, *untyped args) -> void
+
+    # Example usage:
+    #   Sidekiq::Client.enqueue_to(:queue_name, MyWorker, 'foo', 1, :bat => 'bar')
+    #
+    def self.enqueue_to: ((Symbol | String) queue, Class klass, *untyped args) -> String
+
+    # Example usage:
+    #   Sidekiq::Client.enqueue_to_in(:queue_name, 3.minutes, MyWorker, 'foo', 1, :bat => 'bar')
+    #
+    def self.enqueue_to_in: ((Symbol | String) queue, (Time | untyped) interval, Class klass, *untyped args) -> String
+
+    # Example usage:
+    #   Sidekiq::Client.enqueue_in(3.minutes, MyWorker, 'foo', 1, :bat => 'bar')
+    #
+    def self.enqueue_in: ((Time | untyped) interval, Class klass, *untyped args) -> String
+  end
+
+  class EmptyQueueError < ::RuntimeError
+  end
+
+  module Extensions
+    SIZE_LIMIT: ::Integer
+
+    class DelayedMailer
+      include Sidekiq::Worker
+
+      def perform: (String yml) -> void
+    end
+
+    module ActionMailer
+      def sidekiq_delay: (?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      def sidekiq_delay_for: ((Time | untyped) interval, ?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      def sidekiq_delay_until: (untyped timestamp, ?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      alias delay sidekiq_delay
+      alias delay_for sidekiq_delay_for
+      alias delay_until sidekiq_delay_until
+    end
+
+    class DelayedModel
+      include Sidekiq::Worker
+
+      def perform: (String yml) -> void
+    end
+
+    module ActiveRecord
+      def sidekiq_delay: (?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      def sidekiq_delay_for: ((Time | untyped) interval, ?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      def sidekiq_delay_until: (untyped timestamp, ?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      alias delay sidekiq_delay
+      alias delay_for sidekiq_delay_for
+      alias delay_until sidekiq_delay_until
+    end
+
+    class DelayedClass
+      include Sidekiq::Worker
+
+      def perform: (String yml) -> void
+    end
+
+    module Klass
+      def sidekiq_delay: (?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      def sidekiq_delay_for: ((Time | untyped) interval, ?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      def sidekiq_delay_until: (untyped timestamp, ?Hash[(String | Symbol), untyped]? options) -> Sidekiq::Extensions::Proxy
+
+      alias delay sidekiq_delay
+      alias delay_for sidekiq_delay_for
+      alias delay_until sidekiq_delay_until
+    end
+
+    class Proxy < BasicObject
+      def initialize: (untyped performable, untyped target, ?Hash[(String | Symbol), untyped] options) -> void
+
+      def method_missing: (String name, *untyped args) -> String
+    end
+  end
+
+  class Stats
+    def initialize: () -> void
+
+    def processed: () -> String?
+
+    def failed: () -> String?
+
+    def scheduled_size: () -> Integer
+
+    def retry_size: () -> Integer
+
+    def dead_size: () -> Integer
+
+    def enqueued: () -> Integer
+
+    def processes_size: () -> Integer
+
+    def workers_size: () -> Integer
+
+    def default_queue_latency: () -> Integer
+
+    def queues: () -> Hash[String, Integer]
+
+    def fetch_stats!: () -> Hash[Symbol, untyped]
+
+    def reset: (*untyped stats) -> String
+
+    private
+
+    def stat: (Symbol s) -> untyped
+
+    class Queues
+      def lengths: () -> Hash[String, Integer]
+    end
+
+    class History
+      def initialize: (Integer days_previous, ?Time? start_date) -> void
+
+      def processed: () -> Integer
+
+      def failed: () -> Integer
+
+      private
+
+      def date_stat_hash: (String stat) -> Hash[String, Integer]
+    end
+  end
+
+  #
+  # Encapsulates a queue within Sidekiq.
+  # Allows enumeration of all jobs within the queue
+  # and deletion of jobs.
+  #
+  #   queue = Sidekiq::Queue.new("mailer")
+  #   queue.each do |job|
+  #     job.klass # => 'MyWorker'
+  #     job.args # => [1, 2, 3]
+  #     job.delete if job.jid == 'abcdef1234567890'
+  #   end
+  #
+  class Queue
+    include Enumerable[Sidekiq::Job]
+
+    #
+    # Return all known queues within Redis.
+    #
+    def self.all: () -> Array[Sidekiq::Queue]
+
+    attr_reader name: String
+
+    def initialize: (?String name) -> void
+
+    def size: () -> Integer
+
+    # Sidekiq Pro overrides this
+    def paused?: () -> FalseClass
+
+    #
+    # Calculates this queue's latency, the difference in seconds since the oldest
+    # job in the queue was enqueued.
+    #
+    # @return Float
+    def latency: () -> Float
+
+    def each: () { (Sidekiq::Job) -> void } -> nil
+
+    #
+    # Find the job with the given JID within this queue.
+    #
+    # This is a slow, inefficient operation.  Do not use under
+    # normal conditions.
+    def find_job: (String jid) -> Sidekiq::Job
+
+    def clear: () -> [Integer, boolish]
+  end
+
+  #
+  # Encapsulates a pending job within a Sidekiq queue or
+  # sorted set.
+  #
+  # The job should be considered immutable but may be
+  # removed from the queue via Job#delete.
+  #
+  class Job
+    attr_reader item: (Hash[String, untyped] | String)
+
+    attr_reader value: (Hash[String, untyped] | String)
+
+    def initialize: ((Hash[String, untyped] | String) item, ?String? queue_name) -> void
+
+    def parse: (String item) -> Hash[String, untyped]
+
+    def klass: () -> untyped
+
+    def display_class: () -> untyped
+
+    def display_args: () -> untyped
+
+    def args: () -> untyped
+
+    def jid: () -> String
+
+    def enqueued_at: () -> (nil | Time)
+
+    def created_at: () -> Time
+
+    def tags: () -> Array[String]
+
+    def error_backtrace: () -> untyped
+
+    attr_reader queue: String
+
+    def latency: () -> Float
+
+    #
+    # Remove this job from the queue.
+    def delete: () -> bool
+
+    def []: (String name) -> untyped
+  end
+
+  class SortedEntry < Job
+    attr_reader score: (Time | Numeric)
+
+    attr_reader parent: Sidekiq::SortedSet
+
+    def initialize: (Sidekiq::SortedSet parent, (Time | Numeric) score, Hash[untyped, untyped] | String item) -> void
+
+    def at: () -> Time
+
+    def delete: () -> void
+
+    def reschedule: (Time at) -> Float
+
+    def add_to_queue: () -> String?
+
+    def retry: () -> String?
+
+    #
+    # Place job in the dead set
+    def kill: () -> TrueClass
+
+    def error?: () -> bool
+
+    private
+
+    def remove_job: () { (String message) -> void } -> untyped
+  end
+
+  class SortedSet
+    include Enumerable[Sidekiq::SortedEntry]
+
+    attr_reader name: String
+
+    def initialize: (String name) -> void
+
+    def size: () -> Integer
+
+    def scan: (String match, ?Integer count) { (Sidekiq::SortedEntry) -> void } -> void
+            | (String match, ?Integer count) -> Enumerator[Sidekiq::SortedEntry, void]
+
+    def clear: () -> Integer
+
+    # Sidekiq::SortedSet#each is not defined actually. It is defined in the subclass.
+    # But it is necessary to satisfy Enumerable module's constraint.
+    def each: () { (Sidekiq::SortedEntry) -> void } -> void
+  end
+
+  class JobSet < SortedSet
+    def schedule: (untyped timestamp, untyped message) -> (bool | Integer | Float)
+
+    def each: [T] () { (SortedEntry) -> T } -> T
+
+    #
+    # Fetch jobs that match a given time or Range. Job ID is an
+    # optional second argument.
+    def fetch: ((String | Range[Time]) score, ?String? jid) -> Array[SortedEntry]
+
+    #
+    # Find the job with the given JID within this sorted set.
+    # This is a slower O(n) operation.  Do not use for app logic.
+    def find_job: (String jid) -> (SortedEntry | nil)
+
+    def delete_by_value: (String name, (String | Array[String]) value) -> (bool | Integer)
+
+    def delete_by_jid: (String score, String jid) -> (bool | Integer)
+
+    alias delete delete_by_jid
+  end
+
+  #
+  # Allows enumeration of scheduled jobs within Sidekiq.
+  # Based on this, you can search/filter for jobs.  Here's an
+  # example where I'm selecting all jobs of a certain type
+  # and deleting them from the schedule queue.
+  #
+  #   r = Sidekiq::ScheduledSet.new
+  #   r.select do |scheduled|
+  #     scheduled.klass == 'Sidekiq::Extensions::DelayedClass' &&
+  #     scheduled.args[0] == 'User' &&
+  #     scheduled.args[1] == 'setup_new_subscriber'
+  #   end.map(&:delete)
+  class ScheduledSet < JobSet
+    def initialize: () -> void
+  end
+
+  #
+  # Allows enumeration of retries within Sidekiq.
+  # Based on this, you can search/filter for jobs.  Here's an
+  # example where I'm selecting all jobs of a certain type
+  # and deleting them from the retry queue.
+  #
+  #   r = Sidekiq::RetrySet.new
+  #   r.select do |retri|
+  #     retri.klass == 'Sidekiq::Extensions::DelayedClass' &&
+  #     retri.args[0] == 'User' &&
+  #     retri.args[1] == 'setup_new_subscriber'
+  #   end.map(&:delete)
+  class RetrySet < JobSet
+    def initialize: () -> void
+
+    def retry_all: () -> void
+
+    def kill_all: () -> void
+  end
+
+  #
+  # Allows enumeration of dead jobs within Sidekiq.
+  #
+  class DeadSet < JobSet
+    def initialize: () -> void
+
+    def kill: (String message, ?Hash[Symbol, untyped] opts) -> TrueClass
+
+    def retry_all: () -> void
+
+    def self.max_jobs: () -> Integer
+
+    def self.timeout: () -> Integer
+  end
+
+  #
+  # Enumerates the set of Sidekiq processes which are actively working
+  # right now.  Each process sends a heartbeat to Redis every 5 seconds
+  # so this set should be relatively accurate, barring network partitions.
+  #
+  # Yields a Sidekiq::Process.
+  #
+  class ProcessSet
+    include Enumerable[Sidekiq::Process]
+
+    def initialize: (?bool clean_plz) -> untyped
+
+    # Cleans up dead processes recorded in Redis.
+    # Returns the number of processes cleaned.
+    def cleanup: () -> (bool | Integer)
+
+    def each: () { (Sidekiq::Process process) -> void } -> void
+
+    # This method is not guaranteed accurate since it does not prune the set
+    # based on current heartbeat.  #each does that and ensures the set only
+    # contains Sidekiq processes which have sent a heartbeat within the last
+    # 60 seconds.
+    def size: () -> Integer
+
+    # Total number of threads available to execute jobs.
+    # For Sidekiq Enterprise customers this number (in production) must be
+    # less than or equal to your licensed concurrency.
+    def total_concurrency: () -> Integer
+
+    def total_rss_in_kb: () -> Integer
+
+    alias total_rss total_rss_in_kb
+
+    # Returns the identity of the current cluster leader or "" if no leader.
+    # This is a Sidekiq Enterprise feature, will always return "" in Sidekiq
+    # or Sidekiq Pro.
+    def leader: () -> String
+  end
+
+  #
+  # Sidekiq::Process represents an active Sidekiq process talking with Redis.
+  # Each process has a set of attributes which look like this:
+  #
+  # {
+  #   'hostname' => 'app-1.example.com',
+  #   'started_at' => <process start time>,
+  #   'pid' => 12345,
+  #   'tag' => 'myapp'
+  #   'concurrency' => 25,
+  #   'queues' => ['default', 'low'],
+  #   'busy' => 10,
+  #   'beat' => <last heartbeat>,
+  #   'identity' => <unique string identifying the process>,
+  # }
+  class Process
+    def initialize: (Hash[String, untyped] hash) -> void
+
+    def tag: () -> String
+
+    def labels: () -> Array[String]
+
+    def []: (String key) -> untyped
+
+    def identity: () -> String
+
+    def queues: () -> Array[String]
+
+    def quiet!: () -> untyped
+
+    def stop!: () -> untyped
+
+    def dump_threads: () -> untyped
+
+    def stopping?: () -> bool
+
+    private
+
+    def signal: (String sig) -> [Integer, bool]
+  end
+
+  module Middleware
+    class Chain
+      include Enumerable[untyped]
+
+      def initialize_copy: (untyped copy) -> untyped
+
+      def each: () { (untyped) -> untyped } -> untyped
+
+      def initialize: () ?{ (instance chain) -> void } -> void
+
+      def entries: () -> Array[untyped]
+
+      def remove: (Class klass) -> Array[untyped]
+
+      def add: (Class klass, *untyped args) -> Array[untyped]
+
+      def prepend: (Class klass, *untyped args) -> Array[untyped]
+
+      def insert_before: (untyped oldklass, untyped newklass, *untyped args) -> Array[untyped]
+
+      def insert_after: (untyped oldklass, untyped newklass, *untyped args) -> Array[untyped]
+
+      def exists?: (Class klass) -> bool
+
+      def empty?: () -> bool
+
+      def retrieve: () -> Array[untyped]
+
+      def clear: () -> Array[untyped]
+
+      # Return type depends on the type returned by klass.call
+      def invoke: (*untyped args) { () -> untyped } -> untyped
+    end
+
+    private
+
+    class Entry
+      attr_reader klass: untyped
+
+      def initialize: (Class klass, *untyped args) -> untyped
+
+      def make_new: () -> untyped
+    end
+  end
+
+  module Worker
+    #
+    # The Options module is extracted so we can include it in ActiveJob::Base
+    # and allow native AJs to configure Sidekiq features/internals.
+    module Options
+      def self.included: (untyped base) -> untyped
+
+      module ClassMethods
+        #
+        # Allows customization for this type of Worker.
+        # Legal options:
+        #
+        #   queue - name of queue to use for this job type, default *default*
+        #   retry - enable retries for this Worker in case of error during execution,
+        #      *true* to use the default or *Integer* count
+        #   backtrace - whether to save any error backtrace in the retry payload to display in web UI,
+        #      can be true, false or an integer number of lines to save, default *false*
+        #
+        # In practice, any option is allowed.  This is the main mechanism to configure the
+        # options for a specific job.
+        def sidekiq_options: (?Hash[Symbol, untyped] opts) -> untyped
+                           | (?queue: String, ?retry: (bool | Integer), ?dead: bool, ?backtrace: (bool | Integer), ?pool: untyped, ?tags: Array[String]) -> untyped
+
+        def sidekiq_retry_in: () { (Integer count, Exception exception) -> Integer? } -> void
+
+        def sidekiq_retries_exhausted: () { (Hash[String, untyped] msg, Exception exception) -> void } -> Integer
+
+        def get_sidekiq_options: () -> untyped
+
+        def sidekiq_class_attribute: (*untyped attrs) -> untyped
+      end
+    end
+
+    attr_accessor jid: String
+
+    def self.included: (untyped base) -> untyped
+
+    def logger: () -> Sidekiq::Logger
+
+    # This helper class encapsulates the set options for `set`, e.g.
+    #
+    #     SomeWorker.set(queue: 'foo').perform_async(....)
+    #
+    class Setter
+      def initialize: (Class klass, Hash[Symbol, untyped] opts) -> untyped
+
+      def set: (untyped options) -> instance
+
+      def perform_async: (*untyped args) -> String
+
+      # +interval+ must be a timestamp, numeric or something that acts
+      #   numeric (like an activesupport time interval).
+      def perform_in: ((Time | untyped) interval, *untyped args) -> String
+
+      alias perform_at perform_in
+    end
+
+    module ClassMethods
+      def set: (Hash[Symbol, untyped] options) -> Sidekiq::Worker::Setter
+
+      def perform_async: (*untyped args) -> String
+
+      # +interval+ must be a timestamp, numeric or something that acts
+      #   numeric (like an activesupport time interval).
+      def perform_in: ((Time | untyped) interval, *untyped args) -> String
+
+      alias perform_at perform_in
+
+      #
+      # Allows customization for this type of Worker.
+      # Legal options:
+      #
+      #   queue - use a named queue for this Worker, default 'default'
+      #   retry - enable the RetryJobs middleware for this Worker, *true* to use the default
+      #      or *Integer* count
+      #   backtrace - whether to save any error backtrace in the retry payload to display in web UI,
+      #      can be true, false or an integer number of lines to save, default *false*
+      #   pool - use the given Redis connection pool to push this type of job to a given shard.
+      #
+      # In practice, any option is allowed.  This is the main mechanism to configure the
+      # options for a specific job.
+      def sidekiq_options: (?Hash[Symbol, untyped] opts) -> Hash[Symbol, untyped]
+
+      def client_push: (Hash[(Symbol | String), untyped] item) -> String
+    end
+  end
+
+  module LoggingUtils
+    LEVELS: Hash[String, Integer]
+
+    def debug?: () -> bool
+
+    def info?: () -> bool
+
+    def warn?: () -> bool
+
+    def error?: () -> bool
+
+    def fatal?: () -> bool
+
+    def local_level: () -> Integer
+
+    def local_level=: (Integer? level) -> void
+                    | ((Symbol | String) level) -> void
+
+    def level: () -> Integer
+  end
+
+  class Logger < ::Logger
+    include LoggingUtils
+
+    module Formatters
+      class Base < ::Logger::Formatter
+      end
+
+      class Pretty < Base
+        def call: (String severity, Time time, untyped program_name, String message) -> String
+      end
+
+      class WithoutTimestamp < Pretty
+        def call: (String severity, Time time, untyped program_name, String message) -> String
+      end
+
+      class JSON < Base
+        def call: (String severity, Time time, untyped program_name, String message) -> String
+      end
+    end
+  end
+end

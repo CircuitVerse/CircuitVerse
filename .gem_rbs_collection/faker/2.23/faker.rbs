@@ -1,0 +1,33 @@
+# Write the type definition here!
+
+module Faker
+  class Base
+    def self.unique: () -> UniqueGenerator
+  end
+
+  class UniqueGenerator
+    def self.clear: () -> {}
+    def clear: () -> {}
+    def exclude: (Symbol, Array[String]|Array[Hash[Symbol, untyped]], Array[String]) -> void
+  end
+
+  class Config
+    def self.random=: (Random | nil) -> Random
+    def self.locale=: (Symbol | String) -> (Symbol | String)
+  end
+
+  class Name < Base
+    def self.name: () -> String
+  end
+
+  class Internet < Base
+    def self.email: () -> String
+  end
+
+  class Company < Base
+    def self.bs: () -> String
+  end
+
+  class Lorem < Base
+  end
+end
