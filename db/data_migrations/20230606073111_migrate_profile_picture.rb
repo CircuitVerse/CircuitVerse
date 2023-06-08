@@ -14,29 +14,24 @@ class MigrateProfilePicture < ActiveRecord::DataMigration
   end
 
   def migrate_paperclip_assets(last_migrated_user_id = 0)
-    interrupted = false
-    trap("INT") do
-      interrupted = true
-      puts "Keyboard interrupt received. Saving progress and exiting gracefully..."
-    end
-
     User.where("id > ?", last_migrated_user_id).find_each do |user|
-      if interrupted
-        break
-      end
       next if user.profile_picture.blank?
       next if ActiveStorage::Attachment.where(record_id: user.id).present?
 
-      image_file = File.open(user.profile_picture.path)
-      blob = ActiveStorage::Blob.create_and_upload!(
-        io: image_file,
-        filename: user.profile_picture_file_name,
-        content_type: user.profile_picture_content_type
-      )
-      user.avatar.attach(blob)
-      image_file.close
-      Rails.logger.info "migrated pfp with user_id: #{user.id}"
-      redis.set("last_migrated_user_id", user.id)
+      begin
+        image_file = File.open(user.profile_picture.path)
+        blob = ActiveStorage::Blob.create_and_upload!(
+          io: image_file,
+          filename: user.profile_picture_file_name,
+          content_type: user.profile_picture_content_type
+        )
+        user.avatar.attach(blob)
+        image_file.close
+        Rails.logger.info "migrated pfp with user_id: #{user.id}"
+        redis.set("last_migrated_user_id", user.id)
+      rescue Interrupt
+        break
+      end
     end
   end
 
