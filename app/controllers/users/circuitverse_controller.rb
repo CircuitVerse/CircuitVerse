@@ -58,8 +58,8 @@ class Users::CircuitverseController < ApplicationController
     def attach_avatar
       return if no_attachment?
 
-      pfp_present = params[:user][:profile_picture].present? && @profile.profile_picture.present?
-      @profile.avatar.attach(io: File.open(@profile.profile_picture.path), filename: "avatar.jpeg") if pfp_present
+      pic_exists = params[:user][:profile_picture].present? && @profile.profile_picture.present?
+      @profile.avatar.attach(io: File.open(@profile.profile_picture.path), filename: "avatar.jpeg") if pic_exists
     end
 
     def remove_previous_avatar
