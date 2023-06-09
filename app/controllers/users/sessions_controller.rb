@@ -19,22 +19,26 @@ class Users::SessionsController < Devise::SessionsController
       # Generate JWT token 
       token = JsonWebToken.encode({ user_id: user.id, username: user.name, email: user.email }, remember_me: remember_me)
 
-      Set JWT token as a secure cookie
-      cookies[:cvt] = {
+      cookie_options = {
         value: token,
         httponly: true,
         secure: Rails.env.production?,
-        same_site: :strict, # or :lax
-        expires: remember_me ? 30.days.from_now : 15.days.from_now
+        same_site: :strict # or :lax
       }
+      
+      # Set cookie expiration
+      cookie_options[:expires] = 2.weeks.from_now if remember_me
+
+      # Set JWT token as cookie
+      cookies[:cvt] = cookie_options
     end
   end
 
   # DELETE /resource/sign_out
   def destroy
     super do |user|
-    # Remove the JWT token cookie
-    cookies.delete(:cvt)
+      # Remove the JWT token cookie
+      cookies.delete(:cvt)
     end
   end
 

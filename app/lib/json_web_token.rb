@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class JsonWebToken
-  def self.encode(payload, remember_me: false)
+  def self.encode(payload, remember_me: true)
     payload.reverse_merge!(meta(remember_me))
     JWT.encode(payload, private_key, "RS256")
   end
@@ -19,9 +19,9 @@ class JsonWebToken
 
   def self.expiration_time(remember_me)
     if remember_me
-      30.days.from_now
+      2.weeks.from_now
     else
-      15.days.from_now
+      1.day.from_now
     end
   end
 
