@@ -23,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           value: token,
           httponly: true,
           secure: Rails.env.production?,
-          same_site: :strict,
+          same_site: :strict
         }
       end
     end
