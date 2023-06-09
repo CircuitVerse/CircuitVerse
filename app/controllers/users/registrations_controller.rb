@@ -11,11 +11,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # POST /resource
-  # def create
-  #   super
-  # end
+# POST /resource
+def create
+  super do |user|
+    if user.persisted? # Ensure that user is saved in database
+      # Generate JWT token
+      token = JsonWebToken.encode({
+        user_id: user.id, username: user.name, email: user.email 
+      })
 
+      # Set JWT token as cookie
+      cookies[:cvt] = { value: token, httponly: true }
+    end
+  end
+end
+
+  
   # GET /resource/edit
   # def edit
   #   super

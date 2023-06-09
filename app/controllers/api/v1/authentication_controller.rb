@@ -7,9 +7,9 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
   def login
     @user = User.find_by!(email: params[:email])
     if @user&.valid_password?(params[:password])
-      token = JsonWebToken.encode(
+      token = JsonWebToken.encode({
         user_id: @user.id, username: @user.name, email: @user.email
-      )
+      })
       render json: { token: token }, status: :accepted
     elsif @user
       api_error(status: 401, errors: "invalid credentials")
@@ -22,9 +22,9 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       api_error(status: 409, errors: "user already exists")
     else
       @user = User.create!(signup_params)
-      token = JsonWebToken.encode(
+      token = JsonWebToken.encode({
         user_id: @user.id, username: @user.name, email: @user.email
-      )
+      })
       render json: { token: token }, status: :created
     end
   end
@@ -32,9 +32,9 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
   # POST api/v1/oauth/login
   def oauth_login
     @user = User.find_by!(email: @oauth_user["email"])
-    token = JsonWebToken.encode(
+    token = JsonWebToken.encode({
       user_id: @user.id, username: @user.name, email: @user.email
-    )
+    })
     render json: { token: token }, status: :accepted
   end
 
@@ -48,9 +48,9 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
         # @user has validation errors
         api_error(status: 422, errors: @user.errors)
       else
-        token = JsonWebToken.encode(
+        token = JsonWebToken.encode({
           user_id: @user.id, username: @user.name, email: @user.email
-        )
+        })
         render json: { token: token }, status: :created
       end
     end
