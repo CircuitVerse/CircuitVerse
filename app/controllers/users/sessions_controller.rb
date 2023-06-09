@@ -17,8 +17,10 @@ class Users::SessionsController < Devise::SessionsController
       remember_me = params.dig(:user, :remember_me) == "1"
 
       # Generate JWT token
-      token = JsonWebToken.encode( { user_id: user.id, username: user.name, email: user.email },
-      remember_me: remember_me )
+      token = JsonWebToken.encode(
+        { user_id: user.id, username: user.name, email: user.email },
+        remember_me: remember_me
+      )
 
       cookie_options = {
         value: token,
