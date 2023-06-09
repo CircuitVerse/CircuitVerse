@@ -14,23 +14,28 @@ import { showError } from './utils';
 import miniMapArea from './minimap';
 import { resetup } from './setup';
 import { verilogModeGet } from './Verilog2CV';
+import { hidetabs, visibletabs } from './listeners';
 
 /**
  * Core of the simulation and rendering algorithm.
  */
 
-
 /**
- * Define the states of simulator
- * @type {boolean}
+ * Defining the possible states of simulator
+ * @type {Object}
  * @category engine
  */
 export const states = {
-    NORMAL: true,
-    ERROR: false,
-}
+    NORMAL: 'normal',
+    ERROR: 'error',
+};
 
-export const defaultState = states.NORMAL;
+/**
+ * @type {string}
+ * @category engine
+ */
+const defaultState = states.NORMAL;
+export var currentState = defaultState;
 
 /**
  * @type {number} engine
@@ -428,9 +433,18 @@ export function play(scope = globalScope, resetNodes = false) {
             forceResetNodesSet(true);
             errorDetectedSet(true);
         }
+        // change the state of simulator to normal
+        if (currentState === states.ERROR){
+            currentState = states.NORMAL;
+            visibletabs();
+        }
     } catch (error) {
-       currentState = !currentState;
-       showError('Simulator is in an Error State.');
+        // change the state of simulator to error
+        if(currentState === states.NORMAL) {
+            currentState = states.ERROR;
+            hidetabs();
+        }
+        showError('The simulator is in an error state. Now, you can only delete components or undo until the simulator returns to the normal state');
     }
 }
 

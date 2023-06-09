@@ -327,6 +327,21 @@ function panStop(e) {
         }
     }
 }
+
+// Function to hide tabs when simulator goes into error state
+export function hidetabs() {
+    [].forEach.call(document.getElementsByClassName('draggable-panel'), function (element) {
+        element.style.visibility = 'hidden';
+    });
+}
+
+// Function to visible tabs when simulator returns back to normal state
+export function visibletabs() {
+    [].forEach.call(document.getElementsByClassName('draggable-panel'), function (element) {
+        element.style.visibility = 'visible';
+    });
+}
+
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {
         deleteSelected();

@@ -27,7 +27,7 @@ import { showProperties } from './ux';
 import {
     scheduleUpdate, updateSimulationSet,
     updateCanvasSet, updateSubcircuitSet,
-    forceResetNodesSet, changeLightMode, defaultState,
+    forceResetNodesSet, changeLightMode, currentState,
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName, getProjectName } from './data/save';
@@ -36,7 +36,6 @@ import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 import { updateTestbenchUI } from './testbench';
 
-export var currentState = defaultState;
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
 };
@@ -377,9 +376,10 @@ export default class Scope {
     }
 
     /**
-     * Function to get the current state of simulator
+     *  Function to check the current state of simulator
      */
-    getCurrentState() {
+    currentState() {
         return currentState;
     }
+
 }
