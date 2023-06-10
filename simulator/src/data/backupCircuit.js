@@ -65,7 +65,7 @@ export function scheduleBackup(scope = globalScope) {
         scope.history = [];
         scope.timeStamp = new Date().getTime();
 
-        //Calling the autosave function after a delay of 0.1 second, to allow scheduleBackup() function to complete its execution first
+        //  Calling the autosave function
         setTimeout(() => {
             autosave();
         }, 100);

@@ -14,21 +14,28 @@ import ImportCircuitFiles from '../file/Open';
  * @category data
  */
 export function recoverProject() {
-    if (localStorage.getItem('recover')) {
-        var data = JSON.parse(localStorage.getItem('recover'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
-            load(data);
-        }
-        localStorage.removeItem('recover');
-    } else if (localStorage.getItem('autosave')) {
-        var data = JSON.parse(localStorage.getItem('autosave'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
-            load(data);
-        }
-        localStorage.removeItem('autosave');    
-    } else {
-        showError('No recover project found');
-    }
+  const recoverData = localStorage.getItem('recover');
+  const autosaveData = localStorage.getItem('autosave');
+
+  if (recoverData) {
+    const data = JSON.parse(recoverData);
+    recoverDataFlow(data);
+  } else if (autosaveData) {
+    const data = JSON.parse(autosaveData);
+    recoverDataFlow(data);
+  } else {
+    showError('No recover project found');
+  }
+}
+
+function recoverDataFlow(data) {
+  const confirmationMessage = `Would you like to recover: ${data.name}`;
+  if (confirm(confirmationMessage)) {
+    load(data);
+  }
+  localStorage.removeItem('recover');
+  localStorage.removeItem('autosave');
+
 }
 
 /**
@@ -106,18 +113,15 @@ function checkToSave() {
  * Prompt user to save data if unsaved
  * @category data
  */
-window.addEventListener('beforeunload', function (event) {
+window.addEventListener('beforeunload', (event) => {
     if (projectSaved || embed) return;
 
     if (!checkToSave()) return;
 
     event.preventDefault();
-    event.returnValue = '';
     const data = generateSaveData('Untitled');
     localStorage.setItem('recover', data);
-    const confirmationMessage = 'You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?';
-    return confirmationMessage;
-  });
+});
 
 /**
  * Function to clear project
