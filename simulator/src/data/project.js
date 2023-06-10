@@ -14,28 +14,27 @@ import ImportCircuitFiles from '../file/Open';
  * @category data
  */
 export function recoverProject() {
-  const recoverData = localStorage.getItem('recover');
-  const autosaveData = localStorage.getItem('autosave');
+    const recoverData = localStorage.getItem('recover');
+    const autosaveData = localStorage.getItem('autosave');
 
-  if (recoverData) {
-    const data = JSON.parse(recoverData);
-    recoverDataFlow(data);
-  } else if (autosaveData) {
-    const data = JSON.parse(autosaveData);
-    recoverDataFlow(data);
-  } else {
-    showError('No recover project found');
-  }
+    if (recoverData) {
+        const data = JSON.parse(recoverData);
+        recoverDataFlow(data);
+    } else if (autosaveData) {
+        const data = JSON.parse(autosaveData);
+        recoverDataFlow(data);
+    } else {
+        showError('No recover project found');
+    }
 }
 
-function recoverDataFlow(data) {
-  const confirmationMessage = `Would you like to recover: ${data.name}`;
-  if (confirm(confirmationMessage)) {
-    load(data);
-  }
-  localStorage.removeItem('recover');
-  localStorage.removeItem('autosave');
-
+const recoverDataFlow = function(data) {
+    const confirmationMessage = `Would you like to recover: ${data.name}`;
+    if (confirm(confirmationMessage)) {
+        load(data);
+    }
+    localStorage.removeItem('recover');
+    localStorage.removeItem('autosave');
 }
 
 /**
