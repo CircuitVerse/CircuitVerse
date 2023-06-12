@@ -4494,45 +4494,6 @@ class Object
   def acts_like?: (untyped duck) -> untyped
 end
 
-class Object
-  # An object is blank if it's false, empty, or a whitespace string.
-  # For example, +nil+, '', '   ', [], {}, and +false+ are all blank.
-  #
-  # This simplifies
-  #
-  #   !address || address.empty?
-  #
-  # to
-  #
-  #   address.blank?
-  #
-  # @return [true, false]
-  def blank?: () -> untyped
-
-  # An object is present if it's not blank.
-  #
-  # @return [true, false]
-  def present?: () -> untyped
-
-  # Returns the receiver if it's present otherwise returns +nil+.
-  # <tt>object.presence</tt> is equivalent to
-  #
-  #    object.present? ? object : nil
-  #
-  # For example, something like
-  #
-  #   state   = params[:state]   if params[:state].present?
-  #   country = params[:country] if params[:country].present?
-  #   region  = state || country || 'US'
-  #
-  # becomes
-  #
-  #   region = params[:state].presence || params[:country].presence || 'US'
-  #
-  # @return [Object]
-  def presence: () -> untyped
-end
-
 class NilClass
   # +nil+ is blank:
   #
