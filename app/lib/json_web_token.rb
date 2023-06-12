@@ -26,7 +26,7 @@ class JsonWebToken
   end
 
   def self.private_key
-    OpenSSL::PKey::RSA.new(File.open(Rails.root.join("config", "private.pem"), "r:UTF-8"))
+    OpenSSL::PKey::RSA.new(File.open(Rails.root.join("config", "private.pem"), "r:UTF-8"), "iammad")
   end
 
   def self.public_key
