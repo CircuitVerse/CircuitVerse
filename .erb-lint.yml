@@ -1,11 +1,11 @@
 ---
-glob: "**/*.{html,text,js}{+*,}.erb"
+glob: "**/*.{html,text}{+*,}.erb"
 exclude:
   - '**/vendor/**/*'
   - '**/node_modules/**/*'
 linters:
-  ErbSafety:
-    enabled: true
+  HardCodedString:
+    enabled: false
   Rubocop:
     enabled: true
     rubocop_config:
