@@ -6,7 +6,7 @@ sources:
     revision: main
     repo_dir: gems
   - type: local
-    path: app/rbs
+    path: sig
 
 # You can specify local directories as sources also.
 # - type: local
