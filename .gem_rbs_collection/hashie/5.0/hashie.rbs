@@ -1,4 +1,0 @@
-module Hashie
-  class Mash < Hash[untyped, untyped]
-  end
-end

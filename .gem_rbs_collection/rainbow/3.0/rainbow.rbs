@@ -1,5 +1,0 @@
-class Object
-  private
-
-  def Rainbow: (String) -> Rainbow::Presenter
-end

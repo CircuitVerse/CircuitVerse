@@ -1,5 +1,0 @@
-class Redis
-  class Future[out T]
-    attr_reader value: T
-  end
-end
