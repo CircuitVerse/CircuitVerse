@@ -1,0 +1,13 @@
+class GroupPolicy < ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader group: untyped
+
+  def initialize: (untyped user, untyped group) -> void
+
+  def show_access?: () -> untyped
+
+  def admin_access?: () -> untyped
+
+  def mentor_access?: () -> untyped
+end

@@ -1,0 +1,15 @@
+class GradesController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
+
+  def create: () -> untyped
+
+  def destroy: () -> untyped
+
+  def to_csv: () -> untyped
+
+  private
+
+  def grade_params: () -> untyped
+
+  def set_grade: () -> untyped
+end

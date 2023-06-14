@@ -1,0 +1,5 @@
+class ForumCommentNotification < Noticed::Base
+  def message: () -> untyped
+
+  def icon: () -> "far fa-comment"
+end

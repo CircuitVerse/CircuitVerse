@@ -1,5 +1,5 @@
 target :app do
-    signature 'sig'
+    signature "sig"
   
-    check 'app'
+    check "app"
   end

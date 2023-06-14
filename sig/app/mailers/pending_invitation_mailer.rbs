@@ -1,0 +1,3 @@
+class PendingInvitationMailer < ApplicationMailer
+  def new_pending_email: (untyped pending_invitation) -> untyped
+end

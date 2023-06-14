@@ -1,0 +1,13 @@
+module AssignmentsHelper
+  def deadline_year: (untyped assignment) -> untyped
+
+  def deadline_month: (untyped assignment) -> untyped
+
+  def deadline_day: (untyped assignment) -> untyped
+
+  def deadline_hour: (untyped assignment) -> untyped
+
+  def deadline_minute: (untyped assignment) -> untyped
+
+  def deadline_second: (untyped assignment) -> untyped
+end

@@ -1,0 +1,5 @@
+module SortingHelper
+  def self.sort_fields: (untyped sort, untyped allowed) -> untyped
+
+  def self.ordered_hash: (untyped fields) -> untyped
+end

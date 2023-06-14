@@ -1,0 +1,35 @@
+class Api::V1::CommentsController < Api::V1::BaseController
+  # GET /api/v1/threads/:thread_id/comments
+  def index: () -> untyped
+
+  # POST /api/v1/threads/:thread_id/comments
+  def create: () -> untyped
+
+  # PUT/PATCH /api/v1/comments/:id
+  def update: () -> untyped
+
+  # PUT /api/v1/comments/:id/delete
+  def delete: () -> untyped
+
+  # PUT /api/v1/comments/:id/undelete
+  def undelete: () -> untyped
+
+  # PUT /api/v1/comments/:id/upvote
+  def upvote: () -> untyped
+
+  # PUT /api/v1/comments/:id/downvote
+  def downvote: () -> untyped
+
+  # PUT /api/v1/comments/:id/unvote
+  def unvote: () -> untyped
+
+  private
+
+  def load_index_resource: () -> untyped
+
+  def load_create_resource: () -> untyped
+
+  def set_comment_and_thread: () -> untyped
+
+  def set_options: () -> untyped
+end

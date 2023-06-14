@@ -1,0 +1,23 @@
+class CollaborationsController < ApplicationController
+  def self.policy_class: () -> untyped
+
+  # POST /collaborations
+  # POST /collaborations.json
+  def create: () -> untyped
+
+  # PATCH/PUT /collaborations/1
+  # PATCH/PUT /collaborations/1.json
+  def update: () -> untyped
+
+  # DELETE /collaborations/1
+  # DELETE /collaborations/1.json
+  def destroy: () -> untyped
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_collaboration: () -> untyped
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def collaboration_params: () -> untyped
+end

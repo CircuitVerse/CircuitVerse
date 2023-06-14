@@ -1,0 +1,9 @@
+module Adapters
+  class PgAdapter < BaseAdapter
+    MAX_RESULTS_PER_PAGE: 5
+
+    def search_project: (untyped relation, untyped query_params) -> untyped
+
+    def search_user: (untyped relation, untyped query_params) -> untyped
+  end
+end

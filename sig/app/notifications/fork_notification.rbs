@@ -1,0 +1,5 @@
+class ForkNotification < Noticed::Base
+  def message: () -> untyped
+
+  def icon: () -> "fas fa-code-branch"
+end

@@ -1,0 +1,13 @@
+class PushSubscriptionController < ApplicationController
+  # POST /push/subscription/new
+  def create: () -> untyped
+
+  # POST /push/test
+  def test: () -> untyped
+
+  private
+
+  def push_subscription_params: () -> untyped
+
+  def push_test_params: () -> untyped
+end

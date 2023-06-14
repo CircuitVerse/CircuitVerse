@@ -1,0 +1,7 @@
+class ProjectDecorator < SimpleDelegator
+  def project: () -> untyped
+
+  def grade_str: () -> untyped
+
+  def remarks_str: () -> untyped
+end

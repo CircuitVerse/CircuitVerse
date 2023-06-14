@@ -1,0 +1,9 @@
+class JwtTokenStrategy < Warden::Strategies::Base
+  def valid?: () -> untyped
+
+  def authenticate!: () -> untyped
+
+  private
+
+  def token: () -> untyped
+end

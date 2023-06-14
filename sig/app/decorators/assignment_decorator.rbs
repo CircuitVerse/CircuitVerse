@@ -1,0 +1,15 @@
+class AssignmentDecorator < SimpleDelegator
+  def assignment: () -> untyped
+
+  def graded: () -> (::String | "Not Graded")
+
+  def grading_scale_str: () -> untyped
+
+  def restricted_circuit_elements: () -> untyped
+
+  def restricted_features: () -> untyped
+
+  def closed?: () -> untyped
+
+  def time_remaining: () -> untyped
+end

@@ -1,0 +1,27 @@
+class Api::V1::ErrorSerializer
+  UNKNOWN_ERROR: "Something Unexpectedly Went Wrong! Please open a github issue."
+
+  def initialize: (untyped status, untyped errors) -> void
+
+  def as_json: () -> { errors: untyped }
+
+  private
+
+  def parse_am_errors: (untyped errors) -> untyped
+
+  def errors: () -> untyped
+
+  def normalize_title: (untyped error) -> untyped
+
+  def normalize_error: (untyped error) -> untyped
+
+  class ErrorDecorator
+    def initialize: (untyped key, untyped value, untyped message) -> void
+
+    def title: () -> untyped
+
+    def details: () -> untyped
+
+    def to_s: () -> untyped
+  end
+end

@@ -1,0 +1,5 @@
+class UsersQuery < GenericQuery
+  attr_reader relation: untyped
+
+  def initialize: (untyped query_params, ?untyped relation) -> void
+end

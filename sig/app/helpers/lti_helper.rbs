@@ -1,0 +1,3 @@
+module LtiHelper
+  def lms_integration_tutorial: () -> "https://docs.circuitverse.org/#/chapter2/3lmsintegration"
+end

@@ -1,0 +1,29 @@
+class Api::V1::AuthenticationController < Api::V1::BaseController
+  # POST api/v1/auth/login
+  def login: () -> untyped
+
+  # POST api/v1/auth/signup
+  def signup: () -> untyped
+
+  # POST api/v1/oauth/login
+  def oauth_login: () -> untyped
+
+  # POST api/v1/oauth/signup
+  def oauth_signup: () -> untyped
+
+  # POST api/v1/forgot_password
+  def forgot_password: () -> untyped
+
+  # GET /public_key.pem
+  def public_key: () -> untyped
+
+  private
+
+  def set_oauth_user: () -> untyped
+
+  def login_params: () -> untyped
+
+  def signup_params: () -> untyped
+
+  def oauth_params: () -> untyped
+end

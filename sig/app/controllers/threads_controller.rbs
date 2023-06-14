@@ -1,0 +1,17 @@
+class Api::V1::ThreadsController < Api::V1::BaseController
+  # PUT /api/v1/threads/:id/close
+  def close: () -> untyped
+
+  # PUT /api/v1/threads/:id/reopen
+  def reopen: () -> untyped
+
+  # PUT /api/v1/threads/:id/subscribe
+  def subscribe: () -> untyped
+
+  # PUT /api/v1/threads/:id/unsubscribe
+  def unsubscribe: () -> untyped
+
+  private
+
+  def load_resource: () -> untyped
+end

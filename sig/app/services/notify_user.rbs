@@ -1,0 +1,11 @@
+class NotifyUser
+  Result: untyped
+
+  def initialize: (untyped params) -> void
+
+  def call: () -> (untyped | false)
+
+  private
+
+  def type_check: () -> untyped
+end

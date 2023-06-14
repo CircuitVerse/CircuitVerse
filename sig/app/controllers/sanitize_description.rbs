@@ -1,0 +1,5 @@
+module SanitizeDescription
+  extend ActiveSupport::Concern
+
+  def sanitize_description: (untyped description) -> untyped
+end

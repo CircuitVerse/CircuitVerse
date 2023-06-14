@@ -1,0 +1,2 @@
+class Ahoy::Visit < ApplicationRecord
+end

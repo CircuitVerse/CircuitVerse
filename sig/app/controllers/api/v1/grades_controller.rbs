@@ -1,0 +1,19 @@
+class Api::V1::GradesController < Api::V1::BaseController
+  include ActionView::Helpers::SanitizeHelper
+
+  def create: () -> untyped
+
+  def update: () -> untyped
+
+  def destroy: () -> untyped
+
+  private
+
+  def load_create_resources: () -> untyped
+
+  def set_grade: () -> untyped
+
+  def check_access: () -> untyped
+
+  def grade_params: () -> untyped
+end

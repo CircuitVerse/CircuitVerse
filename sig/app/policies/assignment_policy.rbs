@@ -1,0 +1,25 @@
+class AssignmentPolicy < ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader assignment: untyped
+
+  def initialize: (untyped user, untyped assignment) -> void
+
+  def show?: () -> untyped
+
+  def admin_access?: () -> untyped
+
+  def mentor_access?: () -> untyped
+
+  def start?: () -> untyped
+
+  def edit?: () -> untyped
+
+  def reopen?: () -> true
+
+  def close?: () -> untyped
+
+  def can_be_graded?: () -> untyped
+
+  def show_grades?: () -> untyped
+end

@@ -1,0 +1,5 @@
+class NewAssignmentNotification < Noticed::Base
+  def message: () -> untyped
+
+  def icon: () -> "fa fa-clipboard"
+end

@@ -1,0 +1,5 @@
+class Search
+  def initialize: (untyped query_params, untyped relation) -> void
+
+  def call: () -> untyped
+end

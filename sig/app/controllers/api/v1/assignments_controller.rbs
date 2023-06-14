@@ -1,0 +1,49 @@
+class Api::V1::AssignmentsController < Api::V1::BaseController
+  WHITELISTED_INCLUDE_ATTRIBUTES: ::Array[:projects | :grades]
+
+  # GET /api/v1/groups/:group_id/assignments
+  def index: () -> untyped
+
+  # GET /api/v1/assignments/:id
+  def show: () -> untyped
+
+  # POST /api/v1/groups/:group_id/assignments
+  def create: () -> untyped
+
+  # PATCH /api/v1/assignments/:id
+  def update: () -> untyped
+
+  # DELETE /api/v1/assignments/:id
+  def destroy: () -> untyped
+
+  # PATCH /api/v1/assignments/:id/reopen
+  def reopen: () -> untyped
+
+  # PUT /api/v1/assignments/:id/close
+  def close: () -> untyped
+
+  # PATCH /api/v1/assignments/:id/start
+  def start: () -> untyped
+
+  private
+
+  # include=projects,grades
+  def include_resource: () -> untyped
+
+  def set_assignment: () -> untyped
+
+  def set_group: () -> untyped
+
+  # sets @current_user as params to be used in assignment serializer
+  def set_options: () -> untyped
+
+  def check_reopening_status: () -> untyped
+
+  def assignment_create_params: () -> untyped
+
+  def assignment_update_params: () -> untyped
+
+  def check_show_access: () -> untyped
+
+  def check_access: () -> untyped
+end

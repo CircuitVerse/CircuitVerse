@@ -1,0 +1,11 @@
+class UserMailer < ApplicationMailer
+  def custom_email: (untyped user, untyped mail) -> (nil | untyped)
+
+  def welcome_email: (untyped user) -> untyped
+
+  def new_project_email: (untyped user, untyped project) -> (nil | untyped)
+
+  def forked_project_email: (untyped user, untyped old_project, untyped new_project) -> (nil | untyped)
+
+  def featured_circuit_email: (untyped user, untyped project) -> (nil | untyped)
+end

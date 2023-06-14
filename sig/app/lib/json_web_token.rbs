@@ -1,0 +1,12 @@
+class JsonWebToken
+  def self.encode: (untyped payload) -> untyped
+
+  def self.decode: (untyped token) -> untyped
+
+  # Default options to be encoded in the token
+  def self.meta: () -> { exp: untyped }
+
+  def self.private_key: () -> untyped
+
+  def self.public_key: () -> untyped
+end

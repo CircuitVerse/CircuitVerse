@@ -1,0 +1,19 @@
+class Api::V1::AuthenticationController
+  class OauthApiHandler
+    include CustomErrors
+
+    def initialize: (untyped access_token, untyped provider) -> void
+
+    def oauth_user: () -> untyped
+
+    private
+
+    def google_user: () -> untyped
+
+    def facebook_user: () -> untyped
+
+    def github_user: () -> untyped
+
+    def parsed_response: () -> untyped
+  end
+end

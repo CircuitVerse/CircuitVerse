@@ -1,0 +1,13 @@
+class FeaturedCircuitsController < ApplicationController
+  def index: () -> untyped
+
+  def create: () -> (untyped | nil)
+
+  def destroy: () -> (untyped | nil)
+
+  private
+
+  def set_and_authorize_featured: () -> untyped
+
+  def featured_circuit_params: () -> untyped
+end

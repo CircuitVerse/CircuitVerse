@@ -1,0 +1,30 @@
+class Api::V1::GroupMembersController < Api::V1::BaseController
+  # GET /api/v1/groups/:group_id/members/
+  def index: () -> untyped
+
+  # POST /api/v1/groups/:group_id/members/
+  def create: () -> untyped
+
+  # DELETE /api/v1/group/members/:id
+  def destroy: () -> untyped
+
+  # PATCH/PUT /api/v1/group/members/:id
+  # Only used to set or revoke mentorship
+  def update: () -> untyped
+
+  private
+
+  def set_group: () -> untyped
+
+  def set_group_member: () -> untyped
+
+  def check_show_access: () -> untyped
+
+  def check_mentor_access: () -> untyped
+
+  def check_primary_mentor_access: () -> untyped
+
+  def check_edit_access: () -> untyped
+
+  def group_member_params: () -> untyped
+end

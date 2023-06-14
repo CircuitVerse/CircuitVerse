@@ -1,0 +1,3 @@
+class TestbenchController < ApplicationController
+  def creator: () -> nil
+end

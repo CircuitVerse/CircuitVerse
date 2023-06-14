@@ -1,0 +1,5 @@
+module ForumHelper
+  include SimpleDiscussion::ForumPostsHelper
+
+  def formatted_content: (untyped text) -> untyped
+end

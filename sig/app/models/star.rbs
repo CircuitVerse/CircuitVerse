@@ -1,0 +1,7 @@
+class Star < ApplicationRecord
+  private
+
+  def notify_recipient: () -> (nil | untyped)
+
+  def cleanup_notification: () -> untyped
+end

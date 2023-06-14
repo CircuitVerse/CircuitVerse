@@ -1,0 +1,36 @@
+class Project < ApplicationRecord
+  extend FriendlyId
+
+  include PgSearch::Model
+
+  def increase_views: (untyped user) -> (untyped | nil)
+
+  # returns true if starred, false if unstarred
+  def toggle_star: (untyped user) -> untyped
+
+  def fork: (untyped user) -> untyped
+
+  def send_mail: () -> (untyped | nil)
+
+  def project_notifiable_path: () -> untyped
+
+  def self.tagged_with: (untyped name) -> untyped
+
+  def tag_list: () -> untyped
+
+  def tag_list=: (untyped names) -> untyped
+
+  def public?: () -> untyped
+
+  def featured?: () -> untyped
+
+  private
+
+  def check_validity: () -> (untyped | nil)
+
+  def clean_description: () -> (nil | untyped)
+
+  def check_and_remove_featured: () -> (untyped | nil)
+
+  def should_generate_new_friendly_id?: () -> untyped
+end

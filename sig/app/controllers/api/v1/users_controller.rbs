@@ -1,0 +1,23 @@
+class Api::V1::UsersController < Api::V1::BaseController
+  # GET api/v1/users
+  def index: () -> untyped
+
+  # GET api/v1/users/:id
+  def show: () -> untyped
+
+  # GET api/v1/me
+  def me: () -> untyped
+
+  # PATCH api/v1/users/:id
+  def update: () -> untyped
+
+  private
+
+  def set_user: () -> untyped
+
+  def check_access: () -> untyped
+
+  def set_details_access: () -> untyped
+
+  def user_params: () -> untyped
+end

@@ -1,0 +1,3 @@
+class PushSubscription < ApplicationRecord
+  def send_push_notification: (untyped message, ?::String url) -> untyped
+end

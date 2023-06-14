@@ -1,0 +1,17 @@
+class StarsController < ApplicationController
+  # POST /stars
+  # POST /stars.json
+  def create: () -> untyped
+
+  # DELETE /stars/1
+  # DELETE /stars/1.json
+  def destroy: () -> untyped
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_star: () -> untyped
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def star_params: () -> untyped
+end

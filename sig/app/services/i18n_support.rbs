@@ -1,0 +1,3 @@
+class I18nSupport
+  def self.locale_names: () -> ::Array[::Array["English" | "en"] | ::Array["Hindi" | "hi"] | ::Array["Bengali" | "bn"] | ::Array["Marathi" | "mr"]]
+end

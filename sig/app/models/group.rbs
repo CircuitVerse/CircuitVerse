@@ -1,0 +1,9 @@
+class Group < ApplicationRecord
+  TOKEN_DURATION: untyped
+
+  def send_creation_mail: () -> untyped
+
+  def has_valid_token?: () -> untyped
+
+  def reset_group_token: () -> untyped
+end

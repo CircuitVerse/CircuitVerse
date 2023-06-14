@@ -1,0 +1,23 @@
+class User < ApplicationRecord
+  include SimpleDiscussion::ForumUser
+
+  attr_accessor remove_picture: untyped
+
+  include PgSearch::Model
+
+  def create_members_from_invitations: () -> untyped
+
+  def self.from_omniauth: (untyped access_token) -> untyped
+
+  def self.from_oauth: (untyped oauth_user, untyped provider) -> untyped
+
+  def flipper_id: () -> ::String
+
+  def moderator?: () -> untyped
+
+  def send_devise_notification: (untyped notification, *untyped args) -> untyped
+
+  private
+
+  def send_welcome_mail: () -> untyped
+end

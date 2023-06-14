@@ -1,0 +1,3 @@
+class Object
+  def notify_moderators: () -> untyped
+end

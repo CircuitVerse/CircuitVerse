@@ -1,0 +1,7 @@
+class ErrorsController < ApplicationController
+  def not_found: () -> untyped
+
+  def unacceptable: () -> untyped
+
+  def internal_error: () -> untyped
+end

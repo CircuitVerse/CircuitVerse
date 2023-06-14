@@ -1,0 +1,3 @@
+class Api::V1::AuthorSerializer
+  include FastJsonapi::ObjectSerializer
+end

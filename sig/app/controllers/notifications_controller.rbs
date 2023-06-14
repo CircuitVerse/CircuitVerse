@@ -1,0 +1,10 @@
+class Api::V1::NotificationsController < Api::V1::BaseController
+  # GET /api/v1/notifications
+  def index: () -> untyped
+
+  # PATCH /api/v1/notifications/mark_as_read/:notification_id
+  def mark_as_read: () -> untyped
+
+  # PATCH /api/v1/notifications/mark_all_as_read
+  def mark_all_as_read: () -> untyped
+end

@@ -1,0 +1,5 @@
+module SearchHelper
+  MAX_RESULTS_PER_PAGE: 5
+
+  def query: (untyped resource, untyped query_params) -> untyped
+end

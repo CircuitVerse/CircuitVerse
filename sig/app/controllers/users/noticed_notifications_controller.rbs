@@ -1,0 +1,9 @@
+class Users::NoticedNotificationsController < ApplicationController
+  def index: () -> untyped
+
+  def mark_as_read: () -> untyped
+
+  def mark_all_as_read: () -> untyped
+
+  def read_all_notifications: () -> untyped
+end

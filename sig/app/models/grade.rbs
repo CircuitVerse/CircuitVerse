@@ -1,0 +1,13 @@
+class Grade < ApplicationRecord
+  LETTER_MATCH: ::Regexp
+
+  PERCENT_MATCH: ::Regexp
+
+  private
+
+  def grading_scale: () -> untyped
+
+  def assignment_project: () -> (untyped | nil)
+
+  def self.to_csv: (untyped assignment_id) -> untyped
+end

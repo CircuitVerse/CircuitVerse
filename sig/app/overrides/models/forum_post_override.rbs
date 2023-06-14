@@ -1,0 +1,3 @@
+class Object
+  def notify_thread_subscribers: () -> untyped
+end

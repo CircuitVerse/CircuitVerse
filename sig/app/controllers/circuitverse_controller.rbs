@@ -1,0 +1,21 @@
+class Users::CircuitverseController < ApplicationController
+  TYPEAHEAD_INSTITUTE_LIMIT: 50
+
+  include UsersCircuitverseHelper
+
+  def index: () -> untyped
+
+  def edit: () -> nil
+
+  def typeahead_educational_institute: () -> untyped
+
+  def update: () -> untyped
+
+  def groups: () -> untyped
+
+  private
+
+  def profile_params: () -> untyped
+
+  def set_user: () -> untyped
+end

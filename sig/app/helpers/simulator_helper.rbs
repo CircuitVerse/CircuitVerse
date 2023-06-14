@@ -1,0 +1,7 @@
+module SimulatorHelper
+  def return_image_file: (untyped data_url) -> untyped
+
+  def check_to_delete: (untyped data_url) -> untyped
+
+  def sanitize_data: (untyped project, untyped data) -> untyped
+end

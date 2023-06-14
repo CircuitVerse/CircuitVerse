@@ -1,0 +1,17 @@
+class Api::V1::GroupMembersController
+  class MailsHandler
+    attr_reader added_mails: untyped
+
+    attr_reader invalid_mails: untyped
+
+    attr_reader pending_mails: untyped
+
+    # initialize the class with mails, group and current_user to be used in class
+    def initialize: (untyped mails, untyped group, untyped current_user) -> void
+
+    # parse emails as valid, invalid or existing mails
+    def parse: () -> untyped
+
+    def create_invitation_or_group_member: () -> untyped
+  end
+end

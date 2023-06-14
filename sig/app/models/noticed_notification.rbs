@@ -1,0 +1,3 @@
+class NoticedNotification < ApplicationRecord
+  include Noticed::Model
+end

@@ -1,0 +1,7 @@
+class AnnouncementPolicy < ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader announcement: untyped
+
+  def initialize: (untyped user, untyped announcement) -> void
+end

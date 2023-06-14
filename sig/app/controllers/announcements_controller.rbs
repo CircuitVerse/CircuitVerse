@@ -1,0 +1,19 @@
+class AnnouncementsController < ApplicationController
+  def index: () -> untyped
+
+  def new: () -> untyped
+
+  def create: () -> untyped
+
+  def edit: () -> untyped
+
+  def update: () -> untyped
+
+  def destroy: () -> untyped
+
+  private
+
+  def authorize_admin: () -> untyped
+
+  def announcement_params: () -> untyped
+end

@@ -1,0 +1,39 @@
+class ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader record: untyped
+
+  class CustomAuthException < StandardError
+    attr_reader custom_message: untyped
+
+    def initialize: (untyped custom_message) -> void
+  end
+
+  def initialize: (untyped user, untyped record) -> void
+
+  def index?: () -> false
+
+  def show?: () -> false
+
+  def create?: () -> false
+
+  def new?: () -> untyped
+
+  def update?: () -> false
+
+  def edit?: () -> untyped
+
+  def destroy?: () -> false
+
+  def admin?: () -> untyped
+
+  class Scope
+    attr_reader user: untyped
+
+    attr_reader scope: untyped
+
+    def initialize: (untyped user, untyped scope) -> void
+
+    def resolve: () -> untyped
+  end
+end

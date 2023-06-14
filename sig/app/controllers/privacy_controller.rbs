@@ -1,0 +1,3 @@
+class PrivacyController < ApplicationController
+  def index: () -> nil
+end

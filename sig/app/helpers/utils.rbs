@@ -1,0 +1,15 @@
+module Utils
+  # Filters out all the valid emails from the argument string
+  # @param mails string of emails entered
+  # @return array of valid emails
+  def self.parse_mails: (untyped mails) -> untyped
+
+  def self.parse_mails_except_current_user: (untyped mails, untyped current) -> untyped
+
+  # Forms notice string for given email input
+  # @param input_mails string of emails entered
+  # @param parsed_mails array of valid emails
+  # @param newly_added array of emails that have been newly added
+  # @return notice string
+  def self.mail_notice: (untyped input_mails, untyped parsed_mails, untyped newly_added) -> untyped
+end

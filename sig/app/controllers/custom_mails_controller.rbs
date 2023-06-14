@@ -1,0 +1,27 @@
+class CustomMailsController < ApplicationController
+  include CustomMailsHelper
+
+  def index: () -> untyped
+
+  def show: () -> untyped
+
+  def new: () -> nil
+
+  def edit: () -> nil
+
+  def create: () -> untyped
+
+  def update: () -> untyped
+
+  def send_mail: () -> untyped
+
+  def send_mail_self: () -> untyped
+
+  private
+
+  def authorize_admin: () -> untyped
+
+  def set_mail: () -> untyped
+
+  def custom_mails_params: () -> untyped
+end

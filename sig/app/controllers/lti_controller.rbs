@@ -1,0 +1,13 @@
+class LtiController < ApplicationController
+  def launch: () -> (nil | untyped)
+
+  private
+
+  def set_group_and_assignment: () -> untyped
+
+  def set_lti_params: () -> untyped
+
+  def create_project_if_student_present: () -> (nil | untyped)
+
+  def allow_iframe_lti: () -> (nil | untyped)
+end

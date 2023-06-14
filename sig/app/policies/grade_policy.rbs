@@ -1,0 +1,9 @@
+class GradePolicy < ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader grade: untyped
+
+  def initialize: (untyped user, untyped grade) -> void
+
+  def mentor?: () -> untyped
+end

@@ -1,0 +1,7 @@
+class CustomMailPolicy < ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader custom_mail: untyped
+
+  def initialize: (untyped user, untyped custom_mail) -> void
+end

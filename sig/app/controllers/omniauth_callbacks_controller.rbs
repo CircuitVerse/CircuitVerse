@@ -1,0 +1,13 @@
+class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def facebook: () -> untyped
+
+  def google_oauth2: () -> untyped
+
+  def github: () -> untyped
+
+  def gitlab: () -> (nil | untyped)
+
+  def microsoft_office365: () -> untyped
+
+  def generic_callback: (untyped provider) -> untyped
+end

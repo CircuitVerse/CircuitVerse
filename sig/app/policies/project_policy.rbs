@@ -1,0 +1,29 @@
+class ProjectPolicy < ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader project: untyped
+
+  def initialize: (untyped user, untyped project) -> void
+
+  def can_feature?: () -> untyped
+
+  def user_access?: () -> untyped
+
+  def check_edit_access?: () -> (false | untyped)
+
+  def check_view_access?: () -> untyped
+
+  def check_direct_view_access?: () -> untyped
+
+  def edit_access?: () -> true
+
+  def view_access?: () -> true
+
+  def direct_view_access?: () -> true
+
+  def embed?: () -> true
+
+  def create_fork?: () -> untyped
+
+  def author_access?: () -> untyped
+end

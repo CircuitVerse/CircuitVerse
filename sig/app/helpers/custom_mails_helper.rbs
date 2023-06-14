@@ -1,0 +1,7 @@
+module CustomMailsHelper
+  BATCH_SIZE: 1000
+
+  def send_mail_in_batches: (untyped mail) -> untyped
+
+  def send_mail_to_self: (untyped user, untyped mail) -> untyped
+end

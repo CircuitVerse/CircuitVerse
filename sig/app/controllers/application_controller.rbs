@@ -1,0 +1,27 @@
+class ApplicationController < ActionController::Base
+  include Pundit::Authorization
+
+  def auth_error: () -> untyped
+
+  def custom_auth_error: (untyped exception) -> untyped
+
+  def not_found: () -> untyped
+
+  def switch_locale: () { () -> untyped } -> untyped
+
+  # Overrides Devise::Controller::StoreLocation.store_location_for to check if
+  # URL is too long to store in the session
+  def store_location_for: (untyped resource_or_scope, untyped location) -> untyped
+
+  private
+
+  def extract_locale_from_accept_language_header: () -> untyped
+
+  def set_notifications: () -> untyped
+
+  def storable_location?: () -> untyped
+
+  def store_user_location!: () -> untyped
+
+  def after_sign_in_path_for: (untyped resource_or_scope) -> untyped
+end

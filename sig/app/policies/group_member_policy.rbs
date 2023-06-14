@@ -1,0 +1,11 @@
+class GroupMemberPolicy < ApplicationPolicy
+  attr_reader user: untyped
+
+  attr_reader group_member: untyped
+
+  def initialize: (untyped user, untyped group_member) -> void
+
+  def primary_mentor?: () -> untyped
+
+  def mentor?: () -> untyped
+end

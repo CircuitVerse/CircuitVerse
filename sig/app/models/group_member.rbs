@@ -1,0 +1,3 @@
+class GroupMember < ApplicationRecord
+  def send_welcome_email: () -> untyped
+end

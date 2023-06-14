@@ -1,0 +1,42 @@
+class SimulatorController < ApplicationController
+  include SimulatorHelper
+
+  include ActionView::Helpers::SanitizeHelper
+
+  def self.policy_class: () -> untyped
+
+  def show: () -> untyped
+
+  def edit: () -> untyped
+
+  def embed: () -> untyped
+
+  def get_data: () -> untyped
+
+  def new: () -> untyped
+
+  def update: () -> untyped
+
+  def view_issue_circuit_data: () -> (nil | untyped)
+
+  def post_issue: () -> untyped
+
+  def create: () -> untyped
+
+  def verilog_cv: () -> untyped
+
+  def allow_iframe_lti: () -> (nil | untyped)
+
+  private
+
+  def allow_iframe: () -> untyped
+
+  def set_project: () -> untyped
+
+  # FIXME: remove this logic after fixing production data
+  def set_user_project: () -> untyped
+
+  def check_edit_access: () -> untyped
+
+  def check_view_access: () -> untyped
+end

@@ -1,0 +1,21 @@
+class Assignment < ApplicationRecord
+  def notify_recipient: () -> untyped
+
+  def send_new_assignment_mail: () -> untyped
+
+  def send_update_mail: () -> (untyped | nil)
+
+  def set_deadline_job: () -> (untyped | nil)
+
+  def clean_restricted_elements: () -> untyped
+
+  def graded?: () -> untyped
+
+  def elements_restricted?: () -> untyped
+
+  def lti_integrated?: () -> untyped
+
+  def project_order: () -> untyped
+
+  def check_reopening_status: () -> untyped
+end

@@ -1,0 +1,3 @@
+class Ahoy::Event < ApplicationRecord
+  include Ahoy::QueryMethods
+end

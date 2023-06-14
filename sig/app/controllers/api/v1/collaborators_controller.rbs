@@ -1,0 +1,23 @@
+class Api::V1::CollaboratorsController < Api::V1::BaseController
+  # /api/v1/projects/:project_id/collaborators
+  def index: () -> untyped
+
+  # POST /api/v1/projects/:project_id/collaborators
+  def create: () -> untyped
+
+  # DELETE /api/v1//projects/:project_id/collaborators/:id
+  # :id is essentially the user_id for the user to be removed from project
+  def destroy: () -> untyped
+
+  private
+
+  def set_project: () -> untyped
+
+  def check_author_access: () -> untyped
+
+  def check_view_access: () -> untyped
+
+  def set_collaborator: () -> untyped
+
+  def collaborator_params: () -> untyped
+end

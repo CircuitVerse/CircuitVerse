@@ -1,0 +1,7 @@
+module Circuitverse
+  class FailureApp < ::Devise::FailureApp
+    def respond: () -> untyped
+
+    def json_api_error_response: () -> untyped
+  end
+end

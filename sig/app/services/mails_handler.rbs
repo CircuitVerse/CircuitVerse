@@ -1,0 +1,17 @@
+class Api::V1::CollaboratorsController
+  class MailsHandler
+    attr_reader valid_mails: untyped
+
+    attr_reader invalid_mails: untyped
+
+    attr_reader existing_mails: untyped
+
+    # initialize the class with mails, project and current_user to be used in class
+    def initialize: (untyped mails, untyped project, untyped current_user) -> void
+
+    # parse emails as valid, invalid or existing mails
+    def parse: () -> untyped
+
+    def added_mails: () -> untyped
+  end
+end

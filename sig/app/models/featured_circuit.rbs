@@ -1,0 +1,7 @@
+class FeaturedCircuit < ApplicationRecord
+  private
+
+  def project_public: () -> (untyped | nil)
+
+  def featured_circuit_email: () -> untyped
+end

@@ -1,0 +1,65 @@
+# rubocop:disable Metrics/ClassLength
+class Api::V1::ProjectsController < Api::V1::BaseController
+  include ActionView::Helpers::SanitizeHelper
+
+  SORTABLE_FIELDS: ::Array[:view | :created_at]
+
+  WHITELISTED_INCLUDE_ATTRIBUTES: ::Array[:author | :collaborators]
+
+  # GET /api/v1/projects
+  def index: () -> untyped
+
+  # GET /api/v1/projects/search?q=:query
+  def search: () -> untyped
+
+  # GET /api/v1/users/:id/projects/
+  def user_projects: () -> untyped
+
+  # GET /api/v1/users/:id/favourites
+  def user_favourites: () -> untyped
+
+  # GET /api/v1/projects/:id
+  def show: () -> untyped
+
+  def image_preview: () -> untyped
+
+  # PATCH /api/v1/projects/:id
+  def update: () -> untyped
+
+  # DELETE /api/v1/projects/:id
+  def destroy: () -> untyped
+
+  # GET /api/v1/projects/featured
+  def featured_circuits: () -> untyped
+
+  # GET /api/v1/projects/:id/toggle-star
+  def toggle_star: () -> untyped
+
+  # /api/v1/projects/:id/fork
+  def create_fork: () -> untyped
+
+  private
+
+  def set_project: () -> untyped
+
+  def load_index_projects: () -> untyped
+
+  def load_user_projects: () -> untyped
+
+  def load_user_favourites: () -> untyped
+
+  def load_featured_circuits: () -> untyped
+
+  def search_projects: () -> untyped
+
+  # include=author
+  def include_resource: () -> untyped
+
+  def set_options: () -> untyped
+
+  def filter: () -> (untyped | nil)
+
+  def sort: () -> (nil | untyped)
+
+  def project_params: () -> untyped
+end

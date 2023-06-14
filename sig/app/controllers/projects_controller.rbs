@@ -1,0 +1,54 @@
+class ProjectsController < ApplicationController
+  include ActionView::Helpers::SanitizeHelper
+
+  include SanitizeDescription
+
+  # GET /projects
+  # GET /projects.json
+  def index: () -> untyped
+
+  # GET /projects/tags/[tag]
+  def get_projects: () -> untyped
+
+  # GET /projects/1
+  # GET /projects/1.json
+  def show: () -> untyped
+
+  # GET /projects/1/edit
+  def edit: () -> nil
+
+  def change_stars: () -> untyped
+
+  def create_fork: () -> untyped
+
+  # POST /projects
+  # POST /projects.json
+  def create: () -> untyped
+
+  # PATCH/PUT /projects/1
+  # PATCH/PUT /projects/1.json
+  def update: () -> untyped
+
+  # DELETE /projects/1
+  # DELETE /projects/1.json
+  def destroy: () -> untyped
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project: () -> untyped
+
+  def check_access: () -> untyped
+
+  def check_delete_access: () -> untyped
+
+  def check_view_access: () -> untyped
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params: () -> untyped
+
+  def sanitize_name: () -> untyped
+
+  # Sanitize description before passing to view
+  def sanitize_project_description: () -> untyped
+end

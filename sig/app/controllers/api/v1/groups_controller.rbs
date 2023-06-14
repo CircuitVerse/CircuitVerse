@@ -1,0 +1,36 @@
+class Api::V1::GroupsController < Api::V1::BaseController
+  WHITELISTED_INCLUDE_ATTRIBUTES: ::Array[:group_members | :assignments]
+
+  # GET /api/v1/groups
+  def index: () -> untyped
+
+  # GET /api/v1/groups/owned
+  def groups_owned: () -> untyped
+
+  # POST /api/v1/groups/
+  def create: () -> untyped
+
+  # GET /api/v1/groups/:id
+  def show: () -> untyped
+
+  # PATCH /api/v1/groups/:id
+  def update: () -> untyped
+
+  # DELETE /api/v1/groups/:id
+  def destroy: () -> untyped
+
+  private
+
+  # include=group_members,assignments
+  def include_resource: () -> untyped
+
+  def set_group: () -> untyped
+
+  def set_options: () -> untyped
+
+  def group_params: () -> untyped
+
+  def check_show_access: () -> untyped
+
+  def check_edit_access: () -> untyped
+end

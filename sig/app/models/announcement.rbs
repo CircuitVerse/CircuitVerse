@@ -1,0 +1,5 @@
+class Announcement < ApplicationRecord
+  def self.current: () -> untyped
+
+  def exists?: () -> untyped
+end

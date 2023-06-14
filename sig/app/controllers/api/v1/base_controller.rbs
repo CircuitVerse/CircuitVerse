@@ -1,0 +1,27 @@
+class Api::V1::BaseController < ActionController::API
+  include Pundit::Authorization
+
+  include CustomErrors
+
+  include ActionController::RequestForgeryProtection
+
+  DEFAULT_PER_PAGE: 5
+
+  def security_transgression_unless: (untyped check) -> (untyped | nil)
+
+  def unauthorized!: () -> untyped
+
+  def not_found!: () -> untyped
+
+  def invalid_resource!: (?untyped _errors) -> untyped
+
+  def paginate: (untyped resource) -> untyped
+
+  def link_attrs: (untyped resource, untyped base_url) -> { self: untyped, first: untyped, prev: untyped, next: untyped, last: untyped }
+
+  def api_error: (?status: ::Integer, ?errors: untyped) -> untyped
+
+  private
+
+  def paginated_url: (untyped base_url, untyped page) -> untyped
+end

@@ -1,0 +1,3 @@
+class Api::V1::GroupMemberSerializer
+  include FastJsonapi::ObjectSerializer
+end

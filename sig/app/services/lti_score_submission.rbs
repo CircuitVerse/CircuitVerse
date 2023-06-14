@@ -1,0 +1,21 @@
+class LtiScoreSubmission
+  def initialize: (assignment: untyped, lis_result_sourced_id: untyped, score: untyped, lis_outcome_service_url: untyped) -> void
+
+  def call: () -> untyped
+
+  private
+
+  attr_reader lis_result_sourced_id: untyped
+
+  attr_reader assignment: untyped
+
+  attr_reader score: untyped
+
+  attr_reader lis_outcome_service_url: untyped
+
+  def oauth_token: () -> untyped
+
+  def score_body: () -> untyped
+
+  def message_identifier: () -> untyped
+end
