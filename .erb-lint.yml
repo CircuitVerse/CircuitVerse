@@ -6,6 +6,13 @@ exclude:
 linters:
   HardCodedString:
     enabled: false
+  AllowedScriptType:
+    enabled: true
+    allowed_types:
+      - 'text/javascript'
+      - 'application/ld+json'
+    allow_blank: true
+    disallow_inline_scripts: false
   Rubocop:
     enabled: true
     rubocop_config:
@@ -13,11 +20,17 @@ linters:
         - .rubocop.yml
       Style/FrozenStringLiteralComment:
         Enabled: false
-      Metrics/LineLength:
+      Layout/LineLength:
         Enabled: false
       Layout/TrailingEmptyLines:
+        Enabled: false
+      Layout/LeadingEmptyLines:
         Enabled: false
       Layout/InitialIndentation:
         Enabled: false
       Style/MultilineTernaryOperator:
+        Enabled: false
+      Layout/TrailingWhitespace:
+        Enabled: false
+      Lint/UselessAssignment:
         Enabled: false
