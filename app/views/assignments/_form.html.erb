@@ -19,7 +19,7 @@
        <div class="primary-checkpoint"></div>
       </label>
       <div class="lms-integration-message"> <!-- Operated by script -->
-       <p>We will generate the required keys for integration after assignment creation.<a href=<%= lms_integration_tutorial %>>Learn how to integrate CircuitVerse assignments with any LMS</a></p>
+       <p>We will generate the required keys for integration after assignment creation.<a href='<%= lms_integration_tutorial %>'>Learn how to integrate CircuitVerse assignments with any LMS</a></p>
       </div>
     </div>
   <% end %>
@@ -34,7 +34,7 @@
   </div>
   <div id="deadline-field" class="field form-group projects-tag-form-group">
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
-    <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
+    <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input" autocomplete="off">
   </div>
   <div id="grade-field" class="form-group projects-tag-form-group">
     <h6><%= form.label :grading_scale %></h6>
@@ -77,7 +77,7 @@
 
 <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   $(document).ready(function() {
-    loadRestrictions(JSON.parse('<%= raw @assignment.clean_restricted_elements %>'));
+    loadRestrictions(JSON.parse(<%== @assignment.clean_restricted_elements.to_json %>));
     loadDeadlinePicker();
     loadltiIntegration();
   })
