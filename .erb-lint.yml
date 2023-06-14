@@ -5,7 +5,11 @@ exclude:
   - '**/node_modules/**/*'
 linters:
   HardCodedString:
-    enabled: false
+    exclude:
+      - '**/app/**'
+  ErbSafety:
+    exclude:
+      - '**/app/views/**'
   AllowedScriptType:
     enabled: true
     allowed_types:
@@ -13,6 +17,9 @@ linters:
       - 'application/ld+json'
     allow_blank: true
     disallow_inline_scripts: false
+  PartialInstanceVariable:
+    exclude:
+      - '**/app/views/**'
   Rubocop:
     enabled: true
     rubocop_config:
@@ -33,4 +40,7 @@ linters:
       Layout/TrailingWhitespace:
         Enabled: false
       Lint/UselessAssignment:
+        Exclude:
+          - "app/views/**/*"
+      Lint/EmptyBlock:
         Enabled: false
