@@ -8,20 +8,20 @@
       <div class="modal-body">
         <div class="field form-group embed-input-fields">
             <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.height") %></b></label></div>
-            <input type="text" class="form-control form-input" id="height" placeholder="Height" value="500">
+            <input type="text" class="form-control form-input" id="height" placeholder="Height" value="500" autocomplete="on">
         </div>
         <div class="field form-group embed-input-fields">
         <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.width") %></b></label></div>
-          <input type="text" class="form-control form-input" id="width" placeholder="Width" value="500">
+          <input type="text" class="form-control form-input" id="width" placeholder="Width" value="500" autocomplete="on">
         </div>
         <div class="field form-group embed-input-fields">
             <div><label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label></div>
-            <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
+            <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly autocomplete="off"><br>
         </div>
         <div class="field form-group embed-input-fields">
             <div><label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label></div>
-            <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)">&nbsp;&nbsp;
-            <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)">
+            <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)" autocomplete="on">&nbsp;&nbsp;
+            <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)" autocomplete="on">
         </div>
         <div class="field form-group embed-input-fields">
             <div><label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label></div>
