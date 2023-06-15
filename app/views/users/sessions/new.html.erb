@@ -65,4 +65,4 @@
       localStorage.setItem('Email', $(".user-email-input").val());
     });
 </script>
-<script src="/js/togglePassword.js" nonce="<%= request.content_security_policy_nonce %>"></script>
+<%= javascript_include_tag "/js/togglePassword.js", nonce: true %>

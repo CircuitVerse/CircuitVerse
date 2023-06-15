@@ -1,8 +1,8 @@
 <% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
 
-<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" nonce="<%= request.content_security_policy_nonce %>"></script>
-<script src="/js/plugins/checkBo.min.js" nonce="<%= request.content_security_policy_nonce %>"></script>
-<script src="/js/plugins/bootstrap-input-spinner.js" nonce="<%= request.content_security_policy_nonce %>"></script>
+<%= javascript_include_tag "/js/plugins/jquery.twbs-toggle-buttons.min.js", nonce: true %>
+<%= javascript_include_tag "/js/plugins/checkBo.min.js", nonce: true %>
+<%= javascript_include_tag "/js/plugins/bootstrap-input-spinner.js", nonce: true %>
 
 <script nonce="<%= request.content_security_policy_nonce %>">
   userSignedIn = <%= user_signed_in? %>;
@@ -857,8 +857,7 @@ if(restricted_feature.includes('Verilog tools')) {
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
-<script type="text/javascript" src="/js/metadata.json" nonce="<%= request.content_security_policy_nonce %>"></script>
-
+<%= javascript_include_tag "/js/metadata.json", type: "text/javascript", nonce: true %>
 <script nonce="<%= request.content_security_policy_nonce %>">
 
 $(function(){
@@ -871,4 +870,4 @@ $(".download-dialog-section-2_2").checkBo();
 });
 
 </script>
-<script src="/js/data.js" nonce="<%= request.content_security_policy_nonce %>"></script>
+<%= javascript_include_tag "/js/data.js", nonce: true %>

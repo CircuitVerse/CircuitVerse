@@ -163,7 +163,7 @@
     </div>
   </div>
 </div>
-<script src="/js/grading.js" nonce="<%= request.content_security_policy_nonce %>"> </script>
+<%= javascript_include_tag "/js/grading.js", nonce: true %>
 <script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
   $(document).ready(function() {
     $('.assignments-deadline').each(function(){
