@@ -66,7 +66,11 @@ class Assignment < ApplicationRecord
   end
 
   def features_restricted?
-    !(feature_restrictions == "{}" || feature_restrictions == "[]" || feature_restrictions.strip == "" || feature_restrictions == [] || feature_restrictions == {})
+    !(feature_restrictions == "{}" ||
+      feature_restrictions == "[]" ||
+      feature_restrictions.strip == "" ||
+      feature_restrictions == [] ||
+      feature_restrictions == {})
   end
 
   def lti_integrated?
