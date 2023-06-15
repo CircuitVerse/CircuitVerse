@@ -14,8 +14,12 @@ var featureRestrictionMetadata = {
 
 function featureRestrictionsMap(restrictions) {
     var map = {};
-    for (var i = 0; i < restrictions.length; i++) {
-        map[restrictions[i]] = true;
+    if (restrictions && restrictions !== '{}' && restrictions !== {}) {
+        var splitted = restrictions.split(',');
+        for (var i = 0; i < splitted.length; i++) {
+            var tmp = splitted[i].trim();
+            if (tmp !== '') map[splitted[i].trim()] = true;
+        }
     }
     return map;
 }
@@ -31,6 +35,7 @@ function htmlInlineFeatureCheckbox(elementName, checked) {
         .concat('<input class="form-check-input feature-restriction" type="checkbox" id="checkbox-')
         .concat(elementName, '" value="')
         .concat(elementName, '" ')
+        .concat(checked)
         .concat('>\n')
         .concat('<div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
         .concat(elementName, '</span></label>\n</div>');
@@ -46,7 +51,26 @@ function generateFeatureRow(name, elements, restrictionMap) {
     return html;
 }
 
+function isFeatureRestricted(featureRestrictionMap) {
+    return Object.values(featureRestrictionMap).includes(true);
+}
+
+function handleFeatureMainCheckboxHelper() {
+    var radio = $('#restrict-feature').is(':checked');
+    if (radio) {
+        document.querySelector('.restricted-feature-list').style.display = 'block';
+    } else {
+        document.querySelector('.restricted-feature-list').style.display = 'none';
+    }
+}
+
 function loadFeatureHtml(featureHierarchy, restrictionMap) {
+    if (isFeatureRestricted(restrictionMap)) {
+        $('#restrict-feature').prop('checked', true);
+    } else {
+        $('#restrict-feature').prop('checked', false);
+    }
+    handleFeatureMainCheckboxHelper();
     for (var i = 0; i < Object.entries(featureHierarchy).length; i++) {
         var category = Object.entries(featureHierarchy)[i];
         var html = generateFeatureRow(category[0], category[1], restrictionMap);
@@ -55,21 +79,20 @@ function loadFeatureHtml(featureHierarchy, restrictionMap) {
 }
 
 function loadFeatureRestrictions() {
-    var featureRestrictionMap = featureRestrictionsMap(featureRestrictionMetadata);
+    var featureRestrictionMap = featureRestrictionsMap(restrictedFeatures);
     loadFeatureHtml(featureRestrictionMetadata, featureRestrictionMap);
 }
 
 export default class extends Controller {
     handleFeatureMainCheckbox() {
-        var radio = document.getElementById('restrict-feature').checked;
-        if (!radio) {
-            document.querySelector('.restricted-feature-list').style.display = 'block';
-        } else {
-            document.querySelector('.restricted-feature-list').style.display = 'none';
-        }
+        handleFeatureMainCheckboxHelper();
     }
 
     connect() {
+        if (!restrictedFeatures) restrictedFeatures = '';
+        $('#restrict-feature').on('change', (_) => {
+            this.handleFeatureMainCheckbox();
+        });
         loadFeatureRestrictions();
     }
 }

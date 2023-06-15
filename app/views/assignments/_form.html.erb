@@ -63,8 +63,8 @@
 
   <div id="restrictions-field" class="field form-group" data-controller="assignment">
     <label for="restrict-feature" class="primary-checkpoint-container" id="label-restrict-feature"><h6 data-action="click->assignment#handleFeatureMainCheckbox"><%= t("assignments.form.enable_feature_restriction") %></h6>
-      <%= check_box_tag "restrict-feature" %>
-      <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
+      <%= check_box_tag "restrict-feature", checked: @assignment.features_restricted? %>
+      <div class="primary-checkpoint"></div>
     </label>
     <div class="restricted-feature-list"> <!-- Operated by script --> </div>
   </div>
@@ -76,6 +76,7 @@
 <% end %>
 
 <script type="text/javascript">
+  let restrictedFeatures = '<%= @assignment.feature_restrictions %>';
   $(document).ready(function() {
     loadRestrictions(JSON.parse('<%= raw @assignment.clean_restricted_elements %>'));
     loadDeadlinePicker();
