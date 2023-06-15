@@ -36,7 +36,7 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Run data migration tasks
-        run: rails data:migrate
+        run: bin/rails data:migrate
       - name: Build assets
         run: yarn run build
       - name: Configure keys
