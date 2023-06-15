@@ -2,6 +2,7 @@
   <head>
     <title><%= t("layout.simulator.title") %></title>
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
     <script nonce="<%= request.content_security_policy_nonce %>">window.locale = "<%= I18n.locale %>"</script>
     <script src="/js/pace.js" nonce="<%= request.content_security_policy_nonce %>"></script>
     <%= stylesheet_link_tag "simulator", media: "all", "data-turbolinks-track": "reload" %>

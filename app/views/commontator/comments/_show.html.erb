@@ -36,7 +36,7 @@
     <div id="commontator-comment-<%= comment.id %>-section-bottom" class="section bottom">
       <% unless comment.is_deleted? %>
         <span id="commontator-comment-<%= comment.id %>-reply-link" class="reply">
-          <% thread.config.comment_reply_style != :n && !thread.is_closed? %>
+          <% if thread.config.comment_reply_style != :n && !thread.is_closed? %>
             <%=
               link_to(
                 t("commontator.comment.actions.reply"),
