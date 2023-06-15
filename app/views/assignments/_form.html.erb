@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="/js/metadata.json" nonce="<%= request.content_security_policy_nonce %>"></script>
 
-<%= form_with(model: [group, @assignment], local: true, html: { onsubmit: "beforeSubmit()" }, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
+<%= form_with(model: [group, @assignment], local: true, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
   <% if @assignment.errors.any? %>
     <div id="error-message">
       <ul>
@@ -80,6 +80,9 @@
     loadRestrictions(JSON.parse(<%== @assignment.clean_restricted_elements.to_json %>));
     loadDeadlinePicker();
     loadltiIntegration();
+    $("#assignmentForm").on("submit", function(e){
+      beforeSubmit();
+    })
   })
 
   function loadltiIntegration(){
