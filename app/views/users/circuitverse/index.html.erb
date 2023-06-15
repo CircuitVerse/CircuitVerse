@@ -130,7 +130,7 @@
 <%= render partial: "view_project_modal" %>
 <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/fuse.js@6.4.3", nonce: true %>
 <%# for user projects search %>
-<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag type: 'text/javascript', nonce: true do -%>
 
   function getTitle(circuitDiv) {
       return $('.users-card-name p', circuitDiv)[0].textContent;
@@ -198,9 +198,9 @@
     }
   })
 
-</script>
+<% end -%>
 
-<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag type: 'text/javascript', nonce: true do -%>
   $(function() {
     $('#favourite-circuits-div').hide();
     $('#collaborator-circuits-div').hide();
@@ -239,4 +239,4 @@
         "/users/" + authorId + "/projects/" + id);
     });
   });
-</script>
+<% end -%>

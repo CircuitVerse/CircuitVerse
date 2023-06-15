@@ -75,7 +75,7 @@
   </div>
 <% end %>
 
-<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag type: 'text/javascript', nonce: true do -%>
   $(document).ready(function() {
     loadRestrictions(JSON.parse(<%== @assignment.clean_restricted_elements.to_json %>));
     loadDeadlinePicker();
@@ -188,6 +188,6 @@
         .attr('value', JSON.stringify(updated_restrictions))
         .appendTo('#assignmentForm');
   }
-</script>
+<% end -%>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
 <%= javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js", nonce: true %>

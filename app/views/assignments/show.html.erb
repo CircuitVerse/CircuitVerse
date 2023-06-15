@@ -58,7 +58,7 @@
           <hr class="assignments-horizontal-rule">
           <% if policy(@assignment).mentor_access? %>
           <h3 class="assignments-submission-heading"><%= t("assignments.assignment_data.submissions") %></h3>
-            <script nonce="<%= request.content_security_policy_nonce %>">
+            <%= javascript_tag nonce: true do -%>
               $( function() {
                 $('.list-group-item-action').on('click', function (e) {
                   e.preventDefault()
@@ -72,7 +72,7 @@
                   frames['assignmentPreview'].document.head.appendChild(cssLink);
                 })
               });
-            </script>
+            <% end -%>
             <% if @assignment.project_order.blank? %>
               <div class="assignments-no-submission">
                 <h5><%= t("assignments.assignment_data.no_submissions") %></h5>
@@ -164,7 +164,7 @@
   </div>
 </div>
 <%= javascript_include_tag "/js/grading.js", nonce: true %>
-<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   $(document).ready(function() {
     $('.assignments-deadline').each(function(){
       let month = $('.assignments-deadline').data("month") -1;
@@ -174,4 +174,4 @@
       this.innerHTML = localTime;
     });
   });
-</script>
+<% end -%>

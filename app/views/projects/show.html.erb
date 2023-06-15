@@ -203,7 +203,7 @@
 
 <%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
 
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   $(document).ready(function() {
     <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %> {
       let restricted_feature = '<%= @project.assignment.feature_restrictions %>';
@@ -227,8 +227,8 @@
         "/collaborations/" + collaboration.toString());
     });
   })
-</script>
-<script nonce="<%= request.content_security_policy_nonce %>">
+<% end -%>
+<%= javascript_tag nonce: true do -%>
   function toggleStar(toggle) {
     $.ajax({
       url: "<%= change_stars_path(@project) %>",
@@ -249,10 +249,10 @@
         }
     });
   }
-</script>
+<% end -%>
 <% if user_signed_in? %>
-  <script type="application/ld+json">
-    {
+  <%= javascript_tag type: 'application/ld+json', nonce: true do -%>
+      {
       "@context" : "http://schema.org",
       "@type" : "Article",
       "name" : "<%= @project.name %>",
@@ -263,5 +263,5 @@
       "articleSection" : "Project",
       "articleBody" : "<%= @project.description || " " %>"
     }
-  </script>
+  <% end -%>
 <% end %>

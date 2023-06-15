@@ -4,7 +4,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <script nonce="<%= request.content_security_policy_nonce %>">window.locale = "<%= I18n.locale %>"</script>
+    <%= javascript_tag nonce: true do -%>window.locale = "<%= I18n.locale %>"<% end -%>
     <%= javascript_include_tag "/js/pace.js", nonce: true %>
     <%= javascript_include_tag "testbench", "data-turbolinks-track": "reload", nonce: true %>
     <%= stylesheet_link_tag "simulator", media: "all", "data-turbolinks-track": "reload" %>

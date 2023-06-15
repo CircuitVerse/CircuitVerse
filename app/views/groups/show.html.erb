@@ -344,7 +344,7 @@
   <%= render partial: "promote_member_confirmation_modal" %>
 </div>
 
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   $(document).ready(function() {
     $('.groups-assignment-deadline').each(function() {
       let month = $(this).data("month") -1;
@@ -365,4 +365,4 @@
         "/group_members/" + groupmember.toString());
     });
   });
-</script>
+<% end -%>

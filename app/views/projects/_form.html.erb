@@ -48,7 +48,7 @@
 
 <% end %>
 
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   function beforeSubmit() {
     generateFeaturedCircuit()
     generateEditor()
@@ -76,4 +76,4 @@
     });
     $("#featuredCircuit").submit();
   }
-</script>
+<% end -%>

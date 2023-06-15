@@ -60,9 +60,9 @@
     </div>
   </div>
 </div>
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
     $(".users-forgot-password-text").on('click', () => {
       localStorage.setItem('Email', $(".user-email-input").val());
     });
-</script>
+<% end -%>
 <%= javascript_include_tag "/js/togglePassword.js", nonce: true %>

@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<script type="text/javascript" nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag type: 'text/javascript', nonce: true do -%>
     __logix_project_id = "<%= @logix_project_id %>";
         embed=true;
         <% if @project&.assignment_id.present? %>
@@ -76,7 +76,7 @@
           restrictedElements = [];
         <% end %>
 
- </script>
+<% end -%>
 
 </body>
 

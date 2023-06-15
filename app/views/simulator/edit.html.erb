@@ -4,11 +4,11 @@
 <%= javascript_include_tag "/js/plugins/checkBo.min.js", nonce: true %>
 <%= javascript_include_tag "/js/plugins/bootstrap-input-spinner.js", nonce: true %>
 
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   userSignedIn = <%= user_signed_in? %>;
   __logix_project_id = "<%= @logix_project_id %>";
   __projectName = "<%= @projectName %>"
-</script>
+<% end -%>
 
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
@@ -818,13 +818,13 @@
   </div>
 </div>
 
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   $('#newCircuit').click(function () {
     return $('#insertSubcircuitDialog').dialog('close');
   });
-</script>
+<% end -%>
 
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
 <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
 let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
 if(restricted_feature.includes('Combinational Analysis Tool')) {
@@ -834,9 +834,9 @@ if(restricted_feature.includes('Verilog tools')) {
   $('#generateVerilog').attr("style", "display:none")
 }
 <% end %>
-</script>
+<% end -%>
 
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   const embed = false;
   user_id = "<%= user_signed_in? ? " #{current_user.id} - #{current_user.name}" : "Guest user" %>";
   var listenToSimulator=true
@@ -845,20 +845,20 @@ if(restricted_feature.includes('Verilog tools')) {
   <% else %>
   restrictedElements = [];
   <% end %>
-</script>
+<% end -%>
 
 <!-- on hover for dropdowns -->
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
   $('.dropdown-toggle').hover(function () {
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
   });
-</script>
+<% end -%>
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
 <%= javascript_include_tag "/js/metadata.json", type: "text/javascript", nonce: true %>
-<script nonce="<%= request.content_security_policy_nonce %>">
+<%= javascript_tag nonce: true do -%>
 
 $(function(){
     $(".btn-group-toggle").twbsToggleButtons();
@@ -869,5 +869,5 @@ $("#openProjectDialog").checkBo();
 $(".download-dialog-section-2_2").checkBo();
 });
 
-</script>
+<% end -%>
 <%= javascript_include_tag "/js/data.js", nonce: true %>
