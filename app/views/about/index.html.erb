@@ -109,12 +109,12 @@
     </div>
 </div>
 
-<%= javascript_tag type: 'text/javascript', nonce: true do -%>
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   async function getContributors(url){
     let apiData = await fetch(url);
     let contributorsData = await apiData.json();
     let contributorUsers = contributorsData.filter(function(user) { return (user.type == 'User') });
-    for (let i=0; i<contributorUsers.length; i++){
+    for (let i=0; i < contributorUsers.length; i++){
       let contributorElement = document.createElement('div');
       let contributorElementAnchor = document.createElement('a');
       let contributorElementImage = document.createElement('img');

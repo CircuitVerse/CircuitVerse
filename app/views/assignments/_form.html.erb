@@ -75,7 +75,7 @@
   </div>
 <% end %>
 
-<%= javascript_tag type: 'text/javascript', nonce: true do -%>
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   $(document).ready(function() {
     loadRestrictions(JSON.parse(<%== @assignment.clean_restricted_elements.to_json %>));
     loadDeadlinePicker();

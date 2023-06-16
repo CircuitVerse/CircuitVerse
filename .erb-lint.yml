@@ -20,6 +20,9 @@ linters:
   PartialInstanceVariable:
     exclude:
       - '**/app/views/**'
+  NoJavascriptTagHelper:
+    exclude:
+      - '**/app/views/**'
   Rubocop:
     enabled: true
     rubocop_config:

@@ -67,7 +67,7 @@
     </div>
 </div>
 
-<%= javascript_tag type: 'text/javascript', nonce: true do -%>
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
     __logix_project_id = "<%= @logix_project_id %>";
         embed=true;
         <% if @project&.assignment_id.present? %>

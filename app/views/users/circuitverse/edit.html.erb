@@ -57,7 +57,7 @@
   </div>
 </div>
 <%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
-<%= javascript_tag type: 'text/javascript', nonce: true do -%>
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   $(document).ready(function() {
     $("#deleteuserModal").on("show.bs.modal", function(e) {
         let user = $(e.relatedTarget).data('currentuser');
