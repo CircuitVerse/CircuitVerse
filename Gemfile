@@ -117,6 +117,9 @@ gem "sprockets", "~> 4.1"
 gem "strong_migrations"
 gem 'rails-data-migrations'
 
+# For Vite rails
+gem 'vite_rails' 
+
 group :development, :test do
   # Adds support for debug
   gem "debug"
