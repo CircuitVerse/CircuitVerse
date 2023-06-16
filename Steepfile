@@ -1,5 +1,7 @@
-target :app do
-  signature 'sig'
+# frozen_string_literal: true
 
-  check 'app'
+target :app do
+  signature "sig"
+
+  check "app"
 end

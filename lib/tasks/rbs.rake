@@ -1,4 +1,6 @@
-require 'rbs_rails/rake_task'
+# frozen_string_literal: true
+
+require "rbs_rails/rake_task"
 
 RbsRails::RakeTask.new do |task|
   # If you want to avoid generating RBS for some classes, comment in it.
