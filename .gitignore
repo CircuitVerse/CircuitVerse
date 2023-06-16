@@ -81,3 +81,6 @@ yosys2digitaljs-server
 # Ignore all files of .vscode except launch.json
 .vscode/*
 !.vscode/launch.json
+
+# ignore rbs collection
+.gem_rbs_collection
