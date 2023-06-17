@@ -4,6 +4,8 @@ exclude:
   - '**/vendor/**/*'
   - '**/node_modules/**/*'
   - '**/app/views/assignments/_form.html.erb'
+  - '**/app/views/editor/_index.html.erb'
+  - '**/app/views/about/index.html.erb'
 linters:
   HardCodedString:
     exclude:
