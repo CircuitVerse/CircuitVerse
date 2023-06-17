@@ -14,7 +14,10 @@ var featureRestrictionMetadata = {
 
 function featureRestrictionsMap(restrictions) {
     var map = {};
-    if (restrictions && restrictions !== '{}' && restrictions !== {}) {
+    if (restrictions) {
+        if (restrictions === '{}' || restrictions === {}) {
+            return map;
+        }
         var splitted = restrictions.split(',');
         for (var i = 0; i < splitted.length; i++) {
             var tmp = splitted[i].trim();
