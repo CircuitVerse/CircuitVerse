@@ -69,7 +69,7 @@ class Assignment < ApplicationRecord
     !(feature_restrictions == "{}" ||
       feature_restrictions == "[]" ||
       feature_restrictions == [] ||
-      feature_restrictions == {} || 
+      feature_restrictions == {} ||
       feature_restrictions == "")
   end
 
