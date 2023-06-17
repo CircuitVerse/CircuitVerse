@@ -251,7 +251,7 @@
   }
 <% end -%>
 <% if user_signed_in? %>
-  <%= javascript_tag type: 'application/ld+json', nonce: true do -%>
+  <%= javascript_tag type: "application/ld+json", nonce: true do -%>
       {
       "@context" : "http://schema.org",
       "@type" : "Article",

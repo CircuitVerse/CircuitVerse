@@ -857,7 +857,7 @@ if(restricted_feature.includes('Verilog tools')) {
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
-<script src="/js/metadata.json"></script>
+<script src="/js/metadata.json" nonce="<%= request.content_security_policy_nonce %>"></script>
 <%= javascript_tag nonce: true do -%>
 
 $(function(){

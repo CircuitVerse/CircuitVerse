@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
-<script src="/js/metadata.json"></script>
+<script src="/js/metadata.json" nonce="<%= request.content_security_policy_nonce %>"></script>
 
 <%= form_with(model: [group, @assignment], local: true, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
   <% if @assignment.errors.any? %>
@@ -117,7 +117,7 @@
       const remainingTimeLabel = $('#remaining-time');
       const remainingSeconds = (newDate - Date.now()) / 1000;
 
-      if(newDate == null || remainingSeconds <= 0){
+      if(newDate == null || remainingSeconds <= 0) {
         $('#assignment_deadline').datetimepicker({value: defaultAssignmentDate()});
         $('#assignment_deadline').change();
         return;

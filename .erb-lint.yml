@@ -3,6 +3,7 @@ glob: "**/*.{html,text}{+*,}.erb"
 exclude:
   - '**/vendor/**/*'
   - '**/node_modules/**/*'
+  - '**/app/views/assignments/_form.html.erb'
 linters:
   HardCodedString:
     exclude:

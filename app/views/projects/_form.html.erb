@@ -55,7 +55,7 @@
   }
 
   function generateEditor() {
-    $('<input />').attr('type', 'hidden')
+    $('<input>').attr('type', 'hidden')
       .attr('name', 'description')
       .attr('value', $("#editor").cleanHtml())
       .appendTo('#projectForm');
