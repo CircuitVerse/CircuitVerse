@@ -181,5 +181,5 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 gem "opentelemetry-sdk", "~> 1.2"
-gem "opentelemetry-exporter-otlp", "~> 0.24.1"
+gem "opentelemetry-exporter-otlp", "~> 0.25.0"
 gem "opentelemetry-instrumentation-all", "~> 0.38.0"
