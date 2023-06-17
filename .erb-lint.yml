@@ -26,6 +26,9 @@ linters:
   NoJavascriptTagHelper:
     exclude:
       - '**/app/views/**'
+  SelfClosingTag:
+    exclude:
+      - '**/app/views/**'
   Rubocop:
     enabled: true
     rubocop_config:
