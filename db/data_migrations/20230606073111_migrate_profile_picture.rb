@@ -15,8 +15,8 @@ class MigrateProfilePicture < ActiveRecord::DataMigration
 
   def migrate_paperclip_assets(last_migrated_user_id = 0)
     User.where("id > ?", last_migrated_user_id).find_each do |user|
-      next if user.profile_picture.blank?
-      next if ActiveStorage::Attachment.where(record_id: user.id).present?
+      next if !user.profile_picture.exists?
+      next if ActiveStorage::Attachment.exists?(name: "avatar", record_id: user.id)
 
       begin
         image_file = File.open(user.profile_picture.path)
