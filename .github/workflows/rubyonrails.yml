@@ -43,6 +43,8 @@ jobs:
         run: |
           openssl genrsa -out config/private.pem 2048
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+      - name: Copy the sample ENV Config
+        run: cp .env.example .env
       - name: Run tests
         run: bundle exec rspec
 
