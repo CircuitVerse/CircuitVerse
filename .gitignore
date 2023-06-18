@@ -77,9 +77,14 @@ yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
 
+storage/
+config/credentials.yml.enc
+/config/master.key
+
 # Ignore all files of .vscode except launch.json
 .vscode/*
 !.vscode/launch.json
+
 
 # Vite Ruby
 /public/vite*
