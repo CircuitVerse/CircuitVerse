@@ -45,14 +45,13 @@ jobs:
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
       - name: Copy the sample ENV Config
         run: cp .env.example .env
-      - name: Run tests
-        run: bundle exec rspec
-      - name: Upload coverage details
+      - name: Run tests & Upload coverage
         run: |
+          bundle exec rspec
           ruby -e "$(curl -s https://undercover-ci.com/uploader.rb)" -- \
-            --repo CircuitVerse/CircuitVerse \
-            --commit ${{ github.event.pull_request.head.sha }} \
-            --lcov coverage/lcov/CircuitVerse.lcov
+          --repo CircuitVerse/CircuitVerse \
+          --commit ${{ github.event.pull_request.head.sha }} \
+          --lcov coverage/lcov/CircuitVerse.lcov
 
   lint:
     runs-on: ubuntu-latest
