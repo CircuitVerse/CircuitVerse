@@ -1,5 +1,15 @@
 # frozen_string_literal: true
 
+require "simplecov"
+require "simplecov-lcov"
+SimpleCov::Formatter::LcovFormatter.config.report_with_single_file = true
+SimpleCov.formatter = SimpleCov::Formatter::LcovFormatter
+SimpleCov.start do
+  add_filter(/^\/spec\//) # For RSpec
+  enable_coverage(:branch) # Report branch coverage to trigger branch-level undercover warnings
+end
+
+require "undercover"
 require "coveralls"
 require "paperclip/matchers"
 require "support/spec_utils"
