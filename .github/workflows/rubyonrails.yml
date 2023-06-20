@@ -59,3 +59,5 @@ jobs:
         run:  bundle exec bundler-audit --update
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
+      - name: Verify Type Signature
+        run: bundle exec steep check
