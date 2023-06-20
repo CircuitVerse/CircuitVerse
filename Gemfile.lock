@@ -241,6 +241,7 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
+    ffi (1.15.5-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -290,6 +291,8 @@ GEM
     image_processing (1.12.2)
       mini_magick (>= 4.9.5, < 5)
       ruby-vips (>= 2.0.17, < 3)
+    imagen (0.1.8)
+      parser (>= 2.5, != 2.5.1.1)
     ims-lti (1.2.4)
       builder (>= 1.0, < 4.0)
       oauth (>= 0.4.5, < 0.6)
@@ -578,6 +581,7 @@ GEM
     ruby_parser (3.18.1)
       sexp_processor (~> 4.16)
     rubyzip (2.3.2)
+    rugged (1.6.3)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
     sanitize (6.0.1)
@@ -614,6 +618,7 @@ GEM
       simplecov-html (~> 0.11)
       simplecov_json_formatter (~> 0.1)
     simplecov-html (0.12.3)
+    simplecov-lcov (0.8.0)
     simplecov_json_formatter (0.1.4)
     sitemap_generator (6.2.1)
       builder (~> 3.0)
@@ -683,6 +688,10 @@ GEM
     tzinfo-data (1.2022.7)
       tzinfo (>= 1.0.0)
     unaccent (0.4.0)
+    undercover (0.4.6)
+      imagen (>= 0.1.8)
+      rainbow (>= 2.1, < 4.0)
+      rugged (>= 0.27, < 1.7)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
@@ -818,6 +827,8 @@ DEPENDENCIES
   shoulda-matchers
   sidekiq
   simple_discussion!
+  simplecov
+  simplecov-lcov
   sitemap_generator
   spring
   sprockets (~> 4.1)
@@ -829,6 +840,7 @@ DEPENDENCIES
   terser
   turbolinks (~> 5)
   tzinfo-data
+  undercover
   view_component
   vite_rails
   web-console (>= 3.3.0)

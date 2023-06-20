@@ -118,7 +118,7 @@ gem "strong_migrations"
 gem 'rails-data-migrations'
 
 # For Vite rails
-gem 'vite_rails' 
+gem 'vite_rails'
 
 group :development, :test do
   # Adds support for debug
@@ -135,6 +135,7 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   gem "rbs_rails"
   gem "steep"
+  gem "undercover"
 end
 
 group :test do
@@ -145,6 +146,8 @@ group :test do
   gem "shoulda-matchers"
   gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
+  gem 'simplecov'
+  gem 'simplecov-lcov'
 end
 
 group :development do
