@@ -32,6 +32,8 @@ jobs:
         with:
           node-version: '14'
           cache: 'yarn'
+      - name: Copy the sample ENV Config
+        run: cp .env.example .env
       - run: yarn install --frozen-lockfile  --immutable
       - name: Set up database schema
         run: bin/rails db:schema:load
@@ -43,8 +45,6 @@ jobs:
         run: |
           openssl genrsa -out config/private.pem 2048
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
-      - name: Copy the sample ENV Config
-        run: cp .env.example .env
       - name: Run tests & Upload coverage
         run: bundle exec rspec
       - name: Test Code Coverage & Upload
