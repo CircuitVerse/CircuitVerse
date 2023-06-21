@@ -692,6 +692,9 @@ GEM
       imagen (>= 0.1.8)
       rainbow (>= 2.1, < 4.0)
       rugged (>= 0.27, < 1.7)
+    undercover-checkstyle (0.3.0)
+      rexml
+      undercover (>= 0.3.4)
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
@@ -841,6 +844,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   undercover
+  undercover-checkstyle
   view_component
   vite_rails
   web-console (>= 3.3.0)

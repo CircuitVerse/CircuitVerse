@@ -146,8 +146,9 @@ group :test do
   gem "shoulda-matchers"
   gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
-  gem 'simplecov'
-  gem 'simplecov-lcov'
+  gem "simplecov"
+  gem "simplecov-lcov"
+  gem "undercover-checkstyle"
 end
 
 group :development do
