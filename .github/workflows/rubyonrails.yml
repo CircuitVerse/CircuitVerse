@@ -32,9 +32,9 @@ jobs:
         with:
           node-version: '14'
           cache: 'yarn'
+      - run: yarn install --frozen-lockfile  --immutable
       - name: Copy the sample ENV Config
         run: cp .env.example .env
-      - run: yarn install --frozen-lockfile  --immutable
       - name: Set up database schema
         run: bin/rails db:schema:load
       - name: Run data migration tasks
