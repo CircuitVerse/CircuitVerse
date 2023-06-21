@@ -47,13 +47,15 @@ jobs:
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
       - name: Run tests
         run: bundle exec rspec
-      - name: Upload code coverage
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+      - name: Run reviewdog
+        env:
+          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ruby -e "$(curl -s https://undercover-ci.com/uploader.rb)" -- \
-          --repo CircuitVerse/CircuitVerse \
-          --commit ${{ github.event.pull_request.head.sha }} \
-          --lcov coverage/lcov/CircuitVerse.lcov
-
+          git fetch --no-tags
+          reviewdog -reporter=github-pr-review -runners=undercover
   lint:
     runs-on: ubuntu-latest
     steps:
