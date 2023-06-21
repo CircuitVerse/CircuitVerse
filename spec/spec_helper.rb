@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require "undercover"
 require "coveralls"
 require "paperclip/matchers"
 require "support/spec_utils"
