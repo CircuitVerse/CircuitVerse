@@ -46,9 +46,9 @@ jobs:
       - name: Copy the sample ENV Config
         run: cp .env.example .env
       - name: Run tests & Upload coverage
+        run: bundle exec rspec
+      - name: Test Code Coverage & Upload
         run: |
-          bundle exec rspec
-          ls -la ./coverage
           ruby -e "$(curl -s https://undercover-ci.com/uploader.rb)" -- \
           --repo CircuitVerse/CircuitVerse \
           --commit ${{ github.event.pull_request.head.sha }} \
