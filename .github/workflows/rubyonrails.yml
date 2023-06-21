@@ -55,6 +55,7 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
         run: |
           git fetch --no-tags
+          ls -la ./coverage
           reviewdog -runners=undercover -diff ${{ github.base_ref }}
   lint:
     runs-on: ubuntu-latest
