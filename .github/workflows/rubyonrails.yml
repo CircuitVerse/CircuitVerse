@@ -47,7 +47,7 @@ jobs:
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
       - name: Run tests & Upload coverage
         run: bundle exec rspec
-      - name: Test Code Coverage & Upload
+      - name: Upload code coverage
         run: |
           ruby -e "$(curl -s https://undercover-ci.com/uploader.rb)" -- \
           --repo CircuitVerse/CircuitVerse \
