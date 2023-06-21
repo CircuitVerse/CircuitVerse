@@ -45,7 +45,7 @@ jobs:
         run: |
           openssl genrsa -out config/private.pem 2048
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
-      - name: Run tests & Upload coverage
+      - name: Run tests
         run: bundle exec rspec
       - name: Upload code coverage
         run: |
