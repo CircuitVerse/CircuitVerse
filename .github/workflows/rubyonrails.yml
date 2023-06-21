@@ -58,7 +58,7 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
         run: |
           git fetch --no-tags
-          reviewdog -diff="git diff FETCH_HEAD"  -tee
+          reviewdog -reporter=github-pr-review -runners=undercover -tee
   lint:
     runs-on: ubuntu-latest
     steps:
