@@ -8,12 +8,16 @@ class CustomMailsController < ApplicationController
   before_action :set_mail, only: %i[edit update show send_mail send_mail_self]
 
   def index
+    # @type [User]
     @user = current_user
+    # @type [Array<CustomMail>]
     @mails = CustomMail.all
   end
 
   def show
+    # @type [User]
     @user = current_user
+    # @type [Boolean]
     @is_preview = true
   end
 
@@ -71,9 +75,11 @@ class CustomMailsController < ApplicationController
     end
 
     def set_mail
+      # @type [CustomMail]
       @mail = CustomMail.find(params[:id])
     end
 
+    # @param params [ActionController::Parameters]
     def custom_mails_params
       params.require(:custom_mail).permit(:subject, :content)
     end
