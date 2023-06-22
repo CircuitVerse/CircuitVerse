@@ -72,6 +72,11 @@ cd CircuitVerse
 
 Navigate to `localhost:3000` in your web browser to access the website.
 
+#### Code Autocompletion
+You can enable code autocompletion & Intellisense support in your preferred IDE or Code Editor.
+Follow this documentation [LSP-SETUP.MD](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.MD) for detailed guide.
+
+
 #### Additional instructions for Ubuntu
 Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
 - If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
