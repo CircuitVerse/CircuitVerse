@@ -5,7 +5,7 @@ class Api::V1::GroupMembersController
     attr_reader :added_mails, :invalid_mails, :pending_mails
 
     # initialize the class with mails, group and current_user to be used in class
-    def initialize(mails, group, current_user)
+    def initialize(mails, group, current_user, is_mentor)
       @mails = mails
       @group = group
       @current_user = current_user
@@ -14,6 +14,7 @@ class Api::V1::GroupMembersController
       @invalid_mails = []
       @pending_mails = []
       @added_mails = []
+      @mentor = is_mentor
     end
 
     # parse emails as valid, invalid or existing mails
@@ -45,7 +46,7 @@ class Api::V1::GroupMembersController
         else
           # create group_member for existent users
           @added_mails.push(email)
-          GroupMember.where(group_id: @group.id, user_id: user.id).first_or_create
+          GroupMember.where(group_id: @group.id, user_id: user.id, mentor: @mentor).first_or_create
         end
       end
     end

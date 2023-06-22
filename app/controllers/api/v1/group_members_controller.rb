@@ -17,7 +17,14 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # POST /api/v1/groups/:group_id/members/
   def create
-    mails_handler = MailsHandler.new(params[:emails], @group, current_user)
+    dummy = GroupMember.new
+    dummy.group_id = params[:group_id]
+    authorize dummy, :primary_mentor?
+    @group = Group.find(params[:group_id])
+    is_mentor = false
+    is_mentor = params[:mentor] if params[:mentor]
+
+    mails_handler = MailsHandler.new(params[:emails], @group, current_user, is_mentor)
     # parse mails as valid or invalid
     mails_handler.parse
     # create invitation or group member
@@ -39,9 +46,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   # PATCH/PUT /api/v1/group/members/:id
   # Only used to set or revoke mentorship
   def update
-    return render json: {}, status: :no_content unless group_member_params[:mentor]
-
-    @group_member.update(group_member_params)
+    @group_member.update(group_member_update_params)
     render json: {}, status: :accepted
   end
 
@@ -75,7 +80,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
       authorize @group, :admin_access?
     end
 
-    def group_member_params
+    def group_member_update_params
       params.require(:group_member).permit(:mentor)
     end
 end
