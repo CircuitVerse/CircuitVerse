@@ -3,6 +3,9 @@
 module SanitizeDescription
   extend ActiveSupport::Concern
 
+  # Sanitize description
+  # @param [String] description
+  # @return [String]
   def sanitize_description(description)
     sanitize(
       description,
