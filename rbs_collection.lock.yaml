@@ -311,6 +311,14 @@ gems:
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: simplecov
+  version: '0.22'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: singleton
   version: '0'
   source:

@@ -65,7 +65,9 @@ jobs:
           git fetch --no-tags
           reviewdog -reporter=github-pr-review -runners=undercover --fail-on-error
       - name: Static type checking
-        run: bundle exec steep check
+        run:  |
+          bundle exec rbs collection install
+          bundle exec steep check
   lint:
     runs-on: ubuntu-latest
     steps:
