@@ -1,9 +1,47 @@
 # frozen_string_literal: true
 
+#
+# == Schema Information
+#
+# Table name: users
+#
+#  id                     :bigint           not null, primary key
+#  email                  :string           default(""), not null
+#  encrypted_password     :string           default(""), not null
+#  reset_password_token   :string
+#  reset_password_sent_at :datetime
+#  remember_created_at    :datetime
+#  sign_in_count          :integer          default(0), not null
+#  current_sign_in_at     :datetime
+#  last_sign_in_at        :datetime
+#  current_sign_in_ip     :string
+#  last_sign_in_ip        :string
+#  created_at             :datetime         not null
+#  updated_at             :datetime         not null
+#  name                   :string
+#  provider               :string
+#  uid                    :string
+#  profile_picture_file_name   :string
+#  profile_picture_content_type :string
+#  profile_picture_file_size    :bigint
+#  profile_picture_updated_at   :datetime
+#  admin                 :boolean          default(FALSE)
+#  country               :string
+#  educational_institute :string
+#  subscribed            :boolean          default(TRUE)
+#  locale                :string
+#
+# Indexes
+#
+#  index_users_on_email                 (email) UNIQUE
+#  index_users_on_reset_password_token  (reset_password_token) UNIQUE
+#
+
 class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
+
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
 
   # Include default devise modules. Others available are:
@@ -32,22 +70,19 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
-  before_destroy :purge_avatar
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
                                       default_url: ":style/Default.jpg"
+  # @return [String]
+  attr_accessor :remove_picture
 
-  # Mirror and backfill uploads
-  has_one_attached :avatar
+  before_validation { profile_picture.clear if remove_picture == "1" }
 
   # validations for user
+
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
-
-  before_validation { profile_picture.clear && avatar.purge if remove_picture == "1" }
-
-  attr_accessor :remove_picture
 
   validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
@@ -66,6 +101,7 @@ class User < ApplicationRecord
     text :country
   end
 
+  # @return [void]
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
       GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
@@ -73,11 +109,14 @@ class User < ApplicationRecord
     end
   end
 
+  # From Access Token, get user. If user does not exist, create one.
+  # @return [User] Return User object
   def self.from_omniauth(access_token)
     data = access_token.info
     user = User.where(email: data["email"]).first
     name = data["name"] || data["nickname"]
     # Uncomment the section below if you want users to be created if they don't exist
+    # @type [User]
     user ||= User.create(name: name,
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
@@ -96,10 +135,12 @@ class User < ApplicationRecord
     )
   end
 
+  # @return [String] Return the flipper id of the user
   def flipper_id
     "User:#{id}"
   end
 
+  # @return [Boolean] Return true if user is moderator
   def moderator?
     admin?
   end
@@ -112,9 +153,5 @@ class User < ApplicationRecord
 
     def send_welcome_mail
       UserMailer.welcome_email(self).deliver_later
-    end
-
-    def purge_avatar
-      avatar.purge if avatar.attached?
     end
 end
