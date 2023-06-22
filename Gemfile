@@ -137,7 +137,6 @@ group :development, :test do
   gem "steep"
   # Adds support for Solargraph LSP
   gem 'solargraph-rails', '~> 0.3.1'
-  gem "undercover"
 end
 
 group :test do
