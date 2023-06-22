@@ -135,7 +135,6 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   gem "rbs_rails"
   gem "steep"
-  gem "undercover"
 end
 
 group :test do
@@ -148,6 +147,7 @@ group :test do
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
+  gem "undercover"
   gem "undercover-checkstyle"
 end
 
