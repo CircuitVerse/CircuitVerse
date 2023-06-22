@@ -117,6 +117,9 @@ gem "sprockets", "~> 4.1"
 gem "strong_migrations"
 gem 'rails-data-migrations'
 
+# For Vite rails
+gem 'vite_rails'
+
 group :development, :test do
   # Adds support for debug
   gem "debug"
@@ -132,6 +135,9 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   # Adds support for Solargraph LSP
   gem 'solargraph-rails', '~> 0.3.1'
+  gem "rbs_rails"
+  gem "steep"
+  gem "undercover"
 end
 
 group :test do
@@ -142,6 +148,9 @@ group :test do
   gem "shoulda-matchers"
   gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
+  gem "simplecov"
+  gem "simplecov-lcov"
+  gem "undercover-checkstyle"
 end
 
 group :development do
@@ -181,3 +190,7 @@ gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
 
 gem "noticed", "~> 1.6"
+
+# ActiveStorage AWS S3 + Variant Processing
+gem "aws-sdk-s3", "~> 1.116"
+gem "image_processing", "~> 1.12"
