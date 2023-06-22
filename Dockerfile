@@ -23,7 +23,6 @@ RUN gem install bundler
 RUN bundle install  --without production
 RUN yarn install
 
-# Remove CMAKE
 # copy source
 COPY . /circuitverse
 RUN yarn build
