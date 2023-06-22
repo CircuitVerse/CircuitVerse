@@ -527,17 +527,11 @@ GEM
     regexp_parser (2.8.1)
     reline (0.3.4)
       io-console (~> 0.5)
-<<<<<<< HEAD
     responders (3.0.1)
-      actionpack (>= 5.0)
-      railties (>= 5.0)
-    reverse_markdown (2.1.1)
-      nokogiri
-=======
-    responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
->>>>>>> cd36bf3... build(deps): bump devise from 4.8.1 to 4.9.2 (#3841)
+    reverse_markdown (2.1.1)
+      nokogiri
     rexml (3.2.5)
     rsolr (2.2.1)
       builder (>= 2.1.2)
