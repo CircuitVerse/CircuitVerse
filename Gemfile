@@ -118,7 +118,7 @@ gem "strong_migrations"
 gem 'rails-data-migrations'
 
 # For Vite rails
-gem 'vite_rails' 
+gem 'vite_rails'
 
 group :development, :test do
   # Adds support for debug
@@ -145,6 +145,10 @@ group :test do
   gem "shoulda-matchers"
   gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
+  gem "simplecov"
+  gem "simplecov-lcov"
+  gem "undercover"
+  gem "undercover-checkstyle"
 end
 
 group :development do
