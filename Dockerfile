@@ -23,6 +23,9 @@ RUN gem install bundler
 RUN bundle install  --without production
 RUN yarn install
 
+# Remove CMAKE
+RUN apt-get purge -y --auto-remove cmake
+
 # copy source
 COPY . /circuitverse
 RUN yarn build
