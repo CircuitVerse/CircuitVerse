@@ -39,4 +39,3 @@ module Utils
     end
   end
 end
-
