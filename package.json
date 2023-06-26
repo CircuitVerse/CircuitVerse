@@ -30,7 +30,12 @@
     "jsdoc": "3.6.10",
     "lint-staged": ">=13",
     "livereload": "^0.9.3",
-    "nodemon": "^2.0.21"
+    "nodemon": "^2.0.21",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^15.1.0",
+    "postcss-preset-env": "^8.4.2",
+    "vite": "^4.3.0",
+    "vite-plugin-ruby": "^3.2.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.3.0",
@@ -45,7 +50,7 @@
     "dom-to-image": "^2.6.0",
     "dompurify": "^2.3.8",
     "driver.js": "^0.9.8",
-    "esbuild": "^0.17.11",
+    "esbuild": "^0.17.19",
     "esbuild-plugin-sass": "^1.0.1",
     "esbuild-rails": "^1.0.3",
     "jquery": "^3.6.0",

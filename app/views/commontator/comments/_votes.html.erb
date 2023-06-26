@@ -1,4 +1,5 @@
-# Controllers that use this partial must provide the following variables:
+<%
+  # Controllers that use this partial must provide the following variables:
   # comment
   # user
 
@@ -11,23 +12,23 @@
   <% comment_voting = thread.config.comment_voting.to_sym %>
 
   <% if comment_voting == :ld || comment_voting == :l %>
-  <% vtype = comment_voting == :ld ? "upvote" : "like" %>
+  <% vtype = (comment_voting == :ld) ? 'upvote' : 'like' %>
   <span id="commontator-comment-<%= comment.id %>-<%= vtype %>" class="<%= vtype %>">
     <% if can_vote && (vote.blank? || !vote.vote_flag) %>
       <%= form_tag commontator.upvote_comment_path(comment),
-                   method: :put,
-                   remote: true do %>
+            method: :put,
+            remote: true do %>
         <%= image_submit_tag "commontator/upvote.png",
-                             onmouseover: "this.src='#{image_path('commontator/upvote_hover.png')}'",
-                             onmouseout: "this.src='#{image_path('commontator/upvote.png')}'" %>
+              onmouseover: "this.src='#{image_path("commontator/upvote_hover.png")}'",
+              onmouseout: "this.src='#{image_path("commontator/upvote.png")}'" %>
       <% end %>
     <% elsif can_vote %>
       <%= form_tag commontator.unvote_comment_path(comment),
-                   method: :put,
-                   remote: true do %>
+            method: :put,
+            remote: true do %>
         <%= image_submit_tag "commontator/upvote_active.png",
-                             onmouseover: "this.src='#{image_path('commontator/upvote.png')}'",
-                             onmouseout: "this.src='#{image_path('commontator/upvote_active.png')}'" %>
+              onmouseover: "this.src='#{image_path("commontator/upvote.png")}'",
+              onmouseout: "this.src='#{image_path("commontator/upvote_active.png")}'" %>
       <% end %>
     <% else %>
       <div title="You can't vote on your own comment">
@@ -46,19 +47,19 @@
   <span id="commontator-comment-<%= comment.id %>-downvote" class="downvote">
     <% if can_vote && (vote.blank? || vote.vote_flag) %>
       <%= form_tag commontator.downvote_comment_path(comment),
-                   method: :put,
-                   remote: true do %>
+            method: :put,
+            remote: true do %>
         <%= image_submit_tag "commontator/downvote.png",
-                             onmouseover: "this.src='#{image_path('commontator/downvote_hover.png')}'",
-                             onmouseout: "this.src='#{image_path('commontator/downvote.png')}'" %>
+              onmouseover: "this.src='#{image_path("commontator/downvote_hover.png")}'",
+              onmouseout: "this.src='#{image_path("commontator/downvote.png")}'" %>
       <% end %>
     <% elsif can_vote %>
       <%= form_tag commontator.unvote_comment_path(comment),
-                   method: :put,
-                   remote: true do %>
-        <%= image_submit_tag "commontator/downvote_active.png",
-                             onmouseover: "this.src='#{image_path('commontator/downvote.png')}'",
-                             onmouseout: "this.src='#{image_path('commontator/downvote_active.png')}'" %>
+            method: :put,
+            remote: true do %>
+      <%= image_submit_tag "commontator/downvote_active.png",
+        onmouseover: "this.src='#{image_path("commontator/downvote.png")}'",
+        onmouseout: "this.src='#{image_path("commontator/downvote_active.png")}'" %>
       <% end %>
     <% else %>
     <div title="You can't vote on your own comment">
