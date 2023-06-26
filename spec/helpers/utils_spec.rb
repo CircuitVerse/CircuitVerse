@@ -18,6 +18,12 @@ describe Utils do
       expect(described_class.parse_mails(@emails.join(","))).to eq(@valid_emails)
       expect(described_class.parse_mails(@emails.join("\n"))).to eq(@valid_emails)
     end
+
+    it "parses email string to array except current user's mail" do
+      current_user = create(:user)
+      valid_emails = @valid_emails + [current_user.email]
+      expect(described_class.parse_mails_except_current_user(valid_emails.join(" "), current_user)).to eq(@valid_emails)
+    end
   end
 
   describe "#mail_notice" do
@@ -26,6 +32,11 @@ describe Utils do
       expect(notice).to include("#{@valid_email_count} were valid")
       expect(notice).to include("#{@invalid_email_count} were invalid")
       expect(notice).to include("1 user(s) will be invited")
+    end
+
+    it "produces notice string with no valid emails" do
+      notice = described_class.mail_notice([], [], [])
+      expect(notice).to include("No valid Email(s) entered.")
     end
   end
 end
