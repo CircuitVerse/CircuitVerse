@@ -44,4 +44,8 @@ class AboutController < ApplicationController
 
     @alumni = []
   end
+  
+  def test
+    "hello"
+  end
 end
