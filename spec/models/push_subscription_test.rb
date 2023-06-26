@@ -8,11 +8,13 @@ RSpec.describe PushSubscription, type: :model do
   end
 
   describe "#send_push_notification" do
-    let(:push_subscription) { PushSubscription.new(
-      endpoint: "https://example.com/endpoint",
-      p256dh: "p256dh_key",
-      auth: "auth_key"
-    )}
+    let(:push_subscription) do
+      described_class.new(
+        endpoint: "https://example.com/endpoint",
+        p256dh: "p256dh_key",
+        auth: "auth_key"
+      )
+    end
 
     it "sends a push notification with the provided message and URL" do
       message = "Hello, world!"
