@@ -1,15 +1,23 @@
-version: '3'
+version: "3"
 services:
-  collector:
-    image: otel/opentelemetry-collector-contrib:0.69.0
-    volumes:
-    - ./otel-config.yaml:/otel-config.yaml
-    command: ["--config=/otel-config.yaml", "${OTELCOL_ARGS}"]
+
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
     environment:
-      LOG_EXPORTER_LOG_LEVEL: "DEBUG"
-      NEW_RELIC_API_KEY: "${NEW_RELIC_API_KEY}"
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
     ports:
-      - "4317:4317"     # grpc
-      - "13133:13133"   # health
-      - "8006:8006"     # fluentdforward
-      - "8006:8006/udp" # fluentforward
+      - "16686:16686"
+      - "14268"
+      - "14250"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib
+    command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
+    volumes:
+      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
+    ports:
+      - "4318:4318" 
+      - "13133:13133"   # health check
+    depends_on:
+      - jaeger-all-in-one
