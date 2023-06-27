@@ -22,7 +22,7 @@ gem 'devise_saml_authenticatable'
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.5.1"
+gem "rails", "~> 7.0"
 # Use Puma as the app server
 gem "puma", "~> 6.1"
 # Use SCSS for stylesheets

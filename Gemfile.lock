@@ -673,7 +673,7 @@ GEM
       execjs (>= 0.3.0, < 3)
     thor (1.2.2)
     tilt (2.0.10)
-    timeout (0.3.2)
+    timeout (0.4.0)
     tins (1.32.1)
       sync
     turbo-rails (1.4.0)
@@ -807,7 +807,7 @@ DEPENDENCIES
   puma (~> 6.1)
   pundit
   rack-attack
-  rails (~> 7.0.5.1)
+  rails (~> 7.0)
   rails-data-migrations
   rails-erd
   rails-i18n (~> 7.0.3)
