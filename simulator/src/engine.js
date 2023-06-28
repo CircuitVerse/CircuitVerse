@@ -434,17 +434,18 @@ export function play(scope = globalScope, resetNodes = false) {
             errorDetectedSet(true);
         }
         // change the state of simulator to normal
-        if (currentState === states.ERROR){
+        if (currentState === states.ERROR) {
             currentState = states.NORMAL;
             visibletabs();
         }
     } catch (error) {
         // change the state of simulator to error
-        if(currentState === states.NORMAL) {
+        if (currentState === states.NORMAL) {
             currentState = states.ERROR;
             hidetabs();
         }
         showError('The simulator is in an error state. Now, you can only delete components or undo until the simulator returns to the normal state');
+        errorDetectedSet(false);
     }
 }
 

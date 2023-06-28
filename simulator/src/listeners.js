@@ -14,7 +14,7 @@ import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
     wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet, gridUpdateSet, errorDetectedSet,
+    updateCanvasSet, gridUpdateSet, errorDetectedSet, play,
 } from './engine';
 import { changeScale, findDimensions } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
@@ -328,18 +328,29 @@ function panStop(e) {
     }
 }
 
+function setPanelVisibility(visibility, display) {
+    [].forEach.call(document.getElementsByClassName('draggable-panel'), (element) => {
+        element.style.visibility = visibility;
+    });
+
+    [].forEach.call(document.getElementsByClassName('nav-dropdown'), (element) => {
+        element.style.visibility = visibility;
+    });
+
+    var contextMenuItems = document.querySelectorAll("#contextMenu li:nth-child(1), #contextMenu li:nth-child(2), #contextMenu li:nth-child(3), #contextMenu li:nth-child(6), #contextMenu li:nth-child(7), #contextMenu li:nth-child(8)");
+    contextMenuItems.forEach(function(item) {
+        item.style.display = display;
+    });
+}
+
 // Function to hide tabs when simulator goes into error state
 export function hidetabs() {
-    [].forEach.call(document.getElementsByClassName('draggable-panel'), function (element) {
-        element.style.visibility = 'hidden';
-    });
+    setPanelVisibility('hidden', 'none');
 }
 
 // Function to visible tabs when simulator returns back to normal state
 export function visibletabs() {
-    [].forEach.call(document.getElementsByClassName('draggable-panel'), function (element) {
-        element.style.visibility = 'visible';
-    });
+    setPanelVisibility('visible', 'block');
 }
 
 export default function startListeners() {

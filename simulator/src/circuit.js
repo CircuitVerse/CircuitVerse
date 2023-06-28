@@ -381,5 +381,4 @@ export default class Scope {
     currentState() {
         return currentState;
     }
-
 }
