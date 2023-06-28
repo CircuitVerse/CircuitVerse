@@ -1,0 +1,94 @@
+have_func: checking for rb_category_warn()... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.    -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.    -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.0.3/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_category_warn; return !p; }
+/* end */
+
+--------------------
+
+have_var: checking for timezone in time.h with  -Werror... -------------------- yes
+
+"gcc -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.    -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC   -Werror -c conftest.c"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <time.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { const volatile void *volatile p; p = &(&timezone)[0]; return !p; }
+/* end */
+
+--------------------
+
+have_var: checking for altzone in time.h with  -Werror... -------------------- no
+
+"gcc -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.0.3/include/ruby-3.0.0 -I.    -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable  -fPIC   -Werror -c conftest.c"
+conftest.c: In function ‘t’:
+conftest.c:16:55: error: ‘altzone’ undeclared (first use in this function)
+   16 | int t(void) { const volatile void *volatile p; p = &(&altzone)[0]; return !p; }
+      |                                                       ^~~~~~~
+conftest.c:16:55: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c: At top level:
+cc1: error: unrecognized command line option ‘-Wno-self-assign’ [-Werror]
+cc1: error: unrecognized command line option ‘-Wno-parentheses-equality’ [-Werror]
+cc1: error: unrecognized command line option ‘-Wno-constant-logical-operand’ [-Werror]
+cc1: all warnings being treated as errors
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <time.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { const volatile void *volatile p; p = &(&altzone)[0]; return !p; }
+/* end */
+
+--------------------
+

@@ -1,0 +1,5 @@
+doc
+coverage
+.yardoc
+Gemfile.lock
+.release

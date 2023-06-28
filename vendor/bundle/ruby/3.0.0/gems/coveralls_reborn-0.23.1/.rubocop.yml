@@ -1,0 +1,56 @@
+require:
+  - rubocop-performance
+  - rubocop-rake
+  - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'spec/coveralls/fixtures/**/*'
+    - 'vendor/bundle/**/*'
+
+Layout/HashAlignment:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
+
+Layout/LineLength:
+  Enabled: false
+
+Metrics/AbcSize:
+  Max: 44.11
+
+Metrics/CyclomaticComplexity:
+  Max: 19
+
+Metrics/PerceivedComplexity:
+  Max: 20
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Metrics/MethodLength:
+  Enabled: false
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'lib/coveralls/configuration.rb'
+    - 'spec/**/*'
+
+RSpec/ExampleLength:
+  Max: 8
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+Style/Documentation:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false

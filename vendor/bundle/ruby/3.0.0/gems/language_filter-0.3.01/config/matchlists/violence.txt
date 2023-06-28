@@ -1,0 +1,13 @@
+stab(ing|ed|s|ber)?
+kill\w*
+beat ?up
+beat the \w+ out of
+beat the \w+ out of
+fuck ?\w* up
+murder\w*
+genocide
+shoot (him|her|it|me|us|them)
+shot (him|her|it|me|us|them)
+gun\w*
+phasers?
+death( ray)?

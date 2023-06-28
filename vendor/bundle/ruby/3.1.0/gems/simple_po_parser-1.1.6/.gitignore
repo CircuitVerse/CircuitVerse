@@ -1,0 +1,8 @@
+*.gem
+.bundle
+.ruby-version
+Gemfile.lock
+coverage
+pkg
+test/tmp
+tmp

@@ -1,0 +1,13 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+/home/gitpod/.rvm/rubies/ruby-3.0.3/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.0.3/lib/ruby/3.0.0 -r ./siteconf20230411-7666-dbo8bm.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make DESTDIR\=
+make: Nothing to be done for 'all'.
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/json-2.6.3/ext/json
+make DESTDIR\= install

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= erb(:headers) %>
+    <!-- Docs Metrics + Cookie Consent Script -->
+    <meta name="guide-name" content="API Reference">
+    <meta name="service-name" content="AWS SDK For Ruby - AWS DynamoDB Session Store">
+    <script type="text/javascript" src="/assets/js/awsdocs-boot.js"></script>
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="<%= @nav_url %>?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <%= erb(:breadcrumb) %>
+        <%= erb(:search) %>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content">
+        <!-- REGION_DISCLAIMER_DO_NOT_REMOVE -->
+        <%= yieldall %>
+      </div>
+
+      <%= erb(:footer) %>
+    </div>
+  </body>
+</html>

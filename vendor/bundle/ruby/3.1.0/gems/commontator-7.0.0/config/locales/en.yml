@@ -1,0 +1,119 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# The following keys must be escaped otherwise they will not be retrieved by
+# the default I18n backend:
+#
+# true, false, on, off, yes, no
+#
+# Instead, surround them with single quotes.
+#
+# en:
+#   'true': 'foo'
+#
+# To learn more, please read the Rails Internationalization guide
+# available at https://guides.rubyonrails.org/i18n.html.
+
+---
+en:
+  activerecord:
+    attributes:
+      commontator/comment:
+        body: Comment
+        creator: Creator
+        editor: Editor
+        thread: Discussion
+        parent: Parent Comment
+      commontator/subscription:
+        subscriber: Subscriber
+        thread: Discussion
+      commontator/thread:
+        commontable: Commontable
+    errors:
+      models:
+        commontator/comment:
+          attributes:
+            body:
+              double_posted: is a duplicate of another comment.
+    models:
+      commontator/comment:
+        one: comment
+        other: comments
+      commontator/subscription:
+        one: subscription
+        other: subscriptions
+      commontator/thread:
+        one: thread
+        other: threads
+  commontator:
+    anonymous: Anonymous
+    comment:
+      actions:
+        cancel: Cancel
+        confirm_delete: Are you sure you want to delete this comment?
+        create: Post Comment
+        delete: Delete
+        edit: Edit
+        new: New Comment
+        undelete: Undelete
+        update: Modify Comment
+        reply: Reply to Comment.
+      errors:
+        already_deleted: This comment has already been deleted.
+        create: "This comment could not be posted because:"
+        not_deleted: This comment is not deleted.
+        update: "This comment could not be modified because:"
+      status:
+        created_at: Posted on %{created_at}.
+        deleted_by: Comment deleted by %{deleter_name}.
+        updated_at: Last modified by %{editor_name} on %{updated_at}.
+        replying: Replying to %{creator_name}
+        reply_pages: "Reply pages:"
+    email:
+      comment_created:
+        body: "%{creator_name} commented on %{commontable_name}:"
+        subject: "%{creator_name} posted a comment on %{commontable_name}"
+      thread_link_html: <a href="%{comment_url}">Click here</a> to view all comments on %{commontable_name}.
+    require_login: You must login before you can post a comment.
+    subscription:
+      actions:
+        subscribe: Subscribe
+        unsubscribe: Unsubscribe
+      errors:
+        already_subscribed: You are already subscribed to this discussion.
+        not_subscribed: You are not subscribed to this discussion.
+    thread:
+      actions:
+        show_all: Show All Comments
+        filter: Filter Comments
+        close: Close Discussion
+        confirm_close: Are you sure you want to close this discussion?
+        reopen: Reopen Discussion
+        show: Show Comments
+        hide: Hide Comments
+      errors:
+        already_closed: This discussion has already been closed.
+        not_closed: This discussion is not closed.
+      status:
+        cannot_post: New comments cannot be posted at this time.
+        closed: Comments (Closed by %{closer_name})
+        open: Comments
+        pages: "Comment pages:"
+  time:
+    formats:
+      commontator: "%b %d %Y at %I:%M%p %Z"

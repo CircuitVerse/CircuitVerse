@@ -1,0 +1,104 @@
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
+/* Allow pagination to be centered */
+.forum-threads-nav nav {
+  display: inline-block;
+}
+
+/* Highlight the active navigation item in the sidebar */
+.forum-thread-filters {
+  a {
+    color: #555;
+  }
+
+  .active {
+    color: #222;
+    font-weight: bolder;
+  }
+}
+
+/* Formatting for the forum threads */
+.forum-thread {
+  margin-bottom: -20px;
+
+  h4 {
+    margin-bottom: 4px;
+
+    a {
+      color: #222;
+      font-size: 16px;
+      font-weight: normal;
+      line-height: 1.1;
+    }
+  }
+}
+
+.forum-thread-filters a {
+  color: #555555;
+  display: block;
+
+  &:hover {
+    color: #222222;
+    font-weight: bold;
+    text-decoration: none
+  }
+}
+
+.thread-details {
+  color: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+/* Display the forum post count above the "posts" text on the index page */
+.thread-posts-count {
+  color: #222;
+  text-align: center;
+
+  span, small {
+    display: block;
+  }
+
+  .count {
+    font-size: 1.5em;
+    font-weight: 300;
+    line-height: 1em;
+  }
+
+  &:hover {
+    color: #222;
+    text-decoration: none;
+  }
+}
+
+/* Formatting for the forum posts themselves */
+.forum-post {
+  position: relative;
+
+  /* When the URL anchor matches a post id, highlight that item */
+  &:target {
+    background-color: rgb(248, 238, 199);
+  }
+
+  /* Fill this out if you want to highlight the OPs posts */
+  &.original-poster {
+  }
+
+  &.solved {
+    border: 2px solid #5cb85c;
+  }
+}
+
+/* Formatting for the forum hr to match card border */
+.simple_discussion hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  margin: 24px -20px;
+}
+
+.simple_discussion .text-muted {
+  color: #999;
+  margin-top: 6px;
+  font-size: 13px;
+}

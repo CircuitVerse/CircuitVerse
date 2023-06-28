@@ -1,0 +1,24 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: build (${{ matrix.ruby }} / ${{ matrix.os }})
+    strategy:
+      matrix:
+        ruby: [ 2.7, 2.6, 2.5, 2.4, head ]
+        os: [ ubuntu-latest, macos-latest ]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@master
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Install dependencies
+      run: |
+        gem install bundler --no-document
+        bundle install
+    - name: Run test
+      run: rake test

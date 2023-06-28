@@ -1,0 +1,55 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+/home/gitpod/.rvm/rubies/ruby-3.1.2/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.1.2/lib/ruby/3.1.0 -r ./siteconf20220927-1025-i71wn6.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+make DESTDIR\=
+compiling html_tokenizer.c
+compiling parser.c
+parser.c: In function ‘parser_document_append’:
+parser.c:498:9: warning: unused variable ‘old’ [-Wunused-variable]
+  498 |   void *old = parser->doc.data;
+      |         ^~~
+In file included from /home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/ruby.h:26,
+                 from /home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby.h:38,
+                 from parser.c:1:
+parser.c: In function ‘Init_html_tokenizer_parser’:
+/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/internal/anyargs.h:287:135: warning: passing argument 3 of ‘rb_define_method_00’ from incompatible pointer type [-Wincompatible-pointer-types]
+  287 | #define rb_define_method(klass, mid, func, arity)           RBIMPL_ANYARGS_DISPATCH_rb_define_method((arity), (func))((klass), (mid), (func), (arity))
+      |                                                                                                                                       ^~~~~~
+      |                                                                                                                                       |
+      |                                                                                                                                       VALUE (*)(VALUE,  VALUE) {aka long unsigned int (*)(long unsigned int,  long unsigned int)}
+parser.c:792:3: note: in expansion of macro ‘rb_define_method’
+  792 |   rb_define_method(cParser, "errors", parser_errors_method, 0);
+      |   ^~~~~~~~~~~~~~~~
+/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/internal/anyargs.h:276:21: note: expected ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int)’}
+  276 | RBIMPL_ANYARGS_DECL(rb_define_method, VALUE, const char *)
+      |                     ^~~~~~~~~~~~~~~~
+/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/internal/anyargs.h:254:41: note: in definition of macro ‘RBIMPL_ANYARGS_DECL’
+  254 | RBIMPL_ANYARGS_ATTRSET(sym) static void sym ## _00(__VA_ARGS__, VALUE(*)(VALUE), int); \
+      |                                         ^~~
+parser.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+compiling tokenizer.c
+tokenizer.c: In function ‘scan_tag_name’:
+tokenizer.c:467:9: warning: variable ‘old’ set but not used [-Wunused-but-set-variable]
+  467 |   void *old;
+      |         ^~~
+tokenizer.c: In function ‘tokenizer_set_scan_string’:
+tokenizer.c:667:15: warning: unused variable ‘old’ [-Wunused-variable]
+  667 |   const char *old = tk->scan.string;
+      |               ^~~
+tokenizer.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+linking shared-object html_tokenizer_ext.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+make DESTDIR\= install
+/usr/bin/install -m 0755 html_tokenizer_ext.so ./.gem.20220927-1025-w6unib

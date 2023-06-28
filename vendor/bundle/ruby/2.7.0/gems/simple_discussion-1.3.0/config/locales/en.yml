@@ -1,0 +1,46 @@
+en:
+  start_a_discussion: Start A Discussion
+  add_a_comment: Add A Comment
+  ask_a_question: Ask A Question
+  asked_time_ago: "Asked %{time} ago by %{author}"
+  choose_a_category: Choose a Category
+  comment: Comment
+  commented_on: Commented on
+  community: Community
+  edit_this_post: Edit this post
+  delete_this_post: Delete this post
+  edit_this_thread: Edit this thread
+  edit_thread: Edit thread
+  filters: Filters
+  how_do_i: How do I...?
+  ignoring_thread: You're ignoring this thread.
+  not_receiving_notifications: You’re not receiving notifications from this thread.
+  layouts:
+    simple_discussion:
+      all_threads: All Threads
+      answered: Answered
+      by_category: By Category
+      my_questions: My Questions
+      notifications: Notifications
+      participating: Participating
+      suscribe: Subscribe
+      unsubscribe: Unsubscribe
+      unanswered: Unanswered
+  pick_a_category: Pick a category...
+  post:
+    one: post
+    other: posts
+  receiving_notifications_because_subscribed: You're receiving notifications because you've subscribed to this thread.
+  receiving_notifications_because_posted: You're receiving notifications because you've posted in this thread.
+  saving_comment: Saving comment...
+  saving: Saving
+  this_solved_my_question: This solved my question
+  title: title
+  what_help_needed: What do you need help with?
+  ask_your_question: Ask Your Question
+  update_comment: Update comment
+  your_changes_were_saved: Your changes were saved
+  search_not_found: No results found for your search
+  check_out: Check out
+  latest_questions: the latest questions
+  instead: instead?

@@ -1,0 +1,39 @@
+<% if @topic.errors.any? %>
+  <div class="errors">
+    <strong><%= pluralize(@topic.errors.count, "error") %> prohibited this record from being saved:</strong>
+    <ul>
+      <% @topic.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for(@topic, url: { action: params[:context] == 'timestamp_disabled' ? :copy : :create }) do |f| %>
+  <%= hidden_field_tag :context, params[:context] %>
+
+  <% if params[:context] && params[:context] == 'visual_honeypots' %>
+    <%= f.invisible_captcha :subtitle, visual_honeypots: true %>
+  <% else %>
+    <%= f.invisible_captcha :subtitle %>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :author %><br />
+    <%= f.text_field :author %>
+  </div>
+
+  <div class="field">
+    <%= f.label :body %><br />
+    <%= f.text_area :body, rows: 10, cols: 40 %>
+  </div>
+
+  <div class="actions">
+    <%= f.button 'Save' %>
+  </div>
+<% end %>

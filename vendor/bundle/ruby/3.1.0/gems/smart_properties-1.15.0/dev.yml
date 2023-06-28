@@ -1,0 +1,7 @@
+---
+name: smart-properties
+up:
+- ruby: 2.4.1
+- bundler
+commands:
+  test: bundle exec rake test

@@ -1,0 +1,184 @@
+AA;;Affareg
+AB;;Abchaseg
+AF;;Affricaneg
+AK;;Akan
+AM;;Amhareg
+AR;;Arabeg
+AN;;Aragonese
+AS;;Asameg
+AV;;Avaric
+AE;;Avestan
+AY;;Aimareg
+AZ;;Aserbaijani
+BA;;Bashkir
+BM;;Bambara
+BE;;Belarwseg
+BN;;Bengali
+BH;;Bihari languages
+BI;;Bislama
+BO;;Tibeteg
+BS;;Bosnian
+BR;;Llydaweg
+BG;;Bwlgareg
+CA;;Catalan; Valencian
+CS;;Tsieceg
+CH;;Chamorro
+CE;;Chechen
+CU;;Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+CV;;Chuvash
+KW;;Cernyweg
+CO;;Corseg
+CR;;Cree
+CY;;Cymraeg
+DA;;Daneg
+DE;;Almaeneg
+DV;;Divehi; Dhivehi; Maldivian
+DZ;;Dzongkha
+EL;;Greek, Modern (1453-)
+EN;;Saesneg
+EO;;Esperanto
+ET;;Estoneg
+EU;;Basgeg
+EE;;Ewe
+FO;;Ffaröeg
+FA;;Persian
+FJ;;Ffijïeg
+FI;;Ffinneg
+FR;;Ffrangeg
+FY;;Western Frisian
+FF;;Fulah
+GD;;Gaelic; Scottish Gaelic
+GA;;Gwyddeleg
+GL;;Galiseg
+GV;;Manaweg
+GN;;Gwarani
+GU;;Gwjwrati
+HT;;Haitian; Haitian Creole
+HA;;Hawsa
+HE;;Hebraeg
+HZ;;Herero
+HI;;Hindi
+HO;;Hiri Motu
+HR;;Croateg
+HU;;Hwngareg
+HY;;Armeneg
+IG;;Igbo
+IO;;Ido
+II;;Sichuan Yi; Nuosu
+IU;;Inwctitwt
+IE;;Interlingue; Occidental
+IA;;Interlingua (International Auxiliary Language Association)
+ID;;Indoneseg
+IK;;Inwpiac
+IS;;Islandeg
+IT;;Eidaleg
+JV;;Jafaneg
+JA;;Siapaneg
+KL;;Kalaallisut; Greenlandic
+KN;;Canareg
+KS;;Cashmireg
+KA;;Georgeg
+KR;;Kanuri
+KK;;Cazacheg
+KM;;Central Khmer
+KI;;Kikuyu; Gikuyu
+RW;;Ciniarwanda
+KY;;Kirghiz; Kyrgyz
+KV;;Komi
+KG;;Kongo
+KO;;Corëeg
+KJ;;Kuanyama; Kwanyama
+KU;;Cwrdeg
+LO;;Laoeg
+LA;;Lladin
+LV;;Latfieg
+LI;;Limburgan; Limburger; Limburgish
+LN;;Lingala
+LT;;Lithwaneg
+LB;;Luxembourgish; Letzeburgesch
+LU;;Luba-Katanga
+LG;;Ganda
+MH;;Marshallese
+ML;;Malaialameg
+MR;;Marati
+MK;;Macedoneg
+MG;;Malagasi
+MT;;Malteg
+MN;;Mongoleg
+MI;;Maori
+MS;;Malaieg
+MY;;Byrmaneg
+NA;;Nawrŵeg
+NV;;Navajo; Navaho
+NR;;Ndebele, South; South Ndebele
+ND;;Ndebele, North; North Ndebele
+NG;;Ndonga
+NE;;Nepaleg
+NL;;Dutch; Flemish
+NN;;Norwegian Nynorsk; Nynorsk, Norwegian
+NB;;Bokmål, Norwegian; Norwegian Bokmål
+NO;;Norwyeg
+NY;;Chichewa; Chewa; Nyanja
+OC;;Occitan (post 1500); Provençal
+OJ;;Ojibwa
+OR;;Orïa
+OM;;Oromo
+OS;;Ossetian; Ossetic
+PA;;Panjabi; Punjabi
+PI;;Pali
+PL;;Pwyleg
+PT;;Portiwgaleg
+PS;;Pushto; Pashto
+QU;;Cetshwa
+RM;;Romansh
+RO;;Romanian; Moldavian; Moldovan
+RN;;Rwndi
+RU;;Rwsieg
+SG;;Sango
+SA;;Sansgrit
+SI;;Sinhala; Sinhalese
+SK;;Slofaceg
+SL;;Slofeneg
+SE;;Northern Sami
+SM;;Samöeg
+SN;;Shona
+SD;;Sindhi
+SO;;Somalieg
+ST;;Sotho, Southern
+ES;;Spanish; Castilian
+SQ;;Albaneg
+SC;;Sardinian
+SR;;Serbeg
+SS;;Swati
+SU;;Swndaneg
+SW;;Swahili
+SV;;Swedeg
+TY;;Tahitian
+TA;;Tamileg
+TT;;Tatareg
+TE;;Telwgw
+TG;;Tajiceg
+TL;;Tagalog
+TH;;Tai
+TI;;Tigrinya
+TO;;Tonga (Tonga Islands)
+TN;;Tswana
+TS;;Tsongeg
+TK;;Tyrcmeneg
+TR;;Tyrceg
+TW;;Twi
+UG;;Uighur; Uyghur
+UK;;Ukrainian
+UR;;Wrdw
+UZ;;Wsbeceg
+VE;;Venda
+VI;;Fietnameg
+VO;;Volapük
+WA;;Walloon
+WO;;Woloff
+XH;;Xhosa
+YI;;Iddew-Almaeneg
+YO;;Iorwba
+ZA;;Zhuang; Chuang
+ZH;;Tsieinëeg
+ZU;;Zwlw

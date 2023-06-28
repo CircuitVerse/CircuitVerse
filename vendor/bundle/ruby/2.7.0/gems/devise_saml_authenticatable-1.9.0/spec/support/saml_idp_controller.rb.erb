@@ -1,0 +1,200 @@
+class SamlIdpController < StubSamlIdp::IdpController
+  def new
+    if session[:user_id]
+      @saml_response = idp_make_saml_response(session[:user_id])
+      render :template => "saml_idp/idp/saml_post", :layout => false
+      return
+    end
+    super
+  end
+
+  protected
+
+  def idp_authenticate(email, password)
+    session[:user_id] = "you@example.com"
+    true
+  end
+
+  def idp_make_saml_response(_)
+    attributes = {
+      name_attribute_key => "A User",
+    }
+    if include_subject_in_attributes
+      attributes[email_address_attribute_key] = "you@example.com"
+    end
+    encode_SAMLResponse("you@example.com", attributes: attributes)
+  end
+
+  private
+
+  def session_index
+    Rails.cache.fetch('session_key') {
+      SecureRandom.uuid
+    }
+  end
+
+  def email_address_attribute_key
+    "<%= @email_address_attribute_key %>"
+  end
+
+  def name_attribute_key
+    "<%= @name_attribute_key %>"
+  end
+
+  def encode_SAMLResponse(nameID, opts = {})
+    now = Time.now.utc
+    response_id = SecureRandom.uuid
+    audience_uri = opts[:audience_uri] || "#{saml_acs_url[/^(.*?\/\/.*?\/)/, 1]}saml/metadata"
+    issuer_uri = opts[:issuer_uri] || (defined?(request) && request.url) || "http://example.com"
+
+    attributes = opts.fetch(:attributes, {})
+    if attributes.any?
+      attribute_items = attributes.map { |format, value|
+        %[<Attribute Name="#{format}"><AttributeValue>#{value}</AttributeValue></Attribute>]
+      }
+      attribute_statement = %[<AttributeStatement>#{attribute_items.join}</AttributeStatement>]
+    else
+      attribute_statement = ""
+    end
+
+    assertion = %[<Assertion xmlns="urn:oasis:names:tc:SAML:2.0:assertion" ID="_#{session_index}" IssueInstant="#{now.iso8601}" Version="2.0"><Issuer>#{issuer_uri}</Issuer><Subject><NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">#{nameID}</NameID><SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"><SubjectConfirmationData InResponseTo="#{@saml_request_id}" NotOnOrAfter="#{(now+3*60).iso8601}" Recipient="#{@saml_acs_url}"></SubjectConfirmationData></SubjectConfirmation></Subject><Conditions NotBefore="#{(now-5).iso8601}" NotOnOrAfter="#{(now+60*60).iso8601}"><AudienceRestriction><Audience>#{audience_uri}</Audience></AudienceRestriction></Conditions>#{attribute_statement}<AuthnStatement AuthnInstant="#{now.iso8601}" SessionIndex="_#{session_index}"><AuthnContext><AuthnContextClassRef>urn:federation:authentication:windows</AuthnContextClassRef></AuthnContext></AuthnStatement></Assertion>]
+
+    digest_value = Base64.encode64(algorithm.digest(assertion)).gsub(/\n/, '')
+
+    signed_info = %[<ds:SignedInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:CanonicalizationMethod><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-#{algorithm_name}"></ds:SignatureMethod><ds:Reference URI="#_#{session_index}"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig##{algorithm_name}"></ds:DigestMethod><ds:DigestValue>#{digest_value}</ds:DigestValue></ds:Reference></ds:SignedInfo>]
+
+    signature_value = sign(signed_info).gsub(/\n/, '')
+
+    signature = %[<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">#{signed_info}<ds:SignatureValue>#{signature_value}</ds:SignatureValue><KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>#{self.x509_certificate}</ds:X509Certificate></ds:X509Data></KeyInfo></ds:Signature>]
+
+    assertion_and_signature = assertion.sub(/Issuer\>\<Subject/, "Issuer>#{signature}<Subject")
+
+    xml = %[<samlp:Response ID="_#{response_id}" Version="2.0" IssueInstant="#{now.iso8601}" Destination="#{destination(@saml_acs_url)}" Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified" InResponseTo="#{@saml_request_id}" xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"><Issuer xmlns="urn:oasis:names:tc:SAML:2.0:assertion">#{issuer_uri}</Issuer><samlp:Status><samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" /></samlp:Status>#{assertion_and_signature}</samlp:Response>]
+
+    Base64.encode64(xml)
+  end
+
+  def include_subject_in_attributes
+    <%= @include_subject_in_attributes %>
+  end
+
+  # == SLO functionality, see https://github.com/lawrencepit/ruby-saml-idp/pull/10
+  skip_before_action :validate_saml_request, :only => [:logout, :sp_sign_out]
+  before_action :validate_saml_slo_request, :only => [:logout]
+
+  public
+
+  def logout
+    _person, _logout = idp_slo_authenticate(params[:name_id])
+    if _person && _logout
+      @saml_slo_response = idp_make_saml_slo_response(_person)
+    else
+      @saml_idp_fail_msg = 'User not found'
+      logger.error "User with email #{params[:name_id]} not found"
+      @saml_slo_response = encode_SAML_SLO_Response(params[:name_id])
+    end
+    if Idp::Application.config.slo_sp_url
+      redirect_to "#{Idp::Application.config.slo_sp_url}?SAMLResponse=#{@saml_slo_response}"
+    else
+      redirect_to 'http://example.com'
+    end
+  end
+
+  def sp_sign_out
+    idp_slo_authenticate(params[:name_id])
+    saml_slo_request = encode_SAML_SLO_Request("you@example.com")
+    uri = URI.parse("http://localhost:8020/users/saml/idp_sign_out")
+    require 'net/http'
+    Net::HTTP.post_form(uri, {"SAMLRequest" => saml_slo_request})
+    head :no_content
+  end
+
+  def idp_slo_authenticate(email)
+    session.delete :user_id
+    true
+  end
+
+  def idp_make_saml_slo_response(person)
+    attributes = {}
+    if include_subject_in_attributes
+      attributes[email_address_attribute_key] = "you@example.com"
+    end
+    encode_SAML_SLO_Response("you@example.com", attributes: attributes)
+  end
+
+  private
+
+  def destination(destination)
+  <% if @valid_destination == "false" %>
+    "{recipient}"
+  <% else %>
+    destination
+  <% end %>
+  end
+
+  def validate_saml_slo_request(saml_request = params[:SAMLRequest])
+    decode_SAML_SLO_Request(saml_request)
+  end
+
+  def decode_SAML_SLO_Request(saml_request)
+    zstream = Zlib::Inflate.new(-Zlib::MAX_WBITS)
+    @saml_slo_request = zstream.inflate(Base64.decode64(saml_request))
+    zstream.finish
+    zstream.close
+    @saml_slo_request_id = @saml_slo_request[/ID=['"](.+?)['"]/, 1]
+  end
+
+  def encode_SAML_SLO_Response(nameID, opts = {})
+    now = Time.now.utc
+    response_id = SecureRandom.uuid
+    audience_uri = opts[:audience_uri] || (@saml_slo_acs_url && @saml_slo_acs_url[/^(.*?\/\/.*?\/)/, 1])
+    issuer_uri = opts[:issuer_uri] || (defined?(request) && request.url.split("?")[0]) || "http://example.com"
+
+    assertion = %[<Assertion xmlns="urn:oasis:names:tc:SAML:2.0:assertion" ID="_#{session_index}" IssueInstant="#{now.iso8601}" Version="2.0"><Issuer2>#{issuer_uri}</Issuer2><Subject><NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">#{nameID}</NameID><SubjectConfirmation Method="urn:oasis:names:tc:SAML:2.0:cm:bearer"><SubjectConfirmationData InResponseTo="#{@saml_slo_request_id}" NotOnOrAfter="#{(now+3*60).iso8601}" Recipient="#{@saml_slo_acs_url}"></SubjectConfirmationData></SubjectConfirmation></Subject><Conditions NotBefore="#{(now-5).iso8601}" NotOnOrAfter="#{(now+60*60).iso8601}"><AudienceRestriction><Audience>#{audience_uri}</Audience></AudienceRestriction></Conditions><AttributeStatement><Attribute Name="#{email_address_attribute_key}"><AttributeValue>#{nameID}</AttributeValue></Attribute></AttributeStatement><AuthnStatement AuthnInstant="#{now.iso8601}" SessionIndex="_#{session_index}"><AuthnContext><AuthnContextClassRef>urn:federation:authentication:windows</AuthnContextClassRef></AuthnContext></AuthnStatement></Assertion>]
+
+    digest_value = Base64.encode64(algorithm.digest(assertion)).gsub(/\n/, '')
+
+    signed_info = %[<ds:SignedInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:CanonicalizationMethod><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-#{algorithm_name}"></ds:SignatureMethod><ds:Reference URI="#_#{session_index}"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"></ds:Transform><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"></ds:Transform></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig##{algorithm_name}"></ds:DigestMethod><ds:DigestValue>#{digest_value}</ds:DigestValue></ds:Reference></ds:SignedInfo>]
+
+    signature_value = sign(signed_info).gsub(/\n/, '')
+
+    signature = %[<ds:Signature xmlns:ds="http://www.w3.org/2000/09/xmldsig#">#{signed_info}<ds:SignatureValue>#{signature_value}</ds:SignatureValue><KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#"><ds:X509Data><ds:X509Certificate>#{self.x509_certificate}</ds:X509Certificate></ds:X509Data></KeyInfo></ds:Signature>]
+
+    assertion_and_signature = assertion.sub(/Issuer\>\<Subject/, "Issuer>#{signature}<Subject")
+
+    xml = %[<samlp:LogoutResponse
+    ID="_#{response_id}"
+    Version="2.0"
+    IssueInstant="#{now.iso8601}"
+    Destination="#{destination(@saml_slo_acs_url)}"
+    Consent="urn:oasis:names:tc:SAML:2.0:consent:unspecified"
+    InResponseTo="#{@saml_slo_request_id}"
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol">
+    <Issuer2 xmlns="urn:oasis:names:tc:SAML:2.0:assertion">#{issuer_uri}</Issuer2>
+    <samlp:Status>
+    <samlp:StatusCode Value="urn:oasis:names:tc:SAML:2.0:status:Success" />
+    </samlp:Status>
+    #{assertion_and_signature}
+    </samlp:LogoutResponse>]
+
+    Base64.encode64(xml)
+  end
+
+  def encode_SAML_SLO_Request(nameID, opts = {})
+    now = Time.now.utc
+    response_id = SecureRandom.uuid
+    issuer_uri = opts[:issuer_uri] || (defined?(request) && request.url.split("?")[0]) || "http://example.com"
+    xml = %[<samlp:LogoutRequest
+    xmlns:samlp="urn:oasis:names:tc:SAML:2.0:protocol"
+    xmlns:saml="urn:oasis:names:tc:SAML:2.0:assertion"
+    ID="_#{response_id}" Version="2.0"
+    Destination="#{destination(@saml_slo_acs_url)}"
+    IssueInstant="#{now.iso8601}">
+    <saml:Issuer >#{issuer_uri}</saml:Issuer>
+    <saml:NameID Format="urn:oasis:names:tc:SAML:2.0:nameid-format:transient">#{nameID}</saml:NameID>
+    <samlp:SessionIndex>_#{session_index}</samlp:SessionIndex>
+</samlp:LogoutRequest>]
+
+    Base64.encode64(xml)
+  end
+end

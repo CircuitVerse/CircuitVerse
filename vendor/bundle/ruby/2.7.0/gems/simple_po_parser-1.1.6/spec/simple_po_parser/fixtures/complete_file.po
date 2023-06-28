@@ -1,0 +1,51 @@
+# PO Header entry
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: simple_po_parser 1\n"
+"Report-Msgid-Bugs-To: me\n"
+"POT-Creation-Date: 2012-05-04 12:56+0000\n"
+"PO-Revision-Date: 2014-05-15 22:24+0330\n"
+"Last-Translator: Dennis-Florian Herr <dennis.herr@experteer.com>\n"
+"Language-Team: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+# translator-comment
+#. extract
+#: reference1
+msgctxt "Context"
+msgid "msgid"
+msgstr "translated"
+
+# translator-comment
+#
+#. extract
+#: reference1
+#: reference2
+#, flag
+#| msgctxt "previous context"
+#| msgid ""
+#|  "multiline\n"
+#|"previous messageid"
+#| msgid_plural "previous msgid_plural"
+msgctxt "Context"
+msgid "msgid"
+msgid_plural ""
+"multiline msgid_plural\n"
+""
+msgstr[0] "msgstr 0"
+msgstr[1] ""
+"msgstr 1 multiline 1\n"
+"msgstr 1 line 2\n"
+msgstr[2] "msgstr 2"
+
+# translator-comment
+#. extract
+#: reference1
+#~ msgctxt "Context"
+#~ msgid "msgid"
+#~ msgstr "translated"

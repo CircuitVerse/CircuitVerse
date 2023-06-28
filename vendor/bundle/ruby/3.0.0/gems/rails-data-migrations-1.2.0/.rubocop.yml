@@ -1,0 +1,10 @@
+Layout/TrailingBlankLines:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
+Metrics/LineLength:
+  Max: 120
+Style/Documentation:
+  Enabled: false
+Style/NumericLiterals:
+  Enabled: false

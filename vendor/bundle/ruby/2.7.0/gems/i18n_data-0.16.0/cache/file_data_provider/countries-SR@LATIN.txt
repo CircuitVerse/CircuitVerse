@@ -1,0 +1,249 @@
+AW;;Aruba
+AF;;Avganistan
+AO;;Angola
+AI;;Angila
+AX;;Ostrva Aland
+AL;;Albanija
+AD;;Andora
+AE;;Ujedinjeni Arapski Emirati
+AR;;Argentina
+AM;;Jermenija
+AS;;Američka Samoa
+AQ;;Antarktik
+TF;;Francuske Južne Teritorije
+AG;;Antigva i Barbuda
+AU;;Australija
+AT;;Austrija
+AZ;;Azerbejdžan
+BI;;Burundi
+BE;;Belgija
+BJ;;Benin
+BQ;;Boner, Sveti Eustahije i Saba
+BF;;Burkina Faso
+BD;;Bangladeš
+BG;;Bugarska
+BH;;Bahrein
+BS;;Bahami
+BA;;Bosna i Hercegovina
+BL;;Sveti Bartolomej
+BY;;Belorusija
+BZ;;Belize
+BM;;Bermuda
+BO;;Bolivija
+BR;;Brazil
+BB;;Barbados
+BN;;Sultanat Bruneji
+BT;;Butan
+BV;;Ostrvo Bov
+BW;;Bocvana
+CF;;Centralnoafrička Republika
+CA;;Kanada
+CC;;Kokosova ostrva
+CH;;Švajcarska
+CL;;Čile
+CN;;Kina
+CI;;Obala Slonovače
+CM;;Kamerun
+CD;;Kongo, Demokratska Republika
+CG;;Kongo
+CK;;Ostrva Kuk
+CO;;Kolumbija
+KM;;Komori
+CV;;Zelenortska ostrva
+CR;;Kostarika
+CU;;Kuba
+CW;;Kurasao
+CX;;Božićno ostrvo
+KY;;Ostrva Kajman
+CY;;Kipar
+CZ;;Češka
+DE;;Nemačka
+DJ;;Džibuti
+DM;;Dominika
+DK;;Danska
+DO;;Dominikanska Republika
+DZ;;Alžir
+EC;;Ekvador
+EG;;Egipat
+ER;;Eritreja
+EH;;Zapadna Sahara
+ES;;Španija
+EE;;Estonija
+ET;;Etiopija
+FI;;Finska
+FJ;;Fidži
+FK;;Folklandska ostrva (Malvini)
+FR;;Francuska
+FO;;Farska ostrva
+FM;;Mikronezija, Federalne Države
+GA;;Gabon
+GB;;Ujedinjeno Kraljevstvo
+GE;;Gruzija
+GG;;Gernsi
+GH;;Gana
+GI;;Gibraltar
+GN;;Gvineja
+GP;;Gvadalupe
+GM;;Gambija
+GW;;Gvineja-Bisao
+GQ;;Ekvatorijalna Gvineja
+GR;;Grčka
+GD;;Grenada
+GL;;Grenland
+GT;;Gvatemala
+GF;;Francuska Gvajana
+GU;;Giam
+GY;;Gvajana
+HK;;Hong Kong
+HM;;Ostrvo Herd i ostrva Mekdonald
+HN;;Honduras
+HR;;Hrvatska
+HT;;Haiti
+HU;;Mađarska
+ID;;Indonezija
+IM;;Ostrvo Man
+IN;;Indija
+IO;;Britanska Indijska Okeanska Teritorija
+IE;;Irska
+IR;;Iran, Islamska Republika
+IQ;;Irak
+IS;;Island
+IL;;Izrael
+IT;;Italija
+JM;;Jamajka
+JE;;Džersi
+JO;;Jordan
+JP;;Japan
+KZ;;Kazahstan
+KE;;Kenija
+KG;;Kirgistan
+KH;;Kambodža
+KI;;Kiribati
+KN;;Sveti Kits i Nevis
+KR;;Koreja, Republika
+KW;;Kuvajt
+LA;;Laoška Narodna Demokratska Republika
+LB;;Liban
+LR;;Liberija
+LY;;Libija
+LC;;Sveta Lucija
+LI;;Lihtenštajn
+LK;;Šri Lanka
+LS;;Lesoto
+LT;;Litvanija
+LU;;Luksemburg
+LV;;Letonija
+MO;;Makao
+MF;;Sveti Martin (francuski deo)
+MA;;Maroko
+MC;;Monako
+MD;;Moldavija
+MG;;Madagaskar
+MV;;Maldivi
+MX;;Meksiko
+MH;;Maršalska ostrva
+MK;;Severna Makedonija
+ML;;Mali
+MT;;Malta
+MM;;Burma
+ME;;Crna Gora
+MN;;Mongolija
+MP;;Severna Marijanska ostrva
+MZ;;Mozambik
+MR;;Mauritanija
+MS;;Monserat
+MQ;;Martinik
+MU;;Mauricijus
+MW;;Malavi
+MY;;Malezija
+YT;;Majot
+NA;;Namibija
+NC;;Nova Kaledonija
+NE;;Niger
+NF;;Ostrvo Norfolk
+NG;;Nigerija
+NI;;Nikaragva
+NU;;Niue
+NL;;Holandija
+NO;;Norveška
+NP;;Nepal
+NR;;Nauru
+NZ;;Novi Zeland
+OM;;Oman
+PK;;Pakistan
+PA;;Panama
+PN;;Pitkarn
+PE;;Peru
+PH;;Filipini
+PW;;Palau
+PG;;Papua Nova Gvineja
+PL;;Poljska
+PR;;Portoriko
+KP;;Koreja, Demokratska Narodna Republika
+PT;;Portugal
+PY;;Paragvaj
+PS;;Palestina, Država
+PF;;Francuska Polinezija
+QA;;Katar
+RE;;Reunion
+RO;;Rumunija
+RU;;Ruska Federacija
+RW;;Ruanda
+SA;;Saudijska Arabija
+SD;;Sudan
+SN;;Senegal
+SG;;Singapur
+GS;;Južna Džordžija i Južna Sendvič ostrva
+SH;;Sveta Jelena, Asansion i Tristan da Kuna
+SJ;;Svalbard i Jan Majen
+SB;;Ostrva Solomon
+SL;;Sijera Leone
+SV;;El Salvador
+SM;;San Marino
+SO;;Somalija
+PM;;Sveti Pjer i Mikelon
+RS;;Srbija
+SS;;Južni Sudan
+ST;;Sao Tome i Principe
+SR;;Surinam
+SK;;Slovačka
+SI;;Slovenija
+SE;;Švedska
+SZ;;Esvatini
+SX;;Sveti Martin (holandski deo)
+SC;;Sejšeli
+SY;;Sirijska Arapska Republika
+TC;;Ostrva Turks i Kaikos
+TD;;Čad
+TG;;Togo
+TH;;Tajland
+TJ;;Tadžikistan
+TK;;Tokelau
+TM;;Turkmenistan
+TL;;Istočni Timor
+TO;;Tonga
+TT;;Trinidad i Tobago
+TN;;Tunis
+TR;;Turska
+TV;;Tuvalu
+TW;;Tajvan
+TZ;;Tanzanija
+UG;;Uganda
+UA;;Ukrajina
+UM;;Spoljna ivična ostrva SAD
+UY;;Urugvaj
+US;;Sjedinjene Države
+UZ;;Uzbekistan
+VA;;Sveta Stolica (Država grada Vatikana)
+VC;;Sveti Vinsent i Grenadini
+VE;;Venecuela
+VG;;Devičanska ostrva, Britanska
+VI;;Devičanska ostrva, SAD
+VN;;Vijetnam
+VU;;Vanuatu
+WF;;Valis i Futuna
+WS;;Samoa
+YE;;Jemen
+ZA;;Južna Afrika
+ZM;;Zambija
+ZW;;Zimbabve

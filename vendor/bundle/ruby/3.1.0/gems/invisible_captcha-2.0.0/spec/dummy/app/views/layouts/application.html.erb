@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dummy</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <%= invisible_captcha_styles %>
+</head>
+<body>
+  <h1>InvisibleCaptcha v<%= InvisibleCaptcha::VERSION %> - Demo</h1>
+
+  <p>
+    <%= link_to "Default settings", new_topic_path %> |
+    <%= link_to "With visual honeypots", new_topic_path(context: "visual_honeypots") %> |
+    <%= link_to "With timestamp disabled", new_topic_path(context: "timestamp_disabled") %>
+  </p>
+
+  <% flash.each do |key, value| %>
+    <ul class="errors">
+      <li>
+        <%= "[#{key.upcase}] #{value}" %>
+      </li>
+    </ul>
+  <% end %>
+
+  <%= yield %>
+  </body>
+</html>
