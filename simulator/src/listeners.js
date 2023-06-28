@@ -329,16 +329,15 @@ function panStop(e) {
 }
 
 function setPanelVisibility(visibility, display) {
-    [].forEach.call(document.getElementsByClassName('draggable-panel'), (element) => {
+    const classes = ['draggable-panel', 'nav-dropdown'];
+    classes.forEach((className) => {
+    [].forEach.call(document.getElementsByClassName(className), (element) => {
         element.style.visibility = visibility;
     });
-
-    [].forEach.call(document.getElementsByClassName('nav-dropdown'), (element) => {
-        element.style.visibility = visibility;
     });
 
     var contextMenuItems = document.querySelectorAll("#contextMenu li:nth-child(1), #contextMenu li:nth-child(2), #contextMenu li:nth-child(3), #contextMenu li:nth-child(6), #contextMenu li:nth-child(7), #contextMenu li:nth-child(8)");
-    contextMenuItems.forEach(function(item) {
+    contextMenuItems.forEach((item) => {
         item.style.display = display;
     });
 }
