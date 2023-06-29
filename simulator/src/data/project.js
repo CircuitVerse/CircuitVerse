@@ -28,7 +28,7 @@ export function recoverProject() {
     }
 }
 
-const recoverDataFlow = function(data) {
+function recoverDataFlow(data) {
     const confirmationMessage = `Would you like to recover: ${data.name}`;
     if (confirm(confirmationMessage)) {
         load(data);
@@ -112,15 +112,17 @@ function checkToSave() {
  * Prompt user to save data if unsaved
  * @category data
  */
-window.addEventListener('beforeunload', (event) => {
+window.onbeforeunload = function () {
     if (projectSaved || embed) return;
 
     if (!checkToSave()) return;
 
-    event.preventDefault();
+    alert('You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?');
     const data = generateSaveData('Untitled');
     localStorage.setItem('recover', data);
-});
+    // eslint-disable-next-line consistent-return
+    return 'Are u sure u want to leave? Any unsaved changes may not be recoverable';
+};
 
 /**
  * Function to clear project

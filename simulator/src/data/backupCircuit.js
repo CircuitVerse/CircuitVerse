@@ -64,11 +64,6 @@ export function scheduleBackup(scope = globalScope) {
         scope.backups.push(backup);
         scope.history = [];
         scope.timeStamp = new Date().getTime();
-
-        //  Calling the autosave function
-        setTimeout(() => {
-            autosave();
-        }, 100);
         projectSavedSet(false);
     }
 

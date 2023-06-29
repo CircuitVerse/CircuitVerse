@@ -14,7 +14,6 @@ import domtoimage from 'dom-to-image';
 import C2S from '../../vendor/canvas2svg';
 
 var projectName = undefined;
-var autosaveArray = [];
 
 /**
  * Function to set the name of project.
@@ -414,11 +413,18 @@ export default async function save() {
  * @category data
  * @exports save
  */
+var checkForAutosave = 1;
+
 export function autosave() {
     var circuitData = generateSaveData('Untitled');
-    autosaveArray.push(circuitData);
-    if (autosaveArray.length > 2) {
-        autosaveArray.shift();
-    }
-    localStorage.setItem('autosave', autosaveArray[0]);
+    localStorage.setItem('autosave', circuitData);
 }
+
+export function checkBackups() {
+    if (checkForAutosave < globalScope.backups.length) {
+        autosave();
+        checkForAutosave = globalScope.backups.length;
+    }
+}
+
+setInterval(checkBackups, 4000);
