@@ -135,7 +135,6 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   gem "rbs_rails"
   gem "steep"
-
   gem 'solargraph-rails', '~> 0.3.1'
 end
 
