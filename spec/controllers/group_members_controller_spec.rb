@@ -50,6 +50,38 @@ describe GroupMembersController, type: :request do
     end
   end
 
+  describe "#update" do
+    before do
+      @group_member = FactoryBot.create(:group_member, user: FactoryBot.create(:user),
+                                                       group: @group)
+    end
+
+    context "when primary_mentor is signed in" do
+      it "updates group member" do
+        sign_in @primary_mentor
+        expect do
+          patch group_member_path(@group_member), params: { group_member: { mentor: true } }
+        end.to change { @group_member.reload.mentor }.from(false).to(true)
+      end
+    end
+
+    context "when a mentor is signed in" do
+      it "throws unauthorized error" do
+        sign_in_group_mentor(@group)
+        patch group_member_path(@group_member), params: { group_member: { mentor: true } }
+        check_not_authorized(response)
+      end
+    end
+
+    context "when user other than the primary_mentor is logged in" do
+      it "throws unauthorized error" do
+        sign_in_random_user
+        patch group_member_path(@group_member), params: { group_member: { mentor: true } }
+        check_not_authorized(response)
+      end
+    end
+  end
+
   describe "#destroy" do
     before do
       @group_member = FactoryBot.create(:group_member, user: FactoryBot.create(:user),
