@@ -129,7 +129,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails", "~> 5.1"
+  gem "rspec-rails", "~> 6.0"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
@@ -140,7 +140,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara", "~> 3.36"
+  gem "capybara", "~> 3.39"
   gem "json-schema"
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"

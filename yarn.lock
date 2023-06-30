@@ -2705,10 +2705,10 @@ bluebird@^3.7.2:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.7.2.tgz#9f229c15be272454ffa973ace0dbee79a1b0c36f"
   integrity sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==
 
-bootstrap-input-spinner@^3.1.14:
-  version "3.1.14"
-  resolved "https://registry.yarnpkg.com/bootstrap-input-spinner/-/bootstrap-input-spinner-3.1.14.tgz#886ad5b2aa31e38dcdce4a0bf9f4a15bae21aec1"
-  integrity sha512-dpXW8q5IY83sjRGa7kglGS8iOFigRvAIcGnOhLuHTJ5VfTjDC0Htqt5paWfRdtHJzr/nYL5VoGvMt6OXoOHrSw==
+bootstrap-input-spinner@^3.3.3:
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/bootstrap-input-spinner/-/bootstrap-input-spinner-3.3.3.tgz#6d3de91ad2898a520b9ea03da2f88330848ca601"
+  integrity sha512-hHkus8v7BzIveFA6sV2NphGvIx82lRa3mAD12LKAm1atmwNRamXqEOkbCG1KDXz8FDV1GW9AiZSVOzth5duQgg==
 
 bootstrap@^4.6.1:
   version "4.6.2"
@@ -3389,10 +3389,10 @@ domexception@^4.0.0:
   dependencies:
     webidl-conversions "^7.0.0"
 
-dompurify@^2.3.8:
-  version "2.3.8"
-  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-2.3.8.tgz#224fe9ae57d7ebd9a1ae1ac18c1c1ca3f532226f"
-  integrity sha512-eVhaWoVibIzqdGYjwsBWodIQIaXFSB+cKDf4cfxLMsK0xiud6SE+/WCVx/Xw/UwQsa4cS3T2eITcdtmTg2UKcw==
+dompurify@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/dompurify/-/dompurify-3.0.3.tgz#4b115d15a091ddc96f232bcef668550a2f6f1430"
+  integrity sha512-axQ9zieHLnAnHh0sfAamKYiqXMJAVwu+LM/alQ7WDagoWessyWvMSFyW65CqF3owufNu8HBcE4cM2Vflu7YWcQ==
 
 dot-prop@^5.1.0:
   version "5.3.0"
@@ -7412,10 +7412,10 @@ trim-newlines@^3.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
 
-trumbowyg@^2.25.1:
-  version "2.25.1"
-  resolved "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.25.1.tgz#fa77b5a9c49875017d437f4d62a35b7da7ca560d"
-  integrity sha512-bmmV1qC+fTLfyVpLE5iZjCzHG5DfAwM7p8K2fdq6L1kOi+IrVJk/qGFVEEmYyJ0Ofd1z3g2vavfABpmkVLzV6A==
+trumbowyg@^2.27.3:
+  version "2.27.3"
+  resolved "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.27.3.tgz#99373b99aa9ee490e5cb36fc06dbf008a0c7ceca"
+  integrity sha512-mEFhPSrF3dobjnGSSW7BfnmX5Pnv9T4KIoATOHxFOHtb1exE0L2hNPxCr6Bh4iFRJQD4UErleyKCapKf2yImKw==
 
 ts-map@^1.0.3:
   version "1.0.3"
