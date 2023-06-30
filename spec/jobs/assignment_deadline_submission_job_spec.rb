@@ -19,22 +19,24 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
       expect(described_class.perform_now(@assignment.id)).to be_nil
     end
 
-    it "when the assignment is open and the deadline has not passed" do
-      @assignment.status = "open"
-      @assignment.deadline = Time.zone.now + 20
-      @assignment.save!
-      expect(described_class.perform_now(@assignment.id)).to be_nil
-      @assignment.reload
-      expect(@assignment.status).to eq("open")
-    end
+    describe "when the assignment is open" do
+      it "if deadline has not passed, dont close" do
+        @assignment.status = "open"
+        @assignment.deadline = Time.zone.now + 20
+        @assignment.save!
+        expect(described_class.perform_now(@assignment.id)).to be_nil
+        @assignment.reload
+        expect(@assignment.status).to eq("open")
+      end
 
-    it "when the assignment is open and the deadline has passed" do
-      @assignment.status = "open"
-      @assignment.deadline = Time.zone.now - 10
-      @assignment.save!
-      expect(described_class.perform_now(@assignment.id)).to be_truthy
-      @assignment.reload
-      expect(@assignment.status).to eq("closed")
+      it "if deadline has passed close assignment" do
+        @assignment.status = "open"
+        @assignment.deadline = Time.zone.now - 10
+        @assignment.save!
+        expect(described_class.perform_now(@assignment.id)).to be_truthy
+        @assignment.reload
+        expect(@assignment.status).to eq("closed")
+      end
     end
   end
 end
