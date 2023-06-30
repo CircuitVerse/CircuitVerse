@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
-  before do
+  before(:each) do
     @primary_mentor = FactoryBot.create(:user)
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
     @assignment = FactoryBot.create(:assignment, group: @group)
@@ -21,8 +21,20 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
 
     it "when the assignment is open and the deadline has not passed" do
       @assignment.status = "open"
-      @assignment.deadline = Time.zone.now + 10
+      @assignment.deadline = Time.zone.now + 20
+      @assignment.save!
       expect(described_class.perform_now(@assignment.id)).to be_nil
+      @assignment.reload
+      expect(@assignment.status).to eq("open")
+    end
+
+    it "when the assignment is open and the deadline has passed" do
+      @assignment.status = "open"
+      @assignment.deadline = Time.zone.now - 10
+      @assignment.save!
+      expect(described_class.perform_now(@assignment.id)).to eq(true)
+      @assignment.reload
+      expect(@assignment.status).to eq("closed")
     end
   end
 end
