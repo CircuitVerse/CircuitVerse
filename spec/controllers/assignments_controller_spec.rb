@@ -101,7 +101,6 @@ describe AssignmentsController, type: :request do
     end
 
     context "when mentor is signed in" do
-
       before do
         sign_in @primary_mentor
       end
