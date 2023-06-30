@@ -15,6 +15,7 @@ class MigrateImagePreview < ActiveRecord::DataMigration
 
   def migrate_carrierwave_assets(last_migrated_project_id = 0)
     Project.where("id > ?", last_migrated_project_id).find_each do |project|
+      next unless project.image_preview.file
       next if !project.image_preview.file.exists?
       next if ActiveStorage::Attachment.exists?(name: "circuit_preview", record_id: project.id)
 
