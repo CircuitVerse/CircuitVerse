@@ -65,6 +65,21 @@ RSpec.describe AnnouncementsController, type: :request do
         expect(response.body).to include(@announcement.body)
       end
     end
+
+    describe "#edit" do
+      it "shows the details of the announcement for edit" do
+        get edit_announcement_path(@announcement)
+        expect(response.status).to eq(200)
+        expect(response.body).to include(@announcement.body)
+      end
+    end
+
+    describe "#destroy" do
+      it "deletes the announcement" do
+        expect { delete announcement_path(@announcement) }
+          .to change(Announcement, :count).by(-1)
+      end
+    end
   end
 
   context "when user is not admin" do
