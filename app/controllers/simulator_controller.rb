@@ -3,6 +3,7 @@
 class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
+  include ActiveStorage::SetCurrent
 
   before_action :authenticate_user!, only: %i[create update edit update_image]
   before_action :set_project, only: %i[show embed get_data]
@@ -14,6 +15,12 @@ class SimulatorController < ApplicationController
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
     Flipper.enabled?(:lms_integration, current_user)
   }
+
+  before_action :request_url, only: %i[create update]
+
+  def request_url
+    ActiveStorage::Current.host = request.base_url
+  end
 
   def self.policy_class
     ProjectPolicy
@@ -148,7 +155,7 @@ class SimulatorController < ApplicationController
     def attach_image_preview(image_file)
       @project.image_preview.attach(
         io: File.open(image_file),
-        filename: "image_preview.jpeg",
+        filename: "preview_#{@project.updated_at.to_f.to_s.sub('.', '')}",
         content_type: "img/jpeg"
       )
     end

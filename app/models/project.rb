@@ -6,7 +6,7 @@ require "pg_search"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns = ["data", "image_preview"]
+  self.ignored_columns = %w[data image_preview]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
