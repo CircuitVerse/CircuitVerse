@@ -2,32 +2,31 @@
 
 # rubocop:disable Metrics/ClassLength
 class Api::V1::ProjectsController < Api::V1::BaseController
-
-  include  SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
+  include SimulatorHelper
 
   before_action :authenticate_user!, only: %i[
-    check_edit_access
-    create
-    update
-    update_circuit
-    destroy
-    toggle_star
-    create_fork
-  ]
+                                       check_edit_access
+                                       create
+                                       update
+                                       update_circuit
+                                       destroy
+                                       toggle_star
+                                       create_fork
+                                     ]
   before_action :load_index_projects, only: %i[index]
   before_action :load_user_projects, only: %i[user_projects]
   before_action :load_featured_circuits, only: %i[featured_circuits]
   before_action :load_user_favourites, only: %i[user_favourites]
   before_action :search_projects, only: %i[search]
   before_action :set_project, only: %i[
-    check_edit_access
-    show circuit_data
-    update
-    destroy
-    toggle_star
-    create_fork
-  ]
+                                check_edit_access
+                                show circuit_data
+                                update
+                                destroy
+                                toggle_star
+                                create_fork
+                              ]
   before_action :set_user_project, only: %i[update_circuit]
   before_action :set_options, except: %i[destroy toggle_star image_preview]
   before_action :filter, only: %i[index user_projects featured_circuits user_favourites]
@@ -63,9 +62,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/check_edit_access
   def check_edit_access
-    unless current_user.admin?
-      authorize @project, :check_edit_access?
-    end
+    current_user.admin? || authorize(@project, :check_edit_access?)
     @options = { params: { has_details_access: true } }
     render json: Api::V1::UserSerializer.new(current_user, @options)
   end

@@ -5,14 +5,12 @@ require "rails_helper"
 RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
   describe "POST #create" do
     let!(:user) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: user, name: "Test Name", project_access_type: "Public") }
 
     context "when unauthenticated user creates project" do
       it "returns status unauthorized" do
         expect do
-          post "/api/v1/projects",
-              params: { image: "", name: "Test Name" }, as: :json
-        end.to change(Project, :count).by(0)
+          post "/api/v1/projects", params: { image: "", name: "Test Name" }, as: :json
+        end.not_to change(Project, :count)
 
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
@@ -23,9 +21,7 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
       it "returns status created" do
         expect do
           token = get_auth_token(user)
-          post "/api/v1/projects",
-              headers: { Authorization: "Token #{token}" },
-              params: { image: "", name: "Test Name" }, as: :json
+          post "/api/v1/projects", headers: { Authorization: "Token #{token}" }, params: { image: "", name: "Test Name" }, as: :json
         end.to change(Project, :count).by(1)
 
         expect(response).to have_http_status(:created)
@@ -41,9 +37,7 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
         expect do
           token = get_auth_token(user)
-          post "/api/v1/projects",
-              headers: { Authorization: "Token #{token}" },
-              params: { image: "", name: "Test Name" }, as: :json
+          post "/api/v1/projects", headers: { Authorization: "Token #{token}" }, params: { image: "", name: "Test Name" }, as: :json
         end.to change(Project, :count).by(1)
 
         expect(response).to have_http_status(:created)
@@ -56,9 +50,7 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
       it "creates project with its own image file" do
         expect do
           token = get_auth_token(user)
-          post "/api/v1/projects",
-              headers: { Authorization: "Token #{token}" },
-              params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }, as: :json
+          post "/api/v1/projects", headers: { Authorization: "Token #{token}" }, params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }, as: :json
         end.to change(Project, :count).by(1)
 
         created_project = Project.order("created_at").last
