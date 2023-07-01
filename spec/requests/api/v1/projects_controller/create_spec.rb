@@ -21,7 +21,9 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
       it "returns status created" do
         expect do
           token = get_auth_token(user)
-          post "/api/v1/projects", headers: { Authorization: "Token #{token}" }, params: { image: "", name: "Test Name" }, as: :json
+          post "/api/v1/projects",
+          headers: { Authorization: "Token #{token}" },
+          params: { image: "", name: "Test Name" }, as: :json
         end.to change(Project, :count).by(1)
 
         expect(response).to have_http_status(:created)
@@ -37,7 +39,9 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
         expect do
           token = get_auth_token(user)
-          post "/api/v1/projects", headers: { Authorization: "Token #{token}" }, params: { image: "", name: "Test Name" }, as: :json
+          post "/api/v1/projects",
+          headers: { Authorization: "Token #{token}" },
+          params: { image: "", name: "Test Name" }, as: :json
         end.to change(Project, :count).by(1)
 
         expect(response).to have_http_status(:created)
@@ -50,7 +54,11 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
       it "creates project with its own image file" do
         expect do
           token = get_auth_token(user)
-          post "/api/v1/projects", headers: { Authorization: "Token #{token}" }, params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }, as: :json
+          post "/api/v1/projects",
+          headers: { Authorization: "Token #{token}" },
+          params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", 
+          name: "Test Name" },
+          as: :json
         end.to change(Project, :count).by(1)
 
         created_project = Project.order("created_at").last

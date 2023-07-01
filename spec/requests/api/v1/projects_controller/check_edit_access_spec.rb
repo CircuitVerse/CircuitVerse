@@ -7,12 +7,12 @@ RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, author: user, name: "Test", project_access_type: "Private") }
-  
+
     context "when not authenticated" do
       before do
         get "/api/v1/projects/#{project.id}/check_edit_access", as: :json
       end
-  
+
       it "returns 401 :unauthorized and should have jsonapi errors" do
         expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request
       before do
         token = get_auth_token(random_user)
         get "/api/v1/projects/#{project.id}/check_edit_access",
-            headers: { Authorization: "Token #{token}" }, as: :json
+        headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/check_edit_access",
-            headers: { Authorization: "Token #{token}" }, as: :json
+        headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns the logged in user details" do
