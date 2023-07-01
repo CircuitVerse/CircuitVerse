@@ -44,7 +44,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{public_project.id}/circuit_data",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns circuit data" do
@@ -58,7 +58,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{private_project.id}/circuit_data",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns circuit data" do
@@ -72,7 +72,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
       before do
         token = get_auth_token(random_user)
         get "/api/v1/projects/#{public_project.id}/circuit_data",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns circuit data" do
@@ -86,7 +86,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
       before do
         token = get_auth_token(random_user)
         get "/api/v1/projects/#{private_project.id}/circuit_data",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -100,7 +100,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
         token = get_auth_token(random_user)
         FactoryBot.create(:collaboration, project: public_project, user: random_user)
         get "/api/v1/projects/#{public_project.id}/circuit_data",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns circuit data" do
@@ -115,7 +115,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
         token = get_auth_token(random_user)
         FactoryBot.create(:collaboration, project: private_project, user: random_user)
         get "/api/v1/projects/#{private_project.id}/circuit_data",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns circuit data" do

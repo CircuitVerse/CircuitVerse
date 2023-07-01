@@ -23,7 +23,7 @@ RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request
       before do
         token = get_auth_token(random_user)
         get "/api/v1/projects/#{project.id}/check_edit_access",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{project.id}/check_edit_access",
-        headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns the logged in user details" do

@@ -13,7 +13,7 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         {
           id: project.id,
           name: "Updated Name",
-          image: ""
+          image: "",
         }
       end
 
@@ -33,8 +33,8 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
           token = get_auth_token(user)
           expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           patch "/api/v1/projects/update_circuit",
-          headers: { Authorization: "Token #{token}" },
-          params: update_params, as: :json
+                headers: { Authorization: "Token #{token}" },
+                params: update_params, as: :json
         end
 
         it "updates project" do
@@ -48,8 +48,8 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         before do
           token = get_auth_token(random_user)
           patch "/api/v1/projects/update_circuit",
-          headers: { Authorization: "Token #{token}" },
-          params: update_params, as: :json
+                headers: { Authorization: "Token #{token}" },
+                params: update_params, as: :json
         end
 
         it "returns status unauthorized" do
@@ -64,8 +64,8 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
           FactoryBot.create(:collaboration, user: random_user, project: project)
           expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           patch "/api/v1/projects/update_circuit",
-          headers: { Authorization: "Token #{token}" },
-          params: update_params, as: :json
+                headers: { Authorization: "Token #{token}" },
+                params: update_params, as: :json
         end
 
         it "updates project" do
