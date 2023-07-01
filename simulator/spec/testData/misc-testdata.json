@@ -756,7 +756,7 @@
                         "label": "CI-out1",
                         "bitWidth": 1,
                         "values": [
-                            "0",
+                            "X",
                             "1",
                             "0"
                         ]
