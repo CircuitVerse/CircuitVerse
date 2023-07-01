@@ -43,5 +43,6 @@ RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request
         expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("user")
       end
-  
+    end
   end
+end

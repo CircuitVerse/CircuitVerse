@@ -10,16 +10,15 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
   end
 
   describe "should create empty project" do
-    before do
-      sign_in user
-    end
-
     describe "#create" do
       context "image is empty" do
         it "creates project with default image" do
           expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           expect do
-            post "/api/v1/projects", params: { image: "", name: "Test Name" }
+            token = get_auth_token(user)
+            post "/api/v1/projects",
+                headers: { Authorization: "Token #{token}" }, as: :json,
+                params: { image: "", name: "Test Name" }
           end.to change(Project, :count).by(1)
           expect(response.status).to eq(302)
           created_project = Project.order("created_at").last
@@ -30,8 +29,10 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
       context "there is image data", :skip_windows do
         it "creates project with its own image file" do
           expect do
-            post "/api/v1/projects", params: { image:
-              "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }
+            token = get_auth_token(user)
+            post "/api/v1/projects",
+                headers: { Authorization: "Token #{token}" }, as: :json,
+                params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }
           end.to change(Project, :count).by(1)
           created_project = Project.order("created_at").last
           expect(created_project.image_preview.path.split("/")[-1]).to start_with("preview_")
@@ -50,9 +51,11 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
 
       context "author is signed in" do
         it "updates project" do
-          sign_in @user
+          token = get_auth_token(user)
           expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
-          patch "/api/v1/projects/update_circuit", params: update_params
+          patch "/api/v1/projects/update_circuit",
+              headers: { Authorization: "Token #{token}" }, as: :json,
+              params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")
           expect(response.status).to eq(200)
@@ -61,8 +64,10 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
 
       context "user other than author is signed in" do
         it "throws project access error" do
-          sign_in_random_user
-          patch "/api/v1/projects/update_circuit", params: update_params
+          token = get_auth_token(random_user)
+          patch "/api/v1/projects/update_circuit",
+              headers: { Authorization: "Token #{token}" }, as: :json,
+              params: update_params
           expect(response.status).to eq(403)
         end
       end
