@@ -7,68 +7,72 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, author: user, name: "Test Name", project_access_type: "Public") }
-  end
-
-  describe "should create empty project" do
-    describe "#create" do
-      context "image is empty" do
-        it "creates project with default image" do
-          expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
-          expect do
-            token = get_auth_token(user)
-            post "/api/v1/projects",
-                headers: { Authorization: "Token #{token}" }, as: :json,
-                params: { image: "", name: "Test Name" }
-          end.to change(Project, :count).by(1)
-          expect(response.status).to eq(302)
-          created_project = Project.order("created_at").last
-          expect(created_project.image_preview.path.split("/")[-1]).to eq("default.png")
-        end
-      end
-
-      context "there is image data", :skip_windows do
-        it "creates project with its own image file" do
-          expect do
-            token = get_auth_token(user)
-            post "/api/v1/projects",
-                headers: { Authorization: "Token #{token}" }, as: :json,
-                params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }
-          end.to change(Project, :count).by(1)
-          created_project = Project.order("created_at").last
-          expect(created_project.image_preview.path.split("/")[-1]).to start_with("preview_")
-        end
-      end
-    end
 
     describe "#update_circuit" do
       let(:update_params) do
         {
-          id: @project.id,
+          id: project.id,
           name: "Updated Name",
           image: ""
         }
       end
 
-      context "author is signed in" do
-        it "updates project" do
+      context "when unauthenticated user tries to update project details" do
+        before do
+          patch "/api/v1/projects/update_circuit",
+          params: update_params
+        end
+
+        it "returns 401 :unauthorized" do
+          expect(response).to have_http_status(:unauthorized)
+          expect(response.parsed_body).to have_jsonapi_errors
+        end
+      end
+
+      context "when authenticated user is the author of the project" do
+        before do
           token = get_auth_token(user)
           expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           patch "/api/v1/projects/update_circuit",
               headers: { Authorization: "Token #{token}" }, as: :json,
               params: update_params
-          @project.reload
-          expect(@project.name).to eq("Updated Name")
-          expect(response.status).to eq(200)
+        end
+
+        it "updates project" do
+          project.reload
+          expect(project.name).to eq("Updated Name")
+          expect(response).to have_http_status(:ok)
         end
       end
 
-      context "user other than author is signed in" do
-        it "throws project access error" do
+      context "when authenticated user is not the author of the project" do
+        before do
           token = get_auth_token(random_user)
           patch "/api/v1/projects/update_circuit",
-              headers: { Authorization: "Token #{token}" }, as: :json,
-              params: update_params
-          expect(response.status).to eq(403)
+              headers: { Authorization: "Token #{token}" },
+              params: update_params, as: :json
+        end
+
+        it "returns status unauthorized" do
+          expect(response).to have_http_status(:forbidden)
+          expect(response.parsed_body).to have_jsonapi_errors
+        end
+      end
+
+      context "when authenticated user is a collaborator in the project" do
+        before do
+          token = get_auth_token(random_user)
+          FactoryBot.create(:collaboration, user: random_user, project: project)
+          expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
+          patch "/api/v1/projects/update_circuit",
+              headers: { Authorization: "Token #{token}" },
+              params: update_params, as: :json
+        end
+
+        it "updates project" do
+          project.reload
+          expect(project.name).to eq("Updated Name")
+          expect(response).to have_http_status(:ok)
         end
       end
     end

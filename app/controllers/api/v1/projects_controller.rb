@@ -170,11 +170,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     # Update circuit data Related methods
 
     # FIXME: remove this logic after fixing production data
-    # def set_user_project
-    #   @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
-    # end
     def set_user_project
-      @project = current_user.projects.friendly.find(params[:id]) # get reviwed form @tachyons 
+      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
     end
 
     def build_project_datum
