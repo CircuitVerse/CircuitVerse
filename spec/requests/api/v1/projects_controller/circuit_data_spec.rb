@@ -44,7 +44,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{public_project.id}/circuit_data",
-          headers: { Authorization: "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns circuit data" do
