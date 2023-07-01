@@ -7,14 +7,43 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
     let!(:user) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, author: user, name: "Test Name", project_access_type: "Public") }
 
+    context "when unauthenticated user creates project" do
+      it "returns status unauthorized" do
+        expect do
+          post "/api/v1/projects",
+              params: { image: "", name: "Test Name" }, as: :json
+        end.to change(Project, :count).by(0)
+
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when authenticated user creates project" do
+      it "returns status created" do
+        expect do
+          token = get_auth_token(user)
+          post "/api/v1/projects",
+              headers: { Authorization: "Token #{token}" },
+              params: { image: "", name: "Test Name" }, as: :json
+        end.to change(Project, :count).by(1)
+
+        expect(response).to have_http_status(:created)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["project"]).to be_present
+        expect(parsed_response["project"]["name"]).to eq("Test Name")
+        expect(parsed_response["project"]["project_access_type"]).to eq("Public")
+      end
+    end
+
     context "when image is empty" do
       it "creates project with default image" do
         expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
         expect do
           token = get_auth_token(user)
           post "/api/v1/projects",
-              headers: { Authorization: "Token #{token}" }, as: :json,
-              params: { image: "", name: "Test Name" }
+              headers: { Authorization: "Token #{token}" },
+              params: { image: "", name: "Test Name" }, as: :json
         end.to change(Project, :count).by(1)
 
         expect(response).to have_http_status(:created)
@@ -28,8 +57,8 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         expect do
           token = get_auth_token(user)
           post "/api/v1/projects",
-              headers: { Authorization: "Token #{token}" }, as: :json,
-              params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }
+              headers: { Authorization: "Token #{token}" },
+              params: { image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }, as: :json
         end.to change(Project, :count).by(1)
 
         created_project = Project.order("created_at").last
