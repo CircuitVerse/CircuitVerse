@@ -13,7 +13,7 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         {
           id: project.id,
           name: "Updated Name",
-          image: "",
+          image: ""
         }
       end
 
@@ -31,7 +31,6 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
       context "when authenticated user is the author of the project" do
         before do
           token = get_auth_token(user)
-          expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           patch "/api/v1/projects/update_circuit",
                 headers: { Authorization: "Token #{token}" },
                 params: update_params, as: :json
@@ -62,7 +61,6 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         before do
           token = get_auth_token(random_user)
           FactoryBot.create(:collaboration, user: random_user, project: project)
-          expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
           patch "/api/v1/projects/update_circuit",
                 headers: { Authorization: "Token #{token}" },
                 params: update_params, as: :json
