@@ -72,7 +72,7 @@ describe "Group management", type: :system do
   it "deletes the group" do
     visit user_groups_path(@user)
     click_on "Delete"
-    button = find(id: 'groups-group-delete-button')
+    button = find(id: "groups-group-delete-button")
     button.click
 
     expect(page).to have_text("Group was successfully deleted.")
