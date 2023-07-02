@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::SimulatorController, type: :request do
   describe "POST /api/v1/simulator/post_issue/" do
-    context "when required params are present but SLACK_ISSUE_HOOK_URL is missing" do
+    context "when SLACK_ISSUE_HOOK_URL is missing" do
       before do
         allow(ENV).to receive(:fetch).with("SLACK_ISSUE_HOOK_URL", nil).and_return(nil)
       end
@@ -16,16 +16,29 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
       end
     end
 
-    context "when all required params are present and SLACK_ISSUE_HOOK_URL is valid" do
+    context "when SLACK_ISSUE_HOOK_URL is present and returns reponse ok" do
       before do
-        allow(ENV).to receive(:fetch).with("SLACK_ISSUE_HOOK_URL", nil).and_return("https://circuitverse.test")
-        stub_request(:post, "https://circuitverse.test").to_return(status: 200, body: "", headers: {})
+        allow(ENV).to receive(:fetch).with("SLACK_ISSUE_HOOK_URL", nil).and_return("https://circuitverse.valid")
+        stub_request(:post, "https://circuitverse.valid").to_return(status: 200, body: "", headers: {})
       end
 
       it "returns an ok status and success message" do
         post "/api/v1/simulator/post_issue/", params: { text: "some text", circuit_data: "some data" }
         expect(response.status).to eq(200)
         expect(response.body).to include("Issue submitted successfully")
+      end
+    end
+
+    context "when SLACK_ISSUE_HOOK_URL is present but request fails with 404" do
+      before do
+        allow(ENV).to receive(:fetch).with("SLACK_ISSUE_HOOK_URL", nil).and_return("https://circuitverse.invalid")
+        stub_request(:post, "https://circuitverse.invalid").to_return(status: 404, body: "", headers: {})
+      end
+
+      it "returns an ok status and success message" do
+        post "/api/v1/simulator/post_issue/", params: { text: "some text", circuit_data: "some data" }
+        expect(response.status).to eq(500)
+        expect(response.body).to include("Failed to submit issue to Slack")
       end
     end
   end
