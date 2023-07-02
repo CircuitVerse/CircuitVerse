@@ -163,6 +163,7 @@ Rails.application.routes.draw do
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
       get "/projects/search", to: "projects#search"
+      post "/simulator/post_issue", to: "simulator#post_issue"
       resources :projects, only: %i[index show create update destroy] do
         collection do
           patch :update_circuit, path: "update_circuit"
