@@ -29,6 +29,16 @@ describe "Assignments", type: :system do
       check_show_page(name, deadline, description, "Input, Button, Power")
     end
 
+    it "delete assignment" do
+      sign_in @primary_mentor
+      FactoryBot.create(:assignment, group: @group)
+      visit group_path(@group)
+      click_link "Delete"
+      delete_assignment_button = find(id: "groups-assignment-delete-button")
+      delete_assignment_button.click
+      expect(page).to have_text("Assignment was successfully deleted.")
+    end
+
     it "does not create assignment when name is blank" do
       sign_in @primary_mentor
       visit new_group_assignment_path(@group)
@@ -101,6 +111,16 @@ describe "Assignments", type: :system do
 
       click_link "View"
       check_show_page(name, deadline, description, "Input, Button, Power")
+    end
+
+    it "delete assignment" do
+      sign_in @mentor
+      FactoryBot.create(:assignment, group: @group)
+      visit group_path(@group)
+      click_link "Delete"
+      delete_assignment_button = find(id: "groups-assignment-delete-button")
+      delete_assignment_button.click
+      expect(page).to have_text("Assignment was successfully deleted.")
     end
 
     it "does not create assignment when name is blank" do
