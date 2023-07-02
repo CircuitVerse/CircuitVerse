@@ -2,7 +2,6 @@
 
 class Api::V1::SimulatorController < Api::V1::BaseController
   def post_issue
-    check_required_params
     issue_circuit_data = create_issue_circuit_data
 
     circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data.id}"
@@ -23,12 +22,6 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   end
 
   private
-
-    def check_required_params
-      return if params[:text] && params[:circuit_data]
-
-      render json: { error: "Missing required parameters" }, status: :unprocessable_entity and return
-    end
 
     def create_issue_circuit_data
       issue_circuit_data = IssueCircuitDatum.new(data: params[:circuit_data])
