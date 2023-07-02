@@ -16,6 +16,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
       FactoryBot.create(:project_datum, project: project)
       project
     end
+    let!(:empty_project) { FactoryBot.create(:project, project_access_type: "Public", author: user) }
 
     context "when unauthenticated user fetches public project circuit data" do
       before do
@@ -123,6 +124,17 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
         parsed_response = JSON.parse(response.body)
         expect(parsed_response["name"]).to eq("circuit data")
       end
+    end
+
+    context "when user fetches circuit data for project with no circuit data" do
+      before do
+        get "/api/v1/projects/#{empty_project.id}/circuit_data", as: :json
+      end
+
+      it "returns Circuit data unavailabe for the project!" do
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body["error"]).to eq("Circuit data unavailabe for the project!")
+      end      
     end
   end
 end
