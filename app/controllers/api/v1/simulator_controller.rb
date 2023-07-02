@@ -3,31 +3,35 @@
 # rubocop:disable Metrics/ClassLength
 class Api::V1::SimulatorController < Api::V1::BaseController
   def post_issue
-    unless params[:text] && params[:circuit_data]
-      render json: { error: 'Missing required parameters' }, status: :unprocessable_entity and return
-    end
-  
-    issue_circuit_data = IssueCircuitDatum.new(data: params[:circuit_data])
-  
-    unless issue_circuit_data.save
-      render json: { error: issue_circuit_data.errors.full_messages.to_sentence }, status: :unprocessable_entity and return
-    end
-  
+    check_required_params
+    issue_circuit_data = create_issue_circuit_data
+
     circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data.id}"
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
-  
-    if post_to_slack(text)
-      render json: { success: true, message: 'Issue submitted successfully' }, status: :ok
-    else
-      render json: { error: 'Failed to submit issue to Slack' }, status: :unprocessable_entity
-    end
-  end
-  
-  private
-  
-  def post_to_slack(message)
+
     url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
-    response = HTTP.post(url, json: { text: message })
-    response.code == 200
-  end  
+    response = HTTP.post(url, json: { text: text })
+    unless response.code == 200
+      render json: { error: 'Failed to submit issue to Slack' }, status: :unprocessable_entity and return
+    end
+
+    render json: { success: true, message: 'Issue submitted successfully' }, status: :ok
+  end
+
+  private
+
+    def check_required_params
+      unless params[:text] && params[:circuit_data]
+        render json: { error: 'Missing required parameters' }, status: :unprocessable_entity and return
+      end
+    end
+
+    def create_issue_circuit_data
+      issue_circuit_data = IssueCircuitDatum.new(data: params[:circuit_data])
+      unless issue_circuit_data.save
+        error_message = issue_circuit_data.errors.full_messages.to_sentence
+        render(json: { error: error_message }, status: :unprocessable_entity) and return
+      end
+      issue_circuit_data
+    end    
 end
