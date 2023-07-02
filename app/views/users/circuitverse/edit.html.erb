@@ -20,7 +20,7 @@
             <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
                 <p>
                 <% if @profile.profile_picture.attached? %>
-                <%= image_tag url_for(@profile.profile_picture.variant(resize_to_limit: [100, 100]).processed.blob), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %>
+                <%= image_tag @profile.profile_picture.variant(resize_to_limit: [100, 100]).processed.blob, id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %>
                  <% else %>
                 <%= image_tag "thumb/Default.jpg", size: "100x100", id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %>
                 <% end %>

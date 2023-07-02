@@ -10,7 +10,7 @@ module UsersCircuitverseHelper
 
   def user_profile_picture(attachment)
     if attachment.attached?
-      url_for(attachment)
+      attachment
     else
       image_path("thumb/Default.jpg")
     end
@@ -18,7 +18,7 @@ module UsersCircuitverseHelper
 
   def project_image_preview(attachment)
     if attachment.attached?
-      url_for(attachment)
+      attachment
     else
       image_path("empty_project/default.png")
     end

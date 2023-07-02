@@ -53,7 +53,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
         content_type: "image/png"
       )
 
-      expect(helper.user_profile_picture(user.profile_picture)).to eq(url_for(user.profile_picture))
+      expect(helper.user_profile_picture(user.profile_picture)).to eq(user.profile_picture)
     end
 
     it "returns the path for the default image if the attachment is not attached" do
@@ -67,7 +67,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
     it "returns the URL for the attachment if it is attached" do
       project = FactoryBot.create(:project)
 
-      expect(helper.project_image_preview(project.image_preview)).to eq(url_for(project.image_preview))
+      expect(helper.project_image_preview(project.image_preview)).to eq(project.image_preview)
     end
 
     it "returns the path for the default image if the attachment is not attached" do
