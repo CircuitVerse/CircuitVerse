@@ -13,7 +13,7 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         {
           id: project.id,
           name: "Updated Name",
-          image: ""
+          image: "",
         }
       end
 
@@ -70,6 +70,36 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
           project.reload
           expect(project.name).to eq("Updated Name")
           expect(response).to have_http_status(:ok)
+        end
+      end
+
+      context "when project does not exist" do
+        before do
+          token = get_auth_token(user)
+          patch "/api/v1/projects/update_circuit",
+                headers: { Authorization: "Token #{token}" },
+                params: { id: 0 }, as: :json
+        end
+
+        it "returns status not found" do
+          expect(response).to have_http_status(:not_found)
+          expect(response.parsed_body).to have_jsonapi_errors
+        end
+      end
+
+      context "when project saving fails" do
+        before do
+          token = get_auth_token(user)
+          allow_any_instance_of(Project).to receive(:save).and_return(false)
+          patch "/api/v1/projects/update_circuit",
+                headers: { Authorization: "Token #{token}" },
+                params: update_params, as: :json
+        end
+
+        it "returns status unprocessable entity" do
+          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response.parsed_body["status"]).to eq("error")
+          expect(response.parsed_body["status"]["error"]).not_to be_empty
         end
       end
     end

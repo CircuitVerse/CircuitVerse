@@ -76,8 +76,8 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         end.not_to change(Project, :count)
 
         expect(response).to have_http_status(:unprocessable_entity)
-        parsed_body = JSON.parse(response.body)
-        expect(parsed_body["status"]).to eq("error")
+        expect(response.parsed_body["status"]).to eq("error")
+        expect(response.parsed_body["status"]["error"]).not_to be_empty
       end
     end
   end
