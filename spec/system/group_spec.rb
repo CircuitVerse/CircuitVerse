@@ -35,13 +35,8 @@ describe "Group management", type: :system do
   it "adds a member to the group" do
     visit "/groups/#{@group.id}"
     click_button "+ Add Members"
-    execute_script "document.getElementById('addmemberModal').style.display='block'"
-    execute_script "document.getElementById('addmemberModal').style.opacity=1"
-    execute_script "var new_email = document.createElement('option')
-                    new_email.innerHTML = 'example@gmail.com'
-                    document.getElementById('group_member_emails').appendChild(new_email)"
-    select "example@gmail.com", from: "group_member[emails][]"
-    execute_script "document.getElementById('group_email_input').click()"
+    fill_in_input "#group_email_input", with: "example@gmail.com"
+    fill_in_input "#group_email_input", with: :enter
     click_button "Add members"
 
     expect(page).to have_text(
@@ -81,13 +76,8 @@ describe "Group management", type: :system do
   it "add secondary mentor" do
     visit "/groups/#{@group.id}"
     click_button "+ Add Mentors"
-    execute_script "document.getElementById('add-mentor-to-modal').style.display='block'"
-    execute_script "document.getElementById('add-mentor-to-modal').style.opacity=1"
-    execute_script "var new_email = document.createElement('option')
-                    new_email.innerHTML = '" + @user3.email + "'
-                    document.getElementById('group_mentor_emails').appendChild(new_email)"
-    select @user3.email, from: "group_member[emails][]"
-    execute_script "document.getElementById('group_email_input_mentor').click()"
+    fill_in_input "#group_email_input_mentor", with: @user3.email
+    fill_in_input "#group_email_input_mentor", with: :enter
     click_button "Add mentors"
 
     expect(page).to have_text(
@@ -130,5 +120,9 @@ describe "Group management", type: :system do
     make_mentor_btn.click
 
     expect(page).to have_text("Group member was successfully updated.")
+  end
+
+  def fill_in_input(input, with:)
+    find(input).send_keys with
   end
 end
