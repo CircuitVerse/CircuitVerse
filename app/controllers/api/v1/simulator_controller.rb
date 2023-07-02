@@ -2,7 +2,7 @@
 
 class Api::V1::SimulatorController < Api::V1::BaseController
   def post_issue
-    issue_circuit_data = create_issue_circuit_data
+    issue_circuit_data = IssueCircuitDatum.new(data: params[:circuit_data]).tap(&:save)
 
     circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data.id}"
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
@@ -20,15 +20,4 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok
   end
-
-  private
-
-    def create_issue_circuit_data
-      issue_circuit_data = IssueCircuitDatum.new(data: params[:circuit_data])
-      unless issue_circuit_data.save
-        error_message = issue_circuit_data.errors.full_messages.to_sentence
-        render(json: { error: error_message }, status: :unprocessable_entity) and return
-      end
-      issue_circuit_data
-    end
 end
