@@ -11,12 +11,12 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
 
     if url.nil? || !url.start_with?("http://", "https://")
-      render json: { error: 'Invalid or missing Slack webhook URL' }, status: :internal_server_error and return
+      render json: { error: "Invalid or missing Slack webhook URL" }, status: :internal_server_error and return
     end
 
     response = HTTP.post(url, json: { text: text })
     unless response.code == 200
-      render json: { error: 'Failed to submit issue to Slack' }, status: :internal_server_error and return
+      render json: { error: "Failed to submit issue to Slack" }, status: :internal_server_error and return
     end
 
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok
@@ -26,7 +26,8 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
     def check_required_params
       return if params[:text] && params[:circuit_data]
-      render json: { error: 'Missing required parameters' }, status: :unprocessable_entity and return
+
+      render json: { error: "Missing required parameters" }, status: :unprocessable_entity and return
     end
 
     def create_issue_circuit_data
