@@ -134,7 +134,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
       it "returns Circuit data unavailabe for the project!" do
         expect(response).to have_http_status(:not_found)
         expect(response.parsed_body["error"]).to eq("Circuit data unavailabe for the project!")
-      end      
+      end
     end
   end
 end

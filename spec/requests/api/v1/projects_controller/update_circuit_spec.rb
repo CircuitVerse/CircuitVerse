@@ -13,7 +13,7 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         {
           id: project.id,
           name: "Updated Name",
-          image: "",
+          image: ""
         }
       end
 
