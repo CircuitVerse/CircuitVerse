@@ -84,6 +84,4 @@ Rails.application.configure do
     config.hosts << /.*\.gitpod\.io\Z/
     config.hosts << /.*\Z/ # Whitelist everything in Dev
   end
-
-  Paperclip.options[:command_path] = "/usr/local/bin/"
 end

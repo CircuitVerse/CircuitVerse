@@ -18,7 +18,7 @@
             "subscribed": { "type": "boolean" },
             "created_at": { "type": "string" },
             "updated_at": { "type": "string" },
-            "profile_picture": { "type": "string" }
+            "profile_picture": { "type": ["null", "string"] }
           },
           "required": [
             "name",

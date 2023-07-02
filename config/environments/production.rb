@@ -101,7 +101,6 @@ Rails.application.configure do
   end
 
   config.action_controller.forgery_protection_origin_check = false
-  Paperclip.options[:command_path] = "/usr/bin/"
   config.active_job.queue_adapter = :sidekiq
 
   # Do not dump schema after migrations.

@@ -41,6 +41,12 @@ class Api::V1::ProjectSerializer
     project.commontator_thread.is_closed?
   end
 
+  attributes :image_preview do |image_preview|
+    if image_preview.image_preview.attached?
+      Rails.application.routes.url_helpers.rails_blob_url(image_preview.image_preview, only_path: true)
+    end
+  end
+
   belongs_to :author
   has_many :collaborators, serializer: Api::V1::UserSerializer
 end
