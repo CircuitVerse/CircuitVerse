@@ -64,5 +64,21 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         expect(created_project.image_preview.path.split("/")[-1]).to start_with("preview_")
       end
     end
+
+    context "when there is error in saving project" do
+      it "returns status unprocessable_entity" do
+        expect do
+          token = get_auth_token(user)
+          allow_any_instance_of(Project).to receive(:save).and_return(false)
+          post "/api/v1/projects",
+               headers: { Authorization: "Token #{token}" },
+               params: { image: "", name: "Test Name" }, as: :json
+        end.not_to change(Project, :count)
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        parsed_body = JSON.parse(response.body)
+        expect(parsed_body["status"]).to eq("error")
+      end
+    end
   end
 end
