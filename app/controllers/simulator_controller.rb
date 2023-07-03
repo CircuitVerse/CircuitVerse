@@ -58,8 +58,6 @@ class SimulatorController < ApplicationController
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
-
-
     render plain: "success"
   end
 

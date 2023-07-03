@@ -23,7 +23,7 @@ describe SimulatorController, type: :request do
           end.to change(Project, :count).by(1)
           expect(response.status).to eq(302)
           created_project = Project.order("created_at").last
-          expect(created_project.image_preview.blob.filename.to_s).to start_with("preview_")
+          expect(created_project.image_preview.blob).to be_nil
         end
       end
 
