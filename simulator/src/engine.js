@@ -21,23 +21,6 @@ import { hidetabs, visibletabs } from './listeners';
  */
 
 /**
- * Defining the possible states of simulator
- * @type {Object}
- * @category engine
- */
-export const states = {
-    NORMAL: 'normal',
-    ERROR: 'error',
-};
-
-/**
- * @type {string}
- * @category engine
- */
-const defaultState = states.NORMAL;
-export var currentState = defaultState;
-
-/**
  * @type {number} engine
  * @category engine
  */
@@ -434,14 +417,14 @@ export function play(scope = globalScope, resetNodes = false) {
             errorDetectedSet(true);
         }
         // change the state of simulator to normal
-        if (currentState === states.ERROR) {
-            currentState = states.NORMAL;
+        if (globalScope.currentState === globalScope.states.ERROR) {
+            globalScope.currentState = globalScope.states.NORMAL;
             visibletabs();
         }
     } catch (error) {
         // change the state of simulator to error
-        if (currentState === states.NORMAL) {
-            currentState = states.ERROR;
+        if (globalScope.currentState === globalScope.states.NORMAL) {
+            globalScope.currentState = globalScope.states.ERROR;
             hidetabs();
         }
         showError('The simulator is in an error state. Now, you can only delete components or undo until the simulator returns to the normal state');

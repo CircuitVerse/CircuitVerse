@@ -27,7 +27,7 @@ import { showProperties } from './ux';
 import {
     scheduleUpdate, updateSimulationSet,
     updateCanvasSet, updateSubcircuitSet,
-    forceResetNodesSet, changeLightMode, currentState,
+    forceResetNodesSet, changeLightMode,
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName, getProjectName } from './data/save';
@@ -259,6 +259,18 @@ export default class Scope {
             title_y: 13,
             titleEnabled: true,
         };
+
+        // Defining all the possible states of simulator
+        this.states = {
+            NORMAL: 'normal',
+            ERROR: 'error',
+        };
+
+        // Setting default state of simulator
+        this.defaultState = this.states.NORMAL;
+
+        // Setting current state of simulator
+        this.currentState = this.defaultState;
     }
 
     isVisible() {
@@ -373,12 +385,5 @@ export default class Scope {
 
         this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
         this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
-    }
-
-    /**
-     *  Function to check the current state of simulator
-     */
-    currentState() {
-        return currentState;
     }
 }
