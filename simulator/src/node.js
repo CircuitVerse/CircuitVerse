@@ -371,7 +371,7 @@ export default class Node {
                     } else {
                         simulationArea.simulationQueue.add(this.parent);
                     }
-                }
+                }            
             }
 
             return;
@@ -385,8 +385,7 @@ export default class Node {
             const node = this.connections[i];
 
             if (node.value != this.value || node.bitWidth != this.bitWidth) {
-                if (node.type == 1 
-                    && node.value != undefined 
+                if (node.type == 1 && node.value != undefined 
                     && node.parent.objectType != 'TriState' 
                     && node.parent.objectType != 'ControlledInverter'
                     && !(node.subcircuitOverride && node.scope != this.scope) // Subcircuit Input Node Output Override
