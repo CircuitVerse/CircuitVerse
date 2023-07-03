@@ -18,19 +18,23 @@ describe SimulatorHelper do
 
   describe "#return_image_url" do
     context "circuit is empty" do
-      it "returns image url" do
-        expect(return_image_file(data_url("")).path).to end_with("default.png")
+      it "returns nil" do
+        expect(parse_image_data_url(data_url(""))).to be_nil
       end
     end
 
     context "circuit has elements" do
+      let(:data_url) { "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 100)}" }
+      let(:jpeg) { Base64.decode64(data_url[("data:image/jpeg;base64,".length)..]) }
+      let(:image_file) { StringIO.new(jpeg) }
+
       before do
-        allow(File).to receive(:new).and_return(file_like_object)
+        allow(Base64).to receive(:decode64).and_return(jpeg)
+        allow(StringIO).to receive(:new).with(jpeg).and_return(image_file)
       end
 
-      it "creates new preview file" do
-        expect(File).to receive(:new).with(%r{^tmp/preview_.*\.jpeg$}, "wb")
-        return_image_file(data_url(Faker::Alphanumeric.alpha))
+      it "creates a new StringIO object" do
+        expect(parse_image_data_url(data_url)).to eq(image_file)
       end
     end
   end

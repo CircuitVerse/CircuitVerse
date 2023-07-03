@@ -53,14 +53,12 @@ class SimulatorController < ApplicationController
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
     @project.image_preview.purge if @project.image_preview.attached?
-    image_file = return_image_file(params[:image])
-    attach_image_preview(image_file)
+    io_image_file = parse_image_data_url(params[:image])
+    attach_image_preview(io_image_file)
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
-    image_file.close
 
-    File.delete(image_file) if check_to_delete(params[:image])
 
     render plain: "success"
   end
@@ -98,12 +96,10 @@ class SimulatorController < ApplicationController
     @project.name = sanitize(params[:name])
     @project.author = current_user
 
-    image_file = return_image_file(params[:image])
-    attach_image_preview(image_file)
+    params[:image]
+    io_image_file = parse_image_data_url(params[:image])
+    attach_image_preview(io_image_file)
     @project.save!
-    image_file.close
-
-    File.delete(image_file) if check_to_delete(params[:image])
 
     # render plain: simulator_path(@project)
     # render plain: user_project_url(current_user,@project)
@@ -146,9 +142,11 @@ class SimulatorController < ApplicationController
     end
 
     def attach_image_preview(image_file)
+      return unless image_file
+
       @project.image_preview.attach(
-        io: File.open(image_file),
-        filename: "preview_#{@project.updated_at.to_f.to_s.sub('.', '')}",
+        io: image_file,
+        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
     end
