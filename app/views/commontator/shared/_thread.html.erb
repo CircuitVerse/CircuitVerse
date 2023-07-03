@@ -1,4 +1,5 @@
-# Controllers that use this partial must supply the following variables:
+<%
+  # Controllers that use this partial must supply the following variables:
   # thread
   # user
   # page
@@ -12,15 +13,16 @@
       <% if !thread.nil? && thread.can_be_read_by?(user) %>
         <div id="commontator-thread-<%= thread.id %>" class="commontator thread">
           <% if @commontator_thread_show %>
-render partial: "commontator/threads/show", locals: {
+            <%=
+              render partial: 'commontator/threads/show', locals: {
                 thread: thread, user: user, page: page, show_all: show_all
               }
             %>
           <% else %>
             <% subscription = thread.subscription_for(user) %>
             <%= link_to "#{t 'commontator.thread.actions.show'} (#{
-                          "#{subscription.unread_comments(show_all).count}/" if subscription
-                        }#{thread.filtered_comments(show_all).count})",
+                          (subscription.unread_comments(show_all).count.to_s + '/') if subscription
+                        }#{thread.filtered_comments(show_all).count.to_s})",
                         commontator.thread_path(thread),
                         remote: true %>
           <% end %>

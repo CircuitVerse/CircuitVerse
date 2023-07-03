@@ -1,4 +1,5 @@
-# Views that use this partial must provide the following variable:
+<%
+  # Views that use this partial must provide the following variable:
   # comment
   #
   new_record = comment.new_record?
@@ -33,22 +34,20 @@
   <% end %>
 
   <div class="comments-field">
-form.text_area :body, rows: "4", id: if new_record
-  comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
-                              "commontator-comment-#{comment.parent.id}-reply"
-else
-  "commontator-comment-#{comment.id}-edit-body"
-end, class: "form-control"
+    <%=
+      form.text_area :body, rows: '4', id: new_record ?
+        comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
+                              "commontator-comment-#{comment.parent.id}-reply" :
+        "commontator-comment-#{comment.id}-edit-body",class:"form-control"
     %>
   </div>
 
   <div class="submit">
     <%= form.submit t("commontator.comment.actions.#{new_record ? 'create' : 'update'}"), class: "btn primary-button" %>
-unless config.new_comment_style == :t && new_record && comment.parent.nil?
-        form.submit(
-          t('commontator.comment.actions.cancel'), name: 'cancel', class: "btn primary-button"
-        )
-      end
+    <%=
+      form.submit(
+        t('commontator.comment.actions.cancel'), name: 'cancel', class: "btn primary-button"
+      ) unless config.new_comment_style == :t && new_record && comment.parent.nil?
     %>
   </div>
 <% end %>

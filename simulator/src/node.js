@@ -221,7 +221,7 @@ export default class Node {
     }
 
     /**
-    * Funciton for saving a node
+    * Function for saving a node
     */
     saveObject() {
         if (this.type == 2) {
