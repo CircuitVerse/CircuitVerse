@@ -20,7 +20,7 @@ RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
     end
 
     describe "when the assignment is open" do
-      it "if deadline has not passed, dont close" do
+      it "if deadline has not passed, don't close" do
         @assignment.status = "open"
         @assignment.deadline = Time.zone.now + 20
         @assignment.save!
