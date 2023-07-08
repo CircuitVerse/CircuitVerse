@@ -2,25 +2,26 @@
     <Navbar />
     <ContextMenu />
     <Extra />
+    <Helper />
 </template>
 
-<script lang="ts">
-import Navbar from '../components/Navbar/Navbar.vue'
-import Extra from '../components/Extra.vue'
-import ContextMenu from '../components/ContextMenu/ContextMenu.vue'
+<script setup lang="ts">
+import Navbar from '@/Navbar/Navbar.vue'
+import ContextMenu from '@/ContextMenu/ContextMenu.vue'
+import Extra from '@/Extra.vue'
+import { defineComponent, onMounted } from 'vue'
+import { setup as setupSimulator } from '../simulator/src/setup'
+import Helper from '#/components/helpers/Helper.vue'
 
-import { setup } from '../simulator/src/setup'
-
-export default {
-    name: 'Simulator',
+defineComponent({
     components: {
         Navbar,
-        Extra,
         ContextMenu,
+        Extra,
     },
-    mounted() {
-        console.log('setting up')
-        setup()
-    },
-}
+})
+
+onMounted(() => {
+    setupSimulator()
+})
 </script>

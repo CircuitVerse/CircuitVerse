@@ -37,6 +37,7 @@ import OrGate from '#/simulator/src/modules/OrGate'
 import NotGate from '#/simulator/src/modules/NotGate'
 import simulationArea from '#/simulator/src/simulationArea'
 import { findDimensions } from '#/simulator/src/canvasApi'
+import { confirmSingleOption } from '../helpers/confirmComponent/ConfirmComponent.vue'
 
 const SimulatorState = useState()
 onMounted(() => {
@@ -563,12 +564,14 @@ function solveBooleanFunction(inputListNames, booleanExpression) {
             /[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01+'() ]/g
         ) != null
     ) {
-        alert('One of the characters is not allowed.')
+        // alert('One of the characters is not allowed.')
+        confirmSingleOption('One of the characters is not allowed.')
         return
     }
 
     if (inputListNames.length > 8) {
-        alert('You can only have 8 variables at a time.')
+        // alert('You can only have 8 variables at a time.')
+        confirmSingleOption('You can only have 8 variables at a time.')
         return
     }
     var matrix = []

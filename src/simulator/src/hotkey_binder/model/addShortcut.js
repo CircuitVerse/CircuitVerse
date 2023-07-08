@@ -2,7 +2,7 @@
 // import createSaveAsImgPrompt from '../../data/saveImage';
 //Assign the callback func for the keymap here
 import {
-    newCircuitCall,
+    createNewCircuitScopeCall,
     elementDirection,
     insertLabel,
     labelDirection,
@@ -21,7 +21,7 @@ export const addShortcut = (keys, action) => {
     let callback
     switch (action) {
         case 'New Circuit':
-            callback = newCircuitCall
+            callback = createNewCircuitScopeCall // TODO: directly call rather than using dom click
             break
         case 'Save Online':
             callback = save

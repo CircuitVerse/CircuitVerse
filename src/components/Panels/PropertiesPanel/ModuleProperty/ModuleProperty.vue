@@ -29,7 +29,7 @@ import PanelHeader from '#/components/Panels/Shared/PanelHeader.vue'
 import HelpButton from '#/components/Panels/Shared/HelpButton.vue'
 import ElementProperty from '#/components/Panels/PropertiesPanel/ModuleProperty/ElementProperty/ElementProperty.vue'
 import ProjectProperty from '#/components/Panels/PropertiesPanel/ModuleProperty/ProjectProperty/ProjectProperty.vue'
-import SubcircuitPropert from '#/components/Panels/PropertiesPanel/ModuleProperty/SubcircuitProperty/SubcircuitProperty.vue'
+import SubcircuitProperty from '#/components/Panels/PropertiesPanel/ModuleProperty/SubcircuitProperty/SubcircuitProperty.vue'
 import { ref, toRefs } from '@vue/reactivity'
 import { onMounted } from '@vue/runtime-core'
 

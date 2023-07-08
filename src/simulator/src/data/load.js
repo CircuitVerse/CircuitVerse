@@ -19,7 +19,8 @@ import modules from '../modules'
 import { oppositeDirection } from '../canvasApi'
 import plotArea from '../plotArea'
 import { updateTestbenchUI, TestbenchData } from '../testbench'
-
+import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+import { toRefs } from 'vue'
 /**
  * Backward compatibility - needs to be deprecated
  * @param {CircuitElement} obj - the object to be rectified
@@ -203,6 +204,9 @@ export function loadScope(scope, data) {
  */
 export default function load(data) {
     // If project is new and no data is there, then just set project name
+    const simulatorStore = SimulatorStore()
+    const { circuit_list } = toRefs(simulatorStore)
+
     if (!data) {
         setProjectName(__projectName)
         return
@@ -213,7 +217,7 @@ export default function load(data) {
 
     globalScope = undefined
     resetScopeList() // Remove default scope
-    $('.circuits').remove() // Delete default scope
+    // $('.circuits').remove() // Delete default scope
 
     // Load all  according to the dependency order
     for (let i = 0; i < data.scopes.length; i++) {
@@ -264,16 +268,19 @@ export default function load(data) {
 
     // Reorder tabs according to the saved order
     if (data.orderedTabs) {
-        var unorderedTabs = $('.circuits').detach()
-        var plusButton = $('#tabsBar').children().detach()
-        for (const tab of data.orderedTabs) {
-            $('#tabsBar').append(unorderedTabs.filter(`#${tab}`))
-        }
-        $('#tabsBar').append(plusButton)
+        // var unorderedTabs = $('.circuits').detach()
+        // var plusButton = $('#tabsBar').children().detach()
+        // for (const tab of data.orderedTabs) {
+        //     $('#tabsBar').append(unorderedTabs.filter(`#${tab}`))
+        // }
+        // $('#tabsBar').append(plusButton)
+        circuit_list.value.sort((a, b) => {
+            return data.orderedTabs.indexOf(String(a.id)) - data.orderedTabs.indexOf(String(b.id));
+        })
     }
 
     // Switch to last focussedCircuit
-    if (data.focussedCircuit) switchCircuit(data.focussedCircuit)
+    if (data.focussedCircuit) switchCircuit(String(data.focussedCircuit))
 
     // Update the testbench UI
     updateTestbenchUI()

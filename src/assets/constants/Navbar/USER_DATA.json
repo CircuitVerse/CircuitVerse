@@ -3,18 +3,69 @@
         "id": "1",
         "item": "dashboard",
         "itemid": "",
-        "attributes": []
+        "attributes": [
+            {
+                "name": "href",
+                "value": "/users/${:id}"
+            },
+            {
+                "name": "role",
+                "value": "button"
+            },
+            {
+                "name": "aria-haspopup",
+                "value": "true"
+            },
+            {
+                "name": "aria-expanded",
+                "value": "false"
+            }
+        ]
     },
     {
         "id": "2",
         "item": "my_groups",
         "itemid": "",
-        "attributes": []
+        "attributes": [
+            {
+                "name": "href",
+                "value": "/users/${:id}/groups"
+            },
+            {
+                "name": "role",
+                "value": "button"
+            },
+            {
+                "name": "aria-haspopup",
+                "value": "true"
+            },
+            {
+                "name": "aria-expanded",
+                "value": "false"
+            }
+        ]
     },
     {
         "id": "3",
         "item": "notifications",
         "itemid": "",
-        "attributes": []
+        "attributes": [
+            {
+                "name": "href",
+                "value": "/users/${:id}/notifications"
+            },
+            {
+                "name": "role",
+                "value": "button"
+            },
+            {
+                "name": "aria-haspopup",
+                "value": "true"
+            },
+            {
+                "name": "aria-expanded",
+                "value": "false"
+            }
+        ]
     }
 ]

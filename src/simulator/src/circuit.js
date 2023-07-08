@@ -39,7 +39,8 @@ import { verilogModeGet, verilogModeSet } from './Verilog2CV'
 import { updateTestbenchUI } from './testbench'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 import { toRef, toRefs } from 'vue'
-
+import { provideCircuitName } from '#/components/helpers/promptComponent/PromptComponent.vue'
+import { deleteCurrentCircuit } from '#/components/helpers/deleteCircuit/DeleteCircuit.vue'
 
 export const circuitProperty = {
     toggleLayoutMode,
@@ -54,7 +55,10 @@ export const circuitProperty = {
 
 export var scopeList = {}
 export function resetScopeList() {
+    const simulatorStore = SimulatorStore()
+    const { circuit_list } = toRefs(simulatorStore)
     scopeList = {}
+    circuit_list.value = []
 }
 /**
  * Function used to change the current focusedCircuit
@@ -65,6 +69,11 @@ export function resetScopeList() {
  * @category circuit
  */
 export function switchCircuit(id) {
+    // TODO: fix tomorrow
+    const simulatorStore = SimulatorStore()
+    const { circuit_list } = toRefs(simulatorStore)
+    const { activeCircuit } = toRefs(simulatorStore)
+
     if (layoutModeGet()) {
         toggleLayoutMode()
     }
@@ -75,7 +84,10 @@ export function switchCircuit(id) {
     // globalScope.fixLayout();
     scheduleBackup()
     if (id === globalScope.id) return
-    $(`.circuits`).removeClass('current')
+    // $(`.circuits`).removeClass('current')
+    circuit_list.value.forEach((circuit) =>
+        circuit.focussed ? (circuit.focussed = false) : null
+    )
     simulationArea.lastSelected = undefined
     simulationArea.multipleObjectSelections = []
     simulationArea.copyList = []
@@ -84,7 +96,13 @@ export function switchCircuit(id) {
         verilogModeSet(true)
     }
     if (globalScope.isVisible()) {
-        $(`#${id}`).addClass('current')
+        // $(`#${id}`).addClass('current')
+        const index = circuit_list.value.findIndex(
+            (circuit) => circuit.id == id
+        ) // TODO: add strict equality after typescript
+        circuit_list.value[index].focussed = true
+        activeCircuit.value.id = globalScope.id
+        activeCircuit.value.name = globalScope.name
     }
     updateSimulationSet(true)
     updateSubcircuitSet(true)
@@ -107,7 +125,6 @@ export function getDependenciesList(scopeId) {
     let scope = scopeList[scopeId]
     if (scope == undefined) scope = scopeList[globalScope.id]
 
-
     let dependencies = ''
     for (id in scopeList) {
         if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
@@ -121,31 +138,44 @@ export function getDependenciesList(scopeId) {
     return dependencies
 }
 
-/**
- * Deletes the current circuit
- * Ensures that at least one circuit is there
- * Ensures that no circuit depends on the current circuit
- * Switched to a random circuit
- * @category circuit
- */
-export function deleteCurrentCircuit(scopeId = globalScope.id) {
-    let scope = scopeList[scopeId]
-    if (scope == undefined) scope = scopeList[globalScope.id]
+// /**
+//  * Deletes the current circuit
+//  * Ensures that at least one circuit is there
+//  * Ensures that no circuit depends on the current circuit
+//  * Switched to a random circuit
+//  * @category circuit
+//  */
+// export function deleteCurrentCircuit(scopeId = globalScope.id) {
+//     const simulatorStore = SimulatorStore()
+//     const { circuit_list } = toRefs(simulatorStore)
+//     let scope = scopeList[scopeId]
+//     if (scope == undefined) scope = scopeList[globalScope.id]
 
-    if (scope.verilogMetadata.isVerilogCircuit) {
-        scope.initialize()
-        for (var id in scope.verilogMetadata.subCircuitScopeIds)
-            delete scopeList[id]
-    }
-    $(`#${scope.id}`).remove()
-    delete scopeList[scope.id]
-    switchCircuit(Object.keys(scopeList)[0])
-}
-
+//     if (scope.verilogMetadata.isVerilogCircuit) {
+//         scope.initialize()
+//         for (var id in scope.verilogMetadata.subCircuitScopeIds)
+//             delete scopeList[id]
+//     }
+//     // $(`#${scope.id}`).remove()
+//     const index = circuit_list.value.findIndex(
+//         (circuit) => circuit.id === scope.id
+//     )
+//     circuit_list.value.splice(index, 1)
+//     delete scopeList[scope.id]
+//     if (scope.id == globalScope.id) {
+//         switchCircuit(Object.keys(scopeList)[0])
+//     }
+//     showMessage('Circuit was successfully closed')
+// }
 /**
  * Wrapper function around newCircuit to be called from + button on UI
  */
-export function createNewCircuitScope(name = 'Untitled-Circuit') {
+export async function createNewCircuitScope(name) {
+    name = name ?? (await provideCircuitName())
+    if (name instanceof Error) return
+    if (name.trim() == '') {
+        name = 'Untitled-Circuit'
+    }
     simulationArea.lastSelected = undefined
     const scope = newCircuit(name)
     if (!embed) {
@@ -165,13 +195,14 @@ export function createNewCircuitScope(name = 'Untitled-Circuit') {
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     const simulatorStore = SimulatorStore()
     const { circuit_list } = toRefs(simulatorStore)
+    const { activeCircuit } = toRefs(simulatorStore)
     if (layoutModeGet()) {
         toggleLayoutMode()
     }
     if (verilogModeGet()) {
         verilogModeSet(false)
     }
-    name = name || prompt('Enter circuit name:', 'Untitled-Circuit')
+    name = name || 'Untitled-Circuit'
     name = stripTags(name)
     if (!name) return
     const scope = new Scope(name)
@@ -179,6 +210,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     scopeList[scope.id] = scope
     let currCircuit = {
         id: scope.id,
+        name: scope.name, // fix for tab name issue - vue - to be reviewed @devartstar
     }
 
     circuit_list.value.push(currCircuit)
@@ -187,7 +219,12 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         scope.verilogMetadata.isMainCircuit = isVerilogMain
     }
     globalScope = scope
-    $('.circuits').removeClass('current')
+    // $('.circuits').removeClass('current')
+    circuit_list.value.forEach((circuit) => (circuit.focussed = false))
+    circuit_list.value[circuit_list.value.length - 1].focussed = true
+    activeCircuit.value.id = scope.id
+    activeCircuit.value.name = scope.name
+
     if (!isVerilog || isVerilogMain) {
         if (embed) {
             // added calss - embed-tab using vue logic
@@ -229,7 +266,6 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         }
         dots(false)
     }
-
     return scope
 }
 
@@ -240,10 +276,15 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
  * @category circuit
  */
 export function changeCircuitName(name, id = globalScope.id) {
+    const simulatorStore = SimulatorStore()
+    const { circuit_list } = toRefs(simulatorStore)
+    // const { activeCircuit } = toRefs(simulatorStore)
     name = name || 'Untitled'
     name = stripTags(name)
-    $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`)
     scopeList[id].name = name
+    const index = circuit_list.value.findIndex((circuit) => circuit.id === id)
+    circuit_list.value[index].name = name
+    // activeCircuit.value.name = name // add later if necessary at current stage not important handled by projectProperty on switching circuit
 }
 
 /**

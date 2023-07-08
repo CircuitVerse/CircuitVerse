@@ -1937,7 +1937,7 @@ canvas {
 }
 
 /* CustomColorInput Styles Starts Here */
-.customColorInput{
+.customColorInput {
     cursor: pointer;
     width: 30%;
     height: 30px;
@@ -1952,9 +1952,8 @@ canvas {
     border-color: buttonborder;
     border-image: initial;
     padding: 1px 2px;
-    
 }
-.customColorLabel{
+.customColorLabel {
     width: 60%;
     height: 30px;
 }
@@ -2006,6 +2005,39 @@ canvas {
     margin: auto;
 }
 
+.v-input__details {
+    margin-bottom: 0.5rem;
+}
+
+/* 
+.ProseMirror ul {
+    list-style-type: disc;
+}
+
+.ProseMirror ol {
+    list-style-type: decimal;
+} */
+
+.ProseMirror {
+    height: 12rem;
+    overflow-y: auto;
+    padding-left: 0.5em;
+    padding-right: 0.5em;
+    outline: none;
+}
+
+.fullscreen .ProseMirror {
+    height: 75vh;
+}
+
+/* .ProseMirror ul,
+.ProseMirror ol,
+.ProseMirror li {
+    margin: 0;
+    padding: 0;
+    list-style: inherit;
+} */
+
 .messageBoxContent {
     height: auto;
     width: 760px;
@@ -2021,7 +2053,7 @@ canvas {
 
 /* media query for .messageBoxContent */
 @media screen and (max-width: 991px) {
-    .messageBoxContent{
+    .messageBoxContent {
         width: 100%;
     }
 }

@@ -29,6 +29,8 @@ import { setupCodeMirrorEnvironment } from './Verilog2CV'
 import { keyBinder } from './hotkey_binder/keyBinder'
 import '../vendor/jquery-ui.min.css'
 import '../vendor/jquery-ui.min'
+import { confirmSingleOption } from '#/components/helpers/confirmComponent/ConfirmComponent.vue'
+import { getToken } from '#/pages/simulatorHandler.vue'
 
 /**
  * to resize window and setup things it
@@ -89,7 +91,7 @@ function setupEnvironment() {
     const projectId = generateId()
     window.projectId = projectId
     updateSimulationSet(true)
-    const DPR = window.devicePixelRatio || 1
+    // const DPR = window.devicePixelRatio || 1 // unused variable
     newCircuit('Main')
     window.data = {}
     resetup()
@@ -121,11 +123,79 @@ function setupElementLists() {
 }
 
 /**
- * The first function to be called to setup the whole simulator
+ * Fetches project data from API and loads it into the simulator.
+ * @param {number} projectId The ID of the project to fetch data for
+ * @category setup
+ */
+async function fetchProjectData(projectId) {
+    try {
+        const response = await fetch(`/api/v1/simulator/${projectId}/data`, {
+            method: 'GET',
+            headers: {
+                Accept: 'application/json',
+                Authorization: `Token ${getToken('cvt')}`,
+            },
+        })
+        if (response.ok) {
+            const data = await response.json()
+            await load(data)
+            await simulationArea.changeClockTime(data.timePeriod || 500)
+            $('.loadingIcon').fadeOut()
+        } else {
+            throw new Error('API call failed')
+        }
+    } catch (error) {
+        console.error(error)
+        confirmSingleOption('Error: Could not load.')
+        $('.loadingIcon').fadeOut()
+    }
+}
+
+/**
+ * Load project data immediately when available.
+ * Improvement to eliminate delay caused by setTimeout in previous implementation revert if issues arise.
+ * @category setup
+ */
+async function loadProjectData() {
+    window.logixProjectId = window.logixProjectId ?? 0
+    if (window.logixProjectId !== 0) {
+        $('.loadingIcon').fadeIn()
+        await fetchProjectData(window.logixProjectId)
+    } else if (localStorage.getItem('recover_login') && window.isUserLoggedIn) {
+        // Restore unsaved data and save
+        const data = JSON.parse(localStorage.getItem('recover_login'))
+        await load(data)
+        localStorage.removeItem('recover')
+        localStorage.removeItem('recover_login')
+        await save()
+    } else if (localStorage.getItem('recover')) {
+        // Restore unsaved data which didn't get saved due to error
+        showMessage(
+            "We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover"
+        )
+    }
+}
+
+/**
+ * Show tour guide if it hasn't been completed yet.
+ * The tour is shown after a delay of 2 seconds.
+ * @category setup
+ */
+function showTour() {
+    if (!localStorage.tutorials_tour_done && !embed) {
+        setTimeout(() => {
+            showTourGuide()
+        }, 2000)
+    }
+}
+
+/**
+ * The first function to be called to setup the whole simulator.
+ * This function sets up the simulator environment, the UI, the listeners,
+ * loads the project data, and shows the tour guide.
  * @category setup
  */
 export function setup() {
-    // console.log('hello from set up')
     let embed = false
     const startListeners = embed ? startEmbedListeners : startMainListeners
     setupElementLists()
@@ -133,51 +203,7 @@ export function setup() {
     if (!embed) {
         setupUI()
     }
-    // console.log('start_lis')
     startListeners()
-    // if (!embed) {
-    //     keyBinder()
-    // }
-
-    // Load project data after 1 second - needs to be improved, delay needs to be eliminated
-    setTimeout(() => {
-        let __logix_project_id = 0
-        if (__logix_project_id != 0) {
-            $('.loadingIcon').fadeIn()
-            $.ajax({
-                url: `/simulator/get_data/${__logix_project_id}`,
-                type: 'GET',
-                success(response) {
-                    var data = response
-                    if (data) {
-                        load(data)
-                        simulationArea.changeClockTime(data.timePeriod || 500)
-                    }
-                    $('.loadingIcon').fadeOut()
-                },
-                failure() {
-                    alert('Error: could not load ')
-                    $('.loadingIcon').fadeOut()
-                },
-            })
-        } else if (localStorage.getItem('recover_login') && userSignedIn) {
-            // Restore unsaved data and save
-            var data = JSON.parse(localStorage.getItem('recover_login'))
-            load(data)
-            localStorage.removeItem('recover')
-            localStorage.removeItem('recover_login')
-            save()
-        } else if (localStorage.getItem('recover')) {
-            // Restore unsaved data which didn't get saved due to error
-            showMessage(
-                "We have detected that you did not save your last work. Don't worry we have recovered them. Access them using Project->Recover"
-            )
-        }
-    }, 1000)
-
-    if (!localStorage.tutorials_tour_done && !embed) {
-        setTimeout(() => {
-            showTourGuide()
-        }, 2000)
-    }
+    loadProjectData()
+    showTour()
 }

@@ -67,7 +67,7 @@
             {
                 "id": "1",
                 "item": "new_circuit",
-                "itemid": "newCircuit",
+                "itemid": "createNewCircuitScope",
                 "attributes": []
             },
             {

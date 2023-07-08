@@ -49,21 +49,35 @@
 
 <script lang="ts" setup>
 import BooleanTable from '@/DialogBox/BooleanTable.vue'
-import { ref } from '@vue/reactivity'
-import { onUpdated } from '@vue/runtime-core'
+import { defineProps, defineEmits } from 'vue'
 
-const props = defineProps({
+defineEmits(['buttonClick'])
+
+defineProps({
     messageText: { type: String, default: '' },
     isPersistent: { type: Boolean, default: false },
-    buttonList: { type: Array, default: () => [] },
-    inputList: { type: Array, default: () => [] },
+    buttonList: {
+        type: Array<{
+            text: string
+            emitOption: string | boolean
+        }>, default: () => []
+    },
+    inputList: {
+        type: Array<{
+            text: string
+            val: string
+            placeholder: string
+            id: string
+            class: string
+            style: string
+            type: string
+        }>, default: () => []
+    },
     inputClass: { type: String, default: '' },
     circuitItem: { type: Object, default: () => ({}) },
     tableHeader: { type: Array, default: () => [] },
     tableBody: { type: Array, default: () => [] },
 })
-const emit = defineEmits(['buttonClick'])
 </script>
-
 
 <style scoped></style>

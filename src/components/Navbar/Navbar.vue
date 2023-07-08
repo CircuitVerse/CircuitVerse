@@ -10,12 +10,9 @@
                 id="projectName"
                 class="projectName noSelect defaultCursor font-weight-bold"
             >
-                Untitled
+                {{ projectStore.getProjectName }}
             </span>
-            <User
-                :is-user-signed-in="isUserSignedIn"
-                :user-data="userDropdownItems"
-            />
+            <User :user-data="userDropdownItems" />
         </div>
     </nav>
     <QuickButton />
@@ -26,17 +23,18 @@ import QuickButton from '@/Navbar/QuickButton/QuickButton.vue'
 import User from '@/Navbar/User/User.vue'
 import NavbarLinks from '@/Navbar/NavbarLinks/NavbarLinks.vue'
 
-import navbarData from '#/assets/constants/Navbar/NAVBAR_DATA'
-import userDropdownItems from '#/assets/constants/Navbar/USER_DATA'
+import navbarData from '#/assets/constants/Navbar/NAVBAR_DATA.json'
+import userDropdownItems from '#/assets/constants/Navbar/USER_DATA.json'
 
 import Logo from '@/Logo/Logo.vue'
 import Hamburger from '@/Navbar/Hamburger/Hamburger.vue'
 import { ref, onMounted } from 'vue'
+import { useProjectStore } from '#/store/projectStore'
 
 const navbarLogo = ref('logo')
 const minWidthToShowSidebar = ref(992)
-const isUserSignedIn = ref(false)
 const showSidebar = ref(false)
+const projectStore = useProjectStore()
 showSidebar.value =
     window.innerWidth < minWidthToShowSidebar.value ? true : false
 onMounted(() => {

@@ -153,6 +153,7 @@ import {
 } from '#/simulator/src/themer/themer'
 const SimulatorState = useState()
 import { CreateAbstraction } from '#/simulator/src/themer/customThemeAbstraction'
+import { confirmSingleOption } from '#/components/helpers/confirmComponent/ConfirmComponent.vue'
 const themes = ref([''])
 const customThemes = ref([''])
 const customThemesList = ref([''])
@@ -260,7 +261,8 @@ function importCustomTheme() {
             fr.readAsText(File)
             $('#importThemeFile').val('')
         } else {
-            alert('File Not Supported !')
+            // alert('File Not Supported !')
+            confirmSingleOption('File Not Supported !')
         }
     })
 }

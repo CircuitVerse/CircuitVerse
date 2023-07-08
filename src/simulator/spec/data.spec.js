@@ -23,7 +23,7 @@ import createSaveAsImgPrompt from '../src/data/saveImage'
 jest.mock('codemirror')
 
 describe('data dir working', () => {
-    CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: (text) => {} })
+    CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: () => {} })
     window.confirm = jest.fn(() => true)
     setup()
 
@@ -79,7 +79,7 @@ describe('data dir working', () => {
 
     test('save updated circuit_data', () => {
         // save project
-        window.__logix_project_id = decoderCircuitData.projectId
+        window.logixProjectId = decoderCircuitData.projectId
         expect(() => save()).not.toThrow()
     })
 

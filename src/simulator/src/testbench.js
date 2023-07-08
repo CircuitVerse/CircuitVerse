@@ -8,6 +8,7 @@ import { changeClockEnable } from './sequential'
 import { play } from './engine'
 import Scope from './circuit'
 import { showMessage, escapeHtml } from './utils'
+import { confirmOption } from '#/components/helpers/confirmComponent/ConfirmComponent.vue'
 
 /**
  * @typedef {number} RunContext
@@ -429,9 +430,9 @@ const buttonListenerFunctions = {
         showValidationUI(isValid)
     },
 
-    removeTestButton: () => {
+    removeTestButton: async () => {
         if (
-            confirm(
+            await confirmOption(
                 'Are you sure you want to remove the test from the circuit?'
             )
         ) {

@@ -16,12 +16,14 @@ import '../node_modules/bootstrap/scss/bootstrap.scss'
 import './styles/color_theme.scss'
 import './styles/simulator.scss'
 import './styles/tutorials.scss'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 loadFonts()
 
-createApp(App)
-    .use(createPinia())
-    .use(vuetify)
-    .use(router)
-    .use(i18n)
-    .mount('#app')
+const app = createApp(App)
+
+app.use(createPinia())
+app.use(vuetify)
+app.use(router)
+app.use(i18n)
+app.mount('#app')

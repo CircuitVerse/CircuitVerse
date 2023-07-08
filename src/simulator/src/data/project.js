@@ -9,15 +9,16 @@ import { checkIfBackup } from './backupCircuit'
 import { generateSaveData, getProjectName, setProjectName } from './save'
 import load from './load'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+import { confirmOption } from '#/components/helpers/confirmComponent/ConfirmComponent.vue'
 
 /**
  * Helper function to recover unsaved data
  * @category data
  */
-export function recoverProject() {
+export async function recoverProject() {
     if (localStorage.getItem('recover')) {
         var data = JSON.parse(localStorage.getItem('recover'))
-        if (confirm(`Would you like to recover: ${data.name}`)) {
+        if (await confirmOption(`Would you like to recover: ${data.name}`)) {
             load(data)
         }
         localStorage.removeItem('recover')
@@ -89,8 +90,9 @@ export function projectSavedSet(param) {
  * Helper function to store to localStorage -- needs to be deprecated/removed
  * @category data
  */
-export function saveOffline() {
-    const data = generateSaveData()
+export async function saveOffline() {
+    const data = await generateSaveData()
+    if (data instanceof Error) return
     localStorage.setItem(projectId, data)
     const temp = JSON.parse(localStorage.getItem('projectList')) || {}
     temp[projectId] = getProjectName()
@@ -117,7 +119,7 @@ function checkToSave() {
  * Prompt user to save data if unsaved
  * @category data
  */
-window.onbeforeunload = function () {
+window.onbeforeunload = async function () {
     if (projectSaved || embed) return
 
     if (!checkToSave()) return
@@ -125,8 +127,11 @@ window.onbeforeunload = function () {
     alert(
         'You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?'
     )
-    const data = generateSaveData('Untitled')
-    localStorage.setItem('recover', data)
+    // await confirmSingleOption(
+    //     'You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?'
+    // )
+    const data = await generateSaveData('Untitled')
+    localStorage.setItem('recover', await data)
     // eslint-disable-next-line consistent-return
     return 'Are u sure u want to leave? Any unsaved changes may not be recoverable'
 }
@@ -135,11 +140,11 @@ window.onbeforeunload = function () {
  * Function to clear project
  * @category data
  */
-export function clearProject() {
-    if (confirm('Would you like to clear the project?')) {
+export async function clearProject() {
+    if (await confirmOption('Would you like to clear the project?')) {
         globalScope = undefined
         resetScopeList()
-        $('.circuits').remove()
+        // $('.circuits').remove()
         newCircuit('main')
         showMessage('Your project is as good as new!')
     }
@@ -150,14 +155,14 @@ export function clearProject() {
  * @param {boolean} verify - flag to verify a new project
  * @category data
  */
-export function newProject(verify) {
+export async function newProject(verify) {
     if (
         verify ||
         projectSaved ||
         !checkToSave() ||
-        confirm(
+        (await confirmOption(
             'What you like to start a new project? Any unsaved changes will be lost.'
-        )
+        ))
     ) {
         clearProject()
         localStorage.removeItem('recover')
