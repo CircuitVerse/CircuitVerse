@@ -1,140 +1,139 @@
-/* layout */
+// layout
 body {
-    font-family: 'Open Sans', sans-serif;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 768px;
-    padding-left: 10px;
-    padding-right: 10px;
-    text-align: center;
+  font-family: "Open Sans", sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
 }
 
 .mailer-logo-container {
-    text-align: left;
+  text-align: left;
 }
 
 .mailer-body-container {
-    text-align: left;
+  text-align: left;
 }
 
 .mailer-horizontal-rule {
-    max-width: 50%;
-    opacity: 0.4;
+  max-width: 50%;
+  opacity: 0.4;
 }
 
 .mailer-social-link-text {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .mailer-social-container {
-    display: flex;
-    margin: 15px;
-    justify-content: center;
+  display: flex;
+  margin: 15px;
+  justify-content: center;
 }
 
 .mailer-social-link {
-    margin: 10px;
+  margin: 10px;
 }
 
 .mailer-copyright-text {
-    margin: 10px;
-    margin-top: 30px;
-    opacity: 0.5;
+  margin: 10px;
+  margin-top: 30px;
+  opacity: 0.5;
 }
 
 .mailer-text {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .mailer-welcome-text {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .mailer-highlighted-text {
-    font-weight: 600;
+  font-weight: 600;
 }
 
 .mailer-button {
-    background-color: #42b983;
-    border-radius: 4px;
-    color: white;
-    display: inline-block;
-    margin: 5px;
-    padding: 10px 20px;
-    text-decoration: none;
-    width: 220px;
+  background-color: #42b983;
+  border-radius: 4px;
+  color: white;
+  display: inline-block;
+  margin: 5px;
+  padding: 10px 20px;
+  text-decoration: none;
+  width: 220px;
 }
 
 .mailer-showcase-container {
-    display: inline-block;
+  display: inline-block;
 }
 
 .mailer-showcase-card {
-    display: inline-block;
-    padding: 15px 20px;
-    width: 250px;
+  display: inline-block;
+  padding: 15px 20px;
+  width: 250px;
 }
 
 .mailer-showcase-card-image {
-    max-width: 80%;
+  max-width: 80%;
 }
 
 .mailer-showcase-heading {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .mailer-showcase-text {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .mailer-showcase-card-button {
-    width: 120px;
+  width: 120px;
 }
 
-/* breakpoints */
+// breakpoints
 @media (max-width: 674px) {
-    .mailer-logo {
-        width: 180px;
-    }
+  .mailer-logo {
+    width: 180px;
+  }
 
-    .mailer-group-image {
-        width: 75%;
-    }
+  .mailer-group-image {
+    width: 75%;
+  }
 
-    .mailer-assignment-image {
-        width: 50%;
-    }
+  .mailer-assignment-image {
+    width: 50%;
+  }
 
-    .mailer-social-image {
-        width: 30px;
-    }
+  .mailer-social-image {
+    width: 30px;
+  }
 
-    .mailer-welcome-text {
-        max-width: 90%;
-    }
+  .mailer-welcome-text {
+    max-width: 90%;
+  }
 }
 
 @media (min-width: 675px) {
-    .mailer-logo {
-        width: 230px;
-    }
+  .mailer-logo {
+    width: 230px;
+  }
 
-    .mailer-group-image {
-        width: 60%;
-    }
+  .mailer-group-image {
+    width: 60%;
+  }
 
-    .mailer-assignment-image {
-        width: 35%;
-    }
+  .mailer-assignment-image {
+    width: 35%;
+  }
 
-    .mailer-social-image {
-        width: 45px;
-    }
+  .mailer-social-image {
+    width: 45px;
+  }
 
-    .mailer-welcome-text {
-        max-width: 70%;
-    }
+  .mailer-welcome-text {
+    max-width: 70%;
+  }
 }
