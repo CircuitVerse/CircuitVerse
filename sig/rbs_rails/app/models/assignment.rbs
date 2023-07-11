@@ -571,6 +571,6 @@ class Assignment < ::ApplicationRecord
   def graded?: -> bool
   def elements_restricted?: -> bool
   def lti_integrated?: -> bool
-  def project_order: -> Array[untyped] #TODO
+  def project_order: -> Array[untyped] #TODO: app/decorators
   def check_reopening_status: -> void
 end

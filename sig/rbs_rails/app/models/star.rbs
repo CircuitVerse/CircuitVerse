@@ -217,4 +217,9 @@ class Star < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Star, Integer]
   end
+
+  private
+
+  def notify_recipient: -> (untyped | nil) #TODO: app/notifications
+  def cleanup_notification: -> void
 end
