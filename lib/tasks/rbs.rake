@@ -17,6 +17,5 @@ namespace :development do
       # default: Rails.root / 'sig/rbs_rails'
       # task.signature_root_dir = Rails.root / 'my_sig/rbs_rails'
     end
-  rescue LoadError
   end
 end
