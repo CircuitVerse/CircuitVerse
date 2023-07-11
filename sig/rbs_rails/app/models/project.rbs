@@ -544,11 +544,6 @@ class Project < ::ApplicationRecord
   end
   include GeneratedAttributeMethods
 
-  @project: Project
-  @star: Star
-
-  def fork: (User) -> Project
-
   def slugs: () -> FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy
   def slugs=: (FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy | Array[FriendlyId::Slug]) -> (FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy | Array[FriendlyId::Slug])
   def slug_ids: () -> Array[Integer]
@@ -676,4 +671,9 @@ class Project < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Project, Integer]
   end
+
+  @project: Project
+  @star: Star
+
+  def fork: (User) -> Project
 end

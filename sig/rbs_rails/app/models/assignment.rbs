@@ -508,8 +508,6 @@ class Assignment < ::ApplicationRecord
   end
   include GeneratedAttributeMethods
 
-  @assignment: Assignment
-
   def projects: () -> Project::ActiveRecord_Associations_CollectionProxy
   def projects=: (Project::ActiveRecord_Associations_CollectionProxy | Array[Project]) -> (Project::ActiveRecord_Associations_CollectionProxy | Array[Project])
   def project_ids: () -> Array[Integer]
@@ -562,4 +560,6 @@ class Assignment < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Assignment, Integer]
   end
+
+  @assignment: Assignment
 end
