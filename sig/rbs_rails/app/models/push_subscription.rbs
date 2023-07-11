@@ -280,5 +280,6 @@ class PushSubscription < ::ApplicationRecord
     include _ActiveRecord_Relation[PushSubscription, Integer]
   end
 
-  def send_push_notification: -> void
+  def send_push_notification: (String) -> void
+                            | (String, String) -> void
 end
