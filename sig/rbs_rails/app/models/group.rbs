@@ -1,4 +1,6 @@
 class Group < ::ApplicationRecord
+  TOKEN_DURATION: ActiveSupport::Duration
+
   extend _ActiveRecord_Relation_ClassMethods[Group, ActiveRecord_Relation, Integer]
 
   module GeneratedAttributeMethods
@@ -334,4 +336,8 @@ class Group < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Group, Integer]
   end
+
+  def send_creation_mail: -> void
+  def has_valid_token?: -> bool
+  def reset_group_token: -> void
 end

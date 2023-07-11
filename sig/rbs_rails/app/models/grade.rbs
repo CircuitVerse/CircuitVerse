@@ -1,4 +1,7 @@
 class Grade < ::ApplicationRecord
+  LETTER_MATCH: Regexp
+  PERCENT_MATCH: Regexp
+
   extend _ActiveRecord_Relation_ClassMethods[Grade, ActiveRecord_Relation, Integer]
 
   module GeneratedAttributeMethods
@@ -327,4 +330,10 @@ class Grade < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Grade, Integer]
   end
+
+  private
+
+  def assignment_project: -> void
+  def grading_scale: -> void
+  def self.to_csv: (int) -> string
 end
