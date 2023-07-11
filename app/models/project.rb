@@ -30,7 +30,6 @@ class Project < ApplicationRecord
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
-  has_many :noticed_notifications, as: :notifiable
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
