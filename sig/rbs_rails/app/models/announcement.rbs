@@ -273,4 +273,7 @@ class Announcement < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[Announcement, Integer]
   end
+
+  def self.current: -> (Announcement | nil)
+  def exists?: -> bool
 end
