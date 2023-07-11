@@ -171,4 +171,9 @@ class FeaturedCircuit < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[FeaturedCircuit, Integer]
   end
+
+  private
+
+  def project_public: -> void
+  def featured_circuit_email: -> void
 end
