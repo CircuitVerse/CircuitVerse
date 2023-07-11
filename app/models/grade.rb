@@ -37,7 +37,7 @@ class Grade < ApplicationRecord
       attributes = %w[email name grade remarks]
       group_members = User.joins(group_members: :assignments)
                           .where(group_members: { assignments: { id: assignment_id } })
-      submissions = Project.where(assignment_id: assignment_id)&.includes(:grade, :author)
+      submissions = Project.where(assignment_id: assignment_id).includes(:grade, :author)
 
       CSV.generate(headers: true) do |csv|
         csv << attributes
