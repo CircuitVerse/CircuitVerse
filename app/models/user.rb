@@ -68,7 +68,7 @@ class User < ApplicationRecord
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
-      GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
+      GroupMember.find_or_create_by(group_id: invitation.group.id, user_id: id)
       invitation.destroy
     end
   end
@@ -105,7 +105,7 @@ class User < ApplicationRecord
   end
 
   def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
+    devise_mailer.send(notification, self, *Array(args)).deliver_later
   end
 
   private

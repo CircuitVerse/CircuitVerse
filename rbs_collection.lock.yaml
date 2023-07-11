@@ -2,7 +2,7 @@
 sources:
 - type: git
   name: ruby/gem_rbs_collection
-  revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+  revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
   remote: https://github.com/ruby/gem_rbs_collection.git
   repo_dir: gems
 path: ".gem_rbs_collection"
@@ -12,7 +12,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: actionpack
@@ -20,7 +20,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: actionview
@@ -28,7 +28,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activejob
@@ -36,7 +36,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activemodel
@@ -44,7 +44,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activerecord
@@ -52,7 +52,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activestorage
@@ -60,7 +60,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: activesupport
@@ -68,7 +68,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: ast
@@ -76,7 +76,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: aws-sdk-core
@@ -84,7 +84,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: aws-sdk-kms
@@ -92,7 +92,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: aws-sdk-s3
@@ -100,7 +100,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: aws-sdk-sqs
@@ -108,7 +108,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: bcrypt
@@ -116,7 +116,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: cgi
@@ -128,7 +128,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: date
@@ -140,7 +140,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: faraday
@@ -148,7 +148,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: forwardable
@@ -160,7 +160,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: hashie
@@ -168,7 +168,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: i18n
@@ -176,7 +176,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: io-console
@@ -192,7 +192,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: kaminari-core
@@ -200,7 +200,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: listen
@@ -208,7 +208,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: logger
@@ -220,7 +220,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: minitest
@@ -240,7 +240,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: openssl
@@ -252,7 +252,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: pathname
@@ -264,7 +264,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rails-dom-testing
@@ -272,7 +272,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: railties
@@ -280,7 +280,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rainbow
@@ -288,7 +288,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: rbs_rails
@@ -300,15 +300,19 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: securerandom
+  version: '0'
+  source:
+    type: stdlib
 - name: sidekiq
   version: '6.2'
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: simplecov
@@ -316,7 +320,7 @@ gems:
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    revision: d1878f12ad72384ea2c13b6089984db6b0fe0715
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: singleton
