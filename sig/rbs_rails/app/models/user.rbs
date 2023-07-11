@@ -915,6 +915,7 @@ class User < ::ApplicationRecord
   def forum_subscriptions=: (ForumSubscription::ActiveRecord_Associations_CollectionProxy | Array[ForumSubscription]) -> (ForumSubscription::ActiveRecord_Associations_CollectionProxy | Array[ForumSubscription])
   def forum_subscription_ids: () -> Array[Integer]
   def forum_subscription_ids=: (Array[Integer]) -> Array[Integer]
+
   def projects: () -> Project::ActiveRecord_Associations_CollectionProxy
   def projects=: (Project::ActiveRecord_Associations_CollectionProxy | Array[Project]) -> (Project::ActiveRecord_Associations_CollectionProxy | Array[Project])
   def project_ids: () -> Array[Integer]
@@ -1015,4 +1016,15 @@ class User < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[User, Integer]
   end
+
+  def create_members_from_invitations: -> void
+  def self.from_omniauth: (Hash[String, String]) -> User
+  def self.from_oauth: (Hash[String, String], String) -> User
+  def flipper_id: -> String
+  def moderator?: -> bool
+  def send_devise_notification: (String, *untyped) -> void
+
+  private
+  def send_welcome_email: -> void
+  def purge_avatar: -> void
 end
