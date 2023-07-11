@@ -95,7 +95,8 @@ class Project < ApplicationRecord
 
   def fork(user)
     forked_project = dup
-    forked_project.build_project_datum.data = project_datum&.data
+    forked_project.build_project_datum(data: project_datum&.data)
+    # forked_project.build_project_datum.data = project_datum&.data
     forked_project.image_preview = image_preview
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
@@ -129,7 +130,7 @@ class Project < ApplicationRecord
 
   def tag_list=(names)
     self.tags = names.split(",").map(&:strip).uniq.map do |n|
-      Tag.where(name: n.strip).first_or_create!
+      Tag.find_or_create_by(name: n.strip)
     end
   end
 

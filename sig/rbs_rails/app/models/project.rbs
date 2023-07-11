@@ -543,6 +543,12 @@ class Project < ::ApplicationRecord
     def clear_lis_result_sourced_id_change: () -> void
   end
   include GeneratedAttributeMethods
+
+  @project: Project
+  @star: Star
+
+  def fork: (User) -> Project
+
   def slugs: () -> FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy
   def slugs=: (FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy | Array[FriendlyId::Slug]) -> (FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy | Array[FriendlyId::Slug])
   def slug_ids: () -> Array[Integer]
