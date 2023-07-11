@@ -259,4 +259,6 @@ class GroupMember < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[GroupMember, Integer]
   end
+
+  def send_welcome_email: -> void
 end

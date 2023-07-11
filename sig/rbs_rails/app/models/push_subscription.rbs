@@ -279,4 +279,6 @@ class PushSubscription < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[PushSubscription, Integer]
   end
+
+  def send_push_notification: -> void
 end

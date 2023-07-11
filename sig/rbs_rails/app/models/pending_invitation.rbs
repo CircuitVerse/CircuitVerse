@@ -207,4 +207,6 @@ class PendingInvitation < ::ApplicationRecord
     include GeneratedRelationMethods
     include _ActiveRecord_Relation[PendingInvitation, Integer]
   end
+
+  def send_pending_invitation_mail: -> void
 end
