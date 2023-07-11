@@ -1,0 +1,330 @@
+class Grade < ::ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[Grade, ActiveRecord_Relation, Integer]
+
+  module GeneratedAttributeMethods
+    def id: () -> Integer
+
+    def id=: (Integer) -> Integer
+
+    def id?: () -> bool
+
+    def id_changed?: () -> bool
+
+    def id_change: () -> [ Integer?, Integer? ]
+
+    def id_will_change!: () -> void
+
+    def id_was: () -> Integer?
+
+    def id_previously_changed?: () -> bool
+
+    def id_previous_change: () -> Array[Integer?]?
+
+    def id_previously_was: () -> Integer?
+
+    def id_before_last_save: () -> Integer?
+
+    def id_change_to_be_saved: () -> Array[Integer?]?
+
+    def id_in_database: () -> Integer?
+
+    def saved_change_to_id: () -> Array[Integer?]?
+
+    def saved_change_to_id?: () -> bool
+
+    def will_save_change_to_id?: () -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def grade: () -> String?
+
+    def grade=: (String?) -> String?
+
+    def grade?: () -> bool
+
+    def grade_changed?: () -> bool
+
+    def grade_change: () -> [ String?, String? ]
+
+    def grade_will_change!: () -> void
+
+    def grade_was: () -> String?
+
+    def grade_previously_changed?: () -> bool
+
+    def grade_previous_change: () -> Array[String?]?
+
+    def grade_previously_was: () -> String?
+
+    def grade_before_last_save: () -> String?
+
+    def grade_change_to_be_saved: () -> Array[String?]?
+
+    def grade_in_database: () -> String?
+
+    def saved_change_to_grade: () -> Array[String?]?
+
+    def saved_change_to_grade?: () -> bool
+
+    def will_save_change_to_grade?: () -> bool
+
+    def restore_grade!: () -> void
+
+    def clear_grade_change: () -> void
+
+    def created_at: () -> ActiveSupport::TimeWithZone
+
+    def created_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: () -> bool
+
+    def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: () -> bool
+
+    def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: () -> bool
+
+    def will_save_change_to_created_at?: () -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def updated_at: () -> ActiveSupport::TimeWithZone
+
+    def updated_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: () -> bool
+
+    def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: () -> bool
+
+    def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: () -> bool
+
+    def will_save_change_to_updated_at?: () -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def project_id: () -> Integer?
+
+    def project_id=: (Integer?) -> Integer?
+
+    def project_id?: () -> bool
+
+    def project_id_changed?: () -> bool
+
+    def project_id_change: () -> [ Integer?, Integer? ]
+
+    def project_id_will_change!: () -> void
+
+    def project_id_was: () -> Integer?
+
+    def project_id_previously_changed?: () -> bool
+
+    def project_id_previous_change: () -> Array[Integer?]?
+
+    def project_id_previously_was: () -> Integer?
+
+    def project_id_before_last_save: () -> Integer?
+
+    def project_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def project_id_in_database: () -> Integer?
+
+    def saved_change_to_project_id: () -> Array[Integer?]?
+
+    def saved_change_to_project_id?: () -> bool
+
+    def will_save_change_to_project_id?: () -> bool
+
+    def restore_project_id!: () -> void
+
+    def clear_project_id_change: () -> void
+
+    def user_id: () -> Integer?
+
+    def user_id=: (Integer?) -> Integer?
+
+    def user_id?: () -> bool
+
+    def user_id_changed?: () -> bool
+
+    def user_id_change: () -> [ Integer?, Integer? ]
+
+    def user_id_will_change!: () -> void
+
+    def user_id_was: () -> Integer?
+
+    def user_id_previously_changed?: () -> bool
+
+    def user_id_previous_change: () -> Array[Integer?]?
+
+    def user_id_previously_was: () -> Integer?
+
+    def user_id_before_last_save: () -> Integer?
+
+    def user_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def user_id_in_database: () -> Integer?
+
+    def saved_change_to_user_id: () -> Array[Integer?]?
+
+    def saved_change_to_user_id?: () -> bool
+
+    def will_save_change_to_user_id?: () -> bool
+
+    def restore_user_id!: () -> void
+
+    def clear_user_id_change: () -> void
+
+    def assignment_id: () -> Integer?
+
+    def assignment_id=: (Integer?) -> Integer?
+
+    def assignment_id?: () -> bool
+
+    def assignment_id_changed?: () -> bool
+
+    def assignment_id_change: () -> [ Integer?, Integer? ]
+
+    def assignment_id_will_change!: () -> void
+
+    def assignment_id_was: () -> Integer?
+
+    def assignment_id_previously_changed?: () -> bool
+
+    def assignment_id_previous_change: () -> Array[Integer?]?
+
+    def assignment_id_previously_was: () -> Integer?
+
+    def assignment_id_before_last_save: () -> Integer?
+
+    def assignment_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def assignment_id_in_database: () -> Integer?
+
+    def saved_change_to_assignment_id: () -> Array[Integer?]?
+
+    def saved_change_to_assignment_id?: () -> bool
+
+    def will_save_change_to_assignment_id?: () -> bool
+
+    def restore_assignment_id!: () -> void
+
+    def clear_assignment_id_change: () -> void
+
+    def remarks: () -> String?
+
+    def remarks=: (String?) -> String?
+
+    def remarks?: () -> bool
+
+    def remarks_changed?: () -> bool
+
+    def remarks_change: () -> [ String?, String? ]
+
+    def remarks_will_change!: () -> void
+
+    def remarks_was: () -> String?
+
+    def remarks_previously_changed?: () -> bool
+
+    def remarks_previous_change: () -> Array[String?]?
+
+    def remarks_previously_was: () -> String?
+
+    def remarks_before_last_save: () -> String?
+
+    def remarks_change_to_be_saved: () -> Array[String?]?
+
+    def remarks_in_database: () -> String?
+
+    def saved_change_to_remarks: () -> Array[String?]?
+
+    def saved_change_to_remarks?: () -> bool
+
+    def will_save_change_to_remarks?: () -> bool
+
+    def restore_remarks!: () -> void
+
+    def clear_remarks_change: () -> void
+  end
+  include GeneratedAttributeMethods
+
+  def project: () -> Project
+  def project=: (Project?) -> Project?
+  def reload_project: () -> Project?
+  def build_project: (untyped) -> Project
+  def create_project: (untyped) -> Project
+  def create_project!: (untyped) -> Project
+  def grader: () -> User
+  def grader=: (User?) -> User?
+  def reload_grader: () -> User?
+  def build_grader: (untyped) -> User
+  def create_grader: (untyped) -> User
+  def create_grader!: (untyped) -> User
+  def assignment: () -> Assignment
+  def assignment=: (Assignment?) -> Assignment?
+  def reload_assignment: () -> Assignment?
+  def build_assignment: (untyped) -> Assignment
+  def create_assignment: (untyped) -> Assignment
+  def create_assignment!: (untyped) -> Assignment
+  module GeneratedAssociationMethods
+  end
+  include GeneratedAssociationMethods
+
+  module GeneratedRelationMethods
+  end
+
+  class ActiveRecord_Relation < ::ActiveRecord::Relation
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Grade, Integer]
+    include Enumerable[Grade]
+  end
+
+  class ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Grade, Integer]
+  end
+end

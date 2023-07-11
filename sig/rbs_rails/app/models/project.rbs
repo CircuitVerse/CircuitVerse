@@ -1,0 +1,673 @@
+class Project < ::ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[Project, ActiveRecord_Relation, Integer]
+
+  module GeneratedAttributeMethods
+    def id: () -> Integer
+
+    def id=: (Integer) -> Integer
+
+    def id?: () -> bool
+
+    def id_changed?: () -> bool
+
+    def id_change: () -> [ Integer?, Integer? ]
+
+    def id_will_change!: () -> void
+
+    def id_was: () -> Integer?
+
+    def id_previously_changed?: () -> bool
+
+    def id_previous_change: () -> Array[Integer?]?
+
+    def id_previously_was: () -> Integer?
+
+    def id_before_last_save: () -> Integer?
+
+    def id_change_to_be_saved: () -> Array[Integer?]?
+
+    def id_in_database: () -> Integer?
+
+    def saved_change_to_id: () -> Array[Integer?]?
+
+    def saved_change_to_id?: () -> bool
+
+    def will_save_change_to_id?: () -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def name: () -> String?
+
+    def name=: (String?) -> String?
+
+    def name?: () -> bool
+
+    def name_changed?: () -> bool
+
+    def name_change: () -> [ String?, String? ]
+
+    def name_will_change!: () -> void
+
+    def name_was: () -> String?
+
+    def name_previously_changed?: () -> bool
+
+    def name_previous_change: () -> Array[String?]?
+
+    def name_previously_was: () -> String?
+
+    def name_before_last_save: () -> String?
+
+    def name_change_to_be_saved: () -> Array[String?]?
+
+    def name_in_database: () -> String?
+
+    def saved_change_to_name: () -> Array[String?]?
+
+    def saved_change_to_name?: () -> bool
+
+    def will_save_change_to_name?: () -> bool
+
+    def restore_name!: () -> void
+
+    def clear_name_change: () -> void
+
+    def author_id: () -> Integer?
+
+    def author_id=: (Integer?) -> Integer?
+
+    def author_id?: () -> bool
+
+    def author_id_changed?: () -> bool
+
+    def author_id_change: () -> [ Integer?, Integer? ]
+
+    def author_id_will_change!: () -> void
+
+    def author_id_was: () -> Integer?
+
+    def author_id_previously_changed?: () -> bool
+
+    def author_id_previous_change: () -> Array[Integer?]?
+
+    def author_id_previously_was: () -> Integer?
+
+    def author_id_before_last_save: () -> Integer?
+
+    def author_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def author_id_in_database: () -> Integer?
+
+    def saved_change_to_author_id: () -> Array[Integer?]?
+
+    def saved_change_to_author_id?: () -> bool
+
+    def will_save_change_to_author_id?: () -> bool
+
+    def restore_author_id!: () -> void
+
+    def clear_author_id_change: () -> void
+
+    def forked_project_id: () -> Integer?
+
+    def forked_project_id=: (Integer?) -> Integer?
+
+    def forked_project_id?: () -> bool
+
+    def forked_project_id_changed?: () -> bool
+
+    def forked_project_id_change: () -> [ Integer?, Integer? ]
+
+    def forked_project_id_will_change!: () -> void
+
+    def forked_project_id_was: () -> Integer?
+
+    def forked_project_id_previously_changed?: () -> bool
+
+    def forked_project_id_previous_change: () -> Array[Integer?]?
+
+    def forked_project_id_previously_was: () -> Integer?
+
+    def forked_project_id_before_last_save: () -> Integer?
+
+    def forked_project_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def forked_project_id_in_database: () -> Integer?
+
+    def saved_change_to_forked_project_id: () -> Array[Integer?]?
+
+    def saved_change_to_forked_project_id?: () -> bool
+
+    def will_save_change_to_forked_project_id?: () -> bool
+
+    def restore_forked_project_id!: () -> void
+
+    def clear_forked_project_id_change: () -> void
+
+    def project_access_type: () -> String?
+
+    def project_access_type=: (String?) -> String?
+
+    def project_access_type?: () -> bool
+
+    def project_access_type_changed?: () -> bool
+
+    def project_access_type_change: () -> [ String?, String? ]
+
+    def project_access_type_will_change!: () -> void
+
+    def project_access_type_was: () -> String?
+
+    def project_access_type_previously_changed?: () -> bool
+
+    def project_access_type_previous_change: () -> Array[String?]?
+
+    def project_access_type_previously_was: () -> String?
+
+    def project_access_type_before_last_save: () -> String?
+
+    def project_access_type_change_to_be_saved: () -> Array[String?]?
+
+    def project_access_type_in_database: () -> String?
+
+    def saved_change_to_project_access_type: () -> Array[String?]?
+
+    def saved_change_to_project_access_type?: () -> bool
+
+    def will_save_change_to_project_access_type?: () -> bool
+
+    def restore_project_access_type!: () -> void
+
+    def clear_project_access_type_change: () -> void
+
+    def created_at: () -> ActiveSupport::TimeWithZone
+
+    def created_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: () -> bool
+
+    def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: () -> bool
+
+    def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: () -> bool
+
+    def will_save_change_to_created_at?: () -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def updated_at: () -> ActiveSupport::TimeWithZone
+
+    def updated_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: () -> bool
+
+    def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: () -> bool
+
+    def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: () -> bool
+
+    def will_save_change_to_updated_at?: () -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def assignment_id: () -> Integer?
+
+    def assignment_id=: (Integer?) -> Integer?
+
+    def assignment_id?: () -> bool
+
+    def assignment_id_changed?: () -> bool
+
+    def assignment_id_change: () -> [ Integer?, Integer? ]
+
+    def assignment_id_will_change!: () -> void
+
+    def assignment_id_was: () -> Integer?
+
+    def assignment_id_previously_changed?: () -> bool
+
+    def assignment_id_previous_change: () -> Array[Integer?]?
+
+    def assignment_id_previously_was: () -> Integer?
+
+    def assignment_id_before_last_save: () -> Integer?
+
+    def assignment_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def assignment_id_in_database: () -> Integer?
+
+    def saved_change_to_assignment_id: () -> Array[Integer?]?
+
+    def saved_change_to_assignment_id?: () -> bool
+
+    def will_save_change_to_assignment_id?: () -> bool
+
+    def restore_assignment_id!: () -> void
+
+    def clear_assignment_id_change: () -> void
+
+    def project_submission: () -> bool?
+
+    def project_submission=: (bool?) -> bool?
+
+    def project_submission?: () -> bool
+
+    def project_submission_changed?: () -> bool
+
+    def project_submission_change: () -> [ bool?, bool? ]
+
+    def project_submission_will_change!: () -> void
+
+    def project_submission_was: () -> bool?
+
+    def project_submission_previously_changed?: () -> bool
+
+    def project_submission_previous_change: () -> Array[bool?]?
+
+    def project_submission_previously_was: () -> bool?
+
+    def project_submission_before_last_save: () -> bool?
+
+    def project_submission_change_to_be_saved: () -> Array[bool?]?
+
+    def project_submission_in_database: () -> bool?
+
+    def saved_change_to_project_submission: () -> Array[bool?]?
+
+    def saved_change_to_project_submission?: () -> bool
+
+    def will_save_change_to_project_submission?: () -> bool
+
+    def restore_project_submission!: () -> void
+
+    def clear_project_submission_change: () -> void
+
+    def image_preview: () -> String?
+
+    def image_preview=: (String?) -> String?
+
+    def image_preview?: () -> bool
+
+    def image_preview_changed?: () -> bool
+
+    def image_preview_change: () -> [ String?, String? ]
+
+    def image_preview_will_change!: () -> void
+
+    def image_preview_was: () -> String?
+
+    def image_preview_previously_changed?: () -> bool
+
+    def image_preview_previous_change: () -> Array[String?]?
+
+    def image_preview_previously_was: () -> String?
+
+    def image_preview_before_last_save: () -> String?
+
+    def image_preview_change_to_be_saved: () -> Array[String?]?
+
+    def image_preview_in_database: () -> String?
+
+    def saved_change_to_image_preview: () -> Array[String?]?
+
+    def saved_change_to_image_preview?: () -> bool
+
+    def will_save_change_to_image_preview?: () -> bool
+
+    def restore_image_preview!: () -> void
+
+    def clear_image_preview_change: () -> void
+
+    def description: () -> String?
+
+    def description=: (String?) -> String?
+
+    def description?: () -> bool
+
+    def description_changed?: () -> bool
+
+    def description_change: () -> [ String?, String? ]
+
+    def description_will_change!: () -> void
+
+    def description_was: () -> String?
+
+    def description_previously_changed?: () -> bool
+
+    def description_previous_change: () -> Array[String?]?
+
+    def description_previously_was: () -> String?
+
+    def description_before_last_save: () -> String?
+
+    def description_change_to_be_saved: () -> Array[String?]?
+
+    def description_in_database: () -> String?
+
+    def saved_change_to_description: () -> Array[String?]?
+
+    def saved_change_to_description?: () -> bool
+
+    def will_save_change_to_description?: () -> bool
+
+    def restore_description!: () -> void
+
+    def clear_description_change: () -> void
+
+    def view: () -> Integer?
+
+    def view=: (Integer?) -> Integer?
+
+    def view?: () -> bool
+
+    def view_changed?: () -> bool
+
+    def view_change: () -> [ Integer?, Integer? ]
+
+    def view_will_change!: () -> void
+
+    def view_was: () -> Integer?
+
+    def view_previously_changed?: () -> bool
+
+    def view_previous_change: () -> Array[Integer?]?
+
+    def view_previously_was: () -> Integer?
+
+    def view_before_last_save: () -> Integer?
+
+    def view_change_to_be_saved: () -> Array[Integer?]?
+
+    def view_in_database: () -> Integer?
+
+    def saved_change_to_view: () -> Array[Integer?]?
+
+    def saved_change_to_view?: () -> bool
+
+    def will_save_change_to_view?: () -> bool
+
+    def restore_view!: () -> void
+
+    def clear_view_change: () -> void
+
+    def slug: () -> String?
+
+    def slug=: (String?) -> String?
+
+    def slug?: () -> bool
+
+    def slug_changed?: () -> bool
+
+    def slug_change: () -> [ String?, String? ]
+
+    def slug_will_change!: () -> void
+
+    def slug_was: () -> String?
+
+    def slug_previously_changed?: () -> bool
+
+    def slug_previous_change: () -> Array[String?]?
+
+    def slug_previously_was: () -> String?
+
+    def slug_before_last_save: () -> String?
+
+    def slug_change_to_be_saved: () -> Array[String?]?
+
+    def slug_in_database: () -> String?
+
+    def saved_change_to_slug: () -> Array[String?]?
+
+    def saved_change_to_slug?: () -> bool
+
+    def will_save_change_to_slug?: () -> bool
+
+    def restore_slug!: () -> void
+
+    def clear_slug_change: () -> void
+
+    def searchable: () -> untyped?
+
+    def searchable=: (untyped?) -> untyped?
+
+    def searchable?: () -> bool
+
+    def searchable_changed?: () -> bool
+
+    def searchable_change: () -> [ untyped?, untyped? ]
+
+    def searchable_will_change!: () -> void
+
+    def searchable_was: () -> untyped?
+
+    def searchable_previously_changed?: () -> bool
+
+    def searchable_previous_change: () -> Array[untyped?]?
+
+    def searchable_previously_was: () -> untyped?
+
+    def searchable_before_last_save: () -> untyped?
+
+    def searchable_change_to_be_saved: () -> Array[untyped?]?
+
+    def searchable_in_database: () -> untyped?
+
+    def saved_change_to_searchable: () -> Array[untyped?]?
+
+    def saved_change_to_searchable?: () -> bool
+
+    def will_save_change_to_searchable?: () -> bool
+
+    def restore_searchable!: () -> void
+
+    def clear_searchable_change: () -> void
+
+    def lis_result_sourced_id: () -> String?
+
+    def lis_result_sourced_id=: (String?) -> String?
+
+    def lis_result_sourced_id?: () -> bool
+
+    def lis_result_sourced_id_changed?: () -> bool
+
+    def lis_result_sourced_id_change: () -> [ String?, String? ]
+
+    def lis_result_sourced_id_will_change!: () -> void
+
+    def lis_result_sourced_id_was: () -> String?
+
+    def lis_result_sourced_id_previously_changed?: () -> bool
+
+    def lis_result_sourced_id_previous_change: () -> Array[String?]?
+
+    def lis_result_sourced_id_previously_was: () -> String?
+
+    def lis_result_sourced_id_before_last_save: () -> String?
+
+    def lis_result_sourced_id_change_to_be_saved: () -> Array[String?]?
+
+    def lis_result_sourced_id_in_database: () -> String?
+
+    def saved_change_to_lis_result_sourced_id: () -> Array[String?]?
+
+    def saved_change_to_lis_result_sourced_id?: () -> bool
+
+    def will_save_change_to_lis_result_sourced_id?: () -> bool
+
+    def restore_lis_result_sourced_id!: () -> void
+
+    def clear_lis_result_sourced_id_change: () -> void
+  end
+  include GeneratedAttributeMethods
+  def slugs: () -> FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy
+  def slugs=: (FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy | Array[FriendlyId::Slug]) -> (FriendlyId::Slug::ActiveRecord_Associations_CollectionProxy | Array[FriendlyId::Slug])
+  def slug_ids: () -> Array[Integer]
+  def slug_ids=: (Array[Integer]) -> Array[Integer]
+  def forks: () -> Project::ActiveRecord_Associations_CollectionProxy
+  def forks=: (Project::ActiveRecord_Associations_CollectionProxy | Array[Project]) -> (Project::ActiveRecord_Associations_CollectionProxy | Array[Project])
+  def fork_ids: () -> Array[Integer]
+  def fork_ids=: (Array[Integer]) -> Array[Integer]
+  def stars: () -> Star::ActiveRecord_Associations_CollectionProxy
+  def stars=: (Star::ActiveRecord_Associations_CollectionProxy | Array[Star]) -> (Star::ActiveRecord_Associations_CollectionProxy | Array[Star])
+  def star_ids: () -> Array[Integer]
+  def star_ids=: (Array[Integer]) -> Array[Integer]
+  def user_ratings: () -> User::ActiveRecord_Associations_CollectionProxy
+  def user_ratings=: (User::ActiveRecord_Associations_CollectionProxy | Array[User]) -> (User::ActiveRecord_Associations_CollectionProxy | Array[User])
+  def user_rating_ids: () -> Array[Integer]
+  def user_rating_ids=: (Array[Integer]) -> Array[Integer]
+  def collaborations: () -> Collaboration::ActiveRecord_Associations_CollectionProxy
+  def collaborations=: (Collaboration::ActiveRecord_Associations_CollectionProxy | Array[Collaboration]) -> (Collaboration::ActiveRecord_Associations_CollectionProxy | Array[Collaboration])
+  def collaboration_ids: () -> Array[Integer]
+  def collaboration_ids=: (Array[Integer]) -> Array[Integer]
+  def collaborators: () -> User::ActiveRecord_Associations_CollectionProxy
+  def collaborators=: (User::ActiveRecord_Associations_CollectionProxy | Array[User]) -> (User::ActiveRecord_Associations_CollectionProxy | Array[User])
+  def collaborator_ids: () -> Array[Integer]
+  def collaborator_ids=: (Array[Integer]) -> Array[Integer]
+  def taggings: () -> Tagging::ActiveRecord_Associations_CollectionProxy
+  def taggings=: (Tagging::ActiveRecord_Associations_CollectionProxy | Array[Tagging]) -> (Tagging::ActiveRecord_Associations_CollectionProxy | Array[Tagging])
+  def tagging_ids: () -> Array[Integer]
+  def tagging_ids=: (Array[Integer]) -> Array[Integer]
+  def tags: () -> Tag::ActiveRecord_Associations_CollectionProxy
+  def tags=: (Tag::ActiveRecord_Associations_CollectionProxy | Array[Tag]) -> (Tag::ActiveRecord_Associations_CollectionProxy | Array[Tag])
+  def tag_ids: () -> Array[Integer]
+  def tag_ids=: (Array[Integer]) -> Array[Integer]
+  def noticed_notifications: () -> NoticedNotification::ActiveRecord_Associations_CollectionProxy
+  def noticed_notifications=: (NoticedNotification::ActiveRecord_Associations_CollectionProxy | Array[NoticedNotification]) -> (NoticedNotification::ActiveRecord_Associations_CollectionProxy | Array[NoticedNotification])
+  def noticed_notification_ids: () -> Array[Integer]
+  def noticed_notification_ids=: (Array[Integer]) -> Array[Integer]
+  def circuit_preview_attachment: () -> ActiveStorage::Attachment?
+  def circuit_preview_attachment=: (ActiveStorage::Attachment?) -> ActiveStorage::Attachment?
+  def build_circuit_preview_attachment: (untyped) -> ActiveStorage::Attachment
+  def create_circuit_preview_attachment: (untyped) -> ActiveStorage::Attachment
+  def create_circuit_preview_attachment!: (untyped) -> ActiveStorage::Attachment
+  def reload_circuit_preview_attachment: () -> ActiveStorage::Attachment?
+  def circuit_preview_blob: () -> ActiveStorage::Blob?
+  def circuit_preview_blob=: (ActiveStorage::Blob?) -> ActiveStorage::Blob?
+  def build_circuit_preview_blob: (untyped) -> ActiveStorage::Blob
+  def create_circuit_preview_blob: (untyped) -> ActiveStorage::Blob
+  def create_circuit_preview_blob!: (untyped) -> ActiveStorage::Blob
+  def reload_circuit_preview_blob: () -> ActiveStorage::Blob?
+  def featured_circuit: () -> FeaturedCircuit?
+  def featured_circuit=: (FeaturedCircuit?) -> FeaturedCircuit?
+  def build_featured_circuit: (untyped) -> FeaturedCircuit
+  def create_featured_circuit: (untyped) -> FeaturedCircuit
+  def create_featured_circuit!: (untyped) -> FeaturedCircuit
+  def reload_featured_circuit: () -> FeaturedCircuit?
+  def grade: () -> Grade?
+  def grade=: (Grade?) -> Grade?
+  def build_grade: (untyped) -> Grade
+  def create_grade: (untyped) -> Grade
+  def create_grade!: (untyped) -> Grade
+  def reload_grade: () -> Grade?
+  def project_datum: () -> ProjectDatum?
+  def project_datum=: (ProjectDatum?) -> ProjectDatum?
+  def build_project_datum: (untyped) -> ProjectDatum
+  def create_project_datum: (untyped) -> ProjectDatum
+  def create_project_datum!: (untyped) -> ProjectDatum
+  def reload_project_datum: () -> ProjectDatum?
+  def commontator_thread: () -> Commontator::Thread?
+  def commontator_thread=: (Commontator::Thread?) -> Commontator::Thread?
+  def build_commontator_thread: (untyped) -> Commontator::Thread
+  def create_commontator_thread: (untyped) -> Commontator::Thread
+  def create_commontator_thread!: (untyped) -> Commontator::Thread
+  def reload_commontator_thread: () -> Commontator::Thread?
+  def author: () -> User
+  def author=: (User?) -> User?
+  def reload_author: () -> User?
+  def build_author: (untyped) -> User
+  def create_author: (untyped) -> User
+  def create_author!: (untyped) -> User
+  def forked_project: () -> Project?
+  def forked_project=: (Project?) -> Project?
+  def reload_forked_project: () -> Project?
+  def build_forked_project: (untyped) -> Project
+  def create_forked_project: (untyped) -> Project
+  def create_forked_project!: (untyped) -> Project
+  def assignment: () -> Assignment?
+  def assignment=: (Assignment?) -> Assignment?
+  def reload_assignment: () -> Assignment?
+  def build_assignment: (untyped) -> Assignment
+  def create_assignment: (untyped) -> Assignment
+  def create_assignment!: (untyped) -> Assignment
+  module GeneratedAssociationMethods
+    def circuit_preview: () -> ActiveStorage::Attached::One
+
+    def circuit_preview=: (ActionDispatch::Http::UploadedFile) -> ActionDispatch::Http::UploadedFile
+                        | (Rack::Test::UploadedFile) -> Rack::Test::UploadedFile
+                        | (ActiveStorage::Blob) -> ActiveStorage::Blob
+                        | (String) -> String
+                        | ({ io: IO, filename: String, content_type: String? }) -> { io: IO, filename: String, content_type: String? }
+                        | (nil) -> nil
+  end
+  include GeneratedAssociationMethods
+
+  def self.public_and_not_forked: () -> ActiveRecord_Relation
+  def self.open: () -> ActiveRecord_Relation
+  def self.by: (untyped author_id) -> ActiveRecord_Relation
+  def self.with_attached_circuit_preview: () -> ActiveRecord_Relation
+
+  module GeneratedRelationMethods
+    def public_and_not_forked: () -> ActiveRecord_Relation
+
+    def open: () -> ActiveRecord_Relation
+
+    def by: (untyped author_id) -> ActiveRecord_Relation
+
+    def with_attached_circuit_preview: () -> ActiveRecord_Relation
+  end
+
+  class ActiveRecord_Relation < ::ActiveRecord::Relation
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Project, Integer]
+    include Enumerable[Project]
+  end
+
+  class ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Project, Integer]
+  end
+end

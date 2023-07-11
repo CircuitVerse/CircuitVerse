@@ -1,0 +1,520 @@
+module Commontator
+  class Comment < ::ActiveRecord::Base
+    extend _ActiveRecord_Relation_ClassMethods[Commontator::Comment, ActiveRecord_Relation, Integer]
+
+    module GeneratedAttributeMethods
+      def id: () -> Integer
+
+      def id=: (Integer) -> Integer
+
+      def id?: () -> bool
+
+      def id_changed?: () -> bool
+
+      def id_change: () -> [ Integer?, Integer? ]
+
+      def id_will_change!: () -> void
+
+      def id_was: () -> Integer?
+
+      def id_previously_changed?: () -> bool
+
+      def id_previous_change: () -> Array[Integer?]?
+
+      def id_previously_was: () -> Integer?
+
+      def id_before_last_save: () -> Integer?
+
+      def id_change_to_be_saved: () -> Array[Integer?]?
+
+      def id_in_database: () -> Integer?
+
+      def saved_change_to_id: () -> Array[Integer?]?
+
+      def saved_change_to_id?: () -> bool
+
+      def will_save_change_to_id?: () -> bool
+
+      def restore_id!: () -> void
+
+      def clear_id_change: () -> void
+
+      def creator_type: () -> String?
+
+      def creator_type=: (String?) -> String?
+
+      def creator_type?: () -> bool
+
+      def creator_type_changed?: () -> bool
+
+      def creator_type_change: () -> [ String?, String? ]
+
+      def creator_type_will_change!: () -> void
+
+      def creator_type_was: () -> String?
+
+      def creator_type_previously_changed?: () -> bool
+
+      def creator_type_previous_change: () -> Array[String?]?
+
+      def creator_type_previously_was: () -> String?
+
+      def creator_type_before_last_save: () -> String?
+
+      def creator_type_change_to_be_saved: () -> Array[String?]?
+
+      def creator_type_in_database: () -> String?
+
+      def saved_change_to_creator_type: () -> Array[String?]?
+
+      def saved_change_to_creator_type?: () -> bool
+
+      def will_save_change_to_creator_type?: () -> bool
+
+      def restore_creator_type!: () -> void
+
+      def clear_creator_type_change: () -> void
+
+      def creator_id: () -> Integer?
+
+      def creator_id=: (Integer?) -> Integer?
+
+      def creator_id?: () -> bool
+
+      def creator_id_changed?: () -> bool
+
+      def creator_id_change: () -> [ Integer?, Integer? ]
+
+      def creator_id_will_change!: () -> void
+
+      def creator_id_was: () -> Integer?
+
+      def creator_id_previously_changed?: () -> bool
+
+      def creator_id_previous_change: () -> Array[Integer?]?
+
+      def creator_id_previously_was: () -> Integer?
+
+      def creator_id_before_last_save: () -> Integer?
+
+      def creator_id_change_to_be_saved: () -> Array[Integer?]?
+
+      def creator_id_in_database: () -> Integer?
+
+      def saved_change_to_creator_id: () -> Array[Integer?]?
+
+      def saved_change_to_creator_id?: () -> bool
+
+      def will_save_change_to_creator_id?: () -> bool
+
+      def restore_creator_id!: () -> void
+
+      def clear_creator_id_change: () -> void
+
+      def editor_type: () -> String?
+
+      def editor_type=: (String?) -> String?
+
+      def editor_type?: () -> bool
+
+      def editor_type_changed?: () -> bool
+
+      def editor_type_change: () -> [ String?, String? ]
+
+      def editor_type_will_change!: () -> void
+
+      def editor_type_was: () -> String?
+
+      def editor_type_previously_changed?: () -> bool
+
+      def editor_type_previous_change: () -> Array[String?]?
+
+      def editor_type_previously_was: () -> String?
+
+      def editor_type_before_last_save: () -> String?
+
+      def editor_type_change_to_be_saved: () -> Array[String?]?
+
+      def editor_type_in_database: () -> String?
+
+      def saved_change_to_editor_type: () -> Array[String?]?
+
+      def saved_change_to_editor_type?: () -> bool
+
+      def will_save_change_to_editor_type?: () -> bool
+
+      def restore_editor_type!: () -> void
+
+      def clear_editor_type_change: () -> void
+
+      def editor_id: () -> Integer?
+
+      def editor_id=: (Integer?) -> Integer?
+
+      def editor_id?: () -> bool
+
+      def editor_id_changed?: () -> bool
+
+      def editor_id_change: () -> [ Integer?, Integer? ]
+
+      def editor_id_will_change!: () -> void
+
+      def editor_id_was: () -> Integer?
+
+      def editor_id_previously_changed?: () -> bool
+
+      def editor_id_previous_change: () -> Array[Integer?]?
+
+      def editor_id_previously_was: () -> Integer?
+
+      def editor_id_before_last_save: () -> Integer?
+
+      def editor_id_change_to_be_saved: () -> Array[Integer?]?
+
+      def editor_id_in_database: () -> Integer?
+
+      def saved_change_to_editor_id: () -> Array[Integer?]?
+
+      def saved_change_to_editor_id?: () -> bool
+
+      def will_save_change_to_editor_id?: () -> bool
+
+      def restore_editor_id!: () -> void
+
+      def clear_editor_id_change: () -> void
+
+      def thread_id: () -> Integer
+
+      def thread_id=: (Integer) -> Integer
+
+      def thread_id?: () -> bool
+
+      def thread_id_changed?: () -> bool
+
+      def thread_id_change: () -> [ Integer?, Integer? ]
+
+      def thread_id_will_change!: () -> void
+
+      def thread_id_was: () -> Integer?
+
+      def thread_id_previously_changed?: () -> bool
+
+      def thread_id_previous_change: () -> Array[Integer?]?
+
+      def thread_id_previously_was: () -> Integer?
+
+      def thread_id_before_last_save: () -> Integer?
+
+      def thread_id_change_to_be_saved: () -> Array[Integer?]?
+
+      def thread_id_in_database: () -> Integer?
+
+      def saved_change_to_thread_id: () -> Array[Integer?]?
+
+      def saved_change_to_thread_id?: () -> bool
+
+      def will_save_change_to_thread_id?: () -> bool
+
+      def restore_thread_id!: () -> void
+
+      def clear_thread_id_change: () -> void
+
+      def body: () -> String
+
+      def body=: (String) -> String
+
+      def body?: () -> bool
+
+      def body_changed?: () -> bool
+
+      def body_change: () -> [ String?, String? ]
+
+      def body_will_change!: () -> void
+
+      def body_was: () -> String?
+
+      def body_previously_changed?: () -> bool
+
+      def body_previous_change: () -> Array[String?]?
+
+      def body_previously_was: () -> String?
+
+      def body_before_last_save: () -> String?
+
+      def body_change_to_be_saved: () -> Array[String?]?
+
+      def body_in_database: () -> String?
+
+      def saved_change_to_body: () -> Array[String?]?
+
+      def saved_change_to_body?: () -> bool
+
+      def will_save_change_to_body?: () -> bool
+
+      def restore_body!: () -> void
+
+      def clear_body_change: () -> void
+
+      def deleted_at: () -> ActiveSupport::TimeWithZone?
+
+      def deleted_at=: (ActiveSupport::TimeWithZone?) -> ActiveSupport::TimeWithZone?
+
+      def deleted_at?: () -> bool
+
+      def deleted_at_changed?: () -> bool
+
+      def deleted_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+      def deleted_at_will_change!: () -> void
+
+      def deleted_at_was: () -> ActiveSupport::TimeWithZone?
+
+      def deleted_at_previously_changed?: () -> bool
+
+      def deleted_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def deleted_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+      def deleted_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+      def deleted_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def deleted_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+      def saved_change_to_deleted_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def saved_change_to_deleted_at?: () -> bool
+
+      def will_save_change_to_deleted_at?: () -> bool
+
+      def restore_deleted_at!: () -> void
+
+      def clear_deleted_at_change: () -> void
+
+      def cached_votes_up: () -> Integer?
+
+      def cached_votes_up=: (Integer?) -> Integer?
+
+      def cached_votes_up?: () -> bool
+
+      def cached_votes_up_changed?: () -> bool
+
+      def cached_votes_up_change: () -> [ Integer?, Integer? ]
+
+      def cached_votes_up_will_change!: () -> void
+
+      def cached_votes_up_was: () -> Integer?
+
+      def cached_votes_up_previously_changed?: () -> bool
+
+      def cached_votes_up_previous_change: () -> Array[Integer?]?
+
+      def cached_votes_up_previously_was: () -> Integer?
+
+      def cached_votes_up_before_last_save: () -> Integer?
+
+      def cached_votes_up_change_to_be_saved: () -> Array[Integer?]?
+
+      def cached_votes_up_in_database: () -> Integer?
+
+      def saved_change_to_cached_votes_up: () -> Array[Integer?]?
+
+      def saved_change_to_cached_votes_up?: () -> bool
+
+      def will_save_change_to_cached_votes_up?: () -> bool
+
+      def restore_cached_votes_up!: () -> void
+
+      def clear_cached_votes_up_change: () -> void
+
+      def cached_votes_down: () -> Integer?
+
+      def cached_votes_down=: (Integer?) -> Integer?
+
+      def cached_votes_down?: () -> bool
+
+      def cached_votes_down_changed?: () -> bool
+
+      def cached_votes_down_change: () -> [ Integer?, Integer? ]
+
+      def cached_votes_down_will_change!: () -> void
+
+      def cached_votes_down_was: () -> Integer?
+
+      def cached_votes_down_previously_changed?: () -> bool
+
+      def cached_votes_down_previous_change: () -> Array[Integer?]?
+
+      def cached_votes_down_previously_was: () -> Integer?
+
+      def cached_votes_down_before_last_save: () -> Integer?
+
+      def cached_votes_down_change_to_be_saved: () -> Array[Integer?]?
+
+      def cached_votes_down_in_database: () -> Integer?
+
+      def saved_change_to_cached_votes_down: () -> Array[Integer?]?
+
+      def saved_change_to_cached_votes_down?: () -> bool
+
+      def will_save_change_to_cached_votes_down?: () -> bool
+
+      def restore_cached_votes_down!: () -> void
+
+      def clear_cached_votes_down_change: () -> void
+
+      def created_at: () -> ActiveSupport::TimeWithZone
+
+      def created_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+      def created_at?: () -> bool
+
+      def created_at_changed?: () -> bool
+
+      def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+      def created_at_will_change!: () -> void
+
+      def created_at_was: () -> ActiveSupport::TimeWithZone?
+
+      def created_at_previously_changed?: () -> bool
+
+      def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+      def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+      def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def created_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+      def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def saved_change_to_created_at?: () -> bool
+
+      def will_save_change_to_created_at?: () -> bool
+
+      def restore_created_at!: () -> void
+
+      def clear_created_at_change: () -> void
+
+      def updated_at: () -> ActiveSupport::TimeWithZone
+
+      def updated_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+      def updated_at?: () -> bool
+
+      def updated_at_changed?: () -> bool
+
+      def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+      def updated_at_will_change!: () -> void
+
+      def updated_at_was: () -> ActiveSupport::TimeWithZone?
+
+      def updated_at_previously_changed?: () -> bool
+
+      def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+      def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+      def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+      def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def saved_change_to_updated_at?: () -> bool
+
+      def will_save_change_to_updated_at?: () -> bool
+
+      def restore_updated_at!: () -> void
+
+      def clear_updated_at_change: () -> void
+
+      def parent_id: () -> Integer?
+
+      def parent_id=: (Integer?) -> Integer?
+
+      def parent_id?: () -> bool
+
+      def parent_id_changed?: () -> bool
+
+      def parent_id_change: () -> [ Integer?, Integer? ]
+
+      def parent_id_will_change!: () -> void
+
+      def parent_id_was: () -> Integer?
+
+      def parent_id_previously_changed?: () -> bool
+
+      def parent_id_previous_change: () -> Array[Integer?]?
+
+      def parent_id_previously_was: () -> Integer?
+
+      def parent_id_before_last_save: () -> Integer?
+
+      def parent_id_change_to_be_saved: () -> Array[Integer?]?
+
+      def parent_id_in_database: () -> Integer?
+
+      def saved_change_to_parent_id: () -> Array[Integer?]?
+
+      def saved_change_to_parent_id?: () -> bool
+
+      def will_save_change_to_parent_id?: () -> bool
+
+      def restore_parent_id!: () -> void
+
+      def clear_parent_id_change: () -> void
+    end
+    include GeneratedAttributeMethods
+    def children: () -> Commontator::Comment::ActiveRecord_Associations_CollectionProxy
+    def children=: (Commontator::Comment::ActiveRecord_Associations_CollectionProxy | Array[Commontator::Comment]) -> (Commontator::Comment::ActiveRecord_Associations_CollectionProxy | Array[Commontator::Comment])
+    def child_ids: () -> Array[Integer]
+    def child_ids=: (Array[Integer]) -> Array[Integer]
+    def votes_for: () -> ActsAsVotable::Vote::ActiveRecord_Associations_CollectionProxy
+    def votes_for=: (ActsAsVotable::Vote::ActiveRecord_Associations_CollectionProxy | Array[ActsAsVotable::Vote]) -> (ActsAsVotable::Vote::ActiveRecord_Associations_CollectionProxy | Array[ActsAsVotable::Vote])
+    def votes_for_ids: () -> Array[Integer]
+    def votes_for_ids=: (Array[Integer]) -> Array[Integer]
+
+    def creator: () -> untyped
+    def creator=: (untyped?) -> untyped?
+    def reload_creator: () -> untyped?
+    def editor: () -> untyped?
+    def editor=: (untyped?) -> untyped?
+    def reload_editor: () -> untyped?
+    def thread: () -> Commontator::Thread
+    def thread=: (Commontator::Thread?) -> Commontator::Thread?
+    def reload_thread: () -> Commontator::Thread?
+    def build_thread: (untyped) -> Commontator::Thread
+    def create_thread: (untyped) -> Commontator::Thread
+    def create_thread!: (untyped) -> Commontator::Thread
+    def parent: () -> Commontator::Comment?
+    def parent=: (Commontator::Comment?) -> Commontator::Comment?
+    def reload_parent: () -> Commontator::Comment?
+    def build_parent: (untyped) -> Commontator::Comment
+    def create_parent: (untyped) -> Commontator::Comment
+    def create_parent!: (untyped) -> Commontator::Comment
+    module GeneratedAssociationMethods
+    end
+    include GeneratedAssociationMethods
+
+    module GeneratedRelationMethods
+    end
+
+    class ActiveRecord_Relation < ::ActiveRecord::Relation
+      include GeneratedRelationMethods
+      include _ActiveRecord_Relation[Commontator::Comment, Integer]
+      include Enumerable[Commontator::Comment]
+    end
+
+    class ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+      include GeneratedRelationMethods
+      include _ActiveRecord_Relation[Commontator::Comment, Integer]
+    end
+  end
+end

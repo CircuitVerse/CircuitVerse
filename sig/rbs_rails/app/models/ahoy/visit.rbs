@@ -1,0 +1,900 @@
+module Ahoy
+  class Visit < ::ApplicationRecord
+    extend _ActiveRecord_Relation_ClassMethods[Ahoy::Visit, ActiveRecord_Relation, Integer]
+
+    module GeneratedAttributeMethods
+      def id: () -> Integer
+
+      def id=: (Integer) -> Integer
+
+      def id?: () -> bool
+
+      def id_changed?: () -> bool
+
+      def id_change: () -> [ Integer?, Integer? ]
+
+      def id_will_change!: () -> void
+
+      def id_was: () -> Integer?
+
+      def id_previously_changed?: () -> bool
+
+      def id_previous_change: () -> Array[Integer?]?
+
+      def id_previously_was: () -> Integer?
+
+      def id_before_last_save: () -> Integer?
+
+      def id_change_to_be_saved: () -> Array[Integer?]?
+
+      def id_in_database: () -> Integer?
+
+      def saved_change_to_id: () -> Array[Integer?]?
+
+      def saved_change_to_id?: () -> bool
+
+      def will_save_change_to_id?: () -> bool
+
+      def restore_id!: () -> void
+
+      def clear_id_change: () -> void
+
+      def visit_token: () -> String?
+
+      def visit_token=: (String?) -> String?
+
+      def visit_token?: () -> bool
+
+      def visit_token_changed?: () -> bool
+
+      def visit_token_change: () -> [ String?, String? ]
+
+      def visit_token_will_change!: () -> void
+
+      def visit_token_was: () -> String?
+
+      def visit_token_previously_changed?: () -> bool
+
+      def visit_token_previous_change: () -> Array[String?]?
+
+      def visit_token_previously_was: () -> String?
+
+      def visit_token_before_last_save: () -> String?
+
+      def visit_token_change_to_be_saved: () -> Array[String?]?
+
+      def visit_token_in_database: () -> String?
+
+      def saved_change_to_visit_token: () -> Array[String?]?
+
+      def saved_change_to_visit_token?: () -> bool
+
+      def will_save_change_to_visit_token?: () -> bool
+
+      def restore_visit_token!: () -> void
+
+      def clear_visit_token_change: () -> void
+
+      def visitor_token: () -> String?
+
+      def visitor_token=: (String?) -> String?
+
+      def visitor_token?: () -> bool
+
+      def visitor_token_changed?: () -> bool
+
+      def visitor_token_change: () -> [ String?, String? ]
+
+      def visitor_token_will_change!: () -> void
+
+      def visitor_token_was: () -> String?
+
+      def visitor_token_previously_changed?: () -> bool
+
+      def visitor_token_previous_change: () -> Array[String?]?
+
+      def visitor_token_previously_was: () -> String?
+
+      def visitor_token_before_last_save: () -> String?
+
+      def visitor_token_change_to_be_saved: () -> Array[String?]?
+
+      def visitor_token_in_database: () -> String?
+
+      def saved_change_to_visitor_token: () -> Array[String?]?
+
+      def saved_change_to_visitor_token?: () -> bool
+
+      def will_save_change_to_visitor_token?: () -> bool
+
+      def restore_visitor_token!: () -> void
+
+      def clear_visitor_token_change: () -> void
+
+      def user_id: () -> Integer?
+
+      def user_id=: (Integer?) -> Integer?
+
+      def user_id?: () -> bool
+
+      def user_id_changed?: () -> bool
+
+      def user_id_change: () -> [ Integer?, Integer? ]
+
+      def user_id_will_change!: () -> void
+
+      def user_id_was: () -> Integer?
+
+      def user_id_previously_changed?: () -> bool
+
+      def user_id_previous_change: () -> Array[Integer?]?
+
+      def user_id_previously_was: () -> Integer?
+
+      def user_id_before_last_save: () -> Integer?
+
+      def user_id_change_to_be_saved: () -> Array[Integer?]?
+
+      def user_id_in_database: () -> Integer?
+
+      def saved_change_to_user_id: () -> Array[Integer?]?
+
+      def saved_change_to_user_id?: () -> bool
+
+      def will_save_change_to_user_id?: () -> bool
+
+      def restore_user_id!: () -> void
+
+      def clear_user_id_change: () -> void
+
+      def ip: () -> String?
+
+      def ip=: (String?) -> String?
+
+      def ip?: () -> bool
+
+      def ip_changed?: () -> bool
+
+      def ip_change: () -> [ String?, String? ]
+
+      def ip_will_change!: () -> void
+
+      def ip_was: () -> String?
+
+      def ip_previously_changed?: () -> bool
+
+      def ip_previous_change: () -> Array[String?]?
+
+      def ip_previously_was: () -> String?
+
+      def ip_before_last_save: () -> String?
+
+      def ip_change_to_be_saved: () -> Array[String?]?
+
+      def ip_in_database: () -> String?
+
+      def saved_change_to_ip: () -> Array[String?]?
+
+      def saved_change_to_ip?: () -> bool
+
+      def will_save_change_to_ip?: () -> bool
+
+      def restore_ip!: () -> void
+
+      def clear_ip_change: () -> void
+
+      def user_agent: () -> String?
+
+      def user_agent=: (String?) -> String?
+
+      def user_agent?: () -> bool
+
+      def user_agent_changed?: () -> bool
+
+      def user_agent_change: () -> [ String?, String? ]
+
+      def user_agent_will_change!: () -> void
+
+      def user_agent_was: () -> String?
+
+      def user_agent_previously_changed?: () -> bool
+
+      def user_agent_previous_change: () -> Array[String?]?
+
+      def user_agent_previously_was: () -> String?
+
+      def user_agent_before_last_save: () -> String?
+
+      def user_agent_change_to_be_saved: () -> Array[String?]?
+
+      def user_agent_in_database: () -> String?
+
+      def saved_change_to_user_agent: () -> Array[String?]?
+
+      def saved_change_to_user_agent?: () -> bool
+
+      def will_save_change_to_user_agent?: () -> bool
+
+      def restore_user_agent!: () -> void
+
+      def clear_user_agent_change: () -> void
+
+      def referrer: () -> String?
+
+      def referrer=: (String?) -> String?
+
+      def referrer?: () -> bool
+
+      def referrer_changed?: () -> bool
+
+      def referrer_change: () -> [ String?, String? ]
+
+      def referrer_will_change!: () -> void
+
+      def referrer_was: () -> String?
+
+      def referrer_previously_changed?: () -> bool
+
+      def referrer_previous_change: () -> Array[String?]?
+
+      def referrer_previously_was: () -> String?
+
+      def referrer_before_last_save: () -> String?
+
+      def referrer_change_to_be_saved: () -> Array[String?]?
+
+      def referrer_in_database: () -> String?
+
+      def saved_change_to_referrer: () -> Array[String?]?
+
+      def saved_change_to_referrer?: () -> bool
+
+      def will_save_change_to_referrer?: () -> bool
+
+      def restore_referrer!: () -> void
+
+      def clear_referrer_change: () -> void
+
+      def referring_domain: () -> String?
+
+      def referring_domain=: (String?) -> String?
+
+      def referring_domain?: () -> bool
+
+      def referring_domain_changed?: () -> bool
+
+      def referring_domain_change: () -> [ String?, String? ]
+
+      def referring_domain_will_change!: () -> void
+
+      def referring_domain_was: () -> String?
+
+      def referring_domain_previously_changed?: () -> bool
+
+      def referring_domain_previous_change: () -> Array[String?]?
+
+      def referring_domain_previously_was: () -> String?
+
+      def referring_domain_before_last_save: () -> String?
+
+      def referring_domain_change_to_be_saved: () -> Array[String?]?
+
+      def referring_domain_in_database: () -> String?
+
+      def saved_change_to_referring_domain: () -> Array[String?]?
+
+      def saved_change_to_referring_domain?: () -> bool
+
+      def will_save_change_to_referring_domain?: () -> bool
+
+      def restore_referring_domain!: () -> void
+
+      def clear_referring_domain_change: () -> void
+
+      def landing_page: () -> String?
+
+      def landing_page=: (String?) -> String?
+
+      def landing_page?: () -> bool
+
+      def landing_page_changed?: () -> bool
+
+      def landing_page_change: () -> [ String?, String? ]
+
+      def landing_page_will_change!: () -> void
+
+      def landing_page_was: () -> String?
+
+      def landing_page_previously_changed?: () -> bool
+
+      def landing_page_previous_change: () -> Array[String?]?
+
+      def landing_page_previously_was: () -> String?
+
+      def landing_page_before_last_save: () -> String?
+
+      def landing_page_change_to_be_saved: () -> Array[String?]?
+
+      def landing_page_in_database: () -> String?
+
+      def saved_change_to_landing_page: () -> Array[String?]?
+
+      def saved_change_to_landing_page?: () -> bool
+
+      def will_save_change_to_landing_page?: () -> bool
+
+      def restore_landing_page!: () -> void
+
+      def clear_landing_page_change: () -> void
+
+      def browser: () -> String?
+
+      def browser=: (String?) -> String?
+
+      def browser?: () -> bool
+
+      def browser_changed?: () -> bool
+
+      def browser_change: () -> [ String?, String? ]
+
+      def browser_will_change!: () -> void
+
+      def browser_was: () -> String?
+
+      def browser_previously_changed?: () -> bool
+
+      def browser_previous_change: () -> Array[String?]?
+
+      def browser_previously_was: () -> String?
+
+      def browser_before_last_save: () -> String?
+
+      def browser_change_to_be_saved: () -> Array[String?]?
+
+      def browser_in_database: () -> String?
+
+      def saved_change_to_browser: () -> Array[String?]?
+
+      def saved_change_to_browser?: () -> bool
+
+      def will_save_change_to_browser?: () -> bool
+
+      def restore_browser!: () -> void
+
+      def clear_browser_change: () -> void
+
+      def os: () -> String?
+
+      def os=: (String?) -> String?
+
+      def os?: () -> bool
+
+      def os_changed?: () -> bool
+
+      def os_change: () -> [ String?, String? ]
+
+      def os_will_change!: () -> void
+
+      def os_was: () -> String?
+
+      def os_previously_changed?: () -> bool
+
+      def os_previous_change: () -> Array[String?]?
+
+      def os_previously_was: () -> String?
+
+      def os_before_last_save: () -> String?
+
+      def os_change_to_be_saved: () -> Array[String?]?
+
+      def os_in_database: () -> String?
+
+      def saved_change_to_os: () -> Array[String?]?
+
+      def saved_change_to_os?: () -> bool
+
+      def will_save_change_to_os?: () -> bool
+
+      def restore_os!: () -> void
+
+      def clear_os_change: () -> void
+
+      def device_type: () -> String?
+
+      def device_type=: (String?) -> String?
+
+      def device_type?: () -> bool
+
+      def device_type_changed?: () -> bool
+
+      def device_type_change: () -> [ String?, String? ]
+
+      def device_type_will_change!: () -> void
+
+      def device_type_was: () -> String?
+
+      def device_type_previously_changed?: () -> bool
+
+      def device_type_previous_change: () -> Array[String?]?
+
+      def device_type_previously_was: () -> String?
+
+      def device_type_before_last_save: () -> String?
+
+      def device_type_change_to_be_saved: () -> Array[String?]?
+
+      def device_type_in_database: () -> String?
+
+      def saved_change_to_device_type: () -> Array[String?]?
+
+      def saved_change_to_device_type?: () -> bool
+
+      def will_save_change_to_device_type?: () -> bool
+
+      def restore_device_type!: () -> void
+
+      def clear_device_type_change: () -> void
+
+      def country: () -> String?
+
+      def country=: (String?) -> String?
+
+      def country?: () -> bool
+
+      def country_changed?: () -> bool
+
+      def country_change: () -> [ String?, String? ]
+
+      def country_will_change!: () -> void
+
+      def country_was: () -> String?
+
+      def country_previously_changed?: () -> bool
+
+      def country_previous_change: () -> Array[String?]?
+
+      def country_previously_was: () -> String?
+
+      def country_before_last_save: () -> String?
+
+      def country_change_to_be_saved: () -> Array[String?]?
+
+      def country_in_database: () -> String?
+
+      def saved_change_to_country: () -> Array[String?]?
+
+      def saved_change_to_country?: () -> bool
+
+      def will_save_change_to_country?: () -> bool
+
+      def restore_country!: () -> void
+
+      def clear_country_change: () -> void
+
+      def region: () -> String?
+
+      def region=: (String?) -> String?
+
+      def region?: () -> bool
+
+      def region_changed?: () -> bool
+
+      def region_change: () -> [ String?, String? ]
+
+      def region_will_change!: () -> void
+
+      def region_was: () -> String?
+
+      def region_previously_changed?: () -> bool
+
+      def region_previous_change: () -> Array[String?]?
+
+      def region_previously_was: () -> String?
+
+      def region_before_last_save: () -> String?
+
+      def region_change_to_be_saved: () -> Array[String?]?
+
+      def region_in_database: () -> String?
+
+      def saved_change_to_region: () -> Array[String?]?
+
+      def saved_change_to_region?: () -> bool
+
+      def will_save_change_to_region?: () -> bool
+
+      def restore_region!: () -> void
+
+      def clear_region_change: () -> void
+
+      def city: () -> String?
+
+      def city=: (String?) -> String?
+
+      def city?: () -> bool
+
+      def city_changed?: () -> bool
+
+      def city_change: () -> [ String?, String? ]
+
+      def city_will_change!: () -> void
+
+      def city_was: () -> String?
+
+      def city_previously_changed?: () -> bool
+
+      def city_previous_change: () -> Array[String?]?
+
+      def city_previously_was: () -> String?
+
+      def city_before_last_save: () -> String?
+
+      def city_change_to_be_saved: () -> Array[String?]?
+
+      def city_in_database: () -> String?
+
+      def saved_change_to_city: () -> Array[String?]?
+
+      def saved_change_to_city?: () -> bool
+
+      def will_save_change_to_city?: () -> bool
+
+      def restore_city!: () -> void
+
+      def clear_city_change: () -> void
+
+      def utm_source: () -> String?
+
+      def utm_source=: (String?) -> String?
+
+      def utm_source?: () -> bool
+
+      def utm_source_changed?: () -> bool
+
+      def utm_source_change: () -> [ String?, String? ]
+
+      def utm_source_will_change!: () -> void
+
+      def utm_source_was: () -> String?
+
+      def utm_source_previously_changed?: () -> bool
+
+      def utm_source_previous_change: () -> Array[String?]?
+
+      def utm_source_previously_was: () -> String?
+
+      def utm_source_before_last_save: () -> String?
+
+      def utm_source_change_to_be_saved: () -> Array[String?]?
+
+      def utm_source_in_database: () -> String?
+
+      def saved_change_to_utm_source: () -> Array[String?]?
+
+      def saved_change_to_utm_source?: () -> bool
+
+      def will_save_change_to_utm_source?: () -> bool
+
+      def restore_utm_source!: () -> void
+
+      def clear_utm_source_change: () -> void
+
+      def utm_medium: () -> String?
+
+      def utm_medium=: (String?) -> String?
+
+      def utm_medium?: () -> bool
+
+      def utm_medium_changed?: () -> bool
+
+      def utm_medium_change: () -> [ String?, String? ]
+
+      def utm_medium_will_change!: () -> void
+
+      def utm_medium_was: () -> String?
+
+      def utm_medium_previously_changed?: () -> bool
+
+      def utm_medium_previous_change: () -> Array[String?]?
+
+      def utm_medium_previously_was: () -> String?
+
+      def utm_medium_before_last_save: () -> String?
+
+      def utm_medium_change_to_be_saved: () -> Array[String?]?
+
+      def utm_medium_in_database: () -> String?
+
+      def saved_change_to_utm_medium: () -> Array[String?]?
+
+      def saved_change_to_utm_medium?: () -> bool
+
+      def will_save_change_to_utm_medium?: () -> bool
+
+      def restore_utm_medium!: () -> void
+
+      def clear_utm_medium_change: () -> void
+
+      def utm_term: () -> String?
+
+      def utm_term=: (String?) -> String?
+
+      def utm_term?: () -> bool
+
+      def utm_term_changed?: () -> bool
+
+      def utm_term_change: () -> [ String?, String? ]
+
+      def utm_term_will_change!: () -> void
+
+      def utm_term_was: () -> String?
+
+      def utm_term_previously_changed?: () -> bool
+
+      def utm_term_previous_change: () -> Array[String?]?
+
+      def utm_term_previously_was: () -> String?
+
+      def utm_term_before_last_save: () -> String?
+
+      def utm_term_change_to_be_saved: () -> Array[String?]?
+
+      def utm_term_in_database: () -> String?
+
+      def saved_change_to_utm_term: () -> Array[String?]?
+
+      def saved_change_to_utm_term?: () -> bool
+
+      def will_save_change_to_utm_term?: () -> bool
+
+      def restore_utm_term!: () -> void
+
+      def clear_utm_term_change: () -> void
+
+      def utm_content: () -> String?
+
+      def utm_content=: (String?) -> String?
+
+      def utm_content?: () -> bool
+
+      def utm_content_changed?: () -> bool
+
+      def utm_content_change: () -> [ String?, String? ]
+
+      def utm_content_will_change!: () -> void
+
+      def utm_content_was: () -> String?
+
+      def utm_content_previously_changed?: () -> bool
+
+      def utm_content_previous_change: () -> Array[String?]?
+
+      def utm_content_previously_was: () -> String?
+
+      def utm_content_before_last_save: () -> String?
+
+      def utm_content_change_to_be_saved: () -> Array[String?]?
+
+      def utm_content_in_database: () -> String?
+
+      def saved_change_to_utm_content: () -> Array[String?]?
+
+      def saved_change_to_utm_content?: () -> bool
+
+      def will_save_change_to_utm_content?: () -> bool
+
+      def restore_utm_content!: () -> void
+
+      def clear_utm_content_change: () -> void
+
+      def utm_campaign: () -> String?
+
+      def utm_campaign=: (String?) -> String?
+
+      def utm_campaign?: () -> bool
+
+      def utm_campaign_changed?: () -> bool
+
+      def utm_campaign_change: () -> [ String?, String? ]
+
+      def utm_campaign_will_change!: () -> void
+
+      def utm_campaign_was: () -> String?
+
+      def utm_campaign_previously_changed?: () -> bool
+
+      def utm_campaign_previous_change: () -> Array[String?]?
+
+      def utm_campaign_previously_was: () -> String?
+
+      def utm_campaign_before_last_save: () -> String?
+
+      def utm_campaign_change_to_be_saved: () -> Array[String?]?
+
+      def utm_campaign_in_database: () -> String?
+
+      def saved_change_to_utm_campaign: () -> Array[String?]?
+
+      def saved_change_to_utm_campaign?: () -> bool
+
+      def will_save_change_to_utm_campaign?: () -> bool
+
+      def restore_utm_campaign!: () -> void
+
+      def clear_utm_campaign_change: () -> void
+
+      def app_version: () -> String?
+
+      def app_version=: (String?) -> String?
+
+      def app_version?: () -> bool
+
+      def app_version_changed?: () -> bool
+
+      def app_version_change: () -> [ String?, String? ]
+
+      def app_version_will_change!: () -> void
+
+      def app_version_was: () -> String?
+
+      def app_version_previously_changed?: () -> bool
+
+      def app_version_previous_change: () -> Array[String?]?
+
+      def app_version_previously_was: () -> String?
+
+      def app_version_before_last_save: () -> String?
+
+      def app_version_change_to_be_saved: () -> Array[String?]?
+
+      def app_version_in_database: () -> String?
+
+      def saved_change_to_app_version: () -> Array[String?]?
+
+      def saved_change_to_app_version?: () -> bool
+
+      def will_save_change_to_app_version?: () -> bool
+
+      def restore_app_version!: () -> void
+
+      def clear_app_version_change: () -> void
+
+      def os_version: () -> String?
+
+      def os_version=: (String?) -> String?
+
+      def os_version?: () -> bool
+
+      def os_version_changed?: () -> bool
+
+      def os_version_change: () -> [ String?, String? ]
+
+      def os_version_will_change!: () -> void
+
+      def os_version_was: () -> String?
+
+      def os_version_previously_changed?: () -> bool
+
+      def os_version_previous_change: () -> Array[String?]?
+
+      def os_version_previously_was: () -> String?
+
+      def os_version_before_last_save: () -> String?
+
+      def os_version_change_to_be_saved: () -> Array[String?]?
+
+      def os_version_in_database: () -> String?
+
+      def saved_change_to_os_version: () -> Array[String?]?
+
+      def saved_change_to_os_version?: () -> bool
+
+      def will_save_change_to_os_version?: () -> bool
+
+      def restore_os_version!: () -> void
+
+      def clear_os_version_change: () -> void
+
+      def platform: () -> String?
+
+      def platform=: (String?) -> String?
+
+      def platform?: () -> bool
+
+      def platform_changed?: () -> bool
+
+      def platform_change: () -> [ String?, String? ]
+
+      def platform_will_change!: () -> void
+
+      def platform_was: () -> String?
+
+      def platform_previously_changed?: () -> bool
+
+      def platform_previous_change: () -> Array[String?]?
+
+      def platform_previously_was: () -> String?
+
+      def platform_before_last_save: () -> String?
+
+      def platform_change_to_be_saved: () -> Array[String?]?
+
+      def platform_in_database: () -> String?
+
+      def saved_change_to_platform: () -> Array[String?]?
+
+      def saved_change_to_platform?: () -> bool
+
+      def will_save_change_to_platform?: () -> bool
+
+      def restore_platform!: () -> void
+
+      def clear_platform_change: () -> void
+
+      def started_at: () -> ActiveSupport::TimeWithZone?
+
+      def started_at=: (ActiveSupport::TimeWithZone?) -> ActiveSupport::TimeWithZone?
+
+      def started_at?: () -> bool
+
+      def started_at_changed?: () -> bool
+
+      def started_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+      def started_at_will_change!: () -> void
+
+      def started_at_was: () -> ActiveSupport::TimeWithZone?
+
+      def started_at_previously_changed?: () -> bool
+
+      def started_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def started_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+      def started_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+      def started_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def started_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+      def saved_change_to_started_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+      def saved_change_to_started_at?: () -> bool
+
+      def will_save_change_to_started_at?: () -> bool
+
+      def restore_started_at!: () -> void
+
+      def clear_started_at_change: () -> void
+    end
+    include GeneratedAttributeMethods
+    def events: () -> Ahoy::Event::ActiveRecord_Associations_CollectionProxy
+    def events=: (Ahoy::Event::ActiveRecord_Associations_CollectionProxy | Array[Ahoy::Event]) -> (Ahoy::Event::ActiveRecord_Associations_CollectionProxy | Array[Ahoy::Event])
+    def event_ids: () -> Array[Integer]
+    def event_ids=: (Array[Integer]) -> Array[Integer]
+
+    def user: () -> User?
+    def user=: (User?) -> User?
+    def reload_user: () -> User?
+    def build_user: (untyped) -> User
+    def create_user: (untyped) -> User
+    def create_user!: (untyped) -> User
+    module GeneratedAssociationMethods
+    end
+    include GeneratedAssociationMethods
+
+    module GeneratedRelationMethods
+    end
+
+    class ActiveRecord_Relation < ::ActiveRecord::Relation
+      include GeneratedRelationMethods
+      include _ActiveRecord_Relation[Ahoy::Visit, Integer]
+      include Enumerable[Ahoy::Visit]
+    end
+
+    class ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+      include GeneratedRelationMethods
+      include _ActiveRecord_Relation[Ahoy::Visit, Integer]
+    end
+  end
+end

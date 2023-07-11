@@ -1,0 +1,562 @@
+class Assignment < ::ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[Assignment, ActiveRecord_Relation, Integer]
+
+  module GeneratedAttributeMethods
+    def id: () -> Integer
+
+    def id=: (Integer) -> Integer
+
+    def id?: () -> bool
+
+    def id_changed?: () -> bool
+
+    def id_change: () -> [ Integer?, Integer? ]
+
+    def id_will_change!: () -> void
+
+    def id_was: () -> Integer?
+
+    def id_previously_changed?: () -> bool
+
+    def id_previous_change: () -> Array[Integer?]?
+
+    def id_previously_was: () -> Integer?
+
+    def id_before_last_save: () -> Integer?
+
+    def id_change_to_be_saved: () -> Array[Integer?]?
+
+    def id_in_database: () -> Integer?
+
+    def saved_change_to_id: () -> Array[Integer?]?
+
+    def saved_change_to_id?: () -> bool
+
+    def will_save_change_to_id?: () -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def name: () -> String?
+
+    def name=: (String?) -> String?
+
+    def name?: () -> bool
+
+    def name_changed?: () -> bool
+
+    def name_change: () -> [ String?, String? ]
+
+    def name_will_change!: () -> void
+
+    def name_was: () -> String?
+
+    def name_previously_changed?: () -> bool
+
+    def name_previous_change: () -> Array[String?]?
+
+    def name_previously_was: () -> String?
+
+    def name_before_last_save: () -> String?
+
+    def name_change_to_be_saved: () -> Array[String?]?
+
+    def name_in_database: () -> String?
+
+    def saved_change_to_name: () -> Array[String?]?
+
+    def saved_change_to_name?: () -> bool
+
+    def will_save_change_to_name?: () -> bool
+
+    def restore_name!: () -> void
+
+    def clear_name_change: () -> void
+
+    def deadline: () -> ActiveSupport::TimeWithZone
+
+    def deadline=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def deadline?: () -> bool
+
+    def deadline_changed?: () -> bool
+
+    def deadline_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def deadline_will_change!: () -> void
+
+    def deadline_was: () -> ActiveSupport::TimeWithZone?
+
+    def deadline_previously_changed?: () -> bool
+
+    def deadline_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def deadline_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def deadline_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def deadline_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def deadline_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_deadline: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_deadline?: () -> bool
+
+    def will_save_change_to_deadline?: () -> bool
+
+    def restore_deadline!: () -> void
+
+    def clear_deadline_change: () -> void
+
+    def description: () -> String?
+
+    def description=: (String?) -> String?
+
+    def description?: () -> bool
+
+    def description_changed?: () -> bool
+
+    def description_change: () -> [ String?, String? ]
+
+    def description_will_change!: () -> void
+
+    def description_was: () -> String?
+
+    def description_previously_changed?: () -> bool
+
+    def description_previous_change: () -> Array[String?]?
+
+    def description_previously_was: () -> String?
+
+    def description_before_last_save: () -> String?
+
+    def description_change_to_be_saved: () -> Array[String?]?
+
+    def description_in_database: () -> String?
+
+    def saved_change_to_description: () -> Array[String?]?
+
+    def saved_change_to_description?: () -> bool
+
+    def will_save_change_to_description?: () -> bool
+
+    def restore_description!: () -> void
+
+    def clear_description_change: () -> void
+
+    def created_at: () -> ActiveSupport::TimeWithZone
+
+    def created_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: () -> bool
+
+    def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: () -> bool
+
+    def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: () -> bool
+
+    def will_save_change_to_created_at?: () -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def updated_at: () -> ActiveSupport::TimeWithZone
+
+    def updated_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: () -> bool
+
+    def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: () -> bool
+
+    def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: () -> bool
+
+    def will_save_change_to_updated_at?: () -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def group_id: () -> Integer?
+
+    def group_id=: (Integer?) -> Integer?
+
+    def group_id?: () -> bool
+
+    def group_id_changed?: () -> bool
+
+    def group_id_change: () -> [ Integer?, Integer? ]
+
+    def group_id_will_change!: () -> void
+
+    def group_id_was: () -> Integer?
+
+    def group_id_previously_changed?: () -> bool
+
+    def group_id_previous_change: () -> Array[Integer?]?
+
+    def group_id_previously_was: () -> Integer?
+
+    def group_id_before_last_save: () -> Integer?
+
+    def group_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def group_id_in_database: () -> Integer?
+
+    def saved_change_to_group_id: () -> Array[Integer?]?
+
+    def saved_change_to_group_id?: () -> bool
+
+    def will_save_change_to_group_id?: () -> bool
+
+    def restore_group_id!: () -> void
+
+    def clear_group_id_change: () -> void
+
+    def status: () -> String?
+
+    def status=: (String?) -> String?
+
+    def status?: () -> bool
+
+    def status_changed?: () -> bool
+
+    def status_change: () -> [ String?, String? ]
+
+    def status_will_change!: () -> void
+
+    def status_was: () -> String?
+
+    def status_previously_changed?: () -> bool
+
+    def status_previous_change: () -> Array[String?]?
+
+    def status_previously_was: () -> String?
+
+    def status_before_last_save: () -> String?
+
+    def status_change_to_be_saved: () -> Array[String?]?
+
+    def status_in_database: () -> String?
+
+    def saved_change_to_status: () -> Array[String?]?
+
+    def saved_change_to_status?: () -> bool
+
+    def will_save_change_to_status?: () -> bool
+
+    def restore_status!: () -> void
+
+    def clear_status_change: () -> void
+
+    def grading_scale: () -> String?
+
+    def grading_scale=: (String?) -> String?
+
+    def grading_scale?: () -> bool
+
+    def grading_scale_changed?: () -> bool
+
+    def grading_scale_change: () -> [ String?, String? ]
+
+    def grading_scale_will_change!: () -> void
+
+    def grading_scale_was: () -> String?
+
+    def grading_scale_previously_changed?: () -> bool
+
+    def grading_scale_previous_change: () -> Array[String?]?
+
+    def grading_scale_previously_was: () -> String?
+
+    def grading_scale_before_last_save: () -> String?
+
+    def grading_scale_change_to_be_saved: () -> Array[String?]?
+
+    def grading_scale_in_database: () -> String?
+
+    def saved_change_to_grading_scale: () -> Array[String?]?
+
+    def saved_change_to_grading_scale?: () -> bool
+
+    def will_save_change_to_grading_scale?: () -> bool
+
+    def restore_grading_scale!: () -> void
+
+    def clear_grading_scale_change: () -> void
+
+    def grades_finalized: () -> bool?
+
+    def grades_finalized=: (bool?) -> bool?
+
+    def grades_finalized?: () -> bool
+
+    def grades_finalized_changed?: () -> bool
+
+    def grades_finalized_change: () -> [ bool?, bool? ]
+
+    def grades_finalized_will_change!: () -> void
+
+    def grades_finalized_was: () -> bool?
+
+    def grades_finalized_previously_changed?: () -> bool
+
+    def grades_finalized_previous_change: () -> Array[bool?]?
+
+    def grades_finalized_previously_was: () -> bool?
+
+    def grades_finalized_before_last_save: () -> bool?
+
+    def grades_finalized_change_to_be_saved: () -> Array[bool?]?
+
+    def grades_finalized_in_database: () -> bool?
+
+    def saved_change_to_grades_finalized: () -> Array[bool?]?
+
+    def saved_change_to_grades_finalized?: () -> bool
+
+    def will_save_change_to_grades_finalized?: () -> bool
+
+    def restore_grades_finalized!: () -> void
+
+    def clear_grades_finalized_change: () -> void
+
+    def restrictions: () -> untyped?
+
+    def restrictions=: (untyped?) -> untyped?
+
+    def restrictions?: () -> bool
+
+    def restrictions_changed?: () -> bool
+
+    def restrictions_change: () -> [ untyped?, untyped? ]
+
+    def restrictions_will_change!: () -> void
+
+    def restrictions_was: () -> untyped?
+
+    def restrictions_previously_changed?: () -> bool
+
+    def restrictions_previous_change: () -> Array[untyped?]?
+
+    def restrictions_previously_was: () -> untyped?
+
+    def restrictions_before_last_save: () -> untyped?
+
+    def restrictions_change_to_be_saved: () -> Array[untyped?]?
+
+    def restrictions_in_database: () -> untyped?
+
+    def saved_change_to_restrictions: () -> Array[untyped?]?
+
+    def saved_change_to_restrictions?: () -> bool
+
+    def will_save_change_to_restrictions?: () -> bool
+
+    def restore_restrictions!: () -> void
+
+    def clear_restrictions_change: () -> void
+
+    def lti_consumer_key: () -> String?
+
+    def lti_consumer_key=: (String?) -> String?
+
+    def lti_consumer_key?: () -> bool
+
+    def lti_consumer_key_changed?: () -> bool
+
+    def lti_consumer_key_change: () -> [ String?, String? ]
+
+    def lti_consumer_key_will_change!: () -> void
+
+    def lti_consumer_key_was: () -> String?
+
+    def lti_consumer_key_previously_changed?: () -> bool
+
+    def lti_consumer_key_previous_change: () -> Array[String?]?
+
+    def lti_consumer_key_previously_was: () -> String?
+
+    def lti_consumer_key_before_last_save: () -> String?
+
+    def lti_consumer_key_change_to_be_saved: () -> Array[String?]?
+
+    def lti_consumer_key_in_database: () -> String?
+
+    def saved_change_to_lti_consumer_key: () -> Array[String?]?
+
+    def saved_change_to_lti_consumer_key?: () -> bool
+
+    def will_save_change_to_lti_consumer_key?: () -> bool
+
+    def restore_lti_consumer_key!: () -> void
+
+    def clear_lti_consumer_key_change: () -> void
+
+    def lti_shared_secret: () -> String?
+
+    def lti_shared_secret=: (String?) -> String?
+
+    def lti_shared_secret?: () -> bool
+
+    def lti_shared_secret_changed?: () -> bool
+
+    def lti_shared_secret_change: () -> [ String?, String? ]
+
+    def lti_shared_secret_will_change!: () -> void
+
+    def lti_shared_secret_was: () -> String?
+
+    def lti_shared_secret_previously_changed?: () -> bool
+
+    def lti_shared_secret_previous_change: () -> Array[String?]?
+
+    def lti_shared_secret_previously_was: () -> String?
+
+    def lti_shared_secret_before_last_save: () -> String?
+
+    def lti_shared_secret_change_to_be_saved: () -> Array[String?]?
+
+    def lti_shared_secret_in_database: () -> String?
+
+    def saved_change_to_lti_shared_secret: () -> Array[String?]?
+
+    def saved_change_to_lti_shared_secret?: () -> bool
+
+    def will_save_change_to_lti_shared_secret?: () -> bool
+
+    def restore_lti_shared_secret!: () -> void
+
+    def clear_lti_shared_secret_change: () -> void
+
+    def feature_restrictions: () -> untyped?
+
+    def feature_restrictions=: (untyped?) -> untyped?
+
+    def feature_restrictions?: () -> bool
+
+    def feature_restrictions_changed?: () -> bool
+
+    def feature_restrictions_change: () -> [ untyped?, untyped? ]
+
+    def feature_restrictions_will_change!: () -> void
+
+    def feature_restrictions_was: () -> untyped?
+
+    def feature_restrictions_previously_changed?: () -> bool
+
+    def feature_restrictions_previous_change: () -> Array[untyped?]?
+
+    def feature_restrictions_previously_was: () -> untyped?
+
+    def feature_restrictions_before_last_save: () -> untyped?
+
+    def feature_restrictions_change_to_be_saved: () -> Array[untyped?]?
+
+    def feature_restrictions_in_database: () -> untyped?
+
+    def saved_change_to_feature_restrictions: () -> Array[untyped?]?
+
+    def saved_change_to_feature_restrictions?: () -> bool
+
+    def will_save_change_to_feature_restrictions?: () -> bool
+
+    def restore_feature_restrictions!: () -> void
+
+    def clear_feature_restrictions_change: () -> void
+  end
+  include GeneratedAttributeMethods
+  def projects: () -> Project::ActiveRecord_Associations_CollectionProxy
+  def projects=: (Project::ActiveRecord_Associations_CollectionProxy | Array[Project]) -> (Project::ActiveRecord_Associations_CollectionProxy | Array[Project])
+  def project_ids: () -> Array[Integer]
+  def project_ids=: (Array[Integer]) -> Array[Integer]
+  def grades: () -> Grade::ActiveRecord_Associations_CollectionProxy
+  def grades=: (Grade::ActiveRecord_Associations_CollectionProxy | Array[Grade]) -> (Grade::ActiveRecord_Associations_CollectionProxy | Array[Grade])
+  def grade_ids: () -> Array[Integer]
+  def grade_ids=: (Array[Integer]) -> Array[Integer]
+
+  def group: () -> Group
+  def group=: (Group?) -> Group?
+  def reload_group: () -> Group?
+  def build_group: (untyped) -> Group
+  def create_group: (untyped) -> Group
+  def create_group!: (untyped) -> Group
+  module GeneratedAssociationMethods
+  end
+  include GeneratedAssociationMethods
+
+  def no_scale!: () -> bool
+  def no_scale?: () -> bool
+  def letter!: () -> bool
+  def letter?: () -> bool
+  def percent!: () -> bool
+  def percent?: () -> bool
+  def custom!: () -> bool
+  def custom?: () -> bool
+  def self.no_scale: () -> ActiveRecord_Relation
+  def self.letter: () -> ActiveRecord_Relation
+  def self.percent: () -> ActiveRecord_Relation
+  def self.custom: () -> ActiveRecord_Relation
+
+  module GeneratedRelationMethods
+    def no_scale: () -> ActiveRecord_Relation
+
+    def letter: () -> ActiveRecord_Relation
+
+    def percent: () -> ActiveRecord_Relation
+
+    def custom: () -> ActiveRecord_Relation
+  end
+
+  class ActiveRecord_Relation < ::ActiveRecord::Relation
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Assignment, Integer]
+    include Enumerable[Assignment]
+  end
+
+  class ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Assignment, Integer]
+  end
+end

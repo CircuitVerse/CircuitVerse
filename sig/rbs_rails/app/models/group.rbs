@@ -1,0 +1,337 @@
+class Group < ::ApplicationRecord
+  extend _ActiveRecord_Relation_ClassMethods[Group, ActiveRecord_Relation, Integer]
+
+  module GeneratedAttributeMethods
+    def id: () -> Integer
+
+    def id=: (Integer) -> Integer
+
+    def id?: () -> bool
+
+    def id_changed?: () -> bool
+
+    def id_change: () -> [ Integer?, Integer? ]
+
+    def id_will_change!: () -> void
+
+    def id_was: () -> Integer?
+
+    def id_previously_changed?: () -> bool
+
+    def id_previous_change: () -> Array[Integer?]?
+
+    def id_previously_was: () -> Integer?
+
+    def id_before_last_save: () -> Integer?
+
+    def id_change_to_be_saved: () -> Array[Integer?]?
+
+    def id_in_database: () -> Integer?
+
+    def saved_change_to_id: () -> Array[Integer?]?
+
+    def saved_change_to_id?: () -> bool
+
+    def will_save_change_to_id?: () -> bool
+
+    def restore_id!: () -> void
+
+    def clear_id_change: () -> void
+
+    def name: () -> String?
+
+    def name=: (String?) -> String?
+
+    def name?: () -> bool
+
+    def name_changed?: () -> bool
+
+    def name_change: () -> [ String?, String? ]
+
+    def name_will_change!: () -> void
+
+    def name_was: () -> String?
+
+    def name_previously_changed?: () -> bool
+
+    def name_previous_change: () -> Array[String?]?
+
+    def name_previously_was: () -> String?
+
+    def name_before_last_save: () -> String?
+
+    def name_change_to_be_saved: () -> Array[String?]?
+
+    def name_in_database: () -> String?
+
+    def saved_change_to_name: () -> Array[String?]?
+
+    def saved_change_to_name?: () -> bool
+
+    def will_save_change_to_name?: () -> bool
+
+    def restore_name!: () -> void
+
+    def clear_name_change: () -> void
+
+    def primary_mentor_id: () -> Integer?
+
+    def primary_mentor_id=: (Integer?) -> Integer?
+
+    def primary_mentor_id?: () -> bool
+
+    def primary_mentor_id_changed?: () -> bool
+
+    def primary_mentor_id_change: () -> [ Integer?, Integer? ]
+
+    def primary_mentor_id_will_change!: () -> void
+
+    def primary_mentor_id_was: () -> Integer?
+
+    def primary_mentor_id_previously_changed?: () -> bool
+
+    def primary_mentor_id_previous_change: () -> Array[Integer?]?
+
+    def primary_mentor_id_previously_was: () -> Integer?
+
+    def primary_mentor_id_before_last_save: () -> Integer?
+
+    def primary_mentor_id_change_to_be_saved: () -> Array[Integer?]?
+
+    def primary_mentor_id_in_database: () -> Integer?
+
+    def saved_change_to_primary_mentor_id: () -> Array[Integer?]?
+
+    def saved_change_to_primary_mentor_id?: () -> bool
+
+    def will_save_change_to_primary_mentor_id?: () -> bool
+
+    def restore_primary_mentor_id!: () -> void
+
+    def clear_primary_mentor_id_change: () -> void
+
+    def created_at: () -> ActiveSupport::TimeWithZone
+
+    def created_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def created_at?: () -> bool
+
+    def created_at_changed?: () -> bool
+
+    def created_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def created_at_will_change!: () -> void
+
+    def created_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_previously_changed?: () -> bool
+
+    def created_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def created_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def created_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_created_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_created_at?: () -> bool
+
+    def will_save_change_to_created_at?: () -> bool
+
+    def restore_created_at!: () -> void
+
+    def clear_created_at_change: () -> void
+
+    def updated_at: () -> ActiveSupport::TimeWithZone
+
+    def updated_at=: (ActiveSupport::TimeWithZone) -> ActiveSupport::TimeWithZone
+
+    def updated_at?: () -> bool
+
+    def updated_at_changed?: () -> bool
+
+    def updated_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def updated_at_will_change!: () -> void
+
+    def updated_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_previously_changed?: () -> bool
+
+    def updated_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def updated_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def updated_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_updated_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_updated_at?: () -> bool
+
+    def will_save_change_to_updated_at?: () -> bool
+
+    def restore_updated_at!: () -> void
+
+    def clear_updated_at_change: () -> void
+
+    def group_members_count: () -> Integer?
+
+    def group_members_count=: (Integer?) -> Integer?
+
+    def group_members_count?: () -> bool
+
+    def group_members_count_changed?: () -> bool
+
+    def group_members_count_change: () -> [ Integer?, Integer? ]
+
+    def group_members_count_will_change!: () -> void
+
+    def group_members_count_was: () -> Integer?
+
+    def group_members_count_previously_changed?: () -> bool
+
+    def group_members_count_previous_change: () -> Array[Integer?]?
+
+    def group_members_count_previously_was: () -> Integer?
+
+    def group_members_count_before_last_save: () -> Integer?
+
+    def group_members_count_change_to_be_saved: () -> Array[Integer?]?
+
+    def group_members_count_in_database: () -> Integer?
+
+    def saved_change_to_group_members_count: () -> Array[Integer?]?
+
+    def saved_change_to_group_members_count?: () -> bool
+
+    def will_save_change_to_group_members_count?: () -> bool
+
+    def restore_group_members_count!: () -> void
+
+    def clear_group_members_count_change: () -> void
+
+    def group_token: () -> String?
+
+    def group_token=: (String?) -> String?
+
+    def group_token?: () -> bool
+
+    def group_token_changed?: () -> bool
+
+    def group_token_change: () -> [ String?, String? ]
+
+    def group_token_will_change!: () -> void
+
+    def group_token_was: () -> String?
+
+    def group_token_previously_changed?: () -> bool
+
+    def group_token_previous_change: () -> Array[String?]?
+
+    def group_token_previously_was: () -> String?
+
+    def group_token_before_last_save: () -> String?
+
+    def group_token_change_to_be_saved: () -> Array[String?]?
+
+    def group_token_in_database: () -> String?
+
+    def saved_change_to_group_token: () -> Array[String?]?
+
+    def saved_change_to_group_token?: () -> bool
+
+    def will_save_change_to_group_token?: () -> bool
+
+    def restore_group_token!: () -> void
+
+    def clear_group_token_change: () -> void
+
+    def token_expires_at: () -> ActiveSupport::TimeWithZone?
+
+    def token_expires_at=: (ActiveSupport::TimeWithZone?) -> ActiveSupport::TimeWithZone?
+
+    def token_expires_at?: () -> bool
+
+    def token_expires_at_changed?: () -> bool
+
+    def token_expires_at_change: () -> [ ActiveSupport::TimeWithZone?, ActiveSupport::TimeWithZone? ]
+
+    def token_expires_at_will_change!: () -> void
+
+    def token_expires_at_was: () -> ActiveSupport::TimeWithZone?
+
+    def token_expires_at_previously_changed?: () -> bool
+
+    def token_expires_at_previous_change: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def token_expires_at_previously_was: () -> ActiveSupport::TimeWithZone?
+
+    def token_expires_at_before_last_save: () -> ActiveSupport::TimeWithZone?
+
+    def token_expires_at_change_to_be_saved: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def token_expires_at_in_database: () -> ActiveSupport::TimeWithZone?
+
+    def saved_change_to_token_expires_at: () -> Array[ActiveSupport::TimeWithZone?]?
+
+    def saved_change_to_token_expires_at?: () -> bool
+
+    def will_save_change_to_token_expires_at?: () -> bool
+
+    def restore_token_expires_at!: () -> void
+
+    def clear_token_expires_at_change: () -> void
+  end
+  include GeneratedAttributeMethods
+  def group_members: () -> GroupMember::ActiveRecord_Associations_CollectionProxy
+  def group_members=: (GroupMember::ActiveRecord_Associations_CollectionProxy | Array[GroupMember]) -> (GroupMember::ActiveRecord_Associations_CollectionProxy | Array[GroupMember])
+  def group_member_ids: () -> Array[Integer]
+  def group_member_ids=: (Array[Integer]) -> Array[Integer]
+  def users: () -> User::ActiveRecord_Associations_CollectionProxy
+  def users=: (User::ActiveRecord_Associations_CollectionProxy | Array[User]) -> (User::ActiveRecord_Associations_CollectionProxy | Array[User])
+  def user_ids: () -> Array[Integer]
+  def user_ids=: (Array[Integer]) -> Array[Integer]
+  def assignments: () -> Assignment::ActiveRecord_Associations_CollectionProxy
+  def assignments=: (Assignment::ActiveRecord_Associations_CollectionProxy | Array[Assignment]) -> (Assignment::ActiveRecord_Associations_CollectionProxy | Array[Assignment])
+  def assignment_ids: () -> Array[Integer]
+  def assignment_ids=: (Array[Integer]) -> Array[Integer]
+  def pending_invitations: () -> PendingInvitation::ActiveRecord_Associations_CollectionProxy
+  def pending_invitations=: (PendingInvitation::ActiveRecord_Associations_CollectionProxy | Array[PendingInvitation]) -> (PendingInvitation::ActiveRecord_Associations_CollectionProxy | Array[PendingInvitation])
+  def pending_invitation_ids: () -> Array[Integer]
+  def pending_invitation_ids=: (Array[Integer]) -> Array[Integer]
+
+  def primary_mentor: () -> User
+  def primary_mentor=: (User?) -> User?
+  def reload_primary_mentor: () -> User?
+  def build_primary_mentor: (untyped) -> User
+  def create_primary_mentor: (untyped) -> User
+  def create_primary_mentor!: (untyped) -> User
+  module GeneratedAssociationMethods
+  end
+  include GeneratedAssociationMethods
+
+  def self.with_valid_token: () -> ActiveRecord_Relation
+
+  module GeneratedRelationMethods
+    def with_valid_token: () -> ActiveRecord_Relation
+  end
+
+  class ActiveRecord_Relation < ::ActiveRecord::Relation
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Group, Integer]
+    include Enumerable[Group]
+  end
+
+  class ActiveRecord_Associations_CollectionProxy < ::ActiveRecord::Associations::CollectionProxy
+    include GeneratedRelationMethods
+    include _ActiveRecord_Relation[Group, Integer]
+  end
+end
