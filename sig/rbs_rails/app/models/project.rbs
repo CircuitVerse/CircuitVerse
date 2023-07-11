@@ -675,5 +675,22 @@ class Project < ::ApplicationRecord
   @project: Project
   @star: Star
 
+  def increase_views: (User) -> void
+  def toggle_star: (User) -> bool
   def fork: (User) -> Project
+  def send_mail: -> void
+  def project_notifiable_path: -> String
+  def self.tagged_with: (String) -> ::ActiveRecord::Associations::CollectionProxy
+  def tag_list: -> String
+  def tag_list=: (String) -> Array[Tag]
+  def public?: -> bool
+  def featured?: -> bool
+
+  private
+
+  def check_validity: -> void
+  def clean_description: -> void
+  def check_and_remove_featured: -> void
+  def should_generate_new_friendly_id?: -> bool
+  def purge_circuit_preview: -> void
 end
