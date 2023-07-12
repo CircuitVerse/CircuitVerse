@@ -20,3 +20,5 @@ gems:
     ignore: true
   - name: steep
     ignore: true
+  - name: meta-tags
+    ignore: true
