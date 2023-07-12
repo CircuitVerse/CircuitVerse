@@ -1,13 +1,8 @@
 class ProfileDecorator < SimpleDelegator
-  def profile: () -> untyped
-
-  def member_since: () -> untyped
-
-  def educational_institute: () -> untyped
-
-  def country_name: () -> untyped
-
+  def profile: () -> User
+  def member_since: () -> Time
+  def educational_institute: () -> string
+  def country_name: () -> string
   def mail_subscription: () -> ("Subscribed" | "Not Subscribed")
-
-  def total_circuits: () -> (untyped | "No circuits")
+  def total_circuits: () -> string
 end
