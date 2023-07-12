@@ -1,0 +1,5 @@
+class SimpleDelegator
+  def initialize: (untyped) -> untyped
+  def __getobj__: () -> untyped
+  def __setobj__: (untyped) -> untyped
+end
