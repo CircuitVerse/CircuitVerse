@@ -67,6 +67,7 @@ yarn-debug.log*
 
 # Private key
 config/private.pem
+config/public.pem
 
 .env
 .eslintcache
@@ -78,7 +79,21 @@ yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
 
+storage/
+config/credentials.yml.enc
+/config/master.key
 
 # Ignore all files of .vscode except launch.json
 .vscode/*
 !.vscode/launch.json
+
+
+# Vite Ruby
+/public/vite*
+node_modules
+# Vite uses dotenv and suggests to ignore local-only env files. See
+# https://vitejs.dev/guide/env-and-mode.html#env-files
+*.local
+
+# ignore rbs collection
+.gem_rbs_collection

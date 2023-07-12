@@ -85,7 +85,7 @@ const vuePlugin = {
 
 async function run() {
     const context = await esbuild.context({
-        entryPoints: ['application.js', 'simulator.js', 'testbench.js'],
+        entryPoints: ['application.js', 'testbench.js'],
         bundle: true,
         outdir: path.join(process.cwd(), 'app/assets/builds'),
         absWorkingDir: path.join(process.cwd(), 'app/javascript'),

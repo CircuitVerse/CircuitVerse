@@ -1,3 +1,4 @@
 web: bundle exec rdbg --open --nonstop --command -- bundle exec rails server -p 3000
 js: BUILD_VUE=true yarn build --watch
 worker: bundle exec sidekiq
+vite: bin/vite dev

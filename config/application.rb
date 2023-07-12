@@ -24,7 +24,7 @@ module Logix
 
     # configuring middleware
     config.middleware.use Rack::Attack
-    
+
     # configuring forum
     overrides = "#{Rails.root}/app/overrides"
     Rails.autoloaders.main.ignore(overrides)
