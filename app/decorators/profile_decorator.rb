@@ -6,7 +6,7 @@ class ProfileDecorator < SimpleDelegator
   end
 
   def member_since
-    ((Time.now.to_i - profile.created_at.to_i) / 1.day)
+    ((Time.now.to_i - profile.created_at.to_i).to_i / 1.day.to_i)
   end
 
   def educational_institute

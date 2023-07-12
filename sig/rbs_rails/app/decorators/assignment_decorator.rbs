@@ -1,9 +1,9 @@
 class AssignmentDecorator < SimpleDelegator
   def assignment: -> Assignment
-  def graded: () -> String
-  def grading_scale_str: () -> String
-  def restricted_circuit_elements: () -> String
-  def restricted_features: () -> String
-  def closed?: () -> bool
-  def time_remaining: () -> String
+  def graded: -> String
+  def grading_scale_str: -> (String | nil)
+  def restricted_circuit_elements: -> String
+  def restricted_features: -> String
+  def closed?: -> bool
+  def time_remaining: -> String
 end

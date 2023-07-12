@@ -4,6 +4,7 @@ steep_diagnostic = Steep::Diagnostic
 
 target :app do
   check "app/models"
+  check "app/decorators"
   signature "sig"
   configure_code_diagnostics(steep_diagnostic::Ruby.lenient)
   configure_code_diagnostics do |hash|
