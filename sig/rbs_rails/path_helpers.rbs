@@ -1,0 +1,394 @@
+interface _RbsRailsPathHelpers
+  def rails_mailers_path: (*untyped) -> String
+  def preview_view_components_path: (*untyped) -> String
+  def preview_view_component_path: (*untyped) -> String
+  def rails_info_properties_path: (*untyped) -> String
+  def rails_info_routes_path: (*untyped) -> String
+  def rails_info_path: (*untyped) -> String
+  def rails_admin_path: (*untyped) -> String
+  def simple_discussion_path: -> String
+  def sidekiq_web_path: (*untyped) -> String
+  def users_sign_out_path: -> String
+  def group_members_path: -> String
+  def group_member_path: (GroupMember) -> String
+  def group_assignments_path: -> String
+  def new_group_assignment_path: (Group) -> String
+  def edit_group_assignment_path: (Group, Assignment) -> String
+  def group_assignment_path: (Group, Assignment) -> String
+  def invite_group_path: (int, String) -> String
+  def generate_token_group_path: (int) -> String
+  def groups_path: -> String
+  def new_group_path: -> String
+  def edit_group_path: (Group) -> String
+  def group_path: (Group) -> String
+  def custom_mails_path: (CustomMail) -> String
+  def new_custom_mail_path: -> String
+  def edit_custom_mail_path: (CustomMail) -> String
+  def custom_mail_path: (CustomMail) -> String
+  def send_custom_mail_path: (CustomMail) -> String
+  def send_custom_mail_self_path: (CustomMail) -> String
+  def grades_path: -> String
+  def grades_to_csv_path: (Assignment) -> String
+  def search_path: -> String
+  def about_index_path: -> String
+  def privacy_index_path: -> String
+  def reopen_group_assignment_path: (Group, Assignment) -> String
+  def close_group_assignment_path: (Group, Assignment) -> String
+  def assignment_start_path: (Group, Assignment) -> String
+  def stars_path: -> String
+  def star_path: (Star) -> String
+  def featured_circuits_path: -> String
+  def users_edit_path: (User) -> String
+  def new_user_session_path: -> String
+  def user_session_path: (*untyped) -> String
+  def destroy_user_session_path: -> String
+  def user_google_oauth2_omniauth_authorize_path: -> String
+  def user_google_oauth2_omniauth_callback_path: -> String
+  def user_facebook_omniauth_authorize_path: -> String
+  def user_facebook_omniauth_callback_path: -> String
+  def user_github_omniauth_authorize_path: -> String
+  def user_github_omniauth_callback_path: -> String
+  def user_gitlab_omniauth_authorize_path: -> String
+  def user_gitlab_omniauth_callback_path: -> String
+  def new_user_password_path: -> String
+  def edit_user_password_path: -> String
+  def user_password_path: (*untyped) -> String
+  def cancel_user_registration_path: (*untyped) -> String
+  def new_user_registration_path: -> String
+  def edit_user_registration_path: (*untyped) -> String
+  def user_registration_path: -> String
+  def new_saml_user_session_path: -> String
+  def saml_user_session_path: -> String
+  def destroy_saml_user_session_path: -> String
+  def metadata_user_session_path: -> String
+  def idp_destroy_saml_user_session_path: -> String
+  def root_path: -> String
+  def examples_path: -> String
+  def tos_path: -> String
+  def teachers_path: -> String
+  def contribute_path: -> String
+  def announcements_path: -> String
+  def new_announcement_path: -> String
+  def edit_announcement_path: (Announcement) -> String
+  def announcement_path: (Announcement) -> String
+  def profile_path: (User) -> String
+  def profile_edit_path: (User) -> String
+  def profile_update_path: (User) -> String
+  def user_groups_path: (User) -> String
+  def user_projects_path: (User) -> String
+  def notifications_path: (User) -> String
+  def mark_all_as_read_path: (int) -> String
+  def read_all_notifications_path: (User) -> String
+  def mark_as_read_path: (int, int) -> String
+  def push_subscription_new_path: -> String
+  def push_test_path: (*untyped) -> String
+  def create_fork_project_path: (Project) -> String
+  def change_stars_path: (Project) -> String
+  def tag_path: (String) -> String
+  def launch_path: (*untyped) -> String
+  def commontator_path: (*untyped) -> String
+  def simulator_path: (Project) -> String
+  def simulator_edit_path: (Project) -> String
+  def get_data_path: (*untyped) -> String
+  def post_issue_path: (*untyped) -> String
+  def update_data_path: (*untyped) -> String
+  def update_image_path: (*untyped) -> String
+  def create_data_path: (*untyped) -> String
+  def verilogcv_path: -> String
+  def simulator_new_path: -> String
+  def simulator_embed_path: (Project) -> String
+  def testbench_creator_path: -> String
+  def edit_user_project_path: (User, Project) -> String
+  def user_project_path: (User, Project) -> String
+  def users_path: -> String
+  def new_user_path: -> String
+  def edit_user_path: (User) -> String
+  def user_path: (User) -> String
+  def collaborations_path: (Project) -> String
+  def collaboration_path: (Collaboration) -> String
+  def facebook_path: -> String
+  def twitter_path: -> String
+  def linkedin_path: -> String
+  def slack_path: -> String
+  def discord_path: -> String
+  def github_path: -> String
+  def learn_path: -> String
+  def docs_path: -> String
+  def features_path: -> String
+  def api_v1_auth_login_path: -> String
+  def api_v1_auth_signup_path: -> String
+  def api_v1_oauth_login_path: -> String
+  def api_v1_oauth_signup_path: -> String
+  def api_v1_path: -> String
+  def api_v1_password_forgot_path: -> String
+  def api_v1_notifications_path: -> String
+  def api_v1_notifications_mark_all_as_read_path: -> String
+  def api_v1_me_path: -> String
+  def api_v1_forgot_password_path: -> String
+  def api_v1_users_path: -> String
+  def api_v1_user_path: (User) -> String
+  def api_v1_projects_featured_path: -> String
+  def api_v1_projects_search_path: -> String
+  def toggle_star_api_v1_project_path: (Project) -> String
+  def fork_api_v1_project_path: (Project) -> String
+  def image_preview_api_v1_project_path: (Project) -> String
+  def api_v1_project_collaborators_path: -> String
+  def api_v1_project_collaborator_path: (Collaboration) -> String
+  def api_v1_projects_path: -> String
+  def api_v1_project_path: (Project) -> String
+  def projects_api_v1_user_path: (User) -> String
+  def favourites_api_v1_user_path: (User) -> String
+  def new_api_v1_user_path: -> String
+  def edit_api_v1_user_path: (User) -> String
+  def api_v1_grade_path: -> String
+  def api_v1_groups_owned_path: -> String
+  def api_v1_groups_path: -> String
+  def api_v1_group_path: (Group) -> String
+  def api_v1_group_members_path: -> String
+  def api_v1_group_assignments_path: (Group) -> String
+  def new_api_v1_group_assignment_path: (Group) -> String
+  def edit_api_v1_assignment_path: (Assignment) -> String
+  def api_v1_assignment_path: (Assignment) -> String
+  def new_api_v1_group_path: -> String
+  def edit_api_v1_group_path: (Group) -> String
+  def reopen_api_v1_assignment_path: (Assignment) -> String
+  def start_api_v1_assignment_path: (Assignment) -> String
+  def api_v1_assignments_path: (Group) -> String
+  def new_api_v1_assignment_path: (Group) -> String
+  def upvote_api_v1_comment_path: (Commontator::Comment) -> String
+  def downvote_api_v1_comment_path: (Commontator::Comment) -> String
+  def unvote_api_v1_comment_path: (Commontator::Comment) -> String
+  def delete_api_v1_comment_path: (Commontator::Comment) -> String
+  def undelete_api_v1_comment_path: (Commontator::Comment) -> String
+  def api_v1_thread_comments_path: (Commontator::Thread) -> String
+  def api_v1_comment_path: (Commontator::Comment) -> String
+  def close_api_v1_thread_path: (Commontator::Thread) -> String
+  def reopen_api_v1_thread_path: (Commontator::Thread) -> String
+  def subscribe_api_v1_thread_path: (Commontator::Thread) -> String
+  def unsubscribe_api_v1_thread_path: (Commontator::Thread) -> String
+  def turbo_recede_historical_location_path: (*untyped) -> String
+  def turbo_resume_historical_location_path: (*untyped) -> String
+  def turbo_refresh_historical_location_path: (*untyped) -> String
+  def mailkick_path: (*untyped) -> String
+  def rails_postmark_inbound_emails_path: (*untyped) -> String
+  def rails_relay_inbound_emails_path: (*untyped) -> String
+  def rails_sendgrid_inbound_emails_path: (*untyped) -> String
+  def rails_mandrill_inbound_health_check_path: (*untyped) -> String
+  def rails_mandrill_inbound_emails_path: (*untyped) -> String
+  def rails_mailgun_inbound_emails_path: (*untyped) -> String
+  def rails_conductor_inbound_emails_path: (*untyped) -> String
+  def new_rails_conductor_inbound_email_path: (*untyped) -> String
+  def edit_rails_conductor_inbound_email_path: (*untyped) -> String
+  def rails_conductor_inbound_email_path: (*untyped) -> String
+  def new_rails_conductor_inbound_email_source_path: (*untyped) -> String
+  def rails_conductor_inbound_email_sources_path: (*untyped) -> String
+  def rails_conductor_inbound_email_reroute_path: (*untyped) -> String
+  def rails_conductor_inbound_email_incinerate_path: (*untyped) -> String
+  def rails_service_blob_path: (*untyped) -> String
+  def rails_service_blob_proxy_path: (*untyped) -> String
+  def rails_blob_representation_path: (*untyped) -> String
+  def rails_blob_representation_proxy_path: (*untyped) -> String
+  def rails_disk_service_path: (*untyped) -> String
+  def update_rails_disk_service_path: (*untyped) -> String
+  def rails_direct_uploads_path: (*untyped) -> String
+  def rails_representation_path: (*untyped) -> String
+  def rails_blob_path: (*untyped) -> String
+  def rails_storage_proxy_path: (*untyped) -> String
+  def rails_storage_redirect_path: (*untyped) -> String
+  def rails_mailers_url: (*untyped) -> String
+  def preview_view_components_url: (*untyped) -> String
+  def preview_view_component_url: (*untyped) -> String
+  def rails_info_properties_url: (*untyped) -> String
+  def rails_info_routes_url: (*untyped) -> String
+  def rails_info_url: (*untyped) -> String
+  def rails_admin_url: (*untyped) -> String
+  def simple_discussion_url: -> String
+  def sidekiq_web_url: (*untyped) -> String
+  def users_sign_out_url: -> String
+  def group_members_url: -> String
+  def group_member_url: (GroupMember) -> String
+  def group_assignments_url: -> String
+  def new_group_assignment_url: (Group) -> String
+  def edit_group_assignment_url: (Group, Assignment) -> String
+  def group_assignment_url: (Group, Assignment) -> String
+  def invite_group_url: (int, String) -> String
+  def generate_token_group_url: (int) -> String
+  def groups_url: -> String
+  def new_group_url: -> String
+  def edit_group_url: (Group) -> String
+  def group_url: (Group) -> String
+  def custom_mails_url: (CustomMail) -> String
+  def new_custom_mail_url: -> String
+  def edit_custom_mail_url: (CustomMail) -> String
+  def custom_mail_url: (CustomMail) -> String
+  def send_custom_mail_url: (CustomMail) -> String
+  def send_custom_mail_self_url: (CustomMail) -> String
+  def grades_url: -> String
+  def grades_to_csv_url: (Assignment) -> String
+  def search_url: -> String
+  def about_index_url: -> String
+  def privacy_index_url: -> String
+  def reopen_group_assignment_url: (Group, Assignment) -> String
+  def close_group_assignment_url: (Group, Assignment) -> String
+  def assignment_start_url: (Group, Assignment) -> String
+  def stars_url: -> String
+  def star_url: (Star) -> String
+  def featured_circuits_url: -> String
+  def users_edit_url: (User) -> String
+  def new_user_session_url: -> String
+  def user_session_url: (*untyped) -> String
+  def destroy_user_session_url: -> String
+  def user_google_oauth2_omniauth_authorize_url: -> String
+  def user_google_oauth2_omniauth_callback_url: -> String
+  def user_facebook_omniauth_authorize_url: -> String
+  def user_facebook_omniauth_callback_url: -> String
+  def user_github_omniauth_authorize_url: -> String
+  def user_github_omniauth_callback_url: -> String
+  def user_gitlab_omniauth_authorize_url: -> String
+  def user_gitlab_omniauth_callback_url: -> String
+  def new_user_password_url: -> String
+  def edit_user_password_url: -> String
+  def user_password_url: (*untyped) -> String
+  def cancel_user_registration_url: (*untyped) -> String
+  def new_user_registration_url: -> String
+  def edit_user_registration_url: (*untyped) -> String
+  def user_registration_url: -> String
+  def new_saml_user_session_url: -> String
+  def saml_user_session_url: -> String
+  def destroy_saml_user_session_url: -> String
+  def metadata_user_session_url: -> String
+  def idp_destroy_saml_user_session_url: -> String
+  def root_url: -> String
+  def examples_url: -> String
+  def tos_url: -> String
+  def teachers_url: -> String
+  def contribute_url: -> String
+  def announcements_url: -> String
+  def new_announcement_url: -> String
+  def edit_announcement_url: (Announcement) -> String
+  def announcement_url: (Announcement) -> String
+  def profile_url: (User) -> String
+  def profile_edit_url: (User) -> String
+  def profile_update_url: (User) -> String
+  def user_groups_url: (User) -> String
+  def user_projects_url: (User) -> String
+  def notifications_url: (User) -> String
+  def mark_all_as_read_url: (int) -> String
+  def read_all_notifications_url: (User) -> String
+  def mark_as_read_url: (int, int) -> String
+  def push_subscription_new_url: -> String
+  def push_test_url: (*untyped) -> String
+  def create_fork_project_url: (Project) -> String
+  def change_stars_url: (Project) -> String
+  def tag_url: (String) -> String
+  def launch_url: (*untyped) -> String
+  def commontator_url: (*untyped) -> String
+  def simulator_url: (Project) -> String
+  def simulator_edit_url: (Project) -> String
+  def get_data_url: (*untyped) -> String
+  def post_issue_url: (*untyped) -> String
+  def update_data_url: (*untyped) -> String
+  def update_image_url: (*untyped) -> String
+  def create_data_url: (*untyped) -> String
+  def verilogcv_url: -> String
+  def simulator_new_url: -> String
+  def simulator_embed_url: (Project) -> String
+  def testbench_creator_url: -> String
+  def edit_user_project_url: (User, Project) -> String
+  def user_project_url: (User, Project) -> String
+  def users_url: -> String
+  def new_user_url: -> String
+  def edit_user_url: (User) -> String
+  def user_url: (User) -> String
+  def collaborations_url: (Project) -> String
+  def collaboration_url: (Collaboration) -> String
+  def facebook_url: -> String
+  def twitter_url: -> String
+  def linkedin_url: -> String
+  def slack_url: -> String
+  def discord_url: -> String
+  def github_url: -> String
+  def learn_url: -> String
+  def docs_url: -> String
+  def features_url: -> String
+  def api_v1_auth_login_url: -> String
+  def api_v1_auth_signup_url: -> String
+  def api_v1_oauth_login_url: -> String
+  def api_v1_oauth_signup_url: -> String
+  def api_v1_url: -> String
+  def api_v1_password_forgot_url: -> String
+  def api_v1_notifications_url: -> String
+  def api_v1_notifications_mark_all_as_read_url: -> String
+  def api_v1_me_url: -> String
+  def api_v1_forgot_password_url: -> String
+  def api_v1_users_url: -> String
+  def api_v1_user_url: (User) -> String
+  def api_v1_projects_featured_url: -> String
+  def api_v1_projects_search_url: -> String
+  def toggle_star_api_v1_project_url: (Project) -> String
+  def fork_api_v1_project_url: (Project) -> String
+  def image_preview_api_v1_project_url: (Project) -> String
+  def api_v1_project_collaborators_url: -> String
+  def api_v1_project_collaborator_url: (Collaboration) -> String
+  def api_v1_projects_url: -> String
+  def api_v1_project_url: (Project) -> String
+  def projects_api_v1_user_url: (User) -> String
+  def favourites_api_v1_user_url: (User) -> String
+  def new_api_v1_user_url: -> String
+  def edit_api_v1_user_url: (User) -> String
+  def api_v1_grade_url: -> String
+  def api_v1_groups_owned_url: -> String
+  def api_v1_groups_url: -> String
+  def api_v1_group_url: (Group) -> String
+  def api_v1_group_members_url: -> String
+  def api_v1_group_assignments_url: (Group) -> String
+  def new_api_v1_group_assignment_url: (Group) -> String
+  def edit_api_v1_assignment_url: (Assignment) -> String
+  def api_v1_assignment_url: (Assignment) -> String
+  def new_api_v1_group_url: -> String
+  def edit_api_v1_group_url: (Group) -> String
+  def reopen_api_v1_assignment_url: (Assignment) -> String
+  def start_api_v1_assignment_url: (Assignment) -> String
+  def api_v1_assignments_url: (Group) -> String
+  def new_api_v1_assignment_url: (Group) -> String
+  def upvote_api_v1_comment_url: (Commontator::Comment) -> String
+  def downvote_api_v1_comment_url: (Commontator::Comment) -> String
+  def unvote_api_v1_comment_url: (Commontator::Comment) -> String
+  def delete_api_v1_comment_url: (Commontator::Comment) -> String
+  def undelete_api_v1_comment_url: (Commontator::Comment) -> String
+  def api_v1_thread_comments_url: (Commontator::Thread) -> String
+  def api_v1_comment_url: (Commontator::Comment) -> String
+  def close_api_v1_thread_url: (Commontator::Thread) -> String
+  def reopen_api_v1_thread_url: (Commontator::Thread) -> String
+  def subscribe_api_v1_thread_url: (Commontator::Thread) -> String
+  def unsubscribe_api_v1_thread_url: (Commontator::Thread) -> String
+  def turbo_recede_historical_location_url: (*untyped) -> String
+  def turbo_resume_historical_location_url: (*untyped) -> String
+  def turbo_refresh_historical_location_url: (*untyped) -> String
+  def mailkick_url: (*untyped) -> String
+  def rails_postmark_inbound_emails_url: (*untyped) -> String
+  def rails_relay_inbound_emails_url: (*untyped) -> String
+  def rails_sendgrid_inbound_emails_url: (*untyped) -> String
+  def rails_mandrill_inbound_health_check_url: (*untyped) -> String
+  def rails_mandrill_inbound_emails_url: (*untyped) -> String
+  def rails_mailgun_inbound_emails_url: (*untyped) -> String
+  def rails_conductor_inbound_emails_url: (*untyped) -> String
+  def new_rails_conductor_inbound_email_url: (*untyped) -> String
+  def edit_rails_conductor_inbound_email_url: (*untyped) -> String
+  def rails_conductor_inbound_email_url: (*untyped) -> String
+  def new_rails_conductor_inbound_email_source_url: (*untyped) -> String
+  def rails_conductor_inbound_email_sources_url: (*untyped) -> String
+  def rails_conductor_inbound_email_reroute_url: (*untyped) -> String
+  def rails_conductor_inbound_email_incinerate_url: (*untyped) -> String
+  def rails_service_blob_url: (*untyped) -> String
+  def rails_service_blob_proxy_url: (*untyped) -> String
+  def rails_blob_representation_url: (*untyped) -> String
+  def rails_blob_representation_proxy_url: (*untyped) -> String
+  def rails_disk_service_url: (*untyped) -> String
+  def update_rails_disk_service_url: (*untyped) -> String
+  def rails_direct_uploads_url: (*untyped) -> String
+  def rails_representation_url: (*untyped) -> String
+  def rails_blob_url: (*untyped) -> String
+  def rails_storage_proxy_url: (*untyped) -> String
+  def rails_storage_redirect_url: (*untyped) -> String
+end
