@@ -1,0 +1,6 @@
+module CustomMailsHelper
+  BATCH_SIZE: Integer
+
+  def send_mail_in_batches: (CustomMail) -> void
+  def send_mail_to_self: (User, CustomMail) -> void
+end

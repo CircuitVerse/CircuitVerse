@@ -1,0 +1,5 @@
+module SimulatorHelper
+  def return_image_file: (string) -> File
+  def check_to_delete: (string) -> bool
+  def sanitize_data: (Project | nil, string) -> string
+end

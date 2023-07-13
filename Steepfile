@@ -6,6 +6,7 @@ target :app do
   check "app/models"
   check "app/decorators"
   check "app/notifications"
+  check "app/helpers"
   signature "sig"
   configure_code_diagnostics(steep_diagnostic::Ruby.lenient)
   configure_code_diagnostics do |hash|

@@ -1,0 +1,4 @@
+module SortingHelper
+  def self.sort_fields: (String, Array[String]) -> Hash[String, Symbol]
+  def self.ordered_hash: (Array[String]) -> Hash[String, Symbol]
+end

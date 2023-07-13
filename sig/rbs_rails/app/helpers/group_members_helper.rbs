@@ -1,0 +1,5 @@
+module GroupMembersHelper
+  def membersCardViewerContainer: (Group) -> string
+  def membersCardViewer: (Group) -> string
+  def membersCardViewerDetail: (Group) -> string
+end

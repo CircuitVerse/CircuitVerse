@@ -1,0 +1,3 @@
+module ForumHelper
+  def formatted_content: (string text) -> string
+end

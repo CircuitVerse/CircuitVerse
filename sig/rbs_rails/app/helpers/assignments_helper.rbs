@@ -1,0 +1,8 @@
+module AssignmentsHelper
+  def deadline_year: (Assignment) -> string
+  def deadline_month: (Assignment) -> string
+  def deadline_day: (Assignment) -> string
+  def deadline_hour: (Assignment) -> string
+  def deadline_minute: (Assignment) -> string
+  def deadline_second: (Assignment) -> string
+end

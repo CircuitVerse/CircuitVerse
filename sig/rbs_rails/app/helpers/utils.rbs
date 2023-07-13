@@ -1,0 +1,5 @@
+module Utils
+  def self.parse_mails: (string) -> Array[String]
+  def self.parse_mails_except_current_user: (string, User) -> Array[String]
+  def self.mail_notice: (Array[String], Array[String], Array[String]) -> string
+end

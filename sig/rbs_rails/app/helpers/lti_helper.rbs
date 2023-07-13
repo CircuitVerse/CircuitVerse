@@ -1,0 +1,3 @@
+module LtiHelper
+  def lms_integration_tutorial: -> string
+end
