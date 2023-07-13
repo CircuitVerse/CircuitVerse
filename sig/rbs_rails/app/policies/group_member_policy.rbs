@@ -1,0 +1,8 @@
+class GroupMemberPolicy < ApplicationPolicy
+  attr_reader user: User
+  attr_reader group_member: GroupMember
+
+  def initialize: (User user, GroupMember group_member) -> void
+  def primary_mentor?: -> bool
+  def mentor?: -> bool
+end

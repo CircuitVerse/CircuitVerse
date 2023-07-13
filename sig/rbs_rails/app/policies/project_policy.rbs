@@ -1,0 +1,19 @@
+class ProjectPolicy < ApplicationPolicy
+  @simulator_exception: ApplicationPolicy::CustomAuthException
+
+  attr_reader user: User
+  attr_reader project: Project
+
+  def initialize: (User user, Project project) -> void
+  def can_feature?: -> bool
+  def user_access?: -> bool
+  def check_edit_access?: -> bool
+  def check_view_access?: -> bool
+  def check_direct_view_access?: -> bool
+  def edit_access?: -> true
+  def view_access?: -> true
+  def direct_view_access?: -> true
+  def embed?: -> true
+  def create_fork?: -> bool
+  def author_access?: -> bool
+end

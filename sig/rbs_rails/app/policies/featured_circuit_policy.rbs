@@ -1,0 +1,6 @@
+class FeaturedCircuitPolicy < ApplicationPolicy
+  attr_reader user: User
+  attr_reader featured_circuit: FeaturedCircuit
+
+  def initialize: (User user, FeaturedCircuit featured_circuit) -> void
+end

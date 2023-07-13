@@ -15,11 +15,11 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def admin_access?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin?
+    (assignment.group.primary_mentor_id == user.id) || user.admin?
   end
 
   def mentor_access?
-    assignment.group&.group_members&.exists?(user_id: user.id, mentor: true) || admin_access?
+    assignment.group.group_members.exists?(user_id: user.id, mentor: true) || admin_access?
   end
 
   def start?
@@ -39,7 +39,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def close?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin?
+    (assignment.group.primary_mentor_id == user.id) || user.admin?
   end
 
   def can_be_graded?

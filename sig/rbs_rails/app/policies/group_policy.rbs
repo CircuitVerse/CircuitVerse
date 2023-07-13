@@ -1,0 +1,11 @@
+class GroupPolicy < ApplicationPolicy
+  @admin_access: bool
+
+  attr_reader user: User
+  attr_reader group: Group
+
+  def initialize: (User user, Group group) -> void
+  def show_access?: -> bool
+  def admin_access?: -> bool
+  def mentor_access?: -> bool
+end

@@ -1,0 +1,7 @@
+class GradePolicy < ApplicationPolicy
+  attr_reader user: User
+  attr_reader grade: Grade
+
+  def initialize: (User user, Grade grade) -> void
+  def mentor?: -> bool
+end

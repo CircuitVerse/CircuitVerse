@@ -1,0 +1,15 @@
+class AssignmentPolicy < ApplicationPolicy
+  attr_reader user: User
+  attr_reader assignment: Assignment
+
+  def initialize: (User user, Assignment assignment) -> void
+  def show?: -> bool
+  def admin_access?: -> bool
+  def mentor_access?: -> bool
+  def start?: -> bool
+  def edit?: -> bool
+  def reopen?: -> true
+  def close?: -> bool
+  def can_be_graded?: -> bool
+  def show_grades?: -> bool
+end
