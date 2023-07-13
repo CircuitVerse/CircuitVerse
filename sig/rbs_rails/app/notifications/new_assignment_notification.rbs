@@ -1,0 +1,4 @@
+class NewAssignmentNotification
+  def message: -> string
+  def icon: -> string
+end

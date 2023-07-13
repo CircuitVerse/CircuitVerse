@@ -1,0 +1,4 @@
+class ForkNotification
+  def message: -> string
+  def icon: -> string
+end

@@ -1,0 +1,4 @@
+class ForumThreadNotification
+  def message: -> string
+  def icon: -> string
+end

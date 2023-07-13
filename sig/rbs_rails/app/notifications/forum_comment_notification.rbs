@@ -1,0 +1,4 @@
+class ForumCommentNotification
+  def message: -> string
+  def icon: -> string
+end

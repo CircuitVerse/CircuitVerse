@@ -1,0 +1,4 @@
+class StarNotification
+  def message: -> string
+  def icon: -> string
+end
