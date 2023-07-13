@@ -1,0 +1,3 @@
+class AssignmentDeadlineSubmissionJob < ApplicationJob
+  def perform: (int assignment_id) -> (nil | Assignment)
+end
