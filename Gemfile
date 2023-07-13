@@ -129,7 +129,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails", "~> 5.1"
+  gem "rspec-rails", "~> 6.0"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
@@ -137,11 +137,10 @@ group :development, :test do
   gem "steep"
   # Adds support for Solargraph LSP
   gem 'solargraph-rails', '~> 0.3.1'
-  gem "undercover"
 end
 
 group :test do
-  gem "capybara", "~> 3.36"
+  gem "capybara", "~> 3.39"
   gem "json-schema"
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
@@ -150,6 +149,7 @@ group :test do
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
+  gem "undercover"
   gem "undercover-checkstyle"
 end
 
