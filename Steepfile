@@ -10,6 +10,7 @@ target :app do
   check "app/policies"
   ignore "app/policies/user_policy.rb"
   check "app/jobs"
+  check "app/mailers"
 
   signature "sig"
 

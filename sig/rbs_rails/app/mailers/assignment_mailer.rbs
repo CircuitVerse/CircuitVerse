@@ -1,0 +1,7 @@
+class AssignmentMailer < ApplicationMailer
+  @assignment: Assignment
+  @user: User
+
+  def new_assignment_email: (User user, Assignment assignment) -> (nil | untyped)
+  def update_assignment_email: (User user, Assignment assignment) -> (nil | untyped)
+end

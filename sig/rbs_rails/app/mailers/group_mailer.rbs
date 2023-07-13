@@ -1,0 +1,8 @@
+class GroupMailer < ApplicationMailer
+  @group: Group
+  @mentor: User
+  @user: User
+
+  def new_group_email: (User user, Group group) -> (nil | untyped)
+  def new_member_email: (User user, Group group) -> (nil | untyped)
+end

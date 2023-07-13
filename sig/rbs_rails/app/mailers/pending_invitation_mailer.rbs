@@ -1,0 +1,6 @@
+class PendingInvitationMailer < ApplicationMailer
+  @email: string | nil
+  @group: Group
+
+  def new_pending_email: (PendingInvitation pending_invitation) -> untyped
+end

@@ -1,0 +1,14 @@
+class UserMailer < ApplicationMailer
+  @mail: CustomMail
+  @new_project: Project
+  @old_project: Project
+  @project: Project
+  @user: User
+  @url: string
+
+  def custom_email: (User user, CustomMail mail) -> (nil | untyped)
+  def welcome_email: (User user) -> untyped
+  def new_project_email: (User user, Project project) -> (nil | untyped)
+  def forked_project_email: (User user, Project old_project, Project new_project) -> (nil | untyped)
+  def featured_circuit_email: (User user, Project project) -> (nil | untyped)
+end
