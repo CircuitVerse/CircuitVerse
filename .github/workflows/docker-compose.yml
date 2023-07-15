@@ -3,8 +3,6 @@ name: Docker compose build
 on: [push]
 
 jobs:
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
     runs-on: ubuntu-latest
 
@@ -13,6 +11,7 @@ jobs:
 
       - name: Run docker compose
         run: |
-          docker-compose up --build -d
+          docker-compose up --build 
+          docker compose exec web rails runner "User.pluck(:id)"
 
  
