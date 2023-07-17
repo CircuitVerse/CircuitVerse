@@ -22,6 +22,8 @@ export interface State {
         exportverilog_dialog: boolean
         save_project_dialog: boolean
         open_project_dialog: boolean
+        export_project_dialog: boolean
+        import_project_dialog: boolean
     }
     // createCircuit: Object | { circuitName: string }
     combinationalAnalysis: Object
@@ -47,6 +49,8 @@ export const useState = defineStore({
                 exportverilog_dialog: false,
                 save_project_dialog: false,
                 open_project_dialog: false,
+                export_project_dialog: false,
+                import_project_dialog: false,
             },
             // createCircuit: {
             //     circuitName: 'Untitled Circuit',

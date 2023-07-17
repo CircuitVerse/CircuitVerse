@@ -80,8 +80,8 @@ export function getTabsOrder() {
  * @return {JSON}
  * @category data
  */
-export async function generateSaveData(name) {
-    data = {}
+export async function generateSaveData(name, setName = true) {
+    let data = {}
 
     // Prompts for name, defaults to Untitled
     name = getProjectName() || name || (await provideProjectName())
@@ -92,7 +92,7 @@ export async function generateSaveData(name) {
         name = 'Untitled'
     }
     data.name = stripTags(name)
-    setProjectName(data.name)
+    if (setName) setProjectName(data.name)
 
     // Save project details
     data.timePeriod = simulationArea.timePeriod

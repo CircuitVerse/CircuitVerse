@@ -30,24 +30,36 @@
             },
             {
                 "id": "5",
+                "item": "export_as_file",
+                "itemid": "ExportProject",
+                "attributes": []
+            },
+            {
+                "id": "6",
+                "item": "import_project",
+                "itemid": "ImportProject",
+                "attributes": []
+            },
+            {
+                "id": "7",
                 "item": "clear_project",
                 "itemid": "clearProject",
                 "attributes": []
             },
             {
-                "id": "6",
+                "id": "8",
                 "item": "recover_project",
                 "itemid": "recoverProject",
                 "attributes": []
             },
             {
-                "id": "7",
+                "id": "9",
                 "item": "preview_circuit",
                 "itemid": "fullViewOption",
                 "attributes": []
             },
             {
-                "id": "8",
+                "id": "10",
                 "item": "view_previous_ui",
                 "itemid": "",
                 "attributes": [
