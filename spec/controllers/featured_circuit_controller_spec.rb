@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe FeaturedCircuitsController, type: :request do
   before do
-    @project = FactoryBot.create(:project, author: FactoryBot.create(:user), \
+    @project = FactoryBot.create(:project, author: FactoryBot.create(:user),
                                            project_access_type: "Public")
   end
 
@@ -35,7 +35,7 @@ describe FeaturedCircuitsController, type: :request do
 
     it "creates featured_circuit" do
       expect do
-        post featured_circuits_path, params: { featured_circuit: \
+        post featured_circuits_path, params: { featured_circuit:
           { featured: "1", project_id: @project.id } }
       end.to change(FeaturedCircuit, :count).by(1)
     end
@@ -44,7 +44,7 @@ describe FeaturedCircuitsController, type: :request do
       FactoryBot.create(:featured_circuit, project: @project)
 
       expect do
-        delete featured_circuits_path, params: { featured_circuit: \
+        delete featured_circuits_path, params: { featured_circuit:
           { featured: "0", project_id: @project.id } }
       end.to change(FeaturedCircuit, :count).by(-1)
     end
