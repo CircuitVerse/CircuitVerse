@@ -1,7 +1,7 @@
 # !/bin/sh
 
 # Setup database
-cp config/database.example.yml config/database.yml
+cp config/database.docker.yml config/database.yml
 createuser -s postgres
 # Install ruby dependencies
 gem install bundler
