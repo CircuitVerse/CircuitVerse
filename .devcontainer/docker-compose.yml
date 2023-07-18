@@ -20,4 +20,4 @@ services:
       DOCKER_ENVIRONMENT: 'true'
     command: sleep infinity
   redis:
-    image: redis
+    image: redis:7.0-alpine
