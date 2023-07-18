@@ -40,8 +40,8 @@ github:
 vscode:
   extensions:
     - dbaeumer.vscode-eslint
-    - https://github.com/tanmoysrt/vsix-extension/raw/main/ruby-rubocop-revived-0.9.5.vsix
+    - https://github.com/CircuitVerse/CircuitVerse/raw/master/gitpod_extensions/ruby-rubocop-revived-0.9.5.vsix
     - rebornix.ruby
     - castwide.solargraph
     - wingrunr21.vscode-ruby
-    - https://github.com/tanmoysrt/vsix-extension/raw/main/vscode-rdbg-0.2.1.vsix
+    - https://github.com/CircuitVerse/CircuitVerse/raw/master/gitpod_extensions/vscode-rdbg-0.2.1.vsix
