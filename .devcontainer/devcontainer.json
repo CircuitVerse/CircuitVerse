@@ -21,13 +21,16 @@
             "rebornix.Ruby",
             "wingrunr21.vscode-ruby",
             "KoichiSasada.vscode-rdbg"
-        ]
+        ],
+        "settings": {
+            "remote.autoForwardPorts": false
+        }
       }
     },
     "portsAttributes": {
       "3000": {
         "label": "Application",
-        "onAutoForward": "openBrowser"
+        "onAutoForward": "notify"
       }
     },
     "forwardPorts": [3000]
