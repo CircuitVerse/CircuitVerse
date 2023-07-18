@@ -27,7 +27,7 @@
     "portsAttributes": {
       "3000": {
         "label": "Application",
-        "onAutoForward": "openPreview"
+        "onAutoForward": "openBrowser"
       }
     },
     "forwardPorts": [3000]
