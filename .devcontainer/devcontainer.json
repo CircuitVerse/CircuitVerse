@@ -3,16 +3,40 @@
     "hostRequirements": {
       "cpus": 4
     },
+    "features": {
+        "ghcr.io/devcontainers/features/sshd:1": {},
+        "ghcr.io/rocker-org/devcontainer-features/apt-packages:1": {
+          "packages": "libpq-dev, libvips, postgresql-client-15"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+          "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/ruby:1": {
+          "version": "3.2.0"
+        },
+        "ghcr.io/devcontainers/features/node:1": {
+          "version": 14
+        },
+        "ghcr.io/devcontainers-contrib/features/postgres-asdf:1.0.2": {},
+        "ghcr.io/devcontainers-contrib/features/redis-homebrew:1": {
+            "version": "latest"
+        },
+        "ghcr.io/devcontainers/features/common-utils:2": {
+          "username": "vscode",
+          "userUid": 1000,
+          "userGid": 1000,
+          "upgradePackages": true
+        }
+    },
     "waitFor": "onCreateCommand",
     "updateContentCommand": "bundle install && yarn",
-    "postCreateCommand": "",
+    "postCreateCommand": ".devcontainer/setup.sh",
     "postAttachCommand": {
-      "server": "rails server"
+      "server": "bin/dev"
     },
     "customizations": {
       "vscode": {
         "extensions": [
-          "rebornix.Ruby"
         ]
       }
     },
