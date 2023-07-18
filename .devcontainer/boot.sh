@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # PostgreSQL connection details
-PG_HOST="localhost"
+PG_HOST="db"
 PG_PORT="5432"
 
 # Function to check if PostgreSQL on port 5432 is up and running
@@ -11,7 +11,7 @@ check_postgres() {
 }
 
 # Wait for PostgreSQL to be up
-echo "Waiting for PostgreSQL on port 5432 to be up..."
+echo "Waiting for PostgreSQL to be up..."
 
 while ! check_postgres; do
   sleep 1
