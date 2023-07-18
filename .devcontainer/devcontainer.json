@@ -2,7 +2,7 @@
     "hostRequirements": {
       "cpus": 4
     },
-    "workspaceFolder": "/workspace",
+    "workspaceFolder": "/workspaces/CircuitVerse/",
     "dockerComposeFile": "docker-compose.yml",
     "service": "web",
     "features": {
