@@ -39,7 +39,7 @@ services:
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: 'true'
   redis:
-    image: redis
+    image: redis:7.0-alpine
   asset_build:
     build: .
     environment:
