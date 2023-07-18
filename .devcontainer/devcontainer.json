@@ -11,7 +11,7 @@
     "waitFor": "onCreateCommand",
     "postCreateCommand": ".devcontainer/setup.sh",
     "postAttachCommand": {
-      "server": "bin/dev"
+      "server": ".devcontainer/boot.sh"
     },
     "customizations": {
       "vscode": {
