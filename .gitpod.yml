@@ -2,10 +2,14 @@ image:
   file: .gitpod.Dockerfile
 
 ports:
-  - port: 3000
+  - name: Web App
+    port: 3000
     onOpen: open-preview
+  - port: 3001-9000
+    onOpen: ignore
 tasks:
   - init: >
+      cp ./.gitpod.vscode.settings .vscode/settings.json &&
       rvm autolibs disable &&
       rvm install 3.2.0 &&
       nvm install 14 &&
@@ -35,9 +39,7 @@ github:
 
 vscode:
   extensions:
-    - dbaeumer.vscode-eslint@2.1.1:DO6k4GCpqhwZcKo+jY9xjQ==
-    - misogi.ruby-rubocop@0.8.3:ptn+lTc9xnktGhPEYKIf2w==
-    - adamwalzer.scss-lint@0.1.10:+toK2RNvnvWcaAP+81LKWg==
-    - rebornix.ruby@0.27.0:b86Iqz+ryuS7Nr77EyIClA==
-    - castwide.solargraph@0.21.1:kJz6aC6XZbI/EeYHUPNCmQ==
-    - wingrunr21.vscode-ruby@0.27.0:VymtAvJQnv5jef/FsPtqJw==
+    - dbaeumer.vscode-eslint
+    - rebornix.ruby
+    - castwide.solargraph
+    - wingrunr21.vscode-ruby
