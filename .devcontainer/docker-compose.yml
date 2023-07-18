@@ -9,7 +9,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: .devcontainer/Dockerfile
+      dockerfile: Dockerfile
     
     ports:
       - "3000:3000"
