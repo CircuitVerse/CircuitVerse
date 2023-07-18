@@ -9,7 +9,6 @@
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
     "waitFor": "onCreateCommand",
-    "updateContentCommand": "bundle install && yarn",
     "postCreateCommand": ".devcontainer/setup.sh",
     "postAttachCommand": {
       "server": "bin/dev"
