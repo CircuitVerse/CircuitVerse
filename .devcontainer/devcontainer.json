@@ -23,7 +23,10 @@
             "KoichiSasada.vscode-rdbg"
         ],
         "settings": {
-            "remote.autoForwardPorts": false
+            "remote.autoForwardPorts": true,
+            "remote.otherPortsAttributes": {
+                "onAutoForward": "ignore"
+            }
         }
       }
     },
