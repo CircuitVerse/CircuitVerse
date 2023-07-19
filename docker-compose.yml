@@ -41,7 +41,7 @@ services:
       DOCKER_ENVIRONMENT: 'true'
       HOST_CURRENT_DIRECTORY: $PWD
   redis:
-    image: redis
+    image: redis:7.0-alpine
   asset_build:
     build: .
     environment:
