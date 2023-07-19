@@ -4,6 +4,7 @@ class CircuitverseController < ApplicationController
   MAXIMUM_FEATURED_CIRCUITS = 3
 
   def index
+    # @type [Array<Project>]
     @projects = Project.select(:id, :author_id, :image_preview, :name, :slug)
                        .public_and_not_forked
                        .where.not(image_preview: "default.png")
@@ -18,6 +19,7 @@ class CircuitverseController < ApplicationController
       @projects.paginate(page: nil)
     end
 
+    # @type [Array<Project>]
     @featured_circuits = Project.joins(:featured_circuit)
                                 .order("featured_circuits.created_at DESC")
                                 .includes(:author)

@@ -9,6 +9,7 @@ class GroupsController < ApplicationController
   # GET /groups/1
   # GET /groups/1.json
   def show
+    # @type [GroupMember]
     @group_member = @group.group_members.new
     @group.assignments.each do |assignment|
       if (assignment.status == "reopening") && (assignment.deadline < Time.zone.now)
@@ -19,6 +20,7 @@ class GroupsController < ApplicationController
   end
 
   def generate_token
+    # @type [Group]
     @group = Group.find(params[:id])
     @group.reset_group_token unless @group.has_valid_token?
   end
@@ -41,6 +43,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
+    # @type [Group]
     @group = Group.new
   end
 
@@ -50,6 +53,7 @@ class GroupsController < ApplicationController
   # POST /groups
   # POST /groups.json
   def create
+    # @type [Group]
     @group = current_user.groups_owned.new(group_params)
 
     respond_to do |format|
@@ -93,10 +97,12 @@ class GroupsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group
+      # @type [Group]
       @group = Group.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # @return [ActionController::Parameters]
     def group_params
       params.require(:group).permit(:name, :primary_mentor_id)
     end

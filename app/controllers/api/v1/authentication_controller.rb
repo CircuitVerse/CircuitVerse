@@ -5,6 +5,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/auth/login
   def login
+    # @type [User]
     @user = User.find_by!(email: params[:email])
     if @user&.valid_password?(params[:password])
       token = JsonWebToken.encode(
@@ -21,6 +22,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     if User.exists?(email: params[:email])
       api_error(status: 409, errors: "user already exists")
     else
+      # @type [User]
       @user = User.create!(signup_params)
       token = JsonWebToken.encode(
         user_id: @user.id, username: @user.name, email: @user.email
@@ -31,6 +33,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/oauth/login
   def oauth_login
+    # @type [User]
     @user = User.find_by!(email: @oauth_user["email"])
     token = JsonWebToken.encode(
       user_id: @user.id, username: @user.name, email: @user.email
@@ -43,6 +46,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     if User.exists?(email: @oauth_user["email"])
       api_error(status: 409, errors: "user already exists")
     else
+      # @type [User]
       @user = User.from_oauth(@oauth_user, params[:provider])
       if @user.errors.any?
         # @user has validation errors
@@ -58,6 +62,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/forgot_password
   def forgot_password
+    # @type [User]
     @user = User.find_by!(email: params[:email])
     # sends reset password instructions to the user's mail if exists
     @user.send_reset_password_instructions

@@ -69,10 +69,12 @@ class StarsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_star
+      # @type [Star]
       @star = Star.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # @return [ActionController::Parameters]
     def star_params
       params.require(:star).permit(:user_id, :project_id)
     end
