@@ -30,6 +30,7 @@ services:
     ports:
       - "3000:3000"
       - "3001:3001"
+      - "3002:3002"
     depends_on:
       - db
       - redis
@@ -38,6 +39,7 @@ services:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: 'true'
+      HOST_CURRENT_DIRECTORY: $PWD
   redis:
     image: redis:7.0-alpine
   asset_build:
