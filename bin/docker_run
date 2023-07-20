@@ -42,4 +42,4 @@ cd /circuitverse
 echo "Starting webserver at 127.0.0.1:3000"
 echo "Remote debugging on 127.0.0.1:3001"
 echo "Starting solargraph server at 127.0.0.1:3002"
-bundle exec rdbg  --nonstop --open --host 0.0.0.0 --port 3001 -c -- bundle exec rails s -p 3000 -b '0.0.0.0'  & solargraph socket --host=0.0.0.0 --port=3002
+bundle exec rdbg  --nonstop --open --host 0.0.0.0 --port 3001 -c -- bundle exec rails s -p 3000 -b '0.0.0.0'
