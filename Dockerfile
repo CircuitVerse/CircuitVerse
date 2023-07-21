@@ -6,6 +6,10 @@ ARG NON_ROOT_GROUP_ID
 ARG NON_ROOT_USERNAME=user
 ARG NON_ROOT_GROUPNAME=user
 
+# Check mandatory args
+RUN test -n "$NON_ROOT_USER_ID"
+RUN test -n "$NON_ROOT_GROUP_ID"
+
 # Create app directory
 RUN mkdir /circuitverse
 # Create non-root user directory
@@ -26,8 +30,9 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash \
  && apt-get update && apt-get -y install chromium-driver chromium && rm -rf /var/lib/apt/lists/*
 
 # create non-root user with same uid:gid as host non-root user
-RUN groupadd -g ${NON_ROOT_GROUP_ID} -r user && useradd -ms -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME}
+RUN groupadd -g ${NON_ROOT_GROUP_ID} -r user && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME}
 RUN chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse
+RUN chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME}
 RUN chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor
 
 # Provide sudo permissions to non-root user
