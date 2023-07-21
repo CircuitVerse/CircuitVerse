@@ -4,10 +4,10 @@
 rm -f /circuitverse/tmp/pids/server.pid 2>&1
 # Run setup
 echo "Setup project"
-bin/docker/setup
+./bin/docker/setup
 # Start solargraph server in background
 bundle exec solargraph socket --host="0.0.0.0" --port=3002 &
 # Start server
-bin/dev
+./bin/dev
 # Start bash if previous command exits
 /bin/bash
