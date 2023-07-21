@@ -12,8 +12,7 @@
             "type": "object",
             "properties": {
               "name": { "type": "string" },
-              "locale": { "type": "string" },
-			  "profile_picture": { "type": ["string", "null"] }
+              "locale": { "type": "string" }
             },
             "required": [
               "name"

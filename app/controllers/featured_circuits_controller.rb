@@ -3,6 +3,11 @@
 class FeaturedCircuitsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_and_authorize_featured, except: [:index]
+  before_action :reload_model
+
+  def reload_model
+    Rails.application.reloader.reload!
+  end
 
   def index
     @projects = Project.joins(:featured_circuit)

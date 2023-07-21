@@ -41,9 +41,13 @@ class Api::V1::ProjectSerializer
     project.commontator_thread.is_closed?
   end
 
-  attributes :image_preview do |image_preview|
-    if image_preview.image_preview.attached?
-      Rails.application.routes.url_helpers.rails_blob_url(image_preview.image_preview, only_path: true)
+  if Flipper.enabled? :active_storage_s3
+    attributes :image_preview do |image_preview|
+      if image_preview.image_preview.attached?
+        {
+          url: Rails.application.routes.url_helpers.rails_blob_url(image_preview.image_preview, only_path: true)
+        }
+      end
     end
   end
 

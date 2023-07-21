@@ -16,9 +16,13 @@
               "created_at": { "type": "string" },
               "updated_at": { "type": "string" },
               "image_preview": {
-                "type": ["null", "string"]
-			  },
-              "description": { "type": "string" },
+                "type": "object",
+                "properties": {
+                  "url": { "type": "string" }
+                },
+                "required": ["url"]
+              },
+			  "description": { "type": "string" },
               "view": { "type": "integer" },
               "is_starred": { "type": ["boolean", "null"] },
               "author_name": { "type": "string" },

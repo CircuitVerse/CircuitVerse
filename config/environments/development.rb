@@ -52,7 +52,8 @@ Rails.application.configure do
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.file_watcher = ActiveSupport::FileUpdateChecker
 
   config.active_job.queue_adapter = :sidekiq
   config.action_mailer.default_url_options = { host: "localhost:3000" }
@@ -83,5 +84,6 @@ Rails.application.configure do
     # Whitelist gitpod domain in dev envionment
     config.hosts << /.*\.gitpod\.io\Z/
     config.hosts << /.*\Z/ # Whitelist everything in Dev
-  end
+  end  
+  Paperclip.options[:command_path] = "/usr/local/bin/"
 end

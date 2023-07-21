@@ -15,11 +15,7 @@
       <div class="row center-row search-user-container">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
           <div class="row center-row">
-            <% if profile.profile_picture.attached? %>
-              <%= image_tag profile.profile_picture.variant(resize_to_limit: [10, 10]).processed.blob, alt: "project.name", class: "center-row search-usersearch-image" %>
-            <% else %>
-              <%= image_tag "thumb/Default.jpg", class:"center-row search-usersearch-image", alt:'User Profile Image' %>
-            <% end %>
+              <%= image_tag user_profile_picture(profile.profile_picture), alt: "project.name", class: "center-row search-usersearch-image" %>
             <p class=" center-row search-username"><%= profile.name %></p>
           </div>
         </div>

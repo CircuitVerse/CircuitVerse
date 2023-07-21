@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
   describe "list specific project" do
+    Flipper.enable(:active_storage_s3)
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }
     let!(:private_project) { FactoryBot.create(:project, author: user) }

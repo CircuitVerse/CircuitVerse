@@ -3,6 +3,12 @@
 class CircuitverseController < ApplicationController
   MAXIMUM_FEATURED_CIRCUITS = 3
 
+  before_action :reload_model
+
+  def reload_model
+    Rails.application.reloader.reload!
+  end
+
   def index
     @projects = Project.select(:id, :author_id, :image_preview, :name, :slug)
                        .public_and_not_forked

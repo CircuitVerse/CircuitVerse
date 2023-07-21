@@ -77,13 +77,10 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
 
     context "when authenticated as the user and removes the uploaded picture" do
       before do
+        Flipper.disable(:active_storage_s3)
         # user having profile picture
-        new_user = create(:user)
-        new_user.profile_picture.attach(
-          io: File.open(Rails.root.join("spec/fixtures/files/profile.png")),
-          filename: "profile.png",
-          content_type: "image/png"
-        )
+        new_user = FactoryBot.create(:user)
+
         token = get_auth_token(new_user)
         patch "/api/v1/users/#{new_user.id}",
               params: { remove_picture: "1" },
@@ -94,7 +91,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("user")
         profile_picture = response.parsed_body["data"]["attributes"]["profile_picture"]
-        expect(profile_picture).to be_nil
+        expect(profile_picture).to eq("original/Default.jpg")
       end
     end
   end

@@ -3,6 +3,8 @@
 class SearchController < ApplicationController
   include SearchHelper
 
+  before_action :reload_model
+
   def search
     resource = params[:resource]
     query_params = params
@@ -15,4 +17,10 @@ class SearchController < ApplicationController
       not_found
     end
   end
+
+  private
+
+    def reload_model
+      Rails.application.reloader.reload!
+    end
 end

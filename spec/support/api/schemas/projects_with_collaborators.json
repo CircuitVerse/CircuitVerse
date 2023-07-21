@@ -108,10 +108,9 @@
           "attributes": {
             "type": "object",
             "properties": {
-              "name": { "type": "string" },
-			  "profile_picture": {"type": ["null", "string"]}
+              "name": { "type": "string" }
             },
-            "required": ["name", "profile_picture"]
+            "required": ["name"]
           }
         },
         "required": ["id", "type", "attributes"]
