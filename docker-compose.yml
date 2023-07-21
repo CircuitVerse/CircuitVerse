@@ -19,7 +19,9 @@ services:
     volumes:
       - .:/circuitverse:rw
       - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
-      - ruby_bundle:/usr/local/bundle:rw
+      - ruby_bundle:/home/vendor/bundle:rw
+    cap_add:
+      - SYS_ADMIN
     ports:
       - "3000:3000"
       - "3001:3001"

@@ -2,9 +2,11 @@
 
 # Remove tmp folder
 rm -rf /circuitverse/tmp
+
 # Install ruby dependencies
 gem install bundler
-bundle config set --local without 'production'
+bundle config set --local without "production"
+bundle config set --local path "/home/vendor/bundle"
 bundle install
 # Install node dependencies
 yarn

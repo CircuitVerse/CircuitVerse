@@ -1,28 +1,12 @@
 #!/bin/bash
 
-# PostgreSQL connection details
-PG_HOST="db"
-PG_PORT="5432"
-
-# Function to check if PostgreSQL on port 5432 is up and running
-echo "Waiting for db to be available"
-for i in $(seq 1 30) ; do timeout 1 bash -c "echo > /dev/tcp/db/5432" > /dev/null 2>&1 && status=0 && break || status=$? && sleep 1 ; done
-
-if [ $status -ne 0 ]
-then
-    echo "Could not connect to db"
-    exit 0
-fi
-
-echo "Database is up!"
-
 # Delete server.pid if it exists
-rm -f /circuitverse/tmp/pids/server.pid
+rm -f /circuitverse/tmp/pids/server.pid 2>&1
 # Run setup
 echo "Setup project"
 bin/docker/setup
 # Start solargraph server in background
-solargraph socket --host="0.0.0.0" --port=3002 &
+bundle exec solargraph socket --host="0.0.0.0" --port=3002 &
 # Start server
 bin/dev
 # Start bash if previous command exits

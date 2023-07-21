@@ -10,7 +10,7 @@ if [[ "$DOCKER_ENVIRONMENT" == "true" ]]; then
   echo "Running in docker environment"
   foreman start -f Procfile.docker.dev
   # Kill the server process if it is still running
-  kill -INT $(cat tmp/pids/server.pid)
+  kill -INT $(cat tmp/pids/server.pid) 2>&1
   echo "Run 'exit' to exit the container"
 else
   echo "Running in local environment"

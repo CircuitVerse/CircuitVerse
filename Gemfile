@@ -144,7 +144,6 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
