@@ -1,0 +1,18 @@
+# !/bin/sh
+
+# Install ruby dependencies
+gem install bundler
+bundle config set --local without 'production'
+bundle install
+# Install node dependencies
+yarn
+# Setup database
+bundle exec rails db:create
+bundle exec rails db:schema:load
+bundle exec rails db:migrate
+bundle exec rails db:seed
+# generate key-pair for jwt-auth
+openssl genrsa -out /circuitverse/config/private.pem 2048
+openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem
+# Create /home/.setup_done file to mark setup as done
+touch /home/user/.setup_done

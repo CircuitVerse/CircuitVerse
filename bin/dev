@@ -1,15 +1,21 @@
 #!/usr/bin/env bash
 
-if ! command -v foreman &> /dev/null
-then
+if ! command -v foreman &>/dev/null; then
   echo "Installing foreman..."
   gem install foreman
 fi
 
-if [[ "$1" == "chrome_debug" ]]; then
- echo "Starting foreman with Procfile.chrome.dev..."
- foreman start -f Procfile.chrome.dev
+# Check if running in docker by env variable DOCKER_ENVIRONMENT == 'true'
+if [[ "$DOCKER_ENVIRONMENT" == "true" ]]; then
+  echo "Running in docker environment"
+  foreman start -f Procfile.docker.dev
 else
- echo "Starting foreman with Procfile.dev..."
- foreman start -f Procfile.dev
+  echo "Running in local environment"
+  if [[ "$1" == "chrome_debug" ]]; then
+    echo "Starting foreman with Procfile.chrome.dev..."
+    foreman start -f Procfile.chrome.dev
+  else
+    echo "Starting foreman with Procfile.dev..."
+    foreman start -f Procfile.dev
+  fi
 fi

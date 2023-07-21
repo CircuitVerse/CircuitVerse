@@ -1,0 +1,4 @@
+web: bundle exec rdbg  --nonstop --open --host 0.0.0.0 --port 3001 -c -- bundle exec rails s -p 3000 -b '0.0.0.0'
+js: yarn build --watch
+worker: bundle exec sidekiq
+vite: bin/vite dev

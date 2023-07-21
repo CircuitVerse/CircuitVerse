@@ -5,60 +5,42 @@ services:
     environment:
       POSTGRES_DB: circuitverse_development
       POSTGRES_PASSWORD: postgres
-  sidekiq:
-    depends_on:
-      - db
-      - redis
-      - mailcatcher
-    build: .
-    command: bundle exec sidekiq -q default -q mailers
+      PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - /circuitverse/.bundle
-      - /circuitverse/node_modules
-      - .:/circuitverse:rw
-      - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
-    environment:
-      REDIS_URL: "redis://redis:6379/0"
+      - postgres_data:/var/lib/postgresql/data/pgdata
   web:
-    build: .
-    entrypoint: /circuitverse/bin/docker_run
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NON_ROOT_USER_ID=${CURRENT_UID}
+        - NON_ROOT_GROUP_ID=${CURRENT_GID}
+    command: /bin/sh -c "/circuitverse/bin/docker/entrypoint"
     volumes:
-      - /circuitverse/.bundle
-      - /circuitverse/node_modules
       - .:/circuitverse:rw
       - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
+      - ruby_bundle:/usr/local/bundle:rw
     ports:
       - "3000:3000"
       - "3001:3001"
+      - "3002:3002"
+      - "3035:3035"
     depends_on:
       - db
       - redis
-      - sidekiq
     environment:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
-      DOCKER_ENVIRONMENT: 'true'
+      DOCKER_ENVIRONMENT: "true"
+      RAILS_ENV: "development"
+      NODE_ENV: "development"
   redis:
     image: redis:7.0-alpine
-  asset_build:
-    build: .
-    environment:
-      - NODE_ENV=development
-      - RAILS_ENV=development
-    command: yarn build --watch
-    volumes:
-      - .:/circuitverse:rw
-      - /circuitverse/.bundle
-      - /circuitverse/node_modules
-    ports:
-      - '127.0.0.1:3035:3035'
-
   mailcatcher:
     image: schickling/mailcatcher
     ports:
-      - '127.0.0.1:1080:1080'
-      - '127.0.0.1:1025:1025'
-
+      - "1080:1080"
+      - "1025:1025"
 volumes:
-  app:
-  public:
+  ruby_bundle:
+  postgres_data:
