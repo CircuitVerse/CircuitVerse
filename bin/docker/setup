@@ -6,11 +6,6 @@ rm -rf /circuitverse/tmp
 # Setup symbolic link for solargraph
 if [ ! -d "${HOST_CURRENT_DIRECTORY%/*}" ]; then
   sudo mkdir -p "${HOST_CURRENT_DIRECTORY%/*}"
-  echo "Created ${HOST_CURRENT_DIRECTORY%/*}"
-fi
-if [ ! -d "${HOST_CURRENT_DIRECTORY%/*}" ]; then
-  sudo mkdir -p "${HOST_CURRENT_DIRECTORY%/*}"
-  echo "Created ${HOST_CURRENT_DIRECTORY%/*}"
 fi
 
 if [ ! -L "$HOST_CURRENT_DIRECTORY" ]; then
