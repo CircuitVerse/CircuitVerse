@@ -131,7 +131,9 @@ GEM
       rack (~> 2)
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
+    backport (1.2.0)
     bcrypt (3.1.19)
+    benchmark (0.2.1)
     better_html (2.0.1)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -219,6 +221,7 @@ GEM
       dotenv (= 2.8.1)
       railties (>= 3.2)
     dry-cli (1.0.0)
+    e2mmap (0.1.0)
     erb_lint (0.4.0)
       activesupport
       better_html (>= 2.0.1)
@@ -304,6 +307,7 @@ GEM
     io-console (0.6.0)
     irb (1.6.4)
       reline (>= 0.3.0)
+    jaro_winkler (1.5.6)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
@@ -332,6 +336,10 @@ GEM
       activerecord
       kaminari-core (= 1.2.2)
     kaminari-core (1.2.2)
+    kramdown (2.4.0)
+      rexml
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     kt-paperclip (7.1.1)
       activemodel (>= 4.2.0)
       activesupport (>= 4.2.0)
@@ -380,7 +388,7 @@ GEM
       net-protocol
     newrelic_rpm (8.14.0)
     nio4r (2.5.9)
-    nokogiri (1.15.2)
+    nokogiri (1.15.3)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     noticed (1.6.3)
@@ -522,6 +530,8 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
+    reverse_markdown (2.1.1)
+      nokogiri
     rexml (3.2.5)
     rsolr (2.2.1)
       builder (>= 2.1.2)
@@ -585,7 +595,7 @@ GEM
     rugged (1.6.3)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
-    sanitize (6.0.1)
+    sanitize (6.0.2)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
     sass-rails (6.0.0)
@@ -627,6 +637,24 @@ GEM
     snaky_hash (2.0.1)
       hashie
       version_gem (~> 1.1, >= 1.1.1)
+    solargraph (0.48.0)
+      backport (~> 1.2)
+      benchmark
+      bundler (>= 1.17.2)
+      diff-lcs (~> 1.4)
+      e2mmap
+      jaro_winkler (~> 1.5)
+      kramdown (~> 2.3)
+      kramdown-parser-gfm (~> 1.1)
+      parser (~> 3.0)
+      reverse_markdown (>= 1.0.5, < 3)
+      rubocop (>= 0.52)
+      thor (~> 1.0)
+      tilt (~> 2.0)
+      yard (~> 0.9, >= 0.9.24)
+    solargraph-rails (0.3.1)
+      activesupport
+      solargraph (>= 0.41.1)
     spring (4.0.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
@@ -738,6 +766,7 @@ GEM
       will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.34)
     zeitwerk (2.6.8)
 
 PLATFORMS
@@ -834,6 +863,7 @@ DEPENDENCIES
   simplecov
   simplecov-lcov
   sitemap_generator
+  solargraph-rails (~> 0.3.1)
   spring
   sprockets (~> 4.1)
   steep
