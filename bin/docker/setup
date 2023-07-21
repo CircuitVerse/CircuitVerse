@@ -16,5 +16,3 @@ bundle exec rails db:seed
 # generate key-pair for jwt-auth
 openssl genrsa -out /circuitverse/config/private.pem 2048
 openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem
-# Create /home/.setup_done file to mark setup as done
-touch /home/$NON_ROOT_USERNAME/.setup_done

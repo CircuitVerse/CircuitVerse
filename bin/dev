@@ -9,13 +9,15 @@ fi
 if [[ "$DOCKER_ENVIRONMENT" == "true" ]]; then
   echo "Running in docker environment"
   foreman start -f Procfile.docker.dev
+  # Kill the server process if it is still running
+  kill -INT $(cat tmp/pids/server.pid)
+  echo "Run 'exit' to exit the container"
 else
   echo "Running in local environment"
   if [[ "$1" == "chrome_debug" ]]; then
     echo "Starting foreman with Procfile.chrome.dev..."
     foreman start -f Procfile.chrome.dev
-  else
-    echo "Starting foreman with Procfile.dev..."
+  else    echo "Starting foreman with Procfile.dev..."
     foreman start -f Procfile.dev
   fi
 fi

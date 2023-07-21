@@ -18,18 +18,12 @@ echo "Database is up!"
 
 # Delete server.pid if it exists
 rm -f /circuitverse/tmp/pids/server.pid
-
-echo /home/$NON_ROOT_USERNAME/.setup_done
-
-# Check if setup has already been done
-if [ ! -f /home/$NON_ROOT_USERNAME/.setup_done ]; then
-  # Run setup
-  echo "Setup project"
-  bin/docker/setup
-fi
-
+# Run setup
+echo "Setup project"
+bin/docker/setup
 # Start solargraph server in background
 solargraph socket --host="0.0.0.0" --port=3002 &
-
-# Start server with interactive shell
+# Start server
 bin/dev
+# Start bash if previous command exits
+/bin/bash
