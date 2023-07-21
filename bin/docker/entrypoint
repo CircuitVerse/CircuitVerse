@@ -19,8 +19,10 @@ echo "Database is up!"
 # Delete server.pid if it exists
 rm -f /circuitverse/tmp/pids/server.pid
 
+echo /home/$NON_ROOT_USERNAME/.setup_done
+
 # Check if setup has already been done
-if [ ! -f /home/user/.setup_done ]; then
+if [ ! -f /home/$NON_ROOT_USERNAME/.setup_done ]; then
   # Run setup
   echo "Setup project"
   bin/docker/setup
