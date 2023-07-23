@@ -76,11 +76,15 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       end
 
       it "returns ActiveStorage attachment" do
+        circuit_preview = helper.send(:return_circuit_preview, @project)
+        expect(circuit_preview).to eq(@project.circuit_preview)
         expect(helper.project_image_preview(@project, @user)).to eq(@project.circuit_preview)
       end
 
       it "returns default image" do
         @project.circuit_preview.purge
+        default_image_path = helper.send(:return_circuit_preview, @project)
+        expect(default_image_path).to start_with("/assets/empty_project/default-")
         expect(helper.project_image_preview(@project, @user)).to start_with("/assets/empty_project/default-")
       end
     end
@@ -93,12 +97,17 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       end
 
       it "returns default image" do
+        @project.image_preview = nil
+        default_image_path = helper.send(:return_image_preview, @project)
+        expect(default_image_path).to start_with("/assets/empty_project/default-")
         expect(helper.project_image_preview(@project, @user)).to start_with("/assets/empty_project/default-")
       end
 
       it "returns PaperClip url" do
         image_file = File.open(Rails.root.join("spec/fixtures/files/default.png"))
         @project.image_preview = image_file
+        image_preview_url = helper.send(:return_image_preview, @project)
+        expect(image_preview_url).to eq(@project.image_preview.url)
         expect(helper.project_image_preview(@project, @user)).to eq(@project.image_preview.url)
       end
     end

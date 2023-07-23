@@ -16,22 +16,29 @@ module UsersCircuitverseHelper
     end
   end
 
-  # rubocop:disable Lint/RedundantCopDisableDirective Metrics/CognitiveComplexity
   def project_image_preview(project, current_user)
-    case Flipper.enabled?(:active_storage_s3, current_user)
-    when true
+    if Flipper.enabled?(:active_storage_s3, current_user)
+      return_circuit_preview(project)
+    else
+      return_image_preview(project)
+    end
+  end
+
+  private
+
+    def return_circuit_preview(project)
       if project.circuit_preview.attached?
         project.circuit_preview
       else
         image_path("empty_project/default.png")
       end
-    else
+    end
+
+    def return_image_preview(project)
       if project.image_preview.present?
         project.image_preview.url
       else
         image_path("empty_project/default.png")
       end
     end
-  end
-  # rubocop:enable Lint/RedundantCopDisableDirective Metrics/CognitiveComplexity
 end
