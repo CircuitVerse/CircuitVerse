@@ -9,9 +9,20 @@ if ! command -v docker &>/dev/null; then
     exit 0
 fi
 
-# Run docker-compose up
-docker compose up -d --build
-# Run docker-compose exec web bash
-docker compose exec web bin/docker/boot
-# Run docker-compose down
-docker compose down
+# Check if rootless docker is available
+if docker ps &> /dev/null; then
+    # Run docker-compose up
+    docker compose up -d --build
+    # Run docker-compose exec web bash
+    docker compose exec web bin/docker/boot
+    # Run docker-compose down
+    docker compose down
+else
+    # Run docker-compose up as root user
+    sudo docker compose up -d --build
+    # Run docker-compose exec web bash as root user
+    sudo docker compose exec web bin/docker/boot
+    # Run docker-compose down as root user
+    sudo docker compose down
+fi
+
