@@ -26,9 +26,11 @@ describe SimulatorHelper do
     context "circuit has elements" do
       let(:data_url) { "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 100)}" }
       let(:jpeg) { Base64.decode64(data_url[("data:image/jpeg;base64,".length)..]) }
+      let(:image_file) { StringIO.new(jpeg) }
 
       before do
         allow(Base64).to receive(:decode64).and_return(jpeg)
+        allow(StringIO).to receive(:new).with(jpeg).and_return(image_file)
       end
 
       it "creates a new File object" do

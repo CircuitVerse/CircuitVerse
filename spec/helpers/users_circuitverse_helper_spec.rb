@@ -52,13 +52,13 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
         filename: "profile.png",
         content_type: "image/png"
       )
-
+      expect(user.profile_picture.attached?).to be true
       expect(helper.user_profile_picture(user.profile_picture)).to eq(user.profile_picture)
     end
 
     it "returns the path for the default image if the attachment is not attached" do
       user1 = FactoryBot.create(:user)
-
+      expect(user1.profile_picture.attached?).to be false
       expect(helper.user_profile_picture(user1.profile_picture)).to start_with("/assets/thumb/Default-")
     end
   end
@@ -77,12 +77,14 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
 
       it "returns ActiveStorage attachment" do
         circuit_preview = helper.send(:return_circuit_preview, @project)
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be true
         expect(circuit_preview).to eq(@project.circuit_preview)
         expect(helper.project_image_preview(@project, @user)).to eq(@project.circuit_preview)
       end
 
       it "returns default image" do
         @project.circuit_preview.purge
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be true
         default_image_path = helper.send(:return_circuit_preview, @project)
         expect(default_image_path).to start_with("/assets/empty_project/default-")
         expect(helper.project_image_preview(@project, @user)).to start_with("/assets/empty_project/default-")
@@ -98,6 +100,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
 
       it "returns default image" do
         @project.image_preview = nil
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be false
         default_image_path = helper.send(:return_image_preview, @project)
         expect(default_image_path).to start_with("/assets/empty_project/default-")
         expect(helper.project_image_preview(@project, @user)).to start_with("/assets/empty_project/default-")
@@ -106,6 +109,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       it "returns PaperClip url" do
         image_file = File.open(Rails.root.join("spec/fixtures/files/default.png"))
         @project.image_preview = image_file
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be false
         image_preview_url = helper.send(:return_image_preview, @project)
         expect(image_preview_url).to eq(@project.image_preview.url)
         expect(helper.project_image_preview(@project, @user)).to eq(@project.image_preview.url)
