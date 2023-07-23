@@ -6,9 +6,7 @@ class User < ApplicationRecord
   include SimpleDiscussion::ForumUser
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
 
-  if Flipper.enabled?(:active_storage_s3)
-    self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size profile_picture_updated_at]
-  end
+  self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size profile_picture_updated_at]
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
@@ -35,25 +33,13 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
-  if Flipper.enabled?(:active_storage_s3)
-    before_destroy :purge_profile_picture
-  else
-    before_destroy :purge_avatar
-  end
+  before_destroy :purge_profile_picture
 
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  if Flipper.enabled?(:active_storage_s3)
-    has_one_attached :profile_picture
-    before_validation { profile_picture.purge if remove_picture == "1" }
-  else
-    has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
-                                        default_url: ":style/Default.jpg"
-    validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
-    has_one_attached :avatar
-    before_validation { avatar.purge && profile_picture.clear if remove_picture == "1" }
-  end
+  has_one_attached :profile_picture
+  before_validation { profile_picture.purge if remove_picture == "1" }
 
   attr_accessor :remove_picture
 
@@ -124,9 +110,5 @@ class User < ApplicationRecord
 
     def purge_profile_picture
       profile_picture.purge if profile_picture.attached?
-    end
-
-    def purge_avatar
-      avatar.purge if avatar.attached?
     end
 end

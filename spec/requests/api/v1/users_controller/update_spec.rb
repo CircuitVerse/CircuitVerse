@@ -91,7 +91,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("user")
         profile_picture = response.parsed_body["data"]["attributes"]["profile_picture"]
-        expect(profile_picture).to eq("original/Default.jpg")
+        expect(profile_picture).to be_nil
       end
     end
   end

@@ -9,31 +9,23 @@ module UsersCircuitverseHelper
   end
 
   def user_profile_picture(attachment)
-    if Flipper.enabled? :active_storage_s3
-      if attachment.attached?
-        attachment
-      else
-        image_path("thumb/Default.jpg")
-      end
+    if attachment.attached?
+      attachment
     else
-      if attachment.present? # rubocop:disable Style/IfInsideElse
-        attachment.url
-      else
-        image_path("thumb/Default.jpg")
-      end
+      image_path("thumb/Default.jpg")
     end
   end
 
-  def project_image_preview(attachment)
-    if Flipper.enabled? :active_storage_s3
-      if attachment.attached?
-        attachment
+  def project_image_preview(project, current_user)
+    if Flipper.enabled?(:active_storage_s3, current_user)
+      if project.circuit_preview.attached?
+        project.circuit_preview
       else
         image_path("empty_project/default.png")
       end
     else
-      if attachment.present? # rubocop:disable Style/IfInsideElse
-        attachment.url
+      if project.image_preview.present? # rubocop:disable Style/IfInsideElse
+        project.image_preview.url
       else
         image_path("empty_project/default.png")
       end

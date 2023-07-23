@@ -16,11 +16,11 @@ class  RerunRenameActiveStorageFields< ActiveRecord::DataMigration
     ActiveRecord::Base.connection.execute(sql)
     Rails.logger.info "Renamed all avatar records to profile_picture"
 
-    # circuit_preview to image_preview
+    # image_preview to circuit_preview
     sql1 = <<-SQL.squish
       UPDATE active_storage_attachments
-      SET name = 'image_preview'
-      WHERE name = 'circuit_preview';
+      SET name = 'circuit_preview'
+      WHERE name = 'image_preview';
     SQL
     ActiveRecord::Base.connection.execute(sql1)
     Rails.logger.info "Renamed all circuit_preview records to image_preview"

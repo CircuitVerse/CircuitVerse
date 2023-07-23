@@ -15,8 +15,6 @@ class SimulatorController < ApplicationController
     Flipper.enabled?(:lms_integration, current_user)
   }
 
-  before_action :reload_model
-
   def self.policy_class
     ProjectPolicy
   end
@@ -51,21 +49,18 @@ class SimulatorController < ApplicationController
     render "edit"
   end
 
-  def update # rubocop:disable Metrics/MethodLength
+  def update
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
-    if Flipper.enabled? :active_storage_s3
-      @project.image_preview.purge if @project.image_preview.attached?
-      io_image_file = parse_image_data_url(params[:image])
-      attach_image_preview(io_image_file)
-    else
-      @project.circuit_preview.purge if @project.circuit_preview.attached?
-      image_file = return_image_file(params[:image])
-      @project.image_preview = image_file
-      attach_circuit_preview(image_file)
-      image_file.close
-      File.delete(image_file) if check_to_delete(params[:image])
-    end
+    # ActiveStorage
+    @project.circuit_preview.purge if @project.circuit_preview.attached?
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(io_image_file)
+    # Paperclip
+    image_file = return_image_file(params[:image])
+    @project.image_preview = image_file
+    image_file.close
+    File.delete(image_file) if check_to_delete(params[:image])
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
@@ -104,16 +99,13 @@ class SimulatorController < ApplicationController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
-
-    if Flipper.enabled? :active_storage_s3
-      io_image_file = parse_image_data_url(params[:image])
-      attach_image_preview(io_image_file)
-    else
-      image_file = return_image_file(params[:image])
-      @project.image_preview = image_file
-      attach_circuit_preview(image_file)
-      image_file.close
-    end
+    # ActiveStorage
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(io_image_file)
+    # Paperclip
+    image_file = return_image_file(params[:image])
+    @project.image_preview = image_file
+    image_file.close
     @project.save!
 
     # render plain: simulator_path(@project)
@@ -156,27 +148,13 @@ class SimulatorController < ApplicationController
       authorize @project, :view_access?
     end
 
-    def attach_image_preview(image_file)
+    def attach_circuit_preview(image_file)
       return unless image_file
 
-      @project.image_preview.attach(
+      @project.circuit_preview.attach(
         io: image_file,
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
-    end
-
-    def attach_circuit_preview(image_file)
-      @project.circuit_preview.attach(
-        io: File.open(image_file),
-        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
-        content_type: "img/jpeg"
-      )
-    end
-
-    def reload_model
-      # load Rails.root.join("app/models/user.rb")
-      # load Rails.root.join("app/models/project.rb")
-      Rails.application.reloader.reload!
     end
 end

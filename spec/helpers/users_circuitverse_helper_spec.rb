@@ -65,16 +65,22 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
 
   describe "#project_image_preview" do
     it "returns the URL for the attachment if it is attached" do
+      user = FactoryBot.create(:user)
       project = FactoryBot.create(:project)
+      project.circuit_preview.attach(
+        io: File.open(Rails.root.join("spec/fixtures/files/default.png")),
+        filename: "preview_1234.jpeg",
+        content_type: "img/jpeg"
+      )
 
-      expect(helper.project_image_preview(project.image_preview)).to eq(project.image_preview)
+      expect(helper.project_image_preview(project, user)).to eq(project.circuit_preview)
     end
 
     it "returns the path for the default image if the attachment is not attached" do
+      user = FactoryBot.create(:user)
       project = FactoryBot.create(:project)
-      project.image_preview.purge
 
-      expect(helper.project_image_preview(project.image_preview)).to start_with("/assets/empty_project/default-")
+      expect(helper.project_image_preview(project, user)).to start_with("/assets/empty_project/default-")
     end
   end
 end

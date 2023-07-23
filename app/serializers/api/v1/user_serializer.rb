@@ -17,11 +17,9 @@ class Api::V1::UserSerializer
                params[:only_name] != true || record.admin
              }
 
-  if Flipper.enabled? :active_storage_s3
-    attribute :profile_picture do |profile_picture|
-      if profile_picture.profile_picture.attached?
-        Rails.application.routes.url_helpers.rails_blob_url(profile_picture.profile_picture, only_path: true)
-      end
+  attribute :profile_picture do |profile_picture|
+    if profile_picture.profile_picture.attached?
+      Rails.application.routes.url_helpers.rails_blob_url(profile_picture.profile_picture, only_path: true)
     end
   end
 end

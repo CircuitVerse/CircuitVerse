@@ -8,7 +8,6 @@ class Project < ApplicationRecord
   friendly_id :name, use: %i[slugged history]
   self.ignored_columns += ["data"]
 
-  self.ignored_columns += ["image_preview"] if Flipper.enabled? :active_storage_s3
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
 
@@ -25,15 +24,8 @@ class Project < ApplicationRecord
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
-
-  if Flipper.enabled?(:active_storage_s3)
-    has_one_attached :image_preview
-    self.ignored_columns += ["image_preview"]
-  else
-    mount_uploader :image_preview, ImagePreviewUploader
-    has_one_attached :circuit_preview
-  end
-
+  mount_uploader :image_preview, ImagePreviewUploader
+  has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
@@ -77,12 +69,7 @@ class Project < ApplicationRecord
   end
 
   after_update :check_and_remove_featured
-
-  if Flipper.enabled?(:active_storage_s3)
-    before_destroy :purge_image_preview
-  else
-    before_destroy :purge_circuit_preview
-  end
+  before_destroy :purge_circuit_preview
 
   self.per_page = 6
 
@@ -105,15 +92,11 @@ class Project < ApplicationRecord
     end
   end
 
-  def fork(user) # rubocop:disable Metrics/MethodLength
+  def fork(user)
     forked_project = dup
     forked_project.build_project_datum.data = project_datum&.data
-    if Flipper.enabled? :active_storage_s3
-      forked_project.image_preview.attach(image_preview.blob)
-    else
-      forked_project.image_preview = image_preview
-      forked_project.circuit_preview.attach(circuit_preview.blob)
-    end
+    forked_project.circuit_preview.attach(circuit_preview.blob)
+    forked_project.image_preview = image_preview
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
@@ -188,10 +171,6 @@ class Project < ApplicationRecord
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
-    end
-
-    def purge_image_preview
-      image_preview.purge if image_preview.attached?
     end
 
     def purge_circuit_preview
