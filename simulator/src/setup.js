@@ -8,7 +8,7 @@ import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
-import { dots } from './canvasApi';
+import { dots, dotsOnModal } from './canvasApi';
 import { update, updateSimulationSet, updateCanvasSet } from './engine';
 import { setupUI } from './ux';
 import startMainListeners from './listeners';
@@ -29,6 +29,7 @@ import { setupCodeMirrorEnvironment } from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
 import '../vendor/jquery-ui.min.css';
 import '../vendor/jquery-ui.min';
+import modalBackgroundArea from './modules/modalBackgroundArea';
 
 window.width = undefined;
 window.height = undefined;
@@ -54,13 +55,18 @@ export function resetup() {
     simulationArea.setup();
     // redraw grid
     dots();
+    dotsOnModal();
     document.getElementById('backgroundArea').style.height = height / DPR + 100;
     document.getElementById('backgroundArea').style.width = width / DPR + 100;
+    document.getElementById('modalBackgroundArea').style.height = height / DPR + 100;
+    document.getElementById('modalBackgroundArea').style.width = width / DPR + 100;
     document.getElementById('canvasArea').style.height = height / DPR;
     simulationArea.canvas.width = width;
     simulationArea.canvas.height = height;
     backgroundArea.canvas.width = width + 100 * DPR;
     backgroundArea.canvas.height = height + 100 * DPR;
+    modalBackgroundArea.canvas.width = width + 100 * DPR;
+    modalBackgroundArea.canvas.height = height + 100 * DPR;
     if (!embed) {
         plotArea.setup();
     }
@@ -68,6 +74,7 @@ export function resetup() {
     update(); // INEFFICIENT, needs to be deprecated
     simulationArea.prevScale = 0;
     dots();
+    dotsOnModal();
 }
 
 window.onresize = resetup; // listener

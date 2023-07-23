@@ -3,6 +3,7 @@ import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
 import { colors } from './themer/themer';
+import modalBackgroundArea from './modules/modalBackgroundArea';
 
 var unit = 10;
 
@@ -149,6 +150,49 @@ export function dots(dots = true, transparentBackground = false, force = false) 
     //             drawPixel(i, j, 0, 0, 0, 255);
     //     ctx.putImageData(canvasData, 0, 0);
     // }
+}
+
+// fn to draw Dots on uncaught exception error modal screen
+export function dotsOnModal(dots = true, transparentBackground = false, force = false) {
+
+    var scale = unit * globalScope.scale;
+    var ox = globalScope.ox % scale; // offset
+    var oy = globalScope.oy % scale; // offset
+
+    document.getElementById('modalBackgroundArea').style.left = (ox - scale) / DPR;
+
+    document.getElementById('modalBackgroundArea').style.top = (oy - scale) / DPR;
+    if (globalScope.scale === simulationArea.prevScale && !force) return;
+
+    if (!modalBackgroundArea.context) return;
+    simulationArea.prevScale = globalScope.scale;
+
+    var canvasWidth = modalBackgroundArea.canvas.width; // max X distance
+    var canvasHeight = modalBackgroundArea.canvas.height; // max Y distance
+
+    var ctx = modalBackgroundArea.context;
+    ctx.beginPath();
+    modalBackgroundArea.clear();
+    ctx.strokeStyle = colors["canvas_stroke"];
+    ctx.lineWidth = 1;
+    if (!transparentBackground) {
+        ctx.fillStyle = colors["canvas_fill"];
+        ctx.rect(0, 0, canvasWidth, canvasHeight);
+        ctx.fill();
+    }
+
+    if (!embed) {
+        var correction = 0.5 * (ctx.lineWidth % 2);
+        for (var i = 0; i < canvasWidth; i += scale) {
+            ctx.moveTo(Math.round(i + correction) - correction, 0);
+            ctx.lineTo(Math.round(i + correction) - correction, canvasHeight);
+        }
+        for (var j = 0; j < canvasHeight; j += scale) {
+            ctx.moveTo(0, Math.round(j + correction) - correction);
+            ctx.lineTo(canvasWidth, Math.round(j + correction) - correction);
+        }
+        ctx.stroke();
+    }
 }
 
 // Helper canvas API starts here

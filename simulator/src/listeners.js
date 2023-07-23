@@ -328,30 +328,6 @@ function panStop(e) {
     }
 }
 
-function setPanelVisibility(visibility, display) {
-    const classes = ['draggable-panel', 'nav-dropdown'];
-    classes.forEach((className) => {
-    [].forEach.call(document.getElementsByClassName(className), (element) => {
-        element.style.visibility = visibility;
-    });
-    });
-
-    var contextMenuItems = document.querySelectorAll("#contextMenu li:nth-child(1), #contextMenu li:nth-child(2), #contextMenu li:nth-child(3), #contextMenu li:nth-child(6), #contextMenu li:nth-child(7), #contextMenu li:nth-child(8)");
-    contextMenuItems.forEach((item) => {
-        item.style.display = display;
-    });
-}
-
-// Function to hide tabs when simulator goes into error state
-export function hidetabs() {
-    setPanelVisibility('hidden', 'none');
-}
-
-// Function to visible tabs when simulator returns back to normal state
-export function visibletabs() {
-    setPanelVisibility('visible', 'block');
-}
-
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {
         deleteSelected();
