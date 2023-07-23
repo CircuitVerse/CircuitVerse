@@ -17,14 +17,15 @@ module UsersCircuitverseHelper
   end
 
   def project_image_preview(project, current_user)
-    if Flipper.enabled?(:active_storage_s3, current_user)
+    case Flipper.enabled?(:active_storage_s3, current_user)
+    when true
       if project.circuit_preview.attached?
         project.circuit_preview
       else
         image_path("empty_project/default.png")
       end
     else
-      if project.image_preview.present? # rubocop:disable Style/IfInsideElse
+      if project.image_preview.present?
         project.image_preview.url
       else
         image_path("empty_project/default.png")
