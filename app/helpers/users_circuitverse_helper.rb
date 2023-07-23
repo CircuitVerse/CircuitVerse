@@ -16,6 +16,7 @@ module UsersCircuitverseHelper
     end
   end
 
+  # rubocop:disable Lint/RedundantCopDisableDirective Metrics/CognitiveComplexity
   def project_image_preview(project, current_user)
     case Flipper.enabled?(:active_storage_s3, current_user)
     when true
@@ -32,4 +33,5 @@ module UsersCircuitverseHelper
       end
     end
   end
+  # rubocop:enable Lint/RedundantCopDisableDirective Metrics/CognitiveComplexity
 end

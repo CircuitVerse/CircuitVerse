@@ -64,23 +64,43 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
   end
 
   describe "#project_image_preview" do
-    it "returns the URL for the attachment if it is attached" do
-      user = FactoryBot.create(:user)
-      project = FactoryBot.create(:project)
-      project.circuit_preview.attach(
-        io: File.open(Rails.root.join("spec/fixtures/files/default.png")),
-        filename: "preview_1234.jpeg",
-        content_type: "img/jpeg"
-      )
+    context "Flipper is enabled" do
+      before do
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project)
+        @project.circuit_preview.attach(
+          io: File.open(Rails.root.join("spec/fixtures/files/default.png")),
+          filename: "preview_1234.jpeg",
+          content_type: "img/jpeg"
+        )
+      end
 
-      expect(helper.project_image_preview(project, user)).to eq(project.circuit_preview)
+      it "returns ActiveStorage attachment" do
+        expect(helper.project_image_preview(@project, @user)).to eq(@project.circuit_preview)
+      end
+
+      it "returns default image" do
+        @project.circuit_preview.purge
+        expect(helper.project_image_preview(@project, @user)).to start_with("/assets/empty_project/default-")
+      end
     end
 
-    it "returns the path for the default image if the attachment is not attached" do
-      user = FactoryBot.create(:user)
-      project = FactoryBot.create(:project)
+    context "Flipper is Disabled" do
+      before do
+        Flipper.disable(:active_storage_s3)
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project)
+      end
 
-      expect(helper.project_image_preview(project, user)).to start_with("/assets/empty_project/default-")
+      it "returns default image" do
+        expect(helper.project_image_preview(@project, @user)).to start_with("/assets/empty_project/default-")
+      end
+
+      it "returns PaperClip url" do
+        image_file = File.open(Rails.root.join("spec/fixtures/files/default.png"))
+        @project.image_preview = image_file
+        expect(helper.project_image_preview(@project, @user)).to eq(@project.image_preview.url)
+      end
     end
   end
 end
