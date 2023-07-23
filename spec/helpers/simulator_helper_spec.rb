@@ -21,6 +21,11 @@ describe SimulatorHelper do
       it "returns default file" do
         expect(return_image_file(data_url(""))).to be_a(File)
       end
+
+      it "returns the default image file" do
+        file = return_image_file("")
+        expect(file.path).to eq(Rails.public_path.join("images/default.png").to_s)
+      end
     end
 
     context "circuit has elements" do
