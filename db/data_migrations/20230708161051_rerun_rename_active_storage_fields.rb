@@ -23,6 +23,6 @@ class  RerunRenameActiveStorageFields< ActiveRecord::DataMigration
       WHERE name = 'image_preview';
     SQL
     ActiveRecord::Base.connection.execute(sql1)
-    Rails.logger.info "Renamed all circuit_preview records to image_preview"
+    Rails.logger.info "Renamed all image_preview records to circuit_preview"
   end
 end
