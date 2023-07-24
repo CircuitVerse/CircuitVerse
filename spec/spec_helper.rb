@@ -132,10 +132,6 @@ RSpec.configure do |config|
   # include spec utils
   config.include SpecUtils
 
-  config.before(:suite) do
-    Flipper.disable(:active_storage_s3)
-  end
-
   # The settings below are suggested to provide a good initial experience
   # with RSpec, but feel free to customize to your heart's content.
   #   # This allows you to limit a spec run to individual examples or groups

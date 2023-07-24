@@ -34,7 +34,7 @@ RSpec.describe Api::V1::NotificationsController, "#mark_all_as_read", type: :req
         patch "/api/v1/notifications/mark_all_as_read",
               headers: { Authorization: "Token #{token}" }, as: :json
         expect(response).to have_http_status(:ok)
-        # expect(response).to match_response_schema("read_notifications")
+        expect(response).to match_response_schema("read_notifications")
         expect(response.parsed_body["data"].length).to eq(1)
       end
     end

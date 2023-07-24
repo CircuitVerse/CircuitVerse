@@ -34,7 +34,7 @@ RSpec.describe Api::V1::NotificationsController, "#index", type: :request do
         get "/api/v1/notifications",
             headers: { Authorization: "Token #{token}" }, as: :json
         expect(response).to have_http_status(:ok)
-        # expect(response).to match_response_schema("unread_notifications")
+        expect(response).to match_response_schema("unread_notifications")
         expect(response.parsed_body["data"].length).to eq(1)
       end
     end
