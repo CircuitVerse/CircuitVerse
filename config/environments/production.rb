@@ -4,7 +4,7 @@ Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
-  config.cache_classes = false 
+  config.cache_classes = true
 
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
@@ -102,7 +102,6 @@ Rails.application.configure do
 
   config.action_controller.forgery_protection_origin_check = false
   Paperclip.options[:command_path] = "/usr/bin/"
-  config.file_watcher = ActiveSupport::FileUpdateChecker
   config.active_job.queue_adapter = :sidekiq
 
   # Do not dump schema after migrations.
