@@ -122,7 +122,6 @@ describe SimulatorController, type: :request do
           end
         end
       end
-
     end
 
     describe "#embed" do
