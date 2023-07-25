@@ -42,7 +42,7 @@ export default class EventQueue {
     */
     remove(obj) {
         if (!obj.queueProperties.inQueue) return;
-        const index = obj.queueProperties.index;
+        const { index } = obj.queueProperties;
         this.swap(index, this.frontIndex - 1);
         obj.queueProperties.inQueue = false;
         this.frontIndex--;
@@ -69,7 +69,8 @@ export default class EventQueue {
     * Function to heapify the element up to its correct position.
     * @param {number} index
     */
-    heapifyUp(index) {
+    heapifyUp(startIndex) {
+        let index = startIndex;
         while (index > 0) {
             const parentIndex = Math.floor((index - 1) / 2);
             if (this.queue[index].queueProperties.time >= this.queue[parentIndex].queueProperties.time) break;
@@ -82,7 +83,8 @@ export default class EventQueue {
     * Function to heapify the element down to its correct position.
     * @param {number} index
     */
-    heapifyDown(index) {
+    heapifyDown(indexStart) {
+        let index = indexStart;
         while (true) {
             const leftChildIndex = 2 * index + 1;
             const rightChildIndex = 2 * index + 2;
