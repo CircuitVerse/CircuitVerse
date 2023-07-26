@@ -23,33 +23,33 @@
   }
 }
 
-.announcement-border{
-  border: 1px solid #42b983;
-  border-top: 0.45rem solid #42b983;
+.announcement-border {
+  border: 1px solid $green;
   border-radius: 1rem;
+  border-top: .45rem solid $green;
 }
 
-.announcement-anchor{
-  text-decoration: none;
-  font-size: 0.85rem;
-  font-weight: 500;
+.announcement-anchor {
   color: $white;
+  font-size: .85rem;
+  font-weight: 500;
+  text-decoration: none;
 }
 
-.announcement-text{
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 0.5rem;
+.announcement-text {
   display: flex;
   flex-direction: column;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  margin-bottom: 0.5rem;
 }
 
-.announcement-box{
+.announcement-box {
   background-color: $white;
 }
 
-.an-lg-green{
+.an-lg-green {
   background-color: #f9fffc;
 }
 
