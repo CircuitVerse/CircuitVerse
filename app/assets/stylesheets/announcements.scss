@@ -42,7 +42,7 @@
   font-size: 1rem;
   font-weight: 500;
   line-height: 1.5rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: .5rem;
 }
 
 .announcement-box {
@@ -50,7 +50,7 @@
 }
 
 .an-lg-green {
-  background-color: #f9fffc;
+  background-color: $card-green;
 }
 
 @media(max-width: 992px) {
