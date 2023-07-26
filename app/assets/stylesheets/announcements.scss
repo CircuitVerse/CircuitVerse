@@ -23,6 +23,36 @@
   }
 }
 
+.announcement-border{
+  border: 1px solid #42b983;
+  border-top: 0.45rem solid #42b983;
+  border-radius: 1rem;
+}
+
+.announcement-anchor{
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: $white;
+}
+
+.announcement-text{
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.announcement-box{
+  background-color: $white;
+}
+
+.an-lg-green{
+  background-color: #f9fffc;
+}
+
 @media(max-width: 992px) {
   .announcements-content-wrapper {
     font-size: 1rem;
