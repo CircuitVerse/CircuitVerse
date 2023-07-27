@@ -190,5 +190,5 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.116"
+gem "aws-sdk-s3", "~> 1.132"
 gem "image_processing", "~> 1.12"
