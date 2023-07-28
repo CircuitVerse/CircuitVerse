@@ -120,9 +120,11 @@
 }
 
 .search-usersearch-image {
+  border-radius: 50%;
   display: block;
+  height: 130px;
   margin-bottom: 20px;
-  width: 70%;
+  width: 130px;
 }
 
 .search-username-container {
@@ -157,6 +159,15 @@
 
 //breakpoints
 @media (max-width: 768px) {
+  .users-user-name {
+    display: flex;
+    justify-content: center;
+  }
+
+  .search-userdetails-container {
+    text-align: center;
+  }
+  
   .search-user-data {
     padding-bottom: 20px;
   }
