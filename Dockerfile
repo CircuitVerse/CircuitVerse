@@ -3,12 +3,16 @@ FROM ruby:3.2.1
 # Args
 ARG NON_ROOT_USER_ID
 ARG NON_ROOT_GROUP_ID
-ARG NON_ROOT_USERNAME=user
-ARG NON_ROOT_GROUPNAME=user
+ARG NON_ROOT_USERNAME
+ARG NON_ROOT_GROUPNAME
+ARG OPERATING_SYSTEM
 
 # Check mandatory args
 RUN test -n "$NON_ROOT_USER_ID"
 RUN test -n "$NON_ROOT_GROUP_ID"
+RUN test -n "$OPERATING_SYSTEM"
+RUN test -n "$NON_ROOT_USERNAME"
+RUN test -n "$NON_ROOT_GROUPNAME"
 
 # Create app directory
 RUN mkdir /circuitverse
@@ -28,15 +32,17 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
  && apt-get update && apt-get -y install sudo yarn cmake netcat libnotify-dev git chromium-driver chromium && rm -rf /var/lib/apt/lists/*
 
-# create non-root user with same uid:gid as host non-root user
-RUN groupadd -g ${NON_ROOT_GROUP_ID} -r user && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME}
-RUN chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse
-RUN chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME}
-RUN chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor
-
-# Provide sudo permissions to non-root user
-RUN adduser ${NON_ROOT_USERNAME} sudo
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+# If OPERATING_SYSTEM is Linux, create non-root user
+RUN if [ "$OPERATING_SYSTEM" == "linux" ]; then \
+    # create non-root user with same uid:gid as host non-root user
+    groupadd -g ${NON_ROOT_GROUP_ID} -r user && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME} \
+    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse \
+    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME} \
+    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor \
+    # Provide sudo permissions to non-root user
+    && adduser ${NON_ROOT_USERNAME} sudo \
+    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ;\
+fi
 
 # Switch to non-root user
 USER ${NON_ROOT_USERNAME}

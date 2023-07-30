@@ -15,6 +15,9 @@ services:
       args:
         - NON_ROOT_USER_ID=${CURRENT_UID}
         - NON_ROOT_GROUP_ID=${CURRENT_GID}
+        - OPERATING_SYSTEM=${OPERATING_SYSTEM}
+        - NON_ROOT_USERNAME=${NON_ROOT_USERNAME}
+        - NON_ROOT_GROUPNAME=${NON_ROOT_GROUPNAME}
     command: sleep infinity
     volumes:
       - .:/circuitverse:rw
@@ -37,6 +40,7 @@ services:
       DOCKER_ENVIRONMENT: "true"
       NODE_ENV: "development"
       HOST_CURRENT_DIRECTORY: $PWD
+      OPERATING_SYSTEM: $OPERATING_SYSTEM
   redis:
     image: redis:7.0-alpine
   mailcatcher:

@@ -2,6 +2,9 @@
 
 export CURRENT_GID=$(id -g)
 export CURRENT_UID=$(id -u)
+export NON_ROOT_USERNAME="user"
+export NON_ROOT_GROUPNAME="user"
+export OPERATING_SYSTEM="linux"
 
 # Check if docker and docker compose are installed
 if ! command -v docker &>/dev/null; then
