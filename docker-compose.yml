@@ -36,7 +36,6 @@ services:
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: "true"
       NODE_ENV: "development"
-      HOST_CURRENT_DIRECTORY: $PWD
   redis:
     image: redis:7.0-alpine
   mailcatcher:
