@@ -23,19 +23,23 @@ RUN mkdir /home/vendor
 # set up workdir
 WORKDIR /circuitverse
 
-# install dependencies
-RUN apt-get update -qq && apt-get install -y imagemagick shared-mime-info libvips && apt-get clean
+# Set shell to bash
+SHELL ["/bin/bash", "-c"]
 
+# install dependencies
+RUN apt-get update -qq && apt-get install -y imagemagick shared-mime-info libvips sudo cmake netcat libnotify-dev git chromium-driver chromium --fix-missing && apt-get clean
+
+# Setup nodejs and yarn
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash \
  && apt-get update && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/* \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get -y install sudo yarn cmake netcat libnotify-dev git chromium-driver chromium && rm -rf /var/lib/apt/lists/*
+ && apt-get update && apt-get install -y yarn && rm -rf /var/lib/apt/lists/*
 
 # If OPERATING_SYSTEM is Linux, create non-root user
-RUN if [ "$OPERATING_SYSTEM" == "linux" ]; then \
+RUN if [[ "$OPERATING_SYSTEM" == "linux" ]]; then \
     # create non-root user with same uid:gid as host non-root user
-    groupadd -g ${NON_ROOT_GROUP_ID} -r user && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME} \
+    groupadd -g ${NON_ROOT_GROUP_ID} -r ${NON_ROOT_GROUPNAME} && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME} \
     && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse \
     && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME} \
     && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor \
