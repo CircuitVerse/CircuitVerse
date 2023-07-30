@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
     context "when YOSYS_PATH is valid and returns a successful response" do
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        response_double = instance_double("HTTP::Response", code: 200, to_s: yosys_response.to_json)
+        response_double = double('Response', code: 200, to_s: yosys_response.to_json)
         allow(HTTP).to receive(:post).and_return(response_double)
       end
 
@@ -25,7 +25,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
     context "when YOSYS_PATH is valid but returns a failed response" do
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        response_double = instance_double("HTTP::Response", code: 500, to_s: "")
+        response_double = double('Response', code: 500, to_s: "")
         allow(HTTP).to receive(:post).and_return(response_double)
       end
 
