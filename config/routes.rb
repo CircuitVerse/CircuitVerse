@@ -164,6 +164,7 @@ Rails.application.routes.draw do
       get "/projects/featured", to: "projects#featured_circuits"
       get "/projects/search", to: "projects#search"
       post "/simulator/post_issue", to: "simulator#post_issue"
+      post "/simulator/verilogcv", to: "simulator#verilog_cv"
       resources :projects, only: %i[index show create update destroy] do
         collection do
           patch :update_circuit, path: "update_circuit"

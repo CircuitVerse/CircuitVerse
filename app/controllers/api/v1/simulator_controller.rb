@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::SimulatorController < Api::V1::BaseController
+  #POST /api/v1/simulator/post_issue
   def post_issue
     issue_circuit_data = IssueCircuitDatum.new(data: params[:circuit_data]).tap(&:save)
 
@@ -19,5 +20,12 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     end
 
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok
+  end
+
+  #POST /api/v1/simulator/verilogcv
+  def verilog_cv
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+    response = HTTP.post(url, json: { code: params[:code] })
+    render json: response.to_s, status: response.code
   end
 end
