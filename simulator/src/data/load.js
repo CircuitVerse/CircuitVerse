@@ -43,6 +43,11 @@ function loadModule(data, scope) {
     obj.labelDirection = data.labelDirection || oppositeDirection[fixDirection[obj.direction]];
 
     // Sets delay
+    if (data.propagationDelay == 0) {
+        obj.propagationDelay = 0
+    } else {
+        obj.propagationDelay = data.propagationDelay || obj.propagationDelay;
+    }
     obj.propagationDelay = data.propagationDelay || obj.propagationDelay;
     obj.fixDirection();
 

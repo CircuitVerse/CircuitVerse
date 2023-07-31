@@ -78,11 +78,22 @@ export default class Wire {
             simulationArea.lastSelected = this;
             updated = true;
         } else if (simulationArea.mouseDown && simulationArea.lastSelected === this && !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)) {
-            var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
-            n.clicked = true;
-            n.wasClicked = true;
-            simulationArea.lastSelected = n;
-            this.converge(n);
+            const connect = shouldConnect(simulationArea, modsEx);
+            if (connect) {
+                let gesture = moveGesture;
+                if (!gesture) {
+                    gesture = new MoveGesture(new MoveRequestHandler(simulationArea), globalScope, simulationArea.lastSelected);
+                    moveGesture = gesture;
+                }
+
+                if (this.node1.absX() !== 0 || this.node1.absY() !== 0) {
+                    const queued = gesture.enqueueRequest(this.node1.absX(), this.node1.absY());
+
+                    if (queued) {
+                        showMessage("connecting components...");
+                    }
+                }
+            }
         }
         // eslint-disable-next-line no-empty
         if (simulationArea.lastSelected === this) {
