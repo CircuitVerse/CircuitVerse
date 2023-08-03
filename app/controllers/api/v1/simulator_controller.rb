@@ -3,7 +3,7 @@
 class Api::V1::SimulatorController < Api::V1::BaseController
   # POST /api/v1/simulator/post_issue
   def post_issue
-    issue_circuit_data = IssueCircuitDatum.new(data: params[:circuit_data]).tap(&:save)
+    issue_circuit_data = IssueCircuitDatum.create(data: params[:circuit_data])
 
     circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data.id}"
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
