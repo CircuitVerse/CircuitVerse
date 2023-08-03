@@ -89,7 +89,9 @@
             "verilog_module": {
                 "reset_code": "Reset Code",
                 "save_code": "Save Code",
-                "module_in_experiment_notice": "This is an experimental module. The code is not saved unless the \"Save Code\" button is clicked."
+                "module_in_experiment_notice": "This is an experimental module. The code is not saved unless the \"Save Code\" button is clicked.",
+                "apply_themes": "Apply Themes",
+                "select_theme": "Select a theme:"
             },
             "layout": {
                 "width": "Width",

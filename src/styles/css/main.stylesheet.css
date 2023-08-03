@@ -1881,7 +1881,7 @@ canvas {
 /*! Custom Color theme dialog styles ends here*/
 
 .code-window .CodeMirror {
-    height: calc(100% - 78px);
+    height: calc(100vh - 78px);
     overflow: scroll;
 }
 

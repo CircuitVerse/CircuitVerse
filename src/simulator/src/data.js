@@ -16,8 +16,9 @@ import { colorThemes } from './themer/themer'
 import { showTourGuide } from './tutorials'
 import {
     createVerilogCircuit,
-    saveVerilogCode,
-    resetVerilogCode,
+    // saveVerilogCode,
+    // resetVerilogCode,
+    // applyVerilogTheme,
 } from './Verilog2CV'
 import { generateVerilog } from './verilog'
 import { bitConverterDialog } from './utils'
@@ -43,9 +44,10 @@ logixFunction.colorThemes = colorThemes
 logixFunction.showTourGuide = showTourGuideHelper
 logixFunction.deleteSelected = deleteSelected
 logixFunction.newVerilogModule = createVerilogCircuit
-logixFunction.saveVerilogCode = saveVerilogCode
-logixFunction.resetVerilogCode = resetVerilogCode
+// logixFunction.saveVerilogCode = saveVerilogCode
+// logixFunction.resetVerilogCode = resetVerilogCode
 logixFunction.generateVerilog = generateVerilog
+// logixFunction.applyVerilogTheme = applyVerilogTheme
 logixFunction.bitconverter = bitConverterDialog
 logixFunction.createNewCircuitScope = createNewCircuitScope
 logixFunction.customShortcut = keyBinder

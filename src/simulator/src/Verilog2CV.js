@@ -1,4 +1,8 @@
-import { newCircuit, switchCircuit, changeCircuitName } from './circuit'
+import {
+    createNewCircuitScope,
+    switchCircuit,
+    changeCircuitName,
+} from './circuit'
 import SubCircuit from './subcircuit'
 import simulationArea from './simulationArea'
 import CodeMirror from 'codemirror/lib/codemirror.js'
@@ -31,9 +35,14 @@ import { showProperties } from './ux'
 var editor
 var verilogMode = false
 
-export function createVerilogCircuit() {
-    newCircuit(undefined, undefined, true, true)
-    verilogModeSet(true)
+export async function createVerilogCircuit() {
+    const returned = await createNewCircuitScope(
+        undefined,
+        undefined,
+        true,
+        true
+    )
+    if (returned) verilogModeSet(true)
 }
 
 export function saveVerilogCode() {
@@ -42,9 +51,7 @@ export function saveVerilogCode() {
     generateVerilogCircuit(code)
 }
 
-export function applyVerilogTheme() {
-    var dropdown = document.getElementById('selectVerilogTheme')
-    var theme = dropdown.options[dropdown.selectedIndex].innerHTML
+export function applyVerilogTheme(theme) {
     localStorage.setItem('verilog-theme', theme)
     editor.setOption('theme', theme)
 }
@@ -65,11 +72,11 @@ export function verilogModeSet(mode) {
     if (mode == verilogMode) return
     verilogMode = mode
     if (mode) {
-        document.getElementById('code-window').style.display = 'block';
-        document.querySelector('.elementPanel').style.display = 'none';
-        document.querySelector('.timing-diagram-panel').style.display = 'none';
-        document.querySelector('.quick-btn').style.display = 'none';
-        document.getElementById('verilogEditorPanel').style.display = 'block';
+        document.getElementById('code-window').style.display = 'block'
+        document.querySelector('.elementPanel').style.display = 'none'
+        document.querySelector('.timing-diagram-panel').style.display = 'none'
+        document.querySelector('.quick-btn').style.display = 'none'
+        document.getElementById('verilogEditorPanel').style.display = 'block'
         if (!embed) {
             simulationArea.lastSelected = globalScope.root
             showProperties(undefined)
@@ -77,11 +84,11 @@ export function verilogModeSet(mode) {
         }
         resetVerilogCode()
     } else {
-        document.getElementById('code-window').style.display = 'none';
-        document.querySelector('.elementPanel').style.display = 'block';
-        document.querySelector('.timing-diagram-panel').style.display = 'block';
-        document.querySelector('.quick-btn').style.display = 'block';
-        document.getElementById('verilogEditorPanel').style.display = 'none';
+        document.getElementById('code-window').style.display = 'none'
+        document.querySelector('.elementPanel').style.display = ''
+        document.querySelector('.timing-diagram-panel').style.display = ''
+        document.querySelector('.quick-btn').style.display = ''
+        document.getElementById('verilogEditorPanel').style.display = 'none'
     }
 }
 
@@ -180,20 +187,21 @@ export default function generateVerilogCircuit(
     verilogCode,
     scope = globalScope
 ) {
-    const url = '/simulator/verilogcv'
     var params = { code: verilogCode }
-    fetch(url, {
+    fetch('/simulator/verilogcv', {
         method: 'POST',
         headers: {
-            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            'Content-Type': 'application/json',
         },
-        body: params
-    }).then((response) => {
-        var errorCode = response.status
-        if (errorCode == 500) {
-            showError('Could not connect to Yosys');
-        } else {
-            var circuitData = response
+        body: JSON.stringify(params),
+    })
+        .then((response) => {
+            if (!response.ok) {
+                throw response
+            }
+            return response.json()
+        })
+        .then((circuitData) => {
             scope.initialize()
             for (var id in scope.verilogMetadata.subCircuitScopeIds)
                 delete scopeList[id]
@@ -209,13 +217,19 @@ export default function generateVerilogCircuit(
             )
             changeCircuitName(circuitData.name)
             showMessage('Verilog Circuit Successfully Created')
-            document.getElementById('verilogOutput').innerHTML = "";
-        }
-    }).catch((error) => {
-        showError('There is some issue with the code');
-        var errorMessage = error
-        document.getElementById('verilogOutput').innerHTML = errorMessage
-    })
+            document.getElementById('verilogOutput').innerHTML = ''
+        })
+        .catch((error) => {
+            if (error.status == 500) {
+                showError('Could not connect to Yosys')
+            } else {
+                showError('There is some issue with the code')
+                error.json().then((errorMessage) => {
+                    document.getElementById('verilogOutput').innerHTML =
+                        errorMessage.message
+                })
+            }
+        })
 }
 
 export function setupCodeMirrorEnvironment() {

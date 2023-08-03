@@ -77,7 +77,7 @@ export function switchCircuit(id) {
     if (layoutModeGet()) {
         toggleLayoutMode()
     }
-    if (verilogModeGet()) {
+    if (!scopeList[id].verilogMetadata.isVerilogCircuit) {
         verilogModeSet(false)
     }
 
@@ -170,19 +170,25 @@ export function getDependenciesList(scopeId) {
 /**
  * Wrapper function around newCircuit to be called from + button on UI
  */
-export async function createNewCircuitScope(name) {
+export async function createNewCircuitScope(
+    name,
+    id = undefined,
+    isVerilog = false,
+    isVerilogMain = false
+) {
     name = name ?? (await provideCircuitName())
-    if (name instanceof Error) return
+    if (name instanceof Error) return // if user cancels the prompt
     if (name.trim() == '') {
         name = 'Untitled-Circuit'
     }
     simulationArea.lastSelected = undefined
-    const scope = newCircuit(name)
+    newCircuit(name, id, isVerilog, isVerilogMain)
     if (!embed) {
         showProperties(simulationArea.lastSelected)
         updateTestbenchUI()
         plotArea.reset()
     }
+    return true
 }
 
 /**
@@ -216,6 +222,9 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     circuit_list.value.push(currCircuit)
     if (isVerilog) {
         scope.verilogMetadata.isVerilogCircuit = true
+        // TODO: remove later if not required after fixing verilog code loading from saved file
+        circuit_list.value.forEach((circuit) => (circuit.isVerilog = false))
+        circuit_list.value[circuit_list.value.length - 1].isVerilog = true
         scope.verilogMetadata.isMainCircuit = isVerilogMain
     }
     globalScope = scope

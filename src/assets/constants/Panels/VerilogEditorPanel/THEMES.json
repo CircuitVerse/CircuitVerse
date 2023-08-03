@@ -1,0 +1,24 @@
+[
+    {
+        "label": "Light Themes",
+        "options": [
+            { "value": "default" },
+            { "value": "solarized" },
+            { "value": "elegant" },
+            { "value": "neat" },
+            { "value": "idea" },
+            { "value": "neo" }
+        ]
+    },
+    {
+        "label": "Dark Themes",
+        "options": [
+            { "value": "blackboard" },
+            { "value": "cobalt" },
+            { "value": "night" },
+            { "value": "the-matrix" },
+            { "value": "midnight" },
+            { "value": "monokai" }
+        ]
+    }
+]
