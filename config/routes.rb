@@ -126,6 +126,10 @@ Rails.application.routes.draw do
   end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
+  # vue simulator
+  get "/simulatorvue/*path", to: "vuesimulator#simulatorvue"
+  
+
   resources :users do
     resources :projects, except: %i[index new]
   end
