@@ -11,12 +11,13 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
 
     if url.nil? || !url.start_with?("http://", "https://")
-      render json: { error: "Invalid or missing Slack webhook URL" }, status: 422 and return
+      render json: { error: "Invalid or missing Slack webhook URL" }, status: :unprocessable_entity and return
     end
 
     response = HTTP.post(url, json: { text: text })
     unless response.code == 200
-      render json: { error: "Failed to submit issue to Slack" }, status: 422 and return
+      render json: { error: "Failed to submit issue to Slack" },
+             status: :unprocessable_entity and return
     end
 
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok
