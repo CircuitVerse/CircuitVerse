@@ -62,6 +62,7 @@
             "verilog_module": "वेरिलोग मॉड्यूल",
             "properties": "प्रॉपर्टीज",
             "layout": "लेआउट",
+            "keybinding_preference": "कीबाइंडिंग परेफरेंस",
             "render_image": "छवि प्रस्तुत करें",
             "select_theme": "थीम चुनें",
             "boolean_logic_table": "बूलियन लॉजिक टेबल",
@@ -118,6 +119,13 @@
                 "binary_value": "बाइनरी वैल्यू",
                 "octal_value": "ऑक्टल वैल्यू",
                 "hexadecimal_value": "हेक्साडेसिमल वैल्यू"
+            },
+            "custom_shortcut": {
+                "esc_cancel": "वांछित कुंजी संयोजन दबाएं और स्टोर करने के लिए enter दबाएं",
+                "command": "कमांड",
+                "keymapping": "कीमैपिंग",
+                "reset_to_default": "डिफ़ॉल्ट पर रीसेट करें",
+                "save": "सेव करें"
             },
             "report_issue": {
                 "describe_issue": "अपनी समस्या का वर्णन करें:",

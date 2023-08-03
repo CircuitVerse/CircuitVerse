@@ -10,12 +10,12 @@
 // import { setDefault, checkUpdate, addKeys, warnOverride } from './model/actions'
 // import { KeyCode } from './model/normalize/normalizer.plugin.js'
 // import { checkRestricted } from './model/utils.js'
-import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+// import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 
 //** keyBinder dialog */
-export function keyBinder() {
-    const simulatorStore = SimulatorStore()
-    simulatorStore.dialogBox.customshortcut_dialog = true
+// export function keyBinder() {
+    // const simulatorStore = SimulatorStore()
+    // simulatorStore.dialogBox.customshortcut_dialog = true
     // console.log(simulatorStore.dialogBox.customshortcut_dialog)
     // $('#customShortcutDialog').append(editPanel)
     // $('#customShortcutDialog').append(heading)
@@ -149,4 +149,4 @@ export function keyBinder() {
     //     checkUpdate()
     //     addKeys('user')
     // } else setDefault()
-}
+// }

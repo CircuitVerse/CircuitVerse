@@ -62,6 +62,7 @@
             "verilog_module": "Verilog Module",
             "properties": "Properties",
             "layout": "Layout",
+            "keybinding_preference": "Keybinding Preference",
             "render_image": "Render Image",
             "select_theme": "Select Theme",
             "boolean_logic_table": "BooleanLogicTable",
@@ -118,6 +119,13 @@
                 "binary_value": "Binary value",
                 "octal_value": "Octal value",
                 "hexadecimal_value": "Hexadecimal value"
+            },
+            "custom_shortcut": {
+                "esc_cancel": "Press Desire Key Combination & press Enter",
+                "command": "Command",
+                "keymapping": "Keymapping",
+                "reset_to_default": "Reset to Default",
+                "save": "Save"
             },
             "report_issue": {
                 "describe_issue": "Describe your issue:",
