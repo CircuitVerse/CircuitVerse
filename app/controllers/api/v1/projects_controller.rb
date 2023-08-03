@@ -202,7 +202,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @image_file.close
       File.delete(@image_file) if check_to_delete(params[:image])
     end
-    ######################
 
     def load_index_projects
       @projects = if current_user.nil?
