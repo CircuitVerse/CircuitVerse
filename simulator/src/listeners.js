@@ -14,7 +14,7 @@ import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
     wireToBeCheckedSet, updatePositionSet, updateSimulationSet,
-    updateCanvasSet, gridUpdateSet, errorDetectedSet, play,
+    updateCanvasSet, gridUpdateSet, errorDetectedSet,
 } from './engine';
 import { changeScale, findDimensions } from './canvasApi';
 import { scheduleBackup } from './data/backupCircuit';
@@ -327,6 +327,39 @@ function panStop(e) {
         }
     }
 }
+
+function setPanelVisibility(visibility, display) {
+    if (window.screen.width < 1000) {
+        $('#touchMenu').toggle(visibility === 'visible');
+        $('#smallNavbarMenu-btn').toggle(visibility === 'visible');
+    }
+    else {
+        const classes = ['draggable-panel', 'nav-dropdown', 'logixButton'];
+        classes.forEach((className) => {
+            $(`.${className}`).each((index, element) => {
+                if (className === 'logixButton') {
+                    $(element).toggle(visibility === 'visible');
+                    $(element).parent().toggle(visibility === 'visible');
+                } else {
+                    $(element).css('visibility', visibility);
+                }
+            });
+        });
+    }
+    var contextMenuItems = $("#contextMenu li:nth-child(1), #contextMenu li:nth-child(2), #contextMenu li:nth-child(3), #contextMenu li:nth-child(6), #contextMenu li:nth-child(7), #contextMenu li:nth-child(8)");
+    contextMenuItems.css("display", display);
+}
+
+// Function to hide tabs when simulator goes into error state
+export function hidetabs() {
+    setPanelVisibility('hidden', 'none');
+}
+
+// Function to visible tabs when simulator returns back to normal state
+export function visibletabs() {
+    setPanelVisibility('visible', 'block');
+}
+
 
 export default function startListeners() {
     $('#deleteSelected').on('click', () => {

@@ -420,19 +420,18 @@ export function play(scope = globalScope, resetNodes = false) {
         if (globalScope.currentState === globalScope.states.ERROR) {
             globalScope.currentState = globalScope.states.NORMAL;
         }
+        if(!visibletabs()) {
+            visibletabs();
+        }
     } catch (error) {
         // change the state of simulator to error
         if (globalScope.currentState === globalScope.states.NORMAL) {
             globalScope.currentState = globalScope.states.ERROR;
-            const autosaveData = localStorage.getItem('autosave');
-            const data = JSON.parse(autosaveData);
-            const overlay = document.getElementById('overlay');
-            const modal = document.getElementById('modal');
-            overlay.style.display = 'block';
-            modal.style.display = 'block';
         }
-        showError('The simulator is in an error state. Now, you can only delete components or undo until the simulator returns to the normal state');
-        errorDetectedSet(false);
+        if(!hidetabs()) {
+            hidetabs();
+        }
+        showError('The simulator is in an error state. Now, you can only delete or undo components until the simulator returns to the normal state');
     }
 }
 

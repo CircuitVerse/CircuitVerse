@@ -266,11 +266,8 @@ export default class Scope {
             ERROR: 'error',
         };
 
-        // Setting default state of simulator
-        this.defaultState = this.states.NORMAL;
-
         // Setting current state of simulator
-        this.currentState = this.defaultState;
+        this.currentState = this.states.NORMAL;
     }
 
     isVisible() {
