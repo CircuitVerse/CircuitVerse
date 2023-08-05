@@ -1,5 +1,4 @@
 import { projectSavedSet } from './project';
-import { autosave } from './save';
 /* eslint-disable no-param-reassign */
 function extract(obj) {
     return obj.saveObject();

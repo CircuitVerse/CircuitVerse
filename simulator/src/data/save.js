@@ -427,4 +427,4 @@ export function checkBackups() {
     }
 }
 
-setInterval(checkBackups, 4000);
+setInterval(checkBackups, 3000);
