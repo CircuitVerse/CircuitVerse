@@ -38,8 +38,9 @@ services:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: 'true'
+      HOST_CURRENT_DIRECTORY: $PWD
   redis:
-    image: redis
+    image: redis:7.0-alpine
   asset_build:
     build: .
     environment:
@@ -52,7 +53,15 @@ services:
       - /circuitverse/node_modules
     ports:
       - '127.0.0.1:3035:3035'
-
+  solargraph:
+    build: .
+    command: solargraph socket --host=0.0.0.0 --port=3002
+    volumes:
+      - /circuitverse/.bundle
+      - /circuitverse/node_modules
+      - .:/circuitverse:rw
+    ports:
+      - '3002:3002'
   mailcatcher:
     image: schickling/mailcatcher
     ports:
