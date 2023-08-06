@@ -96,7 +96,7 @@ describe "Group management", type: :system do
     expect(page).to have_text("Group member was successfully removed.")
   end
 
-  it "convert member to mentor" do
+  it "converts member to mentor" do
     GroupMember.create(group_id: @group.id, user_id: @user2.id, mentor: false)
     visit "/groups/#{@group.id}"
     make_mentor_btn = find("a[data-target='#promote-member-modal']")
