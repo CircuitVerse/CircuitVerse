@@ -135,6 +135,7 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   gem "rbs_rails"
   gem "steep"
+  gem 'solargraph-rails', '~> 0.3.1'
 end
 
 group :test do
@@ -143,7 +144,6 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
