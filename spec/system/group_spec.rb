@@ -85,7 +85,7 @@ describe "Group management", type: :system do
     )
   end
 
-  it "remove secondary mentor" do
+  it "removes secondary mentor" do
     GroupMember.create(group_id: @group.id, user_id: @user3.id, mentor: true)
     visit "/groups/#{@group.id}"
     click_on "Remove"
