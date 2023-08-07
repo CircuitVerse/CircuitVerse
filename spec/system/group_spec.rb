@@ -87,7 +87,7 @@ describe "Group management", type: :system do
     )
   end
 
-  it "remove secondary mentor" do
+  it "removes secondary mentor" do
     add_user_to_group_as_mentor
     visit "/groups/#{@group.id}"
     click_on "Remove"
@@ -98,8 +98,8 @@ describe "Group management", type: :system do
     expect(page).to have_text("Group member was successfully removed.")
   end
 
-  describe "change group member role" do
-    it "convert member to mentor" do
+  describe "changes group member role" do
+    it "converts member to mentor" do
       add_user_to_group_as_member
       visit "/groups/#{@group.id}"
       make_mentor_btn = find("a[data-target='#promote-member-modal']")
@@ -112,7 +112,7 @@ describe "Group management", type: :system do
       expect(page).to have_text("Group member was successfully updated.")
     end
 
-    it "convert mentor to member" do
+    it "converts mentor to member" do
       add_user_to_group_as_mentor
       visit "/groups/#{@group.id}"
       make_mentor_btn = find("a[data-target='#demote-member-modal']")
