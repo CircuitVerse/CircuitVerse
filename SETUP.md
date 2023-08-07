@@ -5,15 +5,12 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 
 If you have any setup problems, please ensure you have read through all the instructions have all the required software installed before creating an issue.
 
+---
+
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
 
-### Gitpod Cloud Environment
-[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
 
-Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod) and pull requests can be created following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
 
 ### Docker Local Environment
 [Docker](https://www.docker.com/) can be used to create virtual machines on your PC so you don't have to setup dependencies (e.g. PostgreSQL and Redis) manually.
