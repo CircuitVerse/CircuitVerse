@@ -21,11 +21,21 @@ There are several ways to run your own instance of CircuitVerse:
 | Manual Setup | Linux | [Click Here]() |
 | Manual Setup | Mac | [Click Here]() |
 
-### CircuitVerse API documentation
+
+## Tests
+Before making a pull request, it is a good idea to check that all tests are passing locally.
+
+- To run the system tests, run `bundle exec rspec` .
+- To run the simulator tests, run `yarn run test` .
+
+**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed. For docker based setup, you can ignore this.
+
+
+## CircuitVerse API documentation
 CircuitVerse API documentation is available at - https://api.circuitverse.org/
 
-### CircuitVerse API documentation setup instructions
-To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
+If you like to setup CircuitVerse API documentation locally, refer [docs/README.md](docs/README.md)
+
 
 ### Enabling/Disabling features with Flipper 
 By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
@@ -39,22 +49,6 @@ rails c
 > Flipper.disable :forum
 ```
 Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
-
-## API Setup
-CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and associated `public` key. To generate the keys RUN the following commands in `CircuitVerse/`
-```
-openssl genrsa -out config/private.pem 2048
-openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
-```
-
-## Tests
-Before making a pull request, it is a good idea to check that all tests are passing locally.
-
-- To run the system tests, run `bundle exec rspec` .
-- To run the simulator tests, run `yarn run test` .
-
-**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed. For docker based setup, you can ignore this.
-
 
 ## Deployment Guide
 ### Heroku Deployment
