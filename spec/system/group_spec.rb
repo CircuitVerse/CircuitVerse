@@ -3,15 +3,17 @@
 require "rails_helper"
 
 describe "Group management", type: :system do
-  let(:add_user_to_group_as_mentor) { GroupMember.create(group_id: @group.id, user_id: @user.id, mentor: true) }
-  let(:add_user_to_group_as_member) { GroupMember.create(group_id: @group.id, user_id: @user.id, mentor: false) }
+  let(:primary_mentor_user) { FactoryBot.create(:user) }
+  let(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor_user) }
+  let(:user) { FactoryBot.create(:user) }
+  let(:create_group) { group }
+  let(:add_user_to_group_as_mentor) { GroupMember.create(group_id: group.id, user_id: user.id, mentor: true) }
+  let(:add_user_to_group_as_member) { GroupMember.create(group_id: group.id, user_id: user.id, mentor: false) }
 
   before do
-    @primary_mentor_user = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor_user)
-    @user = FactoryBot.create(:user)
+    create_group
     driven_by(:selenium_chrome_headless)
-    login_as(@primary_mentor_user, scope: :user)
+    login_as(primary_mentor_user, scope: :user)
   end
 
   after do
@@ -35,7 +37,7 @@ describe "Group management", type: :system do
   end
 
   it "adds a member to the group" do
-    visit "/groups/#{@group.id}"
+    visit "/groups/#{group.id}"
     click_button "+ Add Members"
     fill_in_input "#group_email_input", with: "example@gmail.com"
     fill_in_input "#group_email_input", with: :enter
@@ -47,8 +49,8 @@ describe "Group management", type: :system do
   end
 
   it "removes a member from the group" do
-    @group.users.append(@user)
-    visit "/groups/#{@group.id}"
+    group.users.append(user)
+    visit "/groups/#{group.id}"
     click_on "Remove"
     execute_script "document.getElementById('deletememberModal').style.display='block'"
     execute_script "document.getElementById('deletememberModal').style.opacity=1"
@@ -58,7 +60,7 @@ describe "Group management", type: :system do
   end
 
   it "changes the group name" do
-    visit "/groups/#{@group.id}"
+    visit "/groups/#{group.id}"
     click_on "Edit"
     fill_in "group[name]", with: "Example group"
     click_on "Save"
@@ -67,7 +69,7 @@ describe "Group management", type: :system do
   end
 
   it "deletes the group" do
-    visit user_groups_path(@primary_mentor_user)
+    visit user_groups_path(primary_mentor_user)
     click_on "Delete"
     button = find(id: "groups-group-delete-button")
     button.click
@@ -76,9 +78,9 @@ describe "Group management", type: :system do
   end
 
   it "adds secondary mentor" do
-    visit "/groups/#{@group.id}"
+    visit "/groups/#{group.id}"
     click_button "+ Add Mentors"
-    fill_in_input "#group_email_input_mentor", with: @user.email
+    fill_in_input "#group_email_input_mentor", with: user.email
     fill_in_input "#group_email_input_mentor", with: :enter
     click_button "Add mentors"
 
@@ -89,7 +91,7 @@ describe "Group management", type: :system do
 
   it "removes secondary mentor" do
     add_user_to_group_as_mentor
-    visit "/groups/#{@group.id}"
+    visit "/groups/#{group.id}"
     click_on "Remove"
     execute_script "document.getElementById('deletememberModal').style.display='block'"
     execute_script "document.getElementById('deletememberModal').style.opacity=1"
@@ -101,7 +103,7 @@ describe "Group management", type: :system do
   describe "changes group member role" do
     it "converts member to mentor" do
       add_user_to_group_as_member
-      visit "/groups/#{@group.id}"
+      visit "/groups/#{group.id}"
       make_mentor_btn = find("a[data-target='#promote-member-modal']")
       make_mentor_btn.click
       execute_script "document.getElementById('promote-member-modal').style.display='block'"
@@ -114,7 +116,7 @@ describe "Group management", type: :system do
 
     it "converts mentor to member" do
       add_user_to_group_as_mentor
-      visit "/groups/#{@group.id}"
+      visit "/groups/#{group.id}"
       make_mentor_btn = find("a[data-target='#demote-member-modal']")
       make_mentor_btn.click
       execute_script "document.getElementById('demote-member-modal').style.display='block'"
