@@ -19,7 +19,7 @@ There are several ways to run your own instance of CircuitVerse:
 | Docker Development Environment | Mac | [Click Here]() |
 | Manual Setup | Windows | [Click Here]() |
 | Manual Setup | Linux | [Click Here]() |
-| --- | --- | --- |
+| Manual Setup | Mac | [Click Here]() |
 
 #### (Optional) yosys installation for Verilog RTL Synthesis
 If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
