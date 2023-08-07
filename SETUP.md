@@ -17,9 +17,9 @@ There are several ways to run your own instance of CircuitVerse:
 | Docker Development Environment | Windows | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
 | Docker Development Environment | Linux | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
 | Docker Development Environment | Mac | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
-| Manual Setup | Windows | [Click Here]() |
-| Manual Setup | Linux | [Click Here]() |
-| Manual Setup | Mac | [Click Here]() |
+| Manual Setup | Windows | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
+| Manual Setup | Linux | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
+| Manual Setup | Mac | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
 
 
 ## Tests
