@@ -3,8 +3,8 @@
 require "rails_helper"
 
 describe "Group management", type: :system do
-  let(:primary_mentor_user) { FactoryBot.create(:user) }
-  let(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor_user) }
+  let(:primary_mentor) { FactoryBot.create(:user) }
+  let(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
   let(:user) { FactoryBot.create(:user) }
   let(:create_group) { group }
   let(:add_user_to_group_as_mentor) { GroupMember.create(group_id: group.id, user_id: user.id, mentor: true) }
@@ -13,7 +13,7 @@ describe "Group management", type: :system do
   before do
     create_group
     driven_by(:selenium_chrome_headless)
-    login_as(primary_mentor_user, scope: :user)
+    login_as(primary_mentor, scope: :user)
   end
 
   after do
@@ -69,7 +69,7 @@ describe "Group management", type: :system do
   end
 
   it "deletes the group" do
-    visit user_groups_path(primary_mentor_user)
+    visit user_groups_path(primary_mentor)
     click_on "Delete"
     button = find(id: "groups-group-delete-button")
     button.click
