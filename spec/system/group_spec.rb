@@ -3,13 +3,15 @@
 require "rails_helper"
 
 describe "Group management", type: :system do
+  let(:add_user_to_group_as_mentor) { GroupMember.create(group_id: @group.id, user_id: @user.id, mentor: true) }
+  let(:add_user_to_group_as_member) { GroupMember.create(group_id: @group.id, user_id: @user.id, mentor: false) }
+
   before do
+    @primary_mentor_user = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor_user)
     @user = FactoryBot.create(:user)
-    @user2 = FactoryBot.create(:user)
-    @user3 = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @user)
     driven_by(:selenium_chrome_headless)
-    login_as(@user, scope: :user)
+    login_as(@primary_mentor_user, scope: :user)
   end
 
   after do
@@ -45,7 +47,7 @@ describe "Group management", type: :system do
   end
 
   it "removes a member from the group" do
-    @group.users.append(@user2)
+    @group.users.append(@user)
     visit "/groups/#{@group.id}"
     click_on "Remove"
     execute_script "document.getElementById('deletememberModal').style.display='block'"
@@ -65,7 +67,7 @@ describe "Group management", type: :system do
   end
 
   it "deletes the group" do
-    visit user_groups_path(@user)
+    visit user_groups_path(@primary_mentor_user)
     click_on "Delete"
     button = find(id: "groups-group-delete-button")
     button.click
@@ -76,7 +78,7 @@ describe "Group management", type: :system do
   it "add secondary mentor" do
     visit "/groups/#{@group.id}"
     click_button "+ Add Mentors"
-    fill_in_input "#group_email_input_mentor", with: @user3.email
+    fill_in_input "#group_email_input_mentor", with: @user.email
     fill_in_input "#group_email_input_mentor", with: :enter
     click_button "Add mentors"
 
@@ -86,7 +88,7 @@ describe "Group management", type: :system do
   end
 
   it "remove secondary mentor" do
-    GroupMember.create(group_id: @group.id, user_id: @user3.id, mentor: true)
+    add_user_to_group_as_mentor
     visit "/groups/#{@group.id}"
     click_on "Remove"
     execute_script "document.getElementById('deletememberModal').style.display='block'"
@@ -96,30 +98,32 @@ describe "Group management", type: :system do
     expect(page).to have_text("Group member was successfully removed.")
   end
 
-  it "convert member to mentor" do
-    GroupMember.create(group_id: @group.id, user_id: @user2.id, mentor: false)
-    visit "/groups/#{@group.id}"
-    make_mentor_btn = find("a[data-target='#promote-member-modal']")
-    make_mentor_btn.click
-    execute_script "document.getElementById('promote-member-modal').style.display='block'"
-    execute_script "document.getElementById('promote-member-modal').style.opacity=1"
-    make_mentor_btn = find(id: "groups-member-promote-button")
-    make_mentor_btn.click
+  describe "change group member role" do
+    it "convert member to mentor" do
+      add_user_to_group_as_member
+      visit "/groups/#{@group.id}"
+      make_mentor_btn = find("a[data-target='#promote-member-modal']")
+      make_mentor_btn.click
+      execute_script "document.getElementById('promote-member-modal').style.display='block'"
+      execute_script "document.getElementById('promote-member-modal').style.opacity=1"
+      make_mentor_btn = find(id: "groups-member-promote-button")
+      make_mentor_btn.click
 
-    expect(page).to have_text("Group member was successfully updated.")
-  end
+      expect(page).to have_text("Group member was successfully updated.")
+    end
 
-  it "convert mentor to member" do
-    GroupMember.create(group_id: @group.id, user_id: @user3.id, mentor: true)
-    visit "/groups/#{@group.id}"
-    make_mentor_btn = find("a[data-target='#demote-member-modal']")
-    make_mentor_btn.click
-    execute_script "document.getElementById('demote-member-modal').style.display='block'"
-    execute_script "document.getElementById('demote-member-modal').style.opacity=1"
-    make_mentor_btn = find(id: "groups-member-demote-button")
-    make_mentor_btn.click
+    it "convert mentor to member" do
+      add_user_to_group_as_mentor
+      visit "/groups/#{@group.id}"
+      make_mentor_btn = find("a[data-target='#demote-member-modal']")
+      make_mentor_btn.click
+      execute_script "document.getElementById('demote-member-modal').style.display='block'"
+      execute_script "document.getElementById('demote-member-modal').style.opacity=1"
+      make_mentor_btn = find(id: "groups-member-demote-button")
+      make_mentor_btn.click
 
-    expect(page).to have_text("Group member was successfully updated.")
+      expect(page).to have_text("Group member was successfully updated.")
+    end
   end
 
   def fill_in_input(input, with:)
