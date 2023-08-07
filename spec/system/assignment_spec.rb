@@ -3,20 +3,33 @@
 require "rails_helper"
 
 describe "Assignments", type: :system do
+  let(:primary_mentor) { FactoryBot.create(:user) }
+  let(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+  let(:mentor) do
+    user = FactoryBot.create(:user)
+    FactoryBot.create(:group_member, group: group, user: user, mentor: true)
+    user
+  end
+  let(:member) do
+    user = FactoryBot.create(:user)
+    FactoryBot.create(:group_member, group: group, user: user)
+    user
+  end
+  let(:assignment) { FactoryBot.create(:assignment, group: group) }
+  let(:closed_assignment) { FactoryBot.create(:assignment, group: group, status: "closed") }
+
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
-    @member = FactoryBot.create(:user)
-    FactoryBot.create(:group_member, group: @group, user: @member)
-    FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
+    group
     driven_by(:selenium_chrome_headless)
   end
 
   context "when user is primary_mentor" do
+    before do
+      sign_in primary_mentor
+    end
+
     it "creates assignment" do
-      sign_in @primary_mentor
-      visit new_group_assignment_path(@group)
+      visit new_group_assignment_path(group)
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
@@ -30,9 +43,8 @@ describe "Assignments", type: :system do
     end
 
     it "delete assignment" do
-      sign_in @primary_mentor
-      FactoryBot.create(:assignment, group: @group)
-      visit group_path(@group)
+      assignment
+      visit group_path(group)
       click_link "Delete"
       delete_assignment_button = find(id: "groups-assignment-delete-button")
       delete_assignment_button.click
@@ -40,8 +52,7 @@ describe "Assignments", type: :system do
     end
 
     it "does not create assignment when name is blank" do
-      sign_in @primary_mentor
-      visit new_group_assignment_path(@group)
+      visit new_group_assignment_path(group)
 
       name = nil
       deadline = Faker::Date.forward(days: 23)
@@ -54,9 +65,7 @@ describe "Assignments", type: :system do
     end
 
     it "is able to edit assignment when assignment is not closed" do
-      sign_in @primary_mentor
-      @assignment = FactoryBot.create(:assignment, group: @group)
-      visit edit_group_assignment_path(@group, @assignment)
+      visit edit_group_assignment_path(group, assignment)
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
@@ -71,36 +80,35 @@ describe "Assignments", type: :system do
     end
 
     it "is not able to edit assignment when assignment is closed" do
-      sign_in @primary_mentor
-      @assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
-      visit edit_group_assignment_path(@group, @assignment)
+      visit edit_group_assignment_path(group, closed_assignment)
 
       expect(page).to have_text("You are not authorized to do the requested operation")
     end
 
     it "is able to close assignment" do
-      sign_in @primary_mentor
-      FactoryBot.create(:assignment, group: @group)
-      visit group_path(@group)
+      assignment
+      visit group_path(group)
       click_link "Close"
-      visit group_path(@group)
+      visit group_path(group)
       expect(page).to have_text("Reopen")
     end
 
     it "is able to reopen assignment" do
-      sign_in @primary_mentor
-      FactoryBot.create(:assignment, group: @group, status: "closed")
-      visit group_path(@group)
+      closed_assignment
+      visit group_path(group)
       click_link "Reopen"
-      visit group_path(@group)
+      visit group_path(group)
       expect(page).to have_text("Close")
     end
   end
 
   context "when user is mentor" do
+    before do
+      sign_in mentor
+    end
+
     it "creates assignment" do
-      sign_in @mentor
-      visit new_group_assignment_path(@group)
+      visit new_group_assignment_path(group)
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
@@ -114,9 +122,8 @@ describe "Assignments", type: :system do
     end
 
     it "delete assignment" do
-      sign_in @mentor
-      FactoryBot.create(:assignment, group: @group)
-      visit group_path(@group)
+      assignment
+      visit group_path(group)
       click_link "Delete"
       delete_assignment_button = find(id: "groups-assignment-delete-button")
       delete_assignment_button.click
@@ -124,8 +131,7 @@ describe "Assignments", type: :system do
     end
 
     it "does not create assignment when name is blank" do
-      sign_in @mentor
-      visit new_group_assignment_path(@group)
+      visit new_group_assignment_path(group)
 
       name = nil
       deadline = Faker::Date.forward(days: 23)
@@ -138,9 +144,7 @@ describe "Assignments", type: :system do
     end
 
     it "is able to edit assignment when assignment is not closed" do
-      sign_in @mentor
-      @assignment = FactoryBot.create(:assignment, group: @group)
-      visit edit_group_assignment_path(@group, @assignment)
+      visit edit_group_assignment_path(group, assignment)
       name = Faker::Lorem.word
       deadline = Faker::Date.forward(days: 23)
       description = Faker::Lorem.sentence
@@ -155,38 +159,37 @@ describe "Assignments", type: :system do
     end
 
     it "is not able to edit assignment when assignment is closed" do
-      sign_in @mentor
-      @assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
-      visit edit_group_assignment_path(@group, @assignment)
+      visit edit_group_assignment_path(group, closed_assignment)
 
       expect(page).to have_text("You are not authorized to do the requested operation")
     end
 
     it "is not able to close assignment" do
-      sign_in @mentor
-      FactoryBot.create(:assignment, group: @group)
-      visit group_path(@group)
+      assignment
+      visit group_path(group)
       click_link "Close"
       expect(page).to have_text("You are not authorized to do the requested operation")
     end
 
     it "is able to reopen assignment" do
-      sign_in @mentor
-      FactoryBot.create(:assignment, group: @group, status: "closed")
-      visit group_path(@group)
+      closed_assignment
+      visit group_path(group)
       click_link "Reopen"
-      visit group_path(@group)
+      visit group_path(group)
       expect(page).to have_text("Close")
     end
   end
 
   context "when user is a member" do
+    before do
+      sign_in member
+    end
+
     it "is able to make assignment project" do
-      @assignment = FactoryBot.create(:assignment, group: @group)
-      sign_in @member
-      visit group_path(@group)
+      assignment
+      visit group_path(group)
       click_on "Start Working"
-      expect(page).to have_content("#{@member.name}/#{@assignment.name}")
+      expect(page).to have_content("#{member.name}/#{assignment.name}")
     end
   end
 
