@@ -6,7 +6,7 @@
 [Github Codespaces](https://docs.github.com/en/codespaces/overview) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
 
 **Steps to setup**
-1. Fork this repository
+1. Fork current repository
 2. Open the forked repository
 3. Click on `Code` button 
 4. Click on `Create Codespace`
@@ -22,7 +22,7 @@ If you required to restart the server
 [Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
 
 **Steps to setup**
-1. Fork this repository
+1. Fork current repository
 2. Open the forked repository and navigate to `installation_docs/remote_development.md`
 3. Click on the `Open in Gitpod` button below
 [![Open  Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/)

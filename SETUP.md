@@ -21,6 +21,9 @@ There are several ways to run your own instance of CircuitVerse:
 | Manual Setup | Linux | [Click Here]() |
 | Manual Setup | Mac | [Click Here]() |
 
+### CircuitVerse API documentation
+CircuitVerse API documentation is available at - https://api.circuitverse.org/
+
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
 
