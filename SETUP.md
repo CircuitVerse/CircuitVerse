@@ -53,7 +53,7 @@ Before making a pull request, it is a good idea to check that all tests are pass
 - To run the system tests, run `bundle exec rspec` .
 - To run the simulator tests, run `yarn run test` .
 
-**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
+**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed. For docker based setup, you can ignore this.
 
 
 ## Deployment Guide
