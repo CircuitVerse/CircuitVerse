@@ -21,53 +21,6 @@ There are several ways to run your own instance of CircuitVerse:
 | Manual Setup | Linux | [Click Here]() |
 | Manual Setup | Mac | [Click Here]() |
 
-#### (Optional) yosys installation for Verilog RTL Synthesis
-If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
-1. Install yosys
-2. Setup and run CircuitVerse's yosys2digitaljs-server.
-
-##### Installation steps
-1. **Install yosys**
-   - Many Linux distibutions provide yosys binaries which is easy to install & small in package size. For Example,
-**For Debina/Ubunutu**:
-  ```sudo apt install yosys```
-   - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
-      1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
-      2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
-      3. To use OSS CAD Suite
-
-      **Other Linux distros and macOS**
-      ```shell
-      export PATH="<extracted_location>/oss-cad-suite/bin:$PATH"
-
-      or
-
-      source <extracted_location>/oss-cad-suite/environment
-      ```
-      **Windows**
-      ```
-      from existing shell:
-      <extracted_location>\oss-cad-suite\environment.bat
-
-      to create new shell window:
-      <extracted_location>\oss-cad-suite\start.bat
-      ```
-1. **Setup CircuitVerse yosys2digitaljs-server**
-    - In your local CircuitVerse Repository:
-      ```sh
-      git clone https://github.com/CircuitVerse/yosys2digitaljs-server.git
-
-      cd yosys2digitaljs-server
-
-      yarn
-
-      cd ..
-      ```
-    - To use CircuitVerse yosys2digitaljs-server:
-      ```sh
-      bin/yosys
-      ```
-
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
 
@@ -84,46 +37,14 @@ rails c
 ```
 Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
-### Additional setup instructions
-[Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
-CircuitVerse uses Yarn for frontend package and asset management.
-  - Removing RVM
-    ```
-    sudo apt-get --purge remove ruby-rvm
-    sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
-    ```
-  - Installing new version of RVM
-    ```
-    curl -L https://get.rvm.io |
-    bash -s stable --ruby --autolibs=enable --auto-dotfiles
-    ```
-### Heroku Deployment
-[Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
-
-You will be redirected to the Heroku page for deployment on clicking the below button. Make sure that you fill in the `Config Vars` section before deploying it.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CircuitVerse/CircuitVerse)
-
-
-## Development
-To seed the database with some sample data, run `bundle exec rake db:seed`. This will add the following admin credentials:
+## API Setup
+CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and associated `public` key. To generate the keys RUN the following commands in `CircuitVerse/`
 ```
-User: Admin
-Email: admin@circuitverse.org
-Password: password
+openssl genrsa -out config/private.pem 2048
+openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 ```
-
-## Production
-The following commands should be run for production:
-```
-bundle install --with pg --without development test
-RAILS_ENV=production bundle exec rake assets:precompile
-bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
-```
-
 
 ## Tests
-
 Before making a pull request, it is a good idea to check that all tests are passing locally.
 
 - To run the system tests, run `bundle exec rspec` .
@@ -132,11 +53,21 @@ Before making a pull request, it is a good idea to check that all tests are pass
 **Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
 
 
-## API Setup
-CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and associated `public` key. To generate the keys RUN the following commands in `CircuitVerse/`
+## Deployment Guide
+### Heroku Deployment
+[Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
+
+You will be redirected to the Heroku page for deployment on clicking the below button. Make sure that you fill in the `Config Vars` section before deploying it.
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CircuitVerse/CircuitVerse)
+
+
+### Production
+The following commands should be run for production:
 ```
-openssl genrsa -out config/private.pem 2048
-openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+bundle install --with pg --without development test
+RAILS_ENV=production bundle exec rake assets:precompile
+bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 ```
 
 ## Third Party Services
