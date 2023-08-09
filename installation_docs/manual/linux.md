@@ -1,4 +1,4 @@
-## Installation
+## Installation in Linux
 
 #### Cloning From GitHub
 To clone the repository, either use the Git GUI if you have one installed or enter the following commands:
