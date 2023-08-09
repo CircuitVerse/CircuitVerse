@@ -28,7 +28,7 @@ Instructions are available in our [wiki](https://github.com/CircuitVerse/Circuit
 ### Manual Setup (Local Environment)
 #### Dependencies
 **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
-- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help.
+- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help 
 - [Ruby](https://www.ruby-lang.org/en/) (`ruby-3.0.3`)
 - [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
 - [Yarn](https://yarnpkg.com/) - JavaScript package manager
@@ -58,6 +58,14 @@ cd CircuitVerse
 git clone https://github.com/<username>/CircuitVerse.git
 cd CircuitVerse
 ```
+#### Installation Guide(Dependencies)
+
+-  Git  - [https://git-scm.com/book/en/v2/Getting-Started-Installing-Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+- Ruby - [https://www.ruby-lang.org/en/documentation/installation/](https://www.ruby-lang.org/en/documentation/installation/) 
+- PostgreSQL - [https://wiki.postgresql.org/wiki/Detailed_installation_guides](https://wiki.postgresql.org/wiki/Detailed_installation_guides)
+- Yarn - [https://classic.yarnpkg.com/lang/en/docs/install/](https://classic.yarnpkg.com/lang/en/docs/install/)
+- Redis - [https://redis.io/docs/getting-started/](https://redis.io/docs/getting-started/)
+- ImageMagick - [https://imagemagick.org/script/download.php](https://imagemagick.org/script/download.php)
 
 #### Setup
 1. Install Ruby bundler : `gem install bundler`
@@ -68,9 +76,36 @@ cd CircuitVerse
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
 6. Run database migrations: `rails db:migrate`
-7. Run bin/dev to run application server, background job queue and asset compiler
 
-Navigate to `localhost:3000` in your web browser to access the website.
+
+### Running circuitverse on a development server.
+
+#### Linux
+1. To start Redis server: `sudo systemctl start redis`
+2. To start PostgreSQL server:`sudo service postgresql start`
+3. Run bin/dev to run application server.
+4. Navigate to `localhost:3000` in your web browser to access the website.
+
+**Note:** By default, the postgres user has no password and can hence only connect if ran by the postgres system user. The following command will assign it:`sudo -u postgres psql -c "ALTER USER postgres PASSWORD 'postgres';"`
+
+#### Windows
+1. To start Redis Server:
+     * Open Run Window by Win key + R
+     * Type services.msc
+     * Search Redis service
+     * Click stop, start or restart the service option.
+2. To start PostgreSQL server:
+     * First, you need to find the PostgreSQL database directory, it can be something like `C:\Program Files\PostgreSQL\{version}\data`.Then open Command Prompt and execute this command: `pg_ctl -D "C:\Program Files\PostgreSQL\{version}\data" start`
+     * **Note** : {version} - refers to the respective version installed.
+3. Run bin/dev to run application server.
+4. Navigate to `localhost:3000` in your web browser to access the website.
+
+#### MacOS
+1. To start Redis Server: `redis-server`
+2. To start PostgreSQL: `pg_ctl -D /usr/local/var/postgres start`
+3. Run bin/dev to run application server.
+4. Navigate to `localhost:3000` in your web browser to access the website.
+
 
 #### Follow this documentation [LSP-SETUP.MD](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.MD) for `Enable Autocompletion in IDE`
 
