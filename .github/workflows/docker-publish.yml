@@ -60,7 +60,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          key: ${{ runner.os }}-buildx-${{ github.head_ref }}
           restore-keys: |
             ${{ runner.os }}-buildx-
 
