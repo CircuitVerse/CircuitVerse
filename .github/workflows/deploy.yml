@@ -22,11 +22,9 @@ jobs:
         run: gem install mrsk
 
       - name: Configure SSH
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          name: id_rsa
-          known_hosts: ${{ secrets.SERVER_IP }}
+      - uses: webfactory/ssh-agent@v0.7.0
+          with:
+            ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Release acquired locks
         run: mrsk lock release
