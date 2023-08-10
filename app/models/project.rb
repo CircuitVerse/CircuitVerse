@@ -25,6 +25,8 @@ class Project < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
+  # Mirror Uploads to ActiveStorage
+  has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
@@ -68,6 +70,8 @@ class Project < ApplicationRecord
   end
 
   after_update :check_and_remove_featured
+
+  before_destroy :purge_circuit_preview
 
   self.per_page = 6
 
@@ -168,6 +172,10 @@ class Project < ApplicationRecord
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
+    end
+
+    def purge_circuit_preview
+      circuit_preview.purge if circuit_preview.attached?
     end
 end
 # rubocop:enable Metrics/ClassLength

@@ -2,7 +2,6 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
 
-import { Tooltip } from 'bootstrap';
 import * as metadata from './metadata.json';
 import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';

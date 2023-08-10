@@ -15,8 +15,8 @@ services:
     volumes:
       - /circuitverse/.bundle
       - /circuitverse/node_modules
-      - .:/circuitverse
-      - ./config/database.docker.yml:/circuitverse/config/database.yml
+      - .:/circuitverse:rw
+      - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
     environment:
       REDIS_URL: "redis://redis:6379/0"
   web:
@@ -25,10 +25,11 @@ services:
     volumes:
       - /circuitverse/.bundle
       - /circuitverse/node_modules
-      - .:/circuitverse
-      - ./config/database.docker.yml:/circuitverse/config/database.yml
+      - .:/circuitverse:rw
+      - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
     ports:
       - "3000:3000"
+      - "3001:3001"
     depends_on:
       - db
       - redis
@@ -37,8 +38,9 @@ services:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: 'true'
+      HOST_CURRENT_DIRECTORY: $PWD
   redis:
-    image: redis
+    image: redis:7.0-alpine
   asset_build:
     build: .
     environment:
@@ -46,12 +48,20 @@ services:
       - RAILS_ENV=development
     command: yarn build --watch
     volumes:
-      - .:/circuitverse
+      - .:/circuitverse:rw
       - /circuitverse/.bundle
       - /circuitverse/node_modules
     ports:
       - '127.0.0.1:3035:3035'
-
+  solargraph:
+    build: .
+    command: solargraph socket --host=0.0.0.0 --port=3002
+    volumes:
+      - /circuitverse/.bundle
+      - /circuitverse/node_modules
+      - .:/circuitverse:rw
+    ports:
+      - '3002:3002'
   mailcatcher:
     image: schickling/mailcatcher
     ports:
