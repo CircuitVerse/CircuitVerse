@@ -19,3 +19,11 @@ amazon_dev:
   secret_access_key: <%= ENV["AWS_S3_DEV_SECRET_ACCESS_KEY"] %>
   region: ap-south-1
   bucket: circuitverse-images-dev
+  
+amazon_vaibhav:
+  service: S3
+  access_key_id: <%= ENV["AWS_S3_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["AWS_S3_SECRET_ACCESS_KEY"] %>
+  region: us-west-2
+  bucket: circuitverse-development
+

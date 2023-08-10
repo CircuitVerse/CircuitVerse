@@ -144,6 +144,8 @@ Rails.application.routes.draw do
   get "/docs", to: redirect("https://docs.circuitverse.org")
   get "/features", to: redirect("/#home-features-section")
 
+  # Health Check at /up ~> will be default in rails 7.1
+  get '/up', to: ->(_env) { [200, {}, ['']] }
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 

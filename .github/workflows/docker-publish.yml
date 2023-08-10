@@ -9,11 +9,11 @@ on:
   schedule:
     - cron: '26 5 * * *'
   push:
-    branches: [ master ]
+    branches: [ master, main ]
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
-    branches: [ master ]
+    branches: [ master, main ]
 
 env:
   # Use docker.io for Docker Hub if empty
@@ -37,6 +37,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Copy sample database configuration
+        run: cp config/database.example.yml config/database.yml
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
       - name: Install cosign
@@ -44,7 +46,7 @@ jobs:
         uses: sigstore/cosign-installer@main
         with:
           cosign-release: 'v1.7.1'
-      
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
         with:
@@ -53,7 +55,7 @@ jobs:
 
       - name: Setup Docker buildx
         uses: docker/setup-buildx-action@v2
-        
+
       - name: Cache Docker layers
         uses: actions/cache@v2
         with:

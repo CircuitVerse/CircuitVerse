@@ -11,7 +11,7 @@ gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "kt-paperclip"
 gem "language_filter"
-gem "mailkick"
+gem "mailkick", "~> 0.4.3"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-github"
@@ -192,3 +192,5 @@ gem "noticed", "~> 1.6"
 # ActiveStorage AWS S3 + Variant Processing
 gem "aws-sdk-s3", "~> 1.116"
 gem "image_processing", "~> 1.12"
+
+gem "mrsk"

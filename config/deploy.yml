@@ -1,0 +1,72 @@
+service: circuitverse
+image: vaibhavupreti/circuitverse
+servers:
+  web:
+    hosts:
+      - <%= ENV["SERVER_IP"] %>
+    cmd: ./bin/rails server -b 0.0.0.0 -p 3001
+    labels:
+      traefik.http.routers.circuitverse-web.rule: Host(`cv-mrsk.vaibhavupreti.me`)
+    options:
+      "add-host": host.docker.internal:host-gateway
+    volumes:
+      - "/home/ubuntu/public:/usr/src/app/public"
+  sidekiq:
+    hosts:
+      - <%= ENV["SERVER_IP"] %>
+    cmd: bundle exec sidekiq -e production -q default -q mailers
+    options:
+      "add-host": host.docker.internal:host-gateway
+
+registry:
+  server: ghcr.io
+  username: vaibhavupreti
+  password:
+    - MRSK_GHCR_REGISTRY_PASSWORD
+
+env:
+   clear:
+     RAILS_SERVE_STATIC_FILES: true
+     PORT: 3001
+   secret:
+     - RAILS_MASTER_KEY
+     - REDIS_URL
+     - POSTGRES_URL
+     - AWS_S3_ACCESS_KEY_ID
+     - AWS_S3_SECRET_ACCESS_KEY
+     - SECRET_KEY_BASE
+     - BUGSNAG_API_KEY
+     - RECAPTCHA_SITE_KEY
+     - RECAPTCHA_SECRET_KEY
+
+ssh:
+  user: ubuntu
+
+builder:
+  dockerfile: Dockerfile.production
+
+accessories:
+  yosys2digitaljs-server:
+    image: ghcr.io/circuitverse/yosys2digitaljs-server:master
+    host: <%= ENV["SERVER_IP"] %>
+    port: 2812
+
+healthcheck:
+  port: 3001
+  max_attempts: 8
+
+traefik:
+  options:
+    publish:
+      - 8080:8080
+    volume:
+      - /tmp/example.json:/tmp/example.json
+    memory: 512m
+  args:
+    api.dashboard: true
+  labels:
+    traefik.enable: "true"
+    traefik.http.routers.dashboard.rule: Host(`traefik.cv-mrsk.vaibhavupreti.me`)
+    traefik.http.routers.dashboard.service: "api@internal"
+    traefik.http.routers.dashboard.middlewares: "auth"
+    traefik.http.middlewares.auth.basicauth.users: test:$2y$05$H2o72tMaO.TwY1wNQUV1K.fhjRgLHRDWohFvUZOJHBEtUXNKrqUKi
