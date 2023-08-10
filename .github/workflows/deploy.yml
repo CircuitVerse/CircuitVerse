@@ -1,11 +1,5 @@
 name: Deploy to Server
-on:
-  workflow_run:
-    workflows:
-      - Docker publish
-    types:
-      - completed
-
+on: workflow_dispatch
 concurrency: production
 
 jobs:
@@ -28,9 +22,11 @@ jobs:
         run: gem install mrsk
 
       - name: Configure SSH
-        uses: webfactory/ssh-agent@v0.5.2
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          cat ${{ secrets.SSH_PRIVATE_KEY }} >> circuitverse.cer
+          chmod 600 circuitverse.cer
+          eval `ssh-agent -s`
+          ssh-add circuitverse.cer
 
       - name: Release acquired locks
         run: mrsk lock release
