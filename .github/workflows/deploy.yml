@@ -22,11 +22,11 @@ jobs:
         run: gem install mrsk
 
       - name: Configure SSH
-        run: |
-          cat ${{ secrets.SSH_PRIVATE_KEY }} >> circuitverse.cer
-          chmod 600 circuitverse.cer
-          eval `ssh-agent -s`
-          ssh-add circuitverse.cer
+        uses: shimataro/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          name: id_rsa
+          known_hosts: ${{ secrets.SERVER_IP }}
 
       - name: Release acquired locks
         run: mrsk lock release
