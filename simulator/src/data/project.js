@@ -13,6 +13,15 @@ import ImportCircuitFiles from '../file/Open';
  * Helper function to recover unsaved data
  * @category data
  */
+function recoverDataFlow(data) {
+    const confirmationMessage = `Would you like to recover: ${data.name}`;
+    if (confirm(confirmationMessage)) {
+        load(data);
+    }
+    localStorage.removeItem('recover');
+    localStorage.removeItem('autosave');
+}
+
 export function recoverProject() {
     const recoverData = localStorage.getItem('recover');
     const autosaveData = localStorage.getItem('autosave');
@@ -26,15 +35,6 @@ export function recoverProject() {
     } else {
         showError('No recover project found');
     }
-}
-
-function recoverDataFlow(data) {
-    const confirmationMessage = `Would you like to recover: ${data.name}`;
-    if (confirm(confirmationMessage)) {
-        load(data);
-    }
-    localStorage.removeItem('recover');
-    localStorage.removeItem('autosave');
 }
 
 /**
