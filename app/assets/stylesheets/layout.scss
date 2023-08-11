@@ -65,6 +65,52 @@ body {
   text-align: center;
 }
 
+.log-cont{
+  text-decoration: none;
+  display:flex;
+  flex-direction:column;
+  color:#ececec;
+  a{
+    text-decoration: none;
+    color:#ebedef;
+  
+  .logo-row{
+    display: flex;
+    margin:1.5vh;
+    background-color: azure;
+    &:hover {
+    opacity: .8;
+  }
+    .logo-text{
+      display:flex;
+       align-items: center;
+       margin-right:2vh;
+     }
+
+     .img-logo{
+      margin-left:1vh;
+      margin-right:2vh;
+      
+      padding-bottom:0.8vh;
+    }
+  }
+}
+  #facebook-login{
+background-color:#131e70;
+  }
+  #google-login{
+    background-color:#227305;
+  }
+  #github-login{
+    background-color:#282525;
+  }
+}
+
+
+
+
+
+
 .div-flex-center {
   align-items: center;
   display: flex;
