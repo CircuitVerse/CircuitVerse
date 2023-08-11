@@ -30,7 +30,7 @@ describe "User profile", type: :system do
     expect(page).to have_text(country)
   end
 
-  it "edit educational institute" do
+  it "lets user edit educational institute" do
     visit profile_edit_path(@user)
     educational_institute = Faker::Educator.university
     fill_in "Educational institute", with: educational_institute
