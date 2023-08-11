@@ -14,7 +14,7 @@ describe "User profile", type: :system do
     expect(page).to have_text(@user.name)
   end
 
-  it "edit name" do
+  it "lets user edit name" do
     visit profile_edit_path(@user)
     name = Faker::Name.name
     fill_in "Name", with: name
