@@ -1,17 +1,32 @@
 name: Deploy to Server
-on: workflow_dispatch
-concurrency: production
+on:
+  push:
+    branches:
+      - main # Change to master
+  workflow_dispatch:
+
+concurrency:
+  group: production
+  cancel-in-progress: true
 
 jobs:
   deploy-job:
     runs-on: ubuntu-latest
     environment:
       name: production
-      url: cv-mrsk.vaibhavupreti.me
+      url: https://cv-mrsk.vaibhavupreti.me
 
     steps:
+      - name: Configure SSH
+        uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
       - name: Check Out Code
         uses: actions/checkout@v2
+
+      - name: Copy sample database configuration
+        run: cp config/database.example.yml config/database.yml
 
       - name: Set Up Ruby
         uses: ruby/setup-ruby@v1
@@ -20,11 +35,6 @@ jobs:
 
       - name: Install mrsk
         run: gem install mrsk
-
-      - name: Configure SSH
-        uses: webfactory/ssh-agent@v0.7.0
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
@@ -40,7 +50,6 @@ jobs:
           BUGSNAG_API_KEY: ${{ secrets.BUGSNAG_API_KEY }}
           MRSK_GHCR_REGISTRY_PASSWORD: ${{ secrets.MRSK_GHCR_REGISTRY_PASSWORD }}
           SERVER_IP: ${{ secrets.SERVER_IP }}
-          REDIS_URL: ${{ secrets.REDIS_URL }}
           POSTGRES_URL: ${{ secrets.POSTGRES_URL }}
           RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           SECRET_KEY_BASE: ${{ secrets.SECRET_KEY_BASE }}

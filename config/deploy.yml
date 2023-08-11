@@ -4,7 +4,7 @@ servers:
   web:
     hosts:
       - <%= ENV["SERVER_IP"] %>
-    cmd: ./bin/rails server -b 0.0.0.0 -p 3001
+    cmd: bin/rails server -b 0.0.0.0 -p 3001
     labels:
       traefik.http.routers.circuitverse-web.rule: Host(`cv-mrsk.vaibhavupreti.me`)
     options:
@@ -15,8 +15,6 @@ servers:
     hosts:
       - <%= ENV["SERVER_IP"] %>
     cmd: bundle exec sidekiq -e production -q default -q mailers
-    options:
-      "add-host": host.docker.internal:host-gateway
 
 registry:
   server: ghcr.io
@@ -28,9 +26,9 @@ env:
    clear:
      RAILS_SERVE_STATIC_FILES: true
      PORT: 3001
+     REDIS_URL: 'redis://172.17.0.1:6379/0'
    secret:
      - RAILS_MASTER_KEY
-     - REDIS_URL
      - POSTGRES_URL
      - AWS_S3_ACCESS_KEY_ID
      - AWS_S3_SECRET_ACCESS_KEY
