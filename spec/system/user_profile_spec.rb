@@ -22,7 +22,7 @@ describe "User profile", type: :system do
     expect(page).to have_text(name)
   end
 
-  it "edit country" do
+  it "lets user edit country" do
     visit profile_edit_path(@user)
     country = "United States"
     select country, from: "Country"
