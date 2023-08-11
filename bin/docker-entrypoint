@@ -4,7 +4,7 @@ set -e
 
 # cp -r /usr/src/app/public /usr/src
 
-if [ "${1}" == "./bin/rails server" ]; then
+if [ "${1}" == "./bin/rails server -b 0.0.0.0 -p 3001" ]; then
 	echo "Running Migrations"
     ./bin/rails db:prepare
 fi
