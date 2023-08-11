@@ -65,48 +65,54 @@ body {
   text-align: center;
 }
 
-.log-cont{
+.log-cont {
+  color: rgb(235, 237, 239);
+  display: flex;
+  flex-direction: column;
   text-decoration: none;
-  display:flex;
-  flex-direction:column;
-  color:#ececec;
-  a{
+
+  a {
+    color: rgb(235, 237, 239);
     text-decoration: none;
-    color:#ebedef;
+}
+
+.img-logo {
+  margin-left:1vh;
+  margin-right:2vh;
   
-  .logo-row{
-    display: flex;
-    margin:1.5vh;
-    background-color: azure;
-    &:hover {
-    opacity: .8;
-  }
-    .logo-text{
-      display:flex;
-       align-items: center;
-       margin-right:2vh;
-     }
+  padding-bottom:0.8vh;
+}
 
-     .img-logo{
-      margin-left:1vh;
-      margin-right:2vh;
-      
-      padding-bottom:0.8vh;
+}
+
+.logo-row {
+  background-color: rgb(251, 244, 244);
+  display: flex;
+  margin: 1.5vh;
+  
+  &:hover {
+  opacity: 0.8;
+}
+     
+}
+
+.logo-text {
+  align-items: center;
+  display: flex;
+  margin-right: 2vh;
+ }
+
+#facebook-login {
+  background-color: rgb(19, 30, 112);
     }
-  }
-}
-  #facebook-login{
-background-color:#131e70;
-  }
-  #google-login{
-    background-color:#227305;
-  }
-  #github-login{
-    background-color:#282525;
-  }
-}
 
+    #google-login {
+      background-color: rgb(34, 115, 5);
+    }
 
+    #github-login {
+      background-color: rgb(40, 37, 37);
+    }
 
 
 

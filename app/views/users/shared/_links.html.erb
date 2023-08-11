@@ -4,50 +4,36 @@
       <h6 class="users-shared-row"><%= t("users.shared.login_with") %></h6>
     </div>
     <div class="row center-row log-cont">
-
-     
 <a href="/user/auth/google_oauth2" data-method="post">
-
-    <div id="google-login" class="logo-row">
-    <div class="img-logo">
-     
+<div id="google-login" class="logo-row">
+    <div class="img-logo">  
   <img src="/assets/SVGs/google-plus.svg" alt="Google Icon" class="users-social-links">
-
 </div>
 <div class="logo-text">
 Login with <b style="margin-left:1vh">Google</b>
 </div>
 </div>
 </a>
-
-
       <a href="/users/auth/facebook" data-method="post">
  <div id="facebook-login" class="logo-row" >
  <div class="img-logo">
-  <img src="/assets/SVGs/facebook.svg" alt="Facebook Icon" class="users-social-links">
-         
-     </div>
-     
+  <img src="/assets/SVGs/facebook.svg" alt="Facebook Icon" class="users-social-links">      
+     </div>   
 <div class="logo-text">
 Login with <b style="margin-left:1vh">Facebook</b>
 </div>
      </div>
      </a>
-
-
 <a href="/users/auth/github" data-method="post">
     <div id="github-login" class="logo-row"> 
     <div class="img-logo" style="background-color:white">
   <img src="/assets/SVGs/github.svg" alt="Github Icon" class="users-social-links">
     </div>
-    
 <div class="logo-text">
 Login with <b style="margin-left:1vh">Github</b>
 </div>
      </div>
      </a>
-
- 
       <% if Flipper.enabled?(:gitlab_integration) %>
         <%= link_to image_tag("SVGs/gitlab.svg", alt: "Gitlab Icon", class: "users-social-links"), user_gitlab_omniauth_authorize_path, method: :post %>
       <% end %>
