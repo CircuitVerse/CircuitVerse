@@ -66,34 +66,32 @@ body {
 }
 
 .log-cont {
-  color: rgb(235, 237, 239);
+  color: $pure-white;
   display: flex;
   flex-direction: column;
   text-decoration: none;
 
   a {
-    color: rgb(235, 237, 239);
+    color: $pure-white;
     text-decoration: none;
 }
 
-.img-logo {
-  margin-left:1vh;
-  margin-right:2vh;
-  
-  padding-bottom:0.8vh;
+  .img-logo {
+  margin-left: 1vh;
+  margin-right: 2vh;
+  padding-bottom: .8vh;
 }
 
 }
 
 .logo-row {
-  background-color: rgb(251, 244, 244);
+  background-color: $dull-white;
   display: flex;
   margin: 1.5vh;
-  
+
   &:hover {
-  opacity: 0.8;
-}
-     
+   opacity: 0.8;
+}    
 }
 
 .logo-text {
@@ -103,15 +101,15 @@ body {
  }
 
 #facebook-login {
-  background-color: rgb(19, 30, 112);
+  background-color: $dark-blue;
     }
 
-    #google-login {
-      background-color: rgb(34, 115, 5);
+#google-login {
+      background-color: $dark-green;
     }
 
-    #github-login {
-      background-color: rgb(40, 37, 37);
+#github-login {
+      background-color: $darky-grey;
     }
 
 
