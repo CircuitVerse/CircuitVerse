@@ -77,9 +77,9 @@ body {
 }
 
   .img-logo {
-  margin-left: 1vh;
-  margin-right: 2vh;
-  padding-bottom: .8vh;
+    margin-left: 1vh;
+    margin-right: 2vh;
+    padding-bottom: .8vh;
 }
 
 }
@@ -88,9 +88,8 @@ body {
   background-color: $dull-white;
   display: flex;
   margin: 1.5vh;
-
   &:hover {
-   opacity: 0.8;
+   opacity: .8;
 }    
 }
 
@@ -100,16 +99,16 @@ body {
   margin-right: 2vh;
  }
 
-#facebook-login {
+.facebook-login {
   background-color: $dark-blue;
     }
 
-#google-login {
-      background-color: $dark-green;
+.google-login {
+  background-color: $dark-green;
     }
 
-#github-login {
-      background-color: $darky-grey;
+.github-login {
+  background-color: $darky-grey;
     }
 
 
