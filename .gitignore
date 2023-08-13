@@ -80,3 +80,5 @@ yosys2digitaljs-server
 config/credentials.yml.enc
 config/master.key
 pids/
+public/vite-dev/
+public/vite/

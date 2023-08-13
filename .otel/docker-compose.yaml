@@ -13,11 +13,11 @@ services:
 
   otel-collector:
     image: otel/opentelemetry-collector-contrib
-    command: ["--config=/etc/otel-collector-config.yaml", "${OTELCOL_ARGS}"]
+    command: ["--config=/etc/otel-config.yaml", "${OTELCOL_ARGS}"]
     volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml:ro
+      - ./otel-config.yaml:/etc/otel-config.yaml
     ports:
-      - "4318:4318" 
+      - "4318:4318"
       - "13133:13133"   # health check
     depends_on:
       - jaeger-all-in-one
