@@ -7,7 +7,7 @@ rm -f /circuitverse/tmp/pids/server.pid 2>&1
 echo "Setup project"
 ./bin/docker/setup
 
-if [[ "$OPERATING_SYSTEM" == "linux" ]]; then
+if [[ "$OPERATING_SYSTEM" == "linux" || "$OPERATING_SYSTEM" == "mac" ]]; then
   if [ ! -d "${HOST_CURRENT_DIRECTORY%/*}" ]; then
     sudo mkdir -p "${HOST_CURRENT_DIRECTORY%/*}"
   fi
