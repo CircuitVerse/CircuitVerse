@@ -6,4 +6,10 @@ then
   gem install foreman
 fi
 
-foreman start -f Procfile.dev
+if [[ "$1" == "chrome_debug" ]]; then
+ echo "Starting foreman with Procfile.chrome.dev..."
+ foreman start -f Procfile.chrome.dev
+else
+ echo "Starting foreman with Procfile.dev..."
+ foreman start -f Procfile.dev
+fi
