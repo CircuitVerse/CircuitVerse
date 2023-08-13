@@ -20,6 +20,7 @@ RUN mkdir /circuitverse
 RUN mkdir /home/${NON_ROOT_USERNAME}
 # Create non-root vendor directory
 RUN mkdir /home/vendor
+RUN mkdir /home/vendor/bundle
 # set up workdir
 WORKDIR /circuitverse
 
@@ -27,7 +28,8 @@ WORKDIR /circuitverse
 SHELL ["/bin/bash", "-c"]
 
 # install dependencies
-RUN apt-get update -qq && apt-get install -y imagemagick shared-mime-info libvips sudo cmake netcat libnotify-dev git chromium-driver chromium --fix-missing && apt-get clean
+RUN apt-get update -qq && \
+ apt-get install -y imagemagick shared-mime-info libvips sudo make cmake netcat libnotify-dev git chromium-driver chromium --fix-missing && apt-get clean
 
 # Setup nodejs and yarn
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash \
@@ -43,6 +45,7 @@ RUN if [[ "$OPERATING_SYSTEM" == "linux" ]]; then \
     && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse \
     && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME} \
     && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor \
+    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor/bundle \
     # Provide sudo permissions to non-root user
     && adduser ${NON_ROOT_USERNAME} sudo \
     && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ;\

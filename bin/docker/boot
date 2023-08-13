@@ -20,11 +20,9 @@ if [[ "$OPERATING_SYSTEM" == "linux" ]]; then
 fi
 
 
-# Prompt user for start server
-read -p "Start server? (y/n)" start_server
-if [ "$start_server" != "${start_server#[Yy]}" ] ;then
-    # Start server
-    ./bin/dev
-fi
+
+# Start server
+./bin/dev
+
 # Start bash if previous command exits
 /bin/bash
