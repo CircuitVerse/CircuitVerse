@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# :nocov:
 module ActionDispatch
   # = Action Dispatch \AssumeSSL
   #
@@ -22,3 +23,4 @@ module ActionDispatch
     end
   end
 end
+# :nocov:
