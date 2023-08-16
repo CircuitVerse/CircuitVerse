@@ -12,10 +12,10 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
 
-  devise_scope :user do  
-    get '/users/sign_out' => 'devise/sessions#destroy'        
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
   end
-  
+
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do
@@ -100,7 +100,7 @@ Rails.application.routes.draw do
 
   # lti
   scope "lti"  do
-    match 'launch', to: 'lti#launch', via: [:get, :post] 
+    match 'launch', to: 'lti#launch', via: [:get, :post]
   end
 
   mount Commontator::Engine => "/commontator"
@@ -112,7 +112,7 @@ Rails.application.routes.draw do
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
-    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data" 
+    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data"
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"
@@ -143,6 +143,9 @@ Rails.application.routes.draw do
   get "/learn", to: redirect("https://learn.circuitverse.org")
   get "/docs", to: redirect("https://docs.circuitverse.org")
   get "/features", to: redirect("/#home-features-section")
+
+  # Health Check at /up ~> will be default in rails 7.1
+  get '/up', to: ->(_env) { [200, {}, ['']] }
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
