@@ -4,7 +4,6 @@ class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
-
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
 
   # Include default devise modules. Others available are:
@@ -33,18 +32,22 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
+  before_destroy :purge_avatar
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
   has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
                                       default_url: ":style/Default.jpg"
-  attr_accessor :remove_picture
 
-  before_validation { profile_picture.clear if remove_picture == "1" }
+  # Mirror and backfill uploads
+  has_one_attached :avatar
 
   # validations for user
-
   validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
+
+  before_validation { profile_picture.clear && avatar.purge if remove_picture == "1" }
+
+  attr_accessor :remove_picture
 
   validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
@@ -109,5 +112,9 @@ class User < ApplicationRecord
 
     def send_welcome_mail
       UserMailer.welcome_email(self).deliver_later
+    end
+
+    def purge_avatar
+      avatar.purge if avatar.attached?
     end
 end

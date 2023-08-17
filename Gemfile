@@ -91,7 +91,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.4.3"
+gem "pg", "~> 1.5.3"
 
 gem "meta-tags"
 
@@ -117,34 +117,43 @@ gem "sprockets", "~> 4.1"
 gem "strong_migrations"
 gem 'rails-data-migrations'
 
+# For Vite rails
+gem 'vite_rails'
+
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem "byebug", platforms: %i[mri mingw x64_mingw]
+  # Adds support for debug
+  gem "debug"
   # Adds support for Capybara system testing and selenium driver
   gem "coveralls_reborn", "~> 0.26.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails", "~> 5.1"
+  gem "rspec-rails", "~> 6.0"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem "rbs_rails"
+  gem "steep"
+  gem 'solargraph-rails', '~> 0.3.1'
 end
 
 group :test do
-  gem "capybara", "~> 3.36"
+  gem "capybara", "~> 3.39"
   gem "json-schema"
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
+  gem "simplecov"
+  gem "simplecov-lcov"
+  gem "undercover"
+  gem "undercover-checkstyle"
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "listen", ">= 3.0.5", "< 3.8"
+  gem "listen", ">= 3.0.5", "< 3.9"
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
@@ -166,7 +175,7 @@ gem "invisible_captcha", "~> 2.0"
 
 gem "newrelic_rpm", "~> 8.14"
 
-gem "oj", "~> 3.13"
+gem "oj", "~> 3.15"
 
 gem "hairtrigger", "~> 0.2.25"
 
@@ -179,3 +188,7 @@ gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
 
 gem "noticed", "~> 1.6"
+
+# ActiveStorage AWS S3 + Variant Processing
+gem "aws-sdk-s3", "~> 1.116"
+gem "image_processing", "~> 1.12"

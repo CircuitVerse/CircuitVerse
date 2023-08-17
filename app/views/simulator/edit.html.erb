@@ -1,8 +1,8 @@
 <% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
 
-<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
-<script src="/js/plugins/checkBo.min.js"></script>
-<script src="/js/plugins/bootstrap-input-spinner.js"></script>
+<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" defer></script>
+<script src="/js/plugins/checkBo.min.js" defer></script>
+<script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
 
 <script>
   userSignedIn = <%= user_signed_in? %>;
@@ -819,21 +819,25 @@
 </div>
 
 <script>
+window.addEventListener("load", function() {
   $('#newCircuit').click(function () {
     return $('#insertSubcircuitDialog').dialog('close');
   });
+})
 </script>
 
 <script>
-<% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
-let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
-if(restricted_feature.includes('Combinational Analysis Tool')) {
-  $('#createCombinationalAnalysisPrompt').attr("style", "display:none")
-}
-if(restricted_feature.includes('Verilog tools')) {
-  $('#generateVerilog').attr("style", "display:none")
-}
-<% end %>
+window.addEventListener("load", function() {
+  <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
+  let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
+  if(restricted_feature.includes('Combinational Analysis Tool')) {
+    $('#createCombinationalAnalysisPrompt').attr("style", "display:none")
+  }
+  if(restricted_feature.includes('Verilog tools')) {
+    $('#generateVerilog').attr("style", "display:none")
+  }
+  <% end %>
+})
 </script>
 
 <script>
@@ -849,10 +853,12 @@ if(restricted_feature.includes('Verilog tools')) {
 
 <!-- on hover for dropdowns -->
 <script>
+window.addEventListener("load", function() {
   $('.dropdown-toggle').hover(function () {
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
   });
+})
 </script>
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
@@ -860,15 +866,15 @@ if(restricted_feature.includes('Verilog tools')) {
 <script type="text/javascript" src="/js/metadata.json"></script>
 
 <script>
+window.addEventListener("load", function() {
+  $(function(){
+      $(".btn-group-toggle").twbsToggleButtons();
+    });
 
-$(function(){
-    $(".btn-group-toggle").twbsToggleButtons();
+  $(function(){
+    $("#openProjectDialog").checkBo();
+    $(".download-dialog-section-2_2").checkBo();
   });
-
-$(function(){
-$("#openProjectDialog").checkBo();
-$(".download-dialog-section-2_2").checkBo();
 });
-
 </script>
 <script src="/js/data.js"></script>
