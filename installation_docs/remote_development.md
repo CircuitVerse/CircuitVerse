@@ -2,8 +2,8 @@
 
 ---
 
-### Github Codespaces
-[Github Codespaces](https://docs.github.com/en/codespaces/overview) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
+### GitHub Codespaces
+[GitHub Codespaces](https://docs.github.com/en/codespaces/overview) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
 
 **Steps to setup**
 1. Fork current repository

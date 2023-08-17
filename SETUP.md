@@ -12,7 +12,7 @@ There are several ways to run your own instance of CircuitVerse:
 
 | Method | Operating System | Documentation |
 | --- | --- | --- |
-| Github Codespaces | Any | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
+| GitHub Codespaces | Any | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
 | Gitpod Cloud Environment | Any | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/remote_development.md#gitpod-cloud-environment) |
 | Docker Development Environment | Windows | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
 | Docker Development Environment | Linux | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#linux) |

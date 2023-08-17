@@ -1,4 +1,4 @@
-## Installation in Linux
+## Installation on Linux
 
 #### Cloning From GitHub
 To clone the repository, either use the Git GUI if you have one installed or enter the following commands:
@@ -20,7 +20,7 @@ cd CircuitVerse
 - Ruby 3.2.1
 - [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
-- [Nodejs 16.x](https://nodejs.org/it/download)
+- [Node.js 16.x](https://nodejs.org/it/download)
 - [Yarn](https://yarnpkg.com/getting-started/install)
 - [CMAKE](https://cmake.org/install/)
 - OpenSSL

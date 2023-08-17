@@ -1,4 +1,4 @@
-## Installation in Windows
+## Installation on Windows
 
 #### Cloning From GitHub
 To clone the repository, use following command with an **administrative shell**
@@ -27,7 +27,7 @@ cd CircuitVerse
     - `cd redis-windows`
     - Open powershell & Run `install_redis.cmd`
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
-- [Nodejs 16.x](https://nodejs.org/it/download)
+- [Node.js 16.x](https://nodejs.org/it/download)
 - [Yarn](https://yarnpkg.com/getting-started/install)
 - [CMAKE](https://cmake.org/install/)
 - OpenSSL
