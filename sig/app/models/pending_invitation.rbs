@@ -1,0 +1,3 @@
+class PendingInvitation
+  def send_pending_invitation_mail:()->void
+end

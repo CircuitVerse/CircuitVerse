@@ -1,0 +1,3 @@
+class GroupMember
+  def send_welcome_email:()->void
+end

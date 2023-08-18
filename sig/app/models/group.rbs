@@ -1,0 +1,5 @@
+class Group
+  def send_creation_mail:()->void
+  def has_valid_token?:()->bool
+  def reset_group_token:()->void
+end

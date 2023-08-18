@@ -1,0 +1,3 @@
+class PushSubscription
+  def send_push_notification:(string, string)->void
+end

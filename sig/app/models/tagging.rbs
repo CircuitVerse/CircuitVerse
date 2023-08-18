@@ -1,0 +1,2 @@
+class Tagging
+end

@@ -1,0 +1,12 @@
+class Assignment
+  def notify_recipient:() -> void
+  def send_new_assignment_mail:() -> void
+  def send_update_mail:() -> void
+  def set_deadline_job:() -> void
+  def clean_restricted_elements:() -> String
+  def graded?:() -> bool
+  def elements_restricted?:() -> bool
+  def lti_integrated?:() -> bool
+  def project_order: -> Array[untyped]
+  def check_reopening_status: -> void
+end

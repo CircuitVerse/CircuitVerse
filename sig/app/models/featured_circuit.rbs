@@ -1,0 +1,5 @@
+class FeaturedCircuit
+  private
+  def project_public:()->void
+  def featured_circuit_email:()->void
+end

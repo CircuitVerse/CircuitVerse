@@ -1,0 +1,10 @@
+class User
+  def create_members_from_invitations:()->void
+  def self.from_omniauth:(string)->User
+  def self.from_oauth:(string, string)->User
+  def flipper_id:()->string
+  def moderator?:()->bool
+  def send_devise_notification:(string, untyped)->void
+  def send_welcome_email:()->void
+  def purge_avatar:()->void
+end

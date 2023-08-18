@@ -1,0 +1,6 @@
+class Grade
+  private
+  def grading_scale:()->void
+  def assignment_project:()->void
+  def self.to_csv:(int)->void
+end
