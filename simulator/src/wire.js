@@ -78,15 +78,11 @@ export default class Wire {
             simulationArea.lastSelected = this;
             updated = true;
         } else if (simulationArea.mouseDown && simulationArea.lastSelected === this && !this.checkWithin(simulationArea.mouseX, simulationArea.mouseY)) {
-            if (this.node1.parent.objectType === 'CircuitElement' && this.node2.parent.objectType === 'CircuitElement') {
-                if (this.type === 'horizontal') {
-                    this.node1.y = simulationArea.mouseY;
-                    this.node2.y = simulationArea.mouseY;
-                } else if (this.type === 'vertical') {
-                    this.node1.x = simulationArea.mouseX;
-                    this.node2.x = simulationArea.mouseX;
-                }
-            }
+            var n = new Node(simulationArea.mouseDownX, simulationArea.mouseDownY, 2, this.scope.root);
+            n.clicked = true;
+            n.wasClicked = true;
+            simulationArea.lastSelected = n;
+            this.converge(n);
         }
         // eslint-disable-next-line no-empty
         if (simulationArea.lastSelected === this) {
@@ -102,51 +98,26 @@ export default class Wire {
             if (this.type === 'horizontal') {
                 if (this.node1.absY() !== this.y1) {
                     // if(this.checkConnections()){this.delete();return;}
-                    var n = new Node(this.node1.absX(), this.y1, 2, this.scope.root);
-                    // Check for overlap with other wires
-                    if (!this.checkOverlapping()) {
-                        this.converge(n);
-                        updated = true;
-                    } else {
-                        this.node2.absX() = this.node2.absX() - 10;
-                        this.converge(n);
-                        updated = true;
-                    }
+                    n = new Node(this.node2.absX(), this.node1.absY(), 2, this.scope.root);
+                    this.converge(n);
+                    updated = true;
                 } else if (this.node2.absY() !== this.y2) {
                     // if(this.checkConnections()){this.delete();return;}
-                    n = new Node(this.node2.absX(), this.y2, 2, this.scope.root);
-                    if (!this.checkOverlapping()) {
-                        this.converge(n);
-                        updated = true;
-                    } else {
-                        this.node1.absX() = this.node1.absX() - 10;
-                        this.converge(n);
-                        updated = true;
-                    }
+                    n = new Node(this.node1.absX(), this.node2.absY(), 2, this.scope.root);
+                    this.converge(n);
+                    updated = true;
                 }
             } else if (this.type === 'vertical') {
                 if (this.node1.absX() !== this.x1) {
                     // if(this.checkConnections()){this.delete();return;}
-                    n = new Node(this.x1, this.node1.absY(), 2, this.scope.root);
-                    if (!this.checkOverlapping()) {
-                        this.converge(n);
-                        updated = true;
-                    } else {
-                        this.node2.absY() = this.node2.absY() - 10;
-                        this.converge(n);
-                        updated = true;
-                    }
+                    n = new Node(this.node1.absX(), this.node2.absY(), 2, this.scope.root);
+                    this.converge(n);
+                    updated = true;
                 } else if (this.node2.absX() !== this.x2) {
                     // if(this.checkConnections()){this.delete();return;}
-                    n = new Node(this.x2, this.node2.absY(), 2, this.scope.root);
-                    if (!this.checkOverlapping()) {
-                        this.converge(n);
-                        updated = true;
-                    } else {
-                        this.node1.absY() = this.node1.absY() - 10;
-                        this.converge(n);
-                        updated = true;
-                    }
+                    n = new Node(this.node2.absX(), this.node1.absY(), 2, this.scope.root);
+                    this.converge(n);
+                    updated = true;
                 }
             }
         }
@@ -190,17 +161,6 @@ export default class Wire {
         this.node1.connect(n);
         this.node2.connect(n);
         this.delete();
-    }
-
-    checkOverlapping() {
-        let overlapDetected = false;
-        for (const existingWire of this.scope.wires) {
-            if (existingWire !== this && existingWire.checkWithin(n.absX(), n.absY())) {
-                overlapDetected = true;
-                break;
-            }
-        }
-        return overlapDetected;
     }
 
     delete() {

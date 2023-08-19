@@ -46,12 +46,20 @@ export function clockTick() {
  */
 export function showError(error) {
     errorDetectedSet(true);
-    // if error ha been shown return
+    // if error has been shown return
     if (error === prevErrorMessage) return;
+
+    // Clear previous timeout if exists
+    if (fadeOutTimeout) {
+        clearTimeout(fadeOutTimeout);
+    }
+    $('.alert.alert-danger').fadeOut(() => {
+        $(this).remove();
+    });
     prevErrorMessage = error;
     var id = Math.floor(Math.random() * 10000);
     $('#MessageDiv').append(`<div class='alert alert-danger' role='alert' id='${id}'> ${error}</div>`);
-    setTimeout(() => {
+    var fadeOutTimeout = setTimeout(() => {
         prevErrorMessage = undefined;
         $(`#${id}`).fadeOut();
     }, 1500);
