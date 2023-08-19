@@ -88,7 +88,7 @@ describe "Group management", type: :system do
     )
   end
 
-  it "removes secondary mentor" do
+  it "removes mentor" do
     add_user_to_group_as_mentor
     visit "/groups/#{group.id}"
     click_on "Remove"
