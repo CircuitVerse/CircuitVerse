@@ -33,10 +33,6 @@ const watchPlugin = {
     },
 };
 
-function updateGitSubmodule() {
-    execSync('git submodule update --init --remote', { cwd: process.cwd() });
-}
-
 function validatePackageJsonAndLock() {
     const packageJsonPath = path.join(process.cwd(), 'cv-frontend-vue', 'package.json');
     const packageLockJsonPath = path.join(process.cwd(), 'cv-frontend-vue', 'package-lock.json');
@@ -64,7 +60,6 @@ function logErrorAndExit(err) {
 
 async function buildVue() {
     try {
-        updateGitSubmodule();
         validatePackageJsonAndLock();
         installAndBuildPackage();
     } catch (err) {
