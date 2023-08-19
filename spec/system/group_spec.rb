@@ -76,7 +76,7 @@ describe "Group management", type: :system do
     expect(page).to have_text("Group was successfully deleted.")
   end
 
-  it "adds secondary mentor" do
+  it "adds mentor" do
     visit "/groups/#{group.id}"
     click_button "+ Add Mentors"
     fill_in_input "#group_email_input_mentor", with: user.email
