@@ -1,14 +1,14 @@
 <% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
 
-<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
-<script src="/js/plugins/checkBo.min.js"></script>
-<script src="/js/plugins/bootstrap-input-spinner.js"></script>
+<%= javascript_include_tag "/js/plugins/jquery.twbs-toggle-buttons.min.js", nonce: true %>
+<%= javascript_include_tag "/js/plugins/checkBo.min.js", nonce: true %>
+<%= javascript_include_tag "/js/plugins/bootstrap-input-spinner.js", nonce: true %>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   userSignedIn = <%= user_signed_in? %>;
   __logix_project_id = "<%= @logix_project_id %>";
   __projectName = "<%= @projectName %>"
-</script>
+<% end -%>
 
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
@@ -73,14 +73,14 @@
           <% if user_signed_in? %>
             <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
-              <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
-              <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
+              <li><a class="dropdown-item" href="<%= user_path(current_user) %>">Dashboard</a></li>
+              <li><a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a></li>
+              <li><a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications</a></li>
               <div class="dropdown-divider"></div>
-              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></li>
             </ul>
           <% else %>
-            <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+            <a class="navbar-nav signIn-btn user-field" href="<%= new_user_session_path %>"> Sign In </a>
           <% end %>
         </li>
       </ul>
@@ -154,7 +154,7 @@
         </button> -->
         <div class="zoom-slider">
           <button class="zoom-slider-decrement" id="decrement">-</button>
-          <input type="range" class="custom-range" min="0" max="45" step="1" id="customRange1">
+          <input type="range" class="custom-range" min="0" max="45" step="1" id="customRange1" autocomplete="off">
           <span id='slider_value'></span>
           <button class="zoom-slider-increment" id="increment">+</button>
         </div>
@@ -174,7 +174,7 @@
   </div>
   <div class="panel-body" id="testid">
     <div style="position: relative;">
-    <input type="text" class="search-input" value="" placeholder="Search..">
+    <input type="text" class="search-input" value="" placeholder="Search.." autocomplete="off">
     <span><i class="fas search-close fa-times-circle"></i></span>
     </div>
     <div class="search-results"></div>
@@ -230,22 +230,22 @@
     <% if user_signed_in? %>
      <%= current_user.name %></div>
     <div class="smallscreen-navbar-inner">
-      <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
-      <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+      <li class=""><a href="<%= user_path(current_user) %>">Dashboard</a></li>
+      <li class=""><a href="<%= user_groups_path(current_user) %>">My Groups</a></li>
       <div class="dropdown-divider"></div>
-      <li class=""><a rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+      <li class=""><a rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></li>
       <% else %>
-    <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
+    <a class="navbar-nav user-field" href="<%= new_user_session_path %>"> Sign In </a>
   <% end %>
       </div>
 
   <div id="logoWrap">
-  <a href="/"><span class='touchNavlogo'> </span></a>
+  <a href="/"><span class="touchNavlogo"> </span></a>
   </div>
   </div>
 
   <!-- Touchmenu  Responsive Versions -->
-  <div id='touchMenu'>
+  <div id="touchMenu">
     <ul><i class="fas fa-bezier-curve touchMenuIcon"></i></ul>
     <ul><i class="fas fa-cogs touchMenuIcon"></i></ul>
     <ul><i class="fas fa-wave-square touchMenuIcon"></i></ul>
@@ -257,7 +257,7 @@
     <div class="Touch-Ce-Menu" id="">
       <div class="ce-name">Circuit Elements <i class="fas fa-times panelclose"></i></div>
       <div style="position: relative;">
-        <input type="text" class="search-input" value="" placeholder="Search..">
+        <input type="text" class="search-input" value="" placeholder="Search.." autocomplete="off">
         <span><i class="fas search-close fa-times-circle"></i></span>
       </div>
       <div class="search-results" id="Mobile-menu"></div>
@@ -757,11 +757,11 @@
 <div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit">New Circuit +</a></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
-    <label>Decimal value</label><br><input type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
-    <label>Binary value</label><br><input type='text' id='binaryInput' value='0b10000' label="Binary" name='text1'><br><br>
-    <label>Binary-coded decimal value</label><br><input type='text' id='bcdInput' value='10110' label="BCD" name='text1'><br><br>
-    <label>Octal value</label><br><input type='text' id='octalInput' value='020' label="Octal" name='text1'><br><br>
-    <label>Hexadecimal value</label><br><input type='text' id='hexInput' value='0x10' label="Hex" name='text1'><br><br>
+    <label>Decimal value</label><br><input type="text" id="decimalInput" value="16" label="Decimal" name="text1" autocomplete="off"><br><br>
+    <label>Binary value</label><br><input type="text" id="binaryInput" value="0b10000" label="Binary" name="text1" autocomplete="off"><br><br>
+    <label>Binary-coded decimal value</label><br><input type="text" id="bcdInput" value="10110" label="BCD" name="text1" autocomplete="off"><br><br>
+    <label>Octal value</label><br><input type="text" id="octalInput" value="020" label="Octal" name="text1" autocomplete="off"><br><br>
+    <label>Hexadecimal value</label><br><input type="text" id="hexInput" value="0x10" label="Hex" name="text1" autocomplete="off"><br><br>
 </div>
 <!---issue reporting-system----->
 <div class="report-sidebar">
@@ -804,7 +804,7 @@
         </div>
         <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
         <div class="form-group">
-          <input class="form-control border-primary" type="email" id="emailtext" rows="3">
+          <input class="form-control border-primary" type="email" id="emailtext" rows="3" autocomplete="on">
         </div>
         <div class="container">
           <center>
@@ -818,13 +818,13 @@
   </div>
 </div>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   $('#newCircuit').click(function () {
     return $('#insertSubcircuitDialog').dialog('close');
   });
-</script>
+<% end -%>
 
-<script>
+<%= javascript_tag nonce: true do -%>
 <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
 let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
 if(restricted_feature.includes('Combinational Analysis Tool')) {
@@ -834,32 +834,31 @@ if(restricted_feature.includes('Verilog tools')) {
   $('#generateVerilog').attr("style", "display:none")
 }
 <% end %>
-</script>
+<% end -%>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   const embed = false;
   user_id = "<%= user_signed_in? ? " #{current_user.id} - #{current_user.name}" : "Guest user" %>";
   var listenToSimulator=true
   <% if @project&.assignment_id.present? %>
-  restrictedElements = JSON.parse('<%= raw @project&.assignment&.clean_restricted_elements %>');
+  restrictedElements = JSON.parse(<%== @project&.assignment&.clean_restricted_elements.to_json %>);
   <% else %>
   restrictedElements = [];
   <% end %>
-</script>
+<% end -%>
 
 <!-- on hover for dropdowns -->
-<script>
+<%= javascript_tag nonce: true do -%>
   $('.dropdown-toggle').hover(function () {
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
   });
-</script>
+<% end -%>
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
-<script type="text/javascript" src="/js/metadata.json"></script>
-
-<script>
+<script src="/js/metadata.json" nonce="<%= request.content_security_policy_nonce %>"></script>
+<%= javascript_tag nonce: true do -%>
 
 $(function(){
     $(".btn-group-toggle").twbsToggleButtons();
@@ -870,5 +869,5 @@ $("#openProjectDialog").checkBo();
 $(".download-dialog-section-2_2").checkBo();
 });
 
-</script>
-<script src="/js/data.js"></script>
+<% end -%>
+<%= javascript_include_tag "/js/data.js", nonce: true %>

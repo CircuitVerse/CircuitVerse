@@ -67,7 +67,7 @@
   <%= render "circuitverse_assets/search_bar" %>
 </div>
 
-<script type="text/javascript">
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];
@@ -93,4 +93,4 @@
   if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
   }
-</script>
+<% end -%>

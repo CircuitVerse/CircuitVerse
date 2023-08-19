@@ -1,6 +1,6 @@
 <% content_for :title, @mail.subject %>
 <div>
   <h2>Hello, <%= @user.name %></h2>
-  <div class="mailer-text mailer-body-container"><%= raw @mail.content %></div>
+  <div class="mailer-text mailer-body-container"><%= sanitize(@mail.content) %></div>
   <p class="mailer-text">Keep building!</p>
 </div>

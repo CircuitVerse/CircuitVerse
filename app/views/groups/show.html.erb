@@ -91,10 +91,10 @@
             </div>
           </td>
           <td>
-            <div class="groups-assignment-deadline groups-assignment-date" data-year=<%= deadline_year(assignment) %>
-              data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
-              data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
-              data-second=<%= deadline_second(assignment) %>>
+            <div class="groups-assignment-deadline groups-assignment-date" data-year="<%= deadline_year(assignment) %>"
+              data-month="<%= deadline_month(assignment) %>" data-day="<%= deadline_day(assignment) %>"
+              data-hour="<%= deadline_hour(assignment) %>" data-minute="<%= deadline_minute(assignment) %>"
+              data-second="<%= deadline_second(assignment) %>">
               <%= assignment.deadline %>
             </div>
             <% if(assignment.deadline > Time.current) %>
@@ -215,10 +215,10 @@
             <tr>
               <th class="groups-collapsed-table-head"><%= t("groups.show.assignment.assignment_table_head.deadline") %></th>
               <td>
-                <div class="groups-assignment-deadline" data-year=<%= deadline_year(assignment) %>
-                  data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
-                  data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
-                  data-second=<%= deadline_second(assignment) %>>
+                <div class="groups-assignment-deadline" data-year="<%= deadline_year(assignment) %>"
+                  data-month="<%= deadline_month(assignment) %>" data-day="<%= deadline_day(assignment) %>"
+                  data-hour="<%= deadline_hour(assignment) %>" data-minute="<%= deadline_minute(assignment) %>"
+                  data-second="<%= deadline_second(assignment) %>">
                   <%= assignment.deadline %>
                 </div>
                 <% if(assignment.deadline > Time.current) %>
@@ -344,7 +344,7 @@
   <%= render partial: "promote_member_confirmation_modal" %>
 </div>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   $(document).ready(function() {
     $('.groups-assignment-deadline').each(function() {
       let month = $(this).data("month") -1;
@@ -365,4 +365,4 @@
         "/group_members/" + groupmember.toString());
     });
   });
-</script>
+<% end -%>

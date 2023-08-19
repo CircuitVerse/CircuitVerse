@@ -28,11 +28,11 @@
   </div>
 <% end %>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   function before_submit() {
-  $('<input />').attr('type', 'hidden')
+  $('<input>').attr('type', 'hidden')
     .attr('name', 'announcement[body]')
     .attr('value', $("#trumbowyg-editor").cleanHtml())
     .appendTo('#AnnouncementForm');
   }
-</script>
+<% end -%>

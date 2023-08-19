@@ -67,16 +67,16 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
     __logix_project_id = "<%= @logix_project_id %>";
         embed=true;
         <% if @project&.assignment_id.present? %>
-          restrictedElements = JSON.parse('<%= raw @project&.assignment&.clean_restricted_elements %>');
+          restrictedElements = JSON.parse(<%== @project&.assignment&.clean_restricted_elements.to_json %>);
         <% else %>
           restrictedElements = [];
         <% end %>
 
- </script>
+<% end -%>
 
 </body>
 

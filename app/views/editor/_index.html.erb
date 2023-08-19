@@ -1,6 +1,6 @@
 <textarea id="trumbowyg"> <%= content %> </textarea>
 
-<script type="text/javascript">
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   $(document).ready(function() {
     $('#trumbowyg').trumbowyg({
       svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg",
@@ -45,4 +45,4 @@
       var html = $('#trumbowyg').trumbowyg('html');
       return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');
     };
-</script>
+<% end -%>

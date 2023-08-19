@@ -74,7 +74,7 @@
   <%= render partial: "delete_group_confirmation_modal" %>
 </div>
 
-<script type="text/javascript">
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   $(document).ready(function() {
     $("#deletegroupModal").on("show.bs.modal", function(e) {
         let group = $(e.relatedTarget).data('currentgroup');
@@ -82,4 +82,4 @@
         "/groups/" + group.toString());
     });
   });
-</script>
+<% end -%>

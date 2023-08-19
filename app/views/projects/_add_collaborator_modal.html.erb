@@ -34,7 +34,7 @@
   </div>
 </div>
 
-<script>
+<%= javascript_tag nonce: true do -%>
 $(document).ready(() => {
   $('#collaboration_emails').select2({
     tags: true,
@@ -76,7 +76,7 @@ $(document).ready(() => {
       const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' '); // splitting emails by space
       this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
       newLinesIntoSpacesSplitted.forEach(value => {
-        var tags = $("<option/>", { text: value });
+        var tags = $("<option>", { text: value });
         $('#collaboration_emails').append(tags);
         $('#collaboration_emails option').prop('selected',true);
       }); // adding each value as an input
@@ -85,7 +85,7 @@ $(document).ready(() => {
       const pastedEmailsSplittedBySpace = pastedEmails.split(' '); // splitting emails by space
       this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
       pastedEmailsSplittedBySpace.forEach(value => {
-        var tags = $("<option/>", { text: value });
+        var tags = $("<option>", { text: value });
         $('#collaboration_emails').append(tags);
         $('#collaboration_emails option').prop('selected',true);
       }); // adding each value as an input
@@ -94,4 +94,4 @@ $(document).ready(() => {
   });
 });
 
-</script>
+<% end -%>

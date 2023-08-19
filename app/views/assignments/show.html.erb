@@ -21,10 +21,10 @@
         <div class="assignments-data">
           <p><%= t("assignments.assignment_data.name_html", name: @assignment.name) %></p>
           <p><%= t("assignments.assignment_data.group_html", group_name: @assignment.group.name) %></p>
-          <p><strong><%= t("assignments.deadline") %></strong><span class="assignments-deadline" data-year=<%= deadline_year(@assignment) %>
-            data-month=<%= deadline_month(@assignment) %> data-day=<%= deadline_day(@assignment) %>
-            data-hour=<%= deadline_hour(@assignment) %> data-minute=<%= deadline_minute(@assignment) %>
-            data-second=<%= deadline_second(@assignment) %>><%= @assignment.deadline %></span></p>
+          <p><strong><%= t("assignments.deadline") %></strong><span class="assignments-deadline" data-year="<%= deadline_year(@assignment) %>"
+            data-month="<%= deadline_month(@assignment) %>" data-day="<%= deadline_day(@assignment) %>"
+            data-hour="<%= deadline_hour(@assignment) %>" data-minute="<%= deadline_minute(@assignment) %>"
+            data-second="<%= deadline_second(@assignment) %>"><%= @assignment.deadline %></span></p>
           <% if(@assignment.deadline > Time.now) %>
             <p><%= t("assignments.assignment_data.time_remaining_html", time_remaining: AssignmentDecorator.new(@assignment).time_remaining) %></p>
           <% end %>
@@ -32,7 +32,7 @@
           <% if @assignment.description %>
             <p><strong><%= t("assignments.assignment_data.description") %> </strong></p>
             <div class="assignments-description">
-              <%= @assignment.description&.html_safe %>
+              <%= sanitize @assignment.description %>
             </div>
           <% end %>
           <% if @assignment.restricted_circuit_elements != "None" %>
@@ -58,7 +58,7 @@
           <hr class="assignments-horizontal-rule">
           <% if policy(@assignment).mentor_access? %>
           <h3 class="assignments-submission-heading"><%= t("assignments.assignment_data.submissions") %></h3>
-            <script>
+            <%= javascript_tag nonce: true do -%>
               $( function() {
                 $('.list-group-item-action').on('click', function (e) {
                   e.preventDefault()
@@ -72,7 +72,7 @@
                   frames['assignmentPreview'].document.head.appendChild(cssLink);
                 })
               });
-            </script>
+            <% end -%>
             <% if @assignment.project_order.blank? %>
               <div class="assignments-no-submission">
                 <h5><%= t("assignments.assignment_data.no_submissions") %></h5>
@@ -163,8 +163,8 @@
     </div>
   </div>
 </div>
-<script src="/js/grading.js"> </script>
-<script type="text/javascript">
+<%= javascript_include_tag "/js/grading.js", nonce: true %>
+<%= javascript_tag nonce: true do -%>
   $(document).ready(function() {
     $('.assignments-deadline').each(function(){
       let month = $('.assignments-deadline').data("month") -1;
@@ -174,4 +174,4 @@
       this.innerHTML = localTime;
     });
   });
-</script>
+<% end -%>

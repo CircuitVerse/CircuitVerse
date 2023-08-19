@@ -48,14 +48,14 @@
 
 <% end %>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   function beforeSubmit() {
     generateFeaturedCircuit()
     generateEditor()
   }
 
   function generateEditor() {
-    $('<input />').attr('type', 'hidden')
+    $('<input>').attr('type', 'hidden')
       .attr('name', 'description')
       .attr('value', $("#editor").cleanHtml())
       .appendTo('#projectForm');
@@ -76,4 +76,4 @@
     });
     $("#featuredCircuit").submit();
   }
-</script>
+<% end -%>

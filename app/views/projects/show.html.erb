@@ -30,7 +30,7 @@
     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
       <div class="projects-iframe-container">
         <div class="embed-responsive embed-responsive-4by3">
-          <iframe src=<%= simulator_path(@project) %>></iframe>
+          <iframe src="<%= simulator_path(@project) %>"></iframe>
         </div>
       </div>
     </div>
@@ -203,7 +203,7 @@
 
 <%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
 
-<script>
+<%= javascript_tag nonce: true do -%>
   $(document).ready(function() {
     <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %> {
       let restricted_feature = '<%= @project.assignment.feature_restrictions %>';
@@ -227,8 +227,8 @@
         "/collaborations/" + collaboration.toString());
     });
   })
-</script>
-<script>
+<% end -%>
+<%= javascript_tag nonce: true do -%>
   function toggleStar(toggle) {
     $.ajax({
       url: "<%= change_stars_path(@project) %>",
@@ -249,10 +249,10 @@
         }
     });
   }
-</script>
+<% end -%>
 <% if user_signed_in? %>
-  <script type="application/ld+json">
-    {
+  <%= javascript_tag type: "application/ld+json", nonce: true do -%>
+      {
       "@context" : "http://schema.org",
       "@type" : "Article",
       "name" : "<%= @project.name %>",
@@ -263,5 +263,5 @@
       "articleSection" : "Project",
       "articleBody" : "<%= @project.description || " " %>"
     }
-  </script>
+  <% end -%>
 <% end %>

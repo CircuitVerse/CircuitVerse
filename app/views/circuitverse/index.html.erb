@@ -1,8 +1,8 @@
-<script>
+<%= javascript_tag nonce: true do -%>
   $(document).ready(function(){
     $("#alertdiv").delay(5000).fadeOut(600);
   });
-</script>
+<% end -%>
 
 <% content_for :title, t("circuitverse.index.title") %>
 
@@ -223,11 +223,11 @@
     <% end %>
 
     <% if user_signed_in? %>
-    <script>
+    <%= javascript_tag nonce: true do -%>
         if(localStorage.getItem("recover_login")){
             window.location.href = "/simulator"
         }
-    </script>
+    <% end -%>
     <% end %>
 
 <script type="application/ld+json">

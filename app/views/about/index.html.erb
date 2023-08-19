@@ -109,7 +109,7 @@
     </div>
 </div>
 
-<script type="text/javascript">
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   async function getContributors(url){
     let apiData = await fetch(url);
     let contributorsData = await apiData.json();
@@ -128,4 +128,4 @@
     }
   }
   getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors?per_page=100');
-</script>
+<% end -%>

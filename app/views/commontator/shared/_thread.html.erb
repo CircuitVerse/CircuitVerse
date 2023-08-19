@@ -14,15 +14,15 @@
         <div id="commontator-thread-<%= thread.id %>" class="commontator thread">
           <% if @commontator_thread_show %>
             <%=
-              render partial: 'commontator/threads/show', locals: {
+              render partial: "commontator/threads/show", locals: {
                 thread: thread, user: user, page: page, show_all: show_all
               }
             %>
           <% else %>
             <% subscription = thread.subscription_for(user) %>
             <%= link_to "#{t 'commontator.thread.actions.show'} (#{
-                          (subscription.unread_comments(show_all).count.to_s + '/') if subscription
-                        }#{thread.filtered_comments(show_all).count.to_s})",
+                          "#{subscription.unread_comments(show_all).count}/" if subscription
+                        }#{thread.filtered_comments(show_all).count})",
                         commontator.thread_path(thread),
                         remote: true %>
           <% end %>

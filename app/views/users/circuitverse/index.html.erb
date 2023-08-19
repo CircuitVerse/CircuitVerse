@@ -58,7 +58,7 @@
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
       </div>
       <div>
-      <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search" placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
+      <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search" placeholder="<%= t("users.circuitverse.index.search_circuits") %>" autocomplete="off"></span>
       </div>
     </div>
   </div>
@@ -96,8 +96,7 @@
       <% end %>
     </div>
     <div id="collaborator-circuits-div" class="row center-row circuit-page">
-      <% collaborated_projects = @user.collaborated_projects %>
-      <% if collaborated_projects.count == 0 %>
+      <% if @user.collaborated_projects.count == 0 %>
         <div class="col-12">
           <div class="search-no-results-image">
             <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
@@ -109,7 +108,7 @@
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
+        <%= render partial: "dashboard", locals: { projects: @user.collaborated_projects } %>
       <% end %>
     </div>
 
@@ -129,9 +128,9 @@
 </script>
 
 <%= render partial: "view_project_modal" %>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3"></script>
+<%= javascript_include_tag "https://cdn.jsdelivr.net/npm/fuse.js@6.4.3", nonce: true %>
 <%# for user projects search %>
-<script type="text/javascript">
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
 
   function getTitle(circuitDiv) {
       return $('.users-card-name p', circuitDiv)[0].textContent;
@@ -199,9 +198,9 @@
     }
   })
 
-</script>
+<% end -%>
 
-<script type="text/javascript">
+<%= javascript_tag type: "text/javascript", nonce: true do -%>
   $(function() {
     $('#favourite-circuits-div').hide();
     $('#collaborator-circuits-div').hide();
@@ -240,4 +239,4 @@
         "/users/" + authorId + "/projects/" + id);
     });
   });
-</script>
+<% end -%>

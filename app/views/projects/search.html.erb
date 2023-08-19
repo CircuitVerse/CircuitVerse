@@ -1,4 +1,4 @@
-<script src="js/search.js"></script>
+<%= javascript_include_tag "/js/search.js", nonce: true %>
 <% if @results.empty? %>
   <div class="container search-no-results-container">
     <div class="row center-row">

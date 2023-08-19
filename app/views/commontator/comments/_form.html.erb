@@ -1,9 +1,6 @@
 <%
-  # Views that use this partial must provide the following variable:
-  # comment
-  #
+  # Views that use this partial must provide the following variable: comment
   new_record = comment.new_record?
-
   # Optionally, they can also supply the following variables:
   thread ||= new_record ? comment.thread : nil
   no_remote ||= false
@@ -34,20 +31,19 @@
   <% end %>
 
   <div class="comments-field">
-    <%=
-      form.text_area :body, rows: '4', id: new_record ?
-        comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
-                              "commontator-comment-#{comment.parent.id}-reply" :
-        "commontator-comment-#{comment.id}-edit-body",class:"form-control"
-    %>
+    <% if new_record %>
+      <% if comment.parent.nil? %>
+        <%= form.text_area :body, rows: "4", id: "commontator-thread-#{@commontator_thread.id}-new-comment-body", class: "form-control" %>
+      <% else %>
+        <%= form.text_area :body, rows: "4", id: "commontator-comment-#{comment.parent.id}-reply", class: "form-control" %>
+      <% end %>
+    <% else %>
+        <%= form.text_area :body, rows: "4", id: "commontator-comment-#{comment.id}-edit-body", class: "form-control" %>
+    <% end %>
   </div>
 
   <div class="submit">
     <%= form.submit t("commontator.comment.actions.#{new_record ? 'create' : 'update'}"), class: "btn primary-button" %>
-    <%=
-      form.submit(
-        t('commontator.comment.actions.cancel'), name: 'cancel', class: "btn primary-button"
-      ) unless config.new_comment_style == :t && new_record && comment.parent.nil?
-    %>
+    <%= form.submit(t("commontator.comment.actions.cancel"), name: "cancel", class: "btn primary-button") unless config.new_comment_style == :t && new_record && comment.parent.nil? %>
   </div>
 <% end %>

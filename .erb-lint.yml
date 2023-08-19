@@ -1,11 +1,34 @@
 ---
-glob: "**/*.{html,text,js}{+*,}.erb"
+glob: "**/*.{html,text}{+*,}.erb"
 exclude:
   - '**/vendor/**/*'
   - '**/node_modules/**/*'
+  - '**/app/views/assignments/_form.html.erb'
+  - '**/app/views/editor/_index.html.erb'
+  - '**/app/views/about/index.html.erb'
 linters:
+  HardCodedString:
+    exclude:
+      - '**/app/**'
   ErbSafety:
+    exclude:
+      - '**/app/views/**'
+  AllowedScriptType:
     enabled: true
+    allowed_types:
+      - 'text/javascript'
+      - 'application/ld+json'
+    allow_blank: true
+    disallow_inline_scripts: false
+  PartialInstanceVariable:
+    exclude:
+      - '**/app/views/**'
+  NoJavascriptTagHelper:
+    exclude:
+      - '**/app/views/**'
+  SelfClosingTag:
+    exclude:
+      - '**/app/views/**'
   Rubocop:
     enabled: true
     rubocop_config:
@@ -13,9 +36,20 @@ linters:
         - .rubocop.yml
       Style/FrozenStringLiteralComment:
         Enabled: false
-      Metrics/LineLength:
+      Layout/LineLength:
         Enabled: false
       Layout/TrailingEmptyLines:
         Enabled: false
+      Layout/LeadingEmptyLines:
+        Enabled: false
       Layout/InitialIndentation:
+        Enabled: false
+      Style/MultilineTernaryOperator:
+        Enabled: false
+      Layout/TrailingWhitespace:
+        Enabled: false
+      Lint/UselessAssignment:
+        Exclude:
+          - "app/views/**/*"
+      Lint/EmptyBlock:
         Enabled: false
