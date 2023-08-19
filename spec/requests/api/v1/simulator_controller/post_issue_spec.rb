@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       it "returns an internal server error status" do
         post "/api/v1/simulator/post_issue/", params: { text: "some text", circuit_data: "some data" }
-        expect(response.status).to eq(500)
+        expect(response.status).to eq(422)
         expect(response.body).to include("Invalid or missing Slack webhook URL")
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       it "returns an ok status and success message" do
         post "/api/v1/simulator/post_issue/", params: { text: "some text", circuit_data: "some data" }
-        expect(response.status).to eq(500)
+        expect(response.status).to eq(422)
         expect(response.body).to include("Failed to submit issue to Slack")
       end
     end
