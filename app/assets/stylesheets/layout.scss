@@ -156,6 +156,7 @@ body {
 
   .pagination {
     display: block;
+    margin: 0 auto;
     max-width: none;
     overflow-x: visible;
     padding: 0;
@@ -164,7 +165,7 @@ body {
 
   .pagination > * {
     display: inline-block;
-    margin: 0;
+    margin: auto;
     margin-left: -4px;
   }
 }
