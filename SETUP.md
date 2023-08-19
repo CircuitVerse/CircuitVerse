@@ -63,7 +63,7 @@ cd CircuitVerse
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template): 
+4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template):
      * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `rails db:create`
@@ -103,7 +103,7 @@ Additional instructions can be found [here](https://www.howtoforge.com/tutorial/
 2. Run by `docker compose up`
 3. Go to Debug Menu
 4. Choose `(Docker) Attach Debugger[:3001]`
-5. Now you can set breakpoint and  debug from VSCode 
+5. Now you can set breakpoint and  debug from VSCode
 
 #### (Optional) yosys installation for Verilog RTL Synthesis
 If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
@@ -155,7 +155,7 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 ### CircuitVerse API documentation setup instructions
 To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
 
-### Enabling/Disabling features with Flipper 
+### Enabling/Disabling features with Flipper
 By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
 ```ruby
 rails c
@@ -227,6 +227,10 @@ CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and
 openssl genrsa -out config/private.pem 2048
 openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 ```
+
+## Distributed Tracing using Opentelmetry
+
+Refer [otel docs](./.otel)
 
 ## Third Party Services
 The `.env` file only needs to be used if you would like to link to third party services (Facebook, Google, GitHub, Gitlab, Slack, Bugsnap and Recaptcha)
