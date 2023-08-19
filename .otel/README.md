@@ -4,16 +4,19 @@ CircuitVerse employes Distributed tracing using [Jaeger service](https://www.jae
 
 ## Setup
 
+Before starting the containers, following environment variables need to be set:
+
+1. `ENABLE_OTEL=true` - in order to generate spans
+2. `NEW_RELIC_API_KEY=<new-relic-license-key-here>` - API key to aunthenticate to New Relic endpoint (optional)
+
 ```bash
-Flipper.enable :opentelemetry
+export ENABLE_OTEL=true
 export NEW_RELIC_API_KEY=<new-relic-license-key-here>
 cd .otel
 docker compose up -d
 ```
 
 Navigate to [http://localhost:16686/](http://localhost:16686/) to view the Jaeger UI dashboard and view the traces.
-
-By default, OpenTelemetry is disabled for all environments. In order to enable it globally set `opentelemetry: true` in [config/initializers/flipper.rb](https://github.com/CircuitVerse/CircuitVerse/blob/master/config/initializers/flipper.rb)
 
 ## New Relic OpenTelemetry
 

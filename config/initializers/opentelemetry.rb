@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if Flipper.enabled?(:opentelemetry)
+if ENV["ENABLE_OTEL"] == "true"
   require "opentelemetry/sdk"
   require "opentelemetry/exporter/otlp"
   require "opentelemetry/instrumentation/all"

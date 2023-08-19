@@ -7,8 +7,7 @@ default_flipper_features = {
   recaptcha: false,
   forum: false,
   project_comments: true,
-  lms_integration: true,
-  opentelemetry: false
+  lms_integration: true
 }
 
 Flipper.configure do |config|
