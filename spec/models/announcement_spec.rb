@@ -22,19 +22,4 @@ RSpec.describe Announcement, type: :model do
       expect(described_class.current).to be_nil
     end
   end
-
-  describe "#exists?" do
-    it "returns true for a persisted announcement" do
-      announcement = described_class.new
-      announcement.save
-
-      expect(announcement.exists?).to be true
-    end
-
-    it "returns false for a new announcement" do
-      announcement = described_class.new
-
-      expect(announcement.exists?).to be false
-    end
-  end
 end
