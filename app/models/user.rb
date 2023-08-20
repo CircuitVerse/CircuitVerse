@@ -5,6 +5,7 @@ class User < ApplicationRecord
   require "pg_search"
   include SimpleDiscussion::ForumUser
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
+  self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size profile_picture_updated_at]
 
   self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size profile_picture_updated_at]
   # Include default devise modules. Others available are:
@@ -34,7 +35,6 @@ class User < ApplicationRecord
   has_many :push_subscriptions, dependent: :destroy
 
   before_destroy :purge_profile_picture
-
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 

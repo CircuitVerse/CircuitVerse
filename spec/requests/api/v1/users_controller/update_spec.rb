@@ -80,7 +80,6 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         Flipper.disable(:active_storage_s3)
         # user having profile picture
         new_user = FactoryBot.create(:user)
-
         token = get_auth_token(new_user)
         patch "/api/v1/users/#{new_user.id}",
               params: { remove_picture: "1" },
