@@ -15,7 +15,7 @@
       <div class="row center-row search-user-container">
         <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
           <div class="row center-row">
-            <%= image_tag profile.profile_picture.url(:medium), alt: "project.name", class: "center-row search-usersearch-image" %>
+            <%= image_tag user_profile_picture(profile.profile_picture), alt: "project.name", class: "center-row search-usersearch-image" %>
             <p class=" center-row search-username"><%= profile.name %></p>
           </div>
         </div>
