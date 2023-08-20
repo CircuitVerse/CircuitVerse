@@ -88,6 +88,45 @@ describe AssignmentsController, type: :request do
     end
   end
 
+  describe "#close" do
+    context "when random user is signed in" do
+      before do
+        sign_in @member
+      end
+
+      it "restricts access" do
+        put close_group_assignment_path(@group, @assignment)
+        expect(response.body).to include("You are not authorized to do the requested operation")
+      end
+    end
+
+    context "when mentor is signed in" do
+      before do
+        sign_in @primary_mentor
+      end
+
+      context "when assignment is open" do
+        it "closes the assignment" do
+          put close_group_assignment_path(@group, @assignment)
+          @assignment.reload
+          expect(@assignment.status).to eq("closed")
+        end
+      end
+
+      context "when assignment is closed" do
+        before do
+          @assignment.update(status: "closed")
+        end
+
+        it "closes the assignment" do
+          put close_group_assignment_path(@group, @assignment)
+          @assignment.reload
+          expect(@assignment.status).to eq("closed")
+        end
+      end
+    end
+  end
+
   describe "#update" do
     let(:update_params) do
       {
