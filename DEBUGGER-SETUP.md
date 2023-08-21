@@ -1,7 +1,7 @@
 ## Instructions For Using Ruby Debugger
 
 #### Debugging with VSCode
-1. Install [VSCode rdbg Ruby Debugger](VSCode rdbg Ruby Debugge) extenstion.
+1. Install [VSCode rdbg Ruby Debugger](https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg) extenstion.
     >  Use v1.0.0 of this extenstion
 2. Run the app by `./bin/dev`
 3. Go to Debug Menu
@@ -16,7 +16,7 @@
 4. Now you can open any file and set breakpoint to debug
 
 #### Debugging with VSCode (Docker)
-1. Install [VSCode rdbg Ruby Debugger](VSCode rdbg Ruby Debugge) extenstion.
+1. Install [VSCode rdbg Ruby Debugger](https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg) extenstion.
     >  Use v1.0.0 of this extenstion
 2. Run by `docker compose up`
 3. Go to Debug Menu
