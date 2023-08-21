@@ -20,12 +20,17 @@ cd CircuitVerse
 - [Ruby 3.2.1](https://www.ruby-lang.org/en/) (Install from this [link](https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.2.1-1/rubyinstaller-devkit-3.2.1-1-x64.exe))
     > During installation, you will be prompted to install MSYS2 & MINGW. Make sure to install those 
 - Redis 7.0 [atleast]
-    - Clone the repository 
-        ```bash
-        git clone https://github.com/zkteco-home/redis-windows
-        ```
-    - `cd redis-windows`
-    - Open powershell & Run `install_redis.cmd`
+    > Note : Redis 7.0 is not officially supported on Windows. Please note that any suggestions for unofficial software are provided solely for informational purposes, and their use is at your own risk.
+    - Unofficial Windows port of Redis 7.0 
+        - Clone the repository 
+            ```bash
+            git clone https://github.com/zkteco-home/redis-windows
+            ```
+        - `cd redis-windows`
+        - Open powershell & Run `install_redis.cmd`
+    - Memurai (Redis for Windows alternative)
+        - Download the installer from [here](https://www.memurai.com/get-memurai)
+        - Run the installer
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
 - [Node.js 16.x](https://nodejs.org/it/download)
 - [Yarn](https://yarnpkg.com/getting-started/install)

@@ -55,6 +55,14 @@ rails c
 ```
 Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
+**Note :** User need to login as admin first, then only Flipper dashboard can be accessed
+If you have followed the provided setup documentation, you can login as admin with following credentials.
+```
+User: Admin
+Email: admin@circuitverse.org
+Password: password
+```
+
 ## Deployment Guide
 ### Heroku Deployment
 [Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
