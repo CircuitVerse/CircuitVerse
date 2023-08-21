@@ -7,8 +7,7 @@ class Users::CircuitverseController < ApplicationController
 
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
-  before_action :remove_previous_avatar, only: [:update]
-  after_action :attach_avatar, only: [:update]
+  before_action :remove_previous_profile_picture, only: [:update]
 
   def index
     @profile = ProfileDecorator.new(@user)
@@ -55,18 +54,7 @@ class Users::CircuitverseController < ApplicationController
       @user = User.find(params[:id])
     end
 
-    def attach_avatar
-      return if no_attachment?
-
-      pic_exists = params[:user][:profile_picture].present? && @profile.profile_picture.present?
-      @profile.avatar.attach(io: File.open(@profile.profile_picture.path), filename: "avatar.jpeg") if pic_exists
-    end
-
-    def remove_previous_avatar
-      @profile.avatar.purge if params[:user][:profile_picture].present? && @profile.avatar.attached?
-    end
-
-    def no_attachment?
-      @profile.remove_picture == "1" || @profile.profile_picture.blank?
+    def remove_previous_profile_picture
+      @profile.profile_picture.purge if params[:user][:profile_picture].present? && @profile.profile_picture.attached?
     end
 end
