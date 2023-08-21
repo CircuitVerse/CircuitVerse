@@ -5,7 +5,7 @@ on:
     paths:
       - "simulator/**"
       - "package.json"
-      - "yarn.lock"
+      - "package-lock.json"
       - "esbuild.config.js"
       - "jest.config.js"
   pull_request:
@@ -14,7 +14,7 @@ on:
     paths:
       - "simulator/**"
       - "package.json"
-      - "yarn.lock"
+      - "package-lock.json"
       - "esbuild.config.js"
       - "jest.config.js"
 jobs:
@@ -43,8 +43,8 @@ jobs:
 
       # Install required deps for action
       - name: Install Dependencies
-        run: yarn
+        run: npm install
 
       # Finally, run our tests
       - name: Run the tests
-        run: yarn test
+        run: npm run test
