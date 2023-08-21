@@ -137,7 +137,4 @@ Rails.application.configure do
   # Required
   #   config.logstash.type = :tcp
   # Logstash settings end here
-
-  # Disable yarn integrity check
-  config.webpacker.check_yarn_integrity = false
 end

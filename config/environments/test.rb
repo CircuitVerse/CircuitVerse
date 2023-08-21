@@ -59,7 +59,4 @@ Rails.application.configure do
 
   config.action_mailer.default_url_options = { host: "example.com" }
   config.assets.css_compressor = nil
-
-  # Disable yarn integrity check
-  config.webpacker.check_yarn_integrity = false
 end

@@ -86,7 +86,4 @@ Rails.application.configure do
   end
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
-
-  # Disable yarn integrity check
-  config.webpacker.check_yarn_integrity = false
 end
