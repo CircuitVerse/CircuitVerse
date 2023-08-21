@@ -1,5 +1,5 @@
 ## Instructions For Using Ruby Debugger
-Ruby's debug is a powerful tool that allows for you to stop the execution of the application at a particular moment and to investigate and interact within that context
+Ruby's deb.rb is a powerful tool that allows for you to stop the execution of the application at a particular moment and to investigate and interact within that context
 
 #### Debugging with VSCode
 1. Install [VSCode rdbg Ruby Debugger](https://marketplace.visualstudio.com/items?itemName=KoichiSasada.vscode-rdbg) extenstion.
