@@ -17,7 +17,7 @@ COPY package.json /circuitverse/package.json
 COPY package-lock.json /circuitverse/package-lock.json
 
 RUN gem install bundler
-RUN bundle install  --without production
+RUN bundle install --without production
 RUN npm install
 
 # copy source
