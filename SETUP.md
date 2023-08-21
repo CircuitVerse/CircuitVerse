@@ -12,14 +12,14 @@ There are several ways to run your own instance of CircuitVerse:
 
 | Method | Operating System | Documentation |
 | --- | --- | --- |
-| GitHub Codespaces | Any | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
-| Gitpod Cloud Environment | Any | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/remote_development.md#gitpod-cloud-environment) |
-| Docker Development Environment | Windows | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
-| Docker Development Environment | Linux | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
-| Docker Development Environment | Mac | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
-| Manual Setup | Windows | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
-| Manual Setup | Linux | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
-| Manual Setup | Mac | [Click Here](https://github.com/tanmoysrt/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
+| GitHub Codespaces | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
+| Gitpod Cloud Environment | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#gitpod-cloud-environment) |
+| Docker Development Environment | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
+| Docker Development Environment | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
+| Docker Development Environment | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
+| Manual Setup | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
+| Manual Setup | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
+| Manual Setup | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
 
 ## Tools Setup
 | Tool | Documentation Link |
