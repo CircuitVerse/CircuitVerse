@@ -32,7 +32,9 @@ jobs:
           bundler-cache: true
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '16'
+      - name: Upgrade NPM
+        run: npm install -g npm
       - name: Install reviewdog
         uses: reviewdog/action-setup@v1
         with:
