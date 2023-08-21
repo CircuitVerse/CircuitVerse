@@ -4,7 +4,13 @@ CircuitVerse employes Distributed tracing using [Jaeger service](https://www.jae
 
 ## Setup
 
+Before starting the containers, following environment variables need to be set as mentioned in [env.example](./env.example):
+
+1. `ENABLE_OTEL=true` - in order to generate spans
+2. `NEW_RELIC_API_KEY=<new-relic-license-key-here>` - API key to aunthenticate to New Relic endpoint (optional)
+
 ```bash
+export ENABLE_OTEL=true
 export NEW_RELIC_API_KEY=<new-relic-license-key-here>
 cd .otel
 docker compose up -d

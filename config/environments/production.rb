@@ -22,8 +22,14 @@ Rails.application.configure do
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
   # `config/secrets.yml.key`.
   config.read_encrypted_secrets = true
+
   # Configure ActiveStorage
-  config.active_storage.service = :amazon
+  if ENV["AWS_S3_BUCKET_NAME"].present?
+    config.active_storage.service = :amazon_custom
+  else
+    config.active_storage.service = :amazon
+  end
+
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
