@@ -9,7 +9,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remo
 WORKDIR /usr/src/app
 
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
+RUN npm ci --omit=dev --ignore-scripts
 
 COPY Gemfile* ./
 ENV BUNDLE_DEPLOYMENT=true 
