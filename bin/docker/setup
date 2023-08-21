@@ -3,6 +3,7 @@
 # Remove tmp folder
 rm -rf /circuitverse/tmp
 
+
 # Install ruby dependencies
 gem install bundler
 bundle config set --local without "production"
@@ -21,3 +22,5 @@ if [ ! -f "/circuitverse/config/private.pem" ] && [ ! -f "/circuitverse/config/p
   openssl genrsa -out /circuitverse/config/private.pem 2048
   openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem
 fi
+# Write a tmp file to indicate that setup is complete
+touch /circuitverse/tmp/setup_complete

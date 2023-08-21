@@ -15,14 +15,10 @@ if [[ "$OPERATING_SYSTEM" == "linux" || "$OPERATING_SYSTEM" == "mac" ]]; then
   if [ ! -L "$HOST_CURRENT_DIRECTORY" ]; then
     sudo ln -s -T /circuitverse "$HOST_CURRENT_DIRECTORY"
   fi
-  # Start solargraph server in background
-  bundle exec solargraph socket --host="0.0.0.0" --port=3002 &> /dev/null &
 fi
-
-
 
 # Start server
 ./bin/dev
 
-# Start bash if previous command exits
+# If exited from server, open a shell
 /bin/bash
