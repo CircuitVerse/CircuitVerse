@@ -15,6 +15,7 @@ module UsersCircuitverseHelper
       image_path("thumb/Default.jpg")
     end
   end
+
   def project_image_preview(project, current_user)
     if Flipper.enabled?(:active_storage_s3, current_user)
       return_circuit_preview(project)
