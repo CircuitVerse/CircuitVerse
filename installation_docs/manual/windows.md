@@ -10,7 +10,7 @@ cd CircuitVerse
 
 **Note:** If you want to contribute, first fork the original repository and clone your **forked** repository into your local machine. If you don't do this, you will not be able to make commits or change any files.
 ```sh
-git clone https://github.com/<username>/CircuitVerse.git
+git clone -c core.symlinks=true https://github.com/<username>/CircuitVerse.git
 cd CircuitVerse
 ```
 
