@@ -4,22 +4,13 @@ require "rails_helper"
 
 describe "Assignments", type: :system do
   let(:primary_mentor) { FactoryBot.create(:user) }
-  let(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
-  let(:mentor) do
-    user = FactoryBot.create(:user)
-    FactoryBot.create(:group_member, group: group, user: user, mentor: true)
-    user
-  end
-  let(:member) do
-    user = FactoryBot.create(:user)
-    FactoryBot.create(:group_member, group: group, user: user)
-    user
-  end
+  let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+  let(:mentor) { FactoryBot.create(:user).tap { |user| FactoryBot.create(:group_member, group: group, user: user, mentor: true) } }
+  let(:member) { FactoryBot.create(:user).tap { |user| FactoryBot.create(:group_member, group: group, user: user) } }
   let(:assignment) { FactoryBot.create(:assignment, group: group) }
   let(:closed_assignment) { FactoryBot.create(:assignment, group: group, status: "closed") }
 
   before do
-    group
     driven_by(:selenium_chrome_headless)
   end
 
