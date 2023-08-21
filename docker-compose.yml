@@ -46,7 +46,7 @@ services:
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
-    command: yarn build --watch
+    command: npm run watch
     volumes:
       - .:/circuitverse:rw
       - /circuitverse/.bundle

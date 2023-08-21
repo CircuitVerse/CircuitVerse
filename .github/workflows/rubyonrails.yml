@@ -33,12 +33,11 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14'
-          cache: 'yarn'
       - name: Install reviewdog
         uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
-      - run: yarn install --frozen-lockfile  --immutable
+      - run: npm ci
       - name: Copy the sample ENV Config
         run: cp .env.example .env
       - name: Set up database schema
@@ -46,7 +45,7 @@ jobs:
       - name: Run data migration tasks
         run: bin/rails data:migrate
       - name: Build assets
-        run: yarn run build
+        run: cpm run build
       - name: Configure keys
         run: |
           openssl genrsa -out config/private.pem 2048
