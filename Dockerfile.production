@@ -3,13 +3,13 @@ FROM --platform=$BUILDPLATFORM ruby:3.2.1 as builder
 ARG BUILDPLATFORM 
 ENV NODE_ENV=production
 
-RUN curl -fsSL https://deb.nodesource.com/setup_14.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
 
 WORKDIR /usr/src/app
 
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev --ignore-scripts && npm cache clean
+RUN npm ci --omit=dev --ignore-scripts && npm cache clean --force
 
 COPY Gemfile* ./
 ENV BUNDLE_DEPLOYMENT=true 
