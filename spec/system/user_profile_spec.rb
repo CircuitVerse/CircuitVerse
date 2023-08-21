@@ -37,4 +37,11 @@ describe "User profile", type: :system do
     click_button "Save"
     expect(page).to have_text(educational_institute)
   end
+
+  it "lets user update locale" do
+    visit profile_edit_path(@user)
+    select "Hindi", from: "Locale"
+    click_button "Save"
+    expect(page).to have_text("देश")
+  end
 end
