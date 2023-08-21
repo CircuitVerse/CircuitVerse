@@ -26,7 +26,7 @@ RUN RAILS_ENV=production \
     DATABASE_URL=postgres://nulldb \
 		DISABLE_FLIPPER=true \
     bundle exec rails assets:precompile && \
-	  npm cache clean
+	  npm cache clean --force
 
 RUN rm -rf node_modules  spec
 
