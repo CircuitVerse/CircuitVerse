@@ -18,6 +18,27 @@ bundle exec rails db:seed
 
 rm -f /circuitverse/tmp/pids/server.pid
 
-echo "Starting on 127.0.0.1:3000"
+echo "Creating symlink"
+if [ ! -d "/home" ]; then
+  mkdir /home
+  echo "Created /home"
+fi
+
+cd /home
+
+if [ ! -d "${HOST_CURRENT_DIRECTORY%/*}" ]; then
+  mkdir -p "${HOST_CURRENT_DIRECTORY%/*}"
+  echo "Created ${HOST_CURRENT_DIRECTORY%/*}"
+fi
+
+if [ ! -L "$HOST_CURRENT_DIRECTORY" ]; then
+  ln -s -T /circuitverse "$HOST_CURRENT_DIRECTORY"
+  echo "Created symlink."
+else
+  echo "Symlink already exists."
+fi
+
+cd /circuitverse
+echo "Starting webserver at 127.0.0.1:3000"
 echo "Remote debugging on 127.0.0.1:3001"
 bundle exec rdbg  --nonstop --open --host 0.0.0.0 --port 3001 -c -- bundle exec rails s -p 3000 -b '0.0.0.0'

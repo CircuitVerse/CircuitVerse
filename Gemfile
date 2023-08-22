@@ -24,7 +24,7 @@ gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"
 # Use Puma as the app server
-gem "puma", "~> 6.1"
+gem "puma", "~> 6.3"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
 gem "terser"
@@ -135,6 +135,7 @@ group :development, :test do
   gem "rubocop-rspec", require: false
   gem "rbs_rails"
   gem "steep"
+  gem 'solargraph-rails', '~> 0.3.1'
 end
 
 group :test do
@@ -143,7 +144,6 @@ group :test do
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
   gem "shoulda-matchers"
-  gem "webdrivers", "~> 5.0", require: false
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
@@ -192,3 +192,7 @@ gem "noticed", "~> 1.6"
 # ActiveStorage AWS S3 + Variant Processing
 gem "aws-sdk-s3", "~> 1.116"
 gem "image_processing", "~> 1.12"
+# Distributed Tracing OTEL ruby
+gem "opentelemetry-sdk", "~> 1.2"
+gem "opentelemetry-exporter-otlp", "~> 0.25.0"
+gem "opentelemetry-instrumentation-all", "~> 0.38.0"
