@@ -27,6 +27,7 @@ cd CircuitVerse
 - Ruby 3.2.1
      ```bash
      rvm install 3.2.1
+     rvm use 3.2.1
      ```
 - [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
      ```bash
