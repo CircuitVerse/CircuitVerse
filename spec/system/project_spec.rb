@@ -142,7 +142,7 @@ describe "Project", type: :system do
       expect(page).to have_text("Limited access")
     end
 
-    describe "adding a collaborator" do
+    describe "add a collaborator" do
       subject(:add_collaborator) do
         new_collaborator = FactoryBot.create(:user)
         visit user_project_path(private_project.author, private_project)
