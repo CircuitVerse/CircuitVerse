@@ -63,15 +63,6 @@ Email: admin@circuitverse.org
 Password: password
 ```
 
-## Deployment Guide
-### Heroku Deployment
-[Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
-
-You will be redirected to the Heroku page for deployment on clicking the below button. Make sure that you fill in the `Config Vars` section before deploying it.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CircuitVerse/CircuitVerse)
-
-
 ### Production
 The following commands should be run for production:
 ```
