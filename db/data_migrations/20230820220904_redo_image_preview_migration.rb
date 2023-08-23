@@ -28,8 +28,6 @@ class RedoImagePreviewMigration < ActiveRecord::DataMigration
         end
         Rails.logger.info "Finished migrating circuit_preview with project_id: #{project.id}"
         redis.set("latest_migrated_project_id", project.id)
-      rescue Interrupt
-        break
       rescue StandardError => e
         Rails.logger.error "Error migrating project_id #{project.id}: #{e.message}"
         next
