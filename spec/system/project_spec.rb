@@ -142,22 +142,15 @@ describe "Project", type: :system do
       expect(page).to have_text("Limited access")
     end
 
-    describe "add a collaborator" do
-      subject(:add_collaborator) do
-        new_collaborator = FactoryBot.create(:user)
-        visit user_project_path(private_project.author, private_project)
-        click_on "+ Add a Collaborator"
-        project_input_field_id = "#project_email_input_collaborator"
-        fill_in_input project_input_field_id, with: new_collaborator.email
-        fill_in_input project_input_field_id, with: :enter
-        click_on "Add Collaborators"
-        new_collaborator
-      end
-
-      it "displays the new collaborator's email" do
-        collaborator = add_collaborator
-        expect(page).to have_text(collaborator.email)
-      end
+    it "add a collaborator" do
+      email = Faker::Internet.email
+      visit user_project_path(private_project.author, private_project)
+      click_on "+ Add a Collaborator"
+      project_input_field_id = "#project_email_input_collaborator"
+      fill_in_input project_input_field_id, with: email
+      fill_in_input project_input_field_id, with: :enter
+      click_on "Add Collaborators"
+      expect(page).to have_text("1 user(s) will be invited")
     end
   end
 
