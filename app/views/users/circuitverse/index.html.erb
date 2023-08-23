@@ -34,7 +34,7 @@
     <div class="row center-row">
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
         <div class="row center-row">
-          <%= image_tag @profile.profile_picture.url(:medium), alt: "project.name", class: "center-row search-usersearch-image" %>
+          <%= image_tag user_profile_picture(@profile.profile_picture), alt: "project.name", class: "center-row search-usersearch-image" %>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">

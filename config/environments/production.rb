@@ -21,16 +21,19 @@ Rails.application.configure do
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
   # `config/secrets.yml.key`.
-  config.active_storage.service = :amazon
+  config.read_encrypted_secrets = true
+
   # Configure ActiveStorage
   if ENV["AWS_S3_BUCKET_NAME"].present?
     config.active_storage.service = :amazon_custom
   else
     config.active_storage.service = :amazon
   end
+
   # Assume SSL rails 7.1
   config.assume_ssl = true
-  # config.force_ssl = true
+  # Force all requests to Https in production
+  config.force_ssl = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
