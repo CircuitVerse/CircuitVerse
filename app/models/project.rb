@@ -6,7 +6,7 @@ require "pg_search"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns = ["data"]
+  self.ignored_columns += ["data"]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
@@ -96,6 +96,7 @@ class Project < ApplicationRecord
 
   def fork(user)
     forked_project = dup
+    forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.build_project_datum.data = project_datum&.data
     forked_project.image_preview = image_preview
     forked_project.update!(

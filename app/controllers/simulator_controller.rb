@@ -150,7 +150,7 @@ class SimulatorController < ApplicationController
     def attach_circuit_preview(image_file)
       @project.circuit_preview.attach(
         io: File.open(image_file),
-        filename: "circuit_preview.jpeg",
+        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
     end
