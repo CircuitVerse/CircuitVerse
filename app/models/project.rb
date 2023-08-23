@@ -94,6 +94,7 @@ class Project < ApplicationRecord
 
   def fork(user)
     forked_project = dup
+    forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.build_project_datum.data = project_datum&.data
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
