@@ -8,7 +8,7 @@ default_flipper_features = {
   forum: false,
   project_comments: true,
   lms_integration: true,
-  active_storage_s3: false
+  active_storage_s3: true
 }
 
 Flipper.configure do |config|

@@ -56,7 +56,7 @@ class SimulatorController < ApplicationController
     @project.circuit_preview.purge if @project.circuit_preview.attached?
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
-    # Paperclip
+    # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
     image_file.close
@@ -102,7 +102,7 @@ class SimulatorController < ApplicationController
     # ActiveStorage
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
-    # Paperclip
+    # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
     image_file.close
