@@ -55,7 +55,7 @@ rails c
 ```
 Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
-**Note :** User need to login as admin first, then only Flipper dashboard can be accessed
+**Note :** User need to log in as admin first, then only Flipper dashboard can be accessed
 If you have followed the provided setup documentation, you can login as admin with following credentials.
 ```
 User: Admin
