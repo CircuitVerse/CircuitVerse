@@ -528,7 +528,7 @@ export default class Scope {
                 return i;
             }
         }
-        return -1;
+        return 'Not found';
     }
 
     /**
@@ -561,7 +561,7 @@ export default class Scope {
         }
         for (const key in globalScope) {
             const component = globalScope[key];
-            if (component.length && Array.isArray(component)) {
+            if (Array.isArray(component) && component.length) {
                 component.forEach((obj, index) => {
                     if (obj === selectedComponent) {
                         component[index][property] = value;
