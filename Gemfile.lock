@@ -394,8 +394,6 @@ GEM
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.15.4-arm64-darwin)
-      racc (~> 1.4)
     noticed (1.6.3)
       http (>= 4.0.0)
       rails (>= 5.2.0)
@@ -964,6 +962,7 @@ GEM
 PLATFORMS
   arm64-darwin-22
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   acts_as_votable (~> 0.13.2)
