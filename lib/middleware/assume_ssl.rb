@@ -3,7 +3,7 @@
 # :nocov:
 module ActionDispatch
   # = Action Dispatch \AssumeSSL
-  #
+  # Default in Rails 7.1
   # When proxying through a load balancer that terminates SSL, the forwarded request will appear
   # as though its HTTP instead of HTTPS to the application. This makes redirects and cookie
   # security target HTTP instead of HTTPS. This middleware makes the server assume that the

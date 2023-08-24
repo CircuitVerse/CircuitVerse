@@ -23,13 +23,14 @@ registry:
     - KAMAL_GHCR_REGISTRY_PASSWORD
 
 env:
-   clear:
-     RAILS_SERVE_STATIC_FILES: true
-     REDIS_URL: 'redis://172.17.0.1:6379/0'
-     AWS_REGION: 'ap-south-1'
-     # :amazon_custom
-     AWS_S3_REGION: 'ap-south-1'
-     AWS_S3_BUCKET_NAME: 'circuitverse-images-dev'
+  clear:
+    RAILS_SERVE_STATIC_FILES: true
+    REDIS_URL: 'redis://172.17.0.1:6379/0'
+    AWS_REGION: 'ap-south-1'
+    AWS_S3_REGION: 'ap-south-1'
+    AWS_S3_BUCKET_NAME: 'circuitverse-images-dev'
+    CIRCUITVERSE_EMAIL_ID: 'support@circuitverse.org'
+    YOSYS_PATH: 'http://172.17.0.1:3040'
    secret:
      - RAILS_MASTER_KEY
      - POSTGRES_URL
@@ -55,19 +56,3 @@ accessories:
 healthcheck:
   port: 3000
   max_attempts: 8
-
-traefik:
-  options:
-    publish:
-      - 8080:8080
-      - 443:443
-    volume:
-      - /tmp/example.json:/tmp/example.json
-  args:
-    api.dashboard: true
-  labels:
-    traefik.enable: "true"
-    traefik.http.routers.dashboard.rule: Host(`traefik.staging.circuitverse.org`)
-    traefik.http.routers.dashboard.service: "api@internal"
-    traefik.http.routers.dashboard.middlewares: "auth"
-    traefik.http.middlewares.auth.basicauth.users: test:$2y$05$H2o72tMaO.TwY1wNQUV1K.fhjRgLHRDWohFvUZOJHBEtUXNKrqUKi
