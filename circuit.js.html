@@ -122,6 +122,7 @@ import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 import { updateTestbenchUI } from './testbench';
+import load from './data/load';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -460,6 +461,201 @@ export default class Scope {
 
         this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
         this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
+    }
+
+    /**
+     * Function to load a circuit using circuit data
+     */
+    loadCircuit(data) {
+        if (data) {
+            load(data);
+        } else {
+            alert('Invalid data');
+        }
+    }
+
+    /**
+     * Function to retrieve the previous stable state of the circuit
+     */
+    previous() {
+        const autosaveData = localStorage.getItem('autosave');
+        if (autosaveData) {
+            const data = JSON.parse(autosaveData);
+            load(data);
+            localStorage.removeItem('autosave');
+        }
+    }
+
+    /**
+     * Function to detect the nodes that are creating cyclic paths in the circuit
+     */
+    detectCycle() {
+        const obj = {};
+        const result = [];
+
+        for (let i = 0; i &lt; globalScope.allNodes.length; i++) {
+            const nodeId = globalScope.allNodes[i].id;
+            for (let j = 0; j &lt; globalScope.allNodes[i].connections.length; j++) {
+                const connection = globalScope.allNodes[i].connections[j].id;
+                if (obj[nodeId]) {
+                    obj[nodeId].push(connection);
+                } else {
+                    obj[nodeId] = [connection];
+                }
+            }
+        }
+
+        const newNestedArray = [];
+        const singleConnectionNodes = [];
+
+        for (const node in obj) {
+            const connections = obj[node];
+            if (connections.length === 1) {
+                singleConnectionNodes.push(node);
+            }
+            if (!isVisited(newNestedArray.flat(), node)) {
+                const connectedNodes = [node];
+                exploreNodes(obj, node, newNestedArray.flat(), connectedNodes);
+                newNestedArray.push(connectedNodes);
+            }
+        }
+
+        for (let i = 0; i &lt; singleConnectionNodes.length - 1; i++) {
+            for (let j = i + 1; j &lt; singleConnectionNodes.length; j++) {
+                if (areElementsInSameNode(newNestedArray, singleConnectionNodes[i], singleConnectionNodes[j])) {
+                    const val1 = this.findNodeIndexById(singleConnectionNodes[i]);
+                    const val2 = this.findNodeIndexById(singleConnectionNodes[j]);
+                    if (globalScope.allNodes[val1].parent === globalScope.allNodes[val2].parent) {
+                        result.push(dfs(obj, singleConnectionNodes[i], singleConnectionNodes[j]));
+                    }
+                }
+            }
+        }
+
+        // Function to check whether a node is already visited
+        function isVisited(visited, node) {
+            return visited.includes(node);
+        }
+
+        // Function to explore interconnected nodes
+        function exploreNodes(graph, startNode, visited, connectedNodes) {
+            visited.push(startNode);
+            if (graph[startNode]) {
+                for (let i = 0; i &lt; graph[startNode].length; i++) {
+                    const connectedNode = graph[startNode][i];
+                    if (!isVisited(visited, connectedNode)) {
+                        connectedNodes.push(connectedNode);
+                        exploreNodes(graph, connectedNode, visited, connectedNodes);
+                    }
+                }
+            }
+        }
+
+        function areElementsInSameNode(nestedArray, element1, element2) {
+            for (const node of nestedArray) {
+                if (node.includes(element1) &amp;&amp; node.includes(element2)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Function to locate the nodes present between two specified nodes
+        function dfs(graph, start, end, path = []) {
+            if (start === end) {
+                path.push(end);
+                return path;
+            }
+            path.push(start);
+            for (const neighbor of graph[start]) {
+                if (!path.includes(neighbor)) {
+                    const newPath = dfs(graph, neighbor, end, path);
+                    if (newPath) {
+                        return newPath;
+                    }
+                }
+            }
+            path.pop();
+            return [];
+        }
+
+        if (result.length) {
+            this.highlightNodes(result);
+            return result;
+        }
+
+        return 'No cycle found';
+    }
+
+    /**
+     * Function to highlight the nodes in the currently selected circuit
+     * @param {Array&lt;Array>} array - id's of the nodes, that we want to highlight
+     */
+    highlightNodes(array) {
+        const Nodes = [];
+        array.forEach((innerArray) => {
+            const resultArray = innerArray.map(value => this.findNodeIndexById(value));
+            Nodes.push(resultArray);
+        });
+
+        Nodes.forEach((subArray) => {
+            subArray.forEach((node) => {
+                globalScope.allNodes[node].highlighted = true;
+            });
+        });
+    }
+
+    /**
+     * Function to find the index of a node in globalScope.allNodes
+     * @param {string} nodeId - id of a node
+     */
+    findNodeIndexById(nodeId) {
+        for (let i = 0; i &lt; globalScope.allNodes.length; i++) {
+            if (globalScope.allNodes[i].id === nodeId) {
+                return i;
+            }
+        }
+        return 'Not found';
+    }
+
+    /**
+     * Function to find the currently selected component on the canvas
+     */
+    getCurrentlySelectedComponent() {
+        return simulationArea.lastSelected;
+    }
+
+    /**
+     * Function to find the currently selected components (when multiple components are selected) on the canvas
+     */
+    getAllSelectedComponents() {
+        return simulationArea.multipleObjectSelections;
+    }
+
+    /**
+     * Function to modify the currently selected component's object in the globalScope
+     * takes the property which needs to modify
+     * and the modified value as parameters
+     */
+    modifyCurrentlySelectedComponent(property, value) {
+        const selectedComponent = globalScope.getCurrentlySelectedComponent();
+
+        if (selectedComponent.objectType === 'Node') {
+            const nodeId = selectedComponent.id;
+            const nodeIndex = this.findNodeIndexById(nodeId);
+            globalScope.allNodes[nodeIndex][property] = value;
+            return;
+        }
+        for (const key in globalScope) {
+            const component = globalScope[key];
+            if (Array.isArray(component) &amp;&amp; component.length) {
+                component.forEach((obj, index) => {
+                    if (obj === selectedComponent) {
+                        component[index][property] = value;
+                    }
+                });
+            }
+        }
     }
 }
 </code></pre>
