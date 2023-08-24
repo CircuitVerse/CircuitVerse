@@ -20,7 +20,7 @@ registry:
   server: ghcr.io
   username: circuitverse
   password:
-    - MRSK_GHCR_REGISTRY_PASSWORD
+    - KAMAL_GHCR_REGISTRY_PASSWORD
 
 env:
    clear:

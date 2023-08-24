@@ -133,7 +133,6 @@ GEM
       aws-eventstream (~> 1, >= 1.0.2)
     backport (1.2.0)
     bcrypt (3.1.19)
-    bcrypt_pbkdf (1.1.0)
     benchmark (0.2.1)
     better_html (2.0.1)
       actionview (>= 6.0)
@@ -223,7 +222,6 @@ GEM
       railties (>= 3.2)
     dry-cli (1.0.0)
     e2mmap (0.1.0)
-    ed25519 (1.3.0)
     erb_lint (0.4.0)
       activesupport
       better_html (>= 2.0.1)
@@ -389,15 +387,14 @@ GEM
       net-protocol
     net-protocol (0.2.1)
       timeout
-    net-scp (4.0.0)
-      net-ssh (>= 2.6.5, < 8.0.0)
     net-smtp (0.3.3)
       net-protocol
-    net-ssh (7.2.0)
     newrelic_rpm (8.14.0)
     nio4r (2.5.9)
     nokogiri (1.15.4)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
     noticed (1.6.3)
       http (>= 4.0.0)
@@ -862,9 +859,6 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
-    sshkit (1.21.5)
-      net-scp (>= 1.1.2)
-      net-ssh (>= 2.8.0)
     ssrf_filter (1.1.1)
     steep (1.4.0)
       activesupport (>= 5.1)
@@ -968,7 +962,7 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
-  ruby
+  arm64-darwin-22
   x64-mingw32
 
 DEPENDENCIES
@@ -1018,7 +1012,6 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.9)
   mailkick (~> 0.4.3)
   meta-tags
-  mrsk
   newrelic_rpm (~> 8.14)
   noticed (~> 1.6)
   oj (~> 3.15)
