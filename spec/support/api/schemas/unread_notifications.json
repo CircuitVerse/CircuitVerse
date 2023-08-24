@@ -57,31 +57,7 @@
                           "string"
                         ]
                       },
-                      "profile_picture_file_name": {
-                        "type": [
-                          "null",
-                          "string"
-                        ]
-                      },
-                      "profile_picture_content_type": {
-                        "type": [
-                          "null",
-                          "string"
-                        ]
-                      },
-                      "profile_picture_file_size": {
-                        "type": [
-                          "null",
-                          "string"
-                        ]
-                      },
-                      "profile_picture_updated_at": {
-                        "type": [
-                          "null",
-                          "string"
-                        ]
-                      },
-                      "admin": {
+					  "admin": {
                         "type": "boolean"
                       },
                       "country": {
