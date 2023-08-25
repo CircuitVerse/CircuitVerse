@@ -61,7 +61,7 @@ If you required to restart the server
 
 ---
 
-### MacOS
+### macOS
 **Prerequisites**
 |  Name | Version | Installation |
 | --- | --- | --- |
