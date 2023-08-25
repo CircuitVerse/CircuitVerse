@@ -15,7 +15,7 @@ module Maintenance
 
     describe "#process" do
       it "attaches circuit preview for projects with image_preview attached" do
-        # Explicitly declare redis counter, else may give error on local enviornment
+        # Explicitly declare redis counter to prevent potential errors in local environment
         allow_any_instance_of(Redis).to receive(:get).with("last_migrated_project_id").and_return("0")
         project_with_preview = FactoryBot.create(:project)
         image_file = Rails.root.join("spec/fixtures/files/profile.png").open

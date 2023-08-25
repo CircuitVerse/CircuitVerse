@@ -46,4 +46,3 @@ module Maintenance
       end
   end
 end
-# rubocop:enable all
