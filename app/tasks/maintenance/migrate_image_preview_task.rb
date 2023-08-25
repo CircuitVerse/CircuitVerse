@@ -3,6 +3,7 @@
 require "redis"
 require "logger"
 
+# rubocop:disable all
 module Maintenance
   class MigrateImagePreviewTask < MaintenanceTasks::Task
     delegate :count, to: :collection
@@ -12,7 +13,6 @@ module Maintenance
       Project.in_batches
     end
 
-    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def process(project_batch)
       last_migrated_project_id = redis.get("last_migrated_project_id").to_i
       project_batch.where("id > ?", last_migrated_project_id).find_each do |project|
@@ -22,11 +22,8 @@ module Maintenance
 
         begin
           File.open(project.image_preview.path) do |image_file|
-            blob = ActiveStorage::Blob.create_and_upload!(
-              io: image_file,
-              filename: project.image_preview.identifier,
-              content_type: "image/jpeg"
-            )
+            blob = ActiveStorage::Blob.create_and_upload!(io: image_file, filename: project.image_preview.identifier,
+                                                          content_type: "image/jpeg")
             project.circuit_preview.attach(blob)
           end
           Rails.logger.info "Finished migrating circuit_preview with project_id: #{project.id}"
@@ -38,10 +35,10 @@ module Maintenance
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def redis
       @_redis = Redis.new
     end
   end
 end
+# rubocop:enable all
