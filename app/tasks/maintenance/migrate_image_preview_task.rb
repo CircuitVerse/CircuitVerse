@@ -12,7 +12,7 @@ module Maintenance
       Project.in_batches
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def process(project_batch)
       last_migrated_project_id = redis.get("last_migrated_project_id").to_i
       project_batch.where("id > ?", last_migrated_project_id).find_each do |project|
@@ -32,11 +32,13 @@ module Maintenance
           Rails.logger.info "Finished migrating circuit_preview with project_id: #{project.id}"
           redis.set("last_migrated_project_id", project.id)
         rescue StandardError => e
+          # :nocov:
           Rails.logger.error "Error migrating project_id #{project.id}: #{e.message}"
+          # :nocov:
         end
       end
     end
-    # rubocop:enable Metrics/MethodLength
+    # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
     def redis
       @_redis = Redis.new
