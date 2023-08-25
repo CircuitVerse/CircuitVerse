@@ -15,6 +15,8 @@ module Maintenance
 
     describe "#process" do
       it "attaches circuit preview for projects with image_preview attached" do
+        # Explicitly declare redis counter, else may give error on local enviornment
+        allow_any_instance_of(Redis).to receive(:get).with("last_migrated_project_id").and_return("0")
         project_with_preview = FactoryBot.create(:project)
         image_file = Rails.root.join("spec/fixtures/files/profile.png").open
         project_with_preview.image_preview = image_file
@@ -34,6 +36,18 @@ module Maintenance
       it "delegates count to collection" do
         create_list(:project, 3)
         expect(task.count).to eq(1)
+      end
+    end
+
+    describe "#attach_circuit_preview_sidekiq" do
+      let(:project) { create(:project) }
+
+      it "attaches circuit_preview to the project" do
+        allow_any_instance_of(Redis).to receive(:get).with("last_migrated_project_id").and_return("0")
+        image_file = Rails.root.join("spec/fixtures/files/profile.png").open
+        project.image_preview = image_file
+        expect(project.circuit_preview).to receive(:attach)
+        subject.send(:attach_circuit_preview_sidekiq, project)
       end
     end
   end

@@ -3,7 +3,6 @@
 require "redis"
 require "logger"
 
-# rubocop:disable all
 module Maintenance
   class MigrateImagePreviewTask < MaintenanceTasks::Task
     delegate :count, to: :collection
@@ -21,11 +20,7 @@ module Maintenance
         next if project.circuit_preview.attached?
 
         begin
-          File.open(project.image_preview.path) do |image_file|
-            blob = ActiveStorage::Blob.create_and_upload!(io: image_file, filename: project.image_preview.identifier,
-                                                          content_type: "image/jpeg")
-            project.circuit_preview.attach(blob)
-          end
+          attach_circuit_preview_sidekiq(project)
           Rails.logger.info "Finished migrating circuit_preview with project_id: #{project.id}"
           redis.set("last_migrated_project_id", project.id)
         rescue StandardError => e
@@ -39,6 +34,16 @@ module Maintenance
     def redis
       @_redis = Redis.new
     end
+
+    private
+
+      def attach_circuit_preview_sidekiq(project)
+        File.open(project.image_preview.path) do |image_file|
+          blob = ActiveStorage::Blob.create_and_upload!(io: image_file, filename: project.image_preview.identifier,
+                                                        content_type: "image/jpeg")
+          project.circuit_preview.attach(blob)
+        end
+      end
   end
 end
 # rubocop:enable all
