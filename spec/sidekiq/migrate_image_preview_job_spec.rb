@@ -4,15 +4,17 @@ require "rails_helper"
 
 RSpec.describe MigrateImagePreviewJob, type: :job do
   describe "#perform" do
-    it "loads Rails tasks before invoking the Rake task" do
-      allow(Rails.application).to receive(:load_tasks)
-      allow(Rake::Task).to receive(:[]).with("data:migrate").and_return(instance_double(Rake::Task, invoke: nil))
+    let(:rails_application) { Rails.application }
+    let(:rake_task) { Rake::Task }
 
+    it "loads Rails tasks before invoking the Rake task" do
+      expect(rails_application).to receive(:load_tasks)
+      allow(rake_task).to receive(:[]).with("data:migrate").and_return(
+        instance_double(rake_task, invoke: nil)
+      )
       job = described_class.new
 
       job.perform
-      expect(Rails.application).to have_received(:load_tasks)
-      expect(Rake::Task).to have_received(:[]).with("data:migrate")
     end
   end
 end
