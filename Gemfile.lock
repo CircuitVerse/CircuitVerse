@@ -968,8 +968,9 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
-  ruby
+  arm64-darwin-22
   x64-mingw32
+  x86_64-linux
 
 DEPENDENCIES
   acts_as_votable (~> 0.13.2)
@@ -1016,7 +1017,7 @@ DEPENDENCIES
   kt-paperclip
   language_filter
   listen (>= 3.0.5, < 3.9)
-  mailkick
+  mailkick (~> 0.4.3)
   maintenance_tasks (~> 2.3)
   meta-tags
   newrelic_rpm (~> 8.14)
