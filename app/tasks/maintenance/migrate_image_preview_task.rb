@@ -32,7 +32,7 @@ module Maintenance
     end
 
     def redis
-      @_redis ||= Redis.new
+      @redis ||= Redis.new
     end
 
     private
