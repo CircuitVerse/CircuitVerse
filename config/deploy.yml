@@ -6,7 +6,7 @@ servers:
       - <%= ENV["SERVER_IP"] %>
     cmd: ./bin/rails server -b 0.0.0.0 -p 3000
     labels:
-      traefik.http.routers.circuitverse-web.rule: Host(`staging.circuitverse.org`)
+      traefik.http.routers.circuitverse-web.rule: Host(`circuitverse.org`)
     options:
       "add-host": host.docker.internal:host-gateway
   sidekiq:
@@ -23,7 +23,7 @@ registry:
     - KAMAL_GHCR_REGISTRY_PASSWORD
 
 env:
-  clear:
+  clear: # add more env variables
     RAILS_SERVE_STATIC_FILES: true
     REDIS_URL: 'redis://172.17.0.1:6379/0'
     AWS_REGION: 'ap-south-1'
