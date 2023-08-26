@@ -1,0 +1,58 @@
+service: circuitverse
+image: circuitverse/circuitverse
+servers:
+  web:
+    hosts:
+      - <%= ENV["SERVER_IP"] %>
+    cmd: ./bin/rails server -b 0.0.0.0 -p 3000
+    labels:
+      traefik.http.routers.circuitverse-web.rule: Host(`staging.circuitverse.org`)
+    options:
+      "add-host": host.docker.internal:host-gateway
+  sidekiq:
+    hosts:
+      - <%= ENV["SERVER_IP"] %>
+    options:
+      "add-host": host.docker.internal:host-gateway
+    cmd: bundle exec sidekiq -e production -q default -q mailers
+
+registry:
+  server: ghcr.io
+  username: circuitverse
+  password:
+    - KAMAL_GHCR_REGISTRY_PASSWORD
+
+env:
+  clear:
+    RAILS_SERVE_STATIC_FILES: true
+    REDIS_URL: 'redis://172.17.0.1:6379/0'
+    AWS_REGION: 'ap-south-1'
+    AWS_S3_REGION: 'ap-south-1'
+    AWS_S3_BUCKET_NAME: 'circuitverse-images-dev'
+    CIRCUITVERSE_EMAIL_ID: 'support@circuitverse.org'
+    YOSYS_PATH: 'http://172.17.0.1:3040'
+   secret:
+     - RAILS_MASTER_KEY
+     - POSTGRES_URL
+     - AWS_S3_ACCESS_KEY_ID
+     - AWS_S3_SECRET_ACCESS_KEY
+     - SECRET_KEY_BASE
+     - BUGSNAG_API_KEY
+     - RECAPTCHA_SITE_KEY
+     - RECAPTCHA_SECRET_KEY
+
+ssh:
+  user: ubuntu
+
+builder:
+  dockerfile: Dockerfile.production
+
+accessories:
+  yosys2digitaljs-server:
+    image: ghcr.io/circuitverse/yosys2digitaljs-server:master
+    host: <%= ENV["SERVER_IP"] %>
+    port: 2812
+
+healthcheck:
+  port: 3000
+  max_attempts: 8

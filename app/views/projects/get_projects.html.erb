@@ -27,7 +27,7 @@
         <div class="row center-row search-user-data-container">
           <h6 class="search-user-heading"><%= t("projects.project_user") %></h6>
           <div class="search-user-data">
-            <%= image_tag project.author.profile_picture.url(:medium), alt: "User Image", class: "search-user-image" %>
+            <%= image_tag user_profile_picture(project.author.profile_picture), alt: "User Image", class: "search-user-image" %>
             <%= link_to project.author.name, project.author, class: "search-user-link anchor-text" %>
           </div>
         </div>
