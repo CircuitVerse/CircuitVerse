@@ -196,3 +196,5 @@ gem "image_processing", "~> 1.12"
 gem "opentelemetry-sdk", "~> 1.2"
 gem "opentelemetry-exporter-otlp", "~> 0.25.0"
 gem "opentelemetry-instrumentation-all", "~> 0.38.0"
+
+gem "maintenance_tasks", "~> 2.3"
