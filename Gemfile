@@ -11,7 +11,7 @@ gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "kt-paperclip"
 gem "language_filter"
-gem "mailkick"
+gem "mailkick", "~> 0.4.3"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-github"
