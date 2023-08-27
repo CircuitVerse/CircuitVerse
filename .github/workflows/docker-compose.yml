@@ -13,11 +13,11 @@ jobs:
 
       - name: Run docker compose
         run: |
-          CURRENT_GID=$(id -g)
-          CURRENT_UID=$(id -u)
-          NON_ROOT_USERNAME="user"
-          NON_ROOT_GROUPNAME="user"
-          OPERATING_SYSTEM="linux"
+          export CURRENT_GID=$(id -g)
+          export CURRENT_UID=$(id -u)
+          export NON_ROOT_USERNAME="user"
+          export NON_ROOT_GROUPNAME="user"
+          export OPERATING_SYSTEM="linux"
           docker compose up -d --build
           docker compose exec web bin/docker/setup
- 
+          docker compose down
