@@ -49,10 +49,10 @@ RUN if [[ "$OPERATING_SYSTEM" == "linux" ]]; then \
         && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor \
         && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor/bundle \
         # Provide sudo permissions to non-root user
-        && adduser ${NON_ROOT_USERNAME} sudo \
+        && adduser --disabled-password --gecos '' ${NON_ROOT_USERNAME} sudo \
         && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ;\
     fi ; \
 fi
 
 # Switch to non-root user
-USER ${NON_ROOT_USER_ID}:${NON_ROOT_GROUP_ID}
+USER ${NON_ROOT_USERNAME}
