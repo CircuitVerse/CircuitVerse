@@ -185,24 +185,24 @@ export default class Wire {
             if (this.type === 'horizontal') {
                 if (this.node1.absY() !== this.y1) {
                     // if(this.checkConnections()){this.delete();return;}
-                    n = new Node(this.node1.absX(), this.y1, 2, this.scope.root);
+                    n = new Node(this.node2.absX(), this.node1.absY(), 2, this.scope.root);
                     this.converge(n);
                     updated = true;
                 } else if (this.node2.absY() !== this.y2) {
                     // if(this.checkConnections()){this.delete();return;}
-                    n = new Node(this.node2.absX(), this.y2, 2, this.scope.root);
+                    n = new Node(this.node1.absX(), this.node2.absY(), 2, this.scope.root);
                     this.converge(n);
                     updated = true;
                 }
             } else if (this.type === 'vertical') {
                 if (this.node1.absX() !== this.x1) {
                     // if(this.checkConnections()){this.delete();return;}
-                    n = new Node(this.x1, this.node1.absY(), 2, this.scope.root);
+                    n = new Node(this.node1.absX(), this.node2.absY(), 2, this.scope.root);
                     this.converge(n);
                     updated = true;
                 } else if (this.node2.absX() !== this.x2) {
                     // if(this.checkConnections()){this.delete();return;}
-                    n = new Node(this.x2, this.node2.absY(), 2, this.scope.root);
+                    n = new Node(this.node2.absX(), this.node1.absY(), 2, this.scope.root);
                     this.converge(n);
                     updated = true;
                 }

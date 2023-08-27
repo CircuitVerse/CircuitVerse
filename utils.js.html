@@ -100,6 +100,7 @@ window.loading = false; // Flag - all assets are loaded
 
 var prevErrorMessage; // Global variable for error messages
 var prevShowMessage; // Global variable for error messages
+var fadeTimeOut; // Global variable to store the timeout ID for fading out a error message after a delay
 export function generateId() {
     var id = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -133,12 +134,20 @@ export function clockTick() {
  */
 export function showError(error) {
     errorDetectedSet(true);
-    // if error ha been shown return
+    // if error has been shown return
     if (error === prevErrorMessage) return;
+
+    // Clear previous timeout if exists
+    if (fadeTimeOut) {
+        clearTimeout(fadeTimeOut);
+    }
+    $('.alert.alert-danger').fadeOut(() => {
+        $(this).remove();
+    });
     prevErrorMessage = error;
     var id = Math.floor(Math.random() * 10000);
     $('#MessageDiv').append(`&lt;div class='alert alert-danger' role='alert' id='${id}'> ${error}&lt;/div>`);
-    setTimeout(() => {
+    fadeTimeOut = setTimeout(() => {
         prevErrorMessage = undefined;
         $(`#${id}`).fadeOut();
     }, 1500);
