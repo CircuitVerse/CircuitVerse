@@ -1,6 +1,6 @@
 name: Docker compose
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
   # Run tests.
