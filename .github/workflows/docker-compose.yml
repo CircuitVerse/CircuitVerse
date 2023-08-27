@@ -1,6 +1,6 @@
 name: Run docker development
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   # Run tests.
