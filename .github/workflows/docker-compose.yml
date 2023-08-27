@@ -1,4 +1,4 @@
-name: Docker compose build
+name: Run docker development
 
 on: [push]
 
@@ -11,8 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Run docker compose
+      - name: Run docker development setup
         run: |
-          docker-compose up --build -d
+          bin/docker_run
 
  
