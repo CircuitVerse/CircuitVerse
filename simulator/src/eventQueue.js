@@ -6,7 +6,7 @@ export default class EventQueue {
     constructor(size) {
         this.size = size;
         this.queue = new Array(size);
-        this.frontIndex = 0;
+        this.backIndex = 0;
         this.time = 0;
     }
 
@@ -19,13 +19,13 @@ export default class EventQueue {
             this.remove(obj); // Remove the existing element from the heap
         }
 
-        if (this.frontIndex === this.size) throw 'EventQueue size exceeded';
+        if (this.backIndex === this.size) throw 'EventQueue size exceeded';
         obj.queueProperties.time = this.time + (delay || obj.propagationDelay);
-        obj.queueProperties.index = this.frontIndex;
-        this.queue[this.frontIndex] = obj;
+        obj.queueProperties.index = this.backIndex;
+        this.queue[this.backIndex] = obj;
         obj.queueProperties.inQueue = true;
-        this.heapifyUp(this.frontIndex); // Heapify the element up to its correct position
-        this.frontIndex++;
+        this.heapifyUp(this.backIndex); // Heapify the element up to its correct position
+        this.backIndex++;
     }
 
     /**
@@ -43,9 +43,9 @@ export default class EventQueue {
     remove(obj) {
         if (!obj.queueProperties.inQueue) return;
         const { index } = obj.queueProperties;
-        this.swap(index, this.frontIndex - 1);
+        this.swap(index, this.backIndex - 1);
         obj.queueProperties.inQueue = false;
-        this.frontIndex--;
+        this.backIndex--;
         this.heapifyDown(index); // Heapify the swapped element down to its correct position
     }
 
@@ -90,11 +90,11 @@ export default class EventQueue {
             const rightChildIndex = 2 * index + 2;
             let smallestChildIndex = index;
 
-            if (leftChildIndex < this.frontIndex && this.queue[leftChildIndex].queueProperties.time < this.queue[smallestChildIndex].queueProperties.time) {
+            if (leftChildIndex < this.backIndex && this.queue[leftChildIndex].queueProperties.time < this.queue[smallestChildIndex].queueProperties.time) {
                 smallestChildIndex = leftChildIndex;
             }
 
-            if (rightChildIndex < this.frontIndex && this.queue[rightChildIndex].queueProperties.time < this.queue[smallestChildIndex].queueProperties.time) {
+            if (rightChildIndex < this.backIndex && this.queue[rightChildIndex].queueProperties.time < this.queue[smallestChildIndex].queueProperties.time) {
                 smallestChildIndex = rightChildIndex;
             }
 
@@ -121,9 +121,9 @@ export default class EventQueue {
      * function to reset the queue
      */
     reset() {
-        while (this.frontIndex > 0) {
-            this.queue[this.frontIndex - 1].queueProperties.inQueue = false;
-            this.frontIndex--;
+        while (this.backIndex > 0) {
+            this.queue[this.backIndex - 1].queueProperties.inQueue = false;
+            this.backIndex--;
         }
         this.time = 0;
     }
@@ -132,6 +132,6 @@ export default class EventQueue {
     * function to check if the queue is empty.
     */
     isEmpty() {
-        return this.frontIndex === 0;
+        return this.backIndex === 0;
     }
 }
