@@ -1,4 +1,4 @@
-name: Docker compose build
+name: Docker compose
 
 on: [push, pull_request]
 
