@@ -1,6 +1,6 @@
 name: Docker compose build
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   # Run tests.
@@ -13,6 +13,5 @@ jobs:
 
       - name: Run docker compose
         run: |
-          docker-compose up --build -d
-
+          bin/docker_run
  
