@@ -19,5 +19,5 @@ jobs:
           export NON_ROOT_GROUPNAME="user"
           export OPERATING_SYSTEM="linux"
           docker compose up -d --build
-          docker compose exec web bin/docker/setup
+          docker compose exec web bash -c "bin/docker/setup"
           docker compose down
