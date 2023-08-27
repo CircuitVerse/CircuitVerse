@@ -8,7 +8,7 @@ en:
       delete_group_confirmation: "Are you sure you want to delete this group?"
       delete_user_confirmation: "Are you sure you want to delete your account? This action can't be reverted back." 
       preview_project: "Project Preview"
-      member_since_html: "<strong>Member since:</strong> %{member_since} days"
+      member_since_html: "<strong>Member since:</strong> %{member_since}"
       educational_institutes_html: "<strong>Educational Institution:</strong> %{educational_institute}"
       country_html: "<strong>Country:</strong> %{country_name}"
       total_circuits_made_html: "<strong>Total Circuits Made: </strong> %{total_circuits}"

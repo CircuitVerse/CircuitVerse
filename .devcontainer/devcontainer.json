@@ -1,0 +1,40 @@
+{
+    "hostRequirements": {
+      "cpus": 4
+    },
+    "workspaceFolder": "/workspaces/CircuitVerse/",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "web",
+    "features": {
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+	},
+    "waitFor": "onCreateCommand",
+    "postCreateCommand": ".devcontainer/setup.sh",
+    "postAttachCommand": {
+      "server": ".devcontainer/boot.sh"
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+            "dbaeumer.vscode-eslint",
+            "LoranKloeze.ruby-rubocop-revived",
+            "rebornix.Ruby",
+            "wingrunr21.vscode-ruby",
+            "KoichiSasada.vscode-rdbg"
+        ],
+        "settings": {
+            "remote.autoForwardPorts": true,
+            "remote.otherPortsAttributes": {
+                "onAutoForward": "ignore"
+            }
+        }
+      }
+    },
+    "portsAttributes": {
+      "3000": {
+        "label": "Application",
+        "onAutoForward": "notify"
+      }
+    },
+    "forwardPorts": [3000]
+  }
