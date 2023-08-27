@@ -42,6 +42,8 @@ jobs:
       - name: Deploy with kamal
         run: |
           kamal lock release
+          kamal accessory boot yosys2digitaljs-server
+          kamal traefik boot
           kamal redeploy -vvvv --skip_push
         env:
           RAILS_SERVE_STATIC_FILES: true
