@@ -25,12 +25,13 @@ if [ "$DETECTED_OS" = "linux" ]; then
     # Run docker-compose down
     docker compose down
   else
+    # Preserve environment variables for sudo
     # Run docker-compose up as root user
-    sudo docker compose up -d --build
+    sudo --preserve-env docker compose up -d --build
     # Run docker-compose exec web bash as root user
-    sudo docker compose exec web bin/docker/boot
+    sudo --preserve-env docker compose exec web bin/docker/boot
     # Run docker-compose down as root user
-    sudo docker compose down
+    sudo --preserve-env docker compose down
   fi
 fi
 

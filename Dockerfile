@@ -40,16 +40,19 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash \
 
 # If OPERATING_SYSTEM is Linux, create non-root user
 RUN if [[ "$OPERATING_SYSTEM" == "linux" ]]; then \
-    # create non-root user with same uid:gid as host non-root user
-    groupadd -g ${NON_ROOT_GROUP_ID} -r ${NON_ROOT_GROUPNAME} && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME} \
-    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse \
-    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME} \
-    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor \
-    && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor/bundle \
-    # Provide sudo permissions to non-root user
-    && adduser ${NON_ROOT_USERNAME} sudo \
-    && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ;\
+    # Check if the uid or gid is not 0
+    if [[ "$NON_ROOT_USER_ID" != "0" || "$NON_ROOT_GROUP_ID" != "0" ]]; then \
+        # create non-root user with same uid:gid as host non-root user
+        groupadd -g ${NON_ROOT_GROUP_ID} -r ${NON_ROOT_GROUPNAME} && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME} \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME} \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor/bundle \
+        # Provide sudo permissions to non-root user
+        && adduser ${NON_ROOT_USERNAME} sudo \
+        && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ;\
+    fi ; \
 fi
 
 # Switch to non-root user
-USER ${NON_ROOT_USERNAME}
+USER ${NON_ROOT_USER_ID}:${NON_ROOT_GROUP_ID}
