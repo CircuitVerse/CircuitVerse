@@ -66,7 +66,11 @@ Commontator.configure do |config|
     # image_tag(user.profile_picture.url(:thumb), { alt: user.name,
     #                  title: user.name,
     #                  border: 1 })
-    return ActionController::Base.helpers.image_tag(user.profile_picture.url(:thumb));
+    if user.profile_picture.attached?
+      return ActionController::Base.helpers.image_tag(user.profile_picture.url)
+    else
+      return ActionController::Base.helpers.image_tag("thumb/Default.jpg")
+    end
     # puts view.commontator_gravatar_image_tag(user, 1, s: 60, d: 'mm')
     # view.commontator_gravatar_image_tag(user, 1, s: 60, d: 'mm')
   }
