@@ -7,3 +7,13 @@ development:
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   host: db
   port: 5432
+
+test:
+  adapter: postgresql
+  username: postgres
+  password: postgres
+  database: circuitverse_test
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: db
+  port: 5432
