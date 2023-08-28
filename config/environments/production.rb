@@ -30,6 +30,8 @@ Rails.application.configure do
     config.active_storage.service = :amazon
   end
 
+  # Assume SSL rails 7.1
+  config.assume_ssl = true
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.

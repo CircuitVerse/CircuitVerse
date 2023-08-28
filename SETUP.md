@@ -5,112 +5,87 @@ Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going fo
 
 If you have any setup problems, please ensure you have read through all the instructions have all the required software installed before creating an issue.
 
+---
+
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
 
-### Gitpod Cloud Environment
-[Gitpod](https://www.gitpod.io/) is a free platform that allows you to develop CircuitVerse in a cloud VS Code environment.
+| Method | Operating System | Documentation |
+| --- | --- | --- |
+| GitHub Codespaces | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
+| Gitpod Cloud Environment | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#gitpod-cloud-environment) |
+| Docker Development Environment | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
+| Docker Development Environment | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
+| Docker Development Environment | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
+| Manual Setup | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
+| Manual Setup | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
+| Manual Setup | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
 
-Instructions are available in our [wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/Development-on-Gitpod) and pull requests can be created following these [steps](https://github.com/CircuitVerse/CircuitVerse/wiki/Pull-Requests-using-Gitpod).
+## Tools Setup
+| Tool | Documentation Link |
+| --- | --- |
+| Code Auto Completion | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.MD) |
+| Ruby Debugger | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/DEBUGGER-SETUP.md) |
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/CircuitVerse/CircuitVerse)
+## Tests
+Before making a pull request, it is a good idea to check that all tests are passing locally.
 
-### Docker Local Environment
-[Docker](https://www.docker.com/) can be used to create virtual machines on your PC so you don't have to setup dependencies (e.g. PostgreSQL and Redis) manually.
+- To run the system tests, run `bundle exec rspec` .
+- To run the simulator tests, run `yarn run test` .
 
-**Note**: Please follow [these](https://docs.docker.com/docker-for-windows/install-windows-home/) instructions for installing Docker on Windows 10 Home
+**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed. For docker based setup, you can ignore this.
 
-#### Usage
-* Run `docker-compose up` to run the instance
-* Run `docker-compose down` to stop the instance
-* Run `docker-compose build --no-cache` to rebuild the instance (make sure the instance is not running first)
 
-### Manual Setup (Local Environment)
-#### Dependencies
-**Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
-- [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help.
-- [Ruby](https://www.ruby-lang.org/en/) (`ruby-3.0.3`)
-- [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
-- [Yarn](https://yarnpkg.com/) - JavaScript package manager
-- [Redis](https://redis.io/) - Data structure store
-- [ImageMagick](https://imagemagick.org/) - Image manipulation library
+## CircuitVerse API documentation
+CircuitVerse API documentation is available at - https://api.circuitverse.org/
 
-##### Redis on Windows
-Redis can be installed from the [MicrosoftArchive Redis repository](https://github.com/MicrosoftArchive/redis/releases).
+If you like to setup CircuitVerse API documentation locally, refer [docs/README.md](docs/README.md)
 
-It can also be run natively or through [Docker Desktop](https://hub.docker.com/_/redis) if you have the [Windows Subsystem for Linux (WSL)](https://docs.microsoft.com/en-us/windows/wsl/about) enabled.
 
-#### Cloning From GitHub
-To clone the repository, either use the Git GUI if you have one installed or enter the following commands:
-```sh
-git clone https://github.com/CircuitVerse/CircuitVerse.git
-cd CircuitVerse
+### Enabling/Disabling features with Flipper 
+By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
+```ruby
+rails c
+
+# Enable features (:recaptcha, :forum)
+> Flipper.enable :recaptcha
+
+# Disable features (:project_comments, :lms_integration)
+> Flipper.disable :forum
 ```
-If you are cloning on Windows machine, use following command with an **administrative shell** to clone the repo.
+Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
-```sh
-git clone -c core.symlinks=true https://github.com/CircuitVerse/CircuitVerse.git
-cd CircuitVerse
+**Note :** User need to log in as admin first, then only Flipper dashboard can be accessed
+If you have followed the provided setup documentation, you can log in as admin with following credentials.
+```
+User: Admin
+Email: admin@circuitverse.org
+Password: password
 ```
 
-**Note:** If you want to contribute, first fork the original repository and clone your **forked** repository into your local machine. If you don't do this, you will not be able to make commits or change any files.
-```sh
-git clone https://github.com/<username>/CircuitVerse.git
-cd CircuitVerse
+### Production
+The following commands should be run for production:
+```
+bundle install --with pg --without development test
+RAILS_ENV=production bundle exec rake assets:precompile
+bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
 ```
 
-#### Setup
-1. Install Ruby bundler : `gem install bundler`
-2. Install Ruby dependencies: `bundle install`
-3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template):
-     * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
-     * **Note:** The Postgres credentials need to be updated to your currently running database
-5. Create database: `rails db:create`
-6. Run database migrations: `rails db:migrate`
-7. Run bin/dev to run application server, background job queue and asset compiler
+## Third Party Services
+The `.env` file only needs to be used if you would like to link to third party services (Facebook, Google, GitHub, Gitlab, Slack, Bugsnap and Recaptcha)
 
-Navigate to `localhost:3000` in your web browser to access the website.
+1. Create an app on the third party service [(instructions)](https://github.com/CircuitVerse/CircuitVerse/wiki/Create-Apps)
+2. Make the following changes in your Google, Facebook, GitHub or Gitlab app:
+   1.  Update the `site url` field with the URL of your instance, and update the `callback url` field with `<url>/users/auth/google`, `<url>/users/auth/facebook`, `<url>/users/auth/github` or `<url>/users/auth/gitlab`  respectively.
+3. Configure your `id` and `secret` environment variables in `.env`. If `.env` does not exist, copy the template from `.env.example`.
+4. After adding the environment variables, run `dotenv rails server` to start the application.
 
-#### Follow this documentation [LSP-SETUP.MD](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.MD) for `Enable Autocompletion in IDE`
-
-#### Additional instructions for Ubuntu
-Additional instructions can be found [here](https://www.howtoforge.com/tutorial/ubuntu-ruby-on-rails/) and there are some extra notes for single user installations:
-- If you are facing difficulties installing RVM, most probably it is because of an older version of rvm shipped with Ubuntu's desktop edition and updating the same resolves the problem.
-- [Run Terminal as a login shell](https://rvm.io/integration/gnome-terminal/) so ruby and rails will be available.
-
-#### Additional instructions for Debugging
-[debug](https://github.com/ruby/debug) gem has been used fro debuggin purpose.
-
-**Debugging with VSCode**
-1. Install [VSCode rdbg Ruby Debugger](VSCode rdbg Ruby Debugge) extenstion.
-    >  Use v1.0.0 of this extenstion
-2. Run the app by `./bin/dev`
-3. Go to Debug Menu
-4. Choose `Attach Debugger`
-5. Now you can set breakpoint and  debug
-
-**Debugging with Chrome**
-
-1. Run the app by `./bin/dev chrome_debug`
-2. Chrome Devtools will be open
-3. In Chrome, Move to `Filesystem` and add `CircuitVerse` folder to workspace
-4. Now you can open any file and set breakpoint to debug
-
-**Debugging with VSCode (Docker)**
-1. Install [VSCode rdbg Ruby Debugger](VSCode rdbg Ruby Debugge) extenstion.
-    >  Use v1.0.0 of this extenstion
-2. Run by `docker compose up`
-3. Go to Debug Menu
-4. Choose `(Docker) Attach Debugger[:3001]`
-5. Now you can set breakpoint and  debug from VSCode
-
-#### (Optional) yosys installation for Verilog RTL Synthesis
+## (Optional) yosys installation for Verilog RTL Synthesis
 If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
 1. Install yosys
 2. Setup and run CircuitVerse's yosys2digitaljs-server.
 
-##### Installation steps
+### Installation steps
 1. **Install yosys**
    - Many Linux distibutions provide yosys binaries which is easy to install & small in package size. For Example,
 **For Debina/Ubunutu**:
@@ -136,7 +111,8 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       to create new shell window:
       <extracted_location>\oss-cad-suite\start.bat
       ```
-1. **Setup CircuitVerse yosys2digitaljs-server**
+
+2. **Setup CircuitVerse yosys2digitaljs-server**
     - In your local CircuitVerse Repository:
       ```sh
       git clone https://github.com/CircuitVerse/yosys2digitaljs-server.git
@@ -151,82 +127,6 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       ```sh
       bin/yosys
       ```
-
-### CircuitVerse API documentation setup instructions
-To setup CircuitVerse API documentation, refer [docs/README.md](docs/README.md)
-
-### Enabling/Disabling features with Flipper
-By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
-```ruby
-rails c
-
-# Enable features (:recaptcha, :forum)
-> Flipper.enable :recaptcha
-
-# Disable features (:project_comments, :lms_integration)
-> Flipper.disable :forum
-```
-Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
-
-### Additional setup instructions
-[Yarn](https://yarnpkg.com/lang/en/) is a package manager for the JavaScript ecosystem.
-CircuitVerse uses Yarn for frontend package and asset management.
-  - Removing RVM
-    ```
-    sudo apt-get --purge remove ruby-rvm
-    sudo rm -rf /usr/share/ruby-rvm /etc/rvmrc /etc/profile.d/rvm.sh
-    ```
-  - Installing new version of RVM
-    ```
-    curl -L https://get.rvm.io |
-    bash -s stable --ruby --autolibs=enable --auto-dotfiles
-    ```
-### Heroku Deployment
-[Heroku](https://www.heroku.com) is a free cloud platform that can be used for deployment of CircuitVerse
-
-You will be redirected to the Heroku page for deployment on clicking the below button. Make sure that you fill in the `Config Vars` section before deploying it.
-
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/CircuitVerse/CircuitVerse)
-
-
-## Development
-To seed the database with some sample data, run `bundle exec rake db:seed`. This will add the following admin credentials:
-```
-User: Admin
-Email: admin@circuitverse.org
-Password: password
-```
-
-You can include `binding.pry` anywhere inside the code to open the `pry` console.
-
-<!-- CircuitVerse uses webpack to bundle the javascript module and assets. To see any changes made to the simulator code without refreshing (hot reload), start `bin/webpack-dev-server` -->
-
-
-## Production
-The following commands should be run for production:
-```
-bundle install --with pg --without development test
-RAILS_ENV=production bundle exec rake assets:precompile
-bundle exec sidekiq -e production -q default -q mailers -d -L tmp/sidekiq.log
-```
-
-
-## Tests
-
-Before making a pull request, it is a good idea to check that all tests are passing locally.
-
-- To run the system tests, run `bundle exec rspec` .
-- To run the simulator tests, run `yarn run test` .
-
-**Note:** To pass the system tests, you need the [Chrome Browser](https://www.google.com/chrome/) installed.
-
-
-## API Setup
-CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and associated `public` key. To generate the keys RUN the following commands in `CircuitVerse/`
-```
-openssl genrsa -out config/private.pem 2048
-openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
-```
 
 ## Distributed Tracing using Opentelmetry
 

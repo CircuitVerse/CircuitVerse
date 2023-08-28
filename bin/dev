@@ -1,15 +1,32 @@
 #!/usr/bin/env bash
 
-if ! command -v foreman &> /dev/null
-then
-  echo "Installing foreman..."
-  gem install foreman
-fi
+# Bash Colors
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NO_COLOR='\033[0m'
 
-if [[ "$1" == "chrome_debug" ]]; then
- echo "Starting foreman with Procfile.chrome.dev..."
- foreman start -f Procfile.chrome.dev
+# Check if running in docker by env variable DOCKER_ENVIRONMENT == 'true'
+if [[ "$DOCKER_ENVIRONMENT" == "true" ]]; then
+  echo "Running in docker environment"
+  bundle exec rdbg --nonstop --open --host 0.0.0.0 --port 3001 -c -- bundle exec rails s -p 3000 -b '0.0.0.0'
+  # Kill the server process if it is still running
+  (kill -INT $(cat tmp/pids/server.pid)) >/dev/null 2>&1
+  echo -e "\n\n${RED}Server Stopped ${NO_COLOR}"
+  echo -e "${GREEN}You are inside the container\nRun -${NO_COLOR}"
+  echo -e "  ${GREEN} bin/dev ${NO_COLOR} : to start the server again"
+  echo -e "  ${GREEN} exit ${NO_COLOR} : to exit the container"
 else
- echo "Starting foreman with Procfile.dev..."
- foreman start -f Procfile.dev
+  # Local installation
+  if ! command -v foreman &>/dev/null; then
+    echo "Installing foreman..."
+    gem install foreman
+  fi
+  echo "Running in local environment"
+  if [[ "$1" == "chrome_debug" ]]; then
+    echo "Starting foreman with Procfile.chrome.dev..."
+    foreman start -f Procfile.chrome.dev
+  else
+    echo "Starting foreman with Procfile.dev..."
+    foreman start -f Procfile.dev
+  fi
 fi
