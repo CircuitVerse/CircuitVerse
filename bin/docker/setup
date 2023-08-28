@@ -1,0 +1,26 @@
+# !/bin/sh
+
+# Remove tmp folder
+rm -rf /circuitverse/tmp
+
+
+# Install ruby dependencies
+gem install bundler
+bundle config set --local without "production"
+bundle config set --local path "/home/vendor/bundle"
+bundle install
+# Install node dependencies
+yarn
+# Setup database
+bundle exec rails db:create
+bundle exec rails db:schema:load
+bundle exec rails db:migrate
+bundle exec rails db:seed
+# generate key-pair for jwt-auth
+# if private.pem and public.pem does not exists
+if [ ! -f "/circuitverse/config/private.pem" ] && [ ! -f "/circuitverse/config/public.pem" ]; then
+  openssl genrsa -out /circuitverse/config/private.pem 2048
+  openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem
+fi
+# Write a tmp file to indicate that setup is complete
+touch /circuitverse/tmp/setup_complete
