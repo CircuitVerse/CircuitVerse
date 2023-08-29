@@ -8,7 +8,7 @@ mr:
       delete_group_confirmation: "तुमची खात्री आहे की तुम्ही हा गट हटवू इच्छिता?"
       delete_user_confirmation: ""
       preview_project: "प्रकल्प पूर्वावलोकन"
-      member_since_html: "<strong>पासून सदस्य:</strong> %{member_since} दिवस"
+      member_since_html: "<strong>पासून सदस्य:</strong> %{member_since}"
       educational_institutes_html: "<strong>शैक्षणिक संस्था:</strong> %{educational_institute}"
       country_html: "<strong>देश:</strong> %{country_name}"
       total_circuits_made_html: "<strong>एकूण सर्किट बांधले: </strong> %{total_circuits}"
