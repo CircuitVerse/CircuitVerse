@@ -17,6 +17,9 @@ if [[ "$OPERATING_SYSTEM" == "linux" || "$OPERATING_SYSTEM" == "mac" ]]; then
   fi
 fi
 
+# Start vite dev server
+(./bin/vite dev) &
+
 # Start server
 ./bin/dev
 
