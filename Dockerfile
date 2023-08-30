@@ -1,37 +1,58 @@
 FROM ruby:3.2.1
 
-# set up workdir
+# Args
+ARG NON_ROOT_USER_ID
+ARG NON_ROOT_GROUP_ID
+ARG NON_ROOT_USERNAME
+ARG NON_ROOT_GROUPNAME
+ARG OPERATING_SYSTEM
+
+# Check mandatory args
+RUN test -n "$NON_ROOT_USER_ID"
+RUN test -n "$NON_ROOT_GROUP_ID"
+RUN test -n "$OPERATING_SYSTEM"
+RUN test -n "$NON_ROOT_USERNAME"
+RUN test -n "$NON_ROOT_GROUPNAME"
+
+# Create app directory
 RUN mkdir /circuitverse
+# Create non-root user directory
+RUN mkdir /home/${NON_ROOT_USERNAME}
+# Create non-root vendor directory
+RUN mkdir /home/vendor
+RUN mkdir /home/vendor/bundle
+# set up workdir
 WORKDIR /circuitverse
 
-# install dependencies
-RUN apt-get update -qq && apt-get install -y imagemagick shared-mime-info libvips && apt-get clean
+# Set shell to bash
+SHELL ["/bin/bash", "-c"]
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash \
+# install dependencies
+RUN apt-get update -qq && \
+ apt-get install -y libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev imagemagick shared-mime-info libvips sudo make cmake netcat libnotify-dev git chromium-driver chromium --fix-missing && apt-get clean
+
+# Setup nodejs and yarn
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash \
  && apt-get update && apt-get install -y nodejs && rm -rf /var/lib/apt/lists/* \
  && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
- && apt-get update && apt-get install -y yarn && rm -rf /var/lib/apt/lists/* \
- && apt-get update && apt-get -y install cmake && rm -rf /var/lib/apt/lists/*
+ && apt-get update && apt-get install -y yarn && rm -rf /var/lib/apt/lists/*
 
-COPY Gemfile /circuitverse/Gemfile
-COPY Gemfile.lock /circuitverse/Gemfile.lock
-COPY package.json /circuitverse/package.json
-COPY yarn.lock /circuitverse/yarn.lock
+# If OPERATING_SYSTEM is Linux, create non-root user
+RUN if [[ "$OPERATING_SYSTEM" == "linux" ]]; then \
+    # Check if the uid or gid is not 0
+    if [[ "$NON_ROOT_USER_ID" != "0" || "$NON_ROOT_GROUP_ID" != "0" ]]; then \
+        # create non-root user with same uid:gid as host non-root user
+        groupadd -g ${NON_ROOT_GROUP_ID} -r ${NON_ROOT_GROUPNAME} && useradd -u ${NON_ROOT_USER_ID} -r -g ${NON_ROOT_GROUPNAME} ${NON_ROOT_USERNAME} \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /circuitverse \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/${NON_ROOT_USERNAME} \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor \
+        && chown -R ${NON_ROOT_USERNAME}:${NON_ROOT_GROUPNAME} /home/vendor/bundle \
+        # Provide sudo permissions to non-root user
+        && adduser --disabled-password --gecos '' ${NON_ROOT_USERNAME} sudo \
+        && echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers ;\
+    fi ; \
+fi
 
-RUN gem install bundler
-RUN bundle install  --without production
-RUN yarn install
-
-# copy source
-COPY . /circuitverse
-RUN yarn build
-
-# Solargraph config
-RUN solargraph download-core
-RUN solargraph bundle
-RUN yard config --gem-install-yri
-
-# generate key-pair for jwt-auth
-RUN openssl genrsa -out /circuitverse/config/private.pem 2048
-RUN openssl rsa -in /circuitverse/config/private.pem -outform PEM -pubout -out /circuitverse/config/public.pem
+# Switch to non-root user
+USER ${NON_ROOT_USERNAME}
