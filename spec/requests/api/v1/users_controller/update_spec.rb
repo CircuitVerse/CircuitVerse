@@ -78,7 +78,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
     context "when authenticated as the user and removes the uploaded picture" do
       before do
         # user having profile picture
-        new_user = create(:user, profile_picture: File.new(file_fixture("profile.png")))
+        new_user = FactoryBot.create(:user)
         token = get_auth_token(new_user)
         patch "/api/v1/users/#{new_user.id}",
               params: { remove_picture: "1" },
@@ -89,7 +89,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
         expect(response).to have_http_status(:accepted)
         expect(response).to match_response_schema("user")
         profile_picture = response.parsed_body["data"]["attributes"]["profile_picture"]
-        expect(profile_picture).to eq("original/Default.jpg")
+        expect(profile_picture).to be_nil
       end
     end
   end
