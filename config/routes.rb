@@ -167,11 +167,18 @@ Rails.application.routes.draw do
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
       get "/projects/search", to: "projects#search"
-      resources :projects, only: %i[index show update destroy] do
+      post "/simulator/post_issue", to: "simulator#post_issue"
+      post "/simulator/verilogcv", to: "simulator#verilog_cv"
+      resources :projects, only: %i[index show create update destroy] do
+        collection do
+          patch :update_circuit, path: "update_circuit"
+        end
         member do
           get "toggle-star", to: "projects#toggle_star"
           post "fork", to: "projects#create_fork"
           get "image_preview", to: "projects#image_preview"
+          get :circuit_data
+          get :check_edit_access
         end
         resources :collaborators, only: %i[index create destroy]
       end
@@ -179,6 +186,7 @@ Rails.application.routes.draw do
         member do
           get "projects", to: "projects#user_projects"
           get "favourites", to: "projects#user_favourites"
+          # get "projects/all", to: "projects#all_user_projects"
         end
       end
       post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
