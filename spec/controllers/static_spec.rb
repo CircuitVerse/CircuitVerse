@@ -1,6 +1,8 @@
-#spec/controllers/static_spec.rb
+# frozen_string_literal: true
 
-require 'rails_helper'
+# spec/controllers/static_spec.rb
+
+require "rails_helper"
 
 RSpec.describe "StaticRoutes", type: :request do
   describe "GET /simulatorvue" do
@@ -8,7 +10,7 @@ RSpec.describe "StaticRoutes", type: :request do
       get "/simulatorvue"
 
       expect(response).to have_http_status(:success)
-      expect(response.body).to include(File.read(Rails.root.join('public', 'simulatorvue', 'index.html')))
+      expect(response.body).to include(File.read(Rails.public_path.join("simulatorvue", "index.html")))
     end
   end
 end
