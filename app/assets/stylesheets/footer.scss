@@ -27,12 +27,12 @@
 }
 
 .footer-social-icon {
-  margin-left: 15px;
+  margin: 15px;
   width: 32px;
 }
 
 .bounce-out-on-hover {
-  box-shadow: 0 0 1px $black;
+  box-shadow: none;
   display: inline-block;
   transform: perspective(1px) translateZ(0);
   transition-duration: .5s;
