@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# spec/controllers/static_spec.rb
+# spec/controllers/static_controller_spec.rb
 
 require "rails_helper"
 
