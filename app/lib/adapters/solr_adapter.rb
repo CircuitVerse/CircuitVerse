@@ -2,8 +2,12 @@
 
 module Adapters
   class SolrAdapter < BaseAdapter
+    # @type [Integer]
     MAX_RESULTS_PER_PAGE = 5
 
+    # @param [ActiveRecord::Relation] relation
+    # @param [Hash] query_params
+    # @return [Array<Project>]
     def search_project(relation, query_params)
       if query_params[:q].present?
         relation.search(include: %i[tags author]) do
@@ -15,6 +19,9 @@ module Adapters
       end
     end
 
+    # @param [ActiveRecord::Relation] relation
+    # @param [Hash] query_params
+    # @return [Array<User>]
     def search_user(relation, query_params)
       if query_params[:q].present?
         relation.search do
