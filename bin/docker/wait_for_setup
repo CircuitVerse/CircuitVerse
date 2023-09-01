@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Wait for setup to complete
+sleep 2
+while [ ! -e "/circuitverse/tmp/setup_complete" ]; do
+  sleep 1
+done
+# Set bundle path
+bundle config set --local path "/home/vendor/bundle"

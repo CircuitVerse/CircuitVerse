@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# Delete server.pid if it exists
+rm -f /circuitverse/tmp/pids/server.pid 2>&1
+
+# Run setup
+echo "Setup project"
+./bin/docker/setup
+
+if [[ "$OPERATING_SYSTEM" == "linux" || "$OPERATING_SYSTEM" == "mac" ]]; then
+  if [ ! -d "${HOST_CURRENT_DIRECTORY%/*}" ]; then
+    sudo mkdir -p "${HOST_CURRENT_DIRECTORY%/*}"
+  fi
+  # Setup symbolic link for solargraph
+  if [ ! -L "$HOST_CURRENT_DIRECTORY" ]; then
+    sudo ln -s -T /circuitverse "$HOST_CURRENT_DIRECTORY"
+  fi
+fi
+
+# Start vite dev server
+(./bin/vite dev) &
+
+# Start server
+./bin/dev
+
+# If exited from server, open a shell
+/bin/bash
