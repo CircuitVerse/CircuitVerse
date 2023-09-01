@@ -13,9 +13,9 @@ amazon:
   region: ap-south-1
   bucket: circuitverse-images-prod
 
-amazon_dev:
+amazon_custom:
   service: S3
-  access_key_id: <%= ENV["AWS_S3_DEV_ACCESS_KEY_ID"] %>
-  secret_access_key: <%= ENV["AWS_S3_DEV_SECRET_ACCESS_KEY"] %>
-  region: ap-south-1
-  bucket: circuitverse-images-dev
+  access_key_id: <%= ENV["AWS_S3_ACCESS_KEY_ID"] %>
+  secret_access_key: <%= ENV["AWS_S3_SECRET_ACCESS_KEY"] %>
+  region: <%= ENV["AWS_S3_REGION"] %>
+  bucket: <%= ENV["AWS_S3_BUCKET_NAME"] %>
