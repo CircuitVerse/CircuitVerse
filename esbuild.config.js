@@ -87,6 +87,9 @@ function logErrorAndExit(err) {
 }
 
 async function buildVue() {
+    if (process.env.NODE_ENV === 'production') {
+        return;
+    }
     try {
         validatePackageJsonAndLock();
         installAndBuildPackage();
