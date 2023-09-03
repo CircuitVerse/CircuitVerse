@@ -4,8 +4,8 @@
 
 require "rails_helper"
 
-RSpec.describe "StaticRoutes", type: :request do
-  describe "GET /simulatorvue" do
+RSpec.describe StaticController, type: :request do
+  describe "#simulatorvue" do
     it "renders the simulatorvue template" do
       get "/simulatorvue"
 
