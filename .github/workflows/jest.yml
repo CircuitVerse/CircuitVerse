@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: "14.18.0"
+          node-version: "16.14.0"
 
       # Speed up subsequent runs with caching
       - name: Cache node modules
