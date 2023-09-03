@@ -4,6 +4,6 @@
 
 class StaticController < ApplicationController
   def simulatorvue
-    render plain: File.read(Rails.public_path.join("simulatorvue", "index.html")), layout: false
+    render file: Rails.public_path.join("simulatorvue", "index.html"), layout: false
   end
 end
