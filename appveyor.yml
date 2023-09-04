@@ -7,7 +7,7 @@ cache:
 environment:
   RAILS_ENV: test
   COVERALLS_SERVICE_NAME: appveyor
-  nodejs_version: "16"
+  nodejs_version: "14"
 
 services:
   - postgresql13
