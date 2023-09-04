@@ -36,6 +36,7 @@ RUN RAILS_ENV=production \
 
 RUN rm -rf node_modules spec
 
+# Precompile the Bootsnap cache for the specified directories to optimize boot time in production.
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 FROM --platform=$BUILDPLATFORM node:18.11-slim as simulator_vue_build
