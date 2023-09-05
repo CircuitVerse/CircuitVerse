@@ -16,7 +16,7 @@ RSpec.describe Users::SessionsController, type: :controller do
   end
 
   describe "POST #create" do
-    let(:user) { FactoryBot.create(:user) } # assuming you have a factory for User
+    let(:user) { FactoryBot.create(:user) }
     let(:valid_attributes) do
       {
         user: {
@@ -45,10 +45,7 @@ RSpec.describe Users::SessionsController, type: :controller do
 
   describe "DELETE #destroy" do
     before do
-      # Log in the user
       sign_in FactoryBot.create(:user)
-
-      # Set the JWT cookie
       cookies[:cvt] = "test_token"
     end
 

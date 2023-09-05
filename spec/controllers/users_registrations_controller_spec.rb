@@ -42,7 +42,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
     context "with valid params" do
       before do
-        # Stub to always pass recaptcha verification
         allow(controller).to receive(:verify_recaptcha).and_return(true)
       end
 
@@ -60,7 +59,6 @@ RSpec.describe Users::RegistrationsController, type: :controller do
 
     context "with invalid params" do
       before do
-        # Stub to always pass recaptcha verification
         allow(controller).to receive(:verify_recaptcha).and_return(true)
       end
 
