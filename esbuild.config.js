@@ -14,27 +14,23 @@ const watchDirectories = [
 const watch = process.argv.includes('--watch');
 const rebuildVueSimulator = process.env.REBUILD_VUE === 'true';
 
-function logBuildStart(message = '') {
+function logBuildEvent(eventType, message = '') {
+    const action = eventType === 'start' ? 'starting' : 'finished';
     // eslint-disable-next-line no-console
-    console.log(`Build starting: ${message} ${new Date(Date.now()).toLocaleString()}`);
-}
-
-function logBuildEnd(message = '') {
-    // eslint-disable-next-line no-console
-    console.log(`Build finished: ${message} ${new Date(Date.now()).toLocaleString()}`);
+    console.log(`Build ${action}: ${message} ${new Date(Date.now()).toLocaleString()}`);
 }
 
 const watchPlugin = {
     name: 'watchPlugin',
     setup(build) {
         build.onStart(() => {
-            logBuildStart();
+            logBuildEvent('start');
         });
         build.onEnd((result) => {
             if (result.errors.length > 0) {
-                logBuildEnd('with errors');
+                logBuildEvent('end', 'with errors');
             } else {
-                logBuildEnd('Successfully');
+                logBuildEvent('end', 'Successfully');
             }
         });
     },
@@ -99,7 +95,7 @@ const vuePlugin = {
     name: 'vuePlugin',
     setup(build) {
         build.onStart(() => {
-            logBuildStart('Vue simulator');
+            logBuildEvent('start', 'Vue simulator');
         });
     },
 };
