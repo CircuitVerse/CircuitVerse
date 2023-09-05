@@ -28,6 +28,12 @@ class Users::CircuitverseController < ApplicationController
 
   def update
     if @profile.update(profile_params)
+      # Handle the vuesim feature toggle
+      if params[:vuesim].present? && params[:vuesim] == '1'
+        Flipper.enable(:vuesim, current_user)
+      else
+        Flipper.disable(:vuesim, current_user)
+      end
       redirect_to user_projects_path(current_user)
     else
       render :edit
@@ -46,7 +52,7 @@ class Users::CircuitverseController < ApplicationController
 
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture, :avatar)
+                                   :subscribed, :locale, :remove_picture, :avatar, :vuesim)
     end
 
     def set_user

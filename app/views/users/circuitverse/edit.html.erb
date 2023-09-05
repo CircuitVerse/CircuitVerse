@@ -42,6 +42,13 @@
               <div class="primary-checkpoint"></div>
             </label>
           </div>
+          <div class="field form-group users-edit-primary-checkpoint">
+            <label for="vuesim" class="primary-checkpoint-container">
+              <h6>Enable New Simulator</h6>
+              <%= check_box_tag 'vuesim', '1', Flipper.enabled?(:vuesim, current_user), id: "vuesim" %>
+              <div class="primary-checkpoint"></div>
+            </label>
+          </div>          
           <button type="submit" class="btn primary-button users-edit-primary-button"><%= t("save") %></button>
           <%= link_to t("back"), :back, class: "anchor-text" %>
         <% end %>
