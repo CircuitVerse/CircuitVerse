@@ -14,30 +14,23 @@ const watchDirectories = [
 const watch = process.argv.includes('--watch');
 const rebuildVueSimulator = process.env.REBUILD_VUE === 'true';
 
+function logBuildEvent(eventType, message = '') {
+    const action = eventType === 'start' ? 'starting' : 'finished';
+    // eslint-disable-next-line no-console
+    console.log(`Build ${action}: ${message} ${new Date(Date.now()).toLocaleString()}`);
+}
+
 const watchPlugin = {
     name: 'watchPlugin',
     setup(build) {
         build.onStart(() => {
-            // eslint-disable-next-line no-console
-            console.log(
-                `Build starting: ${new Date(Date.now()).toLocaleString()}`,
-            );
+            logBuildEvent('start');
         });
         build.onEnd((result) => {
             if (result.errors.length > 0) {
-                // eslint-disable-next-line no-console
-                console.error(
-                    `Build finished, with errors: ${new Date(
-                        Date.now(),
-                    ).toLocaleString()}`,
-                );
+                logBuildEvent('end', 'with errors');
             } else {
-                // eslint-disable-next-line no-console
-                console.log(
-                    `Build finished successfully: ${new Date(
-                        Date.now(),
-                    ).toLocaleString()}`,
-                );
+                logBuildEvent('end', 'Successfully');
             }
         });
     },
@@ -102,10 +95,7 @@ const vuePlugin = {
     name: 'vuePlugin',
     setup(build) {
         build.onStart(() => {
-            // eslint-disable-next-line no-console
-            console.log(
-                `Building Vue site: ${new Date(Date.now()).toLocaleString()}`,
-            );
+            logBuildEvent('start', 'Vue simulator');
         });
     },
 };
