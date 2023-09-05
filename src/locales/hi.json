@@ -84,7 +84,8 @@
                 }
             },
             "timing_diagram": {
-                "one_cycle_unit_html": "1 साइकिल = <br/><input id='timing-diagram-units' type='number' min='1' autocomplete='off' value='1000'><br/>यूनिट"
+                "one_cycle": "1 साइकिल =",
+                "units": "यूनिट्स"
             },
             "verilog_module": {
                 "reset_code": "कोड रिसेट करें",

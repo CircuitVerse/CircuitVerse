@@ -1,0 +1,79 @@
+[
+    {
+        "title": "Decrease Size",
+        "icon": "fa-chevron-left",
+        "class": "timing-diagram-smaller",
+        "type": "primary",
+        "click": "smaller"
+    },
+    {
+        "title": "Increase Size",
+        "icon": "fa-chevron-right",
+        "class": "timing-diagram-larger",
+        "type": "primary",
+        "click": "larger"
+    },
+    {
+        "title": "Decrease Height",
+        "icon": "fa-chevron-up",
+        "class": "timing-diagram-small-height",
+        "type": "primary",
+        "click": "smallHeight"
+    },
+    {
+        "title": "Increase Height",
+        "icon": "fa-chevron-down",
+        "class": "timing-diagram-large-height",
+        "type": "primary",
+        "click": "largeHeight"
+    },
+    {
+        "title": "Download As Image",
+        "icon": "fa-download",
+        "class": "timing-diagram-download",
+        "type": "primary",
+        "click": "download"
+    },
+    {
+        "title": "Reset Timing Diagram",
+        "icon": "fa-undo",
+        "class": "timing-diagram-reset",
+        "type": "tertiary",
+        "click": "reset"
+    },
+    {
+        "title": "Autocalibrate Cycle Units",
+        "icon": "fa-magic",
+        "class": "timing-diagram-calibrate",
+        "type": "tertiary",
+        "click": "calibrate"
+    },
+    {
+        "title": "Zoom In",
+        "icon": "fa-search-plus",
+        "class": "timing-diagram-zoom-in",
+        "type": "primary",
+        "click": "zoomIn"
+    },
+    {
+        "title": "Zoom Out",
+        "icon": "fa-search-minus",
+        "class": "timing-diagram-zoom-out",
+        "type": "primary",
+        "click": "zoomOut"
+    },
+    {
+        "title": "Resume auto-scroll",
+        "icon": "fa-play",
+        "class": "timing-diagram-resume",
+        "type": "primary",
+        "click": "resume"
+    },
+    {
+        "title": "Pause auto-scroll",
+        "icon": "fa-pause",
+        "class": "timing-diagram-pause",
+        "type": "primary",
+        "click": "pause"
+    }
+]

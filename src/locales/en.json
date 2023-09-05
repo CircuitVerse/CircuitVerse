@@ -84,7 +84,8 @@
                 }
             },
             "timing_diagram": {
-                "one_cycle_unit_html": "1 cycle = <br/><input id='timing-diagram-units' type='number' min='1' autocomplete='off' value='1000'><br/>Units"
+                "one_cycle": "1 Cycle =",
+                "units": "Units"
             },
             "verilog_module": {
                 "reset_code": "Reset Code",

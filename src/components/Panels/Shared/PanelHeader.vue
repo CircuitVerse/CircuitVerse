@@ -11,3 +11,12 @@ const props = defineProps({
     headerTitle: { type: String, default: 'Panel Header' },
 })
 </script>
+
+<style scoped>
+.fa-external-link-square-alt {
+    cursor: pointer;
+}
+.fa-minus-square {
+    cursor: pointer;
+}
+</style>
