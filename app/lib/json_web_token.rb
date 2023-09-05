@@ -17,6 +17,7 @@ class JsonWebToken
     }
   end
 
+  # if remember_me is not defined expiration time is set 14 days by default
   def self.expiration_time(remember_me)
     if remember_me
       2.weeks.from_now
