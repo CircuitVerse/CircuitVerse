@@ -46,7 +46,15 @@
                     block
                     @click="openProjectOffline()"
                 >
-                    BUTTON
+                    open project
+                </v-btn>
+                <v-btn
+                    v-else
+                    class="messageBtn"
+                    block
+                    @click.stop="OpenImportProjectDialog"
+                >
+                    open CV file
                 </v-btn>
             </v-card-actions>
         </v-card>
@@ -92,5 +100,10 @@ function openProjectOffline() {
     if (!ele.val()) return
     load(JSON.parse(localStorage.getItem(ele.val())))
     window.projectId = ele.val()
+}
+
+function OpenImportProjectDialog() {
+    SimulatorState.dialogBox.open_project_dialog = false
+    SimulatorState.dialogBox.import_project_dialog = true
 }
 </script>
