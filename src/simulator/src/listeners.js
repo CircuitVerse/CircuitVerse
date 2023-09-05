@@ -3,7 +3,7 @@ import {
     layoutModeGet,
     tempBuffer,
     layoutUpdate,
-    setupLayoutModePanelListeners,
+    // setupLayoutModePanelListeners,
 } from './layoutMode'
 import simulationArea from './simulationArea'
 import {
@@ -571,7 +571,7 @@ export default function startListeners() {
     })
 
     zoomSliderListeners()
-    setupLayoutModePanelListeners()
+    // setupLayoutModePanelListeners()
     if (!embed) {
         setupTimingListeners()
     }

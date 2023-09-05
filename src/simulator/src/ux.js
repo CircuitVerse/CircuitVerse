@@ -859,7 +859,7 @@ export function fillSubcircuitElements() {
     }
 
     if (subCircuitElementExists) {
-        $('#subcircuitMenu').accordion('refresh')
+        // $('#subcircuitMenu').accordion('refresh')
     } else {
         $('#subcircuitMenu').append('<p>No layout elements available</p>')
     }

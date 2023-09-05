@@ -476,53 +476,69 @@ export function toggleLayoutMode() {
         globalScope.scale = DPR * 1.3
         dots()
         tempBuffer = new LayoutBuffer()
-        $('#toggleLayoutTitle')[0].checked = tempBuffer.layout.titleEnabled
+        // $('#toggleLayoutTitle')[0].checked = tempBuffer.layout.titleEnabled
     }
     update(globalScope, true)
     scheduleUpdate()
 }
 
-export function setupLayoutModePanelListeners() {
-    $('#decreaseLayoutWidth').on('click', () => {
-        decreaseLayoutWidth()
-    })
-    $('#increaseLayoutWidth').on('click', () => {
-        increaseLayoutWidth()
-    })
-    $('#decreaseLayoutHeight').on('click', () => {
-        decreaseLayoutHeight()
-    })
-    $('#increaseLayoutHeight').on('click', () => {
-        increaseLayoutHeight()
-    })
-    $('#layoutResetNodes').on('click', () => {
-        layoutResetNodes()
-    })
-    $('#layoutTitleUp').on('click', () => {
-        layoutTitleUp()
-    })
-    $('#layoutTitleDown').on('click', () => {
-        layoutTitleDown()
-    })
-    $('#layoutTitleLeft').on('click', () => {
-        layoutTitleLeft()
-    })
-    $('#layoutTitleRight').on('click', () => {
-        layoutTitleRight()
-    })
-    $('#toggleLayoutTitle').on('click', () => {
-        toggleLayoutTitle()
-    })
-    $('#saveLayout').on('click', () => {
-        saveLayout()
-    })
-    $('#cancelLayout').on('click', () => {
-        cancelLayout()
-    })
-    $('#layoutDialog button').on('click', () => {
-        scheduleUpdate()
-    })
-    $('#layoutDialog input').on('click', () => {
-        scheduleUpdate()
-    })
+export const layoutFunctions = {
+    decreaseLayoutWidth,
+    increaseLayoutWidth,
+    decreaseLayoutHeight,
+    increaseLayoutHeight,
+    layoutResetNodes,
+    layoutTitleUp,
+    layoutTitleDown,
+    layoutTitleLeft,
+    layoutTitleRight,
+    toggleLayoutTitle,
+    cancelLayout,
+    saveLayout,
+    toggleLayoutMode,
 }
+
+// export function setupLayoutModePanelListeners() {
+//     $('#decreaseLayoutWidth').on('click', () => {
+//         decreaseLayoutWidth()
+//     })
+//     $('#increaseLayoutWidth').on('click', () => {
+//         increaseLayoutWidth()
+//     })
+//     $('#decreaseLayoutHeight').on('click', () => {
+//         decreaseLayoutHeight()
+//     })
+//     $('#increaseLayoutHeight').on('click', () => {
+//         increaseLayoutHeight()
+//     })
+//     $('#layoutResetNodes').on('click', () => {
+//         layoutResetNodes()
+//     })
+//     $('#layoutTitleUp').on('click', () => {
+//         layoutTitleUp()
+//     })
+//     $('#layoutTitleDown').on('click', () => {
+//         layoutTitleDown()
+//     })
+//     $('#layoutTitleLeft').on('click', () => {
+//         layoutTitleLeft()
+//     })
+//     $('#layoutTitleRight').on('click', () => {
+//         layoutTitleRight()
+//     })
+//     $('#toggleLayoutTitle').on('click', () => {
+//         toggleLayoutTitle()
+//     })
+//     $('#saveLayout').on('click', () => {
+//         saveLayout()
+//     })
+//     $('#cancelLayout').on('click', () => {
+//         cancelLayout()
+//     })
+//     $('#layoutDialog button').on('click', () => {
+//         scheduleUpdate()
+//     })
+//     $('#layoutDialog input').on('click', () => {
+//         scheduleUpdate()
+//     })
+// }
