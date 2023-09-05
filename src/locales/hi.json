@@ -131,8 +131,11 @@
             },
             "report_issue": {
                 "describe_issue": "अपनी समस्या का वर्णन करें:",
-                "email_html": "<b>ईमेल</b><span> [वैकल्पिक]</span>:",
-                "report_btn": "रिपोर्ट करें"
+                "email": "ईमेल",
+                "optional": " [वैकल्पिक]",
+                "report_btn": "रिपोर्ट करें",
+                "cancel_btn": "रद्द करें",
+                "close_btn": "बंद करें"
             }
         },
         "tooltip": {

@@ -407,82 +407,7 @@
 
     <!-- --------------------------------------------------------------------------------------------- -->
     <!---issue reporting-system----->
-    <div class="report-sidebar">
-        <a
-            type="button"
-            class="btn btn-primary text-light"
-            data-toggle="modal"
-            data-target=".issue"
-        >
-            <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a
-        >
-    </div>
-    <!-- --------------------------------------------------------------------------------------------- -->
-
-    <!-- --------------------------------------------------------------------------------------------- -->
-    <!---MODAL - issue reporting system---->
-    <div
-        class="modal fade issue"
-        tabindex="-1"
-        role="dialog"
-        aria-labelledby="mySmallModalLabel"
-        aria-hidden="true"
-    >
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="container my-2">
-                    <button
-                        type="button"
-                        class="close"
-                        data-dismiss="modal"
-                        aria-label="Close"
-                    >
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    <div class="container text-center">
-                        <h4>Report an issue</h4>
-                    </div>
-                    <hr />
-                    <div id="result" class="container my-2 text-center"></div>
-                    <label id="report-label" style="font-weight: lighter"
-                        ><b>Describe your issue:</b></label
-                    >
-                    <div class="form-group">
-                        <textarea
-                            id="issuetext"
-                            class="form-control border-primary"
-                            rows="3"
-                        ></textarea>
-                    </div>
-                    <label
-                        id="email-label"
-                        for="emailtext"
-                        style="font-weight: lighter"
-                        ><b>Email</b><span> [Optional]</span>:</label
-                    >
-                    <div class="form-group">
-                        <input
-                            id="emailtext"
-                            class="form-control border-primary"
-                            type="email"
-                            rows="3"
-                        />
-                    </div>
-                    <div class="container">
-                        <center>
-                            <button
-                                id="report"
-                                type="submit"
-                                class="btn btn-primary"
-                            >
-                                Report
-                            </button>
-                        </center>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <ReportIssue />
     <!-- --------------------------------------------------------------------------------------------- -->
 </template>
 
@@ -499,4 +424,5 @@ import ExportVerilog from './DialogBox/ExportVerilog.vue'
 import CustomShortcut from './DialogBox/CustomShortcut.vue'
 import InsertSubcircuit from './DialogBox/InsertSubcircuit.vue'
 import OpenOffline from './DialogBox/OpenOffline.vue'
+import ReportIssue from './ReportIssue/ReportIssue.vue'
 </script>

@@ -131,8 +131,11 @@
             },
             "report_issue": {
                 "describe_issue": "Describe your issue:",
-                "email_html": "<b>Email</b><span> [Optional]</span>:",
-                "report_btn": "Report"
+                "email": "Email",
+                "optional": " [Optional]",
+                "report_btn": "Report",
+                "cancel_btn": "Cancel",
+                "close_btn": "Close"
             }
         },
         "tooltip": {
