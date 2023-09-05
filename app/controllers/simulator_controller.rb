@@ -157,13 +157,13 @@ class SimulatorController < ApplicationController
     end
 
     def redirect_to_vue_simulator_if_enabled
-      if Flipper.enabled?(:vuesim, current_user)
-        new_path = request.fullpath.gsub(/^\/simulator/, '')
-        if new_path.blank? || new_path == '/'
-          redirect_to default_simulatorvue_path
-        else
-          redirect_to simulatorvue_path(path: new_path.sub(/^\//, ''))
-        end
+      return unless Flipper.enabled?(:vuesim, current_user)
+
+      new_path = request.fullpath.gsub(%r{^/simulator}, "")
+      if new_path.blank? || new_path == "/"
+        redirect_to default_simulatorvue_path
+      else
+        redirect_to simulatorvue_path(path: new_path.sub(%r{^/}, ""))
       end
     end
 end

@@ -29,7 +29,7 @@ class Users::CircuitverseController < ApplicationController
   def update
     if @profile.update(profile_params)
       # Handle the vuesim feature toggle
-      if params[:vuesim].present? && params[:vuesim] == '1'
+      if params[:vuesim].present? && params[:vuesim] == "1"
         Flipper.enable(:vuesim, current_user)
       else
         Flipper.disable(:vuesim, current_user)
