@@ -1,4 +1,4 @@
-import { fullView, deleteSelected } from './ux'
+import { fullView } from './ux'
 import { createSubCircuitPrompt } from './subcircuit'
 import save from './data/save'
 import load from './data/load'
@@ -42,7 +42,6 @@ logixFunction.createCombinationalAnalysisPrompt =
 logixFunction.fullViewOption = fullView
 logixFunction.colorThemes = colorThemes
 logixFunction.showTourGuide = showTourGuideHelper
-logixFunction.deleteSelected = deleteSelected
 logixFunction.newVerilogModule = createVerilogCircuit
 // logixFunction.saveVerilogCode = saveVerilogCode
 // logixFunction.resetVerilogCode = resetVerilogCode

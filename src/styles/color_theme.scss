@@ -145,14 +145,6 @@ $output-rect: blue;
     background: var(--bg-navbar);
 }
 
-.quick-btn {
-    background: var(--bg-navbar);
-    border-top: 1.5px solid var(--qp-br-tl);
-    border-left: 1.5px solid var(--qp-br-tl);
-    border-right: 1.5px solid var(--qp-br-rd);
-    border-bottom: 1.5px solid var(--qp-br-rd);
-}
-
 .dropdown > ul {
     background-color: var(--bg-primary-moz);
     border: 0.5px solid var(--bg-tabs);

@@ -763,28 +763,39 @@ function setupPanelListeners(panelSelector) {
 }
 
 export function exitFullView() {
-    $('.navbar').show()
-    $('.modules').show()
-    $('.report-sidebar').show()
-    $('#tabsBar').show()
-    $('#exitViewBtn').remove()
-    $('#moduleProperty').show()
-    $('.timing-diagram-panel').show()
-    $('.testbench-manual-panel').show()
+    const exitViewBtn = document.querySelector('#exitViewBtn')
+    if (exitViewBtn) exitViewBtn.remove()
+
+    const elements = document.querySelectorAll(
+        '.navbar, .modules, .report-sidebar, #tabsBar, #moduleProperty, .timing-diagram-panel, .testbench-manual-panel, .quick-btn'
+    )
+    elements.forEach((element) => {
+        if (element instanceof HTMLElement) {
+            element.style.display = ''
+        }
+    })
 }
 
 export function fullView() {
-    const markUp = `<button id='exitViewBtn' >Exit Full Preview</button>`
-    $('.navbar').hide()
-    $('.modules').hide()
-    $('.report-sidebar').hide()
-    $('#tabsBar').hide()
-    $('#moduleProperty').hide()
-    $('.timing-diagram-panel').hide()
-    $('.testbench-manual-panel').hide()
-    $('#exitView').append(markUp)
-    $('#exitViewBtn').on('click', exitFullView)
+    const app = document.querySelector('#app')
+
+    const exitViewEl = document.createElement('button')
+    exitViewEl.id = 'exitViewBtn'
+    exitViewEl.textContent = 'Exit Full Preview'
+
+    const elements = document.querySelectorAll(
+        '.navbar, .modules, .report-sidebar, #tabsBar, #moduleProperty, .timing-diagram-panel, .testbench-manual-panel, .quick-btn'
+    )
+    elements.forEach((element) => {
+        if (element instanceof HTMLElement) {
+            element.style.display = 'none'
+        }
+    })
+
+    app.appendChild(exitViewEl)
+    exitViewEl.addEventListener('click', exitFullView)
 }
+
 /** 
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/

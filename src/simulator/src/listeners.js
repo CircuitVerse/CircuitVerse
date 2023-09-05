@@ -44,27 +44,29 @@ var unit = 10
 var listenToSimulator = true
 
 export default function startListeners() {
-    $('#deleteSelected').on('click', () => {
-        deleteSelected()
-    })
+    // added the below functionalities in QuickButton.vue component local script tag part
 
-    $('#zoomIn').on('click', () => {
-        changeScale(0.2, 'zoomButton', 'zoomButton', 2)
-    })
+    // $('#deleteSelected').on('click', () => {
+    //     deleteSelected()
+    // })
 
-    $('#zoomOut').on('click', () => {
-        changeScale(-0.2, 'zoomButton', 'zoomButton', 2)
-    })
+    // $('#zoomIn').on('click', () => {
+    //     changeScale(0.2, 'zoomButton', 'zoomButton', 2)
+    // })
 
-    $('#undoButton').on('click', () => {
-        undo()
-    })
-    $('#redoButton').on('click', () => {
-        redo()
-    })
-    $('#viewButton').on('click', () => {
-        fullView()
-    })
+    // $('#zoomOut').on('click', () => {
+    //     changeScale(-0.2, 'zoomButton', 'zoomButton', 2)
+    // })
+
+    // $('#undoButton').on('click', () => {
+    //     undo()
+    // })
+    // $('#redoButton').on('click', () => {
+    //     redo()
+    // })
+    // $('#viewButton').on('click', () => {
+    //     fullView()
+    // })
 
     $(document).on('keyup', (e) => {
         if (e.key === 'Escape') exitFullView()
@@ -735,21 +737,25 @@ function zoomSliderListeners() {
             curLevel = zoomLevel
         }
     }
-    function sliderZoomButton(direction) {
-        var zoomSlider = $('#customRange1')
-        var currentSliderValue = parseInt(zoomSlider.val(), 10)
-        if (direction === -1) {
-            currentSliderValue--
-        } else {
-            currentSliderValue++
-        }
-        zoomSlider.val(currentSliderValue).change()
-    }
-    $('#decrement').click(() => {
-        sliderZoomButton(-1)
-    })
 
-    $('#increment').click(() => {
-        sliderZoomButton(1)
-    })
+    // previously used for the + and - zoom buttons in quickButtons
+
+    // function sliderZoomButton(direction) {
+    //     var zoomSlider = $('#customRange1')
+    //     var currentSliderValue = parseInt(zoomSlider.val(), 10)
+    //     if (direction === -1) {
+    //         currentSliderValue--
+    //     } else {
+    //         currentSliderValue++
+    //     }
+    //     zoomSlider.val(currentSliderValue).change()
+    // }
+
+    // $('#decrement').click(() => {
+    //     sliderZoomButton(-1)
+    // })
+
+    // $('#increment').click(() => {
+    //     sliderZoomButton(1)
+    // })
 }
