@@ -1,44 +1,66 @@
 #!/bin/bash
 
-echo "Waiting for db to be available"
-for i in $(seq 1 30) ; do timeout 1 bash -c "echo > /dev/tcp/db/5432" > /dev/null 2>&1 && status=0 && break || status=$? && sleep 1 ; done
+# Detect operating system [linux, macos] with uname
+DETECTED_OS=$(uname -s | tr '[:upper:]' '[:lower:]')
 
-if [ $status -ne 0 ]
-then
-    echo "Could not connect to db"
+# If operating system is linux
+if [ "$DETECTED_OS" = "linux" ]; then
+  # Set environment variables temporary
+  export CURRENT_GID=$(id -g)
+  export CURRENT_UID=$(id -u)
+  export NON_ROOT_USERNAME="user"
+  export NON_ROOT_GROUPNAME="user"
+  export OPERATING_SYSTEM="linux"
+
+  # If gid and uid are 0, change username and groupname to root
+  if [ "$CURRENT_GID" = "0" ] && [ "$CURRENT_UID" = "0" ]; then
+    export NON_ROOT_USERNAME="root"
+    export NON_ROOT_GROUPNAME="root"
+  fi 
+
+  # Check if docker and docker compose are installed
+  if ! command -v docker &>/dev/null; then
+    echo "Docker is not installed. Install docker : https://docs.docker.com/engine/install/"
     exit 0
+  fi
+  # Check if rootless docker is available
+  if docker ps &>/dev/null; then
+    # Run docker-compose up
+    docker compose up -d --build
+    # Run docker-compose exec web bash
+    docker compose exec web bin/docker/boot
+    # Run docker-compose down
+    docker compose down
+  else
+    # Preserve environment variables for sudo
+    # Run docker-compose up as root user
+    sudo --preserve-env docker compose up -d --build
+    # Run docker-compose exec web bash as root user
+    sudo --preserve-env docker compose exec web bin/docker/boot
+    # Run docker-compose down as root user
+    sudo --preserve-env docker compose down
+  fi
 fi
 
-echo "Running db:create"
-bundle exec rails db:create
-echo "Running db:migrate"
-bundle exec rails db:migrate
-echo "Running db:seed"
-bundle exec rails db:seed
+# If operating system is macos
+if [ "$DETECTED_OS" = "darwin" ]; then
+  # Set environment variables temporary
+  export CURRENT_GID="0"
+  export CURRENT_UID="0"
+  export NON_ROOT_USERNAME="root"
+  export NON_ROOT_GROUPNAME="root"
+  export OPERATING_SYSTEM="mac"
 
-rm -f /circuitverse/tmp/pids/server.pid
+  # Check if docker and docker compose are installed
+  if ! command -v docker &>/dev/null; then
+    echo "Docker is not installed. Install docker : https://docs.docker.com/engine/install/"
+    exit 0
+  fi
 
-echo "Creating symlink"
-if [ ! -d "/home" ]; then
-  mkdir /home
-  echo "Created /home"
+  # Run docker-compose up
+  docker compose up -d --build
+  # Run docker-compose exec web bash
+  docker compose exec web bin/docker/boot
+  # Run docker-compose down
+  docker compose down
 fi
-
-cd /home
-
-if [ ! -d "${HOST_CURRENT_DIRECTORY%/*}" ]; then
-  mkdir -p "${HOST_CURRENT_DIRECTORY%/*}"
-  echo "Created ${HOST_CURRENT_DIRECTORY%/*}"
-fi
-
-if [ ! -L "$HOST_CURRENT_DIRECTORY" ]; then
-  ln -s -T /circuitverse "$HOST_CURRENT_DIRECTORY"
-  echo "Created symlink."
-else
-  echo "Symlink already exists."
-fi
-
-cd /circuitverse
-echo "Starting webserver at 127.0.0.1:3000"
-echo "Remote debugging on 127.0.0.1:3001"
-bundle exec rdbg  --nonstop --open --host 0.0.0.0 --port 3001 -c -- bundle exec rails s -p 3000 -b '0.0.0.0'
