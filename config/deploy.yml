@@ -52,7 +52,7 @@ accessories:
   yosys2digitaljs-server:
     image: ghcr.io/circuitverse/yosys2digitaljs-server:master
     host: <%= ENV["SERVER_IP"] %>
-    port: 2812
+    port: 3040
 
 healthcheck:
   port: 3000
