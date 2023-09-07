@@ -24,7 +24,7 @@ install:
   # - bundle config build.nokogiri --use-system-libraries
   - bundle config --local path vendor/bundle
   - bundle install
-  - yarn
+  - npm install
 
 build: off
 
@@ -36,7 +36,7 @@ before_test:
   - copy config\database.appveyor.yml config\database.yml
   - ruby bin\rake db:create
   - ruby bin\rails db:schema:load
-  - yarn build
+  - npm run build
   - openssl genrsa  -out config/private.pem 2048
   - openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
   - magick identify -version

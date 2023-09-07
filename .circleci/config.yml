@@ -56,8 +56,8 @@ jobs: # a collection of steps
             bundle install
 
       - run: # Install JS dependencies
-          name: Yarn Install
-          command: yarn
+          name: Npm Install
+          command: npm install
 
       # Store bundle cache for Ruby dependencies
       - save_cache:
@@ -79,7 +79,7 @@ jobs: # a collection of steps
 
       - run:
           name: Build assets
-          command: yarn run build
+          command: npm run build
 
       - run:
           name: Run rspec in parallel

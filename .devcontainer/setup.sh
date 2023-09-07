@@ -7,7 +7,7 @@ createuser -s postgres
 gem install bundler
 bundle install --without production
 # Install node dependencies
-yarn
+npm install
 # Setup database
 bundle exec rails db:create
 bundle exec rails db:schema:load

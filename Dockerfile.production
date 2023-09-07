@@ -9,12 +9,10 @@ ENV RAILS_ENV=production
 RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
 
-RUN npm install --global yarn
-
 WORKDIR /usr/src/app
 
-COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev --ignore-scripts
 
 COPY Gemfile* ./
 ENV BUNDLE_DEPLOYMENT=true
@@ -31,7 +29,7 @@ RUN RAILS_ENV=production \
     DATABASE_URL=postgres://nulldb \
 	DISABLE_FLIPPER=true \
     bundle exec rails assets:precompile && \
-	yarn cache clean
+	  npm cache clean --force
 
 RUN rm -rf node_modules spec
 

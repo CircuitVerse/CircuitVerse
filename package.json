@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest",
+    "watch": "npx nodemon --exec 'npm run build' --watch . --quiet --ext js,css,scss --ignore app/assets/builds",
     "build:docs": "jsdoc simulator/src/* -c conf.json -t ./node_modules/better-docs",
     "watch:doc-src": "npx nodemon --exec 'npm run build:docs' --watch simulator/src/",
     "watch:doc-output": "npx livereload out",
@@ -23,7 +24,7 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
-    "husky": ">=6",
+    "husky": "^8.0.3",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.3.1",
     "jest-environment-jsdom": "^29.4.3",
