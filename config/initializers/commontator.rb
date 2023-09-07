@@ -110,7 +110,7 @@ Commontator.configure do |config|
   # Returns: a Boolean, true if and only if the user should be allowed to read that thread
   # Note: can be called with a user object that is nil (if they are not logged in)
   # Default: ->(thread, user) { true } (anyone can read any thread)
-  config.thread_read_proc = ->(thread, user) {
+  config.thread_read_proc = ->(thread, user) { 
     return true if thread.commontable.public?
 
     ProjectPolicy.new(user, thread.commontable).check_view_access?
