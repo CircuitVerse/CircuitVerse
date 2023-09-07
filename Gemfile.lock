@@ -461,6 +461,9 @@ GEM
     opentelemetry-instrumentation-active_job (0.5.0)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.22.0)
+    opentelemetry-instrumentation-active_model_serializers (0.20.0)
+      opentelemetry-api (~> 1.0)
+      opentelemetry-instrumentation-base (~> 0.22.0)
     opentelemetry-instrumentation-active_record (0.6.0)
       opentelemetry-api (~> 1.0)
       opentelemetry-instrumentation-base (~> 0.22.0)
@@ -504,6 +507,10 @@ GEM
       opentelemetry-instrumentation-active_support (~> 0.4.0)
       opentelemetry-instrumentation-base (~> 0.22.0)
     opentelemetry-instrumentation-redis (0.25.0)
+      opentelemetry-api (~> 1.0)
+      opentelemetry-common (~> 0.19.3)
+      opentelemetry-instrumentation-base (~> 0.22.0)
+    opentelemetry-instrumentation-sidekiq (0.24.0)
       opentelemetry-api (~> 1.0)
       opentelemetry-common (~> 0.19.3)
       opentelemetry-instrumentation-base (~> 0.22.0)
@@ -921,6 +928,7 @@ DEPENDENCIES
   opentelemetry-instrumentation-action_pack
   opentelemetry-instrumentation-action_view
   opentelemetry-instrumentation-active_job
+  opentelemetry-instrumentation-active_model_serializers
   opentelemetry-instrumentation-active_record
   opentelemetry-instrumentation-active_support
   opentelemetry-instrumentation-aws_sdk
@@ -932,6 +940,7 @@ DEPENDENCIES
   opentelemetry-instrumentation-rack
   opentelemetry-instrumentation-rails
   opentelemetry-instrumentation-redis
+  opentelemetry-instrumentation-sidekiq
   opentelemetry-sdk (~> 1.2)
   pg (~> 1.5.3)
   pg_search
