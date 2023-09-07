@@ -8,13 +8,13 @@ servers:
     labels:
       traefik.http.routers.circuitverse-web.rule: Host(`circuitverse.org`)
     options:
-      "add-host": host.docker.internal:host-gateway
+      add-host: host.docker.internal:host-gateway
   sidekiq:
     hosts:
       - <%= ENV["SERVER_IP"] %>
-    options:
-      "add-host": host.docker.internal:host-gateway
     cmd: bundle exec sidekiq -e production -q default -q mailers
+    options:
+      add-host: host.docker.internal:host-gateway
 
 registry:
   server: ghcr.io
@@ -25,13 +25,14 @@ registry:
 env:
   clear: # add more env variables
     RAILS_SERVE_STATIC_FILES: true
-    REDIS_URL: 'redis://172.17.0.1:6379/0'
+    REDIS_URL: 'redis://host.docker.internal:6379/0'
+    YOSYS_PATH: 'http://host.docker.internal:3040'
+    POSTGRES_URL: 'postgresql://postgres:postgres@host.docker.internal:5432/circuitverse_production'
     AWS_REGION: 'ap-south-1'
     AWS_REGION_SES: 'ap-south-1'
     CIRCUITVERSE_EMAIL_ID: 'support@circuitverse.org'
     AWS_S3_REGION: 'ap-south-1'
     AWS_S3_BUCKET_NAME: 'circuitverse-images-dev'
-    YOSYS_PATH: 'http://172.17.0.1:3040'
   secret:
     - RAILS_MASTER_KEY
     - POSTGRES_URL
@@ -53,6 +54,12 @@ accessories:
     image: ghcr.io/circuitverse/yosys2digitaljs-server:master
     host: <%= ENV["SERVER_IP"] %>
     port: 3040
+    options:
+      add-host: host.docker.internal:host-gateway
+
+traefik:
+  options:
+    memory: 512m
 
 healthcheck:
   port: 3000
