@@ -106,6 +106,9 @@ Rails.application.routes.draw do
 
   mount Commontator::Engine => "/commontator"
 
+  #vue simualtor
+  get 'simulatorvue/*path', to: 'static#simulatorvue'
+
   # simulator
   scope "/simulator" do
     get "/:id", to: "simulator#show", as: "simulator"

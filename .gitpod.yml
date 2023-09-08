@@ -12,7 +12,7 @@ tasks:
       cp ./.gitpod.vscode.settings .vscode/settings.json &&
       rvm autolibs disable &&
       rvm install 3.2.0 &&
-      nvm install 14 &&
+      nvm install 16 &&
       gem install bundler &&
       cp config/database.example.yml config/database.yml &&
       createuser -s postgres &&
