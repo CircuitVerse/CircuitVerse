@@ -1,0 +1,5 @@
+hi:
+  groups:
+    launch:
+      notice_invite_mentor: "समूह संरक्षक को आमंत्रित नहीं किया जा सकता है।"
+    

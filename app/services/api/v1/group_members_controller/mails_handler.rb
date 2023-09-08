@@ -44,6 +44,11 @@ class Api::V1::GroupMembersController
     # Create invitation or group_member for valid mails
     # @return [void]
     def create_invitation_or_group_member
+      # checks if valid_mails include group mentor email
+      if @valid_mails.include?(@group.mentor.email)
+        # push group mentor email to existring mails
+        @existing_mails.append(@group.mentor.email)
+      end
       newly_added = @valid_mails - @existing_mails
 
       # checks for every newly added mail if the user exists or not
