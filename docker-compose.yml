@@ -1,3 +1,18 @@
+x-common-build: &common_build
+  build:
+    context: .
+    dockerfile: Dockerfile
+    args:
+      - NON_ROOT_USER_ID=${CURRENT_UID}
+      - NON_ROOT_GROUP_ID=${CURRENT_GID}
+      - OPERATING_SYSTEM=${OPERATING_SYSTEM}
+      - NON_ROOT_USERNAME=${NON_ROOT_USERNAME}
+      - NON_ROOT_GROUPNAME=${NON_ROOT_GROUPNAME}
+  volumes:
+    - .:/circuitverse:rw
+    - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
+    - ruby_bundle:/home/vendor/bundle:rw
+
 version: "3.1"
 services:
   db:
@@ -5,69 +20,74 @@ services:
     environment:
       POSTGRES_DB: circuitverse_development
       POSTGRES_PASSWORD: postgres
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/pgdata
+  redis:
+    image: redis:7.0-alpine
+  web:
+    <<: *common_build
+    command: sleep infinity
+    cap_add:
+      - SYS_ADMIN
+    ports:
+      - "3000:3000"
+      - "3001:3001"
+      - "3036:3036"
+      - "3037:3037"
+    depends_on:
+      - db
+      - redis
+    environment:
+      REDIS_URL: "redis://redis:6379/0"
+      CIRCUITVERSE_USE_SOLR: "false"
+      DOCKER_ENVIRONMENT: "true"
+      NODE_ENV: "development"
+      HOST_CURRENT_DIRECTORY: $PWD
+      OPERATING_SYSTEM: $OPERATING_SYSTEM
+    restart: unless-stopped
   sidekiq:
+    <<: *common_build
+    command: 
+      - bash
+      - -c
+      - |
+        bin/docker/wait_for_setup && \
+        bundle exec sidekiq -q default -q mailers
+    environment:
+      REDIS_URL: "redis://redis:6379/0"
     depends_on:
       - db
       - redis
       - mailcatcher
-    build: .
-    command: bundle exec sidekiq -q default -q mailers
-    volumes:
-      - /circuitverse/.bundle
-      - /circuitverse/node_modules
-      - .:/circuitverse:rw
-      - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
-    environment:
-      REDIS_URL: "redis://redis:6379/0"
-  web:
-    build: .
-    entrypoint: /circuitverse/bin/docker_run
-    volumes:
-      - /circuitverse/.bundle
-      - /circuitverse/node_modules
-      - .:/circuitverse:rw
-      - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
+  solargraph:
+    <<: *common_build
+    command: 
+      - bash
+      - -c
+      - |
+        bin/docker/wait_for_setup && \
+        bundle exec solargraph socket --host=0.0.0.0 --port=3002
     ports:
-      - "3000:3000"
-      - "3001:3001"
-    depends_on:
-      - db
-      - redis
-      - sidekiq
-    environment:
-      REDIS_URL: "redis://redis:6379/0"
-      CIRCUITVERSE_USE_SOLR: "false"
-      DOCKER_ENVIRONMENT: 'true'
-      HOST_CURRENT_DIRECTORY: $PWD
-  redis:
-    image: redis:7.0-alpine
+      - "3002:3002"
   asset_build:
-    build: .
+    <<: *common_build
     environment:
       - NODE_ENV=development
       - RAILS_ENV=development
-    command: yarn build --watch
-    volumes:
-      - .:/circuitverse:rw
-      - /circuitverse/.bundle
-      - /circuitverse/node_modules
+    command:
+      - bash
+      - -c
+      - |
+        bin/docker/wait_for_setup && \
+        yarn build --watch
     ports:
-      - '127.0.0.1:3035:3035'
-  solargraph:
-    build: .
-    command: solargraph socket --host=0.0.0.0 --port=3002
-    volumes:
-      - /circuitverse/.bundle
-      - /circuitverse/node_modules
-      - .:/circuitverse:rw
-    ports:
-      - '3002:3002'
+      - "3035:3035"
   mailcatcher:
     image: schickling/mailcatcher
     ports:
-      - '127.0.0.1:1080:1080'
-      - '127.0.0.1:1025:1025'
-
+      - "1080:1080"
+      - "1025:1025"
 volumes:
-  app:
-  public:
+  ruby_bundle:
+  postgres_data:
