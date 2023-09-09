@@ -1,13 +1,11 @@
-id = if @comment.parent.nil?
-  "commontator-thread-#{@commontator_thread.id}-new-comment"
-else
-  "commontator-comment-#{@comment.parent.id}-reply"
-end
+<%
+  id = @comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment" :
+                              "commontator-comment-#{@comment.parent.id}-reply"
 %>
 
 var commontatorForm = $("#<%= id %>").html("<%= escape_javascript(
-                                                  render(partial: "form", locals: { comment: @comment, thread: @commontator_thread })
-                                                ) %>").hide().fadeIn();
+  render partial: 'form', locals: { comment: @comment, thread: @commontator_thread }
+) %>").hide().fadeIn();
 $('html, body').animate({ scrollTop: commontatorForm.offset().top - window.innerHeight/2 }, 'fast');
 
 $("#<%= id %>-link").hide();

@@ -43,7 +43,7 @@ $(document).ready(() => {
   });
 
   $('.select2-selection input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
-
+  $('.select2-selection input').attr('id', 'project_email_input_collaborator');
   $('.add-collaborators-button').attr('disabled', true); // setting submit button to disabled initially
 
   $('.select2-container').on('keyup', () => {

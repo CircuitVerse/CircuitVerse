@@ -18,7 +18,7 @@
           </div>
           <div class="field form-group">
             <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
-            <p><%= image_tag @profile.profile_picture.url(:thumb), id: "imgedit", class: "users-edit-image", alt: "User Profile Image" %></p>
+            <p><%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
             <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>

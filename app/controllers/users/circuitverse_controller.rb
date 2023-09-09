@@ -7,6 +7,7 @@ class Users::CircuitverseController < ApplicationController
 
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
+  before_action :remove_previous_profile_picture, only: [:update]
 
   def index
     @profile = ProfileDecorator.new(@user)
@@ -45,11 +46,15 @@ class Users::CircuitverseController < ApplicationController
 
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture)
+                                   :subscribed, :locale, :remove_picture, :avatar)
     end
 
     def set_user
       @profile = current_user
       @user = User.find(params[:id])
+    end
+
+    def remove_previous_profile_picture
+      @profile.profile_picture.purge if params[:user][:profile_picture].present? && @profile.profile_picture.attached?
     end
 end
