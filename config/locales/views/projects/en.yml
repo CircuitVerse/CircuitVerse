@@ -1,7 +1,7 @@
 en:
   projects:
     add_collaborator_description: "Enter Email IDs separated by commas, spaces or enter. Users need to be registered already on the platform.
-            Note that collaboration is not real time as of now. Every save overwites the previous data."
+            Note that collaboration is not real time as of now. Every save overwrites the previous data."
     remove_collaborator_message: "Are you sure you want to remove this collaborator?"
     delete_project_message: "Are you sure you want to delete this project?"
     form:

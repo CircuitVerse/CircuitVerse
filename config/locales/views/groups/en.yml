@@ -1,6 +1,6 @@
 en:
   groups:
-    add_member_description: "Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email ID will be sent requesting them to sign up."
+    add_member_description: "Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email will be sent requesting them to sign up."
     add_mentor_description_html: "<p>Mentors can:</p><ul><li>Create and delete assignments</li><li>Grade assignments</li><li>Reopen closed assignments</li></ul>"
     promote_member_confirmation: "Are you sure, you want to promote this member to a mentor?"
     demote_mentor_confirmation: "Are you sure, you want to demote this mentor to a member?"
