@@ -188,7 +188,7 @@ export default function generateVerilogCircuit(
     scope = globalScope
 ) {
     var params = { code: verilogCode }
-    fetch('/simulator/verilogcv', {
+    fetch('/api/v1/simulator/verilogcv', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

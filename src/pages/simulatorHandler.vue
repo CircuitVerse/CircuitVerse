@@ -30,7 +30,7 @@ const authStore = useAuthStore()
 
 // check if user has edit access to the project
 async function checkEditAccess() {
-    await fetch(`/api/v1/simulator/${(window as any).logixProjectId}/edit`, {
+    await fetch(`/api/v1/projects/${window.logixProjectId}/check_edit_access`, {
         method: 'GET',
         headers: {
             Accept: 'application/json',

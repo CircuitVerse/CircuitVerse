@@ -129,13 +129,16 @@ function setupElementLists() {
  */
 async function fetchProjectData(projectId) {
     try {
-        const response = await fetch(`/api/v1/simulator/${projectId}/data`, {
-            method: 'GET',
-            headers: {
-                Accept: 'application/json',
-                Authorization: `Token ${getToken('cvt')}`,
-            },
-        })
+        const response = await fetch(
+            `/api/v1/projects/${projectId}/circuit_data`,
+            {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: `Token ${getToken('cvt')}`,
+                },
+            }
+        )
         if (response.ok) {
             const data = await response.json()
             await load(data)

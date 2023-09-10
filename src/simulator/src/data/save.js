@@ -418,7 +418,7 @@ export default async function save() {
         // $('body').append(form)
         // form.submit()
 
-        fetch('/api/v1/simulator/create', {
+        fetch('/api/v1/projects', {
             method: 'POST',
             headers,
             body: JSON.stringify({
@@ -481,7 +481,7 @@ export default async function save() {
         // if (parts.length === 2) return parts.pop().split(';').shift();
         // }
 
-        fetch('/api/v1/simulator/update', {
+        fetch('/api/v1/projects/update_circuit', {
             method: 'PATCH',
             headers,
             body: JSON.stringify({
