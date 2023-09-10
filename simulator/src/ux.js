@@ -6,7 +6,7 @@
 
 import { layoutModeGet } from './layoutMode';
 import {
-    scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet, errorDetectedSet,
+    scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet,
 } from './engine';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
@@ -500,10 +500,6 @@ export function deleteSelected() {
     updateCanvasSet(true);
     scheduleUpdate();
     updateRestrictedElementsInScope();
-
-    if (globalScope.currentState === globalScope.states.ERROR) {
-        errorDetectedSet(false);
-    }
 }
 export function setupPanels() {
     $('#dragQPanel')
