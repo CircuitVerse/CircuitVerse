@@ -5,6 +5,7 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+  
 - package-ecosystem: bundler
   directory: "/"
   schedule:
@@ -12,9 +13,13 @@ updates:
   open-pull-requests-limit: 10
   
 - package-ecosystem: "docker"
-  # Look for a `Dockerfile` in the `root` directory
   directory: "/"
-  # Check for updates once a week
   schedule:
     interval: "weekly"
+    
+- package-ecosystem: gitsubmodule
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 3
 
