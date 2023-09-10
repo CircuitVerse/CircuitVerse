@@ -12,7 +12,7 @@ import { dots } from './canvasApi'
 import { update, updateSimulationSet, updateCanvasSet } from './engine'
 import { setupUI } from './ux'
 import startMainListeners from './listeners'
-import startEmbedListeners from './embedListeners'
+// import startEmbedListeners from './embedListeners'
 import './embed'
 import { newCircuit, scopeList } from './circuit'
 import load from './data/load'
@@ -199,14 +199,15 @@ function showTour() {
  * @category setup
  */
 export function setup() {
-    let embed = false
-    const startListeners = embed ? startEmbedListeners : startMainListeners
+    // let embed = false
+    // const startListeners = embed ? startEmbedListeners : startMainListeners
     setupElementLists()
     setupEnvironment()
     if (!embed) {
         setupUI()
+        startMainListeners()
     }
-    startListeners()
+    // startListeners()
     loadProjectData()
     showTour()
 }

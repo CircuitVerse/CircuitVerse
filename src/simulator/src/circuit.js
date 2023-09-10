@@ -256,14 +256,15 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
 
         // switch circuit function moved inside vue component
 
-        $('.circuitName').on('click', (e) => {
-            simulationArea.lastSelected = globalScope.root
-            setTimeout(() => {
-                // here link with the properties panel
-                document.getElementById('circname').select()
-            }, 100)
-        })
-
+        if (!embed) {
+            $('.circuitName').on('click', () => {
+                simulationArea.lastSelected = globalScope.root
+                setTimeout(() => {
+                    // here link with the properties panel
+                    document.getElementById('circname').select()
+                }, 100)
+            })
+        }
         // moved inside vue - component
         // $('.tabsCloseButton').on('click', function (e) {
         //     e.stopPropagation()

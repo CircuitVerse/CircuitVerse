@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-// import simulator from '../pages/simulator.vue'
 import simulatorHandler from '../pages/simulatorHandler.vue'
+import Embed from '../pages/embed.vue'
 
 const routes = [
     {
@@ -10,17 +10,27 @@ const routes = [
     {
         path: '/simulatorvue', // @TODO: update later back to /simulator
         name: 'simulator',
-        // component: simulator,
         component: simulatorHandler,
         children: [
             {
                 path: 'edit/:projectId',
                 name: 'simulator-edit',
-                // component: simulator,
                 component: simulatorHandler,
                 props: true,
             },
         ],
+    },
+    {
+        path: '/simulatorvue/:projectId',
+        name: 'simulator-view',
+        component: Embed,
+        props: true,
+    },
+    {
+        path: '/simulatorvue/embed/:projectId',
+        name: 'simulator-embed',
+        component: Embed,
+        props: true,
     },
 ]
 const router = createRouter({

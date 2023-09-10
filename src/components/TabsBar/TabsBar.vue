@@ -1,5 +1,5 @@
 <template>
-    <div id="tabsBar" class="noSelect pointerCursor">
+    <div id="tabsBar" class="noSelect pointerCursor" :class="embedClass()">
         <draggable
             :key="updateCount"
             v-model="SimulatorState.circuit_list"
@@ -20,7 +20,7 @@
                     :key="element.id"
                     style=""
                     class="circuits toolbarButton"
-                    :class="element.focussed ? 'current' : ''"
+                    :class="tabsbarClasses(element)"
                     draggable="true"
                     @click="switchCircuit(element.id)"
                 >
@@ -28,6 +28,7 @@
                         {{ truncateString(element.name, 18) }}
                     </span>
                     <span
+                        v-if="!isEmbed()"
                         :id="element.id"
                         class="tabsCloseButton"
                         @click.stop="closeCircuit(element)"
@@ -37,7 +38,9 @@
                 </div>
             </template>
         </draggable>
-        <button @click="createNewCircuitScope()">&#43;</button>
+        <button v-if="!isEmbed()" @click="createNewCircuitScope()">
+            &#43;
+        </button>
     </div>
     <!-- <MessageBox
         v-model="SimulatorState.dialogBox.create_circuit"
@@ -243,20 +246,61 @@ function dragOptions(): Object {
     }
 }
 
-// TODO: fix class adding for embed @Arnabdaz
-function tabsbarClasses(id: number | string): string {
+function tabsbarClasses(e: any): string {
     let class_list = ''
     if ((window as any).embed) {
         class_list = 'embed-tabs'
     }
-    if ((window as any).globalScope.id == id) {
+    if (e.focussed) {
         class_list += ' current'
     }
     return class_list
 }
+
+function embedClass(): string {
+    if ((window as any).embed) {
+        return 'embed-tabbar'
+    }
+    return ''
+}
+
+function isEmbed(): boolean {
+    return (window as any).embed
+}
 </script>
 
 <style scoped>
+#tabsBar.embed-tabbar {
+    background-color: transparent;
+}
+
+#tabsBar.embed-tabbar .circuits {
+    border: 1px solid var(--br-circuit);
+    color: var(--text-circuit);
+    background-color: var(--bg-tabs) !important;
+}
+
+#tabsBar.embed-tabbar .circuits:hover {
+    background-color: var(--bg-circuit) !important;
+}
+
+#tabsBar.embed-tabbar .current {
+    color: var(--text-circuit);
+    background-color: var(--bg-circuit) !important;
+    /* border: 1px solid var(--br-circuit-cur); */
+}
+
+#tabsBar.embed-tabbar button {
+    color: var(--text-panel);
+    background-color: var(--primary);
+    border: 1px solid var(--br-circuit-cur);
+}
+
+#tabsBar.embed-tabbar button:hover {
+    color: var(--text-panel);
+    border: 1px solid var(--br-circuit-cur);
+}
+
 .list-group {
     display: inline;
 }
