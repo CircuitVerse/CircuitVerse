@@ -28,7 +28,6 @@ class Users::CircuitverseController < ApplicationController
 
   def update
     if @profile.update(profile_params)
-      handle_vuesim_toggle
       redirect_to user_projects_path(current_user)
     else
       render :edit
@@ -57,13 +56,5 @@ class Users::CircuitverseController < ApplicationController
 
     def remove_previous_profile_picture
       @profile.profile_picture.purge if params[:user][:profile_picture].present? && @profile.profile_picture.attached?
-    end
-
-    def handle_vuesim_toggle
-      if params[:vuesim].present? && params[:vuesim] == "1"
-        Flipper.enable(:vuesim, current_user)
-      else
-        Flipper.disable(:vuesim, current_user)
-      end
     end
 end

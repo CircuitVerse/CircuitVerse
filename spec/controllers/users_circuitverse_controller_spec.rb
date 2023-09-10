@@ -49,24 +49,6 @@ describe Users::CircuitverseController, type: :request do
     end
   end
 
-  describe "#update" do
-    context 'when vuesim parameter is present and equals "1"' do
-      it "enables vuesim for the current user" do
-        patch profile_update_path(@user), params: { id: @user.id, vuesim: "1", user: { profile_picture: nil } }
-
-        expect(Flipper.enabled?(:vuesim, @user)).to be(true)
-      end
-    end
-
-    context 'when vuesim parameter is not "1"' do
-      it "disables vuesim for the current user" do
-        patch profile_update_path(@user), params: { id: @user.id, vuesim: "0", user: { profile_picture: nil } }
-
-        expect(Flipper.enabled?(:vuesim, @user)).to be(false)
-      end
-    end
-  end
-
   it "gets edit profile" do
     get profile_edit_path(id: @user.id)
     expect(response.status).to eq(200)
