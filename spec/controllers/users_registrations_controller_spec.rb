@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# spec/controllers/users/registrations_controller_spec.rb
 
 require "rails_helper"
 
