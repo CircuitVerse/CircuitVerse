@@ -101,7 +101,6 @@ import { showError } from './utils';
 import miniMapArea from './minimap';
 import { resetup } from './setup';
 import { verilogModeGet } from './Verilog2CV';
-import { hidetabs, visibletabs } from './listeners';
 
 /**
  * Core of the simulation and rendering algorithm.
@@ -462,60 +461,45 @@ export function updateSelectionsAndPane(scope = globalScope) {
  * @category engine
  */
 export function play(scope = globalScope, resetNodes = false) {
-    try {
-        if (errorDetected) return; // Don't simulate until error is fixed
-        if (loading === true) return; // Don't simulate until loaded
+    if (errorDetected) return; // Don't simulate until error is fixed
+    if (loading === true) return; // Don't simulate until loaded
 
+    simulationArea.simulationQueue.reset();
+    plotArea.setExecutionTime(); // Waveform thing
+    // Reset Nodes if required
+    if (resetNodes || forceResetNodes) {
+        scope.reset();
         simulationArea.simulationQueue.reset();
-        plotArea.setExecutionTime(); // Waveform thing
-        // Reset Nodes if required
-        if (resetNodes || forceResetNodes) {
-            scope.reset();
+        forceResetNodesSet(false);
+    }
+
+    // To store list of circuitselements that have shown contention but kept temporarily
+    // Mainly to resolve tristate bus issues
+    simulationArea.contentionPending = [];
+    // add inputs to the simulation queue
+    scope.addInputs();
+    // to check if we have infinite loop in circuit
+    let stepCount = 0;
+    let elem;
+    while (!simulationArea.simulationQueue.isEmpty()) {
+        if (errorDetected) {
             simulationArea.simulationQueue.reset();
-            forceResetNodesSet(false);
+            return;
         }
-
-        // To store list of circuitselements that have shown contention but kept temporarily
-        // Mainly to resolve tristate bus issues
-        simulationArea.contentionPending = [];
-        // add inputs to the simulation queue
-        scope.addInputs();
-        // to check if we have infinite loop in circuit
-        let stepCount = 0;
-        let elem;
-        while (!simulationArea.simulationQueue.isEmpty()) {
-            if (errorDetected) {
-                simulationArea.simulationQueue.reset();
-                return;
-            }
-            elem = simulationArea.simulationQueue.pop();
-            elem.resolve();
-            stepCount++;
-            if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
-                showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
-                errorDetectedSet(true);
-                forceResetNodesSet(true);
-            }
-        }
-        // Check for TriState Contentions
-        if (simulationArea.contentionPending.length) {
-            showError('Contention at TriState');
-            forceResetNodesSet(true);
+        elem = simulationArea.simulationQueue.pop();
+        elem.resolve();
+        stepCount++;
+        if (stepCount > 1000000) { // Cyclic or infinite Circuit Detection
+            showError('Simulation Stack limit exceeded: maybe due to cyclic paths or contention');
             errorDetectedSet(true);
+            forceResetNodesSet(true);
         }
-
-        // change the state of simulator to normal
-        if (globalScope.currentState === globalScope.states.ERROR) {
-            globalScope.currentState = globalScope.states.NORMAL;
-        }
-        visibletabs();
-    } catch (error) {
-        // change the state of simulator to error
-        if (globalScope.currentState === globalScope.states.NORMAL) {
-            globalScope.currentState = globalScope.states.ERROR;
-            hidetabs();
-        }
-        showError('The simulator is in an error state. Now, you can only delete or undo components until the simulator returns to the normal state');
+    }
+    // Check for TriState Contentions
+    if (simulationArea.contentionPending.length) {
+        showError('Contention at TriState');
+        forceResetNodesSet(true);
+        errorDetectedSet(true);
     }
 }
 
