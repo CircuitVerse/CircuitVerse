@@ -36,7 +36,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
   def destroy
     @collaboration = Collaboration.find_by(user: @collaborator, project: @project)
     @collaboration.destroy!
-    render json: {}, status: :no_content
+    render status: :no_content
   end
 
   private

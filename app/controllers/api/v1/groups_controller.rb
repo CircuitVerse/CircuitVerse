@@ -23,6 +23,11 @@ class Api::V1::GroupsController < Api::V1::BaseController
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
+  # GET /api/v1/groups/:id
+  def show
+    render json: Api::V1::GroupSerializer.new(@group, @options)
+  end
+
   # POST /api/v1/groups/
   def create
     @group = current_user.groups_owned.new(group_params)
@@ -32,11 +37,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
     else
       invalid_resource!(@group.errors)
     end
-  end
-
-  # GET /api/v1/groups/:id
-  def show
-    render json: Api::V1::GroupSerializer.new(@group, @options)
   end
 
   # PATCH /api/v1/groups/:id
@@ -52,7 +52,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   # DELETE /api/v1/groups/:id
   def destroy
     @group.destroy!
-    render json: {}, status: :no_content
+    render status: :no_content
   end
 
   private

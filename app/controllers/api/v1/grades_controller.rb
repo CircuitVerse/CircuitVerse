@@ -27,7 +27,7 @@ class Api::V1::GradesController < Api::V1::BaseController
 
   def destroy
     @grade.destroy!
-    render json: {}, status: :no_content
+    render status: :no_content
   end
 
   private
