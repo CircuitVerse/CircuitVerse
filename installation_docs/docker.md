@@ -15,8 +15,13 @@
 1. Fork current repository
 2. Clone the forked repository
     ```bash
-    git clone git@github.com:<username></username>/CircuitVerse.git
+    git clone git@github.com:<username></username>/CircuitVerse.git --recursive
     ```
+    - incase you missed using the `--recursive` during the cloning, then use
+        ```bash
+        git submodule update --init
+        ```
+        to clone the contents of cv-frontend-vue repo
 3. Open `CircuitVerse` directory
 4. Open `PowerShell` in the current directory
 5. Run `./bin/docker_run.ps1`
@@ -49,8 +54,13 @@ Set-ExecutionPolicy RemoteSigned
 1. Fork current repository
 2. Clone the forked repository
     ```bash
-    git clone git@github.com:<username></username>/CircuitVerse.git
+    git clone git@github.com:<username></username>/CircuitVerse.git --recursive
     ```
+    - incase you missed using the `--recursive` during the cloning, then use
+        ```bash
+        git submodule update --init
+        ```
+        to clone the contents of cv-frontend-vue repo
 3. Open `CircuitVerse` directory
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
@@ -72,8 +82,13 @@ If you required to restart the server
 1. Fork current repository
 2. Clone the forked repository
     ```bash
-    git clone git@github.com:<username></username>/CircuitVerse.git
+    git clone git@github.com:<username></username>/CircuitVerse.git --recursive
     ```
+    - incase you missed using the `--recursive` during the cloning, then use
+        ```bash
+        git submodule update --init
+        ```
+        to clone the contents of cv-frontend-vue repo
 3. Open `CircuitVerse` directory
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
