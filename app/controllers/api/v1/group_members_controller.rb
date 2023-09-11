@@ -33,7 +33,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   # PATCH/PUT /api/v1/group/members/:id
   # Only used to set or revoke mentorship
   def update
-    return render status: :no_content unless group_member_params[:mentor]
+    return head :no_content unless group_member_params[:mentor]
 
     @group_member.update(group_member_params)
     render status: :accepted
@@ -42,7 +42,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   # DELETE /api/v1/group/members/:id
   def destroy
     @group_member.destroy!
-    render status: :no_content
+    head :no_content
   end
 
   private

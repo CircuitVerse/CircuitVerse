@@ -52,7 +52,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   # DELETE /api/v1/groups/:id
   def destroy
     @group.destroy!
-    render status: :no_content
+    head :no_content
   end
 
   private
