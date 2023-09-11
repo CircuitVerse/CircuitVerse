@@ -140,7 +140,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   def destroy
     authorize @project, :author_access?
     @project.destroy!
-    render json: {}, status: :no_content
+    head :no_content
   end
 
   # GET /api/v1/projects/featured
