@@ -10,7 +10,7 @@ RSpec.describe StaticController, type: :controller do
       get :simulatorvue, params: { path: "/" }
 
       expect(response).to have_http_status(:success)
-      expect(response.body).to include(File.read(Rails.public_path.join("simulatorvue", "index.html")))
+      expect(response.body).to include(Rails.public_path.join("simulatorvue", "index.html").read)
     end
   end
 end

@@ -26,6 +26,12 @@ class SimulatorController < ApplicationController
     render "embed"
   end
 
+  def new
+    @logix_project_id = 0
+    @projectName = ""
+    render "edit"
+  end
+
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
@@ -44,10 +50,23 @@ class SimulatorController < ApplicationController
     render json: ProjectDatum.find_by(project: @project)&.data
   end
 
-  def new
-    @logix_project_id = 0
-    @projectName = ""
-    render "edit"
+  def create
+    @project = Project.new
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
+    @project.name = sanitize(params[:name])
+    @project.author = current_user
+
+    image_file = return_image_file(params[:image])
+    @project.image_preview = image_file
+    attach_circuit_preview(image_file)
+    @project.save!
+    image_file.close
+
+    File.delete(image_file) if check_to_delete(params[:image])
+
+    # render plain: simulator_path(@project)
+    # render plain: user_project_url(current_user,@project)
+    redirect_to edit_user_project_url(current_user, @project)
   end
 
   def update
@@ -92,25 +111,6 @@ class SimulatorController < ApplicationController
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
     HTTP.post(url, json: { text: text })
     head :ok, content_type: "text/html"
-  end
-
-  def create
-    @project = Project.new
-    @project.build_project_datum.data = sanitize_data(@project, params[:data])
-    @project.name = sanitize(params[:name])
-    @project.author = current_user
-
-    image_file = return_image_file(params[:image])
-    @project.image_preview = image_file
-    attach_circuit_preview(image_file)
-    @project.save!
-    image_file.close
-
-    File.delete(image_file) if check_to_delete(params[:image])
-
-    # render plain: simulator_path(@project)
-    # render plain: user_project_url(current_user,@project)
-    redirect_to edit_user_project_url(current_user, @project)
   end
 
   def verilog_cv
