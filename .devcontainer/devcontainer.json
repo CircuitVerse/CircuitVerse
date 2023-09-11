@@ -9,6 +9,7 @@
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
     "waitFor": "onCreateCommand",
+    "initializeCommand": "git submodule update --init --recursive",
     "postCreateCommand": ".devcontainer/setup.sh",
     "postAttachCommand": {
       "server": ".devcontainer/boot.sh"
