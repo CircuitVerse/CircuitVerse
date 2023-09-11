@@ -38,6 +38,7 @@ exclude_paths:
 - tmp/
 - apidoc/v1/javascripts/
 - docs/source/javascripts/
+- app/tasks/maintenance/
 
 checks:
   method-lines:

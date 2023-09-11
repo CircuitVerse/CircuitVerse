@@ -29,7 +29,7 @@ WebMock.disable_net_connect!({
 RSpec.configure do |config|
   config.before do
     # To stub sunspot indexers during testing
-    ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
+    Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
 
     # To stub google oauth fetch user response with valid access token
     stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
@@ -90,7 +90,7 @@ RSpec.configure do |config|
   end
 
   config.after do
-    ::Sunspot.session = ::Sunspot.session.original_session
+    Sunspot.session = Sunspot.session.original_session
   end
 
   # rspec-expectations config goes here. You can use an alternate

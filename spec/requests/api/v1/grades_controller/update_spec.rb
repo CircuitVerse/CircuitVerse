@@ -10,7 +10,7 @@ RSpec.describe Api::V1::GradesController, "#update", type: :request do
     let!(:project) { FactoryBot.create(:project, assignment: assignment) }
     let!(:grade) do
       FactoryBot.create(
-        :grade, project: project, assignment: assignment, \
+        :grade, project: project, assignment: assignment,
                 user_id: primary_mentor.id, grade: "A", remarks: "Good"
       )
     end

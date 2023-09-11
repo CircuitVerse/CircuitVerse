@@ -12,9 +12,18 @@ class Users::NoticedNotificationsController < ApplicationController
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
     answer = NotifyUser.new(params).call
-    return redirect_to group_assignment_path(answer.first_param, answer.second) if answer.type == "new_assignment"
-
-    redirect_to user_project_path(answer.first_param, answer.second)
+    case answer.type
+    when "new_assignment"
+      redirect_to group_assignment_path(answer.first_param, answer.second)
+    when "star", "fork"
+      redirect_to user_project_path(answer.first_param, answer.second)
+    when "forum_comment"
+      redirect_to simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
+    when "forum_thread"
+      redirect_to simple_discussion.forum_thread_path(answer.first_param)
+    else
+      redirect_to root_path
+    end
   end
 
   def mark_all_as_read

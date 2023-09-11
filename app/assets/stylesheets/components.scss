@@ -267,12 +267,12 @@
 
 .alert-success {
   margin-top: 10px;
+  padding-top: 1rem; // aligns the alert text
 }
 
 //checkpoints
 .primary-checkpoint {
   background-color: $shadow-grey;
-  bottom: 0;
   display: inline-block;
   height: 25px;
   margin-top: 15px;
@@ -313,11 +313,11 @@
       border: solid $white;
       border-width: 0 3px 3px 0;
       display: block;
-      height: 12px;
-      left: 9px;
-      top: 5px;
+      height: 14px;
+      left: 7px;
+      top: 2px;
       transform: rotate(45deg);
-      width: 8px;
+      width: 9px;
     }
   }
 }

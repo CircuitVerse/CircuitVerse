@@ -169,14 +169,14 @@ input[type="text"]:focus {
 }
 
 .projectName {
-    position: relative;
-    left: 0.5rem;
     font-size: 1em;
     text-align: center;
     display: inline-block;
     width: 35vw;
+    height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-right: 22rem;
 }
 
 @media (max-width: 991px) {
@@ -186,8 +186,6 @@ input[type="text"]:focus {
 }
 
 .account-btn {
-    position: absolute;
-    right: 13px;
     padding: 4px 10px;
     border: 1px solid transparent;
     border-radius: 1px;
@@ -201,6 +199,7 @@ input[type="text"]:focus {
 .user-field {
     display: inline-block;
     max-width: 11rem;
+    height: 1.2rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1492,6 +1491,16 @@ input:checked + .slider:before {
     padding-bottom: 0;
     overflow: visible;
 }
+
+#insertSubcircuitcontent p {
+  color: white;
+  font-size: 16px;
+}
+
+#insertSubcircuitcontent a {
+  color: white;
+  margin-bottom: 7px;
+} 
 
 #insertSubcircuitDialog > p {
     margin-bottom: 0;

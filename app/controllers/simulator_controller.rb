@@ -4,6 +4,7 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
+  before_action :redirect_to_vue_simulator_if_enabled
   before_action :authenticate_user!, only: %i[create update edit update_image]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit update_image]
@@ -52,10 +53,10 @@ class SimulatorController < ApplicationController
   def update
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
-
+    @project.circuit_preview.purge if @project.circuit_preview.attached?
     image_file = return_image_file(params[:image])
-
     @project.image_preview = image_file
+    attach_circuit_preview(image_file)
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
@@ -100,8 +101,8 @@ class SimulatorController < ApplicationController
     @project.author = current_user
 
     image_file = return_image_file(params[:image])
-
     @project.image_preview = image_file
+    attach_circuit_preview(image_file)
     @project.save!
     image_file.close
 
@@ -145,5 +146,24 @@ class SimulatorController < ApplicationController
 
     def check_view_access
       authorize @project, :view_access?
+    end
+
+    def attach_circuit_preview(image_file)
+      @project.circuit_preview.attach(
+        io: File.open(image_file),
+        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
+        content_type: "img/jpeg"
+      )
+    end
+
+    def redirect_to_vue_simulator_if_enabled
+      return unless Flipper.enabled?(:vuesim, current_user)
+
+      new_path = request.fullpath.gsub(%r{^/simulator}, "")
+      if new_path.blank? || new_path == "/"
+        redirect_to default_simulatorvue_path
+      else
+        redirect_to simulatorvue_path(path: new_path.sub(%r{^/}, ""))
+      end
     end
 end
