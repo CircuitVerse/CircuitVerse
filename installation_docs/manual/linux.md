@@ -16,7 +16,7 @@ cd CircuitVerse
      ```bash
      git submodule update --init
      ```
-     to clone the contents of cv-frontend-vue repo
+     to clone the contents of submodule
 
 #### Dependencies
 > Installation guide link and commands has been added to each dependency. You can skip the installation of the dependency if it is already installed.
