@@ -77,14 +77,17 @@
     <% end %>
     <tbody class="groups-expanded-table">
       <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-        <%= render(TableRowComponent.new(assignment, current_user, policy(@group), {
+        <%= render(TableRowComponent.new(assignment, current_user, {
+          group: @group,
+          policy: policy(@group)
+        }, {
           minute: deadline_minute(assignment),
           day: deadline_day(assignment),
           year: deadline_year(assignment),
           month: deadline_month(assignment),
           hour: deadline_hour(assignment),
           second: deadline_second(assignment)
-        }, @group)) %>
+        })) %>
       <% end %>
     </tbody>
 
