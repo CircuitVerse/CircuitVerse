@@ -35,8 +35,8 @@ describe GradesController, type: :request do
           expect do
             post grades_path, params: create_params
           end.to change(Grade, :count).by(1)
-          expect(JSON.parse(response.body).keys.sort).to eq(%w[assignment_id grade id project_id
-                                                               remarks])
+          expect(response.parsed_body.keys.sort).to eq(%w[assignment_id grade id project_id
+                                                          remarks])
           expect(response.content_type).to eq("application/json; charset=utf-8")
         end
       end
@@ -47,7 +47,7 @@ describe GradesController, type: :request do
           create_params[:grade][:grade] = "90"
           post grades_path, params: invalid_params
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["error"]).to eq("Grade is invalid")
+          expect(response.parsed_body["error"]).to eq("Grade is invalid")
         end
       end
     end
@@ -62,8 +62,8 @@ describe GradesController, type: :request do
           expect do
             post grades_path, params: create_params
           end.to change(Grade, :count).by(1)
-          expect(JSON.parse(response.body).keys.sort).to eq(%w[assignment_id grade id project_id
-                                                               remarks])
+          expect(response.parsed_body.keys.sort).to eq(%w[assignment_id grade id project_id
+                                                          remarks])
           expect(response.content_type).to eq("application/json; charset=utf-8")
         end
       end
@@ -74,7 +74,7 @@ describe GradesController, type: :request do
           create_params[:grade][:grade] = "90"
           post grades_path, params: invalid_params
           expect(response.status).to eq(400)
-          expect(JSON.parse(response.body)["error"]).to eq("Grade is invalid")
+          expect(response.parsed_body["error"]).to eq("Grade is invalid")
         end
       end
     end
