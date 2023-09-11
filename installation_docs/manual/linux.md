@@ -3,15 +3,20 @@
 #### Cloning From GitHub
 To clone the repository, either use the Git GUI if you have one installed or enter the following commands:
 ```sh
-git clone https://github.com/CircuitVerse/CircuitVerse.git
+git clone https://github.com/CircuitVerse/CircuitVerse.git --recursive
 cd CircuitVerse
 ```
 
 **Note:** If you want to contribute, first fork the original repository and clone your **forked** repository into your local machine. If you don't do this, you will not be able to make commits or change any files.
 ```sh
-git clone https://github.com/<username>/CircuitVerse.git
+git clone https://github.com/<username>/CircuitVerse.git --recursive
 cd CircuitVerse
 ```
+- incase you missed using the `--recursive` during the cloning, then inside the CircuitVerse directory use
+     ```bash
+     git submodule update --init
+     ```
+     to clone the contents of cv-frontend-vue repo
 
 #### Dependencies
 > Installation guide link and commands has been added to each dependency. You can skip the installation of the dependency if it is already installed.
