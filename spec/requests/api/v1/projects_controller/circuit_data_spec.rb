@@ -25,7 +25,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
 
       it "returns circuit data" do
         expect(response).to have_http_status(:ok)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["name"]).to eq("circuit data")
       end
     end
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
 
       it "returns circuit data" do
         expect(response).to have_http_status(:ok)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["name"]).to eq("circuit data")
       end
     end
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
 
       it "returns circuit data" do
         expect(response).to have_http_status(:ok)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["name"]).to eq("circuit data")
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
 
       it "returns circuit data" do
         expect(response).to have_http_status(:ok)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["name"]).to eq("circuit data")
       end
     end
@@ -106,7 +106,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
 
       it "returns circuit data" do
         expect(response).to have_http_status(:ok)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["name"]).to eq("circuit data")
       end
     end
@@ -121,7 +121,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
 
       it "returns circuit data" do
         expect(response).to have_http_status(:ok)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["name"]).to eq("circuit data")
       end
     end

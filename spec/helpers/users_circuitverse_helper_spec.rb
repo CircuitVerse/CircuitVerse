@@ -48,7 +48,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
     it "returns the URL for the attachment if it is attached" do
       user = FactoryBot.create(:user)
       user.profile_picture.attach(
-        io: File.open(Rails.root.join("spec/fixtures/files/profile.png")),
+        io: Rails.root.join("spec/fixtures/files/profile.png").open,
         filename: "profile.png",
         content_type: "image/png"
       )
