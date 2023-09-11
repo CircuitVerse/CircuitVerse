@@ -21,7 +21,7 @@
         ```bash
         git submodule update --init
         ```
-        to clone the contents of cv-frontend-vue repo
+        to clone the contents of submodule
 3. Open `CircuitVerse` directory
 4. Open `PowerShell` in the current directory
 5. Run `./bin/docker_run.ps1`
@@ -60,7 +60,7 @@ Set-ExecutionPolicy RemoteSigned
         ```bash
         git submodule update --init
         ```
-        to clone the contents of cv-frontend-vue repo
+        to clone the contents of submodule
 3. Open `CircuitVerse` directory
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
@@ -88,7 +88,7 @@ If you required to restart the server
         ```bash
         git submodule update --init
         ```
-        to clone the contents of cv-frontend-vue repo
+        to clone the contents of submodule
 3. Open `CircuitVerse` directory
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
