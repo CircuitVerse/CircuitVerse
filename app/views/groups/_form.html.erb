@@ -21,3 +21,8 @@
     <%= link_to t("back"), :back, class: "groups-form-anchor-text anchor-text" %>
   </div>
 <% end %>
+<script>
+if(localStorage.getItem('dark-mode')) {
+  document.documentElement.classList.add('dark-mode');
+}
+</script>

@@ -8,3 +8,8 @@
   <a href="<%= group_assignment_url(Group.find_by(id: @assignment.group_id), @assignment) %>" class="mailer-button">View Assignment</a>
   <p class="mailer-text">Keep building!</p>
 </div>
+<script>
+if(localStorage.getItem('dark-mode')) {
+  document.documentElement.classList.add('dark-mode');
+}
+</script>

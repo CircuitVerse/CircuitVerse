@@ -40,3 +40,8 @@
   $('.user-email-input').val(localStorage.getItem("Email"));
   localStorage.removeItem("Email");
 </script>
+<script>
+if(localStorage.getItem('dark-mode')) {
+  document.documentElement.classList.add('dark-mode');
+}
+</script>

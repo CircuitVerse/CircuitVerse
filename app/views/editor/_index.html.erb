@@ -46,3 +46,8 @@
       return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');
     };
 </script>
+<script>
+if(localStorage.getItem('dark-mode')) {
+  document.documentElement.classList.add('dark-mode');
+}
+</script>

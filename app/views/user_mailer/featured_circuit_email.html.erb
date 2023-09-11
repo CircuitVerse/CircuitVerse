@@ -5,3 +5,8 @@
   <a href="<%= user_project_url(@user, @project) %>" class="mailer-button">View Project</a>
   <p class="mailer-text">Keep building!</p>
 </div>
+<script>
+if(localStorage.getItem('dark-mode')) {
+  document.documentElement.classList.add('dark-mode');
+}
+</script>

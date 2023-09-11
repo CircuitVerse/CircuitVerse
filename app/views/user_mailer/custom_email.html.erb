@@ -4,3 +4,8 @@
   <div class="mailer-text mailer-body-container"><%= raw @mail.content %></div>
   <p class="mailer-text">Keep building!</p>
 </div>
+<script>
+if(localStorage.getItem('dark-mode')) {
+  document.documentElement.classList.add('dark-mode');
+}
+</script>

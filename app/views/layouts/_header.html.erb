@@ -60,6 +60,9 @@
           <a class="nav-link navbar-item navbar-text <%= request.path == "/users/sign_in" ? "active" : "" %>" href="/users/sign_in"><%= t("login") %></a>
         </li>
       <% end %>
+      <li class="nav-item px-1">
+         <p class="navbar-item navbar-text" id="toggle-dark-mode" style="cursor: pointer;">Dark Mode</p>
+      </li>
     </ul>
   </div>
 </nav>
@@ -93,4 +96,33 @@
   if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
   }
+</script>
+
+<script>
+let darkModeButton = document.getElementById("toggle-dark-mode");
+let darkMode = localStorage.getItem("dark-mode");
+
+const enableDarkMode = () => {
+  document.documentElement.classList.add("dark-mode");
+  localStorage.setItem("dark-mode","enabled");
+  document.getElementById("toggle-dark-mode").textContent =  "Light Mode";
+
+}
+
+const disableDarkMode = () => {
+  document.documentElement.classList.remove("dark-mode");
+  localStorage.setItem("dark-mode",null);
+  document.getElementById("toggle-dark-mode").textContent =  "Dark Mode";
+}
+darkModeButton.addEventListener("click" , () => {
+
+  darkMode = localStorage.getItem("dark-mode");
+    if(darkMode !== "enabled") {
+      enableDarkMode();
+
+    } else {
+      disableDarkMode();
+    }
+})
+
 </script>

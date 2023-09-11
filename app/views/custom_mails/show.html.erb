@@ -21,3 +21,8 @@
 <div class="custom-mail-container">
   <%= render template: "user_mailer/custom_email", layout: "layouts/mailer", mail: @mail, user: @user, is_preview: @is_preview %>
 </div>
+<script>
+if(localStorage.getItem('dark-mode')) {
+  document.documentElement.classList.add('dark-mode');
+}
+</script>
