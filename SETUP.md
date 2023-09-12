@@ -113,6 +113,7 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       ```
 
 2. **Setup CircuitVerse yosys2digitaljs-server**
+
     - In your local CircuitVerse Repository:
       ```sh
       git clone https://github.com/CircuitVerse/yosys2digitaljs-server.git
@@ -127,6 +128,14 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       ```sh
       bin/yosys
       ```
+3. **Setup API keys**
+    - CircuitVerse API uses `RSASSA` cryptographic signing that requires `private` and associated `public` key. To generate the keys RUN the following commands in `CircuitVerse/`
+      ```
+      openssl genrsa -out config/private.pem 2048
+      openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+      ```
+
+
 
 ## Distributed Tracing using Opentelmetry
 
