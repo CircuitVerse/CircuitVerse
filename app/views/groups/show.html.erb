@@ -79,7 +79,8 @@
       <% @group.assignments.includes(projects: :grade).each do |assignment| %>
         <%= render(TableRowComponent.new(assignment, current_user, {
           group: @group,
-          policy: policy(@group)
+          policy: policy(@group),
+          policy_assignment: policy(assignment)
         }, {
           minute: deadline_minute(assignment),
           day: deadline_day(assignment),

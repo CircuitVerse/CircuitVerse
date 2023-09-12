@@ -6,6 +6,7 @@ class TableRowComponent < ViewComponent::Base
     @assignment = assignment
     @current_user = current_user
     @policy = group_and_policy[:policy]
+    @policy_assignment = group_and_policy[:policy_assignment]
     @deadline_minute = deadline_time[:minute]
     @deadline_day = deadline_time[:day]
     @deadline_year = deadline_time[:year]

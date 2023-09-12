@@ -5,8 +5,8 @@
       <% if Flipper.enabled?(:lms_integration, @current_user) %>
         <% if @policy.admin_access? && @assignment.lti_integrated? %>
           <br>
-          <a data-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">Show LMS Credentials</a>
-          <%= render partial: "lms_credentials_modal", locals: { assignment: assignment } %>
+          <a data-toggle="modal" href="#lmscredentialsModal-<%= @assignment.id %>">Show LMS Credentials</a>
+          <%= render partial: "lms_credentials_modal", locals: { assignment: @assignment } %>
         <% end %>
       <% end %>
     </div>
@@ -41,7 +41,7 @@
     <% if @policy.mentor_access? %>
       <% if AssignmentDecorator.new(@assignment).closed? %>
         <div class="groups-assignment-details">
-          <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+          <%= link_to reopen_group_assignment_path(@group, @assignment), class: "mini-button groups-reopen-mini-button" do %>
             <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
             <span><%= t("reopen") %></span>
           <% end %>
@@ -66,18 +66,18 @@
         <% end %>
       </div>
     <% else %>
-      <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
-      <% if(assignment.deadline > Time.current) %>
+      <% project_assignment = @assignment.projects.find { |p| p.author_id == @current_user.id } %>
+      <% if(@assignment.deadline > Time.current) %>
         <% if project_assignment.nil? %>
           <div class="groups-assignment-details">
-            <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+            <%= link_to assignment_start_path(@group, @assignment), class: "mini-button groups-reopen-mini-button" do %>
               <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
               <span><%= t("groups.show.assignment.start_working_btn") %></span>
             <% end %>
           </div>
         <% else %>
           <div class="groups-assignment-details">
-            <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
+            <%= link_to user_project_path(@current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
               <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
               <span><%= t("groups.show.assignment.see_work_done") %></span>
             <% end %>
@@ -88,7 +88,7 @@
           <h6 class="groups-no-assignment-submission-text"><%= t("groups.show.assignment.not_submitted") %></h6>
         <% else %>
           <div class="groups-assignment-details">
-            <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
+            <%= link_to user_project_path(@current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
               <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
               <span><%= t("groups.show.assignment.show_submission") %></span>
             <% end %>
@@ -99,7 +99,7 @@
   </td>
   <% unless @policy.admin_access? %>
     <td>
-      <% if policy(assignment).show_grades? && project_assignment.present? %>
+      <% if @policy_assignment.show_grades? && project_assignment.present? %>
         <div class="groups-assignment-details">
           <div class="groups-no-assignment-submission-text">
             <h6>
