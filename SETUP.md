@@ -118,7 +118,6 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       ```
 
 2. **Setup CircuitVerse yosys2digitaljs-server**
-
     - In your local CircuitVerse Repository:
       ```sh
       git clone https://github.com/CircuitVerse/yosys2digitaljs-server.git
