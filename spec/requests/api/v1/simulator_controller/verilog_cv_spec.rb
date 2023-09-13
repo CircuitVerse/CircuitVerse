@@ -19,7 +19,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
       it "returns a successful response with correct JSON" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
         expect(response.status).to eq(200)
-        expect(JSON.parse(response.body)).to eq(yosys_response.with_indifferent_access)
+        expect(response.parsed_body).to eq(yosys_response.with_indifferent_access)
       end
     end
 
