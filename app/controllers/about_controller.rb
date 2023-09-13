@@ -2,7 +2,7 @@
 
 class AboutController < ApplicationController
   def index
-    @cores = [{ name: "Aayush Gupta", img: "https://avatars.githubusercontent.com/u/47032027?v=4", link: "https://github.com/aayush-05" },
+    @cores = [
               { name: "Samiran Konwar",
                 img: "https://avatars.githubusercontent.com/u/42478217?v=4", link: "https://github.com/abstrekt" },
               { name: "Aboobacker MK",
@@ -19,10 +19,6 @@ class AboutController < ApplicationController
                 img: "https://avatars.githubusercontent.com/u/45434030?s=96&v=4", link: "https://github.com/Nitish145" },
               { name: "Pavan Joshi",
                 img: "https://avatars.githubusercontent.com/u/55848322?s=96&v=4", link: "https://github.com/pavanjoshi914" },
-              { name: "Shreya Prasad",
-                img: "https://avatars.githubusercontent.com/u/43600306?s=96&v=4", link: "https://github.com/ShreyaPrasad1209" },
-              { name: "Shubhankar Sharma",
-                img: "https://avatars.githubusercontent.com/u/32474302?s=96&v=4", link: "https://github.com/shubhankarsharma00" },
               { name: "Satvik Ramaprasad",
                 img: "https://avatars.githubusercontent.com/u/2092958?s=96&v=4", link: "https://github.com/satu0king" },
               { name: "Biswesh Mohapatra",
@@ -42,6 +38,10 @@ class AboutController < ApplicationController
 
     @mentors = []
 
-    @alumni = []
+    @alumni = [
+      { name: "Aayush Gupta", img: "https://avatars.githubusercontent.com/u/47032027?v=4", link: "https://github.com/aayush-05" },
+      { name: "Shreya Prasad", img: "https://avatars.githubusercontent.com/u/43600306?s=96&v=4", link: "https://github.com/ShreyaPrasad1209" },
+      { name: "Shubhankar Sharma", img: "https://avatars.githubusercontent.com/u/32474302?s=96&v=4", link: "https://github.com/shubhankarsharma00" }
+    ]
   end
 end
