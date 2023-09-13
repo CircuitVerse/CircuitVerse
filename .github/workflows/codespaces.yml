@@ -1,4 +1,4 @@
-name: Test Codespaces Config
+name: Codespaces Test
 
 on:
   pull_request:
