@@ -44,7 +44,7 @@ cd CircuitVerse
      ```
 - [Node.js 16.x](https://nodejs.org/it/download)
      ```bash
-     curl -sL https://deb.nodesource.com/setup_16.x | sudo bash
+     curl -sL https://deb.nodesource.com/node_16.x | sudo bash
      sudo apt-get update && sudo apt-get install -y nodejs
      ```
 - [Yarn](https://yarnpkg.com/getting-started/install)

@@ -6,7 +6,18 @@ ARG BUILDPLATFORM
 ENV NODE_ENV=production
 ENV RAILS_ENV=production
 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN apt-get update && apt-get install -y ca-certificates curl gnupg \
+ && sudo mkdir -p /etc/apt/keyrings \
+ && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key |sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+ && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+ && apt-get update \
+ && sudo apt-get install nodejs -y \
+ && apt-get clean \
+ && rm -rf /var/lib/apt/lists/* \
+ && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+ && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+ && apt-get update && apt-get install -y yarn && rm -rf /var/lib/apt/lists/*
+
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
 
 RUN npm install --global yarn
@@ -22,7 +33,7 @@ ENV BUNDLE_DEPLOYMENT=true
 ENV BUNDLE_WITHOUT=development:test
 
 RUN bundle install \
-   && rm -rf vendor/bundle/ruby/3.1.0/cache/*
+    && rm -rf vendor/bundle/ruby/3.1.0/cache/*
 
 COPY . .
 # Remove the Vue simulator directory (since it's being handled separately in another stage)
@@ -31,9 +42,9 @@ RUN rm -rf cv-frontend-vue
 RUN RAILS_ENV=production \
     SECRET_KEY_BASE=1 \
     DATABASE_URL=postgres://nulldb \
-	DISABLE_FLIPPER=true \
+    DISABLE_FLIPPER=true \
     bundle exec rails assets:precompile && \
-	yarn cache clean
+    yarn cache clean
 
 RUN rm -rf node_modules spec
 
@@ -72,13 +83,22 @@ ENV RAILS_SERVE_STATIC_FILES="true"
 ARG REDIS_URL="redis://localhost:6379"
 
 
-RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-recommends --auto-remove curl  \
-   && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-   && apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2  \
-   && apt-get clean \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-   && truncate -s 0 /var/log/*log
+RUN apt-get update && apt-get install -y ca-certificates curl gnupg \
+    && sudo mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key |sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
+    && apt-get update \
+    && sudo apt-get install nodejs -y \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* \
+    && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get update && apt-get install -y yarn && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips libpq5 libcurl4 libjemalloc2 \
+    && rm -rf /var/cache/apt/archives/* \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
+    && truncate -s 0 /var/log/*log
 
 ENV LD_PRELOAD="libjemalloc.so.2"
 ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
