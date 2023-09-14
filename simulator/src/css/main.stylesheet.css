@@ -172,11 +172,11 @@ input[type="text"]:focus {
     font-size: 1em;
     text-align: center;
     display: inline-block;
-    width: 35vw;
+    width: 30vw;
     height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 22rem;
+    margin-right: 6rem;
 }
 
 @media (max-width: 991px) {
