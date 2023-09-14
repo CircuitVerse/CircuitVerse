@@ -12,7 +12,7 @@
   <div class="collapse navbar-collapse" id="collapsed-navbar">
     <ul class="navbar-nav ml-auto navigationBar-item">
       <li class="nav-item px-1 pt-1 navbar-search-icon-onexpand">
-        <div class="center-row navbar-search-icon-container">
+        <div class="center-row navbar-search-icon-container" id="navbarSearchIcon">
           <i class="fa fa-search search-icon <%= request.path == "/search" ? "active" : "" %>" tabindex="0" aria-label="search"></i>
         </div>
       </li>
@@ -90,6 +90,9 @@
   let searchBar = document.getElementsByClassName("navbar-search-active")[0];
   searchIconCollapse.addEventListener("click", activeSearchBar);
   searchIconExpand.addEventListener("click", activeSearchBar);
+  document.getElementById("navbarSearchIcon").addEventListener("click", () => {
+    document.getElementById("q").select();
+  });
   if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
   }
