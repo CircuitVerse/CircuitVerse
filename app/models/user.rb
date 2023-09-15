@@ -4,8 +4,8 @@ class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
-
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
+  self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size profile_picture_updated_at]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
@@ -33,18 +33,14 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
+  before_destroy :purge_profile_picture
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
 
-  has_attached_file :profile_picture, styles: { medium: "205X240#", thumb: "100x100>" },
-                                      default_url: ":style/Default.jpg"
+  has_one_attached :profile_picture
+  before_validation { profile_picture.purge if remove_picture == "1" }
+
   attr_accessor :remove_picture
-
-  before_validation { profile_picture.clear if remove_picture == "1" }
-
-  # validations for user
-
-  validates_attachment_content_type :profile_picture, content_type: %r{\Aimage/.*\z}
 
   validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
@@ -109,5 +105,9 @@ class User < ApplicationRecord
 
     def send_welcome_mail
       UserMailer.welcome_email(self).deliver_later
+    end
+
+    def purge_profile_picture
+      profile_picture.purge if profile_picture.attached?
     end
 end

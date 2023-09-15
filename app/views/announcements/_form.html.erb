@@ -1,8 +1,8 @@
-<%= form_with(model: announcement, local: true,  id:"AnnouncementForm")  do |form| %>
+<%= form_with(model: announcement, local: true, id: "AnnouncementForm")  do |form| %>
   <div class="field form-group">
     <h6><%= form.label :body %></h6>
     <div class="input-group">
-      <%= render partial: 'editor/index', locals: {content: announcement.body} %>
+      <%= render partial: "editor/index", locals: { content: announcement.body } %>
     </div>
   </div>
   <div class="field form-group">

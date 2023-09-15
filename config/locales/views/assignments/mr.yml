@@ -1,0 +1,40 @@
+mr:
+  assignments:
+    group_name: "गट: %{name}"
+    deadline: "वेळेची मर्यादा:"
+    remaining_time_error: "(स्क्रिप्ट लोड करताना एक त्रुटी आली)"
+    form:
+      grade_scale_cant_change: "(एकदा सेट बदलता येत नाही)"
+      cannot_be_edited: "%{graded} - संपादित करू शकत नाही"
+      enable_element_restriction: "संपादित करू शकत नाही"
+      enable_feature_restriction: "वैशिष्ट्य निर्बंध सक्षम करा:"
+      time_remaining: "बाकी वेळ: %{time}"
+      no_grade: "ग्रेड नाही"
+      letter: "लेटर(A-F)"
+      percent: "टक्के(1-100)"
+      custom: "कस्टम"
+    edit:
+      edit_assignment: "असाइनमेंट संपादित करा"
+    new:
+      title: "%{name} - नवीन असाइनमेंट"
+      new_assignment_heading: "नवीन असाइनमेंट"
+    show:
+      title: "%{name} - असाइनमेंट वर्णन"
+      assignment_details_heading: "असाइनमेंट वर्णन"
+    assignment_data:
+      name_html: "<strong>नाव:</strong> %{name}"
+      group_html: "<strong>गट:</strong> %{group_name}"
+      time_remaining_html: "<strong>बाकी वेळ:</strong> %{time_remaining}"
+      graded_html: "<strong>श्रेणीबद्ध:</strong> %{graded}"
+      description: "वर्णन:"
+      restricted_elements_html: "<strong>प्रतिबंधित सर्किट घटक</strong> %{restricted_circuit_elements}"
+      export_grades: "निर्यात ग्रेड"
+      submissions: "सबमिशन:"
+      restricted_features_html: "<strong>प्रतिबंधित फीचर:<strong> %{restricted_features}"
+      no_submissions: "अद्याप कोणतेही सबमिशन नाहीत!"
+      grades_and_remarks: "ग्रेड और रिमार्क्स"
+      grade: "ग्रेड"
+      remarks: "रिमार्क्स"
+      grading_scale_percent: "असाइनमेंटची टक्केवारी (1-100) मध्ये श्रेणीबद्ध केली जाऊ शकते"
+      grading_scale_letter: "असाइनमेंट कोणत्याही अक्षराने A/B/C/D/E/F चिन्हांकित करू द्या. श्रेणीबद्ध केली जाऊ शकते"
+      remove: "काढा"

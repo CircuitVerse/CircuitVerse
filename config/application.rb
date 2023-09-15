@@ -18,13 +18,13 @@ module Logix
     # configuring mailer previews directory
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = [:en, :hi]
+    config.i18n.available_locales = [:en, :hi, :bn, :mr]
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true
 
     # configuring middleware
     config.middleware.use Rack::Attack
-    
+
     # configuring forum
     overrides = "#{Rails.root}/app/overrides"
     Rails.autoloaders.main.ignore(overrides)
