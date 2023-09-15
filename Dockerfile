@@ -33,11 +33,11 @@ RUN apt-get update -qq && \
 
 # Setup nodejs and yarn
 RUN apt-get update && apt-get install -y ca-certificates curl gnupg \
-    && sudo mkdir -p /etc/apt/keyrings \
-    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key |sudo gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
+    && mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | gpg --dearmor -o /etc/apt/keyrings/nodesource.gpg \
     && echo "deb [signed-by=/etc/apt/keyrings/nodesource.gpg] https://deb.nodesource.com/node_16.x nodistro main" | tee /etc/apt/sources.list.d/nodesource.list \
     && apt-get update \
-    && sudo apt-get install nodejs -y \
+    && apt-get install nodejs -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* \
     && curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
