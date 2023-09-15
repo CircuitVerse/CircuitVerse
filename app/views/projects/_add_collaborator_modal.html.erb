@@ -23,10 +23,10 @@
         </div>
         <div class="form-group">
           <%= form.label :emails %>
-          <%= form.select :emails,[ ],{},{ class:'form-select', multiple: true } %>
+          <%= form.select :emails, [], {}, { class: "form-select", multiple: true } %>
         </div>
         <div class="modal-footer">
-          <%= form.submit class: 'btn primary-button add-collaborators-button' %>
+          <%= form.submit class: "btn primary-button add-collaborators-button" %>
         </div>
         <% end %>
       </div>
@@ -41,9 +41,9 @@ $(document).ready(() => {
     multiple: true,
     tokenSeparators: [',', ' '],
   });
-  
-  $('.select2-selection input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
 
+  $('.select2-selection input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
+  $('.select2-selection input').attr('id', 'project_email_input_collaborator');
   $('.add-collaborators-button').attr('disabled', true); // setting submit button to disabled initially
 
   $('.select2-container').on('keyup', () => {
