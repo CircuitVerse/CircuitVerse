@@ -4,7 +4,6 @@
   <% content_for :title, t("users.circuitverse.groups.alt_title") %>
 <% end %>
 
-
 <div class="container">
   <% if notice %>
   <div class="row" id='alertdiv'>
@@ -29,7 +28,7 @@
           <div class="groups-card groups-mentor-card">
             <div class="groups-mentor-card-name"><%= group.name %></div>
             <div>
-              <p><%= t("users.circuitverse.groups.total_members",group_member_count: group.group_member_count ) %> </p>
+              <p><%= t("users.circuitverse.groups.total_members", group_member_count: group.group_member_count) %> </p>
             </div>
             <div class="groups-mentor-card-mini-buttons">
               <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button" do %>
@@ -40,7 +39,7 @@
                 <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to '#', class: "mini-button groups-mentor-card-delete-mini-button", data: {toggle: "modal", target: "#deletegroupModal", currentgroup: group.id} do %>
+              <%= link_to "#", class: "mini-button groups-mentor-card-delete-mini-button", data: { toggle: "modal", target: "#deletegroupModal", currentgroup: group.id } do %>
                 <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Group") %>
                 <span><%= t("delete") %></span>
               <% end %>

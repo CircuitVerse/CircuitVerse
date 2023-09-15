@@ -8,8 +8,10 @@
 /.bundle
 /.idea
 test_results
+tmp
 
 public/assets/
+public/simulatorvue
 
 /config/database.yml
 /config/secrets.yml
@@ -48,7 +50,6 @@ dump.rdb
 
 public/sitemap.xml.gz
 coverage
-.vscode
 
 solr/data
 solr/test/data
@@ -66,6 +67,7 @@ yarn-debug.log*
 
 # Private key
 config/private.pem
+config/public.pem
 
 .env
 .eslintcache
@@ -76,3 +78,28 @@ config/private.pem
 yosys2digitaljs-server
 */**/node_modules
 */**/yarn-error.log
+
+storage/
+config/credentials.yml.enc
+/config/master.key
+
+# Ignore all files of .vscode except launch.json
+.vscode/*
+!.vscode/launch.json
+
+
+# Vite Ruby
+/public/vite*
+node_modules
+# Vite uses dotenv and suggests to ignore local-only env files. See
+# https://vitejs.dev/guide/env-and-mode.html#env-files
+*.local
+
+# ignore rbs collection
+.gem_rbs_collection
+
+# Ignore vendor folder generated in Gitpod Environment
+vendor/
+
+# Ignore .vscode/settings.json
+.vscode/settings.json

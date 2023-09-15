@@ -11,7 +11,7 @@ import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
-import C2S from '../../vendor/canvas2svg';
+import C2S from '../canvas2svg';
 
 var projectName = undefined;
 
@@ -407,3 +407,24 @@ export default async function save() {
     // Restore everything
     resetup();
 }
+
+/**
+ * Function to autosave the data of circuit
+ * @category data
+ * @exports save
+ */
+var checkForAutosave = 1;
+
+export function autosave() {
+    var circuitData = generateSaveData('Untitled');
+    localStorage.setItem('autosave', circuitData);
+}
+
+export function checkBackups() {
+    if (checkForAutosave < globalScope.backups.length) {
+        autosave();
+        checkForAutosave = globalScope.backups.length;
+    }
+}
+
+setInterval(checkBackups, 3000);
