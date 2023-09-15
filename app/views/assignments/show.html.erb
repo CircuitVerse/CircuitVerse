@@ -43,7 +43,7 @@
         <% end %>
           <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
             <br>
-            <%= link_to edit_group_assignment_path(@group, @assignment), class:"mini-button groups-reopen-mini-button" do %>
+            <%= link_to edit_group_assignment_path(@group, @assignment), class: "mini-button groups-reopen-mini-button" do %>
               <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
               <span><%= t("edit") %></span>
             <% end %>
@@ -105,21 +105,21 @@
                 <div class="assignments-grading-container">
                   <h5 class="assignments-grading-heading"><%= t("assignments.assignment_data.grades_and_remarks") %></h5>
                   <span id="project-grade-error" class="assignments-error"></span>
-                  <%= form_with(model: Grade.new, multipart: true,id:"assignment-grade-form",url: "/grades") do |form| %>
+                  <%= form_with(model: Grade.new, multipart: true, id: "assignment-grade-form", url: "/grades") do |form| %>
                     <%= form.hidden_field :project_id, id: "assignment-project-id" %>
                     <%= form.hidden_field :assignment_id, value: @assignment.id %>
                     <div class="row">
                       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
                         <h6><%= t("assignments.assignment_data.grade") %></h6>
                         <% if @assignment.grading_scale == "percent" %>
-                          <%= form.number_field :grade,id: "assignment-grade-grade", min: 0, max: 100, class: "form-control form-input" %>
+                          <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100, class: "form-control form-input" %>
                         <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
-                          <%= form.text_field :grade,id: "assignment-grade-grade", class: "form-control form-input" %>
+                          <%= form.text_field :grade, id: "assignment-grade-grade", class: "form-control form-input" %>
                         <% end %>
                       </div>
                       <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                         <h6><%= t("assignments.assignment_data.remarks") %></h6>
-                        <%= form.text_field :remarks,id: "assignment-grade-remarks", class: "form-control form-input" %>
+                        <%= form.text_field :remarks, id: "assignment-grade-remarks", class: "form-control form-input" %>
                       </div>
                     </div>
                     <div class="row">

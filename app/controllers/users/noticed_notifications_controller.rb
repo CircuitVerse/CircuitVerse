@@ -12,26 +12,7 @@ class Users::NoticedNotificationsController < ApplicationController
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
     answer = NotifyUser.new(params).call
-    notification_path(answer)
-  end
-
-  def mark_all_as_read
-    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
-    redirect_to notifications_path(current_user)
-  end
-
-  def read_all_notifications
-    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
-    redirect_back(fallback_location: root_path)
-  end
-end
-
-  private
-
-  def notification_path(answer)
     case answer.type
-    when "new_group"
-      redirect_to group_path(answer.first_param)
     when "new_assignment"
       redirect_to group_assignment_path(answer.first_param, answer.second)
     when "star", "fork"
@@ -44,3 +25,14 @@ end
       redirect_to root_path
     end
   end
+
+  def mark_all_as_read
+    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
+    redirect_to notifications_path(current_user)
+  end
+
+  def read_all_notifications
+    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
+    redirect_back(fallback_location: root_path)
+  end
+end

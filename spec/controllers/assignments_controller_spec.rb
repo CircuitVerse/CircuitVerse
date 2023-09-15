@@ -55,7 +55,7 @@ describe AssignmentsController, type: :request do
 
       it "returns required json response" do
         get group_assignment_path(@group, @assignment), params: { format: :json }
-        res = JSON.parse(response.body)
+        res = response.parsed_body
         expect(response.media_type).to eq("application/json")
         expect(res.keys.sort).to eq(assignment_keys)
       end
@@ -85,6 +85,45 @@ describe AssignmentsController, type: :request do
     it "starts a new project" do
       get assignment_start_path(@group, @assignment)
       expect(response.status).to eq(302)
+    end
+  end
+
+  describe "#close" do
+    context "when random user is signed in" do
+      before do
+        sign_in @member
+      end
+
+      it "restricts access" do
+        put close_group_assignment_path(@group, @assignment)
+        expect(response.body).to include("You are not authorized to do the requested operation")
+      end
+    end
+
+    context "when mentor is signed in" do
+      before do
+        sign_in @primary_mentor
+      end
+
+      context "when assignment is open" do
+        it "closes the assignment" do
+          put close_group_assignment_path(@group, @assignment)
+          @assignment.reload
+          expect(@assignment.status).to eq("closed")
+        end
+      end
+
+      context "when assignment is closed" do
+        before do
+          @assignment.update(status: "closed")
+        end
+
+        it "closes the assignment" do
+          put close_group_assignment_path(@group, @assignment)
+          @assignment.reload
+          expect(@assignment.status).to eq("closed")
+        end
+      end
     end
   end
 
@@ -215,6 +254,9 @@ describe AssignmentsController, type: :request do
       end
 
       it "sends notifications to group members" do
+        sign_in @primary_mentor
+        post group_assignments_path(@group), params: { assignment:
+          { description: "group assignment", name: "Test Name" } }
         expect(@member.noticed_notifications.count).to eq(1)
       end
     end

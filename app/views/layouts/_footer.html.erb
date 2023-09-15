@@ -14,7 +14,7 @@
         </div>
         <div class="row">
           <a class="bounce-out-on-hover" href="/facebook" target="_blank" data-tooltip="facebook"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon pt-2", alt: "Facebook Logo") %></a>
-          <a class="bounce-out-on-hover" href="/twitter" target="_blank" data-tooltip="twitter"><%= image_tag("logos/twitter-logo.png", class: "footer-social-icon pt-2", alt: "Twitter Logo") %></a>
+          <a class="bounce-out-on-hover" href="/twitter" target="_blank" data-tooltip="twitter"><%= image_tag("logos/twitter-x.png", class: "footer-social-icon pt-2", alt: "Twitter Logo") %></a>
           <a class="bounce-out-on-hover" href="/linkedin" target="_blank" data-tooltip="linkedin"><%= image_tag("logos/linkedin-logo.png", class: "footer-social-icon pt-2", alt: "LinkedIn Logo") %></a>
         </div>
       </div>
@@ -37,33 +37,13 @@
             <a href="/teachers"><h6><%= t("layout.link_to_teachers") %></h6></a>
             <a href="/about"><h6><%= t("layout.link_to_about") %></h6></a>
             <% if Flipper.enabled?(:forum) %>
-              <h6><%= link_to t("layout.footer.link_to_forum") , simple_discussion_path %></h6>
+              <h6><%= link_to t("layout.footer.link_to_forum"), simple_discussion_path %></h6>
             <% end %>
           </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-column">
         <div class="row">
-          <div class="col-6">
-            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.brought_by") %></small>
-            <a href="https://www.iiitb.ac.in/" rel="noopener" target="_blank">
-              <%= image_tag("footer/iiitb.png", class: "footer-sponsor-logo mb-2", alt: "iiitb Logo") %>
-            </a>
-          </div>
-          <div class="col-6">
-            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.hosting_sponsor") %></small>
-            <a href="https://aws.amazon.com/" rel="noopener" target="_blank">
-              <%= image_tag("footer/Logo-AWS.jpg", class: "footer-sponsor-logo mb-2", alt: "AWS Logo") %>
-            </a>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-6">
-            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.marketed_by") %></small>
-            <a href="http://www.iiitb.org/" rel="noopener" target="_blank">
-                  <%= image_tag("footer/istudio.png", class: "footer-sponsor-logo", alt: "istudio Logo") %>
-                </a>
-          </div>
           <div class="col-6">
             <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.developed_by") %></small>
             <a href="http://zense.co.in/" rel="noopener" target="_blank">
@@ -75,7 +55,7 @@
     </div>
     <div class="row">
       <div class="col-12 text-white text-left footer-copyright-text">
-  <p><%= t("layout.footer.copyright_text",time_current_year: Time.current.year) %></p>
+  <p><%= t("layout.footer.copyright_text", time_current_year: Time.current.year) %></p>
       </div>
     </div>
   </div>
