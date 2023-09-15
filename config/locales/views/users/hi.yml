@@ -8,7 +8,7 @@ hi:
       delete_group_confirmation: "क्या आप वाकई इस समूह को हटाना चाहते हैं?"
       delete_user_confirmation: "क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं? इस कार्रवाई को वापस नहीं किया जा सकता."
       preview_project: "परियोजना पूर्वावलोकन"
-      member_since_html: "<strong>सदस्य कितने दिनों से:</strong> %{member_since} दिन"
+      member_since_html: "<strong>सदस्य कितने दिनों से:</strong> %{member_since}"
       educational_institutes_html: "<strong>शैक्षिक संस्था:</strong> %{educational_institute}"
       country_html: "<strong>देश:</strong> %{country_name}"
       total_circuits_made_html: "<strong>कुल सर्किट बनाये: </strong> %{total_circuits}"

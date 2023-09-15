@@ -20,11 +20,11 @@
         <% if policy(group).admin_access? %>
           <div class="group-member-button-container">
             <div class="groups-mentor-card-mini-buttons">
-              <%= link_to '#', data: {toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id:member.user.id,group_id:group.id).id}, class:"mini-button groups-delete-mini-button" do %>
+              <%= link_to "#", data: { toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id: member.user.id, group_id: group.id).id }, class: "mini-button groups-delete-mini-button" do %>
                 <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
                 <span><%= t("remove") %></span>
               <% end %>
-              <%= link_to '#', data: {toggle: "modal", target: "#demote-member-modal", currentgroupmember: GroupMember.find_by(user_id:member.user.id,group_id:group.id).id}, class:"mini-button groups-reopen-mini-button" do %>
+              <%= link_to "#", data: { toggle: "modal", target: "#demote-member-modal", currentgroupmember: GroupMember.find_by(user_id: member.user.id, group_id: group.id).id }, class: "mini-button groups-reopen-mini-button" do %>
                 <%= image_tag("SVGs/editGroup.svg", alt: "Make mentor") %>
                 <span><%= t("groups.make_member") %></span>
               <% end %>
