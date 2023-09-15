@@ -13,7 +13,7 @@ git clone https://github.com/<username>/CircuitVerse.git --recursive
 cd CircuitVerse
 ```
 
-    - Use `git submodule update --init` to get the contents of the submodule if you missed using the `--recursive` option while cloning the repository or if you have already done so.
+- Use `git submodule update --init` to get the contents of the submodule if you missed using the `--recursive` option while cloning the repository or if you have already done so.
 
 #### Dependencies
 > Installation guide link and commands has been added to each dependency. You can skip the installation of the dependency if it is already installed.
