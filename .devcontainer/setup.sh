@@ -1,4 +1,4 @@
-# !/bin/sh
+#!/bin/sh
 
 # Setup database
 cp config/database.docker.yml config/database.yml
