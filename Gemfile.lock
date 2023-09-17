@@ -86,7 +86,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    acts_as_votable (0.13.2)
+    acts_as_votable (0.14.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     ahoy_matey (4.0.3)
@@ -868,7 +868,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  acts_as_votable (~> 0.13.2)
+  acts_as_votable (~> 0.14.0)
   ahoy_matey
   aws-sdk-rails
   aws-sdk-s3 (~> 1.116)
