@@ -86,7 +86,7 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-    acts_as_votable (0.13.2)
+    acts_as_votable (0.14.0)
     addressable (2.8.4)
       public_suffix (>= 2.0.2, < 6.0)
     ahoy_matey (4.0.3)
@@ -617,7 +617,7 @@ GEM
       json
     redcarpet (3.5.1)
     redis (4.6.0)
-    redis-client (0.14.1)
+    redis-client (0.17.0)
       connection_pool
     regexp_parser (2.8.1)
     reline (0.3.4)
@@ -714,7 +714,7 @@ GEM
     sexp_processor (4.16.0)
     shoulda-matchers (5.1.0)
       activesupport (>= 5.2.0)
-    sidekiq (7.1.1)
+    sidekiq (7.1.4)
       concurrent-ruby (< 2)
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
@@ -824,8 +824,9 @@ GEM
     unf_ext (0.0.8.2)
     unicode-display_width (2.4.2)
     version_gem (1.1.1)
-    view_component (2.57.1)
-      activesupport (>= 5.0.0, < 8.0)
+    view_component (3.6.0)
+      activesupport (>= 5.2.0, < 8.0)
+      concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
     vite_rails (3.0.14)
       railties (>= 5.1, < 8)
@@ -867,7 +868,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  acts_as_votable (~> 0.13.2)
+  acts_as_votable (~> 0.14.0)
   ahoy_matey
   aws-sdk-rails
   aws-sdk-s3 (~> 1.116)
