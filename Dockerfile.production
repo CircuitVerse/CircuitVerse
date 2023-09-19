@@ -6,10 +6,6 @@ ARG BUILDPLATFORM
 ENV NODE_ENV=production
 ENV RAILS_ENV=production
 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
-
-RUN npm install --global yarn
 
 WORKDIR /usr/src/app
 
@@ -33,12 +29,6 @@ RUN RAILS_ENV=production \
     DATABASE_URL=postgres://nulldb \
 	DISABLE_FLIPPER=true \
     bundle exec rails assets:precompile && \
-	yarn cache clean
-
-RUN rm -rf node_modules spec
-
-# Precompile the Bootsnap cache for the specified directories to optimize boot time in production.
-RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Build stage for the Vue simualtor
 FROM --platform=$BUILDPLATFORM node:18.11-slim as simulator_vue_build
