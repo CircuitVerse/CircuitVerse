@@ -126,4 +126,11 @@
     const selection = feedback.selection.value[feedback.selection.key];
     autoCompleteJS.input.value = selection;
   });
+  $('#remove_pic').change(function() {
+    if($(this).is(":checked")) {
+      $('#imgedit').attr('src', '/assets/images/thumb/Default.jpg');
+    } else {
+      $('#imgedit').attr('src', '<%= @profile.profile_picture %>');
+    }
+  });
 </script>
