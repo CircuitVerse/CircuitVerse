@@ -7,10 +7,23 @@ html {
 }
 
 body {
-  font-family: 'Inter';
+  font-family: "Inter";
   padding-top: 90px;
 }
+//Scroll Style
+::-webkit-scrollbar {
+  width: 8px;
+}
 
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #42b983;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #e6f9f2;
+}
 .noSelect {
   -moz-user-select: none;
   -ms-user-select: none;
