@@ -70,6 +70,6 @@
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix",
-    "*.rb": "rubocop -l -A"
+    "*.rb": "bundle exec rubocop -l -A"
   }
 }

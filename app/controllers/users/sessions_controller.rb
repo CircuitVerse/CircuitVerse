@@ -11,15 +11,38 @@ class Users::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    super do |user|
+      # Check if 'Remember me' is selected
+      remember_me = params.dig(:user, :remember_me) == "1"
+
+      # Generate JWT token
+      token = JsonWebToken.encode(
+        user_id: user.id, username: user.name, email: user.email, remember_me: remember_me
+      )
+
+      cookie_options = {
+        value: token,
+        # httponly: true,
+        secure: Rails.env.production?,
+        same_site: :strict
+      }
+
+      # Set cookie expiration
+      cookie_options[:expires] = 2.weeks.from_now if remember_me
+
+      # Set JWT token as cookie
+      cookies[:cvt] = cookie_options
+    end
+  end
 
   # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
-
+  def destroy
+    super do
+      # Remove the JWT token cookie
+      cookies.delete(:cvt)
+    end
+  end
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

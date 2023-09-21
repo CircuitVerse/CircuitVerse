@@ -27,7 +27,7 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         end.to change(Project, :count).by(1)
 
         expect(response).to have_http_status(:created)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["project"]).to be_present
         expect(parsed_response["project"]["name"]).to eq("Test Name")
         expect(parsed_response["project"]["project_access_type"]).to eq("Public")

@@ -4,6 +4,7 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
+  before_action :redirect_to_vue_simulator_if_enabled
   before_action :authenticate_user!, only: %i[create update edit update_image]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit update_image]
@@ -25,6 +26,12 @@ class SimulatorController < ApplicationController
     render "embed"
   end
 
+  def new
+    @logix_project_id = 0
+    @projectName = ""
+    render "edit"
+  end
+
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
@@ -43,10 +50,23 @@ class SimulatorController < ApplicationController
     render json: ProjectDatum.find_by(project: @project)&.data
   end
 
-  def new
-    @logix_project_id = 0
-    @projectName = ""
-    render "edit"
+  def create
+    @project = Project.new
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
+    @project.name = sanitize(params[:name])
+    @project.author = current_user
+
+    image_file = return_image_file(params[:image])
+    @project.image_preview = image_file
+    attach_circuit_preview(image_file)
+    @project.save!
+    image_file.close
+
+    File.delete(image_file) if check_to_delete(params[:image])
+
+    # render plain: simulator_path(@project)
+    # render plain: user_project_url(current_user,@project)
+    redirect_to edit_user_project_url(current_user, @project)
   end
 
   def update
@@ -156,5 +176,16 @@ class SimulatorController < ApplicationController
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
+    end
+
+    def redirect_to_vue_simulator_if_enabled
+      return unless Flipper.enabled?(:vuesim, current_user)
+
+      new_path = request.fullpath.gsub(%r{^/simulator}, "")
+      if new_path.blank? || new_path == "/"
+        redirect_to default_simulatorvue_path
+      else
+        redirect_to simulatorvue_path(path: new_path.sub(%r{^/}, ""))
+      end
     end
 end
