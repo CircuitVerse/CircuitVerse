@@ -190,7 +190,7 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.116"
+gem "aws-sdk-s3", "~> 1.135"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.2"
