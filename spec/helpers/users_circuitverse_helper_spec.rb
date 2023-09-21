@@ -69,7 +69,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
         @user = FactoryBot.create(:user)
         @project = FactoryBot.create(:project)
         @project.circuit_preview.attach(
-          io: File.open(Rails.root.join("spec/fixtures/files/default.png")),
+          io: Rails.root.join("spec/fixtures/files/default.png").open,
           filename: "preview_1234.jpeg",
           content_type: "img/jpeg"
         )
@@ -107,7 +107,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       end
 
       it "returns PaperClip url" do
-        image_file = File.open(Rails.root.join("spec/fixtures/files/default.png"))
+        image_file = Rails.root.join("spec/fixtures/files/default.png").open
         @project.image_preview = image_file
         expect(Flipper.enabled?(:active_storage_s3, @user)).to be false
         image_preview_url = send(:return_image_preview, @project)

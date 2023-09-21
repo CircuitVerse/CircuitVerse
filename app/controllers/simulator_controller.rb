@@ -55,14 +55,14 @@ class SimulatorController < ApplicationController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
-
+    # ActiveStorage
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(io_image_file)
+    # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
-    attach_circuit_preview(image_file)
-    @project.save!
     image_file.close
-
-    File.delete(image_file) if check_to_delete(params[:image])
+    @project.save!
 
     # render plain: simulator_path(@project)
     # render plain: user_project_url(current_user,@project)
@@ -112,25 +112,6 @@ class SimulatorController < ApplicationController
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
     HTTP.post(url, json: { text: text })
     head :ok, content_type: "text/html"
-  end
-
-  def create
-    @project = Project.new
-    @project.build_project_datum.data = sanitize_data(@project, params[:data])
-    @project.name = sanitize(params[:name])
-    @project.author = current_user
-    # ActiveStorage
-    io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(io_image_file)
-    # CarrierWave
-    image_file = return_image_file(params[:image])
-    @project.image_preview = image_file
-    image_file.close
-    @project.save!
-
-    # render plain: simulator_path(@project)
-    # render plain: user_project_url(current_user,@project)
-    redirect_to edit_user_project_url(current_user, @project)
   end
 
   def verilog_cv
