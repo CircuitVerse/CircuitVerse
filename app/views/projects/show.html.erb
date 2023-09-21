@@ -2,20 +2,20 @@
 <% content_for :description, @project.description %>
 <% set_meta_tags author: @project.author.name %>
 <% set_meta_tags twitter: {
-  card: "summary_large_image",
-  title: yield(:title),
-  description: @project.description,
-  image: {
-    src: "#{Rails.configuration.site_url}#{@project.image_preview}"
-  }
-  } %>
+     card: "summary_large_image",
+     title: yield(:title),
+     description: @project.description,
+     image: {
+       src: "#{Rails.configuration.site_url}#{@project.image_preview}"
+     }
+   } %>
 <% set_meta_tags og: {
-  title: yield(:title),
-  image: "#{Rails.configuration.site_url}#{@project.image_preview}",
-  description: @project.description,
-  type: "article",
-  site_name: Rails.configuration.site_name
-  } %>
+     title: yield(:title),
+     image: "#{Rails.configuration.site_url}#{@project.image_preview}",
+     description: @project.description,
+     type: "article",
+     site_name: Rails.configuration.site_name
+   } %>
 <div class="container" data-controller="projects">
   <% if notice %>
   <div class="row" id='alertdiv'>
@@ -30,7 +30,7 @@
     <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
       <div class="projects-iframe-container">
         <div class="embed-responsive embed-responsive-4by3">
-          <iframe src=<%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
+          <iframe src=<%= simulator_path(@project) %>></iframe>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@
           <div class="projects-search-tags-container">
             <% if !@project.tags.empty? %>
               <% @project.tags.each do |tag| %>
-                <%= link_to tag.name, tag_path(tag.name),class: "badge search-tag" %>
+                <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
               <% end %>
             <% end %>
           </div>
@@ -67,7 +67,7 @@
           <% if !@project.forked_project.nil? %>
             <p>
               <strong><%= t("projects.show.project_forked_from") %> </strong>
-              <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text",method: :post %>
+              <%= link_to "#{@project.forked_project.author.name}/#{@project.forked_project.name}", user_project_path(@project.forked_project.author, @project.forked_project), class: "anchor-text", method: :post %>
             </p>
           <% end %>
           <p>
@@ -78,12 +78,12 @@
             <p>
               <strong><%= t("projects.show.project_description") %> </strong>
             </p>
-            <div class="projects-details-description"><%= sanitize@project.description %></div>
+            <div class="projects-details-description"><%= sanitize @project.description %></div>
           <% end %>
           <p title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
             <strong><%= t("projects.show.project_created_at") %> </strong>
             <% if @project.created_at >= 14.days.ago %>
-              <%= time_ago_in_words(@project.created_at, include_seconds: true) + " ago" %>
+              <%= "#{time_ago_in_words(@project.created_at, include_seconds: true)} ago" %>
             <% else %>
              <%= @project.created_at.strftime("%b %d, %Y") %>
             <% end %>
@@ -91,7 +91,7 @@
           <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
             <strong><%= t("projects.show.project_updated_at") %> </strong>
             <% if @project.updated_at >= 14.days.ago %>
-              <%= time_ago_in_words(@project.updated_at, include_seconds: true) + " ago" %>
+              <%= "#{time_ago_in_words(@project.updated_at, include_seconds: true)} ago" %>
             <% else %>
               <%= @project.updated_at.strftime("%b %d, %Y") %>
             <% end %>
@@ -102,13 +102,13 @@
               <% if policy(@project).user_access? %>
                 <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("launch_simulator") %></a>
               <% else %>
-                <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embed" data-toggle="modal">
+                <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
                 <i class="fas fa-code"></i>
                 <span><%= t("projects.show.project_embed") %></span>
               </a>
               <% end %>
               <% if policy(@project).author_access? %>
-                <%= link_to create_fork_project_path(@project),id:"copy_paste", class: "btn primary-button projects-primary-button", method: :post do %>
+                <%= link_to create_fork_project_path(@project), id: "copy_paste", class: "btn primary-button projects-primary-button", method: :post do %>
                   <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
                   <span><%= t("projects.show.project_copy") %></span>
                 <% end %>
@@ -137,7 +137,7 @@
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "btn secondary-button", data: {toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id} do %>
+              <%= link_to "#", class: "btn secondary-button", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
@@ -179,7 +179,7 @@
                   </div>
                   <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
-                      <%= link_to "#", data: {toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id:user.id, project_id:@project.id).id }, class: "btn primary-delete-button" do %>
+                      <%= link_to "#", data: { toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
                         <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
                         <span><%= t("remove") %></span>
                       <% end %>

@@ -47,7 +47,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   # DELETE /api/v1/assignments/:id
   def destroy
     @assignment.destroy!
-    render json: {}, status: :no_content
+    head :no_content
   end
 
   # PATCH /api/v1/assignments/:id/reopen

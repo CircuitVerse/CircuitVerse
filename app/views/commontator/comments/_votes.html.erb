@@ -28,8 +28,7 @@
             remote: true do %>
         <%= image_submit_tag "commontator/upvote_active.png",
               onmouseover: "this.src='#{image_path("commontator/upvote.png")}'",
-              onmouseout: "this.src='#{image_path("commontator/upvote_active.png")}'"
-        %>
+              onmouseout: "this.src='#{image_path("commontator/upvote_active.png")}'" %>
       <% end %>
     <% else %>
       <div title="You can't vote on your own comment">
@@ -58,10 +57,9 @@
       <%= form_tag commontator.unvote_comment_path(comment),
             method: :put,
             remote: true do %>
-        <%= image_submit_tag "commontator/downvote_active.png",
-              onmouseover: "this.src='#{image_path("commontator/downvote.png")}'",
-              onmouseout: "this.src='#{image_path("commontator/downvote_active.png")}'"
-        %>
+      <%= image_submit_tag "commontator/downvote_active.png",
+        onmouseover: "this.src='#{image_path("commontator/downvote.png")}'",
+        onmouseout: "this.src='#{image_path("commontator/downvote_active.png")}'" %>
       <% end %>
     <% else %>
     <div title="You can't vote on your own comment">

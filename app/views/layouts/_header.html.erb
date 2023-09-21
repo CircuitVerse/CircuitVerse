@@ -1,9 +1,9 @@
-<nav class="<%= 'navbar-announcement'  if current_announcement %> navbar navbar-expand-lg bg-white">
+<nav class="navbar navbar-expand-lg bg-white">
   <a class="navbar-brand" href="/">
     <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
   </a>
   <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
-    <i class="fa fa-search search-icon <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
+    <i class="fa fa-search search-icon <%= request.path == "/search" ? "active" : "" %>" tabindex="0" aria-label="search"></i>
   </div>
   <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsed-navbar"
   aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +13,7 @@
     <ul class="navbar-nav ml-auto navigationBar-item">
       <li class="nav-item px-1 pt-1 navbar-search-icon-onexpand">
         <div class="center-row navbar-search-icon-container">
-          <i class="fa fa-search search-icon <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
+          <i class="fa fa-search search-icon <%= request.path == "/search" ? "active" : "" %>" tabindex="0" aria-label="search"></i>
         </div>
       </li>
       <li class="nav-item px-1">
@@ -29,16 +29,16 @@
         </li>
       </div>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/features' ? 'active' : '' %>" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == "/features" ? "active" : "" %>" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/teachers' ? 'active' : '' %>" href="/teachers"><%= t("layout.link_to_teachers") %></a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == "/teachers" ? "active" : "" %>" href="/teachers"><%= t("layout.link_to_teachers") %></a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/blog' ? 'active' : '' %>" href="https://blog.circuitverse.org/" target="_blank"><%= t("layout.link_to_blog") %></a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == "/blog" ? "active" : "" %>" href="https://blog.circuitverse.org/" target="_blank"><%= t("layout.link_to_blog") %></a>
       </li>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t("layout.link_to_about") %></a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == "/about" ? "active" : "" %>" href="/about"><%= t("layout.link_to_about") %></a>
       </li>
       <%= render "layouts/notifications" %>
       <% if user_signed_in? %>
@@ -57,7 +57,7 @@
       </div>
       <% else %>
         <li class="nav-item px-1">
-          <a class="nav-link navbar-item navbar-text <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="/users/sign_in"><%= t("login") %></a>
+          <a class="nav-link navbar-item navbar-text <%= request.path == "/users/sign_in" ? "active" : "" %>" href="/users/sign_in"><%= t("login") %></a>
         </li>
       <% end %>
     </ul>
