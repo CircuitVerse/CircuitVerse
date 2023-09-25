@@ -81,5 +81,41 @@ describe SimulatorController, type: :request do
         end
       end
     end
+
+    describe "#redirect_to_vue_simulator_if_enabled" do
+      context "when vuesim is enabled for user and user opens black simualtor" do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(true)
+          get simulator_new_path
+        end
+
+        it "redirects to default simulatorvue path if path is root" do
+          expect(response).to redirect_to default_simulatorvue_path
+        end
+      end
+
+      context "when vuesim is enabled for user and user tries to edit a circuit" do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(true)
+          get simulator_path(@project)
+        end
+
+        it "redirects to the simulatorvue path with the given path" do
+          get simulator_edit_path(@project)
+          expect(response).to redirect_to simulatorvue_path(path: "edit/#{@project.name.parameterize}")
+        end
+      end
+
+      context "when vuesim is not enabled for user" do
+        before do
+          allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(false)
+          get simulator_path(@project)
+        end
+
+        it "does not redirect to simulatorvue" do
+          expect(response).not_to redirect_to default_simulatorvue_path
+        end
+      end
+    end
   end
 end
