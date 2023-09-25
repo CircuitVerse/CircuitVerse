@@ -22,7 +22,7 @@ services:
       POSTGRES_PASSWORD: postgres
       PGDATA: /var/lib/postgresql/data/pgdata
     volumes:
-      - postgres_data:/var/lib/postgresql/data/pgdata
+      - postgres_data:/var/lib/postgresql@14/data/pgdata
   redis:
     image: redis:7.0-alpine
   web:
