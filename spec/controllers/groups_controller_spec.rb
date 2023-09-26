@@ -129,7 +129,7 @@ describe GroupsController do
       it "does not add member to group and generates error message" do
         sign_in @user
         get invite_group_path(id: @group.id, token: @group.group_token)
-         expect(response).to have_http_status(302)
+        expect(response).to have_http_status(302)
         expect(flash[:notice])
           .to eq("Url is expired, request a new one from the primary mentor of the group.")
       end
@@ -139,7 +139,7 @@ describe GroupsController do
       it "does not add member to the group and generates error message" do
         sign_in @user
         get invite_group_path(id: @group.id, token: "abc")
-         expect(response).to have_http_status(302)
+        expect(response).to have_http_status(302)
       end
     end
   end
@@ -153,7 +153,7 @@ describe GroupsController do
       it "regenerates the group token" do
         sign_in @primary_mentor
         put generate_token_group_path(id: @group.id), xhr: true
-         expect(response).to have_http_status(200)
+        expect(response).to have_http_status(200)
       end
     end
   end

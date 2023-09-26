@@ -21,7 +21,7 @@ describe SimulatorController do
           expect do
             post "/simulator/create_data", params: { image: "", name: "Test Name" }
           end.to change(Project, :count).by(1)
-           expect(response).to have_http_status(302)
+          expect(response).to have_http_status(302)
           created_project = Project.order("created_at").last
           expect(created_project.image_preview.path.split("/")[-1]).to eq("default.png")
         end
@@ -55,7 +55,7 @@ describe SimulatorController do
           post "/simulator/update_data", params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")
-           expect(response).to have_http_status(200)
+          expect(response).to have_http_status(200)
         end
       end
 
@@ -63,7 +63,7 @@ describe SimulatorController do
         it "throws project access error" do
           sign_in_random_user
           post "/simulator/update_data", params: update_params
-           expect(response).to have_http_status(403)
+          expect(response).to have_http_status(403)
         end
       end
     end
