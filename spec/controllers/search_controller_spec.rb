@@ -20,7 +20,7 @@ describe SearchController, type: :request do
 
         it "returns results" do
           get search_path, params: { q: "Dummy", resource: "Users" }
-          expect(response.status).to eq(200)
+          expect(response).have_http_status(200)
           expect(response.body).to include("Dummy User")
           expect(response.body).to include("Another Dummy User")
         end
@@ -34,7 +34,7 @@ describe SearchController, type: :request do
 
         it "returns results" do
           get search_path, params: { q: "Techinical", resource: "Users" }
-          expect(response.status).to eq(200)
+          expect(response).have_http_status(200)
           expect(response.body).to include("Dummy Techinical University")
           expect(response.body).to include("Another Dummy Techinical University")
         end
@@ -51,7 +51,7 @@ describe SearchController, type: :request do
 
         it "returns results" do
           get search_path, params: { q: "full_adder", resource: "Projects" }
-          expect(response.status).to eq(200)
+          expect(response).have_http_status(200)
           expect(response.body).to include("Full adder using half adder")
         end
       end
@@ -65,7 +65,7 @@ describe SearchController, type: :request do
           FactoryBot.create(:project, name: "Full adder using half adder",
                                       project_access_type: "Public")
           get search_path, params: { q: "basic gates", resource: "Projects" }
-          expect(response.status).to eq(200)
+          expect(response).have_http_status(200)
           expect(response.body).to include "Full adder using basic gates"
           expect(response.body).to include "Half adder using basic gates"
           expect(response.body).not_to include "Full adder using half adder"
@@ -77,7 +77,7 @@ describe SearchController, type: :request do
           FactoryBot.create(:project, name: "Full adder using basic gates",
                                       project_access_type: "Public")
           get search_path, params: { q: "half adder", resource: "Projects" }
-          expect(response.status).to eq(200)
+          expect(response).have_http_status(200)
           expect(response.body).not_to include "Full adder using basic gates"
           expect(response.body).to include "No Results Found"
         end

@@ -45,7 +45,7 @@ describe AssignmentsController, type: :request do
     context "render view" do
       it "shows the requested assignment" do
         get group_assignment_path(@group, @assignment)
-        expect(response.status).to eq(200)
+        expect(response).have_http_status(200)
         expect(response.body).to include(@assignment.description)
       end
     end
@@ -84,7 +84,7 @@ describe AssignmentsController, type: :request do
 
     it "starts a new project" do
       get assignment_start_path(@group, @assignment)
-      expect(response.status).to eq(302)
+      expect(response).have_http_status(302)
     end
   end
 

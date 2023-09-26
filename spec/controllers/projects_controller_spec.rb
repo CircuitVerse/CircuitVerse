@@ -10,8 +10,7 @@ describe ProjectsController, type: :request do
   describe "#get_projects" do
     before do
       @tag = FactoryBot.create(:tag)
-      @projects = [FactoryBot.create(:project, author: @author),
-                   FactoryBot.create(:project, author: @author)]
+      @projects = FactoryBot.create_list(:project, 2, author: @author)
       @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
     end
 

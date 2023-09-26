@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# rubocop:disable RSpec/FilePath
 
 require "rails_helper"
 

@@ -15,7 +15,7 @@ describe PushSubscriptionController, type: :request do
         auth: "Dummy",
         p256dh: "Dummy"
       } }
-      expect(response.status).to eq(201)
+      expect(response).have_http_status(201)
       expect(@user.push_subscriptions.length).to eq(1)
       subscription = @user.push_subscriptions.first
       expect(subscription).not_to be_nil
