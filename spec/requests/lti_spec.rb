@@ -40,12 +40,12 @@ describe LtiController do
 
       it "returns success (200) if student is in the group" do
         lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email)
-        expect(response.code).to eq("200")
+        expect(response).to have_http_status(:ok)
       end
 
       it "redirect (302) to assignment page if user is primary mentor" do
         lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, primary_mentor.email)
-        expect(response.code).to eq("302")
+        expect(response).to have_http_status(:found)
       end
     end
 
