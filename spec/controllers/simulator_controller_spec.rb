@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe SimulatorController, type: :request do
+describe SimulatorController do
   before do
     @user = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user, name: "Test Name",

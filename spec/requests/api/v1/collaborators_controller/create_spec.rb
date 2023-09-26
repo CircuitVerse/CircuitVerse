@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
+RSpec.describe Api::V1::CollaboratorsController, "#create" do
   describe "create/add collaborators" do
     let!(:author) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, author: author) }

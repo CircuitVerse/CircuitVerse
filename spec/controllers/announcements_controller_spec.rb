@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe AnnouncementsController, type: :request do
+RSpec.describe AnnouncementsController do
   before do
     @announcement = FactoryBot.create(:announcement,
                                       body: "Test Announcement", link: "Test Link",

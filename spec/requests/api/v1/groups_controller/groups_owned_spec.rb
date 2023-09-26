@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::GroupsController, "#groups_owned", type: :request do
+RSpec.describe Api::V1::GroupsController, "#groups_owned" do
   describe "list all groups owned" do
     let!(:primary_mentor) { FactoryBot.create(:user) }
 

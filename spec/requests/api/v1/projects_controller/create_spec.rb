@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#create" do
   describe "POST #create" do
     let!(:user) { FactoryBot.create(:user) }
 

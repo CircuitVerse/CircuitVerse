@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::GroupsController, "#create", type: :request do
+RSpec.describe Api::V1::GroupsController, "#create" do
   describe "create a group" do
     let!(:user) { FactoryBot.create(:user) }
 

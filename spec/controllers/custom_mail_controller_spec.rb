@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe CustomMailsController, type: :request do
+describe CustomMailsController do
   before do
     @mail = FactoryBot.create(:custom_mail, subject: "Test subject",
                                             content: "Test content",

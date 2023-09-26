@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe SearchController, type: :request do
+describe SearchController do
   describe "#search" do
     context "search in a non-existant resource" do
       it "returns not found error" do

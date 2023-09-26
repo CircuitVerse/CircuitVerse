@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe LtiController, type: :request do
+describe LtiController do
   before do
     Flipper.enable(:lms_integration)
     @oauth_consumer_key_fromlms = "some_keys"

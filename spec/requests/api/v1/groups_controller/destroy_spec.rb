@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::GroupsController, "#destroy", type: :request do
+RSpec.describe Api::V1::GroupsController, "#destroy" do
   describe "delete specific group" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:primary_mentor) { FactoryBot.create(:user) }

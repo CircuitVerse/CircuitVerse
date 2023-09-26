@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe AssignmentsController, type: :request do
+describe AssignmentsController do
   before do
     @primary_mentor = FactoryBot.create(:user)
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)

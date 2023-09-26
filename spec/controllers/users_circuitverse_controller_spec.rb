@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Users::CircuitverseController, type: :request do
+describe Users::CircuitverseController do
   before do
     @user = FactoryBot.create(:user)
     sign_in @user

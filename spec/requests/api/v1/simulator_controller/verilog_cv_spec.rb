@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::SimulatorController, type: :request do
+RSpec.describe Api::V1::SimulatorController do
   describe "POST /api/v1/simulator/verilogcv" do
     let(:code) { "sample_code" }
     let(:yosys_url) { "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON" }

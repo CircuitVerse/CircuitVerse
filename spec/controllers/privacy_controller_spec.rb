@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe PrivacyController, type: :request do
+describe PrivacyController do
   it "gets privacy page" do
     get privacy_index_path
     expect(response).have_http_status(200)

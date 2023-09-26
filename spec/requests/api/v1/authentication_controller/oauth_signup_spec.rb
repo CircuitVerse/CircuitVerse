@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :request do
+RSpec.describe Api::V1::AuthenticationController, "#oauth_signup" do
   describe "oauth user signup" do
     context "when user already exists" do
       before do

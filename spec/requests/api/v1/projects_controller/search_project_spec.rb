@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#search", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#search" do
   describe "list projects based on query" do
     before do
       # Generate public projects

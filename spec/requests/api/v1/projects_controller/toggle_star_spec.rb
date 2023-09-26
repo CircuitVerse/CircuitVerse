@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#toggle_star" do
   describe "toggle starred condition for a particular project" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, author: user) }

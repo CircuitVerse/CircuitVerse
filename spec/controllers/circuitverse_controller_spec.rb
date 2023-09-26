@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe CircuitverseController, type: :request do
+describe CircuitverseController do
   it "gets index page" do
     get root_path
     expect(response).have_http_status(200)

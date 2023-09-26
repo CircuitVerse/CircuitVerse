@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe StarsController, type: :request do
+describe StarsController do
   before do
     @user = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: FactoryBot.create(:user))

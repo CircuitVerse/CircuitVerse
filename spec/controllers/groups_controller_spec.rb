@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe GroupsController, type: :request do
+describe GroupsController do
   before do
     @primary_mentor = FactoryBot.create(:user)
     @user = FactoryBot.create(:user)

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#circuit_data" do
   describe "get circuit data" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }

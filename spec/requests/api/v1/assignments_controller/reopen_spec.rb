@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
+RSpec.describe Api::V1::AssignmentsController, "#reopen" do
   describe "reopen specific assignment" do
     let!(:primary_mentor) { FactoryBot.create(:user) }
     let!(:assignment) do

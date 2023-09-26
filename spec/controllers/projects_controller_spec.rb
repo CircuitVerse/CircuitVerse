@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe ProjectsController, type: :request do
+describe ProjectsController do
   before do
     @author = FactoryBot.create(:user)
   end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::SimulatorController, type: :request do
+RSpec.describe Api::V1::SimulatorController do
   describe "POST /api/v1/simulator/post_issue/" do
     context "when SLACK_ISSUE_HOOK_URL is missing" do
       before do

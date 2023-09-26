@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#user_projects" do
   describe "list user's projects" do
     let!(:user_one) { FactoryBot.create(:user) }
     let!(:user_two) { FactoryBot.create(:user) }

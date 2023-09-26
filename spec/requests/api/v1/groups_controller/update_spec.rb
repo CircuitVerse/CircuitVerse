@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::GroupsController, "#update", type: :request do
+RSpec.describe Api::V1::GroupsController, "#update" do
   describe "update specific group" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:primary_mentor) { FactoryBot.create(:user) }

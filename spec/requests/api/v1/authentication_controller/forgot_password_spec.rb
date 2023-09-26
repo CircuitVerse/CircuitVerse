@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :request do
+RSpec.describe Api::V1::AuthenticationController, "#forgot_password" do
   describe "forgot password" do
     context "when user who forgot his/her password does not exists" do
       before do

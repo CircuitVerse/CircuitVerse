@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#update_circuit" do
   describe "update circuit" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }

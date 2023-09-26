@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#create_fork" do
   describe "forkes a particular project" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }

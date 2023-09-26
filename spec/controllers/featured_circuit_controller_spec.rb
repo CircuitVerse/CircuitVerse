@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe FeaturedCircuitsController, type: :request do
+describe FeaturedCircuitsController do
   before do
     @project = FactoryBot.create(:project, author: FactoryBot.create(:user),
                                            project_access_type: "Public")

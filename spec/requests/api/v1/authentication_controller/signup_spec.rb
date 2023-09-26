@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
+RSpec.describe Api::V1::AuthenticationController, "#signup" do
   describe "user sign up" do
     let!(:user) { FactoryBot.build(:user) }
 
