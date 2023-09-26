@@ -18,7 +18,7 @@ RSpec.describe Api::V1::SimulatorController do
 
       it "returns a successful response with correct JSON" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
-        expect(response).have_http_status(200)
+         expect(response).to have_http_status(200)
         expect(response.parsed_body).to eq(yosys_response.with_indifferent_access)
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::SimulatorController do
 
       it "returns the failed status code" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
-        expect(response).have_http_status(500)
+         expect(response).to have_http_status(500)
       end
     end
   end
