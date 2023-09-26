@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ForumThread, type: :model do
+RSpec.describe ForumThread do
   before do
     @user = FactoryBot.create(:user)
   end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe FeaturedCircuit, type: :model do
+RSpec.describe FeaturedCircuit do
   before do
     @user = FactoryBot.create(:user)
   end
