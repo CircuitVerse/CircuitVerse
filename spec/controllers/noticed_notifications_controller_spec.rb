@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # rubocop:disable RSpec/FilePath
 
 require "rails_helper"
@@ -63,3 +64,4 @@ describe Users::NoticedNotificationsController, type: :request do
     end
   end
 end
+# rubocop:enable RSpec/FilePath
