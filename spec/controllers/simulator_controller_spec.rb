@@ -63,7 +63,7 @@ describe SimulatorController do
         it "throws project access error" do
           sign_in_random_user
           post "/simulator/update_data", params: update_params
-          expect(response).to have_http_status(403)
+          expect(response).to have_http_status(:forbidden)
         end
       end
     end
