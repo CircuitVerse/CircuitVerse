@@ -61,7 +61,7 @@ RSpec.describe AnnouncementsController do
     describe "#index" do
       it "shows the list of created announcements" do
         get announcements_path(@announcement)
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.body).to include(@announcement.body)
       end
     end
@@ -69,7 +69,7 @@ RSpec.describe AnnouncementsController do
     describe "#edit" do
       it "shows the details of the announcement for edit" do
         get edit_announcement_path(@announcement)
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.body).to include(@announcement.body)
       end
     end

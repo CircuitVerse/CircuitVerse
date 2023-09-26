@@ -45,7 +45,7 @@ describe AssignmentsController do
     context "render view" do
       it "shows the requested assignment" do
         get group_assignment_path(@group, @assignment)
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.body).to include(@assignment.description)
       end
     end

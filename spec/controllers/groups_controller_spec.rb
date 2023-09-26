@@ -153,7 +153,7 @@ describe GroupsController do
       it "regenerates the group token" do
         sign_in @primary_mentor
         put generate_token_group_path(id: @group.id), xhr: true
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
   end

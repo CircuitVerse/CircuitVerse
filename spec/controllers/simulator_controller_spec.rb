@@ -55,7 +55,7 @@ describe SimulatorController do
           post "/simulator/update_data", params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")
-          expect(response).to have_http_status(200)
+          expect(response).to have_http_status(:ok)
         end
       end
 

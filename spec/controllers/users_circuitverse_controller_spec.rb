@@ -10,7 +10,7 @@ describe Users::CircuitverseController do
 
   it "gets user projects" do
     get user_projects_path(id: @user.id)
-    expect(response).to have_http_status(200)
+    expect(response).to have_http_status(:ok)
   end
 
   it "gets user profile" do
@@ -28,7 +28,7 @@ describe Users::CircuitverseController do
       it "gets user groups" do
         sign_in FactoryBot.create(:user, admin: true)
         get user_groups_path(id: @user.id)
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -36,7 +36,7 @@ describe Users::CircuitverseController do
       it "gets user groups" do
         sign_in @user
         get user_groups_path(id: @user.id)
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -51,7 +51,7 @@ describe Users::CircuitverseController do
 
   it "gets edit profile" do
     get profile_edit_path(id: @user.id)
-    expect(response).to have_http_status(200)
+    expect(response).to have_http_status(:ok)
   end
 
   it "updates user profile" do

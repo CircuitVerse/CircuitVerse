@@ -11,7 +11,7 @@ RSpec.describe Api::V1::SimulatorController do
 
       it "returns an internal server error status" do
         post "/api/v1/simulator/post_issue/", params: { text: "some text", circuit_data: "some data" }
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("Invalid or missing Slack webhook URL")
       end
     end
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::SimulatorController do
 
       it "returns an ok status and success message" do
         post "/api/v1/simulator/post_issue/", params: { text: "some text", circuit_data: "some data" }
-        expect(response).to have_http_status(200)
+        expect(response).to have_http_status(:ok)
         expect(response.body).to include("Issue submitted successfully")
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::SimulatorController do
 
       it "returns an ok status and success message" do
         post "/api/v1/simulator/post_issue/", params: { text: "some text", circuit_data: "some data" }
-        expect(response).to have_http_status(422)
+        expect(response).to have_http_status(:unprocessable_entity)
         expect(response.body).to include("Failed to submit issue to Slack")
       end
     end

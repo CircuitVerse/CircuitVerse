@@ -46,7 +46,7 @@ describe GradesController do
           invalid_params = create_params
           create_params[:grade][:grade] = "90"
           post grades_path, params: invalid_params
-          expect(response).to have_http_status(400)
+          expect(response).to have_http_status(:bad_request)
           expect(response.parsed_body["error"]).to eq("Grade is invalid")
         end
       end
@@ -73,7 +73,7 @@ describe GradesController do
           invalid_params = create_params
           create_params[:grade][:grade] = "90"
           post grades_path, params: invalid_params
-          expect(response).to have_http_status(400)
+          expect(response).to have_http_status(:bad_request)
           expect(response.parsed_body["error"]).to eq("Grade is invalid")
         end
       end

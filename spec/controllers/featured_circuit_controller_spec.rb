@@ -11,7 +11,7 @@ describe FeaturedCircuitsController do
   describe "#index" do
     it "gets index page" do
       get featured_circuits_path
-      expect(response).to have_http_status(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 
