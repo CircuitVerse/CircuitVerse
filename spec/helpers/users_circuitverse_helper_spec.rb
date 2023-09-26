@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe UsersCircuitverseHelper, type: :helper do
+RSpec.describe UsersCircuitverseHelper do
   describe "#get_priority_countries" do
     let(:mock_geocoder_result) { instance_double(Geocoder::Result::Base) }
 

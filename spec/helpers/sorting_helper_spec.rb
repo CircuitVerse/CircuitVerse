@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe SortingHelper, type: :helper do
+RSpec.describe SortingHelper do
   describe SortingHelper do
     it "#sort_fields" do
       sort = "-field1,field2,field3"
