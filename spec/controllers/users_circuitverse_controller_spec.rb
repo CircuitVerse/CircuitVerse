@@ -16,7 +16,7 @@ describe Users::CircuitverseController do
   it "gets user profile" do
     get profile_path(id: @user.id)
     expect(response).to redirect_to(user_projects_path(id: @user.id))
-    expect(response).to have_http_status(301)
+    expect(response).to have_http_status(:moved_permanently)
   end
 
   describe "#groups" do
