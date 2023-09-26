@@ -4,7 +4,7 @@
 
 require "rails_helper"
 
-RSpec.describe StaticController, type: :controller do
+RSpec.describe StaticController do
   describe "#simulatorvue" do
     it "renders the simulatorvue template" do
       get :simulatorvue, params: { path: "/" }
