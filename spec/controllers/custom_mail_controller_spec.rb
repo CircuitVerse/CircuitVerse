@@ -85,7 +85,7 @@ describe CustomMailsController do
     describe "#index" do
       it "shows the list of custom views" do
         get custom_mails_path(@mail)
-        expect(response.status).to eq(200)
+        expect(response).have_http_status(200)
         expect(response.body).to include(@mail.subject)
       end
     end
