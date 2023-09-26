@@ -84,7 +84,7 @@ describe AssignmentsController do
 
     it "starts a new project" do
       get assignment_start_path(@group, @assignment)
-      expect(response).to have_http_status(302)
+      expect(response).to have_http_status(:found)
     end
   end
 
