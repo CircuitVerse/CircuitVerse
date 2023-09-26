@@ -31,9 +31,9 @@ RSpec.describe Grade do
         it "validates grading scale" do
           expect(@grade).to be_valid
           @grade.grade = "199"
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
           @grade.grade = "G"
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
         end
       end
 
@@ -49,11 +49,11 @@ RSpec.describe Grade do
         it "validates grading scale" do
           expect(@grade).to be_valid
           @grade.grade = "123"
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
           @grade.grade = "-1"
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
           @grade.grade = "A"
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
         end
       end
 
@@ -67,11 +67,11 @@ RSpec.describe Grade do
         end
 
         it "invalidates all grades" do
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
           @grade.grade = "A"
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
           @grade.grade = "19"
-          expect(@grade).to be_invalid
+          expect(@grade).not_to be_valid
         end
       end
 
@@ -106,7 +106,7 @@ RSpec.describe Grade do
         expect(@grade).to be_valid
         @assignment_project.assignment = FactoryBot.create(:assignment, group: @group)
         @assignment_project.save
-        expect(@grade).to be_invalid
+        expect(@grade).not_to be_valid
       end
     end
   end

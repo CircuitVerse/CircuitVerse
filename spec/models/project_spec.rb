@@ -26,14 +26,14 @@ RSpec.describe Project do
       project = FactoryBot.build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.project_access_type = "Public"
-      expect(project).to be_invalid
+      expect(project).not_to be_valid
     end
 
     it "doesn't allow profanities in description" do
       project = FactoryBot.build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.description = "Ass"
-      expect(project).to be_invalid
+      expect(project).not_to be_valid
     end
   end
 
