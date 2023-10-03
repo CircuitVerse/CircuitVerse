@@ -172,7 +172,7 @@ input[type="text"]:focus {
     font-size: 1em;
     text-align: center;
     display: inline-block;
-    width: 35vw;
+    width: 34vw;
     height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1493,14 +1493,14 @@ input:checked + .slider:before {
 }
 
 #insertSubcircuitcontent p {
-  color: white;
-  font-size: 16px;
+    color: white;
+    font-size: 16px;
 }
 
 #insertSubcircuitcontent a {
-  color: white;
-  margin-bottom: 7px;
-} 
+    color: white;
+    margin-bottom: 7px;
+}
 
 #insertSubcircuitDialog > p {
     margin-bottom: 0;
