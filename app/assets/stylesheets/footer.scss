@@ -8,7 +8,7 @@
 
 .footer-container {
   color: $white;
-  padding-top: 30px;
+
   text-align: center;
 }
 
@@ -35,15 +35,15 @@
   box-shadow: 0 0 1px $black;
   display: inline-block;
   transform: perspective(1px) translateZ(0);
-  transition-duration: .5s;
+  transition-duration: 0.5s;
   vertical-align: middle;
 }
 
 .bounce-out-on-hover:hover,
 .bounce-out-on-hover:focus,
 .bounce-out-on-hover:active {
-  transform: scale(.8);
-  transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
+  transform: scale(0.8);
+  transition-timing-function: cubic-bezier(0.47, 2.02, 0.31, -0.36);
 }
 
 .footer-links {
@@ -80,7 +80,6 @@
   p {
     font-size: 15px;
   }
-
 }
 
 .bounce-out-on-hover::before,
@@ -96,13 +95,12 @@
 
 .bounce-out-on-hover::before {
   background: $tooltip-grey;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   color: $white;
   content: attr(data-tooltip);
-  padding: .5rem;
+  padding: 0.5rem;
   text-align: center;
   width: fit-content;
-
 }
 
 .bounce-out-on-hover:hover::before,
@@ -111,6 +109,6 @@
 }
 
 .bounce-out-on-hover::after {
-  content: '';
+  content: "";
   width: 10px;
 }
