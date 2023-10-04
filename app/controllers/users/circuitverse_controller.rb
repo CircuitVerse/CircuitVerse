@@ -44,10 +44,15 @@ class Users::CircuitverseController < ApplicationController
 
   private
 
-    def profile_params
-      params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture, :avatar, :vuesim)
+  def profile_params
+    params.require(:user).permit(
+      :name, :profile_picture, :country,
+      :subscribed, :locale, :remove_picture, :avatar, :vuesim
+    ).tap do |whitelisted|
+      educational_institute = params[:user][:educational_institute].strip
+      whitelisted[:educational_institute] = educational_institute.present? ? educational_institute : "Not Entered"
     end
+  end
 
     def set_user
       @profile = current_user
