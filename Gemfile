@@ -106,7 +106,7 @@ gem "font-awesome-sass", "~> 5.13.1"
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
 gem "flipper-ui"
-gem "friendly_id", "~> 5.4.2"
+gem "friendly_id", "~> 5.5.0"
 gem "inline_svg"
 gem "jsonapi-serializer"
 gem "jwt"
