@@ -55,6 +55,11 @@ cd CircuitVerse
 6. Run database migrations: `bundle exec rails db:migrate`
 7. Seed the database with some data: `bundle exec rails db:seed`
 8. Open GIT bash in current folder
-8. Run `bin/dev` to run application server, background job queue and asset compiler
+9. Generate RSA keypairs
+     ```bash
+     openssl genrsa -out ./config/private.pem 2048
+     openssl rsa -in ./config/private.pem -outform PEM -pubout -out ./config/public.pem
+     ```
+10. Run `bin/dev` to run application server, background job queue and asset compiler
 
 Navigate to `localhost:3000` in your web browser to access the website.
