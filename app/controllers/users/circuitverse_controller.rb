@@ -46,7 +46,9 @@ class Users::CircuitverseController < ApplicationController
 
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture, :avatar, :vuesim)
+                                   :subscribed, :locale, :remove_picture, :avatar, :vuesim).tap do |params|
+        params[:educational_institute] = "Not Entered" if params[:educational_institute].blank?
+      end
     end
 
     def set_user
