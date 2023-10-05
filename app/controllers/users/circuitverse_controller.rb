@@ -52,7 +52,7 @@ class Users::CircuitverseController < ApplicationController
         whitelisted[:educational_institute] = educational_institute.present? || "Not Entered"
       end
     end
-  
+
     def set_user
       @profile = current_user
       @user = User.find(params[:id])
