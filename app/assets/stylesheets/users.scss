@@ -330,6 +330,17 @@
     }
   }
 }
+
+@media (max-width: 600px){
+  .users-circuits-navbar {
+    flex-direction: column;
+
+    input {
+      width: 80vw;
+    }
+  }
+}
+
 .search-icon-dashboard {
   margin-bottom: -60px;
   margin-left: 7px;
@@ -430,8 +441,8 @@
 }
 
 .dropdown-notification {
+  max-width: 450px;
   padding: 13px 15px;
-  width: 450px;
 
   h4 {
     font-size: 20px;
@@ -469,7 +480,7 @@
 }
 
 .notification-container {
-  width: 558px;
+  max-width: 558px;
 }
 .notification-heading {
   font-size: 30px;
