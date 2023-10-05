@@ -313,6 +313,7 @@
 .users-circuits-navbar {
   align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
 
   input {
@@ -329,6 +330,11 @@
       transition: .2s ease-in-out;
     }
   }
+}
+.users-circuits-navbar-buttons{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .search-icon-dashboard {
   margin-bottom: -60px;
@@ -351,12 +357,14 @@
 
 .users-circuits-tab {
   background-color: $form-border-grey;
-  border-radius: 0;
+  border-radius: 5px;
   color: $black;
   font-size: 18px;
   padding: 7px 25px;
-  margin: 0;
   margin-top: 20px;
+  margin-right: 10px;
+  margin-bottom: 20px;
+  margin-left: 10px;
 
   &:hover {
     color: $black;
