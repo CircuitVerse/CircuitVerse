@@ -48,9 +48,9 @@ class Users::CircuitverseController < ApplicationController
     params.require(:user).permit(
       :name, :profile_picture, :country,
       :subscribed, :locale, :remove_picture, :avatar, :vuesim
-    ).tap do |whitelisted|
+    ).tap do | whitelisted |
       educational_institute = params[:user][:educational_institute].strip
-      whitelisted[:educational_institute] = educational_institute.present? ? educational_institute : "Not Entered"
+      whitelisted[:educational_institute] = educational_institute.present || "Not Entered"
     end
   end
 
