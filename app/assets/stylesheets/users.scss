@@ -331,25 +331,25 @@
     }
   }
 }
-.users-circuits-navbar-buttons{
-  display: flex;
+.users-circuits-navbar-buttons {
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 .search-icon-dashboard {
   margin-bottom: -60px;
   margin-left: 7px;
 }
-.users-circuits-search-container{
+.users-circuits-search-container {
   width: 100%;
 }
 .users-circuits-search {
-  width: 100%;
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   padding-top: 20px;
+  width: 100%;
 }
 
 .fa.fa-search.user-circuits-search-icon {
@@ -364,11 +364,11 @@
   border-radius: 5px;
   color: $black;
   font-size: 18px;
-  padding: 7px 20px;
-  margin-top: 20px;
-  margin-right: 10x;
   margin-bottom: 20px;
-  margin-left: 10px;
+  margin-left: 7px;
+  margin-right: 7px;
+  margin-top: 20px;
+  padding: 7px 20px;
 
   &:hover {
     color: $black;
