@@ -313,7 +313,7 @@
 .users-circuits-navbar {
   align-items: center;
   display: flex;
-  flex-direction: column;
+  // flex-direction: column;
   justify-content: space-between;
 
   input {
@@ -340,9 +340,7 @@
   margin-bottom: -60px;
   margin-left: 7px;
 }
-.users-circuits-search-container {
-  width: 100%;
-}
+
 .users-circuits-search {
   align-items: center;
   display: flex;
@@ -410,6 +408,15 @@
     font-size: 16px;
     padding: 4px 15px;
   }
+}
+@media (max-width: 766px) {
+  .users-circuits-navbar {
+    flex-direction: column;
+  }
+  .users-circuits-search-container {
+    width: 100%;
+  }
+  
 }
 
 .tt-dropdown-menu {
