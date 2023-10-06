@@ -328,12 +328,11 @@
   border-radius: 4px;
   color: $white;
   font-weight: 500;
+  max-width: 75%;
+  overflow: scroll;
   padding: 5px;
 
   &:hover {
     color: $white;
   }
-
-  max-width: 75%;
-  overflow: scroll;
 }
