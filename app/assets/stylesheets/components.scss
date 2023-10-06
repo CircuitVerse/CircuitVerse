@@ -333,4 +333,7 @@
   &:hover {
     color: $white;
   }
+
+  max-width: 75%;
+  overflow: scroll;
 }
