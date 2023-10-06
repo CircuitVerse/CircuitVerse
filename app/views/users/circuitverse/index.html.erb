@@ -41,7 +41,7 @@
         <h4 class="users-user-name"><%= @profile.name %></h4>
         <div class="search-userdetails-container">
           <p class="search-user-details-text"><%= t("users.circuitverse.member_since_html", member_since: @profile.member_since) %></p>
-          <p class="search-user-details-text"><%= t("users.circuitverse.educational_institutes_html", educational_institute: @profile.educational_institute) %></p>
+          <p class="search-user-details-text"><%= @profile.educational_institute.present? ? @profile.educational_institute : t("users.not_entered") %></p>
           <p class="search-user-details-text"><%= t("users.circuitverse.country_html", country_name: @profile.country_name) %></p>
           <% if policy(@user).edit? %>
             <a class="btn primary-button" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
