@@ -1,9 +1,7 @@
 class SearchPaginateRenderer < WillPaginate::ActionView::LinkRenderer
 
   def container_attributes
-    attributes = super.except(*[:link_options])
-    attributes[:additional_class] = "pagination-cont"
-    return attributes
+    super.except(*[:link_options])
   end
 
   protected
