@@ -157,7 +157,7 @@ body {
   .pagination {
     display: block;
     max-width: none;
-    overflow-x: scroll;
+    overflow-x: auto;
     padding: 0;
     white-space: nowrap;
   }
