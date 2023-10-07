@@ -59,5 +59,9 @@ RSpec.describe User, type: :model do
       end.to change(PendingInvitation, :count).by(-1)
                                               .and change(GroupMember, :count).by(1)
     end
+
+    it "user is not moderator by default" do
+      expect(@user).not_to be_moderator
+    end
   end
 end

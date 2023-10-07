@@ -17,7 +17,8 @@ services:
     environment:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
-      DOCKER_ENVIRONMENT: 'true'
+      DOCKER_ENVIRONMENT: "true"
+      DEV_CONTAINER: "true"
     command: sleep infinity
   redis:
     image: redis:7.0-alpine

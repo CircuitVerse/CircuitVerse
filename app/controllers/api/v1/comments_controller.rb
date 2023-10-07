@@ -44,7 +44,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
     security_transgression_unless @comment.can_be_deleted_by?(current_user)
 
     if @comment.delete_by(current_user)
-      render json: {}, status: :no_content
+      head :no_content
     else
       api_error(status: 409, errors: "already deleted")
     end
