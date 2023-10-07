@@ -30,7 +30,7 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
         $('input[name=resolution]').prop('disabled', false);
         $('input[name=transparent]').prop('disabled', false);
         const imgType = $('input[name=imgType]:checked').val();
-        imgType == 'svg'? $('.btn-group-toggle, .download-dialog-section-3').addClass('disable') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable');
+        imgType == 'svg'? $('.btn-group-toggle, .download-dialog-section-3') : $('.btn-group-toggle, .download-dialog-section-3, .cb-inner').removeClass('disable');
         if (imgType === 'svg') {
             $('input[name=resolution][value=1]').trigger('click');
             $('input[name=view][value="full"]').trigger('click');
