@@ -7,6 +7,9 @@ If you have any setup problems, please ensure you have read through all the inst
 
 ---
 
+## Note
+If you are facing any issues with the setup, first checkout the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md) and if you are still facing issues, feel free to ask in the [slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
+
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
 
