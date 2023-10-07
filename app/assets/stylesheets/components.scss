@@ -3,8 +3,8 @@
   background-color: $primary-green;
   border-radius: 4px;
   color: $white;
-  margin: 5px;
-  transition: all .3s ease 0s;
+  margin: 0px;
+  transition: all 0.3s ease 0s;
 
   &:hover {
     background-color: $secondary-green;
@@ -19,7 +19,7 @@
   border-radius: 4px;
   color: $white;
   margin: 5px;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
 
   &:hover {
     background-color: $secondary-red;
@@ -52,7 +52,7 @@
   border-radius: 4px;
   box-shadow: 0 2px 7px $shadow-black;
   margin: 10px 15px;
-  transition: all .3s ease 0s;
+  transition: all 0.3s ease 0s;
 
   &:hover {
     background-color: $secondary-green;
@@ -78,9 +78,9 @@
   display: inline-block;
   height: 89px;
   margin: 50px 7px 40px;
-  opacity: .89;
+  opacity: 0.89;
   padding: 15px;
-  transition: box-shadow .2s ease-in;
+  transition: box-shadow 0.2s ease-in;
   width: 300px;
 
   &:hover {
@@ -132,27 +132,27 @@
 
 .tooltiptext {
   background-color: $navbar-dark-grey;
-  border-radius: .3rem;
+  border-radius: 0.3rem;
   bottom: 100%;
   color: $white;
-  font-size: .8rem;
+  font-size: 0.8rem;
   left: 0%;
   max-width: 100%;
   opacity: 0;
-  padding: .3rem;
+  padding: 0.3rem;
   position: absolute;
   text-align: center;
-  transition: opacity .5s;
+  transition: opacity 0.5s;
   visibility: hidden;
   z-index: 1;
 
   &::after {
     border-color: $navbar-dark-grey transparent transparent;
     border-style: solid;
-    border-width: .3rem;
-    content: '';
+    border-width: 0.3rem;
+    content: "";
     left: 50%;
-    margin-left: -.3rem;
+    margin-left: -0.3rem;
     position: absolute;
     top: 100%;
   }
@@ -226,11 +226,10 @@
 }
 
 .form-control {
-
   &:focus {
     background-color: $white;
     border-color: $form-input-green;
-    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    box-shadow: 0 0 0 0.2rem $form-input-focus-green;
     color: $black;
     outline: 0;
   }
@@ -244,7 +243,6 @@
 }
 
 @media (max-width: 400px) {
-
   .form-container {
     max-width: 90%;
   }
@@ -281,7 +279,7 @@
   top: 6px;
 
   &::after {
-    content: '';
+    content: "";
     display: none;
     position: absolute;
   }
