@@ -1,6 +1,20 @@
 .select2-container span.select2-selection--multiple {
   min-height: 150px;
-  min-width: 450px;
+  width: 350px;
+}
+@media screen and (max-width: 402px) {
+  .select2-container span.select2-selection--multiple {
+    min-height: 150px;
+    width: 235px;
+    overflow-x: hidden;
+  }
+}
+@media screen and (max-width: 285px) {
+  .select2-container span.select2-selection--multiple {
+    min-height: 150px;
+    width: 200px;
+    overflow-x: hidden;
+  }
 }
 
 .select2-container ul.select2-selection__rendered li.select2-selection__choice {
