@@ -3,7 +3,7 @@
   background-color: $primary-green;
   border-radius: 4px;
   color: $white;
-  margin: 5px;
+  margin: 0;
   transition: all .3s ease 0s;
 
   &:hover {
@@ -328,6 +328,8 @@
   border-radius: 4px;
   color: $white;
   font-weight: 500;
+  max-width: 75%;
+  overflow: auto;
   padding: 5px;
 
   &:hover {
