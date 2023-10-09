@@ -28,7 +28,7 @@
 
 .footer-social-icon {
   width: 32px;
-} 
+}
 
 .footer-social-icons-row {
   margin: inherit;
@@ -37,10 +37,10 @@
 .bounce-out-on-hover {
   box-shadow: 0 0 1px $black;
   display: inline-block;
+  padding: 4px;
   transform: perspective(1px) translateZ(0);
   transition-duration: .5s;
   vertical-align: middle;
-  padding: 4px;
 }
 
 .bounce-out-on-hover:hover,
