@@ -413,21 +413,17 @@ export function setupTimingListeners() {
         plotArea.resize();
     })
     $('.timing-diagram-small-height').on('click', () => {  
-        plotHeight -= sh(5);
         if(plotHeight >= sh(20)) {
+            plotHeight -= sh(5);
             waveFormHeight = plotHeight - 2 * waveFormPadding;
-        } else {
-            plotHeight = sh(20);
-        }
+        } 
         plotArea.resize();
     })
     $('.timing-diagram-large-height').on('click', () => {
-        plotHeight += sh(5);
         if(plotHeight < sh(80)) {
+            plotHeight += sh(5);
             waveFormHeight = plotHeight - 2 * waveFormPadding;
-        } else {
-            plotHeight = sh(80);
-        }
+        } 
         plotArea.resize();
     })
     $('.timing-diagram-reset').on('click', () => {
