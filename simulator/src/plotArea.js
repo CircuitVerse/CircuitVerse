@@ -35,8 +35,8 @@ var ptA = currentScreen();
 // Helper functions for canvas
 
 function getFullHeight(flagCount) {
-    if(!flagCount) flagCount = 1;
-    return (plotHeight+padding)*flagCount;
+    if(!flagCount) return (plotHeight+padding)*flagCount;
+    return (plotHeight + padding) * flagCount;
 }
 
 function getFlagStartY(flagIndex) {
@@ -412,12 +412,11 @@ export function setupTimingListeners() {
         $('#plot').width($('#plot').width() + 20)
         plotArea.resize();
     })
-    $('.timing-diagram-small-height').on('click', () => {
-        
+    $('.timing-diagram-small-height').on('click', () => {  
         plotHeight -= sh(5);
         if(plotHeight >= sh(20)) {
             waveFormHeight = plotHeight - 2 * waveFormPadding;
-        } else{
+        } else {
             plotHeight = sh(20);
         }
         plotArea.resize();
@@ -426,10 +425,9 @@ export function setupTimingListeners() {
         plotHeight += sh(5);
         if(plotHeight < sh(80)) {
             waveFormHeight = plotHeight - 2 * waveFormPadding;
-        } else{
+        } else {
             plotHeight = sh(80);
         }
-        
         plotArea.resize();
     })
     $('.timing-diagram-reset').on('click', () => {
