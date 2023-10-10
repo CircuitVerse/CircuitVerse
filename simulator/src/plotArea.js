@@ -412,16 +412,16 @@ export function setupTimingListeners() {
         plotArea.resize();
     })
     $('.timing-diagram-small-height').on('click', () => {
-            plotHeight -= sh(5);
-            plotHeight = Math.max(sh(20), plotHeight);
-            waveFormHeight = plotHeight - 2 * waveFormPadding;
-            plotArea.resize();
+        plotHeight -= sh(5);
+        plotHeight = Math.max(sh(20), plotHeight);
+        waveFormHeight = plotHeight - 2 * waveFormPadding;
+        plotArea.resize();
     })
     $('.timing-diagram-large-height').on('click', () => {
-            plotHeight += sh(5);
-            plotHeight = Math.min(sh(50), plotHeight);
-            waveFormHeight = plotHeight - 2 * waveFormPadding;
-            plotArea.resize();
+        plotHeight += sh(5);
+        plotHeight = Math.min(sh(50), plotHeight);
+        waveFormHeight = plotHeight - 2 * waveFormPadding;
+        plotArea.resize();
     })
     $('.timing-diagram-reset').on('click', () => {
         plotArea.reset();
