@@ -45,7 +45,7 @@ function getFlagStartY(flagIndex) {
 function getCycleStartX(cycleNumber) {
     return timeLineStartX + (cycleNumber - plotArea.cycleOffset) * cycleWidth;
 }
-function changeHeight(dir){
+function changeHeight(dir) {
     plotHeight += dir ? 5 : -5;
     plotHeight = dir ? plotHeight = Math.min(sh(50), plotHeight) : plotHeight = Math.max(sh(20), plotHeight);
     waveFormHeight = plotHeight - 2 * waveFormPadding;
