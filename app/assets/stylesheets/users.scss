@@ -334,8 +334,8 @@
 .users-circuits-navbar-buttons {
   align-items: center;
   display: flex;
-  justify-content: space-between;
   gap: 10px;
+  justify-content: space-between;
 }
 
 .search-icon-dashboard {
@@ -412,7 +412,8 @@
 @media (max-width: 768px) {
   .users-circuits-navbar {
     flex-direction: column;
-    input{
+    
+    input {
       border: 1px solid $form-border-grey;
     }
   }
