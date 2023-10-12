@@ -334,7 +334,7 @@
 .users-circuits-navbar-buttons {
   align-items: center;
   display: flex;
-  gap: 10px;
+  column-gap: 10px;
   justify-content: space-between;
 }
 
@@ -412,7 +412,7 @@
 @media (max-width: 768px) {
   .users-circuits-navbar {
     flex-direction: column;
-    
+  
     input {
       border: 1px solid $form-border-grey;
     }
