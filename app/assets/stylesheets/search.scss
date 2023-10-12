@@ -76,13 +76,16 @@
   }
 }
 
-.search-project-name h3 {
+.search-project-name {
   height: 40px;
-  overflow: hidden;
   text-align: left;
-  text-overflow: ellipsis;
   white-space: nowrap;
-  width: 70%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-project-name h3 {
+  display: inline;
 }
 
 .search-project-name:hover .tooltiptext {
