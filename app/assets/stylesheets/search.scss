@@ -82,10 +82,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-.search-project-name h3 {
-  display: inline;
+  
+  h3 {
+    display: inline;
+  }
 }
 
 .search-project-name:hover .tooltiptext {
