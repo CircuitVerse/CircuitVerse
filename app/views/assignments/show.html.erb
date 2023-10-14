@@ -11,13 +11,13 @@
   </div>
   <% end %>
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-xs-12  col-md-12 ">
       <h1 class="submain-heading"><%= t("assignments.show.assignment_details_heading") %></h1>
     </div>
   </div>
   <div class="assignments-container">
     <div class="row center-row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="col-xs-12  col-md-12 ">
         <div class="assignments-data">
           <p><%= t("assignments.assignment_data.name_html", name: @assignment.name) %></p>
           <p><%= t("assignments.assignment_data.group_html", group_name: @assignment.group.name) %></p>
@@ -80,7 +80,7 @@
             <% else %>
               <div class="assignments-submission">
                 <div class="row assignments-submission-row">
-                  <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 assignments-submission-col-3">
+                  <div class="col-xs-12 col-md-3  assignments-submission-col-3">
                     <div id="list-tab" role="tablist">
                       <ul class="list-group assignments-list-group">
                         <% @assignment.project_order.each do |project| %>
@@ -89,7 +89,7 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 assignments-iframe">
+                  <div class="col-xs-12 col-md-9 assignments-iframe">
                     <div class="embed-responsive embed-responsive-4by3 ">
                       <iframe src="" name="assignmentPreview" id="assignmentPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen> </iframe>
                     </div>
@@ -109,7 +109,7 @@
                     <%= form.hidden_field :project_id, id: "assignment-project-id" %>
                     <%= form.hidden_field :assignment_id, value: @assignment.id %>
                     <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                      <div class="col-xs-12  col-md-4 ">
                         <h6><%= t("assignments.assignment_data.grade") %></h6>
                         <% if @assignment.grading_scale == "percent" %>
                           <%= form.number_field :grade, id: "assignment-grade-grade", min: 0, max: 100, class: "form-control form-input" %>
@@ -117,17 +117,17 @@
                           <%= form.text_field :grade, id: "assignment-grade-grade", class: "form-control form-input" %>
                         <% end %>
                       </div>
-                      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                      <div class="col-xs-12  col-md-8 ">
                         <h6><%= t("assignments.assignment_data.remarks") %></h6>
                         <%= form.text_field :remarks, id: "assignment-grade-remarks", class: "form-control form-input" %>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                      <div class="col-xs-12  col-md-4 ">
                         <button name="button" type="submit" id="grade-form-submit" class="btn primary-button mt-4"><%= t("submit") %></button>
                         &nbsp; &nbsp;
                       </div>
-                      <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 assignments-grading-help">
+                      <div class="col-xs-12  col-md-8 assignments-grading-help">
                         <% if @assignment.grading_scale == "percent" %>
                           <small><%= t("assignments.assignment_data.grading_scale_percent") %></small>
                         <% elsif @assignment.grading_scale == "letter" || @assignment.grading_scale == "custom" %>
@@ -139,13 +139,13 @@
                 </div>
                 <div class="assignments-grading-container">
                   <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                    <div class="col-xs-12  col-md-4 ">
                       <h6><%= t("assignments.assignment_data.grade") %></h6>
                       <span id="project-grade"></span>
                       <br>
                       <div class="assignments-grade-horizontal-rule"></div>
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                    <div class="col-xs-12 col-md-8 ">
                       <h6><%= t("assignments.assignment_data.remarks") %></h6>
                       <span id="project-remarks"></span>
                       <br>
