@@ -109,7 +109,7 @@ class SimulatorController < ApplicationController
     # Send it over to slack hook
     circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
-    HTTP.post(url, json: { text: text })
+    HTTP.post(url, json: { text: text }) if Flipper.enabled?(:slack_issue_notification)
     head :ok, content_type: "text/html"
   end
 
