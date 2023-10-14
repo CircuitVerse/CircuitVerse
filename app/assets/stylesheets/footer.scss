@@ -32,7 +32,7 @@
 }
 
 .bounce-out-on-hover {
-  box-shadow: 0 0 0 #000;
+  box-shadow: 0 0 0 $black;
   display: inline-block;
   transform: perspective(1px) translateZ(0);
   transition-duration: .5s;
