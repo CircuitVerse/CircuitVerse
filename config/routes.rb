@@ -106,8 +106,11 @@ Rails.application.routes.draw do
 
   mount Commontator::Engine => "/commontator"
 
-  #vue simualtor
-  get 'simulatorvue/*path', to: 'static#simulatorvue'
+  # Default route for Vue simulator
+  get 'simulatorvue', to: 'static#simulatorvue', as: 'default_simulatorvue'
+
+  # Vue simulaltor Route with catchall
+  get 'simulatorvue/*path', to: 'static#simulatorvue', as: 'simulatorvue'
 
   # simulator
   scope "/simulator" do
@@ -139,6 +142,7 @@ Rails.application.routes.draw do
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
+  get "/youtube", to: redirect("https://www.youtube.com/@circuitverse4457")
   get "/slack", to: redirect(
     "https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ"
   )

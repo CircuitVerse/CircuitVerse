@@ -66,7 +66,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # GET /public_key.pem
   def public_key
-    public_key = File.open(Rails.root.join("config", "public.pem"), "r:UTF-8")
+    public_key = Rails.root.join("config", "public.pem").open("r:UTF-8")
     send_file public_key
   end
 
