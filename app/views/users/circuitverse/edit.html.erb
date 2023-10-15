@@ -128,7 +128,7 @@
   });
   $('#remove_pic').change(function() {
     if($(this).is(":checked")) {
-      $('#imgedit').attr('src', '/assets/images/thumb/Default.jpg');
+      $('#imgedit').attr('src', '<%= image_path('thumb/Default.jpg') %>');
     } else {
       $('#imgedit').attr('src', '<%= @profile.profile_picture %>');
     }
