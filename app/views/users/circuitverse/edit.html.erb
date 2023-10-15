@@ -120,10 +120,6 @@
     autoCompleteJS.input.value = selection;
   });
   document.querySelector('#remove_pic').addEventListener('change', function() {
-    if (this.checked) {
       document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
-    } else {
-      document.querySelector('#imgedit').src = '<%= @profile.profile_picture %>';
-    }
   });
 </script>
