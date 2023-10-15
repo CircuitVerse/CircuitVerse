@@ -7,3 +7,12 @@
   <% end %>
   </div>
 </div>
+<script>
+  $(document).ready(function() {
+    const searchType = $("#search_type");
+    const searchInput = $("#q");
+    searchType.on("change", function() {
+      searchInput.focus();
+    });
+  });
+</script>
