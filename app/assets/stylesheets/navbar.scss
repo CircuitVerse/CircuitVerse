@@ -217,6 +217,7 @@
 @media (max-width: 400px) {
   .navbar-search-bar-form {
     width: 100%;
+    flex-wrap:wrap;
   }
 
   .navbar-search-container {
