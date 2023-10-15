@@ -22,7 +22,9 @@ tasks:
       bundle exec rails db:create &&
       bundle exec rails db:schema:load &&
       bundle exec rails db:migrate &&
-      bundle exec rails db:seed
+      bundle exec rails db:seed &&
+      openssl genpkey -algorithm RSA -out config/private.pem &&
+      openssl rsa -pubout -in config/private.pem -out config/public.pem
     command: >
       sleep 5 &&
       redis-server --daemonize yes &&
