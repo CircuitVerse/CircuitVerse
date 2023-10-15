@@ -1,6 +1,4 @@
-
 <% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name) %>
-
 <div class="container projects-new-container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -58,80 +56,74 @@
 </div>
 <%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
 <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function () {
-        const deleteuserModal = document.querySelector("#deleteuserModal");
-        deleteuserModal.addEventListener("show.bs.modal", function (e) {
-            let user = e.relatedTarget.dataset.currentuser;
-            deleteuserModal.querySelector('#users-user-delete-button').setAttribute("href", "/users/" + user);
-        });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    document.querySelector('#imgedit').setAttribute('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        const SELECTOR = '.autocomplete';
-        DOMPurify.setConfig({ALLOWED_TAGS: []});
-        const purify = dt => String(DOMPurify.sanitize(String(dt))).trim();
-
-        const autoCompleteJS = new autoComplete({
-            selector: SELECTOR,
-            data: {
-                src: async function (query) {
-                    try {
-                        const response = await fetch(`/users/educational_institute/typeahead/${encodeURIComponent(query)}`);
-
-                        if (! response.ok) {
-                            throw new Error('Invalid Query');
-                        }
-
-                        const data = await response.json();
-                        const filtered = [];
-                        let purifiedData;
-
-                        for (const result of data) {
-                            purifiedData = purify(result.name);
-                            if (purifiedData !== '') {
-                                filtered.push({name: purifiedData});
-                            }
-                        }
-                        return filtered;
-                    } catch (error) {
-                        return error;
-                    }
-                },
-                keys: ['name']
-            },
-            resultsList: {
-                class: 'autocomplete-list'
-            },
-            resultItem: {
-                class: 'autocomplete-list-item'
-            }
-        });
-
-        document.querySelectorAll(SELECTOR).forEach(function (element) {
-            element.addEventListener('selection', function (event) {
-                const feedback = event.detail;
-                const selection = feedback.selection.value[feedback.selection.key];
-                autoCompleteJS.input.value = selection;
-            });
-        });
-
-        const removePic = document.querySelector('#remove_pic');
-        const imgEdit = document.querySelector('#imgedit');
-
-        removePic.addEventListener('change', function () {
-            if (this.checked) {
-                imgEdit.setAttribute('src', '<%= image_path('thumb/Default.jpg') %>');
-            } else {
-                imgEdit.setAttribute('src', '<%= @profile.profile_picture %>');
-            }
-        });
+  $(document).ready(function() {
+    $("#deleteuserModal").on("show.bs.modal", function(e) {
+        let user = $(e.relatedTarget).data('currentuser');
+        $(e.currentTarget).find('#users-user-delete-button').attr("href",
+        "/users/");
     });
+  });
+</script>
+<script>
+  function readURL(input) {
+    if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+    $('#imgedit')
+      .attr('src', e.target.result);
+    };
+    reader.readAsDataURL(input.files[0]);
+    }
+  }
+</script>
+<script>
+  const SELECTOR = '.autocomplete';
+  DOMPurify.setConfig({ ALLOWED_TAGS: [] });
+  const purify = dt => String(DOMPurify.sanitize(String(dt))).trim();
+  const autoCompleteJS = new autoComplete({
+    selector: SELECTOR,
+    data: {
+      src: async function(query) {
+        try {
+          const response = await fetch(
+            `/users/educational_institute/typeahead/${encodeURIComponent(query)}`
+          );
+          if (!response.ok) {
+            throw new Error('Invalid Query');
+          }
+          const data = await response.json();
+          const filtered = [];
+          let purifiedData;
+          for (const result of data) {
+            purifiedData = purify(result.name);
+            if (purifiedData !== '') {
+              filtered.push({ name: purifiedData });
+            }
+          }
+          return filtered;
+        } catch (error) {
+          return error;
+        }
+      },
+      keys: ['name']
+    },
+    resultsList: {
+      class: 'autocomplete-list'
+    },
+    resultItem: {
+      class: 'autocomplete-list-item',
+    }
+  });
+  $(SELECTOR).on('selection', function(event) {
+    const feedback = event.detail;
+    const selection = feedback.selection.value[feedback.selection.key];
+    autoCompleteJS.input.value = selection;
+  });
+  document.querySelector('#remove_pic').addEventListener('change', function() {
+    if (this.checked) {
+      document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
+    } else {
+      document.querySelector('#imgedit').src = '<%= @profile.profile_picture %>';
+    }
+  });
 </script>
