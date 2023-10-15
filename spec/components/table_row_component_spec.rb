@@ -11,11 +11,8 @@ RSpec.describe TableRow::TableRowComponent, type: :component do
   end
 
   it "renders the assignment row correctly" do
-    render_inline(described_class.new(
-                    @assignment,
-                    @current_user,
-                    @group,
-                    { minute: 30, day: 15, year: 2023, second: 0, hour: 12, month: 10 }
-                  ))
+    render_inline(described_class.new(@assignment, @current_user, @group, {
+                                        minute: 30, day: 15, year: 2023, second: 0, hour: 12, month: 10
+                                      }))
   end
 end
