@@ -21,7 +21,7 @@
 3. Start the Docker Deamon (Docker Desktop)
 4. Open `CircuitVerse` directory
 5. Open `PowerShell` in the current directory
-6. Run `./bin/docker_run.ps1`
+6. Run `.\bin\docker_run.ps1`
 7. Wait for the docker container to be prepared
 8. Navigate to `http://localhost:3000` in your browser
 
