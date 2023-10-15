@@ -41,7 +41,7 @@ RUN rm -rf node_modules spec
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Build stage for the Vue simualtor
-FROM --platform=$BUILDPLATFORM node:18.11-slim as simulator_vue_build
+FROM --platform=$BUILDPLATFORM node:20.8-slim as simulator_vue_build
 
 RUN mkdir -p /public/
 
