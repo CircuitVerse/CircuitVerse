@@ -8,10 +8,10 @@
   </div>
 </div>
 <script>
-  $(document).ready(function() {
-    const searchType = $("#search_type");
-    const searchInput = $("#q");
-    searchType.on("change", function() {
+  document.addEventListener("DOMContentLoaded", function() {
+    const searchType = document.querySelector("#search_type");
+    const searchInput = document.querySelector("#q");
+    searchType.addEventListener("change", function() {
       searchInput.focus();
     });
   });
