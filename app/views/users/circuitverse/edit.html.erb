@@ -1,63 +1,60 @@
+
 <% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name) %>
+
 <div class="container projects-new-container">
-    <div class="row center-row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h1 class="submain-heading"><%= t("users.circuitverse.edit_profile.heading") %></h1>
-            <p class="main-description"><%= t("users.circuitverse.edit_profile.description_html") %></p>
-            <br></div>
-        </div>
+  <div class="row center-row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <h1 class="submain-heading"><%= t("users.circuitverse.edit_profile.heading") %></h1>
+        <p class="main-description"><%= t("users.circuitverse.edit_profile.description_html") %></p> <br>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs col-sm col-md col-lg">
+      <div class="form-container">
+        <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
+          <div class="field form-group">
+            <h6><%= f.label :name %><sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup></h6>
+            <%= f.text_field :name, required: true, class: "form-control form-input", autofocus: true %>
+          </div>
+          <div class="field form-group">
+            <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
+            <p><%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
+            <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
+            <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
+            <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
+            <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
+          </div>
+          <div class="field form-group">
+            <h6><%= f.label :country %></h6>
+            <%= f.country_select :country, { include_blank: t("users.circuitverse.edit_profile.country_select_placeholder"), priority_countries: get_priority_countries }, class: "form-control form-input" %>
+          </div>
+          <div class="field form-group">
+            <h6><%= f.label :educational_institute %></h6>
+            <%= f.text_field :educational_institute, { class: "autocomplete form-control form-input", autocomplete: "off" } %>
+          </div>
+          <div class="field form-group">
+            <h6><%= f.label :locale %></h6>
+            <%= f.select :locale, options_for_select(I18nSupport.locale_names, f.object.locale), { prompt: t("users.circuitverse.edit_profile.select_locale_prompt") }, { class: "form-control form-input" } %>
+          </div>
+          <div class="field form-group users-edit-primary-checkpoint">
+            <label for="profile_subscribed" class="primary-checkpoint-container"><h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
+              <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
+              <div class="primary-checkpoint"></div>
+            </label>
+          </div>
+          <button type="submit" class="btn primary-button users-edit-primary-button"><%= t("save") %></button>
+          <%= link_to t("back"), :back, class: "anchor-text" %>
+        <% end %>
         <div class="row">
-            <div class="col-xs col-sm col-md col-lg">
-                <div class="form-container">
-                    <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
-                        <div class="field form-group">
-                            <h6><%= f.label :name %><sup>
-                                    <i class="fa fa-asterisk users-edit-asterisk"></i>
-                                </sup>
-                            </h6>
-                            <%= f.text_field :name, required: true, class: "form-control form-input", autofocus: true %>
-                        </div>
-                        <div class="field form-group">
-                            <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
-                            <p><%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
-                            <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
-                            <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-                                <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
-                                <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
-                            </div>
-                            <div class="field form-group">
-                                <h6><%= f.label :country %></h6>
-                                <%= f.country_select :country, { include_blank: t("users.circuitverse.edit_profile.country_select_placeholder"), priority_countries: get_priority_countries }, class: "form-control form-input" %>
-                            </div>
-                            <div class="field form-group">
-                                <h6><%= f.label :educational_institute %></h6>
-                                <%= f.text_field :educational_institute, { class: "autocomplete form-control form-input", autocomplete: "off" } %>
-                            </div>
-                            <div class="field form-group">
-                                <h6><%= f.label :locale %></h6>
-                                <%= f.select :locale, options_for_select(I18nSupport.locale_names, f.object.locale), { prompt: t("users.circuitverse.edit_profile.select_locale_prompt") }, { class: "form-control form-input" } %>
-                            </div>
-                            <div class="field form-group users-edit-primary-checkpoint">
-                                <label for="profile_subscribed" class="primary-checkpoint-container">
-                                    <h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
-                                    <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
-                                    <div class="primary-checkpoint"></div>
-                                </label>
-                            </div>
-                            <button type="submit" class="btn primary-button users-edit-primary-button"><%= t("save") %></button>
-                            <%= link_to t("back"), :back, class: "anchor-text" %>
-                        <% end %>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <h4 class="submain-heading"><%= t("users.circuitverse.edit_profile.delete_account_heading") %></h4>
-                                <p><%= t("users.circuitverse.edit_profile.delete_account_notice") %></p>
-                                <br>
-                            </div>
-                        </div>
-                    <%= link_to t("users.circuitverse.edit_profile.delete_account"), "#", class: "btn primary-delete-button", data: { toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id } %>
-                </div>
-            </div>
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h4 class="submain-heading"><%= t("users.circuitverse.edit_profile.delete_account_heading") %></h4>
+            <p><%= t("users.circuitverse.edit_profile.delete_account_notice") %></p> <br>
+          </div>
         </div>
+        <%= link_to t("users.circuitverse.edit_profile.delete_account"), "#", class: "btn primary-delete-button", data: { toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id } %>
+      </div>
+    </div>
+  </div>
 </div>
 <%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
 <script type="text/javascript">
