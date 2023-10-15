@@ -1,6 +1,7 @@
 .select2-container span.select2-selection--multiple {
+  max-width: 450px;
   min-height: 150px;
-  min-width: 450px;
+  width: 70vw;
 }
 
 .select2-container ul.select2-selection__rendered li.select2-selection__choice {
