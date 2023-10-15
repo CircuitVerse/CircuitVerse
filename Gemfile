@@ -213,3 +213,7 @@ gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
 gem "maintenance_tasks", "~> 2.3"
+
+group :development do
+  gem "lookbook", ">= 2.1.1"
+end
