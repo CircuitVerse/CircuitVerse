@@ -3,7 +3,7 @@
     <div class="groups-assignment-details groups-expanded-assignment-name">
       <%= @assignment.name %>
       <% if Flipper.enabled?(:lms_integration, @current_user) %>
-        <% if @policy.admin_access? && @assignment.lti_integrated? %>
+        <% if policy(@group).admin_access? && @assignment.lti_integrated? %>
           <br>
           <a data-toggle="modal" href="#lmscredentialsModal-<%= @assignment.id %>">Show LMS Credentials</a>
           <%= render partial: "lms_credentials_modal", locals: { assignment: @assignment } %>
@@ -38,7 +38,7 @@
         <span><%= t("view") %></span>
       <% end %>
     </div>
-    <% if @policy.mentor_access? %>
+    <% if policy(@group).mentor_access? %>
       <% if AssignmentDecorator.new(@assignment).closed? %>
         <div class="groups-assignment-details">
           <%= link_to reopen_group_assignment_path(@group, @assignment), class: "mini-button groups-reopen-mini-button" do %>
@@ -97,9 +97,9 @@
       <% end %>
     <% end %>
   </td>
-  <% unless @policy.admin_access? %>
+  <% unless policy(@group).admin_access? %>
     <td>
-      <% if @policy_assignment.show_grades? && project_assignment.present? %>
+      <% if policy(@assignment).show_grades? && project_assignment.present? %>
         <div class="groups-assignment-details">
           <div class="groups-no-assignment-submission-text">
             <h6>

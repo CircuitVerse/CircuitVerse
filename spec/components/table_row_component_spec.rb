@@ -3,13 +3,19 @@
 require "rails_helper"
 
 RSpec.describe TableRow::TableRowComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  before do
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+    @assignment = FactoryBot.create(:assignment, group: @group)
+    @current_user = FactoryBot.create(:user)
+  end
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  it "renders the assignment row correctly" do
+    render_inline(described_class.new(
+                    @assignment,
+                    @current_user,
+                    @group,
+                    { minute: 30, day: 15, year: 2023, second: 0, hour: 12, month: 10 }
+                  ))
+  end
 end
