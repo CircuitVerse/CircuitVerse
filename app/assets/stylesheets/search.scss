@@ -97,6 +97,12 @@
   padding: 5px 20px;
 }
 
+@media (max-width: 575px) {
+  .search-primary-button {
+    width: 100%;
+  }
+}
+
 .search-project-description {
   height: 300px;
   margin-left: 15px;
