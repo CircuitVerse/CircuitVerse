@@ -151,7 +151,8 @@ Rails.application.routes.draw do
   get "/learn", to: redirect("https://learn.circuitverse.org")
   get "/docs", to: redirect("https://docs.circuitverse.org")
   get "/features", to: redirect("/#home-features-section")
-
+  get "/playstore", to: redirect("https://play.google.com/store/apps/details?id=org.circuitverse.mobile_app&hl=en&gl=US")
+  
   # Health Check at /up ~> will be default in rails 7.1
   get '/up', to: ->(_env) { [200, {}, ['']] }
 

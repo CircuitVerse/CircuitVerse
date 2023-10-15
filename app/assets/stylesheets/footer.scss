@@ -115,6 +115,16 @@
   --scale: 1;
 }
 
+.footer-playstore {
+  margin: auto;
+  margin-top: 10px;
+}
+
+.footer-playstore-logo {
+  height: 60px;
+  width: 100%;
+}
+
 .bounce-out-on-hover::after {
   content: '';
   width: 10px;
