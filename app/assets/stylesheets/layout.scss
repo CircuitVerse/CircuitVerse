@@ -168,3 +168,11 @@ body {
     margin-left: -4px;
   }
 }
+@media (min-width: 993px) {
+  .nav-item:hover .getStart {
+    display: block;
+  }
+}
+.dropdown-item {
+  display: block;
+}
