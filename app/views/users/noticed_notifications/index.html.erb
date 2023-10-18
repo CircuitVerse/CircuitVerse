@@ -44,6 +44,10 @@
           <h6><%= t("users.notifications.no_notifications") %></h6>
         </div>
       </div>
+    <% else %>
+      <div class="container pagination-cont">
+        <%= will_paginate @notifications, renderer: NotificationPaginateRenderer %>
+      </div>
     <% end %>
   </div>
   <div id="unread-notifications-div" class="d-none flex-column bd-highlight mb-3 mt-3 notifications_container">
@@ -67,6 +71,10 @@
           <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
           <h6><%= t("users.notifications.no_unread_notifications") %></h6>
         </div>
+      </div>
+    <% else %>
+      <div class="container pagination-cont">
+        <%= will_paginate @unread, renderer: NotificationPaginateRenderer %>
       </div>
     <% end %>
   </div>
