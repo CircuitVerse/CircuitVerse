@@ -19,8 +19,8 @@
     ```
     - Use `git submodule update --init` to get the contents of the submodule if you missed using the `--recursive` option while cloning the repository or if you have already done so.
 3. Start the Docker Deamon (Docker Desktop)
-4. Open `CircuitVerse` directory
-5. Open `PowerShell` in the current directory
+4. Launch Powershell
+5. Navigate to the `CircuitVerse` directory
 6. Run `.\bin\docker_run.ps1`
 7. Wait for the docker container to be prepared
 8. Navigate to `http://localhost:3000` in your browser
