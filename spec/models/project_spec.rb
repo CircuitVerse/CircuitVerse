@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Project, type: :model do
+RSpec.describe Project do
   before do
     @user = FactoryBot.create(:user)
     group = FactoryBot.create(:group, primary_mentor: @user)
@@ -26,14 +26,14 @@ RSpec.describe Project, type: :model do
       project = FactoryBot.build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.project_access_type = "Public"
-      expect(project).to be_invalid
+      expect(project).not_to be_valid
     end
 
     it "doesn't allow profanities in description" do
       project = FactoryBot.build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.description = "Ass"
-      expect(project).to be_invalid
+      expect(project).not_to be_valid
     end
   end
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Group management", type: :system do
+describe "Group management" do
   let(:primary_mentor) { FactoryBot.create(:user) }
   let(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
   let(:user) { FactoryBot.create(:user) }

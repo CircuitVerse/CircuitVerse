@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Star, type: :model do
+RSpec.describe Star do
   describe "associations" do
     it { is_expected.to belong_to(:user) }
     it { is_expected.to belong_to(:project) }

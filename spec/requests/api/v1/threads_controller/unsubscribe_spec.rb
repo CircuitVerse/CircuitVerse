@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::V1::ThreadsController, "#unsubscribe", type: :request do
+RSpec.describe Api::V1::ThreadsController, "#unsubscribe" do
   describe "unsubscribe a thread" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }

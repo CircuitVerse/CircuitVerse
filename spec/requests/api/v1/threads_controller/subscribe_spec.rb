@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-RSpec.describe Api::V1::ThreadsController, "#subscribe", type: :request do
+RSpec.describe Api::V1::ThreadsController, "#subscribe" do
   describe "subscribe a thread" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }

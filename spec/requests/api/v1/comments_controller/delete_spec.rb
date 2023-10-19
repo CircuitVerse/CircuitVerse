@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
+RSpec.describe Api::V1::CommentsController, "#delete" do
   describe "delete a comment" do
     let!(:creator) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }

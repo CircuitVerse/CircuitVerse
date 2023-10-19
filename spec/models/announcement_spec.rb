@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Announcement, type: :model do
+RSpec.describe Announcement do
   describe ".current" do
     it "returns the most recently created announcement" do
       # Create multiple announcements with different created_at timestamps

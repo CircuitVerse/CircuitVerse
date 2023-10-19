@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
+RSpec.describe Api::V1::AssignmentsController, "#show" do
   describe "list specific assignment" do
     let!(:primary_mentor) { FactoryBot.create(:user) }
     let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe FeaturedCircuitsController, type: :request do
+describe FeaturedCircuitsController do
   before do
     @project = FactoryBot.create(:project, author: FactoryBot.create(:user),
                                            project_access_type: "Public")
@@ -11,7 +11,7 @@ describe FeaturedCircuitsController, type: :request do
   describe "#index" do
     it "gets index page" do
       get featured_circuits_path
-      expect(response.status).to eq(200)
+      expect(response).to have_http_status(:ok)
     end
   end
 

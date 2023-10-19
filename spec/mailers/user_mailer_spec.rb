@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe UserMailer, type: :mailer do
+RSpec.describe UserMailer do
   before do
     @user = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)

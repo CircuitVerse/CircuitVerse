@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe SimulatorController, type: :request do
+describe SimulatorController do
   before do
     @user = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user, name: "Test Name",
@@ -21,7 +21,7 @@ describe SimulatorController, type: :request do
           expect do
             post "/simulator/create_data", params: { image: "", name: "Test Name" }
           end.to change(Project, :count).by(1)
-          expect(response.status).to eq(302)
+          expect(response).to have_http_status(:found)
           created_project = Project.order("created_at").last
           expect(created_project.image_preview.path.split("/")[-1]).to eq("default.png")
         end
@@ -55,7 +55,7 @@ describe SimulatorController, type: :request do
           post "/simulator/update_data", params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")
-          expect(response.status).to eq(200)
+          expect(response).to have_http_status(:ok)
         end
       end
 
@@ -63,7 +63,7 @@ describe SimulatorController, type: :request do
         it "throws project access error" do
           sign_in_random_user
           post "/simulator/update_data", params: update_params
-          expect(response.status).to eq(403)
+          expect(response).to have_http_status(:forbidden)
         end
       end
     end

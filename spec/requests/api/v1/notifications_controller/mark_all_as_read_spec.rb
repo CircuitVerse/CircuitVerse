@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::NotificationsController, "#mark_all_as_read", type: :request do
+RSpec.describe Api::V1::NotificationsController, "#mark_all_as_read" do
   describe "mark all notifications as read" do
     context "when not authenticated" do
       before do

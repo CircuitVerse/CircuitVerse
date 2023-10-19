@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Assignments", type: :system do
+describe "Assignments" do
   let(:primary_mentor) { FactoryBot.create(:user) }
   let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
   # rubocop:disable Layout/LineLength

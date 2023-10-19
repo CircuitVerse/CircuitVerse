@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe AssignmentsController, type: :request do
+describe AssignmentsController do
   before do
     @primary_mentor = FactoryBot.create(:user)
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
@@ -45,7 +45,7 @@ describe AssignmentsController, type: :request do
     context "render view" do
       it "shows the requested assignment" do
         get group_assignment_path(@group, @assignment)
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(response.body).to include(@assignment.description)
       end
     end
@@ -84,7 +84,7 @@ describe AssignmentsController, type: :request do
 
     it "starts a new project" do
       get assignment_start_path(@group, @assignment)
-      expect(response.status).to eq(302)
+      expect(response).to have_http_status(:found)
     end
   end
 

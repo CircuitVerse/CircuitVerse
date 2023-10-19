@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#check_edit_access" do
   describe "check edit access" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }

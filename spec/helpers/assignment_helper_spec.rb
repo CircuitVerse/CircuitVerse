@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe AssignmentsHelper, type: :helper do
+RSpec.describe AssignmentsHelper do
   before do
     @deadline_day = 2
     @deadline_month = 3

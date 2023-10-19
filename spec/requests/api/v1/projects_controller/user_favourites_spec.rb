@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#user_favourites", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#user_favourites" do
   describe "list all starred projects" do
     let!(:user_one) { FactoryBot.create(:user) }
     let!(:user_two) { FactoryBot.create(:user) }

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "User profile", type: :system do
+describe "User profile" do
   before do
     @user = sign_in_random_user
     sign_in @user

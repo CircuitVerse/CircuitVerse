@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe ErrorsController, type: :request do
+describe ErrorsController do
   describe "#not_found" do
     it "returns 404" do
       get "/404"

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe GradesController, type: :request do
+describe GradesController do
   before do
     @primary_mentor = FactoryBot.create(:user)
     @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
@@ -46,7 +46,7 @@ describe GradesController, type: :request do
           invalid_params = create_params
           create_params[:grade][:grade] = "90"
           post grades_path, params: invalid_params
-          expect(response.status).to eq(400)
+          expect(response).to have_http_status(:bad_request)
           expect(response.parsed_body["error"]).to eq("Grade is invalid")
         end
       end
@@ -73,7 +73,7 @@ describe GradesController, type: :request do
           invalid_params = create_params
           create_params[:grade][:grade] = "90"
           post grades_path, params: invalid_params
-          expect(response.status).to eq(400)
+          expect(response).to have_http_status(:bad_request)
           expect(response.parsed_body["error"]).to eq("Grade is invalid")
         end
       end

@@ -1,8 +1,10 @@
 # frozen_string_literal: true
 
+# rubocop:disable RSpec/FilePath
+
 require "rails_helper"
 
-describe Users::NoticedNotificationsController, type: :request do
+describe Users::NoticedNotificationsController do
   before do
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user
@@ -62,3 +64,4 @@ describe Users::NoticedNotificationsController, type: :request do
     end
   end
 end
+# rubocop:enable RSpec/FilePath

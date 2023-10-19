@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::CollaboratorsController, "#destroy", type: :request do
+RSpec.describe Api::V1::CollaboratorsController, "#destroy" do
   describe "delete specific collaborator" do
     let!(:author) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, author: author) }

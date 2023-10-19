@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe CollaborationsController, type: :request do
+describe CollaborationsController do
   before do
     @author = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @author)

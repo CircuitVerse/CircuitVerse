@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ThreadsController, "#close", type: :request do
+RSpec.describe Api::V1::ThreadsController, "#close" do
   describe "close a thread" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }

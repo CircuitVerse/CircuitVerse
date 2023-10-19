@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Notifcation", type: :system do
+describe "Notifcation" do
   before do
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user

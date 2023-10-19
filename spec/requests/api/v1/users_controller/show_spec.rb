@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::UsersController, "#show", type: :request do
+RSpec.describe Api::V1::UsersController, "#show" do
   describe "list a user" do
     let!(:user) { FactoryBot.create(:user) }
 

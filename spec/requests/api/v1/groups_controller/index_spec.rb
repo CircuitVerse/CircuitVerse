@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::GroupsController, "#index", type: :request do
+RSpec.describe Api::V1::GroupsController, "#index" do
   describe "list all groups" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:primary_mentor) { FactoryBot.create(:user) }

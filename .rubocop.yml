@@ -316,3 +316,6 @@ Style/HashSyntax:
 
 Naming/BlockForwarding:
   Enabled: false
+
+RSpec/NoExpectationExample:
+  Enabled: false

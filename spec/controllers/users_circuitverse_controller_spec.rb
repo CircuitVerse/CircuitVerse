@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe Users::CircuitverseController, type: :request do
+describe Users::CircuitverseController do
   before do
     @user = FactoryBot.create(:user)
     sign_in @user
@@ -10,13 +10,13 @@ describe Users::CircuitverseController, type: :request do
 
   it "gets user projects" do
     get user_projects_path(id: @user.id)
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:ok)
   end
 
   it "gets user profile" do
     get profile_path(id: @user.id)
     expect(response).to redirect_to(user_projects_path(id: @user.id))
-    expect(response.status).to eq(301)
+    expect(response).to have_http_status(:moved_permanently)
   end
 
   describe "#groups" do
@@ -28,7 +28,7 @@ describe Users::CircuitverseController, type: :request do
       it "gets user groups" do
         sign_in FactoryBot.create(:user, admin: true)
         get user_groups_path(id: @user.id)
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -36,7 +36,7 @@ describe Users::CircuitverseController, type: :request do
       it "gets user groups" do
         sign_in @user
         get user_groups_path(id: @user.id)
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
       end
     end
 
@@ -51,7 +51,7 @@ describe Users::CircuitverseController, type: :request do
 
   it "gets edit profile" do
     get profile_edit_path(id: @user.id)
-    expect(response.status).to eq(200)
+    expect(response).to have_http_status(:ok)
   end
 
   it "updates user profile" do

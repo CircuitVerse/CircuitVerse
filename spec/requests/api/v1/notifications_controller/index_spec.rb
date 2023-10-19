@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::NotificationsController, "#index", type: :request do
+RSpec.describe Api::V1::NotificationsController, "#index" do
   describe "list all notifications" do
     context "when not authenticated" do
       before do

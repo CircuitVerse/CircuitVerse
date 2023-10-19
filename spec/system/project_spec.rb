@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "Project", type: :system do
+describe "Project" do
   let(:author) { FactoryBot.create(:user) }
   let(:private_project) { FactoryBot.create(:project, author: author, project_access_type: "Private") }
   let(:public_project) { FactoryBot.create(:project, author: author, project_access_type: "Public") }

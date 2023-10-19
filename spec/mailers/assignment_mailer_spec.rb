@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe AssignmentMailer, type: :mailer do
+RSpec.describe AssignmentMailer do
   before do
     @group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user), name: "Test group")
     @assignment = FactoryBot.create(:assignment, group: @group)

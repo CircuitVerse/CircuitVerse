@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::CommentsController, "#create", type: :request do
+RSpec.describe Api::V1::CommentsController, "#create" do
   describe "create a comment" do
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
 

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#image_preview", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#image_preview" do
   describe "get project image preview" do
     let!(:public_project) { FactoryBot.create(:project, project_access_type: "Public") }
     let!(:private_project) { FactoryBot.create(:project) }

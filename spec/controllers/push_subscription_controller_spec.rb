@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe PushSubscriptionController, type: :request do
+describe PushSubscriptionController do
   before do
     @user = FactoryBot.create(:user)
     sign_in @user
@@ -15,7 +15,7 @@ describe PushSubscriptionController, type: :request do
         auth: "Dummy",
         p256dh: "Dummy"
       } }
-      expect(response.status).to eq(201)
+      expect(response).to have_http_status(:created)
       expect(@user.push_subscriptions.length).to eq(1)
       subscription = @user.push_subscriptions.first
       expect(subscription).not_to be_nil

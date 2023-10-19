@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe CustomMailsController, type: :request do
+describe CustomMailsController do
   before do
     @mail = FactoryBot.create(:custom_mail, subject: "Test subject",
                                             content: "Test content",
@@ -85,7 +85,7 @@ describe CustomMailsController, type: :request do
     describe "#index" do
       it "shows the list of custom views" do
         get custom_mails_path(@mail)
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(response.body).to include(@mail.subject)
       end
     end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::CommentsController, "#index", type: :request do
+RSpec.describe Api::V1::CommentsController, "#index" do
   describe "get thread's comments" do
     let!(:private_project_author) { FactoryBot.create(:user) }
     let!(:public_project) { FactoryBot.create(:project, project_access_type: "Public") }

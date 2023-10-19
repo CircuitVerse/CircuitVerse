@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::AssignmentsController, "#destroy", type: :request do
+RSpec.describe Api::V1::AssignmentsController, "#destroy" do
   describe "delete specific assignment" do
     let!(:primary_mentor) { FactoryBot.create(:user) }
     let!(:assignment) do

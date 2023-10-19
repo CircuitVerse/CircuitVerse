@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
+RSpec.describe Api::V1::GroupMembersController, "#create" do
   describe "create/add group members" do
     let!(:existing_user) { FactoryBot.create(:user, email: "test@test.com") }
     let!(:primary_mentor) { FactoryBot.create(:user) }

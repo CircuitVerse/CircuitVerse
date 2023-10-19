@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request do
+RSpec.describe Api::V1::ProjectsController, "#featured_circuits" do
   describe "list all featured projects" do
     context "when fetches all featured projects" do
       before do

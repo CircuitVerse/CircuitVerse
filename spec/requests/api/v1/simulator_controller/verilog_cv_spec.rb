@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::SimulatorController, type: :request do
+RSpec.describe Api::V1::SimulatorController do
   describe "POST /api/v1/simulator/verilogcv" do
     let(:code) { "sample_code" }
     let(:yosys_url) { "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON" }
@@ -18,7 +18,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       it "returns a successful response with correct JSON" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
-        expect(response.status).to eq(200)
+        expect(response).to have_http_status(:ok)
         expect(response.parsed_body).to eq(yosys_response.with_indifferent_access)
       end
     end
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       it "returns the failed status code" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
-        expect(response.status).to eq(500)
+        expect(response).to have_http_status(:internal_server_error)
       end
     end
   end

@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Group, type: :model do
+RSpec.describe Group do
   before do
     @primary_mentor = FactoryBot.create(:user)
   end

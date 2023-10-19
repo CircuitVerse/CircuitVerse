@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::GradesController, "#create", type: :request do
+RSpec.describe Api::V1::GradesController, "#create" do
   describe "create a grade" do
     let!(:primary_mentor) { FactoryBot.create(:user) }
     let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
