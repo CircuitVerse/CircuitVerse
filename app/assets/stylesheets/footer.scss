@@ -27,8 +27,12 @@
 }
 
 .footer-social-icon {
-  margin-left: 15px;
-  width: 32px;
+  width: 28px;
+}
+
+.footer-social-icons-row {
+  column-gap: 5px;
+  margin: inherit;
 }
 
 .bounce-out-on-hover {
@@ -45,6 +49,7 @@
 .bounce-out-on-hover:active {
   transform: scale(.8);
   transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
+  z-index: 1;
 }
 
 .footer-links {
@@ -103,7 +108,6 @@
   padding: .5rem;
   text-align: center;
   width: fit-content;
-
 }
 
 .bounce-out-on-hover:hover::before,
