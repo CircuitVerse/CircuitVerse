@@ -471,6 +471,20 @@
 .notification-container {
   width: 100%;
 }
+
+@media only screen and (max-width: 768px) {
+  .notification-container {
+
+    width: 80%;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .notification-container {
+    width: 100%;
+  }
+}
+
 .notification-heading {
   font-size: 30px;
   font-style: normal;
