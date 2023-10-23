@@ -1,14 +1,11 @@
 .footer-empty-div {
   height: 100px;
 }
-
-
 @media only screen and (max-width: 768px) {
   .footer-empty-div {
     height: 150px; 
   }
 }
-
 @media only screen and (max-width: 480px) {
   .footer-empty-div {
     height: 200px; 
