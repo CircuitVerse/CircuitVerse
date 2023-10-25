@@ -7,37 +7,37 @@
       </div>
       <div class="modal-body">
         <div class="field form-group embed-input-fields">
-            <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.height") %></b></label></div>
-            <input type="text" class="form-control form-input" id="height" placeholder="Height" value="500">
+          <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.height") %></b></label></div>
+          <input type="text" class="form-control form-input" id="height" placeholder="Height" value="500">
         </div>
         <div class="field form-group embed-input-fields">
-        <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.width") %></b></label></div>
+          <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.width") %></b></label></div>
           <input type="text" class="form-control form-input" id="width" placeholder="Width" value="500">
         </div>
         <div class="field form-group embed-input-fields">
-            <div><label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label></div>
-            <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
+          <div><label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label></div>
+          <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
         </div>
         <div class="field form-group embed-input-fields">
-            <div><label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label></div>
-            <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)">&nbsp;&nbsp;
-            <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)">
+          <div><label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label></div>
+          <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)">&nbsp;&nbsp;
+          <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)">
         </div>
         <div class="field form-group embed-input-fields">
-            <div><label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label></div>
-            <select class="form-control form-input" id="border_style" placeholder="Select a style">
-                <option>solid</option>
-                <option>dashed</option>
-                <option>dotted</option>
-                <option>double</option>
-                <option>groove</option>
-                <option>ridge</option>
-                <option>inset</option>
-                <option>outset</option>
-                <option>none</option>
-                <option>hidden</option>
-                <option>dotted dashed solid double</option>
-            </select>
+          <div><label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label></div>
+          <select class="form-control form-input" id="border_style" placeholder="Select a style">
+            <option>solid</option>
+            <option>dashed</option>
+            <option>dotted</option>
+            <option>double</option>
+            <option>groove</option>
+            <option>ridge</option>
+            <option>inset</option>
+            <option>outset</option>
+            <option>none</option>
+            <option>hidden</option>
+            <option>dotted dashed solid double</option>
+          </select>
         </div>
         <div class="advance-embed-field field form-group">
           <details>
@@ -74,23 +74,23 @@
               <div class="field form-group embed-input-fields">
                 <div><label for="theme" class="col-sm-3 col-form-label"><b><%= t("projects.modal.advance.theme") %></b></label></div>
                 <select class="form-control form-input" id="theme" placeholder="Select a style">
-                    <option value="default">Default</option>
-                    <option value="night-sky">Night Sky</option>
-                    <option value="lite-born-spring">Lite-born Spring</option>
-                    <option value="g-and-w">G&W</option>
-                    <option value="high-contrast">High Contrast</option>
-                    <option value="color-blind">Color Blind</option>
+                  <option value="default">Default</option>
+                  <option value="night-sky">Night Sky</option>
+                  <option value="lite-born-spring">Lite-born Spring</option>
+                  <option value="g-and-w">G&W</option>
+                  <option value="high-contrast">High Contrast</option>
+                  <option value="color-blind">Color Blind</option>
                 </select>
               </div>
             </div>
           </details>
         </div>
         <div>
-            <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
+          <button class="btn primary-button projects-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
         </div>
         <div class="collapse show">
-            <textarea name='embed-textarea' class="form-control form-input embed-link-textarea" rows="5px" column="115px" id="result" readonly></textarea>
-            <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
+          <textarea name='embed-textarea' class="form-control form-input embed-link-textarea" rows="5px" column="115px" id="result" readonly></textarea>
+          <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
         </div>
       </div>
     </div>
