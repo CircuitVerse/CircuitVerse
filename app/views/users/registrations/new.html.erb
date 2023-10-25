@@ -28,7 +28,7 @@
         <div class="field form-group">
           <h6><%= f.label :email %></h6>
           <div class="input-group">
-            <%= f.email_field :email, class:"form-control form-input" %>
+            <%= f.email_field :email, class:"form-control form-input", placeholder: "Enter Email" %>
           </div>
         </div>
         <div class="field form-group">
@@ -39,7 +39,7 @@
             <% end %>
           </h6>
         <div class="input-group form-input">
-          <%= f.password_field :password, autocomplete: "off" ,class:"form-control users-password-input" %>
+          <%= f.password_field :password, autocomplete: "off" ,class:"form-control users-password-input", placeholder: "Enter Password" %>
           <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
             <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
           </div>
