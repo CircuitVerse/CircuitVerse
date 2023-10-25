@@ -100,7 +100,7 @@
             <p>
               <hr class="projects-horizontal-rule">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("launch_simulator") %></a>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-button" target="_blank"><%= t("launch_simulator") %></a>
               <% else %>
                 <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
                 <i class="fas fa-code"></i>
@@ -108,20 +108,20 @@
               </a>
               <% end %>
               <% if policy(@project).author_access? %>
-                <%= link_to create_fork_project_path(@project), id: "copy_paste", class: "btn primary-button projects-primary-button", method: :post do %>
+                <%= link_to create_fork_project_path(@project), id: "copy_paste", class: "btn primary-button projects-button", method: :post do %>
                   <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
                   <span><%= t("projects.show.project_copy") %></span>
                 <% end %>
               <% else %>
-                  <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
+                  <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-button", method: :post do %>
                   <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
                   <span><%= t("fork") %></span>
                 <% end %>
               <% end %>
               <% if @project.stars.exists?(user_id: current_user.id) %>
-                <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="fas fa-star btn primary-button projects-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
               <% else %>
-                <i id="toggleStarButton" class="far fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="far fa-star btn primary-button projects-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
               <% end %>
             </p>
           <% end %>
@@ -133,15 +133,15 @@
           <% if policy(@project).user_access? %>
             <hr class="projects-horizontal-rule">
             <p>
-              <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button" do %>
+              <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button projects-button" do %>
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "btn secondary-button", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
+              <%= link_to "#", class: "btn secondary-button projects-button", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
-              <a class="btn secondary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
+              <a class="btn secondary-button projects-self-embed-button projects-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
                 <i class="fas fa-code"></i>
                 <span><%= t("projects.show.project_embed") %></span>
               </a>
