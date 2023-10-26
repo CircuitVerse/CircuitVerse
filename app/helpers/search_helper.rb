@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
 module SearchHelper
+  # @type [Integer] Maximum number of results per page
   MAX_RESULTS_PER_PAGE = 5
 
+  # @param [String] resource
+  # @param [Hash] query_params
   def query(resource, query_params)
     case resource
     when "Users"
