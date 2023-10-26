@@ -56,7 +56,7 @@
             <% end %>
           </p>
           <% if policy(@user).edit? %>
-            <a class="btn primary-button" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
+            <a class="btn primary-button ml-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
         </div>
       </div>
