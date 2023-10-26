@@ -407,10 +407,10 @@ export function setupTimingListeners() {
         plotArea.resize();
     })
     $('.timing-diagram-small-height').on('click', () => {
-        changeHeight(1);
+        changeHeight(0);
     })
     $('.timing-diagram-large-height').on('click', () => {
-        changeHeight(0);
+        changeHeight(1);
     })
     $('.timing-diagram-reset').on('click', () => {
         plotArea.reset();
