@@ -15,8 +15,10 @@
           <input type="text" class="form-control form-input" id="width" placeholder="Width" value="500">
         </div>
         <div class="field form-group embed-input-fields">
-            <div><label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label></div>
+            <div><label for="url" class="col-sm-2 col-form-label"><b> <%= t("projects.modal.url") %></b></label></div>
             <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
+            <button class="btn copy-button projects-primary-button embed-button" data-action="click->projects#copyEmbeddUrl" id='copy-btn'>Copy</button>
+
         </div>
         <div class="field form-group embed-input-fields">
             <div><label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label></div>

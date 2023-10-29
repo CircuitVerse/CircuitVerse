@@ -3,6 +3,13 @@ import { Controller } from 'stimulus';
 
 var flag = false;
 
+function copyEmbeddUrl() {
+    var urlInput = document.getElementById('url');
+    urlInput.select();
+    document.execCommand('copy');
+    urlInput.setSelectionRange(0, 0);
+}
+
 export default class extends Controller {
     // eslint-disable-next-line class-methods-use-this
     copy() {
@@ -32,3 +39,8 @@ export default class extends Controller {
         this.copy();
     }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    var copyButton = document.querySelector('#copy-btn');
+    copyButton.addEventListener('click', copyEmbeddUrl);
+});
