@@ -220,18 +220,21 @@ const plotArea = {
         // Reset canvas
         this.clear();
         var ctx = this.ctx;
+        
         // Background Color
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, width, height);
         ctx.lineWidth = sh(1);
         ctx.font = `${sh(15)}px Raleway`;
         ctx.textAlign = 'left';
+        
         // Timeline
         ctx.fillStyle = foregroundColor;
         ctx.fillRect(timeLineStartX, 0, this.canvas.width, timeLineHeight);
         ctx.fillRect(0, 0, flagLabelWidth, timeLineHeight);
         ctx.fillStyle = textColor;
         ctx.fillText('Time', sh(5), timeLineHeight * 0.7);
+        
         // Timeline numbers
         ctx.font = `${sh(9)}px Times New Roman`;
         ctx.strokeStyle = textColor;
@@ -258,6 +261,7 @@ const plotArea = {
                 }
             }
         }
+        
         // Flag Labels
         ctx.textAlign = 'left';
         for (var i = 0; i < globalScope.Flag.length; i++) {
@@ -267,14 +271,17 @@ const plotArea = {
             ctx.fillStyle = textColor;
             ctx.fillText(globalScope.Flag[i].identifier, sh(5), startHeight + plotHeight * 0.7);
         }
+        
         // Waveform Status Flags
         const WAVEFORM_NOT_STARTED = 0;
         const WAVEFORM_STARTED = 1;
         const WAVEFORM_OVER = 3;
+        
         // Waveform
         ctx.strokeStyle = waveFormColor;
         ctx.textAlign = 'center';
         var endX = Math.min(getCycleStartX(endTime), width);
+        
         for (var i = 0; i < globalScope.Flag.length; i++) {
             var plotValues = globalScope.Flag[i].plotValues;
             var startHeight = getFlagStartY(i) + waveFormPadding;
@@ -283,6 +290,7 @@ const plotArea = {
             var yBottom = startHeight + waveFormHeight;
             var state = WAVEFORM_NOT_STARTED;
             var prevY;
+            
             // Find correct index to start plotting from
             var j = 0;
             // Using caching for optimal performance
@@ -299,6 +307,7 @@ const plotArea = {
             }
             // Cache index
             globalScope.Flag[i].cachedIndex = j;
+            
             // Plot
             for (; j < plotValues.length; j++) {
                 var x = getCycleStartX(plotValues[j][0]);
@@ -355,6 +364,7 @@ const plotArea = {
                     ctx.lineTo(endX - smallOffset, yBottom);
                     ctx.closePath();
                     ctx.stroke();
+                    
                     // Text position
                     // Clamp start and end are within the screen
                     var x1 = Math.max(x, timeLineStartX);
