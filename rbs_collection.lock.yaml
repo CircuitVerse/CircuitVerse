@@ -2,7 +2,7 @@
 sources:
 - type: git
   name: ruby/gem_rbs_collection
-  revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+  revision: 8a678b2ec20e9d594055f53745399814e3a887dc
   remote: https://github.com/ruby/gem_rbs_collection.git
   repo_dir: gems
 path: ".gem_rbs_collection"
@@ -119,6 +119,10 @@ gems:
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: benchmark
+  version: '0'
+  source:
+    type: stdlib
 - name: cgi
   version: '0'
   source:
@@ -129,6 +133,14 @@ gems:
     type: git
     name: ruby/gem_rbs_collection
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: connection_pool
+  version: '2.4'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: date
@@ -151,10 +163,26 @@ gems:
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: flipper
+  version: '0.28'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: forwardable
   version: '0'
   source:
     type: stdlib
+- name: geocoder
+  version: '1.8'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: globalid
   version: '1.1'
   source:
@@ -169,6 +197,14 @@ gems:
     type: git
     name: ruby/gem_rbs_collection
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: http
+  version: '5.1'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: i18n
@@ -223,6 +259,14 @@ gems:
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: mime-types
+  version: '3.5'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: minitest
   version: '0'
   source:
@@ -244,6 +288,10 @@ gems:
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: openssl
+  version: '0'
+  source:
+    type: stdlib
+- name: optparse
   version: '0'
   source:
     type: stdlib
@@ -291,10 +339,6 @@ gems:
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
-- name: rbs_rails
-  version: 0.12.0
-  source:
-    type: rubygems
 - name: redis
   version: '4.2'
   source:
@@ -347,4 +391,12 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: yard
+  version: '0.9'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 8a678b2ec20e9d594055f53745399814e3a887dc
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 gemfile_lock_path: Gemfile.lock

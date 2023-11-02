@@ -133,7 +133,7 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
-  gem "rbs_rails"
+  gem "rbs"
   gem "steep"
   gem 'solargraph-rails', '~> 0.3.1'
 end

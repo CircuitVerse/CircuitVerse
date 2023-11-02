@@ -1,0 +1,5 @@
+class Star
+  private
+  def notify_recipient:()->void
+  def cleanup_notification:()->void
+end

@@ -1,0 +1,4 @@
+class Announcement
+  def self.current:() -> (Announcement | nil)
+  def exists?:() -> bool
+end

@@ -1,0 +1,18 @@
+class Project
+  def increase_views:(User)->void
+  def toggle_star:(User)->bool
+  def fork:(User)->Project
+  def send_mail:()->void
+  def project_notifiable_path:()->string
+  def self.tagged_with:(string)->[Project]
+  def tag_list:()->string
+  def tag_list=:(string)->void
+  def public?:()->bool
+  def featured?:()->bool
+  private
+  def check_validity:()->void
+  def clean_description:()->(void|nil)
+  def check_and_remove_featured:()->void
+  def should_generate_new_friendly_id?:()->bool
+  def purge_circuit_preview:()->void
+end
