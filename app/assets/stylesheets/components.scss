@@ -225,6 +225,14 @@
   text-align: left;
 }
 
+.status-container {
+  display:flex;flex-direction:row-reverse;justify-content:space-between;align-items:center;position:relative
+}
+
+.remember-status {
+  position:absolute;left:0px;bottom: -10px
+}
+
 .form-control {
 
   &:focus {
