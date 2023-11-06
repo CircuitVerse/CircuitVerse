@@ -90,8 +90,8 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     end
 
     def check_signup_feature
-      if !Flipper.enabled?(:signup)
-        api_error(status: 403, errors: "Signup is currently disabled.")
-      end
+      return if Flipper.enabled?(:signup)
+
+      api_error(status: 403, errors: "Signup is currently disabled.")
     end
 end
