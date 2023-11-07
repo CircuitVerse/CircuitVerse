@@ -4,6 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
   before_action :configure_sign_up_params, only: [:create]
   invisible_captcha only: %i[create update], honeypot: :subtitle unless Rails.env.test?
+  before_action :check_signup_feature, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -85,4 +86,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # def after_inactive_sign_up_path_for(resource)
   #   super(resource)
   # end
+
+    def check_signup_feature
+      return if Flipper.enabled?(:signup)
+
+      api_error(status: 403, errors: "Signup is currently disabled.")
+    end
 end

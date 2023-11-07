@@ -2,6 +2,7 @@
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
   before_action :set_oauth_user, only: %i[oauth_signup oauth_login]
+  before_action :check_signup_feature, only: %i[signup oauth_signup]
 
   # POST api/v1/auth/login
   def login
@@ -18,8 +19,6 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/auth/signup
   def signup
-    return if Flipper.enabled?(:signup)
-
     if User.exists?(email: params[:email])
       api_error(status: 409, errors: "user already exists")
     else
@@ -42,8 +41,6 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/oauth/signup
   def oauth_signup
-    return if Flipper.enabled?(:signup)
-
     if User.exists?(email: @oauth_user["email"])
       api_error(status: 409, errors: "user already exists")
     else
@@ -90,5 +87,11 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
     def oauth_params
       params.permit(:access_token, :provider)
+    end
+
+    def check_signup_feature
+      return if Flipper.enabled?(:signup)
+
+      api_error(status: 403, errors: "Signup is currently disabled.")
     end
 end
