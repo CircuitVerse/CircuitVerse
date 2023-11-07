@@ -64,12 +64,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
     def check_captcha
-      if Flipper.enabled?(:recaptcha) && !verify_recaptcha
-        self.resource = resource_class.new sign_up_params
-        resource.validate # Look for any other validation errors besides reCAPTCHA
-        set_minimum_password_length
-        respond_with_navigational(resource) { render :new }
-      end
+      self.resource = resource_class.new sign_up_params
+      resource.validate # Look for any other validation errors besides reCAPTCHA
+      set_minimum_password_length
+      respond_with_navigational(resource) { render :new }
     end
 
     # If you have extra params to permit, append them to the sanitizer.
