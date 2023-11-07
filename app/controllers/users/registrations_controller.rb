@@ -13,8 +13,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    if Flipper.enabled?(:signup)
-      super do |user|
+    super do |user|
+      if Flipper.enabled?(:signup)
         if user.persisted?
           # Generate JWT token
           token = JsonWebToken.encode(user_id: user.id, username: user.name, email: user.email, remember_me: false)
@@ -27,9 +27,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
             same_site: :strict
           }
         end
+      else
+        redirect_to new_user_session_path, alert: "Sign up is currently disabled"
       end
-    else
-      redirect_to new_user_session_path, alert: "Sign up is currently disabled"
     end
   end
 
