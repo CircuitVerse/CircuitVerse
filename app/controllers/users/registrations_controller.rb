@@ -25,7 +25,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           secure: Rails.env.production?,
           same_site: :strict
         }
-        end
+      end
     end
   end
 
