@@ -27,6 +27,11 @@ class Users::CircuitverseController < ApplicationController
   end
 
   def update
+    if params[:user][:remove_picture] == "1" && @profile.profile_picture.attached?
+      # Logic to remove the profile picture
+      @profile.profile_picture.purge
+    end
+
     if @profile.update(profile_params)
       redirect_to user_projects_path(current_user)
     else
@@ -45,8 +50,10 @@ class Users::CircuitverseController < ApplicationController
   private
 
     def profile_params
-      params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture, :avatar, :vuesim)
+      params.require(:user).permit(
+        :name, :country, :educational_institute, :subscribed, :locale, :avatar, :vuesim,
+        :profile_picture, :remove_picture # Include profile_picture and remove_picture in permitted parameters
+      )
     end
 
     def set_user

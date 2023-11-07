@@ -27,7 +27,13 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # PATCH api/v1/users/:id
   def update
-    @user.update!(user_params)
+    @user = User.find(params[:id]) # Find the user to update
+
+    if params[:remove_picture] == "1"
+      # Logic to remove the profile picture
+      @user.profile_picture = nil
+    end
+
     if @user.update(user_params)
       render json: Api::V1::UserSerializer.new(@user, @options), status: :accepted
     else
