@@ -90,6 +90,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
     def check_signup_feature
       return if Flipper.enabled?(:signup)
 
-      api_error(status: 403, errors: "Signup is currently disabled.")
+      redirect_to new_user_session_path, alert: "Signup is disabled for now"
     end
 end
