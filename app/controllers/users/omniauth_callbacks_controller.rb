@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  before_action :check_signup_feature, only: %i[facebook google_oauth2 github gitlab microsoft_office365]
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
@@ -51,14 +52,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def generic_callback(provider)
-    if Flipper.enabled?(:signup)
-      handle_signup(provider)
-    else
-      redirect_to new_user_session_path, alert: "Sign up is currently disabled"
-    end
-  end
-
-  def handle_signup(provider)
     @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
@@ -69,4 +62,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       redirect_to new_user_registration_url
     end
   end
+
+  private
+
+    def check_signup_feature
+      return if Flipper.enabled?(:signup)
+
+      redirect_to new_user_session_path, alert: "Signup is disabled for now"
+    end
 end
