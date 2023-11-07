@@ -51,6 +51,14 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def generic_callback(provider)
+    if Flipper.enabled?(:signup)
+      handle_signup(provider)
+    else
+      redirect_to new_user_session_path, alert: "Sign up is currently disabled"
+    end
+  end
+
+  def handle_signup(provider)
     @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
