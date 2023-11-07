@@ -4,9 +4,9 @@ require "rails_helper"
 
 describe "Sign up", type: :system do
   before do
-    Flipper.enable(:signup)
     driven_by(:selenium_chrome_headless)
     visit "/users/sign_up"
+    Flipper.enable(:signup)
   end
 
   it "does not sign-up when no credentials" do
