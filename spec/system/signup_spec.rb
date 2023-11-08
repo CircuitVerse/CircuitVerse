@@ -9,6 +9,7 @@ describe "Sign up", type: :system do
     allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
     allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
     allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
   end
 
   it "does not sign-up when no credentials" do
@@ -52,7 +53,7 @@ describe "Sign up", type: :system do
 
     expect(page).to have_text("Name can only contain letters and spaces")
   end
-  
+
   context "does sign-up when valid credentials" do
     before do
       allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
@@ -76,6 +77,7 @@ describe "Sign up", type: :system do
       allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
       allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
+      allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
     end
 
     it "redirects to the login page with an alert message" do
