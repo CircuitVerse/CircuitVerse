@@ -82,7 +82,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
       it "returns an error with status 403 and a message" do
         expect(response).to have_http_status(:forbidden)
-        parsed_response = JSON.parse(response.body)
+        parsed_response = response.parsed_body
         expect(parsed_response["errors"]).to eq("Signup is currently disabled.")
       end
     end
