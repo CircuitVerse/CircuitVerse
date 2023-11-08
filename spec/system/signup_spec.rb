@@ -76,7 +76,7 @@ describe "Sign up", type: :system do
   context "when signup feature is disabled" do
     before do
       allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
+      allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
