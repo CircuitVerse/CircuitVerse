@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
   before_action :configure_sign_up_params, only: [:create]
   invisible_captcha only: %i[create update], honeypot: :subtitle unless Rails.env.test?
-  before_action :check_signup_feature, only: [:create]
+  prepend_before_action :check_signup_feature, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
