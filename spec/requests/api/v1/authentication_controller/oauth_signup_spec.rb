@@ -90,12 +90,12 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
         expect(response).to have_http_status(:forbidden)
         parsed_response = response.parsed_body
         expect(parsed_response["errors"]).to eq([
-          {
-            "detail" => "Signup is currently disabled.",
-            "status" => 403,
-            "title" => "Signup is currently disabled."
-          }
-        ])
+                                                  {
+                                                    "detail" => "Signup is currently disabled.",
+                                                    "status" => 403,
+                                                    "title" => "Signup is currently disabled."
+                                                  }
+                                                ])
       end
     end
   end

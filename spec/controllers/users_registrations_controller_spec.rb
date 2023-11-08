@@ -74,13 +74,13 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     let(:valid_attributes) do
       {
         user: {
-          email: 'test@example.com',
-          password: 'password',
-          password_confirmation: 'password'
+          email: "test@example.com",
+          password: "password",
+          password_confirmation: "password"
         }
       }
     end
-    
+
     before do
       allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
     end
