@@ -8,6 +8,7 @@ describe "Sign up", type: :system do
     visit "/users/sign_up"
     allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
     allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
+    allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
   end
 
   it "does not sign-up when no credentials" do
@@ -56,6 +57,8 @@ describe "Sign up", type: :system do
     before do
       allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
       allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
+      allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
+      allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
     end
 
     it "does sign-up when valid credentials" do
@@ -72,6 +75,7 @@ describe "Sign up", type: :system do
     before do
       allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
+      allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
     end
 
     it "redirects to the login page with an alert message" do
