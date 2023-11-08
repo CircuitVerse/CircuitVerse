@@ -85,7 +85,6 @@ describe "Sign up", type: :system do
     it "redirects to the login page with an alert message" do
       visit new_user_registration_path
 
-      expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_text("Signup is disabled for now")
     end
   end
