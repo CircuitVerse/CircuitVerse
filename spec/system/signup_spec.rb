@@ -7,6 +7,7 @@ describe "Sign up", type: :system do
     driven_by(:selenium_chrome_headless)
     visit "/users/sign_up"
     allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+    allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
   end
 
   it "does not sign-up when no credentials" do
@@ -58,5 +59,18 @@ describe "Sign up", type: :system do
     click_button "Sign up"
 
     expect(page).to have_text("Welcome! You have signed up successfully.")
+  end
+  
+  context 'when signup feature is disabled' do
+    before do
+      allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+    end
+  
+    it 'redirects to the login page with an alert message' do
+      visit new_user_registration_path
+  
+      expect(page).to have_current_path(new_user_session_path)
+      expect(page).to have_text("Signup is disabled for now")
+    end
   end
 end

@@ -8,6 +8,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with missing params" do
       before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email
         }, as: :json
@@ -21,6 +22,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with invalid params" do
       before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: "1"
         }, as: :json
@@ -34,6 +36,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "when user already exists" do
       before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
         existing_user = FactoryBot.create(:user)
         post "/api/v1/auth/signup", params: {
           name: existing_user.name, email: existing_user.email, password: "1"
@@ -48,6 +51,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with valid params" do
       before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: user.password
         }, as: :json
@@ -83,7 +87,13 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
       it "returns an error with status 403 and a message" do
         expect(response).to have_http_status(:forbidden)
         parsed_response = response.parsed_body
-        expect(parsed_response["errors"]).to eq("Signup is currently disabled.")
+        expect(parsed_response["errors"]).to eq([
+          {
+            "detail" => "Signup is currently disabled.",
+            "status" => 403,
+            "title" => "Signup is currently disabled."
+          }
+        ])
       end
     end
   end

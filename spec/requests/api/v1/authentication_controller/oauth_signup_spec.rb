@@ -6,6 +6,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
   describe "oauth user signup" do
     context "when user already exists" do
       before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
         # creates a user with specified email
         FactoryBot.create(:user, email: "test@test.com")
         post "/api/v1/oauth/signup", params: oauth_params, as: :json
@@ -47,6 +48,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
 
     context "with empty email & valid provider" do
       before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
         post "/api/v1/oauth/signup", params: {
           access_token: "empty_email_token",
           provider: "google"
@@ -61,6 +63,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
 
     context "with valid params" do
       before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
         post "/api/v1/oauth/signup", params: oauth_params, as: :json
       end
 
@@ -75,6 +78,25 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
         access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
         provider: "google"
       }
+    end
+
+    context "when signup feature is disabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+        post "/api/v1/oauth/signup", params: oauth_params, as: :json
+      end
+
+      it "returns an error with status 403 and a message" do
+        expect(response).to have_http_status(:forbidden)
+        parsed_response = response.parsed_body
+        expect(parsed_response["errors"]).to eq([
+          {
+            "detail" => "Signup is currently disabled.",
+            "status" => 403,
+            "title" => "Signup is currently disabled."
+          }
+        ])
+      end
     end
   end
 end

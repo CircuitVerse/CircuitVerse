@@ -14,6 +14,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     allow(JsonWebToken).to receive(:private_key).and_return(rsa_private)
     allow(JsonWebToken).to receive(:public_key).and_return(rsa_public)
     allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+    allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
   end
 
   describe "POST #create" do
@@ -70,6 +71,16 @@ RSpec.describe Users::RegistrationsController, type: :controller do
   end
 
   describe "Sign up feature disabled" do
+    let(:valid_attributes) do
+      {
+        user: {
+          email: 'test@example.com',
+          password: 'password',
+          password_confirmation: 'password'
+        }
+      }
+    end
+    
     before do
       allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
     end
