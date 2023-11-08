@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  Flipper.enable :signup
   factory :user do
     email { Faker::Internet.email }
     password { Faker::Alphanumeric.alphanumeric number: 10 }

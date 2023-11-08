@@ -13,6 +13,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     # Stub the private_key and public_key methods to return the test keys
     allow(JsonWebToken).to receive(:private_key).and_return(rsa_private)
     allow(JsonWebToken).to receive(:public_key).and_return(rsa_public)
+    allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
   end
 
   describe "POST #create" do
@@ -65,6 +66,18 @@ RSpec.describe Users::RegistrationsController, type: :controller do
           post :create, params: invalid_attributes
         end.not_to change(User, :count), "Expected not to create a user, but did."
       end
+    end
+  end
+
+  describe "Sign up feature disabled" do
+    before do
+      allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+    end
+  
+    it "redirects to login page with an alert message" do
+      post :create, params: valid_attributes
+      expect(response).to redirect_to(new_user_session_path)
+      expect(flash[:alert]).to eq("Signup is disabled for now")
     end
   end
 end

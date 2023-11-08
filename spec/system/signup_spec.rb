@@ -6,7 +6,7 @@ describe "Sign up", type: :system do
   before do
     driven_by(:selenium_chrome_headless)
     visit "/users/sign_up"
-    Flipper.enable(:signup)
+    allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
   end
 
   it "does not sign-up when no credentials" do

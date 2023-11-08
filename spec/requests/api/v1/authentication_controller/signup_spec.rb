@@ -58,5 +58,33 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
         expect(response.parsed_body).to have_key("token")
       end
     end
+
+    context "when signup feature is enabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        post "/api/v1/auth/signup", params: {
+          name: user.name, email: user.email, password: user.password
+        }, as: :json
+      end
+
+      it "does not return an error" do
+        expect(response).not_to have_http_status(:forbidden)
+      end
+    end
+
+    context "when signup feature is disabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+        post "/api/v1/auth/signup", params: {
+          name: user.name, email: user.email, password: user.password
+        }, as: :json
+      end
+
+      it "returns an error with status 403 and a message" do
+        expect(response).to have_http_status(:forbidden)
+        parsed_response = JSON.parse(response.body)
+        expect(parsed_response["errors"]).to eq("Signup is currently disabled.")
+      end
+    end
   end
 end
