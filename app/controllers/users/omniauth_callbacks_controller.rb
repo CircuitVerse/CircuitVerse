@@ -56,7 +56,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
   def microsoft_office365
     return redirect_to(new_user_session_path, alert: "Signup is disabled for now") unless Flipper.enabled?(:signup)
-    
+
     generic_callback("microsoft_office365")
   end
 
