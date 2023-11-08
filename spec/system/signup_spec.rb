@@ -85,6 +85,12 @@ describe "Sign up", type: :system do
     it "redirects to the login page with an alert message" do
       visit new_user_registration_path
 
+      fill_in "Name", with: "user"
+      fill_in "Email", with: "user1@example.com"
+      fill_in "Password", with: "secret"
+      click_button "Sign up"
+
+      expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_text("Signup is disabled for now")
     end
   end
