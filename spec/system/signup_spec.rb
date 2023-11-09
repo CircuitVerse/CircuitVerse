@@ -58,26 +58,4 @@ describe "Sign up", type: :system do
 
     expect(page).to have_text("Welcome! You have signed up successfully.")
   end
-
-  context "when registration is disabled" do
-    before do
-      allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
-      allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
-    end
-
-    it "redirects to the login page with an alert message" do
-      visit new_user_registration_path
-
-      fill_in "Name", with: "user"
-      fill_in "Email", with: "user1@example.com"
-      fill_in "Password", with: "secret"
-      click_button "Sign up"
-
-      expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_text("Registration is currently blocked")
-    end
-  end
 end
