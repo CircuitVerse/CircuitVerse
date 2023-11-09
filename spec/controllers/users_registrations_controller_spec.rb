@@ -13,7 +13,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     # Stub the private_key and public_key methods to return the test keys
     allow(JsonWebToken).to receive(:private_key).and_return(rsa_private)
     allow(JsonWebToken).to receive(:public_key).and_return(rsa_public)
-    allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+    allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
     allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
   end
 
@@ -70,7 +70,7 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     end
   end
 
-  describe "Sign up feature disabled" do
+  describe "registration is blocked" do
     let(:valid_attributes) do
       {
         user: {
@@ -82,13 +82,13 @@ RSpec.describe Users::RegistrationsController, type: :controller do
     end
 
     before do
-      allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+      allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
     end
 
     it "redirects to login page with an alert message" do
       post :create, params: valid_attributes
       expect(response).to redirect_to(new_user_session_path)
-      expect(flash[:alert]).to eq("Signup is disabled for now")
+      expect(flash[:alert]).to eq("Registration is currently blocked")
     end
   end
 end

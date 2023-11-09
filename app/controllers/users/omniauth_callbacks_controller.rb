@@ -29,25 +29,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   def facebook
-    return redirect_to(new_user_session_path, alert: "Signup is disabled for now") unless Flipper.enabled?(:signup)
+    return redirect_to(new_user_session_path, alert: "Registration is currently blocked") if Flipper.enabled?(:block_registration)
 
     generic_callback("facebook")
   end
 
   def google_oauth2
-    return redirect_to(new_user_session_path, alert: "Signup is disabled for now") unless Flipper.enabled?(:signup)
+    return redirect_to(new_user_session_path, alert: "Registration is currently blocked") if Flipper.enabled?(:block_registration)
 
     generic_callback("google")
   end
 
   def github
-    return redirect_to(new_user_session_path, alert: "Signup is disabled for now") unless Flipper.enabled?(:signup)
+    return redirect_to(new_user_session_path, alert: "Registration is currently blocked") if Flipper.enabled?(:block_registration)
 
     generic_callback("github")
   end
 
   def gitlab
-    return redirect_to(new_user_session_path, alert: "Signup is disabled for now") unless Flipper.enabled?(:signup)
+    return redirect_to(new_user_session_path, alert: "Registration is currently blocked") if Flipper.enabled?(:block_registration)
 
     return unless Flipper.enabled?(:gitlab_integration)
 
@@ -55,7 +55,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def microsoft_office365
-    return redirect_to(new_user_session_path, alert: "Signup is disabled for now") unless Flipper.enabled?(:signup)
+    return redirect_to(new_user_session_path, alert: "Registration is currently blocked") if Flipper.enabled?(:block_registration)
 
     generic_callback("microsoft_office365")
   end

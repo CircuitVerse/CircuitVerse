@@ -4,7 +4,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
   before_action :configure_sign_up_params, only: [:create]
   invisible_captcha only: %i[create update], honeypot: :subtitle unless Rails.env.test?
-  prepend_before_action :check_signup_feature, only: [:create]
+  prepend_before_action :check_block_registration, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
@@ -87,9 +87,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     #   super(resource)
     # end
 
-    def check_signup_feature
-      return if Flipper.enabled?(:signup)
+    def check_block_registration
+      return unless Flipper.enabled?(:block_registration)
 
-      redirect_to new_user_session_path, alert: "Signup is disabled for now"
+      redirect_to new_user_session_path, alert: "Registration is currently blocked"
     end
 end

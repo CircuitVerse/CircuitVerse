@@ -9,7 +9,7 @@ default_flipper_features = {
   project_comments: true,
   lms_integration: true,
   vuesim: false,
-  signup: true
+  block_registration: false
 }
 
 Flipper.configure do |config|

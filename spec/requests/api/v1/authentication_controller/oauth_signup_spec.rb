@@ -6,7 +6,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
   describe "oauth user signup" do
     context "when user already exists" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         # creates a user with specified email
         FactoryBot.create(:user, email: "test@test.com")
         post "/api/v1/oauth/signup", params: oauth_params, as: :json
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
 
     context "with empty email & valid provider" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/oauth/signup", params: {
           access_token: "empty_email_token",
           provider: "google"
@@ -63,7 +63,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
 
     context "with valid params" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/oauth/signup", params: oauth_params, as: :json
       end
 
@@ -80,9 +80,9 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
       }
     end
 
-    context "when signup feature is disabled" do
+    context "when registration is blocked" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
         post "/api/v1/oauth/signup", params: oauth_params, as: :json
       end
 
@@ -91,9 +91,9 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
         parsed_response = response.parsed_body
         expect(parsed_response["errors"]).to eq([
                                                   {
-                                                    "detail" => "Signup is currently disabled.",
+                                                    "detail" => "Registration is currently blocked",
                                                     "status" => 403,
-                                                    "title" => "Signup is currently disabled."
+                                                    "title" => "Registration is currently blocked"
                                                   }
                                                 ])
       end

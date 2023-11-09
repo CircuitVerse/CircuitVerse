@@ -6,7 +6,7 @@ describe "Sign up", type: :system do
   before do
     driven_by(:selenium_chrome_headless)
     visit "/users/sign_up"
-    allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+    allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
     allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
     allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
     allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
@@ -57,7 +57,7 @@ describe "Sign up", type: :system do
 
   context "does sign-up when valid credentials" do
     before do
-      allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+      allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
@@ -73,9 +73,9 @@ describe "Sign up", type: :system do
     end
   end
 
-  context "when signup feature is disabled" do
+  context "when registration is disabled" do
     before do
-      allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+      allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
       allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
       allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
@@ -91,7 +91,7 @@ describe "Sign up", type: :system do
       click_button "Sign up"
 
       expect(page).to have_current_path(new_user_session_path)
-      expect(page).to have_text("Signup is disabled for now")
+      expect(page).to have_text("Registration is currently blocked")
     end
   end
 end

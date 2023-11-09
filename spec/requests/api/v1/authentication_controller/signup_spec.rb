@@ -8,7 +8,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with missing params" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email
         }, as: :json
@@ -22,7 +22,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with invalid params" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: "1"
         }, as: :json
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "when user already exists" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         existing_user = FactoryBot.create(:user)
         post "/api/v1/auth/signup", params: {
           name: existing_user.name, email: existing_user.email, password: "1"
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with valid params" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: user.password
         }, as: :json
@@ -63,9 +63,9 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
       end
     end
 
-    context "when signup feature is enabled" do
+    context "when registration is enabled" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(true)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: user.password
         }, as: :json
@@ -76,9 +76,9 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
       end
     end
 
-    context "when signup feature is disabled" do
+    context "when registration is disabled" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:signup).and_return(false)
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: user.password
         }, as: :json
@@ -89,9 +89,9 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
         parsed_response = response.parsed_body
         expect(parsed_response["errors"]).to eq([
                                                   {
-                                                    "detail" => "Signup is currently disabled.",
+                                                    "detail" => "Registration is currently blocked",
                                                     "status" => 403,
-                                                    "title" => "Signup is currently disabled."
+                                                    "title" => "Registration is currently blocked"
                                                   }
                                                 ])
       end
