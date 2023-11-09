@@ -29,7 +29,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # end
 
   def facebook
-    if Flipper.enabled?(:block_registration)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if Flipper.enabled?(:block_registration) && !@user.persisted?
       return redirect_to(new_user_session_path, alert: "Registration is currently blocked")
     end
 
@@ -37,7 +38,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def google_oauth2
-    if Flipper.enabled?(:block_registration)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if Flipper.enabled?(:block_registration) && !@user.persisted?
       return redirect_to(new_user_session_path, alert: "Registration is currently blocked")
     end
 
@@ -45,7 +47,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def github
-    if Flipper.enabled?(:block_registration)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if Flipper.enabled?(:block_registration) && !@user.persisted?
       return redirect_to(new_user_session_path, alert: "Registration is currently blocked")
     end
 
@@ -53,7 +56,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def gitlab
-    if Flipper.enabled?(:block_registration)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if Flipper.enabled?(:block_registration) && !@user.persisted?
       return redirect_to(new_user_session_path, alert: "Registration is currently blocked")
     end
 
@@ -63,7 +67,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def microsoft_office365
-    if Flipper.enabled?(:block_registration)
+    @user = User.from_omniauth(request.env["omniauth.auth"])
+    if Flipper.enabled?(:block_registration) && !@user.persisted?
       return redirect_to(new_user_session_path, alert: "Registration is currently blocked")
     end
 

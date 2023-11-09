@@ -67,4 +67,18 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
   end
+
+  describe "GET #new" do
+    context "if registration is blocked" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
+        get :new
+      end
+  
+      it "redirects to the login page" do
+        expect(response).to redirect_to(new_user_session_path)
+        expect(flash[:alert]).to eq("Registration is currently blocked")
+      end
+    end
+  end
 end
