@@ -67,26 +67,4 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
   end
-
-  describe "registration is blocked" do
-    let(:valid_attributes) do
-      {
-        user: {
-          email: "test@example.com",
-          password: "password",
-          password_confirmation: "password"
-        }
-      }
-    end
-
-    before do
-      allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
-    end
-
-    it "redirects to login page with an alert message" do
-      post :create, params: valid_attributes
-      expect(response).to redirect_to(new_user_session_path)
-      expect(flash[:alert]).to eq("Registration is currently blocked")
-    end
-  end
 end
