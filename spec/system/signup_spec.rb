@@ -51,10 +51,6 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Name can only contain letters and spaces")
   end
 
-  before do
-    allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
-  end
-
   it "does sign-up when valid credentials" do
     fill_in "Name", with: "user"
     fill_in "Email", with: "user1@example.com"

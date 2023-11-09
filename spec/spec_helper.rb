@@ -35,6 +35,9 @@ RSpec.configure do |config|
     allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
     allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
     allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:project_comments).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:vuesim).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:lms_integration).and_return(false)
 
     # To stub google oauth fetch user response with valid access token
     stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
