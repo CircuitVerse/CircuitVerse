@@ -96,6 +96,42 @@ describe GroupsController, type: :request do
     end
   end
 
+# app/controllers/groups_controller.rb
+
+class GroupsController < ApplicationController
+  
+  # def add_member
+  #   @group = Group.find(params[:group_id])
+  #   emails = params[:emails].split(',').map(&:strip)
+
+  #   added_emails = []
+  #   pending_emails = []
+  #   invalid_emails = []
+
+  #   emails.each do |email|
+  #     user = User.find_by(email: email)
+
+  #     if user.nil?
+  #       invalid_emails << email
+  #     elsif @group.members.include?(user)
+  #       pending_emails << email
+  #     else
+  #       @group.members << user
+  #       added_emails << email
+  #     end
+  #   end
+
+  #   render json: {
+  #     added: added_emails,
+  #     pending: pending_emails,
+  #     invalid: invalid_emails
+  #   }
+  # end
+
+
+end
+
+
   describe "#invite" do
     before do
       @already_present = FactoryBot.create(:user)
