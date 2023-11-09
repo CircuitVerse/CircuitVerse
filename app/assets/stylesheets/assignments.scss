@@ -1,0 +1,210 @@
+//newassignment-editassignment
+.assignments-submain-heading {
+  margin-top: 0;
+}
+
+.assignments-noedit-grade-field {
+  border: 1px solid $secondary-green;
+  height: 40px;
+  margin-bottom: 35px;
+  padding: 5px 5px 5px 10px;
+}
+//newassignment-editassignment ends
+
+//assignment details
+.assignments-container {
+  border: 1px solid $form-border-grey;
+  margin-top: 30px;
+  padding-bottom: 30px;
+  padding-top: 20px;
+}
+
+.assignments-data {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 80%;
+  text-align: left;
+}
+
+.assignments-horizontal-rule {
+  max-width: 80%;
+  padding-top: 15px;
+}
+
+.assignments-submission-heading {
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.assignments-no-submission {
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+  padding: 10px;
+  text-align: center;
+}
+
+.assignments-submission {
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+  max-width: 100%;
+  text-align: center;
+}
+
+.assignments-submission-row {
+  margin: 0;
+  max-width: 100%;
+  padding: 0;
+}
+
+.assignments-submission-col-3 {
+  border-radius: 0;
+  border-right: 1px solid $secondary-green;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.assignments-list-group {
+  list-style: none;
+  max-height: 480px;
+  overflow-y: auto;
+  text-align: left;
+}
+
+@media (max-width: 900px) {
+  .assignments-list-group {
+    max-height: 300px;
+  }
+}
+
+.assignments-username-truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.assignments-list-item {
+  border-bottom: 1px solid $secondary-green;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+
+  &:hover {
+    background-color: $primary-green;
+    border-bottom: 1px solid $secondary-green;
+    border-top: 1px solid $secondary-green;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+  }
+
+  &.active {
+    background-color: $primary-green;
+    color: $white;
+  }
+}
+
+.assignments-iframe {
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.assignments-submission-description {
+  border-radius: 0;
+  border-top: 1px solid $secondary-green;
+  padding: 10px 15px 0;
+
+  p {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+}
+
+.assignments-project-decription-heading {
+  display: block;
+  text-align: left;
+  width: 100%;
+}
+
+.assignments-grading-container {
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+  margin-top: 10px;
+  max-width: 100%;
+  padding: 15px;
+}
+
+.assignments-grading-heading {
+  margin-bottom: 15px;
+}
+
+.assignments-grading-help {
+  margin-top: 20px;
+}
+
+.assignments-button-primary {
+  margin-left: 15px;
+}
+
+.list-group-item:last-child,
+.list-group-item:first-child {
+  border-radius: 0;
+}
+
+a:not([href]):not([tabindex]) {
+  color: $black;
+
+  &:hover,
+  &.active {
+    color: $white;
+  }
+}
+
+.assignments-grade-horizontal-rule {
+  display: none;
+}
+
+.assignments-error {
+  color: $primary-red;
+  font-size: 15px;
+}
+//breakpoints
+@media (max-width: 400px) {
+
+  .assignments-data {
+    max-width: 100%;
+  }
+
+  .assignments-submission-col-3 {
+    border-right: 0;
+  }
+
+  .assignments-grade-horizontal-rule {
+    display: block;
+    line-height: normal;
+  }
+}
+
+.assignments-description img {
+  max-width: 100%;
+}
+
+.primary-checkpoint {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-top: 4px;
+  text-align: center;
+  top: 6px;
+
+  &:hover {
+    border-color: $primary-green;
+    opacity: 1;
+    transition: .2s ease-in-out;
+  }
+}
+
+.restricted-feature-list {
+  display: none;
+}
+//assignment details ends

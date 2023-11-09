@@ -1,0 +1,10 @@
+<div>
+  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <%= inline_svg_tag "PNGs/newGroup.png", alt: "New Group", class: "mailer-group-image" %>
+  <p class="mailer-text">
+    You have been added to a new group named <span class="mailer-highlighted-text"><%= @group.name %></span>. <br>
+    The group is mentored by <span class="mailer-highlighted-text"><%= @group.primary_mentor.name %></span>.
+  </p>
+  <a href="<%= group_url(@group) %>" class="mailer-button">View Group</a>
+  <p class="mailer-text">Keep building!</p>
+</div>

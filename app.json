@@ -1,0 +1,22 @@
+{
+  "name": "CircuitVerse",
+  "description": "CircuitVerse is a digital circuit simulator.",
+  "website": "https://circuitverse.org/",
+  "repository": "https://github.com/CircuitVerse/CircuitVerse",
+  "logo": "https://pbs.twimg.com/profile_images/1232053138212847617/EPE--hw8_400x400.jpg",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate"
+  },
+  "env": {
+    "SECRET_KEY_BASE": {
+      "value": ""
+    },
+    "VAPID_PRIVATE_KEY": {
+      "value": ""
+    },
+    "VAPID_PUBLIC_KEY": {
+      "value": ""
+    }
+  },
+  "addons": ["heroku-postgresql"]
+}

@@ -1,0 +1,558 @@
+//group details
+.groups-editname-primary-button {
+  margin-bottom: 20px;
+}
+
+.group-mentor-heading {
+  font-weight: normal;
+}
+
+.null-text {
+  color: $iframe-container-grey;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+.groups-row {
+  justify-content: space-between;
+  padding-top: 65px;
+}
+
+.groups-primary-button {
+  padding: 12px 35px;
+}
+
+.groups-members-scroll-row {
+  max-height: 525px;
+  max-width: 1108px;
+  overflow-y: auto;
+}
+
+.groups-table {
+  border-collapse: collapse;
+}
+
+.groups-table-rows {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
+  margin: 10px 10px 20px;
+  padding-bottom: 20px;
+  padding-top: 15px;
+}
+
+.groups-assignment-details {
+  display: inline-block;
+  margin-top: 15px;
+}
+
+.groups-expanded-assignment-name {
+  margin-left: 8px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groups-assignment-date {
+  padding-top: 15px;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.groups-assignment-button-container {
+  min-width: 190px;
+}
+
+.groups-copy-lms-credentials-button {
+  margin-left: 5;
+  padding: 2px 6px;
+}
+
+.groups-view-mini-button {
+  background-color: $primary-green;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 25px 5px 10px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.groups-reopen-mini-button {
+  background-color: $mini-button-blue;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.groups-close-mini-button {
+  background-color: $primary-red;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.groups-delete-mini-button {
+  background-color: $primary-red;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
+.groups-no-assignment-submission-text {
+  display: inline-block;
+  margin-top: 3px;
+}
+
+.groups-expanded-empty-table-row {
+  border: 0;
+  height: 20px;
+  line-height: normal;
+  padding: 20px;
+}
+
+.groups-collapsed-table {
+  display: none;
+  padding: 15px;
+}
+
+.groups-collapsed-table-head {
+  min-width: 90px;
+  vertical-align: top;
+}
+
+.groups-collapsed-assignment-name {
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groups-collapsed-empty-table-row {
+  border: 0;
+  height: 10px;
+  line-height: normal;
+  padding: 20px;
+}
+
+.groups-members-card-container {
+  padding: 5px;
+}
+
+.groups-members-card {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
+  display: inline-block;
+  height: 100px;
+  margin: 18px 10px;
+  padding: 0 15px;
+  width: 350px;
+}
+
+.groups-members-card-viewer {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
+  display: inline-block;
+  height: 90px;
+  margin: 10px;
+  margin-bottom: 20px;
+  padding: 15px;
+  width: 200px;
+  white-space: nowrap;
+}
+
+.groups-members-card-details {
+  padding-right: 0;
+  padding-top: 5px;
+  text-align: left;
+
+  i {
+    margin-right: 10px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  align-items: center;
+  display: flex;
+  padding-top: 0;
+  
+  i {
+    margin-right: 15px;
+    padding-bottom: 15px;
+  }
+
+  .groups-members-card-name-container {
+    height: auto;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  &:hover {
+    .tooltiptext {
+      left: 21%;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.groups-members-card-avatar {
+  img {
+    border-radius: 50%;
+    height: 50px;
+    margin-bottom: 10px;
+    transform: translate(-5px, 5px);
+    transition: all .5s;
+    width: 50px;
+
+    &:hover {
+      transform: scale(2);
+    }
+  }
+}
+
+.groups-members-card-name-container {
+  display: inline-block;
+  height: 30px;
+  max-width: 92px;
+  overflow: hidden;
+  padding-top: 1px;
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.groups-members-card-name {
+  color: $black;
+  font-size: 20px;
+
+  &:hover {
+    color: $black;
+    text-decoration: none;
+  }
+}
+
+.groups-members-card-email {
+  color: $black;
+  font-size: 15px;
+  max-width: 175px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.groups-members-card-button {
+  margin-right: 0;
+  padding: 0 0 15px;
+  text-align: right;
+  transition: padding-top .2s ease-in;
+
+  &:hover {
+    padding-top: 11px;
+  }
+}
+
+.group-invite-link-text {
+  border: 1.5px solid $secondary-green;
+  font-size: 12px;
+  text-align: left;
+}
+
+//breakpoints
+@media (max-width: 1200px) {
+  .groups-members-scroll-row {
+    max-width: 930px;
+  }
+
+  .groups-members-card {
+    width: 320px;
+  }
+}
+
+@media (max-width: 992px) {
+  .groups-members-scroll-row {
+    max-width: 680px;
+  }
+}
+
+@media (max-width: 768px) {
+  .groups-table-heading {
+    display: none;
+  }
+
+  .groups-expanded-table {
+    display: none;
+  }
+
+  .groups-collapsed-table {
+    display: block;
+  }
+
+  .groups-back-button-container {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .groups-collapsed-table {
+    padding: 10px 5px;
+  }
+
+  .groups-collapsed-table-head {
+    min-width: 70px;
+  }
+
+  .groups-row {
+    display: block;
+    text-align: center;
+  }
+
+  .groups-members-card {
+    margin: 10px 0;
+    width: 310px;
+  }
+}
+//group details ends
+
+//newgroup-editgroup
+.groups-center-image {
+  margin-bottom: 15px;
+  margin-top: 30px;
+  max-height: 400px;
+  max-width: 90%;
+}
+
+.groups-background-card {
+  margin-top: 50px;
+  max-width: 80%;
+  padding-bottom: 70px;
+  padding-top: 40px;
+}
+
+.groups-form-text-container {
+  padding-left: 40px;
+  text-align: left;
+}
+
+.groups-input-group {
+  width: 80%;
+}
+
+.groups-form-primary-button {
+  margin-left: 0;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.groups-form-anchor-text {
+  margin-left: 10px;
+}
+
+//breakpoints
+@media (max-width: 1000px) {
+  .groups-form-text-container {
+    padding-left: 15px;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 720px) {
+  .groups-center-image {
+    margin-top: 80px;
+  }
+}
+
+@media (max-width:400px) {
+  .groups-form-primary-button {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .groups-form-text-container {
+    margin-left: 10px;
+    padding-left: 20px;
+  }
+
+  .groups-background-card {
+    margin-left: 0;
+    padding-left: 10px;
+  }
+
+  .groups-form-anchor-text {
+    margin-left: 2px;
+  }
+}
+//newgroup-editgroup ends
+
+//groups
+.groups-add-primary-button {
+  margin-top: 20px;
+  padding: 10px 40px;
+}
+
+.groups-card {
+  background-color: $card-grey;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: flex;
+  margin: 15px 0;
+  padding: 10px 0;
+}
+
+.groups-mentor-card {
+  align-items: center;
+  border-top: 10px solid $primary-green;
+  flex-direction: column;
+}
+
+.groups-mentor-card-name {
+  font-size: 28px;
+  font-weight: 500;
+  height: 60px;
+  max-width: 250px;
+  overflow: hidden;
+  padding-top: 15px;
+  text-overflow: ellipsis;
+}
+
+.groups-mentor-card-mini-buttons {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-bottom: 15px;
+}
+
+.groups-mentor-card-view-mini-button {
+  background: $primary-green;
+  transition: transform .2s ease-in;
+  width: 95px;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+.groups-mentor-card-edit-mini-button {
+  background: $mini-button-blue;
+  transition: transform .2s ease-in;
+  width: 95px;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+.groups-mentor-card-delete-mini-button {
+  background: $primary-red;
+  transition: transform .2s ease-in;
+  width: 100px;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    width: 20px;
+  }
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 970px) {
+  .groups-card {
+    width: 315px;
+  }
+}
+
+.groups-member-card {
+  align-items: center;
+  border-left: 10px solid $primary-green;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.groups-member-card-name {
+  max-width: 175px;
+}
+
+.groups-member-card-details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.groups-member-card-button {
+  margin-top: 20px;
+  padding: 5px 10px;
+}
+
+.groups-lms-modal {
+  .link-text {
+    display: inline;
+  }
+}
+
+.groups-members-card {
+
+  .row {
+    flex-wrap: nowrap;
+  }
+
+  .group-member-button-container {
+    width: 100%;
+
+    .groups-mentor-card-mini-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-button {
+      width: 142px;
+    }
+
+    .groups-reopen-mini-button {
+      margin: 0;
+    }
+  }
+}
+//groups ends

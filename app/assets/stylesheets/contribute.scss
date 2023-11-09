@@ -1,0 +1,100 @@
+:root {
+  --shadow-color: rgba(0, 0, 0, .2);
+}
+
+.contribute-card {
+  border: 0;
+  box-shadow: 0 10px 10px var(--shadow-color), 0 0 20px var(--shadow-color);
+  display: inline-block;
+  height: 500px;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  padding-top: 20px;
+  width: fit-content;
+}
+
+.contribute-card-image {
+  height: 150px;
+  width: 150px;
+}
+
+.contribute-card-body {
+  h3 {
+    text-align: center;
+  }
+
+  ul {
+    text-align: left;
+  }
+}
+
+.contribute-pay-card-container {
+  display: inline-block;
+  height: 100px;
+  margin-bottom: 40px;
+  margin-left: 30px;
+  margin-right: 30px;
+  margin-top: 50px;
+  text-align: center;
+  width: 200px;
+
+  p {
+    font-weight: 550;
+  }
+}
+
+.contribute-pay-card {
+  border: 1.5px solid $black;
+  border-radius: 8px;
+  box-shadow: 3px 3px 6px $shadow-black;
+  padding: 4px;
+  transition: box-shadow .2s ease-in;
+
+  &:hover {
+    box-shadow: 0 9px 9px $shadow-black;
+  }
+
+  img {
+    height: 70px;
+    width: 160px;
+  }
+}
+
+//breakpoints
+@media (max-width: 1199px) {
+  .contribute-social-card {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .card-spacing-media {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .contribute-card {
+    height: 100%;
+    width: fit-content;
+  }
+}
+
+@media (min-width: 401px) and (max-width: 590px) {
+
+  .contribute-card {
+    height: 100%;
+    width: 100%;
+  }
+
+}
+
+@media (max-width: 400px) {
+  .card-spacing-media {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .contribute-card {
+    height: 100%;
+    width: 100%;
+  }
+}

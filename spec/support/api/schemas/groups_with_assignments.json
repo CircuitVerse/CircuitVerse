@@ -1,0 +1,167 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "member_count": { "type": "integer" },
+              "primary_mentor_name": { "type": "string" },
+              "name": { "type": "string" },
+              "primary_mentor_id": { "type": "integer" },
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" }
+            },
+            "required": [
+              "member_count",
+              "primary_mentor_name",
+              "name",
+              "primary_mentor_id",
+              "created_at",
+              "updated_at"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "group_members": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
+              },
+              "assignments": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
+              }
+            },
+            "required": ["group_members", "assignments"]
+          }
+        },
+        "required": ["id", "type", "attributes"]
+      }
+    },
+    "included": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "name": { "type": "string" },
+              "deadline": { "type": "string" },
+              "description": { "type": "string" },
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" },
+              "has_primary_mentor_access": { "type": "boolean" },
+              "current_user_project_id": { "type": ["null", "integer"] },
+              "status": { "type": ["null", "string"] },
+              "grading_scale": { "type": "string" },
+              "grades_finalized": { "type": "boolean" },
+              "restrictions": { "type": "string" }
+            },
+            "required": [
+              "name",
+              "deadline",
+              "description",
+              "created_at",
+              "updated_at",
+              "has_primary_mentor_access",
+              "current_user_project_id",
+              "status",
+              "grading_scale",
+              "grades_finalized",
+              "restrictions"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "projects": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      }
+                    },
+                    "required": ["id", "type"]
+                  }
+                },
+                "required": ["data"]
+              },
+              "grades": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      }
+                    },
+                    "required": ["id", "type"]
+                  }
+                },
+                "required": ["data"]
+              }
+            },
+            "required": ["projects", "grades"]
+          }
+        },
+        "required": ["id", "type", "attributes"]
+      }
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": { "type": "string" },
+        "first": { "type": "string" },
+        "prev": { "type": ["null", "string"] },
+        "next": { "type": ["null", "string"] },
+        "last": { "type": "string" }
+      },
+      "required": ["self", "first", "prev", "next", "last"]
+    }
+  },
+  "required": ["data", "links"]
+}

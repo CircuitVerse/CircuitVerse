@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+if [ -d "yosys2digitaljs-server" ] ; then
+  echo "Starting CircuitVerse yosys2digitaljs server"
+  cd yosys2digitaljs-server && yarn start
+else
+  echo "Could not start yosys2digitaljs-server. No directory named yosys2digitaljs-server exists. Have you correctly followed yosys installation instructions from SETUP.md ? "
+fi

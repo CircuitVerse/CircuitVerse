@@ -1,0 +1,296 @@
+{
+  "AndGate": {
+    "type": "comb",
+    "title": "AND Gate",
+    "groups": [
+      {
+        "label": "Group 1",
+        "inputs": [
+          {
+            "label": "inp1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "0",
+              "1",
+              "1"
+            ]
+          },
+          {
+            "label": "inp2",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "out1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "0",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  },
+  "OrGate": {
+    "type": "comb",
+    "title": "OR Gate",
+    "groups": [
+      {
+        "label": "Group 1",
+        "inputs": [
+          {
+            "label": "inp1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "0",
+              "1",
+              "1"
+            ]
+          },
+          {
+            "label": "inp2",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "out2",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "1",
+              "1"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  },
+  "nandGate": {
+    "type": "comb",
+    "title": "NAND Gate",
+    "groups": [
+      {
+        "label": "Group 1",
+        "inputs": [
+          {
+            "label": "inp1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "0",
+              "1",
+              "1"
+            ]
+          },
+          {
+            "label": "inp2",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "out3",
+            "bitWidth": 1,
+            "values": [
+              "1",
+              "1",
+              "1",
+              "0"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  },
+  "xorGate": {
+    "type": "comb",
+    "title": "XOR Gate",
+    "groups": [
+      {
+        "label": "Group 1",
+        "inputs": [
+          {
+            "label": "inp1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "0",
+              "1",
+              "1"
+            ]
+          },
+          {
+            "label": "inp2",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "out6",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "1",
+              "0"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  },
+  "norGate": {
+    "type": "comb",
+    "title": "NOR Gate",
+    "groups": [
+      {
+        "label": "Group 1",
+        "inputs": [
+          {
+            "label": "inp1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "0",
+              "1",
+              "1"
+            ]
+          },
+          {
+            "label": "inp2",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "out7",
+            "bitWidth": 1,
+            "values": [
+              "1",
+              "0",
+              "0",
+              "0"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  },
+  "notGate": {
+    "type": "comb",
+    "title": "NOT GAte",
+    "groups": [
+      {
+        "label": "Group 1",
+        "inputs": [
+          {
+            "label": "inp1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "out4",
+            "bitWidth": 1,
+            "values": [
+              "1",
+              "0"
+            ]
+          }
+        ],
+        "n": 2
+      }
+    ]
+  },
+  "xnorGate": {
+    "type": "comb",
+    "title": "XNOR GAte",
+    "groups": [
+      {
+        "label": "Group 1",
+        "inputs": [
+          {
+            "label": "inp1",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "0",
+              "1",
+              "1"
+            ]
+          },
+          {
+            "label": "inp2",
+            "bitWidth": 1,
+            "values": [
+              "0",
+              "1",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "label": "out5",
+            "bitWidth": 1,
+            "values": [
+              "1",
+              "0",
+              "0",
+              "1"
+            ]
+          }
+        ],
+        "n": 4
+      }
+    ]
+  }
+}

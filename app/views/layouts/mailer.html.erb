@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
+    <%= stylesheet_link_tag :mailer %>
+  </head>
+  <body>
+    <div class="mailer-logo-container">
+      <%= inline_svg_tag "CircuitVerse.svg", alt: "CircuitVerse Logo", class: "mailer-logo" %>
+    </div>
+    <%= yield %>
+    <hr class="mailer-horizontal-rule">
+    <h2 class="mailer-social-link-text"><%= t("layout.mailer.join_us") %></h2>
+    <div class="mailer-social-container">
+      <div class="mailer-social-link">
+        <a href="https://www.facebook.com/CircuitVerse"><%= inline_svg_tag "SVGs/facebook.svg", alt: "Facebook Logo", class: "mailer-social-image" %></a>
+      </div>
+      <div class="mailer-social-link">
+        <a href="https://twitter.com/CircuitVerse"><%= inline_svg_tag "PNGs/twitter.png", alt: "Twitter Logo", class: "mailer-social-image" %></a>
+      </div>
+      <div class="mailer-social-link">
+        <a href="https://circuitverse-team.slack.com/join/shared_invite/enQtNjc4MzcyNDE5OTA3LTdjYTM5NjFiZWZlZGI2MmU1MmYzYzczNmZlZDg5MjYxYmQ4ODRjMjQxM2UyMWI5ODUzODQzMDU2ZDEzNjI4NmE"><%= inline_svg_tag "SVGs/slack.svg", alt: "Slack Logo", class: "mailer-social-image" %></a>
+      </div>
+      <div class="mailer-social-link">
+        <a href="https://github.com/CircuitVerse/CircuitVerse"><%= inline_svg_tag "SVGs/github.svg", alt: "Github Logo", class: "mailer-social-image" %></a>
+      </div>
+    </div>
+    <h5 class="mailer-copyright-text"><%= t("layout.mailer.copyright_text", time_current_year: Time.current.year) %></h6>
+    <% unless @is_preview %>
+      <h5> <%= link_to t("layout.mailer.unsubscribe_email_notifications"), mailkick_unsubscribe_url %> </h6>
+    <% end %>
+  </body>
+</html>

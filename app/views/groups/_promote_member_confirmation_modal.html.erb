@@ -1,0 +1,39 @@
+<div id="promote-member-modal" class="modal fade" role="dialog" data-controller="groups">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("groups.make_mentor") %></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <%= t("groups.promote_member_confirmation") %>
+        <%= t("groups.add_mentor_description_html") %>
+      </div>
+      <div class="modal-footer">
+        <%= button_to "#", params: { group_member: { mentor: true } }, method: :patch, class: "btn primary-button", id: "groups-member-promote-button" do %>
+          <%= t("groups.make_mentor") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="demote-member-modal" class="modal fade" role="dialog" data-controller="groups">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("groups.make_member") %></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <%= t("groups.demote_mentor_confirmation") %>
+        <%= t("groups.add_mentor_description_html") %>
+      </div>
+      <div class="modal-footer">
+        <%= button_to "#", params: { group_member: { mentor: false } }, method: :patch, class: "btn primary-button", id: "groups-member-demote-button" do %>
+          <%= t("groups.make_member") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

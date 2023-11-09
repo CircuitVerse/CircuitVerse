@@ -1,0 +1,29 @@
+.teacher-main-description-container {
+  margin-bottom: 35px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 768px;
+}
+
+.teacher-fill-container-fluid {
+  background-color: $card-green;
+  padding: 40px 0;
+}
+
+.teacher-container-fluid {
+  padding: 40px 0;
+}
+
+.teacher-center-content {
+  align-items: center;
+}
+
+.teacher-image {
+  border: 2px solid $shadow-grey;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.teacher-left-text {
+  text-align: left;
+}

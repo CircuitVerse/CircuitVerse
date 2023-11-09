@@ -1,0 +1,12 @@
+hi:
+  helpers:
+    label:
+      announcement:
+        body: "अनाउंसमेंट बॉडी"
+        link: "अधिक जानें"
+        start_date: "आरंभ करने का दिन"
+        end_date: "समाप्ति का दिन"
+    submit:
+      announcement:
+        create: "नई अनाउंसमेंट बनाये"
+        update: "अनाउंसमेंट अपडेट करे"

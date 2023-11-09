@@ -1,0 +1,2 @@
+# All files in bin/ should use LF
+bin/** text eol=lf

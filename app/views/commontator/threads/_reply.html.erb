@@ -1,0 +1,24 @@
+<%#
+  Views that use this partial must supply the following variables:
+  thread
+  user
+%>
+
+<div id="commontator-thread-<%= thread.id %>-reply" class="reply">
+  <% if thread.is_closed? %>
+    <p><%= t 'commontator.thread.status.cannot_post' %></p>
+  <% elsif !user %>
+    <p>You must <a href="/users/sign_in" class="anchor-text">login</a> before you can post a comment.</p>
+  <% else %>
+    <% if @commontator_new_comment.nil? %>
+      <div id="commontator-thread-<%= thread.id %>-new-comment-link" class="new-comment">
+        <%= link_to "+ Add Comment",
+            commontator.new_thread_comment_path(thread),
+            remote: true, class: "btn primary-button" %>
+      </div>
+    <% end %>
+
+    <div id="commontator-thread-<%= thread.id %>-new-comment" class="new-comment">
+    </div>
+  <% end %>
+</div>

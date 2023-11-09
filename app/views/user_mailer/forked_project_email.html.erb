@@ -1,0 +1,9 @@
+<div>
+  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <%= inline_svg_tag "SVGs/newProject.svg", alt: "New Project", class: "mailer-assignment-image" %>
+  <p class="mailer-text">You have successfully forked a new project from <span class="mailer-highlighted-text"><%= "#{@old_project.author.name}/#{@old_project.name}" %></span>. <br>
+    Your forked project name is: <span class="mailer-highlighted-text"><%= @new_project.name %></span> with an access type: <span class="mailer-highlighted-text"><%= @new_project.project_access_type %></span>.
+  </p>
+  <a href="<%= user_project_url(@user, @new_project) %>" class="mailer-button">View Project</a>
+  <p class="mailer-text">Keep building!</p>
+</div>

@@ -1,0 +1,17 @@
+//examples page
+.examples-container {
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.examples-circuit-card-image {
+  height: 80%;
+  width: 100%;
+}
+
+@media(max-width: 400px) {
+  .examples-container {
+    padding: 20px 0;
+  }
+}
+//examples page ends

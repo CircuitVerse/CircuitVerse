@@ -1,0 +1,22 @@
+
+<% content_for :title, t("groups.new.title") %>
+<div class="container">
+  <div class="row center-row">
+    <div class="col-xs col-sm col-md col-lg">
+      <h2 class="submain-heading"><%= t("groups.new.main_heading") %></h2>
+      <p class="main-description"><%= t("groups.new.main_description_html") %></p>
+    </div>
+  </div>
+  <div class="row center-row">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-6">
+      <div class="container">
+        <div class="center-row groups-background-card">
+          <%= render "form", group: @group %>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-6">
+      <%= image_tag "PNGs/newGroup.png", alt: "New Group Sketch", class: "groups-center-image center-image" %>
+    </div>
+  </div>
+</div>

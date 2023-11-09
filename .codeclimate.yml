@@ -1,0 +1,46 @@
+version: "2"
+plugins:
+  rubocop:
+    enabled: true
+    channel: rubocop-1-30-0
+
+  eslint:
+    enabled: true
+    channel: "eslint-7"
+    exclude_patterns:
+      - "!public/js/"
+  scss-lint:
+    enabled: true
+
+  duplication:
+    enabled: true
+    exclude_patterns:
+      - "spec/"
+
+ratings:
+  paths:
+  - Gemfile.lock
+  - "**.erb"
+  - "**.rb"
+  - "**.css"
+  - "**.coffee"
+  - "**.inc"
+  - "**.js"
+  - "**.module"
+
+exclude_paths:
+- config/
+- db/
+- vendor/
+- public/bootstrap-3.3.7/
+- public/external/
+- test/
+- tmp/
+- apidoc/v1/javascripts/
+- docs/source/javascripts/
+- app/tasks/maintenance/
+
+checks:
+  method-lines:
+      config:
+        threshold: 100 # prevent lint errors in js

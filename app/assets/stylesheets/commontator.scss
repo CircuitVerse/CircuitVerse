@@ -1,0 +1,128 @@
+.comments-container {
+  margin-top: 70px;
+}
+
+.comments-status {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.actions {
+  display: block;
+  margin-top: 10px;
+  min-width: 150px;
+  text-align: right;
+}
+
+.comments-comment {
+  background-color: $card-green;
+  margin-top: 15px;
+  padding: 10px 20px;
+
+  .body {
+    margin-bottom: 16px;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.avatar {
+  img {
+    height: 60px;
+    padding: 10px 10px 10px 0;
+    width: 50px;
+  }
+}
+
+.votes {
+  display: inline-block;
+  width: 60px;
+}
+
+.upvote,
+.downvote {
+  display: block;
+}
+
+.vote-count {
+  display: block;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.timestamp {
+  opacity: .7;
+}
+
+.body {
+  display: block;
+  width: 100%;
+}
+
+.comments-field {
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+
+  textarea {
+    border: 0;
+    border-radius: 0;
+    padding: 10px;
+
+    &:focus {
+      box-shadow: 0 0 0 .3rem $form-input-focus-green;
+      outline: 0;
+    }
+  }
+}
+
+.edit-action {
+  background-color: $mini-button-blue;
+  border-radius: 50%;
+  height: 35px;
+  margin: 5px;
+  width: 35px;
+
+  img {
+    height: 20px;
+    margin-left: -5px;
+    margin-top: -5px;
+    width: 20px;
+  }
+}
+
+.delete-action {
+  background-color: $primary-red;
+  border-radius: 50%;
+  height: 35px;
+  margin: 5px;
+  width: 35px;
+
+  img {
+    height: 15px;
+    margin-left: -3px;
+    margin-top: -5px;
+    width: 15px;
+  }
+}
+
+.new-comment {
+  display: block;
+}
+
+//breakpoints
+@media(max-width: 400px){
+  .comments-comment {
+    margin: 5px;
+    padding: 10px;
+  }
+
+  .actions {
+    margin-top: 0;
+  }
+
+  .comments-field {
+    margin-top: 40px;
+  }
+}

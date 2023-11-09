@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "type": "string" },
+        "attributes": {
+          "type": "object",
+          "properties": {
+            "grade": { "type": "string" },
+            "remarks": { "type": ["string", "null"] },
+            "created_at": { "type": "string" },
+            "updated_at": { "type": "string" }
+          },
+          "required": ["grade", "remarks", "created_at", "updated_at"]
+        },
+        "relationships": {
+          "type": "object",
+          "properties": {
+            "project": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "id": { "type": "string" },
+                    "type": { "type": "string" }
+                  },
+                  "required": ["id", "type"]
+                }
+              },
+              "required": ["data"]
+            }
+          },
+          "required": ["project"]
+        }
+      },
+      "required": ["id", "type", "attributes"]
+    }
+  },
+  "required": ["data"]
+}

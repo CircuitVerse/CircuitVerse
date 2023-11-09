@@ -1,0 +1,121 @@
+.footer-empty-div {
+  height: 250px;
+}
+
+.footer-container-fluid {
+  background-color: $footer-dark-grey;
+}
+
+.footer-container {
+  color: $white;
+  padding-top: 30px;
+  text-align: center;
+}
+
+.footer-column {
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.footer-logo {
+  max-height: 80px;
+  max-width: 100%;
+}
+
+.footer-social-icon-text {
+  margin-left: 15px;
+}
+
+.footer-social-icon {
+  width: 28px;
+}
+
+.footer-social-icons-row {
+  column-gap: 5px;
+  margin: inherit;
+}
+
+.bounce-out-on-hover {
+  box-shadow: 0 0 0 $black;
+  display: inline-block;
+  padding: 2px;
+  transform: perspective(1px) translateZ(0);
+  transition-duration: .5s;
+  vertical-align: middle;
+}
+
+.bounce-out-on-hover:hover,
+.bounce-out-on-hover:focus,
+.bounce-out-on-hover:active {
+  transform: scale(.8);
+  transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
+  z-index: 1;
+}
+
+.footer-links {
+  a {
+    color: $white;
+    text-decoration: none;
+
+    h6 {
+      margin-bottom: 10px;
+      margin-top: 10px;
+    }
+
+    &:hover {
+      color: $white;
+      text-decoration: underline;
+    }
+  }
+}
+
+.footer-sponsor-logo-text {
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+.footer-sponsor-logo {
+  border: solid $footer-dark-grey 1px;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.footer-copyright-text {
+  padding-top: 15px;
+
+  p {
+    font-size: 15px;
+  }
+
+}
+
+.bounce-out-on-hover::before,
+.bounce-out-on-hover::after {
+  --scale: 0;
+  left: 55%;
+  position: absolute;
+  top: 230%;
+  transform: translateX(-50%) translateY(-100%) scale(var(--scale));
+  transform-origin: center;
+  transition: 150ms transform;
+}
+
+.bounce-out-on-hover::before {
+  background: $tooltip-grey;
+  border-radius: .3rem;
+  color: $white;
+  content: attr(data-tooltip);
+  padding: .5rem;
+  text-align: center;
+  width: fit-content;
+}
+
+.bounce-out-on-hover:hover::before,
+.bounce-out-on-hover::after {
+  --scale: 1;
+}
+
+.bounce-out-on-hover::after {
+  content: '';
+  width: 10px;
+}

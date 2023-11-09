@@ -1,0 +1,38 @@
+<div id="add-mentor-to-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("add_mentors") %></h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p><%= t("groups.add_member_description") %></p>
+        <%= t("groups.add_mentor_description_html") %>
+        <%= form_with(model: group_member, local: true) do |form| %>
+          <% if group_member.errors.any? %>
+            <div id="error-message">
+              <ul>
+                <% group_member.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="field">
+            <%= form.hidden_field :group_id, id: :group_member_group_id %>
+          </div>
+          <div class="field">
+            <%= form.hidden_field :mentor, value: true %>
+          </div>
+          <div class="form-group">
+            <%= form.label :emails %>
+            <%= form.select :emails, [], {}, { class: "form-select", id: "group_mentor_emails", multiple: true } %>
+          </div>
+          <div class="modal-footer">
+            <%= form.submit "Add mentors", class: "btn primary-button", id: "add-mentor-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div>
+  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <%= inline_svg_tag "SVGs/newProject.svg", alt: "New Project", class: "mailer-assignment-image" %>
+  <p class="mailer-text">You have successfully created a new project, <span class="mailer-highlighted-text"><%= @project.name %></span>.</p>
+  <a href="<%= user_project_url(@user, @project) %>" class="mailer-button">View Project</a>
+  <p class="mailer-text">Keep building!</p>
+</div>
