@@ -98,7 +98,7 @@ describe GroupsController, type: :request do
 
 # app/controllers/groups_controller.rb
 
-class GroupsController < ApplicationController
+# class GroupsController < ApplicationController
   
   # def add_member
   #   @group = Group.find(params[:group_id])
