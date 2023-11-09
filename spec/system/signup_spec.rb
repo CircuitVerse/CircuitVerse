@@ -6,11 +6,7 @@ describe "Sign up", type: :system do
   before do
     driven_by(:selenium_chrome_headless)
     visit "/users/sign_up"
-    allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
     allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(true)
-    allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
-    allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
-    allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
   end
 
   it "does not sign-up when no credentials" do
@@ -55,31 +51,22 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Name can only contain letters and spaces")
   end
 
-  context "does sign-up when valid credentials" do
-    before do
-      allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
-    end
+  before do
+    allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
+  end
 
-    it "does sign-up when valid credentials" do
-      fill_in "Name", with: "user"
-      fill_in "Email", with: "user1@example.com"
-      fill_in "Password", with: "secret"
-      click_button "Sign up"
+  it "does sign-up when valid credentials" do
+    fill_in "Name", with: "user"
+    fill_in "Email", with: "user1@example.com"
+    fill_in "Password", with: "secret"
+    click_button "Sign up"
 
-      expect(page).to have_text("Welcome! You have signed up successfully.")
-    end
+    expect(page).to have_text("Welcome! You have signed up successfully.")
   end
 
   context "when registration is disabled" do
     before do
       allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
-      allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
-      allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
     end
 
     it "redirects to the login page with an alert message" do

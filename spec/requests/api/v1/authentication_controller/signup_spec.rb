@@ -8,7 +8,6 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with missing params" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email
         }, as: :json
@@ -22,7 +21,6 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with invalid params" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: "1"
         }, as: :json
@@ -36,7 +34,6 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "when user already exists" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         existing_user = FactoryBot.create(:user)
         post "/api/v1/auth/signup", params: {
           name: existing_user.name, email: existing_user.email, password: "1"
@@ -51,7 +48,6 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "with valid params" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: user.password
         }, as: :json
@@ -65,7 +61,6 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "when registration is enabled" do
       before do
-        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
         post "/api/v1/auth/signup", params: {
           name: user.name, email: user.email, password: user.password
         }, as: :json

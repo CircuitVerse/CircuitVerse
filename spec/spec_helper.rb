@@ -30,6 +30,11 @@ RSpec.configure do |config|
   config.before do
     # To stub sunspot indexers during testing
     Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
+    allow(Flipper).to receive(:enabled?).with(:gitlab_integration).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:sso_integration).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:forum).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(false)
+    allow(Flipper).to receive(:enabled?).with(:recaptcha).and_return(false)
 
     # To stub google oauth fetch user response with valid access token
     stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
