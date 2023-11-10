@@ -26,6 +26,7 @@ mr:
   reopen: "पुन्हा उघडा"
   close: "बंद करा"
   not_available: "उपलब्ध नाही"
+  not_entered: "प्रविष्ट केलं नाही"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
