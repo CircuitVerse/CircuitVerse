@@ -6,7 +6,7 @@ class PaginateRenderer < WillPaginate::ActionView::LinkRenderer
   def page_number(page)
 
     if page == current_page
-      tag("li", link(page, "/?page=#{page}#recent", class: 'page-link', rel: rel_value(page)), class: "page-item active")
+      tag("li", link(page, page, class: 'page-link', rel: rel_value(page)), class: "page-item active")
     else
       tag("li", link(page, "/?page=#{page}#recent", class: 'page-link', rel: rel_value(page)), class: "page-item")
     end
