@@ -259,10 +259,7 @@
   .status-container {
     align-items: flex-start;
     flex-direction: column-reverse;
-    row-gap: 15px;
-    -ms-row-gap: 15px;
-    -moz-row-gap: 15px;
-    -webkit-row-gap: 15px;
+    grid-row-gap: 15px;
   }
 }
 
