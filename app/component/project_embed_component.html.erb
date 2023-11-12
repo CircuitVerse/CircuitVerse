@@ -103,4 +103,7 @@
   color_picker.addEventListener('change', function() {
       colorDisplay.value = color_picker.value;
   });
+  colorDisplay.addEventListener('blur',function(){
+      color_picker.value = colorDisplay.value;
+  });
 </script>
