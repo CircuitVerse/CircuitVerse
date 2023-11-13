@@ -59,10 +59,9 @@ export default class extends Controller {
         }
         $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
         $('#group_mentor_emails').on('select2:select select2:unselect', () => {
+            $('.add-mentor-button').attr('disabled', true);
             if ($('#group_mentor_emails').select2('data').length > 0) {
                 $('.add-mentor-button').attr('disabled', false);
-            } else {
-                $('.add-mentor-button').attr('disabled', true);
             }
         });
     }
@@ -75,15 +74,14 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input');
-        $('.add-mentor-button').attr('disabled', true);
+        $('.add-members-button').attr('disabled', true);
         if ($('#group_member_emails').select2('data').length > 0) {
             $('.add-members-button').attr('disabled', false);
         }
         $('#group_member_emails').on('select2:select select2:unselect', () => {
+            $('.add-members-button').attr('disabled', true);
             if ($('#group_member_emails').select2('data').length > 0) {
                 $('.add-members-button').attr('disabled', false);
-            } else {
-                $('.add-members-button').attr('disabled', true);
             }
         });
         document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
