@@ -14,6 +14,14 @@ export default class extends Controller {
         });
     }
 
+    toggleButtonBasedOnEmails(emailSelector, buttonSelector) {
+        if ($(emailSelector).select2('data').length > 0) {
+            $(buttonSelector).attr('disabled', false);
+        } else {
+            $(buttonSelector).attr('disabled', true);
+        }
+    }
+
     mentorInputPaste(e) {
         e.preventDefault();
         let pastedEmails = '';
@@ -53,16 +61,10 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input_mentor');
-        $('.add-mentor-button').attr('disabled', true);
-        if ($('#group_mentor_emails').select2('data').length > 0) {
-            $('.add-mentor-button').attr('disabled', false);
-        }
+        this.toggleButtonBasedOnEmails('#group_mentor_emails', '.add-mentor-button');
         $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
         $('#group_mentor_emails').on('select2:select select2:unselect', () => {
-            $('.add-mentor-button').attr('disabled', true);
-            if ($('#group_mentor_emails').select2('data').length > 0) {
-                $('.add-mentor-button').attr('disabled', false);
-            }
+            this.toggleButtonBasedOnEmails('#group_mentor_emails', '.add-mentor-button');
         });
     }
 
@@ -74,15 +76,9 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input');
-        $('.add-members-button').attr('disabled', true);
-        if ($('#group_member_emails').select2('data').length > 0) {
-            $('.add-members-button').attr('disabled', false);
-        }
+        this.toggleButtonBasedOnEmails('#group_member_emails', '.add-members-button');
         $('#group_member_emails').on('select2:select select2:unselect', () => {
-            $('.add-members-button').attr('disabled', true);
-            if ($('#group_member_emails').select2('data').length > 0) {
-                $('.add-members-button').attr('disabled', false);
-            }
+            this.toggleButtonBasedOnEmails('#group_member_emails', '.add-members-button');
         });
         document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
             e.preventDefault();
