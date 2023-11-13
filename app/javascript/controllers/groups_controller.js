@@ -53,10 +53,9 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input_mentor');
+        $('.add-mentor-button').attr('disabled', true);
         if ($('#group_mentor_emails').select2('data').length > 0) {
             $('.add-mentor-button').attr('disabled', false);
-        } else {
-            $('.add-mentor-button').attr('disabled', true);
         }
         $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
         $('#group_mentor_emails').on('select2:select select2:unselect', () => {
@@ -76,10 +75,9 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input');
+        $('.add-mentor-button').attr('disabled', true);
         if ($('#group_member_emails').select2('data').length > 0) {
             $('.add-members-button').attr('disabled', false);
-        } else {
-            $('.add-members-button').attr('disabled', true);
         }
         $('#group_member_emails').on('select2:select select2:unselect', () => {
             if ($('#group_member_emails').select2('data').length > 0) {
