@@ -100,10 +100,10 @@
 <script>
   const color_picker = document.getElementById('color_picker');
   const colorDisplay = document.getElementById('border_color');
-  color_picker.addEventListener('change', function() {
+  color_picker.addEventListener('input', function() {
       colorDisplay.value = color_picker.value;
   });
-  colorDisplay.addEventListener('blur',function(){
-      color_picker.value = colorDisplay.value;
-  });
+  document.getElementById('border_color').addEventListener('input', (e) => {
+    color_picker.value = e.target.value
+  })
 </script>
