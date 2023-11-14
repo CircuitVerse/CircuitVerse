@@ -4,7 +4,6 @@
       <%= image_tag "SVGs/login.svg", alt: "Login Sketch", class: "users-image" %>
       <h5><%= t("welcome_back_text") %></h5>
     </div>
-
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
       <div class="form-container">
         <h1 class="users-main-heading"><%= t("login") %></h1>
@@ -12,49 +11,51 @@
         <% flash.each do |key, value| %>
           <div class="error-message"><%= value %></div>
         <% end %>
-        <div class="field form-group">
-          <h6><%= f.label :email %></h6>
+        <%#Inputs start from this block%>
+        <div class="field form-group" id="email-login-id">
           <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class: "form-control form-input user-email-input" %>
+            <%= f.email_field :email, autofocus: true, class: "form-control form-input user-email-input",placeholder: "Email Address" %>
           </div>
         </div>
-        <div class="field form-group">
-          <h6><%= f.label :password %></h6>
-          <div class="input-group form-input">
-            <%= f.password_field :password, autocomplete: "off", class: "form-control users-password-input" %>
-            <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
+        <div class="field form-group" id="email-password-login-id">
+          <div class="input-group form-input rounded h:3.5em">
+            <%= f.password_field :password, autocomplete: "off", class: "form-control users-password-input",placeholder: "Password" %>
+            <div class="input-group-addon d-flex align-items-center justify-content-center text-center" onclick="togglePassword()">
               <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
           </div>
         </div>
-        <div class="field form-group">
+        <div class="field form-group" id="forgot-pass-remember-me-id">
           <div class="input-group">
             <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
               <%= link_to t("users.sessions.forgot_password"), new_password_path(resource_name), class: "anchor-text users-forgot-password-text" %>
+              <%#Remember-me button code-block below%>
+              <% if devise_mapping.rememberable? -%>
+                <div class="field form-group">
+                  <label class="primary-checkpoint-container users-primary-checkpoint"><h6><%= t("users.sessions.remember_me") %></h6>
+                    <%= f.check_box :remember_me %>
+                    <div class="primary-checkpoint"></div>
+                  </label>
+                </div>
+              <% end -%>
             <% end -%>
           </div>
         </div>
-        <% if devise_mapping.rememberable? -%>
-          <div class="field form-group">
-            <label class="primary-checkpoint-container users-primary-checkpoint"><h6><%= t("users.sessions.remember_me") %></h6>
-              <%= f.check_box :remember_me %>
-              <div class="primary-checkpoint"></div>
-            </label>
-          </div>
-        <% end -%>
+        <%#Sign-In and New-to-circuitverse Code-Block below %>
         <div class="field form-group">
           <div class="input-group">
             <% if Flipper.enabled?(:recaptcha) %>
               <%= recaptcha_tags %>
             <% end %>
-            <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
+            <%= f.submit t("loginbutton"), class: "btn primary-button users-login-primary-button",id:'email-signin-button' %>
+            <%#This code below renders _links.html.erb%>
+            <%= render "users/shared/links" %>
             <div class="users-text-container">
               <span class="users-text"><%= t("users.ask_new_user") %></span>
-              <%= link_to t("sign_up"), new_registration_path(resource_name), class: "anchor-text" %>
+              <%= link_to t("sign_up"), new_registration_path(resource_name),class: "anchor-text anchor-text-signup-mainpage" %>
             </div>
           </div>
         </div>
-        <%= render "users/shared/links" %>
       </div>
       <% end %>
     </div>

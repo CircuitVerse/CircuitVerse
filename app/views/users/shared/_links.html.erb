@@ -1,12 +1,24 @@
-<div class="field form-group users-shared">
+<script>
+  function setLoginToggle(id){
+    document.getElementById(id).style.display='none';
+    document.getElementById('email-login-id').style.display='block';
+    document.getElementById('email-password-login-id').style.display='block';
+    document.getElementById('forgot-pass-remember-me-id').style.display='block';
+    document.getElementById('email-signin-button').style.display='block';
+  }
+</script>
+<div class="field form-group users-shared" id="other-login-methods">
   <div class="input-group">
-    <div class="row center-row users-shared-row">
+    <!-- <div class="row center-row users-shared-row">
       <h6 class="users-shared-row"><%= t("users.shared.login_with") %></h6>
     </div>
-    <div class="row center-row">
-      <%= link_to image_tag("SVGs/google-plus.svg", alt: "Google Icon", class: "users-social-links"), user_google_oauth2_omniauth_authorize_path, method: :post %>
-      <%= link_to image_tag("SVGs/facebook.svg", alt: "Facebook Icon", class: "users-social-links"), user_facebook_omniauth_authorize_path, method: :post %>
-      <%= link_to image_tag("SVGs/github.svg", alt: "Github Icon", class: "users-social-links"), user_github_omniauth_authorize_path, method: :post %>
+    -->
+    <div class="row center-row logintabs">
+      <%= link_to image_tag("SVGs/google-plus.svg", alt: "Google Icon", class: "users-social-links google-logo")+"Sign in with Google", user_google_oauth2_omniauth_authorize_path,:class => 'other-login-links', method: :post %>
+      <%#Button to toggle the login dislay options%>
+      <div onclick="setLoginToggle('other-login-methods')" id="login-toggle-button" class="mail-icon-login-div"><%= image_tag("SVGs/mailLogo.svg",alt: "Mail Icon", class:"mail-icon-image") %><p class="email-login-text">Sign in with Email</p></div>
+      <%= link_to image_tag("SVGs/facebook-whitelogo.svg", alt: "Facebook Icon", class: "users-social-links facebook-logo")+"Sign in with Facebook", user_facebook_omniauth_authorize_path,:class => 'other-login-links facebook', method: :post %>
+      <%= link_to image_tag("SVGs/github-whitelogo.svg", alt: "Github Icon", class: "users-social-links github-logo")+"Sign in with Github", user_github_omniauth_authorize_path,:class => 'other-login-links github', method: :post %>
       <% if Flipper.enabled?(:gitlab_integration) %>
         <%= link_to image_tag("SVGs/gitlab.svg", alt: "Gitlab Icon", class: "users-social-links"), user_gitlab_omniauth_authorize_path, method: :post %>
       <% end %>

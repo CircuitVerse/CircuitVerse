@@ -238,9 +238,16 @@
 
 .form-input {
   background-color: $white;
-  border: 1px solid $secondary-green;
-  border-radius: 0;
+  border: 1px solid $black;
+  border-radius: 10;
+  height: 3.5em;
   max-width: 100%;
+  text-indent: 1em;
+
+  &::placeholder {
+    color: $black;
+    opacity: .8;
+  }
 }
 
 @media (max-width: 400px) {

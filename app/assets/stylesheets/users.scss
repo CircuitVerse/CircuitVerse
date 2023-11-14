@@ -13,8 +13,13 @@
 }
 
 .users-main-heading {
-  margin-bottom: 30px;
-  margin-top: 30px;
+  // margin-bottom: 30px;
+  // margin-top: 30px;
+  // border-style: solid;
+  align-items: center;
+  justify-content: center;
+  margin: 1em;
+  text-align: center;
 }
 
 .users-primary-button {
@@ -35,6 +40,13 @@
 }
 
 .users-primary-checkpoint {
+  // border-style: solid;
+  // border-color: blue;
+  display: flex;
+  justify-content: center;
+  margin-left: 9em;
+  width: 8em;
+
   h6 {
     display: inline;
     margin-bottom: 0;
@@ -42,10 +54,60 @@
   }
 }
 
+@media (max-width:1200px) {
+  .users-primary-checkpoint {
+    margin-left: 11.5em;
+    margin-top: -1em;
+  }
+}
+
+@media (max-width:995px) {
+  .users-primary-checkpoint {
+    margin-left: 6.3em;
+  }
+}
+
+@media (max-width:773px) {
+  .users-primary-checkpoint {
+    margin-left: 6.5em;
+    margin-top: -1em;
+  }
+}
+
+@media (max-width:767px) {
+  .users-primary-checkpoint {
+    margin-left: 14em;
+    margin-top: -1em;
+  }
+}
+
+
+@media (max-width:555px) {
+  .users-primary-checkpoint {
+    margin-left: 14em;
+    margin-top: -1em;
+  }
+}
+
+@media (max-width:540px) {
+  .users-primary-checkpoint {
+    margin-left: -6.5em;
+    margin-top: 2em;
+  }
+}
+
+@media (max-width:245px) {
+  .users-primary-checkpoint {
+    margin-left: -.75em;
+    margin-top: .5em;
+  }
+}
+
 .primary-checkpoint {
   background-color: $white;
   border: 1px solid $secondary-green;
   cursor: pointer;
+  margin-top: -.5em;
   padding-left: 4px;
   padding-top: 4px;
   position: relative;
@@ -60,9 +122,16 @@
 }
 
 .users-text-container {
+  border-color: $box-grey-cover;
+  border-radius: 5px;
+  border-style: solid;
+  border-width: 2px;
+  display: flex;
+  justify-content: center;
   margin-top: 20px;
-  padding-left: 4px;
-  padding-top: 9px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  width: 100em;
 }
 
 //breakpoints
@@ -73,9 +142,8 @@
   }
 
   .users-text-container {
-    display: block;
-    margin-top: 20px;
-    padding-top: 6px;
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -99,17 +167,175 @@
 }
 
 .users-social-links {
-  height: 50px;
-  margin-left: 5px;
-  margin-right: 5px;
+  // border-style: solid;
+  // border-color: $red;
+  display: flex;
+  justify-content: center;
+  margin-bottom: .5em;
   padding-top: 10px;
-  width: 40px;
+  width: 1.5em;
 
-  &:hover {
-    opacity: .7;
+  &.google-logo {
+    margin-left: -4.8em;
+    margin-right: 2.3em;
   }
+
+  &.facebook-logo {
+    margin-left: -4em;
+    margin-right: 1.5em;
+    width: 3em;
+  }
+
+  &.github-logo {
+    margin-left: -5.4em;
+    margin-right: 1.6em;
+    width: 3em;
+  }
+
+  // &:hover {
+  //   opacity: .7;
+  // }
 }
 //shared ends
+
+//google,facebook and github login-links
+.other-login-links {
+  align-items: center;
+  border-color: $iframe-container-grey;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 0;
+  box-shadow: 2px 2px 5px $box-grey-cover;
+  color: $iframe-container-grey;
+  display: flex;
+  font-weight: 700;
+  height: 3.5em;
+  justify-content: center;
+  margin-bottom: 1em;
+  padding: 1em;
+  padding-bottom: .2em;
+  padding-top: .2em;
+  text-decoration: none;
+  transition: all .2s ease-in-out;
+  width: 31em;
+
+  &:hover {
+    color: $iframe-container-grey;
+    text-decoration: none;
+    transform: scale(1.1);
+  }
+
+  &.facebook {
+    background-color: $blue-facebook-bg;
+    color: $white;
+  }
+
+  &.github {
+    background-color: $github-black-bg;
+    color: $white;
+  }
+
+}
+
+//mail-icon-login-div
+.mail-icon-login-div {
+  align-items: center;
+  background-color: $primary-green;
+  border-color: $black;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 0;
+  box-shadow: 2px 2px 5px $box-grey-cover;
+  color: $white;
+  display: flex;
+  height: 3.5em;
+  margin-bottom: 1em;
+  padding: 1em;
+  transition: all .2s ease-in-out;
+  width: 31em;
+
+  .email-login-text {
+    font-weight: 700;
+    margin-top: 1em;
+  }
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+  }
+
+}
+
+.mail-icon-image {
+  height: 1.5em;
+  margin-left: 5.5em;
+  margin-right: 2.3em;
+}
+
+@media (max-width:1200px) {
+  .other-login-links {
+    width: 26em;
+  }
+
+  .mail-icon-login-div {
+    width: 26em;
+  }
+
+  .mail-icon-image {
+    margin-left: 3em;
+  }
+}
+
+@media (max-width:992px) {
+  .other-login-links {
+    width: 19em;
+  }
+
+  .mail-icon-login-div {
+    width: 19em;
+  }
+
+  .mail-icon-image {
+    margin-left: .3em;
+  }
+
+  .users-social-links {
+    &.google-logo {
+      margin-left: -3.4em;
+      margin-right: 2.3em;
+    }
+
+    &.facebook-logo {
+      margin-left: -2.2em;
+      margin-right: 1.5em;
+      width: 3em;
+    }
+
+    &.github-logo {
+      margin-left: -3.7em;
+      margin-right: 1.6em;
+      width: 3em;
+    }
+  }
+
+}
+
+//toggle-css for email-login
+#email-login-id {
+  display: none;
+}
+
+#email-password-login-id {
+  display: none;
+}
+
+#forgot-pass-remember-me-id {
+  display: none;
+}
+
+#email-signin-button {
+  display: none;
+}
 
 //login-register
 .users-remember-me-text {
@@ -117,22 +343,43 @@
 }
 
 .password-icon {
+  align-items: center;
   color: $secondary-green;
+  display: flex;
+  height: 100%;
+  padding-right: 3em;
   width: 40px;
+  // border-style: solid;
+  // border-color: $red;
 }
 
 .users-password-input {
-  border: 0;
+  // border: 0;
+  border-width: 0;
+  height: 100%;
+  text-indent: 1em;
+
+  &::placeholder {
+    color: $black;
+    opacity: .8;
+  }
 }
 
 .users-forgot-password-text {
-  margin-left: auto;
-  text-align: right;
+  // margin-left: auto;
+  // text-align: right;
+  text-align: left;
+  // border-style: solid;
+  // border-color: $red;
 }
 
 .users-login-primary-button {
   margin-top: 20px;
   padding: 8px 25px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  transform: scale(1.02);
+  width: 100em;
 }
 //login-register ends
 
