@@ -7,7 +7,8 @@ default_flipper_features = {
   recaptcha: false,
   forum: false,
   project_comments: true,
-  lms_integration: true
+  lms_integration: true,
+  vuesim: false
 }
 
 Flipper.configure do |config|

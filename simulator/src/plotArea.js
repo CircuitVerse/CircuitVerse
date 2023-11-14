@@ -35,7 +35,7 @@ var ptA = currentScreen();
 // Helper functions for canvas
 
 function getFullHeight(flagCount) {
-    return timeLineHeight + (plotHeight + padding) * flagCount;
+    return !flagCount ? (plotHeight + padding) : (timeLineHeight + (plotHeight + padding) * flagCount);
 }
 
 function getFlagStartY(flagIndex) {
@@ -44,6 +44,12 @@ function getFlagStartY(flagIndex) {
 
 function getCycleStartX(cycleNumber) {
     return timeLineStartX + (cycleNumber - plotArea.cycleOffset) * cycleWidth;
+}
+function changeHeight(dir) {
+    plotHeight += dir ? 5 : -5;
+    plotHeight = dir ? plotHeight = Math.min(sh(50), plotHeight) : plotHeight = Math.max(sh(20), plotHeight);
+    waveFormHeight = plotHeight - 2 * waveFormPadding;
+    plotArea.resize();
 }
 
 /**
@@ -218,7 +224,6 @@ const plotArea = {
         // Background Color
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, width, height);
-
         ctx.lineWidth = sh(1);
         ctx.font = `${sh(15)}px Raleway`;
         ctx.textAlign = 'left';
@@ -412,16 +417,10 @@ export function setupTimingListeners() {
         plotArea.resize();
     })
     $('.timing-diagram-small-height').on('click', () => {
-        if(plotHeight >= sh(20)) {
-            plotHeight -= sh(5);
-            waveFormHeight = plotHeight - 2 * waveFormPadding;
-        }
+        changeHeight(0);
     })
     $('.timing-diagram-large-height').on('click', () => {
-        if(plotHeight < sh(50)) {
-            plotHeight += sh(5);
-            waveFormHeight = plotHeight - 2 * waveFormPadding;
-        }
+        changeHeight(1);
     })
     $('.timing-diagram-reset').on('click', () => {
         plotArea.reset();

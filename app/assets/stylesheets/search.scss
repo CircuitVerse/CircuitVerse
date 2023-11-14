@@ -81,7 +81,16 @@
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;
-  width: 90%;
+  white-space: nowrap;
+
+  h3 {
+    display: inline;
+  }
+}
+
+.search-project-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
 }
 
 .search-tag-container {
@@ -95,6 +104,12 @@
 .search-primary-button {
   margin-top: 20px;
   padding: 5px 20px;
+}
+
+@media (max-width: 575px) {
+  .search-primary-button {
+    width: 100%;
+  }
 }
 
 .search-project-description {

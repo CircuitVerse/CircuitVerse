@@ -5,13 +5,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "acts_as_votable", "~> 0.13.2"
+gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "kt-paperclip"
 gem "language_filter"
-gem "mailkick"
+gem "mailkick", "~> 0.4.3"
 gem "omniauth"
 gem "omniauth-facebook"
 gem "omniauth-github"
@@ -24,7 +24,7 @@ gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"
 # Use Puma as the app server
-gem "puma", "~> 6.1"
+gem "puma", "~> 6.3"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
 gem "terser"
@@ -192,3 +192,24 @@ gem "noticed", "~> 1.6"
 # ActiveStorage AWS S3 + Variant Processing
 gem "aws-sdk-s3", "~> 1.116"
 gem "image_processing", "~> 1.12"
+# Distributed Tracing OTEL ruby
+gem "opentelemetry-sdk", "~> 1.2"
+gem "opentelemetry-exporter-otlp", "~> 0.25.0"
+gem "opentelemetry-instrumentation-active_job"
+gem "opentelemetry-instrumentation-active_model_serializers"
+gem "opentelemetry-instrumentation-active_record"
+gem "opentelemetry-instrumentation-active_support"
+gem "opentelemetry-instrumentation-aws_sdk"
+gem "opentelemetry-instrumentation-concurrent_ruby"
+gem "opentelemetry-instrumentation-faraday"
+gem "opentelemetry-instrumentation-http"
+gem "opentelemetry-instrumentation-net_http"
+gem "opentelemetry-instrumentation-pg"
+gem "opentelemetry-instrumentation-rack"
+gem "opentelemetry-instrumentation-rails"
+gem "opentelemetry-instrumentation-redis"
+gem "opentelemetry-instrumentation-sidekiq"
+gem "opentelemetry-instrumentation-action_pack"
+gem "opentelemetry-instrumentation-action_view"
+
+gem "maintenance_tasks", "~> 2.3"
