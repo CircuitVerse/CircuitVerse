@@ -7,7 +7,7 @@ html {
 }
 
 body {
-  font-family: 'Inter';
+  font-family: "Inter";
   padding-top: 90px;
 }
 
@@ -144,8 +144,14 @@ body {
     }
   }
 }
+
 .pagination .page-link {
   white-space: nowrap;
+}
+
+.pagination{
+  display: flex;
+  justify-content: center;
 }
 
 @media (max-width: 992px) {
@@ -155,7 +161,9 @@ body {
   }
 
   .pagination {
-    display: block;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     max-width: none;
     overflow-x: auto;
     padding: 0;
