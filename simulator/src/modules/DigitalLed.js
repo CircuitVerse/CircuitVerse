@@ -25,6 +25,7 @@ export default class DigitalLed extends CircuitElement {
         */
         this.rectangleObject = false;
         this.setDimensions(10, 20);
+        this.downDimensionY = 40;
         this.inp1 = new Node(-40, 0, 0, this, 1);
         this.directionFixed = true;
         this.fixedBitWidth = true;
