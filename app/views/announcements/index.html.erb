@@ -8,7 +8,7 @@
           <div class="mb-4 announcement-border p-3 announcement-box">
             <span class="d-flex justify-content-center overflow-hidden announcement-text"><%== announcement.body %></span>
             <%= link_to t("edit"), edit_announcement_url(announcement), class: "anchor-text announcement-anchor btn primary-button" %>
-            <%= link_to t("delete"), announcement_url(announcement),method: :delete, data: {confirm:'Are you sure?'},class: "anchor-text announcement-anchor btn primary-button bg-danger" %>
+            <%= link_to t("delete"), announcement_url(announcement), method: :delete, data: { confirm: "Are you sure?" }, class: "anchor-text announcement-anchor btn primary-button bg-danger" %>
           </div>
         <% end %>
       <% else %>
