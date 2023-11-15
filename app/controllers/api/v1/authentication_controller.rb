@@ -2,6 +2,7 @@
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
   before_action :set_oauth_user, only: %i[oauth_signup oauth_login]
+  before_action :check_block_registration, only: %i[signup oauth_signup]
 
   # POST api/v1/auth/login
   def login
@@ -86,5 +87,11 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
     def oauth_params
       params.permit(:access_token, :provider)
+    end
+
+    def check_block_registration
+      return unless Flipper.enabled?(:block_registration)
+
+      api_error(status: 403, errors: "Registration is currently blocked")
     end
 end
