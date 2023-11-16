@@ -1,6 +1,4 @@
-
 <% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name) %>
-
 <div class="container projects-new-container">
   <div class="row center-row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -82,7 +80,6 @@
   const SELECTOR = '.autocomplete';
   DOMPurify.setConfig({ ALLOWED_TAGS: [] });
   const purify = dt => String(DOMPurify.sanitize(String(dt))).trim();
-
   const autoCompleteJS = new autoComplete({
     selector: SELECTOR,
     data: {
@@ -91,15 +88,12 @@
           const response = await fetch(
             `/users/educational_institute/typeahead/${encodeURIComponent(query)}`
           );
-
           if (!response.ok) {
             throw new Error('Invalid Query');
           }
-
           const data = await response.json();
           const filtered = [];
           let purifiedData;
-
           for (const result of data) {
             purifiedData = purify(result.name);
             if (purifiedData !== '') {
@@ -120,10 +114,12 @@
       class: 'autocomplete-list-item',
     }
   });
-
   $(SELECTOR).on('selection', function(event) {
     const feedback = event.detail;
     const selection = feedback.selection.value[feedback.selection.key];
     autoCompleteJS.input.value = selection;
+  });
+  document.querySelector('#remove_pic').addEventListener('change', function() {
+      document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
   });
 </script>
