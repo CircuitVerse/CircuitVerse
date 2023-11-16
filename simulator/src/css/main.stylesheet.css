@@ -1530,6 +1530,7 @@ input:checked + .slider:before {
 
 .disable::after {
     content: "";
+    background-color: var(--bg-primary-chr);
     position: absolute;
     height: 100%;
     width: 100%;
