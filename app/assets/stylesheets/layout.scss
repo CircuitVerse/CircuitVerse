@@ -36,6 +36,19 @@ body {
 
 .submain-heading {
   margin-top: 30px;
+  position: relative;
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &:hover .tooltiptext {
+    left: 50% !important;
+    opacity: 1;
+    transform: translateX(-50%);
+    visibility: visible;
+    z-index: 101;
+  }
 }
 
 .main-description {
