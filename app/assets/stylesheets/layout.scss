@@ -37,13 +37,14 @@ body {
 .submain-heading {
   margin-top: 30px;
   position: relative;
+
   p {
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
   &:hover .tooltiptext {
-    left: 50% !important;
+    left: 50%;
     opacity: 1;
     transform: translateX(-50%);
     visibility: visible;
