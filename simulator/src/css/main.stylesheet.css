@@ -1278,6 +1278,8 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    padding: 0 10px;
 }
 
 .download-dialog-section-3 {
