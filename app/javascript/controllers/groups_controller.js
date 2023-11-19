@@ -40,7 +40,7 @@ export default class extends Controller {
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
             });
-            $('.add-mentor-button').attr('disabled', false);
+            $('#add-mentor-button').attr('disabled', false);
         } else {
             const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
             this.value = pastedEmails.replace(/./g, '');
@@ -49,7 +49,7 @@ export default class extends Controller {
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
             });
-            $('.add-mentor-button').attr('disabled', false);
+            $('#add-mentor-button').attr('disabled', false);
         }
     }
 
@@ -61,10 +61,10 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input_mentor');
-        this.toggleButtonBasedOnEmails('#group_mentor_emails', '.add-mentor-button');
+        this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
         $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
         $('#group_mentor_emails').on('select2:select select2:unselect', () => {
-            this.toggleButtonBasedOnEmails('#group_mentor_emails', '.add-mentor-button');
+            this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
         });
     }
 
@@ -76,9 +76,9 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input');
-        this.toggleButtonBasedOnEmails('#group_member_emails', '.add-members-button');
+        this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
         $('#group_member_emails').on('select2:select select2:unselect', () => {
-            this.toggleButtonBasedOnEmails('#group_member_emails', '.add-members-button');
+            this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
         });
         document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
             e.preventDefault();
@@ -98,7 +98,7 @@ export default class extends Controller {
                     $('#group_member_emails').append(tags);
                     $('#group_member_emails option').prop('selected', true);
                 });
-                $('.add-members-button').attr('disabled', false);
+                $('#add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
@@ -107,7 +107,7 @@ export default class extends Controller {
                     $('#group_member_emails').append(tags);
                     $('#group_member_emails option').prop('selected', true);
                 });
-                $('.add-members-button').attr('disabled', false);
+                $('#add-members-button').attr('disabled', false);
             }
         });
     }
