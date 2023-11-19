@@ -81,7 +81,16 @@
   overflow: hidden;
   text-align: left;
   text-overflow: ellipsis;
-  width: 90%;
+  white-space: nowrap;
+
+  h3 {
+    display: inline;
+  }
+}
+
+.search-project-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
 }
 
 .search-tag-container {
