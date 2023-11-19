@@ -27,21 +27,23 @@
             </div>
           </div>
         </div>
-        <div class="field form-group">
-          <div class="input-group">
-            <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
-              <%= link_to t("users.sessions.forgot_password"), new_password_path(resource_name), class: "anchor-text users-forgot-password-text" %>
-            <% end -%>
+        <div class="status-container">
+          <div class="field form-group mb-0">
+            <div class="input-group">
+              <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+                <%= link_to t("users.sessions.forgot_password"), new_password_path(resource_name), class: "anchor-text users-forgot-password-text" %>
+              <% end -%>
+            </div>
           </div>
+          <% if devise_mapping.rememberable? -%>
+            <div class="field form-group mb-0">
+              <label class="primary-checkpoint-container users-primary-checkpoint mb-0"><h6><%= t("users.sessions.remember_me") %></h6>
+                <%= f.check_box :remember_me %>
+                <div class="primary-checkpoint m-0"></div>
+              </label>
+            </div>
+          <% end -%>
         </div>
-        <% if devise_mapping.rememberable? -%>
-          <div class="field form-group">
-            <label class="primary-checkpoint-container users-primary-checkpoint"><h6><%= t("users.sessions.remember_me") %></h6>
-              <%= f.check_box :remember_me %>
-              <div class="primary-checkpoint"></div>
-            </label>
-          </div>
-        <% end -%>
         <div class="field form-group">
           <div class="input-group">
             <% if Flipper.enabled?(:recaptcha) %>
@@ -50,7 +52,9 @@
             <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
             <div class="users-text-container">
               <span class="users-text"><%= t("users.ask_new_user") %></span>
-              <%= link_to t("sign_up"), new_registration_path(resource_name), class: "anchor-text" %>
+              <% unless Flipper.enabled?(:block_registration) %>
+                <%= link_to t("sign_up"), new_registration_path(resource_name), class: "anchor-text" %>
+              <% end %>
             </div>
           </div>
         </div>
