@@ -27,6 +27,9 @@ mr:
   close: "बंद करा"
   not_available: "उपलब्ध नाही"
   not_entered: "प्रविष्ट केलं नाही"
+  email_placeholder: "ईईमेल प्रविष्ट करा"
+  password_placeholder: "पासवर्ड टाप्रविष्ट करा"
+  name_placeholder: "नाव प्रविष्ट करा"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
