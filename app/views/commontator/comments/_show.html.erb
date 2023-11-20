@@ -23,12 +23,11 @@
       </span>
 
       <span id="commontator-comment-<%= comment.id %>-author" class="author">
-        <%= link.blank? ? name : link_to(name, link, class: "anchor-text") %>
+        <%= link.blank? ? name : link_to(name, link, target: '_blank', class: "anchor-text") %>
       </span>
     </div>
 
     <div id="commontator-comment-<%= comment.id %>-section-middle" class="section middle">
-
       <div id="commontator-comment-<%= comment.id %>-body" class="body">
         <%= render partial: 'commontator/comments/body', locals: { comment: comment } %>
       </div>
@@ -40,6 +39,7 @@
             link_to(
               t('commontator.comment.actions.reply'),
               commontator.new_thread_comment_path(thread, comment: { parent_id: comment.id }),
+              target: '_blank',
               remote: true
             ) if thread.config.comment_reply_style != :n && !thread.is_closed?
           %>
@@ -60,6 +60,7 @@
       <% if comment.can_be_edited_by?(user) %>
         <%= link_to commontator.edit_comment_path(comment),
                     id: "commontator-comment-#{comment.id}-edit",
+                    target: '_blank',
                     remote: true,
                     class: 'edit btn edit-action' do %>
           <%= image_tag("SVGs/editGroup.svg", alt: "Edit Comment") %>
@@ -73,6 +74,7 @@
           <%= link_to commontator.polymorphic_path([del_string.to_sym, comment]),
                       data: is_deleted ? {} : { confirm: t('commontator.comment.actions.confirm_delete') },
                       method: :put,
+                      target: '_blank',
                       id: "commontator-comment-#{comment.id}-#{del_string}",
                       remote: true,
                       class: "del_string btn delete-action" do %>
@@ -104,6 +106,7 @@
   <div id="commontator-comment-<%= comment.id %>-will-paginate" class="will-paginate">
     <%= will_paginate nested_children,
                       renderer: Commontator::LinkRenderer,
+                      target: '_blank',
                       name: t('commontator.comment.status.reply_pages'),
                       remote: true,
                       params: { controller: 'commontator/comments',
