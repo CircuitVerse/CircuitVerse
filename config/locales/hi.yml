@@ -27,9 +27,9 @@ hi:
   close: "बंद करे"
   not_available: "उपलब्ध नहीं है"
   not_entered: "दर्ज नहीं किया गया"
-  email_placeholder: "ईमेल दर्ज करें"
-  password_placeholder: "पासवर्ड दर्ज करें"
-  name_placeholder: "नाम दर्ज करें"
+  enter_email: "ईमेल दर्ज करें"
+  enter_password: "पासवर्ड दर्ज करें"
+  enter_name: "नाम दर्ज करें"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

@@ -27,9 +27,9 @@ bn:
   close: "বন্ধ করুন"
   not_available: "উপলব্ধ নয়"
   not_entered: "প্রবেশ করা হয়নি"
-  email_placeholder: "ইমেইল লিখুন"
-  password_placeholder: "পাসওয়ার্ড লিখুন"
-  name_placeholder: "নাম লিখুন"
+  enter_email: "ইমেইল লিখুন"
+  enter_password: "পাসওয়ার্ড লিখুন"
+  enter_name: "নাম লিখুন"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
