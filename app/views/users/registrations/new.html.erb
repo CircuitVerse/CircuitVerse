@@ -28,7 +28,7 @@
               <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
           <div class="field form-group">
-          <h6 class="password_length">
+          <h6 class="password-length">
             <%= f.label :password %>
             <% if @minimum_password_length %>
               <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
