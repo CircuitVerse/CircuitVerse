@@ -30,6 +30,10 @@
 
   .comment-list {
     background-color: #FFF;
+    border: 3px solid #00000029;
+    height: 75vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 
   .children {
