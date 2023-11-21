@@ -332,16 +332,26 @@
     }
   }
 }
+
+.users-circuits-navbar-buttons {
+  align-items: center;
+  column-gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .search-icon-dashboard {
   margin-bottom: -60px;
   margin-left: 7px;
 }
+
 .users-circuits-search {
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   padding-top: 20px;
+  width: 100%;
 }
 
 .fa.fa-search.user-circuits-search-icon {
@@ -353,12 +363,11 @@
 
 .users-circuits-tab {
   background-color: $form-border-grey;
-  border-radius: 0;
+  border-radius: 5px;
   color: $black;
   font-size: 18px;
-  padding: 7px 25px;
-  margin: 0;
   margin-top: 20px;
+  padding: 7px 20px;
 
   &:hover {
     color: $black;
@@ -399,6 +408,20 @@
   .users-circuits-tab {
     font-size: 16px;
     padding: 4px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .users-circuits-navbar {
+    flex-direction: column;
+
+    input {
+      border: 1px solid $form-border-grey;
+    }
+  }
+
+  .users-circuits-search-container {
+    width: 100%;
   }
 }
 
@@ -471,7 +494,7 @@
 }
 
 .notification-container {
-  width: 558px;
+  max-width: 558px;
 }
 .notification-heading {
   font-size: 30px;
@@ -533,7 +556,7 @@
 .notification {
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(63, 63, 68, .15), 0 0 1px rgba(0, 0, 0, .5);
-  height: 78px;
+  height: auto;
   padding: 14px 24px;
   position: relative;
 }
