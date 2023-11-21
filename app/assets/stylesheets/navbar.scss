@@ -234,3 +234,9 @@
     padding-top: 10px;
   }
 }
+
+@media (max-width: 300px) {
+  .navbar {
+    padding: 0px;
+  }
+}
