@@ -36,9 +36,9 @@
 }
 
 .bounce-out-on-hover {
-  box-shadow: 0 0 1px $black;
+  box-shadow: 0 0 0 $black;
   display: inline-block;
-  padding: 4px;
+  padding: 2px;
   transform: perspective(1px) translateZ(0);
   transition-duration: .5s;
   vertical-align: middle;

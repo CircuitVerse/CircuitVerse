@@ -46,6 +46,8 @@ public/.DS_Store
 
 out
 dump.rdb
+Brewfile.lock.json
+
 # db/schema.rb
 
 public/sitemap.xml.gz
