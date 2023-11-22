@@ -225,6 +225,13 @@
   text-align: left;
 }
 
+.status-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
 .form-control {
 
   &:focus {
@@ -247,6 +254,12 @@
 
   .form-container {
     max-width: 90%;
+  }
+
+  .status-container {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    grid-row-gap: 15px;
   }
 }
 
