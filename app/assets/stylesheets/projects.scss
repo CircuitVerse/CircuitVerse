@@ -217,6 +217,12 @@
   width: 80%;
 }
 
+.char-counter {
+  font-size: 14px;
+  color: #333;
+  margin-top: 5px;
+}
+
 //breakpoints
 @media (max-width: 575px) {
   .projects-collaborators-button-container {

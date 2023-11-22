@@ -23,7 +23,8 @@
   <% end %>
   <div class="field form-group">
     <h6><%= form.label :name %></h6>
-    <%= form.text_field :name, id: :project_name, class: "form-control form-input" %>
+    <span id="name-counter" class="char-counter"></span>
+    <%= form.text_field :name, id: :project_name, class: "form-control form-input", maxlength: 60 %>
   </div>
   <div class="field form-group projects-tag-form-group">
     <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
@@ -76,4 +77,15 @@
     });
     $("#featuredCircuit").submit();
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const nameField = document.getElementById('project_name');
+
+    nameField.addEventListener('input', function () {
+      const maxLength = parseInt(this.getAttribute('maxlength'));
+      const currentLength = this.value.length;
+      const remaining = maxLength - currentLength;
+      document.getElementById('name-counter').textContent = `${remaining} characters left`;
+    });
+  });
 </script>
