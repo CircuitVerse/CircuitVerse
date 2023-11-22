@@ -15,13 +15,13 @@
         <div class="field form-group">
           <h6><%= f.label :email %></h6>
           <div class="input-group">
-            <%= f.email_field :email, autofocus: true, class: "form-control form-input user-email-input" %>
+            <%= f.email_field :email, autofocus: true, placeholder: t('enter_email'),class: "form-control form-input user-email-input" %>
           </div>
         </div>
         <div class="field form-group">
           <h6><%= f.label :password %></h6>
           <div class="input-group form-input">
-            <%= f.password_field :password, autocomplete: "off", class: "form-control users-password-input" %>
+            <%= f.password_field :password, autocomplete: "off", placeholder:t('enter_password') , class: "form-control users-password-input" %>
             <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
               <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
