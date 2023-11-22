@@ -270,8 +270,10 @@
   display: block;
   font-size: 18px;
   font-weight: 600;
+  margin: auto;
   padding-bottom: 0;
   position: relative;
+  width: fit-content;
 
   p {
     margin-bottom: 0;
@@ -492,7 +494,7 @@
 }
 
 .notification-container {
-  width: 558px;
+  max-width: 558px;
 }
 .notification-heading {
   font-size: 30px;
@@ -554,7 +556,7 @@
 .notification {
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(63, 63, 68, .15), 0 0 1px rgba(0, 0, 0, .5);
-  height: 78px;
+  height: auto;
   padding: 14px 24px;
   position: relative;
 }
