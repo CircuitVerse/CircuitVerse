@@ -29,6 +29,9 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
     $('input[name=imgType]').change(() => {
         $('input[name=resolution]').prop('disabled', false);
         $('input[name=transparent]').prop('disabled', false);
+        if (!$('input[name=view][value="current"]').attr('checked')) {
+            $('input[name=view][value="current"]').trigger('click');
+        }
         const imgType = $('input[name=imgType]:checked').val();
         if (imgType === 'svg') {
             $('.btn-group-toggle, .download-dialog-section-3').addClass('disable');
@@ -37,7 +40,7 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
         }
         if (imgType === 'svg') {
             $('input[name=resolution][value=1]').trigger('click');
-            $('input[name=view][value="full"]').trigger('click');
+            // $('input[name=view][value="current"]').trigger('click');
             $('input[name=resolution]').prop('disabled', true);
             $('input[name=view]').prop('disabled', true);
         } else if (imgType !== 'png') {

@@ -1538,6 +1538,7 @@ input:checked + .slider:before {
     width: 100%;
     cursor: not-allowed;
     left: 0;
+    z-index: 100;
 }
 
 #bitconverterprompt {
