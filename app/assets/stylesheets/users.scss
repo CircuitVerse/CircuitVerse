@@ -99,16 +99,16 @@
 }
 
 .oauth-button {
-  display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 10px;
-  margin: 10px;
-  border-radius: 8px;
-  padding: 8px 12px;
-  border: 2px solid $green;
   background-color: $white;
-  transition: all 0.1s ease-in-out;
+  border: 2px solid $green;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px;
+  padding: 8px 12px;
+  transition: all .1s ease-in-out;
 }
 
 .oauth-button:hover {
@@ -117,7 +117,7 @@
 }
 
 .oauth-button:active {
-  transform: scale(0.95);
+  transform: scale(.95);
 }
 
 @media screen and (max-width: 768px) {
