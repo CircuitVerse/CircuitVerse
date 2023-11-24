@@ -18,7 +18,7 @@
     "@babel/preset-env": "^7.18.2",
     "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
-    "canvas": "^2.9.1",
+    "canvas": "^2.11.2",
     "chokidar": "^3.5.3",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
