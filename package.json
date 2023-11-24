@@ -33,7 +33,7 @@
     "nodemon": "^2.0.21",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
-    "postcss-preset-env": "^8.4.2",
+    "postcss-preset-env": "^9.3.0",
     "vite": "^4.3.0",
     "vite-plugin-ruby": "^3.2.0"
   },
