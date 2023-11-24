@@ -20,24 +20,16 @@
           </div>
         <% end %>
         <div class="field form-group">
-          <h6><%= f.label :name %></h6>
           <div class="input-group">
             <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
           </div>
         </div>
         <div class="field form-group">
-          <h6><%= f.label :email %></h6>
           <div class="input-group">
             <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
         </div>
         <div class="field form-group">
-          <h6>
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
-            <% end %>
-          </h6>
         <div class="input-group form-input">
           <%= f.password_field :password, autocomplete: "off", placeholder: t('enter_password') , class: "form-control users-password-input" %>
           <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
@@ -52,10 +44,12 @@
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
               <% end %>
-              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
-              <div class="users-text-container">
-                <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
-                <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
+              <div class="d-flex">
+                <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
+                <div class="users-text-container">
+                  <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
+                  <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
+                </div>
               </div>
             </div>
           </div>

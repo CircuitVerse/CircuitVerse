@@ -90,6 +90,7 @@ body {
   color: $secondary-green;
   font-weight: 500;
   text-decoration: underline;
+  text-underline-offset: 2px;
 
   &:hover {
     color: $primary-green;

@@ -30,6 +30,12 @@ hi:
   enter_email: "ईमेल दर्ज करें"
   enter_password: "पासवर्ड दर्ज करें"
   enter_name: "नाम दर्ज करें"
+  google: "गूगल"
+  continue_with_google: "गूगल के साथ जारी रखें"
+  facebook: "फेसबुक"
+  continue_with_facebook: "फेसबुक के साथ जारी रखें"
+  github: "गिटहब"
+  continue_with_github: "गिटहब के साथ जारी रखें"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

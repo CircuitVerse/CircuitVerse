@@ -10,7 +10,7 @@ en:
   welcome_back_text: "Welcome back to the Digital Circuit Universe!"
   save: "Save"
   back: "Back"
-  login: "Log in"
+  login: "Login"
   sign_up: "Sign up"
   sign_out: "Sign out"
   assignment: "Assignment"
@@ -27,9 +27,15 @@ en:
   close : "Close"
   not_available: "N.A."
   not_entered: "Not Entered"
-  enter_email: "Enter Email"
-  enter_password: "Enter Password"
-  enter_name: "Enter Name"
+  enter_email: "Email"
+  enter_password: "Password"
+  enter_name: "Name"
+  google: "Google"
+  continue_with_google: "Continue with Google"
+  facebook: "Facebook"
+  continue_with_facebook: "Continue with Facebook"
+  github: "Github"
+  continue_with_github: "Continue with Github"
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

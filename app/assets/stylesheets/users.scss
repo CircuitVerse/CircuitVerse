@@ -98,16 +98,37 @@
   width: 100%;
 }
 
-.users-social-links {
-  height: 50px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 10px;
-  width: 40px;
+.oauth-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px;
+  border-radius: 8px;
+  padding: 8px 12px;
+  border: 2px solid $green;
+  background-color: $white;
+  transition: all 0.1s ease-in-out;
+}
 
-  &:hover {
-    opacity: .7;
+.oauth-button:hover {
+  border-color: $form-input-green;
+  box-shadow: 0 0 0 .2rem $form-input-focus-green;
+}
+
+.oauth-button:active {
+  transform: scale(0.95);
+}
+
+@media screen and (max-width: 768px) {
+  .oauth-button {
+    width: 300px;
   }
+}
+
+
+.users-social-icon {
+  height: 18px;
 }
 //shared ends
 
@@ -132,7 +153,7 @@
 
 .users-login-primary-button {
   margin-top: 20px;
-  padding: 8px 25px;
+  padding: 6px 22px;
 }
 //login-register ends
 

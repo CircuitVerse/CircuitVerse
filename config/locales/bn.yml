@@ -30,6 +30,12 @@ bn:
   enter_email: "ইমেইল লিখুন"
   enter_password: "পাসওয়ার্ড লিখুন"
   enter_name: "নাম লিখুন"
+  google: "গুগল"
+  continue_with_google: "গুগল এর সাথে চালিয়ে যান"
+  facebook: "ফেসবুক"
+  continue_with_facebook: "ফেসবুকের সাথে চালিয়ে যান"
+  github: "গিথুব"
+  continue_with_github: "গিথুব দিয়ে চালিয়ে যান"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
