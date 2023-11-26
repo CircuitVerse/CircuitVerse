@@ -10,6 +10,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # GET /api/v1/groups/:group_id/members/
   def index
+    # @type [Array<GroupMember>]
     @group_members = paginate(@group.group_members)
     @options = { links: link_attrs(@group_members, api_v1_group_members_url(@group.id)) }
     render json: Api::V1::GroupMemberSerializer.new(@group_members, @options)
@@ -17,6 +18,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # POST /api/v1/groups/:group_id/members/
   def create
+    # @type [Api::V1::CollaboratorsController::MailsHandler]
     mails_handler = MailsHandler.new(params[:emails], @group, current_user)
     # parse mails as valid or invalid
     mails_handler.parse
@@ -48,10 +50,12 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   private
 
     def set_group
+      # @type [Group]
       @group = Group.find(params[:group_id])
     end
 
     def set_group_member
+      # @type [GroupMember]
       @group_member = GroupMember.find(params[:id])
     end
 

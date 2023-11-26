@@ -58,7 +58,9 @@ class LtiController < ApplicationController
   private
 
     def set_group_and_assignment
+      # @type [Assignment]
       @assignment = Assignment.find_by(lti_consumer_key: params[:oauth_consumer_key])
+      # @type [Group]
       @group = @assignment.group if @assignment.present?
     end
 
@@ -74,11 +76,15 @@ class LtiController < ApplicationController
     end
 
     def create_project_if_student_present
+      # @type [User]
       @user = User.find_by(email: @email_from_lms)
       # find if the project is already present
+      # @type [Project]
       @project = Project.find_by(author_id: @user.id, assignment_id: @assignment.id)
       return if @project.present?
 
+      # create project if not present
+      # @type [Project]
       @project = @user.projects.create(
         name: "#{@user.name}/#{@assignment.name}",
         assignment_id: @assignment.id,

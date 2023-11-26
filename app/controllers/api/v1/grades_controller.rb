@@ -33,12 +33,14 @@ class Api::V1::GradesController < Api::V1::BaseController
   private
 
     def load_create_resources
+      # @type [Grade]
       @grade = Grade.new(
         assignment_id: params[:assignment_id], project_id: params[:project_id]
       )
     end
 
     def set_grade
+      # @type [Grade]
       @grade = Grade.find(params[:id])
     end
 

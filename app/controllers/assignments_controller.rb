@@ -17,6 +17,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
+    # @type [Array<Assignment>]
     @assignments = Assignment.all
   end
 
@@ -29,6 +30,7 @@ class AssignmentsController < ApplicationController
 
   def start
     authorize @assignment
+    # @type [Project]
     @project = current_user.projects.new
     @project.name = "#{current_user.name}/#{@assignment.name}"
     @project.assignment_id = @assignment.id
@@ -156,10 +158,12 @@ class AssignmentsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
+      # @type [Assignment]
       @assignment = Assignment.find(params[:id])
     end
 
     def set_group
+      # @type [Group]
       @group = Group.find(params[:group_id])
     end
 
@@ -168,11 +172,14 @@ class AssignmentsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # @return [ActionController::Parameters]
     def assignment_create_params
       params.require(:assignment).permit(:name, :deadline, :description, :grading_scale,
                                          :restrictions, :feature_restrictions)
     end
 
+    # Never trust parameters from the scary internet, only allow the white list through.
+    # @return [ActionController::Parameters]
     def assignment_update_params
       params.require(:assignment).permit(:name, :deadline, :description,
                                          :restrictions, :feature_restrictions)
