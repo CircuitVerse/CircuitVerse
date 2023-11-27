@@ -40,7 +40,6 @@ export default function createSaveAsImgPrompt(scope = globalScope) {
         }
         if (imgType === 'svg') {
             $('input[name=resolution][value=1]').trigger('click');
-            // $('input[name=view][value="current"]').trigger('click');
             $('input[name=resolution]').prop('disabled', true);
             $('input[name=view]').prop('disabled', true);
         } else if (imgType !== 'png') {
