@@ -68,12 +68,23 @@
 </div>
 
 <script type="text/javascript">
+  function deactiveSearchBar(event){
+    let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
+    let searchIconExpand = document.getElementsByClassName("fa-search")[1];
+    let searchBar = document.getElementsByClassName("navbar-search-active")[0];
+    if(event.target!=searchIconExpand && event.target!=searchIconCollapse && !event.target.closest(".navbar-search-bar-form")){
+      searchIconCollapse.classList.remove("active");
+      searchIconExpand.classList.remove("active");
+      searchBar.style.display = "none";
+    }
+  }
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];
     let searchBar = document.getElementsByClassName("navbar-search-active")[0];
     let burgerButton = document.getElementById("collapsed-navbar");
     if (searchIconCollapse.classList.contains("active") || searchIconExpand.classList.contains("active")) {
+      window.removeEventListener("click",deactiveSearchBar);
       searchIconCollapse.classList.remove("active");
       searchIconExpand.classList.remove("active");
       searchBar.style.display = "none";
@@ -82,6 +93,7 @@
       searchIconCollapse.classList.add("active");
       searchIconExpand.classList.add("active");
       searchBar.style.display = "block";
+      window.addEventListener("click",deactiveSearchBar);
     }
     burgerButton.classList.remove("show");
   }
@@ -91,6 +103,7 @@
   searchIconCollapse.addEventListener("click", activeSearchBar);
   searchIconExpand.addEventListener("click", activeSearchBar);
   if (window.location.href.includes('search')) {
+      window.addEventListener("click",deactiveSearchBar);
       searchBar.style.display = "block";
   }
 </script>
