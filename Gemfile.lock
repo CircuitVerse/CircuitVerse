@@ -243,8 +243,7 @@ GEM
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
-    ffi (1.15.5)
-    ffi (1.15.5-x64-mingw32)
+    ffi (1.16.3)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -260,8 +259,8 @@ GEM
       rack (>= 1.4, < 3)
       rack-protection (>= 1.5.3, <= 4.0.0)
       sanitize (< 7)
-    font-awesome-sass (5.13.1)
-      sassc (>= 1.11)
+    font-awesome-sass (6.5.0)
+      sassc (~> 2.0)
     friendly_id (5.4.2)
       activerecord (>= 4.0.0)
     geocoder (1.7.3)
@@ -892,7 +891,7 @@ DEPENDENCIES
   faker
   flipper-redis
   flipper-ui
-  font-awesome-sass (~> 5.13.1)
+  font-awesome-sass (~> 6.5.0)
   friendly_id (~> 5.4.2)
   geocoder
   hairtrigger (~> 0.2.25)
