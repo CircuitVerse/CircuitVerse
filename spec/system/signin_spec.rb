@@ -10,7 +10,7 @@ describe "Sign In", type: :system do
   end
 
   it "does not sign-in when no credentials" do
-    click_button "Log in"
+    click_button "Login"
 
     expect(page).to have_text("Invalid Email or password.")
   end
@@ -18,21 +18,21 @@ describe "Sign In", type: :system do
   it "sign-ins when valid credentials" do
     fill_in "Email", with: @user.email
     fill_in "Password", with: @user.password
-    click_button "Log in"
+    click_button "Login"
 
     expect(page).to have_text("Signed in successfully.")
   end
 
   it "does not sign-in when password is empty" do
     fill_in "Email", with: @user.email
-    click_button "Log in"
+    click_button "Login"
 
     expect(page).to have_text("Invalid Email or password.")
   end
 
   it "does not sign-in when email is empty" do
     fill_in "Password", with: @user.password
-    click_button "Log in"
+    click_button "Login"
 
     expect(page).to have_text("Invalid Email or password.")
   end
