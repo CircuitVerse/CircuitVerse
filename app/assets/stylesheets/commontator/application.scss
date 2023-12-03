@@ -3,6 +3,16 @@
  *= require_self
  *= require_tree .
  */
+ ::-moz-selection {
+  background: #42b983;
+}
+::-webkit-selection {
+  background: #42b983;
+}
+::selection {
+  background: #42b983;
+}
+
 
 .commontator {
 
