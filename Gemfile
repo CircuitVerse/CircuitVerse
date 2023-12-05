@@ -124,7 +124,7 @@ group :development, :test do
   # Adds support for debug
   gem "debug"
   # Adds support for Capybara system testing and selenium driver
-  gem "coveralls_reborn", "~> 0.26.0", require: false
+  gem "coveralls_reborn", "~> 0.28.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
