@@ -40,7 +40,7 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
   
   # Disable origin check for Cross-Site Request Forgery (CSRF) protection for codespaces
-  if(ENV["DEV_CONTAINER"].present?)
+  if(ENV["DEV_CONTAINER"] === "true")
     config.action_controller.forgery_protection_origin_check = false
   end
 
