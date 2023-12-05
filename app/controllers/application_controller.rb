@@ -2,7 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
-  protect_from_forgery with: :exception, unless: -> { ENV['CODESPACES'].present? }
+  protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications, if: :current_user
