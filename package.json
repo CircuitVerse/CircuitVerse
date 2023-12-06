@@ -36,6 +36,7 @@
     "postcss-preset-env": "^8.4.2",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",
+    "stylelint-scss": "^5.3.1",
     "vite": "^4.3.0",
     "vite-plugin-ruby": "^3.2.0"
   },
