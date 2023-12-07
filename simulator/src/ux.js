@@ -8,6 +8,7 @@ import { layoutModeGet } from './layoutMode';
 import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet,
 } from './engine';
+import undo from './data/undo';
 import simulationArea from './simulationArea';
 import logixFunction from './data';
 import { createNewCircuitScope, circuitProperty } from './circuit';
@@ -143,7 +144,6 @@ function menuItemClicked(id, code="") {
     } else if (id === 3) {
         deleteSelected();
     } else if (id === 4) {
-        undo();
         undo();
     } else if (id === 5) {
         createNewCircuitScope();

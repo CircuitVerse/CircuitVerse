@@ -18,6 +18,14 @@
   background-color: $card-green;
   margin-top: 15px;
   padding: 10px 20px;
+
+  .body {
+    margin-bottom: 16px;
+
+    p {
+      margin-bottom: 0;
+    }
+  }
 }
 
 .avatar {

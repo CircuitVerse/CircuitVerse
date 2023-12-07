@@ -7,19 +7,19 @@
 <% end %>
 
 <% set_meta_tags twitter: {
-  card: "summary_large_image",
-  title: yield(:title),
-  image: {
-    src: "#{Rails.configuration.site_url}img/circuitverseBanner2.png"
-  }
-} %>
+     card: "summary_large_image",
+     title: yield(:title),
+     image: {
+       src: "#{Rails.configuration.site_url}img/circuitverseBanner2.png"
+     }
+   } %>
 
 <% set_meta_tags og: {
-  title: yield(:title),
-  image: "#{Rails.configuration.site_url}img/circuitverseBanner2.png",
-  type: "article",
-  site_name: Rails.configuration.site_name
-} %>
+     title: yield(:title),
+     image: "#{Rails.configuration.site_url}img/circuitverseBanner2.png",
+     type: "article",
+     site_name: Rails.configuration.site_name
+   } %>
 
 <div class="container">
   <% if notice %>
@@ -34,17 +34,29 @@
     <div class="row center-row">
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
         <div class="row center-row">
-          <%= image_tag @profile.profile_picture.url(:medium), alt: "project.name", class: "center-row search-usersearch-image" %>
+          <%= image_tag user_profile_picture(@profile.profile_picture), alt: "project.name", class: "center-row search-usersearch-image" %>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
         <h4 class="users-user-name"><%= @profile.name %></h4>
         <div class="search-userdetails-container">
           <p class="search-user-details-text"><%= t("users.circuitverse.member_since_html", member_since: @profile.member_since) %></p>
-          <p class="search-user-details-text"><%= t("users.circuitverse.educational_institutes_html",educational_institute: @profile.educational_institute) %></p>
-          <p class="search-user-details-text"><%= t("users.circuitverse.country_html", country_name: @profile.country_name) %></p>
+          <p class="search-user-details-text">
+            <% if @profile.educational_institute.present? %>
+              <%= t("users.circuitverse.educational_institutes_html", educational_institute: @profile.educational_institute) %>
+            <% else %>
+              <%= t("users.circuitverse.educational_institutes_html", educational_institute: t("not_entered")) %>
+            <% end %>
+          </p>
+          <p class="search-user-details-text">
+            <% if @profile.country_name == "Not Entered" %>
+              <%= t("users.circuitverse.country_html", country_name: t("not_entered")) %>
+            <% else %>
+              <%= t("users.circuitverse.country_html", country_name: @profile.country_name) %>
+            <% end %>
+          </p>
           <% if policy(@user).edit? %>
-            <a class="btn primary-button" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
+            <a class="btn primary-button ml-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
         </div>
       </div>
@@ -57,7 +69,7 @@
         <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
       </div>
-      <div>
+      <div class="users-circuits-search-container">
       <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search" placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
       </div>
     </div>
@@ -69,14 +81,14 @@
         <div class="search-no-results-image">
           <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
           <% if current_user == @user %>
-            <h6><%= t("users.circuitverse.index.no_projects_heading_html", simulator_new_url: link_to(t("users.circuitverse.index.create_here"), simulator_new_url, class: 'anchor-text')) %></h6>
+            <h6><%= t("users.circuitverse.index.no_projects_heading_html", simulator_new_url: link_to(t("users.circuitverse.index.create_here"), simulator_new_url, class: "anchor-text")) %></h6>
           <% else %>
-            <h6><%= t("users.circuitverse.index.no_user_projects", name: @user.name ) %></h6>
+            <h6><%= t("users.circuitverse.index.no_user_projects", name: @user.name) %></h6>
           <% end %>
         </div>
       </div>
       <% else %>
-        <%= render partial: "dashboard" , locals: {projects: @user.projects} %>
+        <%= render partial: "dashboard", locals: { projects: @user.projects } %>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
@@ -85,14 +97,14 @@
           <div class="search-no-results-image">
             <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
             <% if current_user == @user %>
-              <h6><%= t("users.circuitverse.index.no_favourites_heading_html", simulator_new_url: link_to(t("users.circuitverse.index.create_here"), simulator_new_url, class: 'anchor-text')) %></h6>
+              <h6><%= t("users.circuitverse.index.no_favourites_heading_html", simulator_new_url: link_to(t("users.circuitverse.index.create_here"), simulator_new_url, class: "anchor-text")) %></h6>
             <% else %>
-              <h6><%= t("users.circuitverse.index.no_user_favourites", name: @user.name ) %></h6>
+              <h6><%= t("users.circuitverse.index.no_user_favourites", name: @user.name) %></h6>
             <% end %>
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard" , locals: {projects: @projects} %>
+        <%= render partial: "dashboard", locals: { projects: @projects } %>
       <% end %>
     </div>
     <div id="collaborator-circuits-div" class="row center-row circuit-page">
@@ -104,12 +116,12 @@
             <% if current_user == @user %>
               <h6><%= t("users.circuitverse.index.not_a_collaborator") %></h6>
             <% else %>
-              <h6><%= t("users.circuitverse.index.user_not_a_collaborator", name: @user.name ) %></h6>
+              <h6><%= t("users.circuitverse.index.user_not_a_collaborator", name: @user.name) %></h6>
             <% end %>
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard" , locals: {projects: collaborated_projects} %>
+        <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
       <% end %>
     </div>
 
@@ -159,7 +171,7 @@
   };
 
   const fuse = new Fuse(projectList, options);
-  
+
   // on key up
   $('.users-circuits-search').keyup(() => {
     const searchQuery = $('.users-circuits-search').val().toLowerCase().trim();

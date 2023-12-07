@@ -225,6 +225,13 @@
   text-align: left;
 }
 
+.status-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
 .form-control {
 
   &:focus {
@@ -248,6 +255,12 @@
   .form-container {
     max-width: 90%;
   }
+
+  .status-container {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    grid-row-gap: 15px;
+  }
 }
 
 //errors
@@ -267,12 +280,12 @@
 
 .alert-success {
   margin-top: 10px;
+  padding-top: 1rem; // aligns the alert text
 }
 
 //checkpoints
 .primary-checkpoint {
   background-color: $shadow-grey;
-  bottom: 0;
   display: inline-block;
   height: 25px;
   margin-top: 15px;
@@ -313,11 +326,11 @@
       border: solid $white;
       border-width: 0 3px 3px 0;
       display: block;
-      height: 12px;
-      left: 9px;
-      top: 5px;
+      height: 14px;
+      left: 7px;
+      top: 2px;
       transform: rotate(45deg);
-      width: 8px;
+      width: 9px;
     }
   }
 }
