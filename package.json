@@ -31,6 +31,7 @@
     "lint-staged": ">=13",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.21",
+    "postcss": "^8.4.32",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.4.2",
