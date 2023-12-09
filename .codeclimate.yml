@@ -11,24 +11,25 @@ plugins:
       - "!public/js/"
   stylelint:
     enabled: true
+    config: package.json
 
   duplication:
     enabled: true
     exclude_patterns:
       - "spec/"
 
-ratings:
-  paths:
-  - Gemfile.lock
-  - "**.erb"
-  - "**.rb"
-  - "**.css"
-  - "**.coffee"
-  - "**.inc"
-  - "**.js"
-  - "**.module"
+# ratings:
+#   paths:
+#   - Gemfile.lock
+#   - "**.erb"
+#   - "**.rb"
+#   - "**.css"
+#   - "**.coffee"
+#   - "**.inc"
+#   - "**.js"
+#   - "**.module"
 
-exclude_paths:
+exclude_patterns:
 - config/
 - db/
 - vendor/
@@ -39,6 +40,7 @@ exclude_paths:
 - apidoc/v1/javascripts/
 - docs/source/javascripts/
 - app/tasks/maintenance/
+- node_modules/**
 
 checks:
   method-lines:
