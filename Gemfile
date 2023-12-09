@@ -51,7 +51,7 @@ gem "jquery-rails"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 2.2"
+gem "carrierwave", "~> 3.0"
 
 gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
