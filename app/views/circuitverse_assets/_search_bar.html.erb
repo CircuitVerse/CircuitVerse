@@ -7,3 +7,12 @@
   <% end %>
   </div>
 </div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const searchType = document.querySelector("#search_type");
+    const searchInput = document.querySelector("#q");
+    searchType.addEventListener("change", function() {
+      searchInput.focus();
+    });
+  });
+</script>
