@@ -9,7 +9,7 @@ plugins:
     channel: "eslint-7"
     exclude_patterns:
       - "!public/js/"
-  scss-lint:
+  stylelint:
     enabled: true
 
   duplication:
