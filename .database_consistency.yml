@@ -11,7 +11,7 @@ DatabaseConsistencyDatabases:
 # Everything is enabled by default.
 DatabaseConsistencyCheckers:
   All:
-    enabled: false # You can disable everything until you explicitly enable it with any option below.
+    enabled: true # You can disable everything until you explicitly enable it with any option below.
   MissingIndexChecker:
     enabled: true # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
   MissingUniqueIndexChecker:
