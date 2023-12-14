@@ -85,6 +85,9 @@ jobs:
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
       - name: DB Checker
+        env:
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
         run:  |
           cp config/database.example.yml config/database.yml
           bundle exec database_consistency
