@@ -76,6 +76,17 @@ jobs:
         image: redis:alpine
         ports: ["6379:6379"]
         options: --entrypoint redis-server
+        env:
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
+      postgres:
+        image: postgres:11-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -90,9 +101,6 @@ jobs:
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
       - name: DB Checker
-        env:
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
         run:  |
           cp config/database.example.yml config/database.yml
           bundle exec database_consistency
