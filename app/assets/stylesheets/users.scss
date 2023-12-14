@@ -270,8 +270,10 @@
   display: block;
   font-size: 18px;
   font-weight: 600;
+  margin: auto;
   padding-bottom: 0;
   position: relative;
+  width: fit-content;
 
   p {
     margin-bottom: 0;
@@ -470,6 +472,13 @@
     background: none;
     border: 0;
     font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dropdown-notification {
+    max-width: 450px;
+    width: auto;
   }
 }
 
