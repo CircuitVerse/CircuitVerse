@@ -102,5 +102,8 @@ jobs:
         run: bundle exec rubocop --parallel
       - name: DB Checker
         run:  |
+          cp .env.example .env
           cp config/database.example.yml config/database.yml
+          bin/rails db:schema:load
+          bin/rails data:migrate
           bundle exec database_consistency
