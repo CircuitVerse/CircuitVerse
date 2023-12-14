@@ -15,11 +15,11 @@ DatabaseConsistencyCheckers:
   MissingIndexChecker:
     enabled: true # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
   MissingUniqueIndexChecker:
-    enabled: false
+    enabled: true
   ColumnPresenceChecker:
-    enabled: false
+    enabled: true
   NullConstraintChecker:
-    enabled: false
+    enabled: true
 
 User:
   enabled: true # Enables/disables checks for the whole model. This can be overwritten by deeper configuration (latest configuration has highest priority).
