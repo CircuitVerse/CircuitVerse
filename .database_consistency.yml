@@ -13,7 +13,7 @@ DatabaseConsistencyCheckers:
   All:
     enabled: false # You can disable everything until you explicitly enable it with any option below.
   MissingIndexChecker:
-    enabled: truemi # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
+    enabled: true # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
   MissingUniqueIndexChecker:
     enabled: false
   ColumnPresenceChecker:
