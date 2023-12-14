@@ -103,7 +103,7 @@ jobs:
       - name: DB Checker
         run:  |
           cp .env.example .env
-          cp config/database.example.yml config/database.yml
           bin/rails db:schema:load
           bin/rails data:migrate
+          cp config/database.example.yml config/database.yml
           bundle exec database_consistency
