@@ -144,8 +144,14 @@ body {
     }
   }
 }
-.pagination .page-link {
-  white-space: nowrap;
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  .page-link {
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 992px) {
@@ -155,9 +161,8 @@ body {
   }
 
   .pagination {
-    display: block;
     max-width: none;
-    overflow-x: auto;
+    overflow-x: visible;
     padding: 0;
     white-space: nowrap;
   }
