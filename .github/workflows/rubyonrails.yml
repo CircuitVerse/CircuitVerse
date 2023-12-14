@@ -84,3 +84,5 @@ jobs:
         run:  bundle exec bundler-audit --update
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
+      - name: DB Checker
+        run: bundle exec database_consistency
