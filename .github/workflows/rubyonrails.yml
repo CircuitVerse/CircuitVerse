@@ -85,4 +85,6 @@ jobs:
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
       - name: DB Checker
-        run: bundle exec database_consistency
+        run:  |
+          cp config/database.example.yml config/database.yml
+          bundle exec database_consistency
