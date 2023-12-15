@@ -323,7 +323,8 @@
 
   input {
     border: 0;
-    border-left: 1px solid $form-border-grey;
+    // border-left: 1px solid $form-border-grey;
+    border: 1px solid #42b983;
     border-radius: 0;
     font-size: 16px;
     margin: 0;
@@ -331,7 +332,7 @@
     transition: .2s ease-in-out;
 
     &:focus {
-      border-color: $primary-green;
+      border-color: green;
       transition: .2s ease-in-out;
     }
   }
@@ -350,12 +351,14 @@
 }
 
 .users-circuits-search {
+  
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   padding-top: 20px;
   width: 100%;
+  
 }
 
 .fa.fa-search.user-circuits-search-icon {
