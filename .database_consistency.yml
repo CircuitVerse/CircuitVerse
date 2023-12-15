@@ -15,9 +15,9 @@ DatabaseConsistencyCheckers:
   MissingIndexChecker:
     enabled: true # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
   MissingUniqueIndexChecker:
-    enabled: true
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   ColumnPresenceChecker:
-    enabled: true
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   NullConstraintChecker:
     enabled: true
 

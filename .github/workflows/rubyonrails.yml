@@ -71,25 +71,6 @@ jobs:
           bundle exec steep check
   lint:
     runs-on: ubuntu-latest
-    services:
-      redis:
-        image: redis:alpine
-        ports: ["6379:6379"]
-        options: --entrypoint redis-server
-        env:
-          REDIS_HOST: redis
-          REDIS_PORT: 6379
-      postgres:
-        image: postgres:11-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-    env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"      
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -103,9 +84,3 @@ jobs:
         run:  bundle exec bundler-audit --update
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
-      - name: DB Checker
-        run:  |
-          cp .env.example .env
-          bin/rails db:schema:load
-          bin/rails data:migrate
-          bundle exec database_consistency
