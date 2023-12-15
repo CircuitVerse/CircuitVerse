@@ -22,8 +22,6 @@ DatabaseConsistencyCheckers:
     enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   ThreeStateBooleanChecker:
     enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
-  ForeignKeyChecker:
-    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   MissingAssociationClassChecker:
     enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   ForeignKeyTypeChecker:
