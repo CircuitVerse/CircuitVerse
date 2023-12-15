@@ -1,6 +1,6 @@
 name: "DBChecker"
 on:
-  [push, pull_request]
+  [push, pull_request, workflow_dispatch]
 jobs:
   db_check:
     name: DB Check

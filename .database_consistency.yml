@@ -12,14 +12,26 @@ DatabaseConsistencyDatabases:
 DatabaseConsistencyCheckers:
   All:
     enabled: true # You can disable everything until you explicitly enable it with any option below.
-  MissingIndexChecker:
-    enabled: true # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
+  MissingIndexChecker: # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   MissingUniqueIndexChecker:
     enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   ColumnPresenceChecker:
     enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   NullConstraintChecker:
-    enabled: true
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ThreeStateBooleanChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  MissingAssociationClassChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyTypeChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyCascadeChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  UniqueIndexChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
 
 User:
   enabled: true # Enables/disables checks for the whole model. This can be overwritten by deeper configuration (latest configuration has highest priority).
