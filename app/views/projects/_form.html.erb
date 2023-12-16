@@ -84,7 +84,7 @@
     nameField.addEventListener('input', function () {
       const maxLength = parseInt(this.getAttribute('maxlength'));
       const currentLength = this.value.length;
-      
+
       const nameCounter = document.getElementById('name-counter');
       nameCounter.textContent = `${currentLength} / ${maxLength}`;
 
