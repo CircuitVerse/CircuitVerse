@@ -500,6 +500,7 @@ export function update(scope = globalScope, updateEverything = false) {
     if (!embed && prevPropertyObjGet() !== simulationArea.lastSelected) {
         if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== 'Wire') {
             // ideas: why show properties of project in Nodes but not wires?
+            if (simulationArea.lastSelected.newElement) simulationArea.lastSelected.label = '';
             showProperties(simulationArea.lastSelected);
         } else {
             // hideProperties();

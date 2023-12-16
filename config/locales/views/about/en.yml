@@ -6,7 +6,7 @@ en:
     product_details: "CircuitVerse is a digital circuit simulation platform.
           It aims to provide a platform where circuits can be designed and simulated using a graphical user interface.
           While users can design complete CPU implementations within the simulator, the software is designed primarily for educational use.
-          CircuitVerse is an open-source project with an active community. Checkout the contribute page for more detail."
+          CircuitVerse is an open-source project with an active community. Check out the contribute page for more details."
     terms_of_service: "Terms of Service"
     privacy_policy: "Privacy Policy"
     core_team_heading: "CORE TEAM"

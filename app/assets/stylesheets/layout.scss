@@ -36,6 +36,20 @@ body {
 
 .submain-heading {
   margin-top: 30px;
+  position: relative;
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &:hover .tooltiptext {
+    left: 50%;
+    opacity: 1;
+    transform: translateX(-50%);
+    visibility: visible;
+    z-index: 101;
+  }
 }
 
 .main-description {
@@ -144,8 +158,14 @@ body {
     }
   }
 }
-.pagination .page-link {
-  white-space: nowrap;
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  .page-link {
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 992px) {
@@ -155,7 +175,6 @@ body {
   }
 
   .pagination {
-    display: block;
     max-width: none;
     overflow-x: visible;
     padding: 0;

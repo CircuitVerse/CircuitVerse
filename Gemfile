@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "acts_as_votable", "~> 0.13.2"
+gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
@@ -51,7 +51,7 @@ gem "jquery-rails"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 2.2"
+gem "carrierwave", "~> 3.0"
 
 gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
@@ -161,6 +161,7 @@ group :development do
   gem "spring"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
+  gem 'database_consistency', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
