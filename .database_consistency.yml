@@ -1,0 +1,88 @@
+DatabaseConsistencySettings:
+  color: true
+  log_level: DEBUG
+
+# Configures database connections.
+DatabaseConsistencyDatabases:
+  # Database connection name listed in database.yml.
+  secondary:
+    enabled: false # disables any check for +secondary+ database.
+
+# Everything is enabled by default.
+DatabaseConsistencyCheckers:
+  All:
+    enabled: true # You can disable everything until you explicitly enable it with any option below.
+  MissingIndexChecker: # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  MissingUniqueIndexChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ColumnPresenceChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  NullConstraintChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ThreeStateBooleanChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  MissingAssociationClassChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyTypeChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyCascadeChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  UniqueIndexChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  RedundantIndexChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+
+User:
+  enabled: true # Enables/disables checks for the whole model. This can be overwritten by deeper configuration (latest configuration has highest priority).
+  phone:
+    enabled: true # Enables/disables checks for the field. This can be overwritten by deeper configuration (latest configuration has highest priority).
+    ColumnPresenceChecker:
+      enabled: true # Enables/disables specific checker for the field. This has the highest priority (except globally disabled checkers).
+  name:
+    enabled: true
+  code:
+    enabled: true
+    NullConstraintChecker:
+      enabled: true
+  name+email:
+    MissingUniqueIndexChecker:
+      enabled: true
+
+Country:
+  users:
+    MissingIndexChecker:
+      enabled: true
+
+# Can be compact (example), "enabled: true" is default
+# User:
+#   phone:
+#     ColumnPresenceChecker:
+#       enabled: false
+#   name:
+#     enabled: false
+# Company:
+#   enabled: false
+
+
+# Concerns can be emulated using YAML's anchors and aliases
+
+# 1. Define an anchor before declaring concern-related settings
+DateConcern: &ignore_date_concern
+  date:
+    NullConstraintChecker:
+      enabled: false
+NameConcern: &ignore_name_concern
+  name:
+    ColumnPresenceChecker:
+      enabled: false
+
+# Models using concerns
+# 2. Now include the relevant settings using aliases
+Event:
+  <<: *ignore_date_concern
+  <<: *ignore_name_concern
+Poll:
+  <<: *ignore_date_concern

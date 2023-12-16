@@ -12,13 +12,14 @@
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
       <h1 class="submain-heading">
-        <%= @group.name %>
+        <p><%= @group.name %></p>
         <% if policy(@group).admin_access? %>
           <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
             <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
             <span><%= t("groups.show.edit_name_btn") %></span>
           <% end %>
         <% end %>
+        <span class="tooltiptext"><%= @group.name %></span>
       </h1>
       <h4 class="group-mentor-heading">
         <strong><%= t("groups.show.primary_mentor_heading") %></strong>
