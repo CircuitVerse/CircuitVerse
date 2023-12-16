@@ -134,6 +134,10 @@
   margin-top: 20px;
   padding: 8px 25px;
 }
+.password-length {
+  display: flex;
+  flex-direction: row;
+}
 //login-register ends
 
 //user edit
@@ -472,6 +476,13 @@
     background: none;
     border: 0;
     font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dropdown-notification {
+    max-width: 450px;
+    width: auto;
   }
 }
 
