@@ -3,6 +3,7 @@
   margin-bottom: 60px;
   margin-top: 45px;
   text-align: left;
+  border: 2px solid black;
 }
 
 .home-image-cover {
@@ -49,7 +50,7 @@
 }
 
 //breakpoints
-@media (max-width: 991px){
+@media (max-width: 992px){
   .home-main-content{
     width: 345px;
   }
