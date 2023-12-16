@@ -10,42 +10,37 @@
         <h1 class="users-main-heading"><%= t("sign_up") %></h1>
         <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
           <%= f.invisible_captcha :subtitle %>
-        <% if !resource.errors.empty? %>
-          <div class="error-message">
-            <ul>
-              <% resource.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-              <% end %>
-            </ul>
+          <% if !resource.errors.empty? %>
+            <div class="error-message">
+              <ul>
+                <% resource.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="field form-group">
+            <h6><%= f.label :name %></h6>
+              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
           </div>
-        <% end %>
-        <div class="field form-group">
-          <h6><%= f.label :name %></h6>
-          <div class="input-group">
-            <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
+          <div class="field form-group">
+            <h6><%= f.label :email %></h6>
+              <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
-        </div>
-        <div class="field form-group">
-          <h6><%= f.label :email %></h6>
-          <div class="input-group">
-            <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
-          </div>
-        </div>
-        <div class="field form-group">
-          <h6>
+          <div class="field form-group">
+          <h6 class="password-length">
             <%= f.label :password %>
             <% if @minimum_password_length %>
               <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
             <% end %>
           </h6>
-        <div class="input-group form-input">
-          <%= f.password_field :password, autocomplete: "off", placeholder: t('enter_password') , class: "form-control users-password-input" %>
-          <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
-            <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+          <div class="input-group form-input">
+            <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
+            <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
+              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            </div>
           </div>
         </div>
-      </div>
-        <div class="field form-group">
           <div class="field form-group">
             <div class="input-group">
               <% if Flipper.enabled?(:recaptcha) %>
@@ -60,7 +55,6 @@
             </div>
           </div>
           <%= render "users/shared/links" %>
-        </div>
         <% end %>
       </div>
     </div>
