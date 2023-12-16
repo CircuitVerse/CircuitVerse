@@ -49,6 +49,11 @@
 }
 
 //breakpoints
+@media (max-width: 990px){
+  .home-main-content{
+    width: 345px;
+  }
+}
 @media (max-width: 768px) {
   .home-main-content {
     margin-bottom: 30px;
