@@ -220,7 +220,11 @@
 .char-counter {
   color: $tooltip-grey;
   font-size: 14px;
-  margin-top: 5px;
+  margin: 5px 0 0 auto;
+}
+
+.is-invalid {
+  color: $red;
 }
 
 //breakpoints
