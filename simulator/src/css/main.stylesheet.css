@@ -174,7 +174,6 @@ input[type="text"]:focus {
     text-align: center;
     display: inline-block;
     white-space: nowrap;
-    width: 35vw;
     height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
