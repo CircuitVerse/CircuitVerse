@@ -1367,6 +1367,7 @@ input:checked + .slider:before {
 
 .navbar .nav.pull-right {
     float: right;
+    margin-left: -106px;
     margin-right: 10px;
     min-width: 85px;
 }
