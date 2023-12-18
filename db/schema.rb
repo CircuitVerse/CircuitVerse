@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_15_163737) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_25_140331) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -471,9 +471,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_15_163737) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "ahoy_events", "ahoy_visits", column: "visit_id"
-  add_foreign_key "ahoy_events", "users"
-  add_foreign_key "ahoy_visits", "users"
   add_foreign_key "assignments", "groups"
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
@@ -497,7 +494,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_15_163737) do
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"
-  add_foreign_key "push_subscriptions", "users"
   add_foreign_key "stars", "projects"
   add_foreign_key "stars", "users"
   add_foreign_key "taggings", "projects"
