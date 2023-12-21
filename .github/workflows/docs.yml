@@ -10,17 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: jsdocs-dep
         run: npm install
-      - name: jsdocs-action
-        uses: andstor/jsdoc-action@v1.2.1
-        with:
-          source_dir: ./simulator/src
-          recurse: true
-          output_dir: ./out
-          config_file: ./conf.json
-          template: better-docs
+      - name: jsdocs-generate
+        run: node ./node_modules/jsdoc/jsdoc.js ./simulator/src -r -c ./conf.json -t ./node_modules/better-docs -d ./out
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
