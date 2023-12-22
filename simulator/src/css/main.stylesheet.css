@@ -1349,7 +1349,7 @@ input:checked + .slider:before {
     background: transparent;
     color: white;
     line-height: inherit;
-    border-radius: 1px;
+    border-radius: 5px;
     font: inherit;
 }
 
@@ -1482,7 +1482,7 @@ input:checked + .slider:before {
     margin: 4px;
     padding: 10px;
     background: transparent;
-    border-radius: 1px;
+    border-radius: 5px;
     width: 100%;
 }
 

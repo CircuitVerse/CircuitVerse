@@ -783,7 +783,7 @@ deleteOfflineProject = function (projectId) {
         localStorage.setItem("projectList", JSON.stringify(projectList));
         $('#openProjectDialog').empty();
         for (id in projectList) {
-            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
+            $('#openProjectDialog').append('<label class="option custom-radio"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id]  +  '<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
         }
     }
 }
