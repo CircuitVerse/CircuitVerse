@@ -45,7 +45,7 @@ services:
       NODE_ENV: "development"
       HOST_CURRENT_DIRECTORY: $PWD
       OPERATING_SYSTEM: $OPERATING_SYSTEM
-      REBUILD_VUE: "true"
+      REBUILD_VUE: "false"
     restart: unless-stopped
   vue_simulator:
     <<: *common_build

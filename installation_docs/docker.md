@@ -24,7 +24,7 @@
 6. Wait for the docker container to be prepared
 7. Navigate to `http://localhost:3000` in your browser
 8. For Vue-based simulator, navigate to `http://localhost:4000/simulatorvue` in your browser
-    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see changes in the website quickly. Instead, use port 4000, `http://localhost:4000/simulatorvue`
+    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see any changes on the website. Instead, use port 4000, `http://localhost:4000/simulatorvue`
 
 
 If you required to restart the server
@@ -61,7 +61,7 @@ Set-ExecutionPolicy RemoteSigned
 5. Run `./bin/docker_run`
 7. Navigate to `http://localhost:3000` in your browser
 8. For Vue-based simulator, navigate to `http://localhost:4000/simulatorvue` in your browser
-    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see changes in the website quickly. Instead, use port 4000, `http://localhost:4000/simulatorvue`
+    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see any changes on the website. Instead, use port 4000, `http://localhost:4000/simulatorvue`
 
 
 If you required to restart the server
@@ -89,7 +89,7 @@ If you required to restart the server
 5. Run `./bin/docker_run`
 7. Navigate to `http://localhost:3000` in your browser
 8. For Vue-based simulator, navigate to `http://localhost:4000/simulatorvue` in your browser
-    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see changes in the website quickly. Instead, use port 4000, `http://localhost:4000/simulatorvue`
+    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see any changes on the website. Instead, use port 4000, `http://localhost:4000/simulatorvue`
 
 
 If you required to restart the server
