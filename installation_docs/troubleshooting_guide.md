@@ -9,5 +9,5 @@
 
 ### 2. The website is not showing any updates after modifying the `cv-frontend-vue` codes
 
-**Solution:** Probably you are accessing the new simulator on port 3000 by using the url `http://localhost:3000/simulatorvue/`. Use port 4000 `http://localhost:4000/simulatorvue/` for seeing changes on website.
+**Solution:** Probably you are accessing the new simulator on port 3000 by using the url `http://localhost:3000/simulatorvue/`. Use port 4000 `http://localhost:4000/simulatorvue/` for seeing changes on the website.
 
