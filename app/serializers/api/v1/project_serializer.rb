@@ -47,6 +47,10 @@ class Api::V1::ProjectSerializer
       {
         url: Rails.application.routes.url_helpers.rails_blob_url(project.circuit_preview, only_path: true)
       }
+    else
+      {
+        url: ActionController::Base.helpers.asset_path("empty_project/default.png")
+      }
     end
   end
   # :nocov:
