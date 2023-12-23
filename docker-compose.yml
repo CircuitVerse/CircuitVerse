@@ -45,6 +45,23 @@ services:
       NODE_ENV: "development"
       HOST_CURRENT_DIRECTORY: $PWD
       OPERATING_SYSTEM: $OPERATING_SYSTEM
+      REBUILD_VUE: "true"
+    restart: unless-stopped
+  vue_simulator:
+    <<: *common_build
+    command: 
+      - bash
+      - -c
+      - |
+        bin/docker/wait_for_setup && \
+        cd cv-frontend-vue && \
+        npm i && \
+        npm run dev:expose
+    ports:
+      - "4000:4000"
+    environment:
+      NODE_ENV: "development"
+      VITE_PROXY_URL: "http://web:3000"
     restart: unless-stopped
   sidekiq:
     <<: *common_build
