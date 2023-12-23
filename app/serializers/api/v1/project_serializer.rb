@@ -42,13 +42,12 @@ class Api::V1::ProjectSerializer
   end
 
   # :nocov:
-
-    attributes :image_preview, if: -> {  Flipper.enabled?(:active_storage_s3) },  do |project|
-      if project.circuit_preview.attached?
-        {
-          url: Rails.application.routes.url_helpers.rails_blob_url(project.circuit_preview, only_path: true)
-        }
-      end
+  attributes :image_preview do |project|
+    if project.circuit_preview.attached?
+      {
+        url: Rails.application.routes.url_helpers.rails_blob_url(project.circuit_preview, only_path: true)
+      }
+    end
   end
   # :nocov:
 
