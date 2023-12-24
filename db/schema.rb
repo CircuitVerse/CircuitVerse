@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_17_130629) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_18_160859) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -189,7 +189,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_17_130629) do
     t.boolean "solved", default: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.index ["user_id"], name: "index_forum_posts_on_user_id", unique: true
   end
 
   create_table "forum_subscriptions", id: :serial, force: :cascade do |t|
@@ -198,7 +197,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_17_130629) do
     t.string "subscription_type"
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.index ["user_id"], name: "index_forum_subscriptions_on_user_id", unique: true
   end
 
   create_table "forum_threads", id: :serial, force: :cascade do |t|
@@ -211,7 +209,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_17_130629) do
     t.boolean "solved", default: false
     t.datetime "created_at", precision: nil
     t.datetime "updated_at", precision: nil
-    t.index ["user_id"], name: "index_forum_threads_on_user_id", unique: true
   end
 
   create_table "friendly_id_slugs", force: :cascade do |t|
@@ -233,8 +230,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_17_130629) do
     t.bigint "user_id"
     t.bigint "assignment_id"
     t.string "remarks"
-    t.index ["assignment_id"], name: "index_grades_on_assignment_id", unique: true
-    t.index ["project_id"], name: "index_grades_on_project_id", unique: true
+    t.index ["assignment_id"], name: "index_grades_on_assignment_id"
+    t.index ["project_id", "assignment_id"], name: "index_grades_on_project_id_and_assignment_id", unique: true
+    t.index ["project_id"], name: "index_grades_on_project_id"
     t.index ["user_id"], name: "index_grades_on_user_id"
   end
 
@@ -341,8 +339,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_17_130629) do
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["email"], name: "index_pending_invitations_on_email", unique: true
-    t.index ["group_id"], name: "index_pending_invitations_on_group_id", unique: true
+    t.index ["group_id", "email"], name: "index_pending_invitations_on_group_id_and_email", unique: true
+    t.index ["group_id"], name: "index_pending_invitations_on_group_id"
   end
 
   create_table "project_data", force: :cascade do |t|
