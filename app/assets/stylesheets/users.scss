@@ -134,6 +134,10 @@
   margin-top: 20px;
   padding: 8px 25px;
 }
+.password-length {
+  display: flex;
+  flex-direction: row;
+}
 //login-register ends
 
 //user edit
@@ -319,7 +323,7 @@
 
   input {
     border: 0;
-    border-left: 1px solid $form-border-grey;
+    border: 1px solid $primary-green;
     border-radius: 0;
     font-size: 16px;
     margin: 0;
@@ -472,6 +476,13 @@
     background: none;
     border: 0;
     font-size: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .dropdown-notification {
+    max-width: 450px;
+    width: auto;
   }
 }
 
