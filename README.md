@@ -1,4 +1,4 @@
- **# Feature Request: Add App Store Button to Footer**
+ **# Feature Request: Add App Store Button to Footer #4414**
 
 **## Problem Statement**
 
