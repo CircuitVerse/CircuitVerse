@@ -59,6 +59,15 @@ export const tour = [
             offset: 0,
         },
     },
+    {
+        element: '.testbench-manual-panel',
+        popover: {
+            title: 'Test Bench Panel',
+            description: 'The Testbench helps you test your circuits in the simulator itself.',
+            position: 'right',
+            offset: 0,
+        },
+    },
 
     // {
     //     element: '#delCirGuide',
