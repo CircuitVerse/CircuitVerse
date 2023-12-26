@@ -217,6 +217,16 @@
   width: 80%;
 }
 
+.char-counter {
+  color: $tooltip-grey;
+  font-size: 14px;
+  margin: 5px 0 0 auto;
+}
+
+.is-invalid {
+  color: $red;
+}
+
 //breakpoints
 @media (max-width: 575px) {
   .projects-collaborators-button-container {
