@@ -197,6 +197,8 @@ GEM
     css_parser (1.7.1)
       addressable
     csv (3.2.6)
+    database_consistency (1.7.22)
+      activerecord (>= 3.2)
     date (3.3.3)
     debug (1.8.0)
       irb (>= 1.5.0)
@@ -243,6 +245,7 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.16.3)
+    ffi (1.16.3-x64-mingw32)
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
@@ -265,7 +268,10 @@ GEM
     geocoder (1.7.3)
     globalid (1.1.0)
       activesupport (>= 5.0)
-    google-protobuf (3.23.2)
+    google-protobuf (3.23.2-arm64-darwin)
+    google-protobuf (3.23.2-x64-mingw32)
+    google-protobuf (3.23.2-x86_64-darwin)
+    google-protobuf (3.23.2-x86_64-linux)
     googleapis-common-protos-types (1.6.0)
       google-protobuf (~> 3.14)
     hairtrigger (0.2.25)
@@ -381,7 +387,6 @@ GEM
     mime-types-data (3.2022.0105)
     mini_magick (4.12.0)
     mini_mime (1.1.5)
-    mini_portile2 (2.8.4)
     minitest (5.20.0)
     msgpack (1.6.0)
     multi_xml (0.6.0)
@@ -397,8 +402,13 @@ GEM
       net-protocol
     newrelic_rpm (8.14.0)
     nio4r (2.5.9)
-    nokogiri (1.15.4)
-      mini_portile2 (~> 2.8.2)
+    nokogiri (1.15.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x64-mingw32)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     noticed (1.6.3)
       http (>= 4.0.0)
@@ -527,6 +537,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.3)
+    pg (1.5.3-x64-mingw32)
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
@@ -820,6 +831,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
+    unf_ext (0.0.8.2-x64-mingw32)
     unicode-display_width (2.5.0)
     version_gem (1.1.1)
     view_component (3.6.0)
@@ -862,6 +874,7 @@ GEM
 PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
+  arm64-darwin-23
   x64-mingw32
   x86_64-darwin-21
   x86_64-linux
@@ -880,6 +893,7 @@ DEPENDENCIES
   commontator (~> 7.0.0)
   country_select (~> 8.0)
   coveralls_reborn (~> 0.26.0)
+  database_consistency
   debug
   devise
   devise_saml_authenticatable
