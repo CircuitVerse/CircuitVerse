@@ -402,7 +402,7 @@ GEM
       net-protocol
     newrelic_rpm (8.14.0)
     nio4r (2.5.9)
-    nokogiri (1.15.4-aarch64-linux)
+    nokogiri (1.15.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.15.4-x64-mingw32)
       racc (~> 1.4)
@@ -872,9 +872,9 @@ GEM
     zeitwerk (2.6.11)
 
 PLATFORMS
-  aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
+  arm64-darwin-23
   x64-mingw32
   x86_64-darwin-21
   x86_64-linux
