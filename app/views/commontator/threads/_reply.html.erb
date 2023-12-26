@@ -11,7 +11,7 @@
     <p>You must <a href="/users/sign_in" class="anchor-text">login</a> before you can post a comment.</p>
   <% else %>
     <% if @commontator_new_comment.nil? %>
-      <div id="commontator-thread-<%= thread.id %>-new-comment-link" class="new-comment">
+      <div id="commontator-thread-<%= thread.id %>-new-comment-link" class="new-comment new-comment-link">
         <%= link_to "+ Add Comment",
             commontator.new_thread_comment_path(thread),
             remote: true, class: "btn primary-button" %>
