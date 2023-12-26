@@ -195,7 +195,7 @@
     <% end %>
 
     <%= render partial: "add_collaborator_modal" %>
-    <%= render partial: "delete_project_confirmation_modal" %>
+    <%= render(ProjectComponents::DeleteProjectConfirmationModelComponent.new) %>
     <%= render partial: "delete_collaboration_confirmation_modal" %>
     <%= render(ProjectEmbedComponent.new(@project)) %>
 
