@@ -4,7 +4,7 @@ module ProjectCard
   class ProjectCardComponent < ViewComponent::Base
     include Pundit::Authorization
     include Devise::Controllers::Helpers
-    
+
     def initialize(project, current_user)
       super
       @project = project
