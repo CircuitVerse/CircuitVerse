@@ -21,7 +21,7 @@
         <div class="field">
           <%= form.hidden_field :project_id, id: :collaboration_project_id %>
         </div>
-        <div class="form-group">
+        <div class="form-group d-flex flex-column">
           <%= form.label :emails %>
           <%= form.select :emails, [], {}, { class: "form-select", multiple: true } %>
         </div>
