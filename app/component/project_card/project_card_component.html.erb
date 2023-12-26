@@ -18,14 +18,14 @@
       </div>
       <div class="card-footer users-card-footer">
         <% if policy(@project).user_access? %>
-          <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button" target="_blank"><%= t("launch") %></a>
+          <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button" target="_blank" rel="noopener noreferrer"><%= t("launch") %></a>
         <% else %>
           <%= link_to create_fork_project_path(@project), class: "btn primary-button", target: "_blank", method: :post, rel: "noopener" do %>
             <span><%= t("fork") %></span>
           <% end %>
         <% end %>
         <%= link_to t("view"), "#", class: "previewButton btn primary-button", data: { toggle: "modal", target: "#projectModal", currentproject: @project } %>
-        <a href="<%= user_project_path(@project.author_id, @project) %>" class="btn primary-button" target="_blank"><%= t("more") %></a>
+        <a href="<%= user_project_path(@project.author_id, @project) %>" class="btn primary-button" target="_blank" rel="noopener noreferrer"><%= t("more") %></a>
       </div>
     </div>
   </div>
