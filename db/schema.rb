@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_26_162444) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_27_070633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -234,7 +234,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_26_162444) do
     t.bigint "assignment_id"
     t.string "remarks"
     t.index ["assignment_id"], name: "index_grades_on_assignment_id"
-    t.index ["project_id", "assignment_id"], name: "index_grades_on_project_id_and_assignment_id", unique: true
+    t.index ["project_id", "assignment_id"], name: "index_grades_on_project_id_and_assignment_id"
     t.index ["project_id"], name: "index_grades_on_project_id", unique: true
     t.index ["user_id"], name: "index_grades_on_user_id"
   end
