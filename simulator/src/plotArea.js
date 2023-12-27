@@ -1,6 +1,6 @@
-import simulationArea from "./simulationArea";
-import { convertors } from "./utils";
-import { currentScreen } from "./listeners";
+import simulationArea from './simulationArea';
+import {convertors} from './utils';
+import { currentScreen } from './listeners';
 
 var DPR = window.devicePixelRatio || 1;
 
@@ -25,19 +25,17 @@ var waveFormPadding = sh(5);
 var waveFormHeight = plotHeight - 2 * waveFormPadding;
 var flagLabelWidth = sh(75);
 var cycleWidth = sh(30);
-var backgroundColor = "black";
-var foregroundColor = "#eee";
-var textColor = "black";
-var waveFormColor = "cyan";
+var backgroundColor = 'black';
+var foregroundColor = '#eee';
+var textColor = 'black';
+var waveFormColor = 'cyan';
 var timeLineStartX = flagLabelWidth + padding;
 var ptA = currentScreen();
 
 // Helper functions for canvas
 
 function getFullHeight(flagCount) {
-    return !flagCount
-        ? plotHeight + padding
-        : timeLineHeight + (plotHeight + padding) * flagCount;
+    return !flagCount ? (plotHeight + padding) : (timeLineHeight + (plotHeight + padding) * flagCount);
 }
 
 function getFlagStartY(flagIndex) {
@@ -49,9 +47,7 @@ function getCycleStartX(cycleNumber) {
 }
 function changeHeight(dir) {
     plotHeight += dir ? 5 : -5;
-    plotHeight = dir
-        ? (plotHeight = Math.min(sh(50), plotHeight))
-        : (plotHeight = Math.max(sh(20), plotHeight));
+    plotHeight = dir ? plotHeight = Math.min(sh(50), plotHeight) : plotHeight = Math.max(sh(20), plotHeight);
     waveFormHeight = plotHeight - 2 * waveFormPadding;
     plotArea.resize();
 }
@@ -81,9 +77,7 @@ const plotArea = {
         this.cycleCount = 0;
         this.cycleTime = new Date().getTime();
         for (var i = 0; i < globalScope.Flag.length; i++) {
-            globalScope.Flag[i].plotValues = [
-                [0, globalScope.Flag[i].inp1.value],
-            ];
+            globalScope.Flag[i].plotValues = [[0, globalScope.Flag[i].inp1.value]];
             globalScope.Flag[i].cachedIndex = 0;
         }
         this.unitUsed = 0;
@@ -119,7 +113,7 @@ const plotArea = {
     // download as image
     download() {
         var img = this.canvas.toDataURL(`image/png`);
-        const anchor = document.createElement("a");
+        const anchor = document.createElement('a');
         anchor.href = img;
         anchor.download = `waveform.png`;
         anchor.click();
@@ -133,17 +127,15 @@ const plotArea = {
         if (oldHeight == this.height && oldWidth == this.width) return;
         this.canvas.width = this.width;
         this.canvas.height = this.height;
-        document.getElementById(ptA.PlotAreaId).style.height =
-            this.canvas.height / this.DPR;
-        document.getElementById(ptA.PlotAreaId).style.width =
-            this.canvas.width / this.DPR;
+        document.getElementById(ptA.PlotAreaId).style.height = this.canvas.height / this.DPR;
+        document.getElementById(ptA.PlotAreaId).style.width = this.canvas.width / this.DPR;
         this.plot();
     },
     // Setup function, called on page load
     setup() {
         this.canvas = document.getElementById(ptA.PlotAreaId);
         if (!embed) {
-            this.ctx = this.canvas.getContext("2d");
+            this.ctx = this.canvas.getContext('2d');
         }
         this.timeOutPlot = setInterval(() => {
             plotArea.plot();
@@ -156,7 +148,7 @@ const plotArea = {
         time += timeUnit / this.cycleUnit; // Add propagation delay
         // For user interactions like buttons - calculate time since clock tick
         var timePeriod = simulationArea.timePeriod;
-        var executionDelay = this.executionStartTime - this.cycleTime;
+        var executionDelay = (this.executionStartTime - this.cycleTime);
         var delayFraction = executionDelay / timePeriod;
         // Add time since clock tick
         time += delayFraction;
@@ -166,7 +158,7 @@ const plotArea = {
     calibrate() {
         var recommendedUnit = Math.max(20, Math.round(this.unitUsed * 3));
         this.cycleUnit = recommendedUnit;
-        $("#timing-diagram-units").val(recommendedUnit);
+        $('#timing-diagram-units').val(recommendedUnit);
         this.reset();
     },
     // Get current time in clock cycles
@@ -180,28 +172,24 @@ const plotArea = {
     },
     update() {
         this.resize();
-        var dangerColor = "#dc5656";
-        var normalColor = "#42b983";
-        this.unitUsed = Math.max(
-            this.unitUsed,
-            simulationArea.simulationQueue.time
-        );
+        var dangerColor = '#dc5656';
+        var normalColor = '#42b983';
+        this.unitUsed = Math.max(this.unitUsed, simulationArea.simulationQueue.time);
         var unitUsed = this.unitUsed;
         var units = this.cycleUnit;
-        var utilization = Math.round((unitUsed * 10000) / units) / 100;
-        $(ptA.tdLog).html(
-            `Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`
-        );
+        var utilization = Math.round(unitUsed * 10000 / units) / 100;
+        $(ptA.tdLog).html(`Utilization: ${Math.round(unitUsed)} Units (${utilization}%)`);
         if (utilization >= 90 || utilization <= 10) {
             var recommendedUnit = Math.max(20, Math.round(unitUsed * 3));
             $(ptA.tdLog).append(` Recommended Units: ${recommendedUnit}`);
-            $(ptA.tdLog).css("background-color", dangerColor);
+            $(ptA.tdLog).css('background-color', dangerColor);
             if (utilization >= 100) {
                 this.clear();
                 return;
             }
-        } else {
-            $(ptA.tdLog).css("background-color", normalColor);
+        }
+        else {
+            $(ptA.tdLog).css('background-color', normalColor);
         }
 
         var width = this.width;
@@ -211,17 +199,15 @@ const plotArea = {
             // Formula used:
             // (endTime - x) * cycleWidth = width - timeLineStartX;
             // x = endTime - (width - timeLineStartX) / cycleWidth
-            this.cycleOffset = Math.max(
-                0,
-                endTime - (width - timeLineStartX) / cycleWidth
-            );
+            this.cycleOffset = Math.max(0, endTime - (width - timeLineStartX) / cycleWidth);
         } else if (!plotArea.mouseDown) {
             // Scroll
             this.cycleOffset -= plotArea.scrollAcc;
             // Friction
             plotArea.scrollAcc *= 0.95;
             // No negative numbers allowed, so negative scroll to 0
-            if (this.cycleOffset < 0) plotArea.scrollAcc = this.cycleOffset / 5;
+            if (this.cycleOffset < 0)
+                plotArea.scrollAcc = this.cycleOffset / 5;
             // Set position to 0, to avoid infinite scrolling
             if (Math.abs(this.cycleOffset) < 0.01) this.cycleOffset = 0;
         }
@@ -240,37 +226,33 @@ const plotArea = {
         ctx.fillRect(0, 0, width, height);
         ctx.lineWidth = sh(1);
         ctx.font = `${sh(15)}px Raleway`;
-        ctx.textAlign = "left";
+        ctx.textAlign = 'left';
 
         // Timeline
         ctx.fillStyle = foregroundColor;
         ctx.fillRect(timeLineStartX, 0, this.canvas.width, timeLineHeight);
         ctx.fillRect(0, 0, flagLabelWidth, timeLineHeight);
         ctx.fillStyle = textColor;
-        ctx.fillText("Time", sh(5), timeLineHeight * 0.7);
+        ctx.fillText('Time', sh(5), timeLineHeight * 0.7);
 
         // Timeline numbers
         ctx.font = `${sh(9)}px Times New Roman`;
         ctx.strokeStyle = textColor;
-        ctx.textAlign = "center";
-        for (
-            var i = Math.floor(plotArea.cycleOffset);
-            getCycleStartX(i) <= width;
-            i++
-        ) {
+        ctx.textAlign = 'center';
+        for (var i = Math.floor(plotArea.cycleOffset); getCycleStartX(i) <= width ; i++) {
             var x = getCycleStartX(i);
             // Large ticks + number
             // @TODO - collapse number if it doesn't fit
             if (x >= timeLineStartX) {
-                ctx.fillText(`${i}`, x, timeLineHeight - sh(15) / 2);
+                ctx.fillText(`${i}`, x, timeLineHeight - sh(15)/2);
                 ctx.beginPath();
                 ctx.moveTo(x, timeLineHeight - sh(5));
                 ctx.lineTo(x, timeLineHeight);
                 ctx.stroke();
             }
             // Small ticks
-            for (var j = 1; j < 5; j++) {
-                var x1 = x + Math.round((j * cycleWidth) / 5);
+            for(var j = 1; j < 5; j++) {
+                var x1 = x + Math.round(j * cycleWidth / 5);
                 if (x1 >= timeLineStartX) {
                     ctx.beginPath();
                     ctx.moveTo(x1, timeLineHeight - sh(2));
@@ -281,17 +263,13 @@ const plotArea = {
         }
 
         // Flag Labels
-        ctx.textAlign = "left";
+        ctx.textAlign = 'left';
         for (var i = 0; i < globalScope.Flag.length; i++) {
             var startHeight = getFlagStartY(i);
             ctx.fillStyle = foregroundColor;
             ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight);
             ctx.fillStyle = textColor;
-            ctx.fillText(
-                globalScope.Flag[i].identifier,
-                sh(5),
-                startHeight + plotHeight * 0.7
-            );
+            ctx.fillText(globalScope.Flag[i].identifier, sh(5), startHeight + plotHeight * 0.7);
         }
 
         // Waveform Status Flags
@@ -301,7 +279,7 @@ const plotArea = {
 
         // Waveform
         ctx.strokeStyle = waveFormColor;
-        ctx.textAlign = "center";
+        ctx.textAlign = 'center';
         var endX = Math.min(getCycleStartX(endTime), width);
 
         for (var i = 0; i < globalScope.Flag.length; i++) {
@@ -320,10 +298,7 @@ const plotArea = {
                 j = globalScope.Flag[i].cachedIndex;
             }
             // Move to beyond timeLineStartX
-            while (
-                j + 1 < plotValues.length &&
-                getCycleStartX(plotValues[j][0]) < timeLineStartX
-            ) {
+            while (j + 1 < plotValues.length && getCycleStartX(plotValues[j][0]) < timeLineStartX) {
                 j++;
             }
             // Move to just before timeLineStartX
@@ -339,16 +314,17 @@ const plotArea = {
 
                 // Handle out of bound
                 if (x < timeLineStartX) {
-                    if (j + 1 != plotValues.length) {
+                    if(j + 1 != plotValues.length) {
                         // Next one also is out of bound, so skip this one completely
                         var x1 = getCycleStartX(plotValues[j + 1][0]);
-                        if (x1 < timeLineStartX) continue;
+                        if (x1 < timeLineStartX)
+                            continue;
                     }
                     x = timeLineStartX;
                 }
 
                 var value = plotValues[j][1];
-                if (value === undefined) {
+                if(value === undefined) {
                     if (state == WAVEFORM_STARTED) {
                         ctx.stroke();
                     }
@@ -363,16 +339,19 @@ const plotArea = {
                         state = WAVEFORM_STARTED;
                         ctx.beginPath();
                         ctx.moveTo(x, y);
-                    } else {
+                    }
+                    else {
                         ctx.lineTo(x, prevY);
                         ctx.lineTo(x, y);
                     }
                     prevY = y;
-                } else {
+                }
+                else {
                     var endX;
                     if (j + 1 == plotValues.length) {
                         endX = getCycleStartX(endTime);
-                    } else {
+                    }
+                    else {
                         endX = getCycleStartX(plotValues[j + 1][0]);
                     }
                     var smallOffset = waveFormHeight / 2;
@@ -390,15 +369,11 @@ const plotArea = {
                     // Clamp start and end are within the screen
                     var x1 = Math.max(x, timeLineStartX);
                     var x2 = Math.min(endX, width);
-                    var textPositionX = (x1 + x2) / 2;
+                    var textPositionX = (x1 + x2) / 2 ;
 
                     ctx.font = `${sh(9)}px Times New Roman`;
-                    ctx.fillStyle = "white";
-                    ctx.fillText(
-                        convertors.dec2hex(value),
-                        textPositionX,
-                        yMid + sh(3)
-                    );
+                    ctx.fillStyle = 'white';
+                    ctx.fillText(convertors.dec2hex(value), textPositionX, yMid + sh(3));
                 }
                 if (x > width) {
                     state = WAVEFORM_OVER;
@@ -433,112 +408,103 @@ const plotArea = {
 export default plotArea;
 
 export function setupTimingListeners() {
-    $(".timing-diagram-smaller").on("click", () => {
-        $("#plot").width(Math.max($("#plot").width() - 20, 560));
+    $('.timing-diagram-smaller').on('click', () => {
+        $('#plot').width(Math.max($('#plot').width() - 20, 560));
         plotArea.resize();
-    });
-    $(".timing-diagram-larger").on("click", () => {
+    })
+    $('.timing-diagram-larger').on('click', () => {
         const screenWidth = $(window).width();
-        const dialogRightPosition = $("#plot").offset().left;
+        const dialogRightPosition = $('#plot').offset().left;
         const maxAllowedWidth = screenWidth - dialogRightPosition;
-        $("#plot").width(Math.min($("#plot").width() + 20, maxAllowedWidth));
+        $('#plot').width(Math.min($('#plot').width() + 20, maxAllowedWidth));
         plotArea.resize();
-    });
-    $(".timing-diagram-small-height").on("click", () => {
+    })
+    $('.timing-diagram-small-height').on('click', () => {
         changeHeight(0);
-    });
-    $(".timing-diagram-large-height").on("click", () => {
+    })
+    $('.timing-diagram-large-height').on('click', () => {
         changeHeight(1);
-    });
-    $(".timing-diagram-reset").on("click", () => {
+    })
+    $('.timing-diagram-reset').on('click', () => {
         plotArea.reset();
-    });
-    $(".timing-diagram-calibrate").on("click", () => {
+    })
+    $('.timing-diagram-calibrate').on('click', () => {
         plotArea.calibrate();
-    });
-    $(".timing-diagram-resume").on("click", () => {
+    })
+    $('.timing-diagram-resume').on('click', () => {
         plotArea.resume();
-    });
-    $(".timing-diagram-pause").on("click", () => {
+    })
+    $('.timing-diagram-pause').on('click', () => {
         plotArea.pause();
-    });
-    $(".timing-diagram-download").on("click", () => {
+    })
+    $('.timing-diagram-download').on('click', () => {
         plotArea.download();
-    });
-    $(".timing-diagram-zoom-in").on("click", () => {
+    })
+    $('.timing-diagram-zoom-in').on('click', () => {
         plotArea.zoomIn();
-    });
-    $(".timing-diagram-zoom-out").on("click", () => {
+    })
+    $('.timing-diagram-zoom-out').on('click', () => {
         plotArea.zoomOut();
-    });
-    $("#timing-diagram-units").on("change paste keyup", function () {
+    })
+    $('#timing-diagram-units').on('change paste keyup', function() {
         var timeUnits = parseInt($(this).val(), 10);
         if (isNaN(timeUnits) || timeUnits < 1) return;
         plotArea.cycleUnit = timeUnits;
+    })
+    document.getElementById(ptA.PlotAreaId).addEventListener('mousedown', (e) => {
+        var rect = plotArea.canvas.getBoundingClientRect();
+        var x = sh(e.clientX - rect.left);
+        plotArea.scrollAcc = 0;
+        plotArea.autoScroll = false;
+        plotArea.mouseDown = true;
+        plotArea.mouseX = x;
+        plotArea.mouseDownX = x;
+        plotArea.mouseDownTime = new Date().getTime();
     });
-    document
-        .getElementById(ptA.PlotAreaId)
-        .addEventListener("mousedown", (e) => {
-            var rect = plotArea.canvas.getBoundingClientRect();
-            var x = sh(e.clientX - rect.left);
-            plotArea.scrollAcc = 0;
-            plotArea.autoScroll = false;
-            plotArea.mouseDown = true;
-            plotArea.mouseX = x;
-            plotArea.mouseDownX = x;
-            plotArea.mouseDownTime = new Date().getTime();
-        });
-    document.getElementById(ptA.PlotAreaId).addEventListener("mouseup", (e) => {
+    document.getElementById(ptA.PlotAreaId).addEventListener('mouseup', (e) => {
         plotArea.mouseDown = false;
         var time = new Date().getTime() - plotArea.mouseDownTime;
         var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
-        plotArea.scrollAcc = (offset * frameInterval) / time;
+        plotArea.scrollAcc = offset * frameInterval / time;
     });
 
-    document
-        .getElementById(ptA.PlotAreaId)
-        .addEventListener("mousemove", (e) => {
-            var rect = plotArea.canvas.getBoundingClientRect();
-            var x = sh(e.clientX - rect.left);
-            if (plotArea.mouseDown) {
-                plotArea.cycleOffset -= (x - plotArea.mouseX) / cycleWidth;
-                plotArea.mouseX = x;
-            } else {
-                plotArea.mouseDown = false;
-            }
-        });
-
-    document
-        .getElementById(ptA.PlotAreaId)
-        .addEventListener("touchstart", (e) => {
-            var rect = plotArea.canvas.getBoundingClientRect();
-            var x = sh(e.touches[0].clientX - rect.left);
-            plotArea.scrollAcc = 0;
-            plotArea.autoScroll = false;
-            plotArea.mouseDown = true;
+    document.getElementById(ptA.PlotAreaId).addEventListener('mousemove', (e) => {
+        var rect = plotArea.canvas.getBoundingClientRect();
+        var x = sh(e.clientX - rect.left);
+        if (plotArea.mouseDown) {
+            plotArea.cycleOffset -= (x - plotArea.mouseX) / cycleWidth;
             plotArea.mouseX = x;
-            plotArea.mouseDownX = x;
-            plotArea.mouseDownTime = new Date().getTime();
-        });
-    document
-        .getElementById(ptA.PlotAreaId)
-        .addEventListener("touchend", (e) => {
+        } else {
             plotArea.mouseDown = false;
-            var time = new Date().getTime() - plotArea.mouseDownTime;
-            var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
-            plotArea.scrollAcc = (offset * frameInterval) / time;
-        });
+        }
+    });
 
-    document
-        .getElementById(ptA.PlotAreaId)
-        .addEventListener("touchmove", (e) => {
-            var rect = plotArea.canvas.getBoundingClientRect();
-            var x = sh(e.touches[0].clientX - rect.left);
-            if (plotArea.mouseDown) {
-                plotArea.cycleOffset -= (x - plotArea.mouseX) / cycleWidth;
-                plotArea.mouseX = x;
-            } else {
-                plotArea.mouseDown = false;
-            }
-        });
+
+    document.getElementById(ptA.PlotAreaId).addEventListener('touchstart', (e) => {
+        var rect = plotArea.canvas.getBoundingClientRect();
+        var x = sh(e.touches[0].clientX - rect.left);
+        plotArea.scrollAcc = 0;
+        plotArea.autoScroll = false;
+        plotArea.mouseDown = true;
+        plotArea.mouseX = x;
+        plotArea.mouseDownX = x;
+        plotArea.mouseDownTime = new Date().getTime();
+    });
+    document.getElementById(ptA.PlotAreaId).addEventListener('touchend', (e) => {
+        plotArea.mouseDown = false;
+        var time = new Date().getTime() - plotArea.mouseDownTime;
+        var offset = (plotArea.mouseX - plotArea.mouseDownX) / cycleWidth;
+        plotArea.scrollAcc = offset * frameInterval / time;
+    });
+
+    document.getElementById(ptA.PlotAreaId).addEventListener('touchmove', (e) => {
+        var rect = plotArea.canvas.getBoundingClientRect();
+        var x = sh(e.touches[0].clientX - rect.left);
+        if (plotArea.mouseDown) {
+            plotArea.cycleOffset -= (x - plotArea.mouseX) / cycleWidth;
+            plotArea.mouseX = x;
+        } else {
+            plotArea.mouseDown = false;
+        }
+    });
 }
