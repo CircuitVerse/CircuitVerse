@@ -23,21 +23,21 @@
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 footer-column">
         <div class="row text-left">
           <div class="col-5 footer-links">
-            <a href="/simulator"><h6><%= t("layout.link_to_simulator") %></h6></a>
-            <a href="/learn" target="_blank"><h6><%= t("layout.link_to_learn_more") %></h6></a>
-            <a href="https://blog.circuitverse.org" target="_blank"><h6><%= t("layout.link_to_blog") %></h6></a>
-            <a href="/examples"><h6><%= t("layout.footer.link_to_examples") %></h6></a>
+            <h6><%= t("layout.link_to_simulator") %><a href="/simulator"></a></h6>
+            <h6><%= t("layout.link_to_learn_more") %><a href="/learn" target="_blank"></a></h6>
+            <h6><%= t("layout.link_to_blog") %><a href="https://blog.circuitverse.org" target="_blank"></a></h6>
+            <h6><%= t("layout.footer.link_to_examples") %><a href="/examples"></a></h6>
             <% if user_signed_in? %>
-              <a href="<%= user_path(current_user) %>"><h6><%= t("layout.footer.my_circuits") %></h6></a>
+             <h6><%= t("layout.footer.my_circuits") %> <a href="<%= user_path(current_user) %>"></a></h6>
             <% else %>
-              <a href="/users/sign_in"><h6><%= t("login") %></h6></a>
+              <h6><%= t("login") %><a href="/users/sign_in"></a></h6>
             <% end %>
           </div>
           <div class="col-6 footer-links">
-            <a href="/docs" target="_blank"><h6><%= t("layout.link_to_docs") %></h6></a>
-            <a href="/contribute"><h6><%= t("layout.footer.link_to_contribute") %></h6></a>
-            <a href="/teachers"><h6><%= t("layout.link_to_teachers") %></h6></a>
-            <a href="/about"><h6><%= t("layout.link_to_about") %></h6></a>
+            <h6><%= t("layout.link_to_docs") %><a href="/docs" target="_blank"></a></h6>
+            <h6><%= t("layout.footer.link_to_contribute") %><a href="/contribute"></a></h6>
+            <h6><%= t("layout.link_to_teachers") %><a href="/teachers"></a></h6>
+            <h6><%= t("layout.link_to_about") %><a href="/about"></a></h6>
             <% if Flipper.enabled?(:forum) %>
               <h6><%= link_to t("layout.footer.link_to_forum"), simple_discussion_path %></h6>
             <% end %>
