@@ -47,6 +47,12 @@ class User < ApplicationRecord
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
 
+  validates :instagram, length: {maximum: 255}
+  validates :twitter, length: {maximum: 255}
+  validates :linkedin, length: {maximum: 255}
+  validates :github, length: {maximum: 255}
+
+
   scope :subscribed, -> { where(subscribed: true) }
 
   include PgSearch::Model
