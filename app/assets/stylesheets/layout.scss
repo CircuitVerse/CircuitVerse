@@ -105,6 +105,12 @@ body {
 }
 
 //anchor
+@media (max-width: 360px) {
+  .anchor-text {
+    font-size: 3vh;
+  }
+}
+
 .anchor-text {
   color: $secondary-green;
   font-weight: 500;

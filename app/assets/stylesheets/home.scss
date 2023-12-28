@@ -90,3 +90,18 @@
     padding-right: 0;
   }
 }
+
+@media (max-width: 360px) {
+  .home-main-content {
+    margin-bottom: 0;
+  }
+
+  .home-simulator-button {
+    max-width: 35vh;
+  }
+
+  .home-buttons-container {
+    margin-top: 20px;
+  }
+
+}

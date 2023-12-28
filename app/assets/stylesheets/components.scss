@@ -47,6 +47,13 @@
   }
 }
 
+@media (max-width: 360px) {
+  .tertiary-button {
+    width: 35vh;
+  }
+}
+
+
 .tertiary-button {
   border: 1.5px solid $secondary-green;
   border-radius: 4px;
