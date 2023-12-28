@@ -43,6 +43,31 @@
             <h6><%= f.label :locale %></h6>
             <%= f.select :locale, options_for_select(I18nSupport.locale_names, f.object.locale), { prompt: t("users.circuitverse.edit_profile.select_locale_prompt") }, { class: "form-control form-input" } %>
           </div>
+
+<h6>Social Media</h6>
+  <div class="social-media-icons">
+
+    <!-- Add Instagram, Twitter, LinkedIn, and GitHub input fields -->
+    <div class="social-media-inputs">
+      <div class="field form-group">
+        <label for="instagram">Instagram:</label>
+        <%= f.text_field :instagram, class: "form-control form-input", placeholder: "Your Instagram Username" %>
+      </div>
+      <div class="field form-group">
+        <label for="twitter">Twitter:</label>
+        <%= f.text_field :twitter, class: "form-control form-input", placeholder: "Your Twitter Username" %>
+      </div>
+      <div class="field form-group">
+        <label for="linkedin">LinkedIn:</label>
+        <%= f.text_field :linkedin, class: "form-control form-input", placeholder: "Your LinkedIn Profile URL" %>
+      </div>
+      <div class="field form-group">
+        <label for="github">GitHub:</label>
+        <%= f.text_field :github, class: "form-control form-input", placeholder: "Your GitHub Username" %>
+      </div>
+    </div>
+  </div>
+
           <div class="field form-group users-edit-primary-checkpoint">
             <label for="profile_subscribed" class="primary-checkpoint-container"><h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
               <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
