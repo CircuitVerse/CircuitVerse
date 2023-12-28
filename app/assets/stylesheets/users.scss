@@ -596,3 +596,69 @@
   text-decoration: none;
 }
 //user profile ends
+
+
+//social media starts
+.social-media-group {
+  margin-top: 20px;
+}
+
+.social-media-icons a {
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.social-media-icons img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.social-media-icons img:hover {
+  opacity: 0.7;
+}
+
+.social-media-inputs {
+  margin-top: 20px;
+}
+
+.social-media-inputs .field {
+  margin-bottom: 15px;
+}
+
+.social-media-inputs label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.social-media-inputs input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+  margin-top: 5px;
+}
+
+.label-error {
+  color: #ff0000;
+
+}
+
+
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.social-media-inputs input {
+  animation: fadeIn 0.5s ease-in-out;
+}
+//social media ends
+
