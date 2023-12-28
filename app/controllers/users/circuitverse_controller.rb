@@ -54,8 +54,8 @@ class Users::CircuitverseController < ApplicationController
         :instagram,
         :twitter,
         :linkedin,
-        :github)
-
+        :github
+      )
     end
 
     def set_user
