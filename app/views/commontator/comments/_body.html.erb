@@ -3,4 +3,6 @@
   comment
 %>
 
-<%= commontator_simple_format comment.body %>
+<div id="comment-body-<%= comment.id %>">
+  <%= auto_link_comments(comment) %>
+</div>
