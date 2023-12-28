@@ -22,7 +22,7 @@
                 },
                 "required": ["url"]
               },
-			  "description": { "type": "string" },
+              "description": { "type": "string" },
               "view": { "type": "integer" },
               "is_starred": { "type": ["boolean", "null"] },
               "author_name": { "type": "string" },

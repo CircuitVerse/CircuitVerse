@@ -25,6 +25,9 @@ RSpec.describe Api::V1::ProjectsController, "#image_preview", type: :request do
 
       it "returns image preview" do
         expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["project_preview"]).to eq(
+          request.base_url + public_project.image_preview.url
+        )
       end
     end
   end

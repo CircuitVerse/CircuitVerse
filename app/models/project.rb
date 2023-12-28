@@ -25,6 +25,7 @@ class Project < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
+  # Mirror Uploads to ActiveStorage
   has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
@@ -69,6 +70,7 @@ class Project < ApplicationRecord
   end
 
   after_update :check_and_remove_featured
+
   before_destroy :purge_circuit_preview
 
   self.per_page = 6
