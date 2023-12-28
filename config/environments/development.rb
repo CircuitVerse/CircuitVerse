@@ -88,7 +88,6 @@ Rails.application.configure do
     # Whitelist gitpod domain in dev envionment
     config.hosts << /.*\.gitpod\.io\Z/
     config.hosts << /.*\Z/ # Whitelist everything in Dev
-  end
-
+  end  
   Paperclip.options[:command_path] = "/usr/local/bin/"
 end
