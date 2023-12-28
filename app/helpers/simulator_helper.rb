@@ -12,17 +12,6 @@ module SimulatorHelper
       image_file = File.new("tmp/preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg", "wb")
       image_file.write(jpeg)
     end
-    image_file
-  end
-
-  def parse_image_data_url(data_url)
-    str = data_url[("data:image/jpeg;base64,".length)..]
-    if str.to_s.empty?
-      image_file = nil
-    else
-      jpeg       = Base64.decode64(str)
-      image_file = StringIO.new(jpeg)
-    end
 
     image_file
   end

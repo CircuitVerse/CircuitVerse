@@ -13,7 +13,7 @@
     <div class="row center-row">
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
         <div class="row center-row">
-          <%= image_tag project_image_preview(project, current_user), alt: "project.name", class: "search-image" %>
+          <%= image_tag project.image_preview.url, alt: "project.name", class: "search-image" %>
         </div>
         <div class="row center-row search-view-count-container">
           <i class="fas fa-star search-star-count-icon" aria-hidden="true"></i>

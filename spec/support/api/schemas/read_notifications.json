@@ -57,7 +57,7 @@
                           "string"
                         ]
                       },
-                      "admin": {
+					  "admin": {
                         "type": "boolean"
                       },
                       "country": {
@@ -119,13 +119,17 @@
                       "project_submission": {
                         "type": "boolean"
                       },
-					  "image_preview": {
-						"type": "object",
-						  "properties": {
-							"url": { "type": "string" }
-						  },
-						"required": ["url"]
-					  }, 
+                      "image_preview": {
+                        "type": "object",
+                        "properties": {
+                          "url": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "url"
+                        ]
+                      },
                       "description": {
                         "type": "string"
                       },
