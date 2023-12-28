@@ -52,7 +52,6 @@ class User < ApplicationRecord
   validates :linkedin, length: { maximum: 255 }
   validates :github, length: { maximum: 255 }
 
-
   scope :subscribed, -> { where(subscribed: true) }
 
   include PgSearch::Model
