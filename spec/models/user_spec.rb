@@ -13,6 +13,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:collaborations) }
     it { is_expected.to have_many(:collaborated_projects) }
     it { is_expected.to have_many(:noticed_notifications) }
+    it { is_expected.to have_many(:push_subscriptions) }
   end
 
   describe "callbacks" do
@@ -37,6 +38,10 @@ RSpec.describe User, type: :model do
       expect(@user.profile_picture.filename).to eq("profile.png")
       expect(@user.profile_picture.content_type).to eq("image/png")
     end
+    it { is_expected.to validate_length_of(:instagram).is_at_most(255) }
+    it { is_expected.to validate_length_of(:twitter).is_at_most(255) }
+    it { is_expected.to validate_length_of(:linkedin).is_at_most(255) }
+    it { is_expected.to validate_length_of(:github).is_at_most(255) }
   end
 
   describe "public methods" do
