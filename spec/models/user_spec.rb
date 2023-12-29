@@ -43,7 +43,7 @@ RSpec.describe User, type: :model do
     it { is_expected.to validate_length_of(:twitter).is_at_most(255) }
     it { is_expected.to validate_length_of(:linkedin).is_at_most(255) }
     it { is_expected.to validate_length_of(:github).is_at_most(255) }
-  end
+end
 
   describe "public methods" do
     before do
