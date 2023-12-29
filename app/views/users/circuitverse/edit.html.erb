@@ -35,7 +35,7 @@
                   <button type="button" class="btn profile-picture-edit-btn" style="display: none" id="editImageBtn" data-toggle="modal" data-target=".bd-example-modal-sm" aria-label="Edit Profile Picture"><i class="fas fa-pen"></i></button>
                   <label for="profile_picture" id="addNewImageBtn"><i class="fas fa-plus"></i></label>
                 <% end %>
-              </div>    
+              </div>
             </div>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
             <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
@@ -50,7 +50,7 @@
                     </button>
                   </div>
                   <label for="profile_picture" class="list-group-item change-picture"><%= t("users.circuitverse.edit_profile.change_picture") %></label>
-                  <label for="remove_pic" class="list-group-item remove-picture"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>                    
+                  <label for="remove_pic" class="list-group-item remove-picture"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>                 
                 </div>
               </div>
             </div>
