@@ -38,7 +38,7 @@ RSpec.describe User, type: :model do
       expect(@user.profile_picture.filename).to eq("profile.png")
       expect(@user.profile_picture.content_type).to eq("image/png")
     end
- 
+  end
     it { is_expected.to validate_length_of(:instagram).is_at_most(255) }
     it { is_expected.to validate_length_of(:twitter).is_at_most(255) }
     it { is_expected.to validate_length_of(:linkedin).is_at_most(255) }
