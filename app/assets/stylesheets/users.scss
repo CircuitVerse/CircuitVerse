@@ -146,43 +146,59 @@
   font-size: 10px;
 }
 
-.users-edit-image {
+.users-edit-image-container {
+  margin: 10px;
   border-radius: 50%;
   height: 150px;
   width: 150px;
+  position: relative;
+  overflow: hidden;
 }
 
-.users-edit-image-button {
-  border: 1px solid $secondary-green;
-  border-radius: 4px;
-  cursor: pointer;
-  height: 35px;
-  line-height: 35px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  text-align: center;
-  width: 120px;
+.users-edit-image {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover; 
 }
 
 .users-edit-image-button-hidden {
   display: none;
 }
 
-.users-edit-image-button:hover {
-  background-color: $primary-green;
-  color: $white;
+.users-edit-image-button {
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  border-radius: 50%;
+  opacity: 0.7;
 }
 
-.users-remove-image-button {
-  border: 1px solid $secondary-red;
-  border-radius: 4px;
+.users-edit-image-button > * {
+  width: 100%;
+  height: 100%;
   cursor: pointer;
-  height: 35px;
-  line-height: 35px;
-  margin-bottom: 20px;
-  margin-left: 10px;
-  text-align: center;
-  width: 140px;
+}
+
+.users-edit-image-button i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.profile-picture-edit-btn:focus {
+  box-shadow: none;
+}
+
+.users-edit-image-button:hover {
+  opacity: 1;
 }
 
 .remove-pic:checked ~ .users-remove-image-button,

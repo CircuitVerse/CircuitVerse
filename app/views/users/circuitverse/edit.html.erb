@@ -25,11 +25,37 @@
           </div>
           <div class="field form-group">
             <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
-            <p><%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
-            <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
+            <div class="users-edit-image-container">
+              <%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %>
+              <div class="users-edit-image-button">
+                <% if @user.profile_picture.attached? %>
+                  <button type="button" class="btn profile-picture-edit-btn" id="editImageBtn" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fas fa-pen"></i></button>
+                  <label for="profile_picture" id="addNewImageBtn" style="display: none"><i class="fas fa-plus"></i></label>
+                <% else %>
+                  <button type="button" class="btn profile-picture-edit-btn" style="display: none" id="editImageBtn" data-toggle="modal" data-target=".bd-example-modal-sm"><i class="fas fa-pen"></i></button>
+                  <label for="profile_picture" id="addNewImageBtn"><i class="fas fa-plus"></i></label>
+                <% end %>
+              </div>    
+            </div>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
             <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
-            <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
+            
+            <!-- Modal to Change or Remove Profile Picture -->
+            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Profile Picture</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <label for="profile_picture" class="list-group-item change-picture"><%= t("users.circuitverse.edit_profile.change_picture") %></label>
+                  <label for="remove_pic" class="list-group-item remove-picture"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>                    
+                </div>
+              </div>
+            </div>
+
           </div>
           <div class="field form-group">
             <h6><%= f.label :country %></h6>
@@ -78,9 +104,12 @@
     if (input.files && input.files[0]) {
     var reader = new FileReader();
     reader.onload = function (e) {
+    $('#addNewImageBtn').hide();
+    $('#editImageBtn').show();
     $('#imgedit')
       .attr('src', e.target.result);
     };
+    
     reader.readAsDataURL(input.files[0]);
     }
   }
@@ -131,4 +160,12 @@
   document.querySelector('#remove_pic').addEventListener('change', function() {
       document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
   });
+  $('.change-picture').on('click', function() {
+    $('.modal').modal('hide');
+  });
+  $('.remove-picture').on('click', function() {
+    $('#editImageBtn').hide();
+    $('#addNewImageBtn').show();
+    $('.modal').modal('hide');
+  })
 </script>
