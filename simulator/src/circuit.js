@@ -576,4 +576,3 @@ export default class Scope {
         }
     }
 }
-    
