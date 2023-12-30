@@ -2787,7 +2787,7 @@ canvas {
     }
     .download-dialog-section-2 {
         background: transparent;
-        width: 80%;
+        width: 90%;
         display: inline-flex;
         justify-content: space-around;
     }
