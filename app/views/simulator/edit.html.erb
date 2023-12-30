@@ -163,7 +163,8 @@
   <!-- /.navbar-collapse -->
 </nav>
 <div id="tabsBar" class="noSelect pointerCursor">
-  <button name="logixButton" class="logixButton" id="createNewCircuitScope" onclick="" aria-label='logix button'><i class="fas fa-plus"></i></button>
+  <button id = "tabsToggleButton" ><i class="fa-solid fa-square-caret-down" id ="tabsCaret" onclick ="toggleCaret()"></i></button>
+  <button name='logixButton' class='logixButton' id='createNewCircuitScope' onclick='' aria-label='logix button'><i class='fas fa-plus'></i></button>
 </div>
 <div title="Export Verilog" id="verilog-export-code-window-div" style="display:none"><textarea id="verilog-export-code-window"></textarea></div>
 <div id="code-window" class='code-window'><textarea id="codeTextArea"></textarea></div>
@@ -817,6 +818,30 @@
     </div>
   </div>
 </div>
+<script>
+function toggleCaret() {
+    console.log("clicking");
+
+    var tabsBar = $('#tabsBar');
+    var tabsCaret = $('#tabsCaret');
+
+    if (tabsCaret.hasClass('fa-solid') && tabsCaret.hasClass('fa-square-caret-down')) {
+        tabsCaret.removeClass('fa-solid fa-square-caret-down');
+        tabsCaret.addClass('fa-solid fa-square-caret-up');
+        tabsBar.css({
+            'height': '27px',
+            'overflow': 'hidden'
+        });
+    } else if (tabsCaret.hasClass('fa-solid') && tabsCaret.hasClass('fa-square-caret-up')) {
+        tabsCaret.removeClass('fa-solid fa-square-caret-up');
+        tabsCaret.addClass('fa-solid fa-square-caret-down');
+        tabsBar.css({
+            'height': 'auto',
+            'overflow': 'visible'
+        });
+    }
+}
+</script>
 
 <script>
 window.addEventListener("load", function() {
