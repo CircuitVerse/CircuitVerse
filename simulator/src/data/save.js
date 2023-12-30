@@ -28,6 +28,7 @@ export function setProjectName(name) {
     name = stripTags(name);
     projectName = name;
     $('#projectName').html(name);
+    document.getElementById("projectName")?.setAttribute("title",name);
 }
 
 /**
