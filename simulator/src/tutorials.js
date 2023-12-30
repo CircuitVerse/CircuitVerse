@@ -63,7 +63,7 @@ export const tour = [
         element: '.testbench-manual-panel',
         popover: {
             title: 'Test Bench Panel',
-            description: 'The Testbench helps you test your circuits in the simulator itself.',
+            description: 'This panel helps you test your circuit correctness by observing how your circuit responds under different test cases, ensuring a thorough and effective validation process.',
             position: 'right',
             offset: 0,
         },
