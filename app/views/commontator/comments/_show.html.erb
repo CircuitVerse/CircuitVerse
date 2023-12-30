@@ -108,7 +108,7 @@
                                 id: comment.id } %>
   </div>
 </div>
-<%= render partial: 'commontator/comments/delete_comment_confirmation_modal' %>
+<%= render (DeleteCommentConfirmationModalComponent.new) %>
 <script>
   $(document).ready(function() {
     $("#deletecommentModal").on("show.bs.modal", function(e) {
