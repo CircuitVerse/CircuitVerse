@@ -273,6 +273,11 @@
   margin-bottom: 10px;
   padding: 15px;
 
+  ul {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
   li {
     text-align: left;
   }
@@ -341,8 +346,6 @@
   border-radius: 4px;
   color: $white;
   font-weight: 500;
-  max-width: 75%;
-  overflow: auto;
   padding: 5px;
 
   &:hover {

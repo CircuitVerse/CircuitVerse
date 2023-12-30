@@ -13,17 +13,18 @@
 
 <%= form_with(model: [@project.author, @project], local: true, multipart: true, id: "projectForm") do |form| %>
   <% if project.errors.any? %>
-    <div id="error-message">
-      <ul>
+    <div class="error-message">
+      <ul class="mt-3 mb-3">
         <% project.errors.full_messages.each do |message| %>
         <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
-  <div class="field form-group">
+  <div class="field form-group d-flex flex-column">
     <h6><%= form.label :name %></h6>
-    <%= form.text_field :name, id: :project_name, class: "form-control form-input" %>
+    <%= form.text_field :name, id: :project_name, class: "form-control form-input", maxlength: 60 %>
+    <span id="name-counter" class="char-counter"></span>
   </div>
   <div class="field form-group projects-tag-form-group">
     <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
@@ -76,4 +77,22 @@
     });
     $("#featuredCircuit").submit();
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const nameField = document.getElementById('project_name');
+
+    nameField.addEventListener('input', function () {
+      const maxLength = parseInt(this.getAttribute('maxlength'));
+      const currentLength = this.value.length;
+
+      const nameCounter = document.getElementById('name-counter');
+      nameCounter.textContent = `${currentLength} / ${maxLength}`;
+
+      if (currentLength >= maxLength) {
+        nameCounter.classList.add('is-invalid');
+      } else {
+        nameCounter.classList.remove('is-invalid');
+      }
+    });
+  });
 </script>
