@@ -194,9 +194,9 @@
       </div>
     <% end %>
 
-    <%= render partial: "add_collaborator_modal" %>
+    <%= render(ProjectComponents::AddCollaboratorModalComponent.new(collaboration: @collaboration)) %>
     <%= render(ProjectComponents::DeleteProjectConfirmationModelComponent.new) %>
-    <%= render partial: "delete_collaboration_confirmation_modal" %>
+    <%= render(ProjectComponents::DeleteCollaborationModalComponent.new) %>
     <%= render(ProjectEmbedComponent.new(@project)) %>
 
 </div>
