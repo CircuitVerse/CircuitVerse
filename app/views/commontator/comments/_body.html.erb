@@ -2,7 +2,4 @@
   Views that use this partial must provide the following variable:
   comment
 %>
-
-<div id="comment-body-<%= comment.id %>">
-  <%= auto_link_comments(comment) %>
-</div>
+<%= auto_link(comment.body) %>
