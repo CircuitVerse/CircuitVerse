@@ -62,6 +62,10 @@
   }
 }
 
+.rotate180::after {
+    transform: rotate(180deg);
+  }
+
 .navbar-dropdown-toggle-hidden {
   .dropdown-toggle::after {
     display: none;
