@@ -67,6 +67,9 @@
     display: none;
   }
 }
+.rotate180::after {
+  transform: rotate(180deg);
+}
 
 .dropdown-toggle.navbar-user-dropdown {
   cursor: pointer;
