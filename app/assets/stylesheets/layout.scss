@@ -100,10 +100,16 @@ body {
 }
 
 //anchor
+.learn-button{
+  border: 2px solid #026e57;
+  padding: 5px;
+  margin-left: 2.5px;
+}
 .anchor-text {
   color: $secondary-green;
   font-weight: 500;
   text-decoration: underline;
+  text-decoration: none;
 
   &:hover {
     color: $primary-green;
