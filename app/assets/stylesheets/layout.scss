@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: $primary-green;
+  color: $white;
+}
+
 body {
   font-family: 'Inter';
   padding-top: 90px;
@@ -182,7 +187,7 @@ body {
 
   .pagination {
     max-width: none;
-    overflow-x: visible;
+    overflow-x: auto;
     padding: 0;
     white-space: nowrap;
   }
