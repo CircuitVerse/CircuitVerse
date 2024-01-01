@@ -34,14 +34,13 @@ class Users::CircuitverseController < ApplicationController
     end
   end
 
-  def edit_password
-  end
+  def edit_password; end
 
   def update_password
     if @profile.valid_password?(params[:user][:current_password])
       if @profile.update_with_password(password_params)
         bypass_sign_in(@profile)
-        redirect_to user_projects_path(current_user), notice: 'Password updated successfully!'
+        redirect_to user_projects_path(current_user), notice: "Password updated successfully!"
       else
         render :edit_password
       end
