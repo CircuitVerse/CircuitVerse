@@ -136,8 +136,10 @@
 
 .search-usersearch-image {
   display: block;
+  height: 180px;
   margin-bottom: 20px;
-  width: 70%;
+  object-fit: cover;
+  width: 180px;
 }
 
 .search-username-container {
