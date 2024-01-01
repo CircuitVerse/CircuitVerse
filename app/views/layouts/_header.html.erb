@@ -70,7 +70,6 @@
 <script type="text/javascript">
 document.addEventListener("DOMContentLoaded", function () {
   var gettingStartedLink = document.querySelector("#navbar-dropdown-1, #navbar-dropdown-2");
-
   gettingStartedLink.addEventListener("click", function () {
     if (gettingStartedLink.classList.contains("rotate180")) {
       gettingStartedLink.classList.remove("rotate180");
@@ -79,14 +78,11 @@ document.addEventListener("DOMContentLoaded", function () {
     {
         gettingStartedLink.classList.toggle("rotate180");
     }
-    
   });
-
  document.addEventListener("click", function () {
     if (gettingStartedLink.classList.contains("rotate180")) {
       gettingStartedLink.classList.remove("rotate180");
     } });
-
 });
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
