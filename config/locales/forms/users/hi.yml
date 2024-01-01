@@ -9,3 +9,4 @@ hi:
         locale: "भाषा"
         password: "पासवर्ड"
         password_confirmation: "पासवर्ड की पुष्टि"
+        current_password: "वर्तमान पासवर्ड"

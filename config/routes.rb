@@ -80,6 +80,8 @@ Rails.application.routes.draw do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
     get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
     patch "/:id/update", to: "users/circuitverse#update", as: "profile_update"
+    get '/:id/change_password', to: 'users/circuitverse#edit_password', as: :edit_password
+    patch "/:id/update_password", to: "users/circuitverse#update_password", as: "update_password"
     get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
     get "/:id/", to: "users/circuitverse#index", as: "user_projects"
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"

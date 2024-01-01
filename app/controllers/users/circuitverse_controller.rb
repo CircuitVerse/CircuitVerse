@@ -34,6 +34,23 @@ class Users::CircuitverseController < ApplicationController
     end
   end
 
+  def edit_password
+  end
+
+  def update_password
+    if @profile.valid_password?(params[:user][:current_password])
+      if @profile.update_with_password(password_params)
+        bypass_sign_in(@profile)
+        redirect_to user_projects_path(current_user), notice: 'Password updated successfully!'
+      else
+        render :edit_password
+      end
+    else
+      @profile.errors.add(:current_password, "is incorrect")
+      render :edit_password
+    end
+  end
+
   def groups
     @user = authorize @user
     @groups_owned = Group.where(id: Group.joins(:primary_mentor).where(primary_mentor: @user))
@@ -47,6 +64,10 @@ class Users::CircuitverseController < ApplicationController
     def profile_params
       params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
                                    :subscribed, :locale, :remove_picture, :avatar, :vuesim)
+    end
+
+    def password_params
+      params.require(:user).permit(:password, :password_confirmation, :current_password)
     end
 
     def set_user
