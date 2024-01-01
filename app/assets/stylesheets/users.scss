@@ -134,6 +134,9 @@
   margin-top: 20px;
   padding: 8px 25px;
 }
+.users-login-primary-button:disabled{
+  cursor: not-allowed;
+}
 .password-length {
   display: flex;
   flex-direction: row;
