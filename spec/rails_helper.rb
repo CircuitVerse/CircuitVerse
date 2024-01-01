@@ -43,7 +43,9 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :component
   config.include FactoryBot::Syntax::Methods
+  config.include Rails.application.routes.url_helpers
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
@@ -72,6 +74,10 @@ RSpec.configure do |config|
   config.include ActionDispatch::TestProcess
   config.include Warden::Test::Helpers
   config.include ViewComponent::TestHelpers, type: :component
+
+  config.before(:each, type: :component) do
+    @request = vc_test_controller.request
+  end
 end
 
 Shoulda::Matchers.configure do |config|
