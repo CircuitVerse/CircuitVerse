@@ -1,5 +1,7 @@
 :root {
   --shadow-color: rgba(0, 0, 0, .2);
+  --shadow-color1: rgba(0, 0, 0, .3);
+  --shadow-color2: rgba(0, 0, 0, .4);
 }
 
 .contribute-card {
@@ -11,6 +13,11 @@
   margin-top: 30px;
   padding-top: 20px;
   width: fit-content;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: var(--shadow-color2) 0px 2px 4px, var(--shadow-color1) 0px 7px 13px -3px, var(--shadow-color) 0px -3px 0px inset;
+  }
 }
 
 .contribute-card-image {
