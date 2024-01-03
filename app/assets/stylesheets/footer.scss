@@ -119,3 +119,8 @@
   content: '';
   width: 10px;
 }
+@media (max-width: 280px) {
+  .footer-container-fluid{
+    width: 100%;
+  }
+}
