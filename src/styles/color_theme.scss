@@ -1,126 +1,63 @@
-$baseDefault: #454545;
-$text-lite: #fff;
-$text-dark: #000;
-$borderDefault: #fff;
-
-$bg-navbar: #454545;
-$text-navbar--alt: black;
-$qp-br-tl: #333333;
-$qp-br-rd: #535353;
-$qp-box-shadow-1: #3b3b3b;
-$qp-box-shadow-2: #4f4f4f;
-
-$bg-tabs-grey: #8b8b8b;
-$bg-circuit: #bbbbbb;
-$br-circuit: #454545;
-$br-circuit-cur: white;
-$text-circuit: white;
-
-$bg-moz: hsla(0, 0%, 27%, 0.902);
-$bg-chr: hsla(0, 0%, 27%, 0.702);
-
-$bg-icons-grey: #7d7d7d;
-$text-panel: white;
-
-$bg-text-grey: #cacaca;
-$bg-secondary-grey: #bbbbbb;
-$br-secondary: #7d7d7d;
-
-$bg-toggle-btn-primary: #42b983;
-$bg-primary-btn-hov: #3ca877;
-$btn-danger-red: #dc5656;
-$btn-danger-red-dark: #b03662;
-
-$cus-btn-hover-bg: #ddd;
-$cus-btn-hover-text: #000;
-
-$context-text: white;
-$context-text-hov: black;
-
-$disable: #6c8b93;
-$cus-radio_label: #656565;
-
-$canvas-primary-grey: #eee;
-$canvas-secondary-white: white;
-$node: green;
-$node-norm: green;
-$stroke: black;
-$secondary-stroke: red;
-$fill: white;
-$input-text: green;
-$hover-and-sel: rgba(255, 255, 32, 0.8);
-$wire-draw: black;
-$wire-cnt: green;
-$wire-pow: Lime;
-$wire-sel: blue;
-$wire-lose: red;
-$wire-norm: black;
-$mini-map: green;
-$mini-map-stroke: darkgreen;
-$text: black;
-$splitter: black;
-$output-rect: blue;
-
 :root {
-    --primary: $baseDefault;
+    --primary: #454545;
 
-    --bg-navbar: $bg-navbar;
-    --text-navbar--alt: $text-navbar--alt;
-    --qp-br-tl: $qp-br-tl;
-    --qp-br-rd: $qp-br-rd;
+    --bg-navbar: #454545;
+    --text-navbar--alt: #000;
+    --qp-br-tl: #333;
+    --qp-br-rd: #535353;
 
-    --br-circuit: $br-circuit;
-    --br-circuit-cur: $br-circuit-cur;
-    --bg-tabs: $bg-tabs-grey;
-    --bg-circuit: $bg-circuit;
+    --br-circuit: #454545;
+    --br-circuit-cur: #fff;
+    --bg-tabs: #8b8b8b;
+    --bg-circuit: #bbb;
 
-    --text-lite: $text-lite;
-    --text-dark: $text-dark;
-    --text-panel: $text-panel;
-    --text-circuit: $text-circuit;
+    --text-lite: #fff;
+    --text-dark: #000;
+    --text-panel: #fff;
+    --text-circuit: #000;
 
-    --context-text: $context-text;
-    --context-text-hov: $context-text-hov;
+    --context-text: #fff;
+    --context-text-hov: #000;
 
-    --cus-radio_label: $cus-radio_label;
+    --cus-radio_label: #656565;
 
-    --br-secondary: $br-secondary;
+    --br-secondary: #7d7d7d;
 
-    --br-primary: $borderDefault;
-    --bg-primary-moz: $bg-moz;
-    --bg-primary-chr: $bg-chr;
-    --bg-icons: $bg-icons-grey;
-    --bg-text: $bg-text-grey;
-    --bg-secondary: $bg-secondary-grey;
-    --canvas-stroke: $canvas-primary-grey;
-    --canvas-fill: $canvas-secondary-white;
-    --bg-toggle-btn-primary: $bg-toggle-btn-primary;
-    --primary-btn-hov: $bg-primary-btn-hov;
-    --btn-danger: $btn-danger-red;
-    --btn-danger-darken: $btn-danger-red-dark;
-    --disable: $disable;
-    --qp-box-shadow-1: $qp-box-shadow-1;
-    --qp-box-shadow-2: $qp-box-shadow-2;
-    --cus-btn-hov--bg: $cus-btn-hover-bg;
-    --cus-btn-hov-text: $cus-btn-hover-text;
-    --node: $node;
-    --stroke: $stroke;
-    --fill: $fill;
-    --hover-and-sel: $hover-and-sel;
-    --wire-draw: $wire-draw;
-    --wire-cnt: $wire-cnt;
-    --wire-pow: $wire-pow;
-    --wire-sel: $wire-sel;
-    --wire-lose: $wire-lose;
-    --mini-map: $mini-map;
-    --mini-map-stroke: $mini-map-stroke;
-    --input-text: $input-text;
-    --secondary-stroke: $secondary-stroke;
-    --text: $text;
-    --wire-norm: $wire-norm;
-    --node-norm: $node-norm;
-    --splitter: $splitter;
-    --output-rect: $output-rect;
+    --br-primary: #fff;
+    --bg-primary-moz: hsla(0, 0%, 27%, 0.902);
+    --bg-primary-chr: hsla(0, 0%, 27%, 0.702);
+    --bg-icons: #7d7d7d;
+    --bg-text: #cacaca;
+    --bg-secondary: #bbb;
+    --canvas-stroke:#eee;
+    --canvas-fill: #fff;
+    --bg-toggle-btn-primary: #42b983;
+    --primary-btn-hov: #3ca877;
+    --btn-danger: #dc5656;
+    --btn-danger-darken: #b03662;
+    --disable: #6c8b93;
+    --qp-box-shadow-1: #3b3b3b;
+    --qp-box-shadow-2: #4f4f4f;
+    --cus-btn-hov--bg: #ddd;
+    --cus-btn-hov-text: #000;
+    --node: green;
+    --stroke: black;
+    --fill: white;
+    --hover-and-sel: rgba(255, 255, 32, 0.8);
+    --wire-draw: #000;
+    --wire-cnt: green;
+    --wire-pow: Lime;
+    --wire-sel: blue;
+    --wire-lose: red;
+    --mini-map: green;
+    --mini-map-stroke: darkgreen;
+    --input-text: green;
+    --secondary-stroke: red;
+    --text: black;
+    --wire-norm: black;
+    --node-norm: green;
+    --splitter: black;
+    --output-rect: blue;
 }
 
 ::-moz-selection {
@@ -562,12 +499,12 @@ select {
 }
 
 #bitconverterprompt input {
-    //border-bottom: 1px solid var(--br-primary);
+    /* border-bottom: 1px solid var(--br-primary); */
     color: var(--text-lite);
 }
 
 #bitconverterprompt input:focus {
-    //border-bottom: 1px solid var(--br-primary);
+    /* border-bottom: 1px solid var(--br-primary); */
 }
 
 #bitconverterprompt label {
