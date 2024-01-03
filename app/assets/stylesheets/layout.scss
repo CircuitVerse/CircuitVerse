@@ -46,14 +46,14 @@ body {
   p {
     overflow: hidden;
     text-overflow: ellipsis;
-  }
 
-  &:hover .tooltiptext {
-    left: 50%;
-    opacity: 1;
-    transform: translateX(-50%);
-    visibility: visible;
-    z-index: 101;
+    &:hover .tooltiptext {
+      left: 50%;
+      opacity: 1;
+      transform: translateX(-50%);
+      visibility: visible;
+      z-index: 101;
+    }
   }
 }
 
