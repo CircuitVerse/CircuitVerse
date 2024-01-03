@@ -61,6 +61,8 @@
     "popper.js": "^1.16.1",
     "sass": "^1.53.0",
     "stimulus": "^3.2.1",
+    "stylelint": "^15.11.0",
+    "stylelint-config-standard-scss": "^11.1.0",
     "trumbowyg": "^2.27.3",
     "turbolinks": "^5.2.0"
   },
