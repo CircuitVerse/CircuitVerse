@@ -4,6 +4,7 @@
   top: 0;
   width: 100%;
   z-index: 100;
+  border-bottom: 1px solid $border-color;
 }
 
 .navbar-logo {
@@ -232,5 +233,11 @@
   .navbar-logo {
     height: 60px;
     padding-top: 10px;
+  }
+}
+
+@media (max-width: 300px) {
+  .navbar {
+    padding: .5rem;
   }
 }

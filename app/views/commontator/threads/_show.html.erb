@@ -71,6 +71,10 @@
     </span>
   </div>
 
+  <% if thread.config.comment_order != :l %>
+    <%= render partial: 'commontator/threads/reply', locals: { thread: thread, user: user } %>
+  <% end %>
+
   <% if thread.config.comment_order == :l %>
     <%= render partial: 'commontator/threads/reply', locals: { thread: thread, user: user } %>
   <% end %>
@@ -100,9 +104,6 @@
     </div>
   </div>
 
-  <% if thread.config.comment_order != :l %>
-    <%= render partial: 'commontator/threads/reply', locals: { thread: thread, user: user } %>
-  <% end %>
 </div>
 <script>
   <%= render partial: 'commontator/threads/hide_show_links', locals: { thread: thread }, formats: :js %>
