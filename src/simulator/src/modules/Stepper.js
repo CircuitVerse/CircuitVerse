@@ -98,5 +98,5 @@ Stepper.prototype.tooltipText =
  * @category modules
  */
 Stepper.prototype.helplink =
-    'https://docs.circuitverse.org/#/inputElements?id=stepper'
+    'https://docs.circuitverse.org/#/chapter4/2input?id=stepper'
 Stepper.prototype.objectType = 'Stepper'

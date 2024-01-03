@@ -130,5 +130,5 @@ export default class Buffer extends CircuitElement {
 Buffer.prototype.tooltipText =
     'Buffer ToolTip : Isolate the input from the output.'
 Buffer.prototype.helplink =
-    'https://docs.circuitverse.org/#/miscellaneous?id=buffer'
+    'https://docs.circuitverse.org/#/chapter4/8misc?id=buffer'
 Buffer.prototype.objectType = 'Buffer'

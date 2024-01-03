@@ -464,7 +464,7 @@ SixteenSegDisplay.prototype.tooltipText =
  * @category modules
  */
 SixteenSegDisplay.prototype.helplink =
-    'https://docs.circuitverse.org/#/outputs?id=sixteen-segment-display'
+    'https://docs.circuitverse.org/#/chapter4/3output?id=sixteensegdisplay'
 SixteenSegDisplay.prototype.objectType = 'SixteenSegDisplay'
 SixteenSegDisplay.prototype.canShowInSubcircuit = true
 SixteenSegDisplay.prototype.layoutProperties = {

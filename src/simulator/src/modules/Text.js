@@ -181,7 +181,7 @@ Text.prototype.tooltipText = 'Text ToolTip: Use this to document your circuit.'
  * @category modules
  */
 Text.prototype.helplink =
-    'https://docs.circuitverse.org/#/annotation?id=adding-labels'
+    'https://docs.circuitverse.org/#/chapter4/7annotation?id=text'
 
 /**
  * @memberof Text

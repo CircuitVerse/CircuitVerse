@@ -108,6 +108,6 @@ export default class NotGate extends CircuitElement {
  */
 NotGate.prototype.tooltipText =
     'Not Gate Tooltip : Inverts the input digital signal.'
-NotGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=not-gate'
+NotGate.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/4gates?id=not-gate'
 NotGate.prototype.objectType = 'NotGate'
 NotGate.prototype.verilogType = 'not'

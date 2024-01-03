@@ -204,7 +204,7 @@ SquareRGBLed.prototype.tooltipText =
  * @category modules
  */
 SquareRGBLed.prototype.helplink =
-    'https://docs.circuitverse.org/#/outputs?id=square-rgb-led'
+    'https://docs.circuitverse.org/#/chapter4/3output?id=squarergbled'
 SquareRGBLed.prototype.objectType = 'SquareRGBLed'
 SquareRGBLed.prototype.canShowInSubcircuit = true
 SquareRGBLed.prototype.layoutProperties = {

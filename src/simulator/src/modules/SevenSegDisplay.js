@@ -296,7 +296,7 @@ SevenSegDisplay.prototype.tooltipText =
  * @category modules
  */
 SevenSegDisplay.prototype.helplink =
-    'https://docs.circuitverse.org/#/outputs?id=seven-segment-display'
+    'https://docs.circuitverse.org/#/chapter4/3output?id=sevensegdisplay'
 SevenSegDisplay.prototype.objectType = 'SevenSegDisplay'
 SevenSegDisplay.prototype.canShowInSubcircuit = true
 SevenSegDisplay.prototype.layoutProperties = {

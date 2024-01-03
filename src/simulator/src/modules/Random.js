@@ -159,7 +159,7 @@ export default class Random extends CircuitElement {
 Random.prototype.tooltipText = 'Random ToolTip : Random Selected.'
 
 Random.prototype.helplink =
-    'https://docs.circuitverse.org/#/inputElements?id=random'
+    'https://docs.circuitverse.org/#/chapter4/2input?id=random'
 
 Random.prototype.objectType = 'Random'
 

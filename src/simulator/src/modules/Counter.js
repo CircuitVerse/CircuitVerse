@@ -182,7 +182,7 @@ export default class Counter extends CircuitElement {
 Counter.prototype.tooltipText =
     'Counter: a binary counter from zero to a given maximum value'
 Counter.prototype.helplink =
-    'https://docs.circuitverse.org/#/inputElements?id=counter'
+    'https://docs.circuitverse.org/#/chapter4/2input?id=counter'
 Counter.prototype.objectType = 'Counter'
 Counter.prototype.objectType = 'Counter'
 Counter.prototype.canShowInSubcircuit = true

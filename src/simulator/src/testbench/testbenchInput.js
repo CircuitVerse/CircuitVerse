@@ -41,7 +41,7 @@ export default class TB_Input extends CircuitElement {
 
     /**
      * @memberof TB_Input
-     * Takes iput when double clicked. For help on generation of input refer to TB_Input.helplink
+     * Takes input when double clicked. For help on generation of input refer to TB_Input.helplink
      */
     dblclick() {
         this.testData = JSON.parse(prompt('Enter TestBench Json'))
@@ -328,7 +328,7 @@ TB_Input.prototype.tooltipText = 'Test Bench Input Selected'
  */
 TB_Input.prototype.centerElement = true
 
-TB_Input.prototype.helplink = 'https://docs.circuitverse.org/#/testbench'
+TB_Input.prototype.helplink = 'https://docs.circuitverse.org/#/chapter7/3testcircuits'
 
 TB_Input.prototype.mutableProperties = {
     identifier: {

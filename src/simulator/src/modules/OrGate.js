@@ -171,5 +171,5 @@ OrGate.prototype.alwaysResolve = true
  * @category modules
  */
 OrGate.prototype.verilogType = 'or'
-OrGate.prototype.helplink = 'https://docs.circuitverse.org/#/gates?id=or-gate'
+OrGate.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/4gates?id=or-gate'
 OrGate.prototype.objectType = 'OrGate'

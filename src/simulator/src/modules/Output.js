@@ -208,7 +208,7 @@ Output.prototype.tooltipText =
  * @type {string}
  * @category modules
  */
-Output.prototype.helplink = 'https://docs.circuitverse.org/#/outputs?id=output'
+Output.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/3output?id=output'
 
 /**
  * @memberof Output

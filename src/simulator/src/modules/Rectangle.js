@@ -131,7 +131,7 @@ export default class Rectangle extends CircuitElement {
 Rectangle.prototype.tooltipText =
     'Rectangle ToolTip : Used to Box the Circuit or area you want to highlight.'
 Rectangle.prototype.helplink =
-    'https://docs.circuitverse.org/#/annotation?id=rectangle'
+    'https://docs.circuitverse.org/#/chapter4/7annotation?id=rectangle'
 Rectangle.prototype.propagationDelayFixed = true
 
 /**

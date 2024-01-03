@@ -174,6 +174,6 @@ TflipFlop.prototype.tooltipText =
     'T FlipFlop ToolTip :  Changes state / Toggles whenever the clock input is strobed.'
 
 TflipFlop.prototype.helplink =
-    'https://docs.circuitverse.org/#/Sequential?id=t-flip-flop'
+    'https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=t-flip-flop'
 
 TflipFlop.prototype.objectType = 'TflipFlop'

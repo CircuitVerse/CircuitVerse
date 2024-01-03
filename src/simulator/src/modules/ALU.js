@@ -196,5 +196,5 @@ ALU.prototype.tooltipText =
  * @type {string}
  * @category modules
  */
-ALU.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=alu'
+ALU.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/8misc?id=alu'
 ALU.prototype.objectType = 'ALU'

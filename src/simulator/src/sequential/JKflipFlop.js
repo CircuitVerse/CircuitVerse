@@ -161,6 +161,6 @@ JKflipFlop.prototype.tooltipText =
     'JK FlipFlop ToolTip : gated SR flip-flop with the addition of a clock input.'
 
 JKflipFlop.prototype.helplink =
-    'https://docs.circuitverse.org/#/Sequential?id=jk-flip-flop'
+    'https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=jk-flip-flop'
 
 JKflipFlop.prototype.objectType = 'JKflipFlop'
