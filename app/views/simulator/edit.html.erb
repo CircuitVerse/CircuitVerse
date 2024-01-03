@@ -820,11 +820,8 @@
 </div>
 <script>
 function toggleCaret() {
-    console.log("clicking");
-
     var tabsBar = document.querySelector('#tabsBar');
     var tabsCaret = document.querySelector('#tabsCaret');
-
     if (tabsCaret.hasClass('fa-solid') && tabsCaret.hasClass('fa-square-caret-down')) {
         tabsCaret.removeClass('fa-solid fa-square-caret-down');
         tabsCaret.addClass('fa-solid fa-square-caret-up');
