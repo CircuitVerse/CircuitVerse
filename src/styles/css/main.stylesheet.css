@@ -208,7 +208,6 @@ input[type='text']:focus {
     display: inline-block;
     max-width: 11rem;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
     text-align: right;
 }
