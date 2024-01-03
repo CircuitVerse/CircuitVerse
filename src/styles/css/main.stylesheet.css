@@ -230,6 +230,7 @@ input[type='text']:focus {
 
 .signIn-btn:hover {
     color: var(--text-primary);
+    text-decoration: none;
 }
 
 .logo {

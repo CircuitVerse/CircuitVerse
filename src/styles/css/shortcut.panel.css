@@ -101,9 +101,9 @@
     padding-right: 7px;
 }
 
-#preference div:not('#edit-icon') > span {
+/* #preference div:not('#edit-icon') > span {
     padding: 0 30px;
-}
+} */
 
 #preference > div:hover {
     background-color: #7474743f;
@@ -114,7 +114,7 @@
 }
 
 #edit-icon {
-    background: url(../img/edit_icon.png) no-repeat;
+    background: url(../../assets/img/edit_icon.png) no-repeat;
     background-size: 15px 15px;
     display: inline-block;
     visibility: hidden;
