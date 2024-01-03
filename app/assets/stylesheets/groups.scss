@@ -280,6 +280,20 @@
   text-align: left;
 }
 
+/* Add responsiveness for smaller screens */
+@media (max-width: 768px) {
+  .group-invite-link-text {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .group-invite-link-text {
+    font-size: 8px;
+  }
+}
+
+
 //breakpoints
 @media (max-width: 1200px) {
   .groups-members-scroll-row {
