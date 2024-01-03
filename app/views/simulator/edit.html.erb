@@ -822,23 +822,19 @@
 function toggleCaret() {
     console.log("clicking");
 
-    var tabsBar = $('#tabsBar');
-    var tabsCaret = $('#tabsCaret');
+    var tabsBar = document.querySelector('#tabsBar');
+    var tabsCaret = document.querySelector('#tabsCaret');
 
     if (tabsCaret.hasClass('fa-solid') && tabsCaret.hasClass('fa-square-caret-down')) {
         tabsCaret.removeClass('fa-solid fa-square-caret-down');
         tabsCaret.addClass('fa-solid fa-square-caret-up');
-        tabsBar.css({
-            'height': '27px',
-            'overflow': 'hidden'
-        });
+        tabsBar.style.height= '27px';
+        tabsBar.style.overflow= 'hidden'; 
     } else if (tabsCaret.hasClass('fa-solid') && tabsCaret.hasClass('fa-square-caret-up')) {
         tabsCaret.removeClass('fa-solid fa-square-caret-up');
         tabsCaret.addClass('fa-solid fa-square-caret-down');
-        tabsBar.css({
-            'height': 'auto',
-            'overflow': 'visible'
-        });
+        tabsBar.style.height= 'auto';
+        tabsBar.style.overflow= 'visible';
     }
 }
 </script>
