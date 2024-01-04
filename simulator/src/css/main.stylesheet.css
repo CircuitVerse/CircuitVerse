@@ -37,6 +37,7 @@ html {
     padding: 0;
     overflow: hidden;
     position: fixed;
+    -webkit-user-select: none;
 }
 
 button:focus {
