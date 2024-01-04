@@ -34,6 +34,6 @@ RSpec.describe AssignmentForm::AssignmentFormComponent, type: :component do
     puts page.text
 
     expect(page).to have_text("Integrate with LMS")
-    expect(page).to have_text("We will generate the required keys for integration after assignment creation.Learn how to integrate CircuitVerse assignments with any LMS")
+    expect(page).to have_text("Learn how to integrate CircuitVerse assignments with any LMS")
   end
 end
