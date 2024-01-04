@@ -6,18 +6,16 @@
         <% if policy(@group).admin_access? && @assignment.lti_integrated? %>
           <br>
           <a data-toggle="modal" href="#lmscredentialsModal-<%= @assignment.id %>">Show LMS Credentials</a>
-          <%= render partial: "lms_credentials_modal", locals: { assignment: @assignment } %>
+          <%= render(LmsCredentialsModal::LmsCredentialsModalComponent.new(@assignment, @lms_integration_tutorial)) %>
         <% end %>
       <% end %>
     </div>
   </td>
   <td>
-    <div class="groups-assignment-deadline groups-assignment-date"
-    data-year=<%= @deadline_year %>
-    data-month=<%= @deadline_month %> data-day=<%= @deadline_day %>
-    data-hour=<%= @deadline_hour %> data-minute=<%= @deadline_minute %>
-    data-second=<%= @deadline_second %>
-    >
+    <div class="groups-assignment-deadline groups-assignment-date" data-year=<%= @deadline_year %>
+      data-month=<%= @deadline_month %> data-day=<%= @deadline_day %>
+      data-hour=<%= @deadline_hour %> data-minute=<%= @deadline_minute %>
+      data-second=<%= @deadline_second %>>
       <%= @assignment.deadline %>
     </div>
     <% if(@assignment.deadline > Time.current) %>

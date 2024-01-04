@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module TableRow
-  class TableRowComponent < ViewComponent::Base
+module AssignmentCard
+  class AssignmentCardComponent < ViewComponent::Base
     include Pundit::Authorization
     include Devise::Controllers::Helpers
 
