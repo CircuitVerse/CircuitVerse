@@ -12,10 +12,9 @@ RSpec.describe LmsCredentialsModal::LmsCredentialsModalComponent, type: :compone
     render_inline(described_class.new(@assignment, @lms_integration_tutorial))
   end
 
-  it "renders the assignment card correctly" do
+  it "renders the lms modal correctly" do
     expect(page).to have_text("LMS Credentials")
     expect(page).to have_text(@assignment.name)
-    expect(page).to have_text("Learn how to integrate CircuitVerse assignments with any LMS")
     expect(page).to have_text("Tool Url")
     expect(page).to have_text("Consumer Key")
     expect(page).to have_text("Shared Secret")

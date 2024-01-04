@@ -13,10 +13,10 @@
   </td>
   <td>
     <div class="groups-assignment-deadline groups-assignment-date" data-year=<%= @deadline_year %>
-      data-month=<%= @deadline_month %> data-day=<%= @deadline_day %>
-      data-hour=<%= @deadline_hour %> data-minute=<%= @deadline_minute %>
-      data-second=<%= @deadline_second %>>
-      <%= @assignment.deadline %>
+     data-month=<%= @deadline_month %> data-day=<%= @deadline_day %>
+     data-hour=<%= @deadline_hour %> data-minute=<%= @deadline_minute %>
+     data-second=<%= @deadline_second %>>
+     <%= @assignment.deadline %>
     </div>
     <% if(@assignment.deadline > Time.current) %>
       <p>

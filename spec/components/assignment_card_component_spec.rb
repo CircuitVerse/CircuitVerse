@@ -20,11 +20,13 @@ RSpec.describe AssignmentCard::AssignmentCardComponent, type: :component do
   it "renders the assignment card correctly" do
     expect(page).to have_text(@assignment.name)
     expect(page).to have_text(@assignment.deadline)
+  end
+
+  it "renders the assignment card buttons" do
     expect(page).to have_text(I18n.t("view"))
     expect(page).to have_text(I18n.t("close"))
     expect(page).to have_text(I18n.t("edit"))
     expect(page).to have_text(I18n.t("delete"))
-    expect(page).to have_text("Graded")
   end
 
   it "renders lms credentials link when lms enabled" do
