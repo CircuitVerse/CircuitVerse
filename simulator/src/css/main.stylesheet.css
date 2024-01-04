@@ -2292,6 +2292,7 @@ canvas {
         height: 300px;
         margin: auto;
         box-shadow: rgba(155, 160, 165, 0.2) 0px 8px 24px;
+        padding-top:10px;
     }
     .ce-name {
         height: 0%;
