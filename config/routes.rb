@@ -13,6 +13,10 @@ Rails.application.routes.draw do
     mount MaintenanceTasks::Engine => "/maintenance_tasks"
   end
 
+  if Rails.env.development?
+    mount Lookbook::Engine, at: "/lookbook"
+  end
+
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end

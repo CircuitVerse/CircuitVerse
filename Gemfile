@@ -162,6 +162,7 @@ group :development do
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
+  gem "lookbook", ">= 2.2.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
