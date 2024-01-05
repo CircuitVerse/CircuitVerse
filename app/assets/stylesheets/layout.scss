@@ -99,20 +99,32 @@ body {
   }
 }
 
-//anchor
-.learn-button{
-  border: 2px solid #026e57;
-  padding: 5px;
-  margin-left: 2.5px;
+@media (max-width: 400px) {
+  .anchor-text-button{
+    width: 100%;
+    max-width: inherit;
+  }
 }
+
+//anchor
+.anchor-text-button{
+  border: 1.6px solid #42b983;
+  font-size: 0.9rem;
+  padding-top: 6px;
+  padding-bottom: 8px;
+  border-radius: 5px;
+  background: none;
+  box-sizing: border-box;
+}
+
 .anchor-text {
   color: $secondary-green;
   font-weight: 500;
-  text-decoration: underline;
   text-decoration: none;
 
   &:hover {
     color: $primary-green;
+    text-decoration: none;
   }
 }
 .anchor-text-left {
