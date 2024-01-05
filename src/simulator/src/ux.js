@@ -22,7 +22,6 @@ import { setProjectName, getProjectName } from './data/save'
 import { changeScale } from './canvasApi'
 import { generateImage, generateSaveData } from './data/save'
 import { setupVerilogExportCodeWindow } from './verilog'
-import { setupBitConvertor } from './utils'
 import { updateTestbenchUI, setupTestbenchUI } from './testbench'
 import { applyVerilogTheme } from './Verilog2CV'
 import { dragging } from './drag'
@@ -184,7 +183,6 @@ export function setupUI() {
     // $('#moduleProperty').draggable();
     setupPanels()
     // setupVerilogExportCodeWindow()
-    setupBitConvertor()
 }
 
 /**
@@ -630,63 +628,6 @@ export function deleteSelected() {
     scheduleUpdate()
     updateRestrictedElementsInScope()
 }
-
-/**
- * listener for opening the prompt for bin conversion
- * @category ux
- */
-$('#bitconverter').on('click', () => {
-    console.log('something clicked')
-    $('#bitconverterprompt').dialog({
-        resizable: false,
-        buttons: [
-            {
-                text: 'Reset',
-                click() {
-                    $('#decimalInput').val('0')
-                    $('#binaryInput').val('0')
-                    $('#octalInput').val('0')
-                    $('#hexInput').val('0')
-                },
-            },
-        ],
-    })
-})
-
-// convertors
-const convertors = {
-    dec2bin: (x) => `0b${x.toString(2)}`,
-    dec2hex: (x) => `0x${x.toString(16)}`,
-    dec2octal: (x) => `0${x.toString(8)}`,
-}
-
-function setBaseValues(x) {
-    if (isNaN(x)) return
-    $('#binaryInput').val(convertors.dec2bin(x))
-    $('#octalInput').val(convertors.dec2octal(x))
-    $('#hexInput').val(convertors.dec2hex(x))
-    $('#decimalInput').val(x)
-}
-
-$('#decimalInput').on('keyup', () => {
-    var x = parseInt($('#decimalInput').val(), 10)
-    setBaseValues(x)
-})
-
-$('#binaryInput').on('keyup', () => {
-    var x = parseInt($('#binaryInput').val(), 2)
-    setBaseValues(x)
-})
-
-$('#hexInput').on('keyup', () => {
-    var x = parseInt($('#hexInput').val(), 16)
-    setBaseValues(x)
-})
-
-$('#octalInput').on('keyup', () => {
-    var x = parseInt($('#octalInput').val(), 8)
-    setBaseValues(x)
-})
 
 export function setupPanels() {
     // $('#dragQPanel')

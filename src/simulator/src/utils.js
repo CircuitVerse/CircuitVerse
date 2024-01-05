@@ -216,20 +216,8 @@ export function truncateString(str, num) {
 }
 
 export function bitConverterDialog() {
-    console.log('Open dialog box')
-    const simulatorStore = SimulatorStore()
-    simulatorStore.dialogBox.hex_bin_dec_converter_dialog = true
-    console.log(simulatorStore.dialogBox.hex_bin_dec_converter_dialog)
-    // $('#bitconverterprompt').dialog({
-    //     buttons: [
-    //         {
-    //             text: 'Reset',
-    //             click: function () {
-    //                 setBaseValues(0)
-    //             },
-    //         },
-    //     ],
-    // })
+    const simulatorStore = SimulatorStore();
+    simulatorStore.dialogBox.hex_bin_dec_converter_dialog = true;
 }
 
 export function getImageDimensions(file) {
@@ -250,15 +238,6 @@ export var convertors = {
     dec2bcd: (x) => parseInt(x.toString(10), 16).toString(2),
 }
 
-export function setBaseValues(x) {
-    if (isNaN(x)) return
-    $('#binaryInput').val(convertors.dec2bin(x))
-    $('#bcdInput').val(convertors.dec2bcd(x))
-    $('#octalInput').val(convertors.dec2octal(x))
-    $('#hexInput').val(convertors.dec2hex(x))
-    $('#decimalInput').val(x)
-}
-
 export function parseNumber(num) {
     if (num instanceof Number) return num
     if (num.slice(0, 2).toLocaleLowerCase() == '0b')
@@ -267,50 +246,6 @@ export function parseNumber(num) {
         return parseInt(num.slice(2), 16)
     if (num.slice(0, 1).toLocaleLowerCase() == '0') return parseInt(num, 8)
     return parseInt(num)
-}
-
-export function setupBitConvertor() {
-    console.log('check bit convertor')
-    $('#decimalInput').on('keyup', function () {
-        var x = parseInt($('#decimalInput').val(), 10)
-        setBaseValues(x)
-    })
-
-    $('#binaryInput').on('keyup', function () {
-        var inp = $('#binaryInput').val()
-        var x
-        if (inp.slice(0, 2) == '0b') x = parseInt(inp.slice(2), 2)
-        else x = parseInt(inp, 2)
-        setBaseValues(x)
-    })
-    $('#bcdInput').on('keyup', function () {
-        var input = $('#bcdInput').val()
-        var num = 0
-        while (input.length % 4 !== 0) {
-            input = '0' + input
-        }
-        if (input !== 0) {
-            var i = 0
-            while (i < input.length / 4) {
-                if (parseInt(input.slice(4 * i, 4 * (i + 1)), 2) < 10)
-                    num =
-                        num * 10 + parseInt(input.slice(4 * i, 4 * (i + 1)), 2)
-                else return setBaseValues(NaN)
-                i++
-            }
-        }
-        return setBaseValues(x)
-    })
-
-    $('#hexInput').on('keyup', function () {
-        var x = parseInt($('#hexInput').val(), 16)
-        setBaseValues(x)
-    })
-
-    $('#octalInput').on('keyup', function () {
-        var x = parseInt($('#octalInput').val(), 8)
-        setBaseValues(x)
-    })
 }
 
 export function promptFile(contentType, multiple) {
