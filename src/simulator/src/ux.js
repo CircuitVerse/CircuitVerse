@@ -249,35 +249,23 @@ export function objectPropertyAttributeCheckedUpdate() {
 }
 
 export function checkPropertiesUpdate(value = 0) {
-    // console.log('update check')
-
+    $('.objectPropertyAttribute').off(
+        'change keyup paste click',
+        objectPropertyAttributeUpdate
+    )
     $('.objectPropertyAttribute').on(
         'change keyup paste click',
         objectPropertyAttributeUpdate
     )
 
+    $('.objectPropertyAttributeChecked').off(
+        'change keyup paste click',
+        objectPropertyAttributeCheckedUpdate
+    )
     $('.objectPropertyAttributeChecked').on(
         'change keyup paste click',
         objectPropertyAttributeCheckedUpdate
     )
-
-    //Duplicate of above (Handled above)
-    // $('.objectPropertyAttributeChecked').on('click', function () {
-    //     if (this.name !== 'toggleLabelInLayoutMode') return // Hack to prevent toggleLabelInLayoutMode from toggling twice
-    //     scheduleUpdate()
-    //     updateCanvasSet(true)
-    //     wireToBeCheckedSet(1)
-    //     if (
-    //         simulationArea.lastSelected &&
-    //         simulationArea.lastSelected[this.name]
-    //     ) {
-    //         simulationArea.lastSelected[this.name](this.value)
-    //         // Commented out due to property menu refresh bug
-    //         // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
-    //     } else {
-    //         circuitProperty[this.name](this.checked)
-    //     }
-    // })
 }
 
 /**
