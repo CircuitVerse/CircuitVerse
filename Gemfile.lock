@@ -841,7 +841,7 @@ GEM
     unf_ext (0.0.8.2-x64-mingw32)
     unicode-display_width (2.5.0)
     version_gem (1.1.1)
-    view_component (3.6.0)
+    view_component (3.9.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
       method_source (~> 1.0)
@@ -1019,4 +1019,4 @@ DEPENDENCIES
   will_paginate-bootstrap
 
 BUNDLED WITH
-   2.4.14
+   2.4.19
