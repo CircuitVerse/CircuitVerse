@@ -262,11 +262,18 @@ input[type="text"]:focus {
     display: block;
 }
 
+.quick-btn-save-online:hover{
+ filter:brightness(300%);
+}
+
 .quick-btn-save {
     background: url(./assets/shorcuts/save.svg) center/cover;
     width: 15.2px;
     height: 15.2px;
     display: block;
+}
+.quick-btn-save:hover{
+    filter:brightness(300%);
 }
 
 .quick-btn-delete {
@@ -275,12 +282,18 @@ input[type="text"]:focus {
     height: 15.2px;
     display: block;
 }
+.quick-btn-delete:hover{
+    filter:brightness(300%);
+}
 
 .quick-btn-download {
     background: url(./assets/shorcuts/download.svg) center/cover;
     width: 15.2px;
     height: 15.2px;
     display: block;
+}
+.quick-btn-download:hover{
+    filter:brightness(300%);
 }
 
 .quick-btn-zoom-fit {
@@ -289,12 +302,18 @@ input[type="text"]:focus {
     height: 15.2px;
     display: block;
 }
+.quick-btn-zoom-fit:hover{
+    filter:brightness(300%);
+}
 
 .quick-btn-undo {
     background: url(./assets/shorcuts/undo.svg) center/cover;
     width: 15.2px;
     height: 16.2px;
     display: block;
+}
+.quick-btn-undo:hover{
+    filter:brightness(300%);
 }
 
 .quick-btn-redo {
@@ -303,9 +322,15 @@ input[type="text"]:focus {
     height: 16.2px;
     display: block;
 }
+.quick-btn-redo:hover{
+    filter:brightness(300%);
+}
 
 .quick-btn-view {
     color: white;
+}
+.quick-btn-view:hover{
+    filter:brightness(300%);
 }
 /* dropdown-menu styles */
 
@@ -1611,10 +1636,28 @@ input:checked + .slider:before {
 .zoom-slider-increment {
     position: relative;
     bottom: 0.3rem;
+    
 }
+
+.zoom-slider-increment:hover{  
+    filter:brightness(300%);
+}
+.zoom-slider-increment:active{
+    /* transform:translateY(2px); */
+    transform: scale(1.2);
+}
+
 .zoom-slider-decrement {
     position: relative;
     bottom: 0.4rem;
+}
+/* adding hover effect on - button and */
+.zoom-slider-decrement:hover{ 
+    filter:brightness(300%);
+}
+.zoom-slider-decrement:active{
+    /* transform:translateY(2px); */
+    transform: scale(0.5);
 }
 
 .custom-range {
