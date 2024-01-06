@@ -8,7 +8,7 @@
         :is-persistent="true"
         :table-header="tableHeader"
         :table-body="tableBody"
-        message-text="BooleanLogicTable"
+        message-text="Boolean Logic Table"
         @button-click="
             (selectedOption, circuitItem, circuitNameVal) =>
                 dialogBoxConformation(selectedOption)
@@ -690,9 +690,15 @@ function generateCircuit() {
 function printBooleanTable() {
     console.log($('.messageBox .v-card-text')[0])
     var sTable = $('.messageBox .v-card-text')[0].innerHTML
+    console.log('This is the table')
     console.log(sTable)
+
     var style =
-        '<style> table {font: 20px Calibri;} table, th, td {border: solid 1px #DDD;border-collapse: collapse;} padding: 2px 3px;text-align: center;} </style>'
+        `<style>
+        table {font: 40px Calibri;}
+        table, th, td {border: solid 1px #DDD;border-collapse: 0;}
+        tbody {padding: 2px 3px;text-align: center;} 
+        </style>`.replace(/\n/g, "")
     var win = window.open('', '', 'height=700,width=700')
     var htmlBody = `
                        <html><head>\
