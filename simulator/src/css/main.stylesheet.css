@@ -205,6 +205,8 @@ input[type="text"]:focus {
     overflow: hidden;
     text-overflow: ellipsis;
     text-align: right;
+    line-height: 20px;
+    padding: 2px 8px;
 }
 
 @media (max-width: 991px) {
