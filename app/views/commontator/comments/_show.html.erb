@@ -108,7 +108,7 @@
                                 id: comment.id } %>
   </div>
 </div>
-<%= render (DeleteCommentConfirmationModalComponent.new) %>
+<%= render (CommentComponents::DeleteCommentConfirmationModelComponent.new) %>
 <script>
   $(document).ready(function() {
     $("#deletecommentModal").on("show.bs.modal", function(e) {
