@@ -31,13 +31,11 @@
         </div>
         <div class="field form-group">
         <div class="input-group form-input">
-          <%= f.password_field :password, autocomplete: "off", placeholder: t('enter_password') , class: "form-control users-password-input" %>
+          <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
           <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
             <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
           </div>
         </div>
-      </div>
-        <div class="field form-group">
           <div class="field form-group">
             <div class="input-group">
               <% if Flipper.enabled?(:recaptcha) %>
@@ -54,7 +52,6 @@
             </div>
           </div>
           <%= render "users/shared/links" %>
-        </div>
         <% end %>
       </div>
     </div>
