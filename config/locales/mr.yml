@@ -31,11 +31,8 @@ mr:
   enter_password: "पासवर्ड टाप्रविष्ट करा"
   enter_name: "नाव प्रविष्ट करा"
   google: "गुगल"
-  continue_with_google: "गुगल सह सुरू ठेवा"
   facebook: "फेसबुक"
-  continue_with_facebook: "फेसबुक सह सुरू ठेवा"
   github: "गिथुब"
-  continue_with_github: "गिथुब सह सुरू ठेवा"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

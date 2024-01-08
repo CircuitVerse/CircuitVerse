@@ -31,11 +31,8 @@ en:
   enter_password: "Password"
   enter_name: "Name"
   google: "Google"
-  continue_with_google: "Continue with Google"
   facebook: "Facebook"
-  continue_with_facebook: "Continue with Facebook"
   github: "Github"
-  continue_with_github: "Continue with Github"
 # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
