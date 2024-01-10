@@ -10,7 +10,6 @@
 .actions {
   display: block;
   margin-top: 10px;
-  min-width: 150px;
   text-align: right;
 }
 
@@ -18,7 +17,7 @@
   background-color: $card-green;
   margin-top: 15px;
   padding: 10px 20px;
-
+  overflow-wrap: break-word;
   .body {
     margin-bottom: 16px;
 
