@@ -134,6 +134,10 @@
   margin-top: 20px;
   padding: 8px 25px;
 }
+.password-length {
+  display: flex;
+  flex-direction: row;
+}
 //login-register ends
 
 //user edit
@@ -270,8 +274,10 @@
   display: block;
   font-size: 18px;
   font-weight: 600;
+  margin: auto;
   padding-bottom: 0;
   position: relative;
+  width: fit-content;
 
   p {
     margin-bottom: 0;
@@ -314,10 +320,11 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 
   input {
     border: 0;
-    border-left: 1px solid $form-border-grey;
+    border: 1px solid $primary-green;
     border-radius: 0;
     font-size: 16px;
     margin: 0;
@@ -330,16 +337,26 @@
     }
   }
 }
+
+.users-circuits-navbar-buttons {
+  align-items: center;
+  column-gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
 .search-icon-dashboard {
   margin-bottom: -60px;
   margin-left: 7px;
 }
+
 .users-circuits-search {
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   padding-top: 20px;
+  width: 100%;
 }
 
 .fa.fa-search.user-circuits-search-icon {
@@ -351,12 +368,11 @@
 
 .users-circuits-tab {
   background-color: $form-border-grey;
-  border-radius: 0;
+  border-radius: 5px;
   color: $black;
   font-size: 18px;
-  padding: 7px 25px;
-  margin: 0;
   margin-top: 20px;
+  padding: 7px 20px;
 
   &:hover {
     color: $black;
@@ -397,6 +413,20 @@
   .users-circuits-tab {
     font-size: 16px;
     padding: 4px 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .users-circuits-navbar {
+    flex-direction: column;
+
+    input {
+      border: 1px solid $form-border-grey;
+    }
+  }
+
+  .users-circuits-search-container {
+    width: 100%;
   }
 }
 
@@ -450,6 +480,13 @@
   }
 }
 
+@media (max-width: 768px) {
+  .dropdown-notification {
+    max-width: 450px;
+    width: auto;
+  }
+}
+
 // notification page
 .notification-icon {
   font-size: 20px;
@@ -469,7 +506,7 @@
 }
 
 .notification-container {
-  width: 558px;
+  max-width: 558px;
 }
 .notification-heading {
   font-size: 30px;
@@ -531,7 +568,7 @@
 .notification {
   border-radius: 4px;
   box-shadow: 0 1px 4px rgba(63, 63, 68, .15), 0 0 1px rgba(0, 0, 0, .5);
-  height: 78px;
+  height: auto;
   padding: 14px 24px;
   position: relative;
 }

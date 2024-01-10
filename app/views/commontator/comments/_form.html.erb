@@ -28,17 +28,17 @@
 
   <% unless comment.parent.nil? %>
     <div class="replying">
-      <%= t('commontator.comment.status.replying',
+      <%= t("commontator.comment.status.replying",
             creator_name: Commontator.commontator_name(comment.parent.creator)) %>
     </div>
   <% end %>
 
-  <div class="field comments-field">
+  <div class="comments-field">
     <%=
-      form.text_area :body, rows: '1', id: new_record ?
+      form.text_area :body, rows: '4', id: new_record ?
         comment.parent.nil? ? "commontator-thread-#{@commontator_thread.id}-new-comment-body" :
                               "commontator-comment-#{comment.parent.id}-reply" :
-        "commontator-comment-#{comment.id}-edit-body"
+        "commontator-comment-#{comment.id}-edit-body",class:"form-control"
     %>
   </div>
 

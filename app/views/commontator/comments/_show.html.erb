@@ -70,11 +70,8 @@
         <% is_deleted = comment.is_deleted? %>
         <% del_string = is_deleted ? 'undelete' : 'delete' %>
         <% unless is_deleted %>
-          <%= link_to commontator.polymorphic_path([del_string.to_sym, comment]),
-                      data: is_deleted ? {} : { confirm: t('commontator.comment.actions.confirm_delete') },
-                      method: :put,
-                      id: "commontator-comment-#{comment.id}-#{del_string}",
-                      remote: true,
+          <%= link_to '#',
+                      data: is_deleted ? {} : { toggle: "modal", target: "#deletecommentModal", href: commontator.polymorphic_path([del_string.to_sym, comment]) },
                       class: "del_string btn delete-action" do %>
             <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
           <% end %>
@@ -86,7 +83,6 @@
     </div>
   </div>
 </div>
-
 
 <div id="commontator-comment-<%= comment.id %>-children" class="children">
   <% if thread.config.comment_order == :l %>
@@ -112,3 +108,13 @@
                                 id: comment.id } %>
   </div>
 </div>
+<%= render partial: 'commontator/comments/delete_comment_confirmation_modal' %>
+<script>
+  $(document).ready(function() {
+    $("#deletecommentModal").on("show.bs.modal", function(e) {
+        let href = $(e.relatedTarget).data('href');
+        $(e.currentTarget).find('#projects-comment-delete-button').attr("href",
+        href.toString());
+    });
+  });
+</script>

@@ -9,7 +9,7 @@ plugins:
     channel: "eslint-7"
     exclude_patterns:
       - "!public/js/"
-  scss-lint:
+  stylelint:
     enabled: true
 
   duplication:
@@ -38,6 +38,7 @@ exclude_paths:
 - tmp/
 - apidoc/v1/javascripts/
 - docs/source/javascripts/
+- app/tasks/maintenance/
 
 checks:
   method-lines:

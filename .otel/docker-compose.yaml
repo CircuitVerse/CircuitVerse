@@ -1,0 +1,23 @@
+version: "3"
+services:
+
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    environment:
+      - COLLECTOR_ZIPKIN_HOST_PORT=:9411
+      - COLLECTOR_OTLP_ENABLED=true
+    ports:
+      - "16686:16686"
+      - "14268"
+      - "14250"
+
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib
+    command: ["--config=/etc/otel-config.yaml", "${OTELCOL_ARGS}"]
+    volumes:
+      - ./otel-config.yaml:/etc/otel-config.yaml
+    ports:
+      - "4318:4318"
+      - "13133:13133"   # health check
+    depends_on:
+      - jaeger-all-in-one

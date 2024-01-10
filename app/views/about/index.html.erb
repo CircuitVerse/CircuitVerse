@@ -42,7 +42,7 @@
         <% @cores.each do |member| %>
         <div class="team-member-container team-link ">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], :class => "about-contributor-image" %><p class="team-footer "><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image" %><p class="team-footer "><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>
@@ -62,7 +62,7 @@
         <% @mentors.each do |member| %>
         <div class="team-member-container team-link">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], :class => "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>
@@ -82,7 +82,7 @@
         <% @alumni.each do |member| %>
         <div class="team-member-container team-link">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], :class => "about-contributor-image " %><p class="team-footer underline"><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image " %><p class="team-footer underline"><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>

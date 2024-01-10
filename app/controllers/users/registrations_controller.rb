@@ -7,14 +7,35 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  def new
+    if Flipper.enabled?(:block_registration)
+      redirect_to new_user_session_path, alert: "Registration is currently blocked"
+    else
+      super
+    end
+  end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    if Flipper.enabled?(:block_registration)
+      redirect_to new_user_session_path, alert: "Registration is currently blocked"
+    end
+
+    super do |user|
+      if user.persisted?
+        # Generate JWT token
+        token = JsonWebToken.encode(user_id: user.id, username: user.name, email: user.email, remember_me: false)
+
+        # Set JWT token as cookie
+        cookies[:cvt] = {
+          value: token,
+          # httponly: true,
+          secure: Rails.env.production?,
+          same_site: :strict
+        }
+      end
+    end
+  end
 
   # GET /resource/edit
   # def edit
