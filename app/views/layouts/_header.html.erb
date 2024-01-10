@@ -71,18 +71,13 @@
   document.addEventListener("DOMContentLoaded", function () {
     var gettingStartedLink = document.querySelector("#getting-started-dropdown");
     gettingStartedLink.addEventListener("click", function () {
-      if (gettingStartedLink.classList.contains("rotate180")) {
-        gettingStartedLink.classList.remove("rotate180");
-      }
-      else{
-        gettingStartedLink.classList.toggle("rotate180");
-      }
+      gettingStartedLink.classList.toggle("rotate180");
     });
-   document.addEventListener("click", function () {
+    document.addEventListener("click", function () {
      if (gettingStartedLink.classList.contains("rotate180")) {
        gettingStartedLink.classList.remove("rotate180");
      }
-   });
+    });
   });
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
