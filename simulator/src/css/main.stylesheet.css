@@ -598,15 +598,23 @@ div.icon img {
 /*! ce-panel styling  ends */
 
 /** tab bar styling starts */
-
 #tabsBar {
+    position: relative; 
     top: 0px;
     width: 100%;
-    /* height: 23.5px; */
     display: block;
+    /* height: 27px; */
     align-items: center;
+    /* overflow:hidden; */
     z-index: 100;
 }
+
+#tabsBar button#tabsToggleButton {
+    position: absolute; /* Added position:absolute */
+    right: 0; /* Align to the right */
+    top: 0; /* Align to the top */
+}
+
 
 .embed-tabs {
     background-color: transparent !important;
@@ -2213,11 +2221,15 @@ canvas {
 
     #tabsBar {
         top: 0px;
-        position: absolute;
-        height: 40px;
+        display: flex;
+        align-items: center;
+        /* position: absolute; */
+        height: 90px;
         overflow-y: scroll;
         padding-right: 50px;
     }
+
+
     .circuits {
         height: 27px;
     }
