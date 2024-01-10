@@ -381,6 +381,14 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
         return;
     }
 
+    //for invalid expressions
+    if(booleanExpression.match(/[a-zA-Z][\+\(\)]([^a-zA-Z]|$)/) !=null ||  booleanExpression.startsWith('+') || !(balancedParentheses(booleanExpression)))
+    {
+        alert('Enter a valid expression.');
+        return;
+    } 
+
+
     if (inputListNames.length > 8) {
         alert('You can only have 8 variables at a time.');
         return;
@@ -466,3 +474,35 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
 
     return output;
 }
+
+function balancedParentheses(expr) 
+{ 
+    expr=expr.match(/[()]/g);
+    if(expr==null)
+    {
+        return true;
+    }
+	let stack = []; 
+
+	for(let i = 0; i < expr.length; i++) 
+	{ 
+        let x = expr[i]; 
+
+		if (x == '(') 
+		{ 
+			stack.push(x); 
+		} 
+        else if(x == ')')
+        {
+            if (stack.pop()=='(') 
+            {
+                continue;
+            }
+        }
+        else{
+            return false;
+        }
+    }
+
+	return (stack.length == 0); 
+} 
