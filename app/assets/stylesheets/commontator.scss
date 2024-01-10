@@ -10,7 +10,6 @@
 .actions {
   display: block;
   margin-top: 10px;
-  min-width: 150px;
   text-align: right;
 }
 
@@ -18,7 +17,7 @@
   background-color: $card-green;
   margin-top: 15px;
   padding: 10px 20px;
-
+  overflow-wrap: break-word;
   .body {
     margin-bottom: 16px;
 
@@ -109,6 +108,12 @@
 
 .new-comment {
   display: block;
+  margin-top: 0.3rem;
+}
+
+.new-comment-link{
+  position: relative;
+  top: -3.3em;
 }
 
 //breakpoints
