@@ -174,11 +174,6 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'>x</span></div>`;
             $('#tabsBar').children().last().before(html);
         }
-        // var addBtn = "<button name='logixButton' class='logixButton' id='createNewCircuitScope' onclick='' aria-label='logix button'><i class='fas fa-plus'></i></button>";
-        // $('#tabsBar').append(addBtn);
-
-        // var addBtn = "<button name='logixButton' class='logixButton' id='createNewCircuitScope' onclick='' aria-label='logix button'><i class='fas fa-plus'></i></button>";
-        // $('#tabsBar').children().last().before(html);
 
         // Remove listeners
         $('.circuits').off('click');
