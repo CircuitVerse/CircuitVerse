@@ -140,3 +140,14 @@
 body {
     overflow: scroll;
 }
+
+.right-button-group .lower-button:hover
+{
+    background-color: #42b983;
+    border-radius: 4px;
+    color: #fff;
+    margin: 5px;
+    transition: all .3s ease 0s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transform: translateY(-4px);
+}
