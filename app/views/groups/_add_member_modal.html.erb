@@ -39,8 +39,8 @@
           <span><%= t("groups.invite_link_btn") %></span>
         <% end %>
         <div class="collapse" id="collapseExample">
-          <textarea readonly="readonly" id="embedInviteLink" class="group-invite-link-text" rows="3" cols="35"></textarea>
-          <i class="fas fa-2x fa-regular fa-copy" onclick = "copyToClipboard()" id = "copyIcon" style = "cursor:pointer"></i>
+          <textarea readonly="readonly" id="embedInviteLink" class="group-invite-link-text" rows="3" cols="35" name="group link"></textarea>
+          <i class="fas fa-2x fa-regular fa-copy" onclick="copyToClipboard()" id="copyIcon" style="cursor:pointer"></i>
         </div>
       </div>
     </div>
@@ -48,9 +48,9 @@
 </div>
 <script>
 function copyToClipboard(){
-  var copyText = document.getElementById("embedInviteLink");
-  var copyIcon = document.getElementById("copyIcon")
-  copyIcon.style.color = '#42b983' 
+  var copyText=document.getElementById("embedInviteLink");
+  var copyIcon=document.getElementById("copyIcon);
+  copyIcon.style.color='#42b983' 
   copyText.select();
   document.execCommand('copy');
 }
