@@ -41,10 +41,22 @@
         <h4 class="users-user-name"><%= @profile.name %></h4>
         <div class="search-userdetails-container">
           <p class="search-user-details-text"><%= t("users.circuitverse.member_since_html", member_since: @profile.member_since) %></p>
-          <p class="search-user-details-text"><%= t("users.circuitverse.educational_institutes_html", educational_institute: @profile.educational_institute) %></p>
-          <p class="search-user-details-text"><%= t("users.circuitverse.country_html", country_name: @profile.country_name) %></p>
+          <p class="search-user-details-text">
+            <% if @profile.educational_institute.present? %>
+              <%= t("users.circuitverse.educational_institutes_html", educational_institute: @profile.educational_institute) %>
+            <% else %>
+              <%= t("users.circuitverse.educational_institutes_html", educational_institute: t("not_entered")) %>
+            <% end %>
+          </p>
+          <p class="search-user-details-text">
+            <% if @profile.country_name == "Not Entered" %>
+              <%= t("users.circuitverse.country_html", country_name: t("not_entered")) %>
+            <% else %>
+              <%= t("users.circuitverse.country_html", country_name: @profile.country_name) %>
+            <% end %>
+          </p>
           <% if policy(@user).edit? %>
-            <a class="btn primary-button" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
+            <a class="btn primary-button ml-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
         </div>
       </div>
@@ -57,8 +69,8 @@
         <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
       </div>
-      <div>
-      <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search" placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
+      <div class="users-circuits-search-container">
+      <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search form-control form-input " placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
       </div>
     </div>
   </div>

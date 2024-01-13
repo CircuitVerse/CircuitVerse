@@ -6,9 +6,9 @@ class PaginateRenderer < WillPaginate::ActionView::LinkRenderer
   def page_number(page)
 
     if page == current_page
-     tag("li", link(page, page, class: 'page-link', rel: rel_value(page)), class: "page-item active")
+      tag("li", link(page, page, class: 'page-link', rel: rel_value(page)), class: "page-item active")
     else
-      tag("li", link(page, "/?page=#{page}#recent", class: 'page-link', rel: rel_value(page)), class: "page-item ")
+      tag("li", link(page, "/?page=#{page}#recent", class: 'page-link', rel: rel_value(page)), class: "page-item")
     end
     # link(page, page, class: 'page-link', rel: rel_value(page))
   end
@@ -30,7 +30,7 @@ class PaginateRenderer < WillPaginate::ActionView::LinkRenderer
 
   def previous_or_next_page(page, text, classname)
     if page
-      link(text, page, :class => classname)
+      link(text, "/?page=#{page}#recent", :class => classname)
     else
       tag(:span, text, :class => classname + ' bg-dark-blue near-white')
     end

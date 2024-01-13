@@ -7,6 +7,9 @@ If you have any setup problems, please ensure you have read through all the inst
 
 ---
 
+## Note
+If you are facing any issues with the setup, first checkout the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md) and if you are still facing issues, feel free to ask in the [slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
+
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
 
@@ -14,12 +17,14 @@ There are several ways to run your own instance of CircuitVerse:
 | --- | --- | --- |
 | GitHub Codespaces | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
 | Gitpod Cloud Environment | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#gitpod-cloud-environment) |
+| Native Setup | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
+| Native Setup | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
 | Docker Development Environment | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
 | Docker Development Environment | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
 | Docker Development Environment | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
-| Manual Setup | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
-| Manual Setup | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
-| Manual Setup | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
+| WSL Setup | Windows | TODO |
+| Native Setup | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
+
 
 ## Tools Setup
 | Tool | Documentation Link |

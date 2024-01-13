@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem "acts_as_votable", "~> 0.13.2"
+gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
@@ -24,7 +24,7 @@ gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"
 # Use Puma as the app server
-gem "puma", "~> 6.3"
+gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
 gem "terser"
@@ -51,7 +51,7 @@ gem "jquery-rails"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 2.2"
+gem "carrierwave", "~> 3.0"
 
 gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
@@ -161,6 +161,8 @@ group :development do
   gem "spring"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
+  gem 'database_consistency', require: false
+  gem "lookbook", ">= 2.2.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -195,6 +197,21 @@ gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.2"
 gem "opentelemetry-exporter-otlp", "~> 0.25.0"
-gem "opentelemetry-instrumentation-all", "~> 0.38.0"
+gem "opentelemetry-instrumentation-active_job"
+gem "opentelemetry-instrumentation-active_model_serializers"
+gem "opentelemetry-instrumentation-active_record"
+gem "opentelemetry-instrumentation-active_support"
+gem "opentelemetry-instrumentation-aws_sdk"
+gem "opentelemetry-instrumentation-concurrent_ruby"
+gem "opentelemetry-instrumentation-faraday"
+gem "opentelemetry-instrumentation-http"
+gem "opentelemetry-instrumentation-net_http"
+gem "opentelemetry-instrumentation-pg"
+gem "opentelemetry-instrumentation-rack"
+gem "opentelemetry-instrumentation-rails"
+gem "opentelemetry-instrumentation-redis"
+gem "opentelemetry-instrumentation-sidekiq"
+gem "opentelemetry-instrumentation-action_pack"
+gem "opentelemetry-instrumentation-action_view"
 
 gem "maintenance_tasks", "~> 2.3"
