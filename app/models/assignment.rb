@@ -26,7 +26,6 @@ class Assignment < ApplicationRecord
     end
   end
 
-
   def send_new_assignment_mail
     group.group_members.each do |group_member|
       AssignmentMailer.new_assignment_email(group_member.user, self).deliver_later
