@@ -42,6 +42,13 @@
               <h6><%= link_to t("layout.footer.link_to_forum"), simple_discussion_path %></h6>
             <% end %>
           </div>
+          <div class="col-7 footer-links">
+          <a href="https://docs.circuitverse.org/#/chapter8/2cvfaq?id=circuitverse-faq">
+             <h6><%=t("layout.link_to_faq") %></h6></a>
+          <% if Flipper.enabled?(:forum) %>
+              <h6><%= link_to t("layout.footer.link_to_forum"), simple_discussion_path %></h6>
+            <% end %>
+          </div>
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-column">
