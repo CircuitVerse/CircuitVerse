@@ -561,7 +561,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (5.0.4)
-    puma (6.3.1)
+    puma (6.4.2)
       nio4r (~> 2.0)
     pundit (2.3.0)
       activesupport (>= 3.0.0)
@@ -968,7 +968,7 @@ DEPENDENCIES
   pg_search
   premailer-rails (~> 1.11, >= 1.11.1)
   pry-rails
-  puma (~> 6.3)
+  puma (~> 6.4)
   pundit
   rack-attack
   rails (~> 7.0)
