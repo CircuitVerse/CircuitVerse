@@ -12,14 +12,10 @@
   padding-top: 20px;
   width: fit-content;
 
-  &:hover {
+  &:hover{
     box-shadow: 0 15px 15px var(--shadow-color), 0 0 30px var(--shadow-color);
     transform: scale(1.05);
   }
-}
-
-.justified-paragraph {
-  text-align: center;
 }
 
 .contribute-card-image {
