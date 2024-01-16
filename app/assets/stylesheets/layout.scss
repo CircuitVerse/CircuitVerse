@@ -113,19 +113,13 @@ body {
 
 //anchor
 .anchor-text-button{
-  border: 1.6px solid #42b983;
-  font-size: 0.88rem;
-  padding: 0.4rem 0.6rem;
-  padding-bottom: 0.45rem;
-  border-radius: 4px;
-  background: none;
-  box-sizing: border-box;
+  border: 1px solid;
 }
-
 .anchor-text {
   color: $secondary-green;
   font-weight: 500;
   text-decoration: none;
+  margin-left: 9px;
 
   &:hover {
     color: $primary-green;
@@ -208,5 +202,11 @@ body {
     display: inline-block;
     margin: 0;
     margin-left: -4px;
+  }
+}
+
+@media (max-width: 400px){
+  .anchor-text-button{
+    margin-left: -2px;
   }
 }
