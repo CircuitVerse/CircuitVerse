@@ -38,8 +38,7 @@ class GroupMembersController < ApplicationController
     group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
-    newly_added = group_member_emails - present_members - [current_user&.email]
-    
+    newly_added = group_member_emails - present_members-[current_user&.email]
     newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
