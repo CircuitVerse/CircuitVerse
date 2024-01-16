@@ -20,6 +20,18 @@ npm install
 npm run dev
 ```
 
+## Setting up on cloud with Stackblitz
+[StackBlitz](https://developer.stackblitz.com/guides/user-guide/what-is-stackblitz) is an instant fullstack web IDE for the JavaScript ecosystem.
+
+1. Initiate the setup process by clicking on the following button:
+
+[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/~/github.com/CircuitVerse/cv-frontend-vue)
+
+2. Once the setup is complete, a Preview URL will be displayed in the browser window. Append `/simulatorvue/` to your URL to access the simulator.
+```
+https://<preview_url>/simulatorvue/
+```
+
 ## To Dos -
 1. **Creating the mobile version of the vue simulator** 
 2. **Testing and bug fixing**
