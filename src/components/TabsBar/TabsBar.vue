@@ -1,5 +1,9 @@
 <template>
-    <div id="tabsBar" class="noSelect pointerCursor" :class="embedClass()">
+    <div
+        id="tabsBar"
+        class="noSelect pointerCursor"
+        :class="[embedClass(), { maxHeightStyle: showMaxHeight }]"
+    >
         <draggable
             :key="updateCount"
             v-model="SimulatorState.circuit_list"
@@ -41,6 +45,9 @@
         <button v-if="!isEmbed()" @click="createNewCircuitScope()">
             &#43;
         </button>
+        <button class="tabsbar-toggle" @click="toggleHeight">
+            <i :class="showMaxHeight ? 'fa fa-chevron-down' : 'fa fa-chevron-up'"></i>
+        </button>
     </div>
     <!-- <MessageBox
         v-model="SimulatorState.dialogBox.create_circuit"
@@ -75,6 +82,13 @@ import { closeCircuit } from '../helpers/deleteCircuit/DeleteCircuit.vue'
 const SimulatorState = <SimulatorStateType>useState()
 const drag: Ref<boolean> = ref(false)
 const updateCount: Ref<number> = ref(0)
+
+const showMaxHeight = ref(true)
+
+function toggleHeight() {
+    showMaxHeight.value = !showMaxHeight.value
+}
+
 // const persistentShow: Ref<boolean> = ref(false)
 // const messageVal: Ref<string> = ref('')
 // const buttonArr: Ref<Array<buttonArrType>> = ref([{ text: '', emitOption: '' }])
@@ -270,6 +284,14 @@ function isEmbed(): boolean {
 </script>
 
 <style scoped>
+#tabsBar{
+    padding-right: 50px;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 2.5px;
+    z-index: 100;
+}
+
 #tabsBar.embed-tabbar {
     background-color: transparent;
 }
@@ -290,6 +312,12 @@ function isEmbed(): boolean {
     /* border: 1px solid var(--br-circuit-cur); */
 }
 
+#tabsBar button {
+    font-size: 1rem; 
+    height: 20px;
+    width: 20px;
+}
+
 #tabsBar.embed-tabbar button {
     color: var(--text-panel);
     background-color: var(--primary);
@@ -304,6 +332,36 @@ function isEmbed(): boolean {
 .list-group {
     display: inline;
 }
+
+.maxHeightStyle {
+    height: 30px;
+    max-height: 30px;
+}
+
+.toolbarButton{
+    height: 22px;
+}
+
+.tabsbar-toggle{
+    position: absolute;
+    right: 2.5px;
+    top: 2.5px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.tabsbar-toggle i {
+    margin-bottom: -5px;
+}
+
+
+.tabsbar-close{
+    font-size: 1rem; 
+}
+
 </style>
 
 <!-- TODO: add types for scopelist and fix key issue with draggable -->
