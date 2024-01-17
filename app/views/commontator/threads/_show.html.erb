@@ -18,14 +18,14 @@
 </div> -->
 
 <div id="commontator-thread-<%= thread.id %>-content" class="content">
-  <div id="commontator-thread-<%= thread.id %>-header" class="header">
+  <div id="commontator-thread-<%= thread.id %>-header" class="header d-flex justify-content-between">
     <span id="commontator-thread-<%= thread.id %>-status" class="status">
       <div class="comments-status">
         <h5><%= t "commontator.thread.status.#{thread.is_closed? ? 'closed' : 'open'}",
               closer_name: (thread.is_closed? ? Commontator.commontator_name(thread.closer) : '') %></h5>
       </div>
     </span>
-    <span id="commontator-thread-<%= thread.id %>-actions" class="actions">
+    <span id="commontator-thread-<%= thread.id %>-actions" class="actions m-0 d-block">
       <!-- <span id="commontator-thread-<%= thread.id %>-hide" class="hide commontator-hidden">
         <%= link_to t('commontator.thread.actions.hide'),
                     '#',
