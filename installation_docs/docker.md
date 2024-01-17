@@ -44,7 +44,7 @@ Set-ExecutionPolicy RemoteSigned
 |  Name | Version | Installation |
 | --- | --- | --- |
 | Git | Latest | [Download & Install](https://git-scm.com/downloads) |
-| Docker Engine | Latest | [Follow this guide to install](https://docs.docker.com/engine/install/ubuntu/) |
+| Docker Engine | Latest | [Follow this guide to install](https://docs.docker.com/engine/install/)  ⚠️ Don't go for `Docker Desktop`. Check the `Supported Platforms` table to install docker engine CLI for your operating system |
 
 **Note**
 
