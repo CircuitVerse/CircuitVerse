@@ -50,7 +50,7 @@ Set-ExecutionPolicy RemoteSigned
 
 Before installing Docker Engine, ensure that Docker Desktop is not already installed on your local machine. If Docker Desktop is installed, you can follow this [guide](https://docs.docker.com/desktop/uninstall/) to completely remove it from your Linux machine.
 
-After removing Docker Desktop, proceed with the installation of Docker Engine by following the steps outlined in the '**Install using the apt repository**' section on the [official Docker website](https://docs.docker.com/engine/install/ubuntu/).
+After removing Docker Desktop, proceed with the installation of Docker Engine as specified in the docs.
 
 **Steps to setup**
 1. Fork current repository
