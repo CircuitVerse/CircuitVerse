@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
