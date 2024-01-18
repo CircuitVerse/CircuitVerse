@@ -55,7 +55,13 @@
     margin-top: 20px;
   }
 }
-
+@media (max-width: 991px){
+  .home-image-cover {
+    max-height: 100%;
+    max-width: 100%;
+    margin-top: 25%;
+  }
+}
 @media (max-width: 600px) {
   .home-image-cover {
     display: none;
