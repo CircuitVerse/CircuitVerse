@@ -119,3 +119,25 @@
   content: '';
   width: 10px;
 }
+
+//breakpoints
+@media (max-width: 768px){
+  .footer-sponsor-logo{
+    width: 77%;
+    margin-left: 30px;
+  }
+  .footer-sponsor-logo-text{
+    margin-left: 30px;
+  }
+}
+
+@media (max-width: 388px){
+  .footer-sponsor-logo{
+    width: 120%;
+    margin-left: 20px;
+  }
+  .footer-sponsor-logo-text{
+    margin-left: 31px;
+    text-wrap: nowrap;
+  }
+}
