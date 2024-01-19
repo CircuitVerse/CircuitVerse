@@ -25,11 +25,13 @@ describe GroupMembersController, type: :request do
     end
 
     context "when primary_mentor is logged in" do
-      it "creates members that are not present and pending invitations for others" do
+      it "creates members that are not present, excluding the primary mentor, and pending invitations for others" do
         expect do
           post group_members_path, params: create_params
         end.to change(GroupMember, :count).by(1)
                                           .and change(PendingInvitation, :count).by(1)
+  
+        expect(GroupMember.last.user).to_not eq(@primary_mentor)
       end
     end
 
