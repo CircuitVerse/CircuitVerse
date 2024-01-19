@@ -30,8 +30,7 @@ describe GroupMembersController, type: :request do
           post group_members_path, params: create_params
         end.to change(GroupMember, :count).by(1)
                                           .and change(PendingInvitation, :count).by(1)
-  
-        expect(GroupMember.last.user).to_not eq(@primary_mentor)
+        expect(GroupMember.last.user).not_to eq(@primary_mentor)
       end
     end
 
