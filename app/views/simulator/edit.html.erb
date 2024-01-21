@@ -4,6 +4,12 @@
 <script src="/js/plugins/checkBo.min.js" defer></script>
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
 
+<style>
+  body {
+    display: none;
+  }
+</style>
+
 <script>
   userSignedIn = <%= user_signed_in? %>;
   __logix_project_id = "<%= @logix_project_id %>";
@@ -818,6 +824,14 @@
   </div>
 </div>
 
+
+// for blocking the css while loading
+<script>
+window.addEventListener("load", function() {
+  $('body').css('display', 'block');
+  // Rest of your existing code
+});
+</script>
 <script>
 window.addEventListener("load", function() {
   $('#newCircuit').click(function () {
