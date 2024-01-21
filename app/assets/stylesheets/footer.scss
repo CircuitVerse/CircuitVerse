@@ -72,12 +72,14 @@
 .footer-sponsor-logo-text {
   margin-bottom: 0;
   padding-bottom: 0;
+  text-wrap: nowrap;
+  display: ruby-base;
 }
 
 .footer-sponsor-logo {
   border: solid $footer-dark-grey 1px;
   border-radius: 5px;
-  width: 100%;
+  width: 200px;
 }
 
 .footer-copyright-text {
@@ -118,4 +120,14 @@
 .bounce-out-on-hover::after {
   content: '';
   width: 10px;
+}
+
+//breakpoints
+@media (max-width: 991px){
+  .footer-sponsor-logo-text{
+    margin-left: 11px;
+  }
+  .footer-sponsor-logo{
+    width: 153px;
+  }
 }
