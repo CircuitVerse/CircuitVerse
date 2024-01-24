@@ -858,6 +858,14 @@ window.addEventListener("load", function() {
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
   });
+  $('[title]').each(function() {
+    $(this).tooltip({
+      show: null,
+      track: true,
+      hide: false,
+      tooltipClass: "custom-tooltip-styling",
+    });
+  });
 })
 </script>
 
