@@ -55,15 +55,12 @@ class GroupMembersController < ApplicationController
       end
     end
 
-    notice = Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+    notice = Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added_emails)
 
-    respond_to do |format|
-      format.html do
-        redirect_to group_path(@group),
-                    notice: Utils.mail_notice(group_member_params[:emails], group_member_emails,
-                                              newly_added)
+     respond_to do |format|
+      format.html { redirect_to group_path(@group), notice: notice }
       end
-    end
+     end
     # redirect_to group_path(@group)
     # @group_member = GroupMember.new(group_member_params)
     #
