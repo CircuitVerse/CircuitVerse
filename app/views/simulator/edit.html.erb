@@ -19,48 +19,48 @@
   <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
-             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
+             <li><a class="dropdown-item logixButton text-left ps-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
           <% end %>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="ExportCircuitFiles">Export as file</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="ImportCircuitFiles">Import file</a></li>
-           <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="newProject">New Project</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="save">Save Online</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="saveOffline">Save Offline</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="createOpenLocalPrompt">Open Offline</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="ExportCircuitFiles">Export as file</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="ImportCircuitFiles">Import file</a></li>
+           <li><a class="dropdown-item logixButton text-left ps-1" id="clearProject">Clear Project</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="recoverProject">Recover Project</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="fullViewOption">Preview Circuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left logixButton pl-1" id="createNewCircuitScope">New Circuit + </a></li>
-          <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
+          <li><a class="dropdown-item text-left logixButton ps-1" id="createNewCircuitScope">New Circuit + </a></li>
+          <li><a class="dropdown-item text-left logixButton ps-1" id="newVerilogModule">New Verilog <br> Module</a></li>
+          <li><a class="dropdown-item logixButton text-left ps-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="colorThemes">Themes</a>
-          <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
+          <li><a class="dropdown-item text-left ps-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
+          <li><a class="dropdown-item text-left ps-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
+          <li><a class="dropdown-item text-left ps-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
+          <li><a class="dropdown-item text-left ps-1 logixButton" id="colorThemes">Themes</a>
+          <li><a class="dropdown-item text-left ps-1" id="customShortcut">Custom Shortcut</a></li>
+          <li><a class="dropdown-item text-left ps-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
       <li class="dropdown tour-help nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
+            <li><a class="dropdown-item text-left ps-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
+            <li><a class="dropdown-item text-left ps-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
+            <li><a class="dropdown-item text-left ps-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
+            <li><a class="dropdown-item text-left ps-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
       </ul>
@@ -754,7 +754,7 @@
   id="insertSubcircuitDialog"
   class="subcircuitdialog"
   title="Insert SubCircuit"></div>
-<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit">New Circuit +</a></div>
+<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton ps-1" id="newCircuit">New Circuit +</a></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
     <label>Decimal value</label><br><input type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
