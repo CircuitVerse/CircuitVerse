@@ -172,12 +172,13 @@ input[type="text"]:focus {
 .projectName {
     font-size: 1em;
     text-align: center;
-    display: inline-block;
-    width: 35vw;
+    /* display: inline-block; */
+    /* width: 35vw; */
     height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 22rem;
+    padding-right: 106px;
+    /* margin-right: 22rem; */
 }
 
 @media (max-width: 991px) {
@@ -1501,7 +1502,7 @@ input:checked + .slider:before {
 #insertSubcircuitcontent a {
   color: white;
   margin-bottom: 7px;
-} 
+}
 
 #insertSubcircuitDialog > p {
     margin-bottom: 0;
