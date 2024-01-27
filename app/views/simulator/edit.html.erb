@@ -17,7 +17,7 @@
   <i class="fas fa-bars" id="dropdownIcon"></i>
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
-    <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
+    <ul class="navbar-nav navbar-menu noSelect pointerCursor col-4" id="toolbar">
       <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
@@ -64,11 +64,11 @@
         </ul>
       </li>
       </ul>
-      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+      <span class="projectName noSelect defaultCursor font-weight-bold col-4" id="projectName">
           Untitled
       </span>
 
-      <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
+      <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn col-4 justify-content-end">
         <li class="dropdown pull-right">
           <% if user_signed_in? %>
             <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
