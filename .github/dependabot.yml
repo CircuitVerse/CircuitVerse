@@ -2,6 +2,11 @@ version: 2
 updates:
 - package-ecosystem: npm
   directory: "/"
+  groups:
+    minor-and-patch:
+      update-types:
+        - "minor"
+        - "patch"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
@@ -10,6 +15,11 @@ updates:
   directory: "/"
   schedule:
     interval: daily
+  groups:
+    minor-and-patch:
+      update-types:
+        - "minor"
+        - "patch"
   open-pull-requests-limit: 10
   
 - package-ecosystem: "docker"
