@@ -21,7 +21,6 @@ class Assignment < ApplicationRecord
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
   def notify_recipient
-    @assignment = Assignment.find(id)
     group.group_members.each do |group_member|
       NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)
     end
