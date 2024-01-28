@@ -176,8 +176,7 @@ export default class ImageAnnotation extends CircuitElement {
  * @category modules
  */
 ImageAnnotation.prototype.tooltipText = 'Image ToolTip: Embed an image in the circuit for annotation';
-ImageAnnotation.prototype.helplink =
-    "https://docs.circuitverse.org/#/chapter4/7annotation?id=imageannotation"
+ImageAnnotation.prototype.helplink = "https://docs.circuitverse.org/#/chapter4/7annotation?id=imageannotation";
 ImageAnnotation.prototype.propagationDelayFixed = true;
 
 /**
