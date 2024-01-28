@@ -180,7 +180,7 @@ GEM
       rails (>= 6.0)
       sprockets-rails
       will_paginate
-    concurrent-ruby (1.2.2)
+    concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     countries (5.3.0)
       unaccent (~> 0.3)
@@ -398,7 +398,7 @@ GEM
     mini_magick (4.12.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.5)
-    minitest (5.20.0)
+    minitest (5.21.2)
     msgpack (1.6.0)
     multi_xml (0.6.0)
     nested_form (0.3.2)
@@ -612,6 +612,10 @@ GEM
       nested_form (~> 0.3)
       rails (>= 6.0, < 8)
       turbo-rails (~> 1.0)
+    rails_autolink (1.1.8)
+      actionview (> 3.1)
+      activesupport (> 3.1)
+      railties (> 3.1)
     railties (7.0.8)
       actionpack (= 7.0.8)
       activesupport (= 7.0.8)
@@ -728,7 +732,7 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     sexp_processor (4.16.0)
-    shoulda-matchers (5.1.0)
+    shoulda-matchers (6.1.0)
       activesupport (>= 5.2.0)
     sidekiq (7.1.4)
       concurrent-ruby (< 2)
@@ -976,6 +980,7 @@ DEPENDENCIES
   rails-erd
   rails-i18n (~> 7.0.3)
   rails_admin (>= 3.0.0.rc3, < 4)
+  rails_autolink
   rbs_rails
   recaptcha
   redcarpet (~> 3.3, >= 3.3.4)
