@@ -9,7 +9,7 @@
         <p><%= t("groups.add_member_description") %></p>
         <%= form_with(model: group_member, local: true) do |form| %>
           <% if group_member.errors.any? %>
-            <div id="error-message">
+            <div class="error-message">
               <ul>
                 <% group_member.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
