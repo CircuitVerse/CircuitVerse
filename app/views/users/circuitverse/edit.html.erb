@@ -1,13 +1,13 @@
 <% content_for :title, t("users.circuitverse.edit_profile.title", name: @profile.name) %>
 <div class="container projects-new-container">
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
       <h1 class="submain-heading"><%= t("users.circuitverse.edit_profile.heading") %></h1>
         <p class="main-description"><%= t("users.circuitverse.edit_profile.description_html") %></p> <br>
     </div>
   </div>
   <div class="row">
-    <div class="col-xs col-sm col-md col-lg">
+    <div class="col col-sm col-md col-lg">
       <div class="form-container">
         <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
           <% if @profile.errors.any? %>
@@ -53,7 +53,7 @@
           <%= link_to t("back"), :back, class: "anchor-text" %>
         <% end %>
         <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <h4 class="submain-heading"><%= t("users.circuitverse.edit_profile.delete_account_heading") %></h4>
             <p><%= t("users.circuitverse.edit_profile.delete_account_notice") %></p> <br>
           </div>

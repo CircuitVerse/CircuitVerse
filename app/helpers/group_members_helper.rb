@@ -2,7 +2,7 @@
 
 module GroupMembersHelper
   def membersCardViewerContainer(group)
-    policy(group).admin_access? ? "col-xs-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container" : "col-xs-12 col-sm-12 col-md-6 col-lg-3 groups-members-card-container"
+    policy(group).admin_access? ? "col-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container" : "col-12 col-sm-12 col-md-6 col-lg-3 groups-members-card-container"
   end
 
   def membersCardViewer(group)

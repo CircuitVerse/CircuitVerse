@@ -27,17 +27,17 @@
   <% end %>
   <br>
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
       <div class="projects-iframe-container">
         <div class="embed-responsive embed-responsive-4by3">
           <iframe src=<%= simulator_path(@project) %>></iframe>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5">
       <div class="container projects-details">
         <div class="row center-row projects-details-heading-container">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <div class="projects-details-heading">
               <%= @project.name %>
             </div>
@@ -155,10 +155,10 @@
   <% collaborators = @project.collaborators %>
     <% if collaborators.count!=0 %>
       <div class="row center-row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
           <div class="projects-collaborators-container">
             <div class="row center-row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
                 <div class="">
                   <%= t("projects.show.collaborators") %>
                 </div>
@@ -166,18 +166,18 @@
             </div>
             <% @project.collaborators.each do |user| %>
               <div class="row center-row">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                   <div class="projectshow-collaborators-userdata">
                     <%= link_to user.name, user, class: "anchor-text" %>
                   </div>
                 </div>
                 <% if policy(@project).author_access? %>
-                  <div class="col-xs-8 col-sm-8 col-md-5 col-lg-5">
+                  <div class="col-8 col-sm-8 col-md-5 col-lg-5">
                     <div class="projects-collaborators-data">
                       <%= user.email %>
                     </div>
                   </div>
-                  <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+                  <div class="col-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
                       <%= link_to "#", data: { toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
                         <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
