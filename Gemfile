@@ -23,7 +23,7 @@ gem 'devise_saml_authenticatable'
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0"
+gem "rails", "~> 7.1"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -35,7 +35,7 @@ gem "terser"
 # Use CoffeeScript for .coffee assets and views
 gem "coffee-rails", "~> 5.0"
 gem "select2-rails"
-gem 'redcarpet', '~> 3.3', '>= 3.3.4'
+gem 'redcarpet', '~> 3.6'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -43,7 +43,7 @@ gem "jbuilder", "~> 2.11"
 
 gem "devise"
 
-gem "commontator", "~> 7.0.0"
+gem "commontator", "~> 7.0.1"
 
 # To generate sitemap.xml
 gem "sitemap_generator"
@@ -92,7 +92,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.5.3"
+gem "pg", "~> 1.5.4"
 
 gem "meta-tags"
 
@@ -107,14 +107,14 @@ gem "font-awesome-sass", "~> 5.13.1"
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
 gem "flipper-ui"
-gem "friendly_id", "~> 5.4.2"
+gem "friendly_id", "~> 5.5.1"
 gem "inline_svg"
 gem "jsonapi-serializer"
 gem "jwt"
-gem "rails-i18n", "~> 7.0.3"
+gem "rails-i18n", "~> 7.0.8"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
-gem "sprockets", "~> 4.1"
+gem "sprockets", "~> 4.2"
 gem "strong_migrations"
 gem 'rails-data-migrations'
 
@@ -125,12 +125,12 @@ group :development, :test do
   # Adds support for debug
   gem "debug"
   # Adds support for Capybara system testing and selenium driver
-  gem "coveralls_reborn", "~> 0.26.0", require: false
+  gem "coveralls_reborn", "~> 0.28.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails", "~> 6.0"
+  gem "rspec-rails", "~> 6.1"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
@@ -140,7 +140,7 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara", "~> 3.39"
+  gem "capybara", "~> 3.40"
   gem "json-schema"
   gem "rspec_junit_formatter"
   gem "selenium-webdriver"
@@ -170,34 +170,34 @@ end
 gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 
 # mails
-gem "premailer-rails", "~> 1.11", ">= 1.11.1"
+gem "premailer-rails", "~> 1.12"
 
-gem "bugsnag", "~> 6.24"
+gem "bugsnag", "~> 6.26"
 
-gem "invisible_captcha", "~> 2.0"
+gem "invisible_captcha", "~> 2.1"
 
 gem "newrelic_rpm", "~> 8.14"
 
-gem "oj", "~> 3.15"
+gem "oj", "~> 3.16"
 
 gem "hairtrigger", "~> 0.2.25"
 
 # Used for rate limiting
 gem "rack-attack"
 
-gem "jsbundling-rails", "~> 1.0"
+gem "jsbundling-rails", "~> 1.3"
 
 gem "sassc-rails"
-gem "stimulus-rails", "~> 1.0"
+gem "stimulus-rails", "~> 1.3"
 
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.116"
+gem "aws-sdk-s3", "~> 1.143"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.2"
-gem "opentelemetry-exporter-otlp", "~> 0.25.0"
+gem "opentelemetry-sdk", "~> 1.4"
+gem "opentelemetry-exporter-otlp", "~> 0.26.2"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
@@ -215,4 +215,4 @@ gem "opentelemetry-instrumentation-sidekiq"
 gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
-gem "maintenance_tasks", "~> 2.3"
+gem "maintenance_tasks", "~> 2.4"
