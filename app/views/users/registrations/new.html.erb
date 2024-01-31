@@ -20,15 +20,15 @@
             </div>
           <% end %>
           <div class="field form-group">
-            <h6><%= f.label :name %></h6>
+            <h6 class="mb-3" ><%= f.label :name %></h6>
               <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
           </div>
           <div class="field form-group">
-            <h6><%= f.label :email %></h6>
+            <h6 class="mt-3 mb-3"><%= f.label :email %></h6>
               <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
           <div class="field form-group">
-          <h6 class="password-length">
+          <h6 class="password-length mt-3 mb-3">
             <%= f.label :password %>
             <% if @minimum_password_length %>
               <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
