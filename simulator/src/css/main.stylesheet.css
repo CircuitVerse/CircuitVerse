@@ -1501,7 +1501,7 @@ input:checked + .slider:before {
 #insertSubcircuitcontent a {
   color: white;
   margin-bottom: 7px;
-} 
+}
 
 #insertSubcircuitDialog > p {
     margin-bottom: 0;
@@ -1618,9 +1618,11 @@ input:checked + .slider:before {
 
 .custom-range {
     width: 80px;
+    background-color: transparent;
 }
 .custom-range::-moz-range-track {
     height: 1px;
+    background-color: #fff;
 }
 
 .custom-range::-moz-range-thumb {

@@ -73,8 +73,18 @@ body {
 }
 //alignment
 .alert {
-  display: block;
+  display: flex;
   width: 100%;
+  flex-direction: row-reverse;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.close {
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: black;
+  transform: translateY(-5px);
 }
 
 .center-row {
