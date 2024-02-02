@@ -24,7 +24,7 @@
    } %>
 
     <% if notice %>
-    <div class="row" id='alertdiv'>
+    <div id='alertdiv'>
       <div class="alert alert-success alert-dismissible container text-center">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <h6><%= notice %></h6>
@@ -36,7 +36,7 @@
       <div class="row center-row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
           <div class="home-main-content">
-            <h1><%= t("circuitverse.index.main_heading") %></h1><br>
+            <h1 class="" style="font-size:2.5rem"><%= t("circuitverse.index.main_heading") %></h1><br>
             <p><%= t("circuitverse.index.main_description") %></p>
             <div class="home-buttons-container justify-content-center">
               <a class="btn primary-button home-simulator-button" href='/simulator'><%= t("launch_simulator") %></a> &nbsp;

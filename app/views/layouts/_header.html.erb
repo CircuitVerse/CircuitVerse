@@ -1,12 +1,8 @@
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-<script src="https://unpkg.com/bootstrap@5"></script>
-
-
 <nav class="navbar navbar-expand-lg bg-white ">
     <a class="navbar-brand mx-3" href="/">
       <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
     </a>
-    <div class="flex row ">
+    <div class="nav-menu">
       <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
       <i class="fa fa-search search-icon ms-0 <%= request.path == "/search" ? "active" : "" %>" tabindex="0" aria-label="search"></i>
       </div>
@@ -27,10 +23,10 @@
         </li>
         <div class="navbar-nav nav-item dropdown">
           <li class="nav-item px-1">
-            <a class="nav-link dropdown-toggle navbar-item navbar-text" id="navbar-dropdown-1" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started"><%= t("layout.getting_started_dropdown") %></a>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-1">
+            <a class="nav-link dropdown-toggle navbar-item navbar-text" id="navbar-dropdown-1" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started" data-bs-target="#getting_started"><%= t("layout.getting_started_dropdown") %></a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-1" id="getting_started">
               <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank"><%= t("layout.link_to_learn_more") %></a>
-          <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank"><%= t("layout.link_to_docs") %></a>
+              <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank"><%= t("layout.link_to_docs") %></a>
             </div>
           </li>
         </div>
@@ -73,7 +69,11 @@
   <%= render "circuitverse_assets/search_bar" %>
 </div>
 
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/bootstrap@5"></script>
+
 <script type="text/javascript">
+
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];

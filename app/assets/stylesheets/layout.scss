@@ -83,8 +83,13 @@ body {
 .close {
   text-decoration: none;
   font-size: 1.2rem;
-  color: black;
+  color: #7ca794;
   transform: translateY(-5px);
+  font-weight: bolder;
+
+  &:hover {
+    color: black;
+  }
 }
 
 .center-row {

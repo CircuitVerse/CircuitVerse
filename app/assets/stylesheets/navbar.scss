@@ -12,6 +12,20 @@
   padding-top: 5px;
 }
 
+.nav-menu {
+  display: flex;
+  margin-right: 1rem;
+  flex-direction: row;
+  > button {
+    outline: none;
+    border: none;
+    &:focus{
+      outline: none;
+      box-shadow: none;
+    }
+  }
+}
+
 .navbar-search-icon-container {
   height: 40px;
   position: relative;
