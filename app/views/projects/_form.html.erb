@@ -23,12 +23,12 @@
   <% end %>
   <div class="field form-group d-flex flex-column">
     <h6><%= form.label :name %></h6>
-    <%= form.text_field :name, id: :project_name, class: "form-control form-input", maxlength: 90 %>
+    <%= form.text_field :name, id: :project_name, class: "form-control form-input", maxlength: 90, style: "border-radius: 4px;" %>
     <span id="name-counter" class="char-counter"></span>
   </div>
   <div class="field form-group projects-tag-form-group">
     <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
-    <%= form.text_field :tag_list, class: "form-control form-input" %>
+    <%= form.text_field :tag_list, class: "form-control form-input", style: "border-radius: 4px;" %>
   </div>
   <div class="field form-group">
     <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>
@@ -36,7 +36,7 @@
       <%= @warning %>
         <span class="projects-type-field-warning"><i class="fa fa-exclamation-triangle"></i> <%= t("projects.form.project_is_featured_message") %></span>
       <% end %>
-    <%= form.select :project_access_type, [[t("projects.form.public"), "Public"], [t("projects.form.private"), "Private"], [t("projects.form.limited_access"), "Limited access"]], {}, class: "form-control form-input" %>
+    <%= form.select :project_access_type, [[t("projects.form.public"), "Public"], [t("projects.form.private"), "Private"], [t("projects.form.limited_access"), "Limited access"]], {}, class: "form-control form-input", style: "border-radius: 4px;" %>
   </div>
   <div class="field form-group" id="description">
     <h6><%= form.label :description %></h6>
