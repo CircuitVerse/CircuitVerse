@@ -85,6 +85,10 @@
   }
 }
 
+.rotate180::after {
+  transform: rotate(180deg);
+}
+
 .navbar-text {
   color: $navbar-dark-grey;
   font-weight: 500;

@@ -70,6 +70,15 @@
 </div>
 
 <script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+  var dropdownButton = document.getElementById("navbar-dropdown-2");
+  if (dropdownButton) {
+      dropdownButton.addEventListener("click", function () {
+        dropdownButton.classList.toggle("rotate180");
+      });
+    }
+  });
+
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];
