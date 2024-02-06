@@ -23,7 +23,7 @@
   </head>
 
   <body>
-    <%= render "layouts/header" %>
+    <%= render(LayoutComponents::HeaderComponent.new) %>
     <%= yield %>
     <%= render "layouts/footer" %>
 
