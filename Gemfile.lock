@@ -413,7 +413,7 @@ GEM
       net-protocol
     newrelic_rpm (8.14.0)
     nio4r (2.7.0)
-    nokogiri (1.16.0)
+    nokogiri (1.16.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
     noticed (1.6.3)
