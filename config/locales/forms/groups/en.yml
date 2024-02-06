@@ -2,7 +2,7 @@ en:
   helpers:
     label:
       group_member:
-        emails: "emails"
+        emails: "Email IDs"
       group:
         name: "Group Name:"
     submit:
