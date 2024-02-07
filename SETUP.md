@@ -29,7 +29,7 @@ There are several ways to run your own instance of CircuitVerse:
 ## Tools Setup
 | Tool | Documentation Link |
 | --- | --- |
-| Code Auto Completion | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.MD) |
+| Code Auto Completion | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.md) |
 | Ruby Debugger | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/DEBUGGER-SETUP.md) |
 
 ## Tests
