@@ -31,7 +31,7 @@
         </li>
       </div>
       <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == "/features" ? "active" : "" %>" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
+        <a class="nav-link navbar-item navbar-text <%= request.path == "/features" ? "active" : "" %>" href="/#home-features-section" onclick="event.preventDefault(); window.scrollTo({ top: document.getElementById('home-features-section').offsetTop - 100, behavior: 'smooth' });"><%= t("layout.link_to_features") %></a>
       </li>
       <li class="nav-item px-1">
         <a class="nav-link navbar-item navbar-text <%= request.path == "/teachers" ? "active" : "" %>" href="/teachers"><%= t("layout.link_to_teachers") %></a>
