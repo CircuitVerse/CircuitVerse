@@ -487,10 +487,19 @@
   }
 }
 
-// notification page
+// notification Bell_Icon
+@media(max-width: 991px){
+  .notification-icon{
+    margin-left: 0px;
+  }
+}
+@media(min-width: 991px){
+  .notification-icon{
+    margin-left: 10px;
+  }
+}
 .notification-icon {
   font-size: 20px;
-  margin-left: 10px;
   margin-right: 10px;
   margin-top: 10px;
 }
