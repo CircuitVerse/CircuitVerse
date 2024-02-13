@@ -42,8 +42,48 @@
                     <img :src="element.imgURL" :alt="element.name" />
                 </div>
             </div>
+            <v-expansion-panels
+                v-if="elementInput && searchCategories().length"
+                id="menu"
+                class="accordion"
+                variant="accordion"
+            >
+                <v-expansion-panel
+                    v-for="category in searchCategories()"
+                    :key="category[0]"
+                >
+                    <v-expansion-panel-title>
+                        {{
+                            $t(
+                                'simulator.panel_body.circuit_elements.expansion_panel_title.' +
+                                    category[0]
+                            )
+                        }}
+                    </v-expansion-panel-title>
+                    <v-expansion-panel-text eager>
+                        <div class="panel customScroll">
+                            <div
+                                v-for="element in category[1]"
+                                :id="element.name"
+                                :key="element"
+                                :title="element.label"
+                                class="icon logixModules"
+                                @click="createElement(element.name)"
+                                @mousedown="createElement(element.name)"
+                                @mouseover="getTooltipText(element.name)"
+                                @mouseleave="tooltipText = 'null'"
+                            >
+                                <img
+                                    :src="element.imgURL"
+                                    :alt="element.name"
+                                />
+                            </div>
+                        </div>
+                    </v-expansion-panel-text>
+                </v-expansion-panel>
+            </v-expansion-panels>
             <div
-                v-if="elementInput && !searchElements().length"
+                v-if="elementInput && !searchElements().length && !searchCategories().length"
                 class="search-results"
             >
                 {{ $t('simulator.panel_body.circuit_elements.search_result') }}
@@ -161,6 +201,18 @@ function searchElements() {
         }
     }
     return finalResult
+}
+
+function searchCategories() {
+    const result = panelData.filter((category) => {
+        const categoryName = category[0];
+        const categoryNameWords = categoryName.split(' ');
+
+        return categoryNameWords.some((word) =>
+            word.toLowerCase().startsWith(elementInput.value.toLowerCase())
+        );
+    })
+    return result;
 }
 
 function createElement(elementName) {
