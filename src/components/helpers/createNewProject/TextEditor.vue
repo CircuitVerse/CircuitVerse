@@ -1,11 +1,12 @@
 <template>
     <div id="text-editor" :class="{ fullscreen: fullscreen }">
-        <div class="toolbar" v-if="editor">
+        <div v-if="editor" class="toolbar">
             <div class="align-dropdown">
                 <button class="dropbtn" @click.prevent="">Heading ▼</button>
                 <div class="dropdown-content">
                     <a
                         v-for="index in 6"
+                        :key="index"
                         :class="{
                             active: editor.isActive('heading', {
                                 level: index,
@@ -15,8 +16,8 @@
                             fontSize: 20 - index + 'px',
                             backgroundColor: '#555',
                         }"
-                        @click.prevent="onHeadingClick(index)"
                         role="button"
+                        @click.prevent="onHeadingClick(index)"
                     >
                         H{{ index }}
                     </a>
@@ -25,6 +26,7 @@
 
             <button
                 v-for="({ slug, option, active, icon }, index) in textActions"
+                :key="index"
                 :class="{ active: editor.isActive(active) }"
                 @click.prevent="onActionClick(slug, option)"
             >
@@ -33,14 +35,14 @@
 
             <div class="mode-toggle">
                 <button
-                    @click.prevent="toggleMode"
                     :class="{ active: showSourceCode }"
+                    @click.prevent="toggleMode"
                 >
                     <i class="fas fa-file-code"></i>
                 </button>
                 <button
-                    @click.prevent="toggleFullscreen"
                     :class="{ active: fullscreen }"
+                    @click.prevent="toggleFullscreen"
                 >
                     <i v-if="!fullscreen" class="fas fa-expand-arrows-alt"></i>
                     <i v-else class="fas fa-compress-arrows-alt"></i>
@@ -202,6 +204,37 @@ export default {
             }
         },
     },
+    mounted() {
+        this.editor = new Editor({
+            content: this.modelValue,
+            extensions: [
+                StarterKit,
+                Underline,
+                Subscript,
+                Superscript,
+                CharacterCount.configure({
+                    limit: this.maxLimit,
+                }),
+                TextAlign.configure({
+                    types: ['heading', 'paragraph'],
+                }),
+            ],
+            onUpdate: () => {
+                this.$emit('update:modelValue', this.editor.getHTML())
+            },
+        })
+        document.addEventListener(
+            'fullscreenchange',
+            this.handleFullscreenChange
+        )
+    },
+    beforeUnmount() {
+        this.editor.destroy()
+        document.removeEventListener(
+            'fullscreenchange',
+            this.handleFullscreenChange
+        )
+    },
     methods: {
         onActionClick(slug, option = null) {
             if (this.showSourceCode) return
@@ -250,37 +283,6 @@ export default {
             this.fullscreen = document.fullscreenElement !== null
         },
     },
-    mounted() {
-        this.editor = new Editor({
-            content: this.modelValue,
-            extensions: [
-                StarterKit,
-                Underline,
-                Subscript,
-                Superscript,
-                CharacterCount.configure({
-                    limit: this.maxLimit,
-                }),
-                TextAlign.configure({
-                    types: ['heading', 'paragraph'],
-                }),
-            ],
-            onUpdate: () => {
-                this.$emit('update:modelValue', this.editor.getHTML())
-            },
-        })
-        document.addEventListener(
-            'fullscreenchange',
-            this.handleFullscreenChange
-        )
-    },
-    beforeUnmount() {
-        this.editor.destroy()
-        document.removeEventListener(
-            'fullscreenchange',
-            this.handleFullscreenChange
-        )
-    },
 }
 </script>
 
@@ -325,6 +327,7 @@ export default {
     border-radius: 2px;
     margin: 0.5em 4px;
     -webkit-appearance: none;
+    appearance: none;
     cursor: pointer;
 }
 
@@ -346,6 +349,7 @@ export default {
     border: none;
     border-radius: 2px;
     -webkit-appearance: none;
+    appearance: none;
     cursor: pointer;
 }
 
@@ -430,6 +434,7 @@ export default {
     border-radius: 2px;
     margin: 0.5em 4px;
     -webkit-appearance: none;
+    appearance: none;
     cursor: pointer;
 }
 
