@@ -101,7 +101,7 @@
               <%= assignment.deadline %>
             </div>
             <% if(assignment.deadline > Time.current) %>
-              <p>
+              <p id="timeRemaining">
                 (<%= t("groups.show.assignment.time_remaining_html", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)
               </p>
             <% end %>
@@ -348,6 +348,31 @@
 </div>
 
 <script>
+  function updateTimeRemaining() {
+    document.querySelectorAll("#timeRemaining").forEach(function(element) {
+    const timeRemaining = element.innerHTML;
+    var days = parseInt(timeRemaining.match(/\d+ days/));
+    var hours = parseInt(timeRemaining.match(/\d+ hours/));
+    var minutes = parseInt(timeRemaining.match(/\d+ minutes/));
+    if (minutes > 0) {
+      minutes--;
+    } else {
+      if (hours > 0) {
+        hours--;
+        minutes = 59;
+      } else {
+        if (days > 0) {
+          days--;
+          hours = 23;
+          minutes = 59;
+        }
+      }
+    }
+    element.innerHTML = ("(<strong>Time Remaining</strong>: " + days + " days " + hours + " hours " + minutes + " minutes)");
+  });
+  }  
+  updateTimeRemaining();
+  setInterval(updateTimeRemaining, 60000);
   $(document).ready(function() {
     $('.groups-assignment-deadline').each(function() {
       let month = $(this).data("month") -1;
