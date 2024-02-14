@@ -61,7 +61,7 @@ class User < ApplicationRecord
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
-      GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
+      GroupMember.where(group_id: invitation.group.id, user_id: id , mentor: invitation.isMentor).first_or_create
       invitation.destroy
     end
   end

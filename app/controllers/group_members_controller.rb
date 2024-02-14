@@ -38,13 +38,13 @@ class GroupMembersController < ApplicationController
     group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
-    newly_added = group_member_emails - present_members
-
+    present_invited_members = @group.pending_invitations.pluck(:email)
+    newly_added = group_member_emails - present_members - present_invited_members
     newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
       if user.nil?
-        PendingInvitation.where(group_id: @group.id, email: email).first_or_create
+        PendingInvitation.where(group_id: @group.id, email: email , isMentor: is_mentor).first_or_create
         # @group.pending_invitations.create(email:email)
       else
         GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create
