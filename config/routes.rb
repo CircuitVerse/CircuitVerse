@@ -26,6 +26,7 @@ Rails.application.routes.draw do
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
     member do
+      get "invite_mentor/:token", to: "groups#group_mentor_invite", as: "mentor_invite"
       get "invite/:token", to: "groups#group_invite", as: "invite"
       put :generate_token
     end
