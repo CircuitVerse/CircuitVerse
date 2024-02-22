@@ -1615,11 +1615,9 @@ input:checked + .slider:before {
 .zoom-slider-decrement {
     position: relative;
     bottom: 0.4rem;
-    color:yellow;
+    
 }
-.zoom-slider-decrement:hover{
-    background-color:pink;
-}
+
 
 .custom-range {
     width: 80px;
