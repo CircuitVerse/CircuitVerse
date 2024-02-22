@@ -17,7 +17,7 @@
       </div>
     <% end %>
   </div>
-  <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-3 mt-3 notifications_container">
+  <div id="all-notifications-div" class="d-flex flex-column bd-highlight my-3 notifications_container">
     <% @notifications.each do |notification| %>
       <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: "mb-2 mt-2 notification" do %>
         <div class="d-flex align-items-center notification-div">
@@ -46,7 +46,7 @@
       </div>
     <% end %>
   </div>
-  <div id="unread-notifications-div" class="d-none flex-column bd-highlight mb-3 mt-3 notifications_container">
+  <div id="unread-notifications-div" class="d-none flex-column bd-highlight my-3 notifications_container">
     <% @unread.each do |notification| %>
       <% if notification.unread? %>
         <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: "mb-2 mt-2 notification" do %>
