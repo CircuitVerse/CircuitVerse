@@ -180,8 +180,8 @@ body {
   }
 
   .pagination {
-    max-width: none;
-    overflow-x: auto;
+    max-width: 100vw;
+    overflow-x: hidden;
     padding: 0;
     white-space: nowrap;
   }
@@ -190,5 +190,40 @@ body {
     display: inline-block;
     margin: 0;
     margin-left: -4px;
+  }
+}
+
+/* Default styles for pagination */
+.pagination li {
+  display: inline;
+}
+
+@media only screen and (max-width: 992px) {
+  .pagination li:nth-child(n+8):not(.active):not(:last-child):not(:nth-last-child(-n+2)) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 832px) {
+  .pagination li:nth-child(n+6):not(.active):not(:last-child):not(:nth-last-child(-n+2)) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 748px) {
+  .pagination li:nth-child(n+4):not(.active):not(:last-child):not(:nth-last-child(-n+2)) {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 632px) {
+  .pagination li:nth-child(n+2):not(.active):not(:last-child) {
+    display: none;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .pagination li:nth-child(n+10):not(.active):not(:last-child) {
+    display: inline;
   }
 }
