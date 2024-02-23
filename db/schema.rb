@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_02_13_160214) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", precision: nil, null: false
+    t.datetime "deadline", null: false
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
