@@ -2,13 +2,15 @@
   <a class="navbar-brand" href="/">
     <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
   </a>
-  <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
-    <i class="fa fa-search search-icon <%= request.path == "/search" ? "active" : "" %>" tabindex="0" aria-label="search"></i>
+  <div class="flex row mr-1">
+    <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
+    <i class="fa fa-search search-icon ml-0 <%= request.path == "/search" ? "active" : "" %>" tabindex="0" aria-label="search"></i>
+    </div>
+    <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsed-navbar" id="dropdownButton"
+    aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+    <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
+    </button>
   </div>
-  <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsed-navbar"
-  aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
   <div class="collapse navbar-collapse" id="collapsed-navbar">
     <ul class="navbar-nav ml-auto navigationBar-item">
       <li class="nav-item px-1 pt-1 navbar-search-icon-onexpand">
@@ -17,7 +19,7 @@
         </div>
       </li>
       <li class="nav-item px-1">
-        <a class="btn rounded-0 navbar-simulator-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
+        <a class="btn navbar-simulator-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
       </li>
       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1">
@@ -85,6 +87,16 @@
     }
     burgerButton.classList.remove("show");
   }
+
+  var dropdownButton = document.getElementById('dropdownButton');
+  var dropdownIcon = document.getElementById('dropdownIcon');
+
+  dropdownButton.addEventListener('click', function() {
+    dropdownIcon.classList.toggle('fa-bars');
+    dropdownIcon.classList.toggle('fa-times');
+    dropdownIcon.style.width='17.5px'
+  });
+
   let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
   let searchIconExpand = document.getElementsByClassName("fa-search")[1];
   let searchBar = document.getElementsByClassName("navbar-search-active")[0];
