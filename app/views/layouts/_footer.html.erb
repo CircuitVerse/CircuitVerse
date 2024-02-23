@@ -12,7 +12,7 @@
         <div class="row">
           <p class="mt-3 mb-0 footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
         </div>
-        <div class="row footer-social-icons-row">
+        <div class="footer-social-icons-row">
           <a class="bounce-out-on-hover" href="/facebook" target="_blank" data-tooltip="facebook"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon", alt: "Facebook Logo") %></a>
           <a class="bounce-out-on-hover" href="/twitter" target="_blank" data-tooltip="twitter"><%= image_tag("logos/twitter-x.png", class: "footer-social-icon", alt: "Twitter Logo") %></a>
           <a class="bounce-out-on-hover" href="/linkedin" target="_blank" data-tooltip="linkedin"><%= image_tag("logos/linkedin-logo.png", class: "footer-social-icon", alt: "LinkedIn Logo") %></a>
@@ -21,7 +21,7 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 footer-column">
-        <div class="row text-left">
+        <div class="row text-start">
           <div class="col-5 footer-links">
             <a href="/simulator"><h6><%= t("layout.link_to_simulator") %></h6></a>
             <a href="/learn" target="_blank"><h6><%= t("layout.link_to_learn_more") %></h6></a>
@@ -57,7 +57,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 text-white text-left footer-copyright-text">
+      <div class="col-12 text-white text-start footer-copyright-text">
   <p><%= t("layout.footer.copyright_text", time_current_year: Time.current.year) %></p>
       </div>
     </div>

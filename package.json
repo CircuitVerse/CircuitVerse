@@ -38,12 +38,13 @@
     "vite-plugin-ruby": "^3.2.0"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.5.1",
-    "@hotwired/stimulus": "^3.2.2",
+    "@fortawesome/fontawesome-free": "^6.3.0",
+    "@hotwired/stimulus": "^3.0.1",
+    "@popperjs/core": "^2.11.8",
     "@tarekraafat/autocomplete.js": "^10.2.6",
     "banana-i18n": "^2.3.3",
-    "better-docs": "^2.7.3",
-    "bootstrap": "^4.6.1",
+    "better-docs": "^2.7.2",
+    "bootstrap": "5.3.2",
     "bootstrap-input-spinner": "^3.3.3",
     "canvas2svg": "1.0.16",
     "codemirror": "^5.65.1",
