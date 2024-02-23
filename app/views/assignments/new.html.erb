@@ -11,7 +11,7 @@
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
       <div class="form-container">
-        <%= render "form", assignment: @assignment, group: @group %>
+        <%= render(AssignmentForm::AssignmentFormComponent.new(@assignment, @group, current_user, lms_integration_tutorial)) %>
       </div>
     </div>
   </div>

@@ -1,7 +1,7 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="/js/metadata.json"></script>
 
-<%= form_with(model: [group, @assignment], local: true, html: { onsubmit: "beforeSubmit()" }, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
+<%= form_with(model: [@group, @assignment], local: true, html: { onsubmit: "beforeSubmit()" }, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
   <% if @assignment.errors.any? %>
     <div id="error-message">
       <ul>
@@ -12,14 +12,14 @@
     </div>
   <% end %>
 
-  <% if Flipper.enabled?(:lms_integration, current_user) %>
+  <% if Flipper.enabled?(:lms_integration, @current_user) %>
     <div id="lms-integration-field" class="field form-group">
       <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements"><h6>Integrate with LMS</h6>
        <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
        <div class="primary-checkpoint"></div>
       </label>
       <div class="lms-integration-message"> <!-- Operated by script -->
-       <p>We will generate the required keys for integration after assignment creation.<a href=<%= lms_integration_tutorial %>>Learn how to integrate CircuitVerse assignments with any LMS</a></p>
+       <p>We will generate the required keys for integration after assignment creation.<a href="<%= @lms_integration_tutorial %>">Learn how to integrate CircuitVerse assignments with any LMS</a></p>
       </div>
     </div>
   <% end %>
@@ -40,7 +40,7 @@
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span><%= t("assignments.form.grade_scale_cant_change") %></span>
-      <% if Flipper.enabled?(:lms_integration, current_user) %>
+      <% if Flipper.enabled?(:lms_integration, @current_user) %>
         <div class="lms-grade-fixed-message"> <!-- Operated by script -->
           <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</a></p>
         </div>
@@ -129,7 +129,7 @@
     label.html(`Time remaining: ${timeString}`);
   }
   function defaultAssignmentDate() {
-    const splittedDate = "<%= assignment.deadline.strftime("%d/%m/%Y %H:%M") %>".split(/[\s,/:]+/);
+    const splittedDate = "<%= @assignment.deadline.strftime("%d/%m/%Y %H:%M") %>".split(/[\s,/:]+/);
     let pickerDate = new Date(splittedDate[2], splittedDate[1]-1, splittedDate[0], splittedDate[3], splittedDate[4]);
     const pickerUnix = pickerDate.getTime();
     const pickerUnixWithTimezone = new Date(pickerUnix - new Date().getTimezoneOffset()*60*1000);
@@ -187,4 +187,4 @@
   }
 </script>
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js" integrity="sha384-Hsz8bx27/5CGaEnHGEldTZAk6bBDbP+DTrI9KDGHrJ7SIW8CfwZj5Nl8PEFFKxju" crossorigin="anonymous"></script>
