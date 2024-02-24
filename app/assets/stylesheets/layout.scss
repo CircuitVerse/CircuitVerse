@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: $primary-green;
+  color: $white;
+}
+
 body {
   font-family: 'Inter';
   padding-top: 90px;
@@ -41,14 +46,14 @@ body {
   p {
     overflow: hidden;
     text-overflow: ellipsis;
-  }
 
-  &:hover .tooltiptext {
-    left: 50%;
-    opacity: 1;
-    transform: translateX(-50%);
-    visibility: visible;
-    z-index: 101;
+    &:hover .tooltiptext {
+      left: 50%;
+      opacity: 1;
+      transform: translateX(-50%);
+      visibility: visible;
+      z-index: 101;
+    }
   }
 }
 
@@ -176,7 +181,7 @@ body {
 
   .pagination {
     max-width: none;
-    overflow-x: visible;
+    overflow-x: auto;
     padding: 0;
     white-space: nowrap;
   }
