@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class FeaturedCircuitsController < ApplicationController
+  include UsersCircuitverseHelper
+
   before_action :authenticate_user!, except: [:index]
   before_action :set_and_authorize_featured, except: [:index]
 

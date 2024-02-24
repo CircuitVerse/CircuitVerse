@@ -62,4 +62,58 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       expect(user_profile_picture(user1.profile_picture)).to eq("/images/thumb/Default.jpg")
     end
   end
+
+  describe "#project_image_preview" do
+    context "Flipper is enabled" do
+      before do
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project)
+        @project.circuit_preview.attach(
+          io: Rails.root.join("spec/fixtures/files/default.png").open,
+          filename: "preview_1234.jpeg",
+          content_type: "img/jpeg"
+        )
+      end
+
+      it "returns ActiveStorage attachment" do
+        circuit_preview = send(:return_circuit_preview, @project)
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be true
+        expect(circuit_preview).to eq(@project.circuit_preview)
+        expect(project_image_preview(@project, @user)).to eq(@project.circuit_preview)
+      end
+
+      it "returns default image" do
+        @project.circuit_preview.purge
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be true
+        default_image_path = send(:return_circuit_preview, @project)
+        expect(default_image_path).to eq("/images/empty_project/default.png")
+        expect(project_image_preview(@project, @user)).to eq("/images/empty_project/default.png")
+      end
+    end
+
+    context "Flipper is Disabled" do
+      before do
+        Flipper.disable(:active_storage_s3)
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project)
+      end
+
+      it "returns default image" do
+        @project.image_preview = nil
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be false
+        default_image_path = send(:return_image_preview, @project)
+        expect(default_image_path).to eq("/images/empty_project/default.png")
+        expect(project_image_preview(@project, @user)).to eq("/images/empty_project/default.png")
+      end
+
+      it "returns PaperClip url" do
+        image_file = Rails.root.join("spec/fixtures/files/default.png").open
+        @project.image_preview = image_file
+        expect(Flipper.enabled?(:active_storage_s3, @user)).to be false
+        image_preview_url = send(:return_image_preview, @project)
+        expect(image_preview_url).to eq(@project.image_preview.url)
+        expect(project_image_preview(@project, @user)).to eq(@project.image_preview.url)
+      end
+    end
+  end
 end
