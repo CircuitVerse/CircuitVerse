@@ -11,7 +11,7 @@
   <% end %>
 <% end %>
 
-<%= form_with(model: [@project.author, @project], local: true, multipart: true, id: "projectForm") do |form| %>
+<%= form_with(model: [@project.author, @project], url: { action: "update" }, local: true, multipart: true, id: "projectForm") do |form| %>
   <% if project.errors.any? %>
     <div class="error-message">
       <ul class="mt-3 mb-3">
@@ -23,7 +23,7 @@
   <% end %>
   <div class="field form-group d-flex flex-column">
     <h6><%= form.label :name %></h6>
-    <%= form.text_field :name, id: :project_name, class: "form-control form-input", maxlength: 60 %>
+    <%= form.text_field :name, id: :project_name, class: "form-control form-input", maxlength: 90 %>
     <span id="name-counter" class="char-counter"></span>
   </div>
   <div class="field form-group projects-tag-form-group">
