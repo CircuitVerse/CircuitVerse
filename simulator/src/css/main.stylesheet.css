@@ -177,7 +177,7 @@ input[type="text"]:focus {
     height: 1.2rem;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 22rem;
+    margin-right: auto;
 }
 
 @media (max-width: 991px) {
