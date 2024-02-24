@@ -77,9 +77,9 @@
           <% end %>
         <% end %>
       <% end %>
-      <div id="commontator-comment-<%= comment.id %>-votes" class="votes">
-        <%= render partial: 'commontator/comments/votes', locals: { comment: comment, user: user } %>
-      </div>
+    </div>
+    <div id="commontator-comment-<%= comment.id %>-votes" class="votes">
+      <%= render partial: 'commontator/comments/votes', locals: { comment: comment, user: user } %>
     </div>
   </div>
 </div>
