@@ -39,7 +39,7 @@ class GroupMembersController < ApplicationController
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
     present_invited_members = @group.pending_invitations.pluck(:email)
-    newly_added = group_member_emails - present_members - present_invited_members
+    newly_added = group_member_emails - present_members - present_invited_members - [current_user&.email]
     newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
