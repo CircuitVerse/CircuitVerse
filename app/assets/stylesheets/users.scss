@@ -330,7 +330,9 @@
     font-size: 16px;
     margin: 0;
     padding: 7px 10px 7px 35px;
-    transition: 0.2s ease-in-out;
+transition: .2s ease-in-out;
+border-radius: 4px;
+
 
     &:focus {
       border-color: $primary-green;
