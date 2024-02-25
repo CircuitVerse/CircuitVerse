@@ -65,25 +65,25 @@
   </div>
 </div>
 <script>
-    $(document).ready(()=>{
-      let email_input = $(".user-email-input");
-      let password_input = $(".users-password-input");
-      let login_button = $(".users-login-primary-button");
+    document.addEventListener("DOMContentLoaded", function() {
+    let emailInput = document.querySelector(".user-email-input");
+    let passwordInput = document.querySelector(".users-password-input");
+    let loginButton = document.querySelector(".users-login-primary-button");
 
-      toggledButton = () =>{
-        let email_input_value = email_input.val().trim();
-        let password_input_value = password_input.val().trim();
+    toggledButton = () => {
+        let emailInputValue = emailInput.value.trim();
+        let passwordInputValue = passwordInput.value.trim();
 
-        if((email_input_value !== "") && (password_input_value !== "")){
-          login_button.prop("disabled",false);
+        if (emailInputValue !== "" && passwordInputValue !== "" ) {
+            loginButton.disabled = false;
         }
+    }
 
-      }
-      email_input.on("input",toggledButton);
-      password_input.on("input",toggledButton);
-    })
-    $(".users-forgot-password-text").on('click', () => {
-      localStorage.setItem('Email', $(".user-email-input").val());
+      emailInput.addEventListener("input", toggledButton);
+      passwordInput.addEventListener("input", toggledButton);
+    });
+    document.querySelector(".users-forgot-password-text").addEventListener('click', () => {
+      localStorage.setItem('Email', querySelector(".user-email-input").val());
     });
 </script>
 <script src="/js/togglePassword.js"></script>
