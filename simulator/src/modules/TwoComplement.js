@@ -106,4 +106,6 @@ export default class TwoComplement extends CircuitElement {
  */
 TwoComplement.prototype.tooltipText =
     "Two's Complement Tooltip : Calculates the two's complement";
+TwoComplement.prototype.helplink =
+    "https://docs.circuitverse.org/#/chapter4/8misc?id=two39s-complement";
 TwoComplement.prototype.objectType = "TwoComplement";
