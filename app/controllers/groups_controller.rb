@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
-  before_action :set_group, only: %i[show edit update destroy group_invite group_mentor_invite generate_token]
+  before_action :set_group, only: %i[show edit update destroy group_invite invite_group_mentor generate_token]
   before_action :authenticate_user!
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
@@ -23,12 +23,13 @@ class GroupsController < ApplicationController
     @group.reset_group_token unless @group.has_valid_token?
     @group.reset_group_mentor_token unless @group.has_valid_mentor_token?
   end
-  def group_mentor_invite 
+
+  def invite_group_mentor 
     if Group.with_valid_mentor_token.exists?(group_mentor_token: params[:token])
       if current_user.groups.exists?(id: @group)
         notice = "Member is already present in the group."
       else
-        current_user.group_members.create!(group: @group,mentor:true)
+        current_user.group_members.create!(group: @group, mentor: true)
         notice = "Group mentor was successfully added."
       end
     elsif Group.exists?(group_mentor_token: params[:token])
@@ -38,6 +39,7 @@ class GroupsController < ApplicationController
     end
     redirect_to group_path(@group), notice: notice
   end
+
   def group_invite
     if Group.with_valid_token.exists?(group_token: params[:token])
       if current_user.groups.exists?(id: @group)
