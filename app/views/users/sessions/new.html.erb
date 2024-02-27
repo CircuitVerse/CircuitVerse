@@ -39,7 +39,7 @@
             <div class="field form-group mb-0">
               <label class="primary-checkpoint-container users-primary-checkpoint mb-0"><h6><%= t("users.sessions.remember_me") %></h6>
                 <%= f.check_box :remember_me %>
-                <div class="primary-checkpoint m-0"></div>
+                <div class="primary-checkpoint m-0" , id="remember_me"></div>
               </label>
             </div>
           <% end -%>
@@ -69,18 +69,26 @@
     let emailInput = document.querySelector(".user-email-input");
     let passwordInput = document.querySelector(".users-password-input");
     let loginButton = document.querySelector(".users-login-primary-button");
+    let checkbox = document.getElementById("remember_me");
 
     toggledButton = () => {
+
         let emailInputValue = emailInput.value.trim();
         let passwordInputValue = passwordInput.value.trim();
 
-        if (emailInputValue !== "" && passwordInputValue !== "" ) {
-            loginButton.disabled = false;
-        }
-    }
+        let isChecked = false;
 
-      emailInput.addEventListener("input", toggledButton);
-      passwordInput.addEventListener("input", toggledButton);
+        checkbox.addEventListener("click", () => {
+          isChecked = !isChecked;
+
+          if(emailInputValue !== "" && passwordInputValue !== "" && isChecked)
+            loginButton.disabled = false;
+          else
+            loginButton.disabled = true;
+        })
+    }
+    emailInput.addEventListener("input", toggledButton);
+    passwordInput.addEventListener("input", toggledButton);
     });
     document.querySelector(".users-forgot-password-text").addEventListener('click', () => {
       localStorage.setItem('Email', querySelector(".user-email-input").val());
