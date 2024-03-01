@@ -489,6 +489,17 @@
   }
 }
 
+@media (max-width: 460px){
+  .dropdown-notification{
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 370px){
+  .dropdown-notification{
+    max-width: 270px;
+  }
+}
 // notification page
 .notification-icon {
   font-size: 20px;

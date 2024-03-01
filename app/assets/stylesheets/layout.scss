@@ -205,6 +205,19 @@ body {
   }
 }
 
+@media (max-width: 991px){
+  .anchor-text-left{
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+
+  .anchor-text-right{
+    margin: 0;
+    padding: 0;
+    position: relative;
+  }
+}
 @media (max-width: 400px){
   .anchor-text-button{
     margin-left: -2px;
