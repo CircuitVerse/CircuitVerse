@@ -268,10 +268,10 @@ GEM
     geocoder (1.7.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.25.1)
-    google-protobuf (3.25.1-arm64-darwin)
-    google-protobuf (3.25.1-x86_64-darwin)
-    google-protobuf (3.25.1-x86_64-linux)
+    google-protobuf (3.25.3)
+    google-protobuf (3.25.3-arm64-darwin)
+    google-protobuf (3.25.3-x86_64-darwin)
+    google-protobuf (3.25.3-x86_64-linux)
     googleapis-common-protos-types (1.6.0)
       google-protobuf (~> 3.14)
     hairtrigger (0.2.25)
@@ -888,7 +888,7 @@ GEM
       will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    yard (0.9.34)
+    yard (0.9.36)
     zeitwerk (2.6.13)
 
 PLATFORMS
