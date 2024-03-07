@@ -337,7 +337,7 @@
   </table>
   <div class="row">
     <div class="col-12 groups-back-button-container">
-      <%= link_to t("back"), :back, class: "anchor-text" %>
+      <%= link_to t("back"), user_groups_path(current_user.id), class: "anchor-text" %>
     </div>
   </div>
   <%= render partial: "delete_member_confirmation_modal" %>
