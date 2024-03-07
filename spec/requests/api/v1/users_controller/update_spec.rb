@@ -77,6 +77,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
 
     context "when authenticated as the user and removes the uploaded picture" do
       before do
+        Flipper.disable(:active_storage_s3)
         # user having profile picture
         new_user = FactoryBot.create(:user)
         token = get_auth_token(new_user)
