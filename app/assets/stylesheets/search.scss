@@ -136,7 +136,9 @@
 
 .search-usersearch-image {
   display: block;
+  height: 180px;
   margin-bottom: 20px;
+  object-fit: cover;
   width: 70%;
   border-radius: 8px;
   aspect-ratio: 1/1;
@@ -191,6 +193,10 @@
     img {
       max-width: 60%;
     }
+  }
+
+  .search-usersearch-image {
+    width: 40%;
   }
 }
 
