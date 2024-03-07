@@ -274,10 +274,24 @@
   }
 }
 
-.group-invite-link-text {
+#group-invite-link-container {
   border: 1.5px solid $secondary-green;
-  font-size: 12px;
-  text-align: left;
+  padding: 10px;
+  position: relative;
+  font-size: 12px; 
+  border-radius: 5px; 
+}
+
+#copyIcon{
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+}
+
+.group-invite-link-text {
+  border: none;
+  outline: none;
 }
 
 /* Add responsiveness for smaller screens */
