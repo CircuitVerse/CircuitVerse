@@ -38,8 +38,7 @@ class GroupMembersController < ApplicationController
     group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
-    newly_added = group_member_emails - present_members
-
+    newly_added = group_member_emails - present_members - [current_user&.email]
     newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
@@ -59,9 +58,7 @@ class GroupMembersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to group_path(@group),
-                    notice: Utils.mail_notice(group_member_params[:emails], group_member_emails,
-                                              newly_added)
+        redirect_to group_path(@group), notice: notice
       end
     end
     # redirect_to group_path(@group)
