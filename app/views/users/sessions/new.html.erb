@@ -65,33 +65,27 @@
   </div>
 </div>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
     let emailInput = document.querySelector(".user-email-input");
     let passwordInput = document.querySelector(".users-password-input");
     let loginButton = document.querySelector(".users-login-primary-button");
-    let checkbox = document.querySelector(".primary-checkpoint")
 
     toggledButton = () => {
-
         let emailInputValue = emailInput.value.trim();
         let passwordInputValue = passwordInput.value.trim();
 
-        let isChecked = false;
-
-        checkbox.addEventListener("click", () => {
-          isChecked = !isChecked;
-
-          if(emailInputValue !== "" && passwordInputValue !== "" && isChecked)
+        if (emailInputValue !== "" && passwordInputValue !== "") {
             loginButton.disabled = false;
-          else
-            loginButton.disabled = true;
-        })
-    }
+        }
+    };
+
     emailInput.addEventListener("input", toggledButton);
     passwordInput.addEventListener("input", toggledButton);
-    });
+
     document.querySelector(".users-forgot-password-text").addEventListener('click', () => {
-      localStorage.setItem('Email', querySelector(".user-email-input").val());
+        localStorage.setItem('Email', document.querySelector(".user-email-input").value);
     });
+});
+
 </script>
 <script src="/js/togglePassword.js"></script>
