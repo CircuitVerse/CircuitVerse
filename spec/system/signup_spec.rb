@@ -54,7 +54,7 @@ describe "Sign up", type: :system do
     expect(page).to have_text("Name can only contain letters and spaces")
   end
 
-  it "does not sign-up when passwords do not match" do
+  it "does not sign-up when password do not match" do
     fill_in "Name", with: "user1"
     fill_in "Email", with: "user1@example.com"
     fill_in "Password", with: "secret"
