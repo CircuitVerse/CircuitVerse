@@ -27,15 +27,22 @@ module Utils
     invalid = total - valid
     already_present = (parsed_mails - newly_added).count
 
-    notice = if total != 0 && valid != 0
-      "Out of #{total} Email(s), #{valid} #{valid == 1 ? 'was' : 'were'} valid and #{invalid} #{invalid == 1 ? 'was' : 'were'} invalid. #{newly_added.count} user(s) will be invited. " + \
-        (if already_present.zero?
-           "No users were already present."
-         else
-           "#{already_present} user(s) #{already_present == 1 ? 'was' : 'were'} already present."
-         end)
+    if total.positive? && valid.positive? 
+      if already_present == total 
+        notice = "#{total == 1 ? 'Email is already present' : 'All Emails are already present'}"
+      else
+        notice = "Out of #{total} #{total == 1 ? 'Email' : 'Emails'} entered, #{valid} #{valid == 1 ? 'Email is' : 'Emails are'} valid. "
+        notice += " #{invalid} #{invalid == 1 ? 'Email was' : 'Emails were'} invalid. " if invalid.positive?
+        notice += "#{already_present} #{already_present == 1 ? 'Email was' : 'Emails were'} already present. " if already_present.positive?
+
+        invited_emails_count = valid - already_present
+        if invited_emails_count.positive?
+          notice += " #{invited_emails_count} #{invited_emails_count == 1 ? 'Email is' : 'Emails are'} invited."
+        end
+      end
     else
-      "No valid Email(s) entered."
+      notice = "No valid Email(s) entered."
     end
+    notice
   end
 end
