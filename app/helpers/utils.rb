@@ -27,22 +27,18 @@ module Utils
     invalid = total - valid
     already_present = (parsed_mails - newly_added).count
 
-    if total.positive? && valid.positive? 
-      if already_present == total 
-        notice = "#{total == 1 ? 'Email is already present' : 'All Emails are already present'}"
-      else
-        notice = "Out of #{total} #{total == 1 ? 'Email' : 'Emails'} entered, #{valid} #{valid == 1 ? 'Email is' : 'Emails are'} valid. "
-        notice += " #{invalid} #{invalid == 1 ? 'Email was' : 'Emails were'} invalid. " if invalid.positive?
-        notice += "#{already_present} #{already_present == 1 ? 'Email was' : 'Emails were'} already present. " if already_present.positive?
+    return "No valid Emails(s) entered" if total.zero? || valid.zero?
 
-        invited_emails_count = valid - already_present
-        if invited_emails_count.positive?
-          notice += " #{invited_emails_count} #{invited_emails_count == 1 ? 'Email is' : 'Emails are'} invited."
-        end
-      end
-    else
-      notice = "No valid Email(s) entered."
+    if already.present == total
+      return "#{total} #{'Email'.pluralize(total)} #{'is'.pluralize(total)} already present"
     end
+
+    notice = "Out of #{total} #{'Email'.pluralize(total)}, #{valid} #{'Email'.pluralize(valid)} #{'is'.pluralize(valid)} valid."
+    notice += " #{invalid} #{'Email'.pluralize(invalid)} #{'was'.pluralize(invalid)} invalid." if invalid.positive?
+    notice += " #{already_present} #{'Email'.pluralize(already_present)} #{'was'.pluralize(already_present)} already present." if already_present.positive?
+    invited_emails_count = valid - already_present
+    notice += "#{invalid_emails_count} #{'Email'.pluralize(invited_emails_count)} #{'is'.pluralize(invited_emails_count)} invited" if invited_emails_count.positive?
+
     notice
   end
 end
