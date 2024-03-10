@@ -3,7 +3,7 @@
 
 <%= form_with(model: [group, @assignment], local: true, html: { onsubmit: "beforeSubmit()" }, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
   <% if @assignment.errors.any? %>
-    <div id="error-message">
+    <div class="error-message">
       <ul>
         <% @assignment.errors.full_messages.each do |message| %>
           <li><%= message %></li>
