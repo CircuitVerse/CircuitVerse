@@ -84,7 +84,7 @@
               <% if Flipper.enabled?(:lms_integration, current_user) %>
                 <% if policy(@group).admin_access? && assignment.lti_integrated? %>
                  <br>
-                 <a data-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">Show LMS Credentials</a>
+                
                  <%= render partial: "lms_credentials_modal", locals: { assignment: assignment } %>
                 <% end %>
               <% end %>
@@ -141,7 +141,12 @@
                   <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
                   <span><%= t("delete") %></span>
                 <% end %>
-              </div>
+              </div>  
+                  <div class="groups-assignment-details"> 
+                   <a class="btn primary-button groups-primary-button" data-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">LMS Credentials</a>
+              
+                  </div>
+                 
             <% else %>
               <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
                 <% if(assignment.deadline > Time.current) %>

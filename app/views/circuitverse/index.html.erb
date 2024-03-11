@@ -1,3 +1,4 @@
+
 <script>
   $(document).ready(function(){
     $("#alertdiv").delay(5000).fadeOut(600);
@@ -36,11 +37,13 @@
       <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
           <div class="home-main-content">
+        
             <h1><%= t("circuitverse.index.main_heading") %></h1><br>
             <p><%= t("circuitverse.index.main_description") %></p>
             <div class="home-buttons-container justify-content-center">
               <a class="btn primary-button home-simulator-button" href='/simulator'><%= t("launch_simulator") %></a> &nbsp;
-              <a href="https://learn.circuitverse.org/" target="blank" class="anchor-text"><%= t("circuitverse.index.learn_logic_design") %></a>
+              <a href="https://learn.circuitverse.org/" target="blank" class=" btn anchor-text-button anchor-text"><%= t("circuitverse.index.learn_logic_design") %></a>
+              <a class="btn primary-button home-simulator-button" href="/achievement">Events & Achievements</a>
             </div>
           </div>
         </div>
@@ -159,7 +162,72 @@
         </div>
       </div>
     </div>
+    <h1 class="heading" >Universities using CiruitVerse</h1>
+    <p>See famous Universities using CiruitVerse.</p>
+    <div class="university">
+   
+<div id="video-container">
+    <iframe width="400" height="300" src="https://www.youtube.com/embed/JU0RKPe7AhA" frameborder="0" allowfullscreen></iframe>
+   <div>
+   <hr class="green-line">
+   <div class="paragraph">
+    <h5>University of Regina</h5>
+    <a class="btn primary-button home-simulator-button view" href="https://www.youtube.com/embed/JU0RKPe7AhA">View</a>
+    </div>
+    </div>
+</div>
+<div id="video-container">
+    <img class="circuit_pic" src=" https://drive.google.com/file/d/1E7jPRke5aQNPjBH0WdjK04F6qPDvjQB9/view?usp=sharing">
+   <div>
+   <hr class="green-line">
+   <div class="paragraph">
+    <h5>University of Regina</h5>
+    <a class="btn primary-button home-simulator-button view" href="https://www.youtube.com/embed/JU0RKPe7AhA">View</a>
+    </div>
+    </div>
+</div>
+<div id="video-container">
+    <iframe width="400" height="300" src="https://www.youtube.com/embed/jlJLn1r33io" frameborder="0" allowfullscreen></iframe>
+     <div>
+     <hr class="green-line">
+     <div class="paragraph">
+    <h5>University of Chicago</h5>
+    <a class="btn primary-button home-simulator-button view" href="https://www.youtube.com/embed/jlJLn1r33io">View</a>
+    </div>
+    </div>
+</div>
+
+    </div>
+    <h1 class="heading">Testimonials</h1>
+    <p>See what users say about CiruitVerse</p>
+    <div class="testimonials">
+    
+    <div class="main_testimonial">
+    <div class="testimonial_pic"><img class="testimonial_pic" src="https://images.unsplash.com/photo-1489980557514-251d61e3eeb6?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTR8Z3ZXTmFORnIxN0F8fGVufDB8fHx8fA%3D%3D"></div>
+
+    <h5>John</h5>
+     ⭐ ⭐ ⭐ ⭐
+<br><br><br>
+    <p>"Working with Circuit verse has been an absolute pleasure. From the initial consultation to the final delivery, their team went above and beyond to ensure that our project exceeded expectations.</p>
+   
+    
+    </div>
+    
+    <div class="main_testimonial"> <div class="testimonial_pic"><img class="testimonial_pic" src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MjB8MTcyOTI1OHx8ZW58MHx8fHx8"></div> <h5>Matthew</h5>
+     ⭐ ⭐ ⭐ ⭐
+
+<br><br><br>
+     <p>"Working with Circuit verse has been an absolute pleasure. From the initial consultation to the final delivery, their team went above and beyond to ensure that our project exceeded expectations.</p> </div>
+    <div class="main_testimonial"> <div class="testimonial_pic"><img class="testimonial_pic" src="https://images.unsplash.com/photo-1513956589380-bad6acb9b9d4?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxjb2xsZWN0aW9uLXBhZ2V8MTR8MTcyOTI1OHx8ZW58MHx8fHx8"></div> <h5>Chris</h5>
+     ⭐ ⭐ ⭐ ⭐
+     <br><br><br>
+     <p>"Working with Circuit verse has been an absolute pleasure. From the initial consultation to the final delivery, their team went above and beyond to ensure that our project exceeded expectations. </p>
+    </div>
+    
+    
+    </div>
     <div class="container-fluid home-container-fluid">
+
       <div class="container">
         <div class="row center-row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -192,35 +260,7 @@
         </div>
       </div>
     </div>
-    <% cache "recent-projects-#{params[:page]}", expires_in: 10.minutes do %>
-      <div class="container" id="recent">
-        <div class="row center-row home-circuit-card-row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <h3><%= t("circuitverse.index.recent_circuits.main_heading") %></h3>
-            <p><%= t("circuitverse.index.recent_circuits.main_description") %></p>
-          </div>
-        </div>
-        <div class="row center-row justify-content-center">
-          <% @projects.each do |project| %>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-              <div class="card circuit-card">
-                <%= image_tag project.image_preview.url, alt: project.name, class: "card-img-top circuit-card-image" %>
-                <div class="card-footer circuit-card-footer">
-                  <div class="circuit-card-name">
-                    <p><%= project.name %></p>
-                    <span class="tooltiptext"><%= project.name %></span>
-                  </div>
-                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>"><%= t("view") %></a>
-                </div>
-              </div>
-            </div>
-          <% end %>
-        </div>
-        <div class="container pagination-cont">
-          <%= will_paginate @projects, renderer: PaginateRenderer %>
-        </div>
-      </div>
-    <% end %>
+     
 
     <% if user_signed_in? %>
     <script>

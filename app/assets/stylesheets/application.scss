@@ -27,3 +27,80 @@
 @import 'announcements';
 @import 'select2.css';
 @import 'select2_overrides';
+.testimonials{
+    display:flex;
+    flex-direction:row;
+    justify-content: space-between;
+    margin:40px 5px 40px 5px;
+  }
+  .main_testimonial{
+    padding:10px;
+    margin:10px;/* Border */
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.2); /* Shadow */
+    padding: 20px;
+    text-align: center;
+  }
+  .testimonial_pic{
+    position:relative;
+    left:30%;
+    width:100px;
+    height:100px;
+    align-items: center;
+    border-radius: 50%;
+  }
+  .university{
+   
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .heading{
+   text-align: center;
+    margin-top:40px;
+  }
+  #video-container{
+    border: 1.5px solid #42b983;
+    margin:70px 0px 50px 0px;
+  }
+  .paragraph{
+    display: flex;
+    justify-content: space-around;
+    
+  }
+  .green-line {
+    border: none;
+    border-top: 1.5px solid #42b983; /* Adjust thickness as needed */
+    margin: 20px 0; /* Adjust margin as needed */
+}
+.view{
+  position: relative;
+  bottom: 7px;
+}
+.fa-duotone{
+  width:100px;
+  height:100px;
+}
+.fa-left{
+  width: 100px;
+  height: 100px;
+}
+ p{
+  text-align: center;
+}
+
+.result-box ul{
+border-top:1px solid black;
+border-left: 1px solid black;
+border-right: 1px solid black;
+border-bottom: 1px solid black;
+padding:15px 10px;
+}
+.result-box ul li{
+  list-style: none;
+  border-radius: 5px;
+  padding:15px 10px;
+  cursor:pointer;
+}
+.result-box ul li:hover{
+  background-color: #e9f3ff;
+}

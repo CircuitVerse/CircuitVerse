@@ -68,9 +68,16 @@
         <button id="my-circuits" class="btn users-circuits-tab active"><%= t("users.circuitverse.index.my_circuits") %></button>
         <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
+         <button id="assigned-circuits" class="btn users-circuits-tab users-collaborators-tab">Assignments</button>
+      
       </div>
+
       <div class="users-circuits-search-container">
-      <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search" placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
+      <span><i class="fas fa-search search-icon-dashboard "></i><input type="search" class="users-circuits-search input-box" placeholder="<%= t("users.circuitverse.index.search_circuits") %> "autocomplete="off"></span>
+     <div class="result-box">
+     
+     </div>
+     
       </div>
     </div>
   </div>
@@ -252,4 +259,35 @@
         "/users/" + authorId + "/projects/" + id);
     });
   });
+</script>
+<script>
+    let available_keywords = ["Multiplexer", "Ripple adder", "Tic Toe game", "Full adder", "Half adder"];
+    const resultbox = document.querySelector(".result-box");
+    const inputbox = document.querySelector(".input-box");
+
+    inputbox.addEventListener('keyup', function() {
+        let result = [];
+        let input = inputbox.value;
+        if (input.length) {
+            result = available_keywords.filter((keyword) => {
+                return keyword.toLowerCase().includes(input.toLowerCase());
+            });
+        }
+        display(result);
+        if(!result.length){
+        resultbox.innerHTML=" ";
+
+        }
+    });
+
+    function display(result) {
+        const content = result.map((list) => {
+            return "<li onclick=selectinput(this)>" + list + "</li>";
+        });
+        resultbox.innerHTML = "<ul>" + content.join('') + "</ul>";
+    }
+    function selectinput(data){
+      inputbox.value=data.innerHTML;
+      resultbox.innerHTML="";
+    }
 </script>

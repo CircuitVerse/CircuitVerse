@@ -1,6 +1,4 @@
-
- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer">
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <div id="embedProjectCircuit" class="modal fade" role="dialog">
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
@@ -10,39 +8,49 @@
       </div>
       <div class="modal-body">
         <div class="field form-group embed-input-fields">
-            <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.height") %></b></label></div>
-            <input type="text" class="form-control form-input" id="height" placeholder="Height" value="">
-            <button type="button">submit</button>
+          <div>
+            <label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.height") %></b></label>
+          </div>
+          <input type="text" class="form-control form-input" id="height" placeholder="Height" value="">
+          <button type="button">submit</button>
         </div>
         <div class="field form-group embed-input-fields">
-        <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.width") %></b></label></div>
+          <div>
+            <label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.width") %></b></label>
+          </div>
           <input type="text" class="form-control form-input" id="width" placeholder="Width" value="500">
         </div>
         <div class="field form-group embed-input-fields">
-            <div><label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label></div>
-            <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
+          <div>
+            <label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label>
+          </div>
+          <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
         </div>
         <div class="field form-group embed-input-fields">
-            <div><label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label></div>
-            <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)">&nbsp;&nbsp;
-            <input type="color" class="w-25 h-auto" name="color_picker" id="color_picker">
-            <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)">
+          <div>
+            <label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label>
+          </div>
+          <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)">&nbsp;&nbsp;
+          <input type="color" class="w-25 h-auto" name="color_picker" id="color_picker">
+          <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)">
         </div>
         <div class="field form-group embed-input-fields">
-            <div><label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label></div>
-            <select class="form-control form-input" id="border_style" placeholder="Select a style">
-                <option>solid</option>
-                <option>dashed</option>
-                <option>dotted</option>
-                <option>double</option>
-                <option>groove</option>
-                <option>ridge</option>
-                <option>inset</option>
-                <option>outset</option>
-                <option>none</option>
-                <option>hidden</option>
-                <option>dotted dashed solid double</option>
-            </select>
+          <div>
+            <label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label>
+          </div>
+          <select class="form-control form-input" id="border_style" placeholder="Select a style">
+            <option>solid</option>
+            <option>dashed</option>
+            <option>dotted</option>
+            <option>double</option>
+            <option>groove</option>
+            <option>ridge</option>
+            <option>inset</option>
+            <option>outset</option>
+            <option>none</option>
+            <option>hidden</option>
+            <option>dotted dashed solid double</option>
+          </select>
         </div>
         <div class="advance-embed-field field form-group">
           <details>
@@ -77,42 +85,41 @@
                 </label>
               </div>
               <div class="field form-group embed-input-fields">
-                <div><label for="theme" class="col-sm-3 col-form-label"><b><%= t("projects.modal.advance.theme") %></b></label></div>
+                <div>
+                  <label for="theme" class="col-sm-3 col-form-label"><b><%= t("projects.modal.advance.theme") %></b></label>
+                </div>
                 <select class="form-control form-input" id="theme" placeholder="Select a style">
-                    <option value="default">Default</option>
-                    <option value="night-sky">Night Sky</option>
-                    <option value="lite-born-spring">Lite-born Spring</option>
-                    <option value="g-and-w">G&W</option>
-                    <option value="high-contrast">High Contrast</option>
-                    <option value="color-blind">Color Blind</option>
+                  <option value="default">Default</option>
+                  <option value="night-sky">Night Sky</option>
+                  <option value="lite-born-spring">Lite-born Spring</option>
+                  <option value="g-and-w">G&W</option>
+                  <option value="high-contrast">High Contrast</option>
+                  <option value="color-blind">Color Blind</option>
                 </select>
               </div>
             </div>
           </details>
         </div>
-        <div class=textarea>
-            <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
-             <button onclick="copyText()"><i class="fa-solid fa-copy"></i></button>
+        <div class="textarea">
+          <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
+          <button onclick="copyText()"><i class="fa-solid fa-copy"></i></button>
         </div>
-        
         <div class="collapse show">
-            <textarea placeholder="Click Publish to get Embed Iframe Code" name='embed-textarea' class="form-control form-input embed-link-textarea data_textarea" rows="5px" column="115px" id="result" readonly></textarea>
-            <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
+          <textarea placeholder="Click Publish to get Embed Iframe Code" name='embed-textarea' class="form-control form-input embed-link-textarea data_textarea" rows="5px" column="115px" id="result" readonly></textarea>
+          <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
         </div>
         <style>
-        ::selection {
-  background-color:rgb(0, 140, 255); /* Change to desired highlight color */
-}
-
-.highlight {
-  background-color: #66baff; /* Change to desired highlight color */
-}
-.textarea{
-    display:flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
+          ::selection {
+            background-color:rgb(0, 140, 255); /* Change to desired highlight color */
+          }
+          .highlight {
+            background-color: #66baff; /* Change to desired highlight color */
+          }
+          .textarea {
+            display:flex;
+            flex-direction: row;
+            justify-content: space-between;
+          }
         </style>
       </div>
     </div>
@@ -122,24 +129,20 @@
   const color_picker = document.getElementById('color_picker');
   const colorDisplay = document.getElementById('border_color');
   function copyText() {
-  // Get the textarea element
-  var textarea = document.querySelector(".data_textarea");
-  
-  // Select the text inside the textarea
-  textarea.select();
-  textarea.setSelectionRange(0, 99999); // For mobile devices
-  
-  // Copy the selected text
-  document.execCommand("copy");
-  
-  // Highlight the textarea content
-  textarea.classList.add('highlight');
-  
-  // Deselect the textarea
-  textarea.blur(); // Remove focus to prevent the textarea from staying highlighted
-}
+    // Get the textarea element
+    var textarea = document.querySelector(".data_textarea");
+    // Select the text inside the textarea
+    textarea.select();
+    textarea.setSelectionRange(0, 99999); // For mobile devices
+    // Copy the selected text
+    document.execCommand("copy");
+    // Highlight the textarea content
+    textarea.classList.add('highlight');
+    // Deselect the textarea
+    textarea.blur(); // Remove focus to prevent the textarea from staying highlighted
+  }
   color_picker.addEventListener('input', function() {
-      colorDisplay.value = color_picker.value;
+    colorDisplay.value = color_picker.value;
   });
   document.getElementById('border_color').addEventListener('input', (e) => {
     color_picker.value = e.target.value
