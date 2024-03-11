@@ -10,7 +10,6 @@ class Grade < ApplicationRecord
 
   validates :grade, presence: true
   validate :grading_scale, :assignment_project
-  validates :project_id, uniqueness: { scope: :assignment_id }
 
   private
 

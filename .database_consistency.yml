@@ -12,8 +12,6 @@ DatabaseConsistencyDatabases:
 DatabaseConsistencyCheckers:
   All:
     enabled: true # You can disable everything until you explicitly enable it with any option below.
-  MissingIndexChecker: # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
-    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   MissingUniqueIndexChecker:
     enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
   ColumnPresenceChecker:
