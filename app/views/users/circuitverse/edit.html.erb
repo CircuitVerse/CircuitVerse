@@ -52,6 +52,14 @@
           <button type="submit" class="btn primary-button users-edit-primary-button"><%= t("save") %></button>
           <%= link_to t("back"), :back, class: "anchor-text" %>
         <% end %>
+        <hr>
+        <div class="row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h4 class="submain-heading"><%= t("users.circuitverse.edit_profile.account_settings") %></h4>
+            <p><%= t("users.circuitverse.edit_profile.change_password_question") %></p>
+            <%= link_to t("users.circuitverse.edit_profile.change_password"), :edit_password, class: "anchor-text" %>
+          </div>
+        </div>
         <div class="row">
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <h4 class="submain-heading"><%= t("users.circuitverse.edit_profile.delete_account_heading") %></h4>

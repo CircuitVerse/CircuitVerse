@@ -25,6 +25,9 @@ bn:
         delete_account_heading: "আপনার অ্যাকাউন্ট মুছুন"
         delete_account_notice: "সাবধানতার সাথে এগিয়ে যান! এই কর্ম বিপরীত করা যাবে না."
         delete_account: "অ্যাকাউন্ট মুছুন"
+        account_settings: "অ্যাকাউন্ট সেটিংস"
+        change_password_question: "আপনি কি আপনার পাসওয়ার্ড পরিবর্তন করতে চান?"
+        change_password: "পাসওয়ার্ড পরিবর্তন করুন"
       groups:
         title: "%{name} - গ্রুপ"
         alt_title: "Nil - গ্রুপ"

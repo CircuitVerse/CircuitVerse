@@ -25,6 +25,9 @@ mr:
         delete_account_heading: "तुमचे खाते हटवा"
         delete_account_notice: "सावधानपूर्वक पुढे जा! ही क्रिया पूर्ववत केली जाऊ शकत नाही."
         delete_account: "खाते काढा"
+        account_settings: "खाते सेटिंग्ज"
+        change_password_question: "तुम्हाला तुमचा पासवर्ड बदलायचा आहे का?"
+        change_password: "पासवर्ड बदला"
       groups:
         title: "%{name} - तुमचा गट"
         alt_title: "शून्य - तुमचा गट"

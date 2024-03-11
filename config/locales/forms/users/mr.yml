@@ -9,3 +9,4 @@ mr:
         locale: "भाषा"
         password: "पासवर्ड"
         password_confirmation: "पासवर्ड पुष्टी करा"
+        current_password: "सध्याचा पासवर्ड "
