@@ -313,7 +313,7 @@ input[type="text"]:focus {
     text-align: center;
     position: absolute;
     left: 50%;
-    transform: translate(-50%, 13px);
+    transform: translate(-55%, 13px);
 }
 
 .draggable-panel-css {
