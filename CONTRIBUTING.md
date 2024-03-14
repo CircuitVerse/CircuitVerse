@@ -77,7 +77,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 - `no activity` labeled PRs are meant to have no activity in the PR from since a while.
 - `blocked` labeled PRs are meant not to go ahead for review.
 - `do not merge` labeled PRs are meant not to merge the PR right now(may be later).
-- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labeled PRs are meant to be waiting for other communtiy members.
+- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labeled PRs are meant to be waiting for other community members.
 
 ## Community
 Discussions about CircuitVerse issues and features take place on the repository's [Discussions](https://github.com/CircuitVerse/CircuitVerse/discussions) sections. Anybody is welcome to join these conversations. See the [README](README.md) for more information on communication channels.
