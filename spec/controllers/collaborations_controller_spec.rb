@@ -33,10 +33,10 @@ describe CollaborationsController, type: :request do
         end.to change(Collaboration, :count).by(1)
       end
 
-      it "does not include current user's email in newly added collaborators" do
+      it "throws an error if current user tries to invite themselves" do
+        create_params[:collaboration][:emails] << @author.email
         post collaborations_path, params: create_params
-        expect(assigns(:newly_added)).not_to include(current_user.email)
-        expect(flash[:notice]).not_to include("You can't invite yourself.")
+        expect(flash[:notice]).to include("You can't invite yourself.")
       end
       
     end

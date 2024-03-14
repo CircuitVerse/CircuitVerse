@@ -1,17 +1,17 @@
-import { scopeList } from '../circuit';
-import { resetup } from '../setup';
-import { update } from '../engine';
-import { stripTags, showMessage } from '../utils';
-import { backUp } from './backupCircuit';
-import simulationArea from '../simulationArea';
-import backgroundArea from '../backgroundArea';
-import { findDimensions } from '../canvasApi';
-import { projectSavedSet } from './project';
-import { colors } from '../themer/themer';
-import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
-import {verilogModeGet} from '../Verilog2CV';
-import domtoimage from 'dom-to-image';
-import C2S from '../canvas2svg';
+import { scopeList } from "../circuit";
+import { resetup } from "../setup";
+import { update } from "../engine";
+import { stripTags, showMessage } from "../utils";
+import { backUp } from "./backupCircuit";
+import simulationArea from "../simulationArea";
+import backgroundArea from "../backgroundArea";
+import { findDimensions } from "../canvasApi";
+import { projectSavedSet } from "./project";
+import { colors } from "../themer/themer";
+import { layoutModeGet, toggleLayoutMode } from "../layoutMode";
+import { verilogModeGet } from "../Verilog2CV";
+import domtoimage from "dom-to-image";
+import C2S from "../canvas2svg";
 
 var projectName = undefined;
 
@@ -21,13 +21,13 @@ var projectName = undefined;
  * @category data
  */
 export function setProjectName(name) {
-    if(name == undefined) {
-        $('#projectName').html('Untitled');
+    if (name == undefined) {
+        $("#projectName").html("Untitled");
         return;
     }
     name = stripTags(name);
     projectName = name;
-    $('#projectName').html(name);
+    $("#projectName").html(name);
 }
 
 /**
@@ -47,7 +47,7 @@ export function getProjectName() {
  */
 function downloadAsImg(name, imgType) {
     const gh = simulationArea.canvas.toDataURL(`image/${imgType}`);
-    const anchor = document.createElement('a');
+    const anchor = document.createElement("a");
     anchor.href = gh;
     anchor.download = `${name}.${imgType}`;
     anchor.click();
@@ -55,14 +55,14 @@ function downloadAsImg(name, imgType) {
 
 /**
  * Returns the order of tabs in the project
-*/
+ */
 export function getTabsOrder() {
-    var tabs = $("#tabsBar").children().not('button');
+    var tabs = $("#tabsBar").children().not("button");
     var order = [];
     for (let i = 0; i < tabs.length; i++) {
-         order.push(tabs[i].id);
+        order.push(tabs[i].id);
     }
-    return order
+    return order;
 }
 
 /**
@@ -72,10 +72,10 @@ export function getTabsOrder() {
  * @category data
  */
 export function generateSaveData(name, setName = true) {
-    data = {};
-
+    data = {};s
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    name =
+        getProjectName() || name || prompt("Enter Project Name:") || "Untitled";
     data.name = stripTags(name);
     if (setName) setProjectName(data.name);
 
@@ -91,7 +91,9 @@ export function generateSaveData(name, setName = true) {
     const dependencyList = {};
     const completed = {};
     // Getting list of dependencies for each circuit
-    for (id in scopeList) { dependencyList[id] = scopeList[id].getDependencies(); }
+    for (id in scopeList) {
+        dependencyList[id] = scopeList[id].getDependencies();
+    }
 
     // Helper function to save Scope
     // Recursively saves inner subcircuits first, before saving parent circuits
@@ -109,7 +111,9 @@ export function generateSaveData(name, setName = true) {
     }
 
     // Save all circuits
-    for (let id in scopeList) { saveScope(id); }
+    for (let id in scopeList) {
+        saveScope(id);
+    }
 
     // convert to text
     data = JSON.stringify(data);
@@ -118,14 +122,16 @@ export function generateSaveData(name, setName = true) {
 
 // Helper function to download text
 export function download(filename, text) {
-    var pom = document.createElement('a');
-    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
-    pom.setAttribute('download', filename);
-
+    var pom = document.createElement("a");
+    pom.setAttribute(
+        "href",
+        "data:text/plain;charset=utf-8," + encodeURIComponent(text)
+    );
+    pom.setAttribute("download", filename);
 
     if (document.createEvent) {
-        var event = document.createEvent('MouseEvents');
-        event.initEvent('click', true, true);
+        var event = document.createEvent("MouseEvents");
+        event.initEvent("click", true, true);
         pom.dispatchEvent(event);
     } else {
         pom.click();
@@ -141,7 +147,13 @@ export function download(filename, text) {
  * @param {boolean=} down - will download if true
  * @category data
  */
-export function generateImage(imgType, view, transparent, resolution, down = true) {
+export function generateImage(
+    imgType,
+    view,
+    transparent,
+    resolution,
+    down = true
+) {
     // Backup all data
     const backUpOx = globalScope.ox;
     const backUpOy = globalScope.oy;
@@ -157,10 +169,10 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     globalScope.oy *= 1 / backUpScale;
 
     // If SVG, create SVG context - using canvas2svg here
-    if (imgType === 'svg') {
+    if (imgType === "svg") {
         simulationArea.context = new C2S(width, height);
         resolution = 1;
-    } else if (imgType !== 'png') {
+    } else if (imgType !== "png") {
         transparent = false;
     }
 
@@ -171,7 +183,7 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     // Focus circuit
     var flag = 1;
     if (flag) {
-        if (view === 'full') {
+        if (view === "full") {
             findDimensions();
             const minX = simulationArea.minWidth;
             const minY = simulationArea.minHeight;
@@ -198,7 +210,6 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
     backgroundArea.canvas.width = width;
     backgroundArea.canvas.height = height;
 
-
     backgroundArea.context = simulationArea.context;
 
     simulationArea.clear();
@@ -212,13 +223,15 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 
     // Draw circuits, why is it updateOrder and not renderOrder?
     for (let i = 0; i < renderOrder.length; i++) {
-        for (let j = 0; j < scope[renderOrder[i]].length; j++) { scope[renderOrder[i]][j].draw(); }
+        for (let j = 0; j < scope[renderOrder[i]].length; j++) {
+            scope[renderOrder[i]][j].draw();
+        }
     }
 
     let returnData;
     // If circuit is to be downloaded, download, other wise return dataURL
     if (down) {
-        if (imgType === 'svg') {
+        if (imgType === "svg") {
             const mySerializedSVG = simulationArea.context.getSerializedSvg(); // true here, if you need to convert named to numbered entities.
             download(`${globalScope.name}.svg`, mySerializedSVG);
         } else {
@@ -247,23 +260,24 @@ export function generateImage(imgType, view, transparent, resolution, down = tru
 }
 
 async function crop(dataURL, w, h) {
-  //get empty second canvas
-  var myCanvas = document.createElement("CANVAS");
-  myCanvas.width = w;
-  myCanvas.height = h;
-  var myContext = myCanvas.getContext('2d');
-  var myImage;
-  var img = new Image();
-  return new Promise (function (resolved, rejected) {
+    //get empty second canvas
+    var myCanvas = document.createElement("CANVAS");
+    myCanvas.width = w;
+    myCanvas.height = h;
+    var myContext = myCanvas.getContext("2d");
+    var myImage;
+    var img = new Image();
+    return new Promise(function (resolved, rejected) {
         img.src = dataURL;
         img.onload = () => {
-        myContext.drawImage(img, 0, 0, w, h,0,0, w ,h);
-        myContext.save();
+            myContext.drawImage(img, 0, 0, w, h, 0, 0, w, h);
+            myContext.save();
 
-        //create a new data URL
-        myImage = myCanvas.toDataURL('image/jpeg');
-        resolved(myImage);}
-    })
+            //create a new data URL
+            myImage = myCanvas.toDataURL("image/jpeg");
+            resolved(myImage);
+        };
+    });
 }
 
 /**
@@ -275,20 +289,20 @@ async function generateImageForOnline() {
     // Verilog Mode -> Different logic
     // Fix aspect ratio to 1.6
     // Ensure image is approximately 700 x 440
-    var ratio = 1.6
-    if(verilogModeGet()) {
-        var node = document.getElementsByClassName('CodeMirror')[0];
+    var ratio = 1.6;
+    if (verilogModeGet()) {
+        var node = document.getElementsByClassName("CodeMirror")[0];
         // var node = document.getElementsByClassName('CodeMirror')[0];
-        var prevHeight = $(node).css('height');
-        var prevWidth = $(node).css('width');
+        var prevHeight = $(node).css("height");
+        var prevWidth = $(node).css("width");
         var baseWidth = 500;
         var baseHeight = Math.round(baseWidth / ratio);
-        $(node).css('height', baseHeight);
-        $(node).css('width', baseWidth);
+        $(node).css("height", baseHeight);
+        $(node).css("width", baseWidth);
 
         var data = await domtoimage.toJpeg(node);
-        $(node).css('width', prevWidth);
-        $(node).css('height', prevHeight);
+        $(node).css("width", prevWidth);
+        $(node).css("height", prevHeight);
         data = await crop(data, baseWidth, baseHeight);
         return data;
     }
@@ -306,14 +320,16 @@ async function generateImageForOnline() {
     globalScope.centerFocus();
 
     // Ensure image is approximately 700 x 440
-    const resolution = Math.min(700 / (simulationArea.maxWidth - simulationArea.minWidth), 440 / (simulationArea.maxHeight - simulationArea.minHeight));
+    const resolution = Math.min(
+        700 / (simulationArea.maxWidth - simulationArea.minWidth),
+        440 / (simulationArea.maxHeight - simulationArea.minHeight)
+    );
 
-    data = generateImage('jpeg', 'current', false, resolution, false);
+    data = generateImage("jpeg", "current", false, resolution, false);
 
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
-
 }
 /**
  * Function called when you save acircuit online
@@ -321,12 +337,11 @@ async function generateImageForOnline() {
  * @exports save
  */
 export default async function save() {
-    if(layoutModeGet())
-        toggleLayoutMode();
+    if (layoutModeGet()) toggleLayoutMode();
 
     projectSavedSet(true);
 
-    $('.loadingIcon').fadeIn();
+    $(".loadingIcon").fadeIn();
     const data = generateSaveData();
 
     const projectName = getProjectName();
@@ -334,57 +349,65 @@ export default async function save() {
 
     if (!userSignedIn) {
         // user not signed in, save locally temporarily and force user to sign in
-        localStorage.setItem('recover_login', data);
+        localStorage.setItem("recover_login", data);
         // Asking user whether they want to login.
-        if (confirm('You have to login to save the project, you will be redirected to the login page.')) window.location.href = '/users/sign_in';
-        else $('.loadingIcon').fadeOut();
+        if (
+            confirm(
+                "You have to login to save the project, you will be redirected to the login page."
+            )
+        )
+            window.location.href = "/users/sign_in";
+        else $(".loadingIcon").fadeOut();
         // eslint-disable-next-line camelcase
     } else if (__logix_project_id == "0") {
         // Create new project - this part needs to be improved and optimised
-        const form = $('<form/>', {
-            action: '/simulator/create_data',
-            method: 'post',
+        const form = $("<form/>", {
+            action: "/simulator/create_data",
+            method: "post",
         });
         form.append(
-            $('<input>', {
-                type: 'hidden',
-                name: 'authenticity_token',
-                value: $('meta[name="csrf-token"]').attr('content'),
-            }),
+            $("<input>", {
+                type: "hidden",
+                name: "authenticity_token",
+                value: $('meta[name="csrf-token"]').attr("content"),
+            })
         );
         form.append(
-            $('<input>', {
-                type: 'text',
-                name: 'data',
+            $("<input>", {
+                type: "text",
+                name: "data",
                 value: data,
-            }),
+            })
         );
         form.append(
-            $('<input>', {
-                type: 'text',
-                name: 'image',
+            $("<input>", {
+                type: "text",
+                name: "image",
                 value: imageData,
-            }),
+            })
         );
 
         form.append(
-            $('<input>', {
-                type: 'text',
-                name: 'name',
+            $("<input>", {
+                type: "text",
+                name: "name",
                 value: projectName,
-            }),
+            })
         );
 
-        $('body').append(form);
+        $("body").append(form);
         form.submit();
     } else {
         // updates project - this part needs to be improved and optimised
         $.ajax({
-            url: '/simulator/update_data',
-            type: 'POST',
-            contentType: 'application/json',
+            url: "/simulator/update_data",
+            type: "POST",
+            contentType: "application/json",
             beforeSend(xhr) {
-                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                xhr.setRequestHeader(
+                    "X-CSRF-Token",
+                    $('meta[name="csrf-token"]').attr("content")
+                );
             },
             data: JSON.stringify({
                 data,
@@ -393,13 +416,17 @@ export default async function save() {
                 name: projectName,
             }),
             success(response) {
-                showMessage(`We have saved your project: ${projectName} in our servers.`);
-                $('.loadingIcon').fadeOut();
-                localStorage.removeItem('recover');
+                showMessage(
+                    `We have saved your project: ${projectName} in our servers.`
+                );
+                $(".loadingIcon").fadeOut();
+                localStorage.removeItem("recover");
             },
             failure(err) {
-                showMessage("There was an error, we couldn't save to our servers");
-                $('.loadingIcon').fadeOut();
+                showMessage(
+                    "There was an error, we couldn't save to our servers"
+                );
+                $(".loadingIcon").fadeOut();
             },
         });
     }
@@ -416,8 +443,8 @@ export default async function save() {
 var checkForAutosave = 1;
 
 export function autosave() {
-    var circuitData = generateSaveData('Untitled');
-    localStorage.setItem('autosave', circuitData);
+    var circuitData = generateSaveData("Untitled");
+    localStorage.setItem("autosave", circuitData);
 }
 
 export function checkBackups() {
