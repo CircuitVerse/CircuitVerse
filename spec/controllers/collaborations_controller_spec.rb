@@ -37,7 +37,7 @@ describe CollaborationsController, type: :request do
         create_params[:collaboration][:emails] = [@author.email]
         expect do
           post collaborations_path, params: create_params
-        end.to change(Collaboration, :count).by(0)
+        end.not_to change(Collaboration, :count)
         expect(flash[:notice]).to include("You can't invite yourself.")
       end
     end
