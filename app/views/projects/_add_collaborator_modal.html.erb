@@ -10,7 +10,7 @@
         <p><%= t("projects.add_collaborator_description") %></p>
         <%= form_with(model: @collaboration, local: true) do |form| %>
         <% if @collaboration.errors.any? %>
-          <div id="error-message">
+          <div class="error-message">
             <ul>
             <% @collaborator.errors.full_messages.each do |message| %>
               <li><%= message %></li>

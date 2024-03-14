@@ -261,7 +261,11 @@
                         <span><%= t("edit") %></span>
                       <% end %>
                     </div>
-
+                    <div class="groups-assignment-details">
+                      <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
+                        <span><%= t("close") %></span>
+                    <% end %>
+                    </div>
                   <% end %>
                   <div class="groups-assignment-details">
                     <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { toggle: "modal", target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
