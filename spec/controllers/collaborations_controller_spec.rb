@@ -32,6 +32,14 @@ describe CollaborationsController, type: :request do
           post collaborations_path, params: create_params
         end.to change(Collaboration, :count).by(1)
       end
+
+      it "does not create collaboration if user is already a collaborator" do
+        create_params[:collaboration][:emails] = [@author.email]
+        expect do
+          post collaborations_path, params: create_params
+        end.to change(Collaboration, :count).by(0)
+        expect(flash[:notice]).to include("You can't invite yourself.")
+      end
     end
 
     context "author is not logged in" do
