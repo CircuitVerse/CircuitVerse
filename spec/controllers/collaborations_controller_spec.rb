@@ -33,7 +33,7 @@ describe CollaborationsController, type: :request do
         end.to change(Collaboration, :count).by(1)
       end
 
-      it "does not create collaboration if user is already a collaborator" do
+      it "does not create collaboration if user want to add himself" do
         create_params[:collaboration][:emails] = [@author.email]
         expect do
           post collaborations_path, params: create_params
