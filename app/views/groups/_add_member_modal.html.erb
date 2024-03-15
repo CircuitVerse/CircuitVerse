@@ -9,7 +9,7 @@
         <p><%= t("groups.add_member_description") %></p>
         <%= form_with(model: group_member, local: true) do |form| %>
           <% if group_member.errors.any? %>
-            <div id="error-message">
+            <div class="error-message">
               <ul>
                 <% group_member.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
@@ -28,20 +28,31 @@
             <%= form.select :emails, [], {}, { class: "form-select", multiple: true } %>
           </div>
           <div class="modal-footer">
-            <%= form.submit class: "add-members-button btn primary-button" %>
+            <%= form.submit class: "btn primary-button", id: "add-members-button" %>
           </div>
         <% end %>
       </div>
       <div class="mx-auto text-center p-3">
         <p><%= t("groups.use_alternative") %></p>
-        <%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-toggle": "collapse", href: "#collapseExample", "aria-expanded": "false", "aria-controls": "collapseExample" } do %>
+        <%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-toggle": "collapse", href: "#group-invite-link-container", "aria-expanded": "false", "aria-controls": "group-invite-link-container" } do %>
           <i class="fas fa-external-link-alt"></i>
           <span><%= t("groups.invite_link_btn") %></span>
         <% end %>
-        <div class="collapse" id="collapseExample">
-          <textarea readonly="readonly" id="embedInviteLink" class="group-invite-link-text" rows="4" cols="35"></textarea>
+        <div class="collapse" id="group-invite-link-container">
+          <textarea readonly="readonly" id="embedInviteLink" class="group-invite-link-text" rows="3" cols="35" name="group-invite-link"></textarea>
+          <i class="fas fa-2x fa-regular fa-copy" onclick="copyToClipboard()" id="copyIcon" style="cursor:pointer"></i>
         </div>
       </div>
     </div>
   </div>
 </div>
+<script>
+function copyToClipboard(){
+  var copyText=document.getElementById("embedInviteLink");
+  var copyIcon=document.getElementById("copyIcon");
+  copyIcon.classList.add("text-success");
+  copyText.select();
+  document.execCommand('copy');
+  alert("Invite link copied to clipboard");
+}
+</script>

@@ -12,7 +12,10 @@
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
       <h1 class="submain-heading">
-        <%= @group.name %>
+        <p>
+          <%= @group.name %>
+          <span class="tooltiptext"><%= @group.name %></span>
+        </p>
         <% if policy(@group).admin_access? %>
           <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
             <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
@@ -258,7 +261,11 @@
                         <span><%= t("edit") %></span>
                       <% end %>
                     </div>
-
+                    <div class="groups-assignment-details">
+                      <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
+                        <span><%= t("close") %></span>
+                    <% end %>
+                    </div>
                   <% end %>
                   <div class="groups-assignment-details">
                     <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { toggle: "modal", target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>

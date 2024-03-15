@@ -14,6 +14,14 @@ export default class extends Controller {
         });
     }
 
+    toggleButtonBasedOnEmails(emailSelector, buttonSelector) {
+        if ($(emailSelector).select2('data').length > 0) {
+            $(buttonSelector).attr('disabled', false);
+        } else {
+            $(buttonSelector).attr('disabled', true);
+        }
+    }
+
     mentorInputPaste(e) {
         e.preventDefault();
         let pastedEmails = '';
@@ -32,7 +40,7 @@ export default class extends Controller {
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
             });
-            $('.add-mentor-button').attr('disabled', false);
+            $('#add-mentor-button').attr('disabled', false);
         } else {
             const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
             this.value = pastedEmails.replace(/./g, '');
@@ -41,7 +49,7 @@ export default class extends Controller {
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
             });
-            $('.add-mentor-button').attr('disabled', false);
+            $('#add-mentor-button').attr('disabled', false);
         }
     }
 
@@ -53,14 +61,10 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input_mentor');
-        $('.add-mentor-button').attr('disabled', true);
+        this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
         $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
-        $('.select2-container').on('keyup click', () => {
-            if ($('.select2-selection__rendered').children().length > 1) {
-                $('.add-mentor-button').attr('disabled', false);
-            } else {
-                $('.add-mentor-button').attr('disabled', true);
-            }
+        $('#group_mentor_emails').on('select2:select select2:unselect', () => {
+            this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
         });
     }
 
@@ -72,13 +76,9 @@ export default class extends Controller {
         });
         $('.select2-selection input').attr('maxlength', '30');
         $('.select2-selection input').attr('id', 'group_email_input');
-        $('.add-members-button').attr('disabled', true);
-        $('.select2-container').on('keyup click', () => {
-            if ($('.select2-selection__rendered').children().length > 1) {
-                $('.add-members-button').attr('disabled', false);
-            } else {
-                $('.add-members-button').attr('disabled', true);
-            }
+        this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
+        $('#group_member_emails').on('select2:select select2:unselect', () => {
+            this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
         });
         document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
             e.preventDefault();
@@ -98,7 +98,7 @@ export default class extends Controller {
                     $('#group_member_emails').append(tags);
                     $('#group_member_emails option').prop('selected', true);
                 });
-                $('.add-members-button').attr('disabled', false);
+                $('#add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
@@ -107,7 +107,7 @@ export default class extends Controller {
                     $('#group_member_emails').append(tags);
                     $('#group_member_emails option').prop('selected', true);
                 });
-                $('.add-members-button').attr('disabled', false);
+                $('#add-members-button').attr('disabled', false);
             }
         });
     }

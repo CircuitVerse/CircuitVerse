@@ -100,7 +100,7 @@
             <p>
               <hr class="projects-horizontal-rule">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank"><%= t("launch_simulator") %></a>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
               <% else %>
                 <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
                 <i class="fas fa-code"></i>
@@ -133,16 +133,16 @@
           <% if policy(@project).user_access? %>
             <hr class="projects-horizontal-rule">
             <p>
-              <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button" do %>
+              <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center" do %>
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "btn secondary-button", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
+              <%= link_to "#", class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
-              <a class="btn secondary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
-                <i class="fas fa-code"></i>
+              <a class="btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
+                <i class="fas fa-code mr-1"></i>
                 <span><%= t("projects.show.project_embed") %></span>
               </a>
               </p>
@@ -195,7 +195,7 @@
     <% end %>
 
     <%= render partial: "add_collaborator_modal" %>
-    <%= render partial: "delete_project_confirmation_modal" %>
+    <%= render(ProjectComponents::DeleteProjectConfirmationModelComponent.new) %>
     <%= render partial: "delete_collaboration_confirmation_modal" %>
     <%= render(ProjectEmbedComponent.new(@project)) %>
 

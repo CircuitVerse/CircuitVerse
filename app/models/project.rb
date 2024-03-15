@@ -54,7 +54,6 @@ class Project < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
-  # Mirror Uploads to ActiveStorage
   has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
