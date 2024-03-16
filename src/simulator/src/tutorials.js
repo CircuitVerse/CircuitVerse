@@ -74,7 +74,7 @@ export const tour = [
     //     },
     // },
     {
-        element: '.fa-bug',
+        element: '.report-sidebar a',
         popover: {
             className: 'bug-guide',
             title: 'Report System',
