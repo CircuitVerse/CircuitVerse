@@ -55,11 +55,16 @@
   color: $navbar-dark-grey;
   font-weight: 500;
   transition: all .3s ease-in;
+  border-radius: 4px;
 
   &:hover {
     background: $primary-green;
     color: $white;
   }
+}
+
+.rotate180::after {
+  transform: rotate(180deg);
 }
 
 .navbar-dropdown-toggle-hidden {
@@ -155,6 +160,7 @@
   min-width: 150px;
   padding: 5px;
   width: 100%;
+  border-radius: 4px;
 }
 
 .navbar-search-bar-select {
@@ -175,12 +181,11 @@
   border: 1px solid $primary-green;
   cursor: pointer;
   font-size: 18px;
-  height: 40px;
-  margin-right: 6px;
-  margin-top: 5px;
+  margin: 5px;
   max-width: 100px;
   min-width: 100px;
   padding-left: 5px;
+  border-radius: 4px;
 }
 
 .dropdown-menu {
