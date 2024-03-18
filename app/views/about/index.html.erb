@@ -118,7 +118,6 @@
         }
         const contributorsData = await apiData.json();
         const contributorUsers = contributorsData.filter(user => user.type === 'User');
-        
         // Use Promise.all() to fetch contributor data concurrently
         await Promise.all(contributorUsers.map(async user => {
           const contributorElement = document.createElement('div');
