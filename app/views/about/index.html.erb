@@ -110,22 +110,32 @@
 </div>
 
 <script type="text/javascript">
-  async function getContributors(url){
-    let apiData = await fetch(url);
-    let contributorsData = await apiData.json();
-    let contributorUsers = contributorsData.filter(function(user) { return (user.type == 'User') });
-    for (let i=0; i<contributorUsers.length; i++){
-      let contributorElement = document.createElement('div');
-      let contributorElementAnchor = document.createElement('a');
-      let contributorElementImage = document.createElement('img');
-      contributorElement.classList.add('about-contributor');
-      contributorElementAnchor.href = await contributorUsers[i]['html_url'];
-      contributorElementImage.src = await contributorUsers[i]['avatar_url'];
-      contributorElementImage.classList.add('about-contributor-image');
-      contributorElementAnchor.appendChild(contributorElementImage);
-      contributorElement.appendChild(contributorElementAnchor);
-      document.getElementsByClassName('about-contributors-section')[0].appendChild(contributorElement);
+    async function getContributors(url) {
+      try {
+        const apiData = await fetch(url);
+        if (!apiData.ok) {
+          throw new Error(`Failed to fetch: ${apiData.status}`);
+        }
+        const contributorsData = await apiData.json();
+        const contributorUsers = contributorsData.filter(user => user.type === 'User');
+        
+        // Use Promise.all() to fetch contributor data concurrently
+        await Promise.all(contributorUsers.map(async user => {
+          const contributorElement = document.createElement('div');
+          const contributorElementAnchor = document.createElement('a');
+          const contributorElementImage = document.createElement('img');
+          contributorElement.classList.add('about-contributor');
+          contributorElementAnchor.href = user.html_url;
+          contributorElementImage.src = user.avatar_url;
+          contributorElementImage.classList.add('about-contributor-image');
+          contributorElementAnchor.appendChild(contributorElementImage);
+          contributorElement.appendChild(contributorElementAnchor);
+          document.querySelector('.about-contributors-section').appendChild(contributorElement);
+        }));
+      } catch (error) {
+        console.error('Error fetching contributors:', error);
+      }
     }
-  }
-  getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors?per_page=100');
-</script>
+
+    getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors?per_page=100');
+  </script>
