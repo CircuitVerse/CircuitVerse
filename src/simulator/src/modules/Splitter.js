@@ -170,7 +170,6 @@ export default class Splitter extends CircuitElement {
                 simulationArea.simulationQueue.add(this.inp1)
             }
             // else if (this.inp1.value !== n) {
-            //     console.log("CONTENTION");
             // }
         }
         this.prevInpValue = this.inp1.value
@@ -190,7 +189,6 @@ export default class Splitter extends CircuitElement {
      * @return {JSON}
      */
     processVerilog() {
-        // console.log(this.inp1.verilogLabel +":"+ this.outputs[0].verilogLabel);
         if (
             this.inp1.verilogLabel !== '' &&
             this.outputs[0].verilogLabel === ''
@@ -218,7 +216,6 @@ export default class Splitter extends CircuitElement {
             const label = `{${this.outputs
                 .map((x) => x.verilogLabel)
                 .join(',')}}`
-            // console.log("HIT",label)
             if (this.inp1.verilogLabel !== label) {
                 this.inp1.verilogLabel = label
                 this.scope.stack.push(this.inp1)

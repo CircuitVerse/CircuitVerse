@@ -16,7 +16,6 @@
 // export function keyBinder() {
     // const simulatorStore = SimulatorStore()
     // simulatorStore.dialogBox.customshortcut_dialog = true
-    // console.log(simulatorStore.dialogBox.customshortcut_dialog)
     // $('#customShortcutDialog').append(editPanel)
     // $('#customShortcutDialog').append(heading)
     // $('#customShortcutDialog').append(markUp)

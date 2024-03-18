@@ -226,14 +226,12 @@ watch(clockEnabled, (val) => {
 onBeforeMount(() => {
     window.embed = true
     window.logixProjectId = route.params.projectId
-    console.log(window.logixProjectId)
 })
 
 onMounted(() => {
     // $('#zoom-in-embed').on('click', () => ZoomIn())
     // $('#zoom-out-embed').on('click', () => ZoomOut())
 
-    console.log('embed setup')
     startListeners()
     setup()
 })

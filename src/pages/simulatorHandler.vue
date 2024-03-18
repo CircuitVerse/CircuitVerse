@@ -40,14 +40,8 @@ async function checkEditAccess() {
         // if user has edit access load circuit data
         if (res.ok) {
             res.json().then((data) => {
-                console.log('all good to go')
                 authStore.setUserInfo(data.data)
                 ;(window as any).isUserLoggedIn = true
-                console.log(
-                    authStore.getIsLoggedIn,
-                    authStore.getUsername,
-                    authStore.getUserId
-                )
                 isLoading.value = false
             })
         } else if (res.status === 403) {

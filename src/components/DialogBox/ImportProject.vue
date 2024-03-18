@@ -110,7 +110,6 @@ function addDropFile(e: DragEvent) {
         const fileExtension = droppedFile.name.split('.').pop()
 
         if (fileExtension === 'cv') {
-            console.log('file dropped')
             file.value[0] = droppedFile
             document
                 .querySelector('.fileInput')

@@ -20,6 +20,4 @@ const props = defineProps({
     tableHeader: { type: Array, default: () => [] },
     tableBody: { type: Array, default: () => [] },
 })
-console.log(props.tableHeader)
-console.log(props.tableBody)
 </script>

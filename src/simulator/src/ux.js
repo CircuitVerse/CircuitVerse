@@ -219,9 +219,7 @@ export function objectPropertyAttributeUpdate() {
     scheduleUpdate()
     updateCanvasSet(true)
     wireToBeCheckedSet(1)
-    // console.log(this)
     let { value } = this
-    // console.log(value)
     if (this.type === 'number') {
         value = parseFloat(value)
     }
@@ -546,7 +544,6 @@ export function showProperties(obj) {
     }
 
     var helplink = obj && obj.helplink
-    console.log(obj)
     if (helplink) {
         $('#moduleProperty-inner').append(
             '<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>'
@@ -586,7 +583,6 @@ function escapeHtml(unsafe) {
 }
 
 export function deleteSelected() {
-    console.log('Delete Selected Called')
     if (
         simulationArea.lastSelected &&
         !(

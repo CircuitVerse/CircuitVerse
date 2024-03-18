@@ -529,7 +529,6 @@ export function runAll(data, scope = globalScope) {
     const results = {}
     results.detailed = data
     results.summary = { passed: passedCases, total: totalCases }
-    // console.log(JSON.stringify(results.detailed));
     return results
 }
 

@@ -130,14 +130,11 @@ function clearData() {
 
 function dialogBoxConformation(selectedOption, circuitItem) {
     // SimulatorState.dialogBox.combinationalanalysis_dialog = false
-    console.log(inputArr.value)
-    console.log(selectedOption)
     // use the above value to show tables and later clear it all
     if (selectedOption == 'showLogicTable') {
         createLogicTable()
     }
     if (selectedOption == 'closeMessageBox') {
-        // console.log('Circuit was not closed')
         for (var ind = 0; ind < inputArr.value.length; ind++) {
             if (inputArr.value[ind].type == 'text') {
                 inputArr.value[ind].val = ''
@@ -150,14 +147,12 @@ function dialogBoxConformation(selectedOption, circuitItem) {
         SimulatorState.dialogBox.combinationalanalysis_dialog = false
     }
     if (selectedOption == 'generateCircuit') {
-        console.log('Generate Cirucit')
         SimulatorState.dialogBox.combinationalanalysis_dialog = false
         generateCircuit()
         clearData()
         SimulatorState.dialogBox.combinationalanalysis_dialog = false
     }
     if (selectedOption == 'printTruthTable') {
-        console.log('Print Truth Table')
         printBooleanTable()
         clearData()
         SimulatorState.dialogBox.combinationalanalysis_dialog = false
@@ -175,9 +170,6 @@ function createLogicTable() {
     outputList = outputList.filter((e) => e)
     booleanExpression = booleanExpression.replace(/ /g, '')
     booleanExpression = booleanExpression.toUpperCase()
-    console.log(inputList)
-    console.log(outputList)
-    console.log(booleanExpression)
 
     var booleanInputVariables = []
     for (var i = 0; i < booleanExpression.length; i++) {
@@ -188,10 +180,6 @@ function createLogicTable() {
         }
     }
     booleanInputVariables.sort()
-
-    console.log(inputList)
-    console.log(outputList)
-    console.log(booleanExpression)
 
     if (
         inputList.length > 0 &&
@@ -260,11 +248,9 @@ function createBooleanPrompt(inputList, outputList, scope = globalScope) {
     }
     if (output.value == null) {
         for (var i = 0; i < outputListNames.value.length; i++) {
-            console.log(outputListNames.value[i])
             tableHeader.value.push(outputListNames.value[i])
         }
     } else {
-        console.log(outputListNames.value)
         tableHeader.value.push(outputListNames.value)
     }
 
@@ -295,8 +281,6 @@ function createBooleanPrompt(inputList, outputList, scope = globalScope) {
                 output.value[j]
         }
     }
-    console.log(tableHeader.value)
-    console.log(tableBody.value)
     // display Message Box
     SimulatorState.dialogBox.combinationalanalysis_dialog = true
     buttonArr.value = [
@@ -333,7 +317,6 @@ function drawCombinationalAnalysis(
     outputList,
     scope = globalScope
 ) {
-    console.log('inside draw CA')
     findDimensions(scope)
     var inputCount = inputList.length
     var maxTerms = 0
@@ -641,12 +624,10 @@ function solveBooleanFunction(inputListNames, booleanExpression) {
             return ''
         }
     }
-    console.log(output.value)
 }
 
 function generateCircuit() {
     var data = generateBooleanTableData(outputListNamesInteger.value)
-    console.log(data)
     var minimizedCircuit = []
     let inputCount = inputListNames.value.length
     for (const output in data) {
@@ -668,7 +649,6 @@ function generateCircuit() {
             minimizedCircuit.push(temp.result)
         }
     }
-    console.log(output.value)
     if (output.value == null) {
         drawCombinationalAnalysis(
             minimizedCircuit,
@@ -677,7 +657,6 @@ function generateCircuit() {
             globalScope
         )
     } else {
-        console.log('HI')
         drawCombinationalAnalysis(
             minimizedCircuit,
             inputListNames.value,
@@ -688,10 +667,7 @@ function generateCircuit() {
 }
 
 function printBooleanTable() {
-    console.log($('.messageBox .v-card-text')[0])
     var sTable = $('.messageBox .v-card-text')[0].innerHTML
-    console.log('This is the table')
-    console.log(sTable)
 
     var style =
         `<style>

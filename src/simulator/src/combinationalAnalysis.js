@@ -663,6 +663,5 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
 //         }
 //     }
 
-//     console.log(output)
 //     return output
 // }

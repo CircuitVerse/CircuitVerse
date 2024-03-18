@@ -68,7 +68,6 @@ const plotRef = ref<HTMLElement | null>(null)
 const cycleUnits = ref(1000)
 
 function handleButtonClick(button: string) {
-    console.log('clicked', button)
     if (button === 'smaller') {
         if (plotRef.value) {
             plotRef.value.style.width = `${Math.max(

@@ -150,7 +150,6 @@ type SimulatorStateType = {
 //         () => {
 //             circuitName.value = SimulatorState.activeCircuit.name
 //             circuitId.value = SimulatorState.activeCircuit.id
-//             console.log(circuitName.value, circuitId.value)
 //         },
 //         { deep: true }
 //     )

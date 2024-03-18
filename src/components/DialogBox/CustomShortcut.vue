@@ -222,13 +222,11 @@ function updateEdit(e: KeyboardEvent) {
 }
 
 async function resetKeybinding() {
-    console.log('Reset Keybinding')
     if (await confirmOption('Remove all custom keys & set the default keys?'))
         setDefault()
 }
 
 function saveKeybinding() {
-    console.log('Save Keybinding')
     submit()
     SimulatorState.dialogBox.customshortcut_dialog = false
 }

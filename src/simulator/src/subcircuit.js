@@ -34,7 +34,6 @@ export function loadSubCircuit(savedData, scope) {
  * @category subcircuit
  */
 export function createSubCircuitPrompt(scope = globalScope) {
-    console.log('Hello')
     if (verilogModeGet() || layoutModeGet()) {
         showError('Subcircuit cannot be inserted in this mode')
         return
@@ -689,7 +688,6 @@ export default class SubCircuit extends CircuitElement {
                 )
             }
         } else {
-            console.log('Unknown Version: ', this.version)
         }
 
         for (var i = 0; i < subcircuitScope.Input.length; i++) {

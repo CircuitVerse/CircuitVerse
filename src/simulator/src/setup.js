@@ -39,7 +39,6 @@ import { getToken } from '#/pages/simulatorHandler.vue'
  * @category setup
  */
 export function resetup() {
-    console.log('hello from re setup')
     DPR = window.devicePixelRatio || 1
     if (lightMode) {
         DPR = 1
@@ -105,7 +104,6 @@ function setupEnvironment() {
  * @category setup
  */
 function setupElementLists() {
-    // console.log('hello from elements list panel setup')
     // $('#menu').empty()
 
     window.circuitElementList = metadata.circuitElementList

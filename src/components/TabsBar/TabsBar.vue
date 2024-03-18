@@ -6,6 +6,7 @@
     >
         <draggable
             :key="updateCount"
+            :item-key="updateCount.toString()"
             v-model="SimulatorState.circuit_list"
             class="list-group"
             tag="transition-group"

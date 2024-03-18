@@ -24,12 +24,10 @@ import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 var editor
 
 export function generateVerilog() {
-    console.log('Generate Verilog Circuit')
     const simulatorStore = SimulatorStore()
     simulatorStore.dialogBox.exportverilog_dialog = true
     // var dialog = $('#verilog-export-code-window-div')
     // var data = verilog.exportVerilog()
-    // console.log(data)
     // editor.setValue(data)
     // $('#verilog-export-code-window-div .CodeMirror').css(
     //     'height',

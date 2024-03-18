@@ -54,7 +54,5 @@ const props = defineProps({
     dropDownHeader: { type: String, default: '' },
     dropDownType: { type: String, default: '' },
 })
-console.log(props.dropDownHeader)
-console.log(props.listItems)
 const userId = useAuthStore().getUserId
 </script>

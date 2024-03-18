@@ -72,24 +72,14 @@ onMounted(() => {
 })
 
 onUpdated(() => {
-    console.log('on updated')
     var data = localStorage.getItem('projectList')
-    console.log(data)
     projectList.value = JSON.parse(localStorage.getItem('projectList')) || {}
-    console.log(toRaw(projectList.value))
-    if (JSON.stringify(projectList.value) == '{}') {
-        console.log('true')
-    } else {
-        console.log('false')
-    }
 })
 
 function deleteOfflineProject(id) {
-    console.log('Hello from ok')
     localStorage.removeItem(id)
     const temp = JSON.parse(localStorage.getItem('projectList')) || {}
     delete temp[id]
-    console.log(temp)
     projectList.value = temp
     localStorage.setItem('projectList', JSON.stringify(temp))
 }

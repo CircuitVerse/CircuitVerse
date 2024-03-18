@@ -118,10 +118,6 @@ export const getThemeCardSvg = (themeName) => {
 
     $('.svgHeader', svgIcon).attr('fill', colors['--primary'])
     let temp = svgIcon.prop('outerHTML')
-    console.log('----------')
-    console.log('===OKK===')
-    console.log(temp)
-    console.log('----------')
     return svgIcon.prop('outerHTML')
 }
 
@@ -152,7 +148,6 @@ export const getThemeCard = (themeName, selected) => {
  * Create Color Themes Dialog
  */
 export const colorThemes = () => {
-    console.log('Hello')
     const simulatorStore = SimulatorStore()
     simulatorStore.dialogBox.theme_dialog = true
 
