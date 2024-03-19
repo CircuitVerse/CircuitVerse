@@ -216,3 +216,4 @@ gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
 gem "maintenance_tasks", "~> 2.3"
+gem 'foreman', github: 'ddollar/foreman'

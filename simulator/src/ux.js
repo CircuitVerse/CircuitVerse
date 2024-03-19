@@ -24,7 +24,9 @@ import { setupBitConvertor} from './utils';
 import { currentScreen } from './listeners';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
-
+// importing @melloware/coloris package for the color picker tool
+import "@melloware/coloris/dist/coloris.css";
+import Coloris from "@melloware/coloris";
 export const uxvar = {
     smartDropXX: 50,
     smartDropYY: 80,
@@ -375,7 +377,24 @@ export function showProperties(obj) {
                     s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
                 } else if (obj.mutableProperties[attr].type === 'text') {
-                    s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text' autocomplete='off'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
+                    // adding the color picker tool 
+                    Coloris.init();
+                    Coloris({
+                        el: "#color-picker",
+                        themeMode: "dark",
+                        parent: "#color-picker",
+                        alpha: true,
+                        focusInput: true,
+                        selectInput: true,
+                        clearButton: true,
+                        clearLabel: "Clear",
+                        closeButton: true,
+                        closeLabel: "close",
+                        onChange: (color) => {
+                            obj.changeColor(color);
+                        },
+                    });
+                    s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text' autocomplete='off'  id='color-picker' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
                 } else if (obj.mutableProperties[attr].type === 'button') {
                     s = `<p class='btn-parent'><button class='objectPropertyAttribute btn custom-btn--secondary' type='button'  name='${prop.func}'>${prop.name}</button></p>`;
