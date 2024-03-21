@@ -25,7 +25,7 @@ class NotifyUser
   private
 
     # @return [Result]
-    def type_check
+    def type_check # rubocop:disable Metrics/MethodLength
       case @notification.type
       when "StarNotification"
         Result.new("true", "star", @project.author, @project)
