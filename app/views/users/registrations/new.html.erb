@@ -41,6 +41,17 @@
             </div>
           </div>
         </div>
+
+          <div class="field form-group">
+          <h6><%= f.label :password_confirmation %></h6>
+          <div class="input-group form-input">
+          <%= f.password_field :password_confirmation, placeholder: t('confirm_password'), class: "form-control users-password-input" %>
+              <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
+            <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+          </div>
+          </div>
+        </div>
+
           <div class="field form-group">
             <div class="input-group">
               <% if Flipper.enabled?(:recaptcha) %>
@@ -62,3 +73,26 @@
 </div>
 
 <script src="/js/togglePassword.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    var passwordField = document.getElementById('user_password');
+    var confirmPasswordField = document.getElementById('user_password_confirmation');
+
+    function checkPasswordMatch() {
+      var password = passwordField.value;
+      var confirmPassword = confirmPasswordField.value;
+
+      if (password !== confirmPassword) {
+        confirmPasswordField.setCustomValidity("Passwords do not match");
+      } else {
+        confirmPasswordField.setCustomValidity('');
+      }
+    }
+
+    // Attach the checkPasswordMatch function to both password and confirm password fields
+    passwordField.addEventListener('input', checkPasswordMatch);
+    confirmPasswordField.addEventListener('input', checkPasswordMatch);
+    });
+    
+</script>
