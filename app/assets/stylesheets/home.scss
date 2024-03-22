@@ -15,11 +15,12 @@
 }
 
 .home-feature-card {
-  border: 0;
   display: inline-block;
   margin-bottom: 15px;
   margin-top: 15px;
   max-width: 350px;
+  height: 350px;
+  border: 1px solid #42b983;
 
   img {
     max-width: 50%;
