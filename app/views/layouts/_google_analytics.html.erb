@@ -1,11 +1,12 @@
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-112678513-1"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B6TEYPN1P7"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
+  function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
 
-  gtag('config', 'UA-112678513-1');
+  gtag('config', 'G-B6TEYPN1P7');
   <% if (current_user) %>
-  gtag('set', { 'user_id': '<%= current_user.id %>' }); // Set the user ID using signed-in user_id.
+    gtag('set', { 'user_id': '<%= current_user.id %>' }); // Set the user ID using signed-in user_id.
   <% end %>
 </script>
