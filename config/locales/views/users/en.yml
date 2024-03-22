@@ -94,3 +94,4 @@ en:
       new_assignment_notification: "You have been assigned a new assignment '%{assignment_name}'"
       forum_thread_notification: "%{user} posted a new thread '%{thread}'"
       comment_notif: "%{user} commented on thread '%{thread}'"
+      new_collaborator_notification: "You have been added as a collaborator in %{project} by %{user}"

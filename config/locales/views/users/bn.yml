@@ -94,3 +94,4 @@ bn:
       new_assignment_notification: "আপনাকে একটি নতুন অ্যাসাইনমেন্ট '%{assignment_name}' নিয়োগ করা হয়েছে"
       forum_thread_notification: "%{user} একটি নতুন থ্রেড '%{thread}' পোস্ট করেছেন"
       comment_notif: "%{user} থ্রেড '%{thread}' -এ মন্তব্য করেছেন"
+      new_collaborator_notification: "আপনি %{user} দ্বারা %{project} প্রকল্পে সহযোগী হিসেবে যোগ করা হয়েছে"
