@@ -15,7 +15,7 @@ import { changeInputSize } from "../modules";
 import { colors } from "../themer/themer";
 
 export default class VariableLed extends CircuitElement {
-    constructor(x, y, scope = globalScope, color = "Red") {
+    constructor(x, y, scope = globalScope, color = "#ff0000") {
         // Calling base class constructor
 
         super(x, y, scope, "UP", 8);
