@@ -1534,26 +1534,6 @@ input:checked + .slider:before {
     left: 0;
 }
 
-#bitconverterprompt {
-    text-align: center;
-    font: inherit;
-    border: none;
-    margin-top: 5px;
-    padding: 0;
-}
-
-#bitconverterprompt input {
-    background: transparent;
-    border: none;
-    outline: none;
-    text-align: center;
-    font: inherit;
-}
-
-#bitconverterprompt input:focus {
-    border: none;
-}
-
 .ui-dialog .ui-dialog-buttonpane button {
     margin-left: 0.4em;
 }

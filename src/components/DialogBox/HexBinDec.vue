@@ -217,3 +217,37 @@ function hexConverter(input: string) {
     setBaseValues(x)
 }
 </script>
+
+<style scoped>
+#bitconverterprompt {
+    color: var(--text-lite);
+}
+
+#bitconverterprompt input {
+    color: var(--text-lite);
+}
+
+#bitconverterprompt label {
+    color: var(--text-lite) !important;
+}
+
+#bitconverterprompt {
+    text-align: center;
+    font: inherit;
+    border: none;
+    margin-top: 5px;
+    padding: 0;
+}
+
+#bitconverterprompt input {
+    background: transparent;
+    border: none;
+    outline: none;
+    text-align: center;
+    font: inherit;
+}
+
+#bitconverterprompt input:focus {
+    border: none;
+}
+</style>

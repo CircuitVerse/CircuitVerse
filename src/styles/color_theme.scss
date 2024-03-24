@@ -494,23 +494,6 @@ select {
     background: var(--disable);
 }
 
-#bitconverterprompt {
-    color: var(--text-lite);
-}
-
-#bitconverterprompt input {
-    /* border-bottom: 1px solid var(--br-primary); */
-    color: var(--text-lite);
-}
-
-#bitconverterprompt input:focus {
-    /* border-bottom: 1px solid var(--br-primary); */
-}
-
-#bitconverterprompt label {
-    color: var(--text-lite) !important;
-}
-
 .radio-green {
     background: #42b983;
 }
