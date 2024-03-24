@@ -376,8 +376,8 @@ export function showProperties(obj) {
                     $(moduleProperty.modulePropertyInner).append(s);
                 } else if (obj.mutableProperties[attr].type === 'text') {
                     s = `<p><label for="color-picker">${prop.name}</label> <div class='color-picker'style='display: flex; align-items: center;'>
-                    <input class='objectPropertyAttribute' type='text' style='width:1000%;' autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
-                    <input class='objectPropertyAttribute' type='color' id='color-picker' style='padding:1px; margin-left:-28px; margin-right:24px; border: none !important;' autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
+                    <input class='objectPropertyAttribute' type='text'aria-labelledby="color-picker-label" style='width:1000%;' autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
+                    <input class='objectPropertyAttribute' type='color' id='color-picker' aria-label="Color Picker" style='padding:1px; margin-left:-28px; margin-right:24px; border: none !important;' autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
                     </div> </p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
                     const colorPicker = document.querySelector('.color-picker input[type=color]');
