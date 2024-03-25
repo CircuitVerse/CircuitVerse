@@ -233,4 +233,8 @@ function getTooltipText(elementName) {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-expansion-panel-title {
+    min-height: 36px;
+}
+</style>
