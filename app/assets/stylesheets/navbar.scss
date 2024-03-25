@@ -192,10 +192,16 @@
   border: 0;
   box-shadow: 0 0 10px 1px $shadow-grey;
   top: 90%;
+  overflow-y: scroll;
 }
 
 //breakpoints
 @media (max-width: 991px) {
+  .dropdown-menu{
+    overflow-y: scroll;
+    max-height: 350px;
+  }
+  
   .navbar-search-icon-oncollapse {
     display: block;
   }
