@@ -375,13 +375,13 @@ export function showProperties(obj) {
                     s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
                 } else if (obj.mutableProperties[attr].type === 'text') {
-                    s = `<p><label for="color-picker">${prop.name}</label> <div class='color-picker' style='position: relative; height:2.5rem; margin-top:-1rem;'>
-                    <input class='objectPropertyAttribute' type='text' aria-labelledby="color-picker-label" style='position: absolute; top:0;' autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
-                    <input class='objectPropertyAttribute' type='color' id='color-picker' aria-label="Color Picker" style='position: absolute; right:0; bottom:0px; width: 2.3rem; height:2.3rem; border: none !important;' autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
+                    s = `<p><label for="color-picker">${prop.name}</label> <div id='color-picker-container'>
+                    <input class='objectPropertyAttribute' id='color-picker-text' type='text' aria-labelledby="color-picker-label" autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
+                    <input class='objectPropertyAttribute' type='color' id='color-picker' aria-label="Color Picker" autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
                     </div> </p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
-                    const colorPicker = document.querySelector('.color-picker input[type=color]');
-                    const colorText = document.querySelector('.color-picker input[type=text]');
+                    const colorPicker = document.querySelector('#color-picker-container input[type=color]');
+                    const colorText = document.querySelector('#color-picker-container input[type=text]');
                     colorPicker.addEventListener('input', (e) => {
                         obj.changeColor(e.target.value);
                         colorText.value = e.target.value;
