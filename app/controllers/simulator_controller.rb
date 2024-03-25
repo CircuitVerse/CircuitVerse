@@ -10,6 +10,7 @@ class SimulatorController < ApplicationController
   before_action :set_user_project, only: %i[update edit update_image]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update update_image]
+  before_action :set_version
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
@@ -127,6 +128,12 @@ class SimulatorController < ApplicationController
   end
 
   private
+
+    def set_version
+      version_param = params[:simver]
+      allowed_versions = ['v1', 'v2'] # Will add more versions as needed
+      @version = allowed_versions.include?(version_param&.downcase) ? version_param.downcase : 'v1'
+    end
 
     def allow_iframe
       response.headers.except! "X-Frame-Options"
