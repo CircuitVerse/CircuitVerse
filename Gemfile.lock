@@ -89,6 +89,7 @@ GEM
     acts_as_votable (0.14.0)
     addressable (2.8.6)
       public_suffix (>= 2.0.2, < 6.0)
+    aes_key_wrap (1.1.0)
     ahoy_matey (4.0.3)
       activesupport (>= 5.2)
       device_detector
@@ -132,6 +133,7 @@ GEM
     aws-sigv4 (1.5.1)
       aws-eventstream (~> 1, >= 1.0.2)
     backport (1.2.0)
+    base64 (0.2.0)
     bcrypt (3.1.19)
     benchmark (0.2.1)
     better_html (2.0.2)
@@ -141,6 +143,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
+    bindata (2.4.15)
     bindex (0.8.1)
     bootsnap (1.15.0)
       msgpack (~> 1.2)
@@ -243,6 +246,8 @@ GEM
     faraday (2.7.1)
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
+    faraday-follow_redirects (0.3.0)
+      faraday (>= 1, < 3)
     faraday-net_http (3.0.2)
     ffi (1.16.3)
     ffi-compiler (1.0.1)
@@ -303,9 +308,13 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     imagen (0.1.8)
       parser (>= 2.5, != 2.5.1.1)
-    ims-lti (1.2.4)
-      builder (>= 1.0, < 4.0)
-      oauth (>= 0.4.5, < 0.6)
+    ims-lti (2.3.4)
+      addressable (~> 2.5, >= 2.5.1)
+      builder (~> 3.2)
+      faraday (< 3.0)
+      json-jwt (~> 1.7)
+      rexml
+      simple_oauth (~> 0.3.1)
     inline_svg (1.9.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -328,6 +337,13 @@ GEM
     jsbundling-rails (1.0.2)
       railties (>= 6.0.0)
     json (2.6.3)
+    json-jwt (1.16.5)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      base64
+      bindata
+      faraday (~> 2.0)
+      faraday-follow_redirects
     json-schema (4.0.0)
       addressable (>= 2.8)
     jsonapi-serializer (2.2.0)
@@ -427,7 +443,6 @@ GEM
     noticed (1.6.3)
       http (>= 4.0.0)
       rails (>= 5.2.0)
-    oauth (0.5.8)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
@@ -747,6 +762,7 @@ GEM
       connection_pool (>= 2.3.0)
       rack (>= 2.2.4)
       redis-client (>= 0.14.0)
+    simple_oauth (0.3.1)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -932,7 +948,7 @@ DEPENDENCIES
   http
   i18n-js
   image_processing (~> 1.12)
-  ims-lti (~> 1.2, < 2.0)
+  ims-lti (~> 2.3)
   inline_svg
   invisible_captcha (~> 2.0)
   jbuilder (~> 2.11)
