@@ -31,7 +31,9 @@
       </div>
     </div>
     <% end %>
-    <%= render "announcements/announcement" %>
+    <% if current_announcement %>
+      <%= render(AnnouncementBox::AnnouncementComponent.new(current_announcement)) %>
+    <% end %>
     <div class="container">
       <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
