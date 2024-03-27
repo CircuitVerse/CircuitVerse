@@ -14,7 +14,6 @@ class AssignmentsController < ApplicationController
     Flipper.enabled?(:lms_integration, current_user)
   }
 
-  # GET /assignments
   # GET /assignments.json
   def index
     @assignments = Assignment.all
