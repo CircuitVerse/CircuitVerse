@@ -32,6 +32,15 @@
             <%= form.submit "Add mentors", class: "btn primary-button", id: "add-mentor-button" %>
           </div>
         <% end %>
+        <div class="mx-auto text-center p-3">
+        <p><%= t("groups.use_alternative") %></p>
+        <%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-toggle": "collapse", href: "#collapseExample", "aria-expanded": "false", "aria-controls": "collapseExample" } do %>
+          <i class="fas fa-external-link-alt"></i>
+          <span><%= t("groups.invite_link_btn") %></span>
+        <% end %>
+        <div class="collapse" id="collapseExample">
+          <textarea readonly="readonly" id="embedMentorInviteLink" class="group-invite-link-text" rows="4" cols="35"></textarea>
+        </div>
       </div>
     </div>
   </div>
