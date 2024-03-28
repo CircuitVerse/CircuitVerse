@@ -1,0 +1,70 @@
+fr:
+  edit: "Éditer"
+  show: "Afficher"
+  delete: "Supprimez"
+  view: "Voir"
+  launch_simulator: "Lancer le simulateur"
+  email_us_heading: "Envoyez-nous un e-mail à"
+  join_at_slack_heading: "Rejoignez nous et discutez avec nous à"
+  join_at_slack_description: "Chaîne Slack"
+  welcome_back_text: "Bienvenue dans l'univers de Digital Circuit !"
+  save: "Enregistrer"
+  back: "Précédent"
+  login: "Se connecter"
+  sign_up: "S'inscrire"
+  sign_out: "Se déconnecter"
+  assignment: "Assignation"
+  launch: "Lancer"
+  fork: "Fork"
+  more: "En savoir plus"
+  submit: "Soumettre"
+  features_heading: "Fonctionnalités"
+  features_description: "Concevez des circuits rapidement et facilement avec une interface utilisateur moderne et intuitive avec glisser-déposer, copier/coller, zoomer, etc."
+  add_members: "Ajouter des membres"
+  add_mentors: "Ajouter des mentors"
+  remove: "Retirer"
+  reopen: "Rouvrir"
+  close: "Fermer"
+  not_available: "N.A."
+  not_entered: "Non entré"
+  enter_email: "Entrez l'email"
+  enter_password: "Entrez le mot de passe"
+  enter_name: "Entrez le nom"
+  registration_blocked: "L'inscription est actuellement désactivée"
+  #Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "demi-minute"
+      less_than_x_seconds:
+        one: "1 second" #default was: "less than 1 second"
+        other: "%{count} secondes" #default was: "less than %{count} seconds"
+      x_seconds:
+        one: "1 second"
+        other: "%{count} Secondes"
+      less_than_x_minutes:
+        one: "a minute" #default was: "less than a minute"
+        other: "%{count} mois" #default was: "less than %{count} minutes"
+      x_minutes:
+        one: "%d minutes"
+        other: "%{count}"
+      about_x_hours:
+        one: "1 hour" #default was: "about 1 hour"
+        other: "%{count} heures" #default was: "about %{count} hours"
+      x_days:
+        one: "1 day"
+        other: "%{count} jours"
+      about_x_months:
+        one: "1 month" #default was: "about 1 month"
+        other: "%{count}" #default was: "about %{count} months"
+      x_months:
+        one: "1 mois"
+        other: "%{count} mois"
+      about_x_years:
+        one: "1 year" #default was: "about 1 year"
+        other: "%{count} jours" #default was: "about %{count} years"
+      over_x_years:
+        one: "1 an" #default was: "over 1 year"
+        other: "%{count} jours" #default was: "over %{count} years"
+      almost_x_years:
+        one: "1 an" #default was: "almost 1 year"
+        other: "%{count}" #default was: "almost %{count} years"

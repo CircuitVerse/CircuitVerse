@@ -1,0 +1,11 @@
+fr:
+  helpers:
+    label:
+      user:
+        email: "E-mail"
+        name: "Nom"
+        country: "Pays"
+        educational_institute: "Institut éducatif"
+        locale: "Langue"
+        password: "Mot de passe"
+        password_confirmation: "Confirmation du mot de passe"
