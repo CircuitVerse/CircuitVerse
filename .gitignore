@@ -105,3 +105,7 @@ vendor/
 
 # Ignore .vscode/settings.json
 .vscode/settings.json
+
+# Ignore yarn
+.yarn
+vendor
