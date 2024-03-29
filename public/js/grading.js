@@ -1,80 +1,81 @@
 /*
  Grading
 */
-$('.list-group-item-action').on('click', (e) => {
-    e.preventDefault();
-    $('#assignment-project-id').val(e.currentTarget.id);
-    $('#project-grade').html($(e.currentTarget).attr('data-grade'));
-    $('#project-remarks').html($(e.currentTarget).attr('data-remarks'));
-    $('#project-grade-error').html('');
-});
 
-$('#grade-form-remove').click((e) => {
-    e.preventDefault();
-
-    var form = $('#assignment-grade-form');
-    var url = form.attr('action');
-
-    $.ajax({
-        type: 'DELETE',
-        url,
-        data: form.serialize(),
-        success: (data) => {
-            if (data.project_id != null) {
-                $('#project-grade').html('N.A.');
-                $(`#${data.project_id}`).attr('data-grade', 'N.A.');
-                $('#project-remarks').html('N.A.');
-                $(`#${data.project_id}`).attr('data-remarks', 'N.A.');
-            }
-        },
+document.querySelectorAll('.list-group-item-action').forEach((item) => {
+    item.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.getElementById('assignment-project-id').value = e.currentTarget.id;
+        document.getElementById('project-grade').innerHTML = e.currentTarget.getAttribute('data-grade');
+        document.getElementById('project-remarks').innerHTML = e.currentTarget.getAttribute('data-remarks');
+        document.getElementById('project-grade-error').innerHTML = '';
     });
 });
 
-$('#grade-form-finalized').click((e) => {
+document.getElementById('grade-form-remove').addEventListener('click', (e) => {
     e.preventDefault();
 
-    var url = $(e.currentTarget).data('url');
+    var form = document.getElementById('assignment-grade-form');
+    var url = form.getAttribute('action');
 
-    if (confirm('Do you want to finalize grades?')) {
-        $.ajax({
-            type: 'PUT',
-            url: `${url}.json`,
-            data: { assignment: { grades_finalized: true } },
-            success: (data) => {
-                $('#assignment-grade-form').html('Grades have been finalized!');
-            },
-        });
+    var xhr = new XMLHttpRequest();
+    xhr.open('DELETE', url);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            var data = JSON.parse(xhr.responseText);
+            if (data.project_id != null) {
+                document.getElementById('project-grade').innerHTML = 'N.A.';
+                document.getElementById(data.project_id).setAttribute('data-grade', 'N.A.');
+                document.getElementById('project-remarks').innerHTML = 'N.A.';
+                document.getElementById(data.project_id).setAttribute('data-remarks', 'N.A.');
+            }
+        }
+    };
+    xhr.send(new FormData(form));
+});
+
+document.getElementById('grade-form-finalized').addEventListener('click', (e) => {
+    e.preventDefault();
+
+    var url = `${e.currentTarget.dataset.url}.json`;
+
+    if (window.confirm('Do you want to finalize grades?')) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('PUT', url);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                document.getElementById('assignment-grade-form').innerHTML = 'Grades have been finalized!';
+            }
+        };
+        xhr.send(JSON.stringify({ assignment: { grades_finalized: true } }));
     }
 });
 
-$('#grade-form-submit').click((e) => {
+document.getElementById('grade-form-submit').addEventListener('click', (e) => {
     e.preventDefault();
 
-    var form = $('#assignment-grade-form');
+    var form = document.getElementById('assignment-grade-form');
     var type = 'POST';
-    var url = form.attr('action');
+    var url = form.getAttribute('action');
 
-    if ($('#assignment-grade-grade').val() !== '' || $('#assignment-grade-remarks').val() !== '') {
-        $.ajax({
-            type,
-            url,
-            data: form.serialize(),
-            datatype: 'json',
-            success: (data) => {
+    if (document.getElementById('assignment-grade-grade').value !== '' || document.getElementById('assignment-grade-remarks').value !== '') {
+        var xhr = new XMLHttpRequest();
+        xhr.open(type, url);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                var data = JSON.parse(xhr.responseText);
                 const gradeRemarks = data.remarks !== null ? data.remarks : 'N.A.';
-                $('#project-grade').html(data.grade);
-                $('#project-remarks').html(gradeRemarks);
-                $(`#${data.project_id}`).attr('data-grade', data.grade);
-                $(`#${data.project_id}`).attr('data-remarks', gradeRemarks);
-                $('#project-grade-error').html('');
-                $('#assignment-grade-grade').val('');
-                $('#assignment-grade-remarks').val('');
-            },
-            error: (data) => {
-                $('#project-grade-error').html(`* ${data.responseJSON.error}`);
-                $('#assignment-grade-grade').val('');
-                $('#assignment-grade-remarks').val('');
-            },
-        });
+                document.getElementById('project-grade').innerHTML = data.grade;
+                document.getElementById('project-remarks').innerHTML = gradeRemarks;
+                document.getElementById(data.project_id).setAttribute('data-grade', data.grade);
+                document.getElementById(data.project_id).setAttribute('data-remarks', gradeRemarks);
+                document.getElementById('project-grade-error').innerHTML = '';
+                document.getElementById('assignment-grade-grade').value = '';
+                document.getElementById('assignment-grade-remarks').value = '';
+            }
+        };
+        xhr.send(new URLSearchParams(new FormData(form)).toString());
     }
 });
