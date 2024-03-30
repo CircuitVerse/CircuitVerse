@@ -53,6 +53,7 @@ class SimulatorController < ApplicationController
     @project = Project.friendly.find(params[:id])
     @author = @project.author_id
     @external_embed = true
+    # TODO: embed based on the version
     render "embed"
   end
 
@@ -65,6 +66,7 @@ class SimulatorController < ApplicationController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
+    @project.version = Rails.configuration.simulator_version
     # ActiveStorage
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
