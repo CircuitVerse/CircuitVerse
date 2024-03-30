@@ -27,14 +27,24 @@ class SimulatorController < ApplicationController
   end
 
   def new
-    @logix_project_id = 0
-    @projectName = ""
-    render "edit"
+    if Rails.configuration.simulator_version == "1.0"
+      @logix_project_id = 0
+      @projectName = ""
+      render "edit"
+    else
+      render file: Rails.public_path.join("simulatorvue", "index.html"), layout: false
+    end
   end
 
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
+
+    if @project.version == "1.0"
+      render "edit"
+    elsif @project.version == "2.0"
+      render file: Rails.public_path.join("simulatorvue", "index.html"), layout: false
+    end
   end
 
   def embed
