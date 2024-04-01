@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: $primary-green;
+  color: $white;
+}
+
 body {
   font-family: 'Inter';
   padding-top: 90px;
@@ -36,6 +41,20 @@ body {
 
 .submain-heading {
   margin-top: 30px;
+  position: relative;
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover .tooltiptext {
+      left: 50%;
+      opacity: 1;
+      transform: translateX(-50%);
+      visibility: visible;
+      z-index: 101;
+    }
+  }
 }
 
 .main-description {
@@ -85,14 +104,26 @@ body {
   }
 }
 
+@media (max-width: 400px) {
+  .anchor-text-button{
+    width: 100%;
+    max-width: inherit;
+  }
+}
+
 //anchor
+.anchor-text-button{
+  border: 1px solid;
+}
 .anchor-text {
   color: $secondary-green;
   font-weight: 500;
-  text-decoration: underline;
+  text-decoration: none;
+  margin-left: 9px;
 
   &:hover {
     color: $primary-green;
+    text-decoration: none;
   }
 }
 .anchor-text-left {
@@ -162,7 +193,7 @@ body {
 
   .pagination {
     max-width: none;
-    overflow-x: visible;
+    overflow-x: auto;
     padding: 0;
     white-space: nowrap;
   }
@@ -171,5 +202,11 @@ body {
     display: inline-block;
     margin: 0;
     margin-left: -4px;
+  }
+}
+
+@media (max-width: 400px){
+  .anchor-text-button{
+    margin-left: -2px;
   }
 }
