@@ -237,6 +237,9 @@ export default class Node {
             connections: [],
         };
         for (var i = 0; i < this.connections.length; i++) {
+            // For connections from scope.Subcircuit.node to localscope.input/output.node
+            // these connections should be ignored while saving.
+            if (this.connections[i].scope != this.scope) continue;
             data.connections.push(findNode(this.connections[i]));
         }
         return data;
