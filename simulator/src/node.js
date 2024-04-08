@@ -8,7 +8,6 @@ import {
     canvasMessageData,
 } from './engine';
 import Wire from './wire';
-// import { colors } from './themer/themer';
 import { colors } from './themer/themer';
 
 /**
@@ -18,7 +17,9 @@ import { colors } from './themer/themer';
  * @category node
  */
 export function constructNodeConnections(node, data) {
-    for (var i = 0; i < data.connections.length; i++) { if (!node.connections.contains(node.scope.allNodes[data.connections[i]])) node.connect(node.scope.allNodes[data.connections[i]]); }
+    for (var i = 0; i < data.connections.length; i++) { 
+        if (!node.connections.contains(node.scope.allNodes[data.connections[i]])) 
+            node.connect(node.scope.allNodes[data.connections[i]]); }
 }
 
 /**
@@ -41,8 +42,12 @@ export function replace(node, index) {
     node.updateRotation();
     return node;
 }
+
 function rotate(x1, y1, dir) {
-    if (dir == 'LEFT') { return [-x1, y1]; } if (dir == 'DOWN') { return [y1, x1]; } if (dir == 'UP') { return [y1, -x1]; } return [x1, y1];
+    if (dir == 'LEFT') { return [-x1, y1]; } 
+    if (dir == 'DOWN') { return [y1, x1]; } 
+    if (dir == 'UP') { return [y1, -x1]; } 
+    return [x1, y1];
 }
 
 export function extractBits(num, start, end) {
@@ -62,7 +67,7 @@ export function dec2bin(dec, bitWidth = undefined) {
 
 /**
  * find Index of a node
- * @param {Node} x - Node to be dound
+ * @param {Node} x - Node to be found
  * @category node
  */
 export function findNode(x) {
@@ -70,7 +75,7 @@ export function findNode(x) {
 }
 
 /**
- * function makes a node according to data providede
+ * function makes a node according to data provided
  * @param {JSON} data - the data used to load a Project
  * @param {Scope} scope - scope to which node has to be loaded
  * @category node
@@ -92,9 +97,9 @@ function extractNode(x, scope, parent) {
     return n;
 }
 
-// output node=1
-// input node=0
-// intermediate node =2
+// input node = 0
+// output node = 1
+// intermediate node = 2
 
 window.NODE_INPUT = 0;
 window.NODE_OUTPUT = 1;
@@ -137,7 +142,7 @@ export default class Node {
         this.id = `node${uniqueIdCounter}`;
         uniqueIdCounter++;
         this.parent = parent;
-        if (type != 2 && this.parent.nodeList !== undefined) { this.parent.nodeList.push(this); }
+        if (type != NODE_INTERMEDIATE && this.parent.nodeList !== undefined) { this.parent.nodeList.push(this); }
 
         if (bitWidth == undefined) {
             this.bitWidth = parent.bitWidth;
@@ -174,7 +179,7 @@ export default class Node {
         // This fn is called during rotations and setup
         this.refresh();
 
-        if (this.type == 2) { this.parent.scope.nodes.push(this); }
+        if (this.type == NODE_INTERMEDIATE) { this.parent.scope.nodes.push(this); }
 
         this.parent.scope.allNodes.push(this);
 
@@ -257,7 +262,7 @@ export default class Node {
     }
 
     /**
-    * Refreshes a node after roation of parent
+    * Refreshes a node after rotation of parent
     */
     refresh() {
         this.updateRotation();
@@ -286,7 +291,7 @@ export default class Node {
      */
     updateScope(scope) {
         this.scope = scope;
-        if (this.type == 2) this.parent = scope.root;
+        if (this.type == NODE_INTERMEDIATE) this.parent = scope.root;
     }
 
     /**
@@ -320,7 +325,7 @@ export default class Node {
     }
 
     /**
-     * connects but doesnt draw the wire between nodes
+     * connects but doesn't draw the wire between nodes
      */
     connectWireLess(n) {
         if (n == this) return;
@@ -358,13 +363,17 @@ export default class Node {
                 if (this.parent.objectType == 'Splitter') {
                     this.parent.removePropagation();
                 } else
-                    if (this.parent.isResolvable()) { simulationArea.simulationQueue.add(this.parent); } else { this.parent.removePropagation(); }
+                    if (this.parent.isResolvable()) { 
+                        simulationArea.simulationQueue.add(this.parent); 
+                    } else { this.parent.removePropagation(); }
             }
 
             if (this.type == NODE_OUTPUT && !this.subcircuitOverride) {
                 if (this.parent.isResolvable() && !this.parent.queueProperties.inQueue) {
                     if (this.parent.objectType == 'TriState') {
-                        if (this.parent.state.value) { simulationArea.simulationQueue.add(this.parent); }
+                        if (this.parent.state.value) { 
+                            simulationArea.simulationQueue.add(this.parent); 
+                        }
                     } else {
                         simulationArea.simulationQueue.add(this.parent);
                     }
@@ -374,7 +383,7 @@ export default class Node {
             return;
         }
 
-        if (this.type == 0) {
+        if (this.type == NODE_INPUT) {
             if (this.parent.isResolvable()) { simulationArea.simulationQueue.add(this.parent); }
         }
 
@@ -382,7 +391,7 @@ export default class Node {
             const node = this.connections[i];
 
             if (node.value != this.value || node.bitWidth != this.bitWidth) {
-                if (node.type == 1 && node.value != undefined 
+                if (node.type == NODE_OUTPUT && node.value != undefined 
                     && node.parent.objectType != 'TriState' 
                     && !(node.subcircuitOverride && node.scope != this.scope) // Subcircuit Input Node Output Override
                     && node.parent.objectType != 'SubCircuit') { // Subcircuit Output Node Override
@@ -391,8 +400,8 @@ export default class Node {
                     var circuitName = node.scope.name;
                     var circuitElementName = node.parent.objectType;
                     showError(`Contention Error: ${this.value} and ${node.value} at ${circuitElementName} in ${circuitName}`);
-                } else if (node.bitWidth == this.bitWidth || node.type == 2) {
-                    if (node.parent.objectType == 'TriState' && node.value != undefined && node.type == 1) {
+                } else if (node.bitWidth == this.bitWidth || node.type == NODE_INTERMEDIATE) {
+                    if (node.parent.objectType == 'TriState' && node.value != undefined && node.type == NODE_OUTPUT) {
                         if (node.parent.state.value) { simulationArea.contentionPending.push(node.parent); }
                     }
 
@@ -409,7 +418,7 @@ export default class Node {
     }
 
     /**
-     * this function checks if hover over the node
+     * this function checks if the cursor is hovering over the node
      */
     checkHover() {
         if (!simulationArea.mouseDown) {
@@ -434,7 +443,7 @@ export default class Node {
     }
 
     /**
-     * this function draw a node
+     * this function draws a node
      */
     draw() {
         const ctx = simulationArea.context;
@@ -461,8 +470,12 @@ export default class Node {
 
         if (this.bitWidth == 1) colorNode = [colorNodeConnect, colorNodePow][this.value];
         if (this.value == undefined) colorNode = colorNodeLose;
-        if (this.type == 2) this.checkHover();
-        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, colorNode);  } else { drawCircle(ctx, this.absX(), this.absY(), 3, colorNodeSelected); }
+        if (this.type == NODE_INTERMEDIATE) { 
+            this.checkHover();
+            drawCircle(ctx, this.absX(), this.absY(), 3, colorNode);  
+        } else { 
+            drawCircle(ctx, this.absX(), this.absY(), 3, colorNodeSelected); 
+        }
         
         if (this.highlighted || simulationArea.lastSelected == this || (this.isHover() && !simulationArea.selected && !simulationArea.shiftDown) || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.strokeStyle = colorNodeSelected;
@@ -539,7 +552,7 @@ export default class Node {
         if (!this.wasClicked && this.clicked) {
             this.wasClicked = true;
             this.prev = 'a';
-            if (this.type == 2) {
+            if (this.type == NODE_INTERMEDIATE) {
                 if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
                     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
                         simulationArea.multipleObjectSelections[i].startDragging();
@@ -563,7 +576,7 @@ export default class Node {
                     simulationArea.multipleObjectSelections[i].drag();
                 }
             }
-            if (this.type == 2) {
+            if (this.type == NODE_INTERMEDIATE) {
                 if (this.connections.length == 1 && this.connections[0].absX() == simulationArea.mouseX && this.absX() == simulationArea.mouseX) {
                     this.y = simulationArea.mouseY - this.parent.y;
                     this.prev = 'a';
@@ -716,7 +729,7 @@ export default class Node {
     }
 
     /**
-     * if input nodde: it resolves the parent
+     * if input node: it resolves the parent
      * else: it adds all the nodes onto the stack
      * and they are processed to generate verilog
      */
@@ -728,7 +741,7 @@ export default class Node {
         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (this != this.parent.scope.allNodes[i] && x == this.parent.scope.allNodes[i].absX() && y == this.parent.scope.allNodes[i].absY()) {
                 n = this.parent.scope.allNodes[i];
-                if (this.type == 2) {
+                if (this.type == NODE_INTERMEDIATE) {
                     for (var j = 0; j < this.connections.length; j++) {
                         n.connect(this.connections[j]);
                     }
@@ -745,7 +758,7 @@ export default class Node {
             for (var i = 0; i < this.parent.scope.wires.length; i++) {
                 if (this.parent.scope.wires[i].checkConvergence(this)) {
                     var n = this;
-                    if (this.type != 2) {
+                    if (this.type != NODE_INTERMEDIATE) {
                         n = new Node(this.absX(), this.absY(), 2, this.scope.root);
                         this.connect(n);
                     }
