@@ -347,6 +347,9 @@
   color: $white;
   font-weight: 500;
   padding: 5px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: $white;
