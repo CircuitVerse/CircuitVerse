@@ -29,7 +29,7 @@ class AssignmentsController < ApplicationController
 
   def start
     authorize @assignment
-    existing_project = @assignment.projects.find_by(author_id:current_user)
+    existing_project = @assignment.projects.find_by(author_id: current_user)
     if existing_project
       redirect_to user_project_path(current_user, existing_project)
     else
