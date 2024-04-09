@@ -74,15 +74,14 @@ export default class TriState extends CircuitElement {
                 this.output1.value = this.inp1.value; // >>>0)<<(32-this.bitWidth))>>>(32-this.bitWidth);
                 simulationArea.simulationQueue.add(this.output1);
             }
-            simulationArea.contentionPending.clean(this);
         } else if (
             this.output1.value !== undefined &&
-            !simulationArea.contentionPending.contains(this)
+            !simulationArea.contentionPending.has(this)
         ) {
             this.output1.value = undefined;
             simulationArea.simulationQueue.add(this.output1);
         }
-        simulationArea.contentionPending.clean(this);
+        simulationArea.contentionPending.removeAllContentionsForNode(this.output1);
     }
 
     /**
