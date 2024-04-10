@@ -76,7 +76,7 @@ export default class TriState extends CircuitElement {
             }
         } else if (
             this.output1.value !== undefined &&
-            !simulationArea.contentionPending.has(this)
+            !simulationArea.contentionPending.has(this.output1)
         ) {
             this.output1.value = undefined;
             simulationArea.simulationQueue.add(this.output1);

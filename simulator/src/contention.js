@@ -14,8 +14,8 @@ export default class ContentionPendingData {
 	// Adds 
 	add(ourNode, theirNode) {
 		if (this.contentionPendingMap.has(ourNode)) {
-			if (!this.ContentionPendingMap.get(ourNode).has(theirNode)) this.totalContentions++;
-			this.ContentionPendingMap.get(ourNode).add(theirNode);
+			if (!this.contentionPendingMap.get(ourNode).has(theirNode)) this.totalContentions++;
+			this.contentionPendingMap.get(ourNode).add(theirNode);
 			return;
 		}
 

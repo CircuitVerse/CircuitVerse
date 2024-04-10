@@ -415,7 +415,6 @@ export function play(scope = globalScope, resetNodes = false) {
         for (const [ourNode, theirNode] of simulationArea.contentionPending.nodes()) {
             ourNode.highlighted = true;
             theirNode.highlighted = true;
-
         }
 
         showError('Contention Error: One or more bus contentions in the circuit');

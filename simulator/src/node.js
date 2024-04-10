@@ -396,9 +396,17 @@ export default class Node {
                     // Check contentions
                     if (node.value != undefined && node.parent.objectType != 'SubCircuit'
                         && !(node.subcircuitOverride && node.scope != this.scope)) {
-
-                        simulationArea.contentionPending.add(node, this);
-                        break;
+                        // Tristate has always been a pain in the ass.
+                        if (node.parent.objectType == 'TriState' && node.value != undefined) {
+                            if (node.parent.state.value) {
+                                simulationArea.contentionPending.add(node, this);
+                                break;
+                            }
+                        }
+                        else {
+                            simulationArea.contentionPending.add(node, this);
+                            break;
+                        }
                     }
                 } else {
                     // Output node was given an agreeing value, so remove any contention
@@ -420,14 +428,6 @@ export default class Node {
             case NODE_INTERMEDIATE:
 
                 if (node.value != this.value || node.bitWidth != this.bitWidth) {
-                    /* We should not need this anymore. Tristate temp cont is taken care of by general deferred contentions */
-
-                    // // If tristate output node has a defined value
-                    // if (node.parent.objectType == 'TriState' && node.value != undefined && node.type == NODE_OUTPUT) {
-                    //     // then if control is set, then temporary contention.
-                    //     if (node.parent.state.value) { simulationArea.contentionPending.push(node.parent); }
-                    // }
-
                     // Propagate
                     node.bitWidth = this.bitWidth;
                     node.value = this.value;
