@@ -364,7 +364,7 @@ export default class Node {
 
             if (this.type == NODE_OUTPUT && !this.subcircuitOverride) {
                 if (this.parent.isResolvable() && !this.parent.queueProperties.inQueue) {
-                    if (this.parent.objectType == 'TriState') {
+                    if (this.parent.objectType == 'TriState' || this.parent.objectType == 'ControlledInverter') {
                         if (this.parent.state.value) { simulationArea.simulationQueue.add(this.parent); }
                     } else {
                         simulationArea.simulationQueue.add(this.parent);
@@ -397,7 +397,7 @@ export default class Node {
                     if (node.value != undefined && node.parent.objectType != 'SubCircuit'
                         && !(node.subcircuitOverride && node.scope != this.scope)) {
                         // Tristate has always been a pain in the ass.
-                        if (node.parent.objectType == 'TriState' && node.value != undefined) {
+                        if ((node.parent.objectType == 'TriState' || node.parent.objectType == 'ControlledInverter') && node.value != undefined) {
                             if (node.parent.state.value) {
                                 simulationArea.contentionPending.add(node, this);
                                 break;
