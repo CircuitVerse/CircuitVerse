@@ -138,7 +138,7 @@ export default class Node {
         this.id = `node${uniqueIdCounter}`;
         uniqueIdCounter++;
         this.parent = parent;
-        if (type != 2 && this.parent.nodeList !== undefined) { this.parent.nodeList.push(this); }
+        if (type != NODE_INTERMEDIATE && this.parent.nodeList !== undefined) { this.parent.nodeList.push(this); }
 
         if (bitWidth == undefined) {
             this.bitWidth = parent.bitWidth;
@@ -175,7 +175,7 @@ export default class Node {
         // This fn is called during rotations and setup
         this.refresh();
 
-        if (this.type == 2) { this.parent.scope.nodes.push(this); }
+        if (this.type == NODE_INTERMEDIATE) { this.parent.scope.nodes.push(this); }
 
         this.parent.scope.allNodes.push(this);
 
@@ -198,7 +198,7 @@ export default class Node {
      * function to convert a node to intermediate node
      */
     converToIntermediate() {
-        this.type = 2;
+        this.type = NODE_INTERMEDIATE;
         this.x = this.absX();
         this.y = this.absY();
         this.parent = this.scope.root;
@@ -225,7 +225,7 @@ export default class Node {
     * Function for saving a node
     */
     saveObject() {
-        if (this.type == 2) {
+        if (this.type == NODE_INTERMEDIATE) {
             this.leftx = this.x;
             this.lefty = this.y;
         }
@@ -287,7 +287,7 @@ export default class Node {
      */
     updateScope(scope) {
         this.scope = scope;
-        if (this.type == 2) this.parent = scope.root;
+        if (this.type == NODE_INTERMEDIATE) this.parent = scope.root;
     }
 
     /**
@@ -346,6 +346,12 @@ export default class Node {
      * function to resolve a node
      */
     resolve() {
+        if (this.type == NODE_OUTPUT) {
+            // Since output node forces its value on its neighbours, remove its contentions.
+            // An existing contention will now trickle to the other output node that was causing
+            // the contention.
+            simulationArea.contentionPending.removeAllContentionsForNode(this);
+        }
         // Remove Propogation of values (TriState)
         if (this.value == undefined) {
             for (var i = 0; i < this.connections.length; i++) {
@@ -378,11 +384,6 @@ export default class Node {
         // For input nodes, resolve its parents if they are resolvable at this point.
         if (this.type == NODE_INPUT) {
             if (this.parent.isResolvable()) { simulationArea.simulationQueue.add(this.parent); }
-        } else if (this.type == NODE_OUTPUT) {
-            // Since output node forces its value on its neighbours, remove its contentions.
-            // An existing contention will now trickle to the other output node that was causing
-            // the contention.
-            simulationArea.contentionPending.removeAllContentionsForNode(this);
         }
 
         for (var i = 0; i < this.connections.length; i++) {
@@ -492,8 +493,8 @@ export default class Node {
 
         if (this.bitWidth == 1) colorNode = [colorNodeConnect, colorNodePow][this.value];
         if (this.value == undefined) colorNode = colorNodeLose;
-        if (this.type == 2) this.checkHover();
-        if (this.type == 2) { drawCircle(ctx, this.absX(), this.absY(), 3, colorNode);  } else { drawCircle(ctx, this.absX(), this.absY(), 3, colorNodeSelected); }
+        if (this.type == NODE_INTERMEDIATE) this.checkHover();
+        if (this.type == NODE_INTERMEDIATE) { drawCircle(ctx, this.absX(), this.absY(), 3, colorNode);  } else { drawCircle(ctx, this.absX(), this.absY(), 3, colorNodeSelected); }
         
         if (this.highlighted || simulationArea.lastSelected == this || (this.isHover() && !simulationArea.selected && !simulationArea.shiftDown) || simulationArea.multipleObjectSelections.contains(this)) {
             ctx.strokeStyle = colorNodeSelected;
@@ -508,7 +509,7 @@ export default class Node {
             if (this.showHover || simulationArea.lastSelected == this) {
                 canvasMessageData.x = this.absX();
                 canvasMessageData.y = this.absY() - 15;
-                if (this.type == 2) {
+                if (this.type == NODE_INTERMEDIATE) {
                     var v = 'X';
                     if (this.value !== undefined) { v = this.value.toString(16); }
                     if (this.label.length) {
@@ -534,7 +535,7 @@ export default class Node {
      */
     checkDeleted() {
         if (this.deleted) this.delete();
-        if (this.connections.length == 0 && this.type == 2) this.delete();
+        if (this.connections.length == 0 && this.type == NODE_INTERMEDIATE) this.delete();
     }
 
     /**
@@ -570,7 +571,7 @@ export default class Node {
         if (!this.wasClicked && this.clicked) {
             this.wasClicked = true;
             this.prev = 'a';
-            if (this.type == 2) {
+            if (this.type == NODE_INTERMEDIATE) {
                 if (!simulationArea.shiftDown && simulationArea.multipleObjectSelections.contains(this)) {
                     for (var i = 0; i < simulationArea.multipleObjectSelections.length; i++) {
                         simulationArea.multipleObjectSelections[i].startDragging();
@@ -594,7 +595,7 @@ export default class Node {
                     simulationArea.multipleObjectSelections[i].drag();
                 }
             }
-            if (this.type == 2) {
+            if (this.type == NODE_INTERMEDIATE) {
                 if (this.connections.length == 1 && this.connections[0].absX() == simulationArea.mouseX && this.absX() == simulationArea.mouseX) {
                     this.y = simulationArea.mouseY - this.parent.y;
                     this.prev = 'a';
@@ -707,7 +708,7 @@ export default class Node {
             if (simulationArea.lastSelected == this) simulationArea.lastSelected = n2;
         }
 
-        if (this.type == 2 && simulationArea.mouseDown == false) {
+        if (this.type == NODE_INTERMEDIATE && simulationArea.mouseDown == false) {
             if (this.connections.length == 2) {
                 if ((this.connections[0].absX() == this.connections[1].absX()) || (this.connections[0].absY() == this.connections[1].absY())) {
                     this.connections[0].connect(this.connections[1]);
@@ -759,7 +760,7 @@ export default class Node {
         for (var i = 0; i < this.parent.scope.allNodes.length; i++) {
             if (this != this.parent.scope.allNodes[i] && x == this.parent.scope.allNodes[i].absX() && y == this.parent.scope.allNodes[i].absY()) {
                 n = this.parent.scope.allNodes[i];
-                if (this.type == 2) {
+                if (this.type == NODE_INTERMEDIATE) {
                     for (var j = 0; j < this.connections.length; j++) {
                         n.connect(this.connections[j]);
                     }
@@ -776,7 +777,7 @@ export default class Node {
             for (var i = 0; i < this.parent.scope.wires.length; i++) {
                 if (this.parent.scope.wires[i].checkConvergence(this)) {
                     var n = this;
-                    if (this.type != 2) {
+                    if (this.type != NODE_INTERMEDIATE) {
                         n = new Node(this.absX(), this.absY(), 2, this.scope.root);
                         this.connect(n);
                     }
