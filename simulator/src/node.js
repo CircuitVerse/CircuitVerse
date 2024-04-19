@@ -156,6 +156,13 @@ export default class Node {
         this.type = type;
         this.connections = new Array();
         this.value = undefined;
+        /**
+        * @type {boolean}
+        * Only relevant for NODE_OUTPUT
+        * whether the value to the output node
+        * was given to it by its parent
+        */
+        this.isValueUpstream = false;
         this.radius = 5;
         this.clicked = false;
         this.hover = false;
@@ -302,6 +309,7 @@ export default class Node {
      */
     reset() {
         this.value = undefined;
+        this.isValueUpstream = false;
         this.highlighted = false;
     }
 
@@ -365,7 +373,11 @@ export default class Node {
                 if (this.parent.objectType == 'Splitter') {
                     this.parent.removePropagation();
                 } else
-                    if (this.parent.isResolvable()) { simulationArea.simulationQueue.add(this.parent); } else { this.parent.removePropagation(); }
+                    if (this.parent.isResolvable()) { simulationArea.simulationQueue.add(this.parent); }
+                    else {
+                        this.parent.setOutputsUpstream(false);
+                        this.parent.removePropagation();
+                    }
             }
 
             if (this.type == NODE_OUTPUT && !this.subcircuitOverride) {
@@ -384,30 +396,22 @@ export default class Node {
         // For input nodes, resolve its parents if they are resolvable at this point.
         if (this.type == NODE_INPUT) {
             if (this.parent.isResolvable()) { simulationArea.simulationQueue.add(this.parent); }
+            else { this.parent.setOutputsUpstream(false); }
         }
 
         for (var i = 0; i < this.connections.length; i++) {
             const node = this.connections[i];
 
             switch (node.type) {
-            // TODO: For an output node, a downstream value (value given by elements other than the parent)
-            // should be overwritten in contention check and should not cause contention.
             case NODE_OUTPUT:
-                if (node.value != this.value || node.bitWidth != this.bitWidth) {
+                // If node value is differnet and node value is upstream, then contention.
+                if ((node.isValueUpstream && node.value != this.value) || node.bitWidth != this.bitWidth) {
                     // Check contentions
                     if (node.value != undefined && node.parent.objectType != 'SubCircuit'
                         && !(node.subcircuitOverride && node.scope != this.scope)) {
-                        // Tristate has always been a pain in the ass.
-                        if ((node.parent.objectType == 'TriState' || node.parent.objectType == 'ControlledInverter') && node.value != undefined) {
-                            if (node.parent.state.value) {
-                                simulationArea.contentionPending.add(node, this);
-                                break;
-                            }
-                        }
-                        else {
-                            simulationArea.contentionPending.add(node, this);
-                            break;
-                        }
+                        
+                        simulationArea.contentionPending.add(node, this);
+                        break;
                     }
                 } else {
                     // Output node was given an agreeing value, so remove any contention
@@ -438,6 +442,14 @@ export default class Node {
                 break;
             }
         }
+    }
+
+    /**
+     * This function is only intended for CircuitElements.
+     * Therfore should stay empty in Node.
+     * */
+    setOutputsUpstream(bool) {
+
     }
 
     /**
