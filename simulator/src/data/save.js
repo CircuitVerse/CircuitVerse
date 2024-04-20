@@ -111,8 +111,7 @@ export function generateSaveData(name, setName = true) {
         // to circuits where this circuit is used as a subcircuit. It will
         // break the code since the Subcircuit will have different number of
         // in/out nodes compared to the localscope input/output objects.
-        updateSubcircuitSet(true);
-        update(scopeList[id]); // For any pending integrity checks on subcircuits
+        update(scopeList[id], true); // For any pending integrity checks on subcircuits
         data.scopes.push(backUp(scopeList[id]));
     }
 
@@ -435,4 +434,6 @@ export function checkBackups() {
     }
 }
 
-setInterval(checkBackups, 3000);
+// Please do not enable autosave. It will not work
+// in the current state and breaks other things.
+// setInterval(checkBackups, 3000); // disabled
