@@ -471,12 +471,11 @@ export default class SubCircuit extends CircuitElement {
         // console.log(subcircuitScope.name, subcircuitScope.timeStamp, this.lastUpdated)
         if (subcircuitScope.timeStamp > this.lastUpdated) {
             this.reBuildCircuit();
-            // console.log("rebuild called")
-            this.localScope.reset();
-            updateSimulationSet(true);
-            // Why is forceResetNodes required here?
-            forceResetNodesSet(true);
         }
+
+        this.localScope.reset();
+        updateSimulationSet(true);
+        forceResetNodesSet(true);
 
         this.makeConnections();
     }
