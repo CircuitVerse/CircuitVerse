@@ -8,8 +8,16 @@
   padding-top: 20px;
 }
 
+.form-control {
+    border-radius: 4px;
+}
+
 .projects-primary-checkpoint {
   max-width: 260px;
+}
+
+.primary-checkpoint {
+  border-radius: 4px;
 }
 
 .projects-tag-form-group {
@@ -215,6 +223,16 @@
 
 .projects-collaborators-horizontal-rule {
   width: 80%;
+}
+
+.char-counter {
+  color: $tooltip-grey;
+  font-size: 14px;
+  margin: 5px 0 0 auto;
+}
+
+.is-invalid {
+  color: $red;
 }
 
 //breakpoints

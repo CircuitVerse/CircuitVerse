@@ -24,43 +24,47 @@ en:
   add_mentors: "Add mentors"
   remove: "Remove"
   reopen: "Reopen"
-  close : "Close"
+  close: "Close"
   not_available: "N.A."
   not_entered: "Not Entered"
-# Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  enter_email: "Enter Email"
+  enter_password: "Enter Password"
+  enter_name: "Enter Name"
+  registration_blocked: "Sign up is Currently disabled"
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
       half_a_minute: "half a minute"
       less_than_x_seconds:
-        one:   "1 second" # default was: "less than 1 second"
+        one: "1 second" # default was: "less than 1 second"
         other: "%{count} seconds" # default was: "less than %{count} seconds"
       x_seconds:
-        one:   "1 second"
+        one: "1 second"
         other: "%{count} seconds"
       less_than_x_minutes:
-        one:   "a minute" # default was: "less than a minute"
+        one: "a minute" # default was: "less than a minute"
         other: "%{count} minutes" # default was: "less than %{count} minutes"
       x_minutes:
-        one:   "1 minute"
+        one: "1 minute"
         other: "%{count} minutes"
       about_x_hours:
-        one:   "1 hour" # default was: "about 1 hour"
+        one: "1 hour" # default was: "about 1 hour"
         other: "%{count} hours" # default was: "about %{count} hours"
       x_days:
-        one:   "1 day"
+        one: "1 day"
         other: "%{count} days"
       about_x_months:
-        one:   "1 month" # default was: "about 1 month"
+        one: "1 month" # default was: "about 1 month"
         other: "%{count} months" # default was: "about %{count} months"
       x_months:
-        one:   "1 month"
+        one: "1 month"
         other: "%{count} months"
       about_x_years:
-        one:   "1 year" # default was: "about 1 year"
+        one: "1 year" # default was: "about 1 year"
         other: "%{count} years" # default was: "about %{count} years"
       over_x_years:
-        one:   "1 year" # default was: "over 1 year"
+        one: "1 year" # default was: "over 1 year"
         other: "%{count} years" # default was: "over %{count} years"
       almost_x_years:
-        one:   "1 year" # default was: "almost 1 year"
+        one: "1 year" # default was: "almost 1 year"
         other: "%{count} years" # default was: "almost %{count} years"

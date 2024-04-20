@@ -17,9 +17,6 @@ export function checkIfBackup(scope) {
 }
 
 export function backUp(scope = globalScope) {
-    // Disconnection of subcircuits are needed because these are the connections between nodes
-    // in current scope and those in the subcircuit's scope
-    for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].removeConnections(); }
 
     var data = {};
 
@@ -50,9 +47,6 @@ export function backUp(scope = globalScope) {
     // Storing intermediate nodes (nodes in wires)
     data.nodes = [];
     for (let i = 0; i < scope.nodes.length; i++) { data.nodes.push(scope.allNodes.indexOf(scope.nodes[i])); }
-
-    // Restoring the connections
-    for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].makeConnections(); }
 
     return data;
 }
