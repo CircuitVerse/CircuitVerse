@@ -1,8 +1,8 @@
-# app/models/deleted_user.rb
+# frozen_string_literal: true
 class DeletedUser
-    def name
-      "Unknown User"
-    end
+  def name
+    "Unknown User"
+  end
 end
 
   
