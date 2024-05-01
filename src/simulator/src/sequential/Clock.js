@@ -88,6 +88,8 @@ export default class Clock extends CircuitElement {
 Clock.prototype.tooltipText = 'Clock'
 
 Clock.prototype.click = Clock.prototype.toggleState
+Clock.prototype.helplink =
+    'https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=clock'
 Clock.prototype.objectType = 'Clock'
 Clock.prototype.propagationDelay = 0
 Clock.prototype.propagationDelayFixed = true
