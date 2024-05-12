@@ -2,6 +2,6 @@
 
 class DeletedUser
   def name
-    "Unknown User"
+    "Deleted User"
   end
 end
