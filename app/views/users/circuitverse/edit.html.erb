@@ -131,4 +131,27 @@
   document.querySelector('#remove_pic').addEventListener('change', function() {
       document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
   });
+
+// for checking username and education name length``
+
+  $('form').on('submit', function(event) {
+    const nameField = $('input[name="user[name]"]');
+    const instituteField = $('input[name="user[educational_institute]"]');
+     // name check
+    if (nameField.val().length > 200) {
+      alert('Name cannot be more than 200 characters');
+      event.preventDefault();
+      return false;
+    }
+
+
+    if (instituteField.val().length > 400) {
+      alert('Educational Institute cannot be more than 400 characters');
+      event.preventDefault();
+      return false;
+    }
+
+    nameField.val(nameField.val().concat(instituteField.val()));
+  });
+
 </script>
