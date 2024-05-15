@@ -2,7 +2,34 @@
 
 ---
 
-### Windows
+### Windows Using WSL (Recommended)
+**Prerequisites**
+|  Name | Version | Installation |
+| --- | --- | --- |
+| Git | Latest | [Download & Install](https://git-scm.com/downloads) |
+| Docker | Latest | [Follow this guide to install](https://docs.docker.com/desktop/install/windows-install/) |
+| WSL | Latest | [Follow this guide to install](https://learn.microsoft.com/en-us/windows/wsl/install) |
+
+**Steps to setup**
+1. Open VS Code
+2. Connect to WSL using Distro (E.G *Ubuntu*)
+3. Fork the repository
+4. Clone the forked repository
+    ```bash
+    git clone git@github.com:<username></username>/CircuitVerse.git --recursive
+    ```
+    - Use `git submodule update --init` to get the contents of the submodule if you missed using the `--recursive` option while cloning the repository or if you have already done so.
+5. Open `CircuitVerse` directory
+6. Open `Terminal` in the VS code
+7. Run `./bin/docker_run`
+8. Wait for the docker container to be prepared
+9. Navigate to `http://localhost:3000` in your browser
+
+If you required to restart the server
+- Type `Ctrl+C` in terminal to stop the server
+- Run `./bin/dev` to start the server again
+
+### Windows Using Docker (Without WSL)
 **Prerequisites**
 |  Name | Version | Installation |
 | --- | --- | --- |
