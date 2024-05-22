@@ -1,5 +1,6 @@
 #!/bin/sh
 
+git submodule update --init --recursive
 # Setup database
 cp config/database.docker.yml config/database.yml
 createuser -s postgres

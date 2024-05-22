@@ -149,7 +149,7 @@ export default class OrGate extends CircuitElement {
  * @category modules
  */
 OrGate.prototype.tooltipText =
-    "Or Gate Tooltip : Implements logical disjunction";
+    "Or Gate ToolTip : Implements logical disjunction";
 
 /**
  * @memberof OrGate

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Assignment < ApplicationRecord
-  validates :name, length: { minimum: 1 }
+  validates :name, length: { minimum: 1 }, presence: true
   validates :grading_scale, inclusion: {
     in: %w[percent],
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"
@@ -21,7 +21,6 @@ class Assignment < ApplicationRecord
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
   def notify_recipient
-    @assignment = Assignment.find(id)
     group.group_members.each do |group_member|
       NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)
     end
