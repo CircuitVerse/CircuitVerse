@@ -4,7 +4,7 @@ class ForumCommentNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
 
   def message
-    user = params[:user]
+    user = params[:user] || DeletedUser.new
     # post = params[:forum_post]
     thread = params[:forum_thread]
     t("users.notifications.comment_notif", user: user.name, thread: thread.title) # , mssg: post.body.truncate_words(4))
