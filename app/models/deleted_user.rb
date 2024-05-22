@@ -4,5 +4,3 @@ class DeletedUser
     "Deleted User"
   end
 end
-
-  
