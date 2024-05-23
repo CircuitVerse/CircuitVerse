@@ -655,7 +655,8 @@ GEM
       railties (>= 5.2)
     reverse_markdown (2.1.1)
       nokogiri
-    rexml (3.2.6)
+    rexml (3.2.7)
+      strscan (>= 3.0.9)
     rouge (4.2.0)
     rsolr (2.2.1)
       builder (>= 2.1.2)
@@ -814,7 +815,7 @@ GEM
       railties (>= 6.0.0)
     strong_migrations (1.0.0)
       activerecord (>= 5.2)
-    strscan (3.0.6)
+    strscan (3.1.0)
     sunspot (2.5.0)
       pr_geohash (~> 1.0)
       rsolr (>= 1.1.1, < 3)
