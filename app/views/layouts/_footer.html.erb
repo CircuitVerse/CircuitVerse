@@ -38,6 +38,7 @@
             <a href="/contribute"><h6><%= t("layout.footer.link_to_contribute") %></h6></a>
             <a href="/teachers"><h6><%= t("layout.link_to_teachers") %></h6></a>
             <a href="/about"><h6><%= t("layout.link_to_about") %></h6></a>
+            <a href="https://docs.circuitverse.org/#/chapter8/2cvfaq"><h6><%= t("layout.link_to_faq") %></h6></a>
             <% if Flipper.enabled?(:forum) %>
               <h6><%= link_to t("layout.footer.link_to_forum"), simple_discussion_path %></h6>
             <% end %>
@@ -46,7 +47,7 @@
       </div>
       <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-column">
         <div class="row">
-          <div class="col-6">
+          <div class="col-6 footer-sponsor-logo-div">
             <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.incubated_from") %></small>
             <a href="http://zense.co.in/" rel="noopener" target="_blank">
               <%= image_tag("footer/zense.png", class: "footer-sponsor-logo", alt: "Zense Logo") %>
