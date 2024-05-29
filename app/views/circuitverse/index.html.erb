@@ -217,7 +217,7 @@
           <% end %>
         </div>
         <div class="container pagination-cont">
-          <%= will_paginate @projects, renderer: PaginateRenderer %>
+          <%= will_paginate @projects, renderer: PaginateRenderer, page_links: false %>
         </div>
       </div>
     <% end %>
