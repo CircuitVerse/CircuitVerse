@@ -147,7 +147,7 @@ export default class AndGate extends CircuitElement {
  * @category modules
  */
 AndGate.prototype.tooltipText =
-    "And Gate Tooltip : Implements logical conjunction";
+    "And Gate ToolTip : Implements logical conjunction";
 
 /**
  * @memberof AndGate
