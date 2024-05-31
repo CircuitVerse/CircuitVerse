@@ -46,8 +46,8 @@ class AboutController < ApplicationController
     ]
 
     @mentors = [
-      { name: "Malavi Pande",
-        img: "https://avatars.githubusercontent.com/u/112646623?v=4", link: "https://github.com/Malavi1" }
+      { name: "Malavi Pande", img: "https://avatars.githubusercontent.com/u/112646623?v=4", link: "https://github.com/Malavi1" },
+      { name: "Subham Kumar", img: "https://avatars.githubusercontent.com/u/99977240?v=4", link: "https://github.com/subhamkumarr" }
     ]
 
     @alumni = [
