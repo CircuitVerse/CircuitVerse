@@ -58,15 +58,34 @@ function validatePackageJsonAndLock() {
     }
 }
 
-function installAndBuildPackage() {
+
+function getVersionsFromJson(){
+    const versionsFilePath = path.join(
+        process.cwd(),
+        'cv-frontend-vue',
+        'builds.json',
+    );
+    if (!fs.existsSync(versionsFilePath)) {
+        throw new Error('Builds.json is not found inside submodule directory');
+    }
+
+    const versionsJson = fs.readFileSync(versionsFilePath);
+    return JSON.parse(versionsJson).map(entry => entry.version);
+}
+
+function installAndBuildPackages(versions) {
     const vueDir = path.join(process.cwd(), 'cv-frontend-vue');
     execSync('npm install', { cwd: vueDir });
-    execSync(
-        rebuildVueSimulator ? 'npm run build -- --watch' : 'npm run build',
-        {
-            cwd: vueDir,
-        },
-    );
+    versions.forEach(version => {
+        execSync(`npm install`, { cwd: vueDir });
+        process.env.VERSION = version;
+        execSync(
+            rebuildVueSimulator ? 'npm run build -- --watch' : 'npm run build',
+            {
+                cwd: vueDir,
+            },
+        );
+    });
 }
 
 function logErrorAndExit(err) {
@@ -85,7 +104,8 @@ async function buildVue() {
     }
     try {
         validatePackageJsonAndLock();
-        installAndBuildPackage();
+        const versions = getVersionsFromJson();
+        installAndBuildPackages(versions);
     } catch (err) {
         logErrorAndExit(err);
     }
