@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::DifficultyLevelsController < ApplicationController 
     before_action :authenticate_user!
     # GET /api/v1/difficulty_levels

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::QuestionsController < ApplicationController
     before_action :authenticate_user!
     before_action :authorize_moderator, only: [:create, :update, :destroy]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Api::V1::CategoriesController < ApplicationController 
     before_action :authenticate_user!
     # GET /api/v1/categories
