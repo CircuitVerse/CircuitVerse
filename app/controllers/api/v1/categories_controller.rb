@@ -1,6 +1,5 @@
 class Api::V1::CategoriesController < ApplicationController 
     before_action :authenticate_user!
-    skip_forgery_protection
     # GET /api/v1/categories
     def index
         @categories = Category.all

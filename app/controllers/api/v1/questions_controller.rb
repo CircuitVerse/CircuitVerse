@@ -1,5 +1,4 @@
 class Api::V1::QuestionsController < ApplicationController
-    skip_forgery_protection
     before_action :authenticate_user!
     before_action :authorize_moderator, only: [:create, :update, :destroy]
     before_action :set_question, only: [:update, :destroy]

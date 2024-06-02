@@ -1,6 +1,5 @@
 class Api::V1::DifficultyLevelsController < ApplicationController 
     before_action :authenticate_user!
-    skip_forgery_protection
     # GET /api/v1/difficulty_levels
     def index
         @difficulty_levels = DifficultyLevel.all
