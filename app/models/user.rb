@@ -41,9 +41,6 @@ class User < ApplicationRecord
   before_validation { profile_picture.purge if remove_picture == "1" }
 
   store_accessor :submission_history, :submissions
-  
-  
-
   attr_accessor :remove_picture
 
   validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
