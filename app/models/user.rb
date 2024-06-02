@@ -40,6 +40,10 @@ class User < ApplicationRecord
   has_one_attached :profile_picture
   before_validation { profile_picture.purge if remove_picture == "1" }
 
+  store_accessor :submission_history, :submissions
+  
+  
+
   attr_accessor :remove_picture
 
   validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
@@ -47,7 +51,11 @@ class User < ApplicationRecord
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
 
+  validates :public, inclusion: { in: [true, false] }
+
   scope :subscribed, -> { where(subscribed: true) }
+
+  validates :question_bank_moderator, inclusion: { in: [true, false] }
 
   include PgSearch::Model
 
