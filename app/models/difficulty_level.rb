@@ -1,3 +1,3 @@
 class DifficultyLevel < ApplicationRecord
-    has_many :questions, dependent: :destroy
+  has_many :questions, dependent: :destroy
 end
