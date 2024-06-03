@@ -1,4 +1,4 @@
-np:
+ne:
   assignments:
     group_name: "समूह: %{name}"
     deadline: "म्याद:"

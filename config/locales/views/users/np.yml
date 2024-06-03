@@ -1,4 +1,4 @@
-np:
+ne:
   users:
     minimum_password_length: "(न्यूनतम %{minimum_password_length} वर्णहरू)"
     ask_new_user: "नयाँ प्रयोगकर्ता?"

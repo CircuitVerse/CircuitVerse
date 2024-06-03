@@ -8,7 +8,7 @@ class I18nSupport
       %w[Hindi hi],
       %w[Bengali bn],
       %w[Marathi mr],
-      %w[Nepali np]
+      %w[Nepali ne]
     ]
   end
 end
