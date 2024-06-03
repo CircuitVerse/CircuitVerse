@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_25_140331) do
+ActiveRecord::Schema[7.0].define(version: 2024_03_30_103753) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -381,6 +381,28 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_25_140331) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
+  end
+
+  create_table "question_banks", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.string "test_bench"
+    t.bigint "created_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["created_by_id"], name: "index_question_banks_on_created_by_id"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string "name"
+    t.text "circuit_template"
+    t.text "description"
+    t.text "test_bench"
+    t.bigint "created_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "topic"
+    t.index ["created_by_id"], name: "index_questions_on_created_by_id"
   end
 
   create_table "stars", force: :cascade do |t|
