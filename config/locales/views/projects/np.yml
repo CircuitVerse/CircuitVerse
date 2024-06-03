@@ -1,0 +1,51 @@
+np:
+  projects:
+    add_collaborator_description: "कमा, स्पेस वा इन्टरद्वारा अलग गरिएका इमेल आईडीहरू प्रविष्ट गर्नुहोस्। प्रयोगकर्ताहरू पहिले नै प्लेटफर्ममा दर्ता भएको हुनु पर्छ। 
+            ध्यान दिनुहोस् कि हाल सम्म सहकार्य वास्तविक समयमा छैन। प्रत्येक सुरक्षितले अघिल्लो डाटालाई अधिलेखित गर्दछ।"
+    remove_collaborator_message: "के तपाईं पक्का हुनुहुन्छ कि तपाईं यो सहयोगीलाई हटाउन चाहनुहुन्छ?"
+    delete_project_message: "के तपाईं पक्का हुनुहुन्छ कि तपाईं यो परियोजना मेटाउन चाहनुहुन्छ?"
+    form:
+      feature_circuit_checkpoint: "विशेष (प्रशासक मात्र)"
+      tag_list_description: "(आफ्नो परियोजना ट्यागहरू कोमा [,] द्वारा विभाजित प्रविष्ट गर्नुहोस्)"
+      project_is_featured_message: "(यो परियोजना विशेष छ। यो परियोजना सार्वजनिक पहुँच हटाइए पछि विशेष रहने छैन।)"
+      public: "सार्वजनिक"
+      private: "निजी"
+      limited_access: "सीमित पहुँच"
+    edit:
+      title: "%{name} - परियोजना सम्पादन गर्नुहोस्"
+      main_heading: "परियोजना सम्पादन गर्नुहोस्"
+    get_projects:
+      searched_projects_heading: "खोजिएका परियोजनाहरू"
+      searched_tags_heading: "ट्यागहरू:"
+    stars_count: "तारा"
+    views_count: "दृश्य"
+    project_user: "प्रयोगकर्ता:"
+    show:
+      project_author: "लेखक:"
+      project_forked_from: "योबाट फोर्क गरिएको:"
+      project_access_type: "परियोजना पहुँच प्रकार:"
+      project_description: "वर्णन:"
+      project_created_at: "सिर्जना गरिएको:"
+      project_updated_at: "अद्यावधिक गरिएको:"
+      project_embed: "एम्बेड"
+      project_copy: "प्रतिलिपि बनाउनुहोस्"
+      project_collaborator_add: "+ सहयोगी थप्नुहोस्"
+      copied_to_clipboard: "क्लिपबोर्डमा प्रतिलिपि गरियो!"
+      collaborators: "सहयोगीहरू"
+    search:
+      no_result_found: "कुनै परिणाम फेला परेन"
+    modal:
+      embed_circuit_heading: "तपाईंको सर्किट एम्बेड गर्नुहोस्"
+      height: "उचाइ"
+      width: "चौडाइ"
+      url: "यूआरएल"
+      border: "सीमा"
+      border_style: "सीमा शैली"
+      publish_button: "प्रकाशित गर्नुहोस्"
+      advance:
+        advance_option: "उन्नत विकल्प"
+        clock_time: "घडी/समय"
+        display_title: "शीर्षक प्रदर्शन गर्नुहोस्"
+        fullscreen: "पूर्णस्क्रिन"
+        zoom_in_out: "जुम इन/आउट"
+        theme: "थीम"

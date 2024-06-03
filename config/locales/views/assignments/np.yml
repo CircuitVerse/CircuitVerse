@@ -1,0 +1,40 @@
+np:
+  assignments:
+    group_name: "समूह: %{name}"
+    deadline: "म्याद:"
+    remaining_time_error: "(स्क्रिप्ट लोड गर्दा केहि गल्ती भएको छ)"
+    form:
+      grade_scale_cant_change: "(एकपटक सेट गरिए पछि परिवर्तन गर्न सकिँदैन)"
+      cannot_be_edited: "%{graded} - एडिट गर्न सकिँदैन"
+      enable_element_restriction: "एलिमेंट्सहरूमा प्रतिबन्ध लागू गर्नुहोस्:"
+      enable_feature_restriction: "सुविधा प्रतिबन्ध लागू गर्नुहोस्:"
+      time_remaining: "बाँकी समय: %{time}"
+      no_grade: "कुनै ग्रेड छैन"
+      letter: "अक्षर(A-F)"
+      percent: "प्रतिशत(१-१००)"
+      custom: "कस्टम"
+    edit:
+      edit_assignment: "असाइनमेन्ट एडिट गर्नुहोस्"
+    new:
+      title: "%{name} - नयाँ असाइनमेन्ट"
+      new_assignment_heading: "नयाँ असाइनमेन्ट"
+    show:
+      title: "%{name} - असाइनमेन्ट विवरण"
+      assignment_details_heading: "असाइनमेन्ट विवरण"
+    assignment_data:
+      name_html: "<strong>नाम:</strong> %{name}"
+      group_html: "<strong>समूह:</strong> %{group_name}"
+      time_remaining_html: "<strong>बाँकी समय:</strong> %{time_remaining}"
+      graded_html: "<strong>ग्रेडेड:</strong> %{graded}"
+      description: "वर्णन:"
+      restricted_elements_html: "<strong>सीमित सर्किट एलिमेंट्सहरू:<strong> %{restricted_circuit_elements}"
+      export_grades: "ग्रेडहरू निर्यात गर्नुहोस्"
+      submissions: "सबमिटहरू:"
+      restricted_features_html: "<strong>सीमित सुविधाहरू:</strong> %{restricted_features}"
+      no_submissions: "अहिले सम्म कुनै सबमिटहरू छैन!"
+      grades_and_remarks: "ग्रेड र टिप्पणीहरू"
+      grade: "ग्रेड"
+      remarks: "टिप्पणीहरू"
+      grading_scale_percent: "असाइनमेन्ट प्रतिशतमा ग्रेड गर्न सकिन्छ (१-१००)"
+      grading_scale_letter: "असाइनमेन्टलाई कुनै पनि अक्षर A/B/C/D/E/F ले ग्रेड गर्न सकिन्छ"
+      remove: "हटाउनुहोस्"

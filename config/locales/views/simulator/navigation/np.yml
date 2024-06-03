@@ -1,0 +1,8 @@
+np:
+  simulator:
+    nav_item:
+      project: "परियोजना"
+      circuit: "सर्किट"
+      tools: "उपकरणहरू"
+      help: "मद्दत"
+    insert_Subcircuitcontent: "कुनै अन्य सर्किटहरू छैनन् जसमा यो सर्किट निर्भरताको रूपमा छैन। नयाँ बनाउनुहोस्!"

@@ -1,0 +1,34 @@
+np:
+  layout:
+    link_to_simulator: "सिम्युलेटर"
+    getting_started_dropdown: "सुरु गर्नुहोस्"
+    link_to_learn_more: "सिक्नुहोस्"
+    link_to_docs: "दस्तावेजीकरण"
+    link_to_features: "विशेषताहरू"
+    link_to_teachers: "शिक्षकहरू"
+    link_to_blog: "ब्लग"
+    link_to_about: "बारेमा"
+    link_to_faq: "सामान्य प्रश्न"
+    footer:
+      social_icon_text: "हामीलाई फलो गर्नुहोस्:"
+      link_to_examples: "उदाहरणहरू"
+      my_circuits: "मेरा सर्किटहरू"
+      link_to_contribute: "सहयोग गर्नुहोस्"
+      link_to_forum: "कुराकानी"
+      sponsor_logo_text:
+        brought_by: "ल्याएको:"
+        hosting_sponsor: "होस्टिङ स्पन्सर:"
+        marketed_by: "मार्केटिङ गरिएको:"
+        incubated_from: "विकसित गरिएको:"
+      copyright_text: "कपिराइट © %{time_current_year} सर्किटभर्स, सबै अधिकार सुरक्षित।"
+    header:
+      dashboard: "ड्यासबोर्ड"
+      my_groups: "मेरो समूहहरू"
+      notifications: "सूचनाहरू"
+      language: "भाषा"
+    mailer:
+      join_us: "हामीलाई साथ दिनुहोस्"
+      copyright_text: "कपिराइट © %{time_current_year} सर्किटभर्स। सबै अधिकार सुरक्षित। कुनै समस्या हुन बिचारमा आउनुहोस् support@circuitverse.org"
+      unsubscribe_email_notifications: "इमेल सूचनाहरूबाट अनसब्स्क्राइब गर्नुहोस्"
+    simulator:
+      title: "सर्किटभर्स - डिजिटल सर्किट सिम्युलेटर अनलाइन"

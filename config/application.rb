@@ -22,7 +22,7 @@ module Logix
     config.view_component.preview_paths << "#{Rails.root}/spec/components/previews"
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = [:en, :hi, :bn, :mr]
+    config.i18n.available_locales = [:en, :hi, :bn, :mr, :np]
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true
 

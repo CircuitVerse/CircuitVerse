@@ -1,0 +1,8 @@
+np:
+  lti:
+    launch:
+      notice_no_assignment: "सर्किटभर्समा यस्तो कुनै असाइनमेन्ट छैन, कृपया आफ्नो LMS प्रशासक/शिक्षकसँग सम्पर्क गर्नुहोस्"
+      notice_lms_auth_success_teacher: "%{lms_type} मार्फत %{course_title_from_lms} को लागि %{email_from_lms} रूपमा लग इन गरियो"
+      notice_students_open_in_cv: "कृपया असाइनमेन्ट सर्किटभर्समा खोल्नुहोस्"
+      notice_ask_teacher: "कृपया आफ्नो शिक्षकलाई यस कोर्ससँग सम्बन्धित सर्किटभर्स समूहमा तपाईंलाई थप्न भन्नुहोस्।"
+      notice_no_account_in_cv: "तपाईंको इमेल %{email_from_lms} सँग सम्बन्धित कुनै खाता छैन कृपया पहिले खाता सिर्जना गर्नुहोस् र पुन: प्रयास गर्नुहोस्।"
