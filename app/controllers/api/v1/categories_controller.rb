@@ -17,9 +17,7 @@ class Api::V1::CategoriesController < ApplicationController
       render json: @category.errors, status: :unprocessable_entity
     end
   end
-
   private
-
   def category_params
     params.require(:category).permit(:name)
   end
