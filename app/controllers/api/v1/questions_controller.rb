@@ -32,17 +32,18 @@ class Api::V1::QuestionsController < ApplicationController
 
   private
 
-  def authorize_moderator
-    return if current_user.question_bank_moderator?
+    def authorize_moderator
+      return if current_user.question_bank_moderator?
 
-    render json: { error: "Unauthorized" }, status: :unauthorized
-  end
+      render json: { error: "Unauthorized" }, status: :unauthorized
+    end
 
-  def set_question
-    @question = Question.find(params[:id])
-  end
+    def set_question
+      @question = Question.find(params[:id])
+    end
 
-  def question_params
-    params.require(:question).permit(:heading, :statement, :category_id, :difficulty_level_id, test_data: {}, circuit_boilerplate: {})
-  end
+    def question_params
+      params.require(:question).permit(:heading, :statement, :category_id, :difficulty_level_id, test_data: {},
+                                                                                                 circuit_boilerplate: {})
+    end
 end

@@ -21,7 +21,7 @@ class Api::V1::DifficultyLevelsController < ApplicationController
 
   private
 
-  def difficulty_level_params
-    params.require(:difficulty_level).permit(:name, :value)
-  end
+    def difficulty_level_params
+      params.require(:difficulty_level).permit(:name, :value)
+    end
 end
