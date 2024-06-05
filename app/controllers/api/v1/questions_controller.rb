@@ -7,7 +7,13 @@ class Api::V1::QuestionsController < ApplicationController
 
   # POST /api/v1/questions
   def create
-    @question = Question.new(question_params)
+    @question = Question.new
+    @question.heading = question_params[:heading]
+    @question.statement = question_params[:statement]
+    @question.category_id = question_params[:category_id]
+    @question.difficulty_level_id = question_params[:difficulty_level_id]
+    @question.test_data = question_params[:test_data]
+    @question.circuit_boilerplate = question_params[:circuit_boilerplate]
     if @question.save
       render json: @question, status: :created
     else
@@ -17,7 +23,15 @@ class Api::V1::QuestionsController < ApplicationController
 
   # PUT /api/v1/questions/:id
   def update
-    if @question.update(question_params)
+    @question.assign_attributes(
+      heading: question_params[:heading],
+      statement: question_params[:statement],
+      category_id: question_params[:category_id],
+      difficulty_level_id: question_params[:difficulty_level_id],
+      test_data: question_params[:test_data],
+      circuit_boilerplate: question_params[:circuit_boilerplate]
+    )
+    if @question.save
       render json: @question, status: :ok
     else
       render json: @question.errors, status: :unprocessable_entity
