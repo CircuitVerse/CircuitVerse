@@ -43,7 +43,13 @@ class Api::V1::QuestionsController < ApplicationController
     end
 
     def question_params
-      params.require(:question).permit(:heading, :statement, :category_id, :difficulty_level_id, test_data: {},
-                                                                                                 circuit_boilerplate: {})
+      params.require(:question).permit(
+        :heading,
+        :statement,
+        :category_id,
+        :difficulty_level_id,
+        test_data: {},
+        circuit_boilerplate: {}
+      )
     end
 end
