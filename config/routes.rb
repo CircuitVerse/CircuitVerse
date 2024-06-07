@@ -237,10 +237,6 @@ Rails.application.routes.draw do
           put "unsubscribe"
         end
       end
-
-      resources :difficulty_levels, only: [:create, :index]
-      resources :categories, only: [:create, :index]
-      resources :questions, only: [:create, :update, :destroy]
     end
   end
 end
