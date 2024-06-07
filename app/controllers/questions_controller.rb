@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::QuestionsController < ApplicationController
+class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_moderator, only: %i[create update destroy]
   before_action :set_question, only: %i[update destroy]

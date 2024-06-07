@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::CategoriesController < ApplicationController
+class CategoriesController < ApplicationController
   before_action :authenticate_user!
 
   def index
