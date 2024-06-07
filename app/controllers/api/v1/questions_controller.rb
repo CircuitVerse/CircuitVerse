@@ -5,7 +5,6 @@ class Api::V1::QuestionsController < ApplicationController
   before_action :authorize_moderator, only: %i[create update destroy]
   before_action :set_question, only: %i[update destroy]
 
-  # POST /api/v1/questions
   def create
     @question = Question.new
     @question.heading = question_params[:heading]
@@ -21,7 +20,6 @@ class Api::V1::QuestionsController < ApplicationController
     end
   end
 
-  # PUT /api/v1/questions/:id
   def update
     @question.assign_attributes(
       heading: question_params[:heading],
@@ -38,7 +36,6 @@ class Api::V1::QuestionsController < ApplicationController
     end
   end
 
-  # DELETE /api/v1/questions/:id
   def destroy
     @question.destroy
     head :no_content
