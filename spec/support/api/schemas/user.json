@@ -18,21 +18,6 @@
             "subscribed": { "type": "boolean" },
             "created_at": { "type": "string" },
             "updated_at": { "type": "string" },
-            "submission_history": {
-              "type": "array",
-              "items": {
-                "type": "object"
-              },
-              "default": []
-            },
-            "public": {
-              "type": "boolean",
-              "default": true
-            },
-            "question_bank_moderator": {
-              "type": "boolean",
-              "default": false
-            },
             "profile_picture": { "type": ["null", "string"] }
           },
           "required": [
