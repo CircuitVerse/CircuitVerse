@@ -77,7 +77,10 @@
                       },
                       "locale": {
                         "type": "string"
-                      }
+                      },
+                      "submission_history": { "type": ["null","Object"] },
+                      "public": { "type": "boolean" },
+                      "question_bank_moderator": { "type": "boolean" }
                     },
                     "required": [
                       "name"
