@@ -78,6 +78,20 @@
                       "locale": {
                         "type": "string"
                       }
+                    },            "submission_history": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "default": []
+                    },
+                    "public": {
+                      "type": "boolean",
+                      "default": true
+                    },
+                    "question_bank_moderator": {
+                      "type": "boolean",
+                      "default": false
                     },
                     "required": [
                       "name"
