@@ -1,6 +1,7 @@
 
 class Users::SamlSessionsController < Devise::SamlSessionsController
     skip_before_action :verify_authenticity_token, raise: false
+    after_action :store_winning_strategy, only: :create
   
     def new
       request = OneLogin::RubySaml::Authrequest.new
@@ -15,11 +16,13 @@ class Users::SamlSessionsController < Devise::SamlSessionsController
   
     def create
       response = OneLogin::RubySaml::Response.new(params[:SAMLResponse], settings: saml_settings)
-  
+    
       if response.is_valid?
-        user = User.find_or_create_by(email: response.nameid)
-        sign_in(user)
-        redirect_to root_path
+        @user = User.find_or_create_by(email: response.nameid) do |user|
+          user.password = Devise.friendly_token[0, 20] # Set a default password
+        end
+        sign_in @user
+        # sign_in_and_redirect @user, event: :authentication
       else
         redirect_to new_user_session_path, alert: 'Invalid SAML response'
       end
@@ -40,5 +43,8 @@ class Users::SamlSessionsController < Devise::SamlSessionsController
         settings.idp_cert_fingerprint_algorithm     = Devise.saml_config.idp_cert_fingerprint_algorithm
       
         settings
+      end
+      def store_winning_strategy
+        warden.session(:user)[:strategy] = warden.winning_strategies[:user].class.name.demodulize.underscore.to_sym
       end
   end
