@@ -167,6 +167,13 @@ body {
   }
 }
 
+.disabled {
+  opacity: 0.5;
+  &:hover {
+    cursor: not-allowed;
+  }
+}
+
 .page-item {
   &.active {
     .page-link {
