@@ -801,6 +801,18 @@ export default class CircuitElement {
     }
 
     /**
+     * Sets isValueUpstream for all output nodes of the
+     * element.
+     * */
+    setOutputsUpstream(bool) {
+        for (let i = 0; i < this.nodeList.length; i++) {
+            if (this.nodeList[i].type === NODE_OUTPUT) {
+                this.nodeList[i].isValueUpstream = bool;
+            }
+        }
+    }
+
+    /**
     * Helper Function to name the verilog.
     * @return {string}
     */

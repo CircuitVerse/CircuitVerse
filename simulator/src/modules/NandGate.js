@@ -102,6 +102,8 @@ export default class NandGate extends CircuitElement {
             ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**

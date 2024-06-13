@@ -92,6 +92,8 @@ export default class DflipFlop extends CircuitElement {
             simulationArea.simulationQueue.add(this.qOutput);
             simulationArea.simulationQueue.add(this.qInvOutput);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customSave() {

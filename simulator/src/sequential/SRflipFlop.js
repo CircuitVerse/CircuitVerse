@@ -75,6 +75,8 @@ export default class SRflipFlop extends CircuitElement {
             simulationArea.simulationQueue.add(this.qOutput);
             simulationArea.simulationQueue.add(this.qInvOutput);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customSave() {

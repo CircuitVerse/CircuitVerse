@@ -59,6 +59,8 @@ export default class Button extends CircuitElement {
             this.output1.value = this.state;
         }
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**

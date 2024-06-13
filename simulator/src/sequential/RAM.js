@@ -127,6 +127,8 @@ export default class RAM extends CircuitElement {
 
         this.dataOut.value = this.data[this.address.value] || 0;
         simulationArea.simulationQueue.add(this.dataOut);
+
+        this.setOutputsUpstream(true);
     }
 
     customDraw() {
