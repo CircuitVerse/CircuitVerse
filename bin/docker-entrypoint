@@ -1,7 +1,8 @@
 #!/bin/bash
 
 set -e
-
+echo "Write VAPID keys while running image"
+source ./bin/write-keys-production
 if [ "${*}" == "./bin/rails server -b 0.0.0.0 -p 3000" ]; then
   if [ -f /usr/src/app/tmp/pids/server.pid ]; then
     echo "Remove server pid"
