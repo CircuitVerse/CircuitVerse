@@ -54,7 +54,7 @@ export class TestbenchData {
      * Checks whether given case-group pair exists in the test
      */
     isCaseValid() {
-        if (this.currentGroup >= this.data.groups.length || this.currentGroup < 0) return false;
+        if (this.currentGroup >= this.testData.groups.length || this.currentGroup < 0) return false;
         const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
         if (this.currentCase >= caseCount || this.currentCase < 0) return false;
 
