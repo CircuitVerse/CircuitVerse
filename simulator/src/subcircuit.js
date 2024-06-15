@@ -298,7 +298,8 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * rebuilds the subcircuit if any change to localscope is made
+     * If the circuit referenced by localscope is changed, then the localscope
+     * needs to be updated. This function does that.
      */
     reBuildCircuit() {
         this.data = JSON.parse(scheduleBackup(scopeList[this.id]));
@@ -467,17 +468,14 @@ export default class SubCircuit extends CircuitElement {
                 this.outputNodes.push(a);
             }
         }
-
+        // console.log(subcircuitScope.name, subcircuitScope.timeStamp, this.lastUpdated)
         if (subcircuitScope.timeStamp > this.lastUpdated) {
             this.reBuildCircuit();
         }
 
-        // Should this be done here or only when this.reBuildCircuit() is called?
-        {
-            this.localScope.reset();
-            updateSimulationSet(true);
-            forceResetNodesSet(true);
-        }
+        this.localScope.reset();
+        updateSimulationSet(true);
+        forceResetNodesSet(true);
 
         this.makeConnections();
     }
