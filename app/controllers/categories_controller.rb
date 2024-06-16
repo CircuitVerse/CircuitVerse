@@ -2,6 +2,7 @@
 
 class CategoriesController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_moderator, only: %i[create]
 
   def index
     @categories = Category.all
@@ -18,6 +19,12 @@ class CategoriesController < ApplicationController
   end
 
   private
+
+    def authorize_moderator
+      return if current_user.question_bank_moderator?
+
+      render json: { error: "Unauthorized" }, status: :unauthorized
+    end
 
     def category_params
       params.require(:category).permit(:name)
