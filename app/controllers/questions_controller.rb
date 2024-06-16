@@ -5,6 +5,15 @@ class QuestionsController < ApplicationController
   before_action :authorize_moderator, only: %i[create update destroy]
   before_action :set_question, only: %i[update destroy]
 
+  def index
+    @questions = Question.all
+    render json: @questions
+  end
+
+  def show
+    render json: @question
+  end
+
   def create
     @question = Question.new
     @question.heading = question_params[:heading]
@@ -39,6 +48,39 @@ class QuestionsController < ApplicationController
   def destroy
     @question.destroy
     head :no_content
+  end
+
+  def filter
+    @questions = Question.all
+    @questions = @questions.where(category_id: params[:category_id]) if params[:category_id].present?
+    if params[:difficulty_level_id].present?
+      @questions = @questions.where(difficulty_level_id: params[:difficulty_level_id])
+    end
+    render json: @questions
+  end
+
+  def status
+    case params[:status]
+    when "unattempted"
+      @questions = Question.where.not(id: current_user.submission_history.pluck("question_id"))
+    when "attempted"
+      @questions = Question.where(id: current_user.submission_history.pluck("question_id"))
+    when "solved"
+      solved_question_ids = current_user.submission_history.select do |submission|
+        submission["status"] == "solved"
+      end.pluck("question_id")
+      @questions = Question.where(id: solved_question_ids)
+    else
+      render json: { error: "Invalid status parameter" }, status: :bad_request
+      return
+    end
+    render json: @questions
+  end
+
+  def search
+    query = "%#{params[:q]}%"
+    @questions = Question.where("heading LIKE :query OR statement LIKE :query", query: query)
+    render json: @questions
   end
 
   private
