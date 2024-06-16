@@ -3,7 +3,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
   before_action :authorize_moderator, only: %i[create update destroy]
-  before_action :set_question, only: %i[update destroy]
+  before_action :set_question, only: %i[show update destroy]
 
   def index
     @questions = Question.all
