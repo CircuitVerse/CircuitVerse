@@ -1,5 +1,26 @@
 # frozen_string_literal: true
 
+#
+# == Schema Information
+#
+# Table name: grades
+#
+#  id            :bigint           not null, primary key
+#  grade         :string
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  project_id    :bigint
+#  user_id       :bigint
+#  assignment_id :bigint
+#
+# Indexes
+#
+#  index_grades_on_assignment_id  (assignment_id)
+#  index_grades_on_project_id     (project_id)
+#  index_grades_on_user_id        (user_id)
+#  index_grades_on_project_id_and_assignment_id  (project_id,assignment_id) UNIQUE
+#
+
 class Grade < ApplicationRecord
   LETTER_MATCH = /^(A|B|C|D|E|F)$/
   PERCENT_MATCH = /^[0-9][0-9]?$|^100$/
@@ -14,6 +35,7 @@ class Grade < ApplicationRecord
 
   private
 
+    # @return [Boolean] Return if valid grade according to grading_scale
     def grading_scale
       valid = case assignment.grading_scale
               when "no_scale"
@@ -29,10 +51,12 @@ class Grade < ApplicationRecord
       errors.add(:grade, "Grade does not match scale or assignment cannot be graded") unless valid
     end
 
+    # @return [void]
     def assignment_project
       errors.add(:project, "is not a part of the assignment") if project&.assignment_id != assignment&.id
     end
 
+    # @return [CSV] Return CSV file of submissions for the assignment
     def self.to_csv(assignment_id)
       attributes = %w[email name grade remarks]
       group_members = User.joins(group_members: :assignments)
