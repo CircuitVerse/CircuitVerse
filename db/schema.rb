@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_25_140331) do
+ActiveRecord::Schema[7.0].define(version: 2024_02_17_054158) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -255,6 +255,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_25_140331) do
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at", precision: nil
+    t.string "group_mentor_token"
+    t.datetime "mentor_token_expires_at"
+    t.index ["group_mentor_token"], name: "index_groups_on_group_mentor_token", unique: true
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end

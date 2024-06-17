@@ -144,9 +144,61 @@ describe GroupsController, type: :request do
     end
   end
 
+  describe "#invite_mentor" do
+    before do
+      @already_present = FactoryBot.create(:user)
+      @group.update(mentor_token_expires_at: 12.days.from_now)
+      FactoryBot.create(:group_member, user: @already_present, group: @group, mentor: true)
+    end
+
+    context "when user enters a valid link" do
+      it "adds member to the group if group token matches" do
+        sign_in @user
+        expect do
+          get mentor_invite_group_path(id: @group.id, token: @group.group_mentor_token)
+        end.to change(GroupMember, :count).by(1)
+      end
+    end
+
+    context "when user is already present in the group" do
+      it "does not add member to the group" do
+        sign_in @already_present
+        expect do
+          get mentor_invite_group_path(id: @group.id, token: @group.group_mentor_token)
+        end.not_to change(GroupMember, :count)
+      end
+    end
+
+    context "when user enters a expired url" do
+      before do
+        @group.update(mentor_token_expires_at: 1.day.ago)
+      end
+
+      it "does not add member to group and generates error message" do
+        sign_in @user
+        get mentor_invite_group_path(id: @group.id, token: @group.group_mentor_token)
+        expect(response.status).to eq(302)
+        expect(flash[:notice])
+          .to eq("Url is expired, request a new one from the primary mentor of the group.")
+      end
+    end
+
+    context "when user enters invalid url" do
+      it "does not add member to the group and generates error message" do
+        sign_in @user
+        get mentor_invite_group_path(id: @group.id, token: "abc")
+        expect(response.status).to eq(302)
+      end
+    end
+  end
+
+
+
+
   describe "#generate_token" do
     before do
       @group.update(token_expires_at: 1.day.ago, group_token: nil)
+      @group.update(mentor_token_expires_at: 1.day.ago, group_mentor_token: nil)
     end
 
     context "when group does not have any token or token is expired" do
@@ -156,5 +208,6 @@ describe GroupsController, type: :request do
         expect(response.status).to eq(200)
       end
     end
+
   end
 end
