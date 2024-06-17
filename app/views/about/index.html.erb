@@ -120,6 +120,7 @@
       let contributorElementImage = document.createElement('img');
       contributorElement.classList.add('about-contributor');
       contributorElementAnchor.href = await contributorUsers[i]['html_url'];
+      contributorElementAnchor.target = '_blank';
       contributorElementImage.src = await contributorUsers[i]['avatar_url'];
       contributorElementImage.classList.add('about-contributor-image');
       contributorElementAnchor.appendChild(contributorElementImage);
