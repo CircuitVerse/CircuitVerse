@@ -221,3 +221,4 @@ gem "maintenance_tasks", "~> 2.3"
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
+gem 'ruby-saml', '~> 1.16.0'
