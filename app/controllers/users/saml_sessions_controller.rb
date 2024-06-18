@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Users::SamlSessionsController < Devise::SamlSessionsController
-    skip_before_action :verify_authenticity_token, raise: false
     after_action :store_winning_strategy, only: :create
   
     def new
