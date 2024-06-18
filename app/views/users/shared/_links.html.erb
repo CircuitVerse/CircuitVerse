@@ -11,13 +11,11 @@
         <%= link_to image_tag("SVGs/gitlab.svg", alt: "Gitlab Icon", class: "users-social-links"), user_gitlab_omniauth_authorize_path, method: :post %>
       <% end %>
     </div>
-    <% if Flipper.enabled?(:sso_integration) %>
       <div class="row center-row users-shared-row">
         <p class="users-shared-row"><%= t("groups.use_alternative") %></p>
         <a href="/users/saml/sign_in" class="anchor-text users-shared-row">
           <%= t("users.shared.login_with_sso") %>
         </a>
       </div>
-    <% end %>
   </div>
 </div>
