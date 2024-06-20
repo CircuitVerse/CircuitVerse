@@ -270,7 +270,7 @@ RSpec/InstanceVariable:
 RSpec/ContextWording:
   Enabled: false
 
-FactoryBot/SyntaxMethods:
+RSpec/FactoryBot/SyntaxMethods:
   Enabled: false
 
 RSpec/MultipleMemoizedHelpers:
