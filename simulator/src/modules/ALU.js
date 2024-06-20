@@ -134,9 +134,18 @@ export default class ALU extends CircuitElement {
             simulationArea.simulationQueue.add(this.carryOut);
             this.message = 'A|B';
         } else if (this.controlSignalInput.value === 2) {
-            const sum = this.inp1.value + this.inp2.value;
-            this.output.value = ((sum) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
-            this.carryOut.value = +((sum >>> (this.bitWidth)) !== 0);
+            const bitWidth = this.bitWidth;
+
+            if (bitWidth <= 32) {
+                const sum = BigInt(this.inp1.value) + BigInt(this.inp2.value);
+                this.output.value = Number(sum & ((1n << BigInt(bitWidth)) - 1n));
+                this.carryOut.value = Number(sum >> BigInt(bitWidth) !== 0n);
+            } else {
+                const mask = (1n << BigInt(bitWidth)) - 1n; 
+                const bigSum = BigInt(this.inp1.value) + BigInt(this.inp2.value);
+                this.output.value = Number(bigSum & mask);
+                this.carryOut.value = Number(bigSum >> BigInt(bitWidth) !== 0n);
+            }
             simulationArea.simulationQueue.add(this.carryOut);
             simulationArea.simulationQueue.add(this.output);
             this.message = 'A+B';
