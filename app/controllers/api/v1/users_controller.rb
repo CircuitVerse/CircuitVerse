@@ -35,22 +35,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  # GET api/v1/users/:id/submission_status
-  def submission_status
-    submissions = @user.submission_history
-    render json: submissions, status: :ok
-  end
-
-  # PATCH api/v1/users/:id/toggle_dashboard_privacy
-  def toggle_dashboard_privacy
-    @user.dashboard_private = !@user.public
-    if @user.save
-      render json: { message: "Dashboard privacy updated successfully" }, status: :ok
-    else
-      render json: { error: "Failed to update dashboard privacy" }, status: :unprocessable_entity
-    end
-  end
-
   private
 
     def set_user
