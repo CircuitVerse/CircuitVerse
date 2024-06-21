@@ -95,13 +95,22 @@ Rails.application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
   # Mailer settings
-  config.action_mailer.delivery_method = :ses
+  # config.action_mailer.delivery_method = :ses
+
   config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
   config.action_mailer.asset_host = "https://circuitverse.org"
 
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || ""
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || ""
-
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  address: 'email-smtp.ap-south-1.amazonaws.com',
+  port: 587,
+  user_name: ENV["CIRCUITVERSE_EMAIL_ID"],
+  password: ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
+  authentication: 'login',
+  enable_starttls_auto: true
+}
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
