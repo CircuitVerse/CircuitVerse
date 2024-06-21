@@ -138,14 +138,14 @@ export default class ALU extends CircuitElement {
 
             if (bitWidth <= 32) {
                 const sum = BigInt(this.inp1.value) + BigInt(this.inp2.value);
-                const mask = (1n << BigInt(bitWidth)) - 1n;
+                const mask = BigInt(1) << BigInt(bitWidth) - BigInt(1);
                 this.output.value = Number(sum & mask);
-                this.carryOut.value = Number((sum >> BigInt(bitWidth)) !== 0n);
+                this.carryOut.value = Number((sum >> BigInt(bitWidth)) !== BigInt(0));
             } else {
-                const mask = (1n << BigInt(bitWidth)) - 1n; 
+                const mask = BigInt(1) << BigInt(bitWidth) - BigInt(1);
                 const bigSum = BigInt(this.inp1.value) + BigInt(this.inp2.value);
                 this.output.value = Number(bigSum & mask);
-                this.carryOut.value = Number((bigSum >> BigInt(bitWidth)) !== 0n);
+                this.carryOut.value = Number((bigSum >> BigInt(bitWidth)) !== BigInt(0));
             }
             simulationArea.simulationQueue.add(this.carryOut);
             simulationArea.simulationQueue.add(this.output);
