@@ -1,0 +1,40 @@
+<div id="addModeratorsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title">Manage Moderators</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Debug Moderators:</p>
+        <%= @moderators %>
+        <p>Current Moderators:</p>
+        <div id="moderators-list">
+          <% if @moderators.present? %>
+            <% @moderators.each do |moderator| %>
+              <div class="badge badge-info badge-pill">
+                <%= moderator.email %>
+                <%= link_to "×", api_v1_users_manage_moderators_path(moderator.id), method: :delete, remote: true, class: "remove-moderator-btn" %>
+              </div>
+            <% end %>
+          <% else %>
+            <p>No moderators found.</p>
+          <% end %>
+        </div>
+
+        <hr>
+
+        <p>Add New Moderators:</p>
+        <%= form_with(url: api_v1_users_add_moderators_path, method: :post, local: true) do |form| %>
+          <div class="form-group d-flex flex-column">
+            <%= form.label :emails, "Email Addresses" %>
+            <%= form.text_area :emails, class: "form-control", id: "group_moderator_emails", rows: 3, placeholder: "Enter email addresses separated by commas" %>
+          </div>
+          <div class="modal-footer">
+            <%= form.submit "Add Moderators", class: "btn primary-button", id: "add-moderator-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

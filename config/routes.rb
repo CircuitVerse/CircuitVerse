@@ -176,6 +176,8 @@ Rails.application.routes.draw do
       get "/me", to: "users#me"
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
+      post "/users/add_moderators", to: "users#add_moderators"
+      delete "/users/remove_moderator/:remove_moderator_id", to: "users#manage_moderators", as: "remove_moderator"
       get "/projects/featured", to: "projects#featured_circuits"
       get "/projects/search", to: "projects#search"
       post "/simulator/post_issue", to: "simulator#post_issue"

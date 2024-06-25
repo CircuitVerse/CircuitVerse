@@ -58,6 +58,9 @@
           <% if policy(@user).edit? %>
             <a class="btn primary-button ml-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
+          <% if current_user.admin? %>
+            <button type="button" class="btn secondary-button ml-2" data-toggle="modal" data-target="#addModeratorsModal"><%= t("users.circuitverse.index.add_moderator") %></button>
+          <% end %>
         </div>
       </div>
     </div>
@@ -126,7 +129,8 @@
     </div>
 
   </div>
-</div>
+  <%= render partial: "add_moderators_modal" %>
+  </div>
 
 <script type="application/ld+json">
 {
