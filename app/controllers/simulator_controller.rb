@@ -27,14 +27,24 @@ class SimulatorController < ApplicationController
   end
 
   def new
-    @logix_project_id = 0
-    @projectName = ""
-    render "edit"
+    if Rails.configuration.simulator_version == "1.0"
+      @logix_project_id = 0
+      @projectName = ""
+      render "edit"
+    else
+      render file: Rails.public_path.join("simulatorvue", "index.html"), layout: false
+    end
   end
 
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
+
+    if @project.version == "1.0"
+      render "edit"
+    elsif @project.version == "2.0"
+      render file: Rails.public_path.join("simulatorvue", "index.html"), layout: false
+    end
   end
 
   def embed
@@ -43,6 +53,7 @@ class SimulatorController < ApplicationController
     @project = Project.friendly.find(params[:id])
     @author = @project.author_id
     @external_embed = true
+    # TODO: embed based on the version
     render "embed"
   end
 
@@ -55,6 +66,7 @@ class SimulatorController < ApplicationController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
+    @project.version = Rails.configuration.simulator_version
     # ActiveStorage
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
