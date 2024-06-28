@@ -6,15 +6,13 @@
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Debug Moderators:</p>
-        <%= @moderators %>
         <p>Current Moderators:</p>
         <div id="moderators-list">
           <% if @moderators.present? %>
             <% @moderators.each do |moderator| %>
-              <div class="badge badge-info badge-pill">
+              <div id="moderator-<%= moderator.id %>" class="badge badge-info badge-pill">
                 <%= moderator.email %>
-                <%= link_to "×", api_v1_users_manage_moderators_path(moderator.id), method: :delete, remote: true, class: "remove-moderator-btn" %>
+                <%= link_to "×", api_v1_remove_moderator_path(moderator.id), method: :delete, remote: true, class: "remove-moderator-btn", data: { id: moderator.id } %>
               </div>
             <% end %>
           <% else %>
@@ -38,3 +36,17 @@
     </div>
   </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.remove-moderator-btn').forEach(function(button) {
+      button.addEventListener('ajax:success', function(event) {
+        const moderatorId = this.dataset.id;
+        const moderatorDiv = document.getElementById(`moderator-${moderatorId}`);
+        if (moderatorDiv) {
+          moderatorDiv.remove();
+        }
+      });
+    });
+  });
+</script>

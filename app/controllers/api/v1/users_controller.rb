@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
-  before_action :set_user, only: %i[show update load_moderators]
+  before_action :set_user, only: %i[show update]
   before_action :authenticate_user!
   before_action :check_access, only: [:update]
   before_action :set_details_access, except: %i[index me]
@@ -9,8 +9,6 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # GET api/v1/users
   def index
-    logger.debug "Entered manage_moderators action"
-    @moderators = User.where(question_bank_moderator: true)
     @users = paginate(User.all)
     @options = { params: { only_name: true } }
     @options[:links] = link_attrs(@users, api_v1_users_url)
@@ -20,7 +18,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET api/v1/users/:id
   def show
     @moderators = User.where(question_bank_moderator: true)
-    render partial: 'add_moderators_modal', locals: { moderators: @moderators }
+    render partial: "add_moderators_modal", locals: { moderators: @moderators }
   end
 
   # GET api/v1/me
@@ -41,13 +39,13 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # POST api/v1/users/add_moderators
   def add_moderators
-    emails = params[:emails].split(',').map(&:strip)
+    emails = params[:emails].split(",").map(&:strip)
     users = User.where(email: emails)
-    
+
     users.each do |user|
       user.update(question_bank_moderator: true)
     end
-    
+
     if users.all? { |user| user.errors.empty? }
       redirect_back(fallback_location: root_path)
     else
@@ -55,29 +53,18 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-  
   # GET api/v1/users/manage_moderators
   def manage_moderators
-    logger.debug "Entered manage_moderators action"
-    load_moderators
     @moderators = User.where(question_bank_moderator: true)
-    logger.debug "@moderators: #{@moderators.inspect}"
-    
-    if params[:remove_moderator_id]
-      moderator = User.find_by(id: params[:remove_moderator_id])
-      if moderator.present?
-        moderator.update(question_bank_moderator: false)
-        flash[:notice] = "#{moderator.email} removed as a moderator."
-      else
-        flash[:alert] = "Moderator not found."
-      end
-    end
-    @moderators = User.where(question_bank_moderator: true)
-    render partial: 'add_moderators_modal', locals: { moderators: @moderators }
-  
-  end
-  
+    return unless params[:remove_moderator_id]
 
+    moderator = User.find_by(id: params[:remove_moderator_id])
+    if moderator.present?
+      moderator.update(question_bank_moderator: false)
+    else
+      flash[:alert] = "Moderator not found."
+    end
+  end
 
   private
 
@@ -90,14 +77,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     def check_admin
-      unless current_user.admin?
-        render json: { error: 'Access denied' }, status: :forbidden
-      end
-    end
+      return if current_user.admin?
 
-    def load_moderators
-      logger.debug "asdadsads"
-      @moderators = User.where(question_bank_moderator: true)
+      render json: { error: "Access denied" }, status: :forbidden
     end
 
     def set_details_access
