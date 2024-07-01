@@ -85,7 +85,7 @@ function installAndBuildPackages(versions) {
             },
         );
     });
-}
+}    
 
 function logErrorAndExit(err) {
     // eslint-disable-next-line no-console
