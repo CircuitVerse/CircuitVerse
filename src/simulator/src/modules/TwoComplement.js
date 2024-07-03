@@ -2,7 +2,6 @@ import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
 import { correctWidth, fillText, drawCircle2 } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * TwoComplement
@@ -19,9 +18,6 @@ import { colors } from '../themer/themer'
 export default class TwoComplement extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['TwoComplement'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(15, 15)
         this.inp1 = new Node(-10, 0, 0, this, this.bitWidth, 'input stream')

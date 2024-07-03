@@ -29,15 +29,8 @@ function dec2bin(dec, bitWidth = undefined) {
 export default class TB_Output extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', identifier) {
         super(x, y, scope, dir, 1)
-        // this.setDimensions(60,20);
         this.objectType = 'TB_Output'
         this.scope.TB_Output.push(this)
-
-        // this.xSize=10;
-
-        // this.plotValues = [];
-        // this.inp1 = new Node(0, 0, 0, this);
-        // this.inp1 = new Node(100, 100, 0, this);
         this.setIdentifier(identifier || 'Test1')
         this.inputs = []
         this.testBenchInput = undefined
@@ -45,10 +38,6 @@ export default class TB_Output extends CircuitElement {
         this.setup()
     }
 
-    // TB_Output.prototype.dblclick=function(){
-    //     this.testData=JSON.parse(prompt("Enter TestBench Json"));
-    //     this.setup();
-    // }
     setDimensions() {
         this.leftDimensionX = 0
         this.rightDimensionX = 160
@@ -61,9 +50,6 @@ export default class TB_Output extends CircuitElement {
     }
 
     setup() {
-        // this.iteration = 0;
-        // this.running = false;
-        // this.nodeList.clean(this.clockInp);
         this.deleteNodes() // deletes all nodes whenever setup is called.
         this.nodeList = []
 
@@ -161,22 +147,6 @@ export default class TB_Output extends CircuitElement {
             yRotate = 20
         }
 
-        // rect2(ctx, -120+xRotate+this.xSize, -20+yRotate, 120-this.xSize, 40, xx, yy, "RIGHT");
-        // if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this))
-        //     ctx.fillStyle = "rgba(255, 255, 32,0.8)";
-        // ctx.fill();
-        // ctx.stroke();
-        //
-        // ctx.font = "14px Raleway";
-        // this.xOff = ctx.measureText(this.identifier).width;
-        // ctx.beginPath();
-        // rect2(ctx, -105+xRotate+this.xSize, -11+yRotate,this.xOff + 10, 23, xx, yy, "RIGHT");
-        // ctx.fillStyle = "#eee"
-        // ctx.strokeStyle = "#ccc";
-        // ctx.fill();
-        // ctx.stroke();
-        //
-
         ctx.beginPath()
         ctx.textAlign = 'center'
         ctx.fillStyle = 'black'
@@ -187,9 +157,6 @@ export default class TB_Output extends CircuitElement {
             yy + 14,
             10
         )
-
-        // fillText(ctx, ["Not Running","Running"][+this.running], xx + this.rightDimensionX/ 2 , yy + 14 + 10 + 20*this.testData.inputs.length, 10);
-        // fillText(ctx, "Case: "+(this.iteration), xx + this.rightDimensionX/ 2 , yy + 14 + 20 + 20*this.testData.inputs.length, 10);
         fillText(
             ctx,
             ['Unpaired', 'Paired'][+(this.testBenchInput != undefined)],
@@ -209,7 +176,6 @@ export default class TB_Output extends CircuitElement {
                 i < this.testBenchInput.testData.outputs.length;
                 i++
             ) {
-                // ctx.beginPath();
                 fillText(
                     ctx,
                     this.testBenchInput.testData.outputs[i].label,

@@ -2,7 +2,6 @@ import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
 import { correctWidth, lineTo, moveTo, drawCircle2 } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * ControlledInverter
@@ -19,9 +18,6 @@ import { colors } from '../themer/themer'
 export default class ControlledInverter extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['ControlledInverter'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(15, 15)
 

@@ -2,7 +2,6 @@ import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * Multiplexer
@@ -27,9 +26,6 @@ export default class Multiplexer extends CircuitElement {
         controlSignalSize = 1
     ) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['Multiplexer'].push(this);
-        */
         this.controlSignalSize =
             controlSignalSize ||
             parseInt(prompt('Enter control signal bitWidth'), 10)

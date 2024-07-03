@@ -19,9 +19,6 @@ import { colors } from '../themer/themer'
 export default class TflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1)
-        /*
-        this.scope['TflipFlop'].push(this);
-        */
         this.directionFixed = true
         this.fixedBitWidth = true
         this.setDimensions(20, 20)
@@ -36,8 +33,6 @@ export default class TflipFlop extends CircuitElement {
         this.masterState = 0
         this.slaveState = 0
         this.prevClockState = 0
-
-        // this.wasClicked = false;
     }
 
     /**
@@ -133,12 +128,10 @@ export default class TflipFlop extends CircuitElement {
         ctx.lineWidth = correctWidth(3)
         var xx = this.x
         var yy = this.y
-        // rect(ctx, xx - 20, yy - 20, 40, 40);
         moveTo(ctx, -20, 5, xx, yy, this.direction)
         lineTo(ctx, -15, 10, xx, yy, this.direction)
         lineTo(ctx, -20, 15, xx, yy, this.direction)
 
-        // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
         ctx.stroke()
         ctx.beginPath()
         ctx.font = '20px Raleway'

@@ -20,9 +20,6 @@ import { colors } from '../themer/themer'
 export default class Dlatch extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth)
-        /*
-        this.scope['Dlatch'].push(this);
-        */
         this.directionFixed = true
         this.setDimensions(20, 20)
         this.rectangleObject = true
@@ -30,16 +27,13 @@ export default class Dlatch extends CircuitElement {
         this.dInp = new Node(-20, -10, 0, this, this.bitWidth, 'D')
         this.qOutput = new Node(20, -10, 1, this, this.bitWidth, 'Q')
         this.qInvOutput = new Node(20, 10, 1, this, this.bitWidth, 'Q Inverse')
-        // this.reset = new Node(10, 20, 0, this, 1, "Asynchronous Reset");
-        // this.preset = new Node(0, 20, 0, this, this.bitWidth, "Preset");
-        // this.en = new Node(-10, 20, 0, this, 1, "Enable");
         this.state = 0
         this.prevClockState = 0
         this.wasClicked = false
     }
 
     /**
-     * Idea: shoould be D FF?
+     * Idea: should be D FF?
      */
     isResolvable() {
         if (this.clockInp.value != undefined && this.dInp.value != undefined)
@@ -52,7 +46,6 @@ export default class Dlatch extends CircuitElement {
         this.dInp.bitWidth = bitWidth
         this.qOutput.bitWidth = bitWidth
         this.qInvOutput.bitWidth = bitWidth
-        // this.preset.bitWidth = bitWidth;
     }
 
     /**
@@ -80,9 +73,6 @@ export default class Dlatch extends CircuitElement {
                 dInp: findNode(this.dInp),
                 qOutput: findNode(this.qOutput),
                 qInvOutput: findNode(this.qInvOutput),
-                // reset: findNode(this.reset),
-                // preset: findNode(this.preset),
-                // en: findNode(this.en),
             },
             constructorParamaters: [this.direction, this.bitWidth],
         }
@@ -97,11 +87,9 @@ export default class Dlatch extends CircuitElement {
         ctx.lineWidth = correctWidth(3)
         var xx = this.x
         var yy = this.y
-        // rect(ctx, xx - 20, yy - 20, 40, 40);
         moveTo(ctx, -20, 5, xx, yy, this.direction)
         lineTo(ctx, -15, 10, xx, yy, this.direction)
         lineTo(ctx, -20, 15, xx, yy, this.direction)
-        // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
         ctx.stroke()
         ctx.beginPath()
         ctx.font = '20px Raleway'

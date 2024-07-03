@@ -1,7 +1,7 @@
 import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
-import { correctWidth, bezierCurveTo, moveTo, arc2 } from '../canvasApi'
+import { correctWidth, bezierCurveTo, moveTo } from '../canvasApi'
 import { changeInputSize } from '../modules'
 import { gateGenerateVerilog } from '../utils'
 
@@ -30,9 +30,6 @@ export default class OrGate extends CircuitElement {
     ) {
         // Calling base class constructor
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['OrGate'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(15, 20)
         // Inherit base class prototype

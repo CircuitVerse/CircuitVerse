@@ -24,9 +24,6 @@ export default class verilogPower extends CircuitElement {
         outputBitWidth = 1
     ) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['verilogPower'].push(this);
-        */
         this.setDimensions(20, 20)
         this.outputBitWidth = outputBitWidth
         this.inpA = new Node(-20, -10, 0, this, this.bitWidth, 'A')

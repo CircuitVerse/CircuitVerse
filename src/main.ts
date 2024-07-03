@@ -1,4 +1,3 @@
-import { useActions } from './store/SimulatorStore/actions'
 import { createApp } from 'vue'
 import App from './App.vue'
 import vuetify from './plugins/vuetify'

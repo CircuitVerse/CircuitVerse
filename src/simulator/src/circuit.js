@@ -11,13 +11,10 @@
 /* eslint-disable no-alert */
 import CircuitElement from './circuitElement'
 import plotArea from './plotArea'
-import simulationArea, { changeClockTime } from './simulationArea'
+import simulationArea from './simulationArea'
 import {
     stripTags,
     uniq,
-    showMessage,
-    showError,
-    truncateString,
 } from './utils'
 import { findDimensions, dots } from './canvasApi'
 import { updateRestrictedElementsList } from './restrictedElementDiv'
@@ -32,13 +29,13 @@ import {
     changeLightMode,
 } from './engine'
 import { toggleLayoutMode, layoutModeGet } from './layoutMode'
-import { setProjectName, getProjectName } from './data/save'
+import { setProjectName } from './data/save'
 import { changeClockEnable } from './sequential'
 import { changeInputSize } from './modules'
 import { verilogModeGet, verilogModeSet } from './Verilog2CV'
 import { updateTestbenchUI } from './testbench'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
-import { toRef, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import { provideCircuitName } from '#/components/helpers/promptComponent/PromptComponent.vue'
 import { deleteCurrentCircuit } from '#/components/helpers/deleteCircuit/DeleteCircuit.vue'
 
@@ -46,7 +43,6 @@ export const circuitProperty = {
     toggleLayoutMode,
     setProjectName,
     changeCircuitName,
-    // changeClockTime,
     deleteCurrentCircuit,
     changeClockEnable,
     changeInputSize,
@@ -235,27 +231,9 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     activeCircuit.value.name = scope.name
 
     if (!isVerilog || isVerilogMain) {
-        if (embed) {
-            // added calss - embed-tab using vue logic
-            // var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${
-            //     scope.id
-            // }'><span class='circuitName noSelect'>${truncateString(
-            //     name,
-            //     18
-            // )}</span></div>`
-            // $('#tabsBar').append(html)
-            // $('#tabsBar').addClass('embed-tabs')
-        } else {
-            // logic implemented in vue
-        }
-
         // Remove listeners
-        //$('.circuits').off('click')
         $('.circuitName').off('click')
-        //$('.tabsCloseButton').off('click')
-
         // switch circuit function moved inside vue component
-
         if (!embed) {
             $('.circuitName').on('click', () => {
                 simulationArea.lastSelected = globalScope.root
@@ -265,12 +243,6 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
                 }, 100)
             })
         }
-        // moved inside vue - component
-        // $('.tabsCloseButton').on('click', function (e) {
-        //     e.stopPropagation()
-        //     deleteCurrentCircuit(this.id)
-        // })
-
         if (!embed) {
             showProperties(scope.root)
         }
@@ -288,13 +260,11 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
 export function changeCircuitName(name, id = globalScope.id) {
     const simulatorStore = SimulatorStore()
     const { circuit_list } = toRefs(simulatorStore)
-    // const { activeCircuit } = toRefs(simulatorStore)
     name = name || 'Untitled'
     name = stripTags(name)
     scopeList[id].name = name
     const index = circuit_list.value.findIndex((circuit) => circuit.id === id)
     circuit_list.value[index].name = name
-    // activeCircuit.value.name = name // add later if necessary at current stage not important handled by projectProperty on switching circuit
 }
 
 /**

@@ -2,7 +2,6 @@
     This file contains all javascript related to the test creator UI
     at /testbench
 */
-
 import _ from '../vendor/table2csv'
 
 const CREATORMODE = {

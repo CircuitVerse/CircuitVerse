@@ -2,11 +2,9 @@
  * This file contains all functions related the the testbench
  * Contains the the testbench engine and UI modules
  */
-
 import { scheduleBackup } from './data/backupCircuit'
 import { changeClockEnable } from './sequential'
 import { play } from './engine'
-import Scope from './circuit'
 import { showMessage, escapeHtml } from './utils'
 import { confirmOption } from '#/components/helpers/confirmComponent/ConfirmComponent.vue'
 
@@ -79,7 +77,6 @@ export class TestbenchData {
             this.currentCase = caseIndex
             return true
         }
-
         return false
     }
 

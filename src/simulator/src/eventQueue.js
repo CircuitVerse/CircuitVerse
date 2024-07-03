@@ -41,7 +41,6 @@ export default class EventQueue {
 
         if (this.frontIndex == this.size) throw 'EventQueue size exceeded'
         this.queue[this.frontIndex] = obj
-        // obj.queueProperties.time=obj.propagationDelay;
         obj.queueProperties.time = this.time + (delay || obj.propagationDelay)
         obj.queueProperties.index = this.frontIndex
         this.frontIndex++

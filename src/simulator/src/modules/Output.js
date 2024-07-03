@@ -40,9 +40,6 @@ export default class Output extends CircuitElement {
     ) {
         // Calling base class constructor
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['Output'].push(this);
-        */
         if (layoutProperties) {
             this.layoutProperties = layoutProperties
         } else {
@@ -57,15 +54,6 @@ export default class Output extends CircuitElement {
         this.orientationFixed = false
         this.setDimensions(this.bitWidth * 10, 10)
         this.inp1 = new Node(this.bitWidth * 10, 0, 0, this)
-    }
-
-    /**
-     * @memberof Output
-     * function to generate verilog for output
-     * @return {string}
-     */
-    generateVerilog() {
-        return `assign ${this.label} = ${this.inp1.verilogLabel};`
     }
 
     /**
@@ -186,6 +174,11 @@ export default class Output extends CircuitElement {
         this.labelDirection = oppositeDirection[this.direction]
     }
 
+    /**
+     * @memberof Output
+     * function to generate verilog for output
+     * @return {string}
+     */
     generateVerilog() {
         return (
             'assign ' + this.verilogLabel + ' = ' + this.inp1.verilogLabel + ';'

@@ -40,9 +40,6 @@ export default class Input extends CircuitElement {
         layoutProperties
     ) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['Input'].push(this);
-        */
         if (layoutProperties) {
             this.layoutProperties = layoutProperties
         } else {

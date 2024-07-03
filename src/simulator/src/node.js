@@ -12,7 +12,6 @@ import {
     canvasMessageData,
 } from './engine'
 import Wire from './wire'
-// import { colors } from './themer/themer';
 import { colors } from './themer/themer'
 
 /**

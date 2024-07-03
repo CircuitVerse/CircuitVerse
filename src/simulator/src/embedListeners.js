@@ -14,7 +14,6 @@ import {
     errorDetectedSet,
 } from './engine'
 import { changeScale } from './canvasApi'
-import { copy, paste } from './events'
 import { ZoomIn, ZoomOut } from './listeners'
 
 var unit = 10
@@ -177,15 +176,6 @@ export default function startListeners() {
                 return
             }
         }
-
-        // if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown3) {
-        //     if (e.key.toString() != "Backspace" && e.key.toString() != "Delete") {
-        //         simulationArea.lastSelected.keyDown3(e.key.toString());
-        //         return;
-        //     }
-
-        // }
-
         if (e.key == 'T' || e.key == 't') {
             simulationArea.changeClockTime(prompt('Enter Time:'))
         }

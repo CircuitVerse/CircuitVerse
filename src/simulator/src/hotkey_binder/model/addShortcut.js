@@ -40,10 +40,7 @@ export const addShortcut = (keys, action) => {
             break
         case 'Combinational Analysis':
             callback = createCombinationalAnalysisPrompt
-            break //bug
-        // case "Start Plot":
-        // 	callback = startPlot;
-        // 	break;
+            break
         case 'Direction Up':
             callback = elementDirection('up')
             break
@@ -90,7 +87,7 @@ export const addShortcut = (keys, action) => {
             callback = openDocumentation
             break
         default:
-            callback = () => console.log('No shortcut found..')
+            callback = () => console.error('No shortcut found..')
             break
     }
     shortcut.add(keys, callback, {

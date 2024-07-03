@@ -40,50 +40,6 @@ export function createSubCircuitPrompt(scope = globalScope) {
     }
     const simulatorStore = SimulatorStore()
     simulatorStore.dialogBox.insertsubcircuit_dialog = true
-    /*
-    $('#insertSubcircuitDialog').empty()
-    let flag = true
-    for (id in scopeList) {
-        if (
-            !scopeList[id].checkDependency(scope.id) &&
-            scopeList[id].isVisible()
-        ) {
-            flag = false
-            $('#insertSubcircuitDialog').append(
-                `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
-            )
-        }
-    }
-    if (flag)
-        $('#insertSubcircuitDialog').append(
-            "<p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p>"
-        )
-    $('#insertSubcircuitDialog').dialog({
-        resizable: false,
-        maxHeight: 800,
-        width: 450,
-        maxWidth: 800,
-        minWidth: 250,
-        buttons: !flag
-            ? [
-                  {
-                      text: 'Insert SubCircuit',
-                      click() {
-                          if (!$('input[name=subCircuitId]:checked').val())
-                              return
-                          simulationArea.lastSelected = new SubCircuit(
-                              undefined,
-                              undefined,
-                              globalScope,
-                              $('input[name=subCircuitId]:checked').val()
-                          )
-                          $(this).dialog('close')
-                      },
-                  },
-              ]
-            : [],
-    })
-    */
 }
 
 /**
@@ -297,10 +253,6 @@ export default class SubCircuit extends CircuitElement {
 
     // Needs to be deprecated, removed
     reBuild() {
-        // new SubCircuit(x = this.x, y = this.y, scope = this.scope, this.id);
-        // this.scope.backups = []; // Because all previous states are invalid now
-        // this.delete();
-        // showMessage('Subcircuit: ' + subcircuitScope.name + ' has been reloaded.');
     }
 
     /**
@@ -688,6 +640,7 @@ export default class SubCircuit extends CircuitElement {
                 )
             }
         } else {
+            console.error('Unknown Version: ', this.version)
         }
 
         for (var i = 0; i < subcircuitScope.Input.length; i++) {

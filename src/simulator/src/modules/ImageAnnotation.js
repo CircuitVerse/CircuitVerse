@@ -1,9 +1,8 @@
 import CircuitElement from '../circuitElement'
-import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
 import { correctWidth, rect, fillText, drawImage } from '../canvasApi'
 import { colors } from '../themer/themer'
-import { promptFile, showMessage, getImageDimensions } from '../utils'
+import { promptFile, showMessage } from '../utils'
 /**
  * @class
  * Image

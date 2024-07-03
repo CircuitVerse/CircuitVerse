@@ -29,9 +29,6 @@ export default class XorGate extends CircuitElement {
         bitWidth = 1
     ) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['XorGate'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(15, 20)
 
@@ -125,7 +122,6 @@ export default class XorGate extends CircuitElement {
             this.direction
         )
         bezierCurveTo(0, 0, 0, 0, -10, -20, xx, yy, this.direction)
-        // arc(ctx, 0, 0, -20, (-Math.PI / 2), (Math.PI / 2), xx, yy, this.direction);
         ctx.closePath()
         if (
             (this.hover && !simulationArea.shiftDown) ||

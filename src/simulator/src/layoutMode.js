@@ -4,7 +4,6 @@ import { dots, correctWidth, fillText, rect2 } from './canvasApi'
 import LayoutBuffer from './layout/layoutBuffer'
 import simulationArea from './simulationArea'
 import {
-    hideProperties,
     fillSubcircuitElements,
     prevPropertyObjGet,
     prevPropertyObjSet,
@@ -19,8 +18,7 @@ import {
 } from './engine'
 import miniMapArea from './minimap'
 import { showMessage } from './utils'
-import * as metadata from './metadata.json'
-import { verilogModeGet, verilogModeSet } from './Verilog2CV'
+import { verilogModeSet } from './Verilog2CV'
 
 /**
  * Layout.js - all subcircuit layout related code is here
@@ -446,8 +444,6 @@ export function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
-    // hideProperties()
-    // lines from hideProperty function() <---
     prevPropertyObjSet(undefined)
     $('.objectPropertyAttribute').unbind('change keyup paste click')
 
@@ -476,7 +472,6 @@ export function toggleLayoutMode() {
         globalScope.scale = DPR * 1.3
         dots()
         tempBuffer = new LayoutBuffer()
-        // $('#toggleLayoutTitle')[0].checked = tempBuffer.layout.titleEnabled
     }
     update(globalScope, true)
     scheduleUpdate()
@@ -497,48 +492,3 @@ export const layoutFunctions = {
     saveLayout,
     toggleLayoutMode,
 }
-
-// export function setupLayoutModePanelListeners() {
-//     $('#decreaseLayoutWidth').on('click', () => {
-//         decreaseLayoutWidth()
-//     })
-//     $('#increaseLayoutWidth').on('click', () => {
-//         increaseLayoutWidth()
-//     })
-//     $('#decreaseLayoutHeight').on('click', () => {
-//         decreaseLayoutHeight()
-//     })
-//     $('#increaseLayoutHeight').on('click', () => {
-//         increaseLayoutHeight()
-//     })
-//     $('#layoutResetNodes').on('click', () => {
-//         layoutResetNodes()
-//     })
-//     $('#layoutTitleUp').on('click', () => {
-//         layoutTitleUp()
-//     })
-//     $('#layoutTitleDown').on('click', () => {
-//         layoutTitleDown()
-//     })
-//     $('#layoutTitleLeft').on('click', () => {
-//         layoutTitleLeft()
-//     })
-//     $('#layoutTitleRight').on('click', () => {
-//         layoutTitleRight()
-//     })
-//     $('#toggleLayoutTitle').on('click', () => {
-//         toggleLayoutTitle()
-//     })
-//     $('#saveLayout').on('click', () => {
-//         saveLayout()
-//     })
-//     $('#cancelLayout').on('click', () => {
-//         cancelLayout()
-//     })
-//     $('#layoutDialog button').on('click', () => {
-//         scheduleUpdate()
-//     })
-//     $('#layoutDialog input').on('click', () => {
-//         scheduleUpdate()
-//     })
-// }

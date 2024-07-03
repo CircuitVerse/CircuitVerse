@@ -1,8 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-
-import { Tooltip } from 'bootstrap'
 import metadata from './metadata.json'
 import { generateId, showMessage } from './utils'
 import backgroundArea from './backgroundArea'
@@ -12,9 +10,7 @@ import { dots } from './canvasApi'
 import { update, updateSimulationSet, updateCanvasSet } from './engine'
 import { setupUI } from './ux'
 import startMainListeners from './listeners'
-// import startEmbedListeners from './embedListeners'
-import './embed'
-import { newCircuit, scopeList } from './circuit'
+import { newCircuit } from './circuit'
 import load from './data/load'
 import save from './data/save'
 import { showTourGuide } from './tutorials'
@@ -26,7 +22,6 @@ import 'codemirror/addon/edit/closebrackets'
 import 'codemirror/addon/hint/anyword-hint'
 import 'codemirror/addon/hint/show-hint'
 import { setupCodeMirrorEnvironment } from './Verilog2CV'
-// import { keyBinder } from '#/components/DialogBox/CustomShortcut.vue'
 import '../vendor/jquery-ui.min.css'
 import '../vendor/jquery-ui.min'
 import { confirmSingleOption } from '#/components/helpers/confirmComponent/ConfirmComponent.vue'
@@ -104,8 +99,6 @@ function setupEnvironment() {
  * @category setup
  */
 function setupElementLists() {
-    // $('#menu').empty()
-
     window.circuitElementList = metadata.circuitElementList
     window.annotationList = metadata.annotationList
     window.inputList = metadata.inputList

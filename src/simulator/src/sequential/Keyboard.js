@@ -18,15 +18,12 @@ import { colors } from '../themer/themer'
 export default class Keyboard extends CircuitElement {
     constructor(x, y, scope = globalScope, bufferSize = 32) {
         super(x, y, scope, 'RIGHT', 1)
-        /*
-        this.scope['Keyboard'].push(this);
-        */
         this.directionFixed = true
         this.fixedBitWidth = true
 
         this.bufferSize = bufferSize || parseInt(prompt('Enter buffer size:'))
         this.elementWidth = Math.max(80, Math.ceil(this.bufferSize / 2) * 20)
-        this.elementHeight = 40 // Math.max(40,Math.ceil(this.rows*15/20)*20);
+        this.elementHeight = 40
         this.setWidth(this.elementWidth / 2)
         this.setHeight(this.elementHeight / 2)
 

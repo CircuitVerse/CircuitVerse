@@ -18,10 +18,6 @@ import { colors } from '../themer/themer'
 export default class Decoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'LEFT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['Decoder'].push(this);
-        */
-        // this.controlSignalSize = controlSignalSize || parseInt(prompt("Enter control signal bitWidth"), 10);
         this.outputsize = 1 << this.bitWidth
         this.xOff = 0
         this.yOff = 1
@@ -31,31 +27,8 @@ export default class Decoder extends CircuitElement {
         if (this.bitWidth <= 3) {
             this.yOff = 2
         }
-
-        // this.changeControlSignalSize = function(size) {
-        //     if (size === undefined || size < 1 || size > 32) return;
-        //     if (this.controlSignalSize === size) return;
-        //     let obj = new window[this.objectType](this.x, this.y, this.scope, this.direction, this.bitWidth, size);
-        //     this.cleanDelete();
-        //     simulationArea.lastSelected = obj;
-        //     return obj;
-        // }
-        // this.mutableProperties = {
-        //     "controlSignalSize": {
-        //         name: "Control Signal Size",
-        //         type: "number",
-        //         max: "32",
-        //         min: "1",
-        //         func: "changeControlSignalSize",
-        //     },
-        // }
         // eslint-disable-next-line no-shadow
         this.newBitWidth = function (bitWidth) {
-            // this.bitWidth = bitWidth;
-            // for (let i = 0; i < this.inputSize; i++) {
-            //     this.outputs1[i].bitWidth = bitWidth
-            // }
-            // this.input.bitWidth = bitWidth;
             if (bitWidth === undefined || bitWidth < 1 || bitWidth > 32) return
             if (this.bitWidth === bitWidth) return
             const obj = new Decoder(
@@ -85,8 +58,6 @@ export default class Decoder extends CircuitElement {
             )
             this.output1.push(a)
         }
-
-        // this.controlSignalInput = new Node(0,this.yOff * 10 * (this.outputsize / 2 - 1) +this.xOff + 10, 0, this, this.controlSignalSize,"Control Signal");
     }
 
     /**
@@ -129,12 +100,6 @@ export default class Decoder extends CircuitElement {
 
         const xx = this.x
         const yy = this.y
-
-        // ctx.beginPath();
-        // moveTo(ctx, 0,this.yOff * 10 * (this.outputsize / 2 - 1) + 10 + 0.5 *this.xOff, xx, yy, this.direction);
-        // lineTo(ctx, 0,this.yOff * 5 * (this.outputsize - 1) +this.xOff, xx, yy, this.direction);
-        // ctx.stroke();
-
         ctx.beginPath()
         ctx.strokeStyle = colors['stroke']
         ctx.lineWidth = correctWidth(4)
@@ -186,7 +151,6 @@ export default class Decoder extends CircuitElement {
         ctx.beginPath()
         ctx.fillStyle = 'black'
         ctx.textAlign = 'center'
-        // [xFill,yFill] = rotate(xx + this.output1[i].x - 7, yy + this.output1[i].y + 2);
         for (let i = 0; i < this.outputsize; i++) {
             if (this.direction === 'LEFT')
                 fillText(

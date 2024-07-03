@@ -18,9 +18,6 @@ import { colors } from '../themer/themer'
 export default class DflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth)
-        /*
-        this.scope['DflipFlop'].push(this);
-        */
         this.directionFixed = true
         this.setDimensions(20, 20)
         this.rectangleObject = true
@@ -43,9 +40,6 @@ export default class DflipFlop extends CircuitElement {
      */
     isResolvable() {
         return true
-        // if (this.reset.value == 1) return true;
-        // if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;
-        // return false;
     }
 
     newBitWidth(bitWidth) {
@@ -116,7 +110,6 @@ export default class DflipFlop extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context
-        //
         ctx.strokeStyle = colors['stroke']
         ctx.fillStyle = colors['fill']
         ctx.beginPath()
@@ -127,7 +120,6 @@ export default class DflipFlop extends CircuitElement {
         moveTo(ctx, -20, 5, xx, yy, this.direction)
         lineTo(ctx, -15, 10, xx, yy, this.direction)
         lineTo(ctx, -20, 15, xx, yy, this.direction)
-        // if ((this.b.hover&&!simulationArea.shiftDown)|| simulationArea.lastSelected == this || simulationArea.multipleObjectSelections.contains(this)) ctx.fillStyle = "rgba(255, 255, 32,0.8)";ctx.fill();
         ctx.stroke()
 
         ctx.beginPath()

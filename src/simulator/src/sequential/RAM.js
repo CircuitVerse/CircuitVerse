@@ -43,7 +43,6 @@ import { parseNumber, showMessage } from '../utils'
  * by keeping the max addressWidth small. If needed, we can increase the max.
  * @category sequential
  */
-import { colors } from '../themer/themer'
 import { showError } from '../utils'
 export default class RAM extends CircuitElement {
     constructor(
@@ -55,9 +54,6 @@ export default class RAM extends CircuitElement {
         addressWidth = 10
     ) {
         super(x, y, scope, dir, Math.min(Math.max(1, bitWidth), 32))
-        /*
-        this.scope['RAM'].push(this);
-        */
         this.setDimensions(60, 40)
 
         this.directionFixed = true
@@ -270,9 +266,6 @@ export default class RAM extends CircuitElement {
         }
 
         showMessage('Data dumped to developer Console')
-
-        console.log(JSON.stringify(this.data))
-
         if (logLabel) {
             console.groupEnd()
         }

@@ -10,7 +10,6 @@ import {
     rect2,
     validColor,
 } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * SixteenSegDisplay
@@ -23,9 +22,6 @@ import { changeInputSize } from '../modules'
 export default class SixteenSegDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope, color = 'Red') {
         super(x, y, scope, 'RIGHT', 16)
-        /* this is done in this.baseSetup() now
-        this.scope['SixteenSegDisplay'].push(this);
-        */
         this.fixedBitWidth = true
         this.directionFixed = true
         this.setDimensions(30, 50)

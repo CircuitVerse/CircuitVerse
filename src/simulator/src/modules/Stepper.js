@@ -2,7 +2,6 @@ import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
 import { fillText } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * Stepper
@@ -19,11 +18,7 @@ import { colors } from '../themer/themer'
 export default class Stepper extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 8) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['Stepper'].push(this);
-        */
         this.setDimensions(20, 20)
-
         this.output1 = new Node(20, 0, 1, this, bitWidth)
         this.state = 0
     }

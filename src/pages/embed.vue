@@ -229,9 +229,6 @@ onBeforeMount(() => {
 })
 
 onMounted(() => {
-    // $('#zoom-in-embed').on('click', () => ZoomIn())
-    // $('#zoom-out-embed').on('click', () => ZoomOut())
-
     startListeners()
     setup()
 })

@@ -1,8 +1,7 @@
 import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
-import { correctWidth, lineTo, moveTo, arc } from '../canvasApi'
-import { changeInputSize } from '../modules'
+import { correctWidth, lineTo, moveTo } from '../canvasApi'
 /**
  * @class
  * Power
@@ -18,9 +17,6 @@ import { colors } from '../themer/themer'
 export default class Power extends CircuitElement {
     constructor(x, y, scope = globalScope, bitWidth = 1) {
         super(x, y, scope, 'RIGHT', bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['Power'].push(this);
-        */
         this.directionFixed = true
         this.rectangleObject = false
         this.setDimensions(10, 10)

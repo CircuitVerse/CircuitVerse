@@ -29,9 +29,6 @@ export default class NandGate extends CircuitElement {
         bitWidth = 1
     ) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['NandGate'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(15, 20)
         this.inp = []

@@ -1,7 +1,6 @@
 import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
-import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi'
 /**
  * @class
  * verilogRAM Component.
@@ -42,7 +41,6 @@ import { correctWidth, fillText2, fillText4, drawCircle2 } from '../canvasApi'
  * by keeping the max addressWidth small. If needed, we can increase the max.
  * @category sequential
  */
-import { colors } from '../themer/themer'
 
 function customResolve(
     clockInp,
@@ -110,7 +108,6 @@ function customResolve(
             if (en[i].value == 0) {
                 prevClockState[i] = clockInp[i].value
             } else if (en[i].value == 1 || en[i].connections.length == 0) {
-                // if(en.value==1) // Creating Infinite Loop, WHY ??
                 if (clockInp[i].value == prevClockState[i]) {
                     if (clockInp[i].value == 0 && dInp[i].value != undefined) {
                         masterState[i] = dInp[i].value
@@ -152,9 +149,6 @@ export default class verilogRAM extends CircuitElement {
         wrports
     ) {
         super(x, y, scope, dir, Math.min(Math.max(1, bitWidth), 32))
-        /*
-        this.scope['verilogRAM'].push(this);
-        */
         this.setDimensions(60, 40)
 
         this.directionFixed = true
@@ -413,22 +407,9 @@ export default class verilogRAM extends CircuitElement {
     }
 
     newBitWidth(value) {
-        // value = parseInt(value);
-        // if (!isNaN(value) && this.bitWidth != value && value >= 1 && value <= 32) {
-        //     this.bitWidth = value;
-        //     this.dataIn.bitWidth = value;
-        //     this.dataOut.bitWidth = value;
-        //     this.clearData();
-        // }
     }
 
     changeAddressWidth(value) {
-        // value = parseInt(value);
-        // if (!isNaN(value) && this.addressWidth != value && value >= 1 && value <= this.maxAddressWidth) {
-        //     this.addressWidth = value;
-        //     this.address.bitWidth = value;
-        //     this.clearData();
-        // }
     }
 
     clearData() {
@@ -498,27 +479,6 @@ export default class verilogRAM extends CircuitElement {
     }
 
     customDraw() {
-        // var ctx = simulationArea.context;
-        // //
-        // var xx = this.x;
-        // var yy = this.y;
-        // ctx.beginPath();
-        // ctx.strokeStyle = 'gray';
-        // ctx.fillStyle = this.write.value ? 'red' : 'lightgreen';
-        // ctx.lineWidth = correctWidth(1);
-        // drawCircle2(ctx, 50, -30, 3, xx, yy, this.direction);
-        // ctx.fill();
-        // ctx.stroke();
-        // ctx.beginPath();
-        // ctx.textAlign = 'center';
-        // ctx.fillStyle = 'black';
-        // fillText4(ctx, this.memSizeString(), 0, -10, xx, yy, this.direction, 12);
-        // fillText4(ctx, this.shortName, 0, 10, xx, yy, this.direction, 12);
-        // fillText2(ctx, 'A', this.address.x + 12, this.address.y, xx, yy, this.direction);
-        // fillText2(ctx, 'DI', this.dataIn.x + 12, this.dataIn.y, xx, yy, this.direction);
-        // fillText2(ctx, 'W', this.write.x + 12, this.write.y, xx, yy, this.direction);
-        // fillText2(ctx, 'DO', this.dataOut.x - 15, this.dataOut.y, xx, yy, this.direction);
-        // ctx.fill();
     }
 
     memSizeString() {
@@ -543,9 +503,6 @@ export default class verilogRAM extends CircuitElement {
         if (logLabel) {
             console.group(this.label)
         }
-
-        console.log(this.data)
-
         if (logLabel) {
             console.groupEnd()
         }

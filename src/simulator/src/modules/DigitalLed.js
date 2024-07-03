@@ -10,7 +10,6 @@ import {
     drawCircle2,
     validColor,
 } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * DigitalLed
@@ -26,11 +25,7 @@ import { colors } from '../themer/themer'
 export default class DigitalLed extends CircuitElement {
     constructor(x, y, scope = globalScope, color = 'Red') {
         // Calling base class constructor
-
         super(x, y, scope, 'UP', 1)
-        /* this is done in this.baseSetup() now
-        this.scope['DigitalLed'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(10, 20)
         this.inp1 = new Node(-40, 0, 0, this, 1)

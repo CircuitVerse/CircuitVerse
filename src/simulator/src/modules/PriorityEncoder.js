@@ -18,9 +18,6 @@ import { colors } from '../themer/themer'
 export default class PriorityEncoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['PriorityEncoder'].push(this);
-        */
         this.bitWidth = bitWidth || parseInt(prompt('Enter bitWidth'), 10)
         this.inputSize = 1 << this.bitWidth
 

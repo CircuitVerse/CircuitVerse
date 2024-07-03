@@ -31,9 +31,6 @@ export default class EEPROM extends RAM {
         data = null
     ) {
         super(x, y, scope, dir, bitWidth, addressWidth)
-        /*
-        this.scope['EEPROM'].push(this);
-        */
         this.data = data || this.data
     }
 

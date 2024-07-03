@@ -2,7 +2,6 @@ import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
 import { correctWidth, lineTo, moveTo, arc, drawCircle2 } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * RGBLed
@@ -18,9 +17,6 @@ export default class RGBLed extends CircuitElement {
     constructor(x, y, scope = globalScope) {
         // Calling base class constructor
         super(x, y, scope, 'UP', 8)
-        /* this is done in this.baseSetup() now
-        this.scope['RGBLed'].push(this);
-        */
         this.rectangleObject = false
         this.inp = []
         this.setDimensions(10, 10)
@@ -89,7 +85,6 @@ export default class RGBLed extends CircuitElement {
             `rgba(${a}, ${b}, ${c}, 0.8)`,
             'rgba(227, 228, 229, 0.8)',
         ][(a === undefined || b === undefined || c === undefined) + 0]
-        // ctx.fillStyle = ["rgba(200, 200, 200, 0.3)","rgba(227, 228, 229, 0.8)"][((a === undefined || b === undefined || c === undefined) || (a === 0 && b === 0 && c === 0)) + 0];
         ctx.lineWidth = correctWidth(1)
 
         ctx.beginPath()

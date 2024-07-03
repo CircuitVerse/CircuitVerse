@@ -1,8 +1,7 @@
 import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
 import simulationArea from '../simulationArea'
-import { correctWidth, lineTo, moveTo, arc } from '../canvasApi'
-import { changeInputSize } from '../modules'
+import { correctWidth, lineTo, moveTo } from '../canvasApi'
 /**
  * @class
  * TriState
@@ -19,9 +18,6 @@ import { colors } from '../themer/themer'
 export default class TriState extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth)
-        /* this is done in this.baseSetup() now
-        this.scope['TriState'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(15, 15)
 
@@ -29,9 +25,6 @@ export default class TriState extends CircuitElement {
         this.output1 = new Node(20, 0, 1, this)
         this.state = new Node(0, 0, 0, this, 1, 'Enable')
     }
-
-    // TriState.prototype.propagationDelay=10000;
-
     /**
      * @memberof TriState
      * fn to create save Json Data of object

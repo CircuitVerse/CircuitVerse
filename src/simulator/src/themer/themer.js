@@ -117,7 +117,6 @@ export const getThemeCardSvg = (themeName) => {
     $('.svgChev', svgIcon).attr('stroke', colors['--br-secondary'])
 
     $('.svgHeader', svgIcon).attr('fill', colors['--primary'])
-    let temp = svgIcon.prop('outerHTML')
     return svgIcon.prop('outerHTML')
 }
 

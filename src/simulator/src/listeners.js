@@ -23,7 +23,6 @@ import {
     hideProperties,
     deleteSelected,
     uxvar,
-    fullView,
     exitFullView,
 } from './ux'
 import {
@@ -36,7 +35,6 @@ import { removeMiniMap, updatelastMinimapShown } from './minimap'
 import undo from './data/undo'
 import redo from './data/redo'
 import { copy, paste, selectAll } from './events'
-import save from './data/save'
 import { verilogModeGet } from './Verilog2CV'
 import { setupTimingListeners } from './plotArea'
 
@@ -44,30 +42,6 @@ var unit = 10
 var listenToSimulator = true
 
 export default function startListeners() {
-    // added the below functionalities in QuickButton.vue component local script tag part
-
-    // $('#deleteSelected').on('click', () => {
-    //     deleteSelected()
-    // })
-
-    // $('#zoomIn').on('click', () => {
-    //     changeScale(0.2, 'zoomButton', 'zoomButton', 2)
-    // })
-
-    // $('#zoomOut').on('click', () => {
-    //     changeScale(-0.2, 'zoomButton', 'zoomButton', 2)
-    // })
-
-    // $('#undoButton').on('click', () => {
-    //     undo()
-    // })
-    // $('#redoButton').on('click', () => {
-    //     redo()
-    // })
-    // $('#viewButton').on('click', () => {
-    //     fullView()
-    // })
-
     $(document).on('keyup', (e) => {
         if (e.key === 'Escape') exitFullView()
     })
@@ -78,16 +52,6 @@ export default function startListeners() {
             document.getElementById('projname').select()
         }, 100)
     })
-    /* Makes tabs reordering possible by making them sortable */
-    // $("#tabsBar").sortable({
-    //     containment: 'parent',
-    //     items: '> div',
-    //     revert: false,
-    //     opacity: 0.5,
-    //     tolerance: 'pointer',
-    //     placeholder: 'placeholder',
-    //     forcePlaceholderSize: true,
-    // });
 
     document
         .getElementById('simulationArea')
@@ -132,12 +96,10 @@ export default function startListeners() {
     document
         .getElementById('simulationArea')
         .addEventListener('mouseup', (e) => {
-            if (simulationArea.lastSelected)
+            if (simulationArea.lastSelected) {
                 simulationArea.lastSelected.newElement = false
-            /*
-        handling restricted circuit elements
-        */
-
+            }
+            // handling restricted circuit elements
             if (
                 simulationArea.lastSelected &&
                 restrictedElements.includes(
@@ -153,7 +115,7 @@ export default function startListeners() {
                 updateRestrictedElementsList()
             }
 
-            //       deselect multible elements with click
+            // deselect multible elements with click
             if (
                 !simulationArea.shiftDown &&
                 simulationArea.multipleObjectSelections.length > 0
@@ -220,10 +182,6 @@ export default function startListeners() {
 
             if (listenToSimulator) {
                 // If mouse is focusing on input element, then override any action
-                // if($(':focus').length){
-                //     return;
-                // }
-
                 if (
                     document.activeElement.tagName == 'INPUT' ||
                     simulationArea.mouseRawX < 0 ||
@@ -278,18 +236,6 @@ export default function startListeners() {
                 scheduleUpdate(1)
                 updateCanvasSet(true)
                 wireToBeCheckedSet(1)
-
-                // Needs to be deprecated, moved to more recent listeners
-                if (
-                    simulationArea.controlDown &&
-                    (e.key == 'C' || e.key == 'c')
-                ) {
-                    //    simulationArea.copyList=simulationArea.multipleObjectSelections.slice();
-                    //    if(simulationArea.lastSelected&&simulationArea.lastSelected!==simulationArea.root&&!simulationArea.copyList.contains(simulationArea.lastSelected)){
-                    //        simulationArea.copyList.push(simulationArea.lastSelected);
-                    //    }
-                    //    copy(simulationArea.copyList);
-                }
 
                 if (
                     simulationArea.lastSelected &&
@@ -571,7 +517,6 @@ export default function startListeners() {
     })
 
     zoomSliderListeners()
-    // setupLayoutModePanelListeners()
     if (!embed) {
         setupTimingListeners()
     }
@@ -658,8 +603,8 @@ function onMouseUp(e) {
             simulationArea.mouseRawY > height
         )
     ) {
-        uxvar.smartDropXX = simulationArea.mouseX + 100 // Math.round(((simulationArea.mouseRawX - globalScope.ox+100) / globalScope.scale) / unit) * unit;
-        uxvar.smartDropYY = simulationArea.mouseY - 50 // Math.round(((simulationArea.mouseRawY - globalScope.oy+100) / globalScope.scale) / unit) * unit;
+        uxvar.smartDropXX = simulationArea.mouseX + 100
+        uxvar.smartDropYY = simulationArea.mouseY - 50
     }
 }
 
@@ -674,10 +619,6 @@ function resizeTabs() {
 
 window.addEventListener('resize', resizeTabs)
 resizeTabs()
-
-// $(() => {
-//     $('[data-toggle="tooltip"]').tooltip()
-// })
 
 // direction is only 1 or -1
 function handleZoom(direction) {
@@ -737,25 +678,4 @@ function zoomSliderListeners() {
             curLevel = zoomLevel
         }
     }
-
-    // previously used for the + and - zoom buttons in quickButtons
-
-    // function sliderZoomButton(direction) {
-    //     var zoomSlider = $('#customRange1')
-    //     var currentSliderValue = parseInt(zoomSlider.val(), 10)
-    //     if (direction === -1) {
-    //         currentSliderValue--
-    //     } else {
-    //         currentSliderValue++
-    //     }
-    //     zoomSlider.val(currentSliderValue).change()
-    // }
-
-    // $('#decrement').click(() => {
-    //     sliderZoomButton(-1)
-    // })
-
-    // $('#increment').click(() => {
-    //     sliderZoomButton(1)
-    // })
 }

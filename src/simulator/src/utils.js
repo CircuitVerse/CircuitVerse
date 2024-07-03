@@ -216,8 +216,8 @@ export function truncateString(str, num) {
 }
 
 export function bitConverterDialog() {
-    const simulatorStore = SimulatorStore();
-    simulatorStore.dialogBox.hex_bin_dec_converter_dialog = true;
+    const simulatorStore = SimulatorStore()
+    simulatorStore.dialogBox.hex_bin_dec_converter_dialog = true
 }
 
 export function getImageDimensions(file) {

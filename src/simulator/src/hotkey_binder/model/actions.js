@@ -4,14 +4,8 @@ import { updateHTML } from '../view/panel.ui'
 import simulationArea from '../../simulationArea'
 import {
     scheduleUpdate,
-    update,
-    updateSelectionsAndPane,
     wireToBeCheckedSet,
-    updatePositionSet,
-    updateSimulationSet,
     updateCanvasSet,
-    gridUpdateSet,
-    errorDetectedSet,
 } from '../../engine'
 
 import { getOS } from './utils.js'

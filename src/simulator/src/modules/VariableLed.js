@@ -10,7 +10,6 @@ import {
     colorToRGBA,
     validColor,
 } from '../canvasApi'
-import { changeInputSize } from '../modules'
 /**
  * @class
  * VariableLed
@@ -24,12 +23,7 @@ import { colors } from '../themer/themer'
 
 export default class VariableLed extends CircuitElement {
     constructor(x, y, scope = globalScope, color = 'Red') {
-        // Calling base class constructor
-
         super(x, y, scope, 'UP', 8)
-        /* this is done in this.baseSetup() now
-        this.scope['VariableLed'].push(this);
-        */
         this.rectangleObject = false
         this.setDimensions(10, 20)
         this.inp1 = new Node(-40, 0, 0, this, 8)
@@ -120,10 +114,6 @@ export default class VariableLed extends CircuitElement {
         lineTo(ctx, 0, -9, xx, yy, this.direction)
         arc(ctx, 0, 0, 9, -Math.PI / 2, Math.PI / 2, xx, yy, this.direction)
         lineTo(ctx, -20, 9, xx, yy, this.direction)
-        /* lineTo(ctx,-18,12,xx,yy,this.direction);
-        arc(ctx,0,0,Math.sqrt(468),((Math.PI/2) + Math.acos(12/Math.sqrt(468))),((-Math.PI/2) - Math.asin(18/Math.sqrt(468))),xx,yy,this.direction);
-
-        */
         lineTo(ctx, -20, -9, xx, yy, this.direction)
         ctx.stroke()
         if (

@@ -7,8 +7,6 @@
 */
 import { scopeList } from './circuit'
 import { errorDetectedGet } from './engine'
-import { download } from './utils'
-import { getProjectName } from './data/save'
 import modules from './modules'
 import { sanitizeLabel } from './verilogHelpers'
 import CodeMirror from 'codemirror/lib/codemirror.js'
@@ -19,49 +17,12 @@ import 'codemirror/addon/edit/closebrackets.js'
 import 'codemirror/addon/hint/anyword-hint.js'
 import 'codemirror/addon/hint/show-hint.js'
 import 'codemirror/addon/display/autorefresh.js'
-import { openInNewTab, copyToClipboard, showMessage } from './utils'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 var editor
 
 export function generateVerilog() {
     const simulatorStore = SimulatorStore()
     simulatorStore.dialogBox.exportverilog_dialog = true
-    // var dialog = $('#verilog-export-code-window-div')
-    // var data = verilog.exportVerilog()
-    // editor.setValue(data)
-    // $('#verilog-export-code-window-div .CodeMirror').css(
-    //     'height',
-    //     $(window).height() - 200
-    // )
-    // dialog.dialog({
-    //     resizable: false,
-    //     width: '90%',
-    //     height: 'auto',
-    //     position: { my: 'center', at: 'center', of: window },
-    //     buttons: [
-    //         {
-    //             text: 'Download Verilog File',
-    //             click() {
-    //                 var fileName = getProjectName() || 'Untitled'
-    //                 download(fileName + '.v', editor.getValue())
-    //             },
-    //         },
-    //         {
-    //             text: 'Copy to Clipboard',
-    //             click() {
-    //                 copyToClipboard(editor.getValue())
-    //                 showMessage('Code has been copied')
-    //             },
-    //         },
-    //         {
-    //             text: 'Try in EDA Playground',
-    //             click() {
-    //                 copyToClipboard(editor.getValue())
-    //                 openInNewTab('https://www.edaplayground.com/x/XZpY')
-    //             },
-    //         },
-    //     ],
-    // })
 }
 
 export function setupVerilogExportCodeWindow() {
@@ -529,45 +490,14 @@ export var verilog = {
 
         return res
     },
-    /*
-    sanitizeLabel: function(name){
-        // Replace spaces by "_"
-        name = name.replace(/ /g , "_");
-        // Replace Hyphens by "_"
-        name = name.replace(/-/g , "_");
-        // Replace Colons by "_"
-        name = name.replace(/:/g , "_");
-        // replace ~ with inv_
-        name = name.replace(/~/g , "inv_");
-        // Shorten Inverse to inv
-        name = name.replace(/Inverse/g , "inv");
-
-        // If first character is a number
-        if(name.substring(0, 1).search(/[0-9]/g) > -1) {
-            name = "w_" + name;
-        }
-
-        // if first character is not \ already
-        if (name[0] != '\\') {
-            //if there are non-alphanum_ character, add \
-            if (name.search(/[\W]/g) > -1)
-                name = "\\" + name;
-        }
-        return name;
-    },
-    */
 }
 
-/*
-    Helper function to generate spaces for indentation
-*/
+/* Helper function to generate spaces for indentation */
 function sp(indentation) {
     return ' '.repeat(indentation * 2)
 }
 
-/*
-    Helper function to indent paragraph
-*/
+/* Helper function to indent paragraph */
 function indent(indentation, string) {
     var result = string.split('\n')
     if (result[result.length - 1] == '') {

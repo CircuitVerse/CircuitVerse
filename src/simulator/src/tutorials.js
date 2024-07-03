@@ -33,16 +33,6 @@ export const tour = [
             // offset: 750,
         },
     },
-    // {
-    //     element: '.forum-tab',
-    //     popover: {
-    //         className: "",
-    //         title: 'Forum Tab',
-    //         description: "The forums can help you report issues & bugs, feature requests, and discussing about circuits with the community!",
-    //         position: 'right',
-    //         // offset: -25,
-    //     },
-    // },
     {
         element: '#tabsBar',
         popover: {
@@ -63,16 +53,6 @@ export const tour = [
             offset: 0,
         },
     },
-
-    // {
-    //     element: '#delCirGuide',
-    //     popover: {
-    //         title: 'Delete sub-circuit button',
-    //         description: "You can make delete sub-circuits by pressing the cross *Note that main circuit cannot be deleted.",
-    //         position: 'right',
-    //         // offset: 250,
-    //     },
-    // },
     {
         element: '.report-sidebar a',
         popover: {

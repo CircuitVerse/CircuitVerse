@@ -23,9 +23,6 @@ import {
 export default class SevenSegDisplay extends CircuitElement {
     constructor(x, y, scope = globalScope, color = 'Red') {
         super(x, y, scope, 'RIGHT', 1)
-        /* this is done in this.baseSetup() now
-        this.scope['SevenSegDisplay'].push(this);
-        */
         this.fixedBitWidth = true
         this.directionFixed = true
         this.setDimensions(30, 50)
