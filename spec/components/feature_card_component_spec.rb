@@ -1,4 +1,5 @@
-# spec/components/homepage_components/feature_card_component_spec.rb
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe HomepageComponents::FeatureCardComponent, type: :component do
