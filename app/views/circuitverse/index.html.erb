@@ -117,40 +117,28 @@
       </div>
       <div class="row center-row justify-content-center">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card circuit-card">
-            <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", class: "card-img-top circuit-card-image examples-circuit-card-image" %>
-            <div class="card-footer circuit-card-footer">
-              <div class="circuit-card-name">
-                <p><%= t("circuitverse.index.featured_examples.circuit1_text") %></p>
-                <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit1_text") %></span>
-              </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/248"><%= t("view") %></a>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeaturedExampleCardComponent.new(
+            image_path: "homepage/rippleCarry.jpg",
+            image_alt: "Ripple Carry",
+            title: t("circuitverse.index.featured_examples.circuit1_text"),
+            link_url: "https://circuitverse.org/users/3/projects/248"
+          )) %>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card circuit-card">
-            <%= image_tag "homepage/sap.jpg", alt: "SAP-1", class: "card-img-top circuit-card-image examples-circuit-card-image" %>
-            <div class="card-footer circuit-card-footer">
-              <div class="circuit-card-name">
-                <p><%= t("circuitverse.index.featured_examples.circuit2_text") %></p>
-                <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit2_text") %></span>
-              </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/67"><%= t("view") %></a>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeaturedExampleCardComponent.new(
+            image_path: "homepage/sap.jpg",
+            image_alt: "SAP-1",
+            title: t("circuitverse.index.featured_examples.circuit2_text"),
+            link_url: "https://circuitverse.org/users/3/projects/67"
+          )) %>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card circuit-card">
-            <%= image_tag "homepage/fullAdder.jpg", alt: "Full Adder", class: "card-img-top circuit-card-image examples-circuit-card-image", height: "180", width: "288" %>
-            <div class="card-footer circuit-card-footer">
-              <div class="circuit-card-name">
-                <p><%= t("circuitverse.index.featured_examples.circuit3_text") %></p>
-                <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit3_text") %></span>
-              </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/247"><%= t("view") %></a>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeaturedExampleCardComponent.new(
+            image_path: "homepage/fullAdder.jpg",
+            image_alt: "Full Adder",
+            title: t("circuitverse.index.featured_examples.circuit3_text"),
+            link_url: "https://circuitverse.org/users/3/projects/247"
+          )) %>
         </div>
       </div>
       <div class="row center-row">
