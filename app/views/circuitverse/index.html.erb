@@ -62,49 +62,44 @@
       </div>
       <div class="row center-row justify-content-center">
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card home-feature-card">
-            <%= image_tag "homepage/export-hd.png", alt: "Export HD", class: "card-img-top" %>
-            <div class="card-body">
-              <h5 class="card-title"><%= t("circuitverse.index.features.item1_heading") %></h5>
-              <p class="card-text"><%= t("circuitverse.index.features.item1_text") %></p>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeatureCardComponent.new(
+            image_path: "homepage/export-hd.png",
+            image_alt: "Export HD",
+            title_key: "circuitverse.index.features.item1_heading",
+            text_key: "circuitverse.index.features.item1_text"
+          )) %>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card home-feature-card">
-            <%= image_tag "homepage/combinations analysis.png", alt: "Combinational Analysis", class: "card-img-top" %>
-            <div class="card-body">
-              <h5 class="card-title"><%= t("circuitverse.index.features.item2_heading") %></h5>
-              <p class="card-text"><%= t("circuitverse.index.features.item2_text") %></p>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeatureCardComponent.new(
+            image_path: "homepage/combinations analysis.png",
+            image_alt: "Combinational Analysis",
+            title_key: "circuitverse.index.features.item2_heading",
+            text_key: "circuitverse.index.features.item2_text"
+          )) %>     
         </div>
         <div class="col-xs-12 col-s-12 col-md-6 col-lg-4">
-          <div class="card home-feature-card">
-            <%= image_tag "homepage/embed.png", alt: "Embed", class: "card-img-top" %>
-            <div class="card-body">
-              <h5 class="card-title"><%= t("circuitverse.index.features.item3_heading") %></h5>
-              <p class="card-text"><%= t("circuitverse.index.features.item3_text") %></p>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeatureCardComponent.new(
+              image_path: "homepage/embed.png",
+              image_alt: "Embed",
+              title_key: "circuitverse.index.features.item3_heading",
+              text_key: "circuitverse.index.features.item3_text"
+          )) %>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card home-feature-card">
-            <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", class: "card-img-top" %>
-            <div class="card-body">
-              <h5 class="card-title"><%= t("circuitverse.index.features.item4_heading") %></h5>
-              <p class="card-text"><%= t("circuitverse.index.features.item4_text") %></p>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeatureCardComponent.new(
+              image_path: "homepage/sub-circuit.png",
+              image_alt: "Sub Circuit",
+              title_key: "circuitverse.index.features.item4_heading",
+              text_key: "circuitverse.index.features.item4_text"
+          )) %>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card home-feature-card">
-            <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", class: "card-img-top" %>
-            <div class="card-body">
-              <h5 class="card-title"><%= t("circuitverse.index.features.item5_heading") %></h5>
-              <p class="card-text"><%= t("circuitverse.index.features.item5_text") %></p>
-            </div>
-          </div>
+          <%= render(HomepageComponents::FeatureCardComponent.new(
+              image_path: "homepage/multi-bit-bus.png",
+              image_alt: "Multi Bit Bus",
+              title_key: "circuitverse.index.features.item5_heading",
+              text_key: "circuitverse.index.features.item5_text"
+          )) %>
         </div>
       </div>
     </div>
