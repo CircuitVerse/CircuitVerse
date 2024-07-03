@@ -1,0 +1,10 @@
+<div class="card circuit-card">
+  <%= image_tag asset_path(@image_path), alt: @image_alt, class: "card-img-top circuit-card-image examples-circuit-card-image" %>
+  <div class="card-footer circuit-card-footer">
+    <div class="circuit-card-name">
+      <p><%= @title %></p>
+      <span class="tooltiptext"><%= @title %></span>
+    </div>
+    <%= link_to t("view"), @link_url, class: "btn primary-button circuit-card-primary-button", target: "_blank" %>
+  </div>
+</div>
