@@ -19,6 +19,7 @@ en:
         hosting_sponsor: "Hosting Sponsor:"
         marketed_by: "Marketed by:"
         incubated_from: "Incubated From:"
+        playStore_Card: "Download Application:"
       copyright_text: "Copyright © %{time_current_year} CircuitVerse, All rights reserved."
     header:
       dashboard: "Dashboard"

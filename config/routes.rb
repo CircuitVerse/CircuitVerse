@@ -139,6 +139,8 @@ Rails.application.routes.draw do
   resources :collaborations, only: %i[create destroy update]
 
   # redirects
+
+  get "/playstore", to: redirect("https://play.google.com/store/apps/details?id=org.circuitverse.mobile_app&pcampaignid=web_share")
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")

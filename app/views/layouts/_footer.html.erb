@@ -13,6 +13,8 @@
           <p class="mt-3 mb-0 footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
         </div>
         <div class="row footer-social-icons-row">
+
+          <a class="bounce-out-on-hover" href="/playstore" target="_blank" data-tooltip="PlayStore"><%= image_tag("logos/google-play-icon", class: "footer-social-icon", alt: "PlayStore Logo") %></a>
           <a class="bounce-out-on-hover" href="/facebook" target="_blank" data-tooltip="facebook"><%= image_tag("logos/facebook-logo.png", class: "footer-social-icon", alt: "Facebook Logo") %></a>
           <a class="bounce-out-on-hover" href="/twitter" target="_blank" data-tooltip="twitter"><%= image_tag("logos/twitter-x.png", class: "footer-social-icon", alt: "Twitter Logo") %></a>
           <a class="bounce-out-on-hover" href="/linkedin" target="_blank" data-tooltip="linkedin"><%= image_tag("logos/linkedin-logo.png", class: "footer-social-icon", alt: "LinkedIn Logo") %></a>
@@ -50,6 +52,12 @@
             <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.incubated_from") %></small>
             <a href="http://zense.co.in/" rel="noopener" target="_blank">
               <%= image_tag("footer/zense.png", class: "footer-sponsor-logo", alt: "Zense Logo") %>
+            </a>
+          </div>
+          <div class="col-6">
+            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.playStore_Card") %></small>
+            <a href="https://play.google.com/store/apps/details?id=org.circuitverse.mobile_app&pcampaignid=web_share" rel="noopener" target="_blank">
+              <%= image_tag("footer/google-play-card", class: "footer-sponsor-logo", alt: "Play Store") %>
             </a>
           </div>
         </div>
