@@ -14,20 +14,20 @@
   </div>
   <div class="row center-row">
     <div class="col-xs col-sm col-md col-lg">
-      <div class="social-card about-social-card-1">
-        <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
-          <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
-          <h6><%= t("email_us_heading") %></h6>
-          <p>support@circuitverse.org</p>
-        </a>
-      </div>
-      <div class="social-card about-social-card-2">
-        <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
-          <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
-          <h6><%= t("join_at_slack_heading") %></h6>
-          <p><%= t("join_at_slack_description") %></p>
-        </a>
-      </div>
+      <%= render(SocialCardComponent.new(
+        link_url: "mailto:support@circuitverse.org",
+        image_path: "SVGs/email.svg",
+        image_alt: "Email Icon",
+        heading: t("email_us_heading"),
+        description: "support@circuitverse.org"
+      )) %>
+      <%= render(SocialCardComponent.new(
+        link_url: (Rails.configuration.slack_url),
+        image_path: "SVGs/slack.svg",
+        image_alt: "Slack Logo",
+        heading: t("join_at_slack_heading"),
+        description: t("join_at_slack_description") 
+      )) %>
     </div>
   </div>
   <hr>
