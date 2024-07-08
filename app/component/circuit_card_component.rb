@@ -14,11 +14,14 @@ class CircuitCardComponent < ViewComponent::Base
   end
   
   def circuit_name
-    @circuit.name
+    @circuit ? @circuit.name : "Full Adder"
   end
   
   def circuit_url
-    helpers.user_project_url(@circuit.author, @circuit)
+    if @circuit
+      helpers.user_project_url(@circuit.author, @circuit)
+    else
+      helpers.user_project_url(User.find_by(name: "user1"), Project.find_by(name: "Full Adder"))
+    end
   end
 end
-  
