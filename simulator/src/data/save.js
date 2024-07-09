@@ -74,8 +74,7 @@ export function getTabsOrder() {
 export function generateSaveData(name,fl, setName = true) {
     data = {};
     // Prompts for name, defaults to Untitled
-    if(!fl)
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+    if(!fl) name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
     data.name = stripTags(name);
     if (setName) setProjectName(data.name);
 
