@@ -155,7 +155,12 @@ export function setup() {
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
-        if (__logix_project_id != 0) {
+        const urlParams = new URLSearchParams(window.location.search);
+        const questionId = urlParams.get('question_id')
+        if (window.location.pathname.startsWith("/simulator") && questionId && localStorage.getItem(questionId)) {
+            load(JSON.parse(localStorage.getItem(questionId)));
+        }     
+        else if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: `/simulator/get_data/${__logix_project_id}`,

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 class Question < ApplicationRecord
-  belongs_to :category
-  belongs_to :difficulty_level
+  belongs_to :category, class_name: "QuestionCategory"
+  enum difficulty_level: { easy: 0, medium: 1, hard: 2, expert: 3 }
 end

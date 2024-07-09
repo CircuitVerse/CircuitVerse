@@ -6,7 +6,7 @@ FactoryBot.define do
     statement { "MyText" }
     category { nil }
     difficulty_level { nil }
-    test_data { "" }
-    circuit_boilerplate { "" }
+    test_data { }
+    circuit_boilerplate { }
   end
 end

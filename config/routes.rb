@@ -96,6 +96,16 @@ Rails.application.routes.draw do
   post "/push/subscription/new", to: "push_subscription#create"
   post "/push/test", to: "push_subscription#test"
 
+  resources :questions do
+    collection do
+      get 'filter'
+      get 'status'
+      get 'search'
+    end
+  end
+
+  get '/questions/new/:qid', to: 'questions#new', as: 'new_question_with_qid'
+
   # projects
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"

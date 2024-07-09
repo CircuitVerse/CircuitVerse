@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_01_072607) do
+ActiveRecord::Schema[7.0].define(version: 2024_07_09_051441) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_01_072607) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", precision: nil, null: false
+    t.datetime "deadline", null: false
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -105,12 +105,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_01_072607) do
     t.string "lti_shared_secret"
     t.jsonb "feature_restrictions", default: {}
     t.index ["group_id"], name: "index_assignments_on_group_id"
-  end
-
-  create_table "categories", force: :cascade do |t|
-    t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "collaborations", force: :cascade do |t|
@@ -171,13 +165,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_01_072607) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_custom_mails_on_user_id"
-  end
-
-  create_table "difficulty_levels", force: :cascade do |t|
-    t.string "name"
-    t.integer "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "featured_circuits", force: :cascade do |t|
@@ -396,17 +383,23 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_01_072607) do
     t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
   end
 
+  create_table "question_categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "heading"
     t.text "statement"
     t.bigint "category_id", null: false
-    t.bigint "difficulty_level_id", null: false
     t.jsonb "test_data"
     t.jsonb "circuit_boilerplate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "qid"
+    t.integer "difficulty_level", default: 0, null: false
     t.index ["category_id"], name: "index_questions_on_category_id"
-    t.index ["difficulty_level_id"], name: "index_questions_on_difficulty_level_id"
   end
 
   create_table "stars", force: :cascade do |t|
@@ -523,8 +516,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_01_072607) do
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"
-  add_foreign_key "questions", "categories"
-  add_foreign_key "questions", "difficulty_levels"
+  add_foreign_key "questions", "question_categories", column: "category_id"
   add_foreign_key "stars", "projects"
   add_foreign_key "stars", "users"
   add_foreign_key "taggings", "projects"

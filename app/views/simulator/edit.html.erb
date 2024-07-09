@@ -87,6 +87,10 @@
 
     </div>
 
+    <div id="saveButtonContainer" style="display: none;">
+    <button type="button" class="btn btn-secondary" id="saveButton">Save</button>
+  </div>
+
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn' id='quick-btn-id'>
       <div id='dragQPanel' class='panel-drag'>
       <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
@@ -833,6 +837,18 @@ window.addEventListener("load", function() {
     return $('#insertSubcircuitDialog').dialog('close');
   });
 })
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    if (getQueryParam('question_id')) {
+      document.getElementById('saveButtonContainer').style.display = 'block';
+    }
+  });
 </script>
 
 <script>
