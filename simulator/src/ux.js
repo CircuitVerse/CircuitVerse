@@ -644,22 +644,14 @@ export function fillSubcircuitElements() {
     });
 }
 
-document.getElementById('saveButton').addEventListener('click', ()=>{
+document.getElementById('saveButton').addEventListener('click', ()=> {
     const urlParams = new URLSearchParams(window.location.search);
-    const question_id = urlParams.get('question_id');
- 
-    if (question_id) {
-        let fl = 1;
-        const data = generateSaveData("Untitled", fl);
-        const localStorageKey = `${question_id}`;
-        localStorage.setItem(localStorageKey, data);
-        alert("Circuit boilerplate and test data saved");
-    } else {
-        alert("Error: Something went wrong! Try again");
-    }
- 
+    const questionId = urlParams.get('question_id');
+    const fl = 1;
+    const data = generateSaveData("Untitled", fl);
+    const localStorageKey = `${questionId}`;
+    localStorage.setItem(localStorageKey, data);
 })
-
 async function postUserIssue(message) {
 
     var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
