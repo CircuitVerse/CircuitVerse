@@ -42,6 +42,11 @@
       <li class="nav-item px-1">
         <a class="nav-link navbar-item navbar-text <%= request.path == "/about" ? "active" : "" %>" href="/about"><%= t("layout.link_to_about") %></a>
       </li>
+      <% if user_signed_in? && current_user.question_bank_moderator %>
+      <li class="nav-item px-1">
+        <a class="nav-link navbar-item navbar-text" href="#" onclick="redirectToAddQuestion()"><%= t("layout.link_to_add_questions") %></a>
+      </li>
+      <% end %>
       <%= render "layouts/notifications" %>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown">
@@ -68,7 +73,7 @@
 <div class="container-fluid navbar-search-active">
   <%= render "circuitverse_assets/search_bar" %>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
     var gettingStartedLink = document.querySelector("#getting-started-dropdown");
@@ -123,4 +128,10 @@
   if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
   }
+  function redirectToAddQuestion() {
+    const uid = new ShortUniqueId();
+    const questionId = uid.rnd();
+    window.location.href = `/questions/new/${questionId}`;
+  }
 </script>
+

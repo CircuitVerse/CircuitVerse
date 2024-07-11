@@ -38,6 +38,7 @@ en:
         title: "%{name} - Circuits"
         alt_title: "Nil - Circuits"
         edit_details: "Edit Details"
+        add_moderator: "Add Moderator"
         my_circuits: "My Circuits"
         favourite_circuits: "Favourite Circuits"
         collaborated_circuits: "Collaborated Circuits"

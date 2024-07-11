@@ -10,6 +10,7 @@ class Users::CircuitverseController < ApplicationController
   before_action :remove_previous_profile_picture, only: [:update]
 
   def index
+    @moderators = User.where(question_bank_moderator: true)
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects
   end

@@ -38,6 +38,7 @@ mr:
         title: "%{name} - तुमचे सर्किट"
         alt_title: "शून्य - आपले सर्किट"
         edit_details: "प्रोफाईल संपादित करा"
+        add_moderator: "नियंत्रक जोडा"
         my_circuits: "मी बनवलेले सर्किट"
         favourite_circuits: "पसंतीचे सर्किट"
         collaborated_circuits: "सहाय्यक सर्किट्स"

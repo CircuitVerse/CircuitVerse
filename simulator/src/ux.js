@@ -644,6 +644,14 @@ export function fillSubcircuitElements() {
     });
 }
 
+document.getElementById('saveButton').addEventListener('click', ()=> {
+    const urlParams = new URLSearchParams(window.location.search);
+    const questionId = urlParams.get('question_id');
+    const fl = 1;
+    const data = generateSaveData("Untitled", fl);
+    const localStorageKey = `${questionId}`;
+    localStorage.setItem(localStorageKey, data);
+})
 async function postUserIssue(message) {
 
     var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];

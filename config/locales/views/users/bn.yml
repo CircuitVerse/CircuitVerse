@@ -38,6 +38,7 @@ bn:
         title: "%{name} - সার্কিট"
         alt_title: "Nil - সার্কিট"
         edit_details: "তথ্য সংশোধন করুন"
+        add_moderator: "মডারেটর যোগ করুন"
         my_circuits: "আমার সার্কিট"
         favourite_circuits: "প্রিয় সার্কিট"
         collaborated_circuits: "সহযোগিতা সার্কিট"

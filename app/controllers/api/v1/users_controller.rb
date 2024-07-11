@@ -5,6 +5,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   before_action :authenticate_user!
   before_action :check_access, only: [:update]
   before_action :set_details_access, except: %i[index me]
+  before_action :check_admin, only: [:add_moderators]
 
   # GET api/v1/users
   def index
@@ -16,7 +17,8 @@ class Api::V1::UsersController < Api::V1::BaseController
 
   # GET api/v1/users/:id
   def show
-    render json: Api::V1::UserSerializer.new(@user, @options)
+    @moderators = User.where(question_bank_moderator: true)
+    render partial: "add_moderators_modal", locals: { moderators: @moderators }
   end
 
   # GET api/v1/me
@@ -35,6 +37,35 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
+  # POST api/v1/users/add_moderators
+  def add_moderators
+    emails = params[:emails].split(",").map(&:strip)
+    users = User.where(email: emails)
+
+    users.each do |user|
+      user.update(question_bank_moderator: true)
+    end
+
+    if users.all? { |user| user.errors.empty? }
+      redirect_back(fallback_location: root_path)
+    else
+      render json: { errors: users.map(&:errors).flat_map(&:full_messages) }, status: :unprocessable_entity
+    end
+  end
+
+  # GET api/v1/users/manage_moderators
+  def manage_moderators
+    @moderators = User.where(question_bank_moderator: true)
+    return unless params[:remove_moderator_id]
+
+    moderator = User.find_by(id: params[:remove_moderator_id])
+    if moderator.present?
+      moderator.update(question_bank_moderator: false)
+    else
+      flash[:alert] = "Moderator not found."
+    end
+  end
+
   private
 
     def set_user
@@ -43,6 +74,12 @@ class Api::V1::UsersController < Api::V1::BaseController
 
     def check_access
       authorize @user, :edit?
+    end
+
+    def check_admin
+      return if current_user.admin?
+
+      render json: { error: "Access denied" }, status: :forbidden
     end
 
     def set_details_access

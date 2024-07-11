@@ -8,6 +8,7 @@ en:
     link_to_teachers: "Teachers"
     link_to_blog: "Blog"
     link_to_about: "About"
+    link_to_add_questions: "Add questions"
     link_to_faq: "FAQ"
     footer:
       social_icon_text: "Follow us on:"
