@@ -1,23 +1,18 @@
-<img src="/app/assets/images/cvlogo.svg" alt="The CircuitVerse logo" width="736"/> </br></br>
-[![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=Financial+Contributors&style=for-the-badge&logo=open+collective)](https://opencollective.com/CircuitVerse) 
-[![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci&style=for-the-badge&logo=circleci)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
-[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls&style=for-the-badge&logo=coveralls)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
------
-[CircuitVerse](https://circuitverse.org) is a free, open-source platform which allows users to construct digital logic circuits online. We also offer the [Interactive Book](https://learn.circuitverse.org) which teaches users on the fundamentals of modern, digital circuits. Please also see our [documentation](https://docs.circuitverse.org) or [GitHub Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/).
+ **# Feature Request: Add App Store Button to Footer #4414**
 
-## Community
-We would love to hear from you! We communicate on Slack:
+**## Problem Statement**
 
-[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ)
+Currently, the Circuitverse website lacks any information about the Circuitverse app for Android, which is available on the Google Play Store. This could lead to users being unaware of the app's existence, potentially missing out on its features and benefits.
 
-## Code of Conduct
-We follow the [Code of Conduct](code-of-conduct.md) of the [CircuitVerse](https://circuitverse.org) Community.
+**## Proposed Solution**
 
-## Setup
-See [`SETUP.md`](SETUP.md) for more information on setting up CircuitVerse.
+To address this issue, we propose adding a button to the footer of the Circuitverse website that links directly to the Circuitverse app's page on the Google Play Store. This would serve several purposes:
 
-## Contributing
-See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more information on contributing to CircuitVerse.
+- **Increase awareness:** It would make users aware of the app's availability, potentially increasing downloads and engagement.
+- **Direct access:** It would provide a convenient way for users to access the app store page with a single click, streamlining the installation process.
+- **Enhance user experience:** It would complement the website's functionality and offer 
+a more seamless user experience by connecting users to the app.
 
-## License
-This project is licensed under the [MIT License](LICENSE).
+
+
+[new.webm](https://github.com/Deeppjp116/CircuitVerse_project/assets/128173785/526795e3-8b6a-4480-8f52-4548cf36f6a4)
