@@ -28,11 +28,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   #   super(scope)
   # end
 
-  def Play_store
+  def play_store
     generic_callback("playstore")
   end
 
-  def facebook  
+  def facebook
     generic_callback("facebook")
   end
 
