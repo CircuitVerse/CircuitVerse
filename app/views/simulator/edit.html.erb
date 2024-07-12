@@ -13,8 +13,8 @@
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
-  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <button id="dropdownButton" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+  <i class="fas fa-bars" id="dropdownIcon"></i>
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
@@ -798,7 +798,16 @@
           <h4>Report an issue</h4>
         </div>
         <hr>
-        <div class="container my-2 text-center" id="result"></div>
+
+        <%# TEMPORARY %>
+        <center>
+        Bug reporting from here will be back soon, until then help make CircuitVerse better by reporting simulator issues to us on Slack.
+        <br><br><a href="https://circuitverse-team.slack.com/archives/C010HK6TWQG" style="color: blue;">Click Here to report an issue</a><br><br>
+        Thank you for your time.
+        </center>
+        <%# /TEMPORARY %>
+
+        <%# <div class="container my-2 text-center" id="result"></div>
         <label id="report-label" style="font-weight: lighter;"><b>Describe your issue:</b></label>
         <div class="form-group">
           <textarea
@@ -816,7 +825,7 @@
               Report
             </button>
           </center>
-        </div>
+        </div> %>
       </div>
     </div>
   </div>
@@ -868,6 +877,16 @@ window.addEventListener("load", function() {
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
 <script type="text/javascript" src="/js/metadata.json"></script>
+<script type="text/javascript">
+    var dropdownButton = document.getElementById('dropdownButton');
+    var dropdownIcon = document.getElementById('dropdownIcon');
+
+    dropdownButton.addEventListener('click', function() {
+    dropdownIcon.classList.toggle('fa-bars');
+    dropdownIcon.classList.toggle('fa-times');
+    dropdownIcon.style.width='17.5px'
+  });
+</script>
 
 <script>
 window.addEventListener("load", function() {
