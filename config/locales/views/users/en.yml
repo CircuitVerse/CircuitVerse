@@ -18,6 +18,7 @@ en:
         description_html: "Fields marked with <sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> are mandatory"
         profile_picture: "Profile Picture"
         choose_file: "Choose File"
+        change_picture: "Change Picture"
         remove_picture: "Remove Picture"
         country_select_placeholder: "Prefer Not To Enter"
         select_locale_prompt: "Select the locale"

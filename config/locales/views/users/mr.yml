@@ -18,6 +18,7 @@ mr:
         description_html: "<sup><i class=\"fa fa-asterisk user-edit-asterisk\"></i></sup> सह चिन्हांकित फील्ड अनिवार्य आहेत"
         profile_picture: "परिचय चित्र"
         choose_file: "फाईल निवडा"
+        change_picture: "फोटो बदला"
         remove_picture: "फोटो हटवा"
         country_select_placeholder: "प्रवेश न करणे पसंत करा"
         select_locale_prompt: "लोकॅल निवडा"
