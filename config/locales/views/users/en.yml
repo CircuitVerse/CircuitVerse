@@ -25,6 +25,9 @@ en:
         delete_account_heading: "Delete your Account"
         delete_account_notice: "Proceed with caution! This action cannot be reversed."
         delete_account: "Delete Account"
+        account_settings: "Account Settings"
+        change_password_question: "Do you want to change your password?"
+        change_password: "Change Password"
       groups:
         title: "%{name} - Groups"
         alt_title: "Nil - Groups"

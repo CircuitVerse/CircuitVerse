@@ -25,6 +25,9 @@ hi:
         delete_account_heading: "अपने खाते को नष्ट करे"
         delete_account_notice: "सावधानी के साथ आगे बढ़ें! इस क्रिया को पूर्ववत नहीं किया जा सकता है।"
         delete_account: "खाता हटाएं"
+        account_settings: "अकाउंट सेटिंग"
+        change_password_question: "क्या आप अपना पासवर्ड बदलना चाहते हैं?"
+        change_password: "पासवर्ड बदलें"
       groups:
         title: "%{name} - आपके समुह"
         alt_title: "Nil - आपके समुह"
