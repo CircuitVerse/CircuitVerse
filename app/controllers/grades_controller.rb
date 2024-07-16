@@ -7,6 +7,7 @@ class GradesController < ApplicationController
   before_action :set_grade, only: %i[create destroy]
 
   def create
+    # @type [Grade]
     @grade = @grade.presence || Grade.new(assignment_id: grade_params[:assignment_id])
 
     authorize @grade, :mentor?
@@ -61,11 +62,13 @@ class GradesController < ApplicationController
 
   private
 
+    # @return [ActionController::Parameters]
     def grade_params
       params.require(:grade).permit(:project_id, :grade, :assignment_id, :remarks)
     end
 
     def set_grade
+      # @type [Grade]
       @grade = Grade.find_by(project_id: grade_params[:project_id],
                              assignment_id: grade_params[:assignment_id])
     end

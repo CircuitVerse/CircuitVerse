@@ -86,6 +86,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   end
 
   def image_preview
+    # @type [Project]
     @project = Project.open.friendly.find(params[:id])
     render json: { project_preview: request.base_url + @project.image_preview.url }
   end
@@ -163,6 +164,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
+      # @type [Project]
       @forked_project = @project.fork(current_user)
       render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
     end
@@ -172,10 +174,14 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def set_project
       if params[:user_id]
+        # @type [User]
         @author = User.find(params[:user_id])
+        # @type [Project]
         @project = @author.projects.friendly.find(params[:id])
       else
+        # @type [Project]
         @project = Project.friendly.find(params[:id])
+        # @type [User]
         @author = @project.author
       end
     end
@@ -214,6 +220,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     def load_user_projects
       # if user is not authenticated or authenticated as some other user
       # return only user's public projects else all
+      # @type [Array<Project>]
       @projects = if current_user.nil? || current_user.id != params[:id].to_i
         Project.open.by(params[:id])
       else
@@ -222,6 +229,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_user_favourites
+      # @type [Array<Project>]
       @projects = Project.joins(:stars)
                          .where(stars: { user_id: params[:id].to_i })
 
@@ -235,11 +243,14 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_featured_circuits
+      # @type [Array<Project>]
       @projects = Project.joins(:featured_circuit).all
     end
 
     def search_projects
+      # @type [Hash]
       query_params = { q: params[:q], page: params[:page][:number], per_page: params[:page][:size] }
+      # @type [Array<Project>]
       @projects = ProjectsQuery.new(query_params, Project.public_and_not_forked).results
     end
 
@@ -260,6 +271,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def filter
+      # @type [Array<Project>]
       @projects = @projects.tagged_with(params[:filter][:tag]) if params.key?(:filter)
     end
 

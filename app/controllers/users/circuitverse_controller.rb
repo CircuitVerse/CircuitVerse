@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Users::CircuitverseController < ApplicationController
+  # @type [Integer]
   TYPEAHEAD_INSTITUTE_LIMIT = 50
 
   include UsersCircuitverseHelper
@@ -10,7 +11,9 @@ class Users::CircuitverseController < ApplicationController
   before_action :remove_previous_profile_picture, only: [:update]
 
   def index
+    # @type [ProfileDecorator]
     @profile = ProfileDecorator.new(@user)
+    # @type [Array<Project>]
     @projects = @user.rated_projects
   end
 
@@ -18,10 +21,12 @@ class Users::CircuitverseController < ApplicationController
 
   def typeahead_educational_institute
     query = params[:query]
+    # @type [Array<String>]
     institute_list = User.where("educational_institute LIKE :query", query: "%#{query}%")
                          .distinct
                          .limit(TYPEAHEAD_INSTITUTE_LIMIT)
                          .pluck(:educational_institute)
+    # @type [Array<Hash>]
     typeahead_array = institute_list.map { |item| { name: item } }
     render json: typeahead_array
   end
@@ -36,6 +41,7 @@ class Users::CircuitverseController < ApplicationController
 
   def groups
     @user = authorize @user
+    # @type [Array<Group>]
     @groups_owned = Group.where(id: Group.joins(:primary_mentor).where(primary_mentor: @user))
                          .select("groups.*, COUNT(group_members.id) as group_member_count")
                          .left_outer_joins(:group_members)
@@ -50,7 +56,9 @@ class Users::CircuitverseController < ApplicationController
     end
 
     def set_user
+      # @type [ProfileDecorator]
       @profile = current_user
+      # @type [User]
       @user = User.find(params[:id])
     end
 
