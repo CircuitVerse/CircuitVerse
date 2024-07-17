@@ -110,3 +110,42 @@
     width: 100%;
   }
 }
+.crousel{
+  width: 100%;
+}
+.pr-card {
+  width: 21rem;
+  height: 250px;
+}
+
+.pr-card-header {
+  height: 60px;
+  overflow: hidden;
+}
+
+.pr-card-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+}
+
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 1%;
+}
+.carousel-indicators{
+  margin-bottom: -50px;
+}
+.carousel-indicators li {
+  background-color: $primary-green;
+
+}

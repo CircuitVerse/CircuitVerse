@@ -107,9 +107,96 @@
         <a class="btn primary-button about-primary-button" href="/contribute"><%= t("about.become_contributor") %></a>
       </div>
     </div>
+  <br><br>
+  <hr>
+    <div class="row center-row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h2 class="main-heading"><%= t("about.prlogs.heading") %></h2>
+        <p class="main-description"><%= t("about.prlogs.description") %></p>
+      </div>
+    </div>
+  <br><br>
+    <div id="pr-carousel" class="carousel slide center-row" data-ride="carousel" data-interval="5000000000000000">
+      <ol class="carousel-indicators">
+      </ol>
+      <div class="carousel-inner" id="carousel-inner"></div>
+      <a class="carousel-control-prev" href="#pr-carousel" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="carousel-control-next" href="#pr-carousel" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
 </div>
 
 <script type="text/javascript">
+  async function getMergedPRs(url) {
+    let apiData = await fetch(url);
+    let prsData = await apiData.json();
+    console.log(prsData);
+    let mergedPRs = prsData.filter(function(pr) { return pr['merged_at'] });
+    console.log(mergedPRs);
+    displayMergedPRs(mergedPRs);
+  }
+  function displayMergedPRs(mergedPRs) {
+    const carouselInner = document.getElementById('carousel-inner');
+    const carouselIndicators = document.querySelector('.carousel-indicators');
+    let cardsPerSlide = 3;
+    if (window.innerWidth < 768) {
+      cardsPerSlide = 1;
+    } else if (window.innerWidth < 992) {
+      cardsPerSlide = 2;
+    }
+
+    let slideCount = Math.ceil(mergedPRs.length / cardsPerSlide);
+    for (let i = 0; i < slideCount; i++) {
+      const indicator = document.createElement('li');
+      indicator.setAttribute('data-target', '#pr-carousel');
+      indicator.setAttribute('data-slide-to', i);
+      if (i === 0) {
+        indicator.className = 'active';
+      }
+      carouselIndicators.appendChild(indicator);
+    }
+    for (let i = 0; i < mergedPRs.length; i += cardsPerSlide) {
+      const carouselItem = document.createElement('div');
+      carouselItem.className = `carousel-item ${i === 0 ? 'active' : ''}`;
+      const cardGroup = document.createElement('div');
+      cardGroup.className = 'd-flex justify-content-around';
+      for (let j = i; j < i + cardsPerSlide && j < mergedPRs.length; j++) {
+        const pr = mergedPRs[j];
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style = 'width: 19.5rem;';
+        card.innerHTML = `
+          <div class="card-header text-center pr-card-header">
+            <p>${pr.title}</p>
+          </div>
+          <div class="card-body d-flex flex-column justify-content-between">
+            <div class="row d-flex justify-content-between">
+              <div class="">
+                <p class="m-0"><strong>Created By:</strong></p>
+                <p class="text-success"><a href="${pr.user.html_url}" target="_blank" class="text-success">${pr.user.login}</a></p>
+              </div>
+              <div>
+                <p class="m-0"><strong>Date Merged</strong></p>
+                <p class="text-muted">${new Date(pr.merged_at).toLocaleDateString()}</p>
+              </div>
+            </div>
+          </div>
+          <a href="${pr.html_url}" class="btn btn-success" target="_blank">View</a>
+        `;
+        cardGroup.appendChild(card);
+      }
+      carouselItem.appendChild(cardGroup);
+      carouselInner.appendChild(carouselItem);
+    }
+  }
+  getMergedPRs('https://api.github.com/repos/CircuitVerse/CircuitVerse/pulls?state=closed&per_page=90');
+
+
   async function getContributors(url){
     let apiData = await fetch(url);
     let contributorsData = await apiData.json();
