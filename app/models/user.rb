@@ -11,6 +11,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars
+  has_many :votes
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
   devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,

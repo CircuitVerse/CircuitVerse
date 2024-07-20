@@ -1,0 +1,41 @@
+<div class="container">
+  <div class="column contests-header">
+    <h3 class="contests-header-title">WEEKLY CONTESTS</h3>
+    <p class="contests-header-description">Contests where students show off their amazing circuits and best ones are featured on our homepage!</p>
+  </div>
+  <div class="contest-page-line"></div>
+  <div class="contests-list-wrapper row center-row">
+    <%= link_to contest_page_path(1), class: "text-decoration-none" do %>
+      <div class="col-lg-3">
+        <div class="contest-container">
+          <div class="contest-container-header">
+            <div class="contest-container-status-live">
+              <span class="contest-container-status-dot"></span>
+              <span class="contest-container-status-text">LIVE</span>
+            </div>
+          </div>
+          <div class="contest-container-details">
+            <h5 class="contest-container-details-number">Contest #23</h5>
+            <h5 class="contest-container-details-entries">Entries: 25</h5>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    <% for i in 1..5 %>
+        <div class="col-lg-3">
+          <div class="contest-container">
+      <div class="contest-container-header">
+        <div class="contest-container-status">
+          <span class="contest-container-status-dot"></span>
+          <span class="contest-container-status-text">Completed</span>
+        </div>
+      </div>
+      <div class="contest-container-details">
+        <h5 class="contest-container-details-number">Contest #23</h5>
+        <h5 class="contest-container-details-entries">Entries: 25</h5>
+      </div>
+    </div>
+    </div>
+    <% end %>
+  </div>
+</div>

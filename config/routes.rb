@@ -103,6 +103,11 @@ Rails.application.routes.draw do
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
 
+  # contest
+  get "/contests/admin", to: "contests#admin"
+  get "/contests", to: "contests#index", as: "contests"
+  get "/contests/:id", to: "contests#show", as: "contest_page"
+
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]
