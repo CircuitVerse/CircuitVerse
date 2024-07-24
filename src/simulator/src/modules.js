@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 
 export function getNextPosition(x = 0, scope = globalScope) {
     let possibleY = 20

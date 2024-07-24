@@ -1,7 +1,7 @@
 /* eslint-disable no-bitwise */
 import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
+import { simulationArea } from '../simulationArea'
 import { correctWidth, lineTo, moveTo, fillText4 } from '../canvasApi'
 import { colors } from '../themer/themer'
 

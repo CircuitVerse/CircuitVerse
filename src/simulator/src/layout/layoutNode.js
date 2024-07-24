@@ -1,5 +1,5 @@
 import { drawCircle } from '../canvasApi'
-import simulationArea from '../simulationArea'
+import { simulationArea } from '../simulationArea'
 import { tempBuffer } from '../layoutMode'
 
 /**

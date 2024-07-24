@@ -1,4 +1,4 @@
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import { convertors } from './utils'
 
 var DPR = window.devicePixelRatio || 1

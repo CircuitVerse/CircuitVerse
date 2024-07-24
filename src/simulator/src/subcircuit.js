@@ -1,7 +1,7 @@
 /* eslint-disable import/no-cycle */
 import Scope, { scopeList, switchCircuit } from './circuit'
 import CircuitElement from './circuitElement'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import { scheduleBackup, checkIfBackup } from './data/backupCircuit'
 import {
     scheduleUpdate,

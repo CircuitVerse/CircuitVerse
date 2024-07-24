@@ -8,7 +8,7 @@ import {
     gridUpdateSet,
 } from '../engine'
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv'
-import simulationArea from '../simulationArea'
+import { simulationArea } from '../simulationArea'
 
 import { loadSubCircuit } from '../subcircuit'
 import { scheduleBackup } from './backupCircuit'

@@ -11,7 +11,7 @@
 /* eslint-disable no-alert */
 import CircuitElement from './circuitElement'
 import plotArea from './plotArea'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import {
     stripTags,
     uniq,

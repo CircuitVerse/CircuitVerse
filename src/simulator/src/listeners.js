@@ -5,7 +5,7 @@ import {
     layoutUpdate,
     // setupLayoutModePanelListeners,
 } from './layoutMode'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import {
     scheduleUpdate,
     update,

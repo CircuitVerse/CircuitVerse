@@ -3,9 +3,9 @@
 /* eslint-disable guard-for-in */
 import metadata from './metadata.json'
 import { generateId, showMessage } from './utils'
-import backgroundArea from './backgroundArea'
+import { backgroundArea } from './backgroundArea'
 import plotArea from './plotArea'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import { dots } from './canvasApi'
 import { update, updateSimulationSet, updateCanvasSet } from './engine'
 import { setupUI } from './ux'

@@ -66,7 +66,7 @@ import { onMounted, onUpdated, ref } from '@vue/runtime-core'
 import { useState } from '#/store/SimulatorStore/state'
 import { createNewCircuitScope, scopeList } from '#/simulator/src/circuit'
 import SubCircuit from '#/simulator/src/subcircuit'
-import simulationArea from '#/simulator/src/simulationArea'
+import { simulationArea } from '#/simulator/src/simulationArea'
 const SimulatorState = useState()
 const flag = ref(true)
 onMounted(() => {

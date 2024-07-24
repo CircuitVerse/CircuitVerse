@@ -5,7 +5,7 @@
 /* eslint-disable no-bitwise */
 import { layoutModeGet, layoutUpdate } from './layoutMode'
 import plotArea from './plotArea'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import { dots, canvasMessage, findDimensions, rect2 } from './canvasApi'
 import { showProperties, prevPropertyObjGet } from './ux'
 import { showError } from './utils'

@@ -1,4 +1,4 @@
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import { colors } from './themer/themer'
 import { layoutModeGet } from './layoutMode'
 

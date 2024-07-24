@@ -1,5 +1,5 @@
 import CircuitElement from '../circuitElement'
-import simulationArea from '../simulationArea'
+import { simulationArea } from '../simulationArea'
 import { rect2, fillText } from '../canvasApi'
 /**
  * @class

@@ -11,7 +11,7 @@ import {
 import { backUp } from './data/backupCircuit'
 import { getNextPosition } from './modules'
 import { generateId } from './utils'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import { TestbenchData } from './testbench'
 
 /**

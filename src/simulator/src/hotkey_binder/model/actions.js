@@ -1,7 +1,7 @@
 import { defaultKeys } from '../defaultKeys'
 import { addShortcut } from './addShortcut'
 import { updateHTML } from '../view/panel.ui'
-import simulationArea from '../../simulationArea'
+import { simulationArea } from '../../simulationArea'
 import {
     scheduleUpdate,
     wireToBeCheckedSet,

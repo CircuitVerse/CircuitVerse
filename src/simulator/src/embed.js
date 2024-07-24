@@ -1,7 +1,7 @@
 // /* eslint-disable import/no-cycle */
 // // Helper functions for when circuit is embedded
 // import { scopeList, circuitProperty } from './circuit'
-// import simulationArea from './simulationArea'
+// import { simulationArea } from './simulationArea'
 // import {
 //     scheduleUpdate,
 //     wireToBeCheckedSet,

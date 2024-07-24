@@ -165,7 +165,7 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import simulationArea, { changeClockTime } from '#/simulator/src/simulationArea'
+import { simulationArea, changeClockTime } from '#/simulator/src/simulationArea'
 import {
     scheduleUpdate,
     updateCanvasSet,

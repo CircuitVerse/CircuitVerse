@@ -35,7 +35,7 @@ import Output from '#/simulator/src/modules/Output'
 import AndGate from '#/simulator/src/modules/AndGate'
 import OrGate from '#/simulator/src/modules/OrGate'
 import NotGate from '#/simulator/src/modules/NotGate'
-import simulationArea from '#/simulator/src/simulationArea'
+import { simulationArea } from '#/simulator/src/simulationArea'
 import { findDimensions } from '#/simulator/src/canvasApi'
 import { confirmSingleOption } from '../helpers/confirmComponent/ConfirmComponent.vue'
 

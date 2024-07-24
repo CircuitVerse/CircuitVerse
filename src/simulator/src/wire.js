@@ -1,7 +1,7 @@
 /* eslint-disable no-multi-assign */
 // wire object
 import { drawLine } from './canvasApi'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import Node from './node'
 import { updateSimulationSet, forceResetNodesSet } from './engine'
 import { colors } from './themer/themer'

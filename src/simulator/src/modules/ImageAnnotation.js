@@ -1,5 +1,5 @@
 import CircuitElement from '../circuitElement'
-import simulationArea from '../simulationArea'
+import { simulationArea } from '../simulationArea'
 import { correctWidth, rect, fillText, drawImage } from '../canvasApi'
 import { colors } from '../themer/themer'
 import { promptFile, showMessage } from '../utils'

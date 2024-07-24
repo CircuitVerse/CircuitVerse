@@ -1,6 +1,6 @@
 import CircuitElement from '../circuitElement'
 import Node, { findNode } from '../node'
-import simulationArea from '../simulationArea'
+import { simulationArea } from '../simulationArea'
 import { fillText, lineTo, moveTo, correctWidth, rect2 } from '../canvasApi'
 /**
  * @class

@@ -4,7 +4,7 @@ import {
     changeCircuitName,
 } from './circuit'
 import SubCircuit from './subcircuit'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import CodeMirror from 'codemirror/lib/codemirror.js'
 import 'codemirror/lib/codemirror.css'
 

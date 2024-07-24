@@ -1,7 +1,7 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-bitwise */
 import { scheduleUpdate } from './engine'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import {
     fixDirection,
     fillText,

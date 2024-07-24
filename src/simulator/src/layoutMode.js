@@ -2,7 +2,7 @@
 /* eslint-disable no-continue */
 import { dots, correctWidth, fillText, rect2 } from './canvasApi'
 import LayoutBuffer from './layout/layoutBuffer'
-import simulationArea from './simulationArea'
+import { simulationArea } from './simulationArea'
 import {
     fillSubcircuitElements,
     prevPropertyObjGet,

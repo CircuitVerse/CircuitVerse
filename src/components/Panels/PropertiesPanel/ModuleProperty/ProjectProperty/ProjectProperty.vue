@@ -96,7 +96,7 @@ import { toggleLayoutMode } from '#/simulator/src/layoutMode'
 //     scopeList,
 // } from '#/simulator/src/circuit'
 // import { showMessage } from '#/simulator/src/utils'
-import simulationArea from '#/simulator/src/simulationArea'
+import { simulationArea } from '#/simulator/src/simulationArea'
 import InputGroups from '#/components/Panels/Shared/InputGroups.vue'
 // import MessageBox from '#/components/MessageBox/messageBox.vue'
 // import { ref, Ref, onMounted, watch } from 'vue'
