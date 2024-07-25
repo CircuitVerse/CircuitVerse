@@ -1517,12 +1517,14 @@ input:checked + .slider:before {
 #miniMap {
     position: fixed;
     z-index: 3;
-    bottom: 20px;
-    right: 40px;
+    bottom: -6rem;
+    right: 0.5rem;
     overflow-y: scroll;
     opacity: 0.5;
     overflow: hidden;
     border: none;
+    height: 15rem;
+    width: 18rem;
 }
 
 .disable::after {
@@ -1856,7 +1858,7 @@ canvas {
     margin-bottom: 0.5rem;
 }
 
-/* 
+/*
 .ProseMirror ul {
     list-style-type: disc;
 }
