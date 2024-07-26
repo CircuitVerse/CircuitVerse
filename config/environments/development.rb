@@ -65,8 +65,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    :address              => 'email-smtp.ap-south-1.amazonaws.com',
-    :port                 => 587,
+    :address              => ENV["SMTP_ADDRESS"],
+    :port                 => ENV["SMTP_PORT"],
     :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
     :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
     :ssl                  => true,
