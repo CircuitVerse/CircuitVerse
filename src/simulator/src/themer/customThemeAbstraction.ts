@@ -3,7 +3,24 @@
  * @param {*} themeOptions
  * @returns an Object
  */
-export const CreateAbstraction = (themeOptions) => {
+
+interface ThemeProperties {
+    color: string;
+    description: string;
+    ref: string[];
+}
+
+export interface Themes {
+    Navbar?: ThemeProperties;
+    Primary?: ThemeProperties;
+    Secondary?: ThemeProperties;
+    Canvas?: ThemeProperties;
+    Stroke?: ThemeProperties;
+    Text?: ThemeProperties;
+    Borders?: ThemeProperties;
+}
+
+export const CreateAbstraction = (themeOptions: { [key: string]: string }): Themes => {
     return {
         Navbar: {
             color: themeOptions['--bg-navbar'],
