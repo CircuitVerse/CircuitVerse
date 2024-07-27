@@ -1,11 +1,18 @@
 // Algorithm used for Combinational Analysis
 
+type BooleanMinimizeType = {
+    minTerms: number[]
+    dontCares: number[]
+    numVars: number
+    result: string[]
+}
+
 export default function BooleanMinimize(
-    numVarsArg,
-    minTermsArg,
-    dontCaresArg = []
+    numVarsArg: number,
+    minTermsArg: number[],
+    dontCaresArg: number[] = []
 ) {
-    var __result
+    var __result: string[]
 
     Object.defineProperties(this, {
         minTerms: {
@@ -47,7 +54,7 @@ export default function BooleanMinimize(
 }
 
 BooleanMinimize.prototype.solve = function () {
-    function dec_to_binary_string(n) {
+    const dec_to_binary_string = (n: number) => {
         var str = n.toString(2)
 
         while (str.length != this.numVars) {
@@ -57,14 +64,14 @@ BooleanMinimize.prototype.solve = function () {
         return str
     }
 
-    function num_set_bits(s) {
+    const num_set_bits = (s: string) => {
         var ans = 0
         for (let i = 0; i < s.length; ++i) if (s[i] === '1') ans++
         return ans
     }
 
-    function get_prime_implicants(allTerms) {
-        var table = []
+    const get_prime_implicants = (allTerms: string[]) => {
+        var table: Set<string>[] = []
         var primeImplicants = new Set()
         var reduced
 
@@ -115,11 +122,11 @@ BooleanMinimize.prototype.solve = function () {
         return primeImplicants
     }
 
-    function get_essential_prime_implicants(primeImplicants, minTerms) {
+    const get_essential_prime_implicants = (primeImplicants: string[], minTerms: string[]) => {
         var table = [],
             column
 
-        function check_if_similar(minTerm, primeImplicant) {
+        const check_if_similar = (minTerm: string, primeImplicant: string) => {
             for (let i = 0; i < primeImplicant.length; ++i) {
                 if (
                     primeImplicant[i] !== '-' &&
@@ -131,7 +138,7 @@ BooleanMinimize.prototype.solve = function () {
             return true
         }
 
-        function get_complexity(terms) {
+        const get_complexity = (terms: string[]) => {
             var complexity = terms.length
 
             for (let t of terms) {
@@ -146,7 +153,7 @@ BooleanMinimize.prototype.solve = function () {
             return complexity
         }
 
-        function isSubset(sub, sup) {
+        const isSubset = (sub: Set<number>, sup: Set<number>) => {
             for (let i of sub) {
                 if (!sup.has(i)) return false
             }
@@ -166,8 +173,8 @@ BooleanMinimize.prototype.solve = function () {
             table.push(column)
         }
 
-        var possibleSets = [],
-            tempSets
+        let possibleSets: Set<number>[] = [],
+            tempSets: Set<number>[]
 
         for (let i of table[0]) {
             possibleSets.push(new Set([i]))
@@ -216,12 +223,12 @@ BooleanMinimize.prototype.solve = function () {
         return essentialImplicants
     }
 
-    var minTerms = this.minTerms.map(dec_to_binary_string.bind(this))
-    var dontCares = this.dontCares.map(dec_to_binary_string.bind(this))
+    var minTerms: string[] = this.minTerms.map(dec_to_binary_string.bind(this))
+    var dontCares: string[] = this.dontCares.map(dec_to_binary_string.bind(this))
 
     return get_essential_prime_implicants.call(
         this,
-        Array.from(get_prime_implicants.call(this, minTerms.concat(dontCares))),
+        Array.from(get_prime_implicants.call(this, minTerms.concat(dontCares))) as string[],
         minTerms
     )
 }
