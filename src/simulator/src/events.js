@@ -13,6 +13,7 @@ import { getNextPosition } from './modules'
 import { generateId } from './utils'
 import { simulationArea } from './simulationArea'
 import { TestbenchData } from './testbench'
+import { moduleList, updateOrder } from './metadata'
 
 /**
  * Helper function to paste

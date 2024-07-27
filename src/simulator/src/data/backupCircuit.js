@@ -1,4 +1,6 @@
 import { projectSavedSet } from './project'
+import { moduleList, updateOrder } from '../metadata'
+
 /* eslint-disable no-param-reassign */
 function extract(obj) {
     return obj.saveObject()

@@ -23,8 +23,8 @@
 import { stripTags } from '#/simulator/src/utils'
 import { useState } from '#/store/SimulatorStore/state'
 import messageBox from '@/MessageBox/messageBox.vue'
-import { ref } from '@vue/reactivity'
-import { onMounted, onUpdated } from '@vue/runtime-core'
+import { ref } from 'vue'
+import { onMounted, onUpdated } from 'vue'
 
 /* imports from combinationalAnalysis.js */
 import Node from '#/simulator/src/node'
@@ -199,7 +199,7 @@ function createLogicTable() {
         SimulatorState.dialogBox.combinationalanalysis_dialog = false
         output.value = []
         solveBooleanFunction(booleanInputVariables, booleanExpression)
-        if (output != null) {
+        if (output.value != null) {
             createBooleanPrompt(booleanInputVariables, booleanExpression)
         }
     } else if (

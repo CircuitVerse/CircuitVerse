@@ -17,6 +17,7 @@ import { provideProjectName } from '#/components/helpers/promptComponent/PromptC
 import { UpdateProjectDetail } from '#/components/helpers/createNewProject/UpdateProjectDetail.vue'
 import { confirmOption } from '#/components/helpers/confirmComponent/ConfirmComponent.vue'
 import { getToken } from '#/pages/simulatorHandler.vue'
+import { renderOrder } from '../metadata'
 
 // var projectName = undefined
 
@@ -236,7 +237,7 @@ export function generateImage(
         simulationArea.context.fill()
     }
 
-    // Draw circuits, why is it updateOrder and not renderOrder?
+    // Draw circuits
     for (let i = 0; i < renderOrder.length; i++) {
         for (let j = 0; j < scope[renderOrder[i]].length; j++) {
             scope[renderOrder[i]][j].draw()

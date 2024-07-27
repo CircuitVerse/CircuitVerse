@@ -20,6 +20,8 @@ import { layoutModeGet } from './layoutMode'
 import { verilogModeGet } from './Verilog2CV'
 import { sanitizeLabel } from './verilogHelpers'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+import { circuitElementList, subCircuitInputList } from './metadata'
+
 /**
  * Function to load a subcicuit
  * @category subcircuit

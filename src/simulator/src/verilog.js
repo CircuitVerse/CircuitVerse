@@ -18,6 +18,8 @@ import 'codemirror/addon/hint/anyword-hint.js'
 import 'codemirror/addon/hint/show-hint.js'
 import 'codemirror/addon/display/autorefresh.js'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+import { inputList, moduleList } from './metadata'
+
 var editor
 
 export function generateVerilog() {

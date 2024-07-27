@@ -23,5 +23,3 @@ window.embed = false
 window.width = undefined
 window.height = undefined
 window.DPR = window.devicePixelRatio || 1 // devicePixelRatio, 2 for retina displays, 1 for low resolution displays
-
-window.elementHierarchy = []

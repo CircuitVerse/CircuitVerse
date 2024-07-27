@@ -12,6 +12,7 @@ import { showError } from './utils'
 import miniMapArea from './minimap'
 import { resetup } from './setup'
 import { verilogModeGet } from './Verilog2CV'
+import { renderOrder, updateOrder } from './metadata'
 
 /**
  * Core of the simulation and rendering algorithm.

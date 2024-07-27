@@ -3,6 +3,7 @@ import { backgroundArea } from './backgroundArea'
 import { simulationArea } from './simulationArea'
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap'
 import { colors } from './themer/themer'
+import { updateOrder } from './metadata'
 
 var unit = 10
 

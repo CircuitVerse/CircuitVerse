@@ -1,6 +1,7 @@
 import { simulationArea } from './simulationArea'
 import { colors } from './themer/themer'
 import { layoutModeGet } from './layoutMode'
+import { updateOrder } from './metadata'
 
 /**
  * @type {Object} miniMapArea

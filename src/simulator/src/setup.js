@@ -1,7 +1,6 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-import metadata from './metadata.json'
 import { generateId, showMessage } from './utils'
 import { backgroundArea } from './backgroundArea'
 import plotArea from './plotArea'
@@ -93,27 +92,6 @@ function setupEnvironment() {
 }
 
 /**
- * It initializes some useful array which are helpful
- * while simulating, saving and loading project.
- * It also draws icons in the sidebar
- * @category setup
- */
-function setupElementLists() {
-    window.circuitElementList = metadata.circuitElementList
-    window.annotationList = metadata.annotationList
-    window.inputList = metadata.inputList
-    window.subCircuitInputList = metadata.subCircuitInputList
-    window.moduleList = [...circuitElementList, ...annotationList]
-    window.updateOrder = [
-        'wires',
-        ...circuitElementList,
-        'nodes',
-        ...annotationList,
-    ] // Order of update
-    window.renderOrder = [...moduleList.slice().reverse(), 'wires', 'allNodes'] // Order of render
-}
-
-/**
  * Fetches project data from API and loads it into the simulator.
  * @param {number} projectId The ID of the project to fetch data for
  * @category setup
@@ -190,9 +168,6 @@ function showTour() {
  * @category setup
  */
 export function setup() {
-    // let embed = false
-    // const startListeners = embed ? startEmbedListeners : startMainListeners
-    setupElementLists()
     setupEnvironment()
     if (!embed) {
         setupUI()
