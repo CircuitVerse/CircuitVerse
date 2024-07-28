@@ -1,6 +1,7 @@
 import { createI18n } from 'vue-i18n'
 import en from './en.json'
 import hi from './hi.json'
+import bn from './bn.json'
 
 const i18n = createI18n({
     legacy: false,
@@ -10,6 +11,7 @@ const i18n = createI18n({
     messages: {
         en,
         hi,
+        bn,
     },
 })
 

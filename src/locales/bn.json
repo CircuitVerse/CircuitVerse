@@ -1,0 +1,146 @@
+{
+    "simulator": {
+        "save_online": "অনলাইন সংরক্ষণ করুন",
+        "save_offline": "অফলাইন সংরক্ষণ করুন",
+        "preview_circuit": "সার্কিট পূর্বরূপ",
+        "export_verilog": "ভেরিলগ রপ্তানি করুন",
+        "insert_subcircuit": "সাবসির্কিট ঢোকান",
+        "undo": "পূর্বাবস্থায় ফেরান",
+        "report_issue": "সমস্যা রিপোর্ট করুন",
+        "restricted_elements_used": "সীমাবদ্ধ উপাদান ব্যবহৃত:",
+        "made_with_circuitverse": "সার্কিটভার্স দ্বারা তৈরি",
+        "nav": {
+            "untitled_project": "শিরোনামহীন প্রকল্প",
+            "sign_out": "সাইন আউট",
+            "sign_in": "সাইন ইন",
+            "user_dropdown": {
+                "dashboard": "ড্যাশবোর্ড",
+                "my_groups": "আমার গ্রুপ",
+                "notifications": "বিজ্ঞপ্তি"
+            },
+            "project": {
+                "heading": "প্রকল্প",
+                "project_page": "প্রকল্প পৃষ্ঠা",
+                "new_project": "নতুন প্রকল্প",
+                "open_offline": "অফলাইন খুলুন",
+                "save_online": "অনলাইন সংরক্ষণ",
+                "save_offline": "অফলাইন সংরক্ষণ",
+                "preview_circuit": "সার্কিট পূর্বরূপ",
+                "clear_project": "প্রকল্প সাফ",
+                "recover_project": "প্রকল্প পুনরুদ্ধার",
+                "view_previous_ui": "পূর্ববর্তী UI দেখুন"
+            },
+            "circuit": {
+                "heading": "সার্কিট",
+                "new_circuit": "নতুন সার্কিট +",
+                "insert_subcircuit": "সাবসির্কিট ঢোকান",
+                "new_verilog_module_html": "নতুন ভেরিলোগ\nমডিউল"
+            },
+            "tools": {
+                "heading": "সরঞ্জাম",
+                "combinational_analysis_html": "সংযোজনীয়\nবিশ্লেষণ",
+                "hex_bin_dec_converter_html": "Hex-Bin-Dec\nরূপান্তরকারী",
+                "download_image": "ছবি ডাউনলোড",
+                "themes": "থিম",
+                "export_verilog": "ভেরিলগ রপ্তানি",
+                "custom_shortcut": "কাস্টম শর্টকাট"
+            },
+            "help": {
+                "heading": "সাহায্য",
+                "tutorial_guide": "টিউটোরিয়াল গাইড",
+                "user_manual": "ব্যবহার নির্দেশিকা",
+                "learn_digital_logic": "ডিজিটাল লজিক শিখুন",
+                "discussion_forum": "আলোচনা ফোরাম"
+            }
+        },
+        "panel_header": {
+            "circuit_elements": "সার্কিট উপাদান",
+            "layout_elements": "বিন্যাস উপাদান",
+            "timing_diagram": "টাইমিং ডায়াগ্রাম",
+            "verilog_module": "ভেরিলোগ মডিউল",
+            "properties": "বৈশিষ্ট্য",
+            "layout": "বিন্যাস",
+            "render_image": "ছবি রেন্ডার করুন",
+            "select_theme": "থিম নির্বাচন করুন",
+            "boolean_logic_table": "বুলিয়ান লজিক টেবিল",
+            "open_project": "প্রকল্প খুলুন",
+            "bit_converter": "Dec-Bin-Hex-রূপান্তরকারী"
+        },
+        "panel_body": {
+            "circuit_elements": {
+                "search": "অনুসন্ধান ...",
+                "search_result": "কোনও উপাদান পাওয়া যায় নি ...",
+                "expansion_panel_title": {
+                    "Input": "ইনপুট",
+                    "Output": "আউটপুট",
+                    "Gates": "গেট",
+                    "Decoders & Plexers": "ডিকোডার এবং প্লেক্সার",
+                    "Sequential Elements": "অনুক্রমিক উপাদান",
+                    "Annotation": "সম্পর্কিত",
+                    "Misc": "বিবিধ"
+                }
+            },
+            "timing_diagram": {
+                "one_cycle_unit_html": "1 চক্র = <br/><input id='timing-diagram-units' type='number' min='1' autocomplete='off' value='1000'><br/>ইউনিট"
+            },
+            "verilog_module": {
+                "reset_code": "কোড রিসেট করুন",
+                "save_code": "কোড সংরক্ষণ করুন",
+                "module_in_experiment_notice": "এটি একটি পরীক্ষামূলক মডিউল। \"কোড সংরক্ষণ করুন\" বোতামটি ক্লিক না করা পর্যন্ত কোডটি সংরক্ষিত হয় না।"
+            },
+            "layout": {
+                "width": "প্রস্থ",
+                "height": "উচ্চতা",
+                "reset_all_nodes": "সমস্ত নোড রিসেট করুন:",
+                "title": "শিরোনাম",
+                "title_enabled": "শিরোনাম সক্ষম:",
+                "save": "সংরক্ষণ",
+                "cancel": "বাতিল"
+            },
+            "render_image": {
+                "full_circuit_view": "সম্পূর্ণ সার্কিট ভিউ",
+                "current_view": "বর্তমান ভিউ",
+                "transparent_background": "পারদর্শিক পটভূমি",
+                "resolution": "রেজোলিউশন:"
+            },
+            "context_menu": {
+                "paste": "পেস্ট",
+                "copy": "কপি",
+                "cut": "কাটুন",
+                "delete": "মুছে ফেলুন",
+                "new_circuit": "নতুন সার্কিট",
+                "center_focus": "কেন্দ্র ফোকাস"
+            },
+            "bit_converter": {
+                "decimal_value": "দশমিক মান",
+                "binary_value": "বাইনারি মান",
+                "octal_value": "অক্টাল মান",
+                "hexadecimal_value": "হেক্সাডেসিমাল মান"
+            },
+            "report_issue": {
+                "describe_issue": "সমস্যার বিবরণ:",
+                "email_html": "<b>Email</b><span> [Optional]</span>:",
+                "report_btn": "সমস্যা রিপোর্ট করুন"
+            }
+        },
+        "tooltip": {
+            "delete_selected": "নির্বাচিত উপাদান মুছুন",
+            "download_as_image": "ছবি হিসাবে ডাউনলোড করুন",
+            "fit_to_screen": "স্ক্রিনে ফিট করুন",
+            "redo": "পুনরায় করুন",
+            "decrease_size": "আকার কমান",
+            "increase_size": "আকার বাড়ান",
+            "decrease_height": "উচ্চতা কমান",
+            "increase_height": "উচ্চতা বাড়ান",
+            "reset_timing_diagram": "টাইমিং ডায়াগ্রাম রিসেট করুন",
+            "autocalibrate_cycle_units": "চক্র ইউনিট স্বয়ংক্রিয়ভাবে সমন্বয় করুন",
+            "zoom_in": "জুম ইন",
+            "zoom_out": "জুম আউট",
+            "resume_timing_diagram": "টাইমিং ডায়াগ্রাম পুনরায় চালু করুন",
+            "pause_timing_diagram": "টাইমিং ডায়াগ্রামকে বিরত রাখুন",
+            "decrease_width": "প্রস্থ কমান",
+            "increase_width": "প্রস্থ বাড়ান",
+            "reset": "পুনরায় সেট করুন"
+        }
+    }
+}
