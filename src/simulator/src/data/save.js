@@ -309,16 +309,16 @@ async function generateImageForOnline() {
     if (verilogModeGet()) {
         var node = document.getElementsByClassName('CodeMirror')[0]
         // var node = document.getElementsByClassName('CodeMirror')[0];
-        var prevHeight = $(node).css('height')
-        var prevWidth = $(node).css('width')
+        var prevHeight = window.getComputedStyle(node).height
+        var prevWidth = window.getComputedStyle(node).width
         var baseWidth = 500
         var baseHeight = Math.round(baseWidth / ratio)
-        $(node).css('height', baseHeight)
-        $(node).css('width', baseWidth)
+        node.style.height = baseHeight + 'px'
+        node.style.width = baseWidth + 'px'
 
         var data = await domtoimage.toJpeg(node)
-        $(node).css('width', prevWidth)
-        $(node).css('height', prevHeight)
+        node.style.width = prevWidth
+        node.style.height = prevHeight
         data = await crop(data, baseWidth, baseHeight)
         return data
     }
@@ -359,14 +359,16 @@ export default async function save() {
 
     const data = await generateSaveData()
     if (data instanceof Error) return
-    $('.loadingIcon').fadeIn()
+    let loadingIcon = document.querySelector('.loadingIcon');
+    loadingIcon.style.transition = 'opacity 0.5s linear';
+    loadingIcon.style.opacity = '1';
 
     const projectName = getProjectName()
     var imageData = await generateImageForOnline()
 
     const headers = {
         'Content-Type': 'application/json',
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content'),
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
         Authorization: `Token ${getToken('cvt')}`,
     }
 
@@ -380,7 +382,11 @@ export default async function save() {
             )
         )
             window.location.href = '/users/sign_in'
-        else $('.loadingIcon').fadeOut()
+        else {
+            let loadingIcon = document.querySelector('.loadingIcon')
+            loadingIcon.style.transition = 'opacity 0.2s';
+            loadingIcon.style.opacity = '0';
+        }
         // eslint-disable-next-line camelcase
     } else if ([0, undefined, null, '', '0'].includes(window.logixProjectId)) {
         // Create new project - this part needs to be improved and optimised
@@ -433,7 +439,11 @@ export default async function save() {
                     showMessage(
                         `We have Created a new project: ${projectName} in our servers.`
                     )
-                    $('.loadingIcon').fadeOut()
+
+                    let loadingIcon = document.querySelector('.loadingIcon')
+                    loadingIcon.style.transition = 'opacity 0.2s';
+                    loadingIcon.style.opacity = '0';
+
                     localStorage.removeItem('recover')
                     const responseJson = response.json()
                     responseJson.then((data) => {
@@ -503,7 +513,9 @@ export default async function save() {
                         "There was an error, we couldn't save to our servers"
                     )
                 }
-                $('.loadingIcon').fadeOut()
+                let loadingIcon = document.querySelector('.loadingIcon')
+                loadingIcon.style.transition = 'opacity 0.2s';
+                loadingIcon.style.opacity = '0';
             })
             .catch((error) => {
                 console.error('Error:', error)
