@@ -108,6 +108,7 @@ Rails.application.routes.draw do
   get "/contests", to: "contests#index", as: "contests"
   get "/contests/:id", to: "contests#show", as: "contest_page"
   post "/contests/host", to: "contests#create", as: "new_contest"
+  put "/contests/:id/close", to: "contests#close_contest", as: "close_contest"
 
   # lti
   scope "lti"  do

@@ -15,7 +15,7 @@
     <% end %>
   </div>
   <div class="contest-page-line"></div>
-  <div class="contests-list-wrapper row center-row" style="z-index: 3;">
+  <div class="contests-list-wrapper row center-row">
     <% @contests.each do |contest| %>
       <%= link_to contest_page_path(contest.id), class: "text-decoration-none" do %>
         <div class="col-lg-3">
@@ -46,6 +46,7 @@
             </div>
           </div>
         </div>
+        <%= render partial: "close_contest_confirmation", locals: { contest: contest } %>
       <% end %>
     <% end %>
   </div>
@@ -58,5 +59,4 @@
     </div>
   <% end %>
   <%= render partial: "host_new_contest_confirmation" %>
-  <%= render partial: "close_contest_confirmation" %>
 </div>
