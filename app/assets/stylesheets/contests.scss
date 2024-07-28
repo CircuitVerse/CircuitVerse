@@ -174,3 +174,12 @@
       box-shadow: 0 0 5px 0px #0000004d;
     }
   }
+.project-submission {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background: #f9fffc;
+    border: 1px solid #42b983;
+    margin-bottom: 1rem;
+}
