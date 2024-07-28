@@ -1,33 +1,40 @@
-<div class="container">
+<div class="container" data-controller="contest" data-contest-timeleft-value="<%= @contest.deadline %>">
+  <% if notice %>
+    <div class="row" id='alertdiv'>
+      <div class="alert alert-success alert-dismissible container text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <h6><%= notice %></h6>
+      </div>
+    </div>
+  <% end %>
   <div class="pt-4 d-flex justify-content-between align-items-center">
     <div>
-      <h3 class="contest-header-title">Weekly Contest #5</h3>
-      <p class="mb-0 contest-header-description">Get a chance to get featured on our website and show off your circuit to 245303 users! </p>
+      <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
+      <p class="mb-0 contest-header-description">Get a chance to get featured on our website and show off your circuit to <%= @user_count %> users! </p>
     </div>
     <div class="d-flex flex-column align-items-center">
-      <span class="contest-header-timer">Time Left: 05:45:22</span>
+      <span class="contest-header-timer">Time Left:  <span id="timeLeftCounter">05:45:22</span></span>
       <button class="contest-submission-button">Register your circuit</button>
     </div>
   </div>
+  <% if @contest.status != 'Live' %>
+    <div class="contest-page-line"></div>
+    <div>
+      <h5>Winners</h5>
+      <span class="contest-header-sub-description">The winning projects will get featured on our website and will be awarded as CircuitVerse special tag.</span>
+    </div>
+    <div id="my-circuits-div" class="row center-row circuit-page">
+      <%= render partial: "submission" %>
+    </div>
+  <% end %>
   <div class="contest-page-line"></div>
   <div>
-    <h5>Winners</h5>
-    <span class="contest-header-sub-description">The winning projects will get featured on our website and will be awarded as CircuitVerse special tag.</span>
+    <h5>Contest Entries(<%= @contest.submissions.count %>)</h5>
+    <span class="contest-header-sub-description">Vote for your favourite entries and help us choose our winners for this week! One user gets 1 votes.</span>
   </div>
   <div id="my-circuits-div" class="row center-row circuit-page">
-    <%= render partial: "submission" %>
+    <% @submissions.each do |submission| %>
+      <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count} %>
+    <% end %>
   </div>
-  <div class="contest-page-line"></div>
-  <div>
-    <h5>Contest Entries</h5>
-    <span class="contest-header-sub-description">Vote for your favourite entries and help us choose our winners for this week! One user gets 2 votes.</span>
-  </div>
-  <div id="my-circuits-div" class="row center-row circuit-page">
-    <%= render partial: "submission" %>
-    <%= render partial: "submission" %>
-    <%= render partial: "submission" %>
-    <%= render partial: "submission" %>
-    <%= render partial: "submission" %>
-  </div>
-  <%= render partial: "view" %>
 </div>

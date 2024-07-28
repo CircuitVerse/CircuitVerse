@@ -1,51 +1,62 @@
 <div class="container">
+  <% if notice %>
+    <div class="row" id='alertdiv'>
+      <div class="alert alert-success alert-dismissible container text-center">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <h6><%= notice %></h6>
+      </div>
+    </div>
+  <% end %>
   <div class="column contests-header">
-    <h3 class="contests-header-title">WEEKLY CONTESTS</h3>
+    <h3 class="contests-header-title">CONTESTS</h3>
     <p class="contests-header-description">This page is for admins, you can host a new contest by clicking "Host new contest" button!</p>
     <%= link_to '#', data: {toggle: "modal", target: "#host-new-contest-modal"}, class:"contest-submission-button" do %>
         <span>Host new contest</span>
     <% end %>
   </div>
   <div class="contest-page-line"></div>
-    <div class="contests-list-wrapper row center-row">
-    <%= link_to contest_page_path(1), class: "text-decoration-none" do %>
-      <div class="col-lg-3">
-        <div class="contest-container">
-          <div class="contest-container-header">
-            <div class="contest-container-close">
-              <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal"}, class:"contest-container-close-button" do %>
-                <span>Close</span>
-              <% end %>
-            </div>            
-            <div class="contest-container-status-live">
-              <span class="contest-container-status-dot"></span>
-              <span class="contest-container-status-text">LIVE</span>
-            </div>
-          </div>
-          <div class="contest-container-details">
-            <h5 class="contest-container-details-number">Contest #23</h5>
-            <h5 class="contest-container-details-entries">Entries: 25</h5>
-          </div>
-        </div>
-      </div>
-    <% end %>
-    <% for i in 1..5 %>
+  <div class="contests-list-wrapper row center-row" style="z-index: 3;">
+    <% @contests.each do |contest| %>
+      <%= link_to contest_page_path(contest.id), class: "text-decoration-none" do %>
         <div class="col-lg-3">
           <div class="contest-container">
-      <div class="contest-container-header">
-        <div class="contest-container-status">
-          <span class="contest-container-status-dot"></span>
-          <span class="contest-container-status-text">Completed</span>
+            <% if contest.status === 'Live' %>
+              <div class="contest-container-header">
+                <div class="contest-container-close">
+                  <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal"}, class:"contest-container-close-button" do %>
+                    <span>Close</span>
+                  <% end %>
+                </div>            
+                <div class="contest-container-status-live">
+                  <span class="contest-container-status-dot"></span>
+                  <span class="contest-container-status-text">LIVE</span>
+                </div>
+              </div>
+            <% else %>
+              <div class="contest-container-header">
+                <div class="contest-container-status">
+                  <span class="contest-container-status-dot"></span>
+                  <span class="contest-container-status-text">Completed</span>
+                </div>
+              </div>
+            <% end %>
+            <div class="contest-container-details">
+              <h5 class="contest-container-details-number">Contest # <%= contest.id %> </h5>
+              <h5 class="contest-container-details-entries">Entries: <%= contest.submissions.count %></h5>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="contest-container-details">
-        <h5 class="contest-container-details-number">Contest #23</h5>
-        <h5 class="contest-container-details-entries">Entries: 25</h5>
-      </div>
-    </div>
-    </div>
+      <% end %>
     <% end %>
   </div>
+  <% if @contests.empty? %>
+    <div class="col-12 row center-row d-flex justify-content-center">
+      <div class="search-no-results-image">
+        <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+        <h6>There are no live or completed contests.</h6>
+      </div>
+    </div>
+  <% end %>
   <%= render partial: "host_new_contest_confirmation" %>
   <%= render partial: "close_contest_confirmation" %>
 </div>
