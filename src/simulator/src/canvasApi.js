@@ -108,9 +108,10 @@ export function changeScale(delta, xx, yy, method = 1) {
     if (!embed && !lightMode) {
         findDimensions(globalScope)
         miniMapArea.setup()
-        $('#miniMap').show()
+        let miniMap = document.querySelector('#miniMap');
+        miniMap.style.display = 'block';
         updatelastMinimapShown()
-        $('#miniMap').show()
+        miniMap.style.display = 'block';
         setTimeout(removeMiniMap, 2000)
     }
 }
@@ -441,9 +442,9 @@ export function drawLine(ctx, x1, y1, x2, y2, color, width) {
 
 // Checks if string color is a valid color using a hack
 export function validColor(color) {
-    var $div = $('<div>')
-    $div.css('border', `1px solid ${color}`)
-    return $div.css('border-color') !== ''
+    let newDiv = document.createElement('div')
+    newDiv.style.border = `1px solid ${color}`
+    return newDiv.style.borderColor !== ''
 }
 
 // Helper function to color "RED" to RGBA
