@@ -58,7 +58,7 @@ export default class Ground extends CircuitElement {
         ctx.strokeStyle = [colors['stroke'], 'brown'][
             ((this.hover && !simulationArea.shiftDown) ||
                 simulationArea.lastSelected === this ||
-                simulationArea.multipleObjectSelections.contains(this)) + 0
+                simulationArea.multipleObjectSelections.includes(this)) + 0
         ]
         ctx.lineWidth = correctWidth(3)
 

@@ -63,7 +63,7 @@ export default class TB_Input extends CircuitElement {
     setup() {
         this.iteration = 0
         this.running = false
-        this.nodeList.clean(this.clockInp)
+        this.nodeList = this.nodeList.filter(x=> x !== this.clockInp);
         this.deleteNodes()
         this.nodeList = []
         this.nodeList.push(this.clockInp)

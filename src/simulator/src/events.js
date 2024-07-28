@@ -105,7 +105,7 @@ export function paste(copyData) {
             l !== 'objects' &&
             l !== 'CircuitElement'
         ) {
-            globalScope[l].extend(tempScope[l])
+            globalScope[l].push(...tempScope[l])
         }
     })
     for (let i = 0; i < tempScope.Input.length; i++) {
@@ -165,7 +165,7 @@ export function cut(copyList) {
             const obj = globalScope[updateOrder[i]][j]
             if (obj.objectType != 'Wire') {
                 // }&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
-                if (!copyList.contains(globalScope[updateOrder[i]][j])) {
+                if (!copyList.includes(globalScope[updateOrder[i]][j])) {
                     globalScope[updateOrder[i]][j].cleanDelete()
                 }
             }
@@ -251,7 +251,7 @@ export function copy(copyList, cutflag = false) {
             const obj = globalScope[updateOrder[i]][j]
             if (obj.objectType != 'Wire') {
                 // }&&obj.objectType!='CircuitElement'){//}&&(obj.objectType!='Node'||obj.type==2)){
-                if (!copyList.contains(globalScope[updateOrder[i]][j])) {
+                if (!copyList.includes(globalScope[updateOrder[i]][j])) {
                     globalScope[updateOrder[i]][j].cleanDelete()
                 }
             }

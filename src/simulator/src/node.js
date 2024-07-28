@@ -23,7 +23,7 @@ import { colors } from './themer/themer'
 export function constructNodeConnections(node, data) {
     for (var i = 0; i < data.connections.length; i++) {
         if (
-            !node.connections.contains(node.scope.allNodes[data.connections[i]])
+            !node.connections.includes(node.scope.allNodes[data.connections[i]])
         )
             node.connect(node.scope.allNodes[data.connections[i]])
     }
@@ -41,7 +41,7 @@ export function replace(node, index) {
     }
     var { scope } = node
     var { parent } = node
-    parent.nodeList.clean(node)
+    parent.nodeList = parent.nodeList.filter(x=> x !== node);
     node.delete()
     node = scope.allNodes[index]
     node.parent = parent
@@ -287,7 +287,7 @@ export default class Node {
     refresh() {
         this.updateRotation()
         for (var i = 0; i < this.connections.length; i++) {
-            this.connections[i].connections.clean(this)
+            this.connections[i].connections = this.connections[i].connections.filter(x => x !== this)
         }
         this.connections = []
     }
@@ -334,8 +334,10 @@ export default class Node {
      */
     connect(n) {
         if (n == this) return
-        if (n.connections.contains(this)) return
-        var w = new Wire(this, n, this.parent.scope)
+        if (n.connections.includes(this)) {
+            return
+        }
+        new Wire(this, n, this.parent.scope)
         this.connections.push(n)
         n.connections.push(this)
 
@@ -349,7 +351,7 @@ export default class Node {
      */
     connectWireLess(n) {
         if (n == this) return
-        if (n.connections.contains(this)) return
+        if (n.connections.includes(this)) return
         this.connections.push(n)
         n.connections.push(this)
 
@@ -362,8 +364,8 @@ export default class Node {
      * disconnecting two nodes connected wirelessly
      */
     disconnectWireLess(n) {
-        this.connections.clean(n)
-        n.connections.clean(this)
+        this.connections = this.connections.filter(x => x !== n)
+        n.connections = n.connections.filter(x => x !== this)
     }
 
     /**
@@ -575,7 +577,7 @@ export default class Node {
             (this.isHover() &&
                 !simulationArea.selected &&
                 !simulationArea.shiftDown) ||
-            simulationArea.multipleObjectSelections.contains(this)
+            simulationArea.multipleObjectSelections.includes(this)
         ) {
             ctx.strokeStyle = colorNodeSelected
             ctx.beginPath()
@@ -672,7 +674,7 @@ export default class Node {
             if (this.type == 2) {
                 if (
                     !simulationArea.shiftDown &&
-                    simulationArea.multipleObjectSelections.contains(this)
+                    simulationArea.multipleObjectSelections.includes(this)
                 ) {
                     for (
                         var i = 0;
@@ -688,9 +690,9 @@ export default class Node {
                 if (simulationArea.shiftDown) {
                     simulationArea.lastSelected = undefined
                     if (
-                        simulationArea.multipleObjectSelections.contains(this)
+                        simulationArea.multipleObjectSelections.includes(this)
                     ) {
-                        simulationArea.multipleObjectSelections.clean(this)
+                        simulationArea.multipleObjectSelections = simulationArea.multipleObjectSelections.filter(x=> x !== this);
                     } else {
                         simulationArea.multipleObjectSelections.push(this)
                     }
@@ -701,7 +703,7 @@ export default class Node {
         } else if (this.wasClicked && this.clicked) {
             if (
                 !simulationArea.shiftDown &&
-                simulationArea.multipleObjectSelections.contains(this)
+                simulationArea.multipleObjectSelections.includes(this)
             ) {
                 for (
                     var i = 0;
@@ -899,15 +901,15 @@ export default class Node {
     delete() {
         updateSimulationSet(true)
         this.deleted = true
-        this.parent.scope.allNodes.clean(this)
-        this.parent.scope.nodes.clean(this)
+        this.parent.scope.allNodes = this.parent.scope.allNodes.filter(x => x !== this)
+        this.parent.scope.nodes = this.parent.scope.nodes.filter(x => x !== this)
 
-        this.parent.scope.root.nodeList.clean(this) // Hope this works! - Can cause bugs
+        this.parent.scope.root.nodeList = this.parent.scope.root.nodeList.filter(x => x !== this) // Hope this works! - Can cause bugs
 
         if (simulationArea.lastSelected == this)
             simulationArea.lastSelected = undefined
         for (var i = 0; i < this.connections.length; i++) {
-            this.connections[i].connections.clean(this)
+            this.connections[i].connections = this.connections[i].connections.filter(x => x !== this)
             this.connections[i].checkDeleted()
         }
         wireToBeCheckedSet(1)

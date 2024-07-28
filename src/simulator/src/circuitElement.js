@@ -332,7 +332,7 @@ export default class CircuitElement {
             this.drag()
             if (
                 !simulationArea.shiftDown &&
-                simulationArea.multipleObjectSelections.contains(this)
+                simulationArea.multipleObjectSelections.includes(this)
             ) {
                 for (
                     let i = 0;
@@ -348,7 +348,7 @@ export default class CircuitElement {
             this.startDragging()
             if (
                 !simulationArea.shiftDown &&
-                simulationArea.multipleObjectSelections.contains(this)
+                simulationArea.multipleObjectSelections.includes(this)
             ) {
                 for (
                     let i = 0;
@@ -376,9 +376,9 @@ export default class CircuitElement {
                 if (simulationArea.shiftDown) {
                     simulationArea.lastSelected = undefined
                     if (
-                        simulationArea.multipleObjectSelections.contains(this)
+                        simulationArea.multipleObjectSelections.includes(this)
                     ) {
-                        simulationArea.multipleObjectSelections.clean(this)
+                        simulationArea.multipleObjectSelections = simulationArea.multipleObjectSelections.filter(x => x !== this);
                     } else {
                         simulationArea.multipleObjectSelections.push(this)
                     }
@@ -578,7 +578,7 @@ export default class CircuitElement {
             if (
                 (this.hover && !simulationArea.shiftDown) ||
                 simulationArea.lastSelected === this ||
-                simulationArea.multipleObjectSelections.contains(this)
+                simulationArea.multipleObjectSelections.includes(this)
             )
                 ctx.fillStyle = colors['hover_select']
             ctx.fill()
@@ -734,7 +734,7 @@ export default class CircuitElement {
     // OVERRIDE WITH CAUTION
     delete() {
         simulationArea.lastSelected = undefined
-        this.scope[this.objectType].clean(this) // CHECK IF THIS IS VALID
+        this.scope[this.objectType] = this.scope[this.objectType].filter(x => x !== this)
         if (this.deleteNodesWhenDeleted) {
             this.deleteNodes()
         } else {
@@ -883,7 +883,7 @@ export default class CircuitElement {
                     if (
                         !this.scope.verilogWireList[
                             this.nodeList[i].bitWidth
-                        ].contains(this.nodeList[i].verilogLabel)
+                        ].includes(this.nodeList[i].verilogLabel)
                     )
                         this.scope.verilogWireList[
                             this.nodeList[i].bitWidth

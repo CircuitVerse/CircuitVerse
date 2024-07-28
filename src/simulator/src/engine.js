@@ -369,7 +369,7 @@ export function updateSelectionsAndPane(scope = globalScope) {
             for (let i = 0; i < updateOrder.length; i++) {
                 for (var j = 0; j < scope[updateOrder[i]].length; j++) {
                     var obj = scope[updateOrder[i]][j]
-                    if (simulationArea.multipleObjectSelections.contains(obj))
+                    if (simulationArea.multipleObjectSelections.includes(obj))
                         continue
                     var x
                     var y

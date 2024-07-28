@@ -86,7 +86,7 @@ export default class Button extends CircuitElement {
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
-            simulationArea.multipleObjectSelections.contains(this)
+            simulationArea.multipleObjectSelections.includes(this)
         ) {
             ctx.fillStyle = 'rgba(232, 13, 13,0.6)'
         }
@@ -111,7 +111,7 @@ export default class Button extends CircuitElement {
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected == this ||
-            simulationArea.multipleObjectSelections.contains(this)
+            simulationArea.multipleObjectSelections.includes(this)
         )
             ctx.fillStyle = 'rgba(232, 13, 13,0.6)'
         if (this.wasClicked) ctx.fillStyle = 'rgba(232, 13, 13,0.8)'

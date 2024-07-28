@@ -96,7 +96,7 @@ export default class Rectangle extends CircuitElement {
 
         if (
             simulationArea.lastSelected === this ||
-            simulationArea.multipleObjectSelections.contains(this)
+            simulationArea.multipleObjectSelections.includes(this)
         ) {
             ctx.fillStyle = 'rgba(255, 255, 32,0.1)'
             ctx.fill()

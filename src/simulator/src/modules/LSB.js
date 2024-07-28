@@ -99,7 +99,7 @@ export default class LSB extends CircuitElement {
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
-            simulationArea.multipleObjectSelections.contains(this)
+            simulationArea.multipleObjectSelections.includes(this)
         )
         ctx.fillStyle = colors['hover_select']
         ctx.fill()

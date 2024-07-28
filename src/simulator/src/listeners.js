@@ -290,7 +290,7 @@ export default function startListeners() {
                         simulationArea.lastSelected.objectType != 'Wire' &&
                         simulationArea.lastSelected.objectType !=
                             'CircuitElement' &&
-                        !simulationArea.multipleObjectSelections.contains(
+                        !simulationArea.multipleObjectSelections.includes(
                             simulationArea.lastSelected
                         )
                     ) {
@@ -405,7 +405,7 @@ export default function startListeners() {
             if (
                 simulationArea.lastSelected &&
                 simulationArea.lastSelected !== simulationArea.root &&
-                !simulationArea.copyList.contains(simulationArea.lastSelected)
+                !simulationArea.copyList.includes(simulationArea.lastSelected)
             ) {
                 simulationArea.copyList.push(simulationArea.lastSelected)
             }
@@ -436,7 +436,7 @@ export default function startListeners() {
             if (
                 simulationArea.lastSelected &&
                 simulationArea.lastSelected !== simulationArea.root &&
-                !simulationArea.copyList.contains(simulationArea.lastSelected)
+                !simulationArea.copyList.includes(simulationArea.lastSelected)
             ) {
                 simulationArea.copyList.push(simulationArea.lastSelected)
             }

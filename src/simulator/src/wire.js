@@ -47,8 +47,8 @@ export default class Wire {
         var check =
             this.node1.deleted ||
             this.node2.deleted ||
-            !this.node1.connections.contains(this.node2) ||
-            !this.node2.connections.contains(this.node1)
+            !this.node1.connections.includes(this.node2) ||
+            !this.node2.connections.includes(this.node1)
         if (check) this.delete()
         return check
     }
@@ -225,9 +225,9 @@ export default class Wire {
     delete() {
         forceResetNodesSet(true)
         updateSimulationSet(true)
-        this.node1.connections.clean(this.node2)
-        this.node2.connections.clean(this.node1)
-        this.scope.wires.clean(this)
+        this.node1.connections = this.node1.connections.filter(x => x !== this.node2);
+        this.node2.connections = this.node2.connections.filter(x => x !== this.node1)
+        this.scope.wires = this.scope.wires.filter(x => x !== this)
         this.node1.checkDeleted()
         this.node2.checkDeleted()
     }

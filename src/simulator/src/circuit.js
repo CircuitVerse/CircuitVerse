@@ -398,7 +398,7 @@ export default class Scope {
         var list = []
         for (let i = 0; i < this.SubCircuit.length; i++) {
             list.push(this.SubCircuit[i].id)
-            list.extend(scopeList[this.SubCircuit[i].id].getDependencies())
+            list.push(...scopeList[this.SubCircuit[i].id].getDependencies())
         }
         return uniq(list)
     }

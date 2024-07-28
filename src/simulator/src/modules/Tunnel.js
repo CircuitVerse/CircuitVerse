@@ -169,13 +169,18 @@ export default class Tunnel extends CircuitElement {
      * @param {string=} id - id so that every link is unique
      */
     setIdentifier(id = '') {
-        if (id.length === 0) return
-        if (this.scope.tunnelList[this.identifier])
-            this.scope.tunnelList[this.identifier].clean(this)
+        if (id.length === 0) {
+            return
+        }
+        if (this.scope.tunnelList[this.identifier]) {
+            this.scope.tunnelList[this.identifier] = this.scope.tunnelList[this.identifier].filter(x=> x !== this);
+        }
         this.identifier = id
-        if (this.scope.tunnelList[this.identifier])
+        if (this.scope.tunnelList[this.identifier]) {
             this.scope.tunnelList[this.identifier].push(this)
-        else this.scope.tunnelList[this.identifier] = [this]
+        } else {
+            this.scope.tunnelList[this.identifier] = [this]
+        }
 
         // Change the bitwidth to be same as the other elements with this.identifier
         if (
@@ -198,8 +203,8 @@ export default class Tunnel extends CircuitElement {
      * delete the tunnel element
      */
     delete() {
-        this.scope.Tunnel.clean(this)
-        this.scope.tunnelList[this.identifier].clean(this)
+        this.scope.Tunnel = this.scope.Tunnel.filter(x => x !== this);
+        this.scope.tunnelList[this.identifier] = this.scope.tunnelList[this.identifier].filter(x=> x !== this);
         super.delete()
     }
 
@@ -245,7 +250,7 @@ export default class Tunnel extends CircuitElement {
         if (
             (this.hover && !simulationArea.shiftDown) ||
             simulationArea.lastSelected === this ||
-            simulationArea.multipleObjectSelections.contains(this)
+            simulationArea.multipleObjectSelections.includes(this)
         ) {
             ctx.fillStyle = colors['hover_select']
         }

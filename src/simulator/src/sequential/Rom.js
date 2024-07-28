@@ -130,7 +130,7 @@ export default class Rom extends CircuitElement {
             hoverIndex === undefined &&
             ((!simulationArea.shiftDown && this.hover) ||
                 simulationArea.lastSelected === this ||
-                simulationArea.multipleObjectSelections.contains(this))
+                simulationArea.multipleObjectSelections.includes(this))
         )
             ctx.fillStyle = colors['hover_select']
         ctx.fill()
