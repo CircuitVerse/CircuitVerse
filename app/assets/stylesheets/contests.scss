@@ -105,6 +105,18 @@
     line-height: 22px;
 }
 
+.contest-ended-button {
+    font-weight: 500;
+    font-size: 14px;
+    padding: 9px 16px;
+    color: #AFAFAF;
+    background: #E5E5E5;
+    border: 1px solid #C0C0C0;
+    border-radius: 4px;
+    transition: 0.2s ease-in-out;
+    cursor: not-allowed;
+}
+
 .contest-submission-button {
     font-weight: 500;
     font-size: 14px;

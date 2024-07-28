@@ -12,10 +12,16 @@
       <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
       <p class="mb-0 contest-header-description">Get a chance to get featured on our website and show off your circuit to <%= @user_count %> users! </p>
     </div>
-    <div class="d-flex flex-column align-items-center">
-      <span class="contest-header-timer">Time Left:  <span id="timeLeftCounter">05:45:22</span></span>
-      <button class="contest-submission-button">Register your circuit</button>
-    </div>
+    <% if @contest.status == 'Live' %>
+      <div class="d-flex flex-column align-items-center">
+        <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">...</span></span>
+        <button class="contest-submission-button">Register your circuit</button>
+      </div>
+    <% else %>
+      <div class="d-flex flex-column align-items-center">
+        <button class="contest-ended-button" disabled>Contest Ended!</button>
+      </div>
+    <% end %>
   </div>
   <% if @contest.status != 'Live' %>
     <div class="contest-page-line"></div>
@@ -24,7 +30,9 @@
       <span class="contest-header-sub-description">The winning projects will get featured on our website and will be awarded as CircuitVerse special tag.</span>
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
-      <%= render partial: "submission" %>
+      <% @submissions.each do |submission| %>
+        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count} %>
+      <% end %>
     </div>
   <% end %>
   <div class="contest-page-line"></div>

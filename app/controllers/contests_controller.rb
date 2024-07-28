@@ -6,6 +6,7 @@ class ContestsController < ApplicationController
   # GET /contests
   def index
     @contests = Contest.all
+    @contests = Contest.all.order(id: :desc)
   end
   
   def show
@@ -20,6 +21,14 @@ class ContestsController < ApplicationController
 
   # POST /contest/create
   def create
+     # checking for any other live contest, if found mark is as completed
+     Contest.all.each do |contest|
+      if contest.status == "Live"
+        contest.status = "Completed"
+        contest.deadline = Time.zone.now
+        contest.save
+      end
+    end
     @contest = Contest.new
     @contest.deadline = 1.month.from_now
     @contest.status = "Live"
