@@ -25,6 +25,7 @@ class ContestsController < ApplicationController
     @contest.status = "Live"
     respond_to do |format|
       if @contest.save
+        ContestNotification.with(contest: @contest).deliver_later(User.all)
         format.html { redirect_to contest_page_path(@contest.id), notice: "Contest was successfully started." }
         format.json { render :show, status: :created, location: @contest }
       else
