@@ -23,6 +23,7 @@
         "@tiptap/starter-kit": "^2.0.3",
         "@tiptap/vue-3": "^2.0.3",
         "bootstrap": "^4.6.1",
+        "canvas-to-svg": "^1.0.3",
         "codemirror": "^5.65.1",
         "codemirror-editor-vue3": "^2.1.7",
         "dom-to-image": "^2.6.0",
