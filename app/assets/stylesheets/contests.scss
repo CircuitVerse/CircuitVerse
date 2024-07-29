@@ -183,3 +183,13 @@
     border: 1px solid #42b983;
     margin-bottom: 1rem;
 }
+
+.danger-primary-button{
+    background: #dc5656;
+    margin-right: 0;
+  
+    &:hover {
+      background-color: #ae4141;
+    }
+  }
+  

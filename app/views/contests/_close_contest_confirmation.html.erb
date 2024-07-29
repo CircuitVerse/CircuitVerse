@@ -10,7 +10,8 @@
         </p>
       </div>
       <div class="modal-footer">
-        <%= link_to close_contest_path(contest.id), class: "btn primary-delete-button", method: :put do %>
+         <%# <%= link_to close_contest_path(contest.id), class: "btn primary-delete-button", method: :put do %> %>
+         <%= link_to "#", id: "close-contest-button", class: "btn primary-delete-button", method: :put do %>
           <span>Confirm</span>
         <% end %>
       </div>

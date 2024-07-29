@@ -7,12 +7,12 @@
       </div>
       <div class="modal-body">
         <div class="embed-responsive embed-responsive-4by3 feature feature-preview users-iframe-container">
-          <iframe src=<%= simulator_path(project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
+          <iframe src="" id="project-ifram-preview" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
         </div>
       </div>
       <div class="modal-footer">
-        <%= link_to "Vote", '#', class: "btn primary-button", id: "project-fork-button" %>
-        <%= link_to t("more"), user_project_path(project.author_id, project), class: "btn primary-button", id: "project-more-button", target: "_blank" %>
+        <%= link_to "Vote", '#', class: "btn primary-button", id: "project-vote-button" %>
+        <%= link_to t("more"), '#', class: "btn primary-button", id: "project-more-button", target: "_blank" %>
       </div>
     </div>
   </div>

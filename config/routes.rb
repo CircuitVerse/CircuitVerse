@@ -111,6 +111,7 @@ Rails.application.routes.draw do
   put "/contests/:id/close", to: "contests#close_contest", as: "close_contest"
   get "/contests/:id/new_submission", to: "contests#new_submission", as: "new_submission"
   post "/contests/:id/create_submission", to: "contests#create_submission", as: "create_submission"
+  delete "/contests/:contest_id/withdraw/:submission_id", to: "contests#withdraw", as: "withdraw_submission"
 
   # lti
   scope "lti"  do

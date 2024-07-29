@@ -1,0 +1,18 @@
+<div id="withdraw-submission-confirmation-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header secondary-modal-header">
+        <h4 class="modal-title">Withdraw Submission</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to withdraw your submission from contest?</p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "#", id: "withdraw-submission-button", class: "btn primary-delete-button", method: :delete do %>
+          <span>Withdraw</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
