@@ -70,11 +70,16 @@ class ContestsController < ApplicationController
 
   # POST /contests/:id/create_submission
   def create_submission
-    @submission = Submission.new
-    @submission.project_id = params[:submission][:project_id]
-    @submission.contest_id = params[:contest_id]
-    if @submission.save
-      redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully added."
+    is_submission = Submission.find_by(project_id: params[:submission][:project_id], contest_id: params[:contest_id])
+    if is_submission.nil?
+      @submission = Submission.new
+      @submission.project_id = params[:submission][:project_id]
+      @submission.contest_id = params[:contest_id]
+      if @submission.save
+        redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully added."
+      end
+    else
+      redirect_to new_submission_path, notice: "This project is already submitted in Contest ##{params[:contest_id]}"
     end
   end
 
@@ -85,8 +90,8 @@ class ContestsController < ApplicationController
     redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully removed."
   end
 
-   # POST /contests/:contest_id/submission/:submission_id/upvote
-   def upvote
+  # POST /contests/:contest_id/submission/:submission_id/upvote
+  def upvote
     user_contest_votes = current_user.user_contest_votes(params[:contest_id])
     if user_contest_votes > 3
       notice = "You have used all your votes!"
