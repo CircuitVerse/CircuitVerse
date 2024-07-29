@@ -11,7 +11,11 @@
     <div>
       <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
       <p class="mb-0 contest-header-description">Get a chance to get featured on our website and show off your circuit to <%= @user_count %> users! </p>
+       <% if @contest.status == 'Live' %>
+        <p class="mb-0 contest-header-description">Your Remaining Votes: <%= 3 - current_user.user_contest_votes(@contest.id) %></p>
+      <% end %>
     </div>
+    
     <% if @contest.status == 'Live' %>
       <div class="d-flex flex-column align-items-center">
         <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">...</span></span>
@@ -40,7 +44,7 @@
   <div class="contest-page-line"></div>
   <div>
     <h5>Contest Entries(<%= @contest.submissions.count %>)</h5>
-    <span class="contest-header-sub-description">Vote for your favourite entries and help us choose our winners for this week! One user gets 1 votes.</span>
+    <span class="contest-header-sub-description">Vote for your favourite entries and help us choose our winners for this week! One user gets 3 votes.</span>
   </div>
   <div id="my-circuits-div" class="row center-row circuit-page">
     <% @submissions.each do |submission| %>

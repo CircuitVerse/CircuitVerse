@@ -102,6 +102,11 @@ class User < ApplicationRecord
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
+  def user_contest_votes(contest)
+    SubmissionVote.where(user_id: id, contest_id: contest).count
+  end
+
+
   private
 
     def send_welcome_mail

@@ -78,11 +78,32 @@ class ContestsController < ApplicationController
     end
   end
 
-  # PUT /contests/:id/withdraw
+  # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
     @submission = Submission.find(params[:submission_id])
     @submission.destroy!
     redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully removed."
+  end
+
+   # POST /contests/:contest_id/submission/:submission_id/upvote
+   def upvote
+    user_contest_votes = current_user.user_contest_votes(params[:contest_id])
+    if user_contest_votes > 3
+      notice = "You have used all your votes!"
+    else
+      vote = SubmissionVote.find_by(user_id: current_user.id, submission_id: params[:submission_id])
+      if vote.nil?
+        @submission_vote = SubmissionVote.new
+        @submission_vote.user_id = current_user.id
+        @submission_vote.submission_id = params[:submission_id]
+        @submission_vote.contest_id = params[:contest_id]
+        @submission_vote.save!
+        notice = "You have successfully voted the submission, Thanks! Votes remaining: #{2 - user_contest_votes}"
+      else
+        notice = "You have already vote this submission!"
+      end
+    end
+    redirect_to contest_page_path(params[:contest_id]), notice: notice
   end
 
   private
