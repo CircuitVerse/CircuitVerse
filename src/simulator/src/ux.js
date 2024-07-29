@@ -13,7 +13,6 @@ import { simulationArea } from './simulationArea'
 import logixFunction from './data'
 import { circuitProperty } from './circuit'
 import { updateRestrictedElementsInScope } from './restrictedElementDiv'
-import { updateTestbenchUI, setupTestbenchUI } from './testbench'
 import { dragging } from './drag'
 import { circuitElementList } from './metadata'
 
@@ -362,15 +361,8 @@ export function setupPanels() {
     // Minimize Timing Diagram (takes too much space)
     $('.timing-diagram-panel .minimize').trigger('click')
 
-    // Update the Testbench Panel UI
-    updateTestbenchUI()
     // Minimize Testbench UI
     $('.testbench-manual-panel .minimize').trigger('click')
-
-    // Hack because minimizing panel then maximizing sets visibility recursively
-    // updateTestbenchUI calls some hide()s which are undone by maximization
-    // TODO: Remove hack
-    $('.testbench-manual-panel .maximize').on('click', setupTestbenchUI)
 
     $('#projectName').on('click', () => {
         $("input[name='setProjectName']").focus().select()
@@ -441,7 +433,7 @@ export function fullView() {
     exitViewEl.addEventListener('click', exitFullView)
 }
 
-/** 
+/**
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/
 export function fillSubcircuitElements() {

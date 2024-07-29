@@ -801,10 +801,6 @@ div.icon img {
     width: 200px;
 }
 
-.testbench-runall-label {
-    display: none;
-}
-
 .tb-dialog-button {
     display: inline;
     margin: 8px;

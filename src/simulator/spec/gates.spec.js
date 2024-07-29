@@ -8,7 +8,7 @@ import { setup } from '../src/setup'
 import load from '../src/data/load'
 import circuitData from './circuits/gates-circuitdata.json'
 import testData from './testData/gates-testdata.json'
-import { runAll } from '../src/testbench'
+import { runAll } from '#/simulator/src/testbench'
 
 jest.mock('codemirror')
 

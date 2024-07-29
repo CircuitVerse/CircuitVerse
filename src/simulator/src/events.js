@@ -12,7 +12,7 @@ import { backUp } from './data/backupCircuit'
 import { getNextPosition } from './modules'
 import { generateId } from './utils'
 import { simulationArea } from './simulationArea'
-import { TestbenchData } from './testbench'
+import { TestbenchData } from '#/simulator/src/testbench'
 import { moduleList, updateOrder } from './metadata'
 
 /**
