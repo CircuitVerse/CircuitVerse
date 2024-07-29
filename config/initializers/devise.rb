@@ -313,7 +313,6 @@ Devise.setup do |config|
 end
 
 Devise.saml_update_resource_hook = Proc.new do |user, saml_response, auth_value|
-  # Copied from the default behavior: https://github.com/apokalipto/devise_saml_authenticatable/blob/09221d59e434bc947327e478a388013a70add4f7/lib/devise_saml_authenticatable.rb#L101
   saml_response.attributes.resource_keys.each do |key|
     user.send "#{key}=", saml_response.attribute_value_by_resource_key(key)
   end
@@ -322,9 +321,8 @@ Devise.saml_update_resource_hook = Proc.new do |user, saml_response, auth_value|
     user.send "#{Devise.saml_default_user_key}=", auth_value
   end
 
-  puts "User: #{user.inspect}"
   if user.id.nil?
-    user.name = user.email
+    user.name = user.email if user.name.blank?
     user.password = Devise.friendly_token[0, 20]
   end
   user.save!
