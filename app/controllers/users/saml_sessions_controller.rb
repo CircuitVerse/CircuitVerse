@@ -7,7 +7,7 @@ class Users::SamlSessionsController < Devise::SamlSessionsController
     request = OneLogin::RubySaml::Authrequest.new
     action = request.create(saml_settings)
     redirect_to action
-    end
+  end
   
   def metadata
     meta = OneLogin::RubySaml::Metadata.new
@@ -19,7 +19,7 @@ class Users::SamlSessionsController < Devise::SamlSessionsController
     if user_signed_in?
       redirect_to root_path
     else
-      redirect_to new_user_session_path, alert: 'Invalid SAML response'
+      redirect_to new_user_session_path, alert: "Invalid SAML response"
     end
   end
   
@@ -38,7 +38,7 @@ class Users::SamlSessionsController < Devise::SamlSessionsController
     settings.idp_cert_fingerprint_algorithm     = Devise.saml_config.idp_cert_fingerprint_algorithm
     settings
   end
-  
+
   def store_winning_strategy
     warden.session(:user)[:strategy] = warden.winning_strategies[:user].class.name.demodulize.underscore.to_sym
   end 
