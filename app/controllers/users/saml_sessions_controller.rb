@@ -3,12 +3,6 @@
 class Users::SamlSessionsController < Devise::SamlSessionsController
   after_action :store_winning_strategy, only: :create
   
-  
-  
-  
-  
-  
-
   private
   
     def store_winning_strategy
