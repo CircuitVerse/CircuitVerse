@@ -211,7 +211,7 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
-    devise_saml_authenticatable (1.9.0)
+    devise_saml_authenticatable (1.9.1)
       devise (> 2.0.0)
       ruby-saml (~> 1.7)
     diff-lcs (1.5.0)
@@ -705,8 +705,8 @@ GEM
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
-    ruby-saml (1.14.0)
-      nokogiri (>= 1.10.5)
+    ruby-saml (1.16.0)
+      nokogiri (>= 1.13.10)
       rexml
     ruby-vips (2.2.1)
       ffi (~> 1.12)
@@ -924,7 +924,7 @@ DEPENDENCIES
   database_consistency
   debug
   devise
-  devise_saml_authenticatable
+  devise_saml_authenticatable (~> 1.9.1)
   disposable_mail!
   dotenv-rails
   erb_lint
