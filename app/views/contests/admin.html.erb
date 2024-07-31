@@ -23,7 +23,7 @@
             <% if contest.status == 'Live' %>
               <div class="contest-container-header">
                 <div class="contest-container-close">
-                  <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal", contest: contest.id}, class:"contest-container-close-button" do %>
+                  <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal", contest: contest}, class:"contest-container-close-button" do %>
                     <span>Close</span>
                   <% end %>
                 </div>            
