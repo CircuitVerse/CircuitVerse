@@ -49,7 +49,7 @@ export const circuitProperty = {
     changeLightMode,
 }
 
-export var scopeList = {}
+export let scopeList: { [key: string]: Scope } = {}
 export function resetScopeList() {
     const simulatorStore = SimulatorStore()
     const { circuit_list } = toRefs(simulatorStore)
@@ -61,10 +61,8 @@ export function resetScopeList() {
  * Disables layoutMode if enabled
  * Changes UI tab etc
  * Sets flags to make updates, resets most of the things
- * @param {string} id - identifier for circuit
- * @category circuit
  */
-export function switchCircuit(id) {
+export function switchCircuit(id: string) {
     // TODO: fix tomorrow
     const simulatorStore = SimulatorStore()
     const { circuit_list } = toRefs(simulatorStore)
@@ -97,8 +95,10 @@ export function switchCircuit(id) {
             (circuit) => circuit.id == id
         ) // TODO: add strict equality after typescript
         circuit_list.value[index].focussed = true
-        activeCircuit.value.id = globalScope.id
-        activeCircuit.value.name = globalScope.name
+        if (activeCircuit.value) {
+            activeCircuit.value.id = globalScope.id
+            activeCircuit.value.name = globalScope.name
+        }
     }
     updateSimulationSet(true)
     updateSubcircuitSet(true)
@@ -116,13 +116,18 @@ export function switchCircuit(id) {
     updateRestrictedElementsList()
 }
 
-export function getDependenciesList(scopeId) {
+export function getDependenciesList(scopeId: string | number) {
     let scope = scopeList[scopeId]
     if (scope == undefined) scope = scopeList[globalScope.id]
 
     let dependencies = ''
-    for (id in scopeList) {
-        if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
+    for (let id in scopeList) {
+        let formattedId;
+        if (typeof scopeId === 'number')
+            formattedId = scopeId;
+        else
+            formattedId = parseInt(scopeId);
+        if (id != scope.id && scopeList[id].checkDependency(formattedId)) {
             if (dependencies === '') {
                 dependencies = scopeList[id].name
             } else {
@@ -166,8 +171,8 @@ export function getDependenciesList(scopeId) {
  * Wrapper function around newCircuit to be called from + button on UI
  */
 export async function createNewCircuitScope(
-    name,
-    id = undefined,
+    name: string | Error | undefined = undefined,
+    id: string | undefined = undefined,
     isVerilog = false,
     isVerilogMain = false
 ) {
@@ -185,17 +190,19 @@ export async function createNewCircuitScope(
     return true
 }
 
+export function circuitNameClicked() {
+    simulationArea.lastSelected = globalScope.root
+}
+
 /**
  * Function to create new circuit
  * Function creates button in tab, creates scope and switches to this circuit
- * @param {string} name - name of the new circuit
- * @param {string} id - identifier for circuit
- * @category circuit
  */
-export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
+export function newCircuit(name: string | undefined, id: string | undefined, isVerilog = false, isVerilogMain = false) {
     const simulatorStore = SimulatorStore()
     const { circuit_list } = toRefs(simulatorStore)
     const { activeCircuit } = toRefs(simulatorStore)
+    const { circuit_name_clickable } = toRefs(simulatorStore)
     if (layoutModeGet()) {
         toggleLayoutMode()
     }
@@ -225,21 +232,25 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     // $('.circuits').removeClass('current')
     circuit_list.value.forEach((circuit) => (circuit.focussed = false))
     circuit_list.value[circuit_list.value.length - 1].focussed = true
-    activeCircuit.value.id = scope.id
-    activeCircuit.value.name = scope.name
+    if (activeCircuit.value) {
+        activeCircuit.value.id = scope.id
+        activeCircuit.value.name = scope.name
+    }
 
     if (!isVerilog || isVerilogMain) {
+        circuit_name_clickable.value = false;
         // Remove listeners
-        $('.circuitName').off('click')
+        // $('.circuitName').off('click')
         // switch circuit function moved inside vue component
         if (!embed) {
-            $('.circuitName').on('click', () => {
-                simulationArea.lastSelected = globalScope.root
-                setTimeout(() => {
-                    // here link with the properties panel
-                    document.getElementById('circname').select()
-                }, 100)
-            })
+            // $('.circuitName').on('click', () => {
+            //     simulationArea.lastSelected = globalScope.root
+            //     setTimeout(() => {
+            //         // here link with the properties panel
+            //         document.getElementById('circname').select()
+            //     }, 100)
+            // })
+            circuit_name_clickable.value = true;
         }
         if (!embed) {
             showProperties(scope.root)
@@ -251,11 +262,8 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
 
 /**
  * Used to change name of a circuit
- * @param {string} name - new name
- * @param {string} id - id of the circuit
- * @category circuit
  */
-export function changeCircuitName(name, id = globalScope.id) {
+export function changeCircuitName(name: string, id = globalScope.id) {
     const simulatorStore = SimulatorStore()
     const { circuit_list } = toRefs(simulatorStore)
     name = name || 'Untitled'
@@ -273,6 +281,30 @@ export function changeCircuitName(name, id = globalScope.id) {
  * @category circuit
  */
 export default class Scope {
+    restrictedCircuitElementsUsed: any[];
+    id: number | string;
+    CircuitElement: any[];
+    name: string;
+    root: CircuitElement;
+    backups: string[];
+    history: string[];
+    timeStamp: number;
+    verilogMetadata: { isVerilogCircuit: boolean; isMainCircuit: boolean; code: string; subCircuitScopeIds: string[]; };
+    ox: number;
+    oy: number;
+    scale: number;
+    stack: any[];
+    layout: { width: number; height: number; title_x: number; title_y: number; titleEnabled: boolean; };
+    tunnelList?: {};
+    pending?: any[];
+    nodes?: any[];
+    allNodes?: any[];
+    wires?: any[];
+    Input?: any[];
+    Output?: any[];
+    Splitter?: any[];
+    SubCircuit?: any[];
+    Clock?: any[];
     constructor(name = 'localScope', id = undefined) {
         this.restrictedCircuitElementsUsed = []
         this.id = id || Math.floor(Math.random() * 100000000000 + 1)
@@ -332,14 +364,20 @@ export default class Scope {
      * Resets all nodes recursively
      */
     reset() {
-        for (let i = 0; i < this.allNodes.length; i++) {
-            this.allNodes[i].reset()
+        if (this.allNodes) {
+            for (let i = 0; i < this.allNodes.length; i++) {
+                this.allNodes[i].reset()
+            }
         }
-        for (let i = 0; i < this.Splitter.length; i++) {
-            this.Splitter[i].reset()
+        if (this.Splitter) {
+            for (let i = 0; i < this.Splitter.length; i++) {
+                this.Splitter[i].reset()
+            }
         }
-        for (let i = 0; i < this.SubCircuit.length; i++) {
-            this.SubCircuit[i].reset()
+        if (this.SubCircuit) {
+            for (let i = 0; i < this.SubCircuit.length; i++) {
+                this.SubCircuit[i].reset()
+            }
         }
     }
 
@@ -349,12 +387,14 @@ export default class Scope {
     addInputs() {
         for (let i = 0; i < inputList.length; i++) {
             for (var j = 0; j < this[inputList[i]].length; j++) {
-                simulationArea.simulationQueue.add(this[inputList[i]][j], 0)
+                simulationArea.simulationQueue?.add(this[inputList[i]][j], 0)
             }
         }
 
-        for (let i = 0; i < this.SubCircuit.length; i++) {
-            this.SubCircuit[i].addInputs()
+        if (this.SubCircuit) {
+            for (let i = 0; i < this.SubCircuit.length; i++) {
+                this.SubCircuit[i].addInputs()
+            }
         }
     }
 
@@ -362,27 +402,34 @@ export default class Scope {
      * Ticks clocks recursively -- needs to be deprecated and synchronize all clocks with a global clock
      */
     clockTick() {
-        for (let i = 0; i < this.Clock.length; i++) {
-            this.Clock[i].toggleState()
-        } // tick clock!
-        for (let i = 0; i < this.SubCircuit.length; i++) {
-            this.SubCircuit[i].localScope.clockTick()
-        } // tick clock!
+        if (this.Clock) {
+            for (let i = 0; i < this.Clock.length; i++) {
+                this.Clock[i].toggleState()
+            } // tick clock!
+        }
+        if (this.SubCircuit) {
+            for (let i = 0; i < this.SubCircuit.length; i++) {
+                this.SubCircuit[i].localScope.clockTick()
+            } // tick clock!
+        }
     }
 
     /**
      * Checks if this circuit contains directly or indirectly scope with id
      * Recursive nature
      */
-    checkDependency(id) {
+    checkDependency(id: number) {
         if (id === this.id) return true
-        for (let i = 0; i < this.SubCircuit.length; i++) {
-            if (this.SubCircuit[i].id === id) return true
+        if (this.SubCircuit) {
+            for (let i = 0; i < this.SubCircuit.length; i++) {
+                if (this.SubCircuit[i].id === id) return true
+            }
         }
-
-        for (let i = 0; i < this.SubCircuit.length; i++) {
-            if (scopeList[this.SubCircuit[i].id].checkDependency(id))
-                return true
+        if (this.SubCircuit) {
+            for (let i = 0; i < this.SubCircuit.length; i++) {
+                if (scopeList[this.SubCircuit[i].id].checkDependency(id))
+                    return true
+            }
         }
 
         return false
@@ -393,9 +440,11 @@ export default class Scope {
      */
     getDependencies() {
         var list = []
-        for (let i = 0; i < this.SubCircuit.length; i++) {
-            list.push(this.SubCircuit[i].id)
-            list.push(...scopeList[this.SubCircuit[i].id].getDependencies())
+        if (this.SubCircuit) {
+            for (let i = 0; i < this.SubCircuit.length; i++) {
+                list.push(this.SubCircuit[i].id)
+                list.push(...scopeList[this.SubCircuit[i].id].getDependencies())
+            }
         }
         return uniq(list)
     }
@@ -405,11 +454,15 @@ export default class Scope {
      */
     fixLayout() {
         var maxY = 20
-        for (let i = 0; i < this.Input.length; i++) {
-            maxY = Math.max(this.Input[i].layoutProperties.y, maxY)
+        if (this.Input) {
+            for (let i = 0; i < this.Input.length; i++) {
+                maxY = Math.max(this.Input[i].layoutProperties.y, maxY)
+            }
         }
-        for (let i = 0; i < this.Output.length; i++) {
-            maxY = Math.max(this.Output[i].layoutProperties.y, maxY)
+        if (this.Output) {
+            for (let i = 0; i < this.Output.length; i++) {
+                maxY = Math.max(this.Output[i].layoutProperties.y, maxY)
+            }
         }
         if (maxY !== this.layout.height) {
             this.layout.height = maxY + 10

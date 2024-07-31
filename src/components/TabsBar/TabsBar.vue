@@ -29,7 +29,7 @@
                     draggable="true"
                     @click="switchCircuit(element.id)"
                 >
-                    <span class="circuitName noSelect">
+                    <span class="circuitName noSelect" @mousedown="circuitNameClicked">
                         {{ truncateString(element.name, 18) }}
                     </span>
                     <span
@@ -79,8 +79,9 @@ import {
 // import MessageBox from '#/components/MessageBox/messageBox.vue'
 import { useState } from '#/store/SimulatorStore/state'
 import { closeCircuit } from '../helpers/deleteCircuit/DeleteCircuit.vue'
+import { circuitNameClicked } from '#/simulator/src/circuit'
 
-const SimulatorState = <SimulatorStateType>useState()
+const SimulatorState = useState()
 const drag: Ref<boolean> = ref(false)
 const updateCount: Ref<number> = ref(0)
 
@@ -111,13 +112,6 @@ function toggleHeight() {
 //     name: string
 //     focussed: boolean
 // }
-
-type SimulatorStateType = {
-    circuit_list: Array<Object>
-    dialogBox: {
-        create_circuit: boolean
-    }
-}
 
 // type InputArrType = {
 //     text: string
@@ -285,7 +279,7 @@ function isEmbed(): boolean {
 </script>
 
 <style scoped>
-#tabsBar{
+#tabsBar {
     padding-right: 50px;
     position: relative;
     overflow: hidden;
@@ -314,7 +308,7 @@ function isEmbed(): boolean {
 }
 
 #tabsBar button {
-    font-size: 1rem; 
+    font-size: 1rem;
     height: 20px;
     width: 20px;
 }
@@ -339,11 +333,11 @@ function isEmbed(): boolean {
     max-height: 30px;
 }
 
-.toolbarButton{
+.toolbarButton {
     height: 22px;
 }
 
-.tabsbar-toggle{
+.tabsbar-toggle {
     position: absolute;
     right: 2.5px;
     top: 2.5px;
@@ -359,10 +353,9 @@ function isEmbed(): boolean {
 }
 
 
-.tabsbar-close{
-    font-size: 1rem; 
+.tabsbar-close {
+    font-size: 1rem;
 }
-
 </style>
 
 <!-- TODO: add types for scopelist and fix key issue with draggable -->

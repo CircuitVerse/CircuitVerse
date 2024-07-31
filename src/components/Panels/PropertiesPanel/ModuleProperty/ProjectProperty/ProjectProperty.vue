@@ -15,13 +15,14 @@
     <p>
         <span>Circuit:</span>
         <input
+            :ref="circnameInput"
             id="circname"
-            :key="SimulatorState.activeCircuit.id"
+            :key="SimulatorState.activeCircuit?.id"
             class="objectPropertyAttribute"
             type="text"
             autocomplete="off"
             name="changeCircuitName"
-            :value="SimulatorState.activeCircuit.name"
+            :value="SimulatorState.activeCircuit?.name"
         />
     </p>
 
@@ -104,9 +105,20 @@ import { useState } from '#/store/SimulatorStore/state'
 import { useProjectStore } from '#/store/projectStore'
 // import DeleteCircuit from '#/components/helpers/deleteCircuit/DeleteCircuit.vue'
 import { closeCircuit } from '#/components/helpers/deleteCircuit/DeleteCircuit.vue'
+import { watch } from 'vue'
+import { ref } from 'vue'
 
 const projectStore = useProjectStore()
 const SimulatorState = <SimulatorStateType>useState()
+const circnameInput = ref<HTMLInputElement | null>(null)
+
+watch(() => SimulatorState.circuit_name_clickable, () => {
+    setTimeout(() => {
+        if (circnameInput.value && SimulatorState.circuit_name_clickable) {
+            circnameInput.value.select()
+        }
+    }, 100)
+})
 // const circuitId: Ref<string | number> = ref(0)
 // const circuitName: Ref<string> = ref('Untitled-Cirucit')
 // const ifPersistentShow: Ref<boolean> = ref(false)
@@ -125,6 +137,7 @@ type SimulatorStateType = {
     dialogBox: {
         delete_circuit: boolean
     }
+    circuit_name_clickable: boolean
 }
 
 // type CircuitItem = {

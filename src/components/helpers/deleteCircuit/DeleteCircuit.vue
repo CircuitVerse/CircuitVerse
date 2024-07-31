@@ -112,13 +112,13 @@ export function closeCircuit(circuitItem: CircuitItem): void {
  * @category circuit
  */
 export function deleteCurrentCircuit(
-    scopeId: string | number = globalScope.id ?? useState().activeCircuit.id
+    scopeId: string | number = globalScope.id ?? useState().activeCircuit?.id
 ) {
     const SimulatorState = <SimulatorStateType>useState()
     const circuit_list = SimulatorState.circuit_list
     let scope = scopeList[scopeId]
     if (scope == undefined)
-        scope = scopeList[globalScope.id ?? SimulatorState.activeCircuit.id]
+        scope = scopeList[globalScope.id ?? SimulatorState.activeCircuit?.id]
 
     if (scope.verilogMetadata.isVerilogCircuit) {
         scope.initialize()
@@ -130,7 +130,7 @@ export function deleteCurrentCircuit(
     )
     circuit_list.splice(index, 1)
     delete scopeList[scope.id]
-    if (scope.id == globalScope.id ?? SimulatorState.activeCircuit.id) {
+    if (scope.id == globalScope.id ?? SimulatorState.activeCircuit?.id) {
         switchCircuit(Object.keys(scopeList)[0])
     }
     showMessage('Circuit was successfully closed')
