@@ -1,21 +1,28 @@
 import { drawCircle } from '../canvasApi'
 import { simulationArea } from '../simulationArea'
 import { tempBuffer } from '../layoutMode'
+import CircuitElement from '../circuitElement'
 
 /**
- * @class
- * @param {number} x - x coord of node
- * @param {number} y - y coord of node
- * @param {strng} id - id for node
- * @param {string=} label - label for the node
- * @param {number} xx - parent x
- * @param {number} yy - parent y
- * @param {number} type - input or output node
- * @param {CircuitElement} parent  parent of the node
  * @category layout
  */
 export default class LayoutNode {
-    constructor(x, y, id, label = '', type, parent) {
+    x: number
+    y: number
+    prevx: number | undefined
+    prevy: number | undefined
+    radius: number
+    clicked: boolean
+    hover: boolean
+    wasClicked: boolean
+    prev: string
+    count: number
+    objectType: string
+    type: number
+    id: string
+    label: string
+    parent: CircuitElement
+    constructor(x: number, y: number, id: string, label = '', type: number, parent: CircuitElement) {
         this.type = type
         this.id = id
 

@@ -19,6 +19,7 @@ import {
 import miniMapArea from './minimap'
 import { showMessage } from './utils'
 import { verilogModeSet } from './Verilog2CV'
+import { useLayoutStore } from '#/store/layoutStore'
 import { circuitElementList } from './metadata'
 
 /**
@@ -30,11 +31,11 @@ import { circuitElementList } from './metadata'
 
 var layoutMode = false
 
-export function layoutModeSet(param) {
+export function layoutModeSet(param: boolean) {
     layoutMode = param
 }
 
-export function layoutModeGet(param) {
+export function layoutModeGet() {
     return layoutMode
 }
 
@@ -42,15 +43,13 @@ export function layoutModeGet(param) {
  * @type {LayoutBuffer} - used to temporartily store all changes.
  * @category layoutMode
  */
-export var tempBuffer
+export var tempBuffer: LayoutBuffer
 
 /**
  * Helper function to determine alignment and position of nodes for rendering
- * @param {number} x - width of label
- * @param {number} y - height of label
  * @category layoutMode
  */
-export function determineLabel(x, y) {
+export function determineLabel(x: number, y: number) {
     if (x === 0) return ['left', 5, 5]
     if (x === tempBuffer.layout.width) return ['right', -5, 5]
     if (y === 0) return ['center', 0, 13]
@@ -147,8 +146,8 @@ export function renderLayout(scope = globalScope) {
         fillText(
             ctx,
             tempBuffer.Input[i].label,
-            tempBuffer.Input[i].x + info[1],
-            tempBuffer.Input[i].y + info[2],
+            tempBuffer.Input[i].x + typeof info[1] === 'number' ? info[1] : parseInt(info[1] as string),
+            tempBuffer.Input[i].y + typeof info[2] === 'number' ? info[2] : parseInt(info[2] as string),
             12
         )
     }
@@ -163,8 +162,8 @@ export function renderLayout(scope = globalScope) {
         fillText(
             ctx,
             tempBuffer.Output[i].label,
-            tempBuffer.Output[i].x + info[1],
-            tempBuffer.Output[i].y + info[2],
+            tempBuffer.Output[i].x + typeof info[1] === 'number' ? info[1] : parseInt(info[1] as string),
+            tempBuffer.Output[i].y + typeof info[2] === 'number' ? info[2] : parseInt(info[2] as string),
             12
         )
     }
@@ -445,27 +444,20 @@ export function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
+    const layoutStore = useLayoutStore()
     prevPropertyObjSet(undefined)
     $('.objectPropertyAttribute').unbind('change keyup paste click')
 
     if (layoutModeGet()) {
         layoutModeSet(false)
-        $('#layoutDialog').fadeOut()
-        $('.layoutElementPanel').fadeOut()
-        $('.elementPanel').fadeIn()
-        $('.timing-diagram-panel').fadeIn()
-        $('.testbench-manual-panel').fadeIn()
+        layoutStore.layoutMode = false
         globalScope.centerFocus(false)
         if (globalScope.verilogMetadata.isVerilogCircuit) verilogModeSet(true)
         dots()
     } else {
         layoutModeSet(true)
         verilogModeSet(false)
-        $('#layoutDialog').fadeIn()
-        $('.layoutElementPanel').fadeIn()
-        $('.elementPanel').fadeOut()
-        $('.timing-diagram-panel').fadeOut()
-        $('.testbench-manual-panel').fadeOut()
+        layoutStore.layoutMode = true
         fillSubcircuitElements()
 
         globalScope.ox = 0

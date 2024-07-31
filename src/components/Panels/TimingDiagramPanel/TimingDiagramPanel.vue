@@ -1,5 +1,5 @@
 <template>
-    <div class="timing-diagram-panel draggable-panel">
+    <div class="timing-diagram-panel draggable-panel" ref="timingDiagramPanelRef">
         <!-- Timing Diagram Panel -->
         <PanelHeader
             :header-title="$t('simulator.panel_header.timing_diagram')"
@@ -42,12 +42,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import _plotArea from '#/simulator/src/plotArea'
 import { timingDiagramButtonActions } from '#/simulator/src/plotArea'
 import TimingDiagramButtons from './TimingDiagramButtons.vue'
 import buttonsJSON from '#/assets/constants/Panels/TimingDiagramPanel/buttons.json'
 import PanelHeader from '../Shared/PanelHeader.vue'
+import { useLayoutStore } from '#/store/layoutStore'
 
 interface TimingDiagramButton {
     title: string
@@ -66,6 +67,12 @@ const plotArea: PlotArea = _plotArea
 const buttons = ref<TimingDiagramButton[]>(buttonsJSON)
 const plotRef = ref<HTMLElement | null>(null)
 const cycleUnits = ref(1000)
+const timingDiagramPanelRef = ref<HTMLElement | null>(null);
+const layoutStore = useLayoutStore()
+
+onMounted(() => {
+    layoutStore.timingDiagramPanelRef = timingDiagramPanelRef.value
+})
 
 function handleButtonClick(button: string) {
     if (button === 'smaller') {

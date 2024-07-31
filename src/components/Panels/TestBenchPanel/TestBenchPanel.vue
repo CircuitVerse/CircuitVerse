@@ -1,5 +1,5 @@
 <template>
-    <div class="testbench-manual-panel draggable-panel noSelect defaultCursor">
+    <div class="testbench-manual-panel draggable-panel noSelect defaultCursor" ref="testbenchPanelRef">
         <div class="panel-header">
             Testbench
             <span class="fas fa-minus-square minimize panel-button"></span>
@@ -108,8 +108,17 @@ import { useTestBenchStore } from '#/store/testBenchStore'
 import { computed } from 'vue'
 import { buttonListenerFunctions } from '#/simulator/src/testbench'
 import { openCreator } from '#/simulator/src/testbench';
+import { useLayoutStore } from '#/store/layoutStore'
+import { onMounted, ref } from 'vue'
 
+const layoutStore = useLayoutStore()
 const testBenchStore = useTestBenchStore();
+const testbenchPanelRef = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+    layoutStore.testbenchPanelRef = testbenchPanelRef.value
+})
+
 const testData = computed(() => testBenchStore.testbenchData?.testData);
 
 const combinedIO = computed(() => {

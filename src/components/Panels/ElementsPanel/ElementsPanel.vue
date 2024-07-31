@@ -1,6 +1,6 @@
 <template>
     <div
-        ref="ElementsPanel"
+        ref="elementsPanelRef"
         class="noSelect defaultCursor draggable-panel draggable-panel-css modules ce-panel elementPanel"
     >
         <PanelHeader
@@ -145,9 +145,13 @@ import { elementHierarchy } from '#/simulator/src/metadata'
 import { simulationArea } from '#/simulator/src/simulationArea'
 import { uxvar } from '#/simulator/src/ux'
 import modules from '#/simulator/src/modules'
-import { onBeforeMount, ref } from 'vue'
+import { onBeforeMount, onMounted, ref } from 'vue'
+import { useLayoutStore } from '#/store/layoutStore'
 var panelData = []
 window.elementPanelList = []
+const layoutStore = useLayoutStore()
+
+const elementsPanelRef = ref<HTMLElement | null>(null);
 
 onBeforeMount(() => {
     for (const category in elementHierarchy) {
@@ -162,6 +166,10 @@ onBeforeMount(() => {
         }
         panelData.push([category, categoryData])
     }
+})
+
+onMounted(() => {
+    layoutStore.elementsPanelRef = elementsPanelRef.value
 })
 
 function getImgUrl(elementName) {

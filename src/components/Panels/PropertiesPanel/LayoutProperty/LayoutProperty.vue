@@ -1,5 +1,5 @@
 <template>
-    <div id="layoutDialog" class="draggable-panel draggable-panel-css">
+    <div id="layoutDialog" ref="layoutDialogRef" class="draggable-panel draggable-panel-css">
         <PanelHeader :header-title="$t('simulator.panel_header.layout')" />
         <div id="layout-body" class="layout-body panel-body">
             <div class="">
@@ -112,12 +112,19 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { tempBuffer, layoutFunctions } from '#/simulator/src/layoutMode'
 import { scheduleUpdate } from '#/simulator/src/engine'
 import PanelHeader from '#/components/Panels/Shared/PanelHeader.vue'
+import { useLayoutStore } from '#/store/layoutStore'
 
 const titleEnable = ref(tempBuffer.layout.titleEnabled)
+const layoutStore = useLayoutStore()
+const layoutDialogRef = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+    layoutStore.layoutDialogRef = layoutDialogRef.value
+})
 
 watch(
     () => titleEnable.value,

@@ -1,3 +1,4 @@
+import CircuitElement from '../circuitElement'
 import LayoutNode from './layoutNode'
 /**
  * Buffer object to store changes so that you can reset changes
@@ -6,6 +7,18 @@ import LayoutNode from './layoutNode'
  * @category layout
  */
 export default class LayoutBuffer {
+    layout: {
+        width: number
+        height: number
+        x: number
+        y: number
+        title_x: number
+        title_y: number
+        titleEnabled: boolean
+    }
+    Input: LayoutNode[]
+    Output: LayoutNode[]
+    subElements: CircuitElement[]
     constructor(scope = globalScope) {
         var w = 300 * DPR
         var h = 50 * DPR
@@ -53,7 +66,7 @@ export default class LayoutBuffer {
      * Check if position is on the boundaries of subcircuit
      * if the desired width and heiht is allowed
      */
-    isAllowed(x, y) {
+    isAllowed(x: number, y: number) {
         if (x < 0 || x > this.layout.width || y < 0 || y > this.layout.height)
             return false
         if (x > 0 && x < this.layout.width && y > 0 && y < this.layout.height)
@@ -76,7 +89,7 @@ export default class LayoutBuffer {
      * Function is called while decreasing height to
      * check if it is possible without moving other node
      */
-    isNodeAt(x, y) {
+    isNodeAt(x: number, y: number) {
         for (let i = 0; i < this.Input.length; i++) {
             if (this.Input[i].x === x && this.Input[i].y === y) return true
         }
