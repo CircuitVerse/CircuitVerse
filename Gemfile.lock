@@ -924,7 +924,7 @@ DEPENDENCIES
   database_consistency
   debug
   devise
-  devise_saml_authenticatable (~> 1.9.1)
+  devise_saml_authenticatable
   disposable_mail!
   dotenv-rails
   erb_lint
