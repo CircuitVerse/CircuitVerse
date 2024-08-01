@@ -41,7 +41,7 @@ var ctxPos = {
     y: 0,
     visible: false,
 }
-// FUNCITON TO SHOW AND HIDE CONTEXT MENU
+// FUNCTION TO SHOW AND HIDE CONTEXT MENU
 function hideContextMenu() {
     var el = document.getElementById('contextMenu')
     el.style = 'opacity:0;'
