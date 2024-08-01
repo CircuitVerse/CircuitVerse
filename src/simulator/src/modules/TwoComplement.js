@@ -94,5 +94,5 @@ export default class TwoComplement extends CircuitElement {
  * @category modules
  */
 TwoComplement.prototype.tooltipText =
-    "Two's Complement Tooltip : Calculates the two's complement"
+    "Two's Complement ToolTip : Calculates the two's complement"
 TwoComplement.prototype.objectType = 'TwoComplement'

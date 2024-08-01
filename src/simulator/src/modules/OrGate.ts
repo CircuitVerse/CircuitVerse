@@ -121,7 +121,7 @@ export default class OrGate extends CircuitElement {
 }
 
 OrGate.prototype.tooltipText =
-    'Or Gate Tooltip : Implements logical disjunction';
+    'Or Gate ToolTip : Implements logical disjunction';
 
 OrGate.prototype.changeInputSize = changeInputSize;
 
