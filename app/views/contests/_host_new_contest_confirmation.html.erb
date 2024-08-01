@@ -1,21 +1,16 @@
+<div id="host-new-contest-modal" class="modal fade" role="dialog">
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
-        <h4 class="modal-title">Host a new Contest</h4>
+        <h4 class="modal-title"><%= t("contest.host_new_contest_modal.heading") %></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to start a new contest?</p>
-        <p>
-        Hosting new contest can:
-        <ul>
-          <li>End the ongoing contest(if any)</li>
-          <li>Make announcement to all the users to participate</li>
-        </ul>
-        </p>
+        <p><%= t("contest.host_new_contest_modal.description") %></p>
+        <%= t("contest.host_new_contest_modal.description_html") %>
       </div>
       <div class="modal-footer">
-        <%= link_to "Confirm", new_contest_path , class: "btn primary-button groups-primary-button", method: :post %>
+        <%= link_to t("contest.close_contest_modal.confirm_button"), new_contest_path , class: "btn primary-button groups-primary-button", method: :post %>
       </div>
     </div>
   </div>

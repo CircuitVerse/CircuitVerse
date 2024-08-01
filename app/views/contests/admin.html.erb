@@ -8,10 +8,10 @@
     </div>
   <% end %>
   <div class="column contests-header">
-    <h3 class="contests-header-title">CONTESTS</h3>
-    <p class="contests-header-description">This page is for admins, you can host a new contest by clicking "Host new contest" button!</p>
+    <h3 class="contests-header-title"><%= t("contest.heading") %></h3>
+    <p class="contests-header-description"><%= t("contest.admin.subtitle") %></p>
     <%= link_to '#', data: {toggle: "modal", target: "#host-new-contest-modal"}, class:"contest-submission-button" do %>
-        <span>Host new contest</span>
+        <span><%= t("contest.admin.new_contest_button") %></span>
     <% end %>
   </div>
   <div class="contest-page-line"></div>
@@ -24,25 +24,25 @@
               <div class="contest-container-header">
                 <div class="contest-container-close">
                   <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal", contest: contest}, class:"contest-container-close-button" do %>
-                    <span>Close</span>
+                    <span><%= t("contest.close") %></span>
                   <% end %>
-                </div>           
+                </div>
                 <div class="contest-container-status-live">
                   <span class="contest-container-status-dot"></span>
-                  <span class="contest-container-status-text">LIVE</span>
+                  <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
                 </div>
               </div>
             <% else %>
               <div class="contest-container-header">
                 <div class="contest-container-status">
                   <span class="contest-container-status-dot"></span>
-                  <span class="contest-container-status-text">Completed</span>
+                  <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
                 </div>
               </div>
             <% end %>
             <div class="contest-container-details">
-              <h5 class="contest-container-details-number">Contest # <%= contest.id %> </h5>
-              <h5 class="contest-container-details-entries">Entries: <%= contest.submissions.count %></h5>
+              <h5 class="contest-container-details-number"><%= t("contest.contest_container.contest_id") %> #<%= contest.id %> </h5>
+              <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
     <div class="col-12 row center-row d-flex justify-content-center">
       <div class="search-no-results-image">
         <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
-        <h6>There are no live or completed contests.</h6>
+        <h6><%= t("contest.no_contest") %></h6>
       </div>
     </div>
   <% end %>

@@ -2,17 +2,16 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header secondary-modal-header">
-        <h4 class="modal-title">Close a Contest</h4>
+        <h4 class="modal-title"><%= t("contest.close_contest_modal.heading") %></h4>
         <button type="button" class="close" data-dismiss="modal">&times;</button>
       </div>
       <div class="modal-body">
-        <p>Are you sure you want to close this contest?</p>
+        <p><%= t("contest.close_contest_modal.description") %></p>
         </p>
       </div>
       <div class="modal-footer">
-         <%# <%= link_to close_contest_path(contest.id), class: "btn primary-delete-button", method: :put do %> %>
-         <%= link_to "#", id: "close-contest-button", class: "btn primary-delete-button", method: :put do %>
-          <span>Confirm</span>
+        <%= link_to "#", id: "close-contest-button", class: "btn primary-delete-button", method: :put do %>
+          <span><%= t("contest.close_contest_modal.confirm_button") %></span>
         <% end %>
       </div>
     </div>

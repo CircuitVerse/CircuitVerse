@@ -10,16 +10,15 @@
       <img class="users-card-image" src="<%= project.image_preview.url %>" alt="<%= project.name %>">
     </div>
     <div class="card-footer users-card-footer d-flex justify-content-between align-items-center">
-      <span class="font-weight-bold">Votes: <%= votes %></span>
+      <span class="font-weight-bold"><%= t("contest.votes") %>: <%= votes %></span>
       <div>
         <%= link_to t("view"), '#', class: "previewButton btn primary-button", data: {toggle: "modal", target: "#projectModal", project: project} %>
         <% if project.author == current_user && contest.status == 'Live' %>
-          <%= link_to "Withdraw", '#', class: "previewButton btn primary-button danger-primary-button", data: {toggle: "modal", target: "#withdraw-submission-confirmation-modal", submission: submission, contest: contest} %>
+          <%= link_to t("contest.withdraw"), '#', class: "previewButton btn primary-button danger-primary-button", data: {toggle: "modal", target: "#withdraw-submission-confirmation-modal", submission: submission, contest: contest} %>
         <% elsif project.author != current_user && contest.status == 'Live' %>
-          <%= link_to "Vote", vote_submission_path(contest.id, submission.id), class: "previewButton btn primary-button", method: :post %>
+          <%= link_to t("contest.vote"), vote_submission_path(contest.id, submission.id), class: "previewButton btn primary-button", method: :post %>
         <% end %>
       </div>
     </div>
   </div>
-  <%= render partial: "view", locals: {project: project} %>
 </div>

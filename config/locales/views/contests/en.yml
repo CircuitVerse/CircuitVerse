@@ -1,0 +1,43 @@
+en:
+  contest:
+    heading: "CONTEST"
+    index:
+      subtitle: "Contests where students show off their amazing circuits and best ones are featured on our homepage!"
+    admin:
+      subtitle: "This page is for admins, you can host a new contest by clicking 'Host new contest' button!"
+      new_contest_button: "Host new contest"
+    show:
+      subtitle: "Get a chance to get featured on our website and show off your circuit to %{user_count} users!"
+      remaining_votes: "Your Remaining Votes:"
+      register_button: "Register your circuit"
+      disable_button: "Contest Ended!"
+      winners: "Winners"
+      winners_description: "The winning projects will get featured on our website and will be awarded as CircuitVerse special tag."
+      contest_entries: "Contest Entries(%{submission_count})"
+      contest_entries_description: "Vote for your favourite entries and help us choose our winners for this week! One user gets 3 votes."
+    votes: "Votes"
+    close: "Close"
+    no_contest: "There are no live or completed contests."
+    contest_container:
+      contest_id: "Contest"
+      entries: "Entries"
+    status:
+      live: "LIVE"
+      completed: "Completed"
+    withdraw: "Withdraw"
+    vote: "Vote"
+    new_submission_page:
+      heading: "Project Submission"
+      select_your_circuit: "Select your circuit"
+    close_contest_modal:
+      heading: "Close a Contest"
+      description: "Are you sure you want to close this contest?"
+      confirm_button: "Confirm"
+    host_new_contest_modal:
+      heading: "Host a new Contest"
+      description: "Are you sure you want to start a new contest?"
+      description_html: "<p>Hosting new contest can:</p><ul><li>End the ongoing contest(if any)</li><li>Make announcement to all the users to participate</li></ul>"
+    withdraw_submission_modal:
+      heading: "Withdraw Submission"
+      description: "Are you sure you want to withdraw your submission from contest?"
+      

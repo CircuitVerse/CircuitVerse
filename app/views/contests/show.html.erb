@@ -1,56 +1,38 @@
-<div class="container" data-controller="contest" data-contest-timeleft-value="<%= @contest.deadline %>">
-  <% if notice %>
-    <div class="row" id='alertdiv'>
-      <div class="alert alert-success alert-dismissible container text-center">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <h6><%= notice %></h6>
-      </div>
+<% if notice %>
+  <div class="row" id='alertdiv'>
+    <div class="alert alert-success alert-dismissible container text-center">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <h6><%= notice %></h6>
     </div>
-  <% end %>
-  <div class="pt-4 d-flex justify-content-between align-items-center">
-    <div>
-      <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
-      <p class="mb-0 contest-header-description">Get a chance to get featured on our website and show off your circuit to <%= @user_count %> users! </p>
-       <% if @contest.status == 'Live' %>
-        <p class="mb-0 contest-header-description">Your Remaining Votes: <%= 3 - current_user.user_contest_votes(@contest.id) %></p>
-      <% end %>
-    </div>
-    
-    <% if @contest.status == 'Live' %>
-      <div class="d-flex flex-column align-items-center">
-        <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">...</span></span>
-        <%= link_to new_submission_path(@contest.id), class: "contest-submission-button" do %>
-          <span>Register your circuit</span>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="d-flex flex-column align-items-center">
-        <button class="contest-ended-button" disabled>Contest Ended!</button>
-      </div>
-    <% end %>
   </div>
-  <% if @contest.status != 'Live' %>
+<% end %>
+<div class="container projects-new-container" data-controller="contest">
+  <div class="">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-row">
+      <h1 class="submain-heading"><%= t("contest.new_submission_page.heading") %></h1>
+      <h2 class="submain-heading assignments-submain-heading"><%= t("contest.contest_container.contest_id") %> #<%= @contest.id %></h2>
+    </div>
     <div class="contest-page-line"></div>
     <div>
-      <h5>Winners</h5>
-      <span class="contest-header-sub-description">The winning projects will get featured on our website and will be awarded as CircuitVerse special tag.</span>
+      <h5><%= t("contest.new_submission_page.select_your_circuit") %></h5>
     </div>
-    <div id="my-circuits-div" class="row center-row circuit-page">
-      <% if !@winner.nil? %>
-        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
+    <div>
+      <%= form_with(model: Submission.new, url: create_submission_path, local: true) do |form| %>
+        <% @projects.each do |project| %>
+          <div class="project-submission">
+            <div class="project-submission-detail">
+              <%= form.radio_button :project_id, project.id, "data-action": "click->contest#enableSubmitButton" %>
+              <i class="fas fa-code-branch ml-2"></i>
+              <strong><span><%= project.author.name %> / <%= project.name %></span></strong>
+            </div>
+            <div>
+              <%= link_to t("view"), user_project_path(project.author_id, project), class: "btn primary-button", id: "project-more-button", target: "_blank" %>
+            </div>
+          </div>
+        <% end %>
+        <%= hidden_field_tag "contest_id", @contest.id %>
+        <%= form.submit "Submit", class: "btn primary-button", id: "submission-submit-button", disabled: true %>
       <% end %>
     </div>
-  <% end %>
-  <div class="contest-page-line"></div>
-  <div>
-    <h5>Contest Entries(<%= @contest.submissions.count %>)</h5>
-    <span class="contest-header-sub-description">Vote for your favourite entries and help us choose our winners for this week! One user gets 3 votes.</span>
   </div>
-  <div id="my-circuits-div" class="row center-row circuit-page">
-    <% @submissions.each do |submission| %>
-        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
-    <% end %>
-  </div>
-  <%= render partial: "view" %>
-  <%= render partial: "withdraw_submission_confirmation" %>
 </div>
