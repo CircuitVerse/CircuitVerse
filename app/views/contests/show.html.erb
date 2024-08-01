@@ -11,11 +11,11 @@
     <div>
       <h3 class="contest-header-title"><%= t("contest.contest_container.contest_id") %> #<%= @contest.id %></h3>
       <p class="mb-0 contest-header-description"><%= t("contest.show.subtitle", user_count: @user_count) %></p>
-      <% if @contest.status == 'Live' %>
+      <% if @contest.live? %>
         <p class="mb-0 contest-header-description"><%= t("contest.show.remaining_votes") %> <%= 3 - current_user.user_contest_votes(@contest.id) %></p>
       <% end %>
     </div>
-    <% if @contest.status == 'Live' %>
+    <% if @contest.live? %>
       <div class="d-flex flex-column align-items-center">
         <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">...</span></span>
         <%= link_to new_submission_path(@contest.id), class: "contest-submission-button" do %>
@@ -28,7 +28,7 @@
       </div>
     <% end %>
   </div>
-  <% if @contest.status != 'Live' %>
+  <% if @contest.completed? %>
     <div class="contest-page-line"></div>
     <div>
       <h5><%= t("contest.show.winners") %></h5>
@@ -42,7 +42,7 @@
   <% end %>
   <div class="contest-page-line"></div>
   <div>
-    <h5><%= t("contest.show.winners_description", submission_count: @contest.submissions.count) %></h5>
+    <h5><%= t("contest.show.contest_entries", submission_count: @contest.submissions.count) %></h5>
     <span class="contest-header-sub-description"><%= t("contest.show.contest_entries_description") %></span>
   </div>
   <div id="my-circuits-div" class="row center-row circuit-page">

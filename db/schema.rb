@@ -159,7 +159,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_27_065015) do
 
   create_table "contests", force: :cascade do |t|
     t.datetime "deadline"
-    t.string "status"
+    t.integer "status"
+    t.integer "integer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

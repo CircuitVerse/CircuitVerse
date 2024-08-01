@@ -18,7 +18,7 @@
         <div class="col-lg-3">
           <div class="contest-container">
             <div class="contest-container-header">
-              <% if contest.status === 'Live' %>
+              <% if contest.live? %>
                 <div class="contest-container-status-live">
                   <span class="contest-container-status-dot"></span>
                   <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
