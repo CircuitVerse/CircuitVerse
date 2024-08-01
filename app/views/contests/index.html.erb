@@ -39,6 +39,9 @@
       <% end %>
     <% end %>
   </div>
+  <div class="container pagination-cont">
+    <%= will_paginate @contests, renderer: PaginateRenderer %>
+  </div>
   <% if @contests.empty? %>
     <div class="col-12 row center-row d-flex justify-content-center">
       <div class="search-no-results-image">

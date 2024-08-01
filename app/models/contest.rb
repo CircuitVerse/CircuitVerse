@@ -11,4 +11,6 @@ class Contest < ApplicationRecord
       ContestDeadlineJob.set(wait: ((deadline - Time.zone.now) / 60).minute).perform_later(id)
     end
   end
+
+  self.per_page = 8
 end
