@@ -221,4 +221,4 @@ gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
 # for SAML based SSO
-gem 'devise_saml_authenticatable', '~> 1.9.1'
+gem 'devise_saml_authenticatable'
