@@ -102,7 +102,7 @@ export default class SRflipFlop extends CircuitElement {
         ctx.font = '20px Raleway'
         ctx.fillStyle = colors['input_text']
         ctx.textAlign = 'center'
-        fillText(ctx, this.state.toString(16), xx, yy + 5)
+        this.state ? fillText(ctx, this.state.toString(16), xx, yy + 5) : fillText(ctx, '0', xx, yy + 5);
         ctx.fill()
     }
 }
