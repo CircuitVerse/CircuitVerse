@@ -5,7 +5,7 @@ class ContestDeadlineJob < ApplicationJob
 
   def perform(contest_id)
     contest = Contest.find_by(id: contest_id)
-    return if contest.nil? || (contest.status != 'Live')
+    return if contest.nil? || (contest.status != "Live")
 
     contest.with_lock do
       if Time.zone.now - contest.deadline >= -10 && (contest.status == "Live")
