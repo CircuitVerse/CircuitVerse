@@ -649,7 +649,7 @@ GEM
       railties (>= 5.2)
     reverse_markdown (2.1.1)
       nokogiri
-    rexml (3.3.2)
+    rexml (3.3.3)
       strscan
     rouge (4.2.0)
     rsolr (2.2.1)
