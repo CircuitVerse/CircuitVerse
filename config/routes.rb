@@ -104,7 +104,7 @@ Rails.application.routes.draw do
   end
 
   # contest
-  get "/contests/admin", to: "contests#admin"
+  get "/contests/admin", to: "contests#admin", as: "contests_admin"
   get "/contests", to: "contests#index", as: "contests"
   get "/contests/:id", to: "contests#show", as: "contest_page"
   post "/contests/host", to: "contests#create", as: "new_contest"
