@@ -437,11 +437,11 @@ export function play(scope = globalScope, resetNodes = false) {
             forceResetNodesSet(true)
         }
     }
-    // Check for TriState Contentions
+    // Check for Contentions
     if (simulationArea.contentionPending.length) {
         showError('Contention at TriState')
         forceResetNodesSet(true)
-        errorDetectedSet(true)
+        showError('Contention Error: One or more bus contentions in the circuit (check highlighted nodes)');
     }
 }
 
