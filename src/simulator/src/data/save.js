@@ -1,6 +1,6 @@
 import { scopeList } from '../circuit'
 import { resetup } from '../setup'
-import { update } from '../engine'
+import { update, updateSubcircuitSet } from '../engine'
 import { stripTags, showMessage } from '../utils'
 import { backUp } from './backupCircuit'
 import { simulationArea } from '../simulationArea'
@@ -122,6 +122,13 @@ export async function generateSaveData(name, setName = true) {
         }
 
         completed[id] = true
+
+        // This update is very important.
+        // if a scope's input/output changes and the user saves without going
+        // to circuits where this circuit is used as a subcircuit. It will
+        // break the code since the Subcircuit will have different number of
+        // in/out nodes compared to the localscope input/output objects.
+        updateSubcircuitSet(true);
         update(scopeList[id], true) // For any pending integrity checks on subcircuits
         data.scopes.push(backUp(scopeList[id]))
     }
