@@ -26,7 +26,8 @@ export default class PriorityEncoder extends CircuitElement {
             this.yOff = 2
         }
 
-        this.setDimensions(20, this.yOff * 5 * this.inputSize)
+        this.setDimensions(20, this.yOff * 5 * this.inputSize + 10);
+        this.rightDimensionX += 10;
         this.directionFixed = true
         this.rectangleObject = false
 

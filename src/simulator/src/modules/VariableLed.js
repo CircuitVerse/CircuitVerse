@@ -26,6 +26,7 @@ export default class VariableLed extends CircuitElement {
         super(x, y, scope, 'UP', 8)
         this.rectangleObject = false
         this.setDimensions(10, 20)
+        this.downDimensionY = 40;
         this.inp1 = new Node(-40, 0, 0, this, 8)
         this.directionFixed = true
         this.fixedBitWidth = true
