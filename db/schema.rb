@@ -415,12 +415,14 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_02_055136) do
   create_table "submissions", force: :cascade do |t|
     t.bigint "contest_id"
     t.bigint "project_id"
+    t.bigint "user_id"
     t.bigint "submission_votes_count", default: 0
     t.boolean "winner", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["contest_id"], name: "index_submissions_on_contest_id"
     t.index ["project_id"], name: "index_submissions_on_project_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -546,6 +548,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_02_055136) do
   add_foreign_key "submission_votes", "users"
   add_foreign_key "submissions", "contests"
   add_foreign_key "submissions", "projects"
+  add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
   add_foreign_key "winners", "contests"

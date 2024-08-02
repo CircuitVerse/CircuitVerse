@@ -16,7 +16,10 @@
         <% if project.author == current_user && contest.live? %>
           <%= link_to t("contest.withdraw"), '#', class: "previewButton btn primary-button danger-primary-button", data: {toggle: "modal", target: "#withdraw-submission-confirmation-modal", submission: submission, contest: contest} %>
         <% elsif project.author != current_user && contest.live? %>
-          <%= link_to t("contest.vote"), vote_submission_path(contest.id, submission.id), class: "previewButton btn primary-button", method: :post %>
+          <%= link_to vote_submission_path(contest.id, submission.id), class: "previewButton btn primary-button", method: :post do %>
+            <span><%= t("contest.vote") %></span>
+            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+          <% end %>
         <% end %>
       </div>
     </div>

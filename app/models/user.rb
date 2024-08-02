@@ -23,6 +23,7 @@ class User < ApplicationRecord
   has_many :grades
   acts_as_commontator
 
+  has_many :submission, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: "project", through: :collaborations
 

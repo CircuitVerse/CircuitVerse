@@ -40,6 +40,18 @@
       <% end %>
     </div>
   <% end %>
+  <% if @user_submission.count.positive? %>
+    <div class="contest-page-line"></div>
+    <div>
+      <h5><%= t("contest.show.user_submissions") %></h5>
+      <span class="contest-header-sub-description"><%= t("contest.show.user_submissions_description") %></span>
+    </div>
+    <div id="my-circuits-div" class="row center-row circuit-page">
+      <% @user_submission.each do |submission| %>
+          <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
+      <% end %>
+    </div>
+  <% end %>
   <div class="contest-page-line"></div>
   <div>
     <h5><%= t("contest.show.contest_entries", submission_count: @contest.submissions.count) %></h5>
