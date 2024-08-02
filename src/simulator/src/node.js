@@ -396,7 +396,7 @@ export default class Node {
                     this.parent.isResolvable() &&
                     !this.parent.queueProperties.inQueue
                 ) {
-                    if (this.parent.objectType == 'TriState') {
+                    if (this.parent.objectType == 'TriState' || this.parent.objectType == 'ControlledInverter') {
                         if (this.parent.state.value) {
                             simulationArea.simulationQueue.add(this.parent)
                         }
@@ -435,11 +435,7 @@ export default class Node {
                         `Contention Error: ${this.value} and ${node.value} at ${circuitElementName} in ${circuitName}`
                     )
                 } else if (node.bitWidth == this.bitWidth || node.type == 2) {
-                    if (
-                        node.parent.objectType == 'TriState' &&
-                        node.value != undefined &&
-                        node.type == 1
-                    ) {
+                    if ((node.parent.objectType == 'TriState' || node.parent.objectType == 'ControlledInverter') && node.value != undefined) {
                         if (node.parent.state.value) {
                             simulationArea.contentionPending.push(node.parent)
                         }
