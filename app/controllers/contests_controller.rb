@@ -2,7 +2,6 @@
 
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  before_action :sortlist_the_winners, only: %i[close_contest]
   # before_action :authorize_admin, only: %i[admin]
 
   # GET /contests
@@ -20,7 +19,9 @@ class ContestsController < ApplicationController
     @contest = Contest.find(params[:id])
     @submissions = @contest.submissions.paginate(:page => params[:page]).limit(6)
     @user_count = User.count
-    @winner = ContestWinner.find_by(contest_id: @contest.id).submission
+    if @contest.completed?
+      @winner = ContestWinner.find_by(contest_id: @contest.id).submission
+    end
   end
 
   # GET /contests/admin
@@ -30,6 +31,7 @@ class ContestsController < ApplicationController
 
   def close_contest
     @contest = Contest.find(params[:contest_id])
+    ShortlistContestWinner.new(@contest.id)
     @contest.deadline = Time.zone.now
     @contest.status = :completed
     respond_to do |format|
@@ -100,7 +102,7 @@ class ContestsController < ApplicationController
   # POST /contests/:contest_id/submission/:submission_id/upvote
   def upvote
     user_contest_votes = current_user.user_contest_votes(params[:contest_id])
-    if user_contest_votes > 3
+    if user_contest_votes >= 3
       notice = "You have used all your votes!"
     else
       vote = SubmissionVote.find_by(user_id: current_user.id, submission_id: params[:submission_id])
@@ -116,22 +118,5 @@ class ContestsController < ApplicationController
       end
     end
     redirect_to contest_page_path(params[:contest_id]), notice: notice
-  end
-
-  def sortlist_the_winners
-    @contest = Contest.find(params[:contest_id])
-    @most_voted_submission = Submission.where(contest_id: @contest.id).order("submission_votes_count DESC").limit(1).first
-    return if @most_voted_submission.nil?
-
-    contest_winner = ContestWinner.new
-    contest_winner.contest_id = @contest.id
-    contest_winner.submission_id = @most_voted_submission.id
-    contest_winner.project_id = @most_voted_submission.project_id
-    contest_winner.save!
-    @most_voted_submission.winner = true
-    @project = Project.find(@most_voted_submission.project_id)
-    FeaturedCircuit.create(project_id: @project.id)
-    ContestWinnerNotification.with(project: @project).deliver_later(@project.author)
-    @most_voted_submission.save!
   end
 end
