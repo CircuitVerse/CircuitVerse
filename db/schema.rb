@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_07_27_065015) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_02_055136) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -503,6 +503,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_27_065015) do
     t.index ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
   end
 
+  create_table "winners", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "submission_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_winners_on_contest_id"
+    t.index ["project_id"], name: "index_winners_on_project_id"
+    t.index ["submission_id"], name: "index_winners_on_submission_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "assignments", "groups"
@@ -537,6 +548,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_07_27_065015) do
   add_foreign_key "submissions", "projects"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "winners", "contests"
+  add_foreign_key "winners", "projects"
+  add_foreign_key "winners", "submissions"
   # no candidate create_trigger statement could be found, creating an adapter-specific one
   execute(<<-SQL)
 CREATE OR REPLACE FUNCTION pg_catalog.tsvector_update_trigger()
