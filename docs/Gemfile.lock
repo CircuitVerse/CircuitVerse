@@ -99,7 +99,7 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     redcarpet (3.5.1)
-    rexml (3.3.2)
+    rexml (3.3.3)
       strscan
     rouge (2.0.7)
     sass (3.7.4)
