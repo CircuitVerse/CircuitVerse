@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module HomepageComponents
   class FeatureCardComponent < ViewComponent::Base
     def initialize(image_path:, image_alt:, title_key:, text_key:)
