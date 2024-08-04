@@ -26,3 +26,7 @@ gems:
     ignore: true
   - name: rubocop
     ignore: true
+  - name: mime-types
+    ignore: true
+  - name: ffi
+    ignore: true
