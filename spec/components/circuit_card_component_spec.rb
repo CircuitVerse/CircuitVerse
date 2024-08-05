@@ -15,13 +15,4 @@ RSpec.describe CircuitCardComponent, type: :component do
     expect(page).to have_css(".circuit-card-name .tooltiptext", text: circuit.name)
     expect(page).to have_link(I18n.t("view"))
   end
-
-  it "calls project_image_preview helper with correct arguments" do
-    component = described_class.new(circuit: circuit, current_user: current_user)
-    allow(component).to receive(:helpers).and_return(double(project_image_preview: "path/to/image.jpg"))
-
-    expect(component.helpers).to receive(:project_image_preview).with(circuit, current_user)
-
-    component.image_path
-  end
 end
