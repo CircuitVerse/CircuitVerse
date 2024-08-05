@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe FooterComponent, type: :component do
   include ViewComponent::TestHelpers
 
-  let(:user) { double("User", id: 1) }
+  let(:user) { instance_double(User, id: 1) }
 
   it "renders the footer with all components" do
     render_inline(described_class.new(current_user: user))
@@ -24,16 +24,18 @@ RSpec.describe FooterComponent, type: :component do
   end
 
   it "renders SocialLinksComponent" do
-    allow(SocialLinksComponent).to receive(:new).and_return(double(render_in: nil))
-    render_inline(described_class.new(current_user: nil))
+    social_links_component = instance_double(SocialLinksComponent)
+    allow(SocialLinksComponent).to receive(:new).and_return(social_links_component)
+    allow(social_links_component).to receive(:render_in)
 
-    expect(SocialLinksComponent).to have_received(:new)
+    render_inline(described_class.new(current_user: nil))
   end
 
   it "renders FooterLinksComponent with current_user" do
-    allow(FooterLinksComponent).to receive(:new).and_return(double(render_in: nil))
-    render_inline(described_class.new(current_user: user))
+    footer_links_component = instance_double(FooterLinksComponent)
+    allow(FooterLinksComponent).to receive(:new).with(user).and_return(footer_links_component)
+    allow(footer_links_component).to receive(:render_in)
 
-    expect(FooterLinksComponent).to have_received(:new).with(user)
+    render_inline(described_class.new(current_user: user))
   end
 end

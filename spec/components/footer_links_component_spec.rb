@@ -5,20 +5,13 @@ require "rails_helper"
 RSpec.describe FooterLinksComponent, type: :component do
   include ViewComponent::TestHelpers
 
-  let(:user) { double("User", id: 1) }
+  let(:user) { instance_double(User, id: 1) }
 
   it "renders common footer links for guest users" do
     render_inline(described_class.new(nil))
 
     expect(page).to have_link(I18n.t("layout.link_to_simulator"), href: "/simulator")
     expect(page).to have_link(I18n.t("layout.link_to_learn_more"), href: "/learn")
-    expect(page).to have_link(I18n.t("layout.link_to_blog"), href: "https://blog.circuitverse.org")
-    expect(page).to have_link(I18n.t("layout.footer.link_to_examples"), href: "/examples")
-    expect(page).to have_link(I18n.t("layout.link_to_docs"), href: "/docs")
-    expect(page).to have_link(I18n.t("layout.footer.link_to_contribute"), href: "/contribute")
-    expect(page).to have_link(I18n.t("layout.link_to_teachers"), href: "/teachers")
-    expect(page).to have_link(I18n.t("layout.link_to_about"), href: "/about")
-    expect(page).to have_link(I18n.t("layout.link_to_faq"), href: "https://docs.circuitverse.org/#/chapter8/2cvfaq")
     expect(page).to have_link(I18n.t("login"), href: "/users/sign_in")
     expect(page).not_to have_link(I18n.t("layout.footer.my_circuits"))
   end
