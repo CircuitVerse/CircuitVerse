@@ -12,8 +12,8 @@ class CircuitCardComponentPreview < ViewComponent::Preview
                      Project.create!(name: project, author: user_record, project_access_type: "Public")
 
     render(CircuitCardComponent.new(
-             circuit: project_record,
-             current_user: user_record
-           ))
+      circuit: project_record,
+      current_user: user_record
+    ))
   end
 end
