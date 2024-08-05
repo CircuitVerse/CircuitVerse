@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe CircuitCardComponent, type: :component do
-  let(:circuit) { create(:project) }  
+  let(:circuit) { create(:project) }
   let(:current_user) { create(:user) }
 
   it "renders the circuit card with correct content" do
@@ -19,9 +19,9 @@ RSpec.describe CircuitCardComponent, type: :component do
   it "calls project_image_preview helper with correct arguments" do
     component = described_class.new(circuit: circuit, current_user: current_user)
     allow(component).to receive(:helpers).and_return(double(project_image_preview: "path/to/image.jpg"))
-    
+
     expect(component.helpers).to receive(:project_image_preview).with(circuit, current_user)
-    
+
     component.image_path
   end
 end

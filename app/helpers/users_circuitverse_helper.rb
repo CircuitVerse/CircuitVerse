@@ -27,7 +27,7 @@ module UsersCircuitverseHelper
   private
 
     def return_circuit_preview(project)
-      if project && project.circuit_preview.attached?
+      if project&.circuit_preview&.attached?
         project.circuit_preview
       else
         image_path("empty_project/default.png")
