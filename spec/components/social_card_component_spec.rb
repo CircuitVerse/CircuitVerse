@@ -1,16 +1,16 @@
-#frozen_string_literal: true
+# frozen_string_literal: true
 
 require "rails_helper"
 
 RSpec.describe SocialCardComponent, type: :component do
   it "renders the social card with correct content" do
-    render_inline(SocialCardComponent.new(
-      link_url: "https://github.com/CircuitVerse",
-      image_path: "SVGs/github.svg",
-      image_alt: "Github Logo",
-      heading: "Contribute at GitHub",
-      description: "Help us improve CircuitVerse"
-    ))
+    render_inline(described_class.new(
+                    link_url: "https://github.com/CircuitVerse",
+                    image_path: "SVGs/github.svg",
+                    image_alt: "Github Logo",
+                    heading: "Contribute at GitHub",
+                    description: "Help us improve CircuitVerse"
+                  ))
 
     expect(page).to have_css(".social-card.contribute-social-card")
     expect(page).to have_link(href: "https://github.com/CircuitVerse")
