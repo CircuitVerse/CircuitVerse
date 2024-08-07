@@ -79,6 +79,7 @@ hi:
     shared:
       login_with: "इनके उपयोग द्वारा लॉग इन करें"
       login_with_sso: "सिंगल साइन ऑन"
+      resend_email: "पुष्टि संबंधी निर्देश प्राप्त नहीं हुए?"
     unlocks:
       resend_unlock_instructions: "अनलॉक करने के निर्देश फिर से भेजें"
     notifications:
