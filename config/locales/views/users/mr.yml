@@ -15,7 +15,7 @@ mr:
       edit_profile:
         title: "%{name} - प्रोफाइल संपादित करा"
         heading: "प्रोफाईल संपादित करा"
-        description_html: "<sup><i class=\"fa fa-asterisk user-edit-asterisk\"></i></sup> सह चिन्हांकित फील्ड अनिवार्य आहेत"
+        description_html: '<sup><i class="fa fa-asterisk user-edit-asterisk"></i></sup> सह चिन्हांकित फील्ड अनिवार्य आहेत'
         profile_picture: "परिचय चित्र"
         choose_file: "फाईल निवडा"
         remove_picture: "फोटो हटवा"
@@ -89,9 +89,10 @@ mr:
       mark_as_read_button: "सर्व वाचलेले म्हणून चिन्हांकित करा"
       no_notifications: "तुमच्याकडे कोणत्याही सूचना नाहीत!"
       no_unread_notifications: "तुमच्याकडे कोणत्याही न वाचलेल्या सूचना नाहीत!"
-      see_all : "सभी देखें"
+      see_all: "सभी देखें"
       fork_notification: "%{user} ने तुमचा प्रकल्प  फोर्क केला %{project}"
       star_notification: "%{user} ने तुमच्या प्रकल्पाला तारांकित केले %{project}"
       new_assignment_notification: "तुम्हाला एक नवीन कार्य नियुक्त केले गेले आहे! - '%{assignment_name}'"
       forum_thread_notification: "%{user} ने नवीन धागा '%{thread}' पोस्ट केला"
       comment_notif: "%{user} ने '%{thread}' वर ​​टिप्पणी केली"
+      new_collaborator_notification: "आपल्याला %{user} यांच्याकडून %{project} मध्ये सहकारी म्हणून समाविष्ट केले गेले आहे"
