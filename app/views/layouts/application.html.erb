@@ -25,7 +25,7 @@
   <body>
     <%= render "layouts/header" %>
     <%= yield %>
-    <%= render "layouts/footer" %>
+    <%= render(FooterComponent.new(current_user: current_user)) %>
 
     <script type="text/javascript">
       // In this script tag we are checking alert's and if there is alert this code will be execute
