@@ -311,3 +311,19 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
 end
+
+Devise.saml_update_resource_hook = Proc.new do |user, saml_response, auth_value|
+  saml_response.attributes.resource_keys.each do |key|
+    user.send "#{key}=", saml_response.attribute_value_by_resource_key(key)
+  end
+
+  if Devise.saml_use_subject
+    user.send "#{Devise.saml_default_user_key}=", auth_value
+  end
+
+  if user.id.nil?
+    user.name = user.email if user.name.blank?
+    user.password = Devise.friendly_token[0, 20]
+  end
+  user.save!
+end
