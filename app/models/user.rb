@@ -107,7 +107,6 @@ class User < ApplicationRecord
     SubmissionVote.where(user_id: id, contest_id: contest).count
   end
 
-
   private
 
     def send_welcome_mail

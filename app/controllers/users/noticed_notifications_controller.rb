@@ -11,7 +11,7 @@ class Users::NoticedNotificationsController < ApplicationController
   def mark_as_read
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
-    
+
     if notification.type == "ContestNotification"
       contest = notification.params[:contest]
       redirect_to contest_page_path(contest.id)

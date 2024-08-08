@@ -38,7 +38,7 @@ describe "Contests", type: :system do
 
     it "render the project submission page and submit the project" do
       expect(page).to have_text("Project Submission")
-      expect(page).to have_text("#{@project.name}")
+      expect(page).to have_text(@project.name.to_s)
 
       page.find("#submission_project_id_#{@project.id}").click
       page.find("#submission-submit-button").click

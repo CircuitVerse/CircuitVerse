@@ -6,7 +6,7 @@ class ContestsController < ApplicationController
 
   # GET /contests
   def index
-    @contests = Contest.all.paginate(:page => params[:page]).order("id DESC").limit(Contest.per_page)
+    @contests = Contest.all.paginate(page: params[:page]).order("id DESC").limit(Contest.per_page)
     respond_to do |format|
       format.html
       format.json { render json: @contests }
@@ -18,16 +18,16 @@ class ContestsController < ApplicationController
   def show
     @contest = Contest.find(params[:id])
     @user_submission = @contest.submissions.where(user_id: current_user.id)
-    @submissions = @contest.submissions.where.not(user_id: current_user.id).paginate(:page => params[:page]).limit(6)
+    @submissions = @contest.submissions.where.not(user_id: current_user.id).paginate(page: params[:page]).limit(6)
     @user_count = User.count
-    if @contest.completed?
-      @winner = ContestWinner.find_by(contest_id: @contest.id).submission
-    end
+    return unless @contest.completed?
+
+    @winner = ContestWinner.find_by(contest_id: @contest.id).submission
   end
 
   # GET /contests/admin
   def admin
-    @contests = Contest.all.paginate(:page => params[:page]).order("id DESC").limit(Contest.per_page)
+    @contests = Contest.all.paginate(page: params[:page]).order("id DESC").limit(Contest.per_page)
   end
 
   def close_contest
@@ -49,12 +49,12 @@ class ContestsController < ApplicationController
   # POST /contest/create
   def create
     # checking for any other live contest, if found mark is as completed
-    Contest.all.each do |contest|
-      if contest.live?
-        notice = "Concurrent contests are not allowed, close other contests before creating a new one."
-        redirect_to contests_admin_path, notice: notice
-        return
-      end
+    Contest.find_each do |contest|
+      next unless contest.live?
+
+      notice = "Concurrent contests are not allowed, close other contests before creating a new one."
+      redirect_to contests_admin_path, notice: notice
+      return
     end
     @contest = Contest.new
     @contest.deadline = 1.month.from_now
