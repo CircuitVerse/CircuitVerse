@@ -157,6 +157,17 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_02_055136) do
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
   end
 
+  create_table "contest_winners", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "submission_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_contest_winners_on_contest_id"
+    t.index ["project_id"], name: "index_contest_winners_on_project_id"
+    t.index ["submission_id"], name: "index_contest_winners_on_submission_id"
+  end
+
   create_table "contests", force: :cascade do |t|
     t.datetime "deadline"
     t.integer "status"
@@ -522,6 +533,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_02_055136) do
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
+  add_foreign_key "contest_winners", "contests"
+  add_foreign_key "contest_winners", "projects"
+  add_foreign_key "contest_winners", "submissions"
   add_foreign_key "custom_mails", "users"
   add_foreign_key "featured_circuits", "projects"
   add_foreign_key "forum_posts", "forum_threads"
@@ -551,9 +565,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_02_055136) do
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
-  add_foreign_key "winners", "contests"
-  add_foreign_key "winners", "projects"
-  add_foreign_key "winners", "submissions"
   # no candidate create_trigger statement could be found, creating an adapter-specific one
   execute(<<-SQL)
 CREATE OR REPLACE FUNCTION pg_catalog.tsvector_update_trigger()
