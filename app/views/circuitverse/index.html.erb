@@ -169,7 +169,7 @@
         </div>
         <% cache :featured_circuits, expires_in: 6.hours do %>
           <div class="row center-row justify-content-center">
-            <%= render(CircuitCardComponent.with_collection(@featured_circuits, current_user: current_user)) %>
+            <%= render(CircuitCardComponent.with_collection(@featured_circuits)) %>
           </div>
         <% end %>
         <div class="row center-row">
@@ -188,7 +188,7 @@
           </div>
         </div>
         <div class="row center-row justify-content-center">
-          <%= render(CircuitCardComponent.with_collection(@projects, current_user: current_user)) %>
+          <%= render(CircuitCardComponent.with_collection(@projects)) %>
         </div>
         <div class="container pagination-cont">
           <%= will_paginate @projects, renderer: PaginateRenderer, page_links: false %>
