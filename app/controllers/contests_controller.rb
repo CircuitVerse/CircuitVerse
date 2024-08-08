@@ -85,6 +85,7 @@ class ContestsController < ApplicationController
       @submission = Submission.new
       @submission.project_id = params[:submission][:project_id]
       @submission.contest_id = params[:contest_id]
+      @submission.user_id = current_user.id
       if @submission.save
         redirect_to contest_page_path(params[:contest_id]), notice: "Submission was successfully added."
       end
