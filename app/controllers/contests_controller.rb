@@ -20,7 +20,7 @@ class ContestsController < ApplicationController
     @user_submission = @contest.submissions.where(user_id: current_user.id)
     @submissions = @contest.submissions.where.not(user_id: current_user.id).paginate(page: params[:page]).limit(6)
     @user_count = User.count
-    return unless @contest.completed?
+    return unless @contest.completed? && Submission.where(contest_id: @contest.id).count.nil?
 
     @winner = ContestWinner.find_by(contest_id: @contest.id).submission
   end
@@ -48,25 +48,21 @@ class ContestsController < ApplicationController
 
   # POST /contest/create
   def create
-    # checking for any other live contest, if found mark is as completed
-    Contest.find_each do |contest|
-      next unless contest.live?
-
-      notice = "Concurrent contests are not allowed, close other contests before creating a new one."
+    if Contest.exists?(status: :live)
+      notice = "Concurrent contests are not allowed. Close other contests before creating a new one."
       redirect_to contests_admin_path, notice: notice
-      return
-    end
-    @contest = Contest.new
-    @contest.deadline = 1.month.from_now
-    @contest.status = :live
-    respond_to do |format|
-      if @contest.save
-        ContestNotification.with(contest: @contest).deliver_later(User.all)
-        format.html { redirect_to contest_page_path(@contest.id), notice: "Contest was successfully started." }
-        format.json { render :show, status: :created, location: @contest }
-      else
-        format.html { render :admin }
-        format.json { render json: @contest.errors, status: :unprocessable_entity }
+    else
+      @contest = Contest.new(deadline: 1.month.from_now, status: :live)
+      
+      respond_to do |format|
+        if @contest.save
+          ContestNotification.with(contest: @contest).deliver_later(User.all)
+          format.html { redirect_to contest_page_path(@contest), notice: "Contest was successfully started." }
+          format.json { render :show, status: :created, location: @contest }
+        else
+          format.html { render :admin }
+          format.json { render json: @contest.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
