@@ -74,7 +74,7 @@
 
   .contest-container-status-live {
     align-items: center;
-    background: #001B0B;
+    background: $contest-container-status-live-bg;
     border-radius: 8px;
     display: flex;
     padding: 2px 6px;
@@ -83,66 +83,66 @@
     top: 10px;
 
     .contest-container-status-dot {
-      width: 8px;
-      height: 8px;
-      background: #F4511E;
+      background: $contest-container-status-dot-bg;
       border-radius: 50%;
+      height: 8px;
       margin-right: 3px;
+      width: 8px;
     }
   }
 
   .contest-container-status-text {
-    font-weight: 400;
+    color: $white;
     font-size: 12px;
-    color: white;
+    font-weight: 400;
   }
 }
 
 .contest-header-timer {
-  color: #2D9CDB;
-  font-weight: 400;
+  color: $contest-header-timer;
   font-size: 14px;
+  font-weight: 400;
   line-height: 22px;
 }
 
 .contest-ended-button {
-  font-weight: 500;
-  font-size: 14px;
-  padding: 9px 16px;
-  color: #AFAFAF;
-  background: #E5E5E5;
-  border: 1px solid #C0C0C0;
+  background: $contest-ended-button-bg;
+  border: 1px solid $contest-ended-button-border-color;
   border-radius: 4px;
-  transition: 0.2s ease-in-out;
+  color: $contest-ended-button-color;
   cursor: not-allowed;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 16px;
+  transition: .2s ease-in-out;
 }
 
 .contest-submission-button {
-  font-weight: 500;
-  font-size: 14px;
-  padding: 9px 16px;
-  color: white;
   background: $primary-green;
   border: 1px solid $primary-green;
   border-radius: 4px;
-  transition: 0.2s ease-in-out;
+  color: $white;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 9px 16px;
+  transition: .2s ease-in-out;
 
   &:hover {
     background: $secondary-green;
+    color: $white;
     text-decoration: none;
-    color: white;
   }
 }
 
 .contest-page-line {
-  width: 100%;
-  border-bottom: 1px solid #D9D9D9;
+  border-bottom: 1px solid $contest-page-line-border;
   margin: 1rem 0;
+  width: 100%;
 }
 
 .submission-card-header {
-  background-color: #f9fffc;
-  border-bottom: 1px solid #42b983;
+  background-color: $card-green;
+  border-bottom: 1px solid $primary-green;
 }
 
 .contest-header-title {
@@ -150,47 +150,47 @@
 }
 
 .contest-header-description {
-  color: #4f4f4f;
+  color: $contest-header-description-color;
 }
 
 .contest-header-sub-description {
-  color: #4f4f4f;
+  color: $contest-header-description-color;
   font-size: 14px;
 }
 
 .contest-container-close-button {
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  border: none;
-  background: #ff5959;
-  color: white;
+  background: $primary-red;
+  border: 0;
   border-radius: 5px;
+  color: $white;
   font-size: 14px;
+  left: 10px;
   padding: 2px 5px;
+  position: absolute;
+  top: 10px;
 
   &:hover {
+    box-shadow: 0 0 5px 0 #0000004d;
+    color: $white;
     text-decoration: none;
-    color: white;
-    box-shadow: 0 0 5px 0px #0000004d;
   }
 }
 
 .project-submission {
-  display: flex;
   align-items: center;
+  background: $card-green;
+  border: 1px solid $primary-green;
+  display: flex;
   justify-content: space-between;
-  padding: 10px;
-  background: #f9fffc;
-  border: 1px solid #42b983;
   margin-bottom: 1rem;
+  padding: 10px;
 }
 
-.danger-primary-button{
-  background: #dc5656;
+.danger-primary-button {
+  background: $contest-danger-primary-button;
   margin-right: 0;
 
   &:hover {
-    background-color: #ae4141;
+    background-color: $contest-danger-primary-button-hover;
   }
 }
