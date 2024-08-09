@@ -10,7 +10,8 @@
         "no-plusplus": 0,
         "vars-on-top": 0,
         "no-unused-vars": 0,
-        "max-lines-per-function": 0
+        "max-lines-per-function": 0,
+        "parser": "@babel/eslint-parser"
     }
 
 }

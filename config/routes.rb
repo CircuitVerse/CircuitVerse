@@ -106,6 +106,17 @@ Rails.application.routes.draw do
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
 
+  # contest
+  get "/contests/admin", to: "contests#admin", as: "contests_admin"
+  get "/contests", to: "contests#index", as: "contests"
+  get "/contests/:id", to: "contests#show", as: "contest_page"
+  post "/contests/host", to: "contests#create", as: "new_contest"
+  put "/contests/:contest_id/close_contest", to: "contests#close_contest", as: "close_contest"
+  get "/contests/:id/new_submission", to: "contests#new_submission", as: "new_submission"
+  post "/contests/:id/create_submission", to: "contests#create_submission", as: "create_submission"
+  delete "/contests/:contest_id/withdraw/:submission_id", to: "contests#withdraw", as: "withdraw_submission"
+  post "/contests/:contest_id/upvote/:submission_id", to: "contests#upvote", as: "vote_submission"
+
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]

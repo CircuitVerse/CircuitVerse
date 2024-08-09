@@ -11,6 +11,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars
+  has_many :votes
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
   devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
@@ -22,6 +23,7 @@ class User < ApplicationRecord
   has_many :grades
   acts_as_commontator
 
+  has_many :submission, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: "project", through: :collaborations
 
@@ -99,6 +101,10 @@ class User < ApplicationRecord
 
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
+  end
+
+  def user_contest_votes(contest)
+    SubmissionVote.where(user_id: id, contest_id: contest).count
   end
 
   private

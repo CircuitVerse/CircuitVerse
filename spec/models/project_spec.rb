@@ -18,6 +18,8 @@ RSpec.describe Project, type: :model do
     it { is_expected.to have_many(:collaborations) }
     it { is_expected.to have_many(:collaborators) }
     it { is_expected.to have_one(:featured_circuit) }
+    it { is_expected.to have_one(:contest_winner) }
+    it { is_expected.to have_many(:submission) }
     it { is_expected.to have_many(:noticed_notifications) }
   end
 
