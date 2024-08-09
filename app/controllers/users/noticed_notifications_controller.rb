@@ -11,26 +11,22 @@ class Users::NoticedNotificationsController < ApplicationController
   def mark_as_read
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
-
-    if notification.type == "ContestNotification"
-      contest = notification.params[:contest]
-      redirect_to contest_page_path(contest.id)
-    elsif notification.type == "ContestWinnerNotification"
+    answer = NotifyUser.new(params).call
+    case answer.type
+    when "new_assignment"
+      redirect_to group_assignment_path(answer.first_param, answer.second)
+    when "star", "fork"
+      redirect_to user_project_path(answer.first_param, answer.second)
+    when "forum_comment"
+      redirect_to simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
+    when "forum_thread"
+      redirect_to simple_discussion.forum_thread_path(answer.first_param)
+    when "new_contest"
+      redirect_to contest_page_path(answer.first_param)
+    when "contest_winner"
       redirect_to featured_circuits_path
     else
-      answer = NotifyUser.new(params).call
-      case answer.type
-      when "new_assignment"
-        redirect_to group_assignment_path(answer.first_param, answer.second)
-      when "star", "fork"
-        redirect_to user_project_path(answer.first_param, answer.second)
-      when "forum_comment"
-        redirect_to simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
-      when "forum_thread"
-        redirect_to simple_discussion.forum_thread_path(answer.first_param)
-      else
-        redirect_to root_path
-      end
+      redirect_to root_path
     end
   end
 
