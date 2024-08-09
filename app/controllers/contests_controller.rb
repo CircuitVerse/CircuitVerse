@@ -53,7 +53,7 @@ class ContestsController < ApplicationController
       redirect_to contests_admin_path, notice: notice
     else
       @contest = Contest.new(deadline: 1.month.from_now, status: :live)
-      
+
       respond_to do |format|
         if @contest.save
           ContestNotification.with(contest: @contest).deliver_later(User.all)
