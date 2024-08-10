@@ -31,6 +31,7 @@ hi:
     new_submission_page:
       heading: "प्रोजेक्ट सबमिशन"
       select_your_circuit: "अपना सर्किट चुनें"
+      select_your_circuit_description: "Only public projects are allowed in the contest."
     close_contest_modal:
       heading: "एक प्रतियोगिता बंद करें"
       description: "क्या आप वाकई इस प्रतियोगिता को बंद करना चाहते हैं?"
