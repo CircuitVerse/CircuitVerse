@@ -2,7 +2,6 @@
 
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
-  # before_action :authorize_admin, only: %i[admin]
 
   # GET /contests
   def index
@@ -27,10 +26,12 @@ class ContestsController < ApplicationController
 
   # GET /contests/admin
   def admin
+    authorize Contest, :admin?
     @contests = Contest.all.paginate(page: params[:page]).order("id DESC").limit(Contest.per_page)
   end
 
   def close_contest
+    authorize Contest, :admin?
     @contest = Contest.find(params[:contest_id])
     ShortlistContestWinner.new(@contest.id)
     @contest.deadline = Time.zone.now
@@ -48,6 +49,7 @@ class ContestsController < ApplicationController
 
   # POST /contest/create
   def create
+    authorize Contest, :admin?
     if Contest.exists?(status: :live)
       notice = "Concurrent contests are not allowed. Close other contests before creating a new one."
       redirect_to contests_admin_path, notice: notice
