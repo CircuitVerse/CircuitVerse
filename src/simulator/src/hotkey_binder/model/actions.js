@@ -63,10 +63,13 @@ export const setUserKeys = () => {
     if (localStorage.defaultKeys) localStorage.removeItem('defaultKeys')
     let userKeys = {}
     let x = 0
-    while ($('#preference').children()[x]) {
-        userKeys[
-            $('#preference').children()[x].children[1].children[0].innerText
-        ] = $('#preference').children()[x].children[1].children[1].innerText
+    const preferenceChildren = document.getElementById('preference').children;
+
+    while (preferenceChildren[x]) {
+        const keyElement = preferenceChildren[x].children[1].children[0];
+        const valueElement = preferenceChildren[x].children[1].children[1];
+
+        userKeys[keyElement.innerText] = valueElement.innerText;
         x++
     }
     localStorage.set('userKeys', userKeys)
@@ -103,23 +106,20 @@ export const setDefault = () => {
  */
 export const warnOverride = (combo, target, warning) => {
     let x = 0
-    while ($('#preference').children()[x]) {
-        if (
-            $('#preference').children()[x].children[1].children[1].innerText ===
-                combo &&
-            $('#preference').children()[x].children[1].children[0].innerText !==
-                target.previousElementSibling.innerText
-        ) {
-            const assignee =
-                $('#preference').children()[x].children[1].children[0].innerText
-            // $('#warning').text(
+    const preferenceChildren = document.getElementById('preference').children;
+
+    while (preferenceChildren[x]) {
+        const element = preferenceChildren[x].children[1].children[1];
+        const assignee = preferenceChildren[x].children[1].children[0].innerText;
+        // $('#warning').text(
             //     `This key(s) is already assigned to: ${assignee}, press Enter to override.`
             // )
-            warning.value = `This key(s) is already assigned to: ${assignee}, press Enter to override.`
-            $('#edit').css('border', '1.5px solid #dc5656')
+        if (element.innerText === combo && assignee !== target.previousElementSibling.innerText) {
+            warning.value = `This key(s) is already assigned to: ${assignee}, press Enter to override.`;
+            document.getElementById('edit').style.border = '1.5px solid #dc5656';
             return
         } else {
-            $('#edit').css('border', 'none')
+            document.getElementById('edit').style.border = 'none';
         }
         x++
     }
@@ -128,29 +128,31 @@ export const warnOverride = (combo, target, warning) => {
 export const elementDirection = (direct) => () => {
     if (simulationArea.lastSelected) {
         simulationArea.lastSelected.newDirection(direct.toUpperCase())
-        $("select[name |= 'newDirection']").val(direct.toUpperCase())
+
+        const selectElement = document.querySelector("select[name^='newDirection']");
+        if (selectElement) {
+            selectElement.value = direct.toUpperCase();
+        }
+
         updateSystem()
     }
 }
 
 export const labelDirection = (direct) => () => {
-    if (
-        simulationArea.lastSelected &&
-        !simulationArea.lastSelected.labelDirectionFixed
-    ) {
-        simulationArea.lastSelected.labelDirection = direct.toUpperCase()
-        $("select[name |= 'newLabelDirection']").val(direct.toUpperCase())
+    if (simulationArea.lastSelected && !simulationArea.lastSelected.labelDirectionFixed) {
+        simulationArea.lastSelected.labelDirection = direct.toUpperCase();
+        document.querySelector("select[name^='newLabelDirection']").value = direct.toUpperCase();
         updateSystem()
     }
 }
 
 export const insertLabel = () => {
     if (simulationArea.lastSelected) {
-        $("input[name |= 'setLabel']").focus()
-        $("input[name |= 'setLabel']").val().length
-            ? null
-            : $("input[name |= 'setLabel']").val('Untitled')
-        $("input[name |= 'setLabel']").select()
+        document.querySelector("input[name^='setLabel']").focus();
+        if (!document.querySelector("input[name^='setLabel']").value) {
+            document.querySelector("input[name^='setLabel']").value = 'Untitled';
+        }
+        document.querySelector("input[name^='setLabel']").select();
         updateSystem()
     }
 }
@@ -175,10 +177,19 @@ export const moveElement = (direct) => () => {
     }
 }
 
-export const openHotkey = () => $('#customShortcut').trigger('click')
+export const openHotkey = () => {
+    const customShortcutElement = document.getElementById('customShortcut');
+    if (customShortcutElement) {
+        customShortcutElement.click();
+    }
+}
 
-export const createNewCircuitScopeCall = () =>
-    $('#createNewCircuitScope').trigger('click') // TODO: remove later
+export const createNewCircuitScopeCall = () => {
+    const createNewCircuitScopeElement = document.getElementById('createNewCircuitScope');  // TODO: remove later
+    if (createNewCircuitScopeElement) {
+        createNewCircuitScopeElement.click();
+    }
+}
 
 export const openDocumentation = () => {
     if (
