@@ -17,7 +17,8 @@ import { confirmOption } from '#/components/helpers/confirmComponent/ConfirmComp
  */
 export async function recoverProject() {
     if (localStorage.getItem('recover')) {
-        var data = JSON.parse(localStorage.getItem('recover'))
+        const recover = localStorage.getItem('recover')
+        const data = recover ? JSON.parse(recover) : {}
         if (await confirmOption(`Would you like to recover: ${data.name}`)) {
             load(data)
         }
@@ -78,11 +79,10 @@ export function openOffline() {
 }
 /**
  * Flag for project saved or not
- * @type {boolean}
  * @category data
  */
-var projectSaved = true
-export function projectSavedSet(param) {
+let projectSaved = true
+export function projectSavedSet(param: boolean) {
     projectSaved = param
 }
 
@@ -91,10 +91,12 @@ export function projectSavedSet(param) {
  * @category data
  */
 export async function saveOffline() {
-    const data = await generateSaveData()
+    const data = await generateSaveData('')
     if (data instanceof Error) return
-    localStorage.setItem(projectId, data)
-    const temp = JSON.parse(localStorage.getItem('projectList')) || {}
+    const stringData = JSON.stringify(data)
+    localStorage.setItem(projectId, stringData)
+    const projectList = localStorage.getItem('projectList')
+    const temp = projectList ? JSON.parse(projectList) : {}
     temp[projectId] = getProjectName()
     localStorage.setItem('projectList', JSON.stringify(temp))
     showMessage(
@@ -109,8 +111,8 @@ export async function saveOffline() {
 function checkToSave() {
     let saveFlag = false
     // eslint-disable-next-line no-restricted-syntax
-    for (id in scopeList) {
-        saveFlag |= checkIfBackup(scopeList[id])
+    for (const id in scopeList) {
+        saveFlag = saveFlag || checkIfBackup(scopeList[id])
     }
     return saveFlag
 }
@@ -131,14 +133,14 @@ window.onbeforeunload = async function () {
     //     'You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?'
     // )
     const data = await generateSaveData('Untitled')
-    localStorage.setItem('recover', await data)
+    const stringData = JSON.stringify(data)
+    localStorage.setItem('recover', stringData)
     // eslint-disable-next-line consistent-return
     return 'Are u sure u want to leave? Any unsaved changes may not be recoverable'
 }
 
 /**
  * Function to clear project
- * @category data
  */
 export async function clearProject() {
     if (await confirmOption('Would you like to clear the project?')) {
@@ -152,10 +154,8 @@ export async function clearProject() {
 
 /**
  Function used to start a new project while prompting confirmation from the user
- * @param {boolean} verify - flag to verify a new project
- * @category data
  */
-export async function newProject(verify) {
+export async function newProject(verify: boolean) {
     if (
         verify ||
         projectSaved ||
@@ -166,7 +166,7 @@ export async function newProject(verify) {
     ) {
         clearProject()
         localStorage.removeItem('recover')
-        window.location = '/simulator'
+        window.location = '/simulatorvue/'
 
         setProjectName(undefined)
         projectId = generateId()
