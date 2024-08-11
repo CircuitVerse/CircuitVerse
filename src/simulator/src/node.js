@@ -13,6 +13,7 @@ import {
 } from './engine'
 import Wire from './wire'
 import { colors } from './themer/themer'
+import ContentionMeta from './contention'
 
 /**
  * Constructs all the connections of Node node
@@ -418,48 +419,69 @@ export default class Node {
             return
         }
 
-        if (this.type == 0) {
+        // For input nodes, resolve its parents if they are resolvable at this point.
+        if (this.type == NODE_INPUT) {
             if (this.parent.isResolvable()) {
                 simulationArea.simulationQueue.add(this.parent)
             }
         }
+        else if (this.type == NODE_OUTPUT) {
+            // Since output node forces its value on its neighbours, remove its contentions.
+            // An existing contention will now trickle to the other output node that was causing
+            // the contention.
+            simulationArea.contentionPending.removeAllContentionsForNode(this);
+        }
 
         for (var i = 0; i < this.connections.length; i++) {
-            const node = this.connections[i]
+            const node = this.connections[i];
 
-            if (node.value != this.value || node.bitWidth != this.bitWidth) {
-                if (
-                    node.type == 1 &&
-                    node.value != undefined &&
-                    node.parent.objectType != 'TriState' &&
-                    !(node.subcircuitOverride && node.scope != this.scope) && // Subcircuit Input Node Output Override
-                    node.parent.objectType != 'SubCircuit'
-                ) {
-                    // Subcircuit Output Node Override
-                    this.highlighted = true
-                    node.highlighted = true
-                    var circuitName = node.scope.name
-                    var circuitElementName = node.parent.objectType
-                    showError(
-                        `Contention Error: ${this.value} and ${node.value} at ${circuitElementName} in ${circuitName}`
-                    )
-                } else if (node.bitWidth == this.bitWidth || node.type == 2) {
-                    if ((node.parent.objectType == 'TriState' || node.parent.objectType == 'ControlledInverter') && node.value != undefined) {
-                        if (node.parent.state.value) {
-                            simulationArea.contentionPending.push(node.parent)
+            switch (node.type) {
+            // TODO: For an output node, a downstream value (value given by elements other than the parent)
+            // should be overwritten in contention check and should not cause contention.
+            case NODE_OUTPUT:
+                if (node.value != this.value || node.bitWidth != this.bitWidth) {
+                    // Check contentions
+                    if (node.value != undefined && node.parent.objectType != 'SubCircuit'
+                        && !(node.subcircuitOverride && node.scope != this.scope)) {
+                        // Tristate has always been a pain in the ass.
+                        if ((node.parent.objectType == 'TriState' || node.parent.objectType == 'ControlledInverter') && node.value != undefined) {
+                            if (node.parent.state.value) {
+                                simulationArea.contentionPending.add(node, this);
+                                break;
+                            }
+                        }
+                        else {
+                            simulationArea.contentionPending.add(node, this);
+                            break;
                         }
                     }
-
-                    node.bitWidth = this.bitWidth
-                    node.value = this.value
-                    simulationArea.simulationQueue.add(node)
                 } else {
-                    this.highlighted = true
-                    node.highlighted = true
-                    showError(
-                        `BitWidth Error: ${this.bitWidth} and ${node.bitWidth}`
-                    )
+                    // Output node was given an agreeing value, so remove any contention
+                    // entry between these two nodes if it exists.
+                    simulationArea.contentionPending.remove(node, this);
                 }
+
+            // Fallthrough. NODE_OUTPUT propagates like a contention checked NODE_INPUT
+            case NODE_INPUT:
+                // Check bitwidths
+                if (this.bitWidth != node.bitWidth) {
+                    this.highlighted = true;
+                    node.highlighted = true;
+                    showError(`BitWidth Error: ${this.bitWidth} and ${node.bitWidth}`);
+                    break;
+                }
+
+            // Fallthrough. NODE_INPUT propagates like a bitwidth checked NODE_INTERMEDIATE
+            case NODE_INTERMEDIATE:
+
+                if (node.value != this.value || node.bitWidth != this.bitWidth) {
+                    // Propagate
+                    node.bitWidth = this.bitWidth;
+                    node.value = this.value;
+                    simulationArea.simulationQueue.add(node);
+                }
+            default:
+                break;
             }
         }
     }

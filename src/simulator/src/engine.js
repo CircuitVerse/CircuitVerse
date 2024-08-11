@@ -13,6 +13,7 @@ import miniMapArea from './minimap'
 import { resetup } from './setup'
 import { verilogModeGet } from './Verilog2CV'
 import { renderOrder, updateOrder } from './metadata'
+import ContentionPendingData from './contention';
 
 /**
  * Core of the simulation and rendering algorithm.
@@ -405,6 +406,7 @@ export function play(scope = globalScope, resetNodes = false) {
 
     simulationArea.simulationQueue.reset()
     plotArea.setExecutionTime() // Waveform thing
+    resetNodeHighlights(scope);
     // Reset Nodes if required
     if (resetNodes || forceResetNodes) {
         scope.reset()
@@ -412,9 +414,8 @@ export function play(scope = globalScope, resetNodes = false) {
         forceResetNodesSet(false)
     }
 
-    // To store list of circuitselements that have shown contention but kept temporarily
-    // Mainly to resolve tristate bus issues
-    simulationArea.contentionPending = []
+    // To store set of Nodes that have shown contention but kept temporarily
+    simulationArea.contentionPending = new ContentionPendingData();
     // add inputs to the simulation queue
     scope.addInputs()
     // to check if we have infinite loop in circuit
@@ -426,23 +427,32 @@ export function play(scope = globalScope, resetNodes = false) {
             return
         }
         elem = simulationArea.simulationQueue.pop()
+
         elem.resolve()
+
         stepCount++
         if (stepCount > 1000000) {
             // Cyclic or infinite Circuit Detection
             showError(
                 'Simulation Stack limit exceeded: maybe due to cyclic paths or contention'
             )
-            errorDetectedSet(true)
             forceResetNodesSet(true)
         }
     }
     // Check for Contentions
-    if (simulationArea.contentionPending.length) {
-        showError('Contention at TriState')
-        forceResetNodesSet(true)
+    if (simulationArea.contentionPending.size() > 0) {
+        for (const [ourNode, theirNode] of simulationArea.contentionPending.nodes()) {
+            ourNode.highlighted = true;
+            theirNode.highlighted = true;
+        }
+
+        forceResetNodesSet(true);
         showError('Contention Error: One or more bus contentions in the circuit (check highlighted nodes)');
     }
+}
+
+export function resetNodeHighlights(scope) {
+    for (const node of scope.allNodes) node.highlighted = false;
 }
 
 /**
