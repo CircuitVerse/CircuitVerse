@@ -399,7 +399,7 @@ export default class verilogRAM extends CircuitElement {
             this.numRead
         );    
         
-        
+        this.setOutputsUpstream(true);
     }
 
     customDraw() {

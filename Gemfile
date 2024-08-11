@@ -19,7 +19,6 @@ gem "omniauth-github"
 gem "omniauth-gitlab"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem 'devise_saml_authenticatable'
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -221,3 +220,5 @@ gem "maintenance_tasks", "~> 2.3"
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
+# for SAML based SSO
+gem 'devise_saml_authenticatable'

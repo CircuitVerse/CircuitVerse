@@ -177,6 +177,8 @@ export default class ALU extends CircuitElement {
             this.carryOut.value = 0;
             simulationArea.simulationQueue.add(this.carryOut);
         }
+
+        this.setOutputsUpstream(true);
     }
 }
 
