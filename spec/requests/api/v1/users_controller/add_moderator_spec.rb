@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Api::V1::UsersController, type: :request do
+RSpec.describe Api::V1::UsersController,'#add_moderators' type: :request do
   before do
     @admin_user = FactoryBot.create(:user, admin: true)
     @user = FactoryBot.create(:user)
