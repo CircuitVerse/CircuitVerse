@@ -25,8 +25,8 @@ FactoryBot.define do
       public { true }
     end
 
-    trait :as_question_bank_moderator do
-      question_bank_moderator { false }
+    trait :question_bank_moderator do
+      question_bank_moderator { true }
     end
   end
 end

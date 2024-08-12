@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 FactoryBot.define do
-  factory :category do
-    name { "MyString" }
+  factory :question_category do
+    name { "Digital Logic" }
   end
 end

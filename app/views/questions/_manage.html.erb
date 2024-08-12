@@ -1,0 +1,137 @@
+<div class="container">
+    <div class="users-circuits-navbar">
+      <div class="users-circuits-navbar-buttons">
+        <form id="filterForm" action="<%= user_projects_path %>" method="get">
+          <input type="text" name="q" placeholder="Search..." value="<%= params[:q] %>">
+          <select name="category_id">
+            <option value="">All Categories</option>
+            <% @categories.each do |category| %>
+              <option value="<%= category.id %>" <%= 'selected' if params[:category_id] == category.id.to_s %>><%= category.name %></option>
+            <% end %>
+          </select>
+          <select name="difficulty_level">
+            <option value="">All Difficulty Levels</option>
+            <% Question.difficulty_levels.keys.each do |level| %>
+              <option value="<%= level %>" <%= 'selected' if params[:difficulty_level] == level %>><%= level.capitalize %></option>
+            <% end %>
+          </select>
+          <button type="submit">Filter</button>
+        </form>
+      </div>
+      <div class="dropdown">
+        <button id="viewDropdown" class="btn">View: Grid</button>
+        <div class="dropdown-content">
+          <a href="#" data-view="grid">Grid View</a>
+          <a href="#" data-view="list">List View</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="users-circuits-container manage">
+      <div id="manage-circuits-grid" class="grid-view">
+        <% if @questions.present? %>
+          <% @questions.each do |question| %>
+            <div class="question-card">
+              <h5><%= question.heading %></h5>
+              <p class="question-statement"><%= truncate(question.statement, length: 100, separator: ' ') %>...</p>
+              <div>
+                <% if question.category.present? %>
+                  <span class="badge badge-success"><%= question.category.name %></span>
+                <% else %>
+                  <span class="badge badge-secondary">Category: Not assigned</span>
+                <% end %>
+                <% case question.difficulty_level %>
+                  <% when 'easy' %>
+                    <span class="badge badge-success">Easy</span>
+                  <% when 'medium' %>
+                    <span class="badge badge-warning">Medium</span>
+                  <% when 'hard' %>
+                    <span class="badge badge-primary">Hard</span>
+                  <% when 'expert' %>
+                    <span class="badge badge-danger">Expert</span>
+                  <% else %>
+                    <span class="badge badge-secondary">Unknown</span>
+                <% end %>
+                <button class="btn-icon edit" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')"><i class="fa fa-edit"></i></button>
+                <button class="btn-icon delete"><i class="fa fa-trash"></i></button>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No questions available.</p>
+        <% end %>
+        
+        <!-- Pagination Controls for Grid View -->
+        <div class="pagination">
+          <%= will_paginate(@questions, renderer: SearchPaginateRenderer) %>
+        </div>
+      </div>
+
+      <div id="manage-circuits-list" class="list-view hidden">
+        <% if @questions.present? %>
+          <% @questions.each do |question| %>
+            <div class="list-group-item">
+              <h5><%= question.heading %></h5>
+              <div>
+                <% if question.category.present? %>
+                  <span class="badge badge-success"><%= question.category.name %></span>
+                <% else %>
+                  <span class="badge badge-secondary">Category: Not assigned</span>
+                <% end %>
+                <% case question.difficulty_level %>
+                  <% when 'easy' %>
+                    <span class="badge badge-success">Easy</span>
+                  <% when 'medium' %>
+                    <span class="badge badge-warning">Medium</span>
+                  <% when 'hard' %>
+                    <span class="badge badge-primary">Hard</span>
+                  <% when 'expert' %>
+                    <span class="badge badge-danger">Expert</span>
+                  <% else %>
+                    <span class="badge badge-secondary">Unknown</span>
+                <% end %>
+                <button class="btn-icon edit" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')"><i class="fa fa-edit"></i></button>
+                <button class="btn-icon delete"><i class="fa fa-trash"></i></button>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No questions available.</p>
+        <% end %>
+
+        <!-- Pagination Controls for List View -->
+        <div class="pagination">
+          <%= will_paginate(@questions, renderer: SearchPaginateRenderer) %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const viewDropdown = document.getElementById("viewDropdown");
+      const gridView = document.getElementById("manage-circuits-grid");
+      const listView = document.getElementById("manage-circuits-list");
+    
+      document.querySelectorAll('.dropdown-content a').forEach(item => {
+        item.addEventListener('click', event => {
+          event.preventDefault();
+          const view = item.getAttribute('data-view');
+          if (view === 'grid') {
+            gridView.classList.remove('hidden');
+            listView.classList.add('hidden');
+            viewDropdown.textContent = 'View: Grid';
+          } else if (view === 'list') {
+            gridView.classList.add('hidden');
+            listView.classList.remove('hidden');
+            viewDropdown.textContent = 'View: List';
+          }
+        });
+      });
+    });
+
+    function editQuestion(questionId, circuitBoilerplate, editUrl) {
+      localStorage.setItem(questionId, (circuitBoilerplate));
+      window.location.href = editUrl;
+    }
+  </script>

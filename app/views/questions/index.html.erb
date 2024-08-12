@@ -1,0 +1,146 @@
+  <div class="container">
+    <div class="users-circuits-navbar">
+      <div class="users-circuits-navbar-buttons">
+        <input type="text" id="searchBox" placeholder="Search..." value="<%= params[:q] %>">
+        <select id="categoryFilter">
+          <option value="">All Categories</option>
+          <% @categories.each do |category| %>
+            <option value="<%= category.id %>" <%= 'selected' if category.id.to_s == params[:category_id] %>><%= category.name %></option>
+          <% end %>
+        </select>
+        <select id="difficultyFilter">
+          <option value="">All Difficulties</option>
+          <option value="easy" <%= 'selected' if 'easy' == params[:difficulty_level] %>>Easy</option>
+          <option value="medium" <%= 'selected' if 'medium' == params[:difficulty_level] %>>Medium</option>
+          <option value="hard" <%= 'selected' if 'hard' == params[:difficulty_level] %>>Hard</option>
+          <option value="expert" <%= 'selected' if 'expert' == params[:difficulty_level] %>>Expert</option>
+        </select>
+        <div class="dropdown">
+          <button id="viewDropdown" class="btn">View: Grid</button>
+          <div class="dropdown-content">
+            <a href="#" data-view="grid">Grid View</a>
+            <a href="#" data-view="list">List View</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="users-circuits-container manage">
+      <div id="manage-circuits-grid" class="grid-view">
+        <% if @questions.present? %>
+          <% @questions.each do |question| %>
+            <div class="question-card">
+              <h5><%= question.heading %></h5>
+              <p class="question-statement"><%= truncate(question.statement, length: 100, separator: ' ') %>...</p>
+              <div>
+                <% if question.category.present? %>
+                  <span class="badge badge-success"><%= question.category.name %></span>
+                <% else %>
+                  <span class="badge badge-secondary">Category: Not assigned</span>
+                <% end %>
+                <% case question.difficulty_level %>
+                  <% when 'easy' %>
+                    <span class="badge badge-success">Easy</span>
+                  <% when 'medium' %>
+                    <span class="badge badge-warning">Medium</span>
+                  <% when 'hard' %>
+                    <span class="badge badge-primary">Hard</span>
+                  <% when 'expert' %>
+                    <span class="badge badge-danger">Expert</span>
+                  <% else %>
+                    <span class="badge badge-secondary">Unknown</span>
+                <% end %>
+                <button class="btn-icon edit" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')"><i class="fa fa-edit"></i></button>
+                <button class="btn-icon delete"><i class="fa fa-trash"></i></button>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No questions available.</p>
+        <% end %>
+        <div class="pagination">
+          <%= will_paginate(@questions, renderer: SearchPaginateRenderer) %>
+        </div>
+      </div>
+
+      <div id="manage-circuits-list" class="list-view hidden">
+        <% if @questions.present? %>
+          <% @questions.each do |question| %>
+            <div class="list-group-item">
+              <h5><%= question.heading %></h5>
+              <div>
+                <% if question.category.present? %>
+                  <span class="badge badge-success"><%= question.category.name %></span>
+                <% else %>
+                  <span class="badge badge-secondary">Category: Not assigned</span>
+                <% end %>
+                <% case question.difficulty_level %>
+                  <% when 'easy' %>
+                    <span class="badge badge-success">Easy</span>
+                  <% when 'medium' %>
+                    <span class="badge badge-warning">Medium</span>
+                  <% when 'hard' %>
+                    <span class="badge badge-primary">Hard</span>
+                  <% when 'expert' %>
+                    <span class="badge badge-danger">Expert</span>
+                  <% else %>
+                    <span class="badge badge-secondary">Unknown</span>
+                <% end %>
+                <button class="btn-icon edit" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')"><i class="fa fa-edit"></i></button>
+                <button class="btn-icon delete"><i class="fa fa-trash"></i></button>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p>No questions available.</p>
+        <% end %>
+        <div class="pagination">
+          <%= will_paginate(@questions, renderer: SearchPaginateRenderer) %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const viewDropdown = document.getElementById("viewDropdown");
+      const gridView = document.getElementById("manage-circuits-grid");
+      const listView = document.getElementById("manage-circuits-list");
+      const searchBox = document.getElementById("searchBox");
+      const categoryFilter = document.getElementById("categoryFilter");
+      const difficultyFilter = document.getElementById("difficultyFilter");
+
+      document.querySelectorAll('.dropdown-content a').forEach(item => {
+        item.addEventListener('click', event => {
+          event.preventDefault();
+          const view = item.getAttribute('data-view');
+          if (view === 'grid') {
+            gridView.classList.remove('hidden');
+            listView.classList.add('hidden');
+            viewDropdown.textContent = 'View: Grid';
+          } else if (view === 'list') {
+            gridView.classList.add('hidden');
+            listView.classList.remove('hidden');
+            viewDropdown.textContent = 'View: List';
+          }
+        });
+      });
+
+      searchBox.addEventListener('input', function() {
+        window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(this.value)}&category_id=${categoryFilter.value}&difficulty_level=${difficultyFilter.value}`;
+      });
+
+      categoryFilter.addEventListener('change', function() {
+        window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${this.value}&difficulty_level=${difficultyFilter.value}`;
+      });
+
+      difficultyFilter.addEventListener('change', function() {
+        window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${categoryFilter.value}&difficulty_level=${this.value}`;
+      });
+    });
+
+    function editQuestion(questionId, circuitBoilerplate, editUrl) {
+      localStorage.setItem(questionId, (circuitBoilerplate));
+      window.location.href = editUrl;
+    }
+  </script>

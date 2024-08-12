@@ -58,8 +58,10 @@
           <% if policy(@user).edit? %>
             <a class="btn primary-button ml-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
+          <% unless Flipper.enabled?(:question_bank) %>
           <% if current_user.admin? %>
             <button type="button" class="btn btn-secondary ml-0" data-toggle="modal" data-target="#addModeratorsModal"><%= t("users.circuitverse.index.add_moderator") %></button>
+          <% end %>
           <% end %>
         </div>
       </div>
@@ -68,12 +70,12 @@
   <div class="row">
     <div class="col-12 users-circuits-navbar">
       <div class="users-circuits-navbar-buttons">
-        <button id="my-circuits" class="btn users-circuits-tab active"><%= t("users.circuitverse.index.my_circuits") %></button>
+        <button id="my-circuits" class="btn users-circuits-tab"><%= t("users.circuitverse.index.my_circuits") %></button>
         <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
       </div>
       <div class="users-circuits-search-container">
-      <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search form-control form-input " placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
+        <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search form-control form-input " placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
       </div>
     </div>
   </div>
@@ -127,10 +129,9 @@
         <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
       <% end %>
     </div>
-
   </div>
   <%= render partial: "add_moderators_modal" %>
-  </div>
+</div>
 
 <script type="application/ld+json">
 {
@@ -148,27 +149,16 @@
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3"></script>
 <%# for user projects search %>
 <script type="text/javascript">
-
-  function getTitle(circuitDiv) {
-      return $('.users-card-name p', circuitDiv)[0].textContent;
+  function getTitle(project) {
+    return project.querySelector('.project-title').textContent.trim();
   }
-  var projects = $('.circuit-card-js'); // collecting all the title tags
-  projectList = [];
-  projects.each((i, project) => projectList.push({title: getTitle(project), domObj: project}));
+
+  const projects = $('.circuit-card');
+
+  const projectList = [];
+  projects.each((index, project) => projectList.push({title: getTitle(project), domObj: project}));
 
   const options = {
-    // isCaseSensitive: false,
-    // includeScore: false,
-    // shouldSort: true,
-    // includeMatches: false,
-    // findAllMatches: true,
-    // minMatchCharLength: 1,
-    // location: 0,
-    // threshold: 0.6,
-    // distance: 100,
-    // useExtendedSearch: false,
-    // ignoreLocation: false,
-    // ignoreFieldNorm: false,
     keys: [
       "title"
     ]
@@ -214,14 +204,20 @@
       projects.show();
     }
   })
-
 </script>
 
 <script type="text/javascript">
   $(function() {
+    // Initially hide all circuit tabs
+    $('#my-circuits-div').hide();
     $('#favourite-circuits-div').hide();
     $('#collaborator-circuits-div').hide();
-    var circuitTabs = ['favourite-circuits', 'my-circuits', 'collaborator-circuits'];
+    $('#manage-circuits-div').hide();
+    
+    // Set an array of all tab ids
+    var circuitTabs = ['manage-circuits', 'my-circuits', 'favourite-circuits', 'collaborator-circuits'];
+    
+    // Handle tab click event
     $('.users-circuits-tab').on('click', function (e) {
       if(!$(this).hasClass("active")) {
         var id = this.id;
@@ -236,13 +232,18 @@
             $(div).css("display", "none");
           }
         });
-      }});
+      }
+    });
+
+    // Handle project preview button click event
     $('.previewButton').on('click', function (e) {
-        e.preventDefault()
+        e.preventDefault();
         let project = $(e.currentTarget).data('currentproject').id;
         $("#projectPreview").attr("src","/simulator/" + project.toString() );
         $("#projectModal").tab('show');
     });
+
+    // Handle project modal show event
     $("#projectModal").on("show.bs.modal", function(e) {
         let projectSlug = $(e.relatedTarget).data('currentproject').slug;
         let projectId = $(e.relatedTarget).data('currentproject').id;
@@ -255,5 +256,15 @@
         $(e.currentTarget).find('#project-more-button').attr("href",
         "/users/" + authorId + "/projects/" + id);
     });
+
+    // Ensure active tab is shown on page load
+    var activeTab = $('.users-circuits-tab.active').attr('id');
+    if (activeTab) {
+      $('#' + activeTab + '-div').css("display", "flex");
+    } else {
+      // Default to "manage-circuits" tab if no active tab is found
+      $('#manage-circuits').addClass('active');
+      $('#manage-circuits-div').css("display", "flex");
+    }
   });
 </script>

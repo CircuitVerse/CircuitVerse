@@ -158,7 +158,7 @@ export function setup() {
         const urlParams = new URLSearchParams(window.location.search);
         const questionId = urlParams.get('question_id');
         if (window.location.pathname.startsWith('/simulator') && questionId && localStorage.getItem(questionId)) {
-            load(JSON.parse(localStorage.getItem(questionId)));
+            load(JSON.parse(localStorage.getItem(questionId).replaceAll('=>',':')));
         } else if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({

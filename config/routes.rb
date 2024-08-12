@@ -99,12 +99,20 @@ Rails.application.routes.draw do
   resources :questions do
     collection do
       get 'filter'
-      get 'status'
       get 'search'
     end
   end
 
+  resources :question_categories, only: [:index, :create]
+  
+
   get '/questions/new/:qid', to: 'questions#new', as: 'new_question_with_qid'
+  get 'questions', to: 'questions#index'
+  post '/questions/:id', to: 'questions#update'
+  get '/questions/:id/edit', to: 'questions#edit'
+
+  
+
 
   # projects
   scope "/projects" do
@@ -151,6 +159,7 @@ Rails.application.routes.draw do
     resources :projects, except: %i[index new]
   end
   resources :collaborations, only: %i[create destroy update]
+  
 
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")

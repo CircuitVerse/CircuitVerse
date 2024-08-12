@@ -2,11 +2,12 @@
 
 FactoryBot.define do
   factory :question do
-    heading { "MyString" }
-    statement { "MyText" }
-    category { nil }
-    difficulty_level { nil }
-    test_data { }
-    circuit_boilerplate { }
+    heading { "Sample Heading" }
+    statement { "Sample Statement" }
+    difficulty_level { "easy" }
+    qid { "sample-qid" }
+    test_data { "Sample Test Data" }
+    circuit_boilerplate { "Sample Circuit Boilerplate" }
+    association :category, factory: :question_category
   end
 end
