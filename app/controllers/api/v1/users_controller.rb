@@ -15,10 +15,9 @@ class Api::V1::UsersController < Api::V1::BaseController
     render json: Api::V1::UserSerializer.new(@users, @options)
   end
 
-  # GET api/v1/users/:id
+  # GET api/v1/users/:id 
   def show
-    @moderators = User.where(question_bank_moderator: true)
-    render partial: "circuitVerse/add_moderators_modal", locals: { moderators: @moderators }
+    render json: Api::V1::UserSerializer.new(@user, @options)
   end
 
   # GET api/v1/me
