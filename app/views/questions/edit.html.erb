@@ -51,11 +51,8 @@
     </div>
   </div>
 </div>
-
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  console.log("DOM fully loaded and parsed");
-
   const createCircuitDataLink = document.getElementById("createCircuitDataLink");
   createCircuitDataLink.addEventListener("click", function(event) {
     event.preventDefault();
@@ -65,35 +62,27 @@ document.addEventListener("DOMContentLoaded", function() {
     }
     window.location.href = `/simulator?question_id=${questionId}`;
   });
-
   const simplemde = new SimpleMDE({ element: document.getElementById("markdown-editor") });
-
   function saveToLocalStorage() {
     console.log("Saving to local storage");
     const heading = document.getElementById("question_heading").value;
     const statement = simplemde.value();
     const category = document.getElementById("question_category_id").value;
     const difficulty = document.getElementById("question_difficulty_level").value;
-
     localStorage.setItem("question_heading", heading);
     localStorage.setItem("question_statement", statement);
     localStorage.setItem("question_category", category);
     localStorage.setItem("question_difficulty", difficulty);
   }
-
   document.getElementById("question_heading").addEventListener("input", saveToLocalStorage);
   simplemde.codemirror.on("change", saveToLocalStorage);
   document.getElementById("question_category_id").addEventListener("change", saveToLocalStorage);
   document.getElementById("question_difficulty_level").addEventListener("change", saveToLocalStorage);
-
   document.getElementById("questionForm").addEventListener("submit", function(event) {
-    event.preventDefault(); // Ensure default submission is prevented
-    console.log("Form submit event triggered");
-
+    event.preventDefault();
     const questionId = "<%= @question.qid %>";
     const circuitBoilerplate = JSON.parse(localStorage.getItem(questionId).replaceAll('=>',':'));
     let testData = null;
-
     if (circuitBoilerplate) {
       const circuitBoilerplateInput = document.createElement("input");
       circuitBoilerplateInput.type = "hidden";
@@ -107,7 +96,6 @@ document.addEventListener("DOMContentLoaded", function() {
         console.error("Invalid JSON data in localStorage for questionId:", questionId);
       }
     }
-
     if (testData) {
       const testDataInput = document.createElement("input");
       testDataInput.type = "hidden";
@@ -115,17 +103,13 @@ document.addEventListener("DOMContentLoaded", function() {
       testDataInput.value = JSON.stringify(testData);
       this.appendChild(testDataInput);
     }
-
     localStorage.removeItem("question_heading");
     localStorage.removeItem("question_statement");
     localStorage.removeItem("question_category");
     localStorage.removeItem("question_difficulty");
     localStorage.removeItem(questionId);
-
-    console.log("Form data prepared, submitting in 2 seconds");
     document.getElementById("questionForm").submit();
   });
-
   if (localStorage.getItem("question_heading")) {
     document.getElementById("question_heading").value = localStorage.getItem("question_heading");
   }

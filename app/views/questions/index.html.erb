@@ -24,7 +24,6 @@
         </div>
       </div>
     </div>
-
     <div class="users-circuits-container manage">
       <div id="manage-circuits-grid" class="grid-view">
         <% if @questions.present? %>
@@ -62,7 +61,6 @@
           <%= will_paginate(@questions, renderer: SearchPaginateRenderer) %>
         </div>
       </div>
-
       <div id="manage-circuits-list" class="list-view hidden">
         <% if @questions.present? %>
           <% @questions.each do |question| %>
@@ -100,7 +98,6 @@
       </div>
     </div>
   </div>
-
   <script>
     document.addEventListener("DOMContentLoaded", function() {
       const viewDropdown = document.getElementById("viewDropdown");
@@ -109,7 +106,6 @@
       const searchBox = document.getElementById("searchBox");
       const categoryFilter = document.getElementById("categoryFilter");
       const difficultyFilter = document.getElementById("difficultyFilter");
-
       document.querySelectorAll('.dropdown-content a').forEach(item => {
         item.addEventListener('click', event => {
           event.preventDefault();
@@ -125,20 +121,16 @@
           }
         });
       });
-
       searchBox.addEventListener('input', function() {
         window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(this.value)}&category_id=${categoryFilter.value}&difficulty_level=${difficultyFilter.value}`;
       });
-
       categoryFilter.addEventListener('change', function() {
         window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${this.value}&difficulty_level=${difficultyFilter.value}`;
       });
-
       difficultyFilter.addEventListener('change', function() {
         window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${categoryFilter.value}&difficulty_level=${this.value}`;
       });
     });
-
     function editQuestion(questionId, circuitBoilerplate, editUrl) {
       localStorage.setItem(questionId, (circuitBoilerplate));
       window.location.href = editUrl;

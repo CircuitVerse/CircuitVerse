@@ -5,7 +5,6 @@
   <% content_for :title, t("users.circuitverse.index.alt_title") %>
   <% set_meta_tags author: nil %>
 <% end %>
-
 <% set_meta_tags twitter: {
      card: "summary_large_image",
      title: yield(:title),
@@ -13,14 +12,12 @@
        src: "#{Rails.configuration.site_url}img/circuitverseBanner2.png"
      }
    } %>
-
 <% set_meta_tags og: {
      title: yield(:title),
      image: "#{Rails.configuration.site_url}img/circuitverseBanner2.png",
      type: "article",
      site_name: Rails.configuration.site_name
    } %>
-
 <div class="container">
   <% if notice %>
   <div class="row" id='alertdiv'>
@@ -132,7 +129,6 @@
   </div>
   <%= render partial: "add_moderators_modal" %>
 </div>
-
 <script type="application/ld+json">
 {
   "@context" : "http://schema.org",
@@ -144,7 +140,6 @@
   }
 }
 </script>
-
 <%= render partial: "view_project_modal" %>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.3"></script>
 <%# for user projects search %>
@@ -152,20 +147,15 @@
   function getTitle(project) {
     return project.querySelector('.project-title').textContent.trim();
   }
-
   const projects = $('.circuit-card');
-
   const projectList = [];
   projects.each((index, project) => projectList.push({title: getTitle(project), domObj: project}));
-
   const options = {
     keys: [
       "title"
     ]
   };
-
   const fuse = new Fuse(projectList, options);
-
   // on key up
   $('.users-circuits-search').keyup(() => {
     const searchQuery = $('.users-circuits-search').val().toLowerCase().trim();
@@ -187,7 +177,6 @@
         if (title in matchMap) return matchMap[title];
         return matches.length;
       }
-
       // Sort cards
       var dashboards = $('.circuit-page');
       dashboards.each((i, dashboard) => {
@@ -213,10 +202,8 @@
     $('#favourite-circuits-div').hide();
     $('#collaborator-circuits-div').hide();
     $('#manage-circuits-div').hide();
-    
     // Set an array of all tab ids
     var circuitTabs = ['manage-circuits', 'my-circuits', 'favourite-circuits', 'collaborator-circuits'];
-    
     // Handle tab click event
     $('.users-circuits-tab').on('click', function (e) {
       if(!$(this).hasClass("active")) {
@@ -234,7 +221,6 @@
         });
       }
     });
-
     // Handle project preview button click event
     $('.previewButton').on('click', function (e) {
         e.preventDefault();
@@ -242,7 +228,6 @@
         $("#projectPreview").attr("src","/simulator/" + project.toString() );
         $("#projectModal").tab('show');
     });
-
     // Handle project modal show event
     $("#projectModal").on("show.bs.modal", function(e) {
         let projectSlug = $(e.relatedTarget).data('currentproject').slug;
@@ -256,7 +241,6 @@
         $(e.currentTarget).find('#project-more-button').attr("href",
         "/users/" + authorId + "/projects/" + id);
     });
-
     // Ensure active tab is shown on page load
     var activeTab = $('.users-circuits-tab.active').attr('id');
     if (activeTab) {
