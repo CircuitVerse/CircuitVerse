@@ -76,39 +76,9 @@ describe Users::CircuitverseController, type: :request do
     expect(session[:user_return_to]).to eq("/")
   end
 
-  context "when question bank feature is not enabled" do
-    before do
-      allow(Flipper).to receive(:enabled?).with(:question_bank).and_return(false)
-    end
-
-    context "as an admin" do
-      before do
-        sign_in @admin_user
-      end
-
-      it "returns a forbidden error with a relevant message" do
-        post "/api/v1/users/add_moderators", params: { emails: "moderator@example.com" }
-        expect(response).to have_http_status(:forbidden)
-        expect(response.body).to include("not authorized for this action")
-      end
-    end
-
-    context "as a normal user" do
-      before do
-        sign_in @user
-      end
-
-      it "returns a forbidden error with a relevant message" do
-        post "/api/v1/users/add_moderators", params: { emails: "moderator@example.com" }
-        expect(response).to have_http_status(:forbidden)
-        expect(response.body).to include("not authorized for this action")
-      end
-    end
-  end
-
   context "when question bank feature is enabled" do
     before do
-      allow(Flipper).to receive(:enabled?).with(:question_bank).and_return(false)
+      allow(Flipper).to receive(:enabled?).with(:question_bank).and_return(true)
     end
 
     context "as an admin" do
@@ -116,11 +86,22 @@ describe Users::CircuitverseController, type: :request do
         sign_in @admin_user
       end
 
-      it "successfully adds moderators" do
+      it "returns forbidden error when trying to add moderators" do
         post "/api/v1/users/add_moderators", params: { emails: "moderator@example.com" }
         expect(response).to have_http_status(:forbidden)
-        # expect(response.body).to include("Moderators added successfully")
-        # expect(User.find_by(email: "moderator@example.com").question_bank_moderator).to be(true)
+        expect(response.body).to include("not authorized for this action")
+      end
+
+      it "returns forbidden error when emails are invalid" do
+        post "/api/v1/users/add_moderators", params: { emails: "invalid_email" }
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).to include("not authorized for this action")
+      end
+
+      it "returns forbidden error when no emails are provided" do
+        post "/api/v1/users/add_moderators", params: { emails: "" }
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).to include("not authorized for this action")
       end
     end
 
@@ -129,7 +110,7 @@ describe Users::CircuitverseController, type: :request do
         sign_in @user
       end
 
-      it "returns a forbidden error with a relevant message" do
+      it "returns forbidden error when trying to add moderators" do
         post "/api/v1/users/add_moderators", params: { emails: "moderator@example.com" }
         expect(response).to have_http_status(:forbidden)
         expect(response.body).to include("not authorized for this action")
