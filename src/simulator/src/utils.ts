@@ -9,6 +9,7 @@ import {
 import { layoutModeGet } from './layoutMode'
 import plotArea from './plotArea'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+import { useActions } from '#/store/SimulatorStore/actions'
 
 window.globalScope = undefined
 window.lightMode = false // To be deprecated
@@ -16,14 +17,14 @@ window.projectId = undefined
 window.id = undefined
 window.loading = false // Flag - all assets are loaded
 
-var prevErrorMessage // Global variable for error messages
-var prevShowMessage // Global variable for error messages
+let prevErrorMessage: string | undefined // Global variable for error messages
+let prevShowMessage: string | undefined // Global variable for error messages
 export function generateId() {
-    var id = ''
-    var possible =
+    let id = ''
+    const possible =
         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
 
-    for (var i = 0; i < 20; i++) {
+    for (let i = 0; i < 20; i++) {
         id += possible.charAt(Math.floor(Math.random() * possible.length))
     }
 
@@ -48,39 +49,25 @@ export function clockTick() {
 
 /**
  * Helper function to show error
- * @param {string} error -The error to be shown
- * @category utils
  */
-export function showError(error) {
+export function showError(error: string) {
     errorDetectedSet(true)
     // if error ha been shown return
     if (error === prevErrorMessage) return
     prevErrorMessage = error
-    var id = Math.floor(Math.random() * 10000)
-    $('#MessageDiv').append(
-        `<div class='alert alert-danger' role='alert' id='${id}'> ${error}</div>`
-    )
-    setTimeout(() => {
-        prevErrorMessage = undefined
-        $(`#${id}`).fadeOut()
-    }, 1500)
+
+    useActions().showMessage(error, 'error')
 }
 
 // Helper function to show message
-export function showMessage(mes) {
+export function showMessage(mes: string) {
     if (mes === prevShowMessage) return
     prevShowMessage = mes
-    var id = Math.floor(Math.random() * 10000)
-    $('#MessageDiv').append(
-        `<div class='alert alert-success' role='alert' id='${id}'> ${mes}</div>`
-    )
-    setTimeout(() => {
-        prevShowMessage = undefined
-        $(`#${id}`).fadeOut()
-    }, 2500)
+
+    useActions().showMessage(mes, 'success')
 }
 
-export function distance(x1, y1, x2, y2) {
+export function distance(x1: number, y1: number, x2: number, y2: number) {
     return Math.sqrt((x2 - x1) ** 2) + (y2 - y1) ** 2
 }
 
@@ -89,22 +76,22 @@ export function distance(x1, y1, x2, y2) {
  * @param {Array} a - any array
  * @category utils
  */
-export function uniq(a) {
-    var seen = {}
+export function uniq(a: any[]) {
+    const seen: { [key: string]: boolean } = {};
     const tmp = a.filter((item) =>
         seen.hasOwnProperty(item) ? false : (seen[item] = true)
-    )
-    return tmp
+    );
+    return tmp;
 }
 
 // Generates final verilog code for each element
 // Gate = &/|/^
 // Invert is true for xNor, Nor, Nand
 export function gateGenerateVerilog(gate, invert = false) {
-    var inputs = []
-    var outputs = []
+    let inputs = []
+    let outputs = []
 
-    for (var i = 0; i < this.nodeList.length; i++) {
+    for (let i = 0; i < this.nodeList.length; i++) {
         if (this.nodeList[i].type == NODE_INPUT) {
             inputs.push(this.nodeList[i])
         } else {
@@ -114,13 +101,13 @@ export function gateGenerateVerilog(gate, invert = false) {
         }
     }
 
-    var res = 'assign '
+    let res = 'assign '
     if (outputs.length == 1) res += outputs[0].verilogLabel
     else res += `{${outputs.map((x) => x.verilogLabel).join(', ')}}`
 
     res += ' = '
 
-    var inputParams = inputs.map((x) => x.verilogLabel).join(` ${gate} `)
+    const inputParams = inputs.map((x) => x.verilogLabel).join(` ${gate} `)
     if (invert) {
         res += `~(${inputParams});`
     } else {
@@ -130,8 +117,8 @@ export function gateGenerateVerilog(gate, invert = false) {
 }
 
 // Helper function to download text
-export function download(filename, text) {
-    var pom = document.createElement('a')
+export function download(filename: string, text: string | number | boolean) {
+    const pom = document.createElement('a')
     pom.setAttribute(
         'href',
         'data:text/plain;charset=utf-8,' + encodeURIComponent(text)
@@ -139,7 +126,7 @@ export function download(filename, text) {
     pom.setAttribute('download', filename)
 
     if (document.createEvent) {
-        var event = document.createEvent('MouseEvents')
+        const event = document.createEvent('MouseEvents')
         event.initEvent('click', true, true)
         pom.dispatchEvent(event)
     } else {
@@ -148,12 +135,12 @@ export function download(filename, text) {
 }
 
 // Helper function to open a new tab
-export function openInNewTab(url) {
-    var win = window.open(url, '_blank')
-    win.focus()
+export function openInNewTab(url: string | URL | undefined) {
+    const win = window.open(url, '_blank')
+    win?.focus()
 }
 
-export function copyToClipboard(text) {
+export function copyToClipboard(text: string) {
     const textarea = document.createElement('textarea')
 
     // Move it off-screen.
@@ -161,27 +148,27 @@ export function copyToClipboard(text) {
 
     // Set to readonly to prevent mobile devices opening a keyboard when
     // text is .select()'ed.
-    textarea.setAttribute('readonly', true)
+    textarea.setAttribute('readonly', 'true')
 
     document.body.appendChild(textarea)
     textarea.value = text
 
     // Check if there is any content selected previously.
     const selected =
-        document.getSelection().rangeCount > 0
-            ? document.getSelection().getRangeAt(0)
+        document.getSelection()?.rangeCount ?? 0 > 0
+            ? document.getSelection()?.getRangeAt(0)
             : false
 
     // iOS Safari blocks programmatic execCommand copying normally, without this hack.
     // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
     if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
         const editable = textarea.contentEditable
-        textarea.contentEditable = true
+        textarea.contentEditable = 'true'
         const range = document.createRange()
         range.selectNodeContents(textarea)
         const sel = window.getSelection()
-        sel.removeAllRanges()
-        sel.addRange(range)
+        sel?.removeAllRanges()
+        sel?.addRange(range)
         textarea.setSelectionRange(0, 999999)
         textarea.contentEditable = editable
     } else {
@@ -193,8 +180,8 @@ export function copyToClipboard(text) {
 
         // Restore previous selection.
         if (selected) {
-            document.getSelection().removeAllRanges()
-            document.getSelection().addRange(selected)
+            document.getSelection()?.removeAllRanges()
+            document.getSelection()?.addRange(selected)
         }
         textarea.remove()
         return result
@@ -205,7 +192,7 @@ export function copyToClipboard(text) {
     }
 }
 
-export function truncateString(str, num) {
+export function truncateString(str: string, num: number) {
     // If the length of str is less than or equal to num
     // just return str--don't truncate it.
     if (str.length <= num) {
@@ -220,9 +207,9 @@ export function bitConverterDialog() {
     simulatorStore.dialogBox.hex_bin_dec_converter_dialog = true
 }
 
-export function getImageDimensions(file) {
+export function getImageDimensions(file: string) {
     return new Promise(function (resolved, rejected) {
-        var i = new Image()
+        const i = new Image()
         i.onload = function () {
             resolved({ w: i.width, h: i.height })
         }
@@ -231,15 +218,15 @@ export function getImageDimensions(file) {
 }
 
 // convertors
-export var convertors = {
-    dec2bin: (x) => '0b' + x.toString(2),
-    dec2hex: (x) => '0x' + x.toString(16),
-    dec2octal: (x) => '0' + x.toString(8),
-    dec2bcd: (x) => parseInt(x.toString(10), 16).toString(2),
+export const convertors = {
+    dec2bin: (x: number) => '0b' + x.toString(2),
+    dec2hex: (x: number) => '0x' + x.toString(16),
+    dec2octal: (x: number) => '0' + x.toString(8),
+    dec2bcd: (x: number) => parseInt(x.toString(10), 16).toString(2),
 }
 
-export function parseNumber(num) {
-    if (num instanceof Number) return num
+export function parseNumber(num: string | number) {
+    if(typeof num === 'number') return num;
     if (num.slice(0, 2).toLocaleLowerCase() == '0b')
         return parseInt(num.slice(2), 2)
     if (num.slice(0, 2).toLocaleLowerCase() == '0x')
@@ -248,26 +235,30 @@ export function parseNumber(num) {
     return parseInt(num)
 }
 
-export function promptFile(contentType, multiple) {
-    var input = document.createElement('input')
+export function promptFile(contentType: string, multiple: boolean) {
+    const input = document.createElement('input')
     input.type = 'file'
     input.multiple = multiple
     input.accept = contentType
     return new Promise(function (resolve) {
-        document.activeElement.onfocus = function () {
-            document.activeElement.onfocus = null
-            setTimeout(resolve, 500)
+        if (document.activeElement instanceof HTMLInputElement) {
+            (document.activeElement as HTMLInputElement).onfocus = function () {
+                (document.activeElement as HTMLInputElement).onfocus = null;
+                setTimeout(resolve, 500);
+            };
         }
         input.onchange = function () {
-            var files = Array.from(input.files)
-            if (multiple) return resolve(files)
-            resolve(files[0])
+            const files = input.files
+            if (files === null) return resolve([])
+            const fileArray = Array.from(files)
+            if (multiple) return resolve(fileArray)
+            resolve(fileArray[0])
         }
         input.click()
     })
 }
 
-export function escapeHtml(unsafe) {
+export function escapeHtml(unsafe: string) {
     return unsafe
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')

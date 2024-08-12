@@ -13,6 +13,8 @@ export interface State {
         isVerilog?: boolean
         focussed?: boolean
     }[];
+    errorMessages: string[]
+    successMessages: string[]
     circuit_name_clickable: boolean;
     dialogBox: {
         // create_circuit: boolean
@@ -41,6 +43,8 @@ export const useState = defineStore({
             title: 'Welcome to CircuitVerse Simulator',
             activeCircuit: undefined,
             circuit_list: [],
+            errorMessages: [],
+            successMessages: [],
             circuit_name_clickable: false,
             dialogBox: {
                 // create_circuit: false,
