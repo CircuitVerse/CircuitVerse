@@ -41,7 +41,7 @@
         <div class="field form-group">
           <h6><%= form.label :difficulty_level %></h6>
           <%= form.select :difficulty_level, Question.difficulty_levels.keys.collect { |d| [d.humanize.capitalize, d] }, { prompt: 'Select Difficulty Level' }, class: "form-control form-input", id: "question_difficulty_level", required: true %>
-        </div>        
+        </div>
           <div class="field form-group">
             <%= form.submit class: "btn primary-button" %> &nbsp;
             <%= link_to 'Back', questions_path, class: "anchor-text" %>
