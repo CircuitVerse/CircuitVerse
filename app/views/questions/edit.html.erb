@@ -23,25 +23,25 @@
             </div>
           <% end %>
           <div class="field form-group">
-            <h6><%= form.label :heading %></h6>
-            <%= form.text_field :heading, class: "form-control form-input", id: "question_heading" %>
-          </div>  
-          <div class="field form-group" style="display:none">
-            <h6><%= form.label :qid %></h6>
-            <%= form.text_field :qid, class: "form-control form-input", id: "question_qid" %>
-          </div>  
-          <div class="field form-group">
-            <h6><%= form.label :statement %></h6>
-            <%= form.text_area :statement, class: "form-control form-input", id: "markdown-editor" %>
-          </div> 
-          <div class="field form-group">
-            <h6><%= form.label :category_id %></h6>
-            <%= form.select :category_id, QuestionCategory.all.collect { |c| [c.name, c.id] }, { prompt: 'Select Category' }, class: "form-control form-input", id: "question_category_id" %>
-          </div>
-          <div class="field form-group">
-            <h6><%= form.label :difficulty_level %></h6>
-            <%= form.select :difficulty_level, Question.difficulty_levels.keys.collect { |d| [d.humanize.capitalize, d] }, { prompt: 'Select Difficulty Level' }, class: "form-control form-input", id: "question_difficulty_level", required: true %>
-          </div>
+          <h6><%= form.label :heading %></h6>
+          <%= form.text_field :heading, class: "form-control form-input", id: "question_heading" %>
+        </div>
+        <div class="field form-group" style="display:none">
+          <h6><%= form.label :qid %></h6>
+          <%= form.text_field :qid, class: "form-control form-input", id: "question_qid" %>
+        </div>
+        <div class="field form-group">
+          <h6><%= form.label :statement %></h6>
+          <%= form.text_area :statement, class: "form-control form-input", id: "markdown-editor" %>
+        </div>
+        <div class="field form-group">
+          <h6><%= form.label :category_id %></h6>
+          <%= form.select :category_id, QuestionCategory.all.collect { |c| [c.name, c.id] }, { prompt: 'Select Category' }, class: "form-control form-input", id: "question_category_id" %>
+        </div>
+        <div class="field form-group">
+          <h6><%= form.label :difficulty_level %></h6>
+          <%= form.select :difficulty_level, Question.difficulty_levels.keys.collect { |d| [d.humanize.capitalize, d] }, { prompt: 'Select Difficulty Level' }, class: "form-control form-input", id: "question_difficulty_level", required: true %>
+        </div>        
           <div class="field form-group">
             <%= form.submit class: "btn primary-button" %> &nbsp;
             <%= link_to 'Back', questions_path, class: "anchor-text" %>
