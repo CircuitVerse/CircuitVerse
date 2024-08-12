@@ -18,7 +18,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   # GET api/v1/users/:id
   def show
     @moderators = User.where(question_bank_moderator: true)
-    render partial: "add_moderators_modal", locals: { moderators: @moderators }
+    render partial: "circuitVerse/add_moderators_modal", locals: { moderators: @moderators }
   end
 
   # GET api/v1/me
