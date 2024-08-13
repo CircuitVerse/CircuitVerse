@@ -12,8 +12,7 @@ class QuestionsController < ApplicationController
     @questions = @questions.where(category_id: params[:category_id]) if params[:category_id].present?
     @questions = @questions.where(difficulty_level: params[:difficulty_level]) if params[:difficulty_level].present?
     if params[:q].present?
-      @questions = @questions.where("heading LIKE :query OR statement LIKE :query",
-                                    query: "%#{params[:q]}%")
+      @questions = @questions.where("heading LIKE :query OR statement LIKE :query", query: "%#{params[:q]}%")
     end
 
     @categories = QuestionCategory.all
@@ -40,12 +39,6 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.find(params[:id])
-    if @question.nil?
-      redirect_to questions_path, alert: "Question not found"
-    else
-      render :edit
-    end
   end
 
   def create
@@ -59,11 +52,8 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    @question = Question.find(params[:id])
     if @question.update(question_params)
       redirect_to questions_path, notice: "Question was successfully updated."
-    else
-      render :edit_by_qid
     end
   end
 
@@ -75,27 +65,31 @@ class QuestionsController < ApplicationController
 
   private
 
-    def authorize_moderator
-      Rails.logger.debug current_user
-      Rails.logger.debug current_user&.question_bank_moderator?
-      return if current_user&.question_bank_moderator?
-
+  def authorize_moderator
+    unless current_user&.question_bank_moderator?
       render json: { error: "Unauthorized" }, status: :unauthorized
     end
+  end
 
-    def set_question
-      @question = Question.find(params[:id])
-    end
+  def set_question
+    @question = Question.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to questions_path, alert: "Question not found"
+  end
 
-    def question_params
-      params.require(:question).permit(
-        :heading,
-        :statement,
-        :category_id,
-        :difficulty_level,
-        :qid,
-        :test_data,
-        :circuit_boilerplate
-      )
-    end
+  def question_params
+    params.require(:question).permit(
+      :heading,
+      :statement,
+      :category_id,
+      :difficulty_level,
+      :qid,
+      :test_data,
+      :circuit_boilerplate
+    )
+  end
+
+  def api_error(status:, errors:)
+    render json: { errors: errors }, status: status
+  end
 end
