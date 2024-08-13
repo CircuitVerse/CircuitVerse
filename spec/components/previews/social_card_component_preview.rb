@@ -15,11 +15,11 @@ class SocialCardComponentPreview < ViewComponent::Preview
     description: "support@circuitverse.org"
   )
     render(SocialCardComponent.new(
-      link_url: link_url,
-      image_path: image_path,
-      image_alt: image_alt,
-      heading: heading,
-      description: description
-    ))
+             link_url: link_url,
+             image_path: image_path,
+             image_alt: image_alt,
+             heading: heading,
+             description: description
+           ))
   end
 end
