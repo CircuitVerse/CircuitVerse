@@ -15,6 +15,7 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #index" do
     before do
       sign_in user
+      create_list(:question, 5)
       question
     end
 
@@ -62,6 +63,30 @@ RSpec.describe QuestionsController, type: :controller do
   describe "GET #show" do
     before do
       sign_in user
+    end
+
+    it 'returns a paginated list of questions' do
+      get :index, params: { page: 1, per_page: 3 }
+      expect(response).to be_successful
+      expect(assigns(:questions).count).to be <= 3
+    end
+
+    it 'filters questions by category' do
+      create(:question, category: category)
+      create(:question)
+
+      get :index, params: { category_id: category.id }
+
+      expect(assigns(:questions)).to all(have_attributes(category: category))
+    end
+
+    it 'filters questions by difficulty level' do
+      create(:question, difficulty_level: 'easy')
+      create(:question, difficulty_level: 'hard')
+
+      get :index, params: { difficulty_level: 'easy' }
+
+      expect(assigns(:questions)).to all(have_attributes(difficulty_level: 'easy'))
     end
 
     context "with existing question" do
