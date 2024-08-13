@@ -59,6 +59,9 @@
           <% if current_user.admin? %>
             <button type="button" class="btn btn-secondary ml-0" data-toggle="modal" data-target="#addModeratorsModal"><%= t("users.circuitverse.index.add_moderator") %></button>
           <% end %>
+          <% if current_user.admin? %>
+          <button type="button" class="btn btn-secondary ml-0" data-toggle="modal" data-target="#addCategoriesModal">Add categories</button>
+        <% end %>
           <% end %>
         </div>
       </div>
