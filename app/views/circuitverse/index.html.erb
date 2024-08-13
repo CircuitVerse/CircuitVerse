@@ -54,7 +54,7 @@
           <a class="btn tertiary-button" href="/contribute"><%= t("circuitverse.index.for_contributors") %></a>
         </div>
       </div>
-      <div id="home-features-section" class="row center-row">
+      <div id="home-features-section" class="row center-row" style="scroll-margin-top: 100px;">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3><%= t("circuitverse.index.features.main_heading") %></h3>
           <p><%= t("circuitverse.index.features.main_description") %></p>
@@ -217,7 +217,7 @@
           <% end %>
         </div>
         <div class="container pagination-cont">
-          <%= will_paginate @projects, renderer: PaginateRenderer %>
+          <%= will_paginate @projects, renderer: PaginateRenderer, page_links: false %>
         </div>
       </div>
     <% end %>
