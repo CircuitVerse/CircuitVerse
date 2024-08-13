@@ -13,39 +13,39 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe "GET #index" do
-  context "when question bank is enabled" do
-    before do
-      allow(Flipper).to receive(:enabled?).with(:question_bank).and_return(true)
-      sign_in user
-      get :index
+    context "when question bank is enabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:question_bank).and_return(true)
+        sign_in user
+        get :index
+      end
+
+      it "returns a forbidden response" do
+        expect(response).to have_http_status(:forbidden)
+      end
     end
 
-    it "returns a forbidden response" do
-      expect(response).to have_http_status(:forbidden)
+    context "when question bank is disabled" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:question_bank).and_return(false)
+        sign_in user
+        question
+        get :index
+      end
+
+      it "returns a success response" do
+        expect(response).to be_successful
+      end
+
+      it "assigns @questions" do
+        expect(assigns(:questions)).to include(question)
+      end
+
+      it "assigns @categories" do
+        expect(assigns(:categories)).to eq(QuestionCategory.all)
+      end
     end
   end
-
-  context "when question bank is disabled" do
-    before do
-      allow(Flipper).to receive(:enabled?).with(:question_bank).and_return(false)
-      sign_in user
-      question
-      get :index
-    end
-
-    it "returns a success response" do
-      expect(response).to be_successful
-    end
-
-    it "assigns @questions" do
-      expect(assigns(:questions)).to include(question)
-    end
-
-    it "assigns @categories" do
-      expect(assigns(:categories)).to eq(QuestionCategory.all)
-    end
-  end
-end
 
   describe "GET #show" do
     before do
@@ -126,7 +126,7 @@ end
 
       it "does not allow creation of a new Question" do
         post :create, params: { question: attributes_for(:question, category_id: category.id) }
-        expect(response).to have_http_status(:found)
+        expect(response).to have_http_status(302)
       end
     end
   end
@@ -170,7 +170,7 @@ end
 
       it "does not allow updating of the question" do
         put :update, params: { id: question.id, question: { heading: "New Heading" } }
-        expect(response).to have_http_status(:found)
+        expect(response).to have_http_status(302)
       end
     end
   end
@@ -198,7 +198,7 @@ end
 
       it "does not allow destroying of the question" do
         delete :destroy, params: { id: question.id }
-        expect(response).to have_http_status(:found)
+        expect(response).to have_http_status(302)
       end
     end
   end
