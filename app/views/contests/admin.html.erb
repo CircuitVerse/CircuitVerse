@@ -17,7 +17,7 @@
   <div class="contest-page-line"></div>
   <div class="contests-list-wrapper row center-row">
     <% @contests.each do |contest| %>
-      <%= link_to contest_page_path(contest.id), class: "text-decoration-none" do %>
+
         <div class="col-lg-3">
           <div class="contest-container">
             <% if contest.live? %>
@@ -41,13 +41,22 @@
               </div>
             <% end %>
             <div class="contest-container-details">
-              <h5 class="contest-container-details-number"><%= t("contest.contest_container.contest_id") %> #<%= contest.id %> </h5>
-              <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
+              <h5 class="contest-container-details-number"> <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}", contest_page_path(contest.id) %></h5>
+              <% if contest.completed? %>
+                <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
+              <% end %>
+               <% if contest.live? %>
+                <%= link_to "#", data: {toggle: "modal", target: "#update-contest-modal", contest: contest, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M")}, class:"contest-container-update-button" do %>
+                      <%# <h5 class="contest-container-details-entries">Edit </h5> %>
+                      <%= image_tag("SVGs/editGroup.svg", alt: "Edit Deadline") %>
+                      <span><%= t("edit") %></span>
+                <% end %>
+              <% end %>
             </div>
-          </div>
+          </div>s
         </div>
         <%= render partial: "close_contest_confirmation" %>
-      <% end %>
+        <%= render partial: "update_contest_confirmation" %>
     <% end %>
   </div>
   <div class="container pagination-cont">
@@ -62,4 +71,5 @@
     </div>
   <% end %>
   <%= render partial: "host_new_contest_confirmation" %>
+  
 </div>

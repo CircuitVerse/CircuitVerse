@@ -40,6 +40,10 @@ en:
       heading: "Host a new Contest"
       description: "Are you sure you want to start a new contest?"
       description_html: "<p>Hosting new contest can:</p><ul><li>End the ongoing contest(if any)</li><li>Make announcement to all the users to participate</li></ul>"
+    update_contest_modal:
+      heading: "Update Contest Deadline"
+      sub_heading: "Set Contest Deadline"
+      description: "Please ensure that the Contest Deadline is set in the future. It is not allowed to set the Contest Deadline in the past."
     withdraw_submission_modal:
       heading: "Withdraw Submission"
       description: "Are you sure you want to withdraw your submission from contest?"

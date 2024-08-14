@@ -112,6 +112,7 @@ Rails.application.routes.draw do
   get "/contests/:id", to: "contests#show", as: "contest_page"
   post "/contests/host", to: "contests#create", as: "new_contest"
   put "/contests/:contest_id/close_contest", to: "contests#close_contest", as: "close_contest"
+  patch "/contests/:contest_id/update_contest", to: "contests#update_deadline", as: "update_contest"
   get "/contests/:id/new_submission", to: "contests#new_submission", as: "new_submission"
   post "/contests/:id/create_submission", to: "contests#create_submission", as: "create_submission"
   delete "/contests/:contest_id/withdraw/:submission_id", to: "contests#withdraw", as: "withdraw_submission"

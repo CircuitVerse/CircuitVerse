@@ -175,7 +175,20 @@
     text-decoration: none;
   }
 }
+.contest-container-update-button {
+  background: $primary;
+  border: 0;
+  border-radius: 5px;
+  color: $white;
+  font-size: 14px;
+  padding: 2px 5px;
 
+  &:hover {
+    box-shadow: 0 0 5px 0 #0000004d;
+    color: $white;
+    text-decoration: none;
+  }
+}
 .project-submission {
   align-items: center;
   background: $card-green;

@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-class ContestsController < ApplicationController
+class ContestsController < ApplicationController # rubocop:disable Metrics/ClassLength
   before_action :authenticate_user!, except: [:index]
-
   # GET /contests
   def index
     @contests = Contest.all.paginate(page: params[:page]).order("id DESC").limit(Contest.per_page)
@@ -19,7 +18,7 @@ class ContestsController < ApplicationController
     @user_submission = @contest.submissions.where(user_id: current_user.id)
     @submissions = @contest.submissions.where.not(user_id: current_user.id).paginate(page: params[:page]).limit(6)
     @user_count = User.count
-    return unless @contest.completed? && Submission.where(contest_id: @contest.id).count.nil?
+    return unless @contest.completed? && !Submission.where(contest_id: @contest.id).count.nil?
 
     @winner = ContestWinner.find_by(contest_id: @contest.id).submission
   end
@@ -28,6 +27,25 @@ class ContestsController < ApplicationController
   def admin
     authorize Contest, :admin?
     @contests = Contest.all.paginate(page: params[:page]).order("id DESC").limit(Contest.per_page)
+  end
+
+  def update_deadline
+    authorize Contest, :admin?
+    @contest = Contest.find(params[:contest_id])
+    new_deadline = params[:deadline].to_datetime
+
+    if new_deadline <= Time.zone.now
+      redirect_to contests_admin_path, notice: "Couldn't Update the deadline as Deadline must be in the future."
+    else
+      @contest.deadline = new_deadline
+
+      if @contest.save
+        redirect_to contest_page_path(@contest), notice: "Contest deadline was successfully updated."
+      else
+        redirect_to contests_admin_path,
+                    alert: "Failed to update contest deadline: #{@contest.errors.full_messages.join(', ')}"
+      end
+    end
   end
 
   def close_contest
@@ -48,7 +66,7 @@ class ContestsController < ApplicationController
   end
 
   # POST /contest/create
-  def create
+  def create # rubocop:disable Metrics/MethodLength
     authorize Contest, :admin?
     if Contest.exists?(status: :live)
       notice = "Concurrent contests are not allowed. Close other contests before creating a new one."
@@ -107,10 +125,8 @@ class ContestsController < ApplicationController
     else
       vote = SubmissionVote.find_by(user_id: current_user.id, submission_id: params[:submission_id])
       if vote.nil?
-        @submission_vote = SubmissionVote.new
-        @submission_vote.user_id = current_user.id
-        @submission_vote.submission_id = params[:submission_id]
-        @submission_vote.contest_id = params[:contest_id]
+        @submission_vote = SubmissionVote.new(user_id: current_user.id, submission_id: params[:submission_id],
+                                              contest_id: params[:contest_id])
         @submission_vote.save!
         notice = "You have successfully voted the submission, Thanks! Votes remaining: #{2 - user_contest_votes}"
       else
