@@ -6,7 +6,7 @@ class DeleteButtonComponent < ViewComponent::Base
     @current_user = current_user
     @profile_id = profile_id
   end
-  
+
   def render?
     @current_user.present?
   end
