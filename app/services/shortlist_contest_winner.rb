@@ -10,10 +10,8 @@ class ShortlistContestWinner
                              .first
     return if @most_voted_submission.nil?
 
-    contest_winner = ContestWinner.new
-    contest_winner.contest_id = @contest.id
-    contest_winner.submission_id = @most_voted_submission.id
-    contest_winner.project_id = @most_voted_submission.project_id
+    contest_winner = ContestWinner.new(contest_id: @contest.id, submission_id: @most_voted_submission.id,
+                                       project_id: @most_voted_submission.project_id)
     contest_winner.save!
     @most_voted_submission.winner = true
     @project = Project.find(@most_voted_submission.project_id)

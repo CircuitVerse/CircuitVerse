@@ -8,7 +8,7 @@ class Users::NoticedNotificationsController < ApplicationController
     @unread = NoticedNotification.where(recipient: current_user).newest_first.unread
   end
 
-  def mark_as_read
+  def mark_as_read # rubocop:disable Metrics/MethodLength
     notification = NoticedNotification.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
     answer = NotifyUser.new(params).call
