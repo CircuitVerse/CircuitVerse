@@ -9,17 +9,15 @@ export default class extends Controller {
 
     connect() {
         this.setCountDownTimer();
-        this.setShowModals();
-        this.setAdminModals();
+        this.constructor.setShowModals();
+        this.constructor.setAdminModals();
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    enableSubmitButton() {
+    static enableSubmitButton() {
         document.getElementById('submission-submit-button').disabled = false;
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    setAdminModals() {
+    static setAdminModals() {
         const getContestId = (event) => $(event.relatedTarget).data('contest').id;
 
         const setupModal = (modalId, buttonId, path) => {
@@ -42,8 +40,7 @@ export default class extends Controller {
         });
     }
 
-    // eslint-disable-next-line class-methods-use-this
-    setShowModals() {
+    static setShowModals() {
         $('#projectModal').on('show.bs.modal', (e) => {
             const projectSlug = $(e.relatedTarget).data('project').slug;
             const projectId = $(e.relatedTarget).data('project').id;
