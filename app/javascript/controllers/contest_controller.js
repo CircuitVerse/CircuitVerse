@@ -18,7 +18,7 @@ export default class extends Controller {
     }
 
     static setAdminModals() {
-        const getContestId = (event) => $(event.relatedTarget).data('contest').id;
+        const getContestId = (e) => $(e.relatedTarget).data('contest').id;
 
         const setupModal = (modalId, buttonId, path) => {
             $(`#${modalId}`).on('show.bs.modal', (e) => {
