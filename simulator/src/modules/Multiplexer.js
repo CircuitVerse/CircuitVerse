@@ -142,6 +142,8 @@ export default class Multiplexer extends CircuitElement {
         }
         this.output1.value = this.inp[this.controlSignalInput.value].value;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
