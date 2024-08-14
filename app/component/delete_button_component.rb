@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class DeleteButtonComponent < ViewComponent::Base
   def initialize(current_user:, profile_id:)
     super
