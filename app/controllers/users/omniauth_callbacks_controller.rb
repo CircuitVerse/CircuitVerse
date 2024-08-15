@@ -55,6 +55,8 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if @user.persisted?
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
+    elsif Flipper.enabled?(:block_registration)
+      redirect_to new_user_session_path, alert: t("registration_blocked")
     else
       session["devise.#{provider}_data"] =
         request.env["omniauth.auth"].except(:extra).except("extra")

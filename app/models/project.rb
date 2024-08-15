@@ -6,7 +6,7 @@ require "pg_search"
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns = ["data"]
+  self.ignored_columns += ["data"]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
@@ -25,6 +25,7 @@ class Project < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
+  has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
@@ -69,6 +70,8 @@ class Project < ApplicationRecord
 
   after_update :check_and_remove_featured
 
+  before_destroy :purge_circuit_preview
+
   self.per_page = 6
 
   acts_as_commontable
@@ -93,6 +96,7 @@ class Project < ApplicationRecord
   def fork(user)
     forked_project = dup
     forked_project.build_project_datum.data = project_datum&.data
+    forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
@@ -168,6 +172,10 @@ class Project < ApplicationRecord
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
+    end
+
+    def purge_circuit_preview
+      circuit_preview.purge if circuit_preview.attached?
     end
 end
 # rubocop:enable Metrics/ClassLength

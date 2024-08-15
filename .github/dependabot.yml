@@ -2,19 +2,36 @@ version: 2
 updates:
 - package-ecosystem: npm
   directory: "/"
-  schedule:
-    interval: daily
-  open-pull-requests-limit: 10
-- package-ecosystem: bundler
-  directory: "/"
+  groups:
+    minor-and-patch:
+      update-types:
+        - "minor"
+        - "patch"
   schedule:
     interval: daily
   open-pull-requests-limit: 10
   
-- package-ecosystem: "docker"
-  # Look for a `Dockerfile` in the `root` directory
+- package-ecosystem: bundler
   directory: "/"
-  # Check for updates once a week
+  schedule:
+    interval: daily
+  groups:
+    minor-and-patch:
+      update-types:
+        - "minor"
+        - "patch"
+  open-pull-requests-limit: 10
+  ignore:
+    - dependency-name: "vite*"
+  
+- package-ecosystem: "docker"
+  directory: "/"
   schedule:
     interval: "weekly"
+    
+- package-ecosystem: gitsubmodule
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 3
 

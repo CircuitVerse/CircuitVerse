@@ -82,6 +82,7 @@ export default class MSB extends CircuitElement {
             this.enable.value = 0;
         }
         simulationArea.simulationQueue.add(this.enable);
+        this.setOutputsUpstream(true);
     }
 
     /**

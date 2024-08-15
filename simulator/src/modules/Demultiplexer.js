@@ -137,6 +137,8 @@ export default class Demultiplexer extends CircuitElement {
         for (let i = 0; i < this.output1.length; i++) {
             simulationArea.simulationQueue.add(this.output1[i]);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     /**

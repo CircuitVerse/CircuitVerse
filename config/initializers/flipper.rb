@@ -7,7 +7,10 @@ default_flipper_features = {
   recaptcha: false,
   forum: false,
   project_comments: true,
-  lms_integration: true
+  lms_integration: true,
+  vuesim: false,
+  block_registration: false,
+  active_storage_s3: true
 }
 
 Flipper.configure do |config|

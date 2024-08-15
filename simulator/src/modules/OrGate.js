@@ -96,6 +96,8 @@ export default class OrGate extends CircuitElement {
             result |= this.inp[i].value || 0;
         this.output1.value = result >>> 0;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -153,7 +155,7 @@ export default class OrGate extends CircuitElement {
  * @category modules
  */
 OrGate.prototype.tooltipText =
-    "Or Gate Tooltip : Implements logical disjunction";
+    "Or Gate ToolTip : Implements logical disjunction";
 
 /**
  * @memberof OrGate

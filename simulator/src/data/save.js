@@ -1,6 +1,6 @@
 import { scopeList } from '../circuit';
 import { resetup } from '../setup';
-import { update } from '../engine';
+import { update, updateSubcircuitSet } from '../engine';
 import { stripTags, showMessage } from '../utils';
 import { backUp } from './backupCircuit';
 import simulationArea from '../simulationArea';
@@ -11,7 +11,7 @@ import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
-import C2S from '../../vendor/canvas2svg';
+import C2S from '../canvas2svg';
 
 var projectName = undefined;
 
@@ -104,6 +104,13 @@ export function generateSaveData(name, setName = true) {
         }
 
         completed[id] = true;
+
+
+        // This update is very important.
+        // if a scope's input/output changes and the user saves without going
+        // to circuits where this circuit is used as a subcircuit. It will
+        // break the code since the Subcircuit will have different number of
+        // in/out nodes compared to the localscope input/output objects.
         update(scopeList[id], true); // For any pending integrity checks on subcircuits
         data.scopes.push(backUp(scopeList[id]));
     }
@@ -407,3 +414,26 @@ export default async function save() {
     // Restore everything
     resetup();
 }
+
+/**
+ * Function to autosave the data of circuit
+ * @category data
+ * @exports save
+ */
+var checkForAutosave = 1;
+
+export function autosave() {
+    var circuitData = generateSaveData('Untitled');
+    localStorage.setItem('autosave', circuitData);
+}
+
+export function checkBackups() {
+    if (checkForAutosave < globalScope.backups.length) {
+        autosave();
+        checkForAutosave = globalScope.backups.length;
+    }
+}
+
+// Please do not enable autosave. It will not work
+// in the current state and breaks other things.
+// setInterval(checkBackups, 3000); // disabled

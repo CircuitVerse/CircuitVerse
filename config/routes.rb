@@ -10,12 +10,20 @@ Rails.application.routes.draw do
   authenticate :user, ->(u) { u.admin? } do
     mount Sidekiq::Web => "/sidekiq"
     mount Flipper::UI.app(Flipper) => "/flipper"
+    mount MaintenanceTasks::Engine => "/maintenance_tasks"
   end
 
-  devise_scope :user do  
-    get '/users/sign_out' => 'devise/sessions#destroy'        
+  if Rails.env.development?
+    mount Lookbook::Engine, at: "/lookbook"
   end
-  
+
+  devise_scope :user do
+    get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users/saml/sign_in', to: 'users/saml_sessions#new'
+    post '/users/saml/auth', to: 'users/saml_sessions#create'
+    get '/users/saml/metadata', to: 'users/saml_sessions#metadata'
+  end
+
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do
@@ -100,10 +108,16 @@ Rails.application.routes.draw do
 
   # lti
   scope "lti"  do
-    match 'launch', to: 'lti#launch', via: [:get, :post] 
+    match 'launch', to: 'lti#launch', via: [:get, :post]
   end
 
   mount Commontator::Engine => "/commontator"
+
+  # Default route for Vue simulator
+  get 'simulatorvue', to: 'static#simulatorvue', as: 'default_simulatorvue'
+
+  # Vue simulaltor Route with catchall
+  get 'simulatorvue/*path', to: 'static#simulatorvue', as: 'simulatorvue'
 
   # simulator
   scope "/simulator" do
@@ -112,7 +126,7 @@ Rails.application.routes.draw do
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
     post "/post_issue", to: "simulator#post_issue"
-    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data" 
+    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data"
     post "/update_data", to: "simulator#update"
     post "/update_image", to: "simulator#update_image"
     post "/create_data", to: "simulator#create"
@@ -135,14 +149,18 @@ Rails.application.routes.draw do
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
+  get "/youtube", to: redirect("https://www.youtube.com/@circuitverse4457")
   get "/slack", to: redirect(
-    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ"
+    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-2axe9h7hy-GwM~nL7pq1Jh1hSZYB~n1A"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")
   get "/learn", to: redirect("https://learn.circuitverse.org")
   get "/docs", to: redirect("https://docs.circuitverse.org")
   get "/features", to: redirect("/#home-features-section")
+
+  # Health Check at /up ~> will be default in rails 7.1
+  get '/up', to: ->(_env) { [200, {}, ['']] }
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -163,11 +181,18 @@ Rails.application.routes.draw do
       resources :users, only: %i[index show update]
       get "/projects/featured", to: "projects#featured_circuits"
       get "/projects/search", to: "projects#search"
-      resources :projects, only: %i[index show update destroy] do
+      post "/simulator/post_issue", to: "simulator#post_issue"
+      post "/simulator/verilogcv", to: "simulator#verilog_cv"
+      resources :projects, only: %i[index show create update destroy] do
+        collection do
+          patch :update_circuit, path: "update_circuit"
+        end
         member do
           get "toggle-star", to: "projects#toggle_star"
           post "fork", to: "projects#create_fork"
           get "image_preview", to: "projects#image_preview"
+          get :circuit_data
+          get :check_edit_access
         end
         resources :collaborators, only: %i[index create destroy]
       end
@@ -175,6 +200,7 @@ Rails.application.routes.draw do
         member do
           get "projects", to: "projects#user_projects"
           get "favourites", to: "projects#user_favourites"
+          # get "projects/all", to: "projects#all_user_projects"
         end
       end
       post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"

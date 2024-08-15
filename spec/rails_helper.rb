@@ -8,7 +8,6 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 require "devise"
-require "webdrivers"
 
 # Including support files for tests
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
@@ -43,8 +42,11 @@ RSpec.configure do |config|
   config.fixture_path = Rails.root.join("spec/fixtures")
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
-
+  config.before do
+    Flipper.enable(:active_storage_s3)
+  end
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
@@ -69,8 +71,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
-
+  config.include ActionDispatch::TestProcess
   config.include Warden::Test::Helpers
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|
