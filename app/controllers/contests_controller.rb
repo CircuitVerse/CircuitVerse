@@ -66,24 +66,13 @@ class ContestsController < ApplicationController # rubocop:disable Metrics/Class
   end
 
   # POST /contest/create
-  def create # rubocop:disable Metrics/MethodLength
+  def create
     authorize Contest, :admin?
-    if Contest.exists?(status: :live)
+    if concurrent_contest_exists?
       notice = "Concurrent contests are not allowed. Close other contests before creating a new one."
       redirect_to contests_admin_path, notice: notice
     else
-      @contest = Contest.new(deadline: 1.month.from_now, status: :live)
-
-      respond_to do |format|
-        if @contest.save
-          ContestNotification.with(contest: @contest).deliver_later(User.all)
-          format.html { redirect_to contest_page_path(@contest), notice: "Contest was successfully started." }
-          format.json { render :show, status: :created, location: @contest }
-        else
-          format.html { render :admin }
-          format.json { render json: @contest.errors, status: :unprocessable_entity }
-        end
-      end
+      create_contest
     end
   end
 
@@ -134,5 +123,26 @@ class ContestsController < ApplicationController # rubocop:disable Metrics/Class
       end
     end
     redirect_to contest_page_path(params[:contest_id]), notice: notice
+  end
+end
+
+private
+
+def concurrent_contest_exists?
+  Contest.exists?(status: :live)
+end
+
+def create_contest
+  @contest = Contest.new(deadline: 1.month.from_now, status: :live)
+
+  respond_to do |format|
+    if @contest.save
+      ContestNotification.with(contest: @contest).deliver_later(User.all)
+      format.html { redirect_to contest_page_path(@contest), notice: "Contest was successfully started." }
+      format.json { render :show, status: :created, location: @contest }
+    else
+      format.html { render :admin }
+      format.json { render json: @contest.errors, status: :unprocessable_entity }
+    end
   end
 end
