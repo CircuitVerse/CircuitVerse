@@ -1,0 +1,13 @@
+*.lock
+/.test_symlink
+/build/
+/doc/
+/lib/*.bundle
+/lib/*.so
+/lib/2.*/
+/pkg/
+/tmp/
+/tmp_test_specs/
+/vendor/
+/lib/libpq.dll
+/lib/pg/postgresql_lib_path.rb

@@ -15,6 +15,8 @@ import { correctWidth, fillText } from '../canvasApi';
  * @category sequential
  */
 import { colors } from '../themer/themer';
+import { generateArchitetureHeader, generateArchitetureHeaderTFlipFlop, generateFooterEntity, generateHeaderVhdlEntity, generateLogicSRFlipFlop, generatePortsIO, generateSpacings, generateSTDType, hasComponent, hasExtraPorts, removeDuplicateComponent } from '../helperVHDL';
+import { scopeList } from '../circuit';
 export default class SRflipFlop extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT') {
         super(x, y, scope, dir, 1);
@@ -94,6 +96,53 @@ export default class SRflipFlop extends CircuitElement {
 
         };
         return data;
+    }
+
+    static moduleVHDL(){
+        let output = "\n";
+        const srflipflop = Object.values(scopeList)[0].SRflipFlop
+        let srflipflopcomponent = []
+        let enable = []
+        let preset = []
+        let reset = []
+
+        for(var i = 0; i < srflipflop.length; i++){
+            enable = srflipflop[i].en
+            preset = srflipflop[i].preset
+            reset = srflipflop[i].reset
+
+            srflipflopcomponent = [...srflipflopcomponent, {
+                
+                header: generateHeaderVhdlEntity('SRFlipFlop', `bit${srflipflop[i].bitWidth}`),
+                SPort: generatePortsIO('S', 0),
+                stdS: generateSTDType('IN', srflipflop[i].bitWidth) + ';\n',
+                RPort: generatePortsIO('R', 0),
+                stdR: generateSTDType('IN', srflipflop[i].bitWidth) + ';\n',
+                
+                portEnable: hasComponent(enable.connections) ? '\n' + generatePortsIO('enable', 0) : '',
+                stdEnable: hasComponent(enable.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portPreset: hasComponent(preset.connections) ? '\n' + generatePortsIO('preset', 0) : '',
+                stdPreset: hasComponent(preset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portAReset: hasComponent(reset.connections) ? '\n' + generatePortsIO('reset', 0) : '',
+                stdReset: hasComponent(reset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portsout: '\n' + generatePortsIO('q', 1),
+                stdout: generateSTDType('OUT', srflipflop[i].bitWidth) + '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeaderTFlipFlop('SRFlipFlop', `bit${srflipflop[i].bitWidth}`),
+                openProcess: `${generateSpacings(4)}PROCESS(S, R${hasExtraPorts(enable.connections, preset.connections, reset.connections)})\n${generateSpacings(6)}BEGIN\n${generateSpacings(8)}`,
+                logic: generateLogicSRFlipFlop(srflipflop[i]),
+                endprocess: `${generateSpacings(4)}END PROCESS;\n`,
+                attr: `${generateSpacings(2)} q0 <= tmp;\n${generateSpacings(2)} q1 <= NOT tmp;\n`,
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${srflipflop[i].bitWidth}`,
+            }]
+        }
+        const srflipflopFiltered = removeDuplicateComponent(srflipflopcomponent)
+        srflipflopFiltered.forEach(el => output += el.header + el.SPort + el.stdS + el.RPort + el.stdR  + el.portEnable + el.stdEnable + el.portPreset + el.stdPreset + el.portAReset + el.stdReset + el.portsout + el.stdout + el.footer + el.architeture + el.openProcess + el.logic + el.endprocess + el.attr + el.end)
+        return output
     }
 
     customDraw() {

@@ -1,0 +1,88 @@
+---
+de:
+  activerecord:
+    attributes:
+      commontator/comment:
+        body: Kommentar
+        creator: Ersteller
+        editor: Bearbeiter
+        thread: Diskussion
+        parent: Elternkommentar
+      commontator/subscription:
+        subscriber: Subscriber
+        thread: Diskussion
+      commontator/thread:
+        commontable: Commontable
+    errors:
+      models:
+        commontator/comment:
+          attributes:
+            body:
+              double_posted: ist ein Duplikat.
+    models:
+      commontator/comment:
+        one: Kommentar
+        other: Kommentare
+      commontator/subscription:
+        one: Subscription
+        other: Subscriptions
+      commontator/thread:
+        one: Diskussion
+        other: Diskussionen
+  commontator:
+    anonymous: Anonymous
+    comment:
+      actions:
+        cancel: Abbrechen
+        confirm_delete: Sind Sie sicher, dass sie diesen Kommentar löschen wollen?
+        create: Kommentar speichern
+        delete: Löschen
+        edit: Bearbeiten
+        new: Neuer Kommentar
+        undelete: Löschen rückgängig
+        update: Kommentar bearbeiten
+        reply: Auf Kommentar antworten.
+      errors:
+        already_deleted: Dieser Kommentar wurde bereits gelöscht.
+        create: "Kommentar kann nicht veröffentlicht werden:"
+        not_deleted: Dieser Kommentar wurde nicht gelöscht..
+        update: "Kommentar kann nicht bearbeitet werden:"
+      status:
+        created_at: Veröffentlich am %{created_at}.
+        deleted_by: Kommentar gelöscht von %{deleter_name}.
+        updated_at: Bearbeitet von %{editor_name} am %{updated_at}.
+        replying: "%{creator_name} Antworten"
+        reply_pages: "Antwortseiten:"
+    email:
+      comment_created:
+        body: "%{creator_name} kommentierte zu %{commontable_name}:"
+        subject: "%{creator_name} veröffentlichte einen Kommentar zu %{commontable_name}"
+      thread_link_html: <a href="%{comment_url}">Hier klicken</a> um alle Kommentare zu %{commontable_name} zu sehen.
+    require_login: Sie müssen sich anmelden bevor sie einen Kommentar veröffentlichen können.
+    subscription:
+      actions:
+        subscribe: Subscribe
+        unsubscribe: Unsubscribe
+      errors:
+        already_subscribed: Sie erhalten zu der Diskussion bereits Aktualisierungen
+        not_subscribed: Sie erhalten zu der Diskussion keine Nachrichten.
+    thread:
+      actions:
+        show_all: Alle Kommentare anzeigen
+        filter: Kommentare filtern
+        close: Diskussion beenden
+        confirm_close: Sind Sie sicher, dass sie die Diskussion schliessen wollen?
+        reopen: Diskussion wieder eröffnen
+        show: Kommentare anzeigen
+        hide: Kommentare ausblenden
+      errors:
+        already_closed: Diese Diskussion ist bereits geschlossen.
+        not_closed: Diese Diskussion ist nicht geschlossen.
+      status:
+        cannot_post: Zurzeit können keine neuen Kommentare verfasst werden.
+        closed: Kommentare (geschlossen von %{closer_name})
+        open: Kommentare
+        pages: "Kommentarseiten:"
+  time:
+    formats:
+      commontator: "%d. %B %Y um %H:%M %Z"

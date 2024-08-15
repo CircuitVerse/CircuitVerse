@@ -1,0 +1,5 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/http-parser-1.2.3/ext
+/home/gitpod/.rvm/rubies/ruby-3.1.2/bin/ruby -I/home/gitpod/.rvm/rubies/ruby-3.1.2/lib/ruby/3.1.0 -rrubygems /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/rake-13.0.6/exe/rake RUBYARCHDIR\=/workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/extensions/x86_64-linux/3.1.0/http-parser-1.2.3 RUBYLIBDIR\=/workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/extensions/x86_64-linux/3.1.0/http-parser-1.2.3
+gcc -fexceptions -O -fno-omit-frame-pointer -fno-strict-aliasing -Wall -Wextra -O3 -fPIC   -o x86_64-linux/http-parser/http_parser.o -c ./http-parser/http_parser.c
+mkdir -p x86_64-linux/http-parser
+gcc -shared -o x86_64-linux/libhttp-parser-ext.so x86_64-linux/http-parser/http_parser.o -fexceptions 

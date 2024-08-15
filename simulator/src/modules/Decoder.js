@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, rect, fillText } from "../canvasApi";
+import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateArchitetureHeader, generateSpacings, generateLogicDecoder} from '../helperVHDL'
 /**
  * @class
  * Decoder
@@ -14,6 +15,7 @@ import { correctWidth, lineTo, moveTo, rect, fillText } from "../canvasApi";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import { scopeList } from "../circuit";
 
 export default class Decoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = "LEFT", bitWidth = 1) {
@@ -234,6 +236,11 @@ export default class Decoder extends CircuitElement {
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
+    generateVHDL() {
+        Decoder.selSizes.add(this.bitWidth);
+        return CircuitElement.prototype.generateVHDL.call(this);
+    }
+
     static moduleVerilog() {
         var output = "";
     
@@ -270,6 +277,32 @@ export default class Decoder extends CircuitElement {
         }
     
         return output;
+    }
+
+    static moduleVHDL() {
+        let output = "\n";
+        const decoder = Object.values(scopeList)[0].Decoder
+        let decoderComponent = []
+
+        for(var i = 0; i < decoder.length; i++){
+            decoderComponent = [...decoderComponent, {
+                header: generateHeaderVhdlEntity('Decoder', `bit${decoder[i].bitWidth}`),
+                portsin: generatePortsIO('in0', 0),
+                stdin: generateSTDType('IN', decoder[i].bitWidth) + ';\n',
+                portsout: generatePortsIO('out', decoder[i].bitWidth),
+                stdout: generateSTDType('OUT', 1) + '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('Decoder', `bit${decoder[i].bitWidth}`),
+                openProcess: `${generateSpacings(4)}PROCESS(in0)\n${generateSpacings(6)}BEGIN\n${generateSpacings(8)}`,
+                logic: generateLogicDecoder(decoder[i].bitWidth),
+                endprocess: `${generateSpacings(8)}END IF;\n${generateSpacings(4)}END PROCESS;`,
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${decoder[i].bitWidth}`,
+            }]
+        }
+        const decoderFiltered = removeDuplicateComponent(decoderComponent)
+        decoderFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsout + el.stdout + el.footer + el.architeture + el.openProcess + el.logic + el.endprocess + el.end)
+        return output
     }
 
     //reset the sized before Verilog generation

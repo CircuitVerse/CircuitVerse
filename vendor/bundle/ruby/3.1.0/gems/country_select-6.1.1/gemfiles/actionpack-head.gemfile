@@ -1,0 +1,9 @@
+source "https://rubygems.org"
+
+gemspec :path => "../"
+
+git "https://github.com/rails/rails.git" do
+  gem "actionpack"
+  gem "actionview"
+  gem "activesupport"
+end

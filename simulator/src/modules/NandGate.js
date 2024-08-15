@@ -3,7 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, drawCircle2, arc } from "../canvasApi";
 import { changeInputSize } from "../modules";
-import { gateGenerateVerilog } from '../utils';
+import { gateGenerateVerilog, gateGenerateVHDL } from '../utils';
 
 /**
  * @class
@@ -139,6 +139,10 @@ export default class NandGate extends CircuitElement {
 
     generateVerilog() {
         return gateGenerateVerilog.call(this, '&', true);
+    }
+
+    generateVHDL() {
+        return gateGenerateVHDL.call(this, "AND", true);
     }
 }
 

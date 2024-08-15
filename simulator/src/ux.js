@@ -20,6 +20,7 @@ import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
+import { setupVHDLExportCodeWindow } from "./vhdl";
 import { setupBitConvertor} from './utils';
 import { currentScreen } from './listeners';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
@@ -253,6 +254,7 @@ export function setupUI() {
     // $('#moduleProperty').draggable();
     setupPanels();
     setupVerilogExportCodeWindow();
+    setupVHDLExportCodeWindow();
     setupBitConvertor();
 }
 

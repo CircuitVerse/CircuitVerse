@@ -2,6 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateLogicdlatch} from '../helperVHDL'
 /**
  * @class
  * Dlatch
@@ -17,6 +18,7 @@ import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
  * @category sequential
  */
 import { colors } from '../themer/themer';
+import { scopeList } from '../circuit';
 export default class Dlatch extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = 'RIGHT', bitWidth = 1) {
         super(x, y, scope, dir, bitWidth);
@@ -111,6 +113,34 @@ export default class Dlatch extends CircuitElement {
         ctx.textAlign = 'center';
         fillText(ctx, this.state.toString(16), xx, yy + 5);
         ctx.fill();
+    }
+
+    static moduleVHDL() {
+        let output = "\n";
+        const dlatch = Object.values(scopeList)[0].Dlatch
+        let dlatchComponent = []
+
+        for(var i = 0; i < dlatch.length; i++){
+            dlatchComponent = [...dlatchComponent, {
+                header: generateHeaderVhdlEntity('Dlatch', `bit${dlatch[i].bitWidth}`),
+                portsin: generatePortsIO('in0', 0),
+                stdin: generateSTDType('IN', dlatch[i].bitWidth) + ';\n',
+                portsclock: generatePortsIO('clock', 0),
+                stdclock: generateSTDType('IN', 1) + ';\n',
+                portsout: generatePortsIO('q', 1),
+                stdout: generateSTDType('OUT', dlatch[i].bitWidth) + '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('Dlatch', `bit${dlatch[i].bitWidth}`),
+                openProcess: `${generateSpacings(4)}PROCESS(in0, clock)\n${generateSpacings(6)}BEGIN\n${generateSpacings(8)}`,
+                logic: generateLogicdlatch(),
+                endprocess: `${generateSpacings(8)}END IF;\n${generateSpacings(4)}END PROCESS;`,
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${dlatch[i].bitWidth}`,
+            }]
+        }
+        const dlatchFiltered = removeDuplicateComponent(dlatchComponent)
+        dlatchFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsclock + el.stdclock + el.portsout + el.stdout + el.footer + el.architeture + el.openProcess + el.logic + el.endprocess + el.end)
+        return output
     }
 }
 

@@ -1,0 +1,466 @@
+find_executable: checking for pg_config... -------------------- yes
+
+--------------------
+
+find_header: checking for libpq-fe.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm   -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libpq-fe.h>
+/* end */
+
+--------------------
+
+find_header: checking for libpq/libpq-fs.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <libpq/libpq-fs.h>
+/* end */
+
+--------------------
+
+find_header: checking for pg_config_manual.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <pg_config_manual.h>
+/* end */
+
+--------------------
+
+have_library: checking for PQconnectdb() in -lpq... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))PQconnectdb; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for PQconninfo() in libpq-fe.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))PQconninfo; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for PQsslAttribute() in libpq-fe.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))PQsslAttribute; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for PQresultVerboseErrorMessage() in libpq-fe.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))PQresultVerboseErrorMessage; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for PQencryptPasswordConn() in libpq-fe.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))PQencryptPasswordConn; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for PQresultMemorySize() in libpq-fe.h... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))PQresultMemorySize; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for PQenterPipelineMode() in libpq-fe.h... -------------------- no
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:16:57: error: ‘PQenterPipelineMode’ undeclared (first use in this function)
+   16 | int t(void) { void ((*volatile p)()); p = (void ((*)()))PQenterPipelineMode; return !p; }
+      |                                                         ^~~~~~~~~~~~~~~~~~~
+conftest.c:16:57: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c: In function ‘con’:
+conftest.c:17:20: error: ‘PGRES_PIPELINE_SYNC’ undeclared (first use in this function)
+   17 |  int con(){ return PGRES_PIPELINE_SYNC; }
+      |                    ^~~~~~~~~~~~~~~~~~~
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))PQenterPipelineMode; return !p; }
+17:  int con(){ return PGRES_PIPELINE_SYNC; }
+/* end */
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+conftest.c: In function ‘con’:
+conftest.c:18:20: error: ‘PGRES_PIPELINE_SYNC’ undeclared (first use in this function)
+   18 |  int con(){ return PGRES_PIPELINE_SYNC; }
+      |                    ^~~~~~~~~~~~~~~~~~~
+conftest.c:18:20: note: each undeclared identifier is reported only once for each function it appears in
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <libpq-fe.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: extern void PQenterPipelineMode();
+17: int t(void) { PQenterPipelineMode(); return 0; }
+18:  int con(){ return PGRES_PIPELINE_SYNC; }
+/* end */
+
+--------------------
+
+have_func: checking for timegm()... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:14:57: error: ‘timegm’ undeclared (first use in this function); did you mean ‘time_t’?
+   14 | int t(void) { void ((*volatile p)()); p = (void ((*)()))timegm; return !p; }
+      |                                                         ^~~~~~
+      |                                                         time_t
+conftest.c:14:57: note: each undeclared identifier is reported only once for each function it appears in
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))timegm; return !p; }
+/* end */
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void timegm();
+15: int t(void) { timegm(); return 0; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_gc_adjust_memory_usage()... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_gc_adjust_memory_usage; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_gc_mark_movable()... -------------------- yes
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_gc_mark_movable; return !p; }
+/* end */
+
+--------------------
+
+have_func: checking for rb_io_wait()... -------------------- no
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+conftest.c: In function ‘t’:
+conftest.c:14:57: error: ‘rb_io_wait’ undeclared (first use in this function); did you mean ‘rb_io_write’?
+   14 | int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_io_wait; return !p; }
+      |                                                         ^~~~~~~~~~
+      |                                                         rb_io_write
+conftest.c:14:57: note: each undeclared identifier is reported only once for each function it appears in
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_io_wait; return !p; }
+/* end */
+
+"gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-2.7.4/lib -L/usr/lib/x86_64-linux-gnu -Wl,-rpath,/usr/lib/x86_64-linux-gnu -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic    -lpq  -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby -lpq  -lm   -lc"
+/usr/bin/ld: /tmp/ccVflHEL.o: in function `t':
+/workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/pg-1.4.3/ext/conftest.c:15: undefined reference to `rb_io_wait'
+collect2: error: ld returned 1 exit status
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int main(int argc, char **argv)
+ 6: {
+ 7:   if (argc > 1000000) {
+ 8:     int (* volatile tp)(void)=(int (*)(void))&t;
+ 9:     printf("%d", (*tp)());
+10:   }
+11: 
+12:   return !!argv[argc];
+13: }
+14: extern void rb_io_wait();
+15: int t(void) { rb_io_wait(); return 0; }
+/* end */
+
+--------------------
+
+have_header: checking for unistd.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <unistd.h>
+/* end */
+
+--------------------
+
+have_header: checking for inttypes.h... -------------------- yes
+
+"gcc -E -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <inttypes.h>
+/* end */
+
+--------------------
+
+checking for C99 variable length arrays... -------------------- yes
+
+"gcc -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0 -I. -I/usr/include/postgresql    -g -O2 -fPIC   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: void test_vla(int l){ int vla[l]; }
+/* end */
+
+--------------------
+
+extconf.h is:
+/* begin */
+ 1: #ifndef EXTCONF_H
+ 2: #define EXTCONF_H
+ 3: #define ENABLE_GVL_UNLOCK 1
+ 4: #define HAVE_PQCONNINFO 1
+ 5: #define HAVE_PQSSLATTRIBUTE 1
+ 6: #define HAVE_PQRESULTVERBOSEERRORMESSAGE 1
+ 7: #define HAVE_PQENCRYPTPASSWORDCONN 1
+ 8: #define HAVE_PQRESULTMEMORYSIZE 1
+ 9: #define HAVE_TIMEGM 1
+10: #define HAVE_RB_GC_ADJUST_MEMORY_USAGE 1
+11: #define HAVE_RB_GC_MARK_MOVABLE 1
+12: #define HAVE_UNISTD_H 1
+13: #define HAVE_INTTYPES_H 1
+14: #define HAVE_VARIABLE_LENGTH_ARRAYS 1
+15: #endif
+/* end */
+

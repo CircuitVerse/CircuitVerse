@@ -1,0 +1,31 @@
+name: ubuntu
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: build (${{ matrix.ruby }} / ${{ matrix.os }})
+    strategy:
+      matrix:
+        ruby: [ head, '3.0', '2.7' ]
+        os: [ ubuntu-latest, macos-latest ]
+        experimental: [false]
+        include:
+#          - ruby: 2.6
+#            os: ubuntu-latest
+#            experimental: true
+          - ruby: 2.6
+            os: macos-latest
+            experimental: false
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.experimental }}
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Install dependencies
+      run: bundle install
+    - name: Run test
+      run: rake test

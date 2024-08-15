@@ -1,0 +1,14 @@
+<%
+  # Views that use this partial must supply the following variables:
+  # user
+  # thread
+  # comment
+  # page
+  # show_all
+%>
+
+$("#commontator-comment-<%= comment.id %>").html("<%= escape_javascript(
+  render partial: 'commontator/comments/show', formats: [ :html ], locals: {
+    user: user, thread: thread, comment: comment, page: page, show_all: show_all
+  }
+) %>");

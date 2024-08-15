@@ -1,0 +1,51 @@
+# Persian translation for damned-lies.
+# Copyright (C) 2012 damned-lies's COPYRIGHT HOLDER
+# This file is distributed under the same license as the damned-lies package.
+# Arash Mousavi <mousavi.arash@gmail.com>, 2014.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: damned-lies master\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-05-04 12:56+0000\n"
+"PO-Revision-Date: 2014-05-15 22:24+0330\n"
+"Last-Translator: Arash Mousavi <mousavi.arash@gmail.com>\n"
+"Language-Team: Persian <fa@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.6.4\n"
+
+#: database-content.py:1 database-content.py:129 settings.py:52
+msgid "Afrikaans"
+msgstr "آفریقایی"
+
+#: templates/vertimus/vertimus_detail.html:105
+#, python-format
+msgid " including <a href=\"%(img_url)s\">%(stats)s image</a>"
+msgid_plural " including <a href=\"%(img_url)s\">%(stats)s images</a>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: templates/vertimus/vertimus_detail.html:136 vertimus/forms.py:79
+msgid "Invalid action. Someone probably posted another action just before you."
+msgstr ""
+"فعالیت نامعتبر. شاید یک نفر دیگر دقیقا قبل از شما یک فعالیت دیگر ارسال کرده "
+"است."
+
+#: vertimus/models.py:470
+#, python-format
+#| msgid ""
+#| "Hello,\n"
+#| "\n"
+#| "The new state of %(module)s - %(branch)s - %(domain)s (%(language)s) is "
+#| "now '%(new_state)s'.\n"
+#| "%(url)s\n"
+#| "\n"
+msgid ""
+"The new state of %(module)s - %(branch)s - %(domain)s (%(language)s) is now "
+"'%(new_state)s'."
+msgstr ""
+"وضعیت جدید %(module)s - %(branch)s - %(domain)s (%(language)s) هم‌اکنون "
+"«%(new_state)s» است."

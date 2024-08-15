@@ -129,6 +129,35 @@ export function gateGenerateVerilog(gate, invert = false) {
     return res;
 }
 
+export function gateGenerateVHDL(gate, invert = false) {
+    var inputs = [];
+    var outputs = [];
+
+    for (var i = 0; i < this.nodeList.length; i++) {
+        if (this.nodeList[i].type == NODE_INPUT) {
+            inputs.push(this.nodeList[i]);
+        } else {
+            if (this.nodeList[i].connections.length > 0)
+                outputs.push(this.nodeList[i]);
+            else outputs.push(""); // Don't create a wire
+        }
+    }
+
+    var res = "";
+    if (outputs.length == 1) res += '    ' + outputs[0].verilogLabel;
+    else res += `{${outputs.map((x) => x.verilogLabel).join(", ")}}`;
+    
+    res += " <= ";
+
+    var inputParams = inputs.map((x) => x.verilogLabel).join(` ${gate} `);
+    if (invert) {
+        res += `(${inputParams})';`;
+    } else {
+        res += inputParams + ";";
+    }
+    return res;
+}
+
 // Helper function to download text
 export function download(filename, text) {
     var pom = document.createElement('a');

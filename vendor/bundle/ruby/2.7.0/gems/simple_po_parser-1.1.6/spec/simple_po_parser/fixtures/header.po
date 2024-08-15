@@ -1,0 +1,7 @@
+# PO Header entry
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: simple_po_parser 1\n"
+"Report-Msgid-Bugs-To: me\n"

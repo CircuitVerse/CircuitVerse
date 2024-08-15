@@ -14,6 +14,8 @@ import { correctWidth, rect, fillText } from "../canvasApi";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import { scopeList } from "../circuit";
+import { generateArchitetureHeader, generateFooterEntity, generateHeaderVhdlEntity, generateHeaderVhdlWithNumericLib, generateLogicMSB, generatePortsIO, generateSpacings, generateSTDType, removeDuplicateComponent } from "../helperVHDL";
 
 export default class MSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
@@ -124,6 +126,37 @@ export default class MSB extends CircuitElement {
 
     generateVerilog() {
         return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[${this.inp1.bitWidth-1}] : 0;`;
+    }
+
+    generateVHDL() {
+        // MSB.selSizes.add(this.controlSignalSize);
+        return CircuitElement.prototype.generateVHDL.call(this);
+    }
+
+    static moduleVHDL() {
+        let output = "\n";
+        const msb = Object.values(scopeList)[0].MSB
+        let msbComponent = []
+
+        for(var i = 0; i < msb.length; i++){
+            msbComponent = [...msbComponent, {
+                header: generateHeaderVhdlWithNumericLib('MSB', `bit${msb[i].bitWidth}`),
+                portsin: generatePortsIO('inp', 0),
+                stdin: generateSTDType('IN', msb[i].bitWidth)+ ';\n',
+                portenabled: generatePortsIO('enabled', 0),
+                stdenabled: generateSTDType('OUT', 1)+ ';\n',
+                portsout: generatePortsIO('out1', 0),
+                stdout: generateSTDType('OUT', msb[i].bitWidth)+ '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('MSB', `bit${msb[i].bitWidth}`),
+                logic: generateLogicMSB(msb[i].bitWidth),
+                end: `END ARCHITECTURE;\n`,
+                identificator: `bit${msb[i].bitWidth}`,
+            }]
+        }
+        const msbFiltered = removeDuplicateComponent(msbComponent)
+        msbFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portenabled + el.stdenabled + el.portsout + el.stdout + el.footer + el.architeture + el.logic + el.end)
+        return output
     }
 }
 

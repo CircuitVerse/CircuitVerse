@@ -14,6 +14,8 @@ import { correctWidth, rect, fillText } from "../canvasApi";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import { scopeList } from "../circuit";
+import { generateArchitetureHeader, generateFooterEntity, generateHeaderVhdlWithNumericLib, generateLogicLSB, generatePortsIO, generateSTDType, removeDuplicateComponent } from "../helperVHDL";
 
 export default class LSB extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
@@ -129,6 +131,37 @@ export default class LSB extends CircuitElement {
     }
     generateVerilog() {
         return `assign ${this.output1.verilogLabel} = (${this.enable.verilogLabel}!=0) ? ${this.inp1.verilogLabel}[0] : 0;`;
+    }
+
+    generateVHDL() {
+        // MSB.selSizes.add(this.controlSignalSize);
+        return CircuitElement.prototype.generateVHDL.call(this);
+    }
+
+    static moduleVHDL() {
+        let output = "\n";
+        const lsb = Object.values(scopeList)[0].LSB
+        let lsbComponent = []
+
+        for(var i = 0; i < lsb.length; i++){
+            lsbComponent = [...lsbComponent, {
+                header: generateHeaderVhdlWithNumericLib('LSB', `bit${lsb[i].bitWidth}`),
+                portsin: generatePortsIO('inp', 0),
+                stdin: generateSTDType('IN', lsb[i].bitWidth)+ ';\n',
+                portenabled: generatePortsIO('enabled', 0),
+                stdenabled: generateSTDType('OUT', 1)+ ';\n',
+                portsout: generatePortsIO('out1', 0),
+                stdout: generateSTDType('OUT', lsb[i].bitWidth)+ '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('LSB', `bit${lsb[i].bitWidth}`),
+                logic: generateLogicLSB(lsb[i].bitWidth),
+                end: `END ARCHITECTURE;\n`,
+                identificator: `bit${lsb[i].bitWidth}`,
+            }]
+        }
+        const lsbFiltered = removeDuplicateComponent(lsbComponent)
+        lsbFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portenabled + el.stdenabled + el.portsout + el.stdout + el.footer + el.architeture + el.logic + el.end)
+        return output
     }
 }
 

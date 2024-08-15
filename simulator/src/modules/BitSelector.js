@@ -144,6 +144,14 @@ export default class BitSelector extends CircuitElement {
     generateVerilog() {
         return `assign ${this.output1.verilogLabel} = ${this.inp1.verilogLabel} >> ${this.bitSelectorInp.verilogLabel};`;
     }
+
+    generateVHDL() {
+        if(this.bitSelectorInp.bitWidth === 1){
+            return `    ${this.output1.verilogLabel} <= ${this.inp1.verilogLabel}(to_integer(unsigned("0" + ${this.bitSelectorInp.verilogLabel})));`;
+        } else{
+            return `    ${this.output1.verilogLabel} <= ${this.inp1.verilogLabel}(to_integer(unsigned(${this.bitSelectorInp.verilogLabel})));`;
+        }
+    }
 }
 
 /**

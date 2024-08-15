@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateZeros, generateLogicMux} from '../helperVHDL'
 /**
  * @class
  * Multiplexer
@@ -16,6 +17,7 @@ import { changeInputSize } from "../modules";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import { scopeList } from "../circuit";
 
 export default class Multiplexer extends CircuitElement {
     constructor(
@@ -275,6 +277,11 @@ export default class Multiplexer extends CircuitElement {
         return CircuitElement.prototype.generateVerilog.call(this);
     }
 
+    generateVHDL() {
+        Multiplexer.selSizes.add(this.controlSignalSize);
+        return CircuitElement.prototype.generateVHDL.call(this);
+    }
+
     //generate the needed modules
     static moduleVerilog() {
         var output = "";
@@ -311,6 +318,36 @@ export default class Multiplexer extends CircuitElement {
 
         return output;
     }
+
+    static moduleVHDL() {
+        let output = "\n";
+        const mux = Object.values(scopeList)[0].Multiplexer
+        let muxComponent = []
+
+        for(var i = 0; i < mux.length; i++){
+            muxComponent = [...muxComponent, {
+                header: generateHeaderVhdlEntity('Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
+                portsin: generatePortsIO('in', mux[i].controlSignalSize),
+                stdin: generateSTDType('IN', mux[i].bitWidth)+ ';\n',
+                portsel: generatePortsIO('sel', 0),
+                stdsel: generateSTDType('IN', mux[i].controlSignalSize)+ ';\n',
+                portsout: generatePortsIO('x', 0),
+                stdout: generateSTDType('OUT', mux[i].bitWidth)+ '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('Mux', `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`),
+                startlogic: `${generateSpacings(4)}WITH sel SELECT\n${generateSpacings(4)}x <= `,
+                logic: generateLogicMux(mux[i].controlSignalSize),
+                end: `;\nEND ARCHITECTURE;\n`,
+                identificator: `bit${mux[i].bitWidth}sel${mux[i].controlSignalSize}`,
+            }]
+        }
+        const muxFiltered = removeDuplicateComponent(muxComponent)
+        muxFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.footer + el.architeture + el.startlogic + el.logic + el.end)
+        return output
+    }
+
+
+
     //reset the sized before Verilog generation
     static resetVerilog() {
         Multiplexer.selSizes = new Set();

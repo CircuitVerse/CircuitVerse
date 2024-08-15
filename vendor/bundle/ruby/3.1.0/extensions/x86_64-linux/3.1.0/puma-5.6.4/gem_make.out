@@ -1,0 +1,26 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/puma-5.6.4/ext/puma_http11
+/home/gitpod/.rvm/rubies/ruby-3.1.2/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.1.2/lib/ruby/3.1.0 -r ./siteconf20220927-1025-xiurtg.rb extconf.rb
+using OpenSSL pkgconfig (openssl.pc)
+checking for openssl/bio.h... yes
+checking for DTLS_method() in openssl/ssl.h... yes
+checking for TLS_server_method() in openssl/ssl.h... yes
+checking for SSL_CTX_set_min_proto_version(NULL, 0) in openssl/ssl.h... yes
+checking for X509_STORE_up_ref()... yes
+checking for SSL_CTX_set_ecdh_auto(NULL, 0) in openssl/ssl.h... yes
+checking for SSL_get1_peer_certificate() in openssl/ssl.h... no
+checking for Random.bytes... yes
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/puma-5.6.4/ext/puma_http11
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/puma-5.6.4/ext/puma_http11
+make DESTDIR\=
+compiling http11_parser.c
+compiling mini_ssl.c
+compiling puma_http11.c
+linking shared-object puma/puma_http11.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.1.0/gems/puma-5.6.4/ext/puma_http11
+make DESTDIR\= install
+/usr/bin/install -m 0755 puma_http11.so ./.gem.20220927-1025-om9lbi/puma

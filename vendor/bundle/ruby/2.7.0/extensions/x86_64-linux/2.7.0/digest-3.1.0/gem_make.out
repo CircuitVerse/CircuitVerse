@@ -1,0 +1,18 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/digest-3.1.0/ext/digest/sha2
+/home/gitpod/.rvm/rubies/ruby-2.7.4/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-2.7.4/lib/ruby/2.7.0 -r ./siteconf20220922-933-i1opjc.rb extconf.rb
+checking for u_int8_t... yes
+checking for sys/cdefs.h... yes
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/digest-3.1.0/ext/digest/sha2
+make "DESTDIR=" clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/digest-3.1.0/ext/digest/sha2
+make "DESTDIR="
+compiling sha2init.c
+compiling sha2.c
+linking shared-object digest/sha2.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/digest-3.1.0/ext/digest/sha2
+make "DESTDIR=" install
+/usr/bin/install -m 0755 sha2.so ./.gem.20220922-933-wirpvw/digest

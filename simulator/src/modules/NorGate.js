@@ -1,7 +1,7 @@
 import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
-import { gateGenerateVerilog } from '../utils';
+import { gateGenerateVerilog, gateGenerateVHDL } from '../utils';
 
 import {
     correctWidth,
@@ -149,6 +149,10 @@ export default class NorGate extends CircuitElement {
 
     generateVerilog() {
         return gateGenerateVerilog.call(this, '|', true);
+    }
+
+    generateVHDL() {
+        return gateGenerateVHDL.call(this, "OR", true);
     }
 }
 

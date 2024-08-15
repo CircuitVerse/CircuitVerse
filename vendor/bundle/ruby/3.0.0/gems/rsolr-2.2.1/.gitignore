@@ -1,0 +1,13 @@
+.DS_Store
+.yardoc/
+pkg/*
+apache-solr-3.3.0/
+coverage/
+doc/
+example/
+
+Gemfile.lock
+
+*.gem
+.bundle
+/spec/examples.txt

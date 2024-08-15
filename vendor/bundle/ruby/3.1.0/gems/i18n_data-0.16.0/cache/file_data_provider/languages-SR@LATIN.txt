@@ -1,0 +1,184 @@
+AA;;afarski
+AB;;abkaski
+AF;;afrikanski
+AK;;akanski
+AM;;amharski
+AR;;arapski
+AN;;aragonski
+AS;;asameški
+AV;;avarski
+AE;;avestansko pismo
+AY;;ajmarski
+AZ;;azerbejdžanski
+BA;;baškirski
+BM;;bambaraški
+BE;;beloruski
+BN;;banglaški
+BH;;bihaški jezici
+BI;;bislameški
+BO;;tibetski
+BS;;bošnjački
+BR;;bretonski
+BG;;bugarski
+CA;;katalonski; valensijski
+CS;;češki
+CH;;čamorski
+CE;;čečenski
+CU;;crkvenoslovenski; staroslovenski; starobugarski; stari crkvenoslovenski
+CV;;čuvaški
+KW;;kornvalski
+CO;;korzikanski
+CR;;kriški
+CY;;velški
+DA;;danski
+DE;;nemački
+DV;;divehški; maldivski
+DZ;;dzongeški
+EL;;grčki, savremeni (1453.—)
+EN;;engleski
+EO;;esperanto
+ET;;estonski
+EU;;baskijski
+EE;;evski
+FO;;farski
+FA;;persijski
+FJ;;fidžiski
+FI;;finski
+FR;;francuski
+FY;;zapadnofrizijski
+FF;;fulški
+GD;;galski; škotski galski
+GA;;irski
+GL;;galicijski
+GV;;manski
+GN;;gvaranski
+GU;;guđaratsko pismo
+HT;;haićanski; haićanski kreolski
+HA;;hauski
+HE;;hebrejski
+HZ;;hererski
+HI;;hindu
+HO;;hiri motuški
+HR;;hrvatski
+HU;;mađarski
+HY;;jermenski
+IG;;iboški
+IO;;idoski
+II;;sičuanski ji; nuoški
+IU;;inuktitutski
+IE;;interlingve; zapadnjački
+IA;;interjezik (međunarodno udruženje sporednih jezika
+ID;;indonežanski
+IK;;inupjaški
+IS;;islandski
+IT;;italijanski
+JV;;javanski
+JA;;japanski
+KL;;kalski; grenlandski
+KN;;kannada pismo
+KS;;kašmirski
+KA;;gruzijski
+KR;;kanurski
+KK;;kazahstanski
+KM;;središnji kmerski
+KI;;kikujski; gikujski
+RW;;kinjarvandski
+KY;;kirgiški
+KV;;komski
+KG;;kongoanski
+KO;;korejski
+KJ;;kuanjamski; kvanjamski
+KU;;kurdski
+LO;;laosko pismo
+LA;;latinski
+LV;;letonski
+LI;;limburganski; limburgerski; limburgiški
+LN;;lingalski
+LT;;litvanski
+LB;;luksemburški; leceburški
+LU;;luba-katanški
+LG;;gandski
+MH;;maršalski
+ML;;malajalamsko pismo
+MR;;maratski
+MK;;makedonski
+MG;;malagaški
+MT;;malteški
+MN;;mongolski
+MI;;maorski
+MS;;malajski
+MY;;burmanski
+NA;;naurski
+NV;;navašanski
+NR;;ndebelski, južni; južni ndebelski
+ND;;ndebelski, severni; severni ndebelski
+NG;;ndonški
+NE;;nepalski
+NL;;holandski; flaminski
+NN;;norveški ninorški; ninorški, norveški
+NB;;bokmalski, norveški; norveški bokmalski
+NO;;norveški
+NY;;čevski; čičevski; njandžiski
+OC;;oksitanski (posle 1500.); provansalski
+OJ;;odžibski
+OR;;orijski
+OM;;oromski
+OS;;osetijski; osetski
+PA;;pandžabski
+PI;;palski
+PL;;poljski
+PT;;portugalski
+PS;;puštski; paštski
+QU;;kečuški
+RM;;romski
+RO;;rumunski; moldovijski; moldavski
+RN;;rundski
+RU;;ruski
+SG;;sanški
+SA;;sanskritski
+SI;;sinhalski; sinhaleški
+SK;;slovački
+SL;;slovenački
+SE;;severnosamski
+SM;;samoanski
+SN;;šonski
+SD;;sindski
+SO;;somalski
+ST;;sotski, južni
+ES;;španski; kastiljski
+SQ;;albanski
+SC;;sardinijski
+SR;;srpski
+SS;;svatski
+SU;;sundansko pismo
+SW;;svahilski
+SV;;švedski
+TY;;tahićanski
+TA;;tamilsko pismo
+TT;;tatarski
+TE;;telugu pismo
+TG;;tadžiški
+TL;;tagaloški
+TH;;tajlandski
+TI;;tigrinjski
+TO;;tonški (Tonga ostrva)
+TN;;cvanski
+TS;;conški
+TK;;turkmenski
+TR;;turski
+TW;;tviški
+UG;;uigurski; ujgurski
+UK;;ukrajinski
+UR;;urdski
+UZ;;uzbekistanski
+VE;;vendski
+VI;;vijetnamski
+VO;;volapiški
+WA;;valunski
+WO;;volofski
+XH;;ksoški
+YI;;jidiški
+YO;;jorubski
+ZA;;žuanški; čuanški
+ZH;;kineski
+ZU;;zulski

@@ -1,0 +1,24 @@
+var commontatorOldCommentIds = $("#commontator-comment-<%=
+  @comment.id
+%>-children").children().map(function() {
+  return '#' + $(this).attr('id');
+}).toArray().join(',');
+
+<%=
+  render partial: 'show', locals: {
+    user: @commontator_user,
+    thread: @commontator_thread,
+    comment: @comment,
+    page: @commontator_page,
+    show_all: @commontator_show_all
+  }
+%>
+
+var commontatorNewComments = $("#commontator-comment-<%=
+  @comment.id
+%>-children").children().not(commontatorOldCommentIds).hide().fadeIn();
+$('html, body').animate(
+  { scrollTop: commontatorNewComments.offset().top - window.innerHeight/2 }, 'fast'
+);
+
+<%= javascript_proc %>

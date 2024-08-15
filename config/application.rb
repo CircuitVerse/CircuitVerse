@@ -40,6 +40,7 @@ module Logix
     end
 
     # Site config
+    config.assets.initialize_on_precompile = false
     config.site_url = "https://circuitverse.org/"
     config.site_name = "CircuitVerse"
     config.site_category = "Digital Logic Circuits"

@@ -1,0 +1,36 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/hiredis-0.6.3/ext/hiredis_ext
+/home/gitpod/.rvm/rubies/ruby-3.0.3/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.0.3/lib/ruby/3.0.0 -r ./siteconf20220923-3076-gl33sz.rb extconf.rb
+checking for sys/socket.h... yes
+cc -std=c99 -pedantic -c -O3 -fPIC  -Wall -W -Wstrict-prototypes -Wwrite-strings -g -ggdb net.c
+cc -std=c99 -pedantic -c -O3 -fPIC  -Wall -W -Wstrict-prototypes -Wwrite-strings -g -ggdb hiredis.c
+cc -std=c99 -pedantic -c -O3 -fPIC  -Wall -W -Wstrict-prototypes -Wwrite-strings -g -ggdb sds.c
+cc -std=c99 -pedantic -c -O3 -fPIC  -Wall -W -Wstrict-prototypes -Wwrite-strings -g -ggdb async.c
+cc -std=c99 -pedantic -c -O3 -fPIC  -Wall -W -Wstrict-prototypes -Wwrite-strings -g -ggdb read.c
+ar rcs libhiredis.a net.o hiredis.o sds.o async.o read.o
+checking for rb_thread_fd_select()... yes
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/hiredis-0.6.3/ext/hiredis_ext
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/hiredis-0.6.3/ext/hiredis_ext
+make DESTDIR\=
+compiling connection.c
+connection.c: In function ‘connection_read’:
+connection.c:458:24: warning: passing argument 2 of ‘__get_reply’ discards ‘volatile’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+  458 |     if (__get_reply(pc,&reply) == -1)
+      |                        ^~~~~~
+connection.c:375:55: note: expected ‘VALUE *’ {aka ‘long unsigned int *’} but argument is of type ‘volatile VALUE *’ {aka ‘volatile long unsigned int *’}
+  375 | static int __get_reply(redisParentContext *pc, VALUE *reply) {
+      |                                                ~~~~~~~^~~~~
+connection.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+compiling hiredis_ext.c
+compiling reader.c
+linking shared-object hiredis/ext/hiredis_ext.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/hiredis-0.6.3/ext/hiredis_ext
+make DESTDIR\= install
+/usr/bin/install -m 0755 hiredis_ext.so ./.gem.20220923-3076-rim37w/hiredis/ext

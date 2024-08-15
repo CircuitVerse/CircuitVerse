@@ -1,0 +1,7 @@
+.autotest
+History.txt
+Manifest.txt
+README.rdoc
+Rakefile
+lib/pr_geohash.rb
+test/test_pr_geohash.rb

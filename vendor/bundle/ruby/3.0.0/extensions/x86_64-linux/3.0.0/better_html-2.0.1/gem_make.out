@@ -1,0 +1,37 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/better_html-2.0.1/ext/better_html_ext
+/home/gitpod/.rvm/rubies/ruby-3.0.3/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-3.0.3/lib/ruby/3.0.0 -r ./siteconf20230411-7666-6ol59q.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/better_html-2.0.1/ext/better_html_ext
+make DESTDIR\= clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/better_html-2.0.1/ext/better_html_ext
+make DESTDIR\=
+compiling html_tokenizer.c
+compiling parser.c
+parser.c: In function ‘parser_document_append’:
+parser.c:498:9: warning: unused variable ‘old’ [-Wunused-variable]
+  498 |   void *old = parser->doc.data;
+      |         ^~~
+parser.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+compiling tokenizer.c
+tokenizer.c: In function ‘scan_tag_name’:
+tokenizer.c:467:9: warning: variable ‘old’ set but not used [-Wunused-but-set-variable]
+  467 |   void *old;
+      |         ^~~
+tokenizer.c: In function ‘tokenizer_set_scan_string’:
+tokenizer.c:669:15: warning: unused variable ‘old’ [-Wunused-variable]
+  669 |   const char *old = tk->scan.string;
+      |               ^~~
+tokenizer.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+linking shared-object better_html_ext.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/3.0.0/gems/better_html-2.0.1/ext/better_html_ext
+make DESTDIR\= install
+/usr/bin/install -m 0755 better_html_ext.so ./.gem.20230411-7666-1a99gt

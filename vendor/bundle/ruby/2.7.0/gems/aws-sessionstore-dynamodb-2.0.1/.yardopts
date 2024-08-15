@@ -1,0 +1,4 @@
+--title 'AWS DynamoDB Session Store'
+--template-path doc-src/templates
+--hide-api private
+--plugin sitemap

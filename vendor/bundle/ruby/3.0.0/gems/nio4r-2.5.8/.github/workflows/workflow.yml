@@ -1,0 +1,47 @@
+name: nio4r
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: >-
+      ${{matrix.os}}, ${{matrix.ruby}}
+    env:
+      CI: true
+      TESTOPTS: -v
+
+    runs-on: ${{matrix.os}}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ ubuntu-20.04, ubuntu-18.04, macos-10.15, windows-2019 ]
+        ruby: [ head, 3.0, 2.7, 2.6, 2.5, 2.4, jruby, truffleruby-head ]
+        include:
+          - { os: ubuntu-16.04, ruby: 3.0 }
+          - { os: ubuntu-16.04, ruby: 2.4 }
+        exclude:
+          - { os: windows-2019, ruby: head  }
+          - { os: windows-2019, ruby: jruby }
+          - { os: windows-2019, ruby: truffleruby-head }
+
+    steps:
+      - name: repo checkout
+        uses: actions/checkout@v2
+
+      - name: load ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{matrix.ruby}}
+
+      - name: RubyGems, Bundler Update
+        run: gem update --system --no-document --conservative
+
+      - name: bundle install
+        run: bundle install --path .bundle/gems --without development
+
+      - name: compile
+        run: bundle exec rake compile
+
+      - name: test
+        run: bundle exec rake spec
+        timeout-minutes: 10

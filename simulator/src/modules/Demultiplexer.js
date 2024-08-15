@@ -2,6 +2,7 @@ import CircuitElement from "../circuitElement";
 import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
+import {removeDuplicateComponent, generateHeaderVhdlEntity, generatePortsIO, generateSTDType, generateFooterEntity, generateSpacings, generateArchitetureHeader, generateLogicDemux} from '../helperVHDL'
 /**
  * @class
  * Demultiplexer
@@ -15,6 +16,7 @@ import { correctWidth, lineTo, moveTo, fillText } from "../canvasApi";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import Scope, { scopeList } from "../circuit";
 
 export default class Demultiplexer extends CircuitElement {
     constructor(
@@ -305,6 +307,34 @@ export default class Demultiplexer extends CircuitElement {
         }
 
         return output;
+    }
+
+    static moduleVHDL() {
+        let output = "\n";
+        const demux = Object.values(scopeList)[0].Demultiplexer
+        let demuxComponent = []
+
+        for(var i = 0; i < demux.length; i++){
+            demuxComponent = [...demuxComponent, {
+                header: generateHeaderVhdlEntity('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),
+                portsin: generatePortsIO('in0', 0),
+                stdin: generateSTDType('IN', demux[i].bitWidth) + ';\n',
+                portsel: generatePortsIO('sel', 0),
+                stdsel: generateSTDType('IN', demux[i].controlSignalSize) + ';\n',
+                portsout: generatePortsIO('out', demux[i].controlSignalSize),
+                stdout: generateSTDType('OUT', demux[i].bitWidth) + '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('Demux', `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`),
+                openProcess: `${generateSpacings(4)}PROCESS(in0, sel)\n${generateSpacings(6)}BEGIN\n${generateSpacings(8)}`,
+                logic: generateLogicDemux(demux[i].controlSignalSize, demux[i].bitWidth),
+                endprocess: `${generateSpacings(8)}END IF;\n${generateSpacings(4)}END PROCESS;`,
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${demux[i].bitWidth}sel${demux[i].controlSignalSize}`,
+            }]
+        }
+        const demuxFiltered = removeDuplicateComponent(demuxComponent)
+        demuxFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsel + el.stdsel + el.portsout + el.stdout + el.footer + el.architeture + el.openProcess + el.logic + el.endprocess + el.end)
+        return output
     }
 
     //reset the sized before Verilog generation

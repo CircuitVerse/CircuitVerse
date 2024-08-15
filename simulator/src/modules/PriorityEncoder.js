@@ -14,6 +14,8 @@ import { correctWidth, rect, fillText } from "../canvasApi";
  * @category modules
  */
 import { colors } from "../themer/themer";
+import { scopeList } from "../circuit";
+import { generateArchitetureHeader, generateFooterEntity, generateHeaderVhdlEntity, generateLogicpriorityEncoder, generatePortsIO, generatePortsIOPriorityEnc, generateSpacings, generateSTDType, removeDuplicateComponent } from "../helperVHDL";
 
 export default class PriorityEncoder extends CircuitElement {
     constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
@@ -263,6 +265,37 @@ export default class PriorityEncoder extends CircuitElement {
     //reset the sized before Verilog generation
     static resetVerilog() {
         PriorityEncoder.selSizes = new Set
+    }
+
+    generateVHDL() {
+        PriorityEncoder.selSizes.add(this.controlSignalSize);
+        return CircuitElement.prototype.generateVHDL.call(this);
+    }
+
+    static moduleVHDL() {
+        let output = "\n";
+        const priorityEncoder = Object.values(scopeList)[0].PriorityEncoder
+        let priorityEncoderComponent = []
+
+        for(var i = 0; i < priorityEncoder.length; i++){
+            priorityEncoderComponent = [...priorityEncoderComponent, {
+                header: generateHeaderVhdlEntity('PriorityEncoder', `bit${priorityEncoder[i].bitWidth}`),
+                portsin: generatePortsIO('inp', priorityEncoder[i].bitWidth),
+                stdin: generateSTDType('IN', 1)+ ';\n',
+                porten: generatePortsIO('enabled', 0),
+                stden: generateSTDType('IN', 1)+ ';\n',
+                portsout: generatePortsIOPriorityEnc('out', priorityEncoder[i].bitWidth),
+                stdout: generateSTDType('OUT', 1)+ '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('PriorityEncoder', `bit${priorityEncoder[i].bitWidth}`),
+                logic: generateLogicpriorityEncoder(priorityEncoder[i].bitWidth),
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${priorityEncoder[i].bitWidth}`,
+            }]
+        }
+        const priorityEncoderFiltered = removeDuplicateComponent(priorityEncoderComponent)
+        priorityEncoderFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.porten + el.stden + el.portsout + el.stdout + el.footer + el.architeture + el.logic + el.end)
+        return output
     }
 }
 

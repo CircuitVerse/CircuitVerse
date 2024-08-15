@@ -1,0 +1,96 @@
+have_header: checking for ruby/st.h... -------------------- yes
+
+LD_LIBRARY_PATH=.:/home/gitpod/.rvm/rubies/ruby-3.1.2/lib "gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -Wundef  -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.1.2/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.1.2/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm  -lc"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return !!argv[argc];
+6: }
+/* end */
+
+LD_LIBRARY_PATH=.:/home/gitpod/.rvm/rubies/ruby-3.1.2/lib "gcc -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -Wundef  -fPIC   -c conftest.c"
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <ruby/st.h>
+/* end */
+
+--------------------
+
+have_header: checking for st.h... -------------------- no
+
+LD_LIBRARY_PATH=.:/home/gitpod/.rvm/rubies/ruby-3.1.2/lib "gcc -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -Wundef  -fPIC   -c conftest.c"
+conftest.c:3:10: fatal error: st.h: No such file or directory
+    3 | #include <st.h>
+      |          ^~~~~~
+compilation terminated.
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: #include <st.h>
+/* end */
+
+--------------------
+
+have_func: checking for rb_enc_interned_str() in ruby.h... -------------------- yes
+
+LD_LIBRARY_PATH=.:/home/gitpod/.rvm/rubies/ruby-3.1.2/lib "gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -Wundef  -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.1.2/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.1.2/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm  -lc"
+conftest.c: In function ‘t’:
+conftest.c:16:57: error: ‘rb_enc_interned_str’ undeclared (first use in this function); did you mean ‘rb_interned_str’?
+   16 | int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+      |                                                         ^~~~~~~~~~~~~~~~~~~
+      |                                                         rb_interned_str
+conftest.c:16:57: note: each undeclared identifier is reported only once for each function it appears in
+conftest.c: At top level:
+cc1: warning: unrecognized command line option ‘-Wno-self-assign’
+cc1: warning: unrecognized command line option ‘-Wno-parentheses-equality’
+cc1: warning: unrecognized command line option ‘-Wno-constant-logical-operand’
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: int t(void) { void ((*volatile p)()); p = (void ((*)()))rb_enc_interned_str; return !p; }
+/* end */
+
+LD_LIBRARY_PATH=.:/home/gitpod/.rvm/rubies/ruby-3.1.2/lib "gcc -o conftest -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/x86_64-linux -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0/ruby/backward -I/home/gitpod/.rvm/rubies/ruby-3.1.2/include/ruby-3.1.0 -I.    -O3 -fno-fast-math -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -Wundef  -fPIC conftest.c  -L. -L/home/gitpod/.rvm/rubies/ruby-3.1.2/lib -Wl,-rpath,/home/gitpod/.rvm/rubies/ruby-3.1.2/lib -L. -fstack-protector-strong -rdynamic -Wl,-export-dynamic -Wl,--no-as-needed     -Wl,-rpath,'/../lib' -Wl,-rpath,'/../lib' -lruby  -lm  -lc"
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: #include <ruby.h>
+ 4: 
+ 5: /*top*/
+ 6: extern int t(void);
+ 7: int main(int argc, char **argv)
+ 8: {
+ 9:   if (argc > 1000000) {
+10:     int (* volatile tp)(void)=(int (*)(void))&t;
+11:     printf("%d", (*tp)());
+12:   }
+13: 
+14:   return !!argv[argc];
+15: }
+16: extern void rb_enc_interned_str();
+17: int t(void) { rb_enc_interned_str(); return 0; }
+/* end */
+
+--------------------
+

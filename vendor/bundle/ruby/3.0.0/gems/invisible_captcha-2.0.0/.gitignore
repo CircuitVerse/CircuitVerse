@@ -1,0 +1,11 @@
+.bundle
+pkg
+.rvmrc
+.ruby-version
+.ruby-gemset
+Gemfile.lock
+*.gemfile.lock
+spec/dummy/log/*.log
+spec/dummy/tmp/
+.byebug_history
+.DS_Store

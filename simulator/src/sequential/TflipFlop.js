@@ -3,6 +3,8 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { colors } from '../themer/themer';
+import { scopeList } from '../circuit';
+import { generateArchitetureHeader, generateArchitetureHeaderTFlipFlop, generateFooterEntity, generateHeaderVhdlEntity, generateLogicTFlipFlop, generatePortsIO, generateSpacings, generateSTDType, hasComponent, hasExtraPorts, removeDuplicateComponent } from '../helperVHDL';
 
 /**
  * @class
@@ -166,7 +168,53 @@ export default class TflipFlop extends CircuitElement {
             end
         endmodule
         `
+    }
+
+    static moduleVHDL(){
+        let output = "\n";
+        const tflipflop = Object.values(scopeList)[0].TflipFlop
+        let tflipflopcomponent = []
+        let enable = []
+        let preset = []
+        let reset = []
+
+        for(var i = 0; i < tflipflop.length; i++){
+            enable = tflipflop[i].en
+            preset = tflipflop[i].preset
+            reset = tflipflop[i].reset
+
+            tflipflopcomponent = [...tflipflopcomponent, {
+                header: generateHeaderVhdlEntity('TFlipFlop', `bit${tflipflop[i].bitWidth}`),
+                portsin: generatePortsIO('inp', 0),
+                stdin: generateSTDType('IN', tflipflop[i].bitWidth) + ';\n',
+                portsclock: generatePortsIO('clock', 0),
+                stdclock: generateSTDType('IN', 1) + ';',
+                
+                portEnable: hasComponent(enable.connections) ? '\n' + generatePortsIO('enable', 0) : '',
+                stdEnable: hasComponent(enable.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portPreset: hasComponent(preset.connections) ? '\n' + generatePortsIO('preset', 0) : '',
+                stdPreset: hasComponent(preset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portAReset: hasComponent(reset.connections) ? '\n' + generatePortsIO('reset', 0) : '',
+                stdReset: hasComponent(reset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portsout: '\n' + generatePortsIO('q', 1),
+                stdout: generateSTDType('OUT', tflipflop[i].bitWidth) + '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeaderTFlipFlop('TFlipFlop', `bit${tflipflop[i].bitWidth}`),
+                openProcess: `${generateSpacings(4)}PROCESS(inp, clock${hasExtraPorts(enable.connections, preset.connections, reset.connections)})\n${generateSpacings(6)}BEGIN\n${generateSpacings(8)}`,
+                logic: generateLogicTFlipFlop(tflipflop[i]),
+                endprocess: `${generateSpacings(4)}END PROCESS;\n`,
+                attr: `${generateSpacings(2)} q0 <= tmp;\n${generateSpacings(2)} q1 <= NOT tmp;\n`,
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${tflipflop[i].bitWidth}`,
+            }]
         }
+        const tflipflopFiltered = removeDuplicateComponent(tflipflopcomponent)
+        tflipflopFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsclock + el.stdclock + el.portEnable + el.stdEnable + el.portPreset + el.stdPreset + el.portAReset + el.stdReset + el.portsout + el.stdout + el.footer + el.architeture + el.openProcess + el.logic + el.endprocess + el.attr + el.end)
+        return output
+    }
 }
 
 TflipFlop.prototype.tooltipText = 'T FlipFlop ToolTip :  Changes state / Toggles whenever the clock input is strobed.';

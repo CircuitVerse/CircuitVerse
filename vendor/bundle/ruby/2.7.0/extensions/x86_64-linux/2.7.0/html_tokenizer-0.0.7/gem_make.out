@@ -1,0 +1,43 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+/home/gitpod/.rvm/rubies/ruby-2.7.4/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-2.7.4/lib/ruby/2.7.0 -r ./siteconf20220922-933-jfeaf0.rb extconf.rb
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+make "DESTDIR=" clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+make "DESTDIR="
+compiling html_tokenizer.c
+compiling parser.c
+In file included from /home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby.h:33,
+                 from parser.c:1:
+parser.c: In function ‘Init_html_tokenizer_parser’:
+/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/ruby.h:2799:117: warning: passing argument 3 of ‘rb_define_method0’ from incompatible pointer type [-Wincompatible-pointer-types]
+ 2799 | #define rb_define_method(klass, mid, func, arity) rb_define_method_choose_prototypem3((arity),(func))((klass),(mid),(func),(arity));
+      |                                                                                                                     ^~~~~~
+      |                                                                                                                     |
+      |                                                                                                                     VALUE (*)(VALUE,  VALUE) {aka long unsigned int (*)(long unsigned int,  long unsigned int)}
+parser.c:792:3: note: in expansion of macro ‘rb_define_method’
+  792 |   rb_define_method(cParser, "errors", parser_errors_method, 0);
+      |   ^~~~~~~~~~~~~~~~
+In file included from /home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/ruby.h:2148,
+                 from /home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby.h:33,
+                 from parser.c:1:
+/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/ruby.h:2775:27: note: expected ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE,  VALUE)’ {aka ‘long unsigned int (*)(long unsigned int,  long unsigned int)’}
+ 2775 | RB_METHOD_DEFINITION_DECL(rb_define_method, (2,3), (VALUE klass, const char *name), (klass, name))
+      |                           ^~~~~~~~~~~~~~~~
+/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/intern.h:1042:82: note: in definition of macro ‘RB_METHOD_DEFINITION_DECL_C’
+ 1042 |     __attribute__((__unused__,__weakref__(#def),__nonnull__ nonnull))static void defname(RB_UNWRAP_MACRO decl,VALUE(*func)funcargs,int arity);
+      |                                                                                  ^~~~~~~
+/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/intern.h:1074:1: note: in expansion of macro ‘RB_METHOD_DEFINITION_DECL_1’
+ 1074 | RB_METHOD_DEFINITION_DECL_1(def,nonnull,def##0 ,0 ,decl,vars,(VALUE)) \
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/ruby.h:2775:1: note: in expansion of macro ‘RB_METHOD_DEFINITION_DECL’
+ 2775 | RB_METHOD_DEFINITION_DECL(rb_define_method, (2,3), (VALUE klass, const char *name), (klass, name))
+      | ^~~~~~~~~~~~~~~~~~~~~~~~~
+compiling tokenizer.c
+linking shared-object html_tokenizer_ext.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/html_tokenizer-0.0.7/ext/html_tokenizer_ext
+make "DESTDIR=" install
+/usr/bin/install -m 0755 html_tokenizer_ext.so ./.gem.20220922-933-1inn7xk

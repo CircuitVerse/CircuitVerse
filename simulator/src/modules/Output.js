@@ -5,6 +5,7 @@ import { correctWidth, fillText, rect2, oppositeDirection } from "../canvasApi";
 import { getNextPosition } from "../modules";
 import { generateId } from "../utils";
 import { colors } from "../themer/themer";
+import { gateGenerateVerilog, gateGenerateVHDL } from '../utils';
 
 function bin2dec(binString) {
     return parseInt(binString, 2);
@@ -196,6 +197,10 @@ export default class Output extends CircuitElement {
 
     generateVerilog() {
         return "assign " + this.verilogLabel + " = " + this.inp1.verilogLabel + ";"
+    }
+
+    generateVHDL() {
+        return `    ${this.label} <= ${this.inp1.verilogLabel};`;
     }
 }
 

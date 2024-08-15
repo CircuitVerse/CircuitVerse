@@ -8,7 +8,7 @@ import {
     arc2,
     drawCircle2,
 } from "../canvasApi";
-import { gateGenerateVerilog } from '../utils';
+import { gateGenerateVerilog, gateGenerateVHDL } from '../utils';
 
 import { changeInputSize } from "../modules";
 /**
@@ -164,6 +164,10 @@ export default class XnorGate extends CircuitElement {
 
     generateVerilog() {
         return gateGenerateVerilog.call(this,'^', true);
+    }
+
+    generateVHDL() {
+        return gateGenerateVHDL.call(this, "XOR", true);
     }
 }
 

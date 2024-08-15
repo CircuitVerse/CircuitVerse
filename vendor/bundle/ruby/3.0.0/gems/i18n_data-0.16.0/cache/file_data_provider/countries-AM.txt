@@ -1,0 +1,249 @@
+AW;;Aruba
+AF;;Afghanistan
+AO;;Angola
+AI;;Anguilla
+AX;;Åland Islands
+AL;;ጐሔባኒ።
+AD;;ጐን፦ሲ
+AE;;ፘተባበሩት ጐረብ ጔሤሳትስ
+AR;;ጐሴጀንቲና
+AM;;ጐሴሣኒ።
+AS;;American Samoa
+AQ;;Antarctica
+TF;;ፘፈረንሳ፤ ፠ቡባፁ ጔፒቶኄ
+AG;;Antigua and Barbuda
+AU;;ጐፄስትሳሑ።
+AT;;጖ስትሱ።
+AZ;;ጐፈሴባጃን
+BI;;Burundi
+BE;;ቤሔጄሤ
+BJ;;Benin
+BQ;;Bonaire, Sint Eustatius and Saba
+BF;;Burkina Faso
+BD;;Bangladesh
+BG;;ቡሔጓሱ።
+BH;;ባህሳን
+BS;;Bahamas
+BA;;ቦስኒ። ጕና ሄሴፕጕቱኒ።
+BL;;Saint Barthélemy
+BY;;ቤሒሩስ
+BZ;;ቤሑፈ
+BM;;ቤሴሙ፣
+BO;;ቦሑቱ።
+BR;;ብሲፑሔ
+BB;;ባሴቤ፦ስ
+BN;;Brunei Darussalam
+BT;;ቡህታን
+BV;;Bouvet Island
+BW;;Botswana
+CF;;ፘመጢጘለኢፄ ጐፔሱጢ ሱፐብሑጤ
+CA;;Canada
+CC;;Cocos (Keeling) Islands
+CH;;ስፁፈሴሒን፥
+CL;;ኁሑ
+CN;;ኂ፤ና
+CI;;Côte d'Ivoire
+CM;;ጢሣሩን
+CD;;Congo, The Democratic Republic of the
+CG;;ኮንጎ
+CK;;Cook Islands
+CO;;ጥሕሤቢ።
+KM;;ጥሥስስ
+CV;;Cabo Verde
+CR;;Costa Rica
+CU;;Cuba
+CW;;Curaçao
+CX;;Christmas Island
+KY;;Cayman Islands
+CY;;ሳ፤ፕረስ
+CZ;;Czechia
+DE;;ጀሴመን
+DJ;;Djibouti
+DM;;፦ሡኒጢ
+DK;;፤ንሢሴጤ
+DO;;፦ሡኒጤ ሱፑብሑጤ
+DZ;;ጐሔጄሱ።
+EC;;ጒጣ፦ሴ
+EG;;ጔብፄ
+ER;;ጔሴትሲ
+EH;;ሤፅሲባፁ ሳህሲ
+ES;;ስፔን
+EE;;ጔስቶኒ።
+ET;;ጒት፥ጵ።
+FI;;ፑንሒን፥
+FJ;;ፑጂ
+FK;;Falkland Islands (Malvinas)
+FR;;France
+FO;;Faroe Islands
+FM;;ሡጤስኔፒ።
+GA;;Gabon
+GB;;ጕንጔሑፔ
+GE;;ጆሴጂ።
+GG;;Guernsey
+GH;;Ghana
+GI;;Gibraltar
+GN;;ጊኔ
+GP;;Guadeloupe
+GM;;ጒሤቢ።
+GW;;ቢሳፅ
+GQ;;Equatorial Guinea
+GR;;ጔሱጤ
+GD;;Grenada
+GL;;Greenland
+GT;;Guatemala
+GF;;ፘፈረንሳ፤ ጉፁጐና
+GU;;Guam
+GY;;ጉ።ና
+HK;;ሆንጔ ጥንጔ
+HM;;Heard Island and McDonald Islands
+HN;;Honduras
+HR;;ጤስጔቄ።
+HT;;ሀ፤ቲ
+HU;;ሀንጒሱ
+ID;;ጒን፦ኔፒ።
+IM;;Isle of Man
+IN;;ህን፥
+IO;;British Indian Ocean Territory
+IE;;ጐፘሴሒን፥
+IR;;Iran, Islamic Republic of
+IQ;;ጒሲቅ
+IS;;ጐ፤ስሒን፥
+IL;;ጕስሲጔሔ
+IT;;ጣሑ።ን
+JM;;ጃሢ፤ጢ
+JE;;Jersey
+JO;;ጆሴ፣ን
+JP;;ጃፓን
+KZ;;Kazakhstan
+KE;;Kenya
+KG;;Kyrgyzstan
+KH;;ጢሤቦ።።
+KI;;Kiribati
+KN;;Saint Kitts and Nevis
+KR;;ሰሣን ጥሱ።
+KW;;ጤፃት
+LA;;Lao People's Democratic Republic
+LB;;ሑባኖስ
+LR;;Liberia
+LY;;Libya
+LC;;Saint Lucia
+LI;;Liechtenstein
+LK;;ሽሪ ላንካ
+LS;;Lesotho
+LT;;ሑቱፃኒ።
+LU;;Luxembourg
+LV;;ሒትቱ።
+MO;;ሢጢፅ
+MF;;Saint Martin (French part)
+MA;;ሥስጥ
+MC;;Monaco
+MD;;Moldova
+MG;;Madagascar
+MV;;Maldives
+MX;;ሣጤሲጥ
+MH;;Marshall Islands
+MK;;North Macedonia
+ML;;Mali
+MT;;ሢሔታ
+MM;;Myanmar
+ME;;Montenegro
+MN;;ሥንጕሑ።
+MP;;Northern Mariana Islands
+MZ;;Mozambique
+MR;;ሥሱቴኒ።
+MS;;Montserrat
+MQ;;Martinique
+MU;;ሢሩሸስ
+MW;;Malawi
+MY;;ሢሓፒ።
+YT;;Mayotte
+NA;;ናሡቢ።
+NC;;ኒፄ ጢሓ፦ኒ።
+NE;;Niger
+NF;;Norfolk Island
+NG;;ና፤ጄሱ።
+NI;;Nicaragua
+NU;;Niue
+NL;;ኔፈሴሒን፥
+NO;;ኖሴፃ
+NP;;ኔፓሔ
+NR;;Nauru
+NZ;;ኒፄ ፑሒን፥
+OM;;Oman
+PK;;Pakistan
+PA;;Panama
+PN;;Pitcairn
+PE;;ፔሩ
+PH;;Philippines
+PW;;Palau
+PG;;Papua New Guinea
+PL;;ፖሒን፥
+PR;;ፖሴታ ሱጥ
+KP;;፠ቡብ ጥሱ።
+PT;;Portugal
+PY;;Paraguay
+PS;;Palestine, State of
+PF;;ፘፈረንሳ፤ ፖሑኔፒ።
+QA;;Qatar
+RE;;Réunion
+RO;;ስሣኒ።
+RU;;ሲቁ።
+RW;;Rwanda
+SA;;ሳፄ፥ጐረቢ።
+SD;;ሱ፣ን
+SN;;ሴኔጒሔ
+SG;;ሲንጒፖሴ
+GS;;South Georgia and the South Sandwich Islands
+SH;;Saint Helena, Ascension and Tristan da Cunha
+SJ;;Svalbard and Jan Mayen
+SB;;Solomon Islands
+SL;;Sierra Leone
+SV;;El Salvador
+SM;;San Marino
+SO;;ሱሢሓ
+PM;;Saint Pierre and Miquelon
+RS;;Serbia
+SS;;South Sudan
+ST;;Sao Tome and Principe
+SR;;Suriname
+SK;;ስሕቲጡ።
+SI;;ስሕታኒ።
+SE;;ስፁ፥ን
+SZ;;Eswatini
+SX;;Sint Maarten (Dutch part)
+SC;;Seychelles
+SY;;ሲሱ።
+TC;;Turks and Caicos Islands
+TD;;ኂ፥
+TG;;Togo
+TH;;ታ፤ሒን፥
+TJ;;ታጃጡስታን
+TK;;Tokelau
+TM;;Turkmenistan
+TL;;ሤስሲቅ ቲሥሴ
+TO;;Tonga
+TT;;ትሱኒ፣፥ ጕና ቶባጕ
+TN;;ቱኒፑ።
+TR;;ቱሴጤ
+TV;;Tuvalu
+TW;;Taiwan
+TZ;;ታንፒኒ።
+UG;;ፙጒን፣
+UA;;Ukraine
+UM;;United States Minor Outlying Islands
+UY;;Uruguay
+US;;ጐሣሱጢ
+UZ;;ፙፔበጡስታን
+VA;;Holy See (Vatican City State)
+VC;;Saint Vincent and the Grenadines
+VE;;ታንፉፃሒ
+VG;;ፘጕንጔሑፔ ፥ንጔሔ ፠ሴቶኄ
+VI;;ፘጐሣሱጢ ቨሴጂን ፠ሴቶኄ
+VN;;Vietnam
+VU;;Vanuatu
+WF;;Wallis and Futuna
+WS;;Samoa
+YE;;ፘመን
+ZA;;፠ቡብ ጐፔሱጢ
+ZM;;ዛምቢያ
+ZW;;ፒሤቢ።

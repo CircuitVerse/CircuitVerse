@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, lineTo, moveTo, drawCircle2 } from "../canvasApi";
 import { changeInputSize } from "../modules";
+import { gateGenerateVerilog, gateGenerateVHDL } from '../utils';
 /**
  * @class
  * NotGate
@@ -93,6 +94,12 @@ export default class NotGate extends CircuitElement {
 
     generateVerilog() {
         return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
+    }
+    
+    generateVHDL() {
+        return (
+            this.output1.verilogLabel + " <= NOT (" + this.inp1.verilogLabel + ");"
+        );
     }
 }
 

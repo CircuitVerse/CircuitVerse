@@ -1,0 +1,86 @@
+name: Binary gems
+
+on: [push, pull_request]
+
+jobs:
+  job_build_x64:
+    name: build
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - platform: "x64-mingw-ucrt"
+          - platform: "x64-mingw32"
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.1"
+      - run: bundle install
+
+      - name: Create a dummy cert to satisfy the build
+        run: |
+          mkdir -p ~/.gem/
+          ruby -ropenssl -e "puts OpenSSL::PKey::RSA.new(2048).to_pem" > ~/.gem/gem-private_key.pem
+          gem cert --build travis-ci@dummy.org --private-key ~/.gem/gem-private_key.pem
+          cp gem-public_cert.pem ~/.gem/gem-public_cert.pem
+
+      - name: Build binary gem
+        run: bundle exec rake gem:windows:${{ matrix.platform }}
+
+      - name: Upload binary gem
+        uses: actions/upload-artifact@v2
+        with:
+          name: binary-gem
+          path: pkg/*.gem
+
+  job_test_binary:
+    name: Test on Windows
+    needs: job_build_x64
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - ruby: "3.1"
+            platform: "x64-mingw-ucrt"
+            PGVERSION: 14.2-1-windows-x64
+          - ruby: "2.5"
+            platform: "x64-mingw32"
+            PGVERSION: 10.20-1-windows
+
+    runs-on: windows-latest
+    env:
+      PGVERSION: ${{ matrix.PGVERSION }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Download gem from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: binary-gem
+
+      - name: Download PostgreSQL
+        run: |
+          Add-Type -AssemblyName System.IO.Compression.FileSystem
+          function Unzip {
+              param([string]$zipfile, [string]$outpath)
+              [System.IO.Compression.ZipFile]::ExtractToDirectory($zipfile, $outpath)
+          }
+
+          $(new-object net.webclient).DownloadFile("http://get.enterprisedb.com/postgresql/postgresql-$env:PGVERSION-binaries.zip", "postgresql-binaries.zip")
+          Unzip "postgresql-binaries.zip" "."
+          echo "$pwd/pgsql/bin"  | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+          echo "PGUSER=$env:USERNAME"  | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "PGPASSWORD="  | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+
+      - run: gem update --system
+      - run: bundle install
+      - run: gem install --local pg-*${{ matrix.platform }}.gem --verbose
+      - name: Run specs
+        run: ruby -rpg -S rspec spec/**/*_spec.rb

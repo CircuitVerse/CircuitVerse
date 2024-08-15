@@ -3,6 +3,8 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { colors } from '../themer/themer';
+import { scopeList } from '../circuit';
+import { generateArchitetureHeader, generateFooterEntity, generateHeaderVhdlEntity, generateLogicDFlipFlop, generatePortsIO, generateSpacings, generateSTDType, hasComponent, hasExtraPorts, removeDuplicateComponent } from '../helperVHDL';
 /**
  * @class
  * DflipFlop
@@ -139,23 +141,68 @@ export default class DflipFlop extends CircuitElement {
 
     static moduleVerilog(){
         return `
-module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
-    parameter WIDTH = 1;
-    output reg [WIDTH-1:0] q, q_inv;
-    input clk, a_rst, pre, en;
-    input [WIDTH-1:0] d;
+            module DflipFlop(q, q_inv, clk, d, a_rst, pre, en);
+                parameter WIDTH = 1;
+                output reg [WIDTH-1:0] q, q_inv;
+                input clk, a_rst, pre, en;
+                input [WIDTH-1:0] d;
 
-    always @ (posedge clk or posedge a_rst)
-    if (a_rst) begin
-        q <= 'b0;
-        q_inv <= 'b1;
-    end else if (en == 0) ;
-    else begin
-        q <= d;
-        q_inv <= ~d;
-    end
-endmodule
-    `
+                always @ (posedge clk or posedge a_rst)
+                if (a_rst) begin
+                    q <= 'b0;
+                    q_inv <= 'b1;
+                end else if (en == 0) ;
+                else begin
+                    q <= d;
+                    q_inv <= ~d;
+                end
+            endmodule
+        `
+    }
+
+    static moduleVHDL(){
+        let output = "\n";
+        const dflipflop = Object.values(scopeList)[0].DflipFlop
+        let dflipflopcomponent = []
+        let enable = []
+        let preset = []
+        let reset = []
+
+        for(var i = 0; i < dflipflop.length; i++){
+            enable = dflipflop[i].en
+            preset = dflipflop[i].preset
+            reset = dflipflop[i].reset
+
+            dflipflopcomponent = [...dflipflopcomponent, {
+                header: generateHeaderVhdlEntity('DFlipFlop', `bit${dflipflop[i].bitWidth}`),
+                portsin: generatePortsIO('inp', 0),
+                stdin: generateSTDType('IN', dflipflop[i].bitWidth) + ';\n',
+                portsclock: generatePortsIO('clock', 0),
+                stdclock: generateSTDType('IN', 1) + ';',
+                
+                portEnable: hasComponent(enable.connections) ? '\n' + generatePortsIO('enable', 0) : '',
+                stdEnable: hasComponent(enable.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portPreset: hasComponent(preset.connections) ? '\n' + generatePortsIO('preset', 0) : '',
+                stdPreset: hasComponent(preset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portAReset: hasComponent(reset.connections) ? '\n' + generatePortsIO('reset', 0) : '',
+                stdReset: hasComponent(reset.connections) ? generateSTDType('IN', 1) + ';' : '',
+                
+                portsout: '\n' + generatePortsIO('q', 1),
+                stdout: generateSTDType('OUT', dflipflop[i].bitWidth) + '\n',
+                footer: generateFooterEntity(),
+                architeture: generateArchitetureHeader('DFlipFlop', `bit${dflipflop[i].bitWidth}`),
+                openProcess: `${generateSpacings(4)}PROCESS(inp, clock${hasExtraPorts(enable.connections, preset.connections, reset.connections)})\n${generateSpacings(6)}BEGIN\n${generateSpacings(8)}`,
+                logic: generateLogicDFlipFlop(dflipflop[i]), //CRIAR A LÓGICA AQUI
+                endprocess: `${generateSpacings(4)}END PROCESS;`,
+                end: `\nEND ARCHITECTURE;\n`,
+                identificator: `bit${dflipflop[i].bitWidth}`,
+            }]
+        }
+        const dflipflopFiltered = removeDuplicateComponent(dflipflopcomponent)
+        dflipflopFiltered.forEach(el => output += el.header + el.portsin + el.stdin + el.portsclock + el.stdclock + el.portEnable + el.stdEnable + el.portPreset + el.stdPreset + el.portAReset + el.stdReset + el.portsout + el.stdout + el.footer + el.architeture + el.openProcess + el.logic + el.endprocess + el.end)
+        return output
     }
 }
 

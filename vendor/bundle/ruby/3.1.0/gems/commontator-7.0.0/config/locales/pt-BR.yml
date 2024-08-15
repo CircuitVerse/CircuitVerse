@@ -1,0 +1,88 @@
+---
+pt-BR:
+  activerecord:
+    attributes:
+      commontator/comment:
+        body: Comentário
+        creator: Criador
+        editor: Editor
+        thread: Discussão
+        parent: Comentário pai
+      commontator/subscription:
+        subscriber: Assinante
+        thread: Discussão
+      commontator/thread:
+        commontable: Comentável
+    errors:
+      models:
+        commontator/comment:
+          attributes:
+            body:
+              double_posted: é um comentário duplicado.
+    models:
+      commontator/comment:
+        one: comentário
+        other: comentários
+      commontator/subscription:
+        one: inscrição
+        other: incrições
+      commontator/thread:
+        one: tópico
+        other: tópicos
+  commontator:
+    anonymous: Anônimo
+    comment:
+      actions:
+        cancel: Cancelar
+        confirm_delete: Tem certeza que deseja remover este comentário?
+        create: Postar comentário
+        delete: Deletar
+        edit: Editar
+        new: Novo comentário
+        undelete: Desfazer
+        update: Editar comentário
+        reply: Responder ao comentário.
+      errors:
+        already_deleted: Este comentário já foi removido.
+        create: "Este comentário não pôde ser postado porque:"
+        not_deleted: Este comentário não foi removido.
+        update: "Este comentário não pôde ser editado porque:"
+      status:
+        created_at: Postado em %{created_at}.
+        deleted_by: Comentário removido por %{deleter_name}.
+        updated_at: Editado por %{editor_name} em %{updated_at}.
+        replying: Respondendo a %{creator_name}
+        reply_pages: "Páginas de respostas:"
+    email:
+      comment_created:
+        body: "%{creator_name} comentou em %{commontable_name}:"
+        subject: "%{creator_name} postou um comentário em %{commontable_name}"
+      thread_link_html: <a href="%{comment_url}">Clique aqui</a> para ver todos os comentários em %{commontable_name}.
+    require_login: Você deve fazer login para postar um comentário.
+    subscription:
+      actions:
+        subscribe: Inscrever-se
+        unsubscribe: Cancelar inscrição
+      errors:
+        already_subscribed: Você já está inscrito nessa discussão.
+        not_subscribed: Você não está inscrito nessa discussão.
+    thread:
+      actions:
+        show_all: Mostrar todos os comentários
+        filter: Filtrar comentários
+        close: Fechar discussão
+        confirm_close: Tem certeza que deseja fechar a discussão?
+        reopen: Reabrir discussão
+        show: Mostrar comentários
+        hide: Esconder comentários
+      errors:
+        already_closed: Essa discussão já foi fechada.
+        not_closed: Essa discussão não está fechada.
+      status:
+        cannot_post: Não é possível postar novos comentários.
+        closed: Comentários (Fechado por %{closer_name})
+        open: Comentários
+        pages: "Páginas de comentários:"
+  time:
+    formats:
+      commontator: "%d de %B de %Y às %H:%M %Z"

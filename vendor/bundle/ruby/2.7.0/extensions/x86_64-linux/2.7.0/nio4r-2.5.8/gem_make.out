@@ -1,0 +1,61 @@
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/nio4r-2.5.8/ext/nio4r
+/home/gitpod/.rvm/rubies/ruby-2.7.4/bin/ruby -I /home/gitpod/.rvm/rubies/ruby-2.7.4/lib/ruby/2.7.0 -r ./siteconf20220922-933-1actrqv.rb extconf.rb
+checking for unistd.h... yes
+checking for linux/aio_abi.h... yes
+checking for linux/io_uring.h... yes
+checking for sys/select.h... yes
+checking for port_event_t in poll.h... no
+checking for sys/epoll.h... yes
+checking for sys/event.h... no
+checking for port_event_t in port.h... no
+checking for sys/resource.h... yes
+creating Makefile
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/nio4r-2.5.8/ext/nio4r
+make "DESTDIR=" clean
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/nio4r-2.5.8/ext/nio4r
+make "DESTDIR="
+compiling bytebuffer.c
+compiling monitor.c
+compiling nio4r_ext.c
+In file included from nio4r_ext.c:6:
+../libev/ev.c:2136:31: warning: ‘ev_default_loop_ptr’ initialized and declared ‘extern’
+ 2136 |   EV_API_DECL struct ev_loop *ev_default_loop_ptr = 0; /* needs to be initialised to make it a definition despite extern */
+      |                               ^~~~~~~~~~~~~~~~~~~
+../libev/ev.c: In function ‘evpipe_write’:
+../libev/ev.c:2798:11: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+ 2798 |           write (evpipe [1], &counter, sizeof (uint64_t));
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:2810:11: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+ 2810 |           write (evpipe [1], &(evpipe [1]), 1);
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c: In function ‘pipecb’:
+../libev/ev.c:2831:11: warning: ignoring return value of ‘read’, declared with attribute warn_unused_result [-Wunused-result]
+ 2831 |           read (evpipe [1], &counter, sizeof (uint64_t));
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../libev/ev.c:2845:11: warning: ignoring return value of ‘read’, declared with attribute warn_unused_result [-Wunused-result]
+ 2845 |           read (evpipe [0], &dummy, sizeof (dummy));
+      |           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+compiling selector.c
+selector.c: In function ‘NIO_Selector_synchronize’:
+selector.c:301:26: warning: passing argument 1 of ‘rb_ensure’ from incompatible pointer type [-Wincompatible-pointer-types]
+  301 |         return rb_ensure(func, (VALUE)args, NIO_Selector_unlock, self);
+      |                          ^~~~
+      |                          |
+      |                          VALUE (*)(VALUE *) {aka long unsigned int (*)(long unsigned int *)}
+In file included from /home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby.h:33,
+                 from nio4r.h:10,
+                 from selector.c:6:
+/home/gitpod/.rvm/rubies/ruby-2.7.4/include/ruby-2.7.0/ruby/ruby.h:1990:17: note: expected ‘VALUE (*)(VALUE)’ {aka ‘long unsigned int (*)(long unsigned int)’} but argument is of type ‘VALUE (*)(VALUE *)’ {aka ‘long unsigned int (*)(long unsigned int *)’}
+ 1990 | VALUE rb_ensure(VALUE(*)(VALUE),VALUE,VALUE(*)(VALUE),VALUE);
+      |                 ^~~~~~~~~~~~~~~
+selector.c: In function ‘NIO_Selector_wakeup’:
+selector.c:499:5: warning: ignoring return value of ‘write’, declared with attribute warn_unused_result [-Wunused-result]
+  499 |     write(selector->wakeup_writer, "\0", 1);
+      |     ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+linking shared-object nio4r_ext.so
+
+current directory: /workspace/CircuitVerse/vendor/bundle/ruby/2.7.0/gems/nio4r-2.5.8/ext/nio4r
+make "DESTDIR=" install
+/usr/bin/install -m 0755 nio4r_ext.so ./.gem.20220922-933-155ge7g
