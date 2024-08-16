@@ -96,6 +96,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(io_image_file)
 
     image_file = return_image_file(params[:image])
 
@@ -193,6 +195,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def update_project_params
+      io_image_file = parse_image_data_url(params[:image])
+      attach_circuit_preview(io_image_file)
       @image_file = return_image_file(params[:image])
       @project.image_preview = @image_file
       @project.name = sanitize(params[:name])
@@ -257,6 +261,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
         current_user: current_user,
         only_name: true
       }
+    end
+
+    def attach_circuit_preview(image_file)
+      return unless image_file
+
+      @project.circuit_preview.attach(
+        io: image_file,
+        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
+        content_type: "img/jpeg"
+      )
     end
 
     def filter
