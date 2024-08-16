@@ -13,7 +13,7 @@ export default class extends Controller {
         this.constructor.setAdminModals();
     }
 
-    static enableSubmitButton() {
+   enableSubmitButton() {
         document.getElementById('submission-submit-button').disabled = false;
     }
 

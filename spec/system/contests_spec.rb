@@ -6,7 +6,7 @@ describe "Contests", type: :system do
   before do
     @contest = FactoryBot.create(:contest, status: :live)
     @user = FactoryBot.create(:user)
-    @project = FactoryBot.create(:project, author: @user)
+    @project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
     sign_in @user
   end
 
@@ -40,8 +40,10 @@ describe "Contests", type: :system do
       expect(page).to have_text("Project Submission")
       expect(page).to have_text(@project.name.to_s)
 
-      page.find("#submission_project_id_#{@project.id}").click
-      page.find("#submission-submit-button").click
+      # choose("submission_project_id_#{@project.id}")
+      find("input[type='radio'][data-action='click->contest#enableSubmitButton']").click
+      expect(page).to have_button("Submit", disabled: false)
+      click_button "Submit"
       expect(page).to have_text("Submission was successfully added.")
       expect(@contest.submissions.count).to eq(1)
       check_submission_container(@contest.submissions.first, @project)
