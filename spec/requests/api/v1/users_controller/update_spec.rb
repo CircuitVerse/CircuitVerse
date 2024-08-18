@@ -85,6 +85,10 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
               params: { remove_picture: "1" },
               headers: { Authorization: "Token #{token}" }, as: :json
       end
+      
+      it "removes the user's profile picture" do
+        expect(new_user.profile_picture).to be_blank
+      end
 
       it "returns the updated user" do
         expect(response).to have_http_status(:accepted)
