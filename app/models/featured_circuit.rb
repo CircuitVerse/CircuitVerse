@@ -1,5 +1,20 @@
 # frozen_string_literal: true
 
+#
+# == Schema Information
+#
+# Table name: featured_circuits
+#
+#  id         :bigint           not null, primary key
+#  project_id :bigint
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+# Indexes
+#
+#  index_featured_circuits_on_project_id  (project_id)
+#
+
 class FeaturedCircuit < ApplicationRecord
   belongs_to :project
 
