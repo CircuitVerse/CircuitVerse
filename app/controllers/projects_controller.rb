@@ -22,6 +22,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects/tags/[tag]
   def get_projects
+    # @type [Array<Project>]
     @projects = Project.tagged_with(params[:tag]).open.includes(:tags, :author)
   end
 
@@ -117,6 +118,7 @@ class ProjectsController < ApplicationController
     def set_project
       if params[:user_id]
         @author = User.find(params[:user_id])
+        # @type [Project]
         @project = @author.projects.friendly.find(params[:id])
       else
         @project = Project.friendly.find(params[:id])
@@ -137,6 +139,7 @@ class ProjectsController < ApplicationController
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # @return [ActionController::Parameters]
     def project_params
       params.require(:project).permit(:name, :project_access_type, :description, :tag_list, :tags)
     end

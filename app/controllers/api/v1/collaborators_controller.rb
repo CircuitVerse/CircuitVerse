@@ -9,6 +9,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
 
   # /api/v1/projects/:project_id/collaborators
   def index
+    # @type [Array<User>]
     @collaborators = paginate(@project.collaborators)
     # options for serializing collaborators
     @options = {
@@ -20,6 +21,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
 
   # POST /api/v1/projects/:project_id/collaborators
   def create
+    # @type [Api::V1::CollaboratorsController::MailsHandler]
     mails_handler = MailsHandler.new(params[:emails], @project, current_user)
     # parse mails as valid or invalid
     mails_handler.parse
@@ -34,6 +36,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
   # DELETE /api/v1//projects/:project_id/collaborators/:id
   # :id is essentially the user_id for the user to be removed from project
   def destroy
+    # @type [Collaboration]
     @collaboration = Collaboration.find_by(user: @collaborator, project: @project)
     @collaboration.destroy!
     head :no_content

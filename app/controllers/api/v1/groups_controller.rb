@@ -11,6 +11,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # GET /api/v1/groups
   def index
+    # @type [Array<Group>]
     @groups = paginate(current_user.groups)
     @options[:links] = link_attrs(@groups, api_v1_groups_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
@@ -18,6 +19,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # GET /api/v1/groups/owned
   def groups_owned
+    # @type [Array<Group>]
     @groups = paginate(current_user.groups_owned)
     @options[:links] = link_attrs(@groups, api_v1_groups_owned_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
@@ -30,6 +32,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # POST /api/v1/groups/
   def create
+    # @type [Group]
     @group = current_user.groups_owned.new(group_params)
     @group.save!
     if @group.save
@@ -41,6 +44,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # PATCH /api/v1/groups/:id
   def update
+    # @type [Group]
     @group.update!(group_params)
     if @group.update(group_params)
       render json: Api::V1::GroupSerializer.new(@group), status: :accepted
@@ -65,6 +69,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     end
 
     def set_group
+      # @type [Group]
       @group = Group.find(params[:id])
     end
 
