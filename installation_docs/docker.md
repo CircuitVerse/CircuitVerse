@@ -23,6 +23,9 @@
 5. Run `./bin/docker_run.ps1`
 6. Wait for the docker container to be prepared
 7. Navigate to `http://localhost:3000` in your browser
+8. For Vue-based simulator, navigate to `http://localhost:4000/simulatorvue` in your browser
+    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see any changes on the website. Instead, use port 4000, `http://localhost:4000/simulatorvue`
+
 
 If you required to restart the server
 - Type `Ctrl+C` in terminal to stop the server
@@ -62,6 +65,10 @@ After removing Docker Desktop, proceed with the installation of Docker Engine as
 3. Open `CircuitVerse` directory
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
+7. Navigate to `http://localhost:3000` in your browser
+8. For Vue-based simulator, navigate to `http://localhost:4000/simulatorvue` in your browser
+    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see any changes on the website. Instead, use port 4000, `http://localhost:4000/simulatorvue`
+
 
 If you required to restart the server
 - Type `Ctrl+C` in terminal to stop the server
@@ -86,6 +93,10 @@ If you required to restart the server
 3. Open `CircuitVerse` directory
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
+7. Navigate to `http://localhost:3000` in your browser
+8. For Vue-based simulator, navigate to `http://localhost:4000/simulatorvue` in your browser
+    > 🔴 **NOTE:** If you access new simulator with port 3000, you can't see any changes on the website. Instead, use port 4000, `http://localhost:4000/simulatorvue`
+
 
 If you required to restart the server
 - Type `Ctrl+C` in terminal to stop the server
