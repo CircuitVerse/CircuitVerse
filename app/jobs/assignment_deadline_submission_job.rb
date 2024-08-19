@@ -3,7 +3,10 @@
 class AssignmentDeadlineSubmissionJob < ApplicationJob
   queue_as :default
 
+  # @param [Integer] assignment_id
+  # @return [void]
   def perform(assignment_id)
+    # @type [Assignment]
     assignment = Assignment.find_by(id: assignment_id)
 
     return if assignment.nil? || (assignment.status == "closed")
