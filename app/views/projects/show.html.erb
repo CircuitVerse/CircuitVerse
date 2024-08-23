@@ -100,7 +100,14 @@
             <p>
               <hr class="projects-horizontal-rule">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
+                <% if @project.project_datum && @project.project_datum.data["simulatorVersion"].present? %>
+                  <% simulator_version = JSON.parse(@project.project_datum.data)["simulatorVersion"] %>
+                  <a href="<%= simulatorvue_path("edit/" + @project.id.to_s) %>?simver=<%= simulator_version %>" class="btn primary-button projects-primary-button" target="_blank" rel="noopener noreferrer">
+                    <%= t("launch_simulator") %>
+                  </a>
+                <% else %>
+                  <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
+                <% end %>
               <% else %>
                 <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
                 <i class="fas fa-code"></i>
