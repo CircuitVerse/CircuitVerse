@@ -1,4 +1,4 @@
-<div class="row footer-social-icons-row">
+<div class="row footer-social-icons-row justify-content-center">
   <% social_links.each do |link| %>
     <%= link_to link[:url], class: "bounce-out-on-hover", target: "_blank", data: { tooltip: link[:name] } do %>
       <%= image_tag(link[:logo], class: "footer-social-icon", alt: "#{link[:name].capitalize} Logo") %>

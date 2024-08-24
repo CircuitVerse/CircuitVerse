@@ -4,9 +4,6 @@
 
 .footer-container-fluid {
   background-color: $footer-dark-grey;
-}
-
-.footer-container {
   color: $white;
   padding-top: 30px;
   text-align: center;
@@ -31,7 +28,7 @@
 }
 
 .footer-social-icons-row {
-  column-gap: 5px;
+  column-gap: 17px;
   margin: inherit;
 }
 
@@ -63,7 +60,7 @@
     }
 
     &:hover {
-      color: $white;
+      color: $primary-green;
       text-decoration: underline;
     }
   }
