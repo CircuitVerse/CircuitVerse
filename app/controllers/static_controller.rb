@@ -5,6 +5,6 @@
 class StaticController < ApplicationController
   def simulatorvue
     version = params[:simver] || "v0"
-    render file: Rails.public_path.join("simulatorvue",version, "index-cv.html"), layout: false
+    render file: Rails.public_path.join("simulatorvue", version, "index-cv.html"), layout: false
   end
 end
