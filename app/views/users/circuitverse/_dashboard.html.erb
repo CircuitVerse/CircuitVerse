@@ -19,7 +19,14 @@
         </div>
         <div class="card-footer users-card-footer">
           <% if policy(project).user_access? %>
-            <a href="<%= simulator_edit_path(project) %>" class="btn primary-button" target="_blank"><%= t("launch") %></a>
+            <% if project.project_datum && project.project_datum.data["simulatorVersion"].present? %>
+                <% simulator_version = JSON.parse(project.project_datum.data)["simulatorVersion"] %>
+                  <a href="<%= simulatorvue_path("edit/" + project.id.to_s) %>?simver=<%= simulator_version %>" class="btn primary-button" target="_blank">
+                    <%= t("launch") %>
+                  </a>
+            <% else %>
+              <a href="<%= simulator_edit_path(project) %>" class="btn primary-button" target="_blank"><%= t("launch") %></a>
+            <% end %>            
           <% else %>
               <%= link_to create_fork_project_path(project), class: "btn primary-button", target: "_blank", method: :post, rel: "noopener" do %>
               <span><%= t("fork") %></span>
