@@ -1,4 +1,4 @@
-project_id: ENV['CROWDIN_PROJECT_ID']
+project_id: 472974
 api_token: ENV['CROWDIN_PERSONAL_TOKEN']
 base_path: '.'
 preserve_hierarchy: true
