@@ -222,6 +222,3 @@ gem "sentry-ruby"
 gem "sentry-rails"
 # for SAML based SSO
 gem 'devise_saml_authenticatable'
-
-# Crowdin Integration
-gem 'crowdin-api', require: false
