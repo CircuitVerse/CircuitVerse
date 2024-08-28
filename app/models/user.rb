@@ -75,6 +75,7 @@ class User < ApplicationRecord
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
                          provider: access_token.provider,
+                         confirmed_at: Time.zone.now,
                          uid: access_token.uid)
     user
   end
