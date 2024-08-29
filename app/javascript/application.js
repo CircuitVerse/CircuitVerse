@@ -1,1 +1,3 @@
 import './controllers';
+
+import './loader';

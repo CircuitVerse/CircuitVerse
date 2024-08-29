@@ -1,6 +1,12 @@
 {
     "version": "0.1.0",
     "configurations": [
+        
+        {
+            "type": "rdbg",
+            "name": "Attach rdbg",
+            "request": "attach"
+        },
         {
             "type": "rdbg",
             "name": "Attach Debugger",

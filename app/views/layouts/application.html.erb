@@ -23,6 +23,11 @@
   </head>
 
   <body>
+    <!-- Add the loader here -->
+    <div id="loader" class="loader-wrapper">
+      <div class="loader"></div>
+    </div>
+
     <%= render "layouts/header" %>
     <%= yield %>
     <%= render(FooterComponent.new(current_user: current_user)) %>
