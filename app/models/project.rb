@@ -48,12 +48,6 @@ class Project < ApplicationRecord
     }
   }
 
-  trigger.before(:insert, :update) do
-    "tsvector_update_trigger(
-        searchable, 'pg_catalog.english', description, name
-      );"
-  end
-
   searchable do
     text :name
 
