@@ -96,17 +96,22 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
-    io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(io_image_file)
-
+  
+    begin
+      io_image_file = parse_image_data_url(params[:image])
+      attach_circuit_preview(io_image_file)
+    rescue => e
+      return render json: { status: "error", errors: [e.message] }, status: :unprocessable_entity
+    end
+  
     image_file = return_image_file(params[:image])
-
     @project.image_preview = image_file
     if @project.save
       image_file.close
       File.delete(image_file) if check_to_delete(params[:image])
       render json: { status: "success", project: @project }, status: :created
     else
+      image_file.close if image_file
       render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_entity
     end
   end
