@@ -138,6 +138,11 @@
     box-shadow: 0px 0px 10px #4545457f;
 }
 
+.draggable-panel-mobile {
+    background: white;
+    box-shadow: 0px 0px 10px #4545457f;
+}
+
 .panel-header {
     color: var(--text-panel);
     background: var(--primary);
@@ -223,7 +228,6 @@
 
 #tabsBar {
     background-color: var(--bg-tabs);
-    border-top: 1px solid var(--br-primary);
     border-bottom: 1px solid var(--br-primary);
 }
 

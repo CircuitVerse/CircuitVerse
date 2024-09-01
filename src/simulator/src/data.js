@@ -39,7 +39,7 @@ logixFunction.showTourGuide = showTourGuideHelper
 logixFunction.newVerilogModule = createVerilogCircuit
 logixFunction.generateVerilog = generateVerilog
 logixFunction.bitconverter = bitConverterDialog
-logixFunction.createNewCircuitScope = createNewCircuitScope
+logixFunction.createNewCircuitScope = createNewCircuit
 logixFunction.customShortcut = keyBinder
 logixFunction.ExportProject = ExportProject
 logixFunction.ImportProject = ImportProject
@@ -50,4 +50,9 @@ function showTourGuideHelper() {
     setTimeout(() => {
         showTourGuide()
     }, 100)
+}
+
+// Hack to call createNewCircuitScope with keyboard shortcut
+function createNewCircuit() {
+    createNewCircuitScope()
 }

@@ -37,6 +37,7 @@ import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 import { toRefs } from 'vue'
 import { provideCircuitName } from '#/components/helpers/promptComponent/PromptComponent.vue'
 import { deleteCurrentCircuit } from '#/components/helpers/deleteCircuit/DeleteCircuit.vue'
+import { useSimulatorMobileStore } from '#/store/simulatorMobileStore'
 import { inputList, moduleList } from './metadata'
 
 export const circuitProperty = {
@@ -67,12 +68,14 @@ export function switchCircuit(id: string) {
     const simulatorStore = SimulatorStore()
     const { circuit_list } = toRefs(simulatorStore)
     const { activeCircuit } = toRefs(simulatorStore)
+    const simulatorMobileStore = toRefs(useSimulatorMobileStore())
 
     if (layoutModeGet()) {
         toggleLayoutMode()
     }
     if (!scopeList[id].verilogMetadata.isVerilogCircuit) {
         verilogModeSet(false)
+        simulatorMobileStore.isVerilog.value = false
     }
 
     // globalScope.fixLayout();
@@ -88,6 +91,7 @@ export function switchCircuit(id: string) {
     globalScope = scopeList[id]
     if (globalScope.verilogMetadata.isVerilogCircuit) {
         verilogModeSet(true)
+        simulatorMobileStore.isVerilog.value = true
     }
     if (globalScope.isVisible()) {
         // $(`#${id}`).addClass('current')
@@ -203,11 +207,13 @@ export function newCircuit(name: string | undefined, id: string | undefined, isV
     const { circuit_list } = toRefs(simulatorStore)
     const { activeCircuit } = toRefs(simulatorStore)
     const { circuit_name_clickable } = toRefs(simulatorStore)
+    const simulatorMobileStore = toRefs(useSimulatorMobileStore())
     if (layoutModeGet()) {
         toggleLayoutMode()
     }
     if (verilogModeGet()) {
         verilogModeSet(false)
+        simulatorMobileStore.isVerilog.value = false
     }
     name = name || 'Untitled-Circuit'
     name = stripTags(name)

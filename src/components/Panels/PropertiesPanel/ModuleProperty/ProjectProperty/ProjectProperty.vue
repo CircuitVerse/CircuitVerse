@@ -63,7 +63,11 @@
         <button
             type="button"
             class="panelButton btn btn-xs custom-btn--primary"
-            @click="toggleLayoutMode"
+            @click="() => {
+                toggleLayoutMode()
+                simulatorMobileStore.showPropertiesPanel = false
+                simulatorMobileStore.showCircuits = 'layout-elements'
+            }"
         >
             Edit Layout
         </button>
@@ -105,12 +109,14 @@ import { useState } from '#/store/SimulatorStore/state'
 import { useProjectStore } from '#/store/projectStore'
 // import DeleteCircuit from '#/components/helpers/deleteCircuit/DeleteCircuit.vue'
 import { closeCircuit } from '#/components/helpers/deleteCircuit/DeleteCircuit.vue'
+import { useSimulatorMobileStore } from '#/store/simulatorMobileStore'
 import { watch } from 'vue'
 import { ref } from 'vue'
 
 const projectStore = useProjectStore()
 const SimulatorState = <SimulatorStateType>useState()
 const circnameInput = ref<HTMLInputElement | null>(null)
+const simulatorMobileStore = useSimulatorMobileStore()
 
 watch(() => SimulatorState.circuit_name_clickable, () => {
     setTimeout(() => {

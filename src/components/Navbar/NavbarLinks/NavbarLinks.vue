@@ -5,12 +5,12 @@
         :key="navbarItem.id"
         class="navbar-nav navbar-menu noSelect pointerCursor"
     >
-        <NavbarLink :navbar-item="navbarItem" />
+        <NavbarLink2 :navbar-item="navbarItem" />
     </ul>
 </template>
 
 <script lang="ts" setup>
-import NavbarLink from '@/Navbar/NavbarLinks/NavbarLink/NavbarLink.vue'
+import NavbarLink2 from './NavbarLink/NavbarLink2.vue';
 
 const props = defineProps({
     navbarData: { type: Array, default: () => [] },

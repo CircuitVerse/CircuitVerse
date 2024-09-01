@@ -1,5 +1,6 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-bitwise */
+/* eslint-disable */
 import { scheduleUpdate } from './engine'
 import { simulationArea } from './simulationArea'
 import {
@@ -479,8 +480,8 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
      */
     isHover() {
-        var mX = simulationArea.mouseXf - this.x
-        var mY = this.y - simulationArea.mouseYf
+        var mX = simulationArea.touch ? simulationArea.mouseDownX - this.x : simulationArea.mouseXf - this.x;
+        var mY = simulationArea.touch ? this.y - simulationArea.mouseDownY : this.y - simulationArea.mouseYf;
 
         var rX = this.rightDimensionX
         var lX = this.leftDimensionX
@@ -646,7 +647,7 @@ export default class CircuitElement {
     /**
         Draws element in layout mode (inside the subcircuit)
         @param {number} xOffset - x position of the subcircuit
-        @param {number} yOffset - y position of the subcircuit 
+        @param {number} yOffset - y position of the subcircuit
 
         Called by subcirucit.js/customDraw() - for drawing as a part of another circuit
         and layoutMode.js/renderLayout() -  for drawing in layoutMode

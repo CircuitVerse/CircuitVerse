@@ -41,7 +41,7 @@ export function resetup() {
     if (!embed) {
         height =
             (document.body.clientHeight -
-                document.getElementById('toolbar').clientHeight) *
+                document.getElementById('toolbar')?.clientHeight) *
             DPR
     } else {
         height = document.getElementById('simulation').clientHeight * DPR

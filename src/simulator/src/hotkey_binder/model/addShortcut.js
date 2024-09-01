@@ -2,7 +2,7 @@
 // import createSaveAsImgPrompt from '../../data/saveImage';
 //Assign the callback func for the keymap here
 import {
-    createNewCircuitScopeCall,
+    // createNewCircuitScopeCall,
     elementDirection,
     insertLabel,
     labelDirection,
@@ -16,12 +16,13 @@ import createSaveAsImgPrompt from '../../data/saveImage'
 import { createSubCircuitPrompt } from '../../subcircuit'
 import { createCombinationalAnalysisPrompt } from '../../combinationalAnalysis'
 import { shortcut } from './shortcuts.plugin.js'
+import logixFunction from '../../data'
 
 export const addShortcut = (keys, action) => {
     let callback
     switch (action) {
         case 'New Circuit':
-            callback = createNewCircuitScopeCall // TODO: directly call rather than using dom click
+            callback = logixFunction.createNewCircuitScope // TODO: directly call rather than using dom click
             break
         case 'Save Online':
             callback = save

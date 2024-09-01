@@ -4,6 +4,7 @@ interface AuthStoreType {
     isLoggedIn: boolean
     userId: string | number
     username: string
+    userAvatar: string
     locale: string
     isAdmin: boolean
 }
@@ -13,6 +14,7 @@ interface UserInfo {
     id: string
     attributes: {
         name: string
+        profile_picture: string
         locale: string
         admin: boolean
     }
@@ -22,7 +24,8 @@ export const useAuthStore = defineStore({
     state: (): AuthStoreType => ({
         isLoggedIn: false,
         userId: '',
-        username: '',
+        username: 'Guest',
+        userAvatar: 'default',
         locale: 'en',
         isAdmin: false,
     }),
@@ -30,7 +33,11 @@ export const useAuthStore = defineStore({
         setUserInfo(userInfo: UserInfo): void {
             this.isLoggedIn = true
             this.userId = userInfo.id ?? ''
-            this.username = userInfo.attributes.name ?? ''
+            this.username = userInfo.attributes.name ?? 'Guest'
+            if (userInfo.attributes.profile_picture != 'original/Default.jpg') {
+                this.userAvatar =
+                    userInfo.attributes.profile_picture ?? 'default'
+            }
             this.locale = userInfo.attributes.locale ?? 'en'
             this.isAdmin = userInfo.attributes.admin
         },
@@ -44,6 +51,9 @@ export const useAuthStore = defineStore({
         },
         getUsername(): string {
             return this.username
+        },
+        getUserAvatar(): string {
+            return this.userAvatar
         },
         getLocale(): string {
             return this.locale

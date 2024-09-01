@@ -17,11 +17,10 @@ import { moduleList, updateOrder } from './metadata'
 
 /**
  * Helper function to paste
- * @param {JSON} copyData - the data to be pasted
  * @category events
  */
 export function paste(copyData) {
-    if (copyData === undefined) return
+    if (copyData === 'undefined') return
     var data = JSON.parse(copyData)
     if (!data.logixClipBoardData) return
 

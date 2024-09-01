@@ -184,12 +184,12 @@ export const openHotkey = () => {
     }
 }
 
-export const createNewCircuitScopeCall = () => {
-    const createNewCircuitScopeElement = document.getElementById('createNewCircuitScope');  // TODO: remove later
-    if (createNewCircuitScopeElement) {
-        createNewCircuitScopeElement.click();
-    }
-}
+// export const createNewCircuitScopeCall = () => {
+//     const createNewCircuitScopeElement = document.getElementById('createNewCircuitScope');  // TODO: remove later
+//     if (createNewCircuitScopeElement) {
+//         createNewCircuitScopeElement.click();
+//     }
+// }
 
 export const openDocumentation = () => {
     if (

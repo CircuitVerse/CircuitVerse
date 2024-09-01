@@ -20,6 +20,8 @@ import miniMapArea from './minimap'
 import { showMessage } from './utils'
 import { verilogModeSet } from './Verilog2CV'
 import { useLayoutStore } from '#/store/layoutStore'
+import { useSimulatorMobileStore } from '#/store/simulatorMobileStore'
+import { toRefs } from 'vue'
 import { circuitElementList } from './metadata'
 
 /**
@@ -444,20 +446,25 @@ export function saveLayout() {
  * @category layoutMode
  */
 export function toggleLayoutMode() {
-    const layoutStore = useLayoutStore()
+    const layoutStore = toRefs(useLayoutStore())
+    const simulatorMobileStore = toRefs(useSimulatorMobileStore())
     prevPropertyObjSet(undefined)
     $('.objectPropertyAttribute').unbind('change keyup paste click')
 
     if (layoutModeGet()) {
         layoutModeSet(false)
-        layoutStore.layoutMode = false
+        layoutStore.layoutMode.value = false
         globalScope.centerFocus(false)
-        if (globalScope.verilogMetadata.isVerilogCircuit) verilogModeSet(true)
+        if (globalScope.verilogMetadata.isVerilogCircuit) {
+            verilogModeSet(true)
+            simulatorMobileStore.isVerilog.value = true
+        }
         dots()
     } else {
         layoutModeSet(true)
         verilogModeSet(false)
-        layoutStore.layoutMode = true
+        layoutStore.layoutMode.value = true
+        simulatorMobileStore.isVerilog.value = false
         fillSubcircuitElements()
 
         globalScope.ox = 0

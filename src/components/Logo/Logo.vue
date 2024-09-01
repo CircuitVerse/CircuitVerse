@@ -1,7 +1,7 @@
 <template>
-    <router-link to="/">
+    <a href="/">
         <span :class="cvlogo"></span>
-    </router-link>
+    </a>
 </template>
 
 <script>

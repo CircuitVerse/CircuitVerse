@@ -84,7 +84,7 @@
                 <label class="switch">
                     <input
                         id="toggleLayoutTitle"
-                        v-model="titleEnable"
+                        v-model="propertiesPanelStore.titleEnable"
                         type="checkbox"
                     />
                     <span class="slider"></span>
@@ -112,31 +112,25 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, watch } from 'vue'
-import { tempBuffer, layoutFunctions } from '#/simulator/src/layoutMode'
-import { scheduleUpdate } from '#/simulator/src/engine'
+import { onMounted, watch } from 'vue'
 import PanelHeader from '#/components/Panels/Shared/PanelHeader.vue'
+import { layoutFunction } from '../PropertiesPanel'
 import { useLayoutStore } from '#/store/layoutStore'
+import { usePropertiesPanelStore } from '#/store/propertiesPanelStore'
 
-const titleEnable = ref(tempBuffer.layout.titleEnabled)
 const layoutStore = useLayoutStore()
-const layoutDialogRef = ref<HTMLElement | null>(null);
+const propertiesPanelStore = usePropertiesPanelStore()
 
 onMounted(() => {
-    layoutStore.layoutDialogRef = layoutDialogRef.value
+    layoutStore.layoutDialogRef = propertiesPanelStore.layoutDialogRef;
 })
 
 watch(
-    () => titleEnable.value,
+    () => propertiesPanelStore.titleEnable,
     () => {
         layoutFunction('toggleLayoutTitle')
     }
 )
-
-function layoutFunction(func: string) {
-    layoutFunctions[func]()
-    scheduleUpdate()
-}
 </script>
 
 <style scoped>

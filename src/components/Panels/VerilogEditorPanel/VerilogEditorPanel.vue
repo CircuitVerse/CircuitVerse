@@ -94,7 +94,7 @@ watch(selectedTheme, (newTheme: string) => {
 })
 </script>
 
-<style scoped>
+<style>
 .applyTheme {
     width: 90%;
     border: 1px solid #fff;

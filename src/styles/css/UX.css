@@ -642,31 +642,6 @@ div.icon img {
     display: inline-block;
 }
 
-.img__description {
-    position: absolute;
-    /*top: 0;*/
-    bottom: -16;
-    text-align: center;
-    left: 0;
-    right: 0;
-    background-color: #0099ff;
-    color: white;
-    font-size: 8px;
-    /*background: rgba(29, 106, 154, 0.72);
-  color: #fff;*/
-    visibility: hidden;
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-    opacity: 0;
-    /* transition effect. not necessary */
-    transition: opacity 0.2s, visibility 0.2s;
-}
-
-.icon:hover .img__description {
-    visibility: visible;
-    opacity: 1;
-}
-
 .icon:hover {
     /*background-color: #cce5ff;*/
     /*border-color: blue;*/

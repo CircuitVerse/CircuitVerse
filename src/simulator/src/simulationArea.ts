@@ -33,6 +33,7 @@ const simulationArea: SimulationArea = {
     lock: 'unlocked',
     mouseDown: false,
     ClockInterval: null,
+    touch: false,
 
     timer() {
         const clickTimer = setTimeout(() => {

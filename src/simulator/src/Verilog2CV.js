@@ -31,6 +31,8 @@ import 'codemirror/addon/hint/show-hint.js'
 import 'codemirror/addon/display/autorefresh.js'
 import { showError, showMessage } from './utils'
 import { showProperties } from './ux'
+import { useSimulatorMobileStore } from '#/store/simulatorMobileStore'
+import { toRefs } from 'vue'
 
 var editor
 var verilogMode = false
@@ -42,7 +44,17 @@ export async function createVerilogCircuit() {
         true,
         true
     )
-    if (returned) verilogModeSet(true)
+
+    if (returned) {
+        verilogModeSet(true)
+
+        try {
+            const simulatorMobileStore = toRefs(useSimulatorMobileStore())
+            simulatorMobileStore.isVerilog.value = true
+        } catch (error) {
+            console.error('Failed to update simulatorMobileStore:', error)
+        }
+    }
 }
 
 export function saveVerilogCode() {
@@ -72,11 +84,26 @@ export function verilogModeSet(mode) {
     if (mode == verilogMode) return
     verilogMode = mode
     if (mode) {
+        const code_window = document.getElementById('code-window')
+        if(code_window)
         document.getElementById('code-window').style.display = 'block'
+
+        const elementPanel = document.querySelector('.elementPanel')
+        if(elementPanel)
         document.querySelector('.elementPanel').style.display = 'none'
+
+        const timingDiagramPanel = document.querySelector('.timing-diagram-panel')
+        if(timingDiagramPanel)
         document.querySelector('.timing-diagram-panel').style.display = 'none'
+
+        const quickBtn = document.querySelector('.quick-btn')
+        if(quickBtn)
         document.querySelector('.quick-btn').style.display = 'none'
+
+        const verilogEditorPanel = document.getElementById('verilogEditorPanel')
+        if(verilogEditorPanel)
         document.getElementById('verilogEditorPanel').style.display = 'block'
+
         if (!embed) {
             simulationArea.lastSelected = globalScope.root
             showProperties(undefined)
@@ -84,10 +111,24 @@ export function verilogModeSet(mode) {
         }
         resetVerilogCode()
     } else {
+        const code_window = document.getElementById('code-window')
+        if(code_window)
         document.getElementById('code-window').style.display = 'none'
+
+        const elementPanel = document.querySelector('.elementPanel')
+        if(elementPanel)
         document.querySelector('.elementPanel').style.display = ''
+
+        const timingDiagramPanel = document.querySelector('.timing-diagram-panel')
+        if(timingDiagramPanel)
         document.querySelector('.timing-diagram-panel').style.display = ''
+
+        const quickBtn = document.querySelector('.quick-btn')
+        if(quickBtn)
         document.querySelector('.quick-btn').style.display = ''
+
+        const verilogEditorPanel = document.getElementById('verilogEditorPanel')
+        if(verilogEditorPanel)
         document.getElementById('verilogEditorPanel').style.display = 'none'
     }
 }
