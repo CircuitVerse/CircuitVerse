@@ -14,6 +14,8 @@ import logixFunction from './data'
 import { circuitProperty } from './circuit'
 import { updateRestrictedElementsInScope } from './restrictedElementDiv'
 import { dragging } from './drag'
+import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
+import { toRefs } from 'vue'
 import { circuitElementList } from './metadata'
 
 export const uxvar = {
@@ -437,51 +439,40 @@ export function fullView() {
     Fills the elements that can be displayed in the subcircuit, in the subcircuit menu
 **/
 export function fillSubcircuitElements() {
-    $('#subcircuitMenu').empty()
-    var subCircuitElementExists = false
+    const simulatorStore = SimulatorStore()
+    const { subCircuitElementList, isEmptySubCircuitElementList } = toRefs(simulatorStore)
+    subCircuitElementList.value = []
+    isEmptySubCircuitElementList.value = true
+
+    const subcircuitElements = []
+
+    let subCircuitElementExists = false
+
     for (let el of circuitElementList) {
         if (globalScope[el].length === 0) continue
         if (!globalScope[el][0].canShowInSubcircuit) continue
-        let tempHTML = ''
-
-        // add a panel for each existing group
-        tempHTML += `<div class="panelHeader">${el}s</div>`
-        tempHTML += `<div class="panel">`
 
         let available = false
+
+        const elementGroup = {
+            type: el,
+            elements: [],
+        }
 
         // add an SVG for each element
         for (let i = 0; i < globalScope[el].length; i++) {
             if (!globalScope[el][i].subcircuitMetadata.showInSubcircuit) {
-                tempHTML += `<div class="icon subcircuitModule" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`
-                tempHTML += `<img src= "/img/${el}.svg">`
-                tempHTML += `<p class="img__description">${
-                    globalScope[el][i].label !== ''
-                        ? globalScope[el][i].label
-                        : 'unlabeled'
-                }</p>`
-                tempHTML += '</div>'
                 available = true
+                const element = globalScope[el][i];
+                elementGroup.elements.push(element);
             }
         }
-        tempHTML += '</div>'
         subCircuitElementExists = subCircuitElementExists || available
-        if (available) $('#subcircuitMenu').append(tempHTML)
+        if (available) {
+            subcircuitElements.push(elementGroup);
+        }
+
+        subCircuitElementList.value = subcircuitElements
+        isEmptySubCircuitElementList.value = !subCircuitElementExists
     }
-
-    if (!subCircuitElementExists) {
-        $('#subcircuitMenu').append('<p>No layout elements available</p>')
-    }
-
-    $('.subcircuitModule').mousedown(function () {
-        let elementName = this.dataset.elementName
-        let elementIndex = this.dataset.elementId
-
-        let element = globalScope[elementName][elementIndex]
-
-        element.subcircuitMetadata.showInSubcircuit = true
-        element.newElement = true
-        simulationArea.lastSelected = element
-        this.parentElement.removeChild(this)
-    })
 }

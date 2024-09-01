@@ -661,14 +661,6 @@ div.icon img {
     right: 10px;
 }
 
-.layoutElementPanel {
-    width: 220px;
-    font: inherit;
-    display: none;
-    top: 90px;
-    left: 10px;
-}
-
 .timing-diagram-panel {
     border-radius: 5px;
     z-index: 70;

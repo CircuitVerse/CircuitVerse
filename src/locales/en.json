@@ -9,6 +9,11 @@
         "report_issue": "Report an issue",
         "restricted_elements_used": "Restricted elements used:",
         "made_with_circuitverse": "Made With CircuitVerse",
+        "layout": {
+            "layout_elements": "Layout Elements",
+            "no_elements_available": "No layout elements available"
+        },
+        "unlabeled": "Unlabeled",
         "nav": {
             "untitled_project": "Untitled",
             "sign_out": "Sign Out",

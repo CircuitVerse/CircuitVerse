@@ -9,6 +9,11 @@
         "report_issue": "मामले की रिपोर्ट करें",
         "restricted_elements_used": "प्रतिबंधित एलिमेंट्स जिनका इस्तेमाल किया गया:",
         "made_with_circuitverse": "सर्किटवर्स में बनाया गया",
+        "layout": {
+            "layout_elements": "लेआउट एलिमेंट्स",
+            "no_elements_available": "कोई लेआउट एलिमेंट्स उपलब्ध नहीं हैं"
+        },
+        "unlabeled": "अनलेबल्ड",
         "nav": {
             "untitled_project": "शीर्षकहीन",
             "sign_out": "साइन आउट",

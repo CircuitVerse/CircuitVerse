@@ -9,6 +9,11 @@
         "report_issue": "সমস্যা রিপোর্ট করুন",
         "restricted_elements_used": "সীমাবদ্ধ উপাদান ব্যবহৃত:",
         "made_with_circuitverse": "সার্কিটভার্স দ্বারা তৈরি",
+        "layout": {
+            "layout_elements": "লেআউট এলিমেন্টস",
+            "no_elements_available": "কোনো লেআউট এলিমেন্টস উপলব্ধ নেই"
+        },
+        "unlabeled": "অনলেবেলড",
         "nav": {
             "untitled_project": "শিরোনামহীন প্রকল্প",
             "sign_out": "সাইন আউট",
