@@ -93,8 +93,7 @@ export function projectSavedSet(param: boolean) {
 export async function saveOffline() {
     const data = await generateSaveData('')
     if (data instanceof Error) return
-    const stringData = JSON.stringify(data)
-    localStorage.setItem(projectId, stringData)
+    localStorage.setItem(projectId, data)
     const projectList = localStorage.getItem('projectList')
     const temp = projectList ? JSON.parse(projectList) : {}
     temp[projectId] = getProjectName()

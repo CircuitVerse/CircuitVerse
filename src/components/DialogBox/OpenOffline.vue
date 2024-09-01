@@ -65,11 +65,9 @@
 <script lang="ts" setup>
 import load from '#/simulator/src/data/load'
 import { useState } from '#/store/SimulatorStore/state'
-import { onMounted, onUpdated, ref, reactive } from '@vue/runtime-core'
+import { onMounted, onUpdated, ref } from '@vue/runtime-core'
 const SimulatorState = useState()
-const projectList: {
-    [key: string]: string
-} = reactive({})
+const projectList = ref<{ [key: string]: string }>({})
 const selectedProjectId = ref<string | null>(null)
 
 onMounted(() => {
