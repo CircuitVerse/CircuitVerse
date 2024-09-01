@@ -1,8 +1,8 @@
 import { setup } from '../src/setup';
 import load from '../src/data/load';
-import circuitData from './circuits/gates-circuitdata.json';
-import testData from './testData/gates-testdata.json';
+import circuitData from './circuits/subCircuit-circuitdata.json';
 import { runAll } from '../src/testbench';
+import testData from './testData/subCircuit-testdata.json';
 import { createPinia, setActivePinia } from 'pinia';
 import { mount } from '@vue/test-utils';
 import { createRouter, createWebHistory } from 'vue-router';
@@ -23,7 +23,7 @@ vi.mock('codemirror-editor-vue3', () => ({
     defineSimpleMode: vi.fn(),
 }));
 
-describe('Simulator Gates Working', () => {
+describe('SubCircuit Testing', () => {
     let pinia;
     let router;
 
@@ -74,42 +74,12 @@ describe('Simulator Gates Working', () => {
         setup();
     });
 
-    test('load circuitData', () => {
+    test('load subCircuit data without throwing error', () => {
         expect(() => load(circuitData)).not.toThrow();
     });
 
-    test('AND gate working', () => {
-        const result = runAll(testData.AndGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('NAND gate working', () => {
-        const result = runAll(testData.nandGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('NOR gate working', () => {
-        const result = runAll(testData.norGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('NOT gate working', () => {
-        const result = runAll(testData.notGate);
-        expect(result.summary.passed).toBe(2);
-    });
-
-    test('OR gate working', () => {
-        const result = runAll(testData.OrGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('XNOR gate working', () => {
-        const result = runAll(testData.xnorGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('XOR gate working', () => {
-        const result = runAll(testData.xorGate);
-        expect(result.summary.passed).toBe(4);
+    test('subCircuit working', () => {
+        const result = runAll(testData.subCircuit);
+        expect(result.summary.passed).toBe(8);
     });
 });

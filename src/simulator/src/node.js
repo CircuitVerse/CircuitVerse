@@ -255,7 +255,7 @@ export default class Node {
      * function for saving a node
      */
     saveObject() {
-        if (this.type == NODE_INTERMEDIATE2) {
+        if (this.type == NODE_INTERMEDIATE) {
             this.leftx = this.x
             this.lefty = this.y
         }

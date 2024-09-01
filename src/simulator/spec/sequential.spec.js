@@ -1,7 +1,7 @@
 import { setup } from '../src/setup';
 import load from '../src/data/load';
-import circuitData from './circuits/gates-circuitdata.json';
-import testData from './testData/gates-testdata.json';
+import circuitData from './circuits/sequential-circuitdata.json';
+import testData from './testData/sequential-testdata.json';
 import { runAll } from '../src/testbench';
 import { createPinia, setActivePinia } from 'pinia';
 import { mount } from '@vue/test-utils';
@@ -23,7 +23,7 @@ vi.mock('codemirror-editor-vue3', () => ({
     defineSimpleMode: vi.fn(),
 }));
 
-describe('Simulator Gates Working', () => {
+describe('Simulator Sequential Element Testing', () => {
     let pinia;
     let router;
 
@@ -78,38 +78,28 @@ describe('Simulator Gates Working', () => {
         expect(() => load(circuitData)).not.toThrow();
     });
 
-    test('AND gate working', () => {
-        const result = runAll(testData.AndGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('NAND gate working', () => {
-        const result = runAll(testData.nandGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('NOR gate working', () => {
-        const result = runAll(testData.norGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('NOT gate working', () => {
-        const result = runAll(testData.notGate);
+    test('D Flip Flop working', () => {
+        const result = runAll(testData.DFlipFlop);
         expect(result.summary.passed).toBe(2);
     });
 
-    test('OR gate working', () => {
-        const result = runAll(testData.OrGate);
+    test('D latch working', () => {
+        const result = runAll(testData.DLatch);
+        expect(result.summary.passed).toBe(2);
+    });
+
+    test('JK Flip Flop working', () => {
+        const result = runAll(testData.JkFlipFlop);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('XNOR gate working', () => {
-        const result = runAll(testData.xnorGate);
+    test('SR Flip Flop working', () => {
+        const result = runAll(testData.SRFlipFlop);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('XOR gate working', () => {
-        const result = runAll(testData.xorGate);
+    test('T Flip Flop working', () => {
+        const result = runAll(testData.TFlipFlop);
         expect(result.summary.passed).toBe(4);
     });
 });

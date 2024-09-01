@@ -1,7 +1,7 @@
 import { setup } from '../src/setup';
 import load from '../src/data/load';
-import circuitData from './circuits/gates-circuitdata.json';
-import testData from './testData/gates-testdata.json';
+import circuitData from './circuits/Decoders-plexers-circuitdata.json';
+import testData from './testData/decoders-plexers.json';
 import { runAll } from '../src/testbench';
 import { createPinia, setActivePinia } from 'pinia';
 import { mount } from '@vue/test-utils';
@@ -23,7 +23,7 @@ vi.mock('codemirror-editor-vue3', () => ({
     defineSimpleMode: vi.fn(),
 }));
 
-describe('Simulator Gates Working', () => {
+describe('Simulator Decoders and Plexers Testing', () => {
     let pinia;
     let router;
 
@@ -74,42 +74,42 @@ describe('Simulator Gates Working', () => {
         setup();
     });
 
-    test('load circuitData', () => {
+    test('load decoders-plexers circuitData', () => {
         expect(() => load(circuitData)).not.toThrow();
     });
 
-    test('AND gate working', () => {
-        const result = runAll(testData.AndGate);
+    test('Multiplexer working', () => {
+        const result = runAll(testData.Multiplexers);
+        expect(result.summary.passed).toBe(8);
+    });
+
+    test('Demultiplexer working', () => {
+        const result = runAll(testData.Demultiplexer);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('NAND gate working', () => {
-        const result = runAll(testData.nandGate);
+    test('BitSelector working', () => {
+        const result = runAll(testData['bit-selector']);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('NOR gate working', () => {
-        const result = runAll(testData.norGate);
+    test('MSB working', () => {
+        const result = runAll(testData.msb);
+        expect(result.summary.passed).toBe(5);
+    });
+
+    test('LSB working', () => {
+        const result = runAll(testData.lsb);
+        expect(result.summary.passed).toBe(10);
+    });
+
+    test('Priority Encoder working', () => {
+        const result = runAll(testData['priority-encoder']);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('NOT gate working', () => {
-        const result = runAll(testData.notGate);
+    test('Decoder working', () => {
+        const result = runAll(testData.Decoder);
         expect(result.summary.passed).toBe(2);
-    });
-
-    test('OR gate working', () => {
-        const result = runAll(testData.OrGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('XNOR gate working', () => {
-        const result = runAll(testData.xnorGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('XOR gate working', () => {
-        const result = runAll(testData.xorGate);
-        expect(result.summary.passed).toBe(4);
     });
 });

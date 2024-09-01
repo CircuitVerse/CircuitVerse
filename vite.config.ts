@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'url'
@@ -9,7 +10,7 @@ import vuetify from 'vite-plugin-vuetify'
 const proxyUrl: string = 'http://localhost:3000'
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(() => ({
     plugins: [
         vue(),
         vuetify({ autoImport: true }),
@@ -35,6 +36,16 @@ export default defineConfig({
         assetsDir: 'assets',
         chunkSizeWarningLimit: 1600,
     },
+    test:{
+        globals: true,
+        environment: 'jsdom',
+        server: {
+            deps: {
+                inline: ['vuetify'],
+            },
+        },
+        setupFiles: './src/simulator/spec/vitestSetup.ts',
+    },
     server: {
         port: 4000,
         proxy: {
@@ -49,4 +60,4 @@ export default defineConfig({
             // }),
         },
     },
-})
+}))

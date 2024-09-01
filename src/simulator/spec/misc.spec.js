@@ -1,7 +1,7 @@
 import { setup } from '../src/setup';
 import load from '../src/data/load';
-import circuitData from './circuits/gates-circuitdata.json';
-import testData from './testData/gates-testdata.json';
+import circuitData from './circuits/misc-circuitdata.json';
+import testData from './testData/misc-testdata.json';
 import { runAll } from '../src/testbench';
 import { createPinia, setActivePinia } from 'pinia';
 import { mount } from '@vue/test-utils';
@@ -23,7 +23,7 @@ vi.mock('codemirror-editor-vue3', () => ({
     defineSimpleMode: vi.fn(),
 }));
 
-describe('Simulator Gates Working', () => {
+describe('Simulator Misc-Elements Testing', () => {
     let pinia;
     let router;
 
@@ -78,38 +78,53 @@ describe('Simulator Gates Working', () => {
         expect(() => load(circuitData)).not.toThrow();
     });
 
-    test('AND gate working', () => {
-        const result = runAll(testData.AndGate);
-        expect(result.summary.passed).toBe(4);
+    test('ALU working', () => {
+        const result = runAll(testData.ALU);
+        expect(result.summary.passed).toBe(28);
     });
 
-    test('NAND gate working', () => {
-        const result = runAll(testData.nandGate);
-        expect(result.summary.passed).toBe(4);
+    test('Adder working', () => {
+        const result = runAll(testData.Adder);
+        expect(result.summary.passed).toBe(8);
     });
 
-    test('NOR gate working', () => {
-        const result = runAll(testData.norGate);
-        expect(result.summary.passed).toBe(4);
-    });
-
-    test('NOT gate working', () => {
-        const result = runAll(testData.notGate);
+    test('Buffer working', () => {
+        const result = runAll(testData.buffer);
         expect(result.summary.passed).toBe(2);
     });
 
-    test('OR gate working', () => {
-        const result = runAll(testData.OrGate);
+    test('TriState Buffer working', () => {
+        const result = runAll(testData.Tristate);
         expect(result.summary.passed).toBe(4);
     });
 
-    test('XNOR gate working', () => {
-        const result = runAll(testData.xnorGate);
-        expect(result.summary.passed).toBe(4);
+    test('Tunnel working', () => {
+        const result = runAll(testData.Tunnel);
+        expect(result.summary.passed).toBe(2);
     });
 
-    test('XOR gate working', () => {
-        const result = runAll(testData.xorGate);
-        expect(result.summary.passed).toBe(4);
+    test("2's Compliment working", () => {
+        const result = runAll(testData.comp);
+        expect(result.summary.passed).toBe(8);
+    });
+
+    test('Controlled Inverter working', () => {
+        const result = runAll(testData.ControlledInverter);
+        expect(result.summary.passed).toBe(3);
+    });
+
+    test('Equal Splitter working', () => {
+        const result = runAll(testData.SplitterEqual);
+        expect(result.summary.passed).toBe(8);
+    });
+
+    test('UnEqual Splitter working', () => {
+        const result = runAll(testData.SplitterUnEqual);
+        expect(result.summary.passed).toBe(8);
+    });
+
+    test('Force Gate working', () => {
+        const result = runAll(testData.ForceGate);
+        expect(result.summary.passed).toBe(2);
     });
 });

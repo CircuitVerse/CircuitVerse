@@ -1,0 +1,959 @@
+{
+    "ALU": {
+        "type": "comb",
+        "title": "ALU",
+        "groups": [
+            {
+                "label": "000",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "000",
+                            "000",
+                            "000",
+                            "000"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "ALU-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "1",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "ALU-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 4
+            },
+            {
+                "label": "001",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "001",
+                            "001",
+                            "001",
+                            "001"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "ALU-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "1"
+                        ],
+                        "results": [
+                            "0",
+                            "1",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "ALU-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 4
+            },
+            {
+                "label": "010",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "010",
+                            "010",
+                            "010",
+                            "010"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "ALU-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "1",
+                            "1",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "ALU-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "1"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 4
+            },
+            {
+                "label": "100",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "100",
+                            "100",
+                            "100",
+                            "100"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "ALU-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "1",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "ALU-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 4
+            },
+            {
+                "label": "101",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "101",
+                            "101",
+                            "101",
+                            "101"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "ALU-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0",
+                            "1",
+                            "1"
+                        ],
+                        "results": [
+                            "1",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "ALU-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 4
+            },
+            {
+                "label": "110",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "110",
+                            "110",
+                            "110",
+                            "110"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "ALU-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "1",
+                            "1",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "ALU-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 4
+            },
+            {
+                "label": "111",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "111",
+                            "111",
+                            "111",
+                            "111"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "ALU-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "1",
+                            "0",
+                            "0"
+                        ]
+                    },
+                    {
+                        "label": "ALU-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 4
+            }
+        ]
+    },
+    "Adder": {
+        "type": "comb",
+        "title": "Adder",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "1",
+                            "1",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1",
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp3",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "Adder-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "Adder-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "1",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 8
+            }
+        ]
+    },
+    "buffer": {
+        "type": "comb",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "buffer-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 2
+            }
+        ]
+    },
+    "Tristate": {
+        "type": "comb",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "enable",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "T-state-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "X",
+                            "X",
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 4
+            }
+        ]
+    },
+    "Tunnel": {
+        "type": "comb",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "Tunnel-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 2
+            }
+        ]
+    },
+    "comp": {
+        "type": "comb",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "000",
+                            "001",
+                            "010",
+                            "011",
+                            "100",
+                            "101",
+                            "110",
+                            "111"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "2s-out1",
+                        "bitWidth": 3,
+                        "values": [
+                            "000",
+                            "111",
+                            "110",
+                            "101",
+                            "100",
+                            "011",
+                            "010",
+                            "001"
+                        ]
+                    }
+                ],
+                "n": 8
+            }
+        ]
+    },
+    "ControlledInverter": {
+        "type": "comb",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "enable",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "CI-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "X",
+                            "1",
+                            "0"
+                        ]
+                    }
+                ],
+                "n": 3
+            }
+        ]
+    },
+    "SplitterEqual": {
+        "type": "comb",
+        "title": "Splitter",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "0",
+                            "1",
+                            "1",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "1",
+                            "1",
+                            "0",
+                            "0",
+                            "1",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "inp3",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "Adder-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "0",
+                            "1"
+                        ],
+                        "results": [
+                            "0",
+                            "1",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "Adder-out2",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "0",
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "1",
+                            "1"
+                        ],
+                        "results": [
+                            "0",
+                            "0",
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "1",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 8
+            }
+        ]
+    },
+    "SplitterUnEqual": {
+        "type": "comb",
+        "title": "Untitled",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "mode",
+                        "bitWidth": 3,
+                        "values": [
+                            "000",
+                            "001",
+                            "010",
+                            "011",
+                            "100",
+                            "101",
+                            "110",
+                            "111"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "s-un-out1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "1",
+                            "0",
+                            "1"
+                        ]
+                    },
+                    {
+                        "label": "s-un-out2",
+                        "bitWidth": 2,
+                        "values": [
+                            "00",
+                            "00",
+                            "01",
+                            "01",
+                            "10",
+                            "10",
+                            "11",
+                            "11"
+                        ]
+                    }
+                ],
+                "n": 8
+            }
+        ]
+    },
+    "ForceGate": {
+        "type": "comb",
+        "title": "Force Gate",
+        "groups": [
+            {
+                "label": "Group 1",
+                "inputs": [
+                    {
+                        "label": "inp1",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "outputs": [
+                    {
+                        "label": "Force-out",
+                        "bitWidth": 1,
+                        "values": [
+                            "0",
+                            "1"
+                        ]
+                    }
+                ],
+                "n": 8
+            }
+        ]
+    }
+}

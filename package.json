@@ -9,7 +9,8 @@
         "preview": "vite preview",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore --fix src",
         "format": "prettier .  --write",
-        "postinstall": "husky install"
+        "postinstall": "husky install",
+        "test": "vitest"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.5.1",
@@ -46,16 +47,19 @@
         "@types/jquery": "^3.5.14",
         "@types/webfontloader": "^1.0.0",
         "@vitejs/plugin-vue": "^2.3.3",
+        "@vue/test-utils": "^2.4.6",
         "eslint": "^8.17.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-plugin-vue": "^9.1.0",
         "husky": "^8.0.1",
         "jsdoc": "^4.0.3",
+        "jsdom": "^24.1.1",
         "prettier": "2.6.2",
         "sass": "^1.77.6",
         "typescript": "^4.5.4",
         "vite": "^2.9.18",
         "vite-plugin-vuetify": "^1.0.0-alpha.0",
+        "vitest": "^2.0.5",
         "vue-cli-plugin-vuetify": "~2.5.1",
         "vue-tsc": "^0.34.7"
     },

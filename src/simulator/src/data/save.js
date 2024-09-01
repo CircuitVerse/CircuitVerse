@@ -69,7 +69,7 @@ function downloadAsImg(name, imgType) {
 export function getTabsOrder() {
     var tabs = document.getElementById('tabsBar').firstChild.children
     var order = []
-    for (let i = 0; i < tabs.length; i++) {
+    for (let i = 0; i < tabs?.length; i++) {
         order.push(tabs[i].id)
     }
     return order
@@ -375,7 +375,7 @@ export default async function save() {
 
     const headers = {
         'Content-Type': 'application/json',
-        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+        'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content'),
         Authorization: `Token ${getToken('cvt')}`,
     }
 
