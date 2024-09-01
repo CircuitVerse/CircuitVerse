@@ -11,7 +11,7 @@ class SocialCardComponentPreview < ViewComponent::Preview
     link_url: "mailto:support@circuitverse.org",
     image_path: "SVGs/email.svg",
     image_alt: "Email Icon",
-    heading: "email_us_heading",
+    heading: "Email us at",
     description: "support@circuitverse.org"
   )
     render(SocialCardComponent.new(
