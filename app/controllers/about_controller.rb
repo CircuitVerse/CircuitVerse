@@ -56,5 +56,20 @@ class AboutController < ApplicationController
       { name: "Shreya Prasad", img: "https://avatars.githubusercontent.com/u/43600306?s=96&v=4", link: "https://github.com/ShreyaPrasad1209" },
       { name: "Shubhankar Sharma", img: "https://avatars.githubusercontent.com/u/32474302?s=96&v=4", link: "https://github.com/shubhankarsharma00" }
     ]
+    @issues_triaging = [
+      { name: "Aayush Gupta", img: "https://avatars.githubusercontent.com/u/47032027?v=4", link: "https://github.com/aayush-05" },
+      { name: "Shreya Prasad", img: "https://avatars.githubusercontent.com/u/43600306?s=96&v=4", link: "https://github.com/ShreyaPrasad1209" },
+      { name: "Shubhankar Sharma", img: "https://avatars.githubusercontent.com/u/32474302?s=96&v=4", link: "https://github.com/shubhankarsharma00" },
+      { name: "Pulkit Gupta",
+        img: "https://avatars.githubusercontent.com/u/76155456?v=4", link: "https://github.com/pulkit-30" },
+      { name: "Vaibhav Upreti",
+        img: "https://avatars.githubusercontent.com/u/85568177?v=4", link: "https://github.com/VaibhavUpreti" },
+      { name: "Prerna Sharma",
+        img: "https://avatars.githubusercontent.com/u/89515816?v=4", link: "https://github.com/Prerna-0202" },
+      { name: "Tanmoy Sarkar",
+        img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" },
+      { name: "Arnabdaz",
+        img: "https://avatars.githubusercontent.com/u/96580571?v=4", link: "https://github.com/Arnabdaz" }
+    ]
   end
 end
