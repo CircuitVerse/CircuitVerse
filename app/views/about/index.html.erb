@@ -71,7 +71,7 @@
   </div>
   <br><br>
   <hr>
-  <%# opration theatre %>
+
   <div class="container">
     <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -80,10 +80,10 @@
         </div>
     </div>
     <div class="row center-row teams-section">
-        <%  @issues_triaging.each do |member| %>
+        <% @issues_triaging.each do |member| %>
         <div class="team-member-container team-link">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img],alt: "User Image", class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>
@@ -92,7 +92,7 @@
   </div>
   <br><br>
   <hr>
-  <%# operation theatre end %>
+
   <div class="container">
     <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
