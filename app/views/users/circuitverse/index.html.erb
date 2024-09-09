@@ -55,13 +55,27 @@
           <% if policy(@user).edit? %>
             <a class="btn primary-button ml-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
+
+          <% if current_user == @user %>
+          <%= form_with url: user_toggle_privacy_path(current_user), method: :patch, local: true, id: "privacy-form" do |f| %>
+            <div class="form-group">
+              <div class="custom-control custom-switch">
+                <%= f.check_box :public, checked: current_user.public, class: "custom-control-input", id: "profile-privacy-toggle" %>
+                <label class="custom-control-label" for="profile-privacy-toggle">
+                  <%= current_user.public ? 'Public' : 'Private' %>
+                </label>
+              </div>
+            </div>
+          <% end %>
+          <% end %>
+          
           <% unless Flipper.enabled?(:question_bank) %>
           <% if current_user.admin? %>
             <button type="button" class="btn btn-secondary ml-0" data-toggle="modal" data-target="#addModeratorsModal"><%= t("users.circuitverse.index.add_moderator") %></button>
           <% end %>
           <% if current_user.admin? %>
-          <button type="button" class="btn btn-secondary ml-0" data-toggle="modal" data-target="#addCategoriesModal">Add categories</button>
-        <% end %>
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addCategoriesModal">Add Categories</button>
+        <% end %>        
           <% end %>
         </div>
       </div>
@@ -73,7 +87,10 @@
         <button id="my-circuits" class="btn users-circuits-tab"><%= t("users.circuitverse.index.my_circuits") %></button>
         <button id="favourite-circuits" class="btn users-circuits-tab users-favourites-tab"><%= t("users.circuitverse.index.favourite_circuits") %></button>
         <button id="collaborator-circuits" class="btn users-circuits-tab users-collaborators-tab"><%= t("users.circuitverse.index.collaborated_circuits") %></button>
-      </div>
+        <% if @user.public? || current_user== @user %>
+        <button id="my-questions" class="btn users-circuits-tab users-my-questions-tab">My Questions</button>
+        <% end %>
+        </div>
       <div class="users-circuits-search-container">
         <span><i class="fas fa-search search-icon-dashboard"></i><input type="search" class="users-circuits-search form-control form-input " placeholder="<%= t("users.circuitverse.index.search_circuits") %>"></span>
       </div>
@@ -129,8 +146,50 @@
         <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
       <% end %>
     </div>
+    <div id="my-questions-div" class="row center-row circuit-page">
+    <% if @questions.blank? %>
+      <div class="col-12">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+          <h6><%= t("users.circuitverse.index.no_questions") %></h6>
+        </div>
+      </div>
+    <% else %>
+    <div id="manage-circuits-list" class="list-view col-12 col-lg-12">
+      <% @questions.each do |question| %>
+        <div class="list-group-item">
+        <h5><%= question.heading %></h5>
+        <p class="question-statement" style="display:none"><%= truncate(question.statement, length: 100, separator: ' ') %>...</p>
+        <div>
+          <% if question.category.present? %>
+            <span class="badge badge-success"><%= question.category.name %></span>
+          <% else %>
+            <span class="badge badge-secondary">Category: Not assigned</span>
+          <% end %>
+          <% case question.difficulty_level %>
+            <% when 'easy' %>
+              <span class="badge badge-success">Easy</span>
+            <% when 'medium' %>
+              <span class="badge badge-warning">Medium</span>
+            <% when 'hard' %>
+              <span class="badge badge-primary">Hard</span>
+            <% when 'expert' %>
+              <span class="badge badge-danger">Expert</span>
+            <% else %>
+              <span class="badge badge-secondary">Unknown</span>
+          <% end %>
+          <button class="view-question" data-question-id="<%= question.id %>" data-user-id="<%= @user.id %>">View</button>
+        </div>
+        </div>
+      <% end %>
   </div>
+  </div>
+  <% end %>
   <%= render partial: "add_moderators_modal" %>
+  <%= render partial: "add_categories_modal" %>
+
+
+
 </div>
 <script type="application/ld+json">
 {
@@ -204,9 +263,9 @@
     $('#my-circuits-div').hide();
     $('#favourite-circuits-div').hide();
     $('#collaborator-circuits-div').hide();
-    $('#manage-circuits-div').hide();
+    $('#my-questions-div').hide(); 
     // Set an array of all tab ids
-    var circuitTabs = ['manage-circuits', 'my-circuits', 'favourite-circuits', 'collaborator-circuits'];
+    var circuitTabs = ['my-circuits', 'favourite-circuits', 'collaborator-circuits','my-questions'];
     // Handle tab click event
     $('.users-circuits-tab').on('click', function (e) {
       if(!$(this).hasClass("active")) {
@@ -253,5 +312,21 @@
       $('#manage-circuits').addClass('active');
       $('#manage-circuits-div').css("display", "flex");
     }
+  });
+
+  const viewButtons = document.querySelectorAll('.view-question');
+
+  viewButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const questionId = this.getAttribute('data-question-id');
+      const userId = this.getAttribute('data-user-id');
+      if (userId) {
+          localStorage.setItem('selected_user_id', userId);
+      }
+      window.location.href = `/simulator/question/${questionId}`;
+    });
+  });
+  document.getElementById("profile-privacy-toggle")?.addEventListener("change", function() {
+    document.getElementById("privacy-form").submit();
   });
 </script>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_08_12_154636) do
+ActiveRecord::Schema[7.0].define(version: 2024_08_25_060639) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -389,6 +389,28 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_154636) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "question_submission_histories", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
+    t.jsonb "circuit_boilerplate"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_question_submission_histories_on_question_id"
+    t.index ["user_id"], name: "index_question_submission_histories_on_user_id"
+  end
+
+  create_table "question_submission_history", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
+    t.jsonb "circuit_boilerplate", default: {}
+    t.string "status", default: "unattempted", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["question_id"], name: "index_question_submission_history_on_question_id"
+    t.index ["user_id"], name: "index_question_submission_history_on_user_id"
+  end
+
   create_table "questions", force: :cascade do |t|
     t.string "heading"
     t.text "statement"
@@ -399,6 +421,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_154636) do
     t.integer "difficulty_level", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "question_category_id"
     t.index ["category_id"], name: "index_questions_on_category_id"
   end
 
@@ -516,6 +539,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_08_12_154636) do
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"
+  add_foreign_key "question_submission_histories", "questions"
+  add_foreign_key "question_submission_histories", "users"
+  add_foreign_key "question_submission_history", "questions"
+  add_foreign_key "question_submission_history", "users"
   add_foreign_key "questions", "question_categories", column: "category_id"
   add_foreign_key "stars", "projects"
   add_foreign_key "stars", "users"

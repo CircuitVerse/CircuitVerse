@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, only: %i[create update destroy edit]
   before_action :authorize_moderator, only: %i[create update destroy]
   before_action :set_question, only: %i[show edit update destroy]
   before_action :check_question_bank, only: %i[index show edit update destroy]
@@ -13,6 +13,19 @@ class QuestionsController < ApplicationController
     @questions = @questions.where(difficulty_level: params[:difficulty_level]) if params[:difficulty_level].present?
     if params[:q].present?
       @questions = @questions.where("heading LIKE :query OR statement LIKE :query", query: "%#{params[:q]}%")
+    end
+    @status = params[:status]
+    if current_user
+      @question_submission_histories = QuestionSubmissionHistory.where(user_id: current_user.id).index_by(&:question_id)
+
+      case @status
+      when "attempted"
+        @questions = @questions.where(id: @question_submission_histories.select { |_, history| history.status == "attempted" }.keys)
+      when "solved"
+        @questions = @questions.where(id: @question_submission_histories.select { |_, history| history.status == "solved" }.keys)
+      when "unattempted"
+        @questions = @questions.where.not(id: @question_submission_histories.keys)
+      end
     end
 
     @categories = QuestionCategory.all
@@ -59,8 +72,9 @@ class QuestionsController < ApplicationController
 
   def destroy
     @question.destroy
-    flash[:notice] = "Question has been deleted"
-    redirect_to questions_path
+    respond_to do |format|
+      format.html { redirect_to questions_url, notice: 'Question was successfully deleted.' }
+    end
   end
 
   private

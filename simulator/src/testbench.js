@@ -634,7 +634,7 @@ function showValidationUI(validationErrors) {
  * @param {Object} data - Object containing Test Data
  * @param {Scope} scope - the circuit
  */
-function validate(data, scope) {
+export function validate(data, scope) {
     let invalids = [];
 
     // Check for duplicate identifiers

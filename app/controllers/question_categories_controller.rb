@@ -2,29 +2,28 @@
 
 class QuestionCategoriesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_moderator, only: %i[create]
+  before_action :authorize_moderator, only: %i[create destroy]
 
-  def index
-    @categories = QuestionCategory.all
-    render json: @categories
-  end
 
-  def create
-    @category = QuestionCategory.new(category_params)
-    return unless @category.save
+def create
+  param_name = params.require(:name)
+  @category = QuestionCategory.new(name:param_name)
+  @category.save
+  redirect_to user_path(current_user.id), notice: 'Category was successfully created.'
+rescue ActionController::ParameterMissing => e
+    redirect_to user_path(current_user.id), alert: 'Missing category information.'
+end
 
-    render json: @category, status: :created
+
+  def destroy
+    @category = QuestionCategory.find(params[:id])
+    @category.destroy
+    redirect_to user_path(current_user.id), notice: 'Category was successfully removed.'
   end
 
   private
 
     def authorize_moderator
-      return if current_user.question_bank_moderator?
-
-      render json: { error: "Unauthorized" }, status: :unauthorized
-    end
-
-    def category_params
-      params.require(:category).permit(:name)
+      authorize QuestionCategory.new, :question_bank_moderator?
     end
 end

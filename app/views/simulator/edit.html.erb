@@ -3,6 +3,10 @@
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" defer></script>
 <script src="/js/plugins/checkBo.min.js" defer></script>
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+
+
 
 <script>
   userSignedIn = <%= user_signed_in? %>;
@@ -375,7 +379,7 @@
     </div>
   </div>
 </div>
-<div class="testbench-manual-panel draggable-panel noSelect defaultCursor">
+<div class="testbench-manual-panel draggable-panel noSelect defaultCursor" id="testbench">
   <div class="panel-header">Testbench
     <span class="fas fa-minus-square minimize panel-button"></span>
     <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
@@ -662,8 +666,18 @@
 <div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex="0" style="display: none;" title="Select Theme"></div>
 <div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
 <input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
+<div id="mainContent" class="d-flex">
+<div id="questionSidebar" class="sidebar bg-light border-right" style="display:flex;flex-direction:column;width:30%;height:100vh;overflow:auto;padding:20px;background:#f9f9f9;border-radius:10px;box-shadow:0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <div id="questionHeading" style="font-weight:bold;font-size:1.5em;margin-bottom:15px;text-align:center;color:#333;width:100%;"></div>
+    <div id="questionStatement" style="width:100%;overflow:auto;overflow-x:auto;height:81%"></div>
+    <div class="btn btn-success" type="button" id="submitquestion"  style="border-radius:25px;padding:10px 20px;background:#28a745;border:none;box-shadow:0px 2px 5px rgba(0, 0, 0, 0.1);cursor:pointer;margin-top:15px;width:calc(100% - 40px);text-align:center;box-sizing:border-box;">Submit and Test</div>
+</div>
 
-<div class="simulation" id="simulation">
+
+
+  
+  
+  <div class="simulation" id="simulation" style="width:100%">
   <div id="restrictedDiv" class="alert alert-danger display--none"></div>
   <% if @project&.assignment_id.present? &&
   @project&.assignment&.elements_restricted? %>
@@ -729,6 +743,8 @@
     </div>
   </div>
 </div>
+</div>
+
 
 <div
   id="ExportCircuitFilesDialog"
@@ -830,8 +846,23 @@
     </div>
   </div>
 </div>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebar = document.getElementById('questionSidebar');
+    const testBench = document.getElementById('testbench')
+    const urlPath = window.location.pathname;
+
+    if (urlPath.startsWith('/simulator/question/')) {
+        sidebar.style.display = 'flex';
+        testBench.style.display = 'none';
+    } else {
+        sidebar.style.display = 'none';
+        testBench.style.display = 'block';
+    }
+});
+
 window.addEventListener("load", function() {
   $('#newCircuit').click(function () {
     return $('#insertSubcircuitDialog').dialog('close');

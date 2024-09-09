@@ -32,7 +32,7 @@
         <% @questions.each do |question| %>
           <div class="question-card">
             <h5><%= question.heading %></h5>
-            <p class="question-statement"><%= truncate(question.statement, length: 100, separator: ' ') %>...</p>
+            <p class="question-statement"><%= question.statement %></p>
             <div>
               <% if question.category.present? %>
                 <span class="badge badge-success"><%= question.category.name %></span>

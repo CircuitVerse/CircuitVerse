@@ -138,6 +138,20 @@ describe SimulatorController, type: :request do
       end
     end
 
+    describe "#embed" do
+    context "project is private" do
+      before do
+        @private = FactoryBot.create(:project, author: @user, project_access_type: "Private")
+      end
+
+      it "throws project access error" do
+        sign_in_random_user
+        get simulator_embed_path(@private)
+        check_project_access_error(response)
+      end
+    end
+  end
+
     describe "#redirect_to_vue_simulator_if_enabled" do
       context "when vuesim is enabled for user and user opens black simualtor" do
         before do
@@ -173,5 +187,7 @@ describe SimulatorController, type: :request do
         end
       end
     end
+
+    
   end
 end

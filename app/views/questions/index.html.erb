@@ -1,36 +1,124 @@
 <div class="container">
-  <div class="users-circuits-navbar">
-    <div class="users-circuits-navbar-buttons">
-      <input type="text" id="searchBox" placeholder="Search..." value="<%= params[:q] %>" aria-label="Search for questions">
-      <select id="categoryFilter" aria-label="Filter by category">
-        <option value="">All Categories</option>
-        <% @categories.each do |category| %>
-          <option value="<%= category.id %>" <%= 'selected' if category.id.to_s == params[:category_id] %>><%= category.name %></option>
-        <% end %>
-      </select>
-      <select id="difficultyFilter" aria-label="Filter by difficulty level">
-        <option value="">All Difficulties</option>
-        <option value="easy" <%= 'selected' if 'easy' == params[:difficulty_level] %>>Easy</option>
-        <option value="medium" <%= 'selected' if 'medium' == params[:difficulty_level] %>>Medium</option>
-        <option value="hard" <%= 'selected' if 'hard' == params[:difficulty_level] %>>Hard</option>
-        <option value="expert" <%= 'selected' if 'expert' == params[:difficulty_level] %>>Expert</option>
-      </select>
-      <div class="dropdown" aria-labelledby="viewDropdown">
-        <button id="viewDropdown" class="btn" aria-haspopup="true" aria-expanded="false">View: Grid</button>
-        <div class="dropdown-content" role="menu">
-          <a href="#" data-view="grid" role="menuitem">Grid View</a>
-          <a href="#" data-view="list" role="menuitem">List View</a>
-        </div>
-      </div>
-    </div>
+<h1 style="text-align: center; font-size: 2.5em; font-weight: bold; margin-bottom: 40px;">
+    Questions
+</h1>
+
+<div class="users-circuits-navbar" style="display: flex; justify-content: space-between; align-items: center;">
+<div class="users-circuits-navbar-buttons" style="flex: 0.8;">
+  <input type="text" id="searchBox" placeholder="Search..." value="<%= params[:q] %>" aria-label="Search for questions" style="
+  height: 40px;
+  padding: 8px 12px;
+  font-size: 16px;
+  border: 1px solid green;
+  border-radius: 6px;
+  color: #495057;
+  box-shadow: 0 2px 4px green;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+  box-sizing: border-box;
+">
+  <select id="categoryFilter" aria-label="Filter by category" style="
+  border: 1px solid green;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 16px;
+  color: #495057;
+  height: 40px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px green;
+  transition: border-color 0.2s, box-shadow 0.2s;
+" onmouseover="this.style.borderColor='green'" onmouseout="this.style.borderColor='#ced4da'">
+  <option value="">All Categories</option>
+  <% @categories.each do |category| %>
+    <option value="<%= category.id %>" <%= 'selected' if category.id.to_s == params[:category_id] %>><%= category.name %></option>
+  <% end %>
+</select>
+
+<select id="difficultyFilter" aria-label="Filter by difficulty level" style="
+border: 1px solid green;
+border-radius: 6px;
+padding: 8px 12px;
+font-size: 16px;
+color: #495057;
+height: 40px;
+cursor: pointer;
+box-shadow: 0 2px 4px green;
+transition: border-color 0.2s, box-shadow 0.2s;
+" onmouseover="this.style.borderColor='green'" onmouseout="this.style.borderColor='#ced4da'">
+<option value="">All Difficulties</option>
+<option value="easy" <%= 'selected' if 'easy' == params[:difficulty_level] %>>Easy</option>
+<option value="medium" <%= 'selected' if 'medium' == params[:difficulty_level] %>>Medium</option>
+<option value="hard" <%= 'selected' if 'hard' == params[:difficulty_level] %>>Hard</option>
+<option value="expert" <%= 'selected' if 'expert' == params[:difficulty_level] %>>Expert</option>
+</select>
+
+<select id="statusFilter" aria-label="Filter by status" style="
+border: 1px solid green;
+border-radius: 6px;
+padding: 8px 12px;
+font-size: 16px;
+color: #495057;
+height: 40px;
+cursor: pointer;
+box-shadow: 0 2px 4px green;
+transition: border-color 0.2s, box-shadow 0.2s;
+" onmouseover="this.style.borderColor='green'" onmouseout="this.style.borderColor='#ced4da'">
+<option value="">All Questions</option>
+<option value="attempted" <%= 'selected' if 'attempted' == params[:status] %>>Attempted</option>
+<option value="solved" <%= 'selected' if 'solved' == params[:status] %>>Solved</option>
+<option value="unattempted" <%= 'selected' if 'unattempted' == params[:status] %>>Unattempted</option>
+</select>
+</div>
+<div class="dropdown" aria-labelledby="viewDropdown" style="position: relative; display: inline-block;">
+  <button id="viewDropdown" class="btn" aria-haspopup="true" aria-expanded="false" style="
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s, box-shadow 0.2s;
+  " onmouseover="this.style.backgroundColor='#0056b3'" onmouseout="this.style.backgroundColor='#007bff'">View: Grid</button>
+  <div class="dropdown-content" role="menu" style="
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    margin-top: 4px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    background: #fff;
+    z-index: 1000;
+    min-width: 120px;
+  ">
+    <a href="#" data-view="grid" role="menuitem" style="
+      display: block;
+      padding: 10px;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 16px;
+      border-bottom: 1px solid #ddd;
+    " onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor='transparent'">Grid View</a>
+    <a href="#" data-view="list" role="menuitem" style="
+      display: block;
+      padding: 10px;
+      color: #007bff;
+      text-decoration: none;
+      font-size: 16px;
+    " onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor='transparent'">List View</a>
   </div>
+</div>
+
+</div>
   <div class="users-circuits-container manage">
     <div id="manage-circuits-grid" class="grid-view">
       <% if @questions.present? %>
         <% @questions.each do |question| %>
-          <div class="question-card">
+          <div class="question-card" >
             <h5><%= question.heading %></h5>
-            <p class="question-statement"><%= truncate(question.statement, length: 100, separator: ' ') %>...</p>
+            <p class="question-statement"><%=question.statement%></p>
             <div>
               <% if question.category.present? %>
                 <span class="badge badge-success"><%= question.category.name %></span>
@@ -49,23 +137,42 @@
                 <% else %>
                   <span class="badge badge-secondary">Unknown</span>
               <% end %>
-              <button class="btn-icon edit" aria-label="Edit question" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')"><i class="fa fa-edit"></i></button>
-              <button class="btn-icon delete" aria-label="Delete question"><i class="fa fa-trash"></i></button>
+              <button class="view-question" data-question-id="<%= question.id %>">View</button>
+              <% if current_user && (current_user.admin? || current_user.question_bank_moderator?) %>
+                <button class="btn-icon edit" aria-label="Edit question" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <%= form_with url: question_path(question), method: :delete, class: 'inline-form delete-question', remote: true, html: { style: "display: inline;" } do %>
+                  <button type="submit" class="btn-icon delete delete-question" aria-label="Delete question" data-confirm="Are you sure?">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                <% end %>
+              <% end %>
+              
+              
+              
             </div>
           </div>
         <% end %>
       <% else %>
-        <p>No questions available.</p>
-      <% end %>
-      <div class="pagination" aria-label="Pagination">
-        <%= will_paginate(@questions, renderer: SearchPaginateRenderer) %>
+      <div style="display:flex; justify-content:center; align-items:center; flex-direction : column; padding-left: 100%; ">
+      <%= image_tag "SVGs/noProject.svg", alt: "No result image", style: "height: 50%; margin-top:-254px" %>
+      <h6 style="width:105px"><%= t("users.circuitverse.index.no_questions") %></h6>
       </div>
+      <% end %>
+
+    </div>
+    <div class="pagination" id="grid-pagination" aria-label="Pagination">
+    <%= will_paginate(@questions, renderer: SearchPaginateRenderer, params: { view:'grid' }) %>
     </div>
     <div id="manage-circuits-list" class="list-view hidden">
+   
       <% if @questions.present? %>
         <% @questions.each do |question| %>
+         
           <div class="list-group-item">
             <h5><%= question.heading %></h5>
+            <p class="question-statement" style="display:none"><%= truncate(question.statement, length: 100, separator: ' ') %>...</p>
             <div>
               <% if question.category.present? %>
                 <span class="badge badge-success"><%= question.category.name %></span>
@@ -84,19 +191,33 @@
                 <% else %>
                   <span class="badge badge-secondary">Unknown</span>
               <% end %>
-              <button class="btn-icon edit" aria-label="Edit question" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')"><i class="fa fa-edit"></i></button>
-              <button class="btn-icon delete" aria-label="Delete question"><i class="fa fa-trash"></i></button>
+              <button class="view-question" data-question-id="<%= question.id %>">View</button>
+              <% if current_user && (current_user.admin? || current_user.question_bank_moderator?)  %>
+                <button class="btn-icon edit" aria-label="Edit question" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <%= form_with url: question_path(question), method: :delete, class: 'inline-form delete-question', remote: true, html: { style: "display: inline;" } do %>
+                  <button type="submit" class="btn-icon delete delete-question" aria-label="Delete question" data-confirm="Are you sure?">
+                    <i class="fa fa-trash"></i>
+                  </button>
+                <% end %>
+              <% end %>
             </div>
           </div>
         <% end %>
       <% else %>
-        <p>No questions available.</p>
+      <div style="display:flex; justify-content:center; align-items:center; flex-direction : column; ">
+      <%= image_tag "SVGs/noProject.svg", alt: "No result image", style: "height: 299px;" %>
+      <h6 style="width:105px"><%= t("users.circuitverse.index.no_questions") %></h6>
+      </div>
       <% end %>
       <div class="pagination" aria-label="Pagination">
-        <%= will_paginate(@questions, renderer: SearchPaginateRenderer) %>
+        <%= will_paginate(@questions, renderer: SearchPaginateRenderer, params: { view:'list' }) %>
       </div>
     </div>
   </div>
+  
+
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -106,6 +227,90 @@
     const searchBox = document.getElementById("searchBox");
     const categoryFilter = document.getElementById("categoryFilter");
     const difficultyFilter = document.getElementById("difficultyFilter");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentView = urlParams.get('view') || 'grid';
+  
+    // Set the correct view on page load
+    if (currentView === 'list') {
+      gridView.classList.add('hidden');
+      listView.classList.remove('hidden');
+      document.getElementById("grid-pagination").style.display='none';
+      viewDropdown.textContent = 'View: List';
+    } else {
+      gridView.classList.remove('hidden');
+      listView.classList.add('hidden');
+      viewDropdown.textContent = 'View: Grid';
+      document.getElementById("grid-pagination").style.display='block';
+    }
+
+    const statusFilter = document.getElementById("statusFilter");
+  
+    statusFilter.addEventListener('change', function() {
+      window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${categoryFilter.value}&difficulty_level=${difficultyFilter.value}&status=${this.value}`;
+    });
+
+    document.querySelectorAll('.inline-form.delete-question').forEach(form => {
+      form.addEventListener('ajax:success', function(event) {
+
+        const card = form.closest('.question-card') || form.closest('.list-group-item');
+        if (card) {
+          card.remove();
+        }
+  
+      
+        const questionId = form.closest('.question-card') 
+                         ? form.closest('.question-card').getAttribute('data-question_id') 
+                         : form.closest('.list-group-item').getAttribute('data-question_id');
+  
+
+        const gridElement = document.querySelector(`.grid-view .question-card[data-question_id="${questionId}"]`);
+        if (gridElement) {
+          gridElement.remove();
+        }
+  
+        const listElement = document.querySelector(`.list-view .list-group-item[data-question_id="${questionId}"]`);
+        if (listElement) {
+          listElement.remove();
+        }
+      });
+    });
+  
+    const dropdownContent = viewDropdown.nextElementSibling;
+  
+    viewDropdown.addEventListener('mouseover', function() {
+      dropdownContent.style.display = 'block';
+    });
+  
+  
+    dropdownContent.addEventListener('mouseover', function() {
+      dropdownContent.style.display = 'block';
+    });
+  
+    dropdownContent.addEventListener('mouseout', function() {
+      dropdownContent.style.display = 'none';
+    });
+  
+    document.querySelectorAll('.dropdown-content a').forEach(item => {
+      item.addEventListener('click', event => {
+        event.preventDefault();
+        const view = item.getAttribute('data-view');
+        if (view === 'grid') {
+          document.getElementById("manage-circuits-grid").classList.remove('hidden');
+          document.getElementById("manage-circuits-list").classList.add('hidden');
+          document.getElementById("grid-pagination").style.display='block';
+          viewDropdown.textContent = 'View: Grid';
+        } else if (view === 'list') {
+          console.log("sdfsdf")
+          document.getElementById("manage-circuits-grid").classList.add('hidden');
+          document.getElementById("manage-circuits-list").classList.remove('hidden');
+          document.getElementById("grid-pagination").style.display='none';
+          viewDropdown.textContent = 'View: List';
+        }
+        dropdownContent.style.display = 'none'; 
+      });
+    });
+
     document.querySelectorAll('.dropdown-content a').forEach(item => {
       item.addEventListener('click', event => {
         event.preventDefault();
@@ -123,8 +328,11 @@
         }
       });
     });
-    searchBox.addEventListener('input', function() {
-      window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(this.value)}&category_id=${categoryFilter.value}&difficulty_level=${difficultyFilter.value}`;
+    searchBox.addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(this.value)}&category_id=${categoryFilter.value}&difficulty_level=${difficultyFilter.value}`;
+      }
     });
     categoryFilter.addEventListener('change', function() {
       window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${this.value}&difficulty_level=${difficultyFilter.value}`;
@@ -132,6 +340,19 @@
     difficultyFilter.addEventListener('change', function() {
       window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${categoryFilter.value}&difficulty_level=${this.value}`;
     });
+
+
+    const viewButtons = document.querySelectorAll('.view-question');
+
+    viewButtons.forEach(button => {
+      button.addEventListener('click', function () {
+        const questionId = this.getAttribute('data-question-id');
+  
+        // Redirect to the simulator with the question id
+        window.location.href = `/simulator/question/${questionId}`;
+      });
+    });
+
   });
   function editQuestion(questionId, circuitBoilerplate, editUrl) {
     localStorage.setItem(questionId, (circuitBoilerplate));

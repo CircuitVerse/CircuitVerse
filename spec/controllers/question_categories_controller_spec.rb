@@ -8,49 +8,80 @@ RSpec.describe QuestionCategoriesController, type: :controller do
   let(:valid_attributes) { { name: "Digital Logic" } }
   let(:invalid_attributes) { { name: "" } }
 
-  describe "GET #index" do
-    it "returns a success response" do
-      QuestionCategory.create!(valid_attributes)
-      sign_in moderator
-      get :index
-      expect(response).to be_successful
-      expect(response.parsed_body.first["name"]).to eq("Digital Logic")
-    end
-  end
-
   describe "POST #create" do
     context "when the user is a moderator" do
       before { sign_in moderator }
 
-      context "with valid params" do
-        it "creates a new Category" do
+
+        it "creates a new category with valid params" do
           expect do
-            post :create, params: { category: valid_attributes }
+            post :create, params: { name: valid_attributes }
           end.to change(QuestionCategory, :count).by(1)
         end
 
-        it "renders a JSON response with the new category" do
-          post :create, params: { category: valid_attributes }
-          expect(response).to have_http_status(:created)
-          expect(response.parsed_body["name"]).to eq("Digital Logic")
+
+        it "creates a new category with invalid params" do
+          expect do
+            post :create, params: { name: "" }
+            expect(flash[:alert]).to match(/Missing category information.*/)
+          end.to change(QuestionCategory, :count).by(0)
+          
         end
-      end
+
     end
 
     context "when the user is not a moderator" do
       before { sign_in regular_user }
 
-      it "renders a JSON response with an error" do
-        post :create, params: { category: valid_attributes }
-        expect(response).to have_http_status(:unauthorized)
-        expect(response.parsed_body).to eq({ "error" => "Unauthorized" })
-      end
-
       it "does not create a new Category" do
         expect do
           post :create, params: { category: valid_attributes }
+          expect(response.body).to eq("You are not authorized to do the requested operation")
         end.not_to change(QuestionCategory, :count)
       end
     end
   end
+
+
+
+  describe "DELETE #destroy" do
+  context "when the user is a moderator" do
+    before { 
+      sign_in moderator
+      @question_category = FactoryBot.create(:question_category)
+    }
+
+      it "deletes a existing category" do
+        expect do
+          delete :destroy, params: { id: @question_category.id }
+          expect(flash[:notice]).to match(/Category was successfully removed.*/)
+        end.to change(QuestionCategory, :count).by(-1)
+      end
+
+
+      it "deletes a non-existing category" do
+        expect do
+          delete :destroy, params: { id: 98}
+        end.to change(QuestionCategory, :count).by(0)
+        
+      end
+
+  end
+
+  context "when the user is not a moderator" do
+    before { 
+      sign_in regular_user 
+      @question_category = FactoryBot.create(:question_category)
+    }
+
+    it "does not delete a category" do
+      expect do
+        delete :destroy, params: { id: @question_category.id }
+        expect(response.body).to eq("You are not authorized to do the requested operation")
+      end.not_to change(QuestionCategory, :count)
+    end
+  end
+end
+
+  
 end

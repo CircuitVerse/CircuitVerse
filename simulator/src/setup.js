@@ -159,7 +159,70 @@ export function setup() {
         const questionId = urlParams.get('question_id');
         if (window.location.pathname.startsWith('/simulator') && questionId && localStorage.getItem(questionId)) {
             load(JSON.parse(localStorage.getItem(questionId).replaceAll('=>',':')));
-        } else if (__logix_project_id != 0) {
+        }
+        else if(window.location.pathname.startsWith('/simulator/question') && window.location.pathname.split('/').length == 4) {
+            let questionId = window.location.pathname.split('/')[3];
+            let userId = localStorage.getItem('selected_user_id');
+        
+            let ajaxUrl = `/questions/${questionId}/fetch_submission_or_question`;
+            if (userId) {
+                ajaxUrl += `?user_id=${userId}`;
+            }
+        
+            $.ajax({
+                url: ajaxUrl,
+                type: 'GET',
+                success(response) {
+                    var data = response;
+                    if (data) {
+                        console.log(data);
+                        load(JSON.parse(data.circuit_boilerplate.replace(/\\"/g, '"')));
+                        const heading = data.heading;
+                        const statement = data.statement;
+                        localStorage.setItem("test_data", data.test_data);
+        
+                        document.getElementById('questionHeading').textContent = heading;
+        
+                        if (statement) {
+                            const tempTextarea = document.createElement('textarea');
+                            tempTextarea.style.position = 'absolute';
+                            tempTextarea.style.left = '-9999px';
+                            tempTextarea.style.height = '0';
+                            document.body.appendChild(tempTextarea);
+        
+                            const simplemde = new SimpleMDE({
+                                element: tempTextarea,
+                                toolbar: ["fullscreen"],
+                                status: false,
+                                spellChecker: false,
+                                autoDownloadFontAwesome: false,
+                                renderingConfig: {
+                                    singleLineBreaks: true,
+                                    codeSyntaxHighlighting: true,
+                                }
+                            });
+        
+                            const renderedMarkdown = simplemde.options.previewRender(statement);
+                            document.getElementById('questionStatement').innerHTML = renderedMarkdown;
+                            tempTextarea.remove();
+                        }
+        
+                        simulationArea.changeClockTime(data.timePeriod || 500);
+                    }
+                    $('.loadingIcon').fadeOut();
+                },
+                failure() {
+                    alert('Error: could not load');
+                    $('.loadingIcon').fadeOut();
+                },
+            });
+        }
+        
+
+
+
+        
+        else if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: `/simulator/get_data/${__logix_project_id}`,

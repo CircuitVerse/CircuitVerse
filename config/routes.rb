@@ -67,6 +67,7 @@ Rails.application.routes.draw do
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
     sessions: "users/sessions", :saml_sessions => "users/saml_sessions"
   }
+  
 
   # Circuitverse web pages resources
   root "circuitverse#index"
@@ -88,6 +89,7 @@ Rails.application.routes.draw do
     get "/:id/", to: "users/circuitverse#index", as: "user_projects"
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
     get "/:id/notifications", to: "users/noticed_notifications#index", as: "notifications"
+    patch "/:id/toggle_privacy", to: "users/circuitverse#toggle_privacy", as: "user_toggle_privacy"
     patch "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
     patch "/:id/notifications/read_all_notifications", to: "users/noticed_notifications#read_all_notifications", as: "read_all_notifications"
     post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read", as: "mark_as_read"
@@ -97,14 +99,17 @@ Rails.application.routes.draw do
   post "/push/test", to: "push_subscription#test"
 
   resources :questions do
+    get 'fetch_submission_or_question', to: 'question_submission_histories#fetch_submission_or_question'
     collection do
       get 'filter'
       get 'search'
     end
+    resources :question_submission_histories, only: :create
   end
 
-  resources :question_categories, only: [:index, :create]
-  
+  resources :question_categories, only: [:create, :destroy]
+  resources :questions, only: [:destroy]
+
 
   get '/questions/new/:qid', to: 'questions#new', as: 'new_question_with_qid'
   get 'questions', to: 'questions#index'
@@ -137,6 +142,7 @@ Rails.application.routes.draw do
   # simulator
   scope "/simulator" do
     get "/:id", to: "simulator#show", as: "simulator"
+    get "/question/:id",  to: "simulator#new", as: "simulator_question_new"
     get "/edit/:id", to: "simulator#edit", as: "simulator_edit"
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
@@ -221,6 +227,16 @@ Rails.application.routes.draw do
           # get "projects/all", to: "projects#all_user_projects"
         end
       end
+      # resource :user, only: [] do
+      #   patch :toggle_privacy, to: 'users#toggle_privacy'
+      # end
+
+      resources :users, only: [:index, :show, :update] do
+        collection do
+          get 'my_questions'
+        end
+      end
+
       post "/assignments/:assignment_id/projects/:project_id/grades", to: "grades#create"
       resources :grades, only: %i[update destroy]
       get "/groups/owned", to: "groups#groups_owned"

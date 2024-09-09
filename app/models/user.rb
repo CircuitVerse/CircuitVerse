@@ -33,6 +33,8 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
+  has_many :question_submission_histories
+
   before_destroy :purge_profile_picture
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
