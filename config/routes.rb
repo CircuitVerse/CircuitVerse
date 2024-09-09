@@ -31,6 +31,7 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/favicon.ico', to: ->(_) { [204, {}, []] }
   resources :custom_mails, except: %i[destroy]
   get "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
   get "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
