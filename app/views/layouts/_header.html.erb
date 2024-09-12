@@ -53,9 +53,9 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-2">
             <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
             <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
-            <% unless Flipper.enabled?(:question_bank) %>
+            <% if Flipper.enabled?(:question_bank) %>
             <% if user_signed_in? && current_user.question_bank_moderator %>
-            <a class="dropdown-item" href="#" onclick="redirectToAddQuestion()"><%= t("layout.link_to_add_questions") %></a>
+            <a class="dropdown-item" onclick="redirectToAddQuestion()"><%= t("layout.link_to_add_questions") %></a>
             <% end %>
             <a class="dropdown-item" href="/questions"><%= t("layout.link_to_questions") %></a>
             <% end %>

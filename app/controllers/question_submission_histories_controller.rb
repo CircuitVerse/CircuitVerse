@@ -14,12 +14,11 @@ class QuestionSubmissionHistoriesController < ApplicationController
       render json: { error: submission_history.errors.full_messages }, status: :unprocessable_entity
     end
   end
-
+  
   def fetch_submission_or_question
     question = Question.find(params[:question_id])
     
     if user_signed_in?
-      # Fetch submission history for the found user and question
       user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
       submission_history = QuestionSubmissionHistory.find_by(user: user, question: question)
 
@@ -41,7 +40,6 @@ class QuestionSubmissionHistoriesController < ApplicationController
         }, status: :ok
       end
     else
-      # User is not authenticated, render limited data
       render json: {
         question_id: question.id,
         heading: question.heading,

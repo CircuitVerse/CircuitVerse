@@ -107,7 +107,7 @@ Rails.application.routes.draw do
     end
     resources :question_submission_histories, only: :create
   end
-
+  
   resources :question_categories, only: [:create, :destroy]
   resources :questions, only: [:destroy]
 

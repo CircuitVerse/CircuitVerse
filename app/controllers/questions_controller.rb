@@ -7,7 +7,6 @@ class QuestionsController < ApplicationController
   before_action :check_question_bank, only: %i[index show edit update destroy]
 
   def index
-    @questions = Question.all
     @questions = Question.paginate(page: params[:page], per_page: 6)
     @questions = @questions.where(category_id: params[:category_id]) if params[:category_id].present?
     @questions = @questions.where(difficulty_level: params[:difficulty_level]) if params[:difficulty_level].present?
@@ -33,7 +32,7 @@ class QuestionsController < ApplicationController
   end
 
   def check_question_bank
-    return unless Flipper.enabled?(:question_bank)
+    return if Flipper.enabled?(:question_bank)
 
     api_error(status: 403, errors: "Question bank is currently blocked")
   end
@@ -43,7 +42,7 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    if Flipper.enabled?(:question_bank)
+    if !Flipper.enabled?(:question_bank)
       redirect_to root_path, alert: "Question bank is currently blocked"
     else
       @question = Question.new(qid: params[:qid])

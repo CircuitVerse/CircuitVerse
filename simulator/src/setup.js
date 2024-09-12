@@ -217,11 +217,6 @@ export function setup() {
                 },
             });
         }
-        
-
-
-
-        
         else if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
