@@ -13,21 +13,10 @@ class Users::CircuitverseController < ApplicationController
     @moderators = User.where(question_bank_moderator: true)
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects
-
-    # @user = current_user
-    # submitted_questions = QuestionSubmissionHistory.where(user_id: @user.id)
     @question_submission_histories = QuestionSubmissionHistory.where(user_id: @profile.id)
-
-    # filtered_submissions = QuestionSubmissionHistory.where(user_id: @user.id)
-    # filtered_submissions_profile = QuestionSubmissionHistory.where(user_id: @profile.id)
-
     question_ids = @question_submission_histories.map(&:question_id)
-    # question_ids_profile = filtered_submissions_profile.map(&:question_id)
     @questions = Question.where(id: question_ids)
-    # @questions_profile = Question.where(id: question_ids_profile)
     @categories = QuestionCategory.all
-    # @question_submission_histories = QuestionSubmissionHistory.where(user_id: current_user.id).index_by(&:question_id)
-    # @question_submission_histories_profile = QuestionSubmissionHistory.where(user_id: @profile.id).index_by(&:question_id)
   end
 
   def edit; end

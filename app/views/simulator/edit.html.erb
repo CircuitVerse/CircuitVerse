@@ -5,9 +5,6 @@
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
 <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-
-
-
 <script>
   userSignedIn = <%= user_signed_in? %>;
   __logix_project_id = "<%= @logix_project_id %>";
@@ -672,11 +669,6 @@
     <div id="questionStatement" style="width:100%;overflow:auto;overflow-x:auto;height:81%"></div>
     <div class="btn btn-success" type="button" id="submitquestion"  style="border-radius:25px;padding:10px 20px;background:#28a745;border:none;box-shadow:0px 2px 5px rgba(0, 0, 0, 0.1);cursor:pointer;margin-top:15px;width:calc(100% - 40px);text-align:center;box-sizing:border-box;">Submit and Test</div>
 </div>
-
-
-
-  
-  
   <div class="simulation" id="simulation" style="width:100%">
   <div id="restrictedDiv" class="alert alert-danger display--none"></div>
   <% if @project&.assignment_id.present? &&
@@ -744,8 +736,6 @@
   </div>
 </div>
 </div>
-
-
 <div
   id="ExportCircuitFilesDialog"
   class='customScroll'
