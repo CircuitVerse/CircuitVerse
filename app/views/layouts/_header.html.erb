@@ -21,6 +21,11 @@
       <li class="nav-item px-1">
         <a class="btn navbar-simulator-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
       </li>
+      <% if Flipper.enabled?(:question_bank) %>
+      <li class="nav-item px-1">
+      <a class="nav-link navbar-item navbar-text" href="/questions"><%= t("layout.link_to_questions") %></a>
+    </li>
+    <% end %>
       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1">
           <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started"><%= t("layout.getting_started_dropdown") %></a>

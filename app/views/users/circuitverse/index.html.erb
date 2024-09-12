@@ -57,26 +57,25 @@
           <% end %>
 
           <% if current_user == @user %>
-          <%= form_with url: user_toggle_privacy_path(current_user), method: :patch, local: true, id: "privacy-form" do |f| %>
+          <%= form_with url: user_toggle_privacy_path(current_user), method: :patch, local: true, id: "privacy-form",  html: { style: "margin: 10px;" } do |f| %>
             <div class="form-group">
               <div class="custom-control custom-switch">
                 <%= f.check_box :public, checked: current_user.public, class: "custom-control-input", id: "profile-privacy-toggle" %>
                 <label class="custom-control-label" for="profile-privacy-toggle">
-                  <%= current_user.public ? 'Public' : 'Private' %>
+                  <%= current_user.public ? 'Public question dashboard' : 'Private question dashboard' %>
                 </label>
               </div>
             </div>
           <% end %>
           <% end %>
-          
-          <% unless Flipper.enabled?(:question_bank) %>
-          <% if current_user.admin? %>
-            <button type="button" class="btn btn-secondary ml-0" data-toggle="modal" data-target="#addModeratorsModal"><%= t("users.circuitverse.index.add_moderator") %></button>
+          <div style="display:flex;justify-content:space-around;padding-top:0px">
+          <% if Flipper.enabled?(:question_bank) %>
+          <% if current_user.admin? && current_user == @user  %>
+          <button type="button" class="btn btn-secondary ml-0 mr-2" data-toggle="modal" data-target="#addModeratorsModal"><%= t("users.circuitverse.index.add_moderator") %></button>
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addCategoriesModal">Add Categories</button>       
           <% end %>
-          <% if current_user.admin? %>
-          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addCategoriesModal">Add Categories</button>
-        <% end %>        
           <% end %>
+          </div>
         </div>
       </div>
     </div>

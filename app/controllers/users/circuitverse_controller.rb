@@ -13,11 +13,10 @@ class Users::CircuitverseController < ApplicationController
     @moderators = User.where(question_bank_moderator: true)
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects
-    
+
     # @user = current_user
     # submitted_questions = QuestionSubmissionHistory.where(user_id: @user.id)
     @question_submission_histories = QuestionSubmissionHistory.where(user_id: @profile.id)
-
 
     # filtered_submissions = QuestionSubmissionHistory.where(user_id: @user.id)
     # filtered_submissions_profile = QuestionSubmissionHistory.where(user_id: @profile.id)
@@ -29,7 +28,6 @@ class Users::CircuitverseController < ApplicationController
     @categories = QuestionCategory.all
     # @question_submission_histories = QuestionSubmissionHistory.where(user_id: current_user.id).index_by(&:question_id)
     # @question_submission_histories_profile = QuestionSubmissionHistory.where(user_id: @profile.id).index_by(&:question_id)
-    
   end
 
   def edit; end
@@ -63,9 +61,9 @@ class Users::CircuitverseController < ApplicationController
   def toggle_privacy
     if current_user
       current_user.update(public: !current_user.public)
-      redirect_to user_path(current_user), notice: 'Privacy setting updated successfully.'
+      redirect_to user_path(current_user), notice: "Privacy setting updated successfully."
     else
-      redirect_to new_user_session_path, alert: 'You need to sign in or sign up before continuing.'
+      redirect_to new_user_session_path, alert: "You need to sign in or sign up before continuing."
     end
   end
 

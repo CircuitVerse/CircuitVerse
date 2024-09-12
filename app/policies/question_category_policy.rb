@@ -7,5 +7,4 @@ class QuestionCategoryPolicy < ApplicationPolicy
     @user = user
     @question_category = question_category
   end
-
 end

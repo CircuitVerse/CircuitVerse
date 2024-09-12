@@ -19,9 +19,13 @@ class QuestionsController < ApplicationController
 
       case @status
       when "attempted"
-        @questions = @questions.where(id: @question_submission_histories.select { |_, history| history.status == "attempted" }.keys)
+        @questions = @questions.where(id: @question_submission_histories.select do |_, history|
+                                            history.status == "attempted"
+                                          end.keys)
       when "solved"
-        @questions = @questions.where(id: @question_submission_histories.select { |_, history| history.status == "solved" }.keys)
+        @questions = @questions.where(id: @question_submission_histories.select do |_, history|
+                                            history.status == "solved"
+                                          end.keys)
       when "unattempted"
         @questions = @questions.where.not(id: @question_submission_histories.keys)
       end
@@ -42,16 +46,15 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    if !Flipper.enabled?(:question_bank)
-      redirect_to root_path, alert: "Question bank is currently blocked"
-    else
+    if Flipper.enabled?(:question_bank)
       @question = Question.new(qid: params[:qid])
       render :new
+    else
+      redirect_to root_path, alert: "Question bank is currently blocked"
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @question = Question.new(question_params)
@@ -64,45 +67,45 @@ class QuestionsController < ApplicationController
   end
 
   def update
-    if @question.update(question_params)
-      redirect_to questions_path, notice: "Question was successfully updated."
-    end
+    return unless @question.update(question_params)
+
+    redirect_to questions_path, notice: "Question was successfully updated."
   end
 
   def destroy
     @question.destroy
     respond_to do |format|
-      format.html { redirect_to questions_url, notice: 'Question was successfully deleted.' }
+      format.html { redirect_to questions_url, notice: "Question was successfully deleted." }
     end
   end
 
   private
 
-  def authorize_moderator
-    unless current_user&.question_bank_moderator?
+    def authorize_moderator
+      return if current_user&.question_bank_moderator?
+
       render json: { error: "Unauthorized" }, status: :unauthorized
     end
-  end
 
-  def set_question
-    @question = Question.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    redirect_to questions_path, alert: "Question not found"
-  end
+    def set_question
+      @question = Question.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      redirect_to questions_path, alert: "Question not found"
+    end
 
-  def question_params
-    params.require(:question).permit(
-      :heading,
-      :statement,
-      :category_id,
-      :difficulty_level,
-      :qid,
-      :test_data,
-      :circuit_boilerplate
-    )
-  end
+    def question_params
+      params.require(:question).permit(
+        :heading,
+        :statement,
+        :category_id,
+        :difficulty_level,
+        :qid,
+        :test_data,
+        :circuit_boilerplate
+      )
+    end
 
-  def api_error(status:, errors:)
-    render json: { errors: errors }, status: status
-  end
+    def api_error(status:, errors:)
+      render json: { errors: errors }, status: status
+    end
 end

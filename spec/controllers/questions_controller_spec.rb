@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 # spec/controllers/questions_controller_spec.rb
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe QuestionsController, type: :controller do
   let(:user) { create(:user) }
@@ -39,35 +41,35 @@ RSpec.describe QuestionsController, type: :controller do
 
       it "filters questions by difficulty level" do
         sign_in user
-        question.update(difficulty_level: 'easy')
-        get :index, params: { difficulty_level: 'easy' }
+        question.update(difficulty_level: "easy")
+        get :index, params: { difficulty_level: "easy" }
         expect(response.body).to include(question.heading)
       end
 
       it "searches questions by query" do
         sign_in user
-        question.update(heading: 'Some Query')
-        get :index, params: { q: 'Some Query' }
-        expect(response.body).to include('Some Query')
+        question.update(heading: "Some Query")
+        get :index, params: { q: "Some Query" }
+        expect(response.body).to include("Some Query")
       end
 
       context "when filtering by status" do
         before { sign_in user }
 
         it "shows attempted questions" do
-          create(:question_submission_history, user: user, question: questions.first, status: 'attempted')
-          get :index, params: { status: 'attempted' }
+          create(:question_submission_history, user: user, question: questions.first, status: "attempted")
+          get :index, params: { status: "attempted" }
           expect(response.body).to include(questions.first.heading)
         end
 
         it "shows solved questions" do
-          create(:question_submission_history, user: user, question: questions.first, status: 'solved')
-          get :index, params: { status: 'solved' }
+          create(:question_submission_history, user: user, question: questions.first, status: "solved")
+          get :index, params: { status: "solved" }
           expect(response.body).to include(questions.first.heading)
         end
 
         it "shows unattempted questions" do
-          get :index, params: { status: 'unattempted' }
+          get :index, params: { status: "unattempted" }
           expect(response.body).to include(questions.first.heading)
         end
       end
@@ -127,12 +129,12 @@ RSpec.describe QuestionsController, type: :controller do
 
     context "with valid attributes" do
       let(:valid_attributes) { attributes_for(:question) }
-      
+
       it "creates a new question" do
         valid_attributes = attributes_for(:question, category_id: create(:question_category).id)
-        expect {
+        expect do
           post :create, params: { question: valid_attributes }
-        }.to change(Question, :count).by(1)
+        end.to change(Question, :count).by(1)
       end
     end
 
@@ -140,9 +142,9 @@ RSpec.describe QuestionsController, type: :controller do
       let(:invalid_attributes) { attributes_for(:question, heading: nil) }
 
       it "does not create a question" do
-        expect {
+        expect do
           post :create, params: { question: invalid_attributes }
-        }.not_to change(Question, :count)
+        end.not_to change(Question, :count)
       end
     end
 
@@ -189,22 +191,22 @@ RSpec.describe QuestionsController, type: :controller do
 
     it "deletes the question" do
       question = create(:question)
-      expect {
+      expect do
         delete :destroy, params: { id: question.id }
-      }.to change(Question, :count).by(-1)
+      end.to change(Question, :count).by(-1)
     end
 
     it "redirects to questions_url with notice" do
       delete :destroy, params: { id: question.id }
       expect(response).to redirect_to(questions_url)
-      expect(flash[:notice]).to eq 'Question was successfully deleted.'
+      expect(flash[:notice]).to eq "Question was successfully deleted."
     end
   end
 
   describe "authorization checks" do
     context "when user is not signed in" do
       it "requires authentication for restricted actions" do
-        restricted_actions = [:create, :update, :destroy, :edit]
+        restricted_actions = %i[create update destroy edit]
         restricted_actions.each do |action|
           process action, method: :post, params: { id: question.id }
           expect(response).to redirect_to(new_user_session_path)

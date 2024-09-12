@@ -15,7 +15,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     render json: Api::V1::UserSerializer.new(@users, @options)
   end
 
-  # GET api/v1/users/:id 
+  # GET api/v1/users/:id
   def show
     render json: Api::V1::UserSerializer.new(@user, @options)
   end
@@ -65,18 +65,17 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
   end
 
-
   def my_questions
     @user = current_user
     submitted_questions = QuestionSubmissionHistory.where(user_id: @user.id)
     filtered_submissions = submitted_questions.select do |submission|
-      submission.status.in?(['attempted', 'solved'])
+      submission.status.in?(%w[attempted solved])
     end
     question_ids = filtered_submissions.map(&:question_id)
     @questions = Question.where(id: question_ids)
     render json: @questions
   end
-  
+
   private
 
     def set_user

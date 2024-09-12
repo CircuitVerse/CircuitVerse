@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class QuestionSubmissionHistoriesController < ApplicationController
   before_action :authenticate_user!, only: %i[create]
 
@@ -9,15 +11,15 @@ class QuestionSubmissionHistoriesController < ApplicationController
     submission_history.status = submission_params[:status]
 
     if submission_history.save
-      render json: { message: 'Submission history created successfully', data: submission_history }, status: :created
+      render json: { message: "Submission history created successfully", data: submission_history }, status: :created
     else
       render json: { error: submission_history.errors.full_messages }, status: :unprocessable_entity
     end
   end
-  
+
   def fetch_submission_or_question
     question = Question.find(params[:question_id])
-    
+
     if user_signed_in?
       user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
       submission_history = QuestionSubmissionHistory.find_by(user: user, question: question)
@@ -52,7 +54,7 @@ class QuestionSubmissionHistoriesController < ApplicationController
 
   private
 
-  def submission_params
-    params.require(:question_submission_history).permit(:circuit_boilerplate, :status)
-  end
+    def submission_params
+      params.require(:question_submission_history).permit(:circuit_boilerplate, :status)
+    end
 end
