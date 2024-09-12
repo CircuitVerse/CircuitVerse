@@ -186,9 +186,6 @@
   <% end %>
   <%= render partial: "add_moderators_modal" %>
   <%= render partial: "add_categories_modal" %>
-
-
-
 </div>
 <script type="application/ld+json">
 {
@@ -262,7 +259,7 @@
     $('#my-circuits-div').hide();
     $('#favourite-circuits-div').hide();
     $('#collaborator-circuits-div').hide();
-    $('#my-questions-div').hide(); 
+    $('#my-questions-div').hide();
     // Set an array of all tab ids
     var circuitTabs = ['my-circuits', 'favourite-circuits', 'collaborator-circuits','my-questions'];
     // Handle tab click event
@@ -312,9 +309,7 @@
       $('#manage-circuits-div').css("display", "flex");
     }
   });
-
   const viewButtons = document.querySelectorAll('.view-question');
-
   viewButtons.forEach(button => {
     button.addEventListener('click', function () {
       const questionId = this.getAttribute('data-question-id');
