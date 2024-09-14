@@ -2,7 +2,6 @@
 <h1 style="text-align: center; font-size: 2.5em; font-weight: bold; margin-bottom: 40px;">
     Questions
 </h1>
-
 <div class="users-circuits-navbar" style="display: flex; justify-content: space-between; align-items: center;">
 <div class="users-circuits-navbar-buttons" style="flex: 0.8;">
   <input type="text" id="searchBox" placeholder="Search..." value="<%= params[:q] %>" aria-label="Search for questions" style="
@@ -33,7 +32,6 @@
     <option value="<%= category.id %>" <%= 'selected' if category.id.to_s == params[:category_id] %>><%= category.name %></option>
   <% end %>
 </select>
-
 <select id="difficultyFilter" aria-label="Filter by difficulty level" style="
 border: 1px solid green;
 border-radius: 6px;
@@ -51,7 +49,6 @@ transition: border-color 0.2s, box-shadow 0.2s;
 <option value="hard" <%= 'selected' if 'hard' == params[:difficulty_level] %>>Hard</option>
 <option value="expert" <%= 'selected' if 'expert' == params[:difficulty_level] %>>Expert</option>
 </select>
-
 <select id="statusFilter" aria-label="Filter by status" style="
 border: 1px solid green;
 border-radius: 6px;
@@ -110,7 +107,6 @@ transition: border-color 0.2s, box-shadow 0.2s;
     " onmouseover="this.style.backgroundColor='#f8f9fa'" onmouseout="this.style.backgroundColor='transparent'">List View</a>
   </div>
 </div>
-
 </div>
   <div class="users-circuits-container manage">
     <div id="manage-circuits-grid" class="grid-view">
@@ -148,9 +144,6 @@ transition: border-color 0.2s, box-shadow 0.2s;
                   </button>
                 <% end %>
               <% end %>
-              
-              
-              
             </div>
           </div>
         <% end %>
@@ -160,7 +153,6 @@ transition: border-color 0.2s, box-shadow 0.2s;
       <h6 style="width:105px"><%= t("users.circuitverse.index.no_questions") %></h6>
       </div>
       <% end %>
-
     </div>
     <div class="pagination" id="grid-pagination" aria-label="Pagination">
     <%= will_paginate(@questions, renderer: SearchPaginateRenderer, params: { view:'grid' }) %>
@@ -216,8 +208,6 @@ transition: border-color 0.2s, box-shadow 0.2s;
       </div>
     </div>
   </div>
-  
-
 </div>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -227,11 +217,8 @@ transition: border-color 0.2s, box-shadow 0.2s;
     const searchBox = document.getElementById("searchBox");
     const categoryFilter = document.getElementById("categoryFilter");
     const difficultyFilter = document.getElementById("difficultyFilter");
-
     const urlParams = new URLSearchParams(window.location.search);
     const currentView = urlParams.get('view') || 'grid';
-  
-    // Set the correct view on page load
     if (currentView === 'list') {
       gridView.classList.add('hidden');
       listView.classList.remove('hidden');
@@ -243,54 +230,39 @@ transition: border-color 0.2s, box-shadow 0.2s;
       viewDropdown.textContent = 'View: Grid';
       document.getElementById("grid-pagination").style.display='block';
     }
-
     const statusFilter = document.getElementById("statusFilter");
-  
     statusFilter.addEventListener('change', function() {
       window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${categoryFilter.value}&difficulty_level=${difficultyFilter.value}&status=${this.value}`;
     });
-
     document.querySelectorAll('.inline-form.delete-question').forEach(form => {
       form.addEventListener('ajax:success', function(event) {
-
         const card = form.closest('.question-card') || form.closest('.list-group-item');
         if (card) {
           card.remove();
         }
-  
-      
         const questionId = form.closest('.question-card') 
                          ? form.closest('.question-card').getAttribute('data-question_id') 
                          : form.closest('.list-group-item').getAttribute('data-question_id');
-  
-
         const gridElement = document.querySelector(`.grid-view .question-card[data-question_id="${questionId}"]`);
         if (gridElement) {
           gridElement.remove();
         }
-  
         const listElement = document.querySelector(`.list-view .list-group-item[data-question_id="${questionId}"]`);
         if (listElement) {
           listElement.remove();
         }
       });
     });
-  
     const dropdownContent = viewDropdown.nextElementSibling;
-  
     viewDropdown.addEventListener('mouseover', function() {
       dropdownContent.style.display = 'block';
     });
-  
-  
     dropdownContent.addEventListener('mouseover', function() {
       dropdownContent.style.display = 'block';
     });
-  
     dropdownContent.addEventListener('mouseout', function() {
       dropdownContent.style.display = 'none';
     });
-  
     document.querySelectorAll('.dropdown-content a').forEach(item => {
       item.addEventListener('click', event => {
         event.preventDefault();
@@ -310,7 +282,6 @@ transition: border-color 0.2s, box-shadow 0.2s;
         dropdownContent.style.display = 'none'; 
       });
     });
-
     document.querySelectorAll('.dropdown-content a').forEach(item => {
       item.addEventListener('click', event => {
         event.preventDefault();
@@ -340,19 +311,13 @@ transition: border-color 0.2s, box-shadow 0.2s;
     difficultyFilter.addEventListener('change', function() {
       window.location.href = `<%= url_for(controller: 'questions', action: 'index') %>?q=${encodeURIComponent(searchBox.value)}&category_id=${categoryFilter.value}&difficulty_level=${this.value}`;
     });
-
-
     const viewButtons = document.querySelectorAll('.view-question');
-
     viewButtons.forEach(button => {
       button.addEventListener('click', function () {
         const questionId = this.getAttribute('data-question-id');
-  
-        // Redirect to the simulator with the question id
         window.location.href = `/simulator/question/${questionId}`;
       });
     });
-
   });
   function editQuestion(questionId, circuitBoilerplate, editUrl) {
     localStorage.setItem(questionId, (circuitBoilerplate));
