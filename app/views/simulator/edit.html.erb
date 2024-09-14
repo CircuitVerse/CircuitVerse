@@ -221,8 +221,8 @@
     <% if user_signed_in? %>
      <%= current_user.name %></div>
     <div class="smallscreen-navbar-inner">
-      <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
-      <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+      <li class=""><a href="<%= user_path(current_user) %>">Dashboard</a></li>
+      <li class=""><a href="<%= user_groups_path(current_user) %>">My Groups</a></li>
       <div class="dropdown-divider"></div>
       <li class=""><a rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></li>
       <% else %>
