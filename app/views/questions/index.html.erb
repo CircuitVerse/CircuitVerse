@@ -238,8 +238,8 @@ transition: border-color 0.2s, box-shadow 0.2s;
         if (card) {
           card.remove();
         }
-        const questionId = form.closest('.question-card') 
-                         ? form.closest('.question-card').getAttribute('data-question_id') 
+        const questionId = form.closest('.question-card')
+                         ? form.closest('.question-card').getAttribute('data-question_id')
                          : form.closest('.list-group-item').getAttribute('data-question_id');
         const gridElement = document.querySelector(`.grid-view .question-card[data-question_id="${questionId}"]`);
         if (gridElement) {
@@ -277,7 +277,7 @@ transition: border-color 0.2s, box-shadow 0.2s;
           document.getElementById("grid-pagination").style.display='none';
           viewDropdown.textContent = 'View: List';
         }
-        dropdownContent.style.display = 'none'; 
+        dropdownContent.style.display = 'none';
       });
     });
     document.querySelectorAll('.dropdown-content a').forEach(item => {
