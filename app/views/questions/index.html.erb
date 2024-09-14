@@ -112,9 +112,9 @@ transition: border-color 0.2s, box-shadow 0.2s;
     <div id="manage-circuits-grid" class="grid-view">
       <% if @questions.present? %>
         <% @questions.each do |question| %>
-          <div class="question-card" >
+          <div class="question-card">
             <h5><%= question.heading %></h5>
-            <p class="question-statement"><%=question.statement%></p>
+            <p class="question-statement"><%= question.statement %></p>
             <div>
               <% if question.category.present? %>
                 <span class="badge badge-success"><%= question.category.name %></span>
@@ -158,10 +158,8 @@ transition: border-color 0.2s, box-shadow 0.2s;
     <%= will_paginate(@questions, renderer: SearchPaginateRenderer, params: { view:'grid' }) %>
     </div>
     <div id="manage-circuits-list" class="list-view hidden">
-   
       <% if @questions.present? %>
         <% @questions.each do |question| %>
-         
           <div class="list-group-item">
             <h5><%= question.heading %></h5>
             <p class="question-statement" style="display:none"><%= truncate(question.statement, length: 100, separator: ' ') %>...</p>
@@ -184,7 +182,7 @@ transition: border-color 0.2s, box-shadow 0.2s;
                   <span class="badge badge-secondary">Unknown</span>
               <% end %>
               <button class="view-question" data-question-id="<%= question.id %>">View</button>
-              <% if current_user && (current_user.admin? || current_user.question_bank_moderator?)  %>
+              <% if current_user && (current_user.admin? || current_user.question_bank_moderator?) %>
                 <button class="btn-icon edit" aria-label="Edit question" data-id="<%= question.qid %>" data-boilerplate="<%= question.circuit_boilerplate %>" onclick="editQuestion('<%= question.qid %>', '<%= j question.circuit_boilerplate %>', '<%= edit_question_path(question.id) %>')">
                   <i class="fa fa-edit"></i>
                 </button>
