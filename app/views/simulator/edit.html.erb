@@ -10,7 +10,6 @@
   __logix_project_id = "<%= @logix_project_id %>";
   __projectName = "<%= @projectName %>"
 </script>
-
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
@@ -74,24 +73,21 @@
           <% if user_signed_in? %>
             <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
-              <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
-              <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
+              <li><a class="dropdown-item" href="<%= user_path(current_user) %>">Dashboard</a></li>
+              <li><a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a></li>
+              <li><a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications</a></li>
               <div class="dropdown-divider"></div>
-              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></li>
             </ul>
           <% else %>
-            <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+            <a class="navbar-nav signIn-btn user-field" href="<%= new_user_session_path %>"> Sign In </a>
           <% end %>
         </li>
       </ul>
-
     </div>
-
     <div id="saveButtonContainer" style="display: none;">
     <button type="button" class="btn btn-secondary" id="saveButton">Save</button>
   </div>
-
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn' id='quick-btn-id'>
       <div id='dragQPanel' class='panel-drag'>
       <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
@@ -186,16 +182,11 @@
     <div class="accordion" id="menu"></div>
   </div>
 </div>
-
 <div id="smallNavbarMenu-btn">
-
 </div>
-
 <!-- navBar-for-small-screen -->
 <div class="smallscreen-navbar">
-
   <div id="ProjectID">Untitled</div>
-
   <div class="smallNavbar-navbar-ul">Project<i class="fas fa-chevron-down ulicon"></i></div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> New Project</li>
@@ -205,14 +196,12 @@
       <li class="SmallScreen-Navbar-li"> Clear Project</li>
       <li class="SmallScreen-Navbar-li"> Recover Project</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">Circuits<i class="fas fa-chevron-down ulicon"></i></div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> New Circuit + </li>
       <li class="SmallScreen-Navbar-li"> New Verilog Module</li>
       <li class="SmallScreen-Navbar-li"> Insert SubCircuit</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">Tools<i class="fas fa-chevron-down ulicon"></i> </div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> Combinational Analysis</li>
@@ -221,7 +210,6 @@
       <li class="SmallScreen-Navbar-li"> Theme</li>
       <li class="SmallScreen-Navbar-li"> Export Verilog</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">Help <i class="fas fa-chevron-down ulicon"></i></div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> Tutorial</li>
@@ -229,26 +217,22 @@
       <li class="SmallScreen-Navbar-li"> Learn Digital Logic</li>
       <li class="SmallScreen-Navbar-li"> Discussion Forum</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">
-
     <% if user_signed_in? %>
      <%= current_user.name %></div>
     <div class="smallscreen-navbar-inner">
       <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
       <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
       <div class="dropdown-divider"></div>
-      <li class=""><a rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+      <li class=""><a rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></li>
       <% else %>
-    <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
+    <a class="navbar-nav user-field" href="<%= new_user_session_path %>"> Sign In </a>
   <% end %>
       </div>
-
   <div id="logoWrap">
   <a href="/"><span class='touchNavlogo'> </span></a>
   </div>
   </div>
-
   <!-- Touchmenu  Responsive Versions -->
   <div id='touchMenu'>
     <ul><i class="fas fa-bezier-curve touchMenuIcon"></i></ul>
