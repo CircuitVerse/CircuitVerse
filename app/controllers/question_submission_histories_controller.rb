@@ -22,7 +22,7 @@ class QuestionSubmissionHistoriesController < ApplicationController
 
     if user_signed_in?
       user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
-      submission_history = QuestionSubmissionHistory.find_by(user: user, question: question)
+      submission_history = QuestionSubmissionHistory.find_by(user_id: user.id, question_id: question.id)
 
       if submission_history
         render json: {

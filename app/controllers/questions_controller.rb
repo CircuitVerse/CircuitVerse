@@ -11,29 +11,27 @@ class QuestionsController < ApplicationController
     @questions = @questions.where(category_id: params[:category_id]) if params[:category_id].present?
     @questions = @questions.where(difficulty_level: params[:difficulty_level]) if params[:difficulty_level].present?
     if params[:q].present?
-      @questions = @questions.where("heading LIKE :query OR statement LIKE :query", query: "%#{params[:q]}%")
+      query = "%#{params[:q]}%"
+      @questions = @questions.where("heading LIKE :query OR statement LIKE :query", query: query)
     end
     @status = params[:status]
     if current_user
-      @question_submission_histories = QuestionSubmissionHistory.where(user_id: current_user.id).index_by(&:question_id)
-
+      submission_histories = QuestionSubmissionHistory.where(user_id: current_user.id).pluck(:question_id, :status).to_h
       case @status
       when "attempted"
-        @questions = @questions.where(id: @question_submission_histories.select do |_, history|
-                                            history.status == "attempted"
-                                          end.keys)
+        attempted_question_ids = submission_histories.select { |_, status| status == "attempted" }.keys
+        @questions = @questions.where(id: attempted_question_ids)
       when "solved"
-        @questions = @questions.where(id: @question_submission_histories.select do |_, history|
-                                            history.status == "solved"
-                                          end.keys)
+        solved_question_ids = submission_histories.select { |_, status| status == "solved" }.keys
+        @questions = @questions.where(id: solved_question_ids)
       when "unattempted"
-        @questions = @questions.where.not(id: @question_submission_histories.keys)
+        @questions = @questions.where.not(id: submission_histories.keys)
       end
     end
-
     @categories = QuestionCategory.all
     render :index
   end
+  
 
   def check_question_bank
     return if Flipper.enabled?(:question_bank)

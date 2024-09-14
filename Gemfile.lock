@@ -181,8 +181,6 @@ GEM
       rails (>= 6.0)
       sprockets-rails
       will_paginate
-    composite_primary_keys (14.0.9)
-      activerecord (~> 7.0.2)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     countries (5.3.0)
@@ -912,7 +910,6 @@ DEPENDENCIES
   carrierwave (~> 3.0)
   coffee-rails (~> 5.0)
   commontator (~> 7.0.0)
-  composite_primary_keys
   country_select (~> 8.0)
   coveralls_reborn (~> 0.26.0)
   database_consistency
