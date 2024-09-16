@@ -4,22 +4,24 @@
   border-radius: .3rem;
   color: $white;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   font-size: 1.2rem;
   justify-content: center;
   margin-top: .3rem;
   overflow-wrap: break-word;
+  padding: 4px;
 
   span {
     display: inline-block;
     flex: 50%;
     margin-right: 1rem;
-    margin-top: 1rem;
     text-align: center;
   }
 
   a {
-    background: $secondary-red;
+    color: $white;
+    text-decoration: underline;
   }
 }
 
