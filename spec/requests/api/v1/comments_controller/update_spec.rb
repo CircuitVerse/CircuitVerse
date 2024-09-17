@@ -29,7 +29,6 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
         patch "/api/v1/comments/#{comment.id}",
               headers: { Authorization: "Token #{token}" }, as: :json
       end
-
       it "returns status forbidden" do
         expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
