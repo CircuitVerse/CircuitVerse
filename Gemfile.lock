@@ -412,7 +412,6 @@ GEM
       timeout
     net-smtp (0.5.0)
       net-protocol
-    newrelic_rpm (8.14.0)
     nio4r (2.7.3)
     nokogiri (1.16.7)
       mini_portile2 (~> 2.8.2)
@@ -950,7 +949,6 @@ DEPENDENCIES
   mailkick (~> 0.4.3)
   maintenance_tasks (~> 2.3)
   meta-tags
-  newrelic_rpm (~> 8.14)
   noticed (~> 1.6)
   oj (~> 3.15)
   omniauth
