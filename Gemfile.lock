@@ -269,7 +269,7 @@ GEM
     geocoder (1.7.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
-    google-protobuf (3.25.3)
+    google-protobuf (3.25.5)
     googleapis-common-protos-types (1.6.0)
       google-protobuf (~> 3.14)
     hairtrigger (0.2.25)
