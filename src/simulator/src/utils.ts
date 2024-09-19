@@ -10,6 +10,8 @@ import { layoutModeGet } from './layoutMode'
 import plotArea from './plotArea'
 import { SimulatorStore } from '#/store/SimulatorStore/SimulatorStore'
 import { useActions } from '#/store/SimulatorStore/actions'
+import { writeTextFile } from '@tauri-apps/api/fs';
+import { join, downloadDir } from '@tauri-apps/api/path';
 
 window.globalScope = undefined
 window.lightMode = false // To be deprecated
@@ -116,8 +118,16 @@ export function gateGenerateVerilog(gate, invert = false) {
     return res
 }
 
+export function downloadFile(filename: string, text: string | number | boolean) {
+    if (isTauri()) {
+        return downloadFileDesktop(filename, text);
+    } else {
+        return downloadFileWeb(filename, text);
+    }
+}
+
 // Helper function to download text
-export function download(filename: string, text: string | number | boolean) {
+export function downloadFileWeb(filename: string, text: string | number | boolean) {
     const pom = document.createElement('a')
     pom.setAttribute(
         'href',
@@ -132,6 +142,18 @@ export function download(filename: string, text: string | number | boolean) {
     } else {
         pom.click()
     }
+}
+
+// For Desktop Application
+export async function downloadFileDesktop(filename: string, text: string | number | boolean) {
+    const downloadsDirectory = await downloadDir();
+    let path = filename;
+
+    if (!filename.startsWith('/')) {
+        path = await join(downloadsDirectory, filename);
+    }
+
+    await writeTextFile(path, text.toString());
 }
 
 // Helper function to open a new tab
@@ -319,4 +341,8 @@ export function escapeHtml(unsafe: string) {
         .replace(/>/g, '&gt;')
         .replace(/"/g, '&quot;')
         .replace(/'/g, '&#039;')
+}
+
+export function isTauri(): boolean {
+    return !!window.__TAURI__;
 }

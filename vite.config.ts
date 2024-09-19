@@ -30,11 +30,20 @@ export default defineConfig(() => ({
             '@': fileURLToPath(new URL('./src/components', import.meta.url)),
         },
     },
-    base: '/simulatorvue/',
+    base: process.env.VITE_BASE_URL,
     build: {
-        outDir: '../public/simulatorvue',
+        outDir: './public/output',
         assetsDir: 'assets',
-        chunkSizeWarningLimit: 1600,
+        chunkSizeWarningLimit: 2000,
+        rollupOptions: {
+            output: {
+                manualChunks(id) {
+                    if (id.includes('node_modules')) {
+                        return id.toString().split('node_modules/')[1].split('/')[0].toString();
+                    }
+                }
+            }
+        }
     },
     test:{
         globals: true,
@@ -59,5 +68,6 @@ export default defineConfig(() => ({
             },
             // }),
         },
+        host: true
     },
 }))
