@@ -24,7 +24,7 @@ import {
     gridUpdateSet,
     errorDetectedSet,
 } from './engine'
-import { changeScale, findDimensions } from './canvasApi';
+import { changeScale, findDimensions } from './canvasApi'
 import { scheduleBackup } from './data/backupCircuit'
 import { hideProperties, deleteSelected, uxvar, exitFullView } from './ux';
 import { updateRestrictedElementsList, updateRestrictedElementsInScope, hideRestricted, showRestricted } from './restrictedElementDiv';
@@ -34,8 +34,6 @@ import redo from './data/redo'
 import { copy, paste, selectAll } from './events'
 import { verilogModeGet } from './Verilog2CV'
 import { setupTimingListeners } from './plotArea'
-import logixFunction from './data'
-import { listen } from '@tauri-apps/api/event'
 import { useSimulatorMobileStore } from '#/store/simulatorMobileStore'
 import { toRefs } from 'vue'
 
@@ -786,94 +784,4 @@ function handleZoom (direction) {
     $('#increment').click(() => {
       sliderZoomButton(1);
     });
-}
-
-// Desktop App Listeners
-
-listen('new-project', () => {
-    logixFunction.newProject();
-});
-
-listen('save_online', () => {
-    logixFunction.save();
-});
-
-listen('save_offline', () => {
-    logixFunction.saveOffline();
-});
-
-listen('open_offline', () => {
-    logixFunction.createOpenLocalPrompt();
-});
-
-listen('export', () => {
-    logixFunction.ExportProject();
-});
-
-listen('import', () => {
-    logixFunction.ImportProject();
-});
-
-listen('recover', () => {
-    logixFunction.recoverProject();
-});
-
-listen('clear', () => {
-    logixFunction.clearProject();
-});
-
-listen('preview_circuit', () => {
-    logixFunction.fullViewOption();
-});
-
-listen('new-circuit', () => {
-    logixFunction.createNewCircuitScope();
-});
-
-listen('new-verilog-module', () => {
-    logixFunction.newVerilogModule();
-});
-
-listen('insert-sub-circuit', () => {
-    logixFunction.createSubCircuitPrompt();
-});
-
-listen('combinational-analysis', () => {
-    logixFunction.createCombinationalAnalysisPrompt();
-});
-
-listen('hex-bin-dec', () => {
-    logixFunction.bitconverter();
-});
-
-listen('download-image', () => {
-    logixFunction.createSaveAsImgPrompt();
-});
-
-listen('themes', () => {
-    logixFunction.colorThemes();
-});
-
-listen('custom-shortcut', () => {
-    logixFunction.customShortcut();
-});
-
-listen('export-verilog', () => {
-    logixFunction.generateVerilog();
-});
-
-listen('tutorial', () => {
-    logixFunction.showTourGuide();
-});
-
-listen('user-manual', () => {
-    logixFunction.showUserManual();
-});
-
-listen('learn-digital-circuit', () => {
-    logixFunction.showDigitalCircuit();
-});
-
-listen('discussion-forum', () => {
-    logixFunction.showDiscussionForum();
-});
+  }

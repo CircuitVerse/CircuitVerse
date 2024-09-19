@@ -1,8 +1,5 @@
 import { simulationArea } from './simulationArea'
 import { convertors } from './utils'
-import { join, downloadDir } from '@tauri-apps/api/path';
-import { writeBinaryFile } from '@tauri-apps/api/fs';
-import { isTauri } from './utils';
 import { useSimulatorMobileStore } from '#/store/simulatorMobileStore'
 import { toRefs } from 'vue'
 
@@ -111,42 +108,11 @@ const plotArea = {
     },
     // download as image
     download() {
-        if(isTauri()){
-            this.downloadImageDesktop()
-            return
-        }
-
         var img = this.canvas.toDataURL(`image/png`)
         const anchor = document.createElement('a')
         anchor.href = img
         anchor.download = `waveform.png`
         anchor.click()
-    },
-    // download as image for desktop
-    async downloadImageDesktop() {
-        try {
-            const img = this.canvas.toDataURL('image/png');
-
-            const response = await fetch(img);
-            const blob = await response.blob();
-
-            const arrayBuffer = await new Promise((resolve, reject) => {
-                const reader = new FileReader();
-                reader.onloadend = () => resolve(reader.result);
-                reader.onerror = reject;
-                reader.readAsArrayBuffer(blob);
-            });
-
-            const downloadsDirectory = await downloadDir();
-
-            const random = Math.random().toString(36).substring(7);
-
-            const path = await join(downloadsDirectory, `waveform-${random}.png`);
-
-            await writeBinaryFile({ path, contents: new Uint8Array(arrayBuffer) });
-        } catch (error) {
-            console.error('Error during download:', error);
-        }
     },
     // update canvas size to use full screen
     resize() {

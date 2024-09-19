@@ -58,7 +58,7 @@ import 'codemirror/theme/eclipse.css'
 import { verilog } from '#/simulator/src/verilog'
 import {
     copyToClipboard,
-    downloadFile,
+    download,
     openInNewTab,
     showMessage,
 } from '#/simulator/src/utils'
@@ -82,7 +82,7 @@ onMounted(() => {
 
 function downloadVerilog() {
     let fileName = getProjectName() || 'Untitled'
-    downloadFile(fileName + '.v', code.value)
+    download(fileName + '.v', code.value)
     SimulatorState.dialogBox.exportverilog_dialog = false
 }
 function copyClipboard() {

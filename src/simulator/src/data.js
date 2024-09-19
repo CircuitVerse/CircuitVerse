@@ -31,7 +31,8 @@ logixFunction.saveOffline = saveOffline
 logixFunction.createOpenLocalPrompt = openOffline
 logixFunction.recoverProject = recoverProject
 logixFunction.createSubCircuitPrompt = createSubCircuitPrompt
-logixFunction.createCombinationalAnalysisPrompt = createCombinationalAnalysisPrompt
+logixFunction.createCombinationalAnalysisPrompt =
+    createCombinationalAnalysisPrompt
 logixFunction.fullViewOption = fullView
 logixFunction.colorThemes = colorThemes
 logixFunction.showTourGuide = showTourGuideHelper
