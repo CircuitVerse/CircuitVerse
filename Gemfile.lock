@@ -552,8 +552,9 @@ GEM
       addressable
       css_parser (>= 1.6.0)
       htmlentities (>= 4.0.0)
-    premailer-rails (1.11.1)
+    premailer-rails (1.12.0)
       actionmailer (>= 3)
+      net-smtp
       premailer (~> 1.7, >= 1.7.9)
     pry (0.14.1)
       coderay (~> 1.1)
@@ -983,7 +984,7 @@ DEPENDENCIES
   puma (~> 6.4)
   pundit
   rack-attack
-  rails (~> 7.0)
+  rails (~> 7.0.8.3)
   rails-data-migrations
   rails-erd
   rails-i18n (~> 7.0.3)
