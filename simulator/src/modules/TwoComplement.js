@@ -66,6 +66,8 @@ export default class TwoComplement extends CircuitElement {
         this.output1.value =
             (output << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**

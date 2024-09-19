@@ -20,4 +20,9 @@
       </div>
     <% end %>
   </div>
+  <div class="row center-row justify-content-center">
+    <%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+      <%= link_to t("users.shared.resend_email"), new_confirmation_path(resource_name), class: "anchor-text" %>
+    <% end %>
+  </div>
 </div>
