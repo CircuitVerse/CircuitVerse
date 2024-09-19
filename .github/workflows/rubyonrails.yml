@@ -23,7 +23,7 @@ jobs:
         
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 100
           submodules: recursive
@@ -54,6 +54,15 @@ jobs:
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
       - name: Run tests
         run: bundle exec rspec
+      
+      - name: Keep screenshots from failed system tests
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: screenshots
+          path: ${{ github.workspace }}/tmp/capybara
+          if-no-files-found: ignore
+
       - uses: aki77/delete-pr-comments-action@v1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
