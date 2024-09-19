@@ -13,7 +13,7 @@ class User < ApplicationRecord
   has_many :stars
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
+  devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, :saml_authenticatable, omniauth_providers: %i[google_oauth2 facebook github gitlab]
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
@@ -75,6 +75,7 @@ class User < ApplicationRecord
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
                          provider: access_token.provider,
+                         confirmed_at: Time.zone.now,
                          uid: access_token.uid)
     user
   end
