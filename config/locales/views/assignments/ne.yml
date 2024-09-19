@@ -27,7 +27,7 @@ ne:
       time_remaining_html: "<strong>बाँकी समय:</strong> %{time_remaining}"
       graded_html: "<strong>ग्रेडेड:</strong> %{graded}"
       description: "वर्णन:"
-      restricted_elements_html: "<strong>सीमित सर्किट एलिमेंट्सहरू:<strong> %{restricted_circuit_elements}"
+      restricted_elements_html: "<strong>सीमित सर्किट एलिमेंट्सहरू:</strong> %{restricted_circuit_elements}"
       export_grades: "ग्रेडहरू निर्यात गर्नुहोस्"
       submissions: "सबमिटहरू:"
       restricted_features_html: "<strong>सीमित सुविधाहरू:</strong> %{restricted_features}"
