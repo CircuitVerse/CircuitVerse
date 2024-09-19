@@ -65,9 +65,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    :address              => 'smtp.yandex.com',
-    :port                 => 465,
-    :domain               => 'yandex.com',
+    :address              => ENV["SMTP_ADDRESS"],
+    :port                 => ENV["SMTP_PORT"],
     :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
     :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
     :ssl                  => true,

@@ -156,7 +156,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-  # config.allow_unconfirmed_access_for = 2.days
+  config.allow_unconfirmed_access_for = 30.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -310,4 +310,20 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
+end
+
+Devise.saml_update_resource_hook = Proc.new do |user, saml_response, auth_value|
+  saml_response.attributes.resource_keys.each do |key|
+    user.send "#{key}=", saml_response.attribute_value_by_resource_key(key)
+  end
+
+  if Devise.saml_use_subject
+    user.send "#{Devise.saml_default_user_key}=", auth_value
+  end
+
+  if user.id.nil?
+    user.name = user.email if user.name.blank?
+    user.password = Devise.friendly_token[0, 20]
+  end
+  user.save!
 end
