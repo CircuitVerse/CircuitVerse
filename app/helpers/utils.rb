@@ -21,25 +21,23 @@ module Utils
   # @param parsed_mails array of valid emails
   # @param newly_added array of emails that have been newly added
   # @return notice string
-
   def self.mail_notice(input_mails, parsed_mails, newly_added)
     total_emails = input_mails.count(&:present?)
     valid_emails = parsed_mails.count
+    invalid_emails = total_emails - valid_emails
+    already_present_count = (parsed_mails - newly_added).count
 
-    # Calculate invalid emails using ternary operator for brevity
-    invalid_emails = total_emails > valid_emails ? total_emails - valid_emails : 0
-
-    # Use string interpolation for cleaner formatting
-    message = "Out of #{total_emails} email(s), #{valid_emails} " \
-              "#{valid_emails == 1 ? 'was' : 'were'} valid and " \
-              "#{invalid_emails} #{invalid_emails == 1 ? 'was' : 'were'} invalid."
-
-    already_present_users = (parsed_mails - newly_added).count
-    unless already_present_users.zero?
-      message << " #{already_present_users} user(s) " \
-                 "#{already_present_users == 1 ? 'was' : 'were'} already present."
+    if total_emails.positive? && valid_emails.positive?
+      "Out of #{total_emails} Email(s), #{valid_emails} #{valid_emails == 1 ? 'was' : 'were'} \
+valid and #{invalid_emails} #{invalid_emails == 1 ? 'was' : 'were'} invalid. \
+#{newly_added.count} user(s) will be invited. " +
+        (if already_present_count.zero?
+           "No users were already present."
+         else
+           "#{already_present_count} user(s) #{already_present_count == 1 ? 'was' : 'were'} already present."
+         end)
+    else
+      "No valid Email(s) entered."
     end
-
-    message
   end
 end
