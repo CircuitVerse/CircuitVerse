@@ -9,6 +9,7 @@ mr:
     link_to_blog: "ब्लॉग"
     link_to_about: "सर्किटवर्स बद्दल"
     link_to_faq: "सामान्य प्रश्न"
+    link_to_contests: "स्पर्धा"
     footer:
       social_icon_text: "आम्हाला येथे अनुसरण फॉलो करा"
       link_to_examples: "उदाहरण"
