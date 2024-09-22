@@ -7,31 +7,11 @@ class QuestionsController < ApplicationController
   before_action :check_question_bank, only: %i[index show edit update destroy]
 
   def index
-    @questions = Question.paginate(page: params[:page], per_page: 6)
-    @questions = @questions.where(category_id: params[:category_id]) if params[:category_id].present?
-    @questions = @questions.where(difficulty_level: params[:difficulty_level]) if params[:difficulty_level].present?
-    if params[:q].present?
-      query = "%#{params[:q]}%"
-      @questions = @questions.where("heading LIKE :query OR statement LIKE :query", query: query)
-    end
-    @status = params[:status]
-    if current_user
-      submission_histories = QuestionSubmissionHistory.where(user_id: current_user.id).pluck(:question_id, :status).to_h
-      case @status
-      when "attempted"
-        attempted_question_ids = submission_histories.select { |_, status| status == "attempted" }.keys
-        @questions = @questions.where(id: attempted_question_ids)
-      when "solved"
-        solved_question_ids = submission_histories.select { |_, status| status == "solved" }.keys
-        @questions = @questions.where(id: solved_question_ids)
-      when "unattempted"
-        @questions = @questions.where.not(id: submission_histories.keys)
-      end
-    end
+    @questions = filtered_questions.paginate(page: params[:page], per_page: 6)
+    filter_by_status if current_user
     @categories = QuestionCategory.all
     render :index
   end
-  
 
   def check_question_bank
     return if Flipper.enabled?(:question_bank)
@@ -105,5 +85,25 @@ class QuestionsController < ApplicationController
 
     def api_error(status:, errors:)
       render json: { errors: errors }, status: status
+    end
+
+    def filtered_questions
+      questions = Question.all
+      questions = questions.where(category_id: params[:category_id]) if params[:category_id].present?
+      questions = questions.where(difficulty_level: params[:difficulty_level]) if params[:difficulty_level].present?
+      questions = questions.where("heading LIKE :query OR statement LIKE :query", query: "%#{params[:q]}%") if params[:q].present?
+      questions
+    end
+
+    def filter_by_status
+      submission_histories = QuestionSubmissionHistory.where(user_id: current_user.id).pluck(:question_id, :status).to_h
+      case params[:status]
+      when "attempted"
+        @questions = @questions.where(id: submission_histories.select { |_, status| status == "attempted" }.keys)
+      when "solved"
+        @questions = @questions.where(id: submission_histories.select { |_, status| status == "solved" }.keys)
+      when "unattempted"
+        @questions = @questions.where.not(id: submission_histories.keys)
+      end
     end
 end
