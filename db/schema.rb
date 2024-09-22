@@ -10,8 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
+ActiveRecord::Schema[7.0].define(version: 2024_09_14_122916) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -494,6 +493,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
     t.string "educational_institute"
     t.boolean "subscribed", default: true
     t.string "locale"
+    t.jsonb "submission_history", default: [], array: true
     t.boolean "public", default: true
     t.boolean "question_bank_moderator", default: false
     t.string "confirmation_token"
