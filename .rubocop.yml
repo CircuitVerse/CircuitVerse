@@ -100,6 +100,7 @@ Layout/FirstArgumentIndentation:
 # Use Ruby >= 1.9 syntax for hashes. Prefer { a: :b } over { :a => :b }.
 Style/HashSyntax:
   Enabled: true
+  EnforcedShorthandSyntax: 'never'
 
 # Method definitions after `private` or `protected` isolated calls need one
 # extra level of indentation.
@@ -310,9 +311,6 @@ Lint/MissingSuper:
 
 RSpec/FilePath:
   Enabled: false
-
-Style/HashSyntax:
-  EnforcedShorthandSyntax: 'never'
 
 Naming/BlockForwarding:
   Enabled: false

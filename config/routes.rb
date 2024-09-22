@@ -19,6 +19,9 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users/saml/sign_in', to: 'users/saml_sessions#new'
+    post '/users/saml/auth', to: 'users/saml_sessions#create'
+    get '/users/saml/metadata', to: 'users/saml_sessions#metadata'
   end
 
   # resources :assignment_submissions
