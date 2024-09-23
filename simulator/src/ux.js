@@ -691,15 +691,37 @@ if (submitButton) {
             }
             return response.json();
         })
-        .then(data => {
-            console.log('Submission successful:', data);
-            alert(`${passed} out of ${total} cases passed`)
+        .then((data) => {
+            showNotification(passed, total);
         })
-        .catch(error => {
+        .catch((error) => {
             window.location.href='/users/sign_in'
         });
-        
     })
+}
+
+function showNotification(passed, total) {
+    const notification = document.createElement('div');
+    notification.textContent = `${passed} out of ${total} cases passed`;
+    if (passed === total) {
+        notification.style.backgroundColor = '#4CAF50';
+    } else if (passed === 0) {
+        notification.style.backgroundColor = '#F44336';
+    } else {
+        notification.style.backgroundColor = '#FF9800';
+    }
+    notification.style.color = 'white';
+    notification.style.padding = '15px';
+    notification.style.position = 'fixed';
+    notification.style.top = '0';
+    notification.style.left = '0';
+    notification.style.width = '100%';
+    notification.style.textAlign = 'center';
+    notification.style.zIndex = '1000';
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        document.body.removeChild(notification);
+    }, 4000);
 }
 
 async function postUserIssue(message) {
