@@ -91,7 +91,12 @@ class QuestionsController < ApplicationController
       questions = Question.all
       questions = questions.where(category_id: params[:category_id]) if params[:category_id].present?
       questions = questions.where(difficulty_level: params[:difficulty_level]) if params[:difficulty_level].present?
-      questions = questions.where("heading LIKE :query OR statement LIKE :query", query: "%#{params[:q]}%") if params[:q].present?
+      if params[:q].present?
+        query = "%#{params[:q]}%"
+        questions = questions.where(
+          "heading LIKE :query OR statement LIKE :query", query: query
+        )
+      end      
       questions
     end
 
