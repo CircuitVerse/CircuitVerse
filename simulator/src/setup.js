@@ -160,8 +160,8 @@ export function setup() {
         if (window.location.pathname.startsWith('/simulator') && questionId && localStorage.getItem(questionId)) {
             load(JSON.parse(localStorage.getItem(questionId).replaceAll('=>', ':')));
         }
-        else if (window.location.pathname.startsWith('/simulator/question') && window.location.pathname.split('/').length == 4) {
-            let questionIdPath = window.location.pathname.split('/')[3];
+        else if (window.location.pathname.startsWith('/simulator/question') && window.location.pathname.split('/').length === 4) {
+            const questionIdPath = window.location.pathname.split('/')[3];
             const userId = localStorage.getItem('selected_user_id');
             let ajaxUrl = `/questions/${questionIdPath}/fetch_submission_or_question`;
             if (userId) {
@@ -174,7 +174,7 @@ export function setup() {
                     var data = response;
                     if (data) {
                         load(JSON.parse(data.circuit_boilerplate.replace(/\\"/g, '"')));
-                        const { heading,statement } = data;
+                        const { heading, statement } = data;
                         localStorage.setItem('test_data', data.test_data);
                         document.getElementById('questionHeading').textContent = heading;
                         if (statement) {
