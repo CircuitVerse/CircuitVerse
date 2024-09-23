@@ -21,34 +21,11 @@ class QuestionSubmissionHistoriesController < ApplicationController
     question = Question.find(params[:question_id])
 
     if user_signed_in?
-      user = params[:user_id].present? ? User.find(params[:user_id]) : current_user
-      submission_history = QuestionSubmissionHistory.find_by(user_id: user.id, question_id: question.id)
-
-      if submission_history
-        render json: {
-          question_id: question.id,
-          heading: question.heading,
-          statement: question.statement,
-          circuit_boilerplate: submission_history.circuit_boilerplate,
-          test_data: question.test_data
-        }, status: :ok
-      else
-        render json: {
-          question_id: question.id,
-          heading: question.heading,
-          statement: question.statement,
-          circuit_boilerplate: question.circuit_boilerplate,
-          test_data: question.test_data
-        }, status: :ok
-      end
+      user = find_user
+      submission_history = find_submission_history(user, question)
+      render_submission_or_question(question, submission_history)
     else
-      render json: {
-        question_id: question.id,
-        heading: question.heading,
-        statement: question.statement,
-        circuit_boilerplate: question.circuit_boilerplate,
-        test_data: question.test_data
-      }, status: :ok
+      render_question(question)
     end
   end
 
@@ -56,5 +33,45 @@ class QuestionSubmissionHistoriesController < ApplicationController
 
     def submission_params
       params.require(:question_submission_history).permit(:circuit_boilerplate, :status)
+    end
+
+    def find_user
+      params[:user_id].present? ? User.find(params[:user_id]) : current_user
+    end
+
+    def find_submission_history(user, question)
+      QuestionSubmissionHistory.find_by(user_id: user.id, question_id: question.id)
+    end
+
+    def render_submission_or_question(question, submission_history)
+      if submission_history
+        render json: submission_history_data(question, submission_history), status: :ok
+      else
+        render_question(question)
+      end
+    end
+
+    def render_question(question)
+      render json: question_data(question), status: :ok
+    end
+
+    def submission_history_data(question, submission_history)
+      {
+        question_id: question.id,
+        heading: question.heading,
+        statement: question.statement,
+        circuit_boilerplate: submission_history.circuit_boilerplate,
+        test_data: question.test_data
+      }
+    end
+
+    def question_data(question)
+      {
+        question_id: question.id,
+        heading: question.heading,
+        statement: question.statement,
+        circuit_boilerplate: question.circuit_boilerplate,
+        test_data: question.test_data
+      }
     end
 end

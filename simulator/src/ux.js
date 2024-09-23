@@ -645,16 +645,17 @@ export function fillSubcircuitElements() {
         this.parentElement.removeChild(this);
     });
 }
-
-document.getElementById('saveButton')?.addEventListener('click', ()=> {
+const saveButton = document.getElementById('saveButton');
+if (saveButton){
+    saveButton.addEventListener('click', ()=> {
     const urlParams = new URLSearchParams(window.location.search);
     const questionId = urlParams.get('question_id');
     const fl = 1;
     const data = generateSaveData("Untitled", fl);
     const localStorageKey = `${questionId}`;
     localStorage.setItem(localStorageKey, data);
-})
-
+    })
+}
 document.getElementById('submitquestion')?.addEventListener('click', ()=> {
     const isValid = validate(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);
     const results = runAll(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);

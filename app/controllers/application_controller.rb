@@ -21,20 +21,6 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  def link_attrs(resource, base_url)
-    if resource.respond_to?(:total_pages)
-      {
-        self: paginated_url(base_url, resource.current_page),
-        first: paginated_url(base_url, 1),
-        prev: paginated_url(base_url, resource.previous_page),
-        next: paginated_url(base_url, resource.next_page),
-        last: paginated_url(base_url, resource.total_pages)
-      }
-    else
-      {} # Return empty hash if resource doesn't support pagination
-    end
-  end
-
   def auth_error
     render plain: "You are not authorized to do the requested operation"
   end
