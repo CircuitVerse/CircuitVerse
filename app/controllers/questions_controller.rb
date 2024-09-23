@@ -96,7 +96,7 @@ class QuestionsController < ApplicationController
         questions = questions.where(
           "heading LIKE :query OR statement LIKE :query", query: query
         )
-      end      
+      end
       questions
     end
 

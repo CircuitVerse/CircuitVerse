@@ -159,8 +159,7 @@ export function setup() {
         const questionId = urlParams.get('question_id');
         if (window.location.pathname.startsWith('/simulator') && questionId && localStorage.getItem(questionId)) {
             load(JSON.parse(localStorage.getItem(questionId).replaceAll('=>', ':')));
-        }
-        else if (window.location.pathname.startsWith('/simulator/question') && window.location.pathname.split('/').length === 4) {
+        } else if (window.location.pathname.startsWith('/simulator/question') && window.location.pathname.split('/').length === 4) {
             const questionIdPath = window.location.pathname.split('/')[3];
             const userId = localStorage.getItem('selected_user_id');
             let ajaxUrl = `/questions/${questionIdPath}/fetch_submission_or_question`;
@@ -207,8 +206,7 @@ export function setup() {
                     $('.loadingIcon').fadeOut();
                 },
             });
-        }
-        else if (__logix_project_id != 0) {
+        } else if (__logix_project_id != 0) {
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: `/simulator/get_data/${__logix_project_id}`,
