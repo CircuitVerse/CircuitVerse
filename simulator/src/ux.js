@@ -656,48 +656,51 @@ if (saveButton){
     localStorage.setItem(localStorageKey, data);
     })
 }
-document.getElementById('submitquestion')?.addEventListener('click', ()=> {
-    const isValid = validate(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);
-    const results = runAll(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);
-    const { passed } = results.summary;
-    const { total } = results.summary;
-    const resultString = JSON.stringify(results.detailed);
-    let fl=1;
-    const questionId= window.location.pathname.split('/')[3]
-    const data = generateSaveData("Untitled", fl);
-    console.log(data);
-    let status="attempted";
-    if(passed===total)status="solved"
-    const url = `/questions/${questionId}/question_submission_histories`;
-    const payload = {
-        question_submission_history: {
-          circuit_boilerplate: data,
-          status: status
-        }
-      };
-      fetch(url, {
-        method: 'POST', 
-        headers: {
-          'Content-Type': 'application/json',
-          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-        },
-        body: JSON.stringify(payload) 
-      })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok ' + response.statusText);
-        }
-        return response.json();
-      })
-      .then(data => {
-        console.log('Submission successful:', data);
-        alert(`${passed} out of ${total} cases passed`)
-      })
-      .catch(error => {
-        window.location.href='/users/sign_in'
-      });
-    
-})
+const submitButton = document.getElementById('submitquestion');
+if (submitButton) {
+    submitButton.addEventListener('click', ()=> {
+        const isValid = validate(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);
+        const results = runAll(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);
+        const { passed } = results.summary;
+        const { total } = results.summary;
+        const resultString = JSON.stringify(results.detailed);
+        let fl=1;
+        const questionId= window.location.pathname.split('/')[3]
+        const data = generateSaveData("Untitled", fl);
+        console.log(data);
+        let status="attempted";
+        if(passed===total)status="solved"
+        const url = `/questions/${questionId}/question_submission_histories`;
+        const payload = {
+            question_submission_history: {
+            circuit_boilerplate: data,
+            status: status
+            }
+        };
+        fetch(url, {
+            method: 'POST', 
+            headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(payload) 
+        })
+        .then(response => {
+            if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Submission successful:', data);
+            alert(`${passed} out of ${total} cases passed`)
+        })
+        .catch(error => {
+            window.location.href='/users/sign_in'
+        });
+        
+    })
+}
 
 async function postUserIssue(message) {
 

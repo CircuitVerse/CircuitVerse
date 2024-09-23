@@ -158,7 +158,7 @@ export function setup() {
         const urlParams = new URLSearchParams(window.location.search);
         const questionId = urlParams.get('question_id');
         if (window.location.pathname.startsWith('/simulator') && questionId && localStorage.getItem(questionId)) {
-            load(JSON.parse(localStorage.getItem(questionId).replaceAll('=>',':')));
+            load(JSON.parse(localStorage.getItem(questionId).replaceAll('=>', ':')));
         }
         else if (window.location.pathname.startsWith('/simulator/question') && window.location.pathname.split('/').length == 4) {
             let questionIdPath = window.location.pathname.split('/')[3];
@@ -174,7 +174,7 @@ export function setup() {
                     var data = response;
                     if (data) {
                         load(JSON.parse(data.circuit_boilerplate.replace(/\\"/g, '"')));
-                        const {heading,statement} = data;
+                        const { heading,statement } = data;
                         localStorage.setItem('test_data', data.test_data);
                         document.getElementById('questionHeading').textContent = heading;
                         if (statement) {
