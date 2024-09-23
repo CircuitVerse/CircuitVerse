@@ -664,7 +664,7 @@ if (submitButton) {
         const { passed } = results.summary;
         const { total } = results.summary;
         const resultString = JSON.stringify(results.detailed);
-        let fl=1;
+        const fl=1;
         const questionId= window.location.pathname.split('/')[3]
         const data = generateSaveData("Untitled", fl);
         console.log(data);
@@ -678,20 +678,20 @@ if (submitButton) {
             }
         };
         fetch(url, {
-            method: 'POST', 
+            method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
             },
-            body: JSON.stringify(payload) 
+            body: JSON.stringify(payload)
         })
-        .then(response => {
+        .then((response) => {
             if (!response.ok) {
-            throw new Error('Network response was not ok ' + response.statusText);
+                throw new Error(`Network response was not ok: ${response.statusText}`);
             }
             return response.json();
         })
-        .then((data) => {
+        .then((res) => {
             showNotification(passed, total);
         })
         .catch((error) => {
