@@ -11,10 +11,10 @@ class FeaturedCircuitsController < ApplicationController
   end
 
   def create
-    if @featured_circuit.nil? && featured_circuit_params[:featured] == "1"
-      # featured_circuit doesn't exist and checkbox is marked
-      FeaturedCircuit.create(project_id: featured_circuit_params[:project_id])
-    end
+    return unless @featured_circuit.nil? && featured_circuit_params[:featured] == "1"
+
+    # featured_circuit doesn't exist and checkbox is marked
+    FeaturedCircuit.create(project_id: featured_circuit_params[:project_id])
   end
 
   def destroy
