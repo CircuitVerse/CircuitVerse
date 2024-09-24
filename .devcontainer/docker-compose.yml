@@ -19,6 +19,8 @@ services:
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: "true"
       DEV_CONTAINER: "true"
+    volumes:
+    - ..:/workspaces/CircuitVerse
     command: sleep infinity
   redis:
     image: redis:7.0-alpine
