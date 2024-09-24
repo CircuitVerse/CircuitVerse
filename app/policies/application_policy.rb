@@ -50,6 +50,10 @@ class ApplicationPolicy
     user.present? && user.admin?
   end
 
+  def question_bank_moderator?
+    user.present? && user.question_bank_moderator?
+  end
+
   class Scope
     attr_reader :user, :scope
 

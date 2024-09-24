@@ -554,10 +554,6 @@ input[type="text"]:focus {
     font-size: 8px;
 }
 
-img {
-    display: none;
-}
-
 div.icon img {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
@@ -2806,4 +2802,11 @@ canvas {
         width: 200px;
         height: 200px;
     }
+}
+ol {
+    list-style: decimal;
+  }
+  
+ul {
+    list-style-type: disc;
 }

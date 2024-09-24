@@ -10,8 +10,13 @@ class Users::CircuitverseController < ApplicationController
   before_action :remove_previous_profile_picture, only: [:update]
 
   def index
+    @moderators = User.where(question_bank_moderator: true)
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects
+    @question_submission_histories = QuestionSubmissionHistory.where(user_id: @profile.id)
+    question_ids = @question_submission_histories.map(&:question_id)
+    @questions = Question.where(id: question_ids)
+    @categories = QuestionCategory.all
   end
 
   def edit; end
@@ -40,6 +45,15 @@ class Users::CircuitverseController < ApplicationController
                          .select("groups.*, COUNT(group_members.id) as group_member_count")
                          .left_outer_joins(:group_members)
                          .group("groups.id")
+  end
+
+  def toggle_privacy
+    if current_user
+      current_user.update(public: !current_user.public)
+      redirect_to user_path(current_user), notice: "Privacy setting updated successfully."
+    else
+      redirect_to new_user_session_path, alert: "You need to sign in or sign up before continuing."
+    end
   end
 
   private

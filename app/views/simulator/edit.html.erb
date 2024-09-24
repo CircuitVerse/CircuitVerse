@@ -3,13 +3,13 @@
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" defer></script>
 <script src="/js/plugins/checkBo.min.js" defer></script>
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>
   userSignedIn = <%= user_signed_in? %>;
   __logix_project_id = "<%= @logix_project_id %>";
   __projectName = "<%= @projectName %>"
 </script>
-
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
@@ -73,20 +73,21 @@
           <% if user_signed_in? %>
             <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
-              <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
-              <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
+              <li><a class="dropdown-item" href="<%= user_path(current_user) %>">Dashboard</a></li>
+              <li><a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a></li>
+              <li><a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications</a></li>
               <div class="dropdown-divider"></div>
-              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></li>
             </ul>
           <% else %>
-            <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+            <a class="navbar-nav signIn-btn user-field" href="<%= new_user_session_path %>"> Sign In </a>
           <% end %>
         </li>
       </ul>
-
     </div>
-
+    <div id="saveButtonContainer" style="display: none;">
+    <button type="button" class="btn btn-secondary" id="saveButton">Save</button>
+  </div>
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn' id='quick-btn-id'>
       <div id='dragQPanel' class='panel-drag'>
       <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
@@ -181,16 +182,11 @@
     <div class="accordion" id="menu"></div>
   </div>
 </div>
-
 <div id="smallNavbarMenu-btn">
-
 </div>
-
 <!-- navBar-for-small-screen -->
 <div class="smallscreen-navbar">
-
   <div id="ProjectID">Untitled</div>
-
   <div class="smallNavbar-navbar-ul">Project<i class="fas fa-chevron-down ulicon"></i></div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> New Project</li>
@@ -200,14 +196,12 @@
       <li class="SmallScreen-Navbar-li"> Clear Project</li>
       <li class="SmallScreen-Navbar-li"> Recover Project</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">Circuits<i class="fas fa-chevron-down ulicon"></i></div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> New Circuit + </li>
       <li class="SmallScreen-Navbar-li"> New Verilog Module</li>
       <li class="SmallScreen-Navbar-li"> Insert SubCircuit</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">Tools<i class="fas fa-chevron-down ulicon"></i> </div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> Combinational Analysis</li>
@@ -216,7 +210,6 @@
       <li class="SmallScreen-Navbar-li"> Theme</li>
       <li class="SmallScreen-Navbar-li"> Export Verilog</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">Help <i class="fas fa-chevron-down ulicon"></i></div>
     <div class="smallscreen-navbar-inner">
       <li class="SmallScreen-Navbar-li"> Tutorial</li>
@@ -224,26 +217,22 @@
       <li class="SmallScreen-Navbar-li"> Learn Digital Logic</li>
       <li class="SmallScreen-Navbar-li"> Discussion Forum</li>
     </div>
-
     <div class="smallNavbar-navbar-ul">
-
     <% if user_signed_in? %>
      <%= current_user.name %></div>
     <div class="smallscreen-navbar-inner">
-      <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
-      <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+      <li class=""><a href="<%= user_path(current_user) %>">Dashboard</a></li>
+      <li class=""><a href="<%= user_groups_path(current_user) %>">My Groups</a></li>
       <div class="dropdown-divider"></div>
-      <li class=""><a rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+      <li class=""><a rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a></li>
       <% else %>
-    <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
+    <a class="navbar-nav user-field" href="<%= new_user_session_path %>"> Sign In </a>
   <% end %>
       </div>
-
   <div id="logoWrap">
   <a href="/"><span class='touchNavlogo'> </span></a>
   </div>
   </div>
-
   <!-- Touchmenu  Responsive Versions -->
   <div id='touchMenu'>
     <ul><i class="fas fa-bezier-curve touchMenuIcon"></i></ul>
@@ -371,7 +360,7 @@
     </div>
   </div>
 </div>
-<div class="testbench-manual-panel draggable-panel noSelect defaultCursor">
+<div class="testbench-manual-panel draggable-panel noSelect defaultCursor" id="testbench">
   <div class="panel-header">Testbench
     <span class="fas fa-minus-square minimize panel-button"></span>
     <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
@@ -658,8 +647,13 @@
 <div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex="0" style="display: none;" title="Select Theme"></div>
 <div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
 <input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
-
-<div class="simulation" id="simulation">
+<div id="mainContent" class="d-flex">
+<div id="questionSidebar" class="sidebar bg-light border-right" style="display:flex;flex-direction:column;width:30%;height:100vh;overflow:auto;padding:20px;background:#f9f9f9;border-radius:10px;box-shadow:0px 4px 8px rgba(0, 0, 0, 0.1);">
+    <div id="questionHeading" style="font-weight:bold;font-size:1.5em;margin-bottom:15px;text-align:center;color:#333;width:100%;"></div>
+    <div id="questionStatement" style="width:100%;overflow:auto;overflow-x:auto;height:81%"></div>
+    <div class="btn btn-success" type="button" id="submitquestion" style="border-radius:25px;padding:10px 20px;background:#28a745;border:none;box-shadow:0px 2px 5px rgba(0, 0, 0, 0.1);cursor:pointer;margin-top:15px;width:calc(100% - 40px);text-align:center;box-sizing:border-box;">Submit and Test</div>
+</div>
+  <div class="simulation" id="simulation" style="width:100%">
   <div id="restrictedDiv" class="alert alert-danger display--none"></div>
   <% if @project&.assignment_id.present? &&
   @project&.assignment&.elements_restricted? %>
@@ -725,7 +719,7 @@
     </div>
   </div>
 </div>
-
+</div>
 <div
   id="ExportCircuitFilesDialog"
   class='customScroll'
@@ -826,13 +820,40 @@
     </div>
   </div>
 </div>
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+<script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const sidebar = document.getElementById('questionSidebar');
+    const testBench = document.getElementById('testbench')
+    const urlPath = window.location.pathname;
+
+    if (urlPath.startsWith('/simulator/question/')) {
+        sidebar.style.display = 'flex';
+        testBench.style.display = 'none';
+    } else {
+        sidebar.style.display = 'none';
+        testBench.style.display = 'block';
+    }
+});
+
 window.addEventListener("load", function() {
   $('#newCircuit').click(function () {
     return $('#insertSubcircuitDialog').dialog('close');
   });
 })
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    function getQueryParam(param) {
+      const urlParams = new URLSearchParams(window.location.search);
+      return urlParams.get(param);
+    }
+
+    if (getQueryParam('question_id')) {
+      document.getElementById('saveButtonContainer').style.display = 'block';
+    }
+  });
 </script>
 
 <script>

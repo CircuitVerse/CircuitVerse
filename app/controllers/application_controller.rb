@@ -12,6 +12,15 @@ class ApplicationController < ActionController::Base
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
+  DEFAULT_PER_PAGE = 5
+
+  def paginate(resource)
+    resource.paginate(
+      page: (params[:page].try(:[], :number) || 1).to_i,
+      per_page: (params[:page].try(:[], :size) || DEFAULT_PER_PAGE).to_i
+    )
+  end
+
   def auth_error
     render plain: "You are not authorized to do the requested operation"
   end
@@ -70,5 +79,10 @@ class ApplicationController < ActionController::Base
 
     def after_sign_in_path_for(resource_or_scope)
       stored_location_for(resource_or_scope) || super
+    end
+
+    def paginated_url(base_url, page)
+      separator = base_url.index("?").nil? ? "?" : "&"
+      "#{base_url}#{separator}page[number]=#{page}" if page
     end
 end
