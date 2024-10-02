@@ -1,0 +1,12 @@
+ne:
+  helpers:
+    label:
+      announcement:
+        body: "सूचना"
+        link: "सूचना लिंक"
+        start_date: "सुरुको मिति"
+        end_date: "अन्त्य मिति"
+    submit:
+      announcement:
+        create: "नयाँ सूचना"
+        update: "सूचना अपडेट गर्नुहोस्"

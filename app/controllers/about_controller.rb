@@ -46,14 +46,18 @@ class AboutController < ApplicationController
     ]
 
     @mentors = [
-      { name: "Priyansh Agrawal", img: "https://avatars.githubusercontent.com/u/127022024?v=4", link: "https://github.com/priyanshagra" },
-      { name: "Malavi Pande", img: "https://avatars.githubusercontent.com/u/112646623?v=4", link: "https://github.com/Malavi1" },
+      { name: "Priyansh Agrawal", img: "https://avatars.githubusercontent.com/u/127022024?v=4",
+        link: "https://github.com/priyanshagra" },
+      { name: "Malavi Pande", img: "https://avatars.githubusercontent.com/u/112646623?v=4",
+        link: "https://github.com/Malavi1" },
       { name: "Subham Kumar", img: "https://avatars.githubusercontent.com/u/99977240?v=4", link: "https://github.com/subhamkumarr" }
     ]
 
     @alumni = [
-      { name: "Aayush Gupta", img: "https://avatars.githubusercontent.com/u/47032027?v=4", link: "https://github.com/aayush-05" },
-      { name: "Shreya Prasad", img: "https://avatars.githubusercontent.com/u/43600306?s=96&v=4", link: "https://github.com/ShreyaPrasad1209" },
+      { name: "Aayush Gupta", img: "https://avatars.githubusercontent.com/u/47032027?v=4",
+        link: "https://github.com/aayush-05" },
+      { name: "Shreya Prasad", img: "https://avatars.githubusercontent.com/u/43600306?s=96&v=4",
+        link: "https://github.com/ShreyaPrasad1209" },
       { name: "Shubhankar Sharma", img: "https://avatars.githubusercontent.com/u/32474302?s=96&v=4", link: "https://github.com/shubhankarsharma00" }
     ]
     @issues_triaging = [
