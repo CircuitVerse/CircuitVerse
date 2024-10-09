@@ -18,3 +18,6 @@ hi:
     contributors_heading: "योगदानकर्ताओं के लिए"
     contributors_description: "सर्किटवर्स समुदाय के योगदानकर्ताओं से मिलें जिन्होंने इस मंच को बेहतर बनाया है।"
     become_contributor: "एक योगदानकर्ता बनें"
+    prlogs:
+      heading: "पुल रिक्वेस्ट लॉग्स"
+      description: "यहां हाल के कुछ पुल अनुरोध हैं जो मर्ज किए गए हैं।"
