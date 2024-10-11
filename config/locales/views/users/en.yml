@@ -77,7 +77,7 @@ en:
       forgot_password: "Forgot password?"
       remember_me: "Remember Me"
     shared:
-      login_with: "Login With"
+      login_with: "Or Login With"
       login_with_sso: "Single Sign On"
       resend_email: "Didn't receive confirmation instructions?"
     unlocks:
