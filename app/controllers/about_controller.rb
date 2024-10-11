@@ -61,4 +61,7 @@ class AboutController < ApplicationController
       { name: "Shubhankar Sharma", img: "https://avatars.githubusercontent.com/u/32474302?s=96&v=4", link: "https://github.com/shubhankarsharma00" }
     ]
   end
+
+  def test
+  end
 end
