@@ -23,10 +23,12 @@ class PushSubscriptionController < ApplicationController
 
   private
 
+    # @return [ActionController::Parameters]
     def push_subscription_params
       params.require(:push_subscription).permit(:endpoint, :auth, :p256dh)
     end
 
+    # @return [ActionController::Parameters]
     def push_test_params
       params.require(:push).permit(:message)
     end

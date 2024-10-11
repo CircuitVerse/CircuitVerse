@@ -13,6 +13,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
   # GET /api/v1/groups/:group_id/assignments
   def index
+    # @type [Array<Assignment>]
     @assignments = paginate(@group.assignments)
     @options[:links] = link_attrs(@assignments, api_v1_group_assignments_url(@group.id))
     render json: Api::V1::AssignmentSerializer.new(@assignments, @options)
@@ -26,6 +27,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
   # POST /api/v1/groups/:group_id/assignments
   def create
+    # @type [Assignment]
     @assignment = @group.assignments.new(assignment_create_params)
     authorize @assignment, :mentor_access?
     @assignment.status = "open"
@@ -78,6 +80,7 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
   # PATCH /api/v1/assignments/:id/start
   def start
     authorize @assignment
+    # @type [Project]
     @project = current_user.projects.new
     @project.name = "#{current_user.name}/#{@assignment.name}"
     @project.assignment_id = @assignment.id
@@ -99,14 +102,17 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     end
 
     def set_assignment
+      # @type [Assignment]
       @assignment = Assignment.find(params[:id])
     end
 
     def set_group
+      # @type [Group]
       @group = Group.find(params[:group_id])
     end
 
     # sets @current_user as params to be used in assignment serializer
+    # @type [Hash]
     def set_options
       @options = {}
       @options[:include] = include_resource if params.key?(:include)
@@ -129,11 +135,15 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
       )
     end
 
+    # checks if current_user has access to group contents
+    # @return [Boolean]
     def check_show_access
       # checks if current_user has access to group contents
       authorize @group, :show_access?
     end
 
+    # checks if current_user has access to assignment contents
+    # @return [Boolean]
     def check_access
       authorize @assignment, :mentor_access?
     end

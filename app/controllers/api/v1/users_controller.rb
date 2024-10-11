@@ -38,6 +38,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
 
     def set_user
+      # @type [User]
       @user = User.find(params[:id])
     end
 

@@ -28,10 +28,12 @@ class GroupMembersController < ApplicationController
   # POST /group_members
   # POST /group_members.json
   def create
+    # @type [GroupMember]
     dummy = GroupMember.new
     dummy.group_id = group_member_params[:group_id]
     authorize dummy, :primary_mentor?
 
+    # @type [Group]
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
@@ -106,10 +108,12 @@ class GroupMembersController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group_member
+      # @type [GroupMember]
       @group_member = GroupMember.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # @type [ActionController::Parameters]
     def group_member_params
       params.require(:group_member).permit(:group_id, :user_id, :mentor, emails: [])
     end
@@ -118,6 +122,7 @@ class GroupMembersController < ApplicationController
     # Using group_member_params could result in changing the group_id
     # which would allow changing users of arbitrary groups since
     # the check_access happens before the group is changed and passes
+    # @type [ActionController::Parameters]
     def group_member_update_params
       params.require(:group_member).permit(:mentor)
     end

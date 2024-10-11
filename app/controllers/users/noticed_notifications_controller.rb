@@ -4,7 +4,9 @@ class Users::NoticedNotificationsController < ApplicationController
   before_action :authenticate_user!
 
   def index
+    # @type [Array<NoticedNotification>]
     @notifications = NoticedNotification.where(recipient: current_user).newest_first
+    # @type [Array<NoticedNotification>]
     @unread = NoticedNotification.where(recipient: current_user).newest_first.unread
   end
 

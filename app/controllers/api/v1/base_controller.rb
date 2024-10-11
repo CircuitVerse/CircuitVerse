@@ -59,6 +59,8 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "invalid resource")
   end
 
+  # @param [ActiveRecord::Relation] resource
+  # @return [ActiveRecord::Relation] paginated resource
   def paginate(resource)
     resource.paginate(
       page: (params.to_unsafe_h.dig("page", "number") || 1).to_i,
@@ -66,6 +68,9 @@ class Api::V1::BaseController < ActionController::API
     )
   end
 
+  # @param [ActiveRecord::Relation] resource
+  # @param [String] base_url
+  # @return [Hash] links
   def link_attrs(resource, base_url)
     {
       self: paginated_url(base_url, resource.current_page),
@@ -83,6 +88,9 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
+    # @param [String] base_url
+    # @param [Integer] page
+    # @return [String] paginated url
     def paginated_url(base_url, page)
       seperator = base_url.index("?").nil? ? "?" : "&"
       "#{base_url}#{seperator}page[number]=#{page}" if page

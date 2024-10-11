@@ -78,10 +78,12 @@ class CollaborationsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_collaboration
+      # @type [Collaboration]
       @collaboration = Collaboration.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # @return [ActionController::Parameters]
     def collaboration_params
       params.require(:collaboration).permit(:user_id, :project_id, emails: [])
     end

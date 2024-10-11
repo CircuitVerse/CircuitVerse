@@ -7,6 +7,7 @@ class FeaturedCircuitsController < ApplicationController
   before_action :set_and_authorize_featured, except: [:index]
 
   def index
+    # @type [Array<Project>]
     @projects = Project.joins(:featured_circuit)
   end
 
@@ -26,9 +27,12 @@ class FeaturedCircuitsController < ApplicationController
 
     def set_and_authorize_featured
       authorize FeaturedCircuit, :admin?
+      # @type [FeaturedCircuit]
       @featured_circuit = FeaturedCircuit.find_by(project_id: featured_circuit_params[:project_id])
     end
 
+    # Only allow a list of trusted parameters through.
+    # @return [ActionController::Parameters]
     def featured_circuit_params
       params.require(:featured_circuit).permit(:project_id, :featured)
     end

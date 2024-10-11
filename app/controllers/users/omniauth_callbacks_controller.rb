@@ -50,6 +50,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     generic_callback("microsoft_office365")
   end
 
+  # @param [String] provider
   def generic_callback(provider)
     @user = User.from_omniauth(request.env["omniauth.auth"])
     if @user.persisted?

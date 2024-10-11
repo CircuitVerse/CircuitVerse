@@ -47,6 +47,7 @@ class Api::V1::ThreadsController < Api::V1::BaseController
   private
 
     def load_resource
+      # @type [Commontator::Thread]
       @commontator_thread = Commontator::Thread.find(params[:id])
 
       security_transgression_unless @commontator_thread.can_be_read_by? current_user

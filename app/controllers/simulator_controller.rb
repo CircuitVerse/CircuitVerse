@@ -133,11 +133,13 @@ class SimulatorController < ApplicationController
     end
 
     def set_project
+      # @type [Project]
       @project = Project.friendly.find(params[:id])
     end
 
     # FIXME: remove this logic after fixing production data
     def set_user_project
+      # @type [Project]
       @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
     end
 
