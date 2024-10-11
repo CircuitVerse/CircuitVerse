@@ -151,7 +151,7 @@ Rails.application.routes.draw do
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
   get "/youtube", to: redirect("https://www.youtube.com/@circuitverse4457")
   get "/slack", to: redirect(
-    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-2axe9h7hy-GwM~nL7pq1Jh1hSZYB~n1A"
+    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-2sdvnq4lw-ZmKp4hELrICSJVUGfgzsJQ"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")
