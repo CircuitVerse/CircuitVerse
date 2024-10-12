@@ -21,6 +21,11 @@
       <li class="nav-item px-1">
         <a class="btn navbar-simulator-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
       </li>
+      <% if Flipper.enabled?(:question_bank) %>
+      <li class="nav-item px-1">
+      <a class="nav-link navbar-item navbar-text" href="/questions"><%= t("layout.link_to_questions") %></a>
+    </li>
+    <% end %>
       <div class="navbar-nav nav-item dropdown">
         <li class="nav-item px-1">
           <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started"><%= t("layout.getting_started_dropdown") %></a>
@@ -42,6 +47,7 @@
       <li class="nav-item px-1">
         <a class="nav-link navbar-item navbar-text <%= request.path == "/about" ? "active" : "" %>" href="/about"><%= t("layout.link_to_about") %></a>
       </li>
+
       <%= render "layouts/notifications" %>
       <% if user_signed_in? %>
       <div class="navbar-nav nav-item dropdown">
@@ -52,6 +58,12 @@
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-2">
             <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
             <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
+            <% if Flipper.enabled?(:question_bank) %>
+            <% if user_signed_in? && current_user.question_bank_moderator %>
+            <a class="dropdown-item" onclick="redirectToAddQuestion()"><%= t("layout.link_to_add_questions") %></a>
+            <% end %>
+            <a class="dropdown-item" href="/questions"><%= t("layout.link_to_questions") %></a>
+            <% end %>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>"><%= t("sign_out") %></a>
           </div>
@@ -68,7 +80,7 @@
 <div class="container-fluid navbar-search-active">
   <%= render "circuitverse_assets/search_bar" %>
 </div>
-
+<script src="https://cdn.jsdelivr.net/npm/short-unique-id@latest/dist/short-unique-id.min.js"></script>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
     var gettingStartedLink = document.querySelector("#getting-started-dropdown");
@@ -122,5 +134,10 @@
   searchIconExpand.addEventListener("click", activeSearchBar);
   if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
+  }
+  function redirectToAddQuestion() {
+    const uid = new ShortUniqueId();
+    const questionId = uid.rnd();
+    window.location.href = `/questions/new/${questionId}`;
   }
 </script>

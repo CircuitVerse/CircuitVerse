@@ -24,6 +24,8 @@ import { setupBitConvertor} from './utils';
 import { currentScreen } from './listeners';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
+import { runAll } from './testbench';
+import { validate } from './testbench';
 
 export const uxvar = {
     smartDropXX: 50,
@@ -642,6 +644,84 @@ export function fillSubcircuitElements() {
         simulationArea.lastSelected = element;
         this.parentElement.removeChild(this);
     });
+}
+const saveButton = document.getElementById('saveButton');
+if (saveButton){
+    saveButton.addEventListener('click', ()=> {
+    const urlParams = new URLSearchParams(window.location.search);
+    const questionId = urlParams.get('question_id');
+    const fl = 1;
+    const data = generateSaveData("Untitled", fl);
+    const localStorageKey = `${questionId}`;
+    localStorage.setItem(localStorageKey, data);
+    })
+}
+const submitButton = document.getElementById('submitquestion');
+if (submitButton) {
+    submitButton.addEventListener('click', ()=> {
+        const isValid = validate(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);
+        const results = runAll(JSON.parse(localStorage.getItem("test_data").replace(/\\"/g, '"')).testData, globalScope);
+        const { passed } = results.summary;
+        const { total } = results.summary;
+        const resultString = JSON.stringify(results.detailed);
+        const fl=1;
+        const questionId= window.location.pathname.split('/')[3]
+        const data = generateSaveData("Untitled", fl);
+        console.log(data);
+        let status="attempted";
+        if(passed===total)status="solved"
+        const url = `/questions/${questionId}/question_submission_histories`;
+        const payload = {
+            question_submission_history: {
+            circuit_boilerplate: data,
+            status: status
+            }
+        };
+        fetch(url, {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            },
+            body: JSON.stringify(payload)
+        })
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
+            return response.json();
+        })
+        .then((res) => {
+            showNotification(passed, total);
+        })
+        .catch((error) => {
+            window.location.href='/users/sign_in'
+        });
+    })
+}
+
+function showNotification(passed, total) {
+    const notification = document.createElement('div');
+    notification.textContent = `${passed} out of ${total} cases passed`;
+    if (passed === total) {
+        notification.style.backgroundColor = '#4CAF50';
+    } else if (passed === 0) {
+        notification.style.backgroundColor = '#F44336';
+    } else {
+        notification.style.backgroundColor = '#FF9800';
+    }
+    notification.style.color = 'white';
+    notification.style.padding = '15px';
+    notification.style.position = 'fixed';
+    notification.style.top = '0';
+    notification.style.left = '0';
+    notification.style.width = '100%';
+    notification.style.textAlign = 'center';
+    notification.style.zIndex = '1000';
+    document.body.appendChild(notification);
+    setTimeout(() => {
+        document.body.removeChild(notification);
+    }, 4000);
 }
 
 async function postUserIssue(message) {

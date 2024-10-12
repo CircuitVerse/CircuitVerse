@@ -38,6 +38,7 @@ hi:
         title: "%{name} - आपके सर्किट"
         alt_title: "Nil - आपके सर्किट"
         edit_details: "प्रोफाइल एडिट करें"
+        add_moderator: "मॉडरेटर जोड़ें"
         my_circuits: "मेरे बनाये सर्किट"
         favourite_circuits: "पसंदीदा सर्किट"
         collaborated_circuits: "सहयोग किये गए सर्किट"
