@@ -76,9 +76,11 @@
     gettingStartedLink.addEventListener("click", function (e) {
       if(gettingStartedLink.classList.contains("rotate180")){
         gettingStartedLink.classList.remove("rotate180");
+        gettingStartedLink.style.textDecoration = "underline";
         gettingStartedDropdown.hide();
       } else {
         gettingStartedLink.classList.add("rotate180");
+        gettingStartedLink.style.textDecoration = "none";
         gettingStartedDropdown.show();
       }
       e.stopPropagation();
