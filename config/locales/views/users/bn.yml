@@ -79,6 +79,7 @@ bn:
     shared:
       login_with: "দিয়ে লগইন করুন:"
       login_with_sso: "একক সাইন অন"
+      resend_email: "নিশ্চিতকরণ নির্দেশাবলী পাননি?"
     unlocks:
       resend_unlock_instructions: "আনলক নির্দেশাবলী পুনরায় পাঠান"
     notifications:

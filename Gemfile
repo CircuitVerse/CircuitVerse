@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
 gem "dotenv-rails", groups: %i[development test]
@@ -18,13 +19,12 @@ gem "omniauth-github"
 gem "omniauth-gitlab"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem 'devise_saml_authenticatable'
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0"
 # Use Puma as the app server
-gem "puma", "~> 6.3"
+gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
 gem "terser"
@@ -51,7 +51,7 @@ gem "jquery-rails"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 2.2"
+gem "carrierwave", "~> 3.0"
 
 gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
@@ -161,6 +161,8 @@ group :development do
   gem "spring"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
+  gem 'database_consistency', require: false
+  gem "lookbook", ">= 2.2.0"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -173,7 +175,6 @@ gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 8.14"
 
 gem "oj", "~> 3.15"
 
@@ -213,3 +214,10 @@ gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
 gem "maintenance_tasks", "~> 2.3"
+
+
+gem "stackprof"
+gem "sentry-ruby"
+gem "sentry-rails"
+# for SAML based SSO
+gem 'devise_saml_authenticatable'

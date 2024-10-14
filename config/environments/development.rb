@@ -38,6 +38,11 @@ Rails.application.configure do
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
+  
+  # Disable origin check for Cross-Site Request Forgery (CSRF) protection for codespaces
+  if(ENV["DEV_CONTAINER"] === "true")
+    config.action_controller.forgery_protection_origin_check = false
+  end
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -60,9 +65,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    :address              => 'smtp.yandex.com',
-    :port                 => 465,
-    :domain               => 'yandex.com',
+    :address              => ENV["SMTP_ADDRESS"],
+    :port                 => ENV["SMTP_PORT"],
     :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
     :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
     :ssl                  => true,

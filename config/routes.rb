@@ -13,8 +13,15 @@ Rails.application.routes.draw do
     mount MaintenanceTasks::Engine => "/maintenance_tasks"
   end
 
+  if Rails.env.development?
+    mount Lookbook::Engine, at: "/lookbook"
+  end
+
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users/saml/sign_in', to: 'users/saml_sessions#new'
+    post '/users/saml/auth', to: 'users/saml_sessions#create'
+    get '/users/saml/metadata', to: 'users/saml_sessions#metadata'
   end
 
   # resources :assignment_submissions
@@ -144,7 +151,7 @@ Rails.application.routes.draw do
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
   get "/youtube", to: redirect("https://www.youtube.com/@circuitverse4457")
   get "/slack", to: redirect(
-    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ"
+    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-2sdvnq4lw-ZmKp4hELrICSJVUGfgzsJQ"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")

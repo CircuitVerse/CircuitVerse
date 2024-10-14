@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
-
 require "pg_search"
 class Project < ApplicationRecord
   extend FriendlyId
@@ -25,7 +23,6 @@ class Project < ApplicationRecord
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
-  # Mirror Uploads to ActiveStorage
   has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
@@ -149,9 +146,9 @@ class Project < ApplicationRecord
   private
 
     def check_validity
-      if (project_access_type != "Private") && !assignment_id.nil?
-        errors.add(:project_access_type, "Assignment has to be private")
-      end
+      return unless (project_access_type != "Private") && !assignment_id.nil?
+
+      errors.add(:project_access_type, "Assignment has to be private")
     end
 
     def clean_description
@@ -165,9 +162,9 @@ class Project < ApplicationRecord
     end
 
     def check_and_remove_featured
-      if saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
-        FeaturedCircuit.find_by(project_id: id)&.destroy
-      end
+      return unless saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
+
+      FeaturedCircuit.find_by(project_id: id)&.destroy
     end
 
     def should_generate_new_friendly_id?
@@ -179,4 +176,3 @@ class Project < ApplicationRecord
       circuit_preview.purge if circuit_preview.attached?
     end
 end
-# rubocop:enable Metrics/ClassLength

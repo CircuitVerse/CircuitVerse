@@ -187,6 +187,8 @@ export default class Rom extends CircuitElement {
         }
         this.dataOut.value = this.data[this.memAddr.value];
         simulationArea.simulationQueue.add(this.dataOut);
+
+        this.setOutputsUpstream(true);
     }
 
     verilogBaseType() {

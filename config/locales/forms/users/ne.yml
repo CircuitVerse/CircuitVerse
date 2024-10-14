@@ -1,0 +1,11 @@
+ne:
+  helpers:
+    label:
+      user:
+        email: "इमेल"
+        name: "नाम"
+        country: "देश"
+        educational_institute: "शैक्षिक संस्था"
+        locale: "भाषा"
+        password: "पासवर्ड"
+        password_confirmation: "पासवर्ड पुष्टि"

@@ -17,8 +17,12 @@ module Logix
 
     # configuring mailer previews directory
     config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+
+    # config/application.rb
+    config.view_component.preview_paths << "#{Rails.root}/spec/components/previews"
+
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
-    config.i18n.available_locales = [:en, :hi, :bn, :mr]
+    config.i18n.available_locales = [:en, :hi, :bn, :mr, :ne]
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true
 

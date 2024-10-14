@@ -8,6 +8,7 @@ en:
     link_to_teachers: "Teachers"
     link_to_blog: "Blog"
     link_to_about: "About"
+    link_to_faq: "FAQ"
     footer:
       social_icon_text: "Follow us on:"
       link_to_examples: "Examples"
@@ -18,7 +19,7 @@ en:
         brought_by: "Brought to you by:"
         hosting_sponsor: "Hosting Sponsor:"
         marketed_by: "Marketed by:"
-        developed_by: "Developed By:"
+        incubated_from: "Incubated From:"
       copyright_text: "Copyright © %{time_current_year} CircuitVerse, All rights reserved."
     header:
       dashboard: "Dashboard"
