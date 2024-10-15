@@ -18,3 +18,6 @@ en:
     contributors_heading: "CONTRIBUTORS"
     contributors_description: "Meet the awesome people of CircuitVerse community that've made this platform what it is now."
     become_contributor: "Become a Contributor"
+    prlogs:
+      heading: "Pull Request Logs"
+      description: "Explore our latest contributions with these recently merged pull requests."
