@@ -169,4 +169,9 @@ class SimulatorController < ApplicationController
         redirect_to simulatorvue_path(path: new_path.sub(%r{^/}, ""))
       end
     end
+
+    rescue_from StandardError do |exception|
+      Sentry.capture_exception(exception)
+      render json: { error: "An error occurred" }, status: :internal_server_error
+    end
 end
