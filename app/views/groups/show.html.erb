@@ -37,7 +37,7 @@
   </div>
   <hr>
   <% if @group.group_members.mentor.blank? %>
-    <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+    <span class="null-text"><%= policy(@group).admin_access? ? (t("groups.show.no_mentors_html").chop + ', ' + t("groups.show.no_mentors_admin_html")).html_safe  : t("groups.show.no_mentors_html") %></span>
   <% end %>
   <div class="row center-row groups-members-scroll-row">
     <%= render partial: "group_mentors", locals: { group: @group } %>
@@ -50,7 +50,7 @@
   </div>
   <hr>
   <% if @group.group_members.member.blank? %>
-      <span class="null-text"><%= t("groups.show.no_members_html") %></span>
+      <span class="null-text"><%= policy(@group).admin_access? ? (t("groups.show.no_members_html").chop + ', ' + t("groups.show.no_members_admin_html")).html_safe  : t("groups.show.no_members_html") %></span>
   <% end %>
   <div class="row center-row groups-members-scroll-row">
     <%= render partial: "group_members", locals: { group: @group } %>
@@ -64,7 +64,7 @@
   <hr>
   <table class="table table-borderless groups-table">
     <% if @group.assignments.empty? %>
-      <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
+      <span class="null-text"><%= policy(@group).admin_access? ? (t("groups.show.no_assignments_html").chop + ', ' + t("groups.show.no_assignments_admin_html")).html_safe  : t("groups.show.no_assignments_html") %></span>
     <% else %>
       <thead class="groups-table-heading">
         <tr>
@@ -341,7 +341,9 @@
   </table>
   <div class="row">
     <div class="col-12 groups-back-button-container">
-      <%= link_to t("back"), :back, class: "anchor-text" %>
+      <%= link_to :back do %>
+        <button type="button" class="btn primary-button groups-primary-button"></i><%= t("back") %></button>
+      <% end %>
     </div>
   </div>
   <%= render partial: "delete_member_confirmation_modal" %>
