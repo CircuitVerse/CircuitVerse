@@ -1,0 +1,7 @@
+<div class="social-card contribute-social-card">
+  <%= link_to @link_url, class: "about-social-anchor", target: "_blank" do %>
+    <%= image_tag @image_path, height: "60", width: "60", alt: @image_alt, class: "social-card-image" %>
+    <h6><%= @heading %></h6>
+    <p><%= @description %></p>
+  <% end %>
+</div>
