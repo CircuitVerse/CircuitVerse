@@ -51,7 +51,7 @@ describe ProjectsController, type: :request do
           expect do
             get user_project_path(@author, @project)
             @project.reload
-          end.not_to change { @project.view }
+          end.not_to(change { @project.view })
         end
       end
     end
@@ -158,7 +158,7 @@ describe ProjectsController, type: :request do
           post "/users/#{@user.id}/projects", params: create_params
         end.to change(Project, :count).by(1)
 
-        project = Project.all.order("created_at").last
+        project = Project.order("created_at").last
         expect(project.name).to eq("Test Project")
         expect(project.project_access_type).to eq("Public")
       end

@@ -3,19 +3,19 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <%= display_meta_tags description: yield(:description).presence  || Rails.configuration.site_description,
-    title: yield(:title).presence || 'CircuitVerse - Digital Circuit Simulator' %>
+    <%= display_meta_tags description: yield(:description).presence || Rails.configuration.site_description,
+                          title: yield(:title).presence || "CircuitVerse - Digital Circuit Simulator" %>
     <meta name="keywords"
       content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
-    <%= favicon_link_tag 'favicon.ico' %>
+    <%= favicon_link_tag "favicon.ico" %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
     <%= csrf_meta_tags %>
 
-    <%= javascript_include_tag 'application_sprockets', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload', defer: true %>
+    <%= javascript_include_tag "application_sprockets", "data-turbolinks-track": "reload" %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <%= render partial: "layouts/google_analytics" if Rails.env.production? %>
@@ -23,10 +23,9 @@
   </head>
 
   <body>
-    <%= render "announcements/announcement" %>
     <%= render "layouts/header" %>
     <%= yield %>
-    <%= render "layouts/footer" %>
+    <%= render(FooterComponent.new(current_user: current_user)) %>
 
     <script type="text/javascript">
       // In this script tag we are checking alert's and if there is alert this code will be execute

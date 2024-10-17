@@ -1,36 +1,65 @@
 .announcements-content-wrapper {
   align-items: center;
   background: $primary-green;
+  border-radius: .3rem;
   color: $white;
   display: flex;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-size: 1.2rem;
   justify-content: center;
-  min-height: 35px;
-  min-width: 100vw;
+  margin-top: .3rem;
   overflow-wrap: break-word;
-  position: fixed;
-  top: 0;
-  z-index: 1;
 
-  p {
-    margin-bottom: 0;
+  span {
+    display: inline-block;
+    flex: 50%;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    text-align: center;
   }
 
   a {
-    border-bottom: 1px dotted $white;
-    color: $white;
-    font-weight: bold;
-    margin-left: 10px;
-
-    &:hover {
-      text-decoration: none;
-    }
+    background: $secondary-red;
   }
+}
+
+.announcement-border {
+  border: 1px solid $green;
+  border-radius: 1rem;
+  border-top: .45rem solid $green;
+}
+
+.announcement-anchor {
+  color: $white;
+  font-size: .85rem;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.announcement-text {
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+  margin-bottom: .5rem;
+}
+
+.announcement-box {
+  background-color: $white;
+}
+
+.announcement-green {
+  background-color: $card-green;
 }
 
 @media(max-width: 992px) {
   .announcements-content-wrapper {
-    font-size: 9px;
+    font-size: 1rem;
+    padding-bottom: .6rem;
+
+    span {
+      flex: 100%;
+    }
   }
 }

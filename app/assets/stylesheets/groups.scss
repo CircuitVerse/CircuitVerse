@@ -7,6 +7,12 @@
   font-weight: normal;
 }
 
+.null-text {
+  color: $iframe-container-grey;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
 .groups-row {
   justify-content: space-between;
   padding-top: 65px;
@@ -168,8 +174,9 @@
   background-color: $card-green;
   border: 1px solid $secondary-green;
   display: inline-block;
-  height: 70px;
+  height: 90px;
   margin: 10px;
+  margin-bottom: 20px;
   padding: 15px;
   width: 200px;
   white-space: nowrap;
@@ -177,13 +184,13 @@
 
 .groups-members-card-details {
   padding-right: 0;
-  padding-top: 20px;
+  padding-top: 5px;
   text-align: left;
 
   i {
-    margin-right: 3px;
-    margin-top: 0;
-    padding-bottom: 5px;
+    margin-right: 10px;
+    margin-top: 20px;
+    padding-bottom: 20px;
   }
 }
 
@@ -194,7 +201,7 @@
   
   i {
     margin-right: 15px;
-    padding-bottom: 0;
+    padding-bottom: 15px;
   }
 
   .groups-members-card-name-container {
@@ -212,13 +219,30 @@
   }
 }
 
+.groups-members-card-avatar {
+  img {
+    border-radius: 50%;
+    height: 50px;
+    margin-bottom: 10px;
+    transform: translate(-5px, 5px);
+    transition: all .5s;
+    width: 50px;
+
+    &:hover {
+      transform: scale(2);
+    }
+  }
+}
+
 .groups-members-card-name-container {
   display: inline-block;
-  height: 25px;
-  max-width: 110px;
+  height: 30px;
+  max-width: 92px;
   overflow: hidden;
   padding-top: 1px;
   text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .groups-members-card-name {
@@ -250,26 +274,40 @@
   }
 }
 
-.group-invite-link-text {
+#group-invite-link-container {
   border: 1.5px solid $secondary-green;
-  font-size: 12px;
-  text-align: left;
+  padding: 10px;
+  position: relative;
+  font-size: 12px; 
+  border-radius: 5px; 
+}
+
+#copyIcon{
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+}
+
+.group-invite-link-text {
+  border: none;
+  outline: none;
 }
 
 //breakpoints
 @media (max-width: 1200px) {
   .groups-members-scroll-row {
-    max-width: 920px;
+    max-width: 930px;
   }
 
   .groups-members-card {
-    width: 350px;
+    width: 320px;
   }
 }
 
 @media (max-width: 992px) {
   .groups-members-scroll-row {
-    max-width: 610px;
+    max-width: 680px;
   }
 }
 
@@ -318,6 +356,10 @@
   margin-top: 30px;
   max-height: 400px;
   max-width: 90%;
+}
+
+.form-control {
+    border-radius: 4px;
 }
 
 .groups-background-card {

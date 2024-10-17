@@ -1,0 +1,29 @@
+name: Codespaces Test
+
+on:
+  pull_request:
+    paths:
+      - ".devcontainer/*"
+
+jobs:
+  test-config:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker Image
+        run: docker build .devcontainer/
+
+      - name: Lint Shell Scripts
+        run: |
+          sudo apt-get install -y shellcheck
+          shellcheck .devcontainer/boot.sh
+          shellcheck .devcontainer/setup.sh
+
+      - name: Validate devcontainer.json
+        run: jq . < .devcontainer/devcontainer.json
+
+      - name: Validate docker-compose.yml
+        run: docker compose -f .devcontainer/docker-compose.yml config

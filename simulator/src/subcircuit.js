@@ -41,16 +41,18 @@ export function createSubCircuitPrompt(scope = globalScope) {
     let flag = true;
     for (id in scopeList) {
         if (!scopeList[id].checkDependency(scope.id) && scopeList[id].isVisible()) {
-            flag = false;
+            flag = false; 
             $("#insertSubcircuitDialog").append(
                 `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
             );
         }
-    }
-    if (flag)
+    }  
+    if(flag) {    
         $("#insertSubcircuitDialog").append(
-            "<p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p>"
+            [$("#insertSubcircuitcontent").dialog(),
+             $("#insertSubcircuitcontent").dialog("close")]
         );
+    } 
     $("#insertSubcircuitDialog").dialog({
         resizable:false,
         maxHeight: 800,
@@ -296,7 +298,8 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * rebuilds the subcircuit if any change to localscope is made
+     * If the circuit referenced by localscope is changed, then the localscope
+     * needs to be updated. This function does that.
      */
     reBuildCircuit() {
         this.data = JSON.parse(scheduleBackup(scopeList[this.id]));
@@ -465,17 +468,14 @@ export default class SubCircuit extends CircuitElement {
                 this.outputNodes.push(a);
             }
         }
-
+        // console.log(subcircuitScope.name, subcircuitScope.timeStamp, this.lastUpdated)
         if (subcircuitScope.timeStamp > this.lastUpdated) {
             this.reBuildCircuit();
         }
 
-        // Should this be done here or only when this.reBuildCircuit() is called?
-        {
-            this.localScope.reset();
-            updateSimulationSet(true);
-            forceResetNodesSet(true);
-        }
+        this.localScope.reset();
+        updateSimulationSet(true);
+        forceResetNodesSet(true);
 
         this.makeConnections();
     }

@@ -41,6 +41,7 @@ export default class Clock extends CircuitElement {
     resolve() {
         this.output1.value = this.state;
         simulationArea.simulationQueue.add(this.output1);
+        this.setOutputsUpstream(true);
     }
 
     toggleState() {
@@ -86,7 +87,7 @@ export default class Clock extends CircuitElement {
 }
 
 Clock.prototype.tooltipText = "Clock";
-
+Clock.prototype.helplink = "https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=clock";
 Clock.prototype.click = Clock.prototype.toggleState;
 Clock.prototype.objectType = "Clock";
 Clock.prototype.propagationDelay = 0;

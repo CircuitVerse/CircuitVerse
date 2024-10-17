@@ -15,17 +15,17 @@
           </div>
         </div>
         <div class="card-body users-card-body">
-          <img class="users-card-image" src="<%= project.image_preview.url %>" alt="<%= project.name %>">
+          <%= image_tag project_image_preview(project, current_user), class: "users-card-image", alt: "project.name" %>
         </div>
         <div class="card-footer users-card-footer">
           <% if policy(project).user_access? %>
             <a href="<%= simulator_edit_path(project) %>" class="btn primary-button" target="_blank"><%= t("launch") %></a>
           <% else %>
-              <%= link_to create_fork_project_path(project), class: "btn primary-button", target: "_blank", method: :post do %>
+              <%= link_to create_fork_project_path(project), class: "btn primary-button", target: "_blank", method: :post, rel: "noopener" do %>
               <span><%= t("fork") %></span>
             <% end %>
           <% end %>
-            <%= link_to t("view"), '#', class: "previewButton btn primary-button", data: {toggle: "modal", target: "#projectModal", currentproject: project} %>
+            <%= link_to t("view"), "#", class: "previewButton btn primary-button", data: { toggle: "modal", target: "#projectModal", currentproject: project } %>
             <a href="<%= user_project_path(project.author_id, project) %>" class="btn primary-button" target="_blank"><%= t("more") %></a>
         </div>
       </div>

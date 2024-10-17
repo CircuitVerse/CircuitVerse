@@ -26,40 +26,45 @@ hi:
   reopen: "फिर से खोले"
   close: "बंद करे"
   not_available: "उपलब्ध नहीं है"
+  not_entered: "दर्ज नहीं किया गया"
+  enter_email: "ईमेल दर्ज करें"
+  enter_password: "पासवर्ड दर्ज करें"
+  enter_name: "नाम दर्ज करें"
+  registration_blocked: "साइन अप वर्तमान में अक्षम है"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
       half_a_minute: "आधा मिनट"
       less_than_x_seconds:
-        one:   "1 सेकेंड" # default was: "less than 1 second"
+        one: "1 सेकेंड" # default was: "less than 1 second"
         other: "%{count} सेकेंड" # default was: "less than %{count} seconds"
       x_seconds:
-        one:   "1 सेकेंड"
+        one: "1 सेकेंड"
         other: "%{count} सेकेंड"
       less_than_x_minutes:
-        one:   "एक मिनट" # default was: "less than a minute"
+        one: "एक मिनट" # default was: "less than a minute"
         other: "%{count} मिनट" # default was: "less than %{count} minutes"
       x_minutes:
-        one:   "एक मिनट"
+        one: "एक मिनट"
         other: "%{count} मिनट"
       about_x_hours:
-        one:   "1 घंटे" # default was: "about 1 hour"
+        one: "1 घंटे" # default was: "about 1 hour"
         other: "%{count} घंटे" # default was: "about %{count} hours"
       x_days:
-        one:   "1 दिन"
+        one: "1 दिन"
         other: "%{count} दिन"
       about_x_months:
-        one:   "1 महीने" # default was: "about 1 month"
+        one: "1 महीने" # default was: "about 1 month"
         other: "%{count} महीने" # default was: "about %{count} months"
       x_months:
-        one:   "1 महीने"
+        one: "1 महीने"
         other: "%{count} महीने"
       about_x_years:
-        one:   "1 वर्ष" # default was: "about 1 year"
+        one: "1 वर्ष" # default was: "about 1 year"
         other: "%{count} वर्ष" # default was: "about %{count} years"
       over_x_years:
-        one:   "1 वर्ष" # default was: "over 1 year"
+        one: "1 वर्ष" # default was: "over 1 year"
         other: "%{count} वर्ष" # default was: "over %{count} years"
       almost_x_years:
-        one:   "1 वर्ष" # default was: "almost 1 year"
+        one: "1 वर्ष" # default was: "almost 1 year"
         other: "%{count} वर्ष" # default was: "almost %{count} years"

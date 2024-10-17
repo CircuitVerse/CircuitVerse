@@ -1,8 +1,8 @@
-<% content_for(:html_title) { 'CircuitVerse - Digital Simulator' } %>
+<% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
 
-<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js"></script>
-<script src="/js/plugins/checkBo.min.js"></script>
-<script src="/js/plugins/bootstrap-input-spinner.js"></script>
+<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" defer></script>
+<script src="/js/plugins/checkBo.min.js" defer></script>
+<script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
 
 <script>
   userSignedIn = <%= user_signed_in? %>;
@@ -13,12 +13,12 @@
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
-  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+  <button id="dropdownButton" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+  <i class="fas fa-bars" id="dropdownIcon"></i>
   </button>
-  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+  <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
@@ -33,10 +33,9 @@
            <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" onclick="old_ui_redirect()">View Previous UI</a></li>
         </ul>
       </li>
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left logixButton pl-1" id="createNewCircuitScope">New Circuit + </a></li>
@@ -44,7 +43,7 @@
           <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
-      <li class="dropdown nav-dropdown">
+      <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
           <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
@@ -55,7 +54,7 @@
           <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
-      <li class="dropdown tour-help nav-dropdown">
+      <li class="dropdown tour-help nav-dropdown d-flex">
         <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
             <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
@@ -64,37 +63,56 @@
             <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
-     </ul>
-       <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+      </ul>
+      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
           Untitled
-       </span>
+      </span>
+
+      <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
+        <li class="dropdown pull-right">
+          <% if user_signed_in? %>
+            <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
+              <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+              <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+            </ul>
+          <% else %>
+            <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+          <% end %>
+        </li>
+      </ul>
+
+    </div>
 
     <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn' id='quick-btn-id'>
       <div id='dragQPanel' class='panel-drag'>
       <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
         <defs>
           <clipPath id="clip-path">
-            <rect width="18" height="31" fill="none"/>
+            <rect width="18" height="31" fill="none" />
           </clipPath>
         </defs>
         <g id="Repeat_Grid_1" data-name="Repeat Grid 1" clip-path="url(#clip-path)">
           <g transform="translate(-21 -29)">
-            <circle id="Ellipse_1" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+            <circle id="Ellipse_1" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
           </g>
           <g transform="translate(-12 -29)">
-            <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+            <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
           </g>
           <g transform="translate(-21 -18)">
-            <circle id="Ellipse_1-3" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+            <circle id="Ellipse_1-3" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
           </g>
           <g transform="translate(-12 -18)">
-            <circle id="Ellipse_1-4" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+            <circle id="Ellipse_1-4" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
           </g>
           <g transform="translate(-21 -7)">
-            <circle id="Ellipse_1-5" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+            <circle id="Ellipse_1-5" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
           </g>
           <g transform="translate(-12 -7)">
-            <circle id="Ellipse_1-6" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff"/>
+            <circle id="Ellipse_1-6" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
           </g>
         </g>
       </svg>
@@ -136,29 +154,11 @@
         </button> -->
         <div class="zoom-slider">
           <button class="zoom-slider-decrement" id="decrement">-</button>
-          <input type="range" class="custom-range" min="0" max="45" step="1"  id="customRange1">
+          <input type="range" class="custom-range" min="0" max="45" step="1" id="customRange1">
           <span id='slider_value'></span>
           <button class="zoom-slider-increment" id="increment">+</button>
         </div>
       </div>
-
-    </div>
-    <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
-      <li class="dropdown pull-right">
-        <% if user_signed_in? %>
-          <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
-            <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
-            <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
-            <div class="dropdown-divider"></div>
-            <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
-          </ul>
-        <% else %>
-          <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
-        <% end %>
-      </li>
-    </ul>
   </div>
   <!-- /.navbar-collapse -->
 </nav>
@@ -497,16 +497,14 @@
       <button
         class="zoomButton btn-lg"
         id="decreaseLayoutWidth"
-        title="Decrease Width"
-      >
+        title="Decrease Width">
         <span class="fa fa-minus" aria-hidden="true"></span>
       </button>
       <span>Width</span>
       <button
         class="zoomButton btn-lg"
         id="increaseLayoutWidth"
-        title="Increase Width"
-      >
+        title="Increase Width">
         <span class="fa fa-plus" aria-hidden="true"></span>
       </button>
     </div>
@@ -514,16 +512,14 @@
       <button
         class="zoomButton btn-lg"
         id="decreaseLayoutHeight"
-        title="Decrease Height"
-      >
+        title="Decrease Height">
         <span class="fa fa-minus" aria-hidden="true"></span>
       </button>
       <span>Height</span>
       <button
         class="zoomButton btn-lg"
         id="increaseLayoutHeight"
-        title="Increase Height"
-      >
+        title="Increase Height">
         <span class="fa fa-plus" aria-hidden="true"></span>
       </button>
     </div>
@@ -531,8 +527,7 @@
       <span>Reset all nodes:</span>
       <button
         class="zoomButton btn-lg"
-        id="layoutResetNodes"
-      >
+        id="layoutResetNodes">
         <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
       </button>
     </div>
@@ -541,52 +536,48 @@
       <div class="layout--btn-group">
         <button
           class="zoomButton-up btn-lg no-select"
-          id="layoutTitleUp"
-        >
+          id="layoutTitleUp">
         <svg id="Group_304" data-name="Group 304" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
           <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none"/>
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+            <rect width="30" height="30" rx="10" stroke="none" />
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
           </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff"/>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff" />
         </svg>
 
       </button>
         <button
           class="zoomButton-down btn-lg no-select"
-          id="layoutTitleDown"
-        >
+          id="layoutTitleDown">
         <svg id="Group_305" data-name="Group 305" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
           <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none"/>
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+            <rect width="30" height="30" rx="10" stroke="none" />
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
           </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff"/>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff" />
         </svg>
 
       </button>
         <button
           class="zoomButton-left btn-lg no-select"
-          id="layoutTitleLeft"
-        >
+          id="layoutTitleLeft">
         <svg id="Group_306" data-name="Group 306" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
           <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none"/>
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+            <rect width="30" height="30" rx="10" stroke="none" />
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
           </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(18.1 9.655) rotate(90)" fill="#fff"/>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(18.1 9.655) rotate(90)" fill="#fff" />
         </svg>
         </button>
         <button
           class="zoomButton-right btn-lg no-select"
-          id="layoutTitleRight"
-        >
+          id="layoutTitleRight">
         <svg id="Group_307" data-name="Group 307" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
           <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none"/>
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none"/>
+            <rect width="30" height="30" rx="10" stroke="none" />
+            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
           </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff"/>
+          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff" />
         </svg>
       </button>
     </div>
@@ -597,100 +588,74 @@
         <input
           type="checkbox"
           checked
-          id="toggleLayoutTitle"
-        />
+          id="toggleLayoutTitle">
         <span class="slider"></span>
       </label>
     </div>
     <div class="">
       <button
         class="Layout-btn custom-btn--primary"
-        id="saveLayout"
-      >
+        id="saveLayout">
         Save
       </button>
 
       <button
         class="Layout-btn custom-btn--tertiary"
-        id="cancelLayout"
-      >
+        id="cancelLayout">
         Cancel
       </button>
     </div>
   </div>
 </div>
-<div id="saveImageDialog"  class="noSelect" style="display: none;" title="Render Image">
+<div id="saveImageDialog" class="noSelect" style="display: none;" title="Render Image">
   <div class="download-dialog-section-1">
-    <label class="option custom-radio inline"
-      ><input
+    <label class="option custom-radio inline"><input
         type="radio"
         name="imgType"
         value="png"
-        checked="checked" />PNG<span></span
-    ></label>
-    <label class="option custom-radio inline"
-      ><input type="radio" name="imgType" value="jpeg" />JPEG<span></span
-    ></label>
-    <label class="option custom-radio inline"
-      ><input type="radio" name="imgType" value="svg" />SVG<span></span
-    ></label>
-    <label class="option custom-radio inline"
-      ><input type="radio" name="imgType" value="bmp" />BMP<span></span
-    ></label>
-    <label class="option custom-radio inline"
-      ><input type="radio" name="imgType" value="gif" />GIF<span></span
-    ></label>
-    <label class="option custom-radio inline"
-      ><input type="radio" name="imgType" value="tiff" />TIFF<span></span
-    ></label>
+        checked="checked">PNG<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="jpeg">JPEG<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="svg">SVG<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="bmp">BMP<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="gif">GIF<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="tiff">TIFF<span></span></label>
   </div>
   <div class="download-dialog-section-2">
     <div
       class="option inline btn-group btn-group-toggle"
       style="border: none;"
-      data-toggle="buttons"
-    >
+      data-toggle="buttons">
       <div class="btn" id="radio-full" role="button">
-        <input type="radio" name="view" value="full" /> Full Circuit View
+        <input type="radio" name="view" value="full"> Full Circuit View
       </div>
       <div class="btn active" id="radio-current" role="button">
         <input
           type="radio"
           name="view"
           value="current"
-          checked="checked"
-        />Current View
+          checked="checked">Current View
       </div>
     </div>
     <div class="download-dialog-section-2_2">
-      <label class="cb-checkbox"
-        ><input
+      <label class="cb-checkbox"><input
           type="checkbox"
           name="transparent"
-          value="transparent"
-        />Transparent Background</label
-      >
+          value="transparent">Transparent Background</label>
     </div>
   </div>
   <div class="download-dialog-section-3">
     <span>Resolution:</span>
-    <label class="option custom-radio inline"
-      ><input
+    <label class="option custom-radio inline"><input
         type="radio"
         name="resolution"
         value="1"
-        checked="checked" />1x<span></span
-    ></label>
-    <label class="option custom-radio inline"
-      ><input type="radio" name="resolution" value="2" />2x<span></span
-    ></label>
-    <label class="option custom-radio inline"
-      ><input type="radio" name="resolution" value="4" />4x<span></span
-    ></label>
+        checked="checked">1x<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="resolution" value="2">2x<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="resolution" value="4">4x<span></span></label>
   </div>
 </div>
 
-<div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex = "0" style="display: none;" title="Select Theme"></div>
+<div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex="0" style="display: none;" title="Select Theme"></div>
 <div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
 <input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
 
@@ -715,8 +680,7 @@
         z-index: 0;
         width: 100%;
         height: 100%;
-      "
-    ></canvas>
+      "></canvas>
     <canvas
       id="simulationArea"
       style="
@@ -726,13 +690,11 @@
         z-index: 1;
         width: 100%;
         height: 100%;
-      "
-    ></canvas>
+      "></canvas>
     <div id="miniMap">
       <canvas
         id="miniMapArea"
-        style="position: absolute; left: 0; top: 0; z-index: 3;"
-      ></canvas>
+        style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
     </div>
     <div id="contextMenu" oncontextmenu="return false;">
       <ul>
@@ -755,8 +717,7 @@
         right: 50%;
         bottom: 50%;
         z-index: 100;
-      "
-    >
+      ">
       <div class="sk-cube1 sk-cube"></div>
       <div class="sk-cube2 sk-cube"></div>
       <div class="sk-cube4 sk-cube"></div>
@@ -770,42 +731,37 @@
   class='customScroll'
   tabindex="0"
   style="display: none;"
-  title="Export as file"
-></div>
+  title="Export as file"></div>
 <div
   id="ImportCircuitFilesDialog"
   class='customScroll'
   tabindex="0"
   style="display: none;"
-  title="Import as file"
-></div>
+  title="Import as file"></div>
 <div
   id="combinationalAnalysis"
   style="display: none;"
-  title="BooleanLogicTable"
-></div>
+  title="BooleanLogicTable"></div>
 <div
   id="setTestbenchData"
   style="display: none;"
-  title="Create Test"
-></div>
+  title="Create Test"></div>
 <div
   id="testbenchValidate"
   style="display: none;"
-  title="Testbench Validation"
-></div>
+  title="Testbench Validation"></div>
 <div
   id="insertSubcircuitDialog"
   class="subcircuitdialog"
-  title="Insert SubCircuit"
-></div>
+  title="Insert SubCircuit"></div>
+<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit">New Circuit +</a></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
-    <label >Decimal value</label><br><input  type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
-    <label >Binary value</label><br><input  type='text' id='binaryInput'  value='0b10000' label="Binary" name='text1'><br><br>
-    <label >Binary-coded decimal value</label><br><input  type='text' id='bcdInput'  value='10110' label="BCD" name='text1'><br><br>
-    <label >Octal value</label><br><input  type='text' id='octalInput' value='020' label="Octal" name='text1'><br><br>
-    <label >Hexadecimal value</label><br><input  type='text' id='hexInput' value='0x10' label="Hex" name='text1'><br><br>
+    <label>Decimal value</label><br><input type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
+    <label>Binary value</label><br><input type='text' id='binaryInput' value='0b10000' label="Binary" name='text1'><br><br>
+    <label>Binary-coded decimal value</label><br><input type='text' id='bcdInput' value='10110' label="BCD" name='text1'><br><br>
+    <label>Octal value</label><br><input type='text' id='octalInput' value='020' label="Octal" name='text1'><br><br>
+    <label>Hexadecimal value</label><br><input type='text' id='hexInput' value='0x10' label="Hex" name='text1'><br><br>
 </div>
 <!---issue reporting-system----->
 <div class="report-sidebar">
@@ -813,10 +769,8 @@
     type="button"
     class="btn btn-primary text-light"
     data-toggle="modal"
-    data-target=".issue"
-  >
-    <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a
-  >
+    data-target=".issue">
+    <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a>
 </div>
 
 <!---issue reporting system-modal---->
@@ -825,8 +779,7 @@
   tabindex="-1"
   role="dialog"
   aria-labelledby="mySmallModalLabel"
-  aria-hidden="true"
->
+  aria-hidden="true">
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="container my-2">
@@ -834,28 +787,33 @@
           type="button"
           class="close"
           data-dismiss="modal"
-          aria-label="Close"
-        >
+          aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <div class="container text-center">
           <h4>Report an issue</h4>
         </div>
-        <hr />
-        <div class="container my-2 text-center" id="result"></div>
-        <label id="report-label" style="font-weight: lighter;"
-          ><b>Describe your issue:</b></label
-        >
+        <hr>
+
+        <%# TEMPORARY %>
+        <center>
+        Bug reporting from here will be back soon, until then help make CircuitVerse better by reporting simulator issues to us on Slack.
+        <br><br><a href="https://circuitverse-team.slack.com/archives/C010HK6TWQG" style="color: blue;">Click Here to report an issue</a><br><br>
+        Thank you for your time.
+        </center>
+        <%# /TEMPORARY %>
+
+        <%# <div class="container my-2 text-center" id="result"></div>
+        <label id="report-label" style="font-weight: lighter;"><b>Describe your issue:</b></label>
         <div class="form-group">
           <textarea
             class="form-control border-primary"
             id="issuetext"
-            rows="3"
-          ></textarea>
+            rows="3"></textarea>
         </div>
         <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
         <div class="form-group">
-          <input class="form-control border-primary"  type="email" id="emailtext" rows="3"/>
+          <input class="form-control border-primary" type="email" id="emailtext" rows="3">
         </div>
         <div class="container">
           <center>
@@ -863,30 +821,40 @@
               Report
             </button>
           </center>
-        </div>
+        </div> %>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-<% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
-let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
-if(restricted_feature.includes('Combinational Analysis Tool')) {
-  $('#createCombinationalAnalysisPrompt').attr("style", "display:none")
-}
-if(restricted_feature.includes('Verilog tools')) {
-  $('#generateVerilog').attr("style", "display:none")
-}
-<% end %>
+window.addEventListener("load", function() {
+  $('#newCircuit').click(function () {
+    return $('#insertSubcircuitDialog').dialog('close');
+  });
+})
+</script>
+
+<script>
+window.addEventListener("load", function() {
+  <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
+  let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
+  if(restricted_feature.includes('Combinational Analysis Tool')) {
+    $('#createCombinationalAnalysisPrompt').attr("style", "display:none")
+  }
+  if(restricted_feature.includes('Verilog tools')) {
+    $('#generateVerilog').attr("style", "display:none")
+  }
+  <% end %>
+})
 </script>
 
 <script>
   const embed = false;
-  user_id = "<%= user_signed_in? ? " #{current_user.id.to_s} - #{current_user.name}" : "Guest user" %>";
+  user_id = "<%= user_signed_in? ? " #{current_user.id} - #{current_user.name}" : "Guest user" %>";
   var listenToSimulator=true
   <% if @project&.assignment_id.present? %>
-  restrictedElements = JSON.parse('<%= raw @project&.assignment.clean_restricted_elements %>');
+  restrictedElements = JSON.parse('<%= raw @project&.assignment&.clean_restricted_elements %>');
   <% else %>
   restrictedElements = [];
   <% end %>
@@ -894,30 +862,38 @@ if(restricted_feature.includes('Verilog tools')) {
 
 <!-- on hover for dropdowns -->
 <script>
+window.addEventListener("load", function() {
   $('.dropdown-toggle').hover(function () {
     $('.dropdown.open').removeClass('open');
     $(this).parent('.dropdown').addClass('open');
   });
+})
 </script>
 
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 
 <script type="text/javascript" src="/js/metadata.json"></script>
+<script type="text/javascript">
+    var dropdownButton = document.getElementById('dropdownButton');
+    var dropdownIcon = document.getElementById('dropdownIcon');
+
+    dropdownButton.addEventListener('click', function() {
+    dropdownIcon.classList.toggle('fa-bars');
+    dropdownIcon.classList.toggle('fa-times');
+    dropdownIcon.style.width='17.5px'
+  });
+</script>
 
 <script>
+window.addEventListener("load", function() {
+  $(function(){
+      $(".btn-group-toggle").twbsToggleButtons();
+    });
 
-$(function(){
-    $(".btn-group-toggle").twbsToggleButtons();
+  $(function(){
+    $("#openProjectDialog").checkBo();
+    $(".download-dialog-section-2_2").checkBo();
   });
-
-$(function(){
-$("#openProjectDialog").checkBo();
-$(".download-dialog-section-2_2").checkBo();
 });
-
-
-function old_ui_redirect() {
-  window.location.href = window.location.href.replace("/simulator", "/simulator_old")
-}
 </script>
 <script src="/js/data.js"></script>

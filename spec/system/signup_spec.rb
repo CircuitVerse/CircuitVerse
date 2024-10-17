@@ -8,6 +8,10 @@ describe "Sign up", type: :system do
     visit "/users/sign_up"
   end
 
+  it "GET signup page" do
+    expect(page).to have_current_path("/users/sign_up")
+  end
+
   it "does not sign-up when no credentials" do
     click_button "Sign up"
 

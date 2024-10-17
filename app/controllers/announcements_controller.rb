@@ -13,6 +13,10 @@ class AnnouncementsController < ApplicationController
     @announcement = Announcement.new
   end
 
+  def edit
+    @announcement = Announcement.find(params[:id])
+  end
+
   def create
     @announcement = Announcement.new(announcement_params)
     if @announcement.save
@@ -20,10 +24,6 @@ class AnnouncementsController < ApplicationController
     else
       render "new"
     end
-  end
-
-  def edit
-    @announcement = Announcement.find(params[:id])
   end
 
   def update
