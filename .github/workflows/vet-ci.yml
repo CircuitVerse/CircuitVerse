@@ -15,9 +15,6 @@ permissions:
   issues: write
   pull-requests: write
 
-  # Required for uploading findings to Github security tab
-  security-events: write
-
 jobs:
   vet:
     name: vet
@@ -37,9 +34,3 @@ jobs:
           # Required for writing pull request comment
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload SARIF
-        if: ${{ steps.vet.outputs.report != '' }}
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: ${{ steps.vet.outputs.report }}
-          category: vet
