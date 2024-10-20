@@ -18,3 +18,5 @@ en:
     contributors_heading: "CONTRIBUTORS"
     contributors_description: "Meet the awesome people of CircuitVerse community that've made this platform what it is now."
     become_contributor: "Become a Contributor"
+    issues_triaging_team: "ISSUES TRIAGING TEAM"
+    issues_triaging_team_description: "Sorting, prioritizing, and routing issues to keep the circuit flowing smoothly"
