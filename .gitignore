@@ -70,6 +70,7 @@ yarn-debug.log*
 # Private key
 config/private.pem
 config/public.pem
+*.pem
 
 .env
 .eslintcache
