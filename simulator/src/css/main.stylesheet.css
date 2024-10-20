@@ -1603,18 +1603,24 @@ input:checked + .slider:before {
 }
 
 .zoom-slider {
+    display: flex;
+    align-items: center;
     color: white;
     font-size: 20px;
 }
 
-.zoom-slider-increment {
-    position: relative;
-    bottom: 0.3rem;
+.zoom-slider button {
+    font-size: 18px;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
 }
-.zoom-slider-decrement {
-    position: relative;
-    bottom: 0.4rem;
+
+.zoom-slider input[type="range"] {
+    flex-grow: 1;
+    margin: 0 10px;
 }
+
 
 .custom-range {
     width: 80px;
