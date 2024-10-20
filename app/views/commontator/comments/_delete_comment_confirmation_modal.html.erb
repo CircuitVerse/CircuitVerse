@@ -9,13 +9,14 @@
         <p><%= t("commontator.comment.actions.confirm_delete") %></p>
       </div>
       <div class="modal-footer" data-bs-dismiss="modal">
-        <%= link_to "#",
-                    method: :put,
-                    remote: true,
-                    class: "btn btn-danger",
-                    id: "projects-comment-delete-button" do %>
-          <%= t("delete") %>
-        <% end %>
+      <%= link_to "#",
+      method: :delete,
+      remote: true,
+      class: "btn btn-danger",
+      id: "projects-comment-delete-button" do %>
+      <%= t("commontator.comment.actions.confirm_delete") %>
+    <% end %>
+    
       </div>
     </div>
   </div>
