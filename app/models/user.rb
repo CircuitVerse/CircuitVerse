@@ -53,7 +53,8 @@ class User < ApplicationRecord
 
   include PgSearch::Model
 
-  pg_search_scope :text_search, against: %i[name educational_institute country]
+  pg_search_scope :text_search, against: %i[name educational_institute],
+                                using: { tsearch: { dictionary: "english", tsvector_column: "searchable" } }
 
   searchable do
     text :name
