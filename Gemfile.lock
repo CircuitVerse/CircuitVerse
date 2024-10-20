@@ -778,7 +778,6 @@ GEM
     solargraph-rails (0.3.1)
       activesupport
       solargraph (>= 0.41.1)
-    spring (4.0.0)
     sprockets (4.2.0)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -1013,7 +1012,6 @@ DEPENDENCIES
   simplecov-lcov
   sitemap_generator
   solargraph-rails (~> 0.3.1)
-  spring
   sprockets (~> 4.1)
   stackprof
   steep
