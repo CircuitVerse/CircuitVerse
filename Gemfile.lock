@@ -146,8 +146,6 @@ GEM
     bindex (0.8.1)
     bootsnap (1.15.0)
       msgpack (~> 1.2)
-    bugsnag (6.24.2)
-      concurrent-ruby (~> 1.0)
     builder (3.3.0)
     bundler-audit (0.9.1)
       bundler (>= 1.2.0, < 3)
@@ -739,6 +737,9 @@ GEM
     sentry-ruby (5.17.3)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
+    sentry-sidekiq (5.17.3)
+      sentry-ruby (~> 5.17.3)
+      sidekiq (>= 3.0)
     sexp_processor (4.16.0)
     shoulda-matchers (6.1.0)
       activesupport (>= 5.2.0)
@@ -904,7 +905,6 @@ DEPENDENCIES
   aws-sdk-rails
   aws-sdk-s3 (~> 1.116)
   bootsnap
-  bugsnag (~> 6.24)
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
   carrierwave (~> 3.0)
@@ -1005,6 +1005,7 @@ DEPENDENCIES
   selenium-webdriver
   sentry-rails
   sentry-ruby
+  sentry-sidekiq (~> 5.17)
   shoulda-matchers
   sidekiq
   simple_discussion!

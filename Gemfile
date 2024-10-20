@@ -170,7 +170,6 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 # mails
 gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
-gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
@@ -218,5 +217,7 @@ gem "maintenance_tasks", "~> 2.3"
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "sentry-sidekiq", "~> 5.17"
+
 # for SAML based SSO
 gem 'devise_saml_authenticatable'
