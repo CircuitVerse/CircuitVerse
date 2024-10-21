@@ -38,12 +38,14 @@
         </div>
       </div>
       <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
-        <h4 class="users-user-name"><%= @profile.name %></h4>
+        <h4 class="users-user-name">
+          <%= truncate(@profile.name, length: 15, separator: ' ') %>
+        </h4>
         <div class="search-userdetails-container">
           <p class="search-user-details-text"><%= t("users.circuitverse.member_since_html", member_since: @profile.member_since) %></p>
           <p class="search-user-details-text">
             <% if @profile.educational_institute.present? %>
-              <%= t("users.circuitverse.educational_institutes_html", educational_institute: @profile.educational_institute) %>
+              <%= t("users.circuitverse.educational_institutes_html", educational_institute: truncate(@profile.educational_institute, length: 50, separator: ' ')) %>
             <% else %>
               <%= t("users.circuitverse.educational_institutes_html", educational_institute: t("not_entered")) %>
             <% end %>
