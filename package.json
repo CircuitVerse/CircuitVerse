@@ -15,7 +15,7 @@
     "build": "node esbuild.config.js"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.25.8",
+    "@babel/preset-env": "^7.25.9",
     "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
     "canvas": "^2.11.2",
@@ -40,7 +40,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@hotwired/stimulus": "^3.2.2",
-    "@tarekraafat/autocomplete.js": "^10.2.8",
+    "@tarekraafat/autocomplete.js": "^10.2.9",
     "banana-i18n": "^2.3.3",
     "better-docs": "^2.7.3",
     "bootstrap": "^4.6.1",
