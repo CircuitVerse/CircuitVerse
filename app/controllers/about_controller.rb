@@ -62,19 +62,17 @@ class AboutController < ApplicationController
     ]
     @issues_triaging = [
       { name: "Prerna Sharma",
-        img: "https://avatars.githubusercontent.com/u/89515816?v=4", link: "https://github.com/Prerna-0202" },
+          img: "https://avatars.githubusercontent.com/u/89515816?v=4", link: "https://github.com/Prerna-0202" },
       { name: "Tanmoy Sarkar",
-        img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" },
+          img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" },
       { name: "Arnabdaz",
-        img: "https://avatars.githubusercontent.com/u/96580571?v=4", link: "https://github.com/Arnabdaz" },
-      { name: "Malavi Pande",
-        img: "https://avatars.githubusercontent.com/u/112646623?v=4", link: "https://github.com/Malavi1" },
-      { name: "Subham Kumar",
-        img: "https://avatars.githubusercontent.com/u/99977240?v=4", link: "https://github.com/subhamkumarr" },
-      { name: "Devjit Choudhury",
-        img: "https://avatars.githubusercontent.com/u/61665451?v=4", link: "https://github.com/devartstar" },
-      { name: "Vaibhav Upreti",
-        img: "https://avatars.githubusercontent.com/u/85568177?v=4", link: "https://github.com/VaibhavUpreti" }
-    ]
+          img: "https://avatars.githubusercontent.com/u/96580571?v=4", link: "https://github.com/Arnabdaz" },
+      { name: "Priyansh Agrawal",
+         img: "https://avatars.githubusercontent.com/u/127022024?v=4", link: "https://github.com/priyanshagra" },
+      { name: "Malavi Pande", img: "https://avatars.githubusercontent.com/u/112646623?v=4",
+        link: "https://github.com/Malavi1" },
+      { name: "Aman Singh",
+        img: "https://avatars.githubusercontent.com/u/77198905?v=4", link: "https://github.com/aman-singh7" }
+      ]
   end
 end
