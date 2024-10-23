@@ -60,5 +60,8 @@ class AboutController < ApplicationController
         link: "https://github.com/ShreyaPrasad1209" },
       { name: "Shubhankar Sharma", img: "https://avatars.githubusercontent.com/u/32474302?s=96&v=4", link: "https://github.com/shubhankarsharma00" }
     ]
+    @issues_triaging = [
+      
+    ]
   end
 end

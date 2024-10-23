@@ -82,6 +82,8 @@ export default class TriState extends CircuitElement {
             this.output1.value = undefined;
             simulationArea.simulationQueue.add(this.output1);
             this.setOutputsUpstream(false);
+        } else {
+            this.setOutputsUpstream(false);
         }
         simulationArea.contentionPending.removeAllContentionsForNode(this.output1);
     }

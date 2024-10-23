@@ -71,6 +71,28 @@
   </div>
   <br><br>
   <hr>
+
+  <div class="container">
+    <div class="row center-row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <h2 class="main-heading"><%= t("about.issues_triaging_team") %></h2>
+          <p class="main-description"><%= t("about.issues_triaging_team_description") %></p>
+        </div>
+    </div>
+    <div class="row center-row teams-section">
+        <% @issues_triaging.each do |member| %>
+        <div class="team-member-container team-link">
+          <div class="team-underline">
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img],alt: "User Image", class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
+          </div>
+        </div>
+        <% end %>
+        <br><br>
+    </div>
+  </div>
+  <br><br>
+  <hr>
+
   <div class="container">
     <div class="row center-row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
