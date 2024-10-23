@@ -58,7 +58,7 @@
             <p><%= t("users.circuitverse.edit_profile.delete_account_notice") %></p> <br>
           </div>
         </div>
-        <%= link_to t("users.circuitverse.edit_profile.delete_account"), "#", class: "btn primary-delete-button", data: { toggle: "modal", target: "#deleteuserModal", currentuser: @profile.id } %>
+        <%= link_to t("users.circuitverse.edit_profile.delete_account"), "#", class: "btn primary-delete-button", data: { bs_toggle: "modal", bs_target: "#deleteuserModal", currentuser: @profile.id } %>
       </div>
     </div>
   </div>

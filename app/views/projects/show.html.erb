@@ -137,7 +137,7 @@
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
+              <%= link_to "#", class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center", data: { bs_toggle: "modal", bs_target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
@@ -179,7 +179,7 @@
                   </div>
                   <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
-                      <%= link_to "#", data: { toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
+                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
                         <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
                         <span><%= t("remove") %></span>
                       <% end %>
