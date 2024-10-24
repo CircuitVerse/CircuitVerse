@@ -1,0 +1,6 @@
+# Ignore minified JS files
+public/js/plugins/*.min.js
+simulator/src/*.min.js
+
+# Ignore vendor directories
+simulator/vendor/
