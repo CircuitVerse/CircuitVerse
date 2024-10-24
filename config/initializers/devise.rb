@@ -27,7 +27,7 @@ Devise.setup do |config|
     :info_fields => 'email,name'
   }
   config.omniauth :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
-    :scope => 'read:user'
+    :scope => 'read:user,user:email'
   }
   config.omniauth :gitlab, ENV['GITLAB_CLIENT_ID'], ENV['GITLAB_CLIENT_SECRET'], {
     :scope => 'read_user'
