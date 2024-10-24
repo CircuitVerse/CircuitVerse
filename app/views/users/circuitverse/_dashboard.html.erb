@@ -25,7 +25,7 @@
               <span><%= t("fork") %></span>
             <% end %>
           <% end %>
-            <%= link_to t("view"), "#", class: "previewButton btn primary-button", data: { toggle: "modal", target: "#projectModal", currentproject: project } %>
+            <%= link_to t("view"), "#", class: "previewButton btn primary-button", data: { bs_toggle: "modal", bs_target: "#projectModal", currentproject: project } %>
             <a href="<%= user_project_path(project.author_id, project) %>" class="btn primary-button" target="_blank"><%= t("more") %></a>
         </div>
       </div>
