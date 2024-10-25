@@ -15,7 +15,7 @@ RSpec.describe SocialLinksComponent, type: :component do
     aggregate_failures do
       expect(rendered).to have_css(".footer-social-icons-container")
       expect(rendered).to have_link(nil, href: "https://www.facebook.com/CircuitVerse")
-      expect(rendered).to have_link(nil, href: "https://twitter.com/CircuitVerse") 
+      expect(rendered).to have_link(nil, href: "https://twitter.com/CircuitVerse")
       expect(rendered).to have_link(nil, href: "https://www.linkedin.com/company/circuitverse")
       expect(rendered).to have_link(nil, href: "https://www.youtube.com/c/CircuitVerse")
       expect(rendered).to have_link(nil, href: "https://github.com/CircuitVerse")
