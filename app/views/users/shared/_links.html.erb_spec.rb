@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "users/shared/_links.html.erb", type: :view do
@@ -6,7 +8,7 @@ RSpec.describe "users/shared/_links.html.erb", type: :view do
 
   before do
     # Set up default URL options if needed
-    default_url_options[:host] = 'test.host'
+    default_url_options[:host] = "test.host"
 
     # Stub the necessary route helpers
     allow(view).to receive(:user_google_oauth2_omniauth_authorize_path).and_return("/users/auth/google_oauth2")
