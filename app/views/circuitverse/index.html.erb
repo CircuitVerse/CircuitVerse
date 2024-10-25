@@ -169,20 +169,7 @@
         </div>
         <% cache :featured_circuits, expires_in: 6.hours do %>
           <div class="row center-row justify-content-center">
-            <% @featured_circuits.each do |circuit| %>
-              <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-                <div class="card circuit-card">
-                  <%= image_tag project_image_preview(circuit, current_user), alt: circuit.name, class: "card-img-top circuit-card-image", height: "180", width: "288" %>
-                  <div class="card-footer circuit-card-footer">
-                    <div class="circuit-card-name">
-                      <p><%= circuit.name %></p>
-                      <span class="tooltiptext"><%= circuit.name %></span>
-                    </div>
-                    <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>"><%= t("view") %></a>
-                  </div>
-                </div>
-              </div>
-            <% end %>
+            <%= render(CircuitCardComponent.with_collection(@featured_circuits)) %>
           </div>
         <% end %>
         <div class="row center-row">
@@ -201,20 +188,7 @@
           </div>
         </div>
         <div class="row center-row justify-content-center">
-          <% @projects.each do |project| %>
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-              <div class="card circuit-card">
-                <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image" %>
-                <div class="card-footer circuit-card-footer">
-                  <div class="circuit-card-name">
-                    <p><%= project.name %></p>
-                    <span class="tooltiptext"><%= project.name %></span>
-                  </div>
-                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>"><%= t("view") %></a>
-                </div>
-              </div>
-            </div>
-          <% end %>
+          <%= render(CircuitCardComponent.with_collection(@projects)) %>
         </div>
         <div class="container pagination-cont">
           <%= will_paginate @projects, renderer: PaginateRenderer, page_links: false %>
