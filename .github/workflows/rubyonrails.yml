@@ -3,6 +3,8 @@ on:
   [push, pull_request, workflow_dispatch]
 jobs:
   test:
+    permissions:
+      pull-requests: write
     runs-on: ubuntu-latest
     services:
       postgres:
