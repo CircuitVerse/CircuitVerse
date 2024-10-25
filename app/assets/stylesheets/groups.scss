@@ -19,8 +19,22 @@
 }
 
 .groups-primary-button {
-  padding: 12px 35px;
+  font-size: 14px;  // Make the text smaller for a compact look
+  padding: 10px 25px;  // Adjust padding to make the button smaller
+  border-radius: 5px;  // Rounded corners
+  float: right;  // Align the button to the right
+  margin-left: 10px;  // Add space between the button and text
+  transition: background-color 0.3s ease;  // Smooth transition on hover
 }
+
+.groups-section {
+  display: flex;
+  justify-content: space-between;  // Ensures the button is on the right side
+  align-items: center;
+  margin-bottom: 15px;  // Add space between sections
+}
+
+
 
 .groups-members-scroll-row {
   max-height: 525px;

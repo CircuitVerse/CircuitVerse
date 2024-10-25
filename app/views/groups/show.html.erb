@@ -29,38 +29,51 @@
       </h4>
     </div>
   </div>
-  <div class="row center-row groups-row">
+  <div class="groups-section">
   <h3><%= t("groups.show.mentor_name_heading") %></h3>
-    <% if policy(@group).admin_access? %>
-      <button type="button" class="btn primary-button groups-primary-button" data-bs-toggle="modal" data-bs-target="#add-mentor-to-modal" data-action="click->groups#addMentorToGroup"><%= t("groups.show.add_mentors_btn") %></button>
-    <% end %>
-  </div>
-  <hr>
-  <% if @group.group_members.mentor.blank? %>
-    <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+  <% if policy(@group).admin_access? %>
+    <button type="button" class="btn primary-button groups-primary-button" 
+            data-bs-toggle="modal" data-bs-target="#add-mentor-to-modal" 
+            data-action="click->groups#addMentorToGroup">
+      <%= t("groups.show.add_mentors_btn") %>
+    </button>
   <% end %>
-  <div class="row center-row groups-members-scroll-row">
-    <%= render partial: "group_mentors", locals: { group: @group } %>
-  </div>
-  <div class="row center-row groups-row">
+</div>
+<hr>
+<% if @group.group_members.mentor.blank? %>
+  <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+<% end %>
+<div class="groups-members-scroll-row">
+  <%= render partial: "group_mentors", locals: { group: @group } %>
+</div>
+
+<div class="groups-section">
   <h3><%= t("groups.show.group_members_heading") %></h3>
-    <% if policy(@group).admin_access? %>
-      <button type="button" class="btn primary-button groups-primary-button" data-bs-toggle="modal" data-bs-target="#addmemberModal" data-action="click->groups#addMemberToGroup"><%= t("groups.show.add_members_btn") %></button>
-    <% end %>
-  </div>
-  <hr>
-  <% if @group.group_members.member.blank? %>
-      <span class="null-text"><%= t("groups.show.no_members_html") %></span>
+  <% if policy(@group).admin_access? %>
+    <button type="button" class="btn primary-button groups-primary-button" 
+            data-bs-toggle="modal" data-bs-target="#addmemberModal" 
+            data-action="click->groups#addMemberToGroup">
+      <%= t("groups.show.add_members_btn") %>
+    </button>
   <% end %>
-  <div class="row center-row groups-members-scroll-row">
-    <%= render partial: "group_members", locals: { group: @group } %>
-  </div>
-  <div class="row center-row groups-row">
-    <h3><%= t("groups.show.assignment.heading") %></h3>
-    <% if policy(@group).mentor_access? %>
-      <%= link_to t("groups.show.assignment.add_assignment_btn"), new_group_assignment_path(@group), class: "btn primary-button groups-primary-button" %>
-    <% end %>
-  </div>
+</div>
+<hr>
+<% if @group.group_members.member.blank? %>
+  <span class="null-text"><%= t("groups.show.no_members_html") %></span>
+<% end %>
+<div class="groups-members-scroll-row">
+  <%= render partial: "group_members", locals: { group: @group } %>
+</div>
+
+<div class="groups-section">
+  <h3><%= t("groups.show.assignment.heading") %></h3>
+  <% if policy(@group).mentor_access? %>
+    <%= link_to t("groups.show.assignment.add_assignment_btn"), 
+                new_group_assignment_path(@group), 
+                class: "btn primary-button groups-primary-button" %>
+  <% end %>
+</div>
+
   <hr>
   <table class="table table-borderless groups-table">
     <% if @group.assignments.empty? %>

@@ -285,7 +285,23 @@
 
 .alert-success {
   margin-top: 10px;
-  padding-top: 1rem; // aligns the alert text
+  padding: 1rem; // Ensure padding is uniform
+
+  display: flex; // To make the content and close button inline
+  justify-content: space-between; // Align text and close button to opposite sides
+  align-items: center; // Vertically align both the text and button
+}
+
+.btn-close {
+  margin-right: 10px; 
+  background: none;
+  border: none;
+  color: black;
+  font-size: 1.5rem;
+  opacity: 1;
+  font-weight: bold;
+  padding: 0.5rem;
+  
 }
 
 //checkpoints

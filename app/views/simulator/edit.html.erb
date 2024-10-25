@@ -4,6 +4,8 @@
 <script src="/js/plugins/checkBo.min.js" defer></script>
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
 
+
+
 <script>
   userSignedIn = <%= user_signed_in? %>;
   __logix_project_id = "<%= @logix_project_id %>";
@@ -152,13 +154,12 @@
    <!--   <div>
         <button type="button" class="quick-btn-redo logixButton" title="Redo" onclick="">
         </button> -->
-        <div class="zoom-slider d-flex align-items-center">
-  <button class="btn btn-outline-secondary zoom-slider-decrement" id="decrement">-</button>
-  <input type="range" class="form-range mx-2" min="0" max="45" step="1" id="customRange1">
-  <span id="slider_value"></span>
-  <button class="btn btn-outline-secondary zoom-slider-increment" id="increment">+</button>
-</div>
-
+        <div class="zoom-slider d-flex align-items-center text-white fs-4 px-3">
+          <button class="btn btn-outline-secondary zoom-slider-decrement fs-5" id="decrement">-</button>
+          <input type="range" class="form-range mx-3 flex-grow-1" min="0" max="45" step="1" id="customRange1">
+          <span id="slider_value"></span>
+          <button class="btn btn-outline-secondary zoom-slider-increment fs-5" id="increment">+</button>
+        </div>
       </div>
   </div>
   <!-- /.navbar-collapse -->

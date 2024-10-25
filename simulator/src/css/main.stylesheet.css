@@ -1610,15 +1610,16 @@ input:checked + .slider:before {
 }
 
 .zoom-slider button {
+    color: white;
     font-size: 18px;
-    width: 40px;
+    width: 20px;
     height: 40px;
-    border-radius: 5px;
+    border-radius: 3px;
 }
 
 .zoom-slider input[type="range"] {
-    flex-grow: 1;
-    margin: 0 10px;
+    width: 80px;
+    flex-grow: 0;
 }
 
 
