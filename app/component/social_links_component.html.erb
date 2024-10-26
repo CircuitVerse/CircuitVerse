@@ -1,6 +1,15 @@
 <div class="footer-social-icons-container">
   <% social_links.each do |link| %>
-    <%= link_to link[:url], class: "bounce-out-on-hover", target: "_blank", data: { tooltip: link[:name] } do %>
+    <%= link_to link[:url],
+        class: "bounce-out-on-hover",
+        target: "_blank",
+        rel: "noopener noreferrer",
+        data: {
+          tooltip: link[:name],
+          bs_toggle: "tooltip",
+          bs_placement: "top"
+        },
+        aria: { label: "Visit our #{link[:name]} page" } do %>
       <%= image_tag(link[:logo], class: "footer-social-icon", alt: "#{link[:name].capitalize} Logo") %>
     <% end %>
   <% end %>
