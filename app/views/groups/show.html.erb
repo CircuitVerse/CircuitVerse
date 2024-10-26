@@ -68,8 +68,8 @@
 <div class="groups-section">
   <h3><%= t("groups.show.assignment.heading") %></h3>
   <% if policy(@group).mentor_access? %>
-    <%= link_to t("groups.show.assignment.add_assignment_btn"), 
-                new_group_assignment_path(@group), 
+    <%= link_to t("groups.show.assignment.add_assignment_btn"),
+                new_group_assignment_path(@group),
                 class: "btn primary-button groups-primary-button" %>
   <% end %>
 </div>
