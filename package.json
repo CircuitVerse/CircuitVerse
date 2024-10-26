@@ -60,7 +60,6 @@
     "opencollective-postinstall": "^2.0.3",
     "sass": "^1.80.3",
     "@popperjs/core": "^2.11.8",
-    "sass": "^1.79.3",
     "stimulus": "^3.2.2",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",
