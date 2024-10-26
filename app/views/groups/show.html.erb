@@ -32,8 +32,8 @@
   <div class="groups-section">
   <h3><%= t("groups.show.mentor_name_heading") %></h3>
   <% if policy(@group).admin_access? %>
-    <button type="button" class="btn primary-button groups-primary-button" 
-            data-bs-toggle="modal" data-bs-target="#add-mentor-to-modal" 
+    <button type="button" class="btn primary-button groups-primary-button"
+            data-bs-toggle="modal" data-bs-target="#add-mentor-to-modal"
             data-action="click->groups#addMentorToGroup">
       <%= t("groups.show.add_mentors_btn") %>
     </button>
@@ -51,7 +51,7 @@
   <h3><%= t("groups.show.group_members_heading") %></h3>
   <% if policy(@group).admin_access? %>
     <button type="button" class="btn primary-button groups-primary-button" 
-            data-bs-toggle="modal" data-bs-target="#addmemberModal" 
+            data-bs-toggle="modal" data-bs-target="#addmemberModal"
             data-action="click->groups#addMemberToGroup">
       <%= t("groups.show.add_members_btn") %>
     </button>
