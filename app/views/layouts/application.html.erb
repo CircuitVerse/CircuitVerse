@@ -32,13 +32,17 @@
     <%= render(FooterComponent.new(current_user: current_user)) %>
 
     <!-- Custom Script for Alert -->
-    <script type="text/javascript">
-      $(document).ready(function() {
-        if (document.querySelector(".alert")) {
-          setTimeout(() => {document.querySelector(".alert").style.display == "none";}, 3000);
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+          setTimeout(() => {
+            alert.style.display = 'none';
+          }, 3000);
         }
-      })
+      });
     </script>
+
 
     <!-- Load Popper.js (required for Bootstrap 5 dropdowns and tooltips) -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
