@@ -3,23 +3,26 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
     <%= display_meta_tags description: yield(:description).presence || Rails.configuration.site_description,
                           title: yield(:title).presence || "CircuitVerse - Digital Circuit Simulator" %>
     <meta name="keywords"
       content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
+    
     <%= favicon_link_tag "favicon.ico" %>
 
+    <!-- Stylesheets -->
     <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
     <%= csrf_meta_tags %>
 
+    <!-- JavaScript (deferred) -->
     <%= javascript_include_tag "application_sprockets", "data-turbolinks-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <!-- Google Analytics -->
     <%= render partial: "layouts/google_analytics" if Rails.env.production? %>
-    <%= stylesheet_link_tag "application" %>
   </head>
 
   <body>
@@ -27,13 +30,21 @@
     <%= yield %>
     <%= render(FooterComponent.new(current_user: current_user)) %>
 
-    <script type="text/javascript">
-      // In this script tag we are checking alert's and if there is alert this code will be execute
-      $(document).ready(function() {
-        if (document.querySelector(".alert")) {
-          setTimeout(() => {document.querySelector(".alert").style.display == "none";}, 3000);
+    <!-- Custom Script for Alert -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+          setTimeout(() => {
+            alert.style.display = 'none';
+          }, 3000);
         }
-      })
+      });
     </script>
+    <!-- Load Popper.js (required for Bootstrap 5 dropdowns and tooltips) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
+
+    <!-- Load Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>
   </body>
 </html>

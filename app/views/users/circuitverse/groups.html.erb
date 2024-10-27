@@ -8,7 +8,7 @@
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
       <h6><%= notice %></h6>
     </div>
   </div>
@@ -39,7 +39,7 @@
                 <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "mini-button groups-mentor-card-delete-mini-button", data: { toggle: "modal", target: "#deletegroupModal", currentgroup: group.id } do %>
+              <%= link_to "#", class: "mini-button groups-mentor-card-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deletegroupModal", currentgroup: group.id } do %>
                 <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Group") %>
                 <span><%= t("delete") %></span>
               <% end %>
