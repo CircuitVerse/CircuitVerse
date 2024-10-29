@@ -15,7 +15,7 @@
     "build": "node esbuild.config.js"
   },
   "devDependencies": {
-    "@babel/preset-env": "^7.25.8",
+    "@babel/preset-env": "^7.26.0",
     "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
     "canvas": "^2.11.2",
@@ -34,13 +34,13 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.4.2",
-    "vite": "^5.4.9",
+    "vite": "^5.4.10",
     "vite-plugin-ruby": "^5.1.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
     "@hotwired/stimulus": "^3.2.2",
-    "@tarekraafat/autocomplete.js": "^10.2.8",
+    "@tarekraafat/autocomplete.js": "^10.2.9",
     "banana-i18n": "^2.3.3",
     "better-docs": "^2.7.3",
     "bootstrap": "^4.6.1",
@@ -59,7 +59,7 @@
     "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.3",
     "popper.js": "^1.16.1",
-    "sass": "^1.80.3",
+    "sass": "^1.80.5",
     "stimulus": "^3.2.2",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",
