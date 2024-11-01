@@ -3,7 +3,7 @@
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
         <h4 class="modal-title"><%= t("add_members") %></h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
       </div>
       <div class="modal-body">
         <p><%= t("groups.add_member_description") %></p>
@@ -23,7 +23,7 @@
           <div class="field">
             <%= form.hidden_field :mentor, value: false %>
           </div>
-          <div class="form-group d-flex flex-column">
+          <div class="mb-3 d-flex flex-column">
             <%= form.label :emails %>
             <%= form.select :emails, [], {}, { class: "form-select", multiple: true } %>
           </div>
@@ -34,7 +34,7 @@
       </div>
       <div class="mx-auto text-center p-3">
         <p><%= t("groups.use_alternative") %></p>
-        <%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-toggle": "collapse", href: "#group-invite-link-container", "aria-expanded": "false", "aria-controls": "group-invite-link-container" } do %>
+        <%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-bs-toggle": "collapse", href: "#group-invite-link-container", "aria-expanded": "false", "aria-controls": "group-invite-link-container" } do %>
           <i class="fas fa-external-link-alt"></i>
           <span><%= t("groups.invite_link_btn") %></span>
         <% end %>

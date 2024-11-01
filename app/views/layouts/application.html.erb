@@ -27,13 +27,16 @@
     <%= yield %>
     <%= render(FooterComponent.new(current_user: current_user)) %>
 
-    <script type="text/javascript">
-      // In this script tag we are checking alert's and if there is alert this code will be execute
-      $(document).ready(function() {
-        if (document.querySelector(".alert")) {
-          setTimeout(() => {document.querySelector(".alert").style.display == "none";}, 3000);
+    <!-- Custom Script for Alert -->
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const alert = document.querySelector('.alert');
+        if (alert) {
+          setTimeout(() => {
+            alert.style.display = 'none';
+          }, 3000);
         }
-      })
+      });
     </script>
   </body>
 </html>
