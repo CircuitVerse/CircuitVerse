@@ -15,4 +15,6 @@ Sentry.init do |config|
   # of sampled transactions.
   # We recommend adjusting this value in production.
   config.profiles_sample_rate = 1.0
+
+  config.excluded_exceptions += ['ActionController::RoutingError', 'ActiveRecord::RecordNotFound']
 end
