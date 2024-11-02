@@ -30,12 +30,15 @@
     <!-- Custom Script for Alert -->
     <script>
       document.addEventListener('DOMContentLoaded', () => {
-        const alert = document.querySelector('.alert');
-        if (alert) {
-          setTimeout(() => {
-            alert.style.display = 'none';
-          }, 3000);
-        }
+        document.querySelectorAll('.alert').forEach(alert => {
+          const bsAlert = new bootstrap.Alert(alert);
+          if (!alert.classList.contains('alert-permanent')) {
+            setTimeout(() => {
+              alert.classList.add('fade');
+              bsAlert.close();
+            }, 3000);
+          }
+        });
       });
     </script>
   </body>

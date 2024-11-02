@@ -33,8 +33,10 @@
   <div class="field mb-3">
     <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>
     <% if @project.featured? %>
-      <%= @warning %>
-        <span class="projects-type-field-warning"><i class="fa fa-exclamation-triangle"></i> <%= t("projects.form.project_is_featured_message") %></span>
+      <div class="alert alert-warning d-flex align-items-center" role="alert">
++        <i class="fa fa-exclamation-triangle me-2"></i>
++        <div><%= t("projects.form.project_is_featured_message") %></div>
++      </div>
       <% end %>
     <%= form.select :project_access_type, [[t("projects.form.public"), "Public"], [t("projects.form.private"), "Private"], [t("projects.form.limited_access"), "Limited access"]], {}, class: "form-control form-input" %>
   </div>

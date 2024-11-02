@@ -33,7 +33,12 @@
           <div class="field mb-3">
             <h6><%= f.label :password_confirmation %></h6>
             <div class="input-group">
-              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-input" %>
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-input #{'is-invalid' if resource.errors[:password_confirmation].any?}" %>
+              <% if resource.errors[:password_confirmation].any? %>
+                <div class="invalid-feedback">
+                  <%= resource.errors[:password_confirmation].first %>
+                </div>
+              <% end %>
             </div>
           </div>
           <div class="field mb-3">

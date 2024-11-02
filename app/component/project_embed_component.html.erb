@@ -26,19 +26,20 @@
         </div>
         <div class="field mb-3 embed-input-fields">
             <div><label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label></div>
-            <select class="form-select form-input" id="border_style" placeholder="Select a style">
-                <option>solid</option>
-                <option>dashed</option>
-                <option>dotted</option>
-                <option>double</option>
-                <option>groove</option>
-                <option>ridge</option>
-                <option>inset</option>
-                <option>outset</option>
-                <option>none</option>
-                <option>hidden</option>
-                <option>dotted dashed solid double</option>
-            </select>
+              <select class="form-select form-input" id="border_style">
+                  <option value="" disabled selected>Select a style</option> <!-- Placeholder option -->
+                  <option>solid</option>
+                  <option>dashed</option>
+                  <option>dotted</option>
+                  <option>double</option>
+                  <option>groove</option>
+                  <option>ridge</option>
+                  <option>inset</option>
+                  <option>outset</option>
+                  <option>none</option>
+                  <option>hidden</option>
+                  <option>dotted dashed solid double</option>
+              </select>
         </div>
         <div class="advance-embed-field field mb-3">
           <details>
@@ -74,7 +75,8 @@
               </div>
               <div class="field mb-3 embed-input-fields">
                 <div><label for="theme" class="col-sm-3 col-form-label"><b><%= t("projects.modal.advance.theme") %></b></label></div>
-                <select class="form-select form-input" id="theme" placeholder="Select a style">
+                <select class="form-select form-input" id="theme">
+                    <option value="" disabled selected>Select a style</option> <!-- Placeholder option -->
                     <option value="default">Default</option>
                     <option value="night-sky">Night Sky</option>
                     <option value="lite-born-spring">Lite-born Spring</option>
