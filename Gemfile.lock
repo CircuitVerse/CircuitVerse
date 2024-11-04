@@ -991,7 +991,7 @@ DEPENDENCIES
   recaptcha
   redcarpet (~> 3.3, >= 3.3.4)
   redis (~> 4.6)
-  rexml
+  rexml (>= 3.3.9)
   rspec-rails (~> 6.0)
   rspec_junit_formatter
   rubocop

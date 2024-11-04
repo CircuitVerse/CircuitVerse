@@ -2,7 +2,7 @@
 <% if policy(@project).can_feature? %>
   <%= form_with(model: FeaturedCircuit.new, url: "/featured_circuits", multipart: true, id: "featuredCircuit") do |form| %>
     <%= form.hidden_field :project_id, value: @project.id %>
-    <div class="form-group projects-primary-checkpoint">
+    <div class="mb-3 projects-primary-checkpoint">
       <label for="featured_checkbox" class="primary-checkpoint-container"><h6><%= t("projects.form.feature_circuit_checkpoint") %></h6>
         <%= form.check_box :featured, checked: @project.featured?, id: "featured_checkbox" %>
         <div class="primary-checkpoint"></div>
@@ -21,28 +21,30 @@
       </ul>
     </div>
   <% end %>
-  <div class="field form-group d-flex flex-column">
+  <div class="field mb-3 d-flex flex-column">
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :project_name, class: "form-control form-input", maxlength: 90 %>
     <span id="name-counter" class="char-counter"></span>
   </div>
-  <div class="field form-group projects-tag-form-group">
+  <div class="field form-group projects-tag-mb-3">
     <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
     <%= form.text_field :tag_list, class: "form-control form-input" %>
   </div>
-  <div class="field form-group">
+  <div class="field mb-3">
     <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>
     <% if @project.featured? %>
-      <%= @warning %>
-        <span class="projects-type-field-warning"><i class="fa fa-exclamation-triangle"></i> <%= t("projects.form.project_is_featured_message") %></span>
+      <div class="alert alert-warning d-flex align-items-center" role="alert">
++        <i class="fa fa-exclamation-triangle me-2"></i>
++        <div><%= t("projects.form.project_is_featured_message") %></div>
++      </div>
       <% end %>
     <%= form.select :project_access_type, [[t("projects.form.public"), "Public"], [t("projects.form.private"), "Private"], [t("projects.form.limited_access"), "Limited access"]], {}, class: "form-control form-input" %>
   </div>
-  <div class="field form-group" id="description">
+  <div class="field mb-3" id="description">
     <h6><%= form.label :description %></h6>
     <%= render partial: "editor/index", locals: { content: @project.description } %>
   </div>
-  <div class="field form-group" onclick="beforeSubmit()">
+  <div class="field mb-3" onclick="beforeSubmit()">
     <%= form.submit class: "btn primary-button" %> &nbsp;
     <%= link_to t("back"), :back, class: "anchor-text" %>
   </div>

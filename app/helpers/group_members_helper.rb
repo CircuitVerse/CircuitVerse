@@ -3,9 +3,9 @@
 module GroupMembersHelper
   def membersCardViewerContainer(group)
     if policy(group).admin_access?
-      "col-xs-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container"
+      "col-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container"
     else
-      "col-xs-12 col-sm-12 col-md-6 col-lg-3 groups-members-card-container"
+      "col-12 col-sm-12 col-md-6 col-lg-3 groups-members-card-container"
     end
   end
 

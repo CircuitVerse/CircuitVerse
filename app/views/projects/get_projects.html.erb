@@ -11,7 +11,7 @@
 <div class="container search-tag-search-container">
   <% @projects.each do |project| %>
     <div class="row center-row">
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+      <div class="col-12 col-sm-12 col-md-5 col-lg-5">
         <div class="row center-row">
           <%= image_tag project_image_preview(project, current_user), alt: "project.name", class: "search-image" %>
         </div>
@@ -32,9 +32,9 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+      <div class="col-12 col-sm-12 col-md-7 col-lg-7">
         <div class="row center-row">
-          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 search-project-detail-container">
+          <div class="col-8 col-sm-8 col-md-8 col-lg-8 search-project-detail-container">
             <div class="row center-row">
               <h3 class="search-project-name"><%= project.name %></h3>
               <span class="tooltiptext"><%= project.name %></span>
@@ -49,7 +49,7 @@
               </div>
             </div>
           </div>
-          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 search-project-detail-container">
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 search-project-detail-container">
             <a class="btn primary-button search-primary-button" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button"><%= t("view") %></a>
           </div>
         </div>
