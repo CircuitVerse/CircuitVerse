@@ -645,8 +645,7 @@ GEM
       railties (>= 5.2)
     reverse_markdown (2.1.1)
       nokogiri
-    rexml (3.3.6)
-      strscan
+    rexml (3.3.9)
     rouge (4.2.0)
     rsolr (2.2.1)
       builder (>= 2.1.2)
@@ -992,7 +991,7 @@ DEPENDENCIES
   recaptcha
   redcarpet (~> 3.3, >= 3.3.4)
   redis (~> 4.6)
-  rexml
+  rexml (>= 3.3.9)
   rspec-rails (~> 6.0)
   rspec_junit_formatter
   rubocop
