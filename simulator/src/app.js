@@ -1,5 +1,13 @@
+import * as Sentry from "@sentry/browser";
 import { setup } from './setup';
 import Array from './arrayHelpers';
+
+// Initialize Sentry for error tracking
+Sentry.init({
+  dsn: "YOUR_SENTRY_DSN", 
+  integrations: [new Sentry.Integrations.Breadcrumbs({ console: false })],
+  tracesSampleRate: 1.0, 
+});
 
 document.addEventListener('DOMContentLoaded', () => {
     setup();
