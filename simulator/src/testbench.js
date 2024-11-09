@@ -545,16 +545,23 @@ function runSingleTest(testbenchData, scope) {
     try {
         const data = testbenchData.testData;
         let result;
+        
+        // Determine test type and run appropriate test
         if (data.type === 'comb') {
             result = runSingleCombinational(testbenchData, scope);
         } else if (data.type === 'seq') {
             result = runSingleSequential(testbenchData, scope);
         }
+        
         return result;
     } catch (error) {
+        // Log the error to Sentry and console for tracking
+        Sentry.captureException(error);
         console.error("Error in runSingleTest:", error);
+        return null; // Return null or an appropriate default value in case of error
     }
 }
+
 
 
 /**
@@ -573,24 +580,29 @@ function runSingleCombinational(testbenchData, scope) {
         const { inputs, outputs } = bindIO(data, scope);
         const group = data.groups[groupIndex];
 
-        // Stop the clocks
+        // Stop the clocks to ensure stable input-output evaluation
         changeClockEnable(false);
 
-        // Set input values according to the test
+        // Set input values according to the test case
         setInputValues(inputs, group, caseIndex, scope);
         
-        // Check output values
+        // Check and capture output values for comparison
         const result = getOutputValues(data, outputs);
 
-        // Restart the clocks
+        // Restart the clocks after evaluation
         changeClockEnable(true);
         return result;
     } catch (error) {
+        // Log the error to Sentry and console for tracking
+        Sentry.captureException(error);
         console.error("Error in runSingleCombinational:", error);
-        changeClockEnable(true); // Ensure clocks are restarted even if there's an error
-        return null;
+        
+        // Ensure clocks are restarted even if there's an error
+        changeClockEnable(true);
+        return null; // Return null or an appropriate default value in case of error
     }
 }
+
 
 /**
  * Runs single sequential test and all tests above it in the group
@@ -998,8 +1010,18 @@ function tickClock(scope) {
         play(scope);
     } catch (error) {
         console.error("Error in tickClock:", error);
+
+        // Attempt to recover the clock state
+        try {
+            scope.clockTick();
+            play(scope);
+        } catch (recoveryError) {
+            console.error("Failed to recover clock state:", recoveryError);
+            showMessage("Critical error: Circuit clock may be in an undefined state. Please reset the simulation.");
+        }
     }
 }
+
 
 /**
  * Triggers reset (Only used in testbench context)

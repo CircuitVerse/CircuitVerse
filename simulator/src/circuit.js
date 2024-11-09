@@ -99,40 +99,73 @@ export function switchCircuit(id) {
  */
 function deleteCurrentCircuit(scopeId = globalScope.id) {
     try {
+        // Retrieve the circuit scope; log error if not found
         const scope = scopeList[scopeId];
+        if (!scope) {
+            showError(`Circuit with id ${scopeId} does not exist.`);
+            return;
+        }
+
+        // Ensure that at least two circuits exist before deleting one
         if (Object.keys(scopeList).length <= 1) {
             showError('At least 2 circuits need to be there in order to delete a circuit.');
             return;
         }
+
+        // Check for dependent circuits
         let dependencies = '';
-        for (id in scopeList) {
-            if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
-                dependencies += dependencies === '' ? scopeList[id].name : `, ${scopeList[id].name}`;
+        for (let id in scopeList) {
+            if (id !== scope.id && scopeList[id].checkDependency(scope.id)) {
+                dependencies += dependencies ? `, ${scopeList[id].name}` : scopeList[id].name;
             }
         }
+
         if (dependencies) {
-            dependencies = `\nThe following circuits are depending on '${scope.name}': ${dependencies}\nDelete subcircuits of ${scope.name} before trying to delete ${scope.name}`;
-            alert(dependencies);
+            alert(
+                `The following circuits depend on '${scope.name}': ${dependencies}\n` +
+                `Delete subcircuits of ${scope.name} before trying to delete it.`
+            );
             return;
         }
 
-        const confirmation = confirm(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
+        // Confirm deletion with the user
+        const confirmation = confirm(`Are you sure you want to close: ${scope.name}\nThis cannot be undone.`);
         if (confirmation) {
-            if (scope.verilogMetadata.isVerilogCircuit) {
-                scope.initialize();
-                for (var id in scope.verilogMetadata.subCircuitScopeIds)
-                    delete scopeList[id];
+            // Handle Verilog-specific cleanup in a nested try-catch
+            try {
+                if (scope.verilogMetadata.isVerilogCircuit) {
+                    scope.initialize();
+                    for (let id in scope.verilogMetadata.subCircuitScopeIds) {
+                        delete scopeList[id];
+                    }
+                }
+            } catch (verilogError) {
+                Sentry.captureException(verilogError);
+                console.error("Error during Verilog cleanup:", verilogError);
             }
-            $(`#${scope.id}`).remove();
-            delete scopeList[scope.id];
-            switchCircuit(Object.keys(scopeList)[0]);
-            showMessage('Circuit was successfully closed');
-        } else { showMessage('Circuit was not closed'); }
+
+            // Remove the circuit from DOM and scope list
+            try {
+                $(`#${scope.id}`).remove();
+                delete scopeList[scope.id];
+                
+                // Switch to the first available circuit after deletion
+                switchCircuit(Object.keys(scopeList)[0]);
+                showMessage('Circuit was successfully closed');
+            } catch (domError) {
+                Sentry.captureException(domError);
+                console.error("Error during DOM manipulation or scope list update:", domError);
+            }
+        } else {
+            showMessage('Circuit was not closed');
+        }
     } catch (error) {
+        // Capture any unexpected errors in the overall function
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error("Unexpected error in deleteCurrentCircuit:", error);
     }
 }
+
 
 /**
  * Wrapper function around newCircuit to be called from + button on UI

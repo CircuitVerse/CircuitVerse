@@ -3,12 +3,7 @@ import { setup } from './setup';
 import Array from './arrayHelpers';
 
 // Initialize Sentry for error tracking
-Sentry.init({
-    dsn: "https://a9660d5d8964d5b348b07b77691d61a7@o4507251968376832.ingest.de.sentry.io/4507251969949776",
-    maxBreadcrumbs: 50,
-    debug: true,
-  });
-  
+Sentry.init({dsn: "https://a9660d5d8964d5b348b07b77691d61a7@o4507251968376832.ingest.de.sentry.io/4507251969949776",maxBreadcrumbs: 50,debug: true});
 
 document.addEventListener('DOMContentLoaded', () => {
     setup();

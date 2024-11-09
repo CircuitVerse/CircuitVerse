@@ -47,36 +47,37 @@ export function findDimensions(scope = globalScope) {
 
 export function changeScale(delta, xx, yy, method = 1) {
     try {
+        // Use local variables to avoid reassigning function parameters
+        let localX = xx;
+        let localY = yy;
+
         if (method === 3) {
-            xx = (width / 2 - globalScope.ox) / globalScope.scale;
-            yy = (height / 2 - globalScope.oy) / globalScope.scale;
-        } else if (xx === undefined || yy === undefined || xx === 'zoomButton' || yy === 'zoomButton') {
-            if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== 'Wire') { // selected object
-                xx = simulationArea.lastSelected.x;
-                yy = simulationArea.lastSelected.y;
-            } else {
-                if (method === 1) {
-                    xx = simulationArea.mouseX;
-                    yy = simulationArea.mouseY;
-                } else if (method === 2) {
-                    xx = (width / 2 - globalScope.ox) / globalScope.scale;
-                    yy = (height / 2 - globalScope.oy) / globalScope.scale;
-                }
+            localX = (width / 2 - globalScope.ox) / globalScope.scale;
+            localY = (height / 2 - globalScope.oy) / globalScope.scale;
+        } else if (localX === undefined || localY === undefined || localX === 'zoomButton' || localY === 'zoomButton') {
+            if (simulationArea.lastSelected && simulationArea.lastSelected.objectType !== 'Wire') {
+                localX = simulationArea.lastSelected.x;
+                localY = simulationArea.lastSelected.y;
+            } else if (method === 1) {
+                localX = simulationArea.mouseX;
+                localY = simulationArea.mouseY;
+            } else if (method === 2) {
+                localX = (width / 2 - globalScope.ox) / globalScope.scale;
+                localY = (height / 2 - globalScope.oy) / globalScope.scale;
             }
         }
 
-        var oldScale = globalScope.scale;
+        const oldScale = globalScope.scale;
         globalScope.scale = Math.max(0.5, Math.min(4 * DPR, globalScope.scale + delta));
         globalScope.scale = Math.round(globalScope.scale * 10) / 10;
-        globalScope.ox -= Math.round(xx * (globalScope.scale - oldScale));
-        globalScope.oy -= Math.round(yy * (globalScope.scale - oldScale));
+        globalScope.ox -= Math.round(localX * (globalScope.scale - oldScale));
+        globalScope.oy -= Math.round(localY * (globalScope.scale - oldScale));
 
         if (!embed && !lightMode) {
             findDimensions(globalScope);
             miniMapArea.setup();
             $('#miniMap').show();
             updatelastMinimapShown();
-            $('#miniMap').show();
             setTimeout(removeMiniMap, 2000);
         }
     } catch (error) {
@@ -84,6 +85,7 @@ export function changeScale(delta, xx, yy, method = 1) {
         console.error("Error captured in Sentry:", error);
     }
 }
+
 // fn to draw Dots on screen
 // the function is called only when the zoom level or size of screen changes.
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement

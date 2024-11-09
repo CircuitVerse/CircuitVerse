@@ -73,7 +73,7 @@ const simulationArea = {
     lock: 'unlocked',
     timer() {
         try {
-            ckickTimer = setTimeout(() => {
+            clickTimer = setTimeout(() => {
                 simulationArea.clickCount = 0;
             }, 600);
         } catch (error) {
@@ -94,7 +94,9 @@ const simulationArea = {
         } catch (error) {
             Sentry.captureException(error);
             console.error("Error captured in Sentry:", error);
+            return false; // Early return if setup fails
         }
+        return true; // Successful setup
     },
     changeClockTime(t) {
         try {
