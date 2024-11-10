@@ -1,5 +1,6 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
+import * as Sentry from '@sentry/browser';
 import EventQueue from './eventQueue';
 import { clockTick } from './utils';
 
@@ -24,7 +25,7 @@ import { clockTick } from './utils';
  * @property {Array} multipleObjectSelections
  * @property {Array} copyList - List of selected elements
  * @property {boolean} shiftDown - shift down or not
- * @property {boolean} controlDown - contol down or not
+ * @property {boolean} controlDown - control down or not
  * @property {number} timePeriod - time period
  * @property {number} mouseX - mouse x
  * @property {number} mouseY - mouse y
@@ -34,7 +35,7 @@ import { clockTick } from './utils';
  * @property {number} clickCount - number of clicks
  * @property {string} lock - locked or unlocked
  * @property {function} timer - timer
- * @property {function} setup - to setup the simulaton area
+ * @property {function} setup - to setup the simulation area
  * @property {function} changeClockTime - change clock time
  * @property {function} clear - clear the simulation area
  * @category simulationArea
@@ -71,38 +72,66 @@ const simulationArea = {
     clickCount: 0, // Double click
     lock: 'unlocked',
     timer() {
-        ckickTimer = setTimeout(() => {
-            simulationArea.clickCount = 0;
-        }, 600);
+        try {
+            let clickTimer;
+            clickTimer = setTimeout(() => {
+                simulationArea.clickCount = 0;
+            }, 600);
+        } catch (error) {
+            Sentry.captureException(error);
+            console.error('Error captured in Sentry:', error);
+        }
     },
 
     setup() {
-        this.canvas = document.getElementById('simulationArea');
-        this.canvas.width = width;
-        this.canvas.height = height;
-        this.simulationQueue = new EventQueue(10000);
-        this.context = this.canvas.getContext('2d');
-        simulationArea.changeClockTime(simulationArea.timePeriod);
-        this.mouseDown = false;
-    },
-    changeClockTime(t) {
-        if (t < 50) {
-            return;
+        try {
+            this.canvas = document.getElementById('simulationArea');
+            this.canvas.width = width;
+            this.canvas.height = height;
+            this.simulationQueue = new EventQueue(10000);
+            this.context = this.canvas.getContext('2d');
+            simulationArea.changeClockTime(simulationArea.timePeriod);
+            this.mouseDown = false;
+        } catch (error) {
+            Sentry.captureException(error);
+            console.error('Error captured in Sentry:', error);
+            return false; // Early return if setup fails
         }
-
-        clearInterval(simulationArea.ClockInterval);
-        // eslint-disable-next-line no-param-reassign
-        t = t || prompt('Enter Time Period:');
-        simulationArea.timePeriod = t;
-        simulationArea.ClockInterval = setInterval(clockTick, t);
+        return true; // Successful setup
+    },
+    changeClockTime(newPeriod) {
+        try {
+            if (newPeriod < 50) {
+                return;
+            }
+    
+            // Prompt for time period if not provided
+            newPeriod = newPeriod || prompt('Enter Time Period:');
+    
+            // Clear the previous ClockInterval if it exists
+            clearInterval(simulationArea.ClockInterval);
+    
+            // Set the new time period and start the clock interval
+            simulationArea.timePeriod = newPeriod;
+            simulationArea.ClockInterval = setInterval(clockTick, newPeriod);
+        } catch (error) {
+            Sentry.captureException(error);
+            console.error("Error captured in Sentry:", error);
+        }
     },
     clear() {
-        if (!this.context) {
-            return;
-        }
+        try {
+            if (!this.context) {
+                return;
+            }
 
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        } catch (error) {
+            Sentry.captureException(error);
+            console.error('Error captured in Sentry:', error);
+        }
     },
 };
+
 export const { changeClockTime } = simulationArea;
 export default simulationArea;

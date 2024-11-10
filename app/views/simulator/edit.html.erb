@@ -1,5 +1,8 @@
 <% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
 
+<%# This needs to be replaced with the one from official account one. %>
+<script src="https://js.sentry-cdn.com/f8e920e25d22ae3b791f016f0cb5a2e5.min.js" crossorigin="anonymous"></script>
+
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" defer></script>
 <script src="/js/plugins/checkBo.min.js" defer></script>
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
@@ -152,12 +155,11 @@
    <!--   <div>
         <button type="button" class="quick-btn-redo logixButton" title="Redo" onclick="">
         </button> -->
-        <div class="zoom-slider">
-          <button class="zoom-slider-decrement" id="decrement">-</button>
-          <input type="range" class="form-range" min="0" max="45" step="1" id="customRange1">
-          <span id='slider_value'></span>
-          <button class="zoom-slider-increment" id="increment">+</button>
-        </div>
+        <div class="zoom-slider d-flex align-items-center">
+  <button class="zoom-slider-decrement btn btn-outline-secondary" id="decrement" aria-label="Zoom Out">-</button>
+  <input type="range" class="form-range mx-2" min="0" max="45" step="1" id="customRange1" aria-label="Zoom Level">
+  <button class="zoom-slider-increment btn btn-outline-secondary" id="increment" aria-label="Zoom In">+</button>
+</div>
       </div>
   </div>
   <!-- /.navbar-collapse -->
