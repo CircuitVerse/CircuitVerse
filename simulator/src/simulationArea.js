@@ -1,8 +1,8 @@
 /* eslint-disable no-alert */
 /* eslint-disable no-undef */
+import * as Sentry from '@sentry/browser';
 import EventQueue from './eventQueue';
 import { clockTick } from './utils';
-import * as Sentry from "@sentry/browser";
 
 /**
  * Simulation environment object - holds simulation canvas
@@ -73,12 +73,13 @@ const simulationArea = {
     lock: 'unlocked',
     timer() {
         try {
+            let clickTimer;
             clickTimer = setTimeout(() => {
                 simulationArea.clickCount = 0;
             }, 600);
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     },
 
@@ -93,22 +94,26 @@ const simulationArea = {
             this.mouseDown = false;
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
             return false; // Early return if setup fails
         }
         return true; // Successful setup
     },
-    changeClockTime(t) {
+    changeClockTime(newPeriod) {
         try {
-            if (t < 50) {
+            if (newPeriod < 50) {
                 return;
             }
-
+    
+            // Prompt for time period if not provided
+            newPeriod = newPeriod || prompt('Enter Time Period:');
+    
+            // Clear the previous ClockInterval if it exists
             clearInterval(simulationArea.ClockInterval);
-            // eslint-disable-next-line no-param-reassign
-            t = t || prompt('Enter Time Period:');
-            simulationArea.timePeriod = t;
-            simulationArea.ClockInterval = setInterval(clockTick, t);
+    
+            // Set the new time period and start the clock interval
+            simulationArea.timePeriod = newPeriod;
+            simulationArea.ClockInterval = setInterval(clockTick, newPeriod);
         } catch (error) {
             Sentry.captureException(error);
             console.error("Error captured in Sentry:", error);
@@ -123,7 +128,7 @@ const simulationArea = {
             this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     },
 };

@@ -1,4 +1,4 @@
-import * as Sentry from "@sentry/browser";
+import * as Sentry from '@sentry/browser';
 import backgroundArea from './backgroundArea';
 import simulationArea from './simulationArea';
 import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
@@ -41,7 +41,7 @@ export function findDimensions(scope = globalScope) {
         simulationArea.objectList = updateOrder;
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -82,7 +82,7 @@ export function changeScale(delta, xx, yy, method = 1) {
         }
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -111,11 +111,11 @@ export function dots(dots = true, transparentBackground = false, force = false) 
         var ctx = backgroundArea.context;
         ctx.beginPath();
         backgroundArea.clear();
-        ctx.strokeStyle = colors["canvas_stroke"];
+        ctx.strokeStyle = colors.canvas_stroke;
         ctx.lineWidth = 1;
-        
+
         if (!transparentBackground) {
-            ctx.fillStyle = colors["canvas_fill"];
+            ctx.fillStyle = colors.canvas_fill;
             ctx.rect(0, 0, canvasWidth, canvasHeight);
             ctx.fill();
         }
@@ -134,7 +134,7 @@ export function dots(dots = true, transparentBackground = false, force = false) 
         }
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -145,26 +145,38 @@ export function dots(dots = true, transparentBackground = false, force = false) 
 
 export function bezierCurveTo(x1, y1, x2, y2, x3, y3, xx, yy, dir) {
     try {
-        [x1, y1] = rotate(x1, y1, dir);
-        [x2, y2] = rotate(x2, y2, dir);
-        [x3, y3] = rotate(x3, y3, dir);
-        var { ox } = globalScope;
-        var { oy } = globalScope;
-        x1 *= globalScope.scale;
-        y1 *= globalScope.scale;
-        x2 *= globalScope.scale;
-        y2 *= globalScope.scale;
-        x3 *= globalScope.scale;
-        y3 *= globalScope.scale;
-        xx *= globalScope.scale;
-        yy *= globalScope.scale;
-        var ctx = simulationArea.context;
-        ctx.bezierCurveTo(Math.round(xx + ox + x1), Math.round(yy + oy + y1), Math.round(xx + ox + x2), Math.round(yy + oy + y2), Math.round(xx + ox + x3), Math.round(yy + oy + y3));
+        // Use local variables instead of modifying function parameters
+        let [localX1, localY1] = rotate(x1, y1, dir);
+        let [localX2, localY2] = rotate(x2, y2, dir);
+        let [localX3, localY3] = rotate(x3, y3, dir);
+        let localXX = xx * globalScope.scale;
+        let localYY = yy * globalScope.scale;
+
+        // Scale the rotated values
+        localX1 *= globalScope.scale;
+        localY1 *= globalScope.scale;
+        localX2 *= globalScope.scale;
+        localY2 *= globalScope.scale;
+        localX3 *= globalScope.scale;
+        localY3 *= globalScope.scale;
+
+        const { ox, oy } = globalScope;
+        const ctx = simulationArea.context;
+
+        ctx.bezierCurveTo(
+            Math.round(localXX + ox + localX1),
+            Math.round(localYY + oy + localY1),
+            Math.round(localXX + ox + localX2),
+            Math.round(localYY + oy + localY2),
+            Math.round(localXX + ox + localX3),
+            Math.round(localYY + oy + localY3)
+        );
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
+
 
 export function moveTo(ctx, x1, y1, xx, yy, dir, bypass = false) {
     try {
@@ -181,12 +193,12 @@ export function moveTo(ctx, x1, y1, xx, yy, dir, bypass = false) {
         } else {
             ctx.moveTo(
                 Math.round(xx + globalScope.ox + newX - correction) + correction,
-                Math.round(yy + globalScope.oy + newY - correction) + correction
+                Math.round(yy + globalScope.oy + newY - correction) + correction,
             );
         }
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -202,11 +214,11 @@ export function lineTo(ctx, x1, y1, xx, yy, dir) {
         yy *= globalScope.scale;
         ctx.lineTo(
             Math.round(xx + globalScope.ox + newX - correction) + correction,
-            Math.round(yy + globalScope.oy + newY - correction) + correction
+            Math.round(yy + globalScope.oy + newY - correction) + correction,
         );
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -227,17 +239,18 @@ export function arc(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
             Math.round(radius),
             newStart,
             newStop,
-            counterClock
+            counterClock,
         );
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
 export function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
     try {
-        let Sx, Sy, newStart, newStop, counterClock;
+        let Sx; let Sy; let newStart; let newStop; let
+            counterClock;
         var correction = 0.5 * (ctx.lineWidth % 2);
         [Sx, Sy] = rotate(sx, sy, dir);
         Sx *= globalScope.scale;
@@ -252,17 +265,18 @@ export function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
             Math.round(yy + globalScope.oy + Sy + correction) - correction,
             Math.round(radius),
             newStart + pi,
-            newStop + pi
+            newStop + pi,
         );
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
 export function drawCircle2(ctx, sx, sy, radius, xx, yy, dir) {
     try {
-        let Sx, Sy;
+        let Sx; let
+            Sy;
         [Sx, Sy] = rotate(sx, sy, dir);
         Sx *= globalScope.scale;
         Sy *= globalScope.scale;
@@ -274,11 +288,11 @@ export function drawCircle2(ctx, sx, sy, radius, xx, yy, dir) {
             Math.round(yy + globalScope.oy + Sy),
             Math.round(radius),
             0,
-            2 * Math.PI
+            2 * Math.PI,
         );
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -293,11 +307,11 @@ export function rect(ctx, x1, y1, x2, y2) {
             Math.round(globalScope.ox + x1 - correction) + correction,
             Math.round(globalScope.oy + y1 - correction) + correction,
             Math.round(x2),
-            Math.round(y2)
+            Math.round(y2),
         );
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -312,7 +326,7 @@ export function drawImage(ctx, img, x1, y1, w_canvas, h_canvas) {
         ctx.drawImage(img, x1, y1, w_canvas, h_canvas);
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -331,14 +345,13 @@ export function rect2(ctx, x1, y1, x2, y2, xx, yy, dir = 'RIGHT') {
             Math.round(globalScope.ox + xx + x1 - correction) + correction,
             Math.round(globalScope.oy + yy + y1 - correction) + correction,
             Math.round(x2),
-            Math.round(y2)
+            Math.round(y2),
         );
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
-
 
 export function rotate(x1, y1, dir) {
     if (dir === 'LEFT') { return [-x1, y1]; }
@@ -375,16 +388,16 @@ export function drawLine(ctx, x1, y1, x2, y2, color, width) {
         if (x1 === x2) hCorrection = correction;
         ctx.moveTo(
             Math.round(x1 + globalScope.ox + hCorrection) - hCorrection,
-            Math.round(y1 + globalScope.oy + vCorrection) - vCorrection
+            Math.round(y1 + globalScope.oy + vCorrection) - vCorrection,
         );
         ctx.lineTo(
             Math.round(x2 + globalScope.ox + hCorrection) - hCorrection,
-            Math.round(y2 + globalScope.oy + vCorrection) - vCorrection
+            Math.round(y2 + globalScope.oy + vCorrection) - vCorrection,
         );
         ctx.stroke();
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -397,7 +410,7 @@ export function validColor(color) {
 
 // Helper function to color "RED" to RGBA
 export function colorToRGBA(color) {
-    var cvs; 
+    var cvs;
     var ctx;
     cvs = document.createElement('canvas');
     cvs.height = 1;
@@ -448,7 +461,7 @@ export function canvasMessage(ctx, str, x1, y1, fontSize = 10) {
         ctx.fill();
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -510,7 +523,6 @@ export function fillText3(ctx, str, x1, y1, xx = 0, yy = 0, fontSize = 14, font 
     ctx.textAlign = textAlign;
     ctx.fillText(str, Math.round(xx + x1 + globalScope.ox), Math.round(yy + y1 + globalScope.oy));
 }
-
 
 export const oppositeDirection = {
     RIGHT: 'LEFT',

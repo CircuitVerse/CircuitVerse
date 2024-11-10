@@ -86,7 +86,7 @@ export function switchCircuit(id) {
         updateRestrictedElementsList();
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -114,7 +114,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 
         // Check for dependent circuits
         let dependencies = '';
-        for (let id in scopeList) {
+        for (const id in scopeList) {
             if (id !== scope.id && scopeList[id].checkDependency(scope.id)) {
                 dependencies += dependencies ? `, ${scopeList[id].name}` : scopeList[id].name;
             }
@@ -122,8 +122,8 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 
         if (dependencies) {
             alert(
-                `The following circuits depend on '${scope.name}': ${dependencies}\n` +
-                `Delete subcircuits of ${scope.name} before trying to delete it.`
+                `The following circuits depend on '${scope.name}': ${dependencies}\n`
+                + `Delete subcircuits of ${scope.name} before trying to delete it.`,
             );
             return;
         }
@@ -135,26 +135,26 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
             try {
                 if (scope.verilogMetadata.isVerilogCircuit) {
                     scope.initialize();
-                    for (let id in scope.verilogMetadata.subCircuitScopeIds) {
+                    for (const id in scope.verilogMetadata.subCircuitScopeIds) {
                         delete scopeList[id];
                     }
                 }
             } catch (verilogError) {
                 Sentry.captureException(verilogError);
-                console.error("Error during Verilog cleanup:", verilogError);
+                console.error('Error during Verilog cleanup:', verilogError);
             }
 
             // Remove the circuit from DOM and scope list
             try {
                 $(`#${scope.id}`).remove();
                 delete scopeList[scope.id];
-                
+
                 // Switch to the first available circuit after deletion
                 switchCircuit(Object.keys(scopeList)[0]);
                 showMessage('Circuit was successfully closed');
             } catch (domError) {
                 Sentry.captureException(domError);
-                console.error("Error during DOM manipulation or scope list update:", domError);
+                console.error('Error during DOM manipulation or scope list update:', domError);
             }
         } else {
             showMessage('Circuit was not closed');
@@ -162,10 +162,9 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
     } catch (error) {
         // Capture any unexpected errors in the overall function
         Sentry.captureException(error);
-        console.error("Unexpected error in deleteCurrentCircuit:", error);
+        console.error('Unexpected error in deleteCurrentCircuit:', error);
     }
 }
-
 
 /**
  * Wrapper function around newCircuit to be called from + button on UI
@@ -181,7 +180,7 @@ export function createNewCircuitScope() {
         }
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -199,38 +198,60 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         name = name || prompt('Enter circuit name:', 'Untitled-Circuit');
         name = escapeHtml(stripTags(name));
         if (!name) return;
+        
         const scope = new Scope(name);
         if (id) scope.id = id;
         scopeList[scope.id] = scope;
+        
         if (isVerilog) {
             scope.verilogMetadata.isVerilogCircuit = true;
             scope.verilogMetadata.isMainCircuit = isVerilogMain;
         }
+        
         globalScope = scope;
         $('.circuits').removeClass('current');
+        
         if (!isVerilog || isVerilogMain) {
+            const sanitizedName = truncateString(name, 18);
+            const div = document.createElement('div');
+            div.className = 'circuits toolbarButton current';
+            div.draggable = true;
+            div.id = scope.id;
+            
+            const spanName = document.createElement('span');
+            spanName.className = 'circuitName noSelect';
+            spanName.innerText = sanitizedName;
+            div.appendChild(spanName);
+
             if (embed) {
-                var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
-                $('#tabsBar').append(html);
-                $("#tabsBar").addClass('embed-tabs');
+                $('#tabsBar').append(div);
+                $('#tabsBar').addClass('embed-tabs');
             } else {
-                var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
-                $('#tabsBar').children().last().before(html);
+                const spanClose = document.createElement('span');
+                spanClose.className = 'tabsCloseButton';
+                spanClose.innerText = 'x';
+                spanClose.id = scope.id;
+                div.appendChild(spanClose);
+                
+                $('#tabsBar').children().last().before(div);
             }
+            
             $('.circuits').on('click', function () { switchCircuit(this.id); });
             $('.tabsCloseButton').on('click', function (e) {
                 e.stopPropagation();
                 deleteCurrentCircuit(this.id);
             });
+            
             if (!embed) {
                 showProperties(scope.root);
             }
             dots(false);
         }
+        
         return scope;
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -245,10 +266,14 @@ export function changeCircuitName(name, id = globalScope.id) {
         name = name || 'Untitled';
         name = escapeHtml(stripTags(name));
         $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
-        scopeList[id].name = name;
+        
+        // Check if `id` is a direct property of `scopeList` to prevent prototype pollution
+        if (Object.prototype.hasOwnProperty.call(scopeList, id)) {
+            scopeList[id].name = name;
+        }
     } catch (error) {
         Sentry.captureException(error);
-        console.error("Error captured in Sentry:", error);
+        console.error('Error captured in Sentry:', error);
     }
 }
 
@@ -302,7 +327,7 @@ export default class Scope {
             return this.verilogMetadata.isMainCircuit;
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -320,7 +345,7 @@ export default class Scope {
             }
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -338,7 +363,7 @@ export default class Scope {
             }
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -356,7 +381,7 @@ export default class Scope {
             for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].addInputs(); }
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -369,7 +394,7 @@ export default class Scope {
             for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].localScope.clockTick(); } // tick clock!
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -387,7 +412,7 @@ export default class Scope {
             return false;
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -403,7 +428,7 @@ export default class Scope {
             }
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -420,7 +445,7 @@ export default class Scope {
             }
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -523,7 +548,7 @@ export default class Scope {
             return 'No cycle found';
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -531,7 +556,7 @@ export default class Scope {
         try {
             const Nodes = [];
             array.forEach((innerArray) => {
-                const resultArray = innerArray.map(value => this.findNodeIndexById(value));
+                const resultArray = innerArray.map((value) => this.findNodeIndexById(value));
                 Nodes.push(resultArray);
             });
 
@@ -542,7 +567,7 @@ export default class Scope {
             });
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -556,7 +581,7 @@ export default class Scope {
             return 'Not found';
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -565,7 +590,7 @@ export default class Scope {
             return simulationArea.lastSelected;
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -574,7 +599,7 @@ export default class Scope {
             return simulationArea.multipleObjectSelections;
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 
@@ -600,7 +625,7 @@ export default class Scope {
             }
         } catch (error) {
             Sentry.captureException(error);
-            console.error("Error captured in Sentry:", error);
+            console.error('Error captured in Sentry:', error);
         }
     }
 }

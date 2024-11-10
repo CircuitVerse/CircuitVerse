@@ -36,7 +36,7 @@ function dec2bin(dec, bitWidth = undefined) {
 
         return '0'.repeat(bitWidth - bin.length) + bin;
     } catch (error) {
-        console.error("Error in dec2bin:", error);
+        console.error('Error in dec2bin:', error);
         return 'X';
     }
 }
@@ -64,7 +64,7 @@ export class TestbenchData {
             if (this.currentCase >= caseCount || this.currentCase < 0) return false;
             return true;
         } catch (error) {
-            console.error("Error in isCaseValid:", error);
+            console.error('Error in isCaseValid:', error);
             return false;
         }
     }
@@ -84,7 +84,7 @@ export class TestbenchData {
             }
             return false;
         } catch (error) {
-            console.error("Error in setCase:", error);
+            console.error('Error in setCase:', error);
             return false;
         }
     }
@@ -109,7 +109,7 @@ export class TestbenchData {
             this.currentCase = newCase.currentCase;
             return true;
         } catch (error) {
-            console.error("Error in groupNext:", error);
+            console.error('Error in groupNext:', error);
             return false;
         }
     }
@@ -134,7 +134,7 @@ export class TestbenchData {
             this.currentCase = newCase.currentCase;
             return true;
         } catch (error) {
-            console.error("Error in groupPrev:", error);
+            console.error('Error in groupPrev:', error);
             return false;
         }
     }
@@ -149,7 +149,7 @@ export class TestbenchData {
             this.currentCase++;
             return true;
         } catch (error) {
-            console.error("Error in caseNext:", error);
+            console.error('Error in caseNext:', error);
             return false;
         }
     }
@@ -168,7 +168,7 @@ export class TestbenchData {
             this.currentCase--;
             return true;
         } catch (error) {
-            console.error("Error in casePrev:", error);
+            console.error('Error in casePrev:', error);
             return false;
         }
     }
@@ -195,7 +195,7 @@ export class TestbenchData {
             this.currentCase = newCase.currentCase;
             return true;
         } catch (error) {
-            console.error("Error in goToFirstValidGroup:", error);
+            console.error('Error in goToFirstValidGroup:', error);
             return false;
         }
     }
@@ -242,7 +242,7 @@ function creatorOpenPrompt(creatorWindow) {
         $('#setTestbenchData').empty();
         $('#setTestbenchData').append(s);
     } catch (error) {
-        console.error("Error in creatorOpenPrompt:", error);
+        console.error('Error in creatorOpenPrompt:', error);
     }
 }
 
@@ -276,10 +276,9 @@ export function runTestBench(data, scope = globalScope, runContext = CONTEXT.CON
             // Not implemented
         }
     } catch (error) {
-        console.error("Error in runTestBench:", error);
+        console.error('Error in runTestBench:', error);
     }
 }
-
 
 /**
  * Updates the TestBench UI on the simulator with the current test attached
@@ -316,7 +315,7 @@ export function updateTestbenchUI() {
         // Add listener to attach test button
         $('.tb-dialog-button#attach-test-btn').on('click', buttonListenerFunctions.attachTestButton);
     } catch (error) {
-        console.error("Error in updateTestbenchUI:", error);
+        console.error('Error in updateTestbenchUI:', error);
     }
 }
 
@@ -335,7 +334,7 @@ const buttonListenerFunctions = {
             globalScope.testbenchData.casePrev();
             buttonListenerFunctions.computeCase();
         } catch (error) {
-            console.error("Error in previousCaseButton:", error);
+            console.error('Error in previousCaseButton:', error);
         }
     },
 
@@ -349,7 +348,7 @@ const buttonListenerFunctions = {
             globalScope.testbenchData.caseNext();
             buttonListenerFunctions.computeCase();
         } catch (error) {
-            console.error("Error in nextCaseButton:", error);
+            console.error('Error in nextCaseButton:', error);
         }
     },
 
@@ -363,7 +362,7 @@ const buttonListenerFunctions = {
             globalScope.testbenchData.groupPrev();
             buttonListenerFunctions.computeCase();
         } catch (error) {
-            console.error("Error in previousGroupButton:", error);
+            console.error('Error in previousGroupButton:', error);
         }
     },
 
@@ -377,7 +376,7 @@ const buttonListenerFunctions = {
             globalScope.testbenchData.groupNext();
             buttonListenerFunctions.computeCase();
         } catch (error) {
-            console.error("Error in nextGroupButton:", error);
+            console.error('Error in nextGroupButton:', error);
         }
     },
 
@@ -385,7 +384,7 @@ const buttonListenerFunctions = {
         try {
             openCreator('create');
         } catch (error) {
-            console.error("Error in changeTestButton:", error);
+            console.error('Error in changeTestButton:', error);
         }
     },
 
@@ -405,7 +404,7 @@ const buttonListenerFunctions = {
             $('.testbench-runall-label').css('display', 'table-cell');
             $('.testbench-runall-label').delay(5000).fadeOut('slow');
         } catch (error) {
-            console.error("Error in runAllButton:", error);
+            console.error('Error in runAllButton:', error);
         }
     },
 
@@ -414,7 +413,7 @@ const buttonListenerFunctions = {
             const editDataString = JSON.stringify(globalScope.testbenchData.testData);
             openCreator('edit', editDataString);
         } catch (error) {
-            console.error("Error in editTestButton:", error);
+            console.error('Error in editTestButton:', error);
         }
     },
 
@@ -423,7 +422,7 @@ const buttonListenerFunctions = {
             const isValid = validate(globalScope.testbenchData.testData, globalScope);
             showValidationUI(isValid);
         } catch (error) {
-            console.error("Error in validateButton:", error);
+            console.error('Error in validateButton:', error);
         }
     },
 
@@ -434,7 +433,7 @@ const buttonListenerFunctions = {
                 setupTestbenchUI();
             }
         } catch (error) {
-            console.error("Error in removeTestButton:", error);
+            console.error('Error in removeTestButton:', error);
         }
     },
 
@@ -442,7 +441,7 @@ const buttonListenerFunctions = {
         try {
             openCreator('create');
         } catch (error) {
-            console.error("Error in attachTestButton:", error);
+            console.error('Error in attachTestButton:', error);
         }
     },
 
@@ -450,7 +449,7 @@ const buttonListenerFunctions = {
         try {
             buttonListenerFunctions.computeCase();
         } catch (error) {
-            console.error("Error in rerunTestButton:", error);
+            console.error('Error in rerunTestButton:', error);
         }
     },
 
@@ -460,7 +459,7 @@ const buttonListenerFunctions = {
             const result = runSingleTest(globalScope.testbenchData, globalScope);
             setUIResult(globalScope.testbenchData, result);
         } catch (error) {
-            console.error("Error in computeCase:", error);
+            console.error('Error in computeCase:', error);
         }
     },
 };
@@ -483,7 +482,7 @@ export function setupTestbenchUI() {
         $('.tb-test-null').hide();
         $('.tb-test-not-null').show();
     } catch (error) {
-        console.error("Error in setupTestbenchUI:", error);
+        console.error('Error in setupTestbenchUI:', error);
     }
 }
 
@@ -529,7 +528,7 @@ export function runAll(data, scope = globalScope) {
         results.summary = { passed: passedCases, total: totalCases };
         return results;
     } catch (error) {
-        console.error("Error in runAll:", error);
+        console.error('Error in runAll:', error);
         return { summary: { passed: 0, total: 0 }, detailed: {} };
     }
 }
@@ -545,24 +544,22 @@ function runSingleTest(testbenchData, scope) {
     try {
         const data = testbenchData.testData;
         let result;
-        
+
         // Determine test type and run appropriate test
         if (data.type === 'comb') {
             result = runSingleCombinational(testbenchData, scope);
         } else if (data.type === 'seq') {
             result = runSingleSequential(testbenchData, scope);
         }
-        
+
         return result;
     } catch (error) {
         // Log the error to Sentry and console for tracking
         Sentry.captureException(error);
-        console.error("Error in runSingleTest:", error);
+        console.error('Error in runSingleTest:', error);
         return null; // Return null or an appropriate default value in case of error
     }
 }
-
-
 
 /**
  * Runs single combinational test
@@ -585,7 +582,7 @@ function runSingleCombinational(testbenchData, scope) {
 
         // Set input values according to the test case
         setInputValues(inputs, group, caseIndex, scope);
-        
+
         // Check and capture output values for comparison
         const result = getOutputValues(data, outputs);
 
@@ -595,14 +592,13 @@ function runSingleCombinational(testbenchData, scope) {
     } catch (error) {
         // Log the error to Sentry and console for tracking
         Sentry.captureException(error);
-        console.error("Error in runSingleCombinational:", error);
-        
+        console.error('Error in runSingleCombinational:', error);
+
         // Ensure clocks are restarted even if there's an error
         changeClockEnable(true);
         return null; // Return null or an appropriate default value in case of error
     }
 }
-
 
 /**
  * Runs single sequential test and all tests above it in the group
@@ -639,7 +635,7 @@ function runSingleSequential(testbenchData, scope) {
         changeClockEnable(true);
         return result;
     } catch (error) {
-        console.error("Error in runSingleSequential:", error);
+        console.error('Error in runSingleSequential:', error);
         changeClockEnable(true); // Ensure clocks are restarted even if there's an error
         return null;
     }
@@ -662,7 +658,7 @@ function setInputValues(inputs, group, caseIndex, scope) {
         // Propagate inputs
         play(scope);
     } catch (error) {
-        console.error("Error in setInputValues:", error);
+        console.error('Error in setInputValues:', error);
     }
 }
 
@@ -683,7 +679,7 @@ function getOutputValues(data, outputs) {
 
         return values;
     } catch (error) {
-        console.error("Error in getOutputValues:", error);
+        console.error('Error in getOutputValues:', error);
         return new Map();
     }
 }
@@ -757,7 +753,7 @@ function showValidationUI(validationErrors) {
         $('#testbenchValidate').empty();
         $('#testbenchValidate').append(s);
     } catch (error) {
-        console.error("Error in showValidationUI:", error);
+        console.error('Error in showValidationUI:', error);
     }
 }
 
@@ -817,11 +813,10 @@ function validate(data, scope) {
         if (invalids.length > 0) return { ok: false, invalids };
         return { ok: true };
     } catch (error) {
-        console.error("Error in validate:", error);
+        console.error('Error in validate:', error);
         return { ok: false, invalids: [] };
     }
 }
-
 
 /**
  * Autofix whatever is possible in validation errors.
@@ -845,7 +840,7 @@ function validationAutoFix(validationErrors) {
 
         return fixedErrors;
     } catch (error) {
-        console.error("Error in validationAutoFix:", error);
+        console.error('Error in validationAutoFix:', error);
         return 0;
     }
 }
@@ -862,7 +857,7 @@ function checkDistinctIdentifiersData(data) {
 
         return (new Set(identifiersData)).size === identifiersData.length;
     } catch (error) {
-        console.error("Error in checkDistinctIdentifiersData:", error);
+        console.error('Error in checkDistinctIdentifiersData:', error);
         return false;
     }
 }
@@ -883,7 +878,7 @@ function checkDistinctIdentifiersScope(scope) {
 
         return (new Set(identifiersScope)).size === identifiersScope.length;
     } catch (error) {
-        console.error("Error in checkDistinctIdentifiersScope:", error);
+        console.error('Error in checkDistinctIdentifiersScope:', error);
         return false;
     }
 }
@@ -923,7 +918,7 @@ function validateInputs(data, scope) {
         if (invalids.length > 0) return { ok: false, invalids };
         return { ok: true };
     } catch (error) {
-        console.error("Error in validateInputs:", error);
+        console.error('Error in validateInputs:', error);
         return { ok: false, invalids: [] };
     }
 }
@@ -963,7 +958,7 @@ function validateOutputs(data, scope) {
         if (invalids.length > 0) return { ok: false, invalids };
         return { ok: true };
     } catch (error) {
-        console.error("Error in validateOutputs:", error);
+        console.error('Error in validateOutputs:', error);
         return { ok: false, invalids: [] };
     }
 }
@@ -993,7 +988,7 @@ function bindIO(data, scope) {
 
         return { inputs, outputs, reset };
     } catch (error) {
-        console.error("Error in bindIO:", error);
+        console.error('Error in bindIO:', error);
         return { inputs: {}, outputs: {}, reset: undefined };
     }
 }
@@ -1009,19 +1004,18 @@ function tickClock(scope) {
         scope.clockTick();
         play(scope);
     } catch (error) {
-        console.error("Error in tickClock:", error);
+        console.error('Error in tickClock:', error);
 
         // Attempt to recover the clock state
         try {
             scope.clockTick();
             play(scope);
         } catch (recoveryError) {
-            console.error("Failed to recover clock state:", recoveryError);
-            showMessage("Critical error: Circuit clock may be in an undefined state. Please reset the simulation.");
+            console.error('Failed to recover clock state:', recoveryError);
+            showMessage('Critical error: Circuit clock may be in an undefined state. Please reset the simulation.');
         }
     }
 }
-
 
 /**
  * Triggers reset (Only used in testbench context)
@@ -1035,7 +1029,7 @@ function triggerReset(reset, scope) {
         reset.state = 0;
         play(scope);
     } catch (error) {
-        console.error("Error in triggerReset:", error);
+        console.error('Error in triggerReset:', error);
     }
 }
 
@@ -1071,7 +1065,7 @@ function setUITableHeaders(testbenchData) {
 
         setUICurrentCase(testbenchData);
     } catch (error) {
-        console.error("Error in setUITableHeaders:", error);
+        console.error('Error in setUITableHeaders:', error);
     }
 }
 
@@ -1105,7 +1099,7 @@ function setUICurrentCase(testbenchData) {
         $('.testbench-manual-panel .group-label').text(data.groups[groupIndex].label);
         $('.testbench-manual-panel .case-label').text(caseIndex + 1);
     } catch (error) {
-        console.error("Error in setUICurrentCase:", error);
+        console.error('Error in setUICurrentCase:', error);
     }
 }
 
@@ -1135,7 +1129,7 @@ function setUIResult(testbenchData, result) {
             resultElement.append(`<td style="color: ${color}">${escapeHtml(resultValue)}</td>`);
         }
     } catch (error) {
-        console.error("Error in setUIResult:", error);
+        console.error('Error in setUIResult:', error);
     }
 }
 
@@ -1174,7 +1168,7 @@ function openCreator(type, dataString) {
                 // Close the 'Pop up is open' dialog
                 $('#setTestbenchData').dialog('close');
             } catch (error) {
-                console.error("Error in dataListener:", error);
+                console.error('Error in dataListener:', error);
             }
         };
 
@@ -1211,12 +1205,12 @@ function openCreator(type, dataString) {
                         clearInterval(checkPopUp);
                     }
                 } catch (error) {
-                    console.error("Error in popup close check:", error);
+                    console.error('Error in popup close check:', error);
                     clearInterval(checkPopUp);
                 }
             }, 1000);
         }
     } catch (error) {
-        console.error("Error in openCreator:", error);
+        console.error('Error in openCreator:', error);
     }
 }
