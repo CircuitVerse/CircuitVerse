@@ -1602,6 +1602,7 @@ input:checked + .slider:before {
     border-radius: 3px;
 }
 
+/**zoom-slider*/
 .zoom-slider {
     color: white;
     font-size: 20px;
