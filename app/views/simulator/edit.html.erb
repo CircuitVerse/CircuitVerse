@@ -285,7 +285,6 @@
       <button class='custom-btn--primary touch-panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
       <button class='custom-btn--primary touch-panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
       <button class='custom-btn--primary touch-panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
-
        </div>
        <div id="touch-cycle-unit">
        1 cycle =
@@ -298,7 +297,6 @@
     </div>
 </div>
 </div>
-
 <!-- Quick Menu Panel  -->
 <div id="quickmenu-Popover">
   <div id="quickMenu">
@@ -315,7 +313,6 @@
     </div>
   </div>
 </div>
-
 <!-- Live Menu button  -->
 <div id='liveMenu'>
   <ul><i class="fas fa-compress-arrows-alt liveMenuIcon"></i></ul>
@@ -323,7 +320,6 @@
   <ul><i class="fas fa-undo liveMenuIcon"></i></ul>
   <ul><i class="fas fa-redo liveMenuIcon"></i></ul>
 </div>
-
 <!-- /.Potriad Mode Lock -->
 <div id="potraidLockBg">
 </div>
@@ -331,7 +327,6 @@
 <span class="portaidIcon"> </span>
 <span id="portaidModeText">Please switch to the landscape mode and refresh to access the simulator</span>
 </div>
-
 <div class="noSelect defaultCursor layoutElementPanel draggable-panel draggable-panel-css ">
   <div class="panel-header">Layout Elements
   <span class="fas fa-minus-square minimize"></span>
@@ -439,7 +434,6 @@
   <span class="fas fa-minus-square minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
-
   <div class="panel-body">
     <div class="layout-body">
       <button class="largeButton btn logixButton btn-xs custom-btn--tertiary" id="resetVerilogCode">Reset Code</button>
@@ -449,7 +443,6 @@
       </div>
     </div>
   </div>
-
   <div class="panel-header text-center">Apply Themes</div>
   <div class="panel-body">
     <div class="layout-body">
@@ -488,42 +481,39 @@
 <div id="layoutDialog" class="draggable-panel draggable-panel-css">
   <div class="panel-header d-flex justify-content-between align-items-center">
       Layout
-      <span class="fas fa-minus-square minimize"></span>
-      <span class="fas fa-external-link-square-alt maximize"></span>
+      <span class="fas fa-minus-square minimize" aria-label="Minimize dialog"></span>
+      <span class="fas fa-external-link-square-alt maximize" aria-label="Maximize dialog"></span>
   </div>
   <div class="layout-body panel-body" id="layout-body">
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <button class="zoomButton btn btn-lg" id="decreaseLayoutWidth" title="Decrease Width">
+      <button class="zoomButton btn btn-lg" id="decreaseLayoutWidth" title="Decrease Width" aria-label="Decrease Width">
         <span class="fa fa-minus" aria-hidden="true"></span>
       </button>
       <span>Width</span>
-      <button class="zoomButton btn btn-lg" id="increaseLayoutWidth" title="Increase Width">
+      <button class="zoomButton btn btn-lg" id="increaseLayoutWidth" title="Increase Width" aria-label="Increase Width">
         <span class="fa fa-plus" aria-hidden="true"></span>
       </button>
     </div>
-
     <div class="d-flex align-items-center justify-content-between mb-2">
-      <button class="zoomButton btn btn-lg" id="decreaseLayoutHeight" title="Decrease Height">
+      <button class="zoomButton btn btn-lg" id="decreaseLayoutHeight" title="Decrease Height" aria-label="Decrease Height">
         <span class="fa fa-minus" aria-hidden="true"></span>
       </button>
       <span>Height</span>
-      <button class="zoomButton btn btn-lg" id="increaseLayoutHeight" title="Increase Height">
+      <button class="zoomButton btn btn-lg" id="increaseLayoutHeight" title="Increase Height" aria-label="Increase Height">
         <span class="fa fa-plus" aria-hidden="true"></span>
       </button>
     </div>
-
     <div class="d-flex align-items-center justify-content-between mb-2">
       <span>Reset all nodes:</span>
-      <button class="zoomButton btn btn-lg" id="layoutResetNodes">
+      <button class="zoomButton btn btn-lg" aria-label="Reset all nodes" id="layoutResetNodes">
         <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
       </button>
     </div>
-
     <div class="layout-title mb-2">
       <span>Title</span>
       <div class="layout--btn-group d-flex gap-2">
-        <!-- Title Control Buttons with SVGs -->
-        <button class="zoomButton-up btn btn-lg no-select" id="layoutTitleUp">
+        <!-- Title Control Buttons with SVGs and aria-labels -->
+        <button class="zoomButton-up btn btn-lg no-select" id="layoutTitleUp" aria-label="Move title up">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
             <g fill="none" stroke="#f1f9ff" stroke-width="2">
               <rect width="30" height="30" rx="10" stroke="none" />
@@ -532,8 +522,7 @@
             <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff" />
           </svg>
         </button>
-        
-        <button class="zoomButton-down btn btn-lg no-select" id="layoutTitleDown">
+        <button class="zoomButton-down btn btn-lg no-select" id="layoutTitleDown" aria-label="Move title down">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
             <g fill="none" stroke="#f1f9ff" stroke-width="2">
               <rect width="30" height="30" rx="10" stroke="none" />
@@ -542,8 +531,7 @@
             <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff" />
           </svg>
         </button>
-        
-        <button class="zoomButton-left btn btn-lg no-select" id="layoutTitleLeft">
+        <button class="zoomButton-left btn btn-lg no-select" id="layoutTitleLeft" aria-label="Move title left">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
             <g fill="none" stroke="#f1f9ff" stroke-width="2">
               <rect width="30" height="30" rx="10" stroke="none" />
@@ -552,8 +540,7 @@
             <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(18.1 9.655) rotate(90)" fill="#fff" />
           </svg>
         </button>
-        
-        <button class="zoomButton-right btn btn-lg no-select" id="layoutTitleRight">
+        <button class="zoomButton-right btn btn-lg no-select" id="layoutTitleRight" aria-label="Move title right">
           <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
             <g fill="none" stroke="#f1f9ff" stroke-width="2">
               <rect width="30" height="30" rx="10" stroke="none" />
@@ -564,18 +551,16 @@
         </button>
       </div>
     </div>
-
     <div class="layout-title--enable d-flex align-items-center justify-content-between mb-2">
       <span>Title Enabled:</span>
       <label class="switch">
-        <input type="checkbox" checked id="toggleLayoutTitle">
+        <input type="checkbox" checked id="toggleLayoutTitle" aria-label="Toggle title visibility">
         <span class="slider"></span>
       </label>
     </div>
-
     <div class="d-flex justify-content-between mt-3">
-      <button class="Layout-btn custom-btn--primary btn btn-success" id="saveLayout">Save</button>
-      <button class="Layout-btn custom-btn--tertiary btn btn-danger" id="cancelLayout">Cancel</button>
+      <button class="Layout-btn custom-btn--primary btn btn-success" id="saveLayout" aria-label="Save layout settings">Save</button>
+      <button class="Layout-btn custom-btn--tertiary btn btn-danger" id="cancelLayout" aria-label="Cancel layout changes">Cancel</button>
     </div>
   </div>
 </div>
@@ -626,7 +611,6 @@
     <label class="option custom-radio inline"><input type="radio" name="resolution" value="4">4x<span></span></label>
   </div>
 </div>
-
 <div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex="0" style="display: none;" title="Select Theme"></div>
 <div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
 <input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
@@ -697,7 +681,6 @@
     </div>
   </div>
 </div>
-
 <div
   id="ExportCircuitFilesDialog"
   class='customScroll'
