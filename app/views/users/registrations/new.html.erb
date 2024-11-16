@@ -21,33 +21,37 @@
           <% end %>
           <div class="field mb-3">
             <h6><%= f.label :name %></h6>
-              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
+            <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
           </div>
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>
-              <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
+            <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
           <div class="field mb-3">
-          <h6 class="password-length">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
-            <% end %>
-          </h6>
-          <div class="input-group form-input">
-            <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
-            <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
-              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            <h6 class="password-length">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
+              <% end %>
+            </h6>
+            <div class="input-group form-input">
+              <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input", id: "password-field", oninput: "checkPasswordStrength()" %>
+              <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
+                <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+              </div>
+            </div>
+            <div id="password-strength-container" class="password-strength-container">
+              <div id="password-strength-bar" class="password-strength-bar"></div>
+              <span id="password-strength-text" class='password-strength-text'></span>
             </div>
           </div>
-        </div>
           <div class="field mb-3">
             <div class="input-group">
               <% if Flipper.enabled?(:recaptcha) %>
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
               <% end %>
-              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
+              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button", id: "submit-button", disabled: true %>
               <div class="users-text-container">
                 <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
                 <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
@@ -62,3 +66,26 @@
 </div>
 
 <script src="/js/togglePassword.js"></script>
+
+<style>
+
+  .password-strength-container {
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .password-strength-bar{
+    height: 8px;
+    width: 0%;
+    border-radius: 5px;
+    transition: width 0.5s ease;
+  }
+ 
+  .password-strength-text{
+    display: block;
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  
+</style>
