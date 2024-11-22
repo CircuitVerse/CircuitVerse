@@ -1,8 +1,14 @@
+# frozen_string_literal: true
 
 require "rails_helper"
 
 RSpec.describe CircuitCardComponent, type: :component do
+  let(:user) { FactoryBot.create(:user) }
   let(:circuit) { create(:project) }
+
+  before do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+  end
 
   it "renders the circuit card with correct content" do
     render_inline(described_class.new(circuit: circuit))
