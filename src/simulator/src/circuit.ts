@@ -48,6 +48,11 @@ export const circuitProperty = {
     changeClockEnable,
     changeInputSize,
     changeLightMode,
+    changeClockTime
+}
+
+function changeClockTime(t: number) {
+    simulationArea.changeClockTime(t)
 }
 
 export let scopeList: { [key: string]: Scope } = {}

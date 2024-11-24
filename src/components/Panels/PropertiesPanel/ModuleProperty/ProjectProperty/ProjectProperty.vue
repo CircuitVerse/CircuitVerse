@@ -42,7 +42,9 @@
             <input
                 type="checkbox"
                 class="objectPropertyAttributeChecked"
-                name="changeClockEnable" />
+                name="changeClockEnable"
+                checked
+            />
             <span class="slider"></span
         ></label>
     </p>
