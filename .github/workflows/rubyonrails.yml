@@ -29,6 +29,7 @@ jobs:
         with:
           fetch-depth: 100
           submodules: recursive
+
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
@@ -86,7 +87,8 @@ jobs:
       - name: Static type checking
         run: |
           bundle exec rbs collection install
-          bundle exec steep check --exclude s_collection/kaminari-actionview/1.2 --exclude s_collection/kaminari-activerecord/1.2
+          bundle exec steep check
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -94,11 +96,14 @@ jobs:
         uses: actions/checkout@v3
         with:
           submodules: recursive
+
       - name: Install Ruby and gems
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
       - name: Security audit dependencies
         run: bundle exec bundler-audit --update
+
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
