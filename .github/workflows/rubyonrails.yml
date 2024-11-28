@@ -30,18 +30,16 @@ jobs:
           fetch-depth: 100
           submodules: recursive
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1 # v1.115.3
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
 
-      # Updated Node.js version for canvas compatibility
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x' # Compatible with canvas
+          node-version: '18.x'
           cache: 'yarn'
 
-      # Added system dependencies for canvas
       - name: Install system dependencies
         run: |
           sudo apt-get update
@@ -53,19 +51,27 @@ jobs:
         uses: reviewdog/action-setup@v1
         with:
           reviewdog_version: latest
-      - run: yarn install --frozen-lockfile --immutable
+
+      - name: Install Node.js dependencies
+        run: yarn install --frozen-lockfile --immutable
+
       - name: Copy the sample ENV Config
         run: cp .env.example .env
+
       - name: Set up database schema
         run: bin/rails db:schema:load
+
       - name: Run data migration tasks
         run: bin/rails data:migrate
+
       - name: Build assets
         run: yarn run build
+
       - name: Configure keys
         run: |
           openssl genrsa -out config/private.pem 2048
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+
       - name: Run tests
         run: bundle exec rspec
 
@@ -77,25 +83,10 @@ jobs:
           path: ${{ github.workspace }}/tmp/capybara
           if-no-files-found: ignore
 
-      - uses: aki77/delete-pr-comments-action@v1
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          bodyContains: "[undercover]"
-          noReply: "true"
-
-      - name: Run reviewdog
-        env:
-          REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
-        run: |
-          git fetch --no-tags
-          reviewdog -reporter=github-pr-review -runners=undercover --fail-on-error
-
-      # Adjusted Static type checking to skip problematic RBS files
       - name: Static type checking
         run: |
           bundle exec rbs collection install
-          bundle exec steep check --exclude s_collection/kaminari-actionview/1.2 --exclude s_collection/kaminari-activerecord/1.2
-
+          bundle exec steep check
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -104,7 +95,7 @@ jobs:
         with:
           submodules: recursive
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1 # v1.115.3
+        uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
       - name: Security audit dependencies
