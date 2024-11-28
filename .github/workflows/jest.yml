@@ -1,4 +1,5 @@
 name: Simulator Testing
+
 on:
   push:
     branches: [master]
@@ -9,7 +10,6 @@ on:
       - "esbuild.config.js"
       - "jest.config.js"
   pull_request:
-    # The branches below must be a subset of the branches above
     branches: [master]
     paths:
       - "simulator/**"
@@ -17,21 +17,28 @@ on:
       - "yarn.lock"
       - "esbuild.config.js"
       - "jest.config.js"
+
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Setup Node.js
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 'lts/*'
-          cache: 'yarn'
+          node-version: '18.x' # Downgraded Node.js for compatibility with `canvas`
 
-      # Install required deps for action
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev \
+            build-essential g++ pkg-config
+
       - name: Install Dependencies
-        run: yarn
+        run: yarn install --frozen-lockfile --immutable
 
-      # Finally, run our tests
       - name: Run the tests
         run: yarn test
