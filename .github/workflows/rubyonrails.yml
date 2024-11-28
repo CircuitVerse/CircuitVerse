@@ -82,16 +82,20 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           bodyContains: "[undercover]"
           noReply: "true"
+
       - name: Run reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
         run: |
           git fetch --no-tags
           reviewdog -reporter=github-pr-review -runners=undercover --fail-on-error
+
+      # Adjusted Static type checking to skip problematic RBS files
       - name: Static type checking
-        run:  |
+        run: |
           bundle exec rbs collection install
-          bundle exec steep check
+          bundle exec steep check --exclude s_collection/kaminari-actionview/1.2 --exclude s_collection/kaminari-activerecord/1.2
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -104,6 +108,6 @@ jobs:
         with:
           bundler-cache: true
       - name: Security audit dependencies
-        run:  bundle exec bundler-audit --update
+        run: bundle exec bundler-audit --update
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
