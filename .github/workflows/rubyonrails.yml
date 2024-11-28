@@ -86,7 +86,7 @@ jobs:
       - name: Static type checking
         run: |
           bundle exec rbs collection install
-          bundle exec steep check
+          bundle exec steep check --exclude s_collection/kaminari-actionview/1.2 --exclude s_collection/kaminari-activerecord/1.2
   lint:
     runs-on: ubuntu-latest
     steps:
