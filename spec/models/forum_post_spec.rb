@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe ForumPost, type: :model do
   before do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
   end
 
   describe "associations" do

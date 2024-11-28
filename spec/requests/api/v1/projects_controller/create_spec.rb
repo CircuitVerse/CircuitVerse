@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
   describe "POST #create" do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
 
     context "when unauthenticated user creates project" do
       it "returns status unauthorized" do

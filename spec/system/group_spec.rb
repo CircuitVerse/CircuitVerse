@@ -3,9 +3,9 @@
 require "rails_helper"
 
 describe "Group management", type: :system do
-  let(:primary_mentor) { FactoryBot.create(:user) }
-  let(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
-  let(:user) { FactoryBot.create(:user) }
+  let(:primary_mentor) { create(:user) }
+  let(:group) { create(:group, primary_mentor: primary_mentor) }
+  let(:user) { create(:user) }
   let(:add_user_to_group_as_mentor) { GroupMember.create(group_id: group.id, user_id: user.id, mentor: true) }
   let(:add_user_to_group_as_member) { GroupMember.create(group_id: group.id, user_id: user.id, mentor: false) }
 

@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CollaboratorsController, "#destroy", type: :request do
   describe "delete specific collaborator" do
-    let!(:author) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: author) }
-    let!(:collaborator) { FactoryBot.create(:user) }
-    let!(:collaboration) { FactoryBot.create(:collaboration, user: collaborator, project: project) }
+    let!(:author) { create(:user) }
+    let!(:project) { create(:project, author: author) }
+    let!(:collaborator) { create(:user) }
+    let!(:collaboration) { create(:collaboration, user: collaborator, project: project) }
 
     context "when not authenticated" do
       before do
@@ -22,7 +22,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#destroy", type: :request do
 
     context "when authenticated as random user and don't have author_access?" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         delete "/api/v1/projects/#{project.id}/collaborators/#{collaboration.user.id}",
                headers: { Authorization: "Token #{token}" }, as: :json
       end

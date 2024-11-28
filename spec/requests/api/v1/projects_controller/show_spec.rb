@@ -4,11 +4,11 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
   describe "list specific project" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:random_user) { FactoryBot.create(:user) }
-    let!(:private_project) { FactoryBot.create(:project, author: user) }
+    let!(:user) { create(:user) }
+    let!(:random_user) { create(:user) }
+    let!(:private_project) { create(:project, author: user) }
     let!(:public_project) do
-      FactoryBot.create(:project, project_access_type: "Public", author: user)
+      create(:project, project_access_type: "Public", author: user)
     end
 
     context "when unauthenticated user fetches public project details" do
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
     context "when unauthenticated user fetches public project with collaborators" do
       before do
         # Adds random user as a collaborator to public_project
-        FactoryBot.create(:collaboration, user: FactoryBot.create(:user), project: public_project)
+        create(:collaboration, user: create(:user), project: public_project)
         get "/api/v1/projects/#{public_project.id}?include=collaborators", as: :json
       end
 
@@ -113,7 +113,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
     context "when authenticated & fetches starred project" do
       before do
         token = get_auth_token(user)
-        FactoryBot.create(:star, user_id: user.id, project_id: public_project.id)
+        create(:star, user_id: user.id, project_id: public_project.id)
         get "/api/v1/projects/#{public_project.id}",
             headers: { Authorization: "Token #{token}" }, as: :json
       end

@@ -2,8 +2,8 @@
 
 RSpec.describe Api::V1::ThreadsController, "#unsubscribe", type: :request do
   describe "unsubscribe a thread" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
+    let!(:user) { create(:user) }
+    let!(:project) { create(:project, project_access_type: "Public") }
 
     context "when not authenticated" do
       before do

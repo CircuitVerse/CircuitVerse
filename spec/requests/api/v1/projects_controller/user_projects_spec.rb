@@ -4,16 +4,16 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
   describe "list user's projects" do
-    let!(:user_one) { FactoryBot.create(:user) }
-    let!(:user_two) { FactoryBot.create(:user) }
+    let!(:user_one) { create(:user) }
+    let!(:user_two) { create(:user) }
     let!(:public_project_user_one) do
-      FactoryBot.create(:project, project_access_type: "Public", author: user_one, view: 1)
+      create(:project, project_access_type: "Public", author: user_one, view: 1)
     end
-    let!(:private_project_user_one) { FactoryBot.create(:project, author: user_one, view: 2) }
+    let!(:private_project_user_one) { create(:project, author: user_one, view: 2) }
     let!(:public_project_user_two) do
-      FactoryBot.create(:project, project_access_type: "Public", author: user_two, view: 3)
+      create(:project, project_access_type: "Public", author: user_two, view: 3)
     end
-    let!(:private_project_user_two) { FactoryBot.create(:project, author: user_two, view: 4) }
+    let!(:private_project_user_two) { create(:project, author: user_two, view: 4) }
 
     context "when not authenticated and fetches some user's projects" do
       before do

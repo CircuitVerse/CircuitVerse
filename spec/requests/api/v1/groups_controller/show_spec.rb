@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::GroupsController, "#show", type: :request do
   describe "list specific group" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+    let!(:user) { create(:user) }
+    let!(:primary_mentor) { create(:user) }
+    let!(:group) { create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
 
     context "when authorized as random user and don't have show_access?" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/groups/#{group.id}",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
 
     context "when authenticated and has access to group" do
       before do
-        FactoryBot.create(:group_member, user: user, group: group)
+        create(:group_member, user: user, group: group)
         token = get_auth_token(user)
         get "/api/v1/groups/#{group.id}",
             headers: { Authorization: "Token #{token}" }, as: :json

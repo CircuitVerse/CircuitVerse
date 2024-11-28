@@ -4,15 +4,14 @@ require "rails_helper"
 
 describe ProjectsController, type: :request do
   before do
-    @author = FactoryBot.create(:user)
+    @author = create(:user)
   end
 
   describe "#get_projects" do
     before do
-      @tag = FactoryBot.create(:tag)
-      @projects = [FactoryBot.create(:project, author: @author),
-                   FactoryBot.create(:project, author: @author)]
-      @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
+      @tag = create(:tag)
+      @projects = create_list(:project, 2, author: @author)
+      @projects.each { |project| create(:tagging, project: project, tag: @tag) }
     end
 
     it "gets project with mentioned tags" do
@@ -26,8 +25,8 @@ describe ProjectsController, type: :request do
   describe "#show" do
     context "project is public" do
       before do
-        @project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
-        @visit = FactoryBot.create(:ahoy_visit)
+        @project = create(:project, author: @author, project_access_type: "Public")
+        @visit = create(:ahoy_visit)
         allow_any_instance_of(Ahoy::Controller).to receive(:current_visit).and_return(@visit)
       end
 
@@ -44,7 +43,7 @@ describe ProjectsController, type: :request do
 
       context "event for visit already exists" do
         before do
-          FactoryBot.create(:ahoy_event, visit: @visit, name: "Visited project #{@project.id}")
+          create(:ahoy_event, visit: @visit, name: "Visited project #{@project.id}")
         end
 
         it "does not increase view" do
@@ -58,7 +57,7 @@ describe ProjectsController, type: :request do
 
     context "project is not public" do
       before do
-        @project = FactoryBot.create(:project, author: @author, project_access_type: "Private")
+        @project = create(:project, author: @author, project_access_type: "Private")
       end
 
       it "throws project access error" do
@@ -72,7 +71,7 @@ describe ProjectsController, type: :request do
   describe "#change_stars" do
     before do
       @user = sign_in_random_user
-      @project = FactoryBot.create(:project, author: @author)
+      @project = create(:project, author: @author)
     end
 
     context "user has not already starred" do
@@ -92,7 +91,7 @@ describe ProjectsController, type: :request do
 
     context "user has already starred" do
       before do
-        FactoryBot.create(:star, project: @project, user: @user)
+        create(:star, project: @project, user: @user)
       end
 
       it "deletes the star" do
@@ -106,7 +105,7 @@ describe ProjectsController, type: :request do
   describe "#create_fork" do
     before do
       @user = sign_in_random_user
-      @project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
+      @project = create(:project, author: @author, project_access_type: "Public")
     end
 
     context "project is not an assignment" do
@@ -128,9 +127,9 @@ describe ProjectsController, type: :request do
 
     context "project is an assignment" do
       before do
-        group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
-        assignment = FactoryBot.create(:assignment, group: group)
-        @assignment_project = FactoryBot.create(:project, author: @author, assignment: assignment)
+        group = create(:group, primary_mentor: create(:user))
+        assignment = create(:assignment, group: group)
+        @assignment_project = create(:project, author: @author, assignment: assignment)
       end
 
       it "throws error" do
@@ -174,7 +173,7 @@ describe ProjectsController, type: :request do
       end
 
       before do
-        @project = FactoryBot.create(:project, author: @author, name: "Test Name")
+        @project = create(:project, author: @author, name: "Test Name")
       end
 
       context "author is signed in" do
@@ -200,7 +199,7 @@ describe ProjectsController, type: :request do
 
     describe "#destroy" do
       before do
-        @project = FactoryBot.create(:project, author: @author)
+        @project = create(:project, author: @author)
       end
 
       context "author is signed in" do

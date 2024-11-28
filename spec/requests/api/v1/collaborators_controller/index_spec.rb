@@ -4,11 +4,11 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
   describe "list all collaborators" do
-    let!(:author) { FactoryBot.create(:user) }
+    let!(:author) { create(:user) }
     let!(:public_project) do
-      FactoryBot.create(:project, author: author, project_access_type: "Public")
+      create(:project, author: author, project_access_type: "Public")
     end
-    let!(:private_project) { FactoryBot.create(:project, author: author) }
+    let!(:private_project) { create(:project, author: author) }
 
     context "when not authenticated" do
       before do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
 
     context "when authorized but invalid/non-existent project" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/projects/0/collaborators/",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -37,10 +37,10 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
     context "when authorized to fetch project's collaborators which user has view access to" do
       before do
         # create 3 collaborators for a public project
-        FactoryBot.create_list(:user, 3).each do |u|
-          FactoryBot.create(:collaboration, user: u, project: public_project)
+        create_list(:user, 3).each do |u|
+          create(:collaboration, user: u, project: public_project)
         end
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/projects/#{public_project.id}/collaborators/",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -55,10 +55,10 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
     context "when fetching project's collaborators which user doesn't have view access to" do
       before do
         # create 3 collaborators for a private project
-        FactoryBot.create_list(:user, 3).each do |u|
-          FactoryBot.create(:collaboration, user: u, project: private_project)
+        create_list(:user, 3).each do |u|
+          create(:collaboration, user: u, project: private_project)
         end
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/projects/#{private_project.id}/collaborators/",
             headers: { Authorization: "Token #{token}" }, as: :json
       end

@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe FeaturedCircuit, type: :model do
   before do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
   end
 
   describe "associations" do
@@ -18,8 +18,8 @@ RSpec.describe FeaturedCircuit, type: :model do
 
   describe "callbacks" do
     it "checks featured projects are public" do
-      project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
-      featured_circuit = FactoryBot.create(:featured_circuit, project: project)
+      project = create(:project, author: @user, project_access_type: "Public")
+      featured_circuit = create(:featured_circuit, project: project)
       expect(featured_circuit).to be_valid
       project.project_access_type = "Private"
       project.save
@@ -27,9 +27,9 @@ RSpec.describe FeaturedCircuit, type: :model do
     end
 
     it "sends featured circuit email" do
-      project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
+      project = create(:project, author: @user, project_access_type: "Public")
       expect do
-        FactoryBot.create(:featured_circuit, project: project)
+        create(:featured_circuit, project: project)
       end.to have_enqueued_job.on_queue("mailers")
     end
   end

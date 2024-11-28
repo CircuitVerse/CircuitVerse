@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::UsersController, "#show", type: :request do
   describe "list a user" do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
 
     context "when requested user does not exists" do
       before do

@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CommentsController, "#create", type: :request do
   describe "create a comment" do
-    let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
+    let!(:project) { create(:project, project_access_type: "Public") }
 
     context "when not authenticated" do
       before do
@@ -19,9 +19,9 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
 
     context "when authenticated but thread is closed" do
       before do
-        project.commontator_thread.close(FactoryBot.create(:user))
+        project.commontator_thread.close(create(:user))
 
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         post "/api/v1/threads/#{project.commontator_thread.id}/comments",
              headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
 
     context "when authenticated with thread opened but empty body" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         post "/api/v1/threads/#{project.commontator_thread.id}/comments",
              headers: { Authorization: "Token #{token}" },
              params: { body: "" }, as: :json
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
 
     context "when authenticated with thread open & valid params" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         post "/api/v1/threads/#{project.commontator_thread.id}/comments",
              headers: { Authorization: "Token #{token}" },
              params: { body: "new_comment" }, as: :json

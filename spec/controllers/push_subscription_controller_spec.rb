@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe PushSubscriptionController, type: :request do
   before do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
     sign_in @user
   end
 

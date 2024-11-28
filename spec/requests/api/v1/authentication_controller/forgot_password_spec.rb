@@ -18,7 +18,7 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
     context "when user who forgot his/her password exists" do
       before do
         # creates a test user
-        user = FactoryBot.create(:user)
+        user = create(:user)
         post "/api/v1/password/forgot", params: { email: user.email }, as: :json
       end
 

@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::UsersController, "#index", type: :request do
   describe "list all users" do
-    let!(:users_list) { FactoryBot.create_list(:user, 5) }
+    let!(:users_list) { create_list(:user, 5) }
 
     context "when not authenticated" do
       before do

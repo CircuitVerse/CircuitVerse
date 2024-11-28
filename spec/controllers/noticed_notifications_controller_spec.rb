@@ -4,14 +4,14 @@ require "rails_helper"
 
 describe Users::NoticedNotificationsController, type: :request do
   before do
-    @author = FactoryBot.create(:user)
+    @author = create(:user)
     @user = sign_in_random_user
-    @project = FactoryBot.create(:project, author: @author)
+    @project = create(:project, author: @author)
   end
 
   describe "#index" do
     before do
-      @notification = FactoryBot.create(
+      @notification = create(
         :noticed_notification,
         recipient: @author,
         params:
@@ -29,7 +29,7 @@ describe Users::NoticedNotificationsController, type: :request do
 
   describe "#mark_as_read" do
     before do
-      @notification = FactoryBot.create(
+      @notification = create(
         :noticed_notification,
         recipient: @author,
         params:
@@ -46,7 +46,7 @@ describe Users::NoticedNotificationsController, type: :request do
 
   describe "#mark_all_as_read" do
     before do
-      @notification = FactoryBot.create(
+      @notification = create(
         :noticed_notification,
         recipient: @author,
         params:

@@ -80,10 +80,10 @@ describe SimulatorHelper do
     end
 
     before do
-      group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
-      assignment = FactoryBot.create(:assignment, group: group, restrictions: ["Element"].to_json)
-      @project = FactoryBot.create(:project,
-                                   author: FactoryBot.create(:user), assignment: assignment)
+      group = create(:group, primary_mentor: create(:user))
+      assignment = create(:assignment, group: group, restrictions: ["Element"].to_json)
+      @project = create(:project,
+                        author: create(:user), assignment: assignment)
     end
 
     it "sanitizes project data to populate restricted elements correctly" do

@@ -221,3 +221,5 @@ gem "sentry-sidekiq", "~> 5.17"
 
 # for SAML based SSO
 gem 'devise_saml_authenticatable'
+
+gem "rubocop-factory_bot", "~> 2.26"

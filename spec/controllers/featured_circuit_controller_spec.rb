@@ -4,8 +4,8 @@ require "rails_helper"
 
 describe FeaturedCircuitsController, type: :request do
   before do
-    @project = FactoryBot.create(:project, author: FactoryBot.create(:user),
-                                           project_access_type: "Public")
+    @project = create(:project, author: create(:user),
+                                project_access_type: "Public")
   end
 
   describe "#index" do
@@ -17,7 +17,7 @@ describe FeaturedCircuitsController, type: :request do
 
   context "user is not admin" do
     before do
-      sign_in FactoryBot.create(:user)
+      sign_in create(:user)
     end
 
     it "does not authorize" do
@@ -30,7 +30,7 @@ describe FeaturedCircuitsController, type: :request do
 
   context "user is admin" do
     before do
-      sign_in FactoryBot.create(:user, admin: true)
+      sign_in create(:user, admin: true)
     end
 
     it "creates featured_circuit" do
@@ -41,7 +41,7 @@ describe FeaturedCircuitsController, type: :request do
     end
 
     it "deletes featured_circuit" do
-      FactoryBot.create(:featured_circuit, project: @project)
+      create(:featured_circuit, project: @project)
 
       expect do
         delete featured_circuits_path, params: { featured_circuit:

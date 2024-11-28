@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#check_edit_access", type: :request do
   describe "check edit access" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:random_user) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: user, name: "Test", project_access_type: "Private") }
+    let!(:user) { create(:user) }
+    let!(:random_user) { create(:user) }
+    let!(:project) { create(:project, author: user, name: "Test", project_access_type: "Private") }
 
     context "when not authenticated" do
       before do

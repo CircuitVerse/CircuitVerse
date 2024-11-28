@@ -4,16 +4,16 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
   describe "start working on assignment" do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
     let!(:assignment) do
-      FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      create(
+        :assignment, group: create(:group, primary_mentor: create(:user))
       )
     end
     let!(:closed_assignment) do
-      FactoryBot.create(
-        :assignment, group: FactoryBot.create(
-          :group, primary_mentor: FactoryBot.create(:user)
+      create(
+        :assignment, group: create(
+          :group, primary_mentor: create(:user)
         ), status: "closed"
       )
     end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
 
     context "when authorized but tries to start closed assignment" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         patch "/api/v1/assignments/#{closed_assignment.id}/start",
               headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -44,7 +44,7 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
 
     context "when authorized but tries to start non existent assignment" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         patch "/api/v1/assignments/0/start",
               headers: { Authorization: "Token #{token}" }, as: :json
       end

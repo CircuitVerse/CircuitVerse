@@ -8,10 +8,10 @@ describe GroupMemberPolicy do
   let(:group_member) { @group_member }
 
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
-    @user = FactoryBot.create(:user)
-    @group_member = FactoryBot.create(:group_member, group: @group, user: @user)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
+    @user = create(:user)
+    @group_member = create(:group_member, group: @group, user: @user)
   end
 
   context "when the user is primary_mentor" do
@@ -22,8 +22,8 @@ describe GroupMemberPolicy do
 
   context "when the user is a mentor" do
     before do
-      @mentor = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
+      @mentor = create(:user)
+      create(:group_member, group: @group, user: @mentor, mentor: true)
     end
 
     let(:user) { @mentor }

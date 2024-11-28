@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
   describe "update specific assignment" do
-    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:primary_mentor) { create(:user) }
     let!(:assignment) do
-      FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, primary_mentor: primary_mentor)
+      create(
+        :assignment, group: create(:group, primary_mentor: primary_mentor)
       )
     end
 
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
 
     context "when authenticated as random user and don't have edit_access?" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         patch "/api/v1/assignments/#{assignment.id}",
               headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json

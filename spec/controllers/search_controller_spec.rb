@@ -14,8 +14,8 @@ describe SearchController, type: :request do
     context "Users search" do
       context "search through name" do
         before do
-          FactoryBot.create(:user, name: "Dummy User")
-          FactoryBot.create(:user, name: "Another Dummy User")
+          create(:user, name: "Dummy User")
+          create(:user, name: "Another Dummy User")
         end
 
         it "returns results" do
@@ -28,8 +28,8 @@ describe SearchController, type: :request do
 
       context "search through educational institute" do
         before do
-          FactoryBot.create(:user, name: "Dummy Techinical University")
-          FactoryBot.create(:user, name: "Another Dummy Techinical University")
+          create(:user, name: "Dummy Techinical University")
+          create(:user, name: "Another Dummy Techinical University")
         end
 
         it "returns results" do
@@ -44,9 +44,9 @@ describe SearchController, type: :request do
     context "Projects search" do
       context "search through tags" do
         before do
-          project = FactoryBot.create(:project, name: "Full adder using half adder",
-                                                project_access_type: "Public")
-          project.tags << FactoryBot.create(:tag, name: "full_adder_using_half_adder")
+          project = create(:project, name: "Full adder using half adder",
+                                     project_access_type: "Public")
+          project.tags << create(:tag, name: "full_adder_using_half_adder")
         end
 
         it "returns results" do
@@ -58,12 +58,12 @@ describe SearchController, type: :request do
 
       context "searching through name" do
         it "gets some results" do
-          FactoryBot.create(:project, name: "Full adder using basic gates",
-                                      project_access_type: "Public")
-          FactoryBot.create(:project, name: "Half adder using basic gates",
-                                      project_access_type: "Public")
-          FactoryBot.create(:project, name: "Full adder using half adder",
-                                      project_access_type: "Public")
+          create(:project, name: "Full adder using basic gates",
+                           project_access_type: "Public")
+          create(:project, name: "Half adder using basic gates",
+                           project_access_type: "Public")
+          create(:project, name: "Full adder using half adder",
+                           project_access_type: "Public")
           get search_path, params: { q: "basic gates", resource: "Projects" }
           expect(response.status).to eq(200)
           expect(response.body).to include "Full adder using basic gates"
@@ -74,8 +74,8 @@ describe SearchController, type: :request do
 
       context "searching for a non-existant project" do
         it "gets no results" do
-          FactoryBot.create(:project, name: "Full adder using basic gates",
-                                      project_access_type: "Public")
+          create(:project, name: "Full adder using basic gates",
+                           project_access_type: "Public")
           get search_path, params: { q: "half adder", resource: "Projects" }
           expect(response.status).to eq(200)
           expect(response.body).not_to include "Full adder using basic gates"

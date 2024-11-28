@@ -4,9 +4,9 @@ require "rails_helper"
 
 describe SimulatorController, type: :request do
   before do
-    @user = FactoryBot.create(:user)
-    @project = FactoryBot.create(:project, author: @user, name: "Test Name",
-                                           project_access_type: "Public")
+    @user = create(:user)
+    @project = create(:project, author: @user, name: "Test Name",
+                                project_access_type: "Public")
   end
 
   describe "should create empty project" do
@@ -127,7 +127,7 @@ describe SimulatorController, type: :request do
     describe "#embed" do
       context "project is private" do
         before do
-          @private = FactoryBot.create(:project, author: @user, project_access_type: "Private")
+          @private = create(:project, author: @user, project_access_type: "Private")
         end
 
         it "throws project access error" do

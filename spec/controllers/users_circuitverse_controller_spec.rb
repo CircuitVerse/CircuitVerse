@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe Users::CircuitverseController, type: :request do
   before do
-    @user = FactoryBot.create(:user)
+    @user = create(:user)
     sign_in @user
   end
 
@@ -26,7 +26,7 @@ describe Users::CircuitverseController, type: :request do
 
     context "user logged in is admin" do
       it "gets user groups" do
-        sign_in FactoryBot.create(:user, admin: true)
+        sign_in create(:user, admin: true)
         get user_groups_path(id: @user.id)
         expect(response.status).to eq(200)
       end
@@ -42,7 +42,7 @@ describe Users::CircuitverseController, type: :request do
 
     context "logged in user requests some other user's groups" do
       it "does not get groups" do
-        sign_in FactoryBot.create(:user)
+        sign_in create(:user)
         get user_groups_path(id: @user.id)
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end

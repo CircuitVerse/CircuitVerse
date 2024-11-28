@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe AssignmentDeadlineSubmissionJob, type: :job do
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
-    @assignment = FactoryBot.create(:assignment, group: @group)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
+    @assignment = create(:assignment, group: @group)
   end
 
   describe "#perform" do

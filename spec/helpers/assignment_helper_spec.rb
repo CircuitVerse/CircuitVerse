@@ -17,8 +17,8 @@ RSpec.describe AssignmentsHelper, type: :helper do
                                       @deadline_hour,
                                       @deadline_minute,
                                       @deadline_second)
-    @group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
-    @assignment = FactoryBot.create(:assignment, group: @group, deadline: @deadline_datetime)
+    @group = create(:group, primary_mentor: create(:user))
+    @assignment = create(:assignment, group: @group, deadline: @deadline_datetime)
   end
 
   it "#deadline_year" do

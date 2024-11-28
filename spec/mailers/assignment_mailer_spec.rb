@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe AssignmentMailer, type: :mailer do
   before do
-    @group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user), name: "Test group")
-    @assignment = FactoryBot.create(:assignment, group: @group)
-    @user = FactoryBot.create(:user)
+    @group = create(:group, primary_mentor: create(:user), name: "Test group")
+    @assignment = create(:assignment, group: @group)
+    @user = create(:user)
   end
 
   describe "#new_assignment_email" do

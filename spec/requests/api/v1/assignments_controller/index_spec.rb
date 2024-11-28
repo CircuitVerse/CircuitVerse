@@ -4,11 +4,11 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
   describe "list all assignments" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
-    let!(:group_member) { FactoryBot.create(:group_member, group: group, user: user) }
-    let!(:assignments) { FactoryBot.create_list(:assignment, 3, group: group) }
+    let!(:user) { create(:user) }
+    let!(:primary_mentor) { create(:user) }
+    let!(:group) { create(:group, primary_mentor: primary_mentor) }
+    let!(:group_member) { create(:group_member, group: group, user: user) }
+    let!(:assignments) { create_list(:assignment, 3, group: group) }
 
     context "when not authenticated" do
       before do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::AssignmentsController, "#index", type: :request do
 
     context "when authorized as random user and doesn't have access to assignments" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/groups/#{group.id}/assignments",
             headers: { Authorization: "Token #{token}" }, as: :json
       end

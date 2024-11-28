@@ -17,10 +17,10 @@ RSpec.describe Api::V1::NotificationsController, "#index", type: :request do
 
     context "when authenticated" do
       before do
-        @author = FactoryBot.create(:user)
-        @user = FactoryBot.create(:user)
-        @project = FactoryBot.create(:project, author: @author)
-        @notification = FactoryBot.create(
+        @author = create(:user)
+        @user = create(:user)
+        @project = create(:project, author: @author)
+        @notification = create(
           :noticed_notification,
           recipient: @author,
           params:

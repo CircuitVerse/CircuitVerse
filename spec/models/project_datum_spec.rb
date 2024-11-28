@@ -4,6 +4,6 @@ require "rails_helper"
 
 RSpec.describe ProjectDatum, type: :model do
   it "Has valid spec" do
-    expect(FactoryBot.create(:project)).to be_valid
+    expect(create(:project)).to be_valid
   end
 end

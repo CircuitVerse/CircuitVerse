@@ -6,8 +6,8 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
   describe "list all featured projects" do
     context "when fetches all featured projects" do
       before do
-        FactoryBot.create_list(:project, 5, project_access_type: "Public").each do |p|
-          FactoryBot.create(:featured_circuit, project: p)
+        create_list(:project, 5, project_access_type: "Public").each do |p|
+          create(:featured_circuit, project: p)
         end
         get "/api/v1/projects/featured", as: :json
       end
@@ -21,8 +21,8 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
 
     context "when includes author details" do
       before do
-        FactoryBot.create_list(:project, 5, project_access_type: "Public").each do |p|
-          FactoryBot.create(:featured_circuit, project: p)
+        create_list(:project, 5, project_access_type: "Public").each do |p|
+          create(:featured_circuit, project: p)
         end
         get "/api/v1/projects/featured?include=author", as: :json
       end
@@ -36,9 +36,9 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
 
     context "when checks for projects sorted in :ASC by views" do
       before do
-        FactoryBot.create_list(:project, 5, project_access_type: "Public", view: rand(10))
-                  .each do |p|
-          FactoryBot.create(:featured_circuit, project: p)
+        create_list(:project, 5, project_access_type: "Public", view: rand(10))
+          .each do |p|
+          create(:featured_circuit, project: p)
         end
         get "/api/v1/projects/featured",
             params: { sort: "view" }, as: :json
@@ -52,9 +52,9 @@ RSpec.describe Api::V1::ProjectsController, "#featured_circuits", type: :request
 
     context "when checks for projects sorted in :DESC by views" do
       before do
-        FactoryBot.create_list(:project, 5, project_access_type: "Public", view: rand(10))
-                  .each do |p|
-          FactoryBot.create(:featured_circuit, project: p)
+        create_list(:project, 5, project_access_type: "Public", view: rand(10))
+          .each do |p|
+          create(:featured_circuit, project: p)
         end
         get "/api/v1/projects/featured",
             params: { sort: "-view" }, as: :json

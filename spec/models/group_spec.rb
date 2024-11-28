@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Group, type: :model do
   before do
-    @primary_mentor = FactoryBot.create(:user)
+    @primary_mentor = create(:user)
   end
 
   describe "associations" do
@@ -18,20 +18,20 @@ RSpec.describe Group, type: :model do
   describe "callbacks" do
     it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_creation_mail)
-      FactoryBot.create(:group, primary_mentor: @primary_mentor)
+      create(:group, primary_mentor: @primary_mentor)
     end
   end
 
   describe "public methods" do
     it "sends group creation mail" do
-      group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+      group = create(:group, primary_mentor: @primary_mentor)
       expect do
         group.send_creation_mail
       end.to have_enqueued_job.on_queue("mailers")
     end
 
     it "reset the group_token and update expiration date" do
-      group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+      group = create(:group, primary_mentor: @primary_mentor)
       expect do
         group.reset_group_token
       end.to change(group, :group_token)

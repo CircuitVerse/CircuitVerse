@@ -4,13 +4,13 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
   describe "list specific assignment" do
-    let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+    let!(:primary_mentor) { create(:user) }
+    let!(:group) { create(:group, primary_mentor: primary_mentor) }
     let!(:group_member) do
-      FactoryBot.create(:group_member, group: group, user: FactoryBot.create(:user))
+      create(:group_member, group: group, user: create(:user))
     end
     let!(:assignment) do
-      FactoryBot.create(:assignment, group: group, grading_scale: 1)
+      create(:assignment, group: group, grading_scale: 1)
     end
 
     context "when not authenticated" do
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
 
     context "when authorized as random user and don't have show_access?" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/assignments/#{assignment.id}",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -66,7 +66,7 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
     context "when authorized and including projects" do
       before do
         # creates a project for the assignment..
-        FactoryBot.create(:project, assignment: assignment)
+        create(:project, assignment: assignment)
 
         token = get_auth_token(primary_mentor)
         get "/api/v1/assignments/#{assignment.id}?include=projects",
@@ -83,8 +83,8 @@ RSpec.describe Api::V1::AssignmentsController, "#show", type: :request do
     context "when authorized and including grades" do
       before do
         # creates a project and corresponding grade for the assignment..
-        project = FactoryBot.create(:project, assignment: assignment)
-        FactoryBot.create(
+        project = create(:project, assignment: assignment)
+        create(
           :grade, user_id: primary_mentor.id, assignment: assignment, project: project, grade: "A"
         )
         token = get_auth_token(primary_mentor)

@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe PendingInvitation, type: :model do
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
   end
 
   describe "associations" do
@@ -15,13 +15,13 @@ RSpec.describe PendingInvitation, type: :model do
   describe "callbacks" do
     it "alls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_pending_invitation_mail)
-      FactoryBot.create(:pending_invitation, group: @group)
+      create(:pending_invitation, group: @group)
     end
   end
 
   describe "public methods" do
     it "sends pending invitation mail" do
-      invitation = FactoryBot.create(:pending_invitation, group: @group)
+      invitation = create(:pending_invitation, group: @group)
       expect do
         invitation.send_pending_invitation_mail
       end.to have_enqueued_job.on_queue("mailers")

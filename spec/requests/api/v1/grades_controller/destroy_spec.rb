@@ -4,12 +4,12 @@ require "rails_helper"
 
 RSpec.describe Api::V1::GradesController, "#destroy", type: :request do
   describe "delete specific grade" do
-    let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
-    let!(:assignment) { FactoryBot.create(:assignment, group: group, grading_scale: :letter) }
-    let!(:project) { FactoryBot.create(:project, assignment: assignment) }
+    let!(:primary_mentor) { create(:user) }
+    let!(:group) { create(:group, primary_mentor: primary_mentor) }
+    let!(:assignment) { create(:assignment, group: group, grading_scale: :letter) }
+    let!(:project) { create(:project, assignment: assignment) }
     let!(:grade) do
-      FactoryBot.create(
+      create(
         :grade, project: project, assignment: assignment,
                 user_id: primary_mentor.id, grade: "A", remarks: "Good"
       )
@@ -28,7 +28,7 @@ RSpec.describe Api::V1::GradesController, "#destroy", type: :request do
 
     context "when authenticated as random user and don't have delete access" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         delete "/api/v1/grades/#{grade.id}",
                headers: { Authorization: "Token #{token}" }, as: :json
       end

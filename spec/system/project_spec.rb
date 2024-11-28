@@ -3,10 +3,10 @@
 require "rails_helper"
 
 describe "Project", type: :system do
-  let(:author) { FactoryBot.create(:user) }
-  let(:private_project) { FactoryBot.create(:project, author: author, project_access_type: "Private") }
-  let(:public_project) { FactoryBot.create(:project, author: author, project_access_type: "Public") }
-  let(:collaborator) { FactoryBot.create(:user) }
+  let(:author) { create(:user) }
+  let(:private_project) { create(:project, author: author, project_access_type: "Private") }
+  let(:public_project) { create(:project, author: author, project_access_type: "Public") }
+  let(:collaborator) { create(:user) }
 
   before do
     private_project.collaborators << collaborator

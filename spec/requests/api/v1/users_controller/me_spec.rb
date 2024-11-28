@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::UsersController, "#me", type: :request do
   describe "GET logged in user" do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
 
     context "when not authenticated" do
       before do

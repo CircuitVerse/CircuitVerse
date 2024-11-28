@@ -4,22 +4,22 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#user_favourites", type: :request do
   describe "list all starred projects" do
-    let!(:user_one) { FactoryBot.create(:user) }
-    let!(:user_two) { FactoryBot.create(:user) }
+    let!(:user_one) { create(:user) }
+    let!(:user_two) { create(:user) }
 
     before do
-      FactoryBot.create(
-        :star, user: user_one, project: FactoryBot.create(
+      create(
+        :star, user: user_one, project: create(
           :project, author: user_one
         )
       )
-      FactoryBot.create(
-        :star, user: user_one, project: FactoryBot.create(
+      create(
+        :star, user: user_one, project: create(
           :project, project_access_type: "Public", author: user_one
         )
       )
-      FactoryBot.create(
-        :star, user: user_one, project: FactoryBot.create(
+      create(
+        :star, user: user_one, project: create(
           :project, project_access_type: "Public", author: user_two
         )
       )

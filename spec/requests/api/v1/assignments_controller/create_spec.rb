@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
   describe "create/add an assignment" do
-    let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+    let!(:primary_mentor) { create(:user) }
+    let!(:group) { create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do
@@ -20,7 +20,7 @@ RSpec.describe Api::V1::AssignmentsController, "#create", type: :request do
 
     context "when authenticated as random user and don't have edit_access?" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         post "/api/v1/groups/#{group.id}/assignments",
              headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json

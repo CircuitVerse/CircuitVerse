@@ -6,8 +6,8 @@ describe GroupPolicy do
   subject { described_class.new(user, group) }
 
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
   end
 
   context "when the user is primary_mentor" do
@@ -20,8 +20,8 @@ describe GroupPolicy do
 
   context "when the user is a mentor" do
     before do
-      @mentor = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
+      @mentor = create(:user)
+      create(:group_member, group: @group, user: @mentor, mentor: true)
     end
 
     let(:user) { @mentor }
@@ -37,8 +37,8 @@ describe GroupPolicy do
     let(:group) { @group }
 
     before do
-      @member = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, group: @group, user: @member)
+      @member = create(:user)
+      create(:group_member, group: @group, user: @member)
     end
 
     it { is_expected.to permit(:show_access) }
@@ -47,7 +47,7 @@ describe GroupPolicy do
   end
 
   context "when the user is not a group_member" do
-    let(:user) { FactoryBot.create(:user) }
+    let(:user) { create(:user) }
     let(:group) { @group }
 
     it { is_expected.not_to permit(:show_access) }

@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe UserMailer, type: :mailer do
   before do
-    @user = FactoryBot.create(:user)
-    @project = FactoryBot.create(:project, author: @user)
-    @mail = FactoryBot.create(:custom_mail, subject: "Test subject",
-                                            content: "Test content", sender: FactoryBot.create(:user))
+    @user = create(:user)
+    @project = create(:project, author: @user)
+    @mail = create(:custom_mail, subject: "Test subject",
+                                 content: "Test content", sender: create(:user))
   end
 
   describe "#custom_email" do
@@ -41,8 +41,8 @@ RSpec.describe UserMailer, type: :mailer do
     let(:mail) { described_class.forked_project_email(@user, @old_project, @forked_project) }
 
     before do
-      @old_project = FactoryBot.create(:project, author: FactoryBot.create(:user))
-      @forked_project = FactoryBot.create(:project, author: @user, forked_project: @old_project)
+      @old_project = create(:project, author: create(:user))
+      @forked_project = create(:project, author: @user, forked_project: @old_project)
     end
 
     it "sends forked project mail" do

@@ -4,12 +4,11 @@ require:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-performance
+  - rubocop-factory_bot # Added for FactoryBot cops
 
 AllCops:
   TargetRubyVersion: 3.2
   NewCops: enable
-  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
-  # to ignore them, so only the ones explicitly set in this file are enabled.
   Exclude:
     - '**/templates/**/*'
     - '**/vendor/**/*'
@@ -28,13 +27,13 @@ Layout/LineLength:
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*' # pretty much impossible with RSpec
-    - 'lib/tasks/*' # also impractical for Rake tasks
+    - 'spec/**/*'
+    - 'lib/tasks/*'
 
 Metrics/MethodLength:
-  Max: 15 # can be reduced
+  Max: 15
   Exclude:
-    - 'spec/**/*' # not a big deal in spec helper methods
+    - 'spec/**/*'
     - 'app/controllers/about_controller.rb'
     - 'app/controllers/assignments_controller.rb'
     - 'app/controllers/circuitverse_controller.rb'
@@ -46,12 +45,14 @@ Metrics/MethodLength:
     - 'app/models/grade.rb'
     - 'app/services/lti_score_submission.rb'
 
-
 Metrics/ModuleLength:
   Exclude:
-    - 'spec/**/*' # not a big deal in spec helper module
+    - 'spec/**/*'
 
 Rails:
+  Enabled: true
+
+Rails/FilePath: # Updated from RSpec/FilePath
   Enabled: true
 
 # Prefer &&/|| over and/or.
@@ -271,11 +272,11 @@ RSpec/InstanceVariable:
 RSpec/ContextWording:
   Enabled: false
 
-RSpec/FactoryBot/SyntaxMethods:
-  Enabled: false
+FactoryBot/SyntaxMethods:
+  Enabled: true # Updated to use the FactoryBot syntax methods cop
 
 RSpec/MultipleMemoizedHelpers:
-   Max: 6
+  Max: 6
 
 RSpec/ExampleLength:
   Enabled: false
@@ -308,9 +309,6 @@ Lint/EmptyBlock:
 Lint/MissingSuper:
   Exclude:
     - 'app/policies/*'
-
-RSpec/FilePath:
-  Enabled: false
 
 Naming/BlockForwarding:
   Enabled: false

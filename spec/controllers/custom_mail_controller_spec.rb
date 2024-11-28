@@ -4,14 +4,14 @@ require "rails_helper"
 
 describe CustomMailsController, type: :request do
   before do
-    @mail = FactoryBot.create(:custom_mail, subject: "Test subject",
-                                            content: "Test content",
-                                            sender: FactoryBot.create(:user, subscribed: false))
+    @mail = create(:custom_mail, subject: "Test subject",
+                                 content: "Test content",
+                                 sender: create(:user, subscribed: false))
   end
 
   context "admin is signed in" do
     before do
-      sign_in FactoryBot.create(:user, admin: true, subscribed: false)
+      sign_in create(:user, admin: true, subscribed: false)
     end
 
     describe "#create" do
@@ -58,7 +58,7 @@ describe CustomMailsController, type: :request do
 
     describe "#send_mail" do
       before do
-        FactoryBot.create(:user, subscribed: true)
+        create(:user, subscribed: true)
       end
 
       it "sends all mails" do
@@ -71,7 +71,7 @@ describe CustomMailsController, type: :request do
 
     describe "#send_mail_self" do
       before do
-        FactoryBot.create(:user, subscribed: true)
+        create(:user, subscribed: true)
       end
 
       it "sends mail to send only" do
@@ -93,7 +93,7 @@ describe CustomMailsController, type: :request do
 
   context "user is not admin" do
     it "returns not authorized for all routes" do
-      sign_in FactoryBot.create(:user)
+      sign_in create(:user)
       get send_custom_mail_path(@mail)
       check_not_authorized(response)
       put custom_mail_path(@mail), params: { custom_mail: {} }

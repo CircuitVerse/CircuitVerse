@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
   describe "forkes a particular project" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:random_user) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: user) }
+    let!(:user) { create(:user) }
+    let!(:random_user) { create(:user) }
+    let!(:project) { create(:project, author: user) }
 
     context "when not authenticated" do
       before do

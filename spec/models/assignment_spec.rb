@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Assignment, type: :model do
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
   end
 
   describe "associations" do
@@ -18,7 +18,7 @@ RSpec.describe Assignment, type: :model do
       expect_any_instance_of(described_class).to receive(:send_new_assignment_mail)
       expect_any_instance_of(described_class).to receive(:send_update_mail)
       expect_any_instance_of(described_class).to receive(:set_deadline_job).twice
-      assignment = FactoryBot.create(:assignment, group: @group)
+      assignment = create(:assignment, group: @group)
       assignment.status = "open"
       assignment.save
     end
@@ -26,9 +26,9 @@ RSpec.describe Assignment, type: :model do
 
   context "public methods" do
     before do
-      user = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, group: @group, user: user)
-      @assignment = FactoryBot.create(:assignment, group: @group, status: "open")
+      user = create(:user)
+      create(:group_member, group: @group, user: user)
+      @assignment = create(:assignment, group: @group, status: "open")
     end
 
     it "sends new assignment mail" do
@@ -54,8 +54,8 @@ RSpec.describe Assignment, type: :model do
         @projects = []
 
         3.times do
-          @projects << FactoryBot.create(:project, assignment: @assignment,
-                                                   author: FactoryBot.create(:user))
+          @projects << create(:project, assignment: @assignment,
+                                        author: create(:user))
         end
       end
 

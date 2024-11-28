@@ -4,11 +4,11 @@ require "rails_helper"
 
 describe AssignmentsController, type: :request do
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
-    @assignment = FactoryBot.create(:assignment, group: @group)
-    @member = FactoryBot.create(:user)
-    FactoryBot.create(:group_member, user: @member, group: @group)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
+    @assignment = create(:assignment, group: @group)
+    @member = create(:user)
+    create(:group_member, user: @member, group: @group)
   end
 
   describe "#new" do
@@ -209,7 +209,7 @@ describe AssignmentsController, type: :request do
 
   describe "#reopen" do
     before do
-      @closed_assignment = FactoryBot.create(:assignment, group: @group, status: "closed")
+      @closed_assignment = create(:assignment, group: @group, status: "closed")
     end
 
     context "when primary_mentor is signed in" do

@@ -4,9 +4,9 @@ require "rails_helper"
 
 describe GroupsController, type: :request do
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @user = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, name: "test group", primary_mentor: @primary_mentor)
+    @primary_mentor = create(:user)
+    @user = create(:user)
+    @group = create(:group, name: "test group", primary_mentor: @primary_mentor)
   end
 
   describe "#create" do
@@ -48,8 +48,8 @@ describe GroupsController, type: :request do
   describe "#show" do
     context "group member is signed in" do
       before do
-        @assignment = FactoryBot.create(:assignment, group: @group,
-                                                     status: "reopening", deadline: 2.days.ago)
+        @assignment = create(:assignment, group: @group,
+                                          status: "reopening", deadline: 2.days.ago)
         sign_in get_group_member(@group)
       end
 
@@ -98,9 +98,9 @@ describe GroupsController, type: :request do
 
   describe "#invite" do
     before do
-      @already_present = FactoryBot.create(:user)
+      @already_present = create(:user)
       @group.update(token_expires_at: 12.days.from_now)
-      FactoryBot.create(:group_member, user: @already_present, group: @group)
+      create(:group_member, user: @already_present, group: @group)
     end
 
     context "when user enters a valid link" do

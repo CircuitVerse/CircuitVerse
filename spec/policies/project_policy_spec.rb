@@ -15,11 +15,11 @@ describe ProjectPolicy do
   end
 
   before do
-    @author = FactoryBot.create(:user)
+    @author = create(:user)
   end
 
   context "project is public" do
-    let(:project) { FactoryBot.create(:project, author: @author, project_access_type: "Public") }
+    let(:project) { create(:project, author: @author, project_access_type: "Public") }
 
     context "for author" do
       let(:user) { @author }
@@ -32,7 +32,7 @@ describe ProjectPolicy do
     end
 
     context "for a visitor" do
-      let(:user) { FactoryBot.create(:user) }
+      let(:user) { create(:user) }
 
       it { is_expected.to permit(:view_access) }
       it { is_expected.to permit(:direct_view_access) }
@@ -47,28 +47,28 @@ describe ProjectPolicy do
     end
 
     context "for admin" do
-      let(:user) { FactoryBot.create(:user, admin: true) }
+      let(:user) { create(:user, admin: true) }
 
       it { is_expected.to permit(:can_feature) }
     end
   end
 
   context "project is assignment" do
-    let(:user) { FactoryBot.create(:user) }
-    let(:project) { FactoryBot.create(:project, author: @author, assignment: @assignment) }
+    let(:user) { create(:user) }
+    let(:project) { create(:project, author: @author, assignment: @assignment) }
 
     before do
-      primary_mentor = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
-      @assignment = FactoryBot.create(:assignment, group: group)
+      primary_mentor = create(:user)
+      group = create(:group, primary_mentor: primary_mentor)
+      @assignment = create(:assignment, group: group)
     end
 
     it { is_expected.not_to permit(:create_fork) }
   end
 
   context "project is assignment submission" do
-    let(:user) { FactoryBot.create(:user) }
-    let(:project) { FactoryBot.create(:project, author: user) }
+    let(:user) { create(:user) }
+    let(:project) { create(:project, author: user) }
 
     before do
       project.project_submission = true
@@ -82,7 +82,7 @@ describe ProjectPolicy do
   end
 
   context "project is private" do
-    let(:project) { FactoryBot.create(:project, author: @author, project_access_type: "Private") }
+    let(:project) { create(:project, author: @author, project_access_type: "Private") }
 
     context "for author" do
       let(:user) { @author }
@@ -93,13 +93,13 @@ describe ProjectPolicy do
     end
 
     context "for admin" do
-      let(:user) { FactoryBot.create(:user, admin: true) }
+      let(:user) { create(:user, admin: true) }
 
       it { is_expected.not_to permit(:can_feature) }
     end
 
     context "for a visitor" do
-      let(:user) { FactoryBot.create(:user) }
+      let(:user) { create(:user) }
 
       it "raises error" do
         check_auth_exception(subject, :edit_access)

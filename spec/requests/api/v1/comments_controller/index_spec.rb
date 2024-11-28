@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CommentsController, "#index", type: :request do
   describe "get thread's comments" do
-    let!(:private_project_author) { FactoryBot.create(:user) }
-    let!(:public_project) { FactoryBot.create(:project, project_access_type: "Public") }
-    let!(:private_project) { FactoryBot.create(:project, author: private_project_author) }
+    let!(:private_project_author) { create(:user) }
+    let!(:public_project) { create(:project, project_access_type: "Public") }
+    let!(:private_project) { create(:project, author: private_project_author) }
 
     context "when not authenticated & public project's comments are fetched" do
       before do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
     context "when authenticated & public project's comments are fetched" do
       before do
         create_comments_for(public_project)
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/threads/#{public_project.commontator_thread.id}/comments",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -51,7 +51,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
     context "when authenticated but not as user whose private project's comments are fetched" do
       before do
         create_comments_for(private_project)
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         get "/api/v1/threads/#{private_project.commontator_thread.id}/comments",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -78,9 +78,9 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
     end
 
     def create_comments_for(project)
-      FactoryBot.create_list(
+      create_list(
         :commontator_comment, 3,
-        creator: FactoryBot.create(:user),
+        creator: create(:user),
         thread: project.commontator_thread
       )
     end

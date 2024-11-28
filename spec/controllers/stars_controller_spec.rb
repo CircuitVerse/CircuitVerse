@@ -4,8 +4,8 @@ require "rails_helper"
 
 describe StarsController, type: :request do
   before do
-    @user = FactoryBot.create(:user)
-    @project = FactoryBot.create(:project, author: FactoryBot.create(:user))
+    @user = create(:user)
+    @project = create(:project, author: create(:user))
     sign_in @user
   end
 
@@ -19,7 +19,7 @@ describe StarsController, type: :request do
 
   describe "#destroy" do
     before do
-      @star = FactoryBot.create(:star, project: @project, user: @user)
+      @star = create(:star, project: @project, user: @user)
     end
 
     it "destroys a star" do

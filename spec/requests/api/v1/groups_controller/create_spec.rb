@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::GroupsController, "#create", type: :request do
   describe "create a group" do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
 
     context "when not authenticated" do
       before do

@@ -4,14 +4,14 @@ require "rails_helper"
 
 RSpec.describe AnnouncementsController, type: :request do
   before do
-    @announcement = FactoryBot.create(:announcement,
-                                      body: "Test Announcement", link: "Test Link",
-                                      start_date: "2020-10-21", end_date: "2020-10-21")
+    @announcement = create(:announcement,
+                           body: "Test Announcement", link: "Test Link",
+                           start_date: "2020-10-21", end_date: "2020-10-21")
   end
 
   context "when admin is signed in" do
     before do
-      sign_in FactoryBot.create(:user, admin: true)
+      sign_in create(:user, admin: true)
     end
 
     describe "#create" do
@@ -84,7 +84,7 @@ RSpec.describe AnnouncementsController, type: :request do
 
   context "when user is not admin" do
     it "return's not authorized for all routes" do
-      sign_in FactoryBot.create(:user)
+      sign_in create(:user)
       get announcements_path(@announcement)
       check_not_authorized(response)
       put announcement_path(@announcement), params: { announcement: {} }

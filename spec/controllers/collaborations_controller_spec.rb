@@ -4,14 +4,14 @@ require "rails_helper"
 
 describe CollaborationsController, type: :request do
   before do
-    @author = FactoryBot.create(:user)
-    @project = FactoryBot.create(:project, author: @author)
+    @author = create(:user)
+    @project = create(:project, author: @author)
   end
 
   describe "#create" do
     before do
-      @new_collaboration = FactoryBot.create(:user)
-      @user = FactoryBot.create(:user)
+      @new_collaboration = create(:user)
+      @user = create(:user)
     end
 
     let(:create_params) do
@@ -22,7 +22,7 @@ describe CollaborationsController, type: :request do
 
     context "author is logged in" do
       before do
-        FactoryBot.create(:collaboration, project: @project, user: @user)
+        create(:collaboration, project: @project, user: @user)
         sign_in @author
       end
 
@@ -45,8 +45,8 @@ describe CollaborationsController, type: :request do
 
   describe "#destroy" do
     before do
-      user = FactoryBot.create(:user)
-      @collaboration = FactoryBot.create(:collaboration, project: @project, user: user)
+      user = create(:user)
+      @collaboration = create(:collaboration, project: @project, user: user)
     end
 
     context "author of project is logged in" do
@@ -69,9 +69,9 @@ describe CollaborationsController, type: :request do
 
   describe "#update" do
     before do
-      @new_project = FactoryBot.create(:project)
-      @collaboration = FactoryBot.create(:collaboration, project: @project,
-                                                         user: FactoryBot.create(:user))
+      @new_project = create(:project)
+      @collaboration = create(:collaboration, project: @project,
+                                              user: create(:user))
     end
 
     let(:update_params) do

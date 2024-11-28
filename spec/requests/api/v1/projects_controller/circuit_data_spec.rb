@@ -4,19 +4,19 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
   describe "get circuit data" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:random_user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
+    let!(:random_user) { create(:user) }
     let!(:public_project) do
-      project = FactoryBot.create(:project, project_access_type: "Public", author: user)
-      FactoryBot.create(:project_datum, project: project)
+      project = create(:project, project_access_type: "Public", author: user)
+      create(:project_datum, project: project)
       project
     end
     let!(:private_project) do
-      project = FactoryBot.create(:project, author: user)
-      FactoryBot.create(:project_datum, project: project)
+      project = create(:project, author: user)
+      create(:project_datum, project: project)
       project
     end
-    let!(:empty_project) { FactoryBot.create(:project, project_access_type: "Public", author: user) }
+    let!(:empty_project) { create(:project, project_access_type: "Public", author: user) }
 
     context "when unauthenticated user fetches public project circuit data" do
       before do
@@ -99,7 +99,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
     context "when authenticated user fetches other users public project circuit data as collaborator" do
       before do
         token = get_auth_token(random_user)
-        FactoryBot.create(:collaboration, project: public_project, user: random_user)
+        create(:collaboration, project: public_project, user: random_user)
         get "/api/v1/projects/#{public_project.id}/circuit_data",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
@@ -114,7 +114,7 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
     context "when authenticated user fetches other users private project circuit data as collaborator" do
       before do
         token = get_auth_token(random_user)
-        FactoryBot.create(:collaboration, project: private_project, user: random_user)
+        create(:collaboration, project: private_project, user: random_user)
         get "/api/v1/projects/#{private_project.id}/circuit_data",
             headers: { Authorization: "Token #{token}" }, as: :json
       end

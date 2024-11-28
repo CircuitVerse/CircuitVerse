@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::UsersController, "#update", type: :request do
   describe "update a user" do
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
 
     context "when requested user does not exists" do
       before do
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
     context "when authenticated but not as the user to be updated" do
       before do
         token = get_auth_token(user)
-        random_user = FactoryBot.create(:user)
+        random_user = create(:user)
         patch "/api/v1/users/#{random_user.id}",
               params: { name: "Updated Name" },
               headers: { Authorization: "Token #{token}" }, as: :json
@@ -79,7 +79,7 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
       before do
         Flipper.disable(:active_storage_s3)
         # user having profile picture
-        new_user = FactoryBot.create(:user)
+        new_user = create(:user)
         token = get_auth_token(new_user)
         patch "/api/v1/users/#{new_user.id}",
               params: { remove_picture: "1" },

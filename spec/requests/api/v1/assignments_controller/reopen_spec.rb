@@ -4,15 +4,15 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
   describe "reopen specific assignment" do
-    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:primary_mentor) { create(:user) }
     let!(:assignment) do
-      FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, primary_mentor: primary_mentor)
+      create(
+        :assignment, group: create(:group, primary_mentor: primary_mentor)
       )
     end
     let!(:open_assignment) do
-      FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, primary_mentor: primary_mentor), status: "open"
+      create(
+        :assignment, group: create(:group, primary_mentor: primary_mentor), status: "open"
       )
     end
 
@@ -29,7 +29,7 @@ RSpec.describe Api::V1::AssignmentsController, "#reopen", type: :request do
 
     context "when authorized as random user and don't have access" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         patch "/api/v1/assignments/#{assignment.id}/reopen",
               headers: { Authorization: "Token #{token}" }, as: :json
       end

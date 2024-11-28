@@ -4,8 +4,8 @@ require "rails_helper"
 
 describe GroupMembersController, type: :request do
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
   end
 
   describe "#create" do
@@ -13,14 +13,14 @@ describe GroupMembersController, type: :request do
       {
         group_member: {
           group_id: @group.id,
-          emails: [@already_present.email, FactoryBot.create(:user).email, Faker::Internet.email]
+          emails: [@already_present.email, create(:user).email, Faker::Internet.email]
         }
       }
     end
 
     before do
-      @already_present = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, user: @already_present, group: @group)
+      @already_present = create(:user)
+      create(:group_member, user: @already_present, group: @group)
       sign_in @primary_mentor
     end
 
@@ -53,8 +53,8 @@ describe GroupMembersController, type: :request do
 
   describe "#update" do
     before do
-      @group_member = FactoryBot.create(:group_member, user: FactoryBot.create(:user),
-                                                       group: @group)
+      @group_member = create(:group_member, user: create(:user),
+                                            group: @group)
     end
 
     context "when primary_mentor is signed in" do
@@ -85,8 +85,8 @@ describe GroupMembersController, type: :request do
 
   describe "#destroy" do
     before do
-      @group_member = FactoryBot.create(:group_member, user: FactoryBot.create(:user),
-                                                       group: @group)
+      @group_member = create(:group_member, user: create(:user),
+                                            group: @group)
     end
 
     context "when primary_mentor is signed in" do

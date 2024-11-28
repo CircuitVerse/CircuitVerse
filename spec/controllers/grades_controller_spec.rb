@@ -4,11 +4,11 @@ require "rails_helper"
 
 describe GradesController, type: :request do
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
-    @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter)
-    @assignment_project = FactoryBot.create(:project, assignment: @assignment,
-                                                      author: FactoryBot.create(:user))
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
+    @assignment = create(:assignment, group: @group, grading_scale: :letter)
+    @assignment_project = create(:project, assignment: @assignment,
+                                           author: create(:user))
   end
 
   describe "#create" do
@@ -81,7 +81,7 @@ describe GradesController, type: :request do
 
     context "when some other user is signed in" do
       it "gives unauthorized error" do
-        sign_in FactoryBot.create(:user)
+        sign_in create(:user)
         post grades_path, params: create_params
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
@@ -99,8 +99,8 @@ describe GradesController, type: :request do
     end
 
     before do
-      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @primary_mentor,
-                                         grade: "A", assignment: @assignment)
+      @grade = create(:grade, project: @assignment_project, grader: @primary_mentor,
+                              grade: "A", assignment: @assignment)
     end
 
     context "when primary_mentor is logged in" do
@@ -133,7 +133,7 @@ describe GradesController, type: :request do
 
     context "when a user other than primary_mentor/mentor is logged in" do
       it "throws unauthorized error" do
-        sign_in FactoryBot.create(:user)
+        sign_in create(:user)
         expect do
           delete grades_path, params: destroy_params
         end.not_to change(Grade, :count)
@@ -144,9 +144,9 @@ describe GradesController, type: :request do
 
   describe "#to_csv" do
     before do
-      FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
-      @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @primary_mentor,
-                                         grade: "A", assignment: @assignment, remarks: "remarks")
+      create(:group_member, user: @assignment_project.author, group: @group)
+      @grade = create(:grade, project: @assignment_project, grader: @primary_mentor,
+                              grade: "A", assignment: @assignment, remarks: "remarks")
     end
 
     context "when signed user is primary_mentor" do

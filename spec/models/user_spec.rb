@@ -19,14 +19,14 @@ RSpec.describe User, type: :model do
     it "sends mail and invites on creation" do
       expect_any_instance_of(described_class).to receive(:send_welcome_mail)
       expect_any_instance_of(described_class).to receive(:create_members_from_invitations)
-      FactoryBot.create(:user)
+      create(:user)
     end
   end
 
   describe "validations" do
     before do
       profile_picture = fixture_file_upload("profile.png", "image/png")
-      @user = FactoryBot.create(:user, profile_picture: profile_picture)
+      @user = create(:user, profile_picture: profile_picture)
     end
 
     it "validates active storage attachment" do
@@ -41,10 +41,10 @@ RSpec.describe User, type: :model do
 
   describe "public methods" do
     before do
-      primary_mentor = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
-      @user = FactoryBot.create(:user)
-      FactoryBot.create(:pending_invitation, group: group, email: @user.email)
+      primary_mentor = create(:user)
+      group = create(:group, primary_mentor: primary_mentor)
+      @user = create(:user)
+      create(:pending_invitation, group: group, email: @user.email)
     end
 
     it "sends welcome mail" do

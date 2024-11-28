@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Api::V1::GroupsController, "#index", type: :request do
   describe "list all groups" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
+    let!(:primary_mentor) { create(:user) }
 
     context "when not authenticated" do
       before do
@@ -21,8 +21,8 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
     context "when authorized and not including assignments or group members" do
       before do
         # create 3 groups with user as group member for each
-        FactoryBot.create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
-          FactoryBot.create(:group_member, group: g, user: user)
+        create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
+          create(:group_member, group: g, user: user)
         end
         token = get_auth_token(user)
         get "/api/v1/groups",
@@ -39,9 +39,9 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
     context "when authorized and including assignments" do
       before do
         # create 3 groups with assignment and group_member for each
-        FactoryBot.create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
-          FactoryBot.create(:group_member, group: g, user: user)
-          FactoryBot.create(:assignment, group: g)
+        create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
+          create(:group_member, group: g, user: user)
+          create(:assignment, group: g)
         end
         token = get_auth_token(user)
         get "/api/v1/groups?include=assignments",
@@ -59,11 +59,11 @@ RSpec.describe Api::V1::GroupsController, "#index", type: :request do
     context "when authorized and including group_members" do
       before do
         # create 3 groups with 4 group_members for each
-        FactoryBot.create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
+        create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
           # creates new group member
-          FactoryBot.create(:group_member, group: g, user: FactoryBot.create(:user))
+          create(:group_member, group: g, user: create(:user))
           # Adds user as a group member so that the group is accessible to user
-          FactoryBot.create(:group_member, group: g, user: user)
+          create(:group_member, group: g, user: user)
         end
         token = get_auth_token(user)
         get "/api/v1/groups?include=group_members",

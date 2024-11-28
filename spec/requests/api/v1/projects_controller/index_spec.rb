@@ -4,15 +4,15 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
   describe "list all projects" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:another_user) { FactoryBot.create(:user) }
+    let!(:user) { create(:user) }
+    let!(:another_user) { create(:user) }
 
     context "when not authenticated" do
       before do
         # creates 2 public projects
-        FactoryBot.create_list(:project, 2, project_access_type: "Public")
+        create_list(:project, 2, project_access_type: "Public")
         # creates 2 private projects
-        FactoryBot.create_list(:project, 2)
+        create_list(:project, 2)
         get "/api/v1/projects", as: :json
       end
 
@@ -25,8 +25,8 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
 
     context "when not authenticated and includes author details" do
       before do
-        FactoryBot.create_list(:project, 2, project_access_type: "Public")
-        FactoryBot.create_list(:project, 2)
+        create_list(:project, 2, project_access_type: "Public")
+        create_list(:project, 2)
         get "/api/v1/projects?include=author", as: :json
       end
 
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
     context "when projects sorted by views" do
       before do
         # creates 4 public projects with random views
-        FactoryBot.create_list(:project, 4, project_access_type: "Public", view: rand(10))
+        create_list(:project, 4, project_access_type: "Public", view: rand(10))
       end
 
       it "returns all public projects sorted by views in descending order" do
@@ -59,9 +59,9 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
     context "when authenticated with user who has authored a project" do
       before do
         # creates 2 public projects
-        FactoryBot.create_list(:project, 2, project_access_type: "Public")
+        create_list(:project, 2, project_access_type: "Public")
         # creates a private project signed in user has authored
-        FactoryBot.create(:project, author: user)
+        create(:project, author: user)
 
         token = get_auth_token(user)
         get "/api/v1/projects", headers: { Authorization: "Token #{token}" }, as: :json
@@ -77,9 +77,9 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
     context "when authenticated with user who hasn't authored a project" do
       before do
         # creates 2 public projects
-        FactoryBot.create_list(:project, 2, project_access_type: "Public")
+        create_list(:project, 2, project_access_type: "Public")
         # creates a private project another user has authored
-        FactoryBot.create(:project, author: another_user)
+        create(:project, author: another_user)
 
         token = get_auth_token(user)
         get "/api/v1/projects", headers: { Authorization: "Token #{token}" }, as: :json

@@ -11,12 +11,11 @@ RSpec.describe Users::SessionsController, type: :controller do
     rsa_public = rsa_private.public_key
 
     # Stub the private_key and public_key methods to return the test keys
-    allow(JsonWebToken).to receive(:private_key).and_return(rsa_private)
-    allow(JsonWebToken).to receive(:public_key).and_return(rsa_public)
+    allow(JsonWebToken).to receive_messages(private_key: rsa_private, public_key: rsa_public)
   end
 
   describe "POST #create" do
-    let(:user) { FactoryBot.create(:user) }
+    let(:user) { create(:user) }
     let(:valid_attributes) do
       {
         user: {
@@ -45,7 +44,7 @@ RSpec.describe Users::SessionsController, type: :controller do
 
   describe "DELETE #destroy" do
     before do
-      sign_in FactoryBot.create(:user)
+      sign_in create(:user)
       cookies[:cvt] = "test_token"
     end
 

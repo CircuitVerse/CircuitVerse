@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
   describe "create/add collaborators" do
-    let!(:author) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: author) }
-    let!(:user) { FactoryBot.create(:user) }
+    let!(:author) { create(:user) }
+    let!(:project) { create(:project, author: author) }
+    let!(:user) { create(:user) }
 
     context "when not authenticated" do
       before do
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
 
     context "when authenticated as random user and don't have author_access?" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         post "/api/v1/projects/#{project.id}/collaborators/",
              headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
@@ -50,8 +50,8 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
     context "when authorized and has access to add collaborator" do
       before do
         # creates a collaboration
-        existing = FactoryBot.create(:user, email: "existing@test.com")
-        FactoryBot.create(:collaboration, user: existing, project: project)
+        existing = create(:user, email: "existing@test.com")
+        create(:collaboration, user: existing, project: project)
         token = get_auth_token(author)
         post "/api/v1/projects/#{project.id}/collaborators/",
              headers: { Authorization: "Token #{token}" },

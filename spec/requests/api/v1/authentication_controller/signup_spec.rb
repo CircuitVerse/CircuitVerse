@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
   describe "user sign up" do
-    let!(:user) { FactoryBot.build(:user) }
+    let!(:user) { build(:user) }
 
     context "with missing params" do
       before do
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::AuthenticationController, "#signup", type: :request do
 
     context "when user already exists" do
       before do
-        existing_user = FactoryBot.create(:user)
+        existing_user = create(:user)
         post "/api/v1/auth/signup", params: {
           name: existing_user.name, email: existing_user.email, password: "1"
         }, as: :json

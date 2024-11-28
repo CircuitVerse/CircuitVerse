@@ -7,7 +7,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
     context "when user already exists" do
       before do
         # creates a user with specified email
-        FactoryBot.create(:user, email: "test@test.com")
+        create(:user, email: "test@test.com")
         post "/api/v1/oauth/signup", params: oauth_params, as: :json
       end
 

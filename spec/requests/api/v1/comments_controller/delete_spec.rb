@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
   describe "delete a comment" do
-    let!(:creator) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
+    let!(:creator) { create(:user) }
+    let!(:project) { create(:project, project_access_type: "Public") }
     let!(:comment) do
-      FactoryBot.create(
+      create(
         :commontator_comment, creator: creator, thread: project.commontator_thread
       )
     end
@@ -25,7 +25,7 @@ RSpec.describe Api::V1::CommentsController, "#delete", type: :request do
 
     context "when authenticated but don't have delete access" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         put "/api/v1/comments/#{comment.id}/delete",
             headers: { Authorization: "Token #{token}" }, as: :json
       end

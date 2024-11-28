@@ -8,13 +8,13 @@ describe ProjectDecorator do
   end
 
   before do
-    @project = FactoryBot.create(:project, author: FactoryBot.create(:user))
+    @project = create(:project, author: create(:user))
   end
 
   describe "#grade_str" do
     context "project has been graded" do
       it "gives grade string" do
-        FactoryBot.build(:grade, project: @project, grade: "A")
+        build(:grade, project: @project, grade: "A")
         expect(decorated_project.grade_str).to eq("A")
       end
     end

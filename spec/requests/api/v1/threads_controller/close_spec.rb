@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ThreadsController, "#close", type: :request do
   describe "close a thread" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
+    let!(:user) { create(:user) }
+    let!(:project) { create(:project, project_access_type: "Public") }
 
     context "when not authenticated" do
       before do

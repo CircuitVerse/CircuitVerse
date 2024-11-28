@@ -45,7 +45,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
 
     context "with valid params" do
       before do
-        FactoryBot.create(:user, email: "test@test.com")
+        create(:user, email: "test@test.com")
         post "/api/v1/oauth/login", params: oauth_params, as: :json
       end
 

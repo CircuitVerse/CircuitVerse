@@ -6,14 +6,14 @@ describe GradePolicy do
   subject { described_class.new(user, grade) }
 
   before do
-    @primary_mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
-    @assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :letter,
-                                                 grades_finalized: false)
-    @assignment_project = FactoryBot.create(:project, assignment: @assignment,
-                                                      author: FactoryBot.create(:user))
-    @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @primary_mentor,
-                                       grade: "A", assignment: @assignment)
+    @primary_mentor = create(:user)
+    @group = create(:group, primary_mentor: @primary_mentor)
+    @assignment = create(:assignment, group: @group, grading_scale: :letter,
+                                      grades_finalized: false)
+    @assignment_project = create(:project, assignment: @assignment,
+                                           author: create(:user))
+    @grade = create(:grade, project: @assignment_project, grader: @primary_mentor,
+                            grade: "A", assignment: @assignment)
   end
 
   let(:grade) { @grade }
@@ -26,8 +26,8 @@ describe GradePolicy do
 
   context "when the user is a mentor" do
     before do
-      @mentor = FactoryBot.create(:user)
-      FactoryBot.create(:group_member, group: @group, user: @mentor, mentor: true)
+      @mentor = create(:user)
+      create(:group_member, group: @group, user: @mentor, mentor: true)
     end
 
     let(:user) { @mentor }
@@ -47,7 +47,7 @@ describe GradePolicy do
   # end
 
   context "when the user is random" do
-    let(:user) { FactoryBot.create(:user) }
+    let(:user) { create(:user) }
 
     it { is_expected.not_to permit(:mentor) }
   end

@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#image_preview", type: :request do
   describe "get project image preview" do
-    let!(:public_project) { FactoryBot.create(:project, project_access_type: "Public") }
-    let!(:private_project) { FactoryBot.create(:project) }
+    let!(:public_project) { create(:project, project_access_type: "Public") }
+    let!(:private_project) { create(:project) }
 
     context "when private project image_preview is requested" do
       before do

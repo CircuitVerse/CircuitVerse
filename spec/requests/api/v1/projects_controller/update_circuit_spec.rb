@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
   describe "update circuit" do
-    let!(:user) { FactoryBot.create(:user) }
-    let!(:random_user) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: user, name: "Test Name", project_access_type: "Public") }
+    let!(:user) { create(:user) }
+    let!(:random_user) { create(:user) }
+    let!(:project) { create(:project, author: user, name: "Test Name", project_access_type: "Public") }
 
     describe "#update_circuit" do
       let(:update_params) do
@@ -60,7 +60,7 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
       context "when authenticated user is a collaborator in the project" do
         before do
           token = get_auth_token(random_user)
-          FactoryBot.create(:collaboration, user: random_user, project: project)
+          create(:collaboration, user: random_user, project: project)
           patch "/api/v1/projects/update_circuit",
                 headers: { Authorization: "Token #{token}" },
                 params: update_params, as: :json

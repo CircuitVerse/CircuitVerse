@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Project, type: :model do
   before do
-    @user = FactoryBot.create(:user)
-    group = FactoryBot.create(:group, primary_mentor: @user)
-    @assignment = FactoryBot.create(:assignment, group: group)
+    @user = create(:user)
+    group = create(:group, primary_mentor: @user)
+    @assignment = create(:assignment, group: group)
   end
 
   describe "associations" do
@@ -23,14 +23,14 @@ RSpec.describe Project, type: :model do
 
   describe "validity" do
     it "doesn't validate with public access type" do
-      project = FactoryBot.build(:project, assignment: @assignment, author: @user)
+      project = build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.project_access_type = "Public"
       expect(project).to be_invalid
     end
 
     it "doesn't allow profanities in description" do
-      project = FactoryBot.build(:project, assignment: @assignment, author: @user)
+      project = build(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.description = "Ass"
       expect(project).to be_invalid
@@ -40,7 +40,7 @@ RSpec.describe Project, type: :model do
   describe "public methods" do
     context "project submission is false" do
       before do
-        @project = FactoryBot.create(
+        @project = create(
           :project,
           assignment: @assignment,
           author: @user,
@@ -59,7 +59,7 @@ RSpec.describe Project, type: :model do
 
     context "project submission is true" do
       before do
-        @project = FactoryBot.create(
+        @project = create(
           :project,
           assignment: @assignment,
           author: @user,
@@ -78,8 +78,8 @@ RSpec.describe Project, type: :model do
 
     describe "#increase_views" do
       before do
-        @project = FactoryBot.build(:project, assignment: @assignment, author: @user)
-        @viewer = FactoryBot.create(:user)
+        @project = build(:project, assignment: @assignment, author: @user)
+        @viewer = create(:user)
       end
 
       it "increases the number of views" do
@@ -91,8 +91,8 @@ RSpec.describe Project, type: :model do
 
     describe "#check_and_remove_featured" do
       before do
-        @project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
-        FactoryBot.create(:featured_circuit, project: @project)
+        @project = create(:project, author: @user, project_access_type: "Public")
+        create(:featured_circuit, project: @project)
       end
 
       it "removes featured project if project access is not public" do

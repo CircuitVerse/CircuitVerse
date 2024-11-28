@@ -46,7 +46,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
 
   describe "#user_profile_picture" do
     it "returns the URL for the attachment if it is attached" do
-      user = FactoryBot.create(:user)
+      user = create(:user)
       user.profile_picture.attach(
         io: Rails.root.join("spec/fixtures/files/profile.png").open,
         filename: "profile.png",
@@ -57,7 +57,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
     end
 
     it "returns the path for the default image if the attachment is not attached" do
-      user1 = FactoryBot.create(:user)
+      user1 = create(:user)
       expect(user1.profile_picture.attached?).to be false
       expect(user_profile_picture(user1.profile_picture)).to eq("/images/thumb/Default.jpg")
     end
@@ -66,8 +66,8 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
   describe "#project_image_preview" do
     context "Flipper is enabled" do
       before do
-        @user = FactoryBot.create(:user)
-        @project = FactoryBot.create(:project)
+        @user = create(:user)
+        @project = create(:project)
         @project.circuit_preview.attach(
           io: Rails.root.join("spec/fixtures/files/default.png").open,
           filename: "preview_1234.jpeg",
@@ -94,8 +94,8 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
     context "Flipper is Disabled" do
       before do
         Flipper.disable(:active_storage_s3)
-        @user = FactoryBot.create(:user)
-        @project = FactoryBot.create(:project)
+        @user = create(:user)
+        @project = create(:project)
       end
 
       it "returns default image" do

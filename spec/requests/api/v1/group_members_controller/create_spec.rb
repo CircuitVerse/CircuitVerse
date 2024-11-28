@@ -4,9 +4,9 @@ require "rails_helper"
 
 RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
   describe "create/add group members" do
-    let!(:existing_user) { FactoryBot.create(:user, email: "test@test.com") }
-    let!(:primary_mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
+    let!(:existing_user) { create(:user, email: "test@test.com") }
+    let!(:primary_mentor) { create(:user) }
+    let!(:group) { create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do
@@ -21,7 +21,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
 
     context "when authenticated as random user and don't have edit_access?" do
       before do
-        token = get_auth_token(FactoryBot.create(:user))
+        token = get_auth_token(create(:user))
         post "/api/v1/groups/#{group.id}/members",
              headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
