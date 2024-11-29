@@ -153,11 +153,17 @@
   font-size: 25px;
   font-weight: 500;
   display: -webkit-box;
+  display: -moz-box;
+  display: box;
   -webkit-line-clamp: 2; 
   line-clamp: 2;
   -webkit-box-orient: vertical;
+  -moz-box-orient: vertical;
+  box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  /* Fallback for non-WebKit browsers */
+  max-height: 3em;
 }
 
 .search-userdetails-container {
