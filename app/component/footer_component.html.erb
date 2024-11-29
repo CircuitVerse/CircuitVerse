@@ -10,9 +10,11 @@
           </a>
         </div>
         <div class="row">
-          <p class="mt-3  footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
-        </div>
-        <%= render(SocialLinksComponent.new) %>
+  <div class="col-12 text-start">
+    <p class="mt-3 footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
+    <%= render(SocialLinksComponent.new) %>
+  </div>
+</div>
       </div>
       <%= render(FooterLinksComponent.new(@current_user)) %>
       <div class="col-12 col-sm-12 col-md-5 col-lg-5 footer-column">

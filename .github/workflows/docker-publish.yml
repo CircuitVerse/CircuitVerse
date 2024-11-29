@@ -1,10 +1,5 @@
 name: Docker publish
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 on:
   schedule:
     - cron: '26 5 * * *'
@@ -37,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: Copy sample database configuration
         run: cp config/database.example.yml config/database.yml
