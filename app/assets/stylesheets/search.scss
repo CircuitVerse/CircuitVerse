@@ -139,10 +139,8 @@
   height: 180px;
   margin-bottom: 20px;
   object-fit: cover;
-  width: 70%;
-  border-radius: 8px;
-  aspect-ratio: 1/1;
-  object-fit: cover;
+  aspect-ratio: 1 / 1;
+  border-radius: 100%;
 }
 
 .search-username-container {
@@ -152,9 +150,14 @@
 }
 
 .search-username {
-  display: block;
   font-size: 25px;
   font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; 
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .search-userdetails-container {
@@ -195,9 +198,6 @@
     }
   }
 
-  .search-usersearch-image {
-    width: 40%;
-  }
 }
 
 @media (max-width: 600px) {
