@@ -15,7 +15,7 @@ cd CircuitVerse
 - Use `git submodule update --init` to get the contents of the submodule if you missed using the `--recursive` option while cloning the repository or if you have already done so.
 
 #### Dependencies
-> Installation guide link and commands has been added to each dependency. You can skip the installation of the dependency if it is already installed.
+> Installation guide link and commands have been added to each dependency. You can skip the installation of the dependency if it is already installed.
 - [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
      ```bash
      sudo apt install git
@@ -75,7 +75,7 @@ cd CircuitVerse
 
 
 #### Setup
-> **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
+> **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user.
 
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`

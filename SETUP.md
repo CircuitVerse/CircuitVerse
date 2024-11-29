@@ -3,12 +3,17 @@
 
 Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlined and results in better PRs.
 
-If you have any setup problems, please ensure you have read through all the instructions have all the required software installed before creating an issue.
+### If you have any setup problems, please ensure that you have :
+1. Read through all the instructions carefully.
 
----
+2. Ensure that you have installed all the required softwares.
 
-## Note
-If you are facing any issues with the setup, first checkout the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md) and if you are still facing issues, feel free to ask in the [slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
+3. You should first checkout the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md).
+
+3. If you still couldn't find a fix you could post the issue on the community [slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
+
+If the issue still persists then you can create an issue under the github issue tracker.
+
 
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
