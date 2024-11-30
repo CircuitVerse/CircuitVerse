@@ -13,71 +13,71 @@
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
-  <button id="dropdownButton" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+  <button id="dropdownButton" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
   <i class="fas fa-bars" id="dropdownIcon"></i>
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
-             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
+             <li><a class="dropdown-item logixButton text-start ps-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
           <% end %>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="ExportCircuitFiles">Export as file</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="ImportCircuitFiles">Import file</a></li>
-           <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="newProject">New Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="save">Save Online</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="saveOffline">Save Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createOpenLocalPrompt">Open Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ExportCircuitFiles">Export as file</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ImportCircuitFiles">Import file</a></li>
+           <li><a class="dropdown-item logixButton text-start ps-1" id="clearProject">Clear Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="recoverProject">Recover Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="fullViewOption">Preview Circuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left logixButton pl-1" id="createNewCircuitScope">New Circuit + </a></li>
-          <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
+          <li><a class="dropdown-item text-start logixButton ps-1" id="createNewCircuitScope">New Circuit + </a></li>
+          <li><a class="dropdown-item text-start logixButton ps-1" id="newVerilogModule">New Verilog <br> Module</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="colorThemes">Themes</a>
-          <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="colorThemes">Themes</a>
+          <li><a class="dropdown-item text-start ps-1" id="customShortcut">Custom Shortcut</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
       <li class="dropdown tour-help nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
+            <li><a class="dropdown-item text-start ps-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
       </ul>
-      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+      <span class="projectName noSelect defaultCursor fw-bold" id="projectName">
           Untitled
       </span>
 
       <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
         <li class="dropdown pull-right">
           <% if user_signed_in? %>
-            <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
+            <a href="#" class="cur-user acc-drop user-field" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
               <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
               <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
               <div class="dropdown-divider"></div>
-              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+              <li><a class="dropdown-item" rel="nofollow" data-bs-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
             </ul>
           <% else %>
             <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
@@ -154,7 +154,7 @@
         </button> -->
         <div class="zoom-slider">
           <button class="zoom-slider-decrement" id="decrement">-</button>
-          <input type="range" class="custom-range" min="0" max="45" step="1" id="customRange1">
+          <input type="range" class="form-range" min="0" max="45" step="1" id="customRange1">
           <span id='slider_value'></span>
           <button class="zoom-slider-increment" id="increment">+</button>
         </div>
@@ -233,7 +233,7 @@
       <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
       <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
       <div class="dropdown-divider"></div>
-      <li class=""><a rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+      <li class=""><a rel="nofollow" data-bs-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
       <% else %>
     <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
   <% end %>
@@ -312,7 +312,7 @@
       <button class="quicMenu-align"><i class="fas fa-copy"></i> <span class="quicMenu-align-text">Copy Selected<span></button>
       <button class="quicMenu-align"><i class="fas fa-paste"></i><span class="quicMenu-align-text">Paste Selected <span></button>
       <button class="quicMenu-align"><i class="fas fa-object-ungroup"></i><span class="quicMenu-align-text">Selection Tool<span></button>
-      <button class="quicMenu-align QuickMenuIcon"><a data-toggle="modal" data-target=".issue"><span class="fa fa-bug"></span><span class="quicMenu-align-text">&nbsp;&nbsp;Report issue<span></a></button>
+      <button class="quicMenu-align QuickMenuIcon"><a data-bs-toggle="modal" data-bs-target=".issue"><span class="fa fa-bug"></span><span class="quicMenu-align-text">&nbsp;&nbsp;Report issue<span></a></button>
     </div>
   </div>
 </div>
@@ -624,7 +624,7 @@
     <div
       class="option inline btn-group btn-group-toggle"
       style="border: none;"
-      data-toggle="buttons">
+      data-bs-toggle="buttons">
       <div class="btn" id="radio-full" role="button">
         <input type="radio" name="view" value="full"> Full Circuit View
       </div>
@@ -754,7 +754,7 @@
   id="insertSubcircuitDialog"
   class="subcircuitdialog"
   title="Insert SubCircuit"></div>
-<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit">New Circuit +</a></div>
+<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton ps-1" id="newCircuit">New Circuit +</a></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
     <label>Decimal value</label><br><input type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
@@ -768,8 +768,8 @@
   <a
     type="button"
     class="btn btn-primary text-light"
-    data-toggle="modal"
-    data-target=".issue">
+    data-bs-toggle="modal"
+    data-bs-target=".issue">
     <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a>
 </div>
 
@@ -785,10 +785,9 @@
       <div class="container my-2">
         <button
           type="button"
-          class="close"
-          data-dismiss="modal"
+          class="btn-close"
+          data-bs-dismiss="modal"
           aria-label="Close">
-          <span aria-hidden="true">&times;</span>
         </button>
         <div class="container text-center">
           <h4>Report an issue</h4>
@@ -805,14 +804,14 @@
 
         <%# <div class="container my-2 text-center" id="result"></div>
         <label id="report-label" style="font-weight: lighter;"><b>Describe your issue:</b></label>
-        <div class="form-group">
+        <div class="mb-3">
           <textarea
             class="form-control border-primary"
             id="issuetext"
             rows="3"></textarea>
         </div>
         <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
-        <div class="form-group">
+        <div class="mb-3">
           <input class="form-control border-primary" type="email" id="emailtext" rows="3">
         </div>
         <div class="container">

@@ -3,22 +3,22 @@
 <div class="container-fluid footer-container-fluid">
   <div class="container footer-container">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 footer-column">
+      <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-column">
         <div class="row">
           <a href="/">
             <%= image_tag("CircuitVerse.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
           </a>
         </div>
         <div class="row">
-          <p class="mt-3 mb-0 footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
+          <p class="mt-3  footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
         </div>
         <%= render(SocialLinksComponent.new) %>
       </div>
       <%= render(FooterLinksComponent.new(@current_user)) %>
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5 footer-column">
+      <div class="col-12 col-sm-12 col-md-5 col-lg-5 footer-column">
         <div class="row">
           <div class="col-6 footer-sponsor-logo-div">
-            <small class="text-left footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.incubated_from") %></small>
+            <small class="text-start footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.incubated_from") %></small>
             <a href="http://zense.co.in/" rel="noopener" target="_blank">
               <%= image_tag("footer/zense.png", class: "footer-sponsor-logo", alt: "Zense Logo") %>
             </a>
@@ -27,7 +27,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 text-white text-left footer-copyright-text">
+      <div class="col-12 text-white text-start footer-copyright-text">
         <p><%= t("layout.footer.copyright_text", time_current_year: current_year) %></p>
       </div>
     </div>
