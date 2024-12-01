@@ -141,15 +141,15 @@
 
         if (this.dataset.state === "translated") {
           commentBody.innerText = originalText;
-          this.innerText = "Translate"; 
-          this.dataset.state = "original"; 
+          this.innerText = "Translate";
+          this.dataset.state = "original";
           return;
         }
 
         if (commentBody.dataset.translatedText) {
           commentBody.innerText = commentBody.dataset.translatedText;
-          this.innerText = "Show Original"; 
-          this.dataset.state = "translated"; 
+          this.innerText = "Show Original";
+          this.dataset.state = "translated";
           return;
         }
  
@@ -158,7 +158,7 @@
           headers: {
             "Content-Type": "application/json",
             "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
-          },
+        },
         })
           .then((response) => {
             console.log("Response received:", response);
@@ -182,6 +182,6 @@
             alert("An error occurred while translating the comment.");
           });
       });
-    });
   });
+});
 </script>

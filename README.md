@@ -4,17 +4,26 @@ Feature request for having an option for translating Non-English comments to Eng
 NOTE: The current API is hosted from my end on github codespace,
 the current implementation of the translation feature utilizes a temporary LibreTranslate API hosted on a GitHub Codespace. This setup is only intended for testing and development purposes.
 
-API Details
-Endpoint: https://ubiquitous-couscous-pqj4w5rjv6wf7jjx-5000.app.github.dev/translate
+## API Details
+Endpoint: <TRANSLATE_API_ENDPOINT>
 Purpose: Provides translation of comments from various languages to English.
 Limitations:
 This API setup is not stable or permanent.
 It is hosted on a Codespace, which might not always be available.
 
-Action Required for production or long-term usage:
-Replace this temporary API endpoint with a more stable solution, such as:
-A self-hosted LibreTranslate instance.
-A reliable third-party API like Google Translate (paid service).
 
-Update the translate method in the CommentsController to reflect the new API endpoint.
-I have added comments around areas which might need to change with API change
+## Configuration
+To configure the translation API endpoint for production:
+
+Set the TRANSLATE_API_ENDPOINT environment variable:
+TRANSLATE_API_ENDPOINT=https://your-production-api-endpoint.com/translate
+
+or simple use shell to enter 
+
+export TRANSLATE_API_ENDPOINT=https://your-production-api-endpoint.com/translate
+
+# Action Required for production or long-term usage:
+Replace this temporary API endpoint with a more stable solution, such as:
+Self-hosted LibreTranslate (Docker setup recommended).
+Third-party API (e.g., Google Translate).
+But make sure to update the translate method in CommentsController to use the environment variable.

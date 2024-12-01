@@ -58,9 +58,10 @@ class Api::V1::CommentsController < Api::V1::BaseController
   # or self-hosted LibreTranslate instance for long-term use.
   def translate
     response = Net::HTTP.post(
-      URI("https://ubiquitous-couscous-pqj4w5rjv6wf7jjx-5000.app.github.dev/translate"),
+      URI(Rails.configuration.translate_api_endpoint),
       {
-        q: @comment.body, source: "auto", target: "en", format: "text"}.to_json,
+        q: @comment.body, source: "auto", target: "en", format: "text"
+      }.to_json,
       { "Content-Type" => "application/json" }
     )
     if response.is_a?(Net::HTTPSuccess)

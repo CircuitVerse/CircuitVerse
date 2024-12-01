@@ -26,13 +26,13 @@ RSpec.describe Api::V1::CommentsController, "#translate", type: :request do
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
- 
+
     context "when authenticated" do
       let(:token) { get_auth_token(creator) }
 
       context "when translation is successful" do
         before do
-          stub_request(:post, "https://ubiquitous-couscous-pqj4w5rjv6wf7jjx-5000.app.github.dev/translate")
+          stub_request(:post, Rails.configuration.translate_api_endpoint)
             .with(
               body: {
                 q: "Bonjour",
@@ -43,7 +43,8 @@ RSpec.describe Api::V1::CommentsController, "#translate", type: :request do
               }.to_json,
               headers: { "Content-Type" => "application/json" }
             )
-            .to_return(status: 200, body: { translatedText: "Hello" }.to_json, headers: { "Content-Type" => "application/json" })
+            .to_return(status: 200, body: { translatedText: "Hello" }.to_json,
+                       headers: { "Content-Type" => "application/json" })
 
           put "/api/v1/comments/#{comment.id}/translate",
               headers: { Authorization: "Token #{token}" }, as: :json
@@ -58,7 +59,7 @@ RSpec.describe Api::V1::CommentsController, "#translate", type: :request do
       # Sub-scenario: Translation fails
       context "when translation fails" do
         before do
-          stub_request(:post, "https://ubiquitous-couscous-pqj4w5rjv6wf7jjx-5000.app.github.dev/translate")
+          stub_request(:post, Rails.configuration.translate_api_endpoint)
             .to_return(status: 500, body: "Internal Server Error")
 
           put "/api/v1/comments/#{comment.id}/translate",
