@@ -36,11 +36,11 @@
     
     <%# Adds a button which toggles between showing the original or translating the given comment %>
 
-    <%= link_to '#',
-          id: "commontator-comment-#{comment.id}-translate",
-          data: { comment_id: comment.id },
-          class: 'translate btn secondary-button translate-action' do %>
-      Translate
+    <%= link_to '#',  
+       id: "commontator-comment-#{comment.id}-translate",  
+       data: { comment_id: comment.id },  
+       class: 'translate btn secondary-button translate-action' do %>
+      Translate 
     <% end %>
 
     <div id="commontator-comment-<%= comment.id %>-section-bottom" class="section bottom">
@@ -137,7 +137,14 @@
         const commentBody = document.querySelector(
           `#commontator-comment-${commentId}-body`
         );
-        const originalText = commentBody.dataset.originalText || commentBody.innerText;
+        const originalText = commentBody.dataset.originalText || 
+          (commentBody.textContent || '').trim();
+
+        // Skip translation if text is empty
+        if (!originalText) {
+          alert('No content to translate');
+          return;
+        }
 
         if (this.dataset.state === "translated") {
           commentBody.innerText = originalText;
@@ -147,6 +154,10 @@
         }
 
         if (commentBody.dataset.translatedText) {
+          // Safely set content
+          commentBody.textContent = commentBody.dataset.translatedText;
+          this.innerText = "Show Original"; 
+          this.dataset.state = "translated"; 
           commentBody.innerText = commentBody.dataset.translatedText;
           this.innerText = "Show Original";
           this.dataset.state = "translated";

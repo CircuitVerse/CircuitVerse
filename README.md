@@ -4,8 +4,8 @@ Feature request for having an option for translating Non-English comments to Eng
 NOTE: The current API is hosted from my end on github codespace,
 the current implementation of the translation feature utilizes a temporary LibreTranslate API hosted on a GitHub Codespace. This setup is only intended for testing and development purposes.
 
-## API Details
-Endpoint: <TRANSLATE_API_ENDPOINT>
+API Details
+Endpoint: Configure `TRANSLATE_API_ENDPOINT` in your environment (see Configuration section)
 Purpose: Provides translation of comments from various languages to English.
 Limitations:
 This API setup is not stable or permanent.
