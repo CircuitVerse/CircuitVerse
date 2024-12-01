@@ -137,17 +137,26 @@
         const commentBody = document.querySelector(
           `#commontator-comment-${commentId}-body`
         );
-        const originalText = commentBody.dataset.originalText || commentBody.innerText;
+        const originalText = commentBody.dataset.originalText || 
+          (commentBody.textContent || '').trim();
+
+        // Skip translation if text is empty
+        if (!originalText) {
+          alert('No content to translate');
+          return;
+        }
 
         if (this.dataset.state === "translated") {
-          commentBody.innerText = originalText;
+          // Safely set content
+          commentBody.textContent = originalText;
           this.innerText = "Translate"; 
           this.dataset.state = "original"; 
           return;
         }
 
         if (commentBody.dataset.translatedText) {
-          commentBody.innerText = commentBody.dataset.translatedText;
+          // Safely set content
+          commentBody.textContent = commentBody.dataset.translatedText;
           this.innerText = "Show Original"; 
           this.dataset.state = "translated"; 
           return;
