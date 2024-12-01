@@ -20,7 +20,10 @@ module Logix
 
     # config/application.rb
     config.view_component.preview_paths << "#{Rails.root}/spec/components/previews"
-    config.translate_api_endpoint = ENV['TRANSLATE_API_ENDPOINT']
+    config.translate_api_endpoint = ENV['TRANSLATE_API_ENDPOINT'].presence || raise(
+      'TRANSLATE_API_ENDPOINT environment variable is required in production'
+    ) if Rails.env.production?
+    config.translate_api_endpoint = ENV['TRANSLATE_API_ENDPOINT'] || 'http://localhost:5000'
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.available_locales = [:en, :hi, :bn, :mr, :ne]
     config.i18n.default_locale = :en
