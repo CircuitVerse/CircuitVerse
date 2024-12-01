@@ -1,8 +1,7 @@
 Fixed issue[#5168](https://github.com/CircuitVerse/CircuitVerse/issues/5168)
 
 Feature request for having an option for translating Non-English comments to English comments.
-NOTE: The current API is hosted from my end on github codespace,
-the current implementation of the translation feature utilizes a temporary LibreTranslate API hosted on a GitHub Codespace. This setup is only intended for testing and development purposes.
+NOTE: The current implementation utilizes a temporary LibreTranslate API hosted on GitHub Codespaces. This setup is intended for testing and development purposes only.
 
 API Details
 Endpoint: Configure `TRANSLATE_API_ENDPOINT` in your environment (see Configuration section)
