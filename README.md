@@ -22,8 +22,21 @@ or simple use shell to enter
 
 export TRANSLATE_API_ENDPOINT=https://your-production-api-endpoint.com/translate
 
-# Action Required for production or long-term usage:
+# Production Setup
+
 Replace this temporary API endpoint with a more stable solution, such as:
-Self-hosted LibreTranslate (Docker setup recommended).
-Third-party API (e.g., Google Translate).
-But make sure to update the translate method in CommentsController to use the environment variable.
+
+## Option 1: Self-hosted LibreTranslate
+- System requirements
+- Docker setup instructions
+- Estimated costs
+
+## Option 2: Third-party API
+- Supported providers (Google Translate, DeepL, etc.)
+- Authentication setup
+- Pricing considerations
+
+## Implementation Notes
+- Update the translation method in `CommentsController`
+- Configure error handling
+- Set up monitoring
