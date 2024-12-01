@@ -33,6 +33,16 @@
         <%= render partial: 'commontator/comments/body', locals: { comment: comment } %>
       </div>
     </div>
+    
+    <%# Adds a button which toggles between showing the original or translating the given comment %>
+
+    <%= link_to '#',
+          id: "commontator-comment-#{comment.id}-translate",
+          data: { comment_id: comment.id },
+          class: 'translate btn secondary-button' do %>
+      Translate
+    <% end %>
+
     <div id="commontator-comment-<%= comment.id %>-section-bottom" class="section bottom">
       <% unless comment.is_deleted? %>
         <span id="commontator-comment-<%= comment.id %>-reply-link" class="reply">
@@ -110,11 +120,68 @@
 </div>
 <%= render partial: 'commontator/comments/delete_comment_confirmation_modal' %>
 <script>
-  $(document).ready(function() {
+   $(document).ready(function() {
     $("#deletecommentModal").on("show.bs.modal", function(e) {
         let href = $(e.relatedTarget).data('href');
         $(e.currentTarget).find('#projects-comment-delete-button').attr("href",
         href.toString());
+    });
+
+      document.querySelectorAll(".translate-action").forEach((button) => {
+      button.addEventListener("click", function (event) {
+        event.preventDefault();
+
+        const commentId = this.dataset.commentId;
+
+        const translateUrl = `/api/v1/comments/${commentId}/translate`;
+        const commentBody = document.querySelector(
+          `#commontator-comment-${commentId}-body`
+        );
+        const originalText = commentBody.dataset.originalText || commentBody.innerText;
+
+        if (this.dataset.state === "translated") {
+          commentBody.innerText = originalText;
+          this.innerText = "Translate"; 
+          this.dataset.state = "original"; 
+          return;
+        }
+
+        if (commentBody.dataset.translatedText) {
+          commentBody.innerText = commentBody.dataset.translatedText;
+          this.innerText = "Show Original"; 
+          this.dataset.state = "translated"; 
+          return;
+        }
+ 
+        fetch(translateUrl, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
+          },
+        })
+          .then((response) => {
+            console.log("Response received:", response);
+            if (!response.ok) {
+              console.error("Translation failed with status:", response.status);
+              throw new Error("Translation failed");
+            }
+            return response.json();
+          })
+          .then((data) => {
+
+            commentBody.dataset.originalText = originalText;
+            commentBody.dataset.translatedText = data.translated_text;
+
+            commentBody.innerText = data.translated_text; 
+            this.innerText = "Show Original"; 
+            this.dataset.state = "translated";
+          })
+          .catch((error) => {
+            console.error("Error during translation:", error.message);
+            alert("An error occurred while translating the comment.");
+          });
+      });
     });
   });
 </script>

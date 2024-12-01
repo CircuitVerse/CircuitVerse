@@ -50,6 +50,28 @@ class Api::V1::CommentsController < Api::V1::BaseController
     end
   end
 
+  require "net/http"
+  require "json"
+
+  # NOTE: I have used a temporary LibreTranslate API setup hosted on
+  # a cloud machine. Replace this URL with a production-ready service
+  # or self-hosted LibreTranslate instance for long-term use.
+  def translate
+    response = Net::HTTP.post(
+      URI("https://ubiquitous-couscous-pqj4w5rjv6wf7jjx-5000.app.github.dev/translate"),
+      {
+        q: @comment.body, source: "auto", target: "en", format: "text"}.to_json,
+      { "Content-Type" => "application/json" }
+    )
+    if response.is_a?(Net::HTTPSuccess)
+      result = JSON.parse(response.body)
+      translated_text = result["translatedText"]
+      render json: { translated_text: translated_text }, status: :ok
+    else
+      api_error(status: 500, errors: "Translation failed")
+    end
+  end
+
   # PUT /api/v1/comments/:id/undelete
   def undelete
     security_transgression_unless @comment.can_be_deleted_by?(current_user)
