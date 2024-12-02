@@ -1,2 +1,4 @@
 kaminari-actionview
 kaminari-activerecord
+s_collection/kaminari-actionview/**/*.rbs
+s_collection/kaminari-activerecord/**/*.rbs
