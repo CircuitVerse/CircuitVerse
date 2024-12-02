@@ -40,7 +40,7 @@
             <%= f.text_field :educational_institute, { class: "autocomplete form-control form-input", autocomplete: "off" } %>
           </div>
           <div class="field mb-3">
-            <h6><%= f.label :location %></h6>
+            <h6><%= f.label :language %></h6>
             <%= f.select :locale, options_for_select(I18nSupport.locale_names, f.object.locale), { prompt: t("users.circuitverse.edit_profile.select_locale_prompt") }, { class: "form-control form-input" } %>
           </div>
           <div class="field mb-3 users-edit-primary-checkpoint">
