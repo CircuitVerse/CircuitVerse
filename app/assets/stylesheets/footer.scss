@@ -28,10 +28,15 @@
 
 .footer-social-icon {
   width: 28px;
+
+  @media (max-width: 576px) {
+    width: 24px; // Adjust the size for small screens
+  }
 }
 
+
 .footer-social-icons-row {
-  column-gap: 5px;
+  column-gap: 2px;
   margin: inherit;
 }
 
