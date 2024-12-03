@@ -20,7 +20,7 @@ hi:
         choose_file: "फ़ाइल चुनें"
         remove_picture: "फोटो हटाएं"
         country_select_placeholder: "दर्ज न करना पसंद करें"
-        select_locale_prompt: "लोकेल चुनें"
+        select_locale_prompt: "अपनी भाषा चुनें"
         subscribe_mail_checkpoint: "क्या आपने ईमेल की सदस्यता ली?"
         delete_account_heading: "अपने खाते को नष्ट करे"
         delete_account_notice: "सावधानी के साथ आगे बढ़ें! इस क्रिया को पूर्ववत नहीं किया जा सकता है।"
