@@ -1,100 +1,23 @@
-Fixed issue[#5168](https://github.com/CircuitVerse/CircuitVerse/issues/5168)
+<img src="/app/assets/images/cvlogo.svg" alt="The CircuitVerse logo" width="736"/> </br></br>
+[![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=Financial+Contributors&style=for-the-badge&logo=open+collective)](https://opencollective.com/CircuitVerse) 
+[![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci&style=for-the-badge&logo=circleci)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
+[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls&style=for-the-badge&logo=coveralls)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
+-----
+[CircuitVerse](https://circuitverse.org) is a free, open-source platform which allows users to construct digital logic circuits online. We also offer the [Interactive Book](https://learn.circuitverse.org) which teaches users on the fundamentals of modern, digital circuits. Please also see our [documentation](https://docs.circuitverse.org) or [GitHub Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/).
 
-Feature request for having an option for translating Non-English comments to English comments.
-NOTE: The current implementation utilizes a temporary LibreTranslate API hosted on GitHub Codespaces. This setup is intended for testing and development purposes only.
+## Community
+We would love to hear from you! We communicate on Slack:
 
-API Details
-Endpoint: Configure `TRANSLATE_API_ENDPOINT` in your environment (see Configuration section)
-Purpose: Provides translation of comments from various languages to English.
-Limitations:
-- This API setup is not stable or permanent
-- Hosted on a Codespace with limited availability
-- Rate limited to prevent abuse
-- Maximum text length: [specify limit]
+[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://circuitverse.org/slack)
 
-Request Format:
-```json
-{
-  "text": "Text to translate",
-  "source_lang": "auto",
-  "target_lang": "en"
-}
-```
+## Code of Conduct
+We follow the [Code of Conduct](code-of-conduct.md) of the [CircuitVerse](https://circuitverse.org) Community.
 
-Error Handling:
-- 429: Rate limit exceeded
-- 413: Text too long
-- 503: Service unavailable
+## Setup
+See [`SETUP.md`](SETUP.md) for more information on setting up CircuitVerse.
 
-### Configuration
-To configure the translation API endpoint for production:
+## Contributing
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more information on contributing to CircuitVerse.
 
-### Environment Variables
-
-Create a `.env` file (ensure it's in .gitignore):
-```env
-# Translation API configuration
-TRANSLATE_API_ENDPOINT=your-production-api-endpoint
-TRANSLATE_API_KEY=your-api-key  
-```
-
-For development, you can set variables in your shell:
-```bash
-export TRANSLATE_API_ENDPOINT="your-production-api-endpoint"
-export TRANSLATE_API_KEY="your-api-key"
-```
-
-⚠️ Never commit API keys or endpoints directly to the repository
-
-# Production Setup
-
-Replace this temporary API endpoint with a more stable solution, such as:
-
-## Option 1: Self-hosted LibreTranslate
-### System Requirements
-- Minimum 2 CPU cores
-- 4GB RAM
-- 20GB storage
-
-### Docker Setup
-```bash
-docker run -d \
-  --name libretranslate \
-  -p 5000:5000 \
-  libretranslate/libretranslate
-```
-
-### Estimated Costs
-- Self-hosting: $20-50/month (cloud VM)
-- Maintenance: 2-4 hours/month
-
-## Option 2: Third-party API
-### Recommended Providers
-1. Google Cloud Translation
-   - Setup guide: [link]
-   - Pricing: $20 per million characters
-   - Features: 200+ languages
-
-2. DeepL API
-   - Setup guide: [link]
-   - Pricing: $25 per million characters
-   - Features: Higher accuracy for supported languages
-
-## Implementation Notes
-### Code Updates Required
-1. Update `CommentsController`:
-   ```ruby
-   def translate
-     # Add API key to headers
-     # Implement retry logic
-     # Add error handling
-   end
-   ```
-
-### Monitoring Setup
-1. Add Sentry/NewRelic for error tracking
-2. Monitor API usage and costs
-3. Set up alerts for:
-   - High error rates
-   - API quota usage
-   - Response time degradation
+## License
+This project is licensed under the [MIT License](LICENSE).
