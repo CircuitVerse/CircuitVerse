@@ -103,7 +103,7 @@ describe "Group management", type: :system do
     it "converts member to mentor" do
       add_user_to_group_as_member
       visit "/groups/#{group.id}"
-      make_mentor_btn = find("a[data-target='#promote-member-modal']")
+      make_mentor_btn = find("a[data-bs-target='#promote-member-modal']")
       make_mentor_btn.click
       execute_script "document.getElementById('promote-member-modal').style.display='block'"
       execute_script "document.getElementById('promote-member-modal').style.opacity=1"
@@ -116,7 +116,7 @@ describe "Group management", type: :system do
     it "converts mentor to member" do
       add_user_to_group_as_mentor
       visit "/groups/#{group.id}"
-      make_mentor_btn = find("a[data-target='#demote-member-modal']")
+      make_mentor_btn = find("a[data-bs-target='#demote-member-modal']")
       make_mentor_btn.click
       execute_script "document.getElementById('demote-member-modal').style.display='block'"
       execute_script "document.getElementById('demote-member-modal').style.opacity=1"
