@@ -4,13 +4,13 @@
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
       <h6><%= notice %></h6>
     </div>
   </div>
   <% end %>
   <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
+    <div class="col col-sm col-md col-lg">
       <h1 class="submain-heading">
         <p>
           <%= @group.name %>
@@ -29,38 +29,55 @@
       </h4>
     </div>
   </div>
-  <div class="row center-row groups-row">
-  <h3><%= t("groups.show.mentor_name_heading") %></h3>
-    <% if policy(@group).admin_access? %>
-      <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#add-mentor-to-modal" data-action="click->groups#addMentorToGroup"><%= t("groups.show.add_mentors_btn") %></button>
-    <% end %>
-  </div>
-  <hr>
-  <% if @group.group_members.mentor.blank? %>
-    <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+  <!-- Mentor Section -->
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h3 class="mb-0"><%= t("groups.show.mentor_name_heading") %></h3>
+  <% if policy(@group).admin_access? %>
+    <button type="button" class="btn primary-button groups-primary-button"
+      data-bs-toggle="modal"
+      data-bs-target="#add-mentor-to-modal"
+      data-action="click->groups#addMentorToGroup">
+      <%= t("groups.show.add_mentors_btn") %>
+    </button>
   <% end %>
-  <div class="row center-row groups-members-scroll-row">
-    <%= render partial: "group_mentors", locals: { group: @group } %>
-  </div>
-  <div class="row center-row groups-row">
-  <h3><%= t("groups.show.group_members_heading") %></h3>
-    <% if policy(@group).admin_access? %>
-      <button type="button" class="btn primary-button groups-primary-button" data-toggle="modal" data-target="#addmemberModal" data-action="click->groups#addMemberToGroup"><%= t("groups.show.add_members_btn") %></button>
-    <% end %>
-  </div>
-  <hr>
-  <% if @group.group_members.member.blank? %>
-      <span class="null-text"><%= t("groups.show.no_members_html") %></span>
+</div>
+<hr>
+<% if @group.group_members.mentor.blank? %>
+  <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+<% end %>
+<div class="row">
+  <%= render partial: "group_mentors", locals: { group: @group } %>
+</div>
+
+<!-- Members Section -->
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h3 class="mb-0"><%= t("groups.show.group_members_heading") %></h3>
+  <% if policy(@group).admin_access? %>
+    <button type="button" class="btn primary-button groups-primary-button"
+      data-bs-toggle="modal"
+      data-bs-target="#addmemberModal"
+      data-action="click->groups#addMemberToGroup">
+      <%= t("groups.show.add_members_btn") %>
+    </button>
   <% end %>
-  <div class="row center-row groups-members-scroll-row">
-    <%= render partial: "group_members", locals: { group: @group } %>
-  </div>
-  <div class="row center-row groups-row">
-    <h3><%= t("groups.show.assignment.heading") %></h3>
-    <% if policy(@group).mentor_access? %>
-      <%= link_to t("groups.show.assignment.add_assignment_btn"), new_group_assignment_path(@group), class: "btn primary-button groups-primary-button" %>
-    <% end %>
-  </div>
+</div>
+<hr>
+<% if @group.group_members.member.blank? %>
+  <span class="null-text"><%= t("groups.show.no_members_html") %></span>
+<% end %>
+<div class="row">
+  <%= render partial: "group_members", locals: { group: @group } %>
+</div>
+
+<!-- Assignments Section -->
+<div class="d-flex justify-content-between align-items-center mb-2">
+  <h3 class="mb-0"><%= t("groups.show.assignment.heading") %></h3>
+  <% if policy(@group).mentor_access? %>
+    <%= link_to t("groups.show.assignment.add_assignment_btn"),
+      new_group_assignment_path(@group),
+      class: "btn primary-button groups-primary-button" %>
+  <% end %>
+</div>
   <hr>
   <table class="table table-borderless groups-table">
     <% if @group.assignments.empty? %>
@@ -87,7 +104,7 @@
               <% if Flipper.enabled?(:lms_integration, current_user) %>
                 <% if policy(@group).admin_access? && assignment.lti_integrated? %>
                  <br>
-                 <a data-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">Show LMS Credentials</a>
+                 <a data-bs-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">Show LMS Credentials</a>
                  <%= render partial: "lms_credentials_modal", locals: { assignment: assignment } %>
                 <% end %>
               <% end %>
@@ -140,7 +157,7 @@
               </div>
               <% end %>
               <div class="groups-assignment-details">
-                <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { toggle: "modal", target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
+                <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
                   <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
                   <span><%= t("delete") %></span>
                 <% end %>
@@ -261,10 +278,14 @@
                         <span><%= t("edit") %></span>
                       <% end %>
                     </div>
-
+                    <div class="groups-assignment-details">
+                      <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
+                        <span><%= t("close") %></span>
+                    <% end %>
+                    </div>
                   <% end %>
                   <div class="groups-assignment-details">
-                    <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { toggle: "modal", target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
+                    <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
                       <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
                       <span><%= t("delete") %></span>
                     <% end %>
