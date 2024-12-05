@@ -18,6 +18,8 @@
     "@babel/preset-env": "^7.25.8",
     "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
+    "@percy/cli": "^1.30.4",
+    "@percy/puppeteer": "^2.0.2",
     "canvas": "^2.11.2",
     "chokidar": "^3.6.0",
     "eslint": "^7.32.0",
@@ -34,6 +36,7 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.4.2",
+    "puppeteer": "^23.10.1",
     "vite": "^5.4.9",
     "vite-plugin-ruby": "^5.1.0"
   },
