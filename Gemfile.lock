@@ -75,6 +75,8 @@ GEM
     activerecord (7.0.8.5)
       activemodel (= 7.0.8.5)
       activesupport (= 7.0.8.5)
+    activerecord_cursor_paginate (0.2.0)
+      activerecord (>= 7.0)
     activestorage (7.0.8.5)
       actionpack (= 7.0.8.5)
       activejob (= 7.0.8.5)
@@ -899,6 +901,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  activerecord_cursor_paginate
   acts_as_votable (~> 0.14.0)
   ahoy_matey
   aws-sdk-rails
