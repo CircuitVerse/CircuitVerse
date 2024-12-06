@@ -36,10 +36,19 @@
 <% end %>
 <script>
   document.addEventListener("DOMContentLoaded", function () {
-    document.querySelectorAll(".search-username").forEach((element) => {
-      element.addEventListener("click", function () {
-        this.classList.toggle("expanded");
+    document.querySelectorAll(".search-user-container").forEach((container) => {
+        const usernameElement = container.querySelector(".search-username");
+            if (usernameElement) {
+          container.addEventListener("click", function () {
+            usernameElement.classList.add("expanded");
+          });
+          container.addEventListener("mouseenter", function () {
+            usernameElement.classList.add("expanded");
+          });
+          container.addEventListener("mouseleave", function () {
+            usernameElement.classList.remove("expanded");
+          });
+        }
       });
     });
-  });
 </script>

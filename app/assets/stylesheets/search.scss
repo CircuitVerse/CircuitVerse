@@ -123,6 +123,7 @@
 
 .search-horizontal-rule {
   width: 70%;
+  margin: auto;
 }
 
 .search-tag-heading {
@@ -132,6 +133,13 @@
 .search-user-container {
   padding-top: 20px;
   width: 70%;
+  transition: all 0.3s ease-in-out;
+}
+
+.search-user-container:hover {
+  transform: scale(1.05);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .search-usersearch-image {
@@ -153,19 +161,21 @@
   font-size: 25px;
   font-weight: 500;
   display: -webkit-box;
-  display: -moz-box;
-  display: box;
-  -webkit-line-clamp: 2; 
-  line-clamp: 2;
   -webkit-box-orient: vertical;
-  -moz-box-orient: vertical;
   box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
   overflow: hidden;
   text-overflow: ellipsis;
-  /* Fallback for non-WebKit browsers */
-  max-height: 3em;
+  max-height: 3em; // For browsers that don't support line clamp property
 }
 
+.search-username.expanded {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  max-height: 100%;
+  overflow: visible;
+}
 .search-userdetails-container {
   text-align: left;
 }
@@ -183,13 +193,11 @@
   padding-left: 30px;
   padding-right: 30px;
 }
-
 //breakpoints
 @media (max-width: 768px) {
   .search-user-data {
     padding-bottom: 20px;
   }
-
   .search-project-detail-container {
     padding-left: 0;
   }
