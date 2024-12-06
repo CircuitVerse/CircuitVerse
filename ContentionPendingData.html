@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +5,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> modules/NotGate.js</title>
+  <title> ContentionPendingData</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -75,129 +73,158 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Source</p>
-                    <h1>modules/NotGate.js</h1>
+                    <p>Class</p>
+                    <h1>ContentionPendingData</h1>
                 </header>
                 
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
-import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, drawCircle2 } from "../canvasApi";
-import { changeInputSize } from "../modules";
-/**
- * @class
- * NotGate
- * @extends CircuitElement
- * @param {number} x - x coordinate of element.
- * @param {number} y - y coordinate of element.
- * @param {Scope=} scope - Cirucit on which element is drawn
- * @param {string=} dir - direction of element
- * @param {number=} bitWidth - bit width per node.
- * @category modules
- */
-import { colors } from "../themer/themer";
+        <h2><span class="attribs"><span class="type-signature"></span></span>ContentionPendingData<span class="signature">()</span><span class="type-signature"></span></h2>
+        
+            <div class="class-description">ContentionPendingData
 
-export default class NotGate extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
-        super(x, y, scope, dir, bitWidth);
-        /* this is done in this.baseSetup() now
-        this.scope['NotGate'].push(this);
-        */
-        this.rectangleObject = false;
-        this.setDimensions(15, 15);
+Data structure to store pending contentions in the circuit.</div>
+        
+    
+</header>
 
-        this.inp1 = new Node(-10, 0, 0, this);
-        this.output1 = new Node(20, 0, 1, this);
-    }
+<article>
+    <div class="container-overview">
+    
+        
+            <div class='vertical-section'>
+                <div class="members">
+                    <div class="member">
+                        <div class=name>
+                            <span class="tag">Constructor</span>
+                        </div>
+                        
 
-    /**
-     * @memberof NotGate
-     * fn to create save Json Data of object
-     * @return {JSON}
-     */
-    customSave() {
-        const data = {
-            constructorParamaters: [this.direction, this.bitWidth],
-            nodes: {
-                output1: findNode(this.output1),
-                inp1: findNode(this.inp1),
-            },
-        };
-        return data;
-    }
 
-    /**
-     * @memberof NotGate
-     * resolve output values based on inputData
-     */
-    resolve() {
-        if (this.isResolvable() === false) {
-            return;
-        }
-        this.output1.value =
-            ((~this.inp1.value >>> 0) &lt;&lt; (32 - this.bitWidth)) >>>
-            (32 - this.bitWidth);
-        simulationArea.simulationQueue.add(this.output1);
+    
+    <h4 class="name" id="ContentionPendingData">
+        <a class="href-link" href="#ContentionPendingData">#</a>
+        
+        <span class="code-name">
+            
+                new ContentionPendingData<span class="signature">()</span><span class="type-signature"></span>
+            
+        </span>
+    </h4>
+    
 
-        this.setOutputsUpstream(true);
-    }
+    
+    
 
-    /**
-     * @memberof NotGate
-     * function to draw element
-     */
-    customDraw() {
-        var ctx = simulationArea.context;
-        ctx.strokeStyle = colors["stroke"];
-        ctx.lineWidth = correctWidth(3);
 
-        const xx = this.x;
-        const yy = this.y;
-        ctx.beginPath();
-        ctx.fillStyle = colors["fill"];
-        moveTo(ctx, -10, -10, xx, yy, this.direction);
-        lineTo(ctx, 10, 0, xx, yy, this.direction);
-        lineTo(ctx, -10, 10, xx, yy, this.direction);
-        ctx.closePath();
-        if (
-            (this.hover &amp;&amp; !simulationArea.shiftDown) ||
-            simulationArea.lastSelected === this ||
-            simulationArea.multipleObjectSelections.contains(this)
-        )
-            ctx.fillStyle = colors["hover_select"];
-        ctx.fill();
-        ctx.stroke();
-        ctx.beginPath();
-        drawCircle2(ctx, 15, 0, 5, xx, yy, this.direction);
-        ctx.stroke();
-    }
 
-    generateVerilog() {
-        return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
-    }
-}
 
-/**
- * @memberof NotGate
- * Help Tip
- * @type {string}
- * @category modules
- */
-NotGate.prototype.tooltipText =
-    "Not Gate ToolTip : Inverts the input digital signal.";
-NotGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/chapter4/4gates?id=not-gate";
-NotGate.prototype.objectType = "NotGate";
-NotGate.prototype.verilogType = "not";
-</code></pre>
-        </article>
-    </section>
+
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="contention.js.html" class="button">View Source</a>
+            <span>
+                <a href="contention.js.html">contention.js</a>, <a href="contention.js.html#line7">line 7</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
+        
+    
+    </div>
+    
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

@@ -7,7 +7,7 @@
   
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title> modules/NotGate.js</title>
+  <title> contention.js</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -76,7 +76,7 @@
             <div class="content">
                 <header class="page-title">
                     <p>Source</p>
-                    <h1>modules/NotGate.js</h1>
+                    <h1>contention.js</h1>
                 </header>
                 
 
@@ -85,117 +85,82 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
-import simulationArea from "../simulationArea";
-import { correctWidth, lineTo, moveTo, drawCircle2 } from "../canvasApi";
-import { changeInputSize } from "../modules";
-/**
+            <pre class="prettyprint source linenums"><code>/**
  * @class
- * NotGate
- * @extends CircuitElement
- * @param {number} x - x coordinate of element.
- * @param {number} y - y coordinate of element.
- * @param {Scope=} scope - Cirucit on which element is drawn
- * @param {string=} dir - direction of element
- * @param {number=} bitWidth - bit width per node.
- * @category modules
- */
-import { colors } from "../themer/themer";
+ * ContentionPendingData
+ * 
+ * Data structure to store pending contentions in the circuit.
+ **/
+export default class ContentionPendingData {
+	constructor() {
+		// Map&lt;Node, Set&lt;Node>>
+		this.contentionPendingMap = new Map();
+		this.totalContentions = 0;
+	}
 
-export default class NotGate extends CircuitElement {
-    constructor(x, y, scope = globalScope, dir = "RIGHT", bitWidth = 1) {
-        super(x, y, scope, dir, bitWidth);
-        /* this is done in this.baseSetup() now
-        this.scope['NotGate'].push(this);
-        */
-        this.rectangleObject = false;
-        this.setDimensions(15, 15);
+	// Adds 
+	add(ourNode, theirNode) {
+		if (this.contentionPendingMap.has(ourNode)) {
+			if (!this.contentionPendingMap.get(ourNode).has(theirNode)) this.totalContentions++;
+			this.contentionPendingMap.get(ourNode).add(theirNode);
+			return;
+		}
 
-        this.inp1 = new Node(-10, 0, 0, this);
-        this.output1 = new Node(20, 0, 1, this);
-    }
+		this.totalContentions++;
+		this.contentionPendingMap.set(ourNode, new Set([theirNode]));
+	}
 
-    /**
-     * @memberof NotGate
-     * fn to create save Json Data of object
-     * @return {JSON}
-     */
-    customSave() {
-        const data = {
-            constructorParamaters: [this.direction, this.bitWidth],
-            nodes: {
-                output1: findNode(this.output1),
-                inp1: findNode(this.inp1),
-            },
-        };
-        return data;
-    }
+	has(ourNode) {
+		return this.contentionPendingMap.has(ourNode);
+	}
 
-    /**
-     * @memberof NotGate
-     * resolve output values based on inputData
-     */
-    resolve() {
-        if (this.isResolvable() === false) {
-            return;
-        }
-        this.output1.value =
-            ((~this.inp1.value >>> 0) &lt;&lt; (32 - this.bitWidth)) >>>
-            (32 - this.bitWidth);
-        simulationArea.simulationQueue.add(this.output1);
+	// Removes contention entry ourNode -> theirNode.
+	remove(ourNode, theirNode) {
+		if (!this.contentionPendingMap.has(ourNode) || !this.contentionPendingMap.get(ourNode).has(theirNode)) return;
+		
+		this.contentionPendingMap.get(ourNode).delete(theirNode);
+		if (this.contentionPendingMap.get(ourNode).size == 0) this.contentionPendingMap.delete(ourNode);
+		this.totalContentions--;
+	}
 
-        this.setOutputsUpstream(true);
-    }
+	// Removes all contentionPending entries for ourNode.
+	// Since ourNode is strictly a NODE_OUTPUT, we should remove all contentions for the node when the
+	// node resolves.
+	removeAllContentionsForNode(ourNode) {
+		if (!this.contentionPendingMap.has(ourNode)) return;
 
-    /**
-     * @memberof NotGate
-     * function to draw element
-     */
-    customDraw() {
-        var ctx = simulationArea.context;
-        ctx.strokeStyle = colors["stroke"];
-        ctx.lineWidth = correctWidth(3);
+		const contentionsForOurNode = this.contentionPendingMap.get(ourNode);
+		for (const theirNode of contentionsForOurNode) this.remove(ourNode, theirNode);
+	}
+	
+	// Removes contention entry ourNode -> theirNode if the contention between them has resolved.
+	removeIfResolved(ourNode, theirNode) {
+		if (ourNode.bitWidth === theirNode.bitWidth &amp;&amp; (ourNode.value === theirNode.value || ourNode.value === undefined))
+			this.remove(ourNode, theirNode);
+	}
 
-        const xx = this.x;
-        const yy = this.y;
-        ctx.beginPath();
-        ctx.fillStyle = colors["fill"];
-        moveTo(ctx, -10, -10, xx, yy, this.direction);
-        lineTo(ctx, 10, 0, xx, yy, this.direction);
-        lineTo(ctx, -10, 10, xx, yy, this.direction);
-        ctx.closePath();
-        if (
-            (this.hover &amp;&amp; !simulationArea.shiftDown) ||
-            simulationArea.lastSelected === this ||
-            simulationArea.multipleObjectSelections.contains(this)
-        )
-            ctx.fillStyle = colors["hover_select"];
-        ctx.fill();
-        ctx.stroke();
-        ctx.beginPath();
-        drawCircle2(ctx, 15, 0, 5, xx, yy, this.direction);
-        ctx.stroke();
-    }
+	removeIfResolvedAllContentionsForNode(ourNode) {
+		if (!this.contentionPendingMap.has(ourNode)) return;
 
-    generateVerilog() {
-        return "assign " + this.output1.verilogLabel + " = ~" + this.inp1.verilogLabel + ";"
-    }
-}
+		const contentionsForOurNode = this.contentionPendingMap.get(ourNode);
+		for (const theirNode of contentionsForOurNode) this.removeIfResolved(ourNode, theirNode);
+	}
 
-/**
- * @memberof NotGate
- * Help Tip
- * @type {string}
- * @category modules
- */
-NotGate.prototype.tooltipText =
-    "Not Gate ToolTip : Inverts the input digital signal.";
-NotGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/chapter4/4gates?id=not-gate";
-NotGate.prototype.objectType = "NotGate";
-NotGate.prototype.verilogType = "not";
-</code></pre>
+	size() {
+		return this.totalContentions;
+	}
+
+	// Returns a list of [ourNode, theirNode] for all contentions.
+	nodes() {
+		var items = [];
+		for (const [ourNode, contentionSet] of this.contentionPendingMap) {
+			for (const theirNode of contentionSet) items.push([ourNode, theirNode]);
+		}
+
+		return items;
+	}
+
+}</code></pre>
         </article>
     </section>
 
