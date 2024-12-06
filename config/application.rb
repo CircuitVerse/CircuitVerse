@@ -16,15 +16,19 @@ module Logix
     # -- all .rb files in that directory are automatically loaded.
 
     # configuring mailer previews directory
-    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+    config.action_mailer.preview_path << "#{Rails.root}/lib/mailer_previews"
 
     # config/application.rb
     config.view_component.preview_paths << "#{Rails.root}/spec/components/previews"
-
+    config.i18n.raise_on_missing_translations = !Rails.env.production?
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
     config.i18n.available_locales = [:en, :hi, :bn, :mr, :ne]
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true
+    config.active_record.sqlite3_adapter_strict_strings_by_default = false
+    config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA1
+    config.active_record.encryption.hash_digest_class = OpenSSL::Digest::SHA1
+
 
     # configuring middleware
     config.middleware.use Rack::Attack
