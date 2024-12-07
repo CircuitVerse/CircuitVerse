@@ -11,13 +11,21 @@ class CircuitverseController < ApplicationController
                                  .cursor_paginate(
                                    order: { id: :desc },
                                    limit: Project.per_page,
-                                   after: params[:after],
-                                   before: params[:before]
+                                   after: valid_cursor?(params[:after]) ? params[:after] : nil,
+                                   before: valid_cursor?(params[:before]) ? params[:before] : nil
                                  )
-    # Fetch the page of results from the paginator
-    @projects_page = @projects_paginator.fetch
-    # Extract the records for iteration in the view
-    @projects = @projects_page.records
+    begin
+      # Fetch the page of results from the paginator
+      @projects_page = @projects_paginator.fetch
+      # Extract the records for iteration in the view
+      @projects = @projects_page.records
+    rescue ActiveRecordCursorPaginate::InvalidCursorError => e
+      # Log the error for debugging purposes
+      Rails.logger.error("Invalid cursor detected: #{params[:after] || params[:before]} - #{e.message}")
+      # Redirect to the root page with an alert
+      redirect_to root_path, alert: "Invalid cursor parameter. Returning to the first page."
+      return
+    end
 
     @featured_circuits = Project.joins(:featured_circuit)
                                 .order("featured_circuits.created_at DESC")
@@ -51,4 +59,11 @@ class CircuitverseController < ApplicationController
   def teachers; end
 
   def contribute; end
+
+  private
+
+    # Validate the format of the cursor parameter to prevent errors or misuse
+    def valid_cursor?(cursor)
+      cursor.present? && cursor.match?(/\A[a-zA-Z0-9\-_]+\z/)
+    end
 end
