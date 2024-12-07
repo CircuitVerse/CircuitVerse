@@ -63,7 +63,13 @@ class CircuitverseController < ApplicationController
   private
 
     # Validate the format of the cursor parameter to prevent errors or misuse
+    # @param cursor [String, nil] The cursor value to validate
+    # @return [Boolean] true if the cursor is valid, false otherwise
+    # @note Cursors should be base64-encoded strings containing only alphanumeric characters,
+    #       hyphens, and underscores, with a maximum length of 64 characters.
     def valid_cursor?(cursor)
-      cursor.present? && cursor.match?(/\A[a-zA-Z0-9\-_]+\z/)
+      return false if cursor.blank? || cursor.length > 64
+
+      cursor.match?(/\A[A-Za-z0-9\-_]{1,64}\z/)
     end
 end
