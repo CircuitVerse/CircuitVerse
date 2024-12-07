@@ -17,11 +17,7 @@
     max-width: 40%;
   }
 }
-
-.search-container {
-  margin-top: 100px;
-}
-
+//removed the redundant margin on top that messed up the design
 .search-card-container {
   border: 1px solid $form-border-grey;
   border-radius: 0;
@@ -136,7 +132,7 @@
   transition: all 0.3s ease-in-out;
 }
 
-.search-user-container:hover {
+.search-user-container.expanded {
   transform: scale(1.05);
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -202,6 +198,17 @@
     padding-left: 0;
   }
 
+  .search-user-container {
+    width: 100%;
+    transform: scale(0.95);
+    transition: all 0.6s ease-in-out;
+  }
+
+  .search-user-container.expanded {
+    transform: scale(1.08);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
   .search-project-description {
     margin-left: 0;
   }

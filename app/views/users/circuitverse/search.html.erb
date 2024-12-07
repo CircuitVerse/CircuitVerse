@@ -41,14 +41,49 @@
             if (usernameElement) {
           container.addEventListener("click", function () {
             usernameElement.classList.add("expanded");
+            container.classList.add("expanded")
           });
           container.addEventListener("mouseenter", function () {
             usernameElement.classList.add("expanded");
+            container.classList.add("expanded")
           });
           container.addEventListener("mouseleave", function () {
             usernameElement.classList.remove("expanded");
+            container.classList.remove("expanded")
           });
         }
       });
     });
+
+    document.addEventListener("DOMContentLoaded", function () {
+  if (window.innerWidth > 768) return;
+    const userContainers = document.querySelectorAll(".search-user-container");
+const observerOptions = {
+  root: null, // Viewport as root
+  threshold: 0.8, // Trigger when 20% of element is visible
+};
+
+let debounceTimer = null;
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    const usernameElement = entry.target.querySelector(".search-username");
+
+    if (debounceTimer) clearTimeout(debounceTimer);
+    // adding a debouncer so the user containers don't keep getting in and out of focus around the threshold value
+    debounceTimer = setTimeout(() => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("expanded");
+        usernameElement.classList.add("expanded");
+      } else {
+        entry.target.classList.remove("expanded");
+        usernameElement.classList.remove("expanded");
+      }
+    }, 500);
+  });
+}, observerOptions);
+
+userContainers.forEach((container) => observer.observe(container));
+
+  });
 </script>
