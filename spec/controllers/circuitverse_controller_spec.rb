@@ -34,22 +34,22 @@ describe CircuitverseController, type: :request do
     controller = described_class.new
 
     it "returns true for valid cursors" do
-      expect(controller.send(:valid_cursor?, "abc123-XYZ_")).to eq(true)
-      expect(controller.send(:valid_cursor?, "MTIzNDU2Nzg5MA==")).to eq(true)
+      expect(controller.send(:valid_cursor?, "abc123-XYZ_")).to be(true)
+      expect(controller.send(:valid_cursor?, "MTIzNDU2Nzg5MA==")).to be(true)
     end
 
     it "returns false for cursors exceeding 64 characters" do
       long_cursor = "a" * 65
-      expect(controller.send(:valid_cursor?, long_cursor)).to eq(false)
+      expect(controller.send(:valid_cursor?, long_cursor)).to be(false)
     end
 
     it "returns false for cursors with invalid characters" do
-      expect(controller.send(:valid_cursor?, "invalid@cursor!")).to eq(false)
+      expect(controller.send(:valid_cursor?, "invalid@cursor!")).to be(false)
     end
 
     it "returns false for blank or nil cursors" do
-      expect(controller.send(:valid_cursor?, nil)).to eq(false)
-      expect(controller.send(:valid_cursor?, "")).to eq(false)
+      expect(controller.send(:valid_cursor?, nil)).to be(false)
+      expect(controller.send(:valid_cursor?, "")).to be(false)
     end
   end
 end
