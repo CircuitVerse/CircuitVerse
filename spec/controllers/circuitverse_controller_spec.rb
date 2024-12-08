@@ -52,4 +52,25 @@ describe CircuitverseController, type: :request do
       expect(controller.send(:valid_cursor?, "")).to be(false)
     end
   end
+
+  # Tests for fetch_paginated_results method
+  describe "fetch_paginated_results" do
+    let!(:projects) { create_list(:project, 5) }
+
+    it "fetches paginated results successfully" do
+      get root_path(after: projects.first.id.to_s)
+      expect(assigns(:projects_page)).not_to be_nil
+      expect(assigns(:projects_page).records).to include(*projects)
+    end
+
+    it "handles invalid cursor error gracefully" do
+      invalid_cursor = "invalid_cursor"
+
+      allow_any_instance_of(CircuitverseController).to receive(:valid_cursor?).and_return(false)
+      get root_path(after: invalid_cursor)
+
+      expect(response).to redirect_to(root_path)
+      expect(flash[:alert]).to eq("Invalid cursor parameter. Returning to the first page.")
+    end
+  end
 end
