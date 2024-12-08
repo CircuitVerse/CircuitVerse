@@ -67,7 +67,7 @@ class CircuitverseController < ApplicationController
     # Handle invalid cursor errors
     def handle_invalid_cursor_error(error)
       Rails.logger.error("Invalid cursor detected: #{params[:after] || params[:before]} - #{error.message}")
-      redirect_to root_path, alert: "Invalid cursor parameter. Returning to the first page."
+      redirect_to root_path, alert: "Invalid cursor parameter. Returning to the first page." and return
       []
     end
 
