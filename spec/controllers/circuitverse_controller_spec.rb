@@ -66,7 +66,7 @@ describe CircuitverseController, type: :request do
     it "handles invalid cursor error gracefully" do
       invalid_cursor = "invalid_cursor"
 
-      allow_any_instance_of(CircuitverseController).to receive(:valid_cursor?).and_return(false)
+      allow_any_instance_of(described_class).to receive(:valid_cursor?).and_return(false)
       get root_path(after: invalid_cursor)
 
       expect(response).to redirect_to(root_path)
