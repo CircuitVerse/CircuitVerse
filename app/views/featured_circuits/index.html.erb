@@ -11,7 +11,7 @@
     <% @projects.each do |project| %>
       <div class="col-12 col-sm-12 col-md-6 col-lg-4">
         <div class="card circuit-card">
-          <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image" %>
+          <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image", onerror: "this.onerror=null;this.src='/path/to/placeholder.png';" %>
           <div class="card-footer circuit-card-footer">
             <div class="circuit-card-name">
               <p><%= project.name %></p>
