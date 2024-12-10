@@ -74,11 +74,11 @@
             <strong><%= t("projects.show.project_access_type") %> </strong>
             <%= @project.project_access_type %>
           </p>
-          <% if !@project.description.nil? %>
+          <% if @project.description.present? %>
             <p>
               <strong><%= t("projects.show.project_description") %> </strong>
             </p>
-            <div class="projects-details-description"><%= sanitize @project.description %></div>
+            <div class="projects-details-description"><%= sanitize @project.description.gsub(/\A\s*(<p><br><\/p>)*|(<p><br><\/p>)*\s*\z/, '') %></div>
           <% end %>
           <p title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
             <strong><%= t("projects.show.project_created_at") %> </strong>
