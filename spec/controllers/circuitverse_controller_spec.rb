@@ -29,11 +29,13 @@ describe CircuitverseController, type: :request do
   end
 
   context "with invalid cursor parameters" do
-    it "falls back to the initial page and returns success" do
-      # Providing a deliberately invalid 'after' parameter that can't be base64 decoded
+    it "falls back to the initial page with an invalid after parameter" do
       get root_path(after: "invalid_base64_cursor$$$")
+      expect(response.status).to eq(200)
+    end
 
-      # The controller should rescue the error and still return a 200 status
+    it "falls back to the initial page with an invalid before parameter" do
+      get root_path(before: "invalid_base64_cursor$$$")
       expect(response.status).to eq(200)
     end
   end
