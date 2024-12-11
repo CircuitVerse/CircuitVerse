@@ -4,20 +4,15 @@ class CircuitverseController < ApplicationController
   MAXIMUM_FEATURED_CIRCUITS = 3
 
   def index
-    @projects_paginator = Project.select(:id, :author_id, :image_preview, :name, :slug)
-                                 .public_and_not_forked
-                                 .where.not(image_preview: "default.png")
-                                 .includes(:author)
-                                 .cursor_paginate(
-                                   order: { id: :desc },
-                                   limit: Project.per_page,
-                                   after: params[:after],
-                                   before: params[:before]
-                                 )
-    # Fetch the page of results from the paginator
+    @projects_paginator = build_projects_query
     @projects_page = @projects_paginator.fetch
-    # Extract the records for iteration in the view
-    @projects = @projects_page.records
+  rescue ActiveRecordCursorPaginate::InvalidCursorError => e
+    Rails.logger.warn "Invalid cursor detected: #{e.message}. Falling back to initial page."
+    flash.now[:alert] = "Invalid page parameter. Showing first page."
+    @projects_paginator = build_projects_query(skip_cursor: true)
+    @projects_page = @projects_paginator.fetch
+  ensure
+    @projects = @projects_page&.records || []
 
     @featured_circuits = Project.joins(:featured_circuit)
                                 .order("featured_circuits.created_at DESC")
@@ -51,4 +46,26 @@ class CircuitverseController < ApplicationController
   def teachers; end
 
   def contribute; end
+
+  private
+
+    def build_projects_query(skip_cursor: false)
+      query = Project.select(:id, :author_id, :image_preview, :name, :slug)
+                     .public_and_not_forked
+                     .where.not(image_preview: "default.png")
+                     .includes(:author)
+
+      cursor_params = {
+        order: { id: :desc },
+        limit: Project.per_page
+      }
+
+      unless skip_cursor
+        cursor_params[:after] = params[:after]
+        cursor_params[:before] = params[:before]
+      end
+
+      # Use ** to pass the hash as keyword arguments
+      query.cursor_paginate(**cursor_params)
+    end
 end
