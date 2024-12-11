@@ -3,7 +3,6 @@
 class AboutController < ApplicationController
   def index
     @cores = [
-      
       { name: "Aboobacker MK",
         img: "https://avatars.githubusercontent.com/u/3112976?s=96&v=4", link: "https://github.com/tachyons" },
       { name: "Ruturaj Mohite",
