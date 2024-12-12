@@ -15,7 +15,7 @@ class Users::NoticedNotificationsController < ApplicationController
     case answer.type
     when "new_assignment"
       redirect_to group_assignment_path(answer.first_param, answer.second)
-    when "star", "fork"
+    when "star", "fork", "new_collaborator"
       redirect_to user_project_path(answer.first_param, answer.second)
     when "forum_comment"
       redirect_to simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
