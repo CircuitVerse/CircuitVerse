@@ -114,10 +114,12 @@
 
 .projects-details-description {
   height: 150px;
+  line-height: normal;
   margin-top: -8px;
   overflow-y: auto;
   padding-top: 0;
   text-align: left;
+  width: 100%;
   word-wrap: break-word;
 }
 
