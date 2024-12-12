@@ -62,7 +62,7 @@ gem "sidekiq"
 gem "sunspot_rails"
 
 # For home page pagination
-gem "will_paginate", "~> 3.3.1"
+gem "will_paginate", "~> 4.0.1"
 gem "will_paginate-bootstrap"
 
 gem "country_select", "~> 8.0"
