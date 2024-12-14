@@ -1,10 +1,5 @@
 name: Docker publish
 
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 on:
   schedule:
     - cron: '26 5 * * *'
@@ -35,12 +30,25 @@ jobs:
           submodules: recursive
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '18'
+          cache: 'yarn' # Added caching for faster builds
 
       - name: Copy sample database configuration
         run: cp config/database.example.yml config/database.yml
+
+      # Fix: Added dependency installations to address apt-get failures
+      - name: Install required dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y --no-install-recommends \
+            apt-transport-https \
+            ca-certificates \
+            curl \
+            software-properties-common \
+            gnupg \
+            build-essential
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
