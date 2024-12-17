@@ -27,4 +27,16 @@ describe CircuitverseController, type: :request do
     get contribute_path
     expect(response.status).to eq(200)
   end
+
+  context "with invalid cursor parameters" do
+    it "falls back to the initial page with an invalid after parameter" do
+      get root_path(after: "invalid_base64_cursor$$$")
+      expect(response.status).to eq(200)
+    end
+
+    it "falls back to the initial page with an invalid before parameter" do
+      get root_path(before: "invalid_base64_cursor$$$")
+      expect(response.status).to eq(200)
+    end
+  end
 end
