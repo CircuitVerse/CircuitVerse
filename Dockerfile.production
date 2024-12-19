@@ -1,90 +1,109 @@
-# Use a multi stage build for the builder
-FROM --platform=$BUILDPLATFORM ruby:3.2.1 as builder
+# Build stage for Ruby application
+FROM --platform=$BUILDPLATFORM ruby:3.2.1-alpine AS builder
 
 # Set production environment
 ARG BUILDPLATFORM
-ENV NODE_ENV=production
-ENV RAILS_ENV=production
+ENV NODE_ENV=production \
+    RAILS_ENV=production \
+    BUNDLE_DEPLOYMENT=true \
+    BUNDLE_WITHOUT=development:test \
+    PATH=/usr/local/bundle/bin:$PATH
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
-RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
-
-RUN npm install --global yarn
+# Install build dependencies
+RUN apk add --no-cache \
+    build-base \
+    postgresql-dev \
+    curl \
+    nodejs \
+    npm \
+    yarn \
+    vips-dev \
+    imagemagick \
+    tzdata \
+    git
 
 WORKDIR /usr/src/app
 
+# Install JavaScript dependencies
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
+RUN yarn install --frozen-lockfile --network-timeout 1000000 \
+    && yarn cache clean
 
+# Install Ruby dependencies
 COPY Gemfile* ./
-ENV BUNDLE_DEPLOYMENT=true
-# ENV BUNDLE_JOBS=4
-ENV BUNDLE_WITHOUT=development:test
+RUN bundle config set --local deployment 'true' \
+    && bundle config set --local without 'development:test' \
+    && bundle install --jobs=4 --retry=3 \
+    && rm -rf vendor/bundle/ruby/*/cache/*
 
-RUN bundle install \
-   && rm -rf vendor/bundle/ruby/3.1.0/cache/*
-
+# Copy application code
 COPY . .
-# Remove the Vue simulator directory (since it's being handled separately in another stage)
 RUN rm -rf cv-frontend-vue
 
+# Precompile assets
 RUN RAILS_ENV=production \
     SECRET_KEY_BASE=1 \
     DATABASE_URL=postgres://nulldb \
-	DISABLE_FLIPPER=true \
-    bundle exec rails assets:precompile && \
-	yarn cache clean
+    DISABLE_FLIPPER=true \
+    bundle exec rails assets:precompile \
+    && yarn cache clean \
+    && rm -rf node_modules spec
 
-RUN rm -rf node_modules spec
-
-# Precompile the Bootsnap cache for the specified directories to optimize boot time in production.
+# Precompile bootsnap cache
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
-# Build stage for the Vue simualtor
-FROM --platform=$BUILDPLATFORM node:lts-slim as simulator_vue_build
-
-RUN mkdir -p /public/
+# Build stage for Vue simulator
+FROM --platform=$BUILDPLATFORM node:lts-alpine AS simulator_vue_build
 
 WORKDIR /app
 
-# Copy package files and install Vue simulator dependecies
-COPY cv-frontend-vue/package.json cv-frontend-vue/package-lock.json ./
-RUN npm install --ignore-scripts
+# Copy Vue configuration and package files
+COPY cv-frontend-vue/package*.json ./
+COPY cv-frontend-vue/vite.config.ts ./
+
+# Install dependencies
+RUN npm ci --ignore-scripts
+
+# Copy Vue source code
 COPY cv-frontend-vue/ ./
 
-# Build Vue simualtor
+# Build Vue application
 RUN npm run build
 
-FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim as app
+# Final stage
+FROM --platform=$BUILDPLATFORM ruby:3.2.1-alpine
 
-# Copy compiled assets and application from builder and Vue simulator build stages
-COPY --from=builder /usr/src/app /usr/src/app
-COPY --from=simulator_vue_build /public/simulatorvue /usr/src/app/public/simulatorvue
+# Set production environment variables
+ENV RAILS_ENV=production \
+    NODE_ENV=production \
+    BUNDLE_PATH=/usr/local/bundle \
+    RAILS_LOG_TO_STDOUT=true \
+    BUNDLE_DEPLOYMENT=true \
+    BUNDLE_WITHOUT="development:test" \
+    RAILS_SERVE_STATIC_FILES="true" \
+    LD_PRELOAD="/usr/lib/jemalloc.so.2" \
+    MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
 
-ENV RAILS_ENV=production
-ENV NODE_ENV=production
-ENV BUNDLE_PATH='vendor/bundle'
-ENV RAILS_LOG_TO_STDOUT=true
-ENV BUNDLE_DEPLOYMENT=true
-ENV BUNDLE_WITHOUT="development:test"
-ENV RAILS_SERVE_STATIC_FILES="true"
-
-ARG REDIS_URL="redis://localhost:6379"
-
-
-RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-recommends --auto-remove curl  \
-   && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
-   && apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2  \
-   && apt-get clean \
-   && rm -rf /var/cache/apt/archives/* \
-   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
-   && truncate -s 0 /var/log/*log
-
-ENV LD_PRELOAD="libjemalloc.so.2"
-ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
+# Install runtime dependencies
+RUN apk add --no-cache \
+    postgresql-client \
+    nodejs \
+    tzdata \
+    imagemagick \
+    vips \
+    jemalloc \
+    curl \
+    curl-dev \
+    shared-mime-info \
+    && mkdir -p /usr/src/app
 
 WORKDIR /usr/src/app
 
-ENTRYPOINT ["/usr/src/app/bin/docker-entrypoint"]
+# Copy artifacts from builder stages
+COPY --from=builder /usr/local/bundle /usr/local/bundle
+COPY --from=builder /usr/src/app /usr/src/app
+COPY --from=simulator_vue_build /public/simulatorvue /usr/src/app/public/simulatorvue
 
+# Configure container
 EXPOSE 3000
+ENTRYPOINT ["/usr/src/app/bin/docker-entrypoint"]
