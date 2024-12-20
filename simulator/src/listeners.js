@@ -777,42 +777,48 @@ export default function startListeners() {
         const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value.toLowerCase()));
         const searchValue = value.toLowerCase();
         const groupedResults = {};
-// Single pass through elements for both filtering and prioritization
+        // Single pass through elements for both filtering and prioritization
         const prioritizedResult = elementPanelList
-            .map(ele => ({
+        .map(ele => {
+            const priority = ele.toLowerCase().startsWith(searchValue) 
+                ? 1 
+                : ele.toLowerCase().includes(searchValue)
+                ? 0 
+                : -1;
+            return {
                 element: ele,
-                priority: ele.toLowerCase().startsWith(searchValue) ? 1 : 
-                        ele.toLowerCase().includes(searchValue) ? 0 : -1
-            }))
-            .filter(item => item.priority >= 0)
-            .sort((a, b) => b.priority - a.priority)
-            .map(item => item.element);
-
-            prioritizedResult.forEach(result => {
-                    Object.entries(elementHierarchy).forEach(([category, categoryData]) => {
-                        const matchingElement = categoryData.find(item => item.label === result);
-                        if (matchingElement) {
-                            if (!groupedResults[category]) groupedResults[category] = [];
-                            groupedResults[category].push(matchingElement);
-                        }
-                    });
+                priority: priority
+            };
+        })
+        .filter(item => item.priority >= 0)
+        .sort((a, b) => b.priority - a.priority)
+        .map(item => item.element);    
+        prioritizedResult.forEach((result) => {
+                Object.entries(elementHierarchy).forEach(([category, categoryData]) => {
+                    const matchingElement = categoryData.find(item => item.label === result);
+                    if (matchingElement) {
+                        if (!groupedResults[category]) groupedResults[category] = [];
+                        groupedResults[category].push(matchingElement);
+                    }
                 });
-
-if (Object.keys(groupedResults).length === 0) {
-    searchResults.text('No elements found ...');
-} else {
-    for (const category in groupedResults) {
-        if (Object.prototype.hasOwnProperty.call(groupedResults, category)) {
-            htmlIcons += `<div class="category-title">${category}</div>`; // Add category heading
-            groupedResults[category].forEach(element => {
-                htmlIcons += createIcon(element);
             });
-        }
-    }
 
-    searchResults.html(htmlIcons);
-    $('.filterElements').mousedown(createElement);
-}
+        if (Object.keys(groupedResults).length === 0) {
+            searchResults.text('No elements found ...');
+        } else {
+            let generatedHTML = '';
+            for (const category in groupedResults) {
+                if (Object.prototype.hasOwnProperty.call(groupedResults, category)) {
+                    generatedHTML += `<div class="category-title">${category}</div>`; // Add category heading
+                    groupedResults[category].forEach((element) => {
+                        generatedHTML += createIcon(element);
+                    });
+                }
+            }
+            htmlIcons = generatedHTML;
+            searchResults.html(htmlIcons);
+            $('.filterElements').mousedown(createElement);
+        }
     });
 
     function createIcon(element) {
