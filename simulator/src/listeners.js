@@ -782,9 +782,14 @@ export default function startListeners() {
         // Single pass through elements for both filtering and prioritization
         const prioritizedResult = elementPanelList
         .map((ele) => {
-            const priority = ele.toLowerCase().startsWith(searchValue) ? 1
-                : ele.toLowerCase().includes(searchValue) ? 0
-                : -1;
+            let priority;
+            if (ele.toLowerCase().startsWith(searchValue)) {
+                priority = 1;
+            } else if (ele.toLowerCase().includes(searchValue)) {
+                priority = 0;
+            } else {
+                priority = -1;
+            }
             return {
                 element: ele,
                 priority,
@@ -809,10 +814,11 @@ export default function startListeners() {
             let generatedHTML = '';
             for (const category in groupedResults) {
                 if (Object.prototype.hasOwnProperty.call(groupedResults, category)) {
-                    generatedHTML += `<div class="category-title">${category}</div>`; // Add category heading
+                    let categoryHTML = `<div class="category-title">${category}</div>`; // Add category heading
                     groupedResults[category].forEach((element) => {
-                        generatedHTML += createIcon(element);
+                        categoryHTML += createIcon(element);
                     });
+                    generatedHTML += categoryHTML;
                 }
             }
             htmlIcons = generatedHTML;
