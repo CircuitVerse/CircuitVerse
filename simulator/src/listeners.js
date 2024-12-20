@@ -7,9 +7,7 @@
 /* eslint-disable prefer-template */
 /* eslint-disable no-param-reassign */
 // Most Listeners are stored here
-import {
-    layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners,
-} from './layoutMode';
+import {layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners} from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
@@ -776,29 +774,52 @@ export default function startListeners() {
         }
 
         let htmlIcons = '';
-        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
-        var finalResult = [];
-        for(const j in result) {
-            if (Object.prototype.hasOwnProperty.call(result, j)) {
-                for (const category in elementHierarchy) {
-                     if(Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
-                        const categoryData = elementHierarchy[category];
-                         for (let i = 0; i < categoryData.length; i++) {
-                             if(result[j] == categoryData[i].label) {
-                                 finalResult.push(categoryData[i]);
-                            }
-                        }
+const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value.toLowerCase()));
+const finalResult = [];
+
+// Group results by category
+const groupedResults = {};
+
+// Prioritize elements that start with the search term
+const prioritizedResult = result.sort((a, b) => {
+    const startsWithA = a.toLowerCase().startsWith(value.toLowerCase());
+    const startsWithB = b.toLowerCase().startsWith(value.toLowerCase());
+    if (startsWithA && !startsWithB) return -1; // `a` comes before `b`
+    if (!startsWithA && startsWithB) return 1;  // `b` comes before `a`
+    return 0; // Keep relative order if both or neither match
+});
+
+for (const j in prioritizedResult) {
+    if (Object.prototype.hasOwnProperty.call(prioritizedResult, j)) {
+        for (const category in elementHierarchy) {
+            if (Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
+                const categoryData = elementHierarchy[category];
+                for (let i = 0; i < categoryData.length; i++) {
+                    if (prioritizedResult[j] === categoryData[i].label) {
+                        if (!groupedResults[category]) groupedResults[category] = [];
+                        groupedResults[category].push(categoryData[i]);
                     }
                 }
             }
         }
-    if(!finalResult.length) searchResults.text('No elements found ...');
-    else {
-        finalResult.forEach( e => htmlIcons += createIcon(e));
-        searchResults
-          .html(htmlIcons);
-        $('.filterElements').mousedown(createElement);
     }
+}
+
+if (Object.keys(groupedResults).length === 0) {
+    searchResults.text('No elements found ...');
+} else {
+    for (const category in groupedResults) {
+        if (Object.prototype.hasOwnProperty.call(groupedResults, category)) {
+            htmlIcons += `<div class="category-title">${category}</div>`; // Add category heading
+            groupedResults[category].forEach(element => {
+                htmlIcons += createIcon(element);
+            });
+        }
+    }
+
+    searchResults.html(htmlIcons);
+    $('.filterElements').mousedown(createElement);
+}
     });
 
     function createIcon(element) {
