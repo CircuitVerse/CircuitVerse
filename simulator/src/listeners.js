@@ -801,7 +801,7 @@ export default function startListeners() {
         prioritizedResult.forEach((result) => {
                 Object.entries(elementHierarchy).forEach(([category, categoryData]) => {
                     const matchingElement = categoryData.find(item => item.label === result);
-                    if(matchingElement){
+                    if (matchingElement) {
                         if(!groupedResults[category]) groupedResults[category] = [];
                         groupedResults[category].push(matchingElement);
                     }
