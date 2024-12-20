@@ -774,36 +774,29 @@ export default function startListeners() {
         }
 
         let htmlIcons = '';
-const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value.toLowerCase()));
-const finalResult = [];
+        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value.toLowerCase()));
+        const searchValue = value.toLowerCase();
+        const groupedResults = {};
+// Single pass through elements for both filtering and prioritization
+        const prioritizedResult = elementPanelList
+            .map(ele => ({
+                element: ele,
+                priority: ele.toLowerCase().startsWith(searchValue) ? 1 : 
+                        ele.toLowerCase().includes(searchValue) ? 0 : -1
+            }))
+            .filter(item => item.priority >= 0)
+            .sort((a, b) => b.priority - a.priority)
+            .map(item => item.element);
 
-// Group results by category
-const groupedResults = {};
-
-// Prioritize elements that start with the search term
-const prioritizedResult = result.sort((a, b) => {
-    const startsWithA = a.toLowerCase().startsWith(value.toLowerCase());
-    const startsWithB = b.toLowerCase().startsWith(value.toLowerCase());
-    if (startsWithA && !startsWithB) return -1; // `a` comes before `b`
-    if (!startsWithA && startsWithB) return 1;  // `b` comes before `a`
-    return 0; // Keep relative order if both or neither match
-});
-
-for (const j in prioritizedResult) {
-    if (Object.prototype.hasOwnProperty.call(prioritizedResult, j)) {
-        for (const category in elementHierarchy) {
-            if (Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
-                const categoryData = elementHierarchy[category];
-                for (let i = 0; i < categoryData.length; i++) {
-                    if (prioritizedResult[j] === categoryData[i].label) {
-                        if (!groupedResults[category]) groupedResults[category] = [];
-                        groupedResults[category].push(categoryData[i]);
-                    }
-                }
-            }
-        }
-    }
-}
+            prioritizedResult.forEach(result => {
+                    Object.entries(elementHierarchy).forEach(([category, categoryData]) => {
+                        const matchingElement = categoryData.find(item => item.label === result);
+                        if (matchingElement) {
+                            if (!groupedResults[category]) groupedResults[category] = [];
+                            groupedResults[category].push(matchingElement);
+                        }
+                    });
+                });
 
 if (Object.keys(groupedResults).length === 0) {
     searchResults.text('No elements found ...');
