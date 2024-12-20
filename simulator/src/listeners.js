@@ -782,8 +782,8 @@ export default function startListeners() {
         // Single pass through elements for both filtering and prioritization
         const prioritizedResult = elementPanelList
         .map((ele) => {
-            const priority = ele.toLowerCase().startsWith(searchValue)?1 
-                :ele.toLowerCase().includes(searchValue)?0 
+            const priority = ele.toLowerCase().startsWith(searchValue) ? 1
+                :ele.toLowerCase().includes(searchValue) ? 0
                 :-1;
             return {
                 element: ele,
@@ -792,11 +792,11 @@ export default function startListeners() {
         })
         .filter(item => item.priority >= 0)
         .sort((a, b) => b.priority - a.priority)
-        .map(item => item.element);    
+        .map(item => item.element);
         prioritizedResult.forEach((result) => {
                 Object.entries(elementHierarchy).forEach(([category, categoryData]) => {
                     const matchingElement = categoryData.find(item => item.label === result);
-                    if (matchingElement) {
+                    if (matchingElement){
                         if (!groupedResults[category]) groupedResults[category] = [];
                         groupedResults[category].push(matchingElement);
                     }
