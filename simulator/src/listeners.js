@@ -7,7 +7,9 @@
 /* eslint-disable prefer-template */
 /* eslint-disable no-param-reassign */
 // Most Listeners are stored here
-import {layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners} from './layoutMode';
+import {
+    layoutModeGet, tempBuffer, layoutUpdate, setupLayoutModePanelListeners,
+} from './layoutMode';
 import simulationArea from './simulationArea';
 import {
     scheduleUpdate, update, updateSelectionsAndPane,
@@ -779,15 +781,13 @@ export default function startListeners() {
         const groupedResults = {};
         // Single pass through elements for both filtering and prioritization
         const prioritizedResult = elementPanelList
-        .map(ele => {
-            const priority = ele.toLowerCase().startsWith(searchValue) 
-                ? 1 
-                : ele.toLowerCase().includes(searchValue)
-                ? 0 
-                : -1;
+        .map((ele) => {
+            const priority = ele.toLowerCase().startsWith(searchValue)?1 
+                :ele.toLowerCase().includes(searchValue)?0 
+                :-1;
             return {
                 element: ele,
-                priority: priority
+                priority,
             };
         })
         .filter(item => item.priority >= 0)
