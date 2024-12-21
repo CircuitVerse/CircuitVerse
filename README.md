@@ -6,7 +6,7 @@
 [CircuitVerse](https://circuitverse.org) is a free, open-source platform which allows users to construct digital logic circuits online. We also offer the [Interactive Book](https://learn.circuitverse.org) which teaches users on the fundamentals of modern, digital circuits. Please also see our [documentation](https://docs.circuitverse.org) or [GitHub Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/).
 
 ## Community
-We would love to hear from you! We communicate on Slack:
+We would love to hear from you! We communicate by using Slack:
 
 [![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://circuitverse.org/slack)
 
@@ -24,3 +24,31 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## Testing with BrowserStack
 This project is tested with BrowserStack.
+
+## Setup Instructions
+
+To set up the project locally:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/CircuitVerse/CircuitVerse.git
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Run the project:
+   ```bash
+   npm start
+   ```
+
+## Contributing
+
+We welcome contributions! To contribute:
+
+1. Fork the repository.
+2. Create a new branch for your changes.
+3. Make your changes and commit them.
+4. Submit a pull request.
+
+
