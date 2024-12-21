@@ -118,6 +118,10 @@
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease; */
 }
+span.cb-inner.disable:after {
+    background: #ddd;
+    filter:blur(1px)
+}
 .cb-checkbox i {
     top: 1px;
     left: 2px;

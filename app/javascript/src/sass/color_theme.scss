@@ -48,7 +48,7 @@ $context-text: white;
 $context-text-hov: black;
 
 //small components
-$disable: #6c8b93;
+$disable: #ddd;
 $cus-radio_label: #656565;
 
 //canvas
@@ -582,6 +582,7 @@ select {
 
 .disable::after {
   background: var(--disable);
+  filter: blur(5px);
 }
 
 #bitconverterprompt {
