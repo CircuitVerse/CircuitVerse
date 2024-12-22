@@ -119,8 +119,7 @@
     transition: all 0.5s ease; */
 }
 span.cb-inner.disable:after {
-    background: #ddd;
-    filter:blur(1px)
+    background: #ffffff5f;
 }
 .cb-checkbox i {
     top: 1px;
@@ -140,6 +139,9 @@ span.cb-inner.disable:after {
     -o-transition: all 0.2s ease;
     -webkit-transition: all 0.2s ease;
     transition: all 0.2s ease; */
+}
+.cb-inner.disable i::after, .cb-inner.disable i::before {
+    background-color: transparent;
 }
 .cb-checkbox i:before {
     top: 0;

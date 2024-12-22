@@ -513,6 +513,10 @@ select {
 .download-dialog-section-3 > span {
   color: var(--text-lite);
 }
+.download-dialog-section-3.disable .inline{
+  color:#ffffff5c;
+  background:transparent;
+}
 
 .ui-dialog-titlebar-close::before:hover {
   background-color: var(--primary);
@@ -580,9 +584,9 @@ select {
   color: var(--text-lite);
 }
 
-.disable::after {
-  background: var(--disable);
-  filter: blur(5px);
+.btn-group-toggle.disable .btn{
+  color:#ffffff5c;
+  background:transparent;
 }
 
 #bitconverterprompt {
