@@ -5,6 +5,16 @@
 -----
 [CircuitVerse](https://circuitverse.org) is a free, open-source platform which allows users to construct digital logic circuits online. We also offer the [Interactive Book](https://learn.circuitverse.org) which teaches users on the fundamentals of modern, digital circuits. Please also see our [documentation](https://docs.circuitverse.org) or [GitHub Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/).
 
+## Getting Started with CircuitVerse 📹
+To help new contributors get started, we've created a video guide titled **"Getting Started with CircuitVerse"**. This video covers:
+- Introduction to CircuitVerse and its technical architecture.
+- Step-by-step setup using GitHub Codespaces.
+- A detailed walkthrough of the codebase directory structure and key files.
+- Contribution guidelines for effective collaboration.
+
+🎥 [Watch the "Getting Started with CircuitVerse" Video](https://drive.google.com/file/d/1a0QDvQD8r2Kpf4RxperILZTOH4Np1Ybe/view?usp=sharing)  
+*(Click the link above to watch the video on Google Drive.)*
+
 ## Community
 We would love to hear from you! We communicate on Slack:
 
