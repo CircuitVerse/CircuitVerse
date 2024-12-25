@@ -7,7 +7,7 @@
 
 ## Getting Started with CircuitVerse 📹
 To help new contributors get started, we've created a video guide titled **"Getting Started with CircuitVerse"**. This video covers:
-- Introduction to CircuitVerse and its technical architecture.
+- Introduction to CircuitVerse and its technical structure.
 - Step-by-step setup using GitHub Codespaces.
 - A detailed walkthrough of the codebase directory structure and key files.
 - Contribution guidelines for effective collaboration.
