@@ -12,7 +12,7 @@ To help new contributors get started, we've created a video guide titled **"Gett
 - A detailed walkthrough of the codebase directory structure and key files.
 - Contribution guidelines for effective collaboration.
 
-🎥 [Watch the "Getting Started with CircuitVerse" Video](https://drive.google.com/file/d/1a0QDvQD8r2Kpf4RxperILZTOH4Np1Ybe/view?usp=sharing)  
+🎥 [Watch the "Getting Started with CircuitVerse" Video](https://drive.google.com/file/d/1CIIpxCQtLm3r85_6xwClKgaPMQMRjpon/view?usp=sharing)  
 *(Click the link above to watch the video on Google Drive.)*
 
 ## Community
