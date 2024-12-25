@@ -1,11 +1,11 @@
 <%= form_with(model: custom_mail, local: true, multipart: true, id: "mailsForm") do |form| %>
-  <div class="field form-group">
+  <div class="field mb-3">
     <h6><%= form.label :subject %></h6>
     <div class="input-group">
       <%= form.text_field :subject, class: "form-control form-input" %>
     </div>
   </div>
-  <div class="field form-group" id="description">
+  <div class="field mb-3" id="description">
     <h6><%= form.label :content %></h6>
     <div class="input-group">
       <%= render partial: "editor/index", locals: { content: custom_mail.content } %>

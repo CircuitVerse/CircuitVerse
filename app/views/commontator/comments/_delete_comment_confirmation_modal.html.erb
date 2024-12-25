@@ -3,14 +3,14 @@
     <div class="modal-content">
       <div class="modal-header secondary-modal-header">
         <h4 class="modal-title"><%= t("delete") %></h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
       </div>
       <div class="modal-body">
         <p><%= t("commontator.comment.actions.confirm_delete") %></p>
       </div>
-      <div class="modal-footer" data-dismiss="modal">
+      <div class="modal-footer" data-bs-dismiss="modal">
         <%= link_to "#",
-                    method: :put,
+                    method: :delete,
                     remote: true,
                     class: "btn btn-danger",
                     id: "projects-comment-delete-button" do %>
