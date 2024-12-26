@@ -7,7 +7,9 @@ end
 
 gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
-gem "aws-sdk-rails"
+#gem "aws-sdk-rails"
+gem "aws-sdk-ses"
+gem 'stringio', '~> 3.1', '>= 3.1.2'
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "kt-paperclip"
@@ -22,7 +24,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.8.7"
+gem "rails", "~> 7.2.2.1"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets

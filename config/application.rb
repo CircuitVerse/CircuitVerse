@@ -1,6 +1,6 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -9,27 +9,46 @@ Bundler.require(*Rails.groups)
 module Logix
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    config.load_defaults 7.2
 
-    # Settings in config/environments/* take precedence over those specified here.
-    # Application configuration should go into files in config/initializers
-    # -- all .rb files in that directory are automatically loaded.
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w[assets tasks])
 
-    # configuring mailer previews directory
-    config.action_mailer.preview_path = "#{Rails.root}/lib/mailer_previews"
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
 
-    # config/application.rb
-    config.view_component.preview_paths << "#{Rails.root}/spec/components/previews"
+    # Configure mailer previews directory
+    config.action_mailer.preview_paths = ["#{Rails.root}/lib/mailer_previews"]
 
+    # Configure view component preview paths
+    config.view_component.preview_paths = ["#{Rails.root}/spec/components/previews"]
+
+    # Configure I18n load paths
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    # Specify available locales
     config.i18n.available_locales = [:en, :hi, :bn, :mr, :ne]
+
+    # Set default locale
     config.i18n.default_locale = :en
+
+    # Enable fallbacks for missing translations
     config.i18n.fallbacks = true
 
-    # configuring middleware
+    # Raise an error for missing translations
+    config.i18n.raise_on_missing_translations = true
+
+    # Configuring middleware
     config.middleware.use Rack::Attack
 
-    # configuring forum
+    # Configuring forum
     overrides = "#{Rails.root}/app/overrides"
     Rails.autoloaders.main.ignore(overrides)
 
