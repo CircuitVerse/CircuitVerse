@@ -5,10 +5,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'parser', '~>3.2.1.1'
 gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
 #gem "aws-sdk-rails"
 gem "aws-sdk-ses"
+#gem "aws-sdk"
 gem 'stringio', '~> 3.1', '>= 3.1.2'
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
