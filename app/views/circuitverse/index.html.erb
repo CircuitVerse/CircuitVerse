@@ -50,8 +50,8 @@
       </div>
       <div class="row">
         <div class="col-12 home-tertiary-button-container">
-          <a class="btn tertiary-button" href="/teachers"><%= t("circuitverse.index.for_teachers") %></a>
-          <a class="btn tertiary-button" href="/contribute"><%= t("circuitverse.index.for_contributors") %></a>
+          <%= render(HomepageComponents::HomeButtonComponent.new(path: "/teachers", text_key: "circuitverse.index.for_teachers")) %>
+          <%= render(HomepageComponents::HomeButtonComponent.new(path: "/contribute", text_key: "circuitverse.index.for_contributors")) %>
         </div>
       </div>
       <div id="home-features-section" class="row center-row" style="scroll-margin-top: 100px;">
