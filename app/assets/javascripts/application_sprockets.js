@@ -28,3 +28,5 @@
 //= require trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.min.js
 //= require trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js
 //= require select2
+//= require autoComplete.min
+
