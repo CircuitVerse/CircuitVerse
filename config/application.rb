@@ -16,6 +16,8 @@ module Logix
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    config.assets.paths << Rails.root.join('node_modules')
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
@@ -44,6 +46,8 @@ module Logix
 
     # Raise an error for missing translations
     config.i18n.raise_on_missing_translations = true
+
+    config.assets.paths << Rails.root.join("node_modules")
 
     # Configuring middleware
     config.middleware.use Rack::Attack

@@ -95,7 +95,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # Raise error when a before_action's only/except options reference missing actions.
-  config.action_controller.raise_on_missing_callback_actions = true
+  config.action_controller.raise_on_missing_callback_actions = false
 
   # VAPID keys configuration
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || "BGxnigbQCa435vZ8_3uFdqLC0XJHXtONgEdI-ydMMs0JaBsnpUfLxR1UDagq6_cDwHyhqjw77tTlp0ULZkx8Xos="
