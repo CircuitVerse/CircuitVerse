@@ -29,7 +29,6 @@ en:
   not_entered: "Not Entered"
   enter_email: "Enter Email"
   enter_password: "Enter Password"
-  en:
   layout:
     api: "API here"
 
