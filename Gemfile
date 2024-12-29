@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'parser', '~>3.2.1.1'
+gem 'parser', '~>3.2.2.3'
 gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
 #gem "aws-sdk-rails"
@@ -137,6 +137,7 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem "rubocop-factory_bot", "~> 2.24.0", require: false 
   gem "rbs_rails"
   gem "steep"
   gem 'solargraph-rails', '~> 0.3.1'
@@ -161,7 +162,7 @@ group :development do
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
-  gem "rubocop"
+  gem "rubocop", "~> 1.56"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
