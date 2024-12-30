@@ -26,7 +26,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.2.2.1"
+gem "rails", "~> 7.2"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -181,7 +181,7 @@ gem "invisible_captcha", "~> 2.0"
 
 gem "oj", "~> 3.15"
 
-gem "hairtrigger", "~> 0.2.25"
+gem "hairtrigger", "~> 1.2.0"
 
 # Used for rate limiting
 gem "rack-attack"
