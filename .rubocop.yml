@@ -4,6 +4,7 @@ require:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-performance
+  - rubocop-factory_bot
 
 AllCops:
   TargetRubyVersion: 3.2
@@ -271,7 +272,7 @@ RSpec/InstanceVariable:
 RSpec/ContextWording:
   Enabled: false
 
-RSpec/FactoryBot/SyntaxMethods:
+FactoryBot/SyntaxMethods:
   Enabled: false
 
 RSpec/MultipleMemoizedHelpers:
@@ -309,7 +310,7 @@ Lint/MissingSuper:
   Exclude:
     - 'app/policies/*'
 
-RSpec/FilePath:
+Rails/FilePath:
   Enabled: false
 
 Naming/BlockForwarding:

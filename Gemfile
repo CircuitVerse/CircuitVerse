@@ -5,9 +5,13 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'parser', '~>3.2.2.3'
 gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
-gem "aws-sdk-rails"
+#gem "aws-sdk-rails"
+gem "aws-sdk-ses"
+#gem "aws-sdk"
+gem 'stringio', '~> 3.1', '>= 3.1.2'
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "kt-paperclip"
@@ -22,7 +26,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.8.7"
+gem "rails", "~> 7.2"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -133,6 +137,7 @@ group :development, :test do
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
+  gem "rubocop-factory_bot", "~> 2.24.0", require: false 
   gem "rbs_rails"
   gem "steep"
   gem 'solargraph-rails', '~> 0.3.1'
@@ -157,7 +162,7 @@ group :development do
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
-  gem "rubocop"
+  gem "rubocop", "~> 1.56"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
@@ -176,7 +181,7 @@ gem "invisible_captcha", "~> 2.0"
 
 gem "oj", "~> 3.15"
 
-gem "hairtrigger", "~> 0.2.25"
+gem "hairtrigger", "~> 1.2.0"
 
 # Used for rate limiting
 gem "rack-attack"

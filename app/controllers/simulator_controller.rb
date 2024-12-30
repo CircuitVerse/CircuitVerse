@@ -5,11 +5,11 @@ class SimulatorController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   before_action :redirect_to_vue_simulator_if_enabled
-  before_action :authenticate_user!, only: %i[create update edit update_image]
+  before_action :authenticate_user!, only: %i[create update edit ]
   before_action :set_project, only: %i[show embed get_data]
-  before_action :set_user_project, only: %i[update edit update_image]
+  before_action :set_user_project, only: %i[update edit ]
   before_action :check_view_access, only: %i[show embed get_data]
-  before_action :check_edit_access, only: %i[edit update update_image]
+  before_action :check_edit_access, only: %i[edit update ]
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {

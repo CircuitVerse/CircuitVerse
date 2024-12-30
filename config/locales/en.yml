@@ -29,6 +29,9 @@ en:
   not_entered: "Not Entered"
   enter_email: "Enter Email"
   enter_password: "Enter Password"
+  layout:
+    api: "API here"
+
   enter_name: "Enter Name"
   registration_blocked: "Sign up is Currently disabled"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
