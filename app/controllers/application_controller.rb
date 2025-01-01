@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   def store_location_for(resource_or_scope, location)
     max_location_size = 200 # bytes
     if location && location.length > max_location_size
-      super resource_or_scope, "/"
+      super(resource_or_scope, "/")
     else
       super
     end

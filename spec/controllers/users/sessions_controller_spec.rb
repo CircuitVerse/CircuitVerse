@@ -11,8 +11,10 @@ RSpec.describe Users::SessionsController, type: :controller do
     rsa_public = rsa_private.public_key
 
     # Stub the private_key and public_key methods to return the test keys
-    allow(JsonWebToken).to receive(:private_key).and_return(rsa_private)
-    allow(JsonWebToken).to receive(:public_key).and_return(rsa_public)
+    allow(JsonWebToken).to receive_messages(
+      private_key: rsa_private,
+      public_key: rsa_public
+    )
   end
 
   describe "POST #create" do

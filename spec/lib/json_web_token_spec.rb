@@ -12,8 +12,10 @@ RSpec.describe JsonWebToken do
 
   before do
     # Stub the private_key and public_key methods to return the test keys
-    allow(described_class).to receive(:private_key).and_return(rsa_private)
-    allow(described_class).to receive(:public_key).and_return(rsa_public)
+    allow(described_class).to receive_messages(
+      private_key: rsa_private,
+      public_key: rsa_public
+    )
   end
 
   describe ".encode" do

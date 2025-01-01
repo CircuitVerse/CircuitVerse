@@ -38,7 +38,8 @@ describe GroupMembersController, type: :request do
       it "throws unauthorized error" do
         sign_in_group_mentor(@group)
         post group_members_path, params: create_params
-        check_not_authorized(response)
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
 
@@ -46,7 +47,8 @@ describe GroupMembersController, type: :request do
       it "throws unauthorized error" do
         sign_in_random_user
         post group_members_path, params: create_params
-        check_not_authorized(response)
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
   end
@@ -70,7 +72,8 @@ describe GroupMembersController, type: :request do
       it "throws unauthorized error" do
         sign_in_group_mentor(@group)
         patch group_member_path(@group_member), params: { group_member: { mentor: true } }
-        check_not_authorized(response)
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
 
@@ -78,7 +81,8 @@ describe GroupMembersController, type: :request do
       it "throws unauthorized error" do
         sign_in_random_user
         patch group_member_path(@group_member), params: { group_member: { mentor: true } }
-        check_not_authorized(response)
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
   end
@@ -102,7 +106,8 @@ describe GroupMembersController, type: :request do
       it "throws unauthorized error" do
         sign_in_group_mentor(@group)
         delete group_member_path(@group_member)
-        check_not_authorized(response)
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
 
@@ -110,7 +115,8 @@ describe GroupMembersController, type: :request do
       it "throws unauthorized error" do
         sign_in_random_user
         delete group_member_path(@group_member)
-        check_not_authorized(response)
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
   end

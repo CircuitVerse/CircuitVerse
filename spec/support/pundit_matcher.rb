@@ -2,7 +2,7 @@
 
 RSpec::Matchers.define :permit do |action|
   match do |policy|
-    policy.public_send("#{action}?")
+    policy.public_send(:"#{action}?")
   end
 
   failure_message do |policy|

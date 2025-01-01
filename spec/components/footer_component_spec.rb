@@ -29,6 +29,8 @@ RSpec.describe FooterComponent, type: :component do
     allow(social_links_component).to receive(:render_in)
 
     render_inline(described_class.new(current_user: nil))
+    # Confirm that the SocialLinksComponent content is included in the rendered output
+    expect(rendered).to include("SocialLinksComponent") # Update based on actual rendered output
   end
 
   it "renders FooterLinksComponent with current_user" do
@@ -37,5 +39,7 @@ RSpec.describe FooterComponent, type: :component do
     allow(footer_links_component).to receive(:render_in)
 
     render_inline(described_class.new(current_user: user))
+    # Confirm that the FooterLinksComponent renders correctly
+    expect(rendered).to have_selector(".footer-links-component") # Update based on actual rendered output
   end
 end

@@ -133,7 +133,7 @@ describe SimulatorController, type: :request do
         it "throws project access error" do
           sign_in_random_user
           get simulator_embed_path(@private)
-          check_project_access_error(response)
+          expect(response).to have_http_status(:forbidden)
         end
       end
     end

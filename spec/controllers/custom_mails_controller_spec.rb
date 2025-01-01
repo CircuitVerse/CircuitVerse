@@ -94,12 +94,15 @@ describe CustomMailsController, type: :request do
   context "user is not admin" do
     it "returns not authorized for all routes" do
       sign_in FactoryBot.create(:user)
+
       get send_custom_mail_path(@mail)
-      check_not_authorized(response)
+      expect(response).to have_http_status(:forbidden)
+
       put custom_mail_path(@mail), params: { custom_mail: {} }
-      check_not_authorized(response)
+      expect(response).to have_http_status(:forbidden)
+
       post custom_mails_path, params: { custom_mail: {} }
-      check_not_authorized(response)
+      expect(response).to have_http_status(:forbidden)
     end
   end
 end

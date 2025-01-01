@@ -12,6 +12,6 @@ class Search
   end
 
   def call
-    @adapter.send("search_#{@relation.name.downcase}", @relation, @query_params)
+    @adapter.send(:"search_#{@relation.name.downcase}", @relation, @query_params)
   end
 end

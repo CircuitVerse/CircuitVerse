@@ -32,7 +32,7 @@ describe GroupsController, type: :request do
       it "throws not authorized error" do
         sign_in_group_mentor(@group)
         delete group_path(@group)
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -40,7 +40,7 @@ describe GroupsController, type: :request do
       it "throws not authorized error" do
         sign_in_random_user
         delete group_path(@group)
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -64,7 +64,7 @@ describe GroupsController, type: :request do
       it "throws not authorized error" do
         sign_in_random_user
         get group_path(@group)
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -83,7 +83,7 @@ describe GroupsController, type: :request do
       it "updates group" do
         sign_in_group_mentor(@group)
         put group_path(@group), params: { group: { name: "updated group" } }
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
@@ -91,7 +91,7 @@ describe GroupsController, type: :request do
       it "throws not authorized error" do
         sign_in_random_user
         put group_path(@group), params: { group: { name: "updated group" } }
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

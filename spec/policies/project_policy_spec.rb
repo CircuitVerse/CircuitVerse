@@ -5,15 +5,6 @@ require "rails_helper"
 describe ProjectPolicy do
   subject { described_class.new(user, project) }
 
-  def permit_all
-    expect(subject).to permit(:user_access)
-    expect(subject).to permit(:edit_access)
-    expect(subject).to permit(:view_access)
-    expect(subject).to permit(:direct_view_access)
-    expect(subject).to permit(:create_fork)
-    expect(subject).to permit(:author_access)
-  end
-
   before do
     @author = FactoryBot.create(:user)
   end
@@ -24,9 +15,12 @@ describe ProjectPolicy do
     context "for author" do
       let(:user) { @author }
 
-      it "permits all" do
-        permit_all
-      end
+      it { is_expected.to permit(:user_access) }
+      it { is_expected.to permit(:edit_access) }
+      it { is_expected.to permit(:view_access) }
+      it { is_expected.to permit(:direct_view_access) }
+      it { is_expected.to permit(:create_fork) }
+      it { is_expected.to permit(:author_access) }
 
       it { is_expected.not_to permit(:can_feature) }
     end
@@ -42,7 +36,7 @@ describe ProjectPolicy do
       it { is_expected.not_to permit(:user_access) }
 
       it "raises error for edit access" do
-        check_auth_exception(subject, :edit_access)
+        expect { subject.edit_access? }.to raise_error(AuthorizationError)
       end
     end
 
@@ -77,7 +71,7 @@ describe ProjectPolicy do
     it { is_expected.to permit(:view_access) }
 
     it "raises error for edit access" do
-      check_auth_exception(subject, :edit_access)
+      expect { subject.edit_access? }.to raise_error(AuthorizationError)
     end
   end
 
@@ -87,9 +81,12 @@ describe ProjectPolicy do
     context "for author" do
       let(:user) { @author }
 
-      it "permits all" do
-        permit_all
-      end
+      it { is_expected.to permit(:user_access) }
+      it { is_expected.to permit(:edit_access) }
+      it { is_expected.to permit(:view_access) }
+      it { is_expected.to permit(:direct_view_access) }
+      it { is_expected.to permit(:create_fork) }
+      it { is_expected.to permit(:author_access) }
     end
 
     context "for admin" do
@@ -102,10 +99,10 @@ describe ProjectPolicy do
       let(:user) { FactoryBot.create(:user) }
 
       it "raises error" do
-        check_auth_exception(subject, :edit_access)
-        check_auth_exception(subject, :view_access)
-        check_auth_exception(subject, :direct_view_access)
-        check_auth_exception(subject, :embed)
+        expect { subject.edit_access? }.to raise_error(AuthorizationError)
+        expect { subject.view_access? }.to raise_error(AuthorizationError)
+        expect { subject.direct_view_access? }.to raise_error(AuthorizationError)
+        expect { subject.embed? }.to raise_error(AuthorizationError)
       end
     end
   end

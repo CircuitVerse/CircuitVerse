@@ -10,8 +10,7 @@ describe ProjectsController, type: :request do
   describe "#get_projects" do
     before do
       @tag = FactoryBot.create(:tag)
-      @projects = [FactoryBot.create(:project, author: @author),
-                   FactoryBot.create(:project, author: @author)]
+      @projects = FactoryBot.create_list(:project, 2, author: @author)
       @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
     end
 
@@ -64,7 +63,8 @@ describe ProjectsController, type: :request do
       it "throws project access error" do
         sign_in_random_user
         get user_project_path(@author, @project)
-        check_project_access_error(response)
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
   end
@@ -135,7 +135,8 @@ describe ProjectsController, type: :request do
 
       it "throws error" do
         post create_fork_project_path(@assignment_project)
-        check_project_access_error(response)
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).to include("You are not authorized to perform this action.")
       end
     end
 
@@ -193,7 +194,8 @@ describe ProjectsController, type: :request do
         it "throws project access error" do
           sign_in_random_user
           put user_project_path(@author, @project), params: update_params
-          check_project_access_error(response)
+          expect(response).to have_http_status(:forbidden)
+          expect(response.body).to include("You are not authorized to perform this action.")
         end
       end
     end
@@ -216,7 +218,8 @@ describe ProjectsController, type: :request do
         it "throws project access error" do
           sign_in_random_user
           delete user_project_path(@author, @project)
-          check_project_access_error(response)
+          expect(response).to have_http_status(:forbidden)
+          expect(response.body).to include("You are not authorized to perform this action.")
         end
       end
     end
