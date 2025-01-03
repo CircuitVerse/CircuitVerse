@@ -4,23 +4,30 @@
   <div class="container footer-container">
     <div class="row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-column">
-        <div class="row">
-          <a href="/">
-            <%= image_tag("CircuitVerse.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
-          </a>
+        <div class="row align-items-center">
+          <!-- Added inline style here to shift logo more to the left -->
+          <div class="col-auto" style="margin-left: -10px;">
+            <a href="/">
+              <%= image_tag("CircuitVerse.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
+            </a>
+          </div>
+          <div class="col-auto text-start">
+            <p class="mt-3 footer-social-icon-text">
+              <%= t("layout.footer.social_icon_text") %>
+            </p>
+            <%= render(SocialLinksComponent.new) %>
+          </div>
         </div>
-        <div class="row">
-  <div class="col-12 text-start">
-    <p class="mt-3 footer-social-icon-text"><%= t("layout.footer.social_icon_text") %></p>
-    <%= render(SocialLinksComponent.new) %>
-  </div>
-</div>
       </div>
+
       <%= render(FooterLinksComponent.new(@current_user)) %>
+
       <div class="col-12 col-sm-12 col-md-5 col-lg-5 footer-column">
         <div class="row">
           <div class="col-6 footer-sponsor-logo-div">
-            <small class="text-start footer-sponsor-logo-text"><%= t("layout.footer.sponsor_logo_text.incubated_from") %></small>
+            <small class="text-start footer-sponsor-logo-text">
+              <%= t("layout.footer.sponsor_logo_text.incubated_from") %>
+            </small>
             <a href="http://zense.co.in/" rel="noopener" target="_blank">
               <%= image_tag("footer/zense.png", class: "footer-sponsor-logo", alt: "Zense Logo") %>
             </a>
