@@ -542,6 +542,8 @@ GEM
     parser (3.3.4.0)
       ast (~> 2.4.1)
       racc
+    percy-capybara (5.0.0)
+      capybara (>= 3)
     pg (1.5.3)
     pg (1.5.3-x64-mingw32)
     pg_search (2.3.6)
@@ -977,6 +979,7 @@ DEPENDENCIES
   opentelemetry-instrumentation-redis
   opentelemetry-instrumentation-sidekiq
   opentelemetry-sdk (~> 1.2)
+  percy-capybara
   pg (~> 1.5.3)
   pg_search
   premailer-rails (~> 1.11, >= 1.11.1)

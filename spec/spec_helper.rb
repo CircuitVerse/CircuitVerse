@@ -5,6 +5,7 @@ require "paperclip/matchers"
 require "support/spec_utils"
 require "sunspot/rails/spec_helper"
 require "webmock/rspec"
+require "percy/capybara"
 
 Coveralls.wear!("rails")
 WebMock.disable_net_connect!({
