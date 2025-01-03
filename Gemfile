@@ -149,6 +149,7 @@ group :test do
   gem "simplecov-lcov"
   gem "undercover"
   gem "undercover-checkstyle"
+  gem "percy-capybara"
 end
 
 group :development do
