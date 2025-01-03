@@ -62,7 +62,7 @@ gem "sidekiq"
 gem "sunspot_rails"
 
 # For home page pagination
-gem "will_paginate", "~> 3.3.1"
+gem "will_paginate", "~> 4.0.1"
 gem "will_paginate-bootstrap"
 
 gem "country_select", "~> 8.0"
@@ -189,7 +189,7 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.116"
+gem "aws-sdk-s3", "~> 1.176"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.2"
