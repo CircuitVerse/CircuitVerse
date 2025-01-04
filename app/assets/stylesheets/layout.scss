@@ -122,8 +122,10 @@ body {
   margin-left: 9px;
 
   &:hover {
-    color: $primary-green;
+    background-color: $primary-green;
+    color: $white;
     text-decoration: none;
+    border-color: $primary-green;
   }
 }
 .anchor-text-left {
