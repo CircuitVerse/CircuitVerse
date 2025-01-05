@@ -44,9 +44,15 @@ RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
+
+  # ------------------------------------------------------------------
+  # Enable feature flags needed by the test suite on every example
+  # ------------------------------------------------------------------
   config.before do
     Flipper.enable(:active_storage_s3)
+    Flipper.enable(:contests)
   end
+
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.

@@ -9,6 +9,7 @@ bn:
     link_to_blog: "ব্লগ"
     link_to_about: "সার্কিটভার্স সম্পর্কে"
     link_to_faq: "সচরাচর জিজ্ঞাসা"
+    link_to_contests: "প্রতিযোগিতা"
     footer:
       social_icon_text: "আমাদেরকে ফলো করুন:"
       link_to_examples: "উদাহরণ"
