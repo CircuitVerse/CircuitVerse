@@ -21,6 +21,10 @@ class Users::NoticedNotificationsController < ApplicationController
       redirect_to simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
     when "forum_thread"
       redirect_to simple_discussion.forum_thread_path(answer.first_param)
+    when "new_contest"
+      redirect_to contest_page_path(answer.first_param)
+    when "contest_winner"
+      redirect_to featured_circuits_path
     else
       redirect_to root_path
     end

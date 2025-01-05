@@ -37,6 +37,9 @@
         <a class="nav-link navbar-item navbar-text <%= request.path == "/teachers" ? "active" : "" %>" href="/teachers"><%= t("layout.link_to_teachers") %></a>
       </li>
       <li class="nav-item px-1">
+        <a class="nav-link navbar-item navbar-text <%= request.path == "/contests" ? "active" : "" %>" href="/contests"><%= t("layout.link_to_contests") %></a>
+      </li>
+      <li class="nav-item px-1">
         <a class="nav-link navbar-item navbar-text <%= request.path == "/blog" ? "active" : "" %>" href="https://blog.circuitverse.org/" target="_blank"><%= t("layout.link_to_blog") %></a>
       </li>
       <li class="nav-item px-1">

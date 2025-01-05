@@ -8,6 +8,7 @@ import AssignmentController from './assignment_controller';
 import GroupsController from './groups_controller';
 import ProjectsController from './projects_controller';
 import NotificationsController from './notifications_controller';
+import ContestController from './contest_controller';
 
 application.register('groups', GroupsController);
 application.register('projects', ProjectsController);

@@ -38,6 +38,10 @@ class NotifyUser
         Result.new("true", "forum_comment", @thread, @post.id)
       when "ForumThreadNotification"
         Result.new("true", "forum_thread", @thread)
+      when "ContestNotification"
+        Result.new("true", "new_contest", @contest)
+      when "ContestWinnerNotification"
+        Result.new("true", "contest_winner")
       else
         Result.new("false", "no_type", root_path)
       end
