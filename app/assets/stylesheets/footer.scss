@@ -10,6 +10,12 @@
   color: $white;
   padding-top: 30px;
   text-align: center;
+  display: flex;
+  gap: 75px;
+
+  @media (max-width: 767px) {
+    display: block;
+  }
 }
 
 .footer-column {
@@ -24,6 +30,11 @@
 
 .footer-social-icon-text {
   margin-left: 15px;
+
+  @media (max-width:767px) {
+    margin-left: 0px;
+    text-align: center;
+  }
 }
 
 .footer-social-icon {
@@ -38,6 +49,10 @@
 .footer-social-icons-row {
   column-gap: 2px;
   margin: inherit;
+  @media (max-width:767px) {
+    align-items: center;
+    justify-content: center;   
+  }
 }
 
 .bounce-out-on-hover {
@@ -72,6 +87,12 @@
       text-decoration: underline;
     }
   }
+  @media (max-width:740px) {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+  }
 }
 
 .footer-sponsor-logo-text {
@@ -83,10 +104,14 @@
 .footer-sponsor-logo-div{
   padding-left: 12px;
   padding-right: 12px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .footer-sponsor-logo {
   border: solid $footer-dark-grey 1px;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 5px;
   width: 100%;
 }
@@ -129,4 +154,8 @@
 .bounce-out-on-hover::after {
   content: '';
   width: 10px;
+}
+
+.text-center{
+  text-align: center;
 }
