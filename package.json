@@ -60,7 +60,7 @@
     "jquery-ujs": "^1.2.3",
     "jsdoc-export-default-interop": "^0.3.1",
     "opencollective-postinstall": "^2.0.3",
-    "sass": "^1.83.0",
+    "sass": "^1.83.1",
     "stimulus": "^3.2.2",
     "stylelint": "^15.11.0",
     "stylelint-config-standard-scss": "^11.1.0",
