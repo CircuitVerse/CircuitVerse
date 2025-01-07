@@ -83,6 +83,11 @@ class User < ApplicationRecord
     user
   end
 
+  # Define the cursor_value method to return the unique identifier
+  def cursor_value
+    id
+  end
+
   def self.from_oauth(oauth_user, provider)
     User.create(
       name: oauth_user["name"],
