@@ -29,8 +29,22 @@
       </div>
       <hr class="search-horizontal-rule">
     <% end %>
-    <% unless @results.empty? %>
-      <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
-    <% end %>
+    
+
+ <% if @previous_cursor.present? || @next_cursor.present? %>
+  <div class="container pagination-cont">
+    <div class="pagination justify-content-center">
+      <% if @previous_cursor.present? %>
+        <%= link_to t("previous"), root_path(cursor: @previous_cursor, q: params[:q], resource: params[:resource]), class: "page-link" %>
+      <% end %>
+
+      <% if @next_cursor.present? %>
+        <%= link_to t("next"), root_path(cursor: @next_cursor, q: params[:q], resource: params[:resource]), class: "page-link" %>
+      <% end %>
+    <%= Rails.logger.info("Previous cursor: #{@previous_cursor}, Next cursor: #{@next_cursor}") %>
+    </div>
   </div>
+<% end %>
+
+
 <% end %>

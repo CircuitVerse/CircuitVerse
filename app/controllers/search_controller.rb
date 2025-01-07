@@ -5,9 +5,15 @@ class SearchController < ApplicationController
 
   def search
     resource = params[:resource]
-    query_params = params
+    query_params = params.permit(:cursor, :q, :resource, :button)
 
-    @results, template = query(resource, query_params)
+    @results, template, next_cursor, previous_cursor = query(resource, query_params)
+    Rails.logger.info("Params received: #{params.inspect}")
+    Rails.logger.info("Results received: #{@results}")
+    Rails.logger.info("Cursor received in SearchController: #{params[:cursor]}")
+
+    @next_cursor = next_cursor
+    @previous_cursor = previous_cursor
 
     if template.present?
       render template

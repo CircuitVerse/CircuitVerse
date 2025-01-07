@@ -15,7 +15,11 @@
     <%= csrf_meta_tags %>
 
     <%= javascript_include_tag "application_sprockets", "data-turbolinks-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %>
+    <%
+=begin%>
+ <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %> 
+<%
+=end%>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <%= render partial: "layouts/google_analytics" if Rails.env.production? %>

@@ -17,6 +17,11 @@ function sh(x) {
  *  - Support for color themes
  *  - Replace constants with functions? - Can support Zoom in and Zoom out of canvas then
  */
+
+// Solving - Replace Constants with functions to support zoom in and zoom out, Currently the constants are hardcoded
+
+var zoomFactor = 1; // Zooming Factor
+
 var frameInterval = 100; // Refresh rate
 var timeLineHeight = sh(20);
 var padding = sh(2);
@@ -34,12 +39,63 @@ var ptA = currentScreen();
 
 // Helper functions for canvas
 
+// Helper function for Zoom in and Zoom out
+function getFrameInterval() {
+    return 100 * zoomFactor;
+}
+
+function getTimeLineHeight() {
+    return sh(20) * zoomFactor;
+}
+
+function getPadding() {
+    return sh(2) * zoomFactor;
+}
+
+function getPlotHeight() {
+    return sh(25) * zoomFactor;
+}
+
+function getWaveFormPadding() {
+    return sh(5) * zoomFactor;
+}
+
+function getWaveFormHeight() {
+    return getPlotHeight() - 2 * getWaveFormPadding();
+}
+
+function getFlagLabelWidth() {
+    return sh(75) * zoomFactor;
+}
+
+function getCycleWidth() {
+    return sh(30) * zoomFactor;
+}
+
+function getTimeLineStartX() {
+    return getFlagLabelWidth() + getPadding();
+}
+
+
+function updatePlotArea() {
+    // Update all elements that depend on the zoom factor
+    timeLineHeight = getTimeLineHeight();
+    padding = getPadding();
+    plotHeight = getPlotHeight();
+    waveFormPadding = getWaveFormPadding();
+    flagLabelWidth = getFlagLabelWidth();
+    cycleWidth = getCycleWidth();
+    timeLineStartX = getTimeLineStartX();
+    frameInterval = getFrameInterval();
+    waveFormHeight = getWaveFormHeight();
+
+}
 function getFullHeight(flagCount) {
     return !flagCount ? (plotHeight + padding) : (timeLineHeight + (plotHeight + padding) * flagCount);
 }
 
 function getFlagStartY(flagIndex) {
-    return getFullHeight(flagIndex) + padding;
+    return getTimeLineHeight()+(flagIndex * (getPlotHeight() + getPadding())) + getPadding()*3;
 }
 
 function getCycleStartX(cycleNumber) {
@@ -48,7 +104,7 @@ function getCycleStartX(cycleNumber) {
 function changeHeight(dir) {
     plotHeight += dir ? 5 : -5;
     plotHeight = dir ? plotHeight = Math.min(sh(50), plotHeight) : plotHeight = Math.max(sh(20), plotHeight);
-    waveFormHeight = plotHeight - 2 * waveFormPadding;
+    // waveFormHeight = plotHeight - 2 * waveFormPadding;
     plotArea.resize();
 }
 
@@ -104,11 +160,17 @@ const plotArea = {
     },
     // Scale timeline up
     zoomIn() {
-        cycleWidth += sh(2);
+        zoomFactor *= 1.1; // Increase zoom factor by 10%
+        updatePlotArea();
+        // cycleWidth += sh(2);
+        //zoom in function
     },
     // Scale timeline down
     zoomOut() {
-        cycleWidth -= sh(2);
+        zoomFactor /= 1.1; // Decrease zoom factor by 10%
+        updatePlotArea();
+        // cycleWidth -= sh(2);
+        //zoom out function
     },
     // download as image
     download() {
@@ -225,18 +287,18 @@ const plotArea = {
         ctx.fillStyle = backgroundColor;
         ctx.fillRect(0, 0, width, height);
         ctx.lineWidth = sh(1);
-        ctx.font = `${sh(15)}px Raleway`;
+        ctx.font = `${sh(15)}px Raleway`; //for time
         ctx.textAlign = 'left';
 
         // Timeline
         ctx.fillStyle = foregroundColor;
-        ctx.fillRect(timeLineStartX, 0, this.canvas.width, timeLineHeight);
-        ctx.fillRect(0, 0, flagLabelWidth, timeLineHeight);
+        ctx.fillRect(timeLineStartX, 0, this.canvas.width, getTimeLineHeight());
+        ctx.fillRect(0, 0, flagLabelWidth, getTimeLineHeight());
         ctx.fillStyle = textColor;
-        ctx.fillText('Time', sh(5), timeLineHeight * 0.7);
+        ctx.fillText('Time', sh(5), getTimeLineHeight() * 0.7); //for time
 
         // Timeline numbers
-        ctx.font = `${sh(9)}px Times New Roman`;
+        ctx.font = `${sh(9)}px Times New Roman`;//for text such as numbers and flag names
         ctx.strokeStyle = textColor;
         ctx.textAlign = 'center';
         for (var i = Math.floor(plotArea.cycleOffset); getCycleStartX(i) <= width ; i++) {
@@ -244,10 +306,10 @@ const plotArea = {
             // Large ticks + number
             // @TODO - collapse number if it doesn't fit
             if (x >= timeLineStartX) {
-                ctx.fillText(`${i}`, x, timeLineHeight - sh(15)/2);
+                ctx.fillText(`${i}`, x, getTimeLineHeight() - sh(15)/2);
                 ctx.beginPath();
-                ctx.moveTo(x, timeLineHeight - sh(5));
-                ctx.lineTo(x, timeLineHeight);
+                ctx.moveTo(x, getTimeLineHeight() - sh(5));
+                ctx.lineTo(x, getTimeLineHeight());
                 ctx.stroke();
             }
             // Small ticks
@@ -255,8 +317,8 @@ const plotArea = {
                 var x1 = x + Math.round(j * cycleWidth / 5);
                 if (x1 >= timeLineStartX) {
                     ctx.beginPath();
-                    ctx.moveTo(x1, timeLineHeight - sh(2));
-                    ctx.lineTo(x1, timeLineHeight);
+                    ctx.moveTo(x1, getTimeLineHeight() - sh(2));
+                    ctx.lineTo(x1, getTimeLineHeight());
                     ctx.stroke();
                 }
             }
@@ -267,9 +329,9 @@ const plotArea = {
         for (var i = 0; i < globalScope.Flag.length; i++) {
             var startHeight = getFlagStartY(i);
             ctx.fillStyle = foregroundColor;
-            ctx.fillRect(0, startHeight, flagLabelWidth, plotHeight);
+            ctx.fillRect(0, startHeight, getFlagLabelWidth(), getPlotHeight());
             ctx.fillStyle = textColor;
-            ctx.fillText(globalScope.Flag[i].identifier, sh(5), startHeight + plotHeight * 0.7);
+            ctx.fillText(globalScope.Flag[i].identifier, sh(5), startHeight + getPlotHeight() * 0.7);
         }
 
         // Waveform Status Flags
@@ -284,7 +346,7 @@ const plotArea = {
 
         for (var i = 0; i < globalScope.Flag.length; i++) {
             var plotValues = globalScope.Flag[i].plotValues;
-            var startHeight = getFlagStartY(i) + waveFormPadding;
+            var startHeight = getFlagStartY(i) + getWaveFormPadding();
             var yTop = startHeight;
             var yMid = startHeight + waveFormHeight / 2;
             var yBottom = startHeight + waveFormHeight;
@@ -409,7 +471,7 @@ export default plotArea;
 
 export function setupTimingListeners() {
     $('.timing-diagram-smaller').on('click', () => {
-        $('#plot').width(Math.max($('#plot').width() - 20, 560));
+        $('#plot').width(Math.max($('#plot').width() - 20, 720));
         plotArea.resize();
     })
     $('.timing-diagram-larger').on('click', () => {

@@ -64,8 +64,25 @@
         </div>
       </div>
     <% end %>
-    <% unless @results.empty? %>
+    <%
+=begin%>
+ <% unless @results.empty? %>
       <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
-    <% end %>
+    <% end %> 
+<%
+=end%>
+<% if @results %>
+  <div class="container pagination-cont">
+    <div class="pagination justify-content-center">
+      <% if @previous_cursor %>
+        <%= link_to t("previous"), url_for(cursor: @previous_cursor), class: "page-link" %>
+      <% end %>
+      <% if @next_cursor %>
+        <%= link_to t("next"), url_for(cursor: @next_cursor), class: "page-link" %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
   </div>
 <% end %>

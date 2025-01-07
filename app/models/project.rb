@@ -134,6 +134,11 @@ class Project < ApplicationRecord
     project_access_type == "Public"
   end
 
+  # Define the cursor_value method to return the unique identifier
+  def cursor_value
+    id
+  end
+
   def featured?
     project_access_type == "Public" && FeaturedCircuit.exists?(project_id: id)
   end
