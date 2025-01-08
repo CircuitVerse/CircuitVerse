@@ -16,105 +16,105 @@
   name = Commontator.commontator_name(creator) || ''
 %>
 <div class="row comments-comment">
-    <div class="col-9">
-        <div id="commontator-comment-<%= comment.id %>-section-top" class="section top">
-            <span id="commontator-comment-<%= comment.id %>-avatar" class="avatar">
-                <%= Commontator.commontator_avatar(creator, self) %>
-            </span>
+  <div class="col-9">
+    <div id="commontator-comment-<%= comment.id %>-section-top" class="section top">
+      <span id="commontator-comment-<%= comment.id %>-avatar" class="avatar">
+        <%= Commontator.commontator_avatar(creator, self) %>
+      </span>
 
-            <span id="commontator-comment-<%= comment.id %>-author" class="author">
-                <%= link.blank? ? name : link_to(name, link, class: "anchor-text") %>
-            </span>
-        </div>
+      <span id="commontator-comment-<%= comment.id %>-author" class="author">
+        <%= link.blank? ? name : link_to(name, link, class: "anchor-text") %>
+      </span>
+    </div>
 
-        <div id="commontator-comment-<%= comment.id %>-section-middle" class="section middle">
+    <div id="commontator-comment-<%= comment.id %>-section-middle" class="section middle">
 
-            <div id="commontator-comment-<%= comment.id %>-body" class="body">
-                <%= render partial: 'commontator/comments/body', locals: { comment: comment } %>
-            </div>
-        </div>
-        <div id="commontator-comment-<%= comment.id %>-section-bottom" class="section bottom">
-            <% unless comment.is_deleted? %>
-            <span id="commontator-comment-<%= comment.id %>-reply-link" class="reply">
-                <%=
+      <div id="commontator-comment-<%= comment.id %>-body" class="body">
+        <%= render partial: 'commontator/comments/body', locals: { comment: comment } %>
+      </div>
+    </div>
+    <div id="commontator-comment-<%= comment.id %>-section-bottom" class="section bottom">
+      <% unless comment.is_deleted? %>
+        <span id="commontator-comment-<%= comment.id %>-reply-link" class="reply">
+          <%=
             link_to(
               t('commontator.comment.actions.reply'),
               commontator.new_thread_comment_path(thread, comment: { parent_id: comment.id }),
               remote: true
             ) if thread.config.comment_reply_style != :n && !thread.is_closed?
           %>
-            </span>
-            <% end %>
+        </span>
+      <% end %>
 
-            <span id="commontator-comment-<%= comment.id %>-created-timestamp" class="timestamp">
-                <small><%= comment.created_timestamp %></small>
-            </span>
+      <span id="commontator-comment-<%= comment.id %>-created-timestamp" class="timestamp">
+        <small><%= comment.created_timestamp %></small>
+      </span>
 
-            <span id="commontator-comment-<%= comment.id %>-updated-timestamp" class="timestamp">
-                <small><%= comment.updated_timestamp if comment.is_modified? %></small>
-            </span>
-        </div>
+      <span id="commontator-comment-<%= comment.id %>-updated-timestamp" class="timestamp">
+        <small><%= comment.updated_timestamp if comment.is_modified? %></small>
+      </span>
     </div>
-    <div class="col-3 actions">
-        <div id="commontator-comment-<%= comment.id %>-actions" class="">
-            <% if comment.can_be_edited_by?(user) %>
-            <%= link_to commontator.edit_comment_path(comment),
+  </div>
+  <div class="col-3 actions">
+    <div id="commontator-comment-<%= comment.id %>-actions" class="">
+      <% if comment.can_be_edited_by?(user) %>
+        <%= link_to commontator.edit_comment_path(comment),
                     id: "commontator-comment-#{comment.id}-edit",
                     remote: true,
                     class: 'edit btn edit-action' do %>
-            <%= image_tag("SVGs/editGroup.svg", alt: "Edit Comment") %>
-            <% end %>
-            <% end %>
+          <%= image_tag("SVGs/editGroup.svg", alt: "Edit Comment") %>
+        <% end %>
+      <% end %>
 
-            <% if comment.can_be_deleted_by?(user) %>
-            <% is_deleted = comment.is_deleted? %>
-            <% del_string = is_deleted ? 'undelete' : 'delete' %>
-            <% unless is_deleted %>
-            <%= link_to '#',
-                      data: is_deleted ? {} : { bs_toggle: "modal", bs_target: "#deletecommentModal", href: commontator.polymorphic_path([del_string.to_sym, comment]) },
+      <% if comment.can_be_deleted_by?(user) %>
+        <% is_deleted = comment.is_deleted? %>
+        <% del_string = is_deleted ? 'undelete' : 'delete' %>
+        <% unless is_deleted %>
+          <%= link_to '#',
+                      data: is_deleted ? {} : { toggle: "modal", target: "#deletecommentModal", href: commontator.polymorphic_path([del_string.to_sym, comment]) },
                       class: "del_string btn delete-action" do %>
             <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
-            <% end %>
-            <% end %>
-            <% end %>
-        </div>
-        <div id="commontator-comment-<%= comment.id %>-votes" class="votes">
-            <%= render partial: 'commontator/comments/votes', locals: { comment: comment, user: user } %>
-        </div>
+          <% end %>
+        <% end %>
+      <% end %>
     </div>
+    <div id="commontator-comment-<%= comment.id %>-votes" class="votes">
+      <%= render partial: 'commontator/comments/votes', locals: { comment: comment, user: user } %>
+    </div>
+  </div>
 </div>
 
 <div id="commontator-comment-<%= comment.id %>-children" class="children">
-    <% if thread.config.comment_order == :l %>
+  <% if thread.config.comment_order == :l %>
     <div id="commontator-comment-<%= comment.id %>-reply" class="reply"></div>
-    <% end %>
+  <% end %>
 
-    <%= render partial: 'commontator/comments/list',
+  <%= render partial: 'commontator/comments/list',
              locals: { user: user, nested_comments: nested_children } %>
 
-    <% if thread.config.comment_order != :l %>
+  <% if thread.config.comment_order != :l %>
     <div id="commontator-comment-<%= comment.id %>-reply" class="reply"></div>
-    <% end %>
+  <% end %>
 </div>
 
 <div id="commontator-comment-<%= comment.id %>-pagination" class="pagination">
-    <div id="commontator-comment-<%= comment.id %>-will-paginate" class="will-paginate">
-        <%= will_paginate nested_children,
+  <div id="commontator-comment-<%= comment.id %>-will-paginate" class="will-paginate">
+    <%= will_paginate nested_children,
                       renderer: Commontator::LinkRenderer,
                       name: t('commontator.comment.status.reply_pages'),
                       remote: true,
                       params: { controller: 'commontator/comments',
                                 action: 'show',
                                 id: comment.id } %>
-    </div>
+  </div>
 </div>
 <%= render partial: 'commontator/comments/delete_comment_confirmation_modal' %>
 <script>
-    $(document).ready(function() {
-        $("#deletecommentModal").on("show.bs.modal", function(e) {
-            let href = $(e.relatedTarget).data('href');
-            $(e.currentTarget).find('#projects-comment-delete-button').attr("href",
-                href.toString());
-        });
+  $(document).ready(function() {
+    $("#deletecommentModal").on("show.bs.modal", function(e) {
+        let href = $(e.relatedTarget).data('href');
+        $(e.currentTarget).find('#projects-comment-delete-button').attr("href",
+        href.toString());
     });
+  });
 </script>
