@@ -10,8 +10,6 @@ import ProjectsController from './projects_controller';
 import NotificationsController from './notifications_controller';
 import PaginationController from './pagination_controller';
 
-
-
 application.register('groups', GroupsController);
 application.register('projects', ProjectsController);
 application.register('notifications', NotificationsController);
