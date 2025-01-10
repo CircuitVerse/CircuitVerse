@@ -12,11 +12,11 @@ export default class extends Controller {
                 'X-CSRF-Token': Rails.csrfToken(),
             },
         })
-            .then((response) => response.text())
-            .then((html) => {
+            .then(response => response.text())
+            .then(html => {
                 this.paginationTarget.innerHTML = html;
             })
-            .catch((error) => {
+            .catch(error => {
                 // eslint-disable-next-line no-console
                 console.error('Error fetching page:', error);
             });
