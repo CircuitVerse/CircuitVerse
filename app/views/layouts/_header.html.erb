@@ -97,7 +97,11 @@
         const isExpanded = dropdownToggle.classList.contains("rotate180");
         dropdownToggle.classList.toggle("rotate180");
         dropdownToggle.setAttribute("aria-expanded", !isExpanded);
-        isExpanded ? dropdownMenu.hide() : dropdownMenu.show();
+        if(isExpanded){
+          dropdownMenu.hide()
+        }else{
+          dropdownMenu.show()
+        }
         e.stopPropagation();
     });
 
