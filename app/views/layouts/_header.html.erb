@@ -89,25 +89,28 @@
     });
   });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    var dropdownToggle = document.getElementById('navbar-dropdown-2');
-    var dropdownMenu = new bootstrap.Dropdown(dropdownToggle);
+  function initializeDropdown(dropdownId) {
+    const dropdownToggle = document.getElementById(dropdownId);
+    const dropdownMenu = new bootstrap.Dropdown(dropdownToggle);
 
     dropdownToggle.addEventListener("click", function (e) {
-        if (dropdownToggle.classList.contains("rotate180")) {
-            dropdownToggle.classList.remove("rotate180");
-            dropdownMenu.hide();
-        } else {
-            dropdownToggle.classList.add("rotate180");
-            dropdownMenu.show();
-        }
+        const isExpanded = dropdownToggle.classList.contains("rotate180");
+        dropdownToggle.classList.toggle("rotate180");
+        dropdownToggle.setAttribute("aria-expanded", !isExpanded);
+        isExpanded ? dropdownMenu.hide() : dropdownMenu.show();
         e.stopPropagation();
     });
 
     document.addEventListener("click", function () {
         dropdownToggle.classList.remove("rotate180");
+        dropdownToggle.setAttribute("aria-expanded", "false");
         dropdownMenu.hide();
     });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    initializeDropdown("getting-started-dropdown");
+    initializeDropdown("navbar-dropdown-2");
 });
 
   function activeSearchBar(){
