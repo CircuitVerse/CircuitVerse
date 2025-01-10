@@ -89,6 +89,27 @@
     });
   });
 
+  document.addEventListener("DOMContentLoaded", function () {
+    var dropdownToggle = document.getElementById('navbar-dropdown-2');
+    var dropdownMenu = new bootstrap.Dropdown(dropdownToggle);
+
+    dropdownToggle.addEventListener("click", function (e) {
+        if (dropdownToggle.classList.contains("rotate180")) {
+            dropdownToggle.classList.remove("rotate180");
+            dropdownMenu.hide();
+        } else {
+            dropdownToggle.classList.add("rotate180");
+            dropdownMenu.show();
+        }
+        e.stopPropagation();
+    });
+
+    document.addEventListener("click", function () {
+        dropdownToggle.classList.remove("rotate180");
+        dropdownMenu.hide();
+    });
+});
+
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];
