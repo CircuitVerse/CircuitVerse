@@ -13,10 +13,10 @@ export default class extends Controller {
             },
         })
             .then(response => response.text())
-            .then(html => {
+            .then((html) => {
                 this.paginationTarget.innerHTML = html;
             })
-            .catch(error => {
+            .catch((error) => {
                 // eslint-disable-next-line no-console
                 console.error('Error fetching page:', error);
             });
