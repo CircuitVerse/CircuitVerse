@@ -8,13 +8,13 @@
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
       <h6><%= notice %></h6>
     </div>
   </div>
   <% end %>
   <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
+    <div class="col col-sm col-md col-lg">
       <h1 class="submain-heading"><%= t("users.circuitverse.groups.main_heading") %></h1>
       <%= link_to t("users.circuitverse.groups.make_new_group"), new_group_path, class: "btn primary-button groups-add-primary-button" %>
     </div>
@@ -24,7 +24,7 @@
     <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_owns") %></h4>
     <div class="row center-row">
       <% @groups_owned.each do |group| %>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
           <div class="groups-card groups-mentor-card">
             <div class="groups-mentor-card-name"><%= group.name %></div>
             <div>
@@ -39,7 +39,7 @@
                 <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "mini-button groups-mentor-card-delete-mini-button", data: { toggle: "modal", target: "#deletegroupModal", currentgroup: group.id } do %>
+              <%= link_to "#", class: "mini-button groups-mentor-card-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deletegroupModal", currentgroup: group.id } do %>
                 <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Group") %>
                 <span><%= t("delete") %></span>
               <% end %>
@@ -54,7 +54,7 @@
     <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_belong_to") %></h4>
     <div class="row center-row">
       <% @user.groups.each do |group| %>
-        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
           <div class="groups-card groups-member-card">
             <div class="groups-member-card-details">
               <div class="groups-mentor-card-name groups-member-card-name"><%= group.name %></div>
