@@ -6,7 +6,7 @@ ARG BUILDPLATFORM
 ENV NODE_ENV=production
 ENV RAILS_ENV=production
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
 
 RUN npm install --global yarn
