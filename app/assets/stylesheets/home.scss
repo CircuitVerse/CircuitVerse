@@ -47,13 +47,16 @@
 .homepage-primary-button-feature {
   padding: 10px 30px;
 }
-
+.home-buttons-container .btn {
+  margin-right: 10px; 
+}
 //breakpoints
 @media (max-width: 991px){
   .home-buttons-container{
     display: inline-flex;
     text-wrap: nowrap;
     align-items: center;
+    gap: 10px;
   }
 }
 @media (max-width: 768px) {
