@@ -59,6 +59,10 @@ jobs:
         run: |
           bin/rails db:schema:load
           bin/rails data:migrate
+      - name: Configure keys
+        run: |
+          openssl genrsa -out config/private.pem 2048
+          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 
       - name: Build assets (if needed)
         run: yarn run build
