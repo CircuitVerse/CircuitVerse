@@ -7,8 +7,7 @@ module ProjectValidations
   included do
     validates :name, presence: true, length: { minimum: 2, maximum: 500 }
     validates :description, length: { maximum: 10_000 }
-    validates :slug, presence: true, uniqueness: true, format: { with: /\A[\w\W]+\z/,
-                                                                 message: "invalid symbols }
+    validates :slug, presence: true, uniqueness: true
 
     validate :check_validity
     validate :clean_description
