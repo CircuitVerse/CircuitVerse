@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include LanguageFilterable
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
@@ -48,6 +49,9 @@ class User < ApplicationRecord
                                              message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
+  validates :name, length: { minimum: 1 }
+  validates :name, length: { maximum: 500 }
+  validate :clean_name
 
   scope :subscribed, -> { where(subscribed: true) }
 
@@ -113,5 +117,18 @@ class User < ApplicationRecord
 
     def purge_profile_picture
       profile_picture.purge if profile_picture.attached?
+    end
+
+    def clean_name
+      language_filters = create_language_filters
+
+      name_matches = check_language_filters(language_filters, name)
+
+      return nil if name_matches.empty?
+
+      errors.add(
+        :name,
+        "contains inappropriate language in name: #{name_matches.join(', ')}"
+      )
     end
 end
