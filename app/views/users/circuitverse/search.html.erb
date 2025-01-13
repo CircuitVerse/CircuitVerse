@@ -11,7 +11,7 @@
   </div>
 <% else %>
   <div class="container search-container">
-    <% @results.map { |user| ProfileDecorator.new(user) }.each do |profile| %>
+    <% @results.records.map { |user| ProfileDecorator.new(user) }.each do |profile| %>
       <div class="row center-row search-user-container">
         <div class="col-12 col-sm-12 col-md-5 col-lg-5">
           <div class="d-flex flex-column">
@@ -29,8 +29,18 @@
       </div>
       <hr class="search-horizontal-rule">
     <% end %>
-    <% unless @results.empty? %>
-      <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
-    <% end %>
+  <div class="container pagination-cont">
+    <div class="pagination justify-content-center">
+      <% if @results.has_previous? %>
+        <%= link_to t("previous"), search_path(before: @results.previous_cursor,q: params[:q], resource: params[:resource]), class: "page-link" %>
+      <% end %>
+
+      <% if @results.has_next? %>
+        <%= link_to t("next"), search_path(after: @results.next_cursor,q: params[:q], resource: params[:resource]), class: "page-link" %>
+      <% end %>
+    </div>
   </div>
+
+</div>
+
 <% end %>

@@ -4,7 +4,7 @@ module Adapters
   class SolrAdapter < BaseAdapter
     MAX_RESULTS_PER_PAGE = 5
 
-    def search_project(relation, query_params)
+    def search_project(relation, query_params, _params_y)
       if query_params[:q].present?
         relation.search(include: %i[tags author]) do
           fulltext query_params[:q]
@@ -15,7 +15,7 @@ module Adapters
       end
     end
 
-    def search_user(relation, query_params)
+    def search_user(relation, query_params, _params_y)
       if query_params[:q].present?
         relation.search do
           fulltext query_params[:q]

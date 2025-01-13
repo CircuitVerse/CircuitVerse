@@ -3,15 +3,17 @@
 module SearchHelper
   MAX_RESULTS_PER_PAGE = 5
 
-  def query(resource, query_params)
+  def query(resource, query_params, params_y)
     case resource
     when "Users"
-      # User query
-      return UsersQuery.new(query_params).results, "/users/circuitverse/search"
+      results = UsersQuery.new(query_params, params_y).results
+      return results, "/users/circuitverse/search"
+
     when "Projects"
-      # Project query
-      return ProjectsQuery.new(query_params, Project.public_and_not_forked).results,
-       "/projects/search"
+      results = ProjectsQuery.new(query_params, params_y).results
+      return results, "/projects/search"
+    else
+      return [], nil
     end
   end
 end

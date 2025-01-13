@@ -12,7 +12,7 @@
   </div>
 <% else %>
   <div class="container search-container">
-    <% @results.each do |project| %>
+    <% @results.records.each do |project| %>
       <div class="row center-row search-card-container">
         <div class="col-12 col-sm-12 col-md-5 col-lg-5">
           <div class="row center-row">
@@ -64,8 +64,18 @@
         </div>
       </div>
     <% end %>
-    <% unless @results.empty? %>
-      <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
-    <% end %>
+
+    <div class="container pagination-cont">
+      <div class="pagination justify-content-center">
+        <% if @results.has_previous? %>
+          <%= link_to t("previous"), search_path(before: @results.previous_cursor,q: params[:q], resource: params[:resource]), class: "page-link" %>
+        <% end %>
+
+        <% if @results.has_next? %>
+          <%= link_to t("next"), search_path(after: @results.next_cursor,q: params[:q], resource: params[:resource]), class: "page-link" %>
+        <% end %>
+      </div>
+    </div>
+
   </div>
 <% end %>
