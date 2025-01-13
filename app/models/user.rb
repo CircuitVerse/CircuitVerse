@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  include LanguageFilterable
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
@@ -119,22 +120,15 @@ class User < ApplicationRecord
     end
 
     def clean_name
-      matchlists = %i[profanity hate violence]
-      language_filters = matchlists.map { |list| LanguageFilter::Filter.new(matchlist: list) }
+      language_filters = create_language_filters
 
-      description_matches = check_language_filters(language_filters, name)
+      name_matches = check_language_filters(language_filters, name)
 
-      return nil if description_matches.empty?
+      return nil if name_matches.empty?
 
       errors.add(
-        :description,
-        "contains inappropriate language: #{description_matches.join(', ')}"
+        :name,
+        "contains inappropriate language in name: #{name_matches.join(', ')}"
       )
-    end
-
-    def check_language_filters(filters, text)
-      filters.flat_map do |filter|
-        filter.matched(text) if filter.match?(text)
-      end.compact.uniq
     end
 end

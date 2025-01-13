@@ -2,6 +2,7 @@
 
 module ProjectValidations
   extend ActiveSupport::Concern
+  include LanguageFilterable
 
   included do
     validates :description, length: { maximum: 10_000 }
@@ -20,8 +21,7 @@ module ProjectValidations
     end
 
     def clean_description
-      matchlists = %i[profanity hate violence]
-      language_filters = matchlists.map { |list| LanguageFilter::Filter.new(matchlist: list) }
+      language_filters = create_language_filters
 
       description_matches = check_language_filters(language_filters, description)
 
@@ -29,13 +29,7 @@ module ProjectValidations
 
       errors.add(
         :description,
-        "contains inappropriate language: #{description_matches.join(', ')}"
+        "contains inappropriate language in description: #{description_matches.join(', ')}"
       )
-    end
-
-    def check_language_filters(filters, text)
-      filters.flat_map do |filter|
-        filter.matched(text) if filter.match?(text)
-      end.compact.uniq
     end
 end
