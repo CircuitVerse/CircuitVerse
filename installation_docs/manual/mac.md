@@ -21,28 +21,18 @@ cd CircuitVerse
      ```bash
      brew install git
      ```
-- [RVM](https://rvm.io/rvm/install)
+- [Mise Setup Tool](https://mise.jdx.dev/) :  
      ```bash
-     brew install gnupg
-     gpg --keyserver keys.openpgp.org --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-     \curl -sSL https://get.rvm.io | bash -s stable
-     ```
-- Ruby 3.2.1
-     ```bash
-     rvm install 3.2.1
-     rvm use 3.2.1
-     ```
+     curl https://mise.run | sh
+     echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+     mise install
+     ``` 
+
 - **Below dependencies can be installed at one step**
      ```bash
      brew bundle
      ```
-     - [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
-     - [ImageMagick](https://imagemagick.org/) - Image manipulation library
-     - [Node.js 16.x](https://nodejs.org/it/download)
-     - [Yarn](https://yarnpkg.com/getting-started/install)
-     - [CMAKE](https://cmake.org/install/)
      - OpenSSL
-     - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`12`) - Database
 
 
 #### Setup
