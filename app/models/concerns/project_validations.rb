@@ -5,9 +5,10 @@ module ProjectValidations
   include LanguageFilterable
 
   included do
-    validates :name, length: { minimum: 1 }
+    validates :name, presence: true, length: { minimum: 2, maximum: 500 }
     validates :description, length: { maximum: 10_000 }
-    validates :slug, uniqueness: true
+    validates :slug, presence: true, uniqueness: true, format: { with: /\A[\w\W]+\z/,
+                                                                 message: "invalid symbols }
 
     validate :check_validity
     validate :clean_description
