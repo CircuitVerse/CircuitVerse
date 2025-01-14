@@ -1,0 +1,48 @@
+name: mise
+on: 
+  pull_request: 
+    branches:
+      - main
+  push: 
+    branches:
+      - main
+  workflow_dispatch:
+jobs: 
+  mise: 
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+      redis:
+        image: redis:alpine
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server  
+    steps: 
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+          submodules: recursive
+      - name: Install Mise
+        uses: jdx/mise-action@v2
+        with:
+          version: 2024.12.14
+          install: true
+          cache: true
+          experimental: true 
+      - name: Setup database.yml
+        run: |
+            cp config/database.example.yml config/database.yml
+      - name: Install Ruby dependencies
+        run: |
+            gem install bundler
+            bundle install
+      - name: Run Rails test
+        run: |
+            bin/rails runner 'puts "Hello CircuitVerse!"'
