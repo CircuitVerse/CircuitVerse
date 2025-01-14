@@ -19,6 +19,7 @@ class ContestsController < ApplicationController
     @submissions = @contest.submissions.where.not(user_id: current_user.id).paginate(page: params[:page]).limit(6)
     @user_count = User.count
     return unless @contest.completed? && !Submission.where(contest_id: @contest.id).count.nil?
+    return nil if ContestWinner.find_by(contest_id: @contest.id).nil?
 
     @winner = ContestWinner.find_by(contest_id: @contest.id).submission
   end
@@ -48,6 +49,7 @@ class ContestsController < ApplicationController
     end
   end
 
+  # put "/contests/:contest_id/close_contest", to: "contests#close_contest", as: "close_contest"
   def close_contest
     authorize Contest, :admin?
     @contest = Contest.find(params[:contest_id])

@@ -14,3 +14,4 @@ application.register('groups', GroupsController);
 application.register('projects', ProjectsController);
 application.register('notifications', NotificationsController);
 application.register('assignment', AssignmentController);
+application.register('contest', ContestController);

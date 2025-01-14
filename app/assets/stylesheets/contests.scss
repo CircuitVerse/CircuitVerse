@@ -23,12 +23,12 @@
     border: 1px solid $primary-green;
     border-radius: 5px;
     cursor: pointer;
-    height: 285px;
+    min-height: 285px;
     margin-bottom: 2rem;
     overflow: hidden;
     position: relative;
     transition: .2s ease-in-out;
-    width: 241px;
+    width: 100%;
   
     &:hover {
       background: $shadow-grey;

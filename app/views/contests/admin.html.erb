@@ -2,7 +2,7 @@
   <% if notice %>
     <div class="row" id='alertdiv'>
       <div class="alert alert-success alert-dismissible container text-center">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         <h6><%= notice %></h6>
       </div>
     </div>
@@ -10,20 +10,19 @@
   <div class="column contests-header">
     <h3 class="contests-header-title"><%= t("contest.heading") %></h3>
     <p class="contests-header-description"><%= t("contest.admin.subtitle") %></p>
-    <%= link_to '#', data: {toggle: "modal", target: "#host-new-contest-modal"}, class:"contest-submission-button" do %>
+    <%= link_to '#', data: { bs_toggle: "modal", bs_target: "#host-new-contest-modal" }, class:"contest-submission-button" do %>
         <span><%= t("contest.admin.new_contest_button") %></span>
     <% end %>
   </div>
   <div class="contest-page-line"></div>
   <div class="contests-list-wrapper row center-row">
     <% @contests.each do |contest| %>
-
         <div class="col-lg-3">
           <div class="contest-container">
             <% if contest.live? %>
               <div class="contest-container-header">
                 <div class="contest-container-close">
-                  <%= link_to "#", data: {toggle: "modal", target: "#close-contest-confirmation-modal", contest: contest}, class:"contest-container-close-button" do %>
+                  <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#close-contest-confirmation-modal", contest: contest }, class:"contest-container-close-button" do %>
                     <span><%= t("contest.close") %></span>
                   <% end %>
                 </div>
@@ -45,17 +44,16 @@
               <% if contest.completed? %>
                 <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
               <% end %>
-               <% if contest.live? %>
-                <%= link_to "#", data: {toggle: "modal", target: "#update-contest-modal", contest: contest, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M")}, class:"contest-container-update-button" do %>
-                      <%# <h5 class="contest-container-details-entries">Edit </h5> %>
+              <% if contest.live? %>
+                <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#update-contest-modal", contest: contest, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M") }, class:"contest-container-update-button" do %>
                       <%= image_tag("SVGs/editGroup.svg", alt: "Edit Deadline") %>
                       <span><%= t("edit") %></span>
                 <% end %>
               <% end %>
             </div>
-          </div>s
+          </div>
         </div>
-        <%= render partial: "close_contest_confirmation" %>
+        <%= render partial: "close_contest_confirmation", locals: { contest: contest } %>
         <%= render partial: "update_contest_confirmation" %>
     <% end %>
   </div>

@@ -7,13 +7,19 @@ export default class extends Controller {
         this.setShowModals();
         this.setAdminModals();
     }
-
+    enableSubmitButton() {
+        document.getElementById('submission-submit-button').disabled = false;
+    }
     setAdminModals() {
-        $("#close-contest-confirmation-modal").on("show.bs.modal", function (e) {
-            let contest = $(e.relatedTarget).data('contest');
-            $(e.currentTarget).find('#close-contest-button').attr("href",
-                `/contests/${contest}/close`);
-        })
+        $("#update-contest-modal").on("show.bs.modal", function (e) {
+            let contestId = $(e.relatedTarget).data('contest').id;
+            let currentDeadline = $(e.relatedTarget).data('deadline');
+            let form = $(this).find('#update-contest-form');
+            let action = form.attr('action').replace(':contest_id', contestId);
+            form.attr('action', action)
+            form.find('#contest_deadline').val(currentDeadline);
+          });    
+        
     }
     setShowModals() {
         $("#projectModal").on("show.bs.modal", function (e) {
