@@ -38,7 +38,7 @@ cd CircuitVerse
 
 - [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
      ```bash
-     sudo apt install postgres postgresql-contrib
+     sudo apt install postgresql postgresql-contrib
      sudo systemctl start postgresql.service
      sudo systemctl enable postgresql.service
      ```
