@@ -219,7 +219,7 @@
         <div class="container pagination-cont">
           <div class="pagination justify-content-center">
             <% if @projects_page.has_previous? %>
-              <%= link_to t("previous"), root_path(before: @projects_page.previous_cursor), class: "page-link" %>
+              <%= link_to t("previous"), root_path(before: @projects_page.previous_cursor), class: "page-link me-3" %>
             <% end %>
             <% if @projects_page.has_next? %>
               <%= link_to t("next"), root_path(after: @projects_page.next_cursor), class: "page-link" %>
