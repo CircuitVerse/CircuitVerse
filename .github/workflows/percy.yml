@@ -1,0 +1,77 @@
+name: "Percy Visual Tests"
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request:
+    branches:
+      - master
+      - main
+
+jobs:
+  percy-tests:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+      redis:
+        image: redis:alpine
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "yarn"
+
+      - name: Install Percy CLI
+        run: npm install --save-dev @percy/cli
+
+      - name: Install Gems
+        run: bundle install
+
+      - name: Prepare DB
+        run: |
+          bin/rails db:schema:load
+          bin/rails data:migrate
+      - name: Configure keys
+        run: |
+          openssl genrsa -out config/private.pem 2048
+          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+      - name: Configure keys
+        run: |
+          openssl genrsa -out config/private.pem 2048
+          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+
+      - name: Build assets (if needed)
+        run: yarn run build
+
+      - name: Run tests with Percy
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: npx percy exec -- bundle exec rspec

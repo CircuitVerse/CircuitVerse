@@ -19,6 +19,7 @@
     "@commitlint/cli": "^17.5.0",
     "@commitlint/config-conventional": "^17.4.4",
     "@jsdoc/salty": "^0.2.9",
+    "@percy/cli": "^1.30.5",
     "canvas": "^2.11.2",
     "chokidar": "^3.6.0",
     "eslint": "^7.32.0",
