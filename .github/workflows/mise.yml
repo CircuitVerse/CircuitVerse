@@ -10,19 +10,7 @@ on:
 jobs: 
   mise: 
     runs-on: ubuntu-latest
-    services:
-      postgres:
-        image: postgres:16-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-      redis:
-        image: redis:alpine
-        ports: ["6379:6379"]
-        options: --entrypoint redis-server  
+   
     steps: 
       - name: Checkout code
         uses: actions/checkout@v4
