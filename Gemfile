@@ -152,6 +152,7 @@ group :test do
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
+  gem "coveralls"
   gem "undercover"
   gem "undercover-checkstyle"
 end
