@@ -25,9 +25,10 @@
           </div>
           <div class="field mb-3">
             <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
-            <p><%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
+            <p><%= image_tag user_profile_picture(@profile.profile_picture), id: 'image-preview', class: "users-edit-image", alt: 'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
-            <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
+            <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="previewImage(this);">
+            <%= f.hidden_field :profile_picture, id: 'cropped-image-data' %>
             <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
             <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
           </div>
@@ -63,7 +64,29 @@
     </div>
   </div>
 </div>
+
+<div id="crop-modal" class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Crop Image</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-0">
+        <div class="img-container">
+          <img id="image-to-crop" src="#" alt="Image to Crop">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="crop-image-btn">Crop</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
+
 <script type="text/javascript">
   $(document).ready(function() {
     $("#deleteuserModal").on("show.bs.modal", function(e) {
@@ -73,18 +96,7 @@
     });
   });
 </script>
-<script>
-  function readURL(input) {
-    if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-    $('#imgedit')
-      .attr('src', e.target.result);
-    };
-    reader.readAsDataURL(input.files[0]);
-    }
-  }
-</script>
+
 <script>
   const SELECTOR = '.autocomplete';
   DOMPurify.setConfig({ ALLOWED_TAGS: [] });
@@ -129,6 +141,70 @@
     autoCompleteJS.input.value = selection;
   });
   document.querySelector('#remove_pic').addEventListener('change', function() {
-      document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
+      document.querySelector('#image-preview').src = '<%= image_path('thumb/Default.jpg') %>';
+  });
+</script>
+<script>
+  let cropper;
+
+  function previewImage(input) {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        console.log('Image loaded:', e.target.result); // Debugging
+        $('#image-to-crop').attr('src', e.target.result);
+
+        const cropModal = new bootstrap.Modal(document.getElementById('crop-modal'));
+        cropModal.show();
+
+        document.getElementById('crop-modal').addEventListener('shown.bs.modal', function () {
+          setTimeout(() => {
+            const image = document.getElementById('image-to-crop');
+            if (cropper) {
+              cropper.destroy();
+            }
+            cropper = new Cropper(image, {
+              aspectRatio: 1,
+              viewMode: 1,
+              dragMode: 'move',
+              autoCropArea: 1,
+              restore: false,
+              modal: true,
+              guides: true,
+              highlight: true,
+              cropBoxMovable: true,
+              cropBoxResizable: true,
+              toggleDragModeOnDblclick: false,
+            });
+          }, 100); // Small delay to ensure modal is stable
+        }, { once: true });
+      };
+      reader.readAsDataURL(input.files[0]);
+    }
+  }
+
+  $('#crop-image-btn').on('click', function () {
+    if (!cropper) return;
+
+    const croppedCanvas = cropper.getCroppedCanvas({
+      width: 400,
+      height: 400,
+      imageSmoothingEnabled: true,
+      imageSmoothingQuality: 'high',
+    });
+
+    const croppedImageData = croppedCanvas.toDataURL('image/jpeg', 0.9);
+    $('#cropped-image-data').val(croppedImageData);
+    $('#image-preview').attr('src', croppedImageData);
+
+    const cropModal = bootstrap.Modal.getInstance(document.getElementById('crop-modal'));
+    cropModal.hide();
+  });
+
+  document.getElementById('crop-modal').addEventListener('hidden.bs.modal', function () {
+    if (cropper) {
+      cropper.destroy();
+      cropper = null;
+    }
   });
 </script>
