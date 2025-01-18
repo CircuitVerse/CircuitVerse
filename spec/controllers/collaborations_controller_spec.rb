@@ -38,7 +38,7 @@ describe CollaborationsController, type: :request do
       it "throws unauthorized error" do
         sign_in_random_user
         post collaborations_path(@project), params: create_params
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -62,7 +62,7 @@ describe CollaborationsController, type: :request do
       it "throws unauthorized error" do
         sign_in_random_user
         delete collaboration_path(@collaboration)
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end
@@ -95,7 +95,7 @@ describe CollaborationsController, type: :request do
       it "throws unauthorized error" do
         sign_in_random_user
         put collaboration_path(@collaboration), params: update_params
-        check_not_authorized(response)
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

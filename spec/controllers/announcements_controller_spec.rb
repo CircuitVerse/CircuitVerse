@@ -83,14 +83,30 @@ RSpec.describe AnnouncementsController, type: :request do
   end
 
   context "when user is not admin" do
-    it "return's not authorized for all routes" do
-      sign_in FactoryBot.create(:user)
+    let(:user) { FactoryBot.create(:user) }
+
+    before do
+      sign_in user
+    end
+
+    it "returns 'not authorized' for the #index route" do
       get announcements_path(@announcement)
-      check_not_authorized(response)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns 'not authorized' for the #update route" do
       put announcement_path(@announcement), params: { announcement: {} }
-      check_not_authorized(response)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns 'not authorized' for the #create route" do
       post announcements_path, params: { announcement: {} }
-      check_not_authorized(response)
+      expect(response).to have_http_status(:unauthorized)
+    end
+
+    it "returns 'not authorized' for the #destroy route" do
+      delete announcement_path(@announcement)
+      expect(response).to have_http_status(:unauthorized)
     end
   end
 end

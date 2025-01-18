@@ -2,8 +2,8 @@
 
 FactoryBot.define do
   factory :project do
-    name { Faker.name }
-    association :author, factory: :user
+    name { Faker::Name.name }
+    author { association :user }
     project_access_type { "Private" }
     description { Faker::Lorem.sentence }
   end

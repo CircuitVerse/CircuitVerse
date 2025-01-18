@@ -4,7 +4,7 @@
 module SpecUtils
   def check_auth_exception(policy, action)
     expect do
-      policy.public_send("#{action}?")
+      policy.public_send(:"#{action}?")
     end.to raise_error(ApplicationPolicy::CustomAuthException)
   end
 
