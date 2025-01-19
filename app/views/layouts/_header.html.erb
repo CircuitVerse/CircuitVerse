@@ -6,7 +6,7 @@
     <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
     <i class="fa fa-search search-icon ms-0 <%= request.path == "/search" ? "active" : "" %>" tabindex="0" aria-label="search"></i>
     </div>
-    <button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapsed-navbar" id="dropdownButton"
+    <button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
     aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
     <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
     </button>
@@ -88,6 +88,7 @@
      gettingStartedDropdown.hide();
     });
   });
+
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];
@@ -108,11 +109,13 @@
 
   var dropdownButton = document.getElementById('dropdownButton');
   var dropdownIcon = document.getElementById('dropdownIcon');
+  var burgerButton = document.getElementById("collapsed-navbar");
 
   dropdownButton.addEventListener('click', function() {
+    burgerButton.classList.toggle('show');
     dropdownIcon.classList.toggle('fa-bars');
     dropdownIcon.classList.toggle('fa-times');
-    dropdownIcon.style.width='17.5px'
+    dropdownIcon.style.width='17.5px';
   });
 
   let searchIconCollapse = document.getElementsByClassName("fa-search")[0];

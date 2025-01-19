@@ -22,7 +22,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0"
+gem "rails", "~> 7.0.8.7"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -62,7 +62,7 @@ gem "sidekiq"
 gem "sunspot_rails"
 
 # For home page pagination
-gem "will_paginate", "~> 3.3.1"
+gem "will_paginate", "~> 4.0.1"
 gem "will_paginate-bootstrap"
 
 gem "country_select", "~> 8.0"
@@ -149,6 +149,7 @@ group :test do
   gem "simplecov-lcov"
   gem "undercover"
   gem "undercover-checkstyle"
+  gem "percy-capybara"
 end
 
 group :development do
@@ -189,7 +190,7 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.116"
+gem "aws-sdk-s3", "~> 1.176"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.2"
@@ -221,3 +222,5 @@ gem "sentry-sidekiq", "~> 5.17"
 
 # for SAML based SSO
 gem 'devise_saml_authenticatable'
+
+gem 'activerecord_cursor_paginate'
