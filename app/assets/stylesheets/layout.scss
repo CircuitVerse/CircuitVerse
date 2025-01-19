@@ -120,10 +120,15 @@ body {
   font-weight: 500;
   text-decoration: none;
   margin-left: 9px;
+  transition: all .3s ease 0s;
 
   &:hover {
     color: $primary-green;
     text-decoration: none;
+    background-color: $white;
+    box-shadow: 0 8px 15px $shadow-black;
+    border-color: $primary-green;
+    transform: translateY(-7px);
   }
 }
 .anchor-text-left {
