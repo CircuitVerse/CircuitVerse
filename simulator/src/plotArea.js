@@ -47,7 +47,11 @@ function getCycleStartX(cycleNumber) {
 }
 function changeHeight(dir) {
     plotHeight += dir ? 5 : -5;
-    plotHeight = dir ? plotHeight = Math.min(sh(60), plotHeight) : plotHeight = Math.max(sh(20), plotHeight);
+    if (dir) {
+        plotHeight = Math.min(sh(60), plotHeight);
+    } else {
+        plotHeight = Math.max(sh(20), plotHeight);
+    }
     waveFormHeight = plotHeight - 2 * waveFormPadding;
     plotArea.resize();
 }
