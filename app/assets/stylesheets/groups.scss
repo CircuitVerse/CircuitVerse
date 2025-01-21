@@ -163,8 +163,9 @@
 .groups-members-card {
   background-color: $card-green;
   border: 1px solid $secondary-green;
+  border-top: 6px solid $primary-green;
   display: inline-block;
-  height: 100px;
+  height: 145px;
   margin: 18px 10px;
   padding: 0 15px;
   width: 350px;
@@ -554,10 +555,11 @@
 
   .row {
     flex-wrap: nowrap;
+    padding-top: 15px;
   }
 
   .group-member-button-container {
-    width: 100%;
+    width: 52%;
 
     .groups-mentor-card-mini-buttons {
       display: flex;
