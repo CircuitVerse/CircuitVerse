@@ -1,58 +1,86 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-    static values = { timeleft: String }
+    static get values() {
+        return { timeleft: String };
+    }
+
     connect() {
         this.setCountDownTimer();
         this.setShowModals();
         this.setAdminModals();
     }
+
     enableSubmitButton() {
-        document.getElementById('submission-submit-button').disabled = false;
+        const button = this.element.querySelector('#submission-submit-button');
+        if (button) {
+            button.disabled = false;
+        }
     }
+
     setAdminModals() {
-        $("#update-contest-modal").on("show.bs.modal", function (e) {
-            let contestId = $(e.relatedTarget).data('contest').id;
-            let currentDeadline = $(e.relatedTarget).data('deadline');
-            let form = $(this).find('#update-contest-form');
-            let action = form.attr('action').replace(':contest_id', contestId);
-            form.attr('action', action)
+        const updateContestModal = this.element.querySelector('#update-contest-modal');
+        if (!updateContestModal) return;
+        $(updateContestModal).on('show.bs.modal', function handleUpdateContestModal(e) {
+            const contestId = $(e.relatedTarget).data('contest').id;
+            const currentDeadline = $(e.relatedTarget).data('deadline');
+            const form = $(this).find('#update-contest-form');
+            const action = form.attr('action').replace(':contest_id', contestId);
+            form.attr('action', action);
             form.find('#contest_deadline').val(currentDeadline);
-          });    
-        
+        });
     }
+
     setShowModals() {
-        $("#projectModal").on("show.bs.modal", function (e) {
-            let projectSlug = $(e.relatedTarget).data('project').slug;
-            let projectId = $(e.relatedTarget).data('project').id;
-            let authorId = $(e.relatedTarget).data('project').author_id;
-            var id = projectSlug ? projectSlug : projectId;
-            $(e.currentTarget).find('#project-more-button').attr("href",
-                "/users/" + authorId + "/projects/" + id);
-            $(e.currentTarget).find('#project-ifram-preview').attr("src", "/simulator/" + id.toString())
-        })
-        $("#withdraw-submission-confirmation-modal").on("show.bs.modal", function (e) {
-            let contest = $(e.relatedTarget).data('contest').id;
-            let submission = $(e.relatedTarget).data('submission').id;
-            $(e.currentTarget).find("#withdraw-submission-button").attr("href",
-                `/contests/${contest}/withdraw/${submission}`
-            )
-        })
+        const projectModal = this.element.querySelector('#projectModal');
+        if (projectModal) {
+            $(projectModal).on('show.bs.modal', (e) => {
+                const projectData = $(e.relatedTarget).data('project');
+                if (!projectData) return;
+
+                const { slug, id, author_id: authorId } = projectData;
+                const projectSlugOrId = slug || id;
+
+                $(e.currentTarget)
+                    .find('#project-more-button')
+                    .attr('href', `/users/${authorId}/projects/${projectSlugOrId}`);
+
+                $(e.currentTarget)
+                    .find('#project-ifram-preview')
+                    .attr('src', `/simulator/${projectSlugOrId}`);
+            });
+        }
+
+        const withdrawModal = this.element.querySelector('#withdraw-submission-confirmation-modal');
+        if (withdrawModal) {
+            $(withdrawModal).on('show.bs.modal', (e) => {
+                const contestId = $(e.relatedTarget).data('contest').id;
+                const submissionId = $(e.relatedTarget).data('submission').id;
+                $(e.currentTarget)
+                    .find('#withdraw-submission-button')
+                    .attr('href', `/contests/${contestId}/withdraw/${submissionId}`);
+            });
+        }
     }
 
     setCountDownTimer() {
-        var deadline = new Date(this.timeleftValue).getTime();
-        var x = setInterval(() => {
-            var now = new Date().getTime();
-            var t = deadline - now;
-            var days = Math.floor(t / (1000 * 60 * 60 * 24));
-            var hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            var minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-            var seconds = Math.floor((t % (1000 * 60)) / 1000);
-            document.getElementById('timeLeftCounter').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s `;
+        const deadline = new Date(this.timeleftValue).getTime();
+        const timeLeftCounter = this.element.querySelector('#timeLeftCounter');
+        if (!timeLeftCounter) return;
+
+        const x = setInterval(() => {
+            const now = new Date().getTime();
+            const t = deadline - now;
+
+            const days = Math.floor(t / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((t % (1000 * 60)) / 1000);
+
+            timeLeftCounter.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s `;
             if (t < 0) {
                 clearInterval(x);
-                document.getElementById('timeLeftCounter').innerHTML = 'EXPIRED';
+                timeLeftCounter.innerHTML = 'EXPIRED';
             }
         }, 1000);
     }
