@@ -12,18 +12,18 @@
     <div class="card-footer users-card-footer d-flex justify-content-between align-items-center">
       <span class="fw-bold"><%= t("contest.votes") %>: <%= votes %></span>
       <div>
-        <%= link_to t("view"), '#', class: "previewButton btn primary-button", 
+        <%= link_to t("view"), '#', class: "previewButton btn primary-button",
             data: { bs_toggle: "modal", bs_target: "#projectModal", project: project } %>
         <% if project.author == current_user && contest.live? %>
-          <%= link_to t("contest.withdraw"), '#', 
-              class: "previewButton btn primary-button danger-primary-button", 
-              id: "withdraw-submission-#{submission.id}", 
-              data: { bs_toggle: "modal", bs_target: "#withdraw-submission-confirmation-modal", 
+          <%= link_to t("contest.withdraw"), '#',
+              class: "previewButton btn primary-button danger-primary-button",
+              id: "withdraw-submission-#{submission.id}",
+              data: { bs_toggle: "modal", bs_target: "#withdraw-submission-confirmation-modal",
                      submission: submission, contest: contest } %>
         <% elsif project.author != current_user && contest.live? %>
-          <%= link_to vote_submission_path(contest.id, submission.id), 
-              class: "previewButton btn primary-button", 
-              id: "vote-submission-#{submission.id}", 
+          <%= link_to vote_submission_path(contest.id, submission.id),
+              class: "previewButton btn primary-button",
+              id: "vote-submission-#{submission.id}",
               method: :post do %>
             <span><%= t("contest.vote") %></span>
             <i class="fa fa-arrow-up" aria-hidden="true"></i>
