@@ -1,11 +1,18 @@
-<%=
-  render partial: 'show', locals: {
-    user: @commontator_user,
-    thread: @commontator_thread,
-    comment: @comment,
-    page: @commontator_page,
-    show_all: @commontator_show_all
-  }
-%>
+$("#commontator-comment-<%= @comment.id %>").fadeOut(400, function() {
+  $(this).replaceWith("<%= escape_javascript(
+    render partial: 'commontator/comments/show', locals: {
+      user: @commontator_user,
+      thread: @commontator_thread,
+      comment: @comment,
+      page: @commontator_page,
+      show_all: @commontator_show_all
+    }
+  ) %>");
+});
 
-<%= javascript_proc %>
+$("#deletecommentModal").modal('hide');
+$('.modal-backdrop').remove();
+
+<% if javascript_proc %>
+  <%= javascript_proc %>
+<% end %>
