@@ -17,11 +17,7 @@ filters:
     summary: Component popularity is low by GitHub stars count
     value: |
       projects.exists(p, (p.type == "GITHUB") && (p.stars < 5)) # Lowered threshold to 5 stars
-    exclude: # Adding an exclusion list for specific libraries
-      - mkdirp-classic
-      - github-from-package
-      - napi-build-utils
-      
+
   - name: osv-malware
     check_type: CheckTypeMalware
     summary: Malicious (malware) component detected
