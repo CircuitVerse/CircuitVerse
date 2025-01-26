@@ -16,7 +16,7 @@ filters:
     check_type: CheckTypePopularity
     summary: Component popularity is low by GitHub stars count
     value: |
-      projects.exists(p, (p.type == "GITHUB") && (p.stars < 5)) # Lowered threshold to 5 stars
+      projects.exists(p, (p.type == "GITHUB") && (p.stars < 5))
 
   - name: osv-malware
     check_type: CheckTypeMalware
