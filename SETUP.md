@@ -13,16 +13,16 @@ If you are facing any issues with the setup, first checkout the [troubleshooting
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
 
-| Method | Operating System | Documentation |
+| Operating System | Method | Documentation |
 | --- | --- | --- |
-| GitHub Codespaces | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
-| Native Setup | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
-| Native Setup | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
-| Docker Development Environment | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
-| Docker Development Environment | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
-| Docker Development Environment | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
-| WSL Setup | Windows | TODO |
-| Native Setup | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
+| Any | GitHub Codespaces | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
+| Mac | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
+| Mac | Docker Development Environment | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
+| Linux | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
+| Linux | Docker Development Environment | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
+| Windows | Docker Development Environment | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
+| Windows | WSL Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows-wsl.md) |
+| Windows | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
 
 
 ## Tools Setup
