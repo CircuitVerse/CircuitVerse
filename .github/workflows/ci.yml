@@ -1,0 +1,36 @@
+name: CI with Mise
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Set up Mise
+        run: |
+          curl -sSL https://mise.jdx.dev/install.sh | bash
+          mise install
+
+      - name: Install Ruby Dependencies
+        run: gem install bundler && bundle install
+
+      - name: Install Yarn Dependencies
+        run: yarn 
+
+      - name: Run Rails Runner
+        run: |
+          bundle exec rails runner 'puts "hello world"'
+
+      - name: Run Tests
+        run: bundle exec rails test
