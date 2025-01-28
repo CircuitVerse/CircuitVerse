@@ -20,78 +20,47 @@ cd CircuitVerse
      ```bash
      sudo apt install git
      ```
-- [RVM](https://rvm.io/rvm/install) 
-     ```bash
-     sudo apt install curl gnupg
-     gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-     curl -sSL https://get.rvm.io | bash -s stable
-     ```
-- Ruby 3.2.1
-     ```bash
-     rvm install 3.2.1
-     rvm use 3.2.1
-     ```
-- [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
-     ```bash
-     sudo apt install lsb-release curl gpg
-     curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-     echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-     sudo apt-get update
-     sudo apt-get install redis
-     ```
-- [ImageMagick](https://imagemagick.org/) - Image manipulation library
-     ```bash
-     sudo apt install imagemagick
-     ```
-- [Node.js 16.x](https://nodejs.org/it/download)
-     ```bash
-     curl -sL https://deb.nodesource.com/setup_16.x | sudo bash
-     sudo apt-get update && sudo apt-get install -y nodejs
-     ```
-- [Yarn](https://yarnpkg.com/getting-started/install)
-     ```bash
-     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-     sudo apt update && sudo apt install -y yarn
-     ```
-- [CMAKE](https://cmake.org/install/)
-     ```bash
-     sudo apt install cmake
-     ```
-- OpenSSL
-     ```bash
-     sudo apt install openssl
-     ```
-- libpq-dev
-     ```bash
-     sudo apt-get install libpq-dev
-     ```
-- [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
-     ```bash
-     sudo apt install postgresql postgresql-contrib
-     sudo systemctl start postgresql.service
-     sudo systemctl enable postgresql.service
-     ```
+     Install Mise to simplify the setup process:
+     curl -sSL https://mise.jdx.dev/install.sh | bash
+     mise install
 
+     Note: Mise will automatically install necessary dependencies and configure your environment. This eliminates the need to install individual dependencies like Redis, PostgreSQL, Node.js, etc., manually.
+     
+#### Mise-managed Dependencies
+
+Mise automatically manages the following development tools based on the versions specified in `.tool-versions`:
+- Ruby 
+- node
+- yarn
+- ImageMagick
+- CMAKE
+- Redis
+This will automatically handle the installation of PostgreSQL, Redis, Ruby, and any other required dependencies for your project.
+To view currently managed tools and their versions:
+```bash
+mise ls
+
+Additionally, Mise will take care of installing and configuring PostgreSQL, Redis, Ruby, and any other required dependencies for your project. 
 
 #### Setup
 > **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
 
-1. Install Ruby bundler : `gem install bundler`
-2. Install Ruby dependencies: `bundle install`
-3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template): 
+
+1. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template): 
      * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
      * **Note:** The Postgres credentials need to be updated to your currently running database
-5. Create database: `bundle exec rails db:create`
-6. Run database migrations: `bundle exec rails db:migrate`
-7. Seed the database with some data: `bundle exec rails db:seed`
-8. Generate RSA keypairs
+2. Run Mise to set up and test the application:
+     mise setup
+     mise test
+3. Create database: `bundle exec rails db:create`
+4. Run database migrations: `bundle exec rails db:migrate`
+5. Seed the database with some data: `bundle exec rails db:seed`
+6. Generate RSA keypairs
      ```bash
      openssl genrsa -out ./config/private.pem 2048
      openssl rsa -in ./config/private.pem -outform PEM -pubout -out ./config/public.pem
      ```
-9. Run `bin/dev` to run application server, background job queue and asset compiler
+7. Run `bin/dev` to run application server, background job queue and asset compiler
 
 Navigate to `localhost:3000` in your web browser to access the website.
 
