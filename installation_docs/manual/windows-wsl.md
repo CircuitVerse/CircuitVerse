@@ -58,13 +58,13 @@ cd CircuitVerse
      ```bash
      sudo apt install imagemagick
      ```
-- [Node.js 20.x](https://nodejs.org/en/download/)
+- [Node.js 22.x](https://nodejs.org/en/download/)
      ```bash
       # Install Node.js 20.x using nvm (Node Version Manager)
       curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
       source ~/.bashrc
-      nvm install 20
-      nvm use 20
+      nvm install 22
+      nvm use 22
       ```
 - [Yarn](https://yarnpkg.com/getting-started/install)
      ```bash
