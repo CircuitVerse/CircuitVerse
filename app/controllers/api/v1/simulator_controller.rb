@@ -20,6 +20,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
     response = HTTP.post(url, json: { text: text })
     unless response.code == 200
+      Sentry.capture_message("Failed to submit issue to Slack")
       render json: { error: "Failed to submit issue to Slack" },
              status: :unprocessable_entity and return
     end
@@ -32,6 +33,9 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   def verilog_cv
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     response = HTTP.post(url, json: { code: params[:code] })
+    unless response.code == 200
+      Sentry.capture_message("Failed to get JSON from Yosys")
+    end
     render json: response.to_s, status: response.code
   end
 end

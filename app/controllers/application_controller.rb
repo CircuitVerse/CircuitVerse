@@ -13,10 +13,12 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def auth_error
+    Sentry.capture_message("Pundit::NotAuthorizedError")
     render plain: "You are not authorized to do the requested operation"
   end
 
   def custom_auth_error(exception)
+    Sentry.capture_message("Not Authorized: #{exception.custom_message}")
     render plain: "Not Authorized: #{exception.custom_message}", status: :forbidden
   end
 
