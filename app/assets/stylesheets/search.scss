@@ -1,0 +1,225 @@
+.search-match {
+  background-color: $search-yellow;
+}
+
+.search-no-results-container {
+  margin-top: 100px;
+}
+
+.search-no-results-image {
+  margin-top: 20px;
+
+  img {
+    display: block;
+    margin-bottom: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 40%;
+  }
+}
+
+.search-container {
+  margin-top: 100px;
+}
+
+.search-card-container {
+  border: 1px solid $form-border-grey;
+  border-radius: 0;
+  margin-top: 20px;
+  padding: 20px 8px;
+}
+
+.search-tag-search-container {
+  border: 1px solid $form-border-grey;
+  border-radius: 0;
+  margin-top: 20px;
+  padding: 20px 8px;
+}
+
+.search-image {
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+.search-view-count-container {
+  color: $black;
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  text-align: left;
+}
+
+.search-star-count-icon {
+  color: $star-yellow;
+}
+
+.search-user-data-container {
+  display: block;
+  text-align: left;
+}
+
+.search-user-image {
+  border: 1px solid $shadow-grey;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+}
+
+.search-user-link {
+  display: block;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.search-project-name {
+  height: 40px;
+  overflow: hidden;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  h3 {
+    display: inline;
+  }
+}
+
+.search-project-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-tag-container {
+  display: block;
+  margin-bottom: 15px;
+  padding-left: 0;
+  text-align: left;
+  width: 90%;
+}
+
+.search-primary-button {
+  margin-top: 20px;
+  padding: 5px 20px;
+}
+
+@media (max-width: 575px) {
+  .search-primary-button {
+    width: 100%;
+  }
+}
+
+.search-project-description {
+  height: 300px;
+  margin-left: 15px;
+  overflow-y: auto;
+  text-align: left;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.search-horizontal-rule {
+  width: 70%;
+}
+
+.search-tag-heading {
+  display: block;
+}
+
+.search-user-container {
+  padding-top: 20px;
+  width: 70%;
+}
+
+.search-usersearch-image {
+  display: block;
+  height: 180px;
+  margin-bottom: 20px;
+  object-fit: cover;
+  width: 70%;
+  border-radius: 8px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+}
+
+.search-username-container {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.search-username {
+  display: block;
+  font-size: 25px;
+  font-weight: 500;
+}
+
+.search-userdetails-container {
+  text-align: left;
+}
+
+.search-user-details-text {
+  font-size: 16px;
+  margin-bottom: 8px;
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.search-user-primary-button {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+//breakpoints
+@media (max-width: 768px) {
+  .search-user-data {
+    padding-bottom: 20px;
+  }
+
+  .search-project-detail-container {
+    padding-left: 0;
+  }
+
+  .search-project-description {
+    margin-left: 0;
+  }
+
+  .search-no-results-image {
+    img {
+      max-width: 60%;
+    }
+  }
+
+  .search-usersearch-image {
+    width: 40%;
+  }
+}
+
+@media (max-width: 600px) {
+  .search-container {
+    width: 90%;
+  }
+}
+
+@media (max-width: 400px) {
+  .search-no-results-image {
+    img {
+      max-width: 80%;
+    }
+  }
+
+  .search-user-details-text {
+    font-size: 16px;
+    padding-bottom: 5px;
+  }
+
+  .search-user-container {
+    padding-top: 10px;
+    width: 90%;
+  }
+}

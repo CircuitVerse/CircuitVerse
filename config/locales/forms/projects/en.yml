@@ -1,0 +1,16 @@
+en:
+  helpers:
+    label:
+      collaboration:
+        emails: "Email IDs:"
+      project:
+        name: "Name"
+        tag_list: "Tag List"
+        project_access_type: "Project access type"
+        description: "Description"
+    submit:
+      collaboration:
+        create: "Add Collaborators"
+      project:
+        create: "Create Project"
+        update: "Update Project"

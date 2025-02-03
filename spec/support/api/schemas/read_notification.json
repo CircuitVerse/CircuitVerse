@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "object",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "recipient_type": {
+                "type": "string"
+              },
+              "recipient_id": {
+                "type": "integer"
+              },
+              "type": {
+                "type": "string"
+              },
+              "read_at": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "updated_at": {
+                "type": "string"
+              },
+              "unread": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "recipient_type",
+              "recipient_id",
+              "type",
+              "read_at",
+              "created_at",
+              "updated_at"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "attributes"
+        ]
+      }
+    }
+  },
+  "required": [
+    "data"
+  ]
+}

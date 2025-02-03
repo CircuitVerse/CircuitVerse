@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
@@ -61,3 +62,13 @@ export default defineConfig(() => ({
         },
     },
 }))
+=======
+import { defineConfig } from 'vite'
+import RubyPlugin from 'vite-plugin-ruby'
+
+export default defineConfig({
+  plugins: [
+    RubyPlugin(),
+  ],
+})
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d

@@ -1,0 +1,357 @@
+//buttons
+.primary-button {
+  background-color: $primary-green;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-green;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+.primary-delete-button {
+  background-color: $primary-red;
+  border-radius: 4px;
+  color: $white;
+  margin: 5px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $secondary-red;
+    box-shadow: 0 8px 15px $shadow-black;
+    color: $white;
+    transform: translateY(-7px);
+  }
+}
+
+.secondary-button {
+  background-color: $white;
+  border: 1.5px solid $secondary-green;
+  border-radius: 4px;
+  color: $black;
+  height: 30px;
+  margin: 5px;
+  padding: 0 5px 6px;
+  text-decoration: none;
+
+  img {
+    height: 20px;
+    padding-bottom: 2px;
+    padding-right: 2px;
+    width: 20px;
+  }
+}
+
+.tertiary-button {
+  border: 1.5px solid $secondary-green;
+  border-radius: 4px;
+  box-shadow: 0 2px 7px $shadow-black;
+  margin: 10px 15px;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    background-color: $primary-green;
+    box-shadow: 0 7px 7px $white;
+    color: $white;
+  }
+}
+
+.mini-button {
+  border-radius: 4px;
+  color: $white;
+  height: fit-content;
+  margin: 5px;
+  padding: 3px 5px;
+  text-decoration: none;
+  width: 85px;
+}
+
+//cards
+.social-card {
+  background-color: $card-green;
+  box-shadow: 0 2px 7px $shadow-black;
+  display: inline-block;
+  height: 89px;
+  margin: 50px 7px 40px;
+  opacity: .89;
+  padding: 15px;
+  transition: box-shadow .2s ease-in;
+  width: 300px;
+
+  &:hover {
+    box-shadow: 0 7px 7px $shadow-black;
+  }
+}
+
+.social-card-image {
+  float: left;
+}
+
+.circuit-card {
+  border: 1px solid $primary-green;
+  border-radius: 0;
+  display: inline-block;
+  height: 250px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  max-width: 320px;
+  min-width: 260px;
+}
+
+.circuit-card-image {
+  max-height: 180px;
+  max-width: 100%;
+}
+
+.circuit-card-footer {
+  background-color: $white;
+  border-top: 1px solid $primary-green;
+  padding-top: 10px;
+}
+
+.circuit-card-name {
+  float: left;
+  font-weight: 600;
+  margin-top: 10px;
+  position: relative;
+  text-align: left;
+
+  p {
+    max-height: 30px;
+    max-width: 150px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.tooltiptext {
+  background-color: $navbar-dark-grey;
+  border-radius: .3rem;
+  bottom: 100%;
+  color: $white;
+  font-size: .8rem;
+  left: 0%;
+  max-width: 100%;
+  opacity: 0;
+  padding: .3rem;
+  position: absolute;
+  text-align: center;
+  transition: opacity .5s;
+  visibility: hidden;
+  z-index: 1;
+
+  &::after {
+    border-color: $navbar-dark-grey transparent transparent;
+    border-style: solid;
+    border-width: .3rem;
+    content: '';
+    left: 50%;
+    margin-left: -.3rem;
+    position: absolute;
+    top: 100%;
+  }
+}
+
+.circuit-card-name:hover .tooltiptext {
+  opacity: 1;
+  visibility: visible;
+}
+
+.circuit-card-primary-button {
+  float: right;
+  margin-bottom: 15px;
+}
+
+@media (max-width: 400px) {
+  .circuit-card-name {
+    max-width: 140px;
+  }
+}
+
+//modals
+.primary-modal-dialog {
+  border-radius: 4px;
+  box-shadow: none;
+  padding-right: 0;
+}
+
+.primary-modal-header {
+  background-color: $primary-green;
+  border: 1px solid $primary-green;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+.secondary-modal-header {
+  background-color: $primary-red;
+  border: 1px solid $primary-red;
+  box-shadow: none;
+
+  .modal-title {
+    color: $white;
+  }
+
+  .close {
+    color: $white;
+    opacity: 1;
+  }
+}
+
+@media (max-width: 400px) {
+  .primary-modal-dialog {
+    max-width: 100%;
+  }
+}
+
+//forms
+.form-container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 93%;
+  text-align: left;
+}
+
+.status-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
+.form-control {
+
+  &:focus {
+    background-color: $white;
+    border-color: $form-input-green;
+    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    color: $black;
+    outline: 0;
+  }
+}
+
+.form-input {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  border-radius: 0;
+  max-width: 100%;
+}
+
+@media (max-width: 400px) {
+
+  .form-container {
+    max-width: 90%;
+  }
+
+  .status-container {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    grid-row-gap: 15px;
+  }
+}
+
+//errors
+.error-message {
+  background: $error-red;
+  border-radius: 4px;
+  color: $primary-red;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
+  padding: 15px;
+
+  ul {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
+  li {
+    text-align: left;
+  }
+}
+
+.alert-success {
+  margin-top: 10px;
+  padding-top: 1rem; // aligns the alert text
+}
+
+//checkpoints
+.primary-checkpoint {
+  background-color: $shadow-grey;
+  display: inline-block;
+  height: 25px;
+  margin-top: 15px;
+  position: absolute;
+  width: 25px;
+  top: 6px;
+
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+  }
+}
+
+.primary-checkpoint-container {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 22px;
+  position: relative;
+
+  input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  h6 {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 10px;
+  }
+
+  input:checked ~ .primary-checkpoint {
+    background-color: $primary-green;
+
+    &::after {
+      border: solid $white;
+      border-width: 0 3px 3px 0;
+      display: block;
+      height: 14px;
+      left: 7px;
+      top: 2px;
+      transform: rotate(45deg);
+      width: 9px;
+    }
+  }
+}
+
+//tags
+.search-tag {
+  background-color: $secondary-green;
+  border-radius: 4px;
+  color: $white;
+  font-weight: 500;
+  padding: 5px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    color: $white;
+  }
+}

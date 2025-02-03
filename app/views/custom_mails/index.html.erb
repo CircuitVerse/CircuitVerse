@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="row center-row">
+    <div class="col col-sm col-md col-lg">
+      <% if @mails.count!=0 %>
+        <h1 class="submain-heading">Custom Emails</h1> <br>
+        <%= link_to "New Custom Mail", new_custom_mail_path, class: "btn primary-button custom-mail-primary-button" %>
+        <table class="custom-mail-table">
+          <thead class="custom-mail-thead">
+            <tr>
+              <th>Subject</th>
+              <th>Sent?</th>
+              <th colspan="2"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @mails.each do |mail| %>
+              <tr>
+                <td><%= mail.subject %></td>
+                <td><%= mail.sent ? "Yes" : "No" %></td>
+                <td><%= link_to "Show", mail, class: "anchor-text" %></td>
+                <td><%= link_to "Edit", edit_custom_mail_url(mail), class: "anchor-text" %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <h1 class="submain-heading">No custom emails so far.</h1>
+      <% end %>
+    </div>
+  </div>
+</div>

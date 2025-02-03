@@ -1,0 +1,73 @@
+<% if @unread.empty? %>
+  <% content_for :title, "Notifications" %>
+<% else %>
+  <% content_for :title, "(#{@unread.count}) Notifications" %>
+<% end %>
+
+<div class="container notification-container" data-controller="notifications">
+  <h1 class="notification-heading"><%= t("users.notifications.heading") %></h1>
+  <div class="d-flex justify-content-between mt-3">
+    <div class="tab-container">
+      <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
+      <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
+    </div>
+    <% if @unread.count.positive? %>
+      <div>
+        <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), method: :patch, class: "anchor-text" %>
+      </div>
+    <% end %>
+  </div>
+  <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-10 mt-3 notifications_container">
+    <% @notifications.each do |notification| %>
+      <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: "mb-2 mt-2 notification" do %>
+        <div class="d-flex align-items-center notification-div">
+          <span><i class="<%= notification.to_notification.icon %>"></i></span>
+          <div class="d-flex flex-column message-wrapper">
+            <% if notification.unread? %>
+              <strong><span class="message"><%= notification.to_notification.message %></span></strong>
+              <strong><span class="timestamp"><%= "#{time_ago_in_words(notification.created_at)} ago, #{notification.created_at.to_fs(:long)}" %></span></strong>
+            <% else %>
+              <span class="message"><%= notification.to_notification.message %></span>
+              <span class="timestamp"><%= "#{time_ago_in_words(notification.created_at)} ago, #{notification.created_at.to_fs(:long)}" %></span>
+            <% end %>
+          </div>
+          <% if notification.unread? %>
+            <span class="unseen-active"></span>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <% if @notifications.empty? %>
+      <div class="col-12 row center-row">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+          <h6><%= t("users.notifications.no_notifications") %></h6>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div id="unread-notifications-div" class="d-none flex-column bd-highlight mb-3 mt-3 notifications_container">
+    <% @unread.each do |notification| %>
+      <% if notification.unread? %>
+        <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: "mb-2 mt-2 notification" do %>
+          <div class="d-flex align-items-center">
+            <span><i class="<%= notification.to_notification.icon %>"></i></span>
+            <div class="d-flex flex-column message_wrapper">
+              <strong><span class="message"><%= notification.to_notification.message %></span></strong>
+              <strong><span class="timestamp"><%= "#{time_ago_in_words(notification.created_at)} ago, #{notification.created_at.to_fs(:long)}" %></span></strong>
+            </div>
+            <span class="unseen-active"></span>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+    <% if @unread.empty? %>
+      <div class="col-12 row center-row">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+          <h6><%= t("users.notifications.no_unread_notifications") %></h6>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  groups:
+    minor-and-patch:
+      update-types:
+        - "minor"
+        - "patch"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  
+- package-ecosystem: bundler
+  directory: "/"
+  schedule:
+    interval: daily
+  groups:
+    minor-and-patch:
+      update-types:
+        - "minor"
+        - "patch"
+  open-pull-requests-limit: 10
+  ignore:
+    - dependency-name: "vite*"
+  
+- package-ecosystem: "docker"
+  directory: "/"
+  schedule:
+    interval: "weekly"
+    
+- package-ecosystem: gitsubmodule
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 3
+

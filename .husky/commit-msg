@@ -1,4 +1,11 @@
+<<<<<<< HEAD
 #!/usr/bin/env sh
 . "$(dirname -- "$0")/_/husky.sh"
 
 npx commitlint --edit 
+=======
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+yarn commitlint --edit $1
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d

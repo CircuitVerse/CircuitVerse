@@ -1,0 +1,119 @@
+{
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "member_count": { "type": "integer" },
+              "primary_mentor_name": { "type": "string" },
+              "name": { "type": "string" },
+              "primary_mentor_id": { "type": "integer" },
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" }
+            },
+            "required": [
+              "member_count",
+              "primary_mentor_name",
+              "name",
+              "primary_mentor_id",
+              "created_at",
+              "updated_at"
+            ]
+          },
+          "relationships": {
+            "type": "object",
+            "properties": {
+              "group_members": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
+              },
+              "assignments": {
+                "type": "object",
+                "properties": {
+                  "data": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": { "type": "string" },
+                        "type": { "type": "string" }
+                      },
+                      "required": ["id", "type"]
+                    }
+                  }
+                },
+                "required": ["data"]
+              }
+            },
+            "required": ["group_members", "assignments"]
+          }
+        },
+        "required": ["id", "type", "attributes"]
+      }
+    },
+    "included": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "type": { "type": "string" },
+          "attributes": {
+            "type": "object",
+            "properties": {
+              "group_id": { "type": "integer" },
+              "user_id": { "type": "integer" },
+              "created_at": { "type": "string" },
+              "updated_at": { "type": "string" },
+              "mentor": { "type": "boolean"},
+              "name": { "type": "string" },
+              "email": { "type": "string" }
+            },
+            "required": [
+              "group_id",
+              "user_id",
+              "created_at",
+              "updated_at",
+              "mentor",
+              "name",
+              "email"
+            ]
+          }
+        },
+        "required": ["id", "type", "attributes"]
+      }
+    },
+    "links": {
+      "type": "object",
+      "properties": {
+        "self": { "type": "string" },
+        "first": { "type": "string" },
+        "prev": { "type": ["null", "string"] },
+        "next": { "type": ["null", "string"] },
+        "last": { "type": "string" }
+      },
+      "required": ["self", "first", "prev", "next", "last"]
+    }
+  },
+  "required": ["data", "links"]
+}

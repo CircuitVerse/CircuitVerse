@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 center-image">
+      <%= image_tag "SVGs/login.svg", alt: "Login Sketch", class: "users-image" %>
+      <h5 class="users-image-text"><%= t("welcome_back_text") %></h5>
+    </div>
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+      <div class="users-form-container">
+        <h2 class="users-main-heading"><%= t("users.unlock.resend_unlock_instructions") %></h2>
+        <%= form_with(model: resource, as: resource_name, url: unlock_path(resource_name), method: :post, local: true) do |f| %>
+          <% if !resource.errors.empty? %>
+            <div class="error-message">
+              <ul>
+                <% resource.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <div class="field mb-3">
+            <h6><%= f.label :email %></h6>
+            <div class="input-group">
+              <%= f.email_field :email, autofocus: true, class: "form-control form-input" %>
+            </div>
+          </div>
+          <div class="field mb-3">
+            <div class="input-group">
+              <%= f.submit t("users.unlock.resend_unlock_instructions"), class: "btn primary-button users-primary-button" %>
+            </div>
+          </div>
+          <%= render "users/shared/links" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

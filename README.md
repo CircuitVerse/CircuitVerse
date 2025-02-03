@@ -1,13 +1,33 @@
+<<<<<<< HEAD
 <div align="center">
   <img src="https://github.com/CircuitVerse/CircuitVerse/raw/master/app/assets/images/cvlogo.svg" alt="The CircuitVerse logo" width="400"/>
 </div>
 
 # CircuitVerse Frontend Vue
 [CircuitVerse Frontend Vue](https://circuitverse.netlify.app/simulatorvue) is dedicated to enhancing the CircuitVerse platform in several key ways. Our primary focus is on decoupling the [CircuitVerse Simulator](https://circuitverse.org/simulator) from the backend, allowing it to function independently and with greater flexibility. Additionally, we're working to remove the reliance on jQueryUI, opting for cleaner and more contemporary code practices. To improve performance and code readability, we're transitioning from traditional DOM mutations to string-based manipulation. Furthermore, we're actively integrating internationalization features to ensure the platform is accessible to users worldwide. In summary, our repository aims to elevate the capabilities and user experience of CircuitVerse through targeted improvements and optimizations.
+=======
+<img src="/app/assets/images/cvlogo.svg" alt="The CircuitVerse logo" width="736"/> </br></br>
+[![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=Financial+Contributors&style=for-the-badge&logo=open+collective)](https://opencollective.com/CircuitVerse) 
+[![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci&style=for-the-badge&logo=circleci)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
+[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls&style=for-the-badge&logo=coveralls)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
+-----
+[CircuitVerse](https://circuitverse.org) is a free, open-source platform which allows users to construct digital logic circuits online. We also offer the [Interactive Book](https://learn.circuitverse.org) which teaches users on the fundamentals of modern, digital circuits. Please also see our [documentation](https://docs.circuitverse.org) or [GitHub Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/).
+
+## Getting Started with CircuitVerse code base 📹
+To help new contributors get started, we've created a video guide titled **"Getting Started with CircuitVerse"**. This video covers:
+- Introduction to CircuitVerse and its technical structure.
+- Step-by-step setup using GitHub Codespaces.
+- A high level walkthrough of the codebase directory structure and key files.
+- Contribution guidelines for effective collaboration.
+
+🎥 [Watch the "Getting Started with CircuitVerse" Video](https://youtu.be/TUdHWUdz_-8)  
+*(Click the link above to watch the video on YouTube.)*
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
 
 ## Community
 We would love to hear from you! We communicate on Slack:
 
+<<<<<<< HEAD
 [![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://join.slack.com/t/circuitverse-team/shared_invite/zt-p6bgler9-~8vWvsKmL9lZeYg4pP9hwQ)
 
 ## Installation
@@ -62,13 +82,30 @@ We follow the [Code of Conduct](https://github.com/CircuitVerse/CircuitVerse/blo
 
 ## Contributing
 See [`CONTRIBUTING.md`](https://github.com/CircuitVerse/CircuitVerse/blob/master/CONTRIBUTING.md) for more information on contributing to CircuitVerse.
+=======
+[![Slack](https://img.shields.io/badge/chat-on_slack-purple.svg?style=for-the-badge&logo=slack)](https://circuitverse.org/slack)
+
+## Code of Conduct
+We follow the [Code of Conduct](code-of-conduct.md) of the [CircuitVerse](https://circuitverse.org) Community.
+
+## Setup
+See [`SETUP.md`](SETUP.md) for more information on setting up CircuitVerse.
+
+## Contributing
+See [`CONTRIBUTING.md`](CONTRIBUTING.md) for more information on contributing to CircuitVerse.
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
 
+<<<<<<< HEAD
 ## To Dos -
 1. **Creating the mobile version of the vue simulator** 
 2. **Testing and bug fixing**
 3. **Typescript integration & style Refactoring**
 4. **Creating the desktop application** 
 5. **Removing JQuery**
+=======
+## Testing with BrowserStack
+This project is tested with BrowserStack.
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d

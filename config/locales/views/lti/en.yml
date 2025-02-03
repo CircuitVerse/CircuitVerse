@@ -1,0 +1,9 @@
+en:
+  launch_error:
+    title: "CircuitVerse - LTI Error"
+    main-heading: "Content not available"
+    main-description: "The content you are requesting is not available at this moment, or you are not authorized to access the content."
+  open_incv:
+    notice_wait_in_open_incv: "Please wait while we open this assignment in CircuitVerse..."
+    notice_redirection_error: "If it doesn't work, please click the button below."
+    open_assignment: "Open assignment"

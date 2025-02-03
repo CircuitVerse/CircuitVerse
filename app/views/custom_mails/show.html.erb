@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="/css/custom_mailer.css">
+<div class="container">
+  <div class="row center-row">
+    <div class="col col-sm col-md col-lg">
+      <h1 class="submain-heading">Mail Preview</h1> <br>
+    </div>
+  </div>
+  <div class="row center-row">
+    <div class="col col-sm col-md col-lg">
+      <%= link_to "Edit", edit_custom_mail_path(@mail), class: "btn primary-button" %>
+      <%= link_to "Send", send_custom_mail_path(@mail), class: "btn primary-button" %>
+      <%= link_to "Send to self", send_custom_mail_self_path(@mail), class: "btn primary-button" %>
+    </div>
+  </div>
+  <div class="row center-row">
+    <div class="col col-sm col-md col-lg">
+      <h6 class="custom-mail-status">(<%= @mail.sent? ? "Mail has been sent out" : "Mail has not been sent" %>)</h6>
+    </div>
+  </div>
+</div>
+<div class="custom-mail-container">
+  <%= render template: "user_mailer/custom_email", layout: "layouts/mailer", mail: @mail, user: @user, is_preview: @is_preview %>
+</div>

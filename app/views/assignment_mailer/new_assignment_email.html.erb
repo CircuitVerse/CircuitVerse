@@ -1,0 +1,10 @@
+<div>
+  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <%= inline_svg_tag "SVGs/newAssignment.svg", alt: "New Assignment", class: "mailer-assignment-image" %>
+  <p class="mailer-text">
+    A new assignment named <span class="mailer-highlighted-text"><%= @assignment.name %> (<%= @assignment.deadline %>)</span> has been assigned in <span class="mailer-highlighted-text"><%= Group.find_by(id: @assignment.group_id).name %></span>. <br>
+    Assignment is mentored by <span class="mailer-highlighted-text"><%= User.find_by(id: Group.find_by(id: @assignment.group_id).primary_mentor_id).name %></span>
+  </p>
+  <a href="<%= group_assignment_url(Group.find_by(id: @assignment.group_id), @assignment) %>" class="mailer-button">View Assignment</a>
+  <p class="mailer-text">Keep building!</p>
+</div>

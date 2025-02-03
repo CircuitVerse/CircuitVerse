@@ -1,0 +1,5 @@
+# Exclude minified JavaScript files
+public/js/**/*.min.js
+
+# Exclude third-party libraries
+public/js/plugins/**/*.js

@@ -1,0 +1,10 @@
+<div>
+  <h2>Welcome to CircuitVerse, <%= @user.name %></h2>
+  <%= inline_svg_tag "SVGs/newAssignment.svg", alt: "New Assignment", class: "mailer-assignment-image" %>
+  <p class="mailer-text">
+    The assignment <span class="mailer-highlighted-text"><%= @assignment.name %> (<%= @assignment.deadline %>)</span> has been updated. <br>
+    Assignment is mentored by <span class="mailer-highlighted-text">@assignment.group.primary_mentor.name</span>
+  </p>
+  <a href="<%= group_assignment_url(@assignment.group, @assignment) %>" class="mailer-button">View Assignment</a>
+  <p class="mailer-text">Keep building!</p>
+</div>

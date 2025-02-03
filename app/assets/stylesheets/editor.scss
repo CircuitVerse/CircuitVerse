@@ -1,0 +1,79 @@
+.trumbowyg-button-pane button .trumbowyg-active,
+.trumbowyg-button-pane button:not(.trumbowyg-disable):focus,
+.trumbowyg-button-pane button:not(.trumbowyg-disable):hover {
+  outline: 0;
+}
+
+button.trumbowyg-active {
+  background-color: inherit;
+  outline: none;
+}
+
+.trumbowyg-button-pane {
+  background-color: $card-green;
+
+  &::after {
+    color: $secondary-green;
+  }
+}
+
+.trumbowyg-box {
+  border: 1px solid $secondary-green;
+  margin-bottom: 35px;
+  margin-top: 0;
+  padding: 0;
+  border-radius: 4px;
+
+  button {
+    transition: box-shadow .2s ease-in;
+
+    &:hover {
+      background-color: $card-green;
+      box-shadow: 0 7px 7px $shadow-black;
+    }
+  }
+}
+
+.trumbowyg-editor {
+  background-color: $white;
+  border-top: 1px solid $secondary-green;
+  opacity: 1;
+  padding-left: 15px;
+  padding-top: 10px;
+}
+
+.trumbowyg-dropdown-foreColor:not(.trumbowyg-dropdown--color-list),
+.trumbowyg-dropdown-backColor:not(.trumbowyg-dropdown--color-list) {
+  max-width: 276px;
+  overflow: initial;
+  padding: 7px 5px;
+
+  button {
+    border: 1px solid $black;
+    display: block;
+    float: left;
+    height: 20px;
+    margin: 2px;
+    padding: 0;
+    position: relative;
+    text-indent: -9999px;
+    width: 20px;
+
+    &:hover,
+        &:focus {
+      &::after {
+        background: inherit;
+        border: 1px solid $white;
+        box-shadow: $black 0 0 2px;
+        content: ' ';
+        display: block;
+        height: 27px;
+        left: -5px;
+        position: absolute;
+        top: -5px;
+        width: 27px;
+        z-index: 10;
+            }
+        }
+    }
+}

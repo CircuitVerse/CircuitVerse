@@ -1,0 +1,31 @@
+name: docs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: jsdocs-dep
+        run: npm install
+
+      - name: jsdocs-generate
+        run: node ./node_modules/jsdoc/jsdoc.js ./simulator/src -r -c ./conf.json -t ./node_modules/better-docs -d ./out
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./out
+          cname: simulator-docs.circuitverse.org

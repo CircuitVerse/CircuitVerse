@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="row center-row">
+    <div class="col-12">
+      <br>
+      <h1 class="search-tag-heading"><%= t("projects.get_projects.searched_projects_heading") %></h1>
+      <h2 class="search-tag-heading"><%= t("projects.get_projects.searched_tags_heading") %> <span class="badge search-tag"><%= params[:tag] %></span> </h2>
+    </div>
+  </div>
+</div>
+
+<div class="container search-tag-search-container">
+  <% @projects.each do |project| %>
+    <div class="row center-row">
+      <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+        <div class="row center-row">
+          <%= image_tag project_image_preview(project, current_user), alt: "project.name", class: "search-image" %>
+        </div>
+        <div class="row center-row search-view-count-container">
+          <i class="fas fa-star search-star-count-icon" aria-hidden="true"></i>
+          <span id="star-count" class="noSelect"><%= project.stars.count %></span>
+           <%= t("projects.stars_count") %>
+          &nbsp; &nbsp;
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          <span id="star-count" class="noSelect"><%= project.view %></span>
+           <%= t("projects.views_count") %>
+        </div>
+        <div class="row center-row search-user-data-container">
+          <h6 class="search-user-heading"><%= t("projects.project_user") %></h6>
+          <div class="search-user-data">
+            <%= image_tag user_profile_picture(project.author.profile_picture), alt: "User Image", class: "search-user-image" %>
+            <%= link_to project.author.name, project.author, class: "search-user-link anchor-text" %>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-sm-12 col-md-7 col-lg-7">
+        <div class="row center-row">
+          <div class="col-8 col-sm-8 col-md-8 col-lg-8 search-project-detail-container">
+            <div class="row center-row">
+              <h3 class="search-project-name"><%= project.name %></h3>
+              <span class="tooltiptext"><%= project.name %></span>
+            </div>
+            <div class="row center-row">
+              <div class="search-tag-container">
+                <% if !project.tags.empty? %>
+                  <% project.tags.each do |tag| %>
+                    <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="col-4 col-sm-4 col-md-4 col-lg-4 search-project-detail-container">
+            <a class="btn primary-button search-primary-button" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button"><%= t("view") %></a>
+          </div>
+        </div>
+        <div class="row center-row">
+          <div class="search-project-description"><%= sanitize project.description %></div>
+        </div>
+      </div>
+    </div>
+    <hr class="search-horizontal-rule">
+  <% end %>
+</div>

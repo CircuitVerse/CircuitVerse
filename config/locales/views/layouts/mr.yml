@@ -1,0 +1,34 @@
+mr:
+  layout:
+    link_to_simulator: "सिम्युलेटर"
+    getting_started_dropdown: "सुरुवात कशी करावी"
+    link_to_learn_more: "येथे शिका"
+    link_to_docs: "डॉक्यूमेंटेशन"
+    link_to_features: "गुणधर्म"
+    link_to_teachers: "शिक्षकांसाठी"
+    link_to_blog: "ब्लॉग"
+    link_to_about: "सर्किटवर्स बद्दल"
+    link_to_faq: "सामान्य प्रश्न"
+    footer:
+      social_icon_text: "आम्हाला येथे अनुसरण फॉलो करा"
+      link_to_examples: "उदाहरण"
+      my_circuits: "माझे सर्किट"
+      link_to_contribute: "योगदान"
+      link_to_forum: "फोरम"
+      sponsor_logo_text:
+        brought_by: "द्वारे तुमच्यासाठी आणले:"
+        hosting_sponsor: "प्रायोजक:"
+        marketed_by: "द्वारे विपणन:"
+        developed_by: "द्वारे विकसित:"
+      copyright_text: "कॉपीराइट © %{time_current_year} Circuitverse, सर्व हक्क राखीव."
+    header:
+      dashboard: "डैशबोर्ड"
+      my_groups: "माझा गट"
+      notifications: "अधिसूचना"
+      language: "भाषा निवडा"
+    mailer:
+      join_us: "आमच्यात सामील व्हा"
+      copyright_text: "कॉपीराइट © %{time_current_year} सर्किटवर. सर्व हक्क राखीव. कोणत्याही समस्यांसाठी, support@circuitverse.org वर आमच्याशी संपर्क साधा"
+      unsubscribe_email_notifications: "ईमेल सूचनांमधून सदस्यत्व रद्द करा"
+    simulator:
+      title: "सर्किटवर्स - डिजिटल सर्किट सिम्युलेटर ऑनलाइन"

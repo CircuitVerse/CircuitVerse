@@ -1,0 +1,26 @@
+<%= form_with(model: custom_mail, local: true, multipart: true, id: "mailsForm") do |form| %>
+  <div class="field mb-3">
+    <h6><%= form.label :subject %></h6>
+    <div class="input-group">
+      <%= form.text_field :subject, class: "form-control form-input" %>
+    </div>
+  </div>
+  <div class="field mb-3" id="description">
+    <h6><%= form.label :content %></h6>
+    <div class="input-group">
+      <%= render partial: "editor/index", locals: { content: custom_mail.content } %>
+    </div>
+  </div>
+  <div onclick="before_submit()">
+    <%= form.submit class: "btn primary-button" %>
+  </div>
+<% end %>
+
+<script>
+  function before_submit() {
+  $('<input />').attr('type', 'hidden')
+    .attr('name', 'custom_mail[content]')
+    .attr('value', $("#trumbowyg-editor").cleanHtml())
+    .appendTo('#mailsForm');
+  }
+</script>

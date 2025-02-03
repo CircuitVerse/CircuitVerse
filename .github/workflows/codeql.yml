@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # For most projects, this workflow file will not need changing; you simply need
 # to commit it to your repository.
 #
@@ -9,16 +10,26 @@
 # the `language` matrix defined below to confirm you have the correct set of
 # supported CodeQL languages.
 #
+=======
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
 name: "CodeQL"
 
 on:
   push:
+<<<<<<< HEAD
     branches: [ "main" ]
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ "main" ]
   schedule:
     - cron: '16 5 * * 0'
+=======
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  schedule:
+    - cron: '42 1 * * 4'
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
 
 jobs:
   analyze:
@@ -32,17 +43,30 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+<<<<<<< HEAD
         language: [ 'javascript' ]
+=======
+        language: [ 'javascript', 'ruby' ]
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v3
 
+<<<<<<< HEAD
+=======
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
       with:
         languages: ${{ matrix.language }}
+<<<<<<< HEAD
         # If you wish to specify custom queries, you can do so here or in a config file.
         # By default, queries listed here will override any specified in a config file.
         # Prefix the list here with "+" to use these queries and those in the config file.
@@ -50,8 +74,17 @@ jobs:
         # Details on CodeQL's query packs refer to : https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
 
+=======
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
       with:
+<<<<<<< HEAD
         category: "/language:${{matrix.language}}"
+=======
+        category: "/language:${{matrix.language}}"
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d

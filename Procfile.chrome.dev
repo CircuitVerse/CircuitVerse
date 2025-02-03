@@ -1,0 +1,3 @@
+web: bundle exec rdbg -n --open=chrome --command -- bundle exec rails server -p 3000
+js: REBUILD_VUE=false yarn build --watch
+worker: bundle exec sidekiq

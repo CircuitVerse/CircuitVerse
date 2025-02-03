@@ -1,0 +1,853 @@
+<% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
+
+<script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" defer></script>
+<script src="/js/plugins/checkBo.min.js" defer></script>
+<script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
+
+<script>
+  userSignedIn = <%= user_signed_in? %>;
+  __logix_project_id = "<%= @logix_project_id %>";
+  __projectName = "<%= @projectName %>"
+</script>
+
+<div id='exitView'></div>
+<nav class="navbar navbar-expand-lg navbar-dark header">
+  <a href="/"><span class='logo'></span></a>
+  <button id="dropdownButton" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+  <i class="fas fa-bars" id="dropdownIcon"></i>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
+    <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
+      <li class="dropdown nav-dropdown d-flex">
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
+        <ul class="dropdown-menu">
+          <% if not @project.nil? %>
+             <li><a class="dropdown-item logixButton text-start ps-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
+          <% end %>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="newProject">New Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="save">Save Online</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="saveOffline">Save Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createOpenLocalPrompt">Open Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ExportCircuitFiles">Export as file</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ImportCircuitFiles">Import file</a></li>
+           <li><a class="dropdown-item logixButton text-start ps-1" id="clearProject">Clear Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="recoverProject">Recover Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="fullViewOption">Preview Circuit</a></li>
+        </ul>
+      </li>
+      <li class="dropdown nav-dropdown d-flex">
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item text-start logixButton ps-1" id="createNewCircuitScope">New Circuit + </a></li>
+          <li><a class="dropdown-item text-start logixButton ps-1" id="newVerilogModule">New Verilog <br> Module</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
+        </ul>
+      </li>
+      <li class="dropdown nav-dropdown d-flex">
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="colorThemes">Themes</a>
+          <li><a class="dropdown-item text-start ps-1" id="customShortcut">Custom Shortcut</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="generateVerilog">Export Verilog</a>
+        </ul>
+      </li>
+      <li class="dropdown tour-help nav-dropdown d-flex">
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item text-start ps-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
+        </ul>
+      </li>
+      </ul>
+      <span class="projectName noSelect defaultCursor fw-bold" id="projectName">
+          Untitled
+      </span>
+
+      <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
+        <li class="dropdown pull-right">
+          <% if user_signed_in? %>
+            <a href="#" class="cur-user acc-drop user-field" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
+              <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+              <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
+              <div class="dropdown-divider"></div>
+              <li><a class="dropdown-item" rel="nofollow" data-bs-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+            </ul>
+          <% else %>
+            <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
+          <% end %>
+        </li>
+      </ul>
+
+    </div>
+
+    <div ondrag="(() => {$('.quick-btn').css({'box-shadow': 'none', 'background': 'var(--bg-navbar)'})})()" class='quick-btn' id='quick-btn-id'>
+      <div id='dragQPanel' class='panel-drag'>
+      <span><svg style="height: 20px;" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="18" height="31" viewBox="0 0 18 31">
+        <defs>
+          <clipPath id="clip-path">
+            <rect width="18" height="31" fill="none" />
+          </clipPath>
+        </defs>
+        <g id="Repeat_Grid_1" data-name="Repeat Grid 1" clip-path="url(#clip-path)">
+          <g transform="translate(-21 -29)">
+            <circle id="Ellipse_1" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
+          </g>
+          <g transform="translate(-12 -29)">
+            <circle id="Ellipse_1-2" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
+          </g>
+          <g transform="translate(-21 -18)">
+            <circle id="Ellipse_1-3" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
+          </g>
+          <g transform="translate(-12 -18)">
+            <circle id="Ellipse_1-4" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
+          </g>
+          <g transform="translate(-21 -7)">
+            <circle id="Ellipse_1-5" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
+          </g>
+          <g transform="translate(-12 -7)">
+            <circle id="Ellipse_1-6" data-name="Ellipse 1" cx="2" cy="2" r="2" transform="translate(22 30)" fill="#fff" />
+          </g>
+        </g>
+      </svg>
+      </span></div>
+      <div>
+        <button type="button" class="quick-btn-save-online logixButton" id="save" title="Save Online" onclick="">
+        </button>
+      </div>
+      <div>
+        <button type="button" class="quick-btn-save logixButton" id="ExportCircuitFiles" title="Export as file" onclick="">
+        </button>
+      </div>
+      <div>
+        <button type="button" class="quick-btn-delete" title="Delete Selected" id="deleteSelected">
+        </button>
+      </div>
+      <div>
+        <button type="button" class="quick-btn-download logixButton" id="createSaveAsImgPrompt" title="Download as Image" onclick="">
+        </button>
+      </div>
+      <div>
+        <button type="button" class="quick-btn-zoom-fit" title="Fit to Screen" onclick="globalScope.centerFocus(false)">
+        </button>
+      </div>
+      <div>
+        <button type="button" class="quick-btn-undo" title="Undo" id="undoButton">
+        </button>
+      </div>
+      <div>
+        <button type="button" class="quick-btn-redo" title="Redo" id="redoButton">
+        </button>
+      </div>
+      <div>
+        <button type="button" class="quick-btn-view" title="Preview Circuit" id="viewButton"><i style="color: #ddd;" class="fas fa-expand-arrows-alt"></i>
+        </button>
+      </div>
+   <!--   <div>
+        <button type="button" class="quick-btn-redo logixButton" title="Redo" onclick="">
+        </button> -->
+        <div class="zoom-slider d-flex align-items-center">
+          <button class="zoom-slider-decrement btn btn-outline-secondary" id="decrement" aria-label="Zoom Out">-</button>
+          <input type="range" class="form-range mx-2" min="0" max="45" step="1" id="customRange1" aria-label="Zoom Level">
+          <button class="zoom-slider-increment btn btn-outline-secondary" id="increment" aria-label="Zoom In">+</button>
+        </div>
+      </div>
+  </div>
+  <!-- /.navbar-collapse -->
+</nav>
+<div id="tabsBar" class="noSelect pointerCursor">
+  <button name="logixButton" class="logixButton" id="createNewCircuitScope" onclick="" aria-label='logix button'><i class="fas fa-plus"></i></button>
+</div>
+<div title="Export Verilog" id="verilog-export-code-window-div" style="display:none"><textarea id="verilog-export-code-window"></textarea></div>
+<div id="code-window" class='code-window'><textarea id="codeTextArea"></textarea></div>
+<div class="modules noSelect defaultCursor ce-panel elementPanel draggable-panel draggable-panel-css " id="guide_1">
+  <div class="panel-header">Circuit Elements
+  <span class="fas fa-minus-square minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class="panel-body" id="testid">
+    <div style="position: relative;">
+    <input type="text" class="search-input" value="" placeholder="Search..">
+    <span><i class="fas search-close fa-times-circle"></i></span>
+    </div>
+    <div class="search-results"></div>
+    <div class="accordion" id="menu"></div>
+  </div>
+</div>
+
+<div id="smallNavbarMenu-btn">
+
+</div>
+
+<!-- navBar-for-small-screen -->
+<div class="smallscreen-navbar">
+
+  <div id="ProjectID">Untitled</div>
+
+  <div class="smallNavbar-navbar-ul">Project<i class="fas fa-chevron-down ulicon"></i></div>
+    <div class="smallscreen-navbar-inner">
+      <li class="SmallScreen-Navbar-li"> New Project</li>
+      <li class="SmallScreen-Navbar-li"> Save Online</li>
+      <li class="SmallScreen-Navbar-li"> Save Offine</li>
+      <li class="SmallScreen-Navbar-li"> Open Offine</li>
+      <li class="SmallScreen-Navbar-li"> Clear Project</li>
+      <li class="SmallScreen-Navbar-li"> Recover Project</li>
+    </div>
+
+    <div class="smallNavbar-navbar-ul">Circuits<i class="fas fa-chevron-down ulicon"></i></div>
+    <div class="smallscreen-navbar-inner">
+      <li class="SmallScreen-Navbar-li"> New Circuit + </li>
+      <li class="SmallScreen-Navbar-li"> New Verilog Module</li>
+      <li class="SmallScreen-Navbar-li"> Insert SubCircuit</li>
+    </div>
+
+    <div class="smallNavbar-navbar-ul">Tools<i class="fas fa-chevron-down ulicon"></i> </div>
+    <div class="smallscreen-navbar-inner">
+      <li class="SmallScreen-Navbar-li"> Combinational Analysis</li>
+      <li class="SmallScreen-Navbar-li"> Hex-Bin-Dec Converter</li>
+      <li class="SmallScreen-Navbar-li"> Download Image</li>
+      <li class="SmallScreen-Navbar-li"> Theme</li>
+      <li class="SmallScreen-Navbar-li"> Export Verilog</li>
+    </div>
+
+    <div class="smallNavbar-navbar-ul">Help <i class="fas fa-chevron-down ulicon"></i></div>
+    <div class="smallscreen-navbar-inner">
+      <li class="SmallScreen-Navbar-li"> Tutorial</li>
+      <li class="SmallScreen-Navbar-li"> User Manual</li>
+      <li class="SmallScreen-Navbar-li"> Learn Digital Logic</li>
+      <li class="SmallScreen-Navbar-li"> Discussion Forum</li>
+    </div>
+
+    <div class="smallNavbar-navbar-ul">
+
+    <% if user_signed_in? %>
+     <%= current_user.name %></div>
+    <div class="smallscreen-navbar-inner">
+      <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
+      <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
+      <div class="dropdown-divider"></div>
+      <li class=""><a rel="nofollow" data-bs-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+      <% else %>
+    <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
+  <% end %>
+      </div>
+
+  <div id="logoWrap">
+  <a href="/"><span class='touchNavlogo'> </span></a>
+  </div>
+  </div>
+
+  <!-- Touchmenu  Responsive Versions -->
+  <div id='touchMenu'>
+    <ul><i class="fas fa-bezier-curve touchMenuIcon"></i></ul>
+    <ul><i class="fas fa-cogs touchMenuIcon"></i></ul>
+    <ul><i class="fas fa-wave-square touchMenuIcon"></i></ul>
+    <ul><i class="fas fa-ellipsis-h touchMenuIcon"></i></ul>
+  </div>
+
+  <!-- CircuitElementPanel  Responsive Versions -->
+  <div id="TouchCe-panel">
+    <div class="Touch-Ce-Menu" id="">
+      <div class="ce-name">Circuit Elements <i class="fas fa-times panelclose"></i></div>
+      <div style="position: relative;">
+        <input type="text" class="search-input" value="" placeholder="Search..">
+        <span><i class="fas search-close fa-times-circle"></i></span>
+      </div>
+      <div class="search-results" id="Mobile-menu"></div>
+      <div class="accordion" id="menu2"></div>
+    </div>
+  </div>
+
+  <!-- Properties Panel  Responsive Versions -->
+
+  <div id="touchElement-property">
+    <div class="moduleProperty" id="touch-module-property"><div class="mp-name">Properties <i class="fas fa-times panelclose"></i></div><div id="moduleProperty-inner-2"></div></div>
+  </div>
+
+  <!-- Timediagram For Responsive Versions -->
+  <div id="touchtD-popover"> <div class="td-name">Timediagram <i class="fas fa-times panelclose"></i></div>
+  <div id="touch-time-daigram">
+    <div class='touch-timing-diagram-toolbar noSelect'>
+      <button class='custom-btn--primary touch-panel-button' title="Decrease Size"><span class="fas fa-caret-left timing-diagram-smaller panel-button-icon"></span></button>
+      <button class='custom-btn--primary touch-panel-button' title="Increase Size"><span class="fas fa-caret-right timing-diagram-larger panel-button-icon"></span></button>
+      <button class='custom-btn--primary touch-panel-button' title="Decrease Height"><span class="fas fa-sort-up timing-diagram-small-height panel-button-icon"></span></button>
+      <button class='custom-btn--primary touch-panel-button' title="Increase Height"><span class="fas fa-caret-down timing-diagram-large-height panel-button-icon"></span></button>
+      <button class='custom-btn--primary touch-panel-button' title="Download As Image"><span class="fas fa-download timing-diagram-download"></button>
+      <button class='custom-btn--tertiary touch-panel-button' title="Reset Timing Diagram"><span class="fas fa-undo timing-diagram-reset"></button>
+      <button class='custom-btn--tertiary touch-panel-button' title="Autocalibrate Cycle Units"><span class="fas fa-magic timing-diagram-calibrate"></button>
+      <button class='custom-btn--primary touch-panel-button' title="Zoom In"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
+      <button class='custom-btn--primary touch-panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
+      <button class='custom-btn--primary touch-panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
+      <button class='custom-btn--primary touch-panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
+       </div>
+       <div id="touch-cycle-unit">
+       1 cycle =
+      <input name="timing-diagram-units" id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000" aria-label='timing diagram units'>
+      Units
+      </div>
+      <span id='touch-timing-diagram-log'></span>
+    <div id="plot-touchpanel">
+      <canvas id="plotArea-touchpanel"></canvas>
+    </div>
+</div>
+</div>
+<!-- Quick Menu Panel  -->
+<div id="quickmenu-Popover">
+  <div id="quickMenu">
+    <div class="quickMenu-name">Quick Menu <i class="fas fa-times panelclose"></i></div>
+    <div id="quickMenu-Inner">
+      <button class="quicMenu-align"><i class="fas fa-cloud-download-alt"></i><span class="quicMenu-align-text">Save Online<span></button>
+      <button class="quicMenu-align"><i class="fas fa-download"></i><span class="quicMenu-align-text">Save Offine<span></button>
+      <button class="quicMenu-align"><i class="fas fa-folder-open"></i><span class="quicMenu-align-text">Open Offine<span></button>
+      <button class="quicMenu-align"><i class="fas fa-images"></i><span class="quicMenu-align-text">Dowload Image<span></button>
+      <button class="quicMenu-align"><i class="fas fa-copy"></i> <span class="quicMenu-align-text">Copy Selected<span></button>
+      <button class="quicMenu-align"><i class="fas fa-paste"></i><span class="quicMenu-align-text">Paste Selected <span></button>
+      <button class="quicMenu-align"><i class="fas fa-object-ungroup"></i><span class="quicMenu-align-text">Selection Tool<span></button>
+      <button class="quicMenu-align QuickMenuIcon"><a data-bs-toggle="modal" data-bs-target=".issue"><span class="fa fa-bug"></span><span class="quicMenu-align-text">&nbsp;&nbsp;Report issue<span></a></button>
+    </div>
+  </div>
+</div>
+<!-- Live Menu button  -->
+<div id='liveMenu'>
+  <ul><i class="fas fa-compress-arrows-alt liveMenuIcon"></i></ul>
+  <ul><i class="fas fa-trash-alt liveMenuIcon"></i></ul>
+  <ul><i class="fas fa-undo liveMenuIcon"></i></ul>
+  <ul><i class="fas fa-redo liveMenuIcon"></i></ul>
+</div>
+<!-- /.Potriad Mode Lock -->
+<div id="potraidLockBg">
+</div>
+<div id="lockPortaidMode">
+<span class="portaidIcon"> </span>
+<span id="portaidModeText">Please switch to the landscape mode and refresh to access the simulator</span>
+</div>
+<div class="noSelect defaultCursor layoutElementPanel draggable-panel draggable-panel-css ">
+  <div class="panel-header">Layout Elements
+  <span class="fas fa-minus-square minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class="panel-body">
+    <div class="search-results"></div>
+    <div class="accordion" id="subcircuitMenu"></div>
+  </div>
+</div>
+<div class="timing-diagram-panel draggable-panel" id="time-Diagram">
+<div class="panel-header">Timing Diagram
+  <span class="fas fa-minus-square minimize panel-button"></span>
+  <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
+  </div>
+  <div class="panel-body">
+    <div class='timing-diagram-toolbar noSelect'>
+      <button class='custom-btn--primary panel-button' title="Decrease Size"><span class="fas fa-chevron-left timing-diagram-smaller panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="Increase Size"><span class="fas fa-chevron-right timing-diagram-larger panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="Decrease Height"><span class="fas fa-chevron-up timing-diagram-small-height panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="Increase Height"><span class="fas fa-chevron-down timing-diagram-large-height panel-button-icon"></span></button>
+      <button class='custom-btn--primary panel-button' title="Download As Image"><span class="fas fa-download timing-diagram-download"></button>
+      <button class='custom-btn--tertiary panel-button' title="Reset Timing Diagram"><span class="fas fa-undo timing-diagram-reset"></button>
+      <button class='custom-btn--tertiary panel-button' title="Autocalibrate Cycle Units"><span class="fas fa-magic timing-diagram-calibrate"></button>
+      <button class='custom-btn--primary panel-button' title="Zoom In"><span class="fas fa-search-plus timing-diagram-zoom-in"></button>
+      <button class='custom-btn--primary panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
+      <button class='custom-btn--primary panel-button' title="Resume auto-scroll"><span class="fas fa-play timing-diagram-resume"></button>
+      <button class='custom-btn--primary panel-button' title="Pause auto-scroll"><span class="fas fa-pause timing-diagram-pause"></button>
+      1 cycle =
+      <input id="timing-diagram-units" type="number" min="1" autocomplete="off" value="1000">
+      Units
+      <span id='timing-diagram-log'></span>
+    </div>
+    <div id="plot">
+      <canvas id="plotArea"></canvas>
+    </div>
+  </div>
+</div>
+<div class="testbench-manual-panel draggable-panel noSelect defaultCursor">
+  <div class="panel-header">Testbench
+    <span class="fas fa-minus-square minimize panel-button"></span>
+    <span class="fas fa-external-link-square-alt maximize panel-button-icon"></span>
+  </div>
+  <div class="panel-body tb-test-not-null tb-panel-hidden">
+      <div class="tb-manual-test-data">
+        <div style="margin-bottom: 10px; overflow: auto;">
+          <span class="tb-data" id="data-title"><b>Test:</b> <span></span></span>
+          <span class="tb-data" id="data-type"><b>Type:</b> <span></span></span>
+        </div>
+        <button class="custom-btn--basic panel-button tb-dialog-button" id="edit-test-btn">Edit</button>
+        <button class="custom-btn--tertiary panel-button tb-dialog-button" id="remove-test-btn">Remove</button>
+      </div>
+      <div style="overflow: auto; margin-bottom: 10px;">
+        <div class="tb-manual-test-buttons tb-group-buttons">
+          <span style="line-height: 24px; margin-right: 5px;"><b>Group: </b></span>
+          <button class="custom-btn--basic panel-button tb-case-button-left tb-case-button" id="prev-group-btn"><i class="tb-case-arrow tb-case-arrow-left"></i></button>
+          <span class="tb-test-label group-label"></span>
+          <button class="custom-btn--basic panel-button tb-case-button-right tb-case-button" id="next-group-btn"><i class="tb-case-arrow tb-case-arrow-right"></i></button>
+        </div>
+        <div class="tb-manual-test-buttons tb-case-buttons">
+          <span style="line-height: 24px; margin-right: 5px;"><b>Case: </b></span>
+          <button class="custom-btn--basic panel-button tb-case-button-left tb-case-button" id="prev-case-btn"><i class="tb-case-arrow tb-case-arrow-left"></i></button>
+          <span class="tb-test-label case-label"></span>
+          <button class="custom-btn--basic panel-button tb-case-button-right tb-case-button" id="next-case-btn"><i class="tb-case-arrow tb-case-arrow-right"></i></button>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <table class="tb-manual-table">
+            <tr id="tb-manual-table-labels">
+                <th>LABELS</th>
+            </tr>
+            <tr id="tb-manual-table-bitwidths">
+                <td>Bitwidth</td>
+            </tr>
+            <tr id="tb-manual-table-current-case">
+              <td>Current Case</td>
+            </tr>
+            <tr id="tb-manual-table-test-result">
+              <td>Result</td>
+            </tr>
+        </table>
+      </div>
+      <div style="display: table; margin-top: 20px; margin-left: 8px;">
+        <div class="testbench-manual-panel-buttons">
+          <button class="custom-btn--basic panel-button tb-dialog-button" id="validate-btn">Validate</button>
+          <button class="custom-btn--primary panel-button tb-dialog-button" id="runall-btn">Run All</button>
+        </div>
+        <span class="testbench-runall-label">
+          <span id="runall-summary">placeholder</span> Tests Passed <span id="runall-detailed-link" style="color: #18A2CD;">View Detailed</span>
+        </span>
+      </div>
+  </div>
+  <div class="panel-body tb-test-null">
+    <div class="tb-manual-test-data">
+        <div style="margin-bottom: 10px; overflow: auto;">
+          <p><i>No Test is attached to the current circuit</i></p>
+        </div>
+        <button class="custom-btn--primary panel-button tb-dialog-button" id="attach-test-btn">Attach Test</button>
+      </div>
+  </div>
+</div>
+<div id="MessageDiv"></div>
+<div class="noSelect defaultCursor draggable-panel draggable-panel-css" id="verilogEditorPanel">
+  <div class="panel-header">Verilog Module
+  <span class="fas fa-minus-square minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class="panel-body">
+    <div class="layout-body">
+      <button class="largeButton btn logixButton btn-xs custom-btn--tertiary" id="resetVerilogCode">Reset Code</button>
+      <button class="largeButton btn logixButton btn-xs custom-btn--primary" id="saveVerilogCode">Save Code</button>
+      <div id="verilogOutput">
+      This is an experimental module. The code is not saved unless the "Save Code" button is clicked.
+      </div>
+    </div>
+  </div>
+  <div class="panel-header text-center">Apply Themes</div>
+  <div class="panel-body">
+    <div class="layout-body">
+      <div>
+        <p class="text-center mb-2">Select a theme: </p>
+          <select id="selectVerilogTheme" class="applyTheme" style="width:90%;" aria-label="select verilog theme">
+            <optgroup label="Light Themes">
+              <option>default</option>
+              <option>solarized</option>
+              <option>elegant</option>
+              <option>neat</option>
+              <option>idea</option>
+              <option>neo</option>
+            </optgroup>
+            <optgroup label="Dark Themes">
+              <option>blackboard</option>
+              <option>cobalt</option>
+              <option>night</option>
+              <option>the-matrix</option>
+              <option>midnight</option>
+              <option>monokai</option>
+            </optgroup>
+          </select>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="moduleProperty noSelect effect1 properties-panel draggable-panel draggable-panel-css  guide_2" id="moduleProperty">
+  <div id="moduleProperty-title" class="noSelect panel-header">Properties
+  <span class="fas fa-minus-square minimize"></span>
+  <span class="fas fa-external-link-square-alt maximize"></span>
+  </div>
+  <div class='panel-body'> <div id="moduleProperty-inner"></div></div>
+</div>
+<div id="customShortcutDialog" title="Keybinding Preference"></div>
+<div id="layoutDialog" class="draggable-panel draggable-panel-css">
+  <div class="panel-header d-flex justify-content-between align-items-center">
+      Layout
+      <span class="fas fa-minus-square minimize" aria-label="Minimize dialog"></span>
+      <span class="fas fa-external-link-square-alt maximize" aria-label="Maximize dialog"></span>
+  </div>
+  <div class="layout-body panel-body" id="layout-body">
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <button class="zoomButton btn btn-lg" id="decreaseLayoutWidth" title="Decrease Width" aria-label="Decrease Width">
+        <span class="fa fa-minus" aria-hidden="true"></span>
+      </button>
+      <span>Width</span>
+      <button class="zoomButton btn btn-lg" id="increaseLayoutWidth" title="Increase Width" aria-label="Increase Width">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <button class="zoomButton btn btn-lg" id="decreaseLayoutHeight" title="Decrease Height" aria-label="Decrease Height">
+        <span class="fa fa-minus" aria-hidden="true"></span>
+      </button>
+      <span>Height</span>
+      <button class="zoomButton btn btn-lg" id="increaseLayoutHeight" title="Increase Height" aria-label="Increase Height">
+        <span class="fa fa-plus" aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="d-flex align-items-center justify-content-center mb-2">
+      <span>Reset all nodes:</span>
+      <button class="zoomButton btn btn-lg" aria-label="Reset all nodes" id="layoutResetNodes">
+        <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
+      </button>
+    </div>
+    <div class="layout-title mb-2">
+      <span>Title</span>
+      <div class="layout--btn-group d-flex gap-2">
+        <!-- Title Control Buttons with SVGs and aria-labels -->
+        <button class="zoomButton-up btn btn-lg no-select" id="layoutTitleUp" aria-label="Move title up">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff" />
+          </svg>
+        </button>
+        <button class="zoomButton-down btn btn-lg no-select" id="layoutTitleDown" aria-label="Move title down">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff" />
+          </svg>
+        </button>
+        <button class="zoomButton-left btn btn-lg no-select" id="layoutTitleLeft" aria-label="Move title left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(18.1 9.655) rotate(90)" fill="#fff" />
+          </svg>
+        </button>
+        <button class="zoomButton-right btn btn-lg no-select" id="layoutTitleRight" aria-label="Move title right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="layout-title--enable d-flex align-items-center justify-content-between mb-2">
+      <span>Title Enabled:</span>
+      <label class="switch">
+        <input type="checkbox" checked id="toggleLayoutTitle" aria-label="Toggle title visibility">
+        <span class="slider"></span>
+      </label>
+    </div>
+    <div class="d-flex justify-content-between mt-3">
+      <button class="Layout-btn custom-btn--primary btn btn-success" id="saveLayout" aria-label="Save layout settings">Save</button>
+      <button class="Layout-btn custom-btn--tertiary btn btn-danger" id="cancelLayout" aria-label="Cancel layout changes">Cancel</button>
+    </div>
+  </div>
+</div>
+<div id="saveImageDialog" class="noSelect" style="display: none;" title="Render Image">
+  <div class="download-dialog-section-1">
+    <label class="option custom-radio inline"><input
+        type="radio"
+        name="imgType"
+        value="png"
+        checked="checked">PNG<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="jpeg">JPEG<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="svg">SVG<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="bmp">BMP<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="gif">GIF<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="imgType" value="tiff">TIFF<span></span></label>
+  </div>
+  <div class="download-dialog-section-2">
+    <div
+      class="option inline btn-group btn-group-toggle"
+      style="border: none;"
+      data-bs-toggle="buttons">
+      <div class="btn" id="radio-full" role="button">
+        <input type="radio" name="view" value="full"> Full Circuit View
+      </div>
+      <div class="btn active" id="radio-current" role="button">
+        <input
+          type="radio"
+          name="view"
+          value="current"
+          checked="checked">Current View
+      </div>
+    </div>
+    <div class="download-dialog-section-2_2">
+      <label class="cb-checkbox"><input
+          type="checkbox"
+          name="transparent"
+          value="transparent">Transparent Background</label>
+    </div>
+  </div>
+  <div class="download-dialog-section-3">
+    <span>Resolution:</span>
+    <label class="option custom-radio inline"><input
+        type="radio"
+        name="resolution"
+        value="1"
+        checked="checked">1x<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="resolution" value="2">2x<span></span></label>
+    <label class="option custom-radio inline"><input type="radio" name="resolution" value="4">4x<span></span></label>
+  </div>
+</div>
+<div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex="0" style="display: none;" title="Select Theme"></div>
+<div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
+<input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
+
+<div class="simulation" id="simulation">
+  <div id="restrictedDiv" class="alert alert-danger display--none"></div>
+  <% if @project&.assignment_id.present? &&
+  @project&.assignment&.elements_restricted? %>
+  <div id="restrictedElementsDiv" class="alert alert-danger">
+    <div>
+      Restricted elements used:
+      <span id="restrictedElementsDiv--list"> </span>
+    </div>
+  </div>
+  <% end %>
+  <div class="canvasArea" id="canvasArea">
+    <canvas
+      id="backgroundArea"
+      style="
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+      "></canvas>
+    <canvas
+      id="simulationArea"
+      style="
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+      "></canvas>
+    <div id="miniMap">
+      <canvas
+        id="miniMapArea"
+        style="position: absolute; left: 0; top: 0; z-index: 3;"></canvas>
+    </div>
+    <div id="contextMenu" oncontextmenu="return false;">
+      <ul>
+        <li onclick="menuItemClicked(2)">Paste</li>
+        <li onclick="menuItemClicked(0)">Copy</li>
+        <li onclick="menuItemClicked(1)">Cut</li>
+        <li onclick="menuItemClicked(3)">Delete</li>
+        <li onclick="menuItemClicked(4)">Undo</li>
+        <li onclick="menuItemClicked(5)">New Circuit</li>
+        <li onclick="menuItemClicked(6)">Insert SubCircuit</li>
+        <li onclick="menuItemClicked(7)">Center Focus</li>
+      </ul>
+    </div>
+    <div id="Help"></div>
+    <div
+      class="sk-folding-cube loadingIcon"
+      style="
+        display: none;
+        position: absolute;
+        right: 50%;
+        bottom: 50%;
+        z-index: 100;
+      ">
+      <div class="sk-cube1 sk-cube"></div>
+      <div class="sk-cube2 sk-cube"></div>
+      <div class="sk-cube4 sk-cube"></div>
+      <div class="sk-cube3 sk-cube"></div>
+    </div>
+  </div>
+</div>
+<div
+  id="ExportCircuitFilesDialog"
+  class='customScroll'
+  tabindex="0"
+  style="display: none;"
+  title="Export as file"></div>
+<div
+  id="ImportCircuitFilesDialog"
+  class='customScroll'
+  tabindex="0"
+  style="display: none;"
+  title="Import as file"></div>
+<div
+  id="combinationalAnalysis"
+  style="display: none;"
+  title="BooleanLogicTable"></div>
+<div
+  id="setTestbenchData"
+  style="display: none;"
+  title="Create Test"></div>
+<div
+  id="testbenchValidate"
+  style="display: none;"
+  title="Testbench Validation"></div>
+<div
+  id="insertSubcircuitDialog"
+  class="subcircuitdialog"
+  title="Insert SubCircuit"></div>
+<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton ps-1" id="newCircuit">New Circuit +</a></div>
+<div id="openProjectDialog" style="display: none;" title="Open Project"></div>
+<div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
+    <label>Decimal value</label><br><input type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
+    <label>Binary value</label><br><input type='text' id='binaryInput' value='0b10000' label="Binary" name='text1'><br><br>
+    <label>Binary-coded decimal value</label><br><input type='text' id='bcdInput' value='10110' label="BCD" name='text1'><br><br>
+    <label>Octal value</label><br><input type='text' id='octalInput' value='020' label="Octal" name='text1'><br><br>
+    <label>Hexadecimal value</label><br><input type='text' id='hexInput' value='0x10' label="Hex" name='text1'><br><br>
+</div>
+<!---issue reporting-system----->
+<div class="report-sidebar">
+  <a
+    type="button"
+    class="btn btn-primary text-light"
+    data-bs-toggle="modal"
+    data-bs-target=".issue">
+    <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a>
+</div>
+
+<!---issue reporting system-modal---->
+<div
+  class="modal fade issue"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="mySmallModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="container my-2">
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close">
+        </button>
+        <div class="container text-center">
+          <h4>Report an issue</h4>
+        </div>
+        <hr>
+
+        <%# TEMPORARY %>
+        <center>
+        Bug reporting from here will be back soon, until then help make CircuitVerse better by reporting simulator issues to us on Slack.
+        <br><br><a href="https://circuitverse-team.slack.com/archives/C010HK6TWQG" style="color: blue;">Click Here to report an issue</a><br><br>
+        Thank you for your time.
+        </center>
+        <%# /TEMPORARY %>
+
+        <%# <div class="container my-2 text-center" id="result"></div>
+        <label id="report-label" style="font-weight: lighter;"><b>Describe your issue:</b></label>
+        <div class="mb-3">
+          <textarea
+            class="form-control border-primary"
+            id="issuetext"
+            rows="3"></textarea>
+        </div>
+        <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
+        <div class="mb-3">
+          <input class="form-control border-primary" type="email" id="emailtext" rows="3">
+        </div>
+        <div class="container">
+          <center>
+            <button type="submit" id="report" class="btn btn-primary">
+              Report
+            </button>
+          </center>
+        </div> %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+window.addEventListener("load", function() {
+  $('#newCircuit').click(function () {
+    return $('#insertSubcircuitDialog').dialog('close');
+  });
+})
+</script>
+
+<script>
+window.addEventListener("load", function() {
+  <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %>
+  let restricted_feature = '<%= @project.assignment.feature_restrictions %>'
+  if(restricted_feature.includes('Combinational Analysis Tool')) {
+    $('#createCombinationalAnalysisPrompt').attr("style", "display:none")
+  }
+  if(restricted_feature.includes('Verilog tools')) {
+    $('#generateVerilog').attr("style", "display:none")
+  }
+  <% end %>
+})
+</script>
+
+<script>
+  const embed = false;
+  user_id = "<%= user_signed_in? ? " #{current_user.id} - #{current_user.name}" : "Guest user" %>";
+  var listenToSimulator=true
+  <% if @project&.assignment_id.present? %>
+  restrictedElements = JSON.parse('<%= raw @project&.assignment&.clean_restricted_elements %>');
+  <% else %>
+  restrictedElements = [];
+  <% end %>
+</script>
+
+<!-- on hover for dropdowns -->
+<script>
+window.addEventListener("load", function() {
+  $('.dropdown-toggle').hover(function () {
+    $('.dropdown.open').removeClass('open');
+    $(this).parent('.dropdown').addClass('open');
+  });
+})
+</script>
+
+<link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
+
+<script type="text/javascript" src="/js/metadata.json"></script>
+<script type="text/javascript">
+    var dropdownButton = document.getElementById('dropdownButton');
+    var dropdownIcon = document.getElementById('dropdownIcon');
+
+    dropdownButton.addEventListener('click', function() {
+    dropdownIcon.classList.toggle('fa-bars');
+    dropdownIcon.classList.toggle('fa-times');
+    dropdownIcon.style.width='17.5px'
+  });
+</script>
+
+<script>
+window.addEventListener("load", function() {
+  $(function(){
+      $(".btn-group-toggle").twbsToggleButtons();
+    });
+
+  $(function(){
+    $("#openProjectDialog").checkBo();
+    $(".download-dialog-section-2_2").checkBo();
+  });
+});
+</script>
+<script src="/js/data.js"></script>

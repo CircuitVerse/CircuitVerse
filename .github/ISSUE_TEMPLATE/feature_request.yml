@@ -21,12 +21,15 @@ body:
     description: A clear and concise description of any alternative solutions or features you've considered
   validations:
     required: false
+<<<<<<< HEAD
 - type: textarea
   attributes:
     label: Is requested feature related to vue simulator?
     description: A clear and concise description of what the feature request is for
   validations:
     required: true
+=======
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
 - type: input
   attributes:
     label: Additional context
@@ -40,4 +43,8 @@ body:
       - 'Yes'
       - 'No'
   validations:
+<<<<<<< HEAD
     required: true  
+=======
+    required: true    
+>>>>>>> b80d1704a8106d7beaeef380b9cfd9ffbc32fb8d
