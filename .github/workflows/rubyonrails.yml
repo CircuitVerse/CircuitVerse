@@ -53,7 +53,7 @@ jobs:
         with:
           reviewdog_version: latest
 
-      - run: yarn install --frozen-lockfile --immutable
+      - run: yarn install
 
       - name: Copy the sample ENV Config
         run: cp .env.example .env
