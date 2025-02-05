@@ -50,7 +50,6 @@ class User < ApplicationRecord
                                              message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
-  validates :name, length: { minimum: 1 }
   validates :name, length: { maximum: 500 }
   validate :clean_name
 

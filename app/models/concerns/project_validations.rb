@@ -5,6 +5,7 @@ module ProjectValidations
   include LanguageFilterable
 
   included do
+    validates :name, length: { minimum: 1, maximum: 500 }
     validates :description, length: { maximum: 10_000 }
     validates :slug, uniqueness: true
 
