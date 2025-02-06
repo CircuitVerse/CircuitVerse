@@ -1,141 +1,161 @@
 @import 'theme';
 
-// layout
+/* Layout */
 body {
   font-family: "Open Sans", sans-serif;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 768px;
-  padding-left: 10px;
-  padding-right: 10px;
+  margin: 0; 
+  padding: 0; 
   text-align: center;
+  color: #333;
+  overflow-x: hidden; 
 }
 
-.mailer-logo-container {
-  text-align: left;
+h2 {
+  font-size: 28px;
+  text-align: center;
+  margin: 30px 0;
+  color: #2c3e50;
 }
 
-.mailer-body-container {
-  text-align: left;
-}
-
-.mailer-horizontal-rule {
-  max-width: 50%;
-  opacity: .4;
-}
-
-.mailer-social-link-text {
-  margin-top: 25px;
-}
-
-.mailer-social-container {
-  display: flex;
-  justify-content: center;
-  margin: 15px;
-}
-
-.mailer-social-link {
-  margin: 10px;
-}
-
-.mailer-copyright-text {
-  margin: 10px;
-  margin-top: 30px;
-  opacity: .5;
-}
-
-.mailer-text {
-  font-weight: 400;
+.mailer-group-image {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  display: block;
 }
 
 .mailer-welcome-text {
-  margin-left: auto;
-  margin-right: auto;
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 700px;
+  margin: 20px auto;
   text-align: center;
+  color: #555;
 }
 
-.mailer-highlighted-text {
-  font-weight: 600;
+
+.mailer-launch-container {
+  margin: 25px 0;
 }
 
 .mailer-button {
-  background-color: $primary-green;
-  border-radius: 4px;
-  color: $white;
   display: inline-block;
-  margin: 5px;
-  padding: 10px 20px;
+  background: $primary-green;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 5px;
   text-decoration: none;
-  width: 220px;
+  font-weight: 600;
+  transition: background 0.3s ease;
 }
 
+
+
+/* Features, Design, Learn - Flex Container */
 .mailer-showcase-container {
-  display: inline-block;
+  display: flex;
+  justify-content: space-evenly;
+  gap: 30px;
+  flex-wrap: nowrap; 
+  width: 100%;
+  max-width: 1200px; 
+  margin: 40px auto; 
+  padding: 20px;
+  box-sizing: border-box; 
 }
 
 .mailer-showcase-card {
-  display: inline-block;
-  padding: 15px 20px;
-  width: 250px;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+  flex: 1;
+  min-width: 250px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 25px;
+  text-align: left; 
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2);
 }
 
-.mailer-showcase-card-image {
-  max-width: 80%;
+.image-holder {
+  display: flex;
+  align-items: center; 
+  gap: 10px; 
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.mailer-showcase-card img {
+  width: 40px;  
+  height: 40px;
+  object-fit: contain;
+  margin: 0; 
 }
 
 .mailer-showcase-heading {
-  margin-top: 0;
+  margin: 0;
+  font-size: 18px;
 }
+
 
 .mailer-showcase-text {
   font-size: 15px;
+  line-height: 1.5;
+  color: #666;
+  margin: 15px 0;
+  text-align: left;
 }
 
 .mailer-showcase-card-button {
-  width: 120px;
+  display: inline-block;
+  color: white;
+  padding: 8px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
 }
 
-// breakpoints
-@media (max-width: 674px) {
-  .mailer-logo {
-    width: 180px;
+ 
+
+.know-more-link {
+  color: #333; 
+  text-decoration: none; 
+  font-family: 'Poppins', sans-serif; 
+  font-size: 18px; 
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  transition: color 0.3s ease-in-out;
+}
+
+.know-more-link:hover {
+  color: #2c3e50; 
+}
+
+.know-more-arrow {
+  margin-left: 10px; 
+  
+
+}
+
+
+@media (max-width: 768px) {
+  h2 {
+      font-size: 24px;
   }
 
-  .mailer-group-image {
-    width: 75%;
+  .mailer-showcase-container {
+      flex-direction: column;
+      align-items: center;
   }
 
-  .mailer-assignment-image {
-    width: 50%;
-  }
-
-  .mailer-social-image {
-    width: 30px;
+  .mailer-showcase-card {
+      margin: 15px 0;
   }
 
   .mailer-welcome-text {
-    max-width: 90%;
-  }
-}
-
-@media (min-width: 675px) {
-  .mailer-logo {
-    width: 230px;
-  }
-
-  .mailer-group-image {
-    width: 60%;
-  }
-
-  .mailer-assignment-image {
-    width: 35%;
-  }
-
-  .mailer-social-image {
-    width: 45px;
-  }
-
-  .mailer-welcome-text {
-    max-width: 70%;
+      font-size: 16px;
   }
 }
