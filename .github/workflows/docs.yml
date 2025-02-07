@@ -15,10 +15,10 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
 
       - name: jsdocs-dep
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: jsdocs-generate
         run: node ./node_modules/jsdoc/jsdoc.js ./simulator/src -r -c ./conf.json -t ./node_modules/better-docs -d ./out
