@@ -78,6 +78,7 @@ export const tour = [
     //         // offset: 250,
     //     },
     // },
+    /*
     {
         element: '.fa-bug',
         popover: {
@@ -88,6 +89,7 @@ export const tour = [
             offset: -105,
         },
     },
+    */
     {
         element: '.tour-help',
         popover: {
