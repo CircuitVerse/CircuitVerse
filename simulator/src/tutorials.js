@@ -10,7 +10,7 @@ export const tour = [
             title: 'Circuit Elements panel',
             description: 'This is where you can find all the circuit elements that are offered to build amazing circuits.',
             position: 'right',
-            offset: 160,
+            // offset: 160,
         },
     },
     {
@@ -19,7 +19,7 @@ export const tour = [
             title: 'Properties Panel',
             description: 'This panel lets you change element properties as they are selected. When no elements are selected, the panel displays project properties.',
             position: 'left',
-            offset: 200,
+            // offset: 200,
         },
     },
     {
@@ -28,7 +28,7 @@ export const tour = [
             title: 'Quick Access Panel',
             description: 'This movable panel offers to perform some actions like Save Online, Open, Download quickly. Hover over the icons and see for yourself',
             position: 'bottom',
-            // offset: 750,
+            align: 'center',
         },
     },
     // {
@@ -42,12 +42,13 @@ export const tour = [
     //     },
     // },
     {
-        element: '#tabsBar',
+        element: '.combined-navbar',
         popover: {
             title: 'Circuit Tabs',
             description: 'This section displays all the circuits you have in your project. You can easily add and delete circuits.',
             position: 'bottom',
-            offset: 250,
+            align: 'start',
+            offsetY: -10,
         },
     },
     {
@@ -65,6 +66,7 @@ export const tour = [
             title: 'Test Bench Panel',
             description: 'This panel helps you test your circuit correctness by observing how your circuit responds under different test cases, ensuring a thorough and effective validation process.',
             position: 'right',
+            align: 'end',
             offset: 0,
         },
     },
@@ -79,23 +81,26 @@ export const tour = [
     //     },
     // },
     {
-        element: '.fa-bug',
+        element: '.btn-primary .fa-bug',
         popover: {
             className: 'bug-guide',
             title: 'Report System',
             description: 'You can report any issues/bugs you face through this issue reporting button there and then quickly.',
             position: 'left',
             offset: -105,
+            align: 'end',
         },
     },
     {
-        element: '.tour-help',
+        element: '.combined-navbar',
         popover: {
             className: 'tourHelpStep',
             title: 'Restart tutorial anytime',
             description: 'You can restart this tutorial anytime by clicking on "Tutorial Guide" under this dropdown.',
-            position: 'right',
-            offset: 0,
+            position: 'bottom',
+            offset: 365,
+            align: 'end',
+            offsetY: -10,
         },
     },
 
@@ -125,7 +130,7 @@ export const touchTour = [
         },
     },
     {
-        element: '#tabsBar',
+        element: '#combined-navbar>#tabsBar',
         popover: {
             title: 'Circuit Tabs',
             description: 'This section displays all the circuits you have in your project. You can easily add and delete circuits.',
@@ -177,6 +182,8 @@ const animatedTourDriver = new Driver({
 });
 
 export function showTourGuide() {
+    // const target=document.querySelector('#combined-navbar>#tabsBar');
+    // console.log(target);
     $('.draggable-panel .maximize').trigger('click');
     if (window.screen.width > 1000) {
         animatedTourDriver.defineSteps(tour);
@@ -185,6 +192,7 @@ export function showTourGuide() {
     }
     animatedTourDriver.start();
     localStorage.setItem('tutorials_tour_done', true);
+    animatedTourDriver.refresh();
 }
 
 export default showTourGuide;

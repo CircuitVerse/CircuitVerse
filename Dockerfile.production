@@ -47,13 +47,6 @@ RUN mkdir -p /public/
 
 WORKDIR /app
 
-# Copy package files and install Vue simulator dependecies
-COPY cv-frontend-vue/package.json cv-frontend-vue/package-lock.json ./
-RUN npm install --ignore-scripts
-COPY cv-frontend-vue/ ./
-
-# Build Vue simualtor
-RUN npm run build
 
 FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim as app
 

@@ -126,7 +126,13 @@ input[type="text"]:focus {
     user-select: none;
     -o-user-select: none;
 }
-
+#combined-navbar{
+    position:fixed;
+    display: block;
+    margin-top:0px;
+    width : 100%;
+    z-index:101;
+}
 .navbar-menu {
     position: relative;
     transition: all 0.2s ease-in-out;
@@ -236,7 +242,7 @@ input[type="text"]:focus {
 
 .quick-btn {
     display: flex;
-    position: absolute;
+    position: fixed;
     width: 400px;
     height: 33px;
     top: 90px;
@@ -602,7 +608,6 @@ div.icon img {
 #tabsBar {
     top: 0px;
     width: 100%;
-    /* height: 23.5px; */
     display: block;
     align-items: center;
     z-index: 100;
