@@ -27,22 +27,22 @@ class Users::NoticedNotificationsController < ApplicationController
 
   private
 
-  def redirect_path_for(answer)
-    case answer.type
-    when "new_assignment"
-      group_assignment_path(answer.first_param, answer.second)
-    when "star", "fork"
-      user_project_path(answer.first_param, answer.second)
-    when "forum_comment"
-      simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
-    when "forum_thread"
-      simple_discussion.forum_thread_path(answer.first_param)
-    when "new_contest"
-      contest_page_path(answer.first_param)
-    when "contest_winner"
-      featured_circuits_path
-    else
-      root_path
+    def redirect_path_for(answer) # rubocop:disable Metrics/MethodLength
+      case answer.type
+      when "new_assignment"
+        group_assignment_path(answer.first_param, answer.second)
+      when "star", "fork"
+        user_project_path(answer.first_param, answer.second)
+      when "forum_comment"
+        simple_discussion.forum_thread_path(answer.first_param, anchor: "forum_post_#{answer.second}")
+      when "forum_thread"
+        simple_discussion.forum_thread_path(answer.first_param)
+      when "new_contest"
+        contest_page_path(answer.first_param)
+      when "contest_winner"
+        featured_circuits_path
+      else
+        root_path
+      end
     end
-  end
 end
