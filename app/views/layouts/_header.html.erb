@@ -74,6 +74,8 @@
     var gettingStartedLink = document.querySelector("#getting-started-dropdown");
     var gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
     gettingStartedLink.addEventListener("click", function (e) {
+     e.preventDefault();
+       e.stopPropagation();
       if(gettingStartedLink.classList.contains("rotate180")){
         gettingStartedLink.classList.remove("rotate180");
         gettingStartedDropdown.hide();
@@ -81,7 +83,6 @@
         gettingStartedLink.classList.add("rotate180");
         gettingStartedDropdown.show();
       }
-      e.stopPropagation();
     });
     document.addEventListener("click", function () {
      gettingStartedLink.classList.remove("rotate180");
