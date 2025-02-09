@@ -43,9 +43,9 @@ cd CircuitVerse
      ```bash
      sudo apt install imagemagick
      ```
-- [Node.js 16.x](https://nodejs.org/it/download)
+- [Node.js 22.x](https://nodejs.org/it/download)
      ```bash
-     curl -sL https://deb.nodesource.com/setup_16.x | sudo bash
+     curl -sL https://deb.nodesource.com/setup_22.x | sudo bash
      sudo apt-get update && sudo apt-get install -y nodejs
      ```
 - [Yarn](https://yarnpkg.com/getting-started/install)
