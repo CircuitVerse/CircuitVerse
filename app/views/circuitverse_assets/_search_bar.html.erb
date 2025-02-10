@@ -1,6 +1,6 @@
 <div class="container navbar-search-container">
   <div class="row center-row">
-  <%= form_tag("/search", method: "get", id: "search-box", class: "navbar-search-bar-form") do %>
+  <%= form_tag("/search", method: "get", id: "search-box", class: "navbar-search-bar-form", onsubmit: "return validateSearchInput()") do %>
     <%= select_tag :resource, options_for_select(%w[Users Projects], selected: params[:resource]), class: "navbar-search-bar-select", id: "search_type", onchange: "changePlaceholder()" %>
     <%= text_field_tag :q, params[:q], placeholder: "Search for projects or users", autocomplete: "off", class: "form-control form-input navbar-search-bar-input" %>
     <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
@@ -19,5 +19,14 @@
     } else {
       inputElement.placeholder = 'Search for projects or users';
     }
+  }
+
+  function validateSearchInput() {
+    var inputElement = document.getElementsByClassName('navbar-search-bar-input')[0];
+    if (inputElement.value.trim() === "") {
+      alert("Empty input can't be searched");
+      return false;
+    }
+    return true;
   }
 </script>
