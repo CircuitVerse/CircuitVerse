@@ -42,6 +42,23 @@
               <a class="btn primary-button home-simulator-button" href='/simulator'><%= t("launch_simulator") %></a>
               <a href="https://learn.circuitverse.org/" target="blank" class="btn anchor-text-button anchor-text"><%= t("circuitverse.index.learn_logic_design") %></a>
             </div>
+
+            <!-- Horizontal statistics bar -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <strong>Circuits:</strong> 72K+
+  </div>
+  <div class="stat-item">
+    <strong>Users:</strong> 200K+
+  </div>
+  <div class="stat-item">
+    <strong>Universities:</strong> 500
+  </div>
+  <div class="stat-item">
+    <strong>Countries:</strong> 9
+  </div>
+</div>
+
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
@@ -265,3 +282,27 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
+
+    <style> 
+    /* CSS for the horizontal statistics bar */
+.stats-bar {
+  display: flex;
+  justify-content: space-around;  /* Distribute items evenly */
+  align-items: center;
+  background: rgba(20, 163, 106, 0.76);
+  padding: 15px;
+  margin-top: 20px;
+  border-radius: 10px;
+  color: #000;
+}
+
+.stat-item {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-item strong {
+  color: #000;  /* Set strong text color to black */
+}
+<style />
