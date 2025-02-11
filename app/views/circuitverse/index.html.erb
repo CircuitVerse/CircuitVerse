@@ -24,9 +24,9 @@
    } %>
 
     <% if notice %>
-    <div class="row" id='alertdiv'>
+    <div class="row" id='alertdiv' role="alert" aria-live="assertive">
       <div class="alert alert-success alert-dismissible container text-center">
-        <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+        <a href="#" class="btn-close" data-bs-dismiss="alert" role="button" aria-label="Close alert" title="Close alert"></a>
         <h6><%= notice %></h6>
       </div>
     </div>
@@ -50,8 +50,8 @@
       </div>
       <div class="row">
         <div class="col-12 home-tertiary-button-container">
-          <a class="btn tertiary-button" href="/teachers"><%= t("circuitverse.index.for_teachers") %></a>
-          <a class="btn tertiary-button" href="/contribute"><%= t("circuitverse.index.for_contributors") %></a>
+          <a class="btn tertiary-button" href="/teachers" role="button" aria-label="<%= t('circuitverse.index.for_teachers') %>"><%= t("circuitverse.index.for_teachers") %></a>
+          <a class="btn tertiary-button" href="/contribute" role="button" aria-label="<%= t('circuitverse.index.for_teachers') %>"><%= t("circuitverse.index.for_contributors") %></a>
         </div>
       </div>
       <div id="home-features-section" class="row center-row" style="scroll-margin-top: 100px;">
@@ -124,7 +124,8 @@
                 <p><%= t("circuitverse.index.featured_examples.circuit1_text") %></p>
                 <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit1_text") %></span>
               </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/248"><%= t("view") %></a>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/248" role="button" 
+   aria-label="<%= t('view') %> - <%= t('view_project_details') %>"><%= t("view") %></a>
             </div>
           </div>
         </div>
@@ -136,7 +137,8 @@
                 <p><%= t("circuitverse.index.featured_examples.circuit2_text") %></p>
                 <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit2_text") %></span>
               </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/67"><%= t("view") %></a>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/67" role="button" 
+   aria-label="<%= t('view') %> - <%= t('view_project_details') %>" ><%= t("view") %></a>
             </div>
           </div>
         </div>
@@ -148,14 +150,16 @@
                 <p><%= t("circuitverse.index.featured_examples.circuit3_text") %></p>
                 <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit3_text") %></span>
               </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/247"><%= t("view") %></a>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/247" role="button" 
+   aria-label="<%= t('view') %> - <%= t('view_project_details') %>"><%= t("view") %></a>
             </div>
           </div>
         </div>
       </div>
       <div class="row center-row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-          <a class="btn primary-button homepage-primary-button-feature" href="/examples"><%= t("circuitverse.index.explore_more") %></a>
+          <a class="btn primary-button homepage-primary-button-feature" href="/examples" role="button" 
+   aria-label="<%= t('explore_more') %> - <%= t('discover_examples') %>"><%= t("circuitverse.index.explore_more") %></a>
         </div>
       </div>
     </div>
@@ -178,7 +182,8 @@
                       <p><%= circuit.name %></p>
                       <span class="tooltiptext"><%= circuit.name %></span>
                     </div>
-                    <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>"><%= t("view") %></a>
+                    <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>" role="button" 
+   aria-label="<%= t('view') %> - <%= t('view_project_by_author', { author: circuit.author }) %>" ><%= t("view") %></a>
                   </div>
                 </div>
               </div>
@@ -187,7 +192,8 @@
         <% end %>
         <div class="row center-row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <a class="btn primary-button homepage-primary-button-feature" href="/featured_circuits"><%= t("circuitverse.index.explore_more") %></a>
+              <a class="btn primary-button homepage-primary-button-feature" href="/featured_circuits" role="button" 
+   aria-label="<%= t('circuitverse.index.explore_more') %> - <%= t('circuitverse.index.view_more_featured_circuits') %>" ><%= t("circuitverse.index.explore_more") %></a>
             </div>
         </div>
       </div>
@@ -210,7 +216,8 @@
                     <p><%= project.name %></p>
                     <span class="tooltiptext"><%= project.name %></span>
                   </div>
-                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>"><%= t("view") %></a>
+                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>" role="button" 
+   aria-label="<%= t('view') %> - <%= t('circuitverse.index.view_project_details') %>" ><%= t("view") %></a>
                 </div>
               </div>
             </div>
