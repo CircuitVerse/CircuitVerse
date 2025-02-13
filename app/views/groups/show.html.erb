@@ -42,7 +42,7 @@
   <% end %>
 </div>
 <hr>
-<% if @group.group_members.mentor.blank? %>
+<% if @group.group_members.mentor.blank? && (policy(@group).admin_access? || policy(@group).mentor_access?) %>
   <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
 <% end %>
 <div class="row">
@@ -62,7 +62,12 @@
   <% end %>
 </div>
 <hr>
-<% if @group.group_members.member.blank? %>
+<% 
+  user_role= @group.group_members.find_by(user_id: current_user.id)
+  is_regular_mentor = user_role&.mentor? 
+  is_primary_mentor = policy(@group).admin_access?   
+%>
+<% if @group.group_members.member.blank? && !(is_regular_mentor && !is_primary_mentor) %>
   <span class="null-text"><%= t("groups.show.no_members_html") %></span>
 <% end %>
 <div class="row">
@@ -78,11 +83,12 @@
       class: "btn primary-button groups-primary-button" %>
   <% end %>
 </div>
+<% if @group.assignments.blank? && (policy(@group).admin_access? || policy(@group).mentor_access?) %>
+  <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
+<% else %>
   <hr>
   <table class="table table-borderless groups-table">
-    <% if @group.assignments.empty? %>
-      <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
-    <% else %>
+    <% if policy(@group).admin_access? || policy(@group).mentor_access? %>
       <thead class="groups-table-heading">
         <tr>
           <th><%= t("groups.show.assignment.assignment_table_head.name") %></th>
@@ -218,6 +224,8 @@
         <tr class="groups-expanded-empty-table-row"></tr>
       <% end %>
     </tbody>
+  </table>
+<% end %>
 
     <tbody class="groups-collapsed-table">
       <% @group.assignments.includes(projects: :grade).each do |assignment| %>
