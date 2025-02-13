@@ -73,9 +73,10 @@ export default class TflipFlop extends CircuitElement {
      * We flip the bits to find qInvOutput
      */
     resolve() {
-        if (this.preset.value == 1) {
-            this.masterState = this.slaveState = 1;
-        } else if (this.reset.value == 1) {
+        if (this.preset.value === 1) {
+            this.masterState = 1;
+            this.slaveState = 1;
+        } else if (this.reset.value === 1) {
             // if reset bit is set
             this.masterState = this.slaveState = this.preset.value || 0;
         } else if (this.en.value == 0) {
