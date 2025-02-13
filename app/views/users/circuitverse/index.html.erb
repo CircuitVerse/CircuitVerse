@@ -109,7 +109,7 @@
     </div>
     <div id="collaborator-circuits-div" class="row center-row circuit-page">
       <% collaborated_projects = @user.collaborated_projects %>
-      <% if collaborated_projects.count == 0 %>
+      <% if !collaborated_projects.exists? %>
         <div class="col-12">
           <div class="search-no-results-image">
             <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
