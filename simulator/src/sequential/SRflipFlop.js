@@ -63,7 +63,9 @@ export default class SRflipFlop extends CircuitElement {
      * set this.state to value S.
      */
     resolve() {
-        if (this.reset.value == 1) {
+        if (this.preset.value == 1) {
+            this.state = 1;
+        } else if (this.reset.value == 1) {
             this.state = this.preset.value || 0;
         } else if ((this.en.value == 1 || this.en.connections == 0) && this.S.value ^ this.R.value) {
             this.state = this.S.value;

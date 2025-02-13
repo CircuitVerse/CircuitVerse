@@ -66,7 +66,9 @@ export default class JKflipFlop extends CircuitElement {
      * in the clock. masterState = this.J when no change in clock.
      */
     resolve() {
-        if (this.reset.value == 1) {
+        if (this.preset.value == 1) {
+            this.masterState = this.slaveState = 1;
+        } else if (this.reset.value == 1) {
             this.masterState = this.slaveState = this.preset.value || 0;
         } else if (this.en.value == 0) {
             this.prevClockState = this.clockInp.value;

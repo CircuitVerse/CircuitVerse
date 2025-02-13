@@ -67,7 +67,9 @@ export default class DflipFlop extends CircuitElement {
      * and input of the clock. We flip the bits to find qInvOutput
      */
     resolve() {
-        if (this.reset.value == 1) {
+        if (this.preset.value == 1) {
+            this.masterState = this.slaveState = 1;
+        } else if (this.reset.value == 1) {
             this.masterState = this.slaveState = (this.preset.value || 0);
         } else if (this.en.value == 0) {
             this.prevClockState = this.clockInp.value;
@@ -115,7 +117,7 @@ export default class DflipFlop extends CircuitElement {
 
     customDraw() {
         var ctx = simulationArea.context;
-        //        
+        //
         ctx.strokeStyle = (colors['stroke']);
         ctx.fillStyle = colors['fill'];
         ctx.beginPath();
