@@ -2,6 +2,8 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, fillText } from '../canvasApi';
+import { showError } from '../utils';
+
 /**
  * @class
  * SRflipFlop
@@ -51,6 +53,9 @@ export default class SRflipFlop extends CircuitElement {
      * always resolvable
      */
     isResolvable() {
+        if ((this.S.value === 1 && this.R.value === 1) || (this.reset.value === 1 && this.preset.value === 1)) {
+            showError('Race Condition: Multiple signals are attempting to drive the same signal');
+        }
         return true;
         if (this.reset.value == 1) return true;
         if (this.S.value != undefined && this.R.value != undefined) return true;
