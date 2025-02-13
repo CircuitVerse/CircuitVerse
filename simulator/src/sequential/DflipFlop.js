@@ -42,6 +42,9 @@ export default class DflipFlop extends CircuitElement {
      * WIP always resolvable?
      */
     isResolvable() {
+        if(this.reset.value == 1 && this.preset.value == 1){
+            showError('Race Condition: Multiple signals are attempting to drive the same signal')
+        }
         return true;
         // if (this.reset.value == 1) return true;
         // if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;

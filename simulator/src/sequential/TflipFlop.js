@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { colors } from '../themer/themer';
+import { showError } from '../utils';
 
 /**
  * @class
@@ -45,6 +46,9 @@ export default class TflipFlop extends CircuitElement {
      * returns true if clock is defined
      */
     isResolvable() {
+        if(this.reset.value == 1 && this.preset.value == 1){
+            showError('Race Condition: Multiple signals are attempting to drive the same signal')
+        }
         if (this.reset.value == 1) return true;
         if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;
         return false;
