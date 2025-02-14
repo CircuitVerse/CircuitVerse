@@ -2,6 +2,7 @@ $slight-grey: rgba(123, 123, 123, .1);
 
 .autoComplete_wrapper {
   position: relative;
+  margin-bottom: 1rem; /* P87b4 */
 }
 
 .autocomplete {
@@ -10,6 +11,7 @@ $slight-grey: rgba(123, 123, 123, .1);
   font-size: 1rem;
   outline: 0;
   padding-left: 10px;
+  padding-right: 10px; /* P24cf */
 }
 
 .autocomplete-list {
@@ -24,6 +26,7 @@ $slight-grey: rgba(123, 123, 123, .1);
   position: absolute;
   right: 0;
   z-index: 1000;
+  max-height: 200px; /* P5306 */
 }
 
 .autocomplete-list-item {
@@ -56,6 +59,7 @@ $slight-grey: rgba(123, 123, 123, .1);
     background-color: transparent;
     color: $primary-green;
     font-weight: 700;
+    text-decoration: underline; /* P917f */
 
     &::selection {
       background-color: rgba($white, 0);

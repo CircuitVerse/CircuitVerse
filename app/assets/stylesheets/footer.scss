@@ -1,25 +1,30 @@
 .footer-empty-div {
   height: 250px;
+  background-color: $footer-dark-grey; /* P444f */
 }
 
 .footer-container-fluid {
   background-color: $footer-dark-grey;
+  padding: 20px; /* Pcdb0 */
 }
 
 .footer-container {
   color: $white;
   padding-top: 30px;
   text-align: center;
+  font-size: 14px; /* Pb385 */
 }
 
 .footer-column {
   padding-bottom: 15px;
   padding-top: 15px;
+  text-align: left; /* P5ed2 */
 }
 
 .footer-logo {
   max-height: 80px;
   max-width: 100%;
+  margin: 0 auto; /* Pc138 */
 }
 
 .footer-social-icon-text {
@@ -33,7 +38,6 @@
     width: 24px; // Adjust the size for small screens
   }
 }
-
 
 .footer-social-icons-row {
   column-gap: 2px;
@@ -80,7 +84,7 @@
   font-size: 0.8em;
 }
 
-.footer-sponsor-logo-div{
+.footer-sponsor-logo-div {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -97,7 +101,6 @@
   p {
     font-size: 15px;
   }
-
 }
 
 .bounce-out-on-hover::before,

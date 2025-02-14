@@ -9,6 +9,7 @@
   justify-content: center;
   margin-top: .3rem;
   overflow-wrap: break-word;
+  padding: 1rem; /* P4f83 */
 
   span {
     display: inline-block;
@@ -20,6 +21,7 @@
 
   a {
     background: $secondary-red;
+    padding: 0.5rem; /* P4f83 */
   }
 }
 
@@ -27,6 +29,7 @@
   border: 1px solid $green;
   border-radius: 1rem;
   border-top: .45rem solid $green;
+  padding: 1rem; /* P5d49 */
 }
 
 .announcement-anchor {
@@ -34,6 +37,7 @@
   font-size: .85rem;
   font-weight: 500;
   text-decoration: none;
+  padding: 0.5rem; /* P8a40 */
 }
 
 .announcement-text {
@@ -43,10 +47,12 @@
   font-weight: 500;
   line-height: 1.5rem;
   margin-bottom: .5rem;
+  padding: 1rem; /* P647b */
 }
 
 .announcement-box {
   background-color: $white;
+  padding: 1rem; /* Pd6a5 */
 }
 
 .announcement-green {
