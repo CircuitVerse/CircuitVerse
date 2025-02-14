@@ -21,7 +21,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 - `difficulty: medium` issues sometimes entail new features and might affect a significant area of the codebase, but aren't overly complex.
 - `difficulty: hard` issues are typically far-reaching, and might need architecture decisions during implementation. This label might also denote highly complex issues.
 - `duplicate` labeled issues are meant to be already existing issue in the repository.
-- `priority: less` labeled issues are meant to have priority comparatavily lesser than other issues.
+- `priority: less` labeled issues are meant to have priority comparatively lesser than other issues.
 - `priority: medium` labeled issues are meant to have priority comparatively intermediate than other issues.
 - `priority: high` labeled issues are meant to have the highest priority and need to fix as soon as possible.
 - `help wanted` labeled issues signify that the contributor requires help with something specific in the issue and your help is very much appreciated.
@@ -66,7 +66,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 
 - Requested changes must be resolved (with code or discussion) before merging.
 - If you make changes to a PR, be sure to re-request a review.
-- Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
+- Don't repeatedly tag someone(may be it is not the right time to review your PR), be patient.
 - Do not 'resolve conversation' unnecessary raised by a community member or any workflow tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag a community member to give views about that.
 
 #### PR Labels

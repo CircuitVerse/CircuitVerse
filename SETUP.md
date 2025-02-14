@@ -92,12 +92,12 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 ### Installation steps
 1. **Install yosys**
    - Many Linux distibutions provide yosys binaries which is easy to install & small in package size. For Example,
-**For Debina/Ubunutu**:
+**For Debian/Ubunutu**:
   ```sudo apt install yosys```
    - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
-      1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
-      2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
-      3. To use OSS CAD Suite
+       1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
+       2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
+       3. To use OSS CAD Suite
 
       **Other Linux distros and macOS**
       ```shell
