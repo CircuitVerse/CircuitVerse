@@ -7,7 +7,7 @@ We are committed to making participation in this project a harassment-free exper
 
 Diversity and inclusion make the CircuitVerse community strong. We encourage participation from the most varied and diverse backgrounds possible and want to be very clear about where we stand.
 
-## Expected Behaviour
+## Expected Behavior
 - Be professional.
 - Be responsible.
 - Be welcoming.
@@ -15,7 +15,7 @@ Diversity and inclusion make the CircuitVerse community strong. We encourage par
 - Respect that people have differences of opinion and that every design or implementation choice carries a trade-off and numerous costs. There is seldom a right answer.
 - Be supportive and look out for each other.
 
-## Unacceptable Behaviour
+## Unacceptable Behavior
 Harassment may include but not limited to the following:
 - Offensive, inappropriate, or unwanted comments related to gender, gender identity or expression, sexual orientation, disability, physical appearance, body size, race, ethnicity, national origin, religion, or age, or other protected categories under applicable law.
 - Disrespect towards differences of opinion
