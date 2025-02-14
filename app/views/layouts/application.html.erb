@@ -24,7 +24,9 @@
 
   <body>
     <%= render "layouts/header" %>
-    <%= yield %>
+    <div class="main-content" style="padding: 20px;">
+      <%= yield %>
+    </div>
     <%= render(FooterComponent.new(current_user: current_user)) %>
 
     <!-- Custom Script for Alert -->
