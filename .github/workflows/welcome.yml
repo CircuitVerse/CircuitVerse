@@ -1,0 +1,25 @@
+name: Welcome
+on:
+  pull_request:
+    types: [closed]
+  issues:
+    types: [opened]
+jobs:
+  run:
+    permissions: write-all
+    runs-on: ubuntu-latest
+    steps:
+      - uses: wow-actions/welcome@v1
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          FIRST_ISSUE: |
+            👋 @{{ author }}
+             Thanks for opening your first issue here. We are glad to see your interest in enhancing CircuitVerse. We recommend getting this reviewed by the community once in the slack #community channel. 
+
+#           FIRST_PR: |
+#             👋 @{{ author }}
+#             Thanks for opening this pull request! Please check out our contributing guidelines.
+
+          FIRST_PR_MERGED: |
+            🎉 @{{ author }}
+            Congratulations on getting your first pull request merged. Welcome to the CircuitVerse community. We hope you continue contributing to CircuitVerse and improving CircuitVerse. You can check out the contribution guidelines [here](https://github.com/CircuitVerse/CircuitVerse/blob/master/CONTRIBUTING.md).
