@@ -46,11 +46,18 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "18"
+          node-version: "22"
           cache: "yarn"
 
+      - name: Install Dependencies for canvas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
+
       - name: Install Percy CLI
-        run: npm install --save-dev @percy/cli
+        run: |
+          npm install @percy/cli --legacy-peer-deps
+          npm install --save-dev @percy/cli
 
       - name: Install Gems
         run: bundle install
@@ -59,11 +66,8 @@ jobs:
         run: |
           bin/rails db:schema:load
           bin/rails data:migrate
-      - name: Configure keys
-        run: |
-          openssl genrsa -out config/private.pem 2048
-          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
-      - name: Configure keys
+
+      - name: Configure RSA keys
         run: |
           openssl genrsa -out config/private.pem 2048
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
