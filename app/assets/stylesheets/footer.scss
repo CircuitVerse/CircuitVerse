@@ -4,12 +4,14 @@
 
 .footer-container-fluid {
   background-color: $footer-dark-grey;
+  padding-left: 250px;
 }
 
 .footer-container {
   color: $white;
   padding-top: 30px;
   text-align: center;
+  padding-right: 100px;
 }
 
 .footer-column {
@@ -20,6 +22,7 @@
 .footer-logo {
   max-height: 80px;
   max-width: 100%;
+  padding-right:40px;
 }
 
 .footer-social-icon-text {
@@ -30,7 +33,7 @@
   width: 28px;
 
   @media (max-width: 576px) {
-    width: 24px; // Adjust the size for small screens
+    width: 24px; 
   }
 }
 
@@ -65,6 +68,8 @@
     h6 {
       margin-bottom: 10px;
       margin-top: 10px;
+      margin-left: 50px;
+      margin-right: 50px;
     }
 
     &:hover {
@@ -83,6 +88,7 @@
 .footer-sponsor-logo-div{
   padding-left: 12px;
   padding-right: 12px;
+  margin-left: 80px;
 }
 
 .footer-sponsor-logo {
@@ -96,6 +102,8 @@
 
   p {
     font-size: 15px;
+    text-align: center;
+    margin-right: 50px;
   }
 
 }
@@ -130,3 +138,7 @@
   content: '';
   width: 10px;
 }
+
+
+
+
