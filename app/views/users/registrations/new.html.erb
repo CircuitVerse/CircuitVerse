@@ -10,37 +10,68 @@
         <h1 class="users-main-heading"><%= t("sign_up") %></h1>
         <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
           <%= f.invisible_captcha :subtitle %>
+
           <% if !resource.errors.empty? %>
-            <div class="error-message">
+            <div class="error-message text-danger">
               <ul>
                 <% resource.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
+                  <% unless message.include?('Password') || message.include?('Email') || message.include?('Name') %>
+                    <li><%= message %></li>
+                  <% end %>
                 <% end %>
               </ul>
             </div>
           <% end %>
+
           <div class="field mb-3">
             <h6><%= f.label :name %></h6>
-              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
+            <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
+            <% if resource.errors[:name].any? %>
+              <p class="text-danger">Please enter your name.</p>
+            <% end %>
           </div>
+
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>
-              <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
-          </div>
-          <div class="field mb-3">
-          <h6 class="password-length">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
+            <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
+            <% if resource.errors[:email].any? %>
+              <p class="text-danger">Please enter a valid email address.</p>
             <% end %>
-          </h6>
-          <div class="input-group form-input">
-            <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
-            <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
-              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
-            </div>
           </div>
-        </div>
+
+          <div class="field mb-3">
+            <h6 class="password-length">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                <span><%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
+              <% end %>
+            </h6>
+            <div class="input-group form-input">
+              <%= f.password_field :password, 
+                                  autocomplete: "new-password", 
+                                  placeholder: t('enter_password'), 
+                                  class: "form-control users-password-input", 
+                                  id: "user_password",
+                                  minlength: 6, 
+                                  pattern: "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*]).{6,}",
+                                  title: "Must contain at least one uppercase letter, one lowercase letter, one number, and one special character" %>
+              <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
+                <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+              </div>
+            </div>
+            
+            <% if resource.errors[:password].any? %>
+              <p class="text-danger mt-1">
+                <% error_text = resource.errors[:password].join(', ') %>
+                <% if error_text.include?('complex') || error_text.include?('requirements') || error_text.include?('password invalid') %>
+                  Password must include uppercase letter, lowercase letter, digit, and special character.
+                <% else %>
+                  <%= resource.errors[:password].first.capitalize %>
+                <% end %>
+              </p>
+            <% end %>
+          </div>
+
           <div class="field mb-3">
             <div class="input-group">
               <% if Flipper.enabled?(:recaptcha) %>
@@ -54,6 +85,7 @@
               </div>
             </div>
           </div>
+
           <%= render "users/shared/links" %>
         <% end %>
       </div>
@@ -61,4 +93,35 @@
   </div>
 </div>
 
-<script src="/js/togglePassword.js"></script>
+<script>
+// Add client-side validation for better user experience
+document.addEventListener('DOMContentLoaded', function() {
+  const passwordField = document.getElementById('user_password');
+  
+  passwordField.addEventListener('input', function() {
+    const password = this.value;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecial = /[!@#$%^&*]/.test(password);
+    const isLongEnough = password.length >= 6;
+    
+    // You could add visual feedback here if desired
+  });
+});
+
+function togglePassword() {
+  const passwordInput = document.getElementById('user_password');
+  const icon = document.getElementById('toggle-icon');
+  
+  if (passwordInput.type === 'password') {
+    passwordInput.type = 'text';
+    icon.classList.remove('fa-eye-slash');
+    icon.classList.add('fa-eye');
+  } else {
+    passwordInput.type = 'password';
+    icon.classList.remove('fa-eye');
+    icon.classList.add('fa-eye-slash');
+  }
+}
+</script>
