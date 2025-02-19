@@ -20,9 +20,9 @@
             </div>
           <% end %>
           <div class="field mb-3">
-            <h6><%= f.label :name %></h6>
-              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
-          </div>
+            <h6><%= f.label :name %></h6>                   
+              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" maxlength="50" %>
+               </div>
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>
               <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
