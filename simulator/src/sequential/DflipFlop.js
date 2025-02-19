@@ -3,7 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { colors } from '../themer/themer';
-import { showError } from '../utils';
+import { showError, showMessage } from '../utils';
 
 /**
  * @class
@@ -45,7 +45,7 @@ export default class DflipFlop extends CircuitElement {
      */
     isResolvable() {
         if (this.reset.value === 1 && this.preset.value === 1) {
-            showError('Both Reset and Preset are active. Avoid using this state');
+            showMessage('Both Reset and Preset are active. Avoid using this state');
         }
         return true;
         // if (this.reset.value == 1) return true;
