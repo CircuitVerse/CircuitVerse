@@ -46,10 +46,10 @@ en:
         item2_text: "Automatically generate circuit based on truth table data. This is great to create complex logic circuits and can be easily be made into a subcircuit."
         item3_heading: "Embed in Blogs"
         item3_text: "Since CircuitVerse is built in HTML5, an iFrame can be generated for each project allowing the user to embed it almost anywhere."
-        item4_heading: "Use Sub circuits"
+        item4_heading: "Use Subcircuits"
         item4_text: "Create subcircuits once and use them repeatedly. This allows easier and more structured design."
-        item5_heading: "Multi Bit Buses and components"
-        item5_text: "CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered."
+        item5_heading: "Multi-Bit Buses and Components"
+        item5_text: "CircuitVerse supports multi-bit wires, this means circuit design is easier, faster, and uncluttered."
       featured_examples:
         main_heading: "Featured Examples"
         main_description: "Learn and get inspired from the best examples"
