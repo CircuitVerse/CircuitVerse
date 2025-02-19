@@ -13,6 +13,7 @@ window.loading = false; // Flag - all assets are loaded
 
 var prevErrorMessage; // Global variable for error messages
 var prevShowMessage; // Global variable for error messages
+let prevShowWarning; // Global variable for warning message
 var fadeTimeOut; // Global variable to store the timeout ID for fading out a error message after a delay
 export function generateId() {
     var id = '';
@@ -75,6 +76,18 @@ export function showMessage(mes) {
     setTimeout(() => {
         prevShowMessage = undefined;
         $(`#${id}`).fadeOut();
+    }, 2500);
+}
+
+// Helper function to show warning
+export function showWarning(warning) {
+    if (warning === prevShowWarning) return;
+    prevShowWarning = warning;
+    var idW = Math.floor(Math.random() * 10000);
+    $('#MessageDiv').append(`<div class='alert alert-success' role='alert' id='${idW}'> ${warning}</div>`);
+    setTimeout(() => {
+        // prevShowWarning = undefined;
+        $(`#${idW}`).fadeOut();
     }, 2500);
 }
 

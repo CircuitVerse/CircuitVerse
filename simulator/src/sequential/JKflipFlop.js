@@ -2,7 +2,7 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
-import { showError, showMessage } from '../utils';
+import { showWarning } from '../utils';
 
 /**
  * @class
@@ -49,10 +49,10 @@ export default class JKflipFlop extends CircuitElement {
      */
     isResolvable() {
         if ((this.reset.value === 1 && this.preset.value === 1)) {
-            showMessage('Reset and Preset are active simultaneously. Avoid this state.');
+            showWarning('Reset and Preset are active simultaneously. Avoid this state.');
         }
         if ((this.J.value === 1 && this.K.value === 1)) {
-            showMessage('J and K inputs are high simultaneously this leads to toggling on each clock signal.');
+            showWarning('J and K inputs are high simultaneously this leads to toggling on each clock signal.');
         }
         if (this.reset.value == 1) return true;
         if (this.clockInp.value != undefined && this.J.value != undefined && this.K.value != undefined) return true;
