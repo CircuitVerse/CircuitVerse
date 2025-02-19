@@ -89,6 +89,34 @@
     });
   });
 
+  function initializeDropdown(dropdownId) {
+    const dropdownToggle = document.getElementById(dropdownId);
+    const dropdownMenu = new bootstrap.Dropdown(dropdownToggle);
+
+    dropdownToggle.addEventListener("click", function (e) {
+        const isExpanded = dropdownToggle.classList.contains("rotate180");
+        dropdownToggle.classList.toggle("rotate180");
+        dropdownToggle.setAttribute("aria-expanded", !isExpanded);
+        if(isExpanded){
+          dropdownMenu.hide()
+        }else{
+          dropdownMenu.show()
+        }
+        e.stopPropagation();
+    });
+
+    document.addEventListener("click", function () {
+        dropdownToggle.classList.remove("rotate180");
+        dropdownToggle.setAttribute("aria-expanded", "false");
+        dropdownMenu.hide();
+    });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    initializeDropdown("getting-started-dropdown");
+    initializeDropdown("navbar-dropdown-2");
+});
+
   function activeSearchBar(){
     let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
     let searchIconExpand = document.getElementsByClassName("fa-search")[1];
