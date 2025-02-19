@@ -45,7 +45,8 @@ export default class DflipFlop extends CircuitElement {
      */
     isResolvable() {
         if (this.reset.value === 1 && this.preset.value === 1) {
-            showError('Race Condition: Multiple signals are attempting to drive the same signal');
+            showError('Both Reset and Preset are active. Avoid using this state');
+        }
         return true;
         // if (this.reset.value == 1) return true;
         // if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;

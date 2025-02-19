@@ -53,8 +53,11 @@ export default class SRflipFlop extends CircuitElement {
      * always resolvable
      */
     isResolvable() {
-        if ((this.S.value === 1 && this.R.value === 1) || (this.reset.value === 1 && this.preset.value === 1)) {
-            showError('Race Condition: Multiple signals are attempting to drive the same signal');
+        if ((this.reset.value === 1 && this.preset.value === 1)) {
+            showError('Reset and Preset are both active. Avoid this state.');
+        }
+        if ((this.S.value === 1 && this.R.value === 1)) {
+            showError('S and R inputs are high simultaneously, avoid this state.');
         }
         return true;
         if (this.reset.value == 1) return true;

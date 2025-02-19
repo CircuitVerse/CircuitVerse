@@ -48,9 +48,12 @@ export default class JKflipFlop extends CircuitElement {
      * if none of the predefined nodes have been deleted it isresolvable
      */
     isResolvable() {
-        if ((this.reset.value === 1 && this.preset.value === 1) || (this.J.value === 1 && this.K.value === 1)) {
-            showError('Race Condition: Multiple signals are attempting to drive the same signal');
-        }   
+        if ((this.reset.value === 1 && this.preset.value === 1)) {
+            showError('Reset and Preset are active simultaneously. Avoid this state.');
+        }
+        if ((this.J.value === 1 && this.K.value === 1)) {
+            showError('J and K inputs are high simultaneously this leads to toggling on each clock signal.');
+        }
         if (this.reset.value == 1) return true;
         if (this.clockInp.value != undefined && this.J.value != undefined && this.K.value != undefined) return true;
         return false;
