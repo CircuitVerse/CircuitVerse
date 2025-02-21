@@ -2,6 +2,16 @@
 
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
+  
+  # ------------------------------------------------------
+  # Added this before_action to gate the Contests feature:
+  # It checks a Flipper feature flag named :contests.
+  # If :contests is disabled, users are redirected to root_path.
+  # We exclude :index so that visitors can still see the list
+  # of contests, even if the feature is turned off.
+  # ------------------------------------------------------
+  before_action :check_contests_feature_flag, except: [:index]
+
   # GET /contests
   def index
     @contests = Contest.all.paginate(page: params[:page]).order("id DESC").limit(Contest.per_page)
@@ -126,25 +136,35 @@ class ContestsController < ApplicationController
     end
     redirect_to contest_page_path(params[:contest_id]), notice: notice
   end
-end
 
-private
+  private
 
-def concurrent_contest_exists?
-  Contest.exists?(status: :live)
-end
+  # ----------------------------------------------
+  # Added to ensure that if the :contests feature
+  # is disabled, users get redirected.
+  # ----------------------------------------------
+  def check_contests_feature_flag
+    unless Flipper.enabled?(:contests, current_user)
+      redirect_to root_path, alert: "Contest feature is not available."
+    end
+  end
 
-def create_contest
-  @contest = Contest.new(deadline: 1.month.from_now, status: :live)
+  def concurrent_contest_exists?
+    Contest.exists?(status: :live)
+  end
 
-  respond_to do |format|
-    if @contest.save
-      ContestNotification.with(contest: @contest).deliver_later(User.all)
-      format.html { redirect_to contest_page_path(@contest), notice: "Contest was successfully started." }
-      format.json { render :show, status: :created, location: @contest }
-    else
-      format.html { render :admin }
-      format.json { render json: @contest.errors, status: :unprocessable_entity }
+  def create_contest
+    @contest = Contest.new(deadline: 1.month.from_now, status: :live)
+
+    respond_to do |format|
+      if @contest.save
+        ContestNotification.with(contest: @contest).deliver_later(User.all)
+        format.html { redirect_to contest_page_path(@contest), notice: "Contest was successfully started." }
+        format.json { render :show, status: :created, location: @contest }
+      else
+        format.html { render :admin }
+        format.json { render json: @contest.errors, status: :unprocessable_entity }
+      end
     end
   end
 end
