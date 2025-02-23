@@ -29,6 +29,11 @@
   max-width: 80%;
 }
 
+.input-group {
+  margin: auto;
+  justify-content: center;
+}
+
 .users-text {
   font-weight: 500;
   padding-right: 5px;
@@ -76,6 +81,7 @@
     display: block;
     margin-top: 20px;
     padding-top: 6px;
+    // width: 100%;
   }
 }
 
@@ -134,6 +140,8 @@
 .users-login-primary-button {
   margin-top: 20px;
   padding: 8px 25px;
+  width: 100%;
+
 }
 .password-length {
   display: flex;
