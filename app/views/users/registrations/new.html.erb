@@ -21,7 +21,11 @@
           <% end %>
           <div class="field mb-3">
             <h6><%= f.label :name %></h6>
-              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
+              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input",maxlength: User::USERNAME_MAX_LENGTH,
+              %>
+              <small class="form-text text-muted">
+    Maximum <%= User::USERNAME_MAX_LENGTH %> characters allowed
+  </small>
           </div>
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>

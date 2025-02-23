@@ -44,7 +44,8 @@ class User < ApplicationRecord
 
   attr_accessor :remove_picture
 
-  validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
+  USERNAME_MAX_LENGTH = 50
+  validates :name, presence: true, length: { maximum: USERNAME_MAX_LENGTH },  format: { without: /\A["!@#$%^&]*\z/,
                                              message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
