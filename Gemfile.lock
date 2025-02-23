@@ -135,6 +135,7 @@ GEM
     aws-sigv4 (1.10.1)
       aws-eventstream (~> 1, >= 1.0.2)
     backport (1.2.0)
+    base64 (0.2.0)
     bcrypt (3.1.19)
     benchmark (0.2.1)
     better_html (2.0.2)
@@ -250,6 +251,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    fiddle (1.1.6)
     fileutils (1.7.2)
     flipper (0.28.0)
       concurrent-ruby (< 2)
@@ -402,6 +404,7 @@ GEM
     minitest (5.25.4)
     msgpack (1.6.0)
     multi_xml (0.6.0)
+    mutex_m (0.3.0)
     nested_form (0.3.2)
     net-imap (0.5.6)
       date
@@ -427,6 +430,7 @@ GEM
       rack (>= 1.2, < 4)
       snaky_hash (~> 2.0)
       version_gem (~> 1.1)
+    observer (0.1.2)
     oj (3.15.0)
     omniauth (2.1.1)
       hashie (>= 3.4.6)
@@ -538,6 +542,7 @@ GEM
     opentelemetry-semantic_conventions (1.10.0)
       opentelemetry-api (~> 1.0)
     orm_adapter (0.5.0)
+    ostruct (0.6.1)
     parallel (1.23.0)
     parser (3.3.4.0)
       ast (~> 2.4.1)
@@ -908,6 +913,7 @@ DEPENDENCIES
   ahoy_matey
   aws-sdk-rails
   aws-sdk-s3 (~> 1.176)
+  base64
   bootsnap
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
@@ -925,6 +931,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faker
+  fiddle
   flipper-redis
   flipper-ui
   font-awesome-sass (~> 5.13.1)
@@ -952,7 +959,9 @@ DEPENDENCIES
   mailkick (~> 0.4.3)
   maintenance_tasks (~> 2.3)
   meta-tags
+  mutex_m
   noticed (~> 1.6)
+  observer
   oj (~> 3.15)
   omniauth
   omniauth-facebook
@@ -979,6 +988,7 @@ DEPENDENCIES
   opentelemetry-instrumentation-redis
   opentelemetry-instrumentation-sidekiq
   opentelemetry-sdk (~> 1.2)
+  ostruct
   percy-capybara
   pg (~> 1.5.3)
   pg_search
