@@ -56,6 +56,16 @@ class AboutController < ApplicationController
       { name: "Aman Singh",
         img: "https://avatars.githubusercontent.com/u/77198905?v=4", link: "https://github.com/aman-singh7" }
     ]
-    @issues_triaging = []
+    @issues_triaging = [
+      { name: "Sannidhi Nair",
+        img: "https://avatars.githubusercontent.com/u/165994623?v=4",
+        link: "https://github.com/SannidhiNair" },
+      { name: "Aditya Singh",
+        img: "https://avatars.githubusercontent.com/u/177742943?v=4",
+        link: "https://github.com/salmoneatenbybear" },
+      { name: "Harsh Rao",
+        img: "https://avatars.githubusercontent.com/u/166894150?v=4",
+        link: "https://github.com/ThatDeparted2061" }
+    ]
   end
 end
