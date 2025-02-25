@@ -6,3 +6,5 @@
   - ahoy
   - active_storage_analysis
   - active_storage_purge
+:redis:
+  url: redis://localhost:6379/0
