@@ -50,11 +50,8 @@ en:
         item4_text: "Easily embed your circuits into blogs and websites using HTML5 iFrames, ensuring seamless sharing and integration"
         item5_heading: "Use Sub circuits"
         item5_text: "Create subcircuits once and use them repeatedly. For easier and more structured design"
-        # This needs to be added in future once verilog comes out of beta mode
-        # item6_heading: "Verilog Support"
-        # item6_text: "Export digital circuits as Verilog code and insert Verilog modules as custom Verilog-based components into your circuit"
-        item7_heading: "Multi Bit Buses and components"
-        item7_text: "CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered"
+        item6_heading: "Multi Bit Buses and components"
+        item6_text: "CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered"
       featured_examples:
         main_heading: "Featured Examples"
         main_description: "Learn and get inspired from the best examples"
