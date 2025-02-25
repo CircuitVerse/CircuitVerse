@@ -1,25 +1,29 @@
-//group details
 .groups-editname-primary-button {
   margin-bottom: 20px;
+  padding: 10px 20px; /* P6137 */
 }
 
 .group-mentor-heading {
   font-weight: normal;
+  font-size: 1.2rem; /* Pea01 */
 }
 
 .null-text {
   color: $iframe-container-grey;
   font-weight: normal;
   margin-top: 10px;
+  font-style: italic; /* Pf3ba */
 }
 
 .groups-row {
   justify-content: space-between;
   padding-top: 65px;
+  display: flex; /* Pb493 */
 }
 
 .groups-primary-button {
   padding: 12px 35px;
+  background-color: $primary-green; /* Pca0e */
 }
 
 .groups-members-scroll-row {

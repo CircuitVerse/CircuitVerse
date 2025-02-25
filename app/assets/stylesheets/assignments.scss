@@ -1,6 +1,6 @@
-//newassignment-editassignment
 .assignments-submain-heading {
   margin-top: 0;
+  font-size: 1.5rem; /* P9637 */
 }
 
 .assignments-noedit-grade-field {
@@ -8,15 +8,15 @@
   height: 40px;
   margin-bottom: 35px;
   padding: 5px 5px 5px 10px;
+  background-color: $card-grey; /* Pe147 */
 }
-//newassignment-editassignment ends
 
-//assignment details
 .assignments-container {
   border: 1px solid $form-border-grey;
   margin-top: 30px;
   padding-bottom: 30px;
   padding-top: 20px;
+  background-color: $white; /* P730e */
 }
 
 .assignments-data {
@@ -24,11 +24,13 @@
   margin-right: auto;
   max-width: 80%;
   text-align: left;
+  padding: 20px; /* P446b */
 }
 
 .assignments-horizontal-rule {
   max-width: 80%;
   padding-top: 15px;
+  border-top: 1px solid $secondary-green; /* P909c */
 }
 
 .assignments-submission-heading {
@@ -167,7 +169,7 @@ a:not([href]):not([tabindex]) {
   color: $primary-red;
   font-size: 15px;
 }
-//breakpoints
+
 @media (max-width: 400px) {
 
   .assignments-data {
@@ -207,4 +209,3 @@ a:not([href]):not([tabindex]) {
 .restricted-feature-list {
   display: none;
 }
-//assignment details ends
