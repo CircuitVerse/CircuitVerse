@@ -27,7 +27,7 @@
               <% end %>
             </h6>
             <div class="input-group">
-              <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control form-input" %>
+              <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control form-input users-password-input" %>
             </div>
           </div>
           <div class="field mb-3">
@@ -59,3 +59,18 @@
     </div>
   </div>
 </div>
+
+<script>
+  function validatePassword(password) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  }
+
+  document.querySelector('.users-primary-button').addEventListener('click', function(event) {
+    const password = document.querySelector('.users-password-input').value;
+    if (!validatePassword(password)) {
+      event.preventDefault();
+      alert('Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.');
+    }
+  });
+</script>

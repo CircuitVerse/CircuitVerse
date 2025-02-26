@@ -61,4 +61,18 @@
   </div>
 </div>
 
+<script>
+  function validatePassword(password) {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+    return regex.test(password);
+  }
+
+  document.querySelector('.users-login-primary-button').addEventListener('click', function(event) {
+    const password = document.querySelector('.users-password-input').value;
+    if (!validatePassword(password)) {
+      event.preventDefault();
+      alert('Password must be at least 8 characters long and include one uppercase letter, one lowercase letter, one number, and one special character.');
+    }
+  });
+</script>
 <script src="/js/togglePassword.js"></script>
