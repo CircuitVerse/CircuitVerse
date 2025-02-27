@@ -84,8 +84,6 @@ Rails.application.configure do
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || "FkEMkOQHvMybUlCGH-DsOljTJlLzYGb3xEYsFY5Roxk="
 
   Rails.application.configure do
-    # Whitelist gitpod domain in dev envionment
-    config.hosts << /.*\.gitpod\.io\Z/
     config.hosts << /.*\Z/ # Whitelist everything in Dev
   end
 
