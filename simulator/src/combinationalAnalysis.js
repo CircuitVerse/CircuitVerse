@@ -386,14 +386,6 @@ function areParenthesesBalanced(expression) {
     return stack.length === 0;
 }
 
-function validateBooleanExpression(booleanExpression) {
-    if (!isExpressionValid(booleanExpression)) {
-        alert('Enter a valid expression.');
-        return false;
-    }
-    return true;
-}
-
 function isExpressionValid(booleanExpression) {
     // Check for invalid operator sequences (e.g., "a+", "a*", "a/")
     const hasInvalidOperatorSequence = /[a-zA-Z][+*/]([^a-zA-Z(]|$)/.test(booleanExpression);
@@ -405,6 +397,13 @@ function isExpressionValid(booleanExpression) {
     return !(hasInvalidOperatorSequence || startsWithInvalidOperator || hasUnbalancedParentheses);
 }
 
+function validateBooleanExpression(booleanExpression) {
+    if (!isExpressionValid(booleanExpression)) {
+        alert('Enter a valid expression.');
+        return false;
+    }
+    return true;
+}
 
 /**
  * This function solves passed boolean expression and returns
