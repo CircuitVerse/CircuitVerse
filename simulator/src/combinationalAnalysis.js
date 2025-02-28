@@ -369,17 +369,6 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
  *  have been defined to prevent logically wrong boolean expression from being entered
  *  in the Combinational Analysis section.
 */
-function isExpressionValid(booleanExpression) {
-    // Check for invalid operator sequences (e.g., "a+", "a*", "a/")
-    const hasInvalidOperatorSequence = /[a-zA-Z][\+\-*/]([^a-zA-Z(]|$)/.test(booleanExpression);
-    // Check if the expression starts with an invalid operator (e.g., "+a", "*b")
-    const startsWithInvalidOperator = /^[\+\-*/]/.test(booleanExpression);
-    // Check if parentheses are balanced
-    const hasUnbalancedParentheses = !areParenthesesBalanced(booleanExpression);
-
-    return !(hasInvalidOperatorSequence || startsWithInvalidOperator || hasUnbalancedParentheses);
-}
-
 function areParenthesesBalanced(expression) {
     const parentheses = expression.match(/[()]/g);
     if (!parentheses) return true;
@@ -404,6 +393,18 @@ function validateBooleanExpression(booleanExpression) {
     }
     return true;
 }
+
+function isExpressionValid(booleanExpression) {
+    // Check for invalid operator sequences (e.g., "a+", "a*", "a/")
+    const hasInvalidOperatorSequence = /[a-zA-Z][+*/]([^a-zA-Z(]|$)/.test(booleanExpression);
+    // Check if the expression starts with an invalid operator (e.g., "+a", "*b")
+    const startsWithInvalidOperator = /^[+*/]/.test(booleanExpression);
+    // Check if parentheses are balanced
+    const hasUnbalancedParentheses = !areParenthesesBalanced(booleanExpression);
+
+    return !(hasInvalidOperatorSequence || startsWithInvalidOperator || hasUnbalancedParentheses);
+}
+
 
 /**
  * This function solves passed boolean expression and returns
