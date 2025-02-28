@@ -365,6 +365,47 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
 }
 
 /**
+ *  The three functions isExpressionValid, areParenthesesBalanced, validateBooleanExpression
+ *  have been defined to prevent logically wrong boolean expression from being entered
+ *  in the Combinational Analysis section.
+*/
+function isExpressionValid(booleanExpression) {
+    // Check for invalid operator sequences (e.g., "a+", "a*", "a/")
+    const hasInvalidOperatorSequence = /[a-zA-Z][\+\-*/]([^a-zA-Z(]|$)/.test(booleanExpression);
+    // Check if the expression starts with an invalid operator (e.g., "+a", "*b")
+    const startsWithInvalidOperator = /^[\+\-*/]/.test(booleanExpression);
+    // Check if parentheses are balanced
+    const hasUnbalancedParentheses = !areParenthesesBalanced(booleanExpression);
+
+    return !(hasInvalidOperatorSequence || startsWithInvalidOperator || hasUnbalancedParentheses);
+}
+
+function areParenthesesBalanced(expression) {
+    const parentheses = expression.match(/[()]/g);
+    if (!parentheses) return true;
+
+    const stack = [];
+    for (const char of parentheses) {
+        if (char === '(') {
+            stack.push(char);
+        } else if (char === ')') {
+            if (stack.pop() !== '(') {
+                return false;
+            }
+        }
+    }
+    return stack.length === 0;
+}
+
+function validateBooleanExpression(booleanExpression) {
+    if (!isExpressionValid(booleanExpression)) {
+        alert('Enter a valid expression.');
+        return false;
+    }
+    return true;
+}
+
+/**
  * This function solves passed boolean expression and returns
  * output array which contains solution of the truth table
  * of given boolean expression
@@ -441,9 +482,9 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
             const start = equation.lastIndexOf("(");
             const end = equation.indexOf(")", start);
             if (start != -1) {
-                equation = equation.substring(0, start) +
-                 solve(equation.substring(start + 1, end)) +
-                 equation.substring(end + 1);
+                equation = equation.substring(0, start)
+                + solve(equation.substring(start + 1, end))
+                + equation.substring(end + 1);
             }
         }
         equation = equation.replace(/''/g, '');
@@ -470,40 +511,4 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
     }
 
     return output;
-}
-
-function isExpressionValid(booleanExpression) {
-    // Check for invalid operator sequences (e.g., "a+", "a*", "a/")
-    const hasInvalidOperatorSequence = /[a-zA-Z][\+\-*/]([^a-zA-Z(]|$)/.test(booleanExpression);
-    // Check if the expression starts with an invalid operator (e.g., "+a", "*b")
-    const startsWithInvalidOperator = /^[\+\-*/]/.test(booleanExpression);
-    // Check if parentheses are balanced
-    const hasUnbalancedParentheses = !areParenthesesBalanced(booleanExpression);
-
-    return !(hasInvalidOperatorSequence || startsWithInvalidOperator || hasUnbalancedParentheses);
-}
-
-function areParenthesesBalanced(expression) {
-    const parentheses = expression.match(/[()]/g);
-    if (!parentheses) return true;
-
-    const stack = [];
-    for (const char of parentheses) {
-        if (char === '(') {
-            stack.push(char);
-        } else if (char === ')') {
-            if (stack.pop() !== '(') {
-                return false;
-            }
-        }
-    }
-    return stack.length === 0;
-}
-
-function validateBooleanExpression(booleanExpression) {
-    if (!isExpressionValid(booleanExpression)) {
-        alert('Enter a valid expression.');
-        return false;
-    }
-    return true;
 }
