@@ -46,7 +46,7 @@ export const performCombinationalAnalysis = (inputNameList, outputNameList, bool
     }
     else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
         var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
-        if(output != null) {
+        if (output != null) {
             createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
         }
     }
@@ -66,11 +66,11 @@ export const GenerateCircuit = (outputListNamesInteger, inputListNames, output, 
     for (const output in data) {
         let oneCount = data[output][1].length; // Number of ones
         let zeroCount = data[output][0].length; // Number of zeroes
-        if(oneCount == 0) {
+        if (oneCount == 0) {
             // Hardcode to 0 as output
             minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
         }
-        else if(zeroCount == 0) {
+        else if (zeroCount == 0) {
             // Hardcode to 1 as output
             minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
         }
@@ -106,7 +106,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
     $('#combinationalAnalysis').append("<p>Enter Boolean Function: <input class='truth_table_input' autofocus id='booleanExpression' placeholder='Example: (AB)' type='text'></p>");
     $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
     $('#combinationalAnalysis').dialog({
-        resizable:false,
+        resizable: false,
         width: 'auto',
         buttons: [
             {
@@ -133,7 +133,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
     var inputListNames = inputListNames || (prompt('Enter inputs separated by commas').split(','));
     var outputListNames = outputListNames || (prompt('Enter outputs separated by commas').split(','));
     var outputListNamesInteger = [];
-    if(output == null) {
+    if (output == null) {
         for (var i = 0; i < outputListNames.length; i++) { outputListNamesInteger[i] = 7 * i + 13; }// assigning an integer to the value, 7*i + 13 is random
     } else {
         outputListNamesInteger = [13];
@@ -167,7 +167,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
         for (var i = 0; i < outputListNamesInteger.length; i++) {
             if (output == null) {
                 s += `<td class ="output ${outputListNamesInteger[i]}" id="${j}">` + 'x' + '</td>';
-            // using hash values as they'll be used in the generateBooleanTableData function
+                // using hash values as they'll be used in the generateBooleanTableData function
             }
         }
         if (output != null) {
@@ -215,11 +215,11 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
         ],
     });
 
-    $('.output').on('click',function () {
+    $('.output').on('click', function () {
         var v = $(this).html();
-        if (v == 0)v = $(this).html(1);
-        else if (v == 1)v = $(this).html('x');
-        else if (v == 'x')v = $(this).html(0);
+        if (v == 0) v = $(this).html(1);
+        else if (v == 1) v = $(this).html('x');
+        else if (v == 'x') v = $(this).html(0);
     });
 }
 
@@ -267,7 +267,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
 
     // Appending constant input to the end of inputObjects
     for (var i = 0; i <= inputCount; i++) {
-        if(i < inputCount) {
+        if (i < inputCount) {
             // Regular Input
             inputObjects.push(new Input(startPosX + i * 40, startPosY, scope, 'DOWN', 1));
             inputObjects[i].setLabel(inputList[i]);
@@ -291,7 +291,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
 
     function countTerm(s) {
         var c = 0;
-        for (var i = 0; i < s.length; i++) { if (s[i] !== '-')c++; }
+        for (var i = 0; i < s.length; i++) { if (s[i] !== '-') c++; }
         return c;
     }
 
@@ -332,7 +332,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
         if (orGatePosY % 10 == 5) { orGatePosY += 5; } // To make or gate fall in grid
         if (andGateCount > 1) {
             var o = new OrGate(orPosX, orGatePosY, scope, 'RIGHT', andGateCount, 1);
-            if (andGateCount % 2 == 1)andGateNodes[midWay].connect(o.inp[midWay]);
+            if (andGateCount % 2 == 1) andGateNodes[midWay].connect(o.inp[midWay]);
             for (var j = 0; j < midWay; j++) {
                 var v = new Node(andPosX + 30 + (midWay - j) * 10, andGateNodes[j].absY(), 2, scope.root);
                 v.connect(andGateNodes[j]);
@@ -378,6 +378,11 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
 
     if (booleanExpression.match(/[^ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz01+'() ]/g) != null) {
         alert('One of the characters is not allowed.');
+        return;
+    }
+
+    // for invalid expressions
+    if (!validateBooleanExpression(booleanExpression)) {
         return;
     }
 
@@ -436,9 +441,9 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
             const start = equation.lastIndexOf("(");
             const end = equation.indexOf(")", start);
             if (start != -1) {
-                equation = equation.substring(0, start)
-                + solve(equation.substring(start + 1, end))
-                + equation.substring(end + 1);
+                equation = equation.substring(0, start) +
+                 solve(equation.substring(start + 1, end)) +
+                 equation.substring(end + 1);
             }
         }
         equation = equation.replace(/''/g, '');
@@ -465,4 +470,40 @@ export function solveBooleanFunction(inputListNames, booleanExpression) {
     }
 
     return output;
+}
+
+function isExpressionValid(booleanExpression) {
+    // Check for invalid operator sequences (e.g., "a+", "a*", "a/")
+    const hasInvalidOperatorSequence = /[a-zA-Z][\+\-*/]([^a-zA-Z(]|$)/.test(booleanExpression);
+    // Check if the expression starts with an invalid operator (e.g., "+a", "*b")
+    const startsWithInvalidOperator = /^[\+\-*/]/.test(booleanExpression);
+    // Check if parentheses are balanced
+    const hasUnbalancedParentheses = !areParenthesesBalanced(booleanExpression);
+
+    return !(hasInvalidOperatorSequence || startsWithInvalidOperator || hasUnbalancedParentheses);
+}
+
+function areParenthesesBalanced(expression) {
+    const parentheses = expression.match(/[()]/g);
+    if (!parentheses) return true;
+
+    const stack = [];
+    for (const char of parentheses) {
+        if (char === '(') {
+            stack.push(char);
+        } else if (char === ')') {
+            if (stack.pop() !== '(') {
+                return false;
+            }
+        }
+    }
+    return stack.length === 0;
+}
+
+function validateBooleanExpression(booleanExpression) {
+    if (!isExpressionValid(booleanExpression)) {
+        alert('Enter a valid expression.');
+        return false;
+    }
+    return true;
 }
