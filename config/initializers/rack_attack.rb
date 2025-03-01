@@ -84,7 +84,7 @@ class Rack::Attack
     req.json_params["email"].to_s.downcase if req.path == "/api/v1/password/forgot" && req.post?
   end
 
-  self.throttled_response = lambda do |_env|
+  self.throttled_responder = lambda do |_env|
     [429, # status
      {}, # headers
      ["Too many requests, please try again later"]] # body

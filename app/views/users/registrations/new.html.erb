@@ -40,6 +40,7 @@
               <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
           </div>
+          <div id="password-error-message" class="text-danger"></div>
         </div>
           <div class="field mb-3">
             <div class="input-group">
@@ -61,3 +62,23 @@
   </div>
 </div>
 <script src="/js/togglePassword.js"></script>
+<script>
+  function validatePassword() {
+    const password = document.querySelector('input[name="user[password]"]').value;
+    const errorMessage = document.getElementById('password-error-message');
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (!regex.test(password)) {
+      errorMessage.textContent = "Password must be at least 8 characters long, contain one uppercase letter, one lowercase letter, one number, and one special character.";
+      return false;
+    }
+    errorMessage.textContent = "";
+    return true;
+  }
+
+  document.querySelector('form').addEventListener('submit', function(event) {
+    if (!validatePassword()) {
+      event.preventDefault();
+    }
+  });
+</script>
