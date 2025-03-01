@@ -25,7 +25,7 @@ class NotifyUser
   private
 
     # @return [Result]
-    def type_check
+    def type_check # rubocop:disable Metrics/MethodLength
       case @notification.type
       when "StarNotification"
         Result.new("true", "star", @project.author, @project)
@@ -38,6 +38,8 @@ class NotifyUser
         Result.new("true", "forum_comment", @thread, @post.id)
       when "ForumThreadNotification"
         Result.new("true", "forum_thread", @thread)
+      when "NewCollaboratorNotification"
+        Result.new("true", "new_collaborator", @project.author, @project)
       else
         Result.new("false", "no_type", root_path)
       end

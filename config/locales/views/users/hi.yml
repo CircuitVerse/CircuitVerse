@@ -95,3 +95,4 @@ hi:
       new_assignment_notification: "आपको एक नया कार्य सौंपा गया है! - '%{assignment_name}'"
       forum_thread_notification: "%{user} ने एक नया सूत्र '%{thread}' पोस्ट किया"
       comment_notif: "%{user} ने '%{thread}' पर टिप्पणी की"
+      new_collaborator_notification: "आपको %{user} द्वारा %{project} में सहयोगी के रूप में जोड़ा गया है"
