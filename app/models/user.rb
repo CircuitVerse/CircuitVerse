@@ -43,10 +43,16 @@ class User < ApplicationRecord
   before_validation { profile_picture.purge if remove_picture == "1" }
 
   attr_accessor :remove_picture
-
   USERNAME_MAX_LENGTH = 50
-  validates :name, presence: true, length: { maximum: USERNAME_MAX_LENGTH }, format: { without: /\A["!@#$%^&]*\z/,
-                                                                                       message: "can only contain letters and spaces" }
+
+  validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
+                                             message: "can only contain letters and spaces" }
+
+before_save :truncate_long_name
+private
+def truncate_long_name
+self.name = name.truncate(USERNAME_MAX_LENGTH) if name.length > USERNAME_MAX_LENGTH
+end
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
 
