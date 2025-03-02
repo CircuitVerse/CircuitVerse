@@ -160,19 +160,16 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
 }
 
 export default function generateVerilogCircuit(verilogCode, scope = globalScope) {
-    const url='http://localhost:3040/getJSON';
+    const url='/simulator/verilogcv';
     var params = {"code": verilogCode};
     $.ajax({
         url: url,
         type: 'POST',
-        contentType: 'application/json', // Ensure JSON is sent
-        data: JSON.stringify(params), // Convert object to JSON string
         beforeSend: function(xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
         },
         data: params,
         success: function(response) {
-            console.log("Success response:", response); // Debug log
             var circuitData = response;
             scope.initialize();
             for(var id in scope.verilogMetadata.subCircuitScopeIds)
@@ -186,7 +183,6 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             $('#verilogOutput').empty();
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
-            console.log("Error response:", XMLHttpRequest.responseJSON); // Debug log
             var errorCode = XMLHttpRequest.status;
             if (errorCode == 500) {
                 showError("Could not connect to Yosys");
