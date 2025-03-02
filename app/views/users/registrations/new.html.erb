@@ -35,7 +35,7 @@
             <h6 class="password-length">
               <%= f.label :password %>
               <% if @minimum_password_length %>
-                <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
+                <span><%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
               <% end %>
             </h6>
             <div class="input-group form-input">
