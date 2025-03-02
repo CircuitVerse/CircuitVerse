@@ -10,6 +10,7 @@
         <h1 class="users-main-heading"><%= t("sign_up") %></h1>
         <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
           <%= f.invisible_captcha :subtitle %>
+
           <% if !resource.errors.empty? %>
             <div class="error-message">
               <ul>
@@ -19,41 +20,51 @@
               </ul>
             </div>
           <% end %>
+
           <div class="field mb-3">
             <h6><%= f.label :name %></h6>
-              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
+            <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
           </div>
+
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>
-              <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
+            <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
+
           <div class="field mb-3">
-          <h6 class="password-length">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
-            <% end %>
-          </h6>
-          <div class="input-group form-input">
-            <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
-            <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
-              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            <h6 class="password-length">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
+              <% end %>
+            </h6>
+            <div class="input-group form-input">
+              <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", 
+                  placeholder: t('enter_password'), class: "form-control users-password-input",
+                  id: "password", onkeyup: "validatePassword()" %>
+              <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
+                <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+              </div>
             </div>
+            <p id="password-error" class="text-danger mt-1" style="display: none;">
+              Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.
+            </p>
           </div>
-        </div>
+
           <div class="field mb-3">
             <div class="input-group">
               <% if Flipper.enabled?(:recaptcha) %>
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
               <% end %>
-              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
+              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button", id: "submit-btn", disabled: true %>
               <div class="users-text-container">
                 <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
                 <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
               </div>
             </div>
           </div>
+
           <%= render "users/shared/links" %>
         <% end %>
       </div>
@@ -62,3 +73,22 @@
 </div>
 
 <script src="/js/togglePassword.js"></script>
+
+<script>
+  function validatePassword() {
+    const passwordField = document.getElementById("password");
+    const submitBtn = document.getElementById("submit-btn");
+    const errorMsg = document.getElementById("password-error");
+
+    const password = passwordField.value;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (passwordRegex.test(password)) {
+      errorMsg.style.display = "none";
+      submitBtn.disabled = false;
+    } else {
+      errorMsg.style.display = "block";
+      submitBtn.disabled = true;
+    }
+  }
+</script>
