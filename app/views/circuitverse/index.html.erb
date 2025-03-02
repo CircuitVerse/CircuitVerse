@@ -57,10 +57,38 @@
     ) %>
 
     <%= render FeatureCardComponent.new(
-      image: "homepage/combinations_analysis.png",
+      image: "homepage/combinations analysis.png",
       alt: "Combinations Analysis",
       title: t("circuitverse.index.features.item2_heading"),
       text: t("circuitverse.index.features.item2_text")
+    ) %> 
+
+    <%= render FeatureCardComponent.new(
+      image: "homepage/embed.png",
+      alt: "Embed",
+      title: t("circuitverse.index.features.item3_heading"),
+      text: t("circuitverse.index.features.item3_text")
+    ) %>
+
+    <%= render FeatureCardComponent.new(
+      image: "homepage/sub-circuit.png",
+      alt: "Sub Circuit",
+      title: t("circuitverse.index.features.item4_heading"),
+      text: t("circuitverse.index.features.item4_text")
+    ) %> 
+
+    <%= render FeatureCardComponent.new(
+      image: "homepage/multi-bit-bus.png",
+      alt: "Multi Bit Bus",
+      title: t("circuitverse.index.features.item5_heading"),
+      text: t("circuitverse.index.features.item5_text")
     ) %>
   </div>
-</div>
+</div> 
+
+<%= render FeaturedExamplesComponent.new %>
+
+
+
+
+
