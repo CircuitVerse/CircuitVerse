@@ -1,5 +1,5 @@
 :root {
-  --black: rgb(0,0,0);
+  --black: rgb(0, 0, 0);
   --grey: rgb(108, 117, 125);
 }
 
@@ -55,7 +55,7 @@
   &:hover {
     border-color: $primary-green;
     opacity: 1;
-    transition: .2s ease-in-out;
+    transition: 0.2s ease-in-out;
   }
 }
 
@@ -106,7 +106,7 @@
   width: 40px;
 
   &:hover {
-    opacity: .7;
+    opacity: 0.7;
   }
 }
 //shared ends
@@ -330,12 +330,13 @@
     font-size: 16px;
     margin: 0;
     padding: 7px 10px 7px 35px;
-    transition: .2s ease-in-out;
-    border-radius: 4px;
+transition: .2s ease-in-out;
+border-radius: 4px;
+
 
     &:focus {
       border-color: $primary-green;
-      transition: .2s ease-in-out;
+      transition: 0.2s ease-in-out;
     }
   }
 }
@@ -392,7 +393,7 @@
   }
 
   &:focus {
-    box-shadow: 0 0 0 .2rem $form-input-focus-green;
+    box-shadow: 0 0 0 0.2rem $form-input-focus-green;
     outline: 0;
   }
 }
@@ -436,8 +437,7 @@
   background-color: $white;
   border-right: 1px solid var(--black);
   border-bottom: 1px solid var(--black);
-  box-shadow: 1px 1px 2px var(--grey),
-             -1px 1px 2px var(--grey);
+  box-shadow: 1px 1px 2px var(--grey), -1px 1px 2px var(--grey);
   max-height: 40vh;
   overflow-y: scroll;
   padding: 10px;
@@ -569,7 +569,7 @@
 
 .notification {
   border-radius: 4px;
-  box-shadow: 0 1px 4px rgba(63, 63, 68, .15), 0 0 1px rgba(0, 0, 0, .5);
+  box-shadow: 0 1px 4px rgba(63, 63, 68, 0.15), 0 0 1px rgba(0, 0, 0, 0.5);
   height: auto;
   padding: 14px 24px;
   position: relative;
