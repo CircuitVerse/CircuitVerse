@@ -10,7 +10,15 @@
         <h1 class="users-main-heading"><%= t("login") %></h1>
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
         <% flash.each do |key, value| %>
-          <div class="error-message"><%= value %></div>
+          <div class="alert <%= case key.to_s 
+                                when 'notice' then 'alert-success'
+                                when 'alert' then 'alert-danger'
+                                when 'warning' then 'alert-warning'
+                                else 'alert-info' 
+                                end %> alert-dismissible fade show" role="alert">
+            <%= value %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
         <% end %>
         <div class="field mb-3">
           <h6><%= f.label :email %></h6>
