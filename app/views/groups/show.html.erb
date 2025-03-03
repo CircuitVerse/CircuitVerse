@@ -62,10 +62,10 @@
   <% end %>
 </div>
 <hr>
-<% 
+<%
   user_role= @group.group_members.find_by(user_id: current_user.id)
-  is_regular_mentor = user_role&.mentor? 
-  is_primary_mentor = policy(@group).admin_access?   
+  is_regular_mentor = user_role&.mentor?
+  is_primary_mentor = policy(@group).admin_access?
 %>
 <% if @group.group_members.member.blank? && !(is_regular_mentor && !is_primary_mentor) %>
   <span class="null-text"><%= t("groups.show.no_members_html") %></span>
