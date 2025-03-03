@@ -3,7 +3,7 @@
  * @param {*} themeOptions
  * @returns an Object
  */
-export default (themeOptions) => ({
+export default themeOptions => ({
     Navbar: {
         color: themeOptions['--bg-navbar'],
         description: 'navbar background',
