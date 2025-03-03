@@ -30,6 +30,7 @@ jobs:
         uses: safedep/vet-action@v1
         with:
           policy: .github/vet/policy.yml
+          enable-comments-proxy: true
         env:
           # Required for writing pull request comment
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
