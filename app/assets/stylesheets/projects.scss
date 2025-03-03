@@ -83,12 +83,10 @@
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
-  // margin-right: 0;
   margin-top: 5px;
   padding-right: 8px;
   text-align: right;
   justify-content: right;
-  
 }
 
 .icons-div {
@@ -120,7 +118,7 @@
 }
 
 .projects-details-description {
-  height: 150px;
+  height: auto; /* Modified the height from a fixed value to auto to occupy only resonable space.*/
   margin-top: -8px;
   overflow-y: auto;
   padding-top: 0;

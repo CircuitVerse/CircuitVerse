@@ -44,7 +44,6 @@
           </div>
         </div>
         <div class="row projects-views-count-container noSelect">
-          
             <div class="icons-div">
               <i class="fas fa-star projects-star-count-icon" aria-hidden="true"></i>
               <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
@@ -56,9 +55,7 @@
               <span id="star-count" class="noSelect"><%= @project.view %></span>
               <%= t("projects.views_count") %> &nbsp; &nbsp;
             </div>
-          
         </div>
-
         <div class="row center-row projects-user-details-container">
           <div class="projects-search-tags-container">
             <% if !@project.tags.empty? %>
