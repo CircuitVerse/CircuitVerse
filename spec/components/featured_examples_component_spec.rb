@@ -3,13 +3,12 @@
 require "rails_helper"
 
 RSpec.describe FeaturedExamplesComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "renders featured examples section" do
+    render_inline(described_class.new)
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+    expect(page).to have_css(".home-circuit-card-row")
+    expect(page).to have_text(I18n.t("circuitverse.index.featured_examples.main_heading"))
+    expect(page).to have_text(I18n.t("circuitverse.index.featured_examples.main_description"))
+  end
 end
+

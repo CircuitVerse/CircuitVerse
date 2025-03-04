@@ -3,13 +3,24 @@
 require "rails_helper"
 
 RSpec.describe CircuitCardComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:image) { "homepage/export-hd.png" }
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+  it "renders the circuit card correctly" do
+    image_path = ActionController::Base.helpers.asset_path(image)
+
+    render_inline(CircuitCardComponent.new(
+      image: image_path,
+      alt: "Test Alt",
+      text: "Test Circuit",
+      link: "https://example.com",
+      height: "180",
+      width: "288"
+    ))
+
+    expect(page).to have_css("img[src*='export-hd'][alt='Test Alt']")
+    expect(page).to have_text("Test Circuit")
+    expect(page).to have_link(href: "https://example.com")
+  end
 end
+
+

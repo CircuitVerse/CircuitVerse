@@ -11,7 +11,7 @@
       <div class="row center-row justify-content-center">
         <% @featured_circuits.each do |circuit| %>
           <%= render CircuitCardComponent.new(
-            image: project_image_preview(circuit, @current_user),
+            image: helpers.project_image_preview(circuit, @current_user),
             alt: circuit.name,
             text: circuit.name,
             link: user_project_url(circuit.author, circuit),
