@@ -10,7 +10,6 @@ module AuthComponents
       @resource_name = resource_name
     end
 
-
     def provider_link(provider)
       case provider
       when :google
