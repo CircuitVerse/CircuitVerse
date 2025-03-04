@@ -12,3 +12,4 @@ RSpec.describe FeaturedExamplesComponent, type: :component do
   end
 end
 
+
