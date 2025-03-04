@@ -135,12 +135,3 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 ## Distributed Tracing using Opentelmetry
 
 Refer [otel docs](./.otel)
-
-## Third Party Services
-The `.env` file only needs to be used if you would like to link to third party services (Facebook, Google, GitHub, Gitlab, Slack, Bugsnap and Recaptcha)
-
-1. Create an app on the third party service [(instructions)](https://github.com/CircuitVerse/CircuitVerse/wiki/Create-Apps)
-2. Make the following changes in your Google, Facebook, GitHub or Gitlab app:
-   1.  Update the `site url` field with the URL of your instance, and update the `callback url` field with `<url>/users/auth/google`, `<url>/users/auth/facebook`, `<url>/users/auth/github` or `<url>/users/auth/gitlab`  respectively.
-3. Configure your `id` and `secret` environment variables in `.env`. If `.env` does not exist, copy the template from `.env.example`.
-4. After adding the environment variables, run `dotenv rails server` to start the application.
