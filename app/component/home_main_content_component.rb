@@ -1,2 +1,3 @@
 class HomeMainContentComponent < ViewComponent::Base
-end
+end 
+

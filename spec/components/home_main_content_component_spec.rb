@@ -27,5 +27,7 @@ RSpec.describe HomeMainContentComponent, type: :component do
     expect(page).to have_link(I18n.t("circuitverse.index.learn_logic_design"), href: "https://learn.circuitverse.org/")
   end
 end
+ 
+
 
 
