@@ -18,3 +18,4 @@ RSpec.describe FeatureCardComponent, type: :component do
     expect(page).to have_text("Test Text")
   end
 end  
+

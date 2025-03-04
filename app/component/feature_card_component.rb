@@ -5,4 +5,5 @@ class FeatureCardComponent < ViewComponent::Base
       @title = title
       @text = text
     end
-  end
+  end 
+  
