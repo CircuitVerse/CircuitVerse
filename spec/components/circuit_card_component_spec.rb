@@ -22,5 +22,3 @@ RSpec.describe CircuitCardComponent, type: :component do
     expect(page).to have_link(href: "https://example.com")
   end
 end
-
-

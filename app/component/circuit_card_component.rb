@@ -12,3 +12,5 @@ class CircuitCardComponent < ViewComponent::Base
   end
   
   
+
+  
