@@ -2,7 +2,7 @@
 </div>
 <div class="container-fluid footer-container-fluid">
   <div class="container footer-container">
-    <div class="row">
+    <div class="row footer-container-row">
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-column">
         <div class="row align-items-center">
           <!-- Added inline style here to shift logo more to the left -->
@@ -22,8 +22,8 @@
 
       <%= render(FooterLinksComponent.new(@current_user)) %>
 
-      <div class="col-12 col-sm-12 col-md-5 col-lg-5 footer-column">
-        <div class="row">
+      <div class="col-12 col-sm-12 col-md-5 col-lg-5 footer-column sponsor-outer-div">
+        <div class="container-sponsor">
           <div class="col-6 footer-sponsor-logo-div">
             <small class="text-start footer-sponsor-logo-text">
               <%= t("layout.footer.sponsor_logo_text.incubated_from") %>
@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-12 text-white text-start footer-copyright-text">
+      <div class="col-12 text-white text-center footer-copyright-text">
         <p><%= t("layout.footer.copyright_text", time_current_year: current_year) %></p>
       </div>
     </div>
