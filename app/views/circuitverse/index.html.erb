@@ -21,6 +21,7 @@
      site_name: Rails.configuration.site_name
    } %>
 
+
 <% if notice %>
   <%= render AlertComponent.new(message: notice) %>
 <% end %>
@@ -90,3 +91,39 @@
 <%= render EditorPickComponent.new(featured_circuits: @featured_circuits, current_user: current_user) %>
 <%= render RecentProjectsComponent.new(projects: @projects, projects_page: @projects_page) %> 
 
+<% if user_signed_in? %>
+    <script>
+        if(localStorage.getItem("recover_login")){
+            window.location.href = "/simulator"
+        }
+    </script>
+    <% end %>
+
+<script type="application/ld+json">
+  {
+    "@context" : "http://schema.org",
+    "@type" : "WebApplication",
+    "name" : "<%= Rails.configuration.site_name %>",
+    "image" : "<%= Rails.configuration.site_image %>",
+    "url" : "<%= Rails.configuration.site_url %>",
+    "applicationCategory" : "<%= Rails.configuration.site_category %>",
+    "downloadUrl" : "<%= Rails.configuration.site_download_url %>",
+    "operatingSystem": "All"
+  }
+</script>
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "url" : "<%= Rails.configuration.site_url %>",
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "<%= Rails.configuration.site_url %>/search?resource=Projects&q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+</script>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
