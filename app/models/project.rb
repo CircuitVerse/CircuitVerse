@@ -117,7 +117,12 @@ class Project < ApplicationRecord
   end
 
   def self.tagged_with(name)
-    Tag.find_by!(name: name).projects
+    return Project.none if name.blank?
+
+    tag = Tag.includes(:projects).find_by(name: name)
+    return Project.none unless tag
+
+    tag.projects || Project.none
   end
 
   def tag_list
