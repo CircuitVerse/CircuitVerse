@@ -16,7 +16,7 @@ RSpec.describe AuthComponents::SocialLoginComponent, type: :component do
     render_inline(described_class.new(devise_mapping: devise_mapping, resource_name: resource_name))
 
     aggregate_failures do
-      expect(page).to have_css(".users-social-links")
+      expect(page).to have_css(".oauth-button")
       expect(page).to have_css("img[alt='Google Icon']")
       expect(page).to have_css("img[alt='Facebook Icon']")
       expect(page).to have_css("img[alt='Github Icon']")
