@@ -53,7 +53,7 @@ cd CircuitVerse
       sudo systemctl enable redis-server
       # Start Redis service
       sudo systemctl start redis-server
-      ```
+     ```
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
      ```bash
      sudo apt install imagemagick
@@ -65,13 +65,13 @@ cd CircuitVerse
       source ~/.bashrc
       nvm install 22
       nvm use 22
-      ```
+     ```
 - [Yarn](https://yarnpkg.com/getting-started/install)
      ```bash
      curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo gpg --dearmor -o /usr/share/keyrings/yarn-archive-keyring.gpg
- echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
- sudo apt update && sudo apt install -y yarn
-      ```
+     echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+     sudo apt update && sudo apt install -y yarn
+     ```
 - [CMAKE](https://cmake.org/install/)
      ```bash
      sudo apt install cmake
