@@ -7,76 +7,47 @@
     </div>
   </div>
   <div class="d-flex justify-content-center gap-0 my-1">
-    <a class="btn" href="/tos" target="_blank" 
-   style="background-color:#42b983; color:#ffffff; margin:5px; padding:8px 16px; transition: all 0.3s ease-in-out, background-color 0.3s ease-in-out;" 
-   onmouseover="this.style.transform='scale(1.1)'; this.style.backgroundColor='#0F3F2D';" 
-   onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#42b983';">
+    <a class="btn" href="/tos" target="_blank" style="background-color:#42b983; color:#ffffff; margin:5px; padding:8px 16px; transition: all 0.3s ease-in-out, background-color 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.1)'; this.style.backgroundColor='#0F3F2D';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#42b983';">
   <%= t("about.terms_of_service") %>
 </a>
-
-<a class="btn" href="/privacy" target="_blank" 
-   style="background-color:#42b983; color:#ffffff; margin:5px; padding:8px 16px; transition: all 0.3s ease-in-out, background-color 0.3s ease-in-out;" 
-   onmouseover="this.style.transform='scale(1.1)'; this.style.backgroundColor='#0F3F2D';" 
-   onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#42b983';">
+<a class="btn" href="/privacy" target="_blank" style="background-color:#42b983; color:#ffffff; margin:5px; padding:8px 16px; transition: all 0.3s ease-in-out, background-color 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.1)'; this.style.backgroundColor='#0F3F2D';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#42b983';">
   <%= t("about.privacy_policy") %>
 </a>
-
-  </div>
+ </div>
   <div class="row text-center">
     <div class="row row-center gap-3 " style="align-items:baseline; justify-content:center; margin-top:25px;">
-     <div class="card p-3" 
-     style="width: 300px; margin-bottom: 16px; box-shadow: 0px 2px 7px #00000029; opacity: .89; transition: box-shadow .2s ease-in-out;" 
-     onmouseover="this.style.boxShadow='0px 4px 15px #00000050';" 
-     onmouseout="this.style.boxShadow='0px 2px 7px #00000029';">
-  
-  <a href="mailto:support@circuitverse.org" target="_blank" style="text-decoration: none;">
+     <div class="card p-3" style="width: 300px; margin-bottom: 16px; box-shadow: 0px 2px 7px #00000029; opacity: .89; transition: box-shadow .2s ease-in-out;" onmouseover="this.style.boxShadow='0px 4px 15px #00000050';" onmouseout="this.style.boxShadow='0px 2px 7px #00000029';">
+   <a href="mailto:support@circuitverse.org" target="_blank" style="text-decoration: none;">
     <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
     <h6 style="color: #000000;"><%= t("email_us_heading") %></h6>
     <p style="color: #000000;">support@circuitverse.org</p>
   </a>
-
 </div>
-
-     <div class="card p-3 mt-3" 
-     style="width: 300px; margin-bottom: 16px; box-shadow: 0px 2px 7px #00000029; opacity: .89; transition: box-shadow .2s ease-in-out;" 
-     onmouseover="this.style.boxShadow='0px 4px 15px #00000050';" 
-     onmouseout="this.style.boxShadow='0px 2px 7px #00000029';">
-
+    <div class="card p-3 mt-3" style="width: 300px; margin-bottom: 16px; box-shadow: 0px 2px 7px #00000029; opacity: .89; transition: box-shadow .2s ease-in-out;" onmouseover="this.style.boxShadow='0px 4px 15px #00000050';" onmouseout="this.style.boxShadow='0px 2px 7px #00000029';">
   <a href="<%= Rails.configuration.slack_url %>" target="_blank" style="text-decoration: none;">
     <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
     <h6 style="color: #000000;"><%= t("join_at_slack_heading") %></h6>
     <p style="color: #000000;"><%= t("join_at_slack_description") %></p>
   </a>
-
 </div>
-
-    </div>
+   </div>
   </div>
   <hr>
   <div class="container">
     <div class="row text-center">
         <div class="col-12">
-          <h2 class="display-6" style="font-size: 2rem;
-    margin-bottom: 10px;
-    margin-top: 40px;
-    color: #026e57;
-    font-weight: 500;"><%= t("about.core_team_heading") %></h2>
-          <p class="lead" style="font-size: 20px;
-    font-weight: 500; margin:0px 0px 16px; color:#212529;"><%= t("about.core_team_description") %></p>
+          <h2 class="display-6" style="font-size: 2rem; margin-bottom: 10px; margin-top: 40px; color: #026e57; font-weight: 500;"><%= t("about.core_team_heading") %></h2>
+          <p class="lead" style="font-size: 20px; font-weight: 500; margin:0px 0px 16px; color:#212529;"><%= t("about.core_team_description") %></p>
         </div>
     </div>
-    <div class="row justify-content-center" style="margin: -25px 0px 0px;
-    padding: 31px;">
+    <div class="row justify-content-center" style="margin: -25px 0px 0px; padding: 31px;">
   <% @cores.each do |member| %>
     <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center text-center my-3">
-      
-      <div class="d-flex flex-column align-items-center">
+       <div class="d-flex flex-column align-items-center">
         <a target="_blank" href="<%= member[:link] %>">
-          <%= image_tag member[:img], class: "img-fluid rounded-circle shadow-sm", 
-            style:"width: 100px; height: 100px; object-fit: cover; border: 2px solid #ddd; " %>
+          <%= image_tag member[:img], class: "img-fluid rounded-circle shadow-sm",style:"width: 100px; height: 100px; object-fit: cover; border: 2px solid #ddd; " %>
         </a>
       </div>
-      
      <div class="mt-2">
   <a target="_blank" href="<%= member[:link] %>" style="color: black; text-decoration: none; transition: text-decoration 0.3s ease-in-out;">
     <p class="fw-light mt-1" style="display: inline-block; position: relative; color:#000000;">
@@ -84,21 +55,15 @@
     </p>
   </a>
 </div>
-
-    </div>
+   </div>
   <% end %>
 </div>
 </div>
-
-  <hr>
+ <hr>
   <div class="container">
     <div class="row text-center">
-        <div class="col-12 " style="padding: 0px 12px;
-    color: #212529; margin-bottom:45px;">
-          <h2 class="display-6" style="font-size: 2rem;
-    color: #026e57;
-    margin-bottom: 10px;
-    margin-top: 40px;"><%= t("about.mentors_team_heading") %></h2>
+        <div class="col-12 " style="padding: 0px 12px; color: #212529; margin-bottom:45px;">
+          <h2 class="display-6" style="font-size: 2rem;color: #026e57; margin-bottom: 10px; margin-top: 40px;"><%= t("about.mentors_team_heading") %></h2>
           <p class="lead"><%= t("about.mentors_team_description") %></p>
         </div>
     </div>
@@ -107,22 +72,19 @@
     <div class="col-md-3 col-sm-6 d-flex flex-column align-items-center text-center my-3">
       <div class="border-bottom pb-2 w-100">
         <a target="_blank" href="<%= member[:link] %>" style="color: black; text-decoration: none;">
-          <%= image_tag member[:img], class: "rounded-circle shadow-sm", style: "width: 80px; height: 80px; object-fit: cover; border: 2px solid #ddd; display: block; margin: 0 auto;" %>
+          <%= image_tag member[:img], class: "rounded-circle shadow-sm", style: "width: 80px; height: 80px; object-fit: cover; border: 2px solid #ddd; display: block; margin: 0 auto;",alt: "#{member[:name]}'s profile picture" %>
           <p class="fw-bold mt-2" style="color: black; text-decoration: none; margin-bottom: 0;"><%= member[:name] %></p>
         </a>
       </div>
     </div>
   <% end %>
 </div>
-
-  </div>
+ </div>
   <hr>
   <div class="container">
     <div class="row text-center">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-          <h2 class="display-6" style="color: #026e57;
-    margin-bottom: 10px;
-    margin-top: 40px; font-size:2rem;"><%= t("about.issues_triaging_team") %></h2>
+          <h2 class="display-6" style="color: #026e57; margin-bottom: 10px; margin-top: 40px; font-size:2rem;"><%= t("about.issues_triaging_team") %></h2>
           <p class="lead" style="font-size:20px; font-weight:500; margin-top:0; margin-bottom:1rem;"><%= t("about.issues_triaging_team_description") %></p>
         </div>
     </div>
@@ -130,32 +92,28 @@
   <% @issues_triaging.each do |member| %>
     <div class="col-md-3 col-sm-4 text-center d-flex flex-column align-items-center my-2" >
       <a target="_blank" href="<%= member[:link] %>" class="text-decoration-none text-dark">
-        <%= image_tag member[:img], class: "img-fluid rounded-circle shadow-sm", style: "width: 100px; height: 100px; object-fit: cover; margin-bottom: 10px;" %>
+        <%= image_tag member[:img], class: "img-fluid rounded-circle shadow-sm", style: "width: 100px; height: 100px; object-fit: cover; margin-bottom: 10px;" ,alt: "#{member[:name]}'s profile picture" %>
         <p class="fw-light m-0"><%= member[:name] %></p>
       </a>
     </div>
   <% end %>
 </div>
-
-  </div>
+ </div>
   <hr>
   <div class="container">
     <div class="row text-center">
         <div class="col-12">
-          <h2 class="display-6" style="color: #026e57;
-    margin-bottom: 10px;
-    margin-top: 40px; font-size:2rem;"><%= t("about.alumni_team_heading") %></h2>
+          <h2 class="display-6" style="color: #026e57; margin-bottom: 10px; margin-top: 40px; font-size:2rem;"><%= t("about.alumni_team_heading") %></h2>
           <p class="lead"><%= t("about.alumni_team_description") %></p>
         </div>
     </div>
-    <div class="container" style="margin: -25px 0px 0px;
-    padding: 34px;">
+    <div class="container" style="margin: -25px 0px 0px; padding: 34px;">
     <% @alumni.each_slice(6) do |row_members| %>  
     <div class="row justify-content-center g-4" style="margin-bottom:43px; margin-top:5px;"> 
       <% row_members.each do |member| %>
         <div class="col-md-2 col-sm-4 text-center d-flex flex-column align-items-center">
           <div>
-            <%= image_tag member[:img], class: "img-fluid rounded-circle shadow-sm", style: "width: 90px; height: 90px; object-fit: cover;" %>
+            <%= image_tag member[:img], class: "img-fluid rounded-circle shadow-sm", style: "width: 90px; height: 90px; object-fit: cover;",alt: "#{member[:name]}'s profile picture" %>
           </div>
           <div class="mt-1">
             <a target="_blank" href="<%= member[:link] %>" class="text-decoration-none text-dark">
@@ -178,27 +136,17 @@
       <h5><%= t("about.contributors_description") %></h5>
     </div>
   </div>
-
-  
-  <div class="container " style="margin:30px 0px 0px; padding:0px 12px;">
-    <div class="row justify-content-center" id="contributors-section" style="margin-top:50px;">
-      
-    </div>
+ <div class="container " style="margin:30px 0px 0px; padding:0px 12px;">
+    <div class="row justify-content-center" id="contributors-section" style="margin-top:50px;"></div>
   </div>
-
   <div class="row text-center mt-4">
     <div class="col">
-     <a class="btn " href="/contribute" 
-   style="background-color: #42b983; color: #fff; margin:20px 5px 5px; padding:12px 30px; transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;" 
-   onmouseover="this.style.transform='scale(1.1)'; this.style.backgroundColor='#0F3F2D';" 
-   onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#42b983';">
+     <a class="btn " href="/contribute" style="background-color: #42b983; color: #fff; margin:20px 5px 5px; padding:12px 30px; transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;" onmouseover="this.style.transform='scale(1.1)'; this.style.backgroundColor='#0F3F2D';" onmouseout="this.style.transform='scale(1)'; this.style.backgroundColor='#42b983';">
   <%= t("about.become_contributor") %>
 </a>
-
-    </div>
+   </div>
   </div>
 </div>
-
 <script>
   async function getContributors(url) {
     let apiData = await fetch(url);
@@ -206,36 +154,29 @@
     let contributorUsers = contributorsData.filter(user => user.type === 'User');
     let contributorsContainer = document.getElementById('contributors-section');
     contributorsContainer.innerHTML = "";
-
     let row;
     contributorUsers.slice(0, 100).forEach((user, index) => {
       if (index % 10 === 0) {
-        
-        row = document.createElement("div");
-        row.classList.add("row", "justify-content-center", "gx-3", "gy-3", style="gap:16px;" );
-        contributorsContainer.appendChild(row);
+       row = document.createElement("div");
+       row.classList.add("row", "justify-content-center", "gx-3", "gy-3" );
+       row.style.gap = "16px";
+       contributorsContainer.appendChild(row);
       }
-
-      let contributorElement = document.createElement('div');
+     let contributorElement = document.createElement('div');
       contributorElement.classList.add('col-lg-1', 'col-md-2', 'col-sm-3', 'col-4', 'text-center');
-
-      let contributorElementAnchor = document.createElement('a');
+     let contributorElementAnchor = document.createElement('a');
       contributorElementAnchor.href = user['html_url'];
       contributorElementAnchor.target = "_blank";
-
       let contributorElementImage = document.createElement('img');
       contributorElementImage.src = user['avatar_url'];
       contributorElementImage.classList.add('img-fluid', 'rounded-circle', 'shadow-sm');
       contributorElementImage.style.width = '70px';
       contributorElementImage.style.height = '70px';
       contributorElementImage.style.objectFit = 'cover';
-
-      contributorElementAnchor.appendChild(contributorElementImage);
+     contributorElementAnchor.appendChild(contributorElementImage);
       contributorElement.appendChild(contributorElementAnchor);
-
-      row.appendChild(contributorElement);
+     row.appendChild(contributorElement);
     });
   }
-
   getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors?per_page=100');
 </script>
