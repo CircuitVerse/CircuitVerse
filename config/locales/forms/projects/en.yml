@@ -2,7 +2,7 @@ en:
   helpers:
     label:
       collaboration:
-        emails: "Email IDs:"
+        emails: "Email IDs"
       project:
         name: "Name"
         tag_list: "Tag List"
