@@ -224,3 +224,8 @@ gem "sentry-sidekiq", "~> 5.17"
 gem 'devise_saml_authenticatable'
 
 gem 'activerecord_cursor_paginate'
+gem "base64"
+gem "mutex_m"
+gem "ostruct"
+gem "fiddle"
+gem "observer"
