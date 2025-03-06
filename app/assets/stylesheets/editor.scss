@@ -11,6 +11,7 @@ button.trumbowyg-active {
 
 .trumbowyg-button-pane {
   background-color: $card-green;
+  padding: 10px; /* P9ccb */
 
   &::after {
     color: $secondary-green;
@@ -23,6 +24,7 @@ button.trumbowyg-active {
   margin-top: 0;
   padding: 0;
   border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Pe8a9 */
 
   button {
     transition: box-shadow .2s ease-in;
@@ -40,6 +42,7 @@ button.trumbowyg-active {
   opacity: 1;
   padding-left: 15px;
   padding-top: 10px;
+  line-height: 1.6; /* P67bf */
 }
 
 .trumbowyg-dropdown-foreColor:not(.trumbowyg-dropdown--color-list),
