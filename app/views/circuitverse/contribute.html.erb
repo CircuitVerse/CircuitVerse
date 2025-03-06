@@ -12,21 +12,21 @@
     <div class="col text-center">
       <div class="d-flex flex-wrap justify-content-center">
         <div class="social-card d-inline-block my-2">
-          <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
+          <a class="text-decoration-none text-dark" href="mailto:support@circuitverse.org" target="_blank">
             <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
             <h6><%= t("email_us_heading") %></h6>
             <p>support@circuitverse.org</p>
           </a>
         </div>
         <div class="social-card d-inline-block my-2">
-          <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
+          <a class="text-decoration-none text-dark" href="<%= Rails.configuration.slack_url %>" target="_blank">
             <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
             <h6><%= t("join_at_slack_heading") %></h6>
             <p><%= t("join_at_slack_description") %></p>
           </a>
         </div>
         <div class="social-card d-inline-block my-2">
-          <a class="about-social-anchor" href="https://github.com/CircuitVerse" target="_blank">
+          <a class="text-decoration-none text-dark" href="https://github.com/CircuitVerse" target="_blank">
             <%= image_tag "SVGs/github.svg", height: "60", width: "60", alt: "Github Logo", class: "social-card-image" %>
             <h6><%= t("circuitverse.contribute.contribute_at_github_heading") %></h6>
             <p><%= t("circuitverse.contribute.contribute_at_github_description") %></p>
@@ -44,8 +44,8 @@
   </div>
   <div class="row justify-content-center gy-5">
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
-      <div class="card border-0  shadow transition-transform" style="min-height: 500px">
-        <%= image_tag "SVGs/student.svg", alt: "Student Icon", class: "card-img-top mx-auto mt-3", style: "width: 150px; height: 150px;" %>
+      <div class="card border-0 shadow custom-card">
+        <%= image_tag "SVGs/student.svg", alt: "Student Icon", class: "card-img-top mx-auto mt-3 card-image" %>
         <div class="card-body">
           <h3 class="card-title text-center"><%= t("circuitverse.contribute.student_card.main_heading") %></h3>
           <ul class="card-text">
@@ -57,8 +57,8 @@
       </div>
     </div>
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-4">
-      <div class="card border-0 shadow transition-transform" style="min-height: 500px">
-        <%= image_tag "SVGs/professor.svg", alt: "Professor Icon", class: "card-img-top mx-auto mt-3", style: "width: 150px; height: 150px;" %>
+      <div class="card border-0 shadow custom-card">
+        <%= image_tag "SVGs/professor.svg", alt: "Professor Icon", class: "card-img-top mx-auto mt-3 card-image" %>
         <div class="card-body">
           <h3 class="card-title text-center"><%= t("circuitverse.contribute.teacher_card.main_heading") %></h3>
           <ul class="card-text">
@@ -66,12 +66,12 @@
             <li class="mt-3"><%= t("circuitverse.contribute.teacher_card.item2_text") %></li>
             <li class="mt-3"><%= t("circuitverse.contribute.teacher_card.item3_text") %></li>
           </ul>
-        </div>
+        </div>  
       </div>
     </div>
     <div class="col-12 col-sm-12 col-md-12 col-lg-4 mb-4">
-      <div class="card border-0 shadow transition-transform hover-shadow" style="min-height: 500px">
-        <%= image_tag "SVGs/coder.svg", alt: "Developer Icon", class: "card-img-top mx-auto mt-3", style: "width: 150px; height: 150px;" %>
+      <div class="card border-0 shadow custom-card">
+        <%= image_tag "SVGs/coder.svg", alt: "Developer Icon", class: "card-img-top mx-auto mt-3 card-image" %>
         <div class="card-body">
           <h3 class="card-title text-center"><%= t("circuitverse.contribute.developer_card.main_heading") %></h3>
           <ul class="card-text">
@@ -85,20 +85,20 @@
   </div>
   <div class="row justify-content-center mt-5">
     <div class="col text-center">
-      <div class="d-flex flex-wrap justify-content-center" style="gap: 4rem;">
+      <div class="d-flex flex-wrap justify-content-center donation-container">
         <div class="d-inline-block mx-4 my-5">
           <p class="fw-bold"><%= t("circuitverse.contribute.become_patreon") %></p>
           <a href="https://www.patreon.com/CircuitVerse" target="_blank">
-            <div class="border border-dark rounded-2 shadow-sm p-2 transition-shadow">
-              <%= image_tag "logos/patreon-logo.png", alt: "Patreon Logo", style: "width: 160px; height: 70px;" %>
+            <div class="border border-dark rounded-2 shadow-sm p-2">
+              <%= image_tag "logos/patreon-logo.png", alt: "Patreon Logo", class: "donation-logo" %>
             </div>
           </a>
         </div>
         <div class="d-inline-block mx-4 my-5">
           <p class="fw-bold"><%= t("circuitverse.contribute.donate_via_paypal") %></p>
           <a href="https://www.paypal.me/satviksr" target="_blank">
-            <div class="border border-dark rounded-2 shadow-sm p-2 transition-shadow">
-              <%= image_tag "logos/paypal-logo.jpg", alt: "Paypal Logo", style: "width: 160px; height: 70px;" %>
+            <div class="border border-dark rounded-2 shadow-sm p-2">
+              <%= image_tag "logos/paypal-logo.jpg", alt: "Paypal Logo", class: "donation-logo" %>
             </div>
           </a>
         </div>

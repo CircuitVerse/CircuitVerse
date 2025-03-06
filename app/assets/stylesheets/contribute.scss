@@ -1,29 +1,21 @@
-.transition-transform {
+.custom-card {
+  min-height: 500px;
   &:hover {
     box-shadow: 0 12px 16px rgba(0, 0, 0, 0.3);
     transform: scale(1.05);
   }
 }
 
-.transition-shadow {
-  transition: box-shadow 0.2s ease-in-out;
-  &:hover {
-    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.3);
-  }
+.card-image {
+  width: 150px;
+  height: 150px;
 }
 
-.social-card {  
-  &:hover {
-    box-shadow: 0 12px 16px rgba(0, 0, 0, 0.3);
-  }
+.donation-logo {
+  width: 160px;
+  height: 70px;
 }
 
-.about-social-anchor {
-  text-decoration: none;
-  color: inherit;
-  
-  &:hover {
-    text-decoration: none;
-    color: inherit;
-  }
+.donation-container {
+  gap: 4rem;
 }
