@@ -136,13 +136,14 @@
 
 .search-usersearch-image {
   display: block;
-  height: 180px;
+  height: 160px;
   margin-bottom: 20px;
   object-fit: cover;
-  width: 70%;
+  width: fit-content;
   border-radius: 8px;
   aspect-ratio: 1/1;
   object-fit: cover;
+  padding: 0;
 }
 
 .search-username-container {
@@ -196,7 +197,7 @@
   }
 
   .search-usersearch-image {
-    width: 40%;
+    width: fit-content;
   }
 }
 
