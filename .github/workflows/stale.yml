@@ -27,7 +27,7 @@ jobs:
           days-before-pr-stale: 60
           days-before-pr-close: 180
           stale-pr-label: "no-pr-activity"
-          stale-pr-message: "This PR has been marked as stale because it has been inactive for 14 days. Please update or close it if it's no longer needed. It will be closed after 180 days."
+          stale-pr-message: "This PR has been marked as stale because it has been inactive for 60 days. Please update or close it if it's no longer needed. It will be closed after 180 days."
           close-pr-message: "This PR has been closed due to inactivity for 180 days."
           exempt-pr-labels: "wip" # work in progress
 
