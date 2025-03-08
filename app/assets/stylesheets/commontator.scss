@@ -89,6 +89,11 @@
     margin-top: -5px;
     width: 20px;
   }
+
+  &:hover {
+    background-color: $mini-button-blue;
+    opacity: 1 !important;
+  }
 }
 
 .delete-action {
@@ -103,6 +108,11 @@
     margin-left: -3px;
     margin-top: -5px;
     width: 15px;
+  }
+
+  &:hover {
+    background-color: $primary-red;
+    opacity: 1 !important;
   }
 }
 
