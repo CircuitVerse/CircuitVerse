@@ -46,10 +46,8 @@
           <% if devise_mapping.rememberable? -%>
             <div class="field  mb-3 mb-0">
                <%= f.check_box :remember_me,id: "remember_me_checkbox", class: "form-check-input", style: "width: 22px; height: 22px; accent-color: #026e57" %>
-                
-               <label class="primary-checkpoint-container users-primary-checkpoint mb-0 p-0"><h6><%= t("users.sessions.remember_me") %></h6>
-              
-              </label>
+                 <label class="primary-checkpoint-container users-primary-checkpoint mb-0 p-0"><h6><%= t("users.sessions.remember_me") %></h6>
+               </label>
             </div>
           <% end -%>
         </div>
