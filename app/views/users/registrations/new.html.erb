@@ -54,7 +54,7 @@
               </div>
             </div>
           </div>
-          <%= render "users/shared/links" %>
+          <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
         <% end %>
       </div>
     </div>
