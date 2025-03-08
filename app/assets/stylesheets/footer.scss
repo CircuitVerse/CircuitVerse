@@ -27,10 +27,6 @@
   max-width: 100%;
 }
 
-.footer-social-icon-text {
-  margin-left: 15px;
-}
-
 .footer-social-icon {
   width: 28px;
 
@@ -86,19 +82,19 @@
 
 .footer-sponsor-logo-div{
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 
 .footer-sponsor-logo {
   border: solid $footer-dark-grey 1px;
   border-radius: 5px;
   width: 90%;
-  height: 90%
+  height: 90%;
 }
 
 .container-sponsor{
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 
 .sponsor-outer-div{
@@ -157,9 +153,5 @@
 
   .footer-sponsor-logo {
     width: 90%; 
-  }
-
-  .footer-social-icon-text {
-    margin-left: 10px;
   }
 }
