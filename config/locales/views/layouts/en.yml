@@ -20,6 +20,7 @@ en:
         hosting_sponsor: "Hosting Sponsor:"
         marketed_by: "Marketed by:"
         incubated_from: "Incubated From:"
+        infrastructure_sponsor: "Infrastructure Sponsor:" 
       copyright_text: "Copyright © %{time_current_year} CircuitVerse, All rights reserved."
     header:
       dashboard: "Dashboard"
