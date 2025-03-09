@@ -1,4 +1,3 @@
-//buttons
 .primary-button {
   background-color: $primary-green;
   border-radius: 4px;
@@ -71,7 +70,6 @@
   width: 85px;
 }
 
-//cards
 .social-card {
   background-color: $card-green;
   box-shadow: 0 2px 7px $shadow-black;
@@ -174,7 +172,6 @@
   }
 }
 
-//modals
 .primary-modal-dialog {
   border-radius: 4px;
   box-shadow: none;
@@ -217,7 +214,6 @@
   }
 }
 
-//forms
 .form-container {
   margin-left: auto;
   margin-right: auto;
@@ -263,7 +259,6 @@
   }
 }
 
-//errors
 .error-message {
   background: $error-red;
   border-radius: 4px;
@@ -285,10 +280,9 @@
 
 .alert-success {
   margin-top: 10px;
-  padding-top: 1rem; // aligns the alert text
+  padding-top: 1rem;
 }
 
-//checkpoints
 .primary-checkpoint {
   background-color: $shadow-grey;
   display: inline-block;
@@ -340,7 +334,6 @@
   }
 }
 
-//tags
 .search-tag {
   background-color: $secondary-green;
   border-radius: 4px;
