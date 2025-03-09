@@ -13,23 +13,22 @@ If you are facing any issues with the setup, first checkout the [troubleshooting
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
 
-| Method | Operating System | Documentation |
+| Operating System | Method | Documentation |
 | --- | --- | --- |
-| GitHub Codespaces | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
-| Gitpod Cloud Environment | Any | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#gitpod-cloud-environment) |
-| Native Setup | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
-| Native Setup | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
-| Docker Development Environment | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
-| Docker Development Environment | Linux | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
-| Docker Development Environment | Mac | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
-| WSL Setup | Windows | TODO |
-| Native Setup | Windows | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
+| Any | GitHub Codespaces | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
+| Mac | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/mac.md) |
+| Mac | Docker Development Environment | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#macos) |
+| Linux | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/linux.md) |
+| Linux | Docker Development Environment | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#linux) |
+| Windows | Docker Development Environment | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/docker.md#windows) |
+| Windows | WSL Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows-wsl.md) |
+| Windows | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
 
 
 ## Tools Setup
 | Tool | Documentation Link |
 | --- | --- |
-| Code Auto Completion | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.MD) |
+| Code Auto Completion | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/LSP-SETUP.md) |
 | Ruby Debugger | [Click Here](https://github.com/CircuitVerse/CircuitVerse/blob/master/DEBUGGER-SETUP.md) |
 
 ## Tests
@@ -136,12 +135,3 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 ## Distributed Tracing using Opentelmetry
 
 Refer [otel docs](./.otel)
-
-## Third Party Services
-The `.env` file only needs to be used if you would like to link to third party services (Facebook, Google, GitHub, Gitlab, Slack, Bugsnap and Recaptcha)
-
-1. Create an app on the third party service [(instructions)](https://github.com/CircuitVerse/CircuitVerse/wiki/Create-Apps)
-2. Make the following changes in your Google, Facebook, GitHub or Gitlab app:
-   1.  Update the `site url` field with the URL of your instance, and update the `callback url` field with `<url>/users/auth/google`, `<url>/users/auth/facebook`, `<url>/users/auth/github` or `<url>/users/auth/gitlab`  respectively.
-3. Configure your `id` and `secret` environment variables in `.env`. If `.env` does not exist, copy the template from `.env.example`.
-4. After adding the environment variables, run `dotenv rails server` to start the application.

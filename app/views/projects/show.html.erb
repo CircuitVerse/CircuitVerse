@@ -20,24 +20,24 @@
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
       <h6><%= notice %></h6>
     </div>
   </div>
   <% end %>
   <br>
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
       <div class="projects-iframe-container">
-        <div class="embed-responsive embed-responsive-4by3">
+        <div class="ratio ratio-4x3">
           <iframe src=<%= simulator_path(@project) %>></iframe>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5">
       <div class="container projects-details">
         <div class="row center-row projects-details-heading-container">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <div class="projects-details-heading">
               <%= @project.name %>
             </div>
@@ -102,7 +102,7 @@
               <% if policy(@project).user_access? %>
                 <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
               <% else %>
-                <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
+                <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-bs-target="#embedProjectCircuit" data-bs-toggle="modal">
                 <i class="fas fa-code"></i>
                 <span><%= t("projects.show.project_embed") %></span>
               </a>
@@ -127,7 +127,7 @@
           <% end %>
           <% if policy(@project).author_access? %>
             <p id="collaboration_button">
-              <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal"><%= t("projects.show.project_collaborator_add") %></a>
+              <a href="#" class="anchor-text" id="<%= @project.id %>" data-bs-toggle="modal" data-bs-target="#collaboratorModal"><%= t("projects.show.project_collaborator_add") %></a>
             </p>
           <% end %>
           <% if policy(@project).user_access? %>
@@ -137,12 +137,12 @@
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
                 <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center", data: { toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
+              <%= link_to "#", class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center", data: { bs_toggle: "modal", bs_target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
-              <a class="btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center projects-self-embed-button" class="embed-trigger" href="#" data-target="#embedProjectCircuit" data-toggle="modal">
-                <i class="fas fa-code mr-1"></i>
+              <a class="btn secondary-button ms-0 py-1 px-2 d-inline-flex justify-content-center align-items-center projects-self-embed-button embed-trigger" href="#" data-bs-target="#embedProjectCircuit" data-bs-toggle="modal">
+                <i class="fas fa-code me-1"></i>
                 <span><%= t("projects.show.project_embed") %></span>
               </a>
               </p>
@@ -155,10 +155,10 @@
   <% collaborators = @project.collaborators %>
     <% if collaborators.count!=0 %>
       <div class="row center-row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
           <div class="projects-collaborators-container">
             <div class="row center-row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
                 <div class="">
                   <%= t("projects.show.collaborators") %>
                 </div>
@@ -166,20 +166,20 @@
             </div>
             <% @project.collaborators.each do |user| %>
               <div class="row center-row">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                   <div class="projectshow-collaborators-userdata">
                     <%= link_to user.name, user, class: "anchor-text" %>
                   </div>
                 </div>
                 <% if policy(@project).author_access? %>
-                  <div class="col-xs-8 col-sm-8 col-md-5 col-lg-5">
+                  <div class="col-8 col-sm-8 col-md-5 col-lg-5">
                     <div class="projects-collaborators-data">
                       <%= user.email %>
                     </div>
                   </div>
-                  <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+                  <div class="col-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
-                      <%= link_to "#", data: { toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
+                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
                         <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
                         <span><%= t("remove") %></span>
                       <% end %>

@@ -908,7 +908,7 @@ function resizeTabs() {
 window.addEventListener('resize', resizeTabs);
 resizeTabs();
 $(() => {
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-bs-toggle="tooltip"]').tooltip();
 });
 // Direction is only 1 or -1
 function handleZoom(direction) {
