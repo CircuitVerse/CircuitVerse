@@ -44,11 +44,10 @@
             </div>
           </div>
           <% if devise_mapping.rememberable? -%>
-            <div class="field mb-3 mb-0">
-              <label class="primary-checkpoint-container users-primary-checkpoint mb-0"><h6><%= t("users.sessions.remember_me") %></h6>
-                <%= f.check_box :remember_me %>
-                <div class="primary-checkpoint m-0"></div>
-              </label>
+            <div class="field  mb-3 mb-0">
+               <%= f.check_box :remember_me,id: "remember_me_checkbox", class: "form-check-input", style: "width: 22px; height: 22px; accent-color: #026e57" %>
+                 <label class="primary-checkpoint-container users-primary-checkpoint mb-0 p-0"><h6><%= t("users.sessions.remember_me") %></h6>
+               </label>
             </div>
           <% end -%>
         </div>
@@ -57,10 +56,10 @@
             <% if Flipper.enabled?(:recaptcha) %>
               <%= recaptcha_tags %>
             <% end %>
-            <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
+            <%= f.submit t("login"), class: "btn primary-button users-login-primary-button rounded-2" %>
             <div class="users-text-container">
               <% unless Flipper.enabled?(:block_registration) %>
-                <span class="users-text"><%= t("users.ask_new_user") %></span>
+                <span class="users-text d-inline m-0"><%= t("users.ask_new_user") %></span>
                 <%= link_to t("sign_up"), new_registration_path(resource_name), class: "anchor-text" %>
               <% end %>
             </div>
