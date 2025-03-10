@@ -10,7 +10,8 @@ default_flipper_features = {
   lms_integration: true,
   vuesim: false,
   block_registration: false,
-  active_storage_s3: true
+  active_storage_s3: true,
+  contests: false
 }
 
 Flipper.configure do |config|
