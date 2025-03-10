@@ -32,7 +32,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '22'
           cache: 'yarn' # Added caching for faster builds
 
       - name: Copy sample database configuration
@@ -49,6 +49,11 @@ jobs:
             software-properties-common \
             gnupg \
             build-essential
+
+      - name: Install Dependencies for canvas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
 
       # Install the cosign tool except on PR
       # https://github.com/sigstore/cosign-installer
@@ -76,8 +81,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      # Extract metadata (tags, labels) for Docker
-      # https://github.com/docker/metadata-action
       - name: Extract Docker metadata
         id: meta
         uses: docker/metadata-action@v4
@@ -87,8 +90,12 @@ jobs:
       - name: LowerCase repository name
         run: echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
 
-      # Build and push Docker image with Buildx (don't push on PR)
-      # https://github.com/docker/build-push-action
+      - name: Update yarn.lock if outdated
+        run: yarn install
+
+      - name: Install dependencies with frozen lockfile
+        run: yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
+
       - name: Build and push Docker image
         id: build-and-push
         uses: docker/build-push-action@v3
