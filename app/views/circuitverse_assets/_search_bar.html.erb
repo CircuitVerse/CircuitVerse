@@ -1,6 +1,6 @@
 <div class="container navbar-search-container">
   <div class="row center-row">
-  <%= form_tag("/search", method: "get", id: "search-box", class: "navbar-search-bar-form") do %>
+  <%= form_tag("/search", method: "get", id: "search-box", class: "navbar-search-bar-form", onsubmit: "return validateSearchInput()") do %>
     <%= select_tag :resource, options_for_select(%w[Users Projects], selected: params[:resource]), class: "navbar-search-bar-select", id: "search_type", onchange: "changePlaceholder()" %>
     <%= text_field_tag :q, params[:q], placeholder: "Search for projects or users", autocomplete: "off", class: "form-control form-input navbar-search-bar-input" %>
     <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
@@ -8,10 +8,23 @@
   </div>
 </div>
 
+<style>
+.navbar-search-bar-input.is-invalid {
+  border-color: #dc3545;
+}
+
+.invalid-feedback {
+  display: none;
+  color: #dc3545;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+</style>
+
 <script>
   function changePlaceholder() {
     var selectElement = document.getElementById('search_type');
-    var inputElement = document.getElementsByClassName('navbar-search-bar-input')[0];
+    var inputElement = document.querySelector('#search-box .navbar-search-bar-input');
     if (selectElement.value === 'Users') {
       inputElement.placeholder = 'Search for users';
     } else if (selectElement.value === 'Projects') {
@@ -19,5 +32,40 @@
     } else {
       inputElement.placeholder = 'Search for projects or users';
     }
+  }
+
+  function validateSearchInput() {
+    const searchInput = document.querySelector('#search-box .navbar-search-bar-input');
+    const errorMessage = document.getElementById('search-error-message') || createErrorElement();
+    
+    if (!searchInput) {
+      console.error('Search input not found');
+      return false;
+    }
+
+    const isEmpty = searchInput.value.trim() === '';
+    
+    if (isEmpty) {
+      searchInput.classList.add('is-invalid');
+      errorMessage.textContent = 'Please enter a search term';
+      errorMessage.style.display = 'block';
+      searchInput.setAttribute('aria-invalid', 'true');
+      searchInput.focus();
+      return false;
+    }
+    
+    searchInput.classList.remove('is-invalid');
+    errorMessage.style.display = 'none';
+    searchInput.setAttribute('aria-invalid', 'false');
+    return true;
+  }
+
+  function createErrorElement() {
+    const errorDiv = document.createElement('div');
+    errorDiv.id = 'search-error-message';
+    errorDiv.className = 'invalid-feedback';
+    errorDiv.setAttribute('role', 'alert');
+    document.querySelector('#search-box').appendChild(errorDiv);
+    return errorDiv;
   }
 </script>
