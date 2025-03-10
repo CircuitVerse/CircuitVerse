@@ -31,6 +31,10 @@ ne:
   enter_password: "पासवर्ड प्रविष्ट गर्नुहोस्"
   enter_name: "नाम प्रविष्ट गर्नुहोस्"
   registration_blocked: "साइन अप हालको लागि निष्क्रिय गरिएको छ"
+  google: "गूगल"  
+  facebook: "फेसबुक"  
+  github: "गिटहब"  
+  gitlab: "गिटल्याब" 
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
