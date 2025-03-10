@@ -1,7 +1,5 @@
 name: "Percy Visual Tests"
 
-# CHANGED: Switched from 'pull_request' to 'pull_request_target' so we can use secrets
-# from the base repo context on forked PRs, while still testing the PR's code.
 on:
   push:
     branches:
@@ -35,14 +33,13 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
     steps:
-      # 1) First checkout is the base repository (where secrets are accessible).
+      
       - name: Check out base repo code
         uses: actions/checkout@v3
         with:
           submodules: recursive
 
-      # 2) ONLY if it's a pull_request_target event, check out the forked PR code
-      #    so we actually test the external contributor's changes.
+     
       - name: Check out PR code (fork)
         if: ${{ github.event_name == 'pull_request_target' }}
         uses: actions/checkout@v3
