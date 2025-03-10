@@ -5,7 +5,7 @@ on:
     branches:
       - master
       - main
-  pull_request:
+  pull_request_target:
     branches:
       - master
       - main
@@ -33,9 +33,19 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
     steps:
-      - name: Check out code
+      
+      - name: Check out base repo code
         uses: actions/checkout@v3
         with:
+          submodules: recursive
+
+     
+      - name: Check out PR code (fork)
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
           submodules: recursive
 
       - name: Set up Ruby
