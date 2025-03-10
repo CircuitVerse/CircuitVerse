@@ -1,5 +1,16 @@
 <script src="js/search.js"></script>
-<% if @results.empty? %>
+<% if params[:q].blank? %>
+  <div class="container search-no-results-container">
+    <div class="row center-row">
+      <div class="col-12">
+        <div class="search-no-results-image">
+          <%= image_tag "SVGs/noResult.svg", alt: "No result image" %>
+          <h6>No results found. Please enter a search term.</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+<% elsif @results.empty? %>
   <div class="container search-no-results-container">
     <div class="row center-row">
       <div class="col-12">
