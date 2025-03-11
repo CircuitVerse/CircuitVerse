@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe "Notifcation", type: :system do
   before do
-    
+
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
@@ -41,7 +41,7 @@ describe "Notifcation", type: :system do
     end
 
     it "render all notifications" do
-      
+
       expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
     end
 
