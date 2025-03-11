@@ -8,9 +8,14 @@ describe "Notifcation", type: :system do
   attr_reader :author, :user, :project
 
   before do
-    @author = FactoryBot.create(:user)
-    @user = sign_in_random_user
-    @project = FactoryBot.create(:project, name: "Project", author: author, project_access_type: "Public")
+    author_user = FactoryBot.create(:user)
+    random_user = sign_in_random_user
+    test_project = FactoryBot.create(:project, name: "Project", author: author_user, project_access_type: "Public")
+
+    @author  = author_user
+    @user    = random_user
+    @project = test_project
+
     driven_by(:selenium_chrome_headless)
   end
 
@@ -36,7 +41,7 @@ describe "Notifcation", type: :system do
       end
 
       sign_in author
-      visit user_noticed_notifications_path(author)
+      visit notifications_path(author)
     end
 
     it "render all notifications" do
