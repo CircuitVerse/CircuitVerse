@@ -56,17 +56,17 @@ class ProjectsController < ApplicationController
   end
 
   def create_fork
-  authorize @project
-  @project_new = @project.fork(current_user)
-  @project_new.save!
+    authorize @project
+    @project_new = @project.fork(current_user)
+    @project_new.save!
 
-  if @project.author != current_user
-    ForkNotification.with(user: current_user, project: @project_new)
-                    .deliver_later(@project.author)
+    if @project.author != current_user
+      ForkNotification.with(user: current_user, project: @project_new)
+                      .deliver_later(@project.author)
+    end
+
+    redirect_to user_project_path(current_user, @project_new)
   end
-
-  redirect_to user_project_path(current_user, @project_new)
-end
 
   # POST /projects
   # POST /projects.json
