@@ -22,6 +22,8 @@ describe "Notifcation", type: :system do
       click_on "Fork"
     end
 
+    sleep 1
+
     expect(author.noticed_notifications.count).to eq(1)
   end
 
@@ -29,13 +31,12 @@ describe "Notifcation", type: :system do
     before do
       sign_in user
       visit user_project_path(author, project)
-
       perform_enqueued_jobs do
         click_on "Fork"
       end
 
       sign_in author
-      visit notifications_path(author)
+      visit notifications_path
     end
 
     it "render all notifications" do
