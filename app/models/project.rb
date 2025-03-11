@@ -92,15 +92,11 @@ class Project < ApplicationRecord
   def fork(user)
     forked_project = dup
     forked_project.build_project_datum.data = project_datum&.data
-    forked_project.circuit_preview.attach(circuit_preview.blob)
+    forked_project.circuit_preview.attach(circuit_preview.blob) if circuit_preview.attached?
     forked_project.image_preview = image_preview
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
-    @project = Project.find(id)
-    if @project.author != user # rubocop:disable Style/IfUnlessModifier
-      ForkNotification.with(user: user, project: @project).deliver_later(@project.author)
-    end
     forked_project
   end
 
@@ -166,7 +162,6 @@ class Project < ApplicationRecord
     end
 
     def should_generate_new_friendly_id?
-      # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).count > 1
     end
 
