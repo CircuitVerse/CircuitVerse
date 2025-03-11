@@ -36,7 +36,7 @@ describe "Notifcation", type: :system do
       end
 
       sign_in author
-      visit notifications_path
+      visit user_noticed_notifications_path(author)
     end
 
     it "render all notifications" do
