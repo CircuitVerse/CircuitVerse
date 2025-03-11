@@ -12,8 +12,8 @@ describe "Notifcation", type: :system do
     random_user = sign_in_random_user
     test_project = FactoryBot.create(:project, name: "Project", author: author_user, project_access_type: "Public")
 
-    @author  = author_user
     @user    = random_user
+    @author  = author_user
     @project = test_project
 
     driven_by(:selenium_chrome_headless)
@@ -23,13 +23,12 @@ describe "Notifcation", type: :system do
     sign_in user
     visit user_project_path(author, project)
 
-    perform_enqueued_jobs do
-      click_on "Fork"
-    end
-
-    sleep 1
-
-    expect(author.noticed_notifications.count).to eq(1)
+    # Inline background check: we expect the author's notification count to change by 1
+    expect do
+      perform_enqueued_jobs do
+        click_on "Fork"
+      end
+    end.to change { author.noticed_notifications.count }.by(1)
   end
 
   context "notification page" do
