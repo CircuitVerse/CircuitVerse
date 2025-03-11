@@ -5,6 +5,7 @@ require "active_job/test_helper"
 
 describe "Notifcation", type: :system do
   include ActiveJob::TestHelper
+  attr_reader :author, :user, :project
 
   before do
     @author = FactoryBot.create(:user)
@@ -14,21 +15,20 @@ describe "Notifcation", type: :system do
   end
 
   it "initiate notification" do
-    sign_in @user
-
-    visit user_project_path(author, @project)
+    sign_in user
+    visit user_project_path(author, project)
 
     perform_enqueued_jobs do
       click_on "Fork"
     end
-    
+
     expect(author.noticed_notifications.count).to eq(1)
   end
 
   context "notification page" do
     before do
-      sign_in @user
-      visit user_project_path(author, @project)
+      sign_in user
+      visit user_project_path(author, project)
 
       perform_enqueued_jobs do
         click_on "Fork"
@@ -39,13 +39,13 @@ describe "Notifcation", type: :system do
     end
 
     it "render all notifications" do
-      expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
+      expect(page).to have_text("#{user.name} forked your Project #{project.name}")
     end
 
     it "render all unread notifications" do
       expect(page).to have_selector("#unread-notifications")
       page.find("#unread-notifications").click
-      expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
+      expect(page).to have_text("#{user.name} forked your Project #{project.name}")
     end
 
     it "mark all notifications as read" do
@@ -55,15 +55,9 @@ describe "Notifcation", type: :system do
     end
 
     it "mark notification as read" do
-      expect(page).to have_link("#{@user.name} forked your Project #{@project.name}")
-      click_on "#{@user.name} forked your Project #{@project.name}"
+      expect(page).to have_link("#{user.name} forked your Project #{project.name}")
+      click_on "#{user.name} forked your Project #{project.name}"
       expect(author.noticed_notifications.read.count).to eq(1)
     end
-  end
-
-  private
-
-  def author
-    @author
   end
 end
