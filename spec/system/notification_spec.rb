@@ -23,7 +23,7 @@ describe "Notifcation", type: :system do
     sign_in user
     visit user_project_path(author, project)
 
-    # Inline background check: we expect the author's notification count to change by 1
+    # Inline background check : we expect the author's notification count to change by 1
     expect do
       perform_enqueued_jobs do
         click_on "Fork"
