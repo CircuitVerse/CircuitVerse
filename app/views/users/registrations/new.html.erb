@@ -40,14 +40,13 @@
             </h6>
             <div class="input-group form-input">
               <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", 
-                  placeholder: t('enter_password'), class: "form-control users-password-input",
-                  id: "password", onkeyup: "validatePassword()" %>
+                  placeholder: t('enter_password'), class: "form-control users-password-input",id: "password", onkeyup: "validatePassword()" %>
               <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
                 <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
               </div>
             </div>
             <p id="password-error" class="text-danger mt-1" style="display: none;">
-              Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character.
+                {t('password_error')}
             </p>
           </div>
 
