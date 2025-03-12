@@ -2,14 +2,14 @@ import { Controller } from 'stimulus';
 
 export default class extends Controller {
     connect() {
-        $('#promote-member-modal').on('show.bs.modal', (e) => {
+        $('#promote-member-modal').on('show.bs.modal', e => {
             const groupmember = $(e.relatedTarget).data('currentgroupmember');
             $(e.currentTarget)
                 .find('#groups-member-promote-button')
                 .parent()
                 .attr('action', `/group_members/${groupmember.toString()}`);
         });
-        $('#demote-member-modal').on('show.bs.modal', (e) => {
+        $('#demote-member-modal').on('show.bs.modal', e => {
             const groupmember = $(e.relatedTarget).data('currentgroupmember');
             $(e.currentTarget)
                 .find('#groups-member-demote-button')
@@ -50,7 +50,7 @@ export default class extends Controller {
         const addButton = document.querySelector(this.addButtonSelector);
 
         // Define helper functions
-        const preventDefaults = (e) => {
+        const preventDefaults = e => {
             e.preventDefault();
             e.stopPropagation();
         };
@@ -73,17 +73,17 @@ export default class extends Controller {
             }, 11000);
         };
 
-        const extractEmails = (csvData) =>
+        const extractEmails = csvData =>
             csvData
                 .split(/\r\n|\n/)
-                .filter((line) => line.trim())
-                .flatMap((line) => line.split(','))
-                .map((col) => col.trim())
-                .filter((val) => val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+                .filter(line => line.trim())
+                .flatMap(line => line.split(','))
+                .map(col => col.trim())
+                .filter(val => val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
 
-        const addEmailsToSelect = (emails) => {
+        const addEmailsToSelect = emails => {
             const emailSelect = $(this.emailInputSelector);
-            emails.forEach((email) => {
+            emails.forEach(email => {
                 if (emailSelect.find(`option[value='${email}']`).length === 0) {
                     emailSelect.append(new Option(email, email, true, true));
                 }
@@ -92,7 +92,7 @@ export default class extends Controller {
             if (addButton) addButton.disabled = false;
         };
 
-        const processFile = (file) => {
+        const processFile = file => {
             if (!file) return;
 
             if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
@@ -104,7 +104,7 @@ export default class extends Controller {
             fileInfo.innerHTML = '<span>Processing...</span>';
 
             const reader = new FileReader();
-            reader.onload = (event) => {
+            reader.onload = event => {
                 try {
                     const emails = extractEmails(event.target.result);
                     if (emails.length > 0) {
@@ -127,7 +127,7 @@ export default class extends Controller {
 
         // Set up file input event
         if (fileInput) {
-            fileInput.addEventListener('change', (e) => {
+            fileInput.addEventListener('change', e => {
                 if (e.target.files.length) processFile(e.target.files[0]);
             });
         }
@@ -138,26 +138,26 @@ export default class extends Controller {
             dropzone.addEventListener('click', () => fileInput.click());
 
             // Prevent default drag behaviors
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((event) => {
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event => {
                 dropzone.addEventListener(event, preventDefaults);
                 document.body.addEventListener(event, preventDefaults);
             });
 
             // Handle dropzone highlighting
-            ['dragenter', 'dragover'].forEach((event) =>
+            ['dragenter', 'dragover'].forEach(event =>
                 dropzone.addEventListener(event, () =>
                     dropzone.classList.add('active')
                 )
             );
 
-            ['dragleave', 'drop'].forEach((event) =>
+            ['dragleave', 'drop'].forEach(event =>
                 dropzone.addEventListener(event, () =>
                     dropzone.classList.remove('active')
                 )
             );
 
             // Handle file drop
-            dropzone.addEventListener('drop', (e) => {
+            dropzone.addEventListener('drop', e => {
                 const dt = e.dataTransfer;
                 if (dt.files.length) {
                     fileInput.files = dt.files;
@@ -180,7 +180,7 @@ export default class extends Controller {
             const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
             const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            newLinesIntoSpacesSplitted.forEach((value) => {
+            newLinesIntoSpacesSplitted.forEach(value => {
                 var tags = $('<option/>', { text: value });
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
@@ -189,7 +189,7 @@ export default class extends Controller {
         } else {
             const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            pastedEmailsSplittedBySpace.forEach((value) => {
+            pastedEmailsSplittedBySpace.forEach(value => {
                 var tags = $('<option/>', { text: value });
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
@@ -248,7 +248,7 @@ export default class extends Controller {
         });
         document
             .querySelector('.select2-selection input')
-            .addEventListener('paste', (e) => {
+            .addEventListener('paste', e => {
                 e.preventDefault();
                 let pastedEmails = '';
                 if (window.clipboardData && window.clipboardData.getData) {
@@ -262,7 +262,7 @@ export default class extends Controller {
                     const newLinesIntoSpacesSplitted =
                         newLinesIntoSpaces.split(' ');
                     this.value = pastedEmails.replace(/./g, '');
-                    newLinesIntoSpacesSplitted.forEach((value) => {
+                    newLinesIntoSpacesSplitted.forEach(value => {
                         var tags = $('<option/>', { text: value });
                         $('#group_member_emails').append(tags);
                         $('#group_member_emails option').prop('selected', true);
@@ -271,7 +271,7 @@ export default class extends Controller {
                 } else {
                     const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
                     this.value = pastedEmails.replace(/./g, '');
-                    pastedEmailsSplittedBySpace.forEach((value) => {
+                    pastedEmailsSplittedBySpace.forEach(value => {
                         var tags = $('<option/>', { text: value });
                         $('#group_member_emails').append(tags);
                         $('#group_member_emails option').prop('selected', true);
