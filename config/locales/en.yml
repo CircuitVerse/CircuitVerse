@@ -28,6 +28,7 @@ en:
   not_available: "N.A."
   not_entered: "Not Entered"
   enter_email: "Enter Email"
+  enter_forget_email: "Enter your email address:"
   enter_password: "Enter Password"
   enter_name: "Enter Name"
   registration_blocked: "Sign up is Currently disabled"
