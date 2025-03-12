@@ -269,6 +269,7 @@ GEM
     geocoder (1.7.3)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    google-protobuf (3.25.5-aarch64-linux)
     google-protobuf (3.25.5-arm64-darwin)
     google-protobuf (3.25.5-x64-mingw32)
     google-protobuf (3.25.5-x86_64-darwin)
@@ -418,6 +419,8 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.3)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.18.3-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.3-arm64-darwin)
       racc (~> 1.4)
@@ -905,6 +908,7 @@ GEM
     zeitwerk (2.6.18)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
