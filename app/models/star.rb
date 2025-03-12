@@ -17,6 +17,6 @@ class Star < ApplicationRecord
     end
 
     def cleanup_notification
-      notifications_as_star.destroy_all
+      notifications_as_star.in_batches(of: 200).delete_all
     end
 end
