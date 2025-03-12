@@ -29,6 +29,7 @@ bn:
   not_entered: "প্রবেশ করা হয়নি"
   enter_email: "ইমেইল লিখুন"
   enter_password: "পাসওয়ার্ড লিখুন"
+  password_error: "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
   enter_name: "নাম লিখুন"
   registration_blocked: "সাইন আপ বর্তমানে অক্ষম আছে"
   google: "গুগল"

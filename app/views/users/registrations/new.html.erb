@@ -28,18 +28,21 @@
               <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
           <div class="field mb-3">
-          <h6 class="password-length">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
-            <% end %>
-          </h6>
-          <div class="input-group form-input">
-            <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
-            <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
-              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            <h6 class="password-length">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
+              <% end %>
+            </h6>
+            <div class="input-group form-input">
+              <%= password_field_tag "{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input",id: "password", onkeyup: "validatePassword()" %>
+              <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
+                <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+              </div>
             </div>
-          </div>
+            <p id="password-error" class="text-danger mt-1" style="display: none;">
+                {t('password_error')}
+            </p>
         </div>
           <div class="field mb-3">
             <div class="input-group">
@@ -47,7 +50,7 @@
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
               <% end %>
-              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
+              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button", id: "submit-btn", disabled: true %>
               <div class="users-text-container">
                 <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
                 <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
@@ -62,3 +65,21 @@
 </div>
 
 <script src="/js/togglePassword.js"></script>
+<script>
+  function validatePassword() {
+    const passwordField = document.getElementById("password");
+    const submitBtn = document.getElementById("submit-btn");
+    const errorMsg = document.getElementById("password-error");
+
+    const password = passwordField.value;
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (passwordRegex.test(password)) {
+      errorMsg.style.display = "none";
+      submitBtn.disabled = false;
+    } else {
+      errorMsg.style.display = "block";
+      submitBtn.disabled = true;
+    }
+  }
+</script>
