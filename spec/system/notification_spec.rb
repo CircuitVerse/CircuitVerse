@@ -7,7 +7,7 @@ describe "Notifcation", type: :system do
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
-    page.driver.browser.manage.window.resize_to(1920, 1080)
+    page.driver.browser.manage.window.resize_to(1400, 900)
   end
 
   it "initiate notification" do
