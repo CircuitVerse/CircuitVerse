@@ -11,7 +11,7 @@ describe "Notifcation", type: :system do
     page.driver.browser.manage.window.resize_to(1920, 1080)
   end
 
-  it "initiates notification" do
+  it "initiate notification" do
     sign_in @user
     visit user_project_path(@author, @project)
     perform_enqueued_jobs { click_on "Fork" }
@@ -27,21 +27,21 @@ describe "Notifcation", type: :system do
       visit notifications_path(@author)
     end
 
-    it "renders all notifications" do
+    it "render all notifications" do
       expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
     end
 
-    it "renders all unread notifications" do
+    it "render all unread notifications" do
       page.find("#unread-notifications").click
       expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
     end
 
-    it "marks all notifications as read" do
+    it "mark all notifications as read" do
       click_on "Mark all as read"
       expect(@author.noticed_notifications.unread.count).to eq(0)
     end
 
-    it "marks a notification as read" do
+    it "mark notification as read" do
       click_on "#{@user.name} forked your Project #{@project.name}"
       expect(@author.noticed_notifications.read.count).to eq(1)
     end
