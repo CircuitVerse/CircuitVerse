@@ -8,7 +8,6 @@ describe "Notifcation", type: :system do
     @user = sign_in_random_user
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
     driven_by(:selenium_chrome_headless, screen_size: [1920, 1080])
-    page.driver.browser.manage.window.resize_to(1920, 1080)
   end
 
   it "initiate notification" do
