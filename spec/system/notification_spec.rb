@@ -7,13 +7,13 @@ describe "Notifcation", type: :system do
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
-    driven_by(:selenium_chrome_headless, screen_size: [1920, 1080])
+    page.driver.browser.manage.window.resize_to(1920, 1080)
   end
 
   it "initiate notification" do
     sign_in @user
     visit user_project_path(@author, @project)
-    perform_enqueued_jobs { click_on "Fork" }
+    click_on "Fork"
     expect(@author.noticed_notifications.count).to eq(1)
   end
 
@@ -21,7 +21,7 @@ describe "Notifcation", type: :system do
     before do
       sign_in @user
       visit user_project_path(@author, @project)
-      perform_enqueued_jobs { click_on "Fork" }
+      click_on "Fork"
       sign_in @author
       visit notifications_path(@author)
     end
