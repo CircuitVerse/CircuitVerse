@@ -41,7 +41,7 @@
               </div>
             </div>
             <p id="password-error" class="text-danger mt-1" style="display: none;">
-+ <            %= t('password_error') %>
++             <%= t('password_error') %>
             </p>
         </div>
           <div class="field mb-3">
@@ -50,7 +50,7 @@
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
               <% end %>
-              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button", id: "submit-btn", disabled: true %>
+              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
               <div class="users-text-container">
                 <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
                 <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
