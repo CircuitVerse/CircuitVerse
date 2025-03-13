@@ -7,7 +7,9 @@ describe "Notifcation", type: :system do
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
-    driven_by(:selenium_chrome_headless)
+    driven_by(:selenium_chrome_headless) do |driver_options|
+      driver_options.add_argument '--window-size=1920,1080'
+    end
   end
 
   it "initiate notification" do
