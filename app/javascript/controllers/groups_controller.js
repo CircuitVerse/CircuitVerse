@@ -28,10 +28,10 @@ export default class extends Controller {
 
     extractEmails(csvData) {
         return csvData.split(/\r\n|\n/)
-        .filter(line => line.trim())
-        .flatMap(line => line.split(','))
-        .map(col => col.trim())
-        .filter(val => val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+            .filter(line => line.trim())
+            .flatMap(line => line.split(','))
+            .map(col => col.trim())
+            .filter(val => val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
     }
 
     preventDefaults(e) {
@@ -135,7 +135,7 @@ export default class extends Controller {
             });
 
             ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((event) => {
-                dropzone.addEventListener(event, function() {
+                dropzone.addEventListener(event, () => {
                     if (['dragenter', 'dragover'].includes(event)) {
                         dropzone.classList.add('active');
                     } else {
