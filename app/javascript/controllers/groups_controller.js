@@ -27,7 +27,11 @@ export default class extends Controller {
     }
 
     extractEmails(csvData) {
-        return csvData.split(/\r\n|\n/).filter(line => line.trim()).flatMap(line => line.split(',')).map(col => col.trim()).filter(val => val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
+        return csvData.split(/\r\n|\n/)
+        .filter(line => line.trim())
+        .flatMap(line => line.split(','))
+        .map(col => col.trim())
+        .filter(val => val && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val));
     }
 
     preventDefaults(e) {
@@ -130,11 +134,15 @@ export default class extends Controller {
                 document.body.addEventListener(event, this.preventDefaults);
             });
 
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(event =>
-                dropzone.addEventListener(event, () =>
-                    ['dragenter', 'dragover'].includes(event)
-                        ? dropzone.classList.add('active')
-                        : dropzone.classList.remove('active')));
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((event) => {
+                dropzone.addEventListener(event, function() {
+                    if (['dragenter', 'dragover'].includes(event)) {
+                        dropzone.classList.add('active');
+                    } else {
+                        dropzone.classList.remove('active');
+                    }
+                });
+            });
 
             dropzone.addEventListener('drop', (e) => {
                 const dt = e.dataTransfer;
