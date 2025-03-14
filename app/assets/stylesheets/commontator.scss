@@ -36,7 +36,8 @@
 }
 
 .votes {
-  display: inline-block;
+  display: inline-flex;
+  flex-direction: column;
   width: 60px;
 }
 
