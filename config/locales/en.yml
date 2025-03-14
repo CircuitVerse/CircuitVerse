@@ -13,6 +13,7 @@ en:
   login: "Log in"
   sign_up: "Sign up"
   sign_out: "Sign out"
+  password_error: "Password must be at least 8 characters long and include an uppercase letter, a lowercase letter, a number, and a special character."
   assignment: "Assignment"
   launch: "Launch"
   fork: "Fork"
