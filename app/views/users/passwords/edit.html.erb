@@ -42,13 +42,9 @@
             </div>
           </div>
           <div class="field mb-3">
-            <div class="input-group">
+            <div class="d-flex align-items-center">
               <%= f.submit t("users.passwords.change_password"), class: "btn primary-button users-primary-button" %>
-            </div>
-          </div>
-          <div class="field mb-2">
-            <div class="input-group justify-content-center">
-              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text text-center" %>
+              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text ms-3" %>
             </div>
           </div>
           <div class="field mb-3">

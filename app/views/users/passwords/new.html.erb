@@ -8,16 +8,16 @@
     <div class="col-12 col-sm-12 col-md-6 col-lg-6">
       <div class="users-form-container">
         <h2 class="users-main-heading"><%= t("users.passwords.forgot_password_heading") %></h2>
+        <% if !resource.errors.empty? %>
+          <div class="error-message">
+            <ul>
+              <% resource.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
         <%= form_with(model: resource, as: resource_name, url: password_path(resource_name), method: :post, local: true) do |f| %>
-          <% if !resource.errors.empty? %>
-            <div class="error-message">
-              <ul>
-                <% resource.errors.full_messages.each do |message| %>
-                  <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>
             <div class="input-group">
@@ -25,13 +25,9 @@
             </div>
           </div>
           <div class="field mb-3">
-            <div class="input-group">
+            <div class="d-flex align-items-center">
               <%= f.submit t("users.passwords.send_reset_link"), class: "btn primary-button users-primary-button" %>
-            </div>
-          </div>
-          <div class="field mb-2">
-            <div class="input-group justify-content-center">
-              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text text-center" %>
+              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text ms-3" %>
             </div>
           </div>
           <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
