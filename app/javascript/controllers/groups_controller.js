@@ -39,120 +39,158 @@ export default class extends Controller {
         e.stopPropagation();
     }
 
-    setupCSVUpload(
-        csvUploadContainerSelector = '.csv-upload-container',
-        emailInputSelector = '#group_member_emails',
-        addButtonSelector = '#add-members-button',
-    ) {
-        this.csvSelector = csvUploadContainerSelector;
-        this.emailInputSelector = emailInputSelector;
-        this.addButtonSelector = addButtonSelector;
+   setupCSVUpload(
+    csvUploadContainerSelector = '.csv-upload-container',
+    emailInputSelector = '#group_member_emails',
+    addButtonSelector = '#add-members-button',
+) {
+    this.csvSelector = csvUploadContainerSelector;
+    this.emailInputSelector = emailInputSelector;
+    this.addButtonSelector = addButtonSelector;
 
-        document.querySelector(this.csvSelector).innerHTML = `
-        <input type="file" id="csv-file-upload" accept=".csv" style="display:none">
-        <div id="csv-file-name" class="my-1 csv-file-info"></div>
-        <div class="csv-dropzone"><i class="fas fa-file-csv"></i> Drag a CSV file or Select</div>`;
+    this._initializeDOM();
+    this._setupFileInput();
+    this._setupDropZone();
+}
 
-        const fileInput = document.getElementById('csv-file-upload');
-        const fileInfo = document.getElementById('csv-file-name');
-        const dropzone = document.querySelector('.csv-dropzone');
-        const addButton = document.querySelector(this.addButtonSelector);
+// DOM initialization extracted to separate method
+_initializeDOM() {
+    document.querySelector(this.csvSelector).innerHTML = `
+    <input type="file" id="csv-file-upload" accept=".csv" style="display:none">
+    <div id="csv-file-name" class="my-1 csv-file-info"></div>
+    <div class="csv-dropzone"><i class="fas fa-file-csv"></i> Drag a CSV file or Select</div>`;
+}
 
-        const showMessage = (message, isError = false) => {
-            if (this.messageTimeout) clearTimeout(this.messageTimeout);
-            fileInfo.classList.remove('csv-msg-fade-out');
-            fileInfo.innerHTML = isError
-                ? `<span class="csv-error">${message}</span>`
-                : `<span class="csv-success">${message}</span>`;
+// File input handling extracted
+_setupFileInput() {
+    const fileInput = document.getElementById('csv-file-upload');
+    if (!fileInput) return;
+    
+    fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) this._processFile(e.target.files[0]);
+    });
+}
 
-            this.messageTimeout = setTimeout(() => {
-                fileInfo.classList.add('csv-msg-fade-out');
-                setTimeout(() => {
-                    if (fileInfo.classList.contains('csv-msg-fade-out')) {
-                        fileInfo.innerHTML = '';
-                        fileInfo.classList.remove('csv-msg-fade-out');
-                    }
-                }, 500);
-            }, 11000);
-        };
+// Dropzone setup extracted
+_setupDropZone() {
+    const dropzone = document.querySelector('.csv-dropzone');
+    const fileInput = document.getElementById('csv-file-upload');
+    if (!dropzone || !fileInput) return;
 
-        const addEmailsToSelect = (emails) => {
-            const emailSelect = $(this.emailInputSelector);
-            emails.forEach((email) => {
-                if (emailSelect.find(`option[value='${email}']`).length === 0) {
-                    emailSelect.append(new Option(email, email, true, true));
-                }
-            });
-            emailSelect.trigger('change');
-            if (addButton) addButton.disabled = false;
-        };
+    dropzone.addEventListener('click', () => fileInput.click());
+    this._setupDropZoneEvents(dropzone);
+}
 
-        const processFile = (file) => {
-            if (!file) return;
+// Dropzone event handling extracted
+_setupDropZoneEvents(dropzone) {
+    const events = ['dragenter', 'dragover', 'dragleave', 'drop'];
+    
+    // Prevent defaults for all events
+    events.forEach((event) => {
+        dropzone.addEventListener(event, this.preventDefaults);
+        document.body.addEventListener(event, this.preventDefaults);
+    });
 
-            if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
-                showMessage('Please upload a CSV file', true);
-                fileInput.value = '';
-                return;
+    // Handle visual feedback
+    events.forEach((event) => {
+        dropzone.addEventListener(event, () => {
+            if (['dragenter', 'dragover'].includes(event)) {
+                dropzone.classList.add('active');
+            } else {
+                dropzone.classList.remove('active');
             }
+        });
+    });
 
-            fileInfo.innerHTML = '<span>Processing...</span>';
-
-            const reader = new FileReader();
-            reader.onload = (event) => {
-                try {
-                    const emails = this.extractEmails(event.target.result);
-                    if (emails.length > 0) {
-                        addEmailsToSelect(emails);
-                        showMessage(
-                            `${emails.length} email${
-                                emails.length !== 1 ? 's' : ''
-                            } loaded`,
-                        );
-                    } else {
-                        showMessage('No valid emails found', true);
-                    }
-                } catch (error) {
-                    showMessage('Error processing file', true);
-                }
-            };
-            reader.onerror = () => showMessage('Error reading file', true);
-            reader.readAsText(file);
-        };
-
-        if (fileInput) {
-            fileInput.addEventListener('change', (e) => {
-                if (e.target.files.length) processFile(e.target.files[0]);
-            });
+    // Handle file drop
+    dropzone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        if (dt.files.length) {
+            const fileInput = document.getElementById('csv-file-upload');
+            fileInput.files = dt.files;
+            this._processFile(dt.files[0]);
         }
+    });
+}
 
-        if (dropzone && fileInput) {
-            dropzone.addEventListener('click', () => fileInput.click());
+// File processing logic extracted
+_processFile(file) {
+    if (!file) return;
+    const fileInfo = document.getElementById('csv-file-name');
+    const fileInput = document.getElementById('csv-file-upload');
 
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((event) => {
-                dropzone.addEventListener(event, this.preventDefaults);
-                document.body.addEventListener(event, this.preventDefaults);
-            });
-
-            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((event) => {
-                dropzone.addEventListener(event, () => {
-                    if (['dragenter', 'dragover'].includes(event)) {
-                        dropzone.classList.add('active');
-                    } else {
-                        dropzone.classList.remove('active');
-                    }
-                });
-            });
-
-            dropzone.addEventListener('drop', (e) => {
-                const dt = e.dataTransfer;
-                if (dt.files.length) {
-                    fileInput.files = dt.files;
-                    processFile(dt.files[0]);
-                }
-            });
-        }
+    if (file.type !== 'text/csv' && !file.name.endsWith('.csv')) {
+        this._showMessage('Please upload a CSV file', true);
+        if (fileInput) fileInput.value = '';
+        return;
     }
+
+    if (fileInfo) fileInfo.innerHTML = '<span>Processing...</span>';
+
+    const reader = new FileReader();
+    reader.onload = (event) => this._handleFileLoad(event);
+    reader.onerror = () => this._showMessage('Error reading file', true);
+    reader.readAsText(file);
+}
+
+// File load handling extracted
+_handleFileLoad(event) {
+    try {
+        const emails = this.extractEmails(event.target.result);
+        if (emails.length > 0) {
+            this._addEmailsToSelect(emails);
+            this._showMessage(`${emails.length} email${emails.length !== 1 ? 's' : ''} loaded`);
+        } else {
+            this._showMessage('No valid emails found', true);
+        }
+    } catch (error) {
+        this._showMessage('Error processing file', true);
+    }
+}
+
+// Message display extracted
+_showMessage(message, isError = false) {
+    const fileInfo = document.getElementById('csv-file-name');
+    if (!fileInfo) return;
+    
+    if (this.messageTimeout) clearTimeout(this.messageTimeout);
+    fileInfo.classList.remove('csv-msg-fade-out');
+    fileInfo.innerHTML = isError
+        ? `<span class="csv-error">${message}</span>`
+        : `<span class="csv-success">${message}</span>`;
+
+    this._setMessageTimeout(fileInfo);
+}
+
+// Message timeout handling extracted
+_setMessageTimeout(fileInfo) {
+    this.messageTimeout = setTimeout(() => {
+        fileInfo.classList.add('csv-msg-fade-out');
+        setTimeout(() => {
+            if (fileInfo.classList.contains('csv-msg-fade-out')) {
+                fileInfo.innerHTML = '';
+                fileInfo.classList.remove('csv-msg-fade-out');
+            }
+        }, 500);
+    }, 11000);
+}
+
+// Email selection handling extracted
+_addEmailsToSelect(emails) {
+    const emailSelect = $(this.emailInputSelector);
+    if (!emailSelect) return;
+    
+    emails.forEach((email) => {
+        if (emailSelect.find(`option[value='${email}']`).length === 0) {
+            emailSelect.append(new Option(email, email, true, true));
+        }
+    });
+    
+    emailSelect.trigger('change');
+    
+    const addButton = document.querySelector(this.addButtonSelector);
+    if (addButton) addButton.disabled = false;
+}
 
     mentorInputPaste(e) {
         e.preventDefault();
