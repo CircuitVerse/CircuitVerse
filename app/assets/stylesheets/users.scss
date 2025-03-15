@@ -620,4 +620,16 @@
   background-color: #0000000a;
   text-decoration: none;
 }
+.field .input-group {
+  display: flex;
+  align-items: center;
+}
+
+.input-group .mt-2 {
+  margin-top: 0 !important;
+}
+
+.input-group .users-primary-button {
+  border-radius: 4px !important;
+}
 //user profile ends
