@@ -1,0 +1,24 @@
+<div id="withdraw-submission-confirmation-modal"
+     class="modal fade"
+     role="dialog"
+     aria-labelledby="withdrawSubmissionConfirmationModalLabel"
+     aria-modal="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 id="withdrawSubmissionConfirmationModalLabel" class="modal-title">
+          <%= t("contest.withdraw_submission_modal.heading") %>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><%= t("contest.withdraw_submission_modal.description") %></p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to "#", id: "withdraw-submission-button", class: "btn primary-delete-button", method: :delete do %>
+          <span><%= t("contest.withdraw") %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
