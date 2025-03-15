@@ -27,3 +27,7 @@
 @import 'announcements';
 @import 'select2.css';
 @import 'select2_overrides';
+
+body {
+    min-width: 320px;
+}
