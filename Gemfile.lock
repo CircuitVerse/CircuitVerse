@@ -578,7 +578,7 @@ GEM
     pundit (2.3.0)
       activesupport (>= 3.0.0)
     racc (1.8.1)
-    rack (2.2.12)
+    rack (2.2.13)
     rack-attack (6.6.1)
       rack (>= 1.0, < 3)
     rack-protection (3.0.5)
@@ -708,7 +708,7 @@ GEM
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
-    ruby-saml (1.17.0)
+    ruby-saml (1.18.0)
       nokogiri (>= 1.13.10)
       rexml
     ruby-vips (2.2.1)
