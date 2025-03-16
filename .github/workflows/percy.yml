@@ -54,13 +54,6 @@ jobs:
           ref: ${{ github.event.pull_request.head.ref }}
           submodules: recursive
 
-      - name: Debug: Show PR labels
-        if: ${{ github.event_name == 'pull_request_target' }}
-        run: |
-          echo "Event name: ${{ github.event_name }}"
-          echo "Pull request labels:"
-          echo "${{ toJson(github.event.pull_request.labels) }}"
-
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
