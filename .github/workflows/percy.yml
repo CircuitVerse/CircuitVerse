@@ -6,21 +6,20 @@ on:
       - master
       - main
   pull_request_target:
+    types: [opened, reopened, synchronized, labeled]
     branches:
       - master
       - main
 
 jobs:
   percy-tests:
-    
     if: >
       github.event_name == 'push'
       OR (
         github.event_name == 'pull_request_target'
         AND
-        contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')
+        contains(toJson(github.event.pull_request.labels), 'check-visual-regression')
       )
-
     runs-on: ubuntu-latest
 
     services:
@@ -42,7 +41,6 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
     steps:
-     
       - name: Check out base repo code
         uses: actions/checkout@v3
         with:
@@ -55,6 +53,13 @@ jobs:
           repository: ${{ github.event.pull_request.head.repo.full_name }}
           ref: ${{ github.event.pull_request.head.ref }}
           submodules: recursive
+
+      - name: Debug: Show PR labels
+        if: ${{ github.event_name == 'pull_request_target' }}
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "Pull request labels:"
+          echo "${{ toJson(github.event.pull_request.labels) }}"
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
