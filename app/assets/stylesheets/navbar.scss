@@ -246,3 +246,22 @@
     padding: .5rem;
   }
 }
+@media (max-width: 768px) {
+  .flex.row.me-1 {
+    display: flex;
+    align-items: center;
+  }
+
+  .navbar-search-icon-container {
+    flex: 1;
+  }
+
+  .navbar-toggler {
+    flex: 0;
+  }
+}
+
+
+
+
+
