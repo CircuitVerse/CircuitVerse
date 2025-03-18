@@ -228,14 +228,17 @@
   }
 }
 
+
 .small-view .search-card-container {
-  display: flex; 
-  flex-direction: row; 
-  padding: 10px;
+  display: inline-block;
   max-width: 400px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-} 
+  margin-right: 10px;
+  vertical-align: top; 
+  height: auto;
+}
+
+
+
 
 .toggle-view-container {
   display: flex;
