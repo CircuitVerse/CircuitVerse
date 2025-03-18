@@ -28,23 +28,23 @@
   <br>
   <div class="row center-row">
     <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
-      <div class="projects-iframe-container">
+      <div class="border border-secondary-subtle mb-5 p-2">
         <div class="ratio ratio-4x3">
           <iframe src=<%= simulator_path(@project) %>></iframe>
         </div>
       </div>
     </div>
     <div class="col-12 col-sm-12 col-md-5 col-lg-5">
-      <div class="container projects-details">
-        <div class="row center-row projects-details-heading-container">
+      <div class="container bg-light px-0">
+        <div class="row center-row bg-success py-2 h-50">
           <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="projects-details-heading">
+            <div class="text-light fs-3 fw-bold overflow-hidden text-wrap h-100">
               <%= @project.name %>
             </div>
           </div>
         </div>
         <div class="row projects-views-count-container noSelect">
-          <i class="fas fa-star projects-star-count-icon" aria-hidden="true"></i>
+          <i class="fas fa-star text-warning" aria-hidden="true"></i>
           <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
            <%= t("projects.stars_count") %>
           &nbsp; &nbsp;
@@ -52,35 +52,35 @@
           <span id="star-count" class="noSelect"><%= @project.view %></span>
            <%= t("projects.views_count") %> &nbsp; &nbsp;
         </div>
-        <div class="row center-row projects-user-details-container">
-          <div class="projects-search-tags-container">
+        <div class="row center-row pt-0 pb-4 px-5">
+          <div class="d-block mb-4 pl-0 text-left w-75">
             <% if !@project.tags.empty? %>
               <% @project.tags.each do |tag| %>
                 <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
               <% end %>
             <% end %>
           </div>
-          <p>
+          <p class="d-block mb-2 text-start w-75">
             <strong><%= t("projects.show.project_author") %> </strong>
             <%= link_to @project.author.name, @project.author, class: "anchor-text" %>
           </p>
           <% if !@project.forked_project.nil? %>
-            <p>
+            <p class="d-block mb-2 text-start w-75">
               <strong><%= t("projects.show.project_forked_from") %> </strong>
               <%= link_to "#{@project.forked_project.author.name}/#{@project.forked_project.name}", user_project_path(@project.forked_project.author, @project.forked_project), class: "anchor-text" %>
             </p>
           <% end %>
-          <p>
+          <p class="d-block mb-2 text-start w-75">
             <strong><%= t("projects.show.project_access_type") %> </strong>
             <%= @project.project_access_type %>
           </p>
           <% if !@project.description.nil? %>
-            <p>
+            <p class="d-block mb-2 text-start w-75">
               <strong><%= t("projects.show.project_description") %> </strong>
             </p>
             <div class="projects-details-description"><%= sanitize @project.description %></div>
           <% end %>
-          <p title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
+          <p class="d-block mb-2 text-start w-75" title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
             <strong><%= t("projects.show.project_created_at") %> </strong>
             <% if @project.created_at >= 14.days.ago %>
               <%= "#{time_ago_in_words(@project.created_at, include_seconds: true)} ago" %>
@@ -88,7 +88,7 @@
              <%= @project.created_at.strftime("%b %d, %Y") %>
             <% end %>
           </p>
-          <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
+          <p class="d-block mb-2 text-start w-75" title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
             <strong><%= t("projects.show.project_updated_at") %> </strong>
             <% if @project.updated_at >= 14.days.ago %>
               <%= "#{time_ago_in_words(@project.updated_at, include_seconds: true)} ago" %>
@@ -97,10 +97,10 @@
             <% end %>
           </p>
           <% if user_signed_in? %>
-            <p>
-              <hr class="projects-horizontal-rule">
+            <p class="d-block mb-2 text-start w-75">
+              <hr class="w-100">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button ms-0 py-1 px-2" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
               <% else %>
                 <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-bs-target="#embedProjectCircuit" data-bs-toggle="modal">
                 <i class="fas fa-code"></i>
@@ -119,20 +119,20 @@
                 <% end %>
               <% end %>
               <% if @project.stars.exists?(user_id: current_user.id) %>
-                <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="fas fa-star btn primary-button  project-button-star-icon ms-0" aria-hidden="true" onclick="toggleStar()"></i>
               <% else %>
-                <i id="toggleStarButton" class="far fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="far fa-star btn primary-button  project-button-star-icon ms-0" aria-hidden="true" onclick="toggleStar()"></i>
               <% end %>
             </p>
           <% end %>
           <% if policy(@project).author_access? %>
-            <p id="collaboration_button">
+            <p class="d-block mb-2 text-start w-75" id="collaboration_button">
               <a href="#" class="anchor-text" id="<%= @project.id %>" data-bs-toggle="modal" data-bs-target="#collaboratorModal"><%= t("projects.show.project_collaborator_add") %></a>
             </p>
           <% end %>
           <% if policy(@project).user_access? %>
             <hr class="projects-horizontal-rule">
-            <p>
+            <p class="d-block mb-2 text-start w-75">
               <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center" do %>
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
                 <span><%= t("edit") %></span>
@@ -156,9 +156,9 @@
     <% if collaborators.count!=0 %>
       <div class="row center-row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-          <div class="projects-collaborators-container">
+          <div class="bg-light">
             <div class="row center-row">
-              <div class="col-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 bg-success text-light fs-3 fw-bold h-50 mb-2 p-2">
                 <div class="">
                   <%= t("projects.show.collaborators") %>
                 </div>
@@ -186,7 +186,7 @@
                     </div>
                   </div>
                 <% end %>
-                <hr class="projects-collaborators-horizontal-rule">
+                <hr class="w-75">
               </div>
             <% end %>
           </div>
