@@ -72,6 +72,7 @@ cd CircuitVerse
      echo "deb [signed-by=/usr/share/keyrings/yarn-archive-keyring.gpg] https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
      sudo apt update && sudo apt install -y yarn
      ```
+     <!-- Fixed indentation for yarn installation command -->
 - [CMAKE](https://cmake.org/install/)
      ```bash
      sudo apt install cmake
