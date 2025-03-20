@@ -43,7 +43,7 @@ describe "Group management", type: :system do
     click_button "Add members"
 
     expect(page).to have_text(
-      "Out of 1 Email(s), 1 was valid and 0 were invalid. 1 user(s) will be invited. No users were already present."
+      "Out of 1 Email(s), 1 was valid and 0 were invalid. 1 user(s) will be invited."
     )
   end
 
