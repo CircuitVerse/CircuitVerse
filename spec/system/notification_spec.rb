@@ -14,6 +14,7 @@ describe "Notifcation", type: :system do
     sign_in @user
     visit user_project_path(@author, @project)
     click_on "Fork"
+    sleep(1)
     expect(@author.noticed_notifications.count).to eq(1)
   end
 
@@ -37,6 +38,7 @@ describe "Notifcation", type: :system do
 
     it "mark all notifications as read" do
       click_on "Mark all as read"
+      sleep(1)
       expect(@author.noticed_notifications.unread.count).to eq(0)
     end
 
