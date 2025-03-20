@@ -7,7 +7,8 @@ describe "Notifcation", type: :system do
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
-    driven_by(:selenium_chrome_headless, screen_size: [1920, 1080])
+    driven_by(:selenium_chrome_headless)
+    Capybara.current_session.driver.browser.manage.window.resize_to(1920, 1080)
   end
 
   it "initiate notification" do
@@ -24,6 +25,7 @@ describe "Notifcation", type: :system do
       click_on "Fork"
       sign_in @author
       visit notifications_path(@author)
+      Capybara.current_session.driver.browser.manage.window.resize_to(1920, 1080)
     end
 
     it "render all notifications" do
