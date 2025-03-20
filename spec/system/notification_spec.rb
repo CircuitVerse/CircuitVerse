@@ -4,8 +4,8 @@ require "rails_helper"
 
 describe "Notifcation", type: :system do
   before do
-    @author = FactoryBot.create(:user)
-    @user = sign_in_random_user
+    @author = FactoryBot.create(:user, name: "AuthorUser", email: "author@cv.com")
+    @user = FactoryBot.create(:user, name: "ForkUser", email: "fork@cv.com")
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
     driven_by(:selenium_chrome_headless)
     Capybara.current_session.driver.browser.manage.window.resize_to(1920, 1080)
