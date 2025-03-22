@@ -1,4 +1,4 @@
-<script src="/assets/js/search.js"></script>
+<script src="js/search.js"></script>
 <% if @results.empty? %>
   <div class="container search-no-results-container">
     <div class="row center-row">
@@ -11,21 +11,9 @@
     </div>
   </div>
 <% else %>
-  <div class="container search-container ">
-  <div class="toggle-view-container">
-  <button id="small-thumbnail-btn" class="btn toggle-button">
-    <i class="fas fa-th" aria-hidden="true"></i>
-  </button>
-  
-  <button id="large-thumbnail-btn" class="btn toggle-button">
-    <i class="fas fa-th-large" aria-hidden="true"></i>
-  </button>
-</div>
-
-
-
+  <div class="container search-container">
     <% @results.each do |project| %>
-      <div class="search-card-container">
+      <div class="row center-row search-card-container">
         <div class="col-12 col-sm-12 col-md-5 col-lg-5">
           <div class="row center-row">
             <%= image_tag project_image_preview(project, current_user), alt: "project.name", class: "search-image" %>
@@ -80,34 +68,4 @@
       <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
     <% end %>
   </div>
-<% end %> 
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-      const smallBtn = document.getElementById("small-thumbnail-btn");
-      const largeBtn = document.getElementById("large-thumbnail-btn");
-      const searchContainer = document.querySelector(".search-container");
-
-      if (!smallBtn || !largeBtn || !searchContainer) {
-          console.log("Error: One or more elements are missing.");
-          return;
-      }
-
-      console.log("All elements are found successfully!");
-
-      smallBtn.addEventListener("click", () => {
-          console.log("Small view button clicked");
-          searchContainer.classList.remove("large-view");
-          searchContainer.classList.add("small-view");
-          console.log("Current classes on searchContainer:", searchContainer.classList);
-      });
-
-      largeBtn.addEventListener("click", () => {
-          console.log("Large view button clicked");
-          searchContainer.classList.remove("small-view");
-          searchContainer.classList.add("large-view");
-          console.log("Current classes on searchContainer:", searchContainer.classList);
-      });
-  });
-</script>
-
+<% end %>
