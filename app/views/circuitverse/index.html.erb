@@ -33,164 +33,210 @@
     <% end %>
     <%= render "announcements/announcement" %>
     <div class="container">
-    <div class="row center-row align-items-center g-4">
-    <div class="col-md-6">
-        <div class="home-main-content text-center text-md-start">
-            <h1><%= t("circuitverse.index.main_heading") %></h1>
+      <div class="row center-row">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+          <div class="home-main-content">
+            <h1><%= t("circuitverse.index.main_heading") %></h1><br>
             <p><%= t("circuitverse.index.main_description") %></p>
-            <div class="d-flex justify-content-center justify-content-md-start gap-3">
-                <a class="btn primary-button home-simulator-button" href='/simulator'>
-                    <%= t("launch_simulator") %>
-                </a>
-                <a href="https://learn.circuitverse.org/" target="_blank" class="btn anchor-text-button anchor-text">
-                    <%= t("circuitverse.index.learn_logic_design") %>
-                </a>
+            <div class="home-buttons-container justify-content-center">
+              <a class="btn primary-button home-simulator-button" href='/simulator'><%= t("launch_simulator") %></a>
+              <a href="https://learn.circuitverse.org/" target="blank" class="btn anchor-text-button anchor-text"><%= t("circuitverse.index.learn_logic_design") %></a>
             </div>
+          </div>
         </div>
-    </div>
-    <div class="col-md-6 d-flex justify-content-center">
-        <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", class: "home-image-cover" %>
-    </div>
-</div>
-
+        <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+          <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", class: "home-image-cover" %>
+        </div>
+      </div>
       <div class="row">
         <div class="col-12 home-tertiary-button-container">
           <a class="btn tertiary-button" href="/teachers"><%= t("circuitverse.index.for_teachers") %></a>
           <a class="btn tertiary-button" href="/contribute"><%= t("circuitverse.index.for_contributors") %></a>
         </div>
       </div>
-      <div id="home-features-section" class="row center-row text-center g-3" style="scroll-margin-top: 100px;">
-    <div class="col">
-        <h3><%= t("circuitverse.index.features.main_heading") %></h3>
-        <p><%= t("circuitverse.index.features.main_description") %></p>
-    </div>
-</div>
-
-      <div class="row center-row justify-content-center g-4">
-    <% features = [
-        { img: "export-hd.png", alt: "Export HD", heading: "circuitverse.index.features.item1_heading", text: "circuitverse.index.features.item1_text" },
-        { img: "combinations analysis.png", alt: "Combinational Analysis", heading: "circuitverse.index.features.item2_heading", text: "circuitverse.index.features.item2_text" },
-        { img: "testbench-timing-diagram.png", alt: "Testbench Timing Diagram", heading: "circuitverse.index.features.item3_heading", text: "circuitverse.index.features.item3_text" },
-        { img: "embed.png", alt: "Embed", heading: "circuitverse.index.features.item4_heading", text: "circuitverse.index.features.item4_text" },
-        { img: "sub-circuit.png", alt: "Sub Circuit", heading: "circuitverse.index.features.item5_heading", text: "circuitverse.index.features.item5_text" },
-        { img: "multi-bit-bus.png", alt: "Multi Bit Bus", heading: "circuitverse.index.features.item6_heading", text: "circuitverse.index.features.item6_text" }
-    ] %>
-
-    <% features.each do |feature| %>
-        <div class="col-md-6 col-lg-4">
-            <div class="card home-feature-card">
-                <%= image_tag "homepage/#{feature[:img]}", alt: feature[:alt], class: "card-img-top" %>
-                <div class="card-body">
-                    <h5 class="card-title"><%= t(feature[:heading]) %></h5>
-                    <p class="card-text"><%= t(feature[:text]) %></p>
-                </div>
-            </div>
+      <div id="home-features-section" class="row center-row" style="scroll-margin-top: 100px;">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+          <h3><%= t("circuitverse.index.features.main_heading") %></h3>
+          <p><%= t("circuitverse.index.features.main_description") %></p>
         </div>
-    <% end %>
-</div>
-
+      </div>
+      <div class="row center-row justify-content-center">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card home-feature-card">
+            <%= image_tag "homepage/export-hd.png", alt: "Export HD", class: "card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= t("circuitverse.index.features.item1_heading") %></h5>
+              <p class="card-text"><%= t("circuitverse.index.features.item1_text") %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card home-feature-card">
+            <%= image_tag "homepage/combinations analysis.png", alt: "Combinational Analysis", class: "card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= t("circuitverse.index.features.item2_heading") %></h5>
+              <p class="card-text"><%= t("circuitverse.index.features.item2_text") %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card home-feature-card">
+            <%= image_tag "homepage/testbench-timing-diagram.png", alt: "Testbench Timing Diagram", class: "card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= t("circuitverse.index.features.item3_heading") %></h5>
+              <p class="card-text"><%= t("circuitverse.index.features.item3_text") %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card home-feature-card">
+            <%= image_tag "homepage/embed.png", alt: "Embed", class: "card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= t("circuitverse.index.features.item4_heading") %></h5>
+              <p class="card-text"><%= t("circuitverse.index.features.item4_text") %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card home-feature-card">
+            <%= image_tag "homepage/sub-circuit.png", alt: "Sub Circuit", class: "card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= t("circuitverse.index.features.item5_heading") %></h5>
+              <p class="card-text"><%= t("circuitverse.index.features.item5_text") %></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card home-feature-card">
+            <%= image_tag "homepage/multi-bit-bus.png", alt: "Multi Bit Bus", class: "card-img-top" %>
+            <div class="card-body">
+              <h5 class="card-title"><%= t("circuitverse.index.features.item6_heading") %></h5>
+              <p class="card-text"><%= t("circuitverse.index.features.item6_text") %></p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="container">
-  <div class="text-center mb-4">
-    <h3><%= t("circuitverse.index.featured_examples.main_heading") %></h3>
-    <p><%= t("circuitverse.index.featured_examples.main_description") %></p>
-  </div>
-  
-  <div class="row justify-content-center">
-    <% featured_circuits = [
-      { img: "homepage/rippleCarry.jpg", alt: "Ripple Carry", text: t("circuitverse.index.featured_examples.circuit1_text"), link: "https://circuitverse.org/users/3/projects/248" },
-      { img: "homepage/sap.jpg", alt: "SAP-1", text: t("circuitverse.index.featured_examples.circuit2_text"), link: "https://circuitverse.org/users/3/projects/67" },
-      { img: "homepage/fullAdder.jpg", alt: "Full Adder", text: t("circuitverse.index.featured_examples.circuit3_text"), link: "https://circuitverse.org/users/3/projects/247" }
-    ] %>
-    
-    <% featured_circuits.each do |circuit| %>
-      <div class="col-md-6 col-lg-4 d-flex">
-        <div class="card circuit-card w-100">
-          <%= image_tag circuit[:img], alt: circuit[:alt], class: "card-img-top circuit-card-image examples-circuit-card-image" %>
-          <div class="card-footer circuit-card-footer d-flex justify-content-between align-items-center">
-            <div class="circuit-card-name">
-              <p><%= circuit[:text] %></p>
-              <span class="tooltiptext"><%= circuit[:text] %></span>
-            </div>
-            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= circuit[:link] %>"><%= t("view") %></a>
-          </div>
+      <div class="row center-row home-circuit-card-row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+          <h3><%= t("circuitverse.index.featured_examples.main_heading") %></h3>
+          <p><%= t("circuitverse.index.featured_examples.main_description") %></p>
         </div>
       </div>
-    <% end %>
-  </div>
-
-  <div class="text-center mt-4">
-    <a class="btn primary-button homepage-primary-button-feature" href="/examples"><%= t("circuitverse.index.explore_more") %></a>
-  </div>
-</div>
-
-<div class="container-fluid home-container-fluid">
-<div class="container">
-  <div class="text-center mb-4">
-    <h3><%= t("circuitverse.index.editor_picks.main_heading") %></h3>
-    <p><%= t("circuitverse.index.editor_picks.main_description") %></p>
-  </div>
-
-  <% cache :featured_circuits, expires_in: 6.hours do %>
-    <div class="row justify-content-center">
-      <% @featured_circuits.each do |circuit| %>
-        <div class="col-md-6 col-lg-4 d-flex">
-          <div class="card circuit-card w-100">
-            <%= image_tag project_image_preview(circuit, current_user), alt: circuit.name, class: "card-img-top circuit-card-image", height: "180", width: "288" %>
-            <div class="card-footer circuit-card-footer d-flex justify-content-between align-items-center">
+      <div class="row center-row justify-content-center">
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card circuit-card">
+            <%= image_tag "homepage/rippleCarry.jpg", alt: "Ripple Carry", class: "card-img-top circuit-card-image examples-circuit-card-image" %>
+            <div class="card-footer circuit-card-footer">
               <div class="circuit-card-name">
-                <p><%= circuit.name %></p>
-                <span class="tooltiptext"><%= circuit.name %></span>
+                <p><%= t("circuitverse.index.featured_examples.circuit1_text") %></p>
+                <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit1_text") %></span>
               </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>"><%= t("view") %></a>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/248"><%= t("view") %></a>
             </div>
           </div>
         </div>
-      <% end %>
-    </div>
-  <% end %>
-
-  <div class="text-center mt-4">
-    <a class="btn primary-button homepage-primary-button-feature" href="/featured_circuits"><%= t("circuitverse.index.explore_more") %></a>
-  </div>
-</div>
-</div>
-
-<% cache "recent-projects-#{params[:after]}-#{params[:before]}", expires_in: 10.minutes do %>
-<div class="container" id="recent">
-  <div class="text-center mb-4">
-    <h3><%= t("circuitverse.index.recent_circuits.main_heading") %></h3>
-    <p><%= t("circuitverse.index.recent_circuits.main_description") %></p>
-  </div>
-
-  <div class="row justify-content-center">
-    <% @projects.each do |project| %>
-      <div class="col-md-6 col-lg-4 d-flex">
-        <div class="card circuit-card w-100">
-          <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image" %>
-          <div class="card-footer circuit-card-footer d-flex justify-content-between align-items-center">
-            <div class="circuit-card-name">
-              <p><%= project.name %></p>
-              <span class="tooltiptext"><%= project.name %></span>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card circuit-card">
+            <%= image_tag "homepage/sap.jpg", alt: "SAP-1", class: "card-img-top circuit-card-image examples-circuit-card-image" %>
+            <div class="card-footer circuit-card-footer">
+              <div class="circuit-card-name">
+                <p><%= t("circuitverse.index.featured_examples.circuit2_text") %></p>
+                <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit2_text") %></span>
+              </div>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/67"><%= t("view") %></a>
             </div>
-            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>"><%= t("view") %></a>
+          </div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+          <div class="card circuit-card">
+            <%= image_tag "homepage/fullAdder.jpg", alt: "Full Adder", class: "card-img-top circuit-card-image examples-circuit-card-image", height: "180", width: "288" %>
+            <div class="card-footer circuit-card-footer">
+              <div class="circuit-card-name">
+                <p><%= t("circuitverse.index.featured_examples.circuit3_text") %></p>
+                <span class="tooltiptext"><%= t("circuitverse.index.featured_examples.circuit3_text") %></span>
+              </div>
+              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/users/3/projects/247"><%= t("view") %></a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row center-row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+          <a class="btn primary-button homepage-primary-button-feature" href="/examples"><%= t("circuitverse.index.explore_more") %></a>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid home-container-fluid">
+      <div class="container">
+        <div class="row center-row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <h3><%= t("circuitverse.index.editor_picks.main_heading") %></h3>
+            <p><%= t("circuitverse.index.editor_picks.main_description") %></p>
+          </div>
+        </div>
+        <% cache :featured_circuits, expires_in: 6.hours do %>
+          <div class="row center-row justify-content-center">
+            <% @featured_circuits.each do |circuit| %>
+              <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="card circuit-card">
+                  <%= image_tag project_image_preview(circuit, current_user), alt: circuit.name, class: "card-img-top circuit-card-image", height: "180", width: "288" %>
+                  <div class="card-footer circuit-card-footer">
+                    <div class="circuit-card-name">
+                      <p><%= circuit.name %></p>
+                      <span class="tooltiptext"><%= circuit.name %></span>
+                    </div>
+                    <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(circuit.author, circuit) %>"><%= t("view") %></a>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="row center-row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+              <a class="btn primary-button homepage-primary-button-feature" href="/featured_circuits"><%= t("circuitverse.index.explore_more") %></a>
+            </div>
+        </div>
+      </div>
+    </div>
+    <% cache "recent-projects-#{params[:after]}-#{params[:before]}", expires_in: 10.minutes do %>
+      <div class="container" id="recent">
+        <div class="row center-row home-circuit-card-row">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <h3><%= t("circuitverse.index.recent_circuits.main_heading") %></h3>
+            <p><%= t("circuitverse.index.recent_circuits.main_description") %></p>
+          </div>
+        </div>
+        <div class="row center-row justify-content-center">
+          <% @projects.each do |project| %>
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+              <div class="card circuit-card">
+                <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image" %>
+                <div class="card-footer circuit-card-footer">
+                  <div class="circuit-card-name">
+                    <p><%= project.name %></p>
+                    <span class="tooltiptext"><%= project.name %></span>
+                  </div>
+                  <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>"><%= t("view") %></a>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+        <div class="container pagination-cont">
+          <div class="pagination justify-content-center">
+            <% if @projects_page.has_previous? %>
+              <%= link_to t("previous"), root_path(before: @projects_page.previous_cursor), class: "page-link" %>
+            <% end %>
+            <% if @projects_page.has_next? %>
+              <%= link_to t("next"), root_path(after: @projects_page.next_cursor), class: "page-link" %>
+            <% end %>
           </div>
         </div>
       </div>
     <% end %>
-  </div>
-
-  <div class="d-flex justify-content-center mt-4">
-    <% if @projects_page.has_previous? %>
-      <%= link_to t("previous"), root_path(before: @projects_page.previous_cursor), class: "btn page-link mx-2" %>
-    <% end %>
-    <% if @projects_page.has_next? %>
-      <%= link_to t("next"), root_path(after: @projects_page.next_cursor), class: "btn page-link mx-2" %>
-    <% end %>
-  </div>
-</div>
-<% end %>
-
 
     <% if user_signed_in? %>
     <script>
