@@ -11,7 +11,7 @@
     "watch:docs": "npm run watch:doc-output & npm run watch:doc-src",
     "lint": "eslint ./simulator",
     "postinstall": "opencollective-postinstall || true",
-    "prepare": "husky install",
+    "prepare": "husky .",
     "build": "node esbuild.config.js"
   },
   "devDependencies": {
