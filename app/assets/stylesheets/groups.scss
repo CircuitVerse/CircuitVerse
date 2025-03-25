@@ -276,23 +276,46 @@
 }
 
 #group-invite-link-container {
+  visibility: hidden; 
+  height: 0; 
+  overflow: hidden;
   border: 1.5px solid $secondary-green;
-  padding: 10px;
+  padding: 12px;
   position: relative;
-  font-size: 12px; 
-  border-radius: 5px; 
+  font-size: 14px;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  word-wrap: break-word;
+  transition: visibility 0s, height 0.3s ease-in-out;
+}
+
+#group-invite-link-container.show {
+  visibility: visible; 
+  height: auto; 
+  min-height: 70px;
 }
 
 #copyIcon{
   top: 0;
   right: 0;
-  position: absolute;
-  padding: 5px;
+  position: relative;
+  padding: 8px;
+  align-self: flex-start;
 }
 
 .group-invite-link-text {
+  flex-grow: 1;
   border: none;
   outline: none;
+  overflow-wrap: break-word; 
+  word-break: break-all; 
+  white-space: normal;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 //breakpoints
