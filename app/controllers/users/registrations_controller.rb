@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "zxcvbn"
+
 class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_action :check_captcha, only: [:create]
+  prepend_before_action :check_password_strength, only: [:create]
   before_action :configure_sign_up_params, only: [:create]
   invisible_captcha only: %i[create update], honeypot: :subtitle unless Rails.env.test?
   # before_action :configure_account_update_params, only: [:update]
@@ -78,6 +81,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
       resource.validate # Look for any other validation errors besides reCAPTCHA
       set_minimum_password_length
       respond_with_navigational(resource) { render :new }
+    end
+
+    def check_password_strength
+      return unless params[:user] && params[:user][:password].present?
+
+      tester = Zxcvbn::Tester.new
+      strength = tester.test(params[:user][:password])
+
+      return unless strength.score < 2
+
+      flash[:error] = "Password is too weak. #{strength.feedback.warning}."
+
+      self.resource = resource_class.new sign_up_params
+      resource.errors.add(:password, "is too weak. #{strength.feedback.warning}.")
+
+      render :new and return
     end
 
   # If you have extra params to permit, append them to the sanitizer.

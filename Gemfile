@@ -224,3 +224,5 @@ gem "sentry-sidekiq", "~> 5.17"
 gem 'devise_saml_authenticatable'
 
 gem 'activerecord_cursor_paginate'
+
+gem "zxcvbn-ruby", "~> 1.2"
