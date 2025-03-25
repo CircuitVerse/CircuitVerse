@@ -31,6 +31,7 @@ export function stripTags(string = '') {
     return string.replace(/(<([^>]+)>)/ig, '').trim();
 }
 
+
 export function clockTick() {
     if (!simulationArea.clockEnabled) return;
     if (errorDetectedGet()) return;
@@ -106,22 +107,27 @@ export function gateGenerateVerilog(gate, invert = false) {
         if (this.nodeList[i].type == NODE_INPUT) {
             inputs.push(this.nodeList[i]);
         } else {
-            if (this.nodeList[i].connections.length > 0) outputs.push(this.nodeList[i]);
-            else outputs.push(''); // Don't create a wire
+            if (this.nodeList[i].connections.length > 0)
+                outputs.push(this.nodeList[i]);
+            else
+                outputs.push(""); // Don't create a wire
         }
     }
 
-    var res = 'assign ';
-    if (outputs.length == 1) res += outputs[0].verilogLabel;
-    else res += `{${outputs.map((x) => x.verilogLabel).join(', ')}}`;
+    var res = "assign ";
+    if (outputs.length == 1)
+        res += outputs[0].verilogLabel;
+    else
+        res += `{${outputs.map(x => x.verilogLabel).join(", ")}}`;
 
-    res += ' = ';
+    res += " = ";
 
-    var inputParams = inputs.map((x) => x.verilogLabel).join(` ${gate} `);
-    if (invert) {
+    var inputParams = inputs.map(x => x.verilogLabel).join(` ${gate} `);
+    if(invert) {
         res += `~(${inputParams});`;
-    } else {
-        res += `${inputParams};`;
+    }
+    else {
+        res += inputParams + ';';
     }
     return res;
 }
@@ -129,8 +135,9 @@ export function gateGenerateVerilog(gate, invert = false) {
 // Helper function to download text
 export function download(filename, text) {
     var pom = document.createElement('a');
-    pom.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(text)}`);
+    pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     pom.setAttribute('download', filename);
+
 
     if (document.createEvent) {
         var event = document.createEvent('MouseEvents');
@@ -158,15 +165,15 @@ export function copyToClipboard(text) {
     textarea.setAttribute('readonly', true);
 
     document.body.appendChild(textarea);
-    textarea.value = text;
+      textarea.value = text;
 
-    // Check if there is any content selected previously.
-    const selected = document.getSelection().rangeCount > 0
-        ? document.getSelection().getRangeAt(0) : false;
+      // Check if there is any content selected previously.
+      const selected = document.getSelection().rangeCount > 0 ?
+        document.getSelection().getRangeAt(0) : false;
 
-    // iOS Safari blocks programmatic execCommand copying normally, without this hack.
-    // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
-    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+      // iOS Safari blocks programmatic execCommand copying normally, without this hack.
+      // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
+      if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
         const editable = textarea.contentEditable;
         textarea.contentEditable = true;
         const range = document.createRange();
@@ -176,26 +183,28 @@ export function copyToClipboard(text) {
         sel.addRange(range);
         textarea.setSelectionRange(0, 999999);
         textarea.contentEditable = editable;
-    } else {
+      }
+      else {
         textarea.select();
-    }
+      }
 
-    try {
+      try {
         const result = document.execCommand('copy');
 
         // Restore previous selection.
         if (selected) {
-            document.getSelection().removeAllRanges();
-            document.getSelection().addRange(selected);
+          document.getSelection().removeAllRanges();
+          document.getSelection().addRange(selected);
         }
         textarea.remove();
         return result;
-    } catch (err) {
+      }
+      catch (err) {
         console.error(err);
         textarea.remove();
         return false;
-    }
-}
+      }
+};
 
 export function truncateString(str, num) {
     // If the length of str is less than or equal to num
@@ -204,114 +213,122 @@ export function truncateString(str, num) {
         return str;
     }
     // Return str truncated with '...' concatenated to the end of str.
-    return `${str.slice(0, num)}...`;
+    return str.slice(0, num) + "...";
 }
 
 export function bitConverterDialog() {
     $('#bitconverterprompt').dialog({
         buttons: [
             {
-                text: 'Reset',
-                click() {
+                text: "Reset",
+                click: function () {
                     setBaseValues(0);
-                },
-            },
-        ],
+                }
+            }
+        ]
     });
 }
 
 export function getImageDimensions(file) {
-    return new Promise((resolved, rejected) => {
-        var i = new Image();
-        i.onload = function () {
-            resolved({ w: i.width, h: i.height });
-        };
-        i.src = file;
-    });
-}
+    return new Promise (function (resolved, rejected) {
+      var i = new Image()
+      i.onload = function(){
+        resolved({w: i.width, h: i.height})
+      };
+      i.src = file
+    })
+  }
 
 // convertors
 export var convertors = {
-    dec2bin: (x) => `0b${x.toString(2)}`,
-    dec2hex: (x) => `0x${x.toString(16)}`,
-    dec2octal: (x) => `0${x.toString(8)}`,
-    dec2bcd: (x) => parseInt(x.toString(10), 16).toString(2),
-};
+    dec2bin: x => "0b" + x.toString(2),
+    dec2hex: x => "0x" + x.toString(16),
+    dec2octal: x => "0" + x.toString(8),
+    dec2bcd: x => parseInt(x.toString(10), 16).toString(2),
+}
 
 export function setBaseValues(x) {
     if (isNaN(x)) return;
-    $('#binaryInput').val(convertors.dec2bin(x));
-    $('#bcdInput').val(convertors.dec2bcd(x));
-    $('#octalInput').val(convertors.dec2octal(x));
-    $('#hexInput').val(convertors.dec2hex(x));
-    $('#decimalInput').val(x);
+    $("#binaryInput").val(convertors.dec2bin(x));
+    $("#bcdInput").val(convertors.dec2bcd(x));
+    $("#octalInput").val(convertors.dec2octal(x));
+    $("#hexInput").val(convertors.dec2hex(x));
+    $("#decimalInput").val(x);
 }
 
 export function parseNumber(num) {
     if (num instanceof Number) return num;
-    if (num.slice(0, 2).toLocaleLowerCase() == '0b') return parseInt(num.slice(2), 2);
-    if (num.slice(0, 2).toLocaleLowerCase() == '0x') return parseInt(num.slice(2), 16);
-    if (num.slice(0, 1).toLocaleLowerCase() == '0') return parseInt(num, 8);
+    if (num.slice(0, 2).toLocaleLowerCase() == '0b')
+        return parseInt(num.slice(2), 2);
+    if (num.slice(0, 2).toLocaleLowerCase() == '0x')
+        return parseInt(num.slice(2), 16);
+    if (num.slice(0, 1).toLocaleLowerCase() == '0')
+        return parseInt(num, 8);
     return parseInt(num);
 }
 
 export function setupBitConvertor() {
-    $('#decimalInput').on('keyup', () => {
-        var x = parseInt($('#decimalInput').val(), 10);
+    $("#decimalInput").on('keyup', function () {
+        var x = parseInt($("#decimalInput").val(), 10);
         setBaseValues(x);
-    });
+    })
 
-    $('#binaryInput').on('keyup', () => {
-        var inp = $('#binaryInput').val();
+    $("#binaryInput").on('keyup', function () {
+        var inp = $("#binaryInput").val();
         var x;
-        if (inp.slice(0, 2) == '0b') x = parseInt(inp.slice(2), 2);
-        else x = parseInt(inp, 2);
+        if (inp.slice(0, 2) == '0b')
+            x = parseInt(inp.slice(2), 2);
+        else
+            x = parseInt(inp, 2);
         setBaseValues(x);
-    });
-    $('#bcdInput').on('keyup', () => {
-        var input = $('#bcdInput').val();
+    })
+    $("#bcdInput").on('keyup', function () {
+        var input = $("#bcdInput").val();
         var num = 0;
-        while (input.length % 4 !== 0) {
-            input = `0${input}`;
+        while (input.length % 4 !== 0){
+            input = "0" + input;
         }
-        if (input !== 0) {
+        if(input !== 0){
             var i = 0;
-            while (i < input.length / 4) {
-                if (parseInt(input.slice((4 * i), 4 * (i + 1)), 2) < 10) num = num * 10 + parseInt(input.slice((4 * i), 4 * (i + 1)), 2);
-                else return setBaseValues(NaN);
+            while (i < input.length / 4){
+                if(parseInt(input.slice((4 * i), 4 * (i + 1)), 2) < 10)
+                    num = num * 10 + parseInt(input.slice((4 * i), 4 * (i + 1)), 2);
+                else
+                    return setBaseValues(NaN);
                 i++;
             }
         }
         return setBaseValues(x);
-    });
+    })
 
-    $('#hexInput').on('keyup', () => {
-        var x = parseInt($('#hexInput').val(), 16);
+    $("#hexInput").on('keyup', function () {
+        var x = parseInt($("#hexInput").val(), 16);
         setBaseValues(x);
-    });
+    })
 
-    $('#octalInput').on('keyup', () => {
-        var x = parseInt($('#octalInput').val(), 8);
+    $("#octalInput").on('keyup', function () {
+        var x = parseInt($("#octalInput").val(), 8);
         setBaseValues(x);
-    });
+    })
 }
 
 export function promptFile(contentType, multiple) {
-    var input = document.createElement('input');
-    input.type = 'file';
+    var input = document.createElement("input");
+    input.type = "file";
     input.multiple = multiple;
     input.accept = contentType;
-    return new Promise((resolve) => {
-        document.activeElement.onfocus = function () {
-            document.activeElement.onfocus = null;
-            setTimeout(resolve, 500);
-        };
-        input.onchange = function () {
-            var files = Array.from(input.files);
-            if (multiple) return resolve(files);
-            resolve(files[0]);
-        };
-        input.click();
+    return new Promise(function(resolve) {
+      document.activeElement.onfocus = function() {
+        document.activeElement.onfocus = null;
+        setTimeout(resolve, 500);
+      };
+      input.onchange = function() {
+        var files = Array.from(input.files);
+        if (multiple)
+          return resolve(files);
+        resolve(files[0]);
+      };
+      input.click();
     });
 }
 
