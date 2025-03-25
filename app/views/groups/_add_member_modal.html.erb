@@ -2,43 +2,27 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
-        <h4 class="modal-title"><%= t("add_members") %></h4>
+        <h4 class="modal-title"><%= t("add_members") %> </h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
       </div>
       <div class="modal-body">
-        <p><%= t("groups.add_member_description") %></p>
-        <%= form_with(model: group_member, local: true) do |form| %>
-          <% if group_member.errors.any? %>
-            <div class="error-message">
-              <ul>
-                <% group_member.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-          <div class="field">
-            <%= form.hidden_field :group_id, id: :group_member_group_id %>
+        <div class="mb-3">
+          <div class="d-flex align-items-center gap-2">
+            <label class="form-label mb-0">Import emails from file</label>
           </div>
-          <div class="field">
-            <%= form.hidden_field :mentor, value: false %>
-          </div>
-          <div class="mb-3 d-flex flex-column">
-            <%= form.label :emails %>
-            <%= form.select :emails, [], {}, { class: "form-select", multiple: true } %>
-          </div>
-          <div class="modal-footer">
-            <%= form.submit class: "btn primary-button", id: "add-members-button" %>
-          </div>
-        <% end %>
+          <input type="file" class="form-control mt-2" id="email-file-input" accept=".xlsx,.xls,.xlsm,.xlsb,.ods,.csv,.tsv" />
+          <div id="email-import-status" class="text-muted mt-2"></div>
+        </div>
+        <p><%= t("groups.add_member_description") %> </p><%= form_with(model: group_member, local: true) do |form| %><% if group_member.errors.any? %> <div class="error-message">
+          <ul><% group_member.errors.full_messages.each do |message| %> <li><%= message %> </li><% end %> </ul>
+        </div><% end %> <div class="field"><%= form.hidden_field :group_id, id: :group_member_group_id %> </div>
+        <div class="field"><%= form.hidden_field :mentor, value: false %> </div>
+        <div class="mb-3 d-flex flex-column"><%= form.label :emails %><%= form.select :emails, [], {}, { class: "form-select", multiple: true } %> </div>
+        <div class="modal-footer"><%= form.submit class: "btn primary-button", id: "add-members-button" %> </div><% end %>
       </div>
       <div class="mx-auto text-center p-3">
-        <p><%= t("groups.use_alternative") %></p>
-        <%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-bs-toggle": "collapse", href: "#group-invite-link-container", "aria-expanded": "false", "aria-controls": "group-invite-link-container" } do %>
-          <i class="fas fa-external-link-alt"></i>
-          <span><%= t("groups.invite_link_btn") %></span>
-        <% end %>
-        <div class="collapse" id="group-invite-link-container">
+        <p><%= t("groups.use_alternative") %> </p><%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-bs-toggle": "collapse", href: "#group-invite-link-container", "aria-expanded": "false", "aria-controls": "group-invite-link-container" } do %> <i class="fas fa-external-link-alt"></i>
+        <span><%= t("groups.invite_link_btn") %> </span><% end %> <div class="collapse" id="group-invite-link-container">
           <textarea readonly="readonly" id="embedInviteLink" class="group-invite-link-text" rows="3" cols="35" name="group-invite-link"></textarea>
           <i class="fas fa-2x fa-regular fa-copy" onclick="copyToClipboard()" id="copyIcon" style="cursor:pointer"></i>
         </div>
@@ -47,12 +31,89 @@
   </div>
 </div>
 <script>
-function copyToClipboard(){
-  var copyText=document.getElementById("embedInviteLink");
-  var copyIcon=document.getElementById("copyIcon");
-  copyIcon.classList.add("text-success");
-  copyText.select();
-  document.execCommand('copy');
-  alert("Invite link copied to clipboard");
-}
+  function parseEmails(content) {
+    const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
+    return content.match(emailRegex) || [];
+  }
+
+  function handleFileUpload() {
+    const fileInput = document.getElementById('email-file-input');
+    const statusDiv = document.getElementById('email-import-status');
+    const file = fileInput.files[0];
+    if (!file) {
+      statusDiv.textContent = '';
+      return;
+    }
+    if (file.name.match(/\.(xlsx|xls|xlsm|xlsb|ods)$/)) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const data = new Uint8Array(e.target.result);
+        const workbook = XLSX.read(data, {
+          type: 'array'
+        });
+        const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+        const jsonData = XLSX.utils.sheet_to_json(firstSheet, {
+          header: 1
+        });
+        if (jsonData.length === 0) {
+          statusDiv.textContent = 'No data found in the spreadsheet';
+          return;
+        }
+        const emails = [];
+        for (let i = 0; i < jsonData.length; i++) {
+          const row = jsonData[i];
+          if (!row) continue;
+          row.forEach(cell => {
+            if (cell && typeof cell === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cell)) {
+              emails.push(cell);
+            }
+          });
+        }
+        if (emails.length > 0) {
+          $('#group_member_emails').val(null).trigger('change');
+          emails.forEach(email => {
+            const option = new Option(email, email, true, true);
+            $('#group_member_emails').append(option);
+          });
+          $('#group_member_emails').trigger('change');
+          statusDiv.textContent = `${emails.length} email${emails.length > 1 ? 's' : ''} imported`;
+        } else {
+          statusDiv.textContent = 'No valid emails found in the file';
+        }
+      };
+      reader.readAsArrayBuffer(file);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const content = e.target.result;
+      const emails = parseEmails(content);
+      if (emails.length > 0) {
+        $('#group_member_emails').val(null).trigger('change');
+        emails.forEach(email => {
+          const option = new Option(email, email, true, true);
+          $('#group_member_emails').append(option);
+        });
+        $('#group_member_emails').trigger('change');
+        statusDiv.textContent = `${emails.length} email${emails.length > 1 ? 's' : ''} imported`;
+      } else {
+        statusDiv.textContent = 'No valid emails found in the file';
+      }
+    };
+    reader.readAsText(file);
+  }
+  document.getElementById('email-file-input').addEventListener('change', handleFileUpload);
+  const script = document.createElement('script');
+  script.src = 'https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js';
+  script.async = true;
+  document.head.appendChild(script);
+
+  function copyToClipboard() {
+    var copyText = document.getElementById("embedInviteLink");
+    var copyIcon = document.getElementById("copyIcon");
+    copyIcon.classList.add("text-success");
+    copyText.select();
+    document.execCommand('copy');
+    alert("Invite link copied to clipboard");
+  }
 </script>
