@@ -10,7 +10,7 @@
           <div class="d-flex align-items-center gap-2">
             <label class="form-label mb-0">Import emails from file</label>
           </div>
-          <input type="file" class="form-control mt-2" id="email-file-input" accept=".xlsx,.xls,.xlsm,.xlsb,.ods,.csv,.tsv" />
+          <input type="file" class="form-control mt-2" id="email-file-input" accept=".xlsx,.xls,.xlsm,.xlsb,.ods,.csv,.tsv" >
           <div id="email-import-status" class="text-muted mt-2"></div>
         </div>
         <p><%= t("groups.add_member_description") %> </p><%= form_with(model: group_member, local: true) do |form| %><% if group_member.errors.any? %> <div class="error-message">
