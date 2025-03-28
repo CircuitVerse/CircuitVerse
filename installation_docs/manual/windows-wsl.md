@@ -39,10 +39,10 @@ cd CircuitVerse
      gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
      curl -sSL https://get.rvm.io | bash -s stable
      ```
-- Ruby 3.4.1
+- Ruby 3.2.1
      ```bash
-     rvm install 3.4.1
-     rvm use 3.4.1
+     rvm install 3.2.1
+     rvm use 3.2.1
      ```
 - [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
      ```bash
