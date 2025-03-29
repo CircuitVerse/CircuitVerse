@@ -35,6 +35,7 @@ class User < ApplicationRecord
   # Multiple push_subscriptions over many devices
   has_many :push_subscriptions, dependent: :destroy
 
+  before_save :truncate_long_name
   before_destroy :purge_profile_picture
   after_commit :send_welcome_mail, on: :create
   after_commit :create_members_from_invitations, on: :create
@@ -44,68 +45,74 @@ class User < ApplicationRecord
 
   attr_accessor :remove_picture
 
+  USERNAME_MAX_LENGTH = 30
+
   validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
-                                             message: "can only contain letters and spaces" }
-
-  validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
-
-  scope :subscribed, -> { where(subscribed: true) }
-
-  include PgSearch::Model
-
-  pg_search_scope :text_search, against: %i[name educational_institute],
-                                using: { tsearch: { dictionary: "english", tsvector_column: "searchable" } }
-
-  searchable do
-    text :name
-    text :educational_institute
-    text :country
-  end
-
-  def create_members_from_invitations
-    pending_invitations.reload.each do |invitation|
-      GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
-      invitation.destroy
-    end
-  end
-
-  def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data["email"]).first
-    name = data["name"] || data["nickname"]
-    # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: name,
-                         email: data["email"],
-                         password: Devise.friendly_token[0, 20],
-                         provider: access_token.provider,
-                         confirmed_at: Time.zone.now,
-                         uid: access_token.uid)
-    user
-  end
-
-  def self.from_oauth(oauth_user, provider)
-    User.create(
-      name: oauth_user["name"],
-      email: oauth_user["email"],
-      password: Devise.friendly_token[0, 20],
-      provider: provider,
-      uid: oauth_user["id"] || oauth_user["sub"]
-    )
-  end
-
-  def flipper_id
-    "User:#{id}"
-  end
-
-  def moderator?
-    admin?
-  end
-
-  def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
-  end
+                                             message: "can only contain letters and spaces" },
+                   length: { maximum: USERNAME_MAX_LENGTH }
 
   private
+
+    def truncate_long_name
+      self.name = name[0...USERNAME_MAX_LENGTH] if name.present? && name.length > USERNAME_MAX_LENGTH
+    end
+    validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
+
+    scope :subscribed, -> { where(subscribed: true) }
+
+    include PgSearch::Model
+
+    pg_search_scope :text_search, against: %i[name educational_institute],
+                                  using: { tsearch: { dictionary: "english", tsvector_column: "searchable" } }
+
+    searchable do
+      text :name
+      text :educational_institute
+      text :country
+    end
+
+    def create_members_from_invitations
+      pending_invitations.reload.each do |invitation|
+        GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
+        invitation.destroy
+      end
+    end
+
+    def self.from_omniauth(access_token)
+      data = access_token.info
+      user = User.where(email: data["email"]).first
+      name = data["name"] || data["nickname"]
+      # Uncomment the section below if you want users to be created if they don't exist
+      user ||= User.create(name: name,
+                           email: data["email"],
+                           password: Devise.friendly_token[0, 20],
+                           provider: access_token.provider,
+                           confirmed_at: Time.zone.now,
+                           uid: access_token.uid)
+      user
+    end
+
+    def self.from_oauth(oauth_user, provider)
+      User.create(
+        name: oauth_user["name"],
+        email: oauth_user["email"],
+        password: Devise.friendly_token[0, 20],
+        provider: provider,
+        uid: oauth_user["id"] || oauth_user["sub"]
+      )
+    end
+
+    def flipper_id
+      "User:#{id}"
+    end
+
+    def moderator?
+      admin?
+    end
+
+    def send_devise_notification(notification, *args)
+      devise_mailer.send(notification, self, *args).deliver_later
+    end
 
     def send_welcome_mail
       UserMailer.welcome_email(self).deliver_later
