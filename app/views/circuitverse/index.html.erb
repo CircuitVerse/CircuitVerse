@@ -202,7 +202,7 @@
       </div>
     </div>
     <% cache "recent-projects-#{params[:after]}-#{params[:before]}", expires_in: 10.minutes do %>
-      <div class="container" id="recent">
+      <div class="container" id="recent" style="scroll-margin-top: 150px;" >
         <div class="row center-row home-circuit-card-row">
           <div class="col-12 col-sm-12 col-md-12 col-lg-12">
             <h3><%= t("circuitverse.index.recent_circuits.main_heading") %></h3>
@@ -228,10 +228,10 @@
         <div class="container pagination-cont">
           <div class="pagination justify-content-center">
             <% if @projects_page.has_previous? %>
-              <%= link_to t("previous"), root_path(before: @projects_page.previous_cursor), class: "page-link" %>
+              <%= link_to t("previous"), root_path(before: @projects_page.previous_cursor, anchor: "recent"), class: "page-link" %>
             <% end %>
             <% if @projects_page.has_next? %>
-              <%= link_to t("next"), root_path(after: @projects_page.next_cursor), class: "page-link" %>
+              <%= link_to t("next"), root_path(after: @projects_page.next_cursor, anchor: "recent"), class: "page-link" %>
             <% end %>
           </div>
         </div>
