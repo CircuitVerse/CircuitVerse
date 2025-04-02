@@ -19,8 +19,7 @@
 }
 
 .search-container {
-  margin-top: 30px;
-
+  margin-top: 100px;
 }
 
 .search-card-container {
@@ -28,8 +27,6 @@
   border-radius: 0;
   margin-top: 20px;
   padding: 20px 8px;
-  flex-direction: row;
-  display: flex;
 }
 
 .search-tag-search-container {
@@ -38,7 +35,6 @@
   margin-top: 20px;
   padding: 20px 8px;
 }
-
 
 .search-image {
   margin-bottom: 10px;
@@ -226,47 +222,4 @@
     padding-top: 10px;
     width: 90%;
   }
-}
-
-.small-view .search-card-container {
-  display: flex; 
-  flex-direction: row; 
-  padding: 10px;
-  max-width: 400px;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-} 
-
-.toggle-view-container {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  margin-left: 800px;
-}
-
-.toggle-button {
-  background-color: #4CAF50;
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.toggle-button:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
-}
-
-.toggle-button.active {
-  background-color: #2196F3;
-}
-
-.toggle-button i {
-  font-size: 18px; 
 }
