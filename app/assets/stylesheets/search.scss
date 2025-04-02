@@ -270,30 +270,3 @@
 .toggle-button i {
   font-size: 18px; 
 }
-@media (max-width: 768px) {
-  .search-card-container {
-    flex-direction: column;
-    padding: 10px;
-  }
-
-  .search-image-container img {
-    width: 100%;
-    height: auto;
-  }
-
-  .search-details {
-    padding: 10px;
-    text-align: center;
-  }
-
-  .toggle-view-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .primary-button {
-    width: 100%;
-    padding: 10px 0;
-  }
-}
