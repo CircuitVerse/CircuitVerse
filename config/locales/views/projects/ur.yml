@@ -1,0 +1,52 @@
+ur:
+  projects:
+    add_collaborator_description:
+      "کاما، اسپیس یا انٹر کے ذریعے علیحدہ کیے گئے ای میل آئی ڈیز درج کریں۔ صارفین کو پہلے ہی پلیٹ فارم پر رجسٹر ہونا ضروری ہے۔
+            نوٹ کریں کہ تعاون فی الحال حقیقی وقت میں نہیں ہے، ہر محفوظ کرنے پر پچھلا ڈیٹا اووررائٹ ہو جاتا ہے۔"
+    remove_collaborator_message: "کیا آپ واقعی اس ساتھی کو ہٹانا چاہتے ہیں؟"
+    delete_project_message: "کیا آپ واقعی اس پروجیکٹ کو حذف کرنا چاہتے ہیں؟"
+    form:
+      feature_circuit_checkpoint: "نمایاں ڈسپلے (صرف ایڈمن کے لیے)"
+      tag_list_description: "(اپنے پروجیکٹ کے ٹیگز کو کاما سے الگ کریں [,])"
+      project_is_featured_message: "(یہ پروجیکٹ نمایاں طور پر ظاہر کیا گیا ہے۔ اگر عوامی رسائی ہٹا دی گئی تو یہ نظر نہیں آئے گا۔)"
+      public: "عوامی"
+      private: "نجی"
+      limited_access: "محدود رسائی"
+    edit:
+      title: "%{name} - پروجیکٹ میں ترمیم کریں"
+      main_heading: "پروجیکٹ میں ترمیم کریں"
+    get_projects:
+      searched_projects_heading: "تلاش کیے گئے پروجیکٹس"
+      searched_tags_heading: "تلاش کیے گئے ٹیگز:"
+    stars_count: "ستارے"
+    views_count: "دیکھنے"
+    project_user: "صارف:"
+    show:
+      project_author: "مصنف:"
+      project_forked_from: "فورک کیا گیا:"
+      project_access_type: "رسائی کی قسم:"
+      project_description: "تفصیل:"
+      project_created_at: "بنایا گیا:"
+      project_updated_at: "اپ ڈیٹ کیا گیا:"
+      project_embed: "ایمبیڈ کریں"
+      project_copy: "کاپی بنائیں"
+      project_collaborator_add: "+ ساتھی شامل کریں"
+      copied_to_clipboard: "کلپ بورڈ میں محفوظ کر لیا گیا"
+      collaborators: "ساتھی"
+    search:
+      no_result_found: "کوئی نتیجہ نہیں ملا"
+    modal:
+      embed_circuit_heading: "اس سرکٹ کو ایمبیڈ کریں"
+      height: "اونچائی"
+      width: "چوڑائی"
+      url: "URL"
+      border: "بارڈر"
+      border_style: "بارڈر اسٹائل"
+      publish_button: "شائع کریں"
+      advance:
+        advance_option: "ایڈوانس آپشنز"
+        clock_time: "گھڑی/وقت"
+        display_title: "عنوان دکھائیں"
+        fullscreen: "مکمل اسکرین"
+        zoom_in_out: "زوم ان/زوم آؤٹ"
+        theme: "تھیم"

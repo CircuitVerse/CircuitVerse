@@ -1,0 +1,16 @@
+ur:
+  helpers:
+    label:
+      collaboration:
+        emails: "ای میل آئی ڈی:"
+      project:
+        name: "نام"
+        tag_list: "ٹیگ لسٹ"
+        project_access_type: "پروجیکٹ ایکسیس ٹائپ"
+        description: "تفصیل"
+    submit:
+      collaboration:
+        create: "کولیبریٹر شامل کریں"
+      project:
+        create: "پروجیکٹ بنائیں"
+        update: "پروجیکٹ اپ ڈیٹ کریں"

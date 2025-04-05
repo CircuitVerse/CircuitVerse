@@ -1,0 +1,16 @@
+he:
+  helpers:
+    label:
+      collaboration:
+        emails: "אימייל:"
+      project:
+        name: "שם"
+        tag_list: "רשימת תגיות"
+        project_access_type: "סוג גישה לפרויקט"
+        description: "תיאור"
+    submit:
+      collaboration:
+        create: "הוסף משתף פעולה"
+      project:
+        create: "צור פרויקט"
+        update: "עדכן פרויקט"

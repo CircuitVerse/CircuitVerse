@@ -1,0 +1,11 @@
+ur:
+  helpers:
+    label:
+      user:
+        email: "ای میل"
+        name: "نام"
+        country: "ملک"
+        educational_institute: "تعلیمی ادارہ"
+        locale: "زبان"
+        password: "پاس ورڈ"
+        password_confirmation: "پاس ورڈ کی تصدیق"

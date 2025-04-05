@@ -1,0 +1,12 @@
+ur:
+  helpers:
+    label:
+      announcement:
+        body: "اعلان کا متن"
+        link: "مزید جانیں"
+        start_date: "آغاز کی تاریخ"
+        end_date: "اختتامی تاریخ"
+    submit:
+      announcement:
+        create: "نیا اعلان بنائیں"
+        update: "اعلان کو اپ ڈیٹ کریں"

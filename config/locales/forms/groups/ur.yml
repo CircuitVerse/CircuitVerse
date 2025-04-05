@@ -1,0 +1,13 @@
+ur:
+  helpers:
+    label:
+      group_member:
+        emails: "ای میل آئی ڈی:"
+      group:
+        name: "گروپ کا نام:"
+    submit:
+      group_member:
+        create: "رکن شامل کریں"
+      group:
+        create: "محفوظ کریں"
+        update: "محفوظ کریں"

@@ -1,0 +1,45 @@
+ar:
+  groups:
+    add_member_description: "اكتب عناوين البريد الإلكتروني مفصولة بفاصلة/مسافة أو على أسطر منفصلة. إذا لم يكن المستخدمون مسجلين، فسيتم إرسال بريد إلكتروني يطلب منهم التسجيل."
+    add_mentor_description_html: "<p>يمكن للموجهين القيام بما يلي:</p><ul><li>إنشاء وحذف المهام</li><li>تقدير الدرجات</li><li>إعادة فتح المهام المغلقة</li></ul>"
+    promote_member_confirmation: "هل أنت متأكد أنك تريد ترقية هذا العضو إلى موجه؟"
+    demote_mentor_confirmation: "هل أنت متأكد أنك تريد خفض هذا الموجه إلى عضو؟"
+    use_alternative: "استخدم البديل"
+    invite_link_btn: "رابط الدعوة"
+    remove_assignment_message: "هل أنت متأكد أنك تريد حذف هذه المهمة؟"
+    remove_member_message: "هل أنت متأكد أنك تريد إزالة هذا العضو؟"
+    make_member: "جعله عضوًا"
+    make_mentor: "جعله موجهًا"
+    edit:
+      title: "%{name} - تعديل اسم المجموعة"
+      main_heading: "تعديل اسم المجموعة"
+    new:
+      title: "CircuitVerse - مجموعة جديدة"
+      main_heading: "مجموعة جديدة"
+      main_description_html:
+        "يمكن استخدام المجموعات من قبل الموجهين لإعداد المشاريع وتقدير درجات الطلاب.
+        يمكنك العثور على الوثائق <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>هنا</a>."
+    show:
+      edit_name_btn: "تعديل الاسم"
+      primary_mentor_heading: "الموجه الأساسي:"
+      mentor_name_heading: "الموجه:"
+      group_members_heading: "أعضاء المجموعة:"
+      add_members_btn: "+ إضافة عضو"
+      add_mentors_btn: "+ إضافة موجه"
+      no_mentors_html: "لا يوجد موجهون في هذه المجموعة، لإضافة موجه اضغط على <strong>+ إضافة موجه</strong>."
+      no_members_html: "لا يوجد أعضاء في هذه المجموعة، لإضافة عضو اضغط على <strong>+ إضافة عضو</strong>."
+      no_assignments_html: "لا توجد مهام في هذه المجموعة، لإضافة مهمة اضغط على <strong>+ إضافة مهمة</strong>."
+      assignment:
+        heading: "المهام:"
+        add_assignment_btn: "+ إضافة مهمة"
+        assignment_table_head:
+          name: "الاسم"
+          deadline: "الموعد النهائي"
+          grading: "التقدير"
+          actions: "الإجراءات"
+          grade: "الدرجة"
+        time_remaining_html: "<strong>الوقت المتبقي:</strong> %{time_remaining}"
+        start_working_btn: "ابدأ العمل"
+        see_work_done: "عرض العمل المنجز"
+        not_submitted: "لم يتم التسليم!"
+        show_submission: "عرض التسليم"

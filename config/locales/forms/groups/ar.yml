@@ -1,0 +1,13 @@
+ar:
+  helpers:
+    label:
+      group_member:
+        emails: "عنوان البريد الإلكتروني:"
+      group:
+        name: "اسم المجموعة:"
+    submit:
+      group_member:
+        create: "إضافة عضو"
+      group:
+        create: "حفظ"
+        update: "حفظ"

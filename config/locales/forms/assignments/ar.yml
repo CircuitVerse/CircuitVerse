@@ -1,0 +1,11 @@
+ar:
+  helpers:
+    label:
+      assignment:
+        name: "الاسم"
+        description: "الوصف"
+        grading_scale: "مقياس التقدير"
+    submit:
+      assignment:
+        create: "إنشاء مهمة"
+        update: "تحديث المهمة"
