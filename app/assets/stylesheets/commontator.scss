@@ -89,11 +89,6 @@
     margin-top: -5px;
     width: 20px;
   }
-
-  &:hover {
-    background-color: darken($mini-button-blue, 10%);
-    transform: scale(1.1); 
-  }
 }
 
 .delete-action {
@@ -109,12 +104,6 @@
     margin-top: -5px;
     width: 15px;
   }
-
-  &:hover {
-    background-color: darken($primary-red, 5%);
-    transform: scale(1.1); 
-  }
-
 }
 
 .new-comment {

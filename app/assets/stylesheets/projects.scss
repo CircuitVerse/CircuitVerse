@@ -1,5 +1,13 @@
 
 //newproject-editproject
+.projects-new-container {
+  border: 1px solid $form-border-grey;
+  margin-top: 20px;
+  max-width: 80%;
+  padding-bottom: 20px;
+  padding-top: 20px;
+}
+
 .form-control {
     border-radius: 4px;
 }
@@ -8,10 +16,18 @@
   max-width: 260px;
 }
 
+.primary-checkpoint {
+  border-radius: 4px;
+}
+
 .projects-tag-form-group {
   h6 {
     display: inline-block;
   }
+}
+
+.projects-type-field-heading {
+  margin-bottom: 0;
 }
 
 .projects-type-field-warning {
@@ -22,6 +38,10 @@
 
 //breakpoints
 @media (max-width: 400px) {
+  .projects-new-container {
+    max-width: 95%;
+  }
+
   .projects-form-container {
     max-width: 90%;
   }
@@ -29,6 +49,34 @@
 //newproject-editproject ends
 
 //project details
+.projects-iframe-container {
+  border: 1.5px solid $shadow-black;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+.projects-details {
+  background-color: $project-card-grey;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.projects-details-heading-container {
+  background-color: $primary-green;
+  height: 55px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+}
+
+.projects-details-heading {
+  color: $white;
+  font-size: 25px;
+  font-weight: 600;
+  height: 35px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .projects-views-count-container {
   color: $black;
   display: block;
@@ -41,6 +89,29 @@
   text-align: right;
 }
 
+.projects-star-count-icon {
+  color: $star-yellow;
+}
+
+.projects-user-details-container {
+  padding: 0 20px 15px;
+
+  >p {
+    display: block;
+    margin-bottom: 10px;
+    text-align: left;
+    width: 80%;
+  }
+}
+
+.projects-search-tags-container {
+  display: block;
+  margin-bottom: 15px;
+  padding-left: 0;
+  text-align: left;
+  width: 80%;
+}
+
 .projects-details-description {
   height: 150px;
   margin-top: -8px;
@@ -48,6 +119,10 @@
   padding-top: 0;
   text-align: left;
   word-wrap: break-word;
+}
+
+.projects-horizontal-rule {
+  width: 100%;
 }
 
 .projects-primary-button {
@@ -114,6 +189,20 @@
   width: 100%;
 }
 
+.projects-collaborators-container {
+  background-color: $project-card-grey;
+}
+
+.projects-collaborators-heading {
+  background-color: $primary-green;
+  color: $white;
+  font-size: 25px;
+  font-weight: 600;
+  height: 55px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
 .projects-collaborators-data {
   overflow: hidden;
   padding: 5px 15px;
@@ -132,10 +221,18 @@
   border: 0;
 }
 
+.projects-collaborators-horizontal-rule {
+  width: 80%;
+}
+
 .char-counter {
   color: $tooltip-grey;
   font-size: 14px;
   margin: 5px 0 0 auto;
+}
+
+.is-invalid {
+  color: $red;
 }
 
 //breakpoints

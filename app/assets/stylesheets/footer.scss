@@ -74,12 +74,6 @@
   }
 }
 
-.footer-sponsor-logos {
-  display: flex;
-  align-items: center;
-  justify-content: space-around; 
-}
-
 .footer-sponsor-logo-text {
   margin-bottom: 0;
   padding-bottom: 0;
@@ -89,15 +83,12 @@
 .footer-sponsor-logo-div{
   padding-left: 12px;
   padding-right: 12px;
-  text-align: center;
 }
 
 .footer-sponsor-logo {
   border: solid $footer-dark-grey 1px;
   border-radius: 5px;
-  max-width: 150px; 
   width: 100%;
-  height: auto;
 }
 
 .footer-copyright-text {

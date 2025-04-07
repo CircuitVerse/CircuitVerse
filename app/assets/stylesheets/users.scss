@@ -98,39 +98,17 @@
   width: 100%;
 }
 
-.oauth-button {
-  align-items: center;
-  background-color: $white;
-  color: $black;
-  border: 2px solid $green;
-  border-radius: 8px;
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin: 10px;
-  padding: 8px 12px;
-  transition: all .1s ease-in-out;
-}
+.users-social-links {
+  height: 50px;
+  margin-left: 5px;
+  margin-right: 5px;
+  padding-top: 10px;
+  width: 40px;
 
-.oauth-button:hover {
-  border-color: $form-input-green;
-  box-shadow: 0 0 0 .2rem $form-input-focus-green;
-}
-
-.oauth-button:active {
-  transform: scale(.95);
-}
-
-@media screen and (max-width: 768px) {
-  .oauth-button {
-    width: 300px;
+  &:hover {
+    opacity: .7;
   }
 }
-
-.users-social-icon {
-  height: 18px;
-}
-
 //shared ends
 
 //login-register

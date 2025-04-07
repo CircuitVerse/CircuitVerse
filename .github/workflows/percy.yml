@@ -5,22 +5,13 @@ on:
     branches:
       - master
       - main
-  pull_request_target:
+  pull_request:
     branches:
       - master
       - main
 
 jobs:
   percy-tests:
-    
-    if: >
-      github.event_name == 'push'
-      OR (
-        github.event_name == 'pull_request_target'
-        AND
-        contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')
-      )
-
     runs-on: ubuntu-latest
 
     services:
@@ -42,18 +33,9 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
     steps:
-     
-      - name: Check out base repo code
+      - name: Check out code
         uses: actions/checkout@v3
         with:
-          submodules: recursive
-
-      - name: Check out PR code (fork)
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
           submodules: recursive
 
       - name: Set up Ruby

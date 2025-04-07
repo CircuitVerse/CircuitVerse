@@ -20,7 +20,7 @@
               <%= f.submit t("users.confirmations.resend_confirmation_instructions"), class:"btn primary-button users-primary-button" %>
             </div>
           </div>
-          <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
+          <%= render "users/shared/links" %>
         <% end %>
       </div>
     </div>

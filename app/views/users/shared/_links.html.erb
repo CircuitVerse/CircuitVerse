@@ -1,0 +1,24 @@
+<div class="field mb-3 users-shared">
+  <div class="text-center">
+    <h6 class="users-shared-row"><%= t("users.shared.login_with") %></h6>
+    <div class="text-center">
+      <%= link_to image_tag("SVGs/google-plus.svg", alt: "Google Icon", class: "users-social-links"), user_google_oauth2_omniauth_authorize_path, method: :post %>
+      <%= link_to image_tag("SVGs/facebook.svg", alt: "Facebook Icon", class: "users-social-links"), user_facebook_omniauth_authorize_path, method: :post %>
+      <%= link_to image_tag("SVGs/github.svg", alt: "Github Icon", class: "users-social-links"), user_github_omniauth_authorize_path, method: :post %>
+      <% if Flipper.enabled?(:gitlab_integration) %>
+        <%= link_to image_tag("SVGs/gitlab.svg", alt: "Gitlab Icon", class: "users-social-links"), user_gitlab_omniauth_authorize_path, method: :post %>
+      <% end %>
+    </div>
+    <% if Flipper.enabled?(:sso_integration) %>
+      <p class="users-shared-row mt-3"><%= t("groups.use_alternative") %></p>
+      <a href="/users/saml/sign_in" class="anchor-text users-shared-row">
+        <%= t("users.shared.login_with_sso") %>
+      </a>
+    <% end %>
+  </div>
+  <div class="text-center mt-3">
+    <% if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+      <%= link_to t("users.shared.resend_email"), new_confirmation_path(resource_name), class: "anchor-text" %>
+    <% end %>
+  </div>
+</div>
