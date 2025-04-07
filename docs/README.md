@@ -24,3 +24,15 @@ vagrant up
 ```
 
 You can now see the docs at http://localhost:4567.
+---
+
+### 💡 Fix for `node-sass` Installation Error on Windows
+
+If you encounter an error related to `node-sass` during `npm install`, it may be due to `node-gyp` or Python compatibility issues on Windows.
+
+To fix this, uninstall `node-sass` and install the `sass` package instead:
+
+```bash
+npm uninstall node-sass
+npm install sass
+
