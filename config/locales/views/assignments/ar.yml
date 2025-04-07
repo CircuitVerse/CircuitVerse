@@ -1,0 +1,40 @@
+ar:
+  assignments:
+    group_name: "المجموعة: %{name}"
+    deadline: "موعد الانتهاء:"
+    remaining_time_error: "(حدث خطأ أثناء تحميل البرنامج النصي)"
+    form:
+      grade_scale_cant_change: "(لا يمكن تغييره بمجرد تعيينه)"
+      cannot_be_edited: "%{graded} - لا يمكن تعديله"
+      enable_element_restriction: "تفعيل تقييد العناصر:"
+      enable_feature_restriction: "تفعيل تقييد الميزات:"
+      time_remaining: "الوقت المتبقي: %{time}"
+      no_grade: "لا يوجد تقدير"
+      letter: "حرف (A-F)"
+      percent: "نسبة مئوية (1-100)"
+      custom: "مخصص"
+    edit:
+      edit_assignment: "تعديل المهمة"
+    new:
+      title: "%{name} - مهمة جديدة"
+      new_assignment_heading: "مهمة جديدة"
+    show:
+      title: "%{name} - تفاصيل المهمة"
+      assignment_details_heading: "تفاصيل المهمة"
+    assignment_data:
+      name_html: "<strong>الاسم:</strong> %{name}"
+      group_html: "<strong>المجموعة:</strong> %{group_name}"
+      time_remaining_html: "<strong>الوقت المتبقي:</strong> %{time_remaining}"
+      graded_html: "<strong>التقدير:</strong> %{graded}"
+      description: "الوصف:"
+      restricted_elements_html: "<strong>العناصر المحدودة في الدائرة:</strong> %{restricted_circuit_elements}"
+      export_grades: "تصدير التقديرات"
+      submissions: "التسليمات:"
+      restricted_features_html: "<strong>الميزات المقيدة:</strong> %{restricted_features}"
+      no_submissions: "لا توجد تسليمات!"
+      grades_and_remarks: "التقديرات والملاحظات:"
+      grade: "التقدير:"
+      remarks: "ملاحظات:"
+      grading_scale_percent: "يمكن تقييم المهمة من (1-100) كنسبة مئوية"
+      grading_scale_letter: "يمكن تقييم المهمة بحروف A/B/C/D/E/F"
+      remove: "إزالة"

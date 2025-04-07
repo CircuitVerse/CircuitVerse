@@ -1,0 +1,40 @@
+he:
+  assignments:
+    group_name: "קבוצה: %{name}"
+    deadline: "מועד סיום:"
+    remaining_time_error: "(שגיאה בטעינת הסקריפט)"
+    form:
+      grade_scale_cant_change: "(לא ניתן לשנות לאחר שנקבע)"
+      cannot_be_edited: "%{graded} - לא ניתן לערוך"
+      enable_element_restriction: "הפעלת הגבלת רכיבים:"
+      enable_feature_restriction: "הפעלת הגבלת תכונות:"
+      time_remaining: "זמן שנותר: %{time}"
+      no_grade: "אין ציון"
+      letter: "אות (A-F)"
+      percent: "אחוזים (1-100)"
+      custom: "מותאם אישית"
+    edit:
+      edit_assignment: "עריכת משימה"
+    new:
+      title: "%{name} - משימה חדשה"
+      new_assignment_heading: "משימה חדשה"
+    show:
+      title: "%{name} - פרטי משימה"
+      assignment_details_heading: "פרטי משימה"
+    assignment_data:
+      name_html: "<strong>שם:</strong> %{name}"
+      group_html: "<strong>קבוצה:</strong> %{group_name}"
+      time_remaining_html: "<strong>זמן שנותר:</strong> %{time_remaining}"
+      graded_html: "<strong>ציון:</strong> %{graded}"
+      description: "תיאור:"
+      restricted_elements_html: "<strong>רכיבי מעגל מוגבלים:</strong> %{restricted_circuit_elements}"
+      export_grades: "ייצוא ציונים"
+      submissions: "הגשות:"
+      restricted_features_html: "<strong>תכונות מוגבלות:</strong> %{restricted_features}"
+      no_submissions: "אין הגשות!"
+      grades_and_remarks: "ציונים והערות:"
+      grade: "ציון:"
+      remarks: "הערות:"
+      grading_scale_percent: "ניתן לדרג משימה באחוזים (1-100)"
+      grading_scale_letter: "ניתן לדרג משימה באותיות A/B/C/D/E/F"
+      remove: "הסר"

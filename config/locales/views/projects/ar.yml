@@ -1,0 +1,52 @@
+ar:
+  projects:
+    add_collaborator_description:
+      "أدخل عناوين البريد الإلكتروني مفصولة بفواصل أو مسافات أو إدخالات. يجب أن يكون المستخدمون مسجلين بالفعل على المنصة.
+            لاحظ أن التعاون ليس في الوقت الفعلي في الوقت الحالي، حيث يتم استبدال البيانات السابقة عند كل حفظ."
+    remove_collaborator_message: "هل أنت متأكد أنك تريد إزالة هذا المتعاون؟"
+    delete_project_message: "هل أنت متأكد أنك تريد حذف هذا المشروع؟"
+    form:
+      feature_circuit_checkpoint: "عرض مميز (للمسؤولين فقط)"
+      tag_list_description: "(أدخل علامات مشروعك مفصولة بفواصل [,])"
+      project_is_featured_message: "(تم عرض هذا المشروع بشكل مميز. لن يكون مرئيًا إذا تم تعطيل الوصول العام.)"
+      public: "عام"
+      private: "خاص"
+      limited_access: "وصول محدود"
+    edit:
+      title: "%{name} - تعديل المشروع"
+      main_heading: "تعديل المشروع"
+    get_projects:
+      searched_projects_heading: "المشاريع التي تم البحث عنها"
+      searched_tags_heading: "العلامات التي تم البحث عنها:"
+    stars_count: "النجوم"
+    views_count: "المشاهدات"
+    project_user: "المستخدم:"
+    show:
+      project_author: "المؤلف:"
+      project_forked_from: "متشعب من:"
+      project_access_type: "نوع الوصول:"
+      project_description: "الوصف:"
+      project_created_at: "تم الإنشاء في:"
+      project_updated_at: "تم التحديث في:"
+      project_embed: "تضمين"
+      project_copy: "إنشاء نسخة"
+      project_collaborator_add: "+ إضافة متعاون"
+      copied_to_clipboard: "تم النسخ إلى الحافظة"
+      collaborators: "المتعاونون"
+    search:
+      no_result_found: "لم يتم العثور على نتائج"
+    modal:
+      embed_circuit_heading: "تضمين هذه الدائرة"
+      height: "الارتفاع"
+      width: "العرض"
+      url: "رابط URL"
+      border: "الإطار"
+      border_style: "نمط الإطار"
+      publish_button: "نشر"
+      advance:
+        advance_option: "خيارات متقدمة"
+        clock_time: "الساعة/الوقت"
+        display_title: "عرض العنوان"
+        fullscreen: "شاشة كاملة"
+        zoom_in_out: "تكبير/تصغير"
+        theme: "السمة"

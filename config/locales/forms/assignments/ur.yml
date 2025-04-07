@@ -1,0 +1,11 @@
+ur:
+  helpers:
+    label:
+      assignment:
+        name: "نام"
+        description: "تفصیل"
+        grading_scale: "گریڈنگ اسکیل"
+    submit:
+      assignment:
+        create: "اسائنمنٹ بنائیں"
+        update: "اسائنمنٹ اپڈیٹ کریں"
