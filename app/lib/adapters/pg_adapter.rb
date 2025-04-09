@@ -14,11 +14,14 @@ module Adapters
     end
 
     def search_user(relation, query_params)
+      page = query_params[:page].to_i
+      page = 1 if page < 1
+
       if query_params[:q].present?
         relation.text_search(query_params[:q])
       else
         User.all
-      end.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
+      end.paginate(page: page, per_page: MAX_RESULTS_PER_PAGE)
     end
   end
 end
