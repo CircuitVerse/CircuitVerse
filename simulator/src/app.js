@@ -1,5 +1,7 @@
 import { setup } from './setup';
 import Array from './arrayHelpers';
+import undo from './data/undo';
+import redo from './data/redo';
 
 document.addEventListener('DOMContentLoaded', () => {
     setup();
@@ -213,6 +215,33 @@ document.addEventListener('DOMContentLoaded', () => {
         ],
         "subcircuits": {}
     };
+
+    // Append Undo and Redo buttons to the toolbar
+    const toolbar = document.getElementById('toolbar');
+    const undoButton = document.createElement('button');
+    undoButton.id = 'undoButton';
+    undoButton.className = 'btn btn-light';
+    undoButton.title = 'Undo (Ctrl+Z)';
+    undoButton.setAttribute('aria-label', 'Undo');
+    undoButton.innerHTML = '<i class="fas fa-undo"></i>';
+    toolbar.appendChild(undoButton);
+
+    const redoButton = document.createElement('button');
+    redoButton.id = 'redoButton';
+    redoButton.className = 'btn btn-light';
+    redoButton.title = 'Redo (Ctrl+Y)';
+    redoButton.setAttribute('aria-label', 'Redo');
+    redoButton.innerHTML = '<i class="fas fa-redo"></i>';
+    toolbar.appendChild(redoButton);
+
+    // Add click event listeners to the Undo and Redo buttons
+    undoButton.addEventListener('click', () => {
+        undo();
+    });
+
+    redoButton.addEventListener('click', () => {
+        redo();
+    });
 });
 
 window.Array = Array;
