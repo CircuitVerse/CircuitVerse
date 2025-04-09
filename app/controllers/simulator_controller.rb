@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'sentry-ruby'
+
 class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
@@ -110,14 +112,23 @@ class SimulatorController < ApplicationController
     # Send it over to slack hook
     circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
     text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
-    HTTP.post(url, json: { text: text }) if Flipper.enabled?(:slack_issue_notification)
+    begin
+      HTTP.post(url, json: { text: text }) if Flipper.enabled?(:slack_issue_notification)
+    rescue => e
+      Sentry.capture_exception(e)
+    end
     head :ok, content_type: "text/html"
   end
 
   def verilog_cv
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = HTTP.post(url, json: { code: params[:code] })
-    render json: response.to_s, status: response.code
+    begin
+      response = HTTP.post(url, json: { code: params[:code] })
+      render json: response.to_s, status: response.code
+    rescue => e
+      Sentry.capture_exception(e)
+      render json: { error: "Failed to process Verilog code" }, status: :internal_server_error
+    end
   end
 
   def allow_iframe_lti
