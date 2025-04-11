@@ -184,6 +184,7 @@
 .primary-modal-header {
   background-color: $primary-green;
   border: 1px solid $primary-green;
+  justify-content: space-between;
   box-shadow: none;
 
   .modal-title {
