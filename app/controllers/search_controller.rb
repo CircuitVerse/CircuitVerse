@@ -7,6 +7,12 @@ class SearchController < ApplicationController
     resource = params[:resource]
     query_params = params
 
+    if query_params[:q].blank?
+      flash[:alert] = "Please enter a search term."
+      redirect_to request.referer || root_path
+      return
+    end
+
     @results, template = query(resource, query_params)
 
     if template.present?
