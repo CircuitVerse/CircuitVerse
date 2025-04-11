@@ -99,6 +99,44 @@ Support this project with your organization. Your logo will show up here with a 
 This project exists because of all the people who have [contributed]((CONTRIBUTING.md)).
 <a href="https://github.com/CircuitVerse/CircuitVerse/graphs/contributors"><img src="https://opencollective.com/CircuitVerse/contributors.svg?width=890&button=false" alt="Code contributors" /></a>
 
+## Decentralized Verification of Issues
+
+### Overview
+To enhance the efficiency of issue management within the CircuitVerse repository, we have implemented a **Decentralized Verification of Issues** system. This system leverages community participation to triage and verify issues, ensuring that only valid and prioritized issues are addressed by maintainers. The primary focus of this implementation is to automate the verification process where a bot updates issues with a “verified” label and assigns appropriate tags based on community votes.
+
+### Objectives
+- **Automate Issue Verification:** A bot automatically verifies issues based on community reactions and assigns relevant labels.
+- **Enhance Community Engagement:** Encourage contributors to participate in issue triage, fostering a sense of ownership and responsibility.
+- **Streamline Issue Management:** Reduce the workload on maintainers by delegating the initial verification process to the community and automation tools.
+
+### Features Implemented
+1. **Voting Mechanism Using GitHub Reactions:**
+   - **Valid (👍):** Indicates the issue is legitimate and requires attention.
+   - **Duplicate (👎):** Marks the issue as a duplicate of an existing one.
+   - **Needs More Info (❓):** Signals that the issue lacks sufficient details.
+   - **WontFix/Closed (🚫):** Denotes that the issue is unnecessary or has been resolved.
+
+2. **Bot Functionality:**
+   - **Periodic Checks:** The bot runs on a scheduled basis (e.g., hourly) to evaluate issues labeled “needs triage.”
+   - **Vote Counting:** Tally the reactions for each issue to determine its status based on predefined thresholds.
+   - **Label Management:** Update issue labels based on the voting outcome and remove the “needs triage” label.
+   - **Comment Notifications:** Post a comment on the issue to inform contributors of its updated status.
+
+3. **Configuration and Customization:**
+   - **Threshold Settings:** Define the number of votes required for each category (e.g., 5 votes).
+   - **Label Definitions:** Ensure all necessary labels (`needs triage`, `verified`, `duplicate`, `needs more info`, `wontfix`) are present in the repository.
+   - **GitHub Actions Workflow:** Set up a GitHub Actions workflow to execute the bot script.
+
+### How to Participate
+- **Vote on Issues:** Use GitHub reactions to vote on issues. Your votes help determine the status of issues.
+- **Monitor Updates:** Keep an eye on issue comments for updates on their status based on community votes.
+- **Engage in Discussions:** Participate in discussions to provide additional context or information for issues that need more details.
+
+### Benefits
+- **Efficiency:** Automates the initial triage process, reducing the maintainers’ workload.
+- **Engagement:** Encourages active participation from the community in managing and prioritizing issues.
+- **Quality Control:** Ensures that only well-vetted issues are prioritized for development, enhancing overall project quality.
+
 ## The bottom line
 
 We are all humans trying to work together to improve the community. Always be kind and appreciate the need for tradeoffs. ❤️
