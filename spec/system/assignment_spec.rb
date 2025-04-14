@@ -84,6 +84,15 @@ describe "Assignments", type: :system do
       assignment
       visit group_path(group)
       click_link "Close"
+
+      # Wait for assignment to be closed
+      expect do
+        Timeout.timeout(5) do
+          sleep 0.1 until assignment.reload.status == "closed"
+        end
+      end.not_to raise_error
+
+      # Refresh the page and verify the reopen button is present
       visit group_path(group)
       expect(page).to have_text("Reopen")
     end
