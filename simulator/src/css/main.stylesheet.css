@@ -371,6 +371,9 @@ input[type="text"]:focus {
     .navbar-nav .dropdown-menu {
         position: absolute;
         float: none;
+        left: 50%;
+        transform: translateX(-50%);
+        top:150%;
     }
 }
 

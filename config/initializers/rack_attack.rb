@@ -45,7 +45,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle logins by email", limit: 5, period: 20.seconds) do |req|
-    req.params["user"]["email"].to_s.downcase if req.path == "/users/sign_in" && req.post?
+    req.params.dig("user", "email")&.to_s&.downcase if req.path == "/users/sign_in" && req.post?
   end
 
   ### Throttle password resets ###
@@ -57,7 +57,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle password resets by email", limit: 5, period: 20.seconds) do |req|
-    req.params["user"]["email"].to_s.downcase if req.path == "/users/password" && req.post?
+    req.params.dig("user", "email")&.to_s&.downcase if req.path == "/users/password" && req.post?
   end
 
   ### Throttle logins on API ###
@@ -69,7 +69,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle api logins by email", limit: 5, period: 20.seconds) do |req|
-    req.json_params["email"].to_s.downcase if req.path == "/api/v1/auth/login" && req.post?
+    req.json_params["email"]&.to_s&.downcase if req.path == "/api/v1/auth/login" && req.post?
   end
 
   ### Throttle password resets on API ###
@@ -81,7 +81,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle api password resets by email", limit: 5, period: 20.seconds) do |req|
-    req.json_params["email"].to_s.downcase if req.path == "/api/v1/password/forgot" && req.post?
+    req.json_params["email"]&.to_s&.downcase if req.path == "/api/v1/password/forgot" && req.post?
   end
 
   self.throttled_response = lambda do |_env|
