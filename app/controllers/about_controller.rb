@@ -68,4 +68,7 @@ class AboutController < ApplicationController
         link: "https://github.com/ThatDeparted2061" }
     ]
   end
+
+  def test
+  end
 end
