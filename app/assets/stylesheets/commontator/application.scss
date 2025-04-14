@@ -4,7 +4,7 @@
  *= require_tree .
  */
 
-.commontator {
+ .commontator {
 
   .commontator-hidden {
     display: none;
@@ -100,4 +100,43 @@
   .submit {
     margin: 10px 0;
   }
+}
+
+.commontator .pagination a,
+.commontator .pagination span,
+.commontator .pagination em {
+  background-color: $white;
+  border: 1px solid #dee2e6;
+  color: $secondary-green;
+  display: block;
+  font-style: normal;
+  line-height: 1.25;
+  margin-left: -1px;
+  margin-right: 0;
+  padding: .5rem .75rem;
+  position: relative;
+}
+
+.commontator .pagination .current {
+  background-color: $primary-green;
+  border-color: $primary-green;
+  color: $white;
+}
+
+.commontator .pagination .disabled {
+  border: 1px solid #dee2e6;
+  color: $secondary-green;
+  margin-right: 0;
+  padding: .5rem .75rem;
+}
+
+.commontator .pagination a:hover,
+.commontator .pagination span:hover {
+  background-color: #e9ecef;
+  border-color: #dee2e6;
+  color: $primary-green;
+}
+
+.comment-pagination {
+  justify-content: center;
 }
