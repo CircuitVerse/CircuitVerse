@@ -10,8 +10,8 @@ sources:
 path: .gem_rbs_collection
 
 gems:
-  # Skip loading rbs gem's RBS.
-  # It's unnecessary if you don't use rbs as a library.
+  # Skip loading RBS gem's RBS.
+  # It's unnecessary if you don't use RBS as a library.
   - name: rbs
     ignore: true
   - name: steep
