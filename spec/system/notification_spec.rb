@@ -18,7 +18,7 @@ describe "Notifcation", type: :system do
     # Find and click the fork link
     fork_link = find_link(class: "btn primary-button projects-primary-button", text: /Fork/)
     fork_link.click
-    # Wait for the notification to be created and delivered
+    # Wait for notification to be created and delivered
     expect do
       # Wait for up to 5 seconds for the notification to be created
       Timeout.timeout(5) do
