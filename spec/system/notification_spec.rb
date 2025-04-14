@@ -12,19 +12,24 @@ describe "Notifcation", type: :system do
     driven_by(:selenium_chrome_headless)
   end
 
-  it "initiate notification" do
-    sign_in @user
-    visit user_project_path(@author, @project)
+  def create_fork_notification(author, _user, _project)
     # Find and click the fork link
     fork_link = find_link(class: "btn primary-button projects-primary-button", text: /Fork/)
     fork_link.click
-    # Wait for notification to be created and delivered
+
+    # Wait for the notification to be created and delivered
     expect do
       # Wait for up to 5 seconds for the notification to be created
       Timeout.timeout(5) do
-        sleep 0.1 until @author.noticed_notifications.count == 1
+        sleep 0.1 until author.noticed_notifications.count == 1
       end
     end.not_to raise_error
+  end
+
+  it "initiate notification" do
+    sign_in @user
+    visit user_project_path(@author, @project)
+    create_fork_notification(@author, @user, @project)
 
     # Verify notification content
     notification = @author.noticed_notifications.first
@@ -36,16 +41,7 @@ describe "Notifcation", type: :system do
     before do
       sign_in @user
       visit user_project_path(@author, @project)
-
-      # Find and click the fork link
-      fork_link = find_link(class: "btn primary-button projects-primary-button", text: /Fork/)
-      fork_link.click
-
-      # Wait for the notification to be created and delivered
-      Timeout.timeout(5) do
-        sleep 0.1 until @author.noticed_notifications.count == 1
-      end
-
+      create_fork_notification(@author, @user, @project)
       sign_in @author
       visit notifications_path(@author)
     end
