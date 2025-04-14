@@ -85,7 +85,7 @@ describe "Assignments", type: :system do
       visit group_path(group)
       click_link "Close"
 
-      # Wait for the assignment to be closed
+      # Wait for assignment to be closed
       expect do
         Timeout.timeout(5) do
           sleep 0.1 until assignment.reload.status == "closed"
