@@ -190,11 +190,10 @@
   .modal-title {
     color: $white;
   }
-
-  .close {
-    color: $white;
-    opacity: 1;
+  .close::after {
+    content: 'X';
   }
+  
 }
 
 .secondary-modal-header {
