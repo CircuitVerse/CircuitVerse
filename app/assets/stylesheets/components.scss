@@ -181,12 +181,9 @@
   padding-right: 0;
 }
 
-
-
 .primary-modal-header {
   background-color: $primary-green;
   border: 1px solid $primary-green;
-  justify-content: space-between;
   box-shadow: none;
 
   .modal-title {
@@ -194,26 +191,10 @@
   }
 
   .close {
-    top: 1rem;
-    right: 1rem;
-    background: transparent; 
-    border: none; 
-    color: #fff; 
-    font-size: 1.5rem;
-    cursor: pointer; 
-    padding: 0; 
+    color: $white;
+    opacity: 1;
   }
 
-  .close::after {
-    content: 'X';
-    top: 1rem;
-    right: 1rem;
-    font-size: 1.5rem; 
-    color: #fff; 
-    background-color: transparent; 
-  }
-
-  
 }
 
 .secondary-modal-header {
