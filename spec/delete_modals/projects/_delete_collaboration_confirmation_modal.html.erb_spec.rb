@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "projects/_delete_collaboration_confirmation_modal", type: :view do

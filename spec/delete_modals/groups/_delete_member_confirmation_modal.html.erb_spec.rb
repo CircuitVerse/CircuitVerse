@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "groups/_delete_member_confirmation_modal", type: :view do
