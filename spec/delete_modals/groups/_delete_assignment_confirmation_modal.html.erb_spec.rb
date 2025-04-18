@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "groups/_delete_assignment_confirmation_modal", type: :view do

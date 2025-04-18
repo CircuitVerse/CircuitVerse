@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "users/circuitverse/_delete_group_confirmation_modal", type: :view do
