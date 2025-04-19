@@ -1,7 +1,7 @@
 import Banana from 'banana-i18n';
 
 const banana = new Banana();
-banana.setLocale('ur');
+banana.setLocale('ar');
 
 const finalFallback = 'en';
 const messages = {
@@ -9,6 +9,7 @@ const messages = {
 };
 
 try {
+    messages.ar = require(`./i18n/ar.json`);
     messages.ur = require('./i18n/ur.json');
 } catch (err) {
     // Silent error handling

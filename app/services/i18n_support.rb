@@ -9,7 +9,9 @@ class I18nSupport
       %w[Bengali bn],
       %w[Marathi mr],
       %w[Nepali ne],
-      %w[Urdu ur]
+      %w[Urdu ur],
+      %w[Arabic ar],
+      %w[Hebrew he],
     ]
   end
 end

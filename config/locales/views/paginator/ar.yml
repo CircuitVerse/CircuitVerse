@@ -1,0 +1,4 @@
+ar:
+  will_paginate:
+    previous_label: "&#8592; السابق"
+    next_label: "التالي &#8594;"
