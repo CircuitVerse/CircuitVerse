@@ -1,7 +1,7 @@
 import Banana from 'banana-i18n';
 
 const banana = new Banana();
-banana.setLocale('ar');
+banana.setLocale('en');
 
 const finalFallback = 'en';
 const messages = {
