@@ -1,0 +1,4 @@
+he:
+  will_paginate:
+    previous_label: "&#8592; קודם"
+    next_label: "הבא &#8594;"

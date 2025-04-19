@@ -1,0 +1,11 @@
+ar:
+  helpers:
+    label:
+      user:
+        email: "البريد الإلكتروني"
+        name: "الاسم"
+        country: "البلد"
+        educational_institute: "المؤسسة التعليمية"
+        locale: "اللغة"
+        password: "كلمة المرور"
+        password_confirmation: "تأكيد كلمة المرور"

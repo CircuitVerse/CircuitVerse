@@ -1,0 +1,45 @@
+he:
+  groups:
+    add_member_description: "הזן כתובות דוא\"ל מופרדות בפסיקים/רווחים או בשורה נפרדת. אם המשתמשים אינם רשומים, תישלח אליהם בקשה להירשם באמצעות הדוא\"ל."
+    add_mentor_description_html: "<p>מנטורים יכולים:</p><ul><li>ליצור ולהסיר משימות</li><li>לדרג משימות</li><li>לפתוח מחדש משימות סגורות</li></ul>"
+    promote_member_confirmation: "האם אתה בטוח שברצונך לקדם חבר זה למנטור?"
+    demote_mentor_confirmation: "האם אתה בטוח שברצונך להוריד את המנטור לחבר רגיל?"
+    use_alternative: "השתמש בחלופה"
+    invite_link_btn: "הזמנה באמצעות קישור"
+    remove_assignment_message: "האם אתה בטוח שברצונך למחוק משימה זו?"
+    remove_member_message: "האם אתה בטוח שברצונך להסיר חבר זה?"
+    make_member: "הפוך לחבר"
+    make_mentor: "הפוך למנטור"
+    edit:
+      title: "%{name} - ערוך שם הקבוצה"
+      main_heading: "ערוך שם הקבוצה"
+    new:
+      title: "CircuitVerse - קבוצה חדשה"
+      main_heading: "קבוצה חדשה"
+      main_description_html:
+        "קבוצות יכולות לשמש מנטורים כדי להגדיר פרויקטים ולדרג תלמידים.
+        ניתן למצוא את התיעוד <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>כאן</a>."
+    show:
+      edit_name_btn: "ערוך שם"
+      primary_mentor_heading: "מנטור ראשי:"
+      mentor_name_heading: "מנטורים:"
+      group_members_heading: "חברי קבוצה:"
+      add_members_btn: "+ הוסף חברים"
+      add_mentors_btn: "+ הוסף מנטורים"
+      no_mentors_html: "אין מנטורים בקבוצה זו, להוספת מנטור לחץ על <strong>+ הוסף מנטורים</strong>."
+      no_members_html: "אין חברים בקבוצה זו, להוספת חברים לחץ על <strong>+ הוסף חברים</strong>."
+      no_assignments_html: "אין משימות בקבוצה זו, להוספת משימה לחץ על <strong>+ הוסף משימה</strong>."
+      assignment:
+        heading: "משימות:"
+        add_assignment_btn: "+ הוסף משימה"
+        assignment_table_head:
+          name: "שם"
+          deadline: "תאריך יעד"
+          grading: "דירוג"
+          actions: "פעולות"
+          grade: "ציון"
+        time_remaining_html: "<strong>זמן שנותר:</strong> %{time_remaining}"
+        start_working_btn: "התחל לעבוד"
+        see_work_done: "ראה את העבודה שלך"
+        not_submitted: "לא הוגש!"
+        show_submission: "הצג הגשה"

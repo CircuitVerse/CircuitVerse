@@ -1,0 +1,9 @@
+he:
+  launch_error:
+    title: "סירקיטוורס - שגיאת LTI"
+    main-heading: "התוכן אינו זמין"
+    main-description: "התוכן שביקשת אינו זמין כרגע, או שאין לך הרשאה לגשת אליו."
+  open_incv:
+    notice_wait_in_open_incv: "אנא המתן בזמן שהמטלה נפתחת בסירקיטוורס..."
+    notice_redirection_error: "אם זה לא עובד, אנא לחץ על הכפתור למטה."
+    open_assignment: "פתח מטלה"

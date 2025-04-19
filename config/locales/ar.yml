@@ -1,0 +1,74 @@
+ar:
+  edit: "تحرير"
+  show: "عرض"
+  delete: "حذف"
+  view: "مشاهدة"
+  launch_simulator: "تشغيل المحاكي"
+  email_us_heading: "راسلنا عبر البريد الإلكتروني"
+  join_at_slack_heading: "تحدث معنا"
+  join_at_slack_description: "قناة Slack"
+  welcome_back_text: "مرحبًا بك في جامعة الدوائر الرقمية!"
+  save: "حفظ"
+  back: "رجوع"
+  login: "تسجيل الدخول"
+  sign_up: "التسجيل"
+  sign_out: "تسجيل الخروج"
+  assignment: "مهمة"
+  launch: "إطلاق"
+  fork: "تفرع"
+  more: "المزيد"
+  submit: "إرسال"
+  features_heading: "المميزات"
+  features_description: "قم بتصميم الدوائر بسرعة وسهولة باستخدام واجهة مستخدم حديثة وبديهية، مع السحب والإفلات، النسخ/اللصق، التكبير، والمزيد."
+  add_members: "إضافة أعضاء"
+  add_mentors: "إضافة مرشدين"
+  remove: "إزالة"
+  reopen: "إعادة فتح"
+  close: "إغلاق"
+  not_available: "غير متوفر"
+  not_entered: "لم يتم الإدخال"
+  enter_email: "أدخل البريد الإلكتروني"
+  enter_password: "أدخل كلمة المرور"
+  enter_name: "أدخل الاسم"
+  registration_blocked: "التسجيل معطل حاليًا"
+  google: "جوجل"
+  facebook: "فيسبوك"
+  github: "جيت هب"
+  gitlab: "جيت لاب"
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "نصف دقيقة"
+      less_than_x_seconds:
+        one: "ثانية واحدة"
+        other: "أقل من %{count} ثانية"
+      x_seconds:
+        one: "ثانية واحدة"
+        other: "%{count} ثواني"
+      less_than_x_minutes:
+        one: "أقل من دقيقة"
+        other: "أقل من %{count} دقائق"
+      x_minutes:
+        one: "دقيقة واحدة"
+        other: "%{count} دقائق"
+      about_x_hours:
+        one: "حوالي ساعة"
+        other: "حوالي %{count} ساعات"
+      x_days:
+        one: "يوم واحد"
+        other: "%{count} أيام"
+      about_x_months:
+        one: "حوالي شهر"
+        other: "حوالي %{count} أشهر"
+      x_months:
+        one: "شهر واحد"
+        other: "%{count} أشهر"
+      about_x_years:
+        one: "حوالي سنة"
+        other: "حوالي %{count} سنوات"
+      over_x_years:
+        one: "أكثر من سنة"
+        other: "أكثر من %{count} سنوات"
+      almost_x_years:
+        one: "ما يقرب من سنة"
+        other: "ما يقرب من %{count} سنوات"

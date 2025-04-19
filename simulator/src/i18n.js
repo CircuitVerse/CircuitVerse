@@ -1,17 +1,22 @@
 import Banana from 'banana-i18n';
 
 const banana = new Banana();
-banana.setLocale(window.locale);
-const { locale } = banana;
+banana.setLocale('en');
+
 const finalFallback = 'en';
-// object with default language preloaded
 const messages = {
-    [finalFallback]: require(`./i18n/${finalFallback}.json`),
+  [finalFallback]: require('./i18n/en.json'),
 };
+
 try {
-    messages[locale] = require(`./i18n/${locale}.json`);
+  messages.ar = require('./i18n/ar.json');
+  messages.he = require('./i18n/he.json');
+  messages.ur = require('./i18n/ur.json');
 } catch (err) {
-    // If Asynchronous loading for current locale failed, load default locale
+  // If asynchronous loading for current locale failed, load default locale
 }
+
 banana.load(messages);
+window.banana = banana;
+
 export default banana;

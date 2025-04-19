@@ -1,0 +1,8 @@
+he:
+  simulator:
+    nav_item:
+      project: "פרויקט"
+      circuit: "מעגל"
+      tools: "כלים"
+      help: "עזרה"
+    insert_Subcircuitcontent: "נראה שאין מעגל אחר שבו המעגל הזה תלוי. צור חדש!"

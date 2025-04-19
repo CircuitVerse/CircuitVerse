@@ -1,0 +1,8 @@
+ur:
+  simulator:
+    nav_item:
+      project: "پروجیکٹ"
+      circuit: "سرکٹ"
+      tools: "اوزار"
+      help: "مدد"
+    insert_Subcircuitcontent: "ایسا لگتا ہے کہ کوئی اور سرکٹ نہیں ہے جہاں یہ سرکٹ ایک انحصار کے طور پر موجود ہو۔ ایک نیا بنائیں!"

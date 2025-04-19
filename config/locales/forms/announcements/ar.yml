@@ -1,0 +1,12 @@
+ar:
+  helpers:
+    label:
+      announcement:
+        body: "نص الإعلان"
+        link: "اعرف المزيد"
+        start_date: "تاريخ البدء"
+        end_date: "تاريخ الانتهاء"
+    submit:
+      announcement:
+        create: "إنشاء إعلان جديد"
+        update: "تحديث الإعلان"

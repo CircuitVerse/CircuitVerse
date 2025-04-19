@@ -1,0 +1,40 @@
+ur:
+  assignments:
+    group_name: "گروپ: %{name}"
+    deadline: "اختتامی وقت:"
+    remaining_time_error: "(اسکرپٹ لوڈ کرنے میں خرابی ہوئی)"
+    form:
+      grade_scale_cant_change: "(سیٹ ہونے کے بعد تبدیل نہیں کیا جا سکتا)"
+      cannot_be_edited: "%{graded} - ترمیم نہیں کی جا سکتی"
+      enable_element_restriction: "عنصر کی پابندی فعال کریں:"
+      enable_feature_restriction: "فیچر کی پابندی فعال کریں:"
+      time_remaining: "باقی وقت: %{time}"
+      no_grade: "کوئی گریڈ نہیں"
+      letter: "لیٹر (A-F)"
+      percent: "فیصد (1-100)"
+      custom: "حسب ضرورت"
+    edit:
+      edit_assignment: "اسائنمنٹ میں ترمیم کریں"
+    new:
+      title: "%{name} - نیا اسائنمنٹ"
+      new_assignment_heading: "نیا اسائنمنٹ"
+    show:
+      title: "%{name} - اسائنمنٹ کی تفصیلات"
+      assignment_details_heading: "اسائنمنٹ کی تفصیلات"
+    assignment_data:
+      name_html: "<strong>نام:</strong> %{name}"
+      group_html: "<strong>گروپ:</strong> %{group_name}"
+      time_remaining_html: "<strong>باقی وقت:</strong> %{time_remaining}"
+      graded_html: "<strong>گریڈ:</strong> %{graded}"
+      description: "تفصیل:"
+      restricted_elements_html: "<strong>محدود سرکٹ عناصر:</strong> %{restricted_circuit_elements}"
+      export_grades: "گریڈز برآمد کریں"
+      submissions: "جمع شدہ:"
+      restricted_features_html: "<strong>محدود خصوصیات:</strong> %{restricted_features}"
+      no_submissions: "کوئی جمع شدہ نہیں!"
+      grades_and_remarks: "گریڈ اور تبصرے:"
+      grade: "گریڈ:"
+      remarks: "تبصرے:"
+      grading_scale_percent: "اسائنمنٹ کو (1-100) فیصد میں گریڈ کیا جا سکتا ہے"
+      grading_scale_letter: "اسائنمنٹ کو A/B/C/D/E/F میں گریڈ کیا جا سکتا ہے"
+      remove: "ہٹائیں"

@@ -1,0 +1,11 @@
+he:
+  helpers:
+    label:
+      user:
+        email: "אימייל"
+        name: "שם"
+        country: "מדינה"
+        educational_institute: "מוסד חינוכי"
+        locale: "שפה"
+        password: "סיסמה"
+        password_confirmation: "אימות סיסמה"

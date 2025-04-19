@@ -1,0 +1,13 @@
+he:
+  helpers:
+    label:
+      group_member:
+        emails: "אימייל:"
+      group:
+        name: "שם הקבוצה:"
+    submit:
+      group_member:
+        create: "הוסף חבר"
+      group:
+        create: "שמור"
+        update: "שמור"
