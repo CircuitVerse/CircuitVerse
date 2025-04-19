@@ -34,7 +34,8 @@ module SimulatorHelper
   end
 
   def sanitize_data(project, data)
-    return data if project&.assignment_id.blank? || data.blank?
+    return data if project&.assignment_id.blank? || data.blank?git 
+
 
     data = Oj.safe_load(data)
     saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
