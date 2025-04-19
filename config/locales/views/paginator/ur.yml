@@ -1,0 +1,4 @@
+ur:
+  will_paginate:
+    previous_label: "&#8592; پچھلا"
+    next_label: "اگلا &#8594;"

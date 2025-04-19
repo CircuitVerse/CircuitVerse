@@ -1,0 +1,74 @@
+ur:
+  edit: "ترمیم کریں"
+  show: "دیکھائیں"
+  delete: "حذف کریں"
+  view: "دیکھیں"
+  launch_simulator: "سمیلیٹر لانچ کریں"
+  email_us_heading: "ہمیں ای میل کریں"
+  join_at_slack_heading: "ہم سے چیٹ کریں"
+  join_at_slack_description: "Slack چینل"
+  welcome_back_text: "ڈیجیٹل سرکٹ یونیورس میں خوش آمدید!"
+  save: "محفوظ کریں"
+  back: "پیچھے جائیں"
+  login: "لاگ ان"
+  sign_up: "سائن اپ"
+  sign_out: "لاگ آؤٹ"
+  assignment: "اسائنمنٹ"
+  launch: "شروع کریں"
+  fork: "فورک کریں"
+  more: "مزید"
+  submit: "جمع کروائیں"
+  features_heading: "خصوصیات"
+  features_description: "ڈریگ اینڈ ڈراپ، کاپی/پیسٹ، زوم اور بہت کچھ کے ساتھ ایک جدید اور بدیہی یوزر انٹرفیس کے ذریعے سرکٹس کو تیزی سے اور آسانی سے ڈیزائن کریں۔"
+  add_members: "اراکین شامل کریں"
+  add_mentors: "مینٹورز شامل کریں"
+  remove: "ہٹائیں"
+  reopen: "دوبارہ کھولیں"
+  close: "بند کریں"
+  not_available: "دستیاب نہیں"
+  not_entered: "درج نہیں کیا گیا"
+  enter_email: "ای میل درج کریں"
+  enter_password: "پاس ورڈ درج کریں"
+  enter_name: "نام درج کریں"
+  registration_blocked: "سائن اپ فی الحال غیر فعال ہے"
+  google: "گوگل"
+  facebook: "فیس بک"
+  github: "گِٹ ہب"
+  gitlab: "گِٹ لیب"
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "آدھا منٹ"
+      less_than_x_seconds:
+        one: "1 سیکنڈ" # default was: "less than 1 second"
+        other: "%{count} سیکنڈ" # default was: "less than %{count} seconds"
+      x_seconds:
+        one: "1 سیکنڈ"
+        other: "%{count} سیکنڈ"
+      less_than_x_minutes:
+        one: "1 منٹ" # default was: "less than a minute"
+        other: "%{count} منٹ" # default was: "less than %{count} minutes"
+      x_minutes:
+        one: "1 منٹ"
+        other: "%{count} منٹ"
+      about_x_hours:
+        one: "1 گھنٹہ" # default was: "about 1 hour"
+        other: "%{count} گھنٹے" # default was: "about %{count} hours"
+      x_days:
+        one: "1 دن"
+        other: "%{count} دن"
+      about_x_months:
+        one: "1 مہینہ" # default was: "about 1 month"
+        other: "%{count} مہینے" # default was: "about %{count} months"
+      x_months:
+        one: "1 مہینہ"
+        other: "%{count} مہینے"
+      about_x_years:
+        one: "1 سال" # default was: "about 1 year"
+        other: "%{count} سال" # default was: "about %{count} years"
+      over_x_years:
+        one: "1 سال" # default was: "over 1 year"
+        other: "%{count} سال" # default was: "over %{count} years"
+      almost_x_years:
+        one: "1 سال" # default was: "almost 1 year"
+        other: "%{count} سال" # default was: "almost %{count} years"

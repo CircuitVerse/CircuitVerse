@@ -1,0 +1,45 @@
+ur:
+  groups:
+    add_member_description: "کاما/اسپیس یا الگ لائن میں الگ کردہ ای میل آئی ڈیز لکھیں۔ اگر صارفین رجسٹرڈ نہیں ہیں، تو انہیں سائن اپ کرنے کی درخواست کے ساتھ ایک ای میل بھیجا جائے گا۔"
+    add_mentor_description_html: "<p>منتور درج ذیل کام کر سکتے ہیں:</p><ul><li>اسائنمنٹ بنا اور حذف کر سکتے ہیں</li><li>اسائنمنٹ گریڈ کر سکتے ہیں</li><li>بند اسائنمنٹس کو دوبارہ کھول سکتے ہیں</li></ul>"
+    promote_member_confirmation: "کیا آپ واقعی اس رکن کو منتور میں ترقی دینا چاہتے ہیں؟"
+    demote_mentor_confirmation: "کیا آپ واقعی اس منتور کو عام رکن میں تبدیل کرنا چاہتے ہیں؟"
+    use_alternative: "متبادل استعمال کریں"
+    invite_link_btn: "دعوتی لنک"
+    remove_assignment_message: "کیا آپ واقعی اس اسائنمنٹ کو حذف کرنا چاہتے ہیں؟"
+    remove_member_message: "کیا آپ واقعی اس رکن کو ہٹانا چاہتے ہیں؟"
+    make_member: "رکن بنائیں"
+    make_mentor: "منتور بنائیں"
+    edit:
+      title: "%{name} - گروپ کا نام ترمیم کریں"
+      main_heading: "گروپ کا نام ترمیم کریں"
+    new:
+      title: "سرکٹ ورس - نیا گروپ"
+      main_heading: "نیا گروپ"
+      main_description_html:
+        "گروپس منتورز کے ذریعے منصوبے مرتب کرنے اور طلبہ کو گریڈ دینے کے لیے استعمال کیے جا سکتے ہیں۔
+        آپ <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>یہاں</a> دستاویزات حاصل کر سکتے ہیں۔"
+    show:
+      edit_name_btn: "نام ترمیم کریں"
+      primary_mentor_heading: "مرکزی منتور:"
+      mentor_name_heading: "منتور:"
+      group_members_heading: "گروپ ممبران:"
+      add_members_btn: "+ رکن شامل کریں"
+      add_mentors_btn: "+ منتور شامل کریں"
+      no_mentors_html: "اس گروپ میں کوئی منتور نہیں ہے، منتور شامل کرنے کے لیے <strong>+ منتور شامل کریں</strong> بٹن دبائیں۔"
+      no_members_html: "اس گروپ میں کوئی رکن نہیں ہے، رکن شامل کرنے کے لیے <strong>+ رکن شامل کریں</strong> بٹن دبائیں۔"
+      no_assignments_html: "اس گروپ میں کوئی اسائنمنٹ نہیں ہے، اسائنمنٹ شامل کرنے کے لیے <strong>+ اسائنمنٹ شامل کریں</strong> بٹن دبائیں۔"
+      assignment:
+        heading: "اسائنمنٹ:"
+        add_assignment_btn: "+ اسائنمنٹ شامل کریں"
+        assignment_table_head:
+          name: "نام"
+          deadline: "آخری تاریخ"
+          grading: "گریڈنگ"
+          actions: "افعال"
+          grade: "گریڈ"
+        time_remaining_html: "<strong>باقی وقت:</strong> %{time_remaining}"
+        start_working_btn: "کام شروع کریں"
+        see_work_done: "اپنا کام دیکھیں"
+        not_submitted: "جمع نہیں ہوا!"
+        show_submission: "جمع شدہ دیکھیں"
