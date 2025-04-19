@@ -1,0 +1,34 @@
+he:
+  layout:
+    link_to_simulator: "הסימולטור"
+    getting_started_dropdown: "איך להתחיל"
+    link_to_learn_more: "למד עוד"
+    link_to_docs: "תיעוד"
+    link_to_features: "תכונות"
+    link_to_teachers: "למורים"
+    link_to_blog: "בלוג"
+    link_to_about: "על CircuitVerse"
+    link_to_faq: "שאלות נפוצות"
+    footer:
+      social_icon_text: "עקבו אחרינו:"
+      link_to_examples: "דוגמאות"
+      my_circuits: "המעגלים שלי"
+      link_to_contribute: "תרום"
+      link_to_forum: "פורום"
+      sponsor_logo_text:
+        brought_by: "מובא אליכם על ידי:"
+        hosting_sponsor: "נותן החסות לאירוח:"
+        marketed_by: "שיווק על ידי:"
+        developed_by: "פותח על ידי:"
+      copyright_text: "זכויות יוצרים © %{time_current_year} CircuitVerse, כל הזכויות שמורות."
+    header:
+      dashboard: "לוח מחוונים"
+      my_groups: "הקבוצות שלי"
+      notifications: "התראות"
+      language: "שפה"
+    mailer:
+      join_us: "הצטרפו אלינו"
+      copyright_text: "זכויות יוצרים © %{time_current_year} CircuitVerse. כל הזכויות שמורות. לכל בעיה, ניתן ליצור קשר בכתובת support@circuitverse.org"
+      unsubscribe_email_notifications: "בטל הרשמה להתראות דוא״ל"
+    simulator:
+      title: "CircuitVerse - סימולטור מעגלים דיגיטליים מקוון"

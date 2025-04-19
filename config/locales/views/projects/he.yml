@@ -1,0 +1,52 @@
+he:
+  projects:
+    add_collaborator_description:
+      "הזן כתובות דוא\"ל מופרדות בפסיקים, רווחים או שורות נפרדות. המשתמשים חייבים להיות כבר רשומים לפלטפורמה.
+            שים לב כי שיתוף פעולה אינו מתבצע בזמן אמת כרגע, וכל שמירה תחליף את הנתונים הקודמים."
+    remove_collaborator_message: "האם אתה בטוח שברצונך להסיר משתף פעולה זה?"
+    delete_project_message: "האם אתה בטוח שברצונך למחוק פרויקט זה?"
+    form:
+      feature_circuit_checkpoint: "תצוגה מוצגת (למנהלים בלבד)"
+      tag_list_description: "(הזן תגיות לפרויקט שלך מופרדות בפסיקים [,])"
+      project_is_featured_message: "(פרויקט זה מוצג באופן מיוחד. אם הגישה הציבורית תוסר, הוא לא יוצג.)"
+      public: "ציבורי"
+      private: "פרטי"
+      limited_access: "גישה מוגבלת"
+    edit:
+      title: "%{name} - עריכת הפרויקט"
+      main_heading: "עריכת הפרויקט"
+    get_projects:
+      searched_projects_heading: "פרויקטים שחופשו"
+      searched_tags_heading: "תגיות שחופשו:"
+    stars_count: "כוכבים"
+    views_count: "צפיות"
+    project_user: "משתמש:"
+    show:
+      project_author: "מחבר:"
+      project_forked_from: "נוצר מ:"
+      project_access_type: "סוג גישה:"
+      project_description: "תיאור:"
+      project_created_at: "נוצר בתאריך:"
+      project_updated_at: "עודכן בתאריך:"
+      project_embed: "הטמע"
+      project_copy: "צור עותק"
+      project_collaborator_add: "+ הוסף משתף פעולה"
+      copied_to_clipboard: "הועתק ללוח"
+      collaborators: "משתפי פעולה"
+    search:
+      no_result_found: "לא נמצאו תוצאות"
+    modal:
+      embed_circuit_heading: "הטמע מעגל זה"
+      height: "גובה"
+      width: "רוחב"
+      url: "כתובת URL"
+      border: "מסגרת"
+      border_style: "סגנון מסגרת"
+      publish_button: "פרסם"
+      advance:
+        advance_option: "אפשרויות מתקדמות"
+        clock_time: "שעון/זמן"
+        display_title: "הצג כותרת"
+        fullscreen: "מסך מלא"
+        zoom_in_out: "התקרב/התרחק"
+        theme: "ערכת נושא"

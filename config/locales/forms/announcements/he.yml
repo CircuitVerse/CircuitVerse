@@ -1,0 +1,12 @@
+he:
+  helpers:
+    label:
+      announcement:
+        body: "גוף ההכרזה"
+        link: "למד עוד"
+        start_date: "תאריך התחלה"
+        end_date: "תאריך סיום"
+    submit:
+      announcement:
+        create: "צור הכרזה חדשה"
+        update: "עדכן את ההכרזה"

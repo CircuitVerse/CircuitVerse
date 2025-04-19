@@ -1,0 +1,74 @@
+he:
+  edit: "עריכה"
+  show: "הצג"
+  delete: "מחק"
+  view: "צפה"
+  launch_simulator: "הפעל סימולטור"
+  email_us_heading: "שלח לנו מייל"
+  join_at_slack_heading: "שוחח איתנו"
+  join_at_slack_description: "ערוץ Slack"
+  welcome_back_text: "ברוך הבא לאוניברסיטת המעגלים הדיגיטליים!"
+  save: "שמור"
+  back: "חזור"
+  login: "התחבר"
+  sign_up: "הרשמה"
+  sign_out: "התנתקות"
+  assignment: "מטלה"
+  launch: "הפעל"
+  fork: "פיצול"
+  more: "עוד"
+  submit: "שלח"
+  features_heading: "מאפיינים"
+  features_description: "עצב מעגלים במהירות ובקלות באמצעות ממשק משתמש מודרני ואינטואיטיבי, כולל גרירה ושחרור, העתקה/הדבקה, זום ועוד."
+  add_members: "הוסף חברים"
+  add_mentors: "הוסף מנטורים"
+  remove: "הסר"
+  reopen: "פתח מחדש"
+  close: "סגור"
+  not_available: "לא זמין"
+  not_entered: "לא הוזן"
+  enter_email: "הכנס דוא\"ל"
+  enter_password: "הכנס סיסמה"
+  enter_name: "הכנס שם"
+  registration_blocked: "ההרשמה מושבתת כעת"
+  google: "גוגל"
+  facebook: "פייסבוק"
+  github: "גיטהאב"
+  gitlab: "גיטלאב"
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "חצי דקה"
+      less_than_x_seconds:
+        one: "פחות משנייה"
+        other: "פחות מ-%{count} שניות"
+      x_seconds:
+        one: "שנייה אחת"
+        other: "%{count} שניות"
+      less_than_x_minutes:
+        one: "פחות מדקה"
+        other: "פחות מ-%{count} דקות"
+      x_minutes:
+        one: "דקה אחת"
+        other: "%{count} דקות"
+      about_x_hours:
+        one: "בערך שעה"
+        other: "בערך %{count} שעות"
+      x_days:
+        one: "יום אחד"
+        other: "%{count} ימים"
+      about_x_months:
+        one: "בערך חודש"
+        other: "בערך %{count} חודשים"
+      x_months:
+        one: "חודש אחד"
+        other: "%{count} חודשים"
+      about_x_years:
+        one: "בערך שנה"
+        other: "בערך %{count} שנים"
+      over_x_years:
+        one: "יותר משנה"
+        other: "יותר מ-%{count} שנים"
+      almost_x_years:
+        one: "כמעט שנה"
+        other: "כמעט %{count} שנים"

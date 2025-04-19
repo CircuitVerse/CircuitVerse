@@ -10,9 +10,10 @@ const messages = {
 
 try {
     messages.ar = require(`./i18n/ar.json`);
+    messages.he = require('./i18n/he.json');
     messages.ur = require('./i18n/ur.json');
 } catch (err) {
-    // Silent error handling
+    
 }
 
 banana.load(messages);

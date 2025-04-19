@@ -1,0 +1,11 @@
+he:
+  helpers:
+    label:
+      assignment:
+        name: "שם"
+        description: "תיאור"
+        grading_scale: "סולם דירוג"
+    submit:
+      assignment:
+        create: "צור משימה"
+        update: "עדכן משימה"
