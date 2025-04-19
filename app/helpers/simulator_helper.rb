@@ -16,13 +16,12 @@ module SimulatorHelper
   end
 
   def parse_image_data_url(data_url)
+    return nil if data_url.nil?
+  
     str = data_url[("data:image/jpeg;base64,".length)..]
-    if str.to_s.empty?
-      image_file = nil
-    else
-      jpeg       = Base64.decode64(str)
-      image_file = StringIO.new(jpeg)
-    end
+    decoded_data = Base64.decode64(str)
+    StringIO.new(decoded_data)
+  end  
 
     image_file
   end
