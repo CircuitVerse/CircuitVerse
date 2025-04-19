@@ -6,7 +6,6 @@ module SimulatorHelper
     if str.to_s.empty?
       path = Rails.public_path.join("images/default.png")
       image_file = File.open(path, "rb")
-
     else
       jpeg       = Base64.decode64(str)
       image_file = File.new("tmp/preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg", "wb")
@@ -17,13 +16,17 @@ module SimulatorHelper
 
   def parse_image_data_url(data_url)
     return nil if data_url.nil?
-  
-    str = data_url[("data:image/jpeg;base64,".length)..]
-    decoded_data = Base64.decode64(str)
-    StringIO.new(decoded_data)
-  end  
 
-    image_file
+    str = data_url[("data:image/jpeg;base64,".length)..]
+    return nil if str.to_s.empty?
+
+    begin
+      decoded_data = Base64.decode64(str)
+      StringIO.new(decoded_data)
+    rescue ArgumentError => e
+      Rails.logger.error("Failed to decode base64 image: #{e.message}")
+      nil
+    end
   end
 
   def check_to_delete(data_url)
