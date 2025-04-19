@@ -5,15 +5,15 @@ banana.setLocale('en');
 
 const finalFallback = 'en';
 const messages = {
-    [finalFallback]: require('./i18n/en.json'),
+  [finalFallback]: require('./i18n/en.json'),
 };
 
 try {
-    messages.ar = require(`./i18n/ar.json`);
-    messages.he = require('./i18n/he.json');
-    messages.ur = require('./i18n/ur.json');
+  messages.ar = require('./i18n/ar.json');
+  messages.he = require('./i18n/he.json');
+  messages.ur = require('./i18n/ur.json');
 } catch (err) {
-    
+  // If asynchronous loading for current locale failed, load default locale
 }
 
 banana.load(messages);

@@ -11,7 +11,7 @@ class I18nSupport
       %w[Nepali ne],
       %w[Urdu ur],
       %w[Arabic ar],
-      %w[Hebrew he],
+      %w[Hebrew he]
     ]
   end
 end
