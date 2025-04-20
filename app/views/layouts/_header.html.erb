@@ -87,6 +87,23 @@
      gettingStartedLink.classList.remove("rotate180");
      gettingStartedDropdown.hide();
     });
+
+    var navbarLink = document.querySelector("#navbar-dropdown-2");
+    var navbarDropdown = new bootstrap.Dropdown(navbarLink);
+    navbarLink.addEventListener("click", function (e) {
+      if(navbarLink.classList.contains("rotate180")){
+        navbarLink.classList.remove("rotate180");
+        navbarDropdown.hide();
+      } else {
+        navbarLink.classList.add("rotate180");
+        navbarDropdown.show();
+      }
+      e.stopPropagation();
+    });
+    document.addEventListener("click", function () {
+     navbarLink.classList.remove("rotate180");
+     navbarDropdown.hide();
+    });
   });
 
   function activeSearchBar(){
