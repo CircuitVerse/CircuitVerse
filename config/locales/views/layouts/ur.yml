@@ -1,0 +1,34 @@
+ur:
+  layout:
+    link_to_simulator: "سیمولیٹر"
+    getting_started_dropdown: "شروع کرنے کا طریقہ"
+    link_to_learn_more: "مزید جانیں"
+    link_to_docs: "دستاویزات"
+    link_to_features: "خصوصیات"
+    link_to_teachers: "اساتذہ کے لیے"
+    link_to_blog: "بلاگ"
+    link_to_about: "CircuitVerse کے بارے میں"
+    link_to_faq: "عمومی سوالات"
+    footer:
+      social_icon_text: "ہمیں فالو کریں:"
+      link_to_examples: "مثالیں"
+      my_circuits: "میرے سرکٹس"
+      link_to_contribute: "حصہ ڈالیں"
+      link_to_forum: "فورم"
+      sponsor_logo_text:
+        brought_by: "پیش کردہ:"
+        hosting_sponsor: "میزبانی اسپانسر:"
+        marketed_by: "مارکیٹنگ کی گئی:"
+        developed_by: "ڈویلپ کیا گیا:"
+      copyright_text: "کاپی رائٹ © %{time_current_year} CircuitVerse، جملہ حقوق محفوظ ہیں۔"
+    header:
+      dashboard: "ڈیش بورڈ"
+      my_groups: "میرے گروپس"
+      notifications: "اطلاعات"
+      language: "زبان"
+    mailer:
+      join_us: "ہمارے ساتھ شامل ہوں"
+      copyright_text: "کاپی رائٹ © %{time_current_year} CircuitVerse. تمام حقوق محفوظ ہیں۔ کسی بھی مسئلے کے لیے، ہم سے رابطہ کریں: support@circuitverse.org"
+      unsubscribe_email_notifications: "ای میل اطلاعات کی رکنیت ختم کریں"
+    simulator:
+      title: "CircuitVerse - آن لائن ڈیجیٹل سرکٹ سیمولیٹر"

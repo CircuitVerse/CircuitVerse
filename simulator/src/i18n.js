@@ -4,14 +4,35 @@ const banana = new Banana();
 banana.setLocale(window.locale);
 const { locale } = banana;
 const finalFallback = 'en';
-// object with default language preloaded
+
+
+const RTL_LANGUAGES = ["ar", "he", "ur",];
+
 const messages = {
-    [finalFallback]: require(`./i18n/${finalFallback}.json`),
+    [finalFallback]: require(./i18n/${finalFallback}.json),
 };
+
 try {
-    messages[locale] = require(`./i18n/${locale}.json`);
+    messages[locale] = require(./i18n/${locale}.json);
 } catch (err) {
-    // If Asynchronous loading for current locale failed, load default locale
+    
 }
+
 banana.load(messages);
+
+
+function applyRTL() {
+    if (RTL_LANGUAGES.includes(locale)) {
+        document.documentElement.setAttribute("dir", "rtl");
+        document.documentElement.setAttribute("lang", locale);
+        document.body.classList.add("rtl");
+    } else {
+        document.documentElement.setAttribute("dir", "ltr");
+        document.body.classList.remove("rtl");
+    }
+}
+
+
+applyRTL();
+
 export default banana;
