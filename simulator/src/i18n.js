@@ -1,23 +1,38 @@
 import Banana from 'banana-i18n';
 
 const banana = new Banana();
-banana.setLocale("ar");
-console.log("Forced Locale:", banana.getLocale());
+banana.setLocale(window.locale);
+const { locale } = banana;
+const finalFallback = 'en';
 
-const finalFallback = "en";
+
+const RTL_LANGUAGES = ["ar", "he", "ur",];
+
 const messages = {
-    [finalFallback]: require(`./i18n/${finalFallback}.json`),
+    [finalFallback]: require(./i18n/${finalFallback}.json),
 };
 
 try {
-    messages["ar"] = require(`./i18n/ar.json`);
-    messages["ur"] = require(`./i18n/ur.json`);
-    messages["he"] = require(`./i18n/he.json`);
+    messages[locale] = require(./i18n/${locale}.json);
 } catch (err) {
-    console.error("Failed to load locale JSON files:", err);
+    
 }
 
 banana.load(messages);
-window.banana = banana;
+
+
+function applyRTL() {
+    if (RTL_LANGUAGES.includes(locale)) {
+        document.documentElement.setAttribute("dir", "rtl");
+        document.documentElement.setAttribute("lang", locale);
+        document.body.classList.add("rtl");
+    } else {
+        document.documentElement.setAttribute("dir", "ltr");
+        document.body.classList.remove("rtl");
+    }
+}
+
+
+applyRTL();
 
 export default banana;

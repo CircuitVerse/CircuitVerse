@@ -101,3 +101,20 @@
     margin: 10px 0;
   }
 }
+[dir="rtl"] {
+  direction: rtl;
+  text-align: right;
+}
+
+
+[dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] p {
+  text-align: right;
+}
+
+[dir="rtl"] .form-control {
+  text-align: right;
+}
+
+[dir="rtl"] .btn {
+  float: right;
+}
