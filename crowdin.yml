@@ -10,7 +10,10 @@
   },
   {
     "source": "config/locales/*.en.yml",
-    "translation": "config/locales/%original_file_name_without_en%.%two_letters_code%.yml"
+    "translation": "config/locales/%file_name%.%two_letters_code%.yml",
+    "translation_replace": {
+      ".en": ""
+    }
   },
   {
     "source": "simulator/src/i18n/en.json",
