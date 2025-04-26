@@ -3,7 +3,7 @@ name: Crowdin Localization
 on:
   # Run on pushes to main branch
   push:
-    branches: [ main ]
+    branches: [ master ]
   # Run on schedule (twice a week - Monday and Thursday at 00:00 UTC)
   schedule:
     - cron: '0 0 * * 1,4'
