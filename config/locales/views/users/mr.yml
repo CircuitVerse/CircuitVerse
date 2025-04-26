@@ -6,7 +6,6 @@ mr:
       resend_confirmation_instructions: "पुष्टीकरण सूचना पुन्हा पाठवा"
     circuitverse:
       delete_group_confirmation: "तुमची खात्री आहे की तुम्ही हा गट हटवू इच्छिता?"
-      delete_user_confirmation: ""
       preview_project: "प्रकल्प पूर्वावलोकन"
       member_since_html: "<strong>पासून सदस्य:</strong> %{member_since}"
       educational_institutes_html: "<strong>शैक्षणिक संस्था:</strong> %{educational_institute}"
@@ -89,7 +88,7 @@ mr:
       mark_as_read_button: "सर्व वाचलेले म्हणून चिन्हांकित करा"
       no_notifications: "तुमच्याकडे कोणत्याही सूचना नाहीत!"
       no_unread_notifications: "तुमच्याकडे कोणत्याही न वाचलेल्या सूचना नाहीत!"
-      see_all : "सभी देखें"
+      see_all: "सभी देखें"
       fork_notification: "%{user} ने तुमचा प्रकल्प  फोर्क केला %{project}"
       star_notification: "%{user} ने तुमच्या प्रकल्पाला तारांकित केले %{project}"
       new_assignment_notification: "तुम्हाला एक नवीन कार्य नियुक्त केले गेले आहे! - '%{assignment_name}'"
