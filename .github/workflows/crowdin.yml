@@ -40,7 +40,7 @@ jobs:
           pull_request_labels: 'localization'
           
           # Base branch for the pull request
-          pull_request_base_branch_name: 'main'
+          pull_request_base_branch_name: 'master'
           
           # Skip untranslated strings
           skip_untranslated_strings: true
