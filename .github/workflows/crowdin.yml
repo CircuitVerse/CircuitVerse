@@ -46,7 +46,7 @@ jobs:
           skip_untranslated_strings: true
           
           # Skip files that have no translations
-          skip_untranslated_files: true
+          skip_untranslated_files: false
           
           # Commit message for translation updates
           commit_message: 'chore: update translations from Crowdin'
