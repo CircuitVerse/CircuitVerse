@@ -1,1 +1,49 @@
 fr:
+  projects:
+    add_collaborator_description: "Entrez les identifiants de courriel séparés par des virgules, des espaces ou des entrées. Les utilisateurs doivent déjà être enregistrés sur la plate-forme. Notez que la collaboration n'est pas en temps réel à partir de maintenant. Chaque sauvegarde remplace les données précédentes."
+    remove_collaborator_message: "Êtes-vous sûr de vouloir supprimer ce collaborateur?"
+    delete_project_message: "Êtes-vous sûr de vouloir supprimer ce projet ?"
+    form:
+      feature_circuit_checkpoint: "En vedette (Administrateur uniquement)"
+      tag_list_description: "(Entrez vos balises de projet divisées par des virgules[,])"
+      project_is_featured_message: "(Ce projet est en vedette. Il ne sera plus en vedette si l'accès public est supprimé.)"
+      public: "Publique"
+      private: "Privé"
+      limited_access: "Accès limité"
+    edit:
+      main_heading: "Modifier le projet"
+    get_projects:
+      searched_projects_heading: "Projets recherchés"
+      searched_tags_heading: "Tags :"
+    stars_count: "Étoiles"
+    views_count: "Vues"
+    project_user: "Utilisateur:"
+    show:
+      project_author: "Auteur:"
+      project_forked_from: "A partir de :"
+      project_access_type: "Type d'accès au projet :"
+      project_description: "Description :"
+      project_created_at: "Créé :"
+      project_updated_at: "Mis à jour :"
+      project_embed: "Intégrer"
+      project_copy: "Créer une copie"
+      project_collaborator_add: "+ Ajouter un collaborateur"
+      copied_to_clipboard: "Copié dans le presse-papier !"
+      collaborators: "Collaborateurs"
+    search:
+      no_result_found: "Aucun résultat trouvé"
+    modal:
+      embed_circuit_heading: "Intégrer votre Circuit"
+      height: "Hauteur"
+      width: "Width"
+      url: "URL"
+      border: "Border"
+      border_style: "Style de bordure"
+      publish_button: "Publier"
+      advance:
+        advance_option: "Option Avancée"
+        clock_time: "Horloge/Heure"
+        display_title: "Afficher le titre"
+        fullscreen: "Plein écran"
+        zoom_in_out: "Zoom avant/arrière"
+        theme: "Thème"

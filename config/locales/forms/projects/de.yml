@@ -1,1 +1,16 @@
 de:
+  helpers:
+    label:
+      collaboration:
+        emails: "E-Mail-IDs:"
+      project:
+        name: "Name"
+        tag_list: "Tag-Liste"
+        project_access_type: "Projekt-Zugriffstyp"
+        description: "Beschreibung"
+    submit:
+      collaboration:
+        create: "Mitarbeiter hinzufügen"
+      project:
+        create: "Projekt erstellen"
+        update: "Projekt aktualisieren"

@@ -1,1 +1,7 @@
 es:
+  announcements:
+    learn_more: "Más información"
+    edit_announcement_heading: "Editar anuncio"
+    recent_announcement_heading: "Anuncios recientes"
+    new_announcement: "Nuevo anuncio"
+    no_announcement_heading: "No hay anuncios hasta ahora."

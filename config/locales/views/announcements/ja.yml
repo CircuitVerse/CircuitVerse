@@ -1,1 +1,7 @@
 ja:
+  announcements:
+    learn_more: "もっと詳しく"
+    edit_announcement_heading: "お知らせを編集"
+    recent_announcement_heading: "最近のお知らせ"
+    new_announcement: "New Announcement"
+    no_announcement_heading: "今のところアナウンスはありません。"

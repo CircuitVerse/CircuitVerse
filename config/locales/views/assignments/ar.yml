@@ -1,1 +1,37 @@
 ar:
+  assignments:
+    group_name: "المجموعة: %{name}"
+    deadline: "الموعد:"
+    remaining_time_error: "(حدث خطأ ما عند تحميل البرنامج النصي)"
+    form:
+      grade_scale_cant_change: "(لا يمكن تغييرها بمجرد تعيين)"
+      cannot_be_edited: "%{graded} - لا يمكن تحريره"
+      enable_element_restriction: "تمكين تقييد العناصر:"
+      enable_feature_restriction: "تمكين تقييد الميزة:"
+      time_remaining: "الوقت المتبقي: %{time}"
+      no_grade: "لا توجد درجة"
+      letter: "حروف (A-F)"
+      percent: "النسبة المئوية (1-100)"
+      custom: "مخصص"
+    edit:
+      edit_assignment: "تعديل الواجب"
+    new:
+      title: "%{name} - تعيين جديد"
+      new_assignment_heading: "تعيين جديد"
+    show:
+      title: "%{name} - تفاصيل التعيين"
+      assignment_details_heading: "بيانات الإدانة"
+    assignment_data:
+      name_html: "<strong>الاسم:</strong> %{name}"
+      group_html: "<strong>مجموعة:</strong> %{group_name}"
+      description: "وصف:"
+      restricted_elements_html: "<strong>عناصر دائرة مقيدة:<strong> %{restricted_circuit_elements}"
+      export_grades: "تصدير الصفوف"
+      submissions: "التقديمات :"
+      no_submissions: "لا توجد إرسالات بعد!"
+      grades_and_remarks: "الدرجات والملاحظات"
+      grade: "الدرجة"
+      remarks: "ملاحظات"
+      grading_scale_percent: "يمكن تصنيف التعيينات مع النسبة المئوية (1-100)"
+      grading_scale_letter: "ويمكن تصنيف التكليفات مع أي من الرسائل A/B/C/D/E/F"
+      remove: "إزالة"

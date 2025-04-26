@@ -1,1 +1,38 @@
 es:
+  assignments:
+    group_name: "Grupo: %{name}"
+    deadline: "Fecha límite:"
+    remaining_time_error: "(algo salió mal al cargar el script)"
+    form:
+      grade_scale_cant_change: "(No se puede cambiar una vez establecido)"
+      cannot_be_edited: "%{graded} - No se puede editar"
+      enable_element_restriction: "Habilitar restricción de elementos:"
+      enable_feature_restriction: "Habilitar restricción de características:"
+      time_remaining: "Tiempo restante: %{time}"
+      no_grade: "Sin Grado"
+      letter: "Letra(A-F)"
+      percent: "Porcentaje (1-100)"
+      custom: "Personalizado"
+    edit:
+      edit_assignment: "Editar tarea"
+    new:
+      title: "%{name} - Nueva tarea"
+      new_assignment_heading: "Nueva tarea"
+    show:
+      title: "%{name} - Detalles de la tarea"
+      assignment_details_heading: "DETALLES DE ASIGNMENTE"
+    assignment_data:
+      group_html: "<strong>Grupo:</strong> %{group_name}"
+      graded_html: "<strong>Calificado:</strong> %{graded}"
+      description: "Descripción:"
+      restricted_elements_html: "<strong>Elementos circuitos restringidos:<strong> %{restricted_circuit_elements}"
+      export_grades: "Exportar notas"
+      submissions: "Envíos :"
+      restricted_features_html: "<strong>Características restringidas:</strong> %{restricted_features}"
+      no_submissions: "¡No hay envíos todavía!"
+      grades_and_remarks: "Calificaciones y comentarios"
+      grade: "Nota"
+      remarks: "Comentarios"
+      grading_scale_percent: "Las tareas pueden calificarse con porcentaje (1-100)"
+      grading_scale_letter: "Las tareas se pueden calificar con cualquiera de las letras A/B/C/D/E/F"
+      remove: "Eliminar"

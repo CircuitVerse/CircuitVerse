@@ -1,1 +1,50 @@
 ar:
+  projects:
+    add_collaborator_description: "أدخل معرفات البريد الإلكتروني مفصولة بفواصل أو مسافات أو دخول. يجب أن يكون المستخدمون مسجلين بالفعل على المنصة. لاحظ أن التعاون ليس في الوقت الحقيقي حتى الآن. كل توفير يكتب على البيانات السابقة."
+    remove_collaborator_message: "هل أنت متأكد من أنك تريد إزالة هذا المتعاون؟"
+    delete_project_message: "هل أنت متأكد من أنك تريد حذف هذا المشروع؟"
+    form:
+      feature_circuit_checkpoint: "المميز (المسؤول فقط)"
+      tag_list_description: "(أدخل علامات المشروع الخاصة بك مقسمة على فاصلة[,])"
+      project_is_featured_message: "(هذا المشروع مميز. لن يتم عرضه بعد الآن إذا تمت إزالة الوصول العام.)"
+      public: "عامة"
+      private: "خاص"
+      limited_access: "وصول محدود"
+    edit:
+      title: "%{name} - تحرير المشروع"
+      main_heading: "تحرير المشروع"
+    get_projects:
+      searched_projects_heading: "مشاريع البحث عنها"
+      searched_tags_heading: "العلامات:"
+    stars_count: "النجوم"
+    views_count: "المشاهدات"
+    project_user: "المستخدم:"
+    show:
+      project_author: "المؤلف:"
+      project_forked_from: "تم فرضه من:"
+      project_access_type: "نوع الوصول إلى المشروع:"
+      project_description: "وصف:"
+      project_created_at: "تم إنشاؤه:"
+      project_updated_at: "محدث:"
+      project_embed: "تضمين"
+      project_copy: "إنشاء نسخة"
+      project_collaborator_add: "+ إضافة متعاون"
+      copied_to_clipboard: "نسخ إلى الحافظة!"
+      collaborators: "المتعاونون"
+    search:
+      no_result_found: "لم يتم العثور على نتائج"
+    modal:
+      embed_circuit_heading: "تضمين دائرتك"
+      height: "الارتفاع"
+      width: "Width"
+      url: "الرابط"
+      border: "Border"
+      border_style: "نمط الحدود"
+      publish_button: "نشر"
+      advance:
+        advance_option: "خيار المتقدم"
+        clock_time: "الساعة/الوقت"
+        display_title: "عرض العنوان"
+        fullscreen: "ملء الشاشة"
+        zoom_in_out: "تكبير الدخول/الخروج"
+        theme: "السمة"

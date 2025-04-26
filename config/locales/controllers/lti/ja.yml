@@ -1,1 +1,8 @@
 ja:
+  lti:
+    launch:
+      notice_no_assignment: "CircuitVersionにはそのような割り当てはありません。LMS管理者/先生に連絡してください"
+      notice_lms_auth_success_teacher: "コース %{email_from_lms} の %{lms_type} 経由で %{course_title_from_lms}としてログインしました"
+      notice_students_open_in_cv: "CircuitVerseで割り当てを開いてください"
+      notice_ask_teacher: "このコースに関連付けられたCircuitVerseグループに追加するよう先生に依頼してください。"
+      notice_no_account_in_cv: "メール %{email_from_lms} に関連付けられているアカウントがありません。最初に作成してもう一度お試しください。"

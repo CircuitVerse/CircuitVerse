@@ -1,1 +1,8 @@
 de:
+  simulator:
+    nav_item:
+      project: "Projekt"
+      circuit: "Schaltkreis"
+      tools: "Werkzeuge"
+      help: "Hilfe"
+    insert_Subcircuitcontent: " Es sieht so aus, als gäbe es keine anderen Schaltungen die diese Schaltung nicht als Abhängigkeit haben. Erstelle eine neue!"

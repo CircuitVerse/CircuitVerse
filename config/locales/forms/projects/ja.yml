@@ -1,1 +1,16 @@
 ja:
+  helpers:
+    label:
+      collaboration:
+        emails: "電子メールID:"
+      project:
+        name: "名前"
+        tag_list: "タグリスト"
+        project_access_type: "プロジェクトのアクセスタイプ"
+        description: "説明"
+    submit:
+      collaboration:
+        create: "コラボレーターを追加"
+      project:
+        create: "プロジェクトを作成"
+        update: "プロジェクトを更新"

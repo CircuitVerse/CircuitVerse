@@ -1,1 +1,8 @@
 es:
+  lti:
+    launch:
+      notice_no_assignment: "No existe tal tarea en CircuitVerse, por favor contacte a su Administrador/Profesor de LMS"
+      notice_lms_auth_success_teacher: "Sesión iniciada como %{email_from_lms} vía %{lms_type} para el curso %{course_title_from_lms}"
+      notice_students_open_in_cv: "Por favor, abre la tarea en CircuitVerse"
+      notice_ask_teacher: "Por favor, pide a tu profesor que te añada en el grupo CircuitVerse asociado a este curso."
+      notice_no_account_in_cv: "No tienes ninguna cuenta asociada con el correo electrónico %{email_from_lms} . Por favor, crea primero y vuelve a intentarlo."

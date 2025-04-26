@@ -1,1 +1,11 @@
 ar:
+  helpers:
+    label:
+      assignment:
+        name: "الاسم"
+        description: "الوصف"
+        grading_scale: "مقياس التصنيف"
+    submit:
+      assignment:
+        create: "إنشاء تعيين"
+        update: "تحديث الواجب"

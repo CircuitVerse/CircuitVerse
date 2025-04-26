@@ -1,1 +1,11 @@
 ja:
+  helpers:
+    label:
+      user:
+        email: "Eメールアドレス"
+        name: "名前"
+        country: "国"
+        educational_institute: "教育機関"
+        locale: "ロケール"
+        password: "パスワード"
+        password_confirmation: "パスワードの確認"
