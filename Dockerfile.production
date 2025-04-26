@@ -6,7 +6,7 @@ ARG BUILDPLATFORM
 ENV NODE_ENV=production
 ENV RAILS_ENV=production
 
-RUN curl -fsSL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
 
 RUN npm install --global yarn
@@ -41,7 +41,7 @@ RUN rm -rf node_modules spec
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Build stage for the Vue simualtor
-FROM --platform=$BUILDPLATFORM node:18.11-slim as simulator_vue_build
+FROM --platform=$BUILDPLATFORM node:lts-slim as simulator_vue_build
 
 RUN mkdir -p /public/
 
@@ -73,7 +73,7 @@ ARG REDIS_URL="redis://localhost:6379"
 
 
 RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-recommends --auto-remove curl  \
-   && curl -fsSL https://deb.nodesource.com/setup_16.x | bash - \
+   && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
    && apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2  \
    && apt-get clean \
    && rm -rf /var/cache/apt/archives/* \

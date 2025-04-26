@@ -75,7 +75,7 @@ function changeTestMode(m) {
 function addCase(grp) {
     const currentGroupTable = $(`#data-table-${grp + 1}`);
 
-    let s = '<tr><td class="tb-handle"><div onclick="deleteCase($(this))"class="fa fa-minus-square tb-minus"></div></td>\n';
+    let s = '<tr><td class="tb-handle"><div onclick="deleteCase($(this))" class="table-button tb-minus">-</div></td>\n';
     for (let i = 0; i < inputCount + outputCount; i++) s += '<td contenteditable="true">0</td>';
     s += '</tr>';
 
@@ -127,7 +127,7 @@ function addInput(label = `inp${nextInputIndex + 1}`, bitwidth = 1, inputData = 
     nextInputIndex++;
     inputCount++;
     // Change head table contents
-    const sHead = `<th style="background-color: #aaf" id="tb-inp-label-${nextInputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteInput($(this));"><span class="fa fa-minus-square tb-minus"></span></a></th>`;
+    const sHead = `<th style="background-color: #aaf" id="tb-inp-label-${nextInputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteInput($(this));" class="table-button tb-minus">-</a></th>`;
     const sData = `<td contenteditable="true">${escapeHtml(bitwidth.toString())}</td>`;
     $('#testBenchTable').find('tr').eq(1).find('th')
         .eq(inputCount - 1)
@@ -153,12 +153,12 @@ function addOutput(label = `out${nextOutputIndex + 1}`, bitwidth = 1, outputData
     nextOutputIndex++;
     outputCount++;
     // Change head table contents
-    let sHead = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus"></span></a></th>`;
+    let sHead = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="table-button tb-minus">-</span></a></th>`;
     let sData = `<td contenteditable="true">${escapeHtml(bitwidth.toString())}</td>`;
 
     // If result then set colspan to 2
     if (result) {
-        sHead = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}" colspan="2"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="fa fa-minus-square tb-minus"></span></a></th>`;
+        sHead = `<th style="background-color: #afa" id="tb-out-label-${nextOutputIndex}" colspan="2"><span contenteditable="true">${escapeHtml(label)}</span> <a onclick="deleteOutput($(this));"><span class="table-button tb-minus">-</span></a></th>`;
         sData = `<td contenteditable="true" colspan="2">${escapeHtml(bitwidth.toString())}</td>`;
     }
 
