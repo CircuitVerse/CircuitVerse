@@ -1,1 +1,9 @@
 ar:
+  launch_error:
+    title: "CircuitVerse - خطأ LTI"
+    main-heading: "المحتوى غير متوفر"
+    main-description: "المحتوى الذي تطلبه غير متوفر في هذه اللحظة، أو غير مسموح لك بالوصول إلى المحتوى."
+  open_incv:
+    notice_wait_in_open_incv: "الرجاء الانتظار بينما نقوم بفتح هذا الواجب في الدائرة..."
+    notice_redirection_error: "إذا كان لا يعمل، يرجى النقر على الزر أدناه."
+    open_assignment: "فتح مهمة"

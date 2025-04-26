@@ -1,1 +1,35 @@
 ar:
+  layout:
+    link_to_simulator: "محاكي"
+    getting_started_dropdown: "بدء العمل"
+    link_to_learn_more: "تعلم"
+    link_to_docs: "الوثائق"
+    link_to_features: "الميزات"
+    link_to_teachers: "المعلمون"
+    link_to_blog: "المدونة"
+    link_to_about: "حول"
+    link_to_faq: "أسئلة متكررة"
+    footer:
+      social_icon_text: "تابعنا على:"
+      link_to_examples: "أمثلة"
+      my_circuits: "دوائري"
+      link_to_contribute: "المساهمة"
+      link_to_forum: "المنتدى"
+      sponsor_logo_text:
+        brought_by: "جلبك من:"
+        hosting_sponsor: "راعي الاستضافة:"
+        marketed_by: "تسويق بواسطة:"
+        incubated_from: "من:"
+        infrastructure_sponsor: "راعي الهياكل الأساسية:"
+      copyright_text: "حقوق الطبع والنشر ©️ %{time_current_year} CircuitVerse ، جميع الحقوق محفوظة."
+    header:
+      dashboard: "لوحة التحكم"
+      my_groups: "مجموعاتي"
+      notifications: "الإشعارات"
+      language: "اللغة"
+    mailer:
+      join_us: "انضم إلينا"
+      copyright_text: "حقوق الطبع والنشر ©️ %{time_current_year} CircuitVerse. جميع الحقوق محفوظة. لأي مشاكل، اتصل بنا support@circuitverse.org"
+      unsubscribe_email_notifications: "إلغاء الاشتراك من إشعارات البريد الإلكتروني"
+    simulator:
+      title: "CircuitVerse - محاكي الدائرة الرقمية على الإنترنت"

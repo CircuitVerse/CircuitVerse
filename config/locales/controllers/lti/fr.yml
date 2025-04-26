@@ -1,1 +1,8 @@
 fr:
+  lti:
+    launch:
+      notice_no_assignment: "Aucun devoir de ce type n'est présent dans CircuitVerse, veuillez contacter votre administrateur LMS / enseignant"
+      notice_lms_auth_success_teacher: "Connecté en tant que %{email_from_lms} via %{lms_type} pour le cours %{course_title_from_lms}"
+      notice_students_open_in_cv: "Veuillez ouvrir l'affectation dans CircuitVerse"
+      notice_ask_teacher: "Veuillez demander à votre professeur de vous ajouter au groupe CircuitVerse associé à ce cours."
+      notice_no_account_in_cv: "Vous n'avez pas de compte associé à l'e-mail %{email_from_lms} . Veuillez d'abord créer un compte et réessayer."

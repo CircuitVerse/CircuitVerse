@@ -1,1 +1,12 @@
 fr:
+  helpers:
+    label:
+      announcement:
+        body: "Corps de l'annonce"
+        link: "Lien d'annonce"
+        start_date: "Date de début"
+        end_date: "Date de fin"
+    submit:
+      announcement:
+        create: "Nouvelle annonce"
+        update: "Annonce de mise à jour"

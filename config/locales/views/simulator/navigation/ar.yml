@@ -1,1 +1,8 @@
 ar:
+  simulator:
+    nav_item:
+      project: "مشروع"
+      circuit: "دائرة"
+      tools: "أدوات"
+      help: "مساعدة"
+    insert_Subcircuitcontent: " يبدو أنه لا توجد دوائر أخرى لا تحتوي على هذه الدائرة كتبعية. قم بإنشاء دائرة جديدة!"

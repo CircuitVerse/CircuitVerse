@@ -1,1 +1,8 @@
 de:
+  lti:
+    launch:
+      notice_no_assignment: "Keine solche Zuordnung ist im CircuitVerse vorhanden, bitte kontaktieren Sie Ihren LMS Administrator/Lehrer"
+      notice_lms_auth_success_teacher: "%{email_from_lms} über %{lms_type} für den Kurs %{course_title_from_lms} angemeldet"
+      notice_students_open_in_cv: "Bitte öffnen Sie die Zuordnung im CircuitVerse"
+      notice_ask_teacher: "Bitte fragen Sie Ihren Lehrer, Sie in die CircuitVerse-Gruppe hinzuzufügen, die mit diesem Kurs verbunden ist."
+      notice_no_account_in_cv: "Sie haben kein Konto mit E-Mail %{email_from_lms} verknüpft, bitte erstellen Sie zuerst und versuchen Sie es erneut."

@@ -1,1 +1,42 @@
 es:
+  groups:
+    add_member_description: "Introduzca IDs de correo electrónico separados por comas/espacios o en líneas separadas. Si los usuarios no están registrados, se enviará un correo electrónico solicitándoles que se registre."
+    promote_member_confirmation: "¿Estás seguro de que quieres promocionar a este miembro a un mentor?"
+    demote_mentor_confirmation: "¿Estás seguro de que quieres degradar este mentor a un miembro?"
+    use_alternative: "O USE"
+    invite_link_btn: "Enlace de invitación de grupo"
+    remove_assignment_message: "¿Está seguro de que desea eliminar esta tarea?"
+    remove_member_message: "¿Estás seguro de que quieres eliminar este miembro?"
+    make_member: "Hacer miembro"
+    make_mentor: "Hacer mentor"
+    edit:
+      title: "%{name} - Editar nombre de grupo"
+      main_heading: "NOMBRE DE GRUPO EDIT"
+    new:
+      title: "CircuitVerse - Nuevo grupo"
+      main_heading: "NUEVA GRUPO"
+      main_description_html: "Los grupos pueden ser utilizados por mentores para establecer proyectos y dar notas a los estudiantes. Puedes encontrar la documentación <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>aquí</a>."
+    show:
+      edit_name_btn: "Editar nombre"
+      primary_mentor_heading: "Mentor:"
+      mentor_name_heading: "MENTORES:"
+      group_members_heading: "MEMBEROS:"
+      add_members_btn: "+ Añadir Miembros"
+      add_mentors_btn: "+ Añadir mentores"
+      no_mentors_html: "No hay mentores en este grupo, haga clic en <strong>+ Añadir Mentores</strong> botón para añadir mentores."
+      no_members_html: "No hay miembros en este grupo, haga clic en <strong>+ Añadir Miembros</strong> botón para añadir miembros."
+      no_assignments_html: "No hay asignaciones en el grupo, haga clic en <strong>+ Añadir asignación</strong> botón para iniciar una asignación."
+      assignment:
+        heading: "ASIGNMENTOS:"
+        add_assignment_btn: "+ Añadir tarea"
+        assignment_table_head:
+          name: "Nombre"
+          deadline: "Línea muerta"
+          grading: "Calificación"
+          actions: "Acciones"
+          grade: "Nota"
+        time_remaining_html: "<strong>Tiempo restante:</strong> %{time_remaining}"
+        start_working_btn: "Empezar a trabajar"
+        see_work_done: "Ver tu trabajo"
+        not_submitted: "No enviado!"
+        show_submission: "Ver envío"

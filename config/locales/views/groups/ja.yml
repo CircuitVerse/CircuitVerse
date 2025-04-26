@@ -1,1 +1,39 @@
 ja:
+  groups:
+    add_member_description: "コンマ/スペースまたは別の行で区切られたメールIDを入力してください。ユーザが登録されていない場合は、ユーザにサインアップを要求するメールが送信されます。"
+    add_mentor_description_html: "<p>メンターは次のことができます:</p><ul><li>課題</li><li>成績課題</li><li>閉じた課題</li></ul>"
+    promote_member_confirmation: "このメンバーをメンターに昇格させますか？"
+    demote_mentor_confirmation: "メンターをメンバーに降格させますか？"
+    use_alternative: "または使用"
+    invite_link_btn: "グループ招待リンク"
+    remove_assignment_message: "この課題を削除してもよろしいですか？"
+    remove_member_message: "このメンバーを削除してもよろしいですか？"
+    make_member: "メンバーにする"
+    make_mentor: "メンターを作る"
+    edit:
+      title: "%{name} - グループ名の編集"
+      main_heading: "グループ名を編集"
+    new:
+      title: "CircuitVerse - 新規グループ"
+      main_heading: "新しいグループ"
+    show:
+      edit_name_btn: "名前を編集"
+      primary_mentor_heading: "主要メンター:"
+      mentor_name_heading: "メニュー:"
+      group_members_heading: "メンバー:"
+      add_members_btn: "+ メンバーを追加"
+      add_mentors_btn: "+ メンターを追加"
+      assignment:
+        heading: "譲渡:"
+        add_assignment_btn: "+ 課題を追加"
+        assignment_table_head:
+          name: "名前"
+          deadline: "デッドライン"
+          grading: "採点中"
+          actions: "アクション"
+          grade: "成績"
+        time_remaining_html: "<strong>残り時間:</strong> %{time_remaining}"
+        start_working_btn: "作業を開始"
+        see_work_done: "自分の作品を見る"
+        not_submitted: "未送信です！"
+        show_submission: "提出物を表示"

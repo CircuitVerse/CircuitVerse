@@ -1,1 +1,8 @@
 ar:
+  lti:
+    launch:
+      notice_no_assignment: "لا يوجد تعيين من هذا القبيل في الدائرة، يرجى الاتصال بمدير / معلم نظام إدارة المعلومات"
+      notice_lms_auth_success_teacher: "تم تسجيل الدخول ك %{email_from_lms} عن طريق %{lms_type} للدورة %{course_title_from_lms}"
+      notice_students_open_in_cv: "الرجاء فتح الواجب في الدائرةVerse"
+      notice_ask_teacher: "الرجاء طلب من معلمك أن تضيفك في مجموعة دائرة CircuitVerse المرتبطة بهذه الدورة."
+      notice_no_account_in_cv: "ليس لديك حساب مرتبط بالبريد الإلكتروني %{email_from_lms} الرجاء إنشاء أولاً وحاول مرة أخرى."

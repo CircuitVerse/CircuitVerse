@@ -1,1 +1,7 @@
 de:
+  announcements:
+    learn_more: "Mehr erfahren"
+    edit_announcement_heading: "Ankündigung bearbeiten"
+    recent_announcement_heading: "Letzte Ankündigungen"
+    new_announcement: "Neue Ankündigung"
+    no_announcement_heading: "Bisher keine Ankündigungen."
