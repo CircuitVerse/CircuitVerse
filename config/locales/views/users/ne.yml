@@ -88,7 +88,7 @@ ne:
       mark_as_read_button: "सबैलाई पढिएको रूपमा चिन्ह लगाउनुहोस्"
       no_notifications: "तपाईंसँग कुनै सूचनाहरू छैनन्!"
       no_unread_notifications: "तपाईंसँग कुनै नपढेको सूचनाहरू छैनन्!"
-      see_all : "सबै हेर्नुहोस्"
+      see_all: "सबै हेर्नुहोस्"
       fork_notification: "%{user} ले तपाईंको परियोजना %{project} को फोर्क गर्यो"
       star_notification: "%{user} ले तपाईंको परियोजना %{project} मा स्टार थप्यो"
       new_assignment_notification: "तपाईंलाई नयाँ असाइनमेन्ट '%{assignment_name}' दिइएको छ"

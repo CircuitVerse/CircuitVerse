@@ -31,44 +31,44 @@ ne:
   enter_password: "पासवर्ड प्रविष्ट गर्नुहोस्"
   enter_name: "नाम प्रविष्ट गर्नुहोस्"
   registration_blocked: "साइन अप हालको लागि निष्क्रिय गरिएको छ"
-  google: "गूगल"  
-  facebook: "फेसबुक"  
-  github: "गिटहब"  
-  gitlab: "गिटल्याब" 
+  google: "गूगल"
+  facebook: "फेसबुक"
+  github: "गिटहब"
+  gitlab: "गिटल्याब"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
       half_a_minute: "आधा मिनेट"
       less_than_x_seconds:
-        one: "१ सेकेन्ड"
-        other: "%{count} सेकेन्ड"
+        one: "१ सेकेन्ड" # default was: "less than 1 second"
+        other: "%{count} सेकेन्ड" # default was: "less than %{count} seconds"
       x_seconds:
         one: "१ सेकेन्ड"
         other: "%{count} सेकेन्ड"
       less_than_x_minutes:
-        one: "एक मिनेट"
-        other: "%{count} मिनेट"
+        one: "एक मिनेट" # default was: "less than a minute"
+        other: "%{count} मिनेट" # default was: "less than %{count} minutes"
       x_minutes:
         one: "१ मिनेट"
         other: "%{count} मिनेट"
       about_x_hours:
-        one: "१ घण्टा"
-        other: "%{count} घण्टा"
+        one: "१ घण्टा" # default was: "about 1 hour"
+        other: "%{count} घण्टा" # default was: "about %{count} hours"
       x_days:
         one: "१ दिन"
         other: "%{count} दिन"
       about_x_months:
-        one: "१ महिना"
-        other: "%{count} महिना"
+        one: "१ महिना" # default was: "about 1 month"
+        other: "%{count} महिना" # default was: "about %{count} months"
       x_months:
         one: "१ महिना"
         other: "%{count} महिना"
       about_x_years:
-        one: "१ वर्ष"
-        other: "%{count} वर्ष"
+        one: "१ वर्ष" # default was: "about 1 year"
+        other: "%{count} वर्ष" # default was: "about %{count} years"
       over_x_years:
-        one: "१ वर्ष"
-        other: "%{count} वर्ष"
+        one: "१ वर्ष" # default was: "over 1 year"
+        other: "%{count} वर्ष" # default was: "over %{count} years"
       almost_x_years:
-        one: "१ वर्ष"
-        other: "%{count} वर्ष"
+        one: "१ वर्ष" # default was: "almost 1 year"
+        other: "%{count} वर्ष" # default was: "almost %{count} years"
