@@ -24,6 +24,7 @@ bn:
         item3_text: "সার্কিটভার্স প্রকল্পে বাগগুলি সন্ধান করুন এবং ঠিক করুন"
       become_patreon: "একটি প্যাট্রিয়ন হয়ে উঠুন"
       donate_via_paypal: "পেপালের মাধ্যমে দান করুন"
+      donate_via_opencollective: "Open Collective-এর মাধ্যমে দান করুন"
     examples:
       title: "সার্কিটভার্স - উদাহরণ"
       main_heading: "উদাহরণ"

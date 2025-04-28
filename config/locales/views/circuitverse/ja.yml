@@ -25,6 +25,7 @@ ja:
         item3_text: "CircuitVerseプロジェクトのバグを見つけて修正する"
       become_patreon: "Patreonになる"
       donate_via_paypal: "PayPalを通じて寄付"
+      donate_via_opencollective: "Open Collective を通じて寄付"
     examples:
       title: "CircuitVerse - 例"
       main_heading: "Examples"

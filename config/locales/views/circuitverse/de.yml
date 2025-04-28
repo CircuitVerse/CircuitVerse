@@ -25,6 +25,7 @@ de:
         item3_text: "Fehler im CircuitVerse-Projekt finden und beheben"
       become_patreon: "Werde ein Patreon"
       donate_via_paypal: "Spenden über PayPal"
+      donate_via_opencollective: "Spenden über Open Collective"
     examples:
       title: "CircuitVerse - Beispiele"
       main_heading: "EXAMPLES"

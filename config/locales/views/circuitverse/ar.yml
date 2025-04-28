@@ -25,6 +25,7 @@ ar:
         item3_text: "العثور على وإصلاح الأخطاء في مشروع CircuitVerse"
       become_patreon: "كن باتريون"
       donate_via_paypal: "التبرع من خلال PayPal"
+      donate_via_opencollective: "تبرع عبر Open Collective"
     examples:
       title: "دائرة - أمثلة"
       main_heading: "إضافات"

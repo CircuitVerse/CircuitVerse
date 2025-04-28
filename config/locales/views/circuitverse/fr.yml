@@ -25,6 +25,7 @@ fr:
         item3_text: "Trouver et corriger les bugs du projet CircuitVerse"
       become_patreon: "Devenir un patron"
       donate_via_paypal: "Faire un don via PayPal"
+      donate_via_opencollective: "Faire un don via Open Collective"
     examples:
       title: "CircuitVerset - Exemples"
       main_heading: "EXEMPLES"
