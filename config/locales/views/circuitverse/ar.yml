@@ -24,7 +24,7 @@ ar:
         item2_text: "إضافة ميزات جديدة إلى مشروع CircuitVerse"
         item3_text: "العثور على وإصلاح الأخطاء في مشروع CircuitVerse"
       become_patreon: "كن باتريون"
-      contibute_to_collective: "ساهم في كوليكتيف الخاص بنا"
+      contribute_to_collective: "ساهم في كوليكتيف الخاص بنا"
       donate_via_paypal: "التبرع من خلال PayPal"
     examples:
       title: "دائرة - أمثلة"

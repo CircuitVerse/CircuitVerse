@@ -24,7 +24,7 @@ fr:
         item2_text: "Ajouter de nouvelles fonctionnalités au projet CircuitVerse"
         item3_text: "Trouver et corriger les bugs du projet CircuitVerse"
       become_patreon: "Devenir un patron"
-      contibute_to_collective: "Contribue à notre Collective"
+      contribute_to_collective: "Contribue à notre Collective"
       donate_via_paypal: "Faire un don via PayPal"
     examples:
       title: "CircuitVerset - Exemples"

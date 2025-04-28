@@ -24,7 +24,7 @@ ne:
         item2_text: "सर्किटभर्स प्रोजेक्टमा नयाँ विशेषताहरू थप्नुहोस्"
         item3_text: "सर्किटभर्स प्रोजेक्टमा बगहरू खोज्नुहोस् र ठीक गर्नुहोस्"
       become_patreon: "पेट्रियोन बन्नुहोस्"
-      contibute_to_collective: "हाम्रो कलेक्टिभ मा योगदान गर्नुहोस्"
+      contribute_to_collective: "हाम्रो कलेक्टिभ मा योगदान गर्नुहोस्"
       donate_via_paypal: "पेपाल द्वारा दान गर्नुहोस्"
     examples:
       title: "CircuitVerse - उदाहरणहरू"
