@@ -4,8 +4,9 @@ en:
       title: "CircuitVerse - Contribute"
       main_heading: "CONTRIBUTE"
       main_description: "Learn about the awesome people behind CircuitVerse"
-      submain_description: "CircuitVerse aims to be free forever and we promise that we will not run ads!
-            The project is open source and to ensure its continued development and maintenance we need your support."
+      submain_description:
+        "CircuitVerse aims to be free forever and we promise that we will not run ads!
+        The project is open source and to ensure its continued development and maintenance we need your support."
       contribute_at_github_heading: "Contribute to Open Source"
       contribute_at_github_description: "Github"
       how_to_support_heading: "How to Support?"
@@ -26,6 +27,7 @@ en:
         item3_text: "Find and fix bugs to the CircuitVerse project"
       become_patreon: "Become a Patreon"
       donate_via_paypal: "Donate through PayPal"
+      donate_via_opencollective: "Donate through Open Collective"
     examples:
       title: "CircuitVerse - Examples"
       main_heading: "EXAMPLES"
@@ -109,25 +111,25 @@ en:
         list2_item1: "Posting content deliberately designed to crash the CircuitVerse website or editor;"
         list2_item2: "Linking to pages containing viruses or malware;"
         list2_item3: "Using administrator passwords or pretending to be an administrator;"
-        list2_item4: "Repeatedly posting the same material, or \"spamming\";"
-        list2_item5: "Using alternate accounts or organizing voting groups to manipulate site statistics, such as purposely trying to get on the \"What the Community is Loving/Remixing\" rows of the front page."
+        list2_item4: 'Repeatedly posting the same material, or "spamming";'
+        list2_item5: 'Using alternate accounts or organizing voting groups to manipulate site statistics, such as purposely trying to get on the "What the Community is Loving/Remixing" rows of the front page.'
       user_content_licensing:
         main_heading: "4. User-Generated Content and Licensing"
-        description1: "4.1 For the purposes of the Terms of Use, \"user-generated content\" includes any projects, comments, forum posts, or links to third-party websites that a user submits to CircuitVerse."
+        description1: '4.1 For the purposes of the Terms of Use, "user-generated content" includes any projects, comments, forum posts, or links to third-party websites that a user submits to CircuitVerse.'
         description2: "4.2 The CircuitVerse Team encourages everyone to foster creativity by freely sharing knowledge in any form. However, we also understand the need for individuals and companies to protect their intellectual property rights. You are responsible for making sure you have the necessary rights, licenses, or permission for any user-generated content you submit to CircuitVerse."
         description3_html: "4.3 All user-generated content you submit to CircuitVerse is licensed to and through CircuitVerse under the <a href='https://creativecommons.org/licenses/by-sa/2.0/'>Creative Commons Attribution-ShareAlike 2.0 license</a>. This allows others to view and fork your content. This license also allows the CircuitVerse Team to display, distribute, and reproduce your content on the CircuitVerse website, through social media channels, and elsewhere. If you do not want to license your content under this license, then do not share it on CircuitVerse."
         description4: "4.4 In addition to reviewing reported user-generated content, the CircuitVerse Team reserves the right, but is not obligated, to monitor all uses of the CircuitVerse service. The CircuitVerse Team may edit, move, or delete any content that violates the Terms of Use or Community Guidelines, without notice."
         description5: "4.6 All user-generated content is provided as-is. The CircuitVerse Team makes no warranties about the accuracy or reliability of any user-generated content available through CircuitVerse or vet or verify information posted in connection with said events. The CircuitVerse Team does not endorse any views, opinions, or advice expressed in user-generated content. You agree to relieve the CircuitVerse Team of any and all liability arising from your user-generated content."
       site_content_licensing:
         main_heading: "5. CircuitVerse Content and Licensing"
-        description1: "5.1 Except for any user-generated content, the CircuitVerse Team owns and retains all rights in and to the CircuitVerse code, the design, functionality, and architecture of CircuitVerse, and any software or content provided through CircuitVerse (collectively \"the CircuitVerse IP\"). If you want to use CircuitVerse in a way that is not allowed by these Terms of Use, you must first contact the CircuitVerse Team. Except for any rights explicitly granted under these Terms of Use, you are not granted any rights in and to any CircuitVerse IP."
+        description1: '5.1 Except for any user-generated content, the CircuitVerse Team owns and retains all rights in and to the CircuitVerse code, the design, functionality, and architecture of CircuitVerse, and any software or content provided through CircuitVerse (collectively "the CircuitVerse IP"). If you want to use CircuitVerse in a way that is not allowed by these Terms of Use, you must first contact the CircuitVerse Team. Except for any rights explicitly granted under these Terms of Use, you are not granted any rights in and to any CircuitVerse IP.'
       dmca:
         main_heading: "6. Digital Millennium Copyright Act (DMCA)"
         description1_html: "6.1 If you are a copyright holder and believe that content on CircuitVerse violates your rights, you may send a mail to <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse.org</a>.&nbsp;"
         description2_html: "6.2 If you are a CircuitVerse user and you believe that your content did not constitute a copyright violation and was taken down in error, you may send a notification to <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse.org</a>. Please include:"
         list_item1: "Your CircuitVerse username and email address;"
         list_item2: "The specific content you believe was taken down in error; and"
-        list_item3: "A brief statement of why you believe there was no copyright violation (e.g., the content was not copyrighted, you had permission to use the content, or your use of the content was a \"fair use\")."
+        list_item3: 'A brief statement of why you believe there was no copyright violation (e.g., the content was not copyrighted, you had permission to use the content, or your use of the content was a "fair use").'
       account_related:
         main_heading: "7. Suspension and Termination of Accounts"
         description1: "7.1 CircuitVerse has the right to suspend your account for violations of the Terms of Use or Community Guidelines. Repeat violators may have their accounts deleted. The CircuitVerse Team reserves the sole right to determine what constitutes a violation of the Terms of Use or Community Guidelines. The CircuitVerse Team also reserves the right to terminate any account used to circumvent prior enforcement of the Terms of Use."
@@ -137,11 +139,11 @@ en:
         description1: "8.1 Content on CircuitVerse, including user-generated content, may include links to third-party websites. The CircuitVerse Team is not capable of reviewing or managing third-party websites and assumes no responsibility for the privacy practices, content, or functionality of third-party websites. You agree to relieve the CircuitVerse Team of any and all liability arising from third-party websites."
       indemnification:
         main_heading: "9. Indemnification"
-        description1: "You agree to indemnify the CircuitVerse Team, the CircuitVerse Foundation, and all their affiliates, employees, faculty members, fellows, students, agents, representatives, third-party service providers, and members of their governing boards (all of which are \"CircuitVerse Entities\"), and to defend and hold each of them harmless, from any and all claims and liabilities (including attorneys' fees) arising out of or related to your breach of the Terms of Service or your use of CircuitVerse."
+        description1: 'You agree to indemnify the CircuitVerse Team, the CircuitVerse Foundation, and all their affiliates, employees, faculty members, fellows, students, agents, representatives, third-party service providers, and members of their governing boards (all of which are "CircuitVerse Entities"), and to defend and hold each of them harmless, from any and all claims and liabilities (including attorneys'' fees) arising out of or related to your breach of the Terms of Service or your use of CircuitVerse.'
         description2: "For federal government agencies, provisions in the Terms of Use relating to Indemnification shall not apply to your Official Use, except to the extent expressly authorized by federal law. For state and local government agencies in the United States, Terms of Use relating to Indemnification shall apply to your Official Use only to the extent authorized by the laws of your jurisdiction."
       warranty_related:
         main_heading: "10. Disclaimer of Warranty"
-        description1: "You acknowledge that you are using CircuitVerse at your own risk. CircuitVerse is provided \"as is,\" and the CircuitVerse Entities hereby expressly disclaim any and all warranties, express and implied, including but not limited to any warranties of accuracy, reliability, title, merchantability, non-infringement, fitness for a particular purpose or any other warranty, condition, guarantee or representation, whether oral, in writing or in electronic form, including but not limited to the accuracy or completeness of any information contained therein or provided by CircuitVerse. Without limiting the foregoing, the CircuitVerse Entities disclaim any and all warranties, express and implied, regarding user-generated content. The CircuitVerse Entities and their third-party service providers do not represent or warrant that access to CircuitVerse will be uninterrupted or that there will be no failures, errors or omissions or loss of transmitted information, or that no viruses will be transmitted through CircuitVerse services."
+        description1: 'You acknowledge that you are using CircuitVerse at your own risk. CircuitVerse is provided "as is," and the CircuitVerse Entities hereby expressly disclaim any and all warranties, express and implied, including but not limited to any warranties of accuracy, reliability, title, merchantability, non-infringement, fitness for a particular purpose or any other warranty, condition, guarantee or representation, whether oral, in writing or in electronic form, including but not limited to the accuracy or completeness of any information contained therein or provided by CircuitVerse. Without limiting the foregoing, the CircuitVerse Entities disclaim any and all warranties, express and implied, regarding user-generated content. The CircuitVerse Entities and their third-party service providers do not represent or warrant that access to CircuitVerse will be uninterrupted or that there will be no failures, errors or omissions or loss of transmitted information, or that no viruses will be transmitted through CircuitVerse services.'
       liability_related:
         main_heading: "11. Limitation of Liability"
         description1: "The CircuitVerse Entities shall not be liable to you or any third parties for any direct, indirect, special, consequential, or punitive damages of any kind, regardless of the type of claim or the nature of the cause of action, even if the CircuitVerse Team has been advised of the possibility of such damages. Without limiting the foregoing, the CircuitVerse Entities shall have no liability to you or any third parties for damages or harms arising out of user-generated content"
