@@ -1,29 +1,89 @@
-.teacher-main-description-container {
-  margin-bottom: 35px;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 768px;
-}
+   .teachers-hero {
+    color: #026e57;
+    padding: 2rem 0;
+  }
 
-.teacher-fill-container-fluid {
-  background-color: $card-green;
-  padding: 40px 0;
-}
+  .teacher-hero-description {
+    color: #2c3e50;
+    font-size: 1.3rem;
+  }
 
-.teacher-container-fluid {
-  padding: 40px 0;
-}
+  .section-heading {
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
 
-.teacher-center-content {
-  align-items: center;
-}
+  .heading-underline {
+    width: 60px;
+    height: 4px;
+    background: #42b983;
+    margin: 0 auto;
+  }
 
-.teacher-image {
-  border: 2px solid $shadow-grey;
-  max-height: 100%;
-  max-width: 100%;
-}
+  .feature-section {
+    padding: 2rem 0;
+  }
 
-.teacher-left-text {
-  text-align: left;
-}
+  .feature-content {
+    padding: 2rem;
+  }
+
+  .feature-heading {
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+  }
+
+  .feature-description {
+    color: #6c757d;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+
+  .feature-image-wrapper {
+    padding: 1rem;
+    transition: transform 0.3s ease;
+  }
+
+  .feature-image-wrapper:hover {
+    transform: translateY(-10px);
+  }
+
+  .feature-image {
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  }
+
+  .btn.btn-light {
+    background-color: white !important;
+    color: #42b983 !important;
+    border-color: white !important;
+    transition: all 0.2s ease;
+  }
+
+  .btn.btn-light:hover,
+  .btn.btn-light:focus,
+  .btn.btn-light:active {
+    background-color: #026e57 !important;
+    color: #f8f9fa !important;
+    border-color: #026e57 !important;
+    transform: translateY(-1px);
+    box-shadow: none !important;
+  }
+
+  .cta-section {
+    background-color: #42b983;
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .feature-content {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .feature-image-wrapper {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
+  }
