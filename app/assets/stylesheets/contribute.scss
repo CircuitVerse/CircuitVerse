@@ -1,5 +1,5 @@
 :root {
-  --shadow-color: rgba(0, 0, 0, .2);
+  --shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 .contribute-card {
@@ -12,7 +12,7 @@
   padding-top: 20px;
   width: fit-content;
 
-  &:hover{
+  &:hover {
     box-shadow: 0 15px 15px var(--shadow-color), 0 0 30px var(--shadow-color);
     transform: scale(1.05);
   }
@@ -41,7 +41,7 @@
   margin-right: 30px;
   margin-top: 50px;
   text-align: center;
-  width: 200px;
+  width: 250px;
 
   p {
     font-weight: 550;
@@ -53,7 +53,7 @@
   border-radius: 8px;
   box-shadow: 3px 3px 6px $shadow-black;
   padding: 4px;
-  transition: box-shadow .2s ease-in;
+  transition: box-shadow 0.2s ease-in;
 
   &:hover {
     box-shadow: 0 9px 9px $shadow-black;
@@ -62,6 +62,15 @@
   img {
     height: 70px;
     width: 160px;
+  }
+}
+
+.contribute-pay-card-collective {
+  border-radius: 15px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  image {
+    height: 80px;
   }
 }
 
@@ -88,12 +97,10 @@
 }
 
 @media (min-width: 401px) and (max-width: 590px) {
-
   .contribute-card {
     height: 100%;
     width: 100%;
   }
-
 }
 
 @media (max-width: 400px) {

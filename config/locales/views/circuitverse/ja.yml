@@ -1,146 +1,147 @@
 ja:
   circuitverse:
     contribute:
-      title: "CircuitVerse - 貢献する"
-      main_heading: "貢献する"
-      main_description: "CircuitVerseの背後にいる素晴らしい人々について学ぶ"
-      submain_description: "CircuitVerseは永遠に無料になることを目指しており、広告を実行しないことをお約束します。 プロジェクトはオープンソースであり、継続的な開発とメンテナンスを確実にするために、私たちはあなたのサポートが必要です。"
-      contribute_at_github_heading: "オープンソースに貢献する"
-      contribute_at_github_description: "Github"
-      how_to_support_heading: "サポート方法は?"
+      title: 'CircuitVerse - 貢献する'
+      main_heading: '貢献する'
+      main_description: 'CircuitVerseの背後にいる素晴らしい人々について学ぶ'
+      submain_description: 'CircuitVerseは永遠に無料になることを目指しており、広告を実行しないことをお約束します。 プロジェクトはオープンソースであり、継続的な開発とメンテナンスを確実にするために、私たちはあなたのサポートが必要です。'
+      contribute_at_github_heading: 'オープンソースに貢献する'
+      contribute_at_github_description: 'Github'
+      how_to_support_heading: 'サポート方法は?'
       student_card:
-        main_heading: "私は学生です"
-        item1_text: "素晴らしい回路を作成し、プラットフォーム上で共有する"
+        main_heading: '私は学生です'
+        item1_text: '素晴らしい回路を作成し、プラットフォーム上で共有する'
         item2_text_html: "<a class='anchor-text' href='https://learn.circuitverse.org' target='_blank'>インタラクティブブック</a> でLogic Designの世界に飛び込みましょう"
-        item3_text: "あなたの仲間にプラットフォームを紹介し、設計回路を紹介し、それらを注目させてください!"
+        item3_text: 'あなたの仲間にプラットフォームを紹介し、設計回路を紹介し、それらを注目させてください!'
       teacher_card:
-        main_heading: "私は先生です"
-        item1_text: "あなたの生徒にプラットフォームを紹介する"
-        item2_text: "サークル内でプラットフォームを宣伝する"
-        item3_text: "CircuitVerseを使用してエキサイティングな教育コンテンツを作成する"
+        main_heading: '私は先生です'
+        item1_text: 'あなたの生徒にプラットフォームを紹介する'
+        item2_text: 'サークル内でプラットフォームを宣伝する'
+        item3_text: 'CircuitVerseを使用してエキサイティングな教育コンテンツを作成する'
       developer_card:
-        main_heading: "私は開発者です"
-        item1_text: "オープンソースプロジェクトに貢献する"
-        item2_text: "CircuitVerseプロジェクトに新機能を追加"
-        item3_text: "CircuitVerseプロジェクトのバグを見つけて修正する"
-      become_patreon: "Patreonになる"
-      donate_via_paypal: "PayPalを通じて寄付"
+        main_heading: '私は開発者です'
+        item1_text: 'オープンソースプロジェクトに貢献する'
+        item2_text: 'CircuitVerseプロジェクトに新機能を追加'
+        item3_text: 'CircuitVerseプロジェクトのバグを見つけて修正する'
+      become_patreon: 'Patreonになる'
+      contibute_to_collective: 'contibute_to_collective'
+      donate_via_paypal: 'PayPalを通じて寄付'
     examples:
-      title: "CircuitVerse - 例"
-      main_heading: "Examples"
-      main_description: "最良の例やユーザーから学び、インスピレーションを得ましょう"
+      title: 'CircuitVerse - 例'
+      main_heading: 'Examples'
+      main_description: '最良の例やユーザーから学び、インスピレーションを得ましょう'
     index:
-      title: "CircuitVerse - Online Digital Logic Circuit Simulator"
-      main_heading: "無料で論理回路の世界に飛び込んでみよう!"
-      main_description: "シンプルなゲートから複雑なシーケンシャル回路まで、タイミング図、自動回路生成、標準ICの探索など"
-      learn_logic_design: "ロジックデザインを学ぶ"
-      for_teachers: "教師用"
-      for_contributors: "貢献者の方へ"
+      title: 'CircuitVerse - Online Digital Logic Circuit Simulator'
+      main_heading: '無料で論理回路の世界に飛び込んでみよう!'
+      main_description: 'シンプルなゲートから複雑なシーケンシャル回路まで、タイミング図、自動回路生成、標準ICの探索など'
+      learn_logic_design: 'ロジックデザインを学ぶ'
+      for_teachers: '教師用'
+      for_contributors: '貢献者の方へ'
       features:
-        main_heading: "特徴"
-        main_description: "ドラッグアンドドロップ、コピー/ペースト、ズームなどを備えたモダンで直感的なユーザーインターフェースで素早く簡単に回路を設計できます"
-        item1_heading: "高解像度画像をエクスポート"
-        item1_text: "SVGを含む複数のフォーマットで高解像度画像をエクスポート"
-        item2_heading: "複合解析"
-        item2_text: "Try テーブルから回路を自動的に生成"
-        item3_heading: "テストベンチとタイミング図"
-        item3_text: "テストベンチを使用して回路をテストし、タイミング図で動作を検証します。"
-        item4_heading: "ブログに埋め込み"
-        item4_text: "HTML5 iFrameを使用して、ブログやウェブサイトに回路を簡単に埋め込むことができ、シームレスな共有と統合が保証されます。"
-        item5_heading: "サブ回路を使用"
-        item5_text: "一度サブ回路を作成し、それらを繰り返し使用します。簡単かつ構造化されたデザインを実現します。"
-        item6_heading: "マルチビットバスとコンポーネント"
-        item6_text: "CircuitVerseはマルチビットワイヤをサポートしているため、回路設計が簡単、高速、整理されます。"
+        main_heading: '特徴'
+        main_description: 'ドラッグアンドドロップ、コピー/ペースト、ズームなどを備えたモダンで直感的なユーザーインターフェースで素早く簡単に回路を設計できます'
+        item1_heading: '高解像度画像をエクスポート'
+        item1_text: 'SVGを含む複数のフォーマットで高解像度画像をエクスポート'
+        item2_heading: '複合解析'
+        item2_text: 'Try テーブルから回路を自動的に生成'
+        item3_heading: 'テストベンチとタイミング図'
+        item3_text: 'テストベンチを使用して回路をテストし、タイミング図で動作を検証します。'
+        item4_heading: 'ブログに埋め込み'
+        item4_text: 'HTML5 iFrameを使用して、ブログやウェブサイトに回路を簡単に埋め込むことができ、シームレスな共有と統合が保証されます。'
+        item5_heading: 'サブ回路を使用'
+        item5_text: '一度サブ回路を作成し、それらを繰り返し使用します。簡単かつ構造化されたデザインを実現します。'
+        item6_heading: 'マルチビットバスとコンポーネント'
+        item6_text: 'CircuitVerseはマルチビットワイヤをサポートしているため、回路設計が簡単、高速、整理されます。'
       featured_examples:
-        main_heading: "注目の例"
-        main_description: "最良の例から学び、インスピレーションを得ましょう"
-        circuit1_text: "16ビットリップルキャリー・アドダー"
-        circuit2_text: "SAP-1"
-        circuit3_text: "2つの半分の追加機能から完全に追加"
-      explore_more: "もっと見る"
+        main_heading: '注目の例'
+        main_description: '最良の例から学び、インスピレーションを得ましょう'
+        circuit1_text: '16ビットリップルキャリー・アドダー'
+        circuit2_text: 'SAP-1'
+        circuit3_text: '2つの半分の追加機能から完全に追加'
+      explore_more: 'もっと見る'
       editor_picks:
-        main_heading: "エディターのピック"
-        main_description: "これらの回路は素晴らしさのために著者によって手作業で選ばれました"
+        main_heading: 'エディターのピック'
+        main_description: 'これらの回路は素晴らしさのために著者によって手作業で選ばれました'
       recent_circuits:
-        main_heading: "最近の回路"
-        main_description: "素晴らしいユーザーによって最新の回路を探索する"
+        main_heading: '最近の回路'
+        main_description: '素晴らしいユーザーによって最新の回路を探索する'
     teachers:
-      title: "CircuitVerse - 先生"
-      main_heading: "先生"
-      main_description: "CircuitVerseは、クラスで非常に使いやすいように設計されています。プラットフォームには、クラスと課題で教師を支援する機能があります。"
-      benefits: "メリット"
-      create_group_heading: "グループを作成して生徒を追加"
-      post_assignment_heading: "課題を投稿"
-      grade_assignment_heading: "採点の課題"
-      use_interactive_circuit_heading: "ブログ、研究資料、またはPowerPointプレゼンテーションでインタラクティブ回路を使用する"
-      create_group_description: "グループを作成し、生徒を追加することができます。CircuitVerseにすでに登録されている生徒は自動的に追加されます。 CircuitVerseにまだ登録されていない場合は、登録への招待状が送信されます。登録すると自動的に追加されます。"
-      post_assignment_description: "課題を作成するには、新しい課題の追加ボタンをクリックします。課題の詳細と期限を指定します。 課題は締め切り時に自動的に閉じられます．先生が再度課題を開かない限り，学生は課題を継続できません．"
-      grade_assignment_description: "ビルドプレビューで非常に簡単に課題を採点できます．学生を彼/彼女の課題作業に選択するだけです．"
-      use_interactive_circuit_description: "プロジェクトが公開されていることを確認します。埋め込みをクリックしてHTML5コードを取得し、回路を埋め込むだけです。 ライブ回路を埋め込むには、Live SlidesのようなPowerPointプラグインを使用する必要があるかもしれません。"
+      title: 'CircuitVerse - 先生'
+      main_heading: '先生'
+      main_description: 'CircuitVerseは、クラスで非常に使いやすいように設計されています。プラットフォームには、クラスと課題で教師を支援する機能があります。'
+      benefits: 'メリット'
+      create_group_heading: 'グループを作成して生徒を追加'
+      post_assignment_heading: '課題を投稿'
+      grade_assignment_heading: '採点の課題'
+      use_interactive_circuit_heading: 'ブログ、研究資料、またはPowerPointプレゼンテーションでインタラクティブ回路を使用する'
+      create_group_description: 'グループを作成し、生徒を追加することができます。CircuitVerseにすでに登録されている生徒は自動的に追加されます。 CircuitVerseにまだ登録されていない場合は、登録への招待状が送信されます。登録すると自動的に追加されます。'
+      post_assignment_description: '課題を作成するには、新しい課題の追加ボタンをクリックします。課題の詳細と期限を指定します。 課題は締め切り時に自動的に閉じられます．先生が再度課題を開かない限り，学生は課題を継続できません．'
+      grade_assignment_description: 'ビルドプレビューで非常に簡単に課題を採点できます．学生を彼/彼女の課題作業に選択するだけです．'
+      use_interactive_circuit_description: 'プロジェクトが公開されていることを確認します。埋め込みをクリックしてHTML5コードを取得し、回路を埋め込むだけです。 ライブ回路を埋め込むには、Live SlidesのようなPowerPointプラグインを使用する必要があるかもしれません。'
     tos:
-      title: "CircuitVerse - 利用規約"
-      main_heading: "利用規約"
+      title: 'CircuitVerse - 利用規約'
+      main_heading: '利用規約'
       user_agreement:
-        main_heading: "1. ユーザー契約"
-        description3: "1.3 CircuitVerseは、すべての年齢の子供と大人に開放されており、CircuitVerseサービスをご利用の際はこれに留意してください。"
+        main_heading: '1. ユーザー契約'
+        description3: '1.3 CircuitVerseは、すべての年齢の子供と大人に開放されており、CircuitVerseサービスをご利用の際はこれに留意してください。'
       account_creation:
-        main_heading: "2. アカウントの作成とメンテナンス"
+        main_heading: '2. アカウントの作成とメンテナンス'
         description1_html: "2.1 本サービスの一部の機能を使用するには、CircuitVerseに登録してアカウントを作成する必要があります。 アカウントの作成は任意ですが、アカウントがなければ、CircuitVersionでプロジェクトやコメントを保存したり公開したりすることはできません。 個人アカウントを登録する際、特定の個人情報の提供を求められます。 例えばメールアドレス、性別、生年月日、国などです CircuitVerse&#39;s <a href='https://CircuitVerse.org/privacy'>Privacy Policy</a> for CircuitVerse&#39;のデータ保持と使用ポリシーをご覧ください。"
-        description2: "2.2 お客様は、お客様のパスワードとアカウントの安全を確保する責任があります。 お客様のアカウントが他の人によって使用されている場合でも、お客様のアカウントの使用については単独で責任を負います。 お客様のアカウントが本規約に違反した場合、お客様のアカウントは一時停止または削除される場合があります。"
-        description3: "2.3 許可なく他人のCircuitVerseアカウントを使用することはできません。"
+        description2: '2.2 お客様は、お客様のパスワードとアカウントの安全を確保する責任があります。 お客様のアカウントが他の人によって使用されている場合でも、お客様のアカウントの使用については単独で責任を負います。 お客様のアカウントが本規約に違反した場合、お客様のアカウントは一時停止または削除される場合があります。'
+        description3: '2.3 許可なく他人のCircuitVerseアカウントを使用することはできません。'
         description4_html: "2.4 アカウントが安全でないと判断する理由がある場合（例えば、 パスワードの紛失、盗難または不正開示があった場合は、速やかにパスワードを変更してください。 アカウントにアクセスしてパスワードを変更できない場合は、 <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse.org</a> までご連絡ください。"
       usage_rule:
-        main_heading: "3. 利用規則"
-        description1: "3.1 CircuitVerseチームは表現の自由をサポートしていますが、CircuitVerseは幅広い観客を対象としており、一部のコンテンツはCircuitVerseコミュニティには不適切です。 CircuitVerseサービスは以下のような方法で使用することはできません。"
-        list1_item1: "個人またはグループに対する偏見、差別、憎悪または暴力を促進します。"
-        list1_item2: "CircuitVerseのユーザーであろうとなかろうと、他のユーザーを脅したり、嫌がらせしたり、脅迫したりします。"
-        list1_item3: "悪質な言語または個人の攻撃が含まれています。"
-        list1_item4: "性的またはグラフィカルに暴力的な素材を含んでいます;"
-        list1_item5: "違法行為または違法な製品を入手する方法についての指示を提供します。"
-        list1_item6: "CircuitVerseイベントの組織化に関連する場合を除き、他のユーザーに個人情報、連絡先情報、またはパスワードの入力を求めること。"
-        list1_item7: "その人の許可なく、他人の個人情報、連絡先情報、パスワードを公開します。"
-        description2: "3.2 お客様は、CircuitVersionを使用する際に適用されるすべての法令を遵守することに同意するものとします。 CircuitVerseを違法な方法で使用することはできません。これには、他の人を嫌がらせ、ストーカー、または無効にすることを含みます。"
-        description3: "3.3 お客様は、本サービスを利用する際に、他人になりすましたり、模倣したり、他人になりすましたりすることはできません。"
-        description4: "3.4 お客様は、サービスを中断することを意図したいかなる方法でもCircuitVerseを使用しないことに同意するものとします。 本サービスへの不正アクセス、または他のユーザーによる本サービスの利用を妨害します。 禁止された活動には以下が含まれますが、これらに限定されません："
-        list2_item1: "CircuitVerseのウェブサイトまたはエディタをクラッシュさせるよう意図的に設計されたコンテンツを投稿します。"
-        list2_item2: "ウイルスやマルウェアを含むページへのリンク。"
-        list2_item3: "管理者パスワードを使用するか、管理者パスワードを装ってください。"
-        list2_item4: "同じ資料を繰り返し投稿するか、「スパム」を投稿します。"
-        list2_item5: "別のアカウントを使用したり、サイト統計を操作するために投票グループを組織します。 例えば、フロントページの \"What the Community is Loving/Remixing\" 行を意図的に取得しようとしています。"
+        main_heading: '3. 利用規則'
+        description1: '3.1 CircuitVerseチームは表現の自由をサポートしていますが、CircuitVerseは幅広い観客を対象としており、一部のコンテンツはCircuitVerseコミュニティには不適切です。 CircuitVerseサービスは以下のような方法で使用することはできません。'
+        list1_item1: '個人またはグループに対する偏見、差別、憎悪または暴力を促進します。'
+        list1_item2: 'CircuitVerseのユーザーであろうとなかろうと、他のユーザーを脅したり、嫌がらせしたり、脅迫したりします。'
+        list1_item3: '悪質な言語または個人の攻撃が含まれています。'
+        list1_item4: '性的またはグラフィカルに暴力的な素材を含んでいます;'
+        list1_item5: '違法行為または違法な製品を入手する方法についての指示を提供します。'
+        list1_item6: 'CircuitVerseイベントの組織化に関連する場合を除き、他のユーザーに個人情報、連絡先情報、またはパスワードの入力を求めること。'
+        list1_item7: 'その人の許可なく、他人の個人情報、連絡先情報、パスワードを公開します。'
+        description2: '3.2 お客様は、CircuitVersionを使用する際に適用されるすべての法令を遵守することに同意するものとします。 CircuitVerseを違法な方法で使用することはできません。これには、他の人を嫌がらせ、ストーカー、または無効にすることを含みます。'
+        description3: '3.3 お客様は、本サービスを利用する際に、他人になりすましたり、模倣したり、他人になりすましたりすることはできません。'
+        description4: '3.4 お客様は、サービスを中断することを意図したいかなる方法でもCircuitVerseを使用しないことに同意するものとします。 本サービスへの不正アクセス、または他のユーザーによる本サービスの利用を妨害します。 禁止された活動には以下が含まれますが、これらに限定されません：'
+        list2_item1: 'CircuitVerseのウェブサイトまたはエディタをクラッシュさせるよう意図的に設計されたコンテンツを投稿します。'
+        list2_item2: 'ウイルスやマルウェアを含むページへのリンク。'
+        list2_item3: '管理者パスワードを使用するか、管理者パスワードを装ってください。'
+        list2_item4: '同じ資料を繰り返し投稿するか、「スパム」を投稿します。'
+        list2_item5: '別のアカウントを使用したり、サイト統計を操作するために投票グループを組織します。 例えば、フロントページの "What the Community is Loving/Remixing" 行を意図的に取得しようとしています。'
       user_content_licensing:
-        main_heading: "4. ユーザーが生成したコンテンツとライセンス"
-        description1: "4.1 利用規約の目的で、「ユーザーが生成したコンテンツ」には、任意のプロジェクトが含まれています。 CircuitVersionにユーザーが送信するサードパーティのウェブサイトへのコメント、フォーラムの投稿、またはリンク。"
-        description2: "4.2 CircuitVerseチームは、あらゆる形態で自由に知識を共有することで創造性を育むことを皆に奨励します。 しかしながら、個人や企業が知的財産権を保護する必要があることも理解しています。 お客様は、CircuitVerseに提出するユーザー生成コンテンツに対して必要な権利、ライセンス、または許可を得ていることを確認する責任があります。"
-        description4: "4.4 CircuitVerse Teamは、報告されたユーザー生成コンテンツを確認することに加えて、権利を留保します。 ただし、CircuitVerseサービスのすべての使用状況を監視する義務はありません。 CircuitVerseチームは、予告なしに、利用規約またはコミュニティガイドラインに違反したコンテンツを編集、移動、または削除することがあります。"
-        description5: "4.6 ユーザーが生成したすべてのコンテンツはそのまま提供されます。 CircuitVerse Teamは、CircuitVerseまたは獣医を通じて利用可能なユーザーが生成したコンテンツの正確性や信頼性について、または同イベントに関連して投稿された情報を検証することは一切保証しません。 CircuitVerse Teamは、ユーザー生成コンテンツで表される意見、意見、アドバイスを推奨しません。 お客様は、CircuitVerseチームがユーザーが生成したコンテンツに起因するすべての責任を軽減することに同意するものとします。"
+        main_heading: '4. ユーザーが生成したコンテンツとライセンス'
+        description1: '4.1 利用規約の目的で、「ユーザーが生成したコンテンツ」には、任意のプロジェクトが含まれています。 CircuitVersionにユーザーが送信するサードパーティのウェブサイトへのコメント、フォーラムの投稿、またはリンク。'
+        description2: '4.2 CircuitVerseチームは、あらゆる形態で自由に知識を共有することで創造性を育むことを皆に奨励します。 しかしながら、個人や企業が知的財産権を保護する必要があることも理解しています。 お客様は、CircuitVerseに提出するユーザー生成コンテンツに対して必要な権利、ライセンス、または許可を得ていることを確認する責任があります。'
+        description4: '4.4 CircuitVerse Teamは、報告されたユーザー生成コンテンツを確認することに加えて、権利を留保します。 ただし、CircuitVerseサービスのすべての使用状況を監視する義務はありません。 CircuitVerseチームは、予告なしに、利用規約またはコミュニティガイドラインに違反したコンテンツを編集、移動、または削除することがあります。'
+        description5: '4.6 ユーザーが生成したすべてのコンテンツはそのまま提供されます。 CircuitVerse Teamは、CircuitVerseまたは獣医を通じて利用可能なユーザーが生成したコンテンツの正確性や信頼性について、または同イベントに関連して投稿された情報を検証することは一切保証しません。 CircuitVerse Teamは、ユーザー生成コンテンツで表される意見、意見、アドバイスを推奨しません。 お客様は、CircuitVerseチームがユーザーが生成したコンテンツに起因するすべての責任を軽減することに同意するものとします。'
       site_content_licensing:
-        main_heading: "5. CircuitVerseのコンテンツとライセンス"
-        description1: "5.1 CircuitVerse Teamは、ユーザーが生成したコンテンツを除き、CircuitVerseコードのすべての権利を所有し、保持します。 CircuitVerseの機能、アーキテクチャ、およびCircuitVerseを通じて提供されるソフトウェアまたはコンテンツ(総称して「CircuitVerse IP」)です。 本利用規約で許可されていない方法でCircuitVerseを使用する場合は、まずCircuitVerseチームに連絡する必要があります。 本利用規約に基づいて明示的に付与された権利を除き、CircuitVerse IPに対するいかなる権利も付与されません。"
+        main_heading: '5. CircuitVerseのコンテンツとライセンス'
+        description1: '5.1 CircuitVerse Teamは、ユーザーが生成したコンテンツを除き、CircuitVerseコードのすべての権利を所有し、保持します。 CircuitVerseの機能、アーキテクチャ、およびCircuitVerseを通じて提供されるソフトウェアまたはコンテンツ(総称して「CircuitVerse IP」)です。 本利用規約で許可されていない方法でCircuitVerseを使用する場合は、まずCircuitVerseチームに連絡する必要があります。 本利用規約に基づいて明示的に付与された権利を除き、CircuitVerse IPに対するいかなる権利も付与されません。'
       dmca:
-        main_heading: "6. デジタルミレニアム著作権法(DMCA)"
-        list_item1: "CircuitVerseのユーザー名とメールアドレス"
-        list_item2: "あなたが信じる特定の内容は誤って取り下げられました。"
-        list_item3: "著作権侵害がないと思われる理由を簡単に説明します (例: コンテンツは著作権で保護されておらず、コンテンツを使用する許可があったか、コンテンツの使用が「公正な使用」であったことになります。"
+        main_heading: '6. デジタルミレニアム著作権法(DMCA)'
+        list_item1: 'CircuitVerseのユーザー名とメールアドレス'
+        list_item2: 'あなたが信じる特定の内容は誤って取り下げられました。'
+        list_item3: '著作権侵害がないと思われる理由を簡単に説明します (例: コンテンツは著作権で保護されておらず、コンテンツを使用する許可があったか、コンテンツの使用が「公正な使用」であったことになります。'
       account_related:
-        main_heading: "7. アカウントの停止と終了"
-        description1: "7.1 CircuitVerseは、利用規約またはコミュニティガイドラインの違反があった場合、お客様のアカウントを一時停止する権利を有します。 違反行為を繰り返すと、アカウントが削除されることがあります。 CircuitVerseチームは、利用規約またはコミュニティガイドラインに違反するものを決定する唯一の権利を留保します。 CircuitVerseチームはまた、利用規約の事前執行を回避するために使用されるアカウントを終了する権利を留保します。"
+        main_heading: '7. アカウントの停止と終了'
+        description1: '7.1 CircuitVerseは、利用規約またはコミュニティガイドラインの違反があった場合、お客様のアカウントを一時停止する権利を有します。 違反行為を繰り返すと、アカウントが削除されることがあります。 CircuitVerseチームは、利用規約またはコミュニティガイドラインに違反するものを決定する唯一の権利を留保します。 CircuitVerseチームはまた、利用規約の事前執行を回避するために使用されるアカウントを終了する権利を留保します。'
         description2_html: "7.2 アカウントを削除または一時的に無効にしたい場合は、 <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse.org</a> までご連絡ください。"
       third_party_website:
-        main_heading: "8. サードパーティのウェブサイト"
-        description1: "8.1 回路上のコンテンツユーザーが生成したコンテンツを含むバージョンには、サードパーティのウェブサイトへのリンクが含まれることがあります。 CircuitVerse Teamは第三者のウェブサイトを見直したり管理したりすることはできず、プライバシー慣行について一切責任を負いません。 サードパーティのウェブサイトの内容、機能。 お客様は、CircuitVerseチームが第三者のウェブサイトから生じるすべての責任を軽減することに同意するものとします。"
+        main_heading: '8. サードパーティのウェブサイト'
+        description1: '8.1 回路上のコンテンツユーザーが生成したコンテンツを含むバージョンには、サードパーティのウェブサイトへのリンクが含まれることがあります。 CircuitVerse Teamは第三者のウェブサイトを見直したり管理したりすることはできず、プライバシー慣行について一切責任を負いません。 サードパーティのウェブサイトの内容、機能。 お客様は、CircuitVerseチームが第三者のウェブサイトから生じるすべての責任を軽減することに同意するものとします。'
       indemnification:
-        main_heading: "9. <unk>"
-        description1: "CircuitVerseチーム、CircuitVerse財団、およびその関連会社、従業員、教員、フェロー、学生を補償することに同意するものとします。 エージェント、代表者、サードパーティのサービスプロバイダ、およびその運営委員会のメンバー(すべてが「CircuitVerse Entities」です)。 それぞれを無害に守り守るために 利用規約の違反またはお客様によるCircuitVersionの使用に起因または関連するすべての請求および責任(弁護士費用を含む)から。"
-        description2: "連邦政府機関の場合、賠償に関する利用規約に記載されている条項は、お客様の公式使用には適用されません。 連邦法で明示的に認められた範囲を除いてね 米国の州および地方政府機関向け 賠償に関する利用規約は、お客様の管轄区域の法律によって承認された範囲でのみ、お客様の公式使用に適用されます。"
+        main_heading: '9. <unk>'
+        description1: 'CircuitVerseチーム、CircuitVerse財団、およびその関連会社、従業員、教員、フェロー、学生を補償することに同意するものとします。 エージェント、代表者、サードパーティのサービスプロバイダ、およびその運営委員会のメンバー(すべてが「CircuitVerse Entities」です)。 それぞれを無害に守り守るために 利用規約の違反またはお客様によるCircuitVersionの使用に起因または関連するすべての請求および責任(弁護士費用を含む)から。'
+        description2: '連邦政府機関の場合、賠償に関する利用規約に記載されている条項は、お客様の公式使用には適用されません。 連邦法で明示的に認められた範囲を除いてね 米国の州および地方政府機関向け 賠償に関する利用規約は、お客様の管轄区域の法律によって承認された範囲でのみ、お客様の公式使用に適用されます。'
       warranty_related:
-        main_heading: "10. 保証の免責事項"
-        description1: "お客様は自己責任でCircuitVerseを使用していることを認めるものとします。 CircuitVerseは「現状のまま」提供され、CircuitVerseエンティティは明示的に明示的に黙示的にすべての保証を放棄します。 正確性、信頼性、肩書き、商品性、侵害の保証を含むがこれらに限定されない。 特定の目的またはその他の保証、状態、保証または表明のための適合性、口頭、書面または電子形式のいずれであっても。 CircuitVerseに含まれる、または提供されるあらゆる情報の正確性または完全性を含みますが、これらに限定されません。 前述を制限することなく、CircuitVerse エンティティは、ユーザーが生成したコンテンツに関して明示的かつ黙示的なすべての保証を放棄します。 CircuitVerse エンティティおよびそのサードパーティサービスプロバイダーは、CircuitVerseへのアクセスが中断されないこと、または障害が発生しないことを表明または保証しません。 送信された情報の誤りまたは欠落、またはウイルスがCircuitVerseサービスを通じて送信されないこと。"
+        main_heading: '10. 保証の免責事項'
+        description1: 'お客様は自己責任でCircuitVerseを使用していることを認めるものとします。 CircuitVerseは「現状のまま」提供され、CircuitVerseエンティティは明示的に明示的に黙示的にすべての保証を放棄します。 正確性、信頼性、肩書き、商品性、侵害の保証を含むがこれらに限定されない。 特定の目的またはその他の保証、状態、保証または表明のための適合性、口頭、書面または電子形式のいずれであっても。 CircuitVerseに含まれる、または提供されるあらゆる情報の正確性または完全性を含みますが、これらに限定されません。 前述を制限することなく、CircuitVerse エンティティは、ユーザーが生成したコンテンツに関して明示的かつ黙示的なすべての保証を放棄します。 CircuitVerse エンティティおよびそのサードパーティサービスプロバイダーは、CircuitVerseへのアクセスが中断されないこと、または障害が発生しないことを表明または保証しません。 送信された情報の誤りまたは欠落、またはウイルスがCircuitVerseサービスを通じて送信されないこと。'
       liability_related:
-        main_heading: "11. 責任の制限"
-        description1: "CircuitVerseエンティティは、いかなる種類の直接的、間接的、特別、結果的、懲罰的な損害について、お客様または第三者に対して責任を負いません。 主張の種類や行動の性質にかかわらず CircuitVerseチームがこのような損害の可能性を知らされても。 上記を制限することなく。 CircuitVerseエンティティは、ユーザーが生成したコンテンツに起因する損害または有害性について、お客様または第三者に対して一切の責任を負わないものとします。"
+        main_heading: '11. 責任の制限'
+        description1: 'CircuitVerseエンティティは、いかなる種類の直接的、間接的、特別、結果的、懲罰的な損害について、お客様または第三者に対して責任を負いません。 主張の種類や行動の性質にかかわらず CircuitVerseチームがこのような損害の可能性を知らされても。 上記を制限することなく。 CircuitVerseエンティティは、ユーザーが生成したコンテンツに起因する損害または有害性について、お客様または第三者に対して一切の責任を負わないものとします。'
       choice_of_language:
-        main_heading: "14. 言語の選択"
-        description1: "CircuitVerseチームが本利用規約の英語版の翻訳を提供している場合。 プライバシーポリシーまたはその他のポリシー 翻訳は情報提供のみを目的とし、英語版を変更しないことに同意するものとします。 翻訳版と英語版の間に矛盾が生じた場合は、英語版が管理されます。"
+        main_heading: '14. 言語の選択'
+        description1: 'CircuitVerseチームが本利用規約の英語版の翻訳を提供している場合。 プライバシーポリシーまたはその他のポリシー 翻訳は情報提供のみを目的とし、英語版を変更しないことに同意するものとします。 翻訳版と英語版の間に矛盾が生じた場合は、英語版が管理されます。'
       no_waiver:
-        main_heading: "15. 権利放棄なし"
-        description1: "本利用規約のいかなる期間の放棄も、当該期間またはその他の期間の更なる放棄とみなされないものとします。 CircuitVerse Teamが本利用規約に基づく権利または条項を主張しなかった場合でも、当該権利または条項の放棄とはみなされません。"
+        main_heading: '15. 権利放棄なし'
+        description1: '本利用規約のいかなる期間の放棄も、当該期間またはその他の期間の更なる放棄とみなされないものとします。 CircuitVerse Teamが本利用規約に基づく権利または条項を主張しなかった場合でも、当該権利または条項の放棄とはみなされません。'
