@@ -25,7 +25,6 @@ hi:
         item3_text: "सर्किटवर्स प्रोजेक्ट में बग ढूंढें और ठीक करें"
       become_patreon: "एक पैट्रियन बनें"
       donate_via_paypal: "पेपैल के माध्यम से दान करें"
-      donate_via_opencollective: "Open Collective के माध्यम से दान करें"
     examples:
       title: "सर्किटवर्स - सर्किट के उदाहरण"
       main_heading: "सर्किट के उदाहरण"
