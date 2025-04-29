@@ -1,0 +1,43 @@
+de:
+  groups:
+    add_member_description: "Geben Sie E-Mail-IDs getrennt durch Kommas oder Leerzeichen oder in getrennten Zeilen ein. Wenn Benutzer nicht registriert sind, wird eine E-Mail gesendet, in der sie aufgefordert werden, sich anzumelden."
+    add_mentor_description_html: "<p>Mentoren können</p><ul><li>Aufgaben anlegen und löschen</li><li>Aufgaben</li><li>geschlossene Aufgaben wieder öffnen</li></ul>"
+    promote_member_confirmation: "Bist du sicher, dass du dieses Mitglied zu einem Mentor fördern möchtest?"
+    demote_mentor_confirmation: "Sind Sie sicher, dass Sie diesen Mentor zu einem Mitglied degradieren möchten?"
+    use_alternative: "ODER BENUTZEN"
+    invite_link_btn: "Gruppen-Einladungs-Link"
+    remove_assignment_message: "Sind Sie sicher, dass Sie diese Aufgabe löschen möchten?"
+    remove_member_message: "Sind Sie sicher, dass Sie dieses Mitglied entfernen möchten?"
+    make_member: "Mitglied machen"
+    make_mentor: "Mentor machen"
+    edit:
+      title: "%{name} - Gruppenname bearbeiten"
+      main_heading: "GRUPPENNAMEN BEARBEITEN"
+    new:
+      title: "CircuitVerse - Neue Gruppe"
+      main_heading: "NEUE GRUPPE"
+      main_description_html: "Gruppen können von Mentoren benutzt werden, um Projekte für und für die Schüler zu erstellen. Die Dokumentation <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>finden Sie hier</a>."
+    show:
+      edit_name_btn: "Name bearbeiten"
+      primary_mentor_heading: "Primär Mentor:"
+      mentor_name_heading: "MENTER:"
+      group_members_heading: "MEMBERS:"
+      add_members_btn: "+ Mitglieder hinzufügen"
+      add_mentors_btn: "+ Mentoren hinzufügen"
+      no_mentors_html: "Es sind keine Mentoren in dieser Gruppe, klicken Sie <strong>+ Mentor</strong> Button um Mentoren hinzuzufügen."
+      no_members_html: "Es gibt keine Mitglieder in dieser Gruppe, klicken Sie <strong>+ Mitglieder hinzufügen</strong> , um Mitglieder hinzuzufügen."
+      no_assignments_html: "Es gibt keine Aufgaben in der Gruppe, klicken Sie auf <strong>+ Aufgabe</strong> um eine Aufgabe zu starten."
+      assignment:
+        heading: "ASSIGNMENTEN:"
+        add_assignment_btn: "+ Aufgabe hinzufügen"
+        assignment_table_head:
+          name: "Name"
+          deadline: "DeadLine"
+          grading: "Bewertung"
+          actions: "Aktionen"
+          grade: "Note"
+        time_remaining_html: "<strong>Verbleibende Zeit:</strong> %{time_remaining}"
+        start_working_btn: "Arbeiten starten"
+        see_work_done: "Zeige dein Werk"
+        not_submitted: "Nicht eingereicht!"
+        show_submission: "Einreichung anzeigen"

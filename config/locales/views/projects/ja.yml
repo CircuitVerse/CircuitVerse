@@ -1,0 +1,50 @@
+ja:
+  projects:
+    add_collaborator_description: "コンマ、スペース、または入力で区切られた電子メールIDを入力してください。ユーザーはプラットフォーム上で既に登録されている必要があります。 現在のところ、コラボレーションはリアルタイムではありません。すべてのセーブは以前のデータを上書きします。"
+    remove_collaborator_message: "このコラボレーターを削除してもよろしいですか？"
+    delete_project_message: "このプロジェクトを削除してもよろしいですか？"
+    form:
+      feature_circuit_checkpoint: "おすすめ（管理者のみ）"
+      tag_list_description: "(プロジェクト タグをカンマで割る[,])"
+      project_is_featured_message: "(このプロジェクトは注目されています。パブリックアクセスが削除された場合は特集されません)"
+      public: "公開"
+      private: "非公開"
+      limited_access: "アクセス制限"
+    edit:
+      title: "%{name} - プロジェクトの編集"
+      main_heading: "プロジェクトを編集"
+    get_projects:
+      searched_projects_heading: "検索したプロジェクト"
+      searched_tags_heading: "タグ:"
+    stars_count: "星"
+    views_count: "ビュー"
+    project_user: "ユーザー:"
+    show:
+      project_author: "作成者:"
+      project_forked_from: "フォーク元:"
+      project_access_type: "プロジェクトアクセスタイプ:"
+      project_description: "説明:"
+      project_created_at: "作成日時:"
+      project_updated_at: "更新日:"
+      project_embed: "埋め込み"
+      project_copy: "コピーを作成"
+      project_collaborator_add: "+ コラボレーターを追加"
+      copied_to_clipboard: "クリップボードにコピーしました！"
+      collaborators: "共同編集者"
+    search:
+      no_result_found: "結果が見つかりませんでした"
+    modal:
+      embed_circuit_heading: "回路を埋め込み"
+      height: "高さ"
+      width: "Width"
+      url: "URL"
+      border: "Border"
+      border_style: "枠線スタイル"
+      publish_button: "公開"
+      advance:
+        advance_option: "アドバンスオプション"
+        clock_time: "時計/時間"
+        display_title: "タイトルを表示"
+        fullscreen: "全画面"
+        zoom_in_out: "ズームイン/アウト"
+        theme: "テーマ"
