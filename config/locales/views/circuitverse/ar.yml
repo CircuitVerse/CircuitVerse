@@ -23,8 +23,7 @@ ar:
         item1_text: "المساهمة في مشروع المصدر المفتوح"
         item2_text: "إضافة ميزات جديدة إلى مشروع CircuitVerse"
         item3_text: "العثور على وإصلاح الأخطاء في مشروع CircuitVerse"
-      become_patreon: "كن باتريون"
-      donate_via_paypal: "التبرع من خلال PayPal"
+      donate_via_opencollective: "التبرع من خلال مجموعة مفتوحة"
     examples:
       title: "دائرة - أمثلة"
       main_heading: "إضافات"
