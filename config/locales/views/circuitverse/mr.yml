@@ -23,6 +23,8 @@ mr:
         item1_text: "ओपन सोर्स प्रकल्पांमध्ये योगदान द्या"
         item2_text: "सर्किटवर प्रोजेक्टमध्ये नवीन वैशिष्ट्ये जोडा"
         item3_text: "सर्किटवर्स प्रकल्पातील बग शोधा आणि त्याचे निराकरण करा"
+      become_patreon: "पैट्रियन व्हा"
+      donate_via_paypal: "पेपल द्वारे देणगी द्या"
       donate_via_opencollective: "Open Collective द्वारे देणगी द्या"
     examples:
       title: "सर्किटवर्स - सर्किटची उदाहरणे"

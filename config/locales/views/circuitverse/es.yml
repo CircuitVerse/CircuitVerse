@@ -23,6 +23,8 @@ es:
         item1_text: "Contribuir al proyecto de código abierto"
         item2_text: "Añadir nuevas características al proyecto CircuitVerse"
         item3_text: "Encontrar y corregir errores en el proyecto CircuitVerse"
+      become_patreon: "Conviértete en un Patrón"
+      donate_via_paypal: "Donar a través de PayPal"
       donate_via_opencollective: "Donar a través de Open Collective"
     examples:
       title: "CircuitVerse - Ejemplos"
