@@ -15,7 +15,7 @@ bn:
       edit_profile:
         title: "%{name} - প্রোফাইল সম্পাদনা করুন"
         heading: "প্রোফাইল সম্পাদনা করুন"
-        description_html: '<sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> দিয়ে চিহ্নিত ক্ষেত্রগুলি বাধ্যতামূলক'
+        description_html: "<sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> দিয়ে চিহ্নিত ক্ষেত্রগুলি বাধ্যতামূলক"
         profile_picture: "প্রোফাইল ছবি"
         choose_file: "ছবি আপলোড"
         remove_picture: "ছবি সরান"

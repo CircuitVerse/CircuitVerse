@@ -16,9 +16,7 @@ bn:
     new:
       title: "সার্কিটভার্স - নতুন গ্রুপ"
       main_heading: "নতুন গ্রুপ"
-      main_description_html:
-        "গ্রুপগুলি পরামর্শদাতাদের দ্বারা প্রকল্পগুলি সেট করতে এবং শিক্ষার্থীদের গ্রেড দেওয়ার জন্য ব্যবহার করা যেতে পারে।
-        আপনি <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>এখানে</a> ডকুমেন্টেশন খুঁজে পেতে পারেন।"
+      main_description_html: "গ্রুপগুলি পরামর্শদাতাদের দ্বারা প্রকল্পগুলি সেট করতে এবং শিক্ষার্থীদের গ্রেড দেওয়ার জন্য ব্যবহার করা যেতে পারে। আপনি <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>এখানে</a> ডকুমেন্টেশন খুঁজে পেতে পারেন।"
     show:
       edit_name_btn: "নাম সম্পাদনা করুন"
       primary_mentor_heading: "প্রাথমিক পরামর্শদাতা:"

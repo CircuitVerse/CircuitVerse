@@ -1,0 +1,12 @@
+ja:
+  helpers:
+    label:
+      announcement:
+        body: "お知らせ本文"
+        link: "お知らせリンク"
+        start_date: "開始日"
+        end_date: "終了日"
+    submit:
+      announcement:
+        create: "新しいお知らせ"
+        update: "お知らせを更新"

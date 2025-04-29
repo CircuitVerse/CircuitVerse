@@ -1,0 +1,8 @@
+ja:
+  simulator:
+    nav_item:
+      project: "プロジェクト"
+      circuit: "サーキット"
+      tools: "ツール"
+      help: "ヘルプ"
+    insert_Subcircuitcontent: " 依存関係としてこの回路を持たない回路が他にないようです。新しい回路を作成しましょう！"
