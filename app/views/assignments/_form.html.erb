@@ -36,7 +36,7 @@
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
   </div>
-  <div id="grade-field" class="form-group projects-tag-mb-3">
+  <div id="grade-field" class="form-group projects-tag-mb-3 mt-4">
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span><%= t("assignments.form.grade_scale_cant_change") %></span>
