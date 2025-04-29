@@ -27,11 +27,18 @@
             <%= form.label :emails %>
             <%= form.select :emails, [], {}, { class: "form-select", multiple: true } %>
           </div>
+
+          <div class="csv-upload-container-member">
+          </div>
+
           <div class="modal-footer">
             <%= form.submit class: "btn primary-button", id: "add-members-button" %>
           </div>
         <% end %>
       </div>
+
+      
+
       <div class="mx-auto text-center p-3">
         <p><%= t("groups.use_alternative") %></p>
         <%= button_to generate_token_group_path, { remote: true, method: :put, class: "btn primary-button", "data-bs-toggle": "collapse", href: "#group-invite-link-container", "aria-expanded": "false", "aria-controls": "group-invite-link-container" } do %>
