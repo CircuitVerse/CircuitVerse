@@ -5,10 +5,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications,    if: :current_user
-  around_action  :switch_locale
+  around_action :switch_locale
   rescue_from Pundit::NotAuthorizedError,                with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException,    with: :custom_auth_error
-  rescue_from ActiveRecord::RecordNotFound,               with: :not_found
+  rescue_from ActiveRecord::RecordNotFound,              with: :not_found
 
   def auth_error
     render plain: "You are not authorized to do the requested operation"
