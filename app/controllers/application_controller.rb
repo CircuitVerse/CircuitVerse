@@ -3,11 +3,9 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   protect_from_forgery with: :exception
-
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications,    if: :current_user
   around_action  :switch_locale
-
   rescue_from Pundit::NotAuthorizedError,                with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException,    with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound,               with: :not_found
@@ -59,8 +57,8 @@ class ApplicationController < ActionController::Base
     def set_notifications
       @unread       = NoticedNotification.where(recipient: current_user).unread
       @notification = NoticedNotification.where(recipient: current_user)
-                                      .newest_first
-                                      .limit(5)
+                                         .newest_first
+                                         .limit(5)
     end
 
     def storable_location?
