@@ -1,0 +1,16 @@
+<div class="col-12 col-sm-12 col-md-6 col-lg-4">
+  <div class="card circuit-card">
+    <%= image_tag @image, alt: @alt, class: "card-img-top circuit-card-image examples-circuit-card-image", height: @height, width: @width %>
+    <div class="card-footer circuit-card-footer">
+      <div class="circuit-card-name">
+        <p><%= @text %></p>
+        <span class="tooltiptext"><%= @text %></span>
+      </div>
+      <%= render PrimaryButtonComponent.new(
+        text: t("view"),
+        link: @link,
+        aria_label: "#{t('view')} - #{t('view_project_details')}"
+      ) %>
+    </div>
+  </div>
+</div>
