@@ -32,7 +32,7 @@ class PaginateRenderer < WillPaginate::ActionView::LinkRenderer
     if page
       link(text, "/?page=#{page}#recent", :class => classname)
     else
-      tag(:span, text, :class => classname + ' bg-dark-blue near-white')
+      tag(:span, text, :class => classname + ' disabled')
     end
   end
 end
