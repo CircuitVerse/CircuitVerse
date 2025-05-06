@@ -20,7 +20,7 @@ en:
         choose_file: "Choose File"
         remove_picture: "Remove Picture"
         country_select_placeholder: "Prefer Not To Enter"
-        select_locale_prompt: "Select the locale"
+        select_locale_prompt: "Select the Language"
         subscribe_mail_checkpoint: "Subscribed to mails?"
         delete_account_heading: "Delete your Account"
         delete_account_notice: "Proceed with caution! This action cannot be reversed."
