@@ -241,13 +241,24 @@ export var convertors = {
     dec2bin: x => "0b" + x.toString(2),
     dec2hex: x => "0x" + x.toString(16),
     dec2octal: x => "0" + x.toString(8),
-    dec2bcd: x => parseInt(x.toString(10), 16).toString(2),
+}
+
+function dec2bcd(decimalNumber) {
+    const decimalString = decimalNumber.toString();
+    let bcdResult = "";
+    for (let i = 0; i < decimalString.length; i++) {
+        const binaryDigit = parseInt(decimalString[i], 10)
+            .toString(2)
+            .padStart(4, "0");
+        bcdResult += binaryDigit;
+    }
+    return bcdResult;
 }
 
 export function setBaseValues(x) {
     if (isNaN(x)) return;
     $("#binaryInput").val(convertors.dec2bin(x));
-    $("#bcdInput").val(convertors.dec2bcd(x));
+    $("#bcdInput").val(dec2bcd(x));
     $("#octalInput").val(convertors.dec2octal(x));
     $("#hexInput").val(convertors.dec2hex(x));
     $("#decimalInput").val(x);
