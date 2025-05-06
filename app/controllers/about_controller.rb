@@ -65,7 +65,10 @@ class AboutController < ApplicationController
         link: "https://github.com/salmoneatenbybear" },
       { name: "Harsh Rao",
         img: "https://avatars.githubusercontent.com/u/166894150?v=4",
-        link: "https://github.com/ThatDeparted2061" }
+        link: "https://github.com/ThatDeparted2061" },
+      { name: "Neeraj Pathak",
+        img: "https://avatars.githubusercontent.com/u/171167348?v=4",
+        link: "https://github.com/Neerajpathak07" }
     ]
   end
 end

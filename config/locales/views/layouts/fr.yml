@@ -1,0 +1,35 @@
+fr:
+  layout:
+    link_to_simulator: "Simulateur"
+    getting_started_dropdown: "Commencer"
+    link_to_learn_more: "Apprendre"
+    link_to_docs: "Documentation"
+    link_to_features: "Fonctionnalités"
+    link_to_teachers: "Professeurs"
+    link_to_blog: "Blogue"
+    link_to_about: "À propos de"
+    link_to_faq: "Foire Aux Questions"
+    footer:
+      social_icon_text: "Suivez-nous sur:"
+      link_to_examples: "Exemples"
+      my_circuits: "Mes Circuits"
+      link_to_contribute: "Contribuer"
+      link_to_forum: "Forums"
+      sponsor_logo_text:
+        brought_by: "Proposé par :"
+        hosting_sponsor: "Sponsor d'Hébergement :"
+        marketed_by: "Commercialisé par :"
+        incubated_from: "Incubé de :"
+        infrastructure_sponsor: "Commanditaire de l'infrastructure :"
+      copyright_text: "Copyright ©️ %{time_current_year} CircuitVerse, Tous droits réservés."
+    header:
+      dashboard: "Tableau de bord"
+      my_groups: "Mes Groupes"
+      notifications: "Notifications"
+      language: "Langue"
+    mailer:
+      join_us: "Rejoignez-nous"
+      copyright_text: "Copyright ©️ %{time_current_year} CircuitVerse. Tous droits réservés. Pour tout problème, contactez-nous support@circuitverse.org"
+      unsubscribe_email_notifications: "Se désabonner des notifications par e-mail"
+    simulator:
+      title: "CircuitVerse - Simulateur de circuits numériques en ligne"
