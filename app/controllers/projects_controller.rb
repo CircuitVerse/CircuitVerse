@@ -85,6 +85,7 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     @project.description = params["description"]
+    set_name_project_datum(project_params)
     respond_to do |format|
       if @project.update(project_params)
         format.html do
@@ -148,5 +149,13 @@ class ProjectsController < ApplicationController
     # Sanitize description before passing to view
     def sanitize_project_description
       @project.description = sanitize_description(@project.description)
+    end
+
+    def set_name_project_datum(project_params)
+      return unless @project.project_datum
+
+      datum_data = JSON.parse(@project.project_datum.data)
+      datum_data["name"] = project_params["name"]
+      @project.project_datum.data = JSON.generate(datum_data)
     end
 end
