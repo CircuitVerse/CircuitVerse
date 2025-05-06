@@ -12,7 +12,7 @@ class ProfileDecorator < SimpleDelegator
   end
 
   def educational_institute
-    profile.educational_institute || "Not Entered"
+    profile.educational_institute&.strip&.presence || "Not Entered"
   end
 
   def country_name
