@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_20_082634) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", null: false
+    t.datetime "deadline", precision: nil, null: false
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -366,7 +366,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_10_20_082634) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
-    t.string "version", default: "1.0", null: false
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
