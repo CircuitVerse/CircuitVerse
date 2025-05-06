@@ -196,6 +196,14 @@
 
 //breakpoints
 @media (max-width: 991px) {
+  .navbar-toggler-icon {
+    margin-bottom: 12px;
+  }
+
+  .navbar-search-icon-oncollapse {
+    padding-top: 2px;
+  }
+
   .navbar-search-icon-oncollapse {
     display: block;
   }
@@ -221,6 +229,14 @@
 }
 
 @media (max-width: 400px) {
+  .navbar-toggler-icon {
+    margin-bottom: 0;
+  }
+
+  .navbar-search-icon-oncollapse {
+    padding-top: 8px;
+  }
+
   .navbar-search-bar-form {
     width: 100%;
   }
