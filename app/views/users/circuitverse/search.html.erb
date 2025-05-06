@@ -1,22 +1,24 @@
-<% if @results.empty? %>
+<% query = params[:q]&.strip %>
+<% if query.blank? || @results.empty? %>
   <div class="container search-no-results-container">
     <div class="row center-row">
       <div class="col-12">
         <div class="search-no-results-image">
           <%= image_tag "SVGs/noResult.svg", alt: "No result image" %>
-          <h6><%= t("users.circuitverse.search.no_results") %></h6>
+          <h6>No results found. Please enter a search term.</h6>
         </div>
       </div>
     </div>
   </div>
 <% else %>
   <div class="container search-container">
-    <% @results.map { |user| ProfileDecorator.new(user) }.each do |profile| %>
+    <% @results.each do |result| %>
+      <% profile = ProfileDecorator.new(result) %>
       <div class="row center-row search-user-container">
         <div class="col-12 col-sm-12 col-md-5 col-lg-5">
           <div class="d-flex flex-column">
             <%= image_tag user_profile_picture(profile.profile_picture), alt: "project.name", class: "center-row search-usersearch-image" %>
-            <p class=" center-row search-username"><%= profile.name %></p>
+            <p class="center-row search-username"><%= profile.name %></p>
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-7 col-lg-7 search-userdetails-container">
