@@ -4,6 +4,10 @@ module SearchHelper
   MAX_RESULTS_PER_PAGE = 5
 
   def query(resource, query_params)
+    if query_params[:q].blank?
+      return [], nil
+    end
+
     case resource
     when "Users"
       # User query
