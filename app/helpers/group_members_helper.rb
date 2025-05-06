@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module GroupMembersHelper
+  # @param [Group] group
+  # @return [String] CSS Class for group members card container
   def membersCardViewerContainer(group)
     if policy(group).admin_access?
       "col-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container"
@@ -9,10 +11,14 @@ module GroupMembersHelper
     end
   end
 
+  # @param [Group] group
+  # @return [String] CSS Class for group members card
   def membersCardViewer(group)
     policy(group).admin_access? ? "groups-members-card" : "groups-members-card-viewer"
   end
 
+  # @param [Group] group
+  # @return [String] CSS Class for group members card details
   def membersCardViewerDetail(group)
     if policy(group).admin_access?
       "col-6 groups-members-card-details"
