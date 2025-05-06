@@ -7,6 +7,10 @@ class SearchController < ApplicationController
     resource = params[:resource]
     query_params = params
 
+    page = query_params[:page].to_i
+    page = 1 if page < 1
+    query_params[:page] = page
+
     @results, template = query(resource, query_params)
 
     if template.present?
