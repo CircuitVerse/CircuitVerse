@@ -25,7 +25,9 @@ class GroupsController < ApplicationController
 
   def group_invite
     if Group.with_valid_token.exists?(group_token: params[:token])
-      if current_user.groups.exists?(id: @group)
+      if current_user.email == @group.primary_mentor.email
+        notice = "Primary mentor cannot be added as a member of the group."
+      elsif current_user.groups.exists?(id: @group)
         notice = "Member is already present in the group."
       elsif current_user.id == @group.primary_mentor_id
         notice = "You cannot join this group because you are its primary mentor."
