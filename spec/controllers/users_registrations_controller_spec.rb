@@ -81,4 +81,32 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    let(:user) { create(:user, password: "password123") }
+
+    before do
+      sign_in user
+    end
+
+    context "with correct password" do
+      it "deletes the user account" do
+        expect do
+          delete :destroy, params: { password: "password123" }
+        end.to change(User, :count).by(-1)
+        expect(response).to redirect_to(root_path)
+        expect(flash[:notice]).to eq("Your account has been successfully deleted.")
+      end
+    end
+
+    context "with incorrect password" do
+      it "does not delete the user account" do
+        expect do
+          delete :destroy, params: { password: "wrongpassword" }
+        end.not_to change(User, :count)
+        expect(response).to redirect_to(edit_user_registration_path)
+        expect(flash[:alert]).to eq("Incorrect password. Account deletion failed.")
+      end
+    end
+  end
 end

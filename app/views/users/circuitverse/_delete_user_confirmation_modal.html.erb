@@ -7,10 +7,14 @@
       </div>
       <div class="modal-body">
         <p><%= t("users.circuitverse.delete_user_confirmation") %></p>
-      </div>
-      <div class="modal-footer">
-        <%= link_to "#", method: :delete, class: "btn primary-delete-button", id: "users-user-delete-button" do %>
-          <%= t("delete") %>
+        <%= form_with url: user_registration_path, method: :delete, local: true do |f| %>
+          <div class="form-group">
+            <%= f.label :password, t("users.circuitverse.password_confirmation") %>
+            <%= f.password_field :password, class: "form-control", required: true %>
+          </div>
+          <div class="modal-footer">
+            <%= f.submit t("delete"), class: "btn primary-delete-button" %>
+          </div>
         <% end %>
       </div>
     </div>
