@@ -14,14 +14,14 @@
   </div>
   <div class="row center-row">
     <div class="col col-sm col-md col-lg">
-      <div class="social-card about-social-card-1">
+      <div class="social-card mb-md-2 mt-sm-5">
         <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
           <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
           <h6><%= t("email_us_heading") %></h6>
           <p>support@circuitverse.org</p>
         </a>
       </div>
-      <div class="social-card about-social-card-2">
+      <div class="social-card mt-md-2">
         <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
           <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
           <h6><%= t("join_at_slack_heading") %></h6>
@@ -126,7 +126,7 @@
     <br>
     <div class="row center-row">
       <div class="col col-sm col-md col-lg text-center">
-        <a class="btn primary-button about-primary-button" href="/contribute"><%= t("about.become_contributor") %></a>
+        <a class="btn  mt-4" href="/contribute"><%= t("about.become_contributor") %></a>
       </div>
     </div>
 </div>
