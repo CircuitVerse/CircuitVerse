@@ -1,13 +1,14 @@
 fr:
   assignments:
-    group_name: "La groupe: %{name}"
+    group_name: "Groupe : %{name}"
     deadline: "Date limite :"
     remaining_time_error: "(quelque chose s'est mal passé lors du chargement du script)"
     form:
       grade_scale_cant_change: "(Ne peut pas être modifié une fois défini)"
+      cannot_be_edited: "%{graded} - Ne peut pas être modifié"
       enable_element_restriction: "Activer la restriction des éléments :"
       enable_feature_restriction: "Activer la restriction des fonctionnalités :"
-      time_remaining: "Temps restant: %{time}"
+      time_remaining: "Temps restant : %{time}"
       no_grade: "Pas de note"
       letter: "Lettre(A-F)"
       percent: "Pourcentage (1-100)"
@@ -15,19 +16,21 @@ fr:
     edit:
       edit_assignment: "Modifier le devoir"
     new:
+      title: "%{name} - Nouveau devoir"
       new_assignment_heading: "Nouveau devoir"
     show:
-      assignment_details_heading: "DÉTAILS DE L'ASSIGNMENT"
+      title: "%{name} - Détails du devoir"
+      assignment_details_heading: "DÉTAILS DU DEVOIR"
     assignment_data:
       name_html: "<strong>Nom :</strong> %{name}"
       group_html: "<strong>Groupe :</strong> %{group_name}"
       time_remaining_html: "<strong>Temps restant :</strong> %{time_remaining}"
       graded_html: "<strong>Noté :</strong> %{graded}"
       description: "Description :"
-      restricted_elements_html: "<strong>Éléments Circuits Restreints :<strong> %{restricted_circuit_elements}"
+      restricted_elements_html: "<strong>Éléments circuits restreints :<strong> %{restricted_circuit_elements}"
       export_grades: "Exporter les notes"
       submissions: "Soumissions :"
-      restricted_features_html: "<strong>Fonctionnalités Restreintes :</strong> %{restricted_features}"
+      restricted_features_html: "<strong>Fonctionnalités restreintes :</strong> %{restricted_features}"
       no_submissions: "Pas encore de soumissions !"
       grades_and_remarks: "Notes et remarques"
       grade: "Note"

@@ -58,3 +58,6 @@ es:
       expired: "ha expirado, por favor solicita uno nuevo"
       not_found: "no encontrado"
       not_locked: "no se ha bloqueado"
+      not_saved:
+        one: "1 error ha impedido que se guarde este %{resource}:"
+        other: "%{count} errores impidieron que este %{resource} se guarde:"
