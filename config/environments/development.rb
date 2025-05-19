@@ -65,9 +65,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    :address              => 'smtp.yandex.com',
-    :port                 => 465,
-    :domain               => 'yandex.com',
+    :address              => ENV["SMTP_ADDRESS"],
+    :port                 => ENV["SMTP_PORT"],
     :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
     :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
     :ssl                  => true,
@@ -85,8 +84,6 @@ Rails.application.configure do
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || "FkEMkOQHvMybUlCGH-DsOljTJlLzYGb3xEYsFY5Roxk="
 
   Rails.application.configure do
-    # Whitelist gitpod domain in dev envionment
-    config.hosts << /.*\.gitpod\.io\Z/
     config.hosts << /.*\Z/ # Whitelist everything in Dev
   end
 

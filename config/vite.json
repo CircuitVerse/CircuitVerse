@@ -1,7 +1,11 @@
 {
   "all": {
     "sourceCodeDir": "app/javascript",
-    "watchAdditionalPaths": []
+    "watchAdditionalPaths": [
+      "simulator/src/**",
+      "simulator/src/**/*",
+      "simulator/src/**/**/*"
+    ]
   },
   "development": {
     "autoBuild": true,

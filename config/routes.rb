@@ -19,6 +19,9 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users/saml/sign_in', to: 'users/saml_sessions#new'
+    post '/users/saml/auth', to: 'users/saml_sessions#create'
+    get '/users/saml/metadata', to: 'users/saml_sessions#metadata'
   end
 
   # resources :assignment_submissions
@@ -148,7 +151,7 @@ Rails.application.routes.draw do
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
   get "/youtube", to: redirect("https://www.youtube.com/@circuitverse4457")
   get "/slack", to: redirect(
-    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-2axe9h7hy-GwM~nL7pq1Jh1hSZYB~n1A"
+    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-2yo74pd8x-3uhWIZzNpzJwHcbU7oLL3A"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")

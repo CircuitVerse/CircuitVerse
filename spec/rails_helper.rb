@@ -74,6 +74,7 @@ RSpec.configure do |config|
   config.include ActionDispatch::TestProcess
   config.include Warden::Test::Helpers
   config.include ViewComponent::TestHelpers, type: :component
+  config.include Devise::Test::ControllerHelpers, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|

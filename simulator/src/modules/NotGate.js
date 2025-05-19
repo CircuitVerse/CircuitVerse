@@ -57,6 +57,8 @@ export default class NotGate extends CircuitElement {
             ((~this.inp1.value >>> 0) << (32 - this.bitWidth)) >>>
             (32 - this.bitWidth);
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**

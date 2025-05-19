@@ -1,6 +1,6 @@
 <% projects.each do |project| %>
   <% if policy(project).check_direct_view_access? %>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 users-circuits-column circuit-card-js">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-4 users-circuits-column circuit-card-js">
       <div class="card text-center users-card">
         <div class="card-header users-card-header">
           <div class="users-card-name">
@@ -25,7 +25,7 @@
               <span><%= t("fork") %></span>
             <% end %>
           <% end %>
-            <%= link_to t("view"), "#", class: "previewButton btn primary-button", data: { toggle: "modal", target: "#projectModal", currentproject: project } %>
+            <%= link_to t("view"), "#", class: "previewButton btn primary-button", data: { bs_toggle: "modal", bs_target: "#projectModal", currentproject: project } %>
             <a href="<%= user_project_path(project.author_id, project) %>" class="btn primary-button" target="_blank"><%= t("more") %></a>
         </div>
       </div>

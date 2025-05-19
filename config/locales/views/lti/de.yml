@@ -1,0 +1,9 @@
+de:
+  launch_error:
+    title: "CircuitVerse - LTI Fehler"
+    main-heading: "Inhalt nicht verfügbar"
+    main-description: "Die von Ihnen angeforderten Inhalte sind derzeit nicht verfügbar oder Sie sind nicht berechtigt, auf die Inhalte zuzugreifen."
+  open_incv:
+    notice_wait_in_open_incv: "Bitte warten Sie, bis wir diese Aufgabe in CircuitVerse öffnen..."
+    notice_redirection_error: "Wenn das nicht funktioniert, klicken Sie bitte auf den Button unten."
+    open_assignment: "Aufgabe öffnen"

@@ -38,7 +38,7 @@ cd CircuitVerse
      ```
      - [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
      - [ImageMagick](https://imagemagick.org/) - Image manipulation library
-     - [Node.js 16.x](https://nodejs.org/it/download)
+     - [Node.js 22.x](https://nodejs.org/it/download)
      - [Yarn](https://yarnpkg.com/getting-started/install)
      - [CMAKE](https://cmake.org/install/)
      - OpenSSL

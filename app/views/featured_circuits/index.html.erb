@@ -2,14 +2,14 @@
 
 <div class="container">
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
       <h1 class="main-heading"><%= t("featured_circuits.main_heading") %></h1>
       <p class="main-description"><%= t("featured_circuits.main_description") %></p>
     </div>
   </div>
   <div class="row center-row examples-container">
     <% @projects.each do |project| %>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4">
         <div class="card circuit-card">
           <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image" %>
           <div class="card-footer circuit-card-footer">
