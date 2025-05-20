@@ -1,10 +1,20 @@
 <% if current_announcement %>
   <% if current_announcement.start_date <= Date.current && current_announcement.end_date >= Date.current %>
-    <div class="container announcements-content-wrapper">
-      <span><%== current_announcement.body %></span>
-      <% if current_announcement.link? %>
-        <%= link_to t("announcements.learn_more"), current_announcement.link, target: :_blank, class: "btn primary-delete-button", rel: :noopener %>
-      <% end %>
-    </div>
+    <%= link_to current_announcement.link.to_s, 
+        target: :_blank, 
+        class: "announcements-content-wrapper", 
+        rel: :noopener,
+        data: { controller: "announcement" } do %>
+      <div class="announcement-content">
+        <span class="announcement-text"><%== current_announcement.body %></span>
+      </div>
+      <div class="btn-wrapper">
+        <div class="btn primary-button">
+          <%= t("announcements.learn_more") %>
+          <span class="arrow-icon">→</span>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 <% end %>
+
