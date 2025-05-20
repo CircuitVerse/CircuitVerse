@@ -1,8 +1,8 @@
 <% if current_announcement %>
   <% if current_announcement.start_date <= Date.current && current_announcement.end_date >= Date.current %>
-    <%= link_to current_announcement.link.to_s, 
-        target: :_blank, 
-        class: "announcements-content-wrapper", 
+    <%= link_to current_announcement.link.to_s,
+        target: :_blank,
+        class: "announcements-content-wrapper",
         rel: :noopener,
         data: { controller: "announcement" } do %>
       <div class="announcement-content">
@@ -17,4 +17,3 @@
     <% end %>
   <% end %>
 <% end %>
-
