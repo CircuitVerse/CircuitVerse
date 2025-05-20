@@ -3,14 +3,12 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
   protect_from_forgery with: :exception
-
   before_action :store_user_location!, if: :storable_location?
-  before_action :set_notifications, if: :current_user
+  before_action :set_notifications,    if: :current_user
   around_action :switch_locale
-
-  rescue_from Pundit::NotAuthorizedError, with: :auth_error
-  rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
-  rescue_from ActiveRecord::RecordNotFound, with: :not_found
+  rescue_from Pundit::NotAuthorizedError,                with: :auth_error
+  rescue_from ApplicationPolicy::CustomAuthException,    with: :custom_auth_error
+  rescue_from ActiveRecord::RecordNotFound,              with: :not_found
 
   def auth_error
     render plain: "You are not authorized to do the requested operation"
@@ -24,7 +22,8 @@ class ApplicationController < ActionController::Base
     render "errors/not_found", status: :not_found
   end
 
-  def switch_locale(&block)
+  # Accept any extra args from around_action without affecting the locale switch
+  def switch_locale(*_args, &block)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     locale = current_user&.locale ||
              extract_locale_from_accept_language_header ||
@@ -56,8 +55,10 @@ class ApplicationController < ActionController::Base
     end
 
     def set_notifications
-      @unread = NoticedNotification.where(recipient: current_user).unread
-      @notification = NoticedNotification.where(recipient: current_user).newest_first.limit(5)
+      @unread       = NoticedNotification.where(recipient: current_user).unread
+      @notification = NoticedNotification.where(recipient: current_user)
+                                         .newest_first
+                                         .limit(5)
     end
 
     def storable_location?
