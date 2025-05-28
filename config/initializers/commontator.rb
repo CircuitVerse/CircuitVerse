@@ -205,6 +205,18 @@ Commontator.configure do |config|
   # Default: :l
   config.new_comment_style = :l
 
+  # comment_reply_style
+  # Type: Symbol
+  # How to handle replies to comments
+  # Valid options:
+  #   :n (no replies, though users can still manually add <blockquote>s)
+  #   :q (copies the comment being replied to into a <blockquote>)
+  #   :i (indents each reply under the comment being replied to)
+  #   :b (both <blockquote> the original comment and indent replies)
+  # It might be a good idea to add some CSS to hide <blockquote>s when converting from :q to :i
+  # Default: :n
+  config.comment_reply_style = :i
+
   # comments_per_page
   # Type: Array
   # The array represents how many comments to load at each nesting level, with the
