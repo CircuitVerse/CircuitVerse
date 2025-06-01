@@ -176,6 +176,25 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_114423) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "contest_winners", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "submission_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_contest_winners_on_contest_id"
+    t.index ["project_id"], name: "index_contest_winners_on_project_id"
+    t.index ["submission_id"], name: "index_contest_winners_on_submission_id"
+  end
+
+  create_table "contests", force: :cascade do |t|
+    t.datetime "deadline"
+    t.integer "status"
+    t.integer "integer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "custom_mails", force: :cascade do |t|
     t.text "subject"
     t.text "content"
@@ -410,6 +429,30 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_114423) do
     t.index ["project_id"], name: "index_stars_on_project_id"
     t.index ["user_id", "project_id"], name: "index_stars_on_user_id_and_project_id", unique: true
     t.index ["user_id"], name: "index_stars_on_user_id"
+  end
+
+  create_table "submission_votes", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "submission_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_submission_votes_on_contest_id"
+    t.index ["submission_id"], name: "index_submission_votes_on_submission_id"
+    t.index ["user_id"], name: "index_submission_votes_on_user_id"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.bigint "submission_votes_count", default: 0
+    t.boolean "winner", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_submissions_on_contest_id"
+    t.index ["project_id"], name: "index_submissions_on_project_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
   end
 
   create_table "submission_votes", force: :cascade do |t|
