@@ -25,20 +25,24 @@
         ['removeformat'],
         ['fullscreen']
       ],
-      plugins: {
-        upload: {
-          serverPath: 'https://api.imgur.com/3/image',
-          fileFieldName: 'image',
-          headers: {
-            'Authorization': 'Client-ID 9a33b3b370f1054'
-          },
-          urlPropertyName: 'data.link',
-        },
-        resizimg: {
-          minSize: 64,
-          step: 16,
-        }
-      }
+plugins: {
+   upload: {
+     serverPath: 'https://api.imgur.com/3/image',
+     fileFieldName: 'image',
+     headers: {
+       'Authorization': 'Client-ID 9a33b3b370f1054'
+     },
+     urlPropertyName: 'data.link',
+    error: function(err) {
+      console.error('Upload failed:', err);
+      alert('Image upload failed. Please try again.');
+    }
+   },
+   resizimg: {
+     minSize: 64,
+     step: 16,
+   }
+ }
     });
   });
   $.fn.cleanHtml = function () {
