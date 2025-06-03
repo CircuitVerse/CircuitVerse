@@ -28,6 +28,8 @@ Flipper.configure do |config|
   end
 end
 
+Flipper.enable(:contests) if Rails.env.test?
+
 if ENV["DISABLE_FLIPPER"].blank? && !Rails.env.test?
   enabled_features = Flipper.features.map(&:name)
   default_flipper_features.each do |key, enabled|
