@@ -20,7 +20,6 @@ bn:
         brought_by: "আপনার কাছে এনেছে:"
         hosting_sponsor: "হোস্টিং স্পন্সর:"
         marketed_by: "মার্কেটিং করেছে:"
-        developed_by: "ডেভেলপ করেছে:"
       copyright_text: "কপিরাইট © %{time_current_year} CircuitVerse, সর্বস্বত্ব সংরক্ষিত।"
     header:
       dashboard: "ড্যাশবোর্ড"

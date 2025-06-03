@@ -31,14 +31,14 @@
 //project details
 .projects-views-count-container {
   color: $black;
-  display: block;
+  display: flex;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
   margin-right: 0;
   margin-top: 5px;
   padding-right: 8px;
-  text-align: right;
+  justify-content: flex-end;
 }
 
 .projects-details-description {

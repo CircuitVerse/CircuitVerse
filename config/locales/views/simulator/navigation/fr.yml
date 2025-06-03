@@ -1,0 +1,8 @@
+fr:
+  simulator:
+    nav_item:
+      project: "Projet"
+      circuit: "Circuit"
+      tools: "Outils"
+      help: "Aide"
+    insert_Subcircuitcontent: " On dirait qu'il n'y a pas d'autres circuits qui n'ont pas ce circuit en tant que dépendance. Créez-en un nouveau !"
