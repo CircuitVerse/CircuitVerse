@@ -159,17 +159,17 @@
     padding: 8px 12px;
     font-size: 14px;
     min-width: 0;
-    
+
     &:focus {
       outline: 1px solid $primary-green;
       border-radius: 8px;
     }
-    
+
     &:first-child {
       border-right: 1px solid $shadow-grey;
       flex: 1;
     }
-    
+
     span {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -239,7 +239,7 @@
   position: relative;
 
   button {
-    background: none; 
+    background: none;
     border: 1px solid $shadow-grey;
     border-radius: 8px;
     cursor: pointer;
@@ -297,12 +297,12 @@
     padding: 8px 10px;
     font-size: 14px;
     transition: border-color 0.2s ease;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-green;
     }
-    
+
     &::placeholder {
       color: lighten($navbar-dark-grey, 20%);
     }
@@ -411,12 +411,12 @@
     appearance: none;
     width: 100%;
     cursor: pointer;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-green;
     }
-    
+
     &:hover {
       border-color: darken($shadow-grey, 10%);
     }
@@ -749,4 +749,9 @@
 // Utility classes
 .hidden {
   display: none !important;
+}
+
+html[lang="ar"], body[lang="ar"] {
+  direction: ltr !important;
+  text-align: left !important;
 }
