@@ -1,0 +1,13 @@
+<!-- app/components/donation_card_component.html.erb -->
+<div class="row center-row">
+  <div class="col col-sm col-md col-lg">
+    <div class="contribute-pay-card-container">
+      <p><%= @description %></p>
+      <a href="<%= @link %>" target="_blank">
+        <div class="contribute-pay-card">
+          <%= image_tag @image_path, alt: @alt_text %>
+        </div>
+      </a>
+    </div>
+  </div>
+</div>
