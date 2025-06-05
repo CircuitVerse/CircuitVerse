@@ -9,7 +9,8 @@
   <% end %>
   <div class="pt-4 d-flex justify-content-between align-items-center">
     <div>
-      <h3 class="contest-header-title"><%= t("contest.contest_container.contest_id") %> #<%= @contest.id %></h3>
+      <!-- Changed from translation key to literal "Contest" -->
+      <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
       <p class="mb-0 contest-header-description"><%= t("contest.show.subtitle", user_count: @user_count) %></p>
       <% if @contest.live? %>
         <p class="mb-0 contest-header-description"><%= t("contest.show.remaining_votes") %> <%= 3 - current_user.user_contest_votes(@contest.id) %></p>
@@ -36,7 +37,7 @@
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
       <% if !@winner.nil? %>
-        <%= render partial: "submission", locals: {project: @winner.project, votes: @winner.submission_votes.count, submission: @winner, contest: @contest} %>
+        <%= render partial: "submission", locals: { project: @winner.project, votes: @winner.submission_votes.count, submission: @winner, contest: @contest } %>
       <% end %>
     </div>
   <% end %>
@@ -48,7 +49,7 @@
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
       <% @user_submission.each do |submission| %>
-          <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
+        <%= render partial: "submission", locals: { project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest } %>
       <% end %>
     </div>
   <% end %>
@@ -59,7 +60,7 @@
   </div>
   <div id="my-circuits-div" class="row center-row circuit-page">
     <% @submissions.each do |submission| %>
-        <%= render partial: "submission", locals: {project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest} %>
+      <%= render partial: "submission", locals: { project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest } %>
     <% end %>
   </div>
   <div class="container pagination-cont">
