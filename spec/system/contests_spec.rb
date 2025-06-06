@@ -5,7 +5,7 @@ require "rails_helper"
 describe "Contests", type: :system do
   before do
     @contest = FactoryBot.create(:contest, status: :live)
-    @user = FactoryBot.create(:user)
+    @user    = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)
     sign_in @user
   end
@@ -13,9 +13,7 @@ describe "Contests", type: :system do
   let(:create_params) do
     {
       contest_id: @contest.id,
-      submission: {
-        project_id: @project.id
-      }
+      submission: { project_id: @project.id }
     }
   end
 
@@ -38,7 +36,7 @@ describe "Contests", type: :system do
 
     it "render the project submission page and submit the project" do
       expect(page).to have_text("Project Submission")
-      expect(page).to have_text("#{@project.name}")
+      expect(page).to have_text(@project.name)  # removed interpolation
 
       page.find("#submission_project_id_#{@project.id}").click
       page.find("#submission-submit-button").click
