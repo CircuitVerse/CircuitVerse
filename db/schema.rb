@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_01_05_114423) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_06_061939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_114423) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", null: false
+    t.datetime "deadline", precision: nil, null: false
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -385,7 +385,6 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_114423) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
-    t.string "version", default: "1.0", null: false
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
@@ -526,6 +525,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_114423) do
   add_foreign_key "collaborations", "users"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
   add_foreign_key "contest_winners", "contests"
+  add_foreign_key "contest_winners", "projects"
   add_foreign_key "contest_winners", "submissions"
   add_foreign_key "custom_mails", "users"
   add_foreign_key "featured_circuits", "projects"
@@ -550,7 +550,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_01_05_114423) do
   add_foreign_key "stars", "users"
   add_foreign_key "submission_votes", "contests"
   add_foreign_key "submission_votes", "submissions"
+  add_foreign_key "submission_votes", "users"
   add_foreign_key "submissions", "contests"
+  add_foreign_key "submissions", "projects"
+  add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
   # no candidate create_trigger statement could be found, creating an adapter-specific one
