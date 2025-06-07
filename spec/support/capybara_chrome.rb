@@ -16,15 +16,19 @@ Capybara.register_driver :headless_chrome do |app|
   profile_dir = File.join(Dir.tmpdir, "chrome-profile-#{Process.pid}")
   chrome_opts.add_argument("--user-data-dir=#{profile_dir}")
 
-  Capybara::Selenium::Driver.new(app,
-                                 browser: :chrome,
-                                 capabilities: chrome_opts)
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :chrome,
+    capabilities: chrome_opts
+  )
 end
 
-Capybara.javascript_driver = :headless_chrome
-
 RSpec.configure do |config|
-  config.before(type: :system) do
+  config.before(type: :system, js: true) do
     driven_by :headless_chrome
+  end
+
+  config.before(type: :system, js: false) do
+    driven_by :rack_test
   end
 end
