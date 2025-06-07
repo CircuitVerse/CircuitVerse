@@ -4,7 +4,7 @@ require "capybara/rspec"
 require "selenium/webdriver"
 require "tmpdir"
 
-Capybara.register_driver :headless_chrome do |app|
+Capybara.register_driver :selenium_chrome_headless do |app|
   chrome_opts = Selenium::WebDriver::Chrome::Options.new
 
   chrome_opts.add_argument("--headless")
@@ -13,19 +13,21 @@ Capybara.register_driver :headless_chrome do |app|
   chrome_opts.add_argument("--disable-dev-shm-usage")
   chrome_opts.add_argument("--window-size=1400,1400")
 
-  profile_dir = File.join(Dir.tmpdir, "chrome-profile-#{Process.pid}")
+  profile_dir = Dir.mktmpdir("chrome-profile-")
   chrome_opts.add_argument("--user-data-dir=#{profile_dir}")
 
   Capybara::Selenium::Driver.new(
     app,
     browser: :chrome,
-    capabilities: chrome_opts
+    options: chrome_opts
   )
 end
 
+Capybara.register_driver :headless_chrome, &Capybara.drivers[:selenium_chrome_headless]
+
 RSpec.configure do |config|
   config.before(type: :system, js: true) do
-    driven_by :headless_chrome
+    driven_by :selenium_chrome_headless
   end
 
   config.before(type: :system, js: false) do
