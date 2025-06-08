@@ -1,11 +1,11 @@
 fr:
-  edit: "Editer"
+  edit: "Modifier"
   show: "Afficher"
   delete: "Supprimez"
   view: "Voir"
   launch_simulator: "Lancer le simulateur"
   email_us_heading: "Envoyez-nous un e-mail à"
-  join_at_slack_heading: "Rejoignez nous et discutez avec nous à"
+  join_at_slack_heading: "Rejoignez-nous et discutez avec nous à"
   join_at_slack_description: "Canal Slack"
   welcome_back_text: "Bienvenue dans l'univers de Digital Circuit !"
   save: "Enregistrer"

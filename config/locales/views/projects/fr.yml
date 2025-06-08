@@ -1,7 +1,7 @@
 fr:
   projects:
     add_collaborator_description: "Entrez les identifiants de courriel séparés par des virgules, des espaces ou des entrées. Les utilisateurs doivent déjà être enregistrés sur la plate-forme. Notez que la collaboration n'est pas en temps réel à partir de maintenant. Chaque sauvegarde remplace les données précédentes."
-    remove_collaborator_message: "Êtes-vous sûr de vouloir supprimer ce collaborateur?"
+    remove_collaborator_message: "Êtes-vous sûr de vouloir supprimer ce collaborateur ?"
     delete_project_message: "Êtes-vous sûr de vouloir supprimer ce projet ?"
     form:
       feature_circuit_checkpoint: "En vedette (Administrateur uniquement)"
@@ -11,16 +11,17 @@ fr:
       private: "Privé"
       limited_access: "Accès limité"
     edit:
+      title: "%{name} - Modifier projet"
       main_heading: "Modifier le projet"
     get_projects:
       searched_projects_heading: "Projets recherchés"
       searched_tags_heading: "Tags :"
     stars_count: "Étoiles"
     views_count: "Vues"
-    project_user: "Utilisateur:"
+    project_user: "Utilisateur :"
     show:
-      project_author: "Auteur:"
-      project_forked_from: "A partir de :"
+      project_author: "Auteur :"
+      project_forked_from: "Fourché à partir de :"
       project_access_type: "Type d'accès au projet :"
       project_description: "Description :"
       project_created_at: "Créé :"
@@ -35,9 +36,9 @@ fr:
     modal:
       embed_circuit_heading: "Intégrer votre Circuit"
       height: "Hauteur"
-      width: "Width"
+      width: "Largeur"
       url: "URL"
-      border: "Border"
+      border: "Bordure"
       border_style: "Style de bordure"
       publish_button: "Publier"
       advance:
