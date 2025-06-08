@@ -82,11 +82,10 @@
     </div>
   </div>
   <%= render(
-  DonationCardComponent.new(
+  ContributePageComponents::DonationCardComponent.new(
     image_path: "logos/opencollective-logo.png",
     link: "https://opencollective.com/CircuitVerse/contribute",
     alt_text: "Open Collective Logo",
-    description: t("circuitverse.contribute.donate_through open collective ")
+    description: t("circuitverse.contribute.donate_through_open_collective")
   )
 ) %>
-
