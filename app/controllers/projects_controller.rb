@@ -154,8 +154,14 @@ class ProjectsController < ApplicationController
     def set_name_project_datum(project_params)
       return unless @project.project_datum
 
-      datum_data = JSON.parse(@project.project_datum.data || '{}')
+      # Use `presence` to treat blank strings like `nil`, rescue parse errors,
+      # and ensure we end up with a Hash.
+      begin
+        datum_data = JSON.parse(@project.project_datum.data.presence || '{}')
+      rescue JSON::ParserError
+        datum_data = {}
+      end
+      datum_data = {} unless datum_data.is_a?(Hash)
       datum_data["name"] = project_params["name"]
       @project.project_datum.data = JSON.generate(datum_data)
-    end
 end
