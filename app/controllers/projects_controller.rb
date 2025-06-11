@@ -151,7 +151,7 @@ class ProjectsController < ApplicationController
       @project.description = sanitize_description(@project.description)
     end
 
-    def set_name_project_datum(project_params)
+     def set_name_project_datum(project_params)
     return unless @project.project_datum
 
     data = @project.project_datum.data
