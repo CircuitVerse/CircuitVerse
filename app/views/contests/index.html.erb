@@ -11,6 +11,14 @@
   <div class="column contests-header">
     <h3 class="contests-header-title"><%= t("contest.heading") %></h3>
     <p class="contests-header-description"><%= t("contest.index.subtitle") %></p>
+
+    <% if current_user&.admin? %>
+      <div class="text-end mt-2">
+        <%= link_to t("contest.index.host_button"),
+                    contests_admin_path,
+                    class: "contest-submission-button" %>
+      </div>
+    <% end %>
   </div>
 
   <div class="contest-page-line"></div>
