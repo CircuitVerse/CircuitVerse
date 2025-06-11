@@ -3,7 +3,6 @@
     <a class="navbar-brand" href="/">
       <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
     </a>
-    
     <div class="d-flex d-lg-none align-items-center">
       <button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
         aria-controls="collapsed-navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,7 +36,6 @@
             <i class="fa fa-search search-icon search-icon-size" tabindex="0" aria-label="search"></i>
           </li>
         </ul>
-        
         <div class="d-flex align-items-lg-center auth-buttons-container flex-column flex-lg-row">
           <%= render(LayoutComponents::NotificationComponent.new(current_user: current_user)) %>
 
@@ -71,7 +69,6 @@
 
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
-    // Cache DOM elements
     const searchIcons = document.getElementsByClassName("fa-search");
     const searchBar = document.getElementsByClassName("navbar-search-active")[0];
     const dropdownButton = document.getElementById('dropdownButton');
@@ -79,7 +76,6 @@
     const collapseElement = document.getElementById("collapsed-navbar");
     const gettingStartedLink = document.querySelector("#getting-started-dropdown");
 
-    // Getting started dropdown
     if (gettingStartedLink) {
       const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
       gettingStartedLink.addEventListener("click", function (e) {
@@ -98,11 +94,9 @@
       });
     }
 
-    // Search functionality
     function activeSearchBar(){
       const searchIconsArray = Array.from(searchIcons);
       const isActive = searchIconsArray.some(icon => icon.classList.contains("active"));
-      
       if (isActive) {
         searchIconsArray.forEach(icon => icon.classList.remove("active"));
         searchBar.style.display = "none";
@@ -113,7 +107,6 @@
       collapseElement.classList.remove("show");
     }
 
-    // Mobile dropdown
     if (dropdownButton && collapseElement && dropdownIcon) {
       const bsCollapse = new bootstrap.Collapse(collapseElement, { toggle: false });
 
@@ -139,12 +132,10 @@
       });
     }
 
-    // Attach search event listeners
     Array.from(searchIcons).forEach(icon => {
       icon.addEventListener("click", activeSearchBar);
     });
     
-    // Auto-show search bar if on search page
     if (window.location.href.includes('search') && searchBar) {
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
