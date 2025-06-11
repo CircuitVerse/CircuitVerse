@@ -5,9 +5,8 @@
     </a>
     
     <div class="d-flex d-lg-none align-items-center">
-<button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
-  data-bs-toggle="collapse" data-bs-target="#collapsed-navbar"
-  aria-controls="collapsed-navbar" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
+        aria-controls="collapsed-navbar" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
       </button>
     </div>
@@ -56,7 +55,7 @@
             </div>
           <% else %>
             <div class="navbar-auth-buttons d-flex flex-lg-row flex-column gap-2">
-              <a class="btn btn-login px-4 d-flex align-items-center justify-content-center" href="/users/sign_in"><%= t("login") %></a>
+              <a class="btn btn-login px-3 d-flex align-items-center justify-content-center" href="/users/sign_in"><%= t("login") %></a>
               <a class="btn btn-signup px-3 d-flex align-items-center justify-content-center" href="/users/sign_up"><%= t("sign_up") %></a>
             </div>
           <% end %>
@@ -66,73 +65,89 @@
   </div>
 </nav>
 
-<!-- Search Bar Container -->
 <div class="container-fluid navbar-search-active">
   <%= render "circuitverse_assets/search_bar" %>
 </div>
 
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function () {
-    var gettingStartedLink = document.querySelector("#getting-started-dropdown");
-    var gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
-    gettingStartedLink.addEventListener("click", function (e) {
-      if(gettingStartedLink.classList.contains("rotate180")){
-        gettingStartedLink.classList.remove("rotate180");
-        gettingStartedDropdown.hide();
-      } else {
-        gettingStartedLink.classList.add("rotate180");
-        gettingStartedDropdown.show();
-      }
-      e.stopPropagation();
-    });
-    document.addEventListener("click", function () {
-     gettingStartedLink.classList.remove("rotate180");
-     gettingStartedDropdown.hide();
-    });
-  });
+    // Cache DOM elements
+    const searchIcons = document.getElementsByClassName("fa-search");
+    const searchBar = document.getElementsByClassName("navbar-search-active")[0];
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownIcon = document.getElementById('dropdownIcon');
+    const collapseElement = document.getElementById("collapsed-navbar");
+    const gettingStartedLink = document.querySelector("#getting-started-dropdown");
 
-  function activeSearchBar(){
-    let searchIcons = document.getElementsByClassName("fa-search");
-    let searchBar = document.getElementsByClassName("navbar-search-active")[0];
-    let burgerButton = document.getElementById("collapsed-navbar");
-    
-    let isActive = Array.from(searchIcons).some(icon => icon.classList.contains("active"));
-    
-    if (isActive) {
-      Array.from(searchIcons).forEach(icon => icon.classList.remove("active"));
-      searchBar.style.display = "none";
-    } else {
-      Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
-      searchBar.style.display = "block";
+    // Getting started dropdown
+    if (gettingStartedLink) {
+      const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
+      gettingStartedLink.addEventListener("click", function (e) {
+        if(gettingStartedLink.classList.contains("rotate180")){
+          gettingStartedLink.classList.remove("rotate180");
+          gettingStartedDropdown.hide();
+        } else {
+          gettingStartedLink.classList.add("rotate180");
+          gettingStartedDropdown.show();
+        }
+        e.stopPropagation();
+      });
+      document.addEventListener("click", function () {
+       gettingStartedLink.classList.remove("rotate180");
+       gettingStartedDropdown.hide();
+      });
     }
-    burgerButton.classList.remove("show");
-  }
 
-  var dropdownButton = document.getElementById('dropdownButton');
-  var dropdownIcon = document.getElementById('dropdownIcon');
-  var burgerButton = document.getElementById("collapsed-navbar");
+    // Search functionality
+    function activeSearchBar(){
+      const searchIconsArray = Array.from(searchIcons);
+      const isActive = searchIconsArray.some(icon => icon.classList.contains("active"));
+      
+      if (isActive) {
+        searchIconsArray.forEach(icon => icon.classList.remove("active"));
+        searchBar.style.display = "none";
+      } else {
+        searchIconsArray.forEach(icon => icon.classList.add("active"));
+        searchBar.style.display = "block";
+      }
+      collapseElement.classList.remove("show");
+    }
 
-  if (dropdownButton) {
-dropdownButton.addEventListener('click', function() {
-   burgerButton.classList.toggle('show');
-  dropdownButton.setAttribute(
-    'aria-expanded',
-    burgerButton.classList.contains('show')
-  );
-   dropdownIcon.classList.toggle('fa-bars');
-   dropdownIcon.classList.toggle('fa-times');
-   dropdownIcon.style.width='17.5px';
- });
-  }
+    // Mobile dropdown
+    if (dropdownButton && collapseElement && dropdownIcon) {
+      const bsCollapse = new bootstrap.Collapse(collapseElement, { toggle: false });
 
-  let searchIcons = document.getElementsByClassName("fa-search");
-  Array.from(searchIcons).forEach(icon => {
-    icon.addEventListener("click", activeSearchBar);
-  });
-  
-  let searchBar = document.getElementsByClassName("navbar-search-active")[0];
-  if (window.location.href.includes('search')) {
+      collapseElement.addEventListener('show.bs.collapse', function() {
+        dropdownIcon.classList.remove('fa-bars');
+        dropdownIcon.classList.add('fa-times');
+        dropdownButton.setAttribute('aria-expanded', 'true');
+      });
+
+      collapseElement.addEventListener('hide.bs.collapse', function() {
+        dropdownIcon.classList.remove('fa-times');
+        dropdownIcon.classList.add('fa-bars');
+        dropdownButton.setAttribute('aria-expanded', 'false');
+      });
+
+      dropdownButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (collapseElement.classList.contains('show')) {
+          bsCollapse.hide();
+        } else {
+          bsCollapse.show();
+        }
+      });
+    }
+
+    // Attach search event listeners
+    Array.from(searchIcons).forEach(icon => {
+      icon.addEventListener("click", activeSearchBar);
+    });
+    
+    // Auto-show search bar if on search page
+    if (window.location.href.includes('search') && searchBar) {
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
-  }
+    }
+  });
 </script>
