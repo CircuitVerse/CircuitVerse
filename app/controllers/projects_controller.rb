@@ -151,12 +151,14 @@ class ProjectsController < ApplicationController
       @project.description = sanitize_description(@project.description)
     end
 
-   def set_name_project_datum(project_params)
-  return unless @project.project_datum
+    def set_name_project_datum(project_params)
+    return unless @project.project_datum
 
-  data = @project.project_datum.data
-  datum_data = data.present? ? JSON.parse(data) : {}
-  datum_data["name"] = project_params["name"]
-  @project.project_datum.data = JSON.generate(datum_data)
-end
+    data = @project.project_datum.data
+    datum_data = data.present? ? JSON.parse(data) : {}
+    datum_data["name"] = project_params["name"]
+    @project.project_datum.data = JSON.generate(datum_data)
+  end
+end  
+
 
