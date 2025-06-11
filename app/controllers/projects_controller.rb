@@ -159,6 +159,4 @@ class ProjectsController < ApplicationController
       datum_data["name"] = project_params["name"]
       @project.project_datum.data = JSON.generate(datum_data)
     end
-  end  
-
-
+  end
