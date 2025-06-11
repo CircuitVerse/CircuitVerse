@@ -5,8 +5,9 @@
     </a>
     
     <div class="d-flex d-lg-none align-items-center">
-      <button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
-        aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+<button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
+  data-bs-toggle="collapse" data-bs-target="#collapsed-navbar"
+  aria-controls="collapsed-navbar" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
       </button>
     </div>
@@ -20,13 +21,13 @@
           <li class="nav-item">
             <a class="nav-link navbar-item navbar-text" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
           </li>
-          <div class="nav-item dropdown">
+          <li class="nav-item dropdown">
             <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started"><%= t("layout.getting_started_dropdown") %></a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-1">
              <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_learn_more") %></a>
              <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_docs") %></a>
             </div>
-          </div>
+          </li>
           <li class="nav-item">
             <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_blog") %></a>
           </li>
@@ -34,7 +35,7 @@
             <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+            <i class="fa fa-search search-icon search-icon-size" tabindex="0" aria-label="search"></i>
           </li>
         </ul>
         
@@ -55,8 +56,8 @@
             </div>
           <% else %>
             <div class="navbar-auth-buttons d-flex flex-lg-row flex-column gap-2">
-              <a class="btn btn-login px-3" href="/users/sign_in"><%= t("login") %></a>
-              <a class="btn btn-signup px-3" href="/users/sign_up"><%= t("sign_up") %></a>
+              <a class="btn btn-login px-4 d-flex align-items-center justify-content-center" href="/users/sign_in"><%= t("login") %></a>
+              <a class="btn btn-signup px-3 d-flex align-items-center justify-content-center" href="/users/sign_up"><%= t("sign_up") %></a>
             </div>
           <% end %>
         </div>
@@ -112,12 +113,16 @@
   var burgerButton = document.getElementById("collapsed-navbar");
 
   if (dropdownButton) {
-    dropdownButton.addEventListener('click', function() {
-      burgerButton.classList.toggle('show');
-      dropdownIcon.classList.toggle('fa-bars');
-      dropdownIcon.classList.toggle('fa-times');
-      dropdownIcon.style.width='17.5px';
-    });
+dropdownButton.addEventListener('click', function() {
+   burgerButton.classList.toggle('show');
+  dropdownButton.setAttribute(
+    'aria-expanded',
+    burgerButton.classList.contains('show')
+  );
+   dropdownIcon.classList.toggle('fa-bars');
+   dropdownIcon.classList.toggle('fa-times');
+   dropdownIcon.style.width='17.5px';
+ });
   }
 
   let searchIcons = document.getElementsByClassName("fa-search");

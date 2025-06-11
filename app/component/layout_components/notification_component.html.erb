@@ -1,6 +1,6 @@
 <% if user_signed_in? %>
   <div class="nav-item dropdown">
-    <button class="nav-link btn btn-link p-0 navbar-3" id="navbar-dropdown-3" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="notification-dropdown-menu" tabindex="0" aria-label="Notifications">
+    <button class="nav-link btn btn-link p-0 pb-2 navbar-3" id="navbar-dropdown-3" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="notification-dropdown-menu" tabindex="0" aria-label="Notifications">
       <i class="fas fa-bell notification-icon" id="notification-button"></i>
       <% if unread_notifications.count != 0 %>
         <span class="notification-count"><%= unread_notifications.count %></span>

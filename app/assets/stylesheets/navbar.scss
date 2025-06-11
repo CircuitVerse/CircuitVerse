@@ -272,6 +272,7 @@
     color: white;
     font-size: 16px;
     transition: all 0.3s ease;
+ 
     
     &:hover {
       background-color: #369870;
@@ -314,4 +315,8 @@
 
 [dir="rtl"] .main-nav-items {
   padding: 0 !important;
+}
+
+.search-icon-size {
+  font-size: 1.1rem;
 }
