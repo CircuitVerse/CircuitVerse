@@ -4,6 +4,7 @@
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :check_contests_feature_flag, except: %i[index show]
+  before_action :set_user_count, only: :show # ← NEW
 
   # GET /contests
   def index
@@ -27,7 +28,6 @@ class ContestsController < ApplicationController
                                .where.not(user_id: current_user&.id)
                                .paginate(page: params[:page])
                                .limit(6)
-    @user_count      = User.count
 
     return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
     return if ContestWinner.find_by(contest_id: @contest.id).nil?
@@ -186,6 +186,11 @@ class ContestsController < ApplicationController
 
     def concurrent_contest_exists?
       Contest.exists?(status: :live)
+    end
+
+    # Cache the total number of users for 10 minutes to avoid scanning the table
+    def set_user_count
+      @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
     end
 
     # strong params (for future use)
