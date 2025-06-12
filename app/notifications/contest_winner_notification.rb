@@ -5,7 +5,8 @@ class ContestWinnerNotification < Noticed::Base
 
   def message
     project = params[:project]
-    "Congratulations, your circuit #{project.name} got featured in the CircuitVerse."
+    return "Congratulations, your circuit got featured in CircuitVerse." unless project
+    "Congratulations, your circuit #{project.name} got featured in CircuitVerse."
   end
 
   def icon
