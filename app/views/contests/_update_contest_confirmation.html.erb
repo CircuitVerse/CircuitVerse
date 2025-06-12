@@ -9,8 +9,8 @@
         </button>
       </div>
       <div class="modal-body">
+      <div class="modal-body">
         <p><%= t("contest.update_contest_modal.description") %></p>
-        </p>
       </div>
        <%= form_with(url: update_contest_path(":contest_id"), method: :patch, local: true, id: 'update-contest-form') do |form| %>
         <div class="modal-body">
