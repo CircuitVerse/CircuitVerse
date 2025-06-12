@@ -67,7 +67,7 @@ class ContestsController < ApplicationController
     authorize Contest, :admin? unless Rails.env.test?
 
     @contest = Contest.find(params[:contest_id])
-    ShortlistContestWinner.new(@contest.id)
+    ShortlistContestWinner.new(@contest.id).call
 
     if @contest.update(
       deadline: Time.zone.now,
