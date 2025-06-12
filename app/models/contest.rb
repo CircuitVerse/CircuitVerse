@@ -10,7 +10,7 @@ class Contest < ApplicationRecord
   enum status: { live: 0, completed: 1 }
 
   def set_deadline_job
-    return unless status != "Completed"
+    return if completed?
 
     ContestDeadlineJob.set(wait: ((deadline - Time.zone.now) / 60).minute).perform_later(id)
   end
