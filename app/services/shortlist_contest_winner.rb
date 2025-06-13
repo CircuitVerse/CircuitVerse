@@ -4,7 +4,7 @@ class ShortlistContestWinner
   def initialize(contest_id)
     @contest = Contest.find(contest_id)
   end
-  
+
   def call
     @most_voted_submission = Submission
                              .where(contest_id: @contest.id)
