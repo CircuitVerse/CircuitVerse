@@ -48,7 +48,7 @@ describe ContestsController, type: :request do
 
   describe "#create" do
     before do
-      close_contest_path(@contest.id)
+      put close_contest_path(@contest.id)
       get contests_admin_path
     end
 
