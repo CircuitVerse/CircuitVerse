@@ -38,10 +38,13 @@ describe ContestsController, type: :request do
     it "close the live contest" do
       get contests_admin_path
       post new_contest_path
-      put close_contest_path(Contest.last.id)
+      expect(response.status).to eq(302)
+
+      new_contest = Contest.find_by(status: "live")
+      put close_contest_path(new_contest.id)
 
       expect(response.status).to eq(302)
-      expect(Contest.last.status).to eq("completed")
+      expect(new_contest.reload.status).to eq("completed")
       expect(Contest.where(status: "live").count).to eq(0)
     end
   end
