@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_06_061939) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_13_093231) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -419,6 +419,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_06_061939) do
     t.datetime "updated_at", null: false
     t.index ["contest_id"], name: "index_submission_votes_on_contest_id"
     t.index ["submission_id"], name: "index_submission_votes_on_submission_id"
+    t.index ["user_id", "submission_id", "contest_id"], name: "index_unique_submission_votes", unique: true
     t.index ["user_id"], name: "index_submission_votes_on_user_id"
   end
 
