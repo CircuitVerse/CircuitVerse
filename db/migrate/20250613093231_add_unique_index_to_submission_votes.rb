@@ -10,6 +10,9 @@ class AddUniqueIndexToSubmissionVotes < ActiveRecord::Migration[7.0]
   end
 
   def down
-    remove_index :submission_votes, name: "index_unique_submission_votes"
+    remove_index :submission_votes,
+                 name: "index_unique_submission_votes",
+                 algorithm: :concurrently,
+                 if_exists: true
   end
 end
