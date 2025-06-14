@@ -131,7 +131,7 @@ class ContestsController < ApplicationController
 
     # 2️⃣ Prevent duplicate submissions of the same project to the contest
     if Submission.exists?(project_id: project_id, contest_id: params[:contest_id])
-      redirect_to new_submission_path,
+      redirect_to new_submission_path(params[:contest_id]),
                   notice: "This project is already submitted in Contest ##{params[:contest_id]}" and return
     end
 
