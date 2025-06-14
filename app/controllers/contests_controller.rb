@@ -153,7 +153,15 @@ class ContestsController < ApplicationController
 
   # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
-    Submission.find(params[:submission_id]).destroy!
+    submission = Submission.find(params[:submission_id])
+
+    # Only the owner or an admin can withdraw a submission
+    unless submission.user_id == current_user.id || current_user&.admin?
+      redirect_to contest_page_path(params[:contest_id]),
+                  alert: "You are not allowed to withdraw this submission." and return
+    end
+
+    submission.destroy!
     redirect_to contest_page_path(params[:contest_id]),
                 notice: "Submission was successfully removed."
   end
