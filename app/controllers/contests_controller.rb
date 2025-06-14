@@ -4,7 +4,7 @@
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
   before_action :check_contests_feature_flag, except: %i[index show]
-  before_action :set_user_count, only: :show # ← NEW
+  before_action :set_user_count, only: :show
 
   # GET /contests
   def index
@@ -49,18 +49,17 @@ class ContestsController < ApplicationController
   # PUT /contests/:contest_id/update_deadline
   def update_deadline
     authorize Contest, :admin?
-    @contest     = Contest.find(params[:contest_id])
-    new_deadline = params[:deadline].to_datetime
+    @contest        = Contest.find(params[:contest_id])
+    parsed_deadline = parse_deadline(params[:deadline])
 
-    if new_deadline <= Time.zone.now
-      redirect_to contests_admin_path,
-                  notice: "Couldn't Update the deadline as Deadline must be in the future."
-    elsif @contest.update(deadline: new_deadline)
+    return deadline_error("Invalid deadline format.") unless parsed_deadline
+    return deadline_error("Deadline must be in the future.") if parsed_deadline <= Time.zone.now
+
+    if @contest.update(deadline: parsed_deadline)
       redirect_to contest_page_path(@contest),
                   notice: "Contest deadline was successfully updated."
     else
-      redirect_to contests_admin_path,
-                  alert: "Failed to update contest deadline: #{@contest.errors.full_messages.join(', ')}"
+      deadline_error("Failed to update contest deadline: #{@contest.errors.full_messages.join(', ')}")
     end
   end
 
@@ -179,6 +178,16 @@ class ContestsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   private
+
+    def parse_deadline(raw)
+      Time.zone.parse(raw)
+    rescue ArgumentError, TypeError
+      nil
+    end
+
+    def deadline_error(msg)
+      redirect_to contests_admin_path, alert: msg
+    end
 
     # Feature-flag gate
     def check_contests_feature_flag
