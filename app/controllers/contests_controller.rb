@@ -101,7 +101,9 @@ class ContestsController < ApplicationController
     )
 
     if @contest.save
-      ContestNotification.with(contest: @contest).deliver_later(User.all)
+      User.find_each(batch_size: 1_000) do |user|
+        ContestNotification.with(contest: @contest).deliver_later(user)
+      end
       redirect_to contest_page_path(@contest),
                   notice: "Contest was successfully started."
     else
