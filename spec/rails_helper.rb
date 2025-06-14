@@ -42,7 +42,6 @@ RSpec.configure do |config|
   config.fixture_path = Rails.root.join("spec/fixtures")
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
-  config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
   config.before do
     Flipper.enable(:active_storage_s3)
@@ -74,7 +73,11 @@ RSpec.configure do |config|
   config.include ActionDispatch::TestProcess
   config.include Warden::Test::Helpers
   config.include ViewComponent::TestHelpers, type: :component
+  config.include Devise::Test::ControllerHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :controller
+  config.before(:each, type: :component) do
+    @request = vc_test_controller.request
+  end
 end
 
 Shoulda::Matchers.configure do |config|
