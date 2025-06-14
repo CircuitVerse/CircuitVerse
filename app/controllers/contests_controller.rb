@@ -169,7 +169,12 @@ class ContestsController < ApplicationController
   # POST /contests/:contest_id/submission/:submission_id/upvote
   # rubocop:disable Metrics/MethodLength
   def upvote
-    user_votes = current_user.user_contest_votes(params[:contest_id])
+    contest = Contest.find(params[:contest_id])
+    if contest.completed?
+      redirect_to contest_page_path(contest), alert: "Voting is closed." and return
+    end
+
+    user_votes = current_user.user_contest_votes(contest.id)
 
     notice = if user_votes >= 3
       "You have used all your votes!"
@@ -177,17 +182,17 @@ class ContestsController < ApplicationController
       user_id: current_user.id,
       submission_id: params[:submission_id]
     )
-      "You have already vote this submission!"
+      "You have already voted this submission!"
     else
       SubmissionVote.create!(
         user_id: current_user.id,
         submission_id: params[:submission_id],
-        contest_id: params[:contest_id]
+        contest_id: contest.id
       )
-      "You have successfully voted the submission, Thanks! Votes remaining: #{2 - user_votes}"
+      "You have successfully voted the submission, Thanks! Votes remaining: #{3 - user_votes}"
     end
 
-    redirect_to contest_page_path(params[:contest_id]), notice: notice
+    redirect_to contest_page_path(contest), notice: notice
   end
   # rubocop:enable Metrics/MethodLength
 
