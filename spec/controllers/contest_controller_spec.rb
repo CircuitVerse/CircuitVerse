@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe ContestsController, type: :request do
   before do
-    @user = FactoryBot.create(:user)
+    @user    = FactoryBot.create(:user, admin: true)
     @contest = FactoryBot.create(:contest, status: :live)
     @project = FactoryBot.create(:project, author: @user)
     sign_in @user
