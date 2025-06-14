@@ -30,9 +30,10 @@ class ContestsController < ApplicationController
                                .limit(6)
 
     return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
-    return if ContestWinner.find_by(contest_id: @contest.id).nil?
+    contest_winner = ContestWinner.find_by(contest_id: @contest.id)
+    return if contest_winner.nil?
 
-    @winner = ContestWinner.find_by(contest_id: @contest.id).submission
+    @winner = contest_winner.submission
   end
 
   # GET /contests/admin
