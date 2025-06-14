@@ -36,4 +36,4 @@ en:
       title: "CircuitVerse - Digital Circuit Simulator online"
   contest:
     index:
-      host_button: "Host Contest"
+      manage_button: "Manage Contest"

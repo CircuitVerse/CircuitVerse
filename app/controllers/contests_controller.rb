@@ -64,10 +64,10 @@ class ContestsController < ApplicationController
 
   # PUT /contests/:contest_id/close_contest
   def close_contest
-    authorize Contest, :admin? unless Rails.env.test?
+    authorize Contest, :admin?
 
     @contest = Contest.find(params[:contest_id])
-    ShortlistContestWinner.new(@contest.id)
+    ShortlistContestWinner.new(@contest.id).call
 
     if @contest.update(
       deadline: Time.zone.now,
@@ -83,7 +83,7 @@ class ContestsController < ApplicationController
   # POST /contest/create
   # rubocop:disable Metrics/MethodLength
   def create
-    authorize Contest, :admin? unless Rails.env.test?
+    authorize Contest, :admin?
 
     if concurrent_contest_exists?
       redirect_to contests_admin_path,
@@ -98,7 +98,7 @@ class ContestsController < ApplicationController
       )
     )
 
-    if @contest.save(validate: false)
+    if @contest.save
       ContestNotification.with(contest: @contest).deliver_later(User.all)
       redirect_to contest_page_path(@contest),
                   notice: "Contest was successfully started."
@@ -178,7 +178,6 @@ class ContestsController < ApplicationController
 
     # Feature-flag gate
     def check_contests_feature_flag
-      return if Rails.env.test?
       return if Flipper.enabled?(:contests, current_user)
 
       redirect_to root_path, alert: "Contest feature is not available."
