@@ -121,17 +121,23 @@ class ContestsController < ApplicationController
   # POST /contests/:id/create_submission
   # rubocop:disable Metrics/MethodLength
   def create_submission
-    if Submission.exists?(
-      project_id: params[:submission][:project_id],
-      contest_id: params[:contest_id]
-    )
-      redirect_to new_submission_path,
-                  notice: "This project is already submitted in Contest ##{params[:contest_id]}"
-      return
+    project_id = params[:submission][:project_id]
+
+    # 1️⃣ Ensure the project belongs to the current user
+    unless current_user.projects.exists?(id: project_id)
+      redirect_to contest_page_path(params[:contest_id]),
+                  alert: "You can’t submit someone else’s project." and return
     end
 
+    # 2️⃣ Prevent duplicate submissions of the same project to the contest
+    if Submission.exists?(project_id: project_id, contest_id: params[:contest_id])
+      redirect_to new_submission_path,
+                  notice: "This project is already submitted in Contest ##{params[:contest_id]}" and return
+    end
+
+    # 3️⃣ Create the submission
     @submission = Submission.new(
-      project_id: params[:submission][:project_id],
+      project_id: project_id,
       contest_id: params[:contest_id],
       user_id: current_user.id
     )
