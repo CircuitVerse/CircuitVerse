@@ -119,21 +119,14 @@ class ContestsController < ApplicationController
   end
 
   # POST /contests/:id/create_submission
-  # rubocop:disable Metrics/MethodLength
   def create_submission
     project_id = params[:submission][:project_id]
 
     # 1️⃣ Ensure the project belongs to the current user
-    unless current_user.projects.exists?(id: project_id)
-      redirect_to contest_page_path(params[:contest_id]),
-                  alert: "You can’t submit someone else’s project." and return
-    end
+    return redirect_unauthorized_project unless project_owner?(project_id)
 
     # 2️⃣ Prevent duplicate submissions of the same project to the contest
-    if Submission.exists?(project_id: project_id, contest_id: params[:contest_id])
-      redirect_to new_submission_path(params[:contest_id]),
-                  notice: "This project is already submitted in Contest ##{params[:contest_id]}" and return
-    end
+    return redirect_duplicate_submission if duplicate_submission?(project_id)
 
     # 3️⃣ Create the submission
     @submission = Submission.new(
@@ -149,7 +142,6 @@ class ContestsController < ApplicationController
       render :new_submission, status: :unprocessable_entity
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
@@ -170,9 +162,7 @@ class ContestsController < ApplicationController
   # rubocop:disable Metrics/MethodLength
   def upvote
     contest = Contest.find(params[:contest_id])
-    if contest.completed?
-      redirect_to contest_page_path(contest), alert: "Voting is closed." and return
-    end
+    redirect_to contest_page_path(contest), alert: "Voting is closed." and return if contest.completed?
 
     user_votes = current_user.user_contest_votes(contest.id)
 
@@ -189,7 +179,7 @@ class ContestsController < ApplicationController
         submission_id: params[:submission_id],
         contest_id: contest.id
       )
-      "You have successfully voted the submission, Thanks! Votes remaining: #{3 - user_votes}"
+      "You have successfully voted the submission, Thanks! Votes remaining: #{2 - user_votes}"
     end
 
     redirect_to contest_page_path(contest), notice: notice
@@ -197,6 +187,25 @@ class ContestsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   private
+
+    # Helpers for create_submission
+    def project_owner?(project_id)
+      current_user.projects.exists?(id: project_id)
+    end
+
+    def duplicate_submission?(project_id)
+      Submission.exists?(project_id: project_id, contest_id: params[:contest_id])
+    end
+
+    def redirect_unauthorized_project
+      redirect_to contest_page_path(params[:contest_id]),
+                  alert: "You can’t submit someone else’s project."
+    end
+
+    def redirect_duplicate_submission
+      redirect_to new_submission_path(params[:contest_id]),
+                  notice: "This project is already submitted in Contest ##{params[:contest_id]}"
+    end
 
     def parse_deadline(raw)
       Time.zone.parse(raw)
@@ -224,7 +233,7 @@ class ContestsController < ApplicationController
       @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
     end
 
-    # strong params (for future use)
+    # Strong params (for future use)
     def contest_params
       params.fetch(:contest, {}).permit(:name, :title, :description, :deadline, :status)
     end
