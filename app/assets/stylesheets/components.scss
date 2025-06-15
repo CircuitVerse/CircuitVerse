@@ -248,6 +248,13 @@
   border: 1px solid $secondary-green;
   border-radius: 0;
   max-width: 100%;
+  min-height: 38px;
+  width: 100%;
+}
+
+// Ensure input group maintains consistent sizing with error messages
+.input-group {
+  width: 100%;
 }
 
 @media (max-width: 400px) {
@@ -267,11 +274,14 @@
 .error-message {
   background: $error-red;
   border-radius: 4px;
+  box-sizing: border-box;
   color: $primary-red;
   font-size: 18px;
   font-weight: 500;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   padding: 15px;
+  position: relative;
+  width: 100%;
 
   ul {
     margin-bottom: 1rem;
