@@ -1,23 +1,75 @@
 <div class="container navbar-search-container">
   <div class="row center-row">
   <%= form_tag("/search", method: "get", id: "search-box", class: "navbar-search-bar-form") do %>
-    <%= select_tag :resource, options_for_select(%w[Users Projects], selected: params[:resource]), class: "navbar-search-bar-select", id: "search_type", onchange: "changePlaceholder()" %>
-    <%= text_field_tag :q, params[:q], placeholder: "Search for projects or users", autocomplete: "off", class: "form-control form-input navbar-search-bar-input" %>
+    <div class="navbar-search-checkboxes">
+      <%= check_box_tag :search_users, "1", params[:search_users] == "1" || (!params[:search_users] && !params[:search_projects]), 
+          class: "navbar-search-checkbox", id: "search_users", onchange: "updatePlaceholder()" %>
+      <%= label_tag :search_users, "Users", class: "navbar-search-checkbox-label" %>
+      
+      <%= check_box_tag :search_projects, "1", params[:search_projects] == "1" || (!params[:search_users] && !params[:search_projects]), 
+          class: "navbar-search-checkbox", id: "search_projects", onchange: "updatePlaceholder()" %>
+      <%= label_tag :search_projects, "Projects", class: "navbar-search-checkbox-label" %>
+    </div>
+    <%= text_field_tag :q, params[:q], placeholder: "Search for projects and users", autocomplete: "off", class: "form-control form-input navbar-search-bar-input" %>
     <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
   <% end %>
   </div>
 </div>
 
+<style>
+  .navbar-search-checkboxes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-right: 10px;
+  }
+  
+  .navbar-search-checkbox {
+    margin: 0;
+  }
+  
+  .navbar-search-checkbox-label {
+    margin: 0 0 0 5px;
+    font-size: 14px;
+    color: #666;
+    cursor: pointer;
+  }
+</style>
+
 <script>
-  function changePlaceholder() {
-    var selectElement = document.getElementById('search_type');
+  function updatePlaceholder() {
+    var usersChecked = document.getElementById('search_users').checked;
+    var projectsChecked = document.getElementById('search_projects').checked;
     var inputElement = document.getElementsByClassName('navbar-search-bar-input')[0];
-    if (selectElement.value === 'Users') {
+    
+    if (usersChecked && projectsChecked) {
+      inputElement.placeholder = 'Find creators and their projects';
+    } else if (usersChecked) {
       inputElement.placeholder = 'Search for users';
-    } else if (selectElement.value === 'Projects') {
+    } else if (projectsChecked) {
       inputElement.placeholder = 'Search for projects';
     } else {
-      inputElement.placeholder = 'Search for projects or users';
+      inputElement.placeholder = 'Find creators and their projects';
     }
   }
+  
+  // Ensure at least one checkbox is always checked
+  document.addEventListener('DOMContentLoaded', function() {
+    var usersCheckbox = document.getElementById('search_users');
+    var projectsCheckbox = document.getElementById('search_projects');
+    
+    usersCheckbox.addEventListener('change', function() {
+      if (!this.checked && !projectsCheckbox.checked) {
+        projectsCheckbox.checked = true;
+      }
+      updatePlaceholder();
+    });
+    
+    projectsCheckbox.addEventListener('change', function() {
+      if (!this.checked && !usersCheckbox.checked) {
+        usersCheckbox.checked = true;
+      }
+      updatePlaceholder();
+    });
+  });
 </script>
