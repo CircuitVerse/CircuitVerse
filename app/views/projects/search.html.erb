@@ -1,5 +1,10 @@
 <script src="js/search.js"></script>
-<% if @results.empty? %>
+
+
+<% has_users_with_projects = defined?(@users_with_projects) && @users_with_projects.present? %>
+<% has_project_results = @results.present? %>
+
+<% if !has_users_with_projects && !has_project_results %>
   <div class="container search-no-results-container">
     <div class="row center-row">
       <div class="col-12">
@@ -12,60 +17,227 @@
   </div>
 <% else %>
   <div class="container search-container">
-    <% @results.each do |project| %>
-      <div class="row center-row search-card-container">
-        <div class="col-12 col-sm-12 col-md-5 col-lg-5">
-          <div class="row center-row">
-            <%= image_tag project_image_preview(project, current_user), alt: "project.name", class: "search-image" %>
-          </div>
-          <div class="row center-row search-view-count-container">
-            <i class="fas fa-star search-star-count-icon" aria-hidden="true"></i>
-            <span id="star-count" class="noSelect"><%= project.stars.count %></span>
-             <%= t("projects.stars_count") %>
-            &nbsp; &nbsp;
-            <i class="fa fa-eye" aria-hidden="true"></i>
-            <span id="star-count" class="noSelect"><%= project.view %></span>
-             <%= t("projects.views_count") %>
-          </div>
-          <div class="row center-row search-user-data-container">
-            <h6><%= t("projects.project_user") %></h6>
-            <div class="search-user-data">
-              <%= image_tag user_profile_picture(project.author.profile_picture), alt: "User Image", class: "search-user-image" %>
-              <%= link_to project.author.name, project.author, class: "search-user-link anchor-text" %>
-            </div>
-          </div>
-        </div>
-        <div class="col-12 col-sm-12 col-md-7 col-lg-7">
-          <div class="row center-row">
-            <div class="col-8 col-sm-8 col-md-8 col-lg-8 search-project-detail-container">
-              <div class="row center-row">
-                <div class="search-project-name">
-                  <h3><%= project.name %></h3>
-                  <span class="tooltiptext"><%= project.name %></span>
-                </div>
-              </div>
-              <div class="row center-row">
-                <div class="search-tag-container">
-                  <% if !project.tags.empty? %>
-                    <% project.tags.each do |tag| %>
-                      <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
-                    <% end %>
-                  <% end %>
-                </div>
-              </div>
-            </div>
-            <div class="col-4 col-sm-4 col-md-4 col-lg-4 search-project-detail-container">
-              <a class="btn primary-button search-primary-button" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button"><%= t("view") %></a>
-            </div>
-          </div>
-          <div class="row center-row">
-            <div class="search-project-description"><%= sanitize project.description %></div>
-          </div>
-        </div>
+  
+    <% if has_users_with_projects %>
+      <div class="search-section-header">
+        <h3 class="mb-4 text-primary">
+          <i class="fas fa-users"></i> Creators & Their Projects
+          <small class="text-muted">(Users who have projects matching "<%= params[:q] %>")</small>
+        </h3>
       </div>
+      
+      <% @users_with_projects.each do |item| %>
+        <div class="user-projects-card mb-4">
+          <!-- User Header -->
+          <div class="user-header">
+            <div class="row align-items-center">
+              <div class="col-auto">
+                <%= image_tag user_profile_picture(item[:user].profile_picture), 
+                    alt: "User Image", class: "user-avatar" %>
+              </div>
+              <div class="col">
+                <h4 class="mb-1">
+                  <%= link_to item[:user].name, user_path(item[:user]), 
+                      class: "text-decoration-none user-name-link" %>
+                </h4>
+                <p class="text-muted mb-0">
+                  <%= pluralize(item[:projects].count, 'matching project') %>
+                </p>
+              </div>
+              <div class="col-auto">
+                <%= link_to "View Profile", user_path(item[:user]), 
+                    class: "btn btn-outline-primary btn-sm" %>
+              </div>
+            </div>
+          </div>
+          
+        
+          <div class="user-projects mt-3">
+            <% item[:projects].each do |project| %>
+              <div class="mini-project-card">
+                <div class="row align-items-center">
+                  <div class="col-auto">
+                    <%= image_tag project_image_preview(project, current_user), 
+                        alt: project.name, class: "mini-project-image" %>
+                  </div>
+                  <div class="col">
+                    <h6 class="mb-1">
+                      <%= link_to project.name, user_project_path(project.author, project), 
+                          class: "project-name-link", target: "_blank" %>
+                    </h6>
+                    <p class="text-muted small mb-1">
+                      <%= truncate(project.description, length: 80) if project.description.present? %>
+                    </p>
+                    <div class="project-stats">
+                      <span class="me-3">
+                        <i class="fas fa-star text-warning"></i> <%= project.stars.count %>
+                      </span>
+                      <span>
+                        <i class="fa fa-eye text-info"></i> <%= project.view %>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="col-auto">
+                    <%= link_to "View", user_project_path(project.author, project), 
+                        class: "btn btn-primary btn-sm", target: "_blank" %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      
+      <% # Add separator if we also have standalone projects %>
+      <% if has_project_results %>
+        <div class="search-section-separator my-5">
+          <hr>
+          <div class="search-section-header">
+            <h3 class="mb-4 text-secondary">
+              <i class="fas fa-project-diagram"></i> All Matching Projects
+            </h3>
+          </div>
+        </div>
+      <% end %>
     <% end %>
-    <% unless @results.empty? %>
-      <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
+    
+    
+    <% if has_project_results %>      
+      <% @results.each do |project| %>
+        <div class="row center-row search-card-container">
+          <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+            <div class="row center-row">
+              <%= image_tag project_image_preview(project, current_user), alt: "project.name", class: "search-image" %>
+            </div>
+            <div class="row center-row search-view-count-container">
+              <i class="fas fa-star search-star-count-icon" aria-hidden="true"></i>
+              <span id="star-count" class="noSelect"><%= project.stars.count %></span>
+               <%= t("projects.stars_count") %>
+              &nbsp; &nbsp;
+              <i class="fa fa-eye" aria-hidden="true"></i>
+              <span id="star-count" class="noSelect"><%= project.view %></span>
+               <%= t("projects.views_count") %>
+            </div>
+            <div class="row center-row search-user-data-container">
+              <h6><%= t("projects.project_user") %></h6>
+              <div class="search-user-data">
+                <%= image_tag user_profile_picture(project.author.profile_picture), alt: "User Image", class: "search-user-image" %>
+                <%= link_to project.author.name, project.author, class: "search-user-link anchor-text" %>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-sm-12 col-md-7 col-lg-7">
+            <div class="row center-row">
+              <div class="col-8 col-sm-8 col-md-8 col-lg-8 search-project-detail-container">
+                <div class="row center-row">
+                  <div class="search-project-name">
+                    <h3><%= project.name %></h3>
+                    <span class="tooltiptext"><%= project.name %></span>
+                  </div>
+                </div>
+                <div class="row center-row">
+                  <div class="search-tag-container">
+                    <% if !project.tags.empty? %>
+                      <% project.tags.each do |tag| %>
+                        <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
+                      <% end %>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4 col-sm-4 col-md-4 col-lg-4 search-project-detail-container">
+                <a class="btn primary-button search-primary-button" target="_blank" href="<%= user_project_path(project.author, project) %>" role="button"><%= t("view") %></a>
+              </div>
+            </div>
+            <div class="row center-row">
+              <div class="search-project-description"><%= sanitize project.description %></div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+      
+      <% unless @results.empty? %>
+        <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
+      <% end %>
     <% end %>
   </div>
+  
+  <style>
+    .user-projects-card {
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .user-header {
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 15px;
+    }
+    
+    .user-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #007bff;
+    }
+    
+    .user-name-link {
+      color: #007bff;
+      font-weight: 600;
+    }
+    
+    .user-name-link:hover {
+      color: #0056b3;
+    }
+    
+    .mini-project-card {
+      background: white;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 10px;
+      transition: transform 0.2s ease;
+    }
+    
+    .mini-project-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    
+    .mini-project-image {
+      width: 50px;
+      height: 50px;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    
+    .project-name-link {
+      color: #495057;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .project-name-link:hover {
+      color: #007bff;
+    }
+    
+    .project-stats {
+      font-size: 0.875rem;
+    }
+    
+    .search-section-header h3 {
+      font-weight: 600;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+    }
+    
+    .search-section-separator hr {
+      border: 0;
+      height: 2px;
+      background: linear-gradient(to right, transparent, #6c757d, transparent);
+    }
+  </style>
 <% end %>
