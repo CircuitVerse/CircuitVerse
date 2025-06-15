@@ -38,12 +38,15 @@ module SearchHelper
 
   def build_users_with_projects(users, query_params)
     users.filter_map do |user|
-      projects = user_matches_query?(user, query_params[:q]) ? 
-                 user.projects.public_and_not_forked.limit(5) :
-                 user.projects.public_and_not_forked
-                     .where("name ILIKE ? OR description ILIKE ?",
-                            "%#{query_params[:q]}%", "%#{query_params[:q]}%")
-                     .limit(3)
+      projects =
+        if user_matches_query?(user, query_params[:q])
+          user.projects.public_and_not_forked.limit(5)
+        else
+          user.projects.public_and_not_forked
+               .where("name ILIKE ? OR description ILIKE ?",
+                      "%#{query_params[:q]}%", "%#{query_params[:q]}%")
+               .limit(3)
+        end
 
       { user: user, projects: projects } if projects.any?
     end
