@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module SearchComponents
+module UserComponents
   class UserCardComponent < ViewComponent::Base
     include UsersCircuitverseHelper
 

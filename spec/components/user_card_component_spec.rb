@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe SearchComponents::UserCardComponent, type: :component do
+RSpec.describe UserComponents::UserCardComponent, type: :component do
   include ViewComponent::TestHelpers
   include Rails.application.routes.url_helpers
 
