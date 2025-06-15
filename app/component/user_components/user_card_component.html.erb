@@ -10,7 +10,9 @@
     <p class="search-user-details-text"><%= t("users.circuitverse.educational_institutes_html", educational_institute: profile.educational_institute) %></p>
     <p class="search-user-details-text"><%= t("users.circuitverse.country_html", country_name: profile.country_name) %></p>
     <p class="search-user-details-text"><%= t("users.circuitverse.total_circuits_made_html", total_circuits: profile.total_circuits) %></p>
-    <a class="btn primary-button search-user-primary-button" target="_blank" href="<%= user_path(profile) %>"><%= t("view") %></a>
+    <a class="btn primary-button search-user-primary-button"
+   target="_blank" rel="noopener noreferrer"
+   href="<%= user_path(profile) %>"><%= t("view") %></a>
   </div>
 </div>
 <hr class="search-horizontal-rule">

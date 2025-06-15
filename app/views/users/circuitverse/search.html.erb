@@ -11,8 +11,8 @@
   </div>
 <% else %>
   <div class="container search-container">
-    <% @results.map { |user| ProfileDecorator.new(user) }.each do |profile| %>
-      <%= render UserComponents::UserCardComponent.new(profile: profile) %>
+    <% @results.each do |user| %>
+      <%= render UserComponents::UserCardComponent.new(profile: ProfileDecorator.new(user)) %>
     <% end %>
     <% unless @results.empty? %>
       <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
