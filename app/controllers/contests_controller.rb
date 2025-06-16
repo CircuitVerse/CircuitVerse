@@ -2,8 +2,8 @@
 
 # rubocop:disable Metrics/ClassLength
 class ContestsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
-  before_action :check_contests_feature_flag, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show leaderboard]
+  before_action :check_contests_feature_flag, except: %i[index show leaderboard]
   before_action :set_user_count, only: :show
 
   # GET /contests
@@ -185,6 +185,12 @@ class ContestsController < ApplicationController
     redirect_to contest_page_path(contest), notice: notice
   end
   # rubocop:enable Metrics/MethodLength
+
+  # GET /contests/:id/leaderboard
+  def leaderboard
+    @contest             = Contest.find(params[:id])
+    @ranked_submissions  = ContestLeaderboardQuery.call(@contest)
+  end
 
   private
 

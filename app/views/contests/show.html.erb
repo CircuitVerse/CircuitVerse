@@ -1,17 +1,25 @@
-<div class="container" data-controller="contest" data-contest-timeleft-value="<%= @contest.deadline %>">
+<div class="container"
+     data-controller="contest"
+     data-contest-timeleft-value="<%= @contest.deadline %>">
+
   <% if notice %>
-    <div class="row" id='alertdiv'>
+    <div class="row" id="alertdiv">
       <div class="alert alert-success alert-dismissible container text-center">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <h6><%= notice %></h6>
       </div>
     </div>
   <% end %>
+
   <div class="pt-4 d-flex justify-content-between align-items-center">
     <div>
-      <!-- Changed from translation key to literal "Contest" -->
-      <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
-      <p class="mb-0 contest-header-description"><%= t("contest.show.subtitle", user_count: @user_count) %></p>
+      <!-- use display_name helper instead of hard-coded id -->
+      <h3 class="contest-header-title"><%= @contest.display_name %></h3>
+
+      <p class="mb-0 contest-header-description">
+        <%= t("contest.show.subtitle", user_count: @user_count) %>
+      </p>
+
       <% if @contest.live? && current_user.present? %>
         <p class="mb-0 contest-header-description">
           <%= t("contest.show.remaining_votes") %>
@@ -19,56 +27,94 @@
         </p>
       <% end %>
     </div>
+
     <% if @contest.live? %>
       <div class="d-flex flex-column align-items-center">
-        <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">...</span></span>
-        <%= link_to new_submission_path(@contest.id), class: "contest-submission-button" do %>
+        <span class="contest-header-timer">
+          Time Left: <span id="timeLeftCounter">...</span>
+        </span>
+
+        <%= link_to new_submission_path(@contest.id),
+                    class: "contest-submission-button" do %>
           <span><%= t("contest.show.register_button") %></span>
         <% end %>
       </div>
     <% else %>
       <div class="d-flex flex-column align-items-center">
-        <button class="contest-ended-button" disabled><%= t("contest.show.disable_button") %></button>
+        <button class="contest-ended-button" disabled>
+          <%= t("contest.show.disable_button") %>
+        </button>
       </div>
     <% end %>
   </div>
+
+  <%= link_to "View Leaderboard",
+              leaderboard_contest_path(@contest),
+              class: "btn primary-button home-simulator-button" %>
+
   <% if @contest.completed? %>
     <div class="contest-page-line"></div>
     <div>
       <h5><%= t("contest.show.winners") %></h5>
-      <span class="contest-header-sub-description"><%= t("contest.show.winners_description") %></span>
+      <span class="contest-header-sub-description">
+        <%= t("contest.show.winners_description") %>
+      </span>
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
-      <% if !@winner.nil? %>
-        <%= render partial: "submission", locals: { project: @winner.project, votes: @winner.submission_votes.count, submission: @winner, contest: @contest } %>
+      <% if @winner.present? %>
+        <%= render partial: "submission",
+                   locals: { project:    @winner.project,
+                             votes:      @winner.submission_votes.count,
+                             submission: @winner,
+                             contest:    @contest } %>
       <% end %>
     </div>
   <% end %>
+
   <% if @user_submission.count.positive? %>
     <div class="contest-page-line"></div>
     <div>
       <h5><%= t("contest.show.user_submissions") %></h5>
-      <span class="contest-header-sub-description"><%= t("contest.show.user_submissions_description") %></span>
+      <span class="contest-header-sub-description">
+        <%= t("contest.show.user_submissions_description") %>
+      </span>
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
       <% @user_submission.each do |submission| %>
-        <%= render partial: "submission", locals: { project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest } %>
+        <%= render partial: "submission",
+                   locals: { project:    submission.project,
+                             votes:      submission.submission_votes.count,
+                             submission: submission,
+                             contest:    @contest } %>
       <% end %>
     </div>
   <% end %>
+
   <div class="contest-page-line"></div>
   <div>
-    <h5><%= t("contest.show.contest_entries", submission_count: @contest.submissions.count) %></h5>
-    <span class="contest-header-sub-description"><%= t("contest.show.contest_entries_description") %></span>
+    <h5>
+      <%= t("contest.show.contest_entries",
+             submission_count: @contest.submissions.count) %>
+    </h5>
+    <span class="contest-header-sub-description">
+      <%= t("contest.show.contest_entries_description") %>
+    </span>
   </div>
+
   <div id="my-circuits-div" class="row center-row circuit-page">
     <% @submissions.each do |submission| %>
-      <%= render partial: "submission", locals: { project: submission.project, votes: submission.submission_votes.count, submission: submission, contest: @contest } %>
+      <%= render partial: "submission",
+                 locals: { project:    submission.project,
+                           votes:      submission.submission_votes.count,
+                           submission: submission,
+                           contest:    @contest } %>
     <% end %>
   </div>
+
   <div class="container pagination-cont">
     <%= will_paginate @submissions, renderer: PaginateRenderer %>
   </div>
+
   <%= render partial: "view" %>
   <%= render partial: "withdraw_submission_confirmation" %>
 </div>

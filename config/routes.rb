@@ -118,6 +118,9 @@ Rails.application.routes.draw do
   delete "/contests/:contest_id/withdraw/:submission_id", to: "contests#withdraw", as: "withdraw_submission"
   post "/contests/:contest_id/upvote/:submission_id", to: "contests#upvote", as: "vote_submission"
 
+  # Leaderboard
+  get "/contests/:id/leaderboard", to: "contests#leaderboard", as: "leaderboard_contest"
+
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]
