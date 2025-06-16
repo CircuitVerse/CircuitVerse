@@ -145,7 +145,11 @@ class ContestsController < ApplicationController
 
   # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
-    submission = Submission.find(params[:submission_id])
+     if current_user.admin? 
+      submission = current_user.submissions.find(params[:submission_id])
+     else
+           submission = Submission.find(params[:submission_id])
+     end
 
     # Only the owner or an admin can withdraw a submission
     unless submission.user_id == current_user.id || current_user&.admin?
