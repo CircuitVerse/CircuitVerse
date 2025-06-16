@@ -136,6 +136,12 @@
   }
 }
 
+@media(min-width: 991px){
+  .navbar-username-truncate{
+    overflow: visi;
+  }
+}
+
 .navbar-username-truncate {
   display: inline-block;
   max-width: 70px;
@@ -244,5 +250,23 @@
 @media (max-width: 300px) {
   .navbar {
     padding: .5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .navbar-nav .nav-item {
+    margin-right: 10px;
+  }
+  .notification-text{
+    display: inline;
+  }
+}
+
+@media(min-width: 991px){
+  .notification-text{
+    display: none;
+  }
+  .notification-icon{
+    margin-left: 10px;
   }
 }
