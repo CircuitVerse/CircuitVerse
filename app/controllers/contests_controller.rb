@@ -170,7 +170,7 @@ class ContestsController < ApplicationController
 
     user_votes = current_user.user_contest_votes(contest.id)
 
-    notice = if user_votes >= 3
+    notice = if user_votes >= SubmissionVote::USER_VOTES_PER_CONTEST
       "You have used all your votes!"
     elsif SubmissionVote.exists?(
       user_id: current_user.id,
