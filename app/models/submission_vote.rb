@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class SubmissionVote < ApplicationRecord
+  USER_VOTES_PER_CONTEST = 3
   belongs_to :submission, counter_cache: true
   belongs_to :user
   belongs_to :contest

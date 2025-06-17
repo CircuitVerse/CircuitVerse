@@ -168,7 +168,7 @@ class ContestsController < ApplicationController
     contest = Contest.find(params[:contest_id])
     redirect_to contest_page_path(contest), alert: "Voting is closed." and return if contest.completed?
 
-    user_votes = current_user.user_contest_votes(contest.id)
+    user_votes = current_user.votes_for_contest(contest.id)
 
     notice = if user_votes >= SubmissionVote::USER_VOTES_PER_CONTEST
       "You have used all your votes!"

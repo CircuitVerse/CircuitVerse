@@ -15,7 +15,7 @@
       <% if @contest.live? && current_user.present? %>
         <p class="mb-0 contest-header-description">
           <%= t("contest.show.remaining_votes") %>
-          <%= 3 - current_user.user_contest_votes(@contest.id) %>
+          <%= 3 - current_user.votes_for_contest(@contest.id) %>
         </p>
       <% end %>
     </div>
