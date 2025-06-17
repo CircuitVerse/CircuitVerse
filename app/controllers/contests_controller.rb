@@ -145,18 +145,7 @@ class ContestsController < ApplicationController
 
   # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
-    submission = if current_user.admin?
-      current_user.submissions.find(params[:submission_id])
-    else
-      Submission.find(params[:submission_id])
-    end
-
-    # Only the owner or an admin can withdraw a submission
-    unless submission.user_id == current_user.id || current_user&.admin?
-      redirect_to contest_page_path(params[:contest_id]),
-                  alert: "You are not allowed to withdraw this submission." and return
-    end
-
+    submission = find_withdrawable_submission
     submission.destroy!
     redirect_to contest_page_path(params[:contest_id]),
                 notice: "Submission was successfully removed."
@@ -183,7 +172,8 @@ class ContestsController < ApplicationController
         submission_id: params[:submission_id],
         contest_id: contest.id
       )
-      "You have successfully voted the submission, Thanks! Votes remaining: #{2 - user_votes}"
+      "You have successfully voted the submission, Thanks! Votes remaining: " \
+        "#{SubmissionVote::USER_VOTES_PER_CONTEST - 1 - user_votes}"
     end
 
     redirect_to contest_page_path(contest), notice: notice
@@ -240,6 +230,12 @@ class ContestsController < ApplicationController
     # Strong params (for future use)
     def contest_params
       params.fetch(:contest, {}).permit(:name, :title, :description, :deadline, :status)
+    end
+
+    def find_withdrawable_submission
+      return Submission.find(params[:submission_id]) if current_user.admin?
+
+      current_user.submissions.find(params[:submission_id])
     end
 end
 # rubocop:enable Metrics/ClassLength
