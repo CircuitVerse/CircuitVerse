@@ -2,8 +2,8 @@
   <div class="navbar-nav nav-item dropdown">
   <li class="nav-item px-1 navbar-3" id="navbar-dropdown-3" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="notification-dropdown-menu" tabindex="0" aria-label="Notifications">
       <i class="fas fa-bell notification-icon" id="notification-button"></i>
-      <% if @unread.count != 0 %>
-        <span class="notification-count"><%= @unread.count %></span>
+      <% if @unread&.count != 0 %>
+        <span class="notification-count"><%= @unread&.count %></span>
       <% end %>
     </li>
     <div class="dropdown-menu dropdown-menu-end dropdown-notification" aria-labelledby="navbar-dropdown-3">
@@ -11,7 +11,7 @@
         <strong><h4><%= t("users.notifications.heading") %></h4></strong>
         <button class="cancel-button">&#10005;</button>
       </div>
-      <% @notification.each do |notification| %>
+      <% (@notification || []).each do |notification| %>
         <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post do %>
           <div class="d-flex align-items-center nb-notification">
             <span><i class="<%= notification.to_notification.icon %>"></i></span>
@@ -30,7 +30,7 @@
           </div>
         <% end %>
       <% end %>
-      <% if @notification.count == 0 %>
+      <% if (@notification || []).count == 0 %>
         <div class="col-12 row center-row">
           <div class="search-no-results-image">
             <h6><%= t("users.notifications.no_unread_notifications") %></h6>
@@ -38,7 +38,7 @@
         </div>
       <% end %>
       <div class="d-flex align-items-center justify-content-center mb-2 mt-3">
-        <% if @unread.count.positive? %>
+        <% if @unread&.count&.positive? %>
           <%= link_to t("users.notifications.mark_as_read_button"), read_all_notifications_url(current_user), method: :patch, class: "anchor-text-left" %>
           <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text-right" %>
         <% else %>
