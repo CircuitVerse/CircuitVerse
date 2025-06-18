@@ -1,6 +1,7 @@
 es:
   groups:
     add_member_description: "Introduzca IDs de correo electrónico separados por comas/espacios o en líneas separadas. Si los usuarios no están registrados, se enviará un correo electrónico solicitándoles que se registre."
+    add_mentor_description_html: "<p>Los mentores pueden:</p><ul><li>Crear y eliminar ejercicios</li><li>Calificar ejercicios</li><li>Reabrir ejercicios cerrados</li></ul>"
     promote_member_confirmation: "¿Estás seguro de que quieres promocionar a este miembro a un mentor?"
     demote_mentor_confirmation: "¿Estás seguro de que quieres degradar este mentor a un miembro?"
     use_alternative: "O USE"
@@ -14,7 +15,7 @@ es:
       main_heading: "NOMBRE DE GRUPO EDIT"
     new:
       title: "CircuitVerse - Nuevo grupo"
-      main_heading: "NUEVA GRUPO"
+      main_heading: "NUEVO GRUPO"
       main_description_html: "Los grupos pueden ser utilizados por mentores para establecer proyectos y dar notas a los estudiantes. Puedes encontrar la documentación <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>aquí</a>."
     show:
       edit_name_btn: "Editar nombre"
@@ -22,13 +23,13 @@ es:
       mentor_name_heading: "MENTORES:"
       group_members_heading: "MEMBEROS:"
       add_members_btn: "+ Añadir Miembros"
-      add_mentors_btn: "+ Añadir mentores"
+      add_mentors_btn: "+ Añadir Mentores"
       no_mentors_html: "No hay mentores en este grupo, haga clic en <strong>+ Añadir Mentores</strong> botón para añadir mentores."
       no_members_html: "No hay miembros en este grupo, haga clic en <strong>+ Añadir Miembros</strong> botón para añadir miembros."
       no_assignments_html: "No hay asignaciones en el grupo, haga clic en <strong>+ Añadir asignación</strong> botón para iniciar una asignación."
       assignment:
-        heading: "ASIGNMENTOS:"
-        add_assignment_btn: "+ Añadir tarea"
+        heading: "EJERCICIOS:"
+        add_assignment_btn: "+ Añadir ejercicio"
         assignment_table_head:
           name: "Nombre"
           deadline: "Línea muerta"
