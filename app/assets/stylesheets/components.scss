@@ -233,7 +233,6 @@
 }
 
 .form-control {
-
   &:focus {
     background-color: $white;
     border-color: $form-input-green;
@@ -251,7 +250,6 @@
 }
 
 @media (max-width: 400px) {
-
   .form-container {
     max-width: 90%;
   }
@@ -355,3 +353,9 @@
     color: $white;
   }
 }
+
+/* ------------------------------------------------------------------ */
+/* Leaderboard colours (new)                                          */
+.table-gold   { background-color: #fff7da !important; }
+.table-silver { background-color: #f0f4f7 !important; }
+.table-bronze { background-color: #fbeede !important; }
