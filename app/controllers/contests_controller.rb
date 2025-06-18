@@ -3,7 +3,7 @@
 # rubocop:disable Metrics/ClassLength
 class ContestsController < ApplicationController
   before_action :authenticate_user!, except: %i[index show]
-  before_action :check_contests_feature_flag, except: %i[index show]
+  before_action :check_contests_feature_flag
   before_action :set_user_count, only: :show
 
   # GET /contests
@@ -123,10 +123,9 @@ class ContestsController < ApplicationController
   end
 
   # POST /contests/:id/create_submission
-  # rubocop:disable Metrics/MethodLength
   def create_submission
     contest = Contest.find(params[:contest_id])
-    return redirect_to(contest_page_path(contest), alert: "Submissions are closed.") if contest.completed?
+    return redirect_closed_contest(contest) if contest.completed?
 
     project_id = params[:submission][:project_id]
 
@@ -139,18 +138,14 @@ class ContestsController < ApplicationController
       user_id: current_user.id
     )
 
-    if @submission.save
-      redirect_to contest_page_path(contest),
-                  notice: "Submission was successfully added."
-    else
-      render :new_submission, status: :unprocessable_entity
-    end
+    save_submission(contest)
   end
-  # rubocop:enable Metrics/MethodLength
 
   # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
     submission = find_withdrawable_submission
+    return if performed?
+
     submission.destroy!
     redirect_to contest_page_path(params[:contest_id]),
                 notice: "Submission was successfully removed."
@@ -161,6 +156,11 @@ class ContestsController < ApplicationController
   def upvote
     contest = Contest.find(params[:contest_id])
     redirect_to contest_page_path(contest), alert: "Voting is closed." and return if contest.completed?
+
+    submission = Submission.find(params[:submission_id])
+    unless submission.contest_id == contest.id
+      redirect_to contest_page_path(contest), alert: "Invalid submission." and return
+    end
 
     user_votes = current_user.votes_for_contest(contest.id)
 
@@ -211,6 +211,19 @@ class ContestsController < ApplicationController
     def redirect_duplicate_submission
       redirect_to new_submission_path(params[:contest_id]),
                   notice: "This project is already submitted in Contest ##{params[:contest_id]}"
+    end
+
+    def redirect_closed_contest(contest)
+      redirect_to contest_page_path(contest), alert: "Submissions are closed."
+    end
+
+    def save_submission(contest)
+      if @submission.save
+        redirect_to contest_page_path(contest),
+                    notice: "Submission was successfully added."
+      else
+        render :new_submission, status: :unprocessable_entity
+      end
     end
 
     # Feature-flag gate

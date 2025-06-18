@@ -42,8 +42,7 @@ class ShortlistContestWinner
         @contest.update!(status: :completed)
       end
 
-      ContestWinnerNotification.with(project: submission.project)
-                               .deliver_later(submission.project.author)
+      ContestWinnerNotification.with(user: submission.user, contest: @contest, submission: submission).deliver_later
 
       { success: true }
     rescue ActiveRecord::RecordNotUnique

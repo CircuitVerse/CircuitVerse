@@ -10,12 +10,11 @@ RSpec.describe NotifyUser, type: :service do
         NoticedNotification,
         id: 99,
         type: "ContestWinnerNotification",
-        params: { contest: contest } # only key used inside NotifyUser
+        params: { contest: contest }
       )
     end
 
     before do
-      # The service looks up the notification by id
       allow(NoticedNotification).to receive(:find).with(99).and_return(notification)
     end
 
