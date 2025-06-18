@@ -123,29 +123,30 @@ class ContestsController < ApplicationController
   end
 
   # POST /contests/:id/create_submission
+  # rubocop:disable Metrics/MethodLength
   def create_submission
+    contest = Contest.find(params[:contest_id])
+    return redirect_to(contest_page_path(contest), alert: "Submissions are closed.") if contest.completed?
+
     project_id = params[:submission][:project_id]
 
-    # 1️⃣ Ensure the project belongs to the current user
     return redirect_unauthorized_project unless project_owner?(project_id)
-
-    # 2️⃣ Prevent duplicate submissions of the same project to the contest
     return redirect_duplicate_submission if duplicate_submission?(project_id)
 
-    # 3️⃣ Create the submission
     @submission = Submission.new(
       project_id: project_id,
-      contest_id: params[:contest_id],
+      contest_id: contest.id,
       user_id: current_user.id
     )
 
     if @submission.save
-      redirect_to contest_page_path(params[:contest_id]),
+      redirect_to contest_page_path(contest),
                   notice: "Submission was successfully added."
     else
       render :new_submission, status: :unprocessable_entity
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
@@ -234,7 +235,15 @@ class ContestsController < ApplicationController
     end
 
     def find_withdrawable_submission
-      return Submission.find(params[:submission_id]) if current_user.admin?
+      submission = Submission.find(params[:submission_id])
+
+      # Guard against mismatched IDs to avoid accidental deletes
+      if submission.contest_id != params[:contest_id].to_i
+        redirect_to contest_page_path(params[:contest_id]),
+                    alert: "Submission does not belong to this contest." and return
+      end
+
+      return submission if current_user.admin?
 
       current_user.submissions.find(params[:submission_id])
     end

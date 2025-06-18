@@ -2,8 +2,9 @@
 
 FactoryBot.define do
   factory :submission do
-    association :contest
-    association :project
-    association :user
+    contest
+    project
+    user   { project.author }
+    winner { false }
   end
 end
