@@ -169,7 +169,7 @@ class ContestsController < ApplicationController
       user_id: current_user.id,
       submission_id: params[:submission_id]
     )
-      "You have already voted this submission!"
+      "You have already cast a vote for this submission!"
     else
       SubmissionVote.create!(
         user_id: current_user.id,

@@ -106,7 +106,7 @@ describe "Contests", type: :system do
 
     it "does not vote the submission again" do
       page.find("#vote-submission-#{@contest.submissions.last.id}").click
-      expect(page).to have_text("You have already vote this submission!")
+      expect(page).to have_text("You have already cast a vote for this submission!")
       expect(@contest.submissions.last.submission_votes_count).to eq(1)
     end
   end
