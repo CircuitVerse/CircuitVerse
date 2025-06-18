@@ -49,17 +49,21 @@ class ContestsController < ApplicationController
   # PUT /contests/:contest_id/update_deadline
   def update_deadline
     authorize Contest, :admin?
-    @contest        = Contest.find(params[:contest_id])
-    parsed_deadline = parse_deadline(params[:deadline])
+    @contest = Contest.find(params[:contest_id])
 
-    return deadline_error("Invalid deadline format.") unless parsed_deadline
-    return deadline_error("Deadline must be in the future.") if parsed_deadline <= Time.zone.now
+    parsed_deadline = parse_deadline_or_redirect(params[:deadline])
+    return if performed?
+
+    if parsed_deadline <= Time.zone.now
+      return redirect_to(contests_admin_path,
+                         alert: "Deadline must be in the future.")
+    end
 
     if @contest.update(deadline: parsed_deadline)
-      redirect_to contest_page_path(@contest),
-                  notice: "Contest deadline was successfully updated."
+      redirect_to contest_page_path(@contest), notice: "Contest deadline was successfully updated."
     else
-      deadline_error("Failed to update contest deadline: #{@contest.errors.full_messages.join(', ')}")
+      redirect_to contests_admin_path,
+                  alert: "Failed to update contest deadline: #{@contest.errors.full_messages.join(', ')}"
     end
   end
 
@@ -182,6 +186,13 @@ class ContestsController < ApplicationController
 
   private
 
+    # Parse a deadline or redirect if format is invalid
+    def parse_deadline_or_redirect(str)
+      Time.zone.parse(str)
+    rescue ArgumentError, TypeError
+      redirect_to(contests_admin_path, alert: "Invalid deadline format.") and return
+    end
+
     # Helpers for create_submission
     def project_owner?(project_id)
       current_user.projects.exists?(id: project_id)
@@ -199,16 +210,6 @@ class ContestsController < ApplicationController
     def redirect_duplicate_submission
       redirect_to new_submission_path(params[:contest_id]),
                   notice: "This project is already submitted in Contest ##{params[:contest_id]}"
-    end
-
-    def parse_deadline(raw)
-      Time.zone.parse(raw)
-    rescue ArgumentError, TypeError
-      nil
-    end
-
-    def deadline_error(msg)
-      redirect_to contests_admin_path, alert: msg
     end
 
     # Feature-flag gate
