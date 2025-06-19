@@ -10,7 +10,7 @@
 
 <div class="container search-tag-search-container">
   <% @projects.each do |project| %>
-    <%= render(ProjectComponents::ProjectCardComponent.new(project: project, current_user: current_user)) %>
+    <%= render(ProjectComponents::ProjectCardComponent.new(project: project)) %>
     <hr class="search-horizontal-rule">
   <% end %>
 </div>

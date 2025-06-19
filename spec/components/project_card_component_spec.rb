@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+
 require "rails_helper"
 
 RSpec.describe ProjectComponents::ProjectCardComponent, type: :component do
@@ -17,7 +18,7 @@ RSpec.describe ProjectComponents::ProjectCardComponent, type: :component do
   end
 
   it "renders the project card with core elements" do
-    rendered_component = render_inline(described_class.new(project: project, current_user: user))
+    rendered_component = render_inline(described_class.new(project: project))
 
     expect(rendered_component.to_html).to include(project.name)
     expect(rendered_component.to_html).to include(project.description)
@@ -26,15 +27,9 @@ RSpec.describe ProjectComponents::ProjectCardComponent, type: :component do
     expect(rendered_component.to_html).to include(tag.name)
   end
 
-  it "renders without current_user" do
-    rendered_component = render_inline(described_class.new(project: project))
-
-    expect(rendered_component.to_html).to include(project.name)
-  end
-
   it "handles project without tags" do
     project.tags = []
-    rendered_component = render_inline(described_class.new(project: project, current_user: user))
+    rendered_component = render_inline(described_class.new(project: project))
 
     expect(rendered_component.to_html).to include(project.name)
     expect(rendered_component.css(".badge.search-tag")).to be_empty
