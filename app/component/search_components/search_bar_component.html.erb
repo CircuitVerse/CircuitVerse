@@ -1,23 +1,9 @@
-<div class="container navbar-search-container">
+<div class="container navbar-search-container" data-controller="search-bar" data-search-bar-placeholders-value="<%= placeholders.to_json %>">
   <div class="row center-row">
-  <%= form_tag("/search", method: "get", id: "search-box", class: "navbar-search-bar-form") do %>
-    <%= select_tag :resource, options_for_select(%w[Users Projects], selected: resource), class: "navbar-search-bar-select", id: "search_type", onchange: "changePlaceholder()" %>
-    <%= text_field_tag :q, query, placeholder: "Search for projects or users", autocomplete: "off", class: "form-control form-input navbar-search-bar-input" %>
+  <%= form_tag(search_path, method: "get", id: "search-box", class: "navbar-search-bar-form") do %>
+    <%= select_tag :resource, options_for_select(resource_options, selected: resource), class: "navbar-search-bar-select", id: "search_type", data: { search_bar_target: "select", action: "change->search-bar#changePlaceholder" } %>
+    <%= text_field_tag :q, query, autocomplete: autocomplete, class: "form-control form-input navbar-search-bar-input", data: { search_bar_target: "input" } %>
     <button class="btn primary-button navbar-search-bar-button" type="submit" name="button" value="Submit">Search</button>
   <% end %>
   </div>
 </div>
-
-<script>
-  function changePlaceholder() {
-    var selectElement = document.getElementById('search_type');
-    var inputElement = document.getElementsByClassName('navbar-search-bar-input')[0];
-    if (selectElement.value === 'Users') {
-      inputElement.placeholder = 'Search for users';
-    } else if (selectElement.value === 'Projects') {
-      inputElement.placeholder = 'Search for projects';
-    } else {
-      inputElement.placeholder = 'Search for projects or users';
-    }
-  }
-</script>
