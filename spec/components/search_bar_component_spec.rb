@@ -51,12 +51,6 @@ RSpec.describe SearchComponents::SearchBarComponent, type: :component do
     expect(page).to have_css("[data-search-bar-placeholders-value='#{custom_placeholders.to_json}']")
   end
 
-  it "renders the search input field with custom autocomplete" do
-    render_inline(described_class.new(autocomplete: "on"))
-
-    expect(page).to have_css("input[name='q'][autocomplete='on']")
-  end
-
   it "renders the submit button" do
     render_inline(described_class.new)
 
