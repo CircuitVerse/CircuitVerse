@@ -17,12 +17,14 @@ RSpec.describe Circuitverse::ContributeCardComponent, type: :component do
   end
 
   it "renders the contribute card with required elements" do
-    render_inline(described_class.new(
-                    image_src: image_src,
-                    alt_text: alt_text,
-                    title_key: title_key,
-                    items: items
-                  ))
+    render_inline(
+      described_class.new(
+        image_src: image_src,
+        alt_text: alt_text,
+        title_key: title_key,
+        items: items
+      )
+    )
 
     expect(page).to have_css(".card-spacing-d-flex")
     expect(page).to have_css(".card.contribute-card")
@@ -30,12 +32,14 @@ RSpec.describe Circuitverse::ContributeCardComponent, type: :component do
   end
 
   it "renders the card structure elements" do
-    render_inline(described_class.new(
-                    image_src: image_src,
-                    alt_text: alt_text,
-                    title_key: title_key,
-                    items: items
-                  ))
+    render_inline(
+      described_class.new(
+        image_src: image_src,
+        alt_text: alt_text,
+        title_key: title_key,
+        items: items
+      )
+    )
 
     expect(page).to have_css(".card-img-top.contribute-card-image")
     expect(page).to have_css("h3.card-title")
@@ -43,24 +47,28 @@ RSpec.describe Circuitverse::ContributeCardComponent, type: :component do
   end
 
   it "renders the image with correct attributes" do
-    render_inline(described_class.new(
-                    image_src: image_src,
-                    alt_text: alt_text,
-                    title_key: title_key,
-                    items: items
-                  ))
+    render_inline(
+      described_class.new(
+        image_src: image_src,
+        alt_text: alt_text,
+        title_key: title_key,
+        items: items
+      )
+    )
 
     expect(page).to have_css("img[alt='#{alt_text}']")
     expect(page).to have_css("img.card-img-top.contribute-card-image")
   end
 
   it "renders the correct number of list items" do
-    render_inline(described_class.new(
-                    image_src: image_src,
-                    alt_text: alt_text,
-                    title_key: title_key,
-                    items: items
-                  ))
+    render_inline(
+      described_class.new(
+        image_src: image_src,
+        alt_text: alt_text,
+        title_key: title_key,
+        items: items
+      )
+    )
 
     expect(page).to have_css("li", count: items.length)
   end
