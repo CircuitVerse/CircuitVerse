@@ -5,20 +5,7 @@ class SearchBarComponentPreview < ViewComponent::Preview
     render(SearchComponents::SearchBarComponent.new)
   end
 
-  def with_custom_options
-    render(
-      SearchComponents::SearchBarComponent.new(
-        resource_options: %w[Courses Assignments Groups],
-        placeholders: {
-          "Courses" => "Search for courses",
-          "Assignments" => "Search for assignments",
-          "Groups" => "Search for groups"
-        }
-      )
-    )
-  end
-
-  def with_all_custom_parameters
+  def with_custom_parameters
     render(
       SearchComponents::SearchBarComponent.new(
         search_path: "/admin/search",
