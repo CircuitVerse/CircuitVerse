@@ -14,18 +14,19 @@ RSpec.describe SearchComponents::PaginationComponent, type: :component do
   end
 
   context "when results have content" do
-    before do
-      allow_any_instance_of(ActionView::Base).to receive(:will_paginate)
-        .and_return('<div class="pagination">Mock pagination</div>'.html_safe)
-    end
-
     it "renders pagination" do
-      paginated_results = WillPaginate::Collection.create(1, 5, 10) do |pager|
+      paginated_results = WillPaginate::Collection.create(2, 5, 15) do |pager|
         pager.replace([1, 2, 3, 4, 5])
       end
 
-      render_inline(described_class.new(results: paginated_results))
-      expect(rendered_content).to include("Mock pagination")
+      component = described_class.new(results: paginated_results)
+
+      allow(component).to receive(:will_paginate)
+        .with(paginated_results, renderer: SearchPaginateRenderer, page_links: false)
+        .and_return('<div class="pagination">Page 2 of 3</div>'.html_safe)
+
+      render_inline(component)
+      expect(rendered_content).to include("Page 2 of 3")
     end
   end
 end
