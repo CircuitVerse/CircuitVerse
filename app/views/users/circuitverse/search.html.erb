@@ -29,8 +29,6 @@
       </div>
       <hr class="search-horizontal-rule">
     <% end %>
-    <% unless @results.empty? %>
-      <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
-    <% end %>
+    <%= render(SearchComponents::PaginationComponent.new(results: @results)) %>
   </div>
 <% end %>
