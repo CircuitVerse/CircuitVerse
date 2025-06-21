@@ -147,6 +147,37 @@
   box-shadow: 0 8px 6px -6px $shadow-grey;
 }
 
+.forum-threads-nav {
+  align-items: center;
+  display: flex;
+  height: 25vh;
+  justify-content: center;
+}
+
+@media screen and (min-width: 425px) {
+  .forum-threads-nav nav ul li {
+    font-size: 16px;
+}
+}
+
+@media screen and (min-width: 320px) and (max-width:425px) {
+  .forum-threads-nav nav ul li {
+    font-size: 10px;
+}
+}
+
+@media screen and (min-width: 240px) and (max-width:320px) {
+  .forum-threads-nav nav ul li {
+    font-size: 5px;
+}
+}
+
+@media screen and (max-width: 240px) {
+.forum-threads-nav nav ul li {
+  font-size: 3px;
+}
+}
+
 .navbar-search-bar-form {
   display: flex;
   margin-left: auto;
