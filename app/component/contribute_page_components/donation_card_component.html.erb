@@ -2,11 +2,11 @@
   <div class="col col-sm col-md col-lg">
     <div class="contribute-pay-card-container">
       <p><%= @description %></p>
-      <a href="<%= @link %>" target="_blank" rel="noopener noreferrer">
+      <%= link_to @link, target: "_blank", rel: "noopener noreferrer" do %>
         <div class="contribute-pay-card">
           <%= image_tag @image_path, alt: @alt_text %>
         </div>
-      </a>
+      <% end %>
     </div>
   </div>
 </div>
