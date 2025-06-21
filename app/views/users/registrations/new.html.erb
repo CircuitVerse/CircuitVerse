@@ -11,16 +11,17 @@
         <%= form_with(model: resource, as: resource_name, url: registration_path(resource_name), local: true) do |f| %>
           <%= f.invisible_captcha :subtitle %>
           <% if !resource.errors.empty? %>
-            <div class="error-message">
-              <ul>
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <ul class="mb-0">
                 <% resource.errors.full_messages.each do |message| %>
                   <li><%= message %></li>
                 <% end %>
               </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           <% end %>
           <div class="field mb-3">
-            <h6><%= f.label :name %></h6>
+            <h6><%= f.label :name %> <span class="text-muted">(Max 30 characters)</span> </h6>
               <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
           </div>
           <div class="field mb-3">
