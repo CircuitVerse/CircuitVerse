@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Circuitverse::ContributeCardComponent, type: :component do
+RSpec.describe Contribute::ContributeCardComponent, type: :component do
   include ViewComponent::TestHelpers
 
   let(:image_src) { "SVGs/student.svg" }

@@ -3,7 +3,7 @@
 class ContributeCardComponentPreview < ViewComponent::Preview
   def student_card
     render(
-      Circuitverse::ContributeCardComponent.new(
+      Contribute::ContributeCardComponent.new(
         image_src: "SVGs/student.svg",
         alt_text: "Student Icon",
         title_key: "circuitverse.contribute.student_card.main_heading",
