@@ -1,4 +1,3 @@
-//homepage
 .home-main-content {
   margin-bottom: 60px;
   margin-top: 45px;
@@ -48,14 +47,28 @@
   padding: 10px 30px;
 }
 
-//breakpoints
-@media (max-width: 991px){
-  .home-buttons-container{
+.home-buttons-container .btn {
+  margin-right: 10px; 
+}
+
+// Breakpoints
+@media (max-width: 991px) {
+  .home-buttons-container {
     display: inline-flex;
     text-wrap: nowrap;
     align-items: center;
+
+  
+    margin: -5px;
+
+ >.btn {
+      margin: 5px;
+    }
+
+    gap: 10px;
   }
 }
+
 @media (max-width: 768px) {
   .home-main-content {
     margin-bottom: 30px;
