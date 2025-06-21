@@ -88,7 +88,9 @@
         </div>
       </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: @user.projects } %>
+        <% @user.projects.each do |project| %>
+          <%= render(ProjectCard::ProjectCardComponent.new(project, current_user)) %>
+        <% end %>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
@@ -104,7 +106,9 @@
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: @projects } %>
+        <% @projects.each do |project| %>
+          <%= render(ProjectCard::ProjectCardComponent.new(project, current_user)) %>
+        <% end %>
       <% end %>
     </div>
     <div id="collaborator-circuits-div" class="row center-row circuit-page">
@@ -121,7 +125,9 @@
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
+        <% collaborated_projects.each do |project| %>
+          <%= render(ProjectCard::ProjectCardComponent.new(project, current_user)) %>
+        <% end %>
       <% end %>
     </div>
 
