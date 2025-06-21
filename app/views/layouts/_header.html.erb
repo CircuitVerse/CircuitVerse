@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white">
+<nav class="<%= 'navbar-announcement' if (current_announcement && current_announcement.start_date <= Date.current && current_announcement.end_date >= Date.current) %> navbar navbar-expand-lg bg-white">
   <a class="navbar-brand" href="/">
     <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
   </a>
