@@ -22,24 +22,26 @@
     <%= stylesheet_link_tag "application" %>
   </head>
 
-  <body>
-    <%= render "layouts/header" %>
+  <body class="d-flex flex-column min-vh-100">
+  <%= render "layouts/header" %>
+  <main class="flex-grow-1">
     <%= yield %>
-    <%= render(FooterComponent.new(current_user: current_user)) %>
+  </main>
+  <%= render(FooterComponent.new(current_user: current_user)) %>
 
-    <!-- Custom Script for Alert -->
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.alert').forEach(alert => {
-          const bsAlert = new bootstrap.Alert(alert);
-          if (!alert.classList.contains('alert-permanent')) {
-            setTimeout(() => {
-              alert.classList.add('fade');
-              bsAlert.close();
-            }, 3000);
-          }
-        });
+  <!-- Custom Script for Alert -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.alert').forEach(alert => {
+        const bsAlert = new bootstrap.Alert(alert);
+        if (!alert.classList.contains('alert-permanent')) {
+          setTimeout(() => {
+            alert.classList.add('fade');
+            bsAlert.close();
+          }, 3000);
+        }
       });
-    </script>
-  </body>
+    });
+  </script>
+</body>
 </html>
