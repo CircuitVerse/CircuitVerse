@@ -4,10 +4,11 @@ require "rails_helper"
 
 xdescribe "Notifcation", type: :system do
   before do
-    @author = FactoryBot.create(:user)
-    @user = sign_in_random_user
+    @author = FactoryBot.create(:user, name: "AuthorUser", email: "author@cv.com")
+    @user = FactoryBot.create(:user, name: "ForkUser", email: "fork@cv.com")
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
-    driven_by(:selenium_chrome_headless, screen_size: [1440, 900])
+    driven_by(:selenium_chrome_headless)
+    Capybara.current_session.driver.browser.manage.window.resize_to(1920, 1080)
   end
 
   it "initiate notification" do
@@ -24,6 +25,7 @@ xdescribe "Notifcation", type: :system do
       click_on "Fork"
       sign_in @author
       visit notifications_path(@author)
+      Capybara.current_session.driver.browser.manage.window.resize_to(1920, 1080)
     end
 
     it "render all notifications" do
