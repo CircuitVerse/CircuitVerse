@@ -35,6 +35,11 @@ es:
   facebook: "Facebook"
   github: "Github"
   gitlab: "Gitlab"
+  components:
+    search_bar:
+      placeholders:
+        users: 'Buscar usuarios'
+        projects: 'Buscar proyectos'
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
