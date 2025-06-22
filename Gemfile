@@ -142,14 +142,14 @@ group :test do
   gem "capybara", "~> 3.39"
   gem "json-schema"
   gem "rspec_junit_formatter"
-  gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
   gem "undercover"
   gem "undercover-checkstyle"
-  gem "percy-capybara"
+  gem "capybara", "~> 3.39"
+  gem "capybara-playwright-driver"
 end
 
 group :development do
@@ -229,3 +229,5 @@ gem 'concurrent-ruby', '1.3.4'
 gem 'mutex_m'
 
 gem "observer", "~> 0.1.2"
+
+gem "percy-capybara", "~> 5.0", :group => :test
