@@ -11,7 +11,6 @@ describe "Project", type: :system do
   before do
     private_project.collaborators << collaborator
     public_project.collaborators << collaborator
-    driven_by(:selenium_chrome_headless)
   end
 
   describe "if private project" do
