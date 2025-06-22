@@ -148,7 +148,6 @@ group :test do
   gem "simplecov-lcov"
   gem "undercover"
   gem "undercover-checkstyle"
-  gem "capybara", "~> 3.39"
   gem "capybara-playwright-driver"
 end
 
