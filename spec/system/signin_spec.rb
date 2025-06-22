@@ -4,9 +4,6 @@ require "rails_helper"
 
 describe "Sign In", type: :system do
   before do
-    # Ensure we're using the headless Selenium driver (so we have a real browser):
-    driven_by(:selenium_chrome_headless)
-
     # Create a user with FactoryBot for testing sign-in
     @user = FactoryBot.create(:user)
 
