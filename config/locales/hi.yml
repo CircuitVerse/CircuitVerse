@@ -35,6 +35,11 @@ hi:
   facebook: "फेसबुक"
   github: "गिटहब"
   gitlab: "गिटलैब"
+  components:
+    search_bar:
+      placeholders:
+        users: 'उपयोगकर्ताओं की खोज करें'
+        projects: 'प्रोजेक्ट्स की खोज करें'
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
