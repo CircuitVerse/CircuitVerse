@@ -130,11 +130,13 @@ group :development, :test do
   gem "faker"
   gem "pry-rails"
   gem "rspec-rails", "~> 6.0"
+  gem "rubocop", require: false
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
   gem "rbs_rails"
   gem "steep"
+  gem "drb"
   gem 'solargraph-rails', '~> 0.3.1'
 end
 
@@ -157,7 +159,6 @@ group :development do
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
-  gem "rubocop"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
