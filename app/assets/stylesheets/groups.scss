@@ -199,7 +199,7 @@
   align-items: center;
   display: flex;
   padding-top: 0;
-  
+
   i {
     margin-right: 15px;
     padding-bottom: 15px;
@@ -226,7 +226,7 @@
     height: 50px;
     margin-bottom: 10px;
     transform: translate(-5px, 5px);
-    transition: all .5s;
+    transition: all 0.5s;
     width: 50px;
 
     &:hover {
@@ -268,7 +268,7 @@
   margin-right: 0;
   padding: 0 0 15px;
   text-align: right;
-  transition: padding-top .2s ease-in;
+  transition: padding-top 0.2s ease-in;
 
   &:hover {
     padding-top: 11px;
@@ -279,11 +279,11 @@
   border: 1.5px solid $secondary-green;
   padding: 10px;
   position: relative;
-  font-size: 12px; 
-  border-radius: 5px; 
+  font-size: 12px;
+  border-radius: 5px;
 }
 
-#copyIcon{
+#copyIcon {
   top: 0;
   right: 0;
   position: absolute;
@@ -360,7 +360,7 @@
 }
 
 .form-control {
-    border-radius: 4px;
+  border-radius: 4px;
 }
 
 .groups-background-card {
@@ -402,7 +402,7 @@
   }
 }
 
-@media (max-width:400px) {
+@media (max-width: 400px) {
   .groups-form-primary-button {
     padding-left: 10px;
     padding-right: 10px;
@@ -465,7 +465,7 @@
 
 .groups-mentor-card-view-mini-button {
   background: $primary-green;
-  transition: transform .2s ease-in;
+  transition: transform 0.2s ease-in;
   width: 95px;
 
   img {
@@ -483,7 +483,7 @@
 
 .groups-mentor-card-edit-mini-button {
   background: $mini-button-blue;
-  transition: transform .2s ease-in;
+  transition: transform 0.2s ease-in;
   width: 95px;
 
   img {
@@ -501,7 +501,7 @@
 
 .groups-mentor-card-delete-mini-button {
   background: $primary-red;
-  transition: transform .2s ease-in;
+  transition: transform 0.2s ease-in;
   width: 100px;
 
   img {
@@ -552,7 +552,6 @@
 }
 
 .groups-members-card {
-
   .row {
     flex-wrap: nowrap;
     padding-top: 15px;
@@ -575,4 +574,54 @@
     }
   }
 }
+
+/////// csv upload
+
+.csv-upload-container {
+  margin-bottom: 1rem;
+}
+
+.csv-dropzone {
+  border: 1px dashed #adb5bd;
+  border-radius: 4px;
+  padding: 10px;
+  text-align: center;
+  background-color: #f8f9fa;
+  transition: all 0.2s;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.csv-dropzone:hover {
+  border-color: #6c757d;
+  background-color: #e9ecef;
+}
+
+.csv-dropzone.active {
+  border-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+}
+
+.csv-file-info {
+  font-size: 0.8rem;
+  min-height: 1.2rem;
+  transition: opacity 0.5s ease-out;
+}
+
+.csv-success {
+  color: #28a745;
+}
+
+.csv-error {
+  color: #dc3545;
+}
+
+.csv-msg-fade-out {
+  opacity: 0;
+}
+
+/////// csv upload ends
+
 //groups ends
