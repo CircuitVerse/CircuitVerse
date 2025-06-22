@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class I18nSupport
-DIR_MAP = {
-  :ar => :rtl
-}
+  DIR_MAP = {
+    ar: :rtl
+  }.freeze
   # @return [Array<Array<String>>] an array of arrays, each containing a locale name and its code
   def self.locale_names
     [
@@ -22,6 +22,6 @@ DIR_MAP = {
   end
 
   def self.direction(locale)
-   DIR_MAP[locale] || :ltr
+    DIR_MAP[locale] || :ltr
   end
 end
