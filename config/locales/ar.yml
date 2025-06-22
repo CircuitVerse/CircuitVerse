@@ -4,8 +4,8 @@ ar:
   delete: "حذف"
   view: "عرض"
   launch_simulator: "تشغيل محاكي"
-  email_us_heading: "أرسل لنا البريد الإلكتروني في"
-  join_at_slack_heading: "انضم و دردشة معنا في"
+  email_us_heading: "تواصل معنا على البريد ألإلكتروني"
+  join_at_slack_heading: "انضم و شاركنا الدردشة في"
   join_at_slack_description: "قناة Slack"
   welcome_back_text: "مرحبا بكم في عالم الدائرة الرقمية!"
   save: "حفظ"
@@ -35,6 +35,11 @@ ar:
   facebook: "فيسبوك"
   github: "Github"
   gitlab: "Gitlab"
+  components:
+    search_bar:
+      placeholders:
+        users: 'البحث عن المستخدمين'
+        projects: 'البحث عن مشاريع'
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
