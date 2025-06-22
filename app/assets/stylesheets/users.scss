@@ -257,6 +257,13 @@
   font-weight: 600;
   padding-bottom: 5px;
   text-align: left;
+  // Fix for username overflow
+  word-wrap: break-word;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  max-width: 100%;
+  line-height: 1.2;
 }
 
 .users-circuits-container {
@@ -428,6 +435,12 @@
   width: 100%;
 }
 
+// Ensure the parent container doesn't expand beyond its bounds
+.search-userdetails-container {
+  max-width: 100%;
+  overflow: hidden;
+}
+
 //breakpoints
 @media (max-width: 400px) {
   .users-card {
@@ -451,6 +464,11 @@
 
   .users-circuits-search-container {
     width: 100%;
+  }
+
+  // Additional responsive handling for username
+  .users-user-name {
+    font-size: 1.1rem;
   }
 }
 
