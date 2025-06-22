@@ -6,7 +6,6 @@ describe "User profile", type: :system do
   before do
     @user = sign_in_random_user
     sign_in @user
-    driven_by(:selenium_chrome_headless)
   end
 
   it "shows user profile" do
