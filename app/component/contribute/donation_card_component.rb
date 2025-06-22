@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module ContributePageComponents
+module Contribute
   class DonationCardComponent < ViewComponent::Base
     def initialize(image_path:, link:, alt_text:, description:)
       super()

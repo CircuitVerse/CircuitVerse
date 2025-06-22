@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe ContributePageComponents::DonationCardComponent, type: :component do
+RSpec.describe Contribute::DonationCardComponent, type: :component do
   it "renders the donation card with correct image, link, and description" do
     render_inline(
       described_class.new(
