@@ -116,7 +116,7 @@ class AssignmentsController < ApplicationController
       lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
     end
 
-    params = assignment_update_params
+    permitted_params = assignment_update_params
     @assignment.description = description
 
     if Flipper.enabled?(:lms_integration, current_user)
@@ -126,7 +126,7 @@ class AssignmentsController < ApplicationController
     # params[:deadline] = params[:deadline].to_time
 
     respond_to do |format|
-      if @assignment.update(params)
+      if @assignment.update(permitted_params)
         format.html { redirect_to @group, notice: "Assignment was successfully updated." }
         format.json { render :show, status: :ok }
       else
