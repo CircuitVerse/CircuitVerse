@@ -24,14 +24,14 @@ class ApplicationController < ActionController::Base
     render "errors/not_found", status: :not_found
   end
 
-  def switch_locale(&block)
+  def switch_locale(&)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     locale = current_user&.locale ||
              extract_locale_from_accept_language_header ||
              I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
-      I18n.with_locale(locale, &block)
+      I18n.with_locale(locale, &)
     rescue I18n::InvalidLocale
       locale = I18n.default_locale
       retry
@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   def store_location_for(resource_or_scope, location)
     max_location_size = 200 # bytes
     if location && location.length > max_location_size
-      super resource_or_scope, "/"
+      super(resource_or_scope, "/")
     else
       super
     end

@@ -4,6 +4,6 @@ class UsersQuery < GenericQuery
   attr_reader :relation
 
   def initialize(query_params, relation = User.all)
-    super query_params, relation
+    super
   end
 end

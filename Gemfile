@@ -224,3 +224,10 @@ gem "sentry-sidekiq", "~> 5.17"
 gem 'devise_saml_authenticatable'
 
 gem 'activerecord_cursor_paginate'
+
+gem 'concurrent-ruby', '1.3.4'
+gem 'mutex_m'
+
+gem "observer", "~> 0.1.2"
+
+gem "drb", "~> 2.2"
