@@ -229,3 +229,5 @@ gem 'concurrent-ruby', '1.3.4'
 gem 'mutex_m'
 
 gem "observer", "~> 0.1.2"
+
+gem "drb", "~> 2.2"
