@@ -17,16 +17,10 @@ module UsersCircuitverseHelper
   end
 
   def project_image_preview(project)
-    return_circuit_preview(project)
-  end
-
-  private
-
-    def return_circuit_preview(project)
-      if project.circuit_preview.attached?
-        project.circuit_preview
-      else
-        image_path("empty_project/default.png")
-      end
+    if project.circuit_preview.attached?
+      project.circuit_preview
+    else
+      image_path("empty_project/default.png")
     end
+  end
 end
