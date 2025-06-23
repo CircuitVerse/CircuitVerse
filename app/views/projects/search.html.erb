@@ -13,7 +13,7 @@
 <% else %>
   <div class="container search-container">
     <% @results.each do |project| %>
-      <%= render(ProjectComponents::ProjectCardComponent.new(project: project)) %>
+      <%= render(Project::ProjectCardComponent.new(project: project)) %>
     <% end %>
     <% unless @results.empty? %>
       <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>

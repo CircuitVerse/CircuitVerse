@@ -2,6 +2,6 @@
 
 class ProjectCardComponentPreview < ViewComponent::Preview
   def default
-    render(ProjectComponents::ProjectCardComponent.new(project: Project.first))
+    render(Project::ProjectCardComponent.new(project: Project.first))
   end
 end
