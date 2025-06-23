@@ -12,7 +12,7 @@
 <% else %>
   <div class="container search-container">
     <% @results.each do |user| %>
-      <%= render UserComponents::UserCardComponent.new(profile: ProfileDecorator.new(user)) %>
+      <%= render(User::UserCardComponent.new(profile: ProfileDecorator.new(user))) %>
     <% end %>
     <% unless @results.empty? %>
       <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
