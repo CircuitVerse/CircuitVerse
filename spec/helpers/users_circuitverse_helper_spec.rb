@@ -50,7 +50,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       user.profile_picture.attach(
         io: Rails.root.join("spec/fixtures/files/profile.png").open,
         filename: "profile.png",
-        content_type: "image/png",
+        content_type: "image/png"
       )
       expect(user.profile_picture.attached?).to be true
       expect(user_profile_picture(user.profile_picture)).to eq(user.profile_picture)
@@ -69,7 +69,7 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       @project.circuit_preview.attach(
         io: Rails.root.join("spec/fixtures/files/default.png").open,
         filename: "preview_1234.jpeg",
-        content_type: "img/jpeg",
+        content_type: "img/jpeg"
       )
     end
 
