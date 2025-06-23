@@ -10,5 +10,5 @@ class Project::ProjectCardComponent < ViewComponent::Base
 
   private
 
-  attr_reader :project
+    attr_reader :project
 end

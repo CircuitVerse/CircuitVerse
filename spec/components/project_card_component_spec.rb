@@ -12,8 +12,7 @@ RSpec.describe Project::ProjectCardComponent, type: :component do
            name: "Test Circuit Project",
            description: "This is a test circuit project.",
            author: author,
-           tags: [tag],
-           view: 42)
+           tags: [tag])
   end
 
   it "renders the project card with core elements" do
@@ -22,7 +21,6 @@ RSpec.describe Project::ProjectCardComponent, type: :component do
     expect(rendered_component.to_html).to include(project.name)
     expect(rendered_component.to_html).to include(project.description)
     expect(rendered_component.to_html).to include(author.name)
-    expect(rendered_component.to_html).to include("42")
     expect(rendered_component.to_html).to include(tag.name)
   end
 
