@@ -7,7 +7,7 @@ class Contest < ApplicationRecord
   after_commit :set_deadline_job
   has_one :contest_winner, dependent: :destroy
 
-  enum status: { live: 0, completed: 1 }
+  enum :status, { live: 0, completed: 1 }
 
   def set_deadline_job
     return if completed?

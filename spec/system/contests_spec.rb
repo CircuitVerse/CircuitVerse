@@ -20,12 +20,16 @@ describe "Contests", type: :system do
   it "list all the contest" do
     visit contests_path
     check_contest_container(@contest.id, "LIVE", @contest.submissions.count)
+
+    expect(page).to have_text("Contest ##{@contest.id}")
   end
 
   it "redirects to contest" do
     visit contests_path
     page.find("#contest-#{@contest.id}").click
     check_contest_page(@contest.id)
+
+    expect(page).to have_current_path(contest_page_path(@contest.id))
   end
 
   context "contest submission" do
@@ -36,7 +40,7 @@ describe "Contests", type: :system do
 
     it "render the project submission page and submit the project" do
       expect(page).to have_text("Project Submission")
-      expect(page).to have_text(@project.name)  # removed interpolation
+      expect(page).to have_text(@project.name)
 
       page.find("#submission_project_id_#{@project.id}").click
       page.find("#submission-submit-button").click
