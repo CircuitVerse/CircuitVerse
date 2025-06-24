@@ -465,7 +465,7 @@
   padding: 10px;
 }
 // notification dropdown
-.nvbar-3 {
+.navbar-3 {
   position: relative;
 
   .notification-count {
@@ -501,13 +501,23 @@
     background: none;
     border: 0;
     font-size: 20px;
+    cursor: pointer;
   }
 }
 
 @media (max-width: 768px) {
   .dropdown-notification {
-    max-width: 450px;
+    max-width: 95vw;
     width: auto;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 480px) {
+  .dropdown-notification {
+    max-width: 98vw;
+    padding: 10px 12px;
   }
 }
 
@@ -516,7 +526,6 @@
   font-size: 20px;
   margin-left: 10px;
   margin-right: 10px;
-  margin-top: 10px;
 }
 
 .nb-notification {
