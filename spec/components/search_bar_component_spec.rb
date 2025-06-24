@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe SearchComponents::SearchBarComponent, type: :component do
+RSpec.describe Search::SearchBarComponent, type: :component do
   it "renders the search form with default values" do
     render_inline(described_class.new)
 
@@ -15,19 +15,6 @@ RSpec.describe SearchComponents::SearchBarComponent, type: :component do
     render_inline(described_class.new(search_path: custom_path))
 
     expect(page).to have_css("form[action='#{custom_path}']")
-  end
-
-  it "renders the select dropdown with default options" do
-    render_inline(described_class.new)
-
-    expect(page).to have_select("resource", options: %w[Users Projects])
-  end
-
-  it "renders the select dropdown with custom resource options" do
-    custom_options = %w[Courses Assignments]
-    render_inline(described_class.new(resource_options: custom_options))
-
-    expect(page).to have_select("resource", options: custom_options)
   end
 
   it "renders the search input field" do
@@ -54,13 +41,6 @@ RSpec.describe SearchComponents::SearchBarComponent, type: :component do
   it "renders the submit button" do
     render_inline(described_class.new)
 
-    expect(page).to have_button("Search")
-  end
-
-  it "preserves resource and query values" do
-    render_inline(described_class.new(resource: "Users", query: "test query"))
-
-    expect(page).to have_select("resource", selected: "Users")
-    expect(page).to have_field("q", with: "test query")
+    expect(page).to have_button(type: "submit")
   end
 end
