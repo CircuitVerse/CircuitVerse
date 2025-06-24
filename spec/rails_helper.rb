@@ -47,10 +47,7 @@ RSpec.configure do |config|
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
 
-  # ------------------------------------------------------------------
-  # Enable feature flags needed by the test suite on every example
-  # ------------------------------------------------------------------
-  config.before do
+  config.before(:suite) do
     Flipper.enable(:active_storage_s3)
     Flipper.enable(:contests)
   end
@@ -83,8 +80,13 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include ViewComponent::TestHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :controller
+
   config.before(type: :system) do
-    driven_by :selenium_chrome_headless
+    driven_by :rack_test
+  end
+
+  config.before(type: :system, js: true) do
+    driven_by :headless_chrome_unique_profile
   end
 end
 
