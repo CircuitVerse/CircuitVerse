@@ -80,10 +80,9 @@ class AssignmentsController < ApplicationController
       lti_shared_secret = SecureRandom.hex(4)
     end
 
-    params = assignment_create_params
-    # params[:deadline] = params[:deadline].to_time
+    permitted_params = assignment_create_params # ✅ Use safe variable
 
-    @assignment = @group.assignments.new(params)
+    @assignment = @group.assignments.new(permitted_params)
     authorize @assignment, :mentor_access?
 
     @assignment.description = description
@@ -123,10 +122,13 @@ class AssignmentsController < ApplicationController
       @assignment.lti_consumer_key = lti_consumer_key
       @assignment.lti_shared_secret = lti_shared_secret
     end
-    # params[:deadline] = params[:deadline].to_time
 
     respond_to do |format|
+<<<<<<< HEAD
       if @assignment.update(permitted_params)
+=======
+      if @assignment.update(permitted_params) # ✅ SAFE update
+>>>>>>> ded1bc64 (Fix deadline param handling for assignment form submission)
         format.html { redirect_to @group, notice: "Assignment was successfully updated." }
         format.json { render :show, status: :ok }
       else

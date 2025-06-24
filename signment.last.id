@@ -1,0 +1,15 @@
+=> [32m#<Assignment:0x0000752d1ee9e0d8[0m
+ id: [1;34m1[0m,
+ name: [31m[1;31m"[0m[31mEdit Test Assignment[1;31m"[0m[31m[0m,
+ deadline: [1;34;4mTue[0m, [1;34m01[0m [1;34;4mJul[0m [1;34m2025[0m [1;34m08[0m:[1;34m27[0m:[1;35m23.439414000[0m [1;34;4mUTC[0m [1;34m+00[0m:[1;34m00[0m,
+ description: [31m[1;31m"[0m[31mFor testing edit form[1;31m"[0m[31m[0m,
+ created_at: [1;34;4mTue[0m, [1;34m24[0m [1;34;4mJun[0m [1;34m2025[0m [1;34m08[0m:[1;34m27[0m:[1;35m23.454248258[0m [1;34;4mUTC[0m [1;34m+00[0m:[1;34m00[0m,
+ updated_at: [1;34;4mTue[0m, [1;34m24[0m [1;34;4mJun[0m [1;34m2025[0m [1;34m08[0m:[1;34m27[0m:[1;35m23.454248258[0m [1;34;4mUTC[0m [1;34m+00[0m:[1;34m00[0m,
+ group_id: [1;34m1[0m,
+ status: [31m[1;31m"[0m[31mopen[1;31m"[0m[31m[0m,
+ grading_scale: [31m[1;31m"[0m[31mno_scale[1;31m"[0m[31m[0m,
+ grades_finalized: [1;36mfalse[0m,
+ restrictions: [31m[1;31m"[0m[31m[][1;31m"[0m[31m[0m,
+ lti_consumer_key: [1;36mnil[0m,
+ lti_shared_secret: [1;36mnil[0m,
+ feature_restrictions: {}[32m>[0m

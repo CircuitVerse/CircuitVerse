@@ -34,7 +34,11 @@
   </div>
   <div id="deadline-field" class="field form-group projects-tag-mb-3">
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
-    <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
+  <input id="assignment_deadline"
+       name="assignment[deadline]"
+       type="text"
+       class="form-control form-input"
+       value="<%= @assignment.deadline.present? ? @assignment.deadline.strftime('%d/%m/%Y %H:%M') : '' %>">
   </div>
   <div id="grade-field" class="form-group projects-tag-mb-3">
     <h6><%= form.label :grading_scale %></h6>
