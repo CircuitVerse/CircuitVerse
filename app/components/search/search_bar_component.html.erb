@@ -3,9 +3,7 @@
     <div class="select-wrapper" data-search-bar-target="selectWrapper">
       <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
         <span data-search-bar-target="selectedOption"><%= resource || resource_options.first %></span>
-        <svg class="select-arrow" viewBox="0 0 20 20" fill="currentColor">
-          <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
-        </svg>
+        <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
       </button>
       <div class="select-dropdown" data-search-bar-target="dropdown">
         <% resource_options.each do |option| %>
@@ -18,9 +16,7 @@
     </div>
     <%= text_field_tag :q, query, autocomplete: "off", class: "search-bar-input", data: { search_bar_target: "input" } %>
     <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
-      <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path fill-rule="evenodd" clip-rule="evenodd" d="M8.74997 2.16666C7.62046 2.16676 6.50735 2.43697 5.50351 2.95474C4.49967 3.47252 3.63421 4.22285 2.97933 5.14313C2.32445 6.06341 1.89914 7.12695 1.73889 8.24503C1.57864 9.36311 1.68809 10.5033 2.05812 11.5705C2.42814 12.6377 3.04801 13.6009 3.866 14.3798C4.68399 15.1587 5.67639 15.7306 6.7604 16.048C7.8444 16.3654 8.98859 16.4189 10.0975 16.2041C11.2064 15.9893 12.2478 15.5125 13.135 14.8133L16.1783 17.8567C16.3355 18.0085 16.546 18.0925 16.7645 18.0906C16.983 18.0887 17.192 18.001 17.3465 17.8465C17.501 17.692 17.5886 17.483 17.5905 17.2645C17.5924 17.046 17.5084 16.8355 17.3566 16.6783L14.3133 13.635C15.1366 12.5905 15.6493 11.3353 15.7926 10.0131C15.9358 8.69087 15.704 7.35501 15.1235 6.15841C14.543 4.9618 13.6374 3.95279 12.5102 3.24686C11.3831 2.54092 10.0799 2.16657 8.74997 2.16666ZM3.3333 9.25C3.3333 7.81341 3.90398 6.43566 4.91981 5.41984C5.93563 4.40401 7.31338 3.83333 8.74997 3.83333C10.1866 3.83333 11.5643 4.40401 12.5801 5.41984C13.596 6.43566 14.1666 7.81341 14.1666 9.25C14.1666 10.6866 13.596 12.0643 12.5801 13.0802C11.5643 14.096 10.1866 14.6667 8.74997 14.6667C7.31338 14.6667 5.93563 14.096 4.91981 13.0802C3.90398 12.0643 3.3333 10.6866 3.3333 9.25Z" fill="white"/>
-      </svg>
+      <%= image_tag "SVGs/search-icon.svg", width: 20, height: 21, alt: "Search" %>
     </button>
   <% end %>
 </div> 
