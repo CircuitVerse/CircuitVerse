@@ -4,8 +4,8 @@ plugins:
   rubocop:
     enabled: true
     channel: rubocop-1-56-3
-    config:
-      bundler_install: true
+    bundler_install: true
+    config: ".rubocop.yml"
 
   eslint:
     enabled: true
