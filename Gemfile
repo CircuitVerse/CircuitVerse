@@ -120,24 +120,22 @@ gem "rails-data-migrations"
 # For Vite rails
 gem "vite_rails"
 
-gem "rubocop-rspec_rails", "~> 2.17", require: false
+gem "rubocop",               "~> 1.56",  require: false
+gem "rubocop-performance",   "~> 1.17",  require: false
+gem "rubocop-rails",         "~> 2.26",  require: false
+gem "rubocop-capybara",      "~> 2.15",  require: false
+gem "rubocop-factory_bot",   "~> 2.24",  require: false
+gem "rubocop-rspec",         "~> 2.31.0", require: false
+gem "rubocop-rspec_rails",   "~> 2.17",   require: false
 
 group :development, :test do
-  # Adds support for debug
   gem "debug"
-  # Adds support for Capybara system testing and selenium driver
   gem "coveralls_reborn", "~> 0.26.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
   gem "rspec-rails", "~> 6.0"
-  gem "rubocop", "~> 1.56", require: false
-  gem "rubocop-performance", "~> 1.17", require: false
-  gem "rubocop-rails", "~> 2.26", require: false
-  gem "rubocop-rspec", "~> 2.31.0", require: false
-  gem "rubocop-capybara",    "~> 2.15", require: false
-  gem "rubocop-factory_bot", "~> 2.24", require: false
   gem "rbs_rails"
   gem "steep"
   gem "solargraph-rails", "~> 0.3.1"
