@@ -124,11 +124,7 @@ class AssignmentsController < ApplicationController
     end
 
     respond_to do |format|
-<<<<<<< HEAD
       if @assignment.update(permitted_params)
-=======
-      if @assignment.update(permitted_params) 
->>>>>>> ded1bc64 (Fix deadline param handling for assignment form submission)
         format.html { redirect_to @group, notice: "Assignment was successfully updated." }
         format.json { render :show, status: :ok }
       else
