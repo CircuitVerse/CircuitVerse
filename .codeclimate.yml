@@ -3,7 +3,7 @@ version: "2"
 plugins:
   rubocop:
     enabled: true
-    channel: rubocop-1-56-3
+    channel: rubocop-1-30-0
     bundler_install: true
     config: ".rubocop.yml"
 
