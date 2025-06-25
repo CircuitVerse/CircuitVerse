@@ -19,7 +19,7 @@ gem "omniauth-github"
 gem "omniauth-gitlab"
 gem "omniauth-google-oauth2"
 gem "omniauth-microsoft-office365"
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth-rails_csrf_protection"
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0.8.7"
@@ -34,7 +34,7 @@ gem "terser"
 # Use CoffeeScript for .coffee assets and views
 gem "coffee-rails", "~> 5.0"
 gem "select2-rails"
-gem 'redcarpet', '~> 3.3', '>= 3.3.4'
+gem "redcarpet", "~> 3.3", ">= 3.3.4"
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -99,11 +99,11 @@ gem "meta-tags"
 gem "webpush"
 
 gem "bootsnap", require: false
-gem 'rexml', '>= 3.3.9'
+gem "rexml", ">= 3.3.9"
 
 gem "font-awesome-sass", "~> 5.13.1"
 
-gem "disposable_mail", github: 'CircuitVerse/disposable_email'
+gem "disposable_mail", github: "CircuitVerse/disposable_email"
 gem "flipper-redis"
 gem "flipper-ui"
 gem "friendly_id", "~> 5.4.2"
@@ -115,10 +115,10 @@ gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
 gem "sprockets", "~> 4.1"
 gem "strong_migrations"
-gem 'rails-data-migrations'
+gem "rails-data-migrations"
 
 # For Vite rails
-gem 'vite_rails'
+gem "vite_rails"
 
 group :development, :test do
   # Adds support for debug
@@ -130,12 +130,16 @@ group :development, :test do
   gem "faker"
   gem "pry-rails"
   gem "rspec-rails", "~> 6.0"
-  gem "rubocop-performance", require: false
-  gem "rubocop-rails", require: false
-  gem "rubocop-rspec", require: false
+  gem "rubocop", "~> 1.56", require: false
+  gem "rubocop-performance", "~> 1.17", require: false
+  gem "rubocop-rails", "~> 2.26", require: false
+  gem "rubocop-rspec", "~> 2.31.0", require: false
+  gem "rubocop-capybara",    "~> 2.15", require: false
+  gem "rubocop-factory_bot", "~> 2.24", require: false
+  gem "rubocop-rspec_rails", "~> 2.17", require: false
   gem "rbs_rails"
   gem "steep"
-  gem 'solargraph-rails', '~> 0.3.1'
+  gem "solargraph-rails", "~> 0.3.1"
 end
 
 group :test do
@@ -158,10 +162,9 @@ group :development do
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
-  gem "rubocop"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
-  gem 'database_consistency', require: false
+  gem "database_consistency", require: false
   gem "lookbook", ">= 2.2.0"
 end
 
@@ -171,9 +174,7 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 # mails
 gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
-
 gem "invisible_captcha", "~> 2.0"
-
 
 gem "oj", "~> 3.15"
 
@@ -214,19 +215,18 @@ gem "opentelemetry-instrumentation-action_view"
 
 gem "maintenance_tasks", "~> 2.3"
 
-
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
 gem "sentry-sidekiq", "~> 5.17"
 
 # for SAML based SSO
-gem 'devise_saml_authenticatable'
+gem "devise_saml_authenticatable"
 
-gem 'activerecord_cursor_paginate'
+gem "activerecord_cursor_paginate"
 
-gem 'concurrent-ruby', '1.3.4'
-gem 'mutex_m'
+gem "concurrent-ruby", "1.3.4"
+gem "mutex_m"
 
 gem "observer", "~> 0.1.2"
 

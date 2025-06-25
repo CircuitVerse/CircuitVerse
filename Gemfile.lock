@@ -700,6 +700,12 @@ GEM
     rubocop-ast (1.45.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
+    rubocop-capybara (2.22.1)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
+    rubocop-factory_bot (2.27.1)
+      lint_roller (~> 1.1)
+      rubocop (~> 1.72, >= 1.72.1)
     rubocop-performance (1.25.0)
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
@@ -710,9 +716,13 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.44.0, < 2.0)
-    rubocop-rspec (3.6.0)
-      lint_roller (~> 1.1)
-      rubocop (~> 1.72, >= 1.72.1)
+    rubocop-rspec (2.31.0)
+      rubocop (~> 1.40)
+      rubocop-capybara (~> 2.17)
+      rubocop-factory_bot (~> 2.22)
+      rubocop-rspec_rails (~> 2.28)
+    rubocop-rspec_rails (2.29.1)
+      rubocop (~> 1.61)
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
@@ -1027,10 +1037,13 @@ DEPENDENCIES
   rexml (>= 3.3.9)
   rspec-rails (~> 6.0)
   rspec_junit_formatter
-  rubocop
-  rubocop-performance
-  rubocop-rails
-  rubocop-rspec
+  rubocop (~> 1.56)
+  rubocop-capybara (~> 2.15)
+  rubocop-factory_bot (~> 2.24)
+  rubocop-performance (~> 1.17)
+  rubocop-rails (~> 2.26)
+  rubocop-rspec (~> 2.31.0)
+  rubocop-rspec_rails (~> 2.17)
   sass-rails (~> 6.0)
   sassc-rails
   select2-rails

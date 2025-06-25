@@ -1,12 +1,18 @@
 inherit_from: .rubocop_todo.yml
 
 plugins:
-  - rubocop-rspec
-  - rubocop-rails
   - rubocop-performance
+  - rubocop-rails
+  - rubocop-capybara
+  - rubocop-factory_bot
+
+require:
+  - rubocop-rspec
+  - rubocop-rspec_rails
 
 AllCops:
-  TargetRubyVersion: 3.4
+  # Ruby 3.4 is still preview; CI and Heroku both run 3.2.
+  TargetRubyVersion: 3.2
   NewCops: enable
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
@@ -28,13 +34,13 @@ Layout/LineLength:
 
 Metrics/BlockLength:
   Exclude:
-    - "spec/**/*" # pretty much impossible with RSpec
-    - "lib/tasks/*" # also impractical for Rake tasks
+    - "spec/**/*"           # pretty much impossible with RSpec
+    - "lib/tasks/*"         # also impractical for Rake tasks
 
 Metrics/MethodLength:
-  Max: 15 # can be reduced
+  Max: 15                   # can be reduced
   Exclude:
-    - "spec/**/*" # not a big deal in spec helper methods
+    - "spec/**/*"           # not a big deal in spec helper methods
     - "app/controllers/about_controller.rb"
     - "app/controllers/assignments_controller.rb"
     - "app/controllers/circuitverse_controller.rb"
@@ -48,10 +54,7 @@ Metrics/MethodLength:
 
 Metrics/ModuleLength:
   Exclude:
-    - "spec/**/*" # not a big deal in spec helper module
-
-Rails:
-  Enabled: true
+    - "spec/**/*"           # not a big deal in spec helper module
 
 # Prefer &&/|| over and/or.
 Style/AndOr:
@@ -258,6 +261,7 @@ Performance/UnfreezeString:
 
 Style/Documentation:
   Enabled: false
+
 Style/ClassAndModuleChildren:
   Enabled: false
 
