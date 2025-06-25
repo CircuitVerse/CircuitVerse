@@ -80,7 +80,7 @@ class AssignmentsController < ApplicationController
       lti_shared_secret = SecureRandom.hex(4)
     end
 
-    permitted_params = assignment_create_params # ✅ Use safe variable
+    permitted_params = assignment_create_params 
 
     @assignment = @group.assignments.new(permitted_params)
     authorize @assignment, :mentor_access?
@@ -127,7 +127,7 @@ class AssignmentsController < ApplicationController
 <<<<<<< HEAD
       if @assignment.update(permitted_params)
 =======
-      if @assignment.update(permitted_params) # ✅ SAFE update
+      if @assignment.update(permitted_params) 
 >>>>>>> ded1bc64 (Fix deadline param handling for assignment form submission)
         format.html { redirect_to @group, notice: "Assignment was successfully updated." }
         format.json { render :show, status: :ok }
