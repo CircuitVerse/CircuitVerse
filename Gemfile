@@ -120,6 +120,8 @@ gem "rails-data-migrations"
 # For Vite rails
 gem "vite_rails"
 
+gem "rubocop-rspec_rails", "~> 2.17", require: false
+
 group :development, :test do
   # Adds support for debug
   gem "debug"
@@ -136,7 +138,6 @@ group :development, :test do
   gem "rubocop-rspec", "~> 2.31.0", require: false
   gem "rubocop-capybara",    "~> 2.15", require: false
   gem "rubocop-factory_bot", "~> 2.24", require: false
-  gem "rubocop-rspec_rails", "~> 2.17", require: false
   gem "rbs_rails"
   gem "steep"
   gem "solargraph-rails", "~> 0.3.1"
