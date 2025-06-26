@@ -21,6 +21,7 @@ jobs:
         image: redis:alpine
         ports: ["6379:6379"]
         options: --entrypoint redis-server
+
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
@@ -54,6 +55,12 @@ jobs:
           reviewdog_version: latest
 
       - run: yarn install
+
+      - name: Install Playwright and browsers
+        run: |
+          export PLAYWRIGHT_CLI_VERSION=$(bundle exec ruby -e 'require "playwright"; puts Playwright::COMPATIBLE_PLAYWRIGHT_VERSION.strip')
+          yarn add -D "playwright@$PLAYWRIGHT_CLI_VERSION"
+          npx playwright install --with-deps
 
       - name: Copy the sample ENV Config
         run: cp .env.example .env
@@ -100,22 +107,3 @@ jobs:
         run: |
           bundle exec rbs collection install
           bundle exec steep check
-
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
-
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Security audit dependencies
-        run: bundle exec bundler-audit --update
-
-      - name: Lint Ruby files
-        run: bundle exec rubocop --parallel
