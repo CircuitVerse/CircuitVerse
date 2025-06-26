@@ -228,7 +228,6 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    drb (2.2.3)
     dry-cli (1.1.0)
     e2mmap (0.1.0)
     erb_lint (0.5.0)
@@ -946,7 +945,6 @@ DEPENDENCIES
   devise_saml_authenticatable
   disposable_mail!
   dotenv-rails
-  drb
   erb_lint
   factory_bot_rails
   faker
@@ -1006,7 +1004,7 @@ DEPENDENCIES
   opentelemetry-instrumentation-redis
   opentelemetry-instrumentation-sidekiq
   opentelemetry-sdk (~> 1.2)
-  percy-capybara (~> 5.0)
+  percy-capybara
   pg (~> 1.5.3)
   pg_search
   premailer-rails (~> 1.11, >= 1.11.1)
