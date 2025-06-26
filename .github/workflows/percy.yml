@@ -12,7 +12,7 @@ on:
 
 jobs:
   percy-tests:
-    
+
     if: >
       github.event_name == 'push'
       OR (
@@ -42,7 +42,7 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
     steps:
-     
+
       - name: Check out base repo code
         uses: actions/checkout@v3
         with:
@@ -76,7 +76,10 @@ jobs:
         run: |
           npm install @percy/cli --legacy-peer-deps
           npm install --save-dev @percy/cli
-
+      - name: Install Playwright and Browsers
+        run: |
+            npm install --save-dev playwright
+            npx playwright install --with-deps
       - name: Install Gems
         run: bundle install
 
