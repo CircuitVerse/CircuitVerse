@@ -5,8 +5,8 @@ require "rails_helper"
 RSpec.describe Api::V1::GroupsController, "#show", type: :request do
   describe "list specific group" do
     let!(:user) { FactoryBot.create(:user) }
-    let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         get "/api/v1/groups/#{group.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/groups/0",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -50,7 +50,7 @@ RSpec.describe Api::V1::GroupsController, "#show", type: :request do
         FactoryBot.create(:group_member, user: user, group: group)
         token = get_auth_token(user)
         get "/api/v1/groups/#{group.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns the group details" do

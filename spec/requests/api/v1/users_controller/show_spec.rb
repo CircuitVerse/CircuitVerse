@@ -32,7 +32,7 @@ RSpec.describe Api::V1::UsersController, "#show", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/users/#{user.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns the correct user" do

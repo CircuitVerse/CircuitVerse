@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include Pundit
+  include Pundit::Authorization
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
+  before_action :set_notifications, if: :current_user
   around_action :switch_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
@@ -20,18 +21,31 @@ class ApplicationController < ActionController::Base
   end
 
   def not_found
-    render "errors/not_found.html.erb", status: :not_found
+    render "errors/not_found", status: :not_found
   end
 
-  def switch_locale(&action)
+  def switch_locale(&)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
+    locale = current_user&.locale ||
+             extract_locale_from_accept_language_header ||
+             I18n.default_locale
     logger.debug "* Locale set to '#{locale}'"
     begin
-      I18n.with_locale(locale, &action)
+      I18n.with_locale(locale, &)
     rescue I18n::InvalidLocale
       locale = I18n.default_locale
       retry
+    end
+  end
+
+  # Overrides Devise::Controller::StoreLocation.store_location_for to check if
+  # URL is too long to store in the session
+  def store_location_for(resource_or_scope, location)
+    max_location_size = 200 # bytes
+    if location && location.length > max_location_size
+      super(resource_or_scope, "/")
+    else
+      super
     end
   end
 
@@ -39,6 +53,11 @@ class ApplicationController < ActionController::Base
 
     def extract_locale_from_accept_language_header
       request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first
+    end
+
+    def set_notifications
+      @unread = NoticedNotification.where(recipient: current_user).unread
+      @notification = NoticedNotification.where(recipient: current_user).newest_first.limit(5)
     end
 
     def storable_location?

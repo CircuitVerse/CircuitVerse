@@ -85,6 +85,8 @@ export default class Adder extends CircuitElement {
         this.carryOut.value = +((sum >>> (this.bitWidth)) !== 0);
         simulationArea.simulationQueue.add(this.carryOut);
         simulationArea.simulationQueue.add(this.sum);
+
+        this.setOutputsUpstream(true);
     }
 
     generateVerilog() {
@@ -102,5 +104,5 @@ export default class Adder extends CircuitElement {
  * @category modules
  */
 Adder.prototype.tooltipText = 'Adder ToolTip : Performs addition of numbers.';
-Adder.prototype.helplink = 'https://docs.circuitverse.org/#/miscellaneous?id=adder';
+Adder.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/8misc?id=adder';
 Adder.prototype.objectType = 'Adder';

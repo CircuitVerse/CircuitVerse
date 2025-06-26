@@ -4,11 +4,11 @@ hi:
     ask_new_user: "क्या आप नए उपयोगकर्ता है?"
     confirmations:
       resend_confirmation_instructions: "पुष्टिकरण निर्देश फिर से भेजें"
-    logix:
+    circuitverse:
       delete_group_confirmation: "क्या आप वाकई इस समूह को हटाना चाहते हैं?"
       delete_user_confirmation: "क्या आप इस खाते को हटाने के लिए सुनिश्चित हैं? इस कार्रवाई को वापस नहीं किया जा सकता."
       preview_project: "परियोजना पूर्वावलोकन"
-      member_since_html: "<strong>सदस्य कितने दिनों से:</strong> %{member_since} दिन"
+      member_since_html: "<strong>सदस्य कितने दिनों से:</strong> %{member_since}"
       educational_institutes_html: "<strong>शैक्षिक संस्था:</strong> %{educational_institute}"
       country_html: "<strong>देश:</strong> %{country_name}"
       total_circuits_made_html: "<strong>कुल सर्किट बनाये: </strong> %{total_circuits}"
@@ -18,6 +18,7 @@ hi:
         description_html: "<sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> से चिह्नित फ़ील्ड अनिवार्य हैं"
         profile_picture: "प्रोफ़ाइल फोटो"
         choose_file: "फ़ाइल चुनें"
+        remove_picture: "फोटो हटाएं"
         country_select_placeholder: "दर्ज न करना पसंद करें"
         select_locale_prompt: "लोकेल चुनें"
         subscribe_mail_checkpoint: "क्या आपने ईमेल की सदस्यता ली?"
@@ -32,6 +33,7 @@ hi:
         groups_user_mentor_to: "आपके द्वारा निर्देशित समूह:"
         total_members: "कुल सदस्य: %{group_member_count}"
         groups_user_belong_to: "आप जिन समूहों में हैं:"
+        groups_user_owns: "आपके अपने समूह:"
       index:
         title: "%{name} - आपके सर्किट"
         alt_title: "Nil - आपके सर्किट"
@@ -76,5 +78,20 @@ hi:
       remember_me: "मेरा लॉगिन याद रखे "
     shared:
       login_with: "इनके उपयोग द्वारा लॉग इन करें"
+      login_with_sso: "सिंगल साइन ऑन"
+      resend_email: "पुष्टि संबंधी निर्देश प्राप्त नहीं हुए?"
     unlocks:
       resend_unlock_instructions: "अनलॉक करने के निर्देश फिर से भेजें"
+    notifications:
+      heading: "नोटिफिकेशन्स"
+      all: "सभी"
+      unread: "अपठित"
+      mark_as_read_button: "सभी को पढ़ा हुआ मार्क करें"
+      no_notifications: "आपके पास कोई नोटिफिकेशन्स नहीं है!"
+      no_unread_notifications: "आपके पास कोई अपठित नोटिफिकेशन्स नहीं है!"
+      see_all: "सभी देखें"
+      fork_notification: "%{user} ने आपके प्रोजेक्ट %{project} को फोर्क किया"
+      star_notification: "%{user} ने आपका प्रोजेक्ट %{project} स्टार किया"
+      new_assignment_notification: "आपको एक नया कार्य सौंपा गया है! - '%{assignment_name}'"
+      forum_thread_notification: "%{user} ने एक नया सूत्र '%{thread}' पोस्ट किया"
+      comment_notif: "%{user} ने '%{thread}' पर टिप्पणी की"

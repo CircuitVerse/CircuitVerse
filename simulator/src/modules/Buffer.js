@@ -82,6 +82,8 @@ export default class Buffer extends CircuitElement {
 
         this.output1.value = this.state;
         simulationArea.simulationQueue.add(this.output1);
+        
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -124,5 +126,5 @@ export default class Buffer extends CircuitElement {
 Buffer.prototype.tooltipText =
     "Buffer ToolTip : Isolate the input from the output.";
 Buffer.prototype.helplink =
-    "https://docs.circuitverse.org/#/miscellaneous?id=buffer";
+    "https://docs.circuitverse.org/#/chapter4/8misc?id=buffer";
 Buffer.prototype.objectType = "Buffer";

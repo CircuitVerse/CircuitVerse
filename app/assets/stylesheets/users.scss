@@ -1,4 +1,10 @@
+:root {
+  --black: rgb(0,0,0);
+  --grey: rgb(108, 117, 125);
+}
+
 //passwords
+
 .users-image {
   margin-bottom: 15px;
   margin-top: 30px;
@@ -30,9 +36,26 @@
 
 .users-primary-checkpoint {
   h6 {
-    display: inline-block;
+    display: inline;
     margin-bottom: 0;
     margin-right: 10px;
+  }
+}
+
+.primary-checkpoint {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-top: 4px;
+  position: relative;
+  text-align: center;
+  top: 6px;
+
+  &:hover {
+    border-color: $primary-green;
+    opacity: 1;
+    transition: .2s ease-in-out;
   }
 }
 
@@ -75,17 +98,39 @@
   width: 100%;
 }
 
-.users-social-links {
-  height: 50px;
-  margin-left: 5px;
-  margin-right: 5px;
-  padding-top: 10px;
-  width: 40px;
+.oauth-button {
+  align-items: center;
+  background-color: $white;
+  color: $black;
+  border: 2px solid $green;
+  border-radius: 8px;
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 10px;
+  padding: 8px 12px;
+  transition: all .1s ease-in-out;
+}
 
-  &:hover {
-    opacity: .7;
+.oauth-button:hover {
+  border-color: $form-input-green;
+  box-shadow: 0 0 0 .2rem $form-input-focus-green;
+}
+
+.oauth-button:active {
+  transform: scale(.95);
+}
+
+@media screen and (max-width: 768px) {
+  .oauth-button {
+    width: 300px;
   }
 }
+
+.users-social-icon {
+  height: 18px;
+}
+
 //shared ends
 
 //login-register
@@ -96,6 +141,7 @@
 .password-icon {
   color: $secondary-green;
   width: 40px;
+  cursor: pointer;
 }
 
 .users-password-input {
@@ -110,6 +156,10 @@
 .users-login-primary-button {
   margin-top: 20px;
   padding: 8px 25px;
+}
+.password-length {
+  display: flex;
+  flex-direction: row;
 }
 //login-register ends
 
@@ -130,14 +180,41 @@
   border-radius: 4px;
   cursor: pointer;
   height: 35px;
+  line-height: 35px;
   margin-bottom: 20px;
   margin-left: 10px;
-  padding-top: 5px;
   text-align: center;
   width: 120px;
 }
 
 .users-edit-image-button-hidden {
+  display: none;
+}
+
+.users-edit-image-button:hover {
+  background-color: $primary-green;
+  color: $white;
+}
+
+.users-remove-image-button {
+  border: 1px solid $secondary-red;
+  border-radius: 4px;
+  cursor: pointer;
+  height: 35px;
+  line-height: 35px;
+  margin-bottom: 20px;
+  margin-left: 10px;
+  text-align: center;
+  width: 140px;
+}
+
+.remove-pic:checked ~ .users-remove-image-button,
+.users-remove-image-button:hover {
+  background-color: $primary-red;
+  color: $white;
+}
+
+.remove-pic {
   display: none;
 }
 
@@ -220,8 +297,10 @@
   display: block;
   font-size: 18px;
   font-weight: 600;
+  margin: auto;
   padding-bottom: 0;
   position: relative;
+  width: fit-content;
 
   p {
     margin-bottom: 0;
@@ -264,15 +343,17 @@
   align-items: center;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 
   input {
     border: 0;
-    border-left: 1px solid $form-border-grey;
+    border: 1px solid $primary-green;
     border-radius: 0;
     font-size: 16px;
     margin: 0;
     padding: 7px 10px 7px 35px;
     transition: .2s ease-in-out;
+    border-radius: 4px;
 
     &:focus {
       border-color: $primary-green;
@@ -281,12 +362,25 @@
   }
 }
 
+.users-circuits-navbar-buttons {
+  align-items: center;
+  column-gap: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.search-icon-dashboard {
+  margin-bottom: -60px;
+  margin-left: 7px;
+}
+
 .users-circuits-search {
   align-items: center;
   display: flex;
   flex-wrap: nowrap;
   justify-content: center;
   padding-top: 20px;
+  width: 100%;
 }
 
 .fa.fa-search.user-circuits-search-icon {
@@ -294,17 +388,15 @@
   margin-left: 28px;
   margin-right: -28px;
   z-index: 2;
-
 }
 
 .users-circuits-tab {
   background-color: $form-border-grey;
-  border-radius: 0;
+  border-radius: 5px;
   color: $black;
   font-size: 18px;
-  padding: 7px 25px;
-  margin: 0;
   margin-top: 20px;
+  padding: 7px 20px;
 
   &:hover {
     color: $black;
@@ -346,5 +438,195 @@
     font-size: 16px;
     padding: 4px 15px;
   }
+}
+
+@media (max-width: 768px) {
+  .users-circuits-navbar {
+    flex-direction: column;
+
+    input {
+      border: 1px solid $form-border-grey;
+    }
+  }
+
+  .users-circuits-search-container {
+    width: 100%;
+  }
+}
+
+.tt-dropdown-menu {
+  background-color: $white;
+  border-right: 1px solid var(--black);
+  border-bottom: 1px solid var(--black);
+  box-shadow: 1px 1px 2px var(--grey),
+             -1px 1px 2px var(--grey);
+  max-height: 40vh;
+  overflow-y: scroll;
+  padding: 10px;
+}
+// notification dropdown
+.navbar-3 {
+  position: relative;
+
+  .notification-count {
+    background: $primary-green;
+    border-radius: 50%;
+    color: $white;
+    font-size: 10px;
+    font-weight: bold;
+    height: 15px;
+    position: absolute;
+    right: 10px;
+    text-align: center;
+    top: 4px;
+    width: 15px;
+  }
+}
+
+.dropdown-notification {
+  padding: 13px 15px;
+  width: 450px;
+
+  h4 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 0;
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  .cancel-button {
+    background: none;
+    border: 0;
+    font-size: 20px;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 768px) {
+  .dropdown-notification {
+    max-width: 95vw;
+    width: auto;
+    left: 50% !important;
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 480px) {
+  .dropdown-notification {
+    max-width: 98vw;
+    padding: 10px 12px;
+  }
+}
+
+// notification page
+.notification-icon {
+  font-size: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.nb-notification {
+  border-bottom: 1px solid $notification-container-boxshadow;
+  padding: 18px 4px;
+  position: relative;
+
+  .message-wrapper {
+    flex: 1;
+  }
+}
+
+.notification-container {
+  max-width: 558px;
+}
+.notification-heading {
+  font-size: 30px;
+  font-style: normal;
+  font-weight: 600;
+  margin-top: 10px;
+}
+.tab-container span {
+  cursor: pointer;
+  margin-right: 20px;
+  padding-bottom: 5px;
+}
+.tab-container .active {
+  border-bottom: 3px solid $notification-icons;
+  font-weight: bold;
+}
+
+.notification,
+.nb-notification {
+  i {
+    background: #f0f0f0;
+    border-radius: 50%;
+    color: $notification-icons;
+    font-size: 22px;
+    margin-right: 15px;
+  }
+
+  .fa-star {
+    padding: 12px 10px;
+  }
+
+  .fa-comment {
+    padding: 10px;
+  }
+
+  .fa-comments {
+    padding: 10px;
+  }
+
+  .fa-clipboard {
+    padding: 12px 10px;
+  }
+
+  .fa-code-branch {
+    padding: 12px 15px;
+  }
+
+  .message {
+    color: $navbar-dark-grey;
+    font-size: 16px;
+  }
+
+  .timestamp {
+    color: $iframe-container-grey;
+    font-size: 14px;
+  }
+}
+
+.notification {
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(63, 63, 68, .15), 0 0 1px rgba(0, 0, 0, .5);
+  height: auto;
+  padding: 14px 24px;
+  position: relative;
+}
+
+.unseen-active {
+  background: $primary-green;
+  border-radius: 50%;
+  height: 12px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 12px;
+}
+.unseen-active-modal {
+  background: $primary-green;
+  border-radius: 50%;
+  height: 15px;
+  margin-left: 5px;
+  margin-right: 10px;
+  margin-top: 5px;
+  width: 15px;
+}
+
+.notification:hover {
+  background-color: #0000000a;
+  text-decoration: none;
 }
 //user profile ends

@@ -86,6 +86,7 @@ export default class LSB extends CircuitElement {
             this.enable.value = 0;
         }
         simulationArea.simulationQueue.add(this.enable);
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -140,5 +141,5 @@ export default class LSB extends CircuitElement {
 LSB.prototype.tooltipText =
     "LSB ToolTip : The least significant bit or the low-order bit.";
 LSB.prototype.helplink =
-    "https://docs.circuitverse.org/#/decodersandplexers?id=least-significant-bit-lsb-detector";
+    "https://docs.circuitverse.org/#/chapter4/5muxandplex?id=least-significant-bit-lsb-detector";
 LSB.prototype.objectType = "LSB";

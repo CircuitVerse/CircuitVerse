@@ -10,7 +10,7 @@ class LtiController < ApplicationController
     session[:is_lti] = true # the lti session starting
     if @assignment.blank?
       # if no assignment is found
-      flash[:notice] = t("lti.launch.notice_no_assignment")
+      flash.now[:notice] = t(".notice_no_assignment")
       render :launch_error, status: :unauthorized
       return
     end
@@ -29,10 +29,10 @@ class LtiController < ApplicationController
     @user = User.find_by(email: @email_from_lms)
 
     if @user.present? # user is present in cv
-      if @user.id == @group.mentor_id # user is teacher
+      if @user.id == @group.primary_mentor_id # user is teacher
         # passwordless sign_in the user as the authenticity is verified via lms
         sign_in(@user)
-        lms_auth_success_notice = t("lti.launch.notice_lms_auth_success_teacher",
+        lms_auth_success_notice = t(".notice_lms_auth_success_teacher",
                                     email_from_lms: @email_from_lms,
                                     lms_type: @lms_type,
                                     course_title_from_lms: @course_title_from_lms)
@@ -42,15 +42,15 @@ class LtiController < ApplicationController
         user_id: @user.id,
         group_id: @group.id
       ) # user is member of the group
-        flash[:notice] = t("lti.launch.notice_students_open_in_cv")
+        flash[:notice] = t(".notice_students_open_in_cv")
         create_project_if_student_present # create project with lis_result_sourced_id
         render :open_incv, status: :ok
       else # user is not a member of the group
-        flash[:notice] = t("lti.launch.notice_ask_teacher")
+        flash[:notice] = t(".notice_ask_teacher")
         render :launch_error, status: :unauthorized
       end
     else # no such user in circuitverse
-      flash[:notice] = t("lti.launch.notice_no_account_in_cv", email_from_lms: @email_from_lms)
+      flash[:notice] = t(".notice_no_account_in_cv", email_from_lms: @email_from_lms)
       render :launch_error, status: :bad_request
     end
   end

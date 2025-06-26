@@ -1,0 +1,16 @@
+mr:
+  helpers:
+    label:
+      collaboration:
+        emails: "ई-मेल आईडी:"
+      project:
+        name: "नाव"
+        tag_list: "टॅग यादी"
+        project_access_type: "प्रकल्प प्रवेश प्रकार"
+        description: "वर्णन"
+    submit:
+      collaboration:
+        create: "सहयोगी जोडा"
+      project:
+        create: "प्रकल्प तयार करा"
+        update: "प्रकल्प अद्यतनित करा"

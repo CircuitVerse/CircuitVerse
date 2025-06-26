@@ -6,8 +6,8 @@ class ProjectPolicy < ApplicationPolicy
   def initialize(user, project)
     @user = user
     @project = project
-    simulator_error = "Project has been moved or deleted. If you are the owner"\
-            " of the project, Please check your project access privileges."
+    simulator_error = "Project has been moved or deleted. If you are the owner " \
+                      "of the project, Please check your project access privileges."
     @simulator_exception = CustomAuthException.new(simulator_error)
   end
 
@@ -22,24 +22,25 @@ class ProjectPolicy < ApplicationPolicy
   def check_edit_access?
     return false if user.nil? || project.project_submission
 
-    project.author_id == user.id || \
+    project.author_id == user.id ||
       Collaboration.exists?(project_id: project.id, user_id: user.id)
   end
 
   def check_view_access?
-    (project.project_access_type != "Private" \
-    || (!user.nil? && project.author_id == user.id) \
-    || (!user.nil? && !project.assignment_id.nil? \
-      && project.assignment.group.mentor_id == user.id) \
-    || (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) \
-    || (!user.nil? && user.admin))
+    project.project_access_type != "Private" ||
+      (!user.nil? && project.author_id == user.id) ||
+      (!user.nil? && !project.assignment_id.nil? &&
+      ((project.assignment.group.primary_mentor_id == user.id) ||
+      project.assignment.group.group_members.exists?(user_id: user.id, mentor: true))) ||
+      (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) ||
+      (!user.nil? && user.admin)
   end
 
   def check_direct_view_access?
-    (project.project_access_type == "Public"  \
-    || (project.project_submission == false && !user.nil? && project.author_id == user.id) \
-    || (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) \
-    || (!user.nil? && user.admin))
+    project.project_access_type == "Public" ||
+      (project.project_submission == false && !user.nil? && project.author_id == user.id) ||
+      (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) ||
+      (!user.nil? && user.admin)
   end
 
   def edit_access?

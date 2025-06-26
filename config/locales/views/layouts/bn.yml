@@ -1,0 +1,33 @@
+bn:
+  layout:
+    link_to_simulator: "সিমুলেটর"
+    getting_started_dropdown: "শুরু করার পদ্ধতি"
+    link_to_learn_more: "আরও শিখুন"
+    link_to_docs: "ডকুমেন্টেশন"
+    link_to_features: "বৈশিষ্ট্যসমূহ"
+    link_to_teachers: "শিক্ষকদের জন্য"
+    link_to_blog: "ব্লগ"
+    link_to_about: "সার্কিটভার্স সম্পর্কে"
+    link_to_faq: "সচরাচর জিজ্ঞাসা"
+    footer:
+      social_icon_text: "আমাদেরকে ফলো করুন:"
+      link_to_examples: "উদাহরণ"
+      my_circuits: "আমার সার্কিট"
+      link_to_contribute: "অবদান করুন"
+      link_to_forum: "ফোরাম"
+      sponsor_logo_text:
+        brought_by: "আপনার কাছে এনেছে:"
+        hosting_sponsor: "হোস্টিং স্পন্সর:"
+        marketed_by: "মার্কেটিং করেছে:"
+      copyright_text: "কপিরাইট © %{time_current_year} CircuitVerse, সর্বস্বত্ব সংরক্ষিত।"
+    header:
+      dashboard: "ড্যাশবোর্ড"
+      my_groups: "আমার গ্রুপ"
+      notifications: "বিজ্ঞপ্তি"
+      language: "ভাষা"
+    mailer:
+      join_us: "আমাদের সাথে যোগ দিন"
+      copyright_text: "কপিরাইট © %{time_current_year} CircuitVerse. সমস্ত অধিকার সংরক্ষিত. যেকোনো সমস্যার জন্য, support@circuitverse.org আমাদের সাথে যোগাযোগ করুন"
+      unsubscribe_email_notifications: "ইমেইল বিজ্ঞপ্তি থেকে আপনার সাবস্ক্রিপশন বাতিল করুন"
+    simulator:
+      title: "সার্কিটভার্স - ডিজিটাল সার্কিট সিমুলেটর অনলাইন"

@@ -11,16 +11,16 @@
             <div> <span style="font-style: italic"> Restricted elements used: </span> <span id="restrictedElementsDiv--list"> </span></div>
           </div>
         <% end %>
-        <div id="MessageDiv" >
+        <div id="MessageDiv">
         </div>
 
-        <div class="canvasArea" id="canvasArea"  style="height:100%;width:100%">
+        <div class="canvasArea" id="canvasArea" style="height:100%;width:100%">
             <canvas id="backgroundArea" style="position: absolute; left: 0; top: 0; z-index: 0"></canvas>
             <canvas id="simulationArea" style="position: absolute; left: 0; top: 0; z-index: 1; width:100%;height:100%"></canvas>
         </div>
       <div id="elementName">
       </div>
-      <div class="zoom-wrapper">
+      <div class="zoom-wrapper" id="zoom-in-out-embed">
         <div class="noSelect">
           <button type="button" id='zoom-in-embed' class="" style="font-size: 25px;">
             <span class="fa fa-search-plus" aria-hidden="true" title="Zoom In"></span>
@@ -34,7 +34,7 @@
       </div>
 
       <div style="position:absolute; right:10px; top:25px; z-index:100" class="clockPropertyHeader noSelect">
-        <div id ="clockProperty" >
+        <div id="clockProperty">
         </div>
       </div>
       <div class="sk-folding-cube loadingIcon" style="display:inline-block;position:absolute; right:50%; bottom:50%; z-index:100">
@@ -45,21 +45,23 @@
       </div>
 
       <% if @external_embed  == true %>
+        <div id="bottom_right_circuit_heading">
+          <h5><%= @project.name %></h5>
+        </div>
         <div id="bottom_right_watermark">
           <a style="text-decoration:none;
               position: fixed;
               bottom: 0px;
-              right: 0px;
+              right: 25px;
               padding: 8px;
               font-family: Verdana;
               font-size: 12px;
               color: grey;
               z-index: 2;"
-             href= "/users/<%=@author%>/projects/<%=@logix_project_id%>"
+             href="/users/<%= @author %>/projects/<%= @logix_project_id %>"
              target="_blank">
             Made With CircuitVerse
           </a>
-
         </div>
       <% end %>
     </div>
@@ -69,7 +71,7 @@
     __logix_project_id = "<%= @logix_project_id %>";
         embed=true;
         <% if @project&.assignment_id.present? %>
-          restrictedElements = JSON.parse('<%= raw @project&.assignment.restrictions %>');
+          restrictedElements = JSON.parse('<%= raw @project&.assignment&.clean_restricted_elements %>');
         <% else %>
           restrictedElements = [];
         <% end %>

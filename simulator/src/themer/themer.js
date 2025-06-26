@@ -1,6 +1,7 @@
 import { dots } from '../canvasApi';
 import themeOptions from "./themes";
 import themeCardSvg from "./themeCardSvg";
+import { CustomColorThemes } from './customThemer';
 
 /**
  * Extracts canvas theme colors from CSS-Variables and returns a JSON Object
@@ -43,6 +44,7 @@ export let colors = getCanvasColors();
  */
 function updateThemeForStyle(themeName) {
     const selectedTheme = themeOptions[themeName];
+    if(selectedTheme === undefined) return;
     const html = document.getElementsByTagName('html')[0];
     Object.keys(selectedTheme).forEach((property, i) => {
         html.style.setProperty(property, selectedTheme[property]);
@@ -88,6 +90,7 @@ const getThemeCardSvg = (themeName) => {
  * @return {string} Theme card html
  */
 export const getThemeCard = (themeName, selected) => {
+  if(themeName === 'Custom Theme') return '<div></div>';
   let themeId = themeName.replace(' ', '');
   let selectedClass = selected ? 'selected set' : '';
   // themeSel is the hit area
@@ -130,12 +133,23 @@ export const colorThemes = () => {
         buttons: [{
             text: "Apply Theme",
             click() {
-                localStorage.setItem('theme', $('.selected label').text());
+                // check if any theme is selected or not
+                if ($('.selected label').text()) {
+                    localStorage.removeItem('Custom Theme');
+                    localStorage.setItem('theme', $('.selected label').text());
+                }
                 $('.set').removeClass('set');
                 $('.selected').addClass('set');
                 $(this).dialog('close');
             }
-        }]
+        },
+        {
+            text: "Custom Theme",
+            click() {
+                CustomColorThemes();
+                $(this).dialog('close');
+            }
+        }],
     });
 
     $('#colorThemesDialog').focus();

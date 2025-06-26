@@ -1,40 +1,54 @@
-require:
+inherit_from: .rubocop_todo.yml
+
+plugins:
   - rubocop-rspec
   - rubocop-rails
   - rubocop-performance
 
 AllCops:
-  TargetRubyVersion: 2.5
+  TargetRubyVersion: 3.4
   NewCops: enable
   # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
   # to ignore them, so only the ones explicitly set in this file are enabled.
   Exclude:
-    - '**/templates/**/*'
-    - '**/vendor/**/*'
-    - 'node_modules/**/*'
-    - 'Gemfile'
-    - 'Rakefile'
-    - 'db/*'
-    - 'db/**/*'
-    - 'config/**/*'
-    - 'bin/**/*'
+    - "**/templates/**/*"
+    - "**/vendor/**/*"
+    - "node_modules/**/*"
+    - "Gemfile"
+    - "Rakefile"
+    - "db/*"
+    - "db/**/*"
+    - "config/**/*"
+    - "bin/**/*"
+    - "bundle/**/*"
+    - "docs/**/*"
 
 Layout/LineLength:
-  Max: 100
+  Max: 120
 
 Metrics/BlockLength:
   Exclude:
-    - 'spec/**/*' # pretty much impossible with RSpec
-    - 'lib/tasks/*' # also impractical for Rake tasks
+    - "spec/**/*" # pretty much impossible with RSpec
+    - "lib/tasks/*" # also impractical for Rake tasks
 
 Metrics/MethodLength:
   Max: 15 # can be reduced
   Exclude:
-    - 'spec/**/*' # not a big deal in spec helper methods
+    - "spec/**/*" # not a big deal in spec helper methods
+    - "app/controllers/about_controller.rb"
+    - "app/controllers/assignments_controller.rb"
+    - "app/controllers/circuitverse_controller.rb"
+    - "app/controllers/collaborations_controller.rb"
+    - "app/controllers/grades_controller.rb"
+    - "app/controllers/group_members_controller.rb"
+    - "app/controllers/lti_controller.rb"
+    - "app/jobs/assignment_deadline_submission_job.rb"
+    - "app/models/grade.rb"
+    - "app/services/lti_score_submission.rb"
 
 Metrics/ModuleLength:
   Exclude:
-    - 'spec/**/*' # not a big deal in spec helper module
+    - "spec/**/*" # not a big deal in spec helper module
 
 Rails:
   Enabled: true
@@ -85,6 +99,7 @@ Layout/FirstArgumentIndentation:
 # Use Ruby >= 1.9 syntax for hashes. Prefer { a: :b } over { :a => :b }.
 Style/HashSyntax:
   Enabled: true
+  EnforcedShorthandSyntax: "never"
 
 # Method definitions after `private` or `protected` isolated calls need one
 # extra level of indentation.
@@ -134,14 +149,14 @@ Style/FrozenStringLiteralComment:
   Enabled: true
   EnforcedStyle: always
   Exclude:
-    - 'actionview/test/**/*.builder'
-    - 'actionview/test/**/*.ruby'
-    - 'actionpack/test/**/*.builder'
-    - 'actionpack/test/**/*.ruby'
-    - 'activestorage/db/migrate/**/*.rb'
-    - 'activestorage/db/update_migrate/**/*.rb'
-    - 'actionmailbox/db/migrate/**/*.rb'
-    - 'actiontext/db/migrate/**/*.rb'
+    - "actionview/test/**/*.builder"
+    - "actionview/test/**/*.ruby"
+    - "actionpack/test/**/*.builder"
+    - "actionpack/test/**/*.ruby"
+    - "activestorage/db/migrate/**/*.rb"
+    - "activestorage/db/update_migrate/**/*.rb"
+    - "actionmailbox/db/migrate/**/*.rb"
+    - "actiontext/db/migrate/**/*.rb"
 
 Style/RedundantFreeze:
   Enabled: true
@@ -248,3 +263,50 @@ Style/ClassAndModuleChildren:
 
 RSpec/MultipleExpectations:
   Max: 5
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 6
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/NamedSubject:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/RepeatedExampleGroupDescription:
+  Enabled: false
+
+RSpec/AnyInstance:
+  Enabled: false
+
+Rails/I18nLocaleTexts:
+  Enabled: false
+
+Metrics/CyclomaticComplexity:
+  Enabled: false
+
+Metrics/AbcSize:
+  Enabled: false
+
+Lint/EmptyBlock:
+  Exclude:
+    - "spec/factories/*"
+
+Lint/MissingSuper:
+  Exclude:
+    - "app/policies/*"
+
+RSpec/SpecFilePathFormat:
+  Enabled: false
+
+Naming/BlockForwarding:
+  Enabled: false

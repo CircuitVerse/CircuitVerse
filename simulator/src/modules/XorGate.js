@@ -96,6 +96,8 @@ export default class XorGate extends CircuitElement {
 
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
+    
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -162,7 +164,7 @@ export default class XorGate extends CircuitElement {
  * @category modules
  */
 XorGate.prototype.tooltipText =
-    "Xor Gate Tooltip : Implements an exclusive OR.";
+    "Xor Gate ToolTip : Implements an exclusive OR.";
 
 /**
  * @memberof XorGate
@@ -185,5 +187,5 @@ XorGate.prototype.changeInputSize = changeInputSize;
  */
 XorGate.prototype.verilogType = "xor";
 XorGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=xor-gate";
+    "https://docs.circuitverse.org/#/chapter4/4gates?id=xor-gate";
 XorGate.prototype.objectType = "XorGate";

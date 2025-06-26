@@ -1,0 +1,50 @@
+mr:
+  projects:
+    add_collaborator_description: "स्वल्पविराम, स्पेस किंवा एंटरने विभक्त केलेला ईमेल आयडी प्रविष्ट करा. वापरकर्त्यांनी प्लॅटफॉर्मवर आधीपासूनच नोंदणी करणे आवश्यक आहे. लक्षात घ्या की सहयोग अद्याप वास्तविक वेळ नाही. प्रत्येक बचत मागील डेटा अधिलिखित करते."
+    remove_collaborator_message: "तुमची खात्री आहे की तुम्ही हा सहयोगकर्ता काढू इच्छिता?"
+    delete_project_message: "तुम्हाला नक्की हा प्रकल्प हटवायचा आहे का?"
+    form:
+      feature_circuit_checkpoint: "प्रदर्शित वैशिष्ट्यीकृत (केवळ प्रशासक)"
+      tag_list_description: "(तुमचे प्रोजेक्ट टॅग स्वल्पविरामाने वेगळे करा [,])"
+      project_is_featured_message: "(हा प्रकल्प वैशिष्ट्यीकृत आहे. सार्वजनिक प्रवेश काढून टाकल्यास ते वैशिष्ट्यीकृत केले जाणार नाही.)"
+      public: "पब्लिक"
+      private: "प्राइवेट"
+      limited_access: "लिमिटेड एक्सेस"
+    edit:
+      title: "%{name} - प्रकल्प संपादित करा"
+      main_heading: "प्रकल्प एडिट करा"
+    get_projects:
+      searched_projects_heading: "प्रकल्प शोधला"
+      searched_tags_heading: "टैग:"
+    stars_count: "स्टार"
+    views_count: "व्यूज"
+    project_user: "वापरकर्ता:"
+    show:
+      project_author: "लेखक"
+      project_forked_from: "येथून फोर्क केले"
+      project_access_type: "प्रकल्प प्रवेश प्रकार"
+      project_description: "वर्णन:"
+      project_created_at: "तयार केल्यावर:"
+      project_updated_at: "अद्यतनित केल्यावर"
+      project_embed: "एम्बेड"
+      project_copy: "कॉपी प्रकल्प"
+      project_collaborator_add: "+ एक सहकारी जोडा"
+      copied_to_clipboard: "क्लिपबोर्डवर कॉपी केले!"
+      collaborators: "सहयोगी"
+    search:
+      no_result_found: "कोणताही परिणाम आढळला नाही"
+    modal:
+      embed_circuit_heading: "आपले सर्किट एम्बेड करा"
+      height: "उंची"
+      width: "रुंदी"
+      url: "यूआरएल"
+      border: "मर्यादा"
+      border_style: "सीमा शैली"
+      publish_button: "प्रकाशित करा"
+      advance:
+        advance_option: "प्रगत पर्याय"
+        clock_time: "घड्याळ/वेळ"
+        display_title: "शीर्षक प्रदर्शन"
+        fullscreen: "पूर्ण स्क्रीन"
+        zoom_in_out: "झूम इन/आउट करा"
+        theme: "थीम"

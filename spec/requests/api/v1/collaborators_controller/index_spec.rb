@@ -25,7 +25,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         get "/api/v1/projects/0/collaborators/",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -42,7 +42,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
         end
         token = get_auth_token(FactoryBot.create(:user))
         get "/api/v1/projects/#{public_project.id}/collaborators/",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all the collaborators for the given project" do
@@ -60,7 +60,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#index", type: :request do
         end
         token = get_auth_token(FactoryBot.create(:user))
         get "/api/v1/projects/#{private_project.id}/collaborators/",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do

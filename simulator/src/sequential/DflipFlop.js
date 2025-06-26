@@ -92,6 +92,8 @@ export default class DflipFlop extends CircuitElement {
             simulationArea.simulationQueue.add(this.qOutput);
             simulationArea.simulationQueue.add(this.qInvOutput);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customSave() {
@@ -158,6 +160,6 @@ endmodule
 }
 
 DflipFlop.prototype.tooltipText = 'D FlipFlop ToolTip : Introduces delay in timing circuit.';
-DflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=d-flip-flop';
+DflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=d-flip-flop';
 
 DflipFlop.prototype.objectType = 'DflipFlop';

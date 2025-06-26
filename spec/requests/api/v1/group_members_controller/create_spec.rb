@@ -5,8 +5,8 @@ require "rails_helper"
 RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
   describe "create/add group members" do
     let!(:existing_user) { FactoryBot.create(:user, email: "test@test.com") }
-    let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do
@@ -23,7 +23,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/groups/#{group.id}/members",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -35,9 +35,9 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
 
     context "when authorized but tries to add members to non existent group" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(primary_mentor)
         post "/api/v1/groups/0/members",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -49,9 +49,9 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
 
     context "when authorized and has access to add group members" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(primary_mentor)
         post "/api/v1/groups/#{group.id}/members",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -65,7 +65,7 @@ RSpec.describe Api::V1::GroupMembersController, "#create", type: :request do
 
     def create_params
       {
-        "emails": "test@test.com, newuser@test.com, invalid"
+        emails: "test@test.com, newuser@test.com, invalid"
       }
     end
   end

@@ -6,3 +6,4 @@ en:
   open_incv:
     notice_wait_in_open_incv: "Please wait while we open this assignment in CircuitVerse..."
     notice_redirection_error: "If it doesn't work, please click the button below."
+    open_assignment: "Open assignment"

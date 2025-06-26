@@ -98,6 +98,8 @@ export default class BitSelector extends CircuitElement {
             this.bitSelectorInp.value + 1
         ); // (this.inp1.value^(1<<this.bitSelectorInp.value))==(1<<this.bitSelectorInp.value);
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -153,7 +155,7 @@ export default class BitSelector extends CircuitElement {
 BitSelector.prototype.tooltipText =
     "BitSelector ToolTip : Divides input bits into several equal-sized groups.";
 BitSelector.prototype.helplink =
-    "https://docs.circuitverse.org/#/decodersandplexers?id=bit-selector";
+    "https://docs.circuitverse.org/#/chapter4/5muxandplex?id=bitselector";
 
 /**
  * @memberof BitSelector

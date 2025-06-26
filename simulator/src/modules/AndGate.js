@@ -103,6 +103,8 @@ export default class AndGate extends CircuitElement {
             result &= this.inp[i].value || 0;
         this.output1.value = result >>> 0;
         simulationArea.simulationQueue.add(this.output1);
+        
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -147,7 +149,7 @@ export default class AndGate extends CircuitElement {
  * @category modules
  */
 AndGate.prototype.tooltipText =
-    "And Gate Tooltip : Implements logical conjunction";
+    "And Gate ToolTip : Implements logical conjunction";
 
 /**
  * @memberof AndGate
@@ -170,5 +172,5 @@ AndGate.prototype.verilogType = "and";
  */
 AndGate.prototype.changeInputSize = changeInputSize;
 AndGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=and-gate";
+    "https://docs.circuitverse.org/#/chapter4/4gates?id=and-gate";
 AndGate.prototype.objectType = "AndGate";

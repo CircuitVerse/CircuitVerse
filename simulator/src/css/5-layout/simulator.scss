@@ -77,6 +77,7 @@
 #canvasArea {
   display: block;
   position: relative;
+  height: 100%;
   width: 100%;
   background-color: red;
 }
@@ -148,6 +149,15 @@
   bottom: 50px;
   /* 30px from the bottom */
   opacity: 0;
+}
+
+@media screen and (max-device-width: 1366px){
+  #Help {
+    bottom: 60px;
+    left: 150px;
+    margin-left: -125px;
+    right: 500px;
+  }
 }
 
 #Help.show {

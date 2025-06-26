@@ -27,7 +27,7 @@ RSpec.describe Api::V1::CommentsController, "#unvote", type: :request do
       before do
         token = get_auth_token(creator)
         put "/api/v1/comments/#{comment.id}/unvote",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status forbidden" do
@@ -40,7 +40,7 @@ RSpec.describe Api::V1::CommentsController, "#unvote", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         put "/api/v1/comments/#{comment.id}/unvote",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status success & 'comment unvoted' message" do

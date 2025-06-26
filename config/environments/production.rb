@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
@@ -14,20 +16,30 @@ Rails.application.configure do
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true
 
-  config.exceptions_app = self.routes
+  config.exceptions_app = routes
 
   # Attempt to read encrypted secrets from `config/secrets.yml.enc`.
   # Requires an encryption key in `ENV["RAILS_MASTER_KEY"]` or
   # `config/secrets.yml.key`.
   config.read_encrypted_secrets = true
 
+  # Configure ActiveStorage
+  if ENV["AWS_S3_BUCKET_NAME"].present?
+    config.active_storage.service = :amazon_custom
+  else
+    config.active_storage.service = :amazon
+  end
+
+  # Assume SSL rails 7.1
+  config.assume_ssl = true
+
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Compress JavaScripts and CSS.
-  config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
+  config.assets.js_compressor = :terser
+  config.assets.css_compressor = nil
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
@@ -54,7 +66,7 @@ Rails.application.configure do
   config.log_level = :debug
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store
@@ -85,20 +97,18 @@ Rails.application.configure do
   # Mailer settings
   config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
-  config.action_mailer.asset_host = 'https://circuitverse.org'
+  config.action_mailer.asset_host = "https://circuitverse.org"
 
-
-  config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"]
-  config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"]
+  config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || ""
+  config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || ""
 
   if ENV["RAILS_LOG_TO_STDOUT"].present?
-    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger           = ActiveSupport::Logger.new($stdout)
     logger.formatter = config.log_formatter
     config.logger    = ActiveSupport::TaggedLogging.new(logger)
   end
 
-
-  config.action_controller.forgery_protection_origin_check = false 
+  config.action_controller.forgery_protection_origin_check = false
   Paperclip.options[:command_path] = "/usr/bin/"
   config.active_job.queue_adapter = :sidekiq
 
@@ -109,24 +119,24 @@ Rails.application.configure do
   config.active_record.logger = nil
 
   # Logstash settings start here
- # config.lograge.enabled = true
-#  config.lograge.keep_original_rails_log = true
+  # config.lograge.enabled = true
+  #  config.lograge.keep_original_rails_log = true
 
- # config.lograge.custom_payload do |controller|
- #   {
- #        host: "Logix",
- #        user_id: controller.current_user.try(:id)
- #    }
-    # The host option looks very interesting to be used with devise gem maybe
- #  end
- #  config.lograge.formatter = Lograge::Formatters::Logstash.new
+  # config.lograge.custom_payload do |controller|
+  #   {
+  #        host: "Logix",
+  #        user_id: controller.current_user.try(:id)
+  #    }
+  # The host option looks very interesting to be used with devise gem maybe
+  #  end
+  #  config.lograge.formatter = Lograge::Formatters::Logstash.new
   # Optional, defaults to '0.0.0.0'
- #  config.logstash.host = '192.168.11.25'
+  #  config.logstash.host = '192.168.11.25'
 
   # Required, the port to connect to
- #  config.logstash.port = 5000
+  #  config.logstash.port = 5000
 
   # Required
-#   config.logstash.type = :tcp
+  #   config.logstash.type = :tcp
   # Logstash settings end here
 end

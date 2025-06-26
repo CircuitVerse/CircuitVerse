@@ -24,7 +24,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       before do
         token = get_auth_token(user)
         patch "/api/v1/projects/#{project.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: { name: "Project Name Updated" }
       end
 
@@ -38,7 +38,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       before do
         token = get_auth_token(random_user)
         patch "/api/v1/projects/#{project.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: { project: { name: "Project Name Updated" } }, as: :json
       end
 
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       before do
         token = get_auth_token(user)
         patch "/api/v1/projects/#{project.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: { project: { name: "Project Name Updated" } }, as: :json
       end
 
@@ -67,7 +67,7 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       before do
         token = get_auth_token(random_user)
         patch "/api/v1/projects/0",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: { project: { name: "Project Name Updated" } }, as: :json
       end
 

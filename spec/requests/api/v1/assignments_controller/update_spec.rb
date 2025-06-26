@@ -4,10 +4,10 @@ require "rails_helper"
 
 RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
   describe "update specific assignment" do
-    let!(:mentor) { FactoryBot.create(:user) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: mentor)
+        :assignment, group: FactoryBot.create(:group, primary_mentor: primary_mentor)
       )
     end
 
@@ -26,7 +26,7 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/assignments/#{assignment.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -38,9 +38,9 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
 
     context "when authorized but tries to update non existing assignments" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(primary_mentor)
         patch "/api/v1/assignments/0",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -52,10 +52,10 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
 
     context "when authorized but tries to update using invalid params" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(primary_mentor)
         patch "/api/v1/assignments/#{assignment.id}",
-              headers: { "Authorization": "Token #{token}" },
-              params: { "invalid": "invalid params" }, as: :json
+              headers: { Authorization: "Token #{token}" },
+              params: { invalid: "invalid params" }, as: :json
       end
 
       it "returns status invalid request" do
@@ -66,9 +66,9 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
 
     context "when authorized and has access to update assignment" do
       before do
-        token = get_auth_token(mentor)
+        token = get_auth_token(primary_mentor)
         patch "/api/v1/assignments/#{assignment.id}",
-              headers: { "Authorization": "Token #{token}" },
+              headers: { Authorization: "Token #{token}" },
               params: update_params, as: :json
       end
 
@@ -81,8 +81,8 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
 
     def update_params
       {
-        "name": "test updated", "deadline": Time.zone.now,
-        "description": "test description", "restrictions": "[]"
+        name: "test updated", deadline: Time.zone.now,
+        description: "test description", restrictions: "[]"
       }
     end
   end

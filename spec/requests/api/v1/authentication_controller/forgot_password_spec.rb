@@ -24,8 +24,7 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
 
       it "returns status 200 and should send reset password instructions" do
         expect(response).to have_http_status(:ok)
-        # checks if the last mail sent contains reset password instructions
-        expect(ActionMailer::Base.deliveries.last.subject).to eq("Reset password instructions")
+        expect(Devise::Mailer).to send_email(:reset_password_instructions)
       end
     end
   end

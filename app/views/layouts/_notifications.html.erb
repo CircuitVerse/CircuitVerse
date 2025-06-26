@@ -1,0 +1,50 @@
+<% if user_signed_in? %>
+  <div class="navbar-nav nav-item dropdown">
+  <li class="nav-item navbar-3 flex justify-content-center align-items-center" id="navbar-dropdown-3" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="notification-dropdown-menu" tabindex="0" aria-label="Notifications">
+      <i class="fas fa-bell notification-icon" id="notification-button"></i>
+      <% if @unread&.count&.positive? %>
+        <span class="notification-count"><%= @unread.count %></span>
+      <% end %>
+    </li>
+    <div class="dropdown-menu dropdown-menu-end dropdown-notification" aria-labelledby="navbar-dropdown-3">
+      <div class="d-flex align-items-center justify-content-between">
+        <strong><h4><%= t("users.notifications.heading") %></h4></strong>
+        <button class="cancel-button">&#10005;</button>
+      </div>
+      <% (@notification || []).each do |notification| %>
+        <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post do %>
+          <div class="d-flex align-items-center nb-notification">
+            <span><i class="<%= notification.to_notification.icon %>"></i></span>
+            <div class="d-flex flex-column message-wrapper">
+              <% if notification.unread? %>
+                <strong><span class="message"><%= notification.to_notification.message %></span></strong>
+                <strong><span class="timestamp"><%= "#{time_ago_in_words(notification.created_at)} ago, #{notification.created_at.to_fs(:long)}" %></span></strong>
+              <% else %>
+                <span class="message"><%= notification.to_notification.message %></span>
+                <span class="timestamp"><%= "#{time_ago_in_words(notification.created_at)} ago, #{notification.created_at.to_fs(:long)}" %></span>
+              <% end %>
+            </div>
+            <% if notification.unread? %>
+              <span class="unseen-active-modal"></span>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+      <% if (@notification || []).count == 0 %>
+        <div class="col-12 row center-row">
+          <div class="search-no-results-image">
+            <h6><%= t("users.notifications.no_unread_notifications") %></h6>
+          </div>
+        </div>
+      <% end %>
+      <div class="d-flex align-items-center justify-content-center mb-2 mt-3">
+        <% if @unread&.count&.positive? %>
+          <%= link_to t("users.notifications.mark_as_read_button"), read_all_notifications_url(current_user), method: :patch, class: "anchor-text-left" %>
+          <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text-right" %>
+        <% else %>
+        <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

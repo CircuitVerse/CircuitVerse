@@ -26,16 +26,39 @@ Devise.setup do |config|
   config.omniauth :facebook, ENV['FACEBOOK_CLIENT_ID'], ENV['FACEBOOK_CLIENT_SECRET'],  {
     :info_fields => 'email,name'
   }
-   config.omniauth :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
-    :scope => 'read:user'
+  config.omniauth :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
+    :scope => 'read:user,user:email'
   }
-
+  config.omniauth :gitlab, ENV['GITLAB_CLIENT_ID'], ENV['GITLAB_CLIENT_SECRET'], {
+    :scope => 'read_user'
+  }
   config.omniauth :microsoft_office365,ENV['MICROSOFT_CLIENT_ID'], ENV['MICROSOFT_CLIENT_SECRET']
 
   # Load and configure the ORM. Supports :active_record (default) and
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/active_record'
+  require 'securerandom'
+  # saml configuration for devise
+  $callback = Rails.env.development? ? 'http://localhost:3000' : ENV['CALLBACK_ADDRESS']
+  config.saml_route_helper_prefix = 'saml'
+  config.saml_create_user = true
+  config.saml_update_user = false
+  config.saml_default_user_key = :email
+  config.saml_session_index_key = :session_index
+  config.saml_use_subject = true
+  config.idp_settings_adapter = nil
+  config.saml_configure do |settings|
+    settings.assertion_consumer_service_url     = "#{$callback}/users/saml/auth"
+    settings.assertion_consumer_service_binding = "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    settings.name_identifier_format             = "urn:oasis:names:tc:SAML:2.0:nameid-format:transient"
+    settings.issuer                             = "#{$callback}/users/saml/metadata"
+    settings.authn_context                      = ""
+    settings.idp_slo_target_url                 = ""
+    settings.idp_sso_target_url                 = ENV['IDP_SSO_URL']
+    settings.idp_cert_fingerprint               = ENV['IDP_FINGERPRINT']
+    settings.idp_cert_fingerprint_algorithm     = 'http://www.w3.org/2000/09/xmldsig#sha256'
+  end
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
@@ -133,7 +156,7 @@ Devise.setup do |config|
   # able to access the website for two days without confirming their account,
   # access will be blocked just in the third day. Default is 0.days, meaning
   # the user cannot access the website without confirming their account.
-  # config.allow_unconfirmed_access_for = 2.days
+  config.allow_unconfirmed_access_for = 30.days
 
   # A period that the user is allowed to confirm their account before their
   # token becomes invalid. For example, if set to 3.days, the user can confirm
@@ -287,4 +310,20 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
+end
+
+Devise.saml_update_resource_hook = Proc.new do |user, saml_response, auth_value|
+  saml_response.attributes.resource_keys.each do |key|
+    user.send "#{key}=", saml_response.attribute_value_by_resource_key(key)
+  end
+
+  if Devise.saml_use_subject
+    user.send "#{Devise.saml_default_user_key}=", auth_value
+  end
+
+  if user.id.nil?
+    user.name = user.email if user.name.blank?
+    user.password = Devise.friendly_token[0, 20]
+  end
+  user.save!
 end

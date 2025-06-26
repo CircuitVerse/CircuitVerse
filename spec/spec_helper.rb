@@ -5,6 +5,7 @@ require "paperclip/matchers"
 require "support/spec_utils"
 require "sunspot/rails/spec_helper"
 require "webmock/rspec"
+require "percy/capybara"
 
 Coveralls.wear!("rails")
 WebMock.disable_net_connect!({
@@ -29,7 +30,7 @@ WebMock.disable_net_connect!({
 RSpec.configure do |config|
   config.before do
     # To stub sunspot indexers during testing
-    ::Sunspot.session = ::Sunspot::Rails::StubSessionProxy.new(::Sunspot.session)
+    Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
 
     # To stub google oauth fetch user response with valid access token
     stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
@@ -42,14 +43,14 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 200, body: {
-        "sub": "113163207688653496181",
-        "name": "Test OAuth User",
-        "given_name": "Test User",
-        "family_name": "Test User",
-        "picture": "https://lh3.googleusercontent.com/a-/AOh14",
-        "email": "test@test.com",
-        "email_verified": true,
-        "locale": "en"
+        sub: "113163207688653496181",
+        name: "Test OAuth User",
+        given_name: "Test User",
+        family_name: "Test User",
+        picture: "https://lh3.googleusercontent.com/a-/AOh14",
+        email: "test@test.com",
+        email_verified: true,
+        locale: "en"
       }.to_json, headers: {})
 
     # To stub google oauth fetch user response with valid access token but empty email
@@ -63,14 +64,14 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 200, body: {
-        "sub": "113163207688653496181",
-        "name": "Test OAuth User",
-        "given_name": "Test User",
-        "family_name": "Test User",
-        "picture": "https://lh3.googleusercontent.com/a-/AOh14",
-        "email": "",
-        "email_verified": true,
-        "locale": "en"
+        sub: "113163207688653496181",
+        name: "Test OAuth User",
+        given_name: "Test User",
+        family_name: "Test User",
+        picture: "https://lh3.googleusercontent.com/a-/AOh14",
+        email: "",
+        email_verified: true,
+        locale: "en"
       }.to_json, headers: {})
 
     # To stub google oauth fetch user response with invalid access token
@@ -84,13 +85,13 @@ RSpec.configure do |config|
         }
       )
       .to_return(status: 401, body: {
-        "error": "invalid_request",
-        "error_description": "Invalid Credentials"
+        error: "invalid_request",
+        error_description: "Invalid Credentials"
       }.to_json, headers: {})
   end
 
   config.after do
-    ::Sunspot.session = ::Sunspot.session.original_session
+    Sunspot.session = Sunspot.session.original_session
   end
 
   # rspec-expectations config goes here. You can use an alternate

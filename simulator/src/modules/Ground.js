@@ -54,6 +54,7 @@ export default class Ground extends CircuitElement {
     resolve() {
         this.output1.value = 0;
         simulationArea.simulationQueue.add(this.output1);
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -115,7 +116,7 @@ Ground.prototype.tooltipText = 'Ground: All bits are Low(0).';
  * @type {string}
  * @category modules
  */
-Ground.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=ground';
+Ground.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/2input?id=ground';
 
 /**
  * @memberof Ground

@@ -83,6 +83,8 @@ export default class Input extends CircuitElement {
     resolve() {
         this.output1.value = this.state;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     // Check if override is necessary!!
@@ -183,7 +185,7 @@ Input.prototype.tooltipText = 'Input ToolTip: Toggle the individual bits by clic
  * @type {string}
  * @category modules
  */
-Input.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=input';
+Input.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/2input?id=input';
 
 /**
  * @memberof Input

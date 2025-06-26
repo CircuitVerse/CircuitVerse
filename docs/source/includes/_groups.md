@@ -44,9 +44,9 @@ HTTP/1.1 200 OK
       "type": "group",
       "attributes": {
         "member_count": 1,
-        "mentor_name": "Test Mentor",
+        "primary_mentor_name": "Test Primary Mentor",
         "name": "Test Group 1",
-        "mentor_id": 1,
+        "primary_mentor_id": 1,
         "created_at": "2020-02-25T18:15:39.825Z",
         "updated_at": "2020-02-25T18:15:39.825Z"
       },
@@ -74,9 +74,9 @@ HTTP/1.1 200 OK
       "type": "group",
       "attributes": {
         "member_count": 1,
-        "mentor_name": "Test Mentor",
+        "primary_mentor_name": "Test Primary Mentor",
         "name": "Test Group 2",
-        "mentor_id": 1,
+        "primary_mentor_id": 1,
         "created_at": "2020-02-27T11:08:54.886Z",
         "updated_at": "2020-02-27T11:08:54.886Z"
       },
@@ -103,9 +103,9 @@ HTTP/1.1 200 OK
       "type": "group",
       "attributes": {
         "member_count": 1,
-        "mentor_name": "Test Mentor",
+        "primary_mentor_name": "Test Primary Mentor",
         "name": "Test Group 3",
-        "mentor_id": 1,
+        "primary_mentor_id": 1,
         "created_at": "2020-03-13T15:14:53.948Z",
         "updated_at": "2020-03-13T15:14:53.948Z"
       },
@@ -128,9 +128,9 @@ HTTP/1.1 200 OK
       "type": "group",
       "attributes": {
         "member_count": 1,
-        "mentor_name": "Test Mentor",
+        "primary_mentor_name": "Test Primary Mentor",
         "name": "Test Group 4",
-        "mentor_id": 4,
+        "primary_mentor_id": 4,
         "created_at": "2020-03-22T12:42:04.511Z",
         "updated_at": "2020-03-22T12:42:04.511Z"
       },
@@ -165,7 +165,7 @@ HTTP/1.1 200 OK
         "created_at": "2020-05-24T11:47:40.244Z",
         "updated_at": "2020-05-24T11:47:40.244Z",
         "status": "open",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false,
@@ -182,7 +182,7 @@ HTTP/1.1 200 OK
         "created_at": "2020-05-24T11:48:26.740Z",
         "updated_at": "2020-05-24T11:48:26.740Z",
         "status": "open",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false,
@@ -260,9 +260,9 @@ HTTP/1.1 200 OK
 }
 ```
 
-## GET All mentored groups
+## GET All owned groups
 
-You can GET all groups you mentor in `/api/v1/groups/mentored`. Authentication `token` is passed through `Authorization` header and is **required**.
+You can GET all groups that you are a primary mentor of in `/api/v1/groups/owned`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Query Parameters
 
@@ -284,7 +284,7 @@ You can GET all groups you mentor in `/api/v1/groups/mentored`. Authentication `
 | 404        | When user has no groups associated with him/her.                 |
 
 ```http
-GET /api/v1/groups/mentored?include=group_members,assignments HTTP/1.1
+GET /api/v1/groups/owned?include=group_members,assignments HTTP/1.1
 Accept: application/json
 Authorization: Token {token}
 Host: localhost
@@ -336,9 +336,9 @@ HTTP/1.1 200 OK
     "type": "group",
     "attributes": {
       "member_count": 1,
-      "mentor_name": "Test Mentor",
+      "primary_mentor_name": "Test Primary Mentor",
       "name": "Test Group 1",
-      "mentor_id": 1,
+      "primary_mentor_id": 1,
       "created_at": "2020-02-25T18:15:39.825Z",
       "updated_at": "2020-02-25T18:15:39.825Z"
     },
@@ -372,7 +372,7 @@ HTTP/1.1 200 OK
         "created_at": "2020-05-24T11:47:40.244Z",
         "updated_at": "2020-05-24T11:47:40.244Z",
         "status": "open",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false,
@@ -401,10 +401,10 @@ You can UPDATE group details (identified by `:id`) in `/api/v1/groups/:id/`. Aut
 
 ### List of acceptable params for put/patch requests include:
 
-| Name        | Type     | Description               |
-| ----------- | -------- | ------------------------- |
-| `name`      | `String` | Updated name of the group |
-| `mentor_id` | `String` | Mentor identified by id   |
+| Name                | Type     | Description                       |
+| ------------------- | -------- | --------------------------------- |
+| `name`              | `String` | Updated name of the group         |
+| `primary_mentor_id` | `String` | Primary Mentor identified by id   |
 
 ### URL Parameters
 
@@ -418,7 +418,7 @@ You can UPDATE group details (identified by `:id`) in `/api/v1/groups/:id/`. Aut
 | ---------- | -------------------------------------------------------------- |
 | 400        | When invalid parameters are used.                              |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
-| 403        | When non-mentor user tries to update the group                 |
+| 403        | When non-primary mentor user tries to update the group         |
 | 404        | When the requested group identified by `id` does not exists.   |
 
 ```http
@@ -451,9 +451,9 @@ Content-Type: application/json
     "type": "group",
     "attributes": {
       "member_count": 1,
-      "mentor_name": "Test Mentor",
+      "primary_mentor_name": "Test Primary Mentor",
       "name": "Group Name Updated",
-      "mentor_id": 1,
+      "primary_mentor_id": 1,
       "created_at": "2020-02-25T18:15:39.825Z",
       "updated_at": "2020-02-25T18:15:39.825Z"
     },
@@ -487,7 +487,7 @@ Content-Type: application/json
         "created_at": "2020-05-24T11:47:40.244Z",
         "updated_at": "2020-05-24T11:47:40.244Z",
         "status": "open",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false,
@@ -512,7 +512,7 @@ Content-Type: application/json
 
 ## DELETE Group
 
-Group mentor can DELETE a group (identified by `:id`) in `/api/v1/groups/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
+Group's primary mentor can DELETE a group (identified by `:id`) in `/api/v1/groups/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 
@@ -520,14 +520,14 @@ Group mentor can DELETE a group (identified by `:id`) in `/api/v1/groups/:id/`. 
 | --------- | ----------------------------------- |
 | `id`      | The `id` of the group to be deleted |
 
-<aside class="warning">User with mentor or admin access can only delete the group</aside>
+<aside class="warning">User with primary mentor or admin access can only delete the group</aside>
 
 ### Possible exceptions
 
 | Error Code | Description                                                    |
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
-| 403        | When non-mentor user tries to update the group                 |
+| 403        | When non-primary mentor user tries to update the group         |
 | 404        | When the requested group identified by `id` does not exists.   |
 
 ```http

@@ -100,6 +100,8 @@ export default class NorGate extends CircuitElement {
             ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -180,5 +182,5 @@ NorGate.prototype.changeInputSize = changeInputSize;
  */
 NorGate.prototype.verilogType = "nor";
 NorGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=nor-gate";
+    "https://docs.circuitverse.org/#/chapter4/4gates?id=nor-gate";
 NorGate.prototype.objectType = "NorGate";

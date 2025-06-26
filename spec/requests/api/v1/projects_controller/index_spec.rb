@@ -64,7 +64,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         FactoryBot.create(:project, author: user)
 
         token = get_auth_token(user)
-        get "/api/v1/projects", headers: { "Authorization": "Token #{token}" }, as: :json
+        get "/api/v1/projects", headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all public projects in additon to projects user is author of" do
@@ -82,7 +82,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         FactoryBot.create(:project, author: another_user)
 
         token = get_auth_token(user)
-        get "/api/v1/projects", headers: { "Authorization": "Token #{token}" }, as: :json
+        get "/api/v1/projects", headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns only all public projects" do

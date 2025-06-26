@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
   </head>
   <body>
     <h1>Welcome to CircuitVerse></h1>
     <p>
-      You have been added to a new group named <%= @group.name %> by <%= User.find_by(id:@group.mentor_id).name%>.<br><br>
+      You have been added to a new group named <%= @group.name %> by <%= User.find_by(id: @group.primary_mentor_id).name %>.<br><br>
       Sign up with CircuitVerse to explore the digital world. You can use the group once you have signed up with CircuitVerse.
     </p>
     <br>

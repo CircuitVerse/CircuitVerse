@@ -1,23 +1,23 @@
-<% content_for :title, "CircuitVerse - Editor Picks" %>
+<% content_for :title, t("featured_circuits.title") %>
 
 <div class="container">
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-      <h1 class="main-heading">Editor Picks</h1>
-      <p class="main-description">These circuits have been hand-picked by our authors for their awesomeness</p>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+      <h1 class="main-heading"><%= t("featured_circuits.main_heading") %></h1>
+      <p class="main-description"><%= t("featured_circuits.main_description") %></p>
     </div>
   </div>
   <div class="row center-row examples-container">
     <% @projects.each do |project| %>
-      <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4">
         <div class="card circuit-card">
-          <%= image_tag project.image_preview.url, alt: project.name, :class => "card-img-top circuit-card-image" %>
+          <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image" %>
           <div class="card-footer circuit-card-footer">
             <div class="circuit-card-name">
               <p><%= project.name %></p>
               <span class="tooltiptext"><%= project.name %></span>
             </div>
-            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>">View</a>
+            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>"><%= t("view") %></a>
           </div>
         </div>
       </div>

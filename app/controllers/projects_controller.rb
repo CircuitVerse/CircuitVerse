@@ -2,6 +2,8 @@
 
 class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
+  include SanitizeDescription
+  include UsersCircuitverseHelper
 
   before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
   before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
@@ -36,11 +38,6 @@ class ProjectsController < ApplicationController
     commontator_thread_show(@project)
   end
 
-  # GET /projects/new
-  def new
-    @project = Project.new
-  end
-
   # GET /projects/1/edit
   def edit; end
 
@@ -51,7 +48,6 @@ class ProjectsController < ApplicationController
       @star.user_id = current_user.id
       @star.project_id = @project.id
       @star.save
-      @star.notify :users
       render js: "2"
     else
       star.destroy
@@ -63,7 +59,6 @@ class ProjectsController < ApplicationController
     authorize @project
     @project_new = @project.fork(current_user)
     @project_new.save!
-    @project_new.notify :users, key: "project.fork"
     redirect_to user_project_path(current_user, @project_new)
   end
 
@@ -74,7 +69,10 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully created."
+        end
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -87,9 +85,13 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     @project.description = params["description"]
+    set_name_project_datum(project_params)
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -103,7 +105,9 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed." }
+      format.html do
+        redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
@@ -144,10 +148,14 @@ class ProjectsController < ApplicationController
 
     # Sanitize description before passing to view
     def sanitize_project_description
-      @project.description = sanitize(
-        @project.description,
-        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote],
-        attributes: %w[style src href alt title target]
-      )
+      @project.description = sanitize_description(@project.description)
+    end
+
+    def set_name_project_datum(project_params)
+      return unless @project.project_datum
+
+      datum_data = JSON.parse(@project.project_datum.data)
+      datum_data["name"] = project_params["name"]
+      @project.project_datum.data = JSON.generate(datum_data)
     end
 end

@@ -12,17 +12,17 @@
             "type": "object",
             "properties": {
               "member_count": { "type": "integer" },
-              "mentor_name": { "type": "string" },
+              "primary_mentor_name": { "type": "string" },
               "name": { "type": "string" },
-              "mentor_id": { "type": "integer" },
+              "primary_mentor_id": { "type": "integer" },
               "created_at": { "type": "string" },
               "updated_at": { "type": "string" }
             },
             "required": [
               "member_count",
-              "mentor_name",
+              "primary_mentor_name",
               "name",
-              "mentor_id",
+              "primary_mentor_id",
               "created_at",
               "updated_at"
             ]

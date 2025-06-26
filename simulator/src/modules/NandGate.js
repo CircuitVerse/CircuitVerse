@@ -102,6 +102,8 @@ export default class NandGate extends CircuitElement {
             ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -170,5 +172,5 @@ NandGate.prototype.changeInputSize = changeInputSize;
  */
 NandGate.prototype.verilogType = "nand";
 NandGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=nand-gate";
+    "https://docs.circuitverse.org/#/chapter4/4gates?id=nand-gate";
 NandGate.prototype.objectType = "NandGate";

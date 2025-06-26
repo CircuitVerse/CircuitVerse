@@ -16,7 +16,7 @@
   name = Commontator.commontator_name(creator) || ''
 %>
 <div class="row comments-comment">
-  <div class="col-10">
+  <div class="col-9">
     <div id="commontator-comment-<%= comment.id %>-section-top" class="section top">
       <span id="commontator-comment-<%= comment.id %>-avatar" class="avatar">
         <%= Commontator.commontator_avatar(creator, self) %>
@@ -25,32 +25,6 @@
       <span id="commontator-comment-<%= comment.id %>-author" class="author">
         <%= link.blank? ? name : link_to(name, link, class: "anchor-text") %>
       </span>
-
-      <div id="commontator-comment-<%= comment.id %>-actions" class="actions">
-        <% if comment.can_be_edited_by?(user) %>
-          <%= link_to commontator.edit_comment_path(comment),
-                      id: "commontator-comment-#{comment.id}-edit",
-                      remote: true,
-                      class: 'edit btn edit-action' do %>
-            <%= image_tag("SVGs/editGroup.svg", alt: "Edit Comment") %>
-          <% end %>
-        <% end %>
-
-        <% if comment.can_be_deleted_by?(user) %>
-          <% is_deleted = comment.is_deleted? %>
-          <% del_string = is_deleted ? 'undelete' : 'delete' %>
-          <% unless is_deleted %>
-            <%= link_to commontator.polymorphic_path([del_string.to_sym, comment]),
-                        data: is_deleted ? {} : { confirm: t('commontator.comment.actions.confirm_delete') },
-                        method: :put,
-                        id: "commontator-comment-#{comment.id}-#{del_string}",
-                        remote: true,
-                        class: "del_string btn delete-action" do %>
-              <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
-            <% end %>
-          <% end %>
-        <% end %>
-      </div>
     </div>
 
     <div id="commontator-comment-<%= comment.id %>-section-middle" class="section middle">
@@ -81,13 +55,34 @@
       </span>
     </div>
   </div>
-  <div class="col-2">
+  <div class="col-3 actions">
+    <div id="commontator-comment-<%= comment.id %>-actions" class="">
+      <% if comment.can_be_edited_by?(user) %>
+        <%= link_to commontator.edit_comment_path(comment),
+                    id: "commontator-comment-#{comment.id}-edit",
+                    remote: true,
+                    class: 'edit btn edit-action' do %>
+          <%= image_tag("SVGs/editGroup.svg", alt: "Edit Comment") %>
+        <% end %>
+      <% end %>
+
+      <% if comment.can_be_deleted_by?(user) %>
+        <% is_deleted = comment.is_deleted? %>
+        <% del_string = is_deleted ? 'undelete' : 'delete' %>
+        <% unless is_deleted %>
+          <%= link_to '#',
+                      data: is_deleted ? {} : { bs_toggle: "modal", bs_target: "#deletecommentModal", href: commontator.polymorphic_path([del_string.to_sym, comment]) },
+                      class: "del_string btn delete-action" do %>
+            <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
     <div id="commontator-comment-<%= comment.id %>-votes" class="votes">
       <%= render partial: 'commontator/comments/votes', locals: { comment: comment, user: user } %>
     </div>
   </div>
 </div>
-
 
 <div id="commontator-comment-<%= comment.id %>-children" class="children">
   <% if thread.config.comment_order == :l %>
@@ -113,3 +108,13 @@
                                 id: comment.id } %>
   </div>
 </div>
+<%= render partial: 'commontator/comments/delete_comment_confirmation_modal' %>
+<script>
+  $(document).ready(function() {
+    $("#deletecommentModal").on("show.bs.modal", function(e) {
+        let href = $(e.relatedTarget).data('href');
+        $(e.currentTarget).find('#projects-comment-delete-button').attr("href",
+        href.toString());
+    });
+  });
+</script>

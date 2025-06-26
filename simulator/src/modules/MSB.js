@@ -80,6 +80,7 @@ export default class MSB extends CircuitElement {
             this.enable.value = 0;
         }
         simulationArea.simulationQueue.add(this.enable);
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -135,5 +136,5 @@ export default class MSB extends CircuitElement {
 MSB.prototype.tooltipText =
     "MSB ToolTip : The most significant bit or the high-order bit.";
 MSB.prototype.helplink =
-    "https://docs.circuitverse.org/#/decodersandplexers?id=most-significant-bit-msb-detector";
+    "https://docs.circuitverse.org/#/chapter4/5muxandplex?id=most-significant-bit-msb-detector";
 MSB.prototype.objectType = "MSB";

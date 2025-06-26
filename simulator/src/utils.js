@@ -13,6 +13,7 @@ window.loading = false; // Flag - all assets are loaded
 
 var prevErrorMessage; // Global variable for error messages
 var prevShowMessage; // Global variable for error messages
+var fadeTimeOut; // Global variable to store the timeout ID for fading out a error message after a delay
 export function generateId() {
     var id = '';
     var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -46,12 +47,20 @@ export function clockTick() {
  */
 export function showError(error) {
     errorDetectedSet(true);
-    // if error ha been shown return
+    // if error has been shown return
     if (error === prevErrorMessage) return;
+
+    // Clear previous timeout if exists
+    if (fadeTimeOut) {
+        clearTimeout(fadeTimeOut);
+    }
+    $('.alert.alert-danger').fadeOut(() => {
+        $(this).remove();
+    });
     prevErrorMessage = error;
     var id = Math.floor(Math.random() * 10000);
     $('#MessageDiv').append(`<div class='alert alert-danger' role='alert' id='${id}'> ${error}</div>`);
-    setTimeout(() => {
+    fadeTimeOut = setTimeout(() => {
         prevErrorMessage = undefined;
         $(`#${id}`).fadeOut();
     }, 1500);
@@ -144,7 +153,7 @@ export function openInNewTab(url) {
 
 export function copyToClipboard(text) {
     const textarea = document.createElement('textarea');
-    
+
     // Move it off-screen.
     textarea.style.cssText = 'position: absolute; left: -99999em';
 
@@ -154,11 +163,11 @@ export function copyToClipboard(text) {
 
     document.body.appendChild(textarea);
       textarea.value = text;
-  
+
       // Check if there is any content selected previously.
       const selected = document.getSelection().rangeCount > 0 ?
         document.getSelection().getRangeAt(0) : false;
-  
+
       // iOS Safari blocks programmatic execCommand copying normally, without this hack.
       // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
       if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
@@ -175,10 +184,10 @@ export function copyToClipboard(text) {
       else {
         textarea.select();
       }
-  
+
       try {
         const result = document.execCommand('copy');
-  
+
         // Restore previous selection.
         if (selected) {
           document.getSelection().removeAllRanges();
@@ -232,18 +241,20 @@ export var convertors = {
     dec2bin: x => "0b" + x.toString(2),
     dec2hex: x => "0x" + x.toString(16),
     dec2octal: x => "0" + x.toString(8),
+    dec2bcd: x => parseInt(x.toString(10), 16).toString(2),
 }
 
-function setBaseValues(x) {
+export function setBaseValues(x) {
     if (isNaN(x)) return;
     $("#binaryInput").val(convertors.dec2bin(x));
+    $("#bcdInput").val(convertors.dec2bcd(x));
     $("#octalInput").val(convertors.dec2octal(x));
     $("#hexInput").val(convertors.dec2hex(x));
     $("#decimalInput").val(x);
 }
 
 export function parseNumber(num) {
-    if (num instanceof Number) return num; 
+    if (num instanceof Number) return num;
     if (num.slice(0, 2).toLocaleLowerCase() == '0b')
         return parseInt(num.slice(2), 2);
     if (num.slice(0, 2).toLocaleLowerCase() == '0x')
@@ -264,9 +275,27 @@ export function setupBitConvertor() {
         var x;
         if (inp.slice(0, 2) == '0b')
             x = parseInt(inp.slice(2), 2);
-        else 
+        else
             x = parseInt(inp, 2);
         setBaseValues(x);
+    })
+    $("#bcdInput").on('keyup', function () {
+        var input = $("#bcdInput").val();
+        var num = 0;
+        while (input.length % 4 !== 0){
+            input = "0" + input;
+        }
+        if(input !== 0){
+            var i = 0;
+            while (i < input.length / 4){
+                if(parseInt(input.slice((4 * i), 4 * (i + 1)), 2) < 10)
+                    num = num * 10 + parseInt(input.slice((4 * i), 4 * (i + 1)), 2);
+                else
+                    return setBaseValues(NaN);
+                i++;
+            }
+        }
+        return setBaseValues(x);
     })
 
     $("#hexInput").on('keyup', function () {
@@ -298,4 +327,13 @@ export function promptFile(contentType, multiple) {
       };
       input.click();
     });
+}
+
+export function escapeHtml(unsafe) {
+    return unsafe
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
 }

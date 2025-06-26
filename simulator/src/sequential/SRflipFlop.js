@@ -75,6 +75,8 @@ export default class SRflipFlop extends CircuitElement {
             simulationArea.simulationQueue.add(this.qOutput);
             simulationArea.simulationQueue.add(this.qInvOutput);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customSave() {
@@ -117,13 +119,13 @@ export default class SRflipFlop extends CircuitElement {
         ctx.font = '20px Raleway';
         ctx.fillStyle = colors['input_text'];
         ctx.textAlign = 'center';
-        fillText(ctx, this.state.toString(16), xx, yy + 5);
+        this.state ? fillText(ctx, this.state.toString(16), xx, yy + 5) : fillText(ctx, '0', xx, yy + 5);
         ctx.fill();
     }
 }
 
 SRflipFlop.prototype.tooltipText = 'SR FlipFlop ToolTip : SR FlipFlop Selected.';
 
-SRflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=sr-flip-flop';
+SRflipFlop.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=sr-flip-flop';
 
 SRflipFlop.prototype.objectType = 'SRflipFlop';

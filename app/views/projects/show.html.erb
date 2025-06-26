@@ -2,158 +2,154 @@
 <% content_for :description, @project.description %>
 <% set_meta_tags author: @project.author.name %>
 <% set_meta_tags twitter: {
-  card: "summary_large_image",
-  title: yield(:title),
-  description: @project.description,
-  image: {
-    src: "#{Rails.configuration.site_url}#{@project.image_preview}"
-  }
-  } %>
+     card: "summary_large_image",
+     title: yield(:title),
+     description: @project.description,
+     image: {
+       src: "#{Rails.configuration.site_url}#{@project.image_preview}"
+     }
+   } %>
 <% set_meta_tags og: {
-  title: yield(:title),
-  image: "#{Rails.configuration.site_url}#{@project.image_preview}",
-  description: @project.description,
-  type: "article",
-  site_name: Rails.configuration.site_name
-  } %>
-<div class="container">
+     title: yield(:title),
+     image: "#{Rails.configuration.site_url}#{@project.image_preview}",
+     description: @project.description,
+     type: "article",
+     site_name: Rails.configuration.site_name
+   } %>
+<div class="container" data-controller="projects">
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
       <h6><%= notice %></h6>
     </div>
   </div>
   <% end %>
   <br>
   <div class="row center-row">
-    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 ">
-      <div class="projects-iframe-container">
-        <div class="embed-responsive embed-responsive-4by3">
-          <iframe src=<%= simulator_path(@project) %> id="view" webkitAllowFullScreen mozAllowFullScreen allowFullScreen scrolling="no"></iframe>
+    <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
+      <div class="border border-secondary-subtle mb-5 p-2">
+        <div class="ratio ratio-4x3">
+          <iframe src=<%= simulator_path(@project) %>></iframe>
         </div>
       </div>
     </div>
-    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
-      <div class="container projects-details">
-        <div class="row center-row projects-details-heading-container">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-            <div class="projects-details-heading">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-5">
+      <div class="container bg-light px-0">
+        <div class="row center-row bg-success py-2 h-50">
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="text-light fs-3 fw-bold overflow-hidden text-wrap h-100">
               <%= @project.name %>
             </div>
           </div>
         </div>
         <div class="row projects-views-count-container noSelect">
-          <i class="fas fa-star projects-star-count-icon" aria-hidden="true"></i>
-          <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
-           Stars
-          &nbsp; &nbsp;
-          <i class="fa fa-eye" aria-hidden="true"></i>
-          <span id="star-count" class="noSelect"><%= @project.view %></span>
-           Views &nbsp; &nbsp;
+          <div class="w-25">
+            <i class="fas fa-star text-warning" aria-hidden="true"></i>
+            <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
+            <%= t("projects.stars_count") %>
+          </div>
+          <div class="w-25">
+            <i class="fa fa-eye" aria-hidden="true"></i>
+            <span id="view-count" class="noSelect"><%= @project.view %></span>
+            <%= t("projects.views_count") %> &nbsp; &nbsp;
+          </div>
         </div>
-        <div class="row center-row projects-user-details-container">
-          <div class="projects-search-tags-container">
+        <div class="row center-row pt-0 pb-4 px-5">
+          <div class="d-block mb-4 pl-0 text-left w-75">
             <% if !@project.tags.empty? %>
               <% @project.tags.each do |tag| %>
-                <%= link_to tag.name, tag_path(tag.name),class: "badge search-tag" %>
+                <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
               <% end %>
             <% end %>
           </div>
-          <p>
-            <strong>Author: </strong>
+          <p class="d-block mb-2 text-start w-75">
+            <strong><%= t("projects.show.project_author") %> </strong>
             <%= link_to @project.author.name, @project.author, class: "anchor-text" %>
           </p>
           <% if !@project.forked_project.nil? %>
-            <p>
-              <strong>Forked from: </strong>
-              <%= link_to @project.forked_project.author.name+"/"+@project.forked_project.name, user_project_path(@project.forked_project.author,@project.forked_project), class: "anchor-text" %>
+            <p class="d-block mb-2 text-start w-75">
+              <strong><%= t("projects.show.project_forked_from") %> </strong>
+              <%= link_to "#{@project.forked_project.author.name}/#{@project.forked_project.name}", user_project_path(@project.forked_project.author, @project.forked_project), class: "anchor-text" %>
             </p>
           <% end %>
-          <p>
-            <strong>Project access type: </strong>
+          <p class="d-block mb-2 text-start w-75">
+            <strong><%= t("projects.show.project_access_type") %> </strong>
             <%= @project.project_access_type %>
           </p>
           <% if !@project.description.nil? %>
-            <p>
-              <strong>Description: </strong>
+            <p class="d-block mb-2 text-start w-75">
+              <strong><%= t("projects.show.project_description") %> </strong>
             </p>
-            <div class="projects-details-description"><%= sanitize@project.description %></div>
+            <div class="projects-details-description"><%= sanitize @project.description %></div>
           <% end %>
-          <p title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
-            <strong>Created: </strong>
+          <p class="d-block mb-2 text-start w-75" title="<%= @project.created_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
+            <strong><%= t("projects.show.project_created_at") %> </strong>
             <% if @project.created_at >= 14.days.ago %>
-              <%= time_ago_in_words(@project.created_at, include_seconds: true) + " ago" %>
+              <%= "#{time_ago_in_words(@project.created_at, include_seconds: true)} ago" %>
             <% else %>
              <%= @project.created_at.strftime("%b %d, %Y") %>
             <% end %>
           </p>
-          <p title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
-            <strong>Updated: </strong>
+          <p class="d-block mb-2 text-start w-75" title="<%= @project.updated_at.strftime("%B %d, %Y, %l:%M %p UTC %:z") %>">
+            <strong><%= t("projects.show.project_updated_at") %> </strong>
             <% if @project.updated_at >= 14.days.ago %>
-              <%= time_ago_in_words(@project.updated_at, include_seconds: true) + " ago" %>
+              <%= "#{time_ago_in_words(@project.updated_at, include_seconds: true)} ago" %>
             <% else %>
               <%= @project.updated_at.strftime("%b %d, %Y") %>
             <% end %>
           </p>
           <% if user_signed_in? %>
-            <p>
-              <hr class="projects-horizontal-rule">
+            <p class="d-block mb-2 text-start w-75">
+              <hr class="w-100">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button projects-primary-button" target="_blank">Launch simulator</a>
+                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button ms-0 py-1 px-2" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
               <% else %>
-                <a class="btn primary-button projects-primary-button projects-others-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedOther()">
-                  <i class="fas fa-code"></i>
-                  <span>Embed</span>
-                </a>
+                <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-bs-target="#embedProjectCircuit" data-bs-toggle="modal">
+                <i class="fas fa-code"></i>
+                <span><%= t("projects.show.project_embed") %></span>
+              </a>
               <% end %>
               <% if policy(@project).author_access? %>
-                <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+                <%= link_to create_fork_project_path(@project), id: "copy_paste", class: "btn primary-button projects-primary-button", method: :post do %>
                   <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
-                  <span>Create Copy</span>
+                  <span><%= t("projects.show.project_copy") %></span>
                 <% end %>
               <% else %>
-                  <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button" do %>
+                  <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
                   <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
-                  <span>Fork</span>
+                  <span><%= t("fork") %></span>
                 <% end %>
               <% end %>
               <% if @project.stars.exists?(user_id: current_user.id) %>
-                <i id="toggleStarButton" class="fas fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="fas fa-star btn primary-button  project-button-star-icon ms-0" aria-hidden="true" onclick="toggleStar()"></i>
               <% else %>
-                <i id="toggleStarButton" class="far fa-star btn primary-button projects-primary-button projects-button-star-icon" aria-hidden="true" onclick="toggleStar()"></i>
+                <i id="toggleStarButton" class="far fa-star btn primary-button  project-button-star-icon ms-0" aria-hidden="true" onclick="toggleStar()"></i>
               <% end %>
             </p>
           <% end %>
           <% if policy(@project).author_access? %>
-            <p>
-              <a href="#" class="anchor-text" id="<%= @project.id %>" data-toggle="modal" data-target="#collaboratorModal">+ Add a Collaborator</a>
+            <p class="d-block mb-2 text-start w-75" id="collaboration_button">
+              <a href="#" class="anchor-text" id="<%= @project.id %>" data-bs-toggle="modal" data-bs-target="#collaboratorModal"><%= t("projects.show.project_collaborator_add") %></a>
             </p>
           <% end %>
           <% if policy(@project).user_access? %>
             <hr class="projects-horizontal-rule">
-            <p>
-              <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button" do %>
+            <p class="d-block mb-2 text-start w-75">
+              <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center" do %>
                 <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
-                <span>Edit</span>
+                <span><%= t("edit") %></span>
               <% end %>
-              <%= link_to "#", class: "btn secondary-button", data: {toggle: "modal", target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id} do %>
+              <%= link_to "#", class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center", data: { bs_toggle: "modal", bs_target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
                 <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
-                <span>Delete</span>
+                <span><%= t("delete") %></span>
               <% end %>
-              <a class="btn secondary-button projects-self-embed-button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample" onclick="embedSelf()">
-                <i class="fas fa-code"></i>
-                <span>Embed</span>
+              <a class="btn secondary-button ms-0 py-1 px-2 d-inline-flex justify-content-center align-items-center projects-self-embed-button embed-trigger" href="#" data-bs-target="#embedProjectCircuit" data-bs-toggle="modal">
+                <i class="fas fa-code me-1"></i>
+                <span><%= t("projects.show.project_embed") %></span>
               </a>
-            </p>
+              </p>
           <% end %>
-          <div class="collapse" id="collapseExample">
-            <div class="projects-embed-text-container">
-              <label for="embedTextArea"></label>
-              <textarea id="embedTextArea" class="projects-embed-text" rows="4" cols="35"><iframe width="600px" height="400px" src="<%= simulator_embed_url(@project) %>" id="projectPreview" scrolling="no" webkitAllowFullScreen mozAllowFullScreen allowFullScreen></iframe></textarea>
-            </div>
-            <small class="projectshow-embed-text-confirmation">Copied to Clipboard!</small>
-          </div>
         </div>
       </div>
     </div>
@@ -162,48 +158,49 @@
   <% collaborators = @project.collaborators %>
     <% if collaborators.count!=0 %>
       <div class="row center-row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-          <div class="projects-collaborators-container">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+          <div class="bg-light">
             <div class="row center-row">
-              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 projects-collaborators-heading">
+              <div class="col-12 col-sm-12 col-md-12 col-lg-12 bg-success text-light fs-3 fw-bold h-50 mb-2 p-2">
                 <div class="">
-                  Collaborators
+                  <%= t("projects.show.collaborators") %>
                 </div>
               </div>
             </div>
             <% @project.collaborators.each do |user| %>
               <div class="row center-row">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                   <div class="projectshow-collaborators-userdata">
                     <%= link_to user.name, user, class: "anchor-text" %>
                   </div>
                 </div>
                 <% if policy(@project).author_access? %>
-                  <div class="col-xs-8 col-sm-8 col-md-5 col-lg-5">
+                  <div class="col-8 col-sm-8 col-md-5 col-lg-5">
                     <div class="projects-collaborators-data">
                       <%= user.email %>
                     </div>
                   </div>
-                  <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
+                  <div class="col-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
-                      <%= link_to "#", data: {toggle: "modal", target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id:user.id, project_id:@project.id).id }, class: "btn primary-delete-button" do %>
+                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
                         <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
-                        <span>Remove</span>
+                        <span><%= t("remove") %></span>
                       <% end %>
                     </div>
                   </div>
                 <% end %>
-                <hr class="projects-collaborators-horizontal-rule">
+                <hr class="w-75">
               </div>
+            <% end %>
           </div>
         </div>
       </div>
-      <% end %>
     <% end %>
 
     <%= render partial: "add_collaborator_modal" %>
-    <%= render partial: "delete_project_confirmation_modal" %>
+    <%= render(ProjectComponents::DeleteProjectConfirmationModelComponent.new) %>
     <%= render partial: "delete_collaboration_confirmation_modal" %>
+    <%= render(ProjectEmbedComponent.new(@project)) %>
 
 </div>
 
@@ -211,6 +208,16 @@
 
 <script>
   $(document).ready(function() {
+    <% if @project&.assignment_id.present? && @project.assignment.feature_restrictions %> {
+      let restricted_feature = '<%= @project.assignment.feature_restrictions %>';
+      if(restricted_feature.includes('Allow Collaborators')) {
+        $('#collaboration_button').attr("style", "display:none")
+      }
+      if(restricted_feature.includes('Copy / Paste')) {
+        $('#copy_paste').attr("style", "display:none")
+      }
+    }
+    <% end %>
     $("#deleteprojectModal").on("show.bs.modal", function(e) {
         let author = $(e.relatedTarget).data('currentauthor');
         let project = $(e.relatedTarget).data('currentproject');
@@ -225,26 +232,6 @@
   })
 </script>
 <script>
-  function embedOther() {
-    if(document.getElementsByClassName("projects-others-embed-button")[0].ariaExpanded=="false") {
-      document.getElementsByClassName("projects-others-embed-button")[0].classList.add("active");
-    }
-    else {
-      document.getElementsByClassName("projects-others-embed-button")[0].classList.remove("active");
-    }
-    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
-  }
-
-  function embedSelf() {
-    if(document.getElementsByClassName("projects-self-embed-button")[0].ariaExpanded=="false") {
-      document.getElementsByClassName("projects-self-embed-button")[0].classList.add("active");
-    }
-    else {
-      document.getElementsByClassName("projects-self-embed-button")[0].classList.remove("active");
-    }
-    setTimeout(function(){$("#embedTextArea").select();document.execCommand("copy")},100);
-  }
-
   function toggleStar(toggle) {
     $.ajax({
       url: "<%= change_stars_path(@project) %>",
@@ -266,7 +253,6 @@
     });
   }
 </script>
-
 <% if user_signed_in? %>
   <script type="application/ld+json">
     {

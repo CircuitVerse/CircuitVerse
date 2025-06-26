@@ -41,7 +41,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_favourites", type: :request d
       before do
         token = get_auth_token(user_two)
         get "/api/v1/users/#{user_one.id}/favourites",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all public projects starred by user" do
@@ -55,7 +55,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_favourites", type: :request d
       before do
         token = get_auth_token(user_one)
         get "/api/v1/users/#{user_one.id}/favourites",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all projects including privates starred by user" do

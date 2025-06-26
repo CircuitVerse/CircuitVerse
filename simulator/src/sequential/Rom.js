@@ -187,6 +187,8 @@ export default class Rom extends CircuitElement {
         }
         this.dataOut.value = this.data[this.memAddr.value];
         simulationArea.simulationQueue.add(this.dataOut);
+
+        this.setOutputsUpstream(true);
     }
 
     verilogBaseType() {
@@ -243,5 +245,5 @@ export default class Rom extends CircuitElement {
  * @category sequential
  */
 Rom.prototype.tooltipText = 'Read-only memory';
-Rom.prototype.helplink = 'https://docs.circuitverse.org/#/memoryElements?id=rom';
+Rom.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=rom';
 Rom.prototype.objectType = 'Rom';

@@ -17,7 +17,8 @@ import {
     uniq,
     showMessage,
     showError,
-    truncateString
+    truncateString,
+    escapeHtml,
 } from './utils';
 import { findDimensions, dots } from './canvasApi';
 import { updateRestrictedElementsList } from './restrictedElementDiv';
@@ -26,13 +27,15 @@ import { showProperties } from './ux';
 import {
     scheduleUpdate, updateSimulationSet,
     updateCanvasSet, updateSubcircuitSet,
-    forceResetNodesSet, changeLightMode
+    forceResetNodesSet, changeLightMode,
 } from './engine';
 import { toggleLayoutMode, layoutModeGet } from './layoutMode';
 import { setProjectName, getProjectName } from './data/save';
 import { changeClockEnable } from './sequential';
 import { changeInputSize } from './modules';
 import { verilogModeGet, verilogModeSet } from './Verilog2CV';
+import { updateTestbenchUI } from './testbench';
+import load from './data/load';
 
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
@@ -56,7 +59,7 @@ export function switchCircuit(id) {
     // globalScope.fixLayout();
     scheduleBackup();
     if (id === globalScope.id) return;
-    $(`.circuits`).removeClass('current');
+    $('.circuits').removeClass('current');
     simulationArea.lastSelected = undefined;
     simulationArea.multipleObjectSelections = [];
     simulationArea.copyList = [];
@@ -74,6 +77,7 @@ export function switchCircuit(id) {
     simulationArea.lastSelected = globalScope.root;
     if (!embed) {
         showProperties(simulationArea.lastSelected);
+        updateTestbenchUI();
         plotArea.reset();
     }
     updateCanvasSet(true);
@@ -112,18 +116,31 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         return;
     }
 
-    const confirmation = confirm(`Are you sure want to delete: ${scope.name}\nThis cannot be undone.`);
+    const confirmation = confirm(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
     if (confirmation) {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
-            for(var id in scope.verilogMetadata.subCircuitScopeIds)
+            for (var id in scope.verilogMetadata.subCircuitScopeIds)
                 delete scopeList[id];
         }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
         switchCircuit(Object.keys(scopeList)[0]);
-        showMessage('Circuit was successfully deleted');
-    } else { showMessage('Circuit was not deleted'); }
+        showMessage('Circuit was successfully closed');
+    } else { showMessage('Circuit was not closed'); }
+}
+
+/**
+ * Wrapper function around newCircuit to be called from + button on UI
+ */
+export function createNewCircuitScope() {
+    simulationArea.lastSelected = undefined;
+    const scope = newCircuit();
+    if (!embed) {
+        showProperties(simulationArea.lastSelected);
+        updateTestbenchUI();
+        plotArea.reset();
+    }
 }
 
 /**
@@ -135,26 +152,25 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
  */
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
-    if (verilogModeGet()) { verilogModeSet(false);}
-    name = name || prompt('Enter circuit name:','Untitled-Circuit');
-    name = stripTags(name);
+    if (verilogModeGet()) { verilogModeSet(false); }
+    name = name || prompt('Enter circuit name:', 'Untitled-Circuit');
+    name = escapeHtml(stripTags(name));
     if (!name) return;
     const scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
-    if(isVerilog) {
+    if (isVerilog) {
         scope.verilogMetadata.isVerilogCircuit = true;
         scope.verilogMetadata.isMainCircuit = isVerilogMain;
     }
     globalScope = scope;
     $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
-        if(embed) {
+        if (embed) {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
             $('#tabsBar').append(html);
             $("#tabsBar").addClass('embed-tabs');
-        }
-        else {
+        } else {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
             $('#tabsBar').children().last().before(html);
         }
@@ -175,7 +191,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
                 document.getElementById('circname').select();
             }, 100);
         });
-        
+
         $('.tabsCloseButton').on('click',function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
@@ -185,7 +201,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         }
         dots(false);
     }
-    
+
     return scope;
 }
 
@@ -197,7 +213,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
  */
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
-    name = stripTags(name);
+    name = escapeHtml(stripTags(name));
     $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
 }
@@ -219,19 +235,21 @@ export default class Scope {
         // root object for referring to main canvas - intermediate node uses this
         this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
         this.backups = [];
+        // maintaining a state (history) for redo function
+        this.history = [];
         this.timeStamp = new Date().getTime();
         this.verilogMetadata = {
             isVerilogCircuit: false,
             isMainCircuit: false,
-            code: "// Write Some Verilog Code Here!",
-            subCircuitScopeIds: []
-        }
+            code: '// Write Some Verilog Code Here!',
+            subCircuitScopeIds: [],
+        };
 
         this.ox = 0;
         this.oy = 0;
         this.scale = DPR;
         this.stack = [];
-        
+
         this.initialize();
 
         // Setting default layout
@@ -245,7 +263,7 @@ export default class Scope {
     }
 
     isVisible() {
-        if(!this.verilogMetadata.isVerilogCircuit)return true;
+        if (!this.verilogMetadata.isVerilogCircuit) return true;
         return this.verilogMetadata.isMainCircuit;
     }
 
@@ -356,5 +374,200 @@ export default class Scope {
 
         this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
         this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
+    }
+
+    /**
+     * Function to load a circuit using circuit data
+     */
+    loadCircuit(data) {
+        if (data) {
+            load(data);
+        } else {
+            alert('Invalid data');
+        }
+    }
+
+    /**
+     * Function to retrieve the previous stable state of the circuit
+     */
+    previous() {
+        const autosaveData = localStorage.getItem('autosave');
+        if (autosaveData) {
+            const data = JSON.parse(autosaveData);
+            load(data);
+            localStorage.removeItem('autosave');
+        }
+    }
+
+    /**
+     * Function to detect the nodes that are creating cyclic paths in the circuit
+     */
+    detectCycle() {
+        const obj = {};
+        const result = [];
+
+        for (let i = 0; i < globalScope.allNodes.length; i++) {
+            const nodeId = globalScope.allNodes[i].id;
+            for (let j = 0; j < globalScope.allNodes[i].connections.length; j++) {
+                const connection = globalScope.allNodes[i].connections[j].id;
+                if (obj[nodeId]) {
+                    obj[nodeId].push(connection);
+                } else {
+                    obj[nodeId] = [connection];
+                }
+            }
+        }
+
+        const newNestedArray = [];
+        const singleConnectionNodes = [];
+
+        for (const node in obj) {
+            const connections = obj[node];
+            if (connections.length === 1) {
+                singleConnectionNodes.push(node);
+            }
+            if (!isVisited(newNestedArray.flat(), node)) {
+                const connectedNodes = [node];
+                exploreNodes(obj, node, newNestedArray.flat(), connectedNodes);
+                newNestedArray.push(connectedNodes);
+            }
+        }
+
+        for (let i = 0; i < singleConnectionNodes.length - 1; i++) {
+            for (let j = i + 1; j < singleConnectionNodes.length; j++) {
+                if (areElementsInSameNode(newNestedArray, singleConnectionNodes[i], singleConnectionNodes[j])) {
+                    const val1 = this.findNodeIndexById(singleConnectionNodes[i]);
+                    const val2 = this.findNodeIndexById(singleConnectionNodes[j]);
+                    if (globalScope.allNodes[val1].parent === globalScope.allNodes[val2].parent) {
+                        result.push(dfs(obj, singleConnectionNodes[i], singleConnectionNodes[j]));
+                    }
+                }
+            }
+        }
+
+        // Function to check whether a node is already visited
+        function isVisited(visited, node) {
+            return visited.includes(node);
+        }
+
+        // Function to explore interconnected nodes
+        function exploreNodes(graph, startNode, visited, connectedNodes) {
+            visited.push(startNode);
+            if (graph[startNode]) {
+                for (let i = 0; i < graph[startNode].length; i++) {
+                    const connectedNode = graph[startNode][i];
+                    if (!isVisited(visited, connectedNode)) {
+                        connectedNodes.push(connectedNode);
+                        exploreNodes(graph, connectedNode, visited, connectedNodes);
+                    }
+                }
+            }
+        }
+
+        function areElementsInSameNode(nestedArray, element1, element2) {
+            for (const node of nestedArray) {
+                if (node.includes(element1) && node.includes(element2)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Function to locate the nodes present between two specified nodes
+        function dfs(graph, start, end, path = []) {
+            if (start === end) {
+                path.push(end);
+                return path;
+            }
+            path.push(start);
+            for (const neighbor of graph[start]) {
+                if (!path.includes(neighbor)) {
+                    const newPath = dfs(graph, neighbor, end, path);
+                    if (newPath) {
+                        return newPath;
+                    }
+                }
+            }
+            path.pop();
+            return [];
+        }
+
+        if (result.length) {
+            this.highlightNodes(result);
+            return result;
+        }
+
+        return 'No cycle found';
+    }
+
+    /**
+     * Function to highlight the nodes in the currently selected circuit
+     * @param {Array<Array>} array - id's of the nodes, that we want to highlight
+     */
+    highlightNodes(array) {
+        const Nodes = [];
+        array.forEach((innerArray) => {
+            const resultArray = innerArray.map(value => this.findNodeIndexById(value));
+            Nodes.push(resultArray);
+        });
+
+        Nodes.forEach((subArray) => {
+            subArray.forEach((node) => {
+                globalScope.allNodes[node].highlighted = true;
+            });
+        });
+    }
+
+    /**
+     * Function to find the index of a node in globalScope.allNodes
+     * @param {string} nodeId - id of a node
+     */
+    findNodeIndexById(nodeId) {
+        for (let i = 0; i < globalScope.allNodes.length; i++) {
+            if (globalScope.allNodes[i].id === nodeId) {
+                return i;
+            }
+        }
+        return 'Not found';
+    }
+
+    /**
+     * Function to find the currently selected component on the canvas
+     */
+    getCurrentlySelectedComponent() {
+        return simulationArea.lastSelected;
+    }
+
+    /**
+     * Function to find the currently selected components (when multiple components are selected) on the canvas
+     */
+    getAllSelectedComponents() {
+        return simulationArea.multipleObjectSelections;
+    }
+
+    /**
+     * Function to modify the currently selected component's object in the globalScope
+     * takes the property which needs to modify
+     * and the modified value as parameters
+     */
+    modifyCurrentlySelectedComponent(property, value) {
+        const selectedComponent = globalScope.getCurrentlySelectedComponent();
+
+        if (selectedComponent.objectType === 'Node') {
+            const nodeId = selectedComponent.id;
+            const nodeIndex = this.findNodeIndexById(nodeId);
+            globalScope.allNodes[nodeIndex][property] = value;
+            return;
+        }
+        for (const key in globalScope) {
+            const component = globalScope[key];
+            if (Array.isArray(component) && component.length) {
+                component.forEach((obj, index) => {
+                    if (obj === selectedComponent) {
+                        component[index][property] = value;
+                    }
+                });
+            }
+        }
     }
 }

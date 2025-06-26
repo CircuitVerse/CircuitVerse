@@ -1,0 +1,1572 @@
+{
+    "name": "misc",
+    "timePeriod": 500,
+    "clockEnabled": true,
+    "projectId": "Z66aSelqsnFvwJteATxg",
+    "focussedCircuit": 60033074305,
+    "orderedTabs": [
+        "60033074305"
+    ],
+    "scopes": [
+        {
+            "layout": {
+                "width": 100,
+                "height": 320,
+                "title_x": 50,
+                "title_y": 13,
+                "titleEnabled": true
+            },
+            "verilogMetadata": {
+                "isVerilogCircuit": false,
+                "isMainCircuit": false,
+                "code": "// Write Some Verilog Code Here!",
+                "subCircuitScopeIds": []
+            },
+            "allNodes": [
+                {
+                    "x": -30,
+                    "y": -30,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "A",
+                    "connections": [
+                        12
+                    ]
+                },
+                {
+                    "x": -30,
+                    "y": 30,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "B",
+                    "connections": [
+                        22
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": -40,
+                    "type": 0,
+                    "bitWidth": 3,
+                    "label": "Ctrl",
+                    "connections": [
+                        5
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 40,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Cout",
+                    "connections": [
+                        10
+                    ]
+                },
+                {
+                    "x": 30,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Out",
+                    "connections": [
+                        8
+                    ]
+                },
+                {
+                    "x": 30,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 3,
+                    "label": "",
+                    "connections": [
+                        2,
+                        56
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        12
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        22
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        4
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        10
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -240,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        3,
+                        9
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        13
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": -400,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        0,
+                        6,
+                        13
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": -150,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        11,
+                        12,
+                        21
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        15
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        14
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "A",
+                    "connections": [
+                        21
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "B",
+                    "connections": [
+                        23
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Cin",
+                    "connections": [
+                        24
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Sum",
+                    "connections": [
+                        25
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "Cout",
+                    "connections": [
+                        27
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": -20,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        13,
+                        16,
+                        31
+                    ]
+                },
+                {
+                    "x": -170,
+                    "y": -340,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        1,
+                        7,
+                        23
+                    ]
+                },
+                {
+                    "x": -170,
+                    "y": -10,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        17,
+                        22,
+                        72
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        18
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        19
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        27
+                    ]
+                },
+                {
+                    "x": 70,
+                    "y": 60,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        20,
+                        26
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 3,
+                    "label": "input stream",
+                    "connections": [
+                        56
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 3,
+                    "label": "2's complement",
+                    "connections": [
+                        30
+                    ]
+                },
+                {
+                    "x": 30,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 3,
+                    "label": "",
+                    "connections": [
+                        29
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": 190,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        21,
+                        32,
+                        39
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        31
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        35
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Enable",
+                    "connections": [
+                        46
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        33
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        39
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "reset",
+                    "connections": []
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        40
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": 340,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        31,
+                        36,
+                        44
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        38
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        44
+                    ]
+                },
+                {
+                    "x": 30,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        45
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "Enable",
+                    "connections": [
+                        50
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": 450,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        39,
+                        41,
+                        69
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        42
+                    ]
+                },
+                {
+                    "x": 50,
+                    "y": 260,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        34,
+                        48
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        48
+                    ]
+                },
+                {
+                    "x": -160,
+                    "y": 260,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        46,
+                        47,
+                        49
+                    ]
+                },
+                {
+                    "x": -160,
+                    "y": 570,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        48,
+                        50
+                    ]
+                },
+                {
+                    "x": 60,
+                    "y": 570,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        43,
+                        49
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 3,
+                    "label": "",
+                    "connections": [
+                        55
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -30,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        57
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        58
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        59
+                    ]
+                },
+                {
+                    "x": 40,
+                    "y": -660,
+                    "type": 2,
+                    "bitWidth": 3,
+                    "label": "",
+                    "connections": [
+                        51,
+                        56,
+                        63
+                    ]
+                },
+                {
+                    "x": 40,
+                    "y": -530,
+                    "type": 2,
+                    "bitWidth": 3,
+                    "label": "",
+                    "connections": [
+                        5,
+                        28,
+                        55
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        52
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        53
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        54
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 3,
+                    "label": "",
+                    "connections": [
+                        63
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": -20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        64
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 2,
+                    "label": "",
+                    "connections": [
+                        65
+                    ]
+                },
+                {
+                    "x": 40,
+                    "y": -850,
+                    "type": 2,
+                    "bitWidth": 3,
+                    "label": "",
+                    "connections": [
+                        55,
+                        60
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        61
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 2,
+                    "label": "",
+                    "connections": [
+                        62
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        72
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        70
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        71
+                    ]
+                },
+                {
+                    "x": -110,
+                    "y": 700,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        44,
+                        70
+                    ]
+                },
+                {
+                    "x": 60,
+                    "y": 700,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        69,
+                        67
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        68
+                    ]
+                },
+                {
+                    "x": -170,
+                    "y": 640,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        23,
+                        66
+                    ]
+                }
+            ],
+            "id": 60033074305,
+            "name": "Main",
+            "Input": [
+                {
+                    "x": -50,
+                    "y": -530,
+                    "objectType": "Input",
+                    "label": "mode",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 5
+                        },
+                        "values": {
+                            "state": 7
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            3,
+                            {
+                                "x": 0,
+                                "y": 100,
+                                "id": "XLIG7xxHzqiqXN4niWjc"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": -260,
+                    "y": -400,
+                    "objectType": "Input",
+                    "label": "inp1",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 6
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 40,
+                                "id": "xnFLotUtTF8dDqzdt63A"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": -260,
+                    "y": -340,
+                    "objectType": "Input",
+                    "label": "inp2",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 7
+                        },
+                        "values": {
+                            "state": 0
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 20,
+                                "id": "20RIzYI8HAyZyA6HZkie"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": -240,
+                    "y": 0,
+                    "objectType": "Input",
+                    "label": "inp3",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 24
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 60,
+                                "id": "4Pt2rPBEr90DVh789QpH"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": -230,
+                    "y": 260,
+                    "objectType": "Input",
+                    "label": "enable",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 47
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 80,
+                                "id": "Bvzy3iTJUD5HiGnxpab6"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Output": [
+                {
+                    "x": 250,
+                    "y": -370,
+                    "objectType": "Output",
+                    "label": "ALU-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 8
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 40,
+                                "id": "AKbMNYWkZvw4oWCYQ12W"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 260,
+                    "y": -240,
+                    "objectType": "Output",
+                    "label": "ALU-out2",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 9
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 200,
+                                "id": "K7hEEwIPmQ17joAgCPXg"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 250,
+                    "y": -150,
+                    "objectType": "Output",
+                    "label": "Tunnel-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 15
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 20,
+                                "id": "jgCz5e7jPDpPEbwEaQgh"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 150,
+                    "y": -10,
+                    "objectType": "Output",
+                    "label": "Adder-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 25
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 60,
+                                "id": "IaKcxWxYEyFXwog5mmN9"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 200,
+                    "y": 60,
+                    "objectType": "Output",
+                    "label": "Adder-out2",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 26
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 80,
+                                "id": "zuWpzdjxikK9URyRNLmT"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 270,
+                    "y": -530,
+                    "objectType": "Output",
+                    "label": "2s-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 30
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            3,
+                            {
+                                "x": 100,
+                                "y": 100,
+                                "id": "4uEXpHNgO8CNC3NeKPhs"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 160,
+                    "y": 190,
+                    "objectType": "Output",
+                    "label": "T-state-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 35
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 120,
+                                "id": "MwFKnzZlWzyDBVGrzz5e"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 160,
+                    "y": 340,
+                    "objectType": "Output",
+                    "label": "buffer-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 40
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 140,
+                                "id": "kCRFdkujlb6UZZaBH2Wi"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 180,
+                    "y": 450,
+                    "objectType": "Output",
+                    "label": "CI-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 45
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 160,
+                                "id": "vh7IJznYSr54Ohz8GC2R"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 240,
+                    "y": -710,
+                    "objectType": "Output",
+                    "label": "s-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 57
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 180,
+                                "id": "c4XKu6fhOdVbCK6wqiht"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 240,
+                    "y": -690,
+                    "objectType": "Output",
+                    "label": "s-out2",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 58
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 220,
+                                "id": "IcyojhGiGRYqMM9B87k5"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 240,
+                    "y": -670,
+                    "objectType": "Output",
+                    "label": "s-out3",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 59
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 240,
+                                "id": "ccIvryJkgZqu7qvSQg4l"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 220,
+                    "y": -880,
+                    "objectType": "Output",
+                    "label": "s-un-out1",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 64
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 260,
+                                "id": "9CB5RKzglQEWYo6MvnDa"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 230,
+                    "y": -860,
+                    "objectType": "Output",
+                    "label": "s-un-out2",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 65
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            2,
+                            {
+                                "x": 100,
+                                "y": 280,
+                                "id": "dujdaDsq5xV6Z9bOchmB"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 170,
+                    "y": 640,
+                    "objectType": "Output",
+                    "label": "Force-out",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 71
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 300,
+                                "id": "iHSRiMZgMM6EXgN1xPfJ"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Splitter": [
+                {
+                    "x": 120,
+                    "y": -680,
+                    "objectType": "Splitter",
+                    "label": "splitter-equal",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            3,
+                            [
+                                1,
+                                1,
+                                1
+                            ]
+                        ],
+                        "nodes": {
+                            "outputs": [
+                                52,
+                                53,
+                                54
+                            ],
+                            "inp1": 51
+                        }
+                    }
+                },
+                {
+                    "x": 130,
+                    "y": -860,
+                    "objectType": "Splitter",
+                    "label": "splitter-unequal",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            3,
+                            [
+                                1,
+                                2
+                            ]
+                        ],
+                        "nodes": {
+                            "outputs": [
+                                61,
+                                62
+                            ],
+                            "inp1": 60
+                        }
+                    }
+                }
+            ],
+            "ControlledInverter": [
+                {
+                    "x": 60,
+                    "y": 450,
+                    "objectType": "ControlledInverter",
+                    "label": "controlled Inverter",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "output1": 42,
+                            "inp1": 41,
+                            "state": 43
+                        }
+                    }
+                }
+            ],
+            "TriState": [
+                {
+                    "x": 50,
+                    "y": 190,
+                    "objectType": "TriState",
+                    "label": "T-state buffer",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "output1": 33,
+                            "inp1": 32,
+                            "state": 34
+                        }
+                    }
+                }
+            ],
+            "Adder": [
+                {
+                    "x": 50,
+                    "y": -10,
+                    "objectType": "Adder",
+                    "label": "Adder",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "inpA": 16,
+                            "inpB": 17,
+                            "carryIn": 18,
+                            "carryOut": 20,
+                            "sum": 19
+                        }
+                    }
+                }
+            ],
+            "TwoComplement": [
+                {
+                    "x": 120,
+                    "y": -530,
+                    "objectType": "TwoComplement",
+                    "label": "2's compliment",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            3
+                        ],
+                        "nodes": {
+                            "output1": 29,
+                            "inp1": 28
+                        }
+                    }
+                }
+            ],
+            "Buffer": [
+                {
+                    "x": 50,
+                    "y": 340,
+                    "objectType": "Buffer",
+                    "label": "buffer",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "output1": 38,
+                            "inp1": 36,
+                            "reset": 37
+                        }
+                    }
+                }
+            ],
+            "Tunnel": [
+                {
+                    "x": -50,
+                    "y": -150,
+                    "objectType": "Tunnel",
+                    "label": "Tunnel-IN",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            "T"
+                        ],
+                        "nodes": {
+                            "inp1": 11
+                        },
+                        "values": {
+                            "identifier": "T"
+                        }
+                    }
+                },
+                {
+                    "x": 140,
+                    "y": -150,
+                    "objectType": "Tunnel",
+                    "label": "Tunnel-Out",
+                    "direction": "LEFT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            "T"
+                        ],
+                        "nodes": {
+                            "inp1": 14
+                        },
+                        "values": {
+                            "identifier": "T"
+                        }
+                    }
+                }
+            ],
+            "ALU": [
+                {
+                    "x": -10,
+                    "y": -370,
+                    "objectType": "ALU",
+                    "label": "ALU",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "inp1": 0,
+                            "inp2": 1,
+                            "output": 4,
+                            "carryOut": 3,
+                            "controlSignalInput": 2
+                        }
+                    }
+                }
+            ],
+            "ForceGate": [
+                {
+                    "x": 60,
+                    "y": 640,
+                    "objectType": "ForceGate",
+                    "label": "force gate",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "output1": 68,
+                            "inp1": 66,
+                            "inp2": 67
+                        }
+                    }
+                },
+                {
+                    "x": 60,
+                    "y": 640,
+                    "objectType": "ForceGate",
+                    "label": "force gate",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1
+                        ],
+                        "nodes": {
+                            "output1": 68,
+                            "inp1": 66,
+                            "inp2": 67
+                        }
+                    }
+                }
+            ],
+            "restrictedCircuitElementsUsed": [],
+            "nodes": [
+                10,
+                12,
+                13,
+                21,
+                22,
+                23,
+                27,
+                31,
+                39,
+                44,
+                46,
+                48,
+                49,
+                50,
+                55,
+                56,
+                63,
+                69,
+                70,
+                72
+            ]
+        }
+    ]
+}

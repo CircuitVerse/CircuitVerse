@@ -2,8 +2,8 @@
 
 class Api::V1::GroupsController < Api::V1::BaseController
   before_action :authenticate_user!
-  before_action :set_group, except: %i[index groups_mentored create]
-  before_action :set_options, only: %i[index groups_mentored create show update]
+  before_action :set_group, except: %i[index groups_owned create]
+  before_action :set_options, only: %i[index groups_owned create show update]
   before_action :check_show_access, only: [:show]
   before_action :check_edit_access, only: %i[update destroy]
 
@@ -16,27 +16,27 @@ class Api::V1::GroupsController < Api::V1::BaseController
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
-  # GET /api/v1/groups/mentored
-  def groups_mentored
-    @groups = paginate(current_user.groups_mentored)
-    @options[:links] = link_attrs(@groups, api_v1_groups_mentored_url)
+  # GET /api/v1/groups/owned
+  def groups_owned
+    @groups = paginate(current_user.groups_owned)
+    @options[:links] = link_attrs(@groups, api_v1_groups_owned_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
+  end
+
+  # GET /api/v1/groups/:id
+  def show
+    render json: Api::V1::GroupSerializer.new(@group, @options)
   end
 
   # POST /api/v1/groups/
   def create
-    @group = current_user.groups_mentored.new(group_params)
+    @group = current_user.groups_owned.new(group_params)
     @group.save!
     if @group.save
       render json: Api::V1::GroupSerializer.new(@group, @options), status: :created
     else
       invalid_resource!(@group.errors)
     end
-  end
-
-  # GET /api/v1/groups/:id
-  def show
-    render json: Api::V1::GroupSerializer.new(@group, @options)
   end
 
   # PATCH /api/v1/groups/:id
@@ -52,7 +52,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
   # DELETE /api/v1/groups/:id
   def destroy
     @group.destroy!
-    render json: {}, status: :no_content
+    head :no_content
   end
 
   private
@@ -75,7 +75,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     end
 
     def group_params
-      params.require(:group).permit(:name, :mentor_id)
+      params.require(:group).permit(:name, :primary_mentor_id)
     end
 
     def check_show_access

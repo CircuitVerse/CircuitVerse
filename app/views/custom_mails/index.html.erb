@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
+    <div class="col col-sm col-md col-lg">
       <% if @mails.count!=0 %>
         <h1 class="submain-heading">Custom Emails</h1> <br>
         <%= link_to "New Custom Mail", new_custom_mail_path, class: "btn primary-button custom-mail-primary-button" %>
@@ -17,8 +17,8 @@
               <tr>
                 <td><%= mail.subject %></td>
                 <td><%= mail.sent ? "Yes" : "No" %></td>
-                <td><%= link_to 'Show', mail, class: "anchor-text" %></td>
-                <td><%= link_to 'Edit', edit_custom_mail_url(mail), class: "anchor-text" %></td>
+                <td><%= link_to "Show", mail, class: "anchor-text" %></td>
+                <td><%= link_to "Edit", edit_custom_mail_url(mail), class: "anchor-text" %></td>
               </tr>
             <% end %>
           </tbody>

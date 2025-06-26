@@ -68,6 +68,8 @@ export default class Stepper extends CircuitElement {
         this.state = Math.min(this.state, (1 << this.bitWidth) - 1);
         this.output1.value = this.state;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -95,5 +97,5 @@ Stepper.prototype.tooltipText = 'Stepper ToolTip: Increase/Decrease value by sel
  * @type {string}
  * @category modules
  */
-Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=stepper';
+Stepper.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/2input?id=stepper';
 Stepper.prototype.objectType = 'Stepper';

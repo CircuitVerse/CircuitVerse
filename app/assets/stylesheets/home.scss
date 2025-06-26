@@ -28,6 +28,7 @@
   .card-body {
     padding-top: 0;
     padding-bottom: 0;
+    padding: 1rem;
   }
 }
 
@@ -48,22 +49,34 @@
 }
 
 //breakpoints
-@media(max-width: 768px) {
+@media (max-width: 991px){
+  .home-buttons-container{
+    display: inline-flex;
+    text-wrap: nowrap;
+    align-items: center;
+  }
+}
+@media (max-width: 768px) {
   .home-main-content {
     margin-bottom: 30px;
     margin-top: 20px;
   }
 }
 
-@media(max-width: 600px) {
+@media (max-width: 600px) {
   .home-image-cover {
     display: none;
   }
 }
 
-@media(max-width: 400px) {
+@media (max-width: 400px) {
   .home-tertiary-button-container {
     text-align: center;
+  }
+
+  .tertiary-button {
+    display: block;
+    max-width: inherit;
   }
 
   .home-simulator-button {
@@ -71,12 +84,14 @@
     margin-bottom: 15px;
     margin-left: auto;
     margin-right: auto;
-    max-width: 149px;
+    max-width: inherit;
     text-align: center;
   }
 
   .home-buttons-container {
     text-align: center;
+    display: block;
+    margin-left: -9px;
   }
 
   .home-container-fluid {

@@ -41,16 +41,18 @@ export function createSubCircuitPrompt(scope = globalScope) {
     let flag = true;
     for (id in scopeList) {
         if (!scopeList[id].checkDependency(scope.id) && scopeList[id].isVisible()) {
-            flag = false;
+            flag = false; 
             $("#insertSubcircuitDialog").append(
                 `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
             );
         }
-    }
-    if (flag)
+    }  
+    if(flag) {    
         $("#insertSubcircuitDialog").append(
-            "<p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p>"
+            [$("#insertSubcircuitcontent").dialog(),
+             $("#insertSubcircuitcontent").dialog("close")]
         );
+    } 
     $("#insertSubcircuitDialog").dialog({
         resizable:false,
         maxHeight: 800,
@@ -151,13 +153,15 @@ export default class SubCircuit extends CircuitElement {
             this.version = this.savedData.version || "1.0";
 
             this.id = this.savedData.id;
+            this.label = this.savedData.label || "";
+            this.labelDirection = this.savedData.labelDirection || "RIGHT";
             for (var i = 0; i < this.savedData.inputNodes.length; i++) {
                 this.inputNodes.push(
                     this.scope.allNodes[this.savedData.inputNodes[i]]
                 );
                 this.inputNodes[i].parent = this;
                 this.inputNodes[i].layout_id =
-                    subcircuitScope.Input[i].layoutProperties.id;
+                    subcircuitScope.Input[i]?.layoutProperties.id;
             }
             for (var i = 0; i < this.savedData.outputNodes.length; i++) {
                 this.outputNodes.push(
@@ -165,7 +169,7 @@ export default class SubCircuit extends CircuitElement {
                 );
                 this.outputNodes[i].parent = this;
                 this.outputNodes[i].layout_id =
-                    subcircuitScope.Output[i].layoutProperties.id;
+                    subcircuitScope.Output[i]?.layoutProperties.id;
             }
             if (this.version == "1.0") {
                 // For backward compatibility
@@ -215,14 +219,14 @@ export default class SubCircuit extends CircuitElement {
      */
     makeConnections() {
         for (let i = 0; i < this.inputNodes.length; i++) {
-            this.localScope.Input[i].output1.connectWireLess(
+            this.localScope.Input[i]?.output1.connectWireLess(
                 this.inputNodes[i]
             );
             this.localScope.Input[i].output1.subcircuitOverride = true;
         }
 
         for (let i = 0; i < this.outputNodes.length; i++) {
-            this.localScope.Output[i].inp1.connectWireLess(this.outputNodes[i]);
+            this.localScope.Output[i]?.inp1.connectWireLess(this.outputNodes[i]);
             this.outputNodes[i].subcircuitOverride = true;
         }
     }
@@ -232,13 +236,13 @@ export default class SubCircuit extends CircuitElement {
      */
     removeConnections() {
         for (let i = 0; i < this.inputNodes.length; i++) {
-            this.localScope.Input[i].output1.disconnectWireLess(
+            this.localScope.Input[i]?.output1.disconnectWireLess(
                 this.inputNodes[i]
             );
         }
 
         for (let i = 0; i < this.outputNodes.length; i++) {
-            this.localScope.Output[i].inp1.disconnectWireLess(
+            this.localScope.Output[i]?.inp1.disconnectWireLess(
                 this.outputNodes[i]
             );
         }
@@ -294,7 +298,8 @@ export default class SubCircuit extends CircuitElement {
     }
 
     /**
-     * rebuilds the subcircuit if any change to localscope is made
+     * If the circuit referenced by localscope is changed, then the localscope
+     * needs to be updated. This function does that.
      */
     reBuildCircuit() {
         this.data = JSON.parse(scheduleBackup(scopeList[this.id]));
@@ -463,23 +468,20 @@ export default class SubCircuit extends CircuitElement {
                 this.outputNodes.push(a);
             }
         }
-
+        // console.log(subcircuitScope.name, subcircuitScope.timeStamp, this.lastUpdated)
         if (subcircuitScope.timeStamp > this.lastUpdated) {
             this.reBuildCircuit();
         }
-        
-        // Should this be done here or only when this.reBuildCircuit() is called?
-        {
-            this.localScope.reset();
-            updateSimulationSet(true);
-            forceResetNodesSet(true);
-        }
+
+        this.localScope.reset();
+        updateSimulationSet(true);
+        forceResetNodesSet(true);
 
         this.makeConnections();
     }
 
     /**
-     * Procedure after a element is clicked inside a subcircuit 
+     * Procedure after a element is clicked inside a subcircuit
     **/
     click() {
         var elementClicked = this.getElementHover();
@@ -507,7 +509,7 @@ export default class SubCircuit extends CircuitElement {
             }
         }
     }
-    
+
     /**
       * Sets the elements' wasClicked property in the subcircuit to false
     **/
@@ -556,6 +558,8 @@ export default class SubCircuit extends CircuitElement {
             x: this.x,
             y: this.y,
             id: this.id,
+            label: this.label,
+            labelDirection: this.labelDirection,
             inputNodes: this.inputNodes.map(findNode),
             outputNodes: this.outputNodes.map(findNode),
             version: this.version,
@@ -631,7 +635,7 @@ export default class SubCircuit extends CircuitElement {
         ctx.beginPath();
         rect2(ctx, -this.leftDimensionX, -this.upDimensionY, this.leftDimensionX + this.rightDimensionX, this.upDimensionY + this.downDimensionY, this.x, this.y, [this.direction, 'RIGHT'][+this.directionFixed]);
         if(!this.elementHover) {
-            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this)) 
+            if ((this.hover && !simulationArea.shiftDown) || simulationArea.lastSelected === this || simulationArea.multipleObjectSelections.contains(this))
                 ctx.fillStyle = colors["hover_select"];
         }
         ctx.fill();

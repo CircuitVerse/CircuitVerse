@@ -6,7 +6,7 @@
     refer verilog_documentation.md
 */
 import { scopeList } from "./circuit";
-import { errorDetectedGet } from "./engine"; 
+import { errorDetectedGet } from "./engine";
 import { download } from "./utils";
 import { getProjectName } from "./data/save";
 import modules from './modules';

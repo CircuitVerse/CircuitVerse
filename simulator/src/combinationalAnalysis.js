@@ -11,12 +11,86 @@ import AndGate from './modules/AndGate';
 import OrGate from './modules/OrGate';
 import NotGate from './modules/NotGate';
 import { stripTags } from './utils';
+import simulationArea from './simulationArea';
+import { findDimensions } from './canvasApi';
 
 var inputSample = 5;
 var dataSample = [['01---', '11110', '01---', '00000'], ['01110', '1-1-1', '----0'], ['01---', '11110', '01110', '1-1-1', '0---0'], ['----1']];
 
 var sampleInputListNames = ['A', 'B'];
 var sampleOutputListNames = ['X'];
+
+export const performCombinationalAnalysis = (inputNameList, outputNameList, booleanNameExpression, scope = globalScope) => {
+    var flag = 0;
+    var inputList = stripTags(inputNameList).split(',');
+    var outputList = stripTags(outputNameList).split(',');
+    var booleanExpression = booleanNameExpression;
+    inputList = inputList.map((x) => x.trim());
+    inputList = inputList.filter((e) => e);
+    outputList = outputList.map((x) => x.trim());
+    outputList = outputList.filter((e) => e);
+    booleanExpression = booleanExpression.replace(/ /g, '');
+    booleanExpression = booleanExpression.toUpperCase();
+
+    var booleanInputVariables = [];
+    for (var i = 0; i < booleanExpression.length; i++) {
+        if ((booleanExpression[i] >= 'A' && booleanExpression[i] <= 'Z')) {
+            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
+                booleanInputVariables.push(booleanExpression[i]);
+            }
+        }
+    }
+    booleanInputVariables.sort();
+    if (inputList.length > 0 && outputList.length > 0 && booleanInputVariables.length == 0) {
+        createBooleanPrompt(inputList, outputList, null, scope);
+    }
+    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
+        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
+        if(output != null) {
+            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
+        }
+    }
+    else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
+        alert('Enter Input / Output Variable(s) OR Boolean Function!');
+    }
+    else {
+        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
+    }
+};
+
+export const GenerateCircuit = (outputListNamesInteger, inputListNames, output, outputListNames, scope = globalScope) => {
+    var data = generateBooleanTableData(outputListNamesInteger);
+    // passing the hash values to avoid spaces being passed which is causing a problem
+    var minimizedCircuit = [];
+    let inputCount = inputListNames.length;
+    for (const output in data) {
+        let oneCount = data[output][1].length; // Number of ones
+        let zeroCount = data[output][0].length; // Number of zeroes
+        if(oneCount == 0) {
+            // Hardcode to 0 as output
+            minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
+        }
+        else if(zeroCount == 0) {
+            // Hardcode to 1 as output
+            minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
+        }
+        else {
+            // Perform KMap like minimzation
+            const temp = new BooleanMinimize(
+                inputListNames.length,
+                data[output][1].map(Number),
+                data[output].x.map(Number),
+            );
+            minimizedCircuit.push(temp.result);
+        }
+    }
+    if (output == null) {
+        drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
+    }
+    else {
+        drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
+    }
+};
 
 /**
  * The prompt for combinational analysis
@@ -36,45 +110,10 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
         width: 'auto',
         buttons: [
             {
+                style: 'padding: 5px',
                 text: 'Next',
                 click() {
-                    var inputList = stripTags($("#inputNameList").val()).split(',');
-                    var outputList = stripTags($("#outputNameList").val()).split(',');
-                    var booleanExpression = $('#booleanExpression').val();
-                    inputList = inputList.map((x) => x.trim());
-                    inputList = inputList.filter((e) => e);
-                    outputList = outputList.map((x) => x.trim());
-                    outputList = outputList.filter((e) => e);
-                    booleanExpression = booleanExpression.replace(/ /g, '');
-                    booleanExpression = booleanExpression.toUpperCase();
-                    
-                    var booleanInputVariables = [];
-                    for (var i = 0; i < booleanExpression.length; i++) {
-                        if ((booleanExpression[i] >= 'A' && booleanExpression[i] <= 'Z')) {
-                            if (booleanExpression.indexOf(booleanExpression[i]) == i) {
-                                booleanInputVariables.push(booleanExpression[i]);
-                            }
-                        }
-                    }
-                    booleanInputVariables.sort();
-                    
-                    if (inputList.length > 0 && outputList.length > 0 && booleanInputVariables.length == 0) {
-                        $(this).dialog('close');
-                        createBooleanPrompt(inputList, outputList, null, scope);
-                    } 
-                    else if (booleanInputVariables.length > 0 && inputList.length == 0 && outputList.length == 0) {
-                        $(this).dialog('close');
-                        var output = solveBooleanFunction(booleanInputVariables, booleanExpression);
-                        if(output != null) {
-                            createBooleanPrompt(booleanInputVariables, booleanExpression, output, scope);
-                        }
-                    }
-                    else if ((inputList.length == 0 || outputList.length == 0) && booleanInputVariables == 0) {
-                        alert('Enter Input / Output Variable(s) OR Boolean Function!');
-                    }
-                    else {
-                        alert('Use Either Combinational Analysis Or Boolean Function To Generate Circuit!');
-                    }
+                    performCombinationalAnalysis($("#inputNameList").val(), $("#outputNameList").val(), $('#booleanExpression').val());
                 },
             },
         ],
@@ -82,7 +121,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
     $("#combinationalAnalysis").checkBo();
 }
 /**
- * This funciton hashes the output array and makes required JSON using
+ * This function hashes the output array and makes required JSON using
  * a BooleanMinimize class defined in Quin_Mcluskey.js var s which will
  * be output table is also initialied here
  * @param {Array} inputListNames - labels of input nodes
@@ -145,43 +184,15 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
         width: 'auto',
         buttons: [
             {
+                style: 'padding: 6px',
                 text: 'Generate Circuit',
                 click() {
                     $(this).dialog('close');
-                    var data = generateBooleanTableData(outputListNamesInteger);
-                    // passing the hash values to avoid spaces being passed which is causing a problem
-                    var minimizedCircuit = [];
-                    let inputCount = inputListNames.length;
-                    for (const output in data) {
-                        let oneCount = data[output][1].length; // Number of ones
-                        let zeroCount = data[output][0].length; // Number of zeroes
-                        if(oneCount == 0) {
-                            // Hardcode to 0 as output
-                            minimizedCircuit.push(['-'.repeat(inputCount) + '0']);
-                        }
-                        else if(zeroCount == 0) {
-                            // Hardcode to 1 as output
-                            minimizedCircuit.push(['-'.repeat(inputCount) + '1']);
-                        }
-                        else {
-                            // Perform KMap like minimzation
-                            const temp = new BooleanMinimize(
-                                inputListNames.length,
-                                data[output][1].map(Number),
-                                data[output].x.map(Number),
-                            );
-                            minimizedCircuit.push(temp.result);
-                        }
-                    }
-                    if (output == null) {
-                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, outputListNames, scope);
-                    }
-                    else {
-                        drawCombinationalAnalysis(minimizedCircuit, inputListNames, [`${outputListNames}`], scope);
-                    }
+                    GenerateCircuit(outputListNamesInteger, inputListNames, output, outputListNames);
                 },
             },
             {
+                style: 'padding: 6px',
                 text: 'Print Truth Table',
                 click() {
                     var sTable = document.getElementById('combinationalAnalysis').innerHTML;
@@ -229,6 +240,7 @@ function generateBooleanTableData(outputListNames) {
 }
 
 function drawCombinationalAnalysis(combinationalData, inputList, outputListNames, scope = globalScope) {
+    findDimensions(scope);
     var inputCount = inputList.length;
     var maxTerms = 0;
     for (var i = 0; i < combinationalData.length; i++) { maxTerms = Math.max(maxTerms, combinationalData[i].length); }
@@ -237,6 +249,15 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
     var startPosY = 200;
 
     var currentPosY = 300;
+
+    if (simulationArea.maxWidth && simulationArea.maxHeight) {
+        if (simulationArea.maxHeight + currentPosY > simulationArea.maxWidth) {
+            startPosX += simulationArea.maxWidth;
+        } else {
+            startPosY += simulationArea.maxHeight;
+            currentPosY += simulationArea.maxHeight;
+        }
+    }
     var andPosX = startPosX + inputCount * 40 + 40 + 40;
     var orPosX = andPosX + Math.floor(maxTerms / 2) * 10 + 80;
     var outputPosX = orPosX + 60;
@@ -256,7 +277,7 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
             inputObjects.push(new ConstantVal(startPosX + i * 40, startPosY, scope, 'DOWN', 1, '1'));
             inputObjects[i].setLabel('_C_');
         }
-        
+
         inputObjects[i].newLabelDirection('UP');
         var v1 = new Node(startPosX + i * 40, startPosY + 20, 2, scope.root);
         inputObjects[i].output1.connect(v1);
@@ -348,9 +369,9 @@ function drawCombinationalAnalysis(combinationalData, inputList, outputListNames
  * output array which contains solution of the truth table
  * of given boolean expression
  * @param {Array}  inputListNames - labels for input nodes
- * @param {String} booleanExpression - boolean expression which is to be solved 
+ * @param {String} booleanExpression - boolean expression which is to be solved
  */
-function solveBooleanFunction(inputListNames, booleanExpression) {
+export function solveBooleanFunction(inputListNames, booleanExpression) {
     let i;
     let j;
     let output = [];
@@ -418,7 +439,7 @@ function solveBooleanFunction(inputListNames, booleanExpression) {
                 equation = equation.substring(0, start)
                 + solve(equation.substring(start + 1, end))
                 + equation.substring(end + 1);
-            }       
+            }
         }
         equation = equation.replace(/''/g, '');
         equation = equation.replace(/0'/g, '1');
@@ -427,7 +448,7 @@ function solveBooleanFunction(inputListNames, booleanExpression) {
             if ((equation[i] == '0' || equation[i] == '1') && (equation[i + 1] == '0' || equation[i + 1] == '1')) {
                 equation = equation.substring(0, i + 1) + '*' + equation.substring(i + 1, equation.length);
             }
-        }        
+        }
         try {
             const safeEval = eval;
             const answer = safeEval(equation);
@@ -436,7 +457,7 @@ function solveBooleanFunction(inputListNames, booleanExpression) {
             }
             if (answer > 0) {
                 return 1;
-            }    
+            }
             return '';
         } catch (e) {
             return '';

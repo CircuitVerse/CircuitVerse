@@ -7,11 +7,12 @@ RSpec.describe User, type: :model do
     it { is_expected.to have_many(:projects) }
     it { is_expected.to have_many(:stars) }
     it { is_expected.to have_many(:rated_projects) }
-    it { is_expected.to have_many(:groups_mentored) }
+    it { is_expected.to have_many(:groups_owned) }
     it { is_expected.to have_many(:group_members) }
     it { is_expected.to have_many(:groups) }
     it { is_expected.to have_many(:collaborations) }
     it { is_expected.to have_many(:collaborated_projects) }
+    it { is_expected.to have_many(:noticed_notifications) }
   end
 
   describe "callbacks" do
@@ -23,18 +24,25 @@ RSpec.describe User, type: :model do
   end
 
   describe "validations" do
-    it { is_expected.to have_attached_file(:profile_picture) }
+    before do
+      profile_picture = fixture_file_upload("profile.png", "image/png")
+      @user = FactoryBot.create(:user, profile_picture: profile_picture)
+    end
 
-    it {
-      expect(subject).to validate_attachment_content_type(:profile_picture)
-        .allowing("image/png", "image/jpeg", "image/jpg")
-    }
+    it "validates active storage attachment" do
+      expect(@user.profile_picture).to be_attached
+    end
+
+    it "validates file name and file type" do
+      expect(@user.profile_picture.filename).to eq("profile.png")
+      expect(@user.profile_picture.content_type).to eq("image/png")
+    end
   end
 
   describe "public methods" do
     before do
-      mentor = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, mentor: mentor)
+      primary_mentor = FactoryBot.create(:user)
+      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
       @user = FactoryBot.create(:user)
       FactoryBot.create(:pending_invitation, group: group, email: @user.email)
     end
@@ -50,6 +58,10 @@ RSpec.describe User, type: :model do
         @user.create_members_from_invitations
       end.to change(PendingInvitation, :count).by(-1)
                                               .and change(GroupMember, :count).by(1)
+    end
+
+    it "user is not moderator by default" do
+      expect(@user).not_to be_moderator
     end
   end
 end

@@ -27,7 +27,7 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/comments/#{comment.id}",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status forbidden" do
@@ -40,8 +40,8 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
       before do
         token = get_auth_token(creator)
         patch "/api/v1/comments/#{comment.id}",
-              headers: { "Authorization": "Token #{token}" },
-              params: { "body": "" }, as: :json
+              headers: { Authorization: "Token #{token}" },
+              params: { body: "" }, as: :json
       end
 
       it "returns status unprocessable_identity & can't be blank error" do
@@ -54,8 +54,8 @@ RSpec.describe Api::V1::CommentsController, "#update", type: :request do
       before do
         token = get_auth_token(creator)
         patch "/api/v1/comments/#{comment.id}",
-              headers: { "Authorization": "Token #{token}" },
-              params: { "body": "updated_body" }, as: :json
+              headers: { Authorization: "Token #{token}" },
+              params: { body: "updated_body" }, as: :json
       end
 
       it "returns status accepted & edited comment" do

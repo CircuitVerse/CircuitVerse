@@ -58,8 +58,8 @@ describe ProjectPolicy do
     let(:project) { FactoryBot.create(:project, author: @author, assignment: @assignment) }
 
     before do
-      mentor = FactoryBot.create(:user)
-      group = FactoryBot.create(:group, mentor: mentor)
+      primary_mentor = FactoryBot.create(:user)
+      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
       @assignment = FactoryBot.create(:assignment, group: group)
     end
 

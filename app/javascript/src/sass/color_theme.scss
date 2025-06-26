@@ -73,6 +73,9 @@ $text: black;
 $splitter: black;
 $output-rect: blue;
 
+//touch Screen Menu
+$touch-menu:#454545;
+
 :root{
   --primary: $baseDefault;
 
@@ -133,6 +136,8 @@ $output-rect: blue;
   --node-norm: $node-norm;
   --splitter: $splitter;
   --output-rect: $output-rect;
+
+  --touch-menu: $touch-menu;
 }
 
 ::-moz-selection {
@@ -196,7 +201,7 @@ $output-rect: blue;
 }
 
 .dropdown-menu > li > a:hover {
-  color: var(--text-navbar--alt) !important; 
+  color: var(--text-navbar--alt) !important;
   background: var(--bg-text);
 }
 
@@ -273,6 +278,7 @@ $output-rect: blue;
   border: 1px solid var(--br-primary);
 }
 
+
 .ui-accordion .ui-accordion-content {
   background-color: white;
 }
@@ -306,7 +312,6 @@ $output-rect: blue;
 #tabsBar {
   background-color: var(--bg-tabs);
   border-top: 1px solid var(--br-primary);
-  border-bottom: 1px solid var(--br-primary);
 }
 
 #tabsBar .circuits  {
@@ -342,7 +347,7 @@ $output-rect: blue;
   border: 1px solid var(--br-circuit-cur);
 }
 
-.moduleProperty input, 
+.moduleProperty input,
 .moduleProperty textarea {
   color: var(--text-panel);
 }
@@ -545,7 +550,7 @@ select {
 }
 
 .content-table tr th {
-  background-color: var(--bg-toggle-btn-primary);
+  background-color: var(--primary);
   color: var(--text-lite);
 }
 
@@ -648,8 +653,150 @@ select {
 }
 
 // Ember view
-#clockProperty{
+#clockProperty {
   background: var(--primary);
   border: 1px solid var(--br-primary);
   color: var(--text-panel);
+}
+ // Css for mobile version UI
+.smallscreen-navbar {
+  background-color: var(--primary);
+  color: var(--text-panel);
+}
+.smallscreen-navbar-inner li {
+  background-color: var(--text-panel);
+  border: 1px solid var(--br-secondary);
+  color: var(--primary);
+}
+.SmallScreen-Navbar-li {
+  background-color: var(--text-panel);
+  color: var(--primary);
+}
+#smallNavbarMenu-btn {
+  background-color: var(--primary);
+  color: var(--text-panel);
+}
+.touch-Ce-Menu {
+  background-color: var(--primary);
+  border: 1px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+#smallNavbarMenu-btn::before {
+  background: var(--text-panel);
+  box-shadow: 0 5px 0 var(--text-panel);
+}
+#smallNavbarMenu-btn::after {
+  background: var(--text-panel);
+}
+#smallNavbarMenu-btn.active::before {
+
+  box-shadow: 0 0 0 var(--text-panel);
+ }
+
+#TouchCe-panel::before {
+  border-color: transparent transparent var(--br-secondary);
+}
+#touch-module-property {
+  background-color: var(--primary);
+  border: 1px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+.mobilepanelHeader:after,
+.mobilepanelHeader:before {
+  background-color: var(--br-primary);
+  border: 1px solid var(--br-primary);
+}
+#touchElement-property:before{
+  border-color: transparent transparent var(--br-secondary) transparent;
+}
+#touchtD-popover {
+  background-color: var(--primary);
+  border: 1px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+#touchtD-popover::before {
+  border-color: transparent transparent var(--br-secondary) transparent;
+}
+#touch-time-daigram {
+  background-color: var(--primary);
+  border: 1px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+
+
+#touch-timing-diagram-toolbar {
+  background-color: var(--bg-tabs);
+}
+#quickMenu {
+  background-color: var(--primary);
+  border: 1px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+#quickmenu-Popover {
+  background-color: var(--primary);
+  border: 1px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+#touchElement-property:before {
+  border-color: transparent transparent var(--br-secondary) transparent;
+}
+#quickmenu-Popover::before {
+  border-color: transparent transparent var(--br-secondary);
+}
+.quicMenu-align {
+  background-color: var(--text-panel);
+  color: var(--primary);
+}
+.touchMenuIcon {
+  background-color: var(--primary);
+  border: 2px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+.liveMenuIcon {
+  background-color: var(--primary);
+  border: 1px solid var(--br-secondary);
+  color: var(--text-panel);
+
+}
+.ce-name {
+  border-bottom: 2px solid var(--br-secondary);
+}
+.mp-name {
+  border-bottom: 2px solid var(--br-secondary);
+}
+.quickMenu-name {
+  border-bottom: 2px solid var(--br-secondary);
+}
+.modulepropertiesInput input,
+.modulepropertiesInput textarea {
+  background-color: var(--primary);
+  border: 2px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+
+.modulepropertiesInput select,
+.modulepropertiesInput input,
+.modulepropertiesInput textarea {
+  background-color: var(--primary);
+  border: 2px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+
+.modulepropertiesInput input:focus,
+.modulepropertiesInput select:focus,
+.modulepropertiesInput textarea {
+  background-color: var(--primary);
+  border: 2px solid var(--br-secondary);
+  color: var(--text-panel);
+}
+.smallscreen-navbar {
+  background-color: var(--primary);
+}
+.smallscreen-navbar-inner li {
+  background-color: var(--primary);
+  border: 2px solid var(--text-panel);
+  color: var(--text-panel);
+}
+.smallNavbar-navbar-ul {
+  border-top: 1px solid var(--text-panel);
 }

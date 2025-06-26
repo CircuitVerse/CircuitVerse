@@ -59,6 +59,8 @@ export default class Button extends CircuitElement {
             this.output1.value = this.state;
         }
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -161,7 +163,7 @@ Button.prototype.tooltipText = 'Button ToolTip: High(1) when pressed and Low(0) 
  * @type {string}
  * @category modules
  */
-Button.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=button';
+Button.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/2input?id=button';
 
 /**
  * @memberof Button

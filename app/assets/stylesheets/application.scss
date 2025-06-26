@@ -1,19 +1,18 @@
 @import "theme";
 @import "bootstrap/scss/bootstrap";
-@import 'bootstrap-typeahead-rails';
+@import 'autoComplete';
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import 'trumbowyg/dist/ui/trumbowyg.min';
 @import "commontator/application";
-@import 'simple_discussion';
 @import 'simple_discussion_overrides';
+@import 'simple_discussion';
 @import 'layout';
 @import 'components';
 @import 'navbar';
 @import 'footer';
 @import 'about';
 @import 'contribute';
-@import 'teacher';
 @import 'search';
 @import 'custom_mail';
 @import 'editor';
@@ -25,3 +24,5 @@
 @import 'users';
 @import 'commontator';
 @import 'announcements';
+@import 'select2.css';
+@import 'select2_overrides';

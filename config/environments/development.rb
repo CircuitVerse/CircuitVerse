@@ -25,6 +25,9 @@ Rails.application.configure do
     config.cache_store = :null_store
   end
 
+  # Configure ActiveStorage
+  config.active_storage.service = :local
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
@@ -35,6 +38,11 @@ Rails.application.configure do
 
   # Raise an error on page load if there are pending migrations.
   config.active_record.migration_error = :page_load
+  
+  # Disable origin check for Cross-Site Request Forgery (CSRF) protection for codespaces
+  if(ENV["DEV_CONTAINER"] === "true")
+    config.action_controller.forgery_protection_origin_check = false
+  end
 
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
@@ -57,9 +65,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    :address              => 'smtp.yandex.com',
-    :port                 => 465,
-    :domain               => 'yandex.com',
+    :address              => ENV["SMTP_ADDRESS"],
+    :port                 => ENV["SMTP_PORT"],
     :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
     :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
     :ssl                  => true,
@@ -67,13 +74,16 @@ Rails.application.configure do
     :enable_starttls_auto => true,
   }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  if ENV['DOCKER_ENVIRONMENT']
+    config.action_mailer.smtp_settings = { :address => "mailcatcher", :port => 1025 }
+  else
+    config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+  end
+
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || "BGxnigbQCa435vZ8_3uFdqLC0XJHXtONgEdI-ydMMs0JaBsnpUfLxR1UDagq6_cDwHyhqjw77tTlp0ULZkx8Xos="
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || "FkEMkOQHvMybUlCGH-DsOljTJlLzYGb3xEYsFY5Roxk="
 
   Rails.application.configure do
-    # Whitelist gitpod domain in dev envionment
-    config.hosts << /.*\.gitpod\.io\Z/
     config.hosts << /.*\Z/ # Whitelist everything in Dev
   end
 

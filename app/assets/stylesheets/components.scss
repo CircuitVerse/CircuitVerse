@@ -55,7 +55,7 @@
   transition: all .3s ease 0s;
 
   &:hover {
-    background-color: $secondary-green;
+    background-color: $primary-green;
     box-shadow: 0 7px 7px $white;
     color: $white;
   }
@@ -123,7 +123,7 @@
 
   p {
     max-height: 30px;
-    max-width: 160px;
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -225,6 +225,13 @@
   text-align: left;
 }
 
+.status-container {
+  align-items: center;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
+
 .form-control {
 
   &:focus {
@@ -248,6 +255,12 @@
   .form-container {
     max-width: 90%;
   }
+
+  .status-container {
+    align-items: flex-start;
+    flex-direction: column-reverse;
+    grid-row-gap: 15px;
+  }
 }
 
 //errors
@@ -260,6 +273,11 @@
   margin-bottom: 10px;
   padding: 15px;
 
+  ul {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+
   li {
     text-align: left;
   }
@@ -267,17 +285,18 @@
 
 .alert-success {
   margin-top: 10px;
+  padding-top: 1rem; // aligns the alert text
 }
 
 //checkpoints
 .primary-checkpoint {
   background-color: $shadow-grey;
-  bottom: 0;
   display: inline-block;
   height: 25px;
   margin-top: 15px;
   position: absolute;
   width: 25px;
+  top: 6px;
 
   &::after {
     content: '';
@@ -312,11 +331,11 @@
       border: solid $white;
       border-width: 0 3px 3px 0;
       display: block;
-      height: 12px;
-      left: 9px;
-      top: 5px;
+      height: 14px;
+      left: 7px;
+      top: 2px;
       transform: rotate(45deg);
-      width: 8px;
+      width: 9px;
     }
   }
 }
@@ -328,6 +347,9 @@
   color: $white;
   font-weight: 500;
   padding: 5px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     color: $white;

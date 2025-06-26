@@ -4,6 +4,7 @@
   top: 0;
   width: 100%;
   z-index: 100;
+ 
 }
 
 .navbar-logo {
@@ -11,23 +12,9 @@
   padding-top: 5px;
 }
 
-.navbar-search-icon-container {
-  height: 40px;
-  position: relative;
-  width: 40px;
-}
-
-.navbar-search-icon-oncollapse {
-  display: none;
-  margin-right: 0;
-  padding-right: 0;
-  padding-top: 5px;
-  text-align: right;
-}
-
 .fa-search {
   color: $navbar-dark-grey;
-  font-size: 20px;
+  font-size: 1.1rem;
   margin-right: 12px;
   vertical-align: middle;
 
@@ -50,6 +37,7 @@
   color: $navbar-dark-grey;
   font-weight: 500;
   transition: all .3s ease-in;
+  border-radius: 4px;
 
   &:hover {
     background: $primary-green;
@@ -57,10 +45,8 @@
   }
 }
 
-.navbar-dropdown-toggle-hidden {
-  .dropdown-toggle::after {
-    display: none;
-  }
+.rotate180::after {
+  transform: rotate(180deg);
 }
 
 .dropdown-toggle.navbar-user-dropdown {
@@ -83,6 +69,7 @@
 .navbar-text {
   color: $navbar-dark-grey;
   font-weight: 500;
+  font-size: 16px;
 
   &:hover {
     color: $primary-green;
@@ -103,14 +90,17 @@
   display: none;
   margin-top: 0;
   padding: 20px;
-  position: fixed;
+  position: sticky;
   top: 96px;
   width: 100%;
   z-index: 90;
 }
 
 #navbar-dropdown-1,
-#navbar-dropdown-2 {
+#navbar-dropdown-2,
+#navbar-dropdown-3 {
+  margin-inline-start: -10px;
+
   &:hover {
     color: $primary-green;
   }
@@ -149,29 +139,41 @@
   min-width: 150px;
   padding: 5px;
   width: 100%;
+  border-radius: 4px;
 }
 
 .navbar-search-bar-select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none; // to hide the default dropdown icon
   background-color: $card-green;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23000000%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+    // svg dropdown icon
+    linear-gradient(
+        to bottom,
+        $white 0%,
+        $white 100%
+      ); // background gradient color for select bar
+  background-position: right .3em top 50%, 0 0; // arrow icon position (0.3em from the right, 50% vertical) , then gradient position
+  background-repeat: no-repeat, repeat;
+  background-size: .45em auto, 100%; // icon size, then gradient
   border: 1px solid $primary-green;
   cursor: pointer;
   font-size: 18px;
-  height: 38px;
-  margin-right: 6px;
-  margin-top: 5px;
-  max-width: 95px;
+  margin: 5px;
+  max-width: 100px;
+  min-width: 100px;
+  padding-left: 5px;
+  border-radius: 4px;
+}
+
+.dropdown-menu {
+  border: 0;
+  box-shadow: 0 0 10px 1px $shadow-grey;
+  top: 90%;
 }
 
 //breakpoints
-@media (max-width: 991px) {
-  .navbar-search-icon-oncollapse {
-    display: block;
-  }
-
-  .navbar-search-icon-onexpand {
-    display: none;
-  }
-}
 
 @media (max-width: 768px) {
   .navbar-search-bar-form {
@@ -208,3 +210,76 @@
     padding-top: 10px;
   }
 }
+
+@media (max-width: 300px) {
+  .navbar {
+    padding: .5rem;
+  }
+}
+
+@media (max-width: 991px) {
+  .auth-buttons-container {
+    width: 100%;
+  }
+}
+
+.margin-lg-0 {
+  @media (max-width: 991px) {
+    margin: 0 !important;
+  }
+}
+
+
+.navbar-auth-buttons {
+  .btn-login {
+    background-color: #42B983;
+    border: none;
+    color: white;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+
+    &:hover {
+      background-color: #369870;
+      color: white;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(66, 185, 131, 0.3);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(66, 185, 131, 0.25);
+    }
+  }
+
+  .btn-signup {
+    background-color: white;
+    border: 1px solid #E4E4E7;
+    color: black;
+    font-size: 16px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #f8f9fa;
+      border-color: #d1d5db;
+      color: black;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(228, 228, 231, 0.4);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(228, 228, 231, 0.25);
+    }
+  }
+
+  @media (max-width: 991px) {
+    width: 100%;
+  }
+}
+
+[dir="rtl"] .main-nav-items {
+  padding: 0 !important;
+}
+
+

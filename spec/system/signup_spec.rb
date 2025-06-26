@@ -4,11 +4,11 @@ require "rails_helper"
 
 describe "Sign up", type: :system do
   before do
-    driven_by(:selenium)
+    visit "/users/sign_up"
   end
 
-  before do
-    visit "/users/sign_up"
+  it "GET signup page" do
+    expect(page).to have_current_path("/users/sign_up")
   end
 
   it "does not sign-up when no credentials" do

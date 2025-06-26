@@ -7,6 +7,12 @@
   font-weight: normal;
 }
 
+.null-text {
+  color: $iframe-container-grey;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
 .groups-row {
   justify-content: space-between;
   padding-top: 65px;
@@ -18,7 +24,7 @@
 
 .groups-members-scroll-row {
   max-height: 525px;
-  max-width: 1030px;
+  max-width: 1108px;
   overflow-y: auto;
 }
 
@@ -89,6 +95,19 @@
   }
 }
 
+.groups-close-mini-button {
+  background-color: $primary-red;
+  cursor: pointer;
+  font-size: 15px;
+  margin: 10px 5px;
+  padding: 4px 8px 6px;
+
+  &:hover {
+    color: $white;
+    text-decoration: none;
+  }
+}
+
 .groups-delete-mini-button {
   background-color: $primary-red;
   cursor: pointer;
@@ -144,31 +163,87 @@
 .groups-members-card {
   background-color: $card-green;
   border: 1px solid $secondary-green;
+  border-top: 6px solid $primary-green;
+  display: inline-block;
+  height: 145px;
+  margin: 18px 10px;
+  padding: 0 15px;
+  width: 350px;
+}
+
+.groups-members-card-viewer {
+  background-color: $card-green;
+  border: 1px solid $secondary-green;
   display: inline-block;
   height: 90px;
-  margin: 18px 10px;
+  margin: 10px;
+  margin-bottom: 20px;
   padding: 15px;
-  width: 300px;
+  width: 200px;
+  white-space: nowrap;
 }
 
 .groups-members-card-details {
   padding-right: 0;
+  padding-top: 5px;
   text-align: left;
 
   i {
-    margin-right: 3px;
-    margin-top: 0;
-    padding-bottom: 5px;
+    margin-right: 10px;
+    margin-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  align-items: center;
+  display: flex;
+  padding-top: 0;
+  
+  i {
+    margin-right: 15px;
+    padding-bottom: 15px;
+  }
+
+  .groups-members-card-name-container {
+    height: auto;
+  }
+}
+
+.groups-members-card-details-non-admin {
+  &:hover {
+    .tooltiptext {
+      left: 21%;
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.groups-members-card-avatar {
+  img {
+    border-radius: 50%;
+    height: 50px;
+    margin-bottom: 10px;
+    transform: translate(-5px, 5px);
+    transition: all .5s;
+    width: 50px;
+
+    &:hover {
+      transform: scale(2);
+    }
   }
 }
 
 .groups-members-card-name-container {
   display: inline-block;
-  height: 25px;
-  max-width: 110px;
+  height: 30px;
+  max-width: 92px;
   overflow: hidden;
   padding-top: 1px;
   text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
 }
 
 .groups-members-card-name {
@@ -191,7 +266,7 @@
 
 .groups-members-card-button {
   margin-right: 0;
-  padding: 15px 15px 15px 0;
+  padding: 0 0 15px;
   text-align: right;
   transition: padding-top .2s ease-in;
 
@@ -200,26 +275,40 @@
   }
 }
 
-.group-invite-link-text {
+#group-invite-link-container {
   border: 1.5px solid $secondary-green;
-  font-size: 12px;
-  text-align: left;
+  padding: 10px;
+  position: relative;
+  font-size: 12px; 
+  border-radius: 5px; 
+}
+
+#copyIcon{
+  top: 0;
+  right: 0;
+  position: absolute;
+  padding: 5px;
+}
+
+.group-invite-link-text {
+  border: none;
+  outline: none;
 }
 
 //breakpoints
 @media (max-width: 1200px) {
   .groups-members-scroll-row {
-    max-width: 920px;
+    max-width: 930px;
   }
 
   .groups-members-card {
-    width: 270px;
+    width: 320px;
   }
 }
 
 @media (max-width: 992px) {
   .groups-members-scroll-row {
-    max-width: 610px;
+    max-width: 680px;
   }
 }
 
@@ -257,8 +346,7 @@
 
   .groups-members-card {
     margin: 10px 0;
-    padding: 10px;
-    width: 270px;
+    width: 310px;
   }
 }
 //group details ends
@@ -269,6 +357,10 @@
   margin-top: 30px;
   max-height: 400px;
   max-width: 90%;
+}
+
+.form-control {
+    border-radius: 4px;
 }
 
 .groups-background-card {
@@ -305,7 +397,7 @@
 }
 
 @media (max-width: 991px) and (min-width: 720px) {
-  .groups-center-imagee {
+  .groups-center-image {
     margin-top: 80px;
   }
 }
@@ -374,7 +466,7 @@
 .groups-mentor-card-view-mini-button {
   background: $primary-green;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -392,7 +484,7 @@
 .groups-mentor-card-edit-mini-button {
   background: $mini-button-blue;
   transition: transform .2s ease-in;
-  width: 75px;
+  width: 95px;
 
   img {
     height: 20px;
@@ -410,6 +502,7 @@
 .groups-mentor-card-delete-mini-button {
   background: $primary-red;
   transition: transform .2s ease-in;
+  width: 100px;
 
   img {
     height: 20px;
@@ -421,6 +514,12 @@
     color: $white;
     text-decoration: none;
     transform: translateY(-4px);
+  }
+}
+
+@media (max-width: 1200px) and (min-width: 970px) {
+  .groups-card {
+    width: 315px;
   }
 }
 
@@ -449,6 +548,31 @@
 .groups-lms-modal {
   .link-text {
     display: inline;
+  }
+}
+
+.groups-members-card {
+
+  .row {
+    flex-wrap: nowrap;
+    padding-top: 15px;
+  }
+
+  .group-member-button-container {
+    width: 52%;
+
+    .groups-mentor-card-mini-buttons {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-button {
+      width: 142px;
+    }
+
+    .groups-reopen-mini-button {
+      margin: 0;
+    }
   }
 }
 //groups ends

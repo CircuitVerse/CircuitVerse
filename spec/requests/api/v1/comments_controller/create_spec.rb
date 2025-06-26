@@ -23,7 +23,7 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
 
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/threads/#{project.commontator_thread.id}/comments",
-             headers: { "Authorization": "Token #{token}" }, as: :json
+             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status forbidden" do
@@ -36,8 +36,8 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/threads/#{project.commontator_thread.id}/comments",
-             headers: { "Authorization": "Token #{token}" },
-             params: { "body": "" }, as: :json
+             headers: { Authorization: "Token #{token}" },
+             params: { body: "" }, as: :json
       end
 
       it "returns status unprocessable_identity & can't be blank error" do
@@ -50,8 +50,8 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/threads/#{project.commontator_thread.id}/comments",
-             headers: { "Authorization": "Token #{token}" },
-             params: { "body": "new_comment" }, as: :json
+             headers: { Authorization: "Token #{token}" },
+             params: { body: "new_comment" }, as: :json
       end
 
       it "returns status created & created comment" do

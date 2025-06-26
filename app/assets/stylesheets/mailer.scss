@@ -1,0 +1,219 @@
+// Variables
+$primary-green: #42b883;
+$black: #333333;
+$white: #ffffff;
+$light-gray: #f5f5f5;
+$medium-gray: #e0e0e0;
+$dark-gray: #666666;
+$border-radius: 8px;
+$box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+// Spacing variables
+$spacing-xs: 10px;
+$spacing-sm: 15px;
+$spacing-md: 20px;
+$spacing-lg: 30px;
+
+// Mixins
+@mixin flex-center {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+@mixin hover-transform {
+  transition: transform 0.3s ease-in;
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+@mixin card-style {
+  background-color: $white;
+  border: 1px solid $medium-gray;
+  border-radius: $border-radius;
+  padding: $spacing-md;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    box-shadow: $box-shadow;
+    transform: translateY(-4px);
+  }
+}
+
+// Responsive breakpoints
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+
+// Main container
+.mailer-container {
+  background-color: $white;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  margin: 0 auto;
+  max-width: 600px;
+  padding: $spacing-lg;
+  text-align: center;
+}
+
+// Heading
+.mailer-heading {
+  color: $black;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: $spacing-md;
+}
+
+// Hero image
+.mailer-hero-image {
+  background-color: $light-gray;
+  border-radius: $border-radius;
+  margin-bottom: $spacing-md;
+  padding: $spacing-md;
+  @include flex-center;
+  
+  .mailer-group-image {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+// Text styles
+.mailer-text {
+  color: $dark-gray;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: $spacing-md;
+}
+
+.mailer-welcome-text {
+  font-size: 18px;
+  margin: $spacing-md auto;
+  max-width: 500px;
+}
+
+// Button styles
+.mailer-button-container {
+  margin: $spacing-md 0 $spacing-lg;
+}
+
+.mailer-button {
+  background-color: $primary-green;
+  border: none;
+  border-radius: 4px;
+  color: $white;
+  display: inline-flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  padding: $spacing-sm $spacing-lg;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+  
+  &:hover {
+    background-color: darken($primary-green, 10%);
+  }
+  
+  .mailer-button-icon {
+    margin-left: $spacing-xs;
+    transition: transform 0.3s ease;
+  }
+  
+  &:hover .mailer-button-icon {
+    transform: translateX(4px);
+  }
+}
+
+// Showcase container
+.mailer-showcase-container {
+  display: grid;
+  gap: $spacing-md;
+  grid-template-columns: 1fr;
+  margin: $spacing-lg 0;
+  
+  @media (min-width: $breakpoint-md) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+// Showcase cards
+.mailer-showcase-card {
+  @include card-style;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  
+  .mailer-showcase-icon {
+    @include flex-center;
+    background-color: rgba($primary-green, 0.1);
+    border-radius: 50%;
+    height: 80px;
+    margin: 0 auto $spacing-md;
+    width: 80px;
+    
+    .mailer-showcase-card-image {
+      height: 40px;
+      width: 40px;
+    }
+  }
+  
+  .mailer-showcase-heading {
+    color: $black;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: $spacing-sm;
+  }
+  
+  .mailer-showcase-text {
+    flex-grow: 1;
+    margin-bottom: $spacing-md;
+  }
+  
+  .mailer-showcase-link {
+    color: $primary-green;
+    display: inline-flex;
+    align-items: center;
+    font-weight: 600;
+    text-decoration: none;
+    
+    .mailer-link-arrow {
+      margin-left: 4px;
+      transition: transform 0.3s ease;
+    }
+    
+    &:hover {
+      color: darken($primary-green, 10%);
+      
+      .mailer-link-arrow {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+// Footer
+.mailer-footer {
+  border-top: 1px solid $medium-gray;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-md;
+  
+  .mailer-text {
+    margin-bottom: 0;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: $breakpoint-sm) {
+  .mailer-container {
+    padding: $spacing-md;
+  }
+  
+  .mailer-heading {
+    font-size: 24px;
+  }
+  
+  .mailer-welcome-text {
+    font-size: 16px;
+  }
+}

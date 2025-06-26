@@ -1,0 +1,42 @@
+name: Simulator Testing
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - "simulator/**"
+      - "package.json"
+      - "yarn.lock"
+      - "esbuild.config.js"
+      - "jest.config.js"
+  pull_request:
+    branches: [master]
+    paths:
+      - "simulator/**"
+      - "package.json"
+      - "yarn.lock"
+      - "esbuild.config.js"
+      - "jest.config.js"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'yarn'
+
+      - name: Install Dependencies for canvas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Run the tests
+        run: yarn test

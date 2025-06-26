@@ -187,4 +187,24 @@ a:not([href]):not([tabindex]) {
 .assignments-description img {
   max-width: 100%;
 }
+
+.primary-checkpoint {
+  background-color: $white;
+  border: 1px solid $secondary-green;
+  cursor: pointer;
+  padding-left: 4px;
+  padding-top: 4px;
+  text-align: center;
+  top: 6px;
+
+  &:hover {
+    border-color: $primary-green;
+    opacity: 1;
+    transition: .2s ease-in-out;
+  }
+}
+
+.restricted-feature-list {
+  display: none;
+}
 //assignment details ends

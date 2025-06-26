@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class GroupMembersController < ApplicationController
-  before_action :set_group_member, only: %i[show edit update destroy]
-  before_action :check_access, only: %i[edit update destroy]
+  before_action :set_group_member, only: %i[update destroy]
+  before_action :check_access, only: %i[update destroy]
   before_action :authenticate_user!
 
   # GET /group_members
@@ -30,15 +30,15 @@ class GroupMembersController < ApplicationController
   def create
     dummy = GroupMember.new
     dummy.group_id = group_member_params[:group_id]
-    authorize dummy, :mentor?
+    authorize dummy, :primary_mentor?
 
     @group = Group.find(group_member_params[:group_id])
-
-    group_member_emails = Utils.parse_mails(group_member_params[:emails])
+    is_mentor = false
+    is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
+    group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
-    newly_added = group_member_emails - present_members
-
+    newly_added = group_member_emails - present_members - [current_user&.email]
     newly_added.each do |email|
       email = email.strip
       user = User.find_by(email: email)
@@ -46,7 +46,7 @@ class GroupMembersController < ApplicationController
         PendingInvitation.where(group_id: @group.id, email: email).first_or_create
         # @group.pending_invitations.create(email:email)
       else
-        GroupMember.where(group_id: @group.id, user_id: user.id).first_or_create
+        GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create
 
         # group_member = @group.group_members.new
         # group_member.user_id = user.id
@@ -58,7 +58,7 @@ class GroupMembersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to group_path(@group), notice: Utils.mail_notice(group_member_params[:emails], group_member_emails, newly_added)
+        redirect_to group_path(@group), notice: notice
       end
     end
     # redirect_to group_path(@group)
@@ -77,17 +77,17 @@ class GroupMembersController < ApplicationController
 
   # PATCH/PUT /group_members/1
   # PATCH/PUT /group_members/1.json
-  # def update
-  #   respond_to do |format|
-  #     if @group_member.update(group_member_params)
-  #       format.html { redirect_to @group_member, notice: 'Group member was successfully updated.' }
-  #       format.json { render :show, status: :ok, location: @group_member }
-  #     else
-  #       format.html { render :edit }
-  #       format.json { render json: @group_member.errors, status: :unprocessable_entity }
-  #     end
-  #   end
-  # end
+  # Only used to add or remove mentorship
+  def update
+    @group_member.update(group_member_update_params)
+    respond_to do |format|
+      format.html do
+        redirect_to group_path(@group_member.group),
+                    notice: "Group member was successfully updated."
+      end
+      format.json { head :no_content }
+    end
+  end
 
   # DELETE /group_members/1
   # DELETE /group_members/1.json
@@ -111,10 +111,18 @@ class GroupMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_member_params
-      params.require(:group_member).permit(:group_id, :user_id, :emails)
+      params.require(:group_member).permit(:group_id, :user_id, :mentor, emails: [])
+    end
+
+    # Using different params for update
+    # Using group_member_params could result in changing the group_id
+    # which would allow changing users of arbitrary groups since
+    # the check_access happens before the group is changed and passes
+    def group_member_update_params
+      params.require(:group_member).permit(:mentor)
     end
 
     def check_access
-      authorize @group_member, :mentor?
+      authorize @group_member, :primary_mentor?
     end
 end

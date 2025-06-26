@@ -1,24 +1,36 @@
-<% group.users.each do |user| %>
-  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4 groups-members-card-container">
-    <div class="groups-members-card">
+<% group.group_members.member.each do |member| %>
+  <div class="<%= membersCardViewerContainer(group) %>">
+    <div class="<%= membersCardViewer(group) %>">
       <div class="row">
-        <div class="col-7 groups-members-card-details">
-          <i class="fa fa-user"></i>
+        <div class="<%= membersCardViewerDetail(group) %>">
+          <span class="groups-members-card-avatar">
+          <% if member.user.profile_picture.present? %>
+          <%= link_to image_tag(member.user.profile_picture.url, alt: member.user.name, title: "#{member.user.name}\n#{member.user.email}"), user_path(member.user.id) %>          <% else %>
+          <i class="fa fa-user default-profile-icon"></i>
+          <% end %>
+          </span>
           <div class="groups-members-card-name-container">
-            <%= link_to user.name, user, class: "groups-members-card-name" %>
+            <span class="tooltiptext"><%= member.user.name %></span>
+            <%= link_to member.user.name, member.user, class: "groups-members-card-name", title: "view profile of #{member.user.name}" %>
           </div>
           <% if policy(group).admin_access? %>
-            <p class="groups-members-card-email"><%= user.email %></p>
+            <p class="groups-members-card-email" title="<%= member.user.email %>"><%= member.user.email %></p>
           <% end %>
         </div>
-        <div class="col-5 groups-members-card-button">
-          <% if policy(group).admin_access? %>
-            <%= link_to '#', data: {toggle: "modal", target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id:user.id,group_id:group.id).id}, class:"mini-button groups-delete-mini-button" do %>
-              <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
-              <span>Remove</span>
-            <% end %>
-          <% end %>
-        </div>
+        <% if policy(group).admin_access? %>
+          <div class="group-member-button-container">
+            <div class="groups-mentor-card-mini-buttons">
+              <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletememberModal", currentgroupmember: GroupMember.find_by(user_id: member.user.id, group_id: group.id).id }, class: "mini-button groups-delete-mini-button" do %>
+                <%= image_tag("SVGs/deleteGroup.svg", alt: "Remove Member") %>
+                <span><%= t("remove") %></span>
+              <% end %>
+              <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#promote-member-modal", currentgroupmember: GroupMember.find_by(user_id: member.user.id, group_id: group.id).id }, class: "mini-button groups-reopen-mini-button" do %>
+                <%= image_tag("SVGs/editGroup.svg", alt: "Make Member") %>
+                <span><%= t("groups.make_mentor") %></span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

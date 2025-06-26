@@ -1,11 +1,7 @@
 
 //newproject-editproject
-.projects-new-container {
-  border: 1px solid $form-border-grey;
-  margin-top: 20px;
-  max-width: 80%;
-  padding-bottom: 20px;
-  padding-top: 20px;
+.form-control {
+    border-radius: 4px;
 }
 
 .projects-primary-checkpoint {
@@ -18,10 +14,6 @@
   }
 }
 
-.projects-type-field-heading {
-  margin-bottom: 0;
-}
-
 .projects-type-field-warning {
   display: block;
   padding-bottom: 15px;
@@ -30,10 +22,6 @@
 
 //breakpoints
 @media (max-width: 400px) {
-  .projects-new-container {
-    max-width: 95%;
-  }
-
   .projects-form-container {
     max-width: 90%;
   }
@@ -41,67 +29,16 @@
 //newproject-editproject ends
 
 //project details
-.projects-iframe-container {
-  border: 1.5px solid $shadow-black;
-  margin-bottom: 20px;
-  padding: 10px;
-}
-
-.projects-details {
-  background-color: $project-card-grey;
-  padding-left: 0;
-  padding-right: 0;
-}
-
-.projects-details-heading-container {
-  background-color: $primary-green;
-  height: 55px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-}
-
-.projects-details-heading {
-  color: $white;
-  font-size: 25px;
-  font-weight: 600;
-  height: 35px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .projects-views-count-container {
   color: $black;
-  display: block;
+  display: flex;
   font-size: 14px;
   font-weight: 600;
   margin-bottom: 8px;
   margin-right: 0;
   margin-top: 5px;
   padding-right: 8px;
-  text-align: right;
-}
-
-.projects-star-count-icon {
-  color: $star-yellow;
-}
-
-.projects-user-details-container {
-  padding: 0 20px 15px;
-
-  >p {
-    display: block;
-    margin-bottom: 10px;
-    text-align: left;
-    width: 80%;
-  }
-}
-
-.projects-search-tags-container {
-  display: block;
-  margin-bottom: 15px;
-  padding-left: 0;
-  text-align: left;
-  width: 80%;
+  justify-content: flex-end;
 }
 
 .projects-details-description {
@@ -111,10 +48,6 @@
   padding-top: 0;
   text-align: left;
   word-wrap: break-word;
-}
-
-.projects-horizontal-rule {
-  width: 100%;
 }
 
 .projects-primary-button {
@@ -150,26 +83,35 @@
 .projects-embed-text {
   border: 1.5px solid $secondary-green;
   font-size: 12px;
+  outline-color: $secondary-green;
   text-align: left;
 }
 
+.embed-container {
+  background-color: $slightblack;
+}
+
 .projectshow-embed-text-confirmation {
-  display: block;
+  display: none;
   text-align: right;
 }
 
-.projects-collaborators-container {
-  background-color: $project-card-grey;
+.embed-input-fields {
+  display: flex;
+
+  .col-form-label {
+    padding-left: 0;
+  }
+
+  b {
+    display: block;
+    width: 100px;
+  }
 }
 
-.projects-collaborators-heading {
-  background-color: $primary-green;
-  color: $white;
-  font-size: 25px;
-  font-weight: 600;
-  height: 55px;
-  margin-bottom: 10px;
-  padding: 10px;
+.embed-link-textarea {
+  font-size: 12px;
+  width: 100%;
 }
 
 .projects-collaborators-data {
@@ -190,8 +132,10 @@
   border: 0;
 }
 
-.projects-collaborators-horizontal-rule {
-  width: 80%;
+.char-counter {
+  color: $tooltip-grey;
+  font-size: 14px;
+  margin: 5px 0 0 auto;
 }
 
 //breakpoints
@@ -202,39 +146,3 @@
 }
 //project details ends
 
-// collaborators tags input
-.bootstrap-tagsinput {
-  border: 1px solid $secondary-green;
-  cursor: text;
-  font-size: 1rem;
-  line-height: 1.25;
-  margin: 0;
-  max-height: 180px;
-  min-height: 150px;
-  overflow-y: scroll;
-  padding: .5rem .75rem;
-  transition: border-color .15s ease-in-out;
-  width: 100%;
-
-  .label-info {
-    background-color: $primary-green;
-    border-radius: .25rem;
-    color: $white;
-    display: inline-block;
-    margin-bottom: .4em;
-    padding: 0 .4em .15em;
-	}
-
-  input {
-    border: 0;
-  }
-}
-
-.tag [data-role="remove"]::after {
-  content: '\00d7';
-  cursor: pointer;
-  font-size: 18px;
-  margin-left: 5px;
-}
-
-// collaborators tags input closes

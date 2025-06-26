@@ -1,96 +1,158 @@
 <nav class="navbar navbar-expand-lg bg-white">
-  <a class="navbar-brand" href="/">
-    <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
-  </a>
-  <div class="center-row navbar-search-icon-container navbar-search-icon-oncollapse">
-    <i class="fa fa-search <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
-  </div>
-  <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsed-navbar"
-  aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsed-navbar">
-    <ul class="navbar-nav ml-auto navigationBar-item">
-      <li class="nav-item px-1 pt-1 navbar-search-icon-onexpand">
-        <div class="center-row navbar-search-icon-container">
-          <i class="fa fa-search <%= request.path == '/search' ? 'active' : '' %>" tabindex="0" aria-label="search"></i>
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
+    </a>
+    <div class="d-flex d-lg-none align-items-center">
+      <button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
+        aria-controls="collapsed-navbar" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
+      </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="collapsed-navbar">
+      <div class="d-flex justify-content-between align-items-start align-items-lg-center w-100 flex-column flex-lg-row gap-3 px-2 px-lg-0">
+        <ul class="navbar-nav main-nav-items mx-auto d-flex flex-lg-row flex-column gap-lg-3 margin-lg-0">
+          <li class="nav-item">
+            <a class="nav-link navbar-item navbar-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-item navbar-text" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
+          </li>
+          <li class="nav-item dropdown">
+            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started"><%= t("layout.getting_started_dropdown") %></a>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-1">
+             <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_learn_more") %></a>
+             <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_docs") %></a>
+            </div>
+            </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_blog") %></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
+          </li>
+          <li class="nav-item d-flex align-items-center">
+            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+          </li>
+        </ul>
+        <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row auth-buttons-container">
+          <%= render "layouts/notifications" %>
+
+          <% if user_signed_in? %>
+            <div class="navbar-nav nav-item dropdown ms-2">
+              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+                <div class="navbar-username-truncate"><%= current_user.name %></div>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
+                <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
+                <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>"><%= t("sign_out") %></a>
+              </div>
+            </div>
+          <% else %>
+            <div class="navbar-auth-buttons d-flex flex-lg-row flex-column gap-2">
+              <a class="btn btn-login px-3 d-flex align-items-center justify-content-center" href="/users/sign_in"><%= t("login") %></a>
+              <a class="btn btn-signup px-3 d-flex align-items-center justify-content-center" href="/users/sign_up"><%= t("sign_up") %></a>
+            </div>
+          <% end %>
         </div>
-      </li>
-      <li class="nav-item px-1">
-        <a class="btn rounded-0 navbar-simulator-text" href="/simulator">Simulator</a>
-      </li>
-      <div class="navbar-nav nav-item dropdown">
-        <li class="nav-item px-1">
-          <a class="nav-link dropdown-toggle navbar-item navbar-text" id="navbar-dropdown-1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">Getting Started</a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-1">
-            <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank">Learn</a>
-            <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank">Documentation</a>
-          </div>
-        </li>
       </div>
-      <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/features' ? 'active' : '' %>" href="/#home-features-section">Features</a>
-      </li>
-      <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/teachers' ? 'active' : '' %>" href="/teachers">Teachers</a>
-      </li>
-      <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/blog' ? 'active' : '' %>" href="https://blog.circuitverse.org/">Blog</a>
-      </li>
-      <li class="nav-item px-1">
-        <a class="nav-link navbar-item navbar-text <%= request.path == '/about' ? 'active' : '' %>" href="/about"><%= t('headers.about') %></a>
-      </li>
-      <% if user_signed_in? %>
-      <div class="navbar-nav nav-item dropdown">
-        <li class="nav-item px-1">
-          <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown" id="navbar-dropdown-2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
-            <div class="navbar-username-truncate"><%= current_user.name %></div>
-          </a>
-          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbar-dropdown-2">
-            <a class="dropdown-item" href="<%= user_path(current_user) %>">Dashboard</a>
-            <a class="dropdown-item" href="<%= user_groups_path(current_user) %>">My Groups</a>
-            <a class="dropdown-item" href="<%= notifications_path(current_user) %>">Notifications </a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>">Sign Out</a>
-          </div>
-        </li>
-      </div>
-      <% else %>
-        <li class="nav-item px-1">
-          <a class="nav-link navbar-item navbar-text <%= request.path == '/users/sign_in' ? 'active' : '' %>" href="/users/sign_in">Login</a>
-        </li>
-      <% end %>
-    </ul>
+    </div>
   </div>
 </nav>
+
 <div class="container-fluid navbar-search-active">
-  <%= render "logix_assets/search_bar" %>
+  <%= render(SearchComponents::SearchBarComponent.new(
+    resource: params[:resource],
+    query: params[:q],
+  )) %>
 </div>
 
 <script type="text/javascript">
-  function activeSearchBar(){
-    let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
-    let searchIconExpand = document.getElementsByClassName("fa-search")[1];
-    let searchBar = document.getElementsByClassName("navbar-search-active")[0];
-    let burgerButton = document.getElementById("collapsed-navbar");
-    if (searchIconCollapse.classList.contains("active") || searchIconExpand.classList.contains("active")) {
-      searchIconCollapse.classList.remove("active");
-      searchIconExpand.classList.remove("active");
-      searchBar.style.display = "none";
+  document.addEventListener("DOMContentLoaded", function () {
+    const searchIcons = document.getElementsByClassName("fa-search");
+    const searchBar = document.getElementsByClassName("navbar-search-active")[0];
+    const dropdownButton = document.getElementById('dropdownButton');
+    const dropdownIcon = document.getElementById('dropdownIcon');
+    const collapseElement = document.getElementById("collapsed-navbar");
+    const gettingStartedLink = document.querySelector("#getting-started-dropdown");
+    const navbar = document.querySelector('.navbar');
+
+    function handleNavbarShadow() {
+      if (window.scrollY > 0) {
+        navbar.classList.add('affix');
+      } else {
+        navbar.classList.remove('affix');
+      }
     }
-    else {
-      searchIconCollapse.classList.add("active");
-      searchIconExpand.classList.add("active");
-      searchBar.style.display = "block";
+
+    window.addEventListener('scroll', handleNavbarShadow);
+
+    if (gettingStartedLink) {
+      const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
+      gettingStartedLink.addEventListener("click", function (e) {
+        if(gettingStartedLink.classList.contains("rotate180")){
+          gettingStartedLink.classList.remove("rotate180");
+          gettingStartedDropdown.hide();
+        } else {
+          gettingStartedLink.classList.add("rotate180");
+          gettingStartedDropdown.show();
+        }
+        e.stopPropagation();
+      });
+      document.addEventListener("click", function () {
+       gettingStartedLink.classList.remove("rotate180");
+       gettingStartedDropdown.hide();
+      });
     }
-    burgerButton.classList.remove("show");
-  }
-  let searchIconCollapse = document.getElementsByClassName("fa-search")[0];
-  let searchIconExpand = document.getElementsByClassName("fa-search")[1];
-  let searchBar = document.getElementsByClassName("navbar-search-active")[0];
-  searchIconCollapse.addEventListener("click", activeSearchBar);
-  searchIconExpand.addEventListener("click", activeSearchBar);
-  if (window.location.href.includes('search')) {
+
+    function activeSearchBar(){
+      const searchIconsArray = Array.from(searchIcons);
+      const isActive = searchIconsArray.some(icon => icon.classList.contains("active"));
+      if (isActive) {
+        searchIconsArray.forEach(icon => icon.classList.remove("active"));
+        searchBar.style.display = "none";
+      } else {
+        searchIconsArray.forEach(icon => icon.classList.add("active"));
+        searchBar.style.display = "block";
+      }
+      collapseElement.classList.remove("show");
+    }
+
+    if (dropdownButton && collapseElement && dropdownIcon) {
+      const bsCollapse = new bootstrap.Collapse(collapseElement, { toggle: false });
+
+      collapseElement.addEventListener('show.bs.collapse', function() {
+        dropdownIcon.classList.remove('fa-bars');
+        dropdownIcon.classList.add('fa-times');
+        dropdownButton.setAttribute('aria-expanded', 'true');
+      });
+
+      collapseElement.addEventListener('hide.bs.collapse', function() {
+        dropdownIcon.classList.remove('fa-times');
+        dropdownIcon.classList.add('fa-bars');
+        dropdownButton.setAttribute('aria-expanded', 'false');
+      });
+
+      dropdownButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (collapseElement.classList.contains('show')) {
+          bsCollapse.hide();
+        } else {
+          bsCollapse.show();
+        }
+      });
+    }
+
+    Array.from(searchIcons).forEach(icon => {
+      icon.addEventListener("click", activeSearchBar);
+    });
+
+    if (window.location.href.includes('search') && searchBar) {
       searchBar.style.display = "block";
-  }
+      Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
+    }
+  });
 </script>

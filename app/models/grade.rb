@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class Grade < ApplicationRecord
-  LETTER_MATCH = /^(A|B|C|D|E|F)$/.freeze
-  PERCENT_MATCH = /^[0-9][0-9]?$|^100$/.freeze
+  LETTER_MATCH = /^(A|B|C|D|E|F)$/
+  PERCENT_MATCH = /^[0-9][0-9]?$|^100$/
 
   belongs_to :project
   belongs_to :grader, class_name: "User", foreign_key: :user_id
   belongs_to :assignment
 
-  validates :grade, :user_id, :project_id, :assignment_id, presence: true
+  validates :grade, presence: true
   validate :grading_scale, :assignment_project
   validates :project_id, uniqueness: { scope: :assignment_id }
 
@@ -30,9 +30,7 @@ class Grade < ApplicationRecord
     end
 
     def assignment_project
-      if project&.assignment_id != assignment&.id
-        errors.add(:project, "is not a part of the assignment")
-      end
+      errors.add(:project, "is not a part of the assignment") if project&.assignment_id != assignment&.id
     end
 
     def self.to_csv(assignment_id)
@@ -46,9 +44,8 @@ class Grade < ApplicationRecord
 
         group_members.each do |member|
           submission = submissions.find do |s|
-            (
             s.author_id == member.id &&
-            s.assignment_id == assignment_id)
+              s.assignment_id == assignment_id
           end
           grade = submission&.grade&.grade
           remarks = submission&.grade&.remarks

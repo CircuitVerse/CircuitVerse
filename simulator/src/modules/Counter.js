@@ -97,6 +97,8 @@ export default class Counter extends CircuitElement {
             this.zero.value = zeroValue;
             simulationArea.simulationQueue.add(this.zero);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customDraw() {
@@ -174,7 +176,7 @@ export default class Counter extends CircuitElement {
 }
 
 Counter.prototype.tooltipText = "Counter: a binary counter from zero to a given maximum value";
-Counter.prototype.helplink = "https://docs.circuitverse.org/#/inputElements?id=counter"; Counter.prototype.objectType = 'Counter';
+Counter.prototype.helplink = "https://docs.circuitverse.org/#/chapter4/2input?id=counter"; Counter.prototype.objectType = 'Counter';
 Counter.prototype.objectType = 'Counter';
 Counter.prototype.canShowInSubcircuit = true;
 Counter.prototype.layoutProperties = {

@@ -6,6 +6,11 @@ html {
   scroll-behavior: smooth;
 }
 
+::selection {
+  background: $primary-green;
+  color: $white;
+}
+
 body {
   font-family: 'Inter';
   padding-top: 90px;
@@ -36,6 +41,20 @@ body {
 
 .submain-heading {
   margin-top: 30px;
+  position: relative;
+
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover .tooltiptext {
+      left: 50%;
+      opacity: 1;
+      transform: translateX(-50%);
+      visibility: visible;
+      z-index: 101;
+    }
+  }
 }
 
 .main-description {
@@ -85,17 +104,60 @@ body {
   }
 }
 
+@media (max-width: 400px) {
+  .anchor-text-button{
+    width: 100%;
+    max-width: inherit;
+  }
+}
+
 //anchor
+.anchor-text-button{
+  border: 1px solid;
+}
 .anchor-text {
   color: $secondary-green;
   font-weight: 500;
+  text-decoration: none;
+  margin-left: 9px;
+
+  &:hover {
+    color: $primary-green;
+    text-decoration: none;
+  }
+}
+.anchor-text-left {
+  color: $secondary-green;
+  font-weight: 500;
+  left: 0;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  position: absolute;
+  text-align: left;
   text-decoration: underline;
+  width: 300px;
 
   &:hover {
     color: $primary-green;
   }
 }
+.anchor-text-right {
+  color: $secondary-green;
+  font-weight: 500;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding: 20px;
+  position: absolute;
+  right: 0;
+  text-align: right;
+  text-decoration: underline;
+  width: 300px;
 
+  &:hover {
+    color: $primary-green;
+  }
+}
 //pagination
 .page-link {
   color: $secondary-green;
@@ -113,8 +175,14 @@ body {
     }
   }
 }
-.pagination .page-link {
-  white-space: nowrap;
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  .page-link {
+    white-space: nowrap;
+  }
 }
 
 @media (max-width: 992px) {
@@ -124,9 +192,8 @@ body {
   }
 
   .pagination {
-    display: block;
     max-width: none;
-    overflow-x: visible;
+    overflow-x: auto;
     padding: 0;
     white-space: nowrap;
   }
@@ -135,5 +202,11 @@ body {
     display: inline-block;
     margin: 0;
     margin-left: -4px;
+  }
+}
+
+@media (max-width: 400px){
+  .anchor-text-button{
+    margin-left: -2px;
   }
 }

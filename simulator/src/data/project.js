@@ -6,25 +6,36 @@
 import { resetScopeList, scopeList, newCircuit } from '../circuit';
 import { showMessage, showError, generateId } from '../utils';
 import { checkIfBackup } from './backupCircuit';
-import {generateSaveData, getProjectName, setProjectName} from './save';
+import { generateSaveData, getProjectName, setProjectName } from './save';
 import load from './load';
-
+import ImportCircuitFiles from '../file/Open';
 /**
  * Helper function to recover unsaved data
  * @category data
  */
+function recoverDataFlow(data) {
+    const confirmationMessage = `Would you like to recover: ${data.name}`;
+    if (confirm(confirmationMessage)) {
+        load(data);
+    }
+    localStorage.removeItem('recover');
+    localStorage.removeItem('autosave');
+}
+
 export function recoverProject() {
-    if (localStorage.getItem('recover')) {
-        var data = JSON.parse(localStorage.getItem('recover'));
-        if (confirm(`Would you like to recover: ${data.name}`)) {
-            load(data);
-        }
-        localStorage.removeItem('recover');
+    const recoverData = localStorage.getItem('recover');
+    const autosaveData = localStorage.getItem('autosave');
+
+    if (recoverData) {
+        const data = JSON.parse(recoverData);
+        recoverDataFlow(data);
+    } else if (autosaveData) {
+        const data = JSON.parse(autosaveData);
+        recoverDataFlow(data);
     } else {
         showError('No recover project found');
     }
 }
-
 
 /**
  * Prompt to restore from localStorage
@@ -38,11 +49,12 @@ export function openOffline() {
         flag = false;
         $('#openProjectDialog').append(`<label class="option custom-radio"><input type="radio" name="projectId" value="${id}" />${projectList[id]}<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject('${id}')"></i></label>`);
     }
-    if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create a new one and save it!</p>');
+    if (flag) $('#openProjectDialog').append('<p>Looks like no circuit has been saved yet. Create or upload a new one and save it!</p>');
     $('#openProjectDialog').dialog({
-        resizable:false,
+        resizable: false,
         width: 'auto',
         buttons: !flag ? [{
+            id: 'Open_offline_btn',
             text: 'Open Project',
             click() {
                 if (!$('input[name=projectId]:checked').val()) return;
@@ -50,7 +62,13 @@ export function openOffline() {
                 window.projectId = $('input[name=projectId]:checked').val();
                 $(this).dialog('close');
             },
-        }] : [],
+        }] : [{
+            text: 'Open CV File',
+            click() {
+                $(this).dialog('close');
+                ImportCircuitFiles();
+            },
+        }],
 
     });
 }
@@ -63,7 +81,6 @@ var projectSaved = true;
 export function projectSavedSet(param) {
     projectSaved = param;
 }
-
 
 /**
  * Helper function to store to localStorage -- needs to be deprecated/removed
@@ -106,7 +123,6 @@ window.onbeforeunload = function () {
     // eslint-disable-next-line consistent-return
     return 'Are u sure u want to leave? Any unsaved changes may not be recoverable';
 };
-
 
 /**
  * Function to clear project

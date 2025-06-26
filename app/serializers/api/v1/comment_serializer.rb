@@ -33,7 +33,7 @@ class Api::V1::CommentSerializer
   end
   attributes :creator_type, :body, :created_at, :updated_at
 
-  belongs_to :thread
-  belongs_to :editor
-  belongs_to :creator
+  belongs_to :thread, serializer: Api::V1::DefaultSerializer
+  belongs_to :editor, serializer: Api::V1::UserSerializer
+  belongs_to :creator, serializer: Api::V1::UserSerializer
 end
