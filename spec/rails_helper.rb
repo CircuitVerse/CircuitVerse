@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
@@ -14,11 +15,10 @@ Rails.root.glob("spec/support/**/*.rb").each { |f| require f }
 # If you are not using ActiveRecord, you can remove these lines.
 begin
   # Your code that might raise an exception
-rescue => e
+rescue StandardError => e
   puts e.to_s.strip
   exit 1
 end
-
 
 Capybara.raise_server_errors = false
 Capybara.default_driver = :playwright
@@ -55,9 +55,8 @@ RSpec.configure do |config|
 
   config.filter_rails_from_backtrace!
 
-
-  Shoulda::Matchers.configure do |config|
-    config.integrate do |with|
+  Shoulda::Matchers.configure do |shoulda_config|
+    shoulda_config.integrate do |with|
       with.test_framework :rspec
       with.library :rails
     end
