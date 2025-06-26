@@ -3,21 +3,14 @@
 require "rails_helper"
 
 describe "Assignments", type: :system do
-  let(:primary_mentor) { FactoryBot.create(:user, confirmed_at: Time.zone.now) }
+  let(:primary_mentor) { FactoryBot.create(:user) }
   let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
-
   let(:mentor) do
-    FactoryBot.create(:user, confirmed_at: Time.zone.now).tap do |user|
+    FactoryBot.create(:user).tap do |user|
       FactoryBot.create(:group_member, group: group, user: user, mentor: true)
     end
   end
-
-  let(:member) do
-    FactoryBot.create(:user, confirmed_at: Time.zone.now).tap do |user|
-      FactoryBot.create(:group_member, group: group, user: user)
-    end
-  end
-
+  let(:member) { FactoryBot.create(:user).tap { |user| FactoryBot.create(:group_member, group: group, user: user) } }
   let(:assignment) { FactoryBot.create(:assignment, group: group) }
   let(:closed_assignment) { FactoryBot.create(:assignment, group: group, status: "closed") }
 
@@ -26,14 +19,15 @@ describe "Assignments", type: :system do
   end
 
   context "when user is primary_mentor" do
-    before { sign_in primary_mentor }
+    before do
+      sign_in primary_mentor
+    end
 
     it "creates assignment" do
       visit new_group_assignment_path(group)
-      name = "TestAssignment#{SecureRandom.hex(3)}"
-      deadline = Time.zone.parse("2025-12-31 12:00")
-      description = "Assignment description for mentor"
-
+      name = Faker::Lorem.word
+      deadline = Faker::Date.forward(days: 23)
+      description = Faker::Lorem.sentence
       fill_assignments(name, deadline, description, grading: true)
 
       click_button "Create Assignment"
@@ -43,30 +37,33 @@ describe "Assignments", type: :system do
       check_show_page(name, deadline, description, "Input, Button, Power")
     end
 
-    it "deletes assignment" do
+    it "delete assignment" do
       assignment
       visit group_path(group)
       click_link "Delete"
-      find("#groups-assignment-delete-button").click
+      delete_assignment_button = find(id: "groups-assignment-delete-button")
+      delete_assignment_button.click
       expect(page).to have_text("Assignment was successfully deleted.")
     end
 
     it "does not create assignment when name is blank" do
       visit new_group_assignment_path(group)
-      deadline = Time.zone.parse("2025-12-31 12:00")
-      description = "No name assignment"
 
-      fill_assignments(nil, deadline, description, grading: true)
+      name = nil
+      deadline = Faker::Date.forward(days: 23)
+      description = Faker::Lorem.sentence
+
+      fill_assignments(name, deadline, description, grading: true)
+
       click_button "Create Assignment"
-
       expect(page).to have_text("Name is too short (minimum is 1 character)")
     end
 
-    it "can edit assignment when assignment is not closed" do
+    it "is able to edit assignment when assignment is not closed" do
       visit edit_group_assignment_path(group, assignment)
-      name = "EditedAssignment#{SecureRandom.hex(2)}"
-      deadline = Time.zone.parse("2026-01-10 12:00")
-      description = "Updated description"
+      name = Faker::Lorem.word
+      deadline = Faker::Date.forward(days: 23)
+      description = Faker::Lorem.sentence
       fill_assignments(name, deadline, description, grading: false)
       page.find("#label-Power").click
 
@@ -77,12 +74,13 @@ describe "Assignments", type: :system do
       check_show_page(name, deadline, description, "Input, Button")
     end
 
-    it "cannot edit assignment when it is closed" do
+    it "is not able to edit assignment when assignment is closed" do
       visit edit_group_assignment_path(group, closed_assignment)
+
       expect(page).to have_text("You are not authorized to do the requested operation")
     end
 
-    it "can close assignment" do
+    it "is able to close assignment" do
       assignment
       visit group_path(group)
       click_link "Close"
@@ -90,7 +88,7 @@ describe "Assignments", type: :system do
       expect(page).to have_text("Reopen")
     end
 
-    it "can reopen assignment" do
+    it "is able to reopen assignment" do
       closed_assignment
       visit group_path(group)
       click_link "Reopen"
@@ -100,14 +98,15 @@ describe "Assignments", type: :system do
   end
 
   context "when user is mentor" do
-    before { sign_in mentor }
+    before do
+      sign_in mentor
+    end
 
     it "creates assignment" do
       visit new_group_assignment_path(group)
-      name = "MentorAssignment#{SecureRandom.hex(3)}"
-      deadline = Time.zone.parse("2025-12-15 12:00")
-      description = "Mentor's assignment"
-
+      name = Faker::Lorem.word
+      deadline = Faker::Date.forward(days: 23)
+      description = Faker::Lorem.sentence
       fill_assignments(name, deadline, description, grading: true)
 
       click_button "Create Assignment"
@@ -117,30 +116,33 @@ describe "Assignments", type: :system do
       check_show_page(name, deadline, description, "Input, Button, Power")
     end
 
-    it "deletes assignment" do
+    it "delete assignment" do
       assignment
       visit group_path(group)
       click_link "Delete"
-      find("#groups-assignment-delete-button").click
+      delete_assignment_button = find(id: "groups-assignment-delete-button")
+      delete_assignment_button.click
       expect(page).to have_text("Assignment was successfully deleted.")
     end
 
     it "does not create assignment when name is blank" do
       visit new_group_assignment_path(group)
-      deadline = Time.zone.parse("2025-12-20 12:00")
-      description = "Invalid assignment"
 
-      fill_assignments(nil, deadline, description, grading: true)
+      name = nil
+      deadline = Faker::Date.forward(days: 23)
+      description = Faker::Lorem.sentence
+
+      fill_assignments(name, deadline, description, grading: true)
+
       click_button "Create Assignment"
-
       expect(page).to have_text("Name is too short (minimum is 1 character)")
     end
 
-    it "can edit assignment when not closed" do
+    it "is able to edit assignment when assignment is not closed" do
       visit edit_group_assignment_path(group, assignment)
-      name = "MentorEdit#{SecureRandom.hex(2)}"
-      deadline = Time.zone.parse("2026-02-01 12:00")
-      description = "Mentor edit description"
+      name = Faker::Lorem.word
+      deadline = Faker::Date.forward(days: 23)
+      description = Faker::Lorem.sentence
       fill_assignments(name, deadline, description, grading: false)
       page.find("#label-Power").click
 
@@ -151,19 +153,20 @@ describe "Assignments", type: :system do
       check_show_page(name, deadline, description, "Input, Button")
     end
 
-    it "cannot edit closed assignment" do
+    it "is not able to edit assignment when assignment is closed" do
       visit edit_group_assignment_path(group, closed_assignment)
+
       expect(page).to have_text("You are not authorized to do the requested operation")
     end
 
-    it "cannot close assignment" do
+    it "is not able to close assignment" do
       assignment
       visit group_path(group)
       click_link "Close"
       expect(page).to have_text("You are not authorized to do the requested operation")
     end
 
-    it "can reopen assignment" do
+    it "is able to reopen assignment" do
       closed_assignment
       visit group_path(group)
       click_link "Reopen"
@@ -173,9 +176,11 @@ describe "Assignments", type: :system do
   end
 
   context "when user is a member" do
-    before { sign_in member }
+    before do
+      sign_in member
+    end
 
-    it "can make assignment project" do
+    it "is able to make assignment project" do
       assignment
       visit group_path(group)
       click_on "Start Working"
@@ -184,21 +189,22 @@ describe "Assignments", type: :system do
   end
 
   def fill_assignments(name, deadline, description, grading:)
-    fill_in "Name", with: name unless name.nil?
+    fill_in "Name", with: name
     fill_in "Deadline", with: deadline.strftime("%d/%m/%Y 12:00")
-    expect(page).to have_selector("#assignment_deadline", visible: true)
+    sleep(0.1)
     find("#assignment_deadline", visible: true).send_keys :enter
     fill_in_editor ".trumbowyg-editor", with: description
 
-    select "Percent(1-100)", from: "assignment_grading_scale" if grading
+    select "Percent(1-100)", from: "assignment_grading_scale" if grading == true
+
     page.find("#label-restrict-elements").click
     page.find("#label-Input").click
     page.find("#label-Button").click
     page.find("#label-Power").click
   end
 
-  def fill_in_editor(selector, with:)
-    find(selector).send_keys with
+  def fill_in_editor(editor, with:)
+    find(editor).send_keys with
   end
 
   def check_show_page(name, deadline, description, restricted_elements)
