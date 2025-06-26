@@ -562,6 +562,9 @@ export function hideProperties() {
  * @category ux
  */
 export function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') {
+        return '';
+    }
     return unsafe
         .replace(/&amp;/g, '&amp;amp;')
         .replace(/&lt;/g, '&amp;lt;')

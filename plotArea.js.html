@@ -122,7 +122,7 @@ var ptA = currentScreen();
 // Helper functions for canvas
 
 function getFullHeight(flagCount) {
-    return !flagCount ? (plotHeight + padding) : (timeLineHeight + (plotHeight + padding) * flagCount);
+    return timeLineHeight + (plotHeight + padding) * flagCount;
 }
 
 function getFlagStartY(flagIndex) {
@@ -134,7 +134,11 @@ function getCycleStartX(cycleNumber) {
 }
 function changeHeight(dir) {
     plotHeight += dir ? 5 : -5;
-    plotHeight = dir ? plotHeight = Math.min(sh(50), plotHeight) : plotHeight = Math.max(sh(20), plotHeight);
+    if (dir) {
+        plotHeight = Math.min(sh(60), plotHeight);
+    } else {
+        plotHeight = Math.max(sh(20), plotHeight);
+    }
     waveFormHeight = plotHeight - 2 * waveFormPadding;
     plotArea.resize();
 }
@@ -323,7 +327,7 @@ const plotArea = {
         ctx.fillText('Time', sh(5), timeLineHeight * 0.7);
 
         // Timeline numbers
-        ctx.font = `${sh(9)}px Times New Roman`;
+        ctx.font = `${sh(10)}px Times New Roman`;
         ctx.strokeStyle = textColor;
         ctx.textAlign = 'center';
         for (var i = Math.floor(plotArea.cycleOffset); getCycleStartX(i) &lt;= width ; i++) {
