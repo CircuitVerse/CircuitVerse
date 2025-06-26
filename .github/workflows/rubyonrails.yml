@@ -107,3 +107,21 @@ jobs:
         run: |
           bundle exec rbs collection install
           bundle exec steep check
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Security audit dependencies
+        run: bundle exec bundler-audit --update
+
+      - name: Lint Ruby files
+        run: bundle exec rubocop --parallel
