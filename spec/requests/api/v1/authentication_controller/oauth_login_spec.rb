@@ -1,11 +1,20 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "webmock/rspec"
 
 RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request do
   describe "oauth user login" do
     context "when user does not already exists" do
       before do
+        stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
+          .with(headers: { 'Authorization' => "Bearer #{oauth_params[:access_token]}" })
+          .to_return(
+            status: 200,
+            body: { email: "newuser@test.com", sub: "123456789" }.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+
         post "/api/v1/oauth/login", params: oauth_params, as: :json
       end
 
@@ -17,6 +26,10 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
 
     context "with invalid access token" do
       before do
+        stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
+          .with(headers: { 'Authorization' => 'Bearer invalid_access_token' })
+          .to_return(status: 401, body: "", headers: {})
+
         post "/api/v1/oauth/login", params: {
           access_token: "invalid_access_token",
           provider: "google"
@@ -32,7 +45,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
     context "with unsupported provider type" do
       before do
         post "/api/v1/oauth/login", params: {
-          access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+          access_token: "dummy_token",
           provider: "unsupported_provider"
         }, as: :json
       end
@@ -46,6 +59,15 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
     context "with valid params" do
       before do
         FactoryBot.create(:user, email: "test@test.com")
+
+        stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
+          .with(headers: { 'Authorization' => "Bearer #{oauth_params[:access_token]}" })
+          .to_return(
+            status: 200,
+            body: { email: "test@test.com", sub: "123456789" }.to_json,
+            headers: { 'Content-Type' => 'application/json' }
+          )
+
         post "/api/v1/oauth/login", params: oauth_params, as: :json
       end
 
@@ -57,7 +79,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
 
     def oauth_params
       {
-        access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+        access_token: "ya29.valid.mocked.token",
         provider: "google"
       }
     end
