@@ -4,15 +4,17 @@
 require "spec_helper"
 ENV["RAILS_ENV"] ||= "test"
 require File.expand_path("../config/environment", __dir__)
+
 # Prevent database truncation if the environment is production
 abort("The Rails environment is running in production mode!") if Rails.env.production?
+
 require "rspec/rails"
 require "devise"
+
 # Including support files for tests
 Rails.root.glob("spec/support/**/*.rb").each { |f| require f }
 
-# Checks for pending migrations and applies them before tests are run.
-# If you are not using ActiveRecord, you can remove these lines.
+# Checks for pending migrations and fails fast if there are any.
 begin
   ActiveRecord::Migration.check_pending!
 rescue ActiveRecord::PendingMigrationError => e
@@ -20,11 +22,9 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 
-
 Capybara.raise_server_errors = false
 Capybara.default_driver = :playwright
 Capybara.javascript_driver = :playwright
-
 Capybara.default_max_wait_time = 15
 
 # === USE PLAYWRIGHT FOR SYSTEM TESTS ===
@@ -51,9 +51,7 @@ RSpec.configure do |config|
   end
 
   config.use_transactional_fixtures = true
-
   config.infer_spec_type_from_file_location!
-
   config.filter_rails_from_backtrace!
 
   Shoulda::Matchers.configure do |shoulda_config|
