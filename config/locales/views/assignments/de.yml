@@ -1,0 +1,40 @@
+de:
+  assignments:
+    group_name: "Gruppe: %{name}"
+    deadline: "Deadline:"
+    remaining_time_error: "(Beim Laden des Skripts ist etwas schiefgelaufen)"
+    form:
+      grade_scale_cant_change: "(Kann nicht geändert werden, sobald gesetzt)"
+      cannot_be_edited: "%{graded} - Kann nicht bearbeitet werden"
+      enable_element_restriction: "Aktiviere Elementbeschränkung:"
+      enable_feature_restriction: "Aktiviere Funktionseinschränkung:"
+      time_remaining: "Verbleibende Zeit: %{time}"
+      no_grade: "Keine Bewertung"
+      letter: "Brief(A-F)"
+      percent: "Prozent(1-100)"
+      custom: "Eigene"
+    edit:
+      edit_assignment: "Aufgabe bearbeiten"
+    new:
+      title: "%{name} - Neue Aufgabe"
+      new_assignment_heading: "Neue Aufgabe"
+    show:
+      title: "%{name} - Aufgabendetails"
+      assignment_details_heading: "GESCHÄFTSDETAILS"
+    assignment_data:
+      name_html: "<strong>Name:</strong> %{name}"
+      group_html: "<strong>Gruppe:</strong> %{group_name}"
+      time_remaining_html: "<strong>Verbleibende Zeit:</strong> %{time_remaining}"
+      graded_html: "<strong>Bewertet:</strong> %{graded}"
+      description: "Beschreibung:"
+      restricted_elements_html: "<strong>Eingeschränkte Schaltelemente:<strong> %{restricted_circuit_elements}"
+      export_grades: "Bewertungen exportieren"
+      submissions: "Einreichungen:"
+      restricted_features_html: "<strong>Eingeschränkte Funktionen:</strong> %{restricted_features}"
+      no_submissions: "Noch keine Einreichungen!"
+      grades_and_remarks: "Noten & Anmerkungen"
+      grade: "Note"
+      remarks: "Anmerkungen"
+      grading_scale_percent: "Aufgaben können mit Prozentsatz bewertet werden (1-100)"
+      grading_scale_letter: "Aufgaben können mit beliebigen Buchstaben A/B/C/D/E/F bewertet werden"
+      remove: "Entfernen"

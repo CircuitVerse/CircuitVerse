@@ -24,8 +24,7 @@ en:
         item1_text: "Contribute to the open source project"
         item2_text: "Add new features to the CircuitVerse project"
         item3_text: "Find and fix bugs to the CircuitVerse project"
-      become_patreon: "Become a Patreon"
-      donate_via_paypal: "Donate through PayPal"
+      donate_via_opencollective: "Donate through Open Collective"
     examples:
       title: "CircuitVerse - Examples"
       main_heading: "EXAMPLES"
@@ -151,3 +150,4 @@ en:
       no_waiver:
         main_heading: "15. No Waiver"
         description1: "No waiver of any term of these Terms of Use shall be deemed a further or continuing waiver of such term or any other term, and the CircuitVerse Team's failure to assert any right or provision under these Terms of Use shall not constitute a waiver of such right or provision."
+        

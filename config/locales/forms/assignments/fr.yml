@@ -1,0 +1,11 @@
+fr:
+  helpers:
+    label:
+      assignment:
+        name: "Nom"
+        description: "Libellé"
+        grading_scale: "Échelle de notation"
+    submit:
+      assignment:
+        create: "Créer un devoir"
+        update: "Mettre à jour le devoir"
