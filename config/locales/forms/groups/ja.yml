@@ -1,0 +1,13 @@
+ja:
+  helpers:
+    label:
+      group_member:
+        emails: "E-mail"
+      group:
+        name: "グループ名:"
+    submit:
+      group_member:
+        create: "メンバーを追加"
+      group:
+        create: "保存"
+        update: "保存"

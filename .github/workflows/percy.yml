@@ -1,0 +1,99 @@
+name: "Percy Visual Tests"
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request_target:
+    branches:
+      - master
+      - main
+
+jobs:
+  percy-tests:
+    
+    if: >
+      github.event_name == 'push'
+      OR (
+        github.event_name == 'pull_request_target'
+        AND
+        contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')
+      )
+
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+      redis:
+        image: redis:alpine
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server
+
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+
+    steps:
+     
+      - name: Check out base repo code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Check out PR code (fork)
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v3
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          submodules: recursive
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "yarn"
+
+      - name: Install Dependencies for canvas
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
+
+      - name: Install Percy CLI
+        run: |
+          npm install @percy/cli --legacy-peer-deps
+          npm install --save-dev @percy/cli
+
+      - name: Install Gems
+        run: bundle install
+
+      - name: Prepare DB
+        run: |
+          bin/rails db:schema:load
+          bin/rails data:migrate
+
+      - name: Configure RSA keys
+        run: |
+          openssl genrsa -out config/private.pem 2048
+          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+
+      - name: Build assets (if needed)
+        run: yarn run build
+
+      - name: Run tests with Percy
+        env:
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+        run: npx percy exec -- bundle exec rspec

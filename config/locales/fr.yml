@@ -1,0 +1,49 @@
+fr:
+  edit: "Modifier"
+  show: "Afficher"
+  delete: "Supprimez"
+  view: "Voir"
+  launch_simulator: "Lancer le simulateur"
+  email_us_heading: "Envoyez-nous un e-mail à"
+  join_at_slack_heading: "Rejoignez-nous et discutez avec nous à"
+  join_at_slack_description: "Canal Slack"
+  welcome_back_text: "Bienvenue dans l'univers de Digital Circuit !"
+  save: "Enregistrer"
+  back: "Précédent"
+  login: "Se connecter"
+  sign_up: "S'inscrire"
+  sign_out: "Se déconnecter"
+  assignment: "Affectation"
+  launch: "Lancer"
+  fork: "Fork"
+  more: "En savoir plus"
+  submit: "Soumettre"
+  features_heading: "Fonctionnalités"
+  features_description: "Concevez des circuits rapidement et facilement avec une interface utilisateur moderne et intuitive avec glisser-déposer, copier/coller, zoomer, etc."
+  add_members: "Ajouter des membres"
+  add_mentors: "Ajouter des mentors"
+  remove: "Retirer"
+  reopen: "Rouvrir"
+  close: "Fermer"
+  not_available: "N.A."
+  not_entered: "Non entré"
+  enter_email: "Entrez l'email"
+  enter_password: "Entrez le mot de passe"
+  enter_name: "Entrez le nom"
+  registration_blocked: "L'inscription est actuellement désactivée"
+  google: "Google"
+  facebook: "Facebook"
+  github: "Github"
+  gitlab: "Gitlab"
+  components:
+    search_bar:
+      placeholders:
+        users: 'Rechercher des utilisateurs'
+        projects: 'Rechercher des projets'
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "demi-minute"
+      about_x_hours:
+        one: "1 heure" # default was: "about 1 hour"
+        other: "%{count} heures" # default was: "about %{count} hours"

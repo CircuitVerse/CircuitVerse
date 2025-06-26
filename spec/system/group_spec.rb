@@ -11,7 +11,6 @@ describe "Group management", type: :system do
 
   before do
     group
-    driven_by(:selenium_chrome_headless)
     login_as(primary_mentor, scope: :user)
   end
 
