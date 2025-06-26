@@ -33,11 +33,10 @@
     "lint-staged": ">=15.4.2",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.21",
-    "playwright": "1.52.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.4.2",
-    "vite": "^5.4.19",
+    "vite": "^5.4.14",
     "vite-plugin-ruby": "^5.1.1"
   },
   "dependencies": {
