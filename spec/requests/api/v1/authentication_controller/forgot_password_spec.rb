@@ -20,9 +20,9 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
 
       it "returns status 200 and should send reset password instructions" do
         perform_enqueued_jobs do
-          expect {
+          expect do
             post "/api/v1/password/forgot", params: { email: user.email }, as: :json
-          }.to change { ActionMailer::Base.deliveries.count }.by(1)
+          end.to change { ActionMailer::Base.deliveries.count }.by(1)
 
           expect(response).to have_http_status(:ok)
         end

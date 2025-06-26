@@ -8,11 +8,11 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
     context "when user does not already exists" do
       before do
         stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
-          .with(headers: { 'Authorization' => "Bearer #{oauth_params[:access_token]}" })
+          .with(headers: { "Authorization" => "Bearer #{oauth_params[:access_token]}" })
           .to_return(
             status: 200,
             body: { email: "newuser@test.com", sub: "123456789" }.to_json,
-            headers: { 'Content-Type' => 'application/json' }
+            headers: { "Content-Type" => "application/json" }
           )
 
         post "/api/v1/oauth/login", params: oauth_params, as: :json
@@ -27,7 +27,7 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
     context "with invalid access token" do
       before do
         stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
-          .with(headers: { 'Authorization' => 'Bearer invalid_access_token' })
+          .with(headers: { "Authorization" => "Bearer invalid_access_token" })
           .to_return(status: 401, body: "", headers: {})
 
         post "/api/v1/oauth/login", params: {
@@ -61,11 +61,11 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
         FactoryBot.create(:user, email: "test@test.com")
 
         stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
-          .with(headers: { 'Authorization' => "Bearer #{oauth_params[:access_token]}" })
+          .with(headers: { "Authorization" => "Bearer #{oauth_params[:access_token]}" })
           .to_return(
             status: 200,
             body: { email: "test@test.com", sub: "123456789" }.to_json,
-            headers: { 'Content-Type' => 'application/json' }
+            headers: { "Content-Type" => "application/json" }
           )
 
         post "/api/v1/oauth/login", params: oauth_params, as: :json
