@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe Contribute::ContributeCardComponent, type: :component do
+RSpec.describe Contribute::CardComponent, type: :component do
   include ViewComponent::TestHelpers
 
   let(:image_src) { "SVGs/student.svg" }
@@ -26,7 +26,7 @@ RSpec.describe Contribute::ContributeCardComponent, type: :component do
       )
     )
 
-    expect(page).to have_css(".card-spacing-d-flex")
+    expect(page).to have_css(".col-12.col-sm-12.col-md-6.col-lg-4")
     expect(page).to have_css(".card.contribute-card")
     expect(page).to have_css(".card-body.contribute-card-body")
   end

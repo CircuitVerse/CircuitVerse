@@ -41,7 +41,7 @@
     </div>
   </div>
   <div class="row center-row gy-5">
-  <%= render(Contribute::ContributeCardComponent.new(
+  <%= render(Contribute::CardComponent.new(
       image_src: "SVGs/student.svg",
       alt_text: "Student Icon",
       title_key: "circuitverse.contribute.student_card.main_heading",
@@ -51,7 +51,7 @@
         "circuitverse.contribute.student_card.item3_text"
       ]
     )) %>
-    <%= render(Contribute::ContributeCardComponent.new(
+    <%= render(Contribute::CardComponent.new(
       image_src: "SVGs/professor.svg",
       alt_text: "Professor Icon",
       title_key: "circuitverse.contribute.teacher_card.main_heading",
@@ -61,7 +61,7 @@
         "circuitverse.contribute.teacher_card.item3_text"
       ]
     )) %>
-    <%= render(Contribute::ContributeCardComponent.new(
+    <%= render(Contribute::CardComponent.new(
       image_src: "SVGs/coder.svg",
       alt_text: "Developer Icon",
       title_key: "circuitverse.contribute.developer_card.main_heading",

@@ -1,6 +1,6 @@
-<div class="card-spacing-d-flex <%= @column_classes %>">
+<div class="<%= @column_classes %>">
   <div class="card contribute-card">
-    <%= image_tag @image_src, alt: @alt_text, class: "card-img-top contribute-card-image" %>
+    <%= image_tag @image_src, alt: @alt_text, class: "card-img-top contribute-card-image mx-auto d-block" %>
     <div class="card-body contribute-card-body">
       <h3 class="card-title"><%= t(@title_key) %></h3>
       <ul class="card-text">
@@ -10,4 +10,4 @@
       </ul>
     </div>
   </div>
-</div>
+</div> 
