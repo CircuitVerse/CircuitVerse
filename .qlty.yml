@@ -17,6 +17,8 @@ filters:
     - config/
     - db/
     - vendor/
+    - node_modules/
+    - public/packs/
     - public/bootstrap-3.3.7/
     - public/external/
     - test/
