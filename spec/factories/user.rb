@@ -2,14 +2,10 @@
 
 FactoryBot.define do
   factory :user do
-    email    { Faker::Internet.email }
+    email { Faker::Internet.email }
     password { Faker::Alphanumeric.alphanumeric number: 10 }
-    name     { Faker::Name.name }
-    locale   { Faker::Config.locale }
-    admin    { false }
-
-    trait :admin do
-      admin { true }
-    end
+    name { Faker::Name.name }
+    locale { Faker::Config.locale }
+    admin { false }
   end
 end
