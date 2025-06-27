@@ -10,13 +10,19 @@ class SearchBarComponentPreview < ViewComponent::Preview
       Search::SearchBarComponent.new(
         search_path: "/admin/search",
         resource_options: %w[Admins Teachers Students],
-        placeholders: {
-          "Admins" => "Search for admins",
-          "Teachers" => "Search for teachers",
-          "Students" => "Search for students"
+        options: {
+          placeholders: {
+            "Admins" => "Search for admins",
+            "Teachers" => "Search for teachers",
+            "Students" => "Search for students"
+          },
+          option_labels: {
+            "Admins" => "Admins",
+            "Teachers" => "Teachers",
+            "Students" => "Students"
+          }
         },
-        resource: "Teachers",
-        query: "john"
+        resource: "Teachers"
       )
     )
   end

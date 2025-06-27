@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CircuitVerse Component Preview</title>
+    <%= stylesheet_link_tag "application", media: "all" %>
+   
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Inter', sans-serif;
+        background-color: #f8f9fa;
+      }
+      
+      .preview-container {
+        background: white;
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-bottom: 16px;
+      }
+      
+      .preview-title {
+        color: #2ECC71;
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 8px;
+      }
+      
+      :root {
+        --cv-primary: #2ECC71;
+        --cv-secondary: #27AE60;
+        --cv-dark: #1E3A8A;
+      }
+    </style>
+  </head>
+  
+  <body>
+    <div class="preview-container">
+      <div class="preview-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" style="vertical-align: middle; margin-right: 8px;">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+        </svg>
+        Component Preview
+      </div>
+      
+      <%= yield %>
+    </div>
+    
+    <%= javascript_include_tag "application", defer: true %>
+  </body>
+</html> 

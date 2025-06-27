@@ -13,36 +13,29 @@ export default class extends Controller {
     }
 
     static get values() {
-        return { placeholders: Object };
+        return {
+            placeholders: Object,
+            optionLabels: Object,
+        };
     }
 
     connect() {
         this.changePlaceholder();
-        document.addEventListener('click', this.handleOutsideClick.bind(this));
+        this.boundHandleOutsideClick = this.handleOutsideClick.bind(this);
+        this.boundHandleKeydown = this.handleKeydown.bind(this);
+        document.addEventListener('click', this.boundHandleOutsideClick);
+        this.selectWrapperTarget.addEventListener(
+            'keydown',
+            this.boundHandleKeydown,
+        );
     }
 
     disconnect() {
-        document.removeEventListener('click', this.handleOutsideClick.bind(this));
-    }
-
-    toggleDropdown() {
-        this.dropdownTarget.classList.toggle('show');
-        this.selectWrapperTarget.classList.toggle('open');
-    }
-
-    selectOption(event) {
-        const option = event.currentTarget;
-        const { value } = option.dataset;
-
-        this.selectedOptionTarget.textContent = value;
-
-        this.hiddenSelectTarget.value = value;
-
-        this.changePlaceholder();
-
-        this.closeDropdown();
-
-        this.updateActiveOption(option);
+        document.removeEventListener('click', this.boundHandleOutsideClick);
+        this.selectWrapperTarget.removeEventListener(
+            'keydown',
+            this.boundHandleKeydown,
+        );
     }
 
     changePlaceholder() {
@@ -51,9 +44,19 @@ export default class extends Controller {
         this.inputTarget.placeholder = placeholderMap[selectValue];
     }
 
-    closeDropdown() {
-        this.dropdownTarget.classList.remove('show');
-        this.selectWrapperTarget.classList.remove('open');
+    selectOption(event) {
+        const option = event.target;
+        const { value } = option.dataset;
+
+        const optionLabelsMap = this.optionLabelsValue;
+        this.selectedOptionTarget.textContent = optionLabelsMap[value];
+        this.hiddenSelectTarget.value = value;
+
+        this.closeDropdown();
+
+        this.changePlaceholder();
+
+        this.updateActiveOption(option);
     }
 
     updateActiveOption(selectedOption) {
@@ -68,5 +71,75 @@ export default class extends Controller {
         if (!this.selectWrapperTarget.contains(event.target)) {
             this.closeDropdown();
         }
+    }
+
+    handleKeydown(event) {
+        const options = this.dropdownTarget.querySelectorAll('.select-option');
+        const currentActiveOption = this.dropdownTarget.querySelector(
+            '.select-option.active',
+        );
+
+        switch (event.key) {
+        case 'Escape':
+            event.preventDefault();
+            this.closeDropdown();
+            break;
+        case 'ArrowDown':
+            event.preventDefault();
+            if (options.length > 0) {
+                const currentIndex = currentActiveOption
+                    ? Array.from(options).indexOf(currentActiveOption)
+                    : -1;
+                const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
+                this.updateActiveOption(options[nextIndex]);
+            }
+            break;
+        case 'ArrowUp':
+            event.preventDefault();
+            if (options.length > 0) {
+                const currentIndex = currentActiveOption
+                    ? Array.from(options).indexOf(currentActiveOption)
+                    : 0;
+                const prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
+                this.updateActiveOption(options[prevIndex]);
+            }
+            break;
+        case 'Enter':
+            event.preventDefault();
+            if (
+                currentActiveOption
+                && this.dropdownTarget.classList.contains('show')
+            ) {
+                const fakeEvent = { target: currentActiveOption };
+                this.selectOption(fakeEvent);
+            }
+            break;
+        default:
+            break;
+        }
+    }
+
+    toggleDropdownState(action = 'toggle') {
+        const dropdown = this.dropdownTarget;
+        const wrapper = this.selectWrapperTarget;
+
+        if (action === 'open') {
+            dropdown.classList.add('show');
+            wrapper.classList.add('open');
+        } else if (action === 'close') {
+            dropdown.classList.remove('show');
+            wrapper.classList.remove('open');
+        } else {
+            dropdown.classList.toggle('show');
+            wrapper.classList.toggle('open');
+        }
+    }
+
+    toggleDropdown() {
+        this.toggleDropdownState('toggle');
+    }
+
+    closeDropdown() {
+        this.toggleDropdownState('close');
     }
 }

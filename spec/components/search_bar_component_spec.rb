@@ -34,7 +34,7 @@ RSpec.describe Search::SearchBarComponent, type: :component do
 
   it "renders with custom placeholders" do
     custom_placeholders = { "A" => "B", "C" => "D" }
-    render_inline(described_class.new(placeholders: custom_placeholders))
+    render_inline(described_class.new(options: { placeholders: custom_placeholders }))
     expect(page).to have_css("[data-search-bar-placeholders-value='#{custom_placeholders.to_json}']")
   end
 
