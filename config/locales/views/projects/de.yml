@@ -19,6 +19,7 @@ de:
     stars_count: "Sterne"
     views_count: "Aufrufe"
     project_user: "Benutzer:"
+    user_image: "Benutzerbild"
     show:
       project_author: "Autor:"
       project_forked_from: "Geforkt von:"
