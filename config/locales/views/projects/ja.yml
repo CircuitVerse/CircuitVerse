@@ -19,6 +19,7 @@ ja:
     stars_count: "星"
     views_count: "ビュー"
     project_user: "ユーザー:"
+    user_image: "ユーザー画像"
     show:
       project_author: "作成者:"
       project_forked_from: "フォーク元:"
