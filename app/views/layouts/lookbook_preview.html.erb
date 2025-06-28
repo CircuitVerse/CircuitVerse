@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CircuitVerse Component Preview</title>
     <%= stylesheet_link_tag "application", media: "all" %>
-   
     <style>
       body {
         margin: 0;
@@ -13,7 +12,7 @@
         font-family: 'Inter', sans-serif;
         background-color: #f8f9fa;
       }
-      
+
       .preview-container {
         background: white;
         border-radius: 8px;
@@ -21,7 +20,7 @@
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         margin-bottom: 16px;
       }
-      
+
       .preview-title {
         color: #2ECC71;
         font-size: 18px;
@@ -30,7 +29,7 @@
         border-bottom: 2px solid #e9ecef;
         padding-bottom: 8px;
       }
-      
+
       :root {
         --cv-primary: #2ECC71;
         --cv-secondary: #27AE60;
@@ -38,7 +37,6 @@
       }
     </style>
   </head>
-  
   <body>
     <div class="preview-container">
       <div class="preview-title">
@@ -47,10 +45,8 @@
         </svg>
         Component Preview
       </div>
-      
       <%= yield %>
     </div>
-    
     <%= javascript_include_tag "application", defer: true %>
   </body>
 </html> 

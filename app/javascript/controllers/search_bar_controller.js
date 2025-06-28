@@ -74,49 +74,63 @@ export default class extends Controller {
     }
 
     handleKeydown(event) {
-        const options = this.dropdownTarget.querySelectorAll('.select-option');
-        const currentActiveOption = this.dropdownTarget.querySelector(
-            '.select-option.active',
-        );
+        if (!this.dropdownTarget.classList.contains('show') && event.key !== 'Escape') return;
 
         switch (event.key) {
         case 'Escape':
-            event.preventDefault();
-            this.closeDropdown();
+            this.handleEscapeKey(event);
             break;
         case 'ArrowDown':
-            event.preventDefault();
-            if (options.length > 0) {
-                const currentIndex = currentActiveOption
-                    ? Array.from(options).indexOf(currentActiveOption)
-                    : -1;
-                const nextIndex = currentIndex < options.length - 1 ? currentIndex + 1 : 0;
-                this.updateActiveOption(options[nextIndex]);
-            }
+            this.handleArrowKey(event, 'down');
             break;
         case 'ArrowUp':
-            event.preventDefault();
-            if (options.length > 0) {
-                const currentIndex = currentActiveOption
-                    ? Array.from(options).indexOf(currentActiveOption)
-                    : 0;
-                const prevIndex = currentIndex > 0 ? currentIndex - 1 : options.length - 1;
-                this.updateActiveOption(options[prevIndex]);
-            }
+            this.handleArrowKey(event, 'up');
             break;
         case 'Enter':
-            event.preventDefault();
-            if (
-                currentActiveOption
-                && this.dropdownTarget.classList.contains('show')
-            ) {
-                const fakeEvent = { target: currentActiveOption };
-                this.selectOption(fakeEvent);
-            }
+            this.handleEnterKey(event);
             break;
         default:
             break;
         }
+    }
+
+    handleEscapeKey(event) {
+        event.preventDefault();
+        this.closeDropdown();
+    }
+
+    handleArrowKey(event, direction) {
+        event.preventDefault();
+        this.navigateOptions(direction);
+    }
+
+    handleEnterKey(event) {
+        event.preventDefault();
+        const currentActiveOption = this.dropdownTarget.querySelector('.select-option.active');
+        if (currentActiveOption) {
+            const fakeEvent = { target: currentActiveOption };
+            this.selectOption(fakeEvent);
+        }
+    }
+
+    navigateOptions(direction) {
+        const options = Array.from(this.dropdownTarget.querySelectorAll('.select-option'));
+        const currentActiveOption = this.dropdownTarget.querySelector('.select-option.active');
+
+        if (options.length === 0) return;
+
+        const currentIndex = currentActiveOption
+            ? options.indexOf(currentActiveOption)
+            : -1;
+
+        let nextIndex;
+        if (direction === 'down') {
+            nextIndex = (currentIndex + 1) % options.length;
+        } else {
+            nextIndex = (currentIndex - 1 + options.length) % options.length;
+        }
+
+        this.updateActiveOption(options[nextIndex]);
     }
 
     toggleDropdownState(action = 'toggle') {
