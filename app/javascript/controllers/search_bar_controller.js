@@ -45,7 +45,10 @@ export default class extends Controller {
     }
 
     selectOption(event) {
-        const option = event.target;
+        this.setSelectedOption(event.currentTarget);
+    }
+
+    setSelectedOption(option) {
         const { value } = option.dataset;
 
         const optionLabelsMap = this.optionLabelsValue;
@@ -74,7 +77,9 @@ export default class extends Controller {
     }
 
     handleKeydown(event) {
-        if (!this.dropdownTarget.classList.contains('show') && event.key !== 'Escape') return;
+        // Only handle keys when dropdown is open, except for Escape which can always close
+        const isDropdownOpen = this.dropdownTarget.classList.contains('show');
+        if (!isDropdownOpen && event.key !== 'Escape') return;
 
         switch (event.key) {
         case 'Escape':
@@ -106,16 +111,21 @@ export default class extends Controller {
 
     handleEnterKey(event) {
         event.preventDefault();
-        const currentActiveOption = this.dropdownTarget.querySelector('.select-option.active');
+        const currentActiveOption = this.dropdownTarget.querySelector(
+            '.select-option.active',
+        );
         if (currentActiveOption) {
-            const fakeEvent = { target: currentActiveOption };
-            this.selectOption(fakeEvent);
+            this.setSelectedOption(currentActiveOption);
         }
     }
 
     navigateOptions(direction) {
-        const options = Array.from(this.dropdownTarget.querySelectorAll('.select-option'));
-        const currentActiveOption = this.dropdownTarget.querySelector('.select-option.active');
+        const options = Array.from(
+            this.dropdownTarget.querySelectorAll('.select-option'),
+        );
+        const currentActiveOption = this.dropdownTarget.querySelector(
+            '.select-option.active',
+        );
 
         if (options.length === 0) return;
 
