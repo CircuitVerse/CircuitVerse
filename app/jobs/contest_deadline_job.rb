@@ -9,7 +9,7 @@ class ContestDeadlineJob < ApplicationJob
 
     contest.with_lock do
       if Time.zone.now - contest.deadline >= 0 && contest.live?
-        ShortlistContestWinner.new(contest.id)
+        ShortlistContestWinner.new(contest.id).call
         contest.status = :completed
         contest.save!
       end

@@ -126,13 +126,9 @@ class ContestsController < ApplicationController
   def create_submission
     project_id = params[:submission][:project_id]
 
-    # 1️⃣ Ensure the project belongs to the current user
     return redirect_unauthorized_project unless project_owner?(project_id)
-
-    # 2️⃣ Prevent duplicate submissions of the same project to the contest
     return redirect_duplicate_submission if duplicate_submission?(project_id)
 
-    # 3️⃣ Create the submission
     @submission = Submission.new(
       project_id: project_id,
       contest_id: params[:contest_id],
@@ -186,14 +182,13 @@ class ContestsController < ApplicationController
 
   private
 
-    # Parse a deadline or redirect if format is invalid
     def parse_deadline_or_redirect(str)
-      Time.zone.parse(str)
-    rescue ArgumentError, TypeError
-      redirect_to(contests_admin_path, alert: "Invalid deadline format.") and return
+      parsed = Time.zone.parse(str)
+      redirect_to(contests_admin_path, alert: "Invalid deadline format.") and return if parsed.nil?
+
+      parsed
     end
 
-    # Helpers for create_submission
     def project_owner?(project_id)
       current_user.projects.exists?(id: project_id)
     end
@@ -228,7 +223,7 @@ class ContestsController < ApplicationController
       @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
     end
 
-    # Strong params (for future use)
+    # Strong params
     def contest_params
       params.fetch(:contest, {}).permit(:name, :title, :description, :deadline, :status)
     end
