@@ -168,6 +168,155 @@
   margin-bottom: 15px;
 }
 
+.project-cards-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 396px));
+  justify-content: center;
+  margin: 20px auto;
+  width: 100%;
+}
+
+.project-card {
+  background: $white;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  width: 100%;
+  margin: 0;
+  max-width: 396px;
+  min-width: 300px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.project-card-image-container {
+  border-bottom: 2px solid $primary-green;
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.project-card-image {
+  height: 100%;
+  object-fit: cover;
+  width: 100%;
+}
+
+.project-card-content {
+  padding: 16px;
+}
+
+.project-card-header {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.project-card-title {
+  flex: 1;
+  min-width: 0;
+
+  h3 {
+    color: $black;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.project-card-stats {
+  align-items: center;
+  display: flex;
+  flex-shrink: 0;
+  gap: 12px;
+}
+
+.project-card-stat {
+  align-items: center;
+  color: #666;
+  display: flex;
+  font-size: 14px;
+  gap: 4px;
+
+  i {
+    color: $primary-green;
+  }
+
+  .fa-star {
+    color: $primary-green;
+  }
+}
+
+.project-card-author {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.project-card-description {
+  color: #555;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-size: 14px;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+}
+
+.show-more-container {
+  margin-top: 8px;
+}
+
+.show-more-btn {
+  color: $primary-green;
+  font-size: 14px;
+  text-decoration: none;
+
+  &:hover {
+    color: $secondary-green;
+    text-decoration: underline;
+  }
+}
+
+.project-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .project-cards-grid {
+    justify-content: center;
+  }
+  
+  .project-card {
+    flex: 0 1 calc(100% - 20px);
+    max-width: 100%;
+    min-width: 280px;
+  }
+}
+
 @media (max-width: 400px) {
   .circuit-card-name {
     max-width: 140px;
@@ -355,3 +504,4 @@
     color: $white;
   }
 }
+

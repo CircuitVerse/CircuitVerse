@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "pg_search"
+
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
@@ -68,7 +69,7 @@ class Project < ApplicationRecord
 
   before_destroy :purge_circuit_preview
 
-  self.per_page = 6
+  self.per_page = 9
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
