@@ -7,10 +7,10 @@
     </div>
   </div>
 </div>
-
-<div class="container search-tag-search-container">
-  <% @projects.each do |project| %>
-    <%= render(Project::ProjectCardComponent.new(project: project)) %>
-    <hr class="search-horizontal-rule">
-  <% end %>
+<div class="container">
+  <div class="project-cards-grid">
+    <% @projects.each do |project| %>
+      <%= render(Project::ProjectCardComponent.new(project: project)) %>
+    <% end %>
+  </div>
 </div>

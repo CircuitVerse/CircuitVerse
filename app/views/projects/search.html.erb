@@ -12,9 +12,11 @@
   </div>
 <% else %>
   <div class="container search-container">
-    <% @results.each do |project| %>
-      <%= render(Project::ProjectCardComponent.new(project: project)) %>
-    <% end %>
+    <div class="project-cards-grid">
+      <% @results.each do |project| %>
+        <%= render(Project::ProjectCardComponent.new(project: project)) %>
+      <% end %>
+    </div>
     <% unless @results.empty? %>
       <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
     <% end %>
