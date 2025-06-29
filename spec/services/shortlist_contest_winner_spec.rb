@@ -3,6 +3,8 @@
 require "rails_helper"
 
 RSpec.describe ShortlistContestWinner do
+  include ActiveJob::TestHelper
+
   let(:contest) { create(:contest, status: :live) }
 
   context "completed contest" do
@@ -29,19 +31,27 @@ RSpec.describe ShortlistContestWinner do
 
     before do
       allow(FeaturedCircuit).to receive(:create!).and_return(true)
-
       3.times { create(:submission_vote, submission: top, contest: contest) }
       create(:submission_vote, submission: low, contest: contest)
     end
 
-    it "marks winner and completes contest" do
-      res = described_class.new(contest.id).call
+    it "marks winner, completes contest, and delivers a winner notification" do
+      clear_enqueued_jobs
 
-      expect(res[:success]).to be true
+      perform_enqueued_jobs do
+        res = described_class.new(contest.id).call
+        expect(res[:success]).to be true
+      end
+
       expect(contest.reload.status).to eq("completed")
       expect(top.reload.winner).to be true
       expect(
         ContestWinner.exists?(contest: contest, submission: top)
+      ).to be true
+
+      expect(
+        NoticedNotification.exists?(recipient: top.project.author,
+                                    type: "ContestWinnerNotification")
       ).to be true
     end
   end
@@ -49,7 +59,6 @@ RSpec.describe ShortlistContestWinner do
   context "RecordNotUnique replay" do
     it "swallows the exception" do
       allow(FeaturedCircuit).to receive(:create!).and_return(true)
-
       create(:submission, :with_private_project, contest: contest)
 
       described_class.new(contest.id).call
