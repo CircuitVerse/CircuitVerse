@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AddAndValidateContestFks < ActiveRecord::Migration[7.0]
   disable_ddl_transaction!
 
@@ -15,7 +17,14 @@ class AddAndValidateContestFks < ActiveRecord::Migration[7.0]
     validate_foreign_key :contest_winners,  :projects
   end
 
-  def down; end
+  def down
+    safety_assured do
+      remove_fk_if_exists :contest_winners,  :projects, :project_id
+      remove_fk_if_exists :submissions,      :users,    :user_id
+      remove_fk_if_exists :submissions,      :projects, :project_id
+      remove_fk_if_exists :submission_votes, :users,    :user_id
+    end
+  end
 
   private
 
@@ -25,5 +34,11 @@ class AddAndValidateContestFks < ActiveRecord::Migration[7.0]
     add_foreign_key from_table, to_table,
                     column:   column,
                     validate: false
+  end
+
+  def remove_fk_if_exists(from_table, to_table, column)
+    return unless foreign_key_exists?(from_table, to_table, column: column)
+
+    remove_foreign_key from_table, to_table, column: column
   end
 end
