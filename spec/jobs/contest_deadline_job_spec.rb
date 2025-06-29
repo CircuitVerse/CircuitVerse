@@ -4,9 +4,12 @@ require "rails_helper"
 
 RSpec.describe ContestDeadlineJob, type: :job do
   let(:contest) { create(:contest, status: :live, deadline: 1.day.ago) }
-  let!(:submission) { create(:submission, :with_private_project, contest: contest) }
+  let(:submission) { create(:submission, :with_private_project, contest: contest) }
 
-  before { allow(FeaturedCircuit).to receive(:create!).and_return(true) }
+  before do
+    submission
+    allow(FeaturedCircuit).to receive(:create!).and_return(true)
+  end
 
   it "completes the contest and invokes ShortlistContestWinner" do
     described_class.perform_now(contest.id)
