@@ -11,6 +11,7 @@ RSpec.describe "Contests#show (winner branch)", type: :request do
   before do
     create(:contest_winner, contest: contest, submission: submission, project: project)
     sign_in user
+    enable_contests!
   end
 
   it "renders the winner’s name" do
