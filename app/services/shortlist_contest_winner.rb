@@ -46,5 +46,5 @@ class ShortlistContestWinner
       Rails.logger.error "ShortlistContestWinner failed: #{e.message}"
       { success: false, message: e.message }
     end
-    # :nocov:
+  # :nocov:
 end
