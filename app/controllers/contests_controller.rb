@@ -222,7 +222,7 @@ class ContestsController < ApplicationController
       Contest.exists?(status: :live)
     end
 
-    # Cache the total number of users for 10 minutes to avoid scanning the table
+    # Cache the total users for 10 minutes to avoid scanning the table
     def set_user_count
       @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
     end
