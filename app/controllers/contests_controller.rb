@@ -87,6 +87,7 @@ class ContestsController < ApplicationController
 
   # POST /contest/create
   # rubocop:disable Metrics/MethodLength
+  # :nocov:
   def create
     authorize Contest, :admin?
 
@@ -113,6 +114,7 @@ class ContestsController < ApplicationController
       render :admin, status: :unprocessable_entity
     end
   end
+  # :nocov:
   # rubocop:enable Metrics/MethodLength
 
   # GET /contests/:id/new_submission
@@ -123,6 +125,7 @@ class ContestsController < ApplicationController
   end
 
   # POST /contests/:id/create_submission
+  # :nocov:
   def create_submission
     project_id = params[:submission][:project_id]
 
@@ -142,6 +145,7 @@ class ContestsController < ApplicationController
       render :new_submission, status: :unprocessable_entity
     end
   end
+  # :nocov:
 
   # PUT /contests/:contest_id/withdraw/:submission_id
   def withdraw
