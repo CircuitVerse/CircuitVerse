@@ -5,7 +5,7 @@ class Users::NoticedNotificationsController < ApplicationController
 
   def index
     @notifications = NoticedNotification.where(recipient: current_user).newest_first
-    @unread = NoticedNotification.where(recipient: current_user).newest_first.unread
+    @unread        = NoticedNotification.where(recipient: current_user).newest_first.unread
   end
 
   def mark_as_read
@@ -16,15 +16,22 @@ class Users::NoticedNotificationsController < ApplicationController
   end
 
   def mark_all_as_read
-    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
+    NoticedNotification
+      .where(recipient: current_user, read_at: nil)
+      .update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
+
     redirect_to notifications_path(current_user)
   end
 
   def read_all_notifications
-    NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
+    NoticedNotification
+      .where(recipient: current_user, read_at: nil)
+      .update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
+
     redirect_back(fallback_location: root_path)
   end
 
+  # :nocov:
   private
 
     def redirect_path_for(answer) # rubocop:disable Metrics/MethodLength
@@ -45,4 +52,5 @@ class Users::NoticedNotificationsController < ApplicationController
         root_path
       end
     end
+  # :nocov:
 end
