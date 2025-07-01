@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="project-card-author">
-      By <%= project.author.name %>
+      <%= image_tag("SVGs/user.svg", alt: "User") %> <%= project.author.name %>
     </div>
     <div class="project-card-description">
       <%= sanitize project.description %>

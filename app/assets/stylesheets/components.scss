@@ -262,6 +262,9 @@
 }
 
 .project-card-author {
+  display: flex;
+  align-items: center;
+  gap: 4px;
   color: #666;
   font-size: 14px;
   margin-bottom: 12px;
