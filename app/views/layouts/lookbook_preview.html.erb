@@ -6,34 +6,36 @@
     <title>CircuitVerse Component Preview</title>
     <%= stylesheet_link_tag "application", media: "all" %>
     <style>
+      :root {
+        --lookbook-primary: #2ECC71;
+        --lookbook-body-bg: #f8f9fa;
+        --lookbook-container-bg: white;
+        --lookbook-border-color: #e9ecef;
+        --lookbook-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
       body {
         margin: 0;
         padding: 20px;
         font-family: 'Inter', sans-serif;
-        background-color: #f8f9fa;
+        background-color: var(--lookbook-body-bg);
       }
 
       .preview-container {
-        background: white;
+        background: var(--lookbook-container-bg);
         border-radius: 8px;
         padding: 24px;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        box-shadow: var(--lookbook-shadow);
         margin-bottom: 16px;
       }
 
       .preview-title {
-        color: #2ECC71;
+        color: var(--lookbook-primary);
         font-size: 18px;
         font-weight: 600;
         margin-bottom: 16px;
-        border-bottom: 2px solid #e9ecef;
+        border-bottom: 2px solid var(--lookbook-border-color);
         padding-bottom: 8px;
-      }
-
-      :root {
-        --cv-primary: #2ECC71;
-        --cv-secondary: #27AE60;
-        --cv-dark: #1E3A8A;
       }
     </style>
   </head>

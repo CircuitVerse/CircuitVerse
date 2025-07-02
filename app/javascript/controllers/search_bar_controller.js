@@ -135,9 +135,9 @@ export default class extends Controller {
 
         let nextIndex;
         if (direction === 'down') {
-            nextIndex = (currentIndex + 1) % options.length;
+            nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % options.length;
         } else {
-            nextIndex = (currentIndex - 1 + options.length) % options.length;
+            nextIndex = currentIndex < 0 ? options.length - 1 : (currentIndex - 1 + options.length) % options.length;
         }
 
         this.updateActiveOption(options[nextIndex]);
