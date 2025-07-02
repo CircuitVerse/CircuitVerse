@@ -19,6 +19,18 @@ export default class extends Controller {
         };
     }
 
+    static calculateNextIndex(currentIndex, optionsLength, direction) {
+        if (currentIndex < 0) {
+            return direction === 'down' ? 0 : optionsLength - 1;
+        }
+
+        if (direction === 'down') {
+            return (currentIndex + 1) % optionsLength;
+        }
+
+        return (currentIndex - 1 + optionsLength) % optionsLength;
+    }
+
     connect() {
         this.changePlaceholder();
         this.boundHandleOutsideClick = this.handleOutsideClick.bind(this);
@@ -124,13 +136,7 @@ export default class extends Controller {
         if (options.length === 0) return;
 
         const currentIndex = this.getCurrentOptionIndex(options);
-
-        let nextIndex;
-        if (direction === 'down') {
-            nextIndex = currentIndex < 0 ? 0 : (currentIndex + 1) % options.length;
-        } else {
-            nextIndex = currentIndex < 0 ? options.length - 1 : (currentIndex - 1 + options.length) % options.length;
-        }
+        const nextIndex = this.constructor.calculateNextIndex(currentIndex, options.length, direction);
 
         this.updateActiveOption(options[nextIndex]);
     }
