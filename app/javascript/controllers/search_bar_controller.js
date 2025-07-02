@@ -120,18 +120,10 @@ export default class extends Controller {
     }
 
     navigateOptions(direction) {
-        const options = Array.from(
-            this.dropdownTarget.querySelectorAll('.select-option'),
-        );
-        const currentActiveOption = this.dropdownTarget.querySelector(
-            '.select-option.active',
-        );
-
+        const options = this.getSelectOptions();
         if (options.length === 0) return;
 
-        const currentIndex = currentActiveOption
-            ? options.indexOf(currentActiveOption)
-            : -1;
+        const currentIndex = this.getCurrentOptionIndex(options);
 
         let nextIndex;
         if (direction === 'down') {
@@ -141,6 +133,19 @@ export default class extends Controller {
         }
 
         this.updateActiveOption(options[nextIndex]);
+    }
+
+    getSelectOptions() {
+        return Array.from(
+            this.dropdownTarget.querySelectorAll('.select-option'),
+        );
+    }
+
+    getCurrentOptionIndex(options) {
+        const currentActiveOption = this.dropdownTarget.querySelector(
+            '.select-option.active',
+        );
+        return currentActiveOption ? options.indexOf(currentActiveOption) : -1;
     }
 
     toggleDropdownState(action = 'toggle') {
