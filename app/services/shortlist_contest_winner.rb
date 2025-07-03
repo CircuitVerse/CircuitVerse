@@ -25,7 +25,6 @@ class ShortlistContestWinner
         .first
     end
 
-    # :nocov:
     def create_winner_for(submission)
       ActiveRecord::Base.transaction do
         ContestWinner.create!(contest: @contest, submission: submission, project: submission.project)
@@ -46,5 +45,4 @@ class ShortlistContestWinner
       Rails.logger.error "ShortlistContestWinner failed: #{e.message}"
       { success: false, message: e.message }
     end
-  # :nocov:
 end
