@@ -1,6 +1,6 @@
-require_relative 'boot'
+require_relative "boot"
 
-require 'rails/all'
+require "rails/all"
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -20,8 +20,9 @@ module Logix
 
     # config/application.rb
     config.view_component.preview_paths << "#{Rails.root}/spec/components/previews"
+    config.view_component.default_preview_layout = "lookbook_preview"
 
-    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
     config.i18n.available_locales = [:ar, :bn, :de, :en, :es, :fr, :hi, :ja, :ml, :mr, :ne]
     config.i18n.default_locale = :en
     config.i18n.fallbacks = true

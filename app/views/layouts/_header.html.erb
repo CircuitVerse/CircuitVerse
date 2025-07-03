@@ -63,8 +63,8 @@
   </div>
 </nav>
 
-<div class="container-fluid navbar-search-active">
-  <%= render(SearchComponents::SearchBarComponent.new(
+<div class="navbar-search-active">
+  <%= render(Search::SearchBarComponent.new(
     resource: params[:resource],
     query: params[:q],
   )) %>
