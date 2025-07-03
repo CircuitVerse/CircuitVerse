@@ -134,20 +134,16 @@ class ContestsController < ApplicationController
     return redirect_unauthorized_project unless project_owner?(project_id)
     return redirect_duplicate_submission if duplicate_submission?(project_id)
 
-    @submission = Submission.new(
-      project_id: project_id,
-      contest_id: params[:contest_id],
-      user_id: current_user.id
-    )
+    @submission = Submission.new(project_id: project_id, contest_id: params[:contest_id], user_id: current_user.id)
 
     if @submission.save
-      redirect_to contest_page_path(params[:contest_id]),
-                  notice: "Submission was successfully added."
-    else
-      @contest  = Contest.find(params[:contest_id])
-      @projects = current_user.projects
-      render :new_submission, status: :unprocessable_entity
+      return redirect_to(contest_page_path(params[:contest_id]),
+                         notice: "Submission was successfully added.")
     end
+
+    @contest  = Contest.find(params[:contest_id])
+    @projects = current_user.projects
+    render :new_submission, status: :unprocessable_entity
   end
 
   # PUT /contests/:contest_id/withdraw/:submission_id

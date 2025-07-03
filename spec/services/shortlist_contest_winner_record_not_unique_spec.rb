@@ -3,8 +3,9 @@
 require "rails_helper"
 
 RSpec.describe ShortlistContestWinner, "#call — RecordNotUnique branch" do
-  let(:contest)     { create(:contest, status: :live) }
-  let!(:submission) { create(:submission, :with_private_project, contest: contest) }
+  let(:contest) { create(:contest, status: :live) }
+
+  before { create(:submission, :with_private_project, contest: contest) }
 
   it "swallows ActiveRecord::RecordNotUnique and returns success" do
     allow(ContestWinner).to receive(:create!)
