@@ -110,6 +110,11 @@ class ContestsController < ApplicationController
       redirect_to contest_page_path(@contest),
                   notice: "Contest was successfully started."
     else
+      @contests = Contest
+                  .order(id: :desc)
+                  .paginate(page: params[:page])
+                  .limit(Contest.per_page)
+
       render :admin, status: :unprocessable_entity
     end
   end
@@ -139,6 +144,8 @@ class ContestsController < ApplicationController
       redirect_to contest_page_path(params[:contest_id]),
                   notice: "Submission was successfully added."
     else
+      @contest  = Contest.find(params[:contest_id])
+      @projects = current_user.projects
       render :new_submission, status: :unprocessable_entity
     end
   end
