@@ -14,11 +14,11 @@
   <div class="search-user-card-body">
     <div class="search-user-card-detail">
       <%= image_tag "SVGs/hat.svg", alt: "hat" %>
-      <%= profile.educational_institute || "Not specified" %>
+      <%= profile.educational_institute || t('users.not_specified') %>
     </div>
     <div class="search-user-card-detail">
       <%= image_tag "SVGs/world.svg", alt: "world" %>
-      <%= profile.country_name || "Not specified" %>
+      <%= profile.country_name || t('users.not_specified') %>
     </div>
     <div class="search-user-card-detail">
       <%= image_tag "SVGs/circuit.svg", alt: "circuit" %>
