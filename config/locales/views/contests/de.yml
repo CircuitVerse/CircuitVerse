@@ -1,0 +1,49 @@
+de:
+  contest:
+    heading: "BESTÄTIGT"
+    index:
+      subtitle: "Wettbewerbe, bei denen die Schüler ihre fantastischen Rennstrecken zeigen und die besten auf unserer Homepage zu sehen sind!"
+    admin:
+      subtitle: "Diese Seite ist für Administratoren gedacht, du kannst einen neuen Wettbewerb veranstalten, indem du auf den Button 'Neuen Wettbewerb Gastgeber' klickst!"
+      new_contest_button: "Neuen Wettbewerb veranstalten"
+    show:
+      subtitle: "Erhalte die Chance, sich auf unserer Website vorzustellen und deine Schaltung an %{user_count} Benutzer zu zeigen!"
+      remaining_votes: "Ihre verbleibenden Stimmen:"
+      register_button: "Schaltung registrieren"
+      disable_button: "Wettbewerb beendet!"
+      winners: "Sieger"
+      winners_description: "Die siegreichen Projekte werden auf unserer Website vorgestellt und als CircuitVerse Sondertag ausgezeichnet."
+      user_submissions: "Ihre Einreichungen"
+      user_submissions_description: "Sie können Ihre Einreichung vom Wettbewerb zurückziehen."
+      contest_entries: "Wettbewerbseinträge (%{submission_count})"
+      contest_entries_description: "Stimmen Sie für Ihre Lieblingseinträge und helfen Sie uns, unsere Gewinner für diese Woche auszuwählen! Ein Benutzer erhält 3 Stimmen."
+    votes: "Abstimmungen"
+    close: "Schließen"
+    no_contest: "Es gibt keine Live-oder abgeschlossenen Wettbewerbe."
+    contest_container:
+      contest_id: "Wettbewerb"
+      entries: "Einträge"
+    status:
+      live: "LIVE"
+      completed: "Abgeschlossen"
+    withdraw: "Abheben"
+    vote: "Abstimmungen"
+    new_submission_page:
+      heading: "Projekteinreichung"
+      select_your_circuit: "Wählen Sie Ihre Schaltung"
+      select_your_circuit_description: "Im Wettbewerb sind nur öffentliche Projekte erlaubt."
+    close_contest_modal:
+      heading: "Einen Wettbewerb schließen"
+      description: "Bist du sicher, dass du diesen Wettbewerb schließen möchtest?"
+      confirm_button: "Bestätigen"
+    host_new_contest_modal:
+      heading: "Einen neuen Wettbewerb veranstalten"
+      description: "Bist du sicher, dass du einen neuen Wettbewerb starten möchtest?"
+      description_html: "<p>Das Hosten neuer Wettbewerbe kann:</p><ul><li>Beende den laufenden Wettbewerb (falls vorhanden)</li><li>Sag allen Benutzern eine Ankündigung,</li></ul>"
+    update_contest_modal:
+      heading: "Aktualisiere Wettbewerbstermin"
+      sub_heading: "Termin für den Wettbewerb festlegen"
+      description: "Bitte stellen Sie sicher, dass der Termin für den Wettbewerb in der Zukunft festgelegt ist. Es ist nicht erlaubt, in der Vergangenheit den Termin für den Wettbewerb festzulegen."
+    withdraw_submission_modal:
+      heading: "Einreichung zurückziehen"
+      description: "Bist du sicher, dass du deine Einreichung vom Wettbewerb zurückziehen möchtest?"

@@ -1,0 +1,49 @@
+ja:
+  contest:
+    heading: "コンテスト"
+    index:
+      subtitle: "生徒たちが素晴らしい回路を披露し、最高の回路をホームページで紹介するコンテスト!"
+    admin:
+      subtitle: "このページは管理者向けのページで、新しいコンテストを主催するには「新しいコンテストを主催する」ボタンをクリックしてください。"
+      new_contest_button: "新しいコンテストを開催する"
+    show:
+      subtitle: "私たちのウェブサイトで紹介され、あなたの回路を %{user_count} ユーザーに見せてください！"
+      remaining_votes: "残りの投票数："
+      register_button: "回路を登録する"
+      disable_button: "コンテスト終了！"
+      winners: "当選者"
+      winners_description: "受賞プロジェクトは当社のウェブサイトで紹介され、CircuitVerse特別タグとして授与されます。"
+      user_submissions: "あなたの提出物"
+      user_submissions_description: "提出物はコンテストから撤回できます。"
+      contest_entries: "コンテストエントリー(%{submission_count})"
+      contest_entries_description: "あなたのお気に入りのエントリに投票して、今週の受賞者を選ぶのを手伝ってください! 1人のユーザーは3票を獲得します。"
+    votes: "投票"
+    close: "閉じる"
+    no_contest: "ライブコンテストやコンテストはありません。"
+    contest_container:
+      contest_id: "コンテスト"
+      entries: "項目"
+    status:
+      live: "ライブ"
+      completed: "完了"
+    withdraw: "出金する"
+    vote: "投票"
+    new_submission_page:
+      heading: "プロジェクト提出"
+      select_your_circuit: "回路を選択"
+      select_your_circuit_description: "コンテストでは公開プロジェクトのみが許可されます。"
+    close_contest_modal:
+      heading: "コンテストを閉じる"
+      description: "このコンテストを終了してもよろしいですか？"
+      confirm_button: "確認する"
+    host_new_contest_modal:
+      heading: "新しいコンテストを開催"
+      description: "新しいコンテストを開始してもよろしいですか？"
+      description_html: "<p>新しいコンテストを開催することができます:</p><ul><li>進行中のコンテストを終了する (もしあれば)</li><li>すべてのユーザーに</li></ul>"
+    update_contest_modal:
+      heading: "コンテストの締め切りを更新"
+      sub_heading: "コンテストの締め切りを設定"
+      description: "今後、コンテスト締切日が設定されていることを確認してください。過去にコンテスト締切日を設定することはできません。"
+    withdraw_submission_modal:
+      heading: "提出物を撤回する"
+      description: "コンテストから提出物を撤回してもよろしいですか？"

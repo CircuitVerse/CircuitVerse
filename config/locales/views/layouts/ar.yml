@@ -9,6 +9,7 @@ ar:
     link_to_blog: "المدونة"
     link_to_about: "حول"
     link_to_faq: "أسئلة متكررة"
+    link_to_contests: "مسابقات"
     footer:
       social_icon_text: "تابعنا على:"
       link_to_examples: "أمثلة"
@@ -33,3 +34,6 @@ ar:
       unsubscribe_email_notifications: "إلغاء الاشتراك من إشعارات البريد الإلكتروني"
     simulator:
       title: "CircuitVerse - محاكي الدائرة الرقمية على الإنترنت"
+  contest:
+    index:
+      manage_button: "إدارة المسابقة"
