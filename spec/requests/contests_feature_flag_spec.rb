@@ -1,19 +1,18 @@
-class ContestsController < ApplicationController
-  before_action :authorize_admin!, only: [:admin_list]
+# frozen_string_literal: true
 
-  def admin_list
-    # Your admin list logic here
-    @contests = Contest.all
+require "rails_helper"
+
+RSpec.describe "Contest feature-flag", type: :request do
+  around do |example|
+    sign_in create(:user)
+    Flipper.disable(:contests)
+    example.run
+    Flipper.enable(:contests)
   end
 
-  private
-
-  def authorize_admin!
-    unless current_user&.admin?
-      respond_to do |format|
-        format.html { redirect_to root_path, alert: "You are not authorized to do the requested operation" }
-        format.json { head :forbidden }
-      end
-    end
+  it "guards a protected route (admin list)" do
+    get contests_admin_path
+    expect(response).to redirect_to(root_path)
+    expect(flash[:alert]).to eq("Contest feature is not available.")
   end
 end
