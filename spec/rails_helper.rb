@@ -61,11 +61,11 @@ RSpec.configure do |config|
     Bullet.raise         = true
   end
 
-  config.before(:each) do
+  config.before do
     Bullet.start_request
   end
 
-  config.after(:each) do
+  config.after do
     Bullet.end_request
   end
 
