@@ -142,7 +142,6 @@ group :test do
   gem "capybara", "~> 3.39"
   gem "json-schema"
   gem "rspec_junit_formatter"
-  gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "webmock"
   gem "simplecov"
@@ -150,6 +149,7 @@ group :test do
   gem "undercover"
   gem "undercover-checkstyle"
   gem "percy-capybara"
+  gem "capybara-playwright-driver"
 end
 
 group :development do
