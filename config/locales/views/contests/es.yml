@@ -1,0 +1,49 @@
+es:
+  contest:
+    heading: "CONTEST"
+    index:
+      subtitle: "¡Los concursos donde los estudiantes muestran sus increíbles circuitos y los mejores se presentan en nuestra página de inicio!"
+    admin:
+      subtitle: "Esta página es para administradores, usted puede organizar un nuevo concurso haciendo clic en el botón 'Hospedar nuevo concurso'!"
+      new_contest_button: "Nuevo concurso de anfitrión"
+    show:
+      subtitle: "¡Obtén la oportunidad de aparecer en nuestro sitio web y mostrar tu circuito a los usuarios de %{user_count}!"
+      remaining_votes: "Tus votos restantes:"
+      register_button: "Registra tu circuito"
+      disable_button: "¡Concurso terminado!"
+      winners: "Ganadores"
+      winners_description: "Los proyectos ganadores aparecerán en nuestra página web y serán premiados como CircuitVerse especial tag."
+      user_submissions: "Sus envíos"
+      user_submissions_description: "Puedes retirar tu envío del concurso."
+      contest_entries: "Entradas del concurso (%{submission_count})"
+      contest_entries_description: "¡Vota por tus entradas favoritas y ayúdanos a elegir a nuestros ganadores esta semana! Un usuario obtiene 3 votos."
+    votes: "Votos"
+    close: "Cerrar"
+    no_contest: "No hay concursos en vivo o terminados."
+    contest_container:
+      contest_id: "Concurso"
+      entries: "Entradas"
+    status:
+      live: "VIVO"
+      completed: "Completado"
+    withdraw: "Retirar"
+    vote: "Votaciones"
+    new_submission_page:
+      heading: "Envío del proyecto"
+      select_your_circuit: "Seleccione su circuito"
+      select_your_circuit_description: "Sólo se permiten proyectos públicos en el concurso."
+    close_contest_modal:
+      heading: "Cerrar un concurso"
+      description: "¿Estás seguro de que quieres cerrar este concurso?"
+      confirm_button: "Confirmar"
+    host_new_contest_modal:
+      heading: "Anfitrión un nuevo concurso"
+      description: "¿Estás seguro de que quieres iniciar un nuevo concurso?"
+      description_html: "<p>Organizar un nuevo concurso puede:</p><ul><li>Finalizar el concurso en curso (si lo hay)</li><li>Hacer un anuncio a todos los usuarios para participar</li></ul>"
+    update_contest_modal:
+      heading: "Actualizar fecha límite del concurso"
+      sub_heading: "Establecer fecha límite del concurso"
+      description: "Por favor, asegúrese de que la fecha límite del concurso esté establecida en el futuro. No se le permite establecer la fecha límite del concurso en el pasado."
+    withdraw_submission_modal:
+      heading: "Retire el envío"
+      description: "¿Estás seguro de que quieres retirar tu envío del concurso?"

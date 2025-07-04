@@ -40,45 +40,37 @@ end
 Capybara.default_max_wait_time = 3
 
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = Rails.root.join("spec/fixtures")
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
-  config.before do
+
+  config.before(:suite) do
     Flipper.enable(:active_storage_s3)
+    Flipper.enable(:contests)
   end
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
+
   config.use_transactional_fixtures = true
-
-  # RSpec Rails can automatically mix in different behaviours to your tests
-  # based on their file location, for example enabling you to call `get` and
-  # `post` in specs under `spec/controllers`.
-  #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, :type => :controller do
-  #       # ...
-  #     end
-  #
-  # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
-
-  # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
   config.include ActionDispatch::TestProcess
   config.include Warden::Test::Helpers
   config.include ViewComponent::TestHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :controller
+
   config.before(type: :system) do
-    driven_by :selenium_chrome_headless
+    driven_by :rack_test
+  end
+
+  config.before(type: :system, js: true) do
+    driven_by :headless_chrome_unique_profile
+  end
+
+  config.define_derived_metadata(
+    file_path: %r{spec/system/(group_spec|project_spec|user_profile_spec)\.rb}
+  ) do |metadata|
+    metadata[:js] = true
   end
 end
 
