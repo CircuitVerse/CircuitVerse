@@ -15,7 +15,7 @@
           </div>
         </div>
         <div class="card-body users-card-body">
-          <%= image_tag project_image_preview(project, current_user), class: "users-card-image", alt: "project.name" %>
+          <%= image_tag project_image_preview(project), class: "users-card-image", alt: "project.name" %>
         </div>
         <div class="card-footer users-card-footer">
           <% if policy(project).user_access? %>
