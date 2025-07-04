@@ -38,8 +38,11 @@ ja:
   components:
     search_bar:
       placeholders:
-        users: 'ユーザーを検索'
-        projects: 'プロジェクトを検索'
+        users: "ユーザーを検索"
+        projects: "プロジェクトを検索"
+      options:
+        users: "ユーザー"
+        projects: "プロジェクト"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

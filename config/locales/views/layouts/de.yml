@@ -9,6 +9,7 @@ de:
     link_to_blog: "Blog"
     link_to_about: "Über"
     link_to_faq: "FAQ"
+    link_to_contests: "Wettbewerbe"
     footer:
       social_icon_text: "Folgen Sie uns auf:"
       link_to_examples: "Beispiele"
@@ -33,3 +34,6 @@ de:
       unsubscribe_email_notifications: "E-Mail-Benachrichtigungen abbestellen"
     simulator:
       title: "CircuitVerse - Digital Schaltkreissimulator online"
+  contest:
+    index:
+      manage_button: "Wettbewerb verwalten"
