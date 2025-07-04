@@ -48,6 +48,7 @@ RSpec.configure do |config|
 
   config.before do
     Flipper.enable(:active_storage_s3)
+    Flipper.enable(:contests)
   end
 
   config.use_transactional_fixtures = true
