@@ -38,8 +38,11 @@ de:
   components:
     search_bar:
       placeholders:
-        users: 'Nach Benutzern suchen'
-        projects: 'Nach Projekten suchen'
+        users: "Nach Benutzern suchen"
+        projects: "Nach Projekten suchen"
+      options:
+        users: "Benutzer"
+        projects: "Projekte"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

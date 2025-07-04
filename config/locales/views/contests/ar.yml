@@ -1,0 +1,48 @@
+ar:
+  contest:
+    heading: "المواجهة"
+    index:
+      subtitle: "المسابقات حيث يظهر الطلاب دوائرهم المدهشة وأفضل الدوائر تظهر على صفحتنا!"
+    admin:
+      subtitle: "هذه الصفحة للمشرفين، يمكنك استضافة مسابقة جديدة بالنقر على زر \"استضافة مسابقة جديدة\"!"
+      new_contest_button: "استضافة مسابقة جديدة"
+    show:
+      subtitle: "احصل على فرصة للحصول على ميزة على موقعنا على الإنترنت وإظهار دائرتك للمستخدمين %{user_count}!"
+      remaining_votes: "تصويتك المتبقية:"
+      register_button: "تسجيل الدائرة الخاصة بك"
+      disable_button: "انتهت المسابقة!"
+      winners: "الفائزون"
+      winners_description: "سيتم عرض المشاريع الفائزة على موقعنا على شبكة الإنترنت وسيتم منحها علامة CircuitVerse الخاصة."
+      user_submissions: "مشاركاتك"
+      user_submissions_description: "يمكنك سحب رسالتك من المسابقة."
+      contest_entries: "مسابقة إدخالات (%{submission_count})"
+      contest_entries_description: "قم بالتصويت على المواد المفضلة لديك وساعدنا على اختيار الفائزين لهذا الأسبوع! يحصل مستخدم واحد على 3 أصوات."
+    votes: "التصويت"
+    close: "أغلق"
+    no_contest: "ولا توجد مسابقات حية أو مكتملة."
+    contest_container:
+      contest_id: "مسابقة"
+      entries: "إدخالات"
+    status:
+      live: "ليبي"
+      completed: "مكتمل"
+    withdraw: "سحب"
+    vote: "التصويت"
+    new_submission_page:
+      heading: "تقديم المشروع"
+      select_your_circuit: "حدد الدائرة الخاصة بك"
+      select_your_circuit_description: "ولا يسمح بالدخول في المسابقة إلا للمشاريع العامة."
+    close_contest_modal:
+      heading: "إغلاق مسابقة"
+      description: "هل أنت متأكد من أنك تريد إغلاق هذه المسابقة؟"
+      confirm_button: "تأكيد"
+    host_new_contest_modal:
+      heading: "استضافة مسابقة جديدة"
+      description: "هل أنت متأكد من أنك تريد بدء مسابقة جديدة؟"
+    update_contest_modal:
+      heading: "تحديث موعد المسابقة"
+      sub_heading: "تعيين نهاية المسابقة"
+      description: "يرجى التأكد من أن موعد المسابقة قد تم تعيينه في المستقبل. لا يسمح له بتعيين موعد المسابقة في الماضي."
+    withdraw_submission_modal:
+      heading: "سحب التقديم"
+      description: "هل أنت متأكد من أنك تريد سحب رسالتك من المسابقة؟"

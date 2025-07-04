@@ -1,0 +1,22 @@
+<div class="container" data-controller="search-bar" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
+  <%= form_tag(search_path, method: "get", id: "search-box", class: "search-bar-form") do %>
+    <div class="select-wrapper" data-search-bar-target="selectWrapper">
+      <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
+        <span data-search-bar-target="selectedOption"><%= option_labels[resource || resource_options.first] %></span>
+        <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
+      </button>
+      <div class="select-dropdown" data-search-bar-target="dropdown">
+        <% resource_options.each do |option| %>
+          <div class="select-option <%= "active" if option == (resource || resource_options.first) %>" data-value="<%= option %>" data-action="click->search-bar#selectOption">
+            <%= option_labels[option] %>
+          </div>
+        <% end %>
+      </div>
+      <%= hidden_field_tag :resource, resource || resource_options.first, data: { search_bar_target: "hiddenSelect" } %>
+    </div>
+    <%= text_field_tag :q, query, autocomplete: "off", class: "search-bar-input", data: { search_bar_target: "input" } %>
+    <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
+      <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
+    </button>
+  <% end %>
+</div>
