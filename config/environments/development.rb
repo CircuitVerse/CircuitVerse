@@ -40,7 +40,7 @@ Rails.application.configure do
   config.active_record.migration_error = :page_load
   
   # Disable origin check for Cross-Site Request Forgery (CSRF) protection for codespaces
-  if(ENV["DEV_CONTAINER"] === "true")
+  if (ENV["DEV_CONTAINER"] == "true")
     config.action_controller.forgery_protection_origin_check = false
   end
 
@@ -65,22 +65,22 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.smtp_settings = {
-    :address              => ENV["SMTP_ADDRESS"],
-    :port                 => ENV["SMTP_PORT"],
-    :user_name            => ENV["CIRCUITVERSE_EMAIL_ID"],
-    :password             =>  ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
-    :ssl                  => true,
-    :authentication       => :login,
-    :enable_starttls_auto => true,
+    address:              ENV["SMTP_ADDRESS"],
+    port:                 ENV["SMTP_PORT"],
+    user_name:            ENV["CIRCUITVERSE_EMAIL_ID"],
+    password:             ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
+    ssl:                  true,
+    authentication:       :login,
+    enable_starttls_auto: true
   }
   config.action_mailer.delivery_method = :smtp
   if ENV['DOCKER_ENVIRONMENT']
-    config.action_mailer.smtp_settings = { :address => "mailcatcher", :port => 1025 }
+    config.action_mailer.smtp_settings = { address: "mailcatcher", port: 1025 }
   else
-    config.action_mailer.smtp_settings = { :address => "localhost", :port => 1025 }
+    config.action_mailer.smtp_settings = { address: "localhost",    port: 1025 }
   end
 
-  config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || "BGxnigbQCa435vZ8_3uFdqLC0XJHXtONgEdI-ydMMs0JaBsnpUfLxR1UDagq6_cDwHyhqjw77tTlp0ULZkx8Xos="
+  config.vapid_public_key  = ENV["VAPID_PUBLIC_KEY"]  || "BGxnigbQCa435vZ8_3uFdqLC0XJHXtONgEdI-ydMMs0JaBsnpUfLxR1UDagq6_cDwHyhqjw77tTlp0ULZkx8Xos="
   config.vapid_private_key = ENV["VAPID_PRIVATE_KEY"] || "FkEMkOQHvMybUlCGH-DsOljTJlLzYGb3xEYsFY5Roxk="
 
   Rails.application.configure do
@@ -88,4 +88,11 @@ Rails.application.configure do
   end
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
+
+  config.after_initialize do
+    Bullet.enable        = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger  = true
+    Bullet.raise         = true
+  end
 end
