@@ -36,22 +36,27 @@
       <div class="row center-row">
         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
           <div class="home-main-content">
-            <h1><%= t("circuitverse.index.main_heading") %></h1><br>
+            <div class="main-heading-badge">
+              <span class="green-dot">•</span>
+              <span><%= t("circuitverse.index.free_and_open_source") %></span>
+            </div>
+            <h1><%= t("circuitverse.index.main_heading_html") %></h1><br>
             <p><%= t("circuitverse.index.main_description") %></p>
-            <div class="home-buttons-container justify-content-center">
-              <a class="btn primary-button home-simulator-button" href='/simulator'><%= t("launch_simulator") %></a>
-              <a href="https://learn.circuitverse.org/" target="blank" class="btn anchor-text-button anchor-text"><%= t("circuitverse.index.learn_logic_design") %></a>
+            <div class="d-flex gap-4 mb-4">
+              <a class="home-primary-button" href='/simulator'><%= t("launch_simulator") %> 
+                <%= image_tag "SVGs/arrowRight.svg", alt: "Arrow Right", class: "ms-2" %>
+              </a>
+              <a href="https://learn.circuitverse.org/" target="blank" class="home-secondary-button"><%= t("circuitverse.index.explore_tutorials") %></a>
+            </div>
+            <div class="d-flex gap-2">
+              <a class="home-tertiary-link" href="/teachers"><%= t("circuitverse.index.for_teachers") %></a>
+              <span class="green-dot">•</span>
+              <a class="home-tertiary-link" href="/contribute"><%= t("circuitverse.index.for_contributors") %></a>
             </div>
           </div>
         </div>
         <div class="col-12 col-sm-12 col-md-6 col-lg-6">
           <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", class: "home-image-cover" %>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-12 home-tertiary-button-container">
-          <a class="btn tertiary-button" href="/teachers"><%= t("circuitverse.index.for_teachers") %></a>
-          <a class="btn tertiary-button" href="/contribute"><%= t("circuitverse.index.for_contributors") %></a>
         </div>
       </div>
       <div id="home-features-section" class="row center-row" style="scroll-margin-top: 100px;">
