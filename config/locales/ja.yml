@@ -40,6 +40,8 @@ ja:
       placeholders:
         users: "ユーザーを検索"
         projects: "プロジェクトを検索"
+    project:
+      show_more: "詳細を表示"
       options:
         users: "ユーザー"
         projects: "プロジェクト"
