@@ -6,10 +6,10 @@ class Api::V1::BaseController < ActionController::API
   include ActionController::RequestForgeryProtection
   include ActiveStorage::SetCurrent
   protect_from_forgery with: :exception, if: lambda {
-                                               request.headers["Authorization"].blank? && current_user
-                                             }
+    request.headers["Authorization"].blank? && current_user
+  }
 
-  DEFAULT_PER_PAGE = 5
+  DEFAULT_PER_PAGE = 9
 
   rescue_from ActionController::ParameterMissing do
     api_error(status: 400, errors: "invalid parameters")
