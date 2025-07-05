@@ -40,6 +40,8 @@ es:
       placeholders:
         users: "Buscar usuarios"
         projects: "Buscar proyectos"
+    project:
+      show_more: "Mostrar más"
       options:
         users: "Usuarios"
         projects: "Proyectos"
