@@ -47,22 +47,6 @@
   }
 }
 
-.home-container-fluid {
-  background-color: $card-green;
-  margin-bottom: 30px;
-  margin-top: 65px;
-  padding-bottom: 20px;
-  padding-top: 20px;
-}
-
-.home-circuit-card-row {
-  margin-top: 70px;
-}
-
-.homepage-primary-button-feature {
-  padding: 10px 30px;
-}
-
 @media (max-width: 768px) {
   .home-main-content {
     margin-bottom: 30px;
@@ -93,11 +77,6 @@
     margin-right: auto;
     max-width: inherit;
     text-align: center;
-  }
-
-  .home-container-fluid {
-    padding-left: 0;
-    padding-right: 0;
   }
 }
 
