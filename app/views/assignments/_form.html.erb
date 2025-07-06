@@ -16,7 +16,7 @@
     <div id="lms-integration-field" class="field mb-4">
       <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements">
         <h6>Integrate with LMS</h6>
-        <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
+        <%= check_box_tag "lms-integration-check", "1", @assignment.lti_integrated?, id: "lms-integration-check" %>
         <div class="primary-checkpoint"></div>
       </label>
       <div class="lms-integration-message mt-2">
@@ -64,7 +64,7 @@
   <div id="restrictions-field" class="field mb-4">
     <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-elements">
       <h6 class="mb-0"><%= t("assignments.form.enable_element_restriction") %></h6>
-      <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted?, class: "ms-2" %>
+      <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted?, class: "ms-2" %>
       <div class="primary-checkpoint"></div>
     </label>
     <div class="restricted-elements-list mt-3"> <!-- Operated by script --> </div>
@@ -75,7 +75,7 @@
       <h6 data-action="click->assignment#handleFeatureMainCheckbox" class="mb-0">
         <%= t("assignments.form.enable_feature_restriction") %>
       </h6>
-      <%= check_box_tag "restrict-feature", false, false, class: "ms-2" %>
+      <%= check_box_tag "restrict-feature", "1", false, class: "ms-2" %>
       <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
     </label>
     <div class="restricted-feature-list mt-3"> <!-- Operated by script --> </div>
@@ -88,7 +88,6 @@
   </div>
 <% end %>
 
-<!-- JS Section stays the same (unchanged) -->
 <script type="text/javascript">
   $(document).ready(function() {
     loadRestrictions(JSON.parse('<%= raw @assignment.clean_restricted_elements %>'));
@@ -145,7 +144,7 @@
   }
 
   function defaultAssignmentDate() {
-    const splittedDate = "<%= assignment.deadline.strftime("%d/%m/%Y %H:%M") %>".split(/[\s,/:]+/);
+    const splittedDate = "<%= @assignment.deadline.strftime('%d/%m/%Y %H:%M') %>".split(/[\s,/:]+/);
     let pickerDate = new Date(splittedDate[2], splittedDate[1]-1, splittedDate[0], splittedDate[3], splittedDate[4]);
     const pickerUnix = pickerDate.getTime();
     const pickerUnixWithTimezone = new Date(pickerUnix - new Date().getTimezoneOffset()*60*1000);
@@ -208,6 +207,5 @@
   }
 </script>
 
-<!-- DateTime Picker -->
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>
