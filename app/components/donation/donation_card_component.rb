@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
-module Contribute
-  class DonationCardComponent < ViewComponent::Base
+class Donation::DonationCardComponent < ViewComponent::Base
     def initialize(image_path:, link:, alt_text:, description:)
       super()
       @image_path = image_path
@@ -10,4 +9,3 @@ module Contribute
       @description = description
     end
   end
-end

@@ -2,7 +2,7 @@
 
 class DonationCardComponentPreview < ViewComponent::Preview
   def default
-    render Contribute::DonationCardComponent.new(
+    render Donation::DonationCardComponent.new(
       image_path: "logos/opencollective-logo.png",
       link: "https://opencollective.com/CircuitVerse/contribute",
       alt_text: "Open Collective Logo",
