@@ -81,7 +81,7 @@
   <div class="section-container">
     <div class="d-flex justify-content-between align-items-center mb-2">
       <h3 class="mb-0"><%= t("groups.show.assignment.heading") %></h3>
-      <% if policy(@group).mentor_access? %>
+      <% if policy(@group).admin_access? %>
         <%= link_to t("groups.show.assignment.add_assignment_btn"),
           new_group_assignment_path(@group),
           class: "btn primary-button groups-primary-button" %>
@@ -133,7 +133,7 @@
                   <%= assignment.deadline %>
                 </div>
                 <% if(assignment.deadline > Time.current) %>
-                  <p>(<%= t("groups.show.assignment.time_remaining", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)</p>
+                  <p>(<%= t("views.groups.time_remaining_html", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)</p>
                 <% end %>
               </td>
               <td>
@@ -148,7 +148,7 @@
                     <span><%= t("view") %></span>
                   <% end %>
                 </div>
-                <% if policy(@group).mentor_access? %>
+                <% if policy(@group).admin_access? %>
                   <% if AssignmentDecorator.new(assignment).closed? %>
                     <div class="groups-assignment-details">
                       <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
@@ -256,7 +256,7 @@
                         <%= assignment.deadline %>
                       </div>
                       <% if(assignment.deadline > Time.current) %>
-                        <p>(<%= t("groups.show.assignment.time_remaining", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)</p>
+                        <p>(<%= t("views.groups.time_remaining_html", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)</p>
                       <% end %>
                     </td>
                   </tr>
@@ -277,7 +277,7 @@
                           <span><%= t("view") %></span>
                         <% end %>
                       </div>
-                      <% if policy(@group).mentor_access? %>
+                      <% if policy(@group).admin_access? %>
                         <% if AssignmentDecorator.new(assignment).closed? %>
                           <div class="groups-assignment-details">
                             <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
