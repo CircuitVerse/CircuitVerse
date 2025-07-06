@@ -2,7 +2,7 @@
 
 module Adapters
   class PgAdapter < BaseAdapter
-    MAX_RESULTS_PER_PAGE = 5
+    MAX_RESULTS_PER_PAGE = 9
 
     def search_project(relation, query_params)
       if query_params[:q].present?

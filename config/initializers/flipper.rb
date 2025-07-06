@@ -10,7 +10,8 @@ default_flipper_features = {
   lms_integration: true,
   vuesim: false,
   block_registration: false,
-  active_storage_s3: true
+  active_storage_s3: true,
+  contests: false
 }
 
 Flipper.configure do |config|
@@ -26,6 +27,8 @@ Flipper.configure do |config|
     Flipper.new(adapter)
   end
 end
+
+Flipper.enable(:contests) if Rails.env.test?
 
 if ENV["DISABLE_FLIPPER"].blank? && !Rails.env.test?
   enabled_features = Flipper.features.map(&:name)
