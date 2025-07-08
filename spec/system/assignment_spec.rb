@@ -15,7 +15,7 @@ describe "Assignments", type: :system do
   let(:closed_assignment) { FactoryBot.create(:assignment, group: group, status: "closed") }
 
   before do
-    driven_by(:selenium_chrome_headless)
+    driven_by(:playwright)
   end
 
   context "when user is primary_mentor" do
