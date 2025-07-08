@@ -41,6 +41,8 @@ en:
       for_teachers: "For Teachers"
       for_contributors: "For Contributors"
       features:
+        badge_content: "Powerful Features"
+        everything_you_need_heading: "Everything you need to design circuits"
         main_heading: "Features"
         main_description: "Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom, and more"
         item1_heading: "Export High-Resolution Images"
@@ -55,19 +57,14 @@ en:
         item5_text: "Create subcircuits once and use them repeatedly. For easier and more structured design"
         item6_heading: "Multi Bit Buses and components"
         item6_text: "CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered"
-      featured_examples:
-        main_heading: "Featured Examples"
-        main_description: "Learn and get inspired from the best examples"
-        circuit1_text: "16-bit Ripple Carry Adder"
-        circuit2_text: "SAP-1"
-        circuit3_text: "Full Adder from 2 Half Adders"
-      explore_more: "Explore More"
-      editor_picks:
-        main_heading: "Editor Picks"
-        main_description: "These circuits have been hand-picked by our authors for their awesomeness"
-      recent_circuits:
-        main_heading: "Recent Circuits"
-        main_description: "Explore the latest circuits by our awesome users"
+      stats:
+        badge_content: "Community Stats"
+        heading: "Join Our Growing Community"
+        description: "CircuitVerse has empowered thousands of learners, educators, and engineers worldwide to explore and master digital circuit design"
+        circuits_created: "Circuits Created"
+        users: "Users"
+        universities: "Universities"
+        countries: "Countries"
     teachers:
       title: "CircuitVerse - Teachers"
       main_heading: "TEACHERS"
