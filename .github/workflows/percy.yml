@@ -12,15 +12,11 @@ on:
 
 jobs:
   percy-tests:
-    
     if: >
-      github.event_name == 'push'
-      OR (
-        github.event_name == 'pull_request_target'
-        AND
-        contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')
-      )
-
+      github.event_name == 'push' ||
+      (github.event_name == 'pull_request_target' &&
+      contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"'))
+    
     runs-on: ubuntu-latest
 
     services:
@@ -42,7 +38,6 @@ jobs:
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
     steps:
-     
       - name: Check out base repo code
         uses: actions/checkout@v3
         with:
