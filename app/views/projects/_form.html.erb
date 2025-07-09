@@ -42,7 +42,7 @@
   </div>
   <div class="field mb-3" id="description">
     <h6><%= form.label :description %></h6>
-    <%= render partial: "editor/index", locals: { content: @project.description } %>
+    <%= render FormComponents::RichTextEditorComponent.new(editor_content: @project.description) %>
   </div>
   <div class="field mb-3" onclick="beforeSubmit()">
     <%= form.submit class: "btn primary-button" %> &nbsp;
