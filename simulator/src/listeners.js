@@ -595,25 +595,19 @@ export default function startListeners() {
     });
 
     function MouseScroll(event) {
-        updateCanvasSet(true);
         event.preventDefault();
         // eslint-disable-next-line vars-on-top
         // eslint-disable-next-line no-var
         var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
-        event.preventDefault();
-        // eslint-disable-next-line no-redeclare
-        var deltaY = event.wheelDelta ? event.wheelDelta : -event.detail;
         const direction = deltaY > 0 ? 1 : -1;
+        
         // eslint-disable-next-line no-use-before-define
         handleZoom(direction);
+        
+        // Use scheduleUpdate for efficient throttled updates
         updateCanvasSet(true);
         gridUpdateSet(true);
-
-        if (layoutModeGet()) {
-            layoutUpdate();
-        } else {
-            update();
-        } // Schedule update not working, this is INEFFICIENT
+        scheduleUpdate();
     }
     document.getElementById('simulationArea').addEventListener('mousewheel', MouseScroll);
     document.getElementById('simulationArea').addEventListener('DOMMouseScroll', MouseScroll);
