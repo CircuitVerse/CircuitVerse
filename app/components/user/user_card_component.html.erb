@@ -1,12 +1,12 @@
 <%= link_to user_path(profile), class: "search-user-card", target: "_blank", rel: "noopener noreferrer" do %>
   <div class="search-user-card-header">
     <%= image_tag user_profile_picture(profile.profile_picture), alt: "user profile", class: "search-user-card-avatar" %>
-    <div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column justify-content-center align-items-start">
       <h3 class="search-user-card-name"><%= profile.name %></h3>
       <div class="member-badge">
         <%= image_tag "SVGs/calendar.svg", alt: "calendar" %>
         <div>
-          <%= t("users.circuitverse.member_for") %> <span class="fw-bold"><%= profile.member_since %></span>
+          <%= t("users.circuitverse.member_since") %> <span class="fw-bold"><%= profile.member_since %></span>
         </div>
       </div>
     </div>

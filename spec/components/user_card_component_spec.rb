@@ -30,7 +30,7 @@ RSpec.describe User::UserCardComponent, type: :component do
     render_inline(described_class.new(profile: profile))
 
     aggregate_failures do
-      expect(page).to have_content("#{I18n.t('users.circuitverse.member_for')} #{profile.member_since}")
+      expect(page).to have_content("#{I18n.t('users.circuitverse.member_since')} #{profile.member_since}")
       expect(page).to have_content(profile.educational_institute)
       expect(page).to have_content(profile.country_name)
       expect(page).to have_content("#{profile.total_circuits} #{I18n.t('users.circuitverse.total_circuits')}")

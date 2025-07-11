@@ -10,7 +10,7 @@ en:
       delete_user_confirmation: "Are you sure you want to delete your account? This action can't be reverted back."
       preview_project: "Project Preview"
       member_since_html: "<strong>Member since:</strong> %{member_since}"
-      member_for: "Member for"
+      member_since: "Member since"
       educational_institutes_html: "<strong>Educational Institution:</strong> %{educational_institute}"
       country_html: "<strong>Country:</strong> %{country_name}"
       total_circuits_made_html: '<span class="fw-bold">%{total_circuits}</span> Total Circuits'
