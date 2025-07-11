@@ -224,3 +224,12 @@
     width: 90%;
   }
 }
+
+.user-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
+  justify-content: center;
+  margin: 20px auto;
+  gap: 20px;
+  width: 100%;
+}
