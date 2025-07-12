@@ -15,12 +15,4 @@ module UsersCircuitverseHelper
       image_path("thumb/Default.jpg")
     end
   end
-
-  def project_image_preview(project)
-    if project.circuit_preview.attached?
-      project.circuit_preview
-    else
-      image_path("empty_project/default.png")
-    end
-  end
 end

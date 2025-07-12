@@ -62,24 +62,4 @@ RSpec.describe UsersCircuitverseHelper, type: :helper do
       expect(user_profile_picture(user1.profile_picture)).to eq("/images/thumb/Default.jpg")
     end
   end
-
-  describe "#project_image_preview" do
-    before do
-      @project = FactoryBot.create(:project)
-      @project.circuit_preview.attach(
-        io: Rails.root.join("spec/fixtures/files/default.png").open,
-        filename: "preview_1234.jpeg",
-        content_type: "image/jpeg"
-      )
-    end
-
-    it "returns ActiveStorage attachment" do
-      expect(project_image_preview(@project)).to eq(@project.circuit_preview)
-    end
-
-    it "returns default image" do
-      @project.circuit_preview.purge
-      expect(project_image_preview(@project)).to eq("/images/empty_project/default.png")
-    end
-  end
 end
