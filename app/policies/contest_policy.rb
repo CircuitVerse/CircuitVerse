@@ -9,4 +9,8 @@ class ContestPolicy < ApplicationPolicy
   def admin?
     user.present? && user.admin?
   end
+
+  def leaderboard?
+    true
+  end
 end
