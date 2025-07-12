@@ -183,6 +183,12 @@ class ContestsController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength
 
+  # GET /contests/:id/leaderboard
+  def leaderboard
+    @contest             = Contest.find(params[:id])
+    @ranked_submissions  = ContestLeaderboardQuery.call(@contest)
+  end
+
   private
 
     def parse_deadline_or_redirect(str)

@@ -181,7 +181,13 @@
             <% @featured_circuits.each do |circuit| %>
               <div class="col-12 col-sm-12 col-md-6 col-lg-4">
                 <div class="card circuit-card">
-                  <%= image_tag project_image_preview(circuit, current_user), alt: circuit.name, class: "card-img-top circuit-card-image", height: "180", width: "288" %>
+                  <%= image_tag(
+                        circuit.circuit_preview.attached? ? circuit.circuit_preview : image_path("empty_project/default.png"),
+                        alt: circuit.name,
+                        class: "card-img-top circuit-card-image",
+                        height: "180",
+                        width: "288"
+                      ) %>
                   <div class="card-footer circuit-card-footer">
                     <div class="circuit-card-name">
                       <p><%= circuit.name %></p>
@@ -213,7 +219,11 @@
           <% @projects.each do |project| %>
             <div class="col-12 col-sm-12 col-md-6 col-lg-4">
               <div class="card circuit-card">
-                <%= image_tag project_image_preview(project, current_user), alt: project.name, class: "card-img-top circuit-card-image" %>
+                <%= image_tag(
+                      project.circuit_preview.attached? ? project.circuit_preview : image_path("empty_project/default.png"),
+                      alt: project.name,
+                      class: "card-img-top circuit-card-image"
+                    ) %>
                 <div class="card-footer circuit-card-footer">
                   <div class="circuit-card-name">
                     <p><%= project.name %></p>

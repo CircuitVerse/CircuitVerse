@@ -1,5 +1,6 @@
 en:
   contest:
+    leaderboard: "Leaderboard"
     heading: "CONTEST"
     index:
       subtitle: "Contests where students show off their amazing circuits and best ones are featured on our homepage!"
