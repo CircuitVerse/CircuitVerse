@@ -18,9 +18,6 @@ class Admin::ContestsController < ApplicationController
     @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live))
 
     if @contest.save
-      User.find_each(batch_size: 1_000) do |user|
-        ContestNotification.with(contest: @contest).deliver_later(user)
-      end
       redirect_to contest_path(@contest), notice: t(".success")
     else
       @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
