@@ -59,13 +59,6 @@ RSpec.configure do |config|
   config.include ViewComponent::TestHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :controller
 
-  config.before(type: :system) do
-    driven_by :rack_test
-  end
-
-  config.before(type: :system, js: true) do
-    driven_by :headless_chrome_unique_profile
-  end
 
   config.define_derived_metadata(
     file_path: %r{spec/system/(group_spec|project_spec|user_profile_spec)\.rb}
