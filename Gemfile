@@ -123,7 +123,6 @@ gem 'vite_rails'
 group :development, :test do
   # Adds support for debug
   gem "debug"
-  # Adds support for Capybara system testing and selenium driver
   gem "coveralls_reborn", "~> 0.26.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
@@ -142,7 +141,6 @@ group :test do
   gem "capybara", "~> 3.39"
   gem "json-schema"
   gem "rspec_junit_formatter"
-  gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "webmock"
   gem "simplecov"
@@ -150,6 +148,7 @@ group :test do
   gem "undercover"
   gem "undercover-checkstyle"
   gem "percy-capybara"
+  gem "capybara-playwright-driver"
 end
 
 group :development do
