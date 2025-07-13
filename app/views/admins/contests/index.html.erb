@@ -40,7 +40,7 @@
               </div>
             <% end %>
             <div class="contest-container-details">
-              <h5 class="contest-container-details-number"> <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}", contest_page_path(contest.id) %></h5>
+              <h5 class="contest-container-details-number"> <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}", contest_path(contest.id) %></h5>
               <% if contest.completed? %>
                 <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
               <% end %>

@@ -15,7 +15,7 @@
         <p><%= t("contest.close_contest_modal.description") %></p>
       </div>
       <div class="modal-footer">
-        <%= link_to close_contest_path(contest.id), id: "close-contest-button", class: "btn primary-delete-button", method: :put do %>
+        <%= link_to contest_path(contest.id), id: "close-contest-button", class: "btn primary-delete-button", method: :delete do %>
           <span><%= t("contest.close_contest_modal.confirm_button") %></span>
         <% end %>
       </div>

@@ -10,7 +10,7 @@
         <p><%= t("contest.update_contest_modal.description") %></p>
       </div>
 
-      <%= form_with(url: update_contest_path(":contest_id"),
+      <%= form_with(url: contest_path(":contest_id"),
                     method: :patch,
                     local:  true,
                     id:     "update-contest-form") do |form| %>

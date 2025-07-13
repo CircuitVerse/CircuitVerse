@@ -2,11 +2,12 @@
 
 require "rails_helper"
 
-xdescribe "Contests", type: :system do
+describe "Contests", type: :system do
   before do
     @contest = FactoryBot.create(:contest, status: :live)
     @user    = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)
+    Flipper.enable(:contests)
     sign_in @user
   end
 
@@ -29,12 +30,12 @@ xdescribe "Contests", type: :system do
     page.find("#contest-#{@contest.id}").click
     check_contest_page(@contest.id)
 
-    expect(page).to have_current_path(contest_page_path(@contest.id))
+    expect(page).to have_current_path(contest_path(@contest.id))
   end
 
   context "contest submission" do
     before do
-      visit contest_page_path(@contest.id)
+      visit contest_path(@contest.id)
       page.find(".contest-submission-button").click
     end
 
@@ -62,7 +63,7 @@ xdescribe "Contests", type: :system do
 
   context "withdraw submission" do
     before do
-      visit new_submission_path(@contest.id)
+      visit new_contest_submission_path(@contest.id)
       page.find("#submission_project_id_#{@project.id}").click
       page.find("#submission-submit-button").click
     end
@@ -80,11 +81,11 @@ xdescribe "Contests", type: :system do
 
   context "when user votes the submission" do
     before do
-      visit new_submission_path(@contest.id)
+      visit new_contest_submission_path(@contest.id)
       page.find("#submission_project_id_#{@project.id}").click
       page.find("#submission-submit-button").click
       sign_in_random_user
-      visit contest_page_path(@contest.id)
+      visit contest_path(@contest.id)
     end
 
     it "votes the submission" do
@@ -96,11 +97,11 @@ xdescribe "Contests", type: :system do
 
   context "when user try to vote the submission again" do
     before do
-      visit new_submission_path(@contest.id)
+      visit new_contest_submission_path(@contest.id)
       page.find("#submission_project_id_#{@project.id}").click
       page.find("#submission-submit-button").click
       sign_in_random_user
-      visit contest_page_path(@contest.id)
+      visit contest_path(@contest.id)
       page.find("#vote-submission-#{@contest.submissions.last.id}").click
     end
 
