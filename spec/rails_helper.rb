@@ -59,7 +59,6 @@ RSpec.configure do |config|
   config.include ViewComponent::TestHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :controller
 
-
   config.define_derived_metadata(
     file_path: %r{spec/system/(group_spec|project_spec|user_profile_spec)\.rb}
   ) do |metadata|

@@ -14,7 +14,6 @@ describe "Assignments", type: :system do
   let(:assignment) { FactoryBot.create(:assignment, group: group) }
   let(:closed_assignment) { FactoryBot.create(:assignment, group: group, status: "closed") }
 
-
   context "when user is primary_mentor" do
     before do
       sign_in primary_mentor

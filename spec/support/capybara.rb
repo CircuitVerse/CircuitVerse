@@ -4,7 +4,6 @@ require "capybara/rails"
 require "tmpdir"
 require "securerandom"
 
-
 RSpec.configure do |config|
   config.before(type: :system) do
     driven_by :playwright
