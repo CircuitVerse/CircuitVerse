@@ -38,14 +38,13 @@ class Admin::ContestsController < ApplicationController
       parsed_deadline = parse_deadline_or_redirect(params[:contest][:deadline])
       return if performed?
 
-      if parsed_deadline <= Time.zone.now
-        return redirect_to(admin_contests_path, alert: t(".deadline_in_future"))
-      end
+      return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
 
       if @contest.update(deadline: parsed_deadline)
         redirect_to contest_path(@contest), notice: t(".deadline_updated")
       else
-        redirect_to admin_contests_path, alert: t(".deadline_update_failed", errors: @contest.errors.full_messages.join(", "))
+        redirect_to admin_contests_path,
+                    alert: t(".deadline_update_failed", errors: @contest.errors.full_messages.join(", "))
       end
     end
   end
@@ -67,12 +66,13 @@ class Admin::ContestsController < ApplicationController
     def parse_deadline_or_redirect(str)
       parsed = Time.zone.parse(str)
       redirect_to(admin_contests_path, alert: t(".invalid_deadline")) and return if parsed.nil?
+
       parsed
     end
 
     def check_contests_feature_flag
-        return if Flipper.enabled?(:contests, current_user)
-  
-        redirect_to root_path, alert: t("feature_not_available")
+      return if Flipper.enabled?(:contests, current_user)
+
+      redirect_to root_path, alert: t("feature_not_available")
     end
 end

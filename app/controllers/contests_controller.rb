@@ -20,10 +20,10 @@ class ContestsController < ApplicationController
     @user_submission = @contest.submissions.where(user_id: current_user&.id)
     @submissions = @contest.submissions.where.not(user_id: current_user&.id).paginate(page: params[:page]).limit(6)
 
-    if @contest.completed? && Submission.exists?(contest_id: @contest.id)
-      contest_winner = ContestWinner.find_by(contest_id: @contest.id)
-      @winner = contest_winner.submission if contest_winner.present?
-    end
+    return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
+
+    contest_winner = ContestWinner.find_by(contest_id: @contest.id)
+    @winner = contest_winner.submission if contest_winner.present?
   end
 
   private

@@ -30,8 +30,8 @@ class Contests::Submissions::VotesController < ApplicationController
     end
 
     def check_contests_feature_flag
-        return if Flipper.enabled?(:contests, current_user)
-  
-        redirect_to root_path, alert: t("feature_not_available")
+      return if Flipper.enabled?(:contests, current_user)
+
+      redirect_to root_path, alert: t("feature_not_available")
     end
 end
