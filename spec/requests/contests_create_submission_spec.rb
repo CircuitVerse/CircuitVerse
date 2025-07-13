@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-RSpec.describe "Contests#create_submission", type: :request do
+RSpec.describe "Contests::Submissions#create", type: :request do
   let(:user)    { create(:user) }
   let(:contest) { create(:contest, status: :live) }
   let(:project) { create(:project, author: user) }
@@ -14,13 +14,12 @@ RSpec.describe "Contests#create_submission", type: :request do
 
   it "allows the owner to submit and redirects" do
     expect do
-      post create_submission_path(contest),
-           params: { contest_id: contest.id,
-                     submission: { project_id: project.id,
+      post contest_submissions_path(contest),
+           params: { submission: { project_id: project.id,
                                    description: "My entry" } }
     end.to change(Submission, :count).by(1)
 
-    expect(response).to redirect_to(contest_page_path(contest))
+    expect(response).to redirect_to(contest_path(contest))
     expect(flash[:notice]).to match("Submission was successfully added.")
   end
 
@@ -28,11 +27,10 @@ RSpec.describe "Contests#create_submission", type: :request do
     other = create(:user)
     sign_in other
 
-    post create_submission_path(contest),
-         params: { contest_id: contest.id,
-                   submission: { project_id: project.id } }
+    post contest_submissions_path(contest),
+         params: { submission: { project_id: project.id } }
 
-    expect(response).to redirect_to(contest_page_path(contest))
-    expect(flash[:alert]).to match("You can’t submit someone else’s project.")
+    expect(response).to redirect_to(contest_path(contest))
+    expect(flash[:alert]).to match("You can't submit someone else’s project.")
   end
 end

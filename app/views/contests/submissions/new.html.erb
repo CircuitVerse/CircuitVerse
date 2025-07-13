@@ -33,7 +33,7 @@
       <% end %>
 
       <%= form_with model: Submission.new,
-              url:  create_submission_path(@contest.id),
+              url:  contest_submission_path(@contest.id),
               local: true do |form| %>
         <% @projects.each do |project| %>
           <% if !project.featured? %>
