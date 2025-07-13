@@ -12,7 +12,7 @@ RSpec.describe "Admin::Contests#create", type: :request do
 
   it "creates a new contest and redirects" do
     expect do
-      post admins_contest_path,
+      post admin_contests_path,
            params: { contest: { deadline: 1.week.from_now.iso8601 } }
     end.to change(Contest, :count).by(1)
 

@@ -11,7 +11,7 @@ RSpec.describe "Contest feature-flag", type: :request do
   end
 
   it "guards a protected route (admin list)" do
-    get admins_contest_path
+    get admin_contests_path
     expect(response).to redirect_to(root_path)
     expect(flash[:alert]).to eq("Contest feature is not available.")
   end

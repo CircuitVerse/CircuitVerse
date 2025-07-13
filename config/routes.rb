@@ -115,7 +115,7 @@ Rails.application.routes.draw do
     end
   end
 
-  namespace :admins do
+  namespace :admin do
     resources :contests, only: %i[index create update]
   end
 

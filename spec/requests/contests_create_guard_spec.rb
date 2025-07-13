@@ -10,9 +10,9 @@ RSpec.describe "Admin::Contests#create guard", type: :request do
   it "redirects when another live contest exists" do
     create(:contest, status: :live)
 
-    post admins_contest_path
+    post admin_contests_path
 
-    expect(response).to redirect_to(admins_contest_path)
+    expect(response).to redirect_to(admin_contests_path)
     expect(flash[:notice]).to match(/Concurrent contests are not allowed/i)
   end
 end

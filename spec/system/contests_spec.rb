@@ -124,7 +124,7 @@ describe "Contests", type: :system do
 
   def check_contest_container(id, status, entries)
     expect(page).to have_text("Contest ##{id}")
-    expect(page).to have_text(status)
+    expect(page).have_text(status)
     expect(page).to have_text("Entries: #{entries}")
   end
 end

@@ -7,7 +7,7 @@ class ContestsController < ApplicationController
   before_action :set_user_count, only: :show
 
   def index
-    @contests = Contest.order(id: :desc).page(params[:page]).limit(Contest.per_page)
+    @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
     respond_to do |format|
       format.html
       format.json { render json: @contests }
@@ -16,21 +16,22 @@ class ContestsController < ApplicationController
   end
 
   def show
-    @user_submission = @contest.submissions.find_by(user_id: current_user&.id)
-    @submissions = @contest.submissions.where.not(user_id: current_user&.id).page(params[:page]).limit(6)
-    return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
+    @contest = Contest.find(params[:id])
+    @user_submission = @contest.submissions.where(user_id: current_user&.id)
+    @submissions = @contest.submissions.where.not(user_id: current_user&.id).paginate(page: params[:page]).limit(6)
 
-    @winner = ContestWinner.find_by(contest_id: @contest.id)&.submission
+    if @contest.completed? && Submission.exists?(contest_id: @contest.id)
+      contest_winner = ContestWinner.find_by(contest_id: @contest.id)
+      @winner = contest_winner.submission if contest_winner.present?
+    end
   end
 
   private
 
-    def set_contest
-      @contest = Contest.find(params[:id])
-    end
-
     def check_contests_feature_flag
-      redirect_to root_path, alert: t("feature_not_available") unless Flipper.enabled?(:contests, current_user)
+      return if Flipper.enabled?(:contests, current_user)
+
+      redirect_to root_path, alert: t("feature_not_available")
     end
 
     def set_user_count

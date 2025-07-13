@@ -1,0 +1,33 @@
+en:
+  contests:
+    index:
+      title: "Contests"
+    show:
+      title: "Contest"
+    new_submission:
+      title: "New Submission"
+    create_submission:
+      success: "Submission was successfully added."
+      unauthorized_project: "You can’t submit someone else’s project."
+      duplicate_submission: "This project is already submitted in Contest #%{contest_id}"
+    withdraw:
+      success: "Submission was successfully removed."
+    upvote:
+      voting_closed: "Voting is closed."
+      all_votes_used: "You have used all your votes!"
+      already_voted: "You have already cast a vote for this submission!"
+      success: "You have successfully voted the submission, Thanks! Votes remaining: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "Contests Admin"
+      create:
+        concurrent_contests: "Concurrent contests are not allowed. Close other contests before creating a new one."
+        success: "Contest was successfully started."
+      update:
+        contest_closed: "Contest was successfully ended."
+        deadline_in_future: "Deadline must be in the future."
+        deadline_updated: "Contest deadline was successfully updated."
+        deadline_update_failed: "Failed to update contest deadline: %{errors}"
+        invalid_deadline: "Invalid deadline format."
+  feature_not_available: "Contest feature is not available."
