@@ -131,10 +131,12 @@ class ContestsController < ApplicationController
   def create_submission
     project_id = params[:submission][:project_id]
 
-    return redirect_unauthorized_project unless project_owner?(project_id)
-    return redirect_duplicate_submission if duplicate_submission?(project_id)
+    return redirect_submission(:unauthorized) unless project_owner?(project_id)
+    return redirect_submission(:duplicate)   if duplicate_submission?(project_id)
 
-    @submission = Submission.new(project_id: project_id, contest_id: params[:contest_id], user_id: current_user.id)
+    @submission = Submission.new(project_id: project_id,
+                                 contest_id: params[:contest_id],
+                                 user_id: current_user.id)
 
     if @submission.save
       return redirect_to(contest_page_path(params[:contest_id]),
@@ -185,8 +187,11 @@ class ContestsController < ApplicationController
 
   # GET /contests/:id/leaderboard
   def leaderboard
-    @contest             = Contest.find(params[:id])
-    @ranked_submissions  = ContestLeaderboardQuery.call(@contest)
+    @contest = Contest.find_by(id: params[:id])
+    return redirect_to(contests_path, alert: "Contest not found.") unless @contest
+
+    authorize @contest, :leaderboard?
+    @ranked_submissions = ContestLeaderboardQuery.call(@contest)
   end
 
   private
@@ -206,14 +211,23 @@ class ContestsController < ApplicationController
       Submission.exists?(project_id: project_id, contest_id: params[:contest_id])
     end
 
-    def redirect_unauthorized_project
-      redirect_to contest_page_path(params[:contest_id]),
-                  alert: "You can’t submit someone else’s project."
-    end
+    def redirect_submission(type)
+      path, flash_type, message = case type
+                                  when :unauthorized
+                                    [
+                                      contest_page_path(params[:contest_id]),
+                                      :alert,
+                                      "You can’t submit someone else’s project."
+                                    ]
+                                  when :duplicate
+                                    [
+                                      new_submission_path(params[:contest_id]),
+                                      :notice,
+                                      "This project is already submitted in Contest ##{params[:contest_id]}"
+                                    ]
+      end
 
-    def redirect_duplicate_submission
-      redirect_to new_submission_path(params[:contest_id]),
-                  notice: "This project is already submitted in Contest ##{params[:contest_id]}"
+      redirect_to path, flash_type => message
     end
 
     # Feature-flag gate
@@ -227,7 +241,7 @@ class ContestsController < ApplicationController
       Contest.exists?(status: :live)
     end
 
-    # Cache the total number of users for 10 minutes to avoid scanning the table
+    # Cache total number of users for 10 min
     def set_user_count
       @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
     end

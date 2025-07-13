@@ -2,7 +2,7 @@
 
 class ContestPolicy < ApplicationPolicy
   def initialize(user, contest)
-    @user = user
+    @user    = user
     @contest = contest
   end
 
@@ -11,6 +11,6 @@ class ContestPolicy < ApplicationPolicy
   end
 
   def leaderboard?
-    true
+    user.present?
   end
 end
