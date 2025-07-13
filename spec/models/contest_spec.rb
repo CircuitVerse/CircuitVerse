@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe Contest, type: :model do
@@ -14,7 +15,7 @@ RSpec.describe Contest, type: :model do
         contest = build(:contest)
 
         contest.define_singleton_method(:name)  { "Summer Showdown" }
-        contest.define_singleton_method(:title) { "Ignored Title"  }
+        contest.define_singleton_method(:title) { "Ignored Title" }
 
         expect(contest.display_name).to eq "Summer Showdown"
       end

@@ -1,18 +1,19 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe ContestLeaderboardQuery do
   describe ".call" do
     let(:contest) { create(:contest) }
 
-    let!(:oldest)   { create(:submission, contest:, created_at: 3.days.ago) }
-    let!(:middle)   { create(:submission, contest:, created_at: 2.days.ago) }
-    let!(:newest)   { create(:submission, contest:, created_at: 1.day.ago) }
+    let!(:oldest)   { create(:submission, contest: contest, created_at: 3.days.ago) }
+    let!(:middle)   { create(:submission, contest: contest, created_at: 2.days.ago) }
+    let!(:newest)   { create(:submission, contest: contest, created_at: 1.day.ago) }
 
     before do
-      create_list(:submission_vote, 3, submission: oldest, contest:)
-      create_list(:submission_vote, 3, submission: middle, contest:)
-      create_list(:submission_vote, 1, submission: newest, contest:)
+      create_list(:submission_vote, 3, submission: oldest, contest: contest)
+      create_list(:submission_vote, 3, submission: middle, contest: contest)
+      create_list(:submission_vote, 1, submission: newest, contest: contest)
     end
 
     it "orders by votes desc and then by creation time asc" do

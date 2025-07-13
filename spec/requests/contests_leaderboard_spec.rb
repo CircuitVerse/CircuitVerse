@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "GET /contests/:id/leaderboard", type: :request do
@@ -8,18 +9,18 @@ RSpec.describe "GET /contests/:id/leaderboard", type: :request do
   let!(:submission_old) do
     create(
       :submission,
-      contest:      contest,
-      created_at:   2.days.ago,
-      project:      create(:project, name: "OldProject")
+      contest: contest,
+      created_at: 2.days.ago,
+      project: create(:project, name: "OldProject")
     )
   end
 
   let!(:submission_new) do
     create(
       :submission,
-      contest:      contest,
-      created_at:   1.day.ago,
-      project:      create(:project, name: "NewProject")
+      contest: contest,
+      created_at: 1.day.ago,
+      project: create(:project, name: "NewProject")
     )
   end
 
@@ -44,7 +45,7 @@ RSpec.describe "GET /contests/:id/leaderboard", type: :request do
       old_pos   = body.index("OldProject")
 
       expect(new_pos).to be < old_pos,
-        "Expected NewProject to appear before OldProject in the leaderboard HTML"
+                         "Expected NewProject to appear before OldProject in the leaderboard HTML"
     end
   end
 
