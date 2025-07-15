@@ -101,10 +101,13 @@ class User < ApplicationRecord
   def moderator?
     admin?
   end
+
   # rubocop:disable Style/ArgumentsForwarding
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end
+  
   # rubocop:enable Style/ArgumentsForwarding
 
   def votes_for_contest(contest)
