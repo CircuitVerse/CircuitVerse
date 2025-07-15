@@ -11,13 +11,9 @@ class ProfileDecorator < SimpleDelegator
     distance_of_time_in_words(Time.now.to_i, profile.created_at.to_i, include_seconds: true)
   end
 
-  def educational_institute
-    profile.educational_institute || "Not Entered"
-  end
-
   def country_name
     country = ISO3166::Country[profile.country]
-    country ? country.translations[I18n.locale.to_s] || country.name : "Not Entered"
+    country ? country.translations[I18n.locale.to_s] || country.name : nil
   end
 
   def mail_subscription

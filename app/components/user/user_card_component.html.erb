@@ -13,18 +13,33 @@
   </div>
   <div class="search-user-card-body">
     <div class="search-user-card-detail">
-      <%= image_tag "SVGs/hat.svg", alt: "hat" %>
-      <%= profile.educational_institute || t('users.not_specified') %>
-    </div>
-    <div class="search-user-card-detail">
-      <%= image_tag "SVGs/world.svg", alt: "world" %>
-      <%= profile.country_name || t('users.not_specified') %>
-    </div>
-    <div class="search-user-card-detail">
       <%= image_tag "SVGs/circuit.svg", alt: "circuit" %>
       <div>
         <span class="fw-bold"><%= profile.total_circuits %></span> <%= t("users.circuitverse.total_circuits") %>
       </div>
     </div>
+    <div class="search-user-card-detail">
+      <%= image_tag "SVGs/hat.svg", alt: "hat" %>
+      <div class="w-100">
+        <% if profile.educational_institute.present? %>
+          <div class="line-clamp-2" title="<%= profile.educational_institute %>">
+            <%= profile.educational_institute %>
+          </div>
+        <% else %>
+          <span class="text-muted fst-italic"><%= t("not_entered") %></span>
+        <% end %>
+      </div>
+    </div>
+    <div class="search-user-card-detail">
+      <%= image_tag "SVGs/world.svg", alt: "world" %>
+      <div>
+        <% if profile.country_name.present? %>
+          <%= profile.country_name %>
+        <% else %>
+          <span class="text-muted fst-italic"><%= t("not_entered") %></span>
+        <% end %>
+      </div>
+    </div>
+    
   </div>
 <% end %>
