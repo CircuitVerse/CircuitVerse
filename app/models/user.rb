@@ -103,11 +103,13 @@ class User < ApplicationRecord
   end
 
   # rubocop:disable Style/ArgumentsForwarding
+
   def send_devise_notification(notification, *args)
     devise_mailer.send(notification, self, *args).deliver_later
   end
 
   # rubocop:enable Style/ArgumentsForwarding
+
   def votes_for_contest(contest)
     SubmissionVote.where(user_id: id, contest_id: contest).count
   end

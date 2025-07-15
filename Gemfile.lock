@@ -754,6 +754,12 @@ GEM
       tilt
     securerandom (0.3.1)
     select2-rails (4.0.13)
+    selenium-webdriver (4.32.0)
+      base64 (~> 0.2)
+      logger (~> 1.4)
+      rexml (~> 3.2, >= 3.2.5)
+      rubyzip (>= 1.2.2, < 3.0)
+      websocket (~> 1.0)
     sentry-rails (5.17.3)
       railties (>= 5.0)
       sentry-ruby (~> 5.17.3)
