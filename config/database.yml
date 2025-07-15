@@ -1,0 +1,21 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  timeout: 5000
+  username: postgres
+  password:
+
+development:
+  <<: *default
+  database: circuitverse_development
+
+test:
+  <<: *default
+  database: circuitverse_test
+
+production:
+  <<: *default
+  database: circuitverse_production
+  username: postgres
+  password: <%= ENV['DATABASE_PASSWORD'] %>
