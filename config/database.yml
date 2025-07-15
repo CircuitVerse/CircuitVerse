@@ -3,8 +3,8 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  username: postgres
-  password:
+  username: <%= ENV.fetch('DATABASE_USER', 'postgres') %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
 
 development:
   <<: *default
