@@ -68,12 +68,14 @@
       <p class="features-description"><%= t("circuitverse.index.features.main_description") %></p>
     </div>
     <div class="feature-card-grid">
-      <%= render Home::FeatureCardComponent.new(image_path: "homepage/export-hd.png", alt_text: "Export HD", title: t("circuitverse.index.features.item1_heading"), description: t("circuitverse.index.features.item1_text")) %>
-      <%= render Home::FeatureCardComponent.new(image_path: "homepage/combinations analysis.png", alt_text: "Combinational Analysis", title: t("circuitverse.index.features.item2_heading"), description: t("circuitverse.index.features.item2_text")) %>
-      <%= render Home::FeatureCardComponent.new(image_path: "homepage/testbench-timing-diagram.png", alt_text: "Testbench Timing Diagram", title: t("circuitverse.index.features.item3_heading"), description: t("circuitverse.index.features.item3_text")) %>
-      <%= render Home::FeatureCardComponent.new(image_path: "homepage/embed.png", alt_text: "Embed", title: t("circuitverse.index.features.item4_heading"), description: t("circuitverse.index.features.item4_text")) %>
-      <%= render Home::FeatureCardComponent.new(image_path: "homepage/sub-circuit.png", alt_text: "Sub Circuit", title: t("circuitverse.index.features.item5_heading"), description: t("circuitverse.index.features.item5_text")) %>
-      <%= render Home::FeatureCardComponent.new(image_path: "homepage/multi-bit-bus.png", alt_text: "Multi Bit Bus", title: t("circuitverse.index.features.item6_heading"), description: t("circuitverse.index.features.item6_text")) %>
+      <% @features.each do |feature| %>
+        <%= render Home::FeatureCardComponent.new(
+          image_path: feature[:image_path],
+          alt_text: feature[:alt_text],
+          title: t(feature[:title_key]),
+          description: t(feature[:description_key])
+        ) %>
+      <% end %>
     </div>
   </div>
 </div>
