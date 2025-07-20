@@ -11,9 +11,9 @@ class Users::CircuitverseController < ApplicationController
 
   def index
     @profile = ProfileDecorator.new(@user)
-    @user.projects.includes(circuit_preview_attachment: :blob).load
-    @projects = @user.rated_projects.with_attached_circuit_preview
-    @user.collaborated_projects.includes(circuit_preview_attachment: :blob).load
+    @user_projects         = @user.projects.includes(circuit_preview_attachment: :blob)
+    @projects              = @user.rated_projects.includes(circuit_preview_attachment: :blob)
+    @collaborated_projects = @user.collaborated_projects.includes(circuit_preview_attachment: :blob)
   end
 
   def edit; end
@@ -53,7 +53,7 @@ class Users::CircuitverseController < ApplicationController
 
     def set_user
       @profile = current_user
-      @user = User.find(params[:id])
+      @user    = User.with_attached_profile_picture.find(params[:id])
     end
 
     def remove_previous_profile_picture
