@@ -150,6 +150,9 @@ GEM
     bootsnap (1.15.0)
       msgpack (~> 1.2)
     builder (3.3.0)
+    bullet (8.0.8)
+      activesupport (>= 3.0.0)
+      uniform_notifier (~> 1.11)
     bundler-audit (0.9.1)
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
@@ -878,6 +881,7 @@ GEM
     unf_ext (0.0.8.2)
     unf_ext (0.0.8.2-x64-mingw32)
     unicode-display_width (2.6.0)
+    uniform_notifier (1.17.0)
     version_gem (1.1.1)
     view_component (3.9.0)
       activesupport (>= 5.2.0, < 8.0)
@@ -931,6 +935,7 @@ DEPENDENCIES
   aws-sdk-rails
   aws-sdk-s3 (~> 1.176)
   bootsnap
+  bullet
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
   capybara-playwright-driver
