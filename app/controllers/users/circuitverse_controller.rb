@@ -11,7 +11,9 @@ class Users::CircuitverseController < ApplicationController
 
   def index
     @profile = ProfileDecorator.new(@user)
-    @projects = @user.rated_projects
+    @user.projects.includes(circuit_preview_attachment: :blob).load
+    @projects = @user.rated_projects.with_attached_circuit_preview
+    @user.collaborated_projects.includes(circuit_preview_attachment: :blob).load
   end
 
   def edit; end
