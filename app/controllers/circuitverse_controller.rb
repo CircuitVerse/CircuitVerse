@@ -16,7 +16,7 @@ class CircuitverseController < ApplicationController
 
     @featured_circuits = Project.joins(:featured_circuit)
                                 .order("featured_circuits.created_at DESC")
-                                .includes(:author)
+                                .includes(:author, image_preview_attachment: :blob)
                                 .limit(MAXIMUM_FEATURED_CIRCUITS)
 
     respond_to do |format|
@@ -53,7 +53,7 @@ class CircuitverseController < ApplicationController
       query = Project.select(:id, :author_id, :image_preview, :name, :slug)
                      .public_and_not_forked
                      .where.not(image_preview: "default.png")
-                     .includes(:author)
+                     .includes(:author, image_preview_attachment: :blob)
 
       cursor_params = {
         order: { id: :desc },
