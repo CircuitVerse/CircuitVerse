@@ -16,7 +16,7 @@ class CircuitverseController < ApplicationController
 
     @featured_circuits = Project.joins(:featured_circuit)
                                 .order("featured_circuits.created_at DESC")
-                                .includes(:author, image_preview_attachment: :blob)
+                                .includes(:author, circuit_preview_attachment: :blob)
                                 .limit(MAXIMUM_FEATURED_CIRCUITS)
 
     respond_to do |format|
@@ -49,11 +49,14 @@ class CircuitverseController < ApplicationController
 
   private
 
+    # Builds the cursor-paginated, eager-loaded query for the landing-page carousel.
     def build_projects_query(skip_cursor: false)
-      query = Project.select(:id, :author_id, :image_preview, :name, :slug)
-                     .public_and_not_forked
-                     .where.not(image_preview: "default.png")
-                     .includes(:author, image_preview_attachment: :blob)
+      query = Project
+              .select(:id, :author_id, :image_preview, :name, :slug)
+              .public_and_not_forked
+              .where.not(image_preview: "default.png")
+              .with_attached_circuit_preview
+              .includes(:author)
 
       cursor_params = {
         order: { id: :desc },
