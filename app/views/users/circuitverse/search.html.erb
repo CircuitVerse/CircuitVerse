@@ -10,10 +10,12 @@
     </div>
   </div>
 <% else %>
-  <div class="container search-container">
-    <% @results.each do |user| %>
-      <%= render(User::UserCardComponent.new(profile: ProfileDecorator.new(user))) %>
-    <% end %>
+  <div class="container">
+    <div class="user-cards-grid">
+      <% @results.each do |user| %>
+        <%= render(User::UserCardComponent.new(profile: ProfileDecorator.new(user))) %>
+      <% end %>
+    </div>
     <% unless @results.empty? %>
       <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
     <% end %>
