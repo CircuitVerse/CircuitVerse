@@ -23,29 +23,12 @@ class CircuitverseController < ApplicationController
     end
 
     def fetch_homepage_statistics
-      Rails.cache.fetch("homepage_stats", expires_in: cache_duration) do
-        calculate_statistics
-      end
-    rescue StandardError => e
-      Rails.logger.error "Homepage stats calculation failed: #{e.message}"
-      default_statistics
-    end
-
-    def calculate_statistics
       {
-        circuits_count: Project.count,
-        users_count: User.count,
-        universities_count: User.distinct.where.not(educational_institute: [nil, ""]).count(:educational_institute),
-        countries_count: User.distinct.where.not(country: [nil, ""]).count(:country)
+        circuits_count: "1.3M+",
+        users_count: "314K+",
+        universities_count: "4K+",
+        countries_count: "100+"
       }
-    end
-
-    def cache_duration
-      Rails.env.production? ? 10.minutes : 1.minute
-    end
-
-    def default_statistics
-      { circuits_count: 0, users_count: 0, universities_count: 0, countries_count: 0 }
     end
 
     def feature_data

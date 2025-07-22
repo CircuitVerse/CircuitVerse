@@ -55,10 +55,10 @@
       <p class="stats-description"><%= t("circuitverse.index.stats.description") %></p>
     </div>
     <div class="stats-grid">
-      <%= render Home::StatCardComponent.new(number: compact_number(@stats[:circuits_count]), label: t("circuitverse.index.stats.circuits_created")) %>
-      <%= render Home::StatCardComponent.new(number: compact_number(@stats[:users_count]), label: t("circuitverse.index.stats.users")) %>
-      <%= render Home::StatCardComponent.new(number: compact_number(@stats[:universities_count]), label: t("circuitverse.index.stats.universities")) %>
-      <%= render Home::StatCardComponent.new(number: compact_number(@stats[:countries_count]), label: t("circuitverse.index.stats.countries")) %>
+      <%= render Home::StatCardComponent.new(number: @stats[:circuits_count], label: t("circuitverse.index.stats.circuits_created")) %>
+      <%= render Home::StatCardComponent.new(number: @stats[:users_count], label: t("circuitverse.index.stats.users")) %>
+      <%= render Home::StatCardComponent.new(number: @stats[:universities_count], label: t("circuitverse.index.stats.universities")) %>
+      <%= render Home::StatCardComponent.new(number: @stats[:countries_count], label: t("circuitverse.index.stats.countries")) %>
     </div>
   </div>
   <div class="d-flex flex-column gap-4 m-4 mb-0 align-items-center">
