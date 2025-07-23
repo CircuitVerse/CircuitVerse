@@ -13,8 +13,8 @@ RSpec.describe Home::BadgeComponent, type: :component do
     expect(rendered.text).to include("Free and Open Source")
   end
 
-  it "renders badge without green dot when show_dot is false" do
-    rendered = render_inline(described_class.new(text: "Statistics", show_dot: false))
+  it "renders badge without green dot when should_show_dot is false" do
+    rendered = render_inline(described_class.new(text: "Statistics", should_show_dot: false))
 
     expect(rendered.css(".badge-container")).to be_present
     expect(rendered.css(".green-dot")).to be_empty

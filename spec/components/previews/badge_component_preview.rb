@@ -6,6 +6,6 @@ class BadgeComponentPreview < ViewComponent::Preview
   end
 
   def without_dot
-    render(Home::BadgeComponent.new(text: "Statistics", show_dot: false))
+    render(Home::BadgeComponent.new(text: "Statistics", should_show_dot: false))
   end
 end

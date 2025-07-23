@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
 class Home::BadgeComponent < ViewComponent::Base
-  def initialize(text:, show_dot: true)
+  def initialize(text:, should_show_dot: true)
     super
     @text = text
-    @show_dot = show_dot
+    @should_show_dot = should_show_dot
   end
 
   private
 
-    attr_reader :text, :show_dot
+    attr_reader :text, :should_show_dot
 end

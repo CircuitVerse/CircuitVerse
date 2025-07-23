@@ -50,7 +50,7 @@
   </div>
   <div class="stats-section d-flex flex-column gap-4 my-5 py-5 rounded-4 w-100 align-items-center">
     <div class="d-flex flex-column text-center align-items-center gap-2">
-      <%= render Home::BadgeComponent.new(text: t("circuitverse.index.stats.badge_content"), show_dot: false) %>
+      <%= render Home::BadgeComponent.new(text: t("circuitverse.index.stats.badge_content"), should_show_dot: false) %>
       <h2 class="fw-bold"><%= t("circuitverse.index.stats.heading") %></h2>
       <p class="stats-description"><%= t("circuitverse.index.stats.description") %></p>
     </div>
@@ -63,7 +63,7 @@
   </div>
   <div class="d-flex flex-column gap-4 m-4 mb-0 align-items-center">
     <div class="d-flex flex-column text-center align-items-center gap-2">
-      <%= render Home::BadgeComponent.new(text: t("circuitverse.index.features.badge_content"), show_dot: false) %>
+      <%= render Home::BadgeComponent.new(text: t("circuitverse.index.features.badge_content"), should_show_dot: false) %>
       <h2 class="fw-bold"><%= t("circuitverse.index.features.everything_you_need_heading") %></h2>
       <p class="features-description"><%= t("circuitverse.index.features.main_description") %></p>
     </div>
