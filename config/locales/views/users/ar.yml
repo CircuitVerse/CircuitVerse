@@ -2,18 +2,22 @@ ar:
   users:
     minimum_password_length: "(الحد الأدنى من الأحرف %{minimum_password_length})"
     ask_new_user: "مستخدم جديد؟"
+    not_specified: "غير محدد"
     confirmations:
       resend_confirmation_instructions: "إعادة إرسال تعليمات التأكيد"
     circuitverse:
       delete_group_confirmation: "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
       delete_user_confirmation: "هل أنت متأكد من أنك تريد حذف الحساب الخاص بك؟ لا يمكن العودة إلى هذا الإجراء."
       preview_project: "معاينة المشروع"
+      member_since: "عضو منذ"
       educational_institutes_html: "<strong>المؤسسة التعليمية:</strong> %{educational_institute}"
       country_html: "<strong>البلد:</strong> %{country_name}"
+      total_circuits_made_html: '<span class="fw-bold">%{total_circuits}</span> مجموع الدوائر'
+      total_circuits: "مجموع الدوائر"
       edit_profile:
         title: "%{name} - تحرير الملف الشخصي"
         heading: "تعديل الملف"
-        description_html: "الحقول المعلَّمة ب <sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> إلزامية"
+        description_html: 'الحقول المعلَّمة ب <sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> إلزامية'
         profile_picture: "صورة الملف الشخصي"
         choose_file: "اختر ملف"
         remove_picture: "إزالة الصورة"
