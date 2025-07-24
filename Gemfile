@@ -24,7 +24,7 @@ gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.0.8.7"
 # Use Puma as the app server
-gem "puma", "~> 6.4"
+gem "puma", "~> 6.6"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
 gem "terser"
@@ -34,15 +34,15 @@ gem "terser"
 # Use CoffeeScript for .coffee assets and views
 gem "coffee-rails", "~> 5.0"
 gem "select2-rails"
-gem 'redcarpet', '~> 3.3', '>= 3.3.4'
+gem 'redcarpet', '~> 3.6'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem "turbolinks", "~> 5"
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem "jbuilder", "~> 2.11"
+gem "jbuilder", "~> 2.13"
 
 gem "devise"
 
-gem "commontator", "~> 7.0.0"
+gem "commontator", "~> 7.0.1"
 
 # To generate sitemap.xml
 gem "sitemap_generator"
@@ -51,7 +51,7 @@ gem "jquery-rails"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 3.0"
+gem "carrierwave", "~> 3.1"
 
 gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
@@ -76,7 +76,7 @@ gem "ahoy_matey"
 gem "i18n-js"
 
 # for lti provider
-gem "ims-lti", "~> 1.2", "< 2.0"
+gem "ims-lti", "~> 1.2"
 
 # Use Redis adapter to run Action Cable in production
 gem "hiredis"
@@ -91,7 +91,7 @@ gem "http"
 
 # Database
 
-gem "pg", "~> 1.5.3"
+gem "pg", "~> 1.5.9"
 
 gem "meta-tags"
 
@@ -106,14 +106,14 @@ gem "font-awesome-sass", "~> 5.13.1"
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
 gem "flipper-ui"
-gem "friendly_id", "~> 5.4.2"
+gem "friendly_id", "~> 5.5.1"
 gem "inline_svg"
 gem "jsonapi-serializer"
 gem "jwt"
 gem "rails-i18n", "~> 7.0.3"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
-gem "sprockets", "~> 4.1"
+gem "sprockets", "~> 4.2"
 gem "strong_migrations"
 gem 'rails-data-migrations'
 
@@ -123,7 +123,7 @@ gem 'vite_rails'
 group :development, :test do
   # Adds support for debug
   gem "debug"
-  gem "coveralls_reborn", "~> 0.26.0", require: false
+  gem "coveralls_reborn", "~> 0.29.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
@@ -153,13 +153,13 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "listen", ">= 3.0.5", "< 3.9"
+  gem "listen", ">= 3.0.5", "< 3.10"
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
   gem "sunspot_solr"
-  gem "bundler-audit", "~> 0.9.1"
+  gem "bundler-audit", "~> 0.9.2"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"
 end
@@ -171,29 +171,29 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
 
-gem "invisible_captcha", "~> 2.0"
+gem "invisible_captcha", "~> 2.3"
 
 
-gem "oj", "~> 3.15"
+gem "oj", "~> 3.16"
 
 gem "hairtrigger", "~> 0.2.25"
 
 # Used for rate limiting
 gem "rack-attack"
 
-gem "jsbundling-rails", "~> 1.0"
+gem "jsbundling-rails", "~> 1.3"
 
 gem "sassc-rails"
-gem "stimulus-rails", "~> 1.0"
+gem "stimulus-rails", "~> 1.3"
 
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.176"
-gem "image_processing", "~> 1.12"
+gem "aws-sdk-s3", "~> 1.194"
+gem "image_processing", "~> 1.14"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.2"
-gem "opentelemetry-exporter-otlp", "~> 0.25.0"
+gem "opentelemetry-sdk", "~> 1.8"
+gem "opentelemetry-exporter-otlp", "~> 0.30.0"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
@@ -224,7 +224,7 @@ gem 'devise_saml_authenticatable'
 
 gem 'activerecord_cursor_paginate'
 
-gem 'concurrent-ruby', '1.3.4'
+gem 'concurrent-ruby', '1.3.5'
 gem 'mutex_m'
 
 gem "observer", "~> 0.1.2"
