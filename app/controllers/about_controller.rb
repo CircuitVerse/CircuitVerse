@@ -71,4 +71,7 @@ class AboutController < ApplicationController
         link: "https://github.com/Neerajpathak07" }
     ]
   end
+
+  def test
+  end
 end
