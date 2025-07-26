@@ -10,11 +10,11 @@ mr:
       member_since_html: "<strong>पासून सदस्य:</strong> %{member_since}"
       educational_institutes_html: "<strong>शैक्षणिक संस्था:</strong> %{educational_institute}"
       country_html: "<strong>देश:</strong> %{country_name}"
-      total_circuits_made_html: "<strong>एकूण सर्किट बांधले: </strong> %{total_circuits}"
+      total_circuits_made_html: '<strong>एकूण सर्किट बांधले: </strong> %{total_circuits}'
       edit_profile:
         title: "%{name} - प्रोफाइल संपादित करा"
         heading: "प्रोफाईल संपादित करा"
-        description_html: "<sup><i class=\"fa fa-asterisk user-edit-asterisk\"></i></sup> सह चिन्हांकित फील्ड अनिवार्य आहेत"
+        description_html: '<sup><i class="fa fa-asterisk user-edit-asterisk"></i></sup> सह चिन्हांकित फील्ड अनिवार्य आहेत'
         profile_picture: "परिचय चित्र"
         choose_file: "फाईल निवडा"
         remove_picture: "फोटो हटवा"
