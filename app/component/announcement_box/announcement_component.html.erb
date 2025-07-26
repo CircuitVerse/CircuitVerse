@@ -1,0 +1,8 @@
+<% if @current_announcement.start_date <= Date.current && @current_announcement.end_date >= Date.current %>
+  <div class="container announcements-content-wrapper">
+    <span><%== @current_announcement.body %></span>
+    <% if @current_announcement.link? %>
+      <%= link_to t("announcements.learn_more"), @current_announcement.link, target: :_blank, rel: :noopener %>
+    <% end %>
+  </div>
+<% end %>
