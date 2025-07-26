@@ -1,5 +1,5 @@
 <div class="container" data-controller="search-bar" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
-  <%= form_tag(search_path, method: "get", id: "search-box", class: "search-bar-form") do %>
+  <%= form_tag("/search", method: "get", id: "search-box", class: "search-bar-form") do %>
     <div class="select-wrapper" data-search-bar-target="selectWrapper">
       <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
         <span data-search-bar-target="selectedOption"><%= option_labels[resource || resource_options.first] %></span>
