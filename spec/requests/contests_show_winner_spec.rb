@@ -15,7 +15,7 @@ RSpec.describe "Contests#show (winner branch)", type: :request do
   end
 
   it "renders the winner’s name" do
-    get contest_page_path(contest)
+    get contest_path(contest)
     expect(response).to have_http_status(:ok)
     expect(response.body).to include(project.name)
   end

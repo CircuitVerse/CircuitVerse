@@ -20,7 +20,7 @@
         <%# ----------------------------------------------------------- %>
         <%# Safely build the withdraw link: use "#" when no submission %>
         <% current_user_submission = @contest&.submissions&.find_by(user_id: current_user&.id) %>
-        <% withdraw_href   = current_user_submission ? withdraw_submission_path(@contest.id,
+        <% withdraw_href   = current_user_submission ? withdraw_contest_submission_path(@contest.id,
                                                                                current_user_submission.id)
                                                     : "#" %>
         <% withdraw_opts   = { class: "btn primary-button danger-primary-button",
