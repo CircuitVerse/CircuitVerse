@@ -30,15 +30,39 @@
     <h6><%= form.label :tag_list %></h6> <span><%= t("projects.form.tag_list_description") %></span>
     <%= form.text_field :tag_list, class: "form-control form-input" %>
   </div>
-  <div class="field mb-3">
-    <h6 class="mb-0"><%= form.label :project_access_type %></h6>
-    <% if @project.featured? %>
-      <div class="alert alert-warning d-flex align-items-center" role="alert">
-+        <i class="fa fa-exclamation-triangle me-2"></i>
-+        <div><%= t("projects.form.project_is_featured_message") %></div>
-+      </div>
+
+  <div data-controller="group-access">
+    <div class="field mb-3">
+      <h6 class="mb-0"><%= form.label :project_access_type %></h6>
+
+      <% if @project.featured? %>
+        <div class="alert alert-warning d-flex align-items-center" role="alert">
+          <i class="fa fa-exclamation-triangle me-2"></i>
+          <div><%= t("projects.form.project_is_featured_message") %></div>
+        </div>
       <% end %>
-    <%= form.select :project_access_type, [[t("projects.form.public"), "Public"], [t("projects.form.private"), "Private"], [t("projects.form.limited_access"), "Limited access"]], {}, class: "form-control form-input" %>
+
+      <%= form.select :project_access_type,
+                      [[t("projects.form.public"),          "Public"],
+                       [t("projects.form.private"),         "Private"],
+                       [t("projects.form.limited_access"),  "Limited access"],
+                       [t("projects.form.group_access"),    "Group"]],
+                      {},
+                      class: "form-control form-input",
+                      data:  { "group-access-target": "access",
+                               action: "change->group-access#toggle" } %>
+    </div>
+
+    <div class="field mb-3"
+         data-group-access-target="groupField"
+         <%= @project.project_access_type == "Group" ? "" : 'style="display:none;"' %>>
+      <h6><%= form.label :group_id, t("projects.form.group") %></h6>
+      <%= form.collection_select :group_id,
+                                 @groups,
+                                 :id, :name,
+                                 { include_blank: "-- select group --" },
+                                 class: "form-control form-input" %>
+    </div>
   </div>
   <div class="field mb-3" id="description">
     <h6><%= form.label :description %></h6>
@@ -48,7 +72,6 @@
     <%= form.submit class: "btn primary-button" %> &nbsp;
     <%= link_to t("back"), :back, class: "anchor-text" %>
   </div>
-
 <% end %>
 
 <script>
