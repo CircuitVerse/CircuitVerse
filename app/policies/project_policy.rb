@@ -29,6 +29,9 @@ class ProjectPolicy < ApplicationPolicy
   def check_view_access?
     project.project_access_type != "Private" ||
       (!user.nil? && project.author_id == user.id) ||
+      (!user.nil? && project.group_id.present? &&
+        (project.group.primary_mentor_id == user.id ||
+         project.group.group_members.exists?(user_id: user.id))) ||
       (!user.nil? && !project.assignment_id.nil? &&
       ((project.assignment.group.primary_mentor_id == user.id) ||
       project.assignment.group.group_members.exists?(user_id: user.id, mentor: true))) ||
