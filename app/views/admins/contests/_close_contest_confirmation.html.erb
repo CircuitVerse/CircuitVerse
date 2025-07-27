@@ -15,9 +15,7 @@
         <p><%= t("contest.close_contest_modal.description") %></p>
       </div>
       <div class="modal-footer">
-        <%= link_to contest_path(contest.id), id: "close-contest-button", class: "btn primary-delete-button", method: :delete do %>
-          <span><%= t("contest.close_contest_modal.confirm_button") %></span>
-        <% end %>
+        <%= link_to t("contest.close_contest_modal.confirm_button"), contest_path(contest.id), method: :patch, data: { params: { contest: { status: :completed } } }, class: "btn primary-delete-button" %>
       </div>
     </div>
   </div>

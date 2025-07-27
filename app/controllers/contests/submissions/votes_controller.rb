@@ -29,12 +29,16 @@ class Contests::Submissions::VotesController < ApplicationController
       user_votes = current_user.votes_for_contest(@contest.id)
 
       if user_votes >= SubmissionVote::USER_VOTES_PER_CONTEST
-        t(".all_votes_used")
+        return t(".all_votes_used")
       elsif SubmissionVote.exists?(user_id: current_user.id, submission_id: @submission.id)
-        t(".already_voted")
+        return t(".already_voted")
       else
-        SubmissionVote.create!(user_id: current_user.id, submission_id: @submission.id, contest_id: @contest.id)
-        t(".success", votes_remaining: SubmissionVote::USER_VOTES_PER_CONTEST - 1 - user_votes)
+        begin
+          SubmissionVote.create!(user_id: current_user.id, submission_id: @submission.id, contest_id: @contest.id)
+          t(".success", votes_remaining: SubmissionVote::USER_VOTES_PER_CONTEST - 1 - user_votes)
+        rescue ActiveRecord::RecordInvalid
+          t(".vote_failed", default: "Failed to record vote.")
+        end
       end
     end
 end

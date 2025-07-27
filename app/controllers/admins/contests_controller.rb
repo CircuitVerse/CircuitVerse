@@ -6,7 +6,7 @@ class Admins::ContestsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
+    @contests = Contest.order(id: :desc).page(params[:page]).limit(Contest.per_page)
   end
 
   def create
@@ -20,7 +20,7 @@ class Admins::ContestsController < ApplicationController
     if @contest.save
       redirect_to contest_path(@contest), notice: t(".success")
     else
-      @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
+      @contests = Contest.order(id: :desc).page(params[:page]).limit(Contest.per_page)
       render :index, status: :unprocessable_entity
     end
   end
@@ -38,7 +38,7 @@ class Admins::ContestsController < ApplicationController
       parsed_deadline = parse_deadline_or_redirect(params[:contest][:deadline])
       return if performed?
 
-      return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
+      return redirect_to(admins_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
 
       if @contest.update(deadline: parsed_deadline)
         redirect_to contest_path(@contest), notice: t(".deadline_updated")
@@ -65,7 +65,7 @@ class Admins::ContestsController < ApplicationController
 
     def parse_deadline_or_redirect(str)
       parsed = Time.zone.parse(str)
-      redirect_to(admin_contests_path, alert: t(".invalid_deadline")) and return if parsed.nil?
+      redirect_to(admins_contest_path, alert: t(".invalid_deadline")) and return if parsed.nil?
 
       parsed
     end

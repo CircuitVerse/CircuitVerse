@@ -10,7 +10,7 @@ RSpec.describe "Admin::Contests#create failure path", type: :request do
   it "re-renders the admin page with 422 when the save fails" do
     allow_any_instance_of(Contest).to receive(:save).and_return(false)
 
-    post admin_contests_path, params: { contest: {} }
+    post admins_contest_path, params: { contest: {} }
 
     expect(response).to have_http_status(:unprocessable_entity)
 

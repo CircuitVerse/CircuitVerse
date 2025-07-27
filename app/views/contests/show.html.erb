@@ -53,14 +53,14 @@
     </div>
   <% end %>
 
-  <% if @contest.submissions.count.positive? %>
+  <% if @user_submission.present? %>
     <div class="contest-page-line"></div>
     <div>
       <h5><%= t("contest.show.user_submissions") %></h5>
       <span class="contest-header-sub-description"><%= t("contest.show.user_submissions_description") %></span>
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
-      <% @user_submission.each do |submission| %>
+      <% @contest.submissions.where(user_id: current_user.id).each do |submission| %>
         <%= render partial: "submission",
                    locals: { project: submission.project,
                              votes:   submission.submission_votes.count,
