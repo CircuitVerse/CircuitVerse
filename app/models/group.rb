@@ -2,17 +2,30 @@
 
 class Group < ApplicationRecord
   has_secure_token :group_token
+
   validates :name, length: { minimum: 1 }, presence: true
+
   belongs_to :primary_mentor, class_name: "User"
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
 
+  has_many :projects, dependent: :nullify
   has_many :assignments, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
 
   after_commit :send_creation_mail, on: :create
+
   scope :with_valid_token, -> { where(token_expires_at: Time.zone.now..) }
   TOKEN_DURATION = 12.days
+
+  def has_member?(user)
+    group_members.exists?(user_id: user.id)
+  end
+
+  def mentor?(user)
+    group_members.exists?(user_id: user.id, mentor: true) ||
+      primary_mentor_id == user.id
+  end
 
   def send_creation_mail
     GroupMailer.new_group_email(primary_mentor, self).deliver_later
