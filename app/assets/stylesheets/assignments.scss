@@ -51,9 +51,9 @@
 }
 
 .assignments-submission-row {
-  margin: 0;
-  max-width: 100%;
-  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .assignments-submission-col-3 {
@@ -142,7 +142,10 @@
 }
 
 .assignments-button-primary {
-  margin-left: 15px;
+  margin-left: 0;
+  margin-right: 10px;
+  padding: 8px 16px;
+  text-align: center;
 }
 
 .list-group-item:last-child,
