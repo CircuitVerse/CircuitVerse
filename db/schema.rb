@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_27_105129) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -157,6 +157,19 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
   end
 
+  create_table "contest_leaderboards", force: :cascade do |t|
+    t.bigint "contest_id", null: false
+    t.bigint "submission_id", null: false
+    t.date "week_start", null: false
+    t.integer "rank", null: false
+    t.integer "votes_count", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id", "week_start", "rank"], name: "idx_cl_on_contest_week_rank", unique: true
+    t.index ["contest_id"], name: "index_contest_leaderboards_on_contest_id"
+    t.index ["submission_id"], name: "index_contest_leaderboards_on_submission_id"
+  end
+
   create_table "contest_winners", force: :cascade do |t|
     t.bigint "contest_id"
     t.bigint "submission_id"
@@ -169,10 +182,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
   end
 
   create_table "contests", force: :cascade do |t|
-    t.datetime "deadline"
-    t.integer "status"
+    t.datetime "deadline", null: false
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_contests_on_status_live_unique", unique: true, where: "(status = 0)"
   end
 
   create_table "custom_mails", force: :cascade do |t|
@@ -384,10 +398,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
-    t.string "version", default: "1.0", null: false
+    t.bigint "group_id"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
+    t.index ["group_id"], name: "index_projects_on_group_id"
     t.index ["searchable"], name: "index_projects_on_searchable", using: :gin
     t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true
   end
@@ -525,6 +540,8 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
+  add_foreign_key "contest_leaderboards", "contests"
+  add_foreign_key "contest_leaderboards", "submissions"
   add_foreign_key "contest_winners", "contests"
   add_foreign_key "contest_winners", "projects"
   add_foreign_key "contest_winners", "submissions"
@@ -545,6 +562,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
+  add_foreign_key "projects", "groups"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"
   add_foreign_key "stars", "projects"
