@@ -15,7 +15,7 @@
     <% if current_user&.admin? %>
       <div class="text-end mt-2">
         <%= link_to t("contest.index.manage_button"),
-                    admin_contests_path,
+                    admins_contests_path,
                     class: "contest-submission-button" %>
       </div>
     <% end %>
@@ -45,7 +45,7 @@
               </div>
               <div class="contest-container-details">
                 <!-- Changed from translation key to literal "Contest" -->
-                <h5 class="contest-container-details-number">Contest #<%= contest.id %></h5>
+                <h5 class="contest-container-details-number"><%= t("contest.contest_container.contest_id") %> #<%= contest.id %></h5>
                 <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
               </div>
             </div>

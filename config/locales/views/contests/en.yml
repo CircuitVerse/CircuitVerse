@@ -47,6 +47,11 @@ en:
     withdraw_submission_modal:
       heading: "Withdraw Submission"
       description: "Are you sure you want to withdraw your submission from contest?"
+    header:
+      time_left_label: "Time Left:"
+    buttons:
+      submit: "Submit"
+      update_deadline: "Update Deadline"
   contests:
     index:
       title: "Contests"

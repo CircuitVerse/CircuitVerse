@@ -24,7 +24,7 @@
 
     <% if @contest.live? %>
       <div class="d-flex flex-column align-items-center">
-        <span class="contest-header-timer">Time Left: <span id="timeLeftCounter">...</span></span>
+        <span class="contest-header-timer"><%= t("contest.header.time_left_label") %> <span id="timeLeftCounter">...</span></span>
         <%= link_to new_contest_submission_path(@contest.id), class: "contest-submission-button" do %>
           <span><%= t("contest.show.register_button") %></span>
         <% end %>

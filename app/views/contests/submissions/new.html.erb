@@ -61,14 +61,7 @@
         <% end %>
         <%= hidden_field_tag "contest_id", @contest.id %>
 
-        <!--
-          Add `contest-submission-button` class here so that
-          `find(".contest-submission-button")` in the spec picks up exactly this button.
-        -->
-        <%= form.submit "Submit",
-                        class: "btn primary-button contest-submission-button",
-                        id:    "submission-submit-button",
-                        disabled: true %>
+        <%= form.submit t("contest.buttons.submit"), class: "btn primary-button contest-submission-button", id: "submission-submit-button", disabled: true %>
       <% end %>
     </div>
   </div>
