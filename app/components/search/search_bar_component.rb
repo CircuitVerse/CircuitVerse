@@ -15,7 +15,7 @@ class Search::SearchBarComponent < ViewComponent::Base
     attr_reader :resource, :query
 
     def resource_options
-      %w[Users Projects]
+      ["Users", "Projects"]
     end
 
     def placeholders
