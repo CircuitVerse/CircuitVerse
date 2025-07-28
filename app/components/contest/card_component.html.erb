@@ -1,0 +1,25 @@
+<%= link_to contest_path(@contest.id), class: "text-decoration-none", id: "contest-#{@contest.id}" do %>
+  <div class="contest-container h-100">
+    <div class="contest-container-header">
+      <% if @contest.live? %>
+        <div class="contest-container-status-live">
+          <span class="contest-container-status-dot"></span>
+          <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
+        </div>
+      <% else %>
+        <div class="contest-container-status">
+          <span class="contest-container-status-dot"></span>
+          <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
+        </div>
+      <% end %>
+    </div>
+    <div class="contest-container-details">
+      <h5 class="contest-container-details-number">
+        <%= t("contest.contest_container.contest_id") %> #<%= @contest.id %>
+      </h5>
+      <h5 class="contest-container-details-entries">
+        <%= t("contest.contest_container.entries") %>: <%= @contest.submissions.count %>
+      </h5>
+    </div>
+  </div>
+<% end %>

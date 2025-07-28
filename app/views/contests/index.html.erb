@@ -15,7 +15,7 @@
     <% if current_user&.admin? %>
       <div class="text-end mt-2">
         <%= link_to t("contest.index.manage_button"),
-                    admins_contests_path,
+                    admin_contests_path,
                     class: "contest-submission-button" %>
       </div>
     <% end %>
@@ -23,33 +23,11 @@
 
   <div class="contest-page-line"></div>
 
-  <!-- Modified grid structure -->
   <div class="contests-list-wrapper">
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
       <% @contests.each do |contest| %>
         <div class="col">
-          <%= link_to contest_path(contest.id), class: "text-decoration-none", id: "contest-#{contest.id}" do %>
-            <div class="contest-container h-100">
-              <div class="contest-container-header">
-                <% if contest.live? %>
-                  <div class="contest-container-status-live">
-                    <span class="contest-container-status-dot"></span>
-                    <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
-                  </div>
-                <% else %>
-                  <div class="contest-container-status">
-                    <span class="contest-container-status-dot"></span>
-                    <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
-                  </div>
-                <% end %>
-              </div>
-              <div class="contest-container-details">
-                <!-- Changed from translation key to literal "Contest" -->
-                <h5 class="contest-container-details-number"><%= t("contest.contest_container.contest_id") %> #<%= contest.id %></h5>
-                <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
-              </div>
-            </div>
-          <% end %>
+          <%= render Contest::CardComponent.new(contest: contest) %>
         </div>
       <% end %>
     </div>
