@@ -15,7 +15,7 @@
     <% if current_user&.admin? %>
       <div class="text-end mt-2">
         <%= link_to t("contest.index.manage_button"),
-                    admins_contests_path,
+                    admin_contests_path,
                     class: "contest-submission-button" %>
       </div>
     <% end %>

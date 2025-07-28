@@ -11,7 +11,7 @@ class Admins::ContestsController < ApplicationController
 
   def create
     if concurrent_contest_exists?
-      redirect_to admins_contests_path, notice: t(".concurrent_contests")
+      redirect_to admin_contests_path, notice: t(".concurrent_contests")
       return
     end
 
@@ -38,12 +38,12 @@ class Admins::ContestsController < ApplicationController
       parsed_deadline = parse_deadline_or_redirect(params[:contest][:deadline])
       return if performed?
 
-      return redirect_to(admins_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
+      return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
 
       if @contest.update(deadline: parsed_deadline)
         redirect_to contest_path(@contest), notice: t(".deadline_updated")
       else
-        redirect_to admins_contests_path,
+        redirect_to admin_contests_path,
                     alert: t(".deadline_update_failed", errors: @contest.errors.full_messages.join(", "))
       end
     end
