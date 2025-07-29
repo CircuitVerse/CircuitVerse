@@ -33,13 +33,12 @@
       <% end %>
 
       <%= form_with model: Submission.new,
-              url:  contest_submission_path(@contest.id),
-              local: true do |form| %>
+                    url:  contest_submissions_path(@contest),
+                    local: true do |form| %>
         <% @projects.each do |project| %>
           <% if !project.featured? %>
             <div class="project-submission">
               <div class="project-submission-detail">
-                <!-- Give the radio button an explicit id so specs can do `find("#submission_project_id_<id>")` -->
                 <%= form.radio_button :project_id,
                                       project.id,
                                       id: "submission_project_id_#{project.id}",
