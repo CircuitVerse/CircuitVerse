@@ -1,19 +1,25 @@
-<div id="update-contest-modal" class="modal fade" role="dialog" aria-labelledby="updateContestModalLabel" aria-hidden="true">
+<div id="update-contest-modal" class="modal fade" role="dialog"
+     aria-labelledby="updateContestModalLabel" aria-hidden="true">
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header">
-        <h4 class="modal-title" id="updateContestModalLabel"><%= t("contest.update_contest_modal.heading") %></h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h4 class="modal-title" id="updateContestModalLabel">
+          <%= t("contest.update_contest_modal.heading") %>
+        </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
         <p><%= t("contest.update_contest_modal.description") %></p>
       </div>
 
-      <%= form_with(url: contest_path(":contest_id"),
+      <%= form_with url:   admin_contest_path(":contest_id"),
                     method: :patch,
+                    scope:  :contest,
                     local:  true,
-                    id:     "update-contest-form") do |form| %>
+                    id:     "update-contest-form" do |form| %>
+
         <div class="modal-body">
           <div class="form-group">
             <%= form.label :deadline,
@@ -21,15 +27,16 @@
                            for: "contest_deadline" %>
 
             <%= form.datetime_local_field :deadline,
-                  class:     "form-control",
-                  id:        "contest_deadline",
-                  min:       Time.current.strftime("%Y-%m-%dT%H:%M"),
-                  required:  true %>
+                  class:    "form-control",
+                  id:       "contest_deadline",
+                  min:      Time.current.strftime("%Y-%m-%dT%H:%M"),
+                  required: true %>
           </div>
         </div>
 
         <div class="modal-footer">
-          <%= form.submit t("contest.buttons.update_deadline"), class: "btn btn-primary" %>
+          <%= form.submit t("contest.buttons.update_deadline"),
+                          class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>
