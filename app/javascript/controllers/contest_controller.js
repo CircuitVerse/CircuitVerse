@@ -58,7 +58,7 @@ export default class extends Controller {
                 const submissionId = $(e.relatedTarget).data('submission').id;
                 $(e.currentTarget)
                     .find('#withdraw-submission-button')
-                    .attr('href', `/contests/${contestId}/withdraw/${submissionId}`);
+                    .attr('href', `/contests/${contestId}/submissions/${submissionId}/withdraw`);
             });
         }
     }

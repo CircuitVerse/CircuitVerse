@@ -1,4 +1,3 @@
-<!-- Withdraw submission confirmation modal -->
 <div class="modal fade" id="withdraw-submission-confirmation-modal"
      tabindex="-1" role="dialog"
      aria-labelledby="withdrawModalLabel" aria-hidden="true">
@@ -17,18 +16,12 @@
       </div>
 
       <div class="modal-footer">
-        <%# ----------------------------------------------------------- %>
-        <%# Safely build the withdraw link: use "#" when no submission %>
-        <% current_user_submission = @contest&.submissions&.find_by(user_id: current_user&.id) %>
-        <% withdraw_href   = current_user_submission ? withdraw_contest_submission_path(@contest.id,
-                                                                               current_user_submission.id)
-                                                    : "#" %>
-        <% withdraw_opts   = { class: "btn primary-button danger-primary-button",
-                               id:    "withdraw-submission-button" } %>
-        <% withdraw_opts[:method] = :delete if current_user_submission %>
+        <% current_user_submission = @contest.submissions.find_by(user_id: current_user&.id) %>
+        <% withdraw_href  = current_user_submission ? withdraw_contest_submission_path(@contest, current_user_submission) : "#" %>
+        <% withdraw_opts = { class: "btn primary-button danger-primary-button", id: "withdraw-submission-button" } %>
+        <% withdraw_opts[:method] = :post if current_user_submission %>
 
         <%= link_to t("contest.withdraw"), withdraw_href, withdraw_opts %>
-        <%# ----------------------------------------------------------- %>
       </div>
 
     </div>
