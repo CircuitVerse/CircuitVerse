@@ -2,39 +2,43 @@
   <div class="card text-center users-card">
     <div class="card-header submission-card-header">
       <div class="users-card-name">
-        <p><%= project.name %></p>
-        <span class="tooltiptext"><%= project.name %></span>
+        <p><%= @submission.project.name.truncate(25) %></p>
+        <span class="tooltiptext"><%= @submission.project.name %></span>
       </div>
     </div>
     <div class="card-body users-card-body">
-      <img class="users-card-image" src="<%= project.image_preview.url %>" alt="<%= project.name %>">
+      <%= image_tag @submission.project.image_preview.url,
+                    class: "users-card-image",
+                    alt:   @submission.project.name %>
     </div>
     <div class="card-footer users-card-footer d-flex justify-content-between align-items-center">
-      <span class="fw-bold"><%= t("contest.votes") %>: <%= @submission.submission_votes.count %></span>
-      <div>
-        <%= link_to t("view"),
-                    '#',
-                    class: "previewButton btn primary-button",
-                    data:  { bs_toggle: "modal",
-                             bs_target: "#projectModal",
-                             project:   project } %>
+      <span class="fw-bold">Votes: <%= @submission.submission_votes_count %></span>
 
-        <% if project.author == @current_user && @contest.live? %>
-          <%= link_to t("contest.withdraw"),
-                      '#',
-                      class: "previewButton btn primary-button danger-primary-button",
-                      id:    "withdraw-submission-#{@submission.id}",
-                      data:  { bs_toggle: "modal",
-                               bs_target: "#withdraw-submission-confirmation-modal",
-                               submission: @submission,
-                               contest:    @contest } %>
-        <% elsif project.author != @current_user && @contest.live? %>
-          <%= link_to vote_submission_path(@contest.id, @submission.id),
-                      class: "previewButton btn primary-button",
-                      id:    "vote-submission-#{@submission.id}",
+      <div>
+        <a  class="previewButton btn primary-button"
+            data-bs-toggle="modal"
+            data-bs-target="#projectModal"
+            data-project="<%= @submission.project.to_json %>">
+          View
+        </a>
+        <% project = @submission.project %>
+
+        <% if   @current_user && project.author == @current_user %>
+          <%= link_to withdraw_contest_submission_path(@contest, @submission),
+                      class:  "previewButton btn primary-button danger-primary-button",
+                      id:     "withdraw-submission-#{@submission.id}",
+                      method: :post,
+                      data:   { contest:   @contest,
+                                submission: @submission } do %>
+            Withdraw
+          <% end %>
+
+        <% elsif @current_user && project.author != @current_user && @contest.live? %>
+          <%= link_to contest_submission_votes_path(@contest.id, @submission.id),
+                      class:  "previewButton btn primary-button",
+                      id:     "vote-submission-#{@submission.id}",
                       method: :post do %>
-            <span><%= t("contest.vote") %></span>
-            <i class="fa fa-arrow-up" aria-hidden="true"></i>
+            Vote
           <% end %>
         <% end %>
       </div>
