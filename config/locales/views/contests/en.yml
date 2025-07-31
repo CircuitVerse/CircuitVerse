@@ -63,8 +63,6 @@ en:
       success: "Submission was successfully added."
       unauthorized_project: "You can’t submit someone else’s project."
       duplicate_submission: "This project is already submitted in Contest #%{contest_id}"
-    withdraw:
-      success: "Submission was successfully removed."
     upvote:
       voting_closed: "Voting is closed."
       all_votes_used: "You have used all your votes!"
@@ -75,6 +73,8 @@ en:
         success: "Submission was successfully added."
         unauthorized_project: "You can't submit someone else's project."
         duplicate_submission: "This project is already submitted in Contest #%{contest_id}"
+      destroy:
+        success: "Submission was successfully removed."
       votes:
         create:
           voting_closed: "Voting is closed."
