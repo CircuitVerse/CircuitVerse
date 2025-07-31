@@ -1,0 +1,44 @@
+<%= link_to user_path(profile), class: "search-user-card", target: "_blank", rel: "noopener noreferrer" do %>
+  <div class="search-user-card-header">
+    <%= image_tag user_profile_picture(profile.profile_picture), alt: "user profile", class: "search-user-card-avatar" %>
+    <div class="d-flex flex-column justify-content-center align-items-start">
+      <h3 class="search-user-card-name"><%= profile.name %></h3>
+      <div class="member-badge">
+        <%= image_tag "SVGs/calendar.svg", alt: "calendar" %>
+        <div>
+          <%= t("users.circuitverse.member_since") %> <span class="fw-bold"><%= profile.member_since %></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="search-user-card-body">
+    <div class="search-user-card-detail">
+      <%= image_tag "SVGs/circuit.svg", alt: "circuit" %>
+      <div>
+        <span class="fw-bold"><%= profile.total_circuits %></span> <%= t("users.circuitverse.total_circuits") %>
+      </div>
+    </div>
+    <div class="search-user-card-detail">
+      <%= image_tag "SVGs/hat.svg", alt: "hat" %>
+      <div class="w-100">
+        <% if profile.educational_institute.present? %>
+          <div class="line-clamp-2" title="<%= profile.educational_institute %>">
+            <%= profile.educational_institute %>
+          </div>
+        <% else %>
+          <span class="text-muted fst-italic"><%= t("not_entered") %></span>
+        <% end %>
+      </div>
+    </div>
+    <div class="search-user-card-detail">
+      <%= image_tag "SVGs/world.svg", alt: "world" %>
+      <div>
+        <% if profile.country_name.present? %>
+          <%= profile.country_name %>
+        <% else %>
+          <span class="text-muted fst-italic"><%= t("not_entered") %></span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

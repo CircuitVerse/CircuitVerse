@@ -1,0 +1,49 @@
+fr:
+  contest:
+    heading: "CONCOURS"
+    index:
+      subtitle: "Des concours où les élèves présentent leurs circuits incroyables et les meilleurs sont présentés sur notre page d'accueil!"
+    admin:
+      subtitle: "Cette page est destinée aux administrateurs, vous pouvez héberger un nouveau concours en cliquant sur le bouton « Héberger un nouveau concours » !"
+      new_contest_button: "Héberger un nouveau concours"
+    show:
+      subtitle: "Obtenez une chance de découvrir notre site Web et de montrer votre circuit aux utilisateurs %{user_count}!"
+      remaining_votes: "Vos votes restants :"
+      register_button: "Enregistrez votre circuit"
+      disable_button: "Concours terminé !"
+      winners: "Gagnants"
+      winners_description: "Les projets gagnants seront présentés sur notre site Web et seront récompensés en tant que tag spécial CircuitVerse."
+      user_submissions: "Vos envois"
+      user_submissions_description: "Vous pouvez retirer votre candidature du concours."
+      contest_entries: "Entrées au Concours (%{submission_count})"
+      contest_entries_description: "Votez pour vos participations favorites et aidez-nous à choisir nos gagnants pour cette semaine! Un utilisateur reçoit 3 voix."
+    votes: "Votes"
+    close: "Fermer"
+    no_contest: "Il n'y a pas de concours en direct ou complet."
+    contest_container:
+      contest_id: "Concours"
+      entries: "Entrées"
+    status:
+      live: "EN DIRECT"
+      completed: "Terminé"
+    withdraw: "Retirer"
+    vote: "Voter"
+    new_submission_page:
+      heading: "Soumission du projet"
+      select_your_circuit: "Sélectionnez votre circuit"
+      select_your_circuit_description: "Seuls les projets publics sont autorisés à participer au concours."
+    close_contest_modal:
+      heading: "Clôturer un concours"
+      description: "Êtes-vous sûr de vouloir clore ce concours?"
+      confirm_button: "Valider"
+    host_new_contest_modal:
+      heading: "Organisez un nouveau concours"
+      description: "Êtes-vous sûr de vouloir démarrer un nouveau concours?"
+      description_html: "<p>Héberger un nouveau concours peut :</p><ul><li>Mettre fin au concours en cours (le cas échéant)</li><li>Faire une annonce à tous les utilisateurs pour participer</li></ul>"
+    update_contest_modal:
+      heading: "Mettre à jour la date limite du concours"
+      sub_heading: "Fixer la date limite du concours"
+      description: "Veuillez vous assurer que la date limite du concours est fixée dans le futur. Il n’est pas permis de fixer la date limite du concours dans le passé."
+    withdraw_submission_modal:
+      heading: "Retirer la soumission"
+      description: "Êtes-vous sûr de vouloir retirer votre candidature du concours ?"

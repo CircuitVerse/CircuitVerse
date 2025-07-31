@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang=<%= I18n.locale %> dir= <%=I18nSupport.direction(I18n.locale) %>>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,18 +22,26 @@
     <%= stylesheet_link_tag "application" %>
   </head>
 
-  <body>
-    <%= render "layouts/header" %>
+  <body class="d-flex flex-column min-vh-100">
+  <%= render "layouts/header" %>
+  <main class="flex-grow-1">
     <%= yield %>
-    <%= render(FooterComponent.new(current_user: current_user)) %>
+  </main>
+  <%= render(FooterComponent.new(current_user: current_user)) %>
 
-    <script type="text/javascript">
-      // In this script tag we are checking alert's and if there is alert this code will be execute
-      $(document).ready(function() {
-        if (document.querySelector(".alert")) {
-          setTimeout(() => {document.querySelector(".alert").style.display == "none";}, 3000);
+  <!-- Custom Script for Alert -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.alert').forEach(alert => {
+        const bsAlert = new bootstrap.Alert(alert);
+        if (!alert.classList.contains('alert-permanent')) {
+          setTimeout(() => {
+            alert.classList.add('fade');
+            bsAlert.close();
+          }, 3000);
         }
-      })
-    </script>
-  </body>
+      });
+    });
+  </script>
+</body>
 </html>

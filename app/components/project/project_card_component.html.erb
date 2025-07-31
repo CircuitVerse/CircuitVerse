@@ -1,0 +1,37 @@
+<%= link_to user_project_path(project.author, project), class: "project-card", target: "_blank", rel: "noopener noreferrer" do %>
+  <div class="project-card-image-container">
+    <%= image_tag(
+          project.circuit_preview.attached? ? project.circuit_preview : image_path("empty_project/default.png"),
+          alt: project.name,
+          class: "project-card-image"
+        ) %>
+  </div>
+  <div class="project-card-content">
+    <div class="project-card-header">
+      <div class="project-card-title">
+        <h3><%= project.name %></h3>
+      </div>
+      <div class="project-card-stats">
+        <div class="project-card-stat">
+          <i class="fas fa-star" aria-hidden="true"></i>
+          <span><%= project.stars.count %></span>
+        </div>
+        <div class="project-card-stat">
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          <span><%= project.view %></span>
+        </div>
+      </div>
+    </div>
+    <div class="project-card-author">
+      <%= image_tag("SVGs/user.svg", alt: "User") %> <%= project.author.name %>
+    </div>
+    <div class="project-card-description">
+      <%= sanitize project.description %>
+    </div>
+    <% if project.description && project.description.length > 120 %>
+      <div class="show-more-container">
+        <span class="show-more-btn"><%= t("components.project.show_more") %></span>
+      </div>
+    <% end %>
+  </div>
+<% end %>

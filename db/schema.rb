@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
+ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", null: false
+    t.datetime "deadline", precision: nil, null: false
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -155,6 +155,24 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.index ["commontable_id", "commontable_type"], name: "index_commontator_threads_on_c_id_and_c_type", unique: true
+  end
+
+  create_table "contest_winners", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "submission_id"
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_contest_winners_on_contest_id", unique: true
+    t.index ["project_id"], name: "index_contest_winners_on_project_id"
+    t.index ["submission_id"], name: "index_contest_winners_on_submission_id"
+  end
+
+  create_table "contests", force: :cascade do |t|
+    t.datetime "deadline"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "custom_mails", force: :cascade do |t|
@@ -393,6 +411,31 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
     t.index ["user_id"], name: "index_stars_on_user_id"
   end
 
+  create_table "submission_votes", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "submission_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_submission_votes_on_contest_id"
+    t.index ["submission_id"], name: "index_submission_votes_on_submission_id"
+    t.index ["user_id", "submission_id", "contest_id"], name: "index_unique_submission_votes", unique: true
+    t.index ["user_id"], name: "index_submission_votes_on_user_id"
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.bigint "contest_id"
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.bigint "submission_votes_count", default: 0
+    t.boolean "winner", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["contest_id"], name: "index_submissions_on_contest_id"
+    t.index ["project_id"], name: "index_submissions_on_project_id"
+    t.index ["user_id"], name: "index_submissions_on_user_id"
+  end
+
   create_table "subscriptions", force: :cascade do |t|
     t.string "target_type", null: false
     t.bigint "target_id", null: false
@@ -455,8 +498,10 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
+    t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(educational_institute, ''::character varying))::text), 'B'::\"char\"))", stored: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["searchable"], name: "index_users_on_searchable", using: :gin
   end
 
   create_table "votes", id: :serial, force: :cascade do |t|
@@ -479,6 +524,9 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
+  add_foreign_key "contest_winners", "contests"
+  add_foreign_key "contest_winners", "projects"
+  add_foreign_key "contest_winners", "submissions"
   add_foreign_key "custom_mails", "users"
   add_foreign_key "featured_circuits", "projects"
   add_foreign_key "forum_posts", "forum_threads"
@@ -500,6 +548,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_06_19_134023) do
   add_foreign_key "projects", "users", column: "author_id"
   add_foreign_key "stars", "projects"
   add_foreign_key "stars", "users"
+  add_foreign_key "submission_votes", "contests"
+  add_foreign_key "submission_votes", "submissions"
+  add_foreign_key "submission_votes", "users"
+  add_foreign_key "submissions", "contests"
+  add_foreign_key "submissions", "projects"
+  add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
   # no candidate create_trigger statement could be found, creating an adapter-specific one

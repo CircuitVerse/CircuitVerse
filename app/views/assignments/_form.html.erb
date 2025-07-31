@@ -13,7 +13,7 @@
   <% end %>
 
   <% if Flipper.enabled?(:lms_integration, current_user) %>
-    <div id="lms-integration-field" class="field form-group">
+    <div id="lms-integration-field" class="field mb-3">
       <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements"><h6>Integrate with LMS</h6>
        <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
        <div class="primary-checkpoint"></div>
@@ -24,19 +24,19 @@
     </div>
   <% end %>
 
-  <div id="name-field" class="field form-group">
+  <div id="name-field" class="field mb-3">
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :assignment_name, class: "form-control form-input" %>
   </div>
-  <div id="description" class="field form-group">
+  <div id="description" class="field mb-3">
     <h6><%= form.label :description %></h6>
     <%= render partial: "editor/index", locals: { content: @assignment.description } %>
   </div>
-  <div id="deadline-field" class="field form-group projects-tag-form-group">
+  <div id="deadline-field" class="field form-group projects-tag-mb-3">
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
   </div>
-  <div id="grade-field" class="form-group projects-tag-form-group">
+  <div id="grade-field" class="form-group projects-tag-mb-3">
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span><%= t("assignments.form.grade_scale_cant_change") %></span>
@@ -53,7 +53,7 @@
     <% end %>
   </div>
 
-  <div id="restrictions-field" class="field form-group">
+  <div id="restrictions-field" class="field mb-3">
     <label for="restrict-elements" class="primary-checkpoint-container" id="label-restrict-elements"><h6><%= t("assignments.form.enable_element_restriction") %></h6>
       <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
       <div class="primary-checkpoint"></div>
@@ -61,7 +61,7 @@
     <div class="restricted-elements-list"> <!-- Operated by script --> </div>
   </div>
 
-  <div id="restrictions-field" class="field form-group" data-controller="assignment">
+  <div id="restrictions-field" class="field mb-3" data-controller="assignment">
     <label for="restrict-feature" class="primary-checkpoint-container" id="label-restrict-feature"><h6 data-action="click->assignment#handleFeatureMainCheckbox"><%= t("assignments.form.enable_feature_restriction") %></h6>
       <%= check_box_tag "restrict-feature" %>
       <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
@@ -69,7 +69,7 @@
     <div class="restricted-feature-list"> <!-- Operated by script --> </div>
   </div>
 
-  <div class="field form-group">
+  <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
     <%= link_to t("back"), :back, class: "anchor-text" %>
   </div>

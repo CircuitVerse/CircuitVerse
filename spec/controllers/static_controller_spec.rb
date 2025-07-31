@@ -7,6 +7,7 @@ require "rails_helper"
 RSpec.describe StaticController, type: :controller do
   describe "#simulatorvue" do
     it "renders the simulatorvue template with default version" do
+
       get :simulatorvue, params: { path: "/" }
 
       expect(response).to have_http_status(:success)

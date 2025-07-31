@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
-
 require "pg_search"
+
 class Project < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
@@ -30,6 +29,8 @@ class Project < ApplicationRecord
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
   has_many :notifications, as: :notifiable
+  has_one :contest_winner, dependent: :destroy
+  has_many :submissions, dependent: :destroy
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
@@ -40,9 +41,7 @@ class Project < ApplicationRecord
 
   include PgSearch::Model
   accepts_nested_attributes_for :project_datum
-  pg_search_scope :text_search, against: %i[name description], associated_against: {
-    tags: :name
-  }, using: {
+  pg_search_scope :text_search, against: %i[name description], using: {
     tsearch: {
       dictionary: "english", tsvector_column: "searchable"
     }
@@ -72,7 +71,7 @@ class Project < ApplicationRecord
 
   before_destroy :purge_circuit_preview
 
-  self.per_page = 6
+  self.per_page = 9
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
@@ -148,9 +147,9 @@ class Project < ApplicationRecord
   private
 
     def check_validity
-      if (project_access_type != "Private") && !assignment_id.nil?
-        errors.add(:project_access_type, "Assignment has to be private")
-      end
+      return unless (project_access_type != "Private") && !assignment_id.nil?
+
+      errors.add(:project_access_type, "Assignment has to be private")
     end
 
     def clean_description
@@ -164,18 +163,17 @@ class Project < ApplicationRecord
     end
 
     def check_and_remove_featured
-      if saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
-        FeaturedCircuit.find_by(project_id: id)&.destroy
-      end
+      return unless saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
+
+      FeaturedCircuit.find_by(project_id: id)&.destroy
     end
 
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
-      name_changed? || Project.where(slug: slug).count > 1
+      name_changed? || Project.where(slug: slug).many?
     end
 
     def purge_circuit_preview
       circuit_preview.purge if circuit_preview.attached?
     end
 end
-# rubocop:enable Metrics/ClassLength

@@ -1,0 +1,51 @@
+de:
+  projects:
+    add_collaborator_description: "E-Mail-IDs durch Komma, Leerzeichen oder Eingabe getrennt. Benutzer müssen bereits auf der Plattform registriert sein. Beachten Sie, dass die Zusammenarbeit von jetzt an nicht in Echtzeit ist. Jeder Speicherplatz überschreibt die vorherigen Daten."
+    remove_collaborator_message: "Sind Sie sicher, dass Sie diesen Mitarbeiter entfernen möchten?"
+    delete_project_message: "Sind Sie sicher, dass Sie dieses Projekt löschen möchten?"
+    form:
+      feature_circuit_checkpoint: "Empfohlen (nur Administrator)"
+      tag_list_description: "(Geben Sie Ihre Projekt-Tags durch Komma geteilt[,])"
+      project_is_featured_message: "(Dieses Projekt wird vorgestellt. Es wird nicht mehr vorgestellt, wenn der öffentliche Zugriff entfernt wird.)"
+      public: "Öffentlich"
+      private: "Privat"
+      limited_access: "Begrenzter Zugriff"
+    edit:
+      title: "%{name} - Projekt bearbeiten"
+      main_heading: "Projekt bearbeiten"
+    get_projects:
+      searched_projects_heading: "Gesuchte Projekte"
+      searched_tags_heading: "Tags:"
+    stars_count: "Sterne"
+    views_count: "Aufrufe"
+    project_user: "Benutzer:"
+    user_image: "Benutzerbild"
+    show:
+      project_author: "Autor:"
+      project_forked_from: "Geforkt von:"
+      project_access_type: "Projekt-Zugriffstyp:"
+      project_description: "Beschreibung:"
+      project_created_at: "Erstellt:"
+      project_updated_at: "Aktualisiert:"
+      project_embed: "Einbetten"
+      project_copy: "Kopie erstellen"
+      project_collaborator_add: "+ Mitarbeiter hinzufügen"
+      copied_to_clipboard: "In Zwischenablage kopiert!"
+      collaborators: "Mitarbeiter"
+    search:
+      no_result_found: "Keine Ergebnisse gefunden"
+    modal:
+      embed_circuit_heading: "Einbetten Sie Ihren Schaltkreis"
+      height: "Höhe"
+      width: "Width"
+      url: "URL"
+      border: "Border"
+      border_style: "Rahmenstil"
+      publish_button: "Veröffentlichen"
+      advance:
+        advance_option: "Erweiterte Option"
+        clock_time: "Uhr/Uhrzeit"
+        display_title: "Titel anzeigen"
+        fullscreen: "Vollbild"
+        zoom_in_out: "Ein-/Auszoomen"
+        theme: "Thema"

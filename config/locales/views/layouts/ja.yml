@@ -1,0 +1,39 @@
+ja:
+  layout:
+    link_to_simulator: "Simulator"
+    getting_started_dropdown: "はじめに"
+    link_to_learn_more: "詳細情報"
+    link_to_docs: "ドキュメント"
+    link_to_features: "特徴"
+    link_to_teachers: "先生"
+    link_to_blog: "ブログ"
+    link_to_about: "About"
+    link_to_faq: "FAQ"
+    link_to_contests: "コンテスト"
+    footer:
+      social_icon_text: "フォローしてください："
+      link_to_examples: "例"
+      my_circuits: "自分の回路"
+      link_to_contribute: "貢献"
+      link_to_forum: "フォーラム"
+      sponsor_logo_text:
+        brought_by: "以下によって提供されました："
+        hosting_sponsor: "ホスティングスポンサー:"
+        marketed_by: "販売人："
+        incubated_from: "挿入された送信元:"
+        infrastructure_sponsor: "インフラストラクチャスポンサー:"
+      copyright_text: "Copyright ©️ %{time_current_year} CircuitVerse, All rights reserved."
+    header:
+      dashboard: "ダッシュボード"
+      my_groups: "私のグループ"
+      notifications: "通知"
+      language: "言語"
+    mailer:
+      join_us: "私たちに参加"
+      copyright_text: "Copyright ©️ %{time_current_year} CircuitVerse. All rights reserved. 問題についてはsupport@circuitverse.org までお問い合わせください"
+      unsubscribe_email_notifications: "メール通知の購読を解除"
+    simulator:
+      title: "CircuitVerse - オンライン 回路シミュレーション"
+  contest:
+    index:
+      manage_button: "コンテストの管理"

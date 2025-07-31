@@ -1,34 +1,42 @@
 <div class="container">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 center-image">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6 center-image">
       <%= image_tag "SVGs/login.svg", alt: "Login Sketch", class: "users-image" %>
       <h5><%= t("welcome_back_text") %></h5>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-6 col-lg-6">
       <div class="form-container">
         <h1 class="users-main-heading"><%= t("login") %></h1>
         <%= form_with(model: resource, as: resource_name, url: session_path(resource_name), local: true) do |f| %>
         <% flash.each do |key, value| %>
-          <div class="error-message"><%= value %></div>
+          <div class="alert <%= case key.to_s 
+                                when 'notice' then 'alert-success'
+                                when 'alert' then 'alert-danger'
+                                when 'warning' then 'alert-warning'
+                                else 'alert-info' 
+                                end %> alert-dismissible fade show" role="alert">
+            <%= value %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
         <% end %>
-        <div class="field form-group">
+        <div class="field mb-3">
           <h6><%= f.label :email %></h6>
           <div class="input-group">
             <%= f.email_field :email, autofocus: true, placeholder: t('enter_email'),class: "form-control form-input user-email-input" %>
           </div>
         </div>
-        <div class="field form-group">
+        <div class="field mb-3">
           <h6><%= f.label :password %></h6>
           <div class="input-group form-input">
             <%= f.password_field :password, autocomplete: "off", placeholder:t('enter_password') , class: "form-control users-password-input" %>
-            <div class="input-group-addon ml-3 mt-2" onclick="togglePassword()">
+            <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
               <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
             </div>
           </div>
         </div>
         <div class="status-container">
-          <div class="field form-group mb-0">
+          <div class="field mb-3 mb-0">
             <div class="input-group">
               <%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
                 <%= link_to t("users.sessions.forgot_password"), new_password_path(resource_name), class: "anchor-text users-forgot-password-text" %>
@@ -36,7 +44,7 @@
             </div>
           </div>
           <% if devise_mapping.rememberable? -%>
-            <div class="field form-group mb-0">
+            <div class="field mb-3 mb-0">
               <label class="primary-checkpoint-container users-primary-checkpoint mb-0"><h6><%= t("users.sessions.remember_me") %></h6>
                 <%= f.check_box :remember_me %>
                 <div class="primary-checkpoint m-0"></div>
@@ -44,7 +52,7 @@
             </div>
           <% end -%>
         </div>
-        <div class="field form-group">
+        <div class="field mb-3">
           <div class="input-group">
             <% if Flipper.enabled?(:recaptcha) %>
               <%= recaptcha_tags %>
@@ -58,7 +66,7 @@
             </div>
           </div>
         </div>
-        <%= render "users/shared/links" %>
+        <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
       </div>
       <% end %>
     </div>

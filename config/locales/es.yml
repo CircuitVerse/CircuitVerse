@@ -1,0 +1,87 @@
+es:
+  edit: "Editar"
+  show: "Mostrar"
+  delete: "Eliminar"
+  view: "Ver"
+  launch_simulator: "Simulador de lanzamiento"
+  email_us_heading: "Escríbenos a"
+  join_at_slack_heading: "Únete y chatea con nosotros en"
+  join_at_slack_description: "Canal Slack"
+  welcome_back_text: "Bienvenido de nuevo al universo de Circuitos Digitales!"
+  save: "Guardar"
+  back: "Atrás"
+  login: "Iniciar sesión"
+  sign_up: "Regístrate"
+  sign_out: "Cerrar sesión"
+  assignment: "Asignación"
+  launch: "Iniciar"
+  fork: "Fork"
+  more: "Más"
+  submit: "Enviar"
+  features_heading: "Características"
+  features_description: "Diseñar circuitos rápida y fácilmente con una interfaz de usuario moderna e intuitiva con arrastrar y soltar, copiar/pegar, acercar y mucho más."
+  add_members: "Añadir miembros"
+  add_mentors: "Añadir mentores"
+  remove: "Eliminar"
+  reopen: "Reabrir"
+  close: "Cerrar"
+  not_available: "N.A."
+  not_entered: "No ingresado"
+  enter_email: "Introducir Email"
+  enter_password: "Introduzca contraseña"
+  enter_name: "Ingrese nombre"
+  registration_blocked: "El registro está actualmente desactivado"
+  google: "Google"
+  facebook: "Facebook"
+  github: "Github"
+  gitlab: "Gitlab"
+  components:
+    search_bar:
+      placeholders:
+        users: "Buscar usuarios"
+        projects: "Buscar proyectos"
+      options:
+        users: "Usuarios"
+        projects: "Proyectos"
+    project:
+      show_more: "Mostrar más"
+      options:
+        users: "Usuarios"
+        projects: "Proyectos"
+  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
+  datetime:
+    distance_in_words:
+      half_a_minute: "medio minuto"
+      less_than_x_seconds:
+        one: "1 segundo" # default was: "less than 1 second"
+        other: "%{count} segundos" # default was: "less than %{count} seconds"
+      x_seconds:
+        one: "1 segundo"
+        other: "%{count} segundos"
+      less_than_x_minutes:
+        one: "un minuto" # default was: "less than a minute"
+        other: "%{count} minutos" # default was: "less than %{count} minutes"
+      x_minutes:
+        one: "1 minuto"
+        other: "%{count} minutos"
+      about_x_hours:
+        one: "1 hora" # default was: "about 1 hour"
+        other: "%{count} horas" # default was: "about %{count} hours"
+      x_days:
+        one: "1 día"
+        other: "%{count} días"
+      about_x_months:
+        one: "1 mes" # default was: "about 1 month"
+        other: "%{count} meses" # default was: "about %{count} months"
+      x_months:
+        one: "1 mes"
+        other: "%{count} meses"
+      about_x_years:
+        one: "1 año" # default was: "about 1 year"
+        other: "%{count} años" # default was: "about %{count} years"
+      over_x_years:
+        one: "1 año" # default was: "over 1 year"
+        other: "%{count} años" # default was: "over %{count} years"
+      almost_x_years:
+        one: "1 año" # default was: "almost 1 year"
+        other: "%{count} años" # default was: "almost %{count} years"

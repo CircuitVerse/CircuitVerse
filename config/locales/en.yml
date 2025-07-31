@@ -31,6 +31,23 @@ en:
   enter_password: "Enter Password"
   enter_name: "Enter Name"
   registration_blocked: "Sign up is Currently disabled"
+  google: "Google"
+  facebook: "Facebook"
+  github: "Github"
+  gitlab: "Gitlab"
+  components:
+    search_bar:
+      placeholders:
+        users: "Search for users"
+        projects: "Search for projects"
+      options:
+        users: "Users"
+        projects: "Projects"
+    project:
+      show_more: "Show More"
+      options:
+        users: "Users"
+        projects: "Projects"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

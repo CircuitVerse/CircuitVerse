@@ -1,0 +1,51 @@
+es:
+  projects:
+    add_collaborator_description: "Introduzca IDs de correo electrónico separados por comas, espacios o entrar. Los usuarios deben estar registrados ya en la plataforma. Tenga en cuenta que la colaboración no es en tiempo real a partir de ahora. Cada guardado sobrescribe los datos anteriores."
+    remove_collaborator_message: "¿Estás seguro de que quieres eliminar a este colaborador?"
+    delete_project_message: "¿Está seguro que desea eliminar este proyecto?"
+    form:
+      feature_circuit_checkpoint: "Destacado (sólo Administrador)"
+      tag_list_description: "(Introduzca las etiquetas de su proyecto divididas por coma[,])"
+      project_is_featured_message: "(Este proyecto está destacado. Ya no será destacado si se elimina el acceso público.)"
+      public: "Público"
+      private: "Privado"
+      limited_access: "Acceso limitado"
+    edit:
+      title: "%{name} - Editar proyecto"
+      main_heading: "Editar proyecto"
+    get_projects:
+      searched_projects_heading: "Proyectos buscados"
+      searched_tags_heading: "Etiquetas:"
+    stars_count: "Estrellas"
+    views_count: "Vistas"
+    project_user: "Usuario:"
+    user_image: "Imagen del usuario"
+    show:
+      project_author: "Autor:"
+      project_forked_from: "Bifurcado de:"
+      project_access_type: "Tipo de acceso al proyecto:"
+      project_description: "Descripción:"
+      project_created_at: "Creado:"
+      project_updated_at: "Actualizado:"
+      project_embed: "Incrustar"
+      project_copy: "Crear copia"
+      project_collaborator_add: "+ Añadir un colaborador"
+      copied_to_clipboard: "¡Copiado al portapapeles!"
+      collaborators: "Colaboradores"
+    search:
+      no_result_found: "No se encontraron resultados"
+    modal:
+      embed_circuit_heading: "Incrustar tu circuito"
+      height: "Altura"
+      width: "Width"
+      url: "URL"
+      border: "Border"
+      border_style: "Estilo del borde"
+      publish_button: "Publicar"
+      advance:
+        advance_option: "Opción de avance"
+        clock_time: "Reloj/Hora"
+        display_title: "Mostrar título"
+        fullscreen: "Pantalla completa"
+        zoom_in_out: "Apagar"
+        theme: "Tema"

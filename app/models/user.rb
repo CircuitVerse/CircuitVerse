@@ -5,23 +5,26 @@ class User < ApplicationRecord
   require "pg_search"
   include SimpleDiscussion::ForumUser
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
-  self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size profile_picture_updated_at]
+  self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size
+                             profile_picture_updated_at]
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars
+  has_many :votes, dependent: :destroy
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
   devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :omniauthable, :saml_authenticatable, omniauth_providers: %i[google_oauth2 facebook github gitlab]
+         :validatable, :omniauthable, :saml_authenticatable,
+         omniauth_providers: %i[google_oauth2 facebook github gitlab]
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
   has_many :grades
   acts_as_commontator
-
+  has_many :submissions, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: "project", through: :collaborations
 
@@ -51,7 +54,8 @@ class User < ApplicationRecord
 
   include PgSearch::Model
 
-  pg_search_scope :text_search, against: %i[name educational_institute country]
+  pg_search_scope :text_search, against: %i[name educational_institute],
+                                using: { tsearch: { dictionary: "english", tsvector_column: "searchable" } }
 
   searchable do
     text :name
@@ -75,6 +79,7 @@ class User < ApplicationRecord
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
                          provider: access_token.provider,
+                         confirmed_at: Time.zone.now,
                          uid: access_token.uid)
     user
   end
@@ -97,8 +102,12 @@ class User < ApplicationRecord
     admin?
   end
 
-  def send_devise_notification(notification, *args)
-    devise_mailer.send(notification, self, *args).deliver_later
+  def send_devise_notification(notification, *)
+    devise_mailer.send(notification, self, *).deliver_later
+  end
+
+  def votes_for_contest(contest)
+    SubmissionVote.where(user_id: id, contest_id: contest).count
   end
 
   private

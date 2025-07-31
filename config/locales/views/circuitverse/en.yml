@@ -24,8 +24,7 @@ en:
         item1_text: "Contribute to the open source project"
         item2_text: "Add new features to the CircuitVerse project"
         item3_text: "Find and fix bugs to the CircuitVerse project"
-      become_patreon: "Become a Patreon"
-      donate_via_paypal: "Donate through PayPal"
+      donate_via_opencollective: "Donate through Open Collective"
     examples:
       title: "CircuitVerse - Examples"
       main_heading: "EXAMPLES"
@@ -39,17 +38,19 @@ en:
       for_contributors: "For Contributors"
       features:
         main_heading: "Features"
-        main_description: "Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom, and more."
+        main_description: "Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom, and more"
         item1_heading: "Export High-Resolution Images"
-        item1_text: "CircuitVerse can export high-resolution images in multiple formats including SVG."
+        item1_text: "Export high-resolution images in multiple formats including SVG"
         item2_heading: "Combinational Analysis"
-        item2_text: "Automatically generate circuit based on truth table data. This is great to create complex logic circuits and can be easily be made into a subcircuit."
-        item3_heading: "Embed in Blogs"
-        item3_text: "Since CircuitVerse is built in HTML5, an iFrame can be generated for each project allowing the user to embed it almost anywhere."
-        item4_heading: "Use Sub circuits"
-        item4_text: "Create subcircuits once and use them repeatedly. This allows easier and more structured design."
-        item5_heading: "Multi Bit Buses and components"
-        item5_text: "CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered."
+        item2_text: "Automatically generate circuits from truth tables"
+        item3_heading: "Testbench & Timing Diagram"
+        item3_text: "Test your circuit using a testbench and validate its behavior with a timing diagram"
+        item4_heading: "Embed in Blogs"
+        item4_text: "Easily embed your circuits into blogs and websites using HTML5 iFrames, ensuring seamless sharing and integration"
+        item5_heading: "Use Sub circuits"
+        item5_text: "Create subcircuits once and use them repeatedly. For easier and more structured design"
+        item6_heading: "Multi Bit Buses and components"
+        item6_text: "CircuitVerse supports multi bit-wires, this means circuit design is easier, faster, and uncluttered"
       featured_examples:
         main_heading: "Featured Examples"
         main_description: "Learn and get inspired from the best examples"
@@ -149,3 +150,4 @@ en:
       no_waiver:
         main_heading: "15. No Waiver"
         description1: "No waiver of any term of these Terms of Use shall be deemed a further or continuing waiver of such term or any other term, and the CircuitVerse Team's failure to assert any right or provision under these Terms of Use shall not constitute a waiver of such right or provision."
+        

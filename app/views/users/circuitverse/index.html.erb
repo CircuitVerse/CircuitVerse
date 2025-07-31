@@ -25,19 +25,19 @@
   <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
       <h6><%= notice %></h6>
     </div>
   </div>
   <% end %>
   <div class="row center-row users-details-container">
     <div class="row center-row">
-      <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+      <div class="col-12 col-sm-12 col-md-5 col-lg-5">
         <div class="row center-row">
           <%= image_tag user_profile_picture(@profile.profile_picture), alt: "project.name", class: "center-row search-usersearch-image" %>
         </div>
       </div>
-      <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7">
+      <div class="col-12 col-sm-12 col-md-7 col-lg-7">
         <h4 class="users-user-name"><%= @profile.name %></h4>
         <div class="search-userdetails-container">
           <p class="search-user-details-text"><%= t("users.circuitverse.member_since_html", member_since: @profile.member_since) %></p>
@@ -49,14 +49,14 @@
             <% end %>
           </p>
           <p class="search-user-details-text">
-            <% if @profile.country_name == "Not Entered" %>
+            <% if @profile.country_name.blank? %>
               <%= t("users.circuitverse.country_html", country_name: t("not_entered")) %>
             <% else %>
               <%= t("users.circuitverse.country_html", country_name: @profile.country_name) %>
             <% end %>
           </p>
           <% if policy(@user).edit? %>
-            <a class="btn primary-button ml-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
+            <a class="btn primary-button ms-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
           <% end %>
         </div>
       </div>

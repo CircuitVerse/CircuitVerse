@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module SearchHelper
-  MAX_RESULTS_PER_PAGE = 5
+  MAX_RESULTS_PER_PAGE = 9
 
   def query(resource, query_params)
     case resource
@@ -11,7 +11,7 @@ module SearchHelper
     when "Projects"
       # Project query
       return ProjectsQuery.new(query_params, Project.public_and_not_forked).results,
-       "/projects/search"
+             "/projects/search"
     end
   end
 end

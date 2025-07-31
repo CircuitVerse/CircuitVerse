@@ -11,11 +11,11 @@ hi:
       member_since_html: "<strong>सदस्य कितने दिनों से:</strong> %{member_since}"
       educational_institutes_html: "<strong>शैक्षिक संस्था:</strong> %{educational_institute}"
       country_html: "<strong>देश:</strong> %{country_name}"
-      total_circuits_made_html: "<strong>कुल सर्किट बनाये: </strong> %{total_circuits}"
+      total_circuits_made_html: '<strong>कुल सर्किट बनाये: </strong> %{total_circuits}'
       edit_profile:
         title: "%{name} - प्रोफ़ाइल एडिट करें"
         heading: "प्रोफ़ाइल एडिट करें"
-        description_html: "<sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> से चिह्नित फ़ील्ड अनिवार्य हैं"
+        description_html: '<sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> से चिह्नित फ़ील्ड अनिवार्य हैं'
         profile_picture: "प्रोफ़ाइल फोटो"
         choose_file: "फ़ाइल चुनें"
         remove_picture: "फोटो हटाएं"
@@ -89,7 +89,7 @@ hi:
       mark_as_read_button: "सभी को पढ़ा हुआ मार्क करें"
       no_notifications: "आपके पास कोई नोटिफिकेशन्स नहीं है!"
       no_unread_notifications: "आपके पास कोई अपठित नोटिफिकेशन्स नहीं है!"
-      see_all : "सभी देखें"
+      see_all: "सभी देखें"
       fork_notification: "%{user} ने आपके प्रोजेक्ट %{project} को फोर्क किया"
       star_notification: "%{user} ने आपका प्रोजेक्ट %{project} स्टार किया"
       new_assignment_notification: "आपको एक नया कार्य सौंपा गया है! - '%{assignment_name}'"

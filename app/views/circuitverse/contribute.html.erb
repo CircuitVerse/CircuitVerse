@@ -2,14 +2,14 @@
 
 <div class="container">
   <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
+    <div class="col col-sm col-md col-lg">
       <h1 class="main-heading"><%= t("circuitverse.contribute.main_heading") %></h1>
         <p class="main-description"><%= t("circuitverse.contribute.main_description") %></p>
         <p class="centered-paragraph"><%= t("circuitverse.contribute.submain_description") %></p>
     </div>
   </div>
   <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
+    <div class="col col-sm col-md col-lg">
       <div class="social-card contribute-social-card">
         <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
           <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
@@ -36,69 +36,48 @@
   <hr>
 
   <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
+    <div class="col col-sm col-md col-lg">
       <h2 class="submain-heading"><%= t("circuitverse.contribute.how_to_support_heading") %></h2>
     </div>
   </div>
-  <div class="row center-row">
-    <div class="card-spacing-media col-xs-12 col-sm-12 col-md-6 col-lg-4">
-      <div class="card contribute-card">
-        <%= image_tag "SVGs/student.svg", alt: "Student Icon", class: "card-img-top contribute-card-image" %>
-        <div class="card-body contribute-card-body">
-          <h3 class="card-title"><%= t("circuitverse.contribute.student_card.main_heading") %></h3>
-          <ul class="card-text">
-            <li><%= t("circuitverse.contribute.student_card.item1_text") %></li> <br>
-            <li><%= t("circuitverse.contribute.student_card.item2_text_html") %></li> <br>
-            <li><%= t("circuitverse.contribute.student_card.item3_text") %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="card-spacing-media col-xs-12 col-sm-12 col-md-6 col-lg-4">
-      <div class="card contribute-card">
-      <%= image_tag "SVGs/professor.svg", alt: "Professor Icon", class: "card-img-top contribute-card-image" %>
-        <div class="card-body contribute-card-body">
-          <h3 class="card-title"><%= t("circuitverse.contribute.teacher_card.main_heading") %></h3>
-          <ul class="card-text">
-            <li><%= t("circuitverse.contribute.teacher_card.item1_text") %></li> <br>
-            <li><%= t("circuitverse.contribute.teacher_card.item2_text") %></li> <br>
-            <li><%= t("circuitverse.contribute.teacher_card.item3_text") %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-    <div class="card-spacing-media col-xs-12 col-sm-12 col-md-12 col-lg-4">
-      <div class="card contribute-card">
-       <%= image_tag "SVGs/coder.svg", alt: "Developer Icon", class: "card-img-top contribute-card-image" %>
-        <div class="card-body contribute-card-body">
-          <h3 class="card-title"><%= t("circuitverse.contribute.developer_card.main_heading") %></h3>
-          <ul class="card-text">
-            <li><%= t("circuitverse.contribute.developer_card.item1_text") %></li> <br>
-            <li><%= t("circuitverse.contribute.developer_card.item2_text") %></li> <br>
-            <li><%= t("circuitverse.contribute.developer_card.item3_text") %></li>
-          </ul>
-        </div>
-      </div>
-    </div>
+  <div class="row center-row gy-5">
+  <%= render(Contribute::CardComponent.new(
+      image_src: "SVGs/student.svg",
+      alt_text: "Student Icon",
+      title_key: "circuitverse.contribute.student_card.main_heading",
+      items: [
+        "circuitverse.contribute.student_card.item1_text",
+        "circuitverse.contribute.student_card.item2_text_html",
+        "circuitverse.contribute.student_card.item3_text"
+      ]
+    )) %>
+    <%= render(Contribute::CardComponent.new(
+      image_src: "SVGs/professor.svg",
+      alt_text: "Professor Icon",
+      title_key: "circuitverse.contribute.teacher_card.main_heading",
+      items: [
+        "circuitverse.contribute.teacher_card.item1_text",
+        "circuitverse.contribute.teacher_card.item2_text",
+        "circuitverse.contribute.teacher_card.item3_text"
+      ]
+    )) %>
+    <%= render(Contribute::CardComponent.new(
+      image_src: "SVGs/coder.svg",
+      alt_text: "Developer Icon",
+      title_key: "circuitverse.contribute.developer_card.main_heading",
+      items: [
+        "circuitverse.contribute.developer_card.item1_text",
+        "circuitverse.contribute.developer_card.item2_text",
+        "circuitverse.contribute.developer_card.item3_text"
+      ],
+      column_classes: "col-12 col-sm-12 col-md-12 col-lg-4"
+    )) %>
   </div>
-  <div class="row center-row">
-    <div class="col-xs col-sm col-md col-lg">
-      <div class="contribute-pay-card-container">
-        <p><%= t("circuitverse.contribute.become_patreon") %></p>
-          <a href="https://www.patreon.com/CircuitVerse" target="_blank">
-            <div class="contribute-pay-card">
-              <%= image_tag "logos/patreon-logo.png", alt: "Patreon Logo" %>
-            </div>
-          </a>
-      </div>
-      <div class="contribute-pay-card-container">
-        <p><%= t("circuitverse.contribute.donate_via_paypal") %></p>
-          <a href="https://www.paypal.me/satviksr" target="_blank">
-            <div class="contribute-pay-card">
-              <%= image_tag "logos/paypal-logo.jpg", alt: "Paypal Logo" %>
-            </div>
-          </a>
-      </div>
-    </div>
-  </div>
-</div>
+  <%= render(
+    Donation::DonationCardComponent.new(
+      image_path: "logos/opencollective-logo.png",
+      link: "https://opencollective.com/CircuitVerse/contribute",
+      alt_text: "Open Collective Logo",
+      description: t("circuitverse.contribute.donate_through_open_collective")
+    )
+  ) %>

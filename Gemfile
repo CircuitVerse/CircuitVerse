@@ -22,7 +22,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0"
+gem "rails", "~> 7.0.8.7"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -62,7 +62,7 @@ gem "sidekiq"
 gem "sunspot_rails"
 
 # For home page pagination
-gem "will_paginate", "~> 3.3.1"
+gem "will_paginate", "~> 4.0.1"
 gem "will_paginate-bootstrap"
 
 gem "country_select", "~> 8.0"
@@ -99,7 +99,7 @@ gem "meta-tags"
 gem "webpush"
 
 gem "bootsnap", require: false
-gem "rexml"
+gem 'rexml', '>= 3.3.9'
 
 gem "font-awesome-sass", "~> 5.13.1"
 
@@ -123,7 +123,6 @@ gem 'vite_rails'
 group :development, :test do
   # Adds support for debug
   gem "debug"
-  # Adds support for Capybara system testing and selenium driver
   gem "coveralls_reborn", "~> 0.26.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
@@ -142,13 +141,14 @@ group :test do
   gem "capybara", "~> 3.39"
   gem "json-schema"
   gem "rspec_junit_formatter"
-  gem "selenium-webdriver"
   gem "shoulda-matchers"
   gem "webmock"
   gem "simplecov"
   gem "simplecov-lcov"
   gem "undercover"
   gem "undercover-checkstyle"
+  gem "percy-capybara"
+  gem "capybara-playwright-driver"
 end
 
 group :development do
@@ -158,7 +158,6 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
-  gem "spring"
   gem "sunspot_solr"
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
@@ -171,11 +170,9 @@ gem "tzinfo-data", platforms: %i[mingw mswin x64_mingw jruby]
 # mails
 gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 
-gem "bugsnag", "~> 6.24"
 
 gem "invisible_captcha", "~> 2.0"
 
-gem "newrelic_rpm", "~> 8.14"
 
 gem "oj", "~> 3.15"
 
@@ -192,7 +189,7 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.116"
+gem "aws-sdk-s3", "~> 1.176"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.2"
@@ -220,5 +217,16 @@ gem "maintenance_tasks", "~> 2.3"
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
+gem "sentry-sidekiq", "~> 5.17"
+
 # for SAML based SSO
 gem 'devise_saml_authenticatable'
+
+gem 'activerecord_cursor_paginate'
+
+gem 'concurrent-ruby', '1.3.4'
+gem 'mutex_m'
+
+gem "observer", "~> 0.1.2"
+
+gem "drb", "~> 2.2"
