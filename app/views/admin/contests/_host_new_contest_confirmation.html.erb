@@ -10,7 +10,11 @@
         <%= t("contest.host_new_contest_modal.description_html") %>
       </div>
       <div class="modal-footer">
-        <%= link_to t("contest.host_new_contest_modal.confirm_button"), admin_contests_path, class: "btn primary-button groups-primary-button", method: :post %>
+        <%= form_with url: admin_contests_path, method: :post, scope: :contest, local: true do |form| %>
+          <%= form.hidden_field :status,   value: "live" %>
+          <%= form.hidden_field :deadline, value: 1.month.from_now.strftime("%Y-%m-%dT%H:%M") %>
+          <%= form.submit t("contest.host_new_contest_modal.confirm_button"), class: "btn primary-button groups-primary-button" %>
+        <% end %>
       </div>
     </div>
   </div>

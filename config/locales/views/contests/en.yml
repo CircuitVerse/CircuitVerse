@@ -40,6 +40,7 @@ en:
       heading: "Host a new Contest"
       description: "Are you sure you want to start a new contest?"
       description_html: "<p>Hosting new contest can:</p><ul><li>End the ongoing contest(if any)</li><li>Make announcement to all the users to participate</li></ul>"
+      confirm_button: "Confirm"
     update_contest_modal:
       heading: "Update Contest Deadline"
       sub_heading: "Set Contest Deadline"

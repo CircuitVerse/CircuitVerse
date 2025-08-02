@@ -60,7 +60,7 @@ class Admin::ContestsController < ApplicationController
     end
 
     def contest_params
-      params.fetch(:contest, {}).permit(:name, :title, :description, :deadline, :status)
+      params.require(:contest).permit(:name, :title, :description, :deadline, :status)
     end
 
     def parse_deadline_or_redirect(str)
