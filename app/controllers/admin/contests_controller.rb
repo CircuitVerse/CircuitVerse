@@ -18,6 +18,7 @@ class Admin::ContestsController < ApplicationController
     @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live))
 
     if @contest.save
+      ContestScheduler.call(@contest)
       redirect_to contest_path(@contest), notice: t(".success")
     else
       @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
@@ -41,6 +42,7 @@ class Admin::ContestsController < ApplicationController
       return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
 
       if @contest.update(deadline: parsed_deadline)
+        ContestScheduler.call(@contest)
         redirect_to contest_path(@contest), notice: t(".deadline_updated")
       else
         redirect_to admin_contests_path,

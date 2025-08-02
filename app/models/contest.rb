@@ -14,18 +14,9 @@ class Contest < ApplicationRecord
   validates :status,   presence: true
   validate  :only_one_live_contest,      if: -> { live? && will_save_change_to_status? }
 
-  after_commit :schedule_deadline_job, on: %i[create update]
-
   self.per_page = 8
 
   private
-
-    def schedule_deadline_job
-      return if completed?
-
-      wait_seconds = [(deadline - Time.zone.now).to_i, 0].max
-      ContestDeadlineJob.set(wait: wait_seconds.seconds).perform_later(id)
-    end
 
     def deadline_must_be_in_future
       return unless deadline.present? && deadline < Time.zone.now
