@@ -1,18 +1,11 @@
 <div class="modal fade" id="withdraw-submission-confirmation-modal"
-     tabindex="-1" role="dialog"
-     aria-labelledby="withdrawModalLabel" aria-hidden="true">
-
+     tabindex="-1" aria-labelledby="withdrawModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
       <div class="modal-header">
-        <h5 class="modal-title">
-          <%= t("contest.withdraw_submission_modal.heading") %>
-        </h5>
-        <button type="button" class="close" data-bs-dismiss="modal"
-                aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+        <h5 class="modal-title"><%= t("contest.withdraw_submission_modal.heading") %></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="modal-body">
@@ -20,11 +13,10 @@
       </div>
 
       <div class="modal-footer">
-        <!-- @submission is passed in from the component constructor -->
-        <%= button_to withdraw_contest_submission_path(@contest, @submission),
-                      id:    "withdraw-submission-button",
-                      class: "btn primary-button danger-primary-button",
-                      method: :post do %>
+        <%= link_to "#",
+                    id:    "withdraw-submission-button",
+                    class: "btn primary-button danger-primary-button",
+                    method: :post do %>
           <%= t("contest.withdraw") %>
         <% end %>
       </div>

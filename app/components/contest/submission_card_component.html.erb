@@ -25,13 +25,13 @@
         <% project = @submission.project %>
 
         <% if @current_user && project.author == @current_user %>
-          <%= link_to withdraw_contest_submission_path(@contest, @submission),
+          <%= link_to "#",
                       class:  "previewButton btn primary-button danger-primary-button withdraw-button",
                       id:     "withdraw-submission-#{@submission.id}",
-                      method: :post,
-                      data:   { contest:       @contest,
-                                submission:     @submission,
-                                submission_id:  @submission.id } do %>
+                      data:   { bs_toggle:  "modal",
+                                bs_target:  "#withdraw-submission-confirmation-modal",
+                                contest:    @contest,
+                                submission: @submission } do %>
             Withdraw
           <% end %>
 
