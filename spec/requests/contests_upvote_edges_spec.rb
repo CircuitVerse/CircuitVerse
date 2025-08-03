@@ -24,7 +24,7 @@ RSpec.describe "Contests::Submissions::Votes#create edge cases", type: :request 
     other_sub    = create(:submission, contest: live_contest)
 
     SubmissionVote::USER_VOTES_PER_CONTEST.times do
-      create(:submission_vote, contest: live_contest, user: user)
+      live_contest.submission_votes.create!(user: user)
     end
 
     post contest_submission_votes_path(live_contest, other_sub)
