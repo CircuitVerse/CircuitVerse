@@ -3,12 +3,12 @@
 require "rails_helper"
 
 RSpec.describe ContestsController, type: :controller do
-  let(:user) { create(:user) }
+  let(:user)    { create(:user) }
   let(:contest) { create(:contest) }
 
   before do
     sign_in user
-    flipper_enable(:contests)
+    enable_contests!
   end
 
   describe "GET #index" do
