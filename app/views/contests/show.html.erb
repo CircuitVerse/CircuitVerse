@@ -56,7 +56,7 @@
       <span class="contest-header-sub-description"><%= t("contest.show.user_submissions_description") %></span>
     </div>
     <div id="my-circuits-div" class="row center-row circuit-page">
-      <% @contest.submissions.where(user_id: current_user.id).each do |submission| %>
+      <% @user_submission.each do |submission| %>
         <%= render Contest::SubmissionCardComponent.new(submission: submission, contest: @contest, current_user: current_user) %>
       <% end %>
     </div>
