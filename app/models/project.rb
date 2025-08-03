@@ -18,7 +18,7 @@ class Project < ApplicationRecord
   belongs_to :assignment, optional: true
 
   has_noticed_notifications model_name: "NoticedNotification"
-  has_many :project_notifications, as: :recipient, class_name: "NoticedNotification", dependent: :nullify
+  has_many :project_notifications, as: :recipient, class_name: "NoticedNotification", dependent: :destroy
   has_many :author_notifications, through: :author, source: :noticed_notifications
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
