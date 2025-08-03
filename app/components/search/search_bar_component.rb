@@ -36,11 +36,29 @@ class Search::SearchBarComponent < ViewComponent::Base
       }
     end
 
-    def sorting_options
+    def sorting_options_for_users
+      [
+        { value: "created_at", label: "Join Date" },
+        { value: "total_circuits", label: "Total Circuits" }
+      ]
+    end
+
+    def sorting_options_for_projects
       [
         { value: "created_at", label: "Created Date" },
         { value: "views", label: "Views" },
         { value: "stars", label: "Stars" }
       ]
+    end
+
+    def all_sorting_options
+      {
+        "Users" => sorting_options_for_users,
+        "Projects" => sorting_options_for_projects
+      }
+    end
+
+    def current_sorting_options
+      resource == "Users" ? sorting_options_for_users : sorting_options_for_projects
     end
 end

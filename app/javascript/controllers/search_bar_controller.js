@@ -54,6 +54,9 @@ export default class extends Controller {
         const selectValue = this.hiddenSelectTarget.value;
         const placeholderMap = this.placeholdersValue;
         this.inputTarget.placeholder = placeholderMap[selectValue];
+        
+        // Dispatch event to notify sorting controller of resource change
+        this.dispatch('resourceChanged', { detail: { resource: selectValue } });
     }
 
     selectOption(event) {

@@ -9,12 +9,31 @@ export default class extends Controller {
         return {
             selectedSort: String,
             sortDirection: String,
-            options: Array,
+            allOptions: Object,
+            currentResource: String,
         };
     }
 
     connect() {
         this.buildSortingOptions();
+    }
+
+    updateOptionsForResource(event) {
+        const { resource } = event.detail;
+        this.currentResourceValue = resource;
+        this.buildSortingOptions();
+        this.resetToFirstOption();
+    }
+
+    resetToFirstOption() {
+        const currentOptions = this.getCurrentOptions();
+        if (currentOptions.length > 0) {
+            this.selectedSortValue = currentOptions[0].value;
+        }
+    }
+
+    getCurrentOptions() {
+        return this.allOptionsValue[this.currentResourceValue] || [];
     }
 
     toggleOptions() {
@@ -38,33 +57,36 @@ export default class extends Controller {
     }
 
     buildSortingOptions() {
-        if (this.hasOptionsListTarget && this.optionsValue) {
-            this.optionsListTarget.innerHTML = '';
+        if (!this.hasOptionsListTarget || !this.allOptionsValue) return;
 
-            this.optionsValue.forEach((option) => {
-                const li = document.createElement('li');
-                li.className = 'sorting-option';
-                li.dataset.value = option.value;
-                li.dataset.action = 'click->search-sorting#selectOption';
-                li.textContent = option.label;
-                this.optionsListTarget.appendChild(li);
-            });
-        }
+        this.optionsListTarget.innerHTML = '';
+        const currentOptions = this.getCurrentOptions();
+
+        currentOptions.forEach((option) => {
+            const li = document.createElement('li');
+            li.className = 'sorting-option';
+            li.dataset.value = option.value;
+            li.dataset.action = 'click->search-sorting#selectOption';
+            li.textContent = option.label;
+            this.optionsListTarget.appendChild(li);
+        });
     }
 
     updateButtonText() {
-        const option = this.optionsValue.find((opt) => opt.value === this.selectedSortValue);
-        const defaultOption = this.optionsValue[0];
+        if (!this.hasSortingTarget) return;
 
-        if (this.hasSortingTarget) {
-            let buttonText = 'Created Date';
-            if (option) {
-                buttonText = option.label;
-            } else if (defaultOption) {
-                buttonText = defaultOption.label;
-            }
-            this.sortingTarget.textContent = buttonText;
+        const currentOptions = this.getCurrentOptions();
+        const option = currentOptions.find(opt => opt.value === this.selectedSortValue);
+        const defaultOption = currentOptions[0];
+
+        let buttonText = 'Created Date';
+        if (option) {
+            buttonText = option.label;
+        } else if (defaultOption) {
+            buttonText = defaultOption.label;
         }
+        
+        this.sortingTarget.textContent = buttonText;
     }
 
     toggleSortingDirection() {
