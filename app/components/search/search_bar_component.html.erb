@@ -20,7 +20,7 @@
         <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
       </button>
     </div>
-    <div class="sorting-container w-25" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>">
+    <div class="sorting-container w-25" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-options-value="<%= sorting_options.to_json %>">
       <div class="d-flex sorting-buttons justify-content-center h-100">
         <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
           <%= sort_by %>
@@ -31,9 +31,6 @@
         </button>
       </div>
       <ul class="sorting-options d-none" data-search-sorting-target="optionsList">
-        <li class="sorting-option" data-value="created_at" data-action="click->search-sorting#selectOption">Created Date</li>
-        <li class="sorting-option" data-value="views" data-action="click->search-sorting#selectOption">Views</li>
-        <li class="sorting-option" data-value="stars" data-action="click->search-sorting#selectOption">Stars</li>
       </ul>
       <%= hidden_field_tag :sort_by, sort_by || "created_at", data: { search_sorting_target: "hiddenSortBy" } %>
       <%= hidden_field_tag :sort_direction, sort_direction || "asc", data: { search_sorting_target: "hiddenSortDirection" } %>

@@ -35,4 +35,12 @@ class Search::SearchBarComponent < ViewComponent::Base
         "Projects" => I18n.t("components.search_bar.options.projects")
       }
     end
+
+    def sorting_options
+      [
+        { value: "created_at", label: "Created Date" },
+        { value: "views", label: "Views" },
+        { value: "stars", label: "Stars" }
+      ]
+    end
 end

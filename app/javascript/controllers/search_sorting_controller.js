@@ -9,7 +9,12 @@ export default class extends Controller {
         return {
             selectedSort: String,
             sortDirection: String,
+            options: Array,
         };
+    }
+
+    connect() {
+        this.buildSortingOptions();
     }
 
     toggleOptions() {
@@ -32,15 +37,33 @@ export default class extends Controller {
         this.updateButtonText();
     }
 
+    buildSortingOptions() {
+        if (this.hasOptionsListTarget && this.optionsValue) {
+            this.optionsListTarget.innerHTML = '';
+
+            this.optionsValue.forEach((option) => {
+                const li = document.createElement('li');
+                li.className = 'sorting-option';
+                li.dataset.value = option.value;
+                li.dataset.action = 'click->search-sorting#selectOption';
+                li.textContent = option.label;
+                this.optionsListTarget.appendChild(li);
+            });
+        }
+    }
+
     updateButtonText() {
-        const textMap = {
-            created_at: 'Created Date',
-            views: 'Views',
-            stars: 'Stars',
-        };
+        const option = this.optionsValue.find((opt) => opt.value === this.selectedSortValue);
+        const defaultOption = this.optionsValue[0];
 
         if (this.hasSortingTarget) {
-            this.sortingTarget.textContent = textMap[this.selectedSortValue] || 'Created Date';
+            let buttonText = 'Created Date';
+            if (option) {
+                buttonText = option.label;
+            } else if (defaultOption) {
+                buttonText = defaultOption.label;
+            }
+            this.sortingTarget.textContent = buttonText;
         }
     }
 
