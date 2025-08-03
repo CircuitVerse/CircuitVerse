@@ -76,7 +76,7 @@
         </div>
       </div>
 
-      <%= render partial: "close_contest_confirmation",  locals: { contest: contest } %>
+      <%= render Admin::ContestCloseModalComponent.new(contest: contest) %>
       <%= render Admin::ContestUpdateDeadlineModalComponent.new(contest: contest) %>
     <% end %>
   </div>
