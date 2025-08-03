@@ -34,8 +34,8 @@
             <%= form.datetime_local_field :deadline,
                   class:    "form-control",
                   id:       "contest_deadline",
-                  min:      Time.current.strftime("%Y-%m-%dT%H:%M"),
-                  value:    @contest.deadline&.strftime("%Y-%m-%dT%H:%M"),
+                  min:      Time.current.in_time_zone.strftime("%Y-%m-%dT%H:%M"),
+                  value:    @contest.deadline&.in_time_zone&.strftime("%Y-%m-%dT%H:%M"),
                   required: true %>
           </div>
         </div>
