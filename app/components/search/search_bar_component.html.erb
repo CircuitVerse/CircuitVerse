@@ -1,22 +1,42 @@
-<div class="container" data-controller="search-bar" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
-  <%= form_tag("/search", method: "get", id: "search-box", class: "search-bar-form") do %>
-    <div class="select-wrapper" data-search-bar-target="selectWrapper">
-      <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
-        <span data-search-bar-target="selectedOption"><%= option_labels[resource || resource_options.first] %></span>
-        <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
-      </button>
-      <div class="select-dropdown" data-search-bar-target="dropdown">
-        <% resource_options.each do |option| %>
-          <div class="select-option <%= "active" if option == (resource || resource_options.first) %>" data-value="<%= option %>" data-action="click->search-bar#selectOption">
-            <%= option_labels[option] %>
-          </div>
-        <% end %>
+<div class="container search-bar-container" data-controller="search-bar search-sorting" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
+  <%= form_tag("/search", method: "get", id: "search-box", class: "d-flex gap-3 h-100 w-100") do %>
+    <div class="d-flex justify-content-center h-100 w-75">
+      <div class="select-wrapper" data-search-bar-target="selectWrapper">
+        <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
+          <span data-search-bar-target="selectedOption"><%= option_labels[resource || resource_options.first] %></span>
+          <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
+        </button>
+        <div class="select-dropdown" data-search-bar-target="dropdown">
+          <% resource_options.each do |option| %>
+            <div class="select-option <%= "active" if option == (resource || resource_options.first) %>" data-value="<%= option %>" data-action="click->search-bar#selectOption">
+              <%= option_labels[option] %>
+            </div>
+          <% end %>
+        </div>
+        <%= hidden_field_tag :resource, resource || resource_options.first, data: { search_bar_target: "hiddenSelect" } %>
       </div>
-      <%= hidden_field_tag :resource, resource || resource_options.first, data: { search_bar_target: "hiddenSelect" } %>
+      <%= text_field_tag :q, query, autocomplete: "off", class: "search-bar-input", data: { search_bar_target: "input" } %>
+      <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
+        <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
+      </button>
     </div>
-    <%= text_field_tag :q, query, autocomplete: "off", class: "search-bar-input", data: { search_bar_target: "input" } %>
-    <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
-      <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
-    </button>
+    <div class="sorting-container w-25" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>">
+      <div class="d-flex sorting-buttons justify-content-center h-100">
+        <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
+          <%= sort_by %>
+        </button>
+        <button type="button" data-search-sorting-target="sortingDirection" data-action="click->search-sorting#toggleSortingDirection">
+          <%= image_tag "SVGs/sort-asc.svg", class: "sort-arrow", alt: "Sort ascending", data: { search_sorting_target: "ascIcon" } %>
+          <%= image_tag "SVGs/sort-desc.svg", class: "sort-arrow d-none", alt: "Sort descending", data: { search_sorting_target: "descIcon" } %>
+        </button>
+      </div>
+      <ul class="sorting-options d-none" data-search-sorting-target="optionsList">
+        <li class="sorting-option" data-value="created_at" data-action="click->search-sorting#selectOption">Created Date</li>
+        <li class="sorting-option" data-value="views" data-action="click->search-sorting#selectOption">Views</li>
+        <li class="sorting-option" data-value="stars" data-action="click->search-sorting#selectOption">Stars</li>
+      </ul>
+      <%= hidden_field_tag :sort_by, sort_by || "created_at", data: { search_sorting_target: "hiddenSortBy" } %>
+      <%= hidden_field_tag :sort_direction, sort_direction || "asc", data: { search_sorting_target: "hiddenSortDirection" } %>
+    </div>
   <% end %>
 </div>
