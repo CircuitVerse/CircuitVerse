@@ -1,7 +1,7 @@
 <%= link_to contest_path(@contest.id),
             class: "text-decoration-none contest-card",
-            id:    "contest-#{@contest.id}",
-            data:  { contest_id: @contest.id } do %>
+            data:  { contest_id: @contest.id },
+            id:    "contest-#{@contest.id}" do %>
   <div class="contest-container h-100">
     <div class="contest-container-header">
       <% if @contest.live? %>

@@ -197,6 +197,8 @@
   }
 }
 
+.submission-card { @extend .project-card; }
+
 .project-card-image-container {
   border-bottom: 2px solid $primary-green;
   height: 200px;

@@ -1,4 +1,5 @@
-<div class="col-12 col-sm-12 col-md-6 col-lg-4 users-circuits-column circuit-card-js">
+<div class="col-12 col-sm-12 col-md-6 col-lg-4 users-circuits-column circuit-card-js submission-card"
+     data-project-id="<%= @submission.project_id %>">
   <div class="card text-center users-card">
     <div class="card-header submission-card-header">
       <div class="users-card-name">
@@ -23,21 +24,23 @@
         </a>
         <% project = @submission.project %>
 
-        <% if   @current_user && project.author == @current_user %>
+        <% if @current_user && project.author == @current_user %>
           <%= link_to withdraw_contest_submission_path(@contest, @submission),
-                      class:  "previewButton btn primary-button danger-primary-button",
+                      class:  "previewButton btn primary-button danger-primary-button withdraw-button",
                       id:     "withdraw-submission-#{@submission.id}",
                       method: :post,
-                      data:   { contest:   @contest,
-                                submission: @submission } do %>
+                      data:   { contest:       @contest,
+                                submission:     @submission,
+                                submission_id:  @submission.id } do %>
             Withdraw
           <% end %>
 
         <% elsif @current_user && project.author != @current_user && @contest.live? %>
           <%= link_to contest_submission_votes_path(@contest.id, @submission.id),
-                      class:  "previewButton btn primary-button",
+                      class:  "previewButton btn primary-button vote-button",
                       id:     "vote-submission-#{@submission.id}",
-                      method: :post do %>
+                      method: :post,
+                      data:   { submission_id: @submission.id } do %>
             Vote
           <% end %>
         <% end %>
