@@ -2,11 +2,11 @@
 
 module FlipperHelpers
   def flipper_enable(feature = :contests, actor = nil)
-    Flipper.enable(feature, actor)
+    Flipper[feature].enable(actor)
   end
 
   def flipper_disable(feature = :contests, actor = nil)
-    Flipper.disable(feature, actor)
+    Flipper[feature].disable(actor)
   end
 
   def enable_contests!
@@ -16,6 +16,4 @@ end
 
 RSpec.configure do |config|
   config.include FlipperHelpers
-
-  config.before(:each) { Flipper.disable(:contests) }
 end
