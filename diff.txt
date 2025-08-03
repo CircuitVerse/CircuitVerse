@@ -1,0 +1,175 @@
+diff --git a/app/views/admin/contests/index.html.erb b/app/views/admin/contests/index.html.erb
+index 64be4ee5..490e2857 100644
+--- a/app/views/admin/contests/index.html.erb
++++ b/app/views/admin/contests/index.html.erb
+@@ -1,6 +1,7 @@
++<h1 class="visually-hidden"><%= t("admin.contests.index.title") %></h1>
+ <div class="container" data-controller="contest">
+   <% if notice %>
+-    <div class="row" id='alertdiv'>
++    <div class="row" id="alertdiv">
+       <div class="alert alert-success alert-dismissible container text-center">
+         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+         <h6><%= notice %></h6>
+@@ -9,52 +10,74 @@
+   <% end %>
+   <div class="column contests-header">
+     <h3 class="contests-header-title"><%= t("contest.heading") %></h3>
+-    <p class="contests-header-description"><%= t("contest.admin.subtitle") %></p>
+-    <%= link_to '#', data: { bs_toggle: "modal", bs_target: "#host-new-contest-modal" }, class:"contest-submission-button" do %>
+-        <span><%= t("contest.admin.new_contest_button") %></span>
++    <p  class="contests-header-description"><%= t("contest.admin.subtitle") %></p>
++
++    <%= link_to "#",
++                data:   { bs_toggle: "modal", bs_target: "#host-new-contest-modal" },
++                class:  "contest-submission-button" do %>
++      <span><%= t("contest.admin.new_contest_button") %></span>
+     <% end %>
+   </div>
+   <div class="contest-page-line"></div>
+   <div class="contests-list-wrapper row center-row">
+     <% @contests.each do |contest| %>
+-        <div class="col-lg-3">
+-          <div class="contest-container">
+-            <% if contest.live? %>
+-              <div class="contest-container-header">
+-                <div class="contest-container-close">
+-                  <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#close-contest-confirmation-modal", contest: contest }, class:"contest-container-close-button" do %>
+-                    <span><%= t("contest.close") %></span>
+-                  <% end %>
+-                </div>
+-                <div class="contest-container-status-live">
+-                  <span class="contest-container-status-dot"></span>
+-                  <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
+-                </div>
++      <div class="col-lg-3">
++        <div class="contest-container">
++          <% if contest.live? %>
++            <div class="contest-container-header">
++              <div class="contest-container-close">
++                <%= link_to "#",
++                            data:   { bs_toggle: "modal",
++                                      bs_target: "#close-contest-confirmation-modal",
++                                      contest:   contest },
++                            class:  "contest-container-close-button" do %>
++                  <span><%= t("contest.close") %></span>
++                <% end %>
++              </div>
++
++              <div class="contest-container-status-live">
++                <span class="contest-container-status-dot"></span>
++                <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
+               </div>
+-            <% else %>
+-              <div class="contest-container-header">
+-                <div class="contest-container-status">
+-                  <span class="contest-container-status-dot"></span>
+-                  <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
+-                </div>
++            </div>
++          <% else %>
++            <div class="contest-container-header">
++              <div class="contest-container-status">
++                <span class="contest-container-status-dot"></span>
++                <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
+               </div>
++            </div>
++          <% end %>
++
++          <div class="contest-container-details">
++            <h5 class="contest-container-details-number">
++              <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}",
++                          contest_path(contest.id) %>
++            </h5>
++
++            <% if contest.completed? %>
++              <h5 class="contest-container-details-entries">
++                <%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %>
++              </h5>
+             <% end %>
+-            <div class="contest-container-details">
+-              <h5 class="contest-container-details-number"> <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}", contest_path(contest.id) %></h5>
+-              <% if contest.completed? %>
+-                <h5 class="contest-container-details-entries"><%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %></h5>
+-              <% end %>
+-              <% if contest.live? %>
+-                <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#update-contest-modal", contest: contest, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M") }, class:"contest-container-update-button" do %>
+-                      <%= image_tag("SVGs/editGroup.svg", alt: "Edit Deadline") %>
+-                      <span><%= t("edit") %></span>
+-                <% end %>
++
++            <% if contest.live? %>
++              <%= link_to "#",
++                          data:   { bs_toggle: "modal",
++                                    bs_target: "#update-contest-modal",
++                                    contest:   contest,
++                                    deadline:  contest.deadline.strftime("%Y-%m-%dT%H:%M") },
++                          class:  "contest-container-update-button" do %>
++                <%= image_tag("SVGs/editGroup.svg", alt: "Edit Deadline") %>
++                <span><%= t("edit") %></span>
+               <% end %>
+-            </div>
++            <% end %>
+           </div>
+         </div>
+-        <%= render partial: "close_contest_confirmation", locals: { contest: contest } %>
+-        <%= render partial: "update_contest_confirmation" %>
++      </div>
++
++      <%= render partial: "close_contest_confirmation",  locals: { contest: contest } %>
++      <%= render partial: "update_contest_confirmation"                                    %>
+     <% end %>
+   </div>
+   <div class="container pagination-cont">
+diff --git a/spec/requests/contests_close_spec.rb b/spec/requests/contests_close_spec.rb
+index c08d6d96..883c45ad 100644
+--- a/spec/requests/contests_close_spec.rb
++++ b/spec/requests/contests_close_spec.rb
+@@ -3,16 +3,22 @@
+ require "rails_helper"
+ 
+ RSpec.describe "Admin::Contests#update", type: :request do
++  include ActiveSupport::Testing::TimeHelpers
++
+   let(:admin)   { create(:user, admin: true) }
+-  let(:contest) { create(:contest, status: :live, deadline: 1.minute.ago) }
++  let(:contest) { create(:contest, status: :live, deadline: 1.minute.from_now) }
+ 
+   before do
+     sign_in admin
+     enable_contests!
+   end
+ 
++  after { travel_back }
++
+   it "marks the contest completed and redirects" do
+-    patch admin_contest_path(contest), params: { contest: { status: :completed } }
++    travel_to 2.minutes.from_now do
++      patch admin_contest_path(contest), params: { contest: { status: :completed } }
++    end
+ 
+     expect(contest.reload.status).to eq("completed")
+     expect(response).to redirect_to(contest_path(contest))
+diff --git a/spec/requests/contests_upvote_edges_spec.rb b/spec/requests/contests_upvote_edges_spec.rb
+index 585002a7..af39e492 100644
+--- a/spec/requests/contests_upvote_edges_spec.rb
++++ b/spec/requests/contests_upvote_edges_spec.rb
+@@ -7,7 +7,6 @@ RSpec.describe "Contests::Submissions::Votes#create edge cases", type: :request
+   let(:contest) { create(:contest, status: :completed) }
+   let(:proj)    { create(:project, author: user) }
+   let(:sub)     { create(:submission, contest: contest, project: proj, user: user) }
+-  let(:admin)   { create(:user, admin: true) }
+ 
+   before do
+     sign_in user
+@@ -21,8 +20,9 @@ RSpec.describe "Contests::Submissions::Votes#create edge cases", type: :request
+   end
+ 
+   it "rejects when user has exhausted votes" do
+-    live_contest = create(:contest, status: :live)
++    live_contest = Contest.find_by(status: :live) || create(:contest, status: :live)
+     other_sub    = create(:submission, contest: live_contest)
++
+     SubmissionVote::USER_VOTES_PER_CONTEST.times do
+       create(:submission_vote, contest: live_contest, user: user)
+     end
