@@ -78,7 +78,7 @@
     <%= will_paginate @submissions, renderer: PaginateRenderer %>
   </div>
 
-  <%= render partial: "view" %>
+  <%= render Contest::PreviewModalComponent.new %>
 
   <%= render Contest::WithdrawModalComponent.new(
       contest: @contest,
