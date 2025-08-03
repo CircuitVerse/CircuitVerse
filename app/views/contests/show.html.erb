@@ -80,7 +80,8 @@
 
   <%= render partial: "view" %>
 
-  <%= render partial: "withdraw_submission_confirmation",
-             locals: { contest: @contest,
-                       user_submission: @user_submission } %>
+  <%= render Contest::WithdrawModalComponent.new(
+      contest: @contest,
+      submission: @user_submission
+    ) %>
 </div>
