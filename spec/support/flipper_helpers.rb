@@ -2,11 +2,11 @@
 
 module FlipperHelpers
   def flipper_enable(feature = :contests, actor = nil)
-    Flipper[feature].enable(actor)
+    actor ? Flipper[feature].enable(actor) : Flipper[feature].enable
   end
 
   def flipper_disable(feature = :contests, actor = nil)
-    Flipper[feature].disable(actor)
+    actor ? Flipper[feature].disable(actor) : Flipper[feature].disable
   end
 
   def enable_contests!
