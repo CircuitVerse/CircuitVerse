@@ -3,6 +3,7 @@ en:
     heading: "CONTEST"
     index:
       subtitle: "Contests where students show off their amazing circuits and best ones are featured on our homepage!"
+      manage_button: "Manage Contests"
     admin:
       subtitle: "This page is for admins, you can host a new contest by clicking 'Host new contest' button!"
       new_contest_button: "Host new contest"
@@ -45,6 +46,7 @@ en:
       heading: "Update Contest Deadline"
       sub_heading: "Set Contest Deadline"
       description: "Please ensure that the Contest Deadline is set in the future. It is not allowed to set the Contest Deadline in the past."
+      update_deadline: "Update Deadline"
     withdraw_submission_modal:
       heading: "Withdraw Submission"
       description: "Are you sure you want to withdraw your submission from contest?"
@@ -95,4 +97,14 @@ en:
         deadline_updated: "Contest deadline was successfully updated."
         deadline_update_failed: "Failed to update contest deadline: %{errors}"
         invalid_deadline: "Invalid deadline format."
+      parse_deadline_or_redirect:
+        invalid_deadline: "Invalid deadline format."
+
+  layout:
+    link_to_contests: "Contests"
+
+  users:
+    circuitverse:
+      preview_project: "Preview Project"
+
   feature_not_available: "Contest feature is not available."
