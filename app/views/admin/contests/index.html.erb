@@ -77,7 +77,7 @@
       </div>
 
       <%= render partial: "close_contest_confirmation",  locals: { contest: contest } %>
-      <%= render partial: "update_contest_confirmation"                                    %>
+      <%= render Admin::ContestUpdateDeadlineModalComponent.new(contest: contest) %>
     <% end %>
   </div>
   <div class="container pagination-cont">
