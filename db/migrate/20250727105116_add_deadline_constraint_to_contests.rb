@@ -4,10 +4,7 @@ class AddDeadlineConstraintToContests < ActiveRecord::Migration[7.0]
   disable_ddl_transaction!
 
   def change
-    add_check_constraint :contests,
-                         "deadline IS NOT NULL",
-                         name: "chk_contests_deadline_not_null",
-                         validate: false
+    change_column_null :contests, :deadline, false
 
     change_column_default :contests, :status, from: nil, to: 0
 
