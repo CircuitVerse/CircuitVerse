@@ -3,7 +3,9 @@
 require "rails_helper"
 
 RSpec.describe ContestDeadlineJob, type: :job do
-  let(:contest) { create(:contest, status: :live, deadline: 1.day.ago) }
+  include ActiveSupport::Testing::TimeHelpers
+
+  let(:contest) { create(:contest, status: :live, deadline: 5.minutes.from_now) }
   let(:submission) { create(:submission, :with_private_project, contest: contest) }
 
   before do
@@ -11,8 +13,12 @@ RSpec.describe ContestDeadlineJob, type: :job do
     allow(FeaturedCircuit).to receive(:create!).and_return(true)
   end
 
+  after { travel_back }
+
   it "completes the contest and invokes ShortlistContestWinner" do
-    described_class.perform_now(contest.id)
+    travel_to 10.minutes.from_now do
+      described_class.perform_now(contest.id)
+    end
 
     expect(contest.reload.status).to eq("completed")
     expect(ContestWinner.exists?(contest: contest)).to be true

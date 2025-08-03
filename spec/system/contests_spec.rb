@@ -27,7 +27,7 @@ describe "Contests", type: :system do
 
   it "redirects to contest" do
     visit contests_path
-    page.find("#contest-#{@contest.id}").click
+    page.find(".contest-card[data-contest-id='#{@contest.id}']").click
     check_contest_page(@contest.id)
 
     expect(page).to have_current_path(contest_path(@contest.id))
@@ -36,14 +36,14 @@ describe "Contests", type: :system do
   context "contest submission" do
     before do
       visit contest_path(@contest.id)
-      page.find(".contest-submission-button").click
+      page.find(".submission-button").click
     end
 
     it "render the project submission page and submit the project" do
       expect(page).to have_text("Project Submission")
       expect(page).to have_text(@project.name)
 
-      page.find("#submission_project_id_#{@project.id}").click
+      page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
       expect(page).to have_text("Submission was successfully added.")
       expect(@contest.submissions.count).to eq(1)
@@ -51,10 +51,10 @@ describe "Contests", type: :system do
     end
 
     it "does not submit the same project for a contest again." do
-      page.find("#submission_project_id_#{@project.id}").click
+      page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
-      page.find(".contest-submission-button").click
-      page.find("#submission_project_id_#{@project.id}").click
+      page.find(".submission-button").click
+      page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
 
       expect(page).to have_text("This project is already submitted in Contest ##{@contest.id}")
@@ -64,12 +64,12 @@ describe "Contests", type: :system do
   context "withdraw submission" do
     before do
       visit new_contest_submission_path(@contest.id)
-      page.find("#submission_project_id_#{@project.id}").click
+      page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
     end
 
     it "withdraw the submission" do
-      page.find("#withdraw-submission-#{@contest.submissions.last.id}").click
+      page.find(".withdraw-button[data-submission-id='#{@contest.submissions.last.id}']").click
       expect(page).to have_text("Withdraw Submission")
       expect(page).to have_text("Are you sure you want to withdraw your submission from contest?")
 
@@ -82,14 +82,14 @@ describe "Contests", type: :system do
   context "when user votes the submission" do
     before do
       visit new_contest_submission_path(@contest.id)
-      page.find("#submission_project_id_#{@project.id}").click
+      page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
       sign_in_random_user
       visit contest_path(@contest.id)
     end
 
     it "votes the submission" do
-      page.find("#vote-submission-#{@contest.submissions.last.id}").click
+      page.find(".vote-button[data-submission-id='#{@contest.submissions.last.id}']").click
       expect(page).to have_text("You have successfully voted the submission, Thanks! Votes remaining: 2")
       expect(@contest.submissions.last.submission_votes_count).to eq(1)
     end
@@ -98,15 +98,15 @@ describe "Contests", type: :system do
   context "when user try to vote the submission again" do
     before do
       visit new_contest_submission_path(@contest.id)
-      page.find("#submission_project_id_#{@project.id}").click
+      page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
       sign_in_random_user
       visit contest_path(@contest.id)
-      page.find("#vote-submission-#{@contest.submissions.last.id}").click
+      page.find(".vote-button[data-submission-id='#{@contest.submissions.last.id}']").click
     end
 
     it "does not vote the submission again" do
-      page.find("#vote-submission-#{@contest.submissions.last.id}").click
+      page.find(".vote-button[data-submission-id='#{@contest.submissions.last.id}']").click
       expect(page).to have_text("You have already cast a vote for this submission!")
       expect(@contest.submissions.last.submission_votes_count).to eq(1)
     end
@@ -124,7 +124,7 @@ describe "Contests", type: :system do
 
   def check_contest_container(id, status, entries)
     expect(page).to have_text("Contest ##{id}")
-    expect(page).have_text(status)
+    expect(page).to have_text(status)
     expect(page).to have_text("Entries: #{entries}")
   end
 end
