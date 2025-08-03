@@ -40,6 +40,9 @@ export default class extends Controller {
             'keydown',
             this.boundHandleKeydown,
         );
+        
+        // Dispatch initial resource change event on connect
+        this.dispatch("resourceChanged", { detail: { resource: this.hiddenSelectTarget.value } });
     }
 
     disconnect() {

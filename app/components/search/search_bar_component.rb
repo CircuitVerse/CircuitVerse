@@ -14,6 +14,13 @@ class Search::SearchBarComponent < ViewComponent::Base
     @sort_direction = sort_direction
   end
 
+  def all_sorting_options
+    {
+      "Users" => sorting_options_for_users,
+      "Projects" => sorting_options_for_projects
+    }
+  end
+
   private
 
     attr_reader :resource, :query, :sort_by, :sort_direction
@@ -49,13 +56,6 @@ class Search::SearchBarComponent < ViewComponent::Base
         { value: "views", label: "Views" },
         { value: "stars", label: "Stars" }
       ]
-    end
-
-    def all_sorting_options
-      {
-        "Users" => sorting_options_for_users,
-        "Projects" => sorting_options_for_projects
-      }
     end
 
     def current_sorting_options

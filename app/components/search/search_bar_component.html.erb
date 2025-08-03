@@ -1,4 +1,4 @@
-<div class="container search-bar-container" data-controller="search-bar search-sorting" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>" data-action="search-bar:resourceChanged->search-sorting#updateOptionsForResource">
+<div class="container search-bar-container" data-controller="search-bar search-sorting" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
   <%= form_tag("/search", method: "get", id: "search-box", class: "d-flex gap-3 h-100 w-100") do %>
     <div class="d-flex justify-content-center h-100 w-75">
       <div class="select-wrapper" data-search-bar-target="selectWrapper">
@@ -20,7 +20,7 @@
         <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
       </button>
     </div>
-    <div class="sorting-container w-25" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value="<%= all_sorting_options.to_json %>" data-search-sorting-current-resource-value="<%= resource || resource_options.first %>">
+    <div class="sorting-container w-25" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resourceChanged@window->search-sorting#updateOptionsForResource">
       <div class="d-flex sorting-buttons justify-content-center h-100">
         <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
           <%= sort_by %>

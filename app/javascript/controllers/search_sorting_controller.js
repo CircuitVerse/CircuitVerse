@@ -23,6 +23,7 @@ export default class extends Controller {
         this.currentResourceValue = resource;
         this.buildSortingOptions();
         this.resetToFirstOption();
+        this.updateButtonText();
     }
 
     resetToFirstOption() {
@@ -76,7 +77,7 @@ export default class extends Controller {
         if (!this.hasSortingTarget) return;
 
         const currentOptions = this.getCurrentOptions();
-        const option = currentOptions.find(opt => opt.value === this.selectedSortValue);
+        const option = currentOptions.find((opt) => opt.value === this.selectedSortValue);
         const defaultOption = currentOptions[0];
 
         let buttonText = 'Created Date';
@@ -85,7 +86,7 @@ export default class extends Controller {
         } else if (defaultOption) {
             buttonText = defaultOption.label;
         }
-        
+
         this.sortingTarget.textContent = buttonText;
     }
 
