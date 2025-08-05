@@ -1,6 +1,6 @@
 <div class="container search-bar-container" data-controller="search-bar search-sorting" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
   <%= form_tag("/search", method: "get", id: "search-box", class: "d-flex gap-3 h-100 w-100") do %>
-    <div class="d-flex justify-content-center h-100 w-75">
+    <div class="d-flex justify-content-center h-100 search-bar">
       <div class="select-wrapper" data-search-bar-target="selectWrapper">
         <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
           <span data-search-bar-target="selectedOption"><%= option_labels[resource || resource_options.first] %></span>
@@ -20,17 +20,18 @@
         <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
       </button>
     </div>
-    <div class="sorting-container w-25" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resourceChanged@window->search-sorting#updateOptionsForResource">
+    <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resourceChanged@window->search-sorting#updateOptionsForResource">
       <div class="d-flex sorting-buttons justify-content-center h-100">
         <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
           <%= sort_by %>
+          <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
         </button>
         <button type="button" data-search-sorting-target="sortingDirection" data-action="click->search-sorting#toggleSortingDirection">
           <%= image_tag "SVGs/sort-asc.svg", class: "sort-arrow", alt: "Sort ascending", data: { search_sorting_target: "ascIcon" } %>
           <%= image_tag "SVGs/sort-desc.svg", class: "sort-arrow d-none", alt: "Sort descending", data: { search_sorting_target: "descIcon" } %>
         </button>
       </div>
-      <ul class="sorting-options d-none" data-search-sorting-target="optionsList">
+      <ul class="sorting-options" data-search-sorting-target="optionsList">
       </ul>
       <%= hidden_field_tag :sort_by, sort_by || "created_at", data: { search_sorting_target: "hiddenSortBy" } %>
       <%= hidden_field_tag :sort_direction, sort_direction || "asc", data: { search_sorting_target: "hiddenSortDirection" } %>

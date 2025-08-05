@@ -38,7 +38,7 @@ export default class extends Controller {
     }
 
     toggleOptions() {
-        this.optionsListTarget.classList.toggle('d-none');
+        this.optionsListTarget.classList.toggle('show');
     }
 
     selectOption(event) {
@@ -48,7 +48,7 @@ export default class extends Controller {
         // update the selectedSortValue
         this.selectedSortValue = value;
 
-        this.optionsListTarget.classList.add('d-none');
+        this.optionsListTarget.classList.remove('show');
     }
 
     // Automatically called when selectedSortValue changes

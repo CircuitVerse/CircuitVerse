@@ -130,8 +130,13 @@
   position: relative;
 }
 
+.search-bar {
+  width: 80%;
+}
+
 .sorting-container {
   position: relative;
+  width: 15%;
 }
 
 .sorting-buttons {
@@ -143,7 +148,6 @@
     border: none;
     cursor: pointer;
   }
-
 }
 
 .sorting-options {
@@ -158,6 +162,17 @@
   gap: 4px;
   padding: 4px 8px;
   align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.2s ease;
+  z-index: 1000;
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
 
   li {
     list-style: none;
