@@ -45,16 +45,16 @@ class Search::SearchBarComponent < ViewComponent::Base
 
     def sorting_options_for_users
       [
-        { value: "created_at", label: "Join Date" },
-        { value: "total_circuits", label: "Total Circuits" }
+        { value: "created_at", label: I18n.t("components.search_bar.sorting.users.join_date") },
+        { value: "total_circuits", label: I18n.t("components.search_bar.sorting.users.total_circuits") }
       ]
     end
 
     def sorting_options_for_projects
       [
-        { value: "created_at", label: "Created Date" },
-        { value: "views", label: "Views" },
-        { value: "stars", label: "Stars" }
+        { value: "created_at", label: I18n.t("components.search_bar.sorting.projects.created_date") },
+        { value: "views", label: I18n.t("components.search_bar.sorting.projects.views") },
+        { value: "stars", label: I18n.t("components.search_bar.sorting.projects.stars") }
       ]
     end
 
