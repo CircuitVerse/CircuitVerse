@@ -46,7 +46,7 @@ export default class extends Controller {
                     .attr('href', `/users/${authorId}/projects/${projectSlugOrId}`);
 
                 $(e.currentTarget)
-                    .find('#project-ifram-preview')
+                    .find('#project-iframe-preview')
                     .attr('src', `/simulator/${projectSlugOrId}`);
             });
         }
