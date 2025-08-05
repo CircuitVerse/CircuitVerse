@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_24_085949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -384,9 +384,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
+    t.bigint "group_id"
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
+    t.index ["group_id"], name: "index_projects_on_group_id"
     t.index ["searchable"], name: "index_projects_on_searchable", using: :gin
     t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true
   end
@@ -544,6 +546,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
+  add_foreign_key "projects", "groups"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"
   add_foreign_key "stars", "projects"

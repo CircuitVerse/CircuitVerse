@@ -13,16 +13,12 @@ class ProjectsController < ApplicationController
   before_action :check_view_access, only: %i[show create_fork]
   before_action :sanitize_name, only: %i[create update]
   before_action :sanitize_project_description, only: %i[show edit]
+  before_action :set_available_groups, only: %i[new create edit update]
 
   # GET /projects
   # GET /projects.json
   def index
     @author = User.find(params[:user_id])
-  end
-
-  # GET /projects/tags/[tag]
-  def get_projects
-    @projects = Project.tagged_with(params[:tag]).open.includes(:tags, :author)
   end
 
   # GET /projects/1
@@ -36,6 +32,15 @@ class ProjectsController < ApplicationController
     @collaboration = @project.collaborations.new
     @admin_access = true
     commontator_thread_show(@project)
+  end
+
+  def new
+    @project = current_user.projects.build
+  end
+
+  # GET /projects/tags/[tag]
+  def get_projects
+    @projects = Project.tagged_with(params[:tag]).open.includes(:tags, :author)
   end
 
   # GET /projects/1/edit
@@ -65,6 +70,10 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
+    unless permitted_group_ids.include?(params.dig(:project, :group_id)&.to_i)
+      return render(:new, alert: "Invalid group selected")
+    end
+
     @project = current_user.projects.create(project_params)
 
     respond_to do |format|
@@ -84,6 +93,11 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1
   # PATCH/PUT /projects/1.json
   def update
+    unless permitted_group_ids.include?(project_params[:group_id]&.to_i)
+      @project.errors.add(:group_id, "is not one of your groups")
+      return render(:edit)
+    end
+
     @project.description = params["description"]
     set_name_project_datum(project_params)
     respond_to do |format|
@@ -139,7 +153,7 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :project_access_type, :description, :tag_list, :tags)
+      params.require(:project).permit(:name, :project_access_type, :group_id, :description, :tag_list, :tags)
     end
 
     def sanitize_name
@@ -157,5 +171,17 @@ class ProjectsController < ApplicationController
       datum_data = JSON.parse(@project.project_datum.data)
       datum_data["name"] = project_params["name"]
       @project.project_datum.data = JSON.generate(datum_data)
+    end
+
+    def set_available_groups
+      return unless user_signed_in?
+
+      mentor_groups   = Group.where(primary_mentor_id: current_user.id)
+      member_groups   = current_user.groups if current_user.respond_to?(:groups)
+      @groups         = (mentor_groups + Array(member_groups)).uniq
+    end
+
+    def permitted_group_ids
+      @groups.map(&:id)
     end
 end

@@ -11,6 +11,7 @@ class Project < ApplicationRecord
   validates :slug, uniqueness: true
 
   belongs_to :author, class_name: "User"
+  belongs_to :group, optional: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
@@ -75,6 +76,11 @@ class Project < ApplicationRecord
 
   acts_as_commontable
   # after_commit :send_mail, on: :create
+
+  validates :group_id, presence: true,
+                       if: -> { project_access_type == "Group" }
+
+  validate  :author_in_group, if: -> { project_access_type == "Group" }
 
   def increase_views(user)
     increment!(:view) if user.nil? || (user.id != author_id)
@@ -145,6 +151,14 @@ class Project < ApplicationRecord
   validate :clean_description
 
   private
+
+    def author_in_group
+      return unless group && author
+
+      return if group.group_members.exists?(user_id: author.id)
+
+      errors.add(:group_id, "Author must belong to the selected group")
+    end
 
     def check_validity
       return unless (project_access_type != "Private") && !assignment_id.nil?
