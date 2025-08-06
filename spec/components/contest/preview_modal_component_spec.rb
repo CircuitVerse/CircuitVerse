@@ -3,13 +3,13 @@
 require "rails_helper"
 
 RSpec.describe Contest::PreviewModalComponent, type: :component do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it "renders the modal with heading, iframe and 'More' button" do
+    render_inline(described_class.new)
 
-  # it "renders something useful" do
-  #   expect(
-  #     render_inline(described_class.new(attr: "value")) { "Hello, components!" }.css("p").to_html
-  #   ).to include(
-  #     "Hello, components!"
-  #   )
-  # end
+    expect(page).to have_css("#projectModal")
+    expect(page).to have_css("h4.modal-title",
+                             text: I18n.t("users.circuitverse.preview_project"))
+    expect(page).to have_css("iframe#project-iframe-preview")
+    expect(page).to have_link(I18n.t("more"), href: "#", id: "project-more-button")
+  end
 end
