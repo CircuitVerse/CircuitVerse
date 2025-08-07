@@ -13,8 +13,6 @@ RSpec.describe "Admin::Contests#update", type: :request do
     enable_contests!
   end
 
-  after { travel_back }
-
   it "marks the contest completed and redirects" do
     travel_to 2.minutes.from_now do
       patch admin_contest_path(contest), params: { contest: { status: :completed } }

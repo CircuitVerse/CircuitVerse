@@ -26,6 +26,7 @@ class Admin::ContestsController < ApplicationController
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def update
     @contest = Contest.find(params[:id])
     if params[:contest][:status] == "completed"
@@ -50,6 +51,7 @@ class Admin::ContestsController < ApplicationController
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 

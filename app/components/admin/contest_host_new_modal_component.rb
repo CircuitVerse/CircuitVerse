@@ -2,6 +2,7 @@
 
 class Admin::ContestHostNewModalComponent < ViewComponent::Base
   def initialize(default_deadline: 1.month.from_now)
+    super()
     @default_deadline = default_deadline
   end
 end

@@ -13,8 +13,6 @@ RSpec.describe ContestDeadlineJob, type: :job do
     allow(FeaturedCircuit).to receive(:create!).and_return(true)
   end
 
-  after { travel_back }
-
   it "completes the contest and invokes ShortlistContestWinner" do
     travel_to 10.minutes.from_now do
       described_class.perform_now(contest.id)

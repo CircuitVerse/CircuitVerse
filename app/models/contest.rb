@@ -11,8 +11,8 @@ class Contest < ApplicationRecord
 
   validates :deadline, presence: true
   validate  :deadline_must_be_in_future, unless: :completed?
-  validates :status,   presence: true
-  validate  :only_one_live_contest,      if: -> { live? && will_save_change_to_status? }
+  validates :status, presence: true
+  validate  :only_one_live_contest, if: -> { live? && will_save_change_to_status? }
 
   self.per_page = 8
 
@@ -25,7 +25,7 @@ class Contest < ApplicationRecord
     end
 
     def only_one_live_contest
-      return unless Contest.live.where.not(id:).exists?
+      return unless Contest.live.where.not(id: id).exists?
 
       errors.add(:status, :already_live, message: "Another contest is already live")
     end

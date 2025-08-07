@@ -27,11 +27,9 @@ class ApplicationController < ActionController::Base
   def switch_locale(&)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
     locale = params[:locale]&.to_sym
-    locale = if I18n.available_locales.include?(locale)
-               locale
-             else
-               current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
-             end
+    unless I18n.available_locales.include?(locale)
+      locale = current_user&.locale || extract_locale_from_accept_language_header || I18n.default_locale
+    end
     logger.debug "* Locale set to '#{locale}'"
     I18n.with_locale(locale, &)
   end

@@ -10,7 +10,7 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
     submission = create(:submission, contest: contest, project: project, submission_votes_count: 5)
 
     render_inline(described_class.new(submission: submission,
-                                      contest:    contest,
+                                      contest: contest,
                                       current_user: author))
 
     expect(page).to have_css("img.users-card-image[alt='#{project.name}']")

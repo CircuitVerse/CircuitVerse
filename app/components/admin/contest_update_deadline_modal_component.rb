@@ -2,6 +2,7 @@
 
 class Admin::ContestUpdateDeadlineModalComponent < ViewComponent::Base
   def initialize(contest:)
+    super()
     @contest = contest
   end
 

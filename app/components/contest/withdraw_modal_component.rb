@@ -2,6 +2,7 @@
 
 class Contest::WithdrawModalComponent < ViewComponent::Base
   def initialize(contest:, submission:)
+    super()
     @contest    = contest
     @submission = submission
   end

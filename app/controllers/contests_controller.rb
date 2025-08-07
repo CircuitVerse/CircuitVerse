@@ -34,17 +34,17 @@ class ContestsController < ApplicationController
 
   private
 
-  def set_contest
-    @contest = Contest.find(params[:id])
-  end
+    def set_contest
+      @contest = Contest.find(params[:id])
+    end
 
-  def check_contests_feature_flag
-    return if Flipper.enabled?(:contests, current_user)
+    def check_contests_feature_flag
+      return if Flipper.enabled?(:contests, current_user)
 
-    redirect_to root_path, alert: t("feature_not_available")
-  end
+      redirect_to root_path, alert: t("feature_not_available")
+    end
 
-  def set_user_count
-    @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
-  end
+    def set_user_count
+      @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
+    end
 end
