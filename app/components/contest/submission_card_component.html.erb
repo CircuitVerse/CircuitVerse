@@ -31,7 +31,8 @@
                       data:   { bs_toggle:  "modal",
                                 bs_target:  "#withdraw-submission-confirmation-modal",
                                 contest:    @contest,
-                                submission: @submission } do %>
+                                submission: @submission,
+                                submission_id: @submission.id } do %>
             Withdraw
           <% end %>
 

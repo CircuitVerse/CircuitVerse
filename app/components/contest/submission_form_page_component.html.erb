@@ -1,0 +1,71 @@
+<% if notice.present? %>
+  <%= render "shared/notice", message: notice %>
+<% end %>
+
+<div class="container projects-new-container" data-controller="contest">
+
+  <div class="col-12 center-row">
+    <h1 class="submain-heading"><%= t("contest.new_submission_page.heading") %></h1>
+
+    <h2 class="submain-heading assignments-submain-heading">
+      <%= t("contest.contest_container.contest_id") %> #<%= contest.id %>
+    </h2>
+  </div>
+
+  <div class="contest-page-line"></div>
+
+  <div>
+    <h5><%= t("contest.new_submission_page.select_your_circuit") %></h5>
+    <p class="contest-header-sub-description">
+      (*) <%= t("contest.new_submission_page.select_your_circuit_description") %>
+    </p>
+  </div>
+
+  <% if submission&.errors&.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% submission.errors.full_messages.each { |msg| %>
+          <li><%= msg %></li>
+        <% } %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= form_with model: Submission.new,
+                url:   contest_submissions_path(contest),
+                local: true do |form| %>
+
+    <% projects.each do |project| %>
+      <% next if project.featured? %>
+
+      <label class="submission-card project-submission"
+             data-project-id="<%= project.id %>">
+
+        <div class="project-submission-detail">
+          <%= form.radio_button :project_id,
+                                project.id,
+                                id: "submission_project_id_#{project.id}",
+                                data: { action: "click->contest#enableSubmitButton" } %>
+
+          <i class="fas fa-code-branch ml-2"></i>
+          <strong><span><%= project.author.name %> / <%= project.name %></span></strong>
+        </div>
+
+        <div>
+          <%= link_to t("view"),
+                      user_project_path(project.author_id, project),
+                      class:  "btn primary-button",
+                      id:     "project-more-button",
+                      target: "_blank" %>
+        </div>
+      </label>
+    <% end %>
+
+    <%= hidden_field_tag :contest_id, contest.id %>
+
+    <%= form.submit t("contest.buttons.submit"),
+                    class:    "btn primary-button contest-submission-button",
+                    id:       "submission-submit-button",
+                    disabled: true %>
+  <% end %>
+</div>

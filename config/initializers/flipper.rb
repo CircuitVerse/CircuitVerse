@@ -17,7 +17,8 @@ default_flipper_features = {
 Flipper.configure do |config|
   config.default do
     if Rails.env.test?
-      adapter = Flipper::Adapters::Memory.new
+      $flipper_memory_adapter ||= Flipper::Adapters::Memory.new
+      adapter = $flipper_memory_adapter
     else
       client = Redis.new
       adapter = Flipper::Adapters::Redis.new(client)
