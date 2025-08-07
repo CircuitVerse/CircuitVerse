@@ -126,12 +126,18 @@
 }
 
 .search-bar-container {
-  height: 40px;
+  min-height: 40px;
   position: relative;
+}
+
+.search-bar-form {
+  max-width: 1220px;
+  margin: 0 auto;
 }
 
 .search-bar {
   width: 85%;
+  height: 40px;
 }
 
 .sorting-container {
@@ -361,6 +367,21 @@
 }
 
 //breakpoints
+
+// Ensure stacked search layout takes full width on extra-small screens
+@media (max-width: 576px) {
+  .search-bar {
+    width: 100%;
+  }
+
+  .sorting-container {
+    width: 100%;
+  }
+
+  .sorting-options {
+    width: 100%;
+  }
+}
 
 @media (max-width: 768px) {
   .select-wrapper {

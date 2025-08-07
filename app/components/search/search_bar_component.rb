@@ -63,14 +63,7 @@ class Search::SearchBarComponent < ViewComponent::Base
     end
 
     def default_sort_by
-      case resource || resource_options.first
-      when "Users"
-        "created_at" # Join date for users
-      when "Projects"
-        "created_at" # Created date for projects
-      else
-        "created_at"
-      end
+      "created_at"
     end
 
     def default_sort_direction
