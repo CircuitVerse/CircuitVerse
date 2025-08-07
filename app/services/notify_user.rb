@@ -46,7 +46,7 @@ class NotifyUser
 
     def star_notification
       project = @project || DeletedProject.new
-      author = project.respond_to?(:author) ? project.author : DeletedUser.new
+      author = project.author
       Result.new("true", "star", author, project)
     end
 

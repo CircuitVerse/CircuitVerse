@@ -1,6 +1,6 @@
 class DeletedProject
   def name
-    "Deleted Project"
+    I18n.t("deleted_project.name")
   end
 
   def author
