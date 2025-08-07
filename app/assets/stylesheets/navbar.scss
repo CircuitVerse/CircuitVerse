@@ -136,7 +136,7 @@
 
 .sorting-container {
   position: relative;
-  width: 15%;
+  width: 192px;
 }
 
 .sorting-buttons {
@@ -147,6 +147,24 @@
     background: none;
     border: none;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    font-size: 14px;
+    min-width: 0;
+    
+    &:first-child {
+      border-right: 1px solid $shadow-grey;
+      flex: 1;
+    }
+    
+    span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-right: 8px;
+    }
   }
 }
 
@@ -156,27 +174,52 @@
   border: 1px solid $shadow-grey;
   border-radius: 8px;
   top: 110%;
-  width: 100%;
+  width: 75%;
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 4px 8px;
-  align-items: center;
+  gap: 0;
+  padding: 0;
   opacity: 0;
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.2s ease;
   z-index: 1000;
+  box-shadow: 0 4px 12px rgba($black, 0.1);
+  max-height: 200px;
+  overflow-y: auto;
 
   &.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
   }
+}
 
-  li {
-    list-style: none;
-    cursor: pointer;
+.sorting-option {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  color: $navbar-dark-grey;
+  font-size: 14px;
+  list-style: none;
+
+  &:hover {
+    background-color: $project-card-grey;
+  }
+
+  &.active {
+    background-color: $light-green-bg;
+    color: $primary-green;
+  }
+
+  &:first-child {
+    border-radius: 8px 8px 0 0;
+  }
+
+  &:last-child {
+    border-radius: 0 0 8px 8px;
   }
 }
 
@@ -240,6 +283,16 @@
   height: 14px;
   transition: transform 0.2s ease;
   flex-shrink: 0;
+  filter: brightness(0) invert(1);
+}
+
+.black-arrow {
+  filter: brightness(0) invert(0) !important;
+  color: #000 !important;
+}
+
+.sorting-container.open .select-arrow {
+  transform: rotate(180deg);
 }
 
 .select-wrapper.open .select-arrow {

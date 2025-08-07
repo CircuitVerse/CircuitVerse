@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     static get targets() {
-        return ['optionsList', 'sorting', 'hiddenSortBy', 'hiddenSortDirection', 'sortingDirection', 'ascIcon', 'descIcon'];
+        return ['optionsList', 'sorting', 'sortingText', 'hiddenSortBy', 'hiddenSortDirection', 'sortingDirection', 'ascIcon', 'descIcon'];
     }
 
     static get values() {
@@ -39,6 +39,7 @@ export default class extends Controller {
 
     toggleOptions() {
         this.optionsListTarget.classList.toggle('show');
+        this.element.classList.toggle('open');
     }
 
     selectOption(event) {
@@ -49,12 +50,14 @@ export default class extends Controller {
         this.selectedSortValue = value;
 
         this.optionsListTarget.classList.remove('show');
+        this.element.classList.remove('open');
     }
 
     // Automatically called when selectedSortValue changes
     selectedSortValueChanged() {
         this.updateHiddenFields();
         this.updateButtonText();
+        this.buildSortingOptions(); // Rebuild to update active state
     }
 
     buildSortingOptions() {
@@ -66,6 +69,9 @@ export default class extends Controller {
         currentOptions.forEach((option) => {
             const li = document.createElement('li');
             li.className = 'sorting-option';
+            if (option.value === this.selectedSortValue) {
+                li.classList.add('active');
+            }
             li.dataset.value = option.value;
             li.dataset.action = 'click->search-sorting#selectOption';
             li.textContent = option.label;
@@ -74,7 +80,7 @@ export default class extends Controller {
     }
 
     updateButtonText() {
-        if (!this.hasSortingTarget) return;
+        if (!this.hasSortingTextTarget) return;
 
         const currentOptions = this.getCurrentOptions();
         const option = currentOptions.find((opt) => opt.value === this.selectedSortValue);
@@ -87,7 +93,7 @@ export default class extends Controller {
             buttonText = defaultOption.label;
         }
 
-        this.sortingTarget.textContent = buttonText;
+        this.sortingTextTarget.textContent = buttonText;
     }
 
     toggleSortingDirection() {

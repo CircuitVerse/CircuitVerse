@@ -10,8 +10,8 @@ class Search::SearchBarComponent < ViewComponent::Base
     super
     @resource = resource
     @query = query
-    @sort_by = sort_by
-    @sort_direction = sort_direction
+    @sort_by = sort_by || default_sort_by
+    @sort_direction = sort_direction || default_sort_direction
   end
 
   def all_sorting_options
@@ -60,5 +60,20 @@ class Search::SearchBarComponent < ViewComponent::Base
 
     def current_sorting_options
       resource == "Users" ? sorting_options_for_users : sorting_options_for_projects
+    end
+
+    def default_sort_by
+      case resource || resource_options.first
+      when "Users"
+        "created_at" # Join date for users
+      when "Projects"
+        "created_at" # Created date for projects
+      else
+        "created_at"
+      end
+    end
+
+    def default_sort_direction
+      "desc" # Default to descending (newest first)
     end
 end
