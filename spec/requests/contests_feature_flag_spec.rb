@@ -3,9 +3,11 @@
 require "rails_helper"
 
 RSpec.describe "Contest feature-flag", type: :request do
-  around do |example|
+  before do
     flipper_disable(:contests)
-    example.run
+  end
+
+  after do
     flipper_enable(:contests)
   end
 
@@ -38,10 +40,10 @@ RSpec.describe "Contest feature-flag", type: :request do
   end
 
   it "guards votes#create" do
-    user      = create(:user)
-    author    = create(:user)
-    project   = create(:project, author: author)
-    contest   = create(:contest)
+    user       = create(:user)
+    author     = create(:user)
+    project    = create(:project, author: author)
+    contest    = create(:contest)
     submission = create(:submission, contest: contest, project: project)
 
     sign_in user

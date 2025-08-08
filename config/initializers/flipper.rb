@@ -16,25 +16,20 @@ default_flipper_features = {
 
 Flipper.configure do |config|
   config.default do
-    if Rails.env.test?
-      $flipper_memory_adapter ||= Flipper::Adapters::Memory.new
-      adapter = $flipper_memory_adapter
-    else
-      client = Redis.new
-      adapter = Flipper::Adapters::Redis.new(client)
-    end
+    client =
+      if Rails.env.test?
+        Redis.new(db: ENV.fetch("FLIPPER_TEST_REDIS_DB", 1))
+      else
+        ENV["REDIS_URL"] ? Redis.new(url: ENV["REDIS_URL"]) : Redis.new
+      end
 
-    # pass adapter to handy DSL instance
-    Flipper.new(adapter)
+    Flipper.new(Flipper::Adapters::Redis.new(client))
   end
 end
-
-Flipper.enable(:contests) if Rails.env.test?
 
 if ENV["DISABLE_FLIPPER"].blank? && !Rails.env.test?
   enabled_features = Flipper.features.map(&:name)
   default_flipper_features.each do |key, enabled|
-    # If feature not set already then set to default
     unless enabled_features.include?(key.to_s)
       Flipper.enable(key) if enabled
       Flipper.disable(key) unless enabled

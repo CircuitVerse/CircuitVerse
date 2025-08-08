@@ -36,5 +36,14 @@ RSpec.describe Contest, type: :model do
 
       expect(completed).to be_valid
     end
+
+    it "enforces a single live contest at the DB level (unique partial index)" do
+      create(:contest, status: :live, deadline: 5.days.from_now)
+      another = create(:contest, status: :completed, deadline: 6.days.from_now)
+
+      expect do
+        another.update_columns(status: described_class.statuses[:live]) # rubocop:disable Rails/SkipsModelValidations
+      end.to raise_error(ActiveRecord::RecordNotUnique)
+    end
   end
 end
