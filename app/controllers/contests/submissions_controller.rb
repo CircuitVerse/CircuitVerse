@@ -4,7 +4,6 @@ class Contests::SubmissionsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_contest
   before_action :check_contests_feature_flag
-  before_action :prevent_withdraw_if_contest_completed, only: :destroy
 
   def new
     @projects = current_user.projects
@@ -28,6 +27,11 @@ class Contests::SubmissionsController < ApplicationController
   end
 
   def destroy
+    if @contest.completed?
+      redirect_to contest_path(@contest), alert: t(".withdraw_closed")
+      return
+    end
+
     submission = find_withdrawable_submission
     submission.destroy!
     redirect_to contest_path(@contest), notice: t(".success")
@@ -65,11 +69,5 @@ class Contests::SubmissionsController < ApplicationController
       return if Flipper.enabled?(:contests, current_user)
 
       redirect_to root_path, alert: t("feature_not_available")
-    end
-
-    def prevent_withdraw_if_contest_completed
-      return unless @contest.completed?
-
-      redirect_to contest_path(@contest), alert: t("contests.submissions.destroy.withdraw_closed")
     end
 end
