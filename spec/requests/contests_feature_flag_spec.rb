@@ -44,7 +44,9 @@ RSpec.describe "Contest feature-flag", type: :request do
 
     sign_in user
 
-    post contest_submission_votes_path(contest, submission)
+    expect do
+      post contest_submission_votes_path(contest, submission)
+    end.not_to change(SubmissionVote, :count)
 
     expect(response).to redirect_to(root_path)
     expect(flash[:alert]).to eq(I18n.t("feature_not_available"))
