@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -169,10 +169,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_06_15_045426) do
   end
 
   create_table "contests", force: :cascade do |t|
-    t.datetime "deadline"
-    t.integer "status"
+    t.datetime "deadline", null: false
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_contests_on_status_live_unique", unique: true, where: "(status = 0)"
   end
 
   create_table "custom_mails", force: :cascade do |t|
