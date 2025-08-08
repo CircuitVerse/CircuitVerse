@@ -169,10 +169,11 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_121030) do
   end
 
   create_table "contests", force: :cascade do |t|
-    t.datetime "deadline"
-    t.integer "status"
+    t.datetime "deadline", null: false
+    t.integer "status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["status"], name: "index_contests_on_status_live_unique", unique: true, where: "(status = 0)"
   end
 
   create_table "custom_mails", force: :cascade do |t|

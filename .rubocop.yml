@@ -289,7 +289,7 @@ RSpec/AnyInstance:
   Enabled: false
 
 Rails/I18nLocaleTexts:
-  Enabled: false
+  Enabled: true
 
 Metrics/CyclomaticComplexity:
   Enabled: false
