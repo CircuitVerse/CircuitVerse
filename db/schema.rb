@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
+ActiveRecord::Schema[7.0].define(version: 2025_07_27_121030) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -385,6 +385,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
     t.string "slug"
     t.tsvector "searchable"
     t.string "lis_result_sourced_id"
+    t.integer "stars_count", default: 0, null: false
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
@@ -500,6 +501,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(educational_institute, ''::character varying))::text), 'B'::\"char\"))", stored: true
+    t.integer "projects_count", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["searchable"], name: "index_users_on_searchable", using: :gin

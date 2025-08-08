@@ -2,7 +2,7 @@
 
 class Star < ApplicationRecord
   belongs_to :user
-  belongs_to :project
+  belongs_to :project, counter_cache: :stars_count
   after_create_commit :notify_recipient
   before_destroy :cleanup_notification
   has_many :notifications, as: :notifiable # rubocop:disable Rails/HasManyOrHasOneDependent

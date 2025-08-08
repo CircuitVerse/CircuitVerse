@@ -10,6 +10,7 @@ import ProjectsController from './projects_controller';
 import NotificationsController from './notifications_controller';
 import ContestController from './contest_controller';
 import SearchBarController from './search_bar_controller';
+import SearchSortingController from './search_sorting_controller';
 
 application.register('groups', GroupsController);
 application.register('projects', ProjectsController);
@@ -17,3 +18,4 @@ application.register('notifications', NotificationsController);
 application.register('assignment', AssignmentController);
 application.register('contest', ContestController);
 application.register('search-bar', SearchBarController);
+application.register('search-sorting', SearchSortingController);
