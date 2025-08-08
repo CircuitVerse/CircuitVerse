@@ -7,10 +7,6 @@ RSpec.describe "Contest feature-flag", type: :request do
     flipper_disable(:contests)
   end
 
-  after do
-    flipper_enable(:contests)
-  end
-
   it "guards a protected route (admin list)" do
     admin = create(:user, admin: true)
     sign_in admin

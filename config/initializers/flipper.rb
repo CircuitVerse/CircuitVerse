@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require "redis"
 require "flipper/adapters/redis"
 
 # default flipper configuration
@@ -18,7 +19,8 @@ Flipper.configure do |config|
   config.default do
     client =
       if Rails.env.test?
-        Redis.new(db: ENV.fetch("FLIPPER_TEST_REDIS_DB", 1))
+        test_db = ENV.key?("FLIPPER_TEST_REDIS_DB") ? ENV["FLIPPER_TEST_REDIS_DB"].to_i : (1 + (ENV["TEST_ENV_NUMBER"] || "0").to_i)
+        Redis.new(db: test_db)
       else
         ENV["REDIS_URL"] ? Redis.new(url: ENV["REDIS_URL"]) : Redis.new
       end
