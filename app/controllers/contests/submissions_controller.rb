@@ -27,14 +27,12 @@ class Contests::SubmissionsController < ApplicationController
   end
 
   def destroy
-    if @contest.completed?
-      redirect_to contest_path(@contest), alert: t(".withdraw_closed")
-      return
-    end
-
     submission = find_withdrawable_submission
+
+    return redirect_to contest_path(submission.contest), alert: t(".withdraw_closed") if submission.contest.completed?
+
     submission.destroy!
-    redirect_to contest_path(@contest), notice: t(".success")
+    redirect_to contest_path(submission.contest), notice: t(".success")
   end
 
   private
@@ -60,9 +58,10 @@ class Contests::SubmissionsController < ApplicationController
     end
 
     def find_withdrawable_submission
-      return @contest.submissions.find(params[:id]) if current_user.admin?
+      scope = @contest.submissions
+      return scope.find(params[:id]) if current_user.admin?
 
-      current_user.submissions.find(params[:id])
+      scope.joins(:project).where(projects: { author_id: current_user.id }).find(params[:id])
     end
 
     def check_contests_feature_flag
