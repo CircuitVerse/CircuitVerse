@@ -24,7 +24,7 @@
         </a>
         <% project = @submission.project %>
 
-        <% if @current_user && project.author == @current_user %>
+        <% if @current_user && project.author == @current_user && @contest.live? %>
           <%= link_to "#",
                       class:  "previewButton btn primary-button danger-primary-button withdraw-button",
                       id:     "withdraw-submission-#{@submission.id}",
