@@ -54,6 +54,7 @@ ar:
     buttons:
       submit: "إرسال"
       update_deadline: "تحديث الموعد النهائي"
+
   contests:
     index:
       title: "مسابقات"
@@ -83,6 +84,12 @@ ar:
           all_votes_used: "لقد استخدمت جميع تصويتاتك!"
           already_voted: "لقد قمت بالفعل بالتصويت لهذا المسلم!"
           success: "لقد قمت بالتصويت بنجاح على التقديم، شكراً! الأصوات المتبقية: %{votes_remaining}"
+    buttons:
+      withdraw: "سحب"
+      view: "عرض"
+    votes:
+      label: "الأصوات"
+
   admin:
     contests:
       index:
@@ -98,9 +105,12 @@ ar:
         invalid_deadline: "تنسيق الموعد النهائي غير صالح."
       parse_deadline_or_redirect:
         invalid_deadline: "تنسيق الموعد النهائي غير صالح."
+
   layout:
     link_to_contests: "مسابقات"
+
   users:
     circuitverse:
       preview_project: "معاينة المشروع"
+
   feature_not_available: "ميزة التنافس غير متوفرة."
