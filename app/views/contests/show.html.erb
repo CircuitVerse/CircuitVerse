@@ -8,7 +8,7 @@
 
   <div class="pt-4 d-flex justify-content-between align-items-center">
     <div>
-      <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
+      <h3 class="contest-header-title"><%= t("contest.contest_container.contest_id") %> #<%= @contest.id %></h3>
 
       <p class="mb-0 contest-header-description">
         <%= t("contest.show.subtitle", user_count: @user_count) %>
@@ -26,7 +26,12 @@
       <div class="d-flex flex-column align-items-center">
         <span class="contest-header-timer">
           <%= t("contest.header.time_left_label") %>
-          <span id="timeLeftCounter">...</span>
+          <span id="timeLeftCounter"
+                data-d="<%= t('contest.timer.d') %>"
+                data-h="<%= t('contest.timer.h') %>"
+                data-m="<%= t('contest.timer.m') %>"
+                data-s="<%= t('contest.timer.s') %>"
+                data-expired="<%= t('contest.timer.expired') %>">...</span>
         </span>
 
         <%= link_to new_contest_submission_path(@contest.id),

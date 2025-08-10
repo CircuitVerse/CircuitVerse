@@ -68,6 +68,12 @@ export default class extends Controller {
         const timeLeftCounter = this.element.querySelector('#timeLeftCounter');
         if (!timeLeftCounter) return;
 
+        const dLabel = timeLeftCounter.dataset.d || 'd';
+        const hLabel = timeLeftCounter.dataset.h || 'h';
+        const mLabel = timeLeftCounter.dataset.m || 'm';
+        const sLabel = timeLeftCounter.dataset.s || 's';
+        const expiredText = timeLeftCounter.dataset.expired || 'EXPIRED';
+
         const x = setInterval(() => {
             const now = new Date().getTime();
             const t = deadline - now;
@@ -77,10 +83,10 @@ export default class extends Controller {
             const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((t % (1000 * 60)) / 1000);
 
-            timeLeftCounter.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s `;
+            timeLeftCounter.innerHTML = `${days}${dLabel} ${hours}${hLabel} ${minutes}${mLabel} ${seconds}${sLabel} `;
             if (t < 0) {
                 clearInterval(x);
-                timeLeftCounter.innerHTML = 'EXPIRED';
+                timeLeftCounter.innerHTML = expiredText;
             }
         }, 1000);
     }

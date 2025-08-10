@@ -13,14 +13,14 @@
                     alt:   @submission.project.name %>
     </div>
     <div class="card-footer users-card-footer d-flex justify-content-between align-items-center">
-      <span class="fw-bold">Votes: <%= @submission.submission_votes_count %></span>
+      <span class="fw-bold"><%= t("contest.votes") %>: <%= @submission.submission_votes_count %></span>
 
       <div>
         <a  class="previewButton btn primary-button"
             data-bs-toggle="modal"
             data-bs-target="#projectModal"
             data-project="<%= @submission.project.to_json %>">
-          View
+          <%= t("view") %>
         </a>
         <% project = @submission.project %>
 
@@ -33,7 +33,7 @@
                                 contest:    @contest,
                                 submission: @submission,
                                 submission_id: @submission.id } do %>
-            Withdraw
+            <%= t("contest.withdraw") %>
           <% end %>
 
         <% elsif @current_user && project.author != @current_user && @contest.live? %>
@@ -42,7 +42,7 @@
                       id:     "vote-submission-#{@submission.id}",
                       method: :post,
                       data:   { submission_id: @submission.id } do %>
-            Vote
+            <%= t("contest.vote") %>
           <% end %>
         <% end %>
       </div>
