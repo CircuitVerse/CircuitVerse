@@ -13,14 +13,14 @@
                     alt:   @submission.project.name %>
     </div>
     <div class="card-footer users-card-footer d-flex justify-content-between align-items-center">
-      <span class="fw-bold"><%= t("contest.votes") %>: <%= @submission.submission_votes_count %></span>
+      <span class="fw-bold"><%= t("contest.votes_count", count: @submission.submission_votes_count) %></span>
 
       <div>
         <a  class="previewButton btn primary-button"
             data-bs-toggle="modal"
             data-bs-target="#projectModal"
             data-project="<%= @submission.project.to_json %>">
-          <%= t("view") %>
+          <%= t("contest.view") %>
         </a>
         <% project = @submission.project %>
 

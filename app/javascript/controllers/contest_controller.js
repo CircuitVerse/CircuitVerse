@@ -6,9 +6,13 @@ export default class extends Controller {
     }
 
     connect() {
-        this.setCountDownTimer();
+        this._countdownId = this.setCountDownTimer();
         this.setShowModals();
         this.setAdminModals();
+    }
+
+    disconnect() {
+        if (this._countdownId) clearInterval(this._countdownId);
     }
 
     enableSubmitButton() {
@@ -66,7 +70,7 @@ export default class extends Controller {
     setCountDownTimer() {
         const deadline = new Date(this.timeleftValue).getTime();
         const timeLeftCounter = this.element.querySelector('#timeLeftCounter');
-        if (!timeLeftCounter) return;
+        if (!timeLeftCounter) return null;
 
         const dLabel = timeLeftCounter.dataset.d || 'd';
         const hLabel = timeLeftCounter.dataset.h || 'h';
@@ -74,20 +78,24 @@ export default class extends Controller {
         const sLabel = timeLeftCounter.dataset.s || 's';
         const expiredText = timeLeftCounter.dataset.expired || 'EXPIRED';
 
-        const x = setInterval(() => {
-            const now = new Date().getTime();
+        const id = setInterval(() => {
+            const now = Date.now();
             const t = deadline - now;
+
+            if (t <= 0) {
+                clearInterval(id);
+                timeLeftCounter.textContent = expiredText;
+                return;
+            }
 
             const days = Math.floor(t / (1000 * 60 * 60 * 24));
             const hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((t % (1000 * 60)) / 1000);
 
-            timeLeftCounter.innerHTML = `${days}${dLabel} ${hours}${hLabel} ${minutes}${mLabel} ${seconds}${sLabel} `;
-            if (t < 0) {
-                clearInterval(x);
-                timeLeftCounter.innerHTML = expiredText;
-            }
+            timeLeftCounter.textContent = `${days}${dLabel} ${hours}${hLabel} ${minutes}${mLabel} ${seconds}${sLabel}`;
         }, 1000);
+
+        return id;
     }
 }

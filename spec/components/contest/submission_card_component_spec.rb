@@ -18,9 +18,9 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
                                         current_user: author)
 
       expect(page).to have_css("img[alt='#{project.name}']")
-      expect(page).to have_text("Votes: 5")
-      expect(page).to have_css("a.previewButton", text: "View")
-      expect(page).to have_link("Withdraw")
+      expect(page).to have_text(I18n.t("contest.votes_count", count: 5))
+      expect(page).to have_css("a.previewButton", text: I18n.t("contest.view"))
+      expect(page).to have_link(I18n.t("contest.withdraw"))
     end
   end
 
@@ -40,9 +40,9 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
                                         current_user: viewer)
 
       expect(page).to have_css("img[alt='#{project.name}']")
-      expect(page).to have_text("Votes: 0")
-      expect(page).to have_css("a.previewButton", text: "View")
-      expect(page).not_to have_link("Withdraw")
+      expect(page).to have_text(I18n.t("contest.votes_count", count: 0))
+      expect(page).to have_css("a.previewButton", text: I18n.t("contest.view"))
+      expect(page).not_to have_link(I18n.t("contest.withdraw"))
     end
   end
 
@@ -60,8 +60,8 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
                                         contest: contest,
                                         current_user: author)
 
-      expect(page).to have_css("a.previewButton", text: "View")
-      expect(page).not_to have_link("Withdraw")
+      expect(page).to have_css("a.previewButton", text: I18n.t("contest.view"))
+      expect(page).not_to have_link(I18n.t("contest.withdraw"))
     end
   end
 end
