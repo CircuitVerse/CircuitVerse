@@ -78,6 +78,7 @@ en:
         duplicate_submission: "This project is already submitted in Contest #%{contest_id}"
       destroy:
         success: "Submission was successfully removed."
+        withdraw_closed: "Withdrawals are closed as the contest has ended."
       votes:
         create:
           voting_closed: "Voting is closed."
