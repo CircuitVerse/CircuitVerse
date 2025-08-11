@@ -45,4 +45,23 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
       expect(page).not_to have_link("Withdraw")
     end
   end
+
+  context "when contest is completed and current user is the author" do
+    it "does not show Withdraw button" do
+      contest    = create(:contest, status: :completed)
+      author     = create(:user)
+      project    = create(:project, author: author)
+      submission = create(:submission,
+                          contest: contest,
+                          project: project,
+                          submission_votes_count: 0)
+
+      render_inline described_class.new(submission: submission,
+                                        contest: contest,
+                                        current_user: author)
+
+      expect(page).to have_css("a.previewButton", text: "View")
+      expect(page).not_to have_link("Withdraw")
+    end
+  end
 end
