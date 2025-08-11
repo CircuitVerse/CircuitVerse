@@ -1,4 +1,8 @@
-<%= link_to user_project_path(project.author, project), class: "project-card", target: "_blank", rel: "noopener noreferrer" do %>
+<%= link_to user_project_path(project.author, project),
+            class: "project-card submission-card",
+            data:  { project_id: project.id },
+            target: "_blank",
+            rel:    "noopener noreferrer" do %>
   <div class="project-card-image-container">
     <%= image_tag(
           project.circuit_preview.attached? ? project.circuit_preview : image_path("empty_project/default.png"),

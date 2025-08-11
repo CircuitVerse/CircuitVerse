@@ -1,0 +1,42 @@
+<div id="host-new-contest-modal"
+     class="modal fade"
+     role="dialog"
+     aria-labelledby="hostNewContestModalLabel"
+     aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h4 id="hostNewContestModalLabel" class="modal-title">
+          <%= t("contest.host_new_contest_modal.heading") %>
+        </h4>
+        <button type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <p><%= t("contest.host_new_contest_modal.description") %></p>
+        <%= t("contest.host_new_contest_modal.description_html").html_safe %>
+      </div>
+
+      <div class="modal-footer">
+        <%= form_with url:   admin_contests_path,
+                      method: :post,
+                      scope:  :contest,
+                      local:  true do |form| %>
+
+          <%= form.hidden_field :status,   value: "live" %>
+          <%= form.hidden_field :deadline,
+                                value: @default_deadline.strftime("%Y-%m-%dT%H:%M") %>
+
+          <%= form.submit t("contest.host_new_contest_modal.confirm_button"),
+                          class: "btn primary-button groups-primary-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

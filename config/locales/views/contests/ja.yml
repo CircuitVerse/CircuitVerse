@@ -3,6 +3,7 @@ ja:
     heading: "コンテスト"
     index:
       subtitle: "生徒たちが素晴らしい回路を披露し、最高の回路をホームページで紹介するコンテスト!"
+      manage_button: "コンテストの管理"
     admin:
       subtitle: "このページは管理者向けのページで、新しいコンテストを主催するには「新しいコンテストを主催する」ボタンをクリックしてください。"
       new_contest_button: "新しいコンテストを開催する"
@@ -40,10 +41,67 @@ ja:
       heading: "新しいコンテストを開催"
       description: "新しいコンテストを開始してもよろしいですか？"
       description_html: "<p>新しいコンテストを開催することができます:</p><ul><li>進行中のコンテストを終了する (もしあれば)</li><li>すべてのユーザーに</li></ul>"
+      confirm_button: "確認する"
     update_contest_modal:
       heading: "コンテストの締め切りを更新"
       sub_heading: "コンテストの締め切りを設定"
       description: "今後、コンテスト締切日が設定されていることを確認してください。過去にコンテスト締切日を設定することはできません。"
+      update_deadline: "期限を更新"
     withdraw_submission_modal:
       heading: "提出物を撤回する"
       description: "コンテストから提出物を撤回してもよろしいですか？"
+    header:
+      time_left_label: "残り時間:"
+    buttons:
+      submit: "送信"
+      update_deadline: "期限を更新"
+  contests:
+    index:
+      title: "コンテスト"
+    show:
+      title: "コンテスト"
+    new_submission:
+      title: "新しい提出"
+    create_submission:
+      success: "Submission was successfully added."
+      unauthorized_project: "他のプロジェクトは提出できません。"
+      duplicate_submission: "このプロジェクトはすでにコンテスト #%{contest_id} に送信されています"
+    upvote:
+      voting_closed: "投票はクローズされています。"
+      all_votes_used: "すべての投票を使用しました！"
+      already_voted: "この提出物にはすでに投票済みです！"
+      success: "あなたは正常に提出物に投票しました。ありがとうございます！残りの投票数: %{votes_remaining}"
+    submissions:
+      create:
+        success: "Submission was successfully added."
+        unauthorized_project: "誰かのプロジェクトを提出することはできません。"
+        duplicate_submission: "このプロジェクトはすでにコンテスト #%{contest_id} に送信されています"
+      destroy:
+        success: "送信は正常に削除されました。"
+      votes:
+        create:
+          voting_closed: "投票はクローズされています。"
+          all_votes_used: "すべての投票を使用しました！"
+          already_voted: "この提出物にはすでに投票済みです！"
+          success: "あなたは正常に提出物に投票しました。ありがとうございます！残りの投票数: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "コンテスト管理"
+      create:
+        concurrent_contests: "コンテストを同時に作成することはできません。新しいコンテストを作成する前に他のコンテストを閉じてください。"
+        success: "コンテストは正常に開始されました。"
+      update:
+        contest_closed: "コンテストは正常に終了しました。"
+        deadline_in_future: "締め切りは将来のものでなければなりません。"
+        deadline_updated: "コンテストの締め切りが正常に更新されました。"
+        deadline_update_failed: "コンテストの期限を更新できませんでした: %{errors}"
+        invalid_deadline: "期限の形式が無効です。"
+      parse_deadline_or_redirect:
+        invalid_deadline: "期限の形式が無効です。"
+  layout:
+    link_to_contests: "コンテスト"
+  users:
+    circuitverse:
+      preview_project: "プロジェクトをプレビュー"
+  feature_not_available: "コンテスト機能は利用できません。"

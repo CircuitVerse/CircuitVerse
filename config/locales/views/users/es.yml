@@ -2,6 +2,7 @@ es:
   users:
     minimum_password_length: "(Mínimo %{minimum_password_length} caracteres)"
     ask_new_user: "¿Nuevo usuario?"
+    not_specified: "No especificado"
     confirmations:
       resend_confirmation_instructions: "Reenviar instrucciones de confirmación"
     circuitverse:
@@ -9,13 +10,15 @@ es:
       delete_user_confirmation: "¿Está seguro que desea eliminar su cuenta? Esta acción no se puede revertir."
       preview_project: "Vista previa del proyecto"
       member_since_html: "<strong>Miembro desde:</strong> %{member_since}"
+      member_since: "Miembro desde"
       educational_institutes_html: "<strong>Institución educativa:</strong> %{educational_institute}"
       country_html: "<strong>País:</strong> %{country_name}"
-      total_circuits_made_html: "<strong>Circuitos Totales Hecho: </strong> %{total_circuits}"
+      total_circuits_made_html: '<strong>Circuitos Totales Hecho: </strong> %{total_circuits}'
+      total_circuits: "Circuitos totales"
       edit_profile:
         title: "%{name} - Editar perfil"
         heading: "EDITAR PERFIL"
-        description_html: "Los campos marcados con <sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> son obligatorios"
+        description_html: 'Los campos marcados con <sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> son obligatorios'
         profile_picture: "Foto de Perfil"
         choose_file: "Elegir archivo"
         remove_picture: "Eliminar foto"
