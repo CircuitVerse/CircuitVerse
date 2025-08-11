@@ -6,13 +6,13 @@ export default class extends Controller {
     }
 
     connect() {
-        this._countdownId = this.setCountDownTimer();
+        this.countdownId = this.setCountDownTimer();
         this.setShowModals();
         this.setAdminModals();
     }
 
     disconnect() {
-        if (this._countdownId) clearInterval(this._countdownId);
+        if (this.countdownId) clearInterval(this.countdownId);
     }
 
     enableSubmitButton() {
@@ -77,6 +77,11 @@ export default class extends Controller {
         const mLabel = timeLeftCounter.dataset.m || 'm';
         const sLabel = timeLeftCounter.dataset.s || 's';
         const expiredText = timeLeftCounter.dataset.expired || 'EXPIRED';
+
+        if (Number.isNaN(deadline)) {
+            timeLeftCounter.textContent = expiredText;
+            return null;
+        }
 
         const id = setInterval(() => {
             const now = Date.now();
