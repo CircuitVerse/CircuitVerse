@@ -208,3 +208,20 @@
       background-color: $contest-danger-primary-button-hover;
     }
   }
+
+.leaderboard-button {
+  display: inline-block;
+}
+
+.leaderboard-table tr.rank-1 {
+  background: #fff8e1;
+}
+
+.leaderboard-table tr.rank-1 td:first-child::before {
+  content: "🏆 ";
+}
+
+.leaderboard-rank .emoji-badge {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
