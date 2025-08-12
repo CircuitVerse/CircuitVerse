@@ -68,8 +68,6 @@ en:
       submit: "Submit"
       update_deadline: "Update Deadline"
   contests:
-    leaderboard:
-      only_after_end: "Leaderboard is available after the contest ends."
     index:
       title: "Contests"
     show:

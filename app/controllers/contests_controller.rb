@@ -33,15 +33,9 @@ class ContestsController < ApplicationController
   end
 
   def leaderboard
-    if @contest.live?
-      redirect_to contest_path(@contest), notice: I18n.t("contests.leaderboard.only_after_end")
-      return
-    end
-
-    @submissions = @contest
-                   .submissions
-                   .includes(project: :author)
-                   .order(submission_votes_count: :desc, created_at: :asc)
+    @submissions = @contest.submissions
+                           .includes(project: :author)
+                           .order(submission_votes_count: :desc, created_at: :asc)
 
     render Contest::LeaderboardPageComponent.new(
       contest: @contest,

@@ -29,10 +29,10 @@ describe "Contests Leaderboard", type: :system do
     expect(rows.last).to have_text("BetaProj")
   end
 
-  it "does not expose leaderboard on live contest" do
+  it "exposes leaderboard on live contest" do
     contest = create(:contest, status: :live)
     visit leaderboard_contest_path(contest)
-    expect(page).to have_current_path(contest_path(contest))
-    expect(page).to have_text(I18n.t!("contests.leaderboard.only_after_end"))
+    expect(page).to have_current_path(leaderboard_contest_path(contest))
+    expect(page).to have_text(I18n.t!("contest.leaderboard.title", id: contest.id))
   end
 end

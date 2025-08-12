@@ -30,8 +30,13 @@
         </span>
 
         <%= link_to new_contest_submission_path(@contest.id),
-                    class: "contest-submission-button submission-button" do %>
+                    class: "contest-submission-button submission-button mb-2" do %>
           <span><%= t("contest.show.register_button") %></span>
+        <% end %>
+
+        <%= link_to leaderboard_contest_path(@contest.id),
+                    class: "contest-submission-button" do %>
+          <span><%= t("contest.show.view_leaderboard", default: "View Leaderboard") %></span>
         <% end %>
       </div>
     <% else %>
@@ -40,8 +45,8 @@
           <%= t("contest.show.disable_button") %>
         </button>
 
-        <%= link_to leaderboard_contest_path(@contest),
-                    class: "contest-submission-button leaderboard-button mt-1" do %>
+        <%= link_to leaderboard_contest_path(@contest.id),
+                    class: "contest-submission-button" do %>
           <span><%= t("contest.show.view_leaderboard", default: "View Leaderboard") %></span>
         <% end %>
       </div>

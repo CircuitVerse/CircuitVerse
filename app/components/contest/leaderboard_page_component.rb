@@ -2,8 +2,8 @@
 
 class Contest::LeaderboardPageComponent < ViewComponent::Base
   def initialize(contest:, submissions:)
+    super()
     @contest = contest
     @submissions = submissions
-    super()
   end
 end
