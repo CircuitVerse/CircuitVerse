@@ -4,7 +4,7 @@ en:
       title: "Contest #%{id} — Leaderboard"
       subtitle: "Final standings by votes; ties broken by earlier submission."
       back_to_contest: "Back To Contest"
-      no_submissions: "No submissions yet."
+      no_submissions: "No submissions"
       columns:
         rank: "Rank"
         project: "Project"
