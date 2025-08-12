@@ -312,7 +312,7 @@ input[type="text"]:focus {
     border-radius: 5px;
     text-align: center;
     position: absolute;
-    left: 50%;
+    left: 60% !important;
     transform: translate(-50%, 13px);
 }
 
@@ -340,6 +340,7 @@ input[type="text"]:focus {
     display: inline-block;
     height: 10px;
     position: absolute;
+    left: 50%;
     transform: translate(-50%, -13px) rotate(-45deg);
 }
 
@@ -349,6 +350,7 @@ input[type="text"]:focus {
     display: inline-block;
     height: 10px;
     position: absolute;
+    left: 50%;
     transform: translate(-50%, -15.5px);
     top: 14.5px;
 }
