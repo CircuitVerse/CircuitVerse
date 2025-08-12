@@ -21,7 +21,7 @@
       </button>
     </div>
     <div class="d-flex justify-content-between gap-2">
-      <div class="filters-container" data-controller="search-filters" data-search-filters-current-resource-value="<%= resource || resource_options.first %>" data-search-filters-countries-value="<%= countries_for_search.to_json %>" data-search-filters-filter-labels-value="<%= filter_labels.to_json %>" data-action="search-bar:resourceChanged@window->search-filters#updateFiltersForResource">
+      <div class="filters-container" data-controller="search-filters" data-search-filters-current-resource-value="<%= resource || resource_options.first %>" data-search-filters-countries-value="<%= countries_for_search.to_json %>" data-search-filters-filter-labels-value="<%= filter_labels.to_json %>" data-search-filters-current-values-value="<%= current_filter_values.to_json %>" data-action="search-bar:resourceChanged@window->search-filters#updateFiltersForResource">
         <button type="button" class="filters-button" data-search-filters-target="button" data-action="click->search-filters#toggleDropdown">
           <%= filter_labels["button_text"] %>
         </button>

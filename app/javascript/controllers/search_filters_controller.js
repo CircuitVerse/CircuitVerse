@@ -10,6 +10,7 @@ export default class extends Controller {
             currentResource: String,
             countries: Array,
             filterLabels: Object,
+            currentValues: Object,
         };
     }
 
@@ -70,13 +71,14 @@ export default class extends Controller {
             instituteLabels.label || 'Institute',
             'text',
             instituteLabels.placeholder || 'Enter institute...',
+            (this.currentValuesValue && this.currentValuesValue.institute) || '',
         );
 
         container.appendChild(countryField);
         container.appendChild(instituteField);
     }
 
-    static createFilterField(name, label, type, placeholder) {
+    static createFilterField(name, label, type, placeholder, currentValue = '') {
         const fieldDiv = document.createElement('div');
         fieldDiv.className = 'filter-field';
 
@@ -91,6 +93,7 @@ export default class extends Controller {
         inputElement.name = name;
         inputElement.id = `filter_${name}`;
         inputElement.placeholder = placeholder;
+        inputElement.value = currentValue;
 
         // Prevent form submission on Enter key press
         inputElement.addEventListener('keydown', (event) => {
@@ -134,6 +137,13 @@ export default class extends Controller {
 
         // Store tags array on the container for easy access
         tagContainer.selectedTags = [];
+
+        // Initialize with current tags from URL
+        if (this.currentValuesValue && this.currentValuesValue.tag) {
+            const currentTags = this.currentValuesValue.tag.split(',').map((tag) => tag.trim()).filter((tag) => tag);
+            tagContainer.selectedTags = currentTags;
+            this.renderTags(currentTags, tagsDisplay, tagContainer, hiddenInput);
+        }
 
         // Add tag on Enter key
         inputElement.addEventListener('keydown', (event) => {
@@ -226,6 +236,11 @@ export default class extends Controller {
                 option.textContent = country.name;
                 selectElement.appendChild(option);
             });
+        }
+
+        // Set selected value from current state
+        if (this.currentValuesValue && this.currentValuesValue.country) {
+            selectElement.value = this.currentValuesValue.country;
         }
 
         // Prevent form submission on Enter key press

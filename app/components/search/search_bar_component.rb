@@ -5,13 +5,17 @@ class Search::SearchBarComponent < ViewComponent::Base
     resource: nil,
     query: nil,
     sort_by: nil,
-    sort_direction: nil
+    sort_direction: nil,
+    countries: nil,
+    current_filters: nil
   )
     super
     @resource = resource
     @query = query
     @sort_by = sort_by || default_sort_by
     @sort_direction = sort_direction || default_sort_direction
+    @countries = countries || []
+    @current_filters = current_filters || {}
   end
 
   def all_sorting_options
@@ -22,18 +26,11 @@ class Search::SearchBarComponent < ViewComponent::Base
   end
 
   def countries_for_search
-    priority_countries = ["IN"]
+    @countries
+  end
 
-    all_countries = ISO3166::Country.all.map do |country|
-      {
-        name: country.translations[I18n.locale.to_s] || country.name,
-        code: country.alpha2,
-        priority: priority_countries.include?(country.alpha2)
-      }
-    end
-
-    # Sort with priority countries first, then alphabetically
-    all_countries.sort_by { |country| [country[:priority] ? 0 : 1, country[:name]] }
+  def current_filter_values
+    @current_filters
   end
 
   def filter_labels
@@ -60,7 +57,7 @@ class Search::SearchBarComponent < ViewComponent::Base
 
   private
 
-    attr_reader :resource, :query, :sort_by, :sort_direction
+    attr_reader :resource, :query, :sort_by, :sort_direction, :countries, :current_filters
 
     def resource_options
       %w[Users Projects]

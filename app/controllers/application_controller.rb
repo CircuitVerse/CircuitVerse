@@ -2,10 +2,12 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include SearchHelper
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications, if: :current_user
+  before_action :prepare_search_data
   around_action :switch_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
@@ -64,5 +66,14 @@ class ApplicationController < ActionController::Base
 
     def after_sign_in_path_for(resource_or_scope)
       stored_location_for(resource_or_scope) || super
+    end
+
+    def prepare_search_data
+      @search_countries = countries_for_search_filters(request)
+      @current_filters = {
+        country: params[:country],
+        institute: params[:institute],
+        tag: params[:tag]
+      }
     end
 end
