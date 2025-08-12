@@ -78,6 +78,7 @@ ja:
         duplicate_submission: "このプロジェクトはすでにコンテスト #%{contest_id} に送信されています"
       destroy:
         success: "送信は正常に削除されました。"
+        withdraw_closed: "退会はコンテストが終了しましたので、終了します。"
       votes:
         create:
           voting_closed: "投票はクローズされています。"
