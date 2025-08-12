@@ -42,7 +42,7 @@ export default class extends Controller {
         );
         
         // Dispatch initial resource change event on connect
-        this.dispatch("resourceChanged", { detail: { resource: this.hiddenSelectTarget.value } });
+        this.dispatch('resourceChanged', { detail: { resource: this.hiddenSelectTarget.value } });
     }
 
     disconnect() {

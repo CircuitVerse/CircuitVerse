@@ -11,6 +11,9 @@ module Adapters
         Project.public_and_not_forked
       end.includes(:tags, :author)
 
+      # Apply filters
+      results = apply_project_filters(results, query_params)
+
       # Apply sorting
       results = apply_project_sorting(results, query_params)
 
@@ -23,6 +26,9 @@ module Adapters
       else
         User.all
       end
+
+      # Apply filters
+      results = apply_user_filters(results, query_params)
 
       # Apply sorting
       results = apply_user_sorting(results, query_params)
@@ -60,6 +66,36 @@ module Adapters
         else
           relation # No sorting applied
         end
+      end
+
+      def apply_project_filters(relation, query_params)
+        # Filter by tags if provided
+        if query_params[:tag].present?
+          tags = query_params[:tag].split(',').map(&:strip).reject(&:blank?)
+          if tags.any?
+            # Use OR logic - projects that have ANY of the specified tags
+            relation = relation.joins(:tags).where(tags: { name: tags }).distinct
+          end
+        end
+
+        relation
+      end
+
+      def apply_user_filters(relation, query_params)
+        # Filter by country if provided
+        if query_params[:country].present?
+          country = query_params[:country].strip
+          relation = relation.where("LOWER(country) = LOWER(?)", country) if country.present?
+        end
+
+        # Filter by educational institute if provided
+        if query_params[:institute].present?
+          institute = query_params[:institute].strip
+          # Use ILIKE for partial matching on institute names
+          relation = relation.where("educational_institute ILIKE ?", "%#{institute}%") if institute.present?
+        end
+
+        relation
       end
   end
 end

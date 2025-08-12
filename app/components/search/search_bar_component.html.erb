@@ -20,21 +20,30 @@
         <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
       </button>
     </div>
-    <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resourceChanged@window->search-sorting#updateOptionsForResource">
-      <div class="d-flex sorting-buttons justify-content-center h-100">
-        <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
-          <span data-search-sorting-target="sortingText"><%= sort_by %></span>
-          <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow black-arrow", alt: "Dropdown arrow" %>
+    <div class="d-flex justify-content-between gap-2">
+      <div class="filters-container" data-controller="search-filters" data-search-filters-current-resource-value="<%= resource || resource_options.first %>" data-search-filters-countries-value="<%= countries_for_search.to_json %>" data-search-filters-filter-labels-value="<%= filter_labels.to_json %>" data-action="search-bar:resourceChanged@window->search-filters#updateFiltersForResource">
+        <button type="button" class="filters-button" data-search-filters-target="button" data-action="click->search-filters#toggleDropdown">
+          <%= filter_labels["button_text"] %>
         </button>
-        <button type="button" data-search-sorting-target="sortingDirection" data-action="click->search-sorting#toggleSortingDirection">
-          <%= image_tag "SVGs/sort-asc.svg", class: "sort-arrow", alt: "Sort ascending", data: { search_sorting_target: "ascIcon" } %>
-          <%= image_tag "SVGs/sort-desc.svg", class: "sort-arrow d-none", alt: "Sort descending", data: { search_sorting_target: "descIcon" } %>
-        </button>
+        <div class="filters-dropdown" data-search-filters-target="dropdown">
+        </div>
       </div>
-      <ul class="sorting-options" data-search-sorting-target="optionsList">
-      </ul>
-      <%= hidden_field_tag :sort_by, sort_by, data: { search_sorting_target: "hiddenSortBy" } %>
-      <%= hidden_field_tag :sort_direction, sort_direction, data: { search_sorting_target: "hiddenSortDirection" } %>
+      <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resourceChanged@window->search-sorting#updateOptionsForResource">
+        <div class="d-flex sorting-buttons justify-content-center h-100">
+          <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
+            <span data-search-sorting-target="sortingText"><%= sort_by %></span>
+            <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow black-arrow", alt: "Dropdown arrow" %>
+          </button>
+          <button type="button" data-search-sorting-target="sortingDirection" data-action="click->search-sorting#toggleSortingDirection">
+            <%= image_tag "SVGs/sort-asc.svg", class: "sort-arrow", alt: "Sort ascending", data: { search_sorting_target: "ascIcon" } %>
+            <%= image_tag "SVGs/sort-desc.svg", class: "sort-arrow d-none", alt: "Sort descending", data: { search_sorting_target: "descIcon" } %>
+          </button>
+        </div>
+        <ul class="sorting-options" data-search-sorting-target="optionsList">
+        </ul>
+        <%= hidden_field_tag :sort_by, sort_by, data: { search_sorting_target: "hiddenSortBy" } %>
+        <%= hidden_field_tag :sort_direction, sort_direction, data: { search_sorting_target: "hiddenSortDirection" } %>
+      </div>
     </div>
   <% end %>
 </div>

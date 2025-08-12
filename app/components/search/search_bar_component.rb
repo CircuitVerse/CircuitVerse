@@ -21,6 +21,43 @@ class Search::SearchBarComponent < ViewComponent::Base
     }
   end
 
+  def countries_for_search
+    priority_countries = ["IN"]
+
+    all_countries = ISO3166::Country.all.map do |country|
+      {
+        name: country.translations[I18n.locale.to_s] || country.name,
+        code: country.alpha2,
+        priority: priority_countries.include?(country.alpha2)
+      }
+    end
+
+    # Sort with priority countries first, then alphabetically
+    all_countries.sort_by { |country| [country[:priority] ? 0 : 1, country[:name]] }
+  end
+
+  def filter_labels
+    {
+      "button_text" => I18n.t("components.search_bar.filters.button_text"),
+      "projects" => {
+        "tags" => {
+          "label" => I18n.t("components.search_bar.filters.projects.tags.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.projects.tags.placeholder")
+        }
+      },
+      "users" => {
+        "country" => {
+          "label" => I18n.t("components.search_bar.filters.users.country.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.users.country.placeholder")
+        },
+        "institute" => {
+          "label" => I18n.t("components.search_bar.filters.users.institute.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.users.institute.placeholder")
+        }
+      }
+    }
+  end
+
   private
 
     attr_reader :resource, :query, :sort_by, :sort_direction
