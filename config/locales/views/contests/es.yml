@@ -78,6 +78,7 @@ es:
         duplicate_submission: "Este proyecto ya está enviado en el concurso #%{contest_id}"
       destroy:
         success: "El envío se ha eliminado correctamente."
+        withdraw_closed: "Las retiradas están cerradas cuando la competición ha terminado."
       votes:
         create:
           voting_closed: "Se cierra la votación."
