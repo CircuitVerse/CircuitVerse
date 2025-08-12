@@ -39,7 +39,7 @@
           <% @submissions.each_with_index do |submission, idx| %>
             <% project = submission.project %>
             <% author  = project.author %>
-            <% slug_or_id = project.slug || project.id %>
+            <%# Rails will call project.to_param (slug or id) %>
             <% rank = idx + 1 %>
             <tr>
               <td class="leaderboard-rank">
@@ -53,7 +53,7 @@
               </td>
               <td>
                 <%= link_to project.name,
-                            user_project_path(author, slug_or_id),
+                            user_project_path(author, project),
                             class: "text-decoration-none" %>
               </td>
               <td><%= author.name %></td>
