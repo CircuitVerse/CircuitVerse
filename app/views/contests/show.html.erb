@@ -1,6 +1,6 @@
 <div class="container"
      data-controller="contest"
-     data-contest-timeleft-value="<%= @contest.deadline %>">
+     data-contest-timeleft-value="<%= @contest.deadline&.iso8601 %>">
 
   <% if flash[:notice].present? %>
     <%= render "shared/notice", message: flash[:notice] %>
@@ -36,9 +36,14 @@
       </div>
     <% else %>
       <div class="d-flex flex-column align-items-center">
-        <button class="contest-ended-button" disabled>
+        <button class="contest-ended-button mb-2" disabled>
           <%= t("contest.show.disable_button") %>
         </button>
+
+        <%= link_to leaderboard_contest_path(@contest),
+                    class: "contest-submission-button leaderboard-button mt-1" do %>
+          <span><%= t("contest.show.view_leaderboard", default: "View Leaderboard") %></span>
+        <% end %>
       </div>
     <% end %>
   </div>

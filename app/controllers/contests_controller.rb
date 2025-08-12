@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 class ContestsController < ApplicationController
-  before_action :authenticate_user!, except: %i[index show]
+  before_action :authenticate_user!, except: %i[index show leaderboard]
   before_action :check_contests_feature_flag
-  before_action :set_contest, only: :show
+  before_action :set_contest, only: %i[show leaderboard]
   before_action :set_user_count, only: :show
 
   def index
@@ -30,6 +30,23 @@ class ContestsController < ApplicationController
     if (contest_winner = ContestWinner.find_by(contest_id: @contest.id))
       @winner = contest_winner.submission
     end
+  end
+
+  def leaderboard
+    if @contest.live?
+      redirect_to contest_path(@contest), notice: I18n.t("contests.leaderboard.only_after_end")
+      return
+    end
+
+    @submissions = @contest
+                   .submissions
+                   .includes(project: :author)
+                   .order(submission_votes_count: :desc, created_at: :asc)
+
+    render Contest::LeaderboardPageComponent.new(
+      contest: @contest,
+      submissions: @submissions
+    )
   end
 
   private
