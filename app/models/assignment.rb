@@ -14,7 +14,7 @@ class Assignment < ApplicationRecord
   after_commit :send_update_mail, on: :update
   after_create_commit :notify_recipient
 
-  enum grading_scale: { no_scale: 0, letter: 1, percent: 2, custom: 3 }
+  enum :grading_scale, { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
 

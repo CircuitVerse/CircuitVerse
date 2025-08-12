@@ -9,6 +9,7 @@ fr:
     link_to_blog: "Blogue"
     link_to_about: "À propos de"
     link_to_faq: "Foire Aux Questions"
+    link_to_contests: "Concours"
     footer:
       social_icon_text: "Suivez-nous sur:"
       link_to_examples: "Exemples"
@@ -33,3 +34,6 @@ fr:
       unsubscribe_email_notifications: "Se désabonner des notifications par e-mail"
     simulator:
       title: "CircuitVerse - Simulateur de circuits numériques en ligne"
+  contest:
+    index:
+      manage_button: "Gérer le concours"

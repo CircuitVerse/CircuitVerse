@@ -1,0 +1,108 @@
+fr:
+  contest:
+    heading: "CONCOURS"
+    index:
+      subtitle: "Des concours où les élèves présentent leurs circuits incroyables et les meilleurs sont présentés sur notre page d'accueil!"
+      manage_button: "Gérer les concours"
+    admin:
+      subtitle: "Cette page est destinée aux administrateurs, vous pouvez héberger un nouveau concours en cliquant sur le bouton « Héberger un nouveau concours » !"
+      new_contest_button: "Héberger un nouveau concours"
+    show:
+      subtitle: "Obtenez une chance de découvrir notre site Web et de montrer votre circuit aux utilisateurs %{user_count}!"
+      remaining_votes: "Vos votes restants :"
+      register_button: "Enregistrez votre circuit"
+      disable_button: "Concours terminé !"
+      winners: "Gagnants"
+      winners_description: "Les projets gagnants seront présentés sur notre site Web et seront récompensés en tant que tag spécial CircuitVerse."
+      user_submissions: "Vos envois"
+      user_submissions_description: "Vous pouvez retirer votre candidature du concours."
+      contest_entries: "Entrées au Concours (%{submission_count})"
+      contest_entries_description: "Votez pour vos participations favorites et aidez-nous à choisir nos gagnants pour cette semaine! Un utilisateur reçoit 3 voix."
+    votes: "Votes"
+    close: "Fermer"
+    no_contest: "Il n'y a pas de concours en direct ou complet."
+    contest_container:
+      contest_id: "Concours"
+      entries: "Entrées"
+    status:
+      live: "EN DIRECT"
+      completed: "Terminé"
+    withdraw: "Retirer"
+    vote: "Voter"
+    new_submission_page:
+      heading: "Soumission du projet"
+      select_your_circuit: "Sélectionnez votre circuit"
+      select_your_circuit_description: "Seuls les projets publics sont autorisés à participer au concours."
+    close_contest_modal:
+      heading: "Clôturer un concours"
+      description: "Êtes-vous sûr de vouloir clore ce concours?"
+      confirm_button: "Valider"
+    host_new_contest_modal:
+      heading: "Organisez un nouveau concours"
+      description: "Êtes-vous sûr de vouloir démarrer un nouveau concours?"
+      description_html: "<p>Héberger un nouveau concours peut :</p><ul><li>Mettre fin au concours en cours (le cas échéant)</li><li>Faire une annonce à tous les utilisateurs pour participer</li></ul>"
+      confirm_button: "Valider"
+    update_contest_modal:
+      heading: "Mettre à jour la date limite du concours"
+      sub_heading: "Fixer la date limite du concours"
+      description: "Veuillez vous assurer que la date limite du concours est fixée dans le futur. Il n’est pas permis de fixer la date limite du concours dans le passé."
+      update_deadline: "Date limite de mise à jour"
+    withdraw_submission_modal:
+      heading: "Retirer la soumission"
+      description: "Êtes-vous sûr de vouloir retirer votre candidature du concours ?"
+    header:
+      time_left_label: "Temps restant:"
+    buttons:
+      submit: "Soumettre"
+      update_deadline: "Date limite de mise à jour"
+  contests:
+    index:
+      title: "Concours"
+    show:
+      title: "Concours"
+    new_submission:
+      title: "Nouvelle soumission"
+    create_submission:
+      success: "La soumission a été ajoutée avec succès."
+      unauthorized_project: "Vous ne pouvez pas soumettre le projet de quelqu’un d’autre."
+      duplicate_submission: "Ce projet est déjà soumis au concours #%{contest_id}"
+    upvote:
+      voting_closed: "Le vote est clos."
+      all_votes_used: "Vous avez utilisé tous vos votes!"
+      already_voted: "Vous avez déjà voté pour cette soumission!"
+      success: "Vous avez voté avec succès pour la soumission, merci ! Votes restants : %{votes_remaining}"
+    submissions:
+      create:
+        success: "La soumission a été ajoutée avec succès."
+        unauthorized_project: "Vous ne pouvez pas soumettre le projet d'une autre personne."
+        duplicate_submission: "Ce projet est déjà soumis au concours #%{contest_id}"
+      destroy:
+        success: "La soumission a été supprimée avec succès."
+        withdraw_closed: "Les retraits sont clôturés à la fin du concours."
+      votes:
+        create:
+          voting_closed: "Le vote est clos."
+          all_votes_used: "Vous avez utilisé tous vos votes!"
+          already_voted: "Vous avez déjà voté pour cette soumission!"
+          success: "Vous avez voté avec succès pour la soumission, merci ! Votes restants : %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "Administrateur des concours"
+      create:
+        concurrent_contests: "Les concours simultanés ne sont pas autorisés. Fermez les autres concours avant d'en créer un nouveau."
+        success: "Le concours a été lancé avec succès."
+      update:
+        contest_closed: "Le concours s'est terminé avec succès."
+        deadline_in_future: "La date limite doit être fixée à l'avenir."
+        deadline_updated: "La date limite du concours a été mise à jour avec succès."
+        deadline_update_failed: "Impossible de mettre à jour la date limite du concours : %{errors}"
+        invalid_deadline: "Format de date limite invalide."
+      parse_deadline_or_redirect:
+        invalid_deadline: "Format de date limite invalide."
+  layout:
+    link_to_contests: "Concours"
+  users:
+    circuitverse:
+      preview_project: "Aperçu du projet"
+  feature_not_available: "La fonctionnalité du concours n'est pas disponible."

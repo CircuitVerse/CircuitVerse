@@ -49,7 +49,7 @@
             <% end %>
           </p>
           <p class="search-user-details-text">
-            <% if @profile.country_name == "Not Entered" %>
+            <% if @profile.country_name.blank? %>
               <%= t("users.circuitverse.country_html", country_name: t("not_entered")) %>
             <% else %>
               <%= t("users.circuitverse.country_html", country_name: @profile.country_name) %>

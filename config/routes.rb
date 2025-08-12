@@ -106,6 +106,19 @@ Rails.application.routes.draw do
     get "tags/:tag", to: "projects#get_projects", as: "tag"
   end
 
+  resources :contests, only: %i[index show] do
+    resources :submissions, only: %i[new create destroy], controller: "contests/submissions" do
+      resources :votes, only: %i[create], controller: "contests/submissions/votes"
+      member do
+        post :withdraw, to: "contests/submissions#destroy"
+      end
+    end
+  end
+
+  namespace :admin, path: "admins" do
+    resources :contests, only: %i[index create update]
+  end
+
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]

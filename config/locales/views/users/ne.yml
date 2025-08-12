@@ -11,11 +11,11 @@ ne:
       member_since_html: "<strong>सदस्यता:</strong> %{member_since}"
       educational_institutes_html: "<strong>शैक्षिक संस्था:</strong> %{educational_institute}"
       country_html: "<strong>देश:</strong> %{country_name}"
-      total_circuits_made_html: "<strong>कुल सर्किटहरू बनाइयो: </strong> %{total_circuits}"
+      total_circuits_made_html: '<strong>कुल सर्किटहरू बनाइयो: </strong> %{total_circuits}'
       edit_profile:
         title: "%{name} - प्रोफाइल सम्पादन"
         heading: "प्रोफाइल सम्पादन गर्नुहोस्"
-        description_html: "<sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> चिह्नित क्षेत्रहरू अनिवार्य छन्"
+        description_html: '<sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> चिह्नित क्षेत्रहरू अनिवार्य छन्'
         profile_picture: "प्रोफाइल तस्वीर"
         choose_file: "फाइल चयन गर्नुहोस्"
         remove_picture: "तस्वीर हटाउनुहोस्"

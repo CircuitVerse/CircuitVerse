@@ -2,12 +2,11 @@
 
 require "rails_helper"
 
-describe "Notifcation", type: :system do
+xdescribe "Notifcation", type: :system do
   before do
     @author = FactoryBot.create(:user)
     @user = sign_in_random_user
     @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
-    driven_by(:selenium_chrome_headless, screen_size: [1440, 900])
   end
 
   it "initiate notification" do

@@ -1,0 +1,108 @@
+de:
+  contest:
+    heading: "BESTÄTIGT"
+    index:
+      subtitle: "Wettbewerbe, bei denen die Schüler ihre fantastischen Rennstrecken zeigen und die besten auf unserer Homepage zu sehen sind!"
+      manage_button: "Wettbewerbe verwalten"
+    admin:
+      subtitle: "Diese Seite ist für Administratoren gedacht, du kannst einen neuen Wettbewerb veranstalten, indem du auf den Button 'Neuen Wettbewerb Gastgeber' klickst!"
+      new_contest_button: "Neuen Wettbewerb veranstalten"
+    show:
+      subtitle: "Erhalte die Chance, sich auf unserer Website vorzustellen und deine Schaltung an %{user_count} Benutzer zu zeigen!"
+      remaining_votes: "Ihre verbleibenden Stimmen:"
+      register_button: "Schaltung registrieren"
+      disable_button: "Wettbewerb beendet!"
+      winners: "Sieger"
+      winners_description: "Die siegreichen Projekte werden auf unserer Website vorgestellt und als CircuitVerse Sondertag ausgezeichnet."
+      user_submissions: "Ihre Einreichungen"
+      user_submissions_description: "Sie können Ihre Einreichung vom Wettbewerb zurückziehen."
+      contest_entries: "Wettbewerbseinträge (%{submission_count})"
+      contest_entries_description: "Stimmen Sie für Ihre Lieblingseinträge und helfen Sie uns, unsere Gewinner für diese Woche auszuwählen! Ein Benutzer erhält 3 Stimmen."
+    votes: "Abstimmungen"
+    close: "Schließen"
+    no_contest: "Es gibt keine Live-oder abgeschlossenen Wettbewerbe."
+    contest_container:
+      contest_id: "Wettbewerb"
+      entries: "Einträge"
+    status:
+      live: "LIVE"
+      completed: "Abgeschlossen"
+    withdraw: "Abheben"
+    vote: "Abstimmungen"
+    new_submission_page:
+      heading: "Projekteinreichung"
+      select_your_circuit: "Wählen Sie Ihre Schaltung"
+      select_your_circuit_description: "Im Wettbewerb sind nur öffentliche Projekte erlaubt."
+    close_contest_modal:
+      heading: "Einen Wettbewerb schließen"
+      description: "Bist du sicher, dass du diesen Wettbewerb schließen möchtest?"
+      confirm_button: "Bestätigen"
+    host_new_contest_modal:
+      heading: "Einen neuen Wettbewerb veranstalten"
+      description: "Bist du sicher, dass du einen neuen Wettbewerb starten möchtest?"
+      description_html: "<p>Das Hosten neuer Wettbewerbe kann:</p><ul><li>Beende den laufenden Wettbewerb (falls vorhanden)</li><li>Sag allen Benutzern eine Ankündigung,</li></ul>"
+      confirm_button: "Bestätigen"
+    update_contest_modal:
+      heading: "Aktualisiere Wettbewerbstermin"
+      sub_heading: "Termin für den Wettbewerb festlegen"
+      description: "Bitte stellen Sie sicher, dass der Termin für den Wettbewerb in der Zukunft festgelegt ist. Es ist nicht erlaubt, in der Vergangenheit den Termin für den Wettbewerb festzulegen."
+      update_deadline: "Update-Frist"
+    withdraw_submission_modal:
+      heading: "Einreichung zurückziehen"
+      description: "Bist du sicher, dass du deine Einreichung vom Wettbewerb zurückziehen möchtest?"
+    header:
+      time_left_label: "Verbleibende Zeit:"
+    buttons:
+      submit: "Absenden"
+      update_deadline: "Update-Frist"
+  contests:
+    index:
+      title: "Wettbewerbe"
+    show:
+      title: "Wettbewerb"
+    new_submission:
+      title: "Neue Einreichung"
+    create_submission:
+      success: "Einreichung wurde erfolgreich hinzugefügt."
+      unauthorized_project: "Du kannst das Projekt eines anderen nicht einreichen."
+      duplicate_submission: "Dieses Projekt ist bereits im Wettbewerb eingereicht #%{contest_id}"
+    upvote:
+      voting_closed: "Die Abstimmung ist geschlossen."
+      all_votes_used: "Sie haben all Ihre Stimmen verwendet!"
+      already_voted: "Du hast bereits eine Stimme für diese Einreichung abgegeben!"
+      success: "Sie haben erfolgreich die Einreichung abgestimmt, danke! Verbleibende Stimmen: %{votes_remaining}"
+    submissions:
+      create:
+        success: "Einreichung wurde erfolgreich hinzugefügt."
+        unauthorized_project: "Du kannst das Projekt eines anderen nicht einreichen."
+        duplicate_submission: "Dieses Projekt ist bereits im Wettbewerb eingereicht #%{contest_id}"
+      destroy:
+        success: "Die Einreichung wurde erfolgreich entfernt."
+        withdraw_closed: "Abhebungen werden geschlossen, sobald der Wettbewerb beendet ist."
+      votes:
+        create:
+          voting_closed: "Die Abstimmung ist geschlossen."
+          all_votes_used: "Sie haben all Ihre Stimmen verwendet!"
+          already_voted: "Du hast bereits eine Stimme für diese Einreichung abgegeben!"
+          success: "Sie haben erfolgreich die Einreichung abgestimmt, danke! Verbleibende Stimmen: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "Contest-Admin"
+      create:
+        concurrent_contests: "Gleichzeitige Wettbewerbe sind nicht zulässig. Schließe andere Wettbewerbe, bevor du einen neuen Wettbewerb erstellst."
+        success: "Wettbewerb wurde erfolgreich gestartet."
+      update:
+        contest_closed: "Der Wettbewerb wurde erfolgreich beendet."
+        deadline_in_future: "Die Frist muss in Zukunft liegen."
+        deadline_updated: "Wettbewerbsfrist wurde erfolgreich aktualisiert."
+        deadline_update_failed: "Fehler beim Aktualisieren des Wettkampftermins: %{errors}"
+        invalid_deadline: "Ungültiges Dead-Format."
+      parse_deadline_or_redirect:
+        invalid_deadline: "Ungültiges Dead-Format."
+  layout:
+    link_to_contests: "Wettbewerbe"
+  users:
+    circuitverse:
+      preview_project: "Projektvorschau"
+  feature_not_available: "Wettbewerb-Funktion ist nicht verfügbar."
