@@ -162,6 +162,10 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    capybara-playwright-driver (0.5.6)
+      addressable
+      capybara
+      playwright-ruby-client (>= 1.16.0)
     carrierwave (3.0.7)
       activemodel (>= 6.0.0)
       activesupport (>= 6.0.0)
@@ -320,8 +324,8 @@ GEM
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
-    job-iteration (1.3.6)
-      activejob (>= 5.2)
+    job-iteration (1.11.0)
+      activejob (>= 6.1)
     jquery-rails (4.5.0)
       rails-dom-testing (>= 1, < 3)
       railties (>= 4.2.0)
@@ -385,12 +389,14 @@ GEM
       net-smtp
     mailkick (0.4.3)
       activesupport (>= 5)
-    maintenance_tasks (2.3.1)
-      actionpack (>= 6.0)
-      activejob (>= 6.0)
-      activerecord (>= 6.0)
-      job-iteration (~> 1.3.6)
-      railties (>= 6.0)
+    maintenance_tasks (2.12.0)
+      actionpack (>= 7.0)
+      activejob (>= 7.0)
+      activerecord (>= 7.0)
+      csv
+      job-iteration (>= 1.3.6)
+      railties (>= 7.0)
+      zeitwerk (>= 2.6.2)
     marcel (1.0.4)
     matrix (0.4.3)
     meta-tags (2.16.0)
@@ -417,14 +423,14 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.8)
+    nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.8-arm64-darwin)
+    nokogiri (1.18.9-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-darwin)
+    nokogiri (1.18.9-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.8-x86_64-linux-gnu)
+    nokogiri (1.18.9-x86_64-linux-gnu)
       racc (~> 1.4)
     noticed (1.6.3)
       http (>= 4.0.0)
@@ -560,6 +566,9 @@ GEM
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
+    playwright-ruby-client (1.52.0)
+      concurrent-ruby (>= 1.1.6)
+      mime-types (>= 3.0)
     pr_geohash (1.0.0)
     premailer (1.13.1)
       addressable
@@ -716,7 +725,7 @@ GEM
     ruby-graphviz (1.2.5)
       rexml
     ruby-progressbar (1.13.0)
-    ruby-saml (1.18.0)
+    ruby-saml (1.18.1)
       nokogiri (>= 1.13.10)
       rexml
     ruby-vips (2.2.1)
@@ -727,7 +736,6 @@ GEM
       sexp_processor (~> 4.6)
     ruby_parser (3.18.1)
       sexp_processor (~> 4.16)
-    rubyzip (2.4.1)
     rugged (1.9.0)
     safely_block (0.3.0)
       errbase (>= 0.1.1)
@@ -748,12 +756,6 @@ GEM
       tilt
     securerandom (0.3.1)
     select2-rails (4.0.13)
-    selenium-webdriver (4.33.0)
-      base64 (~> 0.2)
-      logger (~> 1.4)
-      rexml (~> 3.2, >= 3.2.5)
-      rubyzip (>= 1.2.2, < 3.0)
-      websocket (~> 1.0)
     sentry-rails (5.17.3)
       railties (>= 5.0)
       sentry-ruby (~> 5.17.3)
@@ -847,7 +849,7 @@ GEM
       climate_control (>= 0.0.3, < 1.0)
     terser (1.1.13)
       execjs (>= 0.3.0, < 3)
-    thor (1.3.2)
+    thor (1.4.0)
     tilt (2.0.10)
     timeout (0.4.3)
     tins (1.32.1)
@@ -904,7 +906,6 @@ GEM
     webpush (1.1.0)
       hkdf (~> 0.2)
       jwt (~> 2.0)
-    websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
@@ -934,6 +935,7 @@ DEPENDENCIES
   bootsnap
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
+  capybara-playwright-driver
   carrierwave (~> 3.0)
   coffee-rails (~> 5.0)
   commontator (~> 7.0.0)
@@ -1034,7 +1036,6 @@ DEPENDENCIES
   sass-rails (~> 6.0)
   sassc-rails
   select2-rails
-  selenium-webdriver
   sentry-rails
   sentry-ruby
   sentry-sidekiq (~> 5.17)

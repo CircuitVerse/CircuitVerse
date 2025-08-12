@@ -3,6 +3,7 @@ es:
     heading: "CONTEST"
     index:
       subtitle: "¡Los concursos donde los estudiantes muestran sus increíbles circuitos y los mejores se presentan en nuestra página de inicio!"
+      manage_button: "Administrar concursos"
     admin:
       subtitle: "Esta página es para administradores, usted puede organizar un nuevo concurso haciendo clic en el botón 'Hospedar nuevo concurso'!"
       new_contest_button: "Nuevo concurso de anfitrión"
@@ -40,10 +41,68 @@ es:
       heading: "Anfitrión un nuevo concurso"
       description: "¿Estás seguro de que quieres iniciar un nuevo concurso?"
       description_html: "<p>Organizar un nuevo concurso puede:</p><ul><li>Finalizar el concurso en curso (si lo hay)</li><li>Hacer un anuncio a todos los usuarios para participar</li></ul>"
+      confirm_button: "Confirmar"
     update_contest_modal:
       heading: "Actualizar fecha límite del concurso"
       sub_heading: "Establecer fecha límite del concurso"
       description: "Por favor, asegúrese de que la fecha límite del concurso esté establecida en el futuro. No se le permite establecer la fecha límite del concurso en el pasado."
+      update_deadline: "Actualizar fecha límite"
     withdraw_submission_modal:
       heading: "Retire el envío"
       description: "¿Estás seguro de que quieres retirar tu envío del concurso?"
+    header:
+      time_left_label: "Tiempo restante:"
+    buttons:
+      submit: "Enviar"
+      update_deadline: "Actualizar fecha límite"
+  contests:
+    index:
+      title: "Concursos"
+    show:
+      title: "Concurso"
+    new_submission:
+      title: "Nuevo envío"
+    create_submission:
+      success: "El envío se ha añadido correctamente."
+      unauthorized_project: "No puedes enviar el proyecto de otra persona."
+      duplicate_submission: "Este proyecto ya está enviado en el concurso #%{contest_id}"
+    upvote:
+      voting_closed: "Se cierra la votación."
+      all_votes_used: "¡Ustedes han utilizado todos sus votos!"
+      already_voted: "¡Ya ha emitido un voto para esta sumisión!"
+      success: "Has votado con éxito el envío, ¡Gracias! Votos restantes: %{votes_remaining}"
+    submissions:
+      create:
+        success: "El envío se ha añadido correctamente."
+        unauthorized_project: "No puedes enviar el proyecto de otra persona."
+        duplicate_submission: "Este proyecto ya está enviado en el concurso #%{contest_id}"
+      destroy:
+        success: "El envío se ha eliminado correctamente."
+        withdraw_closed: "Las retiradas están cerradas cuando la competición ha terminado."
+      votes:
+        create:
+          voting_closed: "Se cierra la votación."
+          all_votes_used: "¡Ustedes han utilizado todos sus votos!"
+          already_voted: "¡Ya ha emitido un voto para esta sumisión!"
+          success: "Has votado con éxito el envío, ¡Gracias! Votos restantes: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "Admin de concursos"
+      create:
+        concurrent_contests: "No se permiten concursos concurrentes. Cierra otros concursos antes de crear uno nuevo."
+        success: "El concurso se ha iniciado correctamente."
+      update:
+        contest_closed: "Concurso finalizado con éxito."
+        deadline_in_future: "La fecha límite debe ser en el futuro."
+        deadline_updated: "La fecha límite del concurso se ha actualizado correctamente."
+        deadline_update_failed: "Error al actualizar la fecha límite del concurso: %{errors}"
+        invalid_deadline: "Formato de fecha límite no válido."
+      parse_deadline_or_redirect:
+        invalid_deadline: "Formato de fecha límite no válido."
+  layout:
+    link_to_contests: "Concursos"
+  users:
+    circuitverse:
+      preview_project: "Previsualizar proyecto"
+  feature_not_available: "La función de concurso no está disponible."

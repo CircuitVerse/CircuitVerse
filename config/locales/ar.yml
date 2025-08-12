@@ -40,6 +40,9 @@ ar:
       placeholders:
         users: "البحث عن المستخدمين"
         projects: "البحث عن مشاريع"
+      options:
+        users: "المستخدمون"
+        projects: "مشاريع"
     project:
       show_more: "إظهار المزيد"
       options:
