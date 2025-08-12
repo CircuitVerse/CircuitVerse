@@ -19,13 +19,13 @@
   <% if @submissions.empty? %>
     <div class="col-12 row center-row d-flex justify-content-center">
       <div class="search-no-results-image">
-        <%= image_tag "SVGs/noResult.svg", alt: t("contest.no_result_image_alt") %>
+        <%= image_tag "SVGs/noResult.svg", alt: t("contest.no_result_image_alt", default: "No result image") %>
         <h6><%= t("contest.leaderboard.no_submissions") %></h6>
       </div>
     </div>
   <% else %>
     <div class="table-responsive">
-      <table class="table table-striped align-middle leaderboard-table">
+      <table class="table table-striped align-middle">
         <thead>
           <tr>
             <th scope="col"><%= t("contest.leaderboard.columns.rank") %></th>
@@ -40,8 +40,17 @@
             <% project = submission.project %>
             <% author  = project.author %>
             <% slug_or_id = project.slug || project.id %>
-            <tr class="<%= 'rank-1' if idx.zero? %>">
-              <td><%= idx + 1 %></td>
+            <% rank = idx + 1 %>
+            <tr>
+              <td class="leaderboard-rank">
+                <%= rank %>
+                <% if rank == 1 %>
+                  <span class="emoji-badge ms-1"
+                        title="<%= t('contest.leaderboard.winner_badge', default: 'Winner') %>"
+                        aria-hidden="true">🏆</span>
+                  <span class="visually-hidden"><%= t('contest.leaderboard.winner_badge', default: 'Winner') %></span>
+                <% end %>
+              </td>
               <td>
                 <%= link_to project.name,
                             user_project_path(author, slug_or_id),

@@ -220,3 +220,8 @@
 .leaderboard-table tr.rank-1 td:first-child::before {
   content: "🏆 ";
 }
+
+.leaderboard-rank .emoji-badge {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}

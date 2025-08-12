@@ -36,11 +36,6 @@ class ContestsController < ApplicationController
     @submissions = @contest.submissions
                            .includes(project: :author)
                            .order(submission_votes_count: :desc, created_at: :asc)
-
-    render Contest::LeaderboardPageComponent.new(
-      contest: @contest,
-      submissions: @submissions
-    )
   end
 
   private
