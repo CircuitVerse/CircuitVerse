@@ -164,7 +164,7 @@
       </div>
       <div class="row center-row">
         <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-          <a class="btn primary-button homepage-primary-button-feature" href="/examples"><%= t("circuitverse.index.explore_more") %></a>
+          <a class="btn primary-button homepage-primary-button-feature" href="<%= Flipper.enabled?(:circuit_explore_page, current_user) ? explore_path : '/examples' %>"><%= t("circuitverse.index.explore_more") %></a>
         </div>
       </div>
     </div>
@@ -202,7 +202,7 @@
         <% end %>
         <div class="row center-row">
             <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-              <a class="btn primary-button homepage-primary-button-feature" href="/featured_circuits"><%= t("circuitverse.index.explore_more") %></a>
+              <a class="btn primary-button homepage-primary-button-feature" href="<%= Flipper.enabled?(:circuit_explore_page, current_user) ? explore_path : '/featured_circuits' %>"><%= t("circuitverse.index.explore_more") %></a>
             </div>
         </div>
       </div>
