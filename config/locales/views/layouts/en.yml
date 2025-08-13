@@ -10,6 +10,7 @@ en:
     link_to_about: "About"
     link_to_faq: "FAQ"
     link_to_contests: "Contests"
+    link_to_explore: "Explore"
     footer:
       social_icon_text: "Follow us on:"
       link_to_examples: "Examples"

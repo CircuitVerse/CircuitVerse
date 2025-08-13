@@ -1,19 +1,28 @@
 en:
   explore:
-    title: "Explore Circuits"
-    cotw:
-      heading: "Circuit of the Week"
-      description: "A standout public circuit from the last 7 days."
-      empty: "No standout circuit this week yet."
-    featured_examples:
-      heading: "Featured Examples"
-      description: "Handpicked examples to learn from."
-    editor_picks:
-      heading: "Editor Picks"
-      description: "Chosen by our authors for their awesomeness."
-    recent:
-      heading: "Recent Circuits"
-      description: "Fresh circuits from the community."
-    tags:
-      heading: "Browse by Tags"
-      description: "Discover circuits by topic."
+    title: "CircuitVerse - Explore"
+    main_heading: "Explore Circuits"
+    main_description: "Browse hand-picked circuits, classics, recent creations, and popular tags."
+    tabs:
+      cotw: "Circuit of the Week"
+      examples: "Featured Examples"
+      picks: "Editor Picks"
+      recent: "Recent Circuits"
+      tags: "Browse by Tags"
+    sections:
+      cotw:
+        heading: "Circuit of the Week"
+        description: "A spotlighted circuit chosen from featured and trending designs."
+      examples:
+        heading: "Featured Examples"
+        description: "Community favorites and classic references."
+      picks:
+        heading: "Editor Picks"
+        description: "Curated by our authors for their awesomeness."
+      recent:
+        heading: "Recent Circuits"
+        description: "The latest public circuits from our community."
+      tags:
+        heading: "Browse by Tags"
+        description: "Jump into topics that interest you."
+    empty: "Nothing to show yet."

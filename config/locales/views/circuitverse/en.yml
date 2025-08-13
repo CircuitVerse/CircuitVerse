@@ -34,6 +34,7 @@ en:
       main_heading: "Dive into the world of Logic Circuits for free!"
       main_description: "From simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, and much more"
       learn_logic_design: "Learn Logic Design"
+      explore_circuits: "Explore Circuits"
       for_teachers: "For Teachers"
       for_contributors: "For Contributors"
       features:
