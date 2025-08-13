@@ -506,3 +506,34 @@
     color: $white;
   }
 }
+
+.project-card-share-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.project-card-share-btn:hover { transform: translateY(-1px); }
+
+.share-toast {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease;
+}
+.share-toast.show { opacity: 1; }

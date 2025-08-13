@@ -9,6 +9,17 @@
           alt: project.name,
           class: "project-card-image"
         ) %>
+    <button
+      class="project-card-share-btn"
+      type="button"
+      data-controller="share"
+      data-action="click->share#share"
+      data-share-url-value="<%= user_project_url(project.author, project) %>"
+      data-share-title-value="<%= project.name %>">
+      <i class="fas fa-share-alt" aria-hidden="true"></i>
+      <span class="visually-hidden"><%= t("components.project.share") %></span>
+      <span class="share-toast" data-share-target="toast"><%= t("components.project.copied") %></span>
+    </button>
   </div>
   <div class="project-card-content">
     <div class="project-card-header">
