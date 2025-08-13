@@ -78,6 +78,11 @@ Rails.application.routes.draw do
   get  "/teachers", to: "circuitverse#teachers"
   get  "/contribute", to: "circuitverse#contribute"
 
+  # Explore 
+  constraints -> { Flipper.enabled?(:circuit_explore_page) } do
+    get "/explore", to: "explore#index", as: :explore
+  end
+
   #announcements
   resources :announcements, except: %i[show]
 
