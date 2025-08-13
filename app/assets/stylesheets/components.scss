@@ -537,3 +537,23 @@
   transition: opacity .15s ease;
 }
 .share-toast.show { opacity: 1; }
+
+.explore-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.explore-tab {
+  border: 1px solid $secondary-green;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: $white;
+  cursor: pointer;
+}
+.explore-tab.active {
+  background: $primary-green;
+  color: $white;
+  border-color: $primary-green;
+}
