@@ -1,0 +1,19 @@
+en:
+  explore:
+    title: "Explore Circuits"
+    cotw:
+      heading: "Circuit of the Week"
+      description: "A standout public circuit from the last 7 days."
+      empty: "No standout circuit this week yet."
+    featured_examples:
+      heading: "Featured Examples"
+      description: "Handpicked examples to learn from."
+    editor_picks:
+      heading: "Editor Picks"
+      description: "Chosen by our authors for their awesomeness."
+    recent:
+      heading: "Recent Circuits"
+      description: "Fresh circuits from the community."
+    tags:
+      heading: "Browse by Tags"
+      description: "Discover circuits by topic."
