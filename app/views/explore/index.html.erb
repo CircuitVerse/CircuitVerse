@@ -1,0 +1,93 @@
+<% content_for :title, t("explore.title") %>
+
+<div class="container">
+  <div class="row center-row">
+    <div class="col-12">
+      <h1 class="main-heading"><%= t("explore.cotw.heading") %></h1>
+      <p class="main-description"><%= t("explore.cotw.description") %></p>
+    </div>
+  </div>
+
+  <% if @circuit_of_the_week %>
+    <div class="project-cards-grid">
+      <%= render(Project::ProjectCardComponent.new(project: @circuit_of_the_week)) %>
+    </div>
+  <% else %>
+    <p class="text-muted"><%= t("explore.cotw.empty") %></p>
+  <% end %>
+
+  <div class="row center-row home-circuit-card-row">
+    <div class="col-12">
+      <h3><%= t("explore.featured_examples.heading") %></h3>
+      <p><%= t("explore.featured_examples.description") %></p>
+    </div>
+  </div>
+
+  <div class="row center-row justify-content-center">
+    <% @featured_examples.each do |ex| %>
+      <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+        <div class="card circuit-card">
+          <%= image_tag ex[:img], alt: ex[:name], class: "card-img-top circuit-card-image examples-circuit-card-image" %>
+          <div class="card-footer circuit-card-footer">
+            <div class="circuit-card-name">
+              <p><%= ex[:name] %></p>
+              <span class="tooltiptext"><%= ex[:name] %></span>
+            </div>
+            <a class="btn primary-button circuit-card-primary-button" target="_blank" rel="noopener noreferrer" href="https://circuitverse.org/<%= ex[:id] %>"><%= t("view") %></a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="row center-row home-circuit-card-row">
+    <div class="col-12">
+      <h3><%= t("explore.editor_picks.heading") %></h3>
+      <p><%= t("explore.editor_picks.description") %></p>
+    </div>
+  </div>
+
+  <div class="project-cards-grid">
+    <% @editor_picks.each do |project| %>
+      <%= render(Project::ProjectCardComponent.new(project: project)) %>
+    <% end %>
+  </div>
+
+  <div class="row center-row home-circuit-card-row" id="recent">
+    <div class="col-12">
+      <h3><%= t("explore.recent.heading") %></h3>
+      <p><%= t("explore.recent.description") %></p>
+    </div>
+  </div>
+
+  <div class="project-cards-grid">
+    <% @recent_projects.each do |project| %>
+      <%= render(Project::ProjectCardComponent.new(project: project)) %>
+    <% end %>
+  </div>
+
+  <% if @recent_projects.present? %>
+    <div class="container pagination-cont">
+      <%= will_paginate(@recent_projects,
+            renderer: SearchPaginateRenderer,
+            link_options: { anchor: 'recent' },
+            page_links: true) %>
+    </div>
+  <% end %>
+
+  <div class="row center-row home-circuit-card-row" id="tags">
+    <div class="col-12">
+      <h3><%= t("explore.tags.heading") %></h3>
+      <p><%= t("explore.tags.description") %></p>
+    </div>
+  </div>
+
+  <div class="d-flex flex-wrap gap-2 justify-content-center">
+    <% @popular_tags.each do |tag| %>
+      <%= link_to tag_path(tag.name),
+          class: "badge search-tag", title: tag.name do %>
+        <%= tag.name %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
