@@ -2,3 +2,4 @@ web: bundle exec rdbg --open --nonstop --command -- bundle exec rails server -p 
 js: REBUILD_VUE=false yarn build --watch
 worker: bundle exec sidekiq
 vite: bash -c "./bin/vite dev"
+mail: mailcatcher -f

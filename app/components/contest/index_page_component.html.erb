@@ -1,0 +1,38 @@
+<div class="container">
+  <% if notice.present? %>
+    <%= render "shared/notice", message: notice %>
+  <% end %>
+
+  <div class="column contests-header">
+    <h3 class="contests-header-title"><%= t("contest.heading") %></h3>
+    <p  class="contests-header-description"><%= t("contest.index.subtitle") %></p>
+
+    <% if current_user&.admin? %>
+      <div class="text-end mt-2">
+        <%= link_to t("contest.index.manage_button"),
+                    admin_contests_path,
+                    class: "contest-submission-button" %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="contest-page-line"></div>
+
+  <div class="contests-list-wrapper">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <% contests.each do |contest| %>
+        <div class="col">
+          <%= render Contest::CardComponent.new(contest: contest) %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="container pagination-cont">
+    <%= will_paginate contests, renderer: PaginateRenderer %>
+  </div>
+
+  <% if contests.empty? %>
+    <%= render "shared/no_results", message: t("contest.no_contest") %>
+  <% end %>
+</div>

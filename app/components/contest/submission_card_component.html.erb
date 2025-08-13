@@ -1,0 +1,51 @@
+<div class="col-12 col-sm-12 col-md-6 col-lg-4 users-circuits-column circuit-card-js submission-card"
+     data-project-id="<%= @submission.project_id %>">
+  <div class="card text-center users-card">
+    <div class="card-header submission-card-header">
+      <div class="users-card-name">
+        <p><%= @submission.project.name.truncate(25) %></p>
+        <span class="tooltiptext"><%= @submission.project.name %></span>
+      </div>
+    </div>
+    <div class="card-body users-card-body">
+      <%= image_tag @submission.project.image_preview.url,
+                    class: "users-card-image",
+                    alt:   @submission.project.name %>
+    </div>
+    <div class="card-footer users-card-footer d-flex justify-content-between align-items-center">
+      <span class="fw-bold">Votes: <%= @submission.submission_votes_count %></span>
+
+      <div>
+        <a  class="previewButton btn primary-button"
+            data-bs-toggle="modal"
+            data-bs-target="#projectModal"
+            data-project="<%= @submission.project.to_json %>">
+          View
+        </a>
+        <% project = @submission.project %>
+
+        <% if @current_user && project.author == @current_user && @contest.live? %>
+          <%= link_to "#",
+                      class:  "previewButton btn primary-button danger-primary-button withdraw-button",
+                      id:     "withdraw-submission-#{@submission.id}",
+                      data:   { bs_toggle:  "modal",
+                                bs_target:  "#withdraw-submission-confirmation-modal",
+                                contest:    @contest,
+                                submission: @submission,
+                                submission_id: @submission.id } do %>
+            Withdraw
+          <% end %>
+
+        <% elsif @current_user && project.author != @current_user && @contest.live? %>
+          <%= link_to contest_submission_votes_path(@contest.id, @submission.id),
+                      class:  "previewButton btn primary-button vote-button",
+                      id:     "vote-submission-#{@submission.id}",
+                      method: :post,
+                      data:   { submission_id: @submission.id } do %>
+            Vote
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
