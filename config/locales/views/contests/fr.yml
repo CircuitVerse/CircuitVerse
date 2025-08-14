@@ -78,6 +78,7 @@ fr:
         duplicate_submission: "Ce projet est déjà soumis au concours #%{contest_id}"
       destroy:
         success: "La soumission a été supprimée avec succès."
+        withdraw_closed: "Les retraits sont clôturés à la fin du concours."
       votes:
         create:
           voting_closed: "Le vote est clos."
