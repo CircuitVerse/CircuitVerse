@@ -6,9 +6,13 @@ export default class extends Controller {
     }
 
     connect() {
-        this.setCountDownTimer();
+        this.countdownId = this.setCountDownTimer();
         this.setShowModals();
         this.setAdminModals();
+    }
+
+    disconnect() {
+        if (this.countdownId) clearInterval(this.countdownId);
     }
 
     enableSubmitButton() {
@@ -66,22 +70,37 @@ export default class extends Controller {
     setCountDownTimer() {
         const deadline = new Date(this.timeleftValue).getTime();
         const timeLeftCounter = this.element.querySelector('#timeLeftCounter');
-        if (!timeLeftCounter) return;
+        if (!timeLeftCounter) return null;
 
-        const x = setInterval(() => {
-            const now = new Date().getTime();
+        const dLabel = timeLeftCounter.dataset.d || 'd';
+        const hLabel = timeLeftCounter.dataset.h || 'h';
+        const mLabel = timeLeftCounter.dataset.m || 'm';
+        const sLabel = timeLeftCounter.dataset.s || 's';
+        const expiredText = timeLeftCounter.dataset.expired || 'EXPIRED';
+
+        if (Number.isNaN(deadline)) {
+            timeLeftCounter.textContent = expiredText;
+            return null;
+        }
+
+        const id = setInterval(() => {
+            const now = Date.now();
             const t = deadline - now;
+
+            if (t <= 0) {
+                clearInterval(id);
+                timeLeftCounter.textContent = expiredText;
+                return;
+            }
 
             const days = Math.floor(t / (1000 * 60 * 60 * 24));
             const hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((t % (1000 * 60)) / 1000);
 
-            timeLeftCounter.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s `;
-            if (t < 0) {
-                clearInterval(x);
-                timeLeftCounter.innerHTML = 'EXPIRED';
-            }
+            timeLeftCounter.textContent = `${days}${dLabel} ${hours}${hLabel} ${minutes}${mLabel} ${seconds}${sLabel}`;
         }, 1000);
+
+        return id;
     }
 }

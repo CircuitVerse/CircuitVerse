@@ -114,7 +114,7 @@ describe "Contests", type: :system do
 
   def check_submission_container(submission, project)
     expect(page).to have_text(project.name)
-    expect(page).to have_text("Votes: #{submission.submission_votes_count}")
+    expect(page).to have_text(I18n.t("contest.votes_count", count: submission.submission_votes_count))
   end
 
   def check_contest_page(id)

@@ -3,7 +3,7 @@
   <% if notice %>
     <div class="row" id="alertdiv">
       <div class="alert alert-success alert-dismissible container text-center">
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t('contest.close') %>"></button>
         <h6><%= notice %></h6>
       </div>
     </div>
@@ -68,7 +68,7 @@
                                     contest:   contest,
                                     deadline:  contest.deadline.strftime("%Y-%m-%dT%H:%M") },
                           class:  "contest-container-update-button" do %>
-                <%= image_tag("SVGs/editGroup.svg", alt: "Edit Deadline") %>
+                <%= image_tag("SVGs/editGroup.svg", alt: t("admin.contests.index.edit_deadline_alt")) %>
                 <span><%= t("edit") %></span>
               <% end %>
             <% end %>
@@ -86,7 +86,7 @@
   <% if @contests.empty? %>
     <div class="col-12 row center-row d-flex justify-content-center">
       <div class="search-no-results-image">
-        <%= image_tag "SVGs/noProject.svg", alt: "No result image" %>
+        <%= image_tag "SVGs/noProject.svg", alt: t("contest.no_result_image_alt") %>
         <h6><%= t("contest.no_contest") %></h6>
       </div>
     </div>
