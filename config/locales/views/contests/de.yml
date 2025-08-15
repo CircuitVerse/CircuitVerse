@@ -78,6 +78,7 @@ de:
         duplicate_submission: "Dieses Projekt ist bereits im Wettbewerb eingereicht #%{contest_id}"
       destroy:
         success: "Die Einreichung wurde erfolgreich entfernt."
+        withdraw_closed: "Abhebungen werden geschlossen, sobald der Wettbewerb beendet ist."
       votes:
         create:
           voting_closed: "Die Abstimmung ist geschlossen."
