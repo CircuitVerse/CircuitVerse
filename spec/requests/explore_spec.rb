@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rails_helper"
 
 RSpec.describe "Explore", type: :request do
@@ -8,8 +9,10 @@ RSpec.describe "Explore", type: :request do
     Flipper.disable(:circuit_explore_page)
   end
 
-  it "404 when flag disabled" do
-    expect { get "/explore" }.to raise_error(ActionController::RoutingError)
+  it "redirects when flag disabled" do
+    get "/explore"
+    expect(response).to have_http_status(:found)
+    expect(response).to redirect_to(root_path)
   end
 
   it "200 when flag enabled" do

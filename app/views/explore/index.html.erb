@@ -108,6 +108,29 @@
           <%= render(Project::ProjectCardComponent.new(project: project)) %>
         <% end %>
       </div>
+
+      <div class="container pagination-cont">
+        <ul class="pagination justify-content-center">
+          <li class="page-item <%= 'disabled' unless @has_prev_recent %>">
+            <% if @has_prev_recent %>
+              <%= link_to t("pagination.previous", default: "Previous"),
+                          "/explore?section=recent&after_id=#{@recent_prev_after_id}",
+                          class: "page-link" %>
+            <% else %>
+              <span class="page-link"><%= t("pagination.previous", default: "Previous") %></span>
+            <% end %>
+          </li>
+          <li class="page-item <%= 'disabled' unless @has_next_recent %>">
+            <% if @has_next_recent %>
+              <%= link_to t("pagination.next", default: "Next"),
+                          "/explore?section=recent&before_id=#{@recent_next_before_id}",
+                          class: "page-link" %>
+            <% else %>
+              <span class="page-link"><%= t("pagination.next", default: "Next") %></span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
     <% else %>
       <p class="text-muted"><%= t("explore.empty") %></p>
     <% end %>

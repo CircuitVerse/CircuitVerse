@@ -557,3 +557,15 @@
   color: $white;
   border-color: $primary-green;
 }
+
+.explore-section[data-key="picks"] .project-cards-grid,
+.explore-section[data-key="recent"] .project-cards-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.explore-section[data-key="picks"] .project-card,
+.explore-section[data-key="recent"] .project-card {
+  max-width: none;
+  min-width: 0;
+}

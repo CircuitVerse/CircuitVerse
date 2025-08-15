@@ -16,20 +16,13 @@ class ExploreService
     top = Project.public_and_not_forked
                  .open
                  .left_joins(:stars)
-                 .where("stars.created_at >= ?", week_ago)
+                 .where(stars: { created_at: week_ago.. })
                  .group("projects.id")
                  .order(Arel.sql("COUNT(stars.id) DESC"), created_at: :desc)
                  .includes(:author)
                  .limit(1)
                  .first
-    return top if top
-
-    Project.public_and_not_forked
-           .open
-           .order(view: :desc, created_at: :desc)
-           .includes(:author)
-           .limit(1)
-           .first
+    top || fallback_cotw
   end
 
   def featured_examples
@@ -51,9 +44,12 @@ class ExploreService
   end
 
   def recent_projects
-    relation = Project.select(:id, :author_id, :image_preview, :name, :slug, :description, :view, :project_access_type, :created_at)
+    fields = %i[
+      id author_id image_preview name slug description view project_access_type created_at
+    ]
+
+    relation = Project.select(*fields)
                       .public_and_not_forked
-                      .where.not(image_preview: "default.png")
                       .includes(:author)
                       .order(created_at: :desc, id: :desc)
 
@@ -69,4 +65,15 @@ class ExploreService
        .limit(TAGS_LIMIT)
        .select("tags.*, COUNT(taggings.id) AS tags_count")
   end
+
+  private
+
+    def fallback_cotw
+      Project.public_and_not_forked
+             .open
+             .order(view: :desc, created_at: :desc)
+             .includes(:author)
+             .limit(1)
+             .first
+    end
 end

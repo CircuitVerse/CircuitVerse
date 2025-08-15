@@ -11,9 +11,11 @@ class FooterLinksComponent < ViewComponent::Base
       { url: "/simulator", text: "layout.link_to_simulator" },
       { url: "/learn", text: "layout.link_to_learn_more", target: "_blank" },
       { url: "https://blog.circuitverse.org", text: "layout.link_to_blog", target: "_blank" },
-      (Flipper.enabled?(:circuit_explore_page, @current_user) ?
-        { url: "/explore", text: "layout.footer.link_to_explore" } :
-        { url: "/examples", text: "layout.footer.link_to_examples" }),
+      (if Flipper.enabled?(:circuit_explore_page, @current_user)
+         { url: "/explore", text: "layout.footer.link_to_explore" }
+       else
+         { url: "/examples", text: "layout.footer.link_to_examples" }
+       end),
       user_specific_link
     ]
   end

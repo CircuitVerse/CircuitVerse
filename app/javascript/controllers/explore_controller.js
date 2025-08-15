@@ -1,29 +1,53 @@
-import { Controller } from '@hotwired/stimulus';
+import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ['tab', 'section'];
+  static targets = ["tab", "section"]
 
   connect() {
-    const keyFromHash = window.location.hash?.replace('#', '');
-    if (keyFromHash) this.activate(keyFromHash);
+    const url = new URL(window.location.href)
+
+    let key =
+      url.searchParams.get("section") ||
+      (url.hash ? url.hash.replace("#", "") : "cotw")
+
+    if (!this._hasSection(key)) key = "cotw"
+
+    this._show(key, { canonicalize: true })
   }
 
   switch(event) {
-    const key = event.currentTarget.dataset.key;
-    this.activate(key);
+    const key = event.currentTarget.dataset.key
+    this._show(key, { updateUrl: true })
   }
 
-  activate(key) {
+  _show(key, { canonicalize = false, updateUrl = false } = {}) {
     this.tabTargets.forEach((el) => {
-      const active = el.dataset.key === key;
-      el.classList.toggle('active', active);
-      el.setAttribute('aria-selected', active ? 'true' : 'false');
-    });
+      const active = el.dataset.key === key
+      el.classList.toggle("active", active)
+      el.setAttribute("aria-selected", active ? "true" : "false")
+    })
 
     this.sectionTargets.forEach((el) => {
-      el.classList.toggle('d-none', el.dataset.key !== key);
-    });
+      const show = el.dataset.key === key
+      el.classList.toggle("d-none", !show)
+      el.toggleAttribute("hidden", !show)
+    })
 
-    if (history.replaceState) history.replaceState(null, '', `#${key}`);
+    if (canonicalize || updateUrl) {
+      const url = new URL(window.location.href)
+      url.hash = `#${key}`
+      url.searchParams.set("section", key)
+
+      if (key !== "recent") {
+        url.searchParams.delete("before_id")
+        url.searchParams.delete("after_id")
+      }
+
+      history.replaceState({}, "", url)
+    }
+  }
+
+  _hasSection(key) {
+    return this.sectionTargets.some((el) => el.dataset.key === key)
   }
 }
