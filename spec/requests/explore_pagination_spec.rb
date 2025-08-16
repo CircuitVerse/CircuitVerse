@@ -9,6 +9,11 @@ RSpec.describe "Explore pagination (cursor)", type: :request do
     Flipper.enable(:circuit_explore_page)
   end
 
+  def extract_cursor(body, key)
+    m = body.match(%r{href="/explore\?section=recent&amp;#{key}=([^"#&]+)})
+    m && m[1]
+  end
+
   context "with no projects" do
     it "renders empty state and no pagination" do
       get "/explore"
@@ -27,66 +32,78 @@ RSpec.describe "Explore pagination (cursor)", type: :request do
       end
     end
 
-    def base_scope
-      Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description)
-             .public_and_not_forked
-             .where.not(image_preview: "default.png")
-    end
-
-    it "first page has next but no prev" do
+    it "first page has next (after=) but no prev (before=)" do
       get "/explore"
       expect(response).to have_http_status(:ok)
-      expect(response.body).not_to include('href="/explore?section=recent&amp;after_id=')
-      expect(response.body).to match(%r{href="/explore\?section=recent&amp;before_id=\d+"})
+      expect(response.body).not_to include('href="/explore?section=recent&amp;before=')
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after=[^"&]+})
     end
 
-    it "next page via before_id has both prev and next" do
+    it "next page via after has both prev (before=) and next (after=)" do
       get "/explore"
-      expect(response).to have_http_status(:ok)
-      m = response.body.match(%r{href="/explore\?section=recent&amp;before_id=(\d+)"})
-      expect(m).not_to be_nil
-      before_id = m[1]
+      after_cursor = extract_cursor(response.body, "after")
+      expect(after_cursor).to be_present
 
-      get "/explore", params: { section: "recent", before_id: before_id }
+      get "/explore", params: { section: "recent", after: after_cursor }
       expect(response).to have_http_status(:ok)
-      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after_id=\d+"})
-      expect(response.body).to match(%r{href="/explore\?section=recent&amp;before_id=\d+"})
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after=[^"&]+})
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;before=[^"&]+})
     end
 
-    it "previous page via after_id returns newer set" do
-      page1_last = base_scope.order(id: :desc).limit(recent_limit).pluck(:id).last
-      page2_ids  = base_scope.where(Project.arel_table[:id].lt(page1_last))
-                             .order(id: :desc).limit(recent_limit).pluck(:id)
-      after_id = page2_ids.first
-      get "/explore", params: { section: "recent", after_id: after_id }
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to match(%r{href="/explore\?section=recent&amp;before_id=\d+"})
-    end
-
-    # rubocop:disable RSpec/MultipleExpectations
-    it "middle page via after_id has both prev and next (covers reverse branch)" do
+    it "previous page via before returns newer set" do
       get "/explore"
-      m1 = response.body.match(%r{href="/explore\?section=recent&amp;before_id=(\d+)"})
-      expect(m1).not_to be_nil
-      b1 = m1[1]
+      after_cursor = extract_cursor(response.body, "after")
+      get "/explore", params: { section: "recent", after: after_cursor }
+      before_cursor = extract_cursor(response.body, "before")
+      expect(before_cursor).to be_present
 
-      get "/explore", params: { section: "recent", before_id: b1 }
+      get "/explore", params: { section: "recent", before: before_cursor }
       expect(response).to have_http_status(:ok)
-      m2_next = response.body.match(%r{href="/explore\?section=recent&amp;before_id=(\d+)"})
-      expect(m2_next).not_to be_nil
-      b2 = m2_next[1]
-
-      get "/explore", params: { section: "recent", before_id: b2 }
-      expect(response).to have_http_status(:ok)
-      m3_prev = response.body.match(%r{href="/explore\?section=recent&amp;after_id=(\d+)"})
-      expect(m3_prev).not_to be_nil
-      a3 = m3_prev[1]
-
-      get "/explore", params: { section: "recent", after_id: a3 }
-      expect(response).to have_http_status(:ok)
-      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after_id=\d+"})
-      expect(response.body).to match(%r{href="/explore\?section=recent&amp;before_id=\d+"})
+      expect(response.body).not_to include('href="/explore?section=recent&amp;before=')
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after=[^"&]+})
     end
-    # rubocop:enable RSpec/MultipleExpectations
+
+    it "middle page via before has both prev and next" do
+      get "/explore"
+      a1 = extract_cursor(response.body, "after")
+      get "/explore", params: { section: "recent", after: a1 }
+      a2 = extract_cursor(response.body, "after")
+      get "/explore", params: { section: "recent", after: a2 }
+      b3 = extract_cursor(response.body, "before")
+      get "/explore", params: { section: "recent", before: b3 }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after=[^"&]+})
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;before=[^"&]+})
+    end
+
+    it "last page has prev (before=) but no next (after=)" do
+      get "/explore"
+      a1 = extract_cursor(response.body, "after")
+      expect(a1).to be_present
+      get "/explore", params: { section: "recent", after: a1 }
+
+      a2 = extract_cursor(response.body, "after")
+      expect(a2).to be_present
+      get "/explore", params: { section: "recent", after: a2 }
+
+      expect(response).to have_http_status(:ok)
+      expect(response.body).not_to match(%r{href="/explore\?section=recent&amp;after=[^"&]+})
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;before=[^"&]+})
+    end
+
+    it "gracefully handles malformed 'after' cursor (falls back to first page state)" do
+      get "/explore", params: { section: "recent", after: "!!not-a-cursor!!" }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).not_to include('href="/explore?section=recent&amp;before=')
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after=[^"&]+})
+    end
+
+    it "gracefully handles malformed 'before' cursor (falls back to first page state)" do
+      get "/explore", params: { section: "recent", before: "!!not-a-cursor!!" }
+      expect(response).to have_http_status(:ok)
+      expect(response.body).not_to include('href="/explore?section=recent&amp;before=')
+      expect(response.body).to match(%r{href="/explore\?section=recent&amp;after=[^"&]+})
+    end
   end
 end

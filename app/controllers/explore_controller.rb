@@ -46,42 +46,43 @@ class ExploreController < ApplicationController
 
     # rubocop:disable Metrics/MethodLength
     def load_recent_projects_with_cursor!
-      base = recent_base_scope
+      paginator = build_recent_paginator
+      page = paginator.fetch
 
-      if params[:before_id].present?
-        records = base.where(Project.arel_table[:id].lt(params[:before_id].to_i))
-                      .order(id: :desc)
-                      .limit(RECENT_LIMIT)
-                      .to_a
-      elsif params[:after_id].present?
-        newer = base.where(Project.arel_table[:id].gt(params[:after_id].to_i))
-                    .order(id: :asc)
-                    .limit(RECENT_LIMIT)
-                    .to_a
-        records = newer.reverse
-      else
-        records = base.order(id: :desc).limit(RECENT_LIMIT).to_a
-      end
+      @recent_projects = page.records
 
-      @recent_projects = records
+      @has_prev_recent   = page.has_previous?
+      @has_next_recent   = page.has_next?
+      @recent_prev_cursor = page.previous_cursor
+      @recent_next_cursor = page.next_cursor
+    rescue ActiveRecordCursorPaginate::InvalidCursorError => e
+      Rails.logger.warn "Explore invalid cursor: #{e.message}. Falling back to first page."
+      paginator = build_recent_paginator(skip_cursor: true)
+      page = paginator.fetch
 
-      if @recent_projects.any?
-        first_id = @recent_projects.first.id
-        last_id  = @recent_projects.last.id
-
-        @has_prev_recent = base.exists?(["projects.id > ?", first_id])
-        @has_next_recent = base.exists?(["projects.id < ?", last_id])
-
-        @recent_prev_after_id  = first_id
-        @recent_next_before_id = last_id
-      else
-        @has_prev_recent = false
-        @has_next_recent = false
-        @recent_prev_after_id  = nil
-        @recent_next_before_id = nil
-      end
+      @recent_projects    = page.records
+      @has_prev_recent    = page.has_previous?
+      @has_next_recent    = page.has_next?
+      @recent_prev_cursor = page.previous_cursor
+      @recent_next_cursor = page.next_cursor
     end
     # rubocop:enable Metrics/MethodLength
+
+    def build_recent_paginator(skip_cursor: false)
+      relation = recent_base_scope
+
+      params_hash = {
+        order: { id: :desc },
+        limit: RECENT_LIMIT
+      }
+
+      unless skip_cursor
+        params_hash[:after]  = params[:after]
+        params_hash[:before] = params[:before]
+      end
+
+      relation.cursor_paginate(**params_hash)
+    end
 
     def recent_base_scope
       Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description)

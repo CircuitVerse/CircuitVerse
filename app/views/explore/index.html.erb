@@ -116,7 +116,7 @@
           <li class="page-item <%= 'disabled' unless @has_prev_recent %>">
             <% if @has_prev_recent %>
               <%= link_to t("pagination.previous", default: "Previous"),
-                          "/explore?section=recent&after_id=#{@recent_prev_after_id}",
+                          "/explore?section=recent&before=#{@recent_prev_cursor}#recent",
                           class: "page-link" %>
             <% else %>
               <span class="page-link"><%= t("pagination.previous", default: "Previous") %></span>
@@ -125,7 +125,7 @@
           <li class="page-item <%= 'disabled' unless @has_next_recent %>">
             <% if @has_next_recent %>
               <%= link_to t("pagination.next", default: "Next"),
-                          "/explore?section=recent&before_id=#{@recent_next_before_id}",
+                          "/explore?section=recent&after=#{@recent_next_cursor}#recent",
                           class: "page-link" %>
             <% else %>
               <span class="page-link"><%= t("pagination.next", default: "Next") %></span>

@@ -23,7 +23,7 @@ RSpec.describe "Explore page", :js, type: :system do
 
     expect(page).to have_selector(".project-card", minimum: 1)
     click_link I18n.t("pagination.next", default: "Next")
-    expect(page).to have_current_path(%r{/explore\?section=recent&before_id=\d+(#recent)?})
+    expect(page).to have_current_path(%r{/explore\?section=recent&after=[^#&]+(#recent)?})
   end
 
   it "shows share button on cards" do
