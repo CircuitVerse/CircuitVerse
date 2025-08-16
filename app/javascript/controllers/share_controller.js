@@ -1,50 +1,60 @@
 import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
-  static values = { url: String, title: String, text: String }
-  static targets = ['toast']
+  static get values() {
+    return { url: String, title: String, text: String }
+  }
+
+  static get targets() {
+    return ["toast"]
+  }
 
   async share(event) {
-    event.preventDefault();
-    event.stopPropagation();
-
-    const url = this.urlValue || window.location.href;
-    const data = {
-      title: this.titleValue || document.title,
-      text: this.textValue || '',
-      url
-    };
-
-    if (navigator.share) {
-      try {
-        await navigator.share(data);
-      } catch (e) {
-
-      }
-      return;
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
     }
 
+    const url = this.hasUrlValue ? this.urlValue : window.location.href
+    const title = this.hasTitleValue ? this.titleValue : document.title
+    const text = this.hasTextValue ? this.textValue : ""
+
     try {
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(url);
-      } else {
-        const ta = document.createElement('textarea');
-        ta.value = url;
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
+      if (navigator.share) {
+        await navigator.share({ title, text, url })
+        this._flashToast()
+        return
       }
-      this.showToast();
-    } catch (_err) {
-      alert(this.textValue || 'Link copied');
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(url)
+        this._flashToast()
+        return
+      }
+
+      this._copyViaInput(url)
+      this._flashToast()
+    } catch (_) {
+      try {
+        this._copyViaInput(url)
+        this._flashToast()
+      } catch (__){ /* noop */ }
     }
   }
 
-  showToast() {
-    const el = this.hasToastTarget ? this.toastTarget : null;
-    if (!el) return;
-    el.classList.add('show');
-    setTimeout(() => el.classList.remove('show'), 1500);
+  _copyViaInput(value) {
+    const input = document.createElement("input")
+    input.value = value
+    document.body.appendChild(input)
+    input.select()
+    document.execCommand("copy")
+    document.body.removeChild(input)
+  }
+
+  _flashToast() {
+    if (!this.hasToastTarget) return
+    const toast = this.toastTarget
+    toast.classList.add("show")
+    setTimeout(() => toast.classList.remove("show"), 1500)
   }
 }

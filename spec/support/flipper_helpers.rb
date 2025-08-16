@@ -21,7 +21,7 @@ end
 RSpec.configure do |config|
   config.include FlipperHelpers
 
-  config.before(:suite) do
+  config.before do
     Flipper[:circuit_explore_page].enable
   end
 end

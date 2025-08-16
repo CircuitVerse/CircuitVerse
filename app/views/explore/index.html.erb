@@ -69,7 +69,9 @@
                 <p><%= example[:name] %></p>
                 <span class="tooltiptext"><%= example[:name] %></span>
               </div>
-              <a class="btn primary-button circuit-card-primary-button" target="_blank" href="https://circuitverse.org/<%= example[:id] %>"><%= t("view") %></a>
+              <a class="btn primary-button circuit-card-primary-button"
+                 target="_blank" rel="noopener noreferrer"
+                 href="https://circuitverse.org/<%= example[:id] %>"><%= t("view") %></a>
             </div>
           </div>
         </div>
@@ -146,7 +148,7 @@
     <% if @top_tags.any? %>
       <div class="d-flex flex-wrap gap-2 justify-content-center">
         <% @top_tags.each do |tag| %>
-          <%= link_to t("projects.get_projects.searched_tags_heading") && tag.name,
+          <%= link_to tag.name,
                       tag_path(tag.name),
                       class: "badge search-tag" %>
         <% end %>

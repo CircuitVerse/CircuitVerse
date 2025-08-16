@@ -1,7 +1,9 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["tab", "section"]
+  static get targets() {
+    return ["tab", "section"]
+  }
 
   connect() {
     const url = new URL(window.location.href)
@@ -17,6 +19,7 @@ export default class extends Controller {
 
   switch(event) {
     const key = event.currentTarget.dataset.key
+    if (!this._hasSection(key)) return
     this._show(key, { updateUrl: true })
   }
 
