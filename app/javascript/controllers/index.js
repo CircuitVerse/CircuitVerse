@@ -2,28 +2,22 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from "./application"
+import { application } from './application';
 
-import AssignmentController from "./assignment_controller.js"
-application.register("assignment", AssignmentController)
+import AssignmentController from './assignment_controller';
+import ContestController from './contest_controller';
+import ExploreController from './explore_controller';
+import GroupsController from './groups_controller';
+import NotificationsController from './notifications_controller';
+import ProjectsController from './projects_controller';
+import SearchBarController from './search_bar_controller';
+import ShareController from './share_controller';
 
-import ContestController from "./contest_controller.js"
-application.register("contest", ContestController)
-
-import ExploreController from "./explore_controller.js"
-application.register("explore", ExploreController)
-
-import GroupsController from "./groups_controller.js"
-application.register("groups", GroupsController)
-
-import NotificationsController from "./notifications_controller.js"
-application.register("notifications", NotificationsController)
-
-import ProjectsController from "./projects_controller.js"
-application.register("projects", ProjectsController)
-
-import SearchBarController from "./search_bar_controller.js"
-application.register("search-bar", SearchBarController)
-
-import ShareController from "./share_controller.js"
-application.register("share", ShareController)
+application.register('assignment', AssignmentController);
+application.register('contest', ContestController);
+application.register('explore', ExploreController);
+application.register('groups', GroupsController);
+application.register('notifications', NotificationsController);
+application.register('projects', ProjectsController);
+application.register('search-bar', SearchBarController);
+application.register('share', ShareController);
