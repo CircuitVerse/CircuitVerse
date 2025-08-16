@@ -42,9 +42,10 @@ export default class extends Controller {
             } catch (err) {
                 const name = err && err.name;
                 if (name === 'AbortError' || name === 'NotAllowedError' || name === 'InvalidStateError') {
+                    // User canceled or OS blocked share; exit silently (no fallback).
                     return;
                 }
-
+                // Fall through to clipboard fallback for other errors.
             }
         }
 
@@ -54,7 +55,7 @@ export default class extends Controller {
                 this.flashToast();
                 return;
             } catch (_) {
-
+                // Clipboard API failed (e.g., insecure context); try legacy fallback next.
             }
         }
 
@@ -62,7 +63,7 @@ export default class extends Controller {
             copyViaInput(url);
             this.flashToast();
         } catch (_) {
-
+            // Legacy fallback failed; nothing else we can do.
         }
     }
 
