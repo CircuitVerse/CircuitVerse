@@ -135,6 +135,7 @@ group :development, :test do
   gem "rbs_rails"
   gem "steep"
   gem 'solargraph-rails', '~> 0.3.1'
+  gem 'bullet'
 end
 
 group :test do

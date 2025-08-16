@@ -88,4 +88,11 @@ Rails.application.configure do
   end
 
   Paperclip.options[:command_path] = "/usr/local/bin/"
+
+  config.after_initialize do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.rails_logger = true
+    Bullet.raise = true
+  end
 end
