@@ -37,16 +37,16 @@ export default class extends Controller {
     })
 
     if (canonicalize || updateUrl) {
-      const url = new URL(window.location.href)
-      url.hash = `#${key}`
-      url.searchParams.set("section", key)
+      const next = new URL(window.location.href)
+      next.hash = `#${key}`
+      next.searchParams.set("section", key)
 
       if (key !== "recent") {
-        url.searchParams.delete("before_id")
-        url.searchParams.delete("after_id")
+        next.searchParams.delete("before_id")
+        next.searchParams.delete("after_id")
       }
 
-      history.replaceState({}, "", url)
+      history.replaceState({}, "", next)
     }
   }
 
