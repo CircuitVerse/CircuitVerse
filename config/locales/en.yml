@@ -43,6 +43,14 @@ en:
       options:
         users: "Users"
         projects: "Projects"
+      sorting:
+        users:
+          join_date: "Join Date"
+          total_circuits: "Total Circuits"
+        projects:
+          created_date: "Created Date"
+          views: "Views"
+          stars: "Stars"
     project:
       show_more: "Show More"
       options:
