@@ -20,7 +20,7 @@
         <%= image_tag "SVGs/search-icon.svg", alt: "Search Icon" %>
       </button>
     </div>
-    <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resourceChanged@window->search-sorting#updateOptionsForResource">
+    <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resource-changed@window->search-sorting#updateOptionsForResource">
       <div class="d-flex sorting-buttons justify-content-center h-100">
         <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
           <span data-search-sorting-target="sortingText"><%= sort_by %></span>

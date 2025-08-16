@@ -42,7 +42,7 @@ export default class extends Controller {
         );
 
         // Dispatch initial resource change event on connect
-        this.dispatch('resourceChanged', { detail: { resource: this.hiddenSelectTarget.value } });
+        this.dispatch('resource-changed', { detail: { resource: this.hiddenSelectTarget.value } });
     }
 
     disconnect() {
@@ -59,7 +59,7 @@ export default class extends Controller {
         this.inputTarget.placeholder = placeholderMap[selectValue];
 
         // Dispatch event to notify sorting controller of resource change
-        this.dispatch('resourceChanged', { detail: { resource: selectValue } });
+        this.dispatch('resource-changed', { detail: { resource: selectValue } });
     }
 
     selectOption(event) {
