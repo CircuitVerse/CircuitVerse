@@ -22,7 +22,7 @@
 <% if notice %>
   <div class="row" id='alertdiv'>
     <div class="alert alert-success alert-dismissible container text-center">
-      <a href="#" class="btn-close" data-bs-dismiss="alert" aria-label="close"></a>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="<%= t('close', default: 'Close') %>"></button>
       <h6><%= notice %></h6>
     </div>
   </div>
@@ -32,13 +32,13 @@
   <div class="d-flex justify-content-center justify-content-lg-between">
     <div class="home-main-content d-flex flex-column gap-3 align-items-center align-items-lg-start text-center text-lg-start">
       <%= render Home::BadgeComponent.new(text: t("circuitverse.index.free_and_open_source")) %>
-      <h1 class="m-0"><%= t("circuitverse.index.main_heading_html") %></h1>
+      <h1 class="m-0"><%= sanitize(t("circuitverse.index.main_heading_html")) %></h1>
       <p class="m-0"><%= t("circuitverse.index.main_description") %></p>
       <div class="d-flex flex-column flex-sm-row gap-4">
-        <a class="home-primary-button" href='/simulator'><%= t("launch_simulator") %>
-          <%= image_tag "SVGs/arrowRight.svg", alt: "Arrow Right", class: "ms-2" %>
+        <a class="home-primary-button" href="/simulator"><%= t("launch_simulator") %>
+          <%= image_tag "SVGs/arrowRight.svg", alt: "", class: "ms-2", aria: { hidden: true } %>
         </a>
-        <a href="https://learn.circuitverse.org/" target="blank" class="home-secondary-button"><%= t("circuitverse.index.explore_tutorials") %></a>
+        <a href="https://learn.circuitverse.org/" target="_blank" rel="noopener noreferrer" class="home-secondary-button"><%= t("circuitverse.index.explore_tutorials") %></a>
       </div>
       <div class="d-flex gap-2">
         <a class="home-link" href="/teachers"><%= t("circuitverse.index.for_teachers") %></a>
@@ -46,7 +46,7 @@
         <a class="home-link" href="/contribute"><%= t("circuitverse.index.for_contributors") %></a>
       </div>
     </div>
-    <%= image_tag "homepage/new_homepage_sketch.png", alt: "HomepageSketch", class: "home-image-cover" %>
+    <%= image_tag "homepage/new_homepage_sketch.png", alt: t("circuitverse.index.home_hero_image_alt"), class: "home-image-cover" %>
   </div>
   <div class="stats-section d-flex flex-column gap-4 my-5 py-5 rounded-4 w-100 align-items-center">
     <div class="d-flex flex-column text-center align-items-center gap-2">

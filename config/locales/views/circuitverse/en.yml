@@ -40,6 +40,7 @@ en:
       explore_tutorials: "Explore Tutorials"
       for_teachers: "For Teachers"
       for_contributors: "For Contributors"
+      home_hero_image_alt: "Digital circuit diagram illustration featuring logic gates and connections"
       features:
         badge_content: "Powerful Features"
         everything_you_need_heading: "Everything you need to design circuits"
