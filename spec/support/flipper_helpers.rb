@@ -12,8 +12,16 @@ module FlipperHelpers
   def enable_contests!
     flipper_enable(:contests)
   end
+
+  def enable_explore!
+    flipper_enable(:circuit_explore_page)
+  end
 end
 
 RSpec.configure do |config|
   config.include FlipperHelpers
+
+  config.before do
+    Flipper[:circuit_explore_page].enable
+  end
 end

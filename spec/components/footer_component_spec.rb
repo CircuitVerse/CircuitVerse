@@ -7,6 +7,10 @@ RSpec.describe FooterComponent, type: :component do
 
   let(:user) { instance_double(User, id: 1) }
 
+  before do
+    allow(Flipper).to receive(:enabled?).and_return(false)
+  end
+
   it "renders the footer with all components" do
     render_inline(described_class.new(current_user: user))
 

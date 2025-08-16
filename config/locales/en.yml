@@ -45,6 +45,8 @@ en:
         projects: "Projects"
     project:
       show_more: "Show More"
+      share: "Share"
+      copied: "Link copied!"
       options:
         users: "Users"
         projects: "Projects"

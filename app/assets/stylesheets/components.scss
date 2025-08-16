@@ -506,3 +506,66 @@
     color: $white;
   }
 }
+
+.project-card-share-btn {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  border: none;
+  background: rgba(255,255,255,0.9);
+  border-radius: 999px;
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.project-card-share-btn:hover { transform: translateY(-1px); }
+
+.share-toast {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .15s ease;
+}
+.share-toast.show { opacity: 1; }
+
+.explore-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.explore-tab {
+  border: 1px solid $secondary-green;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: $white;
+  cursor: pointer;
+}
+.explore-tab.active {
+  background: $primary-green;
+  color: $white;
+  border-color: $primary-green;
+}
+
+.explore-section[data-key="picks"] .project-cards-grid,
+.explore-section[data-key="recent"] .project-cards-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.explore-section[data-key="picks"] .project-card,
+.explore-section[data-key="recent"] .project-card {
+  max-width: none;
+  min-width: 0;
+}
