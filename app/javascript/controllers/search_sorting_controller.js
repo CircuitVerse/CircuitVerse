@@ -51,6 +51,12 @@ export default class extends Controller {
 
         this.optionsListTarget.classList.remove('show');
         this.element.classList.remove('open');
+
+        // Ensure hidden fields are updated before form submission
+        this.updateHiddenFields();
+
+        // Auto-submit the form when sorting option is selected
+        this.submitForm();
     }
 
     // Automatically called when selectedSortValue changes
@@ -98,6 +104,12 @@ export default class extends Controller {
 
     toggleSortingDirection() {
         this.sortDirectionValue = this.sortDirectionValue === 'asc' ? 'desc' : 'asc';
+
+        // Ensure hidden fields are updated before form submission
+        this.updateHiddenFields();
+
+        // Auto-submit the form when sort direction is changed
+        this.submitForm();
     }
 
     // Automatically called when sortDirectionValue changes
@@ -124,6 +136,13 @@ export default class extends Controller {
         }
         if (this.hasHiddenSortDirectionTarget) {
             this.hiddenSortDirectionTarget.value = this.sortDirectionValue;
+        }
+    }
+
+    submitForm() {
+        const searchForm = this.element.closest('form') || document.getElementById('search-box');
+        if (searchForm) {
+            searchForm.submit();
         }
     }
 }

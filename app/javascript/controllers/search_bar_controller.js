@@ -40,9 +40,9 @@ export default class extends Controller {
             'keydown',
             this.boundHandleKeydown,
         );
-        
+
         // Dispatch initial resource change event on connect
-        this.dispatch("resourceChanged", { detail: { resource: this.hiddenSelectTarget.value } });
+        this.dispatch('resourceChanged', { detail: { resource: this.hiddenSelectTarget.value } });
     }
 
     disconnect() {
@@ -57,7 +57,7 @@ export default class extends Controller {
         const selectValue = this.hiddenSelectTarget.value;
         const placeholderMap = this.placeholdersValue;
         this.inputTarget.placeholder = placeholderMap[selectValue];
-        
+
         // Dispatch event to notify sorting controller of resource change
         this.dispatch('resourceChanged', { detail: { resource: selectValue } });
     }
