@@ -5,7 +5,6 @@ en:
     main_description: "Browse hand-picked circuits, classics, recent creations, and popular tags."
     tabs:
       cotw: "Circuit of the week"
-      examples: "Featured Examples"
       picks: "Editor Picks"
       recent: "Recent Circuits"
       tags: "Browse by Tags"
@@ -13,9 +12,6 @@ en:
       cotw:
         heading: "Circuit of the Week"
         description: "A spotlighted circuit chosen from featured and trending designs."
-      examples:
-        heading: "Featured Examples"
-        description: "Community favorites and classic references."
       picks:
         heading: "Editor Picks"
         description: "Curated by our authors for their awesomeness."

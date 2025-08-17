@@ -17,11 +17,6 @@
     <button class="explore-tab"
             data-explore-target="tab"
             data-action="click->explore#switch"
-            data-key="examples"
-            role="tab" aria-selected="false"><%= t("explore.tabs.examples") %></button>
-    <button class="explore-tab"
-            data-explore-target="tab"
-            data-action="click->explore#switch"
             data-key="picks"
             role="tab" aria-selected="false"><%= t("explore.tabs.picks") %></button>
     <button class="explore-tab"
@@ -50,33 +45,6 @@
     <% else %>
       <p class="text-muted"><%= t("explore.empty") %></p>
     <% end %>
-  </section>
-
-  <section class="explore-section d-none" data-explore-target="section" data-key="examples">
-    <div class="row center-row">
-      <div class="col-12">
-        <h3><%= t("explore.sections.examples.heading") %></h3>
-        <p><%= t("explore.sections.examples.description") %></p>
-      </div>
-    </div>
-    <div class="row center-row examples-container">
-      <% @examples.each do |example| %>
-        <div class="col-12 col-sm-12 col-md-6 col-lg-4">
-          <div class="card circuit-card">
-            <%= image_tag example[:img], alt: example[:name], class: "card-img-top circuit-card-image examples-circuit-card-image" %>
-            <div class="card-footer circuit-card-footer">
-              <div class="circuit-card-name">
-                <p><%= example[:name] %></p>
-                <span class="tooltiptext"><%= example[:name] %></span>
-              </div>
-              <a class="btn primary-button circuit-card-primary-button"
-                 target="_blank" rel="noopener noreferrer"
-                 href="https://circuitverse.org/<%= example[:id] %>"><%= t("view") %></a>
-            </div>
-          </div>
-        </div>
-      <% end %>
-    </div>
   </section>
 
   <section class="explore-section d-none" data-explore-target="section" data-key="picks">

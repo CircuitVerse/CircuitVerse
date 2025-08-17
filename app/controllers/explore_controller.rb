@@ -8,11 +8,12 @@ class ExploreController < ApplicationController
   EDITOR_PICKS_MAX  = 12
 
   def index
+    redirect_to explore_path(section: "picks") and return if params[:section] == "examples"
+
     @circuit_of_the_week = circuit_of_the_week
     @editor_picks        = editor_picks
     load_recent_projects_with_cursor!
-    @top_tags            = top_tags
-    @examples            = featured_examples_static
+    @top_tags = top_tags
   end
 
   private
@@ -96,22 +97,5 @@ class ExploreController < ApplicationController
          .group("tags.id")
          .order(Arel.sql("COUNT(taggings.id) DESC"))
          .limit(MAX_TAGS)
-    end
-
-    def featured_examples_static
-      [
-        { name: "Full Adder from 2-Half Adders", id: "users/3/projects/247",
-          img: "examples/fullAdder_n.jpg" },
-        { name: "16 Bit ripple carry adder", id: "users/3/projects/248",
-          img: "examples/RippleCarry_n.jpg" },
-        { name: "Asynchronous Counter", id: "users/3/projects/249",
-          img: "examples/AsyncCounter_n.jpg" },
-        { name: "Keyboard", id: "users/3/projects/250",
-          img: "examples/Keyboard_n.jpg" },
-        { name: "FlipFlop", id: "users/3/projects/251",
-          img: "examples/FlipFlop_n.jpg" },
-        { name: "ALU 74LS181 by Ananth Shreekumar", id: "users/126/projects/252",
-          img: "examples/ALU_n.jpg" }
-      ]
     end
 end
