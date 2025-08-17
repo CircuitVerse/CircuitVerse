@@ -6,7 +6,7 @@
     <%= render "shared/notice", message: flash[:notice] %>
   <% end %>
 
-  <div class="pt-4 d-flex justify-content-between align-items-center">
+  <div class="pt-4 d-flex justify-content-between align-items-start">
     <div>
       <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
 
@@ -14,8 +14,13 @@
         <%= t("contest.show.subtitle", user_count: @user_count) %>
       </p>
 
+      <%= link_to leaderboard_contest_path(@contest.id),
+                  class: "contest-submission-button text-decoration-none d-inline-block mt-3" do %>
+        <span><%= t("contest.show.view_leaderboard", default: "View Leaderboard") %></span>
+      <% end %>
+
       <% if @contest.live? && current_user.present? %>
-        <p class="mb-0 contest-header-description">
+        <p class="mb-0 contest-header-description mt-2">
           <%= t("contest.show.remaining_votes") %>
           <%= 3 - current_user.votes_for_contest(@contest.id) %>
         </p>
@@ -23,32 +28,22 @@
     </div>
 
     <% if @contest.live? %>
-      <div class="d-flex flex-column align-items-center">
-        <span class="contest-header-timer">
+      <div class="d-flex flex-column align-items-center align-items-md-end">
+        <span class="contest-header-timer mb-2">
           <%= t("contest.header.time_left_label") %>
           <span id="timeLeftCounter">...</span>
         </span>
 
         <%= link_to new_contest_submission_path(@contest.id),
-                    class: "contest-submission-button submission-button mb-2" do %>
+                    class: "contest-submission-button submission-button" do %>
           <span><%= t("contest.show.register_button") %></span>
-        <% end %>
-
-        <%= link_to leaderboard_contest_path(@contest.id),
-                    class: "contest-submission-button" do %>
-          <span><%= t("contest.show.view_leaderboard", default: "View Leaderboard") %></span>
         <% end %>
       </div>
     <% else %>
-      <div class="d-flex flex-column align-items-center">
-        <button class="contest-ended-button mb-2" disabled>
+      <div class="d-flex flex-column align-items-center align-items-md-end">
+        <span class="contest-ended-button" role="status" aria-disabled="true">
           <%= t("contest.show.disable_button") %>
-        </button>
-
-        <%= link_to leaderboard_contest_path(@contest.id),
-                    class: "contest-submission-button" do %>
-          <span><%= t("contest.show.view_leaderboard", default: "View Leaderboard") %></span>
-        <% end %>
+        </span>
       </div>
     <% end %>
   </div>
