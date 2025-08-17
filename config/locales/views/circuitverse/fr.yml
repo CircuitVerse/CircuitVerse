@@ -31,11 +31,17 @@ fr:
     index:
       title: "CircuitVerso - Simulateur de circuit logique numérique en ligne"
       main_heading: "Plongez dans le monde de circuits logiques gratuitement !"
+      main_heading_html: "Plongez dans le monde de <span>Circuits logiques</span>"
       main_description: "Des portes simples aux circuits séquentiels complexes, des diagrammes de chronométrage, la génération automatique de circuits, l'exploration des IC standard, et bien plus encore"
+      free_and_open_source: "Libre et Open Source"
       learn_logic_design: "Apprendre la logique du design"
+      explore_tutorials: "Explorer les tutoriels"
       for_teachers: "Pour les enseignants"
       for_contributors: "Pour les contributeurs"
+      home_hero_image_alt: "Diagramme de circuit numérique illustrant des portes logiques et des connexions"
       features:
+        badge_content: "Fonctionnalités puissantes"
+        everything_you_need_heading: "Tout ce dont vous avez besoin pour concevoir des circuits"
         main_heading: "Fonctionnalités"
         main_description: "Concevez des circuits rapidement et facilement avec une interface utilisateur moderne et intuitive avec glisser-déposer, copier/coller, zoom, et plus encore"
         item1_heading: "Exporter les images en haute résolution"
@@ -50,19 +56,14 @@ fr:
         item5_text: "Créez des sous-circuits une fois et utilisez-les à plusieurs reprises. Pour une conception plus simple et plus structurée"
         item6_heading: "Bus et composants multi-bits"
         item6_text: "CircuitVerse prend en charge les fils multi-bits, ce qui signifie que la conception du circuit est plus facile, plus rapide et non encombrée"
-      featured_examples:
-        main_heading: "Exemples en vedette"
-        main_description: "Apprendre et s'inspirer des meilleurs exemples"
-        circuit1_text: "Additionneur parallèle à propagation de retenue 16-bits"
-        circuit2_text: "SAP-1"
-        circuit3_text: "Additionneur complet à partir de 2 demi-additionneurs"
-      explore_more: "Explorer plus"
-      editor_picks:
-        main_heading: "Sélections de l'éditeur"
-        main_description: "Ces circuits ont été sélectionnés à la main par nos auteurs pour leur impressionnance"
-      recent_circuits:
-        main_heading: "Circuits récents"
-        main_description: "Explorez les derniers circuits par nos utilisateurs géniaux"
+      stats:
+        badge_content: "Statistiques de la communauté"
+        heading: "Rejoignez notre communauté grandissante"
+        description: "CircuitVerse a permis à des milliers d'apprenants, d'éducateurs et d'ingénieurs du monde entier d'explorer et de maîtriser la conception de circuits numériques"
+        circuits_created: "Circuits créés"
+        users: "Utilisateurs"
+        universities: "Universités"
+        countries: "Pays"
     teachers:
       title: "CircuitVerset - Professeurs"
       main_heading: "TEACHEURS"
@@ -107,25 +108,25 @@ fr:
         list2_item1: "Publier du contenu délibérément conçu pour faire planter le site ou l'éditeur de CircuitVerse ;"
         list2_item2: "Liens vers des pages contenant des virus ou des logiciels malveillants ;"
         list2_item3: "Utiliser des mots de passe administrateur ou faire semblant d'être un administrateur;"
-        list2_item4: "Poste à plusieurs reprises le même matériel ou \"spamming\";"
-        list2_item5: "Utiliser des comptes alternatifs ou organiser des groupes de vote pour manipuler les statistiques du site, comme en essayant volontairement d'obtenir sur les lignes \"Ce que la communauté est d'amour/remix\" de la page d'accueil."
+        list2_item4: 'Poste à plusieurs reprises le même matériel ou "spamming";'
+        list2_item5: 'Utiliser des comptes alternatifs ou organiser des groupes de vote pour manipuler les statistiques du site, comme en essayant volontairement d''obtenir sur les lignes "Ce que la communauté est d''amour/remix" de la page d''accueil.'
       user_content_licensing:
         main_heading: "4. Contenu généré par l'utilisateur et licence"
-        description1: "4.1 Aux fins des conditions d'utilisation, le \"contenu généré par l'utilisateur\" inclut tous les projets, commentaires, messages sur le forum ou liens vers des sites tiers qu'un utilisateur soumet à CircuitVerse."
+        description1: '4.1 Aux fins des conditions d''utilisation, le "contenu généré par l''utilisateur" inclut tous les projets, commentaires, messages sur le forum ou liens vers des sites tiers qu''un utilisateur soumet à CircuitVerse.'
         description2: "4.2 L'équipe CircuitVerse encourage tous à encourager la créativité en partageant librement les connaissances sous quelque forme que ce soit. Toutefois, nous comprenons également la nécessité pour les individus et les entreprises de protéger leurs droits de propriété intellectuelle. Il vous incombe de vous assurer que vous disposez des droits, licences ou autorisations nécessaires pour tout contenu généré par l'utilisateur que vous soumettez à CircuitVerse."
         description3_html: "4.3 Tout le contenu généré par les utilisateurs que vous soumettez à CircuitVerse est sous licence vers et via CircuitVerse sous <a href='https://creativecommons.org/licenses/by-sa/2.0/'>Creative Commons Attribution-ShareAlike 2. la licence</a>. Cela permet aux autres de voir et de créer un fork de votre contenu. Cette licence permet également à l'équipe CircuitVerse d'afficher, de distribuer et de reproduire votre contenu sur le site Web de CircuitVerse, par le biais des réseaux sociaux et ailleurs. Si vous ne voulez pas licencier votre contenu sous cette licence, ne le partagez pas sur CircuitVerse."
         description4: "4.4 En plus de réviser le contenu généré par les utilisateurs, l'équipe CircuitVerse se se réserve le droit, mais n'est pas obligé, de surveiller toutes les utilisations du service CircuitVerse. L’équipe CircuitVerse peut modifier, déplacer ou supprimer tout contenu qui viole les conditions d’utilisation ou les directives de la communauté, sans préavis."
         description5: "4.6 Tout le contenu généré par les utilisateurs est fourni tel quel. L'équipe CircuitVerse ne donne aucune garantie quant à l'exactitude ou à la fiabilité du contenu généré par les utilisateurs par l'intermédiaire de CircuitVerse ou du vétérinaire ou de vérifier les informations affichées dans le cadre de ces événements. L'équipe CircuitVerse n'endosse aucun avis, avis ou conseil exprimé dans le contenu généré par l'utilisateur. Vous acceptez de libérer l'équipe CircuitVerse de toute responsabilité découlant de votre contenu généré par l'utilisateur."
       site_content_licensing:
         main_heading: "5. Contenu et licence CircuitVerset"
-        description1: "5.1 Sauf pour tout contenu généré par l'utilisateur, l'équipe CircuitVerse possède et conserve tous les droits sur le code CircuitVerse, la conception, , et l'architecture de CircuitVerse, ainsi que tout logiciel ou contenu fourni par CircuitVerse (collectivement « l'IP CircuitVerse »). Si vous voulez utiliser CircuitVerse d'une manière qui n'est pas autorisée par les présentes conditions d'utilisation, vous devez d'abord contacter l'équipe CircuitVerse. Sauf pour tout droit explicitement accordé en vertu des présentes conditions d'utilisation, vous ne bénéficiez d'aucun droit sur et à aucune PI de CircuitVerse."
+        description1: '5.1 Sauf pour tout contenu généré par l''utilisateur, l''équipe CircuitVerse possède et conserve tous les droits sur le code CircuitVerse, la conception, , et l''architecture de CircuitVerse, ainsi que tout logiciel ou contenu fourni par CircuitVerse (collectivement « l''IP CircuitVerse »). Si vous voulez utiliser CircuitVerse d''une manière qui n''est pas autorisée par les présentes conditions d''utilisation, vous devez d''abord contacter l''équipe CircuitVerse. Sauf pour tout droit explicitement accordé en vertu des présentes conditions d''utilisation, vous ne bénéficiez d''aucun droit sur et à aucune PI de CircuitVerse.'
       dmca:
         main_heading: "6. Digital Millennium Copyright Act (DMCA)"
         description1_html: "6.1 Si vous êtes détenteur d'un droit d'auteur et que vous pensez que le contenu de CircuitVerse viole vos droits, vous pouvez envoyer un mail à <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse. rg</a>.&nbsp;"
         description2_html: "6.2 Si vous êtes un utilisateur de CircuitVerse et que vous pensez que votre contenu ne constitue pas une violation du droit d'auteur et a été supprimé par erreur, vous pouvez envoyer une notification à <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse. rg</a>. Veuillez inclure :"
         list_item1: "Votre nom d'utilisateur et votre adresse e-mail CircuitVerse;"
         list_item2: "Le contenu spécifique que vous croyez a été supprimé par erreur ; et"
-        list_item3: "Un bref exposé des raisons pour lesquelles vous pensez qu'il n'y a pas eu de violation des droits d'auteur (p. ex. le contenu n'était pas protégé par le droit d'auteur, vous avez eu la permission d'utiliser le contenu, ou votre utilisation du contenu était une \"utilisation équitable\")."
+        list_item3: 'Un bref exposé des raisons pour lesquelles vous pensez qu''il n''y a pas eu de violation des droits d''auteur (p. ex. le contenu n''était pas protégé par le droit d''auteur, vous avez eu la permission d''utiliser le contenu, ou votre utilisation du contenu était une "utilisation équitable").'
       account_related:
         main_heading: "7. Suspension et résiliation des comptes"
         description1: "7.1 CircuitVerse a le droit de suspendre votre compte en cas de violation des conditions d’utilisation ou des directives communautaires. Les contrevenants répétés peuvent avoir leurs comptes supprimés. L'équipe CircuitVerse se se réserve le droit exclusif de déterminer ce qui constitue une violation des conditions d'utilisation ou des directives communautaires. L'équipe CircuitVerse se se réserve également le droit de résilier tout compte utilisé pour contourner l'application préalable des conditions d'utilisation."
@@ -135,11 +136,11 @@ fr:
         description1: "8.1 Le contenu de CircuitVerse, y compris le contenu généré par l'utilisateur, peut inclure des liens vers des sites Web tiers. L'équipe CircuitVerse n'est pas capable de consulter ou de gérer les sites Web de tiers et n'assume aucune responsabilité pour les pratiques de confidentialité, ou la fonctionnalité des sites Web de tiers. Vous acceptez de libérer l'Équipe CircuitVerse de toute responsabilité découlant des sites Web de tiers."
       indemnification:
         main_heading: "9. Indemnisation"
-        description1: "Vous acceptez d'indemniser l'équipe CircuitVerse, la Fondation CircuitVerse et tous leurs affiliés, employés, membres du corps professoral et étudiants, les agents, les représentants, les tiers fournisseurs de services et les membres de leurs conseils d'administration (tous sont des \"entités CircuitVerse\"), et de défendre et de tenir chacun d'eux inoffensifs, de toute réclamation ou responsabilité (y compris les honoraires d'avocat) découlant de votre violation des Conditions d'utilisation ou de votre utilisation de CircuitVerse."
+        description1: 'Vous acceptez d''indemniser l''équipe CircuitVerse, la Fondation CircuitVerse et tous leurs affiliés, employés, membres du corps professoral et étudiants, les agents, les représentants, les tiers fournisseurs de services et les membres de leurs conseils d''administration (tous sont des "entités CircuitVerse"), et de défendre et de tenir chacun d''eux inoffensifs, de toute réclamation ou responsabilité (y compris les honoraires d''avocat) découlant de votre violation des Conditions d''utilisation ou de votre utilisation de CircuitVerse.'
         description2: "Pour les agences du gouvernement fédéral, les dispositions des conditions d'utilisation relatives à l'indemnisation ne s'appliquent pas à votre utilisation officielle, sauf dans la mesure expressément autorisée par la loi fédérale. Pour les agences gouvernementales étatiques et locales aux États-Unis, Les conditions d’utilisation relatives à l’indemnisation ne s’appliquent à votre utilisation officielle que dans la mesure autorisée par les lois de votre juridiction."
       warranty_related:
         main_heading: "10. Avertissement de garantie"
-        description1: "Vous reconnaissez que vous utilisez CircuitVerse à vos propres risques. CircuitVerse est fourni \"tel quel\", et les entités CircuitVerse déclinent expressément toute garantie, expresse et implicite, y compris, mais sans s'y limiter, toute garantie d'exactitude, de fiabilité, de titre, de qualité marchande, de non-contrefaçon, l'adaptation à un usage particulier ou à toute autre garantie, condition, garantie ou représentation, orale, par écrit ou sous forme électronique, y compris, mais sans s'y limiter, l'exactitude ou l'exhaustivité des renseignements qui y sont contenus ou fournis par CircuitVerse. Sans limiter ce qui précède, les Entités CircuitVerse déclinent toute garantie, expresse et implicite, en ce qui concerne le contenu généré par l'utilisateur. Les entités CircuitVerse et leurs fournisseurs de services tiers ne déclarent pas ou ne garantissent pas que l'accès à CircuitVerse sera ininterrompu ou qu'il n'y aura pas de panne, erreurs ou omissions ou perte d'informations transmises, ou qu'aucun virus ne sera transmis par les services de CircuitVerse."
+        description1: 'Vous reconnaissez que vous utilisez CircuitVerse à vos propres risques. CircuitVerse est fourni "tel quel", et les entités CircuitVerse déclinent expressément toute garantie, expresse et implicite, y compris, mais sans s''y limiter, toute garantie d''exactitude, de fiabilité, de titre, de qualité marchande, de non-contrefaçon, l''adaptation à un usage particulier ou à toute autre garantie, condition, garantie ou représentation, orale, par écrit ou sous forme électronique, y compris, mais sans s''y limiter, l''exactitude ou l''exhaustivité des renseignements qui y sont contenus ou fournis par CircuitVerse. Sans limiter ce qui précède, les Entités CircuitVerse déclinent toute garantie, expresse et implicite, en ce qui concerne le contenu généré par l''utilisateur. Les entités CircuitVerse et leurs fournisseurs de services tiers ne déclarent pas ou ne garantissent pas que l''accès à CircuitVerse sera ininterrompu ou qu''il n''y aura pas de panne, erreurs ou omissions ou perte d''informations transmises, ou qu''aucun virus ne sera transmis par les services de CircuitVerse.'
       liability_related:
         main_heading: "11. Limitation de responsabilité"
         description1: "Les entités CircuitVerse ne seront pas tenues responsables envers vous ni aucun tiers pour tout dommage direct, indirect, spécial, consécutif ou punitif de quelque nature que ce soit, indépendamment du type de réclamation ou de la nature de la cause d'action, même si l'équipe CircuitVerse a été informée de la possibilité de tels dommages. Sans limiter ce qui précède, les Entités CircuitVerse n'auront aucune responsabilité à votre égard ou à l'égard de tout tiers pour les dommages ou préjudices résultant du contenu généré par l'utilisateur"
