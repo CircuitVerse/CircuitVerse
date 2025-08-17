@@ -27,9 +27,7 @@ RSpec.describe "Explore pagination (cursor)", type: :request do
     let!(:author) { FactoryBot.create(:user) }
 
     before do
-      Array.new(25) do
-        FactoryBot.create(:project, author: author, project_access_type: "Public", image_preview: "x.png")
-      end
+      FactoryBot.create_list(:project, 25, :public, author: author, image_preview: "x.png")
     end
 
     it "first page has next (after=) but no prev (before=)" do
