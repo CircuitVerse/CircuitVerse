@@ -10,7 +10,7 @@ en:
       tags: "Browse by Tags"
     sections:
       cotw:
-        heading: "Circuit of the Week"
+        heading: "Circuit of the week"
         description: "A spotlighted circuit chosen from featured and trending designs."
       picks:
         heading: "Editor Picks"
