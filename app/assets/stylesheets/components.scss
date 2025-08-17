@@ -520,8 +520,29 @@
   padding: 6px 14px;
   background: $white;
   cursor: pointer;
+
+  &:hover {
+    border-color: $primary-green;
+    color: $primary-green;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $primary-green;
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
 }
 .explore-tab.active {
+  background: $primary-green;
+  color: $white;
+  border-color: $primary-green;
+}
+.explore-tab[aria-selected="true"] {
   background: $primary-green;
   color: $white;
   border-color: $primary-green;
