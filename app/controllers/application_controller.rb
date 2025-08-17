@@ -71,9 +71,9 @@ class ApplicationController < ActionController::Base
     def prepare_search_data
       @search_countries = countries_for_search_filters(request)
       @current_filters = {
-        country: params[:country],
-        institute: params[:institute],
-        tag: params[:tag]
+        "country" => params[:country],
+        "institute" => params[:institute],
+        "tag" => params[:tag]
       }
     end
 end

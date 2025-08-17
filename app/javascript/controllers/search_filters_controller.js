@@ -2,22 +2,31 @@ import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     static get targets() {
-        return ['button', 'dropdown', 'content'];
+        return [
+            'button',
+            'dropdown',
+            'projectFilters',
+            'userFilters',
+            'tagInput',
+            'tagHidden',
+            'tagsDisplay',
+            'countrySelect',
+            'instituteInput',
+            'applyButton',
+        ];
     }
 
     static get values() {
         return {
             currentResource: String,
-            countries: Array,
-            filterLabels: Object,
-            currentValues: Object,
         };
     }
 
     connect() {
         this.boundOutside = this.handleOutsideClick.bind(this);
         document.addEventListener('click', this.boundOutside);
-        this.buildFiltersForResource();
+        this.setupTagInput();
+        this.setupFormInputs();
     }
 
     disconnect() {
@@ -27,233 +36,123 @@ export default class extends Controller {
     updateFiltersForResource(event) {
         const { resource } = event.detail;
         this.currentResourceValue = resource;
-        this.buildFiltersForResource();
+        this.showFiltersForResource();
     }
 
-    buildFiltersForResource() {
-        if (!this.hasDropdownTarget) return;
-
-        this.dropdownTarget.innerHTML = '';
-
-        const filtersContent = document.createElement('div');
-        filtersContent.className = 'filters-content';
-
-        if (this.currentResourceValue === 'Projects') {
-            this.createProjectFilters(filtersContent);
-        } else if (this.currentResourceValue === 'Users') {
-            this.createUserFilters(filtersContent);
+    showFiltersForResource() {
+        // Hide all filter sections first
+        if (this.hasProjectFiltersTarget) {
+            this.projectFiltersTarget.classList.add('hidden');
+        }
+        if (this.hasUserFiltersTarget) {
+            this.userFiltersTarget.classList.add('hidden');
         }
 
-        this.dropdownTarget.appendChild(filtersContent);
-    }
-
-    createProjectFilters(container) {
-        const labels = (this.filterLabelsValue && this.filterLabelsValue.projects && this.filterLabelsValue.projects.tags) || {};
-        const tagField = this.createMultiSelectTagField(
-            'tag',
-            labels.label || 'Tags',
-            labels.placeholder || 'Add a tag...',
-        );
-        container.appendChild(tagField);
-    }
-
-    createUserFilters(container) {
-        const countryLabels = (this.filterLabelsValue && this.filterLabelsValue.users && this.filterLabelsValue.users.country) || {};
-        const instituteLabels = (this.filterLabelsValue && this.filterLabelsValue.users && this.filterLabelsValue.users.institute) || {};
-
-        const countryField = this.createCountryDropdown(
-            'country',
-            countryLabels.label || 'Country',
-            countryLabels.placeholder || 'Select Country...',
-        );
-        const instituteField = this.constructor.createFilterField(
-            'institute',
-            instituteLabels.label || 'Institute',
-            'text',
-            instituteLabels.placeholder || 'Enter institute...',
-            (this.currentValuesValue && this.currentValuesValue.institute) || '',
-        );
-
-        container.appendChild(countryField);
-        container.appendChild(instituteField);
-    }
-
-    static createFilterField(name, label, type, placeholder, currentValue = '') {
-        const fieldDiv = document.createElement('div');
-        fieldDiv.className = 'filter-field';
-
-        const labelElement = document.createElement('label');
-        labelElement.className = 'filter-label';
-        labelElement.textContent = label;
-        labelElement.setAttribute('for', `filter_${name}`);
-
-        const inputElement = document.createElement('input');
-        inputElement.className = 'filter-input';
-        inputElement.type = type;
-        inputElement.name = name;
-        inputElement.id = `filter_${name}`;
-        inputElement.placeholder = placeholder;
-        inputElement.value = currentValue;
-
-        // Prevent form submission on Enter key press
-        inputElement.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-            }
-        });
-
-        fieldDiv.appendChild(labelElement);
-        fieldDiv.appendChild(inputElement);
-
-        return fieldDiv;
-    }
-
-    createMultiSelectTagField(name, label, placeholder) {
-        const fieldDiv = document.createElement('div');
-        fieldDiv.className = 'filter-field';
-
-        const labelElement = document.createElement('label');
-        labelElement.className = 'filter-label';
-        labelElement.textContent = label;
-        labelElement.setAttribute('for', `filter_${name}`);
-
-        const tagsDisplay = document.createElement('div');
-        tagsDisplay.className = 'tags-display';
-
-        const tagContainer = document.createElement('div');
-        tagContainer.className = 'tag-input-container';
-
-        const inputElement = document.createElement('input');
-        inputElement.className = 'tag-input';
-        inputElement.type = 'text';
-        inputElement.placeholder = placeholder;
-        inputElement.setAttribute('data-tag-input', name);
-
-        // Hidden input to store the tag values for form submission
-        const hiddenInput = document.createElement('input');
-        hiddenInput.type = 'hidden';
-        hiddenInput.name = name;
-        hiddenInput.id = `filter_${name}`;
-
-        // Store tags array on the container for easy access
-        tagContainer.selectedTags = [];
-
-        // Initialize with current tags from URL
-        if (this.currentValuesValue && this.currentValuesValue.tag) {
-            const currentTags = this.currentValuesValue.tag.split(',').map((tag) => tag.trim()).filter((tag) => tag);
-            tagContainer.selectedTags = currentTags;
-            this.renderTags(currentTags, tagsDisplay, tagContainer, hiddenInput);
+        // Show the appropriate filter section
+        if (this.currentResourceValue === 'Projects' && this.hasProjectFiltersTarget) {
+            this.projectFiltersTarget.classList.remove('hidden');
+        } else if (this.currentResourceValue === 'Users' && this.hasUserFiltersTarget) {
+            this.userFiltersTarget.classList.remove('hidden');
         }
+    }
+
+    setupTagInput() {
+        if (!this.hasTagInputTarget) return;
 
         // Add tag on Enter key
-        inputElement.addEventListener('keydown', (event) => {
+        this.tagInputTarget.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 event.preventDefault();
-                this.addTag(tagContainer, inputElement, hiddenInput, tagsDisplay);
+                this.addTag();
             }
         });
 
-        // Add tag on comma or blur
-        inputElement.addEventListener('blur', () => {
-            this.addTag(tagContainer, inputElement, hiddenInput, tagsDisplay);
+        // Add tag on blur
+        this.tagInputTarget.addEventListener('blur', () => {
+            this.addTag();
         });
 
-        tagContainer.appendChild(inputElement);
-
-        fieldDiv.appendChild(labelElement);
-        fieldDiv.appendChild(tagsDisplay);
-        fieldDiv.appendChild(tagContainer);
-        fieldDiv.appendChild(hiddenInput);
-
-        return fieldDiv;
+        // Setup remove buttons for existing tags
+        this.setupTagRemoveButtons();
     }
 
-    addTag(container, input, hiddenInput, display) {
-        const tagText = input.value.trim();
-        if (tagText && !container.selectedTags.includes(tagText)) {
-            container.selectedTags.push(tagText);
-            this.renderTags(container.selectedTags, display, container, hiddenInput);
-            // eslint-disable-next-line no-param-reassign
-            input.value = '';
-        }
+    setupFormInputs() {
+        // Prevent form submission on Enter key for all filter inputs
+        const inputs = this.element.querySelectorAll('input, select');
+        inputs.forEach((input) => {
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && input !== this.tagInputTarget) {
+                    event.preventDefault();
+                }
+            });
+        });
     }
 
-    removeTag(container, hiddenInput, display, tagToRemove) {
-        // eslint-disable-next-line no-param-reassign
-        container.selectedTags = container.selectedTags.filter((tag) => tag !== tagToRemove);
-        this.renderTags(container.selectedTags, display, container, hiddenInput);
+    setupTagRemoveButtons() {
+        if (!this.hasTagsDisplayTarget) return;
+
+        const removeButtons = this.tagsDisplayTarget.querySelectorAll('.tag-remove');
+        removeButtons.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                event.stopPropagation();
+                this.removeTag(button.dataset.tag);
+            });
+        });
     }
 
-    renderTags(tags, display, container, hiddenInput) {
-        // eslint-disable-next-line no-param-reassign
-        display.innerHTML = '';
-        // eslint-disable-next-line no-param-reassign
-        hiddenInput.value = tags.join(',');
+    addTag() {
+        if (!this.hasTagInputTarget || !this.hasTagHiddenTarget || !this.hasTagsDisplayTarget) return;
 
+        const tagText = this.tagInputTarget.value.trim();
+        if (!tagText) return;
+
+        const currentTags = this.getCurrentTags();
+        if (currentTags.includes(tagText)) return;
+
+        currentTags.push(tagText);
+        this.updateTags(currentTags);
+        this.tagInputTarget.value = '';
+    }
+
+    removeTag(tagToRemove) {
+        if (!this.hasTagHiddenTarget || !this.hasTagsDisplayTarget) return;
+
+        const currentTags = this.getCurrentTags();
+        const updatedTags = currentTags.filter((tag) => tag !== tagToRemove);
+        this.updateTags(updatedTags);
+    }
+
+    getCurrentTags() {
+        if (!this.hasTagHiddenTarget) return [];
+
+        const { value } = this.tagHiddenTarget;
+        return value ? value.split(',').map((tag) => tag.trim()).filter((tag) => tag) : [];
+    }
+
+    updateTags(tags) {
+        if (!this.hasTagHiddenTarget || !this.hasTagsDisplayTarget) return;
+
+        // Update hidden input
+        this.tagHiddenTarget.value = tags.join(',');
+
+        // Update display
+        this.tagsDisplayTarget.innerHTML = '';
         tags.forEach((tag) => {
             const tagElement = document.createElement('span');
             tagElement.className = 'tag-item';
             tagElement.innerHTML = `
                 ${tag}
-                <button type="button" class="tag-remove" aria-label="Remove ${tag}">×</button>
+                <button type="button" class="tag-remove" data-tag="${tag}" aria-label="Remove ${tag}">×</button>
             `;
 
             const removeBtn = tagElement.querySelector('.tag-remove');
             removeBtn.addEventListener('click', (event) => {
                 event.stopPropagation();
-                this.removeTag(container, hiddenInput, display, tag);
+                this.removeTag(tag);
             });
 
-            display.appendChild(tagElement);
+            this.tagsDisplayTarget.appendChild(tagElement);
         });
-    }
-
-    createCountryDropdown(name, label, placeholder = 'Select Country...') {
-        const fieldDiv = document.createElement('div');
-        fieldDiv.className = 'filter-field';
-
-        const labelElement = document.createElement('label');
-        labelElement.className = 'filter-label';
-        labelElement.textContent = label;
-        labelElement.setAttribute('for', `filter_${name}`);
-
-        const selectElement = document.createElement('select');
-        selectElement.className = 'filter-select';
-        selectElement.name = name;
-        selectElement.id = `filter_${name}`;
-
-        // Add empty option
-        const emptyOption = document.createElement('option');
-        emptyOption.value = '';
-        emptyOption.textContent = placeholder;
-        selectElement.appendChild(emptyOption);
-
-        // Add countries from the countries value
-        if (this.countriesValue && Array.isArray(this.countriesValue)) {
-            this.countriesValue.forEach((country) => {
-                const option = document.createElement('option');
-                option.value = country.code;
-                option.textContent = country.name;
-                selectElement.appendChild(option);
-            });
-        }
-
-        // Set selected value from current state
-        if (this.currentValuesValue && this.currentValuesValue.country) {
-            selectElement.value = this.currentValuesValue.country;
-        }
-
-        // Prevent form submission on Enter key press
-        selectElement.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-            }
-        });
-
-        fieldDiv.appendChild(labelElement);
-        fieldDiv.appendChild(selectElement);
-
-        return fieldDiv;
     }
 
     toggleDropdown() {
@@ -269,6 +168,53 @@ export default class extends Controller {
     handleOutsideClick(event) {
         if (!this.element.contains(event.target)) {
             this.close();
+        }
+    }
+
+    applyFilters() {
+        this.close();
+        this.submitForm();
+    }
+
+    clearFilters() {
+        let didAffectParams = false;
+
+        // Project filters (affect params)
+        if (this.hasTagHiddenTarget && this.tagHiddenTarget.value !== '') {
+            this.tagHiddenTarget.value = '';
+            didAffectParams = true;
+        }
+        // Project filters (UI only)
+        if (this.hasTagsDisplayTarget && this.tagsDisplayTarget.innerHTML.trim() !== '') {
+            this.tagsDisplayTarget.innerHTML = '';
+        }
+        if (this.hasTagInputTarget && this.tagInputTarget.value !== '') {
+            this.tagInputTarget.value = '';
+        }
+
+        // User filters (affect params)
+        if (this.hasCountrySelectTarget && this.countrySelectTarget.value !== '') {
+            this.countrySelectTarget.value = '';
+            didAffectParams = true;
+        }
+        if (this.hasInstituteInputTarget && this.instituteInputTarget.value !== '') {
+            this.instituteInputTarget.value = '';
+            didAffectParams = true;
+        }
+
+        // If nothing changed, do not submit
+        if (!didAffectParams) {
+            this.close();
+            return;
+        }
+
+        this.applyFilters();
+    }
+
+    submitForm() {
+        const searchForm = this.element.closest('form') || document.getElementById('search-box');
+        if (searchForm) {
+            searchForm.submit();
         }
     }
 }

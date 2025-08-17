@@ -36,6 +36,7 @@ class Search::SearchBarComponent < ViewComponent::Base
   def filter_labels
     {
       "button_text" => I18n.t("components.search_bar.filters.button_text"),
+      "apply_button_text" => I18n.t("components.search_bar.filters.apply_button_text"),
       "projects" => {
         "tags" => {
           "label" => I18n.t("components.search_bar.filters.projects.tags.label"),

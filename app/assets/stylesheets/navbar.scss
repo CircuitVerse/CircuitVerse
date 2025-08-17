@@ -408,6 +408,69 @@
       border-color: darken($shadow-grey, 10%);
     }
   }
+
+  .filter-apply-container {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid lighten($shadow-grey, 10%);
+  }
+
+  .filter-actions {
+    display: flex;
+    gap: 8px;
+  }
+
+  .filter-clear-button {
+    background-color: transparent;
+    color: $navbar-dark-grey;
+    border: 1px solid $shadow-grey;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    flex: 1;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: $project-card-grey;
+      border-color: darken($shadow-grey, 10%);
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px rgba($shadow-grey, 0.4);
+    }
+  }
+
+  .filter-apply-button {
+    background-color: $primary-green;
+    color: $white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    flex: 1;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: darken($primary-green, 5%);
+    }
+
+    &:focus {
+      outline: none;
+      background-color: darken($primary-green, 5%);
+      box-shadow: 0 0 0 2px rgba($primary-green, 0.3);
+    }
+  }
 }
 
 .search-bar-input {
@@ -669,4 +732,9 @@
   .select-button {
     border-radius: 0 8px 8px 0 !important;
   }
+}
+
+// Utility classes
+.hidden {
+  display: none !important;
 }

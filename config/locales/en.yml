@@ -53,6 +53,7 @@ en:
           stars: "Stars"
       filters:
         button_text: "Filters"
+        apply_button_text: "Apply"
         projects:
           tags:
             label: "Tags"
