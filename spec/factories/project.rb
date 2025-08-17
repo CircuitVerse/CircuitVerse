@@ -6,5 +6,9 @@ FactoryBot.define do
     association :author, factory: :user
     project_access_type { "Private" }
     description { Faker::Lorem.sentence }
+
+    trait :public do
+      project_access_type { "Public" }
+    end
   end
 end
