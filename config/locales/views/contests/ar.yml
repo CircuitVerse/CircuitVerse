@@ -77,6 +77,7 @@ ar:
         duplicate_submission: "تم تقديم هذا المشروع بالفعل في المسابقة #%{contest_id}"
       destroy:
         success: "تمت إزالة التسليم بنجاح."
+        withdraw_closed: "يتم إغلاق عمليات الانسحاب مع انتهاء المسابقة."
       votes:
         create:
           voting_closed: "التصويت مغلق."
