@@ -88,9 +88,7 @@
     </div>
     <% if @editor_picks.any? %>
       <div class="project-cards-grid">
-        <% @editor_picks.each do |project| %>
-          <%= render(Project::ProjectCardComponent.new(project: project)) %>
-        <% end %>
+        <%= render(Project::ProjectCardComponent.with_collection(@editor_picks)) %>
       </div>
     <% else %>
       <p class="text-muted"><%= t("explore.empty") %></p>
@@ -106,9 +104,7 @@
     </div>
     <% if @recent_projects.any? %>
       <div class="project-cards-grid">
-        <% @recent_projects.each do |project| %>
-          <%= render(Project::ProjectCardComponent.new(project: project)) %>
-        <% end %>
+        <%= render(Project::ProjectCardComponent.with_collection(@recent_projects)) %>
       </div>
 
       <div class="container pagination-cont">
