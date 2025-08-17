@@ -1,4 +1,4 @@
-<div class="container search-bar-container" data-controller="search-bar search-sorting" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
+<div class="container search-bar-container" data-controller="search-bar" data-search-bar-placeholders-value="<%= placeholders.to_json %>" data-search-bar-option-labels-value="<%= option_labels.to_json %>">
   <%= form_tag("/search", method: "get", id: "search-box", class: "d-flex flex-column flex-sm-row gap-3 h-100 w-100 search-bar-form") do %>
     <div class="d-flex justify-content-center search-bar">
       <div class="select-wrapper" data-search-bar-target="selectWrapper">
