@@ -78,6 +78,9 @@ Rails.application.routes.draw do
   get  "/teachers", to: "circuitverse#teachers"
   get  "/contribute", to: "circuitverse#contribute"
 
+  # Explore
+  get "/explore", to: "explore#index", as: :explore
+
   #announcements
   resources :announcements, except: %i[show]
 
