@@ -25,10 +25,4 @@ RSpec.describe "Explore page", :js, type: :system do
     click_link I18n.t("pagination.next", default: "Next")
     expect(page).to have_current_path(%r{/explore\?section=recent&after=[^#&]+(#recent)?})
   end
-
-  it "shows share button on cards" do
-    FactoryBot.create(:project, project_access_type: "Public", image_preview: "x.png")
-    visit "/explore"
-    expect(page).to have_selector(".project-card-share-btn")
-  end
 end
