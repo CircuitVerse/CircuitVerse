@@ -17,8 +17,8 @@ RSpec.describe "Explore", type: :request do
     it "renders explore page" do
       get "/explore"
       expect(response.status).to eq(200)
-      expect(response.body).to include(I18n.t("explore.sections.cotw.heading"))
-      expect(response.body).to include(I18n.t("explore.sections.picks.heading"))
+      expect(response.body).to include("Circuit of the week")
+      expect(response.body).to include("Editor Picks")
     end
   end
 end
