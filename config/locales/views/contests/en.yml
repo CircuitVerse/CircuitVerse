@@ -37,10 +37,6 @@ en:
     no_result_image_alt: "No result image"
     timer:
       expired: "EXPIRED"
-      d: "d"
-      h: "h"
-      m: "m"
-      s: "s"
     new_submission_page:
       heading: "Project Submission"
       select_your_circuit: "Select your circuit"
