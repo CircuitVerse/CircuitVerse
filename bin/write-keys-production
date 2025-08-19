@@ -1,0 +1,8 @@
+#!/bin/bash
+
+echo "Indent VAPID keys"
+export VAPID_PUBLIC_KEY=$(echo -n "$VAPID_PUBLIC_KEY" | sed 's/\\n/\n/g')
+export VAPID_PRIVATE_KEY=$(echo -n "$VAPID_PRIVATE_KEY" | sed 's/\\n/\n/g')
+echo "Writing Keys"
+echo -e "$VAPID_PUBLIC_KEY" > config/public.pem
+echo -e "$VAPID_PRIVATE_KEY" > config/private.pem
