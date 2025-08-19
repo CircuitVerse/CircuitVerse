@@ -8,11 +8,12 @@
       <div class="modal-body">
         <p><%= t("commontator.comment.actions.confirm_delete") %></p>
       </div>
-      <div class="modal-footer" data-bs-dismiss="modal">
-        <%= link_to "#",
-                    method: :put,
+      <div class="modal-footer">
+        <%= link_to commontator.comment_delete_path(comment),
+                    method: :delete,
                     remote: true,
                     class: "btn btn-danger",
+                    data: { "bs-dismiss": "modal" },
                     id: "projects-comment-delete-button" do %>
           <%= t("delete") %>
         <% end %>
