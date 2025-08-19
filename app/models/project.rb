@@ -3,12 +3,10 @@
 require "pg_search"
 
 class Project < ApplicationRecord
+  include ProjectValidations
   extend FriendlyId
   friendly_id :name, use: %i[slugged history]
   self.ignored_columns += ["data"]
-
-  validates :name, length: { minimum: 1 }
-  validates :slug, uniqueness: true
 
   belongs_to :author, class_name: "User"
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
@@ -141,26 +139,7 @@ class Project < ApplicationRecord
     project_access_type == "Public" && FeaturedCircuit.exists?(project_id: id)
   end
 
-  validate :check_validity
-  validate :clean_description
-
   private
-
-    def check_validity
-      return unless (project_access_type != "Private") && !assignment_id.nil?
-
-      errors.add(:project_access_type, "Assignment has to be private")
-    end
-
-    def clean_description
-      profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
-      return nil unless profanity_filter.match? description
-
-      errors.add(
-        :description,
-        "contains inappropriate language: #{profanity_filter.matched(description).join(', ')}"
-      )
-    end
 
     def check_and_remove_featured
       return unless saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
