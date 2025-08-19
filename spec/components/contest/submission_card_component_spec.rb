@@ -18,7 +18,7 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
                                         current_user: author)
 
       expect(page).to have_css("img[alt='#{project.name}']")
-      expect(page).to have_text("Votes: 5")
+      expect(page).to have_text("5 votes")
       expect(page).to have_css("a.previewButton", text: "View")
       expect(page).to have_link("Withdraw")
     end
@@ -40,7 +40,7 @@ RSpec.describe Contest::SubmissionCardComponent, type: :component do
                                         current_user: viewer)
 
       expect(page).to have_css("img[alt='#{project.name}']")
-      expect(page).to have_text("Votes: 0")
+      expect(page).to have_text("0 votes")
       expect(page).to have_css("a.previewButton", text: "View")
       expect(page).not_to have_link("Withdraw")
     end
