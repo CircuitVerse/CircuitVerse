@@ -18,7 +18,7 @@ RSpec.describe "Explore pagination (cursor)", type: :request do
     it "renders empty state and no pagination" do
       get "/explore"
       expect(response).to have_http_status(:ok)
-      expect(response.body).to include(I18n.t("explore.empty"))
+      expect(response.body).to include("Nothing to show yet.")
       expect(response.body).not_to include("pagination justify-content-center")
     end
   end

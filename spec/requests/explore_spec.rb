@@ -19,6 +19,6 @@ RSpec.describe "Explore", type: :request do
     Flipper.enable(:circuit_explore_page)
     get "/explore"
     expect(response).to have_http_status(:ok)
-    expect(response.body).to include(I18n.t("explore.main_heading"))
+    expect(response.body).to include("Explore Circuits")
   end
 end
