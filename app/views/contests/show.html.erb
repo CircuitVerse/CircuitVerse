@@ -27,7 +27,7 @@
       <div class="d-flex flex-column align-items-center">
         <span class="contest-header-timer">
           <%= t("contest.header.time_left_label") %>
-          <span><%= contest_time_left(@contest) %></span>
+          <span><%= (@contest.deadline.blank? || @contest.deadline <= Time.current) ? t("contest.timer.expired") : distance_of_time_in_words(Time.current, @contest.deadline) %></span>
         </span>
 
         <%= link_to new_contest_submission_path(@contest.id),
