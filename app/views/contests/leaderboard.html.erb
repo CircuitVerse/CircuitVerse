@@ -25,7 +25,7 @@
     </div>
   <% else %>
     <div class="table-responsive">
-      <table class="table table-striped align-middle">
+      <table class="table table-striped align-middle text-center leaderboard-table">
         <thead>
           <tr>
             <th scope="col"><%= t("contest.leaderboard.columns.rank") %></th>
@@ -41,13 +41,10 @@
             <% author  = project.author %>
             <%# Rails will call project.to_param (slug or id) %>
             <% rank = idx + 1 %>
-            <tr>
+            <tr class="<%= 'rank-1' if rank == 1 %>">
               <td class="leaderboard-rank">
                 <%= rank %>
                 <% if rank == 1 %>
-                  <span class="emoji-badge ms-1"
-                        title="<%= t('contest.leaderboard.winner_badge', default: 'Winner') %>"
-                        aria-hidden="true">🏆</span>
                   <span class="visually-hidden"><%= t('contest.leaderboard.winner_badge', default: 'Winner') %></span>
                 <% end %>
               </td>

@@ -213,15 +213,8 @@
   display: inline-block;
 }
 
-.leaderboard-table tr.rank-1 {
-  background: #fff8e1;
-}
-
-.leaderboard-table tr.rank-1 td:first-child::before {
-  content: "🏆 ";
-}
-
-.leaderboard-rank .emoji-badge {
-  font-size: 1.1rem;
-  vertical-align: middle;
+.leaderboard-table.table.table-striped > tbody > tr.rank-1 > * {
+  background-color: #f8e6aa;
+  background-image: none;
+  font-weight: 600;
 }
