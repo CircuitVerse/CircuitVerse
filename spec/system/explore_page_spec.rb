@@ -15,14 +15,14 @@ RSpec.describe "Explore page", :js, type: :system do
     end
 
     visit "/explore"
-    expect(page).to have_content(I18n.t("explore.sections.cotw.heading"))
-    expect(page).to have_content(I18n.t("explore.sections.picks.heading"))
+    expect(page).to have_content("Circuit of the week")
+    expect(page).to have_content("Editor Picks")
 
-    click_button I18n.t("explore.tabs.recent")
-    expect(page).to have_content(I18n.t("explore.sections.recent.heading"))
+    click_button "Recent Circuits"
+    expect(page).to have_content("Recent Circuits")
 
     expect(page).to have_selector(".project-card", minimum: 1)
-    click_link I18n.t("pagination.next", default: "Next")
+    click_link "Next"
     expect(page).to have_current_path(%r{/explore\?section=recent&after=[^#&]+(#recent)?})
   end
 end

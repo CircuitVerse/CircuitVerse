@@ -14,6 +14,6 @@ RSpec.describe "Admin::Contests#create failure path", type: :request do
          params: { contest: { deadline: 1.month.from_now } }
 
     expect(response).to have_http_status(:unprocessable_entity)
-    expect(response.body).to include(I18n.t("admin.contests.index.title"))
+    expect(response.body).to include("Contests Admin")
   end
 end

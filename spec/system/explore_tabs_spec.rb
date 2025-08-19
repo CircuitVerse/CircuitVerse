@@ -10,13 +10,13 @@ RSpec.describe "Explore tabs", :js, type: :system do
   # rubocop:disable RSpec/MultipleExpectations
   it "switches sections without reload" do
     visit "/explore"
-    expect(page).to have_button(I18n.t("explore.tabs.cotw"))
-    expect(page).to have_button(I18n.t("explore.tabs.recent"))
+    expect(page).to have_button("Circuit of the week")
+    expect(page).to have_button("Recent Circuits")
 
     expect(page).to have_css('.explore-section[data-key="cotw"]:not(.d-none)')
     expect(page).to have_css('.explore-section[data-key="recent"].d-none', visible: :all)
 
-    click_button I18n.t("explore.tabs.recent")
+    click_button "Recent Circuits"
     expect(page).to have_css('.explore-section[data-key="recent"]:not(.d-none)')
     expect(page).to have_css('.explore-section[data-key="cotw"].d-none', visible: :all)
   end
