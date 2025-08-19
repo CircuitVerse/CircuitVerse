@@ -11,7 +11,7 @@ RSpec.describe Contest::CardComponent, type: :component do
 
     expect(page).to have_link("Contest ##{contest.id}")
     expect(page).to have_text("Entries: 3")
-    expect(page).to have_text(I18n.t("contest.status.completed"))
+    expect(page).to have_text("Completed")
   end
 
   it "shows zero entries and live status for a contest without submissions" do
@@ -21,6 +21,6 @@ RSpec.describe Contest::CardComponent, type: :component do
 
     expect(page).to have_link("Contest ##{contest.id}")
     expect(page).to have_text("Entries: 0")
-    expect(page).to have_text(I18n.t("contest.status.live"))
+    expect(page).to have_text("LIVE")
   end
 end
