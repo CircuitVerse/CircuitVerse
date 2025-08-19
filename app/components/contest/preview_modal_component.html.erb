@@ -7,7 +7,7 @@
     <div class="modal-content">
       <div class="modal-header d-flex align-items-center">
         <h4 id="projectModalLabel" class="modal-title flex-grow-1 text-center">
-          <%= t("users.circuitverse.preview_project") %>
+          <%= t("user.circuitverse.preview_project", default: "Preview Project") %>
         </h4>
         <button type="button"
                 class="btn-close ms-auto"
@@ -26,7 +26,7 @@
       </div>
 
       <div class="modal-footer">
-        <%= link_to t("more"),
+        <%= link_to t("more", default: "More"),
                     "#",
                     class: "btn primary-button",
                     id: "project-more-button",

@@ -113,7 +113,7 @@ en:
   layout:
     link_to_contests: "Contests"
 
-  users:
+  user:
     circuitverse:
       preview_project: "Preview Project"
 
