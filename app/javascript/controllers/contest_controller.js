@@ -1,12 +1,7 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-    static get values() {
-        return { timeleft: String };
-    }
-
     connect() {
-        this.setCountDownTimer();
         this.setShowModals();
         this.setAdminModals();
     }
@@ -61,27 +56,5 @@ export default class extends Controller {
                     .attr('href', `/contests/${contestId}/submissions/${submissionId}/withdraw`);
             });
         }
-    }
-
-    setCountDownTimer() {
-        const deadline = new Date(this.timeleftValue).getTime();
-        const timeLeftCounter = this.element.querySelector('#timeLeftCounter');
-        if (!timeLeftCounter) return;
-
-        const x = setInterval(() => {
-            const now = new Date().getTime();
-            const t = deadline - now;
-
-            const days = Math.floor(t / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((t % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((t % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((t % (1000 * 60)) / 1000);
-
-            timeLeftCounter.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s `;
-            if (t < 0) {
-                clearInterval(x);
-                timeLeftCounter.innerHTML = 'EXPIRED';
-            }
-        }, 1000);
     }
 }
