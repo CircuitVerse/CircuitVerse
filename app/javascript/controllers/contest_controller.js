@@ -46,7 +46,7 @@ export default class extends Controller {
                     .attr('href', `/users/${authorId}/projects/${projectSlugOrId}`);
 
                 $(e.currentTarget)
-                    .find('#project-ifram-preview')
+                    .find('#project-iframe-preview')
                     .attr('src', `/simulator/${projectSlugOrId}`);
             });
         }
@@ -58,7 +58,7 @@ export default class extends Controller {
                 const submissionId = $(e.relatedTarget).data('submission').id;
                 $(e.currentTarget)
                     .find('#withdraw-submission-button')
-                    .attr('href', `/contests/${contestId}/withdraw/${submissionId}`);
+                    .attr('href', `/contests/${contestId}/submissions/${submissionId}/withdraw`);
             });
         }
     }

@@ -197,6 +197,8 @@
   }
 }
 
+.submission-card { @extend .project-card; }
+
 .project-card-image-container {
   border-bottom: 2px solid $primary-green;
   height: 200px;
@@ -503,4 +505,57 @@
   &:hover {
     color: $white;
   }
+}
+
+.explore-tabs {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+.explore-tab {
+  border: 1px solid $secondary-green;
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: $white;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $primary-green;
+    color: $primary-green;
+  }
+
+  &:focus-visible {
+    outline: 3px solid $primary-green;
+    outline-offset: 2px;
+  }
+
+  &:disabled,
+  &[aria-disabled="true"] {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+.explore-tab.active {
+  background: $primary-green;
+  color: $white;
+  border-color: $primary-green;
+}
+.explore-tab[aria-selected="true"] {
+  background: $primary-green;
+  color: $white;
+  border-color: $primary-green;
+}
+
+.explore-section[data-key="picks"] .project-cards-grid,
+.explore-section[data-key="recent"] .project-cards-grid {
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.explore-section[data-key="picks"] .project-card,
+.explore-section[data-key="recent"] .project-card {
+  max-width: none;
+  min-width: 0;
 }

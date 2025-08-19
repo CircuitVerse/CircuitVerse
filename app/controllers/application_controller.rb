@@ -26,16 +26,10 @@ class ApplicationController < ActionController::Base
 
   def switch_locale(&)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = current_user&.locale ||
-             extract_locale_from_accept_language_header ||
-             I18n.default_locale
+    locale = params[:locale]&.to_sym || current_user&.locale&.to_sym || extract_locale_from_accept_language_header
+    locale = I18n.default_locale unless I18n.available_locales.include?(locale)
     logger.debug "* Locale set to '#{locale}'"
-    begin
-      I18n.with_locale(locale, &)
-    rescue I18n::InvalidLocale
-      locale = I18n.default_locale
-      retry
-    end
+    I18n.with_locale(locale, &)
   end
 
   # Overrides Devise::Controller::StoreLocation.store_location_for to check if
