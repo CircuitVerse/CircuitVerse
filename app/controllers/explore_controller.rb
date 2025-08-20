@@ -92,10 +92,15 @@ class ExploreController < ApplicationController
     end
 
     def top_tags
-      Tag.joins(:projects)
-         .merge(Project.open)
-         .group("tags.id")
-         .order(Arel.sql("COUNT(taggings.id) DESC"))
-         .limit(MAX_TAGS)
+      Rails.cache.fetch("explore/top_tags:v1:limit=#{MAX_TAGS}", expires_in: 5.hours, race_condition_ttl: 10) do
+        Tag
+          .joins(:projects)
+          .merge(Project.open)
+          .group("tags.id")
+          .order(Arel.sql("COUNT(taggings.id) DESC"))
+          .limit(MAX_TAGS)
+          .select(:id, :name)
+          .to_a
+      end
     end
 end
