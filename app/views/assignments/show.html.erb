@@ -52,6 +52,31 @@
             &nbsp;
             <%= link_to t("assignments.assignment_data.export_grades"), grades_to_csv_path(@assignment, format: "csv"), class: "btn primary-button" %>
           <% end %>
+          <% unless policy(@assignment).mentor_access? %>
+            <% project_assignment = @assignment.projects.find { |p| p.author_id == current_user.id } %>
+            <% if @assignment.deadline > Time.current %>
+              <% if project_assignment.nil? %>
+                <%= link_to assignment_start_path(@group, @assignment), class: "btn btn-secondary" do %>
+                  <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
+                  <span><%= t("assignments.assignment_data.start_working") %></span>
+                <% end %>
+              <% else %>
+                <%= link_to user_project_path(current_user, project_assignment), class: "btn btn-secondary" do %>
+                  <%= image_tag("SVGs/viewGroup.svg", alt: "View Work") %>
+                  <span><%= t("assignments.assignment_data.view_work") %></span>
+                <% end %>
+              <% end %>
+            <% else %>
+              <% if project_assignment.nil? %>
+                <p><%= t("assignments.assignment_data.not_submitted") %></p>
+              <% else %>
+                <%= link_to user_project_path(current_user, project_assignment), class: "btn btn-secondary" do %>
+                  <%= image_tag("SVGs/viewGroup.svg", alt: "View Submission") %>
+                  <span><%= t("assignments.assignment_data.view_submission") %></span>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
           &nbsp;
           <%= link_to t("back"), group_path(@group), class: "anchor-text" %>
           <br> <br>
