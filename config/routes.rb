@@ -106,7 +106,7 @@ Rails.application.routes.draw do
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
-    get "tags/:tag", to: "projects#get_projects", as: "tag"
+    get "tags/:tag", to: "tags#show", as: "tag"
   end
 
   resources :contests, only: %i[index show] do
