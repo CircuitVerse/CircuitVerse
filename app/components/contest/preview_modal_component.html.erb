@@ -5,13 +5,14 @@
      aria-modal="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 id="projectModalLabel" class="modal-title">
+      <div class="modal-header d-flex align-items-center">
+        <h4 id="projectModalLabel" class="modal-title flex-grow-1 text-center">
           <%= t("user.circuitverse.preview_project", default: "Preview Project") %>
         </h4>
-        <button type="button" class="btn-close"
+        <button type="button"
+                class="btn-close ms-auto"
                 data-bs-dismiss="modal"
-                aria-label="Close"></button>
+                aria-label="<%= t('contest.close') %>"></button>
       </div>
 
       <div class="modal-body">
