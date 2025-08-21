@@ -78,7 +78,9 @@
 <div class="navbar-search-active">
   <%= render(Search::SearchBarComponent.new(
     resource: params[:resource],
-    query: params[:q]
+    query: params[:q],
+    sort_by: params[:sort_by],
+    sort_direction: params[:sort_direction]
   )) %>
 </div>
 <script type="text/javascript">

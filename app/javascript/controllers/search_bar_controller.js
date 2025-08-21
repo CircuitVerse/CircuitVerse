@@ -40,6 +40,9 @@ export default class extends Controller {
             'keydown',
             this.boundHandleKeydown,
         );
+
+        // Dispatch initial resource change event on connect
+        this.dispatch('resource-changed', { detail: { resource: this.hiddenSelectTarget.value } });
     }
 
     disconnect() {
@@ -54,6 +57,9 @@ export default class extends Controller {
         const selectValue = this.hiddenSelectTarget.value;
         const placeholderMap = this.placeholdersValue;
         this.inputTarget.placeholder = placeholderMap[selectValue];
+
+        // Dispatch event to notify sorting controller of resource change
+        this.dispatch('resource-changed', { detail: { resource: selectValue } });
     }
 
     selectOption(event) {
@@ -72,6 +78,9 @@ export default class extends Controller {
         this.changePlaceholder();
 
         this.updateActiveOption(option);
+
+        // Auto-submit the form after allowing sorting controller to update
+        this.submitFormAfterSortingUpdate();
     }
 
     updateActiveOption(selectedOption) {
@@ -176,5 +185,20 @@ export default class extends Controller {
 
     closeDropdown() {
         this.toggleDropdownState('close');
+    }
+
+    submitForm() {
+        const searchForm = this.element.closest('form') || document.getElementById('search-box');
+        if (searchForm) {
+            searchForm.submit();
+        }
+    }
+
+    submitFormAfterSortingUpdate() {
+        // Allow time for the sorting controller to process the resource change event
+        // and update the hidden sort fields with appropriate defaults
+        setTimeout(() => {
+            this.submitForm();
+        }, 0);
     }
 }
