@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Search::SearchBarComponent < ViewComponent::Base
-  RESOURCE_OPTIONS = %w[Users Projects].freeze
+  RESOURCE_OPTIONS = %w[Projects Users].freeze
   DEFAULT_SORT_BY = "created_at".freeze
   DEFAULT_SORT_DIRECTION = "desc".freeze
 
