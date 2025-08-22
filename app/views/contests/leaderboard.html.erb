@@ -1,0 +1,68 @@
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center pt-4">
+    <div>
+      <h3 class="contest-header-title"><%= t("contest.leaderboard.title", id: @contest.id) %></h3>
+      <p class="mb-0 contest-header-description">
+        <%= t("contest.leaderboard.subtitle") %>
+      </p>
+    </div>
+
+    <div class="d-flex gap-2">
+      <%= link_to t("contest.leaderboard.back_to_contest"),
+                  contest_path(@contest),
+                  class: "contest-submission-button text-decoration-none" %>
+    </div>
+  </div>
+
+  <div class="contest-page-line"></div>
+
+  <% if @submissions.empty? %>
+    <div class="col-12 row center-row d-flex justify-content-center">
+      <div class="search-no-results-image">
+        <%= image_tag "SVGs/noResult.svg", alt: t("contest.no_result_image_alt", default: "No result image") %>
+        <h6><%= t("contest.leaderboard.no_submissions") %></h6>
+      </div>
+    </div>
+  <% else %>
+    <div class="table-responsive">
+      <table class="table table-striped align-middle">
+        <thead>
+          <tr>
+            <th scope="col"><%= t("contest.leaderboard.columns.rank") %></th>
+            <th scope="col"><%= t("contest.leaderboard.columns.project") %></th>
+            <th scope="col"><%= t("contest.leaderboard.columns.author") %></th>
+            <th scope="col"><%= t("contest.leaderboard.columns.votes") %></th>
+            <th scope="col"><%= t("contest.leaderboard.columns.submitted_at") %></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @submissions.each_with_index do |submission, idx| %>
+            <% project = submission.project %>
+            <% author  = project.author %>
+            <%# Rails will call project.to_param (slug or id) %>
+            <% rank = idx + 1 %>
+            <tr>
+              <td class="leaderboard-rank">
+                <%= rank %>
+                <% if rank == 1 %>
+                  <span class="emoji-badge ms-1"
+                        title="<%= t('contest.leaderboard.winner_badge', default: 'Winner') %>"
+                        aria-hidden="true">🏆</span>
+                  <span class="visually-hidden"><%= t('contest.leaderboard.winner_badge', default: 'Winner') %></span>
+                <% end %>
+              </td>
+              <td>
+                <%= link_to project.name,
+                            user_project_path(author, project),
+                            class: "text-decoration-none" %>
+              </td>
+              <td><%= author.name %></td>
+              <td><%= t("contest.votes_count", count: submission.submission_votes_count) %></td>
+              <td><%= l submission.created_at, format: :short %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
+</div>

@@ -118,6 +118,10 @@ Rails.application.routes.draw do
         post :withdraw, to: "contests/submissions#destroy"
       end
     end
+
+      member do
+        get :leaderboard
+    end
   end
 
   namespace :admin, path: "admins" do
