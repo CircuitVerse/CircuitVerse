@@ -96,12 +96,13 @@ class ExploreController < ApplicationController
     end
 
     def top_tags
-      Rails.cache.fetch("explore/top_tags:v1:limit=#{MAX_TAGS}", expires_in: 5.hours, race_condition_ttl: 10) do
+      Rails.cache.fetch("explore/top_tags:v2:limit=#{MAX_TAGS}", expires_in: 5.hours, race_condition_ttl: 10) do
         Tag
           .joins(:projects)
           .merge(Project.open)
+          .where("tags.name ~* '[[:alpha:]]'")
           .group("tags.id")
-          .order(Arel.sql("COUNT(taggings.id) DESC"))
+          .order(Arel.sql("COUNT(taggings.id) DESC, LOWER(tags.name) ASC"))
           .limit(MAX_TAGS)
           .select(:id, :name)
           .to_a
