@@ -96,8 +96,9 @@ class ExploreController < ApplicationController
         Tag
           .joins(:projects)
           .merge(Project.open)
+          .where("tags.name ~* '[[:alpha:]]'")
           .group("tags.id")
-          .order(Arel.sql("COUNT(taggings.id) DESC"))
+          .order(Arel.sql("COUNT(taggings.id) DESC, LOWER(tags.name) ASC"))
           .limit(MAX_TAGS)
           .select(:id, :name)
           .to_a
