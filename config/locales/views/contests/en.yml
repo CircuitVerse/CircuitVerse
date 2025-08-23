@@ -61,8 +61,8 @@ en:
       confirm_button: "Confirm"
     delete_contest_modal:
       heading: "Delete a Contest"
-      description: "This will permanently remove the contest, its submissions, votes, and winner. This cannot be undone. Are you sure you want to proceed?"
-      confirm_button: "Delete"
+      description: "Are you sure you want to delete this contest permanently? This action cannot be undone."
+      confirm_button: "Delete contest permanently"
     host_new_contest_modal:
       heading: "Host a new Contest"
       description: "Are you sure you want to start a new contest?"

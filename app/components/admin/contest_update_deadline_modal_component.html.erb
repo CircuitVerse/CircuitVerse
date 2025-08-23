@@ -1,13 +1,13 @@
-<div id="update-contest-modal"
+<div id="update-contest-modal-<%= @contest.id %>"
      class="modal fade"
      role="dialog"
-     aria-labelledby="updateContestModalLabel"
+     aria-labelledby="updateContestModalLabel-<%= @contest.id %>"
      aria-hidden="true">
 
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header primary-modal-header d-flex align-items-center">
-        <h4 class="modal-title flex-grow-1 text-center" id="updateContestModalLabel">
+        <h4 class="modal-title flex-grow-1 text-center" id="updateContestModalLabel-<%= @contest.id %>">
           <%= t("contest.update_contest_modal.heading") %>
         </h4>
         <button type="button"

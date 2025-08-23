@@ -28,7 +28,7 @@
               <div class="contest-container-close">
                 <%= link_to "#",
                             data:   { bs_toggle: "modal",
-                                      bs_target: "#close-contest-confirmation-modal",
+                                      bs_target: "#close-contest-confirmation-modal-#{contest.id}",
                                       contest:   contest },
                             class:  "contest-container-close-button" do %>
                   <span><%= t("contest.close") %></span>
@@ -74,7 +74,7 @@
             <% if contest.live? %>
               <%= link_to "#",
                           data:   { bs_toggle: "modal",
-                                    bs_target: "#update-contest-modal",
+                                    bs_target: "#update-contest-modal-#{contest.id}",
                                     contest:   contest,
                                     deadline:  contest.deadline.strftime("%Y-%m-%dT%H:%M") },
                           class:  "contest-container-update-button" do %>
