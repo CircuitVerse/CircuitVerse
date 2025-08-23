@@ -53,6 +53,18 @@ class Admin::ContestsController < ApplicationController
   end
   # rubocop:enable Metrics/MethodLength
 
+  def destroy
+    @contest = Contest.find(params[:id])
+
+    unless @contest.completed?
+      redirect_to admin_contests_path, alert: t(".only_completed")
+      return
+    end
+
+    @contest.destroy
+    redirect_to admin_contests_path, notice: t(".success")
+  end
+
   private
 
     def authorize_admin

@@ -1,0 +1,32 @@
+<div id="delete-contest-confirmation-modal-<%= @contest.id %>"
+     class="modal fade"
+     role="dialog"
+     aria-labelledby="deleteContestModalLabel-<%= @contest.id %>"
+     aria-hidden="true">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header d-flex align-items-center">
+        <h4 id="deleteContestModalLabel-<%= @contest.id %>" class="modal-title flex-grow-1 text-center">
+          <%= t("contest.delete_contest_modal.heading") %>
+        </h4>
+        <button type="button"
+                class="btn-close ms-auto"
+                data-bs-dismiss="modal"
+                aria-label="<%= t('contest.close') %>"></button>
+      </div>
+
+      <div class="modal-body">
+        <p><%= t("contest.delete_contest_modal.description") %></p>
+      </div>
+
+      <div class="modal-footer">
+        <%= form_with url:   admin_contest_path(@contest),
+                      method: :delete,
+                      local:  true do %>
+          <%= submit_tag t("contest.delete_contest_modal.confirm_button"),
+                         class: "btn primary-button danger-primary-button" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
