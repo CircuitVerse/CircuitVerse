@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Search::SearchBarComponent < ViewComponent::Base
+  RESOURCE_OPTIONS = %w[Projects Users].freeze
+  DEFAULT_SORT_BY = "created_at".freeze
+  DEFAULT_SORT_DIRECTION = "desc".freeze
+
   def initialize(
     resource: nil,
     query: nil,

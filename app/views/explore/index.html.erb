@@ -1,0 +1,124 @@
+<% content_for :title, t("explore.title") %>
+
+<div class="container" data-controller="explore">
+  <div class="row center-row">
+    <div class="col-12">
+      <h1 class="main-heading"><%= t("explore.main_heading") %></h1>
+      <p class="main-description"><%= t("explore.main_description") %></p>
+    </div>
+  </div>
+
+  <div class="explore-tabs" role="tablist">
+    <button class="explore-tab active"
+            data-explore-target="tab"
+            data-action="click->explore#switch"
+            data-key="cotw"
+            role="tab" aria-selected="true"><%= t("explore.tabs.cotw") %></button>
+    <button class="explore-tab"
+            data-explore-target="tab"
+            data-action="click->explore#switch"
+            data-key="picks"
+            role="tab" aria-selected="false"><%= t("explore.tabs.picks") %></button>
+    <button class="explore-tab"
+            data-explore-target="tab"
+            data-action="click->explore#switch"
+            data-key="recent"
+            role="tab" aria-selected="false"><%= t("explore.tabs.recent") %></button>
+    <button class="explore-tab"
+            data-explore-target="tab"
+            data-action="click->explore#switch"
+            data-key="tags"
+            role="tab" aria-selected="false"><%= t("explore.tabs.tags") %></button>
+  </div>
+
+  <section class="explore-section" data-explore-target="section" data-key="cotw">
+    <div class="row center-row home-circuit-card-row">
+      <div class="col-12">
+        <h3><%= t("explore.sections.cotw.heading") %></h3>
+        <p><%= t("explore.sections.cotw.description") %></p>
+      </div>
+    </div>
+    <% if @circuit_of_the_week %>
+      <div class="project-cards-grid">
+        <%= render(Project::ProjectCardComponent.new(project: @circuit_of_the_week)) %>
+      </div>
+    <% else %>
+      <p class="text-muted"><%= t("explore.empty") %></p>
+    <% end %>
+  </section>
+
+  <section class="explore-section d-none" data-explore-target="section" data-key="picks">
+    <div class="row center-row">
+      <div class="col-12">
+        <h3><%= t("explore.sections.picks.heading") %></h3>
+        <p><%= t("explore.sections.picks.description") %></p>
+      </div>
+    </div>
+    <% if @editor_picks.any? %>
+      <div class="project-cards-grid">
+        <%= render(Project::ProjectCardComponent.with_collection(@editor_picks)) %>
+      </div>
+    <% else %>
+      <p class="text-muted"><%= t("explore.empty") %></p>
+    <% end %>
+  </section>
+
+  <section class="explore-section d-none" data-explore-target="section" data-key="recent">
+    <div class="row center-row">
+      <div class="col-12">
+        <h3><%= t("explore.sections.recent.heading") %></h3>
+        <p><%= t("explore.sections.recent.description") %></p>
+      </div>
+    </div>
+    <% if @recent_projects.any? %>
+      <div class="project-cards-grid">
+        <%= render(Project::ProjectCardComponent.with_collection(@recent_projects)) %>
+      </div>
+
+      <div class="container pagination-cont">
+        <ul class="pagination justify-content-center">
+          <li class="page-item <%= 'disabled' unless @has_prev_recent %>">
+            <% if @has_prev_recent %>
+              <%= link_to t("pagination.previous", default: "Previous"),
+                          "/explore?section=recent&before=#{@recent_prev_cursor}#recent",
+                          class: "page-link" %>
+            <% else %>
+              <span class="page-link"><%= t("pagination.previous", default: "Previous") %></span>
+            <% end %>
+          </li>
+          <li class="page-item <%= 'disabled' unless @has_next_recent %>">
+            <% if @has_next_recent %>
+              <%= link_to t("pagination.next", default: "Next"),
+                          "/explore?section=recent&after=#{@recent_next_cursor}#recent",
+                          class: "page-link" %>
+            <% else %>
+              <span class="page-link"><%= t("pagination.next", default: "Next") %></span>
+            <% end %>
+          </li>
+        </ul>
+      </div>
+    <% else %>
+      <p class="text-muted"><%= t("explore.empty") %></p>
+    <% end %>
+  </section>
+
+  <section class="explore-section d-none" data-explore-target="section" data-key="tags">
+    <div class="row center-row">
+      <div class="col-12">
+        <h3><%= t("explore.sections.tags.heading") %></h3>
+        <p><%= t("explore.sections.tags.description") %></p>
+      </div>
+    </div>
+    <% if @top_tags.any? %>
+      <div class="d-flex flex-wrap gap-2 justify-content-center">
+        <% @top_tags.each do |tag| %>
+          <%= link_to tag.name,
+                      tag_path(tag.name),
+                      class: "badge search-tag" %>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="text-muted"><%= t("explore.empty") %></p>
+    <% end %>
+  </section>
+</div>

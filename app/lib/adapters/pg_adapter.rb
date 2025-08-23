@@ -6,6 +6,7 @@ module Adapters
 
     def search_project(relation, query_params)
       results = if query_params[:q].present?
+      results = if query_params[:q].present?
         relation.text_search(query_params[:q])
       else
         Project.public_and_not_forked
@@ -21,6 +22,7 @@ module Adapters
     end
 
     def search_user(relation, query_params)
+      results = if query_params[:q].present?
       results = if query_params[:q].present?
         relation.text_search(query_params[:q])
       else
