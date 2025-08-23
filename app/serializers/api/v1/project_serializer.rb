@@ -20,7 +20,7 @@ class Api::V1::ProjectSerializer
   end
 
   attributes :stars_count do |project|
-    project.stars.count
+    project.stars_count
   end
 
   attributes :thread_id do |project|
