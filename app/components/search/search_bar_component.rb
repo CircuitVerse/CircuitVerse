@@ -2,22 +2,21 @@
 
 class Search::SearchBarComponent < ViewComponent::Base
   RESOURCE_OPTIONS = %w[Projects Users].freeze
-  DEFAULT_SORT_BY = "created_at".freeze
-  DEFAULT_SORT_DIRECTION = "desc".freeze
+  DEFAULT_SORT_BY = "created_at"
+  DEFAULT_SORT_DIRECTION = "desc"
 
   def initialize(
     resource: nil,
     query: nil,
-    sort_by: nil,
-    sort_direction: nil,
+    sorting: {},
     countries: nil,
     current_filters: nil
   )
     super
     @resource = resource
     @query = query
-    @sort_by = sort_by || default_sort_by
-    @sort_direction = sort_direction || default_sort_direction
+    @sort_by = sorting[:sort_by] || sorting["sort_by"] || default_sort_by
+    @sort_direction = sorting[:sort_direction] || sorting["sort_direction"] || default_sort_direction
     @countries = countries || []
     @current_filters = current_filters || {}
   end
@@ -41,22 +40,8 @@ class Search::SearchBarComponent < ViewComponent::Base
     {
       "button_text" => I18n.t("components.search_bar.filters.button_text"),
       "apply_button_text" => I18n.t("components.search_bar.filters.apply_button_text"),
-      "projects" => {
-        "tags" => {
-          "label" => I18n.t("components.search_bar.filters.projects.tags.label"),
-          "placeholder" => I18n.t("components.search_bar.filters.projects.tags.placeholder")
-        }
-      },
-      "users" => {
-        "country" => {
-          "label" => I18n.t("components.search_bar.filters.users.country.label"),
-          "placeholder" => I18n.t("components.search_bar.filters.users.country.placeholder")
-        },
-        "institute" => {
-          "label" => I18n.t("components.search_bar.filters.users.institute.label"),
-          "placeholder" => I18n.t("components.search_bar.filters.users.institute.placeholder")
-        }
-      }
+      "projects" => project_filter_labels,
+      "users" => user_filter_labels
     }
   end
 
@@ -107,5 +92,27 @@ class Search::SearchBarComponent < ViewComponent::Base
 
     def default_sort_direction
       "desc" # Default to descending (newest first)
+    end
+
+    def project_filter_labels
+      {
+        "tags" => {
+          "label" => I18n.t("components.search_bar.filters.projects.tags.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.projects.tags.placeholder")
+        }
+      }
+    end
+
+    def user_filter_labels
+      {
+        "country" => {
+          "label" => I18n.t("components.search_bar.filters.users.country.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.users.country.placeholder")
+        },
+        "institute" => {
+          "label" => I18n.t("components.search_bar.filters.users.institute.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.users.institute.placeholder")
+        }
+      }
     end
 end

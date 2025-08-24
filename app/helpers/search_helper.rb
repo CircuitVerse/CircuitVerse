@@ -19,71 +19,101 @@ module SearchHelper
   def countries_for_search_filters(request)
     priority_countries = get_search_priority_countries(request)
 
-    ISO3166::Country.all.map do |country|
+    countries = ISO3166::Country.all.map do |country|
       {
         name: country.translations[I18n.locale.to_s] || country.name,
         code: country.alpha2,
         priority: priority_countries.include?(country.alpha2)
       }
-    end.sort_by { |country| [country[:priority] ? 0 : 1, country[:name]] }
+    end
+
+    countries.sort_by { |country| [country[:priority] ? 0 : 1, country[:name]] }
   end
 
   private
 
     def get_search_priority_countries(request)
-      # Cache on the request to avoid repeated geocoding within the same request
-      cached = request&.env&.dig("cv.priority_countries")
+      cached = get_cached_priority_countries(request)
       return cached if cached
 
       priority_countries = DEFAULT_PRIORITY_COUNTRY_CODES.dup
-
       return priority_countries unless request
 
-      country_alpha2 = nil
+      country_alpha2 = get_user_country_code(request)
+      add_user_country_to_priorities(priority_countries, country_alpha2)
 
-      begin
-        geo_result = nil
+      cache_priority_countries(request, priority_countries)
+    end
 
-        # Prefer request.location if available
-        if request.respond_to?(:location)
-          begin
-            geo_result = request.location
-          rescue Geocoder::Error, Timeout::Error
-            geo_result = nil
-          end
-        end
+    def get_cached_priority_countries(request)
+      request&.env&.dig("cv.priority_countries")
+    end
 
-        # Fallback to explicit IP lookup
-        if geo_result.nil?
-          ip = request.remote_ip rescue nil
-          if ip
-            geo_result = Geocoder.search(ip).first
-          end
-        end
+    def get_user_country_code(request)
+      geo_result = get_geo_data(request)
+      return nil unless geo_result
 
-        if geo_result
-          country_alpha2 = geo_result.respond_to?(:country_code) ? geo_result.country_code : nil
-          if country_alpha2.nil? || country_alpha2.to_s.strip.empty?
-            country_name = geo_result.respond_to?(:country) ? geo_result.country : nil
-            country_alpha2 = normalize_country_to_alpha2(country_name)
-          end
-        end
-      rescue Geocoder::Error, Timeout::Error
-        country_alpha2 = nil
+      extract_country_code_from_geo_result(geo_result)
+    rescue Geocoder::Error, Timeout::Error
+      nil
+    end
+
+    def get_geo_data(request)
+      # Prefer request.location if available
+      geo_result = get_location_from_request(request)
+      return geo_result if geo_result
+
+      # Fallback to explicit IP lookup
+      get_geo_data_from_ip(request)
+    end
+
+    def get_location_from_request(request)
+      return nil unless request.respond_to?(:location)
+
+      request.location
+    rescue Geocoder::Error, Timeout::Error
+      nil
+    end
+
+    def get_geo_data_from_ip(request)
+      ip = begin
+        request.remote_ip
+      rescue StandardError
+        nil
       end
 
-      if country_alpha2 && !country_alpha2.to_s.strip.empty?
-        code = country_alpha2.to_s.upcase
-        priority_countries.prepend(code) unless priority_countries.include?(code)
+      return nil unless ip
+
+      Geocoder.search(ip).first
+    end
+
+    def extract_country_code_from_geo_result(geo_result)
+      country_alpha2 = geo_result.respond_to?(:country_code) ? geo_result.country_code : nil
+
+      if country_alpha2.nil? || country_alpha2.to_s.strip.empty?
+        country_name = geo_result.respond_to?(:country) ? geo_result.country : nil
+        country_alpha2 = normalize_country_to_alpha2(country_name)
       end
 
-      # Store in the request env for subsequent calls in the same request
+      country_alpha2
+    end
+
+    def add_user_country_to_priorities(priority_countries, country_alpha2)
+      return priority_countries if country_alpha2.nil? || country_alpha2.to_s.strip.empty?
+
+      code = country_alpha2.to_s.upcase
+      priority_countries.prepend(code) unless priority_countries.include?(code)
+      priority_countries
+    end
+
+    def cache_priority_countries(request, priority_countries)
       request.env["cv.priority_countries"] = priority_countries
       priority_countries
     end
 
     def normalize_country_to_alpha2(country_name)
       return nil if country_name.nil? || country_name.to_s.strip.empty?
+
       country = ISO3166::Country.find_country_by_name(country_name)
       country&.alpha2
     end
