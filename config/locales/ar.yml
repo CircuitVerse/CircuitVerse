@@ -43,6 +43,14 @@ ar:
       options:
         users: "المستخدمون"
         projects: "مشاريع"
+      sorting:
+        users:
+          join_date: "تاريخ الانضمام"
+          total_circuits: "مجموع الدوائر"
+        projects:
+          created_date: "تاريخ الإنشاء"
+          views: "المشاهدات"
+          stars: "النجوم"
     project:
       show_more: "إظهار المزيد"
       options:
