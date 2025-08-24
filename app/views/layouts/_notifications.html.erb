@@ -1,16 +1,28 @@
 <% if user_signed_in? %>
   <div class="navbar-nav nav-item dropdown">
-  <li class="nav-item navbar-3 flex justify-content-center align-items-center" id="navbar-dropdown-3" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="notification-dropdown-menu" tabindex="0" aria-label="Notifications">
+    <li class="nav-item navbar-3 flex justify-content-center align-items-center"
+        id="navbar-dropdown-3"
+        role="button"
+        data-bs-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+        aria-controls="notification-dropdown-menu"
+        tabindex="0"
+        aria-label="Notifications">
       <i class="fas fa-bell notification-icon" id="notification-button"></i>
       <% if @unread&.count&.positive? %>
         <span class="notification-count"><%= @unread.count %></span>
       <% end %>
     </li>
-    <div class="dropdown-menu dropdown-menu-end dropdown-notification" aria-labelledby="navbar-dropdown-3">
+
+    <div class="dropdown-menu dropdown-notification <%= I18n.locale == :ar ? 'dropdown-menu-rtl' : 'dropdown-menu-end' %>"
+         aria-labelledby="navbar-dropdown-3"
+         data-bs-popper="static">
       <div class="d-flex align-items-center justify-content-between">
         <strong><h4><%= t("users.notifications.heading") %></h4></strong>
         <button class="cancel-button">&#10005;</button>
       </div>
+
       <% (@notification || []).each do |notification| %>
         <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post do %>
           <div class="d-flex align-items-center nb-notification">
@@ -30,6 +42,7 @@
           </div>
         <% end %>
       <% end %>
+
       <% if (@notification || []).count == 0 %>
         <div class="col-12 row center-row">
           <div class="search-no-results-image">
@@ -37,12 +50,13 @@
           </div>
         </div>
       <% end %>
+
       <div class="d-flex align-items-center justify-content-center mb-2 mt-3">
         <% if @unread&.count&.positive? %>
           <%= link_to t("users.notifications.mark_as_read_button"), read_all_notifications_url(current_user), method: :patch, class: "anchor-text-left" %>
           <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text-right" %>
         <% else %>
-        <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text" %>
+          <%= link_to t("users.notifications.see_all"), notifications_path(current_user), class: "anchor-text" %>
         <% end %>
       </div>
     </div>
