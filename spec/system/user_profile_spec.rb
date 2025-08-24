@@ -26,7 +26,11 @@ describe "User profile", type: :system do
     country = "United States"
     select country, from: "Country"
     click_button "Save"
+    # Should display the full country name on the page (via ProfileDecorator)
     expect(page).to have_text(country)
+    # But should store the alpha-2 code in the database
+    @user.reload
+    expect(@user.country).to eq("US")
   end
 
   it "lets user edit educational institute" do
