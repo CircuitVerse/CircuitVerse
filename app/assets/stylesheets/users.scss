@@ -340,7 +340,7 @@
 }
 
 .users-circuits-navbar {
-  align-items: center;
+  align-items: end;
   display: flex;
   justify-content: space-between;
   margin-bottom: 10px;
@@ -438,6 +438,7 @@
 @media (max-width: 768px) {
   .users-circuits-navbar {
     flex-direction: column;
+    align-items: center;
 
     input {
       border: 1px solid $form-border-grey;
@@ -446,6 +447,7 @@
 
   .users-circuits-search-container {
     width: 100%;
+    margin-top: 24px;
   }
 }
 
