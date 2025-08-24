@@ -42,6 +42,16 @@
             </div>
           <% else %>
             <div class="contest-container-header">
+              <div class="contest-container-close">
+                <%= link_to "#",
+                            data:   { bs_toggle: "modal",
+                                      bs_target: "#delete-contest-confirmation-modal-#{contest.id}",
+                                      contest:   contest },
+                            class:  "contest-container-close-button" do %>
+                  <span><%= t("contest.delete") %></span>
+                <% end %>
+              </div>
+
               <div class="contest-container-status">
                 <span class="contest-container-status-dot"></span>
                 <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
@@ -78,6 +88,7 @@
 
       <%= render Admin::ContestCloseModalComponent.new(contest: contest) %>
       <%= render Admin::ContestUpdateDeadlineModalComponent.new(contest: contest) %>
+      <%= render Admin::ContestDeleteModalComponent.new(contest: contest) %>
     <% end %>
   </div>
   <div class="container pagination-cont">
