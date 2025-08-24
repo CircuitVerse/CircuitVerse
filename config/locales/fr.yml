@@ -43,6 +43,14 @@ fr:
       options:
         users: "Utilisateurs"
         projects: "Projets"
+      sorting:
+        users:
+          join_date: "Date d'inscription"
+          total_circuits: "Circuits totaux"
+        projects:
+          created_date: "Date de création"
+          views: "Vues"
+          stars: "Étoiles"
     project:
       show_more: "Afficher plus"
       options:
