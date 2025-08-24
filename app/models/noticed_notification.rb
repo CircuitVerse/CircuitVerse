@@ -2,5 +2,5 @@
 
 class NoticedNotification < ApplicationRecord
   include Noticed::Model
-  belongs_to :recipient, polymorphic: true
+  belongs_to :recipient, polymorphic: true, optional: true
 end
