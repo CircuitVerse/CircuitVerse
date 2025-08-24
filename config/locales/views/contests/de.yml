@@ -1,5 +1,17 @@
 de:
   contest:
+    leaderboard:
+      title: "Wettbewerb #%{id} — Rangliste"
+      subtitle: "Endergebnisse nach Stimmen; Verbindungen, die durch frühere Einreichungen gebrochen wurden."
+      back_to_contest: "Zurück zum Wettbewerb"
+      no_submissions: "Keine Einreichungen"
+      columns:
+        rank: "Rang"
+        project: "Projekt"
+        author: "Autor"
+        votes: "Abstimmungen"
+        submitted_at: "Eingereicht am"
+      winner_badge: "Sieger"
     heading: "BESTÄTIGT"
     index:
       subtitle: "Wettbewerbe, bei denen die Schüler ihre fantastischen Rennstrecken zeigen und die besten auf unserer Homepage zu sehen sind!"
@@ -18,17 +30,26 @@ de:
       user_submissions_description: "Sie können Ihre Einreichung vom Wettbewerb zurückziehen."
       contest_entries: "Wettbewerbseinträge (%{submission_count})"
       contest_entries_description: "Stimmen Sie für Ihre Lieblingseinträge und helfen Sie uns, unsere Gewinner für diese Woche auszuwählen! Ein Benutzer erhält 3 Stimmen."
+      view_leaderboard: "Rangliste anzeigen"
     votes: "Abstimmungen"
+    votes_count:
+      one: "%{count} Stimme"
+      other: "%{count} Stimmen"
     close: "Schließen"
     no_contest: "Es gibt keine Live-oder abgeschlossenen Wettbewerbe."
     contest_container:
       contest_id: "Wettbewerb"
       entries: "Einträge"
+      contest_id_with_number: "Wettbewerb #%{id}"
     status:
       live: "LIVE"
       completed: "Abgeschlossen"
     withdraw: "Abheben"
     vote: "Abstimmungen"
+    view: "Ansicht"
+    no_result_image_alt: "Kein Ergebnisbild"
+    timer:
+      expired: "ERKLÄRT"
     new_submission_page:
       heading: "Projekteinreichung"
       select_your_circuit: "Wählen Sie Ihre Schaltung"
@@ -89,6 +110,7 @@ de:
     contests:
       index:
         title: "Contest-Admin"
+        edit_deadline_alt: "Bearbeitungsfrist"
       create:
         concurrent_contests: "Gleichzeitige Wettbewerbe sind nicht zulässig. Schließe andere Wettbewerbe, bevor du einen neuen Wettbewerb erstellst."
         success: "Wettbewerb wurde erfolgreich gestartet."
@@ -102,7 +124,7 @@ de:
         invalid_deadline: "Ungültiges Dead-Format."
   layout:
     link_to_contests: "Wettbewerbe"
-  users:
+  user:
     circuitverse:
       preview_project: "Projektvorschau"
   feature_not_available: "Wettbewerb-Funktion ist nicht verfügbar."
