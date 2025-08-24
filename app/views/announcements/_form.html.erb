@@ -2,7 +2,7 @@
   <div class="field mb-3">
     <h6><%= form.label :body %></h6>
     <div class="input-group">
-      <%= render partial: "editor/index", locals: { content: announcement.body } %>
+      <%= render FormComponents::RichTextEditorComponent.new(editor_content: announcement.body) %>
     </div>
   </div>
   <div class="field mb-3">
