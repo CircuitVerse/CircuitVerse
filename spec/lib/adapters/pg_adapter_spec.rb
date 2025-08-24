@@ -6,10 +6,10 @@ RSpec.describe Adapters::PgAdapter do
   let(:adapter) { described_class.new }
 
   describe "#search_project" do
-    let(:project_relation) { instance_double(ActiveRecord::Relation) }
+    let(:project_relation) { double }
     let(:paginated_results) { double }
     let(:mock_results) do
-      instance_double(ActiveRecord::Relation).tap do |results|
+      double.tap do |results|
         allow(results).to receive_messages(includes: results, paginate: paginated_results, text_search: results,
                                            order: results)
       end
@@ -84,10 +84,10 @@ RSpec.describe Adapters::PgAdapter do
   end
 
   describe "#search_user" do
-    let(:user_relation) { instance_double(ActiveRecord::Relation) }
+    let(:user_relation) { double }
     let(:paginated_results) { double }
     let(:mock_results) do
-      instance_double(ActiveRecord::Relation).tap do |results|
+      double.tap do |results|
         allow(results).to receive_messages(paginate: paginated_results, text_search: results, where: results)
       end
     end
@@ -132,7 +132,7 @@ RSpec.describe Adapters::PgAdapter do
   end
 
   describe "sorting validation" do
-    let(:mock_relation) { instance_double(ActiveRecord::Relation) }
+    let(:mock_relation) { double }
 
     before do
       allow(mock_relation).to receive_messages(includes: mock_relation, order: mock_relation)
