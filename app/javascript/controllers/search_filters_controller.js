@@ -140,16 +140,23 @@ export default class extends Controller {
         tags.forEach((tag) => {
             const tagElement = document.createElement('span');
             tagElement.className = 'tag-item';
-            tagElement.innerHTML = `
-                ${tag}
-                <button type="button" class="tag-remove" data-tag="${tag}" aria-label="Remove ${tag}">×</button>
-            `;
+            // Safely append tag text and remove button without using innerHTML
+            const textSpan = document.createElement('span');
+            textSpan.className = 'tag-text';
+            textSpan.textContent = tag;
+            tagElement.appendChild(textSpan);
 
-            const removeBtn = tagElement.querySelector('.tag-remove');
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'tag-remove';
+            removeBtn.dataset.tag = tag;
+            removeBtn.setAttribute('aria-label', `Remove ${tag}`);
+            removeBtn.textContent = '×';
             removeBtn.addEventListener('click', (event) => {
                 event.stopPropagation();
                 this.removeTag(tag);
             });
+            tagElement.appendChild(removeBtn);
 
             this.tagsDisplayTarget.appendChild(tagElement);
         });
