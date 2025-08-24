@@ -1,5 +1,4 @@
 <% content_for :title, @group.name %>
-
 <div class="container" data-controller="groups">
   <% if notice %>
   <div class="row" id='alertdiv'>
@@ -10,255 +9,141 @@
   </div>
   <% end %>
   <div class="row center-row">
-    <div class="col col-sm col-md col-lg">
-      <h1 class="submain-heading">
-        <p>
+    <div class="group-header-container">
+      <div class="group-name-section">
+        <div class="group-label">Group Name</div>
+        <h1 class="submain-heading">
           <%= @group.name %>
           <span class="tooltiptext"><%= @group.name %></span>
-        </p>
+        </h1>
+      </div>
+
+      <div class="group-details-section">
+        <h4 class="group-mentor-heading">
+          <strong><%= t("groups.show.primary_mentor_heading") %></strong>
+          <%= @group.primary_mentor.name %>
+        </h4>
+
         <% if policy(@group).admin_access? %>
           <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
             <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
             <span><%= t("groups.show.edit_name_btn") %></span>
           <% end %>
         <% end %>
-      </h1>
-      <h4 class="group-mentor-heading">
-        <strong><%= t("groups.show.primary_mentor_heading") %></strong>
-        <%= @group.primary_mentor.name %>
-      </h4>
+      </div>
     </div>
   </div>
   <!-- Mentor Section -->
-<div class="d-flex justify-content-between align-items-center mb-2">
-  <h3 class="mb-0"><%= t("groups.show.mentor_name_heading") %></h3>
-  <% if policy(@group).admin_access? %>
-    <button type="button" class="btn primary-button groups-primary-button"
-      data-bs-toggle="modal"
-      data-bs-target="#add-mentor-to-modal"
-      data-action="click->groups#addMentorToGroup">
-      <%= t("groups.show.add_mentors_btn") %>
-    </button>
-  <% end %>
-</div>
-<hr>
-<% if @group.group_members.mentor.blank? %>
-  <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
-<% end %>
-<div class="row">
-  <%= render partial: "group_mentors", locals: { group: @group } %>
-</div>
-
-<!-- Members Section -->
-<div class="d-flex justify-content-between align-items-center mb-2">
-  <h3 class="mb-0"><%= t("groups.show.group_members_heading") %></h3>
-  <% if policy(@group).admin_access? %>
-    <button type="button" class="btn primary-button groups-primary-button"
-      data-bs-toggle="modal"
-      data-bs-target="#addmemberModal"
-      data-action="click->groups#addMemberToGroup">
-      <%= t("groups.show.add_members_btn") %>
-    </button>
-  <% end %>
-</div>
-<hr>
-<% if @group.group_members.member.blank? %>
-  <span class="null-text"><%= t("groups.show.no_members_html") %></span>
-<% end %>
-<div class="row">
-  <%= render partial: "group_members", locals: { group: @group } %>
-</div>
-
-<!-- Assignments Section -->
-<div class="d-flex justify-content-between align-items-center mb-2">
-  <h3 class="mb-0"><%= t("groups.show.assignment.heading") %></h3>
-  <% if policy(@group).mentor_access? %>
-    <%= link_to t("groups.show.assignment.add_assignment_btn"),
-      new_group_assignment_path(@group),
-      class: "btn primary-button groups-primary-button" %>
-  <% end %>
-</div>
-  <hr>
-  <table class="table table-borderless groups-table">
-    <% if @group.assignments.empty? %>
-      <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
-    <% else %>
-      <thead class="groups-table-heading">
-        <tr>
-          <th><%= t("groups.show.assignment.assignment_table_head.name") %></th>
-          <th><%= t("groups.show.assignment.assignment_table_head.deadline") %></th>
-          <th><%= t("groups.show.assignment.assignment_table_head.grading") %></th>
-          <th><%= t("groups.show.assignment.assignment_table_head.actions") %></th>
-          <% unless policy(@group).admin_access? %>
-            <th><%= t("groups.show.assignment.assignment_table_head.grade") %></th>
-          <% end %>
-        </tr>
-      </thead>
-    <% end %>
-    <tbody class="groups-expanded-table">
-      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
-        <tr class="groups-table-rows">
-          <td>
-            <div class="groups-assignment-details groups-expanded-assignment-name">
-              <%= assignment.name %>
-              <% if Flipper.enabled?(:lms_integration, current_user) %>
-                <% if policy(@group).admin_access? && assignment.lti_integrated? %>
-                 <br>
-                 <a data-bs-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">Show LMS Credentials</a>
-                 <%= render partial: "lms_credentials_modal", locals: { assignment: assignment } %>
-                <% end %>
-              <% end %>
-            </div>
-          </td>
-          <td>
-            <div class="groups-assignment-deadline groups-assignment-date" data-year=<%= deadline_year(assignment) %>
-              data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
-              data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
-              data-second=<%= deadline_second(assignment) %>>
-              <%= assignment.deadline %>
-            </div>
-            <% if(assignment.deadline > Time.current) %>
-              <p>
-                (<%= t("groups.show.assignment.time_remaining_html", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)
-              </p>
-            <% end %>
-          </td>
-          <td>
-            <div class="groups-assignment-details">
-              <%= AssignmentDecorator.new(assignment).graded %>
-            </div>
-          </td>
-          <td class="groups-assignment-button-container">
-            <div class="groups-assignment-details">
-              <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
-                <%= image_tag("SVGs/viewGroup.svg", alt: "View Assignment") %>
-                <span><%= t("view") %></span>
-              <% end %>
-            </div>
-            <% if policy(@group).mentor_access? %>
-              <% if AssignmentDecorator.new(assignment).closed? %>
-                <div class="groups-assignment-details">
-                  <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                    <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
-                    <span><%= t("reopen") %></span>
-                  <% end %>
-                </div>
-              <% else %>
-                <div class="groups-assignment-details">
-                  <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                    <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
-                    <span><%= t("edit") %></span>
-                  <% end %>
-                </div>
-              <div class="groups-assignment-details">
-                <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
-                  <span><%= t("close") %></span>
-                <% end %>
-              </div>
-              <% end %>
-              <div class="groups-assignment-details">
-                <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
-                  <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
-                  <span><%= t("delete") %></span>
-                <% end %>
-              </div>
-            <% else %>
-              <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
-                <% if(assignment.deadline > Time.current) %>
-                  <% if project_assignment.nil? %>
-                    <div class="groups-assignment-details">
-                      <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
-                        <span><%= t("groups.show.assignment.start_working_btn") %></span>
-                      <% end %>
-                    </div>
-                  <% else %>
-                    <div class="groups-assignment-details">
-                      <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
-                        <span><%= t("groups.show.assignment.see_work_done") %></span>
-                      <% end %>
-                    </div>
-                  <% end %>
-                <% else %>
-                  <% if project_assignment.nil? %>
-                    <h6 class="groups-no-assignment-submission-text"><%= t("groups.show.assignment.not_submitted") %></h6>
-                  <% else %>
-                    <div class="groups-assignment-details">
-                      <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
-                        <span><%= t("groups.show.assignment.show_submission") %></span>
-                      <% end %>
-                    </div>
-                  <% end %>
-                <% end %>
-              <% end %>
-            </td>
-            <% unless policy(@group).admin_access? %>
-              <td>
-                <% if policy(assignment).show_grades? && project_assignment.present? %>
-                  <div class="groups-assignment-details">
-                    <div class="groups-no-assignment-submission-text">
-                      <h6>
-                        <%= ProjectDecorator.new(project_assignment).grade_str %>
-                      </h6>
-                      <div class="groups-expanded-assignment-name">
-                        <p>(<%= ProjectDecorator.new(project_assignment).remarks_str %>)</p>
-                      </div>
-                    </div>
-                  </div>
-                <% else %>
-                  <div class="groups-assignment-details">
-                    <h6 class="groups-no-assignment-submission-text"><%= t("not_available") %></h6>
-                  </div>
-                <% end %>
-              </td>
-            <% end %>
-        </tr>
-        <tr class="groups-expanded-empty-table-row"></tr>
+  <div class="section-container">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h3 class="mb-0"><%= t("groups.show.mentor_name_heading") %></h3>
+      <% if policy(@group).admin_access? %>
+        <button type="button" class="btn primary-button groups-primary-button"
+          data-bs-toggle="modal"
+          data-bs-target="#add-mentor-to-modal"
+          data-action="click->groups#addMentorToGroup">
+          <%= t("groups.show.add_mentors_btn") %>
+        </button>
       <% end %>
-    </tbody>
+    </div>
+    <hr>
+    <% if @group.group_members.mentor.blank? %>
+      <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
+    <% end %>
+    <div class="row">
+      <%= render partial: "group_mentors", locals: { group: @group } %>
+    </div>
+  </div>
 
-    <tbody class="groups-collapsed-table">
-      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+  <!-- Members Section -->
+  <div class="section-container">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h3 class="mb-0"><%= t("groups.show.group_members_heading") %></h3>
+      <% if policy(@group).admin_access? %>
+        <button type="button" class="btn primary-button groups-primary-button"
+          data-bs-toggle="modal"
+          data-bs-target="#addmemberModal"
+          data-action="click->groups#addMemberToGroup">
+          <%= t("groups.show.add_members_btn") %>
+        </button>
+      <% end %>
+    </div>
+    <hr>
+    <% if @group.group_members.member.blank? %>
+      <span class="null-text"><%= t("groups.show.no_members_html") %></span>
+    <% end %>
+    <div class="row">
+      <%= render partial: "group_members", locals: { group: @group } %>
+    </div>
+  </div>
+
+  <!-- Assignments Section -->
+  <div class="section-container">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h3 class="mb-0"><%= t("groups.show.assignment.heading") %></h3>
+      <% if policy(@group).admin_access? %>
+        <%= link_to t("groups.show.assignment.add_assignment_btn"),
+          new_group_assignment_path(@group),
+          class: "btn primary-button groups-primary-button" %>
+      <% end %>
+    </div>
+    <hr>
+    <table class="table table-borderless groups-table">
+      <% if @group.assignments.empty? %>
         <tr>
-          <table class="groups-table-rows groups-collapsed-table">
-            <tr>
-              <th class="groups-collapsed-table-head"><%= t("groups.show.assignment.assignment_table_head.name") %></th>
+          <td colspan="5">
+            <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
+          </td>
+        </tr>
+      <% else %>
+        <thead class="groups-table-heading">
+          <tr>
+            <th><%= t("groups.show.assignment.assignment_table_head.name") %></th>
+            <th><%= t("groups.show.assignment.assignment_table_head.deadline") %></th>
+            <th><%= t("groups.show.assignment.assignment_table_head.grading") %></th>
+            <th><%= t("groups.show.assignment.assignment_table_head.actions") %></th>
+            <% unless policy(@group).admin_access? %>
+              <th><%= t("groups.show.assignment.assignment_table_head.grade") %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody class="groups-expanded-table">
+          <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+            <tr class="groups-table-rows">
               <td>
-                <div class="groups-collapsed-assignment-name">
+                <div class="groups-assignment-details groups-expanded-assignment-name">
                   <%= assignment.name %>
+                  <% if Flipper.enabled?(:lms_integration, current_user) %>
+                    <% if policy(@group).admin_access? && assignment.lti_integrated? %>
+                     <br>
+                     <a data-bs-toggle="modal" href="#lmscredentialsModal-<%= assignment.id %>">Show LMS Credentials</a>
+                     <%= render partial: "lms_credentials_modal", locals: { assignment: assignment } %>
+                    <% end %>
+                  <% end %>
                 </div>
               </td>
-            </tr>
-            <tr class="groups-collapsed-empty-table-row"></tr>
-            <tr>
-              <th class="groups-collapsed-table-head"><%= t("groups.show.assignment.assignment_table_head.deadline") %></th>
               <td>
-                <div class="groups-assignment-deadline" data-year=<%= deadline_year(assignment) %>
-                  data-month=<%= deadline_month(assignment) %> data-day=<%= deadline_day(assignment) %>
-                  data-hour=<%= deadline_hour(assignment) %> data-minute=<%= deadline_minute(assignment) %>
-                  data-second=<%= deadline_second(assignment) %>>
+                <div class="groups-assignment-deadline groups-assignment-date"
+                  data-year="<%= deadline_year(assignment) %>"
+                  data-month="<%= deadline_month(assignment) %>"
+                  data-day="<%= deadline_day(assignment) %>"
+                  data-hour="<%= deadline_hour(assignment) %>"
+                  data-minute="<%= deadline_minute(assignment) %>"
+                  data-second="<%= deadline_second(assignment) %>">
                   <%= assignment.deadline %>
                 </div>
                 <% if(assignment.deadline > Time.current) %>
-                  <p>(<%= t("groups.show.assignment.time_remaining, time_remaining: AssignmentDecorator.new(assignment).time_remaining") %>)</p>
+                  <p>(<%= t("views.groups.time_remaining_html", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)</p>
                 <% end %>
               </td>
-            </tr>
-            <tr class="groups-collapsed-empty-table-row"></tr>
-            <tr>
-              <th class="groups-collapsed-table-head"><%= t("groups.show.assignment.assignment_table_head.grading") %></th>
               <td>
-                <%= AssignmentDecorator.new(assignment).graded %>
+                <div class="groups-assignment-details">
+                  <%= AssignmentDecorator.new(assignment).graded %>
+                </div>
               </td>
-            </tr>
-            <tr class="groups-collapsed-empty-table-row"></tr>
-            <tr>
-              <th class="groups-collapsed-table-head groups-assignment-details"><%= t("groups.show.assignment.assignment_table_head.actions") %></th>
               <td class="groups-assignment-button-container">
                 <div class="groups-assignment-details">
-                  <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
+                  <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button", data: { testid: "expanded-view-#{assignment.id}" } do %>
                     <%= image_tag("SVGs/viewGroup.svg", alt: "View Assignment") %>
                     <span><%= t("view") %></span>
                   <% end %>
@@ -266,26 +151,26 @@
                 <% if policy(@group).admin_access? %>
                   <% if AssignmentDecorator.new(assignment).closed? %>
                     <div class="groups-assignment-details">
-                      <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                      <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "expanded-reopen-#{assignment.id}" } do %>
                         <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
                         <span><%= t("reopen") %></span>
                       <% end %>
                     </div>
                   <% else %>
                     <div class="groups-assignment-details">
-                      <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                      <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "expanded-edit-#{assignment.id}" } do %>
                         <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
                         <span><%= t("edit") %></span>
                       <% end %>
                     </div>
                     <div class="groups-assignment-details">
-                      <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
+                      <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put, data: { testid: "expanded-close-#{assignment.id}" } do %>
                         <span><%= t("close") %></span>
-                    <% end %>
+                      <% end %>
                     </div>
                   <% end %>
                   <div class="groups-assignment-details">
-                    <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
+                    <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id, testid: "expanded-delete-#{assignment.id}" } do %>
                       <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
                       <span><%= t("delete") %></span>
                     <% end %>
@@ -295,14 +180,14 @@
                     <% if(assignment.deadline > Time.current) %>
                       <% if project_assignment.nil? %>
                         <div class="groups-assignment-details">
-                          <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                          <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "expanded-start-#{assignment.id}" } do %>
                             <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
                             <span><%= t("groups.show.assignment.start_working_btn") %></span>
                           <% end %>
                         </div>
                       <% else %>
                         <div class="groups-assignment-details">
-                          <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
+                          <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "expanded-continue-#{assignment.id}" } do %>
                             <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
                             <span><%= t("groups.show.assignment.see_work_done") %></span>
                           <% end %>
@@ -310,14 +195,10 @@
                       <% end %>
                     <% else %>
                       <% if project_assignment.nil? %>
-                      <div class="groups-assignment-details">
-                        <div class="groups-no-assignment-submission-text">
-                          <h6><%= t("groups.show.assignment.not_submitted") %></h6>
-                        </div>
-                      </div>
+                      <h6 class="groups-no-assignment-submission-text"><%= t("groups.show.assignment.not_submitted") %></h6>
                       <% else %>
                         <div class="groups-assignment-details">
-                          <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
+                          <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "expanded-submission-#{assignment.id}" } do %>
                             <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
                             <span><%= t("groups.show.assignment.show_submission") %></span>
                           <% end %>
@@ -325,37 +206,173 @@
                       <% end %>
                     <% end %>
                   <% end %>
-              </td>
-            </tr>
+                </td>
                 <% unless policy(@group).admin_access? %>
-                  <tr class="groups-collapsed-empty-table-row"></tr>
-                  <tr>
-                    <th class="groups-collapsed-table-head groups-assignment-details"><%= t("groups.show.assignment.assignment_table_head.grade") %></th>
-                    <td>
-                      <% if policy(assignment).show_grades? && project_assignment.present? %>
-                        <div class="groups-assignment-details">
-                          <div class="groups-no-assignment-submission-text">
-                            <h6>
-                              <%= ProjectDecorator.new(project_assignment).grade_str %>
-                            </h6>
-                            <div class="groups-expanded-assignment-name">
-                              <p>(<%= ProjectDecorator.new(project_assignment).remarks_str %>)</p>
-                            </div>
+                  <td>
+                    <% if policy(assignment).show_grades? && project_assignment.present? %>
+                      <div class="groups-assignment-details">
+                        <div class="groups-no-assignment-submission-text">
+                          <h6>
+                            <%= ProjectDecorator.new(project_assignment).grade_str %>
+                          </h6>
+                          <div class="groups-expanded-assignment-name">
+                            <p>(<%= ProjectDecorator.new(project_assignment).remarks_str %>)</p>
                           </div>
                         </div>
-                      <% else %>
-                        <div class="groups-assignment-details">
-                          <h6 class="groups-no-assignment-submission-text"><%= t("not_available") %></h6>
-                        </div>
+                      </div>
+                    <% else %>
+                      <div class="groups-assignment-details">
+                        <h6 class="groups-no-assignment-submission-text"><%= t("not_available") %></h6>
+                      </div>
+                    <% end %>
+                  </td>
+                <% end %>
+            </tr>
+            <tr class="groups-expanded-empty-table-row"></tr>
+          <% end %>
+        </tbody>
+
+        <tbody class="groups-collapsed-table">
+          <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+            <tr>
+              <td colspan="5">
+                <table class="groups-table-rows groups-collapsed-table">
+                  <tr>
+                    <th class="groups-collapsed-table-head"><%= t("groups.show.assignment.assignment_table_head.name") %></th>
+                    <td>
+                      <div class="groups-collapsed-assignment-name">
+                        <%= assignment.name %>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="groups-collapsed-empty-table-row"></tr>
+                  <tr>
+                    <th class="groups-collapsed-table-head"><%= t("groups.show.assignment.assignment_table_head.deadline") %></th>
+                    <td>
+                      <div class="groups-assignment-deadline" data-year="<%= deadline_year(assignment) %>"
+                        data-month="<%= deadline_month(assignment) %>" data-day="<%= deadline_day(assignment) %>"
+                        data-hour="<%= deadline_hour(assignment) %>" data-minute="<%= deadline_minute(assignment) %>"
+                        data-second="<%= deadline_second(assignment) %>">
+                        <%= assignment.deadline %>
+                      </div>
+                      <% if(assignment.deadline > Time.current) %>
+                        <p>(<%= t("views.groups.time_remaining_html", time_remaining: AssignmentDecorator.new(assignment).time_remaining) %>)</p>
                       <% end %>
                     </td>
                   </tr>
-                <% end %>
-          </table>
-        </tr>
+                  <tr class="groups-collapsed-empty-table-row"></tr>
+                  <tr>
+                    <th class="groups-collapsed-table-head"><%= t("groups.show.assignment.assignment_table_head.grading") %></th>
+                    <td>
+                      <%= AssignmentDecorator.new(assignment).graded %>
+                    </td>
+                  </tr>
+                  <tr class="groups-collapsed-empty-table-row"></tr>
+                  <tr>
+                    <th class="groups-collapsed-table-head groups-assignment-details"><%= t("groups.show.assignment.assignment_table_head.actions") %></th>
+                    <td class="groups-assignment-button-container">
+                      <div class="groups-assignment-details">
+                        <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button", data: { testid: "collapsed-view-#{assignment.id}" } do %>
+                          <%= image_tag("SVGs/viewGroup.svg", alt: "View Assignment") %>
+                          <span><%= t("view") %></span>
+                        <% end %>
+                      </div>
+                      <% if policy(@group).admin_access? %>
+                        <% if AssignmentDecorator.new(assignment).closed? %>
+                          <div class="groups-assignment-details">
+                            <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "collapsed-reopen-#{assignment.id}" } do %>
+                              <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
+                              <span><%= t("reopen") %></span>
+                            <% end %>
+                          </div>
+                        <% else %>
+                          <div class="groups-assignment-details">
+                            <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "collapsed-edit-#{assignment.id}" } do %>
+                              <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
+                              <span><%= t("edit") %></span>
+                            <% end %>
+                          </div>
+                          <div class="groups-assignment-details">
+                            <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put, data: { testid: "collapsed-close-#{assignment.id}" } do %>
+                              <span><%= t("close") %></span>
+                            <% end %>
+                          </div>
+                        <% end %>
+                        <div class="groups-assignment-details">
+                          <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id, testid: "collapsed-delete-#{assignment.id}" } do %>
+                            <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
+                            <span><%= t("delete") %></span>
+                          <% end %>
+                        </div>
+                      <% else %>
+                        <% project_assignment = assignment.projects.find { |p| p.author_id == current_user.id } %>
+                          <% if(assignment.deadline > Time.current) %>
+                            <% if project_assignment.nil? %>
+                            <div class="groups-assignment-details">
+                              <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "collapsed-start-#{assignment.id}" } do %>
+                                <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
+                                <span><%= t("groups.show.assignment.start_working_btn") %></span>
+                              <% end %>
+                            </div>
+                            <% else %>
+                              <div class="groups-assignment-details">
+                                <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "collapsed-continue-#{assignment.id}" } do %>
+                                  <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
+                                  <span><%= t("groups.show.assignment.see_work_done") %></span>
+                                <% end %>
+                              </div>
+                            <% end %>
+                          <% else %>
+                            <% if project_assignment.nil? %>
+                            <div class="groups-assignment-details">
+                              <div class="groups-no-assignment-submission-text">
+                                <h6><%= t("groups.show.assignment.not_submitted") %></h6>
+                              </div>
+                            </div>
+                            <% else %>
+                              <div class="groups-assignment-details">
+                                <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button", data: { testid: "collapsed-submission-#{assignment.id}" } do %>
+                                  <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
+                                  <span><%= t("groups.show.assignment.show_submission") %></span>
+                                <% end %>
+                              </div>
+                            <% end %>
+                          <% end %>
+                        <% end %>
+                    </td>
+                  </tr>
+                      <% unless policy(@group).admin_access? %>
+                        <tr class="groups-collapsed-empty-table-row"></tr>
+                        <tr>
+                          <th class="groups-collapsed-table-head groups-assignment-details"><%= t("groups.show.assignment.assignment_table_head.grade") %></th>
+                          <td>
+                            <% if policy(assignment).show_grades? && project_assignment.present? %>
+                              <div class="groups-assignment-details">
+                                <div class="groups-no-assignment-submission-text">
+                                  <h6>
+                                    <%= ProjectDecorator.new(project_assignment).grade_str %>
+                                  </h6>
+                                  <div class="groups-expanded-assignment-name">
+                                    <p>(<%= ProjectDecorator.new(project_assignment).remarks_str %>)</p>
+                                  </div>
+                                </div>
+                              </div>
+                            <% else %>
+                              <div class="groups-assignment-details">
+                                <h6 class="groups-no-assignment-submission-text"><%= t("not_available") %></h6>
+                              </div>
+                            <% end %>
+                          </td>
+                        </tr>
+                      <% end %>
+                </table>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
       <% end %>
-    </tbody>
-  </table>
+    </table>
+  </div>
   <div class="row">
     <div class="col-12 groups-back-button-container">
       <%= link_to t("back"), :back, class: "anchor-text" %>
@@ -367,7 +384,6 @@
   <%= render partial: "add_mentor_modal", locals: { group_member: @group_member } %>
   <%= render partial: "promote_member_confirmation_modal" %>
 </div>
-
 <script>
   $(document).ready(function() {
     $('.groups-assignment-deadline').each(function() {
