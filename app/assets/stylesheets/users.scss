@@ -351,9 +351,7 @@
     border-radius: 0;
     font-size: 16px;
     margin: 0;
-    padding-block: 7px;
-    padding-inline: 10px;
-    padding-inline-start: 35px;
+    padding: 7px 10px 7px 35px;
     transition: 0.2s ease-in-out;
     border-radius: 4px;
 
@@ -369,11 +367,6 @@
   column-gap: 10px;
   display: flex;
   justify-content: space-between;
-}
-
-.search-icon-dashboard {
-  margin-bottom: -60px;
-  margin-left: 7px;
 }
 
 .users-circuits-search {
