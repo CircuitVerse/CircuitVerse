@@ -10,6 +10,7 @@ ar:
       delete_user_confirmation: "هل أنت متأكد من أنك تريد حذف الحساب الخاص بك؟ لا يمكن العودة إلى هذا الإجراء."
       preview_project: "معاينة المشروع"
       member_since: "عضو منذ"
+      member_since_html: "<strong>عضو منذ:</strong> %{member_since}"
       educational_institutes_html: "<strong>المؤسسة التعليمية:</strong> %{educational_institute}"
       country_html: "<strong>البلد:</strong> %{country_name}"
       total_circuits_made_html: '<span class="fw-bold">%{total_circuits}</span> مجموع الدوائر'
