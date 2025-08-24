@@ -28,11 +28,13 @@ class ExploreController < ApplicationController
       Project
         .joins(:featured_circuit)
         .includes(:author, :stars)
+        .with_attached_circuit_preview
         .order("featured_circuits.created_at DESC")
         .limit(1)
         .first || Project.open
                          .where(projects: { updated_at: 1.week.ago.. })
                          .includes(:author, :stars)
+                         .with_attached_circuit_preview
                          .order(view: :desc, id: :desc)
                          .limit(1)
                          .first
@@ -41,6 +43,7 @@ class ExploreController < ApplicationController
     def editor_picks
       Project.joins(:featured_circuit)
              .includes(:author, :stars)
+             .with_attached_circuit_preview
              .order("featured_circuits.created_at DESC")
              .limit(EDITOR_PICKS_MAX)
     end
@@ -89,6 +92,7 @@ class ExploreController < ApplicationController
       Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description)
              .public_and_not_forked
              .includes(:author, :stars)
+             .with_attached_circuit_preview
     end
 
     def top_tags
