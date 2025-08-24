@@ -48,7 +48,7 @@
               </div>
             </div>
             <!-- User Filters -->
-            <div class="user-filters <%= 'hidden' unless (resource || resource_options.first) == 'Users' %>" data-search-filters-target="userFilters">
+            <div class="user-filters d-flex flex-column gap-2 <%= 'hidden' unless (resource || resource_options.first) == 'Users' %>" data-search-filters-target="userFilters">
               <div class="filter-field">
                 <label class="filter-label" for="filter_country"><%= filter_labels["users"]["country"]["label"] %></label>
                 <select class="filter-select" name="country" id="filter_country" data-search-filters-target="countrySelect">
@@ -64,14 +64,15 @@
                 </div>
               </div>
               <!-- Actions: Clear + Apply -->
-              <div class="filter-apply-container">
+              <div class="filter-apply-container mt-2 ms-auto">
                 <div class="filter-actions">
-                  <button type="button" class="filter-apply-button" data-search-filters-target="applyButton" data-action="click->search-filters#applyFilters">
-                    <%= filter_labels["apply_button_text"] %>
-                  </button>
                   <button type="button" class="filter-clear-button" data-action="click->search-filters#clearFilters">
                     Clear
                   </button>
+                  <button type="button" class="filter-apply-button" data-search-filters-target="applyButton" data-action="click->search-filters#applyFilters">
+                    <%= filter_labels["apply_button_text"] %>
+                  </button>
+                 
                 </div>
               </div>
             </div>

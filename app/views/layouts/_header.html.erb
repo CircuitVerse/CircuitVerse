@@ -79,9 +79,9 @@
   <%= render(Search::SearchBarComponent.new(
     resource: params[:resource],
     query: params[:q],
-    sorting: { 
-      sort_by: params[:sort_by], 
-      sort_direction: params[:sort_direction] 
+    sorting: {
+      sort_by: params[:sort_by],
+      sort_direction: params[:sort_direction]
     },
     countries: @search_countries,
     current_filters: @current_filters
