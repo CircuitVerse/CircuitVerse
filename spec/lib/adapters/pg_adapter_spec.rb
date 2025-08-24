@@ -7,7 +7,7 @@ RSpec.describe Adapters::PgAdapter do
 
   describe "#search_project" do
     let(:project_relation) { instance_double(ActiveRecord::Relation) }
-    let(:paginated_results) { instance_double(Kaminari::PaginatableArray) }
+    let(:paginated_results) { double }
     let(:mock_results) do
       instance_double(ActiveRecord::Relation).tap do |results|
         allow(results).to receive_messages(includes: results, paginate: paginated_results, text_search: results,
@@ -53,7 +53,8 @@ RSpec.describe Adapters::PgAdapter do
 
       it "applies sorting to results" do
         allow(Project).to receive(:public_and_not_forked).and_return(mock_results)
-        expect(mock_results).to receive(:order).with(created_at: :desc).and_call_original
+
+        expect(mock_results).to receive(:order).with(created_at: :desc)
 
         adapter.search_project(project_relation, query_params)
       end
@@ -84,7 +85,7 @@ RSpec.describe Adapters::PgAdapter do
 
   describe "#search_user" do
     let(:user_relation) { instance_double(ActiveRecord::Relation) }
-    let(:paginated_results) { instance_double(Kaminari::PaginatableArray) }
+    let(:paginated_results) { double }
     let(:mock_results) do
       instance_double(ActiveRecord::Relation).tap do |results|
         allow(results).to receive_messages(paginate: paginated_results, text_search: results, where: results)
@@ -141,7 +142,7 @@ RSpec.describe Adapters::PgAdapter do
       query_params = { sort_by: "invalid_field", page: 1 }
 
       allow(Project).to receive(:public_and_not_forked).and_return(mock_relation)
-      allow(mock_relation).to receive(:paginate).and_return(instance_double(Kaminari::PaginatableArray))
+      allow(mock_relation).to receive(:paginate).and_return(double)
 
       # Should not call order for invalid sort field
       expect(mock_relation).not_to receive(:order)
@@ -153,9 +154,9 @@ RSpec.describe Adapters::PgAdapter do
       query_params = { sort_by: "created_at", sort_direction: "asc", page: 1 }
 
       allow(Project).to receive(:public_and_not_forked).and_return(mock_relation)
-      allow(mock_relation).to receive(:paginate).and_return(instance_double(Kaminari::PaginatableArray))
+      allow(mock_relation).to receive(:paginate).and_return(double)
 
-      expect(mock_relation).to receive(:order).with(created_at: :asc).and_call_original
+      expect(mock_relation).to receive(:order).with(created_at: :asc)
 
       adapter.search_project(mock_relation, query_params)
     end
