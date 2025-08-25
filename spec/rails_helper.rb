@@ -8,6 +8,7 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 require "devise"
+require "bullet"
 
 # Including support files for tests
 Rails.root.glob("spec/support/**/*.rb").each { |f| require f }
@@ -53,6 +54,21 @@ RSpec.configure do |config|
   end
 
   config.use_transactional_fixtures = true
+
+  config.before(:suite) do
+    Bullet.enable = true
+    Bullet.bullet_logger = true
+    Bullet.raise = true
+  end
+
+  config.before do
+    Bullet.start_request
+  end
+
+  config.after do
+    Bullet.end_request
+  end
+
   config.infer_spec_type_from_file_location!
   config.filter_rails_from_backtrace!
   config.include ActionDispatch::TestProcess
