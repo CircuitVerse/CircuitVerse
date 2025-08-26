@@ -78,6 +78,9 @@ Rails.application.routes.draw do
   get  "/teachers", to: "circuitverse#teachers"
   get  "/contribute", to: "circuitverse#contribute"
 
+  # Explore
+  get "/explore", to: "explore#index", as: :explore
+
   #announcements
   resources :announcements, except: %i[show]
 
@@ -103,20 +106,27 @@ Rails.application.routes.draw do
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
-    get "tags/:tag", to: "projects#get_projects", as: "tag"
+    get "tags/:tag", to: redirect('/tags/%{tag}'), as: "legacy_tag"
   end
-  
-  # contest
-  get  "/contests/admin", to: "contests#admin", as: :contests_admin
-  get  "/contests", to: "contests#index", as: :contests
-  get  "/contests/:id/new_submission", to: "contests#new_submission", as: :new_submission
-  post "/contests/:id/create_submission", to: "contests#create_submission", as: :create_submission
-  get  "/contests/:id", to: "contests#show", as: :contest_page
-  post   "/contests/host", to: "contests#create", as: :new_contest
-  put    "/contests/:contest_id/close_contest", to: "contests#close_contest", as: :close_contest
-  patch  "/contests/:contest_id/update_contest", to: "contests#update_deadline", as: :update_contest
-  delete "/contests/:contest_id/withdraw/:submission_id", to: "contests#withdraw", as: :withdraw_submission
-  post   "/contests/:contest_id/upvote/:submission_id", to: "contests#upvote", as: :vote_submission
+
+  get "/tags/:tag", to: "tags#show", as: "tag"
+
+  resources :contests, only: %i[index show] do
+    resources :submissions, only: %i[new create destroy], controller: "contests/submissions" do
+      resources :votes, only: %i[create], controller: "contests/submissions/votes"
+      member do
+        post :withdraw, to: "contests/submissions#destroy"
+      end
+    end
+
+      member do
+        get :leaderboard
+    end
+  end
+
+  namespace :admin, path: "admins" do
+    resources :contests, only: %i[index create update]
+  end
 
   # lti
   scope "lti"  do

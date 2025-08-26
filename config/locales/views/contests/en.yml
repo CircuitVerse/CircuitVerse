@@ -1,8 +1,21 @@
 en:
   contest:
+    leaderboard:
+      title: "Contest #%{id} — Leaderboard"
+      subtitle: "Final standings by votes; ties broken by earlier submission."
+      back_to_contest: "Back To Contest"
+      no_submissions: "No submissions"
+      columns:
+        rank: "Rank"
+        project: "Project"
+        author: "Author"
+        votes: "Votes"
+        submitted_at: "Submitted At"
+      winner_badge: "Winner"
     heading: "CONTEST"
     index:
       subtitle: "Contests where students show off their amazing circuits and best ones are featured on our homepage!"
+      manage_button: "Manage Contests"
     admin:
       subtitle: "This page is for admins, you can host a new contest by clicking 'Host new contest' button!"
       new_contest_button: "Host new contest"
@@ -17,17 +30,26 @@ en:
       user_submissions_description: "You can withdraw your submission from contest."
       contest_entries: "Contest Entries(%{submission_count})"
       contest_entries_description: "Vote for your favourite entries and help us choose our winners for this week! One user gets 3 votes."
+      view_leaderboard: "View Leaderboard"
     votes: "Votes"
+    votes_count:
+      one: "%{count} vote"
+      other: "%{count} votes"
     close: "Close"
     no_contest: "There are no live or completed contests."
     contest_container:
       contest_id: "Contest"
       entries: "Entries"
+      contest_id_with_number: "Contest #%{id}"
     status:
       live: "LIVE"
       completed: "Completed"
     withdraw: "Withdraw"
     vote: "Vote"
+    view: "View"
+    no_result_image_alt: "No result image"
+    timer:
+      expired: "EXPIRED"
     new_submission_page:
       heading: "Project Submission"
       select_your_circuit: "Select your circuit"
@@ -40,10 +62,72 @@ en:
       heading: "Host a new Contest"
       description: "Are you sure you want to start a new contest?"
       description_html: "<p>Hosting new contest can:</p><ul><li>End the ongoing contest(if any)</li><li>Make announcement to all the users to participate</li></ul>"
+      confirm_button: "Confirm"
     update_contest_modal:
       heading: "Update Contest Deadline"
       sub_heading: "Set Contest Deadline"
       description: "Please ensure that the Contest Deadline is set in the future. It is not allowed to set the Contest Deadline in the past."
+      update_deadline: "Update Deadline"
     withdraw_submission_modal:
       heading: "Withdraw Submission"
       description: "Are you sure you want to withdraw your submission from contest?"
+    header:
+      time_left_label: "Time Left:"
+    buttons:
+      submit: "Submit"
+      update_deadline: "Update Deadline"
+  contests:
+    index:
+      title: "Contests"
+    show:
+      title: "Contest"
+    new_submission:
+      title: "New Submission"
+    create_submission:
+      success: "Submission was successfully added."
+      unauthorized_project: "You can’t submit someone else’s project."
+      duplicate_submission: "This project is already submitted in Contest #%{contest_id}"
+    upvote:
+      voting_closed: "Voting is closed."
+      all_votes_used: "You have used all your votes!"
+      already_voted: "You have already cast a vote for this submission!"
+      success: "You have successfully voted the submission, Thanks! Votes remaining: %{votes_remaining}"
+    submissions:
+      create:
+        success: "Submission was successfully added."
+        unauthorized_project: "You can't submit someone else's project."
+        duplicate_submission: "This project is already submitted in Contest #%{contest_id}"
+      destroy:
+        success: "Submission was successfully removed."
+        withdraw_closed: "Withdrawals are closed as the contest has ended."
+      votes:
+        create:
+          voting_closed: "Voting is closed."
+          all_votes_used: "You have used all your votes!"
+          already_voted: "You have already cast a vote for this submission!"
+          success: "You have successfully voted the submission, Thanks! Votes remaining: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "Contests Admin"
+        edit_deadline_alt: "Edit deadline"
+      create:
+        concurrent_contests: "Concurrent contests are not allowed. Close other contests before creating a new one."
+        success: "Contest was successfully started."
+      update:
+        contest_closed: "Contest was successfully ended."
+        deadline_in_future: "Deadline must be in the future."
+        deadline_updated: "Contest deadline was successfully updated."
+        deadline_update_failed: "Failed to update contest deadline: %{errors}"
+        invalid_deadline: "Invalid deadline format."
+      parse_deadline_or_redirect:
+        invalid_deadline: "Invalid deadline format."
+
+  layout:
+    link_to_contests: "Contests"
+
+  user:
+    circuitverse:
+      preview_project: "Preview Project"
+
+  feature_not_available: "Contest feature is not available."

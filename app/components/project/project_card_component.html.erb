@@ -1,4 +1,6 @@
-<%= link_to user_project_path(project.author, project), class: "project-card", target: "_blank", rel: "noopener noreferrer" do %>
+<div class="project-card submission-card"
+     data-project-id="<%= project.id %>"
+     style="position: relative;">
   <div class="project-card-image-container">
     <%= image_tag(
           project.circuit_preview.attached? ? project.circuit_preview : image_path("empty_project/default.png"),
@@ -34,4 +36,12 @@
       </div>
     <% end %>
   </div>
-<% end %>
+  <%= link_to user_project_path(project.author, project),
+              target: "_blank",
+              rel: "noopener noreferrer",
+              class: "project-card",
+              aria: { label: t("components.project.open_project", default: "Open project") },
+              style: "position:absolute; inset:0; z-index:1; text-indent:-9999px; border:0; background:transparent; box-shadow:none; display:block;" do %>
+    <span></span>
+  <% end %>
+</div>
