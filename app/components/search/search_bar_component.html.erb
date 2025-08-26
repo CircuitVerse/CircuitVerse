@@ -3,17 +3,17 @@
     <div class="d-flex justify-content-center search-bar">
       <div class="select-wrapper" data-search-bar-target="selectWrapper">
         <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
-          <span data-search-bar-target="selectedOption"><%= option_labels[resource || resource_options.first] %></span>
+          <span data-search-bar-target="selectedOption"><%= option_labels[resource || RESOURCE_OPTIONS.first] %></span>
           <%= image_tag "SVGs/dropdown-arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
         </button>
         <div class="select-dropdown" data-search-bar-target="dropdown">
-          <% resource_options.each do |option| %>
-            <div class="select-option <%= "active" if option == (resource || resource_options.first) %>" data-value="<%= option %>" data-action="click->search-bar#selectOption">
+          <% RESOURCE_OPTIONS.each do |option| %>
+            <div class="select-option <%= "active" if option == (resource || RESOURCE_OPTIONS.first) %>" data-value="<%= option %>" data-action="click->search-bar#selectOption">
               <%= option_labels[option] %>
             </div>
           <% end %>
         </div>
-        <%= hidden_field_tag :resource, resource || resource_options.first, data: { search_bar_target: "hiddenSelect" } %>
+        <%= hidden_field_tag :resource, resource || RESOURCE_OPTIONS.first, data: { search_bar_target: "hiddenSelect" } %>
       </div>
       <%= text_field_tag :q, query, autocomplete: "off", class: "search-bar-input h-100", data: { search_bar_target: "input" } %>
       <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
@@ -21,14 +21,14 @@
       </button>
     </div>
     <div class="d-flex justify-content-between gap-2">
-      <div class="filters-container" data-controller="search-filters" data-search-filters-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resource-changed@window->search-filters#updateFiltersForResource">
+              <div class="filters-container" data-controller="search-filters" data-search-filters-current-resource-value="<%= resource || RESOURCE_OPTIONS.first %>" data-action="search-bar:resource-changed@window->search-filters#updateFiltersForResource">
         <button type="button" class="filters-button" data-search-filters-target="button" data-action="click->search-filters#toggleDropdown">
           <%= filter_labels["button_text"] %>
         </button>
         <div class="filters-dropdown" data-search-filters-target="dropdown">
           <div class="filters-content">
             <!-- Project Filters -->
-            <div class="project-filters <%= 'hidden' unless (resource || resource_options.first) == 'Projects' %>" data-search-filters-target="projectFilters">
+            <div class="project-filters <%= 'hidden' unless (resource || RESOURCE_OPTIONS.first) == 'Projects' %>" data-search-filters-target="projectFilters">
               <div class="filter-field">
                 <label class="filter-label" for="filter_tag"><%= filter_labels["projects"]["tags"]["label"] %></label>
                 <div class="tags-display" data-search-filters-target="tagsDisplay">
@@ -48,7 +48,7 @@
               </div>
             </div>
             <!-- User Filters -->
-            <div class="user-filters d-flex flex-column gap-2 <%= 'hidden' unless (resource || resource_options.first) == 'Users' %>" data-search-filters-target="userFilters">
+            <div class="user-filters d-flex flex-column gap-2 <%= 'hidden' unless (resource || RESOURCE_OPTIONS.first) == 'Users' %>" data-search-filters-target="userFilters">
               <div class="filter-field">
                 <label class="filter-label" for="filter_country"><%= filter_labels["users"]["country"]["label"] %></label>
                 <select class="filter-select" name="country" id="filter_country" data-search-filters-target="countrySelect">
@@ -77,7 +77,7 @@
             </div>
           </div>
         </div>
-        <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || resource_options.first %>" data-action="search-bar:resource-changed@window->search-sorting#updateOptionsForResource">
+        <div class="sorting-container" data-controller="search-sorting" data-search-sorting-selected-sort-value="<%= sort_by %>" data-search-sorting-sort-direction-value="<%= sort_direction %>" data-search-sorting-all-options-value='<%= all_sorting_options.to_json %>' data-search-sorting-current-resource-value="<%= resource || RESOURCE_OPTIONS.first %>" data-action="search-bar:resource-changed@window->search-sorting#updateOptionsForResource">
           <div class="d-flex sorting-buttons justify-content-center h-100">
             <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
               <span data-search-sorting-target="sortingText"><%= sort_by %></span>
