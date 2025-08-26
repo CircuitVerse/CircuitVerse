@@ -43,6 +43,14 @@ de:
       options:
         users: "Benutzer"
         projects: "Projekte"
+      sorting:
+        users:
+          join_date: "Beitrittsdatum"
+          total_circuits: "Gesamte Schaltkreise"
+        projects:
+          created_date: "Erstellungsdatum"
+          views: "Aufrufe"
+          stars: "Sterne"
     project:
       show_more: "Mehr anzeigen"
       options:

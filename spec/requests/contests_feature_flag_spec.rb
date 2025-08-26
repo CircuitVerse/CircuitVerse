@@ -14,14 +14,14 @@ RSpec.describe "Contest feature-flag", type: :request do
     get admin_contests_path
 
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq(I18n.t("feature_not_available"))
+    expect(flash[:alert]).to eq("Contest feature is not available.")
   end
 
   it "guards the public contests#index" do
     get contests_path
 
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq(I18n.t("feature_not_available"))
+    expect(flash[:alert]).to eq("Contest feature is not available.")
   end
 
   it "guards submissions#new" do
@@ -32,7 +32,7 @@ RSpec.describe "Contest feature-flag", type: :request do
     get new_contest_submission_path(contest)
 
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq(I18n.t("feature_not_available"))
+    expect(flash[:alert]).to eq("Contest feature is not available.")
   end
 
   it "guards votes#create" do
@@ -49,6 +49,6 @@ RSpec.describe "Contest feature-flag", type: :request do
     end.not_to change(SubmissionVote, :count)
 
     expect(response).to redirect_to(root_path)
-    expect(flash[:alert]).to eq(I18n.t("feature_not_available"))
+    expect(flash[:alert]).to eq("Contest feature is not available.")
   end
 end

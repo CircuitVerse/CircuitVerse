@@ -16,6 +16,6 @@ RSpec.describe "Withdraw guard", type: :request do
     end.not_to change(Submission, :count)
 
     expect(response).to redirect_to(contest_path(contest))
-    expect(flash[:alert]).to eq(I18n.t("contests.submissions.destroy.withdraw_closed"))
+    expect(flash[:alert]).to eq("Withdrawals are closed as the contest has ended.")
   end
 end
