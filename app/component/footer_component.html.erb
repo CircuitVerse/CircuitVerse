@@ -6,7 +6,7 @@
       <div class="col-12 col-sm-12 col-md-3 col-lg-3 footer-column">
         <div class="row align-items-center">
           <!-- Added inline style here to shift logo more to the left -->
-          <div class="col-auto" style="margin-left: -10px;">
+          <div class="col-auto footer-logo-shift-start">
             <a href="/">
               <%= image_tag("CircuitVerse.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
             </a>
@@ -24,22 +24,22 @@
 
       <div class="col-12 col-sm-12 col-md-5 col-lg-5 footer-column">
         <div class="row">
-          <div class="col-6 footer-sponsor-logo-div d-flex flex-column align-items-center">
+          <div class="col-6 footer-sponsor-logo-div d-flex flex-column align-items-center text-center my-md-1">
             <small class="footer-sponsor-logo-text">
               <%= t("layout.footer.sponsor_logo_text.incubated_from") %>
             </small>
-            <a href="http://zense.co.in/" rel="noopener" target="_blank">
+            <a href="http://zense.co.in/" rel="noopener noreferrer" target="_blank">
               <%= image_tag("footer/zense.png", class: "footer-sponsor-logo", alt: "Zense Logo") %>
             </a>
           </div>
 
-          <div class="col-6 footer-sponsor-logo-div d-flex flex-column align-items-center">
+          <div class="col-6 footer-sponsor-logo-div d-flex flex-column align-items-center text-center my-md-1">
             <small class="footer-sponsor-logo-text">
               <%= t("layout.footer.sponsor_logo_text.infrastructure_sponsor") %>
-             </small>
-             <a href="https://fossunited.org/" rel="noopener" target="_blank">
-                 <%= image_tag("footer/fossunited.png", class: "footer-sponsor-logo", alt: "FOSS United Logo") %>
-             </a>
+            </small>
+            <a href="https://fossunited.org/" rel="noopener noreferrer" target="_blank">
+              <%= image_tag("footer/fossunited.png", class: "footer-sponsor-logo", alt: "FOSS United Logo") %>
+            </a>
           </div>
         </div>
       </div>

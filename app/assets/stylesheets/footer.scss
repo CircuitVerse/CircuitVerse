@@ -22,6 +22,10 @@
   max-width: 100%;
 }
 
+.footer-logo-shift-start { 
+  margin-inline-start: -10px; 
+}
+
 .footer-social-icon-text {
   margin-left: 15px;
 }
@@ -81,7 +85,7 @@
 }
 
 .footer-sponsor-logo-text {
-  margin-bottom: 0;
+  margin-bottom: 2px;
   padding-bottom: 0;
   font-size: 0.8em;
 }
