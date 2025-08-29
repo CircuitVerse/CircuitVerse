@@ -104,7 +104,8 @@ async function run() {
     const context = await esbuild.context({
         entryPoints: ['application.js', 'testbench.js'],
         bundle: true,
-        outdir: path.join(process.cwd(), 'app/assets/builds'),
+        outdir: path.join(process.cwd(), 'public/simulatorvue'),
+        
         absWorkingDir: path.join(process.cwd(), 'app/javascript'),
         sourcemap: 'inline',
         loader: {
@@ -115,7 +116,25 @@ async function run() {
             '.woff2': 'file',
             '.eot': 'file',
         },
-        plugins: [rails(), sassPlugin(), vuePlugin, watchPlugin],
+        plugins: [
+            rails(),
+            sassPlugin({
+                importer(url, prev) {
+                  if (url.startsWith("~")) {
+                    // Resolve relative to node_modules
+                    const resolved = path.resolve(process.cwd(), "node_modules", url.slice(1));
+                    if (fs.existsSync(resolved) || fs.existsSync(resolved + ".scss")) {
+                      return { file: resolved };
+                    }
+                  }
+                  return null; // default resolution
+                },
+              }),
+
+            vuePlugin,
+            watchPlugin
+        ],
+
     });
 
     if (watch) {

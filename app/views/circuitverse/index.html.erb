@@ -7,21 +7,22 @@
 <% content_for :title, t("circuitverse.index.title") %>
 
 <% set_meta_tags twitter: {
-     card: "summary_large_image",
-     title: yield(:title),
-     description: Rails.configuration.site_description,
-     image: {
-       src: "#{Rails.configuration.site_url}img/circuitverseBanner2.png"
-     }
-   } %>
+  card: "summary_large_image",
+  title: yield(:title),
+  description: Rails.application.config.x.site_description,
+  image: {
+    src: "#{Rails.application.config.x.site_url}img/circuitverseBanner2.png"
+  }
+} %>
 
 <% set_meta_tags og: {
-     title: yield(:title),
-     image: "#{Rails.configuration.site_url}img/circuitverseBanner2.png",
-     description: Rails.configuration.site_description,
-     type: "article",
-     site_name: Rails.configuration.site_name
-   } %>
+  title: yield(:title),
+  image: "#{Rails.application.config.x.site_url}img/circuitverseBanner2.png",
+  description: Rails.application.config.x.site_description,
+  type: "article",
+  site_name: Rails.application.config.x.site_name
+} %>
+
 
     <% if notice %>
     <div class="row" id='alertdiv'>
@@ -260,11 +261,12 @@
   {
     "@context" : "http://schema.org",
     "@type" : "WebApplication",
-    "name" : "<%= Rails.configuration.site_name %>",
-    "image" : "<%= Rails.configuration.site_image %>",
-    "url" : "<%= Rails.configuration.site_url %>",
-    "applicationCategory" : "<%= Rails.configuration.site_category %>",
-    "downloadUrl" : "<%= Rails.configuration.site_download_url %>",
+    "name" : "<%= Rails.configuration.x.site_name %>",
+    "image" : "<%= Rails.configuration.x.site_image %>",
+    "url" : "<%= Rails.configuration.x.site_url %>",
+    "applicationCategory" : "<%= Rails.configuration.x.site_category %>",
+
+    "downloadUrl" : "<%= Rails.configuration.x.site_download_url %>",
     "operatingSystem": "All"
   }
 </script>
@@ -272,10 +274,10 @@
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "url" : "<%= Rails.configuration.site_url %>",
+    "url" : "<%= Rails.configuration.x.site_url %>",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "<%= Rails.configuration.site_url %>/search?resource=Projects&q={search_term_string}",
+      "target": "<%= Rails.configuration.x.site_url %>/search?resource=Projects&q={search_term_string}",
       "query-input": "required name=search_term_string"
     }
   }

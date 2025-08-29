@@ -1,5 +1,5 @@
 function subscribe() {
-  var vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(Rails.application.config.vapid_public_key).bytes %>);
+  var vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(Rails.application.config.x.webpush.vapid_public_key).bytes %>);
   navigator.serviceWorker.ready.then(function (registration) {
     registration.pushManager
       .subscribe({

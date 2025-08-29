@@ -184,7 +184,10 @@ gem "rack-attack"
 gem "jsbundling-rails", "~> 1.0"
 
 gem "sassc-rails"
+gem "sprockets-rails"
+gem "bootstrap", "~> 5.3"
 gem "stimulus-rails", "~> 1.0"
+gem "cssbundling-rails"
 
 gem "noticed", "~> 1.6"
 
