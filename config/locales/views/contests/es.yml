@@ -1,5 +1,17 @@
 es:
   contest:
+    leaderboard:
+      title: "Concurso #%{id} — Leaderboard"
+      subtitle: "Clasificación final por votos; los lazos quebrados por la presentación anterior."
+      back_to_contest: "Volver al concurso"
+      no_submissions: "No hay envíos"
+      columns:
+        rank: "Rango"
+        project: "Projekt"
+        author: "Autor"
+        votes: "Votos"
+        submitted_at: "Enviado el"
+      winner_badge: "Ganador"
     heading: "CONTEST"
     index:
       subtitle: "¡Los concursos donde los estudiantes muestran sus increíbles circuitos y los mejores se presentan en nuestra página de inicio!"
@@ -18,17 +30,26 @@ es:
       user_submissions_description: "Puedes retirar tu envío del concurso."
       contest_entries: "Entradas del concurso (%{submission_count})"
       contest_entries_description: "¡Vota por tus entradas favoritas y ayúdanos a elegir a nuestros ganadores esta semana! Un usuario obtiene 3 votos."
+      view_leaderboard: "Ver Leaderboard"
     votes: "Votos"
+    votes_count:
+      one: "%{count} voto"
+      other: "%{count} votos"
     close: "Cerrar"
     no_contest: "No hay concursos en vivo o terminados."
     contest_container:
       contest_id: "Concurso"
       entries: "Entradas"
+      contest_id_with_number: "Concurso #%{id}"
     status:
       live: "VIVO"
       completed: "Completado"
     withdraw: "Retirar"
     vote: "Votaciones"
+    view: "Ver"
+    no_result_image_alt: "Sin imagen de resultado"
+    timer:
+      expired: "EXPIRADO"
     new_submission_page:
       heading: "Envío del proyecto"
       select_your_circuit: "Seleccione su circuito"
@@ -89,6 +110,7 @@ es:
     contests:
       index:
         title: "Admin de concursos"
+        edit_deadline_alt: "Editar fecha límite"
       create:
         concurrent_contests: "No se permiten concursos concurrentes. Cierra otros concursos antes de crear uno nuevo."
         success: "El concurso se ha iniciado correctamente."
@@ -102,7 +124,7 @@ es:
         invalid_deadline: "Formato de fecha límite no válido."
   layout:
     link_to_contests: "Concursos"
-  users:
+  user:
     circuitverse:
       preview_project: "Previsualizar proyecto"
   feature_not_available: "La función de concurso no está disponible."
