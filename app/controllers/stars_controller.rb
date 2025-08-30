@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class StarsController < ApplicationController
-  before_action :set_star, only: %i[show edit update destroy]
-  before_action :authenticate_user!, only: %i[edit update destroy create]
+  before_action :set_star, only: %i[destroy]
+  before_action :authenticate_user!, only: %i[destroy create]
   # GET /stars
   # GET /stars.json
   # def index

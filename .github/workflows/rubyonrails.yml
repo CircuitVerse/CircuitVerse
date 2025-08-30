@@ -1,7 +1,6 @@
 name: "Ruby on Rails CI"
 
-on:
-  [push, pull_request, workflow_dispatch]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   test:
@@ -41,8 +40,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'yarn'
+          node-version: "22"
+          cache: "yarn"
 
       - name: Install Dependencies for canvas
         run: |
@@ -72,7 +71,9 @@ jobs:
         run: bin/rails data:migrate
 
       - name: Build assets
-        run: yarn run build
+        run: |
+          yarn run build
+          bin/rails assets:precompile
 
       - name: Configure keys
         run: |

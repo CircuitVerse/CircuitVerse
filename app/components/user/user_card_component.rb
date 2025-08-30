@@ -4,7 +4,6 @@ class User::UserCardComponent < ViewComponent::Base
   include UsersCircuitverseHelper
 
   def initialize(profile:)
-    super
     @profile = profile
   end
 
