@@ -114,7 +114,7 @@ gem "jwt"
 gem "rails-i18n", "~> 8.0.0"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
-gem "sprockets", "~> 4.1"
+gem "sprockets-rails", "~> 3.5"
 gem "strong_migrations"
 gem 'rails-data-migrations', github: 'notarize/rails-data-migrations'
 
@@ -129,7 +129,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails", "~> 6.0"
+  gem "rspec-rails", "~> 8.0"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false

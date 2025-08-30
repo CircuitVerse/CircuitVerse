@@ -729,10 +729,10 @@ GEM
     rspec-mocks (3.13.5)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.13.0)
-    rspec-rails (6.1.5)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      railties (>= 6.1)
+    rspec-rails (8.0.2)
+      actionpack (>= 7.2)
+      activesupport (>= 7.2)
+      railties (>= 7.2)
       rspec-core (~> 3.13)
       rspec-expectations (~> 3.13)
       rspec-mocks (~> 3.13)
@@ -1082,7 +1082,7 @@ DEPENDENCIES
   redcarpet (~> 3.3, >= 3.3.4)
   redis (~> 4.6)
   rexml (>= 3.3.9)
-  rspec-rails (~> 6.0)
+  rspec-rails (~> 8.0)
   rspec_junit_formatter
   rubocop
   rubocop-performance
@@ -1101,7 +1101,7 @@ DEPENDENCIES
   simplecov-lcov
   sitemap_generator
   solargraph-rails (~> 0.3.1)
-  sprockets (~> 4.1)
+  sprockets-rails (~> 3.5)
   stackprof
   steep
   stimulus-rails (~> 1.0)

@@ -81,8 +81,8 @@ Rails.application.configure do
 
   # Debug mode for assets (Rails 8 uses Propshaft by default, adjust if using Sprockets)
   # If you're still using Sprockets, uncomment these:
-  # config.assets.debug = true
-  # config.assets.quiet = true
+  config.assets.debug = true
+  config.assets.quiet = true
 
   # Use an evented file watcher to asynchronously detect changes in source code
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
