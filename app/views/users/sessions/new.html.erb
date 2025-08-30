@@ -57,7 +57,7 @@
             <% if Flipper.enabled?(:recaptcha) %>
               <%= recaptcha_tags %>
             <% end %>
-            <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
+            <%= f.submit t("login"), class: "btn primary-button users-login-primary-button", disabled: true %>
             <div class="users-text-container">
               <% unless Flipper.enabled?(:block_registration) %>
                 <span class="users-text"><%= t("users.ask_new_user") %></span>
@@ -73,8 +73,27 @@
   </div>
 </div>
 <script>
-    $(".users-forgot-password-text").on('click', () => {
-      localStorage.setItem('Email', $(".user-email-input").val());
+    document.addEventListener("DOMContentLoaded", function () {
+    let emailInput = document.querySelector(".user-email-input");
+    let passwordInput = document.querySelector(".users-password-input");
+    let loginButton = document.querySelector(".users-login-primary-button");
+
+    toggledButton = () => {
+        let emailInputValue = emailInput.value.trim();
+        let passwordInputValue = passwordInput.value.trim();
+
+        if (emailInputValue !== "" && passwordInputValue !== "") {
+            loginButton.disabled = false;
+        }
+    };
+
+    emailInput.addEventListener("input", toggledButton);
+    passwordInput.addEventListener("input", toggledButton);
+
+    document.querySelector(".users-forgot-password-text").addEventListener('click', () => {
+        localStorage.setItem('Email', document.querySelector(".user-email-input").value);
     });
+});
+
 </script>
 <script src="/js/togglePassword.js"></script>
