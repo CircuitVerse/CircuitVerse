@@ -24,7 +24,10 @@ Rails.application.configure do
   config.read_encrypted_secrets = true
 
   # Configure ActiveStorage
-  if ENV["AWS_S3_BUCKET_NAME"].present?
+  # If ACTIVE_STORAGE_SERVICE is set to "local", it takes precedence over "AWS_S3_BUCKET_NAME"
+  if ENV["ACTIVE_STORAGE_SERVICE"] == "local"
+    config.active_storage.service = :local
+  elsif ENV["AWS_S3_BUCKET_NAME"].present?
     config.active_storage.service = :amazon_custom
   else
     config.active_storage.service = :amazon
