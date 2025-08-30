@@ -5,6 +5,19 @@ import miniMapArea, { removeMiniMap, updatelastMinimapShown } from './minimap';
 import { colors } from './themer/themer';
 
 var unit = 10;
+// function to calculate the label width
+function getTextWidth(inputText = '') {
+    if (inputText === '') { return 0; }
+    // not sure about font but small string  up to 25 lenght is works correct
+    var font = 150;
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    context.font = font;
+    var { width } = context.measureText(inputText);
+    var formattedWidth = Math.ceil(width);
+    // +50 for saafer size
+    return formattedWidth + 50;
+}
 
 export function findDimensions(scope = globalScope) {
     var totalObjects = 0;
@@ -17,6 +30,7 @@ export function findDimensions(scope = globalScope) {
             for (var j = 0; j < scope[updateOrder[i]].length; j++) {
                 totalObjects += 1;
                 var obj = scope[updateOrder[i]][j];
+
                 if (totalObjects === 1) {
                     simulationArea.minWidth = obj.absX();
                     simulationArea.minHeight = obj.absY();
@@ -26,8 +40,8 @@ export function findDimensions(scope = globalScope) {
                 if (obj.objectType !== 'Node') {
                     if (obj.y - obj.upDimensionY < simulationArea.minHeight) { simulationArea.minHeight = obj.y - obj.upDimensionY; }
                     if (obj.y + obj.downDimensionY > simulationArea.maxHeight) { simulationArea.maxHeight = obj.y + obj.downDimensionY; }
-                    if (obj.x - obj.leftDimensionX < simulationArea.minWidth) { simulationArea.minWidth = obj.x - obj.leftDimensionX; }
-                    if (obj.x + obj.rightDimensionX > simulationArea.maxWidth) { simulationArea.maxWidth = obj.x + obj.rightDimensionX; }
+                    if (obj.x - (obj.leftDimensionX + getTextWidth(obj.label)) < simulationArea.minWidth) { simulationArea.minWidth = obj.x - (obj.leftDimensionX + getTextWidth(obj.label)); }
+                    if (obj.x + (obj.rightDimensionX + getTextWidth(obj.label)) > simulationArea.maxWidth) { simulationArea.maxWidth = obj.x + (obj.rightDimensionX + getTextWidth(obj.label)); }
                 } else {
                     if (obj.absY() < simulationArea.minHeight) { simulationArea.minHeight = obj.absY(); }
                     if (obj.absY() > simulationArea.maxHeight) { simulationArea.maxHeight = obj.absY(); }
@@ -39,8 +53,6 @@ export function findDimensions(scope = globalScope) {
     }
     simulationArea.objectList = updateOrder;
 }
-
-
 // Function used to change the zoom level wrt to a point
 // fn to change scale (zoom) - It also shifts origin so that the position
 // of the object in focus doesn't change
@@ -67,16 +79,12 @@ export function changeScale(delta, xx, yy, method = 1) {
             }
         }
     }
-
-
     var oldScale = globalScope.scale;
     globalScope.scale = Math.max(0.5, Math.min(4 * DPR, globalScope.scale + delta));
     globalScope.scale = Math.round(globalScope.scale * 10) / 10;
     globalScope.ox -= Math.round(xx * (globalScope.scale - oldScale)); // Shift accordingly, so that we zoom wrt to the selected point
     globalScope.oy -= Math.round(yy * (globalScope.scale - oldScale));
     // dots(true,false);
-
-
     // MiniMap
     if (!embed && !lightMode) {
         findDimensions(globalScope);
@@ -92,7 +100,7 @@ export function changeScale(delta, xx, yy, method = 1) {
 // Otherwise for normal panning, the canvas itself is moved to give the illusion of movement
 
 export function dots(dots = true, transparentBackground = false, force = false) {
-    
+
     var scale = unit * globalScope.scale;
     var ox = globalScope.ox % scale; // offset
     var oy = globalScope.oy % scale; // offset
@@ -201,7 +209,11 @@ export function lineTo(ctx, x1, y1, xx, yy, dir) {
 
 export function arc(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
     // ox-x of origin, xx- x of element , sx - shift in x from element
-    let Sx; let Sy; let newStart; let newStop; let counterClock;
+    let Sx;
+    let Sy;
+    let newStart;
+    let newStop;
+    let counterClock;
     var correction = 0.5 * (ctx.lineWidth % 2);
     [Sx, Sy] = rotate(sx, sy, dir);
     Sx *= globalScope.scale;
@@ -215,7 +227,11 @@ export function arc(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
 
 export function arc2(ctx, sx, sy, radius, start, stop, xx, yy, dir) {
     // ox-x of origin, xx- x of element , sx - shift in x from element
-    let Sx; let Sy; let newStart; let newStop; let counterClock;
+    let Sx;
+    let Sy;
+    let newStart;
+    let newStop;
+    let counterClock;
     var correction = 0.5 * (ctx.lineWidth % 2);
     [Sx, Sy] = rotate(sx, sy, dir);
     Sx *= globalScope.scale;
@@ -250,12 +266,12 @@ export function rect(ctx, x1, y1, x2, y2) {
     ctx.rect(Math.round(globalScope.ox + x1 - correction) + correction, Math.round(globalScope.oy + y1 - correction) + correction, Math.round(x2), Math.round(y2));
 }
 
-export function drawImage(ctx,img, x1, y1, w_canvas, h_canvas) {
+export function drawImage(ctx, img, x1, y1, w_canvas, h_canvas) {
     x1 *= globalScope.scale;
     y1 *= globalScope.scale;
     x1 += globalScope.ox;
     y1 += globalScope.oy;
-    
+
     w_canvas *= globalScope.scale;
     h_canvas *= globalScope.scale;
     ctx.drawImage(img, x1, y1, w_canvas, h_canvas);
@@ -301,7 +317,7 @@ export function drawLine(ctx, x1, y1, x2, y2, color, width) {
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.lineCap = 'round';
-    ctx.lineWidth = correctWidth(width);//* globalScope.scale;
+    ctx.lineWidth = correctWidth(width); //* globalScope.scale;
     var correction = 0.5 * (ctx.lineWidth % 2);
     var hCorrection = 0;
     var vCorrection = 0;
@@ -321,7 +337,7 @@ export function validColor(color) {
 
 // Helper function to color "RED" to RGBA
 export function colorToRGBA(color) {
-    var cvs; 
+    var cvs;
     var ctx;
     cvs = document.createElement('canvas');
     cvs.height = 1;
