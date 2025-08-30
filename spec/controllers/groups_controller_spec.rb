@@ -142,6 +142,16 @@ describe GroupsController, type: :request do
         expect(response.status).to eq(302)
       end
     end
+
+    context "when primary mentor tries to join the group" do
+      it "does not add primary mentor as a member and generates error message" do
+        sign_in @group.primary_mentor
+        get invite_group_path(id: @group.id, token: @group.group_token)
+        expect(response.status).to eq(302)
+        expect(flash[:notice])
+          .to eq("Primary mentor cannot be added as a member of the group.")
+      end
+    end
   end
 
   describe "#generate_token" do
