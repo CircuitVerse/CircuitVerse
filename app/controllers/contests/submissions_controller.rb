@@ -12,6 +12,12 @@ class Contests::SubmissionsController < ApplicationController
 
   def create
     project_id = params[:submission][:project_id]
+    project = current_user.projects.find(project_id)
+
+    if project.forked_from_id.present?
+      redirect_to contest_path(@contest), alert: "Forked circuits cannot be submitted to contests."
+      return
+    end
 
     return redirect_unauthorized_project unless project_owner?(project_id)
     return redirect_duplicate_submission if duplicate_submission?(project_id)
