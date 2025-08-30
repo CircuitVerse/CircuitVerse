@@ -1,22 +1,28 @@
+
 /* eslint-disable class-methods-use-this */
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
     activeAllNotifications() {
-        document.getElementById('unread-notifications').classList.remove('active');
-        document.getElementById('all-notifications').classList.add('active');
-        document.getElementById('all-notifications-div').classList.remove('d-none');
-        document.getElementById('unread-notifications-div').classList.remove('d-flex');
-        document.getElementById('all-notifications-div').classList.add('d-flex');
-        document.getElementById('unread-notifications-div').classList.add('d-none');
+        this.toggleNotifications('unread', 'all');
     }
 
     activeUnreadNotifications() {
-        document.getElementById('all-notifications').classList.remove('active');
-        document.getElementById('unread-notifications').classList.add('active');
-        document.getElementById('all-notifications-div').classList.add('d-none');
-        document.getElementById('unread-notifications-div').classList.add('d-flex');
-        document.getElementById('all-notifications-div').classList.remove('d-flex');
-        document.getElementById('unread-notifications-div').classList.remove('d-none');
+        this.toggleNotifications('all', 'unread');
+    }
+
+    toggleNotifications(inactive, active) {
+        const inactiveElement = document.getElementById(`${inactive}-notifications`);
+        const activeElement = document.getElementById(`${active}-notifications`);
+        const inactiveDiv = document.getElementById(`${inactive}-notifications-div`);
+        const activeDiv = document.getElementById(`${active}-notifications-div`);
+        
+        inactiveElement.classList.remove('active');
+        activeElement.classList.add('active');
+        inactiveDiv.classList.remove('d-flex');
+        inactiveDiv.classList.add('d-none');
+        activeDiv.classList.remove('d-none');
+        activeDiv.classList.add('d-flex');
     }
 }
+
