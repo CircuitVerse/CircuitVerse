@@ -116,7 +116,7 @@ gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
 gem "sprockets", "~> 4.1"
 gem "strong_migrations"
-gem 'rails-data-migrations'
+gem 'rails-data-migrations', github: 'notarize/rails-data-migrations'
 
 # For Vite rails
 gem 'vite_rails'
