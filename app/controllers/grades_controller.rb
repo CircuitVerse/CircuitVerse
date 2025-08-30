@@ -62,7 +62,7 @@ class GradesController < ApplicationController
   private
 
     def grade_params
-      params.require(:grade).permit(:project_id, :grade, :assignment_id, :remarks)
+      params.expect(grade: %i[project_id grade assignment_id remarks])
     end
 
     def set_grade

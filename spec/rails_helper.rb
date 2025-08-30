@@ -40,7 +40,7 @@ end
 Capybara.default_max_wait_time = 3
 
 RSpec.configure do |config|
-  config.fixture_path = Rails.root.join("spec/fixtures")
+  config.fixture_paths = [Rails.root.join("spec/fixtures")]
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
@@ -64,6 +64,11 @@ RSpec.configure do |config|
     file_path: %r{spec/system/(group_spec|project_spec|user_profile_spec)\.rb}
   ) do |metadata|
     metadata[:js] = true
+  end
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.before(:each, type: :request) do
+    Rails.application.reload_routes_unless_loaded
   end
 end
 

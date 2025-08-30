@@ -2,8 +2,8 @@
 
 class Search::SearchBarComponent < ViewComponent::Base
   RESOURCE_OPTIONS = %w[Projects Users].freeze
-  DEFAULT_SORT_BY = "created_at".freeze
-  DEFAULT_SORT_DIRECTION = "desc".freeze
+  DEFAULT_SORT_BY = "created_at"
+  DEFAULT_SORT_DIRECTION = "desc"
 
   def initialize(
     resource: nil,
@@ -11,7 +11,7 @@ class Search::SearchBarComponent < ViewComponent::Base
     sort_by: nil,
     sort_direction: nil
   )
-    super
+    super()
     @resource = resource
     @query = query
     @sort_by = sort_by || DEFAULT_SORT_BY

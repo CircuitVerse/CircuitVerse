@@ -64,7 +64,7 @@ class Admin::ContestsController < ApplicationController
     end
 
     def contest_params
-      params.require(:contest).permit(:name, :title, :description, :deadline, :status)
+      params.expect(contest: %i[name title description deadline status])
     end
 
     def parse_deadline_or_redirect(str)

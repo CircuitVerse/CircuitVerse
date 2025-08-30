@@ -30,6 +30,6 @@ class FeaturedCircuitsController < ApplicationController
     end
 
     def featured_circuit_params
-      params.require(:featured_circuit).permit(:project_id, :featured)
+      params.expect(featured_circuit: %i[project_id featured])
     end
 end

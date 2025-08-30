@@ -5,7 +5,7 @@ module AuthComponents
     delegate :new_confirmation_path, to: :view_context
 
     def initialize(devise_mapping:, resource_name:)
-      super
+      super()
       @devise_mapping = devise_mapping
       @resource_name = resource_name
     end
