@@ -75,6 +75,6 @@ class CustomMailsController < ApplicationController
     end
 
     def custom_mails_params
-      params.require(:custom_mail).permit(:subject, :content)
+      params.expect(custom_mail: %i[subject content])
     end
 end

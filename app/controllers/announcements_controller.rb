@@ -48,6 +48,6 @@ class AnnouncementsController < ApplicationController
     end
 
     def announcement_params
-      params.require(:announcement).permit(:body, :link, :start_date, :end_date)
+      params.expect(announcement: %i[body link start_date end_date])
     end
 end

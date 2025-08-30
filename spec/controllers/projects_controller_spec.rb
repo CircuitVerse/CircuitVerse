@@ -99,7 +99,7 @@ describe ProjectsController, type: :request do
           post create_fork_project_path(@project)
           @user.reload
         end.to change { @user.projects.count }.by(1)
-        expect(@user.projects.order("created_at").last.forked_project_id).to eq(@project.id)
+        expect(@user.projects.order(:created_at).last.forked_project_id).to eq(@project.id)
       end
     end
 
@@ -142,7 +142,7 @@ describe ProjectsController, type: :request do
           post "/users/#{@user.id}/projects", params: create_params
         end.to change(Project, :count).by(1)
 
-        project = Project.order("created_at").last
+        project = Project.order(:created_at).last
         expect(project.name).to eq("Test Project")
         expect(project.project_access_type).to eq("Public")
       end

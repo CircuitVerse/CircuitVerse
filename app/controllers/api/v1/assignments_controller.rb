@@ -118,14 +118,14 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     end
 
     def assignment_create_params
-      params.require(:assignment).permit(
-        :name, :deadline, :description, :grading_scale, :restrictions
+      params.expect(
+        assignment: %i[name deadline description grading_scale restrictions]
       )
     end
 
     def assignment_update_params
-      params.require(:assignment).permit(
-        :name, :deadline, :description, :restrictions
+      params.expect(
+        assignment: %i[name deadline description restrictions]
       )
     end
 

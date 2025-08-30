@@ -65,6 +65,11 @@ RSpec.configure do |config|
   ) do |metadata|
     metadata[:js] = true
   end
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.before(:each, type: :request) do
+    Rails.application.reload_routes_unless_loaded
+  end
 end
 
 Shoulda::Matchers.configure do |config|

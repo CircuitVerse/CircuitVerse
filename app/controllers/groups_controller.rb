@@ -100,7 +100,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :primary_mentor_id)
+      params.expect(group: %i[name primary_mentor_id])
     end
 
     def check_show_access

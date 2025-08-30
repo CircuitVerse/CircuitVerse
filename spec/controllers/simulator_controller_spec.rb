@@ -23,7 +23,7 @@ describe SimulatorController, type: :request do
               post "/simulator/create_data", params: { image: "", name: "Test Name" }
             end.to change(Project, :count).by(1)
             expect(response.status).to eq(302)
-            created_project = Project.order("created_at").last
+            created_project = Project.order(:created_at).last
             expect(created_project.circuit_preview.blob).to be_nil
             expect(created_project.image_preview.file.filename).to eq("default.png")
           end
@@ -35,7 +35,7 @@ describe SimulatorController, type: :request do
               post "/simulator/create_data", params: { image:
                 "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }
             end.to change(Project, :count).by(1)
-            created_project = Project.order("created_at").last
+            created_project = Project.order(:created_at).last
             expect(created_project.circuit_preview.blob.filename.to_s).to start_with("preview_")
             expect(created_project.image_preview.file.filename).to start_with("preview_")
           end
@@ -51,7 +51,7 @@ describe SimulatorController, type: :request do
               post "/simulator/create_data", params: { image: "", name: "Test Name" }
             end.to change(Project, :count).by(1)
             expect(response.status).to eq(302)
-            created_project = Project.order("created_at").last
+            created_project = Project.order(:created_at).last
             expect(created_project.circuit_preview.blob).to be_nil
             expect(created_project.image_preview.file.filename).to eq("default.png")
           end
@@ -63,7 +63,7 @@ describe SimulatorController, type: :request do
               post "/simulator/create_data", params: { image:
                 "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }
             end.to change(Project, :count).by(1)
-            created_project = Project.order("created_at").last
+            created_project = Project.order(:created_at).last
             expect(created_project.circuit_preview.blob.filename.to_s).to start_with("preview_")
             expect(created_project.image_preview.file.filename).to start_with("preview_")
           end

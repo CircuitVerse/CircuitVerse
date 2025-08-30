@@ -8,6 +8,7 @@ end
 gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
+gem "aws-actionmailer-ses"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "kt-paperclip"
@@ -22,7 +23,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.8.7"
+gem "rails", "~> 8.0.0"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -87,7 +88,7 @@ gem "redis", "~> 4.6"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "http"
+gem "http", "~> 4.4"
 
 # Database
 
@@ -110,7 +111,7 @@ gem "friendly_id", "~> 5.4.2"
 gem "inline_svg"
 gem "jsonapi-serializer"
 gem "jwt"
-gem "rails-i18n", "~> 7.0.3"
+gem "rails-i18n", "~> 8.0.0"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
 gem "sprockets", "~> 4.1"
@@ -176,7 +177,7 @@ gem "invisible_captcha", "~> 2.0"
 
 gem "oj", "~> 3.15"
 
-gem "hairtrigger", "~> 0.2.25"
+
 
 # Used for rate limiting
 gem "rack-attack"
