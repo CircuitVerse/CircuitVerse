@@ -67,7 +67,8 @@ Commontator.configure do |config|
     #                  title: user.name,
     #                  border: 1 })
     if user.profile_picture.attached?
-      return ActionController::Base.helpers.image_tag(user.profile_picture.url)
+      image_path = Rails.application.routes.url_helpers.rails_blob_url(user.profile_picture, only_path: true)
+      return ActionController::Base.helpers.image_tag(image_path)
     else
       return ActionController::Base.helpers.image_tag("thumb/Default.jpg")
     end
