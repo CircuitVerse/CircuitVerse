@@ -84,14 +84,4 @@ Rails.application.configure do
 
   # Asset compression (if using Sprockets)
   config.assets.css_compressor = nil if defined?(Sprockets)
-  # Enable asset pipeline in test environment
-   config.assets.compile = true
-   config.assets.digest = false
-   config.assets.debug = false
-
-   # Ensure assets are served from the file system
-   config.serve_static_assets = true
-
-   # Don't fallback to assets pipeline if a precompiled asset is missed
-   config.assets.check_precompiled_asset = false
 end
