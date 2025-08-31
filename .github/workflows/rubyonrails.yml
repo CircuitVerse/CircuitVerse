@@ -84,7 +84,7 @@ jobs:
       - name: Run tests
         run: |
           ls app/assets/images
-          ls public/assets/images
+          ls public/images
           bundle exec rspec --fail-fast
 
       - name: Keep screenshots from failed system tests
