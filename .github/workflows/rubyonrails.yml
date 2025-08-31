@@ -59,7 +59,7 @@ jobs:
         run: |
           export PLAYWRIGHT_CLI_VERSION=$(bundle exec ruby -e 'require "playwright"; puts Playwright::COMPATIBLE_PLAYWRIGHT_VERSION.strip')
           yarn add -D "playwright@$PLAYWRIGHT_CLI_VERSION"
-          npx playwright install --with-deps
+          npx playwright install --with-deps chromium
 
       - name: Copy the sample ENV Config
         run: cp .env.example .env
@@ -83,8 +83,9 @@ jobs:
 
       - name: Run tests
         run: |
-          bin/rails assets:precompile
-          bundle exec rspec
+          ls app/assets/images
+          ls public/assets/images
+          bundle exec rspec --fail-fast
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
