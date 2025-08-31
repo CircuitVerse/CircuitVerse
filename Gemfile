@@ -8,6 +8,7 @@ end
 gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
+gem "aws-actionmailer-ses"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
 gem "kt-paperclip"
@@ -22,7 +23,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 7.0.8.7"
+gem "rails", "~> 8.0.0"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -59,7 +60,7 @@ gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
 gem "pg_search"
 gem "sidekiq"
-gem "sunspot_rails"
+
 
 # For home page pagination
 gem "will_paginate", "~> 4.0.1"
@@ -87,7 +88,7 @@ gem "redis", "~> 4.6"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "http"
+gem "http", "~> 4.4"
 
 # Database
 
@@ -110,12 +111,12 @@ gem "friendly_id", "~> 5.4.2"
 gem "inline_svg"
 gem "jsonapi-serializer"
 gem "jwt"
-gem "rails-i18n", "~> 7.0.3"
+gem "rails-i18n", "~> 8.0.0"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
-gem "sprockets", "~> 4.1"
+gem "sprockets-rails", "~> 3.5"
 gem "strong_migrations"
-gem 'rails-data-migrations'
+gem 'rails-data-migrations', github: 'notarize/rails-data-migrations'
 
 # For Vite rails
 gem 'vite_rails'
@@ -128,7 +129,7 @@ group :development, :test do
   gem "factory_bot_rails"
   gem "faker"
   gem "pry-rails"
-  gem "rspec-rails", "~> 6.0"
+  gem "rspec-rails", "~> 8.0"
   gem "rubocop-performance", require: false
   gem "rubocop-rails", require: false
   gem "rubocop-rspec", require: false
@@ -158,7 +159,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
-  gem "sunspot_solr"
+  
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"
@@ -176,7 +177,7 @@ gem "invisible_captcha", "~> 2.0"
 
 gem "oj", "~> 3.15"
 
-gem "hairtrigger", "~> 0.2.25"
+
 
 # Used for rate limiting
 gem "rack-attack"

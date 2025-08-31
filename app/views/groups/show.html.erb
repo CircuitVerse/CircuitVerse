@@ -18,7 +18,7 @@
         </p>
         <% if policy(@group).admin_access? %>
           <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
-            <%= image_tag("SVGs/editGroup.svg", alt: "Edit Group") %>
+            <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
             <span><%= t("groups.show.edit_name_btn") %></span>
           <% end %>
         <% end %>
@@ -131,7 +131,7 @@
           <td class="groups-assignment-button-container">
             <div class="groups-assignment-details">
               <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
-                <%= image_tag("SVGs/viewGroup.svg", alt: "View Assignment") %>
+                <%= image_tag("svgs/viewGroup.svg", alt: "View Assignment") %>
                 <span><%= t("view") %></span>
               <% end %>
             </div>
@@ -139,14 +139,14 @@
               <% if AssignmentDecorator.new(assignment).closed? %>
                 <div class="groups-assignment-details">
                   <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                    <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
+                    <%= image_tag("svgs/reopenAssignment.svg", alt: "Reopen Assignment") %>
                     <span><%= t("reopen") %></span>
                   <% end %>
                 </div>
               <% else %>
                 <div class="groups-assignment-details">
                   <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                    <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
+                    <%= image_tag("svgs/editGroup.svg", alt: "Edit Assignment") %>
                     <span><%= t("edit") %></span>
                   <% end %>
                 </div>
@@ -158,7 +158,7 @@
               <% end %>
               <div class="groups-assignment-details">
                 <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
-                  <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
+                  <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Assignment") %>
                   <span><%= t("delete") %></span>
                 <% end %>
               </div>
@@ -168,14 +168,14 @@
                   <% if project_assignment.nil? %>
                     <div class="groups-assignment-details">
                       <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
+                        <%= image_tag("svgs/editGroup.svg", alt: "Start Assignment") %>
                         <span><%= t("groups.show.assignment.start_working_btn") %></span>
                       <% end %>
                     </div>
                   <% else %>
                     <div class="groups-assignment-details">
                       <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
+                        <%= image_tag("svgs/viewGroup.svg", alt: "View work") %>
                         <span><%= t("groups.show.assignment.see_work_done") %></span>
                       <% end %>
                     </div>
@@ -186,7 +186,7 @@
                   <% else %>
                     <div class="groups-assignment-details">
                       <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
+                        <%= image_tag("svgs/viewGroup.svg", alt: "View submission") %>
                         <span><%= t("groups.show.assignment.show_submission") %></span>
                       <% end %>
                     </div>
@@ -259,7 +259,7 @@
               <td class="groups-assignment-button-container">
                 <div class="groups-assignment-details">
                   <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
-                    <%= image_tag("SVGs/viewGroup.svg", alt: "View Assignment") %>
+                    <%= image_tag("svgs/viewGroup.svg", alt: "View Assignment") %>
                     <span><%= t("view") %></span>
                   <% end %>
                 </div>
@@ -267,14 +267,14 @@
                   <% if AssignmentDecorator.new(assignment).closed? %>
                     <div class="groups-assignment-details">
                       <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/reopenAssignment.svg", alt: "Reopen Assignment") %>
+                        <%= image_tag("svgs/reopenAssignment.svg", alt: "Reopen Assignment") %>
                         <span><%= t("reopen") %></span>
                       <% end %>
                     </div>
                   <% else %>
                     <div class="groups-assignment-details">
                       <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                        <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
+                        <%= image_tag("svgs/editGroup.svg", alt: "Edit Assignment") %>
                         <span><%= t("edit") %></span>
                       <% end %>
                     </div>
@@ -286,7 +286,7 @@
                   <% end %>
                   <div class="groups-assignment-details">
                     <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
-                      <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Assignment") %>
+                      <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Assignment") %>
                       <span><%= t("delete") %></span>
                     <% end %>
                   </div>
@@ -296,14 +296,14 @@
                       <% if project_assignment.nil? %>
                         <div class="groups-assignment-details">
                           <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
-                            <%= image_tag("SVGs/editGroup.svg", alt: "Start Assignment") %>
+                            <%= image_tag("svgs/editGroup.svg", alt: "Start Assignment") %>
                             <span><%= t("groups.show.assignment.start_working_btn") %></span>
                           <% end %>
                         </div>
                       <% else %>
                         <div class="groups-assignment-details">
                           <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
-                            <%= image_tag("SVGs/viewGroup.svg", alt: "View work") %>
+                            <%= image_tag("svgs/viewGroup.svg", alt: "View work") %>
                             <span><%= t("groups.show.assignment.see_work_done") %></span>
                           <% end %>
                         </div>
@@ -318,7 +318,7 @@
                       <% else %>
                         <div class="groups-assignment-details">
                           <%= link_to user_project_path(current_user, project_assignment), class: "mini-button groups-reopen-mini-button" do %>
-                            <%= image_tag("SVGs/viewGroup.svg", alt: "View submission") %>
+                            <%= image_tag("svgs/viewGroup.svg", alt: "View submission") %>
                             <span><%= t("groups.show.assignment.show_submission") %></span>
                           <% end %>
                         </div>
