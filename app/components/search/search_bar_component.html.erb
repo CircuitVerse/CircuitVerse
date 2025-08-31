@@ -51,12 +51,15 @@
             <div class="user-filters d-flex flex-column gap-2 <%= 'hidden' unless (resource || RESOURCE_OPTIONS.first) == 'Users' %>" data-search-filters-target="userFilters">
               <div class="filter-field">
                 <label class="filter-label" for="filter_country"><%= filter_labels["users"]["country"]["label"] %></label>
-                <select class="filter-select" name="country" id="filter_country" data-search-filters-target="countrySelect">
-                  <option value=""><%= filter_labels["users"]["country"]["placeholder"] %></option>
-                  <% countries_for_search.each do |country| %>
-                    <option value="<%= country[:code] %>" <%= 'selected' if current_filter_values["country"] == country[:code] %>><%= country[:name] %></option>
-                    <% end %>
-                  </select>
+                <div class="filter-select-wrapper">
+                  <select class="filter-select" name="country" id="filter_country" data-search-filters-target="countrySelect">
+                    <option value=""><%= filter_labels["users"]["country"]["placeholder"] %></option>
+                    <% countries_for_search.each do |country| %>
+                      <option value="<%= country[:code] %>" <%= 'selected' if current_filter_values["country"] == country[:code] %>><%= country[:name] %></option>
+                      <% end %>
+                    </select>
+                    <%= image_tag "SVGs/dropdown-arrow.svg", class: "filter-select-arrow", alt: "Dropdown arrow" %>
+                </div>
                 </div>
                 <div class="filter-field">
                   <label class="filter-label" for="filter_institute"><%= filter_labels["users"]["institute"]["label"] %></label>
