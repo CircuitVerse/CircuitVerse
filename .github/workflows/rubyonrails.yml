@@ -73,6 +73,7 @@ jobs:
       - name: Build assets
         run: |
           yarn run build
+          bin/rails assets:clobber
           bin/rails assets:precompile
 
       - name: Configure keys
