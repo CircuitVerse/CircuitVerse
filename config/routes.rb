@@ -242,7 +242,7 @@ Rails.application.routes.draw do
           patch "start"
         end
       end
-      resources :threads, only: %i[close reopen] do
+      resources :threads do
         resources :comments, only: %i[index create update], shallow: true do
           member do
             put "upvote"
