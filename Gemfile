@@ -60,7 +60,7 @@ gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
 gem "pg_search"
 gem "sidekiq"
-gem "sunspot_rails"
+
 
 # For home page pagination
 gem "will_paginate", "~> 4.0.1"
@@ -159,7 +159,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
-  gem "sunspot_solr"
+  
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"

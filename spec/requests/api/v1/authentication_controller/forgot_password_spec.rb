@@ -16,15 +16,19 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
     end
 
     context "when user who forgot his/her password exists" do
+      let(:user) { FactoryBot.create(:user, confirmed_at: Time.zone.now) }
+
       before do
-        # creates a test user
-        user = FactoryBot.create(:user)
-        post "/api/v1/password/forgot", params: { email: user.email }, as: :json
+        ActionMailer::Base.deliveries.clear
       end
 
       it "returns status 200 and should send reset password instructions" do
+        perform_enqueued_jobs do
+          post "/api/v1/password/forgot", params: { email: user.email }, as: :json
+        end
         expect(response).to have_http_status(:ok)
-        expect(Devise::Mailer).to send_email(:reset_password_instructions)
+        expect(ActionMailer::Base.deliveries.count).to eq(1)
+        expect(ActionMailer::Base.deliveries.last.to).to include(user.email)
       end
     end
   end

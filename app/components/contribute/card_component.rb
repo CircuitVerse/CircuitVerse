@@ -2,6 +2,7 @@
 
 class Contribute::CardComponent < ViewComponent::Base
   def initialize(image_src:, alt_text:, title_key:, items:, column_classes: "col-12 col-sm-12 col-md-6 col-lg-4")
+    super()
     @image_src = image_src
     @alt_text = alt_text
     @title_key = title_key

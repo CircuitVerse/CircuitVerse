@@ -6,7 +6,7 @@ class Project < ApplicationRecord
   extend FriendlyId
 
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns += ["data"]
+  self.ignored_columns += ["data", "searchable"]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
@@ -48,20 +48,6 @@ class Project < ApplicationRecord
       dictionary: "english", tsvector_column: "searchable"
     }
   }
-
-  searchable do
-    text :name
-
-    text :description
-
-    text :author do
-      author.name
-    end
-
-    text :tags do
-      tags.map(&:name)
-    end
-  end
 
   after_update :check_and_remove_featured
 

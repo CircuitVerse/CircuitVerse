@@ -601,7 +601,6 @@ GEM
       mime-types (>= 3.0)
     pp (0.6.2)
       prettyprint
-    pr_geohash (1.0.0)
     premailer (1.27.0)
       addressable
       css_parser (>= 1.19.0)
@@ -718,9 +717,6 @@ GEM
       nokogiri
     rexml (3.4.2)
     rouge (4.6.0)
-    rsolr (2.6.0)
-      builder (>= 2.1.2)
-      faraday (>= 0.9, < 3, != 2.0.0)
     rspec-core (3.13.5)
       rspec-support (~> 3.13.0)
     rspec-expectations (3.13.5)
@@ -881,14 +877,6 @@ GEM
     strong_migrations (2.5.0)
       activerecord (>= 7.1)
     strscan (3.1.5)
-    sunspot (2.7.1)
-      bigdecimal
-      pr_geohash (~> 1.0)
-      rsolr (>= 1.1.1, < 3)
-    sunspot_rails (2.7.1)
-      rails (>= 5)
-      sunspot (= 2.7.1)
-    sunspot_solr (2.7.1)
     sync (0.5.0)
     term-ansicolor (1.11.2)
       tins (~> 1.0)
@@ -1106,8 +1094,6 @@ DEPENDENCIES
   steep
   stimulus-rails (~> 1.0)
   strong_migrations
-  sunspot_rails
-  sunspot_solr
   terser
   turbolinks (~> 5)
   tzinfo-data
