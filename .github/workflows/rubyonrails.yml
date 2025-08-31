@@ -82,7 +82,9 @@ jobs:
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 
       - name: Run tests
-        run: bundle exec rspec
+        run: |
+          bin/rails assets:precompile
+          bundle exec rspec
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
