@@ -58,8 +58,6 @@ class User < ApplicationRecord
   pg_search_scope :text_search, against: %i[name educational_institute],
                                 using: { tsearch: { dictionary: "english", tsvector_column: "searchable" } }
 
-  
-
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
       GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create

@@ -4,7 +4,7 @@
     <div class="text-center">
       <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
       <%= link_to user_google_oauth2_omniauth_authorize_path, method: :post, class: 'text-decoration-none oauth-button' do %>
-          <%= image_tag("svgs/google-plus.svg", alt: "Google Icon", class: "users-social-icon") %>
+          <%= image_tag("svgs/google_plus.svg", alt: "Google Icon", class: "users-social-icon") %>
           <span><%= t('google') %></span>
       <% end %>
       <%= link_to user_facebook_omniauth_authorize_path, method: :post, class: 'text-decoration-none oauth-button' do %>

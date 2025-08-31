@@ -6,7 +6,7 @@ class Project < ApplicationRecord
   extend FriendlyId
 
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns += ["data", "searchable"]
+  self.ignored_columns += %w[data searchable]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true

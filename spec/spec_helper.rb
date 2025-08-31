@@ -29,7 +29,6 @@ WebMock.disable_net_connect!({
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.before do
-
     # To stub google oauth fetch user response with valid access token
     stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
       .with(

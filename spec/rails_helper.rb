@@ -52,14 +52,14 @@ RSpec.configure do |config|
     Flipper.adapter.features.each { |name| Flipper[name].remove }
     Flipper.enable(:active_storage_s3)
     Flipper.enable(:contests)
-    stub_request(:get, "https://fonts.googleapis.com/css?display=swap&family=Open%20Sans").
-      with(headers: {
-        'Accept'=>'text/css',
-        'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
-        'Host'=>'fonts.googleapis.com',
-        'User-Agent'=>'Ruby'
-      }).
-      to_return(status: 200, body: "", headers: {})
+    stub_request(:get, "https://fonts.googleapis.com/css?display=swap&family=Open%20Sans")
+      .with(headers: {
+              "Accept" => "text/css",
+              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+              "Host" => "fonts.googleapis.com",
+              "User-Agent" => "Ruby"
+            })
+      .to_return(status: 200, body: "", headers: {})
   end
 
   config.use_transactional_fixtures = true
