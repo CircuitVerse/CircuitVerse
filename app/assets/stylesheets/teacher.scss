@@ -20,10 +20,19 @@
 
 .teacher-image {
   border: 2px solid $shadow-grey;
-  max-height: 100%;
+  width: 100%;           
   max-width: 100%;
+  height: auto;
+  display: block;
+  box-sizing: border-box; 
 }
 
 .teacher-left-text {
   text-align: left;
+}
+
+.teachers-page .col, 
+.teachers-page [class^="col-"],
+.teachers-page [class*=" col-"] {
+  overflow-wrap: anywhere;
 }
