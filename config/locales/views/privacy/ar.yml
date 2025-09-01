@@ -28,7 +28,7 @@ ar:
     analytics_tools_heading: "أدوات التحليل"
     analytics_tools_description_html: >-
       قد نستخدم أدوات تحليل داخلية وخارجية، بما في ذلك <a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow'
       target='_blank'
       class='external_link'
       data-qt-tooltip='google.com' 

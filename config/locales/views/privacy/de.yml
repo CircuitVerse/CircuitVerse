@@ -26,13 +26,7 @@ de:
     anonymized_description: "Wir können aggregierte oder de-identifizierte Informationen mit Dritten für Forschungs-, Marketing-, Analyse- und andere Zwecke teilen, vorausgesetzt, solche Informationen identifizieren keine bestimmte Person."
     tracking_heading: "Tracking"
     analytics_tools_heading: "Analysetools"
-    analytics_tools_description_html: >-
-      Wir können interne und externe Analysetools verwenden, einschließlich <a 
-      rel='noopener nofollow' 
-      target='_blank'
-      class='external_link'
-      data-qt-tooltip='google.com' 
-      href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a>.
+    analytics_tools_description_html: "Wir können interne und externe Analysetools verwenden, einschließlich <a rel='noopener noreferrer nofollow' target='_blank' class='external_link' data-qt-tooltip='google.com' href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a>."
     analytics_info: "Die Drittanbieter-Analyseunternehmen, mit denen wir zusammenarbeiten, können die gesammelten Informationen mit anderen Informationen kombinieren, die sie unabhängig von anderen Websites und/oder anderen Online-Produkten und -Diensten gesammelt haben. Ihre Sammlung und Nutzung von Informationen unterliegt ihren eigenen Datenschutzrichtlinien."
     contact_heading: "Kontaktieren Sie uns"
     contact_description: "Wenn Sie Fragen zu unseren Praktiken oder dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter"

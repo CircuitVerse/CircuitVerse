@@ -28,7 +28,7 @@ ne:
     analytics_tools_heading: "विश्लेषण उपकरणहरू"
     analytics_tools_description_html: >-
       हामी आन्तरिक र तेस्रो पक्ष विश्लेषण उपकरणहरू प्रयोग गर्न सक्छौं, <a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow' 
       target='_blank'
       class='external_link'
       data-qt-tooltip='google.com' 

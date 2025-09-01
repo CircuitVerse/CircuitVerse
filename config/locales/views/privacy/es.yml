@@ -28,10 +28,10 @@ es:
     analytics_tools_heading: "Herramientas de Análisis"
     analytics_tools_description_html: >-
       Podemos utilizar herramientas de análisis internas y de terceros, incluyendo <a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow'
       target='_blank'
       class='external_link'
-      data-qt-tooltip='google.com' 
+      data-qt-tooltip='google.com'
       href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a>.
     analytics_info: "Las compañías de análisis de terceros con las que trabajamos pueden combinar la información recopilada con otra información que han recopilado independientemente de otros sitios web y/u otros productos y servicios en línea. Su recopilación y uso de información está sujeta a sus propias políticas de privacidad."
     contact_heading: "Contáctenos"

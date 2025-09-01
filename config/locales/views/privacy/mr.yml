@@ -28,7 +28,7 @@ mr:
     analytics_tools_heading: "विश्लेषण साधने"
     analytics_tools_description_html: >-
       आम्ही अंतर्गत आणि तृतीय-पक्ष विश्लेषण साधने वापरू शकतो, ज्यात <a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow' 
       target='_blank'
       class='external_link'
       data-qt-tooltip='google.com' 

@@ -2,7 +2,7 @@
 <div class="container">
   <h1 class="text-center my-4"><%= t("privacy.main_heading") %></h1>
   <p>
-    <%= t("privacy.recognition_html") %>
+    <%= sanitize(t("privacy.recognition_html"), tags: %w[a i b em strong], attributes: %w[href rel target class data-qt-tooltip]) %>
   </p>
   <p class="qtext_para"><b><%= t("privacy.information_collect_heading") %></b></p>
   <p class="qtext_para">
@@ -23,7 +23,7 @@
   <p class="qtext_para"></p>
   <p class="qtext_para"><b><%= t("privacy.use_info_heading") %></b></p>
   <p class="qtext_para">
-    <%= t("privacy.use_info_description_html") %>
+    <%= sanitize(t("privacy.use_info_description_html"), tags: %w[a i b em strong], attributes: %w[href rel target class data-qt-tooltip]) %>
   </p>
   <p class="qtext_para">
     <%= t("privacy.cv_uses_info") %>
@@ -47,7 +47,7 @@
   <p class="qtext_para">
     <b><%= t("privacy.tracking_heading") %></b>
     <%= t("privacy.analytics_tools_heading") %> -
-    <%= t("privacy.analytics_tools_description_html") %>
+    <%= sanitize(t("privacy.analytics_tools_description_html"), tags: %w[a i b em strong], attributes: %w[href rel target class data-qt-tooltip]) %>
     <%= t("privacy.analytics_info") %>
   </p>
   <p class="qtext_para"></p>
@@ -55,11 +55,7 @@
   <p class="qtext_para">
     <%= t("privacy.contact_description") %>
     <span class="qlink_container">
-      <a
-        href="mailto:support@circuitverse.org"
-        rel="noopener nofollow"
-        class="external_link"
-      ><i><%= t("privacy.support_email") %></i></a>
+      <a href="mailto:support@circuitverse.org" rel="noopener nofollow" class="external_link"><i><%= t("privacy.support_email") %></i></a>
     </span>
   </p>
 </div>

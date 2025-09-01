@@ -4,15 +4,15 @@ en:
     main_heading: "Privacy"
     recognition_html: "We recognize that your privacy is very important and take it seriously. Our CircuitVerse Privacy Policy (“Privacy Policy”) describes our policies and procedures on the collection, use, disclosure, and sharing of your information when you use our Platform. We will not use or share your information with anyone except as described in this Privacy Policy. Capitalized terms that are not defined in this Privacy Policy have the meaning given them in our <a href='https://circuitverse.org/tos'><i>Terms of Service</i></a>."
     information_collect_heading: "The Information We Collect"
-    information_collect_description: "We collect information directly from individuals automatically through the CircuitVerse Platform."
+    information_collect_description: "We collect information directly from individuals and automatically through the CircuitVerse Platform."
     account_profile_heading: "Account and Profile Information"
-    account_profile_description: "When you create an account and profile on the CircuitVerse Platform, we collect your email-id. Your name, photo, and any other information that you choose to add to your public-facing profile will be available for viewing to users of our Platform. Once you activate a profile, other users will be able to see in your profile certain information about your activity."
+    account_profile_description: "When you create an account and profile on the CircuitVerse Platform, we collect your email address. Your name, photo, and any other information that you choose to add to your public-facing profile will be available for viewing to users of our Platform. Once you activate a profile, other users will be able to see in your profile certain information about your activity."
     integrated_service_heading: "Integrated Service Provider and Linked Networks."
     integrated_service_description: "If you elect to connect your CircuitVerse account to another online service provider, such as a social networking service (“Integrated Service Provider”), you will be allowing us to pass to and receive from the Integrated Service Provider your log-in information and other user data. You may elect to sign in or sign up to the CircuitVerse Platform through a linked network like Facebook or Google (each a “Linked Network”).The specific information we may collect varies by Integrated Service Provider, but the permissions page for each will describe the relevant information. Integrated Service Providers control how they use and share your information; you should consult their respective privacy policies for information about their practices."
     auto_collect_heading: "Automatically Collected Information About Your Activity"
     auto_collect_description: "We use cookies, log files, pixel tags, local storage objects, and other tracking technologies to automatically collect information about your activities, such as your searches, page views, date and time of your visit, and other information about your use of the CircuitVerse Platform."
     use_info_heading: "How We Use Your Information"
-    use_info_description: "We do not sell your personally identifying information &ndash; such as your name and contact information &ndash; to third parties to use for their own marketing purposes."
+    use_info_description_html: "We do not sell your personally identifying information &ndash; such as your name and contact information &ndash; to third parties to use for their own marketing purposes."
     cv_uses_info: "CircuitVerse uses the information we collect:"
     use_services: "To provide you the services we offer on the CircuitVerse Platform, communicate with you about your use of the CircuitVerse Platform, respond to your inquiries, provide troubleshooting, and for other customer service purposes."
     tailor_content: "To tailor the content and information that we may send or display to you in the CircuitVerse Platform."
@@ -28,7 +28,7 @@ en:
     analytics_tools_heading: "Analytics Tools"
     analytics_tools_description_html: >-
       We may use internal and third party analytics tools, including <a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow' 
       target='_blank'
       class='external_link'
       data-qt-tooltip='google.com' 

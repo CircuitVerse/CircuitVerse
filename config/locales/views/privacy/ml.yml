@@ -28,7 +28,7 @@ ml:
     analytics_tools_heading: "അനലിറ്റിക്സ് ടൂളുകൾ"
     analytics_tools_description_html: >-
       ഞങ്ങൾ ആന്തരികവും മൂന്നാം കക്ഷി അനലിറ്റിക്സ് ടൂളുകളും ഉപയോഗിച്ചേക്കാം, <a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow' 
       target='_blank'
       class='external_link'
       data-qt-tooltip='google.com' 

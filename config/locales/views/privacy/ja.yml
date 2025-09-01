@@ -28,7 +28,7 @@ ja:
     analytics_tools_heading: "分析ツール"
     analytics_tools_description_html: >-
       当社は内部および第三者の分析ツール（<a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow' 
       target='_blank'
       class='external_link'
       data-qt-tooltip='google.com' 

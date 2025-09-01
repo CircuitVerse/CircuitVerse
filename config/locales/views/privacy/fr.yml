@@ -28,7 +28,7 @@ fr:
     analytics_tools_heading: "Outils d'Analyse"
     analytics_tools_description_html: >-
       Nous pouvons utiliser des outils d'analyse internes et tiers, notamment <a 
-      rel='noopener nofollow' 
+      rel='noopener noreferrer nofollow' 
       target='_blank'
       class='external_link'
       data-qt-tooltip='google.com' 
