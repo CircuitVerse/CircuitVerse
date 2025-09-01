@@ -83,6 +83,6 @@ class CollaborationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collaboration_params
-      params.require(:collaboration).permit(:user_id, :project_id, emails: [])
+      params.expect(collaboration: [:user_id, :project_id, { emails: [] }])
     end
 end
