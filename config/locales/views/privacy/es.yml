@@ -1,0 +1,39 @@
+es:
+  privacy:
+    title: "CircuitVerse - Privacidad"
+    main_heading: "Privacidad"
+    recognition_html: "Reconocemos que su privacidad es muy importante y la tomamos en serio. Nuestra Política de Privacidad de CircuitVerse (“Política de Privacidad”) describe nuestras políticas y procedimientos sobre la recopilación, uso, divulgación y compartición de su información cuando utiliza nuestra Plataforma. No utilizaremos ni compartiremos su información con nadie excepto como se describe en esta Política de Privacidad. Los términos en mayúsculas que no están definidos en esta Política de Privacidad tienen el significado que se les da en nuestros <a href='https://circuitverse.org/tos'><i>Términos de Servicio</i></a>."
+    information_collect_heading: "La Información que Recopilamos"
+    information_collect_description: "Recopilamos información directamente de individuos y automáticamente a través de la Plataforma CircuitVerse."
+    account_profile_heading: "Información de Cuenta y Perfil"
+    account_profile_description: "Cuando crea una cuenta y perfil en la Plataforma CircuitVerse, recopilamos su correo electrónico. Su nombre, foto y cualquier otra información que elija añadir a su perfil público estará disponible para que los usuarios de nuestra Plataforma la vean. Una vez que active un perfil, otros usuarios podrán ver en su perfil cierta información sobre su actividad."
+    integrated_service_heading: "Proveedor de Servicios Integrados y Redes Vinculadas"
+    integrated_service_description: "Si elige conectar su cuenta de CircuitVerse a otro proveedor de servicios en línea, como un servicio de redes sociales (“Proveedor de Servicios Integrados”), nos permitirá pasar y recibir del Proveedor de Servicios Integrados su información de inicio de sesión y otros datos de usuario. Puede elegir iniciar sesión o registrarse en la Plataforma CircuitVerse a través de una red vinculada como Facebook o Google (cada una una “Red Vinculada”). La información específica que podemos recopilar varía según el Proveedor de Servicios Integrados, pero la página de permisos para cada uno describirá la información relevante. Los Proveedores de Servicios Integrados controlan cómo usan y comparten su información; debe consultar sus respectivas políticas de privacidad para obtener información sobre sus prácticas."
+    auto_collect_heading: "Información Recopilada Automáticamente Sobre Su Actividad"
+    auto_collect_description: "Utilizamos cookies, archivos de registro, etiquetas de píxeles, objetos de almacenamiento local y otras tecnologías de seguimiento para recopilar automáticamente información sobre sus actividades, como sus búsquedas, visualizaciones de páginas, fecha y hora de su visita, y otra información sobre su uso de la Plataforma CircuitVerse."
+    use_info_heading: "Cómo Utilizamos Su Información"
+    use_info_description_html: "No vendemos su información de identificación personal &ndash; como su nombre e información de contacto &ndash; a terceros para que la utilicen con fines de marketing propios."
+    cv_uses_info: "CircuitVerse utiliza la información que recopilamos:"
+    use_services: "Para proporcionarle los servicios que ofrecemos en la Plataforma CircuitVerse, comunicarnos con usted sobre su uso de la Plataforma CircuitVerse, responder a sus consultas, proporcionar solución de problemas y para otros fines de atención al cliente."
+    tailor_content: "Para adaptar el contenido y la información que podemos enviarle o mostrarle en la Plataforma CircuitVerse."
+    understand_users: "Para comprender mejor cómo los usuarios acceden y utilizan la Plataforma CircuitVerse, tanto de forma agregada como individualizada, y para otros fines de investigación y análisis."
+    evaluate_improve: "Para evaluar y mejorar la Plataforma CircuitVerse y para desarrollar nuevos productos y servicios."
+    comply_legal: "Para cumplir con obligaciones legales, como parte de nuestras operaciones comerciales generales y para otros fines de administración empresarial."
+    investigate: "Cuando creemos necesario investigar, prevenir o tomar medidas con respecto a actividades ilegales, sospecha de fraude, situaciones que impliquen amenazas potenciales a la seguridad de cualquier persona o violaciones de nuestros Términos de Uso o esta Política de Privacidad."
+    content_activity_heading: "Su Contenido y Actividad"
+    content_activity_description: "Su Contenido, incluido su nombre, foto de perfil, información de perfil y cierta información de actividad asociada, está disponible para otros usuarios de la Plataforma CircuitVerse y puede ser visto públicamente. La visualización pública incluye la disponibilidad para visitantes no registrados y puede ocurrir cuando los usuarios comparten Su Contenido a través de otros sitios o servicios. Además, Su Contenido puede ser indexado por motores de búsqueda."
+    anonymized_heading: "Datos Anonimizados y Agregados"
+    anonymized_description: "Podemos compartir información agregada o desidentificada con terceros para investigación, marketing, análisis y otros propósitos, siempre que dicha información no identifique a una persona en particular."
+    tracking_heading: "Seguimiento"
+    analytics_tools_heading: "Herramientas de Análisis"
+    analytics_tools_description_html: >-
+      Podemos utilizar herramientas de análisis internas y de terceros, incluyendo <a 
+      rel='noopener noreferrer nofollow'
+      target='_blank'
+      class='external_link'
+      data-qt-tooltip='google.com'
+      href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a>.
+    analytics_info: "Las compañías de análisis de terceros con las que trabajamos pueden combinar la información recopilada con otra información que han recopilado independientemente de otros sitios web y/u otros productos y servicios en línea. Su recopilación y uso de información está sujeta a sus propias políticas de privacidad."
+    contact_heading: "Contáctenos"
+    contact_description: "Si tiene alguna pregunta sobre nuestras prácticas o esta Política de Privacidad, comuníquese con nosotros en"
+    support_email: "support@circuitverse.org"
