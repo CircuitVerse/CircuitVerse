@@ -5,6 +5,7 @@ class Api::V1::BaseController < ActionController::API
   include CustomErrors
   include ActionController::RequestForgeryProtection
   include ActiveStorage::SetCurrent
+
   protect_from_forgery with: :exception, if: lambda {
     request.headers["Authorization"].blank? && current_user
   }
