@@ -45,8 +45,8 @@ class Users::CircuitverseController < ApplicationController
   private
 
     def profile_params
-      params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture, :avatar, :vuesim)
+      params.expect(user: %i[name profile_picture country educational_institute
+                             subscribed locale remove_picture avatar vuesim])
     end
 
     def set_user
