@@ -1,0 +1,39 @@
+de:
+  privacy:
+    title: "CircuitVerse - Datenschutz"
+    main_heading: "Datenschutz"
+    recognition_html: "Wir erkennen an, dass Ihre Privatsphäre von größter Bedeutung ist und nehmen sie sehr ernst. Unsere CircuitVerse Datenschutzrichtlinie (“Datenschutzrichtlinie”) beschreibt unsere Richtlinien und Verfahren zur Erfassung, Verwendung, Offenlegung und Weitergabe Ihrer Informationen, wenn Sie unsere Plattform nutzen. Wir werden Ihre Informationen nicht verwenden oder an Dritte weitergeben, außer wie in dieser Datenschutzrichtlinie beschrieben. Großgeschriebene Begriffe, die in dieser Datenschutzrichtlinie nicht definiert sind, haben die Bedeutung, die ihnen in unseren <a href='https://circuitverse.org/tos'><i>Nutzungsbedingungen</i></a> gegeben wurde."
+    information_collect_heading: "Die Informationen, die wir sammeln"
+    information_collect_description: "Wir sammeln Informationen direkt von Einzelpersonen und automatisch über die CircuitVerse-Plattform."
+    account_profile_heading: "Konto- und Profilinformationen"
+    account_profile_description: "Wenn Sie ein Konto und Profil auf der CircuitVerse-Plattform erstellen, erfassen wir Ihre E-Mail-ID. Ihr Name, Foto und alle anderen Informationen, die Sie Ihrem öffentlich zugänglichen Profil hinzufügen möchten, sind für Benutzer unserer Plattform einsehbar. Sobald Sie ein Profil aktivieren, können andere Benutzer in Ihrem Profil bestimmte Informationen über Ihre Aktivitäten sehen."
+    integrated_service_heading: "Externe Diensteanbieter und verknüpfte Netzwerke"
+    integrated_service_description: "Wenn Sie sich dafür entscheiden, Ihr CircuitVerse-Konto mit einem anderen Online-Dienstanbieter, wie einem sozialen Netzwerkdienst (“Drittanbieter-Dienst”), zu verbinden, erlauben Sie uns, Ihre Anmeldeinformationen und andere Benutzerdaten an den externen Diensteanbieter weiterzugeben und von diesem zu erhalten. Sie können sich dafür entscheiden, sich über ein verknüpftes Netzwerk wie Facebook oder Google (jeweils ein “Verknüpftes Netzwerk”) bei der CircuitVerse-Plattform anzumelden oder zu registrieren. Die spezifischen Informationen, die wir sammeln können, variieren je nach externem Diensteanbieter, aber die Berechtigungsseite für jeden wird die relevanten Informationen beschreiben. Externe Diensteanbieter kontrollieren, wie sie Ihre Informationen verwenden und weitergeben; Sie sollten deren jeweilige Datenschutzrichtlinien für Informationen über deren Praktiken konsultieren."
+    auto_collect_heading: "Automatisch gesammelte Informationen über Ihre Aktivitäten"
+    auto_collect_description: "Wir verwenden Cookies, Protokolldateien, Pixel-Tags, lokale Speicherobjekte (Local Storage) und andere Tracking-Technologien, um automatisch Informationen über Ihre Aktivitäten zu sammeln, wie z.B. Ihre Suchen, Seitenaufrufe, Datum und Uhrzeit Ihres Besuchs und andere Informationen über Ihre Nutzung der CircuitVerse-Plattform."
+    use_info_heading: "Wie wir Ihre Informationen verwenden"
+    use_info_description_html: "Wir verkaufen Ihre persönlich identifizierbaren Informationen &ndash; wie Ihren Namen und Kontaktdaten &ndash; nicht an Dritte für deren eigene Marketingzwecke."
+    cv_uses_info: "CircuitVerse verwendet die von uns gesammelten Informationen:"
+    use_services: "Um Ihnen die Dienste anzubieten, die wir auf der CircuitVerse-Plattform anbieten, mit Ihnen über Ihre Nutzung der CircuitVerse-Plattform zu kommunizieren, auf Ihre Anfragen zu antworten, Fehlerbehebung anzubieten und für andere Kundendienstzwecke."
+    tailor_content: "Um die Inhalte und Informationen, die wir Ihnen auf der CircuitVerse-Plattform senden oder anzeigen können, anzupassen."
+    understand_users: "Um besser zu verstehen, wie Benutzer auf die CircuitVerse-Plattform zugreifen und sie nutzen, sowohl auf aggregierter als auch auf individueller Basis, und für andere Forschungs- und Analysezwecke."
+    evaluate_improve: "Um die CircuitVerse-Plattform zu evaluieren und zu verbessern und neue Produkte und Dienstleistungen zu entwickeln."
+    comply_legal: "Um gesetzlichen Verpflichtungen nachzukommen, als Teil unseres allgemeinen Geschäftsbetriebs und für andere geschäftliche Verwaltungszwecke."
+    investigate: "Soweit wir es für erforderlich halten, illegale Aktivitäten, Betrugsverdacht oder potenzielle Bedrohungen für die Sicherheit einer Person oder Verstöße gegen unsere Nutzungsbedingungen oder diese Datenschutzrichtlinie zu untersuchen, zu verhindern oder Maßnahmen zu ergreifen."
+    content_activity_heading: "Ihre Inhalte und Aktivitäten"
+    content_activity_description: "Ihre Inhalte, einschließlich Ihres Namens, Profilbilds, Profilinformationen und bestimmter zugehöriger Aktivitätsinformationen, sind für andere Benutzer der CircuitVerse-Plattform verfügbar und können öffentlich eingesehen werden. Die öffentliche Ansicht umfasst die Verfügbarkeit für nicht registrierte Besucher und kann auftreten, wenn Benutzer Ihre Inhalte über andere Websites oder Dienste teilen. Darüber hinaus können Ihre Inhalte von Suchmaschinen indiziert werden."
+    anonymized_heading: "Aggregierte und anonymisierte Daten"
+    anonymized_description: "Wir können aggregierte oder de-identifizierte Informationen mit Dritten für Forschungs-, Marketing-, Analyse- und andere Zwecke teilen, vorausgesetzt, solche Informationen identifizieren keine bestimmte Person."
+    tracking_heading: "Tracking"
+    analytics_tools_heading: "Analysetools"
+    analytics_tools_description_html: >-
+      Wir können interne und externe Analysetools verwenden, einschließlich <a 
+      rel='noopener nofollow' 
+      target='_blank'
+      class='external_link'
+      data-qt-tooltip='google.com' 
+      href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a>.
+    analytics_info: "Die Drittanbieter-Analyseunternehmen, mit denen wir zusammenarbeiten, können die gesammelten Informationen mit anderen Informationen kombinieren, die sie unabhängig von anderen Websites und/oder anderen Online-Produkten und -Diensten gesammelt haben. Ihre Sammlung und Nutzung von Informationen unterliegt ihren eigenen Datenschutzrichtlinien."
+    contact_heading: "Kontaktieren Sie uns"
+    contact_description: "Wenn Sie Fragen zu unseren Praktiken oder dieser Datenschutzrichtlinie haben, kontaktieren Sie uns bitte unter"
+    support_email: "support@circuitverse.org"

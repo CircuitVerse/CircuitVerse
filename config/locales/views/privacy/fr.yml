@@ -1,0 +1,39 @@
+fr:
+  privacy:
+    title: "CircuitVerse - Confidentialité"
+    main_heading: "Confidentialité"
+    recognition_html: "Nous reconnaissons que votre vie privée est très importante et nous la prenons au sérieux. Notre Politique de Confidentialité de CircuitVerse (“Politique de Confidentialité”) décrit nos politiques et procédures concernant la collecte, l'utilisation, la divulgation et le partage de vos informations lorsque vous utilisez notre Plateforme. Nous n'utiliserons ni ne partagerons vos informations avec quiconque, sauf comme décrit dans cette Politique de Confidentialité. Les termes commençant par une majuscule qui ne sont pas définis dans cette Politique de Confidentialité ont la signification qui leur est donnée dans nos <a href='https://circuitverse.org/tos'><i>Conditions d'Utilisation</i></a>."
+    information_collect_heading: "Les Informations que Nous Collectons"
+    information_collect_description: "Nous collectons des informations directement auprès des individus et automatiquement via la Plateforme CircuitVerse."
+    account_profile_heading: "Informations de Compte et de Profil"
+    account_profile_description: "Lorsque vous créez un compte et un profil sur la Plateforme CircuitVerse, nous collectons votre identifiant e-mail. Votre nom, photo et toute autre information que vous choisissez d'ajouter à votre profil public seront disponibles pour être consultés par les utilisateurs de notre Plateforme. Une fois que vous activez un profil, d'autres utilisateurs pourront voir dans votre profil certaines informations concernant votre activité."
+    integrated_service_heading: "Fournisseur de Services Intégrés et Réseaux Liés"
+    integrated_service_description: "Si vous choisissez de connecter votre compte CircuitVerse à un autre fournisseur de services en ligne, comme un service de réseau social (“Fournisseur de Services Intégrés”), vous nous autorisez à transmettre et à recevoir du Fournisseur de Services Intégrés vos informations de connexion et autres données utilisateur. Vous pouvez choisir de vous connecter ou de vous inscrire à la Plateforme CircuitVerse via un réseau lié comme Facebook ou Google (chacun étant un “Réseau Lié”). Les informations spécifiques que nous pouvons collecter varient selon le Fournisseur de Services Intégrés, mais la page d'autorisations pour chacun décrira les informations pertinentes. Les Fournisseurs de Services Intégrés contrôlent la façon dont ils utilisent et partagent vos informations; vous devriez consulter leurs politiques de confidentialité respectives pour obtenir des informations sur leurs pratiques."
+    auto_collect_heading: "Informations Collectées Automatiquement sur Votre Activité"
+    auto_collect_description: "Nous utilisons des cookies, des fichiers journaux, des balises pixel, des objets de stockage local et d'autres technologies de suivi pour collecter automatiquement des informations sur vos activités, telles que vos recherches, vos consultations de pages, la date et l'heure de votre visite, et d'autres informations concernant votre utilisation de la Plateforme CircuitVerse."
+    use_info_heading: "Comment Nous Utilisons Vos Informations"
+    use_info_description_html: "Nous ne vendons pas vos informations personnelles identifiables &ndash; comme votre nom et vos coordonnées &ndash; à des tiers pour qu'ils les utilisent à leurs propres fins marketing."
+    cv_uses_info: "CircuitVerse utilise les informations que nous collectons :"
+    use_services: "Pour vous fournir les services que nous offrons sur la Plateforme CircuitVerse, communiquer avec vous concernant votre utilisation de la Plateforme CircuitVerse, répondre à vos demandes, fournir un dépannage et pour d'autres fins de service client."
+    tailor_content: "Pour adapter le contenu et les informations que nous pouvons vous envoyer ou vous afficher sur la Plateforme CircuitVerse."
+    understand_users: "Pour mieux comprendre comment les utilisateurs accèdent et utilisent la Plateforme CircuitVerse, tant de manière agrégée qu'individualisée, et pour d'autres fins de recherche et d'analyse."
+    evaluate_improve: "Pour évaluer et améliorer la Plateforme CircuitVerse et pour développer de nouveaux produits et services."
+    comply_legal: "Pour se conformer aux obligations légales, dans le cadre de nos opérations commerciales générales et pour d'autres fins d'administration commerciale."
+    investigate: "Lorsque nous estimons nécessaire d'enquêter, de prévenir ou de prendre des mesures concernant des activités illégales, des soupçons de fraude, des situations impliquant des menaces potentielles pour la sécurité de toute personne ou des violations de nos Conditions d'Utilisation ou de cette Politique de Confidentialité."
+    content_activity_heading: "Votre Contenu et Activité"
+    content_activity_description: "Votre Contenu, y compris votre nom, photo de profil, informations de profil et certaines informations d'activité associées, est disponible pour les autres utilisateurs de la Plateforme CircuitVerse et peut être vu publiquement. La visualisation publique inclut la disponibilité pour les visiteurs non enregistrés et peut se produire lorsque les utilisateurs partagent Votre Contenu sur d'autres sites ou services. De plus, Votre Contenu peut être indexé par les moteurs de recherche."
+    anonymized_heading: "Données Anonymisées et Agrégées"
+    anonymized_description: "Nous pouvons partager des informations agrégées ou désidentifiées avec des tiers à des fins de recherche, de marketing, d'analyse et autres, à condition que ces informations n'identifient pas une personne particulière."
+    tracking_heading: "Suivi"
+    analytics_tools_heading: "Outils d'Analyse"
+    analytics_tools_description_html: >-
+      Nous pouvons utiliser des outils d'analyse internes et tiers, notamment <a 
+      rel='noopener nofollow' 
+      target='_blank'
+      class='external_link'
+      data-qt-tooltip='google.com' 
+      href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a>.
+    analytics_info: "Les sociétés d'analyse tierces avec lesquelles nous travaillons peuvent combiner les informations collectées avec d'autres informations qu'elles ont collectées indépendamment d'autres sites web et/ou d'autres produits et services en ligne. Leur collecte et utilisation d'informations sont soumises à leurs propres politiques de confidentialité."
+    contact_heading: "Contactez-Nous"
+    contact_description: "Si vous avez des questions concernant nos pratiques ou cette Politique de Confidentialité, veuillez nous contacter à"
+    support_email: "support@circuitverse.org"
