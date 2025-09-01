@@ -28,11 +28,15 @@ class PaginateRenderer < WillPaginate::ActionView::LinkRenderer
     previous_or_next_page(num, @options[:next_label], 'page-link')
   end
 
-  def previous_or_next_page(page, text, classname)
+  def previous_or_next_page(page, text, _classname)
     if page
-      link(text, "/?page=#{page}#recent", :class => classname)
+      tag("li",
+          link(text, page, class: "page-link", rel: rel_value(page)),
+          class: "page-item")
     else
-      tag(:span, text, :class => classname + ' bg-dark-blue near-white')
+      tag("li",
+          tag(:span, text, class: "page-link"),
+          class: "page-item disabled")
     end
   end
 end

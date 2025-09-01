@@ -5,7 +5,6 @@ require "rails_helper"
 describe "User profile", type: :system do
   before do
     @user = sign_in_random_user
-    sign_in @user
   end
 
   it "shows user profile" do

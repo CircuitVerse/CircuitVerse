@@ -2,10 +2,20 @@
 
 FactoryBot.define do
   factory :user do
-    email { Faker::Internet.email }
-    password { Faker::Alphanumeric.alphanumeric number: 10 }
-    name { Faker::Name.name }
-    locale { Faker::Config.locale }
-    admin { false }
+    sequence(:email) { |n| "user#{n}@example.com" }
+
+    password { "password123" }
+
+    name   { Faker::Name.name }
+    locale { "en" }
+    admin  { false }
+
+    trait :admin do
+      admin { true }
+    end
+
+    trait :confirmed do
+      confirmed_at { Time.current }
+    end
   end
 end

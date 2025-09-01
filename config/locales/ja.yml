@@ -43,6 +43,14 @@ ja:
       options:
         users: "ユーザー"
         projects: "プロジェクト"
+      sorting:
+        users:
+          join_date: "参加日"
+          total_circuits: "回路の合計"
+        projects:
+          created_date: "作成日"
+          views: "ビュー"
+          stars: "星"
     project:
       show_more: "詳細を表示"
       options:

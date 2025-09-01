@@ -16,6 +16,7 @@
   
   .contests-list-wrapper {
     margin-top: 2rem;
+    margin-bottom: 2rem;
   }
   
   .contest-container {
@@ -207,3 +208,12 @@
       background-color: $contest-danger-primary-button-hover;
     }
   }
+
+.leaderboard-button {
+  display: inline-block;
+}
+
+.leaderboard-rank .emoji-badge {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}

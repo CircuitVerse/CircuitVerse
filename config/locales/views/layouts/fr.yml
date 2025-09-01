@@ -10,9 +10,11 @@ fr:
     link_to_about: "À propos de"
     link_to_faq: "Foire Aux Questions"
     link_to_contests: "Concours"
+    link_to_explore: "Explorer"
     footer:
       social_icon_text: "Suivez-nous sur:"
       link_to_examples: "Exemples"
+      link_to_explore: "Explorer"
       my_circuits: "Mes Circuits"
       link_to_contribute: "Contribuer"
       link_to_forum: "Forums"
