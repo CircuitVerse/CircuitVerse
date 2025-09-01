@@ -278,8 +278,8 @@ GEM
       rack-protection (>= 1.5.3, < 5.0.0)
       rack-session (>= 1.0.2, < 3.0.0)
       sanitize (< 8)
-    font-awesome-sass (5.13.1)
-      sassc (>= 1.11)
+    font-awesome-sass (6.7.2)
+      sassc (~> 2.0)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     geocoder (1.8.5)
@@ -1021,7 +1021,7 @@ DEPENDENCIES
   faker
   flipper-redis
   flipper-ui
-  font-awesome-sass (~> 5.13.1)
+  font-awesome-sass (~> 6.7.2)
   friendly_id (~> 5.5.1)
   geocoder
   hirb
