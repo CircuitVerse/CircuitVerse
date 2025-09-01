@@ -26,13 +26,7 @@ hi:
     anonymized_description: "हम शोध, मार्केटिंग, विश्लेषण और अन्य उद्देश्यों के लिए तीसरे पक्षों के साथ समेकित या डी-आइडेंटिफाइड जानकारी साझा कर सकते हैं, बशर्ते ऐसी जानकारी किसी विशेष व्यक्ति की पहचान न करे।"
     tracking_heading: "ट्रैकिंग"
     analytics_tools_heading: "विश्लेषण उपकरण"
-    analytics_tools_description_html: >-
-      हम आंतरिक और तृतीय पक्ष विश्लेषण उपकरणों का उपयोग कर सकते हैं, जिनमें <a
-      rel='noopener noreferrer nofollow'
-      target='_blank'
-      class='external_link'
-      data-qt-tooltip='google.com'
-      href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a> शामिल है।
+    analytics_tools_description_html: "हम आंतरिक और तृतीय पक्ष विश्लेषण उपकरणों का उपयोग कर सकते हैं, जिनमें <a rel='noopener noreferrer nofollow' target='_blank' class='external_link' data-qt-tooltip='google.com' href='https://support.google.com/analytics/answer/6004245?hl=en'><i>Google Analytics</i></a> शामिल है।"
     analytics_info: "जिन तृतीय पक्ष विश्लेषण कंपनियों के साथ हम काम करते हैं, वे एकत्र की गई जानकारी को अन्य जानकारी के साथ संयोजित कर सकती हैं जिन्हें उन्होंने स्वतंत्र रूप से अन्य वेबसाइटों और/या अन्य ऑनलाइन उत्पादों और सेवाओं से एकत्र किया है। उनके द्वारा जानकारी का संग्रह और उपयोग उनकी अपनी गोपनीयता नीतियों के अधीन है।"
     contact_heading: "हमसे संपर्क करें"
     contact_description: "यदि आपके पास हमारी प्रथाओं या इस गोपनीयता नीति के बारे में कोई प्रश्न हैं, तो कृपया हमसे संपर्क करें"
