@@ -371,6 +371,22 @@
   top: 90%;
 }
 
+.dropdown-menu.dropdown-notification.dropdown-menu-end {
+  right: 0;
+  left: auto;
+}
+
+
+[dir="rtl"] .dropdown-menu.dropdown-notification {
+  left: 0 !important;
+  right: auto !important;
+  width: 450px;
+  transform-origin: top left !important;
+  max-width: calc(100vw - 20px); 
+  margin-left: 0;
+  margin-right: 0;
+}
+
 //breakpoints
 
 // Ensure stacked search layout takes full width on extra-small screens
