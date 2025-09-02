@@ -54,9 +54,9 @@ RSpec.describe Adapters::PgAdapter do
       it "applies sorting to results" do
         allow(Project).to receive(:public_and_not_forked).and_return(mock_results)
 
-        expect(mock_results).to receive(:order).with(created_at: :desc)
-
         adapter.search_project(project_relation, query_params)
+
+        expect(mock_results).to have_received(:order).with(created_at: :desc)
       end
     end
 
@@ -74,11 +74,11 @@ RSpec.describe Adapters::PgAdapter do
       end
 
       it "filters by tags" do
-        expect(mock_results).to receive(:joins).with(:tags)
-        expect(mock_results).to receive(:where).with(tags: { name: %w[electronics circuit] })
-        expect(mock_results).to receive(:distinct)
-
         adapter.search_project(project_relation, query_params)
+
+        expect(mock_results).to have_received(:joins).with(:tags)
+        expect(mock_results).to have_received(:where).with(tags: { name: %w[electronics circuit] })
+        expect(mock_results).to have_received(:distinct)
       end
     end
   end
@@ -114,9 +114,9 @@ RSpec.describe Adapters::PgAdapter do
       let(:query_params) { { country: "India", page: 1 } }
 
       it "filters by country case-insensitively" do
-        expect(mock_results).to receive(:where).with("LOWER(country) = LOWER(?)", "India")
-
         adapter.search_user(user_relation, query_params)
+
+        expect(mock_results).to have_received(:where).with("LOWER(country) = LOWER(?)", "India")
       end
     end
 
@@ -124,9 +124,9 @@ RSpec.describe Adapters::PgAdapter do
       let(:query_params) { { institute: "MIT", page: 1 } }
 
       it "filters by institute using partial matching" do
-        expect(mock_results).to receive(:where).with("educational_institute ILIKE ?", "%MIT%")
-
         adapter.search_user(user_relation, query_params)
+
+        expect(mock_results).to have_received(:where).with("educational_institute ILIKE ?", "%MIT%")
       end
     end
   end
@@ -145,9 +145,9 @@ RSpec.describe Adapters::PgAdapter do
       allow(mock_relation).to receive(:paginate).and_return(double)
 
       # Should not call order for invalid sort field
-      expect(mock_relation).not_to receive(:order)
-
       adapter.search_project(mock_relation, query_params)
+
+      expect(mock_relation).not_to have_received(:order)
     end
 
     it "handles ascending sort direction" do
@@ -156,9 +156,9 @@ RSpec.describe Adapters::PgAdapter do
       allow(Project).to receive(:public_and_not_forked).and_return(mock_relation)
       allow(mock_relation).to receive(:paginate).and_return(double)
 
-      expect(mock_relation).to receive(:order).with(created_at: :asc)
-
       adapter.search_project(mock_relation, query_params)
+
+      expect(mock_relation).to have_received(:order).with(created_at: :asc)
     end
   end
 end

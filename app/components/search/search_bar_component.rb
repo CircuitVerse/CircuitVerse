@@ -6,14 +6,14 @@ class Search::SearchBarComponent < ViewComponent::Base
   DEFAULT_SORT_DIRECTION = "desc"
 
   SORTING_OPTIONS_FOR_USERS = [
-    { value: "created_at".freeze, label: -> { I18n.t("components.search_bar.sorting.users.join_date") } },
-    { value: "total_circuits".freeze, label: -> { I18n.t("components.search_bar.sorting.users.total_circuits") } }
+    { value: "created_at", label: -> { I18n.t("components.search_bar.sorting.users.join_date") } },
+    { value: "total_circuits", label: -> { I18n.t("components.search_bar.sorting.users.total_circuits") } }
   ].freeze
 
   SORTING_OPTIONS_FOR_PROJECTS = [
-    { value: "created_at".freeze, label: -> { I18n.t("components.search_bar.sorting.projects.created_date") } },
-    { value: "views".freeze, label: -> { I18n.t("components.search_bar.sorting.projects.views") } },
-    { value: "stars".freeze, label: -> { I18n.t("components.search_bar.sorting.projects.stars") } }
+    { value: "created_at", label: -> { I18n.t("components.search_bar.sorting.projects.created_date") } },
+    { value: "views", label: -> { I18n.t("components.search_bar.sorting.projects.views") } },
+    { value: "stars", label: -> { I18n.t("components.search_bar.sorting.projects.stars") } }
   ].freeze
 
   def initialize(
