@@ -2,8 +2,8 @@
 
 class Search::SearchBarComponent < ViewComponent::Base
   RESOURCE_OPTIONS = %w[Projects Users].freeze
-  DEFAULT_SORT_BY = "created_at".freeze
-  DEFAULT_SORT_DIRECTION = "desc".freeze
+  DEFAULT_SORT_BY = "created_at"
+  DEFAULT_SORT_DIRECTION = "desc"
 
   SORTING_OPTIONS_FOR_USERS = [
     { value: "created_at".freeze, label: -> { I18n.t("components.search_bar.sorting.users.join_date") } },
@@ -23,7 +23,7 @@ class Search::SearchBarComponent < ViewComponent::Base
     countries: nil,
     current_filters: nil
   )
-    super
+    super()
     @resource = resource
     @query = query
     @sort_by = sorting[:sort_by] || sorting["sort_by"] || DEFAULT_SORT_BY

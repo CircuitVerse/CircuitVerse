@@ -270,7 +270,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def project_params
-      params.require(:project).permit(:name, :project_access_type, :description, :tag_list)
+      params.expect(project: %i[name project_access_type description tag_list])
     end
 end
 # rubocop:enable Metrics/ClassLength
