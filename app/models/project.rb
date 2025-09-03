@@ -11,7 +11,7 @@ class Project < ApplicationRecord
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
 
-  belongs_to :author, class_name: "User", counter_cache: :projects_count
+  belongs_to :author, class_name: "User", counter_cache: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
