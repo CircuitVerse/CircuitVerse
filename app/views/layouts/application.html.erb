@@ -48,19 +48,29 @@
       if (verificationBanner) {
         // Check if banner was dismissed recently (within 1 week)
         const dismissedTime = localStorage.getItem('emailVerificationBannerDismissedAt');
+        let shouldHideBanner = false;
+        
         if (dismissedTime) {
           const oneWeekInMs = 7 * 24 * 60 * 60 * 1000; // 1 week in milliseconds
           const timeSinceDismissal = Date.now() - parseInt(dismissedTime);
           
           if (timeSinceDismissal < oneWeekInMs) {
-            verificationBanner.style.display = 'none';
+            shouldHideBanner = true;
           }
+        }
+        
+        if (shouldHideBanner) {
+          verificationBanner.style.display = 'none';
+          document.body.classList.remove('has-verification-banner');
+        } else {
+          document.body.classList.add('has-verification-banner');
         }
       }
     });
 
     function dismissVerificationBanner() {
       localStorage.setItem('emailVerificationBannerDismissedAt', Date.now().toString());
+      document.body.classList.remove('has-verification-banner');
     }
   </script>
 </body>
