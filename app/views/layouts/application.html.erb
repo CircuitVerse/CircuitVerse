@@ -32,6 +32,7 @@
   <!-- Custom Script for Alert -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      // Auto-dismiss alerts (except permanent ones)
       document.querySelectorAll('.alert').forEach(alert => {
         const bsAlert = new bootstrap.Alert(alert);
         if (!alert.classList.contains('alert-permanent')) {
@@ -41,7 +42,26 @@
           }, 3000);
         }
       });
+
+      // Email verification banner dismiss functionality
+      const verificationBanner = document.getElementById('email-verification-banner');
+      if (verificationBanner) {
+        // Check if banner was dismissed recently (within 1 week)
+        const dismissedTime = localStorage.getItem('emailVerificationBannerDismissedAt');
+        if (dismissedTime) {
+          const oneWeekInMs = 7 * 24 * 60 * 60 * 1000; // 1 week in milliseconds
+          const timeSinceDismissal = Date.now() - parseInt(dismissedTime);
+          
+          if (timeSinceDismissal < oneWeekInMs) {
+            verificationBanner.style.display = 'none';
+          }
+        }
+      }
     });
+
+    function dismissVerificationBanner() {
+      localStorage.setItem('emailVerificationBannerDismissedAt', Date.now().toString());
+    }
   </script>
 </body>
 </html>
