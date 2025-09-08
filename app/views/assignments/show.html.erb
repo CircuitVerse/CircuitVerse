@@ -44,7 +44,7 @@
           <% if policy(@assignment).admin_access? && @assignment.status!="closed" %>
             <br>
             <%= link_to edit_group_assignment_path(@group, @assignment), class: "mini-button groups-reopen-mini-button" do %>
-              <%= image_tag("SVGs/editGroup.svg", alt: "Edit Assignment") %>
+              <%= image_tag("svgs/editGroup.svg", alt: "Edit Assignment") %>
               <span><%= t("edit") %></span>
             <% end %>
           <% end %>

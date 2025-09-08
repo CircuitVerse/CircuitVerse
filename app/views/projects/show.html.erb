@@ -46,7 +46,7 @@
         <div class="row projects-views-count-container noSelect">
           <div class="w-25">
             <i class="fas fa-star text-warning" aria-hidden="true"></i>
-            <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
+            <span id="star-count" class="noSelect"><%= @project.stars_count %></span>
             <%= t("projects.stars_count") %>
           </div>
           <div class="w-25">
@@ -112,12 +112,12 @@
               <% end %>
               <% if policy(@project).author_access? %>
                 <%= link_to create_fork_project_path(@project), id: "copy_paste", class: "btn primary-button projects-primary-button", method: :post do %>
-                  <%= image_tag("SVGs/createCopy.svg", alt: "Create Copy") %>
+                  <%= image_tag("svgs/createCopy.svg", alt: "Create Copy") %>
                   <span><%= t("projects.show.project_copy") %></span>
                 <% end %>
               <% else %>
                   <%= link_to create_fork_project_path(@project), class: "btn primary-button projects-primary-button", method: :post do %>
-                  <%= image_tag("SVGs/forkProject.svg", alt: "Fork Project") %>
+                  <%= image_tag("svgs/forkProject.svg", alt: "Fork Project") %>
                   <span><%= t("fork") %></span>
                 <% end %>
               <% end %>
@@ -137,11 +137,11 @@
             <hr class="projects-horizontal-rule">
             <p class="d-block mb-2 text-start w-75">
               <%= link_to edit_user_project_path(@author, @project), class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center" do %>
-                <%= image_tag("SVGs/editProject.svg", alt: "Edit Project") %>
+                <%= image_tag("svgs/editProject.svg", alt: "Edit Project") %>
                 <span><%= t("edit") %></span>
               <% end %>
               <%= link_to "#", class: "btn secondary-button ml-0 py-1 px-2 d-inline-flex justify-content-center align-items-center", data: { bs_toggle: "modal", bs_target: "#deleteprojectModal", currentauthor: @author.id, currentproject: @project.id } do %>
-                <%= image_tag("SVGs/deleteProject.svg", alt: "Delete Project") %>
+                <%= image_tag("svgs/deleteProject.svg", alt: "Delete Project") %>
                 <span><%= t("delete") %></span>
               <% end %>
               <a class="btn secondary-button ms-0 py-1 px-2 d-inline-flex justify-content-center align-items-center projects-self-embed-button embed-trigger" href="#" data-bs-target="#embedProjectCircuit" data-bs-toggle="modal">
@@ -183,7 +183,7 @@
                   <div class="col-4 col-sm-4 col-md-3 col-lg-3">
                     <div class="projects-collaborators-button-container">
                       <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
-                        <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Collaboration") %>
+                        <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Collaboration") %>
                         <span><%= t("remove") %></span>
                       <% end %>
                     </div>
