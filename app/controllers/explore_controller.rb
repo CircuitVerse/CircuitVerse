@@ -28,11 +28,13 @@ class ExploreController < ApplicationController
       Project
         .joins(:featured_circuit)
         .includes(:author, :stars)
+        .with_attached_circuit_preview
         .order("featured_circuits.created_at DESC")
         .limit(1)
         .first || Project.open
                          .where(projects: { updated_at: 1.week.ago.. })
                          .includes(:author, :stars)
+                         .with_attached_circuit_preview
                          .order(view: :desc, id: :desc)
                          .limit(1)
                          .first
@@ -41,6 +43,7 @@ class ExploreController < ApplicationController
     def editor_picks
       Project.joins(:featured_circuit)
              .includes(:author, :stars)
+             .with_attached_circuit_preview
              .order("featured_circuits.created_at DESC")
              .limit(EDITOR_PICKS_MAX)
     end
@@ -86,16 +89,22 @@ class ExploreController < ApplicationController
     end
 
     def recent_base_scope
-      Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description)
+      Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description, :stars_count)
              .public_and_not_forked
              .includes(:author, :stars)
+             .with_attached_circuit_preview
     end
 
     def top_tags
-      Tag.joins(:projects)
-         .merge(Project.open)
-         .group("tags.id")
-         .order(Arel.sql("COUNT(taggings.id) DESC"))
-         .limit(MAX_TAGS)
+      Rails.cache.fetch("explore/top_tags:v1:limit=#{MAX_TAGS}", expires_in: 5.hours, race_condition_ttl: 10) do
+        Tag
+          .joins(:projects)
+          .merge(Project.open)
+          .group("tags.id")
+          .order(Arel.sql("COUNT(taggings.id) DESC"))
+          .limit(MAX_TAGS)
+          .select(:id, :name)
+          .to_a
+      end
     end
 end

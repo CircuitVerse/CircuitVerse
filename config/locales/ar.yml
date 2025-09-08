@@ -43,6 +43,28 @@ ar:
       options:
         users: "المستخدمون"
         projects: "مشاريع"
+      sorting:
+        users:
+          join_date: "تاريخ الانضمام"
+          total_circuits: "مجموع الدوائر"
+        projects:
+          created_date: "تاريخ الإنشاء"
+          views: "المشاهدات"
+          stars: "النجوم"
+      filters:
+        button_text: "فلاتر"
+        apply_button_text: "تطبيق"
+        projects:
+          tags:
+            label: "الوسوم"
+            placeholder: "إضافة علامة..."
+        users:
+          country:
+            label: "البلد"
+            placeholder: "حدد البلد..."
+          institute:
+            label: "المعهد"
+            placeholder: "أدخل المعهد..."
     project:
       show_more: "إظهار المزيد"
       options:

@@ -43,6 +43,28 @@ es:
       options:
         users: "Usuarios"
         projects: "Proyectos"
+      sorting:
+        users:
+          join_date: "Fecha de unión"
+          total_circuits: "Circuitos totales"
+        projects:
+          created_date: "Fecha de creación"
+          views: "Vistas"
+          stars: "Estrellas"
+      filters:
+        button_text: "Filtros"
+        apply_button_text: "Aplicar"
+        projects:
+          tags:
+            label: "Etiquetas"
+            placeholder: "Añadir una etiqueta..."
+        users:
+          country:
+            label: "País"
+            placeholder: "Seleccionar país..."
+          institute:
+            label: "Instituto"
+            placeholder: "Introducir instituto..."
     project:
       show_more: "Mostrar más"
       options:

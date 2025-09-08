@@ -4,13 +4,14 @@ require "pg_search"
 
 class Project < ApplicationRecord
   extend FriendlyId
+
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns += ["data"]
+  self.ignored_columns += %w[data searchable]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
 
-  belongs_to :author, class_name: "User"
+  belongs_to :author, class_name: "User", counter_cache: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
@@ -40,32 +41,13 @@ class Project < ApplicationRecord
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
+
   accepts_nested_attributes_for :project_datum
   pg_search_scope :text_search, against: %i[name description], using: {
     tsearch: {
       dictionary: "english", tsvector_column: "searchable"
     }
   }
-
-  trigger.before(:insert, :update) do
-    "tsvector_update_trigger(
-        searchable, 'pg_catalog.english', description, name
-      );"
-  end
-
-  searchable do
-    text :name
-
-    text :description
-
-    text :author do
-      author.name
-    end
-
-    text :tags do
-      tags.map(&:name)
-    end
-  end
 
   after_update :check_and_remove_featured
 

@@ -1,5 +1,17 @@
 en:
   contest:
+    leaderboard:
+      title: "Contest #%{id} — Leaderboard"
+      subtitle: "Final standings by votes; ties broken by earlier submission."
+      back_to_contest: "Back To Contest"
+      no_submissions: "No submissions"
+      columns:
+        rank: "Rank"
+        project: "Project"
+        author: "Author"
+        votes: "Votes"
+        submitted_at: "Submitted At"
+      winner_badge: "Winner"
     heading: "CONTEST"
     index:
       subtitle: "Contests where students show off their amazing circuits and best ones are featured on our homepage!"
@@ -18,6 +30,7 @@ en:
       user_submissions_description: "You can withdraw your submission from contest."
       contest_entries: "Contest Entries(%{submission_count})"
       contest_entries_description: "Vote for your favourite entries and help us choose our winners for this week! One user gets 3 votes."
+      view_leaderboard: "View Leaderboard"
     votes: "Votes"
     votes_count:
       one: "%{count} vote"

@@ -2,7 +2,7 @@
 
 class ProjectEmbedComponent < ViewComponent::Base
   def initialize(project)
-    super
+    super()
     @project = project
   end
 end
