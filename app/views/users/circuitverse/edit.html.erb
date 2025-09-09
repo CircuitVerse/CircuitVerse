@@ -49,6 +49,14 @@
               <div class="primary-checkpoint"></div>
             </label>
           </div>
+          <% unless current_user.confirmed? %>
+            <div class="field mb-3">
+              <button type="button" id="resend-verification-btn" class="btn btn-secondary users-resend-verification-button">
+                <%= t("users.circuitverse.edit_profile.resend_verification") %>
+              </button>
+              <div id="verification-message" class="mt-2" style="display: none;"></div>
+            </div>
+          <% end %>
           <button type="submit" class="btn primary-button users-edit-primary-button"><%= t("save") %></button>
           <%= link_to t("back"), :back, class: "anchor-text" %>
         <% end %>
@@ -131,4 +139,42 @@
   document.querySelector('#remove_pic').addEventListener('change', function() {
       document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
   });
+
+  // Resend email verification functionality
+  const resendBtn = document.getElementById('resend-verification-btn');
+  const messageDiv = document.getElementById('verification-message');
+  
+  if (resendBtn) {
+    resendBtn.addEventListener('click', function() {
+      const originalText = resendBtn.textContent;
+      resendBtn.disabled = true;
+      resendBtn.textContent = 'Sending...';
+      messageDiv.style.display = 'none';
+      
+      fetch('<%= resend_confirmation_path(current_user) %>', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        messageDiv.style.display = 'block';
+        if (data.success) {
+          messageDiv.innerHTML = '<div class="alert alert-success">' + data.message + '</div>';
+        } else {
+          messageDiv.innerHTML = '<div class="alert alert-danger">' + data.message + '</div>';
+        }
+      })
+      .catch(error => {
+        messageDiv.style.display = 'block';
+        messageDiv.innerHTML = '<div class="alert alert-danger">An error occurred. Please try again.</div>';
+      })
+      .finally(() => {
+        resendBtn.disabled = false;
+        resendBtn.textContent = originalText;
+      });
+    });
+  }
 </script>

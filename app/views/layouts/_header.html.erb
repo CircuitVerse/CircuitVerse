@@ -1,3 +1,4 @@
+<div class="fixed-header-container">
 <nav class="navbar navbar-expand-lg bg-white">
   <div class="container">
     <a class="navbar-brand" href="/">
@@ -87,6 +88,10 @@
     current_filters: @current_filters
   )) %>
 </div>
+
+<%= render "layouts/email_verification_banner" %>
+</div>
+
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
     const searchIcons = document.getElementsByClassName("fa-search");
