@@ -125,7 +125,7 @@ Rails.application.routes.draw do
   end
 
   namespace :admin, path: "admins" do
-    resources :contests, only: %i[index create update]
+    resources :contests, only: %i[index create update destroy]
   end
 
   # lti
