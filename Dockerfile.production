@@ -53,7 +53,7 @@ RUN npm install --ignore-scripts
 COPY cv-frontend-vue/ ./
 
 # Build Vue simualtor
-RUN npm run build
+RUN npm run build && ls -laR /public
 
 FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim as app
 
