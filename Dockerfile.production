@@ -59,7 +59,7 @@ FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim as app
 
 # Copy compiled assets and application from builder and Vue simulator build stages
 COPY --from=builder /usr/src/app /usr/src/app
-COPY --from=simulator_vue_build /public/simulatorvue /usr/src/app/public/simulatorvue
+COPY --from=simulator_vue_build /public/simulatorvue/v0 /usr/src/app/public/simulatorvue
 
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
