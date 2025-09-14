@@ -135,15 +135,11 @@ Rails.application.routes.draw do
 
   mount Commontator::Engine => "/commontator"
 
-  # Vue simulator routes
-  scope "/simulatorvue" do
-    get "/", to: "static#simulatorvue", as: "default_simulatorvue"
-    get "/:id", to: "static#simulatorvue", as: "vue_simulator"
-    get "/edit/:id", to: "static#simulatorvue", as: "vue_simulator_edit"
-    get "/embed/:id", to: "static#simulatorvue", as: "vue_simulator_embed"
-    # Catchall route for Vue simulator paths
-    get "/*path", to: "static#simulatorvue", as: "simulatorvue"
-  end
+  # Default route for Vue simulator
+  get 'simulatorvue', to: 'static#simulatorvue', as: 'default_simulatorvue'
+
+  # Vue simulaltor Route with catchall
+  get 'simulatorvue/*path', to: 'static#simulatorvue', as: 'simulatorvue'
 
   # simulator
   scope "/simulator" do

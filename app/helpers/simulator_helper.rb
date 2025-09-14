@@ -52,8 +52,4 @@ module SimulatorHelper
     data["scopes"] = parsed_scopes
     data.to_json
   end
-
-  def vue_embed_path(project)
-    vue_simulator_embed_path(id: project.id)
-  end
 end
