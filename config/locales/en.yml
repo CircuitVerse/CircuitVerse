@@ -51,20 +51,6 @@ en:
           created_date: "Created Date"
           views: "Views"
           stars: "Stars"
-      filters:
-        button_text: "Filters"
-        apply_button_text: "Apply"
-        projects:
-          tags:
-            label: "Tags"
-            placeholder: "Add a tag..."
-        users:
-          country:
-            label: "Country"
-            placeholder: "Select Country..."
-          institute:
-            label: "Institute"
-            placeholder: "Enter institute..."
     project:
       show_more: "Show More"
       options:
@@ -107,3 +93,5 @@ en:
       almost_x_years:
         one: "1 year" # default was: "almost 1 year"
         other: "%{count} years" # default was: "almost %{count} years"
+  deleted_project:
+    name: "Deleted Project"
