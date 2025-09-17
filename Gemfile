@@ -92,7 +92,7 @@ gem "http", "~> 4.4"
 
 # Database
 
-gem "pg", "~> 1.6.1"
+gem "pg", "~> 1.6.2"
 
 gem "meta-tags"
 
@@ -190,10 +190,10 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.176"
+gem "aws-sdk-s3", "~> 1.199"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.8"
+gem "opentelemetry-sdk", "~> 1.9"
 gem "opentelemetry-exporter-otlp", "~> 0.30.0"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
