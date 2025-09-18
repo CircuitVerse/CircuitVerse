@@ -125,6 +125,16 @@ class Project < ApplicationRecord
 
   validate :check_validity
   validate :clean_description
+    
+  def sim_version
+    raw_data = project_datum&.data
+    parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
+    sim_version = parsed_data["simulatorVersion"] || "legacy"
+  end
+
+  def uses_vue_simulator?
+    sim_version == "v0" || sim_version == "v1"
+  end
 
   private
 

@@ -33,12 +33,8 @@ class ProjectsController < ApplicationController
     commontator_thread_show(@project)
 
     # Resolve simulator embed path
-    raw_data = @project.project_datum&.data
-    parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
-    sim_version = parsed_data["simulatorVersion"] || "legacy"
-
     @embed_path =
-      if sim_version == "v0" || sim_version == "v1"
+      if @project.uses_vue_simulator?
         simulatorvue_path(@project)
       else
         simulator_path(@project)
