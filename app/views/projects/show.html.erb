@@ -30,15 +30,7 @@
     <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
       <div class="border border-secondary-subtle mb-5 p-2">
         <div class="ratio ratio-4x3">
-          <% raw_data = @project.project_datum&.data %>
-          <% parsed_data = raw_data.present? ? JSON.parse(raw_data) : {} %>
-          <% sim_version = parsed_data["simulatorVersion"] || "legacy" %>
-
-          <% if sim_version == "v0" || sim_version == "v1" %>
-            <iframe src="<%= simulatorvue_path(@project) %>"></iframe>
-          <% else %>
-            <iframe src="<%= simulator_path(@project) %>"></iframe>
-          <% end %>
+          <iframe src="<%= @embed_path %>"></iframe>
         </div>
       </div>
     </div>
