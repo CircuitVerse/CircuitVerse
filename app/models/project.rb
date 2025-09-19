@@ -125,7 +125,7 @@ class Project < ApplicationRecord
 
   validate :check_validity
   validate :clean_description
-    
+
   def sim_version
     raw_data = project_datum&.data
     parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
