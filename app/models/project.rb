@@ -129,12 +129,11 @@ class Project < ApplicationRecord
   def sim_version
     raw_data = project_datum&.data
     parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
-    parsed_data["simulatorVersion"] || "legacy"
+    sim_version = parsed_data["simulatorVersion"] || "legacy"
   end
 
-
   def uses_vue_simulator?
-    ["v0", "v1"].include?(sim_version)
+    %w[v0 v1].include?(sim_version)
   end
 
   private
