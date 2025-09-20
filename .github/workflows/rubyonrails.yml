@@ -97,13 +97,18 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           bodyContains: "[undercover]"
           noReply: "true"
+      - name: Generate coverage report
+        run: |
+          bundle exec rspec --require spec_helper
+          bundle exec undercover --compare origin/master
+
 
       - name: Run reviewdog
         env:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
         run: |
           git fetch --no-tags
-          reviewdog -reporter=github-pr-review -runners=undercover --fail-on-error
+          reviewdog -reporter=github-pr-review -runners=undercover -fail-level=error
 
       - name: Static type checking
         run: |
