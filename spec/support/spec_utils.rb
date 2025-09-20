@@ -14,14 +14,14 @@ module SpecUtils
 
   def sign_in_random_user
     user = FactoryBot.create(:user)
-    sign_in user
+    sign_in user, scope: :user
     user
   end
 
   def sign_in_group_mentor(group)
     user = FactoryBot.create(:user)
     group.group_members.create(user: user, group: group, mentor: true)
-    sign_in user
+    sign_in user, scope: :user
     user
   end
 
