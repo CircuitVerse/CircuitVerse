@@ -61,7 +61,7 @@ export function openOffline() {
                 const data = JSON.parse(localStorage.getItem($('input[name=projectId]:checked').val()));
                 const simulatorVersion = data.simulatorVersion
                 if(simulatorVersion ){                 
-                    window.location.href = `/simulatorvue/edit/${data.name}?simver=${simulatorVersion}`             
+                    window.location.href = `/simulatorvue/edit/${data.name}?simver=${simulatorVersion}`
                 }
                 load(data);
                 window.projectId = $('input[name=projectId]:checked').val();
