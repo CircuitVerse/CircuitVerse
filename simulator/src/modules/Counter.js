@@ -97,6 +97,8 @@ export default class Counter extends CircuitElement {
             this.zero.value = zeroValue;
             simulationArea.simulationQueue.add(this.zero);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customDraw() {

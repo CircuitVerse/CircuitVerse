@@ -1,0 +1,16 @@
+ar:
+  helpers:
+    label:
+      collaboration:
+        emails: "معرفات البريد الإلكتروني:"
+      project:
+        name: "الاسم"
+        tag_list: "قائمة العلامات"
+        project_access_type: "نوع الوصول إلى المشروع"
+        description: "الوصف"
+    submit:
+      collaboration:
+        create: "إضافة متعاونين"
+      project:
+        create: "إنشاء مشروع"
+        update: "تحديث المشروع"

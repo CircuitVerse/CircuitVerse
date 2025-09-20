@@ -96,6 +96,8 @@ export default class XorGate extends CircuitElement {
 
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
+    
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -162,7 +164,7 @@ export default class XorGate extends CircuitElement {
  * @category modules
  */
 XorGate.prototype.tooltipText =
-    "Xor Gate Tooltip : Implements an exclusive OR.";
+    "Xor Gate ToolTip : Implements an exclusive OR.";
 
 /**
  * @memberof XorGate

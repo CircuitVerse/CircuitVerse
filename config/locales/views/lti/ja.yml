@@ -1,0 +1,9 @@
+ja:
+  launch_error:
+    title: "CircuitVerse - LTI エラー"
+    main-heading: "コンテンツが利用できません"
+    main-description: "要求しているコンテンツは現時点では利用できません。またはコンテンツにアクセスする権限がありません。"
+  open_incv:
+    notice_wait_in_open_incv: "CircuitVersionでこの課題を開くまでお待ちください..."
+    notice_redirection_error: "動作しない場合は、下のボタンをクリックしてください。"
+    open_assignment: "課題を開く"

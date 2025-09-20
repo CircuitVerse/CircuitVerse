@@ -1,0 +1,43 @@
+fr:
+  groups:
+    add_member_description: "Entrez les identifiants de courriel séparés par des virgules/espaces ou par des lignes séparées. Si les utilisateurs ne sont pas enregistrés, un courriel leur sera envoyé pour leur demander de s'inscrire."
+    add_mentor_description_html: "<p>Les mentors peuvent :</p><ul><li>Créer et supprimer les affectations</li><li>Notes</li><li>Réouvrir les affectations</li></ul>"
+    promote_member_confirmation: "Êtes-vous sûr de vouloir promouvoir ce membre en tant que mentor ?"
+    demote_mentor_confirmation: "Êtes-vous sûr de vouloir rétrograder ce mentor à un membre ?"
+    use_alternative: "OU UTILISER"
+    invite_link_btn: "Lien d'invitation de groupe"
+    remove_assignment_message: "Êtes-vous sûr de vouloir supprimer ce devoir ?"
+    remove_member_message: "Êtes-vous sûr de vouloir supprimer ce membre ?"
+    make_member: "Rendre membre"
+    make_mentor: "Rendre le mentor"
+    edit:
+      title: "%{name} - Modifier nom du groupe"
+      main_heading: "MODIFIER NOM DU GROUPE"
+    new:
+      title: "CircuitVerse - Nouveau groupe"
+      main_heading: "NOUVEAU GROUPE"
+      main_description_html: "Les groupes peuvent être utilisés par les mentors pour définir des projets et donner des notes aux élèves. Vous pouvez trouver la documentation <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>ici</a>."
+    show:
+      edit_name_btn: "Modifier le nom"
+      primary_mentor_heading: "Mentor Primaire :"
+      mentor_name_heading: "ENTREPRISSEURS :"
+      group_members_heading: "MEMBRES :"
+      add_members_btn: "+ Ajouter des membres"
+      add_mentors_btn: "+ Ajouter des mentors"
+      no_mentors_html: "Il n'y a pas de mentors dans ce groupe, cliquez sur le bouton <strong>+ Ajouter des mentors</strong> pour ajouter des mentors."
+      no_members_html: "Il n'y a aucun membre dans ce groupe, cliquez sur le bouton <strong>+ Ajouter des membres</strong> pour ajouter des membres."
+      no_assignments_html: "Il n'y a pas de devoirs dans le groupe, cliquez sur le bouton <strong>+ Ajouter un devoir</strong> pour démarrer un devoir."
+      assignment:
+        heading: "ASSIGNMENTS :"
+        add_assignment_btn: "+ Ajouter un devoir"
+        assignment_table_head:
+          name: "Nom"
+          deadline: "Ligne d'échéance"
+          grading: "Notation en cours"
+          actions: "Actions"
+          grade: "Note"
+        time_remaining_html: "<strong>Temps restant :</strong> %{time_remaining}"
+        start_working_btn: "Commencer à travailler"
+        see_work_done: "Voir votre travail"
+        not_submitted: "Non soumis !"
+        show_submission: "Voir la soumission"

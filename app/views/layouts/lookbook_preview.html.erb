@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CircuitVerse Component Preview</title>
+    <%= stylesheet_link_tag "application", media: "all" %>
+    <style>
+      :root {
+        --lookbook-primary: #2ECC71;
+        --lookbook-body-bg: #f8f9fa;
+        --lookbook-container-bg: white;
+        --lookbook-border-color: #e9ecef;
+        --lookbook-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: 'Inter', sans-serif;
+        background-color: var(--lookbook-body-bg);
+      }
+
+      .preview-container {
+        background: var(--lookbook-container-bg);
+        border-radius: 8px;
+        padding: 24px;
+        box-shadow: var(--lookbook-shadow);
+        margin-bottom: 16px;
+      }
+
+      .preview-title {
+        color: var(--lookbook-primary);
+        font-size: 18px;
+        font-weight: 600;
+        margin-bottom: 16px;
+        border-bottom: 2px solid var(--lookbook-border-color);
+        padding-bottom: 8px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preview-container">
+      <div class="preview-title">
+        Component Preview
+      </div>
+      <%= yield %>
+    </div>
+    <%= javascript_include_tag "application", defer: true %>
+  </body>
+</html>

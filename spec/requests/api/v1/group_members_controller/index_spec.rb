@@ -21,11 +21,9 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
     context "when authenticated as primary_mentor and has group members" do
       before do
         # create 3 groups members for the defined group
-        # rubocop:disable RSpec/FactoryBot/CreateList
         3.times do
           FactoryBot.create(:group_member, group: group, user: FactoryBot.create(:user))
         end
-        # rubocop:enable RSpec/FactoryBot/CreateList
         token = get_auth_token(primary_mentor)
         get "/api/v1/groups/#{group.id}/members",
             headers: { Authorization: "Token #{token}" }, as: :json

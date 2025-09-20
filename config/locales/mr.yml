@@ -6,7 +6,7 @@ mr:
   launch_simulator: "सिम्युलेटर लाँच करा"
   email_us_heading: "आम्हाला ईमेल करा"
   join_at_slack_heading: "आमच्याशी कनेक्ट व्हा आणि गप्पा मारा"
-  join_at_slack_description: "सुस्त चॅनेल"
+  join_at_slack_description: "स्लैक चॅनेल"
   welcome_back_text: "डिजिटल सर्किट्स युनिव्हर्समध्ये आपले स्वागत आहे!"
   save: "सेव करा"
   back: "परत जा"
@@ -31,6 +31,10 @@ mr:
   enter_password: "पासवर्ड टाप्रविष्ट करा"
   enter_name: "नाव प्रविष्ट करा"
   registration_blocked: "साइन अप आत्ताच अक्षम केला गेलेला आहे"
+  google: "गुगल"
+  facebook: "फेसबुक"
+  github: "गिटहब"
+  gitlab: "गिटलॅब"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

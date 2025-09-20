@@ -18,7 +18,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # POST /resource
   def create
     if Flipper.enabled?(:block_registration)
-      redirect_to new_user_session_path, alert: "Registration is currently blocked"
+      redirect_to new_user_session_path,
+                  alert: "Registration is currently blocked"
     end
 
     super do |user|
@@ -71,12 +72,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
     def check_captcha
-      if Flipper.enabled?(:recaptcha) && !verify_recaptcha
-        self.resource = resource_class.new sign_up_params
-        resource.validate # Look for any other validation errors besides reCAPTCHA
-        set_minimum_password_length
-        respond_with_navigational(resource) { render :new }
-      end
+      return unless Flipper.enabled?(:recaptcha) && !verify_recaptcha
+
+      self.resource = resource_class.new sign_up_params
+      resource.validate # Look for any other validation errors besides reCAPTCHA
+      set_minimum_password_length
+      respond_with_navigational(resource) { render :new }
     end
 
   # If you have extra params to permit, append them to the sanitizer.

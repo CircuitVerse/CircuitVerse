@@ -1,12 +1,14 @@
 ---
-sources:
-- type: git
-  name: ruby/gem_rbs_collection
-  revision: 2de2d4535caba275f3b8533684aab110d921f553
-  remote: https://github.com/ruby/gem_rbs_collection.git
-  repo_dir: gems
 path: ".gem_rbs_collection"
 gems:
+- name: actioncable
+  version: '7.1'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: actionmailer
   version: '7.0'
   source:
@@ -123,6 +125,10 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: bigdecimal
+  version: '0'
+  source:
+    type: stdlib
 - name: carrierwave
   version: '3.0'
   source:
@@ -155,6 +161,14 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: diff-lcs
+  version: '1.5'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: dotenv-rails
   version: '2.8'
   source:
@@ -217,6 +231,14 @@ gems:
     type: git
     name: ruby/gem_rbs_collection
     revision: 2de2d4535caba275f3b8533684aab110d921f553
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: hashdiff
+  version: '1.1'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: hashie
@@ -287,12 +309,28 @@ gems:
     revision: 87fba082504c606c03edf724cdf2e119bcd46c8c
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
-- name: mime-types
-  version: '3.5'
+- name: marcel
+  version: '1.0'
   source:
     type: git
     name: ruby/gem_rbs_collection
-    revision: 2de2d4535caba275f3b8533684aab110d921f553
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: mini_magick
+  version: '4.13'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: mini_mime
+  version: '0.1'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
 - name: minitest
@@ -304,6 +342,14 @@ gems:
   source:
     type: stdlib
 - name: mutex_m
+  version: '0'
+  source:
+    type: stdlib
+- name: net-protocol
+  version: '0'
+  source:
+    type: stdlib
+- name: net-smtp
   version: '0'
   source:
     type: stdlib
@@ -407,6 +453,14 @@ gems:
     revision: 2de2d4535caba275f3b8533684aab110d921f553
     remote: https://github.com/ruby/gem_rbs_collection.git
     repo_dir: gems
+- name: sentry-ruby
+  version: '5.2'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: sidekiq
   version: '6.2'
   source:
@@ -428,6 +482,18 @@ gems:
   source:
     type: stdlib
 - name: socket
+  version: '0'
+  source:
+    type: stdlib
+- name: stackprof
+  version: '0.2'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
+- name: strscan
   version: '0'
   source:
     type: stdlib
@@ -455,10 +521,26 @@ gems:
   version: '0'
   source:
     type: stdlib
+- name: tzinfo
+  version: '2.0'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: uri
   version: '0'
   source:
     type: stdlib
+- name: webmock
+  version: '3.19'
+  source:
+    type: git
+    name: ruby/gem_rbs_collection
+    revision: 7062b1ca78ffa29275176daa236f9e1cf4018723
+    remote: https://github.com/ruby/gem_rbs_collection.git
+    repo_dir: gems
 - name: yard
   version: '0.9'
   source:

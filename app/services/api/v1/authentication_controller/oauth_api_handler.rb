@@ -25,7 +25,7 @@ class Api::V1::AuthenticationController
       raise InvalidOAuthToken if @response.status.client_error?
 
       # returns oauth user profile response if status is 2XX
-      return parsed_response if @response.status.success?
+      parsed_response if @response.status.success?
     end
 
     private

@@ -6,7 +6,7 @@ class ForkNotification < Noticed::Base
   def message
     user = params[:user]
     project = params[:project]
-    t("users.notifications.fork_notification", user: user.name, project: project.name)
+    t("users.notifications.fork_notification", user: user&.name, project: project&.name)
   end
 
   def icon

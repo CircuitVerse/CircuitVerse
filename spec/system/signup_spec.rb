@@ -4,7 +4,6 @@ require "rails_helper"
 
 describe "Sign up", type: :system do
   before do
-    driven_by(:selenium_chrome_headless)
     visit "/users/sign_up"
   end
 

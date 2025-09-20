@@ -19,7 +19,7 @@ RSpec.describe Api::V1::UsersController, "#index", type: :request do
 
     context "when authenticated" do
       before do
-        token = get_auth_token(users_list.first)
+        token = get_auth_token(users_list.last)
         get "/api/v1/users", headers: { Authorization: "Token #{token}" }, as: :json
       end
 

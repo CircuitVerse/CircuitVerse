@@ -85,6 +85,8 @@ export default class Adder extends CircuitElement {
         this.carryOut.value = +((sum >>> (this.bitWidth)) !== 0);
         simulationArea.simulationQueue.add(this.carryOut);
         simulationArea.simulationQueue.add(this.sum);
+
+        this.setOutputsUpstream(true);
     }
 
     generateVerilog() {

@@ -17,6 +17,7 @@ export function checkIfBackup(scope) {
 }
 
 export function backUp(scope = globalScope) {
+
     // Disconnection of subcircuits are needed because these are the connections between nodes
     // in current scope and those in the subcircuit's scope
     for (let i = 0; i < scope.SubCircuit.length; i++) { scope.SubCircuit[i].removeConnections(); }

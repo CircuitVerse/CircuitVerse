@@ -2,6 +2,7 @@
 
 class Api::V1::SimulatorController < Api::V1::BaseController
   # POST /api/v1/simulator/post_issue
+  # rubocop:disable Metrics/MethodLength
   def post_issue
     issue_circuit_data = IssueCircuitDatum.create(data: params[:circuit_data])
 
@@ -10,8 +11,11 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
     url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
 
-    if url.nil? || !url.start_with?("http://", "https://")
-      render json: { error: "Invalid or missing Slack webhook URL" }, status: :unprocessable_entity and return
+    if url.nil? || !url.start_with?(
+      "http://", "https://"
+    )
+      render json: { error: "Invalid or missing Slack webhook URL" },
+             status: :unprocessable_entity and return
     end
 
     response = HTTP.post(url, json: { text: text })
@@ -22,6 +26,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok
   end
+  # rubocop:enable Metrics/MethodLength
 
   # POST /api/v1/simulator/verilogcv
   def verilog_cv

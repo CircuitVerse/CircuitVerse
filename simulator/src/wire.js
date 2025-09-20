@@ -171,5 +171,7 @@ export default class Wire {
         this.scope.wires.clean(this);
         this.node1.checkDeleted();
         this.node2.checkDeleted();
+
+        this.scope.timeStamp = new Date().getTime();
     }
 }

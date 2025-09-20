@@ -8,6 +8,7 @@ hi:
     link_to_teachers: "शिक्षकों के लिए"
     link_to_blog: "ब्लॉग"
     link_to_about: "सर्किटवर्स के बारे में"
+    link_to_faq: "सामान्य प्रश्न"
     footer:
       social_icon_text: "हमें यहां फॉलो करें"
       link_to_examples: "उदाहरण"
@@ -18,7 +19,6 @@ hi:
         brought_by: "इनके द्वारा आपके लिए लाया गया:"
         hosting_sponsor: "प्रायोजक:"
         marketed_by: "इनके द्वारा मार्केटिंग किया गया:"
-        developed_by: "इनके द्वारा विकसित किया गया:"
       copyright_text: "कॉपीराइट © %{time_current_year} सर्किटवर्स, सर्वाधिकार सुरक्षित।"
     header:
       dashboard: "डैशबोर्ड"

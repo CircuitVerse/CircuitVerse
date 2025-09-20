@@ -83,6 +83,8 @@ export default class Input extends CircuitElement {
     resolve() {
         this.output1.value = this.state;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     // Check if override is necessary!!

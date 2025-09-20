@@ -1,0 +1,11 @@
+es:
+  helpers:
+    label:
+      assignment:
+        name: "Nombre"
+        description: "Descripción"
+        grading_scale: "Escala de valoración"
+    submit:
+      assignment:
+        create: "Crear tarea"
+        update: "Actualizar tarea"
