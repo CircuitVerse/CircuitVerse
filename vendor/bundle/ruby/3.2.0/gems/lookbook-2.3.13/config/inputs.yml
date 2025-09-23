@@ -1,0 +1,48 @@
+shared:
+  select:
+    partial: lookbook/inspector/inputs/select
+    opts: {}
+
+  textarea:
+    partial: lookbook/inspector/inputs/textarea
+    opts: {}
+
+  toggle:
+    partial: lookbook/inspector/inputs/toggle
+    opts: {}
+
+  color:
+    partial: lookbook/inspector/inputs/color
+    opts: {}
+
+  range:
+    partial: lookbook/inspector/inputs/range
+    opts: {}
+
+  text:
+    partial: lookbook/inspector/inputs/text
+    opts: {}
+
+  email:
+    partial: lookbook/inspector/inputs/text
+    opts: {}
+
+  number:
+    partial: lookbook/inspector/inputs/text
+    opts: {}
+
+  tel:
+    partial: lookbook/inspector/inputs/text
+    opts: {}
+
+  url:
+    partial: lookbook/inspector/inputs/text
+    opts: {}
+
+  date:
+    partial: lookbook/inspector/inputs/text_two_step
+    opts: {}
+
+  datetime_local:
+    partial: lookbook/inspector/inputs/text_two_step
+    opts: {}

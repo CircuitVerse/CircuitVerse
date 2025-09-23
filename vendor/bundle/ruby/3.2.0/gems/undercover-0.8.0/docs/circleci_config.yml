@@ -1,0 +1,24 @@
+# Simple CircleCI config.yml example.
+# See circleci_advanced.yml for a more advanced example,
+# that includes sharing data between containers.
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.5-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get install cmake
+            bundle install
+      - run:
+          name: Run RSpec
+          command: bundle exec rspec
+      - run:
+          name: Check coverage
+          command: |
+            gem install undercover
+            undercover --compare origin/master

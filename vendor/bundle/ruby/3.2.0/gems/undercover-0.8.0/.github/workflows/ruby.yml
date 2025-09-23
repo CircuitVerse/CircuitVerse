@@ -1,0 +1,42 @@
+name: Ruby
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby: ['3.4', '3.0']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # fetch all since test fixtures depend on history
+      - name: Set up Ruby ${{ matrix.ruby }}
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Build and test with Rake
+        run: |
+          gem install bundler undercover --no-doc
+          bundle install --jobs 4 --retry 3
+          rake
+      - name: undercover (local)
+        run: |
+          git fetch --update-head-ok origin master:master
+          undercover --simplecov coverage/undercover_coverage.json --compare master
+      - uses: actions/upload-artifact@v4
+        with:
+          name: undercover-${{ matrix.ruby }}-coverage
+          path: coverage/undercover_coverage.json
+  coverage:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: undercover-3.4-coverage
+      - name: Upload coverage
+        run: |
+          ruby -e "$(curl -s https://undercover-ci.com/uploader.rb)" -- \
+            --repo grodowski/undercover \
+            --commit ${{ github.event.pull_request.head.sha || github.sha }} \
+            --simplecov /home/runner/work/undercover/undercover/undercover_coverage.json

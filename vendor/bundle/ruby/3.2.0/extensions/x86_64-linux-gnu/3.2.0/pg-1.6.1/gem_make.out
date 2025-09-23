@@ -1,0 +1,59 @@
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/pg-1.6.1/ext
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+Calling libpq with GVL unlocked
+checking for pg_config... yes
+Using config values from /usr/bin/pg_config
+checking for whether -Wl,-rpath,/usr/lib/x86_64-linux-gnu is accepted as LDFLAGS... yes
+Using libpq from /usr/lib/x86_64-linux-gnu
+checking for libpq-fe.h... yes
+checking for libpq/libpq-fs.h... yes
+checking for pg_config_manual.h... yes
+checking for PQconnectdb() in -lpq... yes
+checking for PQencryptPasswordConn() in libpq-fe.h... yes
+checking for PQresultMemorySize() in libpq-fe.h... yes
+checking for PQenterPipelineMode() in libpq-fe.h... yes
+checking for PQsetChunkedRowsMode() in libpq-fe.h... yes
+checking for timegm()... yes
+checking for rb_io_wait()... yes
+checking for rb_io_descriptor()... yes
+checking for inttypes.h... yes
+checking for C99 variable length arrays... yes
+creating extconf.h
+creating Makefile
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/pg-1.6.1/ext
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3avlmb sitelibdir\=./.gem.20250921-1326-3avlmb clean
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/pg-1.6.1/ext
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3avlmb sitelibdir\=./.gem.20250921-1326-3avlmb
+compiling gvl_wrappers.c
+compiling pg.c
+compiling pg_binary_decoder.c
+compiling pg_binary_encoder.c
+compiling pg_cancel_connection.c
+compiling pg_coder.c
+compiling pg_connection.c
+compiling pg_copy_coder.c
+compiling pg_errors.c
+compiling pg_record_coder.c
+compiling pg_result.c
+compiling pg_text_decoder.c
+compiling pg_text_encoder.c
+compiling pg_tuple.c
+compiling pg_type_map.c
+compiling pg_type_map_all_strings.c
+compiling pg_type_map_by_class.c
+compiling pg_type_map_by_column.c
+compiling pg_type_map_by_mri_type.c
+compiling pg_type_map_by_oid.c
+compiling pg_type_map_in_ruby.c
+compiling pg_util.c
+linking shared-object pg_ext.so
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/pg-1.6.1/ext
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3avlmb sitelibdir\=./.gem.20250921-1326-3avlmb install
+/usr/bin/install -c -m 0755 pg_ext.so ./.gem.20250921-1326-3avlmb
+installing pg_ext libraries
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/pg-1.6.1/ext
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3avlmb sitelibdir\=./.gem.20250921-1326-3avlmb clean

@@ -1,0 +1,37 @@
+<%=
+  if @comment.parent.nil?
+    partial = 'threads'
+    extra_locals = {}
+    id = "commontator-thread-#{@commontator_thread.id}-new-comment"
+  else
+    partial = 'comments'
+    extra_locals = { comment: @comment.parent }
+    id = "commontator-comment-#{@comment.parent.id}-reply"
+  end
+
+  render partial: "commontator/#{partial}/show", locals: extra_locals.merge(
+    user: @commontator_user,
+    thread: @commontator_thread,
+    page: @commontator_page,
+    show_all: @commontator_show_all
+  )
+%>
+
+<% if @commontator_new_comment.nil? %>
+  $("#<%= id %>").hide();
+
+  $("#<%= id %>-link").fadeIn();
+<% else %>
+  $("#<%= id %>").html("<%= escape_javascript(
+    render partial: 'form', locals: {
+      comment: @commontator_new_comment, thread: @commontator_thread
+    }
+  ) %>");
+<% end %>
+
+var commontatorComment = $("#commontator-comment-<%= @comment.id %>").hide().fadeIn();
+$('html, body').animate(
+  { scrollTop: commontatorComment.offset().top - window.innerHeight/2 }, 'fast'
+);
+
+<%= javascript_proc %>

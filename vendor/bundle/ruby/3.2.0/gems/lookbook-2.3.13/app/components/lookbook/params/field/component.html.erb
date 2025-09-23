@@ -1,0 +1,27 @@
+<%= render_component_tag :tr, "@keydown.stop": true do %>  
+  <td class="param-label">
+    <label for="param-<%= param.name %>">
+      <span class="mr-0.5"><%== param.label %></span>
+      <% if param.hint.present? %>
+        <span x-data="tooltipComponent" class="inline-block cursor-help relative top-[2px]">
+          <%= icon :help_circle, size: 3.5, class: "opacity-40 hover:opacity-100 transition" %>
+          <div class="hidden" x-ref="tooltip">
+            <%= param.hint %>
+          </div>
+        </span>
+      <% end %>
+    </label>
+  </td>
+  <td class="param-description <%= "param-description-empty" unless param.description %>">
+    <% if param.description %>
+      <p class="opacity-70"><%= param.description %></p>
+    <% else %>
+      <p class="italic opacity-40">&mdash;</p>
+    <% end %>
+  </td>
+  <td class="param-input">
+    <div class="param-input-wrapper">
+      <%= rendered_input %>
+    </div>
+  </td>
+<% end %>

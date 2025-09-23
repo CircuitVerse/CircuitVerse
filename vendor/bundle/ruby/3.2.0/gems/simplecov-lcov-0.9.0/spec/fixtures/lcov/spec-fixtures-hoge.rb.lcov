@@ -1,0 +1,14 @@
+SF:./spec/fixtures/hoge.rb
+DA:4,1
+DA:5,1
+DA:6,2
+DA:9,1
+DA:10,1
+DA:11,1
+DA:14,1
+DA:15,0
+DA:19,1
+DA:20,1
+LF:10
+LH:9
+end_of_record

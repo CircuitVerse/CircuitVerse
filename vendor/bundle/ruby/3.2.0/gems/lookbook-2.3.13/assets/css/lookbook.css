@@ -1,0 +1,149 @@
+@import "./fonts.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@import "./tooltip.css";
+
+@import-glob "../../app/components/lookbook/**/*/component.css";
+
+@layer base {
+  html {
+    @apply scroll-smooth h-screen w-screen;
+  }
+
+  @media screen and (prefers-reduced-motion: reduce) {
+    html {
+      @apply scroll-auto;
+    }
+  }
+
+  body {
+    @apply text-lookbook-text font-ui text-sm overflow-hidden w-screen;
+  }
+
+  [x-cloak] {
+    @apply !hidden;
+  }
+
+  pre[class*="language-"] {
+    @apply !p-0 !m-0;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-1 h-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply transition-colors rounded-full	bg-clip-content bg-lookbook-scrollbar;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-lookbook-scrollbar-hover;
+  }
+}
+
+@layer utilities {
+  .bg-checked {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 8 8'%3E%3Cg fill='%23f3f3f3' fill-opacity='1'%3E%3Cpath fill-rule='evenodd' d='M0 0h4v4H0V0zm4 4h4v4H4V4z'/%3E%3C/g%3E%3C/svg%3E");
+  }
+}
+
+@layer components {
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  textarea,
+  select {
+    @apply text-lookbook-input-text placeholder:text-lookbook-input-text-placeholder placeholder:italic;
+    @apply border-lookbook-input-border focus:ring-lookbook-input-border-focus focus:border-lookbook-input-border-focus;
+    @apply rounded-md text-sm w-full bg-lookbook-input-bg block;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+    width: 100%;
+  }
+
+  input[type="range"]:focus {
+    outline: none;
+  }
+
+  input[type="range"]::-webkit-slider-runnable-track {
+    @apply bg-lookbook-input-toggle;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    @apply bg-lookbook-input-toggle-active;
+    margin-top: -4px;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  input[type="range"]::-moz-range-track {
+    @apply bg-lookbook-input-toggle;
+    border-radius: 0.5rem;
+    height: 0.5rem;
+  }
+
+  input[type="range"]::-moz-range-thumb {
+    @apply bg-lookbook-input-toggle-active;
+    border: none;
+    border-radius: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+  }
+
+  input[type="range"]:focus::-webkit-slider-thumb,
+  input[type="range"]:focus::-moz-range-thumb {
+    @apply outline-1 outline-lookbook-input-toggle-active outline-offset-2;
+  }
+
+  input[type="color"] {
+    -webkit-appearance: none;
+    width: 46px;
+    @apply border border-lookbook-input-border rounded-lg cursor-pointer;
+  }
+
+  input[type="color"]::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  input[type="color"]::-webkit-color-swatch {
+    @apply border-0 rounded-lg;
+  }
+
+  select.compact {
+    font-size: 0.8rem;
+    line-height: 1.1rem;
+    border-radius: 0.375rem;
+    padding: 0.26rem 1.5rem 0.26rem 0.6rem;
+    background-size: 1.2em 1.2em;
+    background-position: right 0.4rem center;
+  }
+
+  #inspector .split-layout-gutter-horizontal {
+    top: 4px;
+  }
+}

@@ -1,0 +1,112 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require "htmlbeautifier"
+require "optparse"
+require "fileutils"
+require "stringio"
+
+def beautify(name, input, output, options)
+  output.puts HtmlBeautifier.beautify(input, options)
+rescue => e
+  raise "Error parsing #{name}: #{e}"
+end
+
+executable = File.basename(__FILE__)
+
+options = {indent: "  "}
+parser = OptionParser.new do |opts|
+  opts.banner = "Usage: #{executable} [options] [file ...]"
+  opts.separator <<~STRING
+
+    #{executable} has two modes of operation:
+
+    1. If no files are listed, it will read from standard input and write to
+       standard output.
+    2. If files are listed, it will modify each file in place, overwriting it
+       with the beautified output.
+
+    The following options are available:
+
+  STRING
+  opts.on(
+    "-t", "--tab-stops NUMBER", Integer,
+    "Set number of spaces per indent (default #{options[:tab_stops]})"
+  ) do |num|
+    options[:indent] = " " * num
+  end
+  opts.on(
+    "-T", "--tab",
+    "Indent using tabs"
+  ) do
+    options[:indent] = "\t"
+  end
+  opts.on(
+    "-i", "--indent-by NUMBER", Integer,
+    "Indent the output by NUMBER steps (default 0)."
+  ) do |num|
+    options[:initial_level] = num
+  end
+  opts.on(
+    "-e", "--stop-on-errors",
+    "Stop when invalid nesting is encountered in the input"
+  ) do |num|
+    options[:stop_on_errors] = num
+  end
+  opts.on(
+    "-b", "--keep-blank-lines NUMBER", Integer,
+    "Set number of consecutive blank lines"
+  ) do |num|
+    options[:keep_blank_lines] = num
+  end
+  opts.on(
+    "-l", "--lint-only",
+    "Lint only, error on files which would be modified",
+    "This is not available when reading from standard input"
+  ) do |num|
+    options[:lint_only] = num
+  end
+  opts.on(
+    "-v", "--version",
+    "Display version and exit"
+  ) do
+    puts HtmlBeautifier::VERSION::STRING
+    exit
+  end
+  opts.on(
+    "-h", "--help",
+    "Display this help message and exit"
+  ) do
+    puts opts
+    exit
+  end
+end
+
+parser.parse!
+
+if ARGV.any?
+  failures = []
+  ARGV.each do |path|
+    input = File.read(path)
+    if options[:lint_only]
+      output = StringIO.new
+      beautify path, input, output, options
+      failures << path unless input == output.string
+    else
+      temppath = "#{path}.tmp"
+      File.open(temppath, "w") do |file|
+        beautify path, input, file, options
+      end
+      FileUtils.mv temppath, path
+    end
+  end
+  unless failures.empty?
+    warn [
+      "Lint failed - files would be modified:",
+      *failures
+    ].join("\n")
+    exit 1
+  end
+else
+  beautify "standard input", $stdin.read, $stdout, options
+end

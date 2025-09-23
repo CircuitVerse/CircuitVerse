@@ -1,0 +1,28 @@
+<%= render_component_tag class: "flex flex-col overflow-hidden h-full",
+  "x-on:filter:change.stop": "filter($event.detail.text)" do %>
+  
+  <% if toolbar %>
+    <%= toolbar %>
+  <% end %>
+
+  <% if filter && items.any? %>
+    <div class="p-2 pb-0">
+      <%= filter %>
+    </div>
+  <% end %>
+
+  <div class="overflow-auto h-full">
+    <% if items.any? %>
+      <ul class="py-2" x-ref="items" x-show="!empty" x-cloak>
+        <%= safe_join(items) %>
+      </ul>
+      <div class="p-4 text-center" x-show="empty" x-cloak>
+        <h4 class="opacity-50 italic">No matching results.</h4>
+      </div>
+    <% else %>
+      <div class="p-4 text-center">
+        <h4 class="opacity-50 italic">Nothing here yet.</h4>
+      </div>
+    <% end %>
+  </div>
+<% end %>

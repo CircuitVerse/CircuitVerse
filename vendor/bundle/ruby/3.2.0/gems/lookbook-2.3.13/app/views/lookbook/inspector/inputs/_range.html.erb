@@ -1,0 +1,15 @@
+<div class="w-full flex items-center pt-2">
+  <div class="flex-none px-2 opacity-60">
+    <%= input_options[:min] %>
+  </div>
+  <div class="w-full px-2">
+    <%= text_field_tag(name, value,
+      **input_options,
+      type: "range",
+      "x-model.throttle.300ms": "value"
+    ) %>
+  </div>
+  <div class="flex-none px-2 opacity-60">
+    <%= input_options[:max] %>
+  </div>
+</div>

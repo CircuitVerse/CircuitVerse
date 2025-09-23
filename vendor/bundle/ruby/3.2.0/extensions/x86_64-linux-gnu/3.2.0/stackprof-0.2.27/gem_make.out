@@ -1,0 +1,22 @@
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+checking for rb_postponed_job_register_one()... yes
+checking for rb_profile_frames()... yes
+checking for rb_tracepoint_new()... yes
+checking for RUBY_INTERNAL_EVENT_NEWOBJ... yes
+creating Makefile
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-vcyn5f sitelibdir\=./.gem.20250921-1326-vcyn5f clean
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-vcyn5f sitelibdir\=./.gem.20250921-1326-vcyn5f
+compiling stackprof.c
+linking shared-object stackprof/stackprof.so
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-vcyn5f sitelibdir\=./.gem.20250921-1326-vcyn5f install
+/usr/bin/install -c -m 0755 stackprof.so ./.gem.20250921-1326-vcyn5f/stackprof
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-vcyn5f sitelibdir\=./.gem.20250921-1326-vcyn5f clean

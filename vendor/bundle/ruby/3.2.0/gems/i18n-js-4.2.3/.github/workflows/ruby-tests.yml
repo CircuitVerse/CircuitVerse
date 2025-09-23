@@ -1,0 +1,73 @@
+---
+name: ruby-tests
+
+on:
+  pull_request_target:
+  push:
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build:
+    name:
+      Tests with Ruby ${{ matrix.ruby }}, Node ${{ matrix.node }} and ${{
+      matrix.gemfile }}
+    runs-on: "ubuntu-latest"
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["2.7", "3.0", "3.1"]
+        node: ["16", "18"]
+        gemfile:
+          - Gemfile
+    if: |
+      github.actor == 'dependabot[bot]' && github.event_name == 'pull_request_target' ||
+      github.actor != 'dependabot[bot]'
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/cache@v3
+        id: bundler-cache
+        with:
+          path: vendor/bundle
+          key: >
+            ${{ runner.os }}-${{ matrix.ruby }}-gems-${{
+            hashFiles(matrix.gemfile) }}
+
+      - uses: actions/cache@v3
+        id: npm-cache
+        with:
+          path: vendor/bundle
+          key: >
+            ${{ runner.os }}-${{ matrix.node }}-npm-${{
+            hashFiles('package.json') }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v3.6.0
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Install npm dependencies
+        run: |
+          yarn install
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+
+      - name: Install gem dependencies
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+        run: |
+          gem install bundler
+          bundle config path vendor/bundle
+          bundle update --jobs 4 --retry 3
+
+      - name: Run Tests
+        env:
+          BUNDLE_GEMFILE: ${{ matrix.gemfile }}
+        run: |
+          yarn compile
+          bundle exec rake

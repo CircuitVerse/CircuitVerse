@@ -1,0 +1,19 @@
+--protected
+--no-private
+--embed-mixin ClassMethods
+--title "Ruby/GraphViz, the Documentation"
+-
+README.md
+CHANGELOG.md
+COPYING.md
+lib/graphviz.rb
+lib/graphviz/node.rb
+lib/graphviz/edge.rb
+lib/graphviz/constants.rb
+lib/graphviz/xml.rb
+lib/graphviz/graphml.rb
+lib/graphviz/family_tree.rb
+lib/graphviz/family_tree/couple.rb
+lib/graphviz/family_tree/generation.rb
+lib/graphviz/family_tree/person.rb
+lib/graphviz/family_tree/sibling.rb

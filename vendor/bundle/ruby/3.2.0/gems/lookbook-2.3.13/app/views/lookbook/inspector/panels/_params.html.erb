@@ -1,0 +1,15 @@
+<% if @params.none? %>
+  <div class="p-4 w-full h-full bg-lookbook-prose-bg" id="params-editor-blank-slate">
+    <%= lookbook_render :prose do %>
+      <em class='opacity-50'>No params configured.</em>
+    <% end %>
+  </div>
+<% else %>
+  <div class="p-4 w-full h-full overflow-x-hidden" id="params-editor-<%= @target.id %>">
+    <%= lookbook_render "params/editor" do |editor| %>
+      <% @params.each do |param| %>
+        <% editor.with_field param: param %>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

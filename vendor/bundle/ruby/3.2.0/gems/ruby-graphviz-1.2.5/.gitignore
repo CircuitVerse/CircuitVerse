@@ -1,0 +1,12 @@
+.DS_Store
+.idea
+*.iml
+doc
+pkg
+test/output/
+.rake_tasks
+.rbx
+Gemfile.lock
+.yardoc/
+node_modules/
+package-lock.json

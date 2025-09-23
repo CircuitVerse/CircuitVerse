@@ -1,0 +1,5 @@
+class %<migration_name>s < ActiveRecord::Migration[%<migration_version>s]
+  def change
+    change_column :%<table_to_change>s, :%<fk_name>s, :%<type_to_set>s
+  end
+end

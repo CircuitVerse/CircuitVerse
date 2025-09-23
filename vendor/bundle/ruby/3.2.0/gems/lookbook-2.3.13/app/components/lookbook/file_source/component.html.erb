@@ -1,0 +1,9 @@
+<%= render_component_tag do %>
+  <%= lookbook_render :code,
+    language: source_lang,
+    highlight_lines: highlight_lines,
+    start_line: start_line_number,
+    line_numbers: true do %>
+    <%= trimmed_source %>
+  <% end %>
+<% end %>

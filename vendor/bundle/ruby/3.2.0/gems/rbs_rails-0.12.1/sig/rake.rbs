@@ -1,0 +1,6 @@
+module Rake
+  class TaskLib
+    def desc: (String) -> void
+    def task: (Hash[Symbol, Symbol | Array[Symbol]]) ?{ () -> void } -> void
+  end
+end

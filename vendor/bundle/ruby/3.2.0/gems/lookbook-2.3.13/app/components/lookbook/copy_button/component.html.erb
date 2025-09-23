@@ -1,0 +1,11 @@
+<%= lookbook_render :icon_button,
+  name: "copy-button",
+  **button_attrs,
+  "x-data": prepare_alpine_data,
+  "x-on:click.prevent": "copyToClipboard" do |button| %>
+  <% button.with_icon name: icon, size: icon_size, "x-show": "!copied", cloak: true %>
+  <% button.with_icon name: :check, size: icon_size, class: "text-green-500", "x-show": "copied", cloak: true %>
+  <% if content %>
+    <div x-ref="copyTarget" class="hidden"><%== content %></div>
+  <% end %>
+<% end %>

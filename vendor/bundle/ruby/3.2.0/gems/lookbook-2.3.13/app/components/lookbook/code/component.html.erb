@@ -1,0 +1,11 @@
+<%= render_component_tag class: [
+    "not-prose font-mono #{theme_classname}",
+    {
+      "numbered": numbered?,
+      "focussed": focussed?,
+      "h-full": full_height?,
+      "dark": is_dark?
+    } 
+  ] do %>
+  <%= Lookbook::CodeHighlighter.call(source, **@highlight_opts) %>
+<% end %>

@@ -1,0 +1,34 @@
+<% if params.key?("error") %>
+  <div class="alert alert-danger">
+    <%= params["error"] %>
+  </div>
+<% end %>
+
+<div class="card">
+  <h4 class="card-header">
+    <a class="link-dark" href="<%= script_name %>/features/<%= Flipper::UI::Util.escape @feature.key %>"><%= @feature.key %></a>
+    /
+    Enable Group</h4>
+  <div class="card-body">
+    <% if @feature.disabled_groups.empty? %>
+      <p>All groups are enabled for this feature which means there is nothing to add.</p>
+    <% else %>
+      <p>
+        Turn on this feature for an entire group of actors.
+      </p>
+      <form action="<%= script_name %>/features/<%= Flipper::UI::Util.escape @feature.key %>/groups" method="post" class="row">
+        <%== csrf_input_tag %>
+        <input type="hidden" name="operation" value="enable">
+        <div class="col">
+          <select name="value" class="form-select">
+            <option value="">Select a group...</option>
+            <% @feature.disabled_groups.each do |group| %>
+              <option value="<%= group.name %>"><%= group.name %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="col-auto"><input type="submit" value="Add Group" class="btn btn-primary"></div>
+      </form>
+    <% end %>
+  </div>
+</div>

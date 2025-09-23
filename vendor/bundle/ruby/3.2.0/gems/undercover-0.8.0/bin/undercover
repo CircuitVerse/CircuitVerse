@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift("#{__dir__}/../lib")
+$VERBOSE = nil
+
+require 'undercover'
+require 'benchmark'
+
+result = 0
+time = Benchmark.realtime do
+  result = Undercover::CLI.run(ARGV)
+end
+
+puts "Undercover finished in #{time.round(4)}s"
+exit result

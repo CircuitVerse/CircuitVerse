@@ -1,0 +1,7 @@
+*.gem
+*.sqlite
+.bundle
+pkg/*
+.ruby-version
+vendor/bundle
+coverage

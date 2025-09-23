@@ -1,0 +1,55 @@
+# Advanced CircleCI workflow config with file sharing
+# and separate jobs for tests and running coverage checks.
+
+version: 2
+jobs:
+  test:
+    docker:
+      - image: circleci/ruby:2.5-browsers
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: |
+            sudo apt-get install cmake
+            bundle install
+      - run:
+          name: Run RSpec
+          command: |
+            mkdir -p /tmp/coverage
+            bundle exec rspec
+      - run:
+          name: Store coverage report
+          command: mv coverage/coverage.json /tmp/coverage/
+      - persist_to_workspace:
+          root: /tmp/coverage
+          paths: .
+      - store_artifacts:
+          path: /tmp/coverage
+          destination: coverage
+  analyse_coverage:
+    docker:
+      - image: circleci/ruby:2.5-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: /tmp/coverage # gives access to project's coverage report
+      - run:
+          name: Check coverage
+          command: |
+            sudo apt-get install cmake
+            gem install undercover
+            undercover --simplecov /tmp/coverage/coverage.json \
+                       --compare origin/master
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - test
+      - analyse_coverage:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: master

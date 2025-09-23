@@ -1,0 +1,56 @@
+sex\w*
+blow ?job\w*
+fellat\w*
+felch\w*
+\w*fuck\w*
+wank\w*
+cocks?
+cock suck\w*
+poll ?smok\w*
+dicks?
+fudge ?pack\w*
+rim ?job\w*
+knob ?gobbl\w*
+anal
+rectums?
+ass+
+as*hole\w*
+ballsacks?
+scrotums?
+bollocks
+penis(es)?
+boners?
+pricks?
+knobends?
+manhoods?
+wieners?
+breasts?
+tit(t(ie|y))?s?
+boob\w*
+honkers?
+cleavages?
+vagina\w*
+puss(y|ies|ee)
+muffs?
+cunt\w*
+twats?
+clit\w*
+quims?
+labias?
+buttplugs?
+dildos?
+heteros?
+homos?
+sluts?
+whor\w*
+skank\w*
+g+h?[ae]ys?
+dykes?
+fag\w*
+cumm?(ing|er)?
+jizz\w*
+pubes?
+puberty
+pubic
+smegma
+boy ?butter

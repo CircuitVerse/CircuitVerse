@@ -1,0 +1,52 @@
+<%= render_component_tag class: "divide-y divide-lookbook-divider min-w-[180px]" do %>
+  <div class="px-3 py-3">
+    <ul class="space-y-2 opacity-80">
+      <% if debug_data? %>
+        <li>
+          <a href="#"
+            class="text-xs flex items-center hover:underline"
+            x-data="clipboardComponent"
+            x-on:click.prevent.stop="copyToClipboard('#debug-data')">
+            <span x-show="copied" x-cloak>
+              <%= icon :check, size: 2.5, class: "text-green-600" %>
+            </span>
+            <span x-show="!copied">
+              <%= icon :clipboard, size: 2.5 %>
+            </span>
+            <span class="ml-2">Copy debug data</span>
+          </a>
+        </li>
+      <% end %>
+      <li>
+        <a href="#"
+          class="text-xs flex items-center hover:underline"
+          x-on:click.stop="localStorage.clear(); window.location.reload();">
+          <%= icon :refresh_cw, size: 2.5 %>
+          <span class="ml-2">Reset local storage</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="flex items-center text-xs px-3 py-2 bg-zinc-50">
+    <span class="opacity-70 mr-1">Lookbook</span>
+    <span class="mr-6">v<%= @version %></span>
+    <div class="flex items-center space-x-2">
+      <% if @docs_url.present? %>
+        <a href="<%= @docs_url %>" target="_blank" class="ml-auto opacity-70" title="Documentation">
+          <%= icon :book, size: 3 %>
+        </a>
+      <% end %>
+      <% if @repo_url.present? %>
+        <a href="<%= @repo_url %>" target="_blank" class="ml-auto opacity-70" title="Github">
+          <%= icon :github, size: 3 %>
+        </a>
+      <% end %>
+    </div>
+  </div>
+  <% if debug_data? %>
+    <div id="debug-data" class="hidden" x-cloak>
+      <%== debug_data %>
+    </div>
+  <% end %>
+<% end %>

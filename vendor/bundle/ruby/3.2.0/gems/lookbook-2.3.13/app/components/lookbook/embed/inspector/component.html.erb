@@ -1,0 +1,117 @@
+<%= render_component_tag id: id,
+  class: "border-b border-lookbook-divider rounded-md overflow-hidden",
+  cloak: true do %>
+
+  <%= lookbook_render :toolbar,
+    class: "border border-b-0 border-lookbook-divider",
+    style: "border-top-left-radius: 6px; border-top-right-radius: 6px;" do |toolbar| %>
+    <% toolbar.with_section padded: true do %>
+      <h3 class="flex items-center space-x-1">
+        <strong class="text-lookbook-embed-title"><%= target.preview.label %></strong>
+        <% if scenarios.many? %>
+          <%= select_tag("target", options_for_select(scenario_select_options, helpers.lookbook_embed_path(target.lookup_path)), "x-model": "targetPath", class: "!ml-2 compact") %>
+        <% else %>
+          <span>(<%= target.label %>) </span>
+        <% end %>
+      </h3>
+    <% end %>
+
+    <% toolbar.with_section align: :right, class: "flex-none" do %>
+      <% if display_option_controls? && dynamic_display_options.any? %>
+        <%= lookbook_render "display_options/editor" do |editor| %>
+          <% dynamic_display_options.each do |key, opts| %>
+            <% editor.with_field name: key, opts: opts, value: static_display_options[key] %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <% if actions.any? %>
+      <% toolbar.with_section divide: :left do %>
+        <%= lookbook_render :button_group do |group| %>
+          <% if display_action?(:inspect) %>
+            <% group.with_button icon: :eye,
+              href: helpers.lookbook_inspect_url(target.lookup_path, params),
+              tooltip: "View in Inspector",
+              target: "_top" %>
+          <% end %>
+          <% if display_action?(:open) %>
+            <% group.with_button icon: :external_link,
+              href: helpers.lookbook_preview_url(target.lookup_path, params),
+              tooltip: "Open in new window",
+              target: "_blank" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <section
+    x-ref="viewport"
+    <% unless drawer? %>
+      style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; overflow: hidden;"
+    <% end %>>
+    <div
+      x-on:viewport:resize-progress="resizeIframe"
+      x-on:viewport:resize-complete="resizeIframe"
+      x-ref="viewportWrapper"> 
+      <%= lookbook_render :viewport,
+        iframe_id: "#{id}-viewport",
+        src: helpers.lookbook_preview_path(target.lookup_path, request.query_parameters.merge(lookbook_timestamp: Time.now, lookbook_embed: true)),
+        alpine_data: "store",
+        resize_height: false,
+        class: "mb-[-2px] transition-[height] duration-150",
+        ":style": "`height: ${viewportCssHeight}`"
+          %>
+    </div>
+  </section>
+
+  <% if drawer? %>
+    <section
+      class="relative top-[-1px] border border-b-0 border-lookbook-divider overflow-hidden"
+      style="border-bottom-left-radius: 6px; border-bottom-right-radius: 6px;"
+      x-cloak>
+      <%= lookbook_render :toolbar, id: "#{id}-drawer-toolbar" do |toolbar| %>
+        <% toolbar.with_section do %>
+          <%= lookbook_render :tabs, alpine_data: "store", id: "#{id}-drawer-tabs" do |tabs| %>
+            <%= panels.each do |panel| %>
+              <% tabs.with_tab name: panel.name,
+                label: panel.label,
+                hotkey: panel.hotkey,
+                disabled: panel.disabled %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+         <% toolbar.with_section align: :right,  class: "flex-none relative z-10" do %>
+          <%= lookbook_render :button_group do |group| %>
+            <%= panels.select { |p| !p.disabled && p.copy }.each do |panel| %>
+              <% group.with_button id: "copy-panel-contents-button-#{panel.name}",
+                icon: :copy,
+                tooltip: "Copy panel contents",
+                copy: !!panel.copy,
+                "x-show": "store.activeTab === '#{panel.name}'",
+                cloak: true do %>
+                <%= panel.copy ? panel.copy : "" %>
+                <% end %>
+            <% end %>  
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <div class="bg-lookbook-drawer-bg">      
+        <%= lookbook_render :tab_panels, alpine_data: "store", id: "{id}-drawer-panels" do |tabs| %>
+          <% panels.each do |panel| %>
+            <% tabs.with_panel name: panel.name do %>
+              <%= lookbook_render :inspector_panel, name: panel.name do %>
+                <%= render panel.partial, **data, panel: panel, **panel.locals %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </section>
+  <% end %>
+<% end %>
+
+

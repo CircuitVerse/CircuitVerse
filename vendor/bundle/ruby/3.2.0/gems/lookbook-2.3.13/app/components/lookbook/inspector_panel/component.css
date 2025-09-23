@@ -1,0 +1,5 @@
+@layer components {
+  .lookbook-panel {
+    @apply p-4 min-h-full;
+  }
+}

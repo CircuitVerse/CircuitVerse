@@ -1,0 +1,11 @@
+<div class="h-full">
+  <% if scenarios.many? %>
+    <%= lookbook_render :code, language: scenarios.first.source_lang[:name], line_numbers: true, full_height: true do -%>
+<%- scenarios.each.with_index(1) do |scenario, i| -%>
+<%== "#{sprintf scenario.source_lang[:comment], scenario.label}\n#{scenario.source}\n#{"\n" if i < scenarios.size}" %><% end %>
+    <% end %>
+  <% else %>
+    <% scenario = scenarios.first %>
+    <%= lookbook_render :code, language: scenario.source_lang[:name], line_numbers: true, full_height: true do %><%== scenario.source %><% end %>
+  <% end %>
+</div>

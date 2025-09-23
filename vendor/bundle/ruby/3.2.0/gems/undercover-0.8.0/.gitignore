@@ -1,0 +1,15 @@
+Gemfile.lock
+/.bundle/
+/.yardoc
+/_yardoc/
+/coverage/
+/doc/
+/pkg/
+/spec/reports/
+/tmp/
+
+# rspec failure tracking
+.rspec_status
+
+# branch ignore fixture coverage metadata
+spec/fixtures/branch_ignored_coverage/.*

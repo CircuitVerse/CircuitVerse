@@ -1,0 +1,42 @@
+use Object as Foo
+
+class Conference
+  attr_reader title: String
+  attr_reader year: Integer
+
+  def initialize: (title: String, year: Integer) -> void
+end
+
+class NilClass
+  def must: () -> bot
+end
+
+class Object
+  def must: () -> self
+end
+
+# Test data
+class Konference = Conference
+
+class Allay = ::Array
+
+module Hoge = Bazzz
+
+module Bazzz = Hoge
+
+class Foo < Konference
+  class OBH = String
+
+  type a = Integer
+end
+
+type foo = [Conference, Konference]
+
+
+type b = ::Foo::OBH
+
+class HogeHoge
+  def foo: (Integer, bar: String) -> String
+
+  def bar: (Object, Integer, bar: String, ?baz: Integer) { () -> Integer } -> Integer
+end

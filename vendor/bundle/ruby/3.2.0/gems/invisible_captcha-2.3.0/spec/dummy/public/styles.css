@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #ccc;
+  margin: 2em;
+}
+
+h1 {
+  border-bottom: 3px solid;
+}
+
+a {
+  color: #000;
+}
+
+input, textarea {
+  border: 0;
+  margin-bottom: 1.5em;
+}
+
+input {
+  height: 2em;
+}
+
+button {
+  color: #fff;
+  background-color: #000;
+  border: none;
+  border-radius: 0.25em;
+  height: 3em;
+  width: 10em;
+  font-size: 1em;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 1em 0;
+  font-size: 0.8em;
+  background-color: #ccc;
+}
+
+.errors {
+  color: darkred;
+}

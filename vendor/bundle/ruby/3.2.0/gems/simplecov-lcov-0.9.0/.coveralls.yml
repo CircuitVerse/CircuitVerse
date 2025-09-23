@@ -1,0 +1,8 @@
+service_name: github
+service_job_id: $GITHUB_RUN_ID
+service_pull_request: $GITHUB_EVENT_NAME
+service_branch: $GITHUB_REF_NAME
+service_event_type: $GITHUB_EVENT_NAME
+
+# SimpleCovの結果を直接使用
+coverage_dir: coverage

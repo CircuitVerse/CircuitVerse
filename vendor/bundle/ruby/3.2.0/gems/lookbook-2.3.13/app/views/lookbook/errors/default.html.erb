@@ -1,0 +1,40 @@
+<div class="bg-red-50 h-[calc(100vh_-_40px)] w-full overflow-y-auto">
+  <div>
+    <header class="px-8 py-6">
+      <h2 class="text-xl font-bold text-red-700"><%= @error.type %></h2>
+    </header>
+
+    <div class="px-8 py-6 mb-8 border-t border-b border-red-200 bg-red-100 text-base leading-relaxed">
+      <pre class="whitespace-pre-wrap font-ui leading-tight text-red-900"><%= @error.message %></pre>
+    </div>
+
+    <% if @error.file_path %>
+      <div class="text-sm mx-8 mb-3 font-mono">
+        <span><%= @error.relative_file_path %></span>
+        <% if @error.line_number %>
+          <span>[line <strong><%= @error.line_number %></strong>]</span>
+        <% end %>
+      </div>
+
+      <div class="px-8">
+        <%= lookbook_render :file_source,
+          file_path: @error.file_path,
+          highlight_lines: [@error.line_number],
+          lines_around_highlight: 5,
+          source: @error.source,
+          class: "border border-red-200" %>
+      </div>
+    <% end %>
+
+    <h3 class="font-bold mb-2 px-8 py-2 mt-8">Full stack trace:</h3>
+    <div class="text-xs font-mono w-full overflow-auto">
+      <div class="px-8 pb-10 text-gray-400 leading-relaxed whitespace-nowrap">
+        <% @error.backtrace.each do |line| %>
+          <div class="hover:text-gray-900 transition-colors duration-100">
+            <%= line %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

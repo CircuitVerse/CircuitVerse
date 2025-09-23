@@ -1,0 +1,28 @@
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/rbs-3.9.4/ext/rbs_extension
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+checking for whether -std=gnu99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/rbs-3.9.4/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3bsd1g sitelibdir\=./.gem.20250921-1326-3bsd1g clean
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/rbs-3.9.4/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3bsd1g sitelibdir\=./.gem.20250921-1326-3bsd1g
+compiling ./../../src/constants.c
+compiling lexer.c
+compiling lexstate.c
+compiling location.c
+compiling main.c
+compiling parser.c
+compiling parserstate.c
+compiling ./../../src/util/rbs_constant_pool.c
+compiling ./../../src/ruby_objs.c
+compiling unescape.c
+linking shared-object rbs_extension.so
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/rbs-3.9.4/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3bsd1g sitelibdir\=./.gem.20250921-1326-3bsd1g install
+/usr/bin/install -c -m 0755 rbs_extension.so ./.gem.20250921-1326-3bsd1g
+
+current directory: /home/akansha/CircuitVerse/vendor/bundle/ruby/3.2.0/gems/rbs-3.9.4/ext/rbs_extension
+make DESTDIR\= sitearchdir\=./.gem.20250921-1326-3bsd1g sitelibdir\=./.gem.20250921-1326-3bsd1g clean

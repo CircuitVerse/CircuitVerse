@@ -1,0 +1,21 @@
+<%= render_component_tag class: "overflow-hidden" do %>
+  <div class="bg-lookbook-params-editor-bg border border-lookbook-divider rounded-md overflow-x-auto">
+    <table class="border-collapse w-full" x-bind:class="narrow && 'linear'">
+      <thead>
+        <tr>
+          <th class="param-label">Param</th>
+          <th class="param-description">Description</th>
+          <th class="param-input">Input</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= safe_join(fields.compact) %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<% if param_styles %>
+  <% content_for :user_styles do %><%= param_styles %>
+  <% end %>
+<% end %>

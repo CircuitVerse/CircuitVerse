@@ -1,0 +1,15 @@
+<% if scenarios.many? %>
+  <% scenarios = scenarios.filter(&:visible?) %>
+  <%# Render a group of scenarios %>
+  <% scenarios.each do |scenario| %>
+    <div style="margin-bottom: 30px !important; display: block !important;">
+      <h6 style="all: unset; display: block; color: #555; font-family: sans-serif; font-size: 14px; margin-top: 0; margin-bottom: 10px;">
+        <%= scenario.label %>
+      </h6>
+      <%= scenario.output %>
+    </div>
+  <% end %>
+<% else %>
+  <%# Render a single scenario %>
+  <%= scenarios.first.output %>
+<% end %>

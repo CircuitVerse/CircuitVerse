@@ -1,0 +1,9 @@
+--no-private
+--title=OpenTelemetry Semantic Conventions
+--markup=markdown
+--main=README.md
+./lib/opentelemetry/semantic_conventions/**/*.rb
+./lib/opentelemetry/semantic_conventions.rb
+-
+README.md
+CHANGELOG.md

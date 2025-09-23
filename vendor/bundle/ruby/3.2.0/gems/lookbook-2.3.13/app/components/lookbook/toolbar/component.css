@@ -1,0 +1,16 @@
+@layer components {
+  [data-component="toolbar"] {
+    & .toolbar-sections > * {
+      @apply h-10 flex items-center whitespace-nowrap border-lookbook-toolbar-divider;
+    }
+
+    & [data-component="button-group"] {
+      padding-left: 0.45rem;
+      padding-right: 0.45rem;
+    }
+
+    & [data-component="tabs"] {
+      @apply relative -mb-px px-4;
+    }
+  }
+}

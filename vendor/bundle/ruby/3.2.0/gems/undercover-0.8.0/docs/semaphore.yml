@@ -1,0 +1,18 @@
+version: v1.0
+name: RSpec + Undercover
+agent:
+  machine:
+    type: e1-standard-2
+    os_image: ubuntu1804
+
+blocks:
+  - name: "RSpec"
+    task:
+      jobs:
+      - name: Run Specs and Coverage
+        commands:
+          - checkout
+          - bundle install
+          - bundle exec rspec
+          - gem install undercover
+          - undercover --compare origin/master

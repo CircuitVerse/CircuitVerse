@@ -1,0 +1,20 @@
+﻿gd:
+  errors:
+    messages:
+      in_between: "– feumaidh seo a bhith eadar %{min} ’s %{max}"
+      spoofed_media_type: "– tha susbaint ann nach eil a-rèir na chaidh aithris"
+
+  number:
+    human:
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one:   "bhaidht"
+            two:   "bhaidht"
+            few:   "baidhtean"
+            other: "baidht"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"

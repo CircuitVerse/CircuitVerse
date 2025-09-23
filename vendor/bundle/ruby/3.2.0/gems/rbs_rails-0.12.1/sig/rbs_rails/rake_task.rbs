@@ -1,0 +1,26 @@
+module RbsRails
+  class RakeTask < Rake::TaskLib
+    interface _Filter
+      def call: (Class) -> boolish
+    end
+    attr_accessor ignore_model_if: _Filter | nil
+
+    attr_accessor name: Symbol
+
+    attr_accessor signature_root_dir: Pathname
+
+    def initialize: (?::Symbol name) { (RbsRails::RakeTask) -> void } -> void
+
+    def def_all: () -> void
+
+    def def_copy_signature_files: () -> void
+
+    def def_generate_rbs_for_models: () -> void
+
+    def def_generate_rbs_for_path_helpers: () -> void
+
+    private
+
+    def setup_signature_root_dir!: () -> void
+  end
+end

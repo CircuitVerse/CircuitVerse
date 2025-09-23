@@ -1,0 +1,25 @@
+@layer components {
+  [data-component="prose"] {
+    @apply font-prose;
+
+    /* letter-spacing: -0.015em !important; */
+
+    [data-component="code"] {
+      @apply border border-lookbook-divider rounded-md;
+    }
+
+    [data-component="embed"],
+    [data-component="code"],
+    [data-lookbook-embed] {
+      @apply my-8;
+    }
+
+    [data-lookbook-embed] {
+      @apply rounded-md;
+    }
+  }
+
+  #page [data-component="prose"] h2 {
+    @apply border-b border-lookbook-divider pb-3;
+  }
+}

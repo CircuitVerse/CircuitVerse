@@ -1,0 +1,76 @@
+@layer components {
+  [data-component="params-editor"] {
+    table:not(.linear) {
+      thead {
+        tr {
+          @apply border-b border-lookbook-divider;
+        }
+
+        th {
+          @apply font-semibold py-4 px-4 align-middle text-left;
+        }
+
+        th.param-label {
+          width: 18%;
+        }
+
+        th.param-input {
+          width: 45%;
+        }
+      }
+
+      tbody {
+        tr + tr td {
+          @apply border-t border-lookbook-divider;
+        }
+
+        td {
+          @apply py-4 px-4 align-middle;
+        }
+
+        td.param-label {
+          @apply font-semibold;
+        }
+
+        .param-input-wrapper {
+          min-height: 38px;
+        }
+      }
+    }
+  }
+
+  [data-component="params-editor"] {
+    table.linear {
+      table,
+      tr,
+      td {
+        display: block;
+      }
+
+      thead,
+      th {
+        display: none;
+      }
+
+      tr:not(:last-child) {
+        @apply border-b border-lookbook-divider;
+      }
+
+      tr {
+        @apply space-y-3 py-4;
+      }
+
+      td {
+        @apply px-4 align-middle;
+      }
+
+      td.param-label {
+        @apply font-semibold;
+      }
+
+      td.param-description-empty {
+        @apply hidden;
+      }
+    }
+  }
+}

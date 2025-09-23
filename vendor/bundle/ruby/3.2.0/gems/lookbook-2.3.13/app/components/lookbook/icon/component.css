@@ -1,0 +1,19 @@
+@layer components {
+  [data-component="icon"] {
+    @apply transition block flex-none leading-none;
+
+    svg {
+      @apply w-full h-full stroke-current fill-transparent;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    &.icon-stroke-2 svg {
+      stroke-width: 2;
+    }
+
+    &.icon-stroke-1 svg {
+      stroke-width: 1;
+    }
+  }
+}

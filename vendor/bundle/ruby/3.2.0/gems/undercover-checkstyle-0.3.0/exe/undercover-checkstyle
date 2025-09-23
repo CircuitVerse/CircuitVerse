@@ -1,0 +1,10 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+$LOAD_PATH.unshift("#{__dir__}/../lib")
+$VERBOSE = nil
+
+require 'undercover/checkstyle'
+
+result = Undercover::Checkstyle::CLI.run(ARGV)
+exit result

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+</head>
+<body onload="document.forms[0].submit();" style="visibility:hidden;">
+<%= form_tag(@saml_slo_acs_url) do %>
+  <%= hidden_field_tag("SAMLResponse", @saml_slo_response) %>
+  <%= submit_tag "Submit" %>
+<% end %>
+</body>
+</html>

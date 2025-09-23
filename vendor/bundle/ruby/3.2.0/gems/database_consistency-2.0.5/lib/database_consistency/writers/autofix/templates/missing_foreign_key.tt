@@ -1,0 +1,5 @@
+class %<migration_name>s < ActiveRecord::Migration[%<migration_version>s]
+  def change
+    add_foreign_key :%<foreign_table>s, :%<primary_table>s, column: :%<foreign_key>s, primary_key: :%<primary_key>s
+  end
+end
