@@ -9,9 +9,10 @@ class Users::NoticedNotificationsController < ApplicationController
   end
 
   def mark_as_read
-    notification = NoticedNotification.find(params[:notification_id])
+    notification = NoticedNotification.find_by!(id: params[:notification_id], recipient: current_user)
     notification.update(read_at: Time.zone.now)
     answer = NotifyUser.new(params.permit(:notification_id)).call
+    return redirect_to(root_path) unless answer.respond_to?(:type)
     redirect_to redirect_path_for(answer)
   end
 
