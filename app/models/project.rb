@@ -8,7 +8,7 @@ class Project < ApplicationRecord
   friendly_id :name, use: %i[slugged history]
   self.ignored_columns += %w[data searchable]
 
-  validates :name, length: { minimum: 1 }
+  validates :name, length: { minimum: 1, maximum: 500 }
   validates :slug, uniqueness: true
 
   belongs_to :author, class_name: "User", counter_cache: true
