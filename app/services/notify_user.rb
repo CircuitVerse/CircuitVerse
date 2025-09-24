@@ -19,8 +19,7 @@ class NotifyUser
   def call
     result = type_check
     return result if result.success == "true"
-
-    false
+    Result.new("false", "no_type", nil)
   end
 
   private
@@ -43,7 +42,7 @@ class NotifyUser
       when "ContestWinnerNotification"
         contest_winner_notification
       else
-        Result.new("false", "no_type", root_path)
+        Result.new("false", "no_type", nil)
       end
     end
 
