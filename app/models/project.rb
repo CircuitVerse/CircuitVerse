@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   self.ignored_columns += %w[data searchable]
 
   validates :name, length: { minimum: 1 }
-  validates :slug, uniqueness: true
+  validate :unique_slug_per_author
 
   belongs_to :author, class_name: "User", counter_cache: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
@@ -137,6 +137,17 @@ class Project < ApplicationRecord
   end
 
   private
+
+    def unique_slug_per_author
+      return if slug.blank? || author_id.blank?
+
+      # Check for existing projects with the same slug and author combination
+      existing_project = Project.where(slug: slug, author_id: author_id)
+                               .where.not(id: id)
+                               .first
+
+      errors.add(:slug, "has already been taken") if existing_project.present?
+    end
 
     def check_validity
       return unless (project_access_type != "Private") && !assignment_id.nil?

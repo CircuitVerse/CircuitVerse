@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2025_09_24_104308) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -390,11 +390,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.string "version", default: "1.0", null: false
     t.integer "stars_count", default: 0, null: false
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))", stored: true
+    t.index "md5((((COALESCE(slug, ''::character varying))::text || '-'::text) || COALESCE((author_id)::text, ''::text)))", name: "index_projects_on_slug_author_hash", unique: true
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
     t.index ["searchable"], name: "index_projects_on_searchable", using: :gin
-    t.index ["slug", "author_id"], name: "index_projects_on_slug_and_author_id", unique: true
+    t.index ["slug"], name: "index_projects_on_slug"
+    t.index ["slug"], name: "index_projects_on_slug_small", where: "(octet_length((slug)::text) <= 2000)"
   end
 
   create_table "push_subscriptions", force: :cascade do |t|
