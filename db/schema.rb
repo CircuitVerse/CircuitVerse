@@ -396,6 +396,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_09_24_104308) do
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
     t.index ["searchable"], name: "index_projects_on_searchable", using: :gin
     t.index ["slug"], name: "index_projects_on_slug"
+    t.index ["slug"], name: "index_projects_on_slug_small", where: "(octet_length((slug)::text) <= 2000)"
   end
 
   create_table "push_subscriptions", force: :cascade do |t|
