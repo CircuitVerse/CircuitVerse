@@ -37,6 +37,37 @@ RSpec.describe Project, type: :model do
       project.description = "Ass"
       expect(project).to be_invalid
     end
+
+    it "prevents duplicate slug-author combinations at database level" do
+      # Create first project
+      project1 = FactoryBot.create(:project, author: @user, name: "Test Project")
+      original_slug = project1.slug
+
+      user2 = FactoryBot.create(:user)
+
+      # Same slug with different author should work (database allows it)
+      project2 = FactoryBot.create(:project, author: user2, name: "Test Project")
+      project2.update_column(:slug, original_slug)
+      expect(project2.reload.slug).to eq(original_slug)
+
+      # Attempting to create another project with same slug and author should fail at DB level
+      expect {
+        project3 = FactoryBot.create(:project, author: @user, name: "Another Test")
+        project3.update_column(:slug, original_slug)
+      }.to raise_error(ActiveRecord::RecordNotUnique)
+    end
+
+    it "handles long project names and slugs properly" do
+      # Test with very long names that would previously cause index size issues
+      long_name = "A" * 1000
+      project = FactoryBot.build(:project, author: @user, name: long_name)
+
+      # Should be valid even with long slug
+      expect(project).to be_valid
+
+      # Should be able to save without index size errors
+      expect { project.save! }.not_to raise_error
+    end
   end
 
   describe "public methods" do
