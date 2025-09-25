@@ -10,7 +10,11 @@ class NotifyUser
     # @type [Assignment]
     @assignment = @notification.params[:assignment]
     # @type [Project]
-    @project = @notification.params[:project]
+    @project = if @notification.params[:project].is_a?(Project)
+      @notification.params[:project]
+    else
+      Project.find_by(id: @notification.params[:project_id])
+    end
     @thread = @notification.params[:forum_thread]
     @contest = @notification.params[:contest] # Added to handle ContestNotification
   end
