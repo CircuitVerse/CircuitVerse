@@ -12,7 +12,7 @@ class Users::NoticedNotificationsController < ApplicationController
     notification = NoticedNotification.find_by!(id: params[:notification_id], recipient: current_user)
     notification.update(read_at: Time.zone.now)
     answer = NotifyUser.new(params.permit(:notification_id)).call
-    return redirect_to(root_path) unless answer.respond_to?(:type)
+    return redirect_to(root_path) unless answer.success == "true"
     redirect_to redirect_path_for(answer)
   end
 
