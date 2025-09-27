@@ -75,6 +75,7 @@ en:
       time_left_label: "Time Left:"
     buttons:
       submit: "Submit"
+      update: "Update"
       update_deadline: "Update Deadline"
   contests:
     index:

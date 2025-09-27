@@ -1,5 +1,0 @@
-source 'https://rubygems.org'
-
-gem 'rails', '~> 6.1.7'
-gem 'webrick' if RUBY_VERSION >= '3'
-gem 'premailer-rails', path: '../..'

@@ -15,7 +15,7 @@ class Admin::ContestsController < ApplicationController
       return
     end
 
-    @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live))
+    @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live, name: "Contest ##{Contest.count + 1}"))
 
     if @contest.save
       ContestScheduler.call(@contest)
@@ -42,7 +42,7 @@ class Admin::ContestsController < ApplicationController
 
       return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
 
-      if @contest.update(deadline: parsed_deadline)
+      if @contest.update(contest_params.merge(deadline: parsed_deadline))
         ContestScheduler.call(@contest)
         redirect_to contest_path(@contest), notice: t(".deadline_updated")
       else

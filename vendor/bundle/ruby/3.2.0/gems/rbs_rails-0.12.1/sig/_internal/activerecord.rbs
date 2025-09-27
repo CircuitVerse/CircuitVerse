@@ -1,4 +1,0 @@
-# TODO: Define it in gem_rbs_collection repository
-class ActiveRecord::Base
-  def self.primary_key: () -> String
-end

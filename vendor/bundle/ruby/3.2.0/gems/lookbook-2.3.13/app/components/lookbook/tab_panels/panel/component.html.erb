@@ -1,8 +1,0 @@
-<%= render_component_tag :section,
-  "x-ref": @name,
-  "data-tab-panel": @name,
-  cloak: true,
-  class: "h-full",
-  "x-bind:class": "{ hidden: !isActive($el) }" do %>
-    <%== content %>
-<% end %>

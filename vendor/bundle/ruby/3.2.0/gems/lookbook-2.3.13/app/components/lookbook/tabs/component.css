@@ -1,8 +1,0 @@
-@layer components {
-  [data-component="tabs-dropdown-tab"]:not(.hidden) {
-    @apply border-b border-b-lookbook-divider;
-  }
-  [data-component="tabs-dropdown-tab"]:not(.hidden):last-child {
-    @apply border-b-0;
-  }
-}
