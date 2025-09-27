@@ -27,6 +27,10 @@
                     id:     "update-contest-form" do |form| %>
 
         <div class="modal-body">
+          <div class="form-group mb-3">
+            <%= form.label :name, "Contest Name" %>
+            <%= form.text_field :name, class: "form-control", value: @contest.name, required: true %>
+          </div>
           <div class="form-group">
             <%= form.label :deadline,
                            t("contest.update_contest_modal.sub_heading"),
@@ -42,8 +46,7 @@
         </div>
 
         <div class="modal-footer">
-          <%= form.submit t("contest.buttons.update_deadline"),
-                          class: "btn btn-primary" %>
+          <%= form.submit t("contest.buttons.update"), class: "btn btn-primary" %>
         </div>
       <% end %>
     </div>

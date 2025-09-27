@@ -1,7 +1,9 @@
 <div class="container">
   <div class="d-flex justify-content-between align-items-center pt-4">
     <div>
-      <h3 class="contest-header-title"><%= t("contest.leaderboard.title", id: @contest.id) %></h3>
+      <h3 class="contest-header-title">
+      <%= @contest.name %>
+      </h3>
       <p class="mb-0 contest-header-description">
         <%= t("contest.leaderboard.subtitle") %>
       </p>
