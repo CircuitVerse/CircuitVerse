@@ -15,7 +15,8 @@ class Admin::ContestsController < ApplicationController
       return
     end
 
-    @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live, name: "Contest ##{Contest.count + 1}"))
+    @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live,
+                                                        name: "Contest ##{Contest.count + 1}"))
 
     if @contest.save
       ContestScheduler.call(@contest)
