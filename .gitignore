@@ -10,6 +10,9 @@
 test_results
 tmp
 
+# Add the vendor directory here, near other dependency ignores
+/vendor/
+
 public/assets/
 public/simulatorvue
 

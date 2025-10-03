@@ -51,8 +51,7 @@
 
           <div class="contest-container-details">
             <h5 class="contest-container-details-number">
-              <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}",
-                          contest_path(contest.id) %>
+              <%= link_to contest.name, contest_path(contest.id) %>
             </h5>
 
             <% if contest.completed? %>
@@ -63,10 +62,7 @@
 
             <% if contest.live? %>
               <%= link_to "#",
-                          data:   { bs_toggle: "modal",
-                                    bs_target: "#update-contest-modal",
-                                    contest:   contest,
-                                    deadline:  contest.deadline.strftime("%Y-%m-%dT%H:%M") },
+                          data: { bs_toggle: "modal", bs_target: "#update-contest-modal", contest: contest, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M"), name: contest.name },
                           class:  "contest-container-update-button" do %>
                 <%= image_tag("svgs/editGroup.svg", alt: t("admin.contests.index.edit_deadline_alt")) %>
                 <span><%= t("edit") %></span>
