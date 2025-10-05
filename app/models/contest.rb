@@ -16,7 +16,15 @@ class Contest < ApplicationRecord
 
   self.per_page = 8
 
+  before_validation :set_default_name, on: :create
+
   private
+
+    def set_default_name
+      if self.name.blank?
+        self.name = "Contest ##{Contest.count + 1}"
+      end
+    end
 
     def deadline_must_be_in_future
       return unless deadline.present? && deadline < Time.zone.now

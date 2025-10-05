@@ -14,9 +14,9 @@ class Admin::ContestsController < ApplicationController
       redirect_to admin_contests_path, notice: t(".concurrent_contests")
       return
     end
-
-    @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live,
-                                                        name: "Contest ##{Contest.count + 1}"))
+  
+    # SIMPLIFIED: The Model now handles the default name, so we only pass the simple parameters.
+    @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live))
 
     if @contest.save
       ContestScheduler.call(@contest)
