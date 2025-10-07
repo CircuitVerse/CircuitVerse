@@ -2,7 +2,7 @@
 
 class FooterComponent < ViewComponent::Base
   def initialize(current_user:)
-    super
+    super()
     @current_user = current_user
   end
 

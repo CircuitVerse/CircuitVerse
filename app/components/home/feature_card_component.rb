@@ -2,7 +2,7 @@
 
 class Home::FeatureCardComponent < ViewComponent::Base
   def initialize(image_path:, alt_text:, title:, description:)
-    super
+    super()
     @image_path = image_path
     @alt_text = alt_text
     @title = title

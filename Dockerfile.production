@@ -43,8 +43,6 @@ RUN bundle exec bootsnap precompile --gemfile app/ lib/
 # Build stage for the Vue simualtor
 FROM --platform=$BUILDPLATFORM node:lts-slim as simulator_vue_build
 
-RUN mkdir -p /public/
-
 WORKDIR /app
 
 # Copy package files and install Vue simulator dependecies
@@ -52,14 +50,30 @@ COPY cv-frontend-vue/package.json cv-frontend-vue/package-lock.json ./
 RUN npm install --ignore-scripts
 COPY cv-frontend-vue/ ./
 
+# Create the target directory structure
+RUN mkdir -p /output/simulatorvue
+
+# Set environment to ensure consistent build output
+ENV DESKTOP_MODE=false
+
 # Build Vue simualtor
 RUN npm run build
+
+# Copy built files to a known location
+RUN cp -r public/simulatorvue/* /output/simulatorvue/ || \
+    cp -r ../public/simulatorvue/* /output/simulatorvue/ || \
+    find . -name "*.js" -o -name "*.css" -o -name "*.html" | head -10
+
+# Debug: show what we actually built
+RUN ls -laR /output/
+
+# The files should now be in /app/public/simulatorvue/
 
 FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim as app
 
 # Copy compiled assets and application from builder and Vue simulator build stages
 COPY --from=builder /usr/src/app /usr/src/app
-COPY --from=simulator_vue_build /public/simulatorvue /usr/src/app/public/simulatorvue
+COPY --from=simulator_vue_build /output/simulatorvue/ /usr/src/app/public/simulatorvue
 
 ENV RAILS_ENV=production
 ENV NODE_ENV=production
