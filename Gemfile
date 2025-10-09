@@ -23,7 +23,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.0.3"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -92,7 +92,7 @@ gem "http", "~> 4.4"
 
 # Database
 
-gem "pg", "~> 1.6.1"
+gem "pg", "~> 1.6.2"
 
 gem "meta-tags"
 
@@ -190,10 +190,10 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.176"
+gem "aws-sdk-s3", "~> 1.199"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.8"
+gem "opentelemetry-sdk", "~> 1.9"
 gem "opentelemetry-exporter-otlp", "~> 0.30.0"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
