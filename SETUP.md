@@ -125,11 +125,22 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 
       yarn
 
+      npm install cors (remove cors before pushing the code)
+
       cd ..
+      ```
+    - Add the following lines in server.js to allow requests from all origins in your local setup(remember to remove them before pushing server.js and delete cors)
+      ```sh
+      var cors = require('cors')
+      server.use(cors());
       ```
     - To use CircuitVerse yosys2digitaljs-server:
       ```sh
       bin/yosys
+      ```
+    - In verilog2CV.js in main repo at line 162 change the URL to
+      ```sh
+      const url='http://localhost:3040/getJSON';
       ```
 
 ## Distributed Tracing using Opentelmetry
