@@ -14,7 +14,8 @@ class Admin::ContestsController < ApplicationController
       redirect_to admin_contests_path, notice: t(".concurrent_contests")
       return
     end
-
+  
+    # SIMPLIFIED: The Model now handles the default name, so we only pass the simple parameters.
     @contest = Contest.new(contest_params.reverse_merge(deadline: 1.month.from_now, status: :live))
 
     if @contest.save
@@ -42,7 +43,7 @@ class Admin::ContestsController < ApplicationController
 
       return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
 
-      if @contest.update(deadline: parsed_deadline)
+      if @contest.update(contest_params.merge(deadline: parsed_deadline))
         ContestScheduler.call(@contest)
         redirect_to contest_path(@contest), notice: t(".deadline_updated")
       else
