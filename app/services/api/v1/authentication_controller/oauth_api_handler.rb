@@ -40,6 +40,17 @@ class Api::V1::AuthenticationController
         # @type [HTTP::Response]
         @response = HTTP.get("https://graph.facebook.com/v2.12/me" \
                              "?fields=name,email&access_token=#{@access_token}")
+
+        # Log the response for debugging
+        unless @response.status.success?
+          error_message = JSON.parse(@response.body.to_s)["error"]["message"]
+          if error_message.include?("App Not Active")
+            raise AppNotActiveError
+          else
+            puts "Facebook API Error: #{@response.body.to_s}"
+            raise InvalidOAuthToken
+          end
+        end
       end
 
       def github_user
