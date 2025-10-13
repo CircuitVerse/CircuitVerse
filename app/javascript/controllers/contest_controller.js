@@ -15,6 +15,7 @@ export default class extends Controller {
 
     setAdminModals() {
         const updateContestModal = this.element.querySelector('#update-contest-modal');
+        const currentName = $(e.relatedTarget).data('name');
         if (!updateContestModal) return;
         $(updateContestModal).on('show.bs.modal', function handleUpdateContestModal(e) {
             const contestId = $(e.relatedTarget).data('contest').id;
@@ -23,6 +24,7 @@ export default class extends Controller {
             const action = form.attr('action').replace(':contest_id', contestId);
             form.attr('action', action);
             form.find('#contest_deadline').val(currentDeadline);
+            form.find('#contest_name').val(currentName);
         });
     }
 

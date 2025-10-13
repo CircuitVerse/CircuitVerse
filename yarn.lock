@@ -914,6 +914,11 @@
     "@babel/types" "^7.4.4"
     esutils "^2.0.2"
 
+"@babel/runtime@^7.16.7":
+  version "7.28.4"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.28.4.tgz#a70226016fabe25c5783b2f22d3e1c9bc5ca3326"
+  integrity sha512-Q/N6JNWvIvPnLDvjlE1OUBLPQHH6l3CltCEsHIujp45zQUSSh8K+gHnaEX45yAT1nyngnINhvWtzN+Nb9D8RAQ==
+
 "@babel/runtime@^7.7.6", "@babel/runtime@^7.8.4":
   version "7.26.0"
   resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.26.0.tgz"
@@ -1654,7 +1659,7 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fortawesome/fontawesome-free@^6.7.2":
+"@fortawesome/fontawesome-free@>=5.15.0 <7.0.0", "@fortawesome/fontawesome-free@^6.7.2":
   version "6.7.2"
   resolved "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz"
   integrity sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==
@@ -1668,6 +1673,19 @@
   version "3.2.2"
   resolved "https://registry.npmjs.org/@hotwired/stimulus/-/stimulus-3.2.2.tgz"
   integrity sha512-eGeIqNOQpXoPAIP7tC1+1Yc1yl1xnwYqg+3mzqxyrbE5pg5YFBZcA6YoTiByJB6DKAEsiWtl6tjTJS4IYtbB7A==
+
+"@hotwired/turbo-rails@^7.1.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-7.3.0.tgz#422c21752509f3edcd6c7b2725bbe9e157815f51"
+  integrity sha512-fvhO64vp/a2UVQ3jue9WTc2JisMv9XilIC7ViZmXAREVwiQ2S4UC7Go8f9A1j4Xu7DBI6SbFdqILk5ImqVoqyA==
+  dependencies:
+    "@hotwired/turbo" "^7.3.0"
+    "@rails/actioncable" "^7.0"
+
+"@hotwired/turbo@^7.3.0":
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-7.3.0.tgz#2226000fff1aabda9fd9587474565c9929dbf15d"
+  integrity sha512-Dcu+NaSvHLT7EjrDrkEmH4qET2ZJZ5IcCWmNXxNQTBwlnE5tBZfN6WxZ842n5cHV52DH/AKNirbPBtcEXDLW4g==
 
 "@humanwhocodes/config-array@^0.5.0":
   version "0.5.0"
@@ -2207,10 +2225,20 @@
     "@percy/config" "1.30.5"
     "@percy/sdk-utils" "1.30.5"
 
-"@popperjs/core@^2.11.8":
+"@popperjs/core@^2.11.0", "@popperjs/core@^2.11.8":
   version "2.11.8"
   resolved "https://registry.npmjs.org/@popperjs/core/-/core-2.11.8.tgz"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
+
+"@rails/actioncable@^7.0":
+  version "7.2.202"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-7.2.202.tgz#5f60e3d0979efdf579dd3c126b1c209b8d289359"
+  integrity sha512-fJs7s2AsVdGFMYSIWe8OtMipSpoGVNw9XJJFi9SsdykDOQxLR9p5GMHdwWrg45he6WDU4ptIJsZini2xxv7G6g==
+
+"@rails/ujs@^6.1.4-1":
+  version "6.1.710"
+  resolved "https://registry.yarnpkg.com/@rails/ujs/-/ujs-6.1.710.tgz#14cbf938c49985af51cca52d117f9c358ea4a579"
+  integrity sha512-NUS8nUkYHGSn/EDg3oJCkpMweSKeFxA4ef6pcnW2fJEZ7RcoWdJa1rr9vamUoqzNR+Ctd8ezsgBMAjxUahVB1w==
 
 "@rollup/rollup-android-arm-eabi@4.28.0":
   version "4.28.0"
@@ -2997,6 +3025,11 @@ bootstrap-input-spinner@^3.3.3:
   version "3.3.3"
   resolved "https://registry.npmjs.org/bootstrap-input-spinner/-/bootstrap-input-spinner-3.3.3.tgz"
   integrity sha512-hHkus8v7BzIveFA6sV2NphGvIx82lRa3mAD12LKAm1atmwNRamXqEOkbCG1KDXz8FDV1GW9AiZSVOzth5duQgg==
+
+bootstrap@^5.1.3:
+  version "5.3.8"
+  resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.3.8.tgz#6401a10057a22752d21f4e19055508980656aeed"
+  integrity sha512-HP1SZDqaLDPwsNiqRqi5NcP0SSXciX2s9E+RyqJIIqGo+vJeN5AJVM98CXmW/Wux0nQ5L7jeWUdplCEf0Ee+tg==
 
 bootstrap@^5.3.3:
   version "5.3.3"
@@ -4428,6 +4461,11 @@ flat-cache@^3.0.4, flat-cache@^3.2.0:
     keyv "^4.5.3"
     rimraf "^3.0.2"
 
+flatpickr@^4.6.9:
+  version "4.6.13"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.13.tgz#8a029548187fd6e0d670908471e43abe9ad18d94"
+  integrity sha512-97PMG/aywoYpB4IvbvUJi0RQi8vearvU0oov1WW3k0WZPBMrTQVqekSX5CjSG/M4Q3i6A/0FKXC7RyAoAUUSPw==
+
 flatted@^3.2.9:
   version "3.3.2"
   resolved "https://registry.npmjs.org/flatted/-/flatted-3.3.2.tgz"
@@ -5675,12 +5713,19 @@ jquery-resizable-dom@^0.35.0:
   dependencies:
     jquery "^3.4.0"
 
+"jquery-ui@^1.12.1 <1.14.0":
+  version "1.13.3"
+  resolved "https://registry.yarnpkg.com/jquery-ui/-/jquery-ui-1.13.3.tgz#d9f5292b2857fa1f2fdbbe8f2e66081664eb9bc5"
+  integrity sha512-D2YJfswSJRh/B8M/zCowDpNFfwsDmtfnMPwjJTyvl+CBqzpYwQ+gFYIbUUlzijy/Qvoy30H1YhoSui4MNYpRwA==
+  dependencies:
+    jquery ">=1.8.0 <4.0.0"
+
 jquery-ujs@^1.2.3:
   version "1.2.3"
   resolved "https://registry.npmjs.org/jquery-ujs/-/jquery-ujs-1.2.3.tgz"
   integrity sha512-59wvfx5vcCTHMeQT1/OwFiAj+UffLIwjRIoXdpO7Z7BCFGepzq9T9oLVeoItjTqjoXfUrHJvV7QU6pUR+UzOoA==
 
-jquery@^3.4.0, jquery@^3.7.1:
+"jquery@>=1.8.0 <4.0.0", jquery@^3.4.0, jquery@^3.6.0, jquery@^3.7.1:
   version "3.7.1"
   resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
@@ -7232,6 +7277,21 @@ quick-lru@^5.1.1:
   resolved "https://registry.npmjs.org/quick-lru/-/quick-lru-5.1.1.tgz"
   integrity sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==
 
+rails_admin@3.3.0:
+  version "3.3.0"
+  resolved "https://registry.yarnpkg.com/rails_admin/-/rails_admin-3.3.0.tgz#58701b189e40b7c7f9a0a8ba2b996a41d5842017"
+  integrity sha512-sgdLMdJDOQmkEWYXY0uqLYxi7eMdhCEU4ZuKpVKdSssMoOr9iqCX8/sOP4ErRiC8Iez5x1vXVOv0Iki4ZKCNug==
+  dependencies:
+    "@babel/runtime" "^7.16.7"
+    "@fortawesome/fontawesome-free" ">=5.15.0 <7.0.0"
+    "@hotwired/turbo-rails" "^7.1.0"
+    "@popperjs/core" "^2.11.0"
+    "@rails/ujs" "^6.1.4-1"
+    bootstrap "^5.1.3"
+    flatpickr "^4.6.9"
+    jquery "^3.6.0"
+    jquery-ui "^1.12.1 <1.14.0"
+
 react-ace@^9.5.0:
   version "9.5.0"
   resolved "https://registry.npmjs.org/react-ace/-/react-ace-9.5.0.tgz"
@@ -7616,10 +7676,10 @@ sass@1.47.0:
     immutable "^4.0.0"
     source-map-js ">=0.6.2 <2.0.0"
 
-sass@^1.83.4:
-  version "1.84.0"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.84.0.tgz#da9154cbccb2d2eac7a9486091b6d9ba93ef5bad"
-  integrity sha512-XDAbhEPJRxi7H0SxrnOpiXFQoUJHwkR2u3Zc4el+fK/Tt5Hpzw5kkQ59qVDfvdaUq6gCrEZIbySFBM2T9DNKHg==
+sass@^1.93.1:
+  version "1.93.1"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.93.1.tgz#94bf77eeef5fba022c7316515327e275e46b654e"
+  integrity sha512-wLAeLB7IksO2u+cCfhHqcy7/2ZUMPp/X2oV6+LjmweTqgjhOKrkaE/Q1wljxtco5EcOcupZ4c981X0gpk5Tiag==
   dependencies:
     chokidar "^4.0.0"
     immutable "^5.0.2"
