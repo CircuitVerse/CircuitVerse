@@ -71,7 +71,8 @@
 
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
-    <%= link_to t("back"), :back, class: "anchor-text" %>
+    <%= link_to t("back"), 'javascript:history.back()', class: "anchor-text" %>
+
   </div>
 <% end %>
 
