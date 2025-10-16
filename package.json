@@ -70,7 +70,7 @@
     "turbolinks": "^5.2.0"
   },
   "engines": {
-    "node": "22"
+    "node": "22.x"
   },
   "collective": {
     "type": "opencollective",
