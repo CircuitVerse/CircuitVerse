@@ -24,8 +24,8 @@ gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 8.0.0"
-gem "rack", ">= 3.2.2"
-gem "uri", ">= 1.0.4"
+gem "rack", "~> 3.2.2"
+gem "uri", "~> 1.0.4"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets

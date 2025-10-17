@@ -124,7 +124,7 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.113.0)
+    aws-sdk-kms (1.114.0)
       aws-sdk-core (~> 3, >= 3.231.0)
       aws-sigv4 (~> 1.5)
     aws-sdk-rails (5.1.0)
@@ -893,7 +893,7 @@ GEM
     thor (1.4.0)
     tilt (2.6.1)
     timeout (0.4.3)
-    tins (1.44.1)
+    tins (1.45.0)
       bigdecimal
       mize (~> 0.6)
       sync
@@ -1066,7 +1066,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 6.4)
   pundit
-  rack (>= 3.2.2)
+  rack (~> 3.2.2)
   rack-attack
   rails (~> 8.0.0)
   rails-data-migrations!
@@ -1108,7 +1108,7 @@ DEPENDENCIES
   tzinfo-data
   undercover
   undercover-checkstyle
-  uri (>= 1.0.4)
+  uri (~> 1.0.4)
   view_component
   vite_rails
   web-console (>= 3.3.0)
