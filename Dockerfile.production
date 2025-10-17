@@ -6,7 +6,7 @@ ARG BUILDPLATFORM
 ENV NODE_ENV=production
 ENV RAILS_ENV=production
 
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash -
 RUN apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libvips
 
 RUN npm install --global yarn
@@ -40,8 +40,8 @@ RUN rm -rf node_modules spec
 # Precompile the Bootsnap cache for the specified directories to optimize boot time in production.
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
-# Build stage for the Vue simualtor
-FROM --platform=$BUILDPLATFORM node:lts-slim as simulator_vue_build
+# Build stage for the Vue simulator
+FROM --platform=$BUILDPLATFORM node:22-slim as simulator_vue_build
 
 WORKDIR /app
 
