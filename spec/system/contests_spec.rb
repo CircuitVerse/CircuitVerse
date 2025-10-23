@@ -8,7 +8,7 @@ describe "Contests", type: :system do
     @user    = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)
     Flipper.enable(:contests)
-    sign_in @user
+    system_sign_in @user
   end
 
   let(:create_params) do
@@ -84,7 +84,12 @@ describe "Contests", type: :system do
       visit new_contest_submission_path(@contest.id)
       page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
-      sign_in_random_user
+
+      visit destroy_user_session_path
+
+      voter_user = FactoryBot.create(:user)
+      system_sign_in(voter_user)
+
       visit contest_path(@contest.id)
     end
 
@@ -100,7 +105,12 @@ describe "Contests", type: :system do
       visit new_contest_submission_path(@contest.id)
       page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
-      sign_in_random_user
+
+      visit destroy_user_session_path
+
+      voter_user = FactoryBot.create(:user)
+      system_sign_in(voter_user)
+
       visit contest_path(@contest.id)
       page.find(".vote-button[data-submission-id='#{@contest.submissions.last.id}']").click
     end

@@ -19,9 +19,7 @@ class Api::V1::ProjectSerializer
     project.author.name
   end
 
-  attributes :stars_count do |project|
-    project.stars.count
-  end
+  attributes :stars_count, &:stars_count
 
   attributes :thread_id do |project|
     project.commontator_thread.id

@@ -2,28 +2,27 @@
 
 require "rails_helper"
 
-describe ErrorsController, type: :request do
-  describe "#not_found" do
-    it "returns 404" do
-      get "/404"
-      expect(response.body).to include("OOPS,THE PAGE YOU ARE LOOKING FOR CAN'T BE FOUND!")
-      expect(response.body).to include("404")
-    end
-  end
+describe ErrorsController, type: :controller do
+  render_views
 
   describe "#not_found" do
     it "returns 404" do
-      get "/500"
-      expect(response.body).to include("SERVER ERRORED!, IT'S ME NOT YOU, LET'S TRY AGAIN :)")
-      expect(response.body).to include("500")
+      get :not_found
+      expect(response).to have_http_status(:not_found)
     end
   end
 
-  describe "#not_found" do
-    it "returns 404" do
-      get "/422"
-      expect(response.body).to include("UNPROCESSABLE ENTITY!, REQUEST COULD NOT BE PROCESSED :(")
-      expect(response.body).to include("422")
+  describe "#internal_error" do
+    it "returns 500" do
+      get :internal_error
+      expect(response).to have_http_status(:internal_server_error)
+    end
+  end
+
+  describe "#unacceptable" do
+    it "returns 422" do
+      get :unacceptable
+      expect(response).to have_http_status(:unprocessable_entity)
     end
   end
 end

@@ -16,7 +16,7 @@ describe "Assignments", type: :system do
 
   context "when user is primary_mentor" do
     before do
-      sign_in primary_mentor
+      system_sign_in(primary_mentor)
     end
 
     it "creates assignment" do
@@ -95,7 +95,7 @@ describe "Assignments", type: :system do
 
   context "when user is mentor" do
     before do
-      sign_in mentor
+      system_sign_in(mentor)
     end
 
     it "creates assignment" do
@@ -173,7 +173,7 @@ describe "Assignments", type: :system do
 
   context "when user is a member" do
     before do
-      sign_in member
+      system_sign_in(member)
     end
 
     it "is able to make assignment project" do

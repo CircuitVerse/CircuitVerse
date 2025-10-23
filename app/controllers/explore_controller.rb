@@ -89,7 +89,7 @@ class ExploreController < ApplicationController
     end
 
     def recent_base_scope
-      Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description)
+      Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description, :stars_count)
              .public_and_not_forked
              .includes(:author, :stars)
              .with_attached_circuit_preview

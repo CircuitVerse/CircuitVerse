@@ -40,16 +40,26 @@ end
 Capybara.default_max_wait_time = 3
 
 RSpec.configure do |config|
-  config.fixture_path = Rails.root.join("spec/fixtures")
+  config.fixture_paths = [Rails.root.join("spec/fixtures")]
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
 
+  config.include SystemTestHelpers, type: :system
+
   config.before do
     Flipper.adapter.features.each { |name| Flipper[name].remove }
     Flipper.enable(:active_storage_s3)
     Flipper.enable(:contests)
+    stub_request(:get, "https://fonts.googleapis.com/css?display=swap&family=Open%20Sans")
+      .with(headers: {
+              "Accept" => "text/css",
+              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+              "Host" => "fonts.googleapis.com",
+              "User-Agent" => "Ruby"
+            })
+      .to_return(status: 200, body: "", headers: {})
   end
 
   config.use_transactional_fixtures = true
@@ -60,10 +70,17 @@ RSpec.configure do |config|
   config.include ViewComponent::TestHelpers, type: :component
   config.include Devise::Test::ControllerHelpers, type: :controller
 
+  config.example_status_persistence_file_path = Rails.root.join("tmp/rspec_status")
+
   config.define_derived_metadata(
     file_path: %r{spec/system/(group_spec|project_spec|user_profile_spec)\.rb}
   ) do |metadata|
     metadata[:js] = true
+  end
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.before(:each, type: :request) do
+    Rails.application.reload_routes_unless_loaded
   end
 end
 

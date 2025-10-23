@@ -111,7 +111,7 @@ class GroupMembersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_member_params
-      params.require(:group_member).permit(:group_id, :user_id, :mentor, emails: [])
+      params.expect(group_member: [:group_id, :user_id, :mentor, { emails: [] }])
     end
 
     # Using different params for update
@@ -119,7 +119,7 @@ class GroupMembersController < ApplicationController
     # which would allow changing users of arbitrary groups since
     # the check_access happens before the group is changed and passes
     def group_member_update_params
-      params.require(:group_member).permit(:mentor)
+      params.expect(group_member: [:mentor])
     end
 
     def check_access

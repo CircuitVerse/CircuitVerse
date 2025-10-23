@@ -12,21 +12,21 @@
     <div class="col col-sm col-md col-lg">
       <div class="social-card contribute-social-card">
         <a class="about-social-anchor" href="mailto:support@circuitverse.org" target="_blank">
-          <%= image_tag "SVGs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
+          <%= image_tag "svgs/email.svg", height: "60", width: "60", alt: "Email Icon", class: "social-card-image" %>
           <h6><%= t("email_us_heading") %></h6>
           <p>support@circuitverse.org</p>
         </a>
       </div>
       <div class="social-card contribute-social-card">
         <a class="about-social-anchor" href="<%= Rails.configuration.slack_url %>" target="_blank">
-          <%= image_tag "SVGs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
+          <%= image_tag "svgs/slack.svg", height: "60", width: "60", alt: "Slack Logo", class: "social-card-image" %>
           <h6><%= t("join_at_slack_heading") %></h6>
           <p><%= t("join_at_slack_description") %></p>
         </a>
       </div>
       <div class="social-card contribute-social-card">
         <a class="about-social-anchor" href="https://github.com/CircuitVerse" target="_blank">
-          <%= image_tag "SVGs/github.svg", height: "60", width: "60", alt: "Github Logo", class: "social-card-image" %>
+          <%= image_tag "svgs/github.svg", height: "60", width: "60", alt: "Github Logo", class: "social-card-image" %>
           <h6><%= t("circuitverse.contribute.contribute_at_github_heading") %></h6>
           <p><%= t("circuitverse.contribute.contribute_at_github_description") %></p>
         </a>
@@ -42,7 +42,7 @@
   </div>
   <div class="row center-row gy-5">
   <%= render(Contribute::CardComponent.new(
-      image_src: "SVGs/student.svg",
+      image_src: "svgs/student.svg",
       alt_text: "Student Icon",
       title_key: "circuitverse.contribute.student_card.main_heading",
       items: [
@@ -52,7 +52,7 @@
       ]
     )) %>
     <%= render(Contribute::CardComponent.new(
-      image_src: "SVGs/professor.svg",
+      image_src: "svgs/professor.svg",
       alt_text: "Professor Icon",
       title_key: "circuitverse.contribute.teacher_card.main_heading",
       items: [
@@ -62,7 +62,7 @@
       ]
     )) %>
     <%= render(Contribute::CardComponent.new(
-      image_src: "SVGs/coder.svg",
+      image_src: "svgs/coder.svg",
       alt_text: "Developer Icon",
       title_key: "circuitverse.contribute.developer_card.main_heading",
       items: [

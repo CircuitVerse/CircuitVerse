@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Contribute::CardComponent, type: :component do
   include ViewComponent::TestHelpers
 
-  let(:image_src) { "SVGs/student.svg" }
+  let(:image_src) { "svgs/student.svg" }
   let(:alt_text) { "Student Icon" }
   let(:title_key) { "circuitverse.contribute.student_card.main_heading" }
   let(:items) do

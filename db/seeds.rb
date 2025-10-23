@@ -13,7 +13,9 @@ Rails.logger.debug "Creating Users"
 User.create(name: "Admin",
             email: "admin@circuitverse.org",
             password: "password",
-            admin: true)
+            admin: true,
+            confirmed_at: Time.now
+)
 users = User.create([{ name: "user1", email: "user1@circuitverse.org", password: "password" },
                      { name: "user2", email: "user2@circuitverse.org", password: "password" }])
 

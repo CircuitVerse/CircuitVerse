@@ -2,7 +2,7 @@
 
 class Home::StatCardComponent < ViewComponent::Base
   def initialize(number:, label:)
-    super
+    super()
     @number = number
     @label = label
   end

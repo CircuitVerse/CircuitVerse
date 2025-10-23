@@ -1,7 +1,6 @@
 name: "Ruby on Rails CI"
 
-on:
-  [push, pull_request, workflow_dispatch]
+on: [push, pull_request, workflow_dispatch]
 
 jobs:
   test:
@@ -41,8 +40,8 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'yarn'
+          node-version: "22"
+          cache: "yarn"
 
       - name: Install Dependencies for canvas
         run: |
@@ -72,7 +71,10 @@ jobs:
         run: bin/rails data:migrate
 
       - name: Build assets
-        run: yarn run build
+        run: |
+          yarn run build
+          bin/rails assets:clobber
+          bin/rails assets:precompile
 
       - name: Configure keys
         run: |
@@ -101,7 +103,7 @@ jobs:
           REVIEWDOG_GITHUB_API_TOKEN: ${{ secrets.github_token }}
         run: |
           git fetch --no-tags
-          reviewdog -reporter=github-pr-review -runners=undercover --fail-on-error
+          reviewdog -reporter=github-pr-review -runners=undercover -fail-level=error
 
       - name: Static type checking
         run: |

@@ -58,6 +58,6 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
     end
 
     def collaborator_params
-      params.require(:collaborator).permit(:project_id, :emails)
+      params.expect(collaborator: %i[project_id emails])
     end
 end

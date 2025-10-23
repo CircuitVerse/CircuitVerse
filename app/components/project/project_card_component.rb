@@ -6,7 +6,7 @@ class Project::ProjectCardComponent < ViewComponent::Base
   with_collection_parameter :project
 
   def initialize(project:)
-    super
+    super()
     @project = project
   end
 

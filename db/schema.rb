@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_27_121030) do
+ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_121030) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", precision: nil, null: false
+    t.datetime "deadline", null: false
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -184,6 +184,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_121030) do
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_custom_mails_on_user_id"
+  end
+
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
   end
 
   create_table "featured_circuits", force: :cascade do |t|
@@ -383,9 +386,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_121030) do
     t.text "description"
     t.bigint "view", default: 1
     t.string "slug"
-    t.tsvector "searchable"
     t.string "lis_result_sourced_id"
+    t.string "version", default: "1.0", null: false
     t.integer "stars_count", default: 0, null: false
+    t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))", stored: true
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
@@ -559,24 +563,4 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_121030) do
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
-  # no candidate create_trigger statement could be found, creating an adapter-specific one
-  execute(<<-SQL)
-CREATE OR REPLACE FUNCTION pg_catalog.tsvector_update_trigger()
- RETURNS trigger
- LANGUAGE internal
- PARALLEL SAFE
-AS $function$tsvector_update_trigger_byid$function$
-  SQL
-
-  create_trigger("projects_after_insert_update_row_tr", :generated => true, :compatibility => 1).
-      on("projects").
-      before(:insert, :update).
-      nowrap(true) do
-    <<-SQL_ACTIONS
-tsvector_update_trigger(
-  searchable, 'pg_catalog.english', description, name
-);
-    SQL_ACTIONS
-  end
-
 end
