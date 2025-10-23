@@ -2,23 +2,35 @@
 
 class Search::SearchBarComponent < ViewComponent::Base
   RESOURCE_OPTIONS = %w[Projects Users].freeze
-  DEFAULT_SORT_BY = "created_at".freeze
-  DEFAULT_SORT_DIRECTION = "desc".freeze
+  DEFAULT_SORT_BY = "created_at"
+  DEFAULT_SORT_DIRECTION = "desc"
+
+  SORTING_OPTIONS_FOR_USERS = [
+    { value: "created_at", label: -> { I18n.t("components.search_bar.sorting.users.join_date") } },
+    { value: "total_circuits", label: -> { I18n.t("components.search_bar.sorting.users.total_circuits") } }
+  ].freeze
+
+  SORTING_OPTIONS_FOR_PROJECTS = [
+    { value: "created_at", label: -> { I18n.t("components.search_bar.sorting.projects.created_date") } },
+    { value: "views", label: -> { I18n.t("components.search_bar.sorting.projects.views") } },
+    { value: "stars", label: -> { I18n.t("components.search_bar.sorting.projects.stars") } }
+  ].freeze
 
   def initialize(
     resource: nil,
     query: nil,
-    sort_by: nil,
-    sort_direction: nil
+    sorting: {},
+    countries: nil,
+    current_filters: nil
   )
-    super
+    super()
     @resource = resource
     @query = query
-    @sort_by = sort_by || DEFAULT_SORT_BY
-    @sort_direction = sort_direction || DEFAULT_SORT_DIRECTION
+    @sort_by = sorting[:sort_by] || sorting["sort_by"] || DEFAULT_SORT_BY
+    @sort_direction = sorting[:sort_direction] || sorting["sort_direction"] || DEFAULT_SORT_DIRECTION
+    @countries = countries || []
+    @current_filters = current_filters || {}
   end
-
-  attr_reader :resource, :query, :sort_by, :sort_direction
 
   def all_sorting_options
     {
@@ -27,38 +39,68 @@ class Search::SearchBarComponent < ViewComponent::Base
     }.freeze
   end
 
-  def resource_options
-    RESOURCE_OPTIONS
+  def countries_for_search
+    @countries
   end
 
-  def placeholders
-    {
-      "Users" => I18n.t("components.search_bar.placeholders.users"),
-      "Projects" => I18n.t("components.search_bar.placeholders.projects")
-    }.freeze
+  def current_filter_values
+    @current_filters
   end
 
-  def option_labels
+  def filter_labels
     {
-      "Users" => I18n.t("components.search_bar.options.users"),
-      "Projects" => I18n.t("components.search_bar.options.projects")
+      "button_text" => I18n.t("components.search_bar.filters.button_text"),
+      "apply_button_text" => I18n.t("components.search_bar.filters.apply_button_text"),
+      "projects" => project_filter_labels,
+      "users" => user_filter_labels
     }.freeze
   end
 
   private
 
+    attr_reader :resource, :query, :sort_by, :sort_direction, :countries, :current_filters
+
+    def placeholders
+      {
+        "Users" => I18n.t("components.search_bar.placeholders.users"),
+        "Projects" => I18n.t("components.search_bar.placeholders.projects")
+      }.freeze
+    end
+
+    def option_labels
+      {
+        "Users" => I18n.t("components.search_bar.options.users"),
+        "Projects" => I18n.t("components.search_bar.options.projects")
+      }.freeze
+    end
+
     def sorting_options_for_users
-      [
-        { value: "created_at", label: I18n.t("components.search_bar.sorting.users.join_date") }.freeze,
-        { value: "total_circuits", label: I18n.t("components.search_bar.sorting.users.total_circuits") }.freeze
-      ].freeze
+      SORTING_OPTIONS_FOR_USERS.map { |option| { value: option[:value], label: option[:label].call } }
     end
 
     def sorting_options_for_projects
-      [
-        { value: "created_at", label: I18n.t("components.search_bar.sorting.projects.created_date") }.freeze,
-        { value: "views", label: I18n.t("components.search_bar.sorting.projects.views") }.freeze,
-        { value: "stars", label: I18n.t("components.search_bar.sorting.projects.stars") }.freeze
-      ].freeze
+      SORTING_OPTIONS_FOR_PROJECTS.map { |option| { value: option[:value], label: option[:label].call } }
+    end
+
+    def project_filter_labels
+      {
+        "tags" => {
+          "label" => I18n.t("components.search_bar.filters.projects.tags.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.projects.tags.placeholder")
+        }.freeze
+      }.freeze
+    end
+
+    def user_filter_labels
+      {
+        "country" => {
+          "label" => I18n.t("components.search_bar.filters.users.country.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.users.country.placeholder")
+        }.freeze,
+        "institute" => {
+          "label" => I18n.t("components.search_bar.filters.users.institute.label"),
+          "placeholder" => I18n.t("components.search_bar.filters.users.institute.placeholder")
+        }.freeze
+      }.freeze
     end
 end

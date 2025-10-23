@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "v1",
+  "entity": {
+    "type": "organisation",
+    "role": "steward",
+    "name": "CircuitVerse Community/Organisation",
+    "email": "support@circuitverse.org",
+    "description": "The entity stewarding the CircuitVerse open-source project, which is an easy-to-use digital logic circuit simulator and educational platform. Funds are primarily used for infrastructure and miscellaneous expenses.",
+    "webpageUrl": {
+      "url": "https://circuitverse.org/"
+    }
+  },
+  "projects": [
+    {
+      "guid": "circuitverse-platform",
+      "name": "CircuitVerse Platform",
+      "description": "A free, open-source platform which allows users to construct and simulate digital logic circuits online, along with an Interactive Book for learning digital logic design.",
+      "webpageUrl": {
+        "url": "https://circuitverse.org/"
+      },
+      "repositoryUrl": {
+        "url": "https://github.com/CircuitVerse/CircuitVerse"
+      },
+      "licenses": [
+        "spdx:MIT"
+      ],
+      "tags": [
+        "education",
+        "simulation",
+        "digital-logic",
+        "web-app",
+        "open-source"
+      ]
+    }
+  ],
+  "funding": {
+    "channels": [
+      {
+        "guid": "opencollective-circuitverse",
+        "type": "payment-provider",
+        "address": "https://opencollective.com/circuitverse",
+        "description": "Funding is managed through Open Source Collective 501(c)(3) Fiscal Host."
+      }
+    ],
+    "plans": [
+      {
+        "guid": "monthly-backer-5",
+        "status": "active",
+        "name": "Recurring Backer",
+        "description": "Become a backer and support us with a small recurring contribution.",
+        "amount": 5.00,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "opencollective-circuitverse"
+        ]
+      },
+      {
+        "guid": "monthly-sponsor-100",
+        "status": "active",
+        "name": "Recurring Sponsor",
+        "description": "Become a sponsor for a larger recurring contribution to support our infrastructure.",
+        "amount": 100.00,
+        "currency": "USD",
+        "frequency": "monthly",
+        "channels": [
+          "opencollective-circuitverse"
+        ]
+      },
+      {
+        "guid": "custom-contribution",
+        "status": "active",
+        "name": "Custom Contribution",
+        "description": "Make a custom one-time or recurring contribution of any amount.",
+        "amount": 0,
+        "currency": "USD",
+        "frequency": "other",
+        "channels": [
+          "opencollective-circuitverse"
+        ]
+      }
+    ]
+  }
+}

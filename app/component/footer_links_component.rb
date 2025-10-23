@@ -2,7 +2,7 @@
 
 class FooterLinksComponent < ViewComponent::Base
   def initialize(current_user)
-    super
+    super()
     @current_user = current_user.is_a?(Hash) ? current_user[:current_user] : current_user
   end
 
