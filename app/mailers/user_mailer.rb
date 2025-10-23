@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class UserMailer < ApplicationMailer
+  layout 'mailer'  
+
   def custom_email(user, mail)
     return if user.opted_out?
 
