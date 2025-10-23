@@ -163,7 +163,7 @@ en:
         design_heading: "Design"
         design_text: "Don't know how to design? CircuitVerse is easy to use for beginners. This documentation will help you get started quickly."
         learn_heading: "Learn"
-        learn_text: "Want to know more about digital circuits? This Interactive book gives you complete understanding on how digital circuits work."
+        learn_text: "Want to know more about digital circuits? This interactive book gives you a complete understanding of how digital circuits work."
         footer_join_us: "Join Us"
         footer_copyright: "Copyright © %{year} CircuitVerse. All rights reserved."
         footer_support: "For any issues, reach out to us at %{email}"
