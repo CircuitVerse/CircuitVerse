@@ -1,0 +1,9 @@
+fr:
+  launch_error:
+    title: "CircuitVerset - Erreur LTI"
+    main-heading: "Contenu non disponible"
+    main-description: "Le contenu que vous demandez n'est pas disponible pour le moment, ou vous n'êtes pas autorisé à accéder au contenu."
+  open_incv:
+    notice_wait_in_open_incv: "Veuillez patienter pendant que nous ouvrons ce devoir dans CircuitVerse..."
+    notice_redirection_error: "Si cela ne fonctionne pas, veuillez cliquer sur le bouton ci-dessous."
+    open_assignment: "Affectation ouverte"

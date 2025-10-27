@@ -44,7 +44,13 @@ Set-ExecutionPolicy RemoteSigned
 |  Name | Version | Installation |
 | --- | --- | --- |
 | Git | Latest | [Download & Install](https://git-scm.com/downloads) |
-| Docker | Latest | [Follow this guide to install](https://docs.docker.com/desktop/install/linux-install/) |
+| Docker Engine | Latest | [Follow this guide to install](https://docs.docker.com/engine/install/)  ⚠️ Don't go for `Docker Desktop`. Check the `Supported Platforms` table to install docker engine CLI for your operating system |
+
+**Note**
+
+Before installing Docker Engine, ensure that Docker Desktop is not already installed on your local machine. If Docker Desktop is installed, you can follow this [guide](https://docs.docker.com/desktop/uninstall/) to completely remove it from your Linux machine.
+
+After removing Docker Desktop, proceed with the installation of Docker Engine as specified in the docs.
 
 **Steps to setup**
 1. Fork current repository

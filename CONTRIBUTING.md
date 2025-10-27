@@ -11,6 +11,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 
 - `maintainers` label are internal tasks that will be completed by a Circuitverse core team member. 
 - [good first issue](https://github.com/CircuitVerse/CircuitVerse/labels/good%20first%20issue) labeled issues are meant for newer developers.
+- [pending triage](https://github.com/CircuitVerse/CircuitVerse/labels/pending%20triage) labeled issues are not verified by maintainers.
 - [feature](https://github.com/CircuitVerse/CircuitVerse/labels/%F0%9F%8C%9F%20feature) labeled issues are meant to propose new features.
 - [bugs](https://github.com/CircuitVerse/CircuitVerse/labels/%F0%9F%90%9E%20bug) labeled issues are meant to have errors in existing code base.
 - [documentation](https://github.com/CircuitVerse/CircuitVerse/labels/documentation) labeled issues are meant to have typo errors in documentation.
@@ -76,7 +77,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 - `no activity` labeled PRs are meant to have no activity in the PR from since a while.
 - `blocked` labeled PRs are meant not to go ahead for review.
 - `do not merge` labeled PRs are meant not to merge the PR right now(may be later).
-- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labeled PRs are meant to be waiting for other communtiy members.
+- [awaiting-approval](https://github.com/CircuitVerse/CircuitVerse/labels/awaiting-approval) labeled PRs are meant to be waiting for other community members.
 
 ## Community
 Discussions about CircuitVerse issues and features take place on the repository's [Discussions](https://github.com/CircuitVerse/CircuitVerse/discussions) sections. Anybody is welcome to join these conversations. See the [README](README.md) for more information on communication channels.

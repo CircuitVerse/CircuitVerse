@@ -18,10 +18,6 @@
   }
 }
 
-.search-container {
-  margin-top: 100px;
-}
-
 .search-card-container {
   border: 1px solid $form-border-grey;
   border-radius: 0;
@@ -136,8 +132,14 @@
 
 .search-usersearch-image {
   display: block;
+  height: 160px;
   margin-bottom: 20px;
-  width: 70%;
+  object-fit: cover;
+  width: fit-content;
+  border-radius: 8px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  padding: 0;
 }
 
 .search-username-container {
@@ -189,6 +191,10 @@
       max-width: 60%;
     }
   }
+
+  .search-usersearch-image {
+    width: fit-content;
+  }
 }
 
 @media (max-width: 600px) {
@@ -213,4 +219,13 @@
     padding-top: 10px;
     width: 90%;
   }
+}
+
+.user-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 380px));
+  justify-content: center;
+  margin: 20px auto;
+  gap: 40px;
+  width: 100%;
 }

@@ -3,7 +3,7 @@
 ### Visual Studio Code
 1. **Native Installation**
     
-    No extra configuration requied
+    No extra configuration required
 
 2. **Docker based Installation**
 

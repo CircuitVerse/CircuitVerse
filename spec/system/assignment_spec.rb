@@ -5,20 +5,18 @@ require "rails_helper"
 describe "Assignments", type: :system do
   let(:primary_mentor) { FactoryBot.create(:user) }
   let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
-  # rubocop:disable Layout/LineLength
-  let(:mentor) { FactoryBot.create(:user).tap { |user| FactoryBot.create(:group_member, group: group, user: user, mentor: true) } }
+  let(:mentor) do
+    FactoryBot.create(:user).tap do |user|
+      FactoryBot.create(:group_member, group: group, user: user, mentor: true)
+    end
+  end
   let(:member) { FactoryBot.create(:user).tap { |user| FactoryBot.create(:group_member, group: group, user: user) } }
-  # rubocop:enable Layout/LineLength
   let(:assignment) { FactoryBot.create(:assignment, group: group) }
   let(:closed_assignment) { FactoryBot.create(:assignment, group: group, status: "closed") }
 
-  before do
-    driven_by(:selenium_chrome_headless)
-  end
-
   context "when user is primary_mentor" do
     before do
-      sign_in primary_mentor
+      system_sign_in(primary_mentor)
     end
 
     it "creates assignment" do
@@ -97,7 +95,7 @@ describe "Assignments", type: :system do
 
   context "when user is mentor" do
     before do
-      sign_in mentor
+      system_sign_in(mentor)
     end
 
     it "creates assignment" do
@@ -175,7 +173,7 @@ describe "Assignments", type: :system do
 
   context "when user is a member" do
     before do
-      sign_in member
+      system_sign_in(member)
     end
 
     it "is able to make assignment project" do

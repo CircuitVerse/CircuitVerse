@@ -53,9 +53,9 @@ class Users::SessionsController < Devise::SessionsController
   private
 
     def check_captcha
-      if Flipper.enabled?(:recaptcha) && !verify_recaptcha
-        self.resource = resource_class.new sign_in_params
-        respond_with_navigational(resource) { render :new }
-      end
+      return unless Flipper.enabled?(:recaptcha) && !verify_recaptcha
+
+      self.resource = resource_class.new sign_in_params
+      respond_with_navigational(resource) { render :new }
     end
 end

@@ -5,11 +5,11 @@ class SimulatorController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   before_action :redirect_to_vue_simulator_if_enabled
-  before_action :authenticate_user!, only: %i[create update edit update_image]
+  before_action :authenticate_user!, only: %i[create update edit]
   before_action :set_project, only: %i[show embed get_data]
-  before_action :set_user_project, only: %i[update edit update_image]
+  before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
-  before_action :check_edit_access, only: %i[edit update update_image]
+  before_action :check_edit_access, only: %i[edit update]
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
@@ -55,14 +55,14 @@ class SimulatorController < ApplicationController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
-
+    # ActiveStorage
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(io_image_file)
+    # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
-    attach_circuit_preview(image_file)
-    @project.save!
     image_file.close
-
-    File.delete(image_file) if check_to_delete(params[:image])
+    @project.save!
 
     # render plain: simulator_path(@project)
     # render plain: user_project_url(current_user,@project)
@@ -72,17 +72,18 @@ class SimulatorController < ApplicationController
   def update
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
+    # ActiveStorage
     @project.circuit_preview.purge if @project.circuit_preview.attached?
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(io_image_file)
+    # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
-    attach_circuit_preview(image_file)
+    image_file.close
+    File.delete(image_file) if check_to_delete(params[:image])
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
-    image_file.close
-
-    File.delete(image_file) if check_to_delete(params[:image])
-
     render plain: "success"
   end
 
@@ -149,8 +150,10 @@ class SimulatorController < ApplicationController
     end
 
     def attach_circuit_preview(image_file)
+      return unless image_file
+
       @project.circuit_preview.attach(
-        io: File.open(image_file),
+        io: image_file,
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )

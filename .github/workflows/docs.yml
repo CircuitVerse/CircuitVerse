@@ -11,10 +11,23 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install build tools 
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
+
       - name: jsdocs-dep
-        run: npm install
+        run: npm install --legacy-peer-deps
+
       - name: jsdocs-generate
         run: node ./node_modules/jsdoc/jsdoc.js ./simulator/src -r -c ./conf.json -t ./node_modules/better-docs -d ./out
+
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:

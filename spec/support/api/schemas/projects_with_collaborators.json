@@ -16,11 +16,7 @@
               "created_at": { "type": "string" },
               "updated_at": { "type": "string" },
               "image_preview": {
-                "type": "object",
-                "properties": {
-                  "url": { "type": "string" }
-                },
-                "required": ["url"]
+                "type": ["null", "string"]
               },
               "description": { "type": "string" },
               "view": { "type": "integer" },

@@ -10,7 +10,7 @@ require "rspec/rails"
 require "devise"
 
 # Including support files for tests
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+Rails.root.glob("spec/support/**/*.rb").each { |f| require f }
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -37,41 +37,51 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+Capybara.default_max_wait_time = 3
+
 RSpec.configure do |config|
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_path = Rails.root.join("spec/fixtures")
+  config.fixture_paths = [Rails.root.join("spec/fixtures")]
   config.include Devise::Test::IntegrationHelpers, type: :request
   config.include Devise::Test::IntegrationHelpers, type: :system
   config.include Devise::Test::ControllerHelpers, type: :controller
   config.include FactoryBot::Syntax::Methods
 
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
+  config.include SystemTestHelpers, type: :system
+
+  config.before do
+    Flipper.adapter.features.each { |name| Flipper[name].remove }
+    Flipper.enable(:active_storage_s3)
+    Flipper.enable(:contests)
+    stub_request(:get, "https://fonts.googleapis.com/css?display=swap&family=Open%20Sans")
+      .with(headers: {
+              "Accept" => "text/css",
+              "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+              "Host" => "fonts.googleapis.com",
+              "User-Agent" => "Ruby"
+            })
+      .to_return(status: 200, body: "", headers: {})
+  end
+
   config.use_transactional_fixtures = true
-
-  # RSpec Rails can automatically mix in different behaviours to your tests
-  # based on their file location, for example enabling you to call `get` and
-  # `post` in specs under `spec/controllers`.
-  #
-  # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
-  #
-  #     RSpec.describe UsersController, :type => :controller do
-  #       # ...
-  #     end
-  #
-  # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
-
-  # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
-  # config.filter_gems_from_backtrace("gem name")
   config.include ActionDispatch::TestProcess
   config.include Warden::Test::Helpers
   config.include ViewComponent::TestHelpers, type: :component
+  config.include Devise::Test::ControllerHelpers, type: :controller
+
+  config.example_status_persistence_file_path = Rails.root.join("tmp/rspec_status")
+
+  config.define_derived_metadata(
+    file_path: %r{spec/system/(group_spec|project_spec|user_profile_spec)\.rb}
+  ) do |metadata|
+    metadata[:js] = true
+  end
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
+  config.before(:each, type: :request) do
+    Rails.application.reload_routes_unless_loaded
+  end
 end
 
 Shoulda::Matchers.configure do |config|

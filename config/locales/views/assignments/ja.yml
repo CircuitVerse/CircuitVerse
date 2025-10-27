@@ -1,0 +1,40 @@
+ja:
+  assignments:
+    group_name: "グループ: %{name}"
+    deadline: "締切日:"
+    remaining_time_error: "(スクリプトの読み込み中に問題が発生しました)"
+    form:
+      grade_scale_cant_change: "(一度設定すると変更できません)"
+      cannot_be_edited: "%{graded} - 編集できません"
+      enable_element_restriction: "要素制限を有効にする:"
+      enable_feature_restriction: "機能制限を有効にする:"
+      time_remaining: "残り時間: %{time}"
+      no_grade: "成績なし"
+      letter: "レター（A-F）"
+      percent: "割合 (1-100)"
+      custom: "カスタム"
+    edit:
+      edit_assignment: "課題を編集"
+    new:
+      title: "%{name} - 新しい課題"
+      new_assignment_heading: "新しい課題"
+    show:
+      title: "%{name} - 課題の詳細"
+      assignment_details_heading: "承認の詳細"
+    assignment_data:
+      name_html: "<strong>名前:</strong> %{name}"
+      group_html: "<strong>グループ:</strong> %{group_name}"
+      time_remaining_html: "<strong>残り時間:</strong> %{time_remaining}"
+      graded_html: "<strong>採点済み:</strong> %{graded}"
+      description: "説明:"
+      restricted_elements_html: "<strong>制限回路要素:<strong> %{restricted_circuit_elements}"
+      export_grades: "成績をエクスポート"
+      submissions: "提出:"
+      restricted_features_html: "<strong>制限された機能:</strong> %{restricted_features}"
+      no_submissions: "提出物はまだありません！"
+      grades_and_remarks: "成績と備考"
+      grade: "成績"
+      remarks: "備考"
+      grading_scale_percent: "課題はパーセンテージで採点することができます (1-100)"
+      grading_scale_letter: "課題は、A/B/C/D/E/Fのいずれかの文字で採点できます"
+      remove: "削除"

@@ -34,7 +34,7 @@ cd CircuitVerse
         - Download the installer from [here](https://www.memurai.com/get-memurai)
         - Run the installer
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
-- [Node.js 16.x](https://nodejs.org/it/download)
+- [Node.js 22.x](https://nodejs.org/it/download)
 - [Yarn](https://yarnpkg.com/getting-started/install)
 - [CMAKE](https://cmake.org/install/)
 - OpenSSL
