@@ -216,6 +216,16 @@
   cursor: pointer;
 }
 
+.change-picture,
+.remove-picture {
+  padding: 0.9rem 1rem;
+  text-align: center;
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
 .profile-picture-edit-btn:focus {
   box-shadow: none;
 }

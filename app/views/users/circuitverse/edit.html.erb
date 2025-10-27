@@ -29,28 +29,26 @@
               <%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %>
               <div class="users-edit-image-button">
                 <% if @user.profile_picture.attached? %>
-                  <button type="button" class="btn profile-picture-edit-btn" id="editImageBtn" data-toggle="modal" data-target=".bd-example-modal-sm" aria-label="Edit Profile Picture"><i class="fas fa-pen"></i></button>
-                  <label for="profile_picture" id="addNewImageBtn" style="display: none"><i class="fas fa-plus"></i></label>
+                  <button type="button" class="btn profile-picture-edit-btn" id="editImageBtn" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm" aria-label="Edit Profile Picture"><i class="fas fa-pen"></i></button>
+                  <label for="profile_picture" id="addNewImageBtn" style="display: none" aria-label="Add Profile Picture"><i class="fas fa-plus"></i></label>
                 <% else %>
-                  <button type="button" class="btn profile-picture-edit-btn" style="display: none" id="editImageBtn" data-toggle="modal" data-target=".bd-example-modal-sm" aria-label="Edit Profile Picture"><i class="fas fa-pen"></i></button>
-                  <label for="profile_picture" id="addNewImageBtn"><i class="fas fa-plus"></i></label>
+                  <button type="button" class="btn profile-picture-edit-btn" style="display: none" id="editImageBtn" data-bs-toggle="modal" data-bs-target=".bd-example-modal-sm" aria-label="Edit Profile Picture"><i class="fas fa-pen"></i></button>
+                  <label for="profile_picture" id="addNewImageBtn" aria-label="Add Profile Picture"><i class="fas fa-plus"></i></label>
                 <% end %>
               </div>
             </div>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
             <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
             <!-- Modal to Change or Remove Profile Picture -->
-            <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <div class="modal fade bd-example-modal-sm" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-sm">
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title">Profile Picture</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <h5 class="modal-title"><%= t("users.circuitverse.edit_profile.profile_picture") %></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
-                  <label for="profile_picture" class="list-group-item change-picture"><%= t("users.circuitverse.edit_profile.change_picture") %></label>
-                  <label for="remove_pic" class="list-group-item remove-picture"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
+                  <label for="profile_picture" class="list-group-item change-picture" data-bs-dismiss="modal"><%= t("users.circuitverse.edit_profile.change_picture") %></label>
+                  <label for="remove_pic" class="list-group-item remove-picture" data-bs-dismiss="modal"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
                 </div>
               </div>
             </div>
@@ -157,12 +155,10 @@
   document.querySelector('#remove_pic').addEventListener('change', function() {
       document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
   });
-  $('.change-picture').on('click', function() {
-    $('.modal').modal('hide');
-  });
   $('.remove-picture').on('click', function() {
     $('#editImageBtn').hide();
     $('#addNewImageBtn').show();
-    $('.modal').modal('hide');
-  })
+    const fileInput = $('#profile_picture');
+    fileInput.val('');
+  });
 </script>
