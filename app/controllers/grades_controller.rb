@@ -33,10 +33,10 @@ class GradesController < ApplicationController
       ).call # LTI score submission, see app/helpers/lti_helper.rb
     end
 
-    unless @grade.save
-      render json: { error: "Grade is invalid" },
-             status: :bad_request
-    end
+    return if @grade.save
+
+    render json: { error: "Grade is invalid" },
+           status: :bad_request
   end
 
   def destroy
@@ -62,7 +62,7 @@ class GradesController < ApplicationController
   private
 
     def grade_params
-      params.require(:grade).permit(:project_id, :grade, :assignment_id, :remarks)
+      params.expect(grade: %i[project_id grade assignment_id remarks])
     end
 
     def set_grade

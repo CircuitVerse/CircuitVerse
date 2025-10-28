@@ -1,0 +1,7 @@
+<div class="d-flex flex-row footer-social-icons-row">
+  <% social_links.each do |link| %>
+    <%= link_to link[:url], class: "bounce-out-on-hover me-1", target: "_blank", data: { tooltip: link[:name] }, aria: { label: link[:name] } do %>
+      <%= image_tag(link[:logo], class: "footer-social-icon", alt: "#{link[:name].capitalize} Logo") %>
+    <% end %>
+  <% end %>
+</div>

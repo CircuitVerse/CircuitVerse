@@ -169,13 +169,13 @@ class AssignmentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def assignment_create_params
-      params.require(:assignment).permit(:name, :deadline, :description, :grading_scale,
-                                         :restrictions, :feature_restrictions)
+      params.expect(assignment: %i[name deadline description grading_scale
+                                   restrictions feature_restrictions])
     end
 
     def assignment_update_params
-      params.require(:assignment).permit(:name, :deadline, :description,
-                                         :restrictions, :feature_restrictions)
+      params.expect(assignment: %i[name deadline description
+                                   restrictions feature_restrictions])
     end
 
     def check_access

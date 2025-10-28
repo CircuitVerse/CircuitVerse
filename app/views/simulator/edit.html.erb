@@ -13,71 +13,71 @@
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>
-  <button id="dropdownButton" class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
+  <button id="dropdownButton" class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#bs-example-navbar-collapse-1" aria-controls="collapsedNavbar" aria-expanded="false" aria-label="Toggle navigation">
   <i class="fas fa-bars" id="dropdownIcon"></i>
   </button>
   <div class="collapse navbar-collapse justify-content-between" id="bs-example-navbar-collapse-1">
     <ul class="navbar-nav navbar-menu noSelect pointerCursor" id="toolbar">
       <li class="dropdown nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.project") %><span></span></a>
         <ul class="dropdown-menu">
           <% if not @project.nil? %>
-             <li><a class="dropdown-item logixButton text-left pl-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
+             <li><a class="dropdown-item logixButton text-start ps-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
           <% end %>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="save">Save Online</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="saveOffline">Save Offline</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="ExportCircuitFiles">Export as file</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="ImportCircuitFiles">Import file</a></li>
-           <li><a class="dropdown-item logixButton text-left pl-1" id="clearProject">Clear Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="recoverProject">Recover Project</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="fullViewOption">Preview Circuit</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="newProject">New Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="save">Save Online</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="saveOffline">Save Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createOpenLocalPrompt">Open Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ExportCircuitFiles">Export as file</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ImportCircuitFiles">Import file</a></li>
+           <li><a class="dropdown-item logixButton text-start ps-1" id="clearProject">Clear Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="recoverProject">Recover Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="fullViewOption">Preview Circuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left logixButton pl-1" id="createNewCircuitScope">New Circuit + </a></li>
-          <li><a class="dropdown-item text-left logixButton pl-1" id="newVerilogModule">New Verilog <br> Module</a></li>
-          <li><a class="dropdown-item logixButton text-left pl-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
+          <li><a class="dropdown-item text-start logixButton ps-1" id="createNewCircuitScope">New Circuit + </a></li>
+          <li><a class="dropdown-item text-start logixButton ps-1" id="newVerilogModule">New Verilog <br> Module</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="colorThemes">Themes</a>
-          <li><a class="dropdown-item text-left pl-1" id="customShortcut">Custom Shortcut</a></li>
-          <li><a class="dropdown-item text-left pl-1 logixButton" id="generateVerilog">Export Verilog</a>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="colorThemes">Themes</a>
+          <li><a class="dropdown-item text-start ps-1" id="customShortcut">Custom Shortcut</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="generateVerilog">Export Verilog</a>
         </ul>
       </li>
       <li class="dropdown tour-help nav-dropdown d-flex">
-        <a href="#" class="" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
+        <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-left pl-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
-            <li><a class="dropdown-item text-left pl-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
+            <li><a class="dropdown-item text-start ps-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
+            <li><a class="dropdown-item text-start ps-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
         </ul>
       </li>
       </ul>
-      <span class="projectName noSelect defaultCursor font-weight-bold" id="projectName">
+      <span class="projectName noSelect defaultCursor fw-bold" id="projectName">
           Untitled
       </span>
 
       <ul class="nav navbar-nav noSelect pointerCursor pull-right account-btn">
         <li class="dropdown pull-right">
           <% if user_signed_in? %>
-            <a href="#" class="cur-user acc-drop user-field" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
+            <a href="#" class="cur-user acc-drop user-field" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.name %><span class="caret acc-caret"></span></a>
             <ul class="dropdown-menu">
               <li><a class="dropdown-item" href=<%= user_path(current_user) %>>Dashboard</a></li>
               <li><a class="dropdown-item" href=<%= user_groups_path(current_user) %>>My Groups</a></li>
               <li><a class="dropdown-item" href=<%= notifications_path(current_user) %>>Notifications</a></li>
               <div class="dropdown-divider"></div>
-              <li><a class="dropdown-item" rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+              <li><a class="dropdown-item" rel="nofollow" data-bs-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
             </ul>
           <% else %>
             <a class="navbar-nav signIn-btn user-field" href=<%= new_user_session_path %>> Sign In </a>
@@ -152,11 +152,10 @@
    <!--   <div>
         <button type="button" class="quick-btn-redo logixButton" title="Redo" onclick="">
         </button> -->
-        <div class="zoom-slider">
-          <button class="zoom-slider-decrement" id="decrement">-</button>
-          <input type="range" class="custom-range" min="0" max="45" step="1" id="customRange1">
-          <span id='slider_value'></span>
-          <button class="zoom-slider-increment" id="increment">+</button>
+        <div class="zoom-slider d-flex align-items-center">
+          <button class="zoom-slider-decrement btn btn-outline-secondary" id="decrement" aria-label="Zoom Out">-</button>
+          <input type="range" class="form-range mx-2" min="0" max="45" step="1" id="customRange1" aria-label="Zoom Level">
+          <button class="zoom-slider-increment btn btn-outline-secondary" id="increment" aria-label="Zoom In">+</button>
         </div>
       </div>
   </div>
@@ -233,7 +232,7 @@
       <li class=""><a href=<%= user_path(current_user) %>>Dashboard</a></li>
       <li class=""><a href=<%= user_groups_path(current_user) %>>My Groups</a></li>
       <div class="dropdown-divider"></div>
-      <li class=""><a rel="nofollow" data-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
+      <li class=""><a rel="nofollow" data-bs-method="delete" href=<%= destroy_user_session_path %>>Sign Out</a></li>
       <% else %>
     <a class="navbar-nav user-field" href=<%= new_user_session_path %>> Sign In </a>
   <% end %>
@@ -286,7 +285,6 @@
       <button class='custom-btn--primary touch-panel-button' title="Zoom Out"><span class="fas fa-search-minus timing-diagram-zoom-out"></button>
       <button class='custom-btn--primary touch-panel-button' title="Resume Timing Diagram"><span class="fas fa-play timing-diagram-resume"></button>
       <button class='custom-btn--primary touch-panel-button' title="Pause Timing Diagram"><span class="fas fa-pause timing-diagram-pause"></button>
-
        </div>
        <div id="touch-cycle-unit">
        1 cycle =
@@ -299,7 +297,6 @@
     </div>
 </div>
 </div>
-
 <!-- Quick Menu Panel  -->
 <div id="quickmenu-Popover">
   <div id="quickMenu">
@@ -312,11 +309,10 @@
       <button class="quicMenu-align"><i class="fas fa-copy"></i> <span class="quicMenu-align-text">Copy Selected<span></button>
       <button class="quicMenu-align"><i class="fas fa-paste"></i><span class="quicMenu-align-text">Paste Selected <span></button>
       <button class="quicMenu-align"><i class="fas fa-object-ungroup"></i><span class="quicMenu-align-text">Selection Tool<span></button>
-      <button class="quicMenu-align QuickMenuIcon"><a data-toggle="modal" data-target=".issue"><span class="fa fa-bug"></span><span class="quicMenu-align-text">&nbsp;&nbsp;Report issue<span></a></button>
+      <button class="quicMenu-align QuickMenuIcon"><a data-bs-toggle="modal" data-bs-target=".issue"><span class="fa fa-bug"></span><span class="quicMenu-align-text">&nbsp;&nbsp;Report issue<span></a></button>
     </div>
   </div>
 </div>
-
 <!-- Live Menu button  -->
 <div id='liveMenu'>
   <ul><i class="fas fa-compress-arrows-alt liveMenuIcon"></i></ul>
@@ -324,7 +320,6 @@
   <ul><i class="fas fa-undo liveMenuIcon"></i></ul>
   <ul><i class="fas fa-redo liveMenuIcon"></i></ul>
 </div>
-
 <!-- /.Potriad Mode Lock -->
 <div id="potraidLockBg">
 </div>
@@ -332,7 +327,6 @@
 <span class="portaidIcon"> </span>
 <span id="portaidModeText">Please switch to the landscape mode and refresh to access the simulator</span>
 </div>
-
 <div class="noSelect defaultCursor layoutElementPanel draggable-panel draggable-panel-css ">
   <div class="panel-header">Layout Elements
   <span class="fas fa-minus-square minimize"></span>
@@ -440,7 +434,6 @@
   <span class="fas fa-minus-square minimize"></span>
   <span class="fas fa-external-link-square-alt maximize"></span>
   </div>
-
   <div class="panel-body">
     <div class="layout-body">
       <button class="largeButton btn logixButton btn-xs custom-btn--tertiary" id="resetVerilogCode">Reset Code</button>
@@ -450,7 +443,6 @@
       </div>
     </div>
   </div>
-
   <div class="panel-header text-center">Apply Themes</div>
   <div class="panel-body">
     <div class="layout-body">
@@ -478,7 +470,6 @@
     </div>
   </div>
 </div>
-
 <div class="moduleProperty noSelect effect1 properties-panel draggable-panel draggable-panel-css  guide_2" id="moduleProperty">
   <div id="moduleProperty-title" class="noSelect panel-header">Properties
   <span class="fas fa-minus-square minimize"></span>
@@ -487,123 +478,89 @@
   <div class='panel-body'> <div id="moduleProperty-inner"></div></div>
 </div>
 <div id="customShortcutDialog" title="Keybinding Preference"></div>
-<div id="layoutDialog" class="draggable-panel draggable-panel-css ">
-  <div class="panel-header">Layout
-      <span class="fas fa-minus-square minimize"></span>
-      <span class="fas fa-external-link-square-alt maximize"></span>
+<div id="layoutDialog" class="draggable-panel draggable-panel-css">
+  <div class="panel-header d-flex justify-content-between align-items-center">
+      Layout
+      <span class="fas fa-minus-square minimize" aria-label="Minimize dialog"></span>
+      <span class="fas fa-external-link-square-alt maximize" aria-label="Maximize dialog"></span>
   </div>
   <div class="layout-body panel-body" id="layout-body">
-    <div class="">
-      <button
-        class="zoomButton btn-lg"
-        id="decreaseLayoutWidth"
-        title="Decrease Width">
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <button class="zoomButton btn btn-lg" id="decreaseLayoutWidth" title="Decrease Width" aria-label="Decrease Width">
         <span class="fa fa-minus" aria-hidden="true"></span>
       </button>
       <span>Width</span>
-      <button
-        class="zoomButton btn-lg"
-        id="increaseLayoutWidth"
-        title="Increase Width">
+      <button class="zoomButton btn btn-lg" id="increaseLayoutWidth" title="Increase Width" aria-label="Increase Width">
         <span class="fa fa-plus" aria-hidden="true"></span>
       </button>
     </div>
-    <div class="">
-      <button
-        class="zoomButton btn-lg"
-        id="decreaseLayoutHeight"
-        title="Decrease Height">
+    <div class="d-flex align-items-center justify-content-between mb-2">
+      <button class="zoomButton btn btn-lg" id="decreaseLayoutHeight" title="Decrease Height" aria-label="Decrease Height">
         <span class="fa fa-minus" aria-hidden="true"></span>
       </button>
       <span>Height</span>
-      <button
-        class="zoomButton btn-lg"
-        id="increaseLayoutHeight"
-        title="Increase Height">
+      <button class="zoomButton btn btn-lg" id="increaseLayoutHeight" title="Increase Height" aria-label="Increase Height">
         <span class="fa fa-plus" aria-hidden="true"></span>
       </button>
     </div>
-    <div class="">
+    <div class="d-flex align-items-center justify-content-center mb-2">
       <span>Reset all nodes:</span>
-      <button
-        class="zoomButton btn-lg"
-        id="layoutResetNodes">
+      <button class="zoomButton btn btn-lg" aria-label="Reset all nodes" id="layoutResetNodes">
         <span class="fa fa-sync" aria-hidden="true" title="Reset"></span>
       </button>
     </div>
-    <div class="layout-title">
+    <div class="layout-title mb-2">
       <span>Title</span>
-      <div class="layout--btn-group">
-        <button
-          class="zoomButton-up btn-lg no-select"
-          id="layoutTitleUp">
-        <svg id="Group_304" data-name="Group 304" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none" />
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
-          </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff" />
-        </svg>
-
-      </button>
-        <button
-          class="zoomButton-down btn-lg no-select"
-          id="layoutTitleDown">
-        <svg id="Group_305" data-name="Group 305" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none" />
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
-          </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff" />
-        </svg>
-
-      </button>
-        <button
-          class="zoomButton-left btn-lg no-select"
-          id="layoutTitleLeft">
-        <svg id="Group_306" data-name="Group 306" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none" />
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
-          </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(18.1 9.655) rotate(90)" fill="#fff" />
-        </svg>
+      <div class="layout--btn-group d-flex gap-2">
+        <!-- Title Control Buttons with SVGs and aria-labels -->
+        <button class="zoomButton-up btn btn-lg no-select" id="layoutTitleUp" aria-label="Move title up">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(19.4 17.755) rotate(180)" fill="#fff" />
+          </svg>
         </button>
-        <button
-          class="zoomButton-right btn-lg no-select"
-          id="layoutTitleRight">
-        <svg id="Group_307" data-name="Group 307" xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
-          <g id="Rectangle_1072" data-name="Rectangle 1072" fill="none" stroke="#f1f9ff" stroke-width="2">
-            <rect width="30" height="30" rx="10" stroke="none" />
-            <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
-          </g>
-          <path id="Path_36" data-name="Path 36" d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff" />
-        </svg>
-      </button>
+        <button class="zoomButton-down btn btn-lg no-select" id="layoutTitleDown" aria-label="Move title down">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(10 11.655)" fill="#fff" />
+          </svg>
+        </button>
+        <button class="zoomButton-left btn btn-lg no-select" id="layoutTitleLeft" aria-label="Move title left">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(18.1 9.655) rotate(90)" fill="#fff" />
+          </svg>
+        </button>
+        <button class="zoomButton-right btn btn-lg no-select" id="layoutTitleRight" aria-label="Move title right">
+          <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 30 30">
+            <g fill="none" stroke="#f1f9ff" stroke-width="2">
+              <rect width="30" height="30" rx="10" stroke="none" />
+              <rect x="1" y="1" width="28" height="28" rx="9" fill="none" />
+            </g>
+            <path d="M4.7,6.1,0,1.4,1.4,0,4.7,3.3,8,0,9.4,1.4Z" transform="translate(12 19.055) rotate(-90)" fill="#fff" />
+          </svg>
+        </button>
+      </div>
     </div>
-    </div>
-    <div class="layout-title--enable">
+    <div class="layout-title--enable d-flex align-items-center justify-content-between mb-2">
       <span>Title Enabled:</span>
       <label class="switch">
-        <input
-          type="checkbox"
-          checked
-          id="toggleLayoutTitle">
+        <input type="checkbox" checked id="toggleLayoutTitle" aria-label="Toggle title visibility">
         <span class="slider"></span>
       </label>
     </div>
-    <div class="">
-      <button
-        class="Layout-btn custom-btn--primary"
-        id="saveLayout">
-        Save
-      </button>
-
-      <button
-        class="Layout-btn custom-btn--tertiary"
-        id="cancelLayout">
-        Cancel
-      </button>
+    <div class="d-flex justify-content-between mt-3">
+      <button class="Layout-btn custom-btn--primary btn btn-success" id="saveLayout" aria-label="Save layout settings">Save</button>
+      <button class="Layout-btn custom-btn--tertiary btn btn-danger" id="cancelLayout" aria-label="Cancel layout changes">Cancel</button>
     </div>
   </div>
 </div>
@@ -624,7 +581,7 @@
     <div
       class="option inline btn-group btn-group-toggle"
       style="border: none;"
-      data-toggle="buttons">
+      data-bs-toggle="buttons">
       <div class="btn" id="radio-full" role="button">
         <input type="radio" name="view" value="full"> Full Circuit View
       </div>
@@ -654,7 +611,6 @@
     <label class="option custom-radio inline"><input type="radio" name="resolution" value="4">4x<span></span></label>
   </div>
 </div>
-
 <div id="colorThemesDialog" class='customScroll colorThemesDialog' tabindex="0" style="display: none;" title="Select Theme"></div>
 <div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
 <input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
@@ -725,7 +681,6 @@
     </div>
   </div>
 </div>
-
 <div
   id="ExportCircuitFilesDialog"
   class='customScroll'
@@ -754,7 +709,7 @@
   id="insertSubcircuitDialog"
   class="subcircuitdialog"
   title="Insert SubCircuit"></div>
-<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton pl-1" id="newCircuit">New Circuit +</a></div>
+<div id="insertSubcircuitcontent"><span><p>Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!</p></span><a class="btn btn-xs custom-btn--primary dropdown-item text-center logixButton ps-1" id="newCircuit">New Circuit +</a></div>
 <div id="openProjectDialog" style="display: none;" title="Open Project"></div>
 <div id="bitconverterprompt" title="Dec-Bin-Hex-Converter" style="display: none;">
     <label>Decimal value</label><br><input type='text' id='decimalInput' value='16' label="Decimal" name='text1'><br><br>
@@ -768,8 +723,8 @@
   <a
     type="button"
     class="btn btn-primary text-light"
-    data-toggle="modal"
-    data-target=".issue">
+    data-bs-toggle="modal"
+    data-bs-target=".issue">
     <span class="fa fa-bug"></span>&nbsp;&nbsp;Report an issue</a>
 </div>
 
@@ -785,10 +740,9 @@
       <div class="container my-2">
         <button
           type="button"
-          class="close"
-          data-dismiss="modal"
+          class="btn-close"
+          data-bs-dismiss="modal"
           aria-label="Close">
-          <span aria-hidden="true">&times;</span>
         </button>
         <div class="container text-center">
           <h4>Report an issue</h4>
@@ -805,14 +759,14 @@
 
         <%# <div class="container my-2 text-center" id="result"></div>
         <label id="report-label" style="font-weight: lighter;"><b>Describe your issue:</b></label>
-        <div class="form-group">
+        <div class="mb-3">
           <textarea
             class="form-control border-primary"
             id="issuetext"
             rows="3"></textarea>
         </div>
         <label for="emailtext" id="email-label" style="font-weight: lighter"><b>Email</b><span> [Optional]</span>:</label>
-        <div class="form-group">
+        <div class="mb-3">
           <input class="form-control border-primary" type="email" id="emailtext" rows="3">
         </div>
         <div class="container">

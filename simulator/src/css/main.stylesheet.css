@@ -1605,15 +1605,19 @@ input:checked + .slider:before {
 .zoom-slider {
     color: white;
     font-size: 20px;
+    max-width: 150px;
 }
 
 .zoom-slider-increment {
+    color: white;
     position: relative;
-    bottom: 0.3rem;
+    bottom: 0.1rem;
 }
+
 .zoom-slider-decrement {
     position: relative;
-    bottom: 0.4rem;
+    bottom: 0.1rem;
+    color: white;
 }
 
 .custom-range {

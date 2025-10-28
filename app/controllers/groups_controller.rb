@@ -27,6 +27,8 @@ class GroupsController < ApplicationController
     if Group.with_valid_token.exists?(group_token: params[:token])
       if current_user.groups.exists?(id: @group)
         notice = "Member is already present in the group."
+      elsif current_user.id == @group.primary_mentor_id
+        notice = "You cannot join this group because you are its primary mentor."
       else
         current_user.group_members.create!(group: @group)
         notice = "Group member was successfully added."
@@ -98,7 +100,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :primary_mentor_id)
+      params.expect(group: %i[name primary_mentor_id])
     end
 
     def check_show_access

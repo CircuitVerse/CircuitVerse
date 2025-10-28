@@ -77,6 +77,8 @@ export default class verilogPower extends CircuitElement {
 
         this.answer.value = ((answer) << (32 - this.outputBitWidth)) >>> (32 - this.outputBitWidth);
         simulationArea.simulationQueue.add(this.answer);
+
+        this.setOutputsUpstream(true);
     }
 }
 

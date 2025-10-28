@@ -21,6 +21,8 @@ updates:
         - "minor"
         - "patch"
   open-pull-requests-limit: 10
+  ignore:
+    - dependency-name: "vite*"
   
 - package-ecosystem: "docker"
   directory: "/"

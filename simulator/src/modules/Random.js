@@ -68,6 +68,8 @@ export default class Random extends CircuitElement {
             this.output.value = this.currentRandomNo;
             simulationArea.simulationQueue.add(this.output);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customSave() {

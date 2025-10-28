@@ -125,6 +125,10 @@ export default class Keyboard extends CircuitElement {
             this.available.value = 1; // this.bufferOutValue;
             simulationArea.simulationQueue.add(this.available);
         }
+
+        if (this.asciiOutput.value !== undefined) this.asciiOutput.isValueUpstream = true;
+        else this.asciiOutput.isValueUpstream = false;
+
     }
 
     customSave() {

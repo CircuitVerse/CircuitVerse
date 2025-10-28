@@ -1,0 +1,4 @@
+<%= render Contest::SubmissionFormPageComponent.new(contest: @contest,
+                                                    projects: @projects,
+                                                    submission: @submission,
+                                                    notice: flash[:notice]) %>

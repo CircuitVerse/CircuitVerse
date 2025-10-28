@@ -19,7 +19,6 @@ mr:
         brought_by: "द्वारे तुमच्यासाठी आणले:"
         hosting_sponsor: "प्रायोजक:"
         marketed_by: "द्वारे विपणन:"
-        developed_by: "द्वारे विकसित:"
       copyright_text: "कॉपीराइट © %{time_current_year} Circuitverse, सर्व हक्क राखीव."
     header:
       dashboard: "डैशबोर्ड"

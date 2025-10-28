@@ -41,6 +41,7 @@ export default class Clock extends CircuitElement {
     resolve() {
         this.output1.value = this.state;
         simulationArea.simulationQueue.add(this.output1);
+        this.setOutputsUpstream(true);
     }
 
     toggleState() {

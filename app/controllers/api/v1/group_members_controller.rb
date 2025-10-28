@@ -76,6 +76,6 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
     end
 
     def group_member_params
-      params.require(:group_member).permit(:mentor)
+      params.expect(group_member: [:mentor])
     end
 end

@@ -1,0 +1,3 @@
+ar:
+  will_paginate:
+    next_label: "التالي &#8594;"

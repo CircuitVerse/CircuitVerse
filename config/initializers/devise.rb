@@ -27,7 +27,7 @@ Devise.setup do |config|
     :info_fields => 'email,name'
   }
   config.omniauth :github, ENV['GITHUB_CLIENT_ID'], ENV['GITHUB_CLIENT_SECRET'], {
-    :scope => 'read:user'
+    :scope => 'read:user,user:email'
   }
   config.omniauth :gitlab, ENV['GITLAB_CLIENT_ID'], ENV['GITLAB_CLIENT_SECRET'], {
     :scope => 'read_user'
@@ -310,4 +310,20 @@ Devise.setup do |config|
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
 
+end
+
+Devise.saml_update_resource_hook = Proc.new do |user, saml_response, auth_value|
+  saml_response.attributes.resource_keys.each do |key|
+    user.send "#{key}=", saml_response.attribute_value_by_resource_key(key)
+  end
+
+  if Devise.saml_use_subject
+    user.send "#{Devise.saml_default_user_key}=", auth_value
+  end
+
+  if user.id.nil?
+    user.name = user.email if user.name.blank?
+    user.password = Devise.friendly_token[0, 20]
+  end
+  user.save!
 end

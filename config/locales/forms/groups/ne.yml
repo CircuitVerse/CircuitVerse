@@ -1,0 +1,13 @@
+ne:
+  helpers:
+    label:
+      group_member:
+        emails: "इमेलहरू"
+      group:
+        name: "समूहको नाम:"
+    submit:
+      group_member:
+        create: "सदस्यहरू थप्नुहोस्"
+      group:
+        create: "सिर्जना गर्नुहोस्"
+        update: "अपडेट गर्नुहोस्"
