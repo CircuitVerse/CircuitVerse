@@ -30,7 +30,7 @@
     <div class="col-12 col-sm-12 col-md-7 col-lg-7 ">
       <div class="border border-secondary-subtle mb-5 p-2">
         <div class="ratio ratio-4x3">
-          <iframe src=<%= simulator_path(@project) %>></iframe>
+          <iframe src="<%= @embed_path %>"></iframe>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
         <div class="row projects-views-count-container noSelect">
           <div class="w-25">
             <i class="fas fa-star text-warning" aria-hidden="true"></i>
-            <span id="star-count" class="noSelect"><%= @project.stars.count %></span>
+            <span id="star-count" class="noSelect"><%= @project.stars_count %></span>
             <%= t("projects.stars_count") %>
           </div>
           <div class="w-25">

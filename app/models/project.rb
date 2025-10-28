@@ -11,7 +11,7 @@ class Project < ApplicationRecord
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
 
-  belongs_to :author, class_name: "User", counter_cache: :projects_count
+  belongs_to :author, class_name: "User", counter_cache: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
@@ -125,6 +125,16 @@ class Project < ApplicationRecord
 
   validate :check_validity
   validate :clean_description
+
+  def sim_version
+    raw_data = project_datum&.data
+    parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
+    parsed_data["simulatorVersion"] || "legacy"
+  end
+
+  def uses_vue_simulator?
+    %w[v0 v1].include?(sim_version)
+  end
 
   private
 
