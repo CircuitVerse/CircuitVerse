@@ -6,7 +6,13 @@ RSpec.describe User::UserCardComponent, type: :component do
   include ViewComponent::TestHelpers
   include Rails.application.routes.url_helpers
 
-  let(:user) { create(:user) }
+  let(:user) do
+    create(
+      :user,
+      educational_institute: "My University",
+      country: "IN"
+    )
+  end
   let(:profile) { ProfileDecorator.new(user) }
 
   it "renders user card with profile information" do

@@ -43,6 +43,28 @@ fr:
       options:
         users: "Utilisateurs"
         projects: "Projets"
+      sorting:
+        users:
+          join_date: "Date d'inscription"
+          total_circuits: "Circuits totaux"
+        projects:
+          created_date: "Date de création"
+          views: "Vues"
+          stars: "Étoiles"
+      filters:
+        button_text: "Filtres"
+        apply_button_text: "Appliquer"
+        projects:
+          tags:
+            label: "Tags"
+            placeholder: "Ajouter un tag..."
+        users:
+          country:
+            label: "Pays"
+            placeholder: "Sélectionner le pays..."
+          institute:
+            label: "Institut"
+            placeholder: "Entrez l'institut..."
     project:
       show_more: "Afficher plus"
       options:

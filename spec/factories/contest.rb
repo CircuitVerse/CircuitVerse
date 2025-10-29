@@ -2,6 +2,7 @@
 
 FactoryBot.define do
   factory :contest do
-    deadline { Faker::Date.forward(days: 7) }
+    deadline { 1.day.from_now }
+    status   { :live }
   end
 end

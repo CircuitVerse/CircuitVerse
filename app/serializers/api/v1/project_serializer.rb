@@ -4,7 +4,7 @@ class Api::V1::ProjectSerializer
   include FastJsonapi::ObjectSerializer
 
   attributes :name, :project_access_type, :created_at,
-             :updated_at, :image_preview, :description,
+             :updated_at, :description,
              :view, :tags
 
   attributes :is_starred do |project, params|
@@ -19,9 +19,7 @@ class Api::V1::ProjectSerializer
     project.author.name
   end
 
-  attributes :stars_count do |project|
-    project.stars.count
-  end
+  attributes :stars_count, &:stars_count
 
   attributes :thread_id do |project|
     project.commontator_thread.id

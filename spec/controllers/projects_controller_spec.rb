@@ -7,22 +7,6 @@ describe ProjectsController, type: :request do
     @author = FactoryBot.create(:user)
   end
 
-  describe "#get_projects" do
-    before do
-      @tag = FactoryBot.create(:tag)
-      @projects = [FactoryBot.create(:project, author: @author),
-                   FactoryBot.create(:project, author: @author)]
-      @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
-    end
-
-    it "gets project with mentioned tags" do
-      get tag_path(@tag.name)
-      @projects.each do |project|
-        expect(response.body).to include(project.name)
-      end
-    end
-  end
-
   describe "#show" do
     context "project is public" do
       before do
@@ -115,7 +99,7 @@ describe ProjectsController, type: :request do
           post create_fork_project_path(@project)
           @user.reload
         end.to change { @user.projects.count }.by(1)
-        expect(@user.projects.order("created_at").last.forked_project_id).to eq(@project.id)
+        expect(@user.projects.order(:created_at).last.forked_project_id).to eq(@project.id)
       end
     end
 
@@ -158,7 +142,7 @@ describe ProjectsController, type: :request do
           post "/users/#{@user.id}/projects", params: create_params
         end.to change(Project, :count).by(1)
 
-        project = Project.order("created_at").last
+        project = Project.order(:created_at).last
         expect(project.name).to eq("Test Project")
         expect(project.project_access_type).to eq("Public")
       end

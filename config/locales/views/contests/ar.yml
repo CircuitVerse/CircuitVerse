@@ -1,8 +1,21 @@
 ar:
   contest:
+    leaderboard:
+      title: "مسابقة #%{id} — لوحة المتصدرين"
+      subtitle: "المواقف النهائية للأصوات؛ والروابط التي كسرها تقرير سابق."
+      back_to_contest: "العودة إلى المنافسة"
+      no_submissions: "لا توجد عروض"
+      columns:
+        rank: "الرتبة"
+        project: "مشروع"
+        author: "المؤلف"
+        votes: "التصويت"
+        submitted_at: "تم تقديمه في"
+      winner_badge: "الفائز"
     heading: "المواجهة"
     index:
       subtitle: "المسابقات حيث يظهر الطلاب دوائرهم المدهشة وأفضل الدوائر تظهر على صفحتنا!"
+      manage_button: "إدارة المسابقات"
     admin:
       subtitle: "هذه الصفحة للمشرفين، يمكنك استضافة مسابقة جديدة بالنقر على زر \"استضافة مسابقة جديدة\"!"
       new_contest_button: "استضافة مسابقة جديدة"
@@ -17,17 +30,23 @@ ar:
       user_submissions_description: "يمكنك سحب رسالتك من المسابقة."
       contest_entries: "مسابقة إدخالات (%{submission_count})"
       contest_entries_description: "قم بالتصويت على المواد المفضلة لديك وساعدنا على اختيار الفائزين لهذا الأسبوع! يحصل مستخدم واحد على 3 أصوات."
+      view_leaderboard: "عرض لائحة المتصدرين"
     votes: "التصويت"
     close: "أغلق"
     no_contest: "ولا توجد مسابقات حية أو مكتملة."
     contest_container:
       contest_id: "مسابقة"
       entries: "إدخالات"
+      contest_id_with_number: "مسابقة #%{id}"
     status:
       live: "ليبي"
       completed: "مكتمل"
     withdraw: "سحب"
     vote: "التصويت"
+    view: "عرض"
+    no_result_image_alt: "لا توجد صورة نتيجة"
+    timer:
+      expired: "اكتشف"
     new_submission_page:
       heading: "تقديم المشروع"
       select_your_circuit: "حدد الدائرة الخاصة بك"
@@ -39,10 +58,69 @@ ar:
     host_new_contest_modal:
       heading: "استضافة مسابقة جديدة"
       description: "هل أنت متأكد من أنك تريد بدء مسابقة جديدة؟"
+      confirm_button: "تأكيد"
     update_contest_modal:
       heading: "تحديث موعد المسابقة"
       sub_heading: "تعيين نهاية المسابقة"
       description: "يرجى التأكد من أن موعد المسابقة قد تم تعيينه في المستقبل. لا يسمح له بتعيين موعد المسابقة في الماضي."
+      update_deadline: "تحديث الموعد النهائي"
     withdraw_submission_modal:
       heading: "سحب التقديم"
       description: "هل أنت متأكد من أنك تريد سحب رسالتك من المسابقة؟"
+    header:
+      time_left_label: "الوقت المتبقي:"
+    buttons:
+      submit: "إرسال"
+      update_deadline: "تحديث الموعد النهائي"
+  contests:
+    index:
+      title: "مسابقات"
+    show:
+      title: "مسابقة"
+    new_submission:
+      title: "تسليم جديد"
+    create_submission:
+      success: "تم إضافة التسليم بنجاح."
+      unauthorized_project: "لا يمكنك تقديم مشروع شخص آخر."
+      duplicate_submission: "تم تقديم هذا المشروع بالفعل في المسابقة #%{contest_id}"
+    upvote:
+      voting_closed: "التصويت مغلق."
+      all_votes_used: "لقد استخدمت جميع تصويتاتك!"
+      already_voted: "لقد قمت بالفعل بالتصويت لهذا المسلم!"
+      success: "لقد قمت بالتصويت بنجاح على التقديم، شكراً! الأصوات المتبقية: %{votes_remaining}"
+    submissions:
+      create:
+        success: "تم إضافة التسليم بنجاح."
+        unauthorized_project: "لا يمكنك تقديم مشروع شخص آخر."
+        duplicate_submission: "تم تقديم هذا المشروع بالفعل في المسابقة #%{contest_id}"
+      destroy:
+        success: "تمت إزالة التسليم بنجاح."
+        withdraw_closed: "يتم إغلاق عمليات الانسحاب مع انتهاء المسابقة."
+      votes:
+        create:
+          voting_closed: "التصويت مغلق."
+          all_votes_used: "لقد استخدمت جميع تصويتاتك!"
+          already_voted: "لقد قمت بالفعل بالتصويت لهذا المسلم!"
+          success: "لقد قمت بالتصويت بنجاح على التقديم، شكراً! الأصوات المتبقية: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "مسابقات المدير"
+        edit_deadline_alt: "تحرير الموعد النهائي"
+      create:
+        concurrent_contests: "المسابقات المتزامنة غير مسموح بها. أغلق المسابقات الأخرى قبل إنشاء مسابقة جديدة."
+        success: "بدأت المنافسة بنجاح."
+      update:
+        contest_closed: "انتهت المسابقة بنجاح."
+        deadline_in_future: "ويجب أن يكون الموعد النهائي في المستقبل."
+        deadline_updated: "تم تحديث الموعد النهائي للطعن بنجاح."
+        deadline_update_failed: "فشل تحديث الموعد النهائي للمنافسة: %{errors}"
+        invalid_deadline: "تنسيق الموعد النهائي غير صالح."
+      parse_deadline_or_redirect:
+        invalid_deadline: "تنسيق الموعد النهائي غير صالح."
+  layout:
+    link_to_contests: "مسابقات"
+  user:
+    circuitverse:
+      preview_project: "معاينة المشروع"
+  feature_not_available: "ميزة التنافس غير متوفرة."

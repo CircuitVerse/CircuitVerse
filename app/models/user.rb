@@ -4,6 +4,7 @@ class User < ApplicationRecord
   mailkick_user
   require "pg_search"
   include SimpleDiscussion::ForumUser
+
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
   self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size
                              profile_picture_updated_at]
@@ -12,7 +13,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars
-  has_many :votes, dependent: :destroy
+  has_many :votes, class_name: "ActsAsVotable::Vote", as: :voter, dependent: :destroy
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
   devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
@@ -56,12 +57,6 @@ class User < ApplicationRecord
 
   pg_search_scope :text_search, against: %i[name educational_institute],
                                 using: { tsearch: { dictionary: "english", tsvector_column: "searchable" } }
-
-  searchable do
-    text :name
-    text :educational_institute
-    text :country
-  end
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|

@@ -43,6 +43,28 @@ en:
       options:
         users: "Users"
         projects: "Projects"
+      sorting:
+        users:
+          join_date: "Join Date"
+          total_circuits: "Total Circuits"
+        projects:
+          created_date: "Created Date"
+          views: "Views"
+          stars: "Stars"
+      filters:
+        button_text: "Filters"
+        apply_button_text: "Apply"
+        projects:
+          tags:
+            label: "Tags"
+            placeholder: "Add a tag..."
+        users:
+          country:
+            label: "Country"
+            placeholder: "Select Country..."
+          institute:
+            label: "Institute"
+            placeholder: "Enter institute..."
     project:
       show_more: "Show More"
       options:

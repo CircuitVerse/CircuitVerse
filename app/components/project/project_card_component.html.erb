@@ -1,4 +1,6 @@
-<%= link_to user_project_path(project.author, project), class: "project-card", target: "_blank", rel: "noopener noreferrer" do %>
+<div class="project-card submission-card"
+     data-project-id="<%= project.id %>"
+     style="position: relative;">
   <div class="project-card-image-container">
     <%= image_tag(
           project.circuit_preview.attached? ? project.circuit_preview : image_path("empty_project/default.png"),
@@ -14,7 +16,7 @@
       <div class="project-card-stats">
         <div class="project-card-stat">
           <i class="fas fa-star" aria-hidden="true"></i>
-          <span><%= project.stars.count %></span>
+          <span><%= project.stars_count %></span>
         </div>
         <div class="project-card-stat">
           <i class="fa fa-eye" aria-hidden="true"></i>
@@ -23,7 +25,7 @@
       </div>
     </div>
     <div class="project-card-author">
-      <%= image_tag("SVGs/user.svg", alt: "User") %> <%= project.author.name %>
+      <%= image_tag("svgs/user.svg", alt: "User") %> <%= project.author.name %>
     </div>
     <div class="project-card-description">
       <%= sanitize project.description %>
@@ -34,4 +36,12 @@
       </div>
     <% end %>
   </div>
-<% end %>
+  <%= link_to user_project_path(project.author, project),
+              target: "_blank",
+              rel: "noopener noreferrer",
+              class: "project-card",
+              aria: { label: t("components.project.open_project", default: "Open project") },
+              style: "position:absolute; inset:0; z-index:1; text-indent:-9999px; border:0; background:transparent; box-shadow:none; display:block;" do %>
+    <span></span>
+  <% end %>
+</div>

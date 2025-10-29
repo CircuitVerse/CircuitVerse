@@ -43,6 +43,28 @@ ja:
       options:
         users: "ユーザー"
         projects: "プロジェクト"
+      sorting:
+        users:
+          join_date: "参加日"
+          total_circuits: "回路の合計"
+        projects:
+          created_date: "作成日"
+          views: "ビュー"
+          stars: "星"
+      filters:
+        button_text: "フィルタ"
+        apply_button_text: "適用"
+        projects:
+          tags:
+            label: "タグ"
+            placeholder: "タグを追加..."
+        users:
+          country:
+            label: "国"
+            placeholder: "国を選択..."
+          institute:
+            label: "研究所"
+            placeholder: "研究所に入ります..."
     project:
       show_more: "詳細を表示"
       options:
