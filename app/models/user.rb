@@ -70,23 +70,23 @@ class User < ApplicationRecord
     user = User.where(email: data["email"]).first
     name = data["name"] || data["nickname"]
     # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: name,
-                         email: data["email"],
-                         password: Devise.friendly_token[0, 20],
-                         provider: access_token.provider,
-                         confirmed_at: Time.zone.now,
-                         uid: access_token.uid)
+    user ||= User.find_or_create_by(email: data["email"]) do |u|
+      u.name = name
+      u.password = Devise.friendly_token[0, 20]
+      u.provider = access_token.provider
+      u.confirmed_at = Time.zone.now
+      u.uid = access_token.uid
+    end
     user
   end
 
   def self.from_oauth(oauth_user, provider)
-    User.create(
-      name: oauth_user["name"],
-      email: oauth_user["email"],
-      password: Devise.friendly_token[0, 20],
-      provider: provider,
-      uid: oauth_user["id"] || oauth_user["sub"]
-    )
+    User.find_or_create_by(email: oauth_user["email"]) do |user|
+      user.name = oauth_user["name"]
+      user.password = Devise.friendly_token[0, 20]
+      user.provider = provider
+      user.uid = oauth_user["id"] || oauth_user["sub"]
+    end
   end
 
   def flipper_id

@@ -22,11 +22,15 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
     if User.exists?(email: params[:email])
       api_error(status: 409, errors: "user already exists")
     else
-      @user = User.create!(signup_params)
-      token = JsonWebToken.encode(
-        user_id: @user.id, username: @user.name, email: @user.email
-      )
-      render json: { token: token }, status: :created
+      begin
+        @user = User.create!(signup_params)
+        token = JsonWebToken.encode(
+          user_id: @user.id, username: @user.name, email: @user.email
+        )
+        render json: { token: token }, status: :created
+      rescue ActiveRecord::RecordNotUnique
+        api_error(status: 409, errors: "user already exists")
+      end
     end
   end
 
@@ -45,14 +49,14 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       api_error(status: 409, errors: "user already exists")
     else
       @user = User.from_oauth(@oauth_user, params[:provider])
-      if @user.errors.any?
-        # @user has validation errors
-        api_error(status: 422, errors: @user.errors)
-      else
+      if @user.persisted? && !@user.errors.any?
         token = JsonWebToken.encode(
           user_id: @user.id, username: @user.name, email: @user.email
         )
         render json: { token: token }, status: :created
+      else
+        # @user has validation errors
+        api_error(status: 422, errors: @user.errors)
       end
     end
   end
