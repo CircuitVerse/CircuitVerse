@@ -14,7 +14,6 @@ RSpec.describe "Admin::Contests#create", type: :request do
 
   context "when no custom name is provided" do
     it "creates a contest and relies on the model to auto-generate a name" do
-
       params = { contest: { deadline: 1.week.from_now.strftime("%Y-%m-%dT%H:%M") } }
 
       expect do
@@ -23,7 +22,7 @@ RSpec.describe "Admin::Contests#create", type: :request do
 
       new_contest = Contest.order(:created_at).last
       expect(new_contest.name).to start_with("Contest #")
-      
+
       expect(response).to redirect_to(contest_path(new_contest))
       expect(flash[:notice]).to match(/successfully started/i)
     end
@@ -32,11 +31,11 @@ RSpec.describe "Admin::Contests#create", type: :request do
   context "when a custom name is provided" do
     it "creates a new contest with the custom name" do
       custom_name = "My Awesome Custom Circuit Challenge"
-      params = { 
-        contest: { 
+      params = {
+        contest: {
           name: custom_name,
           deadline: 1.week.from_now.strftime("%Y-%m-%dT%H:%M")
-        } 
+        }
       }
 
       expect do
@@ -48,5 +47,4 @@ RSpec.describe "Admin::Contests#create", type: :request do
       expect(flash[:notice]).to match(/successfully started/i)
     end
   end
-  
 end

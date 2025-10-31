@@ -28,50 +28,19 @@ class Admin::ContestsController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
   def update
     @contest = Contest.find(params[:id])
 
-    # 1) Logic to CLOSE the contest (status update)
     if params[:contest][:status] == "completed"
-      ShortlistContestWinner.new(@contest.id).call
-      if @contest.update(status_params) # status_params includes status: :completed and sets deadline: Time.zone.now
-        redirect_to contest_path(@contest), notice: t(".contest_closed")
-      else
-        render :index, status: :unprocessable_entity
-      end
-      
-    # 2) Logic to UPDATE NAME (Requires only :name)
+      handle_contest_completion
     elsif params[:contest].key?(:name) && params[:contest][:deadline].blank?
-      if @contest.update(name_params) 
-        redirect_to admin_contests_path, notice: t(".name_updated") # Redirect to index for list updates
-      else
-        redirect_to admin_contests_path,
-        alert: t(".name_update_failed", errors: @contest.errors.full_messages.join(", "))
-      end
-
-    # 3) Logic to UPDATE DEADLINE (Requires only :deadline)
+      handle_name_update
     elsif params[:contest][:deadline].present?
-      parsed_deadline = parse_deadline_or_redirect(params[:contest][:deadline])
-      return if performed?
-
-      return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
-
-      # Use deadline_params and merge the parsed time object
-      if @contest.update(deadline_params.merge(deadline: parsed_deadline))
-        ContestScheduler.call(@contest)
-        redirect_to admin_contests_path, notice: t(".deadline_updated") # Redirect to index for list updates
-      else
-        redirect_to admin_contests_path,
-        alert: t(".deadline_update_failed", errors: @contest.errors.full_messages.join(", "))
-      end
-
-    # 4) Handle invalid submission
+      handle_deadline_update
     else
       redirect_to admin_contests_path, alert: t(".invalid_update_request")
     end
   end
-  # rubocop:enable Metrics/MethodLength
 
   private
 
@@ -90,17 +59,17 @@ class Admin::ContestsController < ApplicationController
 
     # Allows only the name field for the Name Update Modal
     def name_params
-      params.require(:contest).permit(:name)
+      params.expect(contest: [:name])
     end
 
     # Allows only the status and a forced deadline of Time.zone.now for closure
     def status_params
-      params.require(:contest).permit(:status).merge(deadline: Time.zone.now)
+      params.expect(contest: [:status]).merge(deadline: Time.zone.now)
     end
 
     # Allows only the deadline field
     def deadline_params
-      params.require(:contest).permit(:deadline)
+      params.expect(contest: [:deadline])
     end
 
     def parse_deadline_or_redirect(str)
@@ -114,5 +83,38 @@ class Admin::ContestsController < ApplicationController
       return if Flipper.enabled?(:contests, current_user)
 
       redirect_to root_path, alert: t("feature_not_available")
+    end
+
+    def handle_contest_completion
+      ShortlistContestWinner.new(@contest.id).call
+      if @contest.update(status_params.except(:deadline).merge(deadline: Time.zone.now))
+        redirect_to contest_path(@contest), notice: t(".contest_closed")
+      else
+        render :index, status: :unprocessable_entity
+      end
+    end
+
+    def handle_name_update
+      if @contest.update(name_params)
+        redirect_to admin_contests_path, notice: t(".name_updated")
+      else
+        redirect_to admin_contests_path,
+                    alert: t(".name_update_failed", errors: @contest.errors.full_messages.join(", "))
+      end
+    end
+
+    def handle_deadline_update
+      parsed_deadline = parse_deadline_or_redirect(params[:contest][:deadline])
+      return if performed?
+
+      return redirect_to(admin_contests_path, alert: t(".deadline_in_future")) if parsed_deadline <= Time.zone.now
+
+      if @contest.update(deadline_params.merge(deadline: parsed_deadline))
+        ContestScheduler.call(@contest)
+        redirect_to admin_contests_path, notice: t(".deadline_updated")
+      else
+        redirect_to admin_contests_path,
+                    alert: t(".deadline_update_failed", errors: @contest.errors.full_messages.join(", "))
+      end
     end
 end
