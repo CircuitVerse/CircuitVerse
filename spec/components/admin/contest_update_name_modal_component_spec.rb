@@ -1,9 +1,12 @@
+# frozen_string_literal: true
+
 # spec/components/admin/contest_update_name_modal_component_spec.rb
 
 require "rails_helper"
 
 RSpec.describe Admin::ContestUpdateNameModalComponent, type: :component do
   include Rails.application.routes.url_helpers
+
   let(:contest) { create(:contest, :live, name: "The Big Circuit Challenge") }
 
   # === Test 1: Verifies Modal Presence and Actions ===

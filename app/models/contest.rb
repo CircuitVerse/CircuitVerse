@@ -27,7 +27,7 @@ class Contest < ApplicationRecord
       return if name.present?
 
       @default_name_assigned = true
-      next_number = id || (described_class.unscoped.maximum(:id).to_i + 1)
+      next_number = id || (Contest.unscoped.maximum(:id).to_i + 1)
 
       self.name = "Contest ##{next_number}"
     end

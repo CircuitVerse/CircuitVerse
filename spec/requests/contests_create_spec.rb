@@ -6,7 +6,7 @@ RSpec.describe "Admin::Contests#create", type: :request do
   let(:admin) { create(:user, admin: true) }
 
   before do
-    sign_in admin
+    login_as(admin, scope: :user)
     enable_contests!
 
     allow(ContestScheduler).to receive(:call)
