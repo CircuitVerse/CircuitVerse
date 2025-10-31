@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Admin::Contests#update (Name)", type: :request do
   
-  let(:admin)   { create(:user, admin: true) }
+  let(:admin) { create(:user, admin: true) }
   
   let(:contest) do
     live_contest = create(:contest, :live)

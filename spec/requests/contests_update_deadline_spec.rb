@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe "Admin::Contests#update (Deadline)", type: :request do
   
-  let(:admin)   { create(:user, admin: true) }
+  let(:admin) { create(:user, admin: true) }
   let(:contest) { create(:contest, status: :live, deadline: 2.days.from_now, name: "Test Contest") } 
   
   before { sign_in admin; enable_contests! }
