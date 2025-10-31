@@ -12,6 +12,11 @@ RSpec.describe Admin::ContestHostNewModalComponent, type: :component do
     expect(page).to have_css("h4.modal-title", text: "Host a new Contest")
 
     expect(page).to have_css(
+        "input[name='contest[name]'][type='text']",
+        visible: :visible 
+    )
+
+    expect(page).to have_css(
       "input[name='contest[status]'][value='live']",
       visible: :hidden
     )

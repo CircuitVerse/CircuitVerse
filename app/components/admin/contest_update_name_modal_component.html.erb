@@ -1,0 +1,42 @@
+<div id="update-contest-name-modal"
+  class="modal fade"
+  role="dialog"
+  aria-labelledby="updateContestNameModalLabel"
+  aria-hidden="true">
+  
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header d-flex align-items-center">
+        <h4 class="modal-title flex-grow-1 text-center" id="updateContestNameModalLabel">
+          <%= t("contest.update_contest_name_modal.heading") %>
+        </h4>
+        <button type="button"
+          class="btn-close ms-auto"
+          data-bs-dismiss="modal"
+          aria-label="<%= t('contest.close') %>"></button>
+      </div>
+      
+      <div class="modal-body">
+        <p><%= t("contest.update_contest_name_modal.description") %></p>
+      </div>
+      
+      <%= form_with url: admin_contest_path(":contest_id"),
+        method: :patch,
+        scope: :contest,
+        local: true,
+        id: "update-contest-name-form" do |form| %>
+        
+        <div class="modal-body">
+          <div class="form-group mb-3">
+            <%= form.label :name, t("contest.update_contest_name_modal.sub_heading") %>
+            <%= form.text_field :name, class: "form-control", value: @contest.name, required: true %>
+          </div>
+        </div>
+        
+        <div class="modal-footer">
+          <%= form.submit t("contest.update_contest_name_modal.update_name"), class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

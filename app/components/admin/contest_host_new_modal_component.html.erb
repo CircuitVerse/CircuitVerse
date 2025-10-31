@@ -16,25 +16,31 @@
                 aria-label="<%= t('contest.close') %>"></button>
       </div>
 
-      <div class="modal-body">
-        <p><%= t("contest.host_new_contest_modal.description") %></p>
-        <%= t("contest.host_new_contest_modal.description_html").html_safe %>
-      </div>
+      <%= form_with url: admin_contests_path,
+                    method: :post,
+                    scope: :contest,
+                    local: true do |form| %>
 
-      <div class="modal-footer">
-        <%= form_with url:   admin_contests_path,
-                      method: :post,
-                      scope:  :contest,
-                      local:  true do |form| %>
+        <div class="modal-body">
+          <p><%= t("contest.host_new_contest_modal.description") %></p>
+          <%= t("contest.host_new_contest_modal.description_html").html_safe %>
+        </div>
 
-          <%= form.hidden_field :status,   value: "live" %>
-          <%= form.hidden_field :deadline,
-                                value: @default_deadline.strftime("%Y-%m-%dT%H:%M") %>
+        <div class="modal-body">
+          <div class="form-group mb-3">
+            <%= form.label :name, t("contest.host_new_contest_modal.sub_heading") %>
+            <%= form.text_field :name, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <%= form.hidden_field :status, value: "live" %>
+          <%= form.hidden_field :deadline, value: @default_deadline.strftime("%Y-%m-%dT%H:%M") %>
 
           <%= form.submit t("contest.host_new_contest_modal.confirm_button"),
                           class: "btn primary-button groups-primary-button" %>
-        <% end %>
-      </div>
+        </div>
+      <% end %>
 
     </div>
   </div>
