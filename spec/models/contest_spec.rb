@@ -14,7 +14,6 @@ RSpec.describe Contest, type: :model do
         contest = described_class.new(deadline: 1.month.from_now, status: :live)
         contest.valid? # Triggers before_validation
         expect(contest.name).to start_with("Contest #")
-        
       end
 
       it "normalizes the name to use the final record ID after commit" do
