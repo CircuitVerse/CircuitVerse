@@ -1,7 +1,10 @@
-<img src="/app/assets/images/cvlogo.svg" alt="The CircuitVerse logo" width="736"/> </br></br>
-[![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=Financial+Contributors&style=for-the-badge&logo=open+collective)](https://opencollective.com/CircuitVerse) 
-[![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci&style=for-the-badge&logo=circleci)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
-[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls&style=for-the-badge&logo=coveralls)](https://coveralls.io/github/CircuitVerse/CircuitVerse?branch=master)
+<img src="app/assets/images/cvlogo.svg" alt="The CircuitVerse logo" width="736"/>  
+</br></br>
+
+[![Financial Contributors on Open Collective](https://opencollective.com/CircuitVerse/all/badge.svg?label=Financial+Contributors)](https://opencollective.com/CircuitVerse)
+[![CircleCI Status](https://img.shields.io/circleci/build/github/CircuitVerse/CircuitVerse/master?label=circleci&style=for-the-badge)](https://circleci.com/gh/CircuitVerse/CircuitVerse)
+[![Coveralls Coverage Status](https://img.shields.io/coveralls/github/CircuitVerse/CircuitVerse/master?label=coveralls&style=for-the-badge)](https://coveralls.io/github/CircuitVerse/CircuitVerse)
+
 -----
 [CircuitVerse](https://circuitverse.org) is a free, open-source platform which allows users to construct digital logic circuits online. We also offer the [Interactive Book](https://learn.circuitverse.org) which teaches users on the fundamentals of modern, digital circuits. Please also see our [documentation](https://docs.circuitverse.org) or [GitHub Wiki](https://github.com/CircuitVerse/CircuitVerse/wiki/).
 
@@ -9,7 +12,7 @@
 To help new contributors get started, we've created a video guide titled **"Getting Started with CircuitVerse"**. This video covers:
 - Introduction to CircuitVerse and its technical structure.
 - Step-by-step setup using GitHub Codespaces.
-- A high level walkthrough of the codebase directory structure and key files.
+- A high-level walkthrough of the codebase directory structure and key files.
 - Contribution guidelines for effective collaboration.
 
 🎥 [Watch the "Getting Started with CircuitVerse" Video](https://youtu.be/TUdHWUdz_-8)  
