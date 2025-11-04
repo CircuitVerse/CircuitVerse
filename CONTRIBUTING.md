@@ -3,15 +3,15 @@
 - We expect contributors to abide by our underlying [Code of Conduct](https://github.com/CircuitVerse/CircuitVerse/blob/master/code-of-conduct.md) . All discussions about this project must be respectful and harassment-free.
 - Remember that communication is the lifeblood of any Open Source project. We are all working on this together, and we are all benefiting from this software.
 - It's very easy to misunderstand one another in asynchronous, text-based conversations. When in doubt, assume everyone has the best intentions.
-- If you feel anyone has violated our Code of Conduct, you should anonymously contact the team with our abuse report form via [Slack](https://circuitverse.org/slack), necessary action will be taken by the team.
+- If you feel anyone has violated our Code of Conduct, you should anonymously contact the team with our abuse report form via [Slack](https://circuitverse.org/slack), necessary actions will be taken by the team.
 
-## Issue label
+## Issue Labels
 
 Please note:  If you wanted to work on an issue, let us know by leaving a comment on the issue. If someone is already assigned or working on the issue, do not try to start working without asking in a thread. Also let us know later if you are no longer working on it.
 
-- `maintainers` label are internal tasks that will be completed by a Circuitverse core team member. 
+- `maintainers` label is used for tasks that are assigned specifically to the CircuitVerse core team. 
 - [good first issue](https://github.com/CircuitVerse/CircuitVerse/labels/good%20first%20issue) labeled issues are meant for newer developers.
-- [pending triage](https://github.com/CircuitVerse/CircuitVerse/labels/pending%20triage) labeled issues are not verified by maintainers.
+- [pending triage](https://github.com/CircuitVerse/CircuitVerse/labels/pending%20triage) labeled issues are not yet verified by maintainers.
 - [feature](https://github.com/CircuitVerse/CircuitVerse/labels/%F0%9F%8C%9F%20feature) labeled issues are meant to propose new features.
 - [bugs](https://github.com/CircuitVerse/CircuitVerse/labels/%F0%9F%90%9E%20bug) labeled issues are meant to have errors in existing code base.
 - [documentation](https://github.com/CircuitVerse/CircuitVerse/labels/documentation) labeled issues are meant to have typo errors in documentation.
@@ -21,12 +21,12 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 - `difficulty: medium` issues sometimes entail new features and might affect a significant area of the codebase, but aren't overly complex.
 - `difficulty: hard` issues are typically far-reaching, and might need architecture decisions during implementation. This label might also denote highly complex issues.
 - `duplicate` labeled issues are meant to be already existing issue in the repository.
-- `priority: less` labeled issues are meant to have priority comparatavily lesser than other issues.
+- `priority: less` labeled issues are meant to have priority comparatively lesser than other issues.
 - `priority: medium` labeled issues are meant to have priority comparatively intermediate than other issues.
 - `priority: high` labeled issues are meant to have the highest priority and need to fix as soon as possible.
 - `help wanted` labeled issues signify that the contributor requires help with something specific in the issue and your help is very much appreciated.
 
-## Creating an issue.
+## Creating an Issue.
 
 - Check if the issue you are going to propose is not duplicate of another issue.
 - Open a new issue according to type i.e., if issue is a bug open a new issue by clicking on `Get Started` in the scope of `Bug Report`.
@@ -66,7 +66,7 @@ Please note:  If you wanted to work on an issue, let us know by leaving a commen
 
 - Requested changes must be resolved (with code or discussion) before merging.
 - If you make changes to a PR, be sure to re-request a review.
-- Don't repeadetely tag someone(may be it is not the right time to review your PR), be patient.
+- Don't repeatedly tag someone(may be it is not the right time to review your PR), be patient.
 - Do not 'resolve conversation' unnecessary raised by a community member or any workflow tools(codeclimate or hound) as they may have some purpose, try to resolve the request changes and if any help wanted tag a community member to give views about that.
 
 #### PR Labels
