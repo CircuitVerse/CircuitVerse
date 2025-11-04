@@ -40,41 +40,33 @@
 
               <div class="contest-container-status-live">
                 <span class="contest-container-status-dot"></span>
-                <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
-     
+                <span class="contest-container-status-text"><%= t("contest.status.live") %></span>     
            </div>
             </div>
           <% else %>
             <div class="contest-container-header">
               <div class="contest-container-status">
                 <span class="contest-container-status-dot"></span>
-                <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
-   
+                <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>   
            </div>
             </div>
           <% end %>
-
           <div class="contest-container-details">
             <h5 class="contest-container-details-number">
               <%= link_to contest.name, contest_path(contest.id) %>
-            </h5>
-
-           
+            </h5>           
  <% if contest.completed? %>
               <h5 class="contest-container-details-entries">
                 <%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %>
               </h5>
             <% end %>
-
             <% if contest.live? %>
-              <div class="update-buttons-group">
-                
+              <div class="update-buttons-group">                
                 <%= link_to "#",
                             data: { bs_toggle: "modal", bs_target: "#update-contest-name-modal", contest: contest, name: contest.name },
                             class: "contest-container-update-button name-update" do %>
                   <%= image_tag("svgs/editGroup.svg", alt: t("admin.contests.index.edit_name_alt")) %>
-                <% end %>
-                
+                <% end %>                
                 <%= link_to "#",
                             data: { bs_toggle: "modal", bs_target: "#update-contest-deadline-modal", contest: contest, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M") },
                             class: "contest-container-update-button deadline-update" do %>
@@ -88,8 +80,7 @@
 
       <%= render Admin::ContestCloseModalComponent.new(contest: contest) %>
       <%= render Admin::ContestUpdateNameModalComponent.new(contest: contest) %> 
-      <%= render Admin::ContestUpdateDeadlineModalComponent.new(contest: contest) %>
-    
+      <%= render Admin::ContestUpdateDeadlineModalComponent.new(contest: contest) %>   
  <% end %>
   </div>
   <div class="container pagination-cont">
