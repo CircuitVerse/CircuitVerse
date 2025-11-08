@@ -19,7 +19,7 @@
       <%= form_with url: admin_contests_path,
                     method: :post,
                     scope: :contest,
-                    local: true do |form| %>
+                    data: {turbo: false} do |form| %>
 
         <div class="modal-body">
           <p><%= t("contest.host_new_contest_modal.description") %></p>

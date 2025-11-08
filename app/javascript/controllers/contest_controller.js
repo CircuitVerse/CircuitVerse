@@ -15,7 +15,7 @@ export default class extends Controller {
 
     setAdminModals() {
         // --- OLD update-contest-modal logic (renamed to update-contest-deadline-modal) is now split ---
-        
+
         // 1. Logic for the dedicated Update Name Modal
         const updateNameModal = this.element.querySelector('#update-contest-name-modal');
         if (updateNameModal) {
@@ -23,23 +23,23 @@ export default class extends Controller {
                 const contestId = $(e.relatedTarget).data('contest').id;
                 const currentName = $(e.relatedTarget).data('name');
                 const form = $(this).find('#update-contest-name-form'); // Target the specific name form ID
-                
+
                 // Use let for action to allow re-assignment if necessary, though attr() is often sufficient
-                let action = form.attr('action').replace(':contest_id', contestId); 
+                const action = form.attr('action').replace(':contest_id', contestId);
                 form.attr('action', action);
                 form.find('#contest_name').val(currentName);
             });
         }
-        
+
         // 2. Logic for the dedicated Update Deadline Modal (formerly #update-contest-modal)
         const updateDeadlineModal = this.element.querySelector('#update-contest-deadline-modal');
         if (updateDeadlineModal) {
             $(updateDeadlineModal).on('show.bs.modal', function handleUpdateDeadlineModal(e) {
                 const contestId = $(e.relatedTarget).data('contest').id;
                 const currentDeadline = $(e.relatedTarget).data('deadline');
-                const form = $(this).find('#update-contest-deadline-form'); 
-                
-                let action = form.attr('action').replace(':contest_id', contestId);
+                const form = $(this).find('#update-contest-deadline-form');
+
+                const action = form.attr('action').replace(':contest_id', contestId);
                 form.attr('action', action);
                 form.find('#contest_deadline').val(currentDeadline);
             });

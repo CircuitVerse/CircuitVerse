@@ -60,12 +60,12 @@
             <% if contest.live? %>
               <div class="update-buttons-group">
                 <%= link_to "#",
-                            data: { bs_toggle: "modal", bs_target: "#update-contest-name-modal", contest: contest, name: contest.name },
+                            data: { bs_toggle: "modal", bs_target: "#update-contest-name-modal", contest_id: contest.id, name: contest.name },
                             class: "contest-container-update-button name-update" do %>
                   <%= image_tag("svgs/editGroup.svg", alt: t("admin.contests.index.edit_name_alt")) %>
                 <% end %>
                 <%= link_to "#",
-                            data: { bs_toggle: "modal", bs_target: "#update-contest-deadline-modal", contest: contest, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M") },
+                            data: { bs_toggle: "modal", bs_target: "#update-contest-deadline-modal", contest_id: contest.id, deadline: contest.deadline.strftime("%Y-%m-%dT%H:%M") },
                             class: "contest-container-update-button deadline-update" do %>
                   <%= image_tag("svgs/calendar.svg", alt: t("admin.contests.index.edit_deadline_alt")) %>
                 <% end %>
