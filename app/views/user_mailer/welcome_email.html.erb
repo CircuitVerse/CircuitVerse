@@ -1,67 +1,48 @@
-<div class="mailer-container">
-  <h2 class="mailer-heading">Welcome to CircuitVerse, <%= @user.name %></h2>
-  
-  <div class="mailer-hero-image">
-    <%= inline_svg_tag "homepage/new_homepage_sketch.png", alt: "Welcome", class: "mailer-group-image" %>
+<div style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 30px; border-radius: 10px; max-width: 700px; margin: auto;">
+  <h2 style="color: #2c3e50; text-align: center;">Welcome to CircuitVerse, <%= @user.name %> 👋</h2>
+
+  <div style="text-align: center; margin: 20px 0;">
+    <%= image_tag "homepage/new_homepage_sketch.png", alt: "Welcome", style: "width: 100%; max-width: 500px; border-radius: 10px;" %>
   </div>
 
-  <p class="mailer-welcome-text mailer-text">
+  <p style="font-size: 16px; color: #333; line-height: 1.6;">
     Thanks for signing up!<br>
-    With CircuitVerse you can explore simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, design digital logic circuits, and much more – for free!
+    With CircuitVerse you can explore simple gates to complex sequential circuits, plot timing diagrams, generate circuits automatically, and much more – all for free!
   </p>
 
-  <div class="mailer-button-container">
-    <a href="https://circuitverse.org/simulator" class="mailer-button">
-      Launch Simulator
-      <span class="mailer-button-icon">→</span>
+  <div style="text-align: center; margin: 25px 0;">
+    <a href="https://circuitverse.org/simulator" style="background-color: #007bff; color: white; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold;">
+      🚀 Launch Simulator
     </a>
   </div>
 
-  <div class="mailer-showcase-container">
-    <div class="mailer-showcase-card">
-      <div class="mailer-showcase-icon">
-        <%= inline_svg_tag "pngs/features.png", alt: "Features", class: "mailer-showcase-card-image" %>
-      </div>
-      <h3 class="mailer-showcase-heading">Features</h3>
-      <p class="mailer-text mailer-showcase-text">
-        Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom and more.
-      </p>
-      <a href="https://circuitverse.org/#features" class="mailer-showcase-link">
-        Know More
-        <span class="mailer-link-arrow">→</span>
-      </a>
+  <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 30px;">
+    <!-- Feature Card -->
+    <div style="background-color: #ffffff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; width: 210px; text-align: center; margin: 10px;">
+      <%= image_tag "pngs/features.png", alt: "Features", style: "width: 60px; height: 60px; margin-bottom: 10px;" %>
+      <h3 style="color: #2c3e50;">Features</h3>
+      <p style="font-size: 14px; color: #555;">Design circuits quickly with drag-and-drop, zoom, copy/paste, and more.</p>
+      <a href="https://circuitverse.org/#features" style="color: #007bff; text-decoration: none; font-weight: 600;">Know More →</a>
     </div>
 
-    <div class="mailer-showcase-card">
-      <div class="mailer-showcase-icon">
-        <%= inline_svg_tag "pngs/design.png", alt: "Design", class: "mailer-showcase-card-image" %>
-      </div>
-      <h3 class="mailer-showcase-heading">Design</h3>
-      <p class="mailer-text mailer-showcase-text">
-        Don't know how to design? CircuitVerse is easy to use for beginners. This documentation will help you get started quickly.
-      </p>
-      <a href="https://docs.circuitverse.org/" class="mailer-showcase-link">
-        Know More
-        <span class="mailer-link-arrow">→</span>
-      </a>
+    <!-- Design Card -->
+    <div style="background-color: #ffffff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; width: 210px; text-align: center; margin: 10px;">
+      <%= image_tag "pngs/design.png", alt: "Design", style: "width: 60px; height: 60px; margin-bottom: 10px;" %>
+      <h3 style="color: #2c3e50;">Design</h3>
+      <p style="font-size: 14px; color: #555;">New to circuit design? Our docs help you get started easily.</p>
+      <a href="https://docs.circuitverse.org/" style="color: #007bff; text-decoration: none; font-weight: 600;">Know More →</a>
     </div>
 
-    <div class="mailer-showcase-card">
-      <div class="mailer-showcase-icon">
-        <%= inline_svg_tag "pngs/learn.png", alt: "Learn", class: "mailer-showcase-card-image" %>
-      </div>
-      <h3 class="mailer-showcase-heading">Learn</h3>
-      <p class="mailer-text mailer-showcase-text">
-        Want to know more about digital circuits? This Interactive book gives you complete understanding on how digital circuits work.
-      </p>
-      <a href="https://learn.circuitverse.org/" class="mailer-showcase-link">
-        Know More
-        <span class="mailer-link-arrow">→</span>
-      </a>
+    <!-- Learn Card -->
+    <div style="background-color: #ffffff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; width: 210px; text-align: center; margin: 10px;">
+      <%= image_tag "pngs/learn.png", alt: "Learn", style: "width: 60px; height: 60px; margin-bottom: 10px;" %>
+      <h3 style="color: #2c3e50;">Learn</h3>
+      <p style="font-size: 14px; color: #555;">Understand how digital circuits work with our interactive book.</p>
+      <a href="https://learn.circuitverse.org/" style="color: #007bff; text-decoration: none; font-weight: 600;">Know More →</a>
     </div>
   </div>
 
-  <div class="mailer-footer">
-    <p class="mailer-text">Keep building!</p>
+  <div style="text-align: center; margin-top: 30px; font-size: 15px; color: #555;">
+    <p>Keep building with ❤️ from the CircuitVerse team.</p>
   </div>
 </div>
