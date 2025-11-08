@@ -20,7 +20,7 @@ export default class extends Controller {
         const updateNameModal = this.element.querySelector('#update-contest-name-modal');
         if (updateNameModal) {
             $(updateNameModal).on('show.bs.modal', function handleUpdateNameModal(e) {
-                const contestId = $(e.relatedTarget).data('contest').id;
+                const contestId = $(e.relatedTarget).data('contestId');
                 const currentName = $(e.relatedTarget).data('name');
                 const form = $(this).find('#update-contest-name-form'); // Target the specific name form ID
 
@@ -35,7 +35,7 @@ export default class extends Controller {
         const updateDeadlineModal = this.element.querySelector('#update-contest-deadline-modal');
         if (updateDeadlineModal) {
             $(updateDeadlineModal).on('show.bs.modal', function handleUpdateDeadlineModal(e) {
-                const contestId = $(e.relatedTarget).data('contest').id;
+                const contestId = $(e.relatedTarget).data('contestId');
                 const currentDeadline = $(e.relatedTarget).data('deadline');
                 const form = $(this).find('#update-contest-deadline-form');
 
@@ -78,3 +78,4 @@ export default class extends Controller {
         }
     }
 }
+
