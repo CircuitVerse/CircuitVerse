@@ -40,8 +40,7 @@ module Logix
     require_relative "../app/middleware/proxy_ip_sanitizer"
     # Insert early to normalize IP headers before RemoteIp runs
     config.middleware.insert_before ActionDispatch::RemoteIp, ProxyIpSanitizer
-    # Rack::Attack (load once)
-    config.middleware.use Rack::Attack
+    # Rack::Attack is added via its Railtie/initializer; avoid adding twice
 
     # Forum overrides
     overrides = "#{Rails.root}/app/overrides"
