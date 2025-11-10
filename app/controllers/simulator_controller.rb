@@ -55,11 +55,15 @@ class SimulatorController < ApplicationController
     @project.build_project_datum.data = sanitize_data(@project, params[:data])
     @project.name = sanitize(params[:name])
     @project.author = current_user
-    # ActiveStorage
-    io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(io_image_file)
-    # CarrierWave
-    image_file = return_image_file(params[:image])
+    # ActiveStorage & CarrierWave
+    if params.key?(:image)
+      io_image_file = parse_image_data_url(params[:image])
+      attach_circuit_preview(io_image_file)
+      image_file = return_image_file(params[:image])
+    else
+      # No image param provided — use default image and skip ActiveStorage preview
+      image_file = return_image_file(nil)
+    end
     @project.image_preview = image_file
     image_file.close
     @project.save!
@@ -73,14 +77,16 @@ class SimulatorController < ApplicationController
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
     # ActiveStorage
-    @project.circuit_preview.purge if @project.circuit_preview.attached?
-    io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(io_image_file)
-    # CarrierWave
-    image_file = return_image_file(params[:image])
-    @project.image_preview = image_file
-    image_file.close
-    File.delete(image_file) if check_to_delete(params[:image])
+    if params.key?(:image)
+      @project.circuit_preview.purge if @project.circuit_preview.attached?
+      io_image_file = parse_image_data_url(params[:image])
+      attach_circuit_preview(io_image_file)
+      # CarrierWave
+      image_file = return_image_file(params[:image])
+      @project.image_preview = image_file
+      image_file.close
+      File.delete(image_file) if check_to_delete(params[:image])
+    end
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
