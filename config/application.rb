@@ -23,38 +23,39 @@ module Logix
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
-    config.action_mailer.preview_paths << "#{Rails.root}/lib/mailer_previews"
+   config.action_mailer.preview_paths << "#{Rails.root}/lib/mailer_previews"
 
-    # ViewComponent previews
-    config.view_component.preview_paths = "#{Rails.root}/spec/components/previews"
-    config.view_component.default_preview_layout = "lookbook_preview"
+        # config/application.rb
+        config.view_component.preview_paths = "#{Rails.root}/spec/components/previews"
+        config.view_component.default_preview_layout = "lookbook_preview"
 
-    # I18n
-    config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
-    config.i18n.available_locales = [:ar, :bn, :de, :en, :es, :fr, :hi, :ja, :ml, :mr, :ne]
-    config.i18n.default_locale = :en
-    config.i18n.fallbacks = true
+        config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
+        config.i18n.available_locales = [:ar, :bn, :de, :en, :es, :fr, :hi, :ja, :ml, :mr, :ne]
+        config.i18n.default_locale = :en
+        config.i18n.fallbacks = true
 
-    # Middleware
-    # Rack::Attack (load once)
-    config.middleware.use Rack::Attack
+        # configuring middleware
+        config.middleware.use Rack::Attack
+        # configuring middleware
+           config.middleware.use Rack::Attack
 
-    # Forum overrides
-    overrides = "#{Rails.root}/app/overrides"
-    Rails.autoloaders.main.ignore(overrides)
-    config.to_prepare do
-      Dir.glob("#{overrides}/**/*_override.rb").each do |override|
-        load override
-      end
-    end
+           # configuring forum
+           overrides = "#{Rails.root}/app/overrides"
+           Rails.autoloaders.main.ignore(overrides)
 
-    # Site config
-    config.site_url = "https://circuitverse.org/"
-    config.site_name = "CircuitVerse"
-    config.site_category = "Digital Logic Circuits"
-    config.site_download_url = "https://circuitverse.org/simulator"
-    config.site_image = "https://circuitverse.org/img/circuitverse2.svg"
-    config.site_description = "Explore Digital circuits online with CircuitVerse. With our easy to use simulator interface, you will be building circuits in no time."
-    config.slack_url = "https://circuitverse.org/slack"
+           config.to_prepare do
+             Dir.glob("#{overrides}/**/*_override.rb").each do |override|
+               load override
+             end
+           end
+
+           # Site config
+           config.site_url = "https://circuitverse.org/"
+           config.site_name = "CircuitVerse"
+           config.site_category = "Digital Logic Circuits"
+           config.site_download_url = "https://circuitverse.org/simulator"
+           config.site_image = "https://circuitverse.org/img/circuitverse2.svg"
+           config.site_description = "Explore Digital circuits online with CircuitVerse. With our easy to use simulator interface, you will be building circuits in no time."
+           config.slack_url = "https://circuitverse.org/slack"
   end
 end
