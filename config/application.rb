@@ -36,10 +36,6 @@ module Logix
     config.i18n.fallbacks = true
 
     # Middleware
-    # Ensure custom middleware is loaded
-    require_relative "../app/middleware/proxy_ip_sanitizer"
-    # Insert early to normalize IP headers before RemoteIp runs
-    config.middleware.insert_before ActionDispatch::RemoteIp, ProxyIpSanitizer
     # Rack::Attack (load once)
     config.middleware.use Rack::Attack
 
