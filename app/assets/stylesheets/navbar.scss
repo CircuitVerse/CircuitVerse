@@ -618,6 +618,68 @@
   top: 90%;
 }
 
+// Mobile search input styles
+.mobile-search-input {
+  width: 100%;
+  padding: 0;
+}
+
+.mobile-search-form {
+  display: flex;
+  align-items: stretch;
+  width: 100%;
+  border: 1px solid $shadow-grey;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: $white;
+  min-height: 44px;
+}
+
+.mobile-search-field {
+  flex: 1;
+  border: none;
+  padding: 12px 16px;
+  font-size: 16px;
+  outline: none;
+  background-color: transparent;
+  color: $navbar-dark-grey;
+
+  &::placeholder {
+    color: lighten($navbar-dark-grey, 20%);
+  }
+
+  &:focus {
+    outline: none;
+    border: none;
+  }
+}
+
+.mobile-search-submit {
+  background-color: $primary-green;
+  border: none;
+  padding: 0 20px;
+  color: $white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background-color: darken($primary-green, 5%);
+  }
+
+  &:focus {
+    outline: none;
+    background-color: darken($primary-green, 5%);
+  }
+
+  i {
+    font-size: 18px;
+  }
+}
+
 //breakpoints
 
 // Ensure stacked search layout takes full width on extra-small screens
