@@ -633,6 +633,11 @@
   overflow: hidden;
   background-color: $white;
   min-height: 44px;
+
+  &:focus-within {
+    border-color: $primary-green;
+    box-shadow: 0 0 0 2px rgba($primary-green, 0.2);
+  }
 }
 
 .mobile-search-field {
