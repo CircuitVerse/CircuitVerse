@@ -1,8 +1,6 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="/js/metadata.json"></script>
-
 <%= form_with(model: [group, @assignment], local: true, html: { onsubmit: "beforeSubmit()" }, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
-
   <% if @assignment.errors.any? %>
     <div class="error-message">
       <ul>
@@ -12,7 +10,6 @@
       </ul>
     </div>
   <% end %>
-
   <% if Flipper.enabled?(:lms_integration, current_user) %>
     <div id="lms-integration-field" class="field mb-3">
       <label for="lms-integration-check" class="primary-checkpoint-container">
@@ -22,46 +19,37 @@
       </label>
       <div class="lms-integration-message">
         <p>We will generate the required keys after assignment creation.
-          <a href=<%= lms_integration_tutorial %>>Learn more</a>
+          <a href="<%= lms_integration_tutorial %>">Learn more</a>
         </p>
       </div>
     </div>
   <% end %>
-
   <div id="name-field" class="field mb-3">
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :assignment_name, class: "form-control form-input" %>
   </div>
-
   <div id="description" class="field mb-3">
     <h6><%= form.label :description %></h6>
     <%= render partial: "editor/index", locals: { content: @assignment.description } %>
   </div>
-
-
-  <!-- ⭐ NEW FIXED LAYOUT: deadline + grade side-by-side -->
   <div class="assignment-row">
-
     <div class="assignment-col">
       <div id="deadline-field" class="field form-group projects-tag-mb-3">
         <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6>
-        (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
+        (<span id="remaining-time"><b><%= t("assignments.remaining_time_error") %></b></span>)
         <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
       </div>
     </div>
-
     <div class="assignment-col">
       <div id="grade-field" class="form-group projects-tag-mb-3">
         <h6><%= form.label :grading_scale %></h6>
         <% if @assignment.new_record? %>
           <span><%= t("assignments.form.grade_scale_cant_change") %></span>
-
           <% if Flipper.enabled?(:lms_integration, current_user) %>
             <div class="lms-grade-fixed-message">
               <p>Grading Scale must be 1–100 for LMS</p>
             </div>
           <% end %>
-
           <%= form.select :grading_scale,
             [[t("assignments.form.no_grade"), :no_scale],
              [t("assignments.form.letter"), :letter],
@@ -69,7 +57,6 @@
              [t("assignments.form.custom"), :custom]],
             {},
             class: "form-control form-input" %>
-
         <% else %>
           <div class="assignments-noedit-grade-field">
             <p><%= t("assignments.form.cannot_be_edited", graded: AssignmentDecorator.new(@assignment).graded) %></p>
@@ -77,13 +64,8 @@
         <% end %>
       </div>
     </div>
-
   </div>
-  <!-- ⭐ END FIXED LAYOUT -->
-
-
-  <!-- These blocks stay OUTSIDE row -->
-  <div id="restrictions-field" class="field mb-3">
+  <div class="field mb-3">
     <label for="restrict-elements" class="primary-checkpoint-container">
       <h6><%= t("assignments.form.enable_element_restriction") %></h6>
       <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
@@ -91,21 +73,16 @@
     </label>
     <div class="restricted-elements-list"></div>
   </div>
-
-  <div id="restrictions-field" class="field mb-3" data-controller="assignment">
+  <div class="field mb-3" data-controller="assignment">
     <label for="restrict-feature" class="primary-checkpoint-container">
-      <h6 data-action="click->assignment#handleFeatureMainCheckbox">
-        <%= t("assignments.form.enable_feature_restriction") %>
-      </h6>
+      <h6 data-action="click->assignment#handleFeatureMainCheckbox"><%= t("assignments.form.enable_feature_restriction") %></h6>
       <%= check_box_tag "restrict-feature" %>
       <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
     </label>
     <div class="restricted-feature-list"></div>
   </div>
-
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
     <%= link_to t("back"), :back, class: "anchor-text" %>
   </div>
-
 <% end %>
