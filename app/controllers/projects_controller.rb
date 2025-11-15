@@ -45,17 +45,9 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def change_stars
-    star = Star.find_by(user_id: current_user.id, project_id: @project.id)
-    if star.nil?
-      @star = Star.new
-      @star.user_id = current_user.id
-      @star.project_id = @project.id
-      @star.save
-      render js: "2"
-    else
-      star.destroy
-      render js: "1"
-    end
+    # toggle_star returns true if starred, false if unstarred
+    starred = @project.toggle_star(current_user)
+    render js: starred ? "2" : "1"
   end
 
   def create_fork
