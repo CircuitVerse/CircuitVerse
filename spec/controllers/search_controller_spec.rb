@@ -29,7 +29,7 @@ describe SearchController, type: :request do
           get search_path, params: { q: "Dummy", resource: "Users", format: :json }
           expect(response.status).to eq(200)
           expect(response.content_type).to include("application/json")
-          json_response = JSON.parse(response.body)
+          json_response = response.parsed_body
           expect(json_response).to be_an(Array)
           expect(json_response.length).to eq(2)
         end
@@ -37,7 +37,7 @@ describe SearchController, type: :request do
         it "includes correct user attributes in JSON response" do
           get search_path, params: { q: "Dummy", resource: "Users", format: :json }
           expect(response.status).to eq(200)
-          json_response = JSON.parse(response.body)
+          json_response = response.parsed_body
           first_user = json_response.first
           expect(first_user).to have_key("id")
           expect(first_user).to have_key("name")
@@ -79,7 +79,7 @@ describe SearchController, type: :request do
           get search_path, params: { q: "full_adder", resource: "Projects", format: :json }
           expect(response.status).to eq(200)
           expect(response.content_type).to include("application/json")
-          json_response = JSON.parse(response.body)
+          json_response = response.parsed_body
           expect(json_response).to be_an(Array)
           expect(json_response.length).to eq(1)
           expect(json_response.first["name"]).to eq("Full adder using half adder")
@@ -88,17 +88,12 @@ describe SearchController, type: :request do
         it "includes correct project attributes in JSON response" do
           get search_path, params: { q: "full_adder", resource: "Projects", format: :json }
           expect(response.status).to eq(200)
-          json_response = JSON.parse(response.body)
+          json_response = response.parsed_body
           first_project = json_response.first
-          expect(first_project).to have_key("id")
-          expect(first_project).to have_key("name")
-          expect(first_project).to have_key("author_id")
-          expect(first_project).to have_key("project_access_type")
-          expect(first_project).to have_key("views")
-          expect(first_project).to have_key("stars")
-          expect(first_project).to have_key("url")
-          expect(first_project).to have_key("created_at")
-          expect(first_project).to have_key("updated_at")
+          expect(first_project.keys).to match_array(
+            %w[id name author_id forked_project_id project_access_type
+               views stars url created_at updated_at]
+          )
         end
       end
 
@@ -125,15 +120,14 @@ describe SearchController, type: :request do
           FactoryBot.create(:project, name: "Full adder using half adder",
                                       project_access_type: "Public")
           get search_path, params: { q: "basic gates", resource: "Projects", format: :json }
-          expect(response.status).to eq(200)
-          expect(response.content_type).to include("application/json")
-          json_response = JSON.parse(response.body)
-          expect(json_response).to be_an(Array)
+          expect(response).to have_http_status(:ok)
+          json_response = response.parsed_body
           expect(json_response.length).to eq(2)
-          project_names = json_response.map { |p| p["name"] }
-          expect(project_names).to include("Full adder using basic gates")
-          expect(project_names).to include("Half adder using basic gates")
-          expect(project_names).not_to include("Full adder using half adder")
+          project_names = json_response.pluck("name")
+          expect(project_names).to contain_exactly(
+            "Full adder using basic gates",
+            "Half adder using basic gates"
+          )
         end
       end
 
@@ -153,7 +147,7 @@ describe SearchController, type: :request do
           get search_path, params: { q: "half adder", resource: "Projects", format: :json }
           expect(response.status).to eq(200)
           expect(response.content_type).to include("application/json")
-          json_response = JSON.parse(response.body)
+          json_response = response.parsed_body
           expect(json_response).to be_an(Array)
           expect(json_response).to be_empty
         end
