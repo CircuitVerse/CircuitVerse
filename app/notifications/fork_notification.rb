@@ -4,7 +4,7 @@ class ForkNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
 
   def message
-    user = params[:user]
+    user = params[:user] || DeletedUser.new
     project = params[:project]
     t("users.notifications.fork_notification", user: user&.name, project: project&.name)
   end
