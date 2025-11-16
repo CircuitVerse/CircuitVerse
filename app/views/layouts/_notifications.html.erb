@@ -4,12 +4,12 @@
       <i class="fas fa-bell notification-icon" id="notification-button"></i>
       <% if @unread&.count&.positive? %>
         <span class="notification-count"><%= @unread.count %></span>
-      <% end %> 
+      <% end %>
     </button>
     </li>
        <div id="notification-dropdown-menu" class="dropdown-menu dropdown-notification <%= I18n.locale == :ar ? 'dropdown-menu-rtl' : 'dropdown-menu-end' %>"
          aria-labelledby="navbar-dropdown-3"
-         data-bs-popper="static"> 
+         data-bs-popper="static">
       <div class="d-flex align-items-center justify-content-between">
         <strong><h4><%= t("users.notifications.heading") %></h4></strong>
             <button type="button"
