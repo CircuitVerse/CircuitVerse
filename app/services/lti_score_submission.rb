@@ -14,6 +14,8 @@ class LtiScoreSubmission
 
   # @return [Boolean]
   def call
+    return false if lis_outcome_service_url.blank? || lis_result_sourced_id.blank?
+
     response = oauth_token.post(
       lis_outcome_service_url,
       score_body.to_xml, "Content-Type" => "application/xml"

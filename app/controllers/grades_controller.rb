@@ -24,13 +24,17 @@ class GradesController < ApplicationController
       # pass grade back to the LMS if session is LTI
       project = Project.find(grade_params[:project_id])
       assignment = Assignment.find(grade_params[:assignment_id])
-      score = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
-      LtiScoreSubmission.new(
-        assignment: assignment,
-        lis_result_sourced_id: project.lis_result_sourced_id,
-        score: score,
-        lis_outcome_service_url: session[:lis_outcome_service_url]
-      ).call # LTI score submission, see app/helpers/lti_helper.rb
+
+      # Only attempt LTI score submission if required parameters are present
+      if session[:lis_outcome_service_url].present? && project.lis_result_sourced_id.present?
+        score = grade.to_f / 100 # conversion to 0-0.100 scale as per IMS Global specification
+        LtiScoreSubmission.new(
+          assignment: assignment,
+          lis_result_sourced_id: project.lis_result_sourced_id,
+          score: score,
+          lis_outcome_service_url: session[:lis_outcome_service_url]
+        ).call # LTI score submission, see app/helpers/lti_helper.rb
+      end
     end
 
     return if @grade.save
