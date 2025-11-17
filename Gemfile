@@ -23,7 +23,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.1.1"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -92,7 +92,7 @@ gem "http", "~> 4.4"
 
 # Database
 
-gem "pg", "~> 1.6.1"
+gem "pg", "~> 1.6.2"
 
 gem "meta-tags"
 
@@ -175,7 +175,7 @@ gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 gem "invisible_captcha", "~> 2.0"
 
 
-gem "oj", "~> 3.15"
+gem "oj", "~> 3.16"
 
 
 
@@ -190,11 +190,11 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.176"
+gem "aws-sdk-s3", "~> 1.203"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.8"
-gem "opentelemetry-exporter-otlp", "~> 0.30.0"
+gem "opentelemetry-sdk", "~> 1.10"
+gem "opentelemetry-exporter-otlp", "~> 0.31.1"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
@@ -212,7 +212,7 @@ gem "opentelemetry-instrumentation-sidekiq"
 gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
-gem "maintenance_tasks", "~> 2.3"
+gem "maintenance_tasks", "~> 2.13"
 
 
 gem "stackprof"
