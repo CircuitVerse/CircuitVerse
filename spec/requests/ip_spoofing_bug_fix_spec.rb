@@ -55,8 +55,8 @@ RSpec.describe "IP Spoofing Bug Fix", type: :request do
   describe "Bug Fix: Cloudflare proxy IP resolution" do
     context "when CF_PROXY_ENABLED=1 and request is from Cloudflare" do
       before do
-        allow(ENV).to receive(:[]).and_call_original
-        allow(ENV).to receive(:[]).with("CF_PROXY_ENABLED").and_return("1")
+        allow(ENV).to receive(:fetch).and_call_original
+        allow(ENV).to receive(:fetch).with("CF_PROXY_ENABLED", nil).and_return("1")
       end
 
       it "correctly resolves client IP from CF-Connecting-IP header" do
@@ -83,8 +83,8 @@ RSpec.describe "IP Spoofing Bug Fix", type: :request do
 
     context "when CF_PROXY_ENABLED is not set" do
       before do
-        allow(ENV).to receive(:[]).and_call_original
-        allow(ENV).to receive(:[]).with("CF_PROXY_ENABLED").and_return(nil)
+        allow(ENV).to receive(:fetch).and_call_original
+        allow(ENV).to receive(:fetch).with("CF_PROXY_ENABLED", nil).and_return(nil)
       end
 
       it "does not raise IpSpoofAttackError even without CF feature enabled" do

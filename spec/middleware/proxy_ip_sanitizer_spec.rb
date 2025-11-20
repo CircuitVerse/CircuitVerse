@@ -34,8 +34,8 @@ RSpec.describe ProxyIpSanitizer do
 
     context "when CF_PROXY_ENABLED is set" do
       before do
-        allow(ENV).to receive(:[]).and_call_original
-        allow(ENV).to receive(:[]).with("CF_PROXY_ENABLED").and_return(cf_proxy_value)
+        allow(ENV).to receive(:fetch).and_call_original
+        allow(ENV).to receive(:fetch).with("CF_PROXY_ENABLED", nil).and_return(cf_proxy_value)
       end
 
       context "with truthy value (1)" do
@@ -184,8 +184,8 @@ RSpec.describe ProxyIpSanitizer do
 
     context "when CF_PROXY_ENABLED is not set" do
       before do
-        allow(ENV).to receive(:[]).and_call_original
-        allow(ENV).to receive(:[]).with("CF_PROXY_ENABLED").and_return(nil)
+        allow(ENV).to receive(:fetch).and_call_original
+        allow(ENV).to receive(:fetch).with("CF_PROXY_ENABLED", nil).and_return(nil)
       end
 
       it "does not replace REMOTE_ADDR even when peer is Cloudflare" do

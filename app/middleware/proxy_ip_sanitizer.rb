@@ -58,7 +58,7 @@ class ProxyIpSanitizer
 
     # 2) If behind Cloudflare (opt-in via env flag), and the immediate peer
     #    is a Cloudflare edge, trust CF-Connecting-IP as the true client IP.
-    if truthy_env?(ENV["CF_PROXY_ENABLED"]) && cloudflare_peer?(env["REMOTE_ADDR"])
+    if truthy_env?(ENV.fetch("CF_PROXY_ENABLED", nil)) && cloudflare_peer?(env["REMOTE_ADDR"])
       cf_ip = env["HTTP_CF_CONNECTING_IP"]
       if valid_ip?(cf_ip)
         env["action_dispatch.remote_ip"] = cf_ip
@@ -71,24 +71,26 @@ class ProxyIpSanitizer
 
   private
 
-  def cloudflare_peer?(addr)
-    ip = ipaddr_from(addr)
-    return false unless ip
-    CLOUDFLARE_CIDRS.any? { |range| range.include?(ip) }
-  end
+    def cloudflare_peer?(addr)
+      ip = ipaddr_from(addr)
+      return false unless ip
 
-  def ipaddr_from(addr)
-    IPAddr.new(addr)
-  rescue ArgumentError, IPAddr::InvalidAddressError
-    nil
-  end
+      CLOUDFLARE_CIDRS.any? { |range| range.include?(ip) }
+    end
 
-  def valid_ip?(addr)
-    !!ipaddr_from(addr)
-  end
+    def ipaddr_from(addr)
+      IPAddr.new(addr)
+    rescue ArgumentError
+      nil
+    end
 
-  def truthy_env?(val)
-    return false if val.nil?
-    %w[1 true yes on].include?(val.to_s.strip.downcase)
-  end
+    def valid_ip?(addr)
+      !!ipaddr_from(addr)
+    end
+
+    def truthy_env?(val)
+      return false if val.nil?
+
+      %w[1 true yes on].include?(val.to_s.strip.downcase)
+    end
 end
