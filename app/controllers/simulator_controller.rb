@@ -20,11 +20,16 @@ class SimulatorController < ApplicationController
     ProjectPolicy
   end
 
-  def show
-    @logix_project_id = params[:id]
-    @external_embed = false
-    render "embed"
-  end
+ def show
+   @logix_project_id = params[:id]
+   @external_embed = false
+
+   respond_to do |format|
+     format.html { render :embed }
+     format.any  { head :not_acceptable }
+   end
+ end
+
 
   def new
     @logix_project_id = 0
@@ -37,13 +42,17 @@ class SimulatorController < ApplicationController
     @projectName = @project.name
   end
 
-  def embed
-    authorize @project
-    @logix_project_id = params[:id]
-    @project = Project.friendly.find(params[:id])
-    @author = @project.author_id
-    @external_embed = true
-    render "embed"
+ def embed
+  
+   @logix_project_id = params[:id]
+   @external_embed   = true
+   @project          = @project
+   @author           = @project.author_id
+
+   respond_to do |format|
+     format.html { render :embed }
+     format.any  { head :not_acceptable }
+   end
   end
 
   def get_data
