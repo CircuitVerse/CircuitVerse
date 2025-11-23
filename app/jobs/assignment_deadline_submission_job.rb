@@ -20,8 +20,10 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
     # 2) Heavy work OUTSIDE the lock (idempotent per project)
     if project_ids.any?
       Project.where(id: project_ids).find_each(batch_size: 100) do |proj|
-        next if proj.project_submission # skip if another attempt already handled it
+         proj.reload
+         next if proj.project_submission
 
+      Project.transaction do
         submission = proj.fork(proj.author)
         submission.project_submission = true
 
@@ -43,6 +45,7 @@ class AssignmentDeadlineSubmissionJob < ApplicationJob
   private
 
   def with_lock_retries(assignment_id, tries: 4, base_sleep: 0.25, lock_ms: 800)
+    raise ArgumentError, "lock_ms must be a positive integer" unless lock_ms.is_a?(Integer) && lock_ms.positive?
     attempts = 0
 
     begin
