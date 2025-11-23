@@ -1,0 +1,22 @@
+<link rel="stylesheet" type="text/css" href="/css/error.css">
+
+<div class="no-query-search">
+  <% if params[:q].blank? %>
+    <div class="search-empty-message">
+      <%= image_tag "empty_project/no_query.png", alt: "No search query" %>
+      PLEASE ENTER A SEARCH QUERY.
+    </div>
+  <% elsif @results.empty? %>
+    <div class="search-empty-message">
+      No results found for "<%= h params[:q] %>".
+    </div>
+  <% end %>
+  
+  <div class="row row-errorpage">
+    <div class="col col-sm col-md col-lg">
+      <%= link_to root_path, class: "return text-decoration-none pb-5" do %>
+        <i class="fa fa-chevron-left pe-2"></i>Return To Homepage
+      <% end %>
+    </div>
+  </div>
+</div>

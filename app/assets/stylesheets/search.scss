@@ -229,3 +229,25 @@
   gap: 40px;
   width: 100%;
 }
+
+.no-query-search{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-empty-message{
+  font-size: 22px;
+  color: #1c1c1c;
+  font-family: 'Segoe UI';
+  text-align:center;
+  margin: 2rem 0;
+}
+
+.search-empty-message img{
+  max-width: 500px;
+  margin: 0px auto;
+  display: block;
+}
+
