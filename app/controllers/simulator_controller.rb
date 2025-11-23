@@ -46,7 +46,6 @@ class SimulatorController < ApplicationController
   
    @logix_project_id = params[:id]
    @external_embed   = true
-   @project          = @project
    @author           = @project.author_id
 
    respond_to do |format|
