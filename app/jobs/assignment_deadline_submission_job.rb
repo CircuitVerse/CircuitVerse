@@ -2,60 +2,65 @@
 
 class AssignmentDeadlineSubmissionJob < ApplicationJob
   queue_as :default
-
   retry_on ActiveRecord::LockWaitTimeout, ActiveRecord::QueryCanceled, wait: 1.second, attempts: 4
 
   def perform(assignment_id)
     assignment = Assignment.find_by(id: assignment_id)
-    return if assignment.nil? || assignment.status == "closed"
+    return unless assignment
 
     project_ids = []
-    should_close = false
+    deadline_met = false
 
-    # Call the helper here
+    # 1) Under a short lock: snapshot remaining work and note deadline condition
     with_lock_retries(assignment.id) do |a|
-      next if a.status == "closed"
+      project_ids  = a.projects.where(project_submission: false).pluck(:id)
+      deadline_met = (Time.zone.now - a.deadline) >= -10
+    end
 
-      if (Time.zone.now - a.deadline) >= -10 && a.status == "open"
-        project_ids = a.projects.where(project_submission: false).pluck(:id)
-        a.update!(status: "closed")
-        should_close = true
+    # 2) Heavy work OUTSIDE the lock (idempotent per project)
+    if project_ids.any?
+      Project.where(id: project_ids).find_each(batch_size: 100) do |proj|
+        next if proj.project_submission # skip if another attempt already handled it
+
+        submission = proj.fork(proj.author)
+        submission.project_submission = true
+
+        proj.assignment_id = nil
+        proj.save!
+        submission.save!
       end
     end
 
-    return unless should_close
-    return if project_ids.empty?
-
-    # Heavy work outside the transaction
-    Project.where(id: project_ids).find_each(batch_size: 100) do |proj|
-      next if proj.project_submission
-
-      submission = proj.fork(proj.author)
-      submission.project_submission = true
-      proj.assignment_id = nil
-      proj.save!
-      submission.save!
+    # 3) Finalize: if deadline condition holds and nothing remains, close it idempotently
+    with_lock_retries(assignment.id) do |a|
+      still_remaining = a.projects.where(project_submission: false).exists?
+      if deadline_met && !still_remaining && a.status != "closed"
+        a.update!(status: "closed")
+      end
     end
   end
 
-  # 👇 Put the helper here — inside the same class
   private
 
-  def with_lock_retries(assignment_id, tries: 4, base_sleep: 0.25)
-    attempt = 0
+  def with_lock_retries(assignment_id, tries: 4, base_sleep: 0.25, lock_ms: 800)
+    attempts = 0
+
     begin
+      attempts += 1
       Assignment.transaction do
-        ActiveRecord::Base.connection.execute("SET LOCAL lock_timeout = '800ms'")
+        Assignment.connection.execute("SET LOCAL lock_timeout = '#{lock_ms}ms'")
         a = Assignment.lock("FOR UPDATE").find(assignment_id)
         yield a
       end
-    rescue ActiveRecord::LockWaitTimeout, ActiveRecord::QueryCanceled
-      attempt += 1
-      if attempt <= tries
-        sleep(base_sleep * attempt + rand * 0.1)
+    rescue ActiveRecord::LockWaitTimeout, ActiveRecord::QueryCanceled => e
+      if attempts < tries
+        sleep(base_sleep * attempts + rand * 0.1) 
         retry
       else
-        Rails.logger.warn("[AssignmentDeadlineSubmissionJob] lock timeout id=#{assignment_id} after #{attempt} tries")
+        Rails.logger.warn(
+          "[AssignmentDeadlineSubmissionJob] lock timeout id=#{assignment_id} "\
+          "after #{attempts} attempt#{'s' if attempts != 1} (last error: #{e.class})"
+        )
         raise
       end
     end
