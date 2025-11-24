@@ -22,7 +22,7 @@ class SearchController < ApplicationController
       #If template not found, fallback to a generic results view with message
       @results ||= []
       flash.now[:alert] = "Search results could not be displayed."
-      render :search_resutls,status: :ok
+      render :search_results,status: :ok
     end
   end
 end
