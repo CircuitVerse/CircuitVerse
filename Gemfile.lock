@@ -940,7 +940,7 @@ GEM
     unicode-display_width (3.1.5)
       unicode-emoji (~> 4.0, >= 4.0.4)
     unicode-emoji (4.0.4)
-    uri (1.0.3)
+    uri (1.1.1)
     useragent (0.16.11)
     version_gem (1.1.8)
     view_component (4.0.2)
@@ -1122,6 +1122,7 @@ DEPENDENCIES
   tzinfo-data
   undercover
   undercover-checkstyle
+  uri (>= 1.0.4)
   view_component
   vite_rails
   web-console (>= 3.3.0)
