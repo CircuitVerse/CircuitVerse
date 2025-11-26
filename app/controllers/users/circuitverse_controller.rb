@@ -12,6 +12,17 @@ class Users::CircuitverseController < ApplicationController
   def index
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects
+                     .with_attached_circuit_preview
+                     .includes(
+                       :author,
+                       :assignment,
+                       { forked_project: :author },
+                       { circuit_preview_attachment: :blob } 
+                     )
+    ActiveRecord::Associations::Preloader.new(
+      records: @user.projects.to_a,
+      associations: { circuit_preview_attachment: :blob }
+    ).call
   end
 
   def edit; end
