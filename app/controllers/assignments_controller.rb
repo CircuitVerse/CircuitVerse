@@ -29,13 +29,28 @@ class AssignmentsController < ApplicationController
 
   def start
     authorize @assignment
-    @project = current_user.projects.new
-    @project.name = "#{current_user.name}/#{@assignment.name}"
-    @project.assignment_id = @assignment.id
-    @project.project_access_type = "Private"
-    @project.build_project_datum
-    @project.save
-    redirect_to user_project_path(current_user, @project)
+
+    # Find existing project or create new one to prevent duplicate (slug, author_id) violations
+    @project = current_user.projects.find_or_initialize_by(assignment_id: @assignment.id)
+
+    if @project.new_record?
+      # This is a new project - set its attributes
+      @project.name = "#{current_user.name}/#{@assignment.name}"
+      @project.project_access_type = "Private"
+      @project.build_project_datum
+
+      if @project.save
+        redirect_to user_project_path(current_user, @project),
+                    notice: "Assignment project created successfully."
+      else
+        redirect_to group_assignment_path(@group, @assignment),
+                    alert: "Failed to create project: #{@project.errors.full_messages.join(', ')}"
+      end
+    else
+      # Project already exists - redirect to it
+      redirect_to user_project_path(current_user, @project),
+                  notice: "Continuing your existing assignment project."
+    end
   end
 
   # GET /assignments/new
