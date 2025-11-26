@@ -50,7 +50,7 @@ Rails.application.routes.draw do
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
-  get "/search", to: "search#search"
+  get "/search", to: "search#search", defaults: { format: :html }
 
   resources :about, only: :index
   resources :privacy, only: :index
