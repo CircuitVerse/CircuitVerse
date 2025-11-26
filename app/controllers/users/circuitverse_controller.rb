@@ -17,7 +17,6 @@ class Users::CircuitverseController < ApplicationController
                        :author,
                        :assignment,
                        { forked_project: :author },
-                       { circuit_preview_attachment: :blob } 
                      )
     ActiveRecord::Associations::Preloader.new(
       records: @user.projects.to_a,
