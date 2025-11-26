@@ -2,9 +2,10 @@
 
 require "rails_helper"
 
-RSpec.describe AssignmentsController, type: :controller do
+RSpec.describe AssignmentsController, type: :request do
   let(:user) { create(:user) }
-  let(:group) { create(:group) }
+  let(:primary_mentor) { create(:user) }
+  let(:group) { create(:group, primary_mentor: primary_mentor) }
   let(:assignment) { create(:assignment, group: group) }
 
   before do
@@ -12,37 +13,40 @@ RSpec.describe AssignmentsController, type: :controller do
     group.group_members.create!(user: user)
   end
 
-  describe "POST #start" do
+  describe "GET #start" do
     context "when starting an assignment for the first time" do
       it "creates a new project" do
         expect do
-          post :start, params: { group_id: group.id, id: assignment.id }
+          get assignment_start_path(group, assignment)
         end.to change(Project, :count).by(1)
       end
 
       it "assigns the project to the current user" do
-        post :start, params: { group_id: group.id, id: assignment.id }
-        expect(assigns(:project).author).to eq(user)
+        get assignment_start_path(group, assignment)
+        project = Project.last
+        expect(project.author).to eq(user)
       end
 
       it "links the project to the assignment" do
-        post :start, params: { group_id: group.id, id: assignment.id }
-        expect(assigns(:project).assignment).to eq(assignment)
+        get assignment_start_path(group, assignment)
+        project = Project.last
+        expect(project.assignment).to eq(assignment)
       end
 
       it "sets the project as private" do
-        post :start, params: { group_id: group.id, id: assignment.id }
-        expect(assigns(:project).project_access_type).to eq("Private")
+        get assignment_start_path(group, assignment)
+        project = Project.last
+        expect(project.project_access_type).to eq("Private")
       end
 
       it "redirects to the project page" do
-        post :start, params: { group_id: group.id, id: assignment.id }
-        project = assigns(:project)
+        get assignment_start_path(group, assignment)
+        project = Project.last
         expect(response).to redirect_to(user_project_path(user, project))
       end
     end
 
-    context "when starting an assignment that already has a project" do
+    context "when project already exists for the assignment" do
       let!(:existing_project) do
         create(:project,
                author: user,
@@ -52,33 +56,17 @@ RSpec.describe AssignmentsController, type: :controller do
 
       it "does not create a new project" do
         expect do
-          post :start, params: { group_id: group.id, id: assignment.id }
+          get assignment_start_path(group, assignment)
         end.not_to change(Project, :count)
       end
 
       it "redirects to the existing project" do
-        post :start, params: { group_id: group.id, id: assignment.id }
+        get assignment_start_path(group, assignment)
         expect(response).to redirect_to(user_project_path(user, existing_project))
       end
 
       it "shows a notice about continuing the existing project" do
-        post :start, params: { group_id: group.id, id: assignment.id }
-        expect(flash[:notice]).to match(/existing assignment project/i)
-      end
-    end
-
-    context "when project already exists for the assignment" do
-      before do
-        # Create project first to simulate what would happen in a race condition
-        create(:project, author: user, assignment: assignment)
-      end
-
-      it "finds and redirects to the existing project" do
-        expect do
-          post :start, params: { group_id: group.id, id: assignment.id }
-        end.not_to change(Project, :count)
-
-        expect(response).to redirect_to(user_project_path(user, Project.last))
+        get assignment_start_path(group, assignment)
         expect(flash[:notice]).to match(/existing assignment project/i)
       end
     end
@@ -92,10 +80,11 @@ RSpec.describe AssignmentsController, type: :controller do
       end
 
       it "creates a new project with assignment and redirects successfully" do
-        post :start, params: { group_id: group.id, id: assignment.id }
+        get assignment_start_path(group, assignment)
 
-        expect(response).to redirect_to(user_project_path(user, assigns(:project)))
-        expect(assigns(:project).assignment).to eq(assignment)
+        project = Project.last
+        expect(response).to redirect_to(user_project_path(user, project))
+        expect(project.assignment).to eq(assignment)
         expect(flash[:notice]).to be_present
       end
     end
@@ -103,14 +92,15 @@ RSpec.describe AssignmentsController, type: :controller do
     context "authorization" do
       it "requires authentication" do
         sign_out user
-        post :start, params: { group_id: group.id, id: assignment.id }
+        get assignment_start_path(group, assignment)
         expect(response).to redirect_to(new_user_session_path)
       end
 
-      it "authorizes the assignment access" do
-        allow(controller).to receive(:authorize).and_call_original
-        post :start, params: { group_id: group.id, id: assignment.id }
-        expect(controller).to have_received(:authorize).with(assignment)
+      it "requires group membership" do
+        other_user = create(:user)
+        sign_in other_user
+        get assignment_start_path(group, assignment)
+        expect(response.body).to include("You are not authorized")
       end
     end
   end
