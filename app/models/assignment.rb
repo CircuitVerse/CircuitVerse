@@ -6,8 +6,10 @@ class Assignment < ApplicationRecord
     in: %w[percent],
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"
   }, if: :lti_integrated?
+
   belongs_to :group
   has_many :projects, class_name: "Project", dependent: :nullify
+  has_many :grades, dependent: :destroy
 
   after_commit :send_new_assignment_mail, on: :create
   after_commit :set_deadline_job
@@ -16,18 +18,23 @@ class Assignment < ApplicationRecord
 
   enum :grading_scale, { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
-  has_many :grades, dependent: :destroy
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
+  # --- Notifications / Emails -------------------------------------------------
+
   def notify_recipient
-    group.group_members.each do |group_member|
+    # Bullet fix: preload :user to avoid N+1 when accessing group_member.user
+    group_members = group.group_members.includes(:user)
+    group_members.each do |group_member|
       NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)
     end
   end
 
   def send_new_assignment_mail
-    group.group_members.each do |group_member|
+    # Bullet fix: preload :user
+    group_members = group.group_members.includes(:user)
+    group_members.each do |group_member|
       AssignmentMailer.new_assignment_email(group_member.user, self).deliver_later
     end
   end
@@ -35,20 +42,28 @@ class Assignment < ApplicationRecord
   def send_update_mail
     return unless status != "closed"
 
-    group.group_members.each do |group_member|
+    # Bullet fix: preload :user (this was the one Bullet flagged)
+    group_members = group.group_members.includes(:user)
+    group_members.each do |group_member|
       AssignmentMailer.update_assignment_email(group_member.user, self).deliver_later
     end
   end
+
+  # --- Jobs -------------------------------------------------------------------
 
   def set_deadline_job
     return unless status != "closed"
 
     if (deadline - Time.zone.now).positive?
-      AssignmentDeadlineSubmissionJob.set(wait: ((deadline - Time.zone.now) / 60).minute).perform_later(id)
+      AssignmentDeadlineSubmissionJob
+        .set(wait: ((deadline - Time.zone.now) / 60).minute)
+        .perform_later(id)
     else
       AssignmentDeadlineSubmissionJob.perform_later(id)
     end
   end
+
+  # --- Helpers ----------------------------------------------------------------
 
   def clean_restricted_elements
     restricted_elements = JSON.parse restrictions
@@ -69,7 +84,9 @@ class Assignment < ApplicationRecord
   end
 
   def project_order
-    projects.includes(:grade, :author).sort_by { |p| p.author.name }
+    # Already eager loads grade and author; sorting by author.name uses the preloaded author
+    projects.includes(:grade, :author)
+            .sort_by { |p| p.author.name }
             .map { |project| ProjectDecorator.new(project) }
   end
 
