@@ -12,7 +12,7 @@ module UsersCircuitverseHelper
     if attachment.attached?
       attachment
     else
-      image_path("/thumb/default.png")
+      image_path("/images/thumb/Default.jpg")
     end
   end
 end
