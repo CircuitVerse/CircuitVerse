@@ -4,11 +4,11 @@
   <% if params[:q].blank? %>
     <div class="search-empty-message">
       <%= image_tag "empty_project/no_query.png", alt: "No search query" %>
-      PLEASE ENTER A SEARCH QUERY.
+      <%= t("search.empty_query_message") %>
     </div>
   <% elsif @results.empty? %>
     <div class="search-empty-message">
-      No results found for "<%= h params[:q] %>".
+      <%= t("search.no_results_found", query: h(params[:q])) %>
     </div>
   <% end %>
   
