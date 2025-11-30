@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class AssignmentsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   include SanitizeDescription
@@ -201,3 +202,4 @@ class AssignmentsController < ApplicationController
       @assignment.description = sanitize_description(@assignment.description)
     end
 end
+# rubocop:enable Metrics/ClassLength
