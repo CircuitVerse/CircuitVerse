@@ -1,48 +1,15 @@
-<div style="font-family: Arial, sans-serif; background-color: #f8f9fa; padding: 30px; border-radius: 10px; max-width: 700px; margin: auto;">
-  <h2 style="color: #2c3e50; text-align: center;">Welcome to CircuitVerse, <%= @user.name %> 👋</h2>
-
-  <div style="text-align: center; margin: 20px 0;">
-    <%= image_tag "homepage/new_homepage_sketch.png", alt: "Welcome", style: "width: 100%; max-width: 500px; border-radius: 10px;" %>
-  </div>
-
-  <p style="font-size: 16px; color: #333; line-height: 1.6;">
-    Thanks for signing up!<br>
-    With CircuitVerse you can explore simple gates to complex sequential circuits, plot timing diagrams, generate circuits automatically, and much more – all for free!
-  </p>
-
-  <div style="text-align: center; margin: 25px 0;">
-    <a href="https://circuitverse.org/simulator" style="background-color: #007bff; color: white; padding: 12px 25px; border-radius: 6px; text-decoration: none; font-weight: bold;">
-      🚀 Launch Simulator
-    </a>
-  </div>
-
-  <div style="display: flex; flex-wrap: wrap; justify-content: space-around; margin-top: 30px;">
-    <!-- Feature Card -->
-    <div style="background-color: #ffffff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; width: 210px; text-align: center; margin: 10px;">
-      <%= image_tag "pngs/features.png", alt: "Features", style: "width: 60px; height: 60px; margin-bottom: 10px;" %>
-      <h3 style="color: #2c3e50;">Features</h3>
-      <p style="font-size: 14px; color: #555;">Design circuits quickly with drag-and-drop, zoom, copy/paste, and more.</p>
-      <a href="https://circuitverse.org/#features" style="color: #007bff; text-decoration: none; font-weight: 600;">Know More →</a>
-    </div>
-
-    <!-- Design Card -->
-    <div style="background-color: #ffffff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; width: 210px; text-align: center; margin: 10px;">
-      <%= image_tag "pngs/design.png", alt: "Design", style: "width: 60px; height: 60px; margin-bottom: 10px;" %>
-      <h3 style="color: #2c3e50;">Design</h3>
-      <p style="font-size: 14px; color: #555;">New to circuit design? Our docs help you get started easily.</p>
-      <a href="https://docs.circuitverse.org/" style="color: #007bff; text-decoration: none; font-weight: 600;">Know More →</a>
-    </div>
-
-    <!-- Learn Card -->
-    <div style="background-color: #ffffff; border: 1px solid #ddd; border-radius: 10px; padding: 15px; width: 210px; text-align: center; margin: 10px;">
-      <%= image_tag "pngs/learn.png", alt: "Learn", style: "width: 60px; height: 60px; margin-bottom: 10px;" %>
-      <h3 style="color: #2c3e50;">Learn</h3>
-      <p style="font-size: 14px; color: #555;">Understand how digital circuits work with our interactive book.</p>
-      <a href="https://learn.circuitverse.org/" style="color: #007bff; text-decoration: none; font-weight: 600;">Know More →</a>
-    </div>
-  </div>
-
-  <div style="text-align: center; margin-top: 30px; font-size: 15px; color: #555;">
-    <p>Keep building with ❤️ from the CircuitVerse team.</p>
-  </div>
+<div class="mailer-hero-image">
+  <%= inline_svg_tag "homepage/new_homepage_sketch.png", alt: "Welcome", class: "mailer-group-image" %>
 </div>
+
+<p>
+  Welcome to CircuitVerse, <%= @user.name %>!
+</p>
+
+<p>
+  Thanks for signing up. Click the link below to get started:
+</p>
+
+<p>
+  <a href="https://circuitverse.org/simulator">Launch Simulator</a>
+</p>
