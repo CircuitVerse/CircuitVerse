@@ -4,7 +4,7 @@
       <p><%= @description %></p>
       <%= link_to @link, target: "_blank", rel: "noopener noreferrer" do %>
         <div class="contribute-pay-card">
-          <%= image_tag @image_path, alt: @alt_text %>
+          <%= helpers.image_tag @image_path, alt: @alt_text %>
         </div>
       <% end %>
     </div>
