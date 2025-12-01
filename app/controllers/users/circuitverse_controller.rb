@@ -9,10 +9,13 @@ class Users::CircuitverseController < ApplicationController
   before_action :set_user, except: [:typeahead_educational_institute]
   before_action :remove_previous_profile_picture, only: [:update]
 
-  def index
-    @profile = ProfileDecorator.new(@user)
-    @projects = @user.rated_projects
-  end
+ def index
+  @profile = ProfileDecorator.new(@user)
+
+  @user_projects         = @user.projects.preload(circuit_preview_attachment: :blob)
+  @projects              = @user.rated_projects.preload(circuit_preview_attachment: :blob)
+  @collaborated_projects = @user.collaborated_projects.preload(circuit_preview_attachment: :blob)
+end
 
   def edit; end
 
