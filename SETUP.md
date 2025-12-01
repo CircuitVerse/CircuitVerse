@@ -132,6 +132,13 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       bin/yosys
       ```
 
+### Using a Remote Yosys Server
+By default, CircuitVerse expects yosys2digitaljs-server to run locally at `http://127.0.0.1:3040`. If you need to use a remote yosys2digitaljs-server instance (e.g., in a distributed setup or production environment), set the `YOSYS_PATH` environment variable in your `.env` file:
+```
+YOSYS_PATH=http://your-remote-server:3040
+```
+This is useful for production deployments where the Yosys service runs on a separate server or container.
+
 ## Distributed Tracing using Opentelmetry
 
 Refer [otel docs](./.otel)
