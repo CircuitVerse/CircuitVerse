@@ -110,7 +110,7 @@ class Project < ApplicationRecord
   end
 
   def tag_list=(names)
-    self.tags = names.split(",").map(&:strip).uniq.reject(&:blank?).map do |n|
+    self.tags = names.split(",").map(&:strip).uniq.compact_blank.map do |n|
       Tag.where(name: n.strip).first_or_create!
     end
   end
