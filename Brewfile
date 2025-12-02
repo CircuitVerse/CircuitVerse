@@ -1,10 +1,14 @@
 # frozen_string_literal: true
 
+# Deprecated taps removed
 tap "homebrew/core"
-tap "homebrew/bundle"
-tap "homebrew/services"
-tap "homebrew/cask"
-brew "node@16"
+tap "homebrew/cask"  # optional, no longer strictly needed
+
+# Update Node to latest LTbrew 
+brew "node@20"
+
+
+# Other dependencies
 brew "redis"
 brew "imagemagick"
 brew "yarn"
