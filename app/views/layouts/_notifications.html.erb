@@ -5,7 +5,6 @@
       <% if @unread&.count&.positive? %>
         <span class="notification-count"><%= @unread.count %></span>
       <% end %>
-    
     </li>
        <div id="notification-dropdown-menu" class="dropdown-menu dropdown-notification <%= I18n.locale == :ar ? 'dropdown-menu-rtl' : 'dropdown-menu-end' %>"
          aria-labelledby="navbar-dropdown-3"
