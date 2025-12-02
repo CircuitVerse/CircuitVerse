@@ -16,7 +16,7 @@ class Users::CircuitverseController < ApplicationController
                      .includes(
                        :author,
                        :assignment,
-                       { forked_project: :author },
+                       { forked_project: :author }
                      )
     ActiveRecord::Associations::Preloader.new(
       records: @user.projects.to_a,
