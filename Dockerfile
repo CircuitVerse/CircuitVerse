@@ -34,7 +34,7 @@ RUN apt-get update -qq && \
 
 
 # Setup nodejs and yarn (updated method)
-RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - \
+RUN curl -fsSL https://deb.nodesource.com/setup_24.x | bash -
  && apt-get install -y nodejs \
  && npm install -g yarn \
  && apt-get autoremove -y && apt-get clean \
