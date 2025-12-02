@@ -15,12 +15,9 @@ class NotifyUser
     @contest = @notification.params[:contest] # Added to handle ContestNotification
   end
 
-  # @return [Boolean]
+  # @return [Result]
   def call
-    result = type_check
-    return result if result.success == "true"
-
-    false
+    type_check
   end
 
   private
@@ -43,7 +40,7 @@ class NotifyUser
       when "ContestWinnerNotification"
         contest_winner_notification
       else
-        Result.new("false", "no_type", root_path)
+        Result.new("false", "no_type", nil)
       end
     end
 
