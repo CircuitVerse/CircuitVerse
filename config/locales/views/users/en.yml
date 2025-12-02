@@ -25,6 +25,7 @@ en:
         country_select_placeholder: "Prefer Not To Enter"
         select_locale_prompt: "Select the locale"
         subscribe_mail_checkpoint: "Subscribed to mails?"
+        resend_verification: "Resend Email Verification"
         delete_account_heading: "Delete your Account"
         delete_account_notice: "Proceed with caution! This action cannot be reversed."
         delete_account: "Delete Account"
