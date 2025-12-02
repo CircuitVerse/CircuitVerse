@@ -1,0 +1,31 @@
+# CODEOWNERS file for the CircuitVerse Project.
+# This file assigns required reviewers for specific files and directories.
+
+# --- Global Defaults ---
+# The Core Team reviews all files not specifically covered below.
+* @CircuitVerse/circuitverse-core-team
+
+# --- Backend & Rails ---
+# The Backend Reviewers team is mandatory for all Rails backend and database files.
+/app/controllers/ @CircuitVerse/backend_reviewers
+/app/models/ @CircuitVerse/backend_reviewers
+/db/ @CircuitVerse/backend_reviewers
+/config/routes.rb @CircuitVerse/backend_reviewers
+
+# --- Simulator Core ---
+# The Simulator Reviewers team is mandatory for the core simulator logic.
+# This assumes the main simulator code is located in a top-level directory named 'simulator'.
+/simulator/ @CircuitVerse/simulator-reviewers
+
+# --- Frontend & UI (Assuming a Vue-based frontend module) ---
+# For other areas like the frontend, we'll assign the Core Team by default,
+# or you can replace these with a dedicated frontend team if one exists.
+cv-frontend-vue/ @CircuitVerse/circuitverse-core-team
+/app/assets/ @CircuitVerse/circuitverse-core-team
+*.html.erb @CircuitVerse/circuitverse-core-team
+
+# --- Configuration & Documentation ---
+# Configuration and project documentation should be reviewed by the Core Team.
+/config/ @CircuitVerse/circuitverse-core-team
+*.md @CircuitVerse/circuitverse-core-team
+/docs/ @CircuitVerse/circuitverse-core-team
