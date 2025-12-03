@@ -7,7 +7,6 @@ module Maintenance
   class MigrateImagePreviewTask < MaintenanceTasks::Task
     delegate :count, to: :collection
 
-    Rails.logger = Logger.new(Rails.root.join("log/redo_image_preview_migration.log"))
     def collection
       Project.in_batches
     end
