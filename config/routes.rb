@@ -143,7 +143,7 @@ Rails.application.routes.draw do
 
   # simulator
   scope "/simulator" do
-    get "/:id", to: "simulator#show", as: "simulator"
+    get "/:id", to: "simulator#show", as: "simulator" , format: false
     get "/edit/:id", to: "simulator#edit", as: "simulator_edit"
     post "/get_data", to: "simulator#get_data"
     get "get_data/:id", to: "simulator#get_data"
@@ -154,7 +154,7 @@ Rails.application.routes.draw do
     post "/create_data", to: "simulator#create"
     post "/verilogcv", to: "simulator#verilog_cv"
     get "/", to: "simulator#new", as: "simulator_new"
-    get "/embed/:id", to: "simulator#embed", as: "simulator_embed"
+    get "/embed/:id", to: "simulator#embed", as: "simulator_embed" , format: false
   end
 
   scope "/testbench" do
