@@ -154,9 +154,10 @@ RSpec.describe Project, type: :model do
           project.build_project_datum
           project.project_datum.data = '{"invalid json'
           project.save!
-          
-          expect(Rails.logger).to receive(:error).with(/JSON parsing failed/)
+
+          allow(Rails.logger).to receive(:error)
           project.sim_version
+          expect(Rails.logger).to have_received(:error).with(/JSON parsing failed/)
         end
       end
     end
@@ -191,6 +192,5 @@ RSpec.describe Project, type: :model do
         expect(project.uses_vue_simulator?).to be false
       end
     end
-
   end
 end

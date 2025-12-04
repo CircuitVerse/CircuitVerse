@@ -136,10 +136,8 @@ class Project < ApplicationRecord
     rescue JSON::ParserError => e
       # Log the error for monitoring
       Rails.logger.error("JSON parsing failed for project #{id}: #{e.message}")
-      
       # Report to Sentry if available
       Sentry.capture_exception(e, extra: { project_id: id, data_size: raw_data.bytesize }) if defined?(Sentry)
-      
       # Fallback to legacy version to prevent crashes
       "legacy"
     end
