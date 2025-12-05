@@ -171,6 +171,66 @@ describe ProjectsController, type: :request do
           @project.reload
           expect(@project.name).to eq("Updated Name")
         end
+
+        context "with valid project_datum" do
+          before do
+            @project.build_project_datum
+            @project.project_datum.data = '{"name":"Test Name","simulatorVersion":"v1"}'
+            @project.save!
+          end
+
+          it "updates project_datum name" do
+            put user_project_path(@author, @project), params: update_params
+            @project.reload
+            expect(@project.name).to eq("Updated Name")
+            datum_data = JSON.parse(@project.project_datum.data)
+            expect(datum_data["name"]).to eq("Updated Name")
+          end
+        end
+
+        context "with truncated project_datum" do
+          before do
+            @project.build_project_datum
+            # Simulate truncated JSON (missing closing brace) - reproduces issue #6423
+            @project.project_datum.data = '{"name":"Test Name","data":{"invalid'
+            @project.project_datum.save!
+          end
+
+          it "still updates project name without crashing" do
+            expect do
+              put user_project_path(@author, @project), params: update_params
+            end.not_to raise_error
+
+            @project.reload
+            expect(@project.name).to eq("Updated Name")
+            # project_datum should remain unchanged
+            expect(@project.project_datum.data).to eq('{"name":"Test Name","data":{"invalid')
+          end
+
+          it "logs a warning about truncated data" do
+            allow(Rails.logger).to receive(:warn)
+            put user_project_path(@author, @project), params: update_params
+            expect(Rails.logger).to have_received(:warn).with(/data appears to be truncated/)
+          end
+        end
+
+        context "with corrupted JSON in project_datum" do
+          before do
+            @project.build_project_datum
+            # Valid looking structure but with syntax error
+            @project.project_datum.data = '{"name":"Test","unclosed_string}'
+            @project.project_datum.save!
+          end
+
+          it "still updates project name without crashing" do
+            expect do
+              put user_project_path(@author, @project), params: update_params
+            end.not_to raise_error
+
+            @project.reload
+            expect(@project.name).to eq("Updated Name")
+          end
+        end
       end
 
       context "user other than author is singed in" do
