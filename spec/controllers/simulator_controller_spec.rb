@@ -76,13 +76,17 @@ describe SimulatorController, type: :request do
           end
 
           it "creates project without crashing and logs the error" do
-            expect(Rails.logger).to receive(:error).with(/S3 AccessDenied/)
-            expect(Sentry).to receive(:capture_exception)
+            allow(Rails.logger).to receive(:error)
+            allow(Sentry).to receive(:capture_exception)
+
             expect do
               post "/simulator/create_data", params: { image:
                 "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test S3 Error" }
             end.to change(Project, :count).by(1)
+
             expect(response.status).to eq(302)
+            expect(Rails.logger).to have_received(:error).with(/S3 AccessDenied/)
+            expect(Sentry).to have_received(:capture_exception)
           end
         end
       end

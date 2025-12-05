@@ -125,11 +125,15 @@ RSpec.describe Project, type: :model do
           # Mock the attach method to raise an error only for new attachments
           allow_any_instance_of(ActiveStorage::Attached::One).to receive(:attach)
             .and_raise(Aws::S3::Errors::AccessDenied.new(nil, "Access Denied"))
-          expect(Rails.logger).to receive(:error).with(/S3 AccessDenied/)
-          expect(Sentry).to receive(:capture_exception)
+          allow(Rails.logger).to receive(:error)
+          allow(Sentry).to receive(:capture_exception)
+
           expect do
             @project.fork(@forking_user)
-          end.to change(Project, :count).by(1)
+          end.to change(described_class, :count).by(1)
+
+          expect(Rails.logger).to have_received(:error).with(/S3 AccessDenied/)
+          expect(Sentry).to have_received(:capture_exception)
         end
       end
 
@@ -137,7 +141,7 @@ RSpec.describe Project, type: :model do
         it "creates forked project successfully" do
           expect do
             @project.fork(@forking_user)
-          end.to change(Project, :count).by(1)
+          end.to change(described_class, :count).by(1)
         end
       end
     end
