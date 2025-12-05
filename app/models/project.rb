@@ -77,7 +77,7 @@ class Project < ApplicationRecord
   def fork(user)
     forked_project = dup
     forked_project.build_project_datum.data = project_datum&.data
-    forked_project.circuit_preview.attach(circuit_preview.blob)
+    attach_circuit_preview_to_fork(forked_project)
     forked_project.image_preview = image_preview
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
@@ -167,5 +167,23 @@ class Project < ApplicationRecord
 
     def purge_circuit_preview
       circuit_preview.purge if circuit_preview.attached?
+    rescue Aws::S3::Errors::AccessDenied => e
+      Rails.logger.error("S3 AccessDenied: Failed to purge circuit preview for project #{id}: #{e.message}")
+      Sentry.capture_exception(e, extra: { project_id: id, action: "purge_circuit_preview" })
+    rescue Aws::S3::Errors::ServiceError => e
+      Rails.logger.error("S3 Error: Failed to purge circuit preview for project #{id}: #{e.message}")
+      Sentry.capture_exception(e, extra: { project_id: id, action: "purge_circuit_preview" })
+    end
+
+    def attach_circuit_preview_to_fork(forked_project)
+      return unless circuit_preview.attached?
+
+      forked_project.circuit_preview.attach(circuit_preview.blob)
+    rescue Aws::S3::Errors::AccessDenied => e
+      Rails.logger.error("S3 AccessDenied: Failed to attach circuit preview for forked project: #{e.message}")
+      Sentry.capture_exception(e, extra: { original_project_id: id, action: "attach_circuit_preview_to_fork" })
+    rescue Aws::S3::Errors::ServiceError => e
+      Rails.logger.error("S3 Error: Failed to attach circuit preview for forked project: #{e.message}")
+      Sentry.capture_exception(e, extra: { original_project_id: id, action: "attach_circuit_preview_to_fork" })
     end
 end

@@ -68,6 +68,27 @@ describe SimulatorController, type: :request do
             expect(created_project.image_preview.file.filename).to start_with("preview_")
           end
         end
+
+        context "when S3 raises AccessDenied error", :skip_windows do
+          before do
+            allow_any_instance_of(ActiveStorage::Attached::One).to receive(:attach)
+              .and_raise(Aws::S3::Errors::AccessDenied.new(nil, "Access Denied"))
+          end
+
+          it "creates project without crashing and logs the error" do
+            allow(Rails.logger).to receive(:error)
+            allow(Sentry).to receive(:capture_exception)
+
+            expect do
+              post "/simulator/create_data", params: { image:
+                "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test S3 Error" }
+            end.to change(Project, :count).by(1)
+
+            expect(response.status).to eq(302)
+            expect(Rails.logger).to have_received(:error).with(/S3 AccessDenied/)
+            expect(Sentry).to have_received(:capture_exception)
+          end
+        end
       end
     end
 

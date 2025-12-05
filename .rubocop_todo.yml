@@ -27,6 +27,9 @@ Lint/SuppressedException:
 # Configuration parameters: CountComments, CountAsOne.
 Metrics/ClassLength:
   Max: 134
+  Exclude:
+    - 'app/controllers/simulator_controller.rb'
+    - 'app/models/project.rb'
 
 # Offense count: 5
 # Configuration parameters: AllowedMethods, AllowedPatterns.
