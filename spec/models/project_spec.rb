@@ -104,5 +104,42 @@ RSpec.describe Project, type: :model do
         end.to change(FeaturedCircuit, :count).by(-1)
       end
     end
+
+    describe "#fork" do
+      before do
+        @project = FactoryBot.create(:project, author: @user, project_access_type: "Public")
+        @forking_user = FactoryBot.create(:user)
+      end
+
+      context "when S3 raises AccessDenied error" do
+        before do
+          # First attach a circuit_preview to the original project
+          @project.circuit_preview.attach(
+            io: StringIO.new("test image content"),
+            filename: "test_preview.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "creates forked project without crashing and logs the error" do
+          # Mock the attach method to raise an error only for new attachments
+          allow_any_instance_of(ActiveStorage::Attached::One).to receive(:attach)
+            .and_raise(Aws::S3::Errors::AccessDenied.new(nil, "Access Denied"))
+          expect(Rails.logger).to receive(:error).with(/S3 AccessDenied/)
+          expect(Sentry).to receive(:capture_exception)
+          expect do
+            @project.fork(@forking_user)
+          end.to change(Project, :count).by(1)
+        end
+      end
+
+      context "when S3 works normally" do
+        it "creates forked project successfully" do
+          expect do
+            @project.fork(@forking_user)
+          end.to change(Project, :count).by(1)
+        end
+      end
+    end
   end
 end

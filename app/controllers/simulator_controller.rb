@@ -157,6 +157,14 @@ class SimulatorController < ApplicationController
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
+    rescue Aws::S3::Errors::AccessDenied => e
+      # Log the error but don't fail the request - circuit preview is non-critical
+      Rails.logger.error("S3 AccessDenied: Failed to attach circuit preview for project #{@project.id}: #{e.message}")
+      Sentry.capture_exception(e, extra: { project_id: @project.id, action: "attach_circuit_preview" })
+    rescue Aws::S3::Errors::ServiceError => e
+      # Handle other S3 errors gracefully
+      Rails.logger.error("S3 Error: Failed to attach circuit preview for project #{@project.id}: #{e.message}")
+      Sentry.capture_exception(e, extra: { project_id: @project.id, action: "attach_circuit_preview" })
     end
 
     def redirect_to_vue_simulator_if_enabled
