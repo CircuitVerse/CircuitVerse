@@ -88,7 +88,7 @@
         </div>
       </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: @user.projects } %>
+        <%= render partial: "dashboard", locals: { projects: @user_projects } %>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
@@ -121,7 +121,7 @@
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
+        <%= render partial: "dashboard", locals: { projects: @collaborated_projects } %>
       <% end %>
     </div>
 
