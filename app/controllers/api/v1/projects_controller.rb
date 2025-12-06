@@ -204,38 +204,60 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_index_projects
-      @projects = if current_user.nil?
+      base_projects = if current_user.nil?
         Project.open
       else
         Project.open.or(Project.by(current_user.id))
       end
+
+      @projects = base_projects.includes(
+        :author,
+        :commontator_thread,
+        :circuit_preview_attachment,
+        :tags
+      )
     end
 
     def load_user_projects
-      # if user is not authenticated or authenticated as some other user
-      # return only user's public projects else all
-      @projects = if current_user.nil? || current_user.id != params[:id].to_i
+      base_projects = if current_user.nil? || current_user.id != params[:id].to_i
         Project.open.by(params[:id])
       else
         current_user.projects
       end
+
+      @projects = base_projects.includes(
+        :author,
+        :commontator_thread,
+        :circuit_preview_attachment,
+        :tags
+      )
     end
 
     def load_user_favourites
-      @projects = Project.joins(:stars)
-                         .where(stars: { user_id: params[:id].to_i })
+      base_projects = Project.joins(:stars)
+                             .where(stars: { user_id: params[:id].to_i })
 
-      # if user is not authenticated or authenticated as some other user
-      # return only user's public favourites else all
-      @projects = if current_user.nil? || current_user.id != params[:id].to_i
-        @projects.open
+      base_projects = if current_user.nil? || current_user.id != params[:id].to_i
+        base_projects.open
       else
-        @projects
+        base_projects
       end
+
+      @projects = base_projects.includes(
+        :author,
+        :commontator_thread,
+        :circuit_preview_attachment,
+        :tags
+      )
     end
 
     def load_featured_circuits
-      @projects = Project.joins(:featured_circuit).all
+      @projects = Project.joins(:featured_circuit).includes(
+        :author,
+        :commontator_thread,
+        :circuit_preview_attachment,
+        :tags
+      )
     end
 
     def search_projects
