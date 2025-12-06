@@ -35,6 +35,9 @@ en:
   facebook: "Facebook"
   github: "Github"
   gitlab: "Gitlab"
+  search:
+    empty_query_message: "PLEASE ENTER A SEARCH QUERY."
+    no_results_found: "No results found for \"%{query}\"."
   components:
     search_bar:
       placeholders:

@@ -1122,6 +1122,7 @@ DEPENDENCIES
   tzinfo-data
   undercover
   undercover-checkstyle
+  uri (>= 1.0.4)
   view_component
   vite_rails
   web-console (>= 3.3.0)
