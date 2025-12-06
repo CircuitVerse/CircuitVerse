@@ -38,3 +38,7 @@ hi:
       grading_scale_percent: "असाइनमेंट को प्रतिशत (1-100) में ग्रेड किया जा सकता है "
       grading_scale_letter: "असाइनमेंट को किसी भी अक्षर A/B/C/D/E/F . में ग्रेड किया जा सकता है"
       remove: "हटाए"
+      start_working: "काम शुरू करे"
+      view_work: "अपना काम देखें"
+      view_submission: "सबमिशन देखें"
+      not_submitted: "प्रस्तुत नहीं किया गया"
