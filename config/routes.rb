@@ -163,8 +163,9 @@ Rails.application.routes.draw do
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, except: %i[index new], shallow: true
+    resources :projects, except: %i[index new]
   end
+  resources :projects, only: [:show, :edit, :update, :destroy]
   resources :collaborations, only: %i[create destroy update]
 
   # redirects
