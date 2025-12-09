@@ -100,6 +100,7 @@ class ExploreController < ApplicationController
         Tag
           .joins(:projects)
           .merge(Project.open)
+          .where.not(name: "")
           .group("tags.id")
           .order(Arel.sql("COUNT(taggings.id) DESC"))
           .limit(MAX_TAGS)
