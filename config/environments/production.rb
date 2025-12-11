@@ -71,7 +71,15 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Redis cache store (preserved from Rails 7)
-  config.cache_store = :redis_cache_store
+  # config.cache_store = :redis_cache_store
+  config.cache_store = :redis_cache_store, {
+  url: ENV.fetch("REDIS_URL"),
+  connect_timeout: 5,     # Default is 1s — too low for production
+  read_timeout: 5,        # Fix for RedisClient::ReadTimeoutError
+  write_timeout: 5,       # Prevent write hangs
+  reconnect_attempts: 3,  # Auto-reconnect if Redis resets
+}
+
 
   # Sidekiq for background jobs (preserved from Rails 7)
   config.active_job.queue_adapter = :sidekiq
