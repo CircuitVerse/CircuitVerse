@@ -106,14 +106,14 @@ RSpec.describe Users::SessionsController, type: :controller do
         expect(subject.current_user).to be_nil
       end
 
-      it "renders the new template" do
+      it "redirects back to sign in page" do
         post :create, params: valid_attributes
-        expect(response).to render_template(:new)
+        expect(response).to redirect_to(new_user_session_path)
       end
 
       it "shows captcha failed message" do
         post :create, params: valid_attributes
-        expect(flash.now[:alert]).to match(/Captcha verification failed/)
+        expect(flash[:alert]).to match(/Captcha verification failed/)
       end
     end
 
@@ -127,9 +127,9 @@ RSpec.describe Users::SessionsController, type: :controller do
         expect(subject.current_user).to be_nil
       end
 
-      it "renders the new template" do
+      it "redirects back to sign in page" do
         post :create, params: valid_attributes
-        expect(response).to render_template(:new)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
 
@@ -161,14 +161,14 @@ RSpec.describe Users::SessionsController, type: :controller do
         end.not_to raise_error
       end
 
-      it "renders the new template" do
+      it "redirects back to sign in page" do
         post :create, params: valid_attributes
-        expect(response).to render_template(:new)
+        expect(response).to redirect_to(new_user_session_path)
       end
 
       it "shows captcha failed message" do
         post :create, params: valid_attributes
-        expect(flash.now[:alert]).to match(/Captcha verification failed/)
+        expect(flash[:alert]).to match(/Captcha verification failed/)
       end
 
       it "logs the error" do

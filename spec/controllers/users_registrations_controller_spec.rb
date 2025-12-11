@@ -170,14 +170,14 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         end.not_to change(User, :count)
       end
 
-      it "does not redirect" do
+      it "redirects back to sign up page" do
         post :create, params: valid_attributes
-        expect(response).not_to be_redirect
+        expect(response).to redirect_to(new_user_registration_path)
       end
 
       it "shows captcha failed message" do
         post :create, params: valid_attributes
-        expect(flash.now[:alert]).to match(/Captcha verification failed/)
+        expect(flash[:alert]).to match(/Captcha verification failed/)
       end
     end
 
@@ -192,9 +192,9 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         end.not_to change(User, :count)
       end
 
-      it "does not redirect" do
+      it "redirects back to sign up page" do
         post :create, params: valid_attributes
-        expect(response).not_to be_redirect
+        expect(response).to redirect_to(new_user_registration_path)
       end
     end
 
@@ -216,29 +216,19 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         end.not_to raise_error
       end
 
-      it "does not redirect" do
+      it "redirects back to sign up page" do
         post :create, params: valid_attributes
-        expect(response).not_to be_redirect
+        expect(response).to redirect_to(new_user_registration_path)
       end
 
       it "shows captcha failed message" do
         post :create, params: valid_attributes
-        expect(flash.now[:alert]).to match(/Captcha verification failed/)
+        expect(flash[:alert]).to match(/Captcha verification failed/)
       end
 
       it "logs the error" do
         expect(Rails.logger).to receive(:error).with(/Recaptcha verification error/)
         expect(Rails.logger).to receive(:error) # for backtrace
-        post :create, params: valid_attributes
-      end
-
-      it "captures exception to Sentry if available" do
-        if defined?(Sentry)
-          expect(Sentry).to receive(:capture_exception).with(
-            an_instance_of(Recaptcha::RecaptchaError),
-            hash_including(extra: hash_including(:request_id, :user_agent, :remote_ip))
-          )
-        end
         post :create, params: valid_attributes
       end
     end

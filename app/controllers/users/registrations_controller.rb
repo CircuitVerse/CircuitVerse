@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  include RecaptchaVerification
+
   prepend_before_action :check_captcha, only: [:create]
   before_action :configure_sign_up_params, only: [:create]
   invisible_captcha only: %i[create update], honeypot: :subtitle unless Rails.env.test?
@@ -81,43 +83,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
       return if recaptcha_ok == true
 
       # Recaptcha verification failed
-      begin
-        self.resource = resource_class.new(sign_up_params)
-        resource.validate # Look for any other validation errors besides reCAPTCHA
-        set_minimum_password_length if respond_to?(:set_minimum_password_length, true)
-      rescue StandardError => e
-        # If params are not available (e.g., in test environment), create an empty resource
-        Rails.logger.debug("Error creating resource for captcha failure: #{e.message}")
-        self.resource = resource_class.new
-      end
+      # Don't try to build resource here - Devise will handle that
+      flash[:alert] = I18n.t("devise.registrations.captcha_failed",
+                              default: "Captcha verification failed. Please try again.")
 
-      # Add user-friendly error message
-      flash.now[:alert] = I18n.t("devise.registrations.captcha_failed",
-                                   default: "Captcha verification failed. Please try again.")
-
-      respond_with_navigational(resource) { render :new }
-    end
-
-    def safe_verify_recaptcha
-      result = verify_recaptcha
-      # Coerce to strict boolean: only true is success
-      result == true
-    rescue Recaptcha::RecaptchaError => e
-      # Capture the exception to Sentry for diagnosis
-      Rails.logger.error("Recaptcha verification error: #{e.class} - #{e.message}")
-      Rails.logger.error(e.backtrace.join("\n"))
-
-      # Capture to Sentry if available
-      if defined?(Sentry)
-        Sentry.capture_exception(e, extra: {
-          request_id: request.request_id,
-          user_agent: request.user_agent,
-          remote_ip: request.remote_ip
-        })
-      end
-
-      # Treat as failed verification
-      false
+      redirect_to new_user_registration_path
     end
 
   # If you have extra params to permit, append them to the sanitizer.

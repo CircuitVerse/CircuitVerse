@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  include RecaptchaVerification
+
   prepend_before_action :check_captcha, only: [:create]
 
   # before_action :configure_sign_in_params, only: [:create]
@@ -62,34 +64,9 @@ class Users::SessionsController < Devise::SessionsController
       return if recaptcha_ok == true
 
       # Recaptcha verification failed
-      self.resource = resource_class.new sign_in_params
+      flash[:alert] = I18n.t("devise.sessions.captcha_failed",
+                              default: "Captcha verification failed. Please try again.")
 
-      # Add user-friendly error message
-      flash.now[:alert] = I18n.t("devise.sessions.captcha_failed",
-                                   default: "Captcha verification failed. Please try again.")
-
-      respond_with_navigational(resource) { render :new }
-    end
-
-    def safe_verify_recaptcha
-      result = verify_recaptcha
-      # Coerce to strict boolean: only true is success
-      result == true
-    rescue Recaptcha::RecaptchaError => e
-      # Capture the exception to Sentry for diagnosis
-      Rails.logger.error("Recaptcha verification error: #{e.class} - #{e.message}")
-      Rails.logger.error(e.backtrace.join("\n"))
-
-      # Capture to Sentry if available
-      if defined?(Sentry)
-        Sentry.capture_exception(e, extra: {
-          request_id: request.request_id,
-          user_agent: request.user_agent,
-          remote_ip: request.remote_ip
-        })
-      end
-
-      # Treat as failed verification
-      false
+      redirect_to new_user_session_path
     end
 end
