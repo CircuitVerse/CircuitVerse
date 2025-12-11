@@ -17,10 +17,6 @@ class AboutController < ApplicationController
         img: "https://avatars.githubusercontent.com/u/76155456?v=4", link: "https://github.com/pulkit-30" },
       { name: "Vaibhav Upreti",
         img: "https://avatars.githubusercontent.com/u/85568177?v=4", link: "https://github.com/VaibhavUpreti" },
-      { name: "Prerna Sharma",
-        img: "https://avatars.githubusercontent.com/u/89515816?v=4", link: "https://github.com/Prerna-0202" },
-      { name: "Tanmoy Sarkar",
-        img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" },
       { name: "Arnabdaz",
         img: "https://avatars.githubusercontent.com/u/96580571?v=4", link: "https://github.com/Arnabdaz" },
       { name: "Aditya Umesh Singh",
@@ -32,7 +28,9 @@ class AboutController < ApplicationController
       { name: "Yashvant Singh",
         img: "https://avatars.githubusercontent.com/u/146776812?v=4", link: "https://github.com/JatsuAkaYashvant" },
       { name: "Harsh Bhadu",
-        img: "https://avatars.githubusercontent.com/u/102225113?v=4", link: "https://github.com/senbo1" }
+        img: "https://avatars.githubusercontent.com/u/102225113?v=4", link: "https://github.com/senbo1" },
+      { name: "Aman Asrani",
+        img: "https://avatars.githubusercontent.com/u/96644946?v=4", link: "https://github.com/Asrani-Aman" }
     ]
 
     @mentors = []
@@ -64,7 +62,11 @@ class AboutController < ApplicationController
       { name: "Devjit Choudhury",
         img: "https://avatars.githubusercontent.com/u/61665451?v=4", link: "https://github.com/devartstar" },
       { name: "Aman Singh",
-        img: "https://avatars.githubusercontent.com/u/77198905?v=4", link: "https://github.com/aman-singh7" }
+        img: "https://avatars.githubusercontent.com/u/77198905?v=4", link: "https://github.com/aman-singh7" },
+      { name: "Prerna Sharma",
+        img: "https://avatars.githubusercontent.com/u/89515816?v=4", link: "https://github.com/Prerna-0202" },
+      { name: "Tanmoy Sarkar",
+        img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" }
     ]
 
     @issues_triaging = []
