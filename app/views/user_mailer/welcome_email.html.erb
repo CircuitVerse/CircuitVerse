@@ -7,7 +7,7 @@
 
             <!-- Heading -->
             <h2 style="color:#333333;font-size:28px;font-weight:700;margin:0 0 20px 0;">
-              <%= t('circuitverse.user_mailer.welcome_email.heading', name: @user&.name.present? ? " #{@user.name}" : "") %>
+              <%= t('circuitverse.user_mailer.welcome_email.heading', name: @user&.name.present? ? ", #{@user.name}" : "") %>
             </h2>
 
             <!-- Intro -->
