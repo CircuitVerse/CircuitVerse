@@ -1,17 +1,15 @@
 # frozen_string_literal: true
-
 require "pg_search"
 
 class Project < ApplicationRecord
   extend FriendlyId
-
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns += %w[data searchable]
+  self.ignored_columns += ["data"]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
 
-  belongs_to :author, class_name: "User", counter_cache: true
+  belongs_to :author, class_name: "User", counter_cache: :projects_count
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
@@ -19,13 +17,17 @@ class Project < ApplicationRecord
   belongs_to :assignment, optional: true
 
   has_noticed_notifications model_name: "NoticedNotification"
-  has_many :noticed_notifications, through: :author
+  has_many :project_notifications, as: :recipient, class_name: "NoticedNotification", dependent: :destroy
+  has_many :author_notifications, through: :author, source: :noticed_notifications
+
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
+
   mount_uploader :image_preview, ImagePreviewUploader
   has_one_attached :circuit_preview
+
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
@@ -35,26 +37,33 @@ class Project < ApplicationRecord
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
-
   scope :open, -> { where(project_access_type: "Public") }
-
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
-
   accepts_nested_attributes_for :project_datum
-  pg_search_scope :text_search, against: %i[name description], using: {
-    tsearch: {
-      dictionary: "english", tsvector_column: "searchable"
-    }
-  }
+
+  pg_search_scope :text_search,
+                  against: %i[name description],
+                  using: {
+                    tsearch: {
+                      dictionary: "english",
+                      tsvector_column: "searchable"
+                    }
+                  }
+
+  if defined?(trigger) && !Rails.env.test?
+    trigger.before(:insert, :update) do
+      "tsvector_update_trigger(
+          searchable, 'pg_catalog.english', description, name
+        );"
+    end
+  end
 
   after_update :check_and_remove_featured
-
   before_destroy :purge_circuit_preview
 
   self.per_page = 9
-
   acts_as_commontable
   # after_commit :send_mail, on: :create
 
@@ -155,7 +164,8 @@ class Project < ApplicationRecord
     end
 
     def check_and_remove_featured
-      return unless saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
+      return unless saved_change_to_project_access_type? &&
+                    saved_changes["project_access_type"][1] != "Public"
 
       FeaturedCircuit.find_by(project_id: id)&.destroy
     end

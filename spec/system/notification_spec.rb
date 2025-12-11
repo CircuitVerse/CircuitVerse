@@ -1,16 +1,30 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+include Warden::Test::Helpers
 
-xdescribe "Notifcation", type: :system do
-  before do
-    @author = FactoryBot.create(:user)
-    @user = sign_in_random_user
-    @project = FactoryBot.create(:project, name: "Project", author: @author, project_access_type: "Public")
+describe "Notification", type: :system do
+  before(:all) do
+    Warden.test_mode!
   end
 
-  it "initiate notification" do
-    sign_in @user
+  after(:all) do
+    Warden.test_reset!
+  end
+
+  before do
+    @author = FactoryBot.create(:user)
+    @user = FactoryBot.create(:user)
+    @project = FactoryBot.create(
+      :project,
+      name: "Project",
+      author: @author,
+      project_access_type: "Public"
+    )
+  end
+
+  it "initiates notification" do
+    login_as(@user, scope: :user)
     visit user_project_path(@author, @project)
     click_on "Fork"
     expect(@author.noticed_notifications.count).to eq(1)
@@ -18,28 +32,29 @@ xdescribe "Notifcation", type: :system do
 
   context "notification page" do
     before do
-      sign_in @user
+      login_as(@user, scope: :user)
       visit user_project_path(@author, @project)
       click_on "Fork"
-      sign_in @author
+
+      login_as(@author, scope: :user)
       visit notifications_path(@author)
     end
 
-    it "render all notifications" do
+    it "renders all notifications" do
       expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
     end
 
-    it "render all unread notifications" do
+    it "renders all unread notifications" do
       page.find("#unread-notifications").click
       expect(page).to have_text("#{@user.name} forked your Project #{@project.name}")
     end
 
-    it "mark all notifications as read" do
+    it "marks all notifications as read" do
       click_on "Mark all as read"
       expect(@author.noticed_notifications.unread.count).to eq(0)
     end
 
-    it "mark notification as read" do
+    it "marks notification as read" do
       click_on "#{@user.name} forked your Project #{@project.name}"
       expect(@author.noticed_notifications.read.count).to eq(1)
     end
