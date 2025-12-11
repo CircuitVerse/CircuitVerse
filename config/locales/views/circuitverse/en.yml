@@ -155,7 +155,7 @@ en:
       
     user_mailer:
       welcome_email:
-        heading: "Welcome to CircuitVerse, %{name}"
+        heading: "Welcome to CircuitVerse%{name}"
         intro: "Thanks for signing up! With CircuitVerse you can explore simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, design digital logic circuits, and much more – for free!"
         launch_button: "Launch Simulator →"
         features_heading: "Features"
