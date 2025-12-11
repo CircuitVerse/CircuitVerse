@@ -49,10 +49,10 @@ cd CircuitVerse
       # Install Redis
       sudo apt update
       sudo apt install redis-server
-      # Enable Redis to start on system boot
-      sudo systemctl enable redis-server
-      # Start Redis service
-      sudo systemctl start redis-server
+      # Start Redis service (WSL doesn't use systemctl)
+      sudo service redis-server start
+      # To start Redis automatically, you can add the following line to your ~/.bashrc:
+      # sudo service redis-server start
      ```
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
      ```bash
