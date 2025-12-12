@@ -59,10 +59,15 @@
 }
 
 .dropdown-item {
+display: block;
+  width: 100%;
+  padding: 8px 12px;
+
   &:hover {
     background-color: $primary-green;
     color: $white;
   }
+
 }
 
 .navbar-text {
