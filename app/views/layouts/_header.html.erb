@@ -54,10 +54,13 @@
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
-                <div class="navbar-username-truncate"><%= current_user.name %></div>
+              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center gap-2" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+                <%= image_tag user_profile_picture(current_user.profile_picture), alt: "Profile", class: "navbar-profile-picture rounded-circle" %>
+                
               </a>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
+                <div class="dropdown-header navbar-user-fullname"><%= current_user.name %></div>
+                <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
                 <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
                 <div class="dropdown-divider"></div>
