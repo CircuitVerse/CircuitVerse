@@ -49,9 +49,11 @@ cd CircuitVerse
      # Install Redis
       sudo apt update
       sudo apt install redis-server
+
      # If systemd is enabled (Windows 11 + WSL2) then use :
       sudo systemctl enable redis-server
       sudo systemctl start redis-server
+      
      # Run Redis on WSL manually if systemd is not enabled on your system:
       redis-server --daemonize yes
      #Verify Redis is running:
