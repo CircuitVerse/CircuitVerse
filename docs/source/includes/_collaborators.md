@@ -71,7 +71,7 @@ Project author can add collaborators to his/her project in `/api/v1/projects/:pr
 | ---------- | ---------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.         |
 | 403        | When non-author user tries to add collaborators to the project         |
-| 404        | When the requested project identified by `project_id` does not exists. |
+| 404        | When the requested project identified by `project_id` does not exist. |
 
 ```http
 POST /api/v1/projects/:project_id/collaborators HTTP/1.1
@@ -119,8 +119,8 @@ Project author can DELETE a collaborator (identified by `:id`) in `/api/v1/proje
 | ---------- | ---------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.         |
 | 403        | When non-author user tries to delete the collaborator                  |
-| 404        | When the requested project identified by `project_id` does not exists. |
-| 404        | When the requested collaborator identified by `id` does not exists.    |
+| 404        | When the requested project identified by `project_id` does not exist. |
+| 404        | When the requested collaborator identified by `id` does not exist.    |
 
 ```http
 DELETE /api/v1/projects/:project_id/collaborators/:id HTTP/1.1
