@@ -7,10 +7,9 @@ class SearchController < ApplicationController
     resource = params[:resource]
     query_params = params
 
-    #If no query param is given, show message instead of 404
+    # If no query param is given, show message instead of 404
     if query_params[:q].blank?
       @results = []
-      flash.now[:notice] = "Please enter a search term."
       render :search_results and return
     end
 
@@ -19,10 +18,9 @@ class SearchController < ApplicationController
     if template.present?
       render template
     else
-      #If template not found, fallback to a generic results view with message
+      # If template not found, fallback to a generic results view with message
       @results ||= []
-      flash.now[:alert] = "Search results could not be displayed."
-      render :search_results,status: :ok
+      render :search_results, status: :ok
     end
   end
 end
