@@ -65,7 +65,7 @@ fr:
         universities: "Universités"
         countries: "Pays"
     teachers:
-      title: "CircuitVerset - Professeurs"
+      title: "CircuitVerse - Professeurs"
       main_heading: "TEACHEURS"
       main_description: "CircuitVerse a été conçu pour être très facile à utiliser en classe. La plateforme a des fonctionnalités pour aider les enseignants dans la classe et les affectations."
       benefits: "Avantages"
@@ -118,12 +118,12 @@ fr:
         description4: "4.4 En plus de réviser le contenu généré par les utilisateurs, l'équipe CircuitVerse se se réserve le droit, mais n'est pas obligé, de surveiller toutes les utilisations du service CircuitVerse. L’équipe CircuitVerse peut modifier, déplacer ou supprimer tout contenu qui viole les conditions d’utilisation ou les directives de la communauté, sans préavis."
         description5: "4.6 Tout le contenu généré par les utilisateurs est fourni tel quel. L'équipe CircuitVerse ne donne aucune garantie quant à l'exactitude ou à la fiabilité du contenu généré par les utilisateurs par l'intermédiaire de CircuitVerse ou du vétérinaire ou de vérifier les informations affichées dans le cadre de ces événements. L'équipe CircuitVerse n'endosse aucun avis, avis ou conseil exprimé dans le contenu généré par l'utilisateur. Vous acceptez de libérer l'équipe CircuitVerse de toute responsabilité découlant de votre contenu généré par l'utilisateur."
       site_content_licensing:
-        main_heading: "5. Contenu et licence CircuitVerset"
+        main_heading: "5. Contenu et licence CircuitVerse"
         description1: '5.1 Sauf pour tout contenu généré par l''utilisateur, l''équipe CircuitVerse possède et conserve tous les droits sur le code CircuitVerse, la conception, , et l''architecture de CircuitVerse, ainsi que tout logiciel ou contenu fourni par CircuitVerse (collectivement « l''IP CircuitVerse »). Si vous voulez utiliser CircuitVerse d''une manière qui n''est pas autorisée par les présentes conditions d''utilisation, vous devez d''abord contacter l''équipe CircuitVerse. Sauf pour tout droit explicitement accordé en vertu des présentes conditions d''utilisation, vous ne bénéficiez d''aucun droit sur et à aucune PI de CircuitVerse.'
       dmca:
         main_heading: "6. Digital Millennium Copyright Act (DMCA)"
-        description1_html: "6.1 Si vous êtes détenteur d'un droit d'auteur et que vous pensez que le contenu de CircuitVerse viole vos droits, vous pouvez envoyer un mail à <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse. rg</a>.&nbsp;"
-        description2_html: "6.2 Si vous êtes un utilisateur de CircuitVerse et que vous pensez que votre contenu ne constitue pas une violation du droit d'auteur et a été supprimé par erreur, vous pouvez envoyer une notification à <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse. rg</a>. Veuillez inclure :"
+        description1_html: "6.1 Si vous êtes détenteur d'un droit d'auteur et que vous pensez que le contenu de CircuitVerse viole vos droits, vous pouvez envoyer un mail à <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse.org</a>.&nbsp;"
+        description2_html: "6.2 Si vous êtes un utilisateur de CircuitVerse et que vous pensez que votre contenu ne constitue pas une violation du droit d'auteur et a été supprimé par erreur, vous pouvez envoyer une notification à <a href='mailto:support@CircuitVerse.org'>support@CircuitVerse.org</a>. Veuillez inclure :"
         list_item1: "Votre nom d'utilisateur et votre adresse e-mail CircuitVerse;"
         list_item2: "Le contenu spécifique que vous croyez a été supprimé par erreur ; et"
         list_item3: 'Un bref exposé des raisons pour lesquelles vous pensez qu''il n''y a pas eu de violation des droits d''auteur (p. ex. le contenu n''était pas protégé par le droit d''auteur, vous avez eu la permission d''utiliser le contenu, ou votre utilisation du contenu était une "utilisation équitable").'

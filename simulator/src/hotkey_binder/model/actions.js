@@ -12,7 +12,7 @@ import {getOS} from './utils.js'
 import {shortcut} from './shortcuts.plugin.js'
 /**
  * Function used to add or change keys user or default
- * grabs the keycombo from localstorage &
+ * grabs the key combo from localstorage &
  * calls the addShortcut function in a loop to bind them
  * @param {string} mode - user custom keys or default keys
  */
@@ -55,8 +55,8 @@ export const checkUpdate = () => {
     }
 };
 /**
- * Function used to set userKeys, grabs the keycombo from the panel UI
- * sets it to the localStorage & cals addKeys
+ * Function used to set userKeys, grabs the key combo from the panel UI
+ * sets it to the localStorage & calls addKeys
  * removes the defaultkeys from localStorage
  */
 export const setUserKeys = () => {
@@ -73,8 +73,8 @@ export const setUserKeys = () => {
     addKeys("user");
 };
 /**
- * Function used to set defaultKeys, grabs the keycombo from the defaultkeys metadata
- * sets it to the localStorage & cals addKeys
+ * Function used to set defaultKeys, grabs the key combo from the defaultkeys metadata
+ * sets it to the localStorage & calls addKeys
  * removes the userkeys from localStorage if present
  * also checks for OS type
  */
