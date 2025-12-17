@@ -44,7 +44,7 @@ Go to `Preferences > Package Settings > LSP > Settings` and paste this configura
 }
 ```
 
-2. **Docker baser Installation**
+2. **Docker based Installation**
 
 Go to `Preferences > Package Settings > LSP > Settings` and paste this configuration
 
