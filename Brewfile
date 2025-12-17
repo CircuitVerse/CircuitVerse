@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-brew "node@20"
+brew "node@22"
 brew "redis"
 brew "imagemagick"
 brew "yarn"
