@@ -722,3 +722,29 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+.edit-profile-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: #fafafa;
+  padding: 24px;
+  border-radius: 8px;
+}
+.edit-profile-card .field {
+  margin-bottom: 16px;
+}
+
+.edit-profile-card .actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+.edit-profile-card .delete-account {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid #ddd;
+}
+@media (max-width: 480px) {
+  .edit-profile-card {
+    padding: 16px;
+  }
+}
