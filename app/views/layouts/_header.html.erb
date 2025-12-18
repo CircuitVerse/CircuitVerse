@@ -54,9 +54,9 @@
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+              <button class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"  aria-label="user">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
-              </a>
+              </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
                 <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
                 <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
