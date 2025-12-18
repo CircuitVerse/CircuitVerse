@@ -115,7 +115,7 @@ function getTap(e) {
     if (tapLength < 500 && tapLength > 0) {
         onDoubleClickorTap(e);
     } else {
-    // Single tap
+        // Single tap
     }
     openCurrMenu(-1);
     lastTap = currentTime;
@@ -232,8 +232,8 @@ function panStart(e) {
 // touch and mouse will change in future
 //
 function panMove(e) {
-// If only one  it touched
-// pan left or right
+    // If only one  it touched
+    // pan left or right
     if (!simulationArea.touch || e.touches.length === 1) {
         coordinate = getCoordinate(e);
         const rect = simulationArea.canvas.getBoundingClientRect();
@@ -318,8 +318,8 @@ function panStop(e) {
     }
 
     if (simulationArea.touch) {
-    // small hack so Current circuit element should not spwan above last circuit element
-        if(!isCopy) {
+        // small hack so Current circuit element should not spwan above last circuit element
+        if (!isCopy) {
             findDimensions(globalScope);
             simulationArea.mouseX = 100 + simulationArea.maxWidth || 0;
             simulationArea.mouseY = simulationArea.minHeight || 0;
@@ -343,10 +343,10 @@ export default function startListeners() {
     $('#undoButton').on('click', () => {
         undo();
     });
-    $('#redoButton').on('click',() => {
+    $('#redoButton').on('click', () => {
         redo();
     })
-    $('#viewButton').on('click',() => {
+    $('#viewButton').on('click', () => {
         fullView();
     });
 
@@ -354,7 +354,7 @@ export default function startListeners() {
         if (e.key === "Escape") exitFullView();
     });
 
-    $('#projectName').on('click',() => {
+    $('#projectName').on('click', () => {
         simulationArea.lastSelected = globalScope.root;
         setTimeout(() => {
             document.getElementById('projname').select();
@@ -409,8 +409,8 @@ export default function startListeners() {
         panStop(e);
     });
 
-    // Implementating touch listerners
-    //    *All Main basic touch listerners are
+    // Implementating touch Listeners
+    //    *All Main basic touch  are
     //     present here
     //
     document.getElementById('simulationArea').addEventListener('touchstart', (e) => {
@@ -429,6 +429,7 @@ export default function startListeners() {
         scheduleUpdate(1);
         simulationArea.shiftDown = e.shiftKey;
         if (e.keyCode == 16) {
+            listerners
             simulationArea.shiftDown = false;
         }
 
@@ -778,27 +779,27 @@ export default function startListeners() {
         let htmlIcons = '';
         const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
         var finalResult = [];
-        for(const j in result) {
+        for (const j in result) {
             if (Object.prototype.hasOwnProperty.call(result, j)) {
                 for (const category in elementHierarchy) {
-                     if(Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
+                    if (Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
                         const categoryData = elementHierarchy[category];
-                         for (let i = 0; i < categoryData.length; i++) {
-                             if(result[j] == categoryData[i].label) {
-                                 finalResult.push(categoryData[i]);
+                        for (let i = 0; i < categoryData.length; i++) {
+                            if (result[j] == categoryData[i].label) {
+                                finalResult.push(categoryData[i]);
                             }
                         }
                     }
                 }
             }
         }
-    if(!finalResult.length) searchResults.text('No elements found ...');
-    else {
-        finalResult.forEach( e => htmlIcons += createIcon(e));
-        searchResults
-          .html(htmlIcons);
-        $('.filterElements').mousedown(createElement);
-    }
+        if (!finalResult.length) searchResults.text('No elements found ...');
+        else {
+            finalResult.forEach(e => htmlIcons += createIcon(e));
+            searchResults
+                .html(htmlIcons);
+            $('.filterElements').mousedown(createElement);
+        }
     });
 
     function createIcon(element) {
@@ -815,7 +816,7 @@ export default function startListeners() {
     }
 
     /**
- * Listerners of CircuitElement panel ,properties panel,time diagram, quichbtn
+ * Listeners of CircuitElement panel ,properties panel,time diagram, quickbtn
  * Some users use touch on laptop so to scroll imp panel on desktop UI
  */
     const modulePropertyListners = document.getElementById('moduleProperty');
@@ -994,7 +995,7 @@ function zoomSliderListeners() {
     smallnavbar = document.getElementById('smallNavbarMenu-btn');
 
     function ChangeIconColor(Id, color) {
-        if(Id.style.backgroundColor === color) {
+        if (Id.style.backgroundColor === color) {
             Id.style.backgroundColor = '';
         }
         else {
@@ -1025,7 +1026,7 @@ function zoomSliderListeners() {
     function openCloseSmallNavbar() {
         navMenuButtonHeight = document.getElementsByClassName('smallscreen-navbar')[0].offsetHeight;
         navMenuButton = document.getElementsByClassName('smallscreen-navbar');
-        if(navMenuButtonHeight === 0) {
+        if (navMenuButtonHeight === 0) {
             navMenuButton[0].style.height = '100%';
         }
         else {
@@ -1042,13 +1043,13 @@ function zoomSliderListeners() {
     var smallNavbarUl = document.getElementsByClassName('smallNavbar-navbar-ul');
     var ulicon = document.getElementsByClassName('ulicon');
     function NavCollapsible(index) {
-        for(var i = 0; i < smallNavbarUl.length - 1; i++) {
-            if(i !== index) {
+        for (var i = 0; i < smallNavbarUl.length - 1; i++) {
+            if (i !== index) {
                 ulicon[i].classList.remove('active');
                 smallScreemInner[i].style.height = '0%';
             }
         }
-        if(smallScreemInner[index].style.height === '100%') {
+        if (smallScreemInner[index].style.height === '100%') {
             smallScreemInner[index].style.height = '0%';
             ulicon[index].classList.remove('active');
         }
@@ -1058,21 +1059,22 @@ function zoomSliderListeners() {
         }
     }
 
-    for(var i = 0; i < smallNavbarUl.length; i++) {
-        (function(index) {
+    for (var i = 0; i < smallNavbarUl.length; i++) {
+        (function (index) {
             smallNavbarUl[index].addEventListener('click', () => {
                 NavCollapsible(index);
             });
         }(i));
     }
     var SmallScreenLi = document.getElementsByClassName('SmallScreen-Navbar-li');
-    for(var j = 0; j < SmallScreenLi.length; j++) {
-        (function(index) {
+    for (var j = 0; j < SmallScreenLi.length; j++) {
+        (function (index) {
             SmallScreenLi[index].addEventListener('click', (e) => {
                 onTapColor(SmallScreenLi, index, '#A0937D');
                 onTapSmallNavbar(index);
                 setTimeout(() => {
-                    onTapColor(SmallScreenLi, index, ''); }, 100);
+                    onTapColor(SmallScreenLi, index, '');
+                }, 100);
                 e.preventDefault();
             });
         }(j));
@@ -1083,8 +1085,8 @@ function zoomSliderListeners() {
 
     var TouchMenuButton = document.getElementsByClassName('touchMenuIcon');
     var panelclose = document.getElementsByClassName('panelclose');
-    for(var touchi = 0; touchi < TouchMenuButton.length; touchi++) {
-        (function(index) {
+    for (var touchi = 0; touchi < TouchMenuButton.length; touchi++) {
+        (function (index) {
             TouchMenuButton[index].addEventListener('touchstart', (e) => {
                 onTapColor(TouchMenuButton, index, buttoncolor);
                 openCurrMenu(index);
@@ -1108,23 +1110,24 @@ function zoomSliderListeners() {
         }(touchi));
     }
 
-    /** Function for QuicKMenu */
+    /** Function for Quick Menu */
     var quickMenu = document.getElementsByClassName('quicMenu-align');
-    // here lenght-2 is done because last two button are used for diff purpose
-    for(var quickmenui = 0; quickmenui < quickMenu.length - 2; quickmenui++) {
-        (function(index) {
+    // here length-2 is done because last two button are used for diff purpose
+    for (var quickmenui = 0; quickmenui < quickMenu.length - 2; quickmenui++) {
+        (function (index) {
             quickMenu[index].addEventListener('click', (e) => {
                 onTapColor(quickMenu, index, buttoncolor);
                 onQuickmenuTap(index);
                 setTimeout(() => {
-                    onTapColor(quickMenu, index, ''); }, 100);
+                    onTapColor(quickMenu, index, '');
+                }, 100);
                 e.preventDefault();
             });
         }(quickmenui));
     }
     quickMenu[6].addEventListener('click', (e) => {
         onTapColor(quickMenu, 6, buttoncolor);
-        if(simulationArea.shiftDown == false) {
+        if (simulationArea.shiftDown == false) {
             simulationArea.shiftDown = true;
         }
         else {
@@ -1137,8 +1140,8 @@ function zoomSliderListeners() {
     //  Undo,Delete,Fit to screen
     //
     var liveMenu = document.getElementsByClassName('liveMenuIcon');
-    for(var liveMenui = 0; liveMenui < liveMenu.length; liveMenui++) {
-        (function(index) {
+    for (var liveMenui = 0; liveMenui < liveMenu.length; liveMenui++) {
+        (function (index) {
             liveMenu[index].addEventListener('touchstart', (e) => {
                 onTapColor(liveMenu, index, buttoncolor);
                 e.preventDefault();
@@ -1182,11 +1185,11 @@ export function currentScreen() {
 }
 function getID(index) {
     switch (index) {
-    case 0: return document.getElementById('TouchCe-panel');
-    case 1: return document.getElementById('touchElement-property');
-    case 2: return document.getElementById('touchtD-popover');
-    case 3: return document.getElementById('quickmenu-Popover');
-    default: break;
+        case 0: return document.getElementById('TouchCe-panel');
+        case 1: return document.getElementById('touchElement-property');
+        case 2: return document.getElementById('touchtD-popover');
+        case 3: return document.getElementById('quickmenu-Popover');
+        default: break;
     }
     return 0;
 }
@@ -1212,14 +1215,14 @@ function openCurrMenu(index) {
      * Function For Menu Button Color
      */
 function onTapColor(classList, currentIndex, color) {
-    if(classList[currentIndex].style.backgroundColor === color) {
+    if (classList[currentIndex].style.backgroundColor === color) {
         classList[currentIndex].style.backgroundColor = '';
     }
     else {
         classList[currentIndex].style.backgroundColor = color;
     }
-    for(var i = 0; i < classList.length; i++) {
-        if(i != currentIndex) {
+    for (var i = 0; i < classList.length; i++) {
+        if (i != currentIndex) {
             classList[i].style.backgroundColor = '';
         }
     }
@@ -1227,95 +1230,95 @@ function onTapColor(classList, currentIndex, color) {
 
 function onTapliveMenu(index) {
     switch (index) {
-    case 0: globalScope.centerFocus(false);
-        updateCanvasSet(true);
-        gridUpdateSet(true);
-        break;
-    case 1: deleteSelected();
-        break;
-    case 2: undo();
-        break;
-    case 3: redo();
-        break;
-    default:
-        break;
+        case 0: globalScope.centerFocus(false);
+            updateCanvasSet(true);
+            gridUpdateSet(true);
+            break;
+        case 1: deleteSelected();
+            break;
+        case 2: undo();
+            break;
+        case 3: redo();
+            break;
+        default:
+            break;
     }
 }
 function onQuickmenuTap(i) {
     switch (i) {
-    case 0: logixFunction.save();
-        break;
-    case 1: logixFunction.saveOffline();
-        break;
-    case 2: logixFunction.createOpenLocalPrompt();
-        break;
-    case 3: createSaveAsImgPrompt();
-        break;
-    case 4: document.execCommand('copy');
-        simulationArea.shiftDown = false;
-        isCopy = true;
-        break;
-    case 5: paste(localStorage.getItem('clipboardData'));
-        isCopy = false;
-        break;
-    default:
-        break;
+        case 0: logixFunction.save();
+            break;
+        case 1: logixFunction.saveOffline();
+            break;
+        case 2: logixFunction.createOpenLocalPrompt();
+            break;
+        case 3: createSaveAsImgPrompt();
+            break;
+        case 4: document.execCommand('copy');
+            simulationArea.shiftDown = false;
+            isCopy = true;
+            break;
+        case 5: paste(localStorage.getItem('clipboardData'));
+            isCopy = false;
+            break;
+        default:
+            break;
     }
 }
 function onTapSmallNavbar(i) {
     switch (i) {
-    case 0: logixFunction.newProject();
-        closeNavmenu();
-        break;
-    case 1: logixFunction.save();
-        break;
-    case 2: logixFunction.saveOffline();
-        break;
-    case 3: logixFunction.createOpenLocalPrompt();
-        closeNavmenu(); // createSaveAsImgPrompt();
-        break;
-    case 4: logixFunction.clearProject();
-        closeNavmenu();
-        break;
-    case 5: logixFunction.recoverProject();
-        closeNavmenu();
-        break;
-    case 6: logixFunction.newCircuit();
-        closeNavmenu();
-        break;
-    case 7: logixFunction.newVerilogModule();
-        closeNavmenu();
-        break;
-    case 8: logixFunction.createSubCircuitPrompt();
-        closeNavmenu();
-        break;
-    case 9: logixFunction.createCombinationalAnalysisPrompt();
-        closeNavmenu();
-        break;
-    case 10: logixFunction.bitconverter();
-        closeNavmenu();
-        break;
-    case 11: createSaveAsImgPrompt();
-        closeNavmenu();
-        break;
-    case 12: logixFunction.colorThemes();
-        closeNavmenu();
-        break;
-    case 13: logixFunction.generateVerilog();
-        closeNavmenu();
-        break;
-    case 14: logixFunction.showTourGuide();
-        closeNavmenu();
-        break;
-    case 15: window.open('https://docs.circuitverse.org');
-        break;
-    case 16: window.open('https://learn.circuitverse.org');
-        break;
-    case 17: window.open('https://circuitverse.org/forum');
-        break;
-    default:
-        closeNavmenu();
-        break;
+        case 0: logixFunction.newProject();
+            closeNavmenu();
+            break;
+        case 1: logixFunction.save();
+            break;
+        case 2: logixFunction.saveOffline();
+            break;
+        case 3: logixFunction.createOpenLocalPrompt();
+            closeNavmenu(); // createSaveAsImgPrompt();
+            break;
+        case 4: logixFunction.clearProject();
+            closeNavmenu();
+            break;
+        case 5: logixFunction.recoverProject();
+            closeNavmenu();
+            break;
+        case 6: logixFunction.newCircuit();
+            closeNavmenu();
+            break;
+        case 7: logixFunction.newVerilogModule();
+            closeNavmenu();
+            break;
+        case 8: logixFunction.createSubCircuitPrompt();
+            closeNavmenu();
+            break;
+        case 9: logixFunction.createCombinationalAnalysisPrompt();
+            closeNavmenu();
+            break;
+        case 10: logixFunction.bitconverter();
+            closeNavmenu();
+            break;
+        case 11: createSaveAsImgPrompt();
+            closeNavmenu();
+            break;
+        case 12: logixFunction.colorThemes();
+            closeNavmenu();
+            break;
+        case 13: logixFunction.generateVerilog();
+            closeNavmenu();
+            break;
+        case 14: logixFunction.showTourGuide();
+            closeNavmenu();
+            break;
+        case 15: window.open('https://docs.circuitverse.org');
+            break;
+        case 16: window.open('https://learn.circuitverse.org');
+            break;
+        case 17: window.open('https://circuitverse.org/forum');
+            break;
+        default:
+            closeNavmenu();
+            break;
     }
 }
 function closeNavmenu() {
