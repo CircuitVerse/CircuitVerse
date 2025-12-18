@@ -15,12 +15,11 @@ class SearchController < ApplicationController
 
     @results, template = query(resource, query_params)
 
+    # non-existent resource → not_found (OLD behavior)
     if template.present?
       render template
     else
-      # If template not found, fallback to a generic results view with message
-      @results ||= []
-      render :search_results, status: :ok
+      not_found
     end
   end
 end
