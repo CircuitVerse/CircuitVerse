@@ -34,9 +34,9 @@
                 class: "users-edit-image",
                 alt: "User Profile Image" %>
             </p>
-              <label for="profile_picture" class="users-edit-image-button">
+            <label for="profile_picture" class="users-edit-image-button">
                 <%= t("users.circuitverse.edit_profile.choose_file") %>
-              </label>
+            </label>
               <input
                 tabindex="0"
                 type="file"
@@ -47,9 +47,7 @@
                 onchange="readURL(this);"
                 value="<%= @profile.profile_picture %>"
               >
-
-              
-            <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
+               <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
             <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
           </div>
           <div class="field mb-3">
@@ -67,7 +65,6 @@
           <div class="field mb-3 users-edit-primary-checkpoint">
             <label for="profile_subscribed" class="primary-checkpoint-container">
               <h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
- 
               <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
               <div class="primary-checkpoint"></div>
             </label>
