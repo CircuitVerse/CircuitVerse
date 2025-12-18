@@ -221,7 +221,7 @@ You can GET assignment details (identified by `:id`) in `/api/v1/assignments/:id
 | --------- | ----------------------------------------- |
 | `id`      | The `id` of the assignment to be detailed |
 
-### URL Query Paramters
+### URL Query Parameters
 
 | Parameter | Description                              |
 | --------- | ---------------------------------------- |
@@ -356,7 +356,7 @@ You can POST assignment in `/api/v1/groups/:group_id/assignments`. Authenticatio
 | ---------- | ------------------------------------------------ |
 | `group_id` | The `id` of the group, assignment is to be added |
 
-### URL Query Paramters
+### URL Query Parameters
 
 | Parameter | Description                              |
 | --------- | ---------------------------------------- |
