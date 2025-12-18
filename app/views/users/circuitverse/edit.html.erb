@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="col col-sm col-md col-lg">
-      <div class="form-container">
+      <div class="form-container edit-profile-card">
         <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
           <% if @profile.errors.any? %>
             <div class="error-message">
