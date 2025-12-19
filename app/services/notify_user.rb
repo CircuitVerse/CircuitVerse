@@ -10,7 +10,14 @@ class NotifyUser
     # @type [Assignment]
     @assignment = @notification.params[:assignment]
     # @type [Project]
-    @project = @notification.params[:project]
+    raw_project = @notification.params[:project] || @notification.params["project"]
+    @project =
+      case raw_project
+      when Project then raw_project
+      when String, Integer then Project.find_by(id: raw_project)
+      else
+        Project.find_by(id: @notification.params[:project_id] || @notification.params["project_id"])
+      end
     @thread = @notification.params[:forum_thread]
     @contest = @notification.params[:contest] # Added to handle ContestNotification
   end
@@ -48,10 +55,14 @@ class NotifyUser
     end
 
     def star_notification
+      return Result.new("false", "missing_project", root_path) unless @project&.author
+
       Result.new("true", "star", @project.author, @project)
     end
 
     def fork_notification
+      return Result.new("false", "missing_project", root_path) unless @project&.author
+
       Result.new("true", "fork", @project.author, @project)
     end
 
