@@ -96,7 +96,7 @@
       </thead>
     <% end %>
     <tbody class="groups-expanded-table">
-      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+     <% @group.assignments.each do |assignment| %>
         <tr class="groups-table-rows">
           <td>
             <div class="groups-assignment-details groups-expanded-assignment-name">
@@ -220,7 +220,7 @@
     </tbody>
 
     <tbody class="groups-collapsed-table">
-      <% @group.assignments.includes(projects: :grade).each do |assignment| %>
+      <% @group.assignments.each do |assignment| %>
         <tr>
           <table class="groups-table-rows groups-collapsed-table">
             <tr>
