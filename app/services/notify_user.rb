@@ -67,14 +67,20 @@ class NotifyUser
 
     def forum_comment_notification
       @post = @notification.params[:forum_post]
+      return Result.new("false", "resource_missing") if @post.nil?
+
       Result.new("true", "forum_comment", @thread, @post.id)
     end
 
     def forum_thread_notification
+      return Result.new("false", "resource_missing") if @thread.nil?
+
       Result.new("true", "forum_thread", @thread)
     end
 
     def contest_notification
+      return Result.new("false", "resource_missing") if @contest.nil?
+
       Result.new("true", "new_contest", @contest)
     end
 
