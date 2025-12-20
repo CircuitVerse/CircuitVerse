@@ -24,4 +24,30 @@ RSpec.describe NotifyUser do
     expect(res.success).to eq("true")
     expect(res.type).to eq("contest_winner")
   end
+
+  context "when resource is missing" do
+    it "handles ForkNotification with missing project" do
+      n = NoticedNotification.create!(recipient: recipient,
+                                      type: "ForkNotification",
+                                      params: { project: nil })
+      res = described_class.new(notification_id: n.id).call
+      expect(res.success).to eq("false")
+    end
+
+    it "handles StarNotification with missing project" do
+      n = NoticedNotification.create!(recipient: recipient,
+                                      type: "StarNotification",
+                                      params: { project: nil })
+      res = described_class.new(notification_id: n.id).call
+      expect(res.success).to eq("false")
+    end
+
+    it "handles NewAssignmentNotification with missing assignment" do
+      n = NoticedNotification.create!(recipient: recipient,
+                                      type: "NewAssignmentNotification",
+                                      params: { assignment: nil })
+      res = described_class.new(notification_id: n.id).call
+      expect(res.success).to eq("false")
+    end
+  end
 end

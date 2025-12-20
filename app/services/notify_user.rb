@@ -48,14 +48,20 @@ class NotifyUser
     end
 
     def star_notification
+      return Result.new("false", "resource_missing", root_path) if @project.nil?
+
       Result.new("true", "star", @project.author, @project)
     end
 
     def fork_notification
+      return Result.new("false", "resource_missing", root_path) if @project.nil?
+
       Result.new("true", "fork", @project.author, @project)
     end
 
     def new_assignment_notification
+      return Result.new("false", "resource_missing", root_path) if @assignment.nil?
+
       Result.new("true", "new_assignment", @assignment.group, @assignment)
     end
 
