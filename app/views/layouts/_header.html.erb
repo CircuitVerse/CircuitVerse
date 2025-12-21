@@ -54,7 +54,7 @@
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" data-bs-toggle="dropdown" id="navbar-dropdown-2" role="button" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
               </a>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
@@ -95,6 +95,7 @@
     const dropdownIcon = document.getElementById('dropdownIcon');
     const collapseElement = document.getElementById("collapsed-navbar");
     const gettingStartedLink = document.querySelector("#getting-started-dropdown");
+    const userDropdownLink = document.querySelector("#navbar-dropdown-2"); 
     const navbar = document.querySelector('.navbar');
 
     function handleNavbarShadow() {
@@ -121,6 +122,23 @@
       document.addEventListener("click", function () {
         gettingStartedLink.classList.remove("rotate180");
         gettingStartedDropdown.hide();
+      });
+    }
+    if (userDropdownLink) {
+      const userDropdown = new bootstrap.Dropdown(userDropdownLink);
+      userDropdownLink.addEventListener("click", function (e) {
+        if (userDropdownLink.classList.contains("rotate180")) {
+          userDropdownLink.classList.remove("rotate180");
+          userDropdown.hide();
+        } else {
+          userDropdownLink.classList.add("rotate180");
+          userDropdown.show();
+        }
+        e.stopPropagation();
+      });
+      document.addEventListener("click", function () {
+        userDropdownLink.classList.remove("rotate180");
+        userDropdown.hide();
       });
     }
 
