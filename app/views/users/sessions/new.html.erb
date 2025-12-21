@@ -53,12 +53,14 @@
           <% end -%>
         </div>
         <div class="field mb-3">
-          <div class="input-group">
-            <% if Flipper.enabled?(:recaptcha) %>
+          <% if Flipper.enabled?(:recaptcha) %>
+            <div class="mb-3">
               <%= recaptcha_tags %>
-            <% end %>
+            </div>
+          <% end %>
+          <div class="d-flex align-items-center">
             <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
-            <div class="users-text-container">
+            <div class="users-text-container ms-3">
               <% unless Flipper.enabled?(:block_registration) %>
                 <span class="users-text"><%= t("users.ask_new_user") %></span>
                 <%= link_to t("sign_up"), new_registration_path(resource_name), class: "anchor-text" %>
