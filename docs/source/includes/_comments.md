@@ -245,7 +245,7 @@ You can POST a comment in `/api/v1/threads/:thread_id/comments`. Authentication 
 | ---------- | -------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.       |
 | 403        | When user don't have access to create/add comment                    |
-| 404        | When the requested thread identified by `thread_id` does not exists. |
+| 404        | When the requested thread identified by `thread_id` does not exist. |
 | 422        | When invalid parameters are passed.                                  |
 
 ```http
@@ -329,7 +329,7 @@ You can UPDATE a comment in `/api/v1/comments/:id`. Authentication `token` is pa
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When user don't have access to update comment                  |
-| 404        | When the requested comment identified by `id` does not exists. |
+| 404        | When the requested comment identified by `id` does not exist. |
 | 422        | When invalid parameters are passed.                            |
 
 ```http
@@ -414,7 +414,7 @@ Comment (identified by `:id`) can be DELETED in `/api/v1/comments/:id/deleted`. 
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When user without editor tries to delete the comment           |
-| 404        | When the requested comment identified by `id` does not exists. |
+| 404        | When the requested comment identified by `id` does not exist. |
 | 409        | When the comment identified by :id is already deleted          |
 
 ```http
@@ -455,7 +455,7 @@ Comment (identified by `:id`) can be UNDELETED in `/api/v1/comments/:id/undelete
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When user without editor tries to delete the comment           |
-| 404        | When the requested comment identified by `id` does not exists. |
+| 404        | When the requested comment identified by `id` does not exist. |
 
 ```http
 PUT /api/v1/comments/:id/undelete HTTP/1.1
@@ -531,7 +531,7 @@ Comment (identified by `:id`) can be UPVOTED in `/api/v1/comments/:id/upvote`. A
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When author tries to upvote his/her comment                    |
-| 404        | When the requested comment identified by `id` does not exists. |
+| 404        | When the requested comment identified by `id` does not exist. |
 
 ```http
 PUT /api/v1/comments/:id/upvote HTTP/1.1
@@ -571,7 +571,7 @@ Comment (identified by `:id`) can be DOWNVOTED in `/api/v1/comments/:id/downvote
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When author tries to downvote his/her comment                  |
-| 404        | When the requested comment identified by `id` does not exists. |
+| 404        | When the requested comment identified by `id` does not exist. |
 
 ```http
 PUT /api/v1/comments/:id/downvote HTTP/1.1
@@ -611,7 +611,7 @@ Comment (identified by `:id`) can be UNVOTED in `/api/v1/comments/:id/unvote`. A
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When author tries to unvote his/her comment                    |
-| 404        | When the requested comment identified by `id` does not exists. |
+| 404        | When the requested comment identified by `id` does not exist. |
 
 ```http
 PUT /api/v1/comments/:id/unvote HTTP/1.1

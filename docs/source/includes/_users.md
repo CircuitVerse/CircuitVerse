@@ -137,7 +137,7 @@ You can GET particular user details in `/api/v1/users/{:id}`. Authentication `to
 | Error Code | Description                                                    |
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
-| 404        | When the requested user identified by `id` does not exists.    |
+| 404        | When the requested user identified by `id` does not exist.    |
 
 ```http
 GET /api/v1/users/1 HTTP/1.1
@@ -190,7 +190,7 @@ You can UPDATE a specific user details in `/api/v1/users/{:id}`. Authentication 
 | ---------- | ------------------------------------------------------------------ |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.     |
 | 403        | When the user identified by `id` differs from `authenticated user` |
-| 404        | When the user identified by `id` does not exists.                  |
+| 404        | When the user identified by `id` does not exist.                  |
 
 ```http
 PATCH /api/v1/users/1 HTTP/1.1
