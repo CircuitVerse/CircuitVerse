@@ -1,6 +1,5 @@
 require_relative "boot"
 
-# --- PROPSHAFT MIGRATION CHANGE ---
 require "active_record/railtie"
 require "active_storage/engine"
 require "action_controller/railtie"
@@ -15,18 +14,14 @@ require "rails/test_unit/railtie"
 # Require the gems listed in Gemfile
 Bundler.require(*Rails.groups)
 
-# --- CRITICAL FIX: NEUTRALIZE SPROCKETS (SAFER METHOD) ---
-# The 'commontator' gem loads Sprockets, which conflicts with Propshaft.
-# We use class_eval to silence the 'build_manifest' method safely.
+# Neutralize Sprockets to prevent conflicts with Propshaft
 if defined?(Sprockets::Railtie)
   Sprockets::Railtie.class_eval do
     def self.build_manifest(app)
-      # Return nothing. This prevents the TypeError crash.
       nil
     end
   end
 end
-# ---------------------------------------------------------
 
 module Logix
   class Application < Rails::Application

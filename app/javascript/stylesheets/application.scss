@@ -2,21 +2,16 @@
 @import "bootstrap/scss/bootstrap";
 @import 'autoComplete';
 
-// --- CHANGED: Replaced Sprockets Font Awesome with NPM version ---
-// Make sure you ran: yarn add @fortawesome/fontawesome-free
 @import "@fortawesome/fontawesome-free/scss/fontawesome";
 @import "@fortawesome/fontawesome-free/scss/solid";
 @import "@fortawesome/fontawesome-free/scss/brands";
-// -----------------------------------------------------------------
 
 @import 'trumbowyg/dist/ui/trumbowyg.min';
 
-// Note: If these Gem-based imports fail, you must copy the files
-// from the gem to your app/javascript/stylesheets folder.
-// Point to the local vendor folder you just created
 @import "vendor/commontator/application";
-@import "simple_discussion_overrides"; // Keep this if it's your own local file
+@import "simple_discussion_overrides";
 @import "vendor/simple_discussion/simple_discussion";
+
 @import 'layout';
 @import 'components';
 @import 'navbar';
