@@ -110,7 +110,7 @@ const createElements = (metadata) => {
 export const markUp = createElements(defaultKeys);
 
 export const editPanel = `&lt;div id="edit" tabindex="0">
-&lt;span style="font-size: 14px;">Press Desire Key Combination &amp; press Enter or press ESC to cancel.&lt;/span>
+&lt;span style="font-size: 14px;">Press Desired Key Combination &amp; press Enter or press ESC to cancel.&lt;/span>
 &lt;div id="pressedKeys">&lt;/div>
 &lt;div id="warning">&lt;/div>
 &lt;/div>`;
@@ -121,8 +121,8 @@ export const heading = `&lt;div id="heading">
 &lt;/div>`;
 
 /**
- * fn to update the htokey panel UI with the currently set configuration
- * @param {string} mode user prefered if present, or default keys configuration
+ * fn to update the hotkey panel UI with the currently set configuration
+ * @param {string} mode user preferred if present, or default keys configuration
  */
 export const updateHTML = (mode) => {
     let x = 0;
