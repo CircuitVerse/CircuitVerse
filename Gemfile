@@ -114,7 +114,7 @@ gem "rails-i18n", "~> 8.0.0"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
 gem "propshaft"
-gem "dartsass-rails"
+
 gem "strong_migrations"
 gem 'rails-data-migrations', github: 'notarize/rails-data-migrations'
 
