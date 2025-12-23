@@ -61,6 +61,7 @@
       <%= render Home::StatCardComponent.new(number: @stats[:countries_count], label: t("circuitverse.index.stats.countries")) %>
     </div>
   </div>
+
   <div id="home-features-section" class="d-flex flex-column gap-4 m-4 mb-0 align-items-center">
     <div class="d-flex flex-column text-center align-items-center gap-2">
       <%= render Home::BadgeComponent.new(text: t("circuitverse.index.features.badge_content"), should_show_dot: false) %>
