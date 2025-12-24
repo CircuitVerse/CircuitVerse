@@ -107,22 +107,67 @@
     window.addEventListener('scroll', handleNavbarShadow);
 
     if (gettingStartedLink) {
-      const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
-      gettingStartedLink.addEventListener("click", function (e) {
-        if (gettingStartedLink.classList.contains("rotate180")) {
-          gettingStartedLink.classList.remove("rotate180");
-          gettingStartedDropdown.hide();
-        } else {
-          gettingStartedLink.classList.add("rotate180");
-          gettingStartedDropdown.show();
-        }
-        e.stopPropagation();
-      });
-      document.addEventListener("click", function () {
-        gettingStartedLink.classList.remove("rotate180");
-        gettingStartedDropdown.hide();
-      });
+      const dropdownMenu = gettingStartedLink.nextElementSibling;
+      let isClickedOpen = false;
+      let hoverTimeout;
+    function showDropdown() {
+      gettingStartedLink.classList.add("show", "rotate180");
+      gettingStartedLink.setAttribute("aria-expanded", "true");
+    if (dropdownMenu) {
+      dropdownMenu.classList.add("show");
     }
+  }
+  function hideDropdown() {
+    gettingStartedLink.classList.remove("show", "rotate180");
+    gettingStartedLink.setAttribute("aria-expanded", "false");
+    if (dropdownMenu) {
+      dropdownMenu.classList.remove("show");
+    }
+  }
+  gettingStartedLink.addEventListener("mouseenter", function() {
+    clearTimeout(hoverTimeout);
+    if (!isClickedOpen) {
+      showDropdown();
+    }
+  });
+  gettingStartedLink.addEventListener("mouseleave", function() {
+    if (!isClickedOpen) {
+      hoverTimeout = setTimeout(() => {
+        hideDropdown();
+      }, 300);
+    }
+  });
+  if (dropdownMenu) {
+    dropdownMenu.addEventListener("mouseenter", function() {
+      clearTimeout(hoverTimeout);
+    });
+    dropdownMenu.addEventListener("mouseleave", function() {
+      if (!isClickedOpen) {
+        hoverTimeout = setTimeout(() => {
+          hideDropdown();
+        }, 300);
+      }
+    });
+  }
+  gettingStartedLink.addEventListener("click", function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    isClickedOpen = !isClickedOpen;  
+    if (isClickedOpen) {
+      showDropdown();
+    } else {
+      hideDropdown();
+    }
+  });
+  document.addEventListener("click", function(e) {
+    if (!gettingStartedLink.contains(e.target) && (!dropdownMenu || !dropdownMenu.contains(e.target))) {
+      if (isClickedOpen) {
+        isClickedOpen = false;
+        hideDropdown();
+      }
+    }
+  });
+}
 
     function activeSearchBar() {
       const icons = Array.from(searchIcons);
