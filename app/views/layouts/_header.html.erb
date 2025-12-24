@@ -152,7 +152,7 @@
   gettingStartedLink.addEventListener("click", function(e) {
     e.preventDefault();
     e.stopPropagation();
-    isClickedOpen = !isClickedOpen;  
+    isClickedOpen = !isClickedOpen;
     if (isClickedOpen) {
       showDropdown();
     } else {
@@ -168,7 +168,6 @@
     }
   });
 }
-
     function activeSearchBar() {
       const icons = Array.from(searchIcons);
       const isActive = icons.some(icon => icon.classList.contains("active"));
