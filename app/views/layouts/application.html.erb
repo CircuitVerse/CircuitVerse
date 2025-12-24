@@ -7,19 +7,15 @@
                           title: yield(:title).presence || "CircuitVerse - Digital Circuit Simulator" %>
     <meta name="keywords"
       content="Digital circuits, logisim, online, educational platform, karnaugh map, kmap, electronic devices and circuits,digital electronics basics,introduction to digital electronics, simple electronics projects for students,electric circuit analysis, logic circuits, logic simulation, digital logic circuits, boolean logic">
-    <%= favicon_link_tag "favicon.ico" %>
 
-    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload" %>
+    <%= favicon_link_tag "favicon.ico" %>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap" rel="stylesheet">
     <%= csrf_meta_tags %>
 
-    <%= javascript_include_tag "application_sprockets", "data-turbolinks-track": "reload" %>
-    <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %>
+    <%= vite_javascript_tag "application", defer: true %>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <%= render partial: "layouts/google_analytics" if Rails.env.production? %>
-    <%= stylesheet_link_tag "application" %>
   </head>
 
   <body class="d-flex flex-column min-vh-100">
@@ -29,7 +25,6 @@
   </main>
   <%= render(FooterComponent.new(current_user: current_user)) %>
 
-  <!-- Custom Script for Alert -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.alert').forEach(alert => {

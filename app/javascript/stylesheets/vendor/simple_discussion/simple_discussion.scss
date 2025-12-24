@@ -1,0 +1,297 @@
+
+@import "simple_discussion_colors";
+@import "simple_discussion_variables";
+
+.community-heading {
+  color: #212529;
+  padding-block: 12px;
+}
+
+// Primary button for Forum
+.simple_discussion .forum-primary-btn {
+  background-color: $brand-color;
+  border-radius: 4px;
+  color: $button-background-color;
+  transition: all .3s ease 0s;
+
+  &:hover {
+    // border shadow with blur
+    background-color: #026e57;
+    box-shadow: 0 8px 15px #00000029;
+    color: $button-background-color;
+    transform: translateY(-7px);
+  }
+}
+
+// Outlined Button for Forum
+.simple_discussion .forum-primary-outline-btn {
+  background-color: $button-background-color;
+  border-color: $brand-color;
+  border-radius: $button-border-radius;
+  color: $brand-color;
+
+  &:hover {
+    // border shadow with blur
+    box-shadow: 0 0 0 0.2rem $button-hover-shadow-color;
+  }
+}
+
+.forum-primary-outline-text {
+  padding: 10px 5px;
+  font-size: 12px;
+  color: #222;
+}
+
+.pull-right {
+  a {
+    color:#026e57;
+  }
+}
+
+/* Formatting for the forum hr to match card border */
+.simple_discussion hr {
+  border: 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.125);
+  margin: 24px -20px;
+}
+
+.simple_discussion .text-muted {
+  color: #999;
+  margin-top: 6px;
+  font-size: 13px;
+
+  .fa-edit {
+    color: #026e57;
+  }
+
+  .fa-trash {
+    color: #ff5151;
+  }
+}
+
+// Forum Category Selecion Dropdown
+.simple_discussion .custom-select {
+  border-radius: $button-border-radius;
+
+  &:hover {
+    border-color: #9edcc0 !important;
+    box-shadow: 0 0 0 0.2rem #42b98340 !important;
+    color: #000000
+  }
+}
+
+// Thread Category Inline Chips Design
+.simple_discussion .category-chip {
+  height: fit-content;
+  padding: 2px 15px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: 20px;
+  border-width: 0.1px;
+  border-style: solid;
+}
+
+// Solved tag for threads
+.simple_discussion .solved-tag {
+  font-weight: 500;
+  i {
+    color: $thread-solved-color;
+    margin-right: 3px;
+    font-size: 1.4rem;
+  }
+}
+
+// Unsolved / Unanswered tag for threads
+.simple_discussion .unsolved-tag {
+  font-weight: 500;
+  i {
+    color: $thread-unsolved-color;
+    margin-right: 3px;
+    font-size: 1.4rem;
+  }
+}
+
+/* Allow pagination to be centered */
+.forum-threads-nav nav {
+  display: inline-block;
+}
+
+// Forum Thread Filter - In Desktop, Left Sidebar
+.simple_discussion .forum-thread-filters {
+  // Button
+  .btn-link {
+    border-radius: $button-border-radius;
+    color: $link-inactive-color;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 10px 12px;
+    margin-bottom: 5px;
+
+    &:hover {
+      background-color: $forum-thread-filter-btn-link-hover-background;
+      color: $link-active-color;
+      font-weight: 500;
+      text-decoration: none;
+    }
+  }
+
+  // Text
+  a {
+    margin-bottom: 5px;
+    text-decoration: none;
+
+    &.active {
+      color: #222;
+      font-weight: bolder;
+    }
+
+    &.active .btn-link {
+      background-color: $forum-thread-filter-btn-link-hover-background;
+      color: $link-active-color;
+    }
+  }
+}
+
+.btn-secondary {
+  color: $button-background-color;
+  background-color: $secondary-button-color;
+  border-color: $secondary-button-color;
+  transition: transform .2s ease-in;
+
+  &:hover {
+    color: $button-background-color;
+    background-color: $secondary-button-color;
+    border-color: $secondary-button-color;
+    text-decoration: none;
+    transform: translateY(-4px);
+  }
+}
+
+// Formatting for the forum threads
+.simple_discussion .forum-thread {
+  // Avatar of user
+  .avatar {
+    border-radius: 50%;
+    width: 40px;
+  }
+
+  // Container of a thread that wraps all component
+  .thread-container {
+    text-decoration: none;
+    width: 100%;
+  }
+
+  // Thread Title
+  .thread-header-title {
+    color: #171a1e;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1.025px;
+  }
+
+  // Icons inlined to thread title
+  .thread-header-icons {
+    font-weight: 500;
+    i {
+      margin-right: 5px;
+      font-size: 1.2rem;
+    }
+
+    .chat-icon i {
+      color: #d3dfe2;
+    }
+  }
+
+  // Thread content
+  .thread-content {
+    text-align: justify;
+    color: $link-inactive-color;
+    font-weight: 400;
+    font-size: 14px;
+  }
+
+  // Thread Author Details line
+  .thread-author {
+    font-weight: 500;
+    color: $link-inactive-color;
+    font-size: 12px;
+    span {
+      color: #1d1d1d;
+    }
+  }
+}
+
+// Formatting thread details section [name, date, category]
+.simple_discussion .thread-details-custom {
+  font-size: 14px;
+  font-weight: 500;
+  color: $link-inactive-color;
+}
+
+.forum-thread {
+  border: 1px solid #80808029;
+  border-radius: 3px;
+  padding: 20px;
+
+  &:hover {
+    text-decoration: none;
+    background-color: $forum-thread-filter-btn-link-hover-background;
+
+  }
+}
+
+// Formatting forum post
+.simple_discussion .forum-post {
+  border-radius: $post-body-border-radius;
+  margin-bottom: 10px;
+  border: 1px solid #80808029;
+
+  .card-body {
+    margin-top: 16px;
+  }
+}
+
+// Formatting the listtile for user details
+.simple_discussion .forum-post .forum-post-header,
+.form-user-details {
+  padding: 10px;
+  background-color: $forum-thread-filter-btn-link-hover-background;
+
+  p {
+    padding: 0;
+    margin: 0;
+  }
+  .user-details {
+    .user-avatar {
+      border-radius: $avatar-image-border-radius;
+      width: fit-content;
+      height: fit-content;
+      overflow: hidden;
+      img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+      }
+    }
+    .details {
+      font-weight: 600;
+      .title {
+        color: $link-active-color;
+      }
+      .subtitle {
+        color: gray;
+        font-size: 12px;
+        font-weight: 100;
+      }
+    }
+  }
+}
+
+.sidebar-sticky {
+  position: sticky;
+  top: 60px;
+}
+
+.thread-page-container {
+  padding: 24px;
+}

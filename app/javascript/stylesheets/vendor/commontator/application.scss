@@ -1,0 +1,108 @@
+/*
+ *= require mentionsInput/jquery.mentionsInput
+ *= require_self
+ *= require_tree .
+ */
+
+.commontator {
+  *:not(input):not(textarea) {
+    margin: 0;
+    border: none;
+    padding: 0;
+  }
+
+  .commontator-hidden {
+    display: none;
+  }
+
+  .header {
+    display: block;
+
+    overflow: hidden;
+  }
+
+  .actions {
+    float: right;
+
+    margin-left: 10px;
+  }
+
+  .status {
+    font-size: 120%;
+    font-weight: bold;
+    font-style: normal;
+  }
+
+  .comment-list {
+    background-color: #FFF;
+  }
+
+  .children {
+    padding-left: 15px;
+  }
+
+  /* Modified from: https://www.strangerstudios.com/sandbox/pagination/diggstyle.php */
+  .page-entries-info, .will-paginate {
+  	margin: 10px 0;
+  }
+
+  .pagination {
+    a {
+    	margin-right: 4px;
+    	padding: 2px 5px 2px 5px;
+    	border: 1px solid #999;
+
+    	color: #666;
+    	text-decoration: none;
+
+      &:hover, &:active {
+        border: 1px solid #555;
+
+        color: #000;
+      }
+    }
+
+    em {
+    	margin-right: 4px;
+      border: 1px solid #555;
+    	padding: 2px 5px 2px 5px;
+
+      background-color: #555;
+
+      font-weight: bold;
+      color: #FFF;
+    }
+
+    .name {
+    	margin: 2px 9px 2px 0;
+    }
+
+    .disabled {
+    	margin-right: 4px;
+      border: 1px solid #EEE;
+      padding: 2px 5px 2px 5px;
+
+      color: #DDD;
+    }
+  }
+
+  .mentions {
+    left: -8px;
+    top: -8px;
+
+    font-family: monospace;
+    font-size: 13.3333px;
+  }
+
+  .field textarea {
+    width: 100%;
+
+    padding: 0;
+
+    overflow: auto;
+  }
+
+  .submit {
+    margin: 10px 0;
+  }
+}
