@@ -62,12 +62,20 @@ en:
       heading: "Host a new Contest"
       description: "Are you sure you want to start a new contest?"
       description_html: "<p>Hosting new contest can:</p><ul><li>End the ongoing contest(if any)</li><li>Make announcement to all the users to participate</li></ul>"
+      # NEW KEY FOR CUSTOM NAME INPUT
+      sub_heading: "Set Contest Name (Optional)"
       confirm_button: "Confirm"
-    update_contest_modal:
+    update_contest_deadline_modal:
       heading: "Update Contest Deadline"
       sub_heading: "Set Contest Deadline"
       description: "Please ensure that the Contest Deadline is set in the future. It is not allowed to set the Contest Deadline in the past."
       update_deadline: "Update Deadline"
+    # NEW MODAL KEYS
+    update_contest_name_modal:
+      heading: "Update Contest Name"
+      sub_heading: "Set Contest Name"
+      description: "Please provide a new name for the contest."
+      update_name: "Update Name"
     withdraw_submission_modal:
       heading: "Withdraw Submission"
       description: "Are you sure you want to withdraw your submission from contest?"
@@ -75,6 +83,8 @@ en:
       time_left_label: "Time Left:"
     buttons:
       submit: "Submit"
+      # NEW BUTTON KEY
+      update_name: "Update Name"
       update_deadline: "Update Deadline"
   contests:
     index:
@@ -111,6 +121,8 @@ en:
       index:
         title: "Contests Admin"
         edit_deadline_alt: "Edit deadline"
+        # NEW KEY
+        edit_name_alt: "Edit name"
       create:
         concurrent_contests: "Concurrent contests are not allowed. Close other contests before creating a new one."
         success: "Contest was successfully started."
@@ -119,7 +131,12 @@ en:
         deadline_in_future: "Deadline must be in the future."
         deadline_updated: "Contest deadline was successfully updated."
         deadline_update_failed: "Failed to update contest deadline: %{errors}"
+        # NEW KEYS
+        name_updated: "Contest name was successfully updated."
+        name_update_failed: "Failed to update contest name: %{errors}"
         invalid_deadline: "Invalid deadline format."
+        # NEW KEY
+        invalid_update_request: "Invalid update request."
       parse_deadline_or_redirect:
         invalid_deadline: "Invalid deadline format."
 

@@ -8,7 +8,7 @@ RSpec.describe Admin::ContestUpdateDeadlineModalComponent, type: :component do
 
     render_inline(described_class.new(contest: contest))
 
-    expect(page).to have_css("#update-contest-modal")
+    expect(page).to have_css("#update-contest-deadline-modal")
     expect(page).to have_css("h4.modal-title", text: "Update Contest Deadline")
 
     formatted_deadline = contest.deadline.in_time_zone.strftime("%Y-%m-%dT%H:%M")
