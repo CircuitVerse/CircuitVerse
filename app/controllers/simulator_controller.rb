@@ -21,33 +21,55 @@ class SimulatorController < ApplicationController
   end
 
   def show
-    @logix_project_id = params[:id]
-    @external_embed = false
-    render "embed"
+    respond_to do |format|
+      format.html do
+        @logix_project_id = params[:id]
+        @external_embed = false
+        render "embed"
+      end
+      format.any { head :not_acceptable }
+    end
   end
 
   def new
-    @logix_project_id = 0
-    @projectName = ""
-    render "edit"
+    respond_to do |format|
+      format.html do
+        @logix_project_id = 0
+        @projectName = ""
+        render "edit"
+      end
+      format.any { head :not_acceptable }
+    end
   end
 
   def edit
-    @logix_project_id = params[:id]
-    @projectName = @project.name
+    respond_to do |format|
+      format.html do
+        @logix_project_id = params[:id]
+        @projectName = @project.name
+      end
+      format.any { head :not_acceptable }
+    end
   end
 
   def embed
     authorize @project
-    @logix_project_id = params[:id]
-    @project = Project.friendly.find(params[:id])
-    @author = @project.author_id
-    @external_embed = true
-    render "embed"
+    respond_to do |format|
+      format.html do
+        @logix_project_id = params[:id]
+        @author = @project.author_id
+        @external_embed = true
+        render "embed"
+      end
+      format.any { head :not_acceptable }
+    end
   end
 
   def get_data
-    render json: ProjectDatum.find_by(project: @project)&.data
+    respond_to do |format|
+      format.json { render json: ProjectDatum.find_by(project: @project)&.data }
+      format.any { head :not_acceptable }
+    end
   end
 
   def create
