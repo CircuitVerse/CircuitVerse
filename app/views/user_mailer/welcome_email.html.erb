@@ -1,11 +1,13 @@
 <div class="mailer-container">
-  <h2 class="mailer-heading">Welcome to CircuitVerse, <%= @user.name %></h2>
+  <h2 style="text-align:center; font-weight:bold;" class="mailer-heading">Welcome to CircuitVerse, <%= @user.name %></h2>
   
   <div class="mailer-hero-image">
     <%= inline_svg_tag "homepage/new_homepage_sketch.png", alt: "Welcome", class: "mailer-group-image" %>
   </div>
 
-  <p class="mailer-welcome-text mailer-text">
+  <p class="mailer-welcome-text mailer-text"
+  style="text-align:center;"
+  >
     Thanks for signing up!<br>
     With CircuitVerse you can explore simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, design digital logic circuits, and much more – for free!
   </p>
