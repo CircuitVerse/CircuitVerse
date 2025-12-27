@@ -130,7 +130,7 @@ GEM
     aws-sdk-rails (5.1.0)
       aws-sdk-core (~> 3)
       railties (>= 7.1.0)
-    aws-sdk-s3 (1.209.0)
+    aws-sdk-s3 (1.208.0)
       aws-sdk-core (~> 3, >= 3.234.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -998,7 +998,7 @@ DEPENDENCIES
   ahoy_matey
   aws-actionmailer-ses
   aws-sdk-rails
-  aws-sdk-s3 (>= 1.208.0)
+  aws-sdk-s3 (~> 1.208.0)
   bootsnap
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
