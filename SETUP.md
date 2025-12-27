@@ -8,7 +8,7 @@ If you have any setup problems, please ensure you have read through all the inst
 ---
 
 ## Note
-If you are facing any issues with the setup, first checkout the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md) and if you are still facing issues, feel free to ask in the [slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
+If you are facing any issues with the setup, first check out the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md) and if you are still facing issues, feel free to ask in the [slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
 
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
@@ -91,8 +91,8 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 
 ### Installation steps
 1. **Install yosys**
-   - Many Linux distibutions provide yosys binaries which is easy to install & small in package size. For Example,
-**For Debina/Ubunutu**:
+   - Many Linux distributions provide yosys binaries which is easy to install & small in package size. For Example,
+**For Debian/Ubuntu**:
   ```sudo apt install yosys```
    - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
       1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
@@ -132,6 +132,6 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       bin/yosys
       ```
 
-## Distributed Tracing using Opentelmetry
+## Distributed Tracing using OpenTelemetry
 
 Refer [otel docs](./.otel)
