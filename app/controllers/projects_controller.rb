@@ -157,8 +157,14 @@ class ProjectsController < ApplicationController
     def set_name_project_datum(project_params)
       return unless @project.project_datum
 
-      datum_data = JSON.parse(@project.project_datum.data)
-      datum_data["name"] = project_params["name"]
-      @project.project_datum.data = JSON.generate(datum_data)
+      begin
+        datum_data = JSON.parse(@project.project_datum.data)
+        datum_data["name"] = project_params["name"]
+        @project.project_datum.data = JSON.generate(datum_data)
+      rescue JSON::ParserError => e
+        Rails.logger.error("JSON parsing failed for project #{@project.id} during update: #{e.message}")
+        Sentry.capture_exception(e, extra: { project_id: @project.id }) if defined?(Sentry)
+        # Skip updating the datum name if parsing fails
+      end
     end
 end
