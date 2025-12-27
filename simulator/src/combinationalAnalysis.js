@@ -107,7 +107,7 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
     $('#combinationalAnalysis').append("<label class='cb-checkbox'>I need a decimal column.<input id='decimalColumnBox' type='checkbox'></label>");
     $('#combinationalAnalysis').dialog({
         resizable:false,
-        width: 'auto',
+         width: 'auto',
         buttons: [
             {
                 style: 'padding: 5px',
@@ -117,7 +117,8 @@ export function createCombinationalAnalysisPrompt(scope = globalScope) {
                 },
             },
         ],
-    });
+    }).closest('.ui-dialog').addClass('boolean-logic-dialog');
+
     $("#combinationalAnalysis").checkBo();
 }
 /**
@@ -213,7 +214,7 @@ function createBooleanPrompt(inputListNames, outputListNames, output, scope = gl
                 },
             },
         ],
-    });
+    }).closest('.ui-dialog').addClass('boolean-logic-dialog');
 
     $('.output').on('click',function () {
         var v = $(this).html();
