@@ -3,19 +3,22 @@
   <div class="row center-row">
     <div class="col-12 col-sm-12 col-md-12 col-lg-12">
       <h1 class="submain-heading"><%= t("users.circuitverse.edit_profile.heading") %></h1>
-        <p class="main-description"><%= t("users.circuitverse.edit_profile.description_html") %></p> <br>
+      <p class="main-description">
+        <%= t("users.circuitverse.edit_profile.description_html") %>
+      </p>
+      <br>
     </div>
   </div>
   <div class="row">
     <div class="col col-sm col-md col-lg">
-      <div class="form-container">
+      <div class="form-container edit-profile-card">
         <%= form_with model: @profile, multipart: true, url: { action: "update" }, local: true do |f| %>
           <% if @profile.errors.any? %>
             <div class="error-message">
               <ul class="mt-3 mb-3">
-                <% @profile.errors.full_messages.each do |message| %>
-                <li><%= message %></li>
-                <% end %>
+               <% @profile.errors.full_messages.each do |message| %>
+                 <li><%= message %></li>
+               <% end %>
               </ul>
             </div>
           <% end %>
@@ -24,11 +27,27 @@
             <%= f.text_field :name, required: true, class: "form-control form-input", autofocus: true %>
           </div>
           <div class="field mb-3">
-            <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
-            <p><%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
-            <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
-            <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
-            <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
+            <h6><%= t("users.circuitverse.edit_profile.profile_picture") %></h6>
+            <p>
+              <%= image_tag user_profile_picture(@profile.profile_picture),
+                id: "imgedit",
+                class: "users-edit-image",
+                alt: "User Profile Image" %>
+            </p>
+            <label for="profile_picture" class="users-edit-image-button">
+                <%= t("users.circuitverse.edit_profile.choose_file") %>
+            </label>
+              <input
+                tabindex="0"
+                type="file"
+                accept="image/png, .jpeg, .jpg"
+                class="users-edit-image-button-hidden"
+                id="profile_picture"
+                name="user[profile_picture]"
+                onchange="readURL(this);"
+                value="<%= @profile.profile_picture %>"
+              >
+               <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
             <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
           </div>
           <div class="field mb-3">
@@ -44,7 +63,8 @@
             <%= f.select :locale, options_for_select(I18nSupport.locale_names, f.object.locale), { prompt: t("users.circuitverse.edit_profile.select_locale_prompt") }, { class: "form-control form-input" } %>
           </div>
           <div class="field mb-3 users-edit-primary-checkpoint">
-            <label for="profile_subscribed" class="primary-checkpoint-container"><h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
+            <label for="profile_subscribed" class="primary-checkpoint-container">
+              <h6><%= t("users.circuitverse.edit_profile.subscribe_mail_checkpoint") %></h6>
               <%= f.check_box :subscribed, checked: @profile.subscribed?, id: "profile_subscribed" %>
               <div class="primary-checkpoint"></div>
             </label>
@@ -76,19 +96,18 @@
 <script>
   function readURL(input) {
     if (input.files && input.files[0]) {
-    var reader = new FileReader();
-    reader.onload = function (e) {
-    $('#imgedit')
-      .attr('src', e.target.result);
-    };
-    reader.readAsDataURL(input.files[0]);
+      var reader = new FileReader();
+      reader.onload = function (e) {
+        $('#imgedit').attr('src', e.target.result);
+      };
+      reader.readAsDataURL(input.files[0]);
     }
   }
 </script>
 <script>
   const SELECTOR = '.autocomplete';
   DOMPurify.setConfig({ ALLOWED_TAGS: [] });
-  const purify = dt => String(DOMPurify.sanitize(String(dt))).trim();
+  const purify = (dt) => String(DOMPurify.sanitize(String(dt))).trim();
   const autoCompleteJS = new autoComplete({
     selector: SELECTOR,
     data: {
