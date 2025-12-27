@@ -58,6 +58,23 @@
   }
 }
 
+.navbar-profile-picture {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border: 2px solid $navbar-dark-grey;
+}
+
+.navbar-user-fullname {
+  font-weight: 600;
+  color: $navbar-dark-grey;
+  padding: 0.5rem 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 250px;
+}
+
 .dropdown-item {
   &:hover {
     background-color: $primary-green;
@@ -159,17 +176,17 @@
     padding: 8px 12px;
     font-size: 14px;
     min-width: 0;
-    
+
     &:focus {
       outline: 1px solid $primary-green;
       border-radius: 8px;
     }
-    
+
     &:first-child {
       border-right: 1px solid $shadow-grey;
       flex: 1;
     }
-    
+
     span {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -239,7 +256,7 @@
   position: relative;
 
   button {
-    background: none; 
+    background: none;
     border: 1px solid $shadow-grey;
     border-radius: 8px;
     cursor: pointer;
@@ -297,12 +314,12 @@
     padding: 8px 10px;
     font-size: 14px;
     transition: border-color 0.2s ease;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-green;
     }
-    
+
     &::placeholder {
       color: lighten($navbar-dark-grey, 20%);
     }
@@ -411,17 +428,16 @@
     appearance: none;
     width: 100%;
     cursor: pointer;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-green;
     }
-    
+
     &:hover {
       border-color: darken($shadow-grey, 10%);
     }
   }
-
 
   .filter-actions {
     display: flex;
@@ -438,7 +454,8 @@
     font-weight: 500;
     cursor: pointer;
     flex: 1;
-    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease,
+      color 0.2s ease;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -660,7 +677,7 @@
 }
 
 @media (max-width: 400px) {
- .navbar-logo {
+  .navbar-logo {
     height: 60px;
     padding-top: 10px;
   }
