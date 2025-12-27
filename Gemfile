@@ -26,6 +26,10 @@ gem "view_component"
 gem "rails", "~> 8.0.0"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
+# … other gems …
+
+# Fix vulnerability in uri gem (CVE-2025-61594)
+gem 'uri', '>= 1.0.4'
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
 gem "terser"
