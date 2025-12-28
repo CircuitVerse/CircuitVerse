@@ -27,6 +27,11 @@ module Adapters
         type: :project,
         includes: %i[tags author]
       )
+    rescue ActiveRecord::QueryCanceled => e
+      # Log the error for monitoring
+      Rails.logger.error("Project search query timeout: #{e.message}")
+      # Return empty paginated result instead of crashing
+      Project.none.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
     end
 
     def search_user(relation, query_params)
@@ -35,6 +40,11 @@ module Adapters
         query_params: query_params,
         type: :user
       )
+    rescue ActiveRecord::QueryCanceled => e
+      # Log the error for monitoring
+      Rails.logger.error("User search query timeout: #{e.message}")
+      # Return empty paginated result instead of crashing
+      User.none.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
     end
 
     private
