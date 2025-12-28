@@ -506,7 +506,7 @@
 
 @media (max-width: 768px) {
   .dropdown-notification {
-    max-width: 95vw;
+    max-width: 95%;
     width: auto;
     left: 50% !important;
     transform: translateX(-50%);
@@ -515,7 +515,7 @@
 
 @media (max-width: 480px) {
   .dropdown-notification {
-    max-width: 98vw;
+    max-width: 98%;
     padding: 10px 12px;
   }
 }

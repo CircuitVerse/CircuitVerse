@@ -1,0 +1,5 @@
+/* Prevent accidental horizontal scrolling caused by 100vw/large fixed widths */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
