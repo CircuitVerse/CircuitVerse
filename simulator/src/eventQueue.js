@@ -16,19 +16,29 @@ export default class EventQueue {
     */
     add(obj, delay) {
         if (obj.queueProperties.inQueue) {
-            obj.queueProperties.time = this.time + (delay || obj.propagationDelay);
+            const newTime = this.time + (delay || obj.propagationDelay);
+
+            // Do not reschedule if the existing event is earlier or equal
+             if (newTime >= obj.queueProperties.time) {
+                return;
+            }
+
+            obj.queueProperties.time = newTime;
             let i = obj.queueProperties.index;
+
             while (i > 0 && obj.queueProperties.time > this.queue[i - 1].queueProperties.time) {
                 this.swap(i, i - 1);
                 i--;
             }
+
             i = obj.queueProperties.index;
             while (i < this.frontIndex - 1 && obj.queueProperties.time < this.queue[i + 1].queueProperties.time) {
                 this.swap(i, i + 1);
                 i++;
             }
-            return;
+         return;
         }
+
 
         if (this.frontIndex == this.size) throw 'EventQueue size exceeded';
         this.queue[this.frontIndex] = obj;
