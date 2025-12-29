@@ -1,5 +1,19 @@
-/* Prevent accidental horizontal scrolling caused by 100vw/large fixed widths */
-html, body {
+/* Prevent accidental horizontal scrolling caused by 100vw/large fixed widths.
+  NOTE: avoid applying `overflow-x: hidden` to `html, body` globally — that
+  can hide legitimate horizontal content (tables, code blocks) and break
+  `position: sticky` behaviors. Instead scope defensive rules to only the
+  components that were causing the overflow. */
+
+/* Scoped overflow guard for known problematic components. Add selectors
+  here when a specific source-level fix cannot be applied immediately. */
+.overflow-x-hidden--scoped,
+.projectName,
+.dropdown-notification,
+.pace {
   max-width: 100%;
   overflow-x: hidden;
 }
+
+/* If you must temporarily hide overflow for a layout region, prefer wrapping
+  the region in a container with the `.overflow-x-hidden--scoped` class */
+
