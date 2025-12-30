@@ -61,7 +61,14 @@ PONG
 ```
 
 ### PostgreSQL (macOS)
-> Verify PostgreSQL is running:
+
+Start PostgreSQL using Homebrew:
+
+```bash
+brew services start postgresql@12
+```
+
+Verify PostgreSQL is running:
 
 ```bash
 pg_isready
