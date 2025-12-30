@@ -57,10 +57,6 @@
     <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-elements"><h6><%= t("assignments.form.enable_element_restriction") %></h6>
       <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
       <div class="primary-checkpoint"></div>
-      <span class="ms-2">
-        <%= t("assignments.form.enable_element_restriction") %>
-      </span>
-
     </label>
     <div class="restricted-elements-list mt-2 ms-4"> <!-- Operated by script --> </div>
   </div>
