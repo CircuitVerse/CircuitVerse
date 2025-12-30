@@ -3,7 +3,7 @@
 
 Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlined and results in better PRs.
 
-If you have any setup problems, please ensure you have read through all the instructions have all the required software installed before creating an issue.
+If you have any setup problems, please ensure you have read through all the instructions and have all the required software installed before creating an issue.
 
 ---
 
@@ -12,6 +12,15 @@ If you are facing any issues with the setup, first check out the [troubleshootin
 
 ## Installation
 There are several ways to run your own instance of CircuitVerse:
+
+### Node.js Version
+
+**Recommended:**
+```bash
+node >= 20
+```
+> Tested locally with **Node.js 22**.  
+> Older versions (for example Node 18) may cause yarn dependency or engine issues.
 
 | Operating System | Method | Documentation |
 | --- | --- | --- |
@@ -24,6 +33,18 @@ There are several ways to run your own instance of CircuitVerse:
 | Windows | WSL Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows-wsl.md) |
 | Windows | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
 
+### JWT RSA Keys (Required for Login/Signup)
+
+⚠️ **Important:** Authentication (login/signup) will fail if RSA keys are missing.
+
+Generate the required keys:
+
+```bash
+openssl genrsa -out config/private.pem 2048
+openssl rsa -in config/private.pem -pubout -out config/public.pem
+```
+
+> These keys are required for JWT encoding during authentication.
 
 ## Tools Setup
 | Tool | Documentation Link |
