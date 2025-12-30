@@ -113,10 +113,7 @@ function checkToSave() {
     return saveFlag;
 }
 
-/**
- * Prompt user to save data if unsaved
- * @category data
- */
+
 /**
  * Prompt user to save data if unsaved
  * @category data
