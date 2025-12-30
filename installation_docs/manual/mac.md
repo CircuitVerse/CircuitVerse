@@ -44,6 +44,29 @@ cd CircuitVerse
      - OpenSSL
      - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`12`) - Database
 
+### Redis (macOS)
+Start Redis using Homebrew:
+```bash
+brew services start redis
+```
+Verify Redis is running:
+
+```bash
+redis-cli ping
+```
+
+Expected output:
+```text
+PONG
+```
+
+### PostgreSQL (macOS)
+> Verify PostgreSQL is running:
+
+```bash
+pg_isready
+```
+> If PostgreSQL is running, it will respond without errors.
 
 #### Setup
 > **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
@@ -57,6 +80,7 @@ cd CircuitVerse
 5. Create database: `bundle exec rails db:create`
 6. Run database migrations: `bundle exec rails db:migrate`
 7. Seed the database with some data: `bundle exec rails db:seed`
+> ⚠️ **Important:** Login and signup will fail if RSA keys are not generated.
 8. Generate RSA keypairs
      ```bash
      openssl genrsa -out ./config/private.pem 2048
