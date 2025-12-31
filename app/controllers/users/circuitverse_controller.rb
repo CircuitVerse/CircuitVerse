@@ -11,7 +11,10 @@ class Users::CircuitverseController < ApplicationController
 
   def index
     @profile = ProfileDecorator.new(@user)
-    @projects = @user.rated_projects
+
+    @user_projects         = @user.projects.preload(circuit_preview_attachment: :blob)
+    @projects              = @user.rated_projects.preload(circuit_preview_attachment: :blob) # favourites (kept name)
+    @collaborated_projects = @user.collaborated_projects.preload(circuit_preview_attachment: :blob)
   end
 
   def edit; end
