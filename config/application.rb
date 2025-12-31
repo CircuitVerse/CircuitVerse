@@ -36,8 +36,7 @@ module Logix
 
         # configuring middleware
         config.middleware.use Rack::Attack
-        # configuring middleware
-           config.middleware.use Rack::Attack
+
 
         # Sanitize query strings to prevent encoding errors
         require_relative "../../app/middleware/utf8_sanitizer"
