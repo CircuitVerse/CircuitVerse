@@ -39,6 +39,11 @@ module Logix
         # configuring middleware
            config.middleware.use Rack::Attack
 
+        # Sanitize query strings to prevent encoding errors
+        require_relative "../../app/middleware/utf8_sanitizer"
+        config.middleware.insert_before 0, Utf8Sanitizer
+
+
            # configuring forum
            overrides = "#{Rails.root}/app/overrides"
            Rails.autoloaders.main.ignore(overrides)
