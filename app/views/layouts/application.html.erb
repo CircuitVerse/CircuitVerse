@@ -43,5 +43,15 @@
       });
     });
   </script>
+
+  <!-- Scroll to Top Button -->
+  <div data-controller="scroll-to-top">
+    <button class="scroll-to-top-btn" 
+            data-scroll-to-top-target="button" 
+            data-action="click->scroll-to-top#scrollToTop"
+            aria-label="Scroll to top">
+      <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    </button>
+  </div>
 </body>
 </html>
