@@ -2,9 +2,7 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
-    get buttonTarget() {
-        return this.targets.find('button');
-    }
+    static targets = ['button'];
 
     connect() {
         this.handleScroll = this.handleScroll.bind(this);
