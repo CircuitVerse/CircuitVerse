@@ -235,7 +235,7 @@ You can GET assignment details (identified by `:id`) in `/api/v1/assignments/:id
 | ---------- | ----------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.    |
 | 403        | When authenticated user is neither mentor nor user of the Group   |
-| 404        | When the requested assignment identified by `id` does not exists. |
+| 404        | When the requested assignment identified by `id` does not exist. |
 
 ```http
 GET /api/v1/assignments/:id?include=grades,projects HTTP/1.1
@@ -373,7 +373,7 @@ You can POST assignment in `/api/v1/groups/:group_id/assignments`. Authenticatio
 | 400        | When invalid parameters are used.                                  |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.     |
 | 403        | When non-mentor user tries to add the assignment                   |
-| 404        | When the requested group identified by `group_id` does not exists. |
+| 404        | When the requested group identified by `group_id` does not exist. |
 
 ```http
 POST /api/v1/groups/:group_id/assignments HTTP/1.1
@@ -455,7 +455,7 @@ You can PATCH assignment details in `/api/v1/assignments/:id`. Authentication `t
 | 400        | When invalid parameters are used.                                 |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.    |
 | 403        | When non-mentor user tries to update the assignment               |
-| 404        | When the requested assignment identified by `id` does not exists. |
+| 404        | When the requested assignment identified by `id` does not exist. |
 
 ```http
 PATCH /api/v1/assignments/:id HTTP/1.1
@@ -528,7 +528,7 @@ Any Group mentor can DELETE an assignment (identified by `:id`) in `/api/v1/assi
 | ---------- | ----------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.    |
 | 403        | When non-mentor user tries to delete the assignment               |
-| 404        | When the requested assignment identified by `id` does not exists. |
+| 404        | When the requested assignment identified by `id` does not exist. |
 
 ```http
 DELETE /api/v1/assignment/:id HTTP/1.1
@@ -560,7 +560,7 @@ A Mentor can REOPEN a closed assignment to extend the deadline by 1 day in `/api
 | ---------- | ------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
 | 403        | When authenticated user is neither mentor nor user of the Group     |
-| 404        | When the requested assignment identified by `id` does not exists.   |
+| 404        | When the requested assignment identified by `id` does not exist.   |
 | 409        | When the requested assignment identified by `id` is already opened. |
 
 ```http
@@ -600,7 +600,7 @@ Mentor can CLOSE a assignment immediately in `/api/v1/assignments/:id/close`. Au
 | ---------- | ------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
 | 403        | When non-mentor user tries to close the assignment                  |
-| 404        | When the requested assignment identified by `id` does not exists.   |
+| 404        | When the requested assignment identified by `id` does not exist.   |
 | 409        | When the requested assignment identified by `id` is already closed. |
 
 ```http
@@ -640,7 +640,7 @@ Group Members can start working on the assignment in`/api/v1/assignments/:id/sta
 | ---------- | ------------------------------------------------------------------------ |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.           |
 | 403        | When authenticated user isn't a user of the Group, assignment is part of |
-| 404        | When the requested assignment identified by `id` does not exists.        |
+| 404        | When the requested assignment identified by `id` does not exist.        |
 
 ```http
 PATCH /api/v1/assignments/:id/start HTTP/1.1
