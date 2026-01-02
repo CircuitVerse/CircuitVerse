@@ -115,7 +115,7 @@ GEM
       aws-sdk-ses (~> 1, >= 1.50.0)
       aws-sdk-sesv2 (~> 1, >= 1.34.0)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1199.0)
+    aws-partitions (1.1200.0)
     aws-sdk-core (3.240.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
@@ -130,7 +130,7 @@ GEM
     aws-sdk-rails (5.1.0)
       aws-sdk-core (~> 3)
       railties (>= 7.1.0)
-    aws-sdk-s3 (1.208.0)
+    aws-sdk-s3 (1.209.0)
       aws-sdk-core (~> 3, >= 3.234.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
@@ -998,7 +998,7 @@ DEPENDENCIES
   ahoy_matey
   aws-actionmailer-ses
   aws-sdk-rails
-  aws-sdk-s3 (~> 1.208.0)
+  aws-sdk-s3 (~> 1.208)
   bootsnap
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
