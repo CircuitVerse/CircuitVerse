@@ -45,15 +45,15 @@ module Adapters
         results = apply_filters(results, query_params, type)
         results = apply_sorting(results, query_params, type)
 
-        results.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
+        results.paginate(page: query_params[:page], per_page: query_params[:per_page] || MAX_RESULTS_PER_PAGE)
       end
 
       def base_project_results(relation, query_params)
-        query_params[:q].present? ? relation.text_search(query_params[:q]) : Project.public_and_not_forked
+        query_params[:q].present? ? relation.text_search(query_params[:q]) : relation
       end
 
       def base_user_results(relation, query_params)
-        query_params[:q].present? ? relation.text_search(query_params[:q]) : User.all
+        query_params[:q].present? ? relation.text_search(query_params[:q]) : relation
       end
 
       def apply_sorting(relation, query_params, type)
