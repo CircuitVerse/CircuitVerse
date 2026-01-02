@@ -115,6 +115,7 @@ class SimulatorController < ApplicationController
     head :ok, content_type: "text/html"
   end
 
+  # rubocop:disable Metrics/MethodLength
   def verilog_cv
     if params[:code].blank?
       render json: { error: "Code parameter is required" }, status: :bad_request
@@ -141,6 +142,7 @@ class SimulatorController < ApplicationController
              status: :internal_server_error
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def allow_iframe_lti
     return unless session[:is_lti]

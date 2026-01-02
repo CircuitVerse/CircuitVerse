@@ -29,6 +29,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   # rubocop:enable Metrics/MethodLength
 
   # POST /api/v1/simulator/verilogcv
+  # rubocop:disable Metrics/MethodLength
   def verilog_cv
     return api_error(status: 400, errors: "Code parameter is required") if params[:code].blank?
 
@@ -49,4 +50,5 @@ class Api::V1::SimulatorController < Api::V1::BaseController
       api_error(status: 500, errors: "An error occurred while processing your Verilog code. Please try again later.")
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
