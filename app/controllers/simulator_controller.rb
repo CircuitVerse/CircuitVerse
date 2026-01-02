@@ -116,8 +116,18 @@ class SimulatorController < ApplicationController
 
   def verilog_cv
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = HTTP.post(url, json: { code: params[:code] })
-    render json: response.to_s, status: response.code
+    begin
+      response = HTTP.timeout(30).post(url, json: { code: params[:code] })
+      render json: response.to_s, status: response.code
+    rescue HTTP::TimeoutError, HTTP::ConnectionError => e
+      Rails.logger.error "Verilog synthesis service error: #{e.message}"
+      render json: { error: "Verilog synthesis service is currently unavailable. Please try again later." },
+             status: :service_unavailable
+    rescue StandardError => e
+      Rails.logger.error "Unexpected error in verilog_cv: #{e.class} - #{e.message}"
+      render json: { error: "An error occurred while processing your Verilog code. Please try again later." },
+             status: :internal_server_error
+    end
   end
 
   def allow_iframe_lti

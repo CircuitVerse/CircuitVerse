@@ -31,7 +31,15 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   # POST /api/v1/simulator/verilogcv
   def verilog_cv
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = HTTP.post(url, json: { code: params[:code] })
-    render json: response.to_s, status: response.code
+    begin
+      response = HTTP.timeout(30).post(url, json: { code: params[:code] })
+      render json: response.to_s, status: response.code
+    rescue HTTP::TimeoutError, HTTP::ConnectionError => e
+      Rails.logger.error "Verilog synthesis service error: #{e.message}"
+      api_error(status: 503, errors: "Verilog synthesis service is currently unavailable. Please try again later.")
+    rescue StandardError => e
+      Rails.logger.error "Unexpected error in verilog_cv: #{e.class} - #{e.message}"
+      api_error(status: 500, errors: "An error occurred while processing your Verilog code. Please try again later.")
+    end
   end
 end
