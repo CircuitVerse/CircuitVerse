@@ -30,10 +30,17 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
   # POST /api/v1/simulator/verilogcv
   def verilog_cv
+    return api_error(status: 400, errors: "Code parameter is required") if params[:code].blank?
+
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     begin
-      response = HTTP.timeout(30).post(url, json: { code: params[:code] })
-      render json: response.body.to_s, status: response.code
+      response = HTTP.timeout(connect: 30, read: 30, write: 30).post(url, json: { code: params[:code] })
+      if response.status.success?
+        render json: response.body.to_s, status: response.code
+      else
+        Rails.logger.error "Yosys service returned error status: #{response.code}"
+        api_error(status: 503, errors: "Verilog synthesis service returned an error. Please try again later.")
+      end
     rescue HTTP::TimeoutError, HTTP::ConnectionError => e
       Rails.logger.error "Verilog synthesis service error: #{e.message}"
       api_error(status: 503, errors: "Verilog synthesis service is currently unavailable. Please try again later.")

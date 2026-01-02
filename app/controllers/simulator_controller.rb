@@ -116,10 +116,21 @@ class SimulatorController < ApplicationController
   end
 
   def verilog_cv
+    if params[:code].blank?
+      render json: { error: "Code parameter is required" }, status: :bad_request
+      return
+    end
+
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     begin
-      response = HTTP.timeout(30).post(url, json: { code: params[:code] })
-      render json: response.body.to_s, status: response.code
+      response = HTTP.timeout(connect: 30, read: 30, write: 30).post(url, json: { code: params[:code] })
+      if response.status.success?
+        render json: response.body.to_s, status: response.code
+      else
+        Rails.logger.error "Yosys service returned error status: #{response.code}"
+        render json: { error: "Verilog synthesis service returned an error. Please try again later." },
+               status: :service_unavailable
+      end
     rescue HTTP::TimeoutError, HTTP::ConnectionError => e
       Rails.logger.error "Verilog synthesis service error: #{e.message}"
       render json: { error: "Verilog synthesis service is currently unavailable. Please try again later." },
