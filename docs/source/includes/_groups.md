@@ -314,7 +314,7 @@ You can GET group details (identified by `:id`) in `/api/v1/groups/:id/`. Authen
 | ---------- | --------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.  |
 | 403        | When authenticated user is neither mentor nor user of the Group |
-| 404        | When the requested group identified by `id` does not exists.    |
+| 404        | When the requested group identified by `id` does not exist.    |
 
 ```http
 GET /api/v1/groups/:id?include=group_members,assignments HTTP/1.1
@@ -419,7 +419,7 @@ You can UPDATE group details (identified by `:id`) in `/api/v1/groups/:id/`. Aut
 | 400        | When invalid parameters are used.                              |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When non-primary mentor user tries to update the group         |
-| 404        | When the requested group identified by `id` does not exists.   |
+| 404        | When the requested group identified by `id` does not exist.   |
 
 ```http
 PATCH /api/v1/groups/:id HTTP/1.1
@@ -528,7 +528,7 @@ Group's primary mentor can DELETE a group (identified by `:id`) in `/api/v1/grou
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When non-primary mentor user tries to update the group         |
-| 404        | When the requested group identified by `id` does not exists.   |
+| 404        | When the requested group identified by `id` does not exist.   |
 
 ```http
 DELETE /api/v1/groups/:id HTTP/1.1

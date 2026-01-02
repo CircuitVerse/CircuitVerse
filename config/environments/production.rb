@@ -81,9 +81,12 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   # Mailer settings (preserved from Rails 7)
-  config.action_mailer.delivery_method = :ses
   config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
   config.action_mailer.asset_host = "https://circuitverse.org"
+
+  aws_credentials = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID_SES'], ENV['AWS_SECRET_ACCESS_KEY_SES'])
+  config.action_mailer.delivery_method = :ses_v2
+  config.action_mailer.ses_v2_settings = { credentials: aws_credentials }
 
   # Web Push (VAPID) configuration (preserved from Rails 7)
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || ""
