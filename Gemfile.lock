@@ -923,8 +923,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2025.2)
-      tzinfo (>= 1.0.0)
     unaccent (0.4.0)
     undercover (0.8.0)
       base64
@@ -998,7 +996,7 @@ DEPENDENCIES
   ahoy_matey
   aws-actionmailer-ses
   aws-sdk-rails
-  aws-sdk-s3 (~> 1.176)
+  aws-sdk-s3 (~> 1.208)
   bootsnap
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
