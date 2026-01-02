@@ -165,6 +165,7 @@ Rails.application.routes.draw do
   resources :users do
     resources :projects, except: %i[index new]
   end
+  resources :projects, only: [:show, :edit, :update, :destroy]
   resources :collaborations, only: %i[create destroy update]
 
   # redirects
