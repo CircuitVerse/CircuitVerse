@@ -8,7 +8,7 @@ import { fillText4 } from '../canvasApi';
  * @extends CircuitElement
  * @param {number} x - x coordinate of element.
  * @param {number} y - y coordinate of element.
- * @param {Scope=} scope - Cirucit on which element is drawn
+ * @param {Scope=} scope - Circuit on which element is drawn
  * @param {string=} dir - direction of element
  * @param {number=} bitWidth - bit width per node.
  * @category testbench

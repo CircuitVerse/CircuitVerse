@@ -73,7 +73,7 @@ export const tour = [
     //     element: '#delCirGuide',
     //     popover: {
     //         title: 'Delete sub-circuit button',
-    //         description: "You can make delete sub-circuits by pressing the cross *Note that main circuit cannot be deleted.",
+    //         description: "You can delete sub-circuits by pressing the cross. *Note that the main circuit cannot be deleted.",
     //         position: 'right',
     //         // offset: 250,
     //     },
