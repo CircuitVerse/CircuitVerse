@@ -12,7 +12,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
       it "returns a bad request error" do
         post "/api/v1/simulator/verilogcv", params: {}
         expect(response.status).to eq(400)
-        expect(response.parsed_body["errors"]).to include("Code parameter is required")
+        expect(response.parsed_body).to have_jsonapi_error("Code parameter is required")
       end
     end
 
@@ -47,7 +47,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
       it "returns service unavailable error" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
         expect(response.status).to eq(503)
-        expect(response.parsed_body["errors"]).to include("Verilog synthesis service returned an error")
+        expect(response.parsed_body).to have_jsonapi_error("Verilog synthesis service returned an error")
       end
     end
   end
