@@ -9,10 +9,12 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
     let(:yosys_response) { { "data" => "response_from_yosys" } }
 
     context "when YOSYS_PATH is valid and returns a successful response" do
-      let(:response_double) { instance_double(HTTP::Response, code: 200, to_s: yosys_response.to_json) }
+      let(:body_string) { yosys_response.to_json }
+      let(:response_double) { instance_double(HTTP::Response, code: 200, body: body_string) }
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
+        allow(HTTP).to receive(:timeout).with(30).and_return(HTTP)
         allow(HTTP).to receive(:post).and_return(response_double)
       end
 
@@ -24,10 +26,11 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
     end
 
     context "when YOSYS_PATH is valid but returns a failed response" do
-      let(:response_double) { instance_double(HTTP::Response, code: 500, to_s: "") }
+      let(:response_double) { instance_double(HTTP::Response, code: 500, body: "") }
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
+        allow(HTTP).to receive(:timeout).with(30).and_return(HTTP)
         allow(HTTP).to receive(:post).and_return(response_double)
       end
 
