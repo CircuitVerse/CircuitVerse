@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
 class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
@@ -180,3 +181,4 @@ class SimulatorController < ApplicationController
       end
     end
 end
+# rubocop:enable Metrics/ClassLength
