@@ -6,6 +6,38 @@ RSpec.describe NotifyUser do
   let(:recipient) { create(:user) }
   let(:contest)   { create(:contest) }
 
+  it "handles NewAssignmentNotification with missing assignment" do
+    n = NoticedNotification.create!(recipient: recipient,
+                                    type: "NewAssignmentNotification",
+                                    params: { assignment: nil })
+    res = described_class.new(notification_id: n.id).call
+    expect(res.success).to eq("false")
+  end
+
+  it "handles ForumCommentNotification with missing post" do
+    n = NoticedNotification.create!(recipient: recipient,
+                                    type: "ForumCommentNotification",
+                                    params: { forum_post: nil })
+    res = described_class.new(notification_id: n.id).call
+    expect(res.success).to eq("false")
+  end
+
+  it "handles ForumThreadNotification with missing thread" do
+    n = NoticedNotification.create!(recipient: recipient,
+                                    type: "ForumThreadNotification",
+                                    params: { forum_thread: nil })
+    res = described_class.new(notification_id: n.id).call
+    expect(res.success).to eq("false")
+  end
+
+  it "handles ContestNotification with missing contest" do
+    n = NoticedNotification.create!(recipient: recipient,
+                                    type: "ContestNotification",
+                                    params: { contest: nil })
+    res = described_class.new(notification_id: n.id).call
+    expect(res.success).to eq("false")
+  end
+
   it "maps ContestNotification" do
     n = NoticedNotification.create!(recipient: recipient,
                                     type: "ContestNotification",
@@ -23,5 +55,31 @@ RSpec.describe NotifyUser do
     res = described_class.new(notification_id: n.id).call
     expect(res.success).to eq("true")
     expect(res.type).to eq("contest_winner")
+  end
+
+  context "when resource is missing" do
+    it "handles ForkNotification with missing project" do
+      n = NoticedNotification.create!(recipient: recipient,
+                                      type: "ForkNotification",
+                                      params: { project: nil })
+      res = described_class.new(notification_id: n.id).call
+      expect(res.success).to eq("false")
+    end
+
+    it "handles StarNotification with missing project" do
+      n = NoticedNotification.create!(recipient: recipient,
+                                      type: "StarNotification",
+                                      params: { project: nil })
+      res = described_class.new(notification_id: n.id).call
+      expect(res.success).to eq("false")
+    end
+
+    it "handles NewAssignmentNotification with missing assignment" do
+      n = NoticedNotification.create!(recipient: recipient,
+                                      type: "NewAssignmentNotification",
+                                      params: { assignment: nil })
+      res = described_class.new(notification_id: n.id).call
+      expect(res.success).to eq("false")
+    end
   end
 end
