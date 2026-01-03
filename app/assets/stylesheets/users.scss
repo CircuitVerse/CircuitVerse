@@ -470,15 +470,21 @@
   .notification-count {
     background: $primary-green;
     border-radius: 50%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     color: $white;
-    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
     font-weight: bold;
-    height: 15px;
+    min-width: 18px;
+    min-height: 18px;
+    padding: 2px;
     position: absolute;
-    right: 10px;
-    text-align: center;
-    top: 4px;
-    width: 15px;
+    right: 8px;
+    top: 2px;
+    transform: translate(25%, -25%);
+    line-height: 1;
   }
 }
 
