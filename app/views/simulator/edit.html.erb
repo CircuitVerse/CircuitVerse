@@ -1,4 +1,14 @@
 <% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
+<style>
+  body { background-color: white !important; }
+  #loading-placeholder 
+  {
+    position: absolute; width: 100%; height: 100%;
+    background-color: white; z-index: 1000;
+    display: flex; align-items: center; justify-content: center;
+    top: 0; left: 0;
+          }
+</style>
 
 <script src="/js/plugins/jquery.twbs-toggle-buttons.min.js" defer></script>
 <script src="/js/plugins/checkBo.min.js" defer></script>
@@ -6,8 +16,13 @@
 
 <script>
   userSignedIn = <%= user_signed_in? %>;
-  __logix_project_id = "<%= @logix_project_id %>";
-  __projectName = "<%= @projectName %>"
+  logix_project_id = "<%= @logix_project_id %>"; // Remove the double underscores
+  projectName = "<%= @projectName %>";          // Remove the double underscores
+</script>
+<script>
+  window.userSignedIn = <%= user_signed_in? %>;
+  window.logix_project_id = "<%= @logix_project_id %>";
+  window.projectName = "<%= @projectName %>";
 </script>
 
 <div id='exitView'></div>
@@ -616,6 +631,12 @@
 <input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
 
 <div class="simulation" id="simulation">
+<div id="loading-placeholder">
+  <div class="text-center">
+    <div class="spinner-border text-primary" role="status"></div>
+    <p class="mt-2">Loading CircuitVerse Simulator...</p>
+  </div>
+</div>
   <div id="restrictedDiv" class="alert alert-danger display--none"></div>
   <% if @project&.assignment_id.present? &&
   @project&.assignment&.elements_restricted? %>
