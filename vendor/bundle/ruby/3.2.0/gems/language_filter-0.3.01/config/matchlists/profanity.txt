@@ -1,0 +1,10 @@
+\w*fuck\w*
+\w*fcuk\w*
+\w*fuk\w*
+\w*shit\w*
+ass+(es)?
+asshol\w*
+bastards?
+\w*bitch\w*
+cunt\w*
+fag\w*

@@ -1,0 +1,657 @@
+module Playwright
+  type function = String
+
+  class Request
+    def all_headers: -> Hash[untyped, untyped]
+    def failure: -> (nil | String)
+    def frame: -> Frame
+    def headers: -> Hash[untyped, untyped]
+    def headers_array: -> Array[untyped]
+    def header_value: (String name) -> (nil | String)
+    def navigation_request?: -> bool
+    def method: -> String
+    def post_data: -> (nil | String)
+    def post_data_buffer: -> (nil | String)
+    def post_data_json: -> (nil | untyped)
+    def redirected_from: -> (nil | Request)
+    def redirected_to: -> (nil | Request)
+    def resource_type: -> String
+    def response: -> (nil | Response)
+    def sizes: -> Hash[untyped, untyped]
+    def timing: -> Hash[untyped, untyped]
+    def url: -> String
+  end
+
+  class Response
+    def all_headers: -> Hash[untyped, untyped]
+    def body: -> String
+    def finished: -> (nil | String)
+    def frame: -> Frame
+    def from_service_worker: -> bool
+    def headers: -> Hash[untyped, untyped]
+    def headers_array: -> Array[untyped]
+    def header_value: (String name) -> (nil | String)
+    def header_values: (String name) -> Array[untyped]
+    def json: -> untyped
+    def ok: -> bool
+    def request: -> Request
+    def security_details: -> (nil | Hash[untyped, untyped])
+    def server_addr: -> (nil | Hash[untyped, untyped])
+    def status: -> Integer
+    def status_text: -> String
+    def text: -> String
+    def url: -> String
+  end
+
+  class Route
+    def abort: (?errorCode: String) -> void
+    def continue: (?headers: Hash[untyped, untyped], ?method: String, ?postData: (String | String | untyped), ?url: String) -> void
+    def fallback: (?headers: Hash[untyped, untyped], ?method: String, ?postData: (String | String | untyped), ?url: String) -> void
+    def fetch: (?headers: Hash[untyped, untyped], ?maxRedirects: Integer, ?maxRetries: Integer, ?method: String, ?postData: (String | String | untyped), ?timeout: Float, ?url: String) -> APIResponse
+    def fulfill: (?body: (String | String), ?contentType: String, ?headers: Hash[untyped, untyped], ?json: untyped, ?path: (String | File), ?response: APIResponse, ?status: Integer) -> void
+    def request: -> Request
+  end
+
+  class WebSocket
+    def closed?: -> bool
+    def url: -> String
+    def expect_event: (String event, ?predicate: function, ?timeout: Float) { () -> void } -> untyped
+    def wait_for_event: (String event, ?predicate: function, ?timeout: Float) ?{ (untyped) -> untyped } -> untyped
+  end
+
+  class Keyboard
+    def down: (String key) -> void
+    def insert_text: (String text) -> void
+    def press: (String key, ?delay: Float) -> void
+    def type: (String text, ?delay: Float) -> void
+    def up: (String key) -> void
+  end
+
+  class Mouse
+    def click: (Float x, Float y, ?button: ("left" | "right" | "middle"), ?clickCount: Integer, ?delay: Float) -> void
+    def dblclick: (Float x, Float y, ?button: ("left" | "right" | "middle"), ?delay: Float) -> void
+    def down: (?button: ("left" | "right" | "middle"), ?clickCount: Integer) -> void
+    def move: (Float x, Float y, ?steps: Integer) -> void
+    def up: (?button: ("left" | "right" | "middle"), ?clickCount: Integer) -> void
+    def wheel: (Float deltaX, Float deltaY) -> void
+  end
+
+  class Touchscreen
+    def tap_point: (Float x, Float y) -> void
+  end
+
+  class JSHandle
+    def as_element: -> (nil | ElementHandle)
+    def dispose: -> void
+    def evaluate: (String expression, ?arg: untyped) -> untyped
+    def evaluate_handle: (String expression, ?arg: untyped) -> JSHandle
+    def get_properties: -> Hash[untyped, untyped]
+    def properties: -> Hash[untyped, untyped]
+    def get_property: (String propertyName) -> JSHandle
+    def json_value: -> untyped
+  end
+
+  class ElementHandle < JSHandle
+    def bounding_box: -> (nil | Hash[untyped, untyped])
+    def check: (?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def click: (?button: ("left" | "right" | "middle"), ?clickCount: Integer, ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def content_frame: -> (nil | Frame)
+    def dblclick: (?button: ("left" | "right" | "middle"), ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def dispatch_event: (String type_, ?eventInit: untyped) -> void
+    def eval_on_selector: (String selector, String expression, ?arg: untyped) -> untyped
+    def eval_on_selector_all: (String selector, String expression, ?arg: untyped) -> untyped
+    def fill: (String value, ?force: bool, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def focus: -> void
+    def get_attribute: (String name) -> (nil | String)
+    def []: (String name) -> (nil | String)
+    def hover: (?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def inner_html: -> String
+    def inner_text: -> String
+    def input_value: (?timeout: Float) -> String
+    def checked?: -> bool
+    def disabled?: -> bool
+    def editable?: -> bool
+    def enabled?: -> bool
+    def hidden?: -> bool
+    def visible?: -> bool
+    def owner_frame: -> (nil | Frame)
+    def press: (String key, ?delay: Float, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def query_selector: (String selector) -> (nil | ElementHandle)
+    def query_selector_all: (String selector) -> Array[untyped]
+    def screenshot: (?animations: ("disabled" | "allow"), ?caret: ("hide" | "initial"), ?mask: Array[untyped], ?maskColor: String, ?omitBackground: bool, ?path: (String | File), ?quality: Integer, ?scale: ("css" | "device"), ?style: String, ?timeout: Float, ?type: ("png" | "jpeg")) -> String
+    def scroll_into_view_if_needed: (?timeout: Float) -> void
+    def select_option: (?element: (ElementHandle | Array[untyped]), ?index: (Integer | Array[untyped]), ?value: (String | Array[untyped]), ?label: (String | Array[untyped]), ?force: bool, ?noWaitAfter: bool, ?timeout: Float) -> Array[untyped]
+    def select_text: (?force: bool, ?timeout: Float) -> void
+    def set_checked: (bool checked, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def checked=: (bool checked, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def set_input_files: (((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def input_files=: (((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def tap_point: (?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def text_content: -> (nil | String)
+    def type: (String text, ?delay: Float, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def uncheck: (?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def wait_for_element_state: (("visible" | "hidden" | "stable" | "enabled" | "disabled" | "editable") state, ?timeout: Float) -> void
+    def wait_for_selector: (String selector, ?state: ("attached" | "detached" | "visible" | "hidden"), ?strict: bool, ?timeout: Float) -> (nil | ElementHandle)
+  end
+
+  class Accessibility
+    def snapshot: (?interestingOnly: bool, ?root: ElementHandle) -> (nil | Hash[untyped, untyped])
+  end
+
+  class FileChooser
+    def element: -> ElementHandle
+    def multiple?: -> bool
+    def page: -> Page
+    def set_files: (((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def files=: (((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?timeout: Float) -> void
+  end
+
+  class Frame
+    def add_script_tag: (?content: String, ?path: (String | File), ?type: String, ?url: String) -> ElementHandle
+    def add_style_tag: (?content: String, ?path: (String | File), ?url: String) -> ElementHandle
+    def check: (String selector, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def child_frames: -> Array[untyped]
+    def click: (String selector, ?button: ("left" | "right" | "middle"), ?clickCount: Integer, ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def content: -> String
+    def dblclick: (String selector, ?button: ("left" | "right" | "middle"), ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def dispatch_event: (String selector, String type_, ?eventInit: untyped, ?strict: bool, ?timeout: Float) -> void
+    def drag_and_drop: (String source, String target, ?force: bool, ?noWaitAfter: bool, ?sourcePosition: Hash[untyped, untyped], ?strict: bool, ?targetPosition: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def eval_on_selector: (String selector, String expression, ?arg: untyped, ?strict: bool) -> untyped
+    def eval_on_selector_all: (String selector, String expression, ?arg: untyped) -> untyped
+    def evaluate: (String expression, ?arg: untyped) -> untyped
+    def evaluate_handle: (String expression, ?arg: untyped) -> JSHandle
+    def fill: (String selector, String value, ?force: bool, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def focus: (String selector, ?strict: bool, ?timeout: Float) -> void
+    def frame_element: -> ElementHandle
+    def frame_locator: (String selector) -> FrameLocator
+    def get_attribute: (String selector, String name, ?strict: bool, ?timeout: Float) -> (nil | String)
+    def get_by_alt_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_label: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_placeholder: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_role: (("alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "deletion" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "meter" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "navigation" | "none" | "note" | "option" | "paragraph" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem") role, ?checked: bool, ?disabled: bool, ?exact: bool, ?expanded: bool, ?includeHidden: bool, ?level: Integer, ?name: (String | Regexp), ?pressed: bool, ?selected: bool) -> Locator
+    def get_by_test_id: ((String | Regexp) testId) -> Locator
+    def get_by_testid: ((String | Regexp) testId) -> Locator
+    def get_by_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_title: ((String | Regexp) text, ?exact: bool) -> Locator
+    def goto: (String url, ?referer: String, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> (nil | Response)
+    def hover: (String selector, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def inner_html: (String selector, ?strict: bool, ?timeout: Float) -> String
+    def inner_text: (String selector, ?strict: bool, ?timeout: Float) -> String
+    def input_value: (String selector, ?strict: bool, ?timeout: Float) -> String
+    def checked?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def detached?: -> bool
+    def disabled?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def editable?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def enabled?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def hidden?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def visible?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def locator: (String selector, ?has: Locator, ?hasNot: Locator, ?hasNotText: (String | Regexp), ?hasText: (String | Regexp)) -> Locator
+    def name: -> String
+    def page: -> Page
+    def parent_frame: -> (nil | Frame)
+    def press: (String selector, String key, ?delay: Float, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def query_selector: (String selector, ?strict: bool) -> (nil | ElementHandle)
+    def query_selector_all: (String selector) -> Array[untyped]
+    def select_option: (String selector, ?element: (ElementHandle | Array[untyped]), ?index: (Integer | Array[untyped]), ?value: (String | Array[untyped]), ?label: (String | Array[untyped]), ?force: bool, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> Array[untyped]
+    def set_checked: (String selector, bool checked, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def set_content: (String html, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> void
+    def content=: (String html, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> void
+    def set_input_files: (String selector, ((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def tap_point: (String selector, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def text_content: (String selector, ?strict: bool, ?timeout: Float) -> (nil | String)
+    def title: -> String
+    def type: (String selector, String text, ?delay: Float, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def uncheck: (String selector, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def url: -> String
+    def wait_for_function: (String expression, ?arg: untyped, ?polling: (Float | "raf"), ?timeout: Float) -> JSHandle
+    def wait_for_load_state: (?state: ("load" | "domcontentloaded" | "networkidle"), ?timeout: Float) -> void
+    def expect_navigation: (?timeout: Float, ?url: (String | Regexp | function), ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) { () -> void } -> (nil | Response)
+    def wait_for_selector: (String selector, ?state: ("attached" | "detached" | "visible" | "hidden"), ?strict: bool, ?timeout: Float) -> (nil | ElementHandle)
+    def wait_for_timeout: (Float timeout) -> void
+    def wait_for_url: ((String | Regexp | function) url, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> void
+  end
+
+  class Worker
+    def evaluate: (String expression, ?arg: untyped) -> untyped
+    def evaluate_handle: (String expression, ?arg: untyped) -> JSHandle
+    def url: -> String
+  end
+
+  class Selectors
+    def register: (String name, ?script: String, ?contentScript: bool, ?path: (String | File)) -> void
+    def set_test_id_attribute: (String attributeName) -> void
+    def test_id_attribute=: (String attributeName) -> void
+  end
+
+  class Clock
+    def fast_forward: ((Integer | String) ticks) -> void
+    def install: (?time: (Float | String | Time)) -> void
+    def run_for: ((Integer | String) ticks) -> void
+    def pause_at: ((Float | String | Time) time) -> void
+    def resume: -> void
+    def set_fixed_time: ((Float | String | Time) time) -> void
+    def fixed_time=: ((Float | String | Time) time) -> void
+    def set_system_time: ((Float | String | Time) time) -> void
+    def system_time=: ((Float | String | Time) time) -> void
+  end
+
+  class ConsoleMessage
+    def args: -> Array[untyped]
+    def location: -> Hash[untyped, untyped]
+    def page: -> (nil | Page)
+    def text: -> String
+    def type: -> ("log" | "debug" | "info" | "error" | "warning" | "dir" | "dirxml" | "table" | "trace" | "clear" | "startGroup" | "startGroupCollapsed" | "endGroup" | "assert" | "profile" | "profileEnd" | "count" | "timeEnd")
+  end
+
+  class Dialog
+    def accept: (?promptText: String) -> void
+    def default_value: -> String
+    def dismiss: -> void
+    def message: -> String
+    def page: -> (nil | Page)
+    def type: -> String
+  end
+
+  class Download
+    def cancel: -> void
+    def delete: -> void
+    def failure: -> (nil | String)
+    def page: -> Page
+    def path: -> (String | File)
+    def save_as: ((String | File) path) -> void
+    def suggested_filename: -> String
+    def url: -> String
+  end
+
+  class Page
+    def add_init_script: (?path: (String | File), ?script: String) -> void
+    def add_script_tag: (?content: String, ?path: (String | File), ?type: String, ?url: String) -> ElementHandle
+    def add_style_tag: (?content: String, ?path: (String | File), ?url: String) -> ElementHandle
+    def bring_to_front: -> void
+    def check: (String selector, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def click: (String selector, ?button: ("left" | "right" | "middle"), ?clickCount: Integer, ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def close: (?reason: String, ?runBeforeUnload: bool) -> void
+    def content: -> String
+    def context: -> BrowserContext
+    def dblclick: (String selector, ?button: ("left" | "right" | "middle"), ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def dispatch_event: (String selector, String type_, ?eventInit: untyped, ?strict: bool, ?timeout: Float) -> void
+    def drag_and_drop: (String source, String target, ?force: bool, ?noWaitAfter: bool, ?sourcePosition: Hash[untyped, untyped], ?strict: bool, ?targetPosition: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def emulate_media: (?colorScheme: ("light" | "dark" | "no-preference" | "null"), ?contrast: ("no-preference" | "more" | "null"), ?forcedColors: ("active" | "none" | "null"), ?media: ("screen" | "print" | "null"), ?reducedMotion: ("reduce" | "no-preference" | "null")) -> void
+    def eval_on_selector: (String selector, String expression, ?arg: untyped, ?strict: bool) -> untyped
+    def eval_on_selector_all: (String selector, String expression, ?arg: untyped) -> untyped
+    def evaluate: (String expression, ?arg: untyped) -> untyped
+    def evaluate_handle: (String expression, ?arg: untyped) -> JSHandle
+    def expose_binding: (String name, function callback, ?handle: bool) -> void
+    def expose_function: (String name, function callback) -> void
+    def fill: (String selector, String value, ?force: bool, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def focus: (String selector, ?strict: bool, ?timeout: Float) -> void
+    def frame: (?name: String, ?url: (String | Regexp | function)) -> (nil | Frame)
+    def frame_locator: (String selector) -> FrameLocator
+    def frames: -> Array[untyped]
+    def get_attribute: (String selector, String name, ?strict: bool, ?timeout: Float) -> (nil | String)
+    def get_by_alt_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_label: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_placeholder: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_role: (("alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "deletion" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "meter" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "navigation" | "none" | "note" | "option" | "paragraph" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem") role, ?checked: bool, ?disabled: bool, ?exact: bool, ?expanded: bool, ?includeHidden: bool, ?level: Integer, ?name: (String | Regexp), ?pressed: bool, ?selected: bool) -> Locator
+    def get_by_test_id: ((String | Regexp) testId) -> Locator
+    def get_by_testid: ((String | Regexp) testId) -> Locator
+    def get_by_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_title: ((String | Regexp) text, ?exact: bool) -> Locator
+    def go_back: (?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> (nil | Response)
+    def go_forward: (?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> (nil | Response)
+    def goto: (String url, ?referer: String, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> (nil | Response)
+    def hover: (String selector, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def inner_html: (String selector, ?strict: bool, ?timeout: Float) -> String
+    def inner_text: (String selector, ?strict: bool, ?timeout: Float) -> String
+    def input_value: (String selector, ?strict: bool, ?timeout: Float) -> String
+    def checked?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def closed?: -> bool
+    def disabled?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def editable?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def enabled?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def hidden?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def visible?: (String selector, ?strict: bool, ?timeout: Float) -> bool
+    def locator: (String selector, ?has: Locator, ?hasNot: Locator, ?hasNotText: (String | Regexp), ?hasText: (String | Regexp)) -> Locator
+    def main_frame: -> Frame
+    def opener: -> (nil | Page)
+    def pause: -> void
+    def pdf: (?displayHeaderFooter: bool, ?footerTemplate: String, ?format: String, ?headerTemplate: String, ?height: (String | Float), ?landscape: bool, ?margin: Hash[untyped, untyped], ?outline: bool, ?pageRanges: String, ?path: (String | File), ?preferCSSPageSize: bool, ?printBackground: bool, ?scale: Float, ?tagged: bool, ?width: (String | Float)) -> String
+    def press: (String selector, String key, ?delay: Float, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def query_selector: (String selector, ?strict: bool) -> (nil | ElementHandle)
+    def query_selector_all: (String selector) -> Array[untyped]
+    def reload: (?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> (nil | Response)
+    def route: ((String | Regexp | function) url, function handler, ?times: Integer) -> void
+    def route_from_har: ((String | File) har, ?notFound: ("abort" | "fallback"), ?update: bool, ?updateContent: ("embed" | "attach"), ?updateMode: ("full" | "minimal"), ?url: (String | Regexp)) -> void
+    def screenshot: (?animations: ("disabled" | "allow"), ?caret: ("hide" | "initial"), ?clip: Hash[untyped, untyped], ?fullPage: bool, ?mask: Array[untyped], ?maskColor: String, ?omitBackground: bool, ?path: (String | File), ?quality: Integer, ?scale: ("css" | "device"), ?style: String, ?timeout: Float, ?type: ("png" | "jpeg")) -> String
+    def select_option: (String selector, ?element: (ElementHandle | Array[untyped]), ?index: (Integer | Array[untyped]), ?value: (String | Array[untyped]), ?label: (String | Array[untyped]), ?force: bool, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> Array[untyped]
+    def set_checked: (String selector, bool checked, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def set_content: (String html, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> void
+    def content=: (String html, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> void
+    def set_default_navigation_timeout: (Float timeout) -> void
+    def default_navigation_timeout=: (Float timeout) -> void
+    def set_default_timeout: (Float timeout) -> void
+    def default_timeout=: (Float timeout) -> void
+    def set_extra_http_headers: (Hash[untyped, untyped] headers) -> void
+    def extra_http_headers=: (Hash[untyped, untyped] headers) -> void
+    def set_input_files: (String selector, ((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def set_viewport_size: (Hash[untyped, untyped] viewportSize) -> void
+    def viewport_size=: (Hash[untyped, untyped] viewportSize) -> void
+    def tap_point: (String selector, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def text_content: (String selector, ?strict: bool, ?timeout: Float) -> (nil | String)
+    def title: -> String
+    def type: (String selector, String text, ?delay: Float, ?noWaitAfter: bool, ?strict: bool, ?timeout: Float) -> void
+    def uncheck: (String selector, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?strict: bool, ?timeout: Float, ?trial: bool) -> void
+    def unroute_all: (?behavior: ("wait" | "ignoreErrors" | "default")) -> void
+    def unroute: ((String | Regexp | function) url, ?handler: function) -> void
+    def url: -> String
+    def video: -> (nil | untyped)
+    def viewport_size: -> (nil | Hash[untyped, untyped])
+    def expect_console_message: (?predicate: function, ?timeout: Float) { () -> void } -> ConsoleMessage
+    def expect_download: (?predicate: function, ?timeout: Float) { () -> void } -> Download
+    def expect_event: (String event, ?predicate: function, ?timeout: Float) { () -> void } -> untyped
+    def expect_file_chooser: (?predicate: function, ?timeout: Float) { () -> void } -> FileChooser
+    def wait_for_function: (String expression, ?arg: untyped, ?polling: (Float | "raf"), ?timeout: Float) -> JSHandle
+    def wait_for_load_state: (?state: ("load" | "domcontentloaded" | "networkidle"), ?timeout: Float) -> void
+    def expect_navigation: (?timeout: Float, ?url: (String | Regexp | function), ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) { () -> void } -> (nil | Response)
+    def expect_popup: (?predicate: function, ?timeout: Float) { () -> void } -> Page
+    def expect_request: ((String | Regexp | function) urlOrPredicate, ?timeout: Float) { () -> void } -> Request
+    def expect_request_finished: (?predicate: function, ?timeout: Float) { () -> void } -> Request
+    def expect_response: ((String | Regexp | function) urlOrPredicate, ?timeout: Float) { () -> void } -> Response
+    def wait_for_selector: (String selector, ?state: ("attached" | "detached" | "visible" | "hidden"), ?strict: bool, ?timeout: Float) -> (nil | ElementHandle)
+    def wait_for_timeout: (Float timeout) -> void
+    def wait_for_url: ((String | Regexp | function) url, ?timeout: Float, ?waitUntil: ("load" | "domcontentloaded" | "networkidle" | "commit")) -> void
+    def expect_websocket: (?predicate: function, ?timeout: Float) { () -> void } -> WebSocket
+    def expect_worker: (?predicate: function, ?timeout: Float) { () -> void } -> Worker
+    def workers: -> Array[untyped]
+
+    attr_reader clock: Clock
+    attr_reader accessibility: Accessibility
+    attr_reader keyboard: Keyboard
+    attr_reader mouse: Mouse
+    attr_reader request: APIRequestContext
+    attr_reader touchscreen: Touchscreen
+  end
+
+  class BrowserContext
+    def add_cookies: (Array[untyped] cookies) -> void
+    def add_init_script: (?path: (String | File), ?script: String) -> void
+    def background_pages: -> Array[untyped]
+    def browser: -> (nil | Browser)
+    def clear_cookies: (?domain: (String | Regexp), ?name: (String | Regexp), ?path: (String | Regexp)) -> void
+    def clear_permissions: -> void
+    def close: (?reason: String) -> void
+    def cookies: (?urls: (String | Array[untyped])) -> Array[untyped]
+    def expose_binding: (String name, function callback, ?handle: bool) -> void
+    def expose_function: (String name, function callback) -> void
+    def grant_permissions: (Array[untyped] permissions, ?origin: String) -> void
+    def new_cdp_session: ((Page | Frame) page) -> CDPSession
+    def new_page: () ?{ (Page) -> untyped } -> Page
+    def pages: -> Array[untyped]
+    def route: ((String | Regexp | function) url, function handler, ?times: Integer) -> void
+    def route_from_har: ((String | File) har, ?notFound: ("abort" | "fallback"), ?update: bool, ?updateContent: ("embed" | "attach"), ?updateMode: ("full" | "minimal"), ?url: (String | Regexp)) -> void
+    def service_workers: -> Array[untyped]
+    def set_default_navigation_timeout: (Float timeout) -> void
+    def default_navigation_timeout=: (Float timeout) -> void
+    def set_default_timeout: (Float timeout) -> void
+    def default_timeout=: (Float timeout) -> void
+    def set_extra_http_headers: (Hash[untyped, untyped] headers) -> void
+    def extra_http_headers=: (Hash[untyped, untyped] headers) -> void
+    def set_geolocation: ((nil | Hash[untyped, untyped]) geolocation) -> void
+    def geolocation=: ((nil | Hash[untyped, untyped]) geolocation) -> void
+    def set_offline: (bool offline) -> void
+    def offline=: (bool offline) -> void
+    def storage_state: (?indexedDB: bool, ?path: (String | File)) -> Hash[untyped, untyped]
+    def unroute_all: (?behavior: ("wait" | "ignoreErrors" | "default")) -> void
+    def unroute: ((String | Regexp | function) url, ?handler: function) -> void
+    def expect_console_message: (?predicate: function, ?timeout: Float) { () -> void } -> ConsoleMessage
+    def expect_event: (String event, ?predicate: function, ?timeout: Float) { () -> void } -> untyped
+    def expect_page: (?predicate: function, ?timeout: Float) { () -> void } -> Page
+
+    attr_reader clock: Clock
+    attr_reader request: APIRequestContext
+    attr_reader tracing: Tracing
+  end
+
+  class CDPSession
+    def detach: -> void
+    def send_message: (String method, ?params: Hash[untyped, untyped]) -> Hash[untyped, untyped]
+  end
+
+  class Browser
+    def browser_type: -> BrowserType
+    def close: (?reason: String) -> void
+    def contexts: -> Array[untyped]
+    def connected?: -> bool
+    def new_browser_cdp_session: -> CDPSession
+    def new_context: (?acceptDownloads: bool, ?baseURL: String, ?bypassCSP: bool, ?clientCertificates: Array[untyped], ?colorScheme: ("light" | "dark" | "no-preference" | "null"), ?contrast: ("no-preference" | "more" | "null"), ?deviceScaleFactor: Float, ?extraHTTPHeaders: Hash[untyped, untyped], ?forcedColors: ("active" | "none" | "null"), ?geolocation: Hash[untyped, untyped], ?hasTouch: bool, ?httpCredentials: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?isMobile: bool, ?javaScriptEnabled: bool, ?locale: String, ?noViewport: bool, ?offline: bool, ?permissions: Array[untyped], ?proxy: Hash[untyped, untyped], ?record_har_content: ("omit" | "embed" | "attach"), ?record_har_mode: ("full" | "minimal"), ?record_har_omit_content: bool, ?record_har_path: (String | File), ?record_har_url_filter: (String | Regexp), ?record_video_dir: (String | File), ?record_video_size: Hash[untyped, untyped], ?reducedMotion: ("reduce" | "no-preference" | "null"), ?screen: Hash[untyped, untyped], ?serviceWorkers: ("allow" | "block"), ?storageState: ((String | File) | Hash[untyped, untyped]), ?strictSelectors: bool, ?timezoneId: String, ?userAgent: String, ?viewport: (nil | Hash[untyped, untyped])) ?{ (BrowserContext) -> untyped } -> BrowserContext
+    def new_page: (?acceptDownloads: bool, ?baseURL: String, ?bypassCSP: bool, ?clientCertificates: Array[untyped], ?colorScheme: ("light" | "dark" | "no-preference" | "null"), ?contrast: ("no-preference" | "more" | "null"), ?deviceScaleFactor: Float, ?extraHTTPHeaders: Hash[untyped, untyped], ?forcedColors: ("active" | "none" | "null"), ?geolocation: Hash[untyped, untyped], ?hasTouch: bool, ?httpCredentials: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?isMobile: bool, ?javaScriptEnabled: bool, ?locale: String, ?noViewport: bool, ?offline: bool, ?permissions: Array[untyped], ?proxy: Hash[untyped, untyped], ?record_har_content: ("omit" | "embed" | "attach"), ?record_har_mode: ("full" | "minimal"), ?record_har_omit_content: bool, ?record_har_path: (String | File), ?record_har_url_filter: (String | Regexp), ?record_video_dir: (String | File), ?record_video_size: Hash[untyped, untyped], ?reducedMotion: ("reduce" | "no-preference" | "null"), ?screen: Hash[untyped, untyped], ?serviceWorkers: ("allow" | "block"), ?storageState: ((String | File) | Hash[untyped, untyped]), ?strictSelectors: bool, ?timezoneId: String, ?userAgent: String, ?viewport: (nil | Hash[untyped, untyped])) ?{ (Page) -> untyped } -> Page
+    def start_tracing: (?page: Page, ?categories: Array[untyped], ?path: (String | File), ?screenshots: bool) -> void
+    def stop_tracing: -> String
+    def version: -> String
+  end
+
+  class BrowserType
+    def connect_over_cdp: (String endpointURL, ?headers: Hash[untyped, untyped], ?slowMo: Float, ?timeout: Float) ?{ (untyped) -> untyped } -> Browser
+    def executable_path: -> String
+    def launch: (?args: Array[untyped], ?channel: String, ?chromiumSandbox: bool, ?devtools: bool, ?downloadsPath: (String | File), ?env: Hash[untyped, untyped], ?executablePath: (String | File), ?firefoxUserPrefs: Hash[untyped, untyped], ?handleSIGHUP: bool, ?handleSIGINT: bool, ?handleSIGTERM: bool, ?headless: bool, ?ignoreDefaultArgs: (bool | Array[untyped]), ?proxy: Hash[untyped, untyped], ?slowMo: Float, ?timeout: Float, ?tracesDir: (String | File)) ?{ (Browser) -> untyped } -> Browser
+    def launch_persistent_context: ((String | File) userDataDir, ?acceptDownloads: bool, ?args: Array[untyped], ?baseURL: String, ?bypassCSP: bool, ?channel: String, ?chromiumSandbox: bool, ?clientCertificates: Array[untyped], ?colorScheme: ("light" | "dark" | "no-preference" | "null"), ?contrast: ("no-preference" | "more" | "null"), ?deviceScaleFactor: Float, ?devtools: bool, ?downloadsPath: (String | File), ?env: Hash[untyped, untyped], ?executablePath: (String | File), ?extraHTTPHeaders: Hash[untyped, untyped], ?firefoxUserPrefs: Hash[untyped, untyped], ?forcedColors: ("active" | "none" | "null"), ?geolocation: Hash[untyped, untyped], ?handleSIGHUP: bool, ?handleSIGINT: bool, ?handleSIGTERM: bool, ?hasTouch: bool, ?headless: bool, ?httpCredentials: Hash[untyped, untyped], ?ignoreDefaultArgs: (bool | Array[untyped]), ?ignoreHTTPSErrors: bool, ?isMobile: bool, ?javaScriptEnabled: bool, ?locale: String, ?noViewport: bool, ?offline: bool, ?permissions: Array[untyped], ?proxy: Hash[untyped, untyped], ?record_har_content: ("omit" | "embed" | "attach"), ?record_har_mode: ("full" | "minimal"), ?record_har_omit_content: bool, ?record_har_path: (String | File), ?record_har_url_filter: (String | Regexp), ?record_video_dir: (String | File), ?record_video_size: Hash[untyped, untyped], ?reducedMotion: ("reduce" | "no-preference" | "null"), ?screen: Hash[untyped, untyped], ?serviceWorkers: ("allow" | "block"), ?slowMo: Float, ?strictSelectors: bool, ?timeout: Float, ?timezoneId: String, ?tracesDir: (String | File), ?userAgent: String, ?viewport: (nil | Hash[untyped, untyped])) ?{ (untyped) -> untyped } -> BrowserContext
+    def name: -> String
+  end
+
+  class Playwright
+    attr_reader chromium: BrowserType
+    attr_reader devices: Hash[untyped, untyped]
+    attr_reader firefox: BrowserType
+    attr_reader selectors: Selectors
+    attr_reader webkit: BrowserType
+  end
+
+  class Tracing
+    def start: (?name: String, ?screenshots: bool, ?snapshots: bool, ?sources: bool, ?title: String) -> void
+    def start_chunk: (?name: String, ?title: String) -> void
+    def group: (String name, ?location: Hash[untyped, untyped]) -> void
+    def group_end: -> void
+    def stop: (?path: (String | File)) -> void
+    def stop_chunk: (?path: (String | File)) -> void
+  end
+
+  class Locator
+    def all: -> Array[untyped]
+    def all_inner_texts: -> Array[untyped]
+    def all_text_contents: -> Array[untyped]
+    def and: (Locator locator) -> Locator
+    def aria_snapshot: (?timeout: Float) -> String
+    def blur: (?timeout: Float) -> void
+    def bounding_box: (?timeout: Float) -> (nil | Hash[untyped, untyped])
+    def check: (?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def clear: (?force: bool, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def click: (?button: ("left" | "right" | "middle"), ?clickCount: Integer, ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def count: -> Integer
+    def dblclick: (?button: ("left" | "right" | "middle"), ?delay: Float, ?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def describe: (String description) -> Locator
+    def dispatch_event: (String type_, ?eventInit: untyped, ?timeout: Float) -> void
+    def drag_to: (Locator target, ?force: bool, ?noWaitAfter: bool, ?sourcePosition: Hash[untyped, untyped], ?targetPosition: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def element_handle: (?timeout: Float) -> ElementHandle
+    def element_handles: -> Array[untyped]
+    def content_frame: -> FrameLocator
+    def evaluate: (String expression, ?arg: untyped, ?timeout: Float) -> untyped
+    def evaluate_all: (String expression, ?arg: untyped) -> untyped
+    def evaluate_handle: (String expression, ?arg: untyped, ?timeout: Float) -> JSHandle
+    def fill: (String value, ?force: bool, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def filter: (?has: Locator, ?hasNot: Locator, ?hasNotText: (String | Regexp), ?hasText: (String | Regexp), ?visible: bool) -> Locator
+    def first: -> Locator
+    def focus: (?timeout: Float) -> void
+    def frame_locator: (String selector) -> FrameLocator
+    def get_attribute: (String name, ?timeout: Float) -> (nil | String)
+    def []: (String name, ?timeout: Float) -> (nil | String)
+    def get_by_alt_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_label: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_placeholder: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_role: (("alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "deletion" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "meter" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "navigation" | "none" | "note" | "option" | "paragraph" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem") role, ?checked: bool, ?disabled: bool, ?exact: bool, ?expanded: bool, ?includeHidden: bool, ?level: Integer, ?name: (String | Regexp), ?pressed: bool, ?selected: bool) -> Locator
+    def get_by_test_id: ((String | Regexp) testId) -> Locator
+    def get_by_testid: ((String | Regexp) testId) -> Locator
+    def get_by_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_title: ((String | Regexp) text, ?exact: bool) -> Locator
+    def highlight: -> void
+    def hover: (?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def inner_html: (?timeout: Float) -> String
+    def inner_text: (?timeout: Float) -> String
+    def input_value: (?timeout: Float) -> String
+    def checked?: (?timeout: Float) -> bool
+    def disabled?: (?timeout: Float) -> bool
+    def editable?: (?timeout: Float) -> bool
+    def enabled?: (?timeout: Float) -> bool
+    def hidden?: (?timeout: Float) -> bool
+    def visible?: (?timeout: Float) -> bool
+    def last: -> Locator
+    def locator: ((String | Locator) selectorOrLocator, ?has: Locator, ?hasNot: Locator, ?hasNotText: (String | Regexp), ?hasText: (String | Regexp)) -> Locator
+    def nth: (Integer index) -> Locator
+    def or: (Locator locator) -> Locator
+    def page: -> Page
+    def press: (String key, ?delay: Float, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def press_sequentially: (String text, ?delay: Float, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def screenshot: (?animations: ("disabled" | "allow"), ?caret: ("hide" | "initial"), ?mask: Array[untyped], ?maskColor: String, ?omitBackground: bool, ?path: (String | File), ?quality: Integer, ?scale: ("css" | "device"), ?style: String, ?timeout: Float, ?type: ("png" | "jpeg")) -> String
+    def scroll_into_view_if_needed: (?timeout: Float) -> void
+    def select_option: (?element: (ElementHandle | Array[untyped]), ?index: (Integer | Array[untyped]), ?value: (String | Array[untyped]), ?label: (String | Array[untyped]), ?force: bool, ?noWaitAfter: bool, ?timeout: Float) -> Array[untyped]
+    def select_text: (?force: bool, ?timeout: Float) -> void
+    def set_checked: (bool checked, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def checked=: (bool checked, ?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def set_input_files: (((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def input_files=: (((String | File) | Array[untyped] | Hash[untyped, untyped] | Array[untyped]) files, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def tap_point: (?force: bool, ?modifiers: Array[untyped], ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def text_content: (?timeout: Float) -> (nil | String)
+    def type: (String text, ?delay: Float, ?noWaitAfter: bool, ?timeout: Float) -> void
+    def uncheck: (?force: bool, ?noWaitAfter: bool, ?position: Hash[untyped, untyped], ?timeout: Float, ?trial: bool) -> void
+    def wait_for: (?state: ("attached" | "detached" | "visible" | "hidden"), ?timeout: Float) -> void
+  end
+
+  class FrameLocator
+    def first: -> FrameLocator
+    def frame_locator: (String selector) -> FrameLocator
+    def get_by_alt_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_label: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_placeholder: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_role: (("alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "deletion" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "meter" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "navigation" | "none" | "note" | "option" | "paragraph" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem") role, ?checked: bool, ?disabled: bool, ?exact: bool, ?expanded: bool, ?includeHidden: bool, ?level: Integer, ?name: (String | Regexp), ?pressed: bool, ?selected: bool) -> Locator
+    def get_by_test_id: ((String | Regexp) testId) -> Locator
+    def get_by_testid: ((String | Regexp) testId) -> Locator
+    def get_by_text: ((String | Regexp) text, ?exact: bool) -> Locator
+    def get_by_title: ((String | Regexp) text, ?exact: bool) -> Locator
+    def last: -> FrameLocator
+    def locator: ((String | Locator) selectorOrLocator, ?has: Locator, ?hasNot: Locator, ?hasNotText: (String | Regexp), ?hasText: (String | Regexp)) -> Locator
+    def nth: (Integer index) -> FrameLocator
+    def owner: -> Locator
+  end
+
+  class APIResponse
+    def body: -> String
+    def dispose: -> void
+    def headers: -> Hash[untyped, untyped]
+    def headers_array: -> Array[untyped]
+    def json: -> untyped
+    def ok: -> bool
+    def status: -> Integer
+    def status_text: -> String
+    def text: -> String
+    def url: -> String
+  end
+
+  class APIRequestContext
+    def delete: (String url, ?data: (String | String | untyped), ?failOnStatusCode: bool, ?form: Hash[untyped, untyped], ?headers: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?maxRedirects: Integer, ?maxRetries: Integer, ?multipart: Hash[untyped, untyped], ?params: (Hash[untyped, untyped] | String), ?timeout: Float) -> APIResponse
+    def dispose: (?reason: String) -> void
+    def fetch: ((String | Request) urlOrRequest, ?data: (String | String | untyped), ?failOnStatusCode: bool, ?form: Hash[untyped, untyped], ?headers: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?maxRedirects: Integer, ?maxRetries: Integer, ?method: String, ?multipart: Hash[untyped, untyped], ?params: (Hash[untyped, untyped] | String), ?timeout: Float) -> APIResponse
+    def get: (String url, ?data: (String | String | untyped), ?failOnStatusCode: bool, ?form: Hash[untyped, untyped], ?headers: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?maxRedirects: Integer, ?maxRetries: Integer, ?multipart: Hash[untyped, untyped], ?params: (Hash[untyped, untyped] | String), ?timeout: Float) -> APIResponse
+    def head: (String url, ?data: (String | String | untyped), ?failOnStatusCode: bool, ?form: Hash[untyped, untyped], ?headers: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?maxRedirects: Integer, ?maxRetries: Integer, ?multipart: Hash[untyped, untyped], ?params: (Hash[untyped, untyped] | String), ?timeout: Float) -> APIResponse
+    def patch: (String url, ?data: (String | String | untyped), ?failOnStatusCode: bool, ?form: Hash[untyped, untyped], ?headers: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?maxRedirects: Integer, ?maxRetries: Integer, ?multipart: Hash[untyped, untyped], ?params: (Hash[untyped, untyped] | String), ?timeout: Float) -> APIResponse
+    def post: (String url, ?data: (String | String | untyped), ?failOnStatusCode: bool, ?form: Hash[untyped, untyped], ?headers: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?maxRedirects: Integer, ?maxRetries: Integer, ?multipart: Hash[untyped, untyped], ?params: (Hash[untyped, untyped] | String), ?timeout: Float) -> APIResponse
+    def put: (String url, ?data: (String | String | untyped), ?failOnStatusCode: bool, ?form: Hash[untyped, untyped], ?headers: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?maxRedirects: Integer, ?maxRetries: Integer, ?multipart: Hash[untyped, untyped], ?params: (Hash[untyped, untyped] | String), ?timeout: Float) -> APIResponse
+  end
+
+  class LocatorAssertions
+    def not_to_be_attached: (?attached: bool, ?timeout: Float) -> void
+    def not_to_be_checked: (?timeout: Float) -> void
+    def not_to_be_disabled: (?timeout: Float) -> void
+    def not_to_be_editable: (?editable: bool, ?timeout: Float) -> void
+    def not_to_be_empty: (?timeout: Float) -> void
+    def not_to_be_enabled: (?enabled: bool, ?timeout: Float) -> void
+    def not_to_be_focused: (?timeout: Float) -> void
+    def not_to_be_hidden: (?timeout: Float) -> void
+    def not_to_be_in_viewport: (?ratio: Float, ?timeout: Float) -> void
+    def not_to_be_visible: (?timeout: Float, ?visible: bool) -> void
+    def not_to_contain_class: ((String | Array[untyped]) expected, ?timeout: Float) -> void
+    def not_to_contain_text: ((String | Regexp | Array[untyped] | Array[untyped] | Array[untyped]) expected, ?ignoreCase: bool, ?timeout: Float, ?useInnerText: bool) -> void
+    def not_to_have_accessible_description: ((String | Regexp) name, ?ignoreCase: bool, ?timeout: Float) -> void
+    def not_to_have_accessible_error_message: ((String | Regexp) errorMessage, ?ignoreCase: bool, ?timeout: Float) -> void
+    def not_to_have_accessible_name: ((String | Regexp) name, ?ignoreCase: bool, ?timeout: Float) -> void
+    def not_to_have_attribute: (String name, (String | Regexp) value, ?ignoreCase: bool, ?timeout: Float) -> void
+    def not_to_have_class: ((String | Regexp | Array[untyped] | Array[untyped] | Array[untyped]) expected, ?timeout: Float) -> void
+    def not_to_have_count: (Integer count, ?timeout: Float) -> void
+    def not_to_have_css: (String name, (String | Regexp) value, ?timeout: Float) -> void
+    def not_to_have_id: ((String | Regexp) id, ?timeout: Float) -> void
+    def not_to_have_js_property: (String name, untyped value, ?timeout: Float) -> void
+    def not_to_have_role: (("alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "deletion" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "meter" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "navigation" | "none" | "note" | "option" | "paragraph" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem") role, ?timeout: Float) -> void
+    def not_to_have_text: ((String | Regexp | Array[untyped] | Array[untyped] | Array[untyped]) expected, ?ignoreCase: bool, ?timeout: Float, ?useInnerText: bool) -> void
+    def not_to_have_value: ((String | Regexp) value, ?timeout: Float) -> void
+    def not_to_have_values: ((Array[untyped] | Array[untyped] | Array[untyped]) values, ?timeout: Float) -> void
+    def not_to_match_aria_snapshot: (String expected, ?timeout: Float) -> void
+    def to_be_attached: (?attached: bool, ?timeout: Float) -> void
+    def to_be_checked: (?checked: bool, ?indeterminate: bool, ?timeout: Float) -> void
+    def to_be_disabled: (?timeout: Float) -> void
+    def to_be_editable: (?editable: bool, ?timeout: Float) -> void
+    def to_be_empty: (?timeout: Float) -> void
+    def to_be_enabled: (?enabled: bool, ?timeout: Float) -> void
+    def to_be_focused: (?timeout: Float) -> void
+    def to_be_hidden: (?timeout: Float) -> void
+    def to_be_in_viewport: (?ratio: Float, ?timeout: Float) -> void
+    def to_be_visible: (?timeout: Float, ?visible: bool) -> void
+    def to_contain_class: ((String | Array[untyped]) expected, ?timeout: Float) -> void
+    def to_contain_text: ((String | Regexp | Array[untyped] | Array[untyped] | Array[untyped]) expected, ?ignoreCase: bool, ?timeout: Float, ?useInnerText: bool) -> void
+    def to_have_accessible_description: ((String | Regexp) description, ?ignoreCase: bool, ?timeout: Float) -> void
+    def to_have_accessible_error_message: ((String | Regexp) errorMessage, ?ignoreCase: bool, ?timeout: Float) -> void
+    def to_have_accessible_name: ((String | Regexp) name, ?ignoreCase: bool, ?timeout: Float) -> void
+    def to_have_attribute: (String name, (String | Regexp) value, ?ignoreCase: bool, ?timeout: Float) -> void
+    def to_have_class: ((String | Regexp | Array[untyped] | Array[untyped] | Array[untyped]) expected, ?timeout: Float) -> void
+    def to_have_count: (Integer count, ?timeout: Float) -> void
+    def to_have_css: (String name, (String | Regexp) value, ?timeout: Float) -> void
+    def to_have_id: ((String | Regexp) id, ?timeout: Float) -> void
+    def to_have_js_property: (String name, untyped value, ?timeout: Float) -> void
+    def to_have_role: (("alert" | "alertdialog" | "application" | "article" | "banner" | "blockquote" | "button" | "caption" | "cell" | "checkbox" | "code" | "columnheader" | "combobox" | "complementary" | "contentinfo" | "definition" | "deletion" | "dialog" | "directory" | "document" | "emphasis" | "feed" | "figure" | "form" | "generic" | "grid" | "gridcell" | "group" | "heading" | "img" | "insertion" | "link" | "list" | "listbox" | "listitem" | "log" | "main" | "marquee" | "math" | "meter" | "menu" | "menubar" | "menuitem" | "menuitemcheckbox" | "menuitemradio" | "navigation" | "none" | "note" | "option" | "paragraph" | "presentation" | "progressbar" | "radio" | "radiogroup" | "region" | "row" | "rowgroup" | "rowheader" | "scrollbar" | "search" | "searchbox" | "separator" | "slider" | "spinbutton" | "status" | "strong" | "subscript" | "superscript" | "switch" | "tab" | "table" | "tablist" | "tabpanel" | "term" | "textbox" | "time" | "timer" | "toolbar" | "tooltip" | "tree" | "treegrid" | "treeitem") role, ?timeout: Float) -> void
+    def to_have_text: ((String | Regexp | Array[untyped] | Array[untyped] | Array[untyped]) expected, ?ignoreCase: bool, ?timeout: Float, ?useInnerText: bool) -> void
+    def to_have_value: ((String | Regexp) value, ?timeout: Float) -> void
+    def to_have_values: ((Array[untyped] | Array[untyped] | Array[untyped]) values, ?timeout: Float) -> void
+    def to_match_aria_snapshot: (String expected, ?timeout: Float) -> void
+  end
+
+  class PageAssertions
+    def not_to_have_title: ((String | Regexp) titleOrRegExp, ?timeout: Float) -> void
+    def not_to_have_url: ((String | Regexp) urlOrRegExp, ?ignoreCase: bool, ?timeout: Float) -> void
+    def to_have_title: ((String | Regexp) titleOrRegExp, ?timeout: Float) -> void
+    def to_have_url: ((String | Regexp) urlOrRegExp, ?ignoreCase: bool, ?timeout: Float) -> void
+  end
+
+  class Android
+    def devices: (?host: String, ?omitDriverInstall: bool, ?port: Integer) -> Array[untyped]
+    def set_default_timeout: (Float timeout) -> void
+    def default_timeout=: (Float timeout) -> void
+  end
+
+  class AndroidDevice
+    def close: -> void
+    def info: (untyped selector) -> untyped
+    def launch_browser: (?acceptDownloads: bool, ?args: Array[untyped], ?baseURL: String, ?bypassCSP: bool, ?colorScheme: ("light" | "dark" | "no-preference" | "null"), ?contrast: ("no-preference" | "more" | "null"), ?deviceScaleFactor: Float, ?extraHTTPHeaders: Hash[untyped, untyped], ?forcedColors: ("active" | "none" | "null"), ?geolocation: Hash[untyped, untyped], ?hasTouch: bool, ?httpCredentials: Hash[untyped, untyped], ?ignoreHTTPSErrors: bool, ?isMobile: bool, ?javaScriptEnabled: bool, ?locale: String, ?noViewport: bool, ?offline: bool, ?permissions: Array[untyped], ?pkg: String, ?proxy: Hash[untyped, untyped], ?record_har_content: ("omit" | "embed" | "attach"), ?record_har_mode: ("full" | "minimal"), ?record_har_omit_content: bool, ?record_har_path: (String | File), ?record_har_url_filter: (String | Regexp), ?record_video_dir: (String | File), ?record_video_size: Hash[untyped, untyped], ?reducedMotion: ("reduce" | "no-preference" | "null"), ?screen: Hash[untyped, untyped], ?serviceWorkers: ("allow" | "block"), ?strictSelectors: bool, ?timezoneId: String, ?userAgent: String, ?viewport: (nil | Hash[untyped, untyped])) ?{ (untyped) -> untyped } -> BrowserContext
+    def model: -> String
+    def screenshot: (?path: (String | File)) -> String
+    def serial: -> String
+    def shell: (String command) -> String
+
+    attr_reader input: AndroidInput
+  end
+
+  class AndroidInput
+    def drag: (Hash[untyped, untyped] from, Hash[untyped, untyped] to, Integer steps) -> void
+    def press: (untyped key) -> void
+    def tap_point: (Hash[untyped, untyped] point) -> void
+    def type: (String text) -> void
+  end
+
+  def self.create: (playwright_cli_executable_path: String) { (Playwright) -> void } -> void
+end

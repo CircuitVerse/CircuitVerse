@@ -1,0 +1,26 @@
+<%= render_component_tag class: {
+    "icon-left": (icon_position == :left),
+    "icon-right": (icon_position == :right),
+    "theme-info": (theme == :info),
+    "theme-error": (theme == :error),
+  } do %>
+  <% if icon_name %>
+    <div class="message-icon">
+      <% if icon_name == :logo %>
+        <%= lookbook_render :logo, stroke: 1, size: 10 %>
+      <% else %>
+        <%= icon icon_name, stroke: 1, size: 10 %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="flex-grow">
+    <% if title %>
+      <h4 class="message-title">
+        <%= title %>
+      </h4>
+    <% end %>
+    <div class="opacity-70">
+      <%= lookbook_render :prose, size: :sm, content: content %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,15 @@
+@layer components {
+  [data-component="nav"] {
+    .nav-action {
+      @apply flex w-full items-center py-1 select-none cursor-pointer text-lookbook-nav-text hover:bg-lookbook-nav-item-hover transition;
+    }
+
+    .nav-action-inner {
+      @apply relative flex items-center w-full;
+    }
+
+    .nav-toggle-icon {
+      @apply mr-1 text-lookbook-nav-toggle absolute -left-4;
+    }
+  }
+}

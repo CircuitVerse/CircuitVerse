@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+  <%= csrf_meta_tags %>
+
+  <link href="<%= lookbook_asset_path("/css/lookbook.css") %>" rel="stylesheet">
+  <link href="<%= lookbook_asset_path("/css/themes/#{@config.ui_theme}.css") %>" rel="stylesheet">
+
+  <%- if @theme_overrides.present? %>
+    <style media="all">
+      <%== @theme_overrides %>
+    </style>
+  <% end %>
+
+  <% unless @config.ui_favicon == false %>
+    <link rel="icon" href="<%= @config.ui_favicon_dark %>" media="(prefers-color-scheme: dark)">
+    <link rel="icon" href="<%= @config.ui_favicon_light %>" media="(prefers-color-scheme: light)">
+  <% end %>
+
+  <script>
+    window.LOG_LEVEL = <%= @config.log_level %>;
+    window.APP_NAME = "<%= @engine.app_name %>";
+    <% if @engine.websocket.mounted? %>
+    window.SOCKET_PATH = "<%= @engine.websocket.full_mount_path %>";
+    <% end %>
+  </script>
+
+  <script src="<%= lookbook_asset_path("/js/index.js") %>" defer></script>  
+  
+  <% if @embed %>
+    <%= render "lookbook/partials/iframe_content_scripts" %>
+  <% else %>
+    <script src="<%= lookbook_asset_path("/js/lookbook.js") %>" defer></script>
+  <% end %>
+  
+  <%= content_for :scripts %>
+  
+  <title><%= [@title, @config.project_name || "Lookbook"].compact.join(" :: ") %></title>
+</head>
+<body>
+  <%= content_for?(:body) ? yield(:body) : yield %>
+</body>
+</html>

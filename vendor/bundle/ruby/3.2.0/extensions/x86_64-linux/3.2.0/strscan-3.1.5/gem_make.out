@@ -1,0 +1,22 @@
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.5/ext/strscan
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.2.0 extconf.rb
+checking for onig_region_memsize() in ruby.h... yes
+checking for rb_reg_onig_match() in ruby.h... no
+creating Makefile
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.5/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-7nort0 sitelibdir\=./.gem.20251230-2706-7nort0 clean
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.5/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-7nort0 sitelibdir\=./.gem.20251230-2706-7nort0
+compiling strscan.c
+linking shared-object strscan.so
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.5/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-7nort0 sitelibdir\=./.gem.20251230-2706-7nort0 install
+make: Warning: File 'strscan.so' has modification time 0.005 s in the future
+/usr/bin/install -c -m 0755 strscan.so ./.gem.20251230-2706-7nort0
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/strscan-3.1.5/ext/strscan
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-7nort0 sitelibdir\=./.gem.20251230-2706-7nort0 clean

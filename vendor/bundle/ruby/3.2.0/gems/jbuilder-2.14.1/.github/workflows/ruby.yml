@@ -1,0 +1,56 @@
+name: Ruby test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }} (${{ matrix.gemfile }})
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.gemfile == 'rails_head' }}
+    env:
+      BUNDLE_GEMFILE: ${{ github.workspace }}/gemfiles/${{ matrix.gemfile }}.gemfile
+      BUNDLE_JOBS: 4
+      BUNDLE_RETRY: 3
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby:
+          - "3.0"
+          - "3.1"
+          - "3.2"
+          - "3.3"
+          - "3.4"
+
+        gemfile:
+          - "rails_7_0"
+          - "rails_7_1"
+          - "rails_7_2"
+          - "rails_8_0"
+          - "rails_head"
+
+        exclude:
+          - ruby: '3.0'
+            gemfile: rails_7_2
+          - ruby: '3.0'
+            gemfile: rails_8_0
+          - ruby: '3.0'
+            gemfile: rails_head
+          - ruby: '3.1'
+            gemfile: rails_7_2
+          - ruby: '3.1'
+            gemfile: rails_8_0
+          - ruby: '3.1'
+            gemfile: rails_head
+          - ruby: '3.4'
+            gemfile: rails_7_0
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Ruby test
+        run: bundle exec rake

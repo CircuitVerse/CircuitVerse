@@ -1,0 +1,5 @@
+class %<migration_name>s < ActiveRecord::Migration[%<migration_version>s]
+  def change
+    add_index :%<table_name>s, %<columns>s, name: :%<index_name>s, unique: true
+  end
+end

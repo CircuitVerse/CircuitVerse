@@ -1,0 +1,10 @@
+<%= render "lookbook/partials/blank_slate" do %>
+  <%= lookbook_render :message,
+      id: "not-found-message",
+      title: @error.message,
+      icon: :file_x,
+      icon_position: :right,
+      theme: :error do %>
+      <%= @error.detail || "It may have been moved or deleted." %>
+    <% end %>
+<% end %>

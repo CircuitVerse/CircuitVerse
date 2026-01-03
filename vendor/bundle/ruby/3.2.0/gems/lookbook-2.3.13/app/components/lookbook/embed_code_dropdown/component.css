@@ -1,0 +1,19 @@
+@layer components {
+  [data-component="embed-code-dropdown"] {
+    & [data-component="code"] {
+      @apply px-2 py-2 bg-lookbook-base-50 border border-dashed border-lookbook-divider;
+    }
+
+    & pre.code.highlight {
+      @apply overflow-hidden whitespace-normal p-0;
+      font-size: 11px;
+    }
+
+    .line-clamp-2 {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+    }
+  }
+}

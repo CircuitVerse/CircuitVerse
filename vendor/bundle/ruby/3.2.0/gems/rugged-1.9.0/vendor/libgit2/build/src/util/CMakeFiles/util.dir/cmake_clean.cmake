@@ -1,0 +1,43 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/util.dir/alloc.c.o"
+  "CMakeFiles/util.dir/allocators/debugalloc.c.o"
+  "CMakeFiles/util.dir/allocators/failalloc.c.o"
+  "CMakeFiles/util.dir/allocators/stdalloc.c.o"
+  "CMakeFiles/util.dir/allocators/win32_leakcheck.c.o"
+  "CMakeFiles/util.dir/date.c.o"
+  "CMakeFiles/util.dir/errors.c.o"
+  "CMakeFiles/util.dir/filebuf.c.o"
+  "CMakeFiles/util.dir/fs_path.c.o"
+  "CMakeFiles/util.dir/futils.c.o"
+  "CMakeFiles/util.dir/hash.c.o"
+  "CMakeFiles/util.dir/hash/collisiondetect.c.o"
+  "CMakeFiles/util.dir/hash/openssl.c.o"
+  "CMakeFiles/util.dir/hash/sha1dc/sha1.c.o"
+  "CMakeFiles/util.dir/hash/sha1dc/ubc_check.c.o"
+  "CMakeFiles/util.dir/net.c.o"
+  "CMakeFiles/util.dir/pool.c.o"
+  "CMakeFiles/util.dir/posix.c.o"
+  "CMakeFiles/util.dir/pqueue.c.o"
+  "CMakeFiles/util.dir/rand.c.o"
+  "CMakeFiles/util.dir/regexp.c.o"
+  "CMakeFiles/util.dir/runtime.c.o"
+  "CMakeFiles/util.dir/sortedcache.c.o"
+  "CMakeFiles/util.dir/str.c.o"
+  "CMakeFiles/util.dir/strlist.c.o"
+  "CMakeFiles/util.dir/thread.c.o"
+  "CMakeFiles/util.dir/tsort.c.o"
+  "CMakeFiles/util.dir/unix/map.c.o"
+  "CMakeFiles/util.dir/unix/process.c.o"
+  "CMakeFiles/util.dir/unix/realpath.c.o"
+  "CMakeFiles/util.dir/utf8.c.o"
+  "CMakeFiles/util.dir/util.c.o"
+  "CMakeFiles/util.dir/varint.c.o"
+  "CMakeFiles/util.dir/vector.c.o"
+  "CMakeFiles/util.dir/wildmatch.c.o"
+  "CMakeFiles/util.dir/zstream.c.o"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C)
+  include(CMakeFiles/util.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

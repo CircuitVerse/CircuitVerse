@@ -1,0 +1,8 @@
+<%= render_component_tag do %>
+  <div class="flex items-center space-x-1.5">
+    <label for="<%= name %>">
+      <%= name.to_s.titleize %>:
+    </label>
+    <%= select_tag(name, options_for_select(choices, value), "x-model": "value", class: "compact") %>
+  </div>
+<% end %>

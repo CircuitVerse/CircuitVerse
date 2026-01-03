@@ -1,0 +1,34 @@
+@layer components {
+  [data-component="message"] {
+    @apply bg-lookbook-message-bg p-4 xs:p-6 shadow border border-lookbook-divider rounded flex gap-6 w-full;
+
+    &.icon-right {
+      @apply flex-row-reverse items-center;
+    }
+
+    &.icon-left {
+      @apply items-start;
+    }
+
+    & .message-title {
+      @apply text-base text-lookbook-message-title uppercase font-bold tracking-wide mb-2;
+      overflow-wrap: anywhere;
+    }
+
+    & .message-icon {
+      @apply flex-none opacity-30 hidden xs:block;
+    }
+
+    &.theme-error {
+      @apply border-red-200;
+
+      & .message-title {
+        @apply text-red-700;
+      }
+
+      & .message-icon {
+        @apply text-red-600 opacity-50;
+      }
+    }
+  }
+}

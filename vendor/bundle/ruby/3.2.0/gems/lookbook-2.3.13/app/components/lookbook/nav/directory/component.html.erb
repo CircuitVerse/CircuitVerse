@@ -1,0 +1,28 @@
+<%= render_component_tag :li,
+  id: id,
+  key: "#{id}-directory",
+  class: "list-none",
+  "x-show": "!filteredOut",
+  data: { "entity-type": :directory },
+  cloak: true do %>
+  <%= lookbook_tag :button,
+    key: "#{id}-action",
+    class: "nav-action",
+    style: "padding-left: #{left_pad}px",
+    "x-bind": "bindings.toggle" do %>
+    <div class="nav-action-inner">
+      <% if children? %>
+        <%= icon "chevron-down", size: 3, class: "nav-toggle-icon", "x-show": "open", "x-cloak": "true" %>
+        <%= icon "chevron-right", size: 3, class: "nav-toggle-icon", "x-show": "!open", "x-cloak": "true" %>
+      <% end %>
+      <%= icon nav_icon, size: 3.5, class: "mr-1.5 text-lookbook-nav-icon-stroke" %>
+      <span class="truncate"><%= label %></span>
+    </div>
+  <% end %>
+  
+  <% if children? %>
+    <ul x-ref="items" x-show="open" x-cloak>
+      <%= safe_join(children) %>
+    </ul>
+  <% end %>  
+<% end %>

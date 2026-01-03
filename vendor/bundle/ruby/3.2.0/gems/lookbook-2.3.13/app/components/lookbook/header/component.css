@@ -1,0 +1,12 @@
+@layer components {
+  [data-component="header"] {
+    .header-project-icon {
+      @apply h-5 inline-block flex-none;
+      width: min-content;
+
+      svg {
+        @apply h-full w-auto;
+      }
+    }
+  }
+}

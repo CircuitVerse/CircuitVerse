@@ -1,0 +1,5 @@
+class %<migration_name>s < ActiveRecord::Migration[%<migration_version>s]
+  def change
+    change_column_null :%<table_name>s, :%<column_name>s, false
+  end
+end

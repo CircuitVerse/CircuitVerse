@@ -1,0 +1,57 @@
+@import "./highlight_github.css";
+
+@layer components {
+  [data-component="code"] {
+    @apply text-sm px-4 overflow-x-hidden;
+
+    & .line {
+      min-height: 1.625em;
+      @apply leading-relaxed;
+    }
+
+    & .code {
+      @apply overflow-x-auto overflow-y-hidden py-4;
+    }
+
+    /* Line numbers */
+
+    &.numbered {
+      @apply p-0;
+
+      & .wrapper {
+        grid-template-columns: min-content 1fr;
+        @apply grid h-full w-full relative;
+      }
+
+      & .line-numbers {
+        width: min-content;
+        @apply border-r border-dashed z-10 h-full p-3 select-none text-right;
+      }
+
+      & .line-number {
+        min-width: 1.4em;
+        @apply text-xs block pt-[4px];
+      }
+
+      & .code {
+        @apply py-3;
+      }
+
+      & .code .line {
+        @apply px-3;
+      }
+    }
+
+    /* Focusing on specific lines */
+
+    &.focussed {
+      & .line:not(.highlighted) {
+        @apply !opacity-30;
+      }
+
+      & .code .line.highlighted {
+        @apply bg-yellow-50;
+      }
+    }
+  }
+}

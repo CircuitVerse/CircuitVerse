@@ -1,0 +1,12 @@
+<%= lookbook_render "embed/inspector",
+  target: @target,
+  scenarios: @scenario_choices,
+  panels: @panels,
+  actions: @actions,
+  options: @options,
+  context: {
+    data: @inspector_data,
+    params: @passed_params,
+    dynamic_display_options: @dynamic_display_options,
+    static_display_options: @static_display_options
+  } %>

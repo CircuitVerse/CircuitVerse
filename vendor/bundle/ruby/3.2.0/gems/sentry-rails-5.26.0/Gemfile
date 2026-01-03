@@ -1,0 +1,63 @@
+# frozen_string_literal: true
+
+source "https://rubygems.org"
+git_source(:github) { |name| "https://github.com/#{name}.git" }
+
+eval_gemfile "../Gemfile"
+
+# Specify your gem's dependencies in sentry-ruby.gemspec
+gemspec
+gem "sentry-ruby", path: "../sentry-ruby"
+
+platform :jruby do
+  gem "activerecord-jdbcmysql-adapter"
+  gem "jdbc-sqlite3"
+end
+
+ruby_version = Gem::Version.new(RUBY_VERSION)
+
+rails_version = ENV["RAILS_VERSION"]
+rails_version = "8.0.0" if rails_version.nil?
+rails_version = Gem::Version.new(rails_version)
+
+gem "rails", "~> #{rails_version}"
+
+if rails_version >= Gem::Version.new("8.0.0")
+  gem "rspec-rails"
+  gem "sqlite3", "~> 2.1.1", platform: :ruby
+elsif rails_version >= Gem::Version.new("7.1.0")
+  gem "rspec-rails"
+  gem "sqlite3", "~> 1.7.3", platform: :ruby
+elsif rails_version >= Gem::Version.new("6.1.0")
+  gem "rspec-rails", "~> 4.0"
+
+  if ruby_version >= Gem::Version.new("2.7.0")
+    gem "sqlite3", "~> 1.7.3", platform: :ruby
+  else
+    gem "sqlite3", "~> 1.6.9", platform: :ruby
+  end
+else
+  gem "rspec-rails", "~> 4.0"
+  gem "psych", "~> 3.0.0"
+
+  if rails_version >= Gem::Version.new("6.0.0")
+    gem "sqlite3", "~> 1.4.0", platform: :ruby
+  else
+    gem "sqlite3", "~> 1.3.0", platform: :ruby
+  end
+end
+
+if ruby_version < Gem::Version.new("2.5.0")
+  # https://github.com/flavorjones/loofah/pull/267
+  # loofah changed the required ruby version in a patch so we need to explicitly pin it
+  gem "loofah", "2.20.0"
+end
+
+gem "mini_magick"
+
+gem "sprockets-rails"
+
+gem "benchmark-ips"
+gem "benchmark_driver"
+gem "benchmark-ipsa"
+gem "benchmark-memory"

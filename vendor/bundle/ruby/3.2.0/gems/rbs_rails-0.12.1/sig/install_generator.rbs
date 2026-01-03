@@ -1,0 +1,5 @@
+module RbsRails
+  class InstallGenerator < Rails::Generators::Base
+    def create_raketask: () -> void
+  end
+end

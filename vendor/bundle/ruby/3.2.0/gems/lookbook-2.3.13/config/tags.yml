@@ -1,0 +1,44 @@
+shared:
+  hidden:
+    label: Hidden status
+    opts: {}
+
+  label:
+    label: Label
+    opts: {}
+
+  display:
+    label: Display
+    opts: {}
+
+  priority:
+    label: Priority
+    opts: {}
+
+  id:
+    label: Id
+    opts: {}
+
+  component:
+    label: Component
+    opts: {}
+
+  renders:
+    label: Renders
+    opts: {}
+
+  param:
+    label: Param
+    opts: {}
+
+  logical_path:
+    label: Logical Path
+    opts: {}
+
+  source:
+    label: Source file
+    opts: {}
+
+  after_render:
+    label: After render
+    opts: {}

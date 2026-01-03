@@ -1,0 +1,76 @@
+2023-05-30 Version 1.2.9
+    * Loosen version requirement for OAuth gem
+
+2023-01-03 Version 1.2.8
+    * Add Ruby 3.0 support by requiring rexml
+    * Fix URI encoding bug for queries with an ampersand `&`
+
+2022-12-13 Version 1.2.7
+    * Fix content return parameter encoding
+
+2022-04-26 Version 1.2.6
+    * Add support for prioritizeNonToolGrade
+    * Add support for needsAdditionalReview
+
+2020-02-03 Version 1.2.4
+    * Add support for submittedAt date
+
+2020-02-03 Version 1.2.3 -- yanked
+
+2017-06-19 Version 1.2.2
+    * Explicitly require 'oauth' gem and specify version range
+
+2017-04-13 Version 1.2.1
+    * Remove date field from gemspec
+
+2017-03-08 Version 1.2.0
+    * Don't downcase roles
+
+2016-10-05 Version 1.1.13
+    * Fix Oauth::Unauthorized initialization bug
+    * Relax oauth dependency
+
+2016-06-16 Version 1.1.12
+    * Add support for detecting observer role
+
+2015-02-20 Version 1.1.8
+    * Replace usage of the 'uuid' gem with SecureRandom
+    * Update the outcome extension doc example
+
+2015-01-09 Version 1.1.7
+    * Add support for new outcome extension resultTotalScore
+
+2013-04-24 Version 1.1.3
+
+    * Corrected lti_version launch parameter
+
+2012-09-05 Version 1.1.2
+
+    * Added better role checking and convenience methods
+
+2012-09-04 Version 1.1.1
+
+    * Added cdata value for outcome data extension
+
+2012-08-14 Version 1.1.0
+
+    * Added framework for LTI extensions
+    * Added LTI outcome data extension
+    * Fix tests reliant on random ordering
+    * Add rails 3 note to readme install docs
+    * Create Changelog
+
+
+2012-03-14 Version 1.0.2
+
+    * Refactor OAuth validation into its own module
+
+
+2012-03-13 Version 1.0.1
+
+    * Add gem dependencies to gemspec
+
+
+2012-03-11 Version 1.0.0
+
+    * Publish fully functional and operational IMS LTI library

@@ -1,0 +1,14 @@
+module Parser
+end
+
+class Parser::CurrentRuby
+  def self.parse: (String) -> Parser::AST::Node
+end
+
+module Parser::AST
+end
+
+class Parser::AST::Node
+  def type: () -> Symbol
+  def children: () -> Array[untyped]
+end

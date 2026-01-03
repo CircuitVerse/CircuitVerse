@@ -1,0 +1,13 @@
+<%= render_component_tag class: "grid h-full w-full", "x-bind": "bindings.root", "x-effect": "initSplit" do %>
+  <% panes.each.with_index(1) do |pane, i| %>
+    <%= pane %>
+    <% if i < panes.size %>
+      <div class="split-layout-gutter bg-lookbook-divider relative z-50" x-init="registerGutter">
+        <div class="absolute z-10 bg-transparent hover:bg-lookbook-draggable-hint transition-all" x-bind:class="{
+          'w-[9px] h-full -translate-x-1/2 cursor-[col-resize] split-layout-gutter-vertical': vertical,
+          'h-[9px] w-full -translate-y-1/2 cursor-[row-resize] split-layout-gutter-horizontal': horizontal
+        }"></div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

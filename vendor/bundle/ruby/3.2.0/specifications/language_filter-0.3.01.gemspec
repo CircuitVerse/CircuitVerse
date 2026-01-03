@@ -1,0 +1,25 @@
+# -*- encoding: utf-8 -*-
+# stub: language_filter 0.3.01 ruby lib
+
+Gem::Specification.new do |s|
+  s.name = "language_filter".freeze
+  s.version = "0.3.01"
+
+  s.required_rubygems_version = Gem::Requirement.new(">= 0".freeze) if s.respond_to? :required_rubygems_version=
+  s.require_paths = ["lib".freeze]
+  s.authors = ["Chris Fritz".freeze]
+  s.date = "2013-07-09"
+  s.description = "LanguageFilter is a Ruby gem to detect and optionally filter various categories of language.".freeze
+  s.email = ["chrisvfritz@gmail.com".freeze]
+  s.homepage = "http://github.com/chrisvfritz/language_filter".freeze
+  s.licenses = ["MIT".freeze]
+  s.rubygems_version = "3.4.6".freeze
+  s.summary = "LanguageFilter is a Ruby gem to detect and optionally filter various categories of language.".freeze
+
+  s.installed_by_version = "3.4.6" if s.respond_to? :installed_by_version
+
+  s.specification_version = 4
+
+  s.add_development_dependency(%q<bundler>.freeze, ["~> 1.3"])
+  s.add_development_dependency(%q<rake>.freeze, [">= 0"])
+end

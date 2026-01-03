@@ -1,0 +1,41 @@
+shared:
+  definitions:
+    - name: ruby
+      ext: .rb
+      label: Ruby
+      comment: "# %s"
+
+    - name: html
+      ext: .html
+      label: HTML
+      comment: "<!-- %s -->"
+
+    - name: erb
+      ext: .erb
+      label: ERB
+      comment: "<%%# %s %%>"
+
+    - name: haml
+      ext: .haml
+      label: Haml
+      comment: "<!-- %s -->"
+
+    - name: slim
+      ext: .slim
+      label: Slim
+      comment: "<!-- %s -->"
+
+    - name: tsx
+      ext: .tsx
+      label: TypeScript
+      comment: "// %s"
+
+    - name: js
+      ext: .js
+      label: JavasScript
+      comment: "// %s"
+
+    - name: css
+      ext: .css
+      label: CSS
+      comment: "/* %s */"

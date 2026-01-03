@@ -1,0 +1,53 @@
+@import "tippy.js/dist/tippy";
+@import "tippy.js/dist/border";
+
+.tippy-box[data-theme~="tooltip"] {
+  @apply text-xs opacity-90;
+
+  background-color: var(--lookbook-tooltip-bg);
+  color: var(--lookbook-tooltip-text);
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: var(--lookbook-tooltip-bg);
+  }
+
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: var(--lookbook-tooltip-bg);
+  }
+
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: var(--lookbook-tooltip-bg);
+  }
+
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: var(--lookbook-tooltip-bg);
+  }
+}
+
+.tippy-box[data-theme~="menu"] {
+  @apply shadow-lg !max-w-none;
+
+  border: 1px solid var(--lookbook-dropdown-divider);
+  color: var(--lookbook-dropdown-text);
+  background: var(--lookbook-dropdown-bg);
+
+  & > .tippy-content {
+    @apply rounded p-0 overflow-hidden;
+  }
+
+  &[data-placement^="top"] > .tippy-arrow::before {
+    border-top-color: var(--lookbook-dropdown-bg);
+  }
+
+  &[data-placement^="bottom"] > .tippy-arrow::before {
+    border-bottom-color: var(--lookbook-dropdown-bg);
+  }
+
+  &[data-placement^="left"] > .tippy-arrow::before {
+    border-left-color: var(--lookbook-dropdown-bg);
+  }
+
+  &[data-placement^="right"] > .tippy-arrow::before {
+    border-right-color: var(--lookbook-dropdown-bg);
+  }
+}

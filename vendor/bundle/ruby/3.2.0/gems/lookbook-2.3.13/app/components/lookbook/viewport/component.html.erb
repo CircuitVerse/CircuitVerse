@@ -1,0 +1,69 @@
+<%= render_component_tag class: "h-full min-h-0 w-full overflow-hidden relative", "@viewport:reload.window": "reloadIframe" do %>
+  <div class="absolute border border-lookbook-divider w-full h-full"></div>
+  <div
+    x-ref="wrapper"
+    class="mx-auto h-full w-full border border-b-0 border-lookbook-divider relative"
+    :style="`<% if @resize_width %>max-width: ${maxWidth};<% end %>
+      <% if @resize_height && @max_height.present? %>
+        max-height: min(${maxHeight}, <%= @max_height %>px);
+      <% elsif @resize_height %>
+        max-height: ${maxHeight};
+      <% elsif @max_height.present? %>
+        max-height: <%= @max_height %>px;
+      <% end %>`">
+  
+    <div
+      class="absolute z-10 pointer-events-none pr-1 pl-2 pt-1.5 pb-1 bg-gray-100/80 rounded-tl-sm top-0 <%= @resize_width ? "right-[18px]" : "right-0" %>"
+      x-ref="dimensions"
+      x-show="store.resizing"
+      x-cloak
+      x-transition:enter.opacity.duration.300ms
+      x-transition:leave.opacity.duration.500ms.delay.600ms>
+      <%= lookbook_render :dimensions_display, target: "[data-component=viewport] iframe" %>
+    </div>
+
+    <div
+      class="grid bg-white relative -inset-px <%= "grid-cols-[1fr_17px]" if @resize_width %> <%= "grid-rows-[1fr_17px]" if @resize_height %>"
+      style="width: calc(100% + 2px); height: calc(100% + 1px); <%= "max-height: #{@max_height}px;" if @max_height.present? %>">
+      <iframe seamless<%= " id=#{@iframe_id}" if @iframe_id.present? %>
+        x-ref="iframe"
+        class="bg-lookbook-page-bg h-full w-full border border-lookbook-divider"
+        x-bind:class="{ 'pointer-events-none': reflowing }"
+        style="<%= "max-height: #{@max_height}px;" if @max_height.present? %>"
+        src="<%= @src %>"
+        frameborder="0"
+        x-on:load="$dispatch('viewport:loaded', {viewport: this})"
+        title="viewport"></iframe>
+        <% if @resize_width %>
+          <div
+            class="resize-handle border-r border-t border-lookbook-divider cursor-[col-resize] <%= "border-b" unless @resize_height %>"
+            x-on:pointerdown="onResizeWidthStart"
+            x-on:dblclick="toggleFullWidth">
+            <svg class="h-4 w-4 pointer-events-none" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+            </svg>
+          </div>
+        <% end %>
+        <% if @resize_height %>
+          <div
+            class="resize-handle border-b border-l border-lookbook-divider cursor-[row-resize] <%= "border-r" unless @resize_width %>"
+            x-on:pointerdown="onResizeHeightStart"
+            x-on:dblclick="toggleFullHeight">
+            <svg class="h-4 w-4 pointer-events-none rotate-90" fill="currentColor" viewBox="0 0 24 24" >
+              <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+            </svg>
+          </div>
+        <% end %>
+        <% if @resize_height && @resize_width %>
+          <div
+            class="resize-handle border-r border-b border-lookbook-divider cursor-[nwse-resize]"
+            x-on:pointerdown="onResizeStart"
+            x-on:dblclick="toggleFullSize">
+            <svg class="h-3.5 w-3.5 pointer-events-none rotate-45 relative -top-px -left-px" fill="currentColor" viewBox="0 0 24 24" >
+              <path d="M8 5h2v14H8zM14 5h2v14h-2z"></path>
+            </svg>
+          </div>
+        <% end %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,19 @@
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/erb-5.0.2/ext/erb/escape
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.2.0 extconf.rb
+checking for rb_ext_ractor_safe() in ruby.h... yes
+creating Makefile
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/erb-5.0.2/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-qkasgd sitelibdir\=./.gem.20251230-481-qkasgd clean
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/erb-5.0.2/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-qkasgd sitelibdir\=./.gem.20251230-481-qkasgd
+compiling escape.c
+linking shared-object erb/escape.so
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/erb-5.0.2/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-qkasgd sitelibdir\=./.gem.20251230-481-qkasgd install
+/usr/bin/install -c -m 0755 escape.so ./.gem.20251230-481-qkasgd/erb
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/erb-5.0.2/ext/erb/escape
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-qkasgd sitelibdir\=./.gem.20251230-481-qkasgd clean

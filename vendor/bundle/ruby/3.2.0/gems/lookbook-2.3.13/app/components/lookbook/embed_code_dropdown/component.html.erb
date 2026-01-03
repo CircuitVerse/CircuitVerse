@@ -1,0 +1,64 @@
+<%= render_component_tag class:"p-3 w-[360px] text-[11px] text-gray-600" do %>  
+
+  <!-- p class="mb-3">
+    Embed this preview in Lookbook pages or externally using the code or iframe URL below.
+  </!-->
+
+  <div class="mb-4 space-y-2">
+
+    <header class="flex items-center">
+      <h4 class=" uppercase tracking-wider font-bold">Embed Code</h4>
+      <span class="ml-auto" >
+        <a
+          href="https://lookbook.build/guide/sharing/embeds"
+          target="_blank"
+          title="Help"
+          class="text-lookbook-prose underline opacity-70 hover:opacity-100">
+          what's this?
+        </a>
+      </span>
+    </header>
+
+    <div class="relative group">
+      <%= code :html do %><%= embed_code %><% end %>
+
+      <span class="absolute top-px right-px bg-lookbook-base-50 rounded-md transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+        <%= lookbook_render :copy_button, icon: :copy, tooltip: "Copy" do %>
+          <%= escape_once embed_code %>
+        <% end %>
+      </span>
+    </div>
+    
+  </div>
+
+  <div class="space-y-2">
+
+    <header class="flex items-center">
+      <h4 class="text-[11px] uppercase tracking-wider font-bold">Embed URL</h4>
+      <span class="ml-auto" >
+        <a
+          href="https://lookbook.build/guide/sharing/embeds#other-services"
+          target="_blank"
+          title="Help"
+          class="text-lookbook-prose underline opacity-70 hover:opacity-100">
+          what's this?
+        </a>
+      </span>
+    </header>
+
+    <div class="relative group">
+      <div class="font-mono bg-lookbook-base-50 px-2 py-2 break-all border border-dashed border-lookbook-divider">
+        <span class="line-clamp-2">
+          <%= embed_url %>
+        </span>
+      </div>
+      
+      <span class="absolute top-px right-px bg-lookbook-base-50 rounded-md transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+        <%= lookbook_render :copy_button, icon: :copy, tooltip: "Copy" do %><%= embed_url %><% end %>
+      </span>
+    </div>
+
+  </div>
+      
+
+<% end %>

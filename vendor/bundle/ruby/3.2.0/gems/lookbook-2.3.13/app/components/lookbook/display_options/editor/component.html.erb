@@ -1,0 +1,13 @@
+<%= render_component_tag class: "px-2" do %>
+  <% if fields.many? %>
+    <%= lookbook_render :button, id: "display-options-dropdown-button", icon: :settings, tooltip: "Display options" do |button| %>
+      <% button.with_dropdown do %>
+        <div class="p-3 space-y-3">
+          <%= safe_join(fields) %>
+        </div>
+      <% end %>
+    <% end %>
+  <% else %>
+    <%= safe_join(fields) %>
+  <% end %>
+<% end %>

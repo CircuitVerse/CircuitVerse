@@ -1,0 +1,7 @@
+@layer components {
+  [data-component="display-options-field"] {
+    label {
+      @apply text-[0.82rem] text-lookbook-input-text cursor-pointer;
+    }
+  }
+}

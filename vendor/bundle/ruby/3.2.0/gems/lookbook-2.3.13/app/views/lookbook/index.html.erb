@@ -1,0 +1,40 @@
+<% 
+sidebar_panels_config = @config.preview_inspector.sidebar_panels.map(&:to_sym)
+%>
+
+<%= render "lookbook/partials/blank_slate" do %>
+  <% if @blank_slate %>
+    <%= lookbook_render :message,
+      id: "welcome-message",
+      title: "Welcome to your Lookbook!",
+      icon: :logo do %>
+      <p>
+        There isn't much to see yet<% if sidebar_panels_config.any? %>, but<% end %>
+        <% if sidebar_panels_config.include?(:previews) %>
+          <%= link_to "component previews",
+            "#{@config.links.docs}/guide/previews",
+            target: "_blank"
+          %>  
+        <% end %>
+        <% if sidebar_panels_config.many? %>and<% end %>
+        <% if sidebar_panels_config.include?(:pages) %>
+          <%= link_to "content pages",
+            "#{@config.links.docs}/guide/pages",
+            target: "_blank"
+          %>
+        <% end %>
+        <% if sidebar_panels_config.any? %>
+          will show up here as soon as they are added.
+        <% end %>
+      </p>
+    <% end %>
+  <% else %>
+    <%= lookbook_render :message,
+      id: "get-started-message",
+      title: @config.project_name,
+      icon: :inspect,
+      icon_position: :right do %>
+      <p>Select a preview from the nav to get started.</p>
+    <% end %>
+  <% end %>
+<% end %>

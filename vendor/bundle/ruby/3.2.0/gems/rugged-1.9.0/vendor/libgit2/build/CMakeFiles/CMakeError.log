@@ -1,0 +1,359 @@
+Performing C SOURCE FILE Test CMAKE_HAVE_LIBC_PTHREAD failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_0a6e8/fast && gmake: Warning: File 'Makefile' has modification time 0.07 s in the future
+/usr/bin/gmake  -f CMakeFiles/cmTC_0a6e8.dir/build.make CMakeFiles/cmTC_0a6e8.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake[1]: Warning: File 'CMakeFiles/cmTC_0a6e8.dir/flags.make' has modification time 0.024 s in the future
+Building C object CMakeFiles/cmTC_0a6e8.dir/src.c.o
+/usr/bin/cc   -fPIC -DCMAKE_HAVE_LIBC_PTHREAD -o CMakeFiles/cmTC_0a6e8.dir/src.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+Linking C executable cmTC_0a6e8
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_0a6e8.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC -DCMAKE_HAVE_LIBC_PTHREAD CMakeFiles/cmTC_0a6e8.dir/src.c.o -o cmTC_0a6e8 
+/usr/bin/ld: CMakeFiles/cmTC_0a6e8.dir/src.c.o: in function `main':
+src.c:(.text+0x2f): undefined reference to `pthread_create'
+/usr/bin/ld: src.c:(.text+0x3b): undefined reference to `pthread_detach'
+/usr/bin/ld: src.c:(.text+0x47): undefined reference to `pthread_cancel'
+/usr/bin/ld: src.c:(.text+0x58): undefined reference to `pthread_join'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_0a6e8.dir/build.make:106: cmTC_0a6e8] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_0a6e8/fast] Error 2
+
+
+Source file was:
+#include <pthread.h>
+
+void* test_func(void* data)
+{
+  return data;
+}
+
+int main(void)
+{
+  pthread_t thread;
+  pthread_create(&thread, NULL, test_func, NULL);
+  pthread_detach(thread);
+  pthread_cancel(thread);
+  pthread_join(thread, NULL);
+  pthread_atfork(NULL, NULL, NULL);
+  pthread_exit(NULL);
+
+  return 0;
+}
+
+Determining if the function pthread_create exists in the pthreads failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_497ad/fast && gmake: Warning: File 'Makefile' has modification time 0.074 s in the future
+/usr/bin/gmake  -f CMakeFiles/cmTC_497ad.dir/build.make CMakeFiles/cmTC_497ad.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake[1]: Warning: File 'CMakeFiles/cmTC_497ad.dir/flags.make' has modification time 0.016 s in the future
+Building C object CMakeFiles/cmTC_497ad.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create -o CMakeFiles/cmTC_497ad.dir/CheckFunctionExists.c.o -c /usr/share/cmake-3.18/Modules/CheckFunctionExists.c
+Linking C executable cmTC_497ad
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_497ad.dir/link.txt --verbose=1
+/usr/bin/cc -fPIC -DCHECK_FUNCTION_EXISTS=pthread_create CMakeFiles/cmTC_497ad.dir/CheckFunctionExists.c.o -o cmTC_497ad  -lpthreads 
+/usr/bin/ld: cannot find -lpthreads
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_497ad.dir/build.make:106: cmTC_497ad] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_497ad/fast] Error 2
+
+
+
+Performing C SOURCE FILE Test HAVE_STRUCT_STAT_ST_MTIMESPEC failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_6debf/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_6debf.dir/build.make CMakeFiles/cmTC_6debf.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake[1]: Warning: File 'CMakeFiles/cmTC_6debf.dir/progress.make' has modification time 0.045 s in the future
+Building C object CMakeFiles/cmTC_6debf.dir/src.c.o
+/usr/bin/cc   -fPIC -DHAVE_STRUCT_STAT_ST_MTIMESPEC -o CMakeFiles/cmTC_6debf.dir/src.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c:7:34: error: ‘struct stat’ has no member named ‘st_mtimespec’
+    7 |   (void)sizeof(((struct stat *)0)->st_mtimespec);
+      |                                  ^~
+gmake[1]: *** [CMakeFiles/cmTC_6debf.dir/build.make:85: CMakeFiles/cmTC_6debf.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_6debf/fast] Error 2
+
+
+Source file was:
+
+#include <sys/types.h>
+#include <sys/stat.h>
+
+int main()
+{
+  (void)sizeof(((struct stat *)0)->st_mtimespec);
+  return 0;
+}
+
+Performing C SOURCE FILE Test HAVE_STRUCT_STAT_MTIME_NSEC failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_f7d74/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f7d74.dir/build.make CMakeFiles/cmTC_f7d74.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake[1]: Warning: File 'CMakeFiles/cmTC_f7d74.dir/progress.make' has modification time 0.032 s in the future
+Building C object CMakeFiles/cmTC_f7d74.dir/src.c.o
+/usr/bin/cc   -fPIC -DHAVE_STRUCT_STAT_MTIME_NSEC -o CMakeFiles/cmTC_f7d74.dir/src.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c: In function ‘main’:
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c:6:34: error: ‘struct stat’ has no member named ‘st_mtime_nsec’
+    6 |   (void)sizeof(((struct stat *)0)->st_mtime_nsec);
+      |                                  ^~
+gmake[1]: *** [CMakeFiles/cmTC_f7d74.dir/build.make:85: CMakeFiles/cmTC_f7d74.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_f7d74/fast] Error 2
+
+
+Source file was:
+
+#include <sys/stat.h>
+
+int main()
+{
+  (void)sizeof(((struct stat *)0)->st_mtime_nsec);
+  return 0;
+}
+
+Performing C SOURCE FILE Test IS_WDOCUMENTATION_SUPPORTED failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_c56ea/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c56ea.dir/build.make CMakeFiles/cmTC_c56ea.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c56ea.dir/src.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -DIS_WDOCUMENTATION_SUPPORTED   -Wdocumentation -o CMakeFiles/cmTC_c56ea.dir/src.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command-line option '-Wdocumentation'
+gmake[1]: *** [CMakeFiles/cmTC_c56ea.dir/build.make:85: CMakeFiles/cmTC_c56ea.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_c56ea/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+Performing C SOURCE FILE Test IS_WC11_EXTENSIONS_SUPPORTED failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_c619a/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_c619a.dir/build.make CMakeFiles/cmTC_c619a.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_c619a.dir/src.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -DIS_WC11_EXTENSIONS_SUPPORTED   -Wc11-extensions -o CMakeFiles/cmTC_c619a.dir/src.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/src.c
+cc: error: unrecognized command-line option '-Wc11-extensions'; did you mean '-fms-extensions'?
+gmake[1]: *** [CMakeFiles/cmTC_c619a.dir/build.make:85: CMakeFiles/cmTC_c619a.dir/src.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_c619a/fast] Error 2
+
+
+Source file was:
+int main(void) { return 0; }
+Determining if the include file windows.h exists failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_ac222/fast && gmake: Warning: File 'Makefile' has modification time 0.18 s in the future
+/usr/bin/gmake  -f CMakeFiles/cmTC_ac222.dir/build.make CMakeFiles/cmTC_ac222.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake[1]: Warning: File 'CMakeFiles/cmTC_ac222.dir/flags.make' has modification time 0.13 s in the future
+Building C object CMakeFiles/cmTC_ac222.dir/CheckIncludeFile.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security  -o CMakeFiles/cmTC_ac222.dir/CheckIncludeFile.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:10: fatal error: windows.h: No such file or directory
+    1 | #include <windows.h>
+      |          ^~~~~~~~~~~
+compilation terminated.
+gmake[1]: *** [CMakeFiles/cmTC_ac222.dir/build.make:85: CMakeFiles/cmTC_ac222.dir/CheckIncludeFile.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_ac222/fast] Error 2
+
+
+
+Determining if the function _strtoi64 exists failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_7157d/fast && gmake: Warning: File 'Makefile' has modification time 0.055 s in the future
+/usr/bin/gmake  -f CMakeFiles/cmTC_7157d.dir/build.make CMakeFiles/cmTC_7157d.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake[1]: Warning: File 'CMakeFiles/cmTC_7157d.dir/flags.make' has modification time 0.018 s in the future
+Building C object CMakeFiles/cmTC_7157d.dir/CheckFunctionExists.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=_strtoi64 -o CMakeFiles/cmTC_7157d.dir/CheckFunctionExists.c.o -c /usr/share/cmake-3.18/Modules/CheckFunctionExists.c
+Linking C executable cmTC_7157d
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7157d.dir/link.txt --verbose=1
+/usr/bin/cc -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -DCHECK_FUNCTION_EXISTS=_strtoi64 CMakeFiles/cmTC_7157d.dir/CheckFunctionExists.c.o -o cmTC_7157d 
+/usr/bin/ld: CMakeFiles/cmTC_7157d.dir/CheckFunctionExists.c.o: in function `main':
+CheckFunctionExists.c:(.text+0x10): undefined reference to `_strtoi64'
+collect2: error: ld returned 1 exit status
+gmake[1]: *** [CMakeFiles/cmTC_7157d.dir/build.make:106: cmTC_7157d] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_7157d/fast] Error 2
+
+
+
+Determining if the prototype qsort_r exists for GIT_QSORT_BSD failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_8cd99/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_8cd99.dir/build.make CMakeFiles/cmTC_8cd99.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_8cd99.dir/CheckPrototypeDefinition.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -Wno-unused-function -Wno-unused-parameter  -o CMakeFiles/cmTC_8cd99.dir/CheckPrototypeDefinition.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:7: error: conflicting types for ‘qsort_r’
+   14 | void (qsort_r)(void *base, size_t nmemb, size_t size, void *context, int (*compar)(void *, const void *, const void *)) {
+      |       ^~~~~~~
+In file included from /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:1:
+/usr/include/stdlib.h:833:13: note: previous declaration of ‘qsort_r’ was here
+  833 | extern void qsort_r (void *__base, size_t __nmemb, size_t __size,
+      |             ^~~~~~~
+cc1: note: unrecognized command-line option ‘-Wno-documentation-deprecated-sync’ may have been intended to silence earlier diagnostics
+gmake[1]: *** [CMakeFiles/cmTC_8cd99.dir/build.make:85: CMakeFiles/cmTC_8cd99.dir/CheckPrototypeDefinition.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_8cd99/fast] Error 2
+
+
+
+#include <stdlib.h>
+
+
+static void cmakeRequireSymbol(int dummy, ...) {
+  (void) dummy;
+}
+
+static void checkSymbol(void) {
+#ifndef qsort_r
+  cmakeRequireSymbol(0, &qsort_r);
+#endif
+}
+
+void (qsort_r)(void *base, size_t nmemb, size_t size, void *context, int (*compar)(void *, const void *, const void *)) {
+  return ;
+}
+
+#ifdef __CLASSIC_C__
+int main() {
+  int ac;
+  char*av[];
+#else
+int main(int ac, char *av[]) {
+#endif
+  checkSymbol();
+  if (ac > 1000) {
+    return *av[0];
+  }
+  return 0;
+}
+
+
+Determining if the prototype qsort_s exists for GIT_QSORT_C11 failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_346d9/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_346d9.dir/build.make CMakeFiles/cmTC_346d9.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_346d9.dir/CheckPrototypeDefinition.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -Wno-unused-function -Wno-unused-parameter  -o CMakeFiles/cmTC_346d9.dir/CheckPrototypeDefinition.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c: In function ‘checkSymbol’:
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:10:26: error: ‘qsort_s’ undeclared (first use in this function); did you mean ‘qsort_r’?
+   10 |   cmakeRequireSymbol(0, &qsort_s);
+      |                          ^~~~~~~
+      |                          qsort_r
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:10:26: note: each undeclared identifier is reported only once for each function it appears in
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c: At top level:
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:31: error: unknown type name ‘rsize_t’; did you mean ‘ssize_t’?
+   14 | errno_t (qsort_s)(void *base, rsize_t nmemb, rsize_t size, int (*compar)(const void *, const void *, void *), void *context) {
+      |                               ^~~~~~~
+      |                               ssize_t
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:46: error: unknown type name ‘rsize_t’; did you mean ‘ssize_t’?
+   14 | errno_t (qsort_s)(void *base, rsize_t nmemb, rsize_t size, int (*compar)(const void *, const void *, void *), void *context) {
+      |                                              ^~~~~~~
+      |                                              ssize_t
+cc1: note: unrecognized command-line option ‘-Wno-documentation-deprecated-sync’ may have been intended to silence earlier diagnostics
+gmake[1]: *** [CMakeFiles/cmTC_346d9.dir/build.make:85: CMakeFiles/cmTC_346d9.dir/CheckPrototypeDefinition.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_346d9/fast] Error 2
+
+
+
+#include <stdlib.h>
+
+
+static void cmakeRequireSymbol(int dummy, ...) {
+  (void) dummy;
+}
+
+static void checkSymbol(void) {
+#ifndef qsort_s
+  cmakeRequireSymbol(0, &qsort_s);
+#endif
+}
+
+errno_t (qsort_s)(void *base, rsize_t nmemb, rsize_t size, int (*compar)(const void *, const void *, void *), void *context) {
+  return 0;
+}
+
+#ifdef __CLASSIC_C__
+int main() {
+  int ac;
+  char*av[];
+#else
+int main(int ac, char *av[]) {
+#endif
+  checkSymbol();
+  if (ac > 1000) {
+    return *av[0];
+  }
+  return 0;
+}
+
+
+Determining if the prototype qsort_s exists for GIT_QSORT_MSC failed with the following output:
+Change Dir: /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp
+
+Run Build Command(s):/usr/bin/gmake cmTC_f3354/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_f3354.dir/build.make CMakeFiles/cmTC_f3354.dir/build
+gmake[1]: Entering directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_f3354.dir/CheckPrototypeDefinition.c.o
+/usr/bin/cc   -D_GNU_SOURCE -fPIC -Wall -Wextra -Wno-documentation-deprecated-sync -Wno-missing-field-initializers -Wmissing-declarations -Wstrict-aliasing -Wstrict-prototypes -Wdeclaration-after-statement -Wshift-count-overflow -Wunused-const-variable -Wunused-function -Wint-conversion -Wc99-c11-compat -Wformat -Wformat-security -Wno-unused-function -Wno-unused-parameter  -o CMakeFiles/cmTC_f3354.dir/CheckPrototypeDefinition.c.o -c /circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c: In function ‘checkSymbol’:
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:10:26: error: ‘qsort_s’ undeclared (first use in this function); did you mean ‘qsort_r’?
+   10 |   cmakeRequireSymbol(0, &qsort_s);
+      |                          ^~~~~~~
+      |                          qsort_r
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:10:26: note: each undeclared identifier is reported only once for each function it appears in
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c: At top level:
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp/CheckPrototypeDefinition.c:14:7: warning: no previous declaration for ‘qsort_s’ [-Wmissing-declarations]
+   14 | void (qsort_s)(void *base, size_t num, size_t width, int (*compare )(void *, const void *, const void *), void *context) {
+      |       ^~~~~~~
+cc1: note: unrecognized command-line option ‘-Wno-documentation-deprecated-sync’ may have been intended to silence earlier diagnostics
+gmake[1]: *** [CMakeFiles/cmTC_f3354.dir/build.make:85: CMakeFiles/cmTC_f3354.dir/CheckPrototypeDefinition.c.o] Error 1
+gmake[1]: Leaving directory '/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/build/CMakeFiles/CMakeTmp'
+gmake: *** [Makefile:140: cmTC_f3354/fast] Error 2
+
+
+
+#include <stdlib.h>
+
+
+static void cmakeRequireSymbol(int dummy, ...) {
+  (void) dummy;
+}
+
+static void checkSymbol(void) {
+#ifndef qsort_s
+  cmakeRequireSymbol(0, &qsort_s);
+#endif
+}
+
+void (qsort_s)(void *base, size_t num, size_t width, int (*compare )(void *, const void *, const void *), void *context) {
+  return ;
+}
+
+#ifdef __CLASSIC_C__
+int main() {
+  int ac;
+  char*av[];
+#else
+int main(int ac, char *av[]) {
+#endif
+  checkSymbol();
+  if (ac > 1000) {
+    return *av[0];
+  }
+  return 0;
+}
+
+

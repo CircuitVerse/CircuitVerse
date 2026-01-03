@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/deps/llhttp/api.c
+stdlib.h
+-
+stdio.h
+-
+string.h
+-
+llhttp.h
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/deps/llhttp/llhttp.h
+
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/deps/llhttp/http.c
+stdio.h
+-
+llhttp.h
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/deps/llhttp/llhttp.h
+
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/deps/llhttp/llhttp.c
+stdlib.h
+-
+stdint.h
+-
+string.h
+-
+nmmintrin.h
+-
+x86intrin.h
+-
+llhttp.h
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/deps/llhttp/llhttp.h
+
+/circuitverse/vendor/bundle/ruby/3.2.0/gems/rugged-1.9.0/vendor/libgit2/deps/llhttp/llhttp.h
+stdint.h
+-
+stddef.h
+-
+

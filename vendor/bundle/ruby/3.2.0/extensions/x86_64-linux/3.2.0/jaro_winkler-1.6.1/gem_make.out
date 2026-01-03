@@ -1,0 +1,34 @@
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/jaro_winkler-1.6.1/ext/jaro_winkler
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.2.0 extconf.rb
+checking for whether -std=c99 is accepted as CFLAGS... yes
+creating Makefile
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/jaro_winkler-1.6.1/ext/jaro_winkler
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-243pej sitelibdir\=./.gem.20251230-2706-243pej clean
+make: Warning: File 'Makefile' has modification time 0.02 s in the future
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/jaro_winkler-1.6.1/ext/jaro_winkler
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-243pej sitelibdir\=./.gem.20251230-2706-243pej
+compiling adj_matrix.c
+adj_matrix.c: In function ‘adj_matrix_default’:
+adj_matrix.c:82:12: warning: old-style function definition [-Wold-style-definition]
+   82 | AdjMatrix *adj_matrix_default() {
+      |            ^~~~~~~~~~~~~~~~~~
+adj_matrix.c: At top level:
+cc1: note: unrecognized command-line option ‘-Wno-self-assign’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-parentheses-equality’ may have been intended to silence earlier diagnostics
+cc1: note: unrecognized command-line option ‘-Wno-constant-logical-operand’ may have been intended to silence earlier diagnostics
+compiling codepoints.c
+compiling jaro.c
+compiling jaro_winkler.c
+linking shared-object jaro_winkler/jaro_winkler_ext.so
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/jaro_winkler-1.6.1/ext/jaro_winkler
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-243pej sitelibdir\=./.gem.20251230-2706-243pej install
+make: Warning: File 'jaro_winkler_ext.so' has modification time 0.071 s in the future
+/usr/bin/install -c -m 0755 jaro_winkler_ext.so ./.gem.20251230-2706-243pej/jaro_winkler
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/jaro_winkler-1.6.1/ext/jaro_winkler
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-243pej sitelibdir\=./.gem.20251230-2706-243pej clean

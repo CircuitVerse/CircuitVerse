@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Subscriptions</title>
+
+    <style>
+      body {
+        padding: 20px;
+        font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      a {
+        color: blue;
+      }
+
+      .container {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <% if opted_out? %>
+        <p>You are unsubscribed.</p>
+        <p><%= link_to "Resubscribe", subscribe_url %></p>
+      <% else %>
+        <p>You are subscribed.</p>
+        <p><%= link_to "Unsubscribe", unsubscribe_url %></p>
+      <% end %>
+    </div>
+  </body>
+</html>

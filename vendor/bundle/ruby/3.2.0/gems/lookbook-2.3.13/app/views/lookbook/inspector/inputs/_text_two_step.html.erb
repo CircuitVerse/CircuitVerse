@@ -1,0 +1,19 @@
+<div x-data="{changed: false, applyChange(){ this.value = this.$refs.input.value; this.changed = false; }}">
+
+  <div x-on:change.stop="changed = ($event.target.value !== value)" class="flex items-center gap-2">
+    <%= text_field_tag(name, value,
+      **input_options,
+      type: input,
+      class: "flex-grow",
+      "x-ref": "input",
+      "x-on:keydown.enter.stop": "applyChange"
+    ) %>
+
+    <%= lookbook_render :button,
+      icon: :check,
+      tooltip: "Apply changes",
+      class: "flex-none !bg-lookbook-button-bg hover:!bg-lookbook-button-bg-hover rounded-md !text-lookbook-button-text",
+      "x-show": "changed",
+      "x-on:click": "applyChange" %>
+  </div>
+</div>

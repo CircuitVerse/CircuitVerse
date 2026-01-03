@@ -11,7 +11,7 @@ x-common-build: &common_build
   volumes:
     - .:/circuitverse:rw
     - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
-    - ruby_bundle:/home/vendor/bundle:rw
+    - ruby_bundle:/usr/local/bundle:rw
 
 services:
   db:

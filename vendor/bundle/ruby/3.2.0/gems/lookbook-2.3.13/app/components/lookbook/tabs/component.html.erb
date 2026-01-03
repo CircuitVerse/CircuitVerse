@@ -1,0 +1,20 @@
+<%= render_component_tag class: "flex items-center relative" do %>
+  <div x-ref="tabs" class="<%= class_names [
+    "flex items-stretch select-none min-w-0",
+    {
+      "h-10 space-x-6": @theme == :toolbar,
+      "space-x-3": @theme == :page,
+    }
+  ] %>">
+    <%= safe_join(tabs) %>
+  </div>
+  <div x-ref="dropdownTrigger" class="absolute" x-show="hasHiddenTabs" :style="{left: `${triggerLeft}px`}">
+    <%= lookbook_render :icon_button, icon: :chevrons_right, "x-show": "visibleTabsCount > 0" %>
+    <%= lookbook_render :icon_button, icon: :menu, class: "-ml-3", "x-show": "visibleTabsCount === 0" %>
+  </div>
+  <div class="hidden">
+    <div x-ref="tabsDropdown" x-cloak>
+      <%= safe_join(dropdown_tabs) %>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+module RbsRails
+  def self.copy_signatures: (to: untyped to) -> untyped
+end
+
+class RbsRails::Error < StandardError
+end

@@ -1,0 +1,28 @@
+shared:
+  preview:
+    partial: lookbook/inspector/panels/preview
+    label: Preview
+    hotkey: v
+
+  output:
+    partial: lookbook/inspector/panels/output
+    label: HTML
+    hotkey: h
+
+  source:
+    partial: lookbook/inspector/panels/source
+    label: Source
+    hotkey: s
+    copy: "->(data) { data.scenarios.map { |e| e.source }.join(\n) }"
+
+  notes:
+    partial: lookbook/inspector/panels/notes
+    label: Notes
+    hotkey: n
+    disabled: "->(data) { data.scenarios.select { |e| e.notes.present? }.none? }"
+
+  params:
+    partial: lookbook/inspector/panels/params
+    label: Params
+    hotkey: p
+    disabled: "->(data) { data.context.params.none? }"

@@ -1,0 +1,130 @@
+find_executable: checking for gmake... -------------------- yes
+
+--------------------
+
+find_executable: checking for cmake... -------------------- yes
+
+--------------------
+
+find_executable: checking for pkg-config... -------------------- yes
+
+--------------------
+
+LD_LIBRARY_PATH=.:/usr/local/lib /usr/bin/gmake
+Scanning dependencies of target llhttp
+[  1%] Building C object deps/llhttp/CMakeFiles/llhttp.dir/api.c.o
+[  1%] Building C object deps/llhttp/CMakeFiles/llhttp.dir/http.c.o
+[  2%] Building C object deps/llhttp/CMakeFiles/llhttp.dir/llhttp.c.o
+[  2%] Built target llhttp
+Scanning dependencies of target pcre
+gmake[2]: Warning: File 'deps/pcre/CMakeFiles/pcre.dir/depend.make' has modification time 0.33 s in the future
+[  2%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_byte_order.c.o
+[  3%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_chartables.c.o
+[  3%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_compile.c.o
+[  4%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_config.c.o
+[  4%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_dfa_exec.c.o
+[  5%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_exec.c.o
+[  5%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_fullinfo.c.o
+[  6%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_get.c.o
+[  6%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_globals.c.o
+[  7%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_jit_compile.c.o
+[  7%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_maketables.c.o
+[  8%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_newline.c.o
+[  8%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_ord2utf8.c.o
+[  9%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_refcount.c.o
+[  9%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_string_utils.c.o
+[  9%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_study.c.o
+[ 10%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_tables.c.o
+[ 10%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_ucd.c.o
+[ 11%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_valid_utf8.c.o
+[ 11%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_version.c.o
+[ 12%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcre_xclass.c.o
+[ 12%] Building C object deps/pcre/CMakeFiles/pcre.dir/pcreposix.c.o
+gmake[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[ 12%] Built target pcre
+Scanning dependencies of target xdiff
+[ 13%] Building C object deps/xdiff/CMakeFiles/xdiff.dir/xdiffi.c.o
+[ 13%] Building C object deps/xdiff/CMakeFiles/xdiff.dir/xemit.c.o
+[ 14%] Building C object deps/xdiff/CMakeFiles/xdiff.dir/xhistogram.c.o
+[ 14%] Building C object deps/xdiff/CMakeFiles/xdiff.dir/xmerge.c.o
+[ 15%] Building C object deps/xdiff/CMakeFiles/xdiff.dir/xpatience.c.o
+[ 15%] Building C object deps/xdiff/CMakeFiles/xdiff.dir/xprepare.c.o
+[ 16%] Building C object deps/xdiff/CMakeFiles/xdiff.dir/xutils.c.o
+[ 16%] Built target xdiff
+Scanning dependencies of target ntlmclient
+[ 16%] Building C object deps/ntlmclient/CMakeFiles/ntlmclient.dir/ntlm.c.o
+[ 17%] Building C object deps/ntlmclient/CMakeFiles/ntlmclient.dir/util.c.o
+[ 17%] Building C object deps/ntlmclient/CMakeFiles/ntlmclient.dir/unicode_builtin.c.o
+[ 18%] Building C object deps/ntlmclient/CMakeFiles/ntlmclient.dir/crypt_openssl.c.o
+[ 18%] Built target ntlmclient
+Scanning dependencies of target util
+gmake[2]: Warning: File 'src/util/CMakeFiles/util.dir/depend.make' has modification time 0.062 s in the future
+[ 19%] Building C object src/util/CMakeFiles/util.dir/alloc.c.o
+[ 19%] Building C object src/util/CMakeFiles/util.dir/allocators/debugalloc.c.o
+[ 20%] Building C object src/util/CMakeFiles/util.dir/allocators/failalloc.c.o
+[ 20%] Building C object src/util/CMakeFiles/util.dir/allocators/stdalloc.c.o
+[ 21%] Building C object src/util/CMakeFiles/util.dir/allocators/win32_leakcheck.c.o
+[ 21%] Building C object src/util/CMakeFiles/util.dir/date.c.o
+[ 22%] Building C object src/util/CMakeFiles/util.dir/errors.c.o
+[ 22%] Building C object src/util/CMakeFiles/util.dir/filebuf.c.o
+[ 23%] Building C object src/util/CMakeFiles/util.dir/fs_path.c.o
+[ 23%] Building C object src/util/CMakeFiles/util.dir/futils.c.o
+[ 24%] Building C object src/util/CMakeFiles/util.dir/hash.c.o
+[ 24%] Building C object src/util/CMakeFiles/util.dir/net.c.o
+[ 25%] Building C object src/util/CMakeFiles/util.dir/pool.c.o
+[ 25%] Building C object src/util/CMakeFiles/util.dir/posix.c.o
+[ 26%] Building C object src/util/CMakeFiles/util.dir/pqueue.c.o
+[ 26%] Building C object src/util/CMakeFiles/util.dir/rand.c.o
+[ 27%] Building C object src/util/CMakeFiles/util.dir/regexp.c.o
+[ 27%] Building C object src/util/CMakeFiles/util.dir/runtime.c.o
+[ 28%] Building C object src/util/CMakeFiles/util.dir/sortedcache.c.o
+[ 28%] Building C object src/util/CMakeFiles/util.dir/str.c.o
+[ 29%] Building C object src/util/CMakeFiles/util.dir/strlist.c.o
+[ 29%] Building C object src/util/CMakeFiles/util.dir/thread.c.o
+[ 30%] Building C object src/util/CMakeFiles/util.dir/tsort.c.o
+[ 30%] Building C object src/util/CMakeFiles/util.dir/utf8.c.o
+[ 31%] Building C object src/util/CMakeFiles/util.dir/util.c.o
+[ 31%] Building C object src/util/CMakeFiles/util.dir/varint.c.o
+[ 32%] Building C object src/util/CMakeFiles/util.dir/vector.c.o
+[ 32%] Building C object src/util/CMakeFiles/util.dir/wildmatch.c.o
+[ 33%] Building C object src/util/CMakeFiles/util.dir/zstream.c.o
+[ 33%] Building C object src/util/CMakeFiles/util.dir/unix/map.c.o
+[ 34%] Building C object src/util/CMakeFiles/util.dir/unix/process.c.o
+[ 34%] Building C object src/util/CMakeFiles/util.dir/unix/realpath.c.o
+[ 35%] Building C object src/util/CMakeFiles/util.dir/hash/collisiondetect.c.o
+[ 35%] Building C object src/util/CMakeFiles/util.dir/hash/sha1dc/sha1.c.o
+[ 36%] Building C object src/util/CMakeFiles/util.dir/hash/sha1dc/ubc_check.c.o
+[ 36%] Building C object src/util/CMakeFiles/util.dir/hash/openssl.c.o
+gmake[2]: warning:  Clock skew detected.  Your build may be incomplete.
+[ 36%] Built target util
+Scanning dependencies of target libgit2
+[ 36%] Building C object src/libgit2/CMakeFiles/libgit2.dir/annotated_commit.c.o
+[ 36%] Building C object src/libgit2/CMakeFiles/libgit2.dir/apply.c.o
+[ 37%] Building C object src/libgit2/CMakeFiles/libgit2.dir/attr.c.o
+[ 37%] Building C object src/libgit2/CMakeFiles/libgit2.dir/attr_file.c.o
+[ 38%] Building C object src/libgit2/CMakeFiles/libgit2.dir/attrcache.c.o
+[ 38%] Building C object src/libgit2/CMakeFiles/libgit2.dir/blame.c.o
+[ 39%] Building C object src/libgit2/CMakeFiles/libgit2.dir/blame_git.c.o
+[ 39%] Building C object src/libgit2/CMakeFiles/libgit2.dir/blob.c.o
+[ 40%] Building C object src/libgit2/CMakeFiles/libgit2.dir/branch.c.o
+[ 40%] Building C object src/libgit2/CMakeFiles/libgit2.dir/buf.c.o
+[ 41%] Building C object src/libgit2/CMakeFiles/libgit2.dir/cache.c.o
+[ 41%] Building C object src/libgit2/CMakeFiles/libgit2.dir/checkout.c.o
+[ 42%] Building C object src/libgit2/CMakeFiles/libgit2.dir/cherrypick.c.o
+[ 42%] Building C object src/libgit2/CMakeFiles/libgit2.dir/clone.c.o
+[ 43%] Building C object src/libgit2/CMakeFiles/libgit2.dir/commit.c.o
+[ 43%] Building C object src/libgit2/CMakeFiles/libgit2.dir/commit_graph.c.o
+[ 44%] Building C object src/libgit2/CMakeFiles/libgit2.dir/commit_list.c.o
+[ 44%] Building C object src/libgit2/CMakeFiles/libgit2.dir/config.c.o
+[ 45%] Building C object src/libgit2/CMakeFiles/libgit2.dir/config_cache.c.o
+[ 45%] Building C object src/libgit2/CMakeFiles/libgit2.dir/config_file.c.o
+[ 46%] Building C object src/libgit2/CMakeFiles/libgit2.dir/config_list.c.o
+[ 46%] Building C object src/libgit2/CMakeFiles/libgit2.dir/config_mem.c.o
+[ 47%] Building C object src/libgit2/CMakeFiles/libgit2.dir/config_parse.c.o
+[ 47%] Building C object src/libgit2/CMakeFiles/libgit2.dir/config_snapshot.c.o
+[ 48%] Building C object src/libgit2/CMakeFiles/libgit2.dir/crlf.c.o
+[ 48%] Building C object src/libgit2/CMakeFiles/libgit2.dir/delta.c.o
+[ 49%] Building C object src/libgit2/CMakeFiles/libgit2.dir/describe.c.o
+gmake[2]: *** [src/libgit2/CMakeFiles/libgit2.dir/build.make:420: src/libgit2/CMakeFiles/libgit2.dir/describe.c.o] Interrupt
+gmake[1]: *** [CMakeFiles/Makefile2:378: src/libgit2/CMakeFiles/libgit2.dir/all] Interrupt
+gmake: *** [Makefile:149: all] Interrupt

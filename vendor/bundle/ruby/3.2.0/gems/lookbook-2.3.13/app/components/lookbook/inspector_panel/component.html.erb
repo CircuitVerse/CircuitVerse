@@ -1,0 +1,8 @@
+<%= render_component_tag :div, id: id, class: "h-full", "data-panel": @name do %>
+  <%= panel_html %>
+<% end %>
+
+<% if panel_styles %>
+  <% content_for :user_styles do %><%= panel_styles %>
+  <% end %>
+<% end %>

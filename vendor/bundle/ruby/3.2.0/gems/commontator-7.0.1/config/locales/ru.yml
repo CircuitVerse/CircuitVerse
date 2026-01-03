@@ -1,0 +1,91 @@
+---
+ru:
+  activerecord:
+    attributes:
+      commontator/comment:
+        body: Комментарий
+        creator: Создал
+        editor: Редактировал
+        thread: Обсуждение
+        parent: Родительский Комментарий
+      commontator/subscription:
+        subscriber: Подписчик
+        thread: Обсуждение
+      commontator/thread:
+        commontable: Комментируем
+    errors:
+      models:
+        commontator/comment:
+          attributes:
+            body:
+              double_posted: этот комментарий уже есть.
+    models:
+      commontator/comment:
+        one: комментарий
+        many: комментарии
+        other: комментарии
+      commontator/subscription:
+        one: подписка
+        many: подписки
+        other: подписки
+      commontator/thread:
+        one: обсуждение
+        many: обсуждения
+        other: обсуждения
+  commontator:
+    anonymous: Аноним
+    comment:
+      actions:
+        cancel: Отменить
+        confirm_delete: Вы уверены, что хотите удалить комментарий?
+        create: Оставить Комментарий
+        delete: Удалить
+        edit: Редактировать
+        new: Новый Комментарий
+        undelete: Восстановить
+        update: Изменить Комментарий
+        reply: Ответить на Комментарий.
+      errors:
+        already_deleted: Этот комментарий был удален.
+        create: Комментарий нельзя оставить потому что
+        not_deleted: Этот комментарий не удален.
+        update: Этот комментарий нельзя изменить потому что
+      status:
+        created_at: Создан %{created_at}.
+        deleted_by: Комментарий был удален %{deleter_name}.
+        updated_at: Редактировал %{editor_name}, %{updated_at}.
+        replying: Отвечая %{creator_name}
+        reply_pages: "Страницы ответов:"
+    email:
+      comment_created:
+        body: "%{creator_name} комментировал %{commontable_name}:"
+        subject: "%{creator_name} оставил комментарий к %{commontable_name}"
+      thread_link_html: <a href="%{comment_url}">Нажмите здесь</a> чтобы посмотреть все комментарии к %{commontable_name}.
+    require_login: Вы должны залогиниться прежде чем оставить комментарий.
+    subscription:
+      actions:
+        subscribe: Подписаться
+        unsubscribe: Отписаться
+      errors:
+        already_subscribed: Вы уже подписаны на это обсуждение.
+        not_subscribed: Вы не подписаны на это обсуждение.
+    thread:
+      actions:
+        show_all: Показать все комментарии
+        filter: Фильтровать комментарии
+        close: Закрыть обсуждение
+        confirm_close: Вы уверены, что хотите закрыть обсуждение?
+        reopen: Открыть заново обсуждение
+        show: Показать комментарии
+        hide: скрыть комментарии
+      errors:
+        already_closed: Это обсуждение было закрыто.
+        not_closed: Это обсуждение не закрыто.
+      status:
+        cannot_post: Новый комментарии нельзя разместить в данный момент.
+        closed: Комментарии (Закрыты %{closer_name})
+        open: Комментарии
+        pages: "Страницы комментариев:"
+  time:
+    formats:
+      commontator: "%d %b %Y в %H:%M %Z"

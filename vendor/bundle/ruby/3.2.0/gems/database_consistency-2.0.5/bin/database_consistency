@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/database_consistency/configuration'
+
+default_config = DatabaseConsistency::Configuration::DEFAULT_PATH
+
+if ARGV.include?('install')
+  require 'pathname'
+
+  file_exists = File.exist?(default_config)
+  rules = Pathname.new(__FILE__).dirname.join('..', 'lib', 'database_consistency', 'templates', 'rails_defaults.yml').read
+  if file_exists && File.foreach(default_config).grep(Regexp.new(rules.lines.first.chomp)).any?
+    puts "#{default_config} is already present"
+  else
+    File.open(default_config, 'a') do |file|
+      file << "\n" * 2 if file_exists
+      file << rules
+    end
+    puts "#{default_config} #{file_exists ? 'updated' : 'added'}"
+  end
+  exit 0
+end
+
+require 'optparse'
+
+config = [default_config]
+options = {}
+opt_parser = OptionParser.new do |opts|
+  opts.banner = <<-DESC
+  Usage: database_consistency install - run installation
+         database_consistency [options]
+  DESC
+
+  opts.on('-cFILE', '--config=FILE', 'Use additional configuration file.') do |f|
+    config << f
+  end
+
+  opts.on('-g', '--generate-todo', 'Generate TODO file with every failing check disabled. You can pass existing configurations so the generated file will have only new failures.') do
+    options[:todo] = true
+  end
+
+  opts.on('-f', '--autofix', 'Automatically fixes issues by adjusting the code or generating missing migrations.') do
+    options[:autofix] = true
+  end
+
+  opts.on('-h', '--help', 'Prints this help.') do
+    puts opts
+    exit
+  end
+end
+
+opt_parser.parse!
+
+base_dir = File.join(Dir.pwd, ARGV.first.to_s)
+unless File.realpath(base_dir).start_with?(Dir.pwd)
+  puts "\nWarning! You are going out of current directory, ruby version may be wrong and some gems may be missing.\n"
+end
+
+# Load Rails project
+begin
+  require File.join(base_dir, 'config', 'boot')
+  require File.join(base_dir, 'config', 'environment')
+rescue LoadError
+  puts "\nUh-oh! You must be in the root directory of a Rails project.\n"
+  raise
+end
+
+# Load Rails models
+Rails.application.eager_load! if defined?(Rails)
+# Rails 6 support
+Zeitwerk::Loader.eager_load_all if defined?(Zeitwerk)
+
+# Require the gem
+$LOAD_PATH.unshift(File.expand_path('lib', __dir__))
+require 'database_consistency'
+
+# Process checks
+code = DatabaseConsistency.run(config, **options)
+exit code

@@ -1,0 +1,24 @@
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/date-3.4.1/ext/date
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.2.0 extconf.rb
+checking for rb_category_warn()... yes
+checking for timezone in time.h with  -Werror... yes
+checking for altzone in time.h with  -Werror... no
+creating Makefile
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-w4jgyu sitelibdir\=./.gem.20251230-481-w4jgyu clean
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-w4jgyu sitelibdir\=./.gem.20251230-481-w4jgyu
+compiling date_core.c
+compiling date_parse.c
+compiling date_strftime.c
+compiling date_strptime.c
+linking shared-object date_core.so
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-w4jgyu sitelibdir\=./.gem.20251230-481-w4jgyu install
+/usr/bin/install -c -m 0755 date_core.so ./.gem.20251230-481-w4jgyu
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/date-3.4.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-w4jgyu sitelibdir\=./.gem.20251230-481-w4jgyu clean

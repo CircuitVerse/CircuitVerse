@@ -1,0 +1,98 @@
+<main
+  class="h-[calc(100vh_-_40px)]"
+  x-data="{}"
+  @navigation:complete.window="$refs.scroller.scrollTop = 0">
+  <div id="page" class="h-full bg-lookbook-page-bg relative">
+    <div class="overflow-auto scroll-smooth w-full max-h-full pb-12" x-ref="scroller">
+      <div class="h-full flex flex-col">
+        <% if @page.header? %>
+          <header id="page-header"
+            class="px-4 md:px-10 mb-8 pt-8 md:pt-10 lg:pt-12 pb-6 lg:pb-8 lg:mb-9 bg-lookbook-page-header-bg border-b border-lookbook-page-header-border relative">
+            <div class="w-full max-w-screen-lg mx-auto">
+              <%= lookbook_render :prose, size: :md, markdown: false, class: "bg-transparent max-w-none flex-none" do %>
+                <h1 class="text-lookbook-page-header-text"><%= @page.title %></h1>
+              <% end %>
+            </div>
+            <% unless @error %>
+              <div class="absolute top-0 right-0 pt-1 pr-0 pl-1 pb-1 rounded-bl-md">
+                <div class="bg-transparent opacity-90 absolute inset-0 w-full h-full z-0"></div>
+                <div class="relative z-10 flex items-center scale-75 -mt-1 -mr-1.5 md:scale-100 md:mt-0 md:-mr-[2px]">
+
+                <% if @previous_page %>
+                  <%= lookbook_render :icon_button,
+                    size: :lg,
+                    icon: :chevron_left,
+                    tooltip: "Previous page",
+                    href: lookbook_page_path(@previous_page.lookup_path),
+                    class: "pr-0.5 bg-transparent" %>
+                <% else %>
+                  <%= lookbook_render :icon_button,
+                    size: :lg,
+                    icon: :chevron_left,
+                    disabled: true,
+                    class: "opacity-50 !cursor-default pr-0.5 bg-transparent" %>
+                <% end %>
+
+                <% if @next_page %>
+                  <%= lookbook_render :icon_button,
+                    size: :lg,
+                    icon: :chevron_right,
+                    tooltip: "Next page",
+                    href: lookbook_page_path(@next_page.lookup_path),
+                    class: "pl-0.5 bg-transparent" %>
+                <% else %>
+                  <%= lookbook_render :icon_button,
+                    size: :lg,
+                    icon: :chevron_right,
+                    disabled: true,
+                    class: "opacity-50 !cursor-default pl-0.5 bg-transparent" %>
+                <% end %>
+                </div>
+              </div>
+            <% end %>
+          </header>
+        <% end %>
+
+        <div class="px-4 md:px-10 min-h-[calc(100vh_-_400px)]">
+          <div class="w-full max-w-screen-lg mx-auto">
+            <%= lookbook_render :prose, size: :md, id: "page-content", markdown: false, class: "max-w-none flex-none" do %>
+              <%= @page_content %>
+            <% end %>
+
+            <% if @page.sections.any? %>
+              <%= lookbook_render :page_tabs, id: "page-tabbed-sections", markdown: false, class: "mt-6 lg:mt-8" do |page_tabs| %>
+                <% @page.sections.each do |section| %>
+                  <% page_tabs.with_tab name: "page-section-#{section.name}", label: section.label do %>
+                    <%= page_controller.render_page(section) %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
+
+        <% if @page.footer? && @pages.many? %>
+          <footer id="page-footer" class="mt-12 lg:mt-16 px-4 md:px-10">
+          <div class=" border-t border-gray-300 w-full max-w-screen-lg mx-auto pt-8 pb-10 flex items-center justify-between ">
+            <% if @previous_page %>
+              <a href="<%= lookbook_page_path @previous_page.lookup_path %>"
+                class="flex items-center flex-none max-w-[40%] overflow-hidden">
+                <%= icon  :arrow_left, size: 4, class: "hover:text-indigo-800" %>
+                <span class="ml-2 underline truncate"><%= @previous_page.title %></span>
+              </a>
+            <% end %>
+
+            <% if @next_page %>
+              <a href="<%= lookbook_page_path @next_page.lookup_path %>"
+                class="flex items-center flex-none ml-auto max-w-[40%] overflow-hidden">
+                <span class="mr-2 underline truncate"><%= @next_page.title %></span>
+                <%= icon  :arrow_right, size: 4, class: "hover:text-indigo-800" %>
+              </a>
+            <% end %>
+          </div>
+          </footer>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

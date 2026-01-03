@@ -1,0 +1,18 @@
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.2.0 extconf.rb
+creating Makefile
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-s4vfxm sitelibdir\=./.gem.20251230-2706-s4vfxm clean
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-s4vfxm sitelibdir\=./.gem.20251230-2706-s4vfxm
+compiling cruby.c
+linking shared-object skiptrace/internal/cruby.so
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-s4vfxm sitelibdir\=./.gem.20251230-2706-s4vfxm install
+/usr/bin/install -c -m 0755 cruby.so ./.gem.20251230-2706-s4vfxm/skiptrace/internal
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/bindex-0.8.1/ext/skiptrace
+make DESTDIR\= sitearchdir\=./.gem.20251230-2706-s4vfxm sitelibdir\=./.gem.20251230-2706-s4vfxm clean

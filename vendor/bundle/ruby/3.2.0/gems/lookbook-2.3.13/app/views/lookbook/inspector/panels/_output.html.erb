@@ -1,0 +1,7 @@
+<%= lookbook_render :code, line_numbers: true, full_height: true do -%>
+  <% if scenarios.many? -%>
+    <% scenarios.each do |scenario| -%><%== "<!-- #{scenario.label} -->\n#{scenario.beautified_output}\n\n" -%><% end %>
+  <%- else -%>
+    <%== scenarios.first.beautified_output -%>
+  <%- end %>
+<% end %>

@@ -1,0 +1,24 @@
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+/usr/local/bin/ruby -I /usr/local/lib/ruby/3.2.0 extconf.rb
+checking for rb_postponed_job_register_one()... yes
+checking for rb_profile_frames()... yes
+checking for rb_tracepoint_new()... yes
+checking for RUBY_INTERNAL_EVENT_NEWOBJ... yes
+creating Makefile
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-p5h2ye sitelibdir\=./.gem.20251230-481-p5h2ye clean
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-p5h2ye sitelibdir\=./.gem.20251230-481-p5h2ye
+compiling stackprof.c
+linking shared-object stackprof/stackprof.so
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-p5h2ye sitelibdir\=./.gem.20251230-481-p5h2ye install
+make: Warning: File 'stackprof.so' has modification time 0.0097 s in the future
+/usr/bin/install -c -m 0755 stackprof.so ./.gem.20251230-481-p5h2ye/stackprof
+make: warning:  Clock skew detected.  Your build may be incomplete.
+
+current directory: /circuitverse/vendor/bundle/ruby/3.2.0/gems/stackprof-0.2.27/ext/stackprof
+make DESTDIR\= sitearchdir\=./.gem.20251230-481-p5h2ye sitelibdir\=./.gem.20251230-481-p5h2ye clean
