@@ -45,7 +45,9 @@ module Adapters
         results = apply_filters(results, query_params, type)
         results = apply_sorting(results, query_params, type)
 
-        results.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
+        page = query_params[:page].to_i
+        page = 1 if page < 1
+        results.paginate(page: page, per_page: MAX_RESULTS_PER_PAGE)
       end
 
       def base_project_results(relation, query_params)
