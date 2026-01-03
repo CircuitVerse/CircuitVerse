@@ -132,7 +132,7 @@ function showContextMenu() {
  * @param {number} id - id of the optoin selected
  * @category ux
  */
-function menuItemClicked(id, code = "") {
+function menuItemClicked(id) {
     hideContextMenu();
     if (id === 0) {
         document.execCommand('copy');
@@ -287,29 +287,6 @@ var moduleProperty = currentScreen();
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
  * @category ux
  */
-$(function () {
-    const $input = $('#projname');
-    const $msg = $('#projname-msg');
-    const maxLength = parseInt($input.attr('maxlength'));
-
-    function checkLimit() {
-        const currentLength = $input.val().length;
-
-        if (maxLength && currentLength >= maxLength) {
-            $input.addClass("limit-reached");
-            $msg.addClass("show");
-        } else {
-            $input.removeClass("limit-reached");
-            $msg.removeClass("show");
-        }
-    }
-
-    // Check on page load
-    checkLimit();
-
-    // Check on input 
-    $input.on('input', checkLimit);
-});
 
 export function showProperties(obj) {
     if (obj === prevPropertyObjGet()) return;
@@ -356,16 +333,42 @@ export function showProperties(obj) {
         $('#moduleProperty').show();
         $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + 'Project Properties' + '</div>');
         $(moduleProperty.modulePropertyInner).append(`
-   <p>
-    <span>Project Name:</span> 
-    <input id='projname' class='objectPropertyAttribute' type='text' 
-           autocomplete='off' name='setProjectName' 
-           value='${getProjectName() || 'Untitled'}' 
-           maxlength="50" aria-label='project'>
-    <span id='projname-msg' class='input-limit-msg'>Character limit reached (50)</span>
+    <p>
+        <span>Project Name:</span> 
+        <input id='projname' class='objectPropertyAttribute' type='text' 
+               autocomplete='off' name='setProjectName' 
+               value='${getProjectName() || 'Untitled'}' 
+               maxlength="50" 
+               aria-label='project name' 
+               aria-describedby='projname-msg'>
+    </p>
+    <span id='projname-msg' class='input-limit-msg' role='alert' aria-live='polite'>
+        Character limit reached (50)
+    </span>
+`
+        );
+        const $input = $('#projname');
+        const $msg = $('#projname-msg');
+        const maxLength = parseInt($input.attr('maxlength'));
 
-</p>
-`); $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
+        function checkLimit() {
+            const currentLength = $input.val().length;
+
+            if (maxLength && currentLength >= maxLength) {
+                $input.addClass("limit-reached");
+                $msg.addClass("show");
+            } else {
+                $input.removeClass("limit-reached");
+                $msg.removeClass("show");
+            }
+        }
+
+        // Check on page load
+        checkLimit();
+
+        // Check on input 
+        $input.on('input', checkLimit);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}' aria-label='clock time'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' aria-label='clock enabled'> <span class='slider'></span></label></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' aria-label='lite mode'> <span class='slider'></span> </label></p>`);
