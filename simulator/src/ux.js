@@ -20,7 +20,7 @@ import { changeScale } from './canvasApi';
 import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
-import { setupBitConvertor} from './utils';
+import { setupBitConvertor } from './utils';
 import { currentScreen } from './listeners';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
@@ -132,7 +132,7 @@ function showContextMenu() {
  * @param {number} id - id of the optoin selected
  * @category ux
  */
-function menuItemClicked(id, code="") {
+function menuItemClicked(id, code = "") {
     hideContextMenu();
     if (id === 0) {
         document.execCommand('copy');
@@ -193,13 +193,13 @@ export function setupUI() {
 
     $('.logixModules').mousedown(createElement);
 
-    $('.logixButton').on('click',function () {
+    $('.logixButton').on('click', function () {
         logixFunction[this.id]();
     });
     // var dummyCounter=0;
 
     // calling apply on select theme in dropdown
-    $('.applyTheme').on('change',function () {
+    $('.applyTheme').on('change', function () {
         applyVerilogTheme();
     });
 
@@ -216,10 +216,10 @@ export function setupUI() {
         $('#Help').removeClass('show');
     }); // code goes in document ready fn only
 
-    $('#report').on('click', function() {
-        var message=$('#issuetext').val();
-        var email=$('#emailtext').val();
-        message += "\nEmail:"+ email
+    $('#report').on('click', function () {
+        var message = $('#issuetext').val();
+        var email = $('#emailtext').val();
+        message += "\nEmail:" + email
         message += "\nURL: " + window.location.href;
         message += `\nUser Id: ${window.user_id}`
         postUserIssue(message)
@@ -228,9 +228,9 @@ export function setupUI() {
         $('#report').hide();
         $('#report-label').hide();
         $('#email-label').hide();
-        })
-    $('.issue').on('hide.bs.modal', function(e) {
-        listenToSimulator=true
+    })
+    $('.issue').on('hide.bs.modal', function (e) {
+        listenToSimulator = true
         $('#result').html("");
         $('#issuetext').show();
         $('#emailtext').show();
@@ -240,8 +240,8 @@ export function setupUI() {
         $('#report-label').show();
         $('#email-label').show();
     })
-    $('#reportIssue').on('click',function(){
-      listenToSimulator=false
+    $('#reportIssue').on('click', function () {
+        listenToSimulator = false
     })
 
     // $('#saveAsImg').on('click',function(){
@@ -287,13 +287,37 @@ var moduleProperty = currentScreen();
  * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
  * @category ux
  */
+$(function () {
+    const $input = $('#projname');
+    const $msg = $('#projname-msg');
+    const maxLength = parseInt($input.attr('maxlength'));
+
+    function checkLimit() {
+        const currentLength = $input.val().length;
+
+        if (maxLength && currentLength >= maxLength) {
+            $input.addClass("limit-reached");
+            $msg.addClass("show");
+        } else {
+            $input.removeClass("limit-reached");
+            $msg.removeClass("show");
+        }
+    }
+
+    // Check on page load
+    checkLimit();
+
+    // Check on input 
+    $input.on('input', checkLimit);
+});
+
 export function showProperties(obj) {
     if (obj === prevPropertyObjGet()) return;
     hideProperties();
     prevPropertyObjSet(obj);
-    if(layoutModeGet()){
+    if (layoutModeGet()) {
         // if an element is selected, show its properties instead of the layout dialog
-        if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1){
+        if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
             $('#moduleProperty').hide();
             $('#layoutDialog').show();
             return;
@@ -314,13 +338,13 @@ export function showProperties(obj) {
                     var s = "<p>" + prop.name + "<input class='objectPropertyAttribute' type='text'  name='" + prop.func + "' maxlength='" + (prop.maxlength || 200) + "' value=" + obj[attr] + "></p>";
                     $(moduleProperty.modulePropertyInner).append(s);
                 }
-                else if (obj.subcircuitMutableProperties[attr].type == "checkbox"){
+                else if (obj.subcircuitMutableProperties[attr].type == "checkbox") {
                     var s = "<p>" + prop.name + "<label class='switch'> <input type='checkbox' " + ["", "checked"][obj.subcircuitMetadata.showLabelInSubcircuit + 0] + " class='objectPropertyAttributeChecked' name='" + prop.func + "'> <span class='slider'></span> </label></p>";
                     $(moduleProperty.modulePropertyInner).append(s);
                 }
             }
             if (!obj.labelDirectionFixed) {
-                if(!obj.subcircuitMetadata.labelDirection) obj.subcircuitMetadata.labelDirection = obj.labelDirection;
+                if (!obj.subcircuitMetadata.labelDirection) obj.subcircuitMetadata.labelDirection = obj.labelDirection;
                 var s = $("<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "RIGHT")] + " >RIGHT</option><option value='DOWN' " + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "DOWN")] + " >DOWN</option><option value='LEFT' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "LEFT")] + " >LEFT</option><option value='UP' " + "<option value='RIGHT'" + ["", "selected"][+(obj.subcircuitMetadata.labelDirection == "UP")] + " >UP</option>" + "</select>");
                 s.val(obj.subcircuitMetadata.labelDirection);
                 $(moduleProperty.modulePropertyInner).append("<p>Label Direction: " + $(s).prop('outerHTML') + "</p>");
@@ -331,8 +355,17 @@ export function showProperties(obj) {
     else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}' aria-label='project'></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`
+   <p>
+    <span>Project Name:</span> 
+    <input id='projname' class='objectPropertyAttribute' type='text' 
+           autocomplete='off' name='setProjectName' 
+           value='${getProjectName() || 'Untitled'}' 
+           maxlength="50" aria-label='project'>
+    <span id='projname-msg' class='input-limit-msg'>Character limit reached (50)</span>
+
+</p>
+`); $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}' aria-label='clock time'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' aria-label='clock enabled'> <span class='slider'></span></label></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' aria-label='lite mode'> <span class='slider'></span> </label></p>`);
@@ -392,7 +425,7 @@ export function showProperties(obj) {
     var helplink = obj && (obj.helplink);
     if (helplink) {
         $(moduleProperty.modulePropertyInner).append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
-        $('#HelpButton').on('click',() => {
+        $('#HelpButton').on('click', () => {
             window.open(helplink);
         });
     }
@@ -429,7 +462,7 @@ export function showProperties(obj) {
     });
 
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
-        if(this.name === "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
+        if (this.name === "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
@@ -438,12 +471,12 @@ export function showProperties(obj) {
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
         } else {
-                circuitProperty[this.name](this.checked);
-            }
+            circuitProperty[this.name](this.checked);
+        }
     });
 
     $('.objectPropertyAttributeChecked').on('click', function () {
-        if(this.name !== "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
+        if (this.name !== "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
         scheduleUpdate();
         updateCanvasSet(true);
         wireToBeCheckedSet(1);
@@ -452,8 +485,8 @@ export function showProperties(obj) {
             // Commented out due to property menu refresh bug
             // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
         } else {
-                circuitProperty[this.name](this.checked);
-            }
+            circuitProperty[this.name](this.checked);
+        }
     });
 
     $(".moduleProperty input[type='number']").inputSpinner();
@@ -542,7 +575,7 @@ function setupPanelListeners(panelSelector) {
     var maximizeSelector = `${panelSelector} .maximize`;
     var bodySelector = `${panelSelector} > .panel-body`;
     // Drag Start
-    $(headerSelector).on('mousedown', () => $(panelSelector).draggable({ disabled: false, containment: 'window'}));
+    $(headerSelector).on('mousedown', () => $(panelSelector).draggable({ disabled: false, containment: 'window' }));
     // Drag End
     $(headerSelector).on('mouseup', () => $(panelSelector).draggable({ disabled: true }));
     // Current Panel on Top
@@ -551,9 +584,9 @@ function setupPanelListeners(panelSelector) {
         $(panelSelector).css('z-index', '100');
     })
     var minimized = false;
-    $(headerSelector).on('dblclick', ()=> minimized ?
-                                        $(maximizeSelector).trigger('click') :
-                                        $(minimizeSelector).trigger('click'));
+    $(headerSelector).on('dblclick', () => minimized ?
+        $(maximizeSelector).trigger('click') :
+        $(minimizeSelector).trigger('click'));
     // Minimize
     $(minimizeSelector).on('click', () => {
         $(bodySelector).hide();
@@ -570,7 +603,7 @@ function setupPanelListeners(panelSelector) {
     });
 }
 
-export function exitFullView(){
+export function exitFullView() {
     $('.navbar').show();
     $('.modules').show();
     $('.report-sidebar').show();
@@ -581,7 +614,7 @@ export function exitFullView(){
     $('.testbench-manual-panel').show();
 }
 
-export function fullView () {
+export function fullView() {
     const markUp = `<button id='exitViewBtn' >Exit Full Preview</button>`
     $('.navbar').hide()
     $('.modules').hide()
@@ -599,9 +632,9 @@ export function fullView () {
 export function fillSubcircuitElements() {
     $('#subcircuitMenu').empty();
     var subCircuitElementExists = false;
-    for(let el of circuitElementList) {
-        if(globalScope[el].length === 0) continue;
-        if(!globalScope[el][0].canShowInSubcircuit) continue;
+    for (let el of circuitElementList) {
+        if (globalScope[el].length === 0) continue;
+        if (!globalScope[el][0].canShowInSubcircuit) continue;
         let tempHTML = '';
 
         // add a panel for each existing group
@@ -611,11 +644,11 @@ export function fillSubcircuitElements() {
         let available = false;
 
         // add an SVG for each element
-        for(let i = 0; i < globalScope[el].length; i++){
+        for (let i = 0; i < globalScope[el].length; i++) {
             if (!globalScope[el][i].subcircuitMetadata.showInSubcircuit) {
                 tempHTML += `<div class="icon subcircuitModule" id="${el}-${i}" data-element-id="${i}" data-element-name="${el}">`;
                 tempHTML += `<img src= "/img/${el}.svg">`;
-                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "")? globalScope[el][i].label : 'unlabeled'}</p>`;
+                tempHTML += `<p class="img__description">${(globalScope[el][i].label !== "") ? globalScope[el][i].label : 'unlabeled'}</p>`;
                 tempHTML += '</div>';
                 available = true;
             }
@@ -627,7 +660,7 @@ export function fillSubcircuitElements() {
             $('#subcircuitMenu').append(tempHTML);
     }
 
-    if(subCircuitElementExists) {
+    if (subCircuitElementExists) {
         $('#subcircuitMenu').accordion("refresh");
     }
     else {
@@ -654,16 +687,16 @@ async function postUserIssue(message) {
     let result;
     try {
         result = await $.ajax({
-                url: 'https://api.imgur.com/3/image',
-                type: 'POST',
-                data: {
-                    image: img
-                },
-                dataType: 'json',
-                headers: {
-                    Authorization: 'Client-ID 9a33b3b370f1054'
-                },
-            });
+            url: 'https://api.imgur.com/3/image',
+            type: 'POST',
+            data: {
+                image: img
+            },
+            dataType: 'json',
+            headers: {
+                Authorization: 'Client-ID 9a33b3b370f1054'
+            },
+        });
     } catch (err) {
         console.error("Could not generate image, reporting anyway");
     }
@@ -683,17 +716,17 @@ async function postUserIssue(message) {
     $.ajax({
         url: '/simulator/post_issue',
         type: 'POST',
-        beforeSend: function(xhr) {
+        beforeSend: function (xhr) {
             xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
         },
         data: {
             "text": message,
             "circuit_data": circuitData,
         },
-        success: function(response) {
+        success: function (response) {
             $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
         },
-        failure: function(err) {
+        failure: function (err) {
             $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
         }
     });

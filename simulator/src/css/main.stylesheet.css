@@ -111,7 +111,22 @@ button:focus {
 button:focus {
     box-shadow: none;
 }
+.limit-reached {
+    border: 1px solid #dc5656 !important;
+}
 
+.input-limit-msg {
+    display: none !important;
+    color: #dc5656;
+    font-size: 14px;
+    margin-top: 50px;
+    margin-left: 8px;
+    font-weight: bold;
+}
+
+.input-limit-msg.show {
+    display: inline !important;
+}
 input[type="text"]:focus {
     background: transparent;
     /* color: white; */
