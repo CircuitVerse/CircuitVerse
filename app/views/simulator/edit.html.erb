@@ -30,6 +30,7 @@
           <li><a class="dropdown-item logixButton text-start ps-1" id="createOpenLocalPrompt">Open Offline</a></li>
           <li><a class="dropdown-item logixButton text-start ps-1" id="ExportCircuitFiles">Export as file</a></li>
           <li><a class="dropdown-item logixButton text-start ps-1" id="ImportCircuitFiles">Import file</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ImportOnlineCircuit">Import Online <br/> Circuit</a></li>
            <li><a class="dropdown-item logixButton text-start ps-1" id="clearProject">Clear Project</a></li>
           <li><a class="dropdown-item logixButton text-start ps-1" id="recoverProject">Recover Project</a></li>
           <li><a class="dropdown-item logixButton text-start ps-1" id="fullViewOption">Preview Circuit</a></li>
@@ -196,6 +197,7 @@
       <li class="SmallScreen-Navbar-li"> Save Online</li>
       <li class="SmallScreen-Navbar-li"> Save Offine</li>
       <li class="SmallScreen-Navbar-li"> Open Offine</li>
+      <li class="SmallScreen-Navbar-li"> Import Online Circuit</li>
       <li class="SmallScreen-Navbar-li"> Clear Project</li>
       <li class="SmallScreen-Navbar-li"> Recover Project</li>
     </div>
@@ -615,6 +617,12 @@
 <div id="CustomColorThemesDialog" class='customScroll' tabindex="0" style="display: none;" title="Custom Theme"></div>
 <input type='file' id="importThemeFile" name='themeFile' style="display:none" multiple>
 
+<script>
+    // Ensure user_id is available in window scope for JS usage
+    window.user_id = <%= current_user&.id || 'null' %>;
+</script>
+
+
 <div class="simulation" id="simulation">
   <div id="restrictedDiv" class="alert alert-danger display--none"></div>
   <% if @project&.assignment_id.present? &&
@@ -693,6 +701,12 @@
   tabindex="0"
   style="display: none;"
   title="Import as file"></div>
+<div
+  id="ImportOnlineCircuitDialog"
+  class='customScroll'
+  tabindex="0"
+  style="display: none;"
+  title="Import Online Circuit"></div>
 <div
   id="combinationalAnalysis"
   style="display: none;"
