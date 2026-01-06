@@ -15,13 +15,13 @@
           <li class="nav-item">
             <a class="nav-link navbar-item navbar-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
           </li>
-          
+
           <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
             <li class="nav-item">
               <a class="nav-link navbar-item navbar-text <%= request.path == "/explore" ? "active" : "" %>" href="/explore"><%= t("layout.link_to_explore") %></a>
             </li>
           <% end %>
-          
+
           <% if Flipper.enabled?(:contests, current_user) %>
             <li class="nav-item">
               <a class="nav-link navbar-item navbar-text <%= request.path == "/contests" ? "active" : "" %>" href="/contests"><%= t("layout.link_to_contests") %></a>
