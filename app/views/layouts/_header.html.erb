@@ -5,14 +5,7 @@
     </a>
 
     <div class="d-flex d-lg-none align-items-center">
-      <button
-        class="navbar-toggler navbar-light"
-        type="button"
-        id="dropdownButton"
-        aria-controls="collapsed-navbar"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler navbar-light" type="button" id="dropdownButton" aria-controls="collapsed-navbar" aria-expanded="false" aria-label="Toggle navigation">
         <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
       </button>
     </div>
@@ -26,39 +19,22 @@
             </a>
           </li>
 
-          <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
-            <li class="nav-item">
-              <a
-                class="nav-link navbar-item navbar-text <%= request.path == "/explore" ? "active" : "" %>"
-                href="/explore"
-              >
-                <%= t("layout.link_to_explore") %>
-              </a>
-            </li>
-          <% end %>
+      <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
+        <li class="nav-item">
+          <a class="nav-link navbar-item navbar-text <%= request.path == "/explore" ? "active" : "" %>" href="/explore"><%= t("layout.link_to_explore") %></a>
+        </li>
+      <% end %>
 
-          <% if Flipper.enabled?(:contests, current_user) %>
-            <li class="nav-item">
-              <a
-                class="nav-link navbar-item navbar-text <%= request.path == "/contests" ? "active" : "" %>"
-                href="/contests"
-              >
-                <%= t("layout.link_to_contests") %>
-              </a>
-            </li>
-          <% end %>
+
+      <% if Flipper.enabled?(:contests, current_user) %>
+        <li class="nav-item">
+          <a class="nav-link navbar-item navbar-text <%= request.path == "/contests" ? "active" : "" %>" href="/contests"><%= t("layout.link_to_contests") %></a>
+        </li>
+      <% end %>
+
 
           <li class="nav-item dropdown">
-            <a
-              id="getting-started-dropdown"
-              class="nav-link dropdown-toggle navbar-item navbar-text"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              tabindex="0"
-              aria-label="getting started"
-            >
+            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">
               <%= t("layout.getting_started_dropdown") %>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
@@ -72,12 +48,7 @@
           </li>
 
           <li class="nav-item">
-            <a
-              class="nav-link navbar-item navbar-text"
-              href="https://blog.circuitverse.org/"
-              target="_blank"
-              rel="noopener"
-            >
+            <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org/" target="_blank" rel="noopener">
               <%= t("layout.link_to_blog") %>
             </a>
           </li>
@@ -98,16 +69,7 @@
 
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a
-                class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center"
-                id="navbar-dropdown-2"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-                tabindex="0"
-                aria-label="user"
-              >
+              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
               </a>
 
@@ -119,14 +81,7 @@
                   <%= t("layout.header.my_groups") %>
                 </a>
                 <div class="dropdown-divider"></div>
-                <a
-                  class="dropdown-item"
-                  rel="nofollow"
-                  data-method="delete"
-                  href="<%= destroy_user_session_path %>"
-                >
-                  <%= t("sign_out") %>
-                </a>
+                <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>"><%= t("sign_out") %></a>
               </div>
             </div>
           <% else %>
