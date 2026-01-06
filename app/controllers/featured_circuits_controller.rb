@@ -8,9 +8,10 @@ class FeaturedCircuitsController < ApplicationController
 
   def index
     @projects = Project
-                  .joins(:featured_circuit)
-                  .includes(:author, :stars)
-                  .with_attached_circuit_preview
+  .joins(:featured_circuit)
+  .includes(:author, :stars)
+  .with_attached_circuit_preview
+
   end
 
   def create
