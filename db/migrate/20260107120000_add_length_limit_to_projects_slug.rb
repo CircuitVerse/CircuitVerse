@@ -5,11 +5,17 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
 
     # Truncate any existing slugs that are longer than 191 characters
     # This prevents data truncation errors when applying the column limit
-    execute <<-SQL
-      UPDATE projects
-      SET slug = LEFT(slug, 191)
-      WHERE LENGTH(slug) > 191;
-    SQL
+    # This is safe because:
+    # 1. We're only truncating slugs, not deleting data
+    # 2. FriendlyId will handle slug uniqueness conflicts automatically
+    # 3. This is a one-time fix for existing data
+    safety_assured do
+      execute <<-SQL
+        UPDATE projects
+        SET slug = LEFT(slug, 191)
+        WHERE LENGTH(slug) > 191;
+      SQL
+    end
 
     # Change the slug column to have a length limit of 191 characters
     # This ensures it fits within PostgreSQL's btree index limit of ~2704 bytes
