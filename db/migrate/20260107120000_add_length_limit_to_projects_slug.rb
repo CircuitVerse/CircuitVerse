@@ -1,28 +1,48 @@
+# frozen_string_literal: true
+
 class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
   def up
     # Remove the existing index
-    remove_index :projects, [:slug, :author_id], unique: true if index_exists?(:projects, [:slug, :author_id])
+    remove_index :projects, %i[slug author_id], unique: true if index_exists?(:projects, %i[slug author_id])
 
     # Truncate any existing slugs that are longer than 191 characters
-    # This prevents data truncation errors when applying the column limit
-    # Handle potential duplicates by appending a sequence number
+    # Handle conflicts with both existing short slugs and other long slugs
     safety_assured do
       execute <<-SQL
-        -- First, identify projects with long slugs and mark potential conflicts
         WITH long_slugs AS (
-          SELECT id, slug, author_id,
-                 LEFT(slug, 191) as truncated_slug,
-                 ROW_NUMBER() OVER (PARTITION BY LEFT(slug, 191), author_id ORDER BY id) as rn
+          -- Get all long slugs that need truncation
+          SELECT id, slug, author_id, LEFT(slug, 191) as truncated_slug
           FROM projects
           WHERE LENGTH(slug) > 191
+        ),
+        existing_slugs AS (
+          -- Get all existing slugs (short ones that should remain unchanged)
+          SELECT DISTINCT slug, author_id
+          FROM projects
+          WHERE LENGTH(slug) <= 191
+        ),
+        slug_conflicts AS (
+          -- Assign sequence numbers, prioritizing non-conflicting truncations
+          SELECT
+            ls.id,
+            ls.truncated_slug,
+            ROW_NUMBER() OVER (
+              PARTITION BY ls.truncated_slug, ls.author_id
+              ORDER BY
+                CASE WHEN es.slug IS NOT NULL THEN 1 ELSE 0 END,  -- Existing short slugs conflict = higher number
+                ls.id
+            ) as sequence
+          FROM long_slugs ls
+          LEFT JOIN existing_slugs es
+            ON ls.truncated_slug = es.slug AND ls.author_id = es.author_id
         )
         UPDATE projects
         SET slug = CASE
-          WHEN ls.rn = 1 THEN ls.truncated_slug
-          ELSE LEFT(ls.truncated_slug, 186) || '-' || ls.rn
+          WHEN sc.sequence = 1 THEN sc.truncated_slug
+          ELSE LEFT(sc.truncated_slug, 185) || '-' || (sc.sequence + 1)
         END
-        FROM long_slugs ls
-        WHERE projects.id = ls.id;
+        FROM slug_conflicts sc
+        WHERE projects.id = sc.id;
       SQL
     end
 
@@ -41,13 +61,13 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
     # This is safe because we're recreating an index that was just removed
     # and is necessary to prevent the original btree size error
     safety_assured do
-      add_index :projects, [:slug, :author_id], unique: true, length: { slug: 191 }
+      add_index :projects, %i[slug author_id], unique: true, length: { slug: 191 }
     end
   end
 
   def down
     # Remove the length-limited index
-    remove_index :projects, [:slug, :author_id], unique: true if index_exists?(:projects, [:slug, :author_id])
+    remove_index :projects, %i[slug author_id], unique: true if index_exists?(:projects, %i[slug author_id])
 
     # Revert the column back to unlimited string
     safety_assured do
@@ -56,7 +76,7 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
 
     # Recreate the original index
     safety_assured do
-      add_index :projects, [:slug, :author_id], unique: true
+      add_index :projects, %i[slug author_id], unique: true
     end
   end
 end
