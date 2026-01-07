@@ -29,7 +29,11 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
     end
 
     # Recreate the index with length specification
-    add_index :projects, [:slug, :author_id], unique: true, length: { slug: 191 }
+    # This is safe because we're recreating an index that was just removed
+    # and is necessary to prevent the original btree size error
+    safety_assured do
+      add_index :projects, [:slug, :author_id], unique: true, length: { slug: 191 }
+    end
   end
 
   def down
@@ -37,9 +41,13 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
     remove_index :projects, [:slug, :author_id], unique: true if index_exists?(:projects, [:slug, :author_id])
 
     # Revert the column back to unlimited string
-    change_column :projects, :slug, :string, limit: nil
+    safety_assured do
+      change_column :projects, :slug, :string, limit: nil
+    end
 
     # Recreate the original index
-    add_index :projects, [:slug, :author_id], unique: true
+    safety_assured do
+      add_index :projects, [:slug, :author_id], unique: true
+    end
   end
 end
