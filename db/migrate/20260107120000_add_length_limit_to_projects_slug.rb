@@ -5,15 +5,24 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
 
     # Truncate any existing slugs that are longer than 191 characters
     # This prevents data truncation errors when applying the column limit
-    # This is safe because:
-    # 1. We're only truncating slugs, not deleting data
-    # 2. FriendlyId will handle slug uniqueness conflicts automatically
-    # 3. This is a one-time fix for existing data
+    # Handle potential duplicates by appending a sequence number
     safety_assured do
       execute <<-SQL
+        -- First, identify projects with long slugs and mark potential conflicts
+        WITH long_slugs AS (
+          SELECT id, slug, author_id,
+                 LEFT(slug, 191) as truncated_slug,
+                 ROW_NUMBER() OVER (PARTITION BY LEFT(slug, 191), author_id ORDER BY id) as rn
+          FROM projects
+          WHERE LENGTH(slug) > 191
+        )
         UPDATE projects
-        SET slug = LEFT(slug, 191)
-        WHERE LENGTH(slug) > 191;
+        SET slug = CASE
+          WHEN ls.rn = 1 THEN ls.truncated_slug
+          ELSE LEFT(ls.truncated_slug, 186) || '-' || ls.rn
+        END
+        FROM long_slugs ls
+        WHERE projects.id = ls.id;
       SQL
     end
 
