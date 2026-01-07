@@ -57,11 +57,11 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
       change_column :projects, :slug, :string, limit: 191
     end
 
-    # Recreate the index with length specification
+    # Recreate the index (respects the column's varchar(191) limit)
     # This is safe because we're recreating an index that was just removed
     # and is necessary to prevent the original btree size error
     safety_assured do
-      add_index :projects, %i[slug author_id], unique: true, length: { slug: 191 }
+      add_index :projects, %i[slug author_id], unique: true
     end
   end
 
