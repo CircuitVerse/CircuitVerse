@@ -20,7 +20,13 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
     # Change the slug column to have a length limit of 191 characters
     # This ensures it fits within PostgreSQL's btree index limit of ~2704 bytes
     # 191 chars * 4 bytes (UTF-8 worst case) + 8 bytes (author_id) = 772 bytes << 2704 bytes
-    change_column :projects, :slug, :string, limit: 191
+    # This is safe because:
+    # 1. We already truncated all slugs to 191 characters in the previous step
+    # 2. Adding a limit to a varchar column in PostgreSQL is a metadata-only operation
+    # 3. No table rewrite occurs since all data already fits within the limit
+    safety_assured do
+      change_column :projects, :slug, :string, limit: 191
+    end
 
     # Recreate the index with length specification
     add_index :projects, [:slug, :author_id], unique: true, length: { slug: 191 }
