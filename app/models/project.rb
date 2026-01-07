@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   self.ignored_columns += %w[data searchable]
 
   validates :name, length: { minimum: 1 }
-  validates :slug, uniqueness: true
+  validates :slug, uniqueness: true, length: { maximum: 191 }
 
   belongs_to :author, class_name: "User", counter_cache: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
@@ -163,6 +163,12 @@ class Project < ApplicationRecord
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).many?
+    end
+
+    def normalize_friendly_id(string)
+      # Truncate the slug to 191 characters to fit within PostgreSQL btree index limits
+      # This prevents "index row size exceeds btree maximum" errors
+      super.truncate(191, omission: "")
     end
 
     def purge_circuit_preview
