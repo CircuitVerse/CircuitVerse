@@ -22,14 +22,14 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
           WHERE LENGTH(slug) <= 191
         ),
         slug_conflicts AS (
-          -- Assign sequence numbers, prioritizing non-conflicting truncations
           SELECT
             ls.id,
             ls.truncated_slug,
+            (es.slug IS NOT NULL) as has_existing_conflict,
             ROW_NUMBER() OVER (
               PARTITION BY ls.truncated_slug, ls.author_id
               ORDER BY
-                CASE WHEN es.slug IS NOT NULL THEN 1 ELSE 0 END,  -- Existing short slugs conflict = higher number
+                CASE WHEN es.slug IS NOT NULL THEN 1 ELSE 0 END,
                 ls.id
             ) as sequence
           FROM long_slugs ls
@@ -38,8 +38,8 @@ class AddLengthLimitToProjectsSlug < ActiveRecord::Migration[8.0]
         )
         UPDATE projects
         SET slug = CASE
-          WHEN sc.sequence = 1 THEN sc.truncated_slug
-          ELSE LEFT(sc.truncated_slug, 185) || '-' || (sc.sequence + 1)
+          WHEN sc.sequence = 1 AND NOT sc.has_existing_conflict THEN sc.truncated_slug
+          ELSE LEFT(sc.truncated_slug, 185) || '-' || sc.sequence
         END
         FROM slug_conflicts sc
         WHERE projects.id = sc.id;
