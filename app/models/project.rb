@@ -136,6 +136,12 @@ class Project < ApplicationRecord
     %w[v0 v1].include?(sim_version)
   end
 
+  def normalize_friendly_id(string)
+    # Truncate the slug to 191 characters to fit within PostgreSQL btree index limits
+    # This prevents "index row size exceeds btree maximum" errors
+    super.truncate(191, omission: "")
+  end
+
   private
 
     def check_validity
@@ -163,12 +169,6 @@ class Project < ApplicationRecord
     def should_generate_new_friendly_id?
       # FIXME: Remove extra query once production data is resolved
       name_changed? || Project.where(slug: slug).many?
-    end
-
-    def normalize_friendly_id(string)
-      # Truncate the slug to 191 characters to fit within PostgreSQL btree index limits
-      # This prevents "index row size exceeds btree maximum" errors
-      super.truncate(191, omission: "")
     end
 
     def purge_circuit_preview
