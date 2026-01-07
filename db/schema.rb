@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_07_120000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -385,7 +385,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.string "image_preview"
     t.text "description"
     t.bigint "view", default: 1
-    t.string "slug"
+    t.string "slug", limit: 191
     t.string "lis_result_sourced_id"
     t.string "version", default: "1.0", null: false
     t.integer "stars_count", default: 0, null: false
