@@ -71,7 +71,7 @@
 
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
-    <%= link_to t("back"), :back, class: "anchor-text" %>
+    <%= link_to t("back"), request.referrer || root_path, onclick: "if (history.length > 1) { history.back(); return false; }", class: "anchor-text" %>
   </div>
 <% end %>
 

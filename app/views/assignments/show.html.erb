@@ -53,7 +53,7 @@
             <%= link_to t("assignments.assignment_data.export_grades"), grades_to_csv_path(@assignment, format: "csv"), class: "btn primary-button" %>
           <% end %>
           &nbsp;
-          <%= link_to t("back"), request.referrer || root_path, onclick: "history.back(); return false;", class: "anchor-text" %>
+          <%= link_to t("back"), request.referrer || root_path, onclick: "if (history.length > 1) { history.back(); return false; }", class: "anchor-text" %>
           <br> <br>
           <hr class="assignments-horizontal-rule">
           <% if policy(@assignment).mentor_access? %>
