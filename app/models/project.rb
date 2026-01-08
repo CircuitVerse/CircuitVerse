@@ -25,7 +25,8 @@ class Project < ApplicationRecord
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
-  has_many :tags, -> { where.not(name: "") }, through: :taggings
+  # Exclude NULL, empty or whitespace-only tag names to avoid returning invalid tags
+  has_many :tags, -> { where("name IS NOT NULL AND TRIM(BOTH FROM name) <> ''") }, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
   has_one_attached :circuit_preview
   has_one :featured_circuit
@@ -120,18 +121,16 @@ class Project < ApplicationRecord
     self.tags = []
     return if names.nil?
 
-    sanitized_names = names
-                      .to_s
-                      .encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+    sanitized = sanitize_tag_input(names.to_s)
 
-    self.tags = sanitized_names
+    self.tags = sanitized
                 .split(",")
                 .map(&:strip)
-                .uniq
+                .uniq(&:downcase)
                 .filter_map do |name|
                   next if name.blank?
 
-                  Tag.find_or_create_by!(name: name)
+                  find_or_create_tag_case_insensitive(name)
                 end
   end
 
@@ -188,6 +187,42 @@ class Project < ApplicationRecord
 
     def purge_circuit_preview
       circuit_preview.purge if circuit_preview.attached?
+    end
+
+    # Sanitize the provided tag input and warn if any replacements occurred
+    def sanitize_tag_input(original_input)
+      sanitized = original_input.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+
+      if sanitized != original_input
+        Rails.logger.warn(
+          "Project#tag_list=: sanitization modified tag input for project_id=#{id || 'unsaved'}; " \
+          "original=#{original_input.inspect}; sanitized=#{sanitized.inspect}"
+        )
+      end
+
+      sanitized
+    end
+
+    # Case-insensitive find or create for a tag. Returns the tag or nil on failure.
+    def find_or_create_tag_case_insensitive(name)
+      # Try to find case-insensitively first
+      existing = Tag.where("LOWER(name) = ?", name.downcase).first
+      return existing if existing
+
+      # If not found, try to create. Handle races where another process
+      # creates the tag concurrently by rescuing ActiveRecord::RecordNotUnique
+      begin
+        Tag.create!(name: name)
+      rescue ActiveRecord::RecordNotUnique
+        # Likely a race: re-query and return the existing record if present
+        Tag.where("LOWER(name) = ?", name.downcase).first
+      rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotSaved => e
+        Rails.logger.warn(
+          "Project#tag_list=: failed to create tag #{name.inspect} for project_id=#{id || 'unsaved'}: " \
+          "#{e.class}: #{e.message}"
+        )
+        nil
+      end
     end
 end
 

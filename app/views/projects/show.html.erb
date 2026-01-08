@@ -103,20 +103,14 @@
             </div>
           <% end %>
 
-          <p
-            class="d-block mb-2 text-start w-75"
-            title="<%= @project.created_at.strftime('%B %d, %Y, %l:%M %p UTC %:z') %>"
-          >
+          <p class="d-block mb-2 text-start w-75" title="<%= @project.created_at.strftime('%B %d, %Y, %l:%M %p UTC %:z') %>">
             <strong><%= t("projects.show.project_created_at") %></strong>
             <%= @project.created_at >= 14.days.ago ?
               "#{time_ago_in_words(@project.created_at, include_seconds: true)} ago" :
               @project.created_at.strftime("%b %d, %Y") %>
           </p>
 
-          <p
-            class="d-block mb-2 text-start w-75"
-            title="<%= @project.updated_at.strftime('%B %d, %Y, %l:%M %p UTC %:z') %>"
-          >
+          <p class="d-block mb-2 text-start w-75" title="<%= @project.updated_at.strftime('%B %d, %Y, %l:%M %p UTC %:z') %>">
             <strong><%= t("projects.show.project_updated_at") %></strong>
             <%= @project.updated_at >= 14.days.ago ?
               "#{time_ago_in_words(@project.updated_at, include_seconds: true)} ago" :

@@ -104,5 +104,42 @@ RSpec.describe Project, type: :model do
         end.to change(FeaturedCircuit, :count).by(-1)
       end
     end
+
+    describe "#tag_list=" do
+      before do
+        @project = FactoryBot.create(:project, author: @user)
+      end
+
+      it "deduplicates tags case-insensitively" do
+        expect do
+          @project.tag_list = "Design, design"
+          @project.save!
+        end.to change(Tag, :count).by(1)
+
+        expect(@project.tags.count).to eq(1)
+        expect(Tag.first.name.downcase).to eq("design")
+      end
+
+      it "skips empty and whitespace-only segments" do
+        expect do
+          @project.tag_list = " ,  ,  foo ,"
+          @project.save!
+        end.to change(Tag, :count).by(1)
+
+        expect(@project.tags.map(&:name)).to contain_exactly("foo")
+      end
+
+      it "logs when sanitization modifies the input" do
+        # create a binary sequence that will be replaced during encode
+        invalid_input = "foo\xFFbar"
+
+        logger_spy = instance_spy(ActiveSupport::Logger)
+        allow(Rails).to receive(:logger).and_return(logger_spy)
+
+        @project.tag_list = invalid_input
+
+        expect(logger_spy).to have_received(:warn).with(a_string_matching(/sanitization modified tag input/))
+      end
+    end
   end
 end

@@ -28,7 +28,17 @@ class CleanUpInvalidTags < ActiveRecord::Migration[7.1]
                         .delete("\u0000")
 
         if clean_name.present?
-          tag.update!(name: clean_name)
+          # If another tag already exists with the cleaned name (case-insensitive),
+          # reassign taggings to that tag and remove this duplicate to avoid
+          # creating unique-index violations later.
+          existing = Tag.where("LOWER(name) = ?", clean_name.downcase).where.not(id: tag.id).first
+
+          if existing
+            Tagging.where(tag_id: tag.id).update_all(tag_id: existing.id)
+            tag.destroy
+          else
+            tag.update!(name: clean_name)
+          end
         else
           tag.destroy
         end
