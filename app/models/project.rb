@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+# rubocop:disable Metrics/ClassLength
+
 require "pg_search"
 
 class Project < ApplicationRecord
@@ -35,22 +37,22 @@ class Project < ApplicationRecord
 
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
-
   scope :open, -> { where(project_access_type: "Public") }
-
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
 
   accepts_nested_attributes_for :project_datum
-  pg_search_scope :text_search, against: %i[name description], using: {
-    tsearch: {
-      dictionary: "english", tsvector_column: "searchable"
-    }
-  }
+  pg_search_scope :text_search,
+                  against: %i[name description],
+                  using: {
+                    tsearch: {
+                      dictionary: "english",
+                      tsvector_column: "searchable"
+                    }
+                  }
 
   after_update :check_and_remove_featured
-
   before_destroy :purge_circuit_preview
 
   self.per_page = 9
@@ -59,7 +61,7 @@ class Project < ApplicationRecord
   # after_commit :send_mail, on: :create
 
   def increase_views(user)
-    increment!(:view) if user.nil? || (user.id != author_id)
+    increment!(:view) if user.nil? || user.id != author_id
   end
 
   # returns true if starred, false if unstarred
@@ -80,12 +82,17 @@ class Project < ApplicationRecord
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
     forked_project.update!(
-      view: 1, author_id: user.id, forked_project_id: id, name: name
+      view: 1,
+      author_id: user.id,
+      forked_project_id: id,
+      name: name
     )
+
     @project = Project.find(id)
     if @project.author != user # rubocop:disable Style/IfUnlessModifier
       ForkNotification.with(user: user, project: @project).deliver_later(@project.author)
     end
+
     forked_project
   end
 
@@ -110,18 +117,22 @@ class Project < ApplicationRecord
   end
 
   def tag_list=(names)
-    return self.tags = [] if names.nil?
+    self.tags = []
+    return if names.nil?
 
-    # Sanitize input and remove invalid UTF-8 sequences
-    sanitized_names = names.to_s.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+    sanitized_names = names
+                      .to_s
+                      .encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
 
-    self.tags = sanitized_names.split(",").map(&:strip).uniq.compact_blank.reject(&:empty?).map do |n|
-      # Further sanitize each tag name
-      clean_name = n.strip.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
-      next if clean_name.empty?
+    self.tags = sanitized_names
+                .split(",")
+                .map(&:strip)
+                .uniq
+                .filter_map do |name|
+                  next if name.blank?
 
-      Tag.where(name: clean_name).first_or_create!
-    end.compact
+                  Tag.find_or_create_by!(name: name)
+                end
   end
 
   def public?
@@ -148,14 +159,14 @@ class Project < ApplicationRecord
   private
 
     def check_validity
-      return unless (project_access_type != "Private") && !assignment_id.nil?
+      return unless project_access_type != "Private" && !assignment_id.nil?
 
       errors.add(:project_access_type, "Assignment has to be private")
     end
 
     def clean_description
       profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
-      return nil unless profanity_filter.match? description
+      return unless profanity_filter.match?(description)
 
       errors.add(
         :description,
@@ -164,7 +175,8 @@ class Project < ApplicationRecord
     end
 
     def check_and_remove_featured
-      return unless saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
+      return unless saved_change_to_project_access_type? &&
+                    saved_changes["project_access_type"][1] != "Public"
 
       FeaturedCircuit.find_by(project_id: id)&.destroy
     end
@@ -178,3 +190,5 @@ class Project < ApplicationRecord
       circuit_preview.purge if circuit_preview.attached?
     end
 end
+
+# rubocop:enable Metrics/ClassLength

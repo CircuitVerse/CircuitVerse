@@ -2,52 +2,64 @@
 
 class CleanUpInvalidTags < ActiveRecord::Migration[7.1]
   def up
-    # Remove tags with empty or whitespace-only names
-    Tag.where("name IS NULL OR name = '' OR TRIM(name) = ''").destroy_all
+    remove_empty_tags
+    fix_invalid_tag_names
+    cleanup_taggings
+  end
 
-    # Fix tags with invalid UTF-8 sequences
-    Tag.find_each do |tag|
-      next unless tag.name.present?
+  def down
+    raise ActiveRecord::IrreversibleMigration
+  end
 
-      # Check if the name has invalid encoding
-      unless tag.name.valid_encoding?
-        # Try to clean the name
-        clean_name = tag.name.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
-                             .strip
-                             .gsub(/\u0000/, "")
+  private
+
+    def remove_empty_tags
+      Tag.where("name IS NULL OR name = '' OR TRIM(name) = ''").destroy_all
+    end
+
+    def fix_invalid_tag_names
+      Tag.find_each do |tag|
+        next if tag.name.blank?
+        next if tag.name.valid_encoding?
+
+        clean_name = tag.name
+                        .encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+                        .strip
+                        .delete("\u0000")
 
         if clean_name.present?
-          # Update without validations to avoid issues
-          tag.update_column(:name, clean_name)
+          tag.update!(name: clean_name)
         else
-          # If cleaning results in empty string, delete the tag
           tag.destroy
         end
       end
     end
 
-    # Remove orphaned taggings (where tag was deleted)
-    execute <<-SQL
-      DELETE FROM taggings
-      WHERE tag_id NOT IN (SELECT id FROM tags)
-    SQL
+    def cleanup_taggings
+      safety_assured do
+        remove_orphaned_taggings
+        remove_duplicate_taggings
+      end
+    end
 
-    # Remove duplicate taggings (same project and tag)
-    execute <<-SQL
-      DELETE FROM taggings a USING (
-        SELECT MIN(id) as id, project_id, tag_id
-        FROM taggings
-        GROUP BY project_id, tag_id
-        HAVING COUNT(*) > 1
-      ) b
-      WHERE a.project_id = b.project_id
-        AND a.tag_id = b.tag_id
-        AND a.id <> b.id
-    SQL
-  end
+    def remove_orphaned_taggings
+      execute <<~SQL.squish
+        DELETE FROM taggings
+        WHERE tag_id NOT IN (SELECT id FROM tags)
+      SQL
+    end
 
-  def down
-    # This migration cannot be reversed as it destroys data
-    raise ActiveRecord::IrreversibleMigration
-  end
+    def remove_duplicate_taggings
+      execute <<~SQL.squish
+        DELETE FROM taggings a USING (
+          SELECT MIN(id) AS id, project_id, tag_id
+          FROM taggings
+          GROUP BY project_id, tag_id
+          HAVING COUNT(*) > 1
+        ) b
+        WHERE a.project_id = b.project_id
+          AND a.tag_id = b.tag_id
+          AND a.id <> b.id
+      SQL
+    end
 end

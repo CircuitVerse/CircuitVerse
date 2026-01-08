@@ -13,11 +13,12 @@ class Tag < ApplicationRecord
   private
 
     def sanitize_name
-      return unless name.present?
+      return if name.blank?
 
       # Remove invalid UTF-8 sequences and clean up the string
-      self.name = name.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
-                      .strip
-                      .gsub(/\u0000/, "") # Remove null bytes
+      self.name = name
+                  .encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+                  .strip
+                  .delete("\u0000") # Remove null bytes
     end
 end
