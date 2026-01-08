@@ -29,10 +29,5 @@ class AddTagNameConstraint < ActiveRecord::Migration[7.1]
         DROP CONSTRAINT IF EXISTS tags_name_not_empty
       SQL
     end
-
-    remove_index :tags,
-                 :name,
-                 if_exists: true,
-                 algorithm: :concurrently
   end
 end

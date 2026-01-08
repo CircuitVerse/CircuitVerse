@@ -14,7 +14,7 @@ class CleanUpInvalidTags < ActiveRecord::Migration[7.1]
   private
 
     def remove_empty_tags
-      Tag.where("name IS NULL OR name = '' OR TRIM(name) = ''").destroy_all
+      Tag.where("name IS NULL OR name = '' OR TRIM(name) = ''").in_batches.delete_all
     end
 
     def fix_invalid_tag_names

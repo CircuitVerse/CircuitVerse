@@ -117,7 +117,7 @@ RSpec.describe Project, type: :model do
         end.to change(Tag, :count).by(1)
 
         expect(@project.tags.count).to eq(1)
-        expect(Tag.first.name.downcase).to eq("design")
+        expect(@project.tags.first.name).to eq("Design")
       end
 
       it "skips empty and whitespace-only segments" do

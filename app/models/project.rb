@@ -191,7 +191,9 @@ class Project < ApplicationRecord
 
     # Sanitize the provided tag input and warn if any replacements occurred
     def sanitize_tag_input(original_input)
-      sanitized = original_input.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+      sanitized = original_input
+                  .encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+                  .delete("\u0000")
 
       if sanitized != original_input
         Rails.logger.warn(
