@@ -59,7 +59,9 @@
           <div class="d-block mb-4 pl-0 text-left w-75">
             <% if !@project.tags.empty? %>
               <% @project.tags.each do |tag| %>
-                <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
+                <% if tag.name.present? && tag.name.strip.present? %>
+                  <%= link_to tag.name, tag_path(tag.name), class: "badge search-tag" %>
+                <% end %>
               <% end %>
             <% end %>
           </div>

@@ -110,9 +110,18 @@ class Project < ApplicationRecord
   end
 
   def tag_list=(names)
-    self.tags = names.split(",").map(&:strip).uniq.compact_blank.map do |n|
-      Tag.where(name: n.strip).first_or_create!
-    end
+    return self.tags = [] if names.nil?
+
+    # Sanitize input and remove invalid UTF-8 sequences
+    sanitized_names = names.to_s.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+
+    self.tags = sanitized_names.split(",").map(&:strip).uniq.compact_blank.reject(&:empty?).map do |n|
+      # Further sanitize each tag name
+      clean_name = n.strip.encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+      next if clean_name.empty?
+
+      Tag.where(name: clean_name).first_or_create!
+    end.compact
   end
 
   def public?
