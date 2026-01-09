@@ -2,6 +2,9 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+
+  get "/forum", to: "pages#forum", as: :forum_disabled
+
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
 
