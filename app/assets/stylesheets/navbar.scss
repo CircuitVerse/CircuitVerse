@@ -63,6 +63,9 @@
   height: 32px;
   object-fit: cover;
   border: 2px solid $navbar-dark-grey;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: block;
 }
 
 .navbar-user-fullname {
@@ -318,6 +321,7 @@
     &:focus {
       outline: none;
       border-color: $primary-green;
+      box-shadow: 0 0 0 2px rgba($primary-green, 0.3);
     }
 
     &::placeholder {
@@ -432,6 +436,7 @@
     &:focus {
       outline: none;
       border-color: $primary-green;
+      box-shadow: 0 0 0 2px rgba($primary-green, 0.3);
     }
 
     &:hover {
