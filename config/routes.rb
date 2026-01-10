@@ -3,11 +3,14 @@
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
 
-  get "/forum", to: "pages#forum", as: :forum_disabled
+  constraints -> { !Flipper.enabled?(:forum) } do
+    get "/forum", to: "pages#forum", as: :forum_disabled
+    get "/forum/*path", to: "pages#forum"
+  end
 
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
-
+  
   require "sidekiq/web"
 
   authenticate :user, ->(u) { u.admin? } do
