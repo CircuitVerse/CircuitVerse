@@ -29,12 +29,13 @@ class SimulatorController < ApplicationController
   def new
     @logix_project_id = 0
     @projectName = ""
-    render "edit"
+    render "edit_vue"
   end
 
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
+    render :edit_vue
   end
 
   def embed

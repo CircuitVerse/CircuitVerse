@@ -1,0 +1,11 @@
+<% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
+
+<script>
+  // Project setup
+  window.logixProjectId = "<%= @logix_project_id || 0 %>";
+  window.isUserLoggedIn = <%= user_signed_in? %>;
+  window.embed = <%= @external_embed || false %>;
+</script>
+
+<div id="app"></div>
+<script type="module" src="/simulator-v0/simulator-v0.js"></script>
