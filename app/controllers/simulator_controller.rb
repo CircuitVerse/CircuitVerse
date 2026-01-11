@@ -29,7 +29,7 @@ class SimulatorController < ApplicationController
     @logix_project_id = 0
     @projectName = ""
     if Flipper.enabled?(:vuesim, current_user)
-      render "edit_vue"
+      render "edit_vue", layout: false
     else
       render "edit"
     end
@@ -39,7 +39,7 @@ class SimulatorController < ApplicationController
     @logix_project_id = params[:id]
     @projectName = @project.name
     if Flipper.enabled?(:vuesim, current_user)
-      render :edit_vue
+      render :edit_vue, layout: false
     else
       render :edit
     end

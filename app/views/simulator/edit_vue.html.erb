@@ -1,11 +1,18 @@
-<% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
+<html>
+  <head>
+    <% content_for(:html_title) { "CircuitVerse - Digital Simulator" } %>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+      // Project setup
+      window.logixProjectId = "<%= @project&.id || 0 %>";
+      window.isUserLoggedIn = <%= user_signed_in? %>;
+      window.embed = <%= @external_embed || false %>;
+    </script>
+    <script type="module" src="/simulator-v0/simulator-v0.js"></script>
+    <link rel="stylesheet" href="/simulator-v0/assets/v0-fde2125d.css">
 
-<script>
-  // Project setup
-  window.logixProjectId = "<%= @logix_project_id || 0 %>";
-  window.isUserLoggedIn = <%= user_signed_in? %>;
-  window.embed = <%= @external_embed || false %>;
-</script>
-
-<div id="app"></div>
-<script type="module" src="/simulator-v0/simulator-v0.js"></script>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+</html>
