@@ -22,7 +22,7 @@ class Users::NoticedNotificationsController < ApplicationController
 
   def read_all_notifications
     NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
-    redirect_back(fallback_location: root_path)
+    redirect_back_or_to(root_path)
   end
 
   private

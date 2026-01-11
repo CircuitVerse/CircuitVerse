@@ -4,7 +4,6 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :redirect_to_vue_simulator_if_enabled
   before_action :authenticate_user!, only: %i[create update edit]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
@@ -29,13 +28,21 @@ class SimulatorController < ApplicationController
   def new
     @logix_project_id = 0
     @projectName = ""
-    render "edit_vue"
+    if Flipper.enabled?(:vuesim, current_user)
+      render "edit_vue"
+    else
+      render "edit"
+    end
   end
 
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
-    render :edit_vue
+    if Flipper.enabled?(:vuesim, current_user)
+      render :edit_vue
+    else
+      render :edit
+    end
   end
 
   def embed
@@ -158,16 +165,5 @@ class SimulatorController < ApplicationController
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
-    end
-
-    def redirect_to_vue_simulator_if_enabled
-      return unless Flipper.enabled?(:vuesim, current_user)
-
-      new_path = request.fullpath.gsub(%r{^/simulator}, "")
-      if new_path.blank? || new_path == "/"
-        redirect_to default_simulatorvue_path
-      else
-        redirect_to simulatorvue_path(path: new_path.sub(%r{^/}, ""))
-      end
     end
 end
