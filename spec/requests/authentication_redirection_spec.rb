@@ -5,7 +5,7 @@ RSpec.describe "Authentication Redirection", type: :request do
     let(:user) { create(:user) }
 
     it "redirects to the user's dashboard (projects page) after successful login" do
-      post user_session_path, params: { user: { email: user.email, password: user.password } }
+      post user_session_path, params: { user: { email: user.email, password: "password123" } }
       expect(response).to redirect_to(user_projects_path(user))
     end
   end
