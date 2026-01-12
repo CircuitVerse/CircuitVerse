@@ -57,16 +57,14 @@ module Adapters
         relation.text_search(q)
       end
 
-
-      def base_user_results(relation, query_params)
+     def base_user_results(relation, query_params)
        q = query_params[:q]
 
-       return User.all if q.blank?
+       return relation if q.blank?
        return User.none if q.include?("\0")
-
+  
        relation.text_search(q)
      end
-
 
       def apply_sorting(relation, query_params, type)
         sort_field = sanitize_sort_field(query_params[:sort_by], type)
