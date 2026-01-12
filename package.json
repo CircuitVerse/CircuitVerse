@@ -12,7 +12,8 @@
     "lint": "eslint ./simulator",
     "postinstall": "opencollective-postinstall || true",
     "prepare": "husky .",
-    "build": "node esbuild.config.js"
+    "build": "node esbuild.config.js",
+    "build-vue-simulator": "cd cv-frontend-vue && VITE_BASE=/simulator-v0/ npm run build && cd .."
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.7",
