@@ -41,18 +41,18 @@ export function createSubCircuitPrompt(scope = globalScope) {
     let flag = true;
     for (id in scopeList) {
         if (!scopeList[id].checkDependency(scope.id) && scopeList[id].isVisible()) {
-            flag = false; 
+            flag = false;
             $("#insertSubcircuitDialog").append(
                 `<label class="option custom-radio inline"><input type="radio" name="subCircuitId" value="${id}" />${scopeList[id].name}<span></span></label>`
             );
         }
-    }  
-    if(flag) {    
+    }
+    if(flag) {
         $("#insertSubcircuitDialog").append(
             [$("#insertSubcircuitcontent").dialog(),
              $("#insertSubcircuitcontent").dialog("close")]
         );
-    } 
+    }
     $("#insertSubcircuitDialog").dialog({
         resizable:false,
         maxHeight: 800,
@@ -319,7 +319,7 @@ export default class SubCircuit extends CircuitElement {
         }
 
         // No Inputs or Outputs
-        let emptyCircuit = subcircuitScope.Input.length == 0 && subcircuitScope.Output.length == 0;
+        let emptyCircuit = subcircuitScope.Input.length === 0 && subcircuitScope.Output.length === 0;
         // No LayoutElements
         for(let element of circuitElementList){
             if(subcircuitScope[element].length > 0 && subcircuitScope[element][0].canShowInSubcircuit){
