@@ -26,7 +26,6 @@ class SimulatorController < ApplicationController
       render "embed_vue", layout: false
     else
       render "embed"
-
     end
   end
 
