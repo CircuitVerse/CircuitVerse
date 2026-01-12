@@ -34,11 +34,11 @@ class ProjectsController < ApplicationController
 
     # Resolve simulator embed path
     @embed_path =
-      if @project.uses_vue_simulator?
-        simulatorvue_path(@project)
-      else
-        simulator_path(@project)
-      end
+      # if @project.uses_vue_simulator?
+      # simulatorvue_path(@project)
+      # else
+      simulator_path(@project)
+    # end
   end
 
   # GET /projects/1/edit

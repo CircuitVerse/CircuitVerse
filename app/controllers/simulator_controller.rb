@@ -22,7 +22,12 @@ class SimulatorController < ApplicationController
   def show
     @logix_project_id = params[:id]
     @external_embed = false
-    render "embed"
+    if Flipper.enabled?(:vuesim, current_user)
+      render "embed_vue", layout: false
+    else
+      render "embed"
+
+    end
   end
 
   def new
@@ -51,7 +56,11 @@ class SimulatorController < ApplicationController
     @project = Project.friendly.find(params[:id])
     @author = @project.author_id
     @external_embed = true
-    render "embed"
+    if Flipper.enabled?(:vuesim, current_user)
+      render :embed_vue, layout: false
+    else
+      render :embed
+    end
   end
 
   def get_data
