@@ -3,7 +3,10 @@
 class CircuitverseController < ApplicationController
   before_action :set_homepage_data, only: [:index]
 
-  def index; end
+  def index
+    redirect_to user_projects_path(current_user) and return if user_signed_in?
+  end
+
 
   def examples
     @examples = example_projects
