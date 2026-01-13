@@ -77,4 +77,11 @@ class ApplicationController < ActionController::Base
         "tag" => params[:tag]
       }
     end
+
+    # Sanitizes the page parameter to prevent ArgumentError from non-numeric values
+    # Returns a valid page number (minimum 1)
+    def sanitize_page
+      page = params[:page].to_i
+      [page, 1].max
+    end
 end

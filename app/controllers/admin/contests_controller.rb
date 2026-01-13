@@ -6,7 +6,7 @@ class Admin::ContestsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
+    @contests = Contest.order(id: :desc).paginate(page: sanitize_page).limit(Contest.per_page)
   end
 
   def create
@@ -21,7 +21,7 @@ class Admin::ContestsController < ApplicationController
       ContestScheduler.call(@contest)
       redirect_to contest_path(@contest), notice: t(".success")
     else
-      @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
+      @contests = Contest.order(id: :desc).paginate(page: sanitize_page).limit(Contest.per_page)
       render :index, status: :unprocessable_content
     end
   end
