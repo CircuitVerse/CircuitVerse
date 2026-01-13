@@ -146,7 +146,7 @@ describe SimulatorController, type: :request do
         end
 
         it "redirects to default simulatorvue path if path is root" do
-          expect(response).to redirect_to default_simulatorvue_path
+          expect(response).to redirect_to("/simulatorvue")
         end
       end
 
@@ -158,7 +158,7 @@ describe SimulatorController, type: :request do
 
         it "redirects to the simulatorvue path with the given path" do
           get simulator_edit_path(@project)
-          expect(response).to redirect_to simulatorvue_path(path: "edit/#{@project.name.parameterize}")
+          expect(response).to redirect_to("/simulatorvue/edit/#{@project.name.parameterize}")
         end
       end
 
@@ -169,7 +169,7 @@ describe SimulatorController, type: :request do
         end
 
         it "does not redirect to simulatorvue" do
-          expect(response).not_to redirect_to default_simulatorvue_path
+          expect(response).not_to("/simulatorvue")
         end
       end
     end
