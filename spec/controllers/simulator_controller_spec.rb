@@ -145,20 +145,21 @@ describe SimulatorController, type: :request do
           get simulator_new_path
         end
 
-        it "redirects to default simulatorvue path if path is root" do
-          expect(response).to redirect_to default_simulatorvue_path
+        it "renders the vue simulator" do
+          expect(response.status).to eq(200)
+          expect(response.body).to include("simulator-v0.js")
         end
       end
 
       context "when vuesim is enabled for user and user tries to edit a circuit" do
         before do
           allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(true)
-          get simulator_path(@project)
+          get simulator_edit_path(@project)
         end
 
-        it "redirects to the simulatorvue path with the given path" do
-          get simulator_edit_path(@project)
-          expect(response).to redirect_to simulatorvue_path(path: "edit/#{@project.name.parameterize}")
+        it "renders the vue simulator" do
+          expect(response.status).to eq(200)
+          expect(response.body).to include("simulator-v0.js")
         end
       end
 
@@ -168,8 +169,8 @@ describe SimulatorController, type: :request do
           get simulator_path(@project)
         end
 
-        it "does not redirect to simulatorvue" do
-          expect(response).not_to redirect_to default_simulatorvue_path
+        it "does not render the vue simulator" do
+          expect(response.body).not_to include("simulator-v0.js")
         end
       end
     end
