@@ -42,16 +42,16 @@
           </div>
         </div>
           <div class="field mb-3">
-            <div class="input-group">
-              <% if Flipper.enabled?(:recaptcha) %>
+            <% if Flipper.enabled?(:recaptcha) %>
+              <div class="mb-3">
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
-              <% end %>
-              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
-              <div class="users-text-container">
-                <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
-                <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
               </div>
+            <% end %>
+            <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
+            <div class="users-text-container">
+              <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
+              <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
             </div>
           </div>
           <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
