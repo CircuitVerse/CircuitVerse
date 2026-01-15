@@ -31,61 +31,61 @@ class ProjectPolicy < ApplicationPolicy
       author_access? ||
       mentor_access? ||
       collaborator_access? ||
-      (user.present? && user.admin)
+      (user.present? && user.admin?)
   end
 
   def check_direct_view_access?
     project.project_access_type == "Public" ||
       (project.project_submission == false && author_access?) ||
       collaborator_access? ||
-      (user.present? && user.admin)
+      (user.present? && user.admin?)
   end
 
   private
 
-  def mentor_access?
-    return false if user.nil? || project.assignment_id.nil?
+    def mentor_access?
+      return false if user.nil? || project.assignment_id.nil?
 
-    group = project.assignment.group
-    group.primary_mentor_id == user.id ||
-      group.group_members.exists?(user_id: user.id, mentor: true)
-  end
+      group = project.assignment.group
+      group.primary_mentor_id == user.id ||
+        group.group_members.exists?(user_id: user.id, mentor: true)
+    end
 
-  def collaborator_access?
-    return false if user.nil?
+    def collaborator_access?
+      return false if user.nil?
 
-    project.collaborations.any? { |c| c.user_id == user.id }
-  end
+      project.collaborations.any? { |c| c.user_id == user.id }
+    end
 
-  def edit_access?
-    raise @simulator_exception unless user_access?
+    def edit_access?
+      raise @simulator_exception unless user_access?
 
-    true
-  end
+      true
+    end
 
-  def view_access?
-    raise @simulator_exception unless check_view_access?
+    def view_access?
+      raise @simulator_exception unless check_view_access?
 
-    true
-  end
+      true
+    end
 
-  def direct_view_access?
-    raise @simulator_exception unless check_direct_view_access?
+    def direct_view_access?
+      raise @simulator_exception unless check_direct_view_access?
 
-    true
-  end
+      true
+    end
 
-  def embed?
-    raise @simulator_exception unless project.project_access_type != "Private"
+    def embed?
+      raise @simulator_exception unless project.project_access_type != "Private"
 
-    true
-  end
+      true
+    end
 
-  def create_fork?
-    project.assignment_id.nil?
-  end
+    def create_fork?
+      project.assignment_id.nil?
+    end
 
-  def author_access?
-    (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
-  end
+    def author_access?
+      (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
+    end
 end
