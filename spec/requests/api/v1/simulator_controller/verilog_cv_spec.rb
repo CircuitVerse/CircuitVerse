@@ -13,7 +13,7 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        allow(HTTP).to receive(:post).and_return(response_double)
+        allow(HTTP).to receive_message_chain(:timeout, :post).and_return(response_double)
       end
 
       it "returns a successful response with correct JSON" do
@@ -28,12 +28,25 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        allow(HTTP).to receive(:post).and_return(response_double)
+        allow(HTTP).to receive_message_chain(:timeout, :post).and_return(response_double)
       end
 
       it "returns the failed status code" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
         expect(response.status).to eq(500)
+      end
+    end
+
+    context "when Yosys service is unavailable" do
+      before do
+        allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
+        allow(HTTP).to receive_message_chain(:timeout, :post).and_raise(Errno::ECONNREFUSED)
+      end
+
+      it "returns service unavailable status with error message" do
+        post "/api/v1/simulator/verilogcv", params: { code: code }
+        expect(response).to have_http_status(:service_unavailable)
+        expect(response.parsed_body["error"]).to eq("Verilog simulator service is unavailable. Please try again later.")
       end
     end
   end
