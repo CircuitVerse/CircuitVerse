@@ -22,7 +22,7 @@ class Contests::SubmissionsController < ApplicationController
       redirect_to contest_path(@contest), notice: t(".success")
     else
       @projects = current_user.projects
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
