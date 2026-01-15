@@ -23,69 +23,55 @@ class ProjectPolicy < ApplicationPolicy
     return false if user.nil? || project.project_submission
 
     project.author_id == user.id ||
-      collaborator_access?
+      project.collaborations.any? { |c| c.user_id == user.id }
   end
 
   def check_view_access?
     project.project_access_type != "Private" ||
-      author_access? ||
-      mentor_access? ||
-      collaborator_access? ||
-      (user.present? && user.admin?)
+      (!user.nil? && project.author_id == user.id) ||
+      (!user.nil? && !project.assignment_id.nil? &&
+      ((project.assignment.group.primary_mentor_id == user.id) ||
+      project.assignment.group.group_members.exists?(user_id: user.id, mentor: true))) ||
+      (!user.nil? && project.collaborations.any? { |c| c.user_id == user.id }) ||
+      (!user.nil? && user.admin)
   end
 
   def check_direct_view_access?
     project.project_access_type == "Public" ||
-      (project.project_submission == false && author_access?) ||
-      collaborator_access? ||
-      (user.present? && user.admin?)
+      (project.project_submission == false && !user.nil? && project.author_id == user.id) ||
+      (!user.nil? && project.collaborations.any? { |c| c.user_id == user.id }) ||
+      (!user.nil? && user.admin)
   end
 
-  private
+  def edit_access?
+    raise @simulator_exception unless user_access?
 
-    def mentor_access?
-      return false if user.nil? || project.assignment_id.nil?
+    true
+  end
 
-      group = project.assignment.group
-      group.primary_mentor_id == user.id ||
-        group.group_members.exists?(user_id: user.id, mentor: true)
-    end
+  def view_access?
+    raise @simulator_exception unless check_view_access?
 
-    def collaborator_access?
-      return false if user.nil?
+    true
+  end
 
-      project.collaborations.any? { |c| c.user_id == user.id }
-    end
+  def direct_view_access?
+    raise @simulator_exception unless check_direct_view_access?
 
-    def edit_access?
-      raise @simulator_exception unless user_access?
+    true
+  end
 
-      true
-    end
+  def embed?
+    raise @simulator_exception unless project.project_access_type != "Private"
 
-    def view_access?
-      raise @simulator_exception unless check_view_access?
+    true
+  end
 
-      true
-    end
+  def create_fork?
+    project.assignment_id.nil?
+  end
 
-    def direct_view_access?
-      raise @simulator_exception unless check_direct_view_access?
-
-      true
-    end
-
-    def embed?
-      raise @simulator_exception unless project.project_access_type != "Private"
-
-      true
-    end
-
-    def create_fork?
-      project.assignment_id.nil?
-    end
-
-    def author_access?
-      (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
-    end
+  def author_access?
+    (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
+  end
 end
