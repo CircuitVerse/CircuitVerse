@@ -17,7 +17,7 @@ cd CircuitVerse
 - Use `git submodule update --init` to get the contents of the submodule if you missed using the `--recursive` option while cloning the repository or if you have already done so.
 
 #### Dependencies
-> Installation guide link have been added to each dependency
+> Installation guide links have been added to each dependency
 - [Git](https://git-scm.com/download/win) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
 - [Ruby 3.2.1](https://www.ruby-lang.org/en/) (Install from this [link](https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.2.1-1/rubyinstaller-devkit-3.2.1-1-x64.exe))
     > During installation, you will be prompted to install MSYS2 & MINGW. Make sure to install those. 
@@ -48,7 +48,7 @@ cd CircuitVerse
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` to create the template): 
+4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` to create the configuration file): 
      * **(Windows):** `copy config\database.example.yml config\database.yml`
      * **Note:** The Postgres credentials need to be updated to match your currently running database.
 5. Create database: `bundle exec rails db:create`
