@@ -134,7 +134,8 @@ class SimulatorController < ApplicationController
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
     response = HTTP.timeout(10).post(url, json: { code: params[:code] })
     render json: response.to_s, status: response.code
-  rescue HTTP::ConnectionError, Errno::ECONNREFUSED, Errno::ECONNRESET => e
+  rescue HTTP::ConnectionError, HTTP::TimeoutError,
+         Errno::ECONNREFUSED, Errno::ECONNRESET => e
     Rails.logger.error(
       "[SimulatorController] Yosys service unavailable at #{url}: #{e.class} - #{e.message}"
     )
