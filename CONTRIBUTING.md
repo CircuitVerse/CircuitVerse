@@ -29,7 +29,7 @@ We expect all contributors to abide by our [Code of Conduct](https://github.com/
 - `🐞 bug` - Errors in existing code
 - `documentation` - Docs improvements
 
-**Priority:** `high` > `medium` > `less`
+**Priority:** `high` > `medium` > `low`
 
 **Difficulty:** `easy` (isolated changes) → `medium` (broader changes) → `hard` (architectural changes)
 
@@ -40,7 +40,7 @@ We expect all contributors to abide by our [Code of Conduct](https://github.com/
 ## How to Claim Issues
 
 1. Find an issue **without** the `pending triage` label
-2. Check no one else has claimed it
+2. Check that no one else has claimed it
 3. Leave a comment: "I'd like to work on this"
 4. Start working immediately - no need to wait for assignment
 5. Comment if you can no longer work on it
@@ -95,7 +95,7 @@ Use present tense, imperative mood, keep first line under 72 characters.
 ```bash
 # Run tests before pushing
 bundle exec rspec
-rubocop  # if applicable
+bundle exec rubocop  # if applicable
 ```
 
 ## Pull Request Guidelines
