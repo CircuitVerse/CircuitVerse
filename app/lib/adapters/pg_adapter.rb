@@ -25,7 +25,7 @@ module Adapters
         base_results: base_project_results(relation, query_params),
         query_params: query_params,
         type: :project,
-        includes: %i[tags author]
+        includes: [:tags, :author, { circuit_preview_attachment: :blob }]
       )
     end
 
