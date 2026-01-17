@@ -96,17 +96,24 @@ RSpec.describe Project, type: :model do
       end
     end
     describe "#fork" do
-  it "creates a fork with 1 view" do
-    @viewer = FactoryBot.create(:user)
-    # We need a project_datum for the fork logic to work
-    @project = FactoryBot.create(:project, author: @user)
-    FactoryBot.create(:project_datum, project: @project, data: "{}")
-    
-    forked_project = @project.fork(@viewer)
-    expect(forked_project.view).to eq(1)
-    expect(forked_project.forked_project_id).to eq(@project.id)
-  end
-end
+      it "creates a fork with 1 view and correct associations" do
+        @forker = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, author: @user)
+        FactoryBot.create(:project_datum, project: @project, data: "{}")
+        
+        @project.circuit_preview.attach(
+          io: File.open(Rails.root.join("spec/fixtures/files/profile.png")),
+          filename: "test.png",
+          content_type: "image/png"
+        )
+
+        forked_project = @project.fork(@forker)
+        
+        expect(forked_project.view).to eq(1)
+        expect(forked_project.forked_project_id).to eq(@project.id)
+        expect(forked_project.author_id).to eq(@forker.id)
+      end
+    end
 
     describe "#check_and_remove_featured" do
       before do
