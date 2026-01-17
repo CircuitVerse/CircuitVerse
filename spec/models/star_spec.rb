@@ -27,14 +27,20 @@ RSpec.describe Star, type: :model do
           .and_call_original
         
         star = Star.create!(user: user, project: project)
-        star.run_callbacks(:commit)
+        
+        if ActiveRecord::Base.connection.transaction_open?
+          star.run_callbacks(:commit)
+        end
       end
 
       it "does not send a notification when the author stars their own project" do
         expect(StarNotification).not_to receive(:with)
         
         star = Star.create!(user: author, project: project)
-        star.run_callbacks(:commit)
+        
+        if ActiveRecord::Base.connection.transaction_open?
+          star.run_callbacks(:commit)
+        end
       end
     end
   end
