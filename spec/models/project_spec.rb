@@ -89,7 +89,24 @@ RSpec.describe Project, type: :model do
           @project.increase_views(@viewer)
         end.to change { @project.view }.by(1)
       end
+      it "does not increase views if the viewer is the author" do
+        expect do
+          @project.increase_views(@user)
+        end.not_to change { @project.view }
+      end
     end
+    describe "#fork" do
+  it "creates a fork with 1 view" do
+    @viewer = FactoryBot.create(:user)
+    # We need a project_datum for the fork logic to work
+    @project = FactoryBot.create(:project, author: @user)
+    FactoryBot.create(:project_datum, project: @project, data: "{}")
+    
+    forked_project = @project.fork(@viewer)
+    expect(forked_project.view).to eq(1)
+    expect(forked_project.forked_project_id).to eq(@project.id)
+  end
+end
 
     describe "#check_and_remove_featured" do
       before do
