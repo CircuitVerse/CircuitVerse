@@ -30,18 +30,21 @@ RSpec.describe Collaboration, type: :model do
     end
 
     it "validates uniqueness of user scoped to project" do
-      
       Collaboration.create!(user: user, project: project)
-      
       duplicate = Collaboration.new(user: user, project: project)
       
       expect(duplicate).not_to be_valid
+      
+      expect(duplicate.errors[:user_id]).to include("has already been taken")
     end
     
     it "is invalid if the user is already the owner of the project" do
       owner = project.author
       collaboration = Collaboration.new(user: owner, project: project)
+      
       expect(collaboration).not_to be_valid
+      
+      expect(collaboration.errors[:user]).to include("cannot be the owner of the project")
     end
   end
 end
