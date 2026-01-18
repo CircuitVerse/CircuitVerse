@@ -1,0 +1,16 @@
+#!/bin/sh
+
+FILES=$(git diff --cached --name-only --diff-filter=ACM | grep '\.rb$')
+
+if [ -z "$FILES" ]; then
+  exit 0
+fi
+
+echo "Running RuboCop on staged Ruby files..."
+bundle exec rubocop -A $FILES
+
+STATUS=$?
+if [ $STATUS -ne 0 ]; then
+  echo "RuboCop found issues that could not be auto-corrected."
+  exit 1
+fi
