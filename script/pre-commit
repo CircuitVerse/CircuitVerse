@@ -14,3 +14,5 @@ if [ $STATUS -ne 0 ]; then
   echo "RuboCop found issues that could not be auto-corrected."
   exit 1
 fi
+
+git add -- $FILES
