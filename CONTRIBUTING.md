@@ -89,10 +89,6 @@ This helps prevent avoidable CI failures caused by style-only violations.
 
 ### Enable (recommended)
 
-```bash
-script/install-git-hooks
-
-### Commit Convention
 
 ```bash
 # Format: <type>: <description> (#issue-number)
