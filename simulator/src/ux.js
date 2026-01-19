@@ -51,6 +51,67 @@ var ctxPos = {
     visible: false,
 };
 
+// =======================
+// View Menu: Timing Diagram Toggle
+// =======================
+
+let timingDiagramVisible = true;
+
+export function toggleTimingDiagram() {
+    const timingPanel = document.querySelector('.timing-diagram-panel');
+    if (!timingPanel) return;
+
+    timingDiagramVisible = !timingDiagramVisible;
+    timingPanel.style.display = timingDiagramVisible ? 'block' : 'none';
+}
+
+function setupViewMenu() {
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    const viewBtn = document.createElement('button');
+    viewBtn.innerText = 'View';
+    viewBtn.className = 'btn btn-default';
+    viewBtn.style.marginLeft = '8px';
+
+    const dropdown = document.createElement('div');
+    dropdown.style.position = 'absolute';
+    dropdown.style.background = '#fff';
+    dropdown.style.border = '1px solid #ccc';
+    dropdown.style.display = 'none';
+    dropdown.style.zIndex = 1000;
+
+    const toggleItem = document.createElement('div');
+    toggleItem.innerText = 'Toggle Timing Diagram';
+    toggleItem.style.padding = '6px 12px';
+    toggleItem.style.cursor = 'pointer';
+
+    toggleItem.onclick = () => {
+        toggleTimingDiagram();
+        dropdown.style.display = 'none';
+    };
+
+    dropdown.appendChild(toggleItem);
+
+    viewBtn.onclick = (e) => {
+        e.stopPropagation();
+        dropdown.style.display =
+            dropdown.style.display === 'none' ? 'block' : 'none';
+
+        const rect = viewBtn.getBoundingClientRect();
+        dropdown.style.left = `${rect.left}px`;
+        dropdown.style.top = `${rect.bottom}px`;
+    };
+
+    document.body.addEventListener('click', () => {
+        dropdown.style.display = 'none';
+    });
+
+    navbar.appendChild(viewBtn);
+    document.body.appendChild(dropdown);
+}
+
+
 /**
  * Function hides the context menu
  * @category ux
@@ -254,6 +315,7 @@ export function setupUI() {
     setupPanels();
     setupVerilogExportCodeWindow();
     setupBitConvertor();
+    setupViewMenu(); 
 }
 
 export function createElement() {
