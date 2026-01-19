@@ -16,7 +16,7 @@ This page highlights the people behind the code, documentation, design, and comm
 ## 🧑‍💻 Contributors
 
 ### Example Contributor
-- **GitHub**: https://github.com/example
+- **GitHub**: [https://github.com/example](https://github.com/example)
 - **Areas**: Documentation
 - **About**: Helped improve documentation clarity.
 
