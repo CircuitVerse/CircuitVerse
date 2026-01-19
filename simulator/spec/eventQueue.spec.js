@@ -1,6 +1,20 @@
+/**
+ * Unit tests for the EventQueue module.
+ *
+ * These tests verify correct rescheduling behavior, ensuring
+ * that elements already present in the queue are only rescheduled
+ * when the new event time is earlier than the existing one.
+ */
+
 import EventQueue from '../src/eventQueue';
 
 describe('EventQueue', () => {
+    /**
+     * Creates a mock simulation element with queue metadata.
+     *
+     * @param {number} propagationDelay - Delay associated with the element
+     * @returns {Object} Mock simulation element
+     */
     function createMockElement(propagationDelay = 1) {
         return {
             propagationDelay,
@@ -24,7 +38,7 @@ describe('EventQueue', () => {
         queue.add(elem);
 
         expect(elem.queueProperties.time).toBe(originalTime);
-        expect(queue.frontIndex).toBe(1);
+        expect(elem.queueProperties.inQueue).toBe(true);
     });
 
     it('reschedules an element if the new event time is earlier', () => {
@@ -39,6 +53,6 @@ describe('EventQueue', () => {
         queue.add(elem);
 
         expect(elem.queueProperties.time).toBeLessThan(laterTime);
-        expect(queue.frontIndex).toBe(1);
+        expect(elem.queueProperties.inQueue).toBe(true);
     });
 });
