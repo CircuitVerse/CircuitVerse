@@ -92,6 +92,11 @@ This helps prevent avoidable CI failures caused by style-only violations.
 ```bash
 script/install-git-hooks
 ```
+### Note for Windows users
+
+Run this command using Git Bash or WSL.
+Alternatively, you can manually copy script/pre-commit
+to .git/hooks/pre-commit.
 
 ### Commit Convention
 
