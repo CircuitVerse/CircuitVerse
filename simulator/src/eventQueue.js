@@ -1,14 +1,12 @@
 /**
  * EventQueue manages scheduled simulation events in time order.
  *
- * It prevents redundant rescheduling by ensuring that an event
- * already present in the queue is only rescheduled if the new
- * event time is earlier than the existing scheduled time.
+ * It prevents redundant rescheduling by ensuring that an event already
+ * present in the queue is only rescheduled if the new event time is
+ * earlier than the existing scheduled time.
  */
 export default class EventQueue {
     /**
-     * Creates an EventQueue.
-     *
      * @param {number} size - Maximum number of events allowed in the queue
      */
     constructor(size) {
@@ -21,41 +19,45 @@ export default class EventQueue {
     /**
      * Adds an object to the event queue.
      *
-     * If the object is already present in the queue, it will only be
-     * rescheduled if the new event time is earlier than the currently
-     * scheduled time. Otherwise, the queue remains unchanged.
+     * If the object is already in the queue, it will only be rescheduled
+     * when the newly computed event time is earlier than the existing one.
      *
      * @param {Object} obj - Simulation element to schedule
-     * @param {number} [delay] - Optional delay override for scheduling
+     * @param {number} [delay] - Optional delay override (0 is valid)
      * @returns {void}
      */
     add(obj, delay) {
-        if (obj.queueProperties.inQueue) {
-            const oldTime = obj.queueProperties.time;
-            const newTime = this.time + (delay || obj.propagationDelay);
+        const qp = obj.queueProperties;
+
+        // Use nullish coalescing so delay = 0 works correctly
+        const effectiveDelay = delay ?? obj.propagationDelay;
+        const newTime = this.time + effectiveDelay;
+
+        if (qp.inQueue) {
+            const oldTime = qp.time;
 
             // Do not reschedule if the existing event is earlier or equal
             if (newTime >= oldTime) {
                 return;
             }
 
-            obj.queueProperties.time = newTime;
-            let i = obj.queueProperties.index;
+            qp.time = newTime;
+            let i = qp.index;
 
-            // Bubble up if the event should occur earlier
+            // Bubble toward front (earlier execution)
             while (
                 i > 0 &&
-                obj.queueProperties.time > this.queue[i - 1].queueProperties.time
+                qp.time > this.queue[i - 1].queueProperties.time
             ) {
                 this.swap(i, i - 1);
                 i--;
             }
 
-            // Bubble down if needed to restore ordering
-            i = obj.queueProperties.index;
+            // Bubble toward back if required
+            i = qp.index;
             while (
                 i < this.frontIndex - 1 &&
-                obj.queueProperties.time < this.queue[i + 1].queueProperties.time
+                qp.time < this.queue[i + 1].queueProperties.time
             ) {
                 this.swap(i, i + 1);
                 i++;
@@ -68,17 +70,17 @@ export default class EventQueue {
         }
 
         this.queue[this.frontIndex] = obj;
-        obj.queueProperties.inQueue = true;
-        obj.queueProperties.index = this.frontIndex;
-        obj.queueProperties.time = this.time + (delay || obj.propagationDelay);
+        qp.inQueue = true;
+        qp.index = this.frontIndex;
+        qp.time = newTime;
         this.frontIndex++;
     }
 
     /**
      * Swaps two elements in the queue and updates their indices.
      *
-     * @param {number} i - Index of the first element
-     * @param {number} j - Index of the second element
+     * @param {number} i - First index
+     * @param {number} j - Second index
      * @returns {void}
      */
     swap(i, j) {
