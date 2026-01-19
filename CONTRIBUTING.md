@@ -90,7 +90,7 @@ This helps prevent avoidable CI failures caused by style-only violations.
 ### Enable (recommended)
 
 ```bash
-script/install-git-hooks
+./script/install-git-hooks
 ```
 ### Note for Windows users
 
