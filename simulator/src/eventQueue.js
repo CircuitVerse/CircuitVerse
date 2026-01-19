@@ -64,7 +64,7 @@ export default class EventQueue {
         }
 
         if (this.frontIndex === this.size) {
-            throw 'EventQueue size exceeded';
+            throw new Error('EventQueue size exceeded');
         }
 
         this.queue[this.frontIndex] = obj;
