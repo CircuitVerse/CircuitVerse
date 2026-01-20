@@ -979,7 +979,8 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 
 }
 
-if (typeof logix_project_id !== 'undefined' && logix_project_id == 0)
+// eslint-disable-next-line camelcase
+    if (typeof logix_project_id !== 'undefined' && logix_project_id === 0) {
 setTimeout(promptSave,120000);
 
 function promptSave(){
