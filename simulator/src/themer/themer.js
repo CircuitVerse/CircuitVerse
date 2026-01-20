@@ -49,12 +49,11 @@ function updateThemeForStyle(themeName) {
     Object.keys(selectedTheme).forEach((property, i) => {
         html.style.setProperty(property, selectedTheme[property]);
     });
-     const newColors = getCanvasColors();
-     if (selectedTheme['--text'] && selectedTheme['--text'] !== '#000' && selectedTheme['--text'] !== '#000000') {
-        newColors['text'] = selectedTheme['--text'];
-    }
-    else if (selectedTheme['--text-lite'] || selectedTheme['--input-text']) {
-        newColors['text'] = selectedTheme['--text-lite'] || selectedTheme['--input-text'];
+    const newColors = getCanvasColors();
+    if (selectedTheme['--text'] && selectedTheme['--text'] !== '#000' && selectedTheme['--text'] !== '#000000') {
+        newColors.text = selectedTheme['--text'];
+    } else if (selectedTheme['--text-lite'] || selectedTheme['--input-text']) {
+        newColors.text = selectedTheme['--text-lite'] || selectedTheme['--input-text'];
     }
     Object.assign(colors, newColors);
 }

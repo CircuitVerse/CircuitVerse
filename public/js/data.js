@@ -989,35 +989,34 @@ function promptSave(){
 }
 
 async function postUserIssue(message) {
-    var img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
-    const result = await $.ajax({
+    try {
+        const img = generateImage("jpeg", "full", false, 1, false).split(',')[1];
+        const result = await $.ajax({
             url: 'https://api.imgur.com/3/image',
             type: 'POST',
-            data: {
-                image: img
-            },
+            data: { image: img },
             dataType: 'json',
-            headers: {
-                Authorization: 'Client-ID 9a33b3b370f1054'
-            },
+            headers: { Authorization: 'Client-ID 9a33b3b370f1054' },
         });
 
-    message += "\n" + result.data.link;
-    
-    $.ajax({
-        url: '/simulator/post_issue',
-        type: 'POST',
-        beforeSend: function(xhr) {
-            xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
-        },
-        data: {
-            "text": message,
-        },
-        success: function(response) {
-            $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
-        },
-        failure: function(err) {
-            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
-        }
-    });
+        message += "\n" + result.data.link;
+
+        await $.ajax({
+            url: '/simulator/post_issue',
+            type: 'POST',
+            beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+            },
+            data: { text: message },
+            success: function(response) {
+                $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
+            },
+            error: function(err) {
+                $('#result').html("<i class='fa fa-times' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+            }
+        });
+    } catch (error) {
+        console.error(error);
+        $('#result').html("<i class='fa fa-times' style='color:red'></i> Something went wrong. Please try again.");
+    }
 }
