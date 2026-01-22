@@ -748,11 +748,7 @@ function validateInputs(data, scope) {
         const matchInput = scope.Input.find((simulatorInput) => simulatorInput.label.trim() === dataInput.label.trim());
 
         if (matchInput === undefined) {
-            invalids.push({
-                type: VALIDATION_ERRORS.NOTPRESENT,
-                identifier: dataInput.label.trim(),
-                message: 'Input is not present in the circuit',
-            });
+            //error
         } else if (matchInput.bitWidth !== dataInput.bitWidth) {
             invalids.push({
                 type: VALIDATION_ERRORS.WRONGBITWIDTH,
@@ -780,14 +776,10 @@ function validateOutputs(data, scope) {
     const invalids = [];
 
     data.groups[0].outputs.forEach((dataOutput) => {
-        const matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        let matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
 
         if (matchOutput === undefined) {
-            invalids.push({
-                type: VALIDATION_ERRORS.NOTPRESENT,
-                identifier: dataOutput.label.trim(),
-                message: 'Output is not present in the circuit',
-            });
+            matchOutput = scope.DigitalLed.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
         } else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
             invalids.push({
                 type: VALIDATION_ERRORS.WRONGBITWIDTH,
@@ -820,7 +812,11 @@ function bindIO(data, scope) {
     });
 
     data.groups[0].outputs.forEach((dataOutput) => {
-        outputs[dataOutput.label.trim()] = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        let matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        if (matchOutput === undefined) {
+    matchOutput = scope.DigitalLed.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+    }
+    outputs[dataOutput.label.trim()] = matchOutput;
     });
 
     if (data.type === 'seq') {
