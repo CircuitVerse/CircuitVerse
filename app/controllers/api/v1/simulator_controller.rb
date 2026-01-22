@@ -15,13 +15,13 @@ class Api::V1::SimulatorController < Api::V1::BaseController
       "http://", "https://"
     )
       render json: { error: "Invalid or missing Slack webhook URL" },
-             status: :unprocessable_entity and return
+             status: :unprocessable_content and return
     end
 
     response = HTTP.post(url, json: { text: text })
     unless response.code == 200
       render json: { error: "Failed to submit issue to Slack" },
-             status: :unprocessable_entity and return
+             status: :unprocessable_content and return
     end
 
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok

@@ -3,15 +3,15 @@
 
 Please go through the [Contribution Guidelines](CONTRIBUTING.md) before going forward with any development. This helps us keep the process streamlined and results in better PRs.
 
-If you have any setup problems, please ensure you have read through all the instructions have all the required software installed before creating an issue.
+If you have any setup problems, please ensure you have read through all the instructions and have all the required software installed before creating an issue.
 
 ---
 
 ## Note
-If you are facing any issues with the setup, first checkout the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md) and if you are still facing issues, feel free to ask in the [slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
+If you are facing any issues with the setup, first check out the [troubleshooting guide](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/troubleshooting_guide.md) and if you are still facing issues, feel free to ask in the [Slack](https://github.com/CircuitVerse/CircuitVerse/blob/master/README.md#community) channel.
 
 ## Installation
-There are several ways to run your own instance of CircuitVerse:
+There are several ways to run a local instance of CircuitVerse:
 
 | Operating System | Method | Documentation |
 | --- | --- | --- |
@@ -43,7 +43,7 @@ Before making a pull request, it is a good idea to check that all tests are pass
 ## CircuitVerse API documentation
 CircuitVerse API documentation is available at - https://api.circuitverse.org/
 
-If you like to setup CircuitVerse API documentation locally, refer [docs/README.md](docs/README.md)
+If you would like to set up CircuitVerse API documentation locally, refer to [docs/README.md](docs/README.md)
 
 
 ### Enabling/Disabling features with Flipper 
@@ -59,7 +59,7 @@ rails c
 ```
 Flipper dashboard can be accessed at - http://localhost:3000/flipper/ from where following features can be enabled/disabled.
 
-**Note :** User need to log in as admin first, then only Flipper dashboard can be accessed
+**Note:** User needs to log in as admin first; only then can the Flipper dashboard be accessed.
 If you have followed the provided setup documentation, you can log in as admin with following credentials.
 ```
 User: Admin
@@ -91,8 +91,8 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
 
 ### Installation steps
 1. **Install yosys**
-   - Many Linux distibutions provide yosys binaries which is easy to install & small in package size. For Example,
-**For Debina/Ubunutu**:
+   - Many Linux distributions provide yosys binaries which is easy to install & small in package size. For Example,
+**For Debian/Ubuntu**:
   ```sudo apt install yosys```
    - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
       1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
@@ -132,6 +132,6 @@ If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in 
       bin/yosys
       ```
 
-## Distributed Tracing using Opentelmetry
+## Distributed Tracing using OpenTelemetry
 
 Refer [otel docs](./.otel)
