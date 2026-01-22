@@ -19,12 +19,11 @@ class Users::CircuitverseController < ApplicationController
   def edit; end
 
   def typeahead_educational_institute
-    query = params[:query]
-    institute_list = User.where("educational_institute LIKE :query", query: "%#{query}%")
-                         .distinct
-                         .limit(TYPEAHEAD_INSTITUTE_LIMIT)
-                         .pluck(:educational_institute)
-    typeahead_array = institute_list.map { |item| { name: item } }
+    query = params[:query].to_s.strip
+    return render json: [] if query.blank? || query.length < 2
+
+    institute_list = fetch_educational_institutes(query)
+    typeahead_array = institute_list.compact_blank.map { |item| { name: item } }
     render json: typeahead_array
   end
 
@@ -45,6 +44,24 @@ class Users::CircuitverseController < ApplicationController
   end
 
   private
+
+    def fetch_educational_institutes(query)
+      sanitized_query = query.gsub(/[^a-zA-Z0-9\s]/, "")
+      return [] if sanitized_query.blank?
+
+      # Use full-text search with existing GIN-indexed tsvector column
+      # This is much faster than LIKE with leading wildcard
+      Rails.cache.fetch("typeahead_institutes/#{sanitized_query.downcase}", expires_in: 5.minutes) do
+        User.where("searchable @@ plainto_tsquery('english', ?)", sanitized_query)
+            .where.not(educational_institute: [nil, ""])
+            .distinct
+            .limit(TYPEAHEAD_INSTITUTE_LIMIT)
+            .pluck(:educational_institute)
+      end
+    rescue ActiveRecord::QueryCanceled, ActiveRecord::StatementInvalid => e
+      Rails.logger.warn("Typeahead query timeout or error: #{e.message}")
+      []
+    end
 
     def profile_params
       params.expect(user: %i[name profile_picture country educational_institute
