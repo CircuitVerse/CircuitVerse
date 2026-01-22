@@ -46,9 +46,21 @@ class Users::CircuitverseController < ApplicationController
   private
 
     def fetch_educational_institutes(query)
-      sanitized_query = query.gsub(/[^a-zA-Z0-9\s]/, "")
-      return [] if sanitized_query.blank?
+      sanitized_query = query.gsub(/[^\w\s\-']/u, "")
+      return [] if sanitized_query.blank? || sanitized_query.length < 2
 
+      fetch_institutes_from_cache(sanitized_query)
+    rescue ActiveRecord::QueryCanceled => e
+      Rails.logger.warn("Typeahead query timeout: #{e.message}")
+      []
+    rescue ActiveRecord::StatementInvalid => e
+      raise unless e.message.match?(/canceling statement due to statement timeout/i)
+
+      Rails.logger.warn("Typeahead query timeout: #{e.message}")
+      []
+    end
+
+    def fetch_institutes_from_cache(sanitized_query)
       # Use full-text search with existing GIN-indexed tsvector column
       # This is much faster than LIKE with leading wildcard
       Rails.cache.fetch("typeahead_institutes/#{sanitized_query.downcase}", expires_in: 5.minutes) do
@@ -58,9 +70,6 @@ class Users::CircuitverseController < ApplicationController
             .limit(TYPEAHEAD_INSTITUTE_LIMIT)
             .pluck(:educational_institute)
       end
-    rescue ActiveRecord::QueryCanceled, ActiveRecord::StatementInvalid => e
-      Rails.logger.warn("Typeahead query timeout or error: #{e.message}")
-      []
     end
 
     def profile_params
