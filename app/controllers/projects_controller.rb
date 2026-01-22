@@ -106,15 +106,16 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
+    author = @project.author
     author_id = @project.author_id
     @project.destroy!
     respond_destroy_success(author_id)
   rescue ActiveRecord::RecordNotDestroyed => e
     Rails.logger.error("Project destroy failed: #{e.message}")
-    respond_destroy_failure
+    respond_destroy_failure(author, @project)
   rescue ActiveRecord::QueryCanceled => e
     Rails.logger.error("Project destroy timeout: #{e.message}")
-    respond_destroy_timeout
+    respond_destroy_timeout(author, @project)
   end
 
   private
@@ -126,20 +127,20 @@ class ProjectsController < ApplicationController
       end
     end
 
-    def respond_destroy_failure
+    def respond_destroy_failure(author, project)
       respond_to do |format|
         format.html do
-          redirect_to user_project_path(@project.author, @project),
+          redirect_to user_project_path(author, project),
                       alert: "Project could not be deleted."
         end
         format.json { render json: { error: "Deletion failed" }, status: :unprocessable_entity }
       end
     end
 
-    def respond_destroy_timeout
+    def respond_destroy_timeout(author, project)
       respond_to do |format|
         format.html do
-          redirect_to user_project_path(@project.author, @project),
+          redirect_to user_project_path(author, project),
                       alert: "Project deletion timed out. Please try again."
         end
         format.json { render json: { error: "Deletion timed out" }, status: :request_timeout }
