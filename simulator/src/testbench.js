@@ -748,7 +748,11 @@ function validateInputs(data, scope) {
         const matchInput = scope.Input.find((simulatorInput) => simulatorInput.label.trim() === dataInput.label.trim());
 
         if (matchInput === undefined) {
-            //error
+            invalids.push({
+                type: VALIDATION_ERRORS.NOTPRESENT,
+                identifier: dataInput.label.trim(),
+                message: 'Input is not present in the circuit',
+            });
         } else if (matchInput.bitWidth !== dataInput.bitWidth) {
             invalids.push({
                 type: VALIDATION_ERRORS.WRONGBITWIDTH,
@@ -788,9 +792,7 @@ function validateOutputs(data, scope) {
                 identifier: dataOutput.label.trim(),
                 message: 'Output is not present in the circuit',
             });
-        }
-
-        else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
+        } else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
             invalids.push({
                 type: VALIDATION_ERRORS.WRONGBITWIDTH,
                 identifier: dataOutput.label.trim(),
