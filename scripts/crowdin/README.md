@@ -26,15 +26,8 @@ This script automates capturing screenshots of CircuitVerse pages and uploading 
    # CROWDIN_2FA_SECRET=<your-2fa-secret>
    ```
 
-3. **Important:** Add `.env` to `.gitignore` to avoid committing secrets:
-   ```bash
-   # Check if .env is already tracked
-   git ls-files --error-unmatch .env 2>/dev/null && git rm --cached .env
-   
-   # Add to .gitignore
-   echo ".env" >> .gitignore
-   ```
-   Never commit your `.env` file containing API tokens or credentials.
+3. **Note:** The `.env` file is already in `.gitignore`, so your credentials won't be committed.
+   Never commit files containing API tokens or credentials.
 
 ## Usage
 

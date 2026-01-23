@@ -4,7 +4,6 @@ const { authenticator } = require('otplib');
 const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
-const FormData = require('form-data');
 
 const CROWDIN_PROJECT_ID = process.env.CROWDIN_PROJECT_ID;
 const CROWDIN_PERSONAL_TOKEN = process.env.CROWDIN_PERSONAL_TOKEN;
@@ -68,15 +67,28 @@ async function uploadToCrowdinStorage(filePath, fileName) {
 }
 
 async function getExistingScreenshots() {
+  const allScreenshots = [];
+  const limit = 500;
+  let offset = 0;
+
   try {
-    const res = await axios.get(
-      `${BASE_URL}/projects/${CROWDIN_PROJECT_ID}/screenshots`,
-      {
-        headers: getHeaders(),
-        timeout: 30000,
+    while (true) {
+      const res = await axios.get(
+        `${BASE_URL}/projects/${CROWDIN_PROJECT_ID}/screenshots`,
+        {
+          headers: getHeaders(),
+          timeout: 30000,
+          params: { limit, offset },
+        }
+      );
+      const pageData = res.data && Array.isArray(res.data.data) ? res.data.data : [];
+      allScreenshots.push(...pageData);
+      if (pageData.length < limit) {
+        break;
       }
-    );
-    return res.data.data || [];
+      offset += limit;
+    }
+    return allScreenshots;
   } catch (err) {
     console.error('[ERROR] Error fetching existing screenshots:', err.message);
     return [];
