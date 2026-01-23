@@ -29,9 +29,9 @@ const ExportCircuitFiles = () => {
         buttons: [
             {
                 text: 'Save',
-                click() {
+                async click() {
                     var fileName = escapeHtml($('#filename').val()) || 'untitled';
-                    const circuitData = generateSaveData(fileName.split('.')[0], false);
+                    const circuitData = await generateSaveData(fileName.split('.')[0], false);
                     fileName = `${fileName.split('.')[0]}.cv`;
                     download(fileName, circuitData);
                     $(this).dialog('close');

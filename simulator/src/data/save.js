@@ -75,7 +75,13 @@ export function generateSaveData(name, setName = true) {
     data = {};
 
     // Prompts for name, defaults to Untitled
-    name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
+   if (!name && !getProjectName()) {
+        return showCustomModal().then(function(userGivenName) {
+            
+            return generateSaveData(userGivenName, setName);
+        });
+    }
+    name = getProjectName() || name || 'Untitled';
     data.name = stripTags(name);
     if (setName) setProjectName(data.name);
 
@@ -432,6 +438,75 @@ export function checkBackups() {
         autosave();
         checkForAutosave = globalScope.backups.length;
     }
+}
+
+// ==========================================
+//  Custom Modal UI Helper
+//  Replaces native window.prompt for better UX
+// ==========================================
+
+/**
+ * Displays a custom modal to get the Project Name from the user.
+ * @param {string} defaultValue - The default value to show in the input
+ * @returns {Promise<string|null>} - Returns the name or null if cancelled
+ */
+function showCustomModal(defaultValue) {
+    return new Promise((resolve) => {
+        // Step 1: Remove existing modal if present to prevent duplicates
+        const oldModal = document.getElementById('customPromptModal');
+        if (oldModal) oldModal.remove();
+
+        // Step 2: Create Modal HTML structure with inline styles for isolation
+        const modalHTML = `
+        <div id="customPromptModal" style="position:fixed; z-index:9999; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.7); backdrop-filter: blur(4px); display:flex; justify-content:center; align-items:center;">
+            <div style="background-color:var(--bg-primary, #333); color:var(--text-primary, #fff); padding:25px; border-radius:12px; width:400px; text-align:center; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #555;">
+                <h3 style="margin:0 0 15px 0; font-family:sans-serif;">Save Project</h3>
+                <p style="margin-bottom: 20px; font-size: 0.9rem; color: #ccc;">Please enter a name for your circuit project.</p>
+                <input type="text" id="customPromptInput" value="${defaultValue || ''}" placeholder="Enter Project Name" style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #666; border-radius:6px; background:#222; color:white; outline:none; font-size:16px;">
+                <div style="display:flex; justify-content:flex-end; gap:10px;">
+                    <button id="btnCancel" style="padding:10px 20px; border:none; border-radius:6px; background:#555; color:white; cursor:pointer; font-weight:500;">Cancel</button>
+                    <button id="btnSave" style="padding:10px 20px; border:none; border-radius:6px; background:#28a745; color:white; font-weight:bold; cursor:pointer;">Save</button>
+                </div>
+            </div>
+        </div>`;
+
+        // Step 3: Inject the modal into the DOM
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+
+        // Step 4: Select elements
+        const modal = document.getElementById('customPromptModal');
+        const input = document.getElementById('customPromptInput');
+        const btnSave = document.getElementById('btnSave');
+        const btnCancel = document.getElementById('btnCancel');
+
+        // Step 5: Focus input automatically for better UX
+        input.focus();
+        input.select();
+
+        // Step 6: Setup Event Listeners
+
+        // Handle Save Action
+        const handleSave = () => {
+            const val = input.value.trim();
+            modal.remove();
+            resolve(val || "Untitled"); // Return "Untitled" if empty
+        };
+
+        // Handle Cancel Action
+        const handleCancel = () => {
+            modal.remove();
+            resolve(null); // Return null to indicate cancellation
+        };
+
+        btnSave.onclick = handleSave;
+        btnCancel.onclick = handleCancel;
+
+        // Handle 'Enter' key to save
+        input.onkeydown = (e) => {
+            if (e.key === 'Enter') handleSave();
+            if (e.key === 'Escape') handleCancel();
+        };
+    });
 }
 
 // Please do not enable autosave. It will not work

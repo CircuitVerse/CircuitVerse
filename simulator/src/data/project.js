@@ -91,8 +91,8 @@ export function projectSavedSet(param) {
  * Helper function to store to localStorage -- needs to be deprecated/removed
  * @category data
  */
-export function saveOffline() {
-    const data = generateSaveData();
+export async function saveOffline() {
+    const data = await generateSaveData();
     localStorage.setItem(projectId, data);
     const temp = JSON.parse(localStorage.getItem('projectList')) || {};
     temp[projectId] = getProjectName();
