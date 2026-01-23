@@ -68,7 +68,7 @@ module SearchHelper
     def get_user_country_code_simple(request)
       ip_address = request.remote_ip
       cache_key = "geocoder/country_code/#{ip_address}"
-      
+
       Rails.cache.fetch(cache_key, expires_in: 24.hours, race_condition_ttl: 10) do
         Geocoder.search(ip_address).first&.country_code
       end
