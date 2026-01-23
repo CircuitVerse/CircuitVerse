@@ -778,9 +778,19 @@ function validateOutputs(data, scope) {
     data.groups[0].outputs.forEach((dataOutput) => {
         let matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
 
-        if (matchOutput === undefined) {
+        if (matchOutput === undefined && scope.DigitalLed) {
             matchOutput = scope.DigitalLed.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
-        } else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
+        }
+
+        if (matchOutput === undefined) {
+            invalids.push({
+                type: VALIDATION_ERRORS.NOTPRESENT,
+                identifier: dataOutput.label.trim(),
+                message: 'Output is not present in the circuit',
+            });
+        }
+
+        else if (matchOutput.bitWidth !== dataOutput.bitWidth) {
             invalids.push({
                 type: VALIDATION_ERRORS.WRONGBITWIDTH,
                 identifier: dataOutput.label.trim(),
@@ -813,9 +823,10 @@ function bindIO(data, scope) {
 
     data.groups[0].outputs.forEach((dataOutput) => {
         let matchOutput = scope.Output.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
-        if (matchOutput === undefined) {
-    matchOutput = scope.DigitalLed.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
-    }
+
+        if (matchOutput === undefined && scope.DigitalLed) {
+            matchOutput = scope.DigitalLed.find((simulatorOutput) => simulatorOutput.label.trim() === dataOutput.label.trim());
+        }
     outputs[dataOutput.label.trim()] = matchOutput;
     });
 
