@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_23_203746) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -407,6 +407,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
   end
 
+  create_table "reports", force: :cascade do |t|
+    t.bigint "reporter_id", null: false
+    t.bigint "reported_user_id", null: false
+    t.string "reason"
+    t.text "description"
+    t.string "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["reported_user_id"], name: "index_reports_on_reported_user_id"
+    t.index ["reporter_id"], name: "index_reports_on_reporter_id"
+  end
+
   create_table "stars", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "project_id"
@@ -553,6 +565,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
   add_foreign_key "projects", "users", column: "author_id"
+  add_foreign_key "reports", "users", column: "reported_user_id"
+  add_foreign_key "reports", "users", column: "reporter_id"
   add_foreign_key "stars", "projects"
   add_foreign_key "stars", "users"
   add_foreign_key "submission_votes", "contests"
