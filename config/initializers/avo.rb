@@ -102,8 +102,8 @@ Avo.configure do |config|
 
   ## == Customization ==
   config.click_row_to_view_record = true
-  # config.app_name = 'Avocadelicious'
-  # config.timezone = 'UTC'
+  config.app_name = 'Circuitverse Admin'
+  config.timezone = 'UTC'
   # config.currency = 'USD'
   # config.hide_layout_when_printing = false
   # config.full_width_container = false
@@ -120,20 +120,20 @@ Avo.configure do |config|
   # config.model_generator_hook = true
 
   ## == Branding ==
-   config.branding = {
-  #   colors: {
-  #     background: "248 246 242",
-  #     100 => "#CEE7F8",
-  #     400 => "#399EE5",
-  #     500 => "#0886DE",
-  #     600 => "#066BB2",
-  #   },
-  #   chart_colors: ["#0B8AE2", "#34C683", "#2AB1EE", "#34C6A8"],
-  #   logo: "/avo-assets/logo.png",
-  #   logomark: "/avo-assets/logomark.png",
-  #   placeholder: "/avo-assets/placeholder.svg",
-    favicon: "favicon.ico"
-   }
+  config.branding = {
+    colors: {
+      background: "255 255 255",
+      100 => "#A8E6CF",
+      400 => "#56C596",
+      500 => "#42A77D",
+      600 => "#359268"
+    },
+    chart_colors: ["#42A77D", "#56C596", "#A8E6CF", "#359268"],
+    logo: "/favicon.ico",
+    logomark: "/favicon.ico",
+    placeholder: "/favicon.ico",
+    favicon: "/favicon.ico"
+  }
 
   ## == Breadcrumbs ==
   # config.display_breadcrumbs = true
