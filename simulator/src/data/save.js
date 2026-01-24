@@ -342,7 +342,12 @@ export default async function save() {
     projectSavedSet(true);
 
     $('.loadingIcon').fadeIn();
-    const data = generateSaveData();
+    const data = await generateSaveData();
+
+    if (!data) {
+        $('.loadingIcon').fadeOut();
+        return; 
+    }
 
     const projectName = getProjectName();
     var imageData = await generateImageForOnline();
