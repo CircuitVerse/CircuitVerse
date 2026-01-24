@@ -35,6 +35,10 @@ en:
   facebook: "Facebook"
   github: "Github"
   gitlab: "Gitlab"
+  reports:
+    create:
+      success: "Report submitted successfully."
+
   components:
     search_bar:
       placeholders:
