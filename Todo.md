@@ -118,5 +118,5 @@ Resources to migrate (in this order):
 
 - [ ] Migrate site administration
 - [ ] Add test files (optional)
-
-
+- [ ] Grouping of the resources according to panels
+- [x] Circuitverse themed dashboard
