@@ -66,6 +66,10 @@ export const CustomColorThemes = () => {
                         'Custom Theme',
                         JSON.stringify(themeOptions['Custom Theme']),
                     );
+
+                    updateThemeForStyle('Custom Theme');
+                    updateBG();
+
                     $('.set').removeClass('set');
                     $('.selected').addClass('set');
                     $(this).dialog('close');
