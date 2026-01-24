@@ -120,7 +120,7 @@ Avo.configure do |config|
   # config.model_generator_hook = true
 
   ## == Branding ==
-  # config.branding = {
+   config.branding = {
   #   colors: {
   #     background: "248 246 242",
   #     100 => "#CEE7F8",
@@ -132,8 +132,8 @@ Avo.configure do |config|
   #   logo: "/avo-assets/logo.png",
   #   logomark: "/avo-assets/logomark.png",
   #   placeholder: "/avo-assets/placeholder.svg",
-  #   favicon: "/avo-assets/favicon.ico"
-  # }
+    favicon: "favicon.ico"
+   }
 
   ## == Breadcrumbs ==
   # config.display_breadcrumbs = true
