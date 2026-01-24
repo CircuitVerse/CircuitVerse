@@ -71,8 +71,8 @@ Resources to migrate (in this order):
 - [ ] Migrate the following panels:
   - [ ] Navigation
     - [ ] Announcements
-    - [ ] Assignments
-    - [ ] Collaborations
+    - [x] Assignments
+    - [x] Collaborations
     - [x] Contests
     - [x] Contest Winners
     - [ ] Custom Mails
@@ -81,16 +81,16 @@ Resources to migrate (in this order):
     - [ ] Forum Posts
     - [ ] Forum Subscriptions
     - [ ] Forum Threads
-    - [ ] Grades
-    - [ ] Groups
-    - [ ] Group Members
+    - [x] Grades
+    - [x] Groups
+    - [x] Group Members
     - [ ] Issue Circuits Data
     - [ ] Noticed Notifications
     - [ ] Pending Invitations
-    - [ ] Projects
+    - [x] Projects
     - [ ] Project Data
     - [ ] Push Subscriptions
-    - [ ] Stars
+    - [x] Stars
     - [x] Submission
     - [x] Submission Votes
     - [ ] Tags
