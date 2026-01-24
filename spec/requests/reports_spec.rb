@@ -17,4 +17,3 @@ RSpec.describe "Reports", type: :request do
     end
   end
 end
-
