@@ -89,7 +89,7 @@ class SimulatorController < ApplicationController
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
     # ActiveStorage
-    @project.circuit_preview.purge if @project.circuit_preview.attached?
+    @project.circuit_preview.purge_later if @project.circuit_preview.attached?
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
     # CarrierWave
