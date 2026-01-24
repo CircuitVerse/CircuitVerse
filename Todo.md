@@ -73,8 +73,8 @@ Resources to migrate (in this order):
     - [ ] Announcements
     - [ ] Assignments
     - [ ] Collaborations
-    - [ ] Contests
-    - [ ] Contest Winners
+    - [x] Contests
+    - [x] Contest Winners
     - [ ] Custom Mails
     - [ ] Featured Circuits
     - [ ] Forum Categories
@@ -91,10 +91,11 @@ Resources to migrate (in this order):
     - [ ] Project Data
     - [ ] Push Subscriptions
     - [ ] Stars
-    - [ ] Submission Votes
+    - [x] Submission
+    - [x] Submission Votes
     - [ ] Tags
     - [ ] Taggings
-    - [ ] Users
+    - [x] Users
 
   - [ ] ActiveStorage
     - [ ] Attachments
