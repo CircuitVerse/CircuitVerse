@@ -70,13 +70,13 @@ Resources to migrate (in this order):
 - [x] added `app/avo/resources` as the base resources, Authentication wired to `current_user.admin?`
 - [ ] Migrate the following panels:
   - [ ] Navigation
-    - [ ] Announcements
+    - [x] Announcements
     - [x] Assignments
     - [x] Collaborations
     - [x] Contests
     - [x] Contest Winners
-    - [ ] Custom Mails
-    - [ ] Featured Circuits
+    - [x] Custom Mails
+    - [x] Featured Circuits
     - [ ] Forum Categories
     - [ ] Forum Posts
     - [ ] Forum Subscriptions
@@ -84,17 +84,20 @@ Resources to migrate (in this order):
     - [x] Grades
     - [x] Groups
     - [x] Group Members
+    - [x] Grades
+    - [x] Groups
+    - [x] Group Members
     - [ ] Issue Circuits Data
     - [ ] Noticed Notifications
-    - [ ] Pending Invitations
+    - [x] Pending Invitations
     - [x] Projects
-    - [ ] Project Data
-    - [ ] Push Subscriptions
+    - [x] Project Data
+    - [x] Push Subscriptions
     - [x] Stars
     - [x] Submission
     - [x] Submission Votes
-    - [ ] Tags
-    - [ ] Taggings
+    - [x] Tags
+    - [x] Taggings
     - [x] Users
 
   - [ ] ActiveStorage
@@ -119,5 +122,6 @@ Resources to migrate (in this order):
 
 - [ ] Migrate site administration
 - [ ] Add test files (optional)
+- [ ] Grouping of the resources according to panels
 
-
+  
