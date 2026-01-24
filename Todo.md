@@ -2,11 +2,6 @@
 
 This shall be a parallel incremental Migration with existing dashboard
 
-## Completed
-- Avo installed
-- added `admin2` as the route for accessing avo dashboard
-- added `app/avo/resources` as the base resources, Authentication wired to `current_user.admin?`
-
 ## Proposed Project Structure: 
 - all the resources are added in the `app/avo/resources` in the format : (subject to change)
 ```
@@ -69,49 +64,59 @@ Resources to migrate (in this order):
 - MaintenanceTasks
 - Runs
 
-## TODO: 
-- migrate the following panels: 
-    - navigation 
-        - announcements 
-        - assignments 
-        - collaborations
-        - contests 
-        - contest winners
-        - custom mails
-        - featured circuits 
-        - forum categories
-        - forum posts
-        - forum subscriptions
-        - forum threads
-        - grades
-        - groups 
-        - group members
-        - issue circuits data
-        - noticed notifications 
-        - pending invitations 
-        - projects 
-        - project data 
-        - push subscriptions
-        - stars
-        - submission votes
-        - tags 
-        - taggings
-        - users
-    - activeStorage
-        - attachments 
-        - blobs
-        - variant records
-    - Commontator 
-        - comments 
-        - subscriptions
-        - threads
-    - ahoy
-        - events
-        - visits
-    - mailkick
-        - opt outs 
-    - maintainance Tasks
-        - runs
-- Migrate site administration 
-- Add Test files (optional)
+## TODO:
+- [x] Avo installed
+- [x] added `admin2` as the route for accessing avo dashboard
+- [x] added `app/avo/resources` as the base resources, Authentication wired to `current_user.admin?`
+- [ ] Migrate the following panels:
+  - [ ] Navigation
+    - [ ] Announcements
+    - [ ] Assignments
+    - [ ] Collaborations
+    - [ ] Contests
+    - [ ] Contest Winners
+    - [ ] Custom Mails
+    - [ ] Featured Circuits
+    - [ ] Forum Categories
+    - [ ] Forum Posts
+    - [ ] Forum Subscriptions
+    - [ ] Forum Threads
+    - [ ] Grades
+    - [ ] Groups
+    - [ ] Group Members
+    - [ ] Issue Circuits Data
+    - [ ] Noticed Notifications
+    - [ ] Pending Invitations
+    - [ ] Projects
+    - [ ] Project Data
+    - [ ] Push Subscriptions
+    - [ ] Stars
+    - [ ] Submission Votes
+    - [ ] Tags
+    - [ ] Taggings
+    - [ ] Users
+
+  - [ ] ActiveStorage
+    - [ ] Attachments
+    - [ ] Blobs
+    - [ ] Variant Records
+
+  - [ ] Commontator
+    - [ ] Comments
+    - [ ] Subscriptions
+    - [ ] Threads
+
+  - [ ] Ahoy
+    - [ ] Events
+    - [ ] Visits
+
+  - [ ] Mailkick
+    - [ ] Opt Outs
+
+  - [ ] Maintenance Tasks
+    - [ ] Runs
+
+- [ ] Migrate site administration
+- [ ] Add test files (optional)
+
 
