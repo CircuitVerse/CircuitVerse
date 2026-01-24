@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_23_203746) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_24_143713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -410,13 +410,15 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_23_203746) do
   create_table "reports", force: :cascade do |t|
     t.bigint "reporter_id", null: false
     t.bigint "reported_user_id", null: false
-    t.string "reason"
+    t.string "reason", null: false
     t.text "description"
-    t.string "status"
+    t.string "status", default: "open"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["reported_user_id", "created_at"], name: "index_reports_on_reported_user_id_and_created_at"
     t.index ["reported_user_id"], name: "index_reports_on_reported_user_id"
     t.index ["reporter_id"], name: "index_reports_on_reporter_id"
+    t.index ["status"], name: "index_reports_on_status"
   end
 
   create_table "stars", force: :cascade do |t|
