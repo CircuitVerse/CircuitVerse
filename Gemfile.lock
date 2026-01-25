@@ -291,6 +291,9 @@ GEM
     google-protobuf (4.32.0)
       bigdecimal
       rake (>= 13)
+    google-protobuf (4.32.0-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.32.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
@@ -456,6 +459,8 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.18.9-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.9-arm64-darwin)
       racc (~> 1.4)
@@ -923,6 +928,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2025.3)
+      tzinfo (>= 1.0.0)
     unaccent (0.4.0)
     undercover (0.8.0)
       base64
@@ -982,10 +989,12 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
   arm64-darwin-24
+  arm64-darwin-25
   x64-mingw32
   x86_64-darwin-21
   x86_64-linux
