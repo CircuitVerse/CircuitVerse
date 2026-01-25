@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::RegistrationsController < Devise::RegistrationsController
+  include RecaptchaVerification
+
   prepend_before_action :check_captcha, only: [:create]
   before_action :configure_sign_up_params, only: [:create]
   invisible_captcha only: %i[create update], honeypot: :subtitle unless Rails.env.test?
@@ -72,12 +74,20 @@ class Users::RegistrationsController < Devise::RegistrationsController
   private
 
     def check_captcha
-      return unless Flipper.enabled?(:recaptcha) && !verify_recaptcha
+      return unless Flipper.enabled?(:recaptcha)
 
-      self.resource = resource_class.new sign_up_params
-      resource.validate # Look for any other validation errors besides reCAPTCHA
-      set_minimum_password_length
-      respond_with_navigational(resource) { render :new }
+      # Safely verify recaptcha with proper error handling
+      recaptcha_ok = safe_verify_recaptcha
+
+      # Only strict true is considered success
+      return if recaptcha_ok == true
+
+      # Recaptcha verification failed
+      # Don't try to build resource here - Devise will handle that
+      flash[:alert] = I18n.t("devise.registrations.captcha_failed",
+                              default: "Captcha verification failed. Please try again.")
+
+      redirect_to new_user_registration_path
     end
 
   # If you have extra params to permit, append them to the sanitizer.

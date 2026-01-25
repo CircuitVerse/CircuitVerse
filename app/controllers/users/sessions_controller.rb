@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
+  include RecaptchaVerification
+
   prepend_before_action :check_captcha, only: [:create]
 
   # before_action :configure_sign_in_params, only: [:create]
@@ -53,9 +55,18 @@ class Users::SessionsController < Devise::SessionsController
   private
 
     def check_captcha
-      return unless Flipper.enabled?(:recaptcha) && !verify_recaptcha
+      return unless Flipper.enabled?(:recaptcha)
 
-      self.resource = resource_class.new sign_in_params
-      respond_with_navigational(resource) { render :new }
+      # Safely verify recaptcha with proper error handling
+      recaptcha_ok = safe_verify_recaptcha
+
+      # Only strict true is considered success
+      return if recaptcha_ok == true
+
+      # Recaptcha verification failed
+      flash[:alert] = I18n.t("devise.sessions.captcha_failed",
+                              default: "Captcha verification failed. Please try again.")
+
+      redirect_to new_user_session_path
     end
 end
