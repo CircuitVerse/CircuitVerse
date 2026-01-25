@@ -6,9 +6,9 @@ class Avo::Filters::AssignmentDeadline < Avo::Filters::SelectFilter
   def apply(_request, query, value)
     case value
     when "upcoming"
-      query.where("deadline > ?", Time.zone.now)
+      query.where(deadline: Time.zone.now..)
     when "overdue"
-      query.where("deadline <= ?", Time.zone.now)
+      query.where(deadline: ..Time.zone.now)
     when "this_week"
       query.where(deadline: Time.zone.now.all_week)
     when "this_month"

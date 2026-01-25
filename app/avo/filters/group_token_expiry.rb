@@ -6,9 +6,9 @@ class Avo::Filters::GroupTokenExpiry < Avo::Filters::SelectFilter
   def apply(_request, query, value)
     case value
     when "valid"
-      query.where("token_expires_at > ?", Time.zone.now)
+      query.where(token_expires_at: Time.zone.now..)
     when "expired"
-      query.where("token_expires_at <= ?", Time.zone.now).or(query.where(token_expires_at: nil))
+      query.where(token_expires_at: ..Time.zone.now).or(query.where(token_expires_at: nil))
     when "never_generated"
       query.where(token_expires_at: nil)
     else

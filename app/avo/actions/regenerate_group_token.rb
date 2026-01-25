@@ -7,9 +7,7 @@ class Avo::Actions::RegenerateGroupToken < Avo::BaseAction
   self.cancel_button_label = "Cancel"
 
   def handle(query:, _fields:, _current_user:, _resource:, **_args)
-    query.each do |group|
-      group.reset_group_token
-    end
+    query.each(&:reset_group_token)
 
     succeed "Token regenerated for #{query.count} group(s)"
   end
