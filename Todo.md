@@ -100,10 +100,10 @@ Resources to migrate (in this order):
     - [x] Taggings
     - [x] Users
 
-  - [ ] ActiveStorage
-    - [ ] Attachments
-    - [ ] Blobs
-    - [ ] Variant Records
+  - [x] ActiveStorage
+    - [x] Attachments
+    - [x] Blobs
+    - [x] Variant Records
 
   - [x] Commontator
     - [x] Comments
