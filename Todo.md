@@ -77,10 +77,10 @@ Resources to migrate (in this order):
     - [x] Contest Winners
     - [x] Custom Mails
     - [x] Featured Circuits
-    - [ ] Forum Categories
-    - [ ] Forum Posts
-    - [ ] Forum Subscriptions
-    - [ ] Forum Threads
+    - [x] Forum Categories
+    - [x] Forum Posts
+    - [x] Forum Subscriptions
+    - [x] Forum Threads
     - [x] Grades
     - [x] Groups
     - [x] Group Members
