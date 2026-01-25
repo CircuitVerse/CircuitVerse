@@ -60,11 +60,11 @@ RSpec.describe "User Ban Methods", type: :model do
       end
     end
 
-    context "admin-to-admin protection" do
-      it "prevents banning another admin" do
-        result = another_admin.ban!(admin: admin, reason: "Admin ban attempt")
-        expect(result).to be false
-        expect(another_admin.reload).not_to be_banned
+    context "admin-to-admin banning" do
+      it "allows banning another admin" do
+        result = another_admin.ban!(admin: admin, reason: "Admin violation")
+        expect(result).to be true
+        expect(another_admin.reload).to be_banned
       end
     end
   end

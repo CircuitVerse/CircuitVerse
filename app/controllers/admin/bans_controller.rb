@@ -10,13 +10,11 @@ module Admin
         return redirect_back(fallback_location: admin_reports_path)
       end
 
-      if @user.admin?
-        flash[:alert] = "Cannot ban admin users."
-      elsif @user == current_user
+      if @user == current_user
         flash[:alert] = "Cannot ban yourself."
       elsif @user.ban!(admin: current_user, reason: ban_params[:reason], report: find_report)
         flash[:notice] = "User #{@user.name} has been banned."
-        update_report_status if params[:report_id].present?
+        close_all_reports_for_user
       else
         flash[:alert] = "Failed to ban user."
       end
@@ -47,13 +45,16 @@ module Admin
     def find_report
       Report.find_by(id: params[:report_id]) if params[:report_id].present?
     rescue NameError
-      # Report model not yet implemented
       nil
     end
 
-    def update_report_status
-      report = find_report
-      report&.update(status: 'action_taken')
+    # Per maintainer: close ALL open reports for the user when banned
+    def close_all_reports_for_user
+      Report.where(reported_user_id: @user.id, status: 'open')
+            .update_all(status: 'action_taken')
+    rescue NameError
+      # Report model not available
     end
   end
 end
+

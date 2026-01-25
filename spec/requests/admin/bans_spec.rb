@@ -52,10 +52,23 @@ RSpec.describe "Admin::Bans", type: :request do
         expect(flash[:alert]).to be_present
       end
 
-      it "prevents banning another admin" do
-        post ban_admin_user_path(another_admin), params: { reason: "Admin ban" }
-        expect(another_admin.reload).not_to be_banned
-        expect(flash[:alert]).to include("admin")
+      it "allows banning another admin" do
+        post ban_admin_user_path(another_admin), params: { reason: "Admin violation" }
+        expect(another_admin.reload).to be_banned
+      end
+
+      it "closes ALL open reports for the banned user" do
+        # Create multiple reports for the same user
+        reporter = FactoryBot.create(:user, :confirmed)
+        report1 = Report.create!(reporter: reporter, reported_user: regular_user, reason: "Spam", status: "open")
+        report2 = Report.create!(reporter: reporter, reported_user: regular_user, reason: "Harassment", status: "open")
+        report3 = Report.create!(reporter: reporter, reported_user: regular_user, reason: "Other", status: "dismissed")
+
+        post ban_admin_user_path(regular_user), params: { reason: "Multiple violations", report_id: report1.id }
+
+        expect(report1.reload.status).to eq("action_taken")
+        expect(report2.reload.status).to eq("action_taken")
+        expect(report3.reload.status).to eq("dismissed")  # Not changed since already dismissed
       end
     end
   end

@@ -117,8 +117,7 @@ class User < ApplicationRecord
   end
 
   def ban!(admin:, reason:, report: nil)
-    return false if self == admin # Cannot self-ban (admin trying to ban themselves)
-    return false if admin? # Cannot ban other admins
+    return false if self == admin # Cannot self-ban
 
     transaction do
       user_bans.create!(
