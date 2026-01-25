@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get "invite/:token", to: "groups#group_invite", as: "invite"
       put :generate_token
     end
+  end
 
   resources :custom_mails, except: %i[destroy]
   get "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
@@ -259,6 +260,5 @@ Rails.application.routes.draw do
       end
     end
   end
- end
 end
 # rubocop:enable Metrics/BlockLength
