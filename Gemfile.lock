@@ -928,6 +928,8 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2025.3)
+      tzinfo (>= 1.0.0)
     unaccent (0.4.0)
     undercover (0.8.0)
       base64
@@ -992,6 +994,7 @@ PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
   arm64-darwin-24
+  arm64-darwin-25
   x64-mingw32
   x86_64-darwin-21
   x86_64-linux
