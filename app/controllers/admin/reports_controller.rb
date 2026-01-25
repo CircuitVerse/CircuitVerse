@@ -10,12 +10,9 @@ module Admin
       @reports = @reports.where(status: params[:status]) if params[:status].present?
       @reports = @reports.joins(:reported_user).where(users: { banned: true }) if params[:show_banned] == '1'
       
-      # Pagination (if using kaminari)
-      @reports = @reports.page(params[:page]).per(25) if defined?(Kaminari)
-    rescue NameError => e
-      # Report model not yet implemented by teammate
-      flash.now[:alert] = "Report system not yet available. Please coordinate with teammate."
-      @reports = []
+      # Pagination can be added later if needed
+      # @reports = @reports.page(params[:page]).per(25)
     end
   end
 end
+
