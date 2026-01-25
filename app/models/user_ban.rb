@@ -3,9 +3,7 @@
 class UserBan < ApplicationRecord
   belongs_to :user
   belongs_to :admin, class_name: 'User'
-  # Report association will be added when Report model is implemented
-  # belongs_to :report, optional: true
-  attr_accessor :report  # Temporary accessor until Report model exists
+  belongs_to :report, optional: true  # Links ban to the report that triggered it
 
   validates :reason, presence: true
   validates :user_id, presence: true
