@@ -105,10 +105,10 @@ Resources to migrate (in this order):
     - [ ] Blobs
     - [ ] Variant Records
 
-  - [ ] Commontator
-    - [ ] Comments
-    - [ ] Subscriptions
-    - [ ] Threads
+  - [x] Commontator
+    - [x] Comments
+    - [x] Subscriptions
+    - [x] Threads
 
   - [ ] Ahoy
     - [ ] Events
