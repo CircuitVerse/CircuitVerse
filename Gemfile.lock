@@ -291,6 +291,9 @@ GEM
     google-protobuf (4.32.0)
       bigdecimal
       rake (>= 13)
+    google-protobuf (4.32.0-aarch64-linux-gnu)
+      bigdecimal
+      rake (>= 13)
     google-protobuf (4.32.0-arm64-darwin)
       bigdecimal
       rake (>= 13)
@@ -456,6 +459,8 @@ GEM
     nio4r (2.7.4)
     nokogiri (1.18.9)
       mini_portile2 (~> 2.8.2)
+      racc (~> 1.4)
+    nokogiri (1.18.9-aarch64-linux-gnu)
       racc (~> 1.4)
     nokogiri (1.18.9-arm64-darwin)
       racc (~> 1.4)
@@ -982,6 +987,7 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
