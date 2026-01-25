@@ -119,11 +119,20 @@ class ProjectsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_project
+      # Eager load associations to prevent N+1 queries in show action
+      includes_list = [
+        :author,
+        :tags,
+        :stars,
+        :collaborators,
+        { forked_project: :author }
+      ]
+
       if params[:user_id]
         @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @project = @author.projects.friendly.includes(includes_list).find(params[:id])
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.includes(includes_list).find(params[:id])
         @author = @project.author
       end
     end
