@@ -68,8 +68,8 @@ Resources to migrate (in this order):
 - [x] Avo installed
 - [x] added `admin2` as the route for accessing avo dashboard
 - [x] added `app/avo/resources` as the base resources, Authentication wired to `current_user.admin?`
-- [ ] Migrate the following panels:
-  - [ ] Navigation
+- [x] Migrate the following panels:
+  - [x] Navigation
     - [x] Announcements
     - [x] Assignments
     - [x] Collaborations
@@ -87,8 +87,8 @@ Resources to migrate (in this order):
     - [x] Grades
     - [x] Groups
     - [x] Group Members
-    - [ ] Issue Circuits Data
-    - [ ] Noticed Notifications
+    - [x] Issue Circuits Data
+    - [x] Noticed Notifications
     - [x] Pending Invitations
     - [x] Projects
     - [x] Project Data

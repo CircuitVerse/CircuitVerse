@@ -9,7 +9,7 @@ class Avo::Resources::ForumSubscription < Avo::BaseResource
     field :id, as: :id, link_to_resource: true
     field :forum_thread, as: :belongs_to, searchable: true
     field :user, as: :belongs_to, searchable: true
-    field :subscription_type, as: :select, options: -> {
+    field :subscription_type, as: :select, options: lambda {
       {
         "optin" => "Opt-in",
         "optout" => "Opt-out"
