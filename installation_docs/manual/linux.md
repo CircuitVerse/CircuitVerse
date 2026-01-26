@@ -29,21 +29,50 @@ cd CircuitVerse
      ```bash
      sudo apt-get install libpq-dev
      ```
-- [Mise Setup Tool](https://mise.jdx.dev/) :  
-     ```bash
-     curl https://mise.run | sh
-     echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-     mise install
-     ``` 
-
-- [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
+- [PostgreSQL](https://www.postgresql.org/) - Database
      ```bash
      sudo apt install postgresql postgresql-contrib
      sudo systemctl start postgresql.service
      sudo systemctl enable postgresql.service
      ```
+- [Mise Setup Tool](https://mise.jdx.dev/) :  
+     ```bash
+     # Download and verify mise installer    
+     curl -fsSL https://mise.run > mise-installer.sh
+     
+     # Verify checksum (see https://mise.jdx.dev/getting-started.html for latest)
+     echo "<checksum> mise-installer.sh" | sha256sum -c
+     sh mise-installer.sh
+        
+     # Add mise to shell (choose your shell)
+     
+     # For bash:
+        echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+     # For zsh:
+        echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+     # For fish:
+        echo 'mise activate fish | source' >> ~/.config/fish/config.fish
+        
+     # Reload shell configuration or restart your terminal
+        source ~/.bashrc  # or ~/.zshrc for zsh
+        
+     # Install all tools specified in .tool-versions
+        mise install  # This will install: ruby, node, redis, postgres, cmake, imagemagick, yarn.
+     ``` 
 
+#### Mise-managed Dependencies
 
+Mise automatically manages the following development tools based on the versions specified in `.tool-versions`:
+- Ruby 
+- Node.js
+- Redis
+- PostgreSQL (client)
+- ImageMagick
+- CMake
+To view currently managed tools and their versions:
+```bash
+mise ls
+```
 #### Setup
 > **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
 
