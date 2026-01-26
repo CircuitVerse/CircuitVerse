@@ -23,11 +23,25 @@ cd CircuitVerse
      ```
 - [Mise Setup Tool](https://mise.jdx.dev/) :  
      ```bash
-     curl https://mise.run | sh
-     echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
-     mise install
-     ``` 
+     # Mise Setup Tool
 
+     # Download and verify
+     curl -O https://mise.run
+     curl -O https://mise.run.sha256
+     shasum -a 256 -c mise.run.sha256
+     sh mise.run
+      
+     # Add to shell (choose based on your shell):
+     
+     # For bash:
+     echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+     # For zsh:
+     echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+     
+     # Verify installation
+     mise --version
+     mise install
+          ```
 - **Below dependencies can be installed at one step**
      ```bash
      brew bundle
@@ -35,6 +49,20 @@ cd CircuitVerse
      - OpenSSL
      - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`12`) - Database
 
+#### Mise-managed Dependencies
+
+Mise automatically manages the following development tools based on the versions specified in `.tool-versions`:
+- Ruby
+- Node.js
+- Redis
+- PostgreSQL
+- ImageMagick
+- CMake
+
+To view currently managed tools and their versions:
+```bash
+mise ls
+```
 
 #### Setup
 > **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
