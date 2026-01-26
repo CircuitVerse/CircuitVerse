@@ -171,12 +171,20 @@ class User < ApplicationRecord
     end
 
     def invalidate_all_sessions!
-      # Devise 4.x+ uses warden to manage sessions
-      # This clears all sessions for this user
+      # Invalidate sessions by resetting Devise's rememberable token
+      # This forces re-authentication on next request
       # Note: This is a best-effort operation - failure shouldn't block the ban
-      return unless defined?(Warden)
-      # Session invalidation varies by session store, silently ignore errors
-    rescue StandardError
-      # Silently ignore session invalidation errors
+      #
+      # TODO: Full session invalidation would also need to:
+      # - Invalidate JWT/API tokens (requires token blacklist or versioning)
+      # - Force logout existing browser sessions (requires session store integration)
+      # See: https://github.com/CircuitVerse/CircuitVerse/issues/XXXX
+      return unless respond_to?(:remember_created_at)
+
+      # Reset remember token to invalidate "remember me" sessions
+      update_column(:remember_created_at, nil) if remember_created_at.present?
+    rescue StandardError => e
+      # Silently ignore session invalidation errors - ban should still proceed
+      Rails.logger.warn("Session invalidation failed for user #{id}: #{e.message}")
     end
 end

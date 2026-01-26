@@ -53,14 +53,13 @@
               </td>
               <td><%= truncate(report.reason, length: 50) %></td>
               <td>
-                <% case report.status %>
-                <% when 'open' %>
+                <% if report.status == 'open' %>
                   <span class="badge bg-warning text-dark">Open</span>
-                <% when 'reviewed' %>
+                <% elsif report.status == 'reviewed' %>
                   <span class="badge bg-info">Reviewed</span>
-                <% when 'action_taken' %>
+                <% elsif report.status == 'action_taken' %>
                   <span class="badge bg-success">Action Taken</span>
-                <% when 'dismissed' %>
+                <% elsif report.status == 'dismissed' %>
                   <span class="badge bg-secondary">Dismissed</span>
                 <% end %>
               </td>
@@ -68,13 +67,13 @@
               <td>
                 <% if report.reported_user.present? %>
                   <% if report.reported_user.banned? %>
-                    <%= button_to "Unban", unban_admin_user_path(report.reported_user), 
-                                  method: :post, 
+                    <%= button_to "Unban", unban_admin_user_path(report.reported_user),
+                                  method: :post,
                                   class: "btn btn-sm btn-success",
                                   data: { confirm: "Are you sure you want to unban #{report.reported_user.name}?" } %>
                   <% else %>
-                    <button type="button" class="btn btn-sm btn-danger" 
-                            data-bs-toggle="modal" 
+                    <button type="button" class="btn btn-sm btn-danger"
+                            data-bs-toggle="modal"
                             data-bs-target="#banModal<%= report.id %>">
                       Ban User
                     </button>
@@ -116,12 +115,12 @@
                   <li>Block OAuth and API access</li>
                 </ul>
               </div>
-              
+
               <input type="hidden" name="report_id" value="<%= report.id %>">
-              
+
               <div class="mb-3">
                 <label for="reason<%= report.id %>" class="form-label"><strong>Ban Reason (required)</strong></label>
-                <textarea name="reason" id="reason<%= report.id %>" class="form-control" rows="3" 
+                <textarea name="reason" id="reason<%= report.id %>" class="form-control" rows="3"
                           placeholder="Explain why this user is being banned..." required></textarea>
                 <div class="form-text">This will be recorded in the audit trail.</div>
               </div>
@@ -134,7 +133,7 @@
                       <% report.reported_user.ban_history.limit(3).each do |ban| %>
                         <li>
                           <small>
-                            <strong><%= ban.created_at.strftime('%Y-%m-%d') %></strong> - 
+                            <strong><%= ban.created_at.strftime('%Y-%m-%d') %></strong> -
                             <%= truncate(ban.reason, length: 40) %>
                             <% if ban.lifted_at %>
                               <span class="text-success">(Lifted)</span>

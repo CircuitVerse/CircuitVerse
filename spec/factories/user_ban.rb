@@ -9,11 +9,11 @@ FactoryBot.define do
 
     trait :lifted do
       lifted_at { Time.current }
+      association :lifted_by, factory: [:user, :admin]
     end
 
     trait :with_report do
-      # Will be implemented when Report model exists
-      # association :report
+      association :report
     end
   end
 end

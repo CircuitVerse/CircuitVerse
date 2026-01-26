@@ -1,2 +1,44 @@
-<h1>Reports#new</h1>
-<p>Find me in app/views/reports/new.html.erb</p>
+<% content_for :title, "Report User" %>
+
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0">Report a User</h4>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @report, local: true do |f| %>
+            <% if @report.errors.any? %>
+              <div class="alert alert-danger">
+                <h5>Please fix the following errors:</h5>
+                <ul class="mb-0">
+                  <% @report.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <%= f.hidden_field :reported_user_id %>
+
+            <div class="mb-3">
+              <label for="report_reason" class="form-label"><strong>Reason for Report</strong></label>
+              <%= f.text_field :reason, class: "form-control", placeholder: "Brief reason for this report", required: true %>
+            </div>
+
+            <div class="mb-3">
+              <label for="report_description" class="form-label"><strong>Description</strong></label>
+              <%= f.text_area :description, class: "form-control", rows: 5, placeholder: "Please provide details about the violation..." %>
+            </div>
+
+            <div class="d-flex gap-2">
+              <%= f.submit "Submit Report", class: "btn btn-primary" %>
+              <%= link_to "Cancel", :back, class: "btn btn-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

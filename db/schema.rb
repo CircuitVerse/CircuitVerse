@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_01_24_143713) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_26_060000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -412,7 +412,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_24_143713) do
     t.bigint "reported_user_id", null: false
     t.string "reason", null: false
     t.text "description"
-    t.string "status", default: "open"
+    t.string "status", default: "open", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["reported_user_id", "created_at"], name: "index_reports_on_reported_user_id_and_created_at"
@@ -493,11 +493,13 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_24_143713) do
     t.bigint "user_id", null: false
     t.bigint "admin_id", null: false
     t.bigint "report_id"
+    t.bigint "lifted_by_id"
     t.text "reason", null: false
     t.datetime "lifted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["admin_id"], name: "index_user_bans_on_admin_id"
+    t.index ["lifted_by_id"], name: "index_user_bans_on_lifted_by_id"
     t.index ["report_id"], name: "index_user_bans_on_report_id"
     t.index ["user_id", "lifted_at"], name: "index_user_bans_on_user_id_and_lifted_at"
     t.index ["user_id"], name: "index_user_bans_on_user_id"
@@ -534,7 +536,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_24_143713) do
     t.string "unconfirmed_email"
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(educational_institute, ''::character varying))::text), 'B'::\"char\"))", stored: true
     t.integer "projects_count", default: 0, null: false
-    t.boolean "banned", default: false, null: false
+    t.boolean "banned", default: false
     t.index ["banned"], name: "index_users_on_banned"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
@@ -597,4 +599,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_24_143713) do
   add_foreign_key "taggings", "tags"
   add_foreign_key "user_bans", "users"
   add_foreign_key "user_bans", "users", column: "admin_id"
+  add_foreign_key "user_bans", "users", column: "lifted_by_id"
+  add_foreign_key "user_bans", "reports", on_delete: :nullify
 end

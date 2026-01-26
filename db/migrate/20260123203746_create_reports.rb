@@ -5,7 +5,7 @@ class CreateReports < ActiveRecord::Migration[8.0]
       t.references :reported_user, foreign_key: { to_table: :users }, null: false
       t.string :reason, null: false
       t.text :description
-      t.string :status, default: "open"
+      t.string :status, null: false, default: "open"
 
       t.timestamps
     end
@@ -14,4 +14,5 @@ class CreateReports < ActiveRecord::Migration[8.0]
     add_index :reports, [:reported_user_id, :created_at]
   end
 end
+
 

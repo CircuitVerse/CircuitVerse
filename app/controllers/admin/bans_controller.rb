@@ -43,7 +43,9 @@ module Admin
     end
 
     def find_report
-      Report.find_by(id: params[:report_id]) if params[:report_id].present?
+      return nil unless params[:report_id].present?
+
+      Report.find_by(id: params[:report_id], reported_user_id: @user.id)
     rescue NameError
       nil
     end

@@ -6,6 +6,7 @@ RSpec.describe Report, type: :model do
   describe "associations" do
     it { is_expected.to belong_to(:reporter).class_name("User") }
     it { is_expected.to belong_to(:reported_user).class_name("User") }
+    it { is_expected.to have_one(:user_ban).dependent(:nullify) }
   end
 
   describe "validations" do
