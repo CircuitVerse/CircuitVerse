@@ -1,0 +1,116 @@
+  <%
+  def avo_resource_path(model)
+    case model.name
+    when "Commontator::Comment" then "comments"
+    when "Commontator::Thread" then "threads"
+    when "Commontator::Subscription" then "subscriptions"
+    when "ActiveStorage::Attachment" then "active_storage_attachments"
+    when "ActiveStorage::Blob" then "active_storage_blobs"
+    when "ActiveStorage::VariantRecord" then "active_storage_variant_records"
+    else
+      model.name.gsub("::", "_").underscore.pluralize
+    end
+  end
+
+  hidden_models = [
+    "ActiveRecord::SchemaMigration",
+    "ActiveRecord::InternalMetadata",
+    "ArInternalMetadata",
+    "FriendlyId::Slug",
+    "RailsData::Migration",
+    "RailsDataMigrations::LogEntry",
+    "RailsData::LogEntry",
+    "PaperTrail::Version",
+    "PaperTrail::VersionAssociation"
+  ]
+
+  models =
+    ActiveRecord::Base.descendants
+      .reject(&:abstract_class?)
+      .reject { |m| hidden_models.include?(m.name) }
+      .sort_by(&:name)
+
+  model_stats = models.map do |model|
+    begin
+      {
+        name: model.name.titleize,
+        count: model.count,
+        last_created: model.column_names.include?("created_at") ? model.maximum(:created_at) : nil,
+        path: "/admin2/resources/#{avo_resource_path(model)}"
+      }
+    rescue
+      nil
+    end
+  end.compact
+  %>
+
+  <div class="max-w-7xl mx-auto px-6 py-8">
+    <!-- Header -->
+    <div class="mb-8 flex items-center justify-between">
+      <div class="flex items-center gap-4">
+        <%= image_tag "/favicon.ico", class: "h-12" %>
+        <div>
+          <h1 class="text-4xl font-bold text-gray-900">Site Administration</h1>
+          <p class="text-gray-600 mt-1">Manage all models and system data</p>
+        </div>
+      </div>
+
+    
+    </div>
+
+    <!-- Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <% model_stats.each do |stat| %>
+        <%= link_to stat[:path], class: "block group" do %>
+          <div class="bg-white rounded-xl p-6 shadow hover:shadow-lg transition">
+
+           <div class="flex items-start justify-between gap-3 mb-4">
+  <h3
+    class="text-base sm:text-lg font-semibold text-gray-800
+           leading-tight line-clamp-2
+           flex-1 min-w-0"
+    title="<%= stat[:name] %>"
+  >
+    <%= stat[:name] %>
+  </h3>
+
+  <div class="bg-green-500 text-white rounded-md p-2 shrink-0">
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+    </svg>
+  </div>
+</div>
+ 
+
+            <div class="text-4xl font-bold text-gray-900">
+              <%= number_with_delimiter(stat[:count]) %>
+            </div>
+
+            <div class="text-sm text-gray-500 mt-1">
+              Total records
+            </div>
+
+            <div class="mt-4">
+              <div class="w-full bg-gray-200 rounded-full h-2">
+                <div class="bg-green-500 h-2 rounded-full"
+                    style="width: <%= [stat[:count] * 2, 100].min %>%"></div>
+              </div>
+            </div>
+
+            <div class="text-sm text-gray-500 mt-3">
+              <% if stat[:last_created] %>
+                Last updated <%= time_ago_in_words(stat[:last_created]) %> ago
+              <% else %>
+                No records yet
+              <% end %>
+            </div>
+
+            <div class="mt-4 text-green-600 font-medium">
+              Manage →
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>

@@ -1,0 +1,29 @@
+<div class="p-6">
+  <h1 class="text-3xl font-bold text-gray-900 mb-6">Site Administration</h1>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <% [
+      { name: "Users", model: User, path: "/admin2/resources/users" },
+      { name: "Projects", model: Project, path: "/admin2/resources/projects" },
+      { name: "Groups", model: Group, path: "/admin2/resources/groups" },
+      { name: "Assignments", model: Assignment, path: "/admin2/resources/assignments" },
+      { name: "Contests", model: Contest, path: "/admin2/resources/contests" },
+      { name: "Announcements", model: Announcement, path: "/admin2/resources/announcements" },
+    ].each do |stat| %>
+      <% begin %>
+        <%= link_to stat[:path], class: "block p-4 bg-white rounded-lg shadow hover:shadow-md transition" do %>
+          <h3 class="font-semibold text-gray-800 mb-2"><%= stat[:name] %></h3>
+          <div class="text-3xl font-bold text-green-600"><%= stat[:model].count %></div>
+          <div class="text-sm text-gray-500 mt-1">
+            Last: <%= stat[:model].maximum(:created_at)&.then { |t| time_ago_in_words(t) + " ago" } || "Never" %>
+          </div>
+        <% end %>
+      <% rescue => e %>
+        <%= link_to stat[:path], class: "block p-4 bg-gray-100 rounded-lg" do %>
+          <h3 class="font-semibold text-gray-800"><%= stat[:name] %></h3>
+          <div class="text-sm text-gray-500">Error loading</div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
