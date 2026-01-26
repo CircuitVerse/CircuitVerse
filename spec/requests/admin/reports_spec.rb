@@ -37,7 +37,7 @@ RSpec.describe "Admin::Reports", type: :request do
         expect(response.body).to include("User Reports")
       end
 
-      # Note: Full report functionality tests will be added when Report model is implemented
+      # NOTE: Full report functionality tests will be added when Report model is implemented
     end
   end
 end

@@ -68,7 +68,7 @@ RSpec.describe "Admin::Bans", type: :request do
 
         expect(report1.reload.status).to eq("action_taken")
         expect(report2.reload.status).to eq("action_taken")
-        expect(report3.reload.status).to eq("dismissed")  # Not changed since already dismissed
+        expect(report3.reload.status).to eq("dismissed") # Not changed since already dismissed
       end
     end
   end

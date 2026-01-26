@@ -7,11 +7,11 @@ module Admin
 
     private
 
-    def require_admin!
-      unless current_user&.admin?
+      def require_admin!
+        return if current_user&.admin?
+
         flash[:alert] = "Access denied. Admin privileges required."
         redirect_to root_path
       end
-    end
   end
 end

@@ -26,9 +26,9 @@ RSpec.describe "User Ban Methods", type: :model do
   describe "#ban!" do
     context "when banning a regular user" do
       it "creates a ban record" do
-        expect {
+        expect do
           regular_user.ban!(admin: admin, reason: "Spam")
-        }.to change(UserBan, :count).by(1)
+        end.to change(UserBan, :count).by(1)
       end
 
       it "sets banned to true" do

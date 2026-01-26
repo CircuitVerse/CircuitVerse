@@ -5,7 +5,7 @@ module Admin
     before_action :set_user
 
     def ban
-      unless ban_params[:reason].present?
+      if ban_params[:reason].blank?
         flash[:alert] = "Ban reason is required."
         return redirect_back(fallback_location: admin_reports_path)
       end
@@ -18,7 +18,7 @@ module Admin
       else
         flash[:alert] = "Failed to ban user."
       end
-      
+
       redirect_back(fallback_location: admin_reports_path)
     end
 
@@ -28,35 +28,34 @@ module Admin
       else
         flash[:alert] = "Failed to unban user."
       end
-      
+
       redirect_back(fallback_location: admin_reports_path)
     end
 
     private
 
-    def set_user
-      @user = User.find(params[:id])
-    end
+      def set_user
+        @user = User.find(params[:id])
+      end
 
-    def ban_params
-      params.permit(:reason, :report_id)
-    end
+      def ban_params
+        params.permit(:reason, :report_id)
+      end
 
-    def find_report
-      return nil unless params[:report_id].present?
+      def find_report
+        return nil if params[:report_id].blank?
 
-      Report.find_by(id: params[:report_id], reported_user_id: @user.id)
-    rescue NameError
-      nil
-    end
+        Report.find_by(id: params[:report_id], reported_user_id: @user.id)
+      rescue NameError
+        nil
+      end
 
-    # Per maintainer: close ALL open reports for the user when banned
-    def close_all_reports_for_user
-      Report.where(reported_user_id: @user.id, status: 'open')
-            .update_all(status: 'action_taken')
-    rescue NameError
-      # Report model not available
-    end
+      # Per maintainer: close ALL open reports for the user when banned
+      def close_all_reports_for_user
+        Report.where(reported_user_id: @user.id, status: "open")
+              .update_all(status: "action_taken")
+      rescue NameError
+        # Report model not available
+      end
   end
 end
-

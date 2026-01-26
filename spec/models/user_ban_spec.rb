@@ -52,7 +52,7 @@ RSpec.describe UserBan, type: :model do
     let(:ban) { FactoryBot.create(:user_ban) }
 
     it "sets lifted_at to current time" do
-      expect { ban.lift!(lifted_by: admin) }.to change { ban.lifted_at }.from(nil)
+      expect { ban.lift!(lifted_by: admin) }.to change(ban, :lifted_at).from(nil)
     end
   end
 end

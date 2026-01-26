@@ -33,7 +33,7 @@ class User < ApplicationRecord
 
   # Ban management with full audit trail
   has_many :user_bans, dependent: :destroy
-  has_many :imposed_bans, class_name: 'UserBan', foreign_key: 'admin_id', dependent: :nullify
+  has_many :imposed_bans, class_name: "UserBan", foreign_key: "admin_id", dependent: :nullify
 
   # noticed configuration
   has_many :noticed_notifications, as: :recipient, dependent: :destroy
@@ -129,7 +129,7 @@ class User < ApplicationRecord
       invalidate_all_sessions!
     end
     true
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Failed to ban user #{id}: #{e.message}")
     false
   end
@@ -141,7 +141,7 @@ class User < ApplicationRecord
       update!(banned: false)
     end
     true
-  rescue => e
+  rescue StandardError => e
     Rails.logger.error("Failed to unban user #{id}: #{e.message}")
     false
   end
