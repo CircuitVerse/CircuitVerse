@@ -63,13 +63,16 @@ cd CircuitVerse
 #### Mise-managed Dependencies
 
 Mise automatically manages the following development tools based on the versions specified in `.tool-versions`:
-- Ruby 
-- Node.js
-- Redis
-- PostgreSQL (client)
-- ImageMagick
-- CMake
+
+- Ruby  
+- Node.js  
+- Redis  
+- PostgreSQL (client)  
+- ImageMagick  
+- CMake  
+
 To view currently managed tools and their versions:
+
 ```bash
 mise ls
 ```
