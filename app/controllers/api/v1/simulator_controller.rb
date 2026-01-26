@@ -30,8 +30,11 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
   # POST /api/v1/simulator/verilogcv
   def verilog_cv
-    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = HTTP.post(url, json: { code: params[:code] })
-    render json: response.to_s, status: response.code
+    result = Yosys2Digitaljs::Runner.compile(params[:code])
+    render json: result
+  rescue Yosys2Digitaljs::Converter::Error => e
+    render json: { message: e.message }, status: :unprocessable_entity
+  rescue StandardError => e
+    render json: { message: "Compilation failed: #{e.message}" }, status: :internal_server_error
   end
 end
