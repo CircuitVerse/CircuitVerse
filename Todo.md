@@ -110,15 +110,15 @@ Resources to migrate (in this order):
     - [x] Subscriptions
     - [x] Threads
 
-  - [ ] Ahoy
-    - [ ] Events
-    - [ ] Visits
+  - [x] Ahoy
+    - [x] Events
+    - [x] Visits
 
-  - [ ] Mailkick
-    - [ ] Opt Outs
+  - [x] Mailkick
+    - [x] Opt Outs
 
-  - [ ] Maintenance Tasks
-    - [ ] Runs
+  - [x] Maintenance Tasks
+    - [x] Runs
 
 - [ ] Migrate site administration
 - [ ] Add test files (optional)
