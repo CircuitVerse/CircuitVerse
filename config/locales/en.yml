@@ -74,11 +74,16 @@ en:
       options:
         users: "Users"
         projects: "Projects"
- 
+
     admin:
       base:
         access_denied: "Access denied. Admin privileges required."
+      reports:
+        index:
+          access_denied: "Access denied."
+
       bans:
+        access_denied: "Access denied."
         ban_reason_required: "Ban reason is required."
         cannot_ban_yourself: "Cannot ban yourself."
         ban_failed: "Failed to ban user."

@@ -7,6 +7,8 @@ class UserBan < ApplicationRecord
   belongs_to :lifted_by, class_name: "User", optional: true # Admin who lifted the ban
 
   validates :reason, presence: true
+  validates :user_id, presence: true
+  validates :admin_id, presence: true
 
   scope :active, -> { where(lifted_at: nil) }
   scope :lifted, -> { where.not(lifted_at: nil) }
