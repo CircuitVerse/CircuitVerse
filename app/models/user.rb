@@ -182,7 +182,7 @@ class User < ApplicationRecord
       return unless respond_to?(:remember_created_at)
 
       # Reset remember token to invalidate "remember me" sessions
-      update_column(:remember_created_at, nil) if remember_created_at.present?
+      update!(remember_created_at: nil) if remember_created_at.present?
     rescue StandardError => e
       # Silently ignore session invalidation errors - ban should still proceed
       Rails.logger.warn("Session invalidation failed for user #{id}: #{e.message}")

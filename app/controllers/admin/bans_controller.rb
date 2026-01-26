@@ -6,17 +6,17 @@ module Admin
 
     def ban
       if ban_params[:reason].blank?
-        flash[:alert] = "Ban reason is required."
+        flash[:alert] = t(".ban_reason_required")
         return redirect_back(fallback_location: admin_reports_path)
       end
 
       if @user == current_user
-        flash[:alert] = "Cannot ban yourself."
+        flash[:alert] = t(".cannot_ban_yourself")
       elsif @user.ban!(admin: current_user, reason: ban_params[:reason], report: find_report)
         flash[:notice] = "User #{@user.name} has been banned."
         close_all_reports_for_user
       else
-        flash[:alert] = "Failed to ban user."
+        flash[:alert] = t(".ban_failed")
       end
 
       redirect_back(fallback_location: admin_reports_path)
@@ -26,7 +26,7 @@ module Admin
       if @user.unban!(admin: current_user)
         flash[:notice] = "User #{@user.name} has been unbanned."
       else
-        flash[:alert] = "Failed to unban user."
+        flash[:alert] = t(".unban_failed")
       end
 
       redirect_back(fallback_location: admin_reports_path)
@@ -52,8 +52,9 @@ module Admin
 
       # Per maintainer: close ALL open reports for the user when banned
       def close_all_reports_for_user
-        Report.where(reported_user_id: @user.id, status: "open")
-              .update_all(status: "action_taken")
+        Report.where(reported_user_id: @user.id, status: "open").find_each do |report|
+          report.update!(status: "action_taken")
+        end
       rescue NameError
         # Report model not available
       end
