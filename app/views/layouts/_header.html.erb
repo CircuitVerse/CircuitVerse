@@ -16,7 +16,7 @@
             <a class="nav-link navbar-item navbar-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
+            <a class="nav-link navbar-item navbar-text <%= request.path == "/" ? "active" : "" %>" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
           </li>
           <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
             <li class="nav-item">
@@ -24,7 +24,7 @@
             </li>
           <% end %>
           <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/teachers"><%= t("layout.link_to_teachers") %></a>
+            <a class="nav-link navbar-item navbar-text <%= request.path == "/teachers" ? "active" : "" %>" href="/teachers"><%= t("layout.link_to_teachers") %></a>
           </li>
           <% if Flipper.enabled?(:contests, current_user) %>
             <li class="nav-item">
@@ -44,7 +44,7 @@
             <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_blog") %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
+            <a class="nav-link navbar-item navbar-text <%= request.path == "/about" ? "active" : "" %>" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
             <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
