@@ -1,0 +1,62 @@
+name: mise
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  mise:
+    runs-on: ubuntu-latest
+
+    env:
+      RAILS_ENV: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: circuitverse_test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/circuitverse_test
+      REDIS_URL: redis://localhost:6379/0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+          submodules: recursive
+
+      - name: Install Mise
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+
+      - name: Install development tools
+        run: |
+            mise install postgres redis
+            mise run postgres -- pg_ctl start
+            mise run redis -- redis-server --daemonize yes
+
+      - name: Setup database.yml
+        run: |
+            cp config/database.example.yml config/database.yml
+
+      - name: Install Ruby dependencies
+        run: |
+            gem install bundler
+            bundle install
+
+      - name: Run Rails test
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/circuitverse_test
+          REDIS_URL: redis://localhost:6379/0
+        run: |
+            bin/rails db:setup
+            bin/rails test:prepare
+            bin/rails runner 'require "redis"; Redis.new.ping'
+            bin/rails runner 'ActiveRecord::Base.connection.execute("SELECT 1")'
+            bin/rails runner 'puts "Hello CircuitVerse!"'
