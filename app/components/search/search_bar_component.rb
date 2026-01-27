@@ -56,6 +56,24 @@ class Search::SearchBarComponent < ViewComponent::Base
     }.freeze
   end
 
+  def active_filters?
+    active_filters_count.positive?
+  end
+
+  def active_filters_count
+    count = 0
+    current_filter_values.each_value do |value|
+      next if value.blank?
+
+      count += if value.is_a?(String) && value.include?(",")
+        value.split(",").map(&:strip).compact_blank.length
+      else
+        1
+      end
+    end
+    count
+  end
+
   private
 
     attr_reader :resource, :query, :sort_by, :sort_direction, :countries, :current_filters
