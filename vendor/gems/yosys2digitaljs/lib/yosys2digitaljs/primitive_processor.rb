@@ -57,7 +57,7 @@ module Yosys2Digitaljs
           'in2' => (params['B_SIGNED'].to_i == 1)
         }
         
-      when '$eq', '$ne', '$lt', '$le', '$gt', '$ge', '$eqx', '$nex'
+      elsif ['$eq', '$ne', '$lt', '$le', '$gt', '$ge', '$eqx', '$nex'].include?(cell['type'])
         args['bits'] = {
           'in1' => cell['connections']['A'].size,
           'in2' => cell['connections']['B'].size
@@ -68,7 +68,7 @@ module Yosys2Digitaljs
         }
         zero_extend_output(cell['connections']['Y'])
 
-      when '$shl', '$shr', '$sshl', '$sshr', '$shift', '$shiftx'
+      elsif ['$shl', '$shr', '$sshl', '$sshr', '$shift', '$shiftx'].include?(cell['type'])
         args['bits'] = {
           'in1' => cell['connections']['A'].size,
           'in2' => cell['connections']['B'].size,
@@ -84,13 +84,13 @@ module Yosys2Digitaljs
         }
         args['fillx'] = true if cell['type'] == '$shiftx'
         
-      when '$mux'
+      elsif cell['type'] == '$mux'
          args['bits'] = {
            'in' => params['WIDTH'].to_i,
            'sel' => 1
          }
          
-      when '$dff', '$dffe', '$adff', '$adffe', '$sdff', '$sdffe', '$sdffce', '$dlatch', '$adlatch', '$dffsr', '$dffsre', '$aldff', '$aldffe', '$sr'
+      elsif ['$dff', '$dffe', '$adff', '$adffe', '$sdff', '$sdffe', '$sdffce', '$dlatch', '$adlatch', '$dffsr', '$dffsre', '$aldff', '$aldffe', '$sr'].include?(cell['type'])
          args['bits'] = params['WIDTH'].to_i
          args['polarity'] = extract_polarity(params)
          
@@ -114,14 +114,14 @@ module Yosys2Digitaljs
             args['initial'] = initial_val if initial_val
          end
 
-      when '$logic_and', '$logic_or'
+      elsif ['$logic_and', '$logic_or'].include?(cell['type'])
         reduce_input(cell['connections']['A']) if cell['connections']['A'].size > 1
         reduce_input(cell['connections']['B']) if cell['connections']['B'].size > 1
         
         args['bits'] = 1
         zero_extend_output(cell['connections']['Y'])
 
-      when '$reduce_and', '$reduce_or', '$reduce_xor', '$reduce_xnor', '$reduce_bool', '$logic_not'
+      elsif ['$reduce_and', '$reduce_or', '$reduce_xor', '$reduce_xnor', '$reduce_bool', '$logic_not'].include?(cell['type'])
         args['bits'] = cell['connections']['A'].size
         zero_extend_output(cell['connections']['Y'])
         
