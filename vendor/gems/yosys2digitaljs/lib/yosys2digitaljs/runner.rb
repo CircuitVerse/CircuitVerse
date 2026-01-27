@@ -1,9 +1,16 @@
 require 'open3'
 require 'tempfile'
 require 'json'
+require 'timeout'
 
 module Yosys2Digitaljs
   class Runner
+    # Custom error for timeouts
+    class TimeoutError < Error; end
+    
+    # 20 seconds timeout for Yosys compilation
+    TIMEOUT_LIMIT = 20
+
     def self.compile(verilog_code)
       new.compile(verilog_code)
     end
@@ -19,7 +26,15 @@ module Yosys2Digitaljs
         
         yosys_script = "prep -auto-top; write_json #{json_file.path}"
         
-        stdout, stderr, status = Open3.capture3('yosys', '-p', yosys_script, source_file.path)
+        stdout, stderr, status = nil, nil, nil
+
+        begin
+          Timeout.timeout(TIMEOUT_LIMIT) do
+            stdout, stderr, status = Open3.capture3('yosys', '-p', yosys_script, source_file.path)
+          end
+        rescue Timeout::Error
+          raise TimeoutError, "Compilation timed out after #{TIMEOUT_LIMIT} seconds"
+        end
 
         unless status.success?
           raise Error, "Yosys Compilation Failed:\n#{stdout}\n#{stderr}"

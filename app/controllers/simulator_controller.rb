@@ -133,6 +133,8 @@ class SimulatorController < ApplicationController
   def verilog_cv
     result = Yosys2Digitaljs::Runner.compile(params[:code])
     render json: result
+  rescue Yosys2Digitaljs::Runner::TimeoutError => e
+    render json: { message: e.message }, status: :service_unavailable
   rescue Yosys2Digitaljs::Converter::Error => e
     render json: { message: e.message }, status: :unprocessable_entity
   rescue StandardError => e
