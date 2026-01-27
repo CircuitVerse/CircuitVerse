@@ -6,7 +6,7 @@ require 'timeout'
 module Yosys2Digitaljs
   class Runner
     # Custom error for timeouts
-    class TimeoutError < Error; end
+    class TimeoutError < StandardError; end
     
     # 20 seconds timeout for Yosys compilation
     TIMEOUT_LIMIT = 20
@@ -55,7 +55,7 @@ module Yosys2Digitaljs
           # Force kill the process if timeout occurs
           raise TimeoutError, "Yosys compilation timed out after #{TIMEOUT_LIMIT} seconds."
         rescue Errno::ENOENT
-          raise Error, "Yosys binary not found. Please ensure Yosys is installed and available in your PATH."
+          raise StandardError, "Yosys binary not found. Please ensure Yosys is installed and available in your PATH."
         end
 
         unless exit_status&.success?
