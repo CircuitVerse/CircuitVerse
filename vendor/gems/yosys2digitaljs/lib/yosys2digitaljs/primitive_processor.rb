@@ -21,32 +21,32 @@ module Yosys2Digitaljs
          args['source_positions'] = @converter.parse_source_positions(cell['attributes']['src'])
       end
       
-      case cell['type']
-      when 'Subcircuit'
-         args['celltype'] = type
+      # Handle explicit Subcircuit or generic module instance
+      if type == 'Subcircuit' || (original_type && original_type != 'Subcircuit')
+         args['celltype'] = original_type || cell['type']
          args['type'] = 'Subcircuit'
          
          if cell['attributes'] && cell['attributes']['src']
             args['source_positions'] = @converter.parse_source_positions(cell['attributes']['src'])
          end
 
-      when '$constant', 'Constant'
+      elsif ['$constant', 'Constant'].include?(cell['type'])
          args['type'] = 'Constant'
          args['constant'] = (params['VALUE'] || 0).to_s(2).rjust(args['bits'] || 1, '0')
          args['bits'] = params['WIDTH'].to_i if params['WIDTH']
 
-      when '$neg', '$pos'
+      elsif ['$neg', '$pos'].include?(cell['type'])
         args['bits'] = {
           'in' => cell['connections']['A'].size,
           'out' => cell['connections']['Y'].size
         }
         args['signed'] = (params['A_SIGNED'].to_i == 1)
         
-      when '$not'
+      elsif cell['type'] == '$not'
         match_port(cell['connections']['A'], params['A_WIDTH'], params['A_SIGNED'])
         args['bits'] = cell['connections']['Y'].size
 
-      when '$add', '$sub', '$mul', '$div', '$mod', '$pow'
+      elsif ['$add', '$sub', '$mul', '$div', '$mod', '$pow'].include?(cell['type'])
         args['bits'] = {
           'in1' => cell['connections']['A'].size,
           'in2' => cell['connections']['B'].size,
