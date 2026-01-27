@@ -150,14 +150,14 @@ module Yosys2Digitaljs
       mod['cells'].each do |name, cell|
         type = cell['type']
         
-        if GATE_SUBST[type]
-             PrimitiveProcessor.new(self).process(name, cell, GATE_SUBST[type])
-        elsif ['$mem', '$mem_v2', '$lut'].include?(type)
+        if ['$mem', '$mem_v2', '$lut'].include?(type)
              MemoryProcessor.new(self).process(name, cell)
         elsif type == '$fsm'
              FsmProcessor.new(self).process(name, cell)
         elsif type == '$pmux'
              PmuxProcessor.new(self).process(name, cell)
+        elsif GATE_SUBST[type]
+             PrimitiveProcessor.new(self).process(name, cell, GATE_SUBST[type])
         elsif @subcircuits.key?(type) || @modules.key?(type)
              # SUBMODULE INSTANCE
              # PrimitiveProcessor will handle generic 'Subcircuit' type logic
