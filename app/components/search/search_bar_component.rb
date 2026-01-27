@@ -57,7 +57,7 @@ class Search::SearchBarComponent < ViewComponent::Base
   end
 
   def active_filters?
-    current_filter_values.values.any?(&:present?)
+    active_filters_count.positive?
   end
 
   def active_filters_count
@@ -66,7 +66,7 @@ class Search::SearchBarComponent < ViewComponent::Base
       next if value.blank?
 
       count += if value.is_a?(String) && value.include?(",")
-        value.split(",").length
+        value.split(",").map(&:strip).compact_blank.length
       else
         1
       end

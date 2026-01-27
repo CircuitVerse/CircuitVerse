@@ -226,6 +226,7 @@ export default class extends Controller {
             searchForm.submit();
         }
     }
+    
     updateButtonState() {
         if (!this.hasButtonTarget) return;
 
