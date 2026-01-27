@@ -30,6 +30,7 @@ module Yosys2Digitaljs
         stderr_str = ""
         exit_status = nil
 
+        pid = nil
         begin
           Timeout.timeout(TIMEOUT_LIMIT) do
             # Securely spawn process with pipe capturing
@@ -43,6 +44,14 @@ module Yosys2Digitaljs
             end
           end
         rescue Timeout::Error
+          if pid
+            Process.kill('TERM', pid) rescue Errno::ESRCH
+            begin
+              Process.wait(pid)
+            rescue Errno::ECHILD, Errno::ESRCH
+              # Process already reaped or gone
+            end
+          end
           # Force kill the process if timeout occurs
           raise TimeoutError, "Yosys compilation timed out after #{TIMEOUT_LIMIT} seconds."
         rescue Errno::ENOENT
