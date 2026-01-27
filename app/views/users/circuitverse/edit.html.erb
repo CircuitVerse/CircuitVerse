@@ -27,6 +27,7 @@
             <h6><%= t("users.circuitverse.edit_profile.profile_picture") %><h6>
             <p><%= image_tag user_profile_picture(@profile.profile_picture), id:'imgedit', class:"users-edit-image", alt:'User Profile Image' %></p>
             <label for="profile_picture" class="users-edit-image-button"><%= t("users.circuitverse.edit_profile.choose_file") %></label>
+            <button type="button" class="users-edit-image-button" data-toggle="modal" data-target="#cameraModal" onclick="startCamera()">Take Picture</button>
             <input tabindex="0" type="file" accept="image/png, .jpeg, .jpg" class="users-edit-image-button-hidden" id="profile_picture" name="user[profile_picture]" onchange="readURL(this);" value="<%= @profile.profile_picture %>">
             <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
             <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
@@ -63,6 +64,31 @@
     </div>
   </div>
 </div>
+
+<!-- Camera Modal -->
+<div class="modal fade" id="cameraModal" tabindex="-1" role="dialog" aria-labelledby="cameraModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cameraModalLabel">Take Profile Picture</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick="stopCamera()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+        <video id="camera-stream" autoplay playsinline style="width: 100%; max-height: 400px; background-color: #000;"></video>
+        <canvas id="camera-canvas" style="display: none; width: 100%; max-height: 400px;"></canvas>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" id="retake-btn" onclick="startCamera()" style="display: none;">Retake</button>
+        <button type="button" class="btn btn-primary" id="capture-btn" onclick="captureImage()">Capture</button>
+        <button type="button" class="btn btn-success" id="save-photo-btn" onclick="savePhoto()" style="display: none;">Save Photo</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="stopCamera()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
 <script type="text/javascript">
   $(document).ready(function() {
@@ -74,6 +100,92 @@
   });
 </script>
 <script>
+  let videoStream;
+
+  function startCamera() {
+    const video = document.getElementById('camera-stream');
+    const canvas = document.getElementById('camera-canvas');
+    const captureBtn = document.getElementById('capture-btn');
+    const retakeBtn = document.getElementById('retake-btn');
+    const saveBtn = document.getElementById('save-photo-btn');
+
+    canvas.style.display = 'none';
+    video.style.display = 'block';
+    captureBtn.style.display = 'inline-block';
+    retakeBtn.style.display = 'none';
+    saveBtn.style.display = 'none';
+
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          videoStream = stream;
+          video.srcObject = stream;
+        })
+        .catch(function(err) {
+          console.error("Error accessing camera: ", err);
+          alert("Could not access camera. Please ensure you have granted permission.");
+        });
+    } else {
+      alert("Camera API is not supported in this browser.");
+    }
+  }
+
+  function stopCamera() {
+    if (videoStream) {
+      videoStream.getTracks().forEach(track => track.stop());
+      videoStream = null;
+    }
+  }
+
+  function captureImage() {
+    const video = document.getElementById('camera-stream');
+    const canvas = document.getElementById('camera-canvas');
+    const captureBtn = document.getElementById('capture-btn');
+    const retakeBtn = document.getElementById('retake-btn');
+    const saveBtn = document.getElementById('save-photo-btn');
+
+    const context = canvas.getContext('2d');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    video.style.display = 'none';
+    canvas.style.display = 'block';
+    captureBtn.style.display = 'none';
+    retakeBtn.style.display = 'inline-block';
+    saveBtn.style.display = 'inline-block';
+    
+    // Stop stream to save battery/resources while reviewing
+    // stopCamera(); // Optional: keep it running if "Retake" is fast, but better to stop for privacy/perf? 
+    // Let's keep it running effectively or just pause? 
+    // Actually, "Retake" calls startCamera() so we can stop it here if we want, but let's leave it running for fluid UX if simple pause isn't enough.
+    // However, logic above implies startCamera() re-initializes. Let's stick to that.
+  }
+
+  function savePhoto() {
+    const canvas = document.getElementById('camera-canvas');
+    canvas.toBlob(function(blob) {
+      const file = new File([blob], "profile_capture.jpg", { type: "image/jpeg" });
+      
+      // Update file input
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(file);
+      document.getElementById('profile_picture').files = dataTransfer.files;
+
+      // Update preview
+      readURL(document.getElementById('profile_picture'));
+
+      // Close modal
+      $('#cameraModal').modal('hide');
+      stopCamera();
+    }, 'image/jpeg');
+  }
+
+  // Hook into bootstrap modal close to ensure stream stops
+  $('#cameraModal').on('hidden.bs.modal', function () {
+    stopCamera();
+  });
+
   function readURL(input) {
     if (input.files && input.files[0]) {
     var reader = new FileReader();
