@@ -28,6 +28,7 @@ gem "rails", "~> 8.0.0"
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
 gem "sass-rails", "~> 6.0"
+gem 'redis-session-store'
 gem "terser"
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -159,7 +160,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
-  
+
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"
