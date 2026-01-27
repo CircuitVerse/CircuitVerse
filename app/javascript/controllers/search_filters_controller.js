@@ -88,6 +88,13 @@ export default class extends Controller {
                 }
             });
         });
+    
+    if (this.hasCountrySelectTarget) {
+        this.countrySelectTarget.addEventListener('change', () => this.updateButtonState());
+    }
+    if (this.hasInstituteInputTarget) {
+        this.instituteInputTarget.addEventListener('input', () => this.updateButtonState());
+    }
     }
 
     setupTagRemoveButtons() {
@@ -162,6 +169,7 @@ export default class extends Controller {
 
             this.tagsDisplayTarget.appendChild(tagElement);
         });
+        this.updateButtonState();
     }
 
     toggleDropdown() {
