@@ -80,11 +80,11 @@ module Yosys2Digitaljs
         @converter.connect_net(cell['connections']['ARST'][0], dev_id, 'arst', 0)
       end
 
-      cell['connections']['CTRL_IN'].each_with_index do |net, i|
+      Array(cell['connections']['CTRL_IN']).each_with_index do |net, i|
         @converter.connect_net(net, dev_id, 'in', i)
       end
 
-      cell['connections']['CTRL_OUT'].each_with_index do |net, i|
+      Array(cell['connections']['CTRL_OUT']).each_with_index do |net, i|
         @converter.connect_net(net, dev_id, 'out', i)
       end
     end
