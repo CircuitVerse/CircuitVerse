@@ -77,6 +77,7 @@ else
   module Avo
     module Cards
       class ModelOverviewCard
+        DEPRECATED = true
       end
     end
   end

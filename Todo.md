@@ -160,6 +160,5 @@ Bugs:
 - [ ] threads - rename as commentator threads, closer remove, comments and subs, fitler export
 - [ ] events - filter export events
 - [ ] mailkick - filter export lock version csv upload
-- [ ] site administration - acts as votable routes nowhere
 
 

@@ -84,6 +84,7 @@ else
   module Avo
     module Dashboards
       class SiteAdministration
+        DEPRECATED = true
       end
     end
   end

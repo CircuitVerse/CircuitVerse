@@ -9,6 +9,7 @@ else
   module Avo
     module Tools
       class SiteAdministration
+        DEPRECATED = true
       end
     end
   end
