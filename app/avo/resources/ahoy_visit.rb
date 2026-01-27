@@ -8,35 +8,34 @@ class Avo::Resources::AhoyVisit < Avo::BaseResource
   # rubocop:disable Metrics/MethodLength
   def fields
     field :id, as: :id, link_to_resource: true
-    field :visit_token, as: :text, readonly: true
-    field :visitor_token, as: :text, readonly: true
+    field :visit_token, as: :text
+    field :visitor_token, as: :text
     field :user, as: :belongs_to, searchable: true
 
-    field :ip, as: :text, readonly: true
-    field :user_agent, as: :textarea, readonly: true
-    field :referrer, as: :text, readonly: true
-    field :referring_domain, as: :text, readonly: true
-    field :landing_page, as: :text, readonly: true
+    field :ip, as: :text
+    field :user_agent, as: :textarea
+    field :referrer, as: :text
+    field :referring_domain, as: :text
+    field :landing_page, as: :text
 
-    field :browser, as: :text, readonly: true
-    field :os, as: :text, readonly: true
-    field :device_type, as: :text, readonly: true
+    field :browser, as: :text
+    field :os, as: :text
+    field :device_type, as: :text
 
-    field :country, as: :text, readonly: true
-    field :region, as: :text, readonly: true
-    field :city, as: :text, readonly: true
+    field :country, as: :text
+    field :region, as: :text
+    field :city, as: :text
 
-    field :utm_source, as: :text, readonly: true
-    field :utm_medium, as: :text, readonly: true
-    field :utm_term, as: :text, readonly: true
-    field :utm_content, as: :text, readonly: true
-    field :utm_campaign, as: :text, readonly: true
+    field :utm_source, as: :text
+    field :utm_medium, as: :text
+    field :utm_term, as: :text
+    field :utm_content, as: :text
+    field :utm_campaign, as: :text
 
-    field :app_version, as: :text, readonly: true
-    field :os_version, as: :text, readonly: true
-    field :platform, as: :text, readonly: true
-
-    field :started_at, as: :date_time, readonly: true, sortable: true
+    field :app_version, as: :text
+    field :os_version, as: :text
+    field :platform, as: :text
+    field :started_at, as: :date_time, sortable: true
 
     field :ahoy_events, as: :has_many, name: "Events"
   end

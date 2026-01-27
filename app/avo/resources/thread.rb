@@ -9,7 +9,6 @@ class Avo::Resources::Thread < Avo::BaseResource
   def fields
     field :id, as: :id, link_to_resource: true
     field :commontable, as: :belongs_to, polymorphic_as: :commontable, types: [::Project], searchable: true
-    field :closer, as: :belongs_to, polymorphic_as: :closer, types: [::User]
     field :closed_at, as: :date_time
 
     field :created_at, as: :date_time, readonly: true, sortable: true

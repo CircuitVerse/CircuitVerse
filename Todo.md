@@ -120,7 +120,45 @@ Resources to migrate (in this order):
   - [x] Maintenance Tasks
     - [x] Runs
 
-- [ ] Migrate site administration
+- [x] Migrate site administration
 - [ ] Add test files (optional)
-- [ ] Grouping of the resources according to panels
+- [ ] Grouping of the resources according to panels (requires avo PRO)
 - [x] Circuitverse themed dashboard
+
+--- 
+
+Bugs: 
+- [ ] Assignments - grades finalized, feature restrictions, projects, grades(projects and grades comes after creation), list all the values in view, export
+- [ ] collaboration - export, createdAt date in jan 27 format rather than numbers, show in app(eye icon)
+- [ ] contests - add filters - deadline,createdAt,updatedAt, add submissions, submission votes, contest winner while creating, export found contests
+- [ ] contest winners - export, filter, export found winners
+- [ ] custom mails - content, export, sent, remove createdAt, updatedAt as its read only, filter on all
+- [ ] new featured circuit - edit this project, export, filter
+- [ ] forum categories - export, filter, 
+- [ ] forum posts - export, filter, solved
+- [ ] forum subcription - export, filter
+- [ ] forum thread - optin subs,optout subs, users
+- [ ] grades - filter(add all),export
+- [ ] groups - group member count, group token,token expires at
+- [ ] group members - assignment addition
+- [ ] issue circuit data - export 
+- [ ] pending invitations - export
+- [ ] project data - export,filter  
+- [ ] projects - actions(toggle featured status), export, adding forks, stars, collaborators, taggings, grade, commentator thread etc
+- [ ] push notif - fitler export 
+- [ ] stars - filter, export 
+- [ ] submissions - filter, exports, submission votes count,
+- [ ] submission votes - filter export 
+- [ ] subscriptions - rename as commentator subscription, filter export, rename thread to discussion
+- [ ] tags - taggings, projects 
+- [ ] tagging - filter,export
+- [ ] users - filter, export, actions remove,password,password confirmation, reset password sent at, remember createdAt last sign in At, current signin ip remove read only etc many more
+- [ ] activeStorage attachments - filter export,
+- [ ] activeStorage blob - Filename,Content type, Metadata, Service name, byte size, checksum,attachemnts, variant records,preview image
+- [ ] variant records - filter, export
+- [ ] comments - filter,export, read only many are there, tconvert name of thread to discussion, children
+- [ ] threads - rename as commentator threads, closer remove, comments and subs, fitler export
+- [ ] events - filter export events
+- [ ] mailkick - filter export lock version csv upload
+
+

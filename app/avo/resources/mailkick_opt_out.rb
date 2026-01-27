@@ -8,8 +8,6 @@ class Avo::Resources::MailkickOptOut < Avo::BaseResource
   def fields
     field :id, as: :id, link_to_resource: true
     field :email, as: :text, sortable: true
-    field :user_type, as: :text
-    field :user_id, as: :number
     field :active, as: :boolean, sortable: true
     field :reason, as: :textarea
     field :list, as: :text

@@ -18,7 +18,7 @@ class Project < ApplicationRecord
   has_many :user_ratings, through: :stars, dependent: :destroy, source: "user"
   belongs_to :assignment, optional: true
 
-  # has_noticed_notifications model_name: "NoticedNotification"
+  has_noticed_notifications model_name: "NoticedNotification"
   has_many :noticed_notifications, through: :author
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
@@ -29,7 +29,7 @@ class Project < ApplicationRecord
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
   has_one :project_datum, dependent: :destroy
-  # has_many :notifications, as: :notifiable
+  has_many :notifications, as: :notifiable
   has_one :contest_winner, dependent: :destroy
   has_many :submissions, dependent: :destroy
 

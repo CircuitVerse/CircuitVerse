@@ -8,7 +8,7 @@ class Avo::Resources::ForumCategory < Avo::BaseResource
   def fields
     field :id, as: :id, link_to_resource: true
     field :name, as: :text, sortable: true
-    field :slug, as: :text, readonly: true
+    field :slug, as: :text
     field :color, as: :text
 
     field :created_at, as: :date_time, readonly: true, sortable: true

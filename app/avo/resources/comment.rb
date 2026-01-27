@@ -14,9 +14,9 @@ class Avo::Resources::Comment < Avo::BaseResource
     field :parent, as: :belongs_to
 
     field :body, as: :textarea, required: true
-    field :deleted_at, as: :date_time, readonly: true
-    field :cached_votes_up, as: :number, readonly: true
-    field :cached_votes_down, as: :number, readonly: true
+    field :deleted_at, as: :date_time
+    field :cached_votes_up, as: :number
+    field :cached_votes_down, as: :number
 
     field :created_at, as: :date_time, readonly: true, sortable: true
     field :updated_at, as: :date_time, readonly: true
