@@ -10,7 +10,7 @@ A pure Ruby port of the `yosys2digitaljs` compiler. It runs Yosys on Verilog cod
 ## Requirements
 *   **Ruby** 3.0+
 *   **Yosys**: The `yosys` binary must be in your system PATH (or Docker container).
-    *    Ubuntu: `sudo apt-get install yosys`
+    *   Ubuntu: `sudo apt-get install yosys`
 
 ## Installation
 Add this line to your application's Gemfile:
@@ -22,8 +22,9 @@ gem 'yosys2digitaljs', path: 'vendor/gems/yosys2digitaljs'
 ```
 
 And then execute:
+
 ```bash
-$ bundle install
+bundle install
 ```
 
 ## Usage
