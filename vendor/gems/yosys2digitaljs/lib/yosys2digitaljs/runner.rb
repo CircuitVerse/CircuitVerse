@@ -37,9 +37,12 @@ module Yosys2Digitaljs
             Open3.popen3('yosys', '-p', yosys_script, source_file.path) do |_stdin, stdout, stderr, wait_thr|
               pid = wait_thr.pid
               
-              # Capture output
-              stdout_str = stdout.read
-              stderr_str = stderr.read
+              # Capture output concurrently to avoid deadlock
+              stdout_thread = Thread.new { stdout.read }
+              stderr_thread = Thread.new { stderr.read }
+              
+              stdout_str = stdout_thread.value
+              stderr_str = stderr_thread.value
               exit_status = wait_thr.value # Wait for process
             end
           end
