@@ -96,6 +96,22 @@ module ThreeValuedLogic
       from_bin(bin_str, size)
     end
 
+    def self.from_oct(str, size = nil)
+      size ||= str.length * 3
+      bin_str = str.chars.map do |c|
+        case c.downcase
+        when 'x', 'z', '?' then 'xxx'
+        else c.to_i(8).to_s(2).rjust(3, '0')
+        end
+      end.join
+      
+      if bin_str.length > size
+        bin_str = bin_str[-size..-1] 
+      end
+
+      from_bin(bin_str, size)
+    end
+
     def self.from_decimal(str, size = nil)
       # Decimal doesn't support 'x'.
       val = str.to_i
