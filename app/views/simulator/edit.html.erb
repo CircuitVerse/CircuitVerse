@@ -5,10 +5,9 @@
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
 
 <script>
-  userSignedIn = <%= user_signed_in? %>;
-  __logix_project_id = "<%= @logix_project_id %>";
-  logix_project_id = __logix_project_id;
-  __projectName = "<%= @projectName %>"
+  window.isUserLoggedIn = <%= user_signed_in? %>;
+  window.logixProjectId = "<%= @logix_project_id %>";
+  window.projectName = "<%= @projectName %>"
 </script>
 
 <div id='exitView'></div>
