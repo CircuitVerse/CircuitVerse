@@ -8,6 +8,7 @@ module ThreeValuedLogic
       @avec = avec
       @bvec = bvec
     end
+    private_class_method :new
 
     # Factory methods
     def self.make(bits, init)

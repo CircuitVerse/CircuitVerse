@@ -164,7 +164,7 @@ module Yosys2Digitaljs
              PrimitiveProcessor.new(self).process(name, cell, 'Subcircuit', type)
         else
             # TODO: Handle unknown gates or submodules
-            puts "Warning: Unknown gate type #{type}"
+            warn "Warning: Unknown gate type #{type}"
         end
       end
       # 3. Process Net Attributes (Source Positions)
