@@ -117,7 +117,7 @@ module ThreeValuedLogic
       # Decimal doesn't support 'x'.
       val = str.to_i
       # size default?
-      size ||= val.bit_length
+      size ||= [val.bit_length, 1].max
       
       # 1s everywhere
       mask = (1 << size) - 1
