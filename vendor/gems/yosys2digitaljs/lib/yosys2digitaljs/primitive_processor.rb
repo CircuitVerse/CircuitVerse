@@ -32,8 +32,8 @@ module Yosys2Digitaljs
 
       elsif ['$constant', 'Constant'].include?(cell['type'])
          args['type'] = 'Constant'
-         args['constant'] = (params['VALUE'] || 0).to_s(2).rjust(args['bits'] || 1, '0')
          args['bits'] = params['WIDTH'].to_i if params['WIDTH']
+         args['constant'] = (params['VALUE'] || 0).to_s(2).rjust(args['bits'] || 1, '0')
 
       elsif ['$neg', '$pos'].include?(cell['type'])
         args['bits'] = {
