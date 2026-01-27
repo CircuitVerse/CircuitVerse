@@ -10,6 +10,8 @@ module Yosys2Digitaljs
       by_target = Hash.new { |h, k| h[k] = [] }
       connectors.each do |c|
         target_key = [c['to']['id'], c['to']['port']]
+        # Pre-calculate and attach bit index to avoid collision on replicated nets
+        c['bit_index'] = find_target_bit_index(target_id_from_key(target_key), target_port_from_key(target_key), c['name'])
         by_target[target_key] << c
       end
       
@@ -19,7 +21,8 @@ module Yosys2Digitaljs
         sources = Hash.new { |h, k| h[k] = [] }
         conns.each do |c|
            src_key = [c['from']['id'], c['from']['port']]
-           bit_index = find_target_bit_index(target_id, target_port, c['name'])
+           # Use the pre-calculated bit index
+           bit_index = c['bit_index']
            sources[src_key] << { conn: c, bit: bit_index }
         end
         
@@ -156,5 +159,14 @@ module Yosys2Digitaljs
     def add_connector(c)
     end
     
+    private
+    
+    def target_id_from_key(key)
+      key[0]
+    end
+    
+    def target_port_from_key(key)
+      key[1]
+    end
   end
 end
