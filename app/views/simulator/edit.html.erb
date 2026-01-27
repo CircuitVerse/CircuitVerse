@@ -6,8 +6,8 @@
 
 <script>
   window.isUserLoggedIn = <%= user_signed_in? %>;
-  window.logixProjectId = "<%= @logix_project_id %>";
-  window.projectName = "<%= @projectName %>"
+  window.logixProjectId = "<%= j @logix_project_id %>";
+  window.projectName = "<%= j @projectName %>"
 </script>
 
 <div id='exitView'></div>
