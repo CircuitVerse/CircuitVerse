@@ -69,7 +69,15 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id
   def show
     authorize @project, :check_view_access?
-    @project.increase_views(current_user)
+    begin
+      @project.increase_views(current_user)
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      Rails.logger.warn("Query timeout when increasing project views: #{e.message}")
+      # Continue without incrementing views rather than fail the request
+    end
+    render json: Api::V1::ProjectSerializer.new(@project, @options)
+  rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+    Rails.logger.warn("Query timeout in show action: #{e.message}")
     render json: Api::V1::ProjectSerializer.new(@project, @options)
   end
 
@@ -150,10 +158,15 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
-    if @project.toggle_star(current_user)
-      render json: { message: "Starred successfully!" }, status: :ok
-    else
-      render json: { message: "Unstarred successfully!" }, status: :ok
+    begin
+      if @project.toggle_star(current_user)
+        render json: { message: "Starred successfully!" }, status: :ok
+      else
+        render json: { message: "Unstarred successfully!" }, status: :ok
+      end
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      Rails.logger.warn("Query timeout when toggling star: #{e.message}")
+      render json: { error: "Operation timed out. Please try again." }, status: :request_timeout
     end
   end
 
@@ -162,8 +175,13 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
-      @forked_project = @project.fork(current_user)
-      render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
+      begin
+        @forked_project = @project.fork(current_user)
+        render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
+      rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+        Rails.logger.warn("Query timeout when forking project: #{e.message}")
+        render json: { error: "Fork operation timed out. Please try again." }, status: :request_timeout
+      end
     end
   end
 

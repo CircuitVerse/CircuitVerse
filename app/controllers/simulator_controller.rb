@@ -27,6 +27,14 @@ class SimulatorController < ApplicationController
     else
       render "embed"
     end
+  rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+    Rails.logger.warn("Query timeout in simulator show: #{e.message}")
+    # Continue with rendering even if there's a timeout
+    if Flipper.enabled?(:vuesim, current_user)
+      render "embed_vue", layout: false
+    else
+      render "embed"
+    end
   end
 
   def new
