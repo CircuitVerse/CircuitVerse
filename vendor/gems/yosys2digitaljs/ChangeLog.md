@@ -12,7 +12,7 @@
 ## [Legacy Node.js Versions]
 All notable changes to this project will be documented in this file.
 
-## [0.7.0] -- 2023-03-2023
+## [0.7.0] -- 2023-03-20
 
 ### Added
 
