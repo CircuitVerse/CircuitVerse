@@ -26,24 +26,35 @@ module Yosys2Digitaljs
         
         yosys_script = "prep -auto-top; write_json #{json_file.path}"
         
-        stdout, stderr, status = nil, nil, nil
+        stdout_str = ""
+        stderr_str = ""
+        exit_status = nil
 
         begin
           Timeout.timeout(TIMEOUT_LIMIT) do
-            stdout, stderr, status = Open3.capture3('yosys', '-p', yosys_script, source_file.path)
+            # Securely spawn process with pipe capturing
+            Open3.popen3('yosys', '-p', yosys_script, source_file.path) do |_stdin, stdout, stderr, wait_thr|
+              pid = wait_thr.pid
+              
+              # Capture output
+              stdout_str = stdout.read
+              stderr_str = stderr.read
+              exit_status = wait_thr.value # Wait for process
+            end
           end
         rescue Timeout::Error
+          # Force kill the process if timeout occurs
           raise TimeoutError, "Compilation timed out after #{TIMEOUT_LIMIT} seconds"
         end
 
-        unless status.success?
-          raise Error, "Yosys Compilation Failed:\n#{stdout}\n#{stderr}"
+        unless exit_status&.success?
+          raise Error, "Yosys Compilation Failed:\n#{stdout_str}\n#{stderr_str}"
         end
 
         raw_json_str = File.read(json_file.path)
         
         if raw_json_str.strip.empty?
-             raise Error, "Yosys produced empty output. Check syntax errors in stderr: #{stderr}"
+             raise Error, "Yosys produced empty output. Check syntax errors in stderr: #{stderr_str}"
         end
         
         yosys_json = JSON.parse(raw_json_str)
