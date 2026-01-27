@@ -44,7 +44,9 @@ module Yosys2Digitaljs
           end
         rescue Timeout::Error
           # Force kill the process if timeout occurs
-          raise TimeoutError, "Compilation timed out after #{TIMEOUT_LIMIT} seconds"
+          raise TimeoutError, "Yosys compilation timed out after #{TIMEOUT_LIMIT} seconds."
+        rescue Errno::ENOENT
+          raise Error, "Yosys binary not found. Please ensure Yosys is installed and available in your PATH."
         end
 
         unless exit_status&.success?
