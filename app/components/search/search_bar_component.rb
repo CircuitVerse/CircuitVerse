@@ -56,19 +56,19 @@ class Search::SearchBarComponent < ViewComponent::Base
     }.freeze
   end
 
-  def has_active_filters?
+  def active_filters?
     current_filter_values.values.any?(&:present?)
   end
 
   def active_filters_count
     count = 0
-    current_filter_values.each do |_key, value|
+    current_filter_values.each_value do |value|
       next if value.blank?
-      
-      if value.is_a?(String) && value.include?(',')
-        count += value.split(',').length
+
+      count += if value.is_a?(String) && value.include?(",")
+        value.split(",").length
       else
-        count += 1
+        1
       end
     end
     count
