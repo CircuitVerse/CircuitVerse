@@ -27,6 +27,7 @@ module Yosys2Digitaljs
 
       if params['INIT']
         init_str = params['INIT']
+        dev['INIT'] = init_str if init_str
       end
 
       rd_clk_enable = decode_bits(params['RD_CLK_ENABLE'], rd_ports).reverse
