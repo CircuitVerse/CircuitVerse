@@ -40,7 +40,7 @@ module ThreeValuedLogic
 
     # Parse Verilog-style strings: "32'b101x", "4'hF", "10" (decimal)
     def self.from_string(str)
-      return from_bin(str) if str.match?(/^[01x]+$/)
+      return from_bin(str) if str.match?(/^[01x]+$/i)
 
       match = str.match(/^(\d+)?'?(b|h|d|o)([0-9a-fA-FxXzZ_?]+)$/)
       raise ArgumentError, "Invalid Verilog string: #{str}" unless match
