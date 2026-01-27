@@ -31,6 +31,10 @@ class User < ApplicationRecord
 
   has_many :pending_invitations, foreign_key: :email, primary_key: :email
 
+  # Ban management with full audit trail
+  has_many :user_bans, dependent: :destroy
+  has_many :imposed_bans, class_name: "UserBan", foreign_key: "admin_id", dependent: :nullify
+
   # noticed configuration
   has_many :noticed_notifications, as: :recipient, dependent: :destroy
 
@@ -57,6 +61,9 @@ class User < ApplicationRecord
 
   pg_search_scope :text_search, against: %i[name educational_institute],
                                 using: { tsearch: { dictionary: "english", tsvector_column: "searchable" } }
+
+  scope :banned, -> { where(banned: true) }
+  scope :active_users, -> { where(banned: false) }
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
@@ -105,6 +112,54 @@ class User < ApplicationRecord
     SubmissionVote.where(user_id: id, contest_id: contest).count
   end
 
+  def banned?
+    banned == true
+  end
+
+  def ban!(admin:, reason:, report: nil)
+    return false if self == admin # Cannot self-ban
+
+    transaction do
+      user_bans.create!(
+        admin: admin,
+        reason: reason,
+        report: report
+      )
+      update!(banned: true)
+      invalidate_all_sessions!
+    end
+    true
+  rescue StandardError => e
+    Rails.logger.error("Failed to ban user #{id}: #{e.message}")
+    false
+  end
+
+  def unban!(admin:)
+    transaction do
+      active_ban = user_bans.active.last
+      active_ban&.lift!(lifted_by: admin)
+      update!(banned: false)
+    end
+    true
+  rescue StandardError => e
+    Rails.logger.error("Failed to unban user #{id}: #{e.message}")
+    false
+  end
+
+  def ban_history
+    user_bans.order(created_at: :desc)
+  end
+
+  # Override Devise method to prevent banned users from signing in
+  def active_for_authentication?
+    super && !banned?
+  end
+
+  # Custom message for banned users
+  def inactive_message
+    banned? ? :banned : super
+  end
+
   private
 
     def send_welcome_mail
@@ -113,5 +168,23 @@ class User < ApplicationRecord
 
     def purge_profile_picture
       profile_picture.purge if profile_picture.attached?
+    end
+
+    def invalidate_all_sessions!
+      # Invalidate sessions by resetting Devise's rememberable token
+      # This forces re-authentication on next request
+      # Note: This is a best-effort operation - failure shouldn't block the ban
+      #
+      # TODO: Full session invalidation would also need to:
+      # - Invalidate JWT/API tokens (requires token blacklist or versioning)
+      # - Force logout existing browser sessions (requires session store integration)
+      # See: https://github.com/CircuitVerse/CircuitVerse/issues/XXXX
+      return unless respond_to?(:remember_created_at)
+
+      # Reset remember token to invalidate "remember me" sessions
+      update!(remember_created_at: nil) if remember_created_at.present?
+    rescue StandardError => e
+      # Silently ignore session invalidation errors - ban should still proceed
+      Rails.logger.warn("Session invalidation failed for user #{id}: #{e.message}")
     end
 end
