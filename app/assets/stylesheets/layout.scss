@@ -161,7 +161,7 @@ body {
 //pagination
 .page-link {
   color: $secondary-green;
-
+  border-radius: 4px;
   &:hover {
     color: $primary-green;
   }
