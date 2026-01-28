@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.datetime "time", precision: nil
     t.index ["name", "time"], name: "index_ahoy_events_on_name_and_time"
     t.index ["user_id"], name: "index_ahoy_events_on_user_id"
+    t.index ["visit_id", "name"], name: "index_ahoy_events_on_visit_id_and_name"
     t.index ["visit_id"], name: "index_ahoy_events_on_visit_id"
   end
 
