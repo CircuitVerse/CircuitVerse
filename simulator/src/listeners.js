@@ -776,29 +776,55 @@ export default function startListeners() {
         }
 
         let htmlIcons = '';
-        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value));
-        var finalResult = [];
-        for(const j in result) {
-            if (Object.prototype.hasOwnProperty.call(result, j)) {
-                for (const category in elementHierarchy) {
-                     if(Object.prototype.hasOwnProperty.call(elementHierarchy, category)) {
-                        const categoryData = elementHierarchy[category];
-                         for (let i = 0; i < categoryData.length; i++) {
-                             if(result[j] == categoryData[i].label) {
-                                 finalResult.push(categoryData[i]);
-                            }
-                        }
+        const result = elementPanelList.filter(ele => ele.toLowerCase().includes(value.toLowerCase()));
+        const searchValue = value.toLowerCase();
+        const groupedResults = {};
+        // Single pass through elements for both filtering and prioritization
+        const prioritizedResult = elementPanelList
+        .map((ele) => {
+            let priority;
+            if (ele.toLowerCase().startsWith(searchValue)) {
+                priority = 1;
+            } else if (ele.toLowerCase().includes(searchValue)) {
+                priority = 0;
+            } else {
+                priority = -1;
+            }
+            return {
+                element: ele,
+                priority,
+            };
+        })
+        .filter(item => item.priority >= 0)
+        .sort((a, b) => b.priority - a.priority)
+        .map(item => item.element);
+        prioritizedResult.forEach((result) => {
+                Object.entries(elementHierarchy).forEach(([category, categoryData]) => {
+                    const matchingElement = categoryData.find(item => item.label === result);
+                    if (matchingElement) {
+                        if(!groupedResults[category]) groupedResults[category] = [];
+                        groupedResults[category].push(matchingElement);
                     }
+                });
+            });
+
+        if (Object.keys(groupedResults).length === 0) {
+            searchResults.text('No elements found ...');
+        } else {
+            let generatedHTML = '';
+            for (const category in groupedResults) {
+                if (Object.prototype.hasOwnProperty.call(groupedResults, category)) {
+                    let categoryHTML = `<div class="category-title">${category}</div>`; // Add category heading
+                    groupedResults[category].forEach((element) => {
+                        categoryHTML += createIcon(element);
+                    });
+                    generatedHTML += categoryHTML;
                 }
             }
+            htmlIcons = generatedHTML;
+            searchResults.html(htmlIcons);
+            $('.filterElements').mousedown(createElement);
         }
-    if(!finalResult.length) searchResults.text('No elements found ...');
-    else {
-        finalResult.forEach( e => htmlIcons += createIcon(e));
-        searchResults
-          .html(htmlIcons);
-        $('.filterElements').mousedown(createElement);
-    }
     });
 
     function createIcon(element) {
