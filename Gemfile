@@ -231,3 +231,5 @@ gem 'mutex_m'
 gem "observer", "~> 0.1.2"
 
 gem "drb", "~> 2.2"
+
+gem "avo", ">= 3.2.1"
