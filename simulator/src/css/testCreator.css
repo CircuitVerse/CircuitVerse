@@ -1,3 +1,8 @@
+:root {
+    --primary-green: #42b983;
+    --white: #fff;
+    --shadow-black: #333;
+}
 
 .tb-test-title {
     text-align: center;
@@ -139,4 +144,15 @@
 
 body {
     overflow: scroll;
+}
+
+.right-button-group .lower-button:hover
+{
+    background-color: var(--primary-green);
+    border-radius: 4px;
+    color: var(--white);
+    margin: 5px;
+    transition: all .3s ease 0s;
+    box-shadow: 0 4px 8px var(--shadow-black);
+    transform: translateY(-4px);
 }
