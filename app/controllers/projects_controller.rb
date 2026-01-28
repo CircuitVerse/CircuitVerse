@@ -4,6 +4,7 @@ class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   include SanitizeDescription
   include UsersCircuitverseHelper
+  include JsonDataHandler
 
   before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
   before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
@@ -157,8 +158,10 @@ class ProjectsController < ApplicationController
     def set_name_project_datum(project_params)
       return unless @project.project_datum
 
-      datum_data = JSON.parse(@project.project_datum.data)
-      datum_data["name"] = project_params["name"]
-      @project.project_datum.data = JSON.generate(datum_data)
+      raw_data = @project.project_datum.data
+      return if raw_data.blank?
+      return log_truncated_data(raw_data) if truncated_json?(raw_data)
+
+      update_datum_name(raw_data, project_params["name"])
     end
 end
