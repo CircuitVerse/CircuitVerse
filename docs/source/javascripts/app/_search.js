@@ -56,36 +56,42 @@
   }
 
   function search(event) {
-
     var searchInput = $('#input-search')[0];
-
+    var searchTerm = searchInput.value;
+  
     unhighlight();
     searchResults.addClass('visible');
-
+  
     // ESC clears the field
     if (event.keyCode === 27) searchInput.value = '';
-
-    if (searchInput.value) {
-      var results = index.search(searchInput.value).filter(function(r) {
+  
+    if (searchTerm) {
+      var results = index.search(searchTerm).filter(function (r) {
         return r.score > 0.0001;
       });
-
+  
       if (results.length) {
-        searchResults.empty();
-        $.each(results, function (index, result) {
+        let resultHTML = '';
+  
+        results.forEach(function (result) {
           var elem = document.getElementById(result.ref);
-          searchResults.append("<li><a href='#" + result.ref + "'>" + $(elem).text() + "</a></li>");
+          if (elem) {
+            resultHTML += "<li><a href='#" + result.ref + "'>" + $(elem).text() + "</a></li>";
+          }
         });
-        highlight.call(searchInput);
+  
+        searchResults.html(resultHTML); // Update DOM once
+        highlight.call(searchInput);    // Call once after all updates
+  
       } else {
-        searchResults.html('<li></li>');
-        $('.search-results li').text('No Results Found for "' + searchInput.value + '"');
+        searchResults.html('<li>No Results Found for "' + searchTerm + '"</li>');
       }
     } else {
       unhighlight();
       searchResults.removeClass('visible');
     }
   }
+  
 
   function highlight() {
     if (this.value) content.highlight(this.value, highlightOpts);
