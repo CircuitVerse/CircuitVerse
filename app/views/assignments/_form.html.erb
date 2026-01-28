@@ -36,7 +36,7 @@
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
   </div>
-  <div id="grade-field" class="form-group projects-tag-mb-3">
+  <div id="grade-field" class="form-group projects-tag-mb-3 mt-3">
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span><%= t("assignments.form.grade_scale_cant_change") %></span>
@@ -54,11 +54,11 @@
   </div>
 
   <div id="restrictions-field" class="field mb-3">
-    <label for="restrict-elements" class="primary-checkpoint-container" id="label-restrict-elements"><h6><%= t("assignments.form.enable_element_restriction") %></h6>
+    <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-elements"><h6><%= t("assignments.form.enable_element_restriction") %></h6>
       <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
       <div class="primary-checkpoint"></div>
     </label>
-    <div class="restricted-elements-list"> <!-- Operated by script --> </div>
+    <div class="restricted-elements-list mt-2 ms-4"> <!-- Operated by script --> </div>
   </div>
 
   <div id="restrictions-field" class="field mb-3" data-controller="assignment">
