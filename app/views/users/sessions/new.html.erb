@@ -53,18 +53,18 @@
           <% end -%>
         </div>
         <div class="field mb-3">
-          <div class="input-group">
+          <div class="input-group gap-3">
             <% if Flipper.enabled?(:recaptcha) %>
               <%= recaptcha_tags %>
             <% end %>
             <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
+          </div>
             <div class="users-text-container">
               <% unless Flipper.enabled?(:block_registration) %>
                 <span class="users-text"><%= t("users.ask_new_user") %></span>
                 <%= link_to t("sign_up"), new_registration_path(resource_name), class: "anchor-text" %>
               <% end %>
             </div>
-          </div>
         </div>
         <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
       </div>
