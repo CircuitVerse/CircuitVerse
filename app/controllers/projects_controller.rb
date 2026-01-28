@@ -117,16 +117,17 @@ class ProjectsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      if params[:user_id]
-        @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
-      else
-        @project = Project.friendly.find(params[:id])
-        @author = @project.author
-      end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_project
+    if params[:user_id]
+      @author = User.find(params[:user_id])
+      @project = @author.projects.friendly.find(params[:id])
+    else
+      @project = Project.friendly.find(params[:id])
+      @author = @project.author
     end
+  end
+
 
     def check_access
       authorize @project, :edit_access?
@@ -154,11 +155,12 @@ class ProjectsController < ApplicationController
       @project.description = sanitize_description(@project.description)
     end
 
-    def set_name_project_datum(project_params)
-      return unless @project.project_datum
+  def set_name_project_datum(project_params)
+    return unless @project.project_datum
 
-      datum_data = JSON.parse(@project.project_datum.data)
-      datum_data["name"] = project_params["name"]
-      @project.project_datum.data = JSON.generate(datum_data)
-    end
+    data = @project.project_datum.data
+    datum_data = data.present? ? JSON.parse(data) : {}
+    datum_data["name"] = project_params["name"]
+    @project.project_datum.data = JSON.generate(datum_data)
+  end
 end
