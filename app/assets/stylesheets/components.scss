@@ -197,7 +197,9 @@
   }
 }
 
-.submission-card { @extend .project-card; }
+.submission-card {
+  @extend .project-card;
+}
 
 .project-card-image-container {
   border-bottom: 2px solid $primary-green;
@@ -497,13 +499,19 @@
   border-radius: 4px;
   color: $white;
   font-weight: 500;
-  padding: 5px;
+  padding: 5px 10px;
   max-width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-decoration: none;
+  transition: all 0.2s linear;
+  font-size: 0.8rem;
 
   &:hover {
     color: $white;
+    background-color: $primary-green;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
 
