@@ -25,6 +25,9 @@ export function generateId() {
 
 // To strip tags from input
 export function stripTags(string = '') {
+    if (string === null) {
+        return '';
+    }
     return string.replace(/(<([^>]+)>)/ig, '').trim();
 }
 
