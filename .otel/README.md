@@ -16,7 +16,8 @@ cd .otel
 docker compose up -d
 ```
 
-Navigate to [http://localhost:16686/](http://localhost:16686/) to view the Jaeger UI dashboard and view the traces.
+Navigate to http://localhost:16686/ to view the Jaeger UI dashboard and view the traces.
+
 
 ## New Relic OpenTelemetry
 
