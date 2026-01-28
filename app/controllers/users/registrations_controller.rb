@@ -49,9 +49,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    if current_user.valid_password?(params[:password])
+      resource.destroy
+      Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name)
+      set_flash_message! :notice, :account_deleted
+      yield resource if block_given?
+      respond_with_navigational(resource) { redirect_to after_sign_out_path_for(resource_name) }
+    else
+      redirect_to edit_user_registration_path, alert: "Incorrect password. Account deletion failed."
+    end
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
