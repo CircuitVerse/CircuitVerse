@@ -94,11 +94,12 @@ function dragEnd() {
  */
 function onDoubleClickorTap(e) {
     updateCanvasSet(true);
-    if (simulationArea.lastSelected && simulationArea.lastSelected.dblclick !== undefined) {
-        simulationArea.lastSelected.dblclick();
-    } else if (!simulationArea.shiftDown) {
-        simulationArea.multipleObjectSelections = [];
-    }
+    if (simulationArea.lastSelected && simulationArea.lastSelected.keyDown && (e.key.toString().length == 1 || e.key.toString() == "Backspace")) {
+            simulationArea.lastSelected.keyDown(e.key.toString());
+            return;
+
+        }
+    
     scheduleUpdate(2);
     e.preventDefault();
 }
