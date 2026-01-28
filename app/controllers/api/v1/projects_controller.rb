@@ -192,12 +192,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def update_project_params
-      @image_file = return_image_file(params[:image])
-      @project.image_preview = @image_file
+      if params.key?(:image)
+        @image_file = return_image_file(params[:image])
+        @project.image_preview = @image_file
+      end
       @project.name = sanitize(params[:name])
     end
 
     def handle_image_file_cleanup
+      return unless @image_file
+
       @image_file.close
       File.delete(@image_file) if check_to_delete(params[:image])
     end
