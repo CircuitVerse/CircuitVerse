@@ -30,6 +30,9 @@ en:
       my_groups: "My Groups"
       notifications: "Notifications"
       language: "Language"
+    email_verification_banner:
+      message: "Please verify your email address to access all features."
+      verify_now: "Verify now"
     mailer:
       join_us: "Join Us"
       copyright_text: "Copyright © %{time_current_year} CircuitVerse. All rights reserved. For any issues, reach out to us support@circuitverse.org"

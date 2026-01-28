@@ -5,7 +5,7 @@ class Users::CircuitverseController < ApplicationController
 
   include UsersCircuitverseHelper
 
-  before_action :authenticate_user!, only: %i[edit update groups]
+  before_action :authenticate_user!, only: %i[edit update groups resend_confirmation]
   before_action :set_user, except: [:typeahead_educational_institute]
   before_action :remove_previous_profile_picture, only: [:update]
 
@@ -42,6 +42,15 @@ class Users::CircuitverseController < ApplicationController
                          .select("groups.*, COUNT(group_members.id) as group_member_count")
                          .left_outer_joins(:group_members)
                          .group("groups.id")
+  end
+
+  def resend_confirmation
+    if current_user.confirmed?
+      render json: { success: false, message: "Email is already confirmed" }, status: :unprocessable_entity
+    else
+      current_user.send_confirmation_instructions
+      render json: { success: true, message: "Confirmation email sent successfully" }
+    end
   end
 
   private
