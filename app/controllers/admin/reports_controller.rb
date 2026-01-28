@@ -3,15 +3,22 @@
 module Admin
   class ReportsController < BaseController
     def index
-      @reports = Report.includes(:reporter, :reported_user)
-                       .order(created_at: :desc)
+      @reports = Report
+        .includes(:reporter, :reported_user)
+        .order(created_at: :desc)
 
-      # Filtering
-      @reports = @reports.where(status: params[:status]) if params[:status].present?
-      @reports = @reports.joins(:reported_user).where(users: { banned: true }) if params[:show_banned] == "1"
+      # Filter by status (open / action_taken)
+      if params[:status].present?
+        @reports = @reports.where(status: params[:status])
+      end
 
-      # Pagination can be added later if needed
-      # @reports = @reports.page(params[:page]).per(25)
+      # Filter banned users
+      if params[:banned].present?
+        @reports = @reports
+          .joins(:reported_user)
+          .where(users: { banned: true })
+      end
     end
   end
 end
+

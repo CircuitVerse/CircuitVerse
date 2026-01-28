@@ -8,36 +8,57 @@
           <h4 class="mb-0">Report a User</h4>
         </div>
         <div class="card-body">
-          <%= form_with model: @report, local: true do |f| %>
-            <% if @report.errors.any? %>
-              <div class="alert alert-danger">
-                <h5>Please fix the following errors:</h5>
-                <ul class="mb-0">
-                  <% @report.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                  <% end %>
-                </ul>
-              </div>
-            <% end %>
+  <%= form_with model: @report, local: true do |f| %>
+    <%= f.hidden_field :reported_user_id, value: @reported_user.id %>
 
-            <%= f.hidden_field :reported_user_id %>
+<%= form_with model: @report, local: true do |f| %>
+  <%= f.hidden_field :reported_user_id, value: @reported_user.id %>
 
-            <div class="mb-3">
-              <label for="report_reason" class="form-label"><strong>Reason for Report</strong></label>
-              <%= f.text_field :reason, class: "form-control", placeholder: "Brief reason for this report", required: true %>
-            </div>
+  <% if @report.errors.any? %>
+    <div class="alert alert-danger">
+      <h5>Please fix the following errors:</h5>
+      <ul class="mb-0">
+        <% @report.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-            <div class="mb-3">
-              <label for="report_description" class="form-label"><strong>Description</strong></label>
-              <%= f.text_area :description, class: "form-control", rows: 5, placeholder: "Please provide details about the violation..." %>
-            </div>
+  <div class="mb-3">
+    <label class="form-label"><strong>Reason</strong></label>
+    <%= f.text_field :reason, class: "form-control", placeholder: "Enter reason" %>
+  </div>
 
-            <div class="d-flex gap-2">
-              <%= f.submit "Submit Report", class: "btn btn-primary" %>
-              <%= link_to "Cancel", root_path, class: "btn btn-secondary" %>
-            </div>
-          <% end %>
-        </div>
+  <div class="mb-3">
+    <label class="form-label"><strong>Description</strong></label>
+    <%= f.text_area :description, class: "form-control", rows: 5 %>
+  </div>
+
+  <div class="d-flex gap-2">
+    <%= f.submit "Submit Report", class: "btn btn-primary" %>
+    <%= link_to "Cancel", root_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
+ 
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= f.label :reason %>
+      <%= f.text_field :reason, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :description %>
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
+
+    <%= f.submit "Submit Report", class: "btn btn-danger" %>
+  <% end %>
+</div>
+
       </div>
     </div>
   </div>
