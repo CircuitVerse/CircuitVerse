@@ -104,5 +104,93 @@ RSpec.describe Project, type: :model do
         end.to change(FeaturedCircuit, :count).by(-1)
       end
     end
+
+    describe "#sim_version" do
+      context "with valid JSON data" do
+        it "returns the simulator version from JSON" do
+          project = FactoryBot.create(:project, author: @user)
+          project.build_project_datum
+          project.project_datum.data = '{"simulatorVersion":"v1","name":"test"}'
+          project.save!
+          expect(project.sim_version).to eq("v1")
+        end
+
+        it "returns 'legacy' when simulatorVersion is not present" do
+          project = FactoryBot.create(:project, author: @user)
+          project.build_project_datum
+          project.project_datum.data = '{"name":"test"}'
+          project.save!
+          expect(project.sim_version).to eq("legacy")
+        end
+      end
+
+      context "with no project data" do
+        it "returns 'legacy' when project_datum is nil" do
+          project = FactoryBot.create(:project, author: @user)
+          expect(project.sim_version).to eq("legacy")
+        end
+
+        it "returns 'legacy' when data is blank" do
+          project = FactoryBot.create(:project, author: @user)
+          project.build_project_datum
+          project.project_datum.data = ""
+          project.save!
+          expect(project.sim_version).to eq("legacy")
+        end
+      end
+
+      context "with corrupted JSON data" do
+        it "returns 'legacy' when JSON parsing fails" do
+          project = FactoryBot.create(:project, author: @user)
+          project.build_project_datum
+          # Simulate corrupted/truncated JSON
+          project.project_datum.data = '{"name":"test","data":{"invalid'
+          project.save!
+          expect(project.sim_version).to eq("legacy")
+        end
+
+        it "logs error when JSON parsing fails" do
+          project = FactoryBot.create(:project, author: @user)
+          project.build_project_datum
+          project.project_datum.data = '{"invalid json'
+          project.save!
+
+          allow(Rails.logger).to receive(:error)
+          project.sim_version
+          expect(Rails.logger).to have_received(:error).with(/JSON parsing failed/)
+        end
+      end
+    end
+
+    describe "#uses_vue_simulator?" do
+      it "returns true for v0 simulator" do
+        project = FactoryBot.create(:project, author: @user)
+        project.build_project_datum
+        project.project_datum.data = '{"simulatorVersion":"v0"}'
+        project.save!
+        expect(project.uses_vue_simulator?).to be true
+      end
+
+      it "returns true for v1 simulator" do
+        project = FactoryBot.create(:project, author: @user)
+        project.build_project_datum
+        project.project_datum.data = '{"simulatorVersion":"v1"}'
+        project.save!
+        expect(project.uses_vue_simulator?).to be true
+      end
+
+      it "returns false for legacy simulator" do
+        project = FactoryBot.create(:project, author: @user)
+        expect(project.uses_vue_simulator?).to be false
+      end
+
+      it "returns false when JSON is corrupted" do
+        project = FactoryBot.create(:project, author: @user)
+        project.build_project_datum
+        project.project_datum.data = '{"invalid json'
+        project.save!
+        expect(project.uses_vue_simulator?).to be false
+      end
+    end
   end
 end
