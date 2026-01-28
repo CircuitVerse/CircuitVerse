@@ -42,16 +42,12 @@
             </div>
           </div>
           <div class="field mb-3">
-            <div class="input-group">
-              <%= f.submit t("users.passwords.change_password"), class: "btn primary-button users-primary-button" %>
-              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text mt-2" %>
-            </div>
+            <%= f.submit t("users.passwords.change_password"), class: "btn primary-button users-primary-button" %>
+            <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text mt-2" %>
           </div>
           <div class="field mb-3">
-            <div class="input-group">
-              <span class="users-text"><%= t("users.ask_new_user") %></span>
-              <%= link_to t("sign_up"), new_user_registration_path, class: "anchor-text" %>
-            </div>
+            <span class="users-text"><%= t("users.ask_new_user") %></span>
+            <%= link_to t("sign_up"), new_user_registration_path, class: "anchor-text" %>
           </div>
           <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
         <% end %>
