@@ -158,7 +158,7 @@ Bugs:
 - [ ] variant records - filter, export
 - [ ] comments - filter,export, read only many are there, tconvert name of thread to discussion, children
 - [ ] threads - rename as commentator threads, closer remove, comments and subs, fitler export
-- [ ] events - filter export events
-- [ ] mailkick - filter export lock version csv upload
+- [x] events - filter export events
+- [x] mailkick - filter export lock version csv upload
 
 

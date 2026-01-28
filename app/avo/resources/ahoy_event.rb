@@ -17,6 +17,8 @@ class Avo::Resources::AhoyEvent < Avo::BaseResource
   def filters
     filter Avo::Filters::AhoyEventName
     filter Avo::Filters::AhoyEventTime
+    filter Avo::Filters::AhoyEventUser
+    filter Avo::Filters::AhoyEventDateRange
   end
 
   def actions
