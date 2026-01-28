@@ -62,8 +62,11 @@ class Project < ApplicationRecord
     return if user.present? && user.id == author_id
     begin
       update_column(:view, view + 1)
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      # Re-raise QueryCanceled so it propagates to controller
+      raise e
     rescue ActiveRecord::StatementInvalid => e
-      # If update fails due to statement timeout, silently continue
+      # If update fails due to other statement issues, silently continue
       # as view count is not critical to the core functionality
       Rails.logger.warn("Failed to increment project views for project #{id}: #{e.message}")
     end
@@ -78,13 +81,18 @@ class Project < ApplicationRecord
           @star = Star.create!(user_id: user.id, project_id: id)
           true
         rescue ActiveRecord::RecordNotUnique
-          # Handle race condition where star was created between find and create
-          false
+          # Handle race condition where star was created by concurrent request
+          # The star is now created, so return true (starred)
+          Rails.logger.info("Star already exists for user #{user.id} on project #{id}")
+          true
         end
       else
         star.destroy!
         false
       end
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      # Re-raise QueryCanceled so it propagates to controller
+      raise e
     rescue ActiveRecord::StatementInvalid => e
       Rails.logger.warn("Failed to toggle star for project #{id}: #{e.message}")
       false
@@ -99,6 +107,9 @@ class Project < ApplicationRecord
     if circuit_preview.attached?
       begin
         forked_project.circuit_preview.attach(circuit_preview.blob)
+      rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+        # Re-raise QueryCanceled so it propagates to controller
+        raise e
       rescue StandardError => e
         Rails.logger.warn("Failed to copy circuit preview for forked project: #{e.message}")
         # Continue without the preview rather than fail the entire fork operation

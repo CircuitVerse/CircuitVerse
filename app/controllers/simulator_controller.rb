@@ -15,6 +15,8 @@ class SimulatorController < ApplicationController
     Flipper.enabled?(:lms_integration, current_user)
   }
 
+  rescue_from ActiveRecord::QueryCanceled, PG::QueryCanceled, with: :handle_statement_timeout
+
   def self.policy_class
     ProjectPolicy
   end
@@ -22,14 +24,6 @@ class SimulatorController < ApplicationController
   def show
     @logix_project_id = params[:id]
     @external_embed = false
-    if Flipper.enabled?(:vuesim, current_user)
-      render "embed_vue", layout: false
-    else
-      render "embed"
-    end
-  rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
-    Rails.logger.warn("Query timeout in simulator show: #{e.message}")
-    # Continue with rendering even if there's a timeout
     if Flipper.enabled?(:vuesim, current_user)
       render "embed_vue", layout: false
     else
@@ -181,5 +175,20 @@ class SimulatorController < ApplicationController
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
+    end
+
+    def handle_statement_timeout(exception)
+      Rails.logger.warn("Query timeout in simulator controller: #{exception.message}")
+      
+      # Gracefully render the simulator view even if there was a timeout
+      # This covers cases where timeouts occur in before_action filters or the action itself
+      @logix_project_id = params[:id]
+      @external_embed = params[:action] == "embed"
+      
+      if Flipper.enabled?(:vuesim, current_user)
+        render "embed_vue", layout: false
+      else
+        render "embed"
+      end
     end
 end
