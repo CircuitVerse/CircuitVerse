@@ -1264,7 +1264,6 @@ input:checked + .slider:before {
 
 .btn-group-toggle {
     background-color: transparent;
-    overflow: hidden;
 }
 .download-dialog-section-2 .active-btn {
     box-shadow: none;
