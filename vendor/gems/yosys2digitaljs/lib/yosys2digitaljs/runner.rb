@@ -16,6 +16,9 @@ module Yosys2Digitaljs
     end
 
     def compile(verilog_code)
+      # Pre-validate Verilog syntax before invoking Yosys
+      VerilogValidator.validate!(verilog_code)
+
       source_file = Tempfile.new(['input', '.sv'])
       source_file.write(verilog_code)
       source_file.close
@@ -62,7 +65,8 @@ module Yosys2Digitaljs
         end
 
         unless exit_status&.success?
-          raise Error, "Yosys Compilation Failed:\n#{stdout_str}\n#{stderr_str}"
+          clean_error = extract_yosys_errors(stdout_str, stderr_str)
+          raise Error, clean_error
         end
 
         raw_json_str = File.read(json_file.path)
@@ -79,6 +83,35 @@ module Yosys2Digitaljs
       ensure
         source_file.unlink
         json_file&.unlink
+      end
+    end
+
+    private
+
+    # Extract clean error messages from Yosys output
+    # Filters out verbose copyright/license text and keeps only ERROR and Warning lines
+    def extract_yosys_errors(stdout_str, stderr_str)
+      combined = "#{stdout_str}\n#{stderr_str}"
+      
+      # Extract lines that contain actual errors or warnings
+      error_lines = combined.lines.select do |line|
+        line =~ /\bERROR\b/i || line =~ /\bWarning\b/i || line =~ /syntax error/i
+      end.map(&:strip).reject(&:empty?)
+
+      if error_lines.any?
+        # Clean up each error line: remove temp file paths, make more readable
+        cleaned = error_lines.map do |line|
+          # Replace temp file paths like /tmp/input20260128-501-md88fg.sv:9: with "Line number"
+          line.gsub(%r{/tmp/[^:]+\.sv?:(\d+):}, 'Line \1:')
+              .gsub(/\bERROR:\s*/, '')  # Remove redundant ERROR: prefix
+              .strip
+        end.uniq
+        
+        # Format the final message
+        "Syntax error: #{cleaned.join('; ')}"
+      else
+        # Fallback if no ERROR lines found
+        "Yosys compilation failed. Check your Verilog syntax."
       end
     end
   end
