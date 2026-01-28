@@ -13,7 +13,8 @@ default_flipper_features = {
   block_registration: false,
   active_storage_s3: true,
   contests: false,
-  circuit_explore_page: false
+  circuit_explore_page: false,
+  yosys_local_gem: true
 }
 
 Flipper.configure do |config|
