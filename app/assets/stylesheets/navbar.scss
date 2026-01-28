@@ -633,6 +633,12 @@
   .sorting-options {
     width: 100%;
   }
+
+  .dropdown:nth-child(2n) {
+    align-items: flex-end;
+    position: absolute;
+    right: 20px;
+  }
 }
 
 @media (max-width: 768px) {
