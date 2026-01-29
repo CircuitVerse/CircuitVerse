@@ -33,7 +33,7 @@ module Adapters
       perform_search(
         base_results: base_user_results(relation, query_params),
         query_params: query_params,
-        type: :user
+        includes: [{ profile_picture_attachment: :blob }]
       )
     end
 
