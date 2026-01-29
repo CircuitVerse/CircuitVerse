@@ -5,7 +5,7 @@ class Star < ApplicationRecord
   belongs_to :project, counter_cache: true
   after_create_commit :notify_recipient
   before_destroy :cleanup_notification
-  #has_many :notifications, as: :notifiable # rubocop:disable Rails/HasManyOrHasOneDependent
+  # has_many :notifications, as: :notifiable
   has_noticed_notifications model_name: "NoticedNotification"
 
   private
