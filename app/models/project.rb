@@ -161,8 +161,7 @@ class Project < ApplicationRecord
     end
 
     def should_generate_new_friendly_id?
-      # FIXME: Remove extra query once production data is resolved
-      name_changed? || Project.where(slug: slug).many?
+      name_changed?
     end
 
     def purge_circuit_preview
