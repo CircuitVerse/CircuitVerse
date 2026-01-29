@@ -167,7 +167,7 @@ export var verilog = {
         return output;
     },
     generateTestBenchCode: function(DUTs) {
-        if(DUTs.length == 0)return "";
+        if(DUTs.length === 0) return "";
         var output = "// Sample Testbench Code - Uncomment to use\n";
 
         output += "\n/*\n";
@@ -207,7 +207,7 @@ export var verilog = {
         output += "\n"
         // Generate Reg Initialization Code
         for (var bitWidth = 1; bitWidth<= 32; bitWidth++){
-            if(registers[bitWidth].size == 0)
+            if(registers[bitWidth].size === 0)
                 continue;
             var regArray = [...registers[bitWidth]];
             if(bitWidth == 1)
@@ -218,7 +218,7 @@ export var verilog = {
         output += "\n"
         // Generate Wire Initialization Code
         for (var bitWidth = 1; bitWidth<= 32; bitWidth++){
-            if(wires[bitWidth].size == 0)
+            if(wires[bitWidth].size === 0)
                 continue;
             var wireArray = [...wires[bitWidth]];
             if(bitWidth == 1)

@@ -90,7 +90,7 @@ export const addShortcut = (keys, action) => {
 			callback = openDocumentation;
 			break;
 		default:
-			callback = () => console.log('No shortcut found..');
+			callback = () => {};
 			break;
 	}
 	shortcut.add(keys, callback, {
