@@ -130,10 +130,19 @@ class SimulatorController < ApplicationController
     head :ok, content_type: "text/html"
   end
 
+  MAX_CODE_SIZE = 10_000 # 10KB limit
+
   def verilog_cv
-    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = HTTP.post(url, json: { code: params[:code] })
-    render json: response.to_s, status: response.code
+    if params[:code].to_s.bytesize > MAX_CODE_SIZE
+      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" }, status: :payload_too_large
+      return
+    end
+
+    if Flipper.enabled?(:yosys_local_gem)
+      compile_with_local_gem
+    else
+      compile_with_external_api
+    end
   end
 
   def allow_iframe_lti
@@ -146,6 +155,31 @@ class SimulatorController < ApplicationController
 
     def allow_iframe
       response.headers.except! "X-Frame-Options"
+    end
+
+    # Compile Verilog using the local yosys2digitaljs gem (default behavior)
+    def compile_with_local_gem
+      result = Yosys2Digitaljs::Runner.compile(params[:code])
+      render json: result
+    rescue Yosys2Digitaljs::SyntaxError => e
+      render json: { message: "Syntax Error: #{e.message}" }, status: :unprocessable_entity
+    rescue Yosys2Digitaljs::Runner::TimeoutError => e
+      render json: { message: e.message }, status: :service_unavailable
+    rescue Yosys2Digitaljs::Error => e
+      render json: { message: e.message }, status: :unprocessable_entity
+    rescue StandardError => e
+      render json: { message: "Compilation failed: #{e.message}" }, status: :internal_server_error
+    end
+
+    # Fallback: Compile via external yosys2digitaljs-server API
+    def compile_with_external_api
+      yosys_url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+      response = HTTP.post(yosys_url, json: { code: params[:code] })
+      render json: JSON.parse(response.to_s), status: response.code
+    rescue HTTP::Error => e
+      render json: { message: "External API error: #{e.message}" }, status: :service_unavailable
+    rescue JSON::ParserError
+      render json: { message: "Invalid response from Yosys API" }, status: :internal_server_error
     end
 
     def set_project
