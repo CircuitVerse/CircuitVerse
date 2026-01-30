@@ -79,6 +79,25 @@ git checkout -b forgot-password#44
 git push origin forgot-password#44
 ```
 
+## Optional: Automatic Code Formatting (Pre-commit Hook)
+
+CircuitVerse provides an optional pre-commit hook that automatically fixes
+common RuboCop formatting issues (indentation, spacing, trailing whitespace)
+before each commit.
+
+This helps prevent avoidable CI failures caused by style-only violations.
+
+### Enable (recommended)
+
+```bash
+./script/install-git-hooks
+```
+### Note for Windows users
+
+Run this command using Git Bash or WSL.
+Alternatively, you can manually copy script/pre-commit
+to .git/hooks/pre-commit.
+
 ### Commit Convention
 
 ```bash
