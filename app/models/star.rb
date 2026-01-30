@@ -18,8 +18,9 @@ class Star < ApplicationRecord
 
     def cleanup_notification
       NoticedNotification.where(
-        type: "StarNotification",
-        "params @> ?" => { user: user, project: project }.to_json
+        "type = ? AND params @> ?",
+        "StarNotification",
+        { user: user, project: project }.to_json
       ).destroy_all
     end
 end
