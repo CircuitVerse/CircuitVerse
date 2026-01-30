@@ -542,6 +542,23 @@ select {
 #combinationalAnalysis {
   border: 1px solid var(--br-secondary);
   color: var(--text-lite);
+  margin-top: 10px;
+}
+/* Center the dialog title */
+#combinationalAnalysis + .ui-dialog .ui-dialog-title {
+  text-align: center;
+  width: 100%;
+}
+
+/* Center the action buttons */
+#combinationalAnalysis + .ui-dialog .ui-dialog-buttonpane {
+  text-align: center;
+}
+
+#combinationalAnalysis + .ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+  float: none;
+  display: inline-flex;
+  gap: 10px;
 }
 
 #combinationalAnalysis p input {
