@@ -7,14 +7,19 @@ servers:
     cmd: ./bin/rails server -b 0.0.0.0 -p 3000
     labels:
       traefik.http.routers.circuitverse-web.rule: Host(`staging.circuitverse.org`)
+      traefik.http.routers.circuitverse-web.entrypoints: websecure
+      traefik.http.routers.circuitverse-web.tls: "true"
+      traefik.http.routers.circuitverse-web.tls.certresolver: letsencrypt
     options:
       "add-host": host.docker.internal:host-gateway
+   
+
   sidekiq:
     hosts:
       - <%= ENV["SERVER_IP"] %>
+    cmd: bundle exec sidekiq -e production -q default -q mailers
     options:
       "add-host": host.docker.internal:host-gateway
-    cmd: bundle exec sidekiq -e production -q default -q mailers
 
 registry:
   server: ghcr.io
@@ -45,6 +50,7 @@ ssh:
   user: ubuntu
 
 builder:
+  arch: amd64
   dockerfile: Dockerfile.production
 
 accessories:
@@ -53,6 +59,6 @@ accessories:
     host: <%= ENV["SERVER_IP"] %>
     port: 2812
 
-healthcheck:
-  port: 3000
-  max_attempts: 8
+# health_check:
+#       port: 3000
+#       max_attempts: 8
