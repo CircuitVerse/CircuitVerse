@@ -2,7 +2,7 @@
 
 class AssignmentMailer < ApplicationMailer
   def new_assignment_email(user, assignment)
-    return if user.opted_out?
+    return if user.opted_out? || !valid_email?(user.email)
 
     @assignment = assignment
     @user = user
@@ -11,11 +11,17 @@ class AssignmentMailer < ApplicationMailer
   end
 
   def update_assignment_email(user, assignment)
-    return if user.opted_out?
+    return if user.opted_out? || !valid_email?(user.email)
 
     @assignment = assignment
     @user = user
     mail(to: [@user.email],
          subject: "Assignment Updated in #{Group.find_by(id: @assignment.group_id).name}")
+  end
+
+  private
+
+  def valid_email?(email)
+    email.present? && email.include?("@")
   end
 end
