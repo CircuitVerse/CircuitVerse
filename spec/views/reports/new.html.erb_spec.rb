@@ -4,7 +4,9 @@ require "rails_helper"
 
 RSpec.describe "reports/new.html.erb", type: :view do
   before do
-    assign(:report, Report.new)
+    reported_user = create(:user)
+    assign(:reported_user, reported_user)
+    assign(:report, Report.new(reported_user: reported_user))
   end
 
   it "renders the report form" do
