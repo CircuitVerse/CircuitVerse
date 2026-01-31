@@ -64,13 +64,20 @@ class Project < ApplicationRecord
 
   # returns true if starred, false if unstarred
   def toggle_star(user)
-    star = Star.find_by(user_id: user.id, project_id: id)
-    if star.nil?
-      @star = Star.create!(user_id: user.id, project_id: id)
-      true
-    else
+    star = Star.find_or_initialize_by(user_id: user.id, project_id: id)
+
+    if star.persisted?
       star.destroy!
       false
+    else
+      begin
+        star.save!
+        true
+      rescue ActiveRecord::RecordNotUnique
+        # Handle race condition: another request created the star first.
+        # In that case, we consider the project starred for this user.
+        true
+      end
     end
   end
 
