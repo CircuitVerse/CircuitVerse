@@ -7,7 +7,7 @@ class ReportsController < ApplicationController
     @reported_user = User.find_by(id: params[:reported_user_id])
 
     unless @reported_user
-      redirect_to root_path, alert: "Reported user must exist"
+      redirect_to root_path, alert: t("reports.errors.user_missing")
       return
     end
 
@@ -19,7 +19,7 @@ class ReportsController < ApplicationController
     @report.reporter = current_user
 
     if @report.save
-      redirect_to root_path, notice: "Report submitted successfully"
+      redirect_to root_path, notice: t("reports.success.created")
     else
       @reported_user = @report.reported_user
       render :new, status: :unprocessable_entity
@@ -28,12 +28,11 @@ class ReportsController < ApplicationController
 
   private
 
-  def report_params
-    params.require(:report).permit(
-      :reported_user_id,
-      :reason,
-      :description
-    )
-  end
+    def report_params
+      params.expect(
+        report: %i[reported_user_id
+                   reason
+                   description]
+      )
+    end
 end
-

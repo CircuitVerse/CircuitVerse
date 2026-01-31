@@ -36,8 +36,10 @@ en:
   github: "Github"
   gitlab: "Gitlab"
   reports:
-    create:
-      success: "Report submitted successfully."
+    success:
+      created: "Report submitted successfully"
+    errors:
+      user_missing: "Reported user must exist"
 
   components:
     search_bar:
