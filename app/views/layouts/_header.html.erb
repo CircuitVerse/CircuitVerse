@@ -46,8 +46,19 @@
           <li class="nav-item">
             <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
-          <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+          <li class="nav-item d-lg-flex align-items-center">
+            <i class="fa fa-search search-icon d-none d-lg-inline" tabindex="0" aria-label="search"></i>
+            <div class="d-lg-none w-100">
+              <%= form_tag("/search", method: "get", class: "d-flex") do %>
+                <div class="input-group">
+                  <%= text_field_tag :q, params[:q], placeholder: "Search...", class: "form-control", autocomplete: "off" %>
+                  <%= hidden_field_tag :resource, "Projects" %>
+                  <button type="submit" class="btn btn-success" aria-label="Search">
+                    <i class="fa fa-search"></i>
+                  </button>
+                </div>
+              <% end %>
+            </div>
           </li>
         </ul>
         <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
