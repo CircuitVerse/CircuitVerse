@@ -36,6 +36,8 @@ en:
   github: "Github"
   gitlab: "Gitlab"
   reports:
+    user_not_found: "Reported user must exist"
+    submitted: "Report submitted successfully"
     create:
       success: "Report submitted successfully."
 
