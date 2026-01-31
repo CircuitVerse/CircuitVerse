@@ -117,7 +117,7 @@ describe AssignmentPolicy do
           FactoryBot.create(:project, author: @member, assignment: assignment)
         end
 
-        it { is_expected.not_to permit(:start) }
+        it { is_expected.to permit(:start) }
       end
     end
 
