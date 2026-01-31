@@ -54,13 +54,22 @@ class GradesController < ApplicationController
   end
 
   def to_csv
-    assignment_id = params[:assignment_id].to_i
+    @assignment = Assignment.find(params[:assignment_id])
+
+    # SECURITY FIX: Verify user has permission to export grades
+    # Uses the same policy check as the view (assignments/show.html.erb line 51)
+    authorize @assignment, :can_be_graded?
+
     respond_to do |format|
       format.csv do
-        send_data Grade.to_csv(assignment_id),
-                  filename: "#{Assignment.find(assignment_id).name} grades.csv"
+        send_data Grade.to_csv(@assignment.id),
+                  filename: "#{@assignment.name} grades.csv"
       end
     end
+  rescue ActiveRecord::RecordNotFound
+    render plain: "Assignment not found", status: :not_found
+  rescue Pundit::NotAuthorizedError
+    render plain: "You are not authorized to export grades for this assignment", status: :forbidden
   end
 
   private
