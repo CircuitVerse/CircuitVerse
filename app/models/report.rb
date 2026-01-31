@@ -7,6 +7,7 @@ class Report < ApplicationRecord
 
   validates :reason, presence: true
   validates :status, presence: true
+  validate :cannot_report_self
 
   # Status values
   enum :status, {
@@ -15,4 +16,12 @@ class Report < ApplicationRecord
     action_taken: "action_taken",
     dismissed: "dismissed"
   }, default: :open
+
+  private
+
+    def cannot_report_self
+      return unless reporter && reported_user
+
+      errors.add(:base, "You cannot report yourself") if reporter_id == reported_user_id
+    end
 end

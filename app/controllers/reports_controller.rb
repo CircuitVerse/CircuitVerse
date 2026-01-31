@@ -11,6 +11,11 @@ class ReportsController < ApplicationController
       return
     end
 
+    if @reported_user == current_user
+      redirect_to root_path, alert: t("reports.cannot_report_self")
+      return
+    end
+
     @report = Report.new(reported_user: @reported_user)
   end
 
