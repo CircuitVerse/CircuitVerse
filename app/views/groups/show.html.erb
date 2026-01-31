@@ -42,11 +42,11 @@
   <% end %>
 </div>
 <hr>
-<% if @group.group_members.mentor.blank? %>
+<% if @mentors.blank? %>
   <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
 <% end %>
 <div class="row">
-  <%= render partial: "group_mentors", locals: { group: @group } %>
+  <%= render partial: "group_mentors", locals: { mentors: @mentors, group: @group } %>
 </div>
 
 <!-- Members Section -->
@@ -62,11 +62,11 @@
   <% end %>
 </div>
 <hr>
-<% if @group.group_members.member.blank? %>
+<% if @members.blank? %>
   <span class="null-text"><%= t("groups.show.no_members_html") %></span>
 <% end %>
 <div class="row">
-  <%= render partial: "group_members", locals: { group: @group } %>
+  <%= render partial: "group_members", locals: { members: @members, group: @group } %>
 </div>
 
 <!-- Assignments Section -->
