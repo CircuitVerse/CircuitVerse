@@ -19,6 +19,7 @@ gem "omniauth-facebook"
 gem "omniauth-github"
 gem "omniauth-gitlab"
 gem "omniauth-google-oauth2"
+gem "google-apis-classroom_v1"
 gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"

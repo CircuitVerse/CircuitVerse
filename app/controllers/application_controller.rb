@@ -35,6 +35,27 @@ class ApplicationController < ActionController::Base
     I18n.with_locale(locale, &)
   end
 
+  def google_classroom_test
+    if user_signed_in? && current_user.provider == "google_oauth2"
+      classroom_service = GoogleClassroomService.new(current_user)
+      connection_test = classroom_service.test_connection
+
+      render json: {
+        message: "Google Classroom integration ready!",
+        user: current_user.email,
+        provider: current_user.provider,
+        has_tokens: current_user.google_access_token.present?,
+        api_test: connection_test
+      }
+    else
+      render json: {
+        message: "Please sign in with Google to test Classroom integration",
+        signed_in: user_signed_in?,
+        provider: current_user&.provider
+      }
+    end
+  end
+
   # Overrides Devise::Controller::StoreLocation.store_location_for to check if
   # URL is too long to store in the session
   def store_location_for(resource_or_scope, location)
