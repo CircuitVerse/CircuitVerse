@@ -597,8 +597,8 @@ ActiveRecord::Schema[8.0].define(version: 2026_01_26_060000) do
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "user_bans", "reports", on_delete: :nullify
   add_foreign_key "user_bans", "users"
   add_foreign_key "user_bans", "users", column: "admin_id"
   add_foreign_key "user_bans", "users", column: "lifted_by_id"
-  add_foreign_key "user_bans", "reports", on_delete: :nullify
 end
