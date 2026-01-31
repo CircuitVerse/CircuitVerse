@@ -1,0 +1,49 @@
+<% content_for :title, "Report User" %>
+
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0">Report a User</h4>
+        </div>
+        <div class="card-body">
+          <%= form_with model: @report, local: true do |f| %>
+            <%= f.hidden_field :reported_user_id, value: @reported_user.id %>
+
+            <% if @report.errors.any? %>
+              <div class="alert alert-danger">
+                <h5>Please fix the following errors:</h5>
+                <ul class="mb-0">
+                  <% @report.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <label class="form-label"><strong>Reporting User</strong></label>
+              <p class="form-control-plaintext"><%= @reported_user.name %></p>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><strong>Reason</strong></label>
+              <%= f.text_field :reason, class: "form-control", placeholder: "Enter reason for reporting" %>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label"><strong>Description (Optional)</strong></label>
+              <%= f.text_area :description, class: "form-control", rows: 5, placeholder: "Provide additional details..." %>
+            </div>
+
+            <div class="d-flex gap-2">
+              <%= f.submit "Submit Report", class: "btn btn-danger" %>
+              <%= link_to "Cancel", root_path, class: "btn btn-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
