@@ -7,6 +7,9 @@ RSpec.describe "reports/new.html.erb", type: :view do
     reported_user = create(:user)
     assign(:reported_user, reported_user)
     assign(:report, Report.new(reported_user: reported_user))
+
+    # Stub route helper in case it's not available in view context
+    allow(view).to receive(:root_path).and_return("/")
   end
 
   it "renders the report form" do
