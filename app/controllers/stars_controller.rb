@@ -27,17 +27,15 @@ class StarsController < ApplicationController
   # POST /stars.json
   def create
     @star = Star.new(star_params)
-    @star.save
-    render plain: "Star added!"
-    # respond_to do |format|
-    #   if @star.save
-    #     format.html { redirect_to @star, notice: 'Star was successfully created.' }
-    #     format.json { render :show, status: :created, location: @star }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @star.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    Rails.logger.info "IDOR_DEBUG: Params: #{star_params.inspect}"
+    Rails.logger.info "IDOR_DEBUG: Current User: #{current_user&.id}"
+    @star.user_id = current_user.id  # SECURITY FIX: Force authenticated user's ID
+    if @star.save
+      Rails.logger.info "IDOR_DEBUG: Star saved for user #{@star.user_id}"
+      render plain: "Star added!"
+    else
+      render plain: "Failed to add star", status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /stars/1
@@ -59,21 +57,21 @@ class StarsController < ApplicationController
   def destroy
     @star.destroy
     render plain: "Star removed!"
-    # respond_to do |format|
-    #   format.html { redirect_to stars_url, notice: 'Star was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
   end
 
   private
 
     # Use callbacks to share common setup or constraints between actions.
+    # SECURITY FIX: Only allow users to manage their own stars
     def set_star
-      @star = Star.find(params[:id])
+      @star = current_user.stars.find(params[:id])
+    rescue ActiveRecord::RecordNotFound
+      render plain: "Star not found or access denied", status: :not_found
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
+    # SECURITY FIX: Removed user_id from permitted params
     def star_params
-      params.expect(star: %i[user_id project_id])
+      params.expect(star: [:project_id])
     end
 end
