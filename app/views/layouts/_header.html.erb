@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-white">
+<nav class="navbar navbar-expand-lg bg-white" data-controller="navbar">
   <div class="container">
     <a class="navbar-brand" href="/">
       <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
@@ -24,7 +24,7 @@
             </li>
           <% end %>
           <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/teachers"><%= t("layout.link_to_teachers") %></a>
+            <a class="nav-link navbar-item navbar-text <%= request.path == "/teachers" ? "active" : "" %>" href="/teachers"><%= t("layout.link_to_teachers") %></a>
           </li>
           <% if Flipper.enabled?(:contests, current_user) %>
             <li class="nav-item">
@@ -44,7 +44,7 @@
             <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_blog") %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
+            <a class="nav-link navbar-item navbar-text <%= request.path == "/about" ? "active" : "" %>" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
             <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
@@ -159,5 +159,8 @@
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
+
+    // Active nav highlighting is handled by the Stimulus `navbar` controller.
+    // Inline implementation removed to keep the header markup minimal. See `app/javascript/controllers/navbar_controller.js`.
   });
 </script>
