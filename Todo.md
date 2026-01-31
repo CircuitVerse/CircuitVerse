@@ -155,7 +155,7 @@ Bugs:
 - [ ] users - filter, export, actions remove,password,password confirmation, reset password sent at, remember createdAt last sign in At, current signin ip remove read only etc many more   
 - [ ] activeStorage attachments - filter export,
 - [ ] activeStorage blob - Filename,Content type, Metadata, Service name, byte size, checksum,attachemnts, variant records,preview image
-- [ ] variant records - filter, export
+- [x] variant records - filter, export
 - [x] comments - filter,export, read only many are there, tconvert name of thread to discussion, children
 - [x] threads - rename as commentator threads, closer remove, comments and subs, fitler export
 - [x] events - filter export events

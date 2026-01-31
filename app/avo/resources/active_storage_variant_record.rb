@@ -16,4 +16,13 @@ class Avo::Resources::ActiveStorageVariantRecord < Avo::BaseResource
     # Image field for variant
     field :image, as: :file, is_image: true
   end
+
+  def filters
+    filter Avo::Filters::BlobIdFilter
+    filter Avo::Filters::VariationDigestFilter
+  end
+
+  def actions
+    action Avo::Actions::ExportVariantRecords
+  end
 end
