@@ -9,10 +9,13 @@ class Users::NoticedNotificationsController < ApplicationController
   end
 
   def mark_as_read
-    notification = NoticedNotification.find(params[:notification_id])
+    # SECURITY FIX: Scope notification lookup to current_user to prevent IDOR
+    notification = current_user.noticed_notifications.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
-    answer = NotifyUser.new(params).call
+    answer = NotifyUser.new(params, notification).call
     redirect_to redirect_path_for(answer)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to notifications_path(current_user), alert: "Notification not found"
   end
 
   def mark_all_as_read

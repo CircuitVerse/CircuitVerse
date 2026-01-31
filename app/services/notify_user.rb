@@ -4,9 +4,12 @@ class NotifyUser
   Result = Struct.new(:success, :type, :first_param, :second)
 
   # @param [Hash] params
-  def initialize(params)
-    # @type [NoticedNotification]
-    @notification = NoticedNotification.find(params[:notification_id])
+  # @param [NoticedNotification] notification - Pre-validated notification (validated by controller)
+  def initialize(params, notification = nil)
+    # SECURITY FIX: Accept pre-validated notification from controller
+    # If notification is passed, use it; otherwise fall back to finding by ID
+    # (The controller should always pass the notification to ensure proper authorization)
+    @notification = notification || NoticedNotification.find(params[:notification_id])
     # @type [Assignment]
     @assignment = @notification.params[:assignment]
     # @type [Project]
