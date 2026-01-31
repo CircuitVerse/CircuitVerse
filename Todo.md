@@ -156,7 +156,7 @@ Bugs:
 - [ ] activeStorage attachments - filter export,
 - [ ] activeStorage blob - Filename,Content type, Metadata, Service name, byte size, checksum,attachemnts, variant records,preview image
 - [ ] variant records - filter, export
-- [ ] comments - filter,export, read only many are there, tconvert name of thread to discussion, children
+- [x] comments - filter,export, read only many are there, tconvert name of thread to discussion, children
 - [x] threads - rename as commentator threads, closer remove, comments and subs, fitler export
 - [x] events - filter export events
 - [x] mailkick - filter export lock version csv upload
