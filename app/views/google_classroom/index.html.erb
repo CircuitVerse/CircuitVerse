@@ -42,37 +42,53 @@
           <h3>Your Google Classroom Courses</h3>
         </div>
         <div class="card-body">
-          <% if @teacher_courses.any? %>
-            <div class="row">
-              <% @teacher_courses.each do |course| %>
-                <div class="col-md-6 mb-3">
-                  <div class="card border-left-primary">
-                    <div class="card-body">
-                      <h5 class="card-title"><%= course.name %></h5>
-                      <p class="card-text text-muted">
-                        <%= course.description_heading if course.description_heading.present? %>
-                      </p>
-                      <small class="text-muted">
-                        <strong>Course ID:</strong> <%= course.id %><br>
-                        <strong>Section:</strong> <%= course.section if course.section.present? %>
-                      </small>
-                      <div class="mt-2">
-                        <span class="badge badge-primary">
-                          <%= course.course_state&.humanize || 'Active' %>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
+  <% if @teacher_courses.any? %>
+    <div class="row">
+      <% @teacher_courses.each do |course| %>
+        <div class="col-md-6 mb-3">
+          <div class="card border-left-primary">
+            <div class="card-body">
+              <h5 class="card-title"><%= course.name %></h5>
+              <p class="card-text text-muted">
+                <%= course.description_heading if course.description_heading.present? %>
+              </p>
+              <small class="text-muted">
+                <strong>Course ID:</strong> <%= course.id %><br>
+                <strong>Section:</strong> <%= course.section if course.section.present? %>
+              </small>
+              <div class="mt-2 mb-3">
+                <span class="badge badge-primary">
+                  <%= course.course_state&.humanize || 'Active' %>
+                </span>
+              </div>
+              
+              <!-- Import Actions -->
+              <div class="btn-group" role="group">
+                <% existing_group = Group.find_by(google_classroom_id: course.id, primary_mentor: current_user) %>
+                <% if existing_group %>
+                  <%= link_to "View Group", group_path(existing_group), class: "btn btn-success btn-sm" %>
+                  <span class="badge badge-success ml-2">Already Imported</span>
+                <% else %>
+                  <%= form_with url: import_course_google_classroom_index_path, method: :post, local: true, class: "d-inline" do |f| %>
+                    <%= f.hidden_field :course_id, value: course.id %>
+                    <%= f.submit "Import Course", class: "btn btn-primary btn-sm", 
+                        confirm: "This will create a new CircuitVerse group and invite all students. Continue?" %>
+                  <% end %>
+                <% end %>
+              </div>
             </div>
-          <% else %>
-            <div class="alert alert-info">
-              <i class="fas fa-info-circle"></i> 
-              No courses found where you are a teacher. Make sure you have created courses in Google Classroom.
-            </div>
-          <% end %>
+          </div>
         </div>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      <i class="fas fa-info-circle"></i> 
+      No courses found where you are a teacher. Make sure you have created courses in Google Classroom.
+    </div>
+  <% end %>
+</div>
+
       </div>
     </div>
   </div>
