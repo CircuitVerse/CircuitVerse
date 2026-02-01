@@ -39,14 +39,19 @@ jobs:
             mise install postgres redis
             mise run postgres -- pg_ctl start
             mise run redis -- redis-server --daemonize yes
+            pg_ready=0
             for i in {1..30}; do
-              mise run postgres -- pg_isready -h localhost -p 5432 && break
+              mise run postgres -- pg_isready -h localhost -p 5432 && pg_ready=1 && break
               sleep 1
             done
+            [ "$pg_ready" -eq 1 ] || { echo "Postgres not ready" >&2; exit 1; }
+
+            redis_ready=0
             for i in {1..30}; do
-              mise run redis -- redis-cli ping | grep -q PONG && break
+              mise run redis -- redis-cli ping | grep -q PONG && redis_ready=1 && break
               sleep 1
             done
+            [ "$redis_ready" -eq 1 ] || { echo "Redis not ready" >&2; exit 1; }
 
       - name: Setup database.yml
         run: |
