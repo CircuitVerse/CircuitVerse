@@ -39,6 +39,14 @@ jobs:
             mise install postgres redis
             mise run postgres -- pg_ctl start
             mise run redis -- redis-server --daemonize yes
+            for i in {1..30}; do
+              mise run postgres -- pg_isready -h localhost -p 5432 && break
+              sleep 1
+            done
+            for i in {1..30}; do
+              mise run redis -- redis-cli ping | grep -q PONG && break
+              sleep 1
+            done
 
       - name: Setup database.yml
         run: |
