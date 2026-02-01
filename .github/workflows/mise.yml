@@ -62,7 +62,6 @@ jobs:
 
       - name: Install Ruby dependencies
         run: |
-            gem install bundler
             bundle install
 
       - name: Validate Rails environment
