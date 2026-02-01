@@ -1,0 +1,79 @@
+<% content_for :title, "Google Classroom Integration" %>
+
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-12">
+      <h1>Google Classroom Integration</h1>
+      <p class="lead">Manage your Google Classroom courses and sync with CircuitVerse.</p>
+    </div>
+  </div>
+
+  <!-- Connection Status -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>Connection Status</h3>
+        </div>
+        <div class="card-body">
+          <% if @connection_test[:success] %>
+            <div class="alert alert-success">
+              <i class="fas fa-check-circle"></i> <%= @connection_test[:message] %>
+            </div>
+          <% else %>
+            <div class="alert alert-danger">
+              <i class="fas fa-exclamation-triangle"></i> <%= @connection_test[:message] %>
+            </div>
+          <% end %>
+          
+          <p><strong>User:</strong> <%= current_user.email %></p>
+          <p><strong>Provider:</strong> <%= current_user.provider %></p>
+          <p><strong>Has Tokens:</strong> <%= current_user.google_access_token.present? ? 'Yes' : 'No' %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Courses -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h3>Your Google Classroom Courses</h3>
+        </div>
+        <div class="card-body">
+          <% if @teacher_courses.any? %>
+            <div class="row">
+              <% @teacher_courses.each do |course| %>
+                <div class="col-md-6 mb-3">
+                  <div class="card border-left-primary">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= course.name %></h5>
+                      <p class="card-text text-muted">
+                        <%= course.description_heading if course.description_heading.present? %>
+                      </p>
+                      <small class="text-muted">
+                        <strong>Course ID:</strong> <%= course.id %><br>
+                        <strong>Section:</strong> <%= course.section if course.section.present? %>
+                      </small>
+                      <div class="mt-2">
+                        <span class="badge badge-primary">
+                          <%= course.course_state&.humanize || 'Active' %>
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="alert alert-info">
+              <i class="fas fa-info-circle"></i> 
+              No courses found where you are a teacher. Make sure you have created courses in Google Classroom.
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
