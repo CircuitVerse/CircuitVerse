@@ -110,8 +110,8 @@ class Project < ApplicationRecord
   end
 
   def tag_list=(names)
-    self.tags = names.split(",").map(&:strip).uniq.compact_blank.map do |n|
-      Tag.find_or_create_by!(name: n)
+    self.tags = names.split(",").map(&:strip).uniq(&:downcase).compact_blank.map do |n|
+      Tag.where("LOWER(name) = ?", n.downcase).first_or_create!(name: n)
     rescue ActiveRecord::RecordNotUnique, ActiveRecord::RecordInvalid
       Tag.find_by!("LOWER(name) = ?", n.downcase)
     end
