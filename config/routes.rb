@@ -183,7 +183,12 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   # Google Classroom integration
-  resources :google_classroom, only: [:index]
+  resources :google_classroom, only: [:index] do
+    collection do
+      post :import_course
+    end
+  end
+
 
   # Google Classroom test
   get '/google_classroom_test', to: 'application#google_classroom_test'

@@ -10,6 +10,8 @@ class Group < ApplicationRecord
   has_many :assignments, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
 
+  validates :google_classroom_id, uniqueness: true, allow_nil: true
+
   after_commit :send_creation_mail, on: :create
   scope :with_valid_token, -> { where(token_expires_at: Time.zone.now..) }
   TOKEN_DURATION = 12.days

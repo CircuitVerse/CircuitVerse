@@ -29,6 +29,22 @@ class GoogleClassroomService
     []
   end
 
+  # Get course details
+  def course_details(course_id)
+    @service.get_course(course_id)
+  rescue Google::Apis::Error => e
+    Rails.logger.error "Google Classroom API error: #{e.message}"
+    nil
+  end
+
+  # Get students in a course
+  def course_students(course_id)
+    @service.list_course_students(course_id).students || []
+  rescue Google::Apis::Error => e
+    Rails.logger.error "Google Classroom API error: #{e.message}"
+    []
+  end
+
   private
 
     def authorization
