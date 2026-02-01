@@ -22,7 +22,7 @@ if [ -n "$(git status --porcelain)" ]; then
   exit 1
 fi
 
-first_remote=$(git remote)
+first_remote=$(git remote | head -n1)
 
 if [ -z "$first_remote" ]; then
   echo "No git remote set, aborting..." >&2
@@ -36,7 +36,7 @@ if [ -z "$current_branch" ]; then
   exit 1
 fi
 
-remote_head=$(git ls-remote $first_remote --tags $current_branch | cut -f1)
+remote_head=$(git ls-remote "$first_remote" --heads "$current_branch" | cut -f1)
 
 if [ -z "$remote_head" ]; then
   echo "Branch not pushed to remote, aborting..." >&2
