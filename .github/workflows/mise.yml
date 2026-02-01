@@ -36,7 +36,16 @@ jobs:
         with:
           install: true
           cache: true
-
+      
+      - name: Install PostgreSQL build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libreadline-dev \
+            zlib1g-dev \
+            libssl-dev \
+            uuid-dev
+      
       - name: Install development tools
         run: |
             mise install postgres redis
