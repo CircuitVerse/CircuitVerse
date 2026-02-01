@@ -71,7 +71,13 @@ mise ls
 ```
 
 #### Setup
-> **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
+> **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user.  
+> When installed via Mise, you can start them using:
+> ```bash
+> mise run postgres -- pg_ctl start
+> mise run redis -- redis-server --daemonize yes
+> ```
+> Alternatively, running `bin/dev` will start the required services for development.
 
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
