@@ -36,7 +36,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # Uncomment this if you want to enforce SSL (recommended for production)
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
@@ -54,7 +54,7 @@ Rails.application.configure do
 
   # Log configuration
   config.log_tags = [:request_id]
-  config.log_level = :debug  # Keep debug level as per original config
+  # config.log_level = :debug  # Keep debug level as per original config
 
   # If logging to STDOUT
   if ENV["RAILS_LOG_TO_STDOUT"].present?
@@ -62,7 +62,7 @@ Rails.application.configure do
   end
 
   # Change to "info" in production for less verbose logging
-  # config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prevent health checks from clogging up the logs (Rails 8 feature)
   config.silence_healthcheck_path = "/up"
@@ -111,6 +111,8 @@ Rails.application.configure do
   config.active_record.attributes_for_inspect = [:id]
 
   # Enable DNS rebinding protection and other `Host` header attacks.
+  config.hosts << "staging.circuitverse.org"
+  # To allow additional hosts, uncomment and modify the following:
   # config.hosts = [
   #   "example.com",     # Allow requests from example.com
   #   /.*\.example\.com/ # Allow requests from subdomains like `www.example.com`
