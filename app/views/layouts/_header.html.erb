@@ -26,6 +26,9 @@
           <li class="nav-item">
             <a class="nav-link navbar-item navbar-text" href="/teachers"><%= t("layout.link_to_teachers") %></a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link navbar-item navbar-text" href="<%= google_classroom_index_path %>"><%= t("layout.link_to_google_classroom") %></a>
+          </li>
           <% if Flipper.enabled?(:contests, current_user) %>
             <li class="nav-item">
               <a class="nav-link navbar-item navbar-text <%= request.path == "/contests" ? "active" : "" %>" href="/contests"><%= t("layout.link_to_contests") %></a>

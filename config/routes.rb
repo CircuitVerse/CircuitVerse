@@ -182,6 +182,9 @@ Rails.application.routes.draw do
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
+  # Google Classroom integration
+  resources :google_classroom, only: [:index]
+
   # Google Classroom test
   get '/google_classroom_test', to: 'application#google_classroom_test'
 
