@@ -16,7 +16,7 @@ Before deploying, you need:
 - Docker installed
 - Public IP address
 - Ports 80 and 443 open
-- Domain pointed to the server (for eg, `staging.circuitverse.org`)
+- Domain pointed to the server (e.g., `staging.circuitverse.org`)
 
 ## Server Configuration
 Kamal reads the target server from:
@@ -25,7 +25,8 @@ SERVER_IP=<your_server_ip>
 ```
 
 ## Required Secrets
-These secrets must be configured before deploying, you can provide these via Environment variables, Kamal secrets manager
+These secrets must be configured before deploying. You can provide them via environment variables or the Kamal secrets manager
+
 | Variable                       | Purpose                         |
 | ------------------------------ | ------------------------------- |
 | `KAMAL_GHCR_REGISTRY_PASSWORD` | GitHub Container Registry login |
@@ -48,13 +49,13 @@ Then deploy by running:
 ```shell
 kamal deploy
 ```
-If you are discovered a bad deploy, you can rollback a deployment with (optional):
+If you discover a bad deploy, you can roll back a deployment (optional):
 ```shell
 kamal rollback
 ```
 
 ## Troubleshooting
-If you are facing any issues while deployment, it can be troubleshooted checking logs:
+If you face issues during deployment, troubleshoot by checking logs:
 ```shell
 kamal logs
 ```
