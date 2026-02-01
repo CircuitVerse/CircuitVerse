@@ -32,7 +32,7 @@ Rails.application.configure do
   end
 
   # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  # config.assume_ssl = true
+  config.assume_ssl = true
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # Uncomment this if you want to enforce SSL (recommended for production)
