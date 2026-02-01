@@ -64,7 +64,7 @@ jobs:
             gem install bundler
             bundle install
 
-      - name: Run Rails test
+      - name: Validate Rails environment
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/circuitverse_test
