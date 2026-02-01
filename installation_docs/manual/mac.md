@@ -52,7 +52,7 @@ cd CircuitVerse
      ```bash
      brew bundle
      ```
-- [OpenSSL](https://www.openssl.org/)
+> **Note:** OpenSSL is installed via the Brewfile as part of `brew bundle`.
 
 #### Mise-managed Dependencies
 
