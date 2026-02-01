@@ -462,6 +462,10 @@
   font-size: 22px;
   position: relative;
 
+  div {
+    right: -30px;
+  }
+
   input {
     height: 0;
     opacity: 0;
