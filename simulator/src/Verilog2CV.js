@@ -193,9 +193,6 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
                 $('#verilogOutput').html(errorMessage.message);
             }
         },
-        failure: function(err) {
-
-        }
     });
 }
 
