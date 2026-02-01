@@ -15,6 +15,7 @@
 # KAMAL_SUBCOMMAND
 # KAMAL_ROLES (if set)
 # KAMAL_DESTINATION (if set)
+# GITHUB_TOKEN
 
 # Only check the build status for production deployments
 if ENV["KAMAL_COMMAND"] == "rollback" || ENV["KAMAL_DESTINATION"] != "production"
@@ -109,6 +110,8 @@ begin
       exit_with_error "Checks failed, see #{checks.first_status_url}"
     when "pending"
       attempts += 1
+    else
+      exit_with_error "Unexpected check state: #{checks.state}"
     end
 
     exit_with_error "Checks are still pending, gave up after #{MAX_ATTEMPTS * ATTEMPTS_GAP} seconds" if attempts == MAX_ATTEMPTS
