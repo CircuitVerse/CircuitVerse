@@ -154,7 +154,7 @@ class SimulatorController < ApplicationController
 
     # FIXME: remove this logic after fixing production data
     def set_user_project
-      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
+      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find_by!(id: params[:id])
     end
 
     def check_edit_access
