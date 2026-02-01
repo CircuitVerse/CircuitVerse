@@ -47,7 +47,6 @@ cd CircuitVerse
      brew bundle
      ```
      - OpenSSL
-     - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`12`) - Database
 
 #### Mise-managed Dependencies
 
