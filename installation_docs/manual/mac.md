@@ -35,9 +35,15 @@ cd CircuitVerse
      
      # For bash:
      echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+     source ~/.bashrc
      # For zsh:
      echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
-     
+     source ~/.zshrc
+
+     # Restart your shell or source the rc file:
+     # source ~/.bashrc  # for bash
+     # source ~/.zshrc   # for zsh
+
      # Verify installation
      mise --version
      mise install
@@ -46,7 +52,7 @@ cd CircuitVerse
      ```bash
      brew bundle
      ```
-     - OpenSSL
+- [OpenSSL](https://www.openssl.org/)
 
 #### Mise-managed Dependencies
 
@@ -57,6 +63,7 @@ Mise automatically manages the following development tools based on the versions
 - PostgreSQL
 - ImageMagick
 - CMake
+- Yarn
 
 To view currently managed tools and their versions:
 ```bash
