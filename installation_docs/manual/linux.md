@@ -37,12 +37,12 @@ cd CircuitVerse
      ```
 - [Mise Setup Tool](https://mise.jdx.dev/) :  
      ```bash
-     # Download and verify mise installer    
-     curl -fsSL https://mise.run > mise-installer.sh
+     # Download mise installer (use a specific release tag, e.g., v2025.1.1)
+     curl -fsSLO https://github.com/jdx/mise/releases/download/v2025.1.1/install.sh
      
-     # Verify checksum (see https://mise.jdx.dev/getting-started.html for latest)
-     echo "<checksum> mise-installer.sh" | sha256sum -c
-     sh mise-installer.sh
+     # Verify against the sha256 shown on the GitHub release page
+     sha256sum install.sh
+     sh install.sh
         
      # Add mise to shell (choose your shell)
      
