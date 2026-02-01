@@ -111,7 +111,9 @@ class Project < ApplicationRecord
 
   def tag_list=(names)
     self.tags = names.split(",").map(&:strip).uniq.compact_blank.map do |n|
-      Tag.where(name: n.strip).first_or_create!
+      Tag.find_or_create_by!(name: n.strip)
+    rescue ActiveRecord::RecordNotUnique
+      retry
     end
   end
 
