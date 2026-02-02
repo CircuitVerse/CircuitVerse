@@ -45,6 +45,50 @@ class GoogleClassroomService
     []
   end
 
+  # Get coursework (assignments) for a course
+  def course_assignments(course_id)
+    response = @service.list_course_works(course_id)
+    # Filter only assignments (not questions or materials)
+    all_coursework = response.course_work || []
+    all_coursework.select { |work| work.work_type == "ASSIGNMENT" }
+  rescue Google::Apis::Error => e
+    Rails.logger.error "Google Classroom API error: #{e.message}"
+    []
+  end
+
+  # Create coursework in Google Classroom
+  def create_assignment(course_id, assignment_params)
+    coursework = Google::Apis::ClassroomV1::CourseWork.new(
+      title: assignment_params[:title],
+      description: assignment_params[:description],
+      work_type: "ASSIGNMENT",
+      state: "PUBLISHED"
+    )
+
+    # Add due date if provided
+    if assignment_params[:due_date]
+      due_date = assignment_params[:due_date].to_date
+      coursework.due_date = Google::Apis::ClassroomV1::Date.new(
+        year: due_date.year,
+        month: due_date.month,
+        day: due_date.day
+      )
+
+      if assignment_params[:due_time]
+        due_time = assignment_params[:due_time]
+        coursework.due_time = Google::Apis::ClassroomV1::TimeOfDay.new(
+          hours: due_time.hour,
+          minutes: due_time.min
+        )
+      end
+    end
+
+    @service.create_course_work(course_id, coursework)
+  rescue Google::Apis::Error => e
+    Rails.logger.error "Google Classroom API error: #{e.message}"
+    nil
+  end
+
   private
 
     def authorization

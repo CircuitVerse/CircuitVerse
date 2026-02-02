@@ -186,12 +186,18 @@ Rails.application.routes.draw do
   resources :google_classroom, only: [:index] do
     collection do
       post :import_course
+      post :sync_assignments
+      post :push_assignment
     end
   end
 
 
+
   # Google Classroom test
   get '/google_classroom_test', to: 'application#google_classroom_test'
+
+  get '/test_classroom_methods', to: 'application#test_classroom_methods'
+
 
 
 
