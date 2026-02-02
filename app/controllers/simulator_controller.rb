@@ -152,9 +152,18 @@ class SimulatorController < ApplicationController
       @project = Project.friendly.find(params[:id])
     end
 
-    # FIXME: remove this logic after fixing production data
+    # SECURITY FIX: Properly check ownership or collaboration access
+    # Removes unsafe fallback that bypassed authorization
     def set_user_project
-      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
+      @project = Project.friendly.find(params[:id])
+
+      # User must be author, collaborator, or admin to access
+      return if @project.author_id == current_user.id
+      return if Collaboration.exists?(project_id: @project.id, user_id: current_user.id)
+      return if current_user.admin?
+
+      # Neither owner, collaborator, nor admin - deny access
+      raise ActiveRecord::RecordNotFound
     end
 
     def check_edit_access
