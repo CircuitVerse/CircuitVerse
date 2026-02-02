@@ -3,4 +3,19 @@
     margin-right: auto;
     margin-left: 0;
   }
+
+  .users-circuits-search-container > span {
+    display: block;
+    position: relative;
+    width: 100%;
+  }
+
+  .users-circuits-search-container .search-icon-dashboard {
+    left: 12px;
+    margin: 0;
+    position: absolute;
+    right: auto;
+    top: 50%;
+    transform: translateY(-50%);
+  }
 }
