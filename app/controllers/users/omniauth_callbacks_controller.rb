@@ -33,7 +33,25 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def google_oauth2
-    generic_callback("google")
+    # Store Google tokens for Classroom API access
+    auth = request.env["omniauth.auth"]
+    @user = User.from_omniauth(auth)
+
+    if @user.persisted?
+      # Store Google OAuth tokens
+      @user.update(
+        google_access_token: auth.credentials.token,
+        google_refresh_token: auth.credentials.refresh_token
+      )
+
+      sign_in_and_redirect @user, event: :authentication
+      set_flash_message(:notice, :success, kind: "Google") if is_navigational_format?
+    elsif Flipper.enabled?(:block_registration)
+      redirect_to new_user_session_path, alert: t("registration_blocked")
+    else
+      session["devise.google_data"] = auth.except(:extra).except("extra")
+      redirect_to new_user_registration_url
+    end
   end
 
   def github
