@@ -12,6 +12,25 @@ export default class extends Controller {
             $(e.currentTarget).find('#groups-member-demote-button').parent().attr('action',
                 `/group_members/${groupmember.toString()}`);
         });
+                this.moveGroupNameCaretToEnd();
+    }
+        moveGroupNameCaretToEnd() {
+        const input = document.getElementById('group_name');
+        if (!input) return;
+
+        // Defer until the browser applies autofocus/focus.
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                if (document.activeElement !== input && !input.autofocus) return;
+                input.focus();
+                const end = input.value.length;
+                try {
+                    input.setSelectionRange(end, end);
+                } catch {
+                    // Ignore if setSelectionRange isn't supported for some reason.
+                }
+            });
+        });
     }
 
     toggleButtonBasedOnEmails(emailSelector, buttonSelector) {
