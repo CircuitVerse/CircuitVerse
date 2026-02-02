@@ -56,6 +56,22 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def test_classroom_methods
+    if user_signed_in? && current_user.provider == "google_oauth2"
+      classroom_service = GoogleClassroomService.new(current_user)
+      service = classroom_service.instance_variable_get(:@service)
+
+      methods = service.methods.grep(/course.*work/i)
+
+      render json: {
+        available_methods: methods,
+        all_methods_count: service.methods.count
+      }
+    else
+      render json: { error: "Please sign in with Google first" }
+    end
+  end
+
   # Overrides Devise::Controller::StoreLocation.store_location_for to check if
   # URL is too long to store in the session
   def store_location_for(resource_or_scope, location)
