@@ -261,7 +261,7 @@ export function parseNumber(num) {
         return parseInt(num.slice(2), 16);
     if (num.slice(0, 1).toLocaleLowerCase() == '0')
         return parseInt(num, 8);
-    return parseInt(num);
+    return parseInt(num, 10);
 }
 
 export function setupBitConvertor() {
