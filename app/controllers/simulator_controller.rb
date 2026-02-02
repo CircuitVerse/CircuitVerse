@@ -7,6 +7,8 @@ class SimulatorController < ApplicationController
   before_action :authenticate_user!, only: %i[create update edit]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
+
+
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update]
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
@@ -52,7 +54,6 @@ class SimulatorController < ApplicationController
   def embed
     authorize @project
     @logix_project_id = params[:id]
-    @project = Project.friendly.find(params[:id])
     @author = @project.author_id
     @external_embed = true
     if Flipper.enabled?(:vuesim, current_user)
@@ -86,6 +87,7 @@ class SimulatorController < ApplicationController
   end
 
   def update
+    
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
     # ActiveStorage
@@ -149,13 +151,23 @@ class SimulatorController < ApplicationController
     end
 
     def set_project
-      @project = Project.friendly.find(params[:id])
+      @project = Project.friendly.find_by(slug: params[:id]) ||
+                Project.find_by(id: params[:id])
     end
 
     # FIXME: remove this logic after fixing production data
     def set_user_project
-      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
+      @project =
+        current_user.projects.friendly.find_by(id: params[:id]) ||
+        begin
+          Project.friendly.find(params[:id])
+        rescue ActiveRecord::RecordNotFound
+          Project.find_by(id: params[:id])
+        end
+
+      return render json: { error: "Project not found" }, status: :not_found unless @project
     end
+
 
     def check_edit_access
       authorize @project, :edit_access?
