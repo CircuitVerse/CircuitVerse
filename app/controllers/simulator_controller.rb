@@ -5,6 +5,7 @@ class SimulatorController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
 
   before_action :authenticate_user!, only: %i[create update edit]
+  before_action :set_project, only: %i[update]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
@@ -86,6 +87,7 @@ class SimulatorController < ApplicationController
   end
 
   def update
+    return render json: { error: "Project not found" }, status: :not_found unless @project
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
     # ActiveStorage
@@ -149,7 +151,7 @@ class SimulatorController < ApplicationController
     end
 
     def set_project
-      @project = Project.friendly.find(params[:id])
+      @project = Project.find_by(id: params[:id])
     end
 
     # FIXME: remove this logic after fixing production data
