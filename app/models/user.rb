@@ -12,7 +12,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :projects, foreign_key: "author_id", dependent: :destroy
-  has_many :stars
+  has_many :stars, dependent: :destroy
   has_many :votes, class_name: "ActsAsVotable::Vote", as: :voter, dependent: :destroy
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
@@ -23,7 +23,7 @@ class User < ApplicationRecord
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
-  has_many :grades
+  has_many :grades, dependent: :destroy
   acts_as_commontator
   has_many :submissions, dependent: :destroy
   has_many :collaborations, dependent: :destroy
