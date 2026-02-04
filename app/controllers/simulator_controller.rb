@@ -180,6 +180,12 @@ class SimulatorController < ApplicationController
     def handle_statement_timeout(exception)
       Rails.logger.warn("Query timeout in simulator controller: #{exception.message}")
       
+      # Return JSON error for get_data action or JSON requests
+      if action_name == "get_data" || request.format.json?
+        render json: { error: "Request timed out" }, status: :gateway_timeout
+        return
+      end
+
       # Gracefully render the simulator view even if there was a timeout
       # This covers cases where timeouts occur in before_action filters or the action itself
       @logix_project_id = params[:id]
