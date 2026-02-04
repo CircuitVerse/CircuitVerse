@@ -184,6 +184,14 @@ class SimulatorController < ApplicationController
       # This covers cases where timeouts occur in before_action filters or the action itself
       @logix_project_id = params[:id]
       @external_embed = params[:action] == "embed"
+      # Ensure view has safe defaults when @project or @author weren't set
+      @project ||= nil
+      # Use a string-safe author placeholder to avoid nil interpolation errors in views
+      @author = nil unless defined?(author)
+      # If author was left unset from set_project, try to use params or nil-safe string
+      author_id = (defined?(@author) && @author) || params[:author] || params[:user_id]
+      # Normalize to string to avoid nil in URL helpers in the view
+      @author = author_id.to_s
       
       if Flipper.enabled?(:vuesim, current_user)
         render "embed_vue", layout: false

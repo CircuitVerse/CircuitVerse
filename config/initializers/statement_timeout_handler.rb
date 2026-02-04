@@ -2,6 +2,11 @@
 
 # This initializer handles PostgreSQL statement timeout errors gracefully
 # and provides retry logic for critical operations
+#
+# Note: Retry policy uses exponential backoff: `sleep(wait_seconds * (2 ** (retries - 1)))`.
+# Default parameters: `max_retries: 2`, `wait_seconds: 0.1`.
+# Keep retry attempts low to avoid prolonging request latency; retries are
+# intended to recover from transient statement timeouts only.
 
 module StatementTimeoutHandler
   # Wraps a block with retry logic for statement timeouts
@@ -18,7 +23,8 @@ module StatementTimeoutHandler
       retries += 1
       if retries <= max_retries
         Rails.logger.info("Statement timeout (attempt #{retries}/#{max_retries}), retrying...")
-        sleep(wait_seconds * retries) # Exponential backoff
+        # Exponential backoff: wait_seconds * 2^(retries-1)
+        sleep(wait_seconds * (2 ** (retries - 1)))
         retry
       else
         Rails.logger.error("Statement timeout after #{max_retries} retries: #{e.message}")

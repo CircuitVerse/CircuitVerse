@@ -46,7 +46,7 @@
 
       <% if @external_embed  == true %>
         <div id="bottom_right_circuit_heading">
-          <h5><%= @project.name %></h5>
+          <h5><%= @project&.name %></h5>
         </div>
         <div id="bottom_right_watermark">
           <a style="text-decoration:none;
@@ -58,7 +58,7 @@
               font-size: 12px;
               color: grey;
               z-index: 2;"
-             href="/users/<%= @author %>/projects/<%= @logix_project_id %>"
+             href="/users/<%= (author = defined?(@author) ? @author.to_s : '') %>/projects/<%= @logix_project_id %>"
              target="_blank">
             Made With CircuitVerse
           </a>

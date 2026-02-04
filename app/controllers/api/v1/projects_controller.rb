@@ -75,10 +75,13 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       Rails.logger.warn("Query timeout when increasing project views: #{e.message}")
       # Continue without incrementing views rather than fail the request
     end
-    render json: Api::V1::ProjectSerializer.new(@project, @options)
-  rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
-    Rails.logger.warn("Query timeout in show action: #{e.message}")
-    render json: Api::V1::ProjectSerializer.new(@project, @options)
+
+    begin
+      render json: Api::V1::ProjectSerializer.new(@project, @options)
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      Rails.logger.warn("Query timeout during serialization in show action: #{e.message}")
+      render json: { error: "Request timed out" }, status: :gateway_timeout
+    end
   end
 
   # GET /api/v1/projects/:id/circuit_data
