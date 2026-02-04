@@ -189,7 +189,7 @@ describe GradesController, type: :request do
     context "when assignment does not exist" do
       it "returns not found" do
         sign_in @primary_mentor
-        get grades_to_csv_path(99999, format: :csv)
+        get grades_to_csv_path(99_999, format: :csv)
         expect(response).to have_http_status(:not_found)
       end
     end

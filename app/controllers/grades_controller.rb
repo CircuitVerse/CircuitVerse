@@ -54,7 +54,11 @@ class GradesController < ApplicationController
   end
 
   def to_csv
-    @assignment = Assignment.find(params[:assignment_id])
+    @assignment = Assignment.find_by(id: params[:assignment_id])
+    if @assignment.nil?
+      not_found
+      return
+    end
     authorize @assignment, :can_be_graded?
 
     respond_to do |format|
