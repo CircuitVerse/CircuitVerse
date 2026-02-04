@@ -15,7 +15,7 @@ class SimulatorController < ApplicationController
     Flipper.enabled?(:lms_integration, current_user)
   }
 
-  rescue_from ActiveRecord::QueryCanceled, PG::QueryCanceled, with: :handle_statement_timeout
+  rescue_from ActiveRecord::QueryCanceled, PG::QueryCanceled, with: :handle_statement_timeout, only: %i[show embed get_data]
 
   def self.policy_class
     ProjectPolicy
