@@ -181,18 +181,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     # Update circuit data Related methods
 
-    # SECURITY FIX: Properly check ownership or collaboration access
-    # Removes unsafe fallback that bypassed authorization
     def set_user_project
       @project = Project.friendly.find(params[:id])
-
-      # User must be author, collaborator, or admin to access
-      return if @project.author_id == current_user.id
-      return if Collaboration.exists?(project_id: @project.id, user_id: current_user.id)
-      return if current_user.admin?
-
-      # Neither owner, collaborator, nor admin - deny access
-      raise ActiveRecord::RecordNotFound
+      authorize @project, :edit_access?
     end
 
     def build_project_datum
