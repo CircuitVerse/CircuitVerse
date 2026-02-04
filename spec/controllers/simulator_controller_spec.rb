@@ -133,6 +133,16 @@ describe SimulatorController, type: :request do
         end
       end
 
+      context "when collaborator is signed in" do
+        it "allows access to edit page" do
+          @collaborator = FactoryBot.create(:user)
+          FactoryBot.create(:collaboration, project: @project, user: @collaborator)
+          sign_in @collaborator
+          get simulator_edit_path(@project)
+          expect(response).to have_http_status(:success)
+        end
+      end
+
       context "when user other than author is signed in" do
         it "denies access to edit page" do
           sign_in_random_user
