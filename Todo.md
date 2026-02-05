@@ -1,27 +1,8 @@
-# Avo Migration Progress 
+# Avo Migration Progress
 
 This shall be a parallel incremental Migration with existing dashboard
 
-## Proposed Project Structure: 
-- all the resources are added in the `app/avo/resources` in the format : (subject to change)
-```
-app/ 
-├── avo/
-│   ├── resources/
-│   ├── actions/
-│   ├── filters/
-│   ├── dashboards/         
-│   ├── cards/             
-│   └── tools/             
-│
-├── concerns/
-│   └── avo/
-│       └── authentication.rb
-│
-└── policies/
-    └── avo/
-        └── application_policy.rb
-```
+
 ## Plan : 
 
 ### Phase 1 – Core Domain Resources
@@ -65,58 +46,144 @@ Resources to migrate (in this order):
 - Runs
 
 ## TODO:
+
 - [x] Avo installed
 - [x] added `admin2` as the route for accessing avo dashboard
 - [x] added `app/avo/resources` as the base resources, Authentication wired to `current_user.admin?`
-- [ ] Migrate the following panels:
-  - [ ] Navigation
-    - [ ] Announcements
-    - [ ] Assignments
-    - [ ] Collaborations
-    - [ ] Contests
-    - [ ] Contest Winners
-    - [ ] Custom Mails
-    - [ ] Featured Circuits
-    - [ ] Forum Categories
-    - [ ] Forum Posts
-    - [ ] Forum Subscriptions
-    - [ ] Forum Threads
-    - [ ] Grades
-    - [ ] Groups
-    - [ ] Group Members
-    - [ ] Issue Circuits Data
-    - [ ] Noticed Notifications
-    - [ ] Pending Invitations
-    - [ ] Projects
-    - [ ] Project Data
-    - [ ] Push Subscriptions
-    - [ ] Stars
-    - [ ] Submission Votes
-    - [ ] Tags
-    - [ ] Taggings
-    - [ ] Users
+- [x] Migrate the following panels:
+  - [x] Navigation
+    - [x] Announcements
+    - [x] Assignments
+    - [x] Collaborations
+    - [x] Contests
+    - [x] Contest Winners
+    - [x] Custom Mails
+    - [x] Featured Circuits
+    - [x] Forum Categories
+    - [x] Forum Posts
+    - [x] Forum Subscriptions
+    - [x] Forum Threads
+    - [x] Grades
+    - [x] Groups
+    - [x] Group Members
+    - [x] Grades
+    - [x] Groups
+    - [x] Group Members
+    - [x] Issue Circuits Data
+    - [x] Noticed Notifications
+    - [x] Pending Invitations
+    - [x] Projects
+    - [x] Project Data
+    - [x] Push Subscriptions
+    - [x] Stars
+    - [x] Submission
+    - [x] Submission Votes
+    - [x] Tags
+    - [x] Taggings
+    - [x] Users
 
-  - [ ] ActiveStorage
-    - [ ] Attachments
-    - [ ] Blobs
-    - [ ] Variant Records
+  - [x] ActiveStorage
+    - [x] Attachments
+    - [x] Blobs
+    - [x] Variant Records
 
-  - [ ] Commontator
-    - [ ] Comments
-    - [ ] Subscriptions
-    - [ ] Threads
+  - [x] Commontator
+    - [x] Comments
+    - [x] Subscriptions
+    - [x] Threads
 
-  - [ ] Ahoy
-    - [ ] Events
-    - [ ] Visits
+  - [x] Ahoy
+    - [x] Events
+    - [x] Visits
 
-  - [ ] Mailkick
-    - [ ] Opt Outs
+  - [x] Mailkick
+    - [x] Opt Outs
 
-  - [ ] Maintenance Tasks
-    - [ ] Runs
+  - [x] Maintenance Tasks
+    - [x] Runs
 
-- [ ] Migrate site administration
+- [x] Migrate site administration
 - [ ] Add test files (optional)
-- [ ] Grouping of the resources according to panels
+- [ ] Grouping of the resources according to panels (requires avo PRO)
 - [x] Circuitverse themed dashboard
+- [ ] group the files in folder manner in codebase
+--- 
+
+Bugs: 
+- [ ] Assignments - grades finalized, feature restrictions, projects, grades(projects and grades comes after creation), list all the values in view, export
+- [ ] collaboration - export, createdAt date in jan 27 format rather than numbers, show in app(eye icon)
+- [ ] contests - add filters - deadline,createdAt,updatedAt, add submissions, submission votes, contest winner while creating, export found contests
+- [ ] contest winners - export, filter, export found winners
+- [ ] custom mails - content, export, sent, remove createdAt, updatedAt as its read only, filter on all
+- [ ] new featured circuit - edit this project, export, filter
+- [x] forum categories - export, filter, 
+- [ ] forum posts - export, filter, solved
+- [ ] forum subcription - export, filter
+- [ ] forum thread - optin subs,optout subs, users
+- [ ] grades - filter(add all),export
+- [ ] groups - group member count, group token,token expires at
+- [ ] group members - assignment addition
+- [ ] issue circuit data - export 
+- [ ] pending invitations - export
+- [ ] project data - export,filter  
+- [ ] projects - actions(toggle featured status), export, adding forks, stars, collaborators, taggings, grade, commentator thread etc
+- [ ] push notif - fitler export 
+- [ ] stars - filter, export 
+- [ ] submissions - filter, exports, submission votes count,
+- [ ] submission votes - filter export 
+- [ ] subscriptions - rename as commentator subscription, filter export, rename thread to discussion
+- [ ] tags - taggings, projects 
+- [ ] tagging - filter,export
+- [ ] users - filter, export, actions remove,password,password confirmation, reset password sent at, remember createdAt last sign in At, current signin ip remove read only etc many more   
+- [ ] activeStorage attachments - filter export,
+- [x] activeStorage blob - Filename,Content type, Metadata, Service name, byte size, checksum,attachemnts, variant records,preview image
+- [x] variant records - filter, export
+- [x] comments - filter,export, read only many are there, tconvert name of thread to discussion, children
+- [x] threads - rename as commentator threads, closer remove, comments and subs, fitler export
+- [x] events - filter export events
+- [x] mailkick - filter export lock version csv upload
+- [ ] mailkick - extra user field in creating, adding field options for export
+
+
+---
+
+## Avo Folder Structure
+
+Group Avo-related code for clarity and Rails autoloading:
+
+```
+app/
+├── avo/
+│   ├── resources/        # Avo resource classes (one file per resource)
+│   ├── actions/          # Avo actions (exports, deletes, toggles)
+│   ├── filters/          # Filters; subfolders per resource (see below)
+│   ├── dashboards/       # Avo dashboards
+│   ├── cards/            # Avo cards
+│   └── tools/            # Custom Avo tools
+│
+├── overrides/            # Model/other overrides (e.g. declare associations)
+│   └── models/
+│       └── forum_category_override.rb
+│
+└── views/
+  └── avo/              # Optional custom Avo partials (only if needed)
+```
+
+Suggested filters folder layout (namespaced to avoid collisions):
+
+```
+app/avo/filters/forum_category/
+├── id.rb                # class Avo::Filters::ForumCategory::Id
+├── name.rb              # class Avo::Filters::ForumCategory::Name
+├── slug.rb              # class Avo::Filters::ForumCategory::Slug
+├── color.rb             # class Avo::Filters::ForumCategory::Color
+├── created_at.rb        # class Avo::Filters::ForumCategory::CreatedAt
+└── updated_at.rb        # class Avo::Filters::ForumCategory::UpdatedAt
+```
+
+Conventions:
+- Match module nesting to folder layout: `Avo::Filters::ForumCategory::CreatedAt`.
+- Keep one class per file and use descriptive names.
+- Only override Avo partials when custom UI is required; prefer built-in filters.
+
+
