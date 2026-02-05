@@ -10,8 +10,14 @@ class Avo::Filters::NoticedNotificationType < Avo::Filters::SelectFilter
   end
 
   def options
-    ::NoticedNotification.distinct.pluck(:type).compact.sort.each_with_object({}) do |type, hash|
-      hash[type] = type
-    end
+    {
+      "ContestNotification" => "Contest Notification",
+      "ContestWinnerNotification" => "Contest Winner Notification",
+      "ForkNotification" => "Fork Notification",
+      "ForumCommentNotification" => "Forum Comment Notification",
+      "ForumThreadNotification" => "Forum Thread Notification",
+      "NewAssignmentNotification" => "New Assignment Notification",
+      "StarNotification" => "Star Notification"
+    }
   end
 end
