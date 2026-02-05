@@ -857,9 +857,11 @@ function saveOffline() {
 function checkToSave() {
     var save = false
     for (id in scopeList) {
-        save |= checkIfBackup(scopeList[id]);
+        if (checkIfBackup(scopeList[id])){
+            return true; 
+        }
     }
-    return save;
+    return false;
 }
 
 // Prompt user to save data if unsaved
