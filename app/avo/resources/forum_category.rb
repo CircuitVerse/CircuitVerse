@@ -16,4 +16,18 @@ class Avo::Resources::ForumCategory < Avo::BaseResource
 
     field :forum_threads, as: :has_many
   end
+
+  def filters
+    filter Avo::Filters::ForumCategoryId
+    filter Avo::Filters::ForumCategoryName
+    filter Avo::Filters::ForumCategorySlug
+    filter Avo::Filters::ForumCategoryColor
+    filter Avo::Filters::ForumCategoryCreatedAt
+    filter Avo::Filters::ForumCategoryUpdatedAt
+  end
+
+  def actions
+    action Avo::Actions::ExportSelectedForumCategories
+    action Avo::Actions::DeleteSelectedForumCategories
+  end
 end

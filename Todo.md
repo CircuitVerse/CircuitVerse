@@ -124,7 +124,7 @@ Resources to migrate (in this order):
 - [ ] Add test files (optional)
 - [ ] Grouping of the resources according to panels (requires avo PRO)
 - [x] Circuitverse themed dashboard
-
+- [ ] group the files in folder manner in codebase
 --- 
 
 Bugs: 
@@ -134,7 +134,7 @@ Bugs:
 - [ ] contest winners - export, filter, export found winners
 - [ ] custom mails - content, export, sent, remove createdAt, updatedAt as its read only, filter on all
 - [ ] new featured circuit - edit this project, export, filter
-- [ ] forum categories - export, filter, 
+- [x] forum categories - export, filter, 
 - [ ] forum posts - export, filter, solved
 - [ ] forum subcription - export, filter
 - [ ] forum thread - optin subs,optout subs, users
@@ -160,5 +160,4 @@ Bugs:
 - [x] threads - rename as commentator threads, closer remove, comments and subs, fitler export
 - [x] events - filter export events
 - [x] mailkick - filter export lock version csv upload
-
-
+- [ ] mailkick - extra user field in creating, adding field options for export
