@@ -32,7 +32,6 @@ $bg-text-grey: #cacaca; //dropdown menu hover background
 $bg-secondary-grey: #bbbbbb; //input border bottom & select background
 $br-secondary: #7d7d7d;
 
-
 //btn
 $bg-toggle-btn-primary: #42b983;
 $bg-primary-btn-hov: #3ca877; //custom
@@ -41,7 +40,6 @@ $btn-danger-red-dark: #b03662; //hover
 
 $cus-btn-hover-bg: #ddd;
 $cus-btn-hover-text: #000;
-
 
 //context menu
 $context-text: white;
@@ -60,7 +58,7 @@ $stroke: black;
 $secondary-stroke: red;
 $fill: white;
 $input-text: green;
-$hover-and-sel: rgba(255, 255, 32,0.8);
+$hover-and-sel: rgba(255, 255, 32, 0.8);
 $wire-draw: black;
 $wire-cnt: green;
 $wire-pow: Lime;
@@ -74,9 +72,9 @@ $splitter: black;
 $output-rect: blue;
 
 //touch Screen Menu
-$touch-menu:#454545;
+$touch-menu: #454545;
 
-:root{
+:root {
   --primary: $baseDefault;
 
   --bg-navbar: $bg-navbar;
@@ -252,14 +250,17 @@ $touch-menu:#454545;
   border: 1px solid var(--br-secondary);
 }
 
-.search-results, .search-close {
+.search-results,
+.search-close {
   color: var(--text-panel);
 }
 
 #exitViewBtn {
   border: 1px solid var(--br-primary);
 }
-.ce-hidden,.prop-hidden, #exitViewBtn {
+.ce-hidden,
+.prop-hidden,
+#exitViewBtn {
   color: var(--text-panel);
   background: var(--primary);
 }
@@ -277,7 +278,6 @@ $touch-menu:#454545;
   background-color: var(--br-primary);
   border: 1px solid var(--br-primary);
 }
-
 
 .ui-accordion .ui-accordion-content {
   background-color: white;
@@ -314,7 +314,7 @@ $touch-menu:#454545;
   border-top: 1px solid var(--br-primary);
 }
 
-#tabsBar .circuits  {
+#tabsBar .circuits {
   border: 1px solid var(--br-circuit);
 }
 
@@ -331,7 +331,6 @@ $touch-menu:#454545;
 
 #tabsBar .current > span {
   // color: var(--text-panel);
-
 }
 
 #tabsBar button {
@@ -435,6 +434,13 @@ input:checked + .slider {
   color: var(--text-lite);
 }
 
+.import-btn {
+  width: 30%;
+  text-align: center;
+  padding: 5px;
+  border-radius: 2px;
+}
+
 #HelpButton {
   border: 1px solid var(--br-primary);
   color: var(--text-panel);
@@ -450,19 +456,19 @@ select {
   border: 2px solid var(--br-primary);
   box-shadow: 0px 0px 10px #4545457f;
   background-color: var(--primary);
-  color: var(--text-panel)
+  color: var(--text-panel);
 }
 
 #layoutDialog > div span:before {
-  color: var(--text-panel)
+  color: var(--text-panel);
 }
 
 .panel-heading {
-  color: var(--text-panel)
+  color: var(--text-panel);
 }
 
 .ui-dialog {
-  border: .5px solid var(--br-primary) !important;
+  border: 0.5px solid var(--br-primary) !important;
   background: var(--bg-primary-moz) !important;
 }
 
@@ -625,9 +631,8 @@ select {
 }
 
 .input-group-append button:hover {
-  background:  var(--bg-secondary) !important;
+  background: var(--bg-secondary) !important;
   color: var(--text-lite) !important;
-
 }
 
 .input-group-prepend button {
@@ -658,7 +663,7 @@ select {
   border: 1px solid var(--br-primary);
   color: var(--text-panel);
 }
- // Css for mobile version UI
+// Css for mobile version UI
 .smallscreen-navbar {
   background-color: var(--primary);
   color: var(--text-panel);
@@ -689,9 +694,8 @@ select {
   background: var(--text-panel);
 }
 #smallNavbarMenu-btn.active::before {
-
   box-shadow: 0 0 0 var(--text-panel);
- }
+}
 
 #TouchCe-panel::before {
   border-color: transparent transparent var(--br-secondary);
@@ -706,7 +710,7 @@ select {
   background-color: var(--br-primary);
   border: 1px solid var(--br-primary);
 }
-#touchElement-property:before{
+#touchElement-property:before {
   border-color: transparent transparent var(--br-secondary) transparent;
 }
 #touchtD-popover {
@@ -722,7 +726,6 @@ select {
   border: 1px solid var(--br-secondary);
   color: var(--text-panel);
 }
-
 
 #touch-timing-diagram-toolbar {
   background-color: var(--bg-tabs);
@@ -756,7 +759,6 @@ select {
   background-color: var(--primary);
   border: 1px solid var(--br-secondary);
   color: var(--text-panel);
-
 }
 .ce-name {
   border-bottom: 2px solid var(--br-secondary);
