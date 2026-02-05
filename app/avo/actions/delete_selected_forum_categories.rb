@@ -17,7 +17,9 @@ class Avo::Actions::DeleteSelectedForumCategories < Avo::BaseAction
       destroyed += 1 if record.destroy
     end
 
-    succeed "Deleted #{destroyed} forum categor#{'y' if destroyed == 1}#{'ies' unless destroyed == 1}" unless destroyed.zero?
+    unless destroyed.zero?
+      succeed "Deleted #{destroyed} forum categor#{'y' if destroyed == 1}#{'ies' unless destroyed == 1}"
+    end
     error "No records were deleted" if destroyed.zero?
   end
 
@@ -26,6 +28,7 @@ class Avo::Actions::DeleteSelectedForumCategories < Avo::BaseAction
     def fetch_records(args)
       query = args[:query]
       return [] if query.blank? || (query.respond_to?(:empty?) && query.empty?)
+
       query.respond_to?(:to_a) ? query.to_a : query
     end
 end
