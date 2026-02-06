@@ -3,4 +3,79 @@
     margin-right: auto;
     margin-left: 0;
   }
+
+  // RTL support for notification dropdown
+  .dropdown-notification {
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  // RTL support for notification bell positioning
+  .navbar-3 {
+    .notification-count {
+      right: -8px;
+      left: auto;
+    }
+  }
+
+  // RTL support for notification content alignment
+  .nb-notification {
+    direction: rtl;
+    text-align: right;
+
+    i {
+      margin-left: 15px;
+      margin-right: 0;
+    }
+
+    .message-wrapper {
+      text-align: right;
+    }
+  }
+
+  // RTL support for notification dropdown menu positioning
+  #navbar-dropdown-3 {
+    .dropdown-menu {
+      left: 0;
+      right: auto;
+    }
+  }
+
+  // RTL support for Bootstrap dropdown alignment
+  .dropdown-menu-end {
+    left: 0 !important;
+    right: auto !important;
+  }
+
+  // RTL support for navbar dropdown positioning
+  #navbar-dropdown-1,
+  #navbar-dropdown-2,
+  #navbar-dropdown-3 {
+    margin-inline-end: -10px;
+    margin-inline-start: auto;
+  }
+
+  // RTL support for notification dropdown buttons
+  .dropdown-notification {
+    .d-flex {
+      &.justify-content-between {
+        .cancel-button {
+          margin-left: auto;
+          margin-right: 0;
+        }
+      }
+    }
+
+    .anchor-text-left {
+      float: right;
+      margin-left: 10px;
+      margin-right: 0;
+    }
+
+    .anchor-text-right {
+      float: left;
+      margin-right: 10px;
+      margin-left: 0;
+    }
+  }
 }

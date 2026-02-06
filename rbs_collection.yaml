@@ -17,7 +17,6 @@ gems:
   - name: steep
     ignore: true
   - name: meta-tags
-    ignore: true
   - name: parser
     ignore: true
   - name: rubocop
