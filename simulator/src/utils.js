@@ -59,7 +59,8 @@ export function showError(error) {
     });
     prevErrorMessage = error;
     var id = Math.floor(Math.random() * 10000);
-    $('#MessageDiv').append(`<div class='alert alert-danger' role='alert' id='${id}'> ${error}</div>`);
+    var safeError = escapeHtml(String(error || ''));
+    $('#MessageDiv').append(`<div class='alert alert-danger' role='alert' id='${id}'> ${safeError}</div>`);
     fadeTimeOut = setTimeout(() => {
         prevErrorMessage = undefined;
         $(`#${id}`).fadeOut();
@@ -71,7 +72,8 @@ export function showMessage(mes) {
     if (mes === prevShowMessage) return;
     prevShowMessage = mes;
     var id = Math.floor(Math.random() * 10000);
-    $('#MessageDiv').append(`<div class='alert alert-success' role='alert' id='${id}'> ${mes}</div>`);
+    var safeMes = escapeHtml(String(mes || ''));
+    $('#MessageDiv').append(`<div class='alert alert-success' role='alert' id='${id}'> ${safeMes}</div>`);
     setTimeout(() => {
         prevShowMessage = undefined;
         $(`#${id}`).fadeOut();
@@ -120,7 +122,7 @@ export function gateGenerateVerilog(gate, invert = false) {
     res += " = ";
 
     var inputParams = inputs.map(x => x.verilogLabel).join(` ${gate} `);
-    if(invert) {
+    if (invert) {
         res += `~(${inputParams});`;
     }
     else {
@@ -162,15 +164,15 @@ export function copyToClipboard(text) {
     textarea.setAttribute('readonly', true);
 
     document.body.appendChild(textarea);
-      textarea.value = text;
+    textarea.value = text;
 
-      // Check if there is any content selected previously.
-      const selected = document.getSelection().rangeCount > 0 ?
+    // Check if there is any content selected previously.
+    const selected = document.getSelection().rangeCount > 0 ?
         document.getSelection().getRangeAt(0) : false;
 
-      // iOS Safari blocks programmatic execCommand copying normally, without this hack.
-      // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
-      if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
+    // iOS Safari blocks programmatic execCommand copying normally, without this hack.
+    // https://stackoverflow.com/questions/34045777/copy-to-clipboard-using-javascript-in-ios
+    if (navigator.userAgent.match(/ipad|ipod|iphone/i)) {
         const editable = textarea.contentEditable;
         textarea.contentEditable = true;
         const range = document.createRange();
@@ -180,27 +182,27 @@ export function copyToClipboard(text) {
         sel.addRange(range);
         textarea.setSelectionRange(0, 999999);
         textarea.contentEditable = editable;
-      }
-      else {
+    }
+    else {
         textarea.select();
-      }
+    }
 
-      try {
+    try {
         const result = document.execCommand('copy');
 
         // Restore previous selection.
         if (selected) {
-          document.getSelection().removeAllRanges();
-          document.getSelection().addRange(selected);
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(selected);
         }
         textarea.remove();
         return result;
-      }
-      catch (err) {
+    }
+    catch (err) {
         console.error(err);
         textarea.remove();
         return false;
-      }
+    }
 };
 
 export function truncateString(str, num) {
@@ -227,14 +229,14 @@ export function bitConverterDialog() {
 }
 
 export function getImageDimensions(file) {
-    return new Promise (function (resolved, rejected) {
-      var i = new Image()
-      i.onload = function(){
-        resolved({w: i.width, h: i.height})
-      };
-      i.src = file
+    return new Promise(function (resolved, rejected) {
+        var i = new Image()
+        i.onload = function () {
+            resolved({ w: i.width, h: i.height })
+        };
+        i.src = file
     })
-  }
+}
 
 // convertors
 export var convertors = {
@@ -282,13 +284,13 @@ export function setupBitConvertor() {
     $("#bcdInput").on('keyup', function () {
         var input = $("#bcdInput").val();
         var num = 0;
-        while (input.length % 4 !== 0){
+        while (input.length % 4 !== 0) {
             input = "0" + input;
         }
-        if(input !== 0){
+        if (input !== 0) {
             var i = 0;
-            while (i < input.length / 4){
-                if(parseInt(input.slice((4 * i), 4 * (i + 1)), 2) < 10)
+            while (i < input.length / 4) {
+                if (parseInt(input.slice((4 * i), 4 * (i + 1)), 2) < 10)
                     num = num * 10 + parseInt(input.slice((4 * i), 4 * (i + 1)), 2);
                 else
                     return setBaseValues(NaN);
@@ -314,18 +316,18 @@ export function promptFile(contentType, multiple) {
     input.type = "file";
     input.multiple = multiple;
     input.accept = contentType;
-    return new Promise(function(resolve) {
-      document.activeElement.onfocus = function() {
-        document.activeElement.onfocus = null;
-        setTimeout(resolve, 500);
-      };
-      input.onchange = function() {
-        var files = Array.from(input.files);
-        if (multiple)
-          return resolve(files);
-        resolve(files[0]);
-      };
-      input.click();
+    return new Promise(function (resolve) {
+        document.activeElement.onfocus = function () {
+            document.activeElement.onfocus = null;
+            setTimeout(resolve, 500);
+        };
+        input.onchange = function () {
+            var files = Array.from(input.files);
+            if (multiple)
+                return resolve(files);
+            resolve(files[0]);
+        };
+        input.click();
     });
 }
 

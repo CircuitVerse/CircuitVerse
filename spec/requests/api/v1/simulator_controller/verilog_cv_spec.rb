@@ -13,7 +13,9 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        allow(HTTP).to receive(:post).and_return(response_double)
+        http_client = instance_double(HTTP::Client)
+        allow(HTTP).to receive(:timeout).and_return(http_client)
+        allow(http_client).to receive(:post).and_return(response_double)
       end
 
       it "returns a successful response with correct JSON" do
@@ -28,7 +30,9 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        allow(HTTP).to receive(:post).and_return(response_double)
+        http_client = instance_double(HTTP::Client)
+        allow(HTTP).to receive(:timeout).and_return(http_client)
+        allow(http_client).to receive(:post).and_return(response_double)
       end
 
       it "returns the failed status code" do
