@@ -62,9 +62,9 @@ export function verilogModeGet() {
 }
 
 export function verilogModeSet(mode) {
-    if(mode == verilogMode) return;
+    if (mode == verilogMode) return;
     verilogMode = mode;
-    if(mode) {
+    if (mode) {
         $('#code-window').show();
         $('.elementPanel').hide();
         $('.timing-diagram-panel').hide();
@@ -189,12 +189,10 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             }
             else {
                 var errorMessage = XMLHttpRequest.responseJSON;
-                showError(errorMessage?.message || "There is some issue with the code");
-                $('#verilogOutput').html(errorMessage?.message || "Unknown error");
+                var msg = errorMessage?.message || "There is some issue with the code";
+                showError(msg);
+                $('#verilogOutput').text(msg);
             }
-        },
-        failure: function (err) {
-
         }
     });
 }
