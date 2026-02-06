@@ -1,6 +1,6 @@
 # Yosys2Digitaljs Ruby Gem
 
-A pure Ruby port of the `yosys2digitaljs` compiler. It runs Yosys on Verilog code and converts the resulting netlist into a DigitalJS-compatible JSON format.
+A pure Ruby port of the [`yosys2digitaljs`](https://github.com/tilk/yosys2digitaljs) compiler. It runs Yosys on Verilog code and converts the resulting netlist into a DigitalJS-compatible JSON format.
 
 ## Architecture Change
 > [!NOTE]

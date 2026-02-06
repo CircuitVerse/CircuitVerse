@@ -4,12 +4,6 @@
 <script src="/js/plugins/checkBo.min.js" defer></script>
 <script src="/js/plugins/bootstrap-input-spinner.js" defer></script>
 
-<script>
-  window.isUserLoggedIn = <%= user_signed_in? %>;
-  window.logixProjectId = "<%= j @logix_project_id %>";
-  window.projectName = "<%= j @projectName %>"
-</script>
-
 <div id='exitView'></div>
 <nav class="navbar navbar-expand-lg navbar-dark header">
   <a href="/"><span class='logo'></span></a>

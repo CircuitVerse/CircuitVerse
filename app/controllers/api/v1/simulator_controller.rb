@@ -37,7 +37,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
       return
     end
 
-    if Flipper.enabled?(:yosys_local_gem)
+    if Flipper.enabled?(:yosys_local_gem, current_user)
       compile_with_local_gem
     else
       compile_with_external_api
