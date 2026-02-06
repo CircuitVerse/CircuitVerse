@@ -77,12 +77,32 @@ module Yosys2Digitaljs
       @errors << "Mismatched begin/end: found #{begin_count} 'begin' and #{end_count} 'end'"
     end
 
-    # Strip single-line and multi-line comments
+    # Strip single-line (//) and multi-line (/* */) comments
     def strip_comments(code)
-      # Remove single-line comments
-      code = code.gsub(%r{//.*$}, '')
-      # Remove multi-line comments
-      code.gsub(%r{/\*.*?\*/}m, '')
+      result = []
+      in_multiline_comment = false
+      i = 0
+
+      while i < code.length
+        if in_multiline_comment
+          if code[i, 2] == '*/'
+            in_multiline_comment = false
+            i += 2
+          else
+            i += 1
+          end
+        elsif code[i, 2] == '//'
+          i += 1 while i < code.length && code[i] != "\n"
+        elsif code[i, 2] == '/*'
+          in_multiline_comment = true
+          i += 2
+        else
+          result << code[i]
+          i += 1
+        end
+      end
+
+      result.join
     end
   end
 end

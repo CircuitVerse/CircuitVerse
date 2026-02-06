@@ -71,4 +71,3 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     render json: { message: "Invalid response from Yosys API" }, status: :internal_server_error
   end
 end
-
