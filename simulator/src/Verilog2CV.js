@@ -62,9 +62,9 @@ export function verilogModeGet() {
 }
 
 export function verilogModeSet(mode) {
-    if (mode == verilogMode) return;
+    if(mode == verilogMode) return;
     verilogMode = mode;
-    if (mode) {
+    if(mode) {
         $('#code-window').show();
         $('.elementPanel').hide();
         $('.timing-diagram-panel').hide();
