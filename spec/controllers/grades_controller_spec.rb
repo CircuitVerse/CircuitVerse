@@ -173,6 +173,7 @@ describe GradesController, type: :request do
       it "returns unauthorized error" do
         sign_in FactoryBot.create(:user)
         get grades_to_csv_path(@assignment, format: :csv)
+        expect(response).to have_http_status(:forbidden)
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
     end
@@ -182,6 +183,7 @@ describe GradesController, type: :request do
         @assignment.update!(deadline: 1.day.from_now)
         sign_in @primary_mentor
         get grades_to_csv_path(@assignment, format: :csv)
+        expect(response).to have_http_status(:forbidden)
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
     end
