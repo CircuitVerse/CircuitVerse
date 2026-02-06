@@ -9,7 +9,7 @@ Rails.application.config.assets.quite = false
 # Rails.application.config.assets.paths << Emoji.images_path
  Rails.application.config.assets.paths << Rails.root.join('node_modules')
  Rails.application.config.assets.precompile += %w[simulator.css simulator.js application_sprockets.js application.js testbench.js testbench.css mailer.css]
- Rails.application.config.assets.precompile += ["*.svg", "*.eot", "*.woff", "*.woff2", "*.ttf", "*.otf", "*.png"]
+ Rails.application.config.assets.precompile += ["*.svg", "*.eot", "*.woff", "*.woff2", "*.ttf", "*.otf", "*.png", "*.ico"]
 
 Rails.application.config.assets.paths << Rails.root.join('app', 'assets', 'images')
 
