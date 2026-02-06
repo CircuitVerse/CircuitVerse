@@ -9,9 +9,9 @@
 /* eslint-disable no-use-before-define */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-alert */
-import CircuitElement from './circuitElement';
-import plotArea from './plotArea';
-import simulationArea, { changeClockTime } from './simulationArea';
+import CircuitElement from "./circuitElement";
+import plotArea from "./plotArea";
+import simulationArea, { changeClockTime } from "./simulationArea";
 import {
     stripTags,
     uniq,
@@ -19,26 +19,36 @@ import {
     showError,
     truncateString,
     escapeHtml,
-} from './utils';
-import { findDimensions, dots } from './canvasApi';
-import { updateRestrictedElementsList } from './restrictedElementDiv';
-import { scheduleBackup } from './data/backupCircuit';
-import { showProperties } from './ux';
+} from "./utils";
+import { findDimensions, dots } from "./canvasApi";
+import { updateRestrictedElementsList } from "./restrictedElementDiv";
+import { scheduleBackup } from "./data/backupCircuit";
+import { showProperties } from "./ux";
 import {
-    scheduleUpdate, updateSimulationSet,
-    updateCanvasSet, updateSubcircuitSet,
-    forceResetNodesSet, changeLightMode,
-} from './engine';
-import { toggleLayoutMode, layoutModeGet } from './layoutMode';
-import { setProjectName, getProjectName } from './data/save';
-import { changeClockEnable } from './sequential';
-import { changeInputSize } from './modules';
-import { verilogModeGet, verilogModeSet } from './Verilog2CV';
-import { updateTestbenchUI } from './testbench';
-import load from './data/load';
+    scheduleUpdate,
+    updateSimulationSet,
+    updateCanvasSet,
+    updateSubcircuitSet,
+    forceResetNodesSet,
+    changeLightMode,
+} from "./engine";
+import { toggleLayoutMode, layoutModeGet } from "./layoutMode";
+import { setProjectName, getProjectName } from "./data/save";
+import { changeClockEnable } from "./sequential";
+import { changeInputSize } from "./modules";
+import { verilogModeGet, verilogModeSet } from "./Verilog2CV";
+import { updateTestbenchUI } from "./testbench";
+import load from "./data/load";
 
 export const circuitProperty = {
-    toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
+    toggleLayoutMode,
+    setProjectName,
+    changeCircuitName,
+    changeClockTime,
+    deleteCurrentCircuit,
+    changeClockEnable,
+    changeInputSize,
+    changeLightMode,
 };
 export var scopeList = {};
 export function resetScopeList() {
@@ -53,13 +63,17 @@ export function resetScopeList() {
  * @category circuit
  */
 export function switchCircuit(id) {
-    if (layoutModeGet()) { toggleLayoutMode(); }
-    if (verilogModeGet()) { verilogModeSet(false);}
+    if (layoutModeGet()) {
+        toggleLayoutMode();
+    }
+    if (verilogModeGet()) {
+        verilogModeSet(false);
+    }
 
     // globalScope.fixLayout();
     scheduleBackup();
     if (id === globalScope.id) return;
-    $('.circuits').removeClass('current');
+    $(".circuits").removeClass("current");
     simulationArea.lastSelected = undefined;
     simulationArea.multipleObjectSelections = [];
     simulationArea.copyList = [];
@@ -68,7 +82,7 @@ export function switchCircuit(id) {
         verilogModeSet(true);
     }
     if (globalScope.isVisible()) {
-        $(`#${id}`).addClass('current');
+        $(`#${id}`).addClass("current");
     }
     updateSimulationSet(true);
     updateSubcircuitSet(true);
@@ -92,18 +106,20 @@ export function switchCircuit(id) {
  * Ensures that at least one circuit is there
  * Ensures that no circuit depends on the current circuit
  * Switched to a random circuit
-  * @category circuit
-*/
+ * @category circuit
+ */
 function deleteCurrentCircuit(scopeId = globalScope.id) {
     const scope = scopeList[scopeId];
     if (Object.keys(scopeList).length <= 1) {
-        showError('At least 2 circuits need to be there in order to delete a circuit.');
+        showError(
+            "At least 2 circuits need to be there in order to delete a circuit.",
+        );
         return;
     }
-    let dependencies = '';
+    let dependencies = "";
     for (id in scopeList) {
         if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
-            if (dependencies === '') {
+            if (dependencies === "") {
                 dependencies = scopeList[id].name;
             } else {
                 dependencies += `, ${scopeList[id].name}`;
@@ -116,7 +132,9 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         return;
     }
 
-    const confirmation = confirm(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
+    const confirmation = confirm(
+        `Are you sure want to close: ${scope.name}\nThis cannot be undone.`,
+    );
     if (confirmation) {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
@@ -126,8 +144,10 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
         switchCircuit(Object.keys(scopeList)[0]);
-        showMessage('Circuit was successfully closed');
-    } else { showMessage('Circuit was not closed'); }
+        showMessage("Circuit was successfully closed");
+    } else {
+        showMessage("Circuit was not closed");
+    }
 }
 
 /**
@@ -151,9 +171,13 @@ export function createNewCircuitScope() {
  * @category circuit
  */
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
-    if (layoutModeGet()) { toggleLayoutMode(); }
-    if (verilogModeGet()) { verilogModeSet(false); }
-    name = name || prompt('Enter circuit name:', 'Untitled-Circuit');
+    if (layoutModeGet()) {
+        toggleLayoutMode();
+    }
+    if (verilogModeGet()) {
+        verilogModeSet(false);
+    }
+    name = name || prompt("Enter circuit name:", "Untitled-Circuit");
     name = escapeHtml(stripTags(name));
     if (!name) return;
     const scope = new Scope(name);
@@ -164,35 +188,35 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         scope.verilogMetadata.isMainCircuit = isVerilogMain;
     }
     globalScope = scope;
-    $('.circuits').removeClass('current');
+    $(".circuits").removeClass("current");
     if (!isVerilog || isVerilogMain) {
         if (embed) {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
-            $('#tabsBar').append(html);
-            $("#tabsBar").addClass('embed-tabs');
+            $("#tabsBar").append(html);
+            $("#tabsBar").addClass("embed-tabs");
         } else {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
-            $('#tabsBar').children().last().before(html);
+            $("#tabsBar").children().last().before(html);
         }
 
         // Remove listeners
-        $('.circuits').off('click');
-        $('.circuitName').off('click');
-        $('.tabsCloseButton').off('click');
+        $(".circuits").off("click");
+        $(".circuitName").off("click");
+        $(".tabsCloseButton").off("click");
 
         // Add listeners
-        $('.circuits').on('click',function () {
+        $(".circuits").on("click", function () {
             switchCircuit(this.id);
         });
 
-        $('.circuitName').on('click',(e) => {
+        $(".circuitName").on("click", (e) => {
             simulationArea.lastSelected = globalScope.root;
             setTimeout(() => {
-                document.getElementById('circname').select();
+                document.getElementById("circname").select();
             }, 100);
         });
 
-        $('.tabsCloseButton').on('click',function (e) {
+        $(".tabsCloseButton").on("click", function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
         });
@@ -212,7 +236,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
  * @category circuit
  */
 export function changeCircuitName(name, id = globalScope.id) {
-    name = name || 'Untitled';
+    name = name || "Untitled";
     name = escapeHtml(stripTags(name));
     $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
     scopeList[id].name = name;
@@ -226,14 +250,14 @@ export function changeCircuitName(name, id = globalScope.id) {
  * @category circuit
  */
 export default class Scope {
-    constructor(name = 'localScope', id = undefined) {
+    constructor(name = "localScope", id = undefined) {
         this.restrictedCircuitElementsUsed = [];
-        this.id = id || Math.floor((Math.random() * 100000000000) + 1);
+        this.id = id || Math.floor(Math.random() * 100000000000 + 1);
         this.CircuitElement = [];
         this.name = name;
 
         // root object for referring to main canvas - intermediate node uses this
-        this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
+        this.root = new CircuitElement(0, 0, this, "RIGHT", 1);
         this.backups = [];
         // maintaining a state (history) for redo function
         this.history = [];
@@ -241,7 +265,7 @@ export default class Scope {
         this.verilogMetadata = {
             isVerilogCircuit: false,
             isMainCircuit: false,
-            code: '// Write Some Verilog Code Here!',
+            code: "// Write Some Verilog Code Here!",
             subCircuitScopeIds: [],
         };
 
@@ -253,7 +277,8 @@ export default class Scope {
         this.initialize();
 
         // Setting default layout
-        this.layout = { // default position
+        this.layout = {
+            // default position
             width: 100,
             height: 40,
             title_x: 50,
@@ -284,7 +309,9 @@ export default class Scope {
      * Resets all nodes recursively
      */
     reset() {
-        for (let i = 0; i < this.allNodes.length; i++) { this.allNodes[i].reset(); }
+        for (let i = 0; i < this.allNodes.length; i++) {
+            this.allNodes[i].reset();
+        }
         for (let i = 0; i < this.Splitter.length; i++) {
             this.Splitter[i].reset();
         }
@@ -295,7 +322,7 @@ export default class Scope {
 
     /**
      * Adds all inputs to simulationQueue
-    */
+     */
     addInputs() {
         for (let i = 0; i < inputList.length; i++) {
             for (var j = 0; j < this[inputList[i]].length; j++) {
@@ -303,15 +330,21 @@ export default class Scope {
             }
         }
 
-        for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].addInputs(); }
+        for (let i = 0; i < this.SubCircuit.length; i++) {
+            this.SubCircuit[i].addInputs();
+        }
     }
 
     /**
      * Ticks clocks recursively -- needs to be deprecated and synchronize all clocks with a global clock
      */
     clockTick() {
-        for (let i = 0; i < this.Clock.length; i++) { this.Clock[i].toggleState(); } // tick clock!
-        for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].localScope.clockTick(); } // tick clock!
+        for (let i = 0; i < this.Clock.length; i++) {
+            this.Clock[i].toggleState();
+        } // tick clock!
+        for (let i = 0; i < this.SubCircuit.length; i++) {
+            this.SubCircuit[i].localScope.clockTick();
+        } // tick clock!
     }
 
     /**
@@ -320,9 +353,14 @@ export default class Scope {
      */
     checkDependency(id) {
         if (id === this.id) return true;
-        for (let i = 0; i < this.SubCircuit.length; i++) { if (this.SubCircuit[i].id === id) return true; }
+        for (let i = 0; i < this.SubCircuit.length; i++) {
+            if (this.SubCircuit[i].id === id) return true;
+        }
 
-        for (let i = 0; i < this.SubCircuit.length; i++) { if (scopeList[this.SubCircuit[i].id].checkDependency(id)) return true; }
+        for (let i = 0; i < this.SubCircuit.length; i++) {
+            if (scopeList[this.SubCircuit[i].id].checkDependency(id))
+                return true;
+        }
 
         return false;
     }
@@ -341,14 +379,19 @@ export default class Scope {
 
     /**
      * helper function to reduce layout size
-    */
+     */
     fixLayout() {
         var maxY = 20;
-        for (let i = 0; i < this.Input.length; i++) { maxY = Math.max(this.Input[i].layoutProperties.y, maxY); }
-        for (let i = 0; i < this.Output.length; i++) { maxY = Math.max(this.Output[i].layoutProperties.y, maxY); }
-        if (maxY !== this.layout.height) { this.layout.height = maxY + 10; }
+        for (let i = 0; i < this.Input.length; i++) {
+            maxY = Math.max(this.Input[i].layoutProperties.y, maxY);
+        }
+        for (let i = 0; i < this.Output.length; i++) {
+            maxY = Math.max(this.Output[i].layoutProperties.y, maxY);
+        }
+        if (maxY !== this.layout.height) {
+            this.layout.height = maxY + 10;
+        }
     }
-
 
     /**
      * Function which centers the circuit to the correct zoom level
@@ -367,13 +410,20 @@ export default class Scope {
         var reqWidth = maxX - minX + 75 * DPR;
         var reqHeight = maxY - minY + 75 * DPR;
 
-        this.scale = Math.min(width / reqWidth, (height - ytoolbarOffset) / reqHeight);
+        this.scale = Math.min(
+            width / reqWidth,
+            (height - ytoolbarOffset) / reqHeight,
+        );
 
-        if (!zoomIn) { this.scale = Math.min(this.scale, DPR); }
+        if (!zoomIn) {
+            this.scale = Math.min(this.scale, DPR);
+        }
         this.scale = Math.max(this.scale, DPR / 10);
 
-        this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
-        this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
+        this.ox = -minX * this.scale + (width - (maxX - minX) * this.scale) / 2;
+        this.oy =
+            -minY * this.scale +
+            (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
     }
 
     /**
@@ -383,7 +433,7 @@ export default class Scope {
         if (data) {
             load(data);
         } else {
-            alert('Invalid data');
+            alert("Invalid data");
         }
     }
 
@@ -391,11 +441,11 @@ export default class Scope {
      * Function to retrieve the previous stable state of the circuit
      */
     previous() {
-        const autosaveData = localStorage.getItem('autosave');
+        const autosaveData = localStorage.getItem("autosave");
         if (autosaveData) {
             const data = JSON.parse(autosaveData);
             load(data);
-            localStorage.removeItem('autosave');
+            localStorage.removeItem("autosave");
         }
     }
 
@@ -408,7 +458,11 @@ export default class Scope {
 
         for (let i = 0; i < globalScope.allNodes.length; i++) {
             const nodeId = globalScope.allNodes[i].id;
-            for (let j = 0; j < globalScope.allNodes[i].connections.length; j++) {
+            for (
+                let j = 0;
+                j < globalScope.allNodes[i].connections.length;
+                j++
+            ) {
                 const connection = globalScope.allNodes[i].connections[j].id;
                 if (obj[nodeId]) {
                     obj[nodeId].push(connection);
@@ -435,11 +489,30 @@ export default class Scope {
 
         for (let i = 0; i < singleConnectionNodes.length - 1; i++) {
             for (let j = i + 1; j < singleConnectionNodes.length; j++) {
-                if (areElementsInSameNode(newNestedArray, singleConnectionNodes[i], singleConnectionNodes[j])) {
-                    const val1 = this.findNodeIndexById(singleConnectionNodes[i]);
-                    const val2 = this.findNodeIndexById(singleConnectionNodes[j]);
-                    if (globalScope.allNodes[val1].parent === globalScope.allNodes[val2].parent) {
-                        result.push(dfs(obj, singleConnectionNodes[i], singleConnectionNodes[j]));
+                if (
+                    areElementsInSameNode(
+                        newNestedArray,
+                        singleConnectionNodes[i],
+                        singleConnectionNodes[j],
+                    )
+                ) {
+                    const val1 = this.findNodeIndexById(
+                        singleConnectionNodes[i],
+                    );
+                    const val2 = this.findNodeIndexById(
+                        singleConnectionNodes[j],
+                    );
+                    if (
+                        globalScope.allNodes[val1].parent ===
+                        globalScope.allNodes[val2].parent
+                    ) {
+                        result.push(
+                            dfs(
+                                obj,
+                                singleConnectionNodes[i],
+                                singleConnectionNodes[j],
+                            ),
+                        );
                     }
                 }
             }
@@ -458,7 +531,12 @@ export default class Scope {
                     const connectedNode = graph[startNode][i];
                     if (!isVisited(visited, connectedNode)) {
                         connectedNodes.push(connectedNode);
-                        exploreNodes(graph, connectedNode, visited, connectedNodes);
+                        exploreNodes(
+                            graph,
+                            connectedNode,
+                            visited,
+                            connectedNodes,
+                        );
                     }
                 }
             }
@@ -497,7 +575,7 @@ export default class Scope {
             return result;
         }
 
-        return 'No cycle found';
+        return "No cycle found";
     }
 
     /**
@@ -507,7 +585,9 @@ export default class Scope {
     highlightNodes(array) {
         const Nodes = [];
         array.forEach((innerArray) => {
-            const resultArray = innerArray.map(value => this.findNodeIndexById(value));
+            const resultArray = innerArray.map((value) =>
+                this.findNodeIndexById(value),
+            );
             Nodes.push(resultArray);
         });
 
@@ -528,7 +608,7 @@ export default class Scope {
                 return i;
             }
         }
-        return 'Not found';
+        return "Not found";
     }
 
     /**
@@ -553,7 +633,7 @@ export default class Scope {
     modifyCurrentlySelectedComponent(property, value) {
         const selectedComponent = globalScope.getCurrentlySelectedComponent();
 
-        if (selectedComponent.objectType === 'Node') {
+        if (selectedComponent.objectType === "Node") {
             const nodeId = selectedComponent.id;
             const nodeIndex = this.findNodeIndexById(nodeId);
             globalScope.allNodes[nodeIndex][property] = value;
