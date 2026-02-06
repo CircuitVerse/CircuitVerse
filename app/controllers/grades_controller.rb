@@ -77,7 +77,6 @@ class GradesController < ApplicationController
     end
 
     def set_assignment
-      @assignment = Assignment.find_by(id: params[:assignment_id])
-      head :not_found if @assignment.nil?
+      @assignment = Assignment.find(params[:assignment_id])
     end
 end
