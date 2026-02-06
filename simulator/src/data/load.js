@@ -1,20 +1,24 @@
-import { resetScopeList, newCircuit, switchCircuit } from '../circuit';
-import { setProjectName } from './save';
+import { resetScopeList, newCircuit, switchCircuit } from "../circuit";
+import { setProjectName } from "./save";
 import {
- scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet 
-} from '../engine';
-import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
-import simulationArea from '../simulationArea';
+    scheduleUpdate,
+    update,
+    updateSimulationSet,
+    updateCanvasSet,
+    gridUpdateSet,
+} from "../engine";
+import { updateRestrictedElementsInScope } from "../restrictedElementDiv";
+import simulationArea from "../simulationArea";
 
-import { loadSubCircuit } from '../subcircuit';
-import { scheduleBackup } from './backupCircuit';
-import { showProperties } from '../ux';
-import { constructNodeConnections, loadNode, replace } from '../node';
-import { generateId } from '../utils';
-import modules from '../modules';
-import { oppositeDirection } from '../canvasApi';
-import plotArea from '../plotArea';
-import { updateTestbenchUI, TestbenchData } from '../testbench';
+import { loadSubCircuit } from "../subcircuit";
+import { scheduleBackup } from "./backupCircuit";
+import { showProperties } from "../ux";
+import { constructNodeConnections, loadNode, replace } from "../node";
+import { generateId } from "../utils";
+import modules from "../modules";
+import { oppositeDirection } from "../canvasApi";
+import plotArea from "../plotArea";
+import { updateTestbenchUI, TestbenchData } from "../testbench";
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -23,8 +27,8 @@ import { updateTestbenchUI, TestbenchData } from '../testbench';
  */
 function rectifyObjectType(obj) {
     const rectify = {
-        FlipFlop: 'DflipFlop',
-        Ram: 'Rom',
+        FlipFlop: "DflipFlop",
+        Ram: "Rom",
     };
     return rectify[obj] || obj;
 }
@@ -37,10 +41,16 @@ function rectifyObjectType(obj) {
  */
 function loadModule(data, scope) {
     // Create circuit element
-    var obj = new modules[rectifyObjectType(data.objectType)](data.x, data.y, scope, ...data.customData.constructorParamaters || []);
+    var obj = new modules[rectifyObjectType(data.objectType)](
+        data.x,
+        data.y,
+        scope,
+        ...(data.customData.constructorParamaters || []),
+    );
     // Sets directions
     obj.label = data.label;
-    obj.labelDirection = data.labelDirection || oppositeDirection[fixDirection[obj.direction]];
+    obj.labelDirection =
+        data.labelDirection || oppositeDirection[fixDirection[obj.direction]];
 
     // Sets delay
     if (data.propagationDelay === 0) {
@@ -70,7 +80,7 @@ function loadModule(data, scope) {
             }
         }
     }
-    if(data.subcircuitMetadata)
+    if (data.subcircuitMetadata)
         obj.subcircuitMetadata = data["subcircuitMetadata"];
 }
 
@@ -82,7 +92,12 @@ function loadModule(data, scope) {
 function removeBugNodes(scope = globalScope) {
     let x = scope.allNodes.length;
     for (let i = 0; i < x; i++) {
-        if (scope.allNodes[i].type !== 2 && scope.allNodes[i].parent.objectType === 'CircuitElement') { scope.allNodes[i].delete(); }
+        if (
+            scope.allNodes[i].type !== 2 &&
+            scope.allNodes[i].parent.objectType === "CircuitElement"
+        ) {
+            scope.allNodes[i].delete();
+        }
         if (scope.allNodes.length !== x) {
             i = 0;
             x = scope.allNodes.length;
@@ -104,13 +119,17 @@ export function loadScope(scope, data) {
     data.allNodes.map((x) => loadNode(x, scope));
 
     // Make all connections
-    for (let i = 0; i < data.allNodes.length; i++) { constructNodeConnections(scope.allNodes[i], data.allNodes[i]); }
+    for (let i = 0; i < data.allNodes.length; i++) {
+        constructNodeConnections(scope.allNodes[i], data.allNodes[i]);
+    }
     // Load all modules
     for (let i = 0; i < ML.length; i++) {
         if (data[ML[i]]) {
-            if (ML[i] === 'SubCircuit') {
+            if (ML[i] === "SubCircuit") {
                 // Load subcircuits differently
-                for (let j = 0; j < data[ML[i]].length; j++) { loadSubCircuit(data[ML[i]][j], scope); }
+                for (let j = 0; j < data[ML[i]].length; j++) {
+                    loadSubCircuit(data[ML[i]][j], scope);
+                }
             } else {
                 // Load everything else similarly
                 for (let j = 0; j < data[ML[i]].length; j++) {
@@ -135,7 +154,7 @@ export function loadScope(scope, data) {
         globalScope.testbenchData = new TestbenchData(
             data.testbenchData.testData,
             data.testbenchData.currentGroup,
-            data.testbenchData.currentCase
+            data.testbenchData.currentCase,
         );
     }
 
@@ -146,28 +165,38 @@ export function loadScope(scope, data) {
         // Else generate new layout according to how it would have been otherwise (backward compatibility)
         scope.layout = {};
         scope.layout.width = 100;
-        scope.layout.height = Math.max(scope.Input.length, scope.Output.length) * 20 + 20;
+        scope.layout.height =
+            Math.max(scope.Input.length, scope.Output.length) * 20 + 20;
         scope.layout.title_x = 50;
         scope.layout.title_y = 13;
         for (let i = 0; i < scope.Input.length; i++) {
             scope.Input[i].layoutProperties = {
                 x: 0,
-                y: scope.layout.height / 2 - scope.Input.length * 10 + 20 * i + 10,
+                y:
+                    scope.layout.height / 2 -
+                    scope.Input.length * 10 +
+                    20 * i +
+                    10,
                 id: generateId(),
             };
         }
         for (let i = 0; i < scope.Output.length; i++) {
             scope.Output[i].layoutProperties = {
                 x: scope.layout.width,
-                y: scope.layout.height / 2 - scope.Output.length * 10 + 20 * i + 10,
+                y:
+                    scope.layout.height / 2 -
+                    scope.Output.length * 10 +
+                    20 * i +
+                    10,
                 id: generateId(),
             };
         }
     }
     // Backward compatibility
-    if (scope.layout.titleEnabled === undefined) { scope.layout.titleEnabled = true; }
+    if (scope.layout.titleEnabled === undefined) {
+        scope.layout.titleEnabled = true;
+    }
 }
-
 
 // Function to load project from data
 /**
@@ -177,6 +206,23 @@ export function loadScope(scope, data) {
  * @exports load
  */
 export default function load(data) {
+    const draftRaw = localStorage.getItem("cv_autosave_draft");
+
+    if (draftRaw) {
+        try {
+            const draft = JSON.parse(draftRaw);
+            const restore = confirm(
+                `Unsaved draft found from ${new Date(draft.time).toLocaleString()}.\nDo you want to restore it?`,
+            );
+
+            if (restore) {
+                data = JSON.parse(draft.circuit);
+            }
+        } catch (e) {
+            console.warn("Invalid autosave draft found.");
+        }
+    }
+
     // If project is new and no data is there, then just set project name
     if (!data) {
         setProjectName(__projectName);
@@ -188,19 +234,23 @@ export default function load(data) {
 
     globalScope = undefined;
     resetScopeList(); // Remove default scope
-    $('.circuits').remove(); // Delete default scope
+    $(".circuits").remove(); // Delete default scope
 
     // Load all  according to the dependency order
     for (let i = 0; i < data.scopes.length; i++) {
-
         var isVerilogCircuit = false;
         var isMainCircuit = false;
-        if(data.scopes[i].verilogMetadata) {
+        if (data.scopes[i].verilogMetadata) {
             isVerilogCircuit = data.scopes[i].verilogMetadata.isVerilogCircuit;
             isMainCircuit = data.scopes[i].verilogMetadata.isMainCircuit;
         }
         // Create new circuit
-        const scope = newCircuit(data.scopes[i].name || 'Untitled', data.scopes[i].id, isVerilogCircuit, isMainCircuit);
+        const scope = newCircuit(
+            data.scopes[i].name || "Untitled",
+            data.scopes[i].id,
+            isVerilogCircuit,
+            isMainCircuit,
+        );
 
         // Load circuit data
         loadScope(scope, data.scopes[i]);
@@ -209,7 +259,11 @@ export default function load(data) {
         globalScope = scope;
 
         // Center circuit
-        if (embed) { globalScope.centerFocus(true); } else { globalScope.centerFocus(false); }
+        if (embed) {
+            globalScope.centerFocus(true);
+        } else {
+            globalScope.centerFocus(false);
+        }
 
         // update and backup circuit once
         update(globalScope, true);
@@ -222,22 +276,25 @@ export default function load(data) {
 
     // Restore clock
     simulationArea.changeClockTime(data.timePeriod || 500);
-    simulationArea.clockEnabled = data.clockEnabled === undefined ? true : data.clockEnabled;
+    simulationArea.clockEnabled =
+        data.clockEnabled === undefined ? true : data.clockEnabled;
 
-
-    if (!embed) { showProperties(simulationArea.lastSelected); }
+    if (!embed) {
+        showProperties(simulationArea.lastSelected);
+    }
 
     // Reorder tabs according to the saved order
     if (data.orderedTabs) {
-        var unorderedTabs = $('.circuits').detach();
-        var plusButton = $('#tabsBar').children().detach();
-        for (const tab of data.orderedTabs) { $('#tabsBar').append(unorderedTabs.filter(`#${tab}`)); }
-        $('#tabsBar').append(plusButton); 
+        var unorderedTabs = $(".circuits").detach();
+        var plusButton = $("#tabsBar").children().detach();
+        for (const tab of data.orderedTabs) {
+            $("#tabsBar").append(unorderedTabs.filter(`#${tab}`));
+        }
+        $("#tabsBar").append(plusButton);
     }
 
     // Switch to last focussedCircuit
-    if (data.focussedCircuit) 
-        switchCircuit(data.focussedCircuit);
+    if (data.focussedCircuit) switchCircuit(data.focussedCircuit);
 
     // Update the testbench UI
     updateTestbenchUI();
@@ -246,7 +303,6 @@ export default function load(data) {
     updateCanvasSet(true);
     gridUpdateSet(true);
     // Reset Timing
-    if(!embed)
-        plotArea.reset();
+    if (!embed) plotArea.reset();
     scheduleUpdate(1);
 }
