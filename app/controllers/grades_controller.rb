@@ -5,6 +5,7 @@ class GradesController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_grade, only: %i[create destroy]
+  before_action :set_assignment, only: [:to_csv]
 
   def create
     @grade = @grade.presence || Grade.new(assignment_id: grade_params[:assignment_id])
@@ -54,11 +55,6 @@ class GradesController < ApplicationController
   end
 
   def to_csv
-    @assignment = Assignment.find_by(id: params[:assignment_id])
-    if @assignment.nil?
-      head :not_found
-      return
-    end
     authorize @assignment, :can_be_graded?
 
     respond_to do |format|
@@ -78,5 +74,10 @@ class GradesController < ApplicationController
     def set_grade
       @grade = Grade.find_by(project_id: grade_params[:project_id],
                              assignment_id: grade_params[:assignment_id])
+    end
+
+    def set_assignment
+      @assignment = Assignment.find_by(id: params[:assignment_id])
+      head :not_found if @assignment.nil?
     end
 end
