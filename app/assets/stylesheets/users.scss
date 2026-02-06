@@ -539,7 +539,13 @@
 
 .notification-container {
   max-width: 558px;
+  
+  // Ensure footer stays at bottom by making container take full height
+  &.d-flex.flex-column.min-vh-100 {
+    min-height: calc(100vh - 200px); // Account for header and footer height
+  }
 }
+
 .notification-heading {
   font-size: 30px;
   font-style: normal;
