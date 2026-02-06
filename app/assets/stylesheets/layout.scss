@@ -210,3 +210,10 @@ body {
     margin-left: -2px;
   }
 }
+
+@media (max-width: 992px){
+  #collapsed-navbar {
+    max-height: calc(100vh - 90px);
+    overflow-y: auto;
+  }
+}
