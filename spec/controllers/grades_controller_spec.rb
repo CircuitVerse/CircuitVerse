@@ -147,7 +147,6 @@ describe GradesController, type: :request do
       FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
       @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @primary_mentor,
                                          grade: "A", assignment: @assignment, remarks: "remarks")
-      # Ensure deadline has passed for grading access
       @assignment.update!(deadline: 1.day.ago)
     end
 
