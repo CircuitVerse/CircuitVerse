@@ -135,7 +135,21 @@ Rails.application.routes.draw do
 
   mount Commontator::Engine => "/commontator"
 
-
+  # simulator
+  scope "/simulator" do
+    get "/:id", to: "simulator#show", as: "simulator"
+    get "/edit/:id", to: "simulator#edit", as: "simulator_edit"
+    post "/get_data", to: "simulator#get_data"
+    get "get_data/:id", to: "simulator#get_data"
+    post "/post_issue", to: "simulator#post_issue"
+    get "/issue_circuit_data/:id", to: "simulator#view_issue_circuit_data"
+    post "/update_data", to: "simulator#update"
+    post "/update_image", to: "simulator#update_image"
+    post "/create_data", to: "simulator#create"
+    post "/verilogcv", to: "simulator#verilog_cv"
+    get "/", to: "simulator#new", as: "simulator_new"
+    get "/embed/:id", to: "simulator#embed", as: "simulator_embed"
+  end
 
   scope "/testbench" do
     get "/", to: "testbench#creator", as: "testbench_creator"

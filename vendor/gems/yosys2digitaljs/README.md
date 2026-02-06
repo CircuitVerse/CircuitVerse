@@ -17,8 +17,6 @@ Add this line to your application's Gemfile:
 
 ```ruby
 gem 'yosys2digitaljs', path: 'vendor/gems/yosys2digitaljs'
-# Or via git if pushed to a repo
-# gem 'yosys2digitaljs', git: 'https://github.com/CircuitVerse/yosys2digitaljs-server.git'
 ```
 
 And then execute:
