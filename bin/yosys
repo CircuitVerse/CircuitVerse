@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+if [ -d "yosys2digitaljs-server" ] ; then
+  echo "Starting CircuitVerse yosys2digitaljs server ..."
+else
+  echo "yosys2digitaljs-server not found. Did you clone it along with CircuitVerse? Please refer to the referenced yosys installation instructions from SETUP.md"
+fi
+
+cd yosys2digitaljs-server && yarn start
