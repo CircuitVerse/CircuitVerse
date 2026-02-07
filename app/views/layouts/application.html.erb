@@ -15,10 +15,7 @@
     <%= csrf_meta_tags %>
 
     <%= javascript_include_tag "application_sprockets", "data-turbolinks-track": "reload" %>
-
-    <%# NOTE:
-    CircuitVerse uses application_sprockets.js (and Vite) instead of application.js.
-    Do NOT include application.js here, as it does not exist in this repository. %>
+    <%= javascript_include_tag "application", "data-turbolinks-track": "reload", defer: true %>
 
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
