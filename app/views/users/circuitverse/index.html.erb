@@ -57,6 +57,10 @@
           </p>
           <% if policy(@user).edit? %>
             <a class="btn primary-button ms-0" href="<%= profile_edit_path(current_user) %>"><%= t("users.circuitverse.index.edit_details") %></a>
+          <% elsif user_signed_in? && current_user != @user %>
+            <a class="btn btn-danger ms-0" href="<%= new_report_path(reported_user_id: @user.id) %>">
+              <i class="fas fa-flag"></i> <%= t("users.circuitverse.index.report_user") %>
+            </a>
           <% end %>
         </div>
       </div>
