@@ -17,7 +17,7 @@ class CollaborationsController < ApplicationController
     notice = build_collaboration_notice(results)
 
     respond_to do |format|
-      format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: notice }
+      format.html { redirect_to user_project_path(@project.author, @project), notice: notice }
     end
   end
 
@@ -47,7 +47,7 @@ class CollaborationsController < ApplicationController
     @collaboration.destroy
     respond_to do |format|
       format.html do
-        redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id),
+        redirect_to user_project_path(@collaboration.project.author, @collaboration.project),
                     notice: "Collaboration was successfully destroyed."
       end
       format.json { head :no_content }
