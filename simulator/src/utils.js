@@ -336,7 +336,7 @@ export function setupBitConvertor() {
         while (input.length % 4 !== 0) {
             input = "0" + input;
         }
-        if (input !== 0) {
+        if (input !== '0') {
             var i = 0;
             while (i < input.length / 4) {
                 if (parseInt(input.slice((4 * i), 4 * (i + 1)), 2) < 10)
@@ -346,7 +346,7 @@ export function setupBitConvertor() {
                 i++;
             }
         }
-        return setBaseValues(x);
+        return setBaseValues(num);
     })
 
     $("#hexInput").on('keyup', function () {
