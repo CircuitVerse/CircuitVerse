@@ -21,32 +21,63 @@ cd CircuitVerse
      ```bash
      brew install git
      ```
-- [RVM](https://rvm.io/rvm/install)
+- [Mise Setup Tool](https://mise.jdx.dev/) :  
      ```bash
-     brew install gnupg
-     gpg --keyserver keys.openpgp.org --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-     \curl -sSL https://get.rvm.io | bash -s stable
-     ```
-- Ruby 3.2.1
-     ```bash
-     rvm install 3.2.1
-     rvm use 3.2.1
-     ```
+     # Mise Setup Tool
+
+     # Download and verify
+     curl -O https://mise.run
+     curl -O https://mise.run.sha256
+     shasum -a 256 -c mise.run.sha256
+     sh mise.run
+      
+     # Add to shell (choose based on your shell):
+     
+     # For bash:
+     echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+     source ~/.bashrc
+     # For zsh:
+     echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+     source ~/.zshrc
+
+     # Restart your shell or source the rc file:
+     # source ~/.bashrc  # for bash
+     # source ~/.zshrc   # for zsh
+
+     # Verify installation
+     mise --version
+     mise install
+          ```
 - **Below dependencies can be installed at one step**
      ```bash
      brew bundle
      ```
-     - [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
-     - [ImageMagick](https://imagemagick.org/) - Image manipulation library
-     - [Node.js 22.x](https://nodejs.org/it/download)
-     - [Yarn](https://yarnpkg.com/getting-started/install)
-     - [CMAKE](https://cmake.org/install/)
-     - OpenSSL
-     - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`12`) - Database
+> **Note:** OpenSSL is installed via the Brewfile as part of `brew bundle`.
 
+#### Mise-managed Dependencies
+
+Mise automatically manages the following development tools based on the versions specified in `.tool-versions`:
+- Ruby
+- Node.js
+- Redis
+- PostgreSQL
+- ImageMagick
+- CMake
+- Yarn
+
+To view currently managed tools and their versions:
+```bash
+mise ls
+```
 
 #### Setup
-> **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
+> **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user.  
+> When installed via Mise, you can start them using:
+> ```bash
+> mise run postgres -- pg_ctl start
+> mise run redis -- redis-server --daemonize yes
+> ```
+> Alternatively, running `bin/dev` will start the required services for development.
 
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
