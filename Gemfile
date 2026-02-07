@@ -182,6 +182,10 @@ gem "oj", "~> 3.15"
 # Used for rate limiting
 gem "rack-attack"
 
+# CORS handling (needed for Tauri / desktop clients)
+gem "rack-cors"
+
+
 gem "jsbundling-rails", "~> 1.0"
 
 gem "sassc-rails"
