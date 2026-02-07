@@ -122,10 +122,10 @@ export function gateGenerateVerilog(gate, invert = false) {
     res += " = ";
 
     var inputParams = inputs.map(x => x.verilogLabel).join(` ${gate} `);
-    if (invert) {
+    if(invert) {
         res += `~(${inputParams});`;
     }
-    else {
+    else{
         res += inputParams + ';';
     }
     return res;
