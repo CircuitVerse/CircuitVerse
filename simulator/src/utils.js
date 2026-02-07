@@ -25,7 +25,15 @@ export function generateId() {
 
 // To strip tags from input
 export function stripTags(string = '') {
-    return string.replace(/(<([^>]+)>)/ig, '').trim();
+    if (string === null || string === undefined) return '';
+    let str = String(string);
+    let prev;
+    do {
+        prev = str;
+        str = str.replace(/<[^>]*>/g, '');
+    } while (str !== prev);
+    str = str.replace(/<[^>]*$/g, '');
+    return str.trim();
 }
 
 
@@ -122,10 +130,10 @@ export function gateGenerateVerilog(gate, invert = false) {
     res += " = ";
 
     var inputParams = inputs.map(x => x.verilogLabel).join(` ${gate} `);
-    if(invert) {
+    if (invert) {
         res += `~(${inputParams});`;
     }
-    else{
+    else {
         res += inputParams + ';';
     }
     return res;
@@ -213,6 +221,47 @@ export function truncateString(str, num) {
     }
     // Return str truncated with '...' concatenated to the end of str.
     return str.slice(0, num) + "...";
+}
+
+export function bitConverter(str, baseFrom, baseTo) {
+    const HEX = '0123456789ABCDEF';
+    const BIN = '01';
+    const DEC = '0123456789';
+    const bases = {
+        Binary: BIN,
+        Decimal: DEC,
+        Hexadecimal: HEX,
+    };
+    if (baseFrom === baseTo) return str;
+    const baseFromString = bases[baseFrom];
+    const baseToString = bases[baseTo];
+
+    // Validate if bases exist
+    if (!baseFromString || !baseToString) return 'NaN';
+
+    // check if valid str
+    for (let i = 0; i < str.length; i += 1) {
+        if (!baseFromString.includes(str[i])) return 'NaN';
+    }
+
+    // Convert to decimal
+    let dec = 0;
+    for (let i = 0; i < str.length; i += 1) {
+        const val = baseFromString.indexOf(str[i]);
+        dec += val * Math.pow(baseFromString.length, str.length - i - 1);
+    }
+
+    // Handle zero case
+    if (dec === 0) return '0';
+
+    // Convert to baseTo
+    let res = '';
+    while (dec > 0) {
+        const val = dec % baseToString.length;
+        res = baseToString[val] + res;
+        dec = Math.floor(dec / baseToString.length);
+    }
+    return res;
 }
 
 export function bitConverterDialog() {
@@ -332,6 +381,7 @@ export function promptFile(contentType, multiple) {
 }
 
 export function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return '';
     return unsafe
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
