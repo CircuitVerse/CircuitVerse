@@ -693,8 +693,8 @@ async function postUserIssue(message) {
         success: function(response) {
             $('#result').html("<i class='fa fa-check' style='color:green'></i> You've successfully submitted the issue. Thanks for improving our platform.");
         },
-        failure: function(err) {
-            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@ciruitverse.org");
+        error: function(err) {
+            $('#result').html("<i class='fa fa-check' style='color:red'></i> There seems to be a network issue. Please reach out to us at support@circuitverse.org");
         }
     });
 }
