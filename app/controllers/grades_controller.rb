@@ -55,7 +55,9 @@ class GradesController < ApplicationController
   end
 
   def to_csv
-    authorize @assignment, :can_be_graded?
+    unless policy(@assignment).can_be_graded?
+      raise ApplicationPolicy::CustomAuthException, "Assignment cannot be graded yet"
+    end
 
     respond_to do |format|
       format.csv do
