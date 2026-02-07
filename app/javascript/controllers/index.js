@@ -4,6 +4,7 @@
 
 import { application } from './application';
 
+import ApiDocsController from './api_docs_controller';
 import AssignmentController from './assignment_controller';
 import ContestController from './contest_controller';
 import ExploreController from './explore_controller';
@@ -14,6 +15,7 @@ import SearchBarController from './search_bar_controller';
 import SearchSortingController from './search_sorting_controller';
 import SearchFiltersController from './search_filters_controller';
 
+application.register('api-docs', ApiDocsController);
 application.register('assignment', AssignmentController);
 application.register('contest', ContestController);
 application.register('explore', ExploreController);
