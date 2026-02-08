@@ -66,9 +66,6 @@ Resources to migrate (in this order):
     - [x] Grades
     - [x] Groups
     - [x] Group Members
-    - [x] Grades
-    - [x] Groups
-    - [x] Group Members
     - [x] Issue Circuits Data
     - [x] Noticed Notifications
     - [x] Pending Invitations

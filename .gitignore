@@ -103,3 +103,4 @@ node_modules
 
 # Ignore .vscode/settings.json
 .vscode/settings.json
+vendor/
