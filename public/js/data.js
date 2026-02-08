@@ -571,7 +571,7 @@ function load(data) {
 
     // Restore clock
     simulationArea.changeClockTime(data["timePeriod"] || 500);
-    simulationArea.clockEnabled = data["clockEnabled"] == undefined ? true : data["clockEnabled"];
+    simulationArea.clockEnabled = data["clockEnabled"] ?? true;
 
 
     if (!embed)
