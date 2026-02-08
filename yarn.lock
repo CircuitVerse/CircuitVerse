@@ -1654,10 +1654,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fortawesome/fontawesome-free@^6.7.2":
-  version "6.7.2"
-  resolved "https://registry.npmjs.org/@fortawesome/fontawesome-free/-/fontawesome-free-6.7.2.tgz"
-  integrity sha512-JUOtgFW6k9u4Y+xeIaEiLr3+cjoUPiAuLXoyKOJSia6Duzb7pq+A76P9ZdPDoAoxHdHzq6gE9/jKBGXlZT8FbA==
+"@fortawesome/fontawesome-free@^7.1.0":
+  version "7.1.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-7.1.0.tgz#8eb76278515341720aa74485266f8be121089529"
+  integrity sha512-+WxNld5ZCJHvPQCr/GnzCTVREyStrAJjisUPtUxG5ngDA8TMlPnKp6dddlTpai4+1GNmltAeuk1hJEkBohwZYA==
 
 "@hotwired/stimulus-webpack-helpers@^1.0.0":
   version "1.0.1"
@@ -5682,7 +5682,7 @@ jquery-ujs@^1.2.3:
 
 jquery@^3.4.0, jquery@^3.7.1:
   version "3.7.1"
-  resolved "https://registry.npmjs.org/jquery/-/jquery-3.7.1.tgz"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
   integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
 
 js-stringify@^1.0.1:
@@ -7634,6 +7634,11 @@ saxes@^6.0.0:
   dependencies:
     xmlchars "^2.2.0"
 
+select2@^4.1.0-rc.0:
+  version "4.1.0-rc.0"
+  resolved "https://registry.yarnpkg.com/select2/-/select2-4.1.0-rc.0.tgz#ba3cd3901dda0155e1c0219ab41b74ba51ea22d8"
+  integrity sha512-Hr9TdhyHCZUtwznEH2CBf7967mEM0idtJ5nMtjvk3Up5tPukOLXbHUNmh10oRfeNIhj+3GD3niu+g6sVK+gK0A==
+
 "semver@2 || 3 || 4 || 5", semver@^5.7.1:
   version "5.7.2"
   resolved "https://registry.npmjs.org/semver/-/semver-5.7.2.tgz"
@@ -8231,10 +8236,10 @@ trim-newlines@^4.0.2:
   resolved "https://registry.npmjs.org/trim-newlines/-/trim-newlines-4.1.1.tgz"
   integrity sha512-jRKj0n0jXWo6kh62nA5TEh3+4igKDXLvzBJcPpiizP7oOolUrYIxmVBG9TOtHYFHoddUk6YvAkGeGoSVTXfQXQ==
 
-trumbowyg@^2.28.0:
-  version "2.28.0"
-  resolved "https://registry.npmjs.org/trumbowyg/-/trumbowyg-2.28.0.tgz"
-  integrity sha512-K4KX6psV+hUt03Y3RNdQM5Y+JLfZOUliNnCz5lm12Llfhwvx0P0geBsM0w9ZHeX5g8q7d2MC5X7sPOwGv0Q7Kw==
+trumbowyg@^2.31.0:
+  version "2.31.0"
+  resolved "https://registry.yarnpkg.com/trumbowyg/-/trumbowyg-2.31.0.tgz#377959f76a4fcafd947570720cc986c843434df2"
+  integrity sha512-I+DMiluTpLDx3yn6LR0TIVR7xIOjgtBQmpEE6Ofd+2yl5ruzY63q/yA/DfBuRVxdK7yDYSBe9FXpVjM1P2NdtA==
 
 ts-map@^1.0.3:
   version "1.0.3"

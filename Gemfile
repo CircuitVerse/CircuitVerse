@@ -4,7 +4,7 @@ git_source(:github) do |repo_name|
   repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
   "https://github.com/#{repo_name}.git"
 end
-
+gem "sprockets-rails", require: false
 gem "rails_autolink"
 gem "acts_as_votable", "~> 0.14.0"
 gem "aws-sdk-rails"
@@ -27,7 +27,6 @@ gem "rails", "~> 8.0.0"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
-gem "sass-rails", "~> 6.0"
 gem "terser"
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
@@ -102,7 +101,7 @@ gem "webpush"
 gem "bootsnap", require: false
 gem 'rexml', '>= 3.3.9'
 
-gem "font-awesome-sass", "~> 5.13.1"
+
 
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
@@ -114,7 +113,8 @@ gem "jwt"
 gem "rails-i18n", "~> 8.0.0"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
-gem "sprockets-rails", "~> 3.5"
+gem "propshaft"
+
 gem "strong_migrations"
 gem 'rails-data-migrations', github: 'notarize/rails-data-migrations'
 
@@ -159,7 +159,7 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
-  
+
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"
@@ -184,7 +184,6 @@ gem "rack-attack"
 
 gem "jsbundling-rails", "~> 1.0"
 
-gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
 
 gem "noticed", "~> 1.6"

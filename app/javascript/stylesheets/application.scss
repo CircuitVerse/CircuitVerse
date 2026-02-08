@@ -1,12 +1,17 @@
 @import "theme";
 @import "bootstrap/scss/bootstrap";
 @import 'autoComplete';
-@import "font-awesome-sprockets";
-@import "font-awesome";
+
+@import "@fortawesome/fontawesome-free/scss/fontawesome";
+@import "@fortawesome/fontawesome-free/scss/solid";
+@import "@fortawesome/fontawesome-free/scss/brands";
+
 @import 'trumbowyg/dist/ui/trumbowyg.min';
-@import "commontator/application";
-@import 'simple_discussion_overrides';
-@import 'simple_discussion';
+
+@import "vendor/commontator/application";
+@import "simple_discussion_overrides";
+@import "vendor/simple_discussion/simple_discussion";
+
 @import 'layout';
 @import 'components';
 @import 'navbar';
@@ -24,7 +29,7 @@
 @import 'users';
 @import 'commontator';
 @import 'announcements';
-@import 'select2.css';
+@import 'select2/dist/css/select2.css';
 @import 'select2_overrides';
 @import 'contests';
 @import 'rtl_layout';
