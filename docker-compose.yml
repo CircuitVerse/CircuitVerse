@@ -3,11 +3,11 @@ x-common-build: &common_build
     context: .
     dockerfile: Dockerfile
     args:
-      - NON_ROOT_USER_ID=${CURRENT_UID}
-      - NON_ROOT_GROUP_ID=${CURRENT_GID}
-      - OPERATING_SYSTEM=${OPERATING_SYSTEM}
-      - NON_ROOT_USERNAME=${NON_ROOT_USERNAME}
-      - NON_ROOT_GROUPNAME=${NON_ROOT_GROUPNAME}
+              NON_ROOT_USER_ID: 1000
+              NON_ROOT_GROUP_ID: 1000
+              OPERATING_SYSTEM: 
+              NON_ROOT_USERNAME: appuser
+              NON_ROOT_GROUPNAME: appgroup
   volumes:
     - .:/circuitverse:rw
     - ./config/database.docker.yml:/circuitverse/config/database.yml:rw
