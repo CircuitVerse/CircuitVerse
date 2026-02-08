@@ -53,7 +53,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if current_user.provider.present? || current_user.valid_password?(params[:current_password])
       super
     else
-      redirect_to profile_edit_path(current_user), alert: "Invalid password. Account deletion cancelled."
+      redirect_to profile_edit_path(current_user), alert: t("users.circuitverse.account_deletion_cancelled")
     end
   end
 
