@@ -1,12 +1,12 @@
 # For more information regarding these settings check out our docs https://docs.avohq.io
-# The values disaplayed here are the default ones. Uncomment and change them to fit your needs.
+# The values displayed here are the default ones. Uncomment and change them to fit your needs.
 Avo.configure do |config|
   ## == Routing ==
   config.root_path = '/admin2'
   # used only when you have custom `map` configuration in your config.ru
   # config.prefix_path = "/internal"
 
-  # Where should the user be redirected when visiting the `/avo` url
+  # Where should the user be redirected when visiting the `/admin2` url
   # config.home_path = nil
 
   ## == Licensing ==
@@ -20,6 +20,7 @@ Avo.configure do |config|
   ## == Authentication ==
   config.current_user_method = :current_user
   config.authenticate_with do
+    redirect_to main_app.root_path unless current_user&.admin?
   end
 
   ## == Authorization ==
