@@ -64,15 +64,6 @@
   </div>
 </div>
 <%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $("#deleteuserModal").on("show.bs.modal", function(e) {
-        let user = $(e.relatedTarget).data('currentuser');
-        $(e.currentTarget).find('#users-user-delete-button').attr("href",
-        "/users/");
-    });
-  });
-</script>
 <script>
   function readURL(input) {
     if (input.files && input.files[0]) {
