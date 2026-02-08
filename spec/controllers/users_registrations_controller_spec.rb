@@ -80,4 +80,35 @@ RSpec.describe Users::RegistrationsController, type: :controller do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    let(:password) { "password123" }
+    let(:user) { FactoryBot.create(:user, password: password, password_confirmation: password) }
+
+    before do
+      sign_in user
+    end
+
+    context "with valid password" do
+      it "deletes the user" do
+        expect do
+          delete :destroy, params: { current_password: password }
+        end.to change(User, :count).by(-1)
+      end
+    end
+
+    context "with invalid password" do
+      it "does not delete the user" do
+        expect do
+          delete :destroy, params: { current_password: "wrong_password" }
+        end.not_to change(User, :count)
+      end
+
+      it "redirects to edit page with alert" do
+        delete :destroy, params: { current_password: "wrong_password" }
+        expect(response).to redirect_to(profile_edit_path(user))
+        expect(flash[:alert]).to include("Invalid password")
+      end
+    end
+  end
 end

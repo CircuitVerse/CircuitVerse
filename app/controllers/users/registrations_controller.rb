@@ -49,9 +49,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  def destroy
+    if current_user.valid_password?(params[:current_password])
+      super
+    else
+      redirect_to profile_edit_path(current_user), alert: "Invalid password. Account deletion cancelled."
+    end
+  end
 
   # GET /resource/cancel
   # Forces the session data which is usually expired after sign
