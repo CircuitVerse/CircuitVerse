@@ -50,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # DELETE /resource
   def destroy
-    if current_user.valid_password?(params[:current_password])
+    if current_user.provider.present? || current_user.valid_password?(params[:current_password])
       super
     else
       redirect_to profile_edit_path(current_user), alert: "Invalid password. Account deletion cancelled."

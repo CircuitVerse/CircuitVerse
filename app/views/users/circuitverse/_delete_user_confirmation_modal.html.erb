@@ -8,10 +8,12 @@
       <%= form_with url: user_registration_path, method: :delete, local: true do |f| %>
         <div class="modal-body">
           <p><%= t("users.circuitverse.delete_user_confirmation") %></p>
-          <div class="form-group mt-3">
-            <%= f.label :current_password, "Password", class: "form-label" %>
-            <%= f.password_field :current_password, class: "form-control", required: true, placeholder: "Enter password to confirm" %>
-          </div>
+          <% unless current_user.provider.present? %>
+            <div class="form-group mt-3">
+              <%= f.label :current_password, "Password", class: "form-label" %>
+              <%= f.password_field :current_password, class: "form-control", required: true, placeholder: "Enter password to confirm" %>
+            </div>
+          <% end %>
         </div>
         <div class="modal-footer">
           <%= f.submit t("delete"), class: "btn primary-delete-button", id: "users-user-delete-button" %>

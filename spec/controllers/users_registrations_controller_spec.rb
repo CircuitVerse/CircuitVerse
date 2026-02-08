@@ -110,5 +110,19 @@ RSpec.describe Users::RegistrationsController, type: :controller do
         expect(flash[:alert]).to include("Invalid password")
       end
     end
+
+    context "when user is an OAuth user" do
+      let(:oauth_user) { FactoryBot.create(:user, provider: "google_oauth2") }
+
+      before do
+        sign_in oauth_user
+      end
+
+      it "deletes the user without password" do
+        expect do
+          delete :destroy
+        end.to change(User, :count).by(-1)
+      end
+    end
   end
 end
