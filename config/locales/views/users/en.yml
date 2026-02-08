@@ -8,6 +8,8 @@ en:
     circuitverse:
       delete_group_confirmation: "Are you sure you want to delete this group?"
       delete_user_confirmation: "Are you sure you want to delete your account? This action can't be reverted back."
+      password: "Password"
+      password_placeholder: "Enter password to confirm"
       preview_project: "Project Preview"
       member_since_html: "<strong>Member since:</strong> %{member_since}"
       member_since: "Member since"

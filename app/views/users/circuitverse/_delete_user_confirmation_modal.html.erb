@@ -10,8 +10,8 @@
           <p><%= t("users.circuitverse.delete_user_confirmation") %></p>
           <% unless current_user.provider.present? %>
             <div class="form-group mt-3">
-              <%= f.label :current_password, "Password", class: "form-label" %>
-              <%= f.password_field :current_password, class: "form-control", required: true, placeholder: "Enter password to confirm" %>
+              <%= f.label :current_password, t("users.circuitverse.password"), class: "form-label" %>
+              <%= f.password_field :current_password, class: "form-control", required: true, placeholder: t("users.circuitverse.password_placeholder") %>
             </div>
           <% end %>
         </div>
