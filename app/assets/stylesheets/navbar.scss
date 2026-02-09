@@ -248,6 +248,36 @@
     justify-content: space-between;
     padding: 8px 12px;
     font-size: 14px;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+      background-color: $shadow-grey;
+      border-color: $primary-green;
+    }
+
+    // Active filter state - visual indication
+    &.filters-active {
+      background-color: $primary-green;
+      border-color: $primary-green;
+      color: $white;
+      font-weight: 600;
+      
+      &::after {
+        content: '•';
+        position: absolute;
+        top: 4px;
+        right: 8px;
+        width: 8px;
+        height: 8px;
+        background-color: $white;
+        border-radius: 50%;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
   }
 
   .filters-dropdown {
