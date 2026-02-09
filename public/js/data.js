@@ -863,16 +863,22 @@ function checkToSave() {
 }
 
 // Prompt user to save data if unsaved
-window.onbeforeunload = function() {
+window.onbeforeunload = function(event) {
     if (projectSaved || embed) return;
 
     if (!checkToSave()) return;
 
-    alert("You have unsaved changes on this page. Do you want to leave this page and discard your changes or stay on this page?");
+    // Save data to localStorage for recovery
     var data = generateSaveData("Untitled");
     localStorage.setItem("recover", data);
-    return "Are u sure u want to leave? Any unsaved changes may not be recoverable"
-
+    
+    
+    // Note: alert() is blocked by browsers in beforeunload, so we use the standard method
+    event.preventDefault();
+    event.returnValue = ''; // Chrome requires returnValue to be set
+    
+    // Return empty string - browser will show its own generic confirmation dialog
+    return '';
 }
 
 // Function to generate image and prompt download
