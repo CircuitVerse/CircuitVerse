@@ -48,7 +48,7 @@ class User < ApplicationRecord
 
   include ProfanityFilterable
 
-  validates :name, presence: true, length: { maximum: 90 }, format: { with: /\A[a-zA-Z\s]+\z/,
+  validates :name, presence: true, length: { maximum: 90 }, format: { with: /\A[\p{L} ]+\z/,
                                                                       message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/

@@ -9,7 +9,7 @@ class Project < ApplicationRecord
   friendly_id :name, use: %i[slugged history]
   self.ignored_columns += %w[data searchable]
 
-  validates :name, length: { minimum: 1, maximum: 90 }
+  validates :name, presence: true, length: { minimum: 1, maximum: 90 }
   validates :slug, uniqueness: true
 
   belongs_to :author, class_name: "User", counter_cache: true
@@ -126,7 +126,6 @@ class Project < ApplicationRecord
 
   validate :check_validity
 
-
   def sim_version
     raw_data = project_datum&.data
     parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
@@ -144,8 +143,6 @@ class Project < ApplicationRecord
 
       errors.add(:project_access_type, "Assignment has to be private")
     end
-
-
 
     def check_and_remove_featured
       return unless saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"
