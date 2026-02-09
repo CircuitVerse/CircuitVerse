@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class StarsController < ApplicationController
-  before_action :set_star, only: %i[destroy]
   before_action :authenticate_user!, only: %i[destroy create]
+  before_action :set_star, only: %i[destroy]
   # GET /stars
   # GET /stars.json
   # def index
@@ -27,11 +27,8 @@ class StarsController < ApplicationController
   # POST /stars.json
   def create
     @star = Star.new(star_params)
-    Rails.logger.info "IDOR_DEBUG: Params: #{star_params.inspect}"
-    Rails.logger.info "IDOR_DEBUG: Current User: #{current_user&.id}"
     @star.user_id = current_user.id  # SECURITY FIX: Force authenticated user's ID
     if @star.save
-      Rails.logger.info "IDOR_DEBUG: Star saved for user #{@star.user_id}"
       render plain: "Star added!"
     else
       render plain: "Failed to add star", status: :unprocessable_entity
