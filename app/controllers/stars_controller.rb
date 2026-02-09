@@ -26,8 +26,7 @@ class StarsController < ApplicationController
   # POST /stars
   # POST /stars.json
   def create
-    @star = Star.new(star_params)
-    @star.user_id = current_user.id  # SECURITY FIX: Force authenticated user's ID
+    @star = current_user.stars.build(star_params)
     if @star.save
       render plain: "Star added!"
     else
@@ -58,16 +57,11 @@ class StarsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    # SECURITY FIX: Only allow users to manage their own stars
     def set_star
       @star = current_user.stars.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      render plain: "Star not found or access denied", status: :not_found
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    # SECURITY FIX: Removed user_id from permitted params
     def star_params
       params.expect(star: [:project_id])
     end

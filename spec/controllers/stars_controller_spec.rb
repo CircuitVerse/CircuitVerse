@@ -18,12 +18,12 @@ describe StarsController, type: :request do
         expect(Star.last.user_id).to eq(@user.id)
       end
 
-      it "ignores user_id param and uses current_user instead (IDOR protection)" do
+      it "ignores user_id param" do
         other_user = FactoryBot.create(:user)
         expect do
           post stars_path, params: { star: { user_id: other_user.id, project_id: @project.id } }
         end.to change(Star, :count).by(1)
-        # Verify the star was created for current_user, NOT the spoofed user_id
+
         expect(Star.last.user_id).to eq(@user.id)
         expect(Star.last.user_id).not_to eq(other_user.id)
       end
@@ -51,7 +51,7 @@ describe StarsController, type: :request do
       end
     end
 
-    context "when user does not own the star (IDOR protection)" do
+    context "when user does not own the star" do
       before do
         other_user = FactoryBot.create(:user)
         @other_star = FactoryBot.create(:star, project: @project, user: other_user)
