@@ -57,11 +57,11 @@ describe StarsController, type: :request do
         @other_star = FactoryBot.create(:star, project: @project, user: other_user)
       end
 
-      it "returns not found and does not delete the star" do
+      it "returns forbidden and does not delete the star" do
         expect do
           delete star_path(@other_star)
         end.not_to change(Star, :count)
-        expect(response).to have_http_status(:not_found)
+        expect(response).to have_http_status(:forbidden)
       end
     end
 
