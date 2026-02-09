@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Assignment < ApplicationRecord
-  validates :name, length: { minimum: 1 }, presence: true
+  include ProfanityFilterable
+  validates :name, length: { minimum: 1, maximum: 90 }, presence: true
   validates :grading_scale, inclusion: {
     in: %w[percent],
     message: "needs to be fixed at 1-100 for passing the grade back to LMS"

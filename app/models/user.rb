@@ -46,8 +46,10 @@ class User < ApplicationRecord
 
   attr_accessor :remove_picture
 
-  validates :name, presence: true, format: { without: /\A["!@#$%^&]*\z/,
-                                             message: "can only contain letters and spaces" }
+  include ProfanityFilterable
+
+  validates :name, presence: true, length: { maximum: 90 }, format: { with: /\A[a-zA-Z\s]+\z/,
+                                                                      message: "can only contain letters and spaces" }
 
   validates :email, presence: true, format: /\A[^@,\s]+@[^@,\s]+\.[^@,\s]+\z/
 

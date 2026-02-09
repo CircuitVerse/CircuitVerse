@@ -4,11 +4,12 @@ require "pg_search"
 
 class Project < ApplicationRecord
   extend FriendlyId
+  include ProfanityFilterable
 
   friendly_id :name, use: %i[slugged history]
   self.ignored_columns += %w[data searchable]
 
-  validates :name, length: { minimum: 1 }
+  validates :name, length: { minimum: 1, maximum: 90 }
   validates :slug, uniqueness: true
 
   belongs_to :author, class_name: "User", counter_cache: true
@@ -124,7 +125,7 @@ class Project < ApplicationRecord
   end
 
   validate :check_validity
-  validate :clean_description
+
 
   def sim_version
     raw_data = project_datum&.data
@@ -144,15 +145,7 @@ class Project < ApplicationRecord
       errors.add(:project_access_type, "Assignment has to be private")
     end
 
-    def clean_description
-      profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
-      return nil unless profanity_filter.match? description
 
-      errors.add(
-        :description,
-        "contains inappropriate language: #{profanity_filter.matched(description).join(', ')}"
-      )
-    end
 
     def check_and_remove_featured
       return unless saved_change_to_project_access_type? && saved_changes["project_access_type"][1] != "Public"

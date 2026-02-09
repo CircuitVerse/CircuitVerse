@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
 class Group < ApplicationRecord
+  include ProfanityFilterable
   has_secure_token :group_token
-  validates :name, length: { minimum: 1 }, presence: true
+  validates :name, length: { minimum: 1, maximum: 90 }, presence: true
   belongs_to :primary_mentor, class_name: "User"
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
