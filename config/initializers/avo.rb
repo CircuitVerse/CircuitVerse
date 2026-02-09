@@ -2,11 +2,11 @@
 # The values displayed here are the default ones. Uncomment and change them to fit your needs.
 Avo.configure do |config|
   ## == Routing ==
-  config.root_path = '/admin2'
+  config.root_path = '/admin'
   # used only when you have custom `map` configuration in your config.ru
   # config.prefix_path = "/internal"
 
-  # Where should the user be redirected when visiting the `/admin2` url
+  # Where should the user be redirected when visiting the `/admin` url
   # config.home_path = nil
 
   ## == Licensing ==
@@ -157,6 +157,6 @@ Avo.configure do |config|
   #   end
   # }
   # config.profile_menu = -> {
-  #   link "Profile", path: "/avo/profile", icon: "heroicons/outline/user-circle"
+  #   link "Profile", path: "/admin/profile", icon: "heroicons/outline/user-circle"
   # }
 end
