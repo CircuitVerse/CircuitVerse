@@ -20,6 +20,10 @@ class Api::V1::BaseController < ActionController::API
     unauthorized!
   end
 
+  rescue_from ApplicationPolicy::CustomAuthException do |exception|
+    api_error(status: 403, errors: exception.custom_message)
+  end
+
   rescue_from InvalidOAuthToken do
     api_error(status: 401, errors: "OAuth token is invalid")
   end
