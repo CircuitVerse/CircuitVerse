@@ -7,7 +7,7 @@ module Avo
         self.name = "Access Type"
 
         def apply(_request, query, value)
-          return query unless value["featured"]
+          return query if values.values.none?
 
           query.where(project_access_type: value)
         end
