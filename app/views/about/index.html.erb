@@ -42,7 +42,7 @@
         <% @cores.each do |member| %>
         <div class="team-member-container team-link ">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image" %><p class="team-footer "><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img],alt: member[:name], class: "about-contributor-image" %><p class="team-footer "><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>
@@ -62,7 +62,7 @@
         <% @mentors.each do |member| %>
         <div class="team-member-container team-link">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], alt: member[:name],class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>
@@ -83,7 +83,7 @@
         <% @issues_triaging.each do |member| %>
         <div class="team-member-container team-link">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img],alt: "User Image", class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img],alt: member[:name], class: "about-contributor-image" %><p class="team-footer"><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>
@@ -104,7 +104,7 @@
         <% @alumni.each do |member| %>
         <div class="team-member-container team-link">
           <div class="team-underline">
-            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], class: "about-contributor-image " %><p class="team-footer underline"><%= member[:name] %></p></a>
+            <a target="_blank" href="<%= member[:link] %>"><%= image_tag member[:img], alt: member[:name],class: "about-contributor-image " %><p class="team-footer underline"><%= member[:name] %></p></a>
           </div>
         </div>
         <% end %>
@@ -136,18 +136,22 @@
     let apiData = await fetch(url);
     let contributorsData = await apiData.json();
     let contributorUsers = contributorsData.filter(function(user) { return (user.type == 'User') });
-    for (let i=0; i<contributorUsers.length; i++){
-      let contributorElement = document.createElement('div');
-      let contributorElementAnchor = document.createElement('a');
-      let contributorElementImage = document.createElement('img');
-      contributorElement.classList.add('about-contributor');
-      contributorElementAnchor.href = await contributorUsers[i]['html_url'];
-      contributorElementImage.src = await contributorUsers[i]['avatar_url'];
-      contributorElementImage.classList.add('about-contributor-image');
-      contributorElementAnchor.appendChild(contributorElementImage);
-      contributorElement.appendChild(contributorElementAnchor);
-      document.getElementsByClassName('about-contributors-section')[0].appendChild(contributorElement);
-    }
+    for (let i = 0; i < contributorUsers.length; i++) {
+  let contributorElement = document.createElement('div');
+  let contributorElementAnchor = document.createElement('a');
+  let contributorElementImage = document.createElement('img');
+
+  contributorElement.classList.add('about-contributor');
+  contributorElementAnchor.href = contributorUsers[i]['html_url'];
+  contributorElementImage.src = contributorUsers[i]['avatar_url'];
+  contributorElementImage.alt = contributorUsers[i]['login']; // added alt
+  contributorElementImage.classList.add('about-contributor-image');
+
+  contributorElementAnchor.appendChild(contributorElementImage);
+  contributorElement.appendChild(contributorElementAnchor);
+  document.getElementsByClassName('about-contributors-section')[0].appendChild(contributorElement);
+}
+
   }
   getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors?per_page=100');
 </script>
