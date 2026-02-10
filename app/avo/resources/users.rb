@@ -39,6 +39,8 @@ class Avo::Resources::Users < Avo::BaseResource
     def authentication_fields
       field :provider, as: :text
       field :uid, as: :text
+      field :password, as: :password, required: true, hide_on: %i[index show], help: "length 6-128 characters"
+      field :password_confirmation, as: :password, required: true, hide_on: %i[index show]
     end
 
     def tracking_fields
@@ -52,6 +54,8 @@ class Avo::Resources::Users < Avo::BaseResource
       field :confirmation_sent_at, as: :date_time, readonly: true
       field :unconfirmed_email, as: :text, readonly: true
       field :confirmation_token, as: :text, readonly: true, hide_on: %i[index show]
+      field :reset_password_sent_at, as: :date_time, readonly: true
+      field :remember_created_at, as: :date_time, readonly: true
     end
 
     def profile_fields
