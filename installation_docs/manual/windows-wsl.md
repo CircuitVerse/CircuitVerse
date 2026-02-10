@@ -115,7 +115,7 @@ wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee 
 sudo apt update
 sudo apt install postgresql-17 postgresql-contrib libpq-dev
 
-# Once systemd is enabled, you can manage PostgresSQL using:
+# Once systemd is enabled, you can manage PostgreSQL using:
 sudo systemctl start postgresql.service
 sudo systemctl enable postgresql.service
 
