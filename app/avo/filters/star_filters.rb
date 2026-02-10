@@ -13,7 +13,7 @@ module Avo
         end
 
         def options
-          User.order(:name).limit(1000).pluck(:name, :id).to_h
+          Project.order(:name).limit(1000).pluck(:name, :id).to_h
         end
       end
 
