@@ -66,11 +66,15 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    Array.from(searchIcons).forEach((icon) => icon.addEventListener('click', activeSearchBar));
+    Array.from(searchIcons).forEach((icon) => {
+        icon.addEventListener('click', activeSearchBar);
+    });
 
-    if (searchBar && window.location.href.includes('search')) {
+    if (searchBar && /^\/search(\/|$)/.test(window.location.pathname)) {
         searchBar.style.display = 'block';
-        Array.from(searchIcons).forEach((icon) => icon.classList.add('active'));
+        Array.from(searchIcons).forEach((icon) => {
+            icon.classList.add('active');
+        });
     }
 
     const setActiveNavbarItem = () => {
