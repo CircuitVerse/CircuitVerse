@@ -44,22 +44,54 @@ cd CircuitVerse
      rvm install 3.4.1
      rvm use 3.4.1
      ```
-- [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
-     ```bash
-     # Install Redis
-      sudo apt update
-      sudo apt install redis-server
+- [Redis 7.0 [at least]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
 
-     # If systemd is enabled (Windows 11 + WSL2) then use :
-      sudo systemctl enable redis-server
-      sudo systemctl start redis-server
-      
-     # Run Redis on WSL manually if systemd is not enabled on your system:
-      redis-server --daemonize yes
-     #Verify Redis is running:
-      redis-cli ping
-     #Expected output:PONG
-     ```
+   ### Redis on WSL
+
+   #### If systemd is enabled in WSL
+
+   > **Note:** systemd is **not enabled by default** in WSL, even on Windows 11.  
+   > Before using `systemctl`, ensure:
+   >
+   > - You are using **WSL Store version 0.67.6 or newer**
+   > - `/etc/wsl.conf` contains:
+   >   ```
+   >   [boot]
+   >   systemd=true
+   >   ```
+   > - WSL has been restarted using:
+   >   ```
+   >   wsl --shutdown
+   >   ```
+
+   Once systemd is enabled, you can manage Redis using:
+
+   ```bash
+     sudo systemctl enable redis-server
+     sudo systemctl start redis-server
+   ```
+
+    #### If systemd is NOT enabled in WSL
+
+    Run Redis manually:
+
+    ```bash
+     redis-server --daemonize yes
+    ```
+
+    Verify Redis is running:
+
+    ```bash
+    redis-cli ping
+    ```
+
+    Expected output:
+
+    ```
+    PONG
+    ```
+
+
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
      ```bash
      sudo apt install imagemagick
