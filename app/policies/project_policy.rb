@@ -11,6 +11,35 @@ class ProjectPolicy < ApplicationPolicy
     @simulator_exception = CustomAuthException.new(simulator_error)
   end
 
+  # Avo Admin CRUD methods
+  def index?
+    admin?
+  end
+
+  def show?
+    admin?
+  end
+
+  def create?
+    admin?
+  end
+
+  def new?
+    create?
+  end
+
+  def update?
+    admin?
+  end
+
+  def edit?
+    update?
+  end
+
+  def destroy?
+    admin?
+  end
+
   def can_feature?
     user.present? && user.admin? && project.project_access_type == "Public"
   end
@@ -73,5 +102,21 @@ class ProjectPolicy < ApplicationPolicy
 
   def author_access?
     (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
+  end
+
+  class Scope < ApplicationPolicy::Scope
+    def resolve
+      if admin?
+        scope.all
+      else
+        scope.none
+      end
+    end
+  end
+
+  private
+
+  def admin?
+    user&.admin?
   end
 end

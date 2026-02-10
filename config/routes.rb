@@ -3,6 +3,7 @@
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => "/admin", as: "rails_admin"
+  mount Avo::Engine => "/avo_admin", as: "avo_admin"
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
 
   require "sidekiq/web"
