@@ -62,7 +62,7 @@ class Avo::Resources::Project < Avo::BaseResource
   end
 
   def actions
-    action Avo::Actions::ToggleFeaturedProject
-    action Avo::Actions::ExportProject
+    action Avo::Actions::Projects::ToggleFeaturedProject
+    action Avo::Actions::Projects::ExportProject
   end
 end
