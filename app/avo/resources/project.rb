@@ -10,7 +10,7 @@ class Avo::Resources::Project < Avo::BaseResource
 
   # rubocop:disable Metrics/MethodLength
   def fields
-    field :id, as: :id, link_to_resource: true
+    field :id, as: :id, link_to_record: true
     field :name, as: :text, required: true, sortable: true
     field :author, as: :belongs_to, searchable: true
     field :forked_project, as: :belongs_to, use_resource: "Avo::Resources::Project", searchable: true

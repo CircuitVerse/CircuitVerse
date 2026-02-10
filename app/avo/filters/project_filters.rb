@@ -7,7 +7,7 @@ module Avo
         self.name = "Access Type"
 
         def apply(_request, query, value)
-          return query if value.blank?
+          return query unless value["featured"]
 
           query.where(project_access_type: value)
         end
@@ -24,10 +24,10 @@ module Avo
       class ProjectFeatured < Avo::Filters::BooleanFilter
         self.name = "Featured"
 
-        def apply(_request, query, value)
-          return query if value.blank?
+        def apply(_request, query, _value)
+          return query if values.values.none?
 
-          value["featured"] ? query.joins(:featured_circuit) : query.where.missing(:featured_circuit)
+          values["featured"] ? query.joins(:featured_circuit) : query.where.missing(:featured_circuit)
         end
 
         def options

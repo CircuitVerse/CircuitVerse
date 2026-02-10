@@ -15,15 +15,15 @@ class Avo::Actions::Projects::ExportProject < Avo::BaseAction
   private
 
     def collect_projects_data(query)
-      query.map do |project|
+      query.includes(:author, :stars).map do |project|
         {
           id: project.id,
           name: project.name,
-          author: project.author.name,
-          author_email: project.author.email,
+          author: project.author&.name,
+          author_email: project.author&.email,
           access_type: project.project_access_type,
           views: project.view,
-          stars: project.stars.count,
+          stars: project.stars_count,
           created_at: project.created_at,
           updated_at: project.updated_at
         }
@@ -31,6 +31,8 @@ class Avo::Actions::Projects::ExportProject < Avo::BaseAction
     end
 
     def generate_csv(data)
+      return "" if data.empty?
+
       CSV.generate(headers: true) do |csv|
         csv << data.first.keys
         data.each { |row| csv << row.values }

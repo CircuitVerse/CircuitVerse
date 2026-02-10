@@ -7,14 +7,16 @@ class Avo::Actions::Projects::ToggleFeaturedProject < Avo::BaseAction
   self.cancel_button_label = "Cancel"
 
   def handle(query:, _fields:, _current_user:, _resource:, **_args)
-    query.each do |project|
-      if project.featured?
-        project.featured_circuit.destroy!
-      elsif project.public?
-        FeaturedCircuit.create!(project: project)
+    ActiveRecord::Base.transaction do
+      query.each do |project|
+        if project.featured?
+          project.featured_circuit.destroy!
+        elsif project.public?
+          FeaturedCircuit.create!(project: project)
+        end
       end
     end
 
-    succeed "Featured status toggled for #{query.count} project(s)"
+    succeed "Featured status toggled for #{query.size} project(s)"
   end
 end
