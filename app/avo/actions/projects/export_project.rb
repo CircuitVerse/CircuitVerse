@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "csv"
 
 class Avo::Actions::Projects::ExportProject < Avo::BaseAction
