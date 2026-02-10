@@ -24,7 +24,7 @@ class Avo::Resources::Star < Avo::BaseResource
   end
 
   def filters
-    filter Avo::Filters::StarByUser
-    filter Avo::Filters::StarByProject
+    filter Avo::Filters::StarFilters::StarByUser
+    filter Avo::Filters::StarFilters::StarByProject
   end
 end

@@ -57,8 +57,8 @@ class Avo::Resources::Project < Avo::BaseResource
   # rubocop:enable Metrics/MethodLength
 
   def filters
-    filter Avo::Filters::ProjectAccessType
-    filter Avo::Filters::ProjectFeatured
+    filter Avo::Filters::ProjectFilters::ProjectAccessType
+    filter Avo::Filters::ProjectFilters::ProjectFeatured
   end
 
   def actions
