@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_10_211119) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -104,6 +104,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.string "lti_consumer_key"
     t.string "lti_shared_secret"
     t.jsonb "feature_restrictions", default: {}
+    t.string "google_classroom_id"
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -277,6 +278,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at", precision: nil
+    t.string "google_classroom_id"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end
@@ -506,6 +508,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.string "unconfirmed_email"
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(educational_institute, ''::character varying))::text), 'B'::\"char\"))", stored: true
     t.integer "projects_count", default: 0, null: false
+    t.text "google_access_token"
+    t.text "google_refresh_token"
+    t.string "google_classroom_id"
+    t.datetime "google_token_expires_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["searchable"], name: "index_users_on_searchable", using: :gin

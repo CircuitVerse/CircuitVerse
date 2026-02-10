@@ -36,24 +36,36 @@ class ApplicationController < ActionController::Base
   end
 
   def google_classroom_test
-    if user_signed_in? && current_user.provider == "google_oauth2"
-      classroom_service = GoogleClassroomService.new(current_user)
-      connection_test = classroom_service.test_connection
-
-      render json: {
-        message: "Google Classroom integration ready!",
-        user: current_user.email,
-        provider: current_user.provider,
-        has_tokens: current_user.google_access_token.present?,
-        api_test: connection_test
-      }
-    else
-      render json: {
+    # Early exit if user is not signed in or not using Google OAuth
+    unless user_signed_in? && current_user.provider == "google_oauth2"
+      return render json: {
         message: "Please sign in with Google to test Classroom integration",
         signed_in: user_signed_in?,
         provider: current_user&.provider
       }
     end
+
+    # Early exit if user lacks Google tokens
+    unless current_user.google_access_token.present? || current_user.google_refresh_token.present?
+      return render json: {
+        message: "Please sign in with Google to test Classroom integration",
+        signed_in: user_signed_in?,
+        provider: current_user.provider,
+        has_tokens: false
+      }
+    end
+
+    # User has tokens, proceed with API test
+    classroom_service = GoogleClassroomService.new(current_user)
+    connection_test = classroom_service.test_connection
+
+    render json: {
+      message: "Google Classroom integration ready!",
+      user: current_user.email,
+      provider: current_user.provider,
+      has_tokens: current_user.google_access_token.present?,
+      api_test: connection_test
+    }
   end
 
   def test_classroom_methods

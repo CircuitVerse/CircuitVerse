@@ -89,6 +89,44 @@ class GoogleClassroomService
     nil
   end
 
+  # Submit grade for a student submission
+  def submit_grade(course_id, coursework_id, student_email, grade)
+    # First, get the student submissions for this coursework
+    submissions = @service.list_course_course_work_student_submissions(
+      course_id, coursework_id, user_id: student_email
+    ).student_submissions
+
+    return false if submissions.empty?
+
+    student_submission = submissions.first
+
+    # Create grade object (Google Classroom expects grades as numbers)
+    grade_obj = Google::Apis::ClassroomV1::Grade.new(score: grade.to_f)
+
+    # Update the submission with the grade
+    student_submission.assigned_grade = grade_obj
+
+    @service.patch_course_course_work_student_submission(
+      course_id, coursework_id, student_submission.id, student_submission,
+      update_mask: "assignedGrade"
+    )
+
+    true
+  rescue Google::Apis::Error => e
+    Rails.logger.error "Google Classroom grade submission error: #{e.message}"
+    false
+  end
+
+  # Get student submissions for an assignment
+  def get_student_submissions(course_id, coursework_id)
+    @service.list_course_course_work_student_submissions(
+      course_id, coursework_id
+    ).student_submissions || []
+  rescue Google::Apis::Error => e
+    Rails.logger.error "Google Classroom API error: #{e.message}"
+    []
+  end
+
   private
 
     def authorization
@@ -99,20 +137,37 @@ class GoogleClassroomService
         client_secret: ENV.fetch("GOOGLE_CLIENT_SECRET", nil),
         token_credential_uri: "https://oauth2.googleapis.com/token",
         scope: [
-          "https://www.googleapis.com/auth/classroom.courses.readonly"
+          "https://www.googleapis.com/auth/classroom.courses.readonly",
+          "https://www.googleapis.com/auth/classroom.coursework.students",
+          "https://www.googleapis.com/auth/classroom.coursework.students.readonly"
         ]
       )
 
       auth.access_token = @user.google_access_token
       auth.refresh_token = @user.google_refresh_token
 
-      # Refresh token if expired
+      # Set expiration time if available
+      if @user.respond_to?(:google_token_expires_at) && @user.google_token_expires_at.present?
+        auth.expires_at = @user.google_token_expires_at.to_i
+      end
+
+      # Refresh token if expired and refresh token is available
       if auth.expired? && auth.refresh_token.present?
-        auth.refresh!
-        @user.update(
-          google_access_token: auth.access_token,
-          google_refresh_token: auth.refresh_token
-        )
+        begin
+          auth.refresh!
+          # Update user with new tokens
+          update_attrs = {
+            google_access_token: auth.access_token
+          }
+          # Only update expires_at if column exists
+          if @user.respond_to?(:google_token_expires_at=)
+            update_attrs[:google_token_expires_at] = Time.at(auth.expires_at)
+          end
+          @user.update(update_attrs)
+        rescue => e
+          Rails.logger.error "Failed to refresh Google token: #{e.message}"
+          return nil
+        end
       end
 
       auth
