@@ -28,3 +28,11 @@
 @import 'select2_overrides';
 @import 'contests';
 @import 'rtl_layout';
+
+/* ----------------------------------
+   Login page fixes
+   ---------------------------------- */
+
+.captcha-container {
+  margin-bottom: 12px;
+}
