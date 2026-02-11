@@ -55,7 +55,9 @@
         <div class="field mb-3">
           <div class="input-group">
             <% if Flipper.enabled?(:recaptcha) %>
-              <%= recaptcha_tags %>
+              <div class="mb-3">
+                <%= recaptcha_tags %>
+              </div>
             <% end %>
             <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
             <div class="users-text-container">
