@@ -1,0 +1,139 @@
+name: Generate Releases Data
+
+on:
+  schedule:
+    # Run every hour to check for new releases
+    - cron: '0 * * * *'
+  workflow_dispatch:
+    # Allow manual triggering
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/generate-releases.yml'
+
+jobs:
+  generate-releases:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Create Public Directory
+        run: |
+          mkdir -p public/releases
+          echo "Created public/releases directory"
+
+      - name: Fetch CircuitVerse Releases
+        id: fetch-circuitverse
+        run: |
+          echo "Fetching CircuitVerse releases..."
+          curl -s \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/CircuitVerse/CircuitVerse/releases" \
+            | jq '[.[] | {tag_name: .tag_name, name: .name, published_at: .published_at, html_url: .html_url}]' \
+            > public/releases/circuitverse.json
+          
+          echo "CircuitVerse releases fetched successfully"
+          echo "circuitverse_count=$(jq length public/releases/circuitverse.json)" >> $GITHUB_OUTPUT
+
+      - name: Fetch Vue Simulator Releases
+        id: fetch-vue-simulator
+        run: |
+          echo "Fetching Vue Simulator releases..."
+          curl -s \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            "https://api.github.com/repos/CircuitVerse/cv-frontend-vue/releases" \
+            | jq '[.[] | {tag_name: .tag_name, name: .name, published_at: .published_at, html_url: .html_url}]' \
+            > public/releases/vue-simulator.json
+          
+          echo "Vue Simulator releases fetched successfully"
+          echo "vue_simulator_count=$(jq length public/releases/vue-simulator.json)" >> $GITHUB_OUTPUT
+
+      - name: Generate Combined Releases Data
+        run: |
+          echo "Generating combined releases data..."
+          
+          # Create combined JSON with both repositories
+          jq -n \
+            --argfile circuitverse public/releases/circuitverse.json \
+            --argfile vue_simulator public/releases/vue-simulator.json \
+            '{
+              "circuitverse": $circuitverse,
+              "vue_simulator": $vue_simulator,
+              "last_updated": now | strftime("%Y-%m-%dT%H:%M:%SZ"),
+              "total_releases": ($circuitverse | length) + ($vue_simulator | length)
+            }' \
+            > public/releases/releases.json
+          
+          echo "Combined releases data generated"
+          
+          # Display summary
+          echo "## Release Summary"
+          echo "- CircuitVerse releases: ${{ steps.fetch-circuitverse.outputs.circuitverse_count }}"
+          echo "- Vue Simulator releases: ${{ steps.fetch-vue-simulator.outputs.vue_simulator_count }}"
+          echo "- Total releases: $(jq '.total_releases' public/releases/releases.json)"
+          echo "- Last updated: $(jq '.last_updated' public/releases/releases.json)"
+
+      - name: Generate Latest Version Files
+        run: |
+          echo "Generating latest version files..."
+          
+          # Get latest CircuitVerse version
+          jq -r '.circuitverse[0].tag_name // "unknown"' public/releases/releases.json > public/releases/latest-circuitverse.txt
+          
+          # Get latest Vue Simulator version  
+          jq -r '.vue_simulator[0].tag_name // "unknown"' public/releases/releases.json > public/releases/latest-vue-simulator.txt
+          
+          echo "Latest version files generated"
+          echo "Latest CircuitVerse: $(cat public/releases/latest-circuitverse.txt)"
+          echo "Latest Vue Simulator: $(cat public/releases/latest-vue-simulator.txt)"
+
+      - name: Upload Releases Data
+        uses: actions/upload-artifact@v4
+        with:
+          name: releases-data
+          path: public/releases/
+          retention-days: 30
+
+      - name: Deploy to GitHub Pages (if enabled)
+        if: github.ref == 'refs/heads/master'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          destination_dir: releases
+
+      - name: Create Summary
+        run: |
+          echo "## 🚀 Releases Data Generation Complete!" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Summary" >> $GITHUB_STEP_SUMMARY
+          echo "- **CircuitVerse Releases:** ${{ steps.fetch-circuitverse.outputs.circuitverse_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Vue Simulator Releases:** ${{ steps.fetch-vue-simulator.outputs.vue_simulator_count }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Total Releases:** $(jq '.total_releases' public/releases/releases.json)" >> $GITHUB_STEP_SUMMARY
+          echo "- **Last Updated:** $(jq '.last_updated' public/releases/releases.json)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📁 Generated Files" >> $GITHUB_STEP_SUMMARY
+          echo "- \`public/releases/releases.json\` - Combined releases data" >> $GITHUB_STEP_SUMMARY
+          echo "- \`public/releases/circuitverse.json\` - CircuitVerse releases only" >> $GITHUB_STEP_SUMMARY
+          echo "- \`public/releases/vue-simulator.json\` - Vue Simulator releases only" >> $GITHUB_STEP_SUMMARY
+          echo "- \`public/releases/latest-circuitverse.txt\` - Latest CircuitVerse version" >> $GITHUB_STEP_SUMMARY
+          echo "- \`public/releases/latest-vue-simulator.txt\` - Latest Vue Simulator version" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 🔗 Access Points" >> $GITHUB_STEP_SUMMARY
+          echo "- **Combined API:** \`/releases/releases.json\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **CircuitVerse API:** \`/releases/circuitverse.json\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Vue Simulator API:** \`/releases/vue-simulator.json\`" >> $GITHUB_STEP_SUMMARY

@@ -1,0 +1,316 @@
+<div class="container-fluid community-dashboard">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h2 mb-2">
+            <i class="fas fa-users me-2"></i>
+            <%= t('community.dashboard.title', default: 'Community Dashboard') %>
+          </h1>
+          <p class="text-muted mb-0">
+            <%= t('community.dashboard.subtitle', default: 'Explore the CircuitVerse community and contributor achievements') %>
+          </p>
+        </div>
+        <div class="d-flex gap-2">
+          <%= link_to community_leaderboard_path, 
+                      class: "btn btn-primary" do %>
+            <i class="fas fa-trophy me-2"></i>
+            <%= t('community.dashboard.view_leaderboard', default: 'View Leaderboard') %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="row mb-4">
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card stats-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="stats-icon bg-primary bg-gradient">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="ms-3">
+              <h3 class="stats-number"><%= number_with_delimiter(@stats[:total_users]) %></h3>
+              <p class="stats-label"><%= t('community.stats.total_users', default: 'Total Users') %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card stats-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="stats-icon bg-success bg-gradient">
+              <i class="fas fa-project-diagram"></i>
+            </div>
+            <div class="ms-3">
+              <h3 class="stats-number"><%= number_with_delimiter(@stats[:total_projects]) %></h3>
+              <p class="stats-label"><%= t('community.stats.total_projects', default: 'Total Projects') %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card stats-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="stats-icon bg-warning bg-gradient">
+              <i class="fas fa-star"></i>
+            </div>
+            <div class="ms-3">
+              <h3 class="stats-number"><%= number_with_delimiter(@stats[:total_contributions]) %></h3>
+              <p class="stats-label"><%= t('community.stats.total_contributions', default: 'Total Contributions') %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="col-md-3 col-sm-6 mb-3">
+      <div class="card stats-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center">
+            <div class="stats-icon bg-info bg-gradient">
+              <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="ms-3">
+              <h3 class="stats-number"><%= number_with_delimiter(@stats[:active_users_last_month]) %></h3>
+              <p class="stats-label"><%= t('community.stats.active_users', default: 'Active Users (Last Month)') %></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Projects Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-clock me-2"></i>
+            <%= t('community.dashboard.recent_projects', default: 'Recent Projects') %>
+          </h5>
+          <%= link_to projects_path, class: "btn btn-sm btn-outline-primary" do %>
+            <%= t('community.dashboard.view_all', default: 'View All') %>
+          <% end %>
+        </div>
+        <div class="card-body">
+          <% if @recent_projects.any? %>
+            <div class="row">
+              <% @recent_projects.each do |project| %>
+                <div class="col-md-6 col-lg-4 mb-3">
+                  <div class="card project-card h-100">
+                    <div class="card-body">
+                      <div class="d-flex align-items-start mb-2">
+                        <%= image_tag project.author.profile_picture.url || "/images/default_avatar.png", 
+                                     class: "rounded-circle me-2", 
+                                     size: "32x32",
+                                     alt: project.author.name %>
+                        <div class="flex-grow-1">
+                          <h6 class="card-title mb-1">
+                            <%= link_to project.name, 
+                                       user_project_path(project.author, project), 
+                                       class: "text-decoration-none" %>
+                          </h6>
+                          <small class="text-muted">
+                            <%= t('community.dashboard.by_author', default: 'by %{author}', author: project.author.name) %>
+                          </small>
+                        </div>
+                      </div>
+                      <p class="card-text text-muted small">
+                        <%= truncate(project.description, length: 100) %>
+                      </p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-light text-dark">
+                          <%= project.project_access_type %>
+                        </span>
+                        <small class="text-muted">
+                          <%= time_ago_in_words(project.updated_at) %> <%= t('community.dashboard.ago', default: 'ago') %>
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-4">
+              <i class="fas fa-folder-open fa-3x text-muted mb-3"></i>
+              <p class="text-muted">
+                <%= t('community.dashboard.no_recent_projects', default: 'No recent projects found') %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Top Contributors Preview -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h5 class="card-title mb-0">
+            <i class="fas fa-trophy me-2"></i>
+            <%= t('community.dashboard.top_contributors', default: 'Top Contributors') %>
+          </h5>
+          <%= link_to community_leaderboard_path, class: "btn btn-sm btn-outline-primary" do %>
+            <%= t('community.dashboard.view_full_leaderboard', default: 'View Full Leaderboard') %>
+          <% end %>
+        </div>
+        <div class="card-body">
+          <% if @top_contributors.any? %>
+            <div class="row">
+              <% @top_contributors.first(6).each_with_index do |user, index| %>
+                <div class="col-md-6 col-lg-4 mb-3">
+                  <div class="d-flex align-items-center contributor-card">
+                    <div class="rank-badge">
+                      <span class="rank-number <%= index < 3 ? 'top-three' : '' %>">
+                        <%= index + 1 %>
+                      </span>
+                    </div>
+                    <%= image_tag user.profile_picture.url || "/images/default_avatar.png", 
+                                 class: "rounded-circle me-3", 
+                                 size: "48x48",
+                                 alt: user.name %>
+                    <div class="flex-grow-1">
+                      <h6 class="mb-1">
+                        <%= link_to user.name, 
+                                   user_path(user), 
+                                   class: "text-decoration-none" %>
+                      </h6>
+                      <div class="d-flex align-items-center">
+                        <span class="badge bg-primary me-2">
+                          <%= number_with_delimiter(user.contribution_points.to_i) %> pts
+                        </span>
+                        <small class="text-muted">
+                          <%= user.pr_count.to_i %> PRs, <%= user.issue_count.to_i %> issues
+                        </small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          <% else %>
+            <div class="text-center py-4">
+              <i class="fas fa-users fa-3x text-muted mb-3"></i>
+              <p class="text-muted">
+                <%= t('community.dashboard.no_contributors', default: 'No contributors found') %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.community-dashboard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.stats-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.stats-card:hover {
+  transform: translateY(-5px);
+}
+
+.stats-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 1.5rem;
+}
+
+.stats-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.stats-label {
+  color: #666;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.project-card {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-3px);
+}
+
+.contributor-card {
+  padding: 15px;
+  border-radius: 12px;
+  background: #f8f9fa;
+  transition: background-color 0.3s ease;
+}
+
+.contributor-card:hover {
+  background: #e9ecef;
+}
+
+.rank-badge {
+  margin-right: 15px;
+}
+
+.rank-number {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #6c757d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+
+.rank-number.top-three {
+  background: linear-gradient(135deg, #ffd700, #ffed4e);
+  color: #333;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  background: white;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 15px 15px 0 0 !important;
+}
+</style>

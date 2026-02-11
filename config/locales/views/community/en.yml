@@ -1,0 +1,54 @@
+en:
+  community:
+    dashboard:
+      title: "Community Dashboard"
+      subtitle: "Explore the CircuitVerse community and contributor achievements"
+      view_leaderboard: "View Leaderboard"
+      view_all: "View All"
+      back_to_dashboard: "Back to Dashboard"
+      view_full_leaderboard: "View Full Leaderboard"
+      
+      # Stats
+      total_users: "Total Users"
+      total_projects: "Total Projects"
+      total_contributions: "Total Contributions"
+      active_users: "Active Users (Last Month)"
+      
+      # Recent projects
+      recent_projects: "Recent Projects"
+      by_author: "by %{author}"
+      ago: "ago"
+      no_recent_projects: "No recent projects found"
+      
+      # Top contributors
+      top_contributors: "Top Contributors"
+      no_contributors: "No contributors found"
+      
+    leaderboard:
+      title: "Community Leaderboard"
+      subtitle: "Top contributors ranked by contribution points"
+      period_title: "Time Period"
+      points_tooltip: "PR merged: +5 points<br>PR opened: +2 points<br>Issue opened: +1 point"
+      
+      # Periods
+      weekly: "Weekly"
+      monthly: "Monthly"
+      yearly: "Yearly"
+      all_time: "All Time"
+      
+      # User rank
+      your_rank: "Your rank: #%{rank}"
+      
+      # Table columns
+      columns:
+        rank: "Rank"
+        contributor: "Contributor"
+        points: "Points"
+        merged_prs: "Merged PRs"
+        opened_prs: "Opened PRs"
+        issues: "Issues"
+        breakdown: "Breakdown"
+      
+      # No data
+      no_data: "No Data Available"
+      no_data_description: "No contribution data available for the selected time period."

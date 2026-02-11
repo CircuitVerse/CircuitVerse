@@ -48,6 +48,12 @@ Rails.application.routes.draw do
   end
 
   get "/404", to: "errors#not_found"
+  get "/422", to: "errors#unprocessable_entity"
+  get "/500", to: "errors#internal_server_error"
+
+  # Community routes
+  get "/community", to: "community#index"
+  get "/community/leaderboard", to: "community#leaderboard"
   get "/422", to: "errors#unacceptable"
   get "/500", to: "errors#internal_error"
 
@@ -196,6 +202,14 @@ Rails.application.routes.draw do
       get "/me", to: "users#me"
       post "/forgot_password", to: "users#forgot_password"
       resources :users, only: %i[index show update]
+      
+      # Releases endpoints
+      namespace :releases do
+        get :circuitverse
+        get :vue_simulator
+      end
+      get :releases, to: 'releases#index'
+      
       get "/projects/featured", to: "projects#featured_circuits"
       get "/projects/search", to: "projects#search"
       post "/simulator/post_issue", to: "simulator#post_issue"

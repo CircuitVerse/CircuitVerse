@@ -1,0 +1,5 @@
+<!-- Community Navigation Link -->
+<%= link_to community_path, class: "nav-link #{'active' if current_page?(community_path)}" do %>
+  <i class="fas fa-users me-2"></i>
+  <%= t('community.nav.title', default: 'Community') %>
+<% end %>

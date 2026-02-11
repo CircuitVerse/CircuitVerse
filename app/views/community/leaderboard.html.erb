@@ -1,0 +1,373 @@
+<div class="container-fluid community-leaderboard">
+  <!-- Header Section -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <h1 class="h2 mb-2">
+            <i class="fas fa-trophy me-2"></i>
+            <%= t('community.leaderboard.title', default: 'Community Leaderboard') %>
+          </h1>
+          <p class="text-muted mb-0">
+            <%= t('community.leaderboard.subtitle', default: 'Top contributors ranked by contribution points') %>
+          </p>
+        </div>
+        <div class="d-flex gap-2">
+          <%= link_to community_path, 
+                      class: "btn btn-outline-primary" do %>
+            <i class="fas fa-arrow-left me-2"></i>
+            <%= t('community.leaderboard.back_to_dashboard', default: 'Back to Dashboard') %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Period Selector -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <div class="card period-selector-card">
+        <div class="card-body">
+          <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+              <h5 class="card-title mb-0 me-3">
+                <%= t('community.leaderboard.period_title', default: 'Time Period') %>
+              </h5>
+              <!-- Tooltip with points explanation -->
+              <div class="tooltip-wrapper">
+                <button type="button" 
+                        class="btn btn-sm btn-outline-info info-tooltip" 
+                        data-bs-toggle="tooltip" 
+                        data-bs-placement="top" 
+                        title="<%= t('community.leaderboard.points_tooltip', default: 'PR merged: +5 points<br>PR opened: +2 points<br>Issue opened: +1 point') %>">
+                  <i class="fas fa-info-circle"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div class="btn-group" role="group">
+              <%= link_to community_leaderboard_path(period: 'weekly'), 
+                          class: "btn #{@time_period == 'weekly' ? 'btn-primary' : 'btn-outline-primary'}" do %>
+                <%= t('community.leaderboard.weekly', default: 'Weekly') %>
+              <% end %>
+              <%= link_to community_leaderboard_path(period: 'monthly'), 
+                          class: "btn #{@time_period == 'monthly' ? 'btn-primary' : 'btn-outline-primary'}" do %>
+                <%= t('community.leaderboard.monthly', default: 'Monthly') %>
+              <% end %>
+              <%= link_to community_leaderboard_path(period: 'yearly'), 
+                          class: "btn #{@time_period == 'yearly' ? 'btn-primary' : 'btn-outline-primary'}" do %>
+                <%= t('community.leaderboard.yearly', default: 'Yearly') %>
+              <% end %>
+              <%= link_to community_leaderboard_path(period: 'all_time'), 
+                          class: "btn #{@time_period == 'all_time' ? 'btn-primary' : 'btn-outline-primary'}" do %>
+                <%= t('community.leaderboard.all_time', default: 'All Time') %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Current User Rank (if logged in) -->
+  <% if current_user_rank && @current_user_rank <= 100 %>
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="alert alert-info d-flex align-items-center" role="alert">
+          <i class="fas fa-user-circle me-3"></i>
+          <div>
+            <strong><%= current_user.name %></strong> 
+            <%= t('community.leaderboard.your_rank', default: 'Your rank: #%{rank}', rank: @current_user_rank) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Leaderboard Table -->
+  <div class="row">
+    <div class="col-12">
+      <div class="card leaderboard-card">
+        <div class="card-body">
+          <% if @leaderboard_data.any? %>
+            <div class="table-responsive">
+              <table class="table table-hover leaderboard-table">
+                <thead>
+                  <tr>
+                    <th scope="col"><%= t('community.leaderboard.columns.rank', default: 'Rank') %></th>
+                    <th scope="col"><%= t('community.leaderboard.columns.contributor', default: 'Contributor') %></th>
+                    <th scope="col" class="text-center"><%= t('community.leaderboard.columns.points', default: 'Points') %></th>
+                    <th scope="col" class="text-center"><%= t('community.leaderboard.columns.merged_prs', default: 'Merged PRs') %></th>
+                    <th scope="col" class="text-center"><%= t('community.leaderboard.columns.opened_prs', default: 'Opened PRs') %></th>
+                    <th scope="col" class="text-center"><%= t('community.leaderboard.columns.issues', default: 'Issues') %></th>
+                    <th scope="col" class="text-center"><%= t('community.leaderboard.columns.breakdown', default: 'Breakdown') %></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @leaderboard_data.each do |entry| %>
+                    <tr class="<%= entry[:user] == current_user ? 'current-user-row' : '' %>">
+                      <td>
+                        <div class="rank-display">
+                          <% if entry[:rank] == 1 %>
+                            <span class="rank-badge gold">🥇</span>
+                          <% elsif entry[:rank] == 2 %>
+                            <span class="rank-badge silver">🥈</span>
+                          <% elsif entry[:rank] == 3 %>
+                            <span class="rank-badge bronze">🥉</span>
+                          <% else %>
+                            <span class="rank-number">#<%= entry[:rank] %></span>
+                          <% end %>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="contributor-info">
+                          <%= image_tag entry[:user].profile_picture.url || "/images/default_avatar.png", 
+                                       class: "rounded-circle me-2", 
+                                       size: "40x40",
+                                       alt: entry[:user].name %>
+                          <div>
+                            <%= link_to entry[:user].name, 
+                                       user_path(entry[:user]), 
+                                       class: "contributor-name text-decoration-none" %>
+                            <br>
+                            <small class="text-muted">
+                              <%= entry[:user].educational_institution || entry[:user].country || 'N/A' %>
+                            </small>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="text-center">
+                        <span class="points-badge">
+                          <%= number_with_delimiter(entry[:contribution_points]) %>
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <span class="badge bg-success">
+                          <%= entry[:merged_pr_count] %>
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <span class="badge bg-primary">
+                          <%= entry[:pr_count] - entry[:merged_pr_count] %>
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <span class="badge bg-info">
+                          <%= entry[:issue_count] %>
+                        </span>
+                      </td>
+                      <td class="text-center">
+                        <div class="points-breakdown">
+                          <small class="text-muted">
+                            <div class="breakdown-item">
+                              <i class="fas fa-code-merge text-success"></i>
+                              +<%= entry[:breakdown][:merged_pr_points] %>
+                            </div>
+                            <div class="breakdown-item">
+                              <i class="fas fa-code-branch text-primary"></i>
+                              +<%= entry[:breakdown][:opened_pr_points] %>
+                            </div>
+                            <div class="breakdown-item">
+                              <i class="fas fa-bug text-info"></i>
+                              +<%= entry[:breakdown][:issue_points] %>
+                            </div>
+                          </small>
+                        </div>
+                      </td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <div class="text-center py-5">
+              <i class="fas fa-trophy fa-4x text-muted mb-3"></i>
+              <h4><%= t('community.leaderboard.no_data', default: 'No Data Available') %></h4>
+              <p class="text-muted">
+                <%= t('community.leaderboard.no_data_description', default: 'No contribution data available for the selected time period.') %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.community-leaderboard {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.period-selector-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.info-tooltip {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.leaderboard-card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.leaderboard-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.leaderboard-table th {
+  background: #f8f9fa;
+  border: none;
+  font-weight: 600;
+  color: #495057;
+  padding: 15px;
+}
+
+.leaderboard-table td {
+  padding: 15px;
+  vertical-align: middle;
+  border: none;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.leaderboard-table tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.current-user-row {
+  background: #e3f2fd !important;
+  border-left: 4px solid #2196f3;
+}
+
+.rank-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rank-badge {
+  font-size: 1.5rem;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.rank-number {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  padding: 5px 10px;
+  border-radius: 20px;
+  min-width: 50px;
+  text-align: center;
+}
+
+.contributor-info {
+  display: flex;
+  align-items: center;
+}
+
+.contributor-name {
+  font-weight: 600;
+  color: #333;
+}
+
+.contributor-name:hover {
+  color: #007bff;
+}
+
+.points-badge {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #007bff;
+  background: #e3f2fd;
+  padding: 5px 15px;
+  border-radius: 20px;
+}
+
+.points-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.breakdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.card {
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.card-header {
+  background: white;
+  border-bottom: 1px solid #e9ecef;
+  border-radius: 15px 15px 0 0 !important;
+}
+
+.btn-group .btn {
+  border-radius: 8px;
+  margin: 0 2px;
+}
+
+.btn-group .btn:first-child {
+  margin-left: 0;
+}
+
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+.alert {
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+  .contributor-info {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .contributor-info img {
+    margin-bottom: 10px;
+  }
+  
+  .points-breakdown {
+    font-size: 0.8rem;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Bootstrap tooltips
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+  var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl, {
+      html: true,
+      placement: 'top'
+    })
+  });
+});
+</script>
