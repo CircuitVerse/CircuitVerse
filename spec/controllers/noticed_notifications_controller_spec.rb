@@ -50,9 +50,9 @@ describe Users::NoticedNotificationsController, type: :request do
         sign_in @other_user
         expect do
           post mark_as_read_path(id: @owner.id, notification_id: @notification)
-        end.not_to change { @notification.reload.read_at }
+        end.not_to(change { @notification.reload.read_at })
         expect(response).to redirect_to(notifications_path(@other_user))
-        expect(flash[:alert]).to eq("Notification not found")
+        expect(flash[:alert]).to eq(I18n.t("notifications.not_found"))
       end
     end
 

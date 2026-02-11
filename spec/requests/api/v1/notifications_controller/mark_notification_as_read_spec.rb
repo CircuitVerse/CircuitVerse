@@ -55,7 +55,7 @@ RSpec.describe Api::V1::NotificationsController, "#mark_as_read", type: :request
         expect do
           patch "/api/v1/notifications/mark_as_read/#{@notification.id}",
                 headers: { Authorization: "Token #{token}" }, as: :json
-        end.not_to change { @notification.reload.read_at }
+        end.not_to(change { @notification.reload.read_at })
         expect(response).to have_http_status(:not_found)
       end
     end
