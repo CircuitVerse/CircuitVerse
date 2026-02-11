@@ -2,6 +2,7 @@
 
 class Assignment < ApplicationRecord
   include ProfanityFilterable
+
   validates :name, length: { minimum: 1, maximum: 90 }, presence: true
   validates :grading_scale, inclusion: {
     in: %w[percent],

@@ -2,6 +2,7 @@
 
 class Group < ApplicationRecord
   include ProfanityFilterable
+
   has_secure_token :group_token
   validates :name, length: { minimum: 1, maximum: 90 }, presence: true
   belongs_to :primary_mentor, class_name: "User"

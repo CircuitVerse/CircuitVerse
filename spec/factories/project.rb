@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :project do
-    name { Faker::Name.name.gsub(/[^a-zA-Z\s]/, '') }
+    name { Faker::Name.name.gsub(/[^a-zA-Z\s]/, "") }
     association :author, factory: :user
     project_access_type { "Private" }
     description { Faker::Lorem.sentence }

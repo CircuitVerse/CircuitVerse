@@ -6,7 +6,7 @@ FactoryBot.define do
 
     password { "password123" }
 
-    name   { Faker::Name.name.gsub(/[^a-zA-Z\s]/, '') }
+    name   { Faker::Name.name.gsub(/[^a-zA-Z\s]/, "") }
     locale { "en" }
     admin  { false }
 
