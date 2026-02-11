@@ -29,9 +29,26 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   # rubocop:enable Metrics/MethodLength
 
   # POST /api/v1/simulator/verilogcv
+  # rubocop:disable Metrics/MethodLength
   def verilog_cv
+    return api_error(status: 400, errors: "Code parameter is required") if params[:code].blank?
+
     url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = HTTP.post(url, json: { code: params[:code] })
-    render json: response.to_s, status: response.code
+    begin
+      response = HTTP.timeout(connect: 30, read: 30, write: 30).post(url, json: { code: params[:code] })
+      if response.status.success?
+        render json: response.body.to_s, status: response.code
+      else
+        Rails.logger.error "Yosys service returned error status: #{response.code}"
+        api_error(status: 503, errors: "Verilog synthesis service returned an error. Please try again later.")
+      end
+    rescue HTTP::TimeoutError, HTTP::ConnectionError => e
+      Rails.logger.error "Verilog synthesis service error: #{e.message}"
+      api_error(status: 503, errors: "Verilog synthesis service is currently unavailable. Please try again later.")
+    rescue StandardError => e
+      Rails.logger.error "Unexpected error in verilog_cv: #{e.class} - #{e.message}"
+      api_error(status: 500, errors: "An error occurred while processing your Verilog code. Please try again later.")
+    end
   end
+  # rubocop:enable Metrics/MethodLength
 end

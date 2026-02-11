@@ -8,11 +8,22 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
     let(:yosys_url) { "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON" }
     let(:yosys_response) { { "data" => "response_from_yosys" } }
 
+    context "when code parameter is missing" do
+      it "returns a bad request error" do
+        post "/api/v1/simulator/verilogcv", params: {}
+        expect(response.status).to eq(400)
+        expect(response.parsed_body).to have_jsonapi_error("Code parameter is required")
+      end
+    end
+
     context "when YOSYS_PATH is valid and returns a successful response" do
-      let(:response_double) { instance_double(HTTP::Response, code: 200, to_s: yosys_response.to_json) }
+      let(:body_string) { yosys_response.to_json }
+      let(:status_double) { instance_double(HTTP::Response::Status, success?: true) }
+      let(:response_double) { instance_double(HTTP::Response, code: 200, body: body_string, status: status_double) }
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
+        allow(HTTP).to receive(:timeout).with(connect: 30, read: 30, write: 30).and_return(HTTP)
         allow(HTTP).to receive(:post).and_return(response_double)
       end
 
@@ -24,16 +35,19 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
     end
 
     context "when YOSYS_PATH is valid but returns a failed response" do
-      let(:response_double) { instance_double(HTTP::Response, code: 500, to_s: "") }
+      let(:status_double) { instance_double(HTTP::Response::Status, success?: false) }
+      let(:response_double) { instance_double(HTTP::Response, code: 500, body: "", status: status_double) }
 
       before do
         allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
+        allow(HTTP).to receive(:timeout).with(connect: 30, read: 30, write: 30).and_return(HTTP)
         allow(HTTP).to receive(:post).and_return(response_double)
       end
 
-      it "returns the failed status code" do
+      it "returns service unavailable error" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
-        expect(response.status).to eq(500)
+        expect(response.status).to eq(503)
+        expect(response.parsed_body).to have_jsonapi_error("Verilog synthesis service returned an error")
       end
     end
   end
