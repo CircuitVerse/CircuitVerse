@@ -6,7 +6,7 @@ RSpec.describe Api::V1::NotificationsController, "#mark_as_read", type: :request
   describe "mark notification as read" do
     context "when not authenticated" do
       before do
-        get "/api/v1/notifications", as: :json
+        patch "/api/v1/notifications/mark_as_read/1", as: :json
       end
 
       it "returns status unauthorized" do
