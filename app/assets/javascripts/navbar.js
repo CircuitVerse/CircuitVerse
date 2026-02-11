@@ -1,3 +1,23 @@
+// Patch History API to dispatch custom event for client-side routing
+(function patchHistoryAPI() {
+    const originalPushState = window.history.pushState;
+    const originalReplaceState = window.history.replaceState;
+
+    const dispatchNavigationEvent = () => {
+        window.dispatchEvent(new Event('navigation'));
+    };
+
+    window.history.pushState = function pushState(...args) {
+        originalPushState.apply(this, args);
+        dispatchNavigationEvent();
+    };
+
+    window.history.replaceState = function replaceState(...args) {
+        originalReplaceState.apply(this, args);
+        dispatchNavigationEvent();
+    };
+}());
+
 document.addEventListener('DOMContentLoaded', () => {
     const searchIcons = document.getElementsByClassName('fa-search');
     const searchBar = document.getElementsByClassName('navbar-search-active')[0];
@@ -131,4 +151,5 @@ document.addEventListener('DOMContentLoaded', () => {
     setActiveNavbarItem();
     window.addEventListener('hashchange', setActiveNavbarItem);
     window.addEventListener('popstate', setActiveNavbarItem);
+    window.addEventListener('navigation', setActiveNavbarItem);
 });
