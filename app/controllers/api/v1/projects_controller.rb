@@ -204,9 +204,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def load_index_projects
       @projects = if current_user.nil?
-        Project.open
+        Project.open.includes(:author, :commontator_thread).with_attached_circuit_preview
       else
-        Project.open.or(Project.by(current_user.id))
+        Project.open.or(Project.by(current_user.id)).includes(:author, :commontator_thread).with_attached_circuit_preview
       end
     end
 
@@ -214,15 +214,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       # if user is not authenticated or authenticated as some other user
       # return only user's public projects else all
       @projects = if current_user.nil? || current_user.id != params[:id].to_i
-        Project.open.by(params[:id])
+        Project.open.by(params[:id]).includes(:author, :commontator_thread).with_attached_circuit_preview
       else
-        current_user.projects
+        current_user.projects.includes(:author, :commontator_thread).with_attached_circuit_preview
       end
     end
 
     def load_user_favourites
       @projects = Project.joins(:stars)
                          .where(stars: { user_id: params[:id].to_i })
+                         .includes(:author, :commontator_thread).with_attached_circuit_preview
 
       # if user is not authenticated or authenticated as some other user
       # return only user's public favourites else all
@@ -234,7 +235,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_featured_circuits
-      @projects = Project.joins(:featured_circuit).all
+      @projects = Project.joins(:featured_circuit).includes(:author, :commontator_thread).with_attached_circuit_preview
     end
 
     def search_projects
