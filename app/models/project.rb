@@ -59,17 +59,42 @@ class Project < ApplicationRecord
   # after_commit :send_mail, on: :create
 
   def increase_views(user)
-    increment!(:view) if user.nil? || (user.id != author_id)
+    return if user.present? && user.id == author_id
+    begin
+      update_column(:view, view + 1)
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      # Re-raise QueryCanceled so it propagates to controller
+      raise e
+    rescue ActiveRecord::StatementInvalid => e
+      # If update fails due to other statement issues, silently continue
+      # as view count is not critical to the core functionality
+      Rails.logger.warn("Failed to increment project views for project #{id}: #{e.message}")
+    end
   end
 
   # returns true if starred, false if unstarred
   def toggle_star(user)
-    star = Star.find_by(user_id: user.id, project_id: id)
-    if star.nil?
-      @star = Star.create!(user_id: user.id, project_id: id)
-      true
-    else
-      star.destroy!
+    begin
+      star = Star.find_by(user_id: user.id, project_id: id)
+      if star.nil?
+        begin
+          @star = Star.create!(user_id: user.id, project_id: id)
+          true
+        rescue ActiveRecord::RecordNotUnique
+          # Handle race condition where star was created by concurrent request
+          # The star is now created, so return true (starred)
+          Rails.logger.info("Star already exists for user #{user.id} on project #{id}")
+          true
+        end
+      else
+        star.destroy!
+        false
+      end
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      # Re-raise QueryCanceled so it propagates to controller
+      raise e
+    rescue ActiveRecord::StatementInvalid => e
+      Rails.logger.warn("Failed to toggle star for project #{id}: #{e.message}")
       false
     end
   end
@@ -77,15 +102,31 @@ class Project < ApplicationRecord
   def fork(user)
     forked_project = dup
     forked_project.build_project_datum.data = project_datum&.data
-    forked_project.circuit_preview.attach(circuit_preview.blob)
+    
+    # Only attach circuit preview if it exists, to avoid timeouts with large files
+    if circuit_preview.attached?
+      begin
+        forked_project.circuit_preview.attach(circuit_preview.blob)
+      rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+        # Re-raise QueryCanceled so it propagates to controller
+        raise e
+      rescue StandardError => e
+        Rails.logger.warn("Failed to copy circuit preview for forked project: #{e.message}")
+        # Continue without the preview rather than fail the entire fork operation
+      end
+    end
+    
     forked_project.image_preview = image_preview
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name
     )
+    
+    # Refresh to ensure we have the latest data
     @project = Project.find(id)
     if @project.author != user # rubocop:disable Style/IfUnlessModifier
       ForkNotification.with(user: user, project: @project).deliver_later(@project.author)
     end
+    
     forked_project
   end
 
