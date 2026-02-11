@@ -1013,6 +1013,7 @@ PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
   arm64-darwin-24
+  arm64-darwin-25
   x64-mingw32
   x86_64-darwin-21
   x86_64-linux
