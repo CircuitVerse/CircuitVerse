@@ -11,10 +11,10 @@ class Users::NoticedNotificationsController < ApplicationController
   def mark_as_read
     notification = current_user.noticed_notifications.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
-    answer = NotifyUser.new(params, notification).call
+    answer = NotifyUser.new(notification).call
     redirect_to redirect_path_for(answer)
   rescue ActiveRecord::RecordNotFound
-    redirect_to notifications_path(current_user), alert: "Notification not found"
+    redirect_to notifications_path(current_user), alert: t("notifications.not_found")
   end
 
   def mark_all_as_read

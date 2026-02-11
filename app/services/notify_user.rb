@@ -3,16 +3,15 @@
 class NotifyUser
   Result = Struct.new(:success, :type, :first_param, :second)
 
-  # @param [Hash] params
   # @param [NoticedNotification] notification
-  def initialize(params, notification)
+  def initialize(notification)
     @notification = notification
     # @type [Assignment]
     @assignment = @notification.params[:assignment]
     # @type [Project]
     @project = @notification.params[:project]
     @thread = @notification.params[:forum_thread]
-    @contest = @notification.params[:contest] # Added to handle ContestNotification
+    @contest = @notification.params[:contest]
   end
 
   # @return [Boolean]
