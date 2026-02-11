@@ -86,7 +86,7 @@ describe Users::NoticedNotificationsController, type: :request do
       it "does not mark owner's notifications" do
         sign_in @other_user
         patch mark_all_as_read_path(id: @owner.id, notification_id: @notification)
-        # The action is scoped to current_user, so @owner's notifications remain unread
+        expect(response).to have_http_status(:redirect)
         expect(@owner.noticed_notifications.unread.count).to eq(1)
       end
     end
