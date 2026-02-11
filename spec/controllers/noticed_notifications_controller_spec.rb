@@ -77,7 +77,7 @@ describe Users::NoticedNotificationsController, type: :request do
     context "when owner marks all notifications as read" do
       it "marks all notifications as read" do
         sign_in @owner
-        patch mark_all_as_read_path(id: @owner.id, notification_id: @notification)
+        patch mark_all_as_read_path(id: @owner.id)
         expect(@owner.noticed_notifications.read.count).to eq(1)
       end
     end
@@ -85,7 +85,7 @@ describe Users::NoticedNotificationsController, type: :request do
     context "when another user tries to mark all (IDOR protection)" do
       it "does not mark owner's notifications" do
         sign_in @other_user
-        patch mark_all_as_read_path(id: @owner.id, notification_id: @notification)
+        patch mark_all_as_read_path(id: @owner.id)
         expect(response).to have_http_status(:redirect)
         expect(@owner.noticed_notifications.unread.count).to eq(1)
       end
