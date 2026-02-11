@@ -4,10 +4,8 @@ class NotifyUser
   Result = Struct.new(:success, :type, :first_param, :second)
 
   # @param [Hash] params
-  # @param [NoticedNotification] notification - REQUIRED: Pre-validated notification from controller
+  # @param [NoticedNotification] notification
   def initialize(params, notification)
-    # SECURITY FIX: notification is now REQUIRED to prevent IDOR bypass
-    # Do NOT add a fallback to NoticedNotification.find - that would re-open the vulnerability!
     @notification = notification
     # @type [Assignment]
     @assignment = @notification.params[:assignment]
