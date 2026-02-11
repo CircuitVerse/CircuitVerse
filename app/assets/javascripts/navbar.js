@@ -112,6 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // On the home page with no hash, don't activate any section-specific link
+        if (normalizedPath === '/') return;
+
         const pathMatch = navLinks.find((link) => {
             const href = link.getAttribute('href') || '';
             if (!href.startsWith('/')) return false;
