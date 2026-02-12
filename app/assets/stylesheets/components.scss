@@ -222,11 +222,15 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
+  min-height: 40px;
 }
 
 .project-card-title {
   flex: 1;
   min-width: 0;
+  height: 40px;
+  display: flex;
+  align-items: center;
 
   h3 {
     color: $black;
@@ -237,6 +241,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    width: 100%;
   }
 }
 
@@ -318,6 +323,18 @@
   .project-card {
     max-width: 100%;
     min-width: 280px;
+  }
+
+  .project-card-title {
+    height: 35px;
+    
+    h3 {
+      font-size: 18px;
+    }
+  }
+
+  .project-card-stats {
+    gap: 8px;
   }
 }
 
