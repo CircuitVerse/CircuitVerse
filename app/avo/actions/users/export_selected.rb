@@ -14,6 +14,23 @@ class Avo::Actions::Users::ExportSelected < Avo::BaseAction
     records = fetch_records(args)
 
     return error "No records selected to export" if records.empty?
+    actor = args[:current_user]
+    sensitive_columns = %w[email unconfirmed_email current_sign_in_ip last_sign_in_ip]
+    exported_count = records.count
+    export_params = {
+      query: (args[:query].try(:to_sql) rescue nil),
+      ids: (records.map(&:id) if records.respond_to?(:map))
+    }
+
+    Rails.logger.info({
+      event: "users_export",
+      actor_id: actor&.id,
+      actor_email: actor&.email,
+      timestamp: Time.current.utc.iso8601,
+      exported_count: exported_count,
+      sensitive_columns: sensitive_columns,
+      params: export_params
+    }.to_json)
 
     csv_data = generate_csv(records)
     filename = "users_#{Time.current.strftime('%Y%m%d_%H%M%S')}.csv"
