@@ -59,6 +59,9 @@
 }
 
 .dropdown-item {
+  display: block;
+  width: 100%;
+  
   &:hover {
     background-color: $primary-green;
     color: $white;
