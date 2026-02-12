@@ -8,6 +8,7 @@ class Avo::Actions::Users::ExportSelected < Avo::BaseAction
   self.confirm_button_label = "Export"
   self.cancel_button_label = "Cancel"
   self.no_confirmation = false
+  self.may_download_file = true
 
   def handle(**args)
     records = fetch_records(args)
