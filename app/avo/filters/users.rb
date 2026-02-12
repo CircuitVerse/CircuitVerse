@@ -7,12 +7,12 @@ module Avo::Filters::Users
     def apply(_request, query, value)
       return query if value.blank?
 
-      if value["admin"]
+      if value["admin"] && value["non_admin"]
+        query
+      elsif value["admin"]
         query.where(admin: true)
       elsif value["non_admin"]
         query.where(admin: false)
-      else
-        query
       end
     end
 
@@ -30,12 +30,12 @@ module Avo::Filters::Users
     def apply(_request, query, value)
       return query if value.blank?
 
-      if value["subscribed"]
+      if value["subscribed"] && value["unsubscribed"]
+        query
+      elsif value["subscribed"]
         query.where(subscribed: true)
       elsif value["unsubscribed"]
         query.where(subscribed: false)
-      else
-        query
       end
     end
 

@@ -39,7 +39,9 @@ class Avo::Resources::Users < Avo::BaseResource
     def authentication_fields
       field :provider, as: :text
       field :uid, as: :text
-      field :password, as: :password, required: -> { view == :new }, hide_on: %i[index show], help: "Length of 6-128 characters"
+      field :password, as: :password, required: lambda {
+        view == :new
+      }, hide_on: %i[index show], help: "Length of 6-128 characters"
       field :password_confirmation, as: :password, required: -> { view == :new }, hide_on: %i[index show]
     end
 

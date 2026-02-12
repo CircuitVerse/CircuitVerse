@@ -8,18 +8,19 @@ class Avo::Actions::Users::DeleteSelected < Avo::BaseAction
 
   def handle(**args)
     records = fetch_records(args)
+    current_user = args[:current_user]
 
     return error "No users selected to delete" if records.empty?
 
-    destroyed = 0
-    records.each do |record|
-      destroyed += 1 if record.destroy
-    end
+    result = perform_deletions(records, current_user)
 
-    if destroyed.zero?
+    if result[:destroyed].zero?
       error "No users were deleted"
     else
-      succeed "Deleted #{destroyed} #{'user'.pluralize(destroyed)}"
+      msg = "Deleted #{result[:destroyed]} #{'user'.pluralize(result[:destroyed])}"
+      msg += " (#{result[:skipped]} skipped: cannot delete yourself)" if result[:skipped].positive?
+      msg += " (#{result[:failed]} failed)" if result[:failed].positive?
+      succeed msg
     end
   end
 
@@ -30,5 +31,26 @@ class Avo::Actions::Users::DeleteSelected < Avo::BaseAction
       return [] if query.blank? || (query.respond_to?(:empty?) && query.empty?)
 
       query.respond_to?(:to_a) ? query.to_a : query
+    end
+
+    def perform_deletions(records, current_user)
+      destroyed = 0
+      skipped = 0
+      failed = 0
+
+      records.each do |record|
+        if record == current_user
+          skipped += 1
+          next
+        end
+
+        begin
+          destroyed += 1 if record.destroy
+        rescue StandardError
+          failed += 1
+        end
+      end
+
+      { destroyed: destroyed, skipped: skipped, failed: failed }
     end
 end
