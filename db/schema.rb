@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2026_01_08_153000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -473,6 +473,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index "lower((name)::text)", name: "index_tags_on_lower_name", unique: true
+    t.check_constraint "name IS NOT NULL AND TRIM(BOTH FROM name) <> ''::text", name: "tags_name_not_empty"
   end
 
   create_table "users", force: :cascade do |t|
