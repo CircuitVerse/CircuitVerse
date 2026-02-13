@@ -36,6 +36,7 @@ en:
       one: "%{count} vote"
       other: "%{count} votes"
     close: "Close"
+    delete: "Delete"
     no_contest: "There are no live or completed contests."
     contest_container:
       contest_id: "Contest"
@@ -58,6 +59,10 @@ en:
       heading: "Close a Contest"
       description: "Are you sure you want to close this contest?"
       confirm_button: "Confirm"
+    delete_contest_modal:
+      heading: "Delete a Contest"
+      description: "This will permanently remove the contest, its submissions, votes, and winner. This cannot be undone. Are you sure you want to proceed?"
+      confirm_button: "Delete"
     host_new_contest_modal:
       heading: "Host a new Contest"
       description: "Are you sure you want to start a new contest?"
@@ -120,6 +125,9 @@ en:
         deadline_updated: "Contest deadline was successfully updated."
         deadline_update_failed: "Failed to update contest deadline: %{errors}"
         invalid_deadline: "Invalid deadline format."
+      destroy:
+        success: "Contest was successfully deleted."
+        only_completed: "Only completed contests can be deleted."
       parse_deadline_or_redirect:
         invalid_deadline: "Invalid deadline format."
 
