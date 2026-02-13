@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Avo::Actions::Users::DeleteSelected < Avo::BaseAction
-  self.name = "Delete Selected"
+  self.name = "Delete Selected Users"
   self.message = "Are you sure you want to permanently delete the selected users?"
   self.confirm_button_label = "Delete"
   self.cancel_button_label = "Cancel"

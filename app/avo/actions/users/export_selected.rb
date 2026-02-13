@@ -14,26 +14,11 @@ class Avo::Actions::Users::ExportSelected < Avo::BaseAction
     records = fetch_records(args)
 
     return error "No records selected to export" if records.empty?
-    actor = args[:current_user]
-    sensitive_columns = %w[email unconfirmed_email current_sign_in_ip last_sign_in_ip]
-    exported_count = records.count
-    export_params = {
-      query: (args[:query].try(:to_sql) rescue nil),
-      ids: (records.map(&:id) if records.respond_to?(:map))
-    }
 
-    Rails.logger.info({
-      event: "users_export",
-      actor_id: actor&.id,
-      actor_email: actor&.email,
-      timestamp: Time.current.utc.iso8601,
-      exported_count: exported_count,
-      sensitive_columns: sensitive_columns,
-      params: export_params
-    }.to_json)
+    audit_log_export(records, args)
 
     csv_data = generate_csv(records)
-    filename = "users_#{Time.current.strftime('%Y%m%d_%H%M%S')}.csv"
+    filename = export_filename
 
     download csv_data, filename
     succeed "Exported #{records.count} #{'user'.pluralize(records.count)}"
@@ -93,5 +78,43 @@ class Avo::Actions::Users::ExportSelected < Avo::BaseAction
       else
         record.public_send(field)
       end
+    end
+
+    def audit_log_export(records, args)
+      actor = args[:current_user]
+      sensitive_columns = %w[email unconfirmed_email current_sign_in_ip last_sign_in_ip]
+      exported_count = records.count
+
+      export_params = build_export_params(args, records)
+      payload = build_audit_payload(actor, exported_count, sensitive_columns, export_params)
+
+      Rails.logger.info(payload.to_json)
+    end
+
+    def build_export_params(args, records)
+      {
+        query: begin
+          args[:query].try(:to_sql)
+        rescue StandardError
+          nil
+        end,
+        ids: (records.map(&:id) if records.respond_to?(:map))
+      }
+    end
+
+    def build_audit_payload(actor, exported_count, sensitive_columns, export_params)
+      {
+        event: "users_export",
+        actor_id: actor&.id,
+        actor_email: actor&.email,
+        timestamp: Time.current.utc.iso8601,
+        exported_count: exported_count,
+        sensitive_columns: sensitive_columns,
+        params: export_params
+      }
+    end
+
+    def export_filename
+      "users_#{Time.current.strftime('%Y%m%d_%H%M%S')}.csv"
     end
 end
