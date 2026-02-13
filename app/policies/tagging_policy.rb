@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class TaggingPolicy < ApplicationPolicy
   attr_reader :user, :tagging
 
@@ -22,5 +20,9 @@ class TaggingPolicy < ApplicationPolicy
 
   def destroy?
     user.present? && user.admin?
+  end
+
+  def update?
+    false
   end
 end
