@@ -1,114 +1,218 @@
 .footer-empty-div {
-  height: 250px;
+  height: 200px; // Reduced for better spacing
 }
 
 .footer-container-fluid {
   background-color: $footer-dark-grey;
+  border-top: 1px solid rgba(255, 255, 255, 0.1); // Subtle border
 }
 
 .footer-container {
   color: $white;
-  padding-top: 30px;
+  padding: 40px 0; // More generous padding
   text-align: center;
 }
 
 .footer-column {
-  padding-bottom: 15px;
-  padding-top: 15px;
+  padding-bottom: 20px; // More consistent spacing
+  padding-top: 20px;
+}
+
+// Improved logo container
+.footer-logo-container {
+  margin-right: 20px;
+}
+
+.footer-logo-link {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+  }
 }
 
 .footer-logo {
   max-height: 80px;
   max-width: 100%;
+  transition: filter 0.3s ease;
+  
+  .footer-logo-link:hover & {
+    filter: brightness(1.2);
+  }
+}
+
+// Improved social section
+.footer-social-section {
+  margin-left: 15px;
 }
 
 .footer-social-icon-text {
   margin-left: 15px;
+  margin-bottom: 10px;
+  font-weight: 500;
 }
 
 .footer-social-icon {
   width: 28px;
+  transition: transform 0.2s ease, filter 0.2s ease;
 
   @media (max-width: 576px) {
-    width: 24px; // Adjust the size for small screens
+    width: 24px; // Adjust for small screens
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.3);
   }
 }
 
-
 .footer-social-icons-row {
-  column-gap: 2px;
+  column-gap: 8px; // Increased spacing
   margin: inherit;
 }
 
+// Enhanced bounce effect for social icons
 .bounce-out-on-hover {
   box-shadow: 0 0 0 $black;
   display: inline-block;
   padding: 2px;
   transform: perspective(1px) translateZ(0);
-  transition-duration: .5s;
+  transition-duration: .3s;
   vertical-align: middle;
 }
 
 .bounce-out-on-hover:hover,
 .bounce-out-on-hover:focus,
 .bounce-out-on-hover:active {
-  transform: scale(.8);
+  transform: scale(.9);
   transition-timing-function: cubic-bezier(.47, 2.02, .31, -.36);
   z-index: 1;
+}
+
+// Improved footer links with hover effects
+.footer-links-container {
+  margin-top: 10px;
 }
 
 .footer-links {
   a {
     color: $white;
     text-decoration: none;
+    transition: all 0.3s ease;
 
     h6 {
-      margin-bottom: 10px;
-      margin-top: 10px;
+      margin-bottom: 12px; // Better spacing
+      margin-top: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
 
     &:hover {
-      color: $white;
-      text-decoration: underline;
+      color: $primary-green; // Use brand color for hover
+      text-decoration: none;
+      transform: translateX(5px); // Subtle slide effect
     }
   }
 }
 
+// New footer link item styling
+.footer-link-item {
+  display: inline-block;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: $primary-green;
+    transition: width 0.3s ease;
+  }
+  
+  &:hover {
+    color: $primary-green;
+    transform: translateX(5px);
+    
+    &::after {
+      width: 100%;
+    }
+  }
+}
+
+.footer-link-title {
+  margin-bottom: 12px;
+  margin-top: 12px;
+  font-weight: 500;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+// Improved sponsor logos
 .footer-sponsor-logos {
   display: flex;
   align-items: center;
-  justify-content: space-around; 
+  justify-content: space-around;
+  margin-top: 20px;
 }
 
 .footer-sponsor-logo-text {
-  margin-bottom: 0;
+  margin-bottom: 8px;
   padding-bottom: 0;
-  font-size: 0.8em;
+  font-size: 0.85em;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.8);
 }
 
-.footer-sponsor-logo-div{
-  padding-left: 12px;
-  padding-right: 12px;
+.footer-sponsor-logo-div {
+  padding: 15px;
   text-align: center;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.footer-sponsor-link {
+  display: inline-block;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    transform: scale(1.05);
+    filter: brightness(1.2);
+  }
 }
 
 .footer-sponsor-logo {
-  border: solid $footer-dark-grey 1px;
-  border-radius: 5px;
-  max-width: 150px; 
+  border: solid rgba(255, 255, 255, 0.2) 1px; // More subtle border
+  border-radius: 8px; // More rounded
+  max-width: 150px;
   width: 100%;
   height: auto;
+  transition: all 0.3s ease;
+}
+
+// Improved copyright section
+.footer-copyright-row {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .footer-copyright-text {
-  padding-top: 15px;
-
   p {
-    font-size: 15px;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+    transition: color 0.3s ease;
   }
-
 }
 
+// Enhanced bounce effects
 .bounce-out-on-hover::before,
 .bounce-out-on-hover::after {
   --scale: 0;
@@ -138,4 +242,51 @@
 .bounce-out-on-hover::after {
   content: '';
   width: 10px;
+}
+
+// Responsive improvements
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 30px 15px;
+  }
+  
+  .footer-column {
+    padding-bottom: 15px;
+    padding-top: 15px;
+  }
+  
+  .footer-logo-container {
+    margin-right: 10px;
+  }
+  
+  .footer-social-section {
+    margin-left: 10px;
+  }
+  
+  .footer-sponsor-logo-div {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-container {
+    padding: 20px 10px;
+  }
+  
+  .footer-links-container {
+    text-align: left;
+  }
+  
+  .footer-links {
+    margin-bottom: 15px;
+  }
+  
+  .footer-sponsor-logos {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .footer-sponsor-logo-div {
+    padding: 8px;
+  }
 }
