@@ -78,12 +78,12 @@ class SimulatorController < ApplicationController
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
     image_file.close
-    @project.save!
+    if @project.save
+  redirect_to edit_user_project_url(current_user, @project)
+else
+  render json: { errors: @project.errors.full_messages }, status: :unprocessable_entity
+end
 
-    # render plain: simulator_path(@project)
-    # render plain: user_project_url(current_user,@project)
-    redirect_to edit_user_project_url(current_user, @project)
-  end
 
   def update
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
@@ -98,10 +98,13 @@ class SimulatorController < ApplicationController
     image_file.close
     File.delete(image_file) if check_to_delete(params[:image])
     @project.name = sanitize(params[:name])
-    @project.save
-    @project.project_datum.save
-    render plain: "success"
-  end
+    if @project.save && @project.project_datum.save
+  render plain: "success"
+else
+  render json: { errors: @project.errors.full_messages + @project.project_datum.errors.full_messages },
+         status: :unprocessable_entity
+end
+
 
   def view_issue_circuit_data
     unless current_user&.admin?
