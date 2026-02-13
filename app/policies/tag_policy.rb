@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
-class FeaturedCircuitPolicy < ApplicationPolicy
-  attr_reader :user, :featured_circuit
-
-  def initialize(user, featured_circuit)
-    @user = user
-    @featured_circuit = featured_circuit
-  end
-
+class TagPolicy < ApplicationPolicy
   def index?
     user.present? && user.admin?
   end
@@ -21,7 +14,7 @@ class FeaturedCircuitPolicy < ApplicationPolicy
   end
 
   def update?
-    false
+    user.present? && user.admin?
   end
 
   def destroy?
