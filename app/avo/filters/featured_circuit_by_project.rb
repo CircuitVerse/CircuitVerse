@@ -10,7 +10,10 @@ class Avo::Filters::FeaturedCircuitByProject < Avo::Filters::SelectFilter
   end
 
   def options
-    Project.where(project_access_type: "Public").order(:name).pluck(:name, :id)
-    .map { |name, id| ["#{name} (#{id})", id] }.to_h
+    Project
+      .where(project_access_type: "Public")
+      .order(:name)
+      .pluck(:name, :id)
+      .to_h { |name, id| ["#{name} (#{id})", id] }
   end
 end

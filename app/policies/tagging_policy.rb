@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class TaggingPolicy < ApplicationPolicy
   attr_reader :user, :tagging
 
