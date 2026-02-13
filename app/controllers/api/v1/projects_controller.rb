@@ -69,8 +69,19 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id
   def show
     authorize @project, :check_view_access?
-    @project.increase_views(current_user)
-    render json: Api::V1::ProjectSerializer.new(@project, @options)
+    begin
+      @project.increase_views(current_user)
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      Rails.logger.warn("Query timeout when increasing project views: #{e.message}")
+      # Continue without incrementing views rather than fail the request
+    end
+
+    begin
+      render json: Api::V1::ProjectSerializer.new(@project, @options)
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      Rails.logger.warn("Query timeout during serialization in show action: #{e.message}")
+      render json: { error: "Request timed out" }, status: :gateway_timeout
+    end
   end
 
   # GET /api/v1/projects/:id/circuit_data
@@ -150,10 +161,15 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
-    if @project.toggle_star(current_user)
-      render json: { message: "Starred successfully!" }, status: :ok
-    else
-      render json: { message: "Unstarred successfully!" }, status: :ok
+    begin
+      if @project.toggle_star(current_user)
+        render json: { message: "Starred successfully!" }, status: :ok
+      else
+        render json: { message: "Unstarred successfully!" }, status: :ok
+      end
+    rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+      Rails.logger.warn("Query timeout when toggling star: #{e.message}")
+      render json: { error: "Operation timed out. Please try again." }, status: :request_timeout
     end
   end
 
@@ -162,8 +178,13 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
-      @forked_project = @project.fork(current_user)
-      render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
+      begin
+        @forked_project = @project.fork(current_user)
+        render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
+      rescue ActiveRecord::QueryCanceled, PG::QueryCanceled => e
+        Rails.logger.warn("Query timeout when forking project: #{e.message}")
+        render json: { error: "Fork operation timed out. Please try again." }, status: :request_timeout
+      end
     end
   end
 
@@ -204,9 +225,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def load_index_projects
       @projects = if current_user.nil?
-        Project.open
+        Project.open.includes(:author, :commontator_thread).with_attached_circuit_preview
       else
-        Project.open.or(Project.by(current_user.id))
+        Project.open.or(Project.by(current_user.id)).includes(:author, :commontator_thread).with_attached_circuit_preview
       end
     end
 
@@ -214,15 +235,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       # if user is not authenticated or authenticated as some other user
       # return only user's public projects else all
       @projects = if current_user.nil? || current_user.id != params[:id].to_i
-        Project.open.by(params[:id])
+        Project.open.by(params[:id]).includes(:author, :commontator_thread).with_attached_circuit_preview
       else
-        current_user.projects
+        current_user.projects.includes(:author, :commontator_thread).with_attached_circuit_preview
       end
     end
 
     def load_user_favourites
       @projects = Project.joins(:stars)
                          .where(stars: { user_id: params[:id].to_i })
+                         .includes(:author, :commontator_thread).with_attached_circuit_preview
 
       # if user is not authenticated or authenticated as some other user
       # return only user's public favourites else all
@@ -234,7 +256,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def load_featured_circuits
-      @projects = Project.joins(:featured_circuit).all
+      @projects = Project.joins(:featured_circuit).includes(:author, :commontator_thread).with_attached_circuit_preview
     end
 
     def search_projects

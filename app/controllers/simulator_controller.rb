@@ -15,6 +15,8 @@ class SimulatorController < ApplicationController
     Flipper.enabled?(:lms_integration, current_user)
   }
 
+  rescue_from ActiveRecord::QueryCanceled, PG::QueryCanceled, with: :handle_statement_timeout, only: %i[show embed get_data]
+
   def self.policy_class
     ProjectPolicy
   end
@@ -89,7 +91,7 @@ class SimulatorController < ApplicationController
     @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
     @project.project_datum.data = sanitize_data(@project, params[:data])
     # ActiveStorage
-    @project.circuit_preview.purge if @project.circuit_preview.attached?
+    @project.circuit_preview.purge_later if @project.circuit_preview.attached?
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
     # CarrierWave
@@ -173,5 +175,34 @@ class SimulatorController < ApplicationController
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
+    end
+
+    def handle_statement_timeout(exception)
+      Rails.logger.warn("Query timeout in simulator controller: #{exception.message}")
+      
+      # Return JSON error for get_data action or JSON requests
+      if action_name == "get_data" || request.format.json?
+        render json: { error: "Request timed out" }, status: :gateway_timeout
+        return
+      end
+
+      # Gracefully render the simulator view even if there was a timeout
+      # This covers cases where timeouts occur in before_action filters or the action itself
+      @logix_project_id = params[:id]
+      @external_embed = params[:action] == "embed"
+      # Ensure view has safe defaults when @project or @author weren't set
+      @project ||= nil
+      # Use a string-safe author placeholder to avoid nil interpolation errors in views
+      @author = nil unless defined?(@author)
+      # If author was left unset from set_project, try to use params or nil-safe string
+      author_id = (defined?(@author) && @author) || params[:author] || params[:user_id]
+      # Normalize to string to avoid nil in URL helpers in the view
+      @author = author_id.to_s
+      
+      if Flipper.enabled?(:vuesim, current_user)
+        render "embed_vue", layout: false
+      else
+        render "embed"
+      end
     end
 end
