@@ -32,10 +32,17 @@ class SimulatorController < ApplicationController
   def new
     @logix_project_id = 0
     @projectName = ""
-    if Flipper.enabled?(:vuesim, current_user)
-      render "edit_vue", layout: false
-    else
-      render "edit"
+
+    respond_to do |format|
+      format.html do
+        if Flipper.enabled?(:vuesim, current_user)
+          render "edit_vue", layout: false
+        else
+          render "edit"
+        end
+      end
+
+      format.json { render json: {} }
     end
   end
 
