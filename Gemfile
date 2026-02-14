@@ -234,3 +234,4 @@ gem "drb", "~> 2.2"
 
 # Verilog to DigitalJS conversion gem (Internal)
 gem "yosys2digitaljs", path: "vendor/gems/yosys2digitaljs"
+gem "avo", ">= 3.2.1"
