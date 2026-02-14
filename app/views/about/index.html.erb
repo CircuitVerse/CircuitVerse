@@ -119,10 +119,90 @@
         <h5><%= t("about.contributors_description") %></h5>
       </div>
     </div>
-    <div class="row center-row">
-      <div class="about-contributors-section">
+    
+    <!-- Modern Contributors Cards Section -->
+    <div class="contributors-section">
+      <div class="contributors-grid">
+        <% @top_contributors.each do |contributor| %>
+          <div class="contributor-card">
+            <div class="contributor-card-inner">
+              <!-- Front of card -->
+              <div class="contributor-card-front">
+                <div class="contributor-avatar-container">
+                  <%= image_tag contributor[:avatar], 
+                       alt: contributor[:name], 
+                       class: "contributor-avatar" %>
+                  <div class="contributor-overlay">
+                    <div class="contributor-social-links">
+                      <a href="<%= contributor[:github_url] %>" target="_blank" class="social-link github-link" title="GitHub">
+                        <i class="fab fa-github"></i>
+                      </a>
+                      <% if contributor[:website].present? %>
+                        <a href="<%= contributor[:website] %>" target="_blank" class="social-link website-link" title="Website">
+                          <i class="fas fa-globe"></i>
+                        </a>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+                <div class="contributor-info">
+                  <h3 class="contributor-name"><%= contributor[:name] %></h3>
+                  <p class="contributor-role"><%= contributor[:role] %></p>
+                  <div class="contributor-stats">
+                    <span class="contributions-count">
+                      <i class="fas fa-code-branch"></i>
+                      <%= contributor[:contributions] %> contributions
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Back of card -->
+              <div class="contributor-card-back">
+                <div class="contributor-back-content">
+                  <h4><%= contributor[:name] %></h4>
+                  <p class="contributor-bio"><%= contributor[:bio] %></p>
+                  <div class="contributor-details">
+                    <div class="contributor-detail">
+                      <i class="fas fa-map-marker-alt"></i>
+                      <span><%= contributor[:location] %></span>
+                    </div>
+                    <div class="contributor-detail">
+                      <i class="fab fa-github"></i>
+                      <span>@<%= contributor[:username] %></span>
+                    </div>
+                  </div>
+                  <div class="contributor-back-actions">
+                    <a href="<%= contributor[:github_url] %>" target="_blank" class="btn contributor-btn">
+                      <i class="fab fa-github"></i>
+                      View GitHub
+                    </a>
+                    <% if contributor[:website].present? %>
+                      <a href="<%= contributor[:website] %>" target="_blank" class="btn contributor-btn secondary">
+                        <i class="fas fa-globe"></i>
+                        Website
+                      </a>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- All Contributors Section -->
+      <div class="all-contributors-section">
+        <h3 class="all-contributors-title">All Contributors</h3>
+        <p class="all-contributors-description">
+          CircuitVerse is built by the community. Thank you to all our contributors!
+        </p>
+        <div class="about-contributors-section" id="all-contributors-container">
+          <!-- Dynamic contributors will be loaded here -->
+        </div>
       </div>
     </div>
+    
     <br>
     <div class="row center-row">
       <div class="col col-sm col-md col-lg text-center">
@@ -136,18 +216,40 @@
     let apiData = await fetch(url);
     let contributorsData = await apiData.json();
     let contributorUsers = contributorsData.filter(function(user) { return (user.type == 'User') });
+    let container = document.getElementById('all-contributors-container');
+    
     for (let i=0; i<contributorUsers.length; i++){
       let contributorElement = document.createElement('div');
       let contributorElementAnchor = document.createElement('a');
       let contributorElementImage = document.createElement('img');
+      let contributorElementName = document.createElement('span');
+      
       contributorElement.classList.add('about-contributor');
-      contributorElementAnchor.href = await contributorUsers[i]['html_url'];
-      contributorElementImage.src = await contributorUsers[i]['avatar_url'];
+      contributorElementAnchor.href = contributorUsers[i]['html_url'];
+      contributorElementAnchor.target = '_blank';
+      contributorElementAnchor.title = contributorUsers[i]['login'];
+      contributorElementImage.src = contributorUsers[i]['avatar_url'];
       contributorElementImage.classList.add('about-contributor-image');
+      contributorElementName.classList.add('contributor-username');
+      contributorElementName.textContent = contributorUsers[i]['login'];
+      
       contributorElementAnchor.appendChild(contributorElementImage);
+      contributorElementAnchor.appendChild(contributorElementName);
       contributorElement.appendChild(contributorElementAnchor);
-      document.getElementsByClassName('about-contributors-section')[0].appendChild(contributorElement);
+      container.appendChild(contributorElement);
     }
   }
+  
+  // Add card flip functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const cards = document.querySelectorAll('.contributor-card');
+    
+    cards.forEach(card => {
+      card.addEventListener('click', function() {
+        this.classList.toggle('flipped');
+      });
+    });
+  });
+  
   getContributors('https://api.github.com/repos/CircuitVerse/CircuitVerse/contributors?per_page=100');
 </script>

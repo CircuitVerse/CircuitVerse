@@ -12,35 +12,370 @@
   }
 }
 
+// Modern Contributors Section
+.contributors-section {
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.contributors-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  margin-bottom: 60px;
+}
+
+.contributor-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  height: 400px;
+  perspective: 1000px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.contributor-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.contributor-card.flipped .contributor-card-inner {
+  transform: rotateY(180deg);
+}
+
+.contributor-card-front,
+.contributor-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.contributor-card-front {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.contributor-avatar-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.contributor-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.contributor-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.contributor-card:hover .contributor-overlay {
+  opacity: 1;
+}
+
+.contributor-social-links {
+  display: flex;
+  gap: 15px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+  }
+  
+  i {
+    font-size: 16px;
+  }
+}
+
+.contributor-info {
+  text-align: center;
+}
+
+.contributor-name {
+  font-size: 20px;
+  font-weight: 600;
+  margin: 0 0 8px 0;
+  color: white;
+}
+
+.contributor-role {
+  font-size: 14px;
+  margin: 0 0 16px 0;
+  opacity: 0.9;
+  color: white;
+}
+
+.contributor-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.contributions-count {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 20px;
+  
+  i {
+    font-size: 12px;
+  }
+}
+
+.contributor-card-back {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+  transform: rotateY(180deg);
+}
+
+.contributor-back-content {
+  text-align: center;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.contributor-back-content h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px 0;
+}
+
+.contributor-bio {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 20px 0;
+  opacity: 0.9;
+}
+
+.contributor-details {
+  margin-bottom: 24px;
+}
+
+.contributor-detail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 8px;
+  
+  i {
+    font-size: 12px;
+    opacity: 0.8;
+  }
+}
+
+.contributor-back-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contributor-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+  }
+  
+  &.secondary {
+    background: rgba(255, 255, 255, 0.1);
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
+}
+
+// All Contributors Section
+.all-contributors-section {
+  text-align: center;
+  margin-top: 60px;
+}
+
+.all-contributors-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: #333;
+}
+
+.all-contributors-description {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 40px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .about-contributors-section {
   align-items: center;
   display: flex;
   flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
   margin-top: 30px;
   min-width: 100%;
-  justify-content: center;
 }
 
 .about-contributor {
   height: 100px;
-  padding: 10px;
   width: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: $black;
+  transition: transform 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .about-contributor-image {
   border: 2px solid $primary-green;
   border-radius: 50%;
   transition: all .3s ease-in;
-  width: 100%;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 8px;
 
   &:hover {
     transform: translateY(-4px);
   }
 }
 
+.contributor-username {
+  font-size: 12px;
+  font-weight: 500;
+  text-align: center;
+  color: #666;
+}
+
 .about-primary-button {
   margin-top: 20px;
   padding: 12px 30px;
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+  .contributors-grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .contributor-card {
+    height: 360px;
+  }
+  
+  .contributor-avatar {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .contributor-name {
+    font-size: 18px;
+  }
+  
+  .all-contributors-title {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .contributors-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .contributor-card {
+    height: 340px;
+  }
+  
+  .contributor-card-front,
+  .contributor-card-back {
+    padding: 20px;
+  }
+  
+  .about-contributor {
+    height: 80px;
+    width: 80px;
+  }
+  
+  .about-contributor-image {
+    width: 50px;
+    height: 50px;
+  }
 }
 
 //breakpoints

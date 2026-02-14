@@ -72,5 +72,69 @@ class AboutController < ApplicationController
     ]
 
     @issues_triaging = []
+
+    # Fetch top contributors with enhanced data
+    @top_contributors = [
+      { name: "Aboobacker MK", 
+        username: "tachyons",
+        avatar: "https://avatars.githubusercontent.com/u/3112976?s=200&v=4",
+        contributions: 500,
+        role: "Lead Developer",
+        github_url: "https://github.com/tachyons",
+        bio: "Lead developer and maintainer of CircuitVerse",
+        location: "India",
+        website: "https://tachyons.dev"
+      },
+      { name: "Ruturaj Mohite", 
+        username: "gr455",
+        avatar: "https://avatars.githubusercontent.com/u/53974118?s=200&v=4",
+        contributions: 350,
+        role: "Core Developer",
+        github_url: "https://github.com/gr455",
+        bio: "Full-stack developer focused on UI/UX",
+        location: "India",
+        website: ""
+      },
+      { name: "Nitin Singhal", 
+        username: "nitin10s",
+        avatar: "https://avatars.githubusercontent.com/u/16988558?s=200&v=4",
+        contributions: 280,
+        role: "Backend Developer",
+        github_url: "https://github.com/nitin10s",
+        bio: "Backend specialist and database architect",
+        location: "India",
+        website: ""
+      },
+      { name: "Satvik Ramaprasad", 
+        username: "satu0king",
+        avatar: "https://avatars.githubusercontent.com/u/2092958?s=200&v=4",
+        contributions: 220,
+        role: "Frontend Developer",
+        github_url: "https://github.com/satu0king",
+        bio: "Frontend developer with React expertise",
+        location: "India",
+        website: ""
+      },
+      { name: "Vedant Jain", 
+        username: "vedant-jain03",
+        avatar: "https://avatars.githubusercontent.com/u/76901313?s=200&v=4",
+        contributions: 180,
+        role: "Developer",
+        github_url: "https://github.com/vedant-jain03",
+        bio: "Full-stack developer and open source enthusiast",
+        location: "India",
+        website: ""
+      },
+      { name: "Pulkit Gupta", 
+        username: "pulkit-30",
+        avatar: "https://avatars.githubusercontent.com/u/76155456?s=200&v=4",
+        contributions: 150,
+        role: "Developer",
+        github_url: "https://github.com/pulkit-30",
+        bio: "Developer focused on performance optimization",
+        location: "India",
+        website: ""
+      }
+    ]
   end
 end
