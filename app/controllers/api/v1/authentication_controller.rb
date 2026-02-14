@@ -13,6 +13,7 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
       )
       render json: { token: token }, status: :accepted
     else
+      Devise::Encryptor.digest(User, params[:password]) unless @user
       api_error(status: 401, errors: "invalid credentials")
     end
   end
