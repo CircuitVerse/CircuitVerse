@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_02_10_211119) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_14_214856) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -105,6 +105,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_211119) do
     t.string "lti_shared_secret"
     t.jsonb "feature_restrictions", default: {}
     t.string "google_classroom_id"
+    t.index ["google_classroom_id"], name: "index_assignments_on_google_classroom_id_unique", unique: true, where: "(google_classroom_id IS NOT NULL)"
     t.index ["group_id"], name: "index_assignments_on_group_id"
   end
 
@@ -279,6 +280,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_02_10_211119) do
     t.string "group_token"
     t.datetime "token_expires_at", precision: nil
     t.string "google_classroom_id"
+    t.index ["google_classroom_id"], name: "index_groups_on_google_classroom_id_unique", unique: true, where: "(google_classroom_id IS NOT NULL)"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end

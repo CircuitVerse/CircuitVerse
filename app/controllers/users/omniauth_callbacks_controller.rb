@@ -64,7 +64,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   elsif Flipper.enabled?(:block_registration)
     redirect_to new_user_session_path, alert: t("registration_blocked")
   else
-    session["devise.google_data"] = auth.except(:extra).except("extra")
+    session["devise.google_oauth2_data"] = auth.except(:extra).except("extra")
     redirect_to new_user_registration_url
   end
 end

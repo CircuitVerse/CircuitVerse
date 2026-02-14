@@ -65,19 +65,19 @@ Make sure these scopes are added in Google Cloud Console:
 2. APIs & Services → OAuth consent screen
 3. Edit App → Scopes
 4. Add these scopes:
-   - `../auth/userinfo.email`
-   - `../auth/userinfo.profile`
-   - `../auth/classroom.courses.readonly`
-   - `../auth/classroom.coursework.students`
-   - `../auth/classroom.coursework.students.readonly`
+   - `https://www.googleapis.com/auth/userinfo.email`
+   - `https://www.googleapis.com/auth/userinfo.profile`
+   - `https://www.googleapis.com/auth/classroom.courses.readonly`
+   - `https://www.googleapis.com/auth/classroom.coursework.students`
+   - `https://www.googleapis.com/auth/classroom.coursework.students.readonly`
 
 ## Troubleshooting
 
 ### Still getting PERMISSION_DENIED?
 1. Make sure Google Classroom API is enabled in Google Cloud Console
-2. Clear browser cookies and try again
+2. Clear browser cookies and try signing in
 3. Revoke access at https://myaccount.google.com/permissions
-4. Sign in again
+4. Sign in once more
 
 ### Tokens not being saved?
 Check if columns exist:

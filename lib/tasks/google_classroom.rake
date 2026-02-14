@@ -3,7 +3,8 @@ namespace :google_classroom do
   task clear_tokens: :environment do
     count = User.where.not(google_access_token: nil).update_all(
       google_access_token: nil,
-      google_refresh_token: nil
+      google_refresh_token: nil,
+      google_token_expires_at: nil
     )
     puts "Cleared Google tokens for #{count} users"
     puts "Users will need to sign in with Google again to grant new permissions"

@@ -188,18 +188,9 @@ Rails.application.routes.draw do
       post :import_course
       post :sync_assignments
       post :push_assignment
+      post :sync_grades
     end
   end
-
-
-
-  # Google Classroom test
-  get '/google_classroom_test', to: 'application#google_classroom_test'
-
-  get '/test_classroom_methods', to: 'application#test_classroom_methods'
-
-
-
 
   namespace :api do
     namespace :v1 do

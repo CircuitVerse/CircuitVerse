@@ -100,15 +100,13 @@ class GoogleClassroomService
 
     student_submission = submissions.first
 
-    # Create grade object (Google Classroom expects grades as numbers)
-    grade_obj = Google::Apis::ClassroomV1::Grade.new(score: grade.to_f)
-
-    # Update the submission with the grade
-    student_submission.assigned_grade = grade_obj
+    # Set numeric grades directly on the StudentSubmission
+    student_submission.assigned_grade = grade.to_f
+    student_submission.draft_grade = grade.to_f
 
     @service.patch_course_course_work_student_submission(
       course_id, coursework_id, student_submission.id, student_submission,
-      update_mask: "assignedGrade"
+      update_mask: "assignedGrade,draftGrade"
     )
 
     true
