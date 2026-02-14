@@ -27,8 +27,8 @@ RSpec.describe Api::V1::AuthenticationController, "#login", type: :request do
         }, as: :json
       end
 
-      it "return status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(:not_found)
+      it "return status 401 and should have jsonapi errors" do
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end

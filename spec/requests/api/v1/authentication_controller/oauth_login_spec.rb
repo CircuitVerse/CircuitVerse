@@ -9,8 +9,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
         post "/api/v1/oauth/login", params: oauth_params, as: :json
       end
 
-      it "return status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(:not_found)
+      it "return status 401 and should have jsonapi errors" do
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
