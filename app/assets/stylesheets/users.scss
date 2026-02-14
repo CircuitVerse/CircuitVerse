@@ -539,18 +539,24 @@
 
 .notification-container {
   max-width: 558px;
+  min-height: calc(100vh - 200px); // Ensure container takes minimum height
+  display: flex;
+  flex-direction: column;
 }
+
 .notification-heading {
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
   margin-top: 10px;
 }
+
 .tab-container span {
   cursor: pointer;
   margin-right: 20px;
-  padding-bottom: 5px;
+  padding-bottom:5px;
 }
+
 .tab-container .active {
   border-bottom: 3px solid $notification-icons;
   font-weight: bold;
@@ -622,12 +628,42 @@
   margin-left: 5px;
   margin-right: 10px;
   margin-top: 5px;
-  width: 15px;
+  width:15px;
 }
 
 .notification:hover {
   background-color: #0000000a;
   text-decoration: none;
+}
+
+// Fix for footer positioning in notifications page
+.notifications_container {
+  flex: 1; // Take remaining space
+  display: flex;
+  flex-direction: column;
+}
+
+// Ensure footer stays at bottom
+body.notifications-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.notifications-page .notification-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.notifications-page main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.notifications-page footer {
+  margin-top: auto; // Push footer to bottom
 }
 
 .search-user-card {
@@ -720,5 +756,11 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  display: -moz-box;
+  -moz-line-clamp: 2;
+  -moz-box-orient: vertical;
+  display: box;
+  line-clamp: 2;
+  box-orient: vertical;
   overflow: hidden;
 }
