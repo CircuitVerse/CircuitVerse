@@ -1,67 +1,99 @@
-<div class="mailer-container">
-  <h2 class="mailer-heading">Welcome to CircuitVerse, <%= @user.name %></h2>
-  
-  <div class="mailer-hero-image">
-    <%= inline_svg_tag "homepage/new_homepage_sketch.png", alt: "Welcome", class: "mailer-group-image" %>
-  </div>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color:#ffffff;font-family:Arial,sans-serif;">
+  <tr>
+    <td align="center">
+      <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width:600px;background-color:#ffffff;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);">
+        <tr>
+          <td style="padding:30px;text-align:center;">
 
-  <p class="mailer-welcome-text mailer-text">
-    Thanks for signing up!<br>
-    With CircuitVerse you can explore simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, design digital logic circuits, and much more – for free!
-  </p>
+            <!-- Heading -->
+            <h2 style="color:#333333;font-size:28px;font-weight:700;margin:0 0 20px 0;">
+              <%= t('circuitverse.user_mailer.welcome_email.heading', name: @user&.name.present? ? ", #{@user.name}" : "") %>
+            </h2>
 
-  <div class="mailer-button-container">
-    <a href="https://circuitverse.org/simulator" class="mailer-button">
-      Launch Simulator
-      <span class="mailer-button-icon">→</span>
-    </a>
-  </div>
+            <!-- Intro -->
+            <p style="color:#666666;font-size:18px;line-height:1.5;margin:20px 0;max-width:500px;display:inline-block;">
+              <%= t('circuitverse.user_mailer.welcome_email.intro') %>
+            </p>
 
-  <div class="mailer-showcase-container">
-    <div class="mailer-showcase-card">
-      <div class="mailer-showcase-icon">
-        <%= inline_svg_tag "pngs/features.png", alt: "Features", class: "mailer-showcase-card-image" %>
-      </div>
-      <h3 class="mailer-showcase-heading">Features</h3>
-      <p class="mailer-text mailer-showcase-text">
-        Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom and more.
-      </p>
-      <a href="https://circuitverse.org/#features" class="mailer-showcase-link">
-        Know More
-        <span class="mailer-link-arrow">→</span>
-      </a>
-    </div>
+            <!-- Launch Button -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center" style="margin:20px auto 30px auto;">
+              <tr>
+                <td align="center">
+                  <a href="https://circuitverse.org/simulator"
+                     style="background-color:#42b883;border-radius:4px;display:block;padding:15px 30px;font-size:16px;font-weight:600;color:#ffffff;text-decoration:none;text-align:center;">
+                    <%= t('circuitverse.user_mailer.welcome_email.launch_button') %>
+                  </a>
+                </td>
+              </tr>
+            </table>
 
-    <div class="mailer-showcase-card">
-      <div class="mailer-showcase-icon">
-        <%= inline_svg_tag "pngs/design.png", alt: "Design", class: "mailer-showcase-card-image" %>
-      </div>
-      <h3 class="mailer-showcase-heading">Design</h3>
-      <p class="mailer-text mailer-showcase-text">
-        Don't know how to design? CircuitVerse is easy to use for beginners. This documentation will help you get started quickly.
-      </p>
-      <a href="https://docs.circuitverse.org/" class="mailer-showcase-link">
-        Know More
-        <span class="mailer-link-arrow">→</span>
-      </a>
-    </div>
+            <!-- Showcase Cards -->
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:30px 0;">
 
-    <div class="mailer-showcase-card">
-      <div class="mailer-showcase-icon">
-        <%= inline_svg_tag "pngs/learn.png", alt: "Learn", class: "mailer-showcase-card-image" %>
-      </div>
-      <h3 class="mailer-showcase-heading">Learn</h3>
-      <p class="mailer-text mailer-showcase-text">
-        Want to know more about digital circuits? This Interactive book gives you complete understanding on how digital circuits work.
-      </p>
-      <a href="https://learn.circuitverse.org/" class="mailer-showcase-link">
-        Know More
-        <span class="mailer-link-arrow">→</span>
-      </a>
-    </div>
-  </div>
+              <!-- Features -->
+              <tr>
+                <td style="padding:10px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid #e0e0e0;border-radius:8px;">
+                    <tr>
+                      <td align="center" style="padding:20px;">
+                        <div style="background-color:#dff5ec;border-radius:50%;width:80px;height:80px;margin:0 auto 20px;line-height:80px;font-size:36px;text-align:center;">⚡</div>
+                        <h3 style="color:#333333;font-size:20px;font-weight:600;margin:0 0 15px 0;">
+                          <%= t('circuitverse.user_mailer.welcome_email.features_heading') %>
+                        </h3>
+                        <p style="color:#666666;font-size:16px;line-height:1.5;margin:0 0 20px 0;">
+                          <%= t('circuitverse.user_mailer.welcome_email.features_text') %>
+                        </p>
+                        <a href="https://circuitverse.org/#home-features-section" style="color:#42b883;font-weight:600;text-decoration:none;">Know More →</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
 
-  <div class="mailer-footer">
-    <p class="mailer-text">Keep building!</p>
-  </div>
-</div>
+              <!-- Design -->
+              <tr>
+                <td style="padding:10px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid #e0e0e0;border-radius:8px;">
+                    <tr>
+                      <td align="center" style="padding:20px;">
+                        <div style="background-color:#dff5ec;border-radius:50%;width:80px;height:80px;margin:0 auto 20px;"></div>
+                        <h3 style="color:#333333;font-size:20px;font-weight:600;margin:0 0 15px 0;">
+                          <%= t('circuitverse.user_mailer.welcome_email.design_heading') %>
+                        </h3>
+                        <p style="color:#666666;font-size:16px;line-height:1.5;margin:0 0 20px 0;">
+                          <%= t('circuitverse.user_mailer.welcome_email.design_text') %>
+                        </p>
+                        <a href="https://docs.circuitverse.org/" style="color:#42b883;font-weight:600;text-decoration:none;">Know More →</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+
+              <!-- Learn -->
+              <tr>
+                <td style="padding:10px;">
+                  <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border:1px solid #e0e0e0;border-radius:8px;">
+                    <tr>
+                      <td align="center" style="padding:20px;">
+                        <div style="background-color:#dff5ec;border-radius:50%;width:80px;height:80px;margin:0 auto 20px;"></div>
+                        <h3 style="color:#333333;font-size:20px;font-weight:600;margin:0 0 15px 0;">
+                          <%= t('circuitverse.user_mailer.welcome_email.learn_heading') %>
+                        </h3>
+                        <p style="color:#666666;font-size:16px;line-height:1.5;margin:0 0 20px 0;">
+                          <%= t('circuitverse.user_mailer.welcome_email.learn_text') %>
+                        </p>
+                        <a href="https://learn.circuitverse.org/" style="color:#42b883;font-weight:600;text-decoration:none;">Know More →</a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
