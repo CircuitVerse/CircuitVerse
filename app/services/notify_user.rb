@@ -43,32 +43,44 @@ class NotifyUser
       when "ContestWinnerNotification"
         contest_winner_notification
       else
-        Result.new("false", "no_type", root_path)
+        Result.new("false", "no_type")
       end
     end
 
     def star_notification
+      return Result.new("false", "resource_missing") if @project.nil?
+
       Result.new("true", "star", @project.author, @project)
     end
 
     def fork_notification
+      return Result.new("false", "resource_missing") if @project.nil?
+
       Result.new("true", "fork", @project.author, @project)
     end
 
     def new_assignment_notification
+      return Result.new("false", "resource_missing") if @assignment.nil?
+
       Result.new("true", "new_assignment", @assignment.group, @assignment)
     end
 
     def forum_comment_notification
       @post = @notification.params[:forum_post]
+      return Result.new("false", "resource_missing") if @post.nil?
+
       Result.new("true", "forum_comment", @thread, @post.id)
     end
 
     def forum_thread_notification
+      return Result.new("false", "resource_missing") if @thread.nil?
+
       Result.new("true", "forum_thread", @thread)
     end
 
     def contest_notification
+      return Result.new("false", "resource_missing") if @contest.nil?
+
       Result.new("true", "new_contest", @contest)
     end
 
