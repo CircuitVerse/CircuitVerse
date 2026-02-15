@@ -1,3 +1,7 @@
 nodejs 22.13.0
-ruby 3.4.4
+ruby 3.2.1
 yarn 1.22.19
+redis 7.2.4
+imagemagick 7.1.1-25
+cmake 3.28.1
+postgres 15.5
