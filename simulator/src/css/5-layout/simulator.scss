@@ -28,6 +28,73 @@
   height: auto;
 }
 
+/* Panel Visibility Styles */
+.panel-visibility-transition {
+  transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.panel-hidden {
+  opacity: 0;
+  transform: translateX(-20px);
+  pointer-events: none;
+}
+
+.panel-visible {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: auto;
+}
+
+/* View menu icon states */
+.dropdown-menu .fa-eye-slash {
+  color: #dc3545;
+}
+
+.dropdown-menu .fa-eye {
+  color: #28a745;
+}
+
+/* Enhanced panel visibility feedback */
+.dropdown-menu #toggleCircuitElements:hover,
+.dropdown-menu #toggleTimingDiagram:hover,
+.dropdown-menu #toggleProperties:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.dropdown-menu #showAllPanels:hover {
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+.dropdown-menu #hideAllPanels:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+/* Panel visibility indicator */
+.panel-visibility-indicator {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/* Canvas expansion when panels are hidden */
+#simulationArea.panels-hidden {
+  margin-left: 0;
+}
+
+/* Responsive adjustments for panel visibility */
+@media (max-width: 768px) {
+  .panel-visibility-transition {
+    transition: opacity 0.15s ease-in-out;
+  }
+  
+  .dropdown-menu .fa-eye-slash,
+  .dropdown-menu .fa-eye {
+    font-size: 14px;
+  }
+}
+
 /* END OF MODULES  */
 
 #restrictedDiv {
