@@ -88,7 +88,7 @@ gem "redis", "~> 4.6"
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem "http", "~> 4.4"
+gem "http", "~> 5.3"
 
 # Database
 
