@@ -77,6 +77,25 @@ en:
       options:
         users: "Users"
         projects: "Projects"
+
+  admin:
+    base:
+      access_denied: "Access denied. Admin privileges required."
+    reports:
+      access_denied: "Access denied."
+      index:
+        access_denied: "Access denied."
+
+    bans:
+      access_denied: "Access denied."
+      ban:
+        access_denied: "Access denied."
+        ban_reason_required: "Ban reason is required."
+        cannot_ban_yourself: "Cannot ban yourself."
+        ban_failed: "Failed to ban user."
+      unban:
+        unban_failed: "Failed to unban user."
+
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
