@@ -11,7 +11,7 @@ class Api::V1::NotificationsController < Api::V1::BaseController
 
   # PATCH /api/v1/notifications/mark_as_read/:notification_id
   def mark_as_read
-    @notification = NoticedNotification.find(params[:notification_id])
+    @notification = current_user.noticed_notifications.find(params[:notification_id])
     @notification.update(read_at: Time.zone.now)
     render json: Api::V1::NotificationSerializer.new(@notification), status: :created
   end
