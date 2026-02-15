@@ -31,9 +31,15 @@
               onmouseout: "this.src='#{image_path("commontator/upvote_active.png")}'" %>
       <% end %>
     <% else %>
-      <div title="You can't vote on your own comment">
-        <%= image_tag "commontator/upvote_disabled.png" %>
-      </div>
+      <% if user.nil? %>
+        <div title="Login to vote on this comment">
+          <%= image_tag "commontator/upvote_disabled.png", alt:"Login to upvote this comment" %>
+        </div>
+      <% else %>
+        <div title="You can't vote on your own comment">
+          <%= image_tag "commontator/upvote_disabled.png", alt: "You can't upvote on your own comment" %>
+        </div>
+      <% end %>
     <% end %>
   </span>
   <% end %>
@@ -62,9 +68,15 @@
         onmouseout: "this.src='#{image_path("commontator/downvote_active.png")}'" %>
       <% end %>
     <% else %>
-    <div title="You can't vote on your own comment">
-      <%= image_tag "commontator/downvote_disabled.png" %>
-    </div>
+      <% if user.nil? %>
+        <div title="Login to vote on this comment">
+          <%= image_tag "commontator/downvote_disabled.png", alt: "Login to downvote this comment" %>
+        </div>
+      <% else %>
+        <div title="You can't vote on your own comment">
+          <%= image_tag "commontator/downvote_disabled.png", alt: "You can't downvote on your own comment" %>
+        </div>
+      <% end %>
     <% end %>
   </span>
   <% end %>
