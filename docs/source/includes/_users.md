@@ -230,3 +230,15 @@ HTTP/1.1 202 ACCEPTED
   }
 }
 ```
+
+### Data Retention Policy
+
+When a user account is deleted:
+- ✅ User's projects are preserved (owned by author)
+- ✅ User's stars (project ratings) are deleted
+- ✅ User's grades (assignment grades) are deleted
+- ✅ User's collaborations are deleted
+- ✅ User's submissions are deleted
+- ✅ User's group memberships are deleted
+
+Projects starred or graded by the user are NOT deleted - only the relationship records are removed.
