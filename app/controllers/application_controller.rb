@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def auth_error
-    render plain: "You are not authorized to do the requested operation"
+    render plain: "You are not authorized to do the requested operation", status: :forbidden
   end
 
   def custom_auth_error(exception)
