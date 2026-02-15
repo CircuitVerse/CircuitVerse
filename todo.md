@@ -1,5 +1,6 @@
 # Kamal 2.0 Deployment — TODO Checklist (Minimal with Essential Hooks)
 
+
 ## Core Kamal Setup
 
 - [ ] Create hooks directory — `.kamal/hooks/`
@@ -14,7 +15,7 @@
 
 - [ ] Update Docker installation documentation — `installation_docs/docker.md`
 
-## Essential Deployment Hooks (Pre & Post only)
+## Essential Deployment Hooks for automation(Pre & Post only)
 
 - [ ] Pre-deploy hook — `.kamal/hooks/pre-deploy.sample`
 
