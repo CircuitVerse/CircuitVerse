@@ -106,16 +106,46 @@ class ProjectsController < ApplicationController
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy
-    @project.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed."
-      end
-      format.json { head :no_content }
-    end
+    author = @project.author
+    author_id = @project.author_id
+    @project.destroy!
+    respond_destroy_success(author_id)
+  rescue ActiveRecord::RecordNotDestroyed => e
+    Rails.logger.error("Project destroy failed: #{e.message}")
+    respond_destroy_failure(author, @project)
+  rescue ActiveRecord::QueryCanceled => e
+    Rails.logger.error("Project destroy timeout: #{e.message}")
+    respond_destroy_timeout(author, @project)
   end
 
   private
+
+    def respond_destroy_success(author_id)
+      respond_to do |format|
+        format.html { redirect_to user_path(author_id), notice: "Project was successfully destroyed." }
+        format.json { head :no_content }
+      end
+    end
+
+    def respond_destroy_failure(author, project)
+      respond_to do |format|
+        format.html do
+          redirect_to user_project_path(author, project),
+                      alert: "Project could not be deleted."
+        end
+        format.json { render json: { error: "Deletion failed" }, status: :unprocessable_entity }
+      end
+    end
+
+    def respond_destroy_timeout(author, project)
+      respond_to do |format|
+        format.html do
+          redirect_to user_project_path(author, project),
+                      alert: "Project deletion timed out. Please try again."
+        end
+        format.json { render json: { error: "Deletion timed out" }, status: :request_timeout }
+      end
+    end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_project
