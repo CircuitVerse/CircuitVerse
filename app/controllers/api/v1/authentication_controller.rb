@@ -6,13 +6,14 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/auth/login
   def login
-    @user = User.find_by!(email: params[:email])
+    @user = User.find_by(email: params[:email])
     if @user&.valid_password?(params[:password])
       token = JsonWebToken.encode(
         user_id: @user.id, username: @user.name, email: @user.email
       )
       render json: { token: token }, status: :accepted
-    elsif @user
+    else
+      Devise::Encryptor.digest(User, params[:password]) unless @user
       api_error(status: 401, errors: "invalid credentials")
     end
   end
@@ -32,11 +33,15 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/oauth/login
   def oauth_login
-    @user = User.find_by!(email: @oauth_user["email"])
-    token = JsonWebToken.encode(
-      user_id: @user.id, username: @user.name, email: @user.email
-    )
-    render json: { token: token }, status: :accepted
+    @user = User.find_by(email: @oauth_user["email"])
+    if @user
+      token = JsonWebToken.encode(
+        user_id: @user.id, username: @user.name, email: @user.email
+      )
+      render json: { token: token }, status: :accepted
+    else
+      api_error(status: 401, errors: "invalid credentials")
+    end
   end
 
   # POST api/v1/oauth/signup
@@ -59,10 +64,9 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/forgot_password
   def forgot_password
-    @user = User.find_by!(email: params[:email])
-    # sends reset password instructions to the user's mail if exists
-    @user.send_reset_password_instructions
-    render json: { message: "password reset instructions sent to #{@user.email}" }
+    @user = User.find_by(email: params[:email])
+    @user&.send_reset_password_instructions
+    render json: { message: "If this email is registered, reset instructions have been sent." }
   end
 
   # GET /public_key.pem
