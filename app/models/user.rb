@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars, dependent: :destroy
   has_many :votes, class_name: "ActsAsVotable::Vote", as: :voter, dependent: :destroy
-  has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
+  has_many :rated_projects, through: :stars, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
   devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
          :validatable, :omniauthable, :saml_authenticatable,
