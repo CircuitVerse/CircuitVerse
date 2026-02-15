@@ -19,6 +19,46 @@ describe Users::CircuitverseController, type: :request do
     expect(response.status).to eq(301)
   end
 
+  describe "#typeahead_educational_institute" do
+    before do
+      @user_mit = FactoryBot.create(:user, educational_institute: "Massachusetts Institute of Technology")
+      @user_stanford = FactoryBot.create(:user, educational_institute: "Stanford University")
+      @user_nil = FactoryBot.create(:user, educational_institute: nil)
+    end
+
+    it "returns matching educational institutes" do
+      get "/educational_institute/typeahead/Massachusetts"
+      expect(response.status).to eq(200)
+      json_response = response.parsed_body
+      expect(json_response).to be_an(Array)
+    end
+
+    it "returns empty array for short queries" do
+      get "/educational_institute/typeahead/M"
+      expect(response.status).to eq(200)
+      expect(response.parsed_body).to eq([])
+    end
+
+    it "returns empty array for blank queries" do
+      get "/educational_institute/typeahead/%20"
+      expect(response.status).to eq(200)
+      expect(response.parsed_body).to eq([])
+    end
+
+    it "handles special characters safely" do
+      get "/educational_institute/typeahead/test%27%22%3B"
+      expect(response.status).to eq(200)
+      expect(response.parsed_body).to be_an(Array)
+    end
+
+    it "does not return nil educational institutes" do
+      get "/educational_institute/typeahead/University"
+      json_response = response.parsed_body
+      names = json_response.pluck("name")
+      expect(names).not_to include(nil)
+    end
+  end
+
   describe "#groups" do
     before do
       sign_out @user
