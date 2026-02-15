@@ -44,16 +44,38 @@ cd CircuitVerse
      rvm install 3.4.1
      rvm use 3.4.1
      ```
-- [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
-     ```bash
-      # Install Redis
-      sudo apt update
-      sudo apt install redis-server
-      # Enable Redis to start on system boot
-      sudo systemctl enable redis-server
-      # Start Redis service
-      sudo systemctl start redis-server
-     ```
+
+### systemd on WSL (required for Redis and PostgreSQL)
+
+> **Note:** systemd is **not enabled by default** in WSL, even on Windows 11.
+> Before using `systemctl` for services like Redis or PostgreSQL, ensure:
+>
+> - You are using **WSL Store version 0.67.6 or newer**
+> - `/etc/wsl.conf` contains:
+>   ```ini
+>   [boot]
+>   systemd=true
+>   ```
+> - WSL has been restarted using:
+>   ```powershell
+>   wsl --shutdown
+>   ```
+
+- [Redis 7.0 [at least]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
+> Refer to **systemd on WSL** above for instructions on enabling systemd.
+```bash
+# If systemd is enabled in WSL
+sudo systemctl enable redis-server
+sudo systemctl start redis-server
+
+# If systemd is NOT enabled in WSL
+redis-server --daemonize yes
+
+# Verify Redis is running
+redis-cli ping
+# Expected output: PONG
+```
+
 - [ImageMagick](https://imagemagick.org/) - Image manipulation library
      ```bash
      sudo apt install imagemagick
@@ -86,13 +108,22 @@ cd CircuitVerse
      sudo apt-get install libpq-dev
      ```
 # Add PostgreSQL repository
+> Refer to **systemd on WSL** above for instructions on enabling systemd.
 ```bash
 sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/postgresql.asc
 sudo apt update
 sudo apt install postgresql-17 postgresql-contrib libpq-dev
+
+# Once systemd is enabled, you can manage PostgreSQL using:
 sudo systemctl start postgresql.service
 sudo systemctl enable postgresql.service
+
+# If systemd is NOT enabled (most WSL setups)
+sudo service postgresql start
+
+# Verify PostgreSQL is running
+pg_isready
 ```
 #### Setup
  > **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
