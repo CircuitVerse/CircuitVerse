@@ -17,7 +17,7 @@ en:
       title: "CircuitVerse - New Group"
       main_heading: "NEW GROUP"
       main_description_html: "Groups can be used by mentors to set projects for and give grades to students.
-        You can find the documentation <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>here</a>."
+        You can find the documentation <a class='anchor-text' href='https://docs.circuitverse.org/chapter2/chapter2-cvforeducators' target='_blank'>here</a>."
     show:
       edit_name_btn: "Edit Name"
       primary_mentor_heading: "Primary Mentor:"
