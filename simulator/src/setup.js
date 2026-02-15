@@ -27,6 +27,7 @@ import 'codemirror/addon/hint/anyword-hint';
 import 'codemirror/addon/hint/show-hint';
 import { setupCodeMirrorEnvironment } from './Verilog2CV';
 import { keyBinder } from './hotkey_binder/keyBinder';
+import { initializePanelVisibility } from './panelVisibility';
 import '../vendor/jquery-ui.min.css';
 import '../vendor/jquery-ui.min';
 
@@ -150,7 +151,10 @@ export function setup() {
     const startListeners = embed ? startEmbedListeners : startMainListeners;
     setupElementLists();
     setupEnvironment();
-    if (!embed) { setupUI(); }
+    if (!embed) { 
+        setupUI(); 
+        initializePanelVisibility();
+    }
     startListeners();
     if (!embed) { keyBinder(); }
 
