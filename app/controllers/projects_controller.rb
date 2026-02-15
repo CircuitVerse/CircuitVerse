@@ -121,9 +121,9 @@ class ProjectsController < ApplicationController
     def set_project
       if params[:user_id]
         @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @project = @author.projects.friendly.with_attached_circuit_preview.find(params[:id])
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.with_attached_circuit_preview.find(params[:id])
         @author = @project.author
       end
     end
