@@ -41,13 +41,13 @@
     </button>
   <% end %>
 </div>
-<hr>
 <% if @group.group_members.mentor.blank? %>
   <span class="null-text"><%= t("groups.show.no_mentors_html") %></span>
 <% end %>
 <div class="row">
   <%= render partial: "group_mentors", locals: { group: @group } %>
 </div>
+<hr>
 
 <!-- Members Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -61,13 +61,13 @@
     </button>
   <% end %>
 </div>
-<hr>
 <% if @group.group_members.member.blank? %>
   <span class="null-text"><%= t("groups.show.no_members_html") %></span>
 <% end %>
 <div class="row">
   <%= render partial: "group_members", locals: { group: @group } %>
 </div>
+<hr>
 
 <!-- Assignments Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -78,7 +78,6 @@
       class: "btn primary-button groups-primary-button" %>
   <% end %>
 </div>
-  <hr>
   <table class="table table-borderless groups-table">
     <% if @group.assignments.empty? %>
       <span class="null-text"><%= t("groups.show.no_assignments_html") %></span>
@@ -356,6 +355,7 @@
       <% end %>
     </tbody>
   </table>
+  <hr>
   <div class="row">
     <div class="col-12 groups-back-button-container">
       <%= link_to t("back"), :back, class: "anchor-text" %>
