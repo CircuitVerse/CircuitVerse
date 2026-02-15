@@ -35,6 +35,13 @@ en:
   facebook: "Facebook"
   github: "Github"
   gitlab: "Gitlab"
+  reports:
+    user_not_found: "Reported user must exist"
+    submitted: "Report submitted successfully"
+    cannot_report_self: "You cannot report yourself"
+    create:
+      success: "Report submitted successfully."
+
   components:
     search_bar:
       placeholders:
