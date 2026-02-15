@@ -21,4 +21,6 @@ en:
       tags:
         heading: "Browse by Tags"
         description: "Jump into topics that interest you."
+        showing_tagged_with: "Showing circuits tagged with"
+        clear_filter: "Clear filter"
     empty: "Nothing to show yet."
