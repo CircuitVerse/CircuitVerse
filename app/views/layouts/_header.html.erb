@@ -25,8 +25,6 @@
   href="/#home-features-section">
   <%= t("layout.link_to_features") %>
 </a>
-
-
           </li>
           <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
             <li class="nav-item">
@@ -34,7 +32,6 @@
    href="/explore">
   <%= t("layout.link_to_explore") %>
 </a>
-
             </li>
           <% end %>
           <li class="nav-item">
@@ -42,8 +39,6 @@
    href="/teachers">
   <%= t("layout.link_to_teachers") %>
 </a>
-
-
           </li>
           <% if Flipper.enabled?(:contests, current_user) %>
             <li class="nav-item">
@@ -52,7 +47,6 @@
   href="<%= contests_path %>">
   <%= t("layout.link_to_contests") %>
 </a>
-
             </li>
           <% end %>
           <li class="nav-item dropdown">
@@ -72,7 +66,6 @@
    href="/about">
   <%= t("layout.link_to_about") %>
 </a>
-
           </li>
           <li class="nav-item d-flex align-items-center">
             <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
@@ -188,20 +181,17 @@
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
-
     // 🔹 Features navbar active state (hash-based)
 const featuresLink = document.getElementById("features-nav-link");
 
 if (featuresLink) {
   featuresLink.classList.remove("active");
-
   if (
     window.location.pathname === "/" &&
     window.location.hash === "#home-features-section"
   ) {
     featuresLink.classList.add("active");
   }
-
   featuresLink.addEventListener("click", function () {
     document
       .querySelectorAll(".navbar-text.active")
@@ -210,6 +200,5 @@ if (featuresLink) {
     featuresLink.classList.add("active");
   });
 }
-
   });
 </script>
