@@ -22,6 +22,12 @@ GIT
     rails-data-migrations (1.3.0.4)
       rails (>= 7.2.0)
 
+PATH
+  remote: vendor/gems/yosys2digitaljs
+  specs:
+    yosys2digitaljs (0.1.0)
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -68,6 +74,9 @@ GEM
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
+    active_link_to (1.0.5)
+      actionpack
+      addressable
     activejob (8.0.2.1)
       activesupport (= 8.0.2.1)
       globalid (>= 0.3.6)
@@ -110,6 +119,23 @@ GEM
       device_detector (>= 1)
       safely_block (>= 0.4)
     ast (2.4.3)
+    avo (3.28.0)
+      actionview (>= 6.1)
+      active_link_to
+      activerecord (>= 6.1)
+      activesupport (>= 6.1)
+      addressable
+      avo-icons (>= 0.1.1)
+      docile
+      meta-tags
+      pagy (>= 7.0.0, < 43)
+      prop_initializer (>= 0.2.0)
+      turbo-rails (>= 2.0.0)
+      turbo_power (>= 0.6.0)
+      view_component (>= 3.7.0)
+      zeitwerk (>= 2.6.12)
+    avo-icons (0.1.1)
+      inline_svg
     aws-actionmailer-ses (1.0.0)
       actionmailer (>= 7.1.0)
       aws-sdk-ses (~> 1, >= 1.50.0)
@@ -255,12 +281,12 @@ GEM
       railties (>= 6.1.0)
     faker (3.5.2)
       i18n (>= 1.8.11, < 2)
-    faraday (2.13.4)
+    faraday (2.14.1)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.1)
-      net-http (>= 0.5.0)
+    faraday-net_http (3.4.2)
+      net-http (~> 0.5)
     ffi (1.17.2)
     ffi-compiler (1.3.2)
       ffi (>= 1.15.5)
@@ -356,7 +382,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.13.2)
+    json (2.18.1)
     json-schema (6.0.0)
       addressable (~> 2.8)
       bigdecimal (~> 3.1)
@@ -442,8 +468,8 @@ GEM
       bigdecimal (~> 3.1)
     mutex_m (0.3.0)
     nested_form (0.3.2)
-    net-http (0.6.0)
-      uri
+    net-http (0.9.1)
+      uri (>= 0.11.1)
     net-imap (0.5.10)
       date
       net-protocol
@@ -609,6 +635,7 @@ GEM
       opentelemetry-api (~> 1.0)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
+    pagy (9.4.0)
     parallel (1.27.0)
     parser (3.3.9.0)
       ast (~> 2.4.1)
@@ -634,6 +661,8 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     prettyprint (0.2.0)
     prism (1.4.0)
+    prop_initializer (0.2.0)
+      zeitwerk (>= 2.6.18)
     pry (0.15.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -804,8 +833,6 @@ GEM
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sassc (2.4.0-x64-mingw32)
-      ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
       sassc (>= 2.0)
@@ -918,11 +945,15 @@ GEM
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
+    turbo_power (0.7.0)
+      turbo-rails (>= 1.3.0)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
+    tzinfo-data (1.2025.3)
+      tzinfo (>= 1.0.0)
     unaccent (0.4.0)
     undercover (0.8.0)
       base64
@@ -986,7 +1017,7 @@ PLATFORMS
   arm64-darwin-22
   arm64-darwin-23
   arm64-darwin-24
-  x64-mingw32
+  x64-mingw-ucrt
   x86_64-darwin-21
   x86_64-linux
 
@@ -994,6 +1025,7 @@ DEPENDENCIES
   activerecord_cursor_paginate
   acts_as_votable (~> 0.14.0)
   ahoy_matey
+  avo (>= 3.2.1)
   aws-actionmailer-ses
   aws-sdk-rails
   aws-sdk-s3 (~> 1.208)
@@ -1127,6 +1159,7 @@ DEPENDENCIES
   webpush
   will_paginate (~> 4.0.1)
   will_paginate-bootstrap
+  yosys2digitaljs!
 
 BUNDLED WITH
    2.5.3
