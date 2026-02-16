@@ -13,40 +13,22 @@
       <div class="d-flex justify-content-between align-items-start align-items-lg-center w-100 flex-column flex-lg-row gap-3 px-2 px-lg-0">
         <ul class="navbar-nav main-nav-items mx-auto d-flex flex-lg-row flex-column gap-lg-3 margin-lg-0">
           <li class="nav-item">
-          <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/simulator') %>"
-   href="/simulator">
-  <%= t("layout.link_to_simulator") %>
-</a>
+            <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/simulator') %>" href="/simulator"><%= t("layout.link_to_simulator") %></a>
           </li>
           <li class="nav-item">
-           <a
-  id="features-nav-link"
-  class="nav-link navbar-item navbar-text"
-  href="/#home-features-section">
-  <%= t("layout.link_to_features") %>
-</a>
+            <a id="features-nav-link" class="nav-link navbar-item navbar-text" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
           </li>
           <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
             <li class="nav-item">
-              <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/explore') %>"
-   href="/explore">
-  <%= t("layout.link_to_explore") %>
-</a>
+              <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/explore') %>" href="/explore"><%= t("layout.link_to_explore") %></a>
             </li>
           <% end %>
           <li class="nav-item">
-     <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/teachers') %>"
-   href="/teachers">
-  <%= t("layout.link_to_teachers") %>
-</a>
+            <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/teachers') %>" href="/teachers"><%= t("layout.link_to_teachers") %></a>
           </li>
           <% if Flipper.enabled?(:contests, current_user) %>
             <li class="nav-item">
-              <a
-  class="nav-link navbar-item navbar-text <%= 'active' if current_page?(contests_path) %>"
-  href="<%= contests_path %>">
-  <%= t("layout.link_to_contests") %>
-</a>
+              <a class="nav-link navbar-item navbar-text <%= 'active' if current_page?(contests_path) %>" href="<%= contests_path %>"><%= t("layout.link_to_contests") %></a>
             </li>
           <% end %>
           <li class="nav-item dropdown">
@@ -62,10 +44,7 @@
             <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_blog") %></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/about') %>"
-   href="/about">
-  <%= t("layout.link_to_about") %>
-</a>
+            <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/about') %>" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
             <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
@@ -173,31 +152,24 @@
         bsCollapse.toggle();
       });
     }
-  
+
     Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
 
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
-    // 🔹 Features navbar active state (hash-based)
-const featuresLink = document.getElementById("features-nav-link");
 
-if (featuresLink) {
-  featuresLink.classList.remove("active");
-  if (
-    window.location.pathname === "/" &&
-    window.location.hash === "#home-features-section"
-  ) {
-    featuresLink.classList.add("active");
-  }
-  featuresLink.addEventListener("click", function () {
-    document
-      .querySelectorAll(".navbar-text.active")
-      .forEach(el => el.classList.remove("active"));
-
-    featuresLink.classList.add("active");
-  });
-}
+    const featuresLink = document.getElementById("features-nav-link");
+    if (featuresLink) {
+      featuresLink.classList.remove("active");
+      if (window.location.pathname === "/" && window.location.hash === "#home-features-section") {
+        featuresLink.classList.add("active");
+      }
+      featuresLink.addEventListener("click", function () {
+        document.querySelectorAll(".navbar-text.active").forEach(el => el.classList.remove("active"));
+        featuresLink.classList.add("active");
+      });
+    }
   });
 </script>
