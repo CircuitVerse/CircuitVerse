@@ -28,7 +28,7 @@
           </li>
           <% if Flipper.enabled?(:contests, current_user) %>
             <li class="nav-item">
-              <a class="nav-link navbar-item navbar-text <%= 'active' if current_page?(contests_path) %>" href="<%= contests_path %>"><%= t("layout.link_to_contests") %></a>
+              <a class="nav-link navbar-item navbar-text <%= 'active' if request.path.start_with?('/contests') %>" href="<%= contests_path %>"><%= t("layout.link_to_contests") %></a>
             </li>
           <% end %>
           <li class="nav-item dropdown">
@@ -160,14 +160,24 @@
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
 
+    // 🔹 Features navbar active state logic
     const featuresLink = document.getElementById("features-nav-link");
-    if (featuresLink) {
-      featuresLink.classList.remove("active");
+    const mainNav = document.querySelector(".main-nav-items");
+
+    function updateFeaturesActiveState() {
       if (window.location.pathname === "/" && window.location.hash === "#home-features-section") {
         featuresLink.classList.add("active");
+      } else {
+        featuresLink.classList.remove("active");
       }
+    }
+
+    if (featuresLink && mainNav) {
+      updateFeaturesActiveState();
+      window.addEventListener("hashchange", updateFeaturesActiveState);
+
       featuresLink.addEventListener("click", function () {
-        document.querySelectorAll(".navbar-text.active").forEach(el => el.classList.remove("active"));
+        mainNav.querySelectorAll(".nav-link.active").forEach(el => el.classList.remove("active"));
         featuresLink.classList.add("active");
       });
     }
