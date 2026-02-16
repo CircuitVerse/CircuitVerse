@@ -750,3 +750,7 @@
 .hidden {
   display: none !important;
 }
+
+.nav-link.navbar-text.active {
+  color: $primary-green !important;
+}
