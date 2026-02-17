@@ -55,14 +55,4 @@ class Avo::Resources::Project < Avo::BaseResource
     field :updated_at, as: :date_time, readonly: true, sortable: true, hide_on: %i[new edit]
   end
   # rubocop:enable Metrics/MethodLength
-
-  def filters
-    filter Avo::Filters::ProjectFilters::ProjectAccessType
-    filter Avo::Filters::ProjectFilters::ProjectFeatured
-  end
-
-  def actions
-    action Avo::Actions::Projects::ToggleFeaturedProject
-    action Avo::Actions::Projects::ExportProject
-  end
 end

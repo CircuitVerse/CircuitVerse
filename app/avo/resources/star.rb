@@ -22,9 +22,4 @@ class Avo::Resources::Star < Avo::BaseResource
                        hide_on: %i[new edit],
                        sortable: true
   end
-
-  def filters
-    filter Avo::Filters::StarFilters::StarByUser
-    filter Avo::Filters::StarFilters::StarByProject
-  end
 end
