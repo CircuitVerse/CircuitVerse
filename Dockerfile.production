@@ -1,5 +1,5 @@
 # Use a multi stage build for the builder
-FROM --platform=$BUILDPLATFORM ruby:3.2.1 as builder
+FROM --platform=$BUILDPLATFORM ruby:3.2.1 AS builder
 
 # Set production environment
 ARG BUILDPLATFORM
@@ -42,7 +42,7 @@ RUN rm -rf node_modules spec
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
 # Build stage for the Vue simualtor
-FROM --platform=$BUILDPLATFORM node:lts-slim as simulator_vue_build
+FROM --platform=$BUILDPLATFORM node:lts-slim AS simulator_vue_build
 
 WORKDIR /app
 
@@ -70,7 +70,7 @@ RUN ls -laR /output/
 
 # The files should now be in /app/public/simulatorvue/
 
-FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim as app
+FROM --platform=$BUILDPLATFORM ruby:3.2.1-slim AS app
 
 # Copy compiled assets and application from builder and Vue simulator build stages
 COPY --from=builder /usr/src/app /usr/src/app
@@ -89,7 +89,9 @@ ARG REDIS_URL="redis://localhost:6379"
 
 RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-recommends --auto-remove curl  \
    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
-   && apt-get update -qq && apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2 yosys  \
+   && apt-get update -qq \
+   && (apt-get install -y --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2 yosys \
+       || (apt-get update -qq && apt-get install -y --fix-missing --no-install-recommends --auto-remove nodejs imagemagick libpq5 libcurl4 libjemalloc2 yosys)) \
    && apt-get clean \
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
