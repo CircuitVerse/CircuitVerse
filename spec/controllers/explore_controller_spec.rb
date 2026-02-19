@@ -6,9 +6,7 @@ RSpec.describe ExploreController, type: :controller do
   describe "GET #index" do
     context "when feature flag is disabled" do
       before do
-        allow(Flipper).to receive(:enabled?)
-          .with(:circuit_explore_page, anything)
-          .and_return(false)
+        Flipper.disable(:circuit_explore_page)
       end
 
       it "redirects to root path" do
@@ -20,9 +18,7 @@ RSpec.describe ExploreController, type: :controller do
 
     context "when feature flag is enabled" do
       before do
-        allow(Flipper).to receive(:enabled?)
-          .with(:circuit_explore_page, anything)
-          .and_return(true)
+        Flipper.enable(:circuit_explore_page)
       end
 
       it "returns http success" do
