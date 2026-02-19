@@ -19,13 +19,45 @@
     <% end %>
   </div>
   <div class="contest-page-line"></div>
-  <div class="contests-list-wrapper row center-row">
-    <% @contests.each do |contest| %>
-      <div class="col-lg-3">
-        <div class="contest-container">
-          <% if contest.live? %>
-            <div class="contest-container-header">
-              <div class="contest-container-close">
+  <div class="contests-list-wrapper ">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+             <% @contests.each do |contest| %>
+      <div class="col">
+        <div class="contest-container h-100">
+          <div class="contest-container-card-image">
+            <%= image_tag "empty_project/default_contest_card.png" , alt: t("contest.contest_container.default_contest_card_img_alt") ,class:"contest-card-image" %>
+            <% if contest.live? %>
+              <div class="contest-container-status-live">
+                <span class="contest-container-status-dot"></span>
+                <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
+              </div>
+            <% else %>
+              <div class="contest-container-status">
+                <span class="contest-container-status-dot"></span>
+                <span class="contest-container-status-text"><%= t("contest.status.completed") %> </span>
+              </div>
+            <% end %>
+          </div>
+
+          <div class="contest-container-details">
+            <div class="contest-container-details-number">
+              <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}",
+                          contest_path(contest.id) , class:"contest-container-details-number-link" %>
+            </div>
+
+            <% if contest.completed? %>
+              <div class="contest-container-details-entries">
+                <%= image_tag "svgs/user.svg", alt: t("contest.contest_container.entries_alt"), class:"entries-image"  %>
+                <span><%= contest.submissions.count %> <%= t("contest.contest_container.entries") %> </span>
+              </div>
+            <% end %>
+
+            <div class="contest-container-details-description">
+              <span> <%= t("contest.contest_container.description") %> </span>
+            </div>
+
+            <% if contest.live? %>
+              <div class="contest-container-action-buttons">
                 <%= link_to "#",
                             data:   { bs_toggle: "modal",
                                       bs_target: "#close-contest-confirmation-modal",
@@ -33,44 +65,16 @@
                             class:  "contest-container-close-button" do %>
                   <span><%= t("contest.close") %></span>
                 <% end %>
+                <%= link_to "#",
+                            data:   { bs_toggle: "modal",
+                                      bs_target: "#update-contest-modal",
+                                      contest:   contest,
+                                      deadline:  contest.deadline.strftime("%Y-%m-%dT%H:%M") },
+                            class:  "contest-container-update-button" do %>
+                  <%= image_tag("svgs/editGroup.svg", alt: t("admin.contests.index.edit_deadline_alt")) %>
+                  <span><%= t("edit") %></span>
+                <% end %>
               </div>
-
-              <div class="contest-container-status-live">
-                <span class="contest-container-status-dot"></span>
-                <span class="contest-container-status-text"><%= t("contest.status.live") %></span>
-              </div>
-            </div>
-          <% else %>
-            <div class="contest-container-header">
-              <div class="contest-container-status">
-                <span class="contest-container-status-dot"></span>
-                <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
-              </div>
-            </div>
-          <% end %>
-
-          <div class="contest-container-details">
-            <h5 class="contest-container-details-number">
-              <%= link_to "#{t("contest.contest_container.contest_id")} ##{contest.id}",
-                          contest_path(contest.id) %>
-            </h5>
-
-            <% if contest.completed? %>
-              <h5 class="contest-container-details-entries">
-                <%= t("contest.contest_container.entries") %>: <%= contest.submissions.count %>
-              </h5>
-            <% end %>
-
-            <% if contest.live? %>
-              <%= link_to "#",
-                          data:   { bs_toggle: "modal",
-                                    bs_target: "#update-contest-modal",
-                                    contest:   contest,
-                                    deadline:  contest.deadline.strftime("%Y-%m-%dT%H:%M") },
-                          class:  "contest-container-update-button" do %>
-                <%= image_tag("svgs/editGroup.svg", alt: t("admin.contests.index.edit_deadline_alt")) %>
-                <span><%= t("edit") %></span>
-              <% end %>
             <% end %>
           </div>
         </div>
@@ -79,6 +83,7 @@
       <%= render Admin::ContestCloseModalComponent.new(contest: contest) %>
       <%= render Admin::ContestUpdateDeadlineModalComponent.new(contest: contest) %>
     <% end %>
+      </div>
   </div>
   <div class="container pagination-cont">
     <%= will_paginate @contests, renderer: PaginateRenderer %>
