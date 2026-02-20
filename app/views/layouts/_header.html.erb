@@ -32,7 +32,7 @@
             </li>
           <% end %>
           <li class="nav-item dropdown">
-            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">
+            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">
               <%= t("layout.getting_started_dropdown") %>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
@@ -54,7 +54,7 @@
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
               </a>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
@@ -109,6 +109,7 @@
     if (gettingStartedLink) {
       const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
       gettingStartedLink.addEventListener("click", function (e) {
+        e.preventDefault();
         if (gettingStartedLink.classList.contains("rotate180")) {
           gettingStartedLink.classList.remove("rotate180");
           gettingStartedDropdown.hide();
@@ -130,9 +131,14 @@
       if (isActive) {
         icons.forEach(icon => icon.classList.remove("active"));
         searchBar.style.display = "none";
+        if (icons[0]) icons[0].focus();
       } else {
         icons.forEach(icon => icon.classList.add("active"));
         searchBar.style.display = "block";
+        const searchInput = searchBar.querySelector(".search-bar-input");
+        if (searchInput) {
+          searchInput.focus();
+        }
       }
       collapseElement.classList.remove("show");
     }
@@ -153,7 +159,24 @@
       });
     }
 
-    Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
+    Array.from(searchIcons).forEach(icon => {
+      icon.addEventListener("click", activeSearchBar);
+      icon.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activeSearchBar();
+        }
+      });
+    });
+    
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        const icons = Array.from(searchIcons);
+        if (icons.some(icon => icon.classList.contains("active"))) {
+          activeSearchBar();
+        }
+      }
+    });
 
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
