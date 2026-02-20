@@ -47,7 +47,7 @@
 
             <% if contest.completed? %>
               <div class="contest-container-details-entries">
-                <%= image_tag "svgs/user.svg", alt: t("contest.contest_container.entries_alt"), class:"entries-image"  %>
+                <%= image_tag "svgs/user.svg", alt: t("contest.contest_container.entries_alt"), class:"entries-image" %>
                 <span><%= contest.submissions.count %> <%= t("contest.contest_container.entries") %> </span>
               </div>
             <% end %>
