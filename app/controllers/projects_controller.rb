@@ -34,11 +34,11 @@ class ProjectsController < ApplicationController
 
     # Resolve simulator embed path
     @embed_path =
-      if @project.uses_vue_simulator?
-        simulatorvue_path(@project)
-      else
-        simulator_path(@project)
-      end
+      # if @project.uses_vue_simulator?
+      # simulatorvue_path(@project)
+      # else
+      simulator_path(@project)
+    # end
   end
 
   # GET /projects/1/edit
@@ -79,7 +79,7 @@ class ProjectsController < ApplicationController
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -98,7 +98,7 @@ class ProjectsController < ApplicationController
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -121,9 +121,9 @@ class ProjectsController < ApplicationController
     def set_project
       if params[:user_id]
         @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @project = @author.projects.friendly.with_attached_circuit_preview.find(params[:id])
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.with_attached_circuit_preview.find(params[:id])
         @author = @project.author
       end
     end

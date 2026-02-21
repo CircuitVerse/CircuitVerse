@@ -2,9 +2,10 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
-
+  authenticate :user, ->(u) { u.admin? } do
+    mount Avo::Engine, at: "/admin"
+  end
   require "sidekiq/web"
 
   authenticate :user, ->(u) { u.admin? } do
@@ -134,12 +135,6 @@ Rails.application.routes.draw do
   end
 
   mount Commontator::Engine => "/commontator"
-
-  # Default route for Vue simulator
-  get 'simulatorvue', to: 'static#simulatorvue', as: 'default_simulatorvue'
-
-  # Vue simulaltor Route with catchall
-  get 'simulatorvue/*path', to: 'static#simulatorvue', as: 'simulatorvue'
 
   # simulator
   scope "/simulator" do
