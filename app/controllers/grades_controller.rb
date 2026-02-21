@@ -54,11 +54,13 @@ class GradesController < ApplicationController
   end
 
   def to_csv
-    assignment_id = params[:assignment_id].to_i
+    assignment = Assignment.find(params[:assignment_id])
+    authorize assignment, :mentor_access?
+
     respond_to do |format|
       format.csv do
-        send_data Grade.to_csv(assignment_id),
-                  filename: "#{Assignment.find(assignment_id).name} grades.csv"
+        send_data Grade.to_csv(assignment.id),
+                  filename: "#{assignment.name} grades.csv"
       end
     end
   end
