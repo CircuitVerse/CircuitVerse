@@ -57,7 +57,7 @@
             <% if Flipper.enabled?(:recaptcha) %>
               <%= recaptcha_tags %>
             <% end %>
-            <%= f.submit t("login"), class: "btn primary-button users-login-primary-button" %>
+            <%= f.submit t("login"), class: "btn primary-button users-login-primary-button mt-3" %>
             <div class="users-text-container">
               <% unless Flipper.enabled?(:block_registration) %>
                 <span class="users-text"><%= t("users.ask_new_user") %></span>
