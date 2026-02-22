@@ -3,7 +3,43 @@
 require "rails_helper"
 
 RSpec.describe Api::V1::NotificationsController, "#mark_as_read", type: :request do
-  describe "mark notification as read" do
+  describe "mark all notifications as read" do
+    context "when not authenticated" do
+      before do
+        get "/api/v1/notifications", as: :json
+      end
+
+      it "returns status unauthorized" do
+        expect(response).to have_http_status(:unauthorized)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when authenticated" do
+      before do
+        @author = FactoryBot.create(:user)
+        @user = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, author: @author)
+        @notification = FactoryBot.create(
+          :noticed_notification,
+          recipient: @author,
+          params:
+            { user: @user, project: @project },
+          read_at: nil
+        )
+      end
+
+      it "mark notification as read" do
+        token = get_auth_token(@author)
+        patch "/api/v1/notifications/mark_as_read/#{@notification.id}",
+              headers: { Authorization: "Token #{token}" }, as: :json
+        expect(response).to have_http_status(:created)
+        expect(response).to match_response_schema("read_notification")
+      end
+    end
+  end
+
+  describe "IDOR protection for mark_as_read" do
     context "when not authenticated" do
       before do
         patch "/api/v1/notifications/mark_as_read/1", as: :json
@@ -15,29 +51,7 @@ RSpec.describe Api::V1::NotificationsController, "#mark_as_read", type: :request
       end
     end
 
-    context "when authenticated as notification owner" do
-      before do
-        @owner = FactoryBot.create(:user)
-        @other_user = FactoryBot.create(:user)
-        @project = FactoryBot.create(:project, author: @owner)
-        @notification = FactoryBot.create(
-          :noticed_notification,
-          recipient: @owner,
-          params: { user: @other_user, project: @project },
-          read_at: nil
-        )
-      end
-
-      it "marks notification as read" do
-        token = get_auth_token(@owner)
-        patch "/api/v1/notifications/mark_as_read/#{@notification.id}",
-              headers: { Authorization: "Token #{token}" }, as: :json
-        expect(response).to have_http_status(:created)
-        expect(response).to match_response_schema("read_notification")
-      end
-    end
-
-    context "when another user tries to mark notification (IDOR protection)" do
+    context "when another user tries to mark notification" do
       before do
         @owner = FactoryBot.create(:user)
         @attacker = FactoryBot.create(:user)
