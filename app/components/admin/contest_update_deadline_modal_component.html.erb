@@ -1,4 +1,4 @@
-<div id="update-contest-modal"
+<div id="update-contest-modal-<%= @contest.id %>"
      class="modal fade"
      role="dialog"
      aria-labelledby="updateContestModalLabel"
@@ -20,21 +20,21 @@
         <p><%= t("contest.update_contest_modal.description") %></p>
       </div>
 
-      <%= form_with url:   admin_contest_path(":contest_id"),
+      <%= form_with url:   admin_contest_path(@contest),
                     method: :patch,
                     scope:  :contest,
                     local:  true,
-                    id:     "update-contest-form" do |form| %>
+                    id:     "update-contest-form-#{@contest.id}" do |form| %>
 
         <div class="modal-body">
           <div class="form-group">
             <%= form.label :deadline,
                            t("contest.update_contest_modal.sub_heading"),
-                           for: "contest_deadline" %>
+                           for: "contest_deadline_#{@contest.id}" %>
 
             <%= form.datetime_local_field :deadline,
                   class:    "form-control",
-                  id:       "contest_deadline",
+                  id:       "contest_deadline_#{@contest.id}",
                   min:      Time.current.in_time_zone.strftime("%Y-%m-%dT%H:%M"),
                   value:    @contest.deadline&.in_time_zone&.strftime("%Y-%m-%dT%H:%M"),
                   required: true %>

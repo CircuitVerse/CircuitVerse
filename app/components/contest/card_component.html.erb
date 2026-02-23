@@ -4,7 +4,7 @@
             id:    "contest-#{@contest.id}" do %>
   <div class="contest-container h-100">
     <div class="contest-container-card-image">
-       <%= image_tag "empty_project/default_contest_card.png",alt: t("contest.contest_container.default_contest_card_img_alt"), class:"contest-card-image" %>
+       <%= image_tag "empty_project/default_contest_card_image.png",alt: t("contest.contest_container.default_contest_card_img_alt"), class:"contest-card-image" %>
       <% if @contest.live? %>
         <div class="contest-container-status-live">
           <span class="contest-container-status-dot"></span>
@@ -12,7 +12,6 @@
         </div>
       <% else %>
         <div class="contest-container-status">
-          <span class="contest-container-status-dot"></span>
           <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
         </div>
       <% end %>
