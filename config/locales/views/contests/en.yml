@@ -42,7 +42,7 @@ en:
       entries: "Entries"
       contest_id_with_number: "Contest #%{id}"
       default_contest_card_img_alt: "Default contest card image"
-      entries_alt: "Entries user img"
+      entries_alt: "Number of contest participants image"
       description: "Welcome to CircuitVerse Contest! Showcase your engineering creativity and climb the community leaderboard."
     status:
       live: "LIVE"
