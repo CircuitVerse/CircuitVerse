@@ -6,7 +6,7 @@ class Avo::Resources::Tag < Avo::BaseResource
   self.model_class = ::Tag
 
   def fields
-    field :id, as: :id, link_to_resource: true
+    field :id, as: :id, link_to_record: true
     field :name, as: :text, required: true, sortable: true
 
     field :created_at, as: :date_time, readonly: true, sortable: true
