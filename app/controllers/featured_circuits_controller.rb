@@ -7,7 +7,10 @@ class FeaturedCircuitsController < ApplicationController
   before_action :set_and_authorize_featured, except: [:index]
 
   def index
-    @projects = Project.joins(:featured_circuit)
+    @projects = Project
+                .joins(:featured_circuit)
+                .includes(:author, :stars)
+                .with_attached_circuit_preview
   end
 
   def create
