@@ -5,6 +5,10 @@ class Avo::Resources::Tag < Avo::BaseResource
   self.includes = %i[taggings projects]
   self.model_class = ::Tag
 
+  self.search_query = lambda {
+    scope.ransack(id_eq: params[:q], name_cont: params[:q], m: "or").result(distinct: false)
+  }
+
   def fields
     field :id, as: :id, link_to_record: true
     field :name, as: :text, required: true, sortable: true
