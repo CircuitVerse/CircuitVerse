@@ -6,7 +6,7 @@ class Avo::Resources::Tagging < Avo::BaseResource
   self.model_class = ::Tagging
 
   def fields
-    field :id, as: :id, link_to_resource: true
+    field :id, as: :id, link_to_record: true
     field :tag, as: :belongs_to, required: true, searchable: true
     field :project, as: :belongs_to, required: true, searchable: true
 

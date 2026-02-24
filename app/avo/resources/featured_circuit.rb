@@ -20,8 +20,4 @@ class Avo::Resources::FeaturedCircuit < Avo::BaseResource
     field :updated_at, as: :date_time,
                        hide_on: %i[edit new]
   end
-
-  def filters
-    filter Avo::Filters::FeaturedCircuitByProject
-  end
 end
