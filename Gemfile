@@ -23,7 +23,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 8.0.0"
+gem "rails", "~> 8.1.2"
 # Use Puma as the app server
 gem "puma", "~> 6.4"
 # Use SCSS for stylesheets
@@ -92,7 +92,7 @@ gem "http", "~> 4.4"
 
 # Database
 
-gem "pg", "~> 1.6.1"
+gem "pg", "~> 1.6.3"
 
 gem "meta-tags"
 
@@ -107,11 +107,11 @@ gem "font-awesome-sass", "~> 5.13.1"
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
 gem "flipper-redis"
 gem "flipper-ui"
-gem "friendly_id", "~> 5.5.1"
+gem "friendly_id", "~> 5.6.0"
 gem "inline_svg"
 gem "jsonapi-serializer"
 gem "jwt"
-gem "rails-i18n", "~> 8.0.0"
+gem "rails-i18n", "~> 8.1.0"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
 gem "sprockets-rails", "~> 3.5"
@@ -154,13 +154,13 @@ end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem "listen", ">= 3.0.5", "< 3.10"
+  gem "listen", ">= 3.0.5", "< 3.11"
   gem "web-console", ">= 3.3.0"
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
   
-  gem "bundler-audit", "~> 0.9.1"
+  gem "bundler-audit", "~> 0.9.3"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"
 end
@@ -175,7 +175,7 @@ gem "premailer-rails", "~> 1.11", ">= 1.11.1"
 gem "invisible_captcha", "~> 2.0"
 
 
-gem "oj", "~> 3.15"
+gem "oj", "~> 3.16"
 
 
 
@@ -190,11 +190,11 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.208"
+gem "aws-sdk-s3", "~> 1.213"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.8"
-gem "opentelemetry-exporter-otlp", "~> 0.30.0"
+gem "opentelemetry-sdk", "~> 1.10"
+gem "opentelemetry-exporter-otlp", "~> 0.31.1"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
@@ -212,7 +212,7 @@ gem "opentelemetry-instrumentation-sidekiq"
 gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
-gem "maintenance_tasks", "~> 2.3"
+gem "maintenance_tasks", "~> 2.14"
 
 
 gem "stackprof"
@@ -225,7 +225,7 @@ gem 'devise_saml_authenticatable'
 
 gem 'activerecord_cursor_paginate'
 
-gem 'concurrent-ruby', '1.3.5'
+gem 'concurrent-ruby', '1.3.6'
 gem 'mutex_m'
 
 gem "observer", "~> 0.1.2"
