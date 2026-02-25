@@ -54,7 +54,9 @@
             <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+           <button class="search-btn" aria-label="Search">
+  <i class="fa fa-search search-icon"></i>
+</button>
           </li>
         </ul>
         <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
@@ -103,7 +105,7 @@
 </div>
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
-    const searchIcons = document.getElementsByClassName("fa-search");
+    const searchIcons = document.getElementsByClassName("search-btn");
     const searchBar = document.getElementsByClassName("navbar-search-active")[0];
     const dropdownButton = document.getElementById('dropdownButton');
     const dropdownIcon = document.getElementById('dropdownIcon');
@@ -147,8 +149,14 @@
         bsCollapse.toggle();
       });
     }
-
-    Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
+Array.from(searchIcons).forEach(icon => {
+  icon.addEventListener("click", activeSearchBar);
+  icon.addEventListener("keydown", function(e) {
+    if (e.key === "Enter" || e.key === " ") {
+      activeSearchBar();
+    }
+  });
+});
 
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
