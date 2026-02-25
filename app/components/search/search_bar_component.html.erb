@@ -42,9 +42,9 @@
                   <% end %>
                 </div>
                 <div class="tag-input-container">
-                  <input class="tag-input" type="text" placeholder="<%= filter_labels["projects"]["tags"]["placeholder"] %>" data-search-filters-target="tagInput">
+                  <input id="filter_tag" class="tag-input" type="text" placeholder="<%= filter_labels["projects"]["tags"]["placeholder"] %>" data-search-filters-target="tagInput">
                 </div>
-                <input type="hidden" name="tag" id="filter_tag" value="<%= current_filter_values["tag"] %>" data-search-filters-target="tagHidden">
+                <input type="hidden" name="tag" id="filter_tag_hidden" value="<%= current_filter_values["tag"] %>" data-search-filters-target="tagHidden">
               </div>
             </div>
             <!-- User Filters -->
