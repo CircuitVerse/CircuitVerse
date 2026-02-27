@@ -25,7 +25,7 @@
       <div class="col">
         <div class="contest-container h-100">
           <div class="contest-container-card-image">
-            <%= image_tag "empty_project/default_contest_card_image.png" , alt: t("contest.contest_container.default_contest_card_img_alt") ,class:"contest-card-image" %>
+            <%= image_tag "empty_project/default_contest_card.png" , alt: t("contest.contest_container.default_contest_card_img_alt") ,class:"contest-card-image" %>
             <% if contest.live? %>
               <div class="contest-container-status-live">
                 <span class="contest-container-status-dot"></span>
@@ -47,7 +47,7 @@
             <% if contest.completed? %>
               <div class="contest-container-details-entries">
                 <%= image_tag "svgs/user.svg", alt: t("contest.contest_container.entries_alt"), class:"entries-image" %>
-                <span><%= contest.submissions.count %> <%= t("contest.contest_container.entries") %> </span>
+                <span><%= contest.submissions_count %> <%= t("contest.contest_container.entries") %> </span>
               </div>
             <% end %>
 
