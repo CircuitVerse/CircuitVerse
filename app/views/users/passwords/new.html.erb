@@ -24,11 +24,8 @@
             </div>
           </div>
           <div class="field mb-3">
-  <%= f.submit t("users.passwords.send_reset_link"), 
-      class: "btn primary-button users-primary-button w-100" %>
-  <%= link_to t("users.passwords.link_to_login_page"), 
-      new_user_session_path, 
-      class: "anchor-text mt-2 d-block" %>
+  <%= f.submit t("users.passwords.send_reset_link"), class: "btn primary-button users-primary-button w-100" %>
+  <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path,class: "anchor-text mt-2 d-block" %>
           </div>
           <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
         <% end %>
