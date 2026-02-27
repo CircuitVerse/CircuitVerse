@@ -147,6 +147,7 @@ describe GradesController, type: :request do
       FactoryBot.create(:group_member, user: @assignment_project.author, group: @group)
       @grade = FactoryBot.create(:grade, project: @assignment_project, grader: @primary_mentor,
                                          grade: "A", assignment: @assignment, remarks: "remarks")
+      @assignment.update!(deadline: 1.day.ago)
     end
 
     context "when signed user is primary_mentor" do
@@ -155,6 +156,42 @@ describe GradesController, type: :request do
         get grades_to_csv_path(@assignment, format: :csv)
         expect(response.body).to include("#{@assignment_project.author.email}," \
                                          "#{@assignment_project.author.name},#{@grade.grade},#{@grade.remarks}")
+      end
+    end
+
+    context "when signed user is a mentor" do
+      it "allows csv export" do
+        sign_in_group_mentor(@group)
+        get grades_to_csv_path(@assignment, format: :csv)
+        expect(response).to have_http_status(:success)
+        expect(response.body).to include(@assignment_project.author.email)
+      end
+    end
+
+    context "when signed user is not a mentor" do
+      it "returns unauthorized error" do
+        sign_in FactoryBot.create(:user)
+        get grades_to_csv_path(@assignment, format: :csv)
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).to include("Not Authorized:")
+      end
+    end
+
+    context "when deadline has not passed" do
+      it "returns unauthorized error" do
+        @assignment.update!(deadline: 1.day.from_now)
+        sign_in @primary_mentor
+        get grades_to_csv_path(@assignment, format: :csv)
+        expect(response).to have_http_status(:forbidden)
+        expect(response.body).to include("Not Authorized:")
+      end
+    end
+
+    context "when assignment does not exist" do
+      it "returns not found" do
+        sign_in @primary_mentor
+        get grades_to_csv_path(99_999, format: :csv)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end
