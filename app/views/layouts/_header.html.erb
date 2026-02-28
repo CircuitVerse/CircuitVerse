@@ -32,7 +32,7 @@
             </li>
           <% end %>
           <li class="nav-item dropdown">
-            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">
+            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="getting started">
               <%= t("layout.getting_started_dropdown") %>
             </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
@@ -47,14 +47,14 @@
             <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+            <i class="fa fa-search search-icon" tabindex="0" aria-label="search" aria-expanded="false" aria-controls="navbar-search-active"></i>
           </li>
         </ul>
         <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="user">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
               </a>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
@@ -75,7 +75,7 @@
     </div>
   </div>
 </nav>
-<div class="navbar-search-active">
+<div class="navbar-search-active" id="navbar-search-active">
   <%= render(Search::SearchBarComponent.new(
     resource: params[:resource],
     query: params[:q],
@@ -119,6 +119,18 @@
         }
         e.stopPropagation();
       });
+      gettingStartedLink.addEventListener("keydown", function (e) {
+        if (e.key === " ") {
+          e.preventDefault();
+          if (gettingStartedLink.classList.contains("rotate180")) {
+            gettingStartedLink.classList.remove("rotate180");
+            gettingStartedDropdown.hide();
+          } else {
+            gettingStartedLink.classList.add("rotate180");
+            gettingStartedDropdown.show();
+          }
+        }
+      });
       document.addEventListener("click", function () {
         gettingStartedLink.classList.remove("rotate180");
         gettingStartedDropdown.hide();
@@ -135,7 +147,10 @@
       const icons = Array.from(searchIcons);
       const isActive = icons.some(icon => icon.classList.contains("active"));
       if (isActive) {
-        icons.forEach(icon => icon.classList.remove("active"));
+        icons.forEach(icon => {
+          icon.classList.remove("active");
+          icon.setAttribute("aria-expanded", "false");
+        });
         searchBar.style.display = "none";
         if (lastActiveSearchIcon) {
           lastActiveSearchIcon.focus();
@@ -143,7 +158,10 @@
           icons[0].focus();
         }
       } else {
-        icons.forEach(icon => icon.classList.add("active"));
+        icons.forEach(icon => {
+          icon.classList.add("active");
+          icon.setAttribute("aria-expanded", "true");
+        });
         searchBar.style.display = "block";
         const searchInput = searchBar.querySelector(".search-bar-input");
         if (searchInput) {
@@ -190,7 +208,10 @@
 
         const icons = Array.from(searchIcons);
         if (icons.some(icon => icon.classList.contains("active"))) {
-          icons.forEach(icon => icon.classList.remove("active"));
+          icons.forEach(icon => {
+            icon.classList.remove("active");
+            icon.setAttribute("aria-expanded", "false");
+          });
           searchBar.style.display = "none";
           if (lastActiveSearchIcon) {
             lastActiveSearchIcon.focus();
@@ -203,7 +224,10 @@
 
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
-      Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
+      Array.from(searchIcons).forEach(icon => {
+        icon.classList.add("active");
+        icon.setAttribute("aria-expanded", "true");
+      });
     }
   });
 </script>
