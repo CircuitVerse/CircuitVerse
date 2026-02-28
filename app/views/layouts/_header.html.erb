@@ -125,13 +125,23 @@
       });
     }
 
-    function activeSearchBar() {
+    let lastActiveSearchIcon = null;
+
+    function activeSearchBar(e) {
+      if (e && e.currentTarget && e.currentTarget.classList && e.currentTarget.classList.contains("search-icon")) {
+        lastActiveSearchIcon = e.currentTarget;
+      }
+
       const icons = Array.from(searchIcons);
       const isActive = icons.some(icon => icon.classList.contains("active"));
       if (isActive) {
         icons.forEach(icon => icon.classList.remove("active"));
         searchBar.style.display = "none";
-        if (icons[0]) icons[0].focus();
+        if (lastActiveSearchIcon) {
+          lastActiveSearchIcon.focus();
+        } else if (icons[0]) {
+          icons[0].focus();
+        }
       } else {
         icons.forEach(icon => icon.classList.add("active"));
         searchBar.style.display = "block";
@@ -140,7 +150,12 @@
           searchInput.focus();
         }
       }
-      collapseElement.classList.remove("show");
+      
+      if (collapseElement && collapseElement.classList.contains("show")) {
+        const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+        if (bsCollapse) bsCollapse.hide();
+        else collapseElement.classList.remove("show");
+      }
     }
 
     if (dropdownButton && collapseElement && dropdownIcon) {
@@ -164,16 +179,24 @@
       icon.addEventListener("keydown", function (e) {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
-          activeSearchBar();
+          activeSearchBar(e);
         }
       });
     });
     
     document.addEventListener("keydown", function (e) {
       if (e.key === "Escape") {
+        if (document.activeElement && !searchBar.contains(document.activeElement)) return;
+
         const icons = Array.from(searchIcons);
         if (icons.some(icon => icon.classList.contains("active"))) {
-          activeSearchBar();
+          icons.forEach(icon => icon.classList.remove("active"));
+          searchBar.style.display = "none";
+          if (lastActiveSearchIcon) {
+            lastActiveSearchIcon.focus();
+          } else if (icons[0]) {
+            icons[0].focus();
+          }
         }
       }
     });
