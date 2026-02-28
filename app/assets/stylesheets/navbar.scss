@@ -76,6 +76,8 @@
 
   &.active {
     color: $secondary-green;
+    border-bottom: 2px solid $secondary-green;
+    padding-bottom: 2px;
   }
 
   &:focus {
