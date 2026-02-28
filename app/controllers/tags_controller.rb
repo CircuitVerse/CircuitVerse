@@ -61,5 +61,6 @@ class TagsController < ApplicationController
         .joins(:tags)
         .where(tags: { id: @tag.id })
         .includes(:author, :stars)
+        .with_attached_circuit_preview
     end
 end

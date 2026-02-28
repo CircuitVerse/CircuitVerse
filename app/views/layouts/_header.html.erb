@@ -94,7 +94,6 @@
     const dropdownButton = document.getElementById('dropdownButton');
     const dropdownIcon = document.getElementById('dropdownIcon');
     const collapseElement = document.getElementById("collapsed-navbar");
-    const gettingStartedLink = document.querySelector("#getting-started-dropdown");
     const navbar = document.querySelector('.navbar');
 
     function handleNavbarShadow() {
@@ -143,7 +142,6 @@
       if (e && e.currentTarget && e.currentTarget.classList && e.currentTarget.classList.contains("search-icon")) {
         lastActiveSearchIcon = e.currentTarget;
       }
-
       const icons = Array.from(searchIcons);
       const isActive = icons.some(icon => icon.classList.contains("active"));
       if (isActive) {
@@ -229,5 +227,14 @@
         icon.setAttribute("aria-expanded", "true");
       });
     }
+
+    document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
+      trigger.addEventListener("show.bs.dropdown", function() {
+        trigger.classList.add("rotate180");
+      });
+      trigger.addEventListener("hide.bs.dropdown", function() {
+        trigger.classList.remove("rotate180");
+      });
+    });
   });
 </script>
