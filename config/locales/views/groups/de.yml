@@ -32,7 +32,7 @@ de:
         add_assignment_btn: "+ Aufgabe hinzufügen"
         assignment_table_head:
           name: "Name"
-          deadline: "Deadline"
+          deadline: "DeadLine"
           grading: "Bewertung"
           actions: "Aktionen"
           grade: "Note"
