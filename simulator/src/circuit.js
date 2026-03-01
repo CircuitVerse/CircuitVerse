@@ -48,8 +48,8 @@ export function resetScopeList() {
 function normalizeCircuitNames() {
     const used = {};
 
-    Object.values(scopeList).forEach(scope => {
-        let base = scope.name;
+    Object.values(scopeList).forEach((scope) => {
+        const base = scope.name;
         let name = base;
         let counter = 0;
 
@@ -77,7 +77,7 @@ function normalizeCircuitNames() {
  */
 export function switchCircuit(id) {
     if (layoutModeGet()) { toggleLayoutMode(); }
-    if (verilogModeGet()) { verilogModeSet(false);}
+    if (verilogModeGet()) { verilogModeSet(false); }
 
     // globalScope.fixLayout();
     scheduleBackup();
@@ -144,8 +144,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
     if (confirmation) {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
-            for (var id in scope.verilogMetadata.subCircuitScopeIds)
-                delete scopeList[id];
+            for (var id in scope.verilogMetadata.subCircuitScopeIds) delete scopeList[id];
         }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
@@ -179,7 +178,7 @@ function getUniqueCircuitName(baseName) {
     let counter = 0;
     let newName = baseName;
 
-    const existingNames = Object.values(scopeList).map(scope => scope.name);
+    const existingNames = Object.values(scopeList).map((scope) => scope.name);
 
     while (existingNames.includes(newName)) {
         counter++;
@@ -211,7 +210,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         if (embed) {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
             $('#tabsBar').append(html);
-            $("#tabsBar").addClass('embed-tabs');
+            $('#tabsBar').addClass('embed-tabs');
         } else {
             var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
             $('#tabsBar').children().last().before(html);
@@ -223,18 +222,18 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
         $('.tabsCloseButton').off('click');
 
         // Add listeners
-        $('.circuits').on('click',function () {
+        $('.circuits').on('click', function () {
             switchCircuit(this.id);
         });
 
-        $('.circuitName').on('click',(e) => {
+        $('.circuitName').on('click', (e) => {
             simulationArea.lastSelected = globalScope.root;
             setTimeout(() => {
                 document.getElementById('circname').select();
             }, 100);
         });
 
-        $('.tabsCloseButton').on('click',function (e) {
+        $('.tabsCloseButton').on('click', function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
         });
@@ -258,10 +257,10 @@ export function changeCircuitName(name, id = globalScope.id) {
     name = escapeHtml(stripTags(name));
 
     const existingNames = Object.values(scopeList)
-        .filter(scope => scope.id !== id)
-        .map(scope => scope.name);
+        .filter((scope) => scope.id !== id)
+        .map((scope) => scope.name);
 
-    let baseName = name;
+    const baseName = name;
     let counter = 0;
 
     while (existingNames.includes(name)) {
@@ -403,7 +402,6 @@ export default class Scope {
         for (let i = 0; i < this.Output.length; i++) { maxY = Math.max(this.Output[i].layoutProperties.y, maxY); }
         if (maxY !== this.layout.height) { this.layout.height = maxY + 10; }
     }
-
 
     /**
      * Function which centers the circuit to the correct zoom level
@@ -562,7 +560,7 @@ export default class Scope {
     highlightNodes(array) {
         const Nodes = [];
         array.forEach((innerArray) => {
-            const resultArray = innerArray.map(value => this.findNodeIndexById(value));
+            const resultArray = innerArray.map((value) => this.findNodeIndexById(value));
             Nodes.push(resultArray);
         });
 

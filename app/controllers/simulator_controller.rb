@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "set"
-
 class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
@@ -17,7 +15,7 @@ class SimulatorController < ApplicationController
 
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show],
-               constraints: -> { Flipper.enabled?(:lms_integration, current_user) }
+                                  constraints: -> { Flipper.enabled?(:lms_integration, current_user) }
 
   MAX_CODE_SIZE = 10_000 # 10KB
 
@@ -181,83 +179,80 @@ class SimulatorController < ApplicationController
 
   private
 
-  def ensure_unique_circuit_names!(_project, data)
-    parsed = JSON.parse(data)
-    return data unless parsed["scopes"].is_a?(Array)
+    def ensure_unique_circuit_names!(_project, data)
+      parsed = JSON.parse(data)
+      return data unless parsed["scopes"].is_a?(Array)
 
-    seen = Hash.new(0)
+      seen = Hash.new(0)
 
-    parsed["scopes"].each do |scope|
-      next if scope["name"].blank?
+      parsed["scopes"].each do |scope|
+        next if scope["name"].blank?
 
-      base = scope["name"].sub(/\s\(\d+\)$/, "")
+        base = scope["name"].sub(/\s\(\d+\)$/, "")
 
-      if seen[base] > 0
-      scope["name"] = "#{base} (#{seen[base]})"
+        scope["name"] = "#{base} (#{seen[base]})" if seen[base] > 0
+
+        seen[base] += 1
       end
 
-      seen[base] += 1
+      parsed.to_json
     end
 
-    parsed.to_json
-  end
-  
+    def allow_iframe
+      response.headers.except!("X-Frame-Options")
+    end
 
-  def allow_iframe
-    response.headers.except!("X-Frame-Options")
-  end
+    def allow_iframe_lti
+      return unless session[:is_lti]
 
-  def allow_iframe_lti
-    return unless session[:is_lti]
+      response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
+    end
 
-    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
-  end
+    def http_client
+      HTTP.timeout(connect: 5, write: 10, read: 30)
+    end
 
-  def http_client
-    HTTP.timeout(connect: 5, write: 10, read: 30)
-  end
+    def compile_with_local_gem
+      result = Yosys2Digitaljs::Runner.compile(params[:code].to_s)
+      render json: result
+    rescue StandardError => e
+      Rails.logger.error(e)
+      render json: { message: "Compilation failed" }, status: :unprocessable_entity
+    end
 
-  def compile_with_local_gem
-    result = Yosys2Digitaljs::Runner.compile(params[:code].to_s)
-    render json: result
-  rescue StandardError => e
-    Rails.logger.error(e)
-    render json: { message: "Compilation failed" }, status: :unprocessable_entity
-  end
+    def compile_with_external_api
+      url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+      response = http_client.post(url, json: { code: params[:code].to_s })
+      render json: JSON.parse(response.to_s), status: response.code
+    rescue StandardError
+      render json: { message: "Yosys service unavailable" },
+             status: :service_unavailable
+    end
 
-  def compile_with_external_api
-    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = http_client.post(url, json: { code: params[:code].to_s })
-    render json: JSON.parse(response.to_s), status: response.code
-  rescue StandardError
-    render json: { message: "Yosys service unavailable" },
-           status: :service_unavailable
-  end
+    def set_project
+      @project = Project.friendly.find(params[:id])
+    end
 
-  def set_project
-    @project = Project.friendly.find(params[:id])
-  end
+    def set_user_project
+      @project = Project.friendly.find(params[:id])
+      authorize @project, :edit_access?
+    end
 
-  def set_user_project
-    @project = Project.friendly.find(params[:id])
-    authorize @project, :edit_access?
-  end
+    def check_edit_access
+      authorize @project, :edit_access?
+    end
 
-  def check_edit_access
-    authorize @project, :edit_access?
-  end
+    def check_view_access
+      authorize @project, :view_access?
+    end
 
-  def check_view_access
-    authorize @project, :view_access?
-  end
+    def attach_circuit_preview(image_file)
+      return unless image_file
 
-  def attach_circuit_preview(image_file)
-    return unless image_file
-
-    @project.circuit_preview.attach(
-      io: image_file,
-      filename: "preview_#{Time.zone.now.to_f.to_s.tr('.', '')}.jpeg",
-      content_type: "image/jpeg"
-    )
-  end
+      @project.circuit_preview.attach(
+        io: image_file,
+        filename: "preview_#{Time.zone.now.to_f.to_s.tr('.', '')}.jpeg",
+        content_type: "image/jpeg"
+      )
+    end
 end
