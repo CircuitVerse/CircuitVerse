@@ -44,6 +44,29 @@ export var scopeList = {};
 export function resetScopeList() {
     scopeList = {};
 }
+
+function normalizeCircuitNames() {
+    const used = {};
+
+    Object.values(scopeList).forEach(scope => {
+        let base = scope.name;
+        let name = base;
+        let counter = 0;
+
+        while (used[name]) {
+            counter++;
+            name = `${base} (${counter})`;
+        }
+
+        if (name !== scope.name) {
+            scope.name = name;
+            $(`#${scope.id} .circuitName`).html(truncateString(name, 18));
+        }
+
+        used[name] = true;
+    });
+}
+
 /**
  * Function used to change the current focusedCircuit
  * Disables layoutMode if enabled
@@ -58,6 +81,7 @@ export function switchCircuit(id) {
 
     // globalScope.fixLayout();
     scheduleBackup();
+    normalizeCircuitNames();
     if (id === globalScope.id) return;
     $('.circuits').removeClass('current');
     simulationArea.lastSelected = undefined;
@@ -150,12 +174,30 @@ export function createNewCircuitScope() {
  * @param {string} id - identifier for circuit
  * @category circuit
  */
+
+function getUniqueCircuitName(baseName) {
+    let counter = 0;
+    let newName = baseName;
+
+    const existingNames = Object.values(scopeList).map(scope => scope.name);
+
+    while (existingNames.includes(newName)) {
+        counter++;
+        newName = `${baseName} (${counter})`;
+    }
+
+    return newName;
+}
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false); }
     name = name || prompt('Enter circuit name:', 'Untitled-Circuit');
     name = escapeHtml(stripTags(name));
     if (!name) return;
+
+    // 🔥 FIX: Ensure unique name before creating scope
+    name = getUniqueCircuitName(name);
+
     const scope = new Scope(name);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
@@ -214,7 +256,20 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
 export function changeCircuitName(name, id = globalScope.id) {
     name = name || 'Untitled';
     name = escapeHtml(stripTags(name));
-    $(`#${id} .circuitName`).html(`${truncateString(name, 18)}`);
+
+    const existingNames = Object.values(scopeList)
+        .filter(scope => scope.id !== id)
+        .map(scope => scope.name);
+
+    let baseName = name;
+    let counter = 0;
+
+    while (existingNames.includes(name)) {
+        counter++;
+        name = `${baseName} (${counter})`;
+    }
+
+    $(`#${id} .circuitName`).html(truncateString(name, 18));
     scopeList[id].name = name;
 }
 
