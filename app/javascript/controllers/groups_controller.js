@@ -33,18 +33,18 @@ export default class extends Controller {
 
         if (pastedEmails.includes('\n')) {
             const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
-            const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
+            const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            newLinesIntoSpacesSplitted.forEach((value) => {
+            newLinesIntoSpacesSplit.forEach((value) => {
                 var tags = $('<option/>', { text: value });
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
             });
             $('#add-mentor-button').attr('disabled', false);
         } else {
-            const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
+            const pastedEmailsSplitBySpace = pastedEmails.split(' ');
             this.value = pastedEmails.replace(/./g, '');
-            pastedEmailsSplittedBySpace.forEach((value) => {
+            pastedEmailsSplitBySpace.forEach((value) => {
                 var tags = $('<option/>', { text: value });
                 $('#group_mentor_emails').append(tags);
                 $('#group_mentor_emails option').prop('selected', true);
@@ -91,18 +91,18 @@ export default class extends Controller {
 
             if (pastedEmails.includes('\n')) {
                 const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
-                const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
+                const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                newLinesIntoSpacesSplitted.forEach((value) => {
+                newLinesIntoSpacesSplit.forEach((value) => {
                     var tags = $('<option/>', { text: value });
                     $('#group_member_emails').append(tags);
                     $('#group_member_emails option').prop('selected', true);
                 });
                 $('#add-members-button').attr('disabled', false);
             } else {
-                const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
+                const pastedEmailsSplitBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                pastedEmailsSplittedBySpace.forEach((value) => {
+                pastedEmailsSplitBySpace.forEach((value) => {
                     var tags = $('<option/>', { text: value });
                     $('#group_member_emails').append(tags);
                     $('#group_member_emails option').prop('selected', true);
