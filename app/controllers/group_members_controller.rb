@@ -119,7 +119,7 @@ class GroupMembersController < ApplicationController
     # which would allow changing users of arbitrary groups since
     # the check_access happens before the group is changed and passes
     def group_member_update_params
-      params.expect(group_member: [:mentor])
+      params.require(:group_member).permit(:mentor)
     end
 
     def check_access

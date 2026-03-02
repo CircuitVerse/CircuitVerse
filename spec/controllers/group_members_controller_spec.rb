@@ -64,6 +64,14 @@ describe GroupMembersController, type: :request do
           patch group_member_path(@group_member), params: { group_member: { mentor: true } }
         end.to change { @group_member.reload.mentor }.from(false).to(true)
       end
+
+      it "demotes a mentor to member" do
+        sign_in @primary_mentor
+        @group_member.update(mentor: true)
+        expect do
+          patch group_member_path(@group_member), params: { group_member: { mentor: false } }
+        end.to change { @group_member.reload.mentor }.from(true).to(false)
+      end
     end
 
     context "when a mentor is signed in" do
