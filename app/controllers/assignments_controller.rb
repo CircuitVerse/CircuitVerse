@@ -69,7 +69,7 @@ class AssignmentsController < ApplicationController
     @assignment.save
 
     redirect_to group_assignment_path(@group, @assignment),
-                notice: "Assignment closed successfully."
+        notice: "Assignment closed successfully."
   end
 
   # POST /assignments
