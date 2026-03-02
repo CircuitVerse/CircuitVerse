@@ -49,7 +49,7 @@ function normalizeCircuitNames() {
     const used = {};
 
     Object.values(scopeList).forEach((scope) => {
-        const base = scope.name;
+        const base = scope.name.replace(/\s\(\d+\)$/, '').trim();
         let name = base;
         let counter = 0;
 
@@ -67,19 +67,10 @@ function normalizeCircuitNames() {
     });
 }
 
-/**
- * Function used to change the current focusedCircuit
- * Disables layoutMode if enabled
- * Changes UI tab etc
- * Sets flags to make updates, resets most of the things
- * @param {string} id - identifier for circuit
- * @category circuit
- */
 export function switchCircuit(id) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false); }
 
-    // globalScope.fixLayout();
     scheduleBackup();
     normalizeCircuitNames();
     if (id === globalScope.id) return;
@@ -106,18 +97,9 @@ export function switchCircuit(id) {
     }
     updateCanvasSet(true);
     scheduleUpdate();
-
-    // to update the restricted elements information
     updateRestrictedElementsList();
 }
 
-/**
- * Deletes the current circuit
- * Ensures that at least one circuit is there
- * Ensures that no circuit depends on the current circuit
- * Switched to a random circuit
-  * @category circuit
-*/
 function deleteCurrentCircuit(scopeId = globalScope.id) {
     const scope = scopeList[scopeId];
     if (Object.keys(scopeList).length <= 1) {
@@ -125,7 +107,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         return;
     }
     let dependencies = '';
-    for (id in scopeList) {
+    for (const id in scopeList) {
         if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
             if (dependencies === '') {
                 dependencies = scopeList[id].name;
@@ -135,8 +117,8 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
         }
     }
     if (dependencies) {
-        dependencies = `\nThe following circuits are depending on '${scope.name}': ${dependencies}\nDelete subcircuits of ${scope.name} before trying to delete ${scope.name}`;
-        alert(dependencies);
+        const depMsg = `\nThe following circuits are depending on '${scope.name}': ${dependencies}\nDelete subcircuits of ${scope.name} before trying to delete ${scope.name}`;
+        alert(depMsg);
         return;
     }
 
@@ -144,7 +126,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
     if (confirmation) {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
-            for (var id in scope.verilogMetadata.subCircuitScopeIds) delete scopeList[id];
+            for (const id in scope.verilogMetadata.subCircuitScopeIds) delete scopeList[id];
         }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
@@ -153,9 +135,6 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
     } else { showMessage('Circuit was not closed'); }
 }
 
-/**
- * Wrapper function around newCircuit to be called from + button on UI
- */
 export function createNewCircuitScope() {
     simulationArea.lastSelected = undefined;
     const scope = newCircuit();
@@ -166,36 +145,29 @@ export function createNewCircuitScope() {
     }
 }
 
-/**
- * Generates a unique name for a circuit by appending a numeric suffix.
- * @param {string} baseName - The initial name to check.
- * @returns {string} - The unique name.
- */
-
 function getUniqueCircuitName(baseName) {
-    baseName = baseName.replace(/\s\(\d+\)$/, '');
-
-    let counter = 0;
-    let newName = baseName;
+    const normalizedBase = baseName.replace(/\s\(\d+\)$/, '').trim();
     const existingNames = Object.values(scopeList).map((scope) => scope.name);
+    let counter = 0;
+    let newName = normalizedBase;
 
     while (existingNames.includes(newName)) {
         counter++;
-        newName = `${baseName} (${counter})`;
+        newName = `${normalizedBase} (${counter})`;
     }
     return newName;
 }
+
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false); }
-    name = name || prompt('Enter circuit name:', 'Untitled-Circuit');
-    name = escapeHtml(stripTags(name));
-    if (!name) return;
+    let circuitName = name || prompt('Enter circuit name:', 'Untitled-Circuit');
+    circuitName = escapeHtml(stripTags(circuitName));
+    if (!circuitName) return;
 
-    // 🔥 FIX: Ensure unique name before creating scope
-    name = getUniqueCircuitName(name);
+    circuitName = getUniqueCircuitName(circuitName);
 
-    const scope = new Scope(name);
+    const scope = new Scope(circuitName);
     if (id) scope.id = id;
     scopeList[scope.id] = scope;
     if (isVerilog) {
@@ -205,33 +177,29 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     globalScope = scope;
     $('.circuits').removeClass('current');
     if (!isVerilog || isVerilogMain) {
+        const html = embed 
+            ? `<div class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(circuitName, 18)}</span></div>`
+            : `<div class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(circuitName, 18)}</span><span class='tabsCloseButton' id='${scope.id}'>x</span></div>`;
+
         if (embed) {
-            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span></div>`;
-            $('#tabsBar').append(html);
-            $('#tabsBar').addClass('embed-tabs');
+            $('#tabsBar').append(html).addClass('embed-tabs');
         } else {
-            var html = `<div style='' class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(name, 18)}</span><span class ='tabsCloseButton' id='${scope.id}'  >x</span></div>`;
             $('#tabsBar').children().last().before(html);
         }
 
-        // Remove listeners
-        $('.circuits').off('click');
-        $('.circuitName').off('click');
-        $('.tabsCloseButton').off('click');
-
-        // Add listeners
-        $('.circuits').on('click', function () {
+        $('.circuits').off('click').on('click', function () {
             switchCircuit(this.id);
         });
 
-        $('.circuitName').on('click', (e) => {
+        $('.circuitName').off('click').on('click', () => {
             simulationArea.lastSelected = globalScope.root;
             setTimeout(() => {
-                document.getElementById('circname').select();
+                const el = document.getElementById('circname');
+                if (el) el.select();
             }, 100);
         });
 
-        $('.tabsCloseButton').on('click', function (e) {
+        $('.tabsCloseButton').off('click').on('click', function (e) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
         });
@@ -244,50 +212,33 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     return scope;
 }
 
-/**
- * Used to change name of a circuit
- * @param {string} name - new name
- * @param {string} id - id of the circuit
- * @category circuit
- */
 export function changeCircuitName(name, id = globalScope.id) {
-    name = name || 'Untitled';
-    name = escapeHtml(stripTags(name));
-
+    const rawName = escapeHtml(stripTags(name || 'Untitled'));
     const existingNames = Object.values(scopeList)
-        .filter((scope) => scope.id !== id)
-        .map((scope) => scope.name);
+        .filter((s) => s.id !== id)
+        .map((s) => s.name);
 
-    const baseName = name;
+    const normalizedBase = rawName.replace(/\s\(\d+\)$/, '').trim();
+    let finalName = normalizedBase;
     let counter = 0;
 
-    while (existingNames.includes(name)) {
+    while (existingNames.includes(finalName)) {
         counter++;
-        name = `${baseName} (${counter})`;
+        finalName = `${normalizedBase} (${counter})`;
     }
 
-    $(`#${id} .circuitName`).html(truncateString(name, 18));
-    scopeList[id].name = name;
+    $(`#${id} .circuitName`).html(truncateString(finalName, 18));
+    scopeList[id].name = finalName;
 }
 
-/**
- * Class representing a Scope
- * @class
- * @param {string} name - name of the circuit
- * @param {number=} id - a random id for the circuit
- * @category circuit
- */
 export default class Scope {
     constructor(name = 'localScope', id = undefined) {
         this.restrictedCircuitElementsUsed = [];
         this.id = id || Math.floor((Math.random() * 100000000000) + 1);
         this.CircuitElement = [];
         this.name = name;
-
-        // root object for referring to main canvas - intermediate node uses this
         this.root = new CircuitElement(0, 0, this, 'RIGHT', 1);
         this.backups = [];
-        // maintaining a state (history) for redo function
         this.history = [];
         this.timeStamp = new Date().getTime();
         this.verilogMetadata = {
@@ -304,8 +255,7 @@ export default class Scope {
 
         this.initialize();
 
-        // Setting default layout
-        this.layout = { // default position
+        this.layout = {
             width: 100,
             height: 40,
             title_x: 50,
@@ -322,19 +272,15 @@ export default class Scope {
     initialize() {
         this.tunnelList = {};
         this.pending = [];
-        this.nodes = []; // intermediate nodes only
+        this.nodes = [];
         this.allNodes = [];
         this.wires = [];
 
-        // Creating arrays for other module elements
         for (let i = 0; i < moduleList.length; i++) {
             this[moduleList[i]] = [];
         }
     }
 
-    /**
-     * Resets all nodes recursively
-     */
     reset() {
         for (let i = 0; i < this.allNodes.length; i++) { this.allNodes[i].reset(); }
         for (let i = 0; i < this.Splitter.length; i++) {
@@ -345,9 +291,6 @@ export default class Scope {
         }
     }
 
-    /**
-     * Adds all inputs to simulationQueue
-    */
     addInputs() {
         for (let i = 0; i < inputList.length; i++) {
             for (var j = 0; j < this[inputList[i]].length; j++) {
@@ -358,30 +301,18 @@ export default class Scope {
         for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].addInputs(); }
     }
 
-    /**
-     * Ticks clocks recursively -- needs to be deprecated and synchronize all clocks with a global clock
-     */
     clockTick() {
-        for (let i = 0; i < this.Clock.length; i++) { this.Clock[i].toggleState(); } // tick clock!
-        for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].localScope.clockTick(); } // tick clock!
+        for (let i = 0; i < this.Clock.length; i++) { this.Clock[i].toggleState(); }
+        for (let i = 0; i < this.SubCircuit.length; i++) { this.SubCircuit[i].localScope.clockTick(); }
     }
 
-    /**
-     * Checks if this circuit contains directly or indirectly scope with id
-     * Recursive nature
-     */
     checkDependency(id) {
         if (id === this.id) return true;
         for (let i = 0; i < this.SubCircuit.length; i++) { if (this.SubCircuit[i].id === id) return true; }
-
         for (let i = 0; i < this.SubCircuit.length; i++) { if (scopeList[this.SubCircuit[i].id].checkDependency(id)) return true; }
-
         return false;
     }
 
-    /**
-     * Get dependency list - list of all circuits, this circuit depends on
-     */
     getDependencies() {
         var list = [];
         for (let i = 0; i < this.SubCircuit.length; i++) {
@@ -391,9 +322,6 @@ export default class Scope {
         return uniq(list);
     }
 
-    /**
-     * helper function to reduce layout size
-    */
     fixLayout() {
         var maxY = 20;
         for (let i = 0; i < this.Input.length; i++) { maxY = Math.max(this.Input[i].layoutProperties.y, maxY); }
@@ -401,35 +329,23 @@ export default class Scope {
         if (maxY !== this.layout.height) { this.layout.height = maxY + 10; }
     }
 
-    /**
-     * Function which centers the circuit to the correct zoom level
-     */
     centerFocus(zoomIn = true) {
         if (layoutModeGet()) return;
         findDimensions(this);
-
-        var ytoolbarOffset = embed ? 0 : 60 * DPR; // Some part ofcanvas is hidden behind the toolbar
-
+        var ytoolbarOffset = embed ? 0 : 60 * DPR;
         var minX = simulationArea.minWidth || 0;
         var minY = simulationArea.minHeight || 0;
         var maxX = simulationArea.maxWidth || 0;
         var maxY = simulationArea.maxHeight || 0;
-
         var reqWidth = maxX - minX + 75 * DPR;
         var reqHeight = maxY - minY + 75 * DPR;
-
         this.scale = Math.min(width / reqWidth, (height - ytoolbarOffset) / reqHeight);
-
         if (!zoomIn) { this.scale = Math.min(this.scale, DPR); }
         this.scale = Math.max(this.scale, DPR / 10);
-
         this.ox = (-minX) * this.scale + (width - (maxX - minX) * this.scale) / 2;
         this.oy = (-minY) * this.scale + (height - ytoolbarOffset - (maxY - minY) * this.scale) / 2;
     }
 
-    /**
-     * Function to load a circuit using circuit data
-     */
     loadCircuit(data) {
         if (data) {
             load(data);
@@ -438,9 +354,6 @@ export default class Scope {
         }
     }
 
-    /**
-     * Function to retrieve the previous stable state of the circuit
-     */
     previous() {
         const autosaveData = localStorage.getItem('autosave');
         if (autosaveData) {
@@ -450,13 +363,9 @@ export default class Scope {
         }
     }
 
-    /**
-     * Function to detect the nodes that are creating cyclic paths in the circuit
-     */
     detectCycle() {
         const obj = {};
         const result = [];
-
         for (let i = 0; i < globalScope.allNodes.length; i++) {
             const nodeId = globalScope.allNodes[i].id;
             for (let j = 0; j < globalScope.allNodes[i].connections.length; j++) {
@@ -468,10 +377,8 @@ export default class Scope {
                 }
             }
         }
-
         const newNestedArray = [];
         const singleConnectionNodes = [];
-
         for (const node in obj) {
             const connections = obj[node];
             if (connections.length === 1) {
@@ -483,7 +390,6 @@ export default class Scope {
                 newNestedArray.push(connectedNodes);
             }
         }
-
         for (let i = 0; i < singleConnectionNodes.length - 1; i++) {
             for (let j = i + 1; j < singleConnectionNodes.length; j++) {
                 if (areElementsInSameNode(newNestedArray, singleConnectionNodes[i], singleConnectionNodes[j])) {
@@ -495,13 +401,9 @@ export default class Scope {
                 }
             }
         }
-
-        // Function to check whether a node is already visited
         function isVisited(visited, node) {
             return visited.includes(node);
         }
-
-        // Function to explore interconnected nodes
         function exploreNodes(graph, startNode, visited, connectedNodes) {
             visited.push(startNode);
             if (graph[startNode]) {
@@ -514,7 +416,6 @@ export default class Scope {
                 }
             }
         }
-
         function areElementsInSameNode(nestedArray, element1, element2) {
             for (const node of nestedArray) {
                 if (node.includes(element1) && node.includes(element2)) {
@@ -523,8 +424,6 @@ export default class Scope {
             }
             return false;
         }
-
-        // Function to locate the nodes present between two specified nodes
         function dfs(graph, start, end, path = []) {
             if (start === end) {
                 path.push(end);
@@ -542,26 +441,19 @@ export default class Scope {
             path.pop();
             return [];
         }
-
         if (result.length) {
             this.highlightNodes(result);
             return result;
         }
-
         return 'No cycle found';
     }
 
-    /**
-     * Function to highlight the nodes in the currently selected circuit
-     * @param {Array<Array>} array - id's of the nodes, that we want to highlight
-     */
     highlightNodes(array) {
         const Nodes = [];
         array.forEach((innerArray) => {
             const resultArray = innerArray.map((value) => this.findNodeIndexById(value));
             Nodes.push(resultArray);
         });
-
         Nodes.forEach((subArray) => {
             subArray.forEach((node) => {
                 globalScope.allNodes[node].highlighted = true;
@@ -569,10 +461,6 @@ export default class Scope {
         });
     }
 
-    /**
-     * Function to find the index of a node in globalScope.allNodes
-     * @param {string} nodeId - id of a node
-     */
     findNodeIndexById(nodeId) {
         for (let i = 0; i < globalScope.allNodes.length; i++) {
             if (globalScope.allNodes[i].id === nodeId) {
@@ -582,28 +470,16 @@ export default class Scope {
         return 'Not found';
     }
 
-    /**
-     * Function to find the currently selected component on the canvas
-     */
     getCurrentlySelectedComponent() {
         return simulationArea.lastSelected;
     }
 
-    /**
-     * Function to find the currently selected components (when multiple components are selected) on the canvas
-     */
     getAllSelectedComponents() {
         return simulationArea.multipleObjectSelections;
     }
 
-    /**
-     * Function to modify the currently selected component's object in the globalScope
-     * takes the property which needs to modify
-     * and the modified value as parameters
-     */
     modifyCurrentlySelectedComponent(property, value) {
         const selectedComponent = globalScope.getCurrentlySelectedComponent();
-
         if (selectedComponent.objectType === 'Node') {
             const nodeId = selectedComponent.id;
             const nodeIndex = this.findNodeIndexById(nodeId);

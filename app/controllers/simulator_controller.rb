@@ -15,17 +15,13 @@ class SimulatorController < ApplicationController
 
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show],
-                                  constraints: -> { Flipper.enabled?(:lms_integration, current_user) }
+               if: -> { Flipper.enabled?(:lms_integration, current_user) }
 
-  MAX_CODE_SIZE = 10_000 # 10KB
+  MAX_CODE_SIZE = 10_000
 
   def self.policy_class
     ProjectPolicy
   end
-
-  # ---------------------------------------------------------------------------
-  # Views
-  # ---------------------------------------------------------------------------
 
   def show
     @logix_project_id = params[:id]
@@ -74,10 +70,6 @@ class SimulatorController < ApplicationController
     end
   end
 
-  # ---------------------------------------------------------------------------
-  # Data
-  # ---------------------------------------------------------------------------
-
   def get_data
     render json: ProjectDatum.find_by(project: @project)&.data
   end
@@ -87,8 +79,7 @@ class SimulatorController < ApplicationController
     @project.author = current_user
     @project.name = sanitize(params[:name])
 
-    @project.build_project_datum.data =
-      sanitize_data(@project, params[:data])
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
 
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
@@ -102,35 +93,27 @@ class SimulatorController < ApplicationController
   end
 
   def update
-    sanitized_data = sanitize_data(@project, params[:data])
-    unique_data = ensure_unique_circuit_names!(@project, sanitized_data)
-
     ActiveRecord::Base.transaction do
       @project.project_datum ||= ProjectDatum.new(project: @project)
-      @project.project_datum.data = unique_data
+      @project.project_datum.data = ensure_unique_circuit_names!(
+        @project, 
+        sanitize_data(@project, params[:data])
+      )
       @project.project_datum.save!
 
-      # ActiveStorage
       @project.circuit_preview.purge if @project.circuit_preview.attached?
-      io_image_file = parse_image_data_url(params[:image])
-      attach_circuit_preview(io_image_file)
+      attach_circuit_preview(parse_image_data_url(params[:image]))
 
-      # CarrierWave
       image_file = return_image_file(params[:image])
       @project.image_preview = image_file
       image_file.close
       File.delete(image_file) if check_to_delete(params[:image])
 
-      @project.name = sanitize(params[:name])
-      @project.save!
+      @project.update!(name: sanitize(params[:name]))
     end
 
     render plain: "success"
   end
-
-  # ---------------------------------------------------------------------------
-  # Issue handling
-  # ---------------------------------------------------------------------------
 
   def view_issue_circuit_data
     unless current_user&.admin?
@@ -144,7 +127,6 @@ class SimulatorController < ApplicationController
 
   def post_issue
     url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
-
     issue = IssueCircuitDatum.create!(data: params[:circuit_data])
     circuit_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue.id}"
 
@@ -154,10 +136,6 @@ class SimulatorController < ApplicationController
 
     head :ok
   end
-
-  # ---------------------------------------------------------------------------
-  # Verilog
-  # ---------------------------------------------------------------------------
 
   def verilog_cv
     if params[:code].to_s.bytesize > MAX_CODE_SIZE
@@ -173,91 +151,78 @@ class SimulatorController < ApplicationController
     end
   end
 
-  # ---------------------------------------------------------------------------
-  # Private helpers
-  # ---------------------------------------------------------------------------
-
   private
 
-    def ensure_unique_circuit_names!(_project, data)
-      parsed = JSON.parse(data)
-      return data unless parsed["scopes"].is_a?(Array)
+  def ensure_unique_circuit_names!(_project, data)
+    parsed = JSON.parse(data)
+    return data unless parsed["scopes"].is_a?(Array)
 
-      seen = Hash.new(0)
-      # First pass: normalize all names to base (remove existing suffixes)
-      parsed["scopes"].each do |scope|
-        next if scope["name"].blank?
+    seen = Hash.new(0)
+    parsed["scopes"].each do |scope|
+      next if scope["name"].blank?
 
-        scope["name"] = scope["name"].sub(/\s\(\d+\)$/, "")
-      end
-
-      # Second pass: assign unique suffixes
-      parsed["scopes"].each do |scope|
-        next if scope["name"].blank?
-
-        base = scope["name"]
-        scope["name"] = "#{base} (#{seen[base]})" if seen[base] > 0
-        seen[base] += 1
-      end
-
-      parsed.to_json
+      base = scope["name"].sub(/\s\(\d+\)$/, "")
+      scope["name"] = seen[base].positive? ? "#{base} (#{seen[base]})" : base
+      seen[base] += 1
     end
+    parsed.to_json
+  end
 
-    def allow_iframe
-      response.headers.except!("X-Frame-Options")
-    end
+  def allow_iframe
+    response.headers.except!("X-Frame-Options")
+  end
 
-    def allow_iframe_lti
-      return unless session[:is_lti]
+  def allow_iframe_lti
+    return unless session[:is_lti]
 
-      response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
-    end
+    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
+  end
 
-    def http_client
-      HTTP.timeout(connect: 5, write: 10, read: 30)
-    end
+  def http_client
+    HTTP.timeout(connect: 5, write: 10, read: 30)
+  end
 
-    def compile_with_local_gem
-      result = Yosys2Digitaljs::Runner.compile(params[:code].to_s)
-      render json: result
-    rescue StandardError => e
-      Rails.logger.error(e)
-      render json: { message: "Compilation failed" }, status: :unprocessable_entity
-    end
+  def compile_with_local_gem
+    result = Yosys2Digitaljs::Runner.compile(params[:code].to_s)
+    render json: result
+  rescue StandardError => e
+    Rails.logger.error(e)
+    render json: { message: "Compilation failed" }, status: :unprocessable_entity
+  end
 
-    def compile_with_external_api
-      url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-      response = http_client.post(url, json: { code: params[:code].to_s })
-      render json: JSON.parse(response.to_s), status: response.code
-    rescue StandardError
-      render json: { message: "Yosys service unavailable" },
-             status: :service_unavailable
-    end
+  def compile_with_external_api
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+    response = http_client.post(url, json: { code: params[:code].to_s })
+    render json: JSON.parse(response.to_s), status: response.code
+  rescue StandardError => e
+    Rails.logger.error("Yosys API error: #{e.message}")
+    render json: { message: "Yosys service unavailable" }, status: :service_unavailable
+  end
 
-    def set_project
-      @project = Project.friendly.find(params[:id])
-    end
+  def set_project
+    @project = Project.friendly.find(params[:id])
+  end
 
-    def set_user_project
-      @project = Project.friendly.find(params[:id])
-      authorize @project, :edit_access?
-    end
+  def set_user_project
+    @project = Project.friendly.find(params[:id])
+    authorize @project, :edit_access?
+  end
 
-    def check_edit_access
-      authorize @project, :edit_access?
-    end
+  def check_edit_access
+    authorize @project, :edit_access?
+  end
 
-    def check_view_access
-      authorize @project, :view_access?
-    end
+  def check_view_access
+    authorize @project, :view_access?
+  end
 
-    def attach_circuit_preview(image_file)
-      return unless image_file
+  def attach_circuit_preview(image_file)
+    return unless image_file
 
-      @project.circuit_preview.attach(
-        io: image_file,
-        filename: "preview_#{Time.zone.now.to_f.to_s.tr('.', '')}.jpeg",
-        content_type: "image/jpeg"
-      )
-    end
+    @project.circuit_preview.attach(
+      io: image_file,
+      filename: "preview_#{Time.zone.now.to_f.to_s.tr('.', '')}.jpeg",
+      content_type: "image/jpeg"
+    )
+  end
 end

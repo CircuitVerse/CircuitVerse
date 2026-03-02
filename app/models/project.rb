@@ -9,7 +9,6 @@ class Project < ApplicationRecord
   self.ignored_columns += %w[data searchable]
 
   validates :name, length: { minimum: 1 }
-  # validates :slug, uniqueness: true
 
   belongs_to :author, class_name: "User", counter_cache: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
@@ -56,10 +55,6 @@ class Project < ApplicationRecord
 
   acts_as_commontable
 
-  # -------------------------
-  # Public instance methods
-  # -------------------------
-
   def increase_views(user)
     increment!(:view) if user.nil? || (user.id != author_id)
   end
@@ -76,25 +71,16 @@ class Project < ApplicationRecord
   end
 
   def fork(user)
-    forked_project = dup
-    forked_project.build_project_datum.data = project_datum&.data
-    forked_project.circuit_preview.attach(circuit_preview.blob)
-    forked_project.image_preview = image_preview
-    forked_project.update!(
-      view: 1,
-      author_id: user.id,
-      forked_project_id: id,
-      name: name
-    )
-
-    original_project = Project.find(id)
-    if original_project.author != user
-      ForkNotification.with(user: user, project: original_project)
-                      .deliver_later(original_project.author)
+      forked_project = dup
+      forked_project.build_project_datum.data = project_datum&.data
+      forked_project.circuit_preview.attach(circuit_preview.blob) if circuit_preview.attached?
+      forked_project.image_preview = image_preview
+      forked_project.update!(view: 1, author_id: user.id, forked_project_id: id, name: name)
+  
+      ForkNotification.with(user: user, project: self).deliver_later(author) if author != user
+  
+      forked_project
     end
-
-    forked_project
-  end
 
   def public?
     project_access_type == "Public"
@@ -118,10 +104,6 @@ class Project < ApplicationRecord
   end
 
   private
-
-    # -------------------------
-    # Callbacks & validations
-    # -------------------------
 
     def ensure_unique_name_per_user
       return if name.blank? || author_id.blank?
