@@ -71,7 +71,7 @@
                 aria-label="<%= current_user.name %>">
 
                 <%= image_tag user_profile_picture(current_user.profile_picture),
-                      alt: "Profile",
+                      alt: t("navbar.profile_picture", default: "Profile")
                       class: "navbar-profile-picture rounded-circle" %>
               </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
