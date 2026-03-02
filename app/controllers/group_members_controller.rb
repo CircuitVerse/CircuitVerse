@@ -119,7 +119,13 @@ class GroupMembersController < ApplicationController
     # which would allow changing users of arbitrary groups since
     # the check_access happens before the group is changed and passes
     def group_member_update_params
-      params.require(:group_member).permit(:mentor)
+      # false.to_param serializes to "" which Rails 8's params.expect
+      # treats as missing, raising ActionController::ParameterMissing.
+      # Normalize blank to "false" so the value passes through expect.
+      if params[:group_member]&.key?(:mentor) && params[:group_member][:mentor].blank?
+        params[:group_member][:mentor] = "false"
+      end
+      params.expect(group_member: [:mentor])
     end
 
     def check_access
