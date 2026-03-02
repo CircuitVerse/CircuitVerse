@@ -11,10 +11,10 @@
   }
 
   .users-circuits-search-container .search-icon-dashboard {
-    left: 12px;
     margin: 0;
     position: absolute;
-    right: auto;
+    inset-inline-end: 0.75rem;
+    inset-inline-start: auto;
     top: 50%;
     transform: translateY(-50%);
   }
