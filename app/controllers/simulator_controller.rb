@@ -184,14 +184,19 @@ class SimulatorController < ApplicationController
       return data unless parsed["scopes"].is_a?(Array)
 
       seen = Hash.new(0)
-
+      # First pass: normalize all names to base (remove existing suffixes)
       parsed["scopes"].each do |scope|
         next if scope["name"].blank?
 
-        base = scope["name"].sub(/\s\(\d+\)$/, "")
+        scope["name"] = scope["name"].sub(/\s\(\d+\)$/, "")
+      end
 
+      # Second pass: assign unique suffixes
+      parsed["scopes"].each do |scope|
+        next if scope["name"].blank?
+
+        base = scope["name"]
         scope["name"] = "#{base} (#{seen[base]})" if seen[base] > 0
-
         seen[base] += 1
       end
 

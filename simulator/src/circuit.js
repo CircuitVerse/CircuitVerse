@@ -167,24 +167,22 @@ export function createNewCircuitScope() {
 }
 
 /**
- * Function to create new circuit
- * Function creates button in tab, creates scope and switches to this circuit
- * @param {string} name - name of the new circuit
- * @param {string} id - identifier for circuit
- * @category circuit
+ * Generates a unique name for a circuit by appending a numeric suffix.
+ * @param {string} baseName - The initial name to check.
+ * @returns {string} - The unique name.
  */
 
 function getUniqueCircuitName(baseName) {
+    baseName = baseName.replace(/\s\(\d+\)$/, '');
+
     let counter = 0;
     let newName = baseName;
-
     const existingNames = Object.values(scopeList).map((scope) => scope.name);
 
     while (existingNames.includes(newName)) {
         counter++;
         newName = `${baseName} (${counter})`;
     }
-
     return newName;
 }
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
