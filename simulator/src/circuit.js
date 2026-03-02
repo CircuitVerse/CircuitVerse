@@ -37,6 +37,16 @@ import { verilogModeGet, verilogModeSet } from './Verilog2CV';
 import { updateTestbenchUI } from './testbench';
 import load from './data/load';
 
+function getUniqueName(base, existingList) {
+    let name = base;
+    let counter = 1;
+    while (existingList.includes(name)) {
+        name = `${base} (${counter})`;
+        counter++;
+    }
+    return name;
+}
+
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
 };
@@ -50,13 +60,8 @@ function normalizeCircuitNames() {
 
     Object.values(scopeList).forEach((scope) => {
         const base = scope.name.replace(/\s\(\d+\)$/, '').trim();
-        let name = base;
-        let counter = 0;
 
-        while (used[name]) {
-            counter++;
-            name = `${base} (${counter})`;
-        }
+        const name = getUniqueName(base, Object.keys(used));
 
         if (name !== scope.name) {
             scope.name = name;
@@ -145,19 +150,6 @@ export function createNewCircuitScope() {
     }
 }
 
-function getUniqueCircuitName(baseName) {
-    const normalizedBase = baseName.replace(/\s\(\d+\)$/, '').trim();
-    const existingNames = Object.values(scopeList).map((scope) => scope.name);
-    let counter = 0;
-    let newName = normalizedBase;
-
-    while (existingNames.includes(newName)) {
-        counter++;
-        newName = `${normalizedBase} (${counter})`;
-    }
-    return newName;
-}
-
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false); }
@@ -212,23 +204,10 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     return scope;
 }
 
-export function changeCircuitName(name, id = globalScope.id) {
-    const rawName = escapeHtml(stripTags(name || 'Untitled'));
-    const existingNames = Object.values(scopeList)
-        .filter((s) => s.id !== id)
-        .map((s) => s.name);
-
-    const normalizedBase = rawName.replace(/\s\(\d+\)$/, '').trim();
-    let finalName = normalizedBase;
-    let counter = 0;
-
-    while (existingNames.includes(finalName)) {
-        counter++;
-        finalName = `${normalizedBase} (${counter})`;
-    }
-
-    $(`#${id} .circuitName`).html(truncateString(finalName, 18));
-    scopeList[id].name = finalName;
+function getUniqueCircuitName(baseName) {
+    const normalizedBase = baseName.replace(/\s\(\d+\)$/, '').trim();
+    const existingNames = Object.values(scopeList).map((scope) => scope.name);
+    return getUniqueName(normalizedBase, existingNames);
 }
 
 export default class Scope {

@@ -71,16 +71,14 @@ class Project < ApplicationRecord
   end
 
   def fork(user)
-      forked_project = dup
-      forked_project.build_project_datum.data = project_datum&.data
-      forked_project.circuit_preview.attach(circuit_preview.blob) if circuit_preview.attached?
-      forked_project.image_preview = image_preview
-      forked_project.update!(view: 1, author_id: user.id, forked_project_id: id, name: name)
-  
-      ForkNotification.with(user: user, project: self).deliver_later(author) if author != user
-  
-      forked_project
-    end
+    forked_project = dup
+    forked_project.build_project_datum.data = project_datum&.data
+    forked_project.circuit_preview.attach(circuit_preview.blob) if circuit_preview.attached?
+    forked_project.image_preview = image_preview
+    forked_project.update!(view: 1, author_id: user.id, forked_project_id: id, name: name)
+    ForkNotification.with(user: user, project: self).deliver_later(author) if author != user
+    forked_project
+  end
 
   def public?
     project_access_type == "Public"
@@ -105,47 +103,46 @@ class Project < ApplicationRecord
 
   private
 
-    def ensure_unique_name_per_user
-      return if name.blank? || author_id.blank?
+  def ensure_unique_name_per_user
+    return if name.blank? || author_id.blank?
 
-      base_name = name.gsub(/\s\(\d+\)$/, "").strip
-      counter = 1
+    base_name = name.gsub(/\s\(\d+\)$/, "").strip
+    counter = 1
 
-      # We check if the current name (self.name) is taken by ANOTHER record
-      while Project.where(author_id: author_id, name: name).where.not(id: id).exists?
-        self.name = "#{base_name} (#{counter})"
-        counter += 1
-      end
+    while Project.where(author_id: author_id, name: name).where.not(id: id).exists?
+      self.name = "#{base_name} (#{counter})"
+      counter += 1
     end
+  end
 
-    def check_validity
-      return unless project_access_type != "Private" && assignment_id.present?
+  def check_validity
+    return unless project_access_type != "Private" && assignment_id.present?
 
-      errors.add(:project_access_type, "Assignment has to be private")
-    end
+    errors.add(:project_access_type, "Assignment has to be private")
+  end
 
-    def clean_description
-      profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
-      return unless profanity_filter.match?(description)
+  def clean_description
+    profanity_filter = LanguageFilter::Filter.new matchlist: :profanity
+    return unless profanity_filter.match?(description)
 
-      errors.add(
-        :description,
-        "contains inappropriate language: #{profanity_filter.matched(description).join(', ')}"
-      )
-    end
+    errors.add(
+      :description,
+      "contains inappropriate language: #{profanity_filter.matched(description).join(', ')}"
+    )
+  end
 
-    def check_and_remove_featured
-      return unless saved_change_to_project_access_type? &&
-                    saved_changes["project_access_type"][1] != "Public"
+  def check_and_remove_featured
+    return unless saved_change_to_project_access_type? &&
+                  saved_changes["project_access_type"][1] != "Public"
 
-      FeaturedCircuit.find_by(project_id: id)&.destroy
-    end
+    FeaturedCircuit.find_by(project_id: id)&.destroy
+  end
 
-    def should_generate_new_friendly_id?
-      name_changed? || Project.where(slug: slug).many?
-    end
+  def should_generate_new_friendly_id?
+    name_changed? || Project.where(slug: slug).many?
+  end
 
-    def purge_circuit_preview
-      circuit_preview.purge if circuit_preview.attached?
-    end
+  def purge_circuit_preview
+    circuit_preview.purge if circuit_preview.attached?
+  end
 end

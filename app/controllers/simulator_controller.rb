@@ -130,8 +130,8 @@ class SimulatorController < ApplicationController
     issue = IssueCircuitDatum.create!(data: params[:circuit_data])
     circuit_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue.id}"
 
-    if Flipper.enabled?(:slack_issue_notification)
-      HTTP.post(url, json: { text: "#{params[:text]}\nCircuit Data: #{circuit_url}" })
+    if Flipper.enabled?(:slack_issue_notification) && url.present?
+      http_client.post(url, json: { text: "#{params[:text]}\nCircuit Data: #{circuit_url}" })
     end
 
     head :ok
@@ -154,6 +154,7 @@ class SimulatorController < ApplicationController
   private
 
   def ensure_unique_circuit_names!(_project, data)
+    return data if data.blank?
     parsed = JSON.parse(data)
     return data unless parsed["scopes"].is_a?(Array)
 
