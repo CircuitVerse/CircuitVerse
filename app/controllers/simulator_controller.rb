@@ -8,7 +8,6 @@ class SimulatorController < ApplicationController
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
-  before_action :check_edit_access, only: %i[edit update]
 
   skip_before_action :verify_authenticity_token,
                      only: %i[get_data create update verilog_cv]
@@ -153,20 +152,23 @@ class SimulatorController < ApplicationController
 
   private
 
-  def ensure_unique_circuit_names!(_project, data)
-    return data if data.blank?
-    parsed = JSON.parse(data)
-    return data unless parsed["scopes"].is_a?(Array)
-
-    seen = Hash.new(0)
-    parsed["scopes"].each do |scope|
-      next if scope["name"].blank?
-
-      base = scope["name"].sub(/\s\(\d+\)$/, "")
-      scope["name"] = seen[base].positive? ? "#{base} (#{seen[base]})" : base
-      seen[base] += 1
-    end
-    parsed.to_json
+ def ensure_unique_circuit_names!(_project, data)
+   return data if data.blank?
+   
+   begin
+     parsed = JSON.parse(data)
+   rescue JSON::ParserError
+     raise ActionController::BadRequest, "Invalid circuit data JSON"
+   end   
+   return data unless parsed["scopes"].is_a?(Array)   
+   seen = Hash.new(0)
+   parsed["scopes"].each do |scope|
+     next if scope["name"].blank?   
+     base = scope["name"].sub(/\s\(\d+\)$/, "")
+     scope["name"] = seen[base].positive? ? "#{base} (#{seen[base]})" : base
+     seen[base] += 1
+   end
+  parsed.to_json
   end
 
   def allow_iframe

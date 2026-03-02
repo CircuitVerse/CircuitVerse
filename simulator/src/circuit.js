@@ -131,7 +131,7 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
     if (confirmation) {
         if (scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
-            for (const id in scope.verilogMetadata.subCircuitScopeIds) delete scopeList[id];
+            for (const id of scope.verilogMetadata.subCircuitScopeIds) delete scopeList[id];
         }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];

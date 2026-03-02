@@ -47,7 +47,7 @@ class Project < ApplicationRecord
     }
   }
 
-  before_validation :ensure_unique_name_per_user, on: :create
+  before_validation :ensure_unique_name_per_user, if: :will_save_change_to_name?
   after_update :check_and_remove_featured
   before_destroy :purge_circuit_preview
 
