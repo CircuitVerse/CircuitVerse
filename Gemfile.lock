@@ -115,8 +115,8 @@ GEM
       aws-sdk-ses (~> 1, >= 1.50.0)
       aws-sdk-sesv2 (~> 1, >= 1.34.0)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1153.0)
-    aws-sdk-core (3.232.0)
+    aws-partitions (1.1199.0)
+    aws-sdk-core (3.240.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -124,14 +124,14 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.112.0)
-      aws-sdk-core (~> 3, >= 3.231.0)
+    aws-sdk-kms (1.118.0)
+      aws-sdk-core (~> 3, >= 3.239.1)
       aws-sigv4 (~> 1.5)
     aws-sdk-rails (5.1.0)
       aws-sdk-core (~> 3)
       railties (>= 7.1.0)
-    aws-sdk-s3 (1.198.0)
-      aws-sdk-core (~> 3, >= 3.231.0)
+    aws-sdk-s3 (1.208.0)
+      aws-sdk-core (~> 3, >= 3.234.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sdk-ses (1.90.0)
@@ -153,7 +153,7 @@ GEM
       erubi (~> 1.4)
       parser (>= 2.4)
       smart_properties
-    bigdecimal (3.2.2)
+    bigdecimal (3.3.1)
     bindex (0.8.1)
     bootsnap (1.18.6)
       msgpack (~> 1.2)
@@ -923,8 +923,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2025.2)
-      tzinfo (>= 1.0.0)
     unaccent (0.4.0)
     undercover (0.8.0)
       base64
@@ -998,7 +996,7 @@ DEPENDENCIES
   ahoy_matey
   aws-actionmailer-ses
   aws-sdk-rails
-  aws-sdk-s3 (~> 1.176)
+  aws-sdk-s3 (~> 1.208)
   bootsnap
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)

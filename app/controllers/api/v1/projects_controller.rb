@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ClassLength
 class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
   include SimulatorHelper
@@ -105,7 +104,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       File.delete(image_file) if check_to_delete(params[:image])
       render json: { status: "success", project: @project }, status: :created
     else
-      render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
     end
   end
 
@@ -132,7 +131,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       handle_image_file_cleanup
       render json: { status: "success", project: @project }, status: :ok
     else
-      render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_entity
+      render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
     end
   end
 

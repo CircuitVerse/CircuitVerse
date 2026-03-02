@@ -56,7 +56,7 @@ export const checkUpdate = () => {
 };
 /**
  * Function used to set userKeys, grabs the keycombo from the panel UI
- * sets it to the localStorage & cals addKeys
+ * sets it to the localStorage & calls addKeys
  * removes the defaultkeys from localStorage
  */
 export const setUserKeys = () => {
@@ -73,7 +73,7 @@ export const setUserKeys = () => {
     addKeys("user");
 };
 /**
- * Function used to set defaultKeys, grabs the keycombo from the defaultkeys metadata
+ * Function used to set defaultKeys, grabs the key combo from the defaultkeys metadata
  * sets it to the localStorage & cals addKeys
  * removes the userkeys from localStorage if present
  * also checks for OS type

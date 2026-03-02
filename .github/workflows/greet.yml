@@ -1,0 +1,47 @@
+name: Greetings
+
+on:
+  pull_request:
+    types:
+      - opened
+  issues:
+    types:
+      - opened
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  greeting:
+    name: Greet First-Time Contributors
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Welcome new contributors
+        uses: actions/first-interaction@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue_message: |
+            ## 🚀 Welcome to CircuitVerse! 
+            
+            Thank you for opening your first issue here! We appreciate you taking the time to help improve our open-source digital logic simulator.
+            
+            **Next Steps:**
+            * Check out our [Contributor Guidelines](https://github.com/CircuitVerse/CircuitVerse/blob/master/CONTRIBUTING.md) to understand our workflow.
+            * Join our [Slack Community](http://circuitverse.org/slack) to chat with the core team and other contributors.
+            * Please ensure you've provided enough detail for us to reproduce any bugs!
+
+            Someone from the team will be with you shortly! ⚡
+
+          pr_message: |
+            ## 🎉 Thank you for your first Pull Request!
+            
+            We are excited to see your contribution to **CircuitVerse**! Thank you for helping us make digital logic education accessible to everyone.
+            
+            **Before a maintainer reviews this:**
+            * Review our [Contributing Guide](https://github.com/CircuitVerse/CircuitVerse/blob/master/CONTRIBUTING.md).
+            * Ensure your PR description clearly explains the changes and links to any related issues (e.g., `Closes #123`).
+            * Double-check that all CI tests pass.
+            
+            We'll get back to you as soon as possible. In the meantime, feel free to join the conversation on [Slack](http://circuitverse.org/slack). Happy coding! 🛠️

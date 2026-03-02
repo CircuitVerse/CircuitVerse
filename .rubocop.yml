@@ -310,3 +310,6 @@ RSpec/SpecFilePathFormat:
 
 Naming/BlockForwarding:
   Enabled: false
+
+Metrics/ClassLength:
+  Enabled: false

@@ -6,7 +6,8 @@ cp config/database.docker.yml config/database.yml
 createuser -s postgres
 # Install ruby dependencies
 gem install bundler
-bundle install --without production
+bundle config set without 'production'
+bundle install
 # Install node dependencies
 yarn
 # Setup database
