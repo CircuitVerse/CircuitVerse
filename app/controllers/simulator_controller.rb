@@ -153,22 +153,43 @@ class SimulatorController < ApplicationController
   private
 
   def ensure_unique_circuit_names!(_project, data)
-   return data if data.blank?
-   
+    return data if data.blank?
+
     begin
       parsed = JSON.parse(data)
     rescue JSON::ParserError
       raise ActionController::BadRequest, "Invalid circuit data JSON"
-    end   
-    return data unless parsed["scopes"].is_a?(Array)   
-    seen = Hash.new(0)
-    parsed["scopes"].each do |scope|
-      next if scope["name"].blank?   
-      base = scope["name"].sub(/\s\(\d+\)$/, "")
-      scope["name"] = seen[base].positive? ? "#{base} (#{seen[base]})" : base
-      seen[base] += 1
     end
+
+    return data unless parsed["scopes"].is_a?(Array)
+
+    existing_names = []
+    parsed["scopes"].each do |scope|
+      base_name = scope["name"].to_s.gsub(/\s\(\d+\)$/, "").strip
+      base_name = "Untitled-Circuit" if base_name.empty?
+
+      unique_name = get_unique_circuit_name(base_name, existing_names)
+      
+      scope["name"] = unique_name
+      existing_names << unique_name
+    end
+
     parsed.to_json
+  end
+
+  # Helper to find the first available name slot
+  def get_unique_circuit_name(base_name, existing_names)
+    return base_name unless existing_names.include?(base_name)
+
+    counter = 1
+    new_name = "#{base_name} (#{counter})"
+    
+    while existing_names.include?(new_name)
+      counter += 1
+      new_name = "#{base_name} (#{counter})"
+    end
+    
+    new_name
   end
 
   def allow_iframe
@@ -212,7 +233,7 @@ class SimulatorController < ApplicationController
   end
 
   def check_edit_access
-    authorize @project, :edit_access?
+    authorize @project, :edit_access? 
   end
 
   def check_view_access

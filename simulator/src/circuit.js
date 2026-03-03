@@ -153,7 +153,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false); }
     let circuitName = name || prompt('Enter circuit name:', 'Untitled-Circuit');
-    circuitName = escapeHtml(stripTags(circuitName));
+    circuitName = escapeHtml(stripTags(circuitName)).trim();
     if (!circuitName) return;
 
     circuitName = getUniqueCircuitName(circuitName);
