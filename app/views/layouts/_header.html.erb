@@ -55,7 +55,7 @@
           </li>
           <li class="nav-item d-flex align-items-center">
             <button class="btn search-button p-0 d-flex align-items-center justify-content-center" aria-label="search" type="button">
-              <i class="fa fa-search"  aria-label="search"></i>
+              <i class="fa fa-search" aria-hidden="true"></i>
             </button>
           </li>
         </ul>
@@ -124,33 +124,19 @@
     window.addEventListener('scroll', handleNavbarShadow);
 
     if (searchButton) {
-      searchButton.addEventListener('click', function() {
-        searchButton.blur();
-      });
+      const searchIcon = searchButton.querySelector('.fa-search');
+      if (searchIcon) {
+        searchIcon.addEventListener('click', function() {
+          activeSearchBar();
+          searchButton.blur();
+        });
+      }
       searchButton.addEventListener('keydown', function(e) {
         if (e.key === "Enter" || e.key === " ") {
           e.preventDefault();
           activeSearchBar();
           searchButton.blur();
         }
-      });
-    }
-
-    if (gettingStartedLink) {
-      const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
-      gettingStartedLink.addEventListener("click", function (e) {
-        if (gettingStartedLink.classList.contains("rotate180")) {
-          gettingStartedLink.classList.remove("rotate180");
-          gettingStartedDropdown.hide();
-        } else {
-          gettingStartedLink.classList.add("rotate180");
-          gettingStartedDropdown.show();
-        }
-        e.stopPropagation();
-      });
-      document.addEventListener("click", function () {
-        gettingStartedLink.classList.remove("rotate180");
-        gettingStartedDropdown.hide();
       });
     }
 
@@ -164,9 +150,7 @@
         icons.forEach(icon => icon.classList.add("active"));
         searchBar.style.display = "block";
         if (searchInput) {
-          setTimeout(function() {
-            searchInput.focus();
-          }, 0);
+          searchInput.focus();
         }
       }
       collapseElement.classList.remove("show");
@@ -187,17 +171,11 @@
         bsCollapse.toggle();
       });
     }
-    Array.from(searchIcons).forEach(icon => {
-      icon.addEventListener("click", activeSearchBar);
-    });
-
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
       if (searchInput) {
-        setTimeout(function() {
-          searchInput.focus();
-        }, 0);
+        searchInput.focus();
       }
     }
 
