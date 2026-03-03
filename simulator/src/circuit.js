@@ -50,9 +50,9 @@ function getUniqueName(base, existingList) {
 export const circuitProperty = {
     toggleLayoutMode, setProjectName, changeCircuitName, changeClockTime, deleteCurrentCircuit, changeClockEnable, changeInputSize, changeLightMode,
 };
-export var scopeList = {};
+export const scopeList = {};
 export function resetScopeList() {
-    scopeList = {};
+    Object.keys(scopeList).forEach(key => delete scopeList[key]);
 }
 
 function normalizeCircuitNames() {
@@ -77,7 +77,6 @@ export function switchCircuit(id) {
     if (verilogModeGet()) { verilogModeSet(false); }
 
     scheduleBackup();
-    normalizeCircuitNames();
     if (id === globalScope.id) return;
     $('.circuits').removeClass('current');
     simulationArea.lastSelected = undefined;
