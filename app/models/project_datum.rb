@@ -9,7 +9,7 @@ class ProjectDatum < ApplicationRecord
 
   def ensure_unique_circuit_name_per_user
     return if project.nil? || data.blank?
-  
+    
     begin
       parsed_data = JSON.parse(data)
     rescue JSON::ParserError

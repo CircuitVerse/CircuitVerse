@@ -65,7 +65,7 @@ function normalizeCircuitNames() {
 
         if (name !== scope.name) {
             scope.name = name;
-            $(`#${scope.id} .circuitName`).html(truncateString(name, 18));
+            $(`#${scope.id} .circuitName`).text(truncateString(name, 18));
         }
 
         used[name] = true;
@@ -168,16 +168,19 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     }
     globalScope = scope;
     $('.circuits').removeClass('current');
+
     if (!isVerilog || isVerilogMain) {
         const html = embed 
-            ? `<div class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(circuitName, 18)}</span></div>`
-            : `<div class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'>${truncateString(circuitName, 18)}</span><span class='tabsCloseButton' id='${scope.id}'>x</span></div>`;
+            ? `<div class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'></span></div>`
+            : `<div class='circuits toolbarButton current' draggable='true' id='${scope.id}'><span class='circuitName noSelect'></span><span class='tabsCloseButton' id='${scope.id}'>x</span></div>`;
 
         if (embed) {
             $('#tabsBar').append(html).addClass('embed-tabs');
         } else {
             $('#tabsBar').children().last().before(html);
         }
+
+        $(`#${scope.id} .circuitName`).text(truncateString(circuitName, 18));
 
         $('.circuits').off('click').on('click', function () {
             switchCircuit(this.id);
@@ -195,6 +198,7 @@ export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
             e.stopPropagation();
             deleteCurrentCircuit(this.id);
         });
+
         if (!embed) {
             showProperties(scope.root);
         }
