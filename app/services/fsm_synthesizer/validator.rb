@@ -3,6 +3,9 @@ module FsmSynthesizer
   class Validator
     def self.validate(fsm)
       fsm.validate
+      check_determinism(fsm)
+      check_completeness(fsm)
+      true
     end
 
     # Check for deterministic transitions (no conflicts)

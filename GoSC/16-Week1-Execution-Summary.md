@@ -50,7 +50,7 @@
 
 ## 📊 Current Branch Status
 
-```
+```text
 Fork: nusRying/CircuitVerse
 ├── master
 │   ├── a5c40375 - fix(ci): workflow syntax ✅ [READY TO MERGE]

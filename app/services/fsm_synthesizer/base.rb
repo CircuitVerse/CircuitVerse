@@ -60,6 +60,7 @@ module FsmSynthesizer
     def validate_states
       errors = []
       errors << "States must be provided" if @states.nil? || @states.empty?
+      return errors if @states.nil? || @states.empty?
 
       initial_states = @states.select { |s| s[:initial] == true }
       if initial_states.empty?
@@ -80,6 +81,12 @@ module FsmSynthesizer
 
     def validate_transitions
       errors = []
+      if @transitions.nil? || @transitions.empty?
+        errors << "Transitions must be provided"
+        return errors
+      end
+      return errors if @states.nil? || @states.empty? || @inputs.nil? || @inputs.empty?
+
       state_ids = @states.map { |s| s[:id] }.to_set
 
       @transitions.each do |transition|
@@ -107,6 +114,10 @@ module FsmSynthesizer
       errors = []
 
       if @machine_type == :moore
+        state_ids = @states.map { |s| s[:id] }
+        missing = state_ids - @state_outputs.keys
+        errors << "Missing state_outputs for states: #{missing.join(', ')}" unless missing.empty?
+
         @state_outputs.each do |state_id, output|
           errors << "Unknown state in state_outputs: #{state_id}" unless @states.any? { |s| s[:id] == state_id }
           errors << "Unknown output in state_outputs: #{output}" unless @outputs.include?(output)

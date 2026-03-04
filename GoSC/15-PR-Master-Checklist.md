@@ -47,7 +47,7 @@ All branches are created, committed, and pushed to fork. Ready for PR submission
 **Target:** `CircuitVerse:master` ← `nusRying:master`
 
 **URL to Create:**
-```
+```text
 https://github.com/nusRying/CircuitVerse/compare/CircuitVerse:master...nusRying:master
 ```
 

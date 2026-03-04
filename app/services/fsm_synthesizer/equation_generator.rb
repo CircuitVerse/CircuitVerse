@@ -19,7 +19,7 @@ module FsmSynthesizer
 
           if to_bits[bit_index] == 1
             input_idx = fsm.inputs.index(input_symbol)
-            minterms << { from_bits:, input_idx: }
+            minterms << { bits: from_bits, input_idx: }
           end
         end
 
@@ -79,8 +79,7 @@ module FsmSynthesizer
           state_part
         else
           input_part = (0...input_bits).map do |idx|
-            # Simplified: assume single input X
-            idx == minterm[:input_idx] ? "X" : "~X"
+            idx == minterm[:input_idx] ? "X#{idx}" : "~X#{idx}"
           end
           "#{state_part} & #{input_part.join(' & ')}"
         end

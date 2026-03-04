@@ -3,6 +3,11 @@ module FsmSynthesizer
   class CircuitMapper
     # Map FSM synthesis to CircuitVerse circuit format
     def self.generate_circuit(fsm)
+      unless fsm.state_bits && fsm.next_state_equations && fsm.output_equations
+        raise FsmSynthesizer::GenerationError,
+              'Missing synthesis data: run Encoder and EquationGenerator before CircuitMapper'
+      end
+
       {
         version: 1,
         metadata: {
@@ -37,12 +42,13 @@ module FsmSynthesizer
 
       # Gates for next-state logic
       fsm.next_state_equations.each_with_index do |(eq_id, expr), idx|
+        bit_index = eq_id.to_s.delete_prefix('D').to_i
         gates << {
           id: "NSG#{idx}",
           type: "logic_block",
           expression: expr,
           label: "NextState_#{eq_id}",
-          output_to: "FF#{idx}"
+          output_to: "FF#{bit_index}"
         }
       end
 
