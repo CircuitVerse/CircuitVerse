@@ -27,6 +27,10 @@ module FsmSynthesizer
     attr_accessor :output_equations    # { 'y' => '~Q0 & Q1', ... }
     attr_accessor :state_bits          # Number of flip-flops needed
 
+    # Reset configuration
+    attr_accessor :reset_type          # :none, :synchronous, :asynchronous
+    attr_accessor :reset_state         # State to reset to (usually initial state)
+
     def initialize(machine_type:, inputs:, outputs:, states:, transitions:, state_outputs: nil)
       @machine_type = machine_type
       @inputs = inputs

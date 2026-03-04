@@ -3,7 +3,7 @@
 module FsmSynthesizer
   class CircuitMapper
     # Map FSM synthesis to CircuitVerse circuit format
-    def self.generate_circuit(fsm, flip_flop_type = :d)
+    def self.generate_circuit(fsm, flip_flop_type = :d, include_reset = false)
       unless fsm.state_bits && fsm.next_state_equations && fsm.output_equations
         raise FsmSynthesizer::GenerationError,
               'Missing synthesis data: run Encoder and EquationGenerator before CircuitMapper'
@@ -12,7 +12,7 @@ module FsmSynthesizer
       # Generate flip-flop excitation equations based on type
       excitation_equations = FsmSynthesizer::FlipFlopEncoder.generate_excitation_equations(fsm, flip_flop_type)
 
-      {
+      circuit = {
         version: 1,
         metadata: {
           machine_type: fsm.machine_type,
@@ -27,6 +27,13 @@ module FsmSynthesizer
         },
         connections: generate_connections(fsm)
       }
+
+      # Add reset circuit if configured
+      if include_reset && fsm.reset_type && fsm.reset_type != :none
+        circuit[:reset] = FsmSynthesizer::ResetController.generate_reset_circuit(fsm)
+      end
+
+      circuit
     end
 
     def self.generate_flip_flops(fsm, flip_flop_type = :d)

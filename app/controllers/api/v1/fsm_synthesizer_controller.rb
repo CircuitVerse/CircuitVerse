@@ -11,7 +11,9 @@ module Api
       #   "fsm_data": "JSON or CSV FSM definition",
       #   "format": "json" or "csv",
       #   "encoding": "binary", "one_hot", or "gray" (optional, default: binary),
-      #   "flip_flop_type": "d" or "jk" or "sr" (optional, default: d)
+      #   "flip_flop_type": "d" or "jk" or "sr" (optional, default: d),
+      #   "reset_type": "none", "synchronous", or "asynchronous" (optional, default: none),
+      #   "reset_state": "S0" (optional, default: initial state)
       # }
       #
       # Response:
@@ -62,11 +64,19 @@ module Api
         flip_flop_type = synthesis_params[:flip_flop_type] || 'd'
         excitation_equations = FsmSynthesizer::FlipFlopEncoder.generate_excitation_equations(fsm, flip_flop_type)
 
-        # Generate circuit structure
-        circuit = FsmSynthesizer::CircuitMapper.generate_circuit(fsm, flip_flop_type)
+        # Configure reset if specified
+        reset_type = synthesis_params[:reset_type] || 'none'
+        if reset_type != 'none'
+          reset_state = synthesis_params[:reset_state]
+          FsmSynthesizer::ResetController.configure_reset(fsm, reset_type.to_sym, reset_state)
+        end
 
-        # Return synthesis results
-        render json: {
+        # Generate circuit structure (with optional reset circuit)
+        include_reset = reset_type != 'none'
+        circuit = FsmSynthesizer::CircuitMapper.generate_circuit(fsm, flip_flop_type, include_reset)
+
+        # Build response
+        response_data = {
           machine_type: fsm.machine_type,
           states: fsm.states.map { |s| s[:id] },
           inputs: fsm.inputs,
@@ -76,7 +86,17 @@ module Api
           excitation_equations:,
           output_equations: fsm.output_equations,
           circuit:
-        }, status: :ok
+        }
+
+        # Add reset info if configured
+        if include_reset
+          response_data[:reset_config] = {
+            reset_type: reset_type,
+            reset_state: fsm.reset_state
+          }
+        end
+
+        render json: response_data, status: :ok
       rescue FsmSynthesizer::ValidationError => e
         api_error(status: 422, errors: e.message)
       rescue FsmSynthesizer::EncodingError => e
@@ -91,7 +111,7 @@ module Api
 
       def synthesis_params
         params.require(:fsm_data)
-        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding, :flip_flop_type)
+        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding, :flip_flop_type, :reset_type, :reset_state)
       end
 
       def validate_synthesis_params
@@ -99,6 +119,7 @@ module Api
         format = synthesis_params[:format]
         flip_flop_type = synthesis_params[:flip_flop_type]
         encoding = synthesis_params[:encoding]
+        reset_type = synthesis_params[:reset_type]
 
         raise FsmSynthesizer::ValidationError, 'fsm_data is required' if fsm_data.blank?
         raise FsmSynthesizer::ValidationError, 'format is required' if format.blank?
@@ -108,6 +129,9 @@ module Api
         end
         if encoding && !%w[binary one_hot gray].include?(encoding)
           raise FsmSynthesizer::ValidationError, "Invalid encoding type: #{encoding}"
+        end
+        if reset_type && !%w[none synchronous asynchronous].include?(reset_type)
+          raise FsmSynthesizer::ValidationError, "Invalid reset type: #{reset_type}"
         end
       end
 

@@ -714,5 +714,154 @@ RSpec.describe 'Api::V1::FsmSynthesizer', type: :request do
         expect(response).to have_http_status(:ok)
       end
     end
+
+    context 'with reset configuration' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [
+            { id: 'S0', initial: true },
+            { id: 'S1' },
+            { id: 'S2' }
+          ],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S2' },
+            { from: 'S1', input: '1', to: 'S0' },
+            { from: 'S2', input: '0', to: 'S1' },
+            { from: 'S2', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z', 'S2' => 'z' }
+        }.to_json
+      end
+
+      it 'synthesizes with no reset by default' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json).not_to have_key('reset_config')
+      end
+
+      it 'synthesizes with synchronous reset' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'synchronous'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json).to have_key('reset_config')
+        expect(json['reset_config']['reset_type']).to eq('synchronous')
+        expect(json['reset_config']['reset_state']).to eq('S0')
+      end
+
+      it 'synthesizes with asynchronous reset' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'asynchronous'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json).to have_key('reset_config')
+        expect(json['reset_config']['reset_type']).to eq('asynchronous')
+      end
+
+      it 'resets to initial state by default' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'synchronous'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['reset_config']['reset_state']).to eq('S0')
+      end
+
+      it 'resets to specified state' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'asynchronous',
+          reset_state: 'S1'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['reset_config']['reset_state']).to eq('S1')
+      end
+
+      it 'includes reset circuit information' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'synchronous'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['circuit']).to have_key('reset')
+        expect(json['circuit']['reset']).to have_key('reset_type')
+        expect(json['circuit']['reset']).to have_key('reset_state')
+        expect(json['circuit']['reset']).to have_key('reset_input')
+      end
+
+      it 'returns 422 for invalid reset type' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'invalid'
+        }, as: :json
+
+        expect(response).to have_http_status(422)
+        expect(response.parsed_body['errors']).to include('reset')
+      end
+
+      it 'returns 422 for non-existent reset state' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'synchronous',
+          reset_state: 'S99'
+        }, as: :json
+
+        expect(response).to have_http_status(422)
+      end
+
+      it 'works with both reset and flip-flop type parameters' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'asynchronous',
+          flip_flop_type: 'jk'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['reset_config']).to be_present
+        expect(json['flip_flop_type']).to eq('jk')
+      end
+
+      it 'works with reset and encoding parameters' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'synchronous',
+          encoding: 'gray'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['reset_config']).to be_present
+        expect(json['state_encoding']).to be_present
+      end
+    end
   end
 end
