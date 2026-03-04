@@ -189,5 +189,10 @@ module FsmSynthesizer
 
       terms.join(" | ")
     end
+
+    private_class_method :generate_d_flip_flop_equations,
+                         :generate_jk_flip_flop_equations,
+                         :generate_sr_flip_flop_equations,
+                         :generate_sop_expression
   end
 end

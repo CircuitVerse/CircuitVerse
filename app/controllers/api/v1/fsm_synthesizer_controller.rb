@@ -201,8 +201,10 @@ module Api
         api_error(status: 422, errors: e.message)
       rescue FsmSynthesizer::GenerationError => e
         api_error(status: 422, errors: e.message)
-      rescue StandardError => e
-        api_error(status: 400, errors: "Synthesis failed: #{e.message}")
+      rescue JSON::ParserError => e
+        api_error(status: 400, errors: e.message)
+      rescue StandardError
+        api_error(status: 500, errors: 'Synthesis failed')
       end
 
       private
