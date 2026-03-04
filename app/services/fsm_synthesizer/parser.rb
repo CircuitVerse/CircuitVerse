@@ -14,6 +14,8 @@ module FsmSynthesizer
 
     # Parse FSM definition from hash
     # Accepts: { machine_type, inputs, outputs, states, transitions, state_outputs }
+    # Note: Performs structural validation only. For determinism and completeness
+    # checks, call FsmSynthesizer::Validator.validate(fsm) after parsing.
     def self.parse_hash(data)
       validate_required_keys(data)
 

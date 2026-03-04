@@ -1,4 +1,6 @@
-# Boolean Equation Generation Service
+# frozen_string_literal: true
+
+# Boolean Equation Generator
 module FsmSynthesizer
   class EquationGenerator
     # Generate next-state equations from FSM
@@ -19,6 +21,9 @@ module FsmSynthesizer
 
           if to_bits[bit_index] == 1
             input_idx = fsm.inputs.index(input_symbol)
+            if input_idx.nil?
+              raise FsmSynthesizer::GenerationError, "Unknown input symbol '#{input_symbol}' in transition from #{from_state}"
+            end
             minterms << { bits: from_bits, input_idx: }
           end
         end
@@ -53,6 +58,9 @@ module FsmSynthesizer
 
             from_bits = fsm.state_encoding[transition[:from]]
             input_idx = fsm.inputs.index(transition[:input])
+            if input_idx.nil?
+              raise FsmSynthesizer::GenerationError, "Unknown input symbol '#{transition[:input]}' in transition"
+            end
             minterms << { bits: from_bits, input_idx: }
           end
         end
@@ -64,7 +72,7 @@ module FsmSynthesizer
       equations
     end
 
-    private_class_method :generate_next_state_equations, :generate_output_equations
+    private
 
     def self.generate_sop_expression(minterms, state_bits, input_bits)
       return "0" if minterms.empty?

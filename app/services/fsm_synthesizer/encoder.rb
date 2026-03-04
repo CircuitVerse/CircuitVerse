@@ -3,6 +3,8 @@
 module FsmSynthesizer
   class Encoder
     # Binary state encoding
+    # Note: Single-state FSMs result in state_bits=0 and empty bit arrays.
+    # Downstream components (EquationGenerator, CircuitMapper) handle this edge case.
     def self.encode_binary(fsm)
       num_states = fsm.states.size
       raise FsmSynthesizer::EncodingError, 'FSM must have at least one state' if num_states.zero?

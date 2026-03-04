@@ -11,6 +11,8 @@ module FsmSynthesizer
 
     # Check for deterministic transitions (no conflicts)
     def self.check_determinism(fsm)
+      return true if fsm.transitions.nil? || fsm.transitions.empty?
+
       seen = {}
       conflicts = []
 

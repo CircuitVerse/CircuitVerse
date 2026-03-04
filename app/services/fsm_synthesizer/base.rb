@@ -130,6 +130,7 @@ module FsmSynthesizer
       if @machine_type == :moore
         # Guard against nil states and outputs to avoid NoMethodError
         return errors if @states.nil? || @outputs.nil?
+        return errors unless @state_outputs.is_a?(Hash)
 
         state_ids = @states.map { |s| s[:id] }
         missing = state_ids - @state_outputs.keys

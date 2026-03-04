@@ -41,7 +41,11 @@ module FsmSynthesizer
 
       # Gates for next-state logic
       fsm.next_state_equations.each_with_index do |(eq_id, expr), idx|
-        bit_index = eq_id.to_s.delete_prefix('D').to_i
+        match = eq_id.to_s.match(/\AD(\d+)\z/)
+        unless match
+          raise FsmSynthesizer::GenerationError, "Invalid next-state equation ID: #{eq_id}"
+        end
+        bit_index = match[1].to_i
         gates << {
           id: "NSG#{idx}",
           type: "logic_block",
@@ -65,8 +69,8 @@ module FsmSynthesizer
     end
 
     def self.generate_connections(fsm)
-      # Placeholder for wiring information
-      { state_feedback: "FF output to NS gates", input_mapping: fsm.inputs, output_mapping: fsm.outputs }
+      raise FsmSynthesizer::GenerationError,
+            'Connection mapping is not implemented yet. Return explicit edge mappings before using CircuitMapper output.'
     end
 
     private_class_method :generate_flip_flops, :generate_gates, :generate_connections
