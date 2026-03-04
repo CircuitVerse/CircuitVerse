@@ -64,9 +64,8 @@ module FsmSynthesizer
       equations
     end
 
-    private
+    private_class_method :generate_next_state_equations, :generate_output_equations
 
-    # Placeholder SOP generation (canonical form for now)
     def self.generate_sop_expression(minterms, state_bits, input_bits)
       return "0" if minterms.empty?
 
@@ -75,17 +74,30 @@ module FsmSynthesizer
           bit == 1 ? "Q#{idx}" : "~Q#{idx}"
         end.join(" & ")
 
-        if minterm[:input_idx].nil?
-          state_part
-        else
-          input_part = (0...input_bits).map do |idx|
-            idx == minterm[:input_idx] ? "X#{idx}" : "~X#{idx}"
+        # Handle zero state_bits case: treat missing state component as constant true
+        if state_part.empty?
+          if minterm[:input_idx].nil?
+            "1"
+          else
+            input_part = (0...input_bits).map do |idx|
+              idx == minterm[:input_idx] ? "X#{idx}" : "~X#{idx}"
+            end
+            input_part.join(" & ")
           end
-          "#{state_part} & #{input_part.join(' & ')}"
+        else
+          if minterm[:input_idx].nil?
+            state_part
+          else
+            input_part = (0...input_bits).map do |idx|
+              idx == minterm[:input_idx] ? "X#{idx}" : "~X#{idx}"
+            end
+            "#{state_part} & #{input_part.join(' & ')}"
+          end
         end
       end
 
       terms.join(" | ")
     end
+    private_class_method :generate_sop_expression
   end
 end

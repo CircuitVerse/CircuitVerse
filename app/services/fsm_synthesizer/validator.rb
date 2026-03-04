@@ -1,4 +1,5 @@
-# FSM Validation Service
+# frozen_string_literal: true
+
 module FsmSynthesizer
   class Validator
     def self.validate(fsm)

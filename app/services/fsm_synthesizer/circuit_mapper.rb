@@ -1,4 +1,5 @@
-# Circuit Mapping and Output Generation
+# frozen_string_literal: true
+
 module FsmSynthesizer
   class CircuitMapper
     # Map FSM synthesis to CircuitVerse circuit format
@@ -23,8 +24,6 @@ module FsmSynthesizer
         connections: generate_connections(fsm)
       }
     end
-
-    private
 
     def self.generate_flip_flops(fsm)
       (0...fsm.state_bits).map do |idx|
@@ -69,5 +68,7 @@ module FsmSynthesizer
       # Placeholder for wiring information
       { state_feedback: "FF output to NS gates", input_mapping: fsm.inputs, output_mapping: fsm.outputs }
     end
+
+    private_class_method :generate_flip_flops, :generate_gates, :generate_connections
   end
 end

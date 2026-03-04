@@ -1,0 +1,23 @@
+{
+  "machineType": "moore",
+  "inputs": ["0", "1"],
+  "outputs": ["y"],
+  "states": [
+    { "id": "A", "isInitial": true },
+    { "id": "B", "isInitial": false },
+    { "id": "C", "isInitial": false }
+  ],
+  "stateOutputs": {
+    "A": { "y": 0 },
+    "B": { "y": 1 },
+    "C": { "y": 0 }
+  },
+  "transitions": [
+    { "fromState": "A", "input": "0", "toState": "A" },
+    { "fromState": "A", "input": "1", "toState": "B" },
+    { "fromState": "B", "input": "0", "toState": "C" },
+    { "fromState": "B", "input": "1", "toState": "B" },
+    { "fromState": "C", "input": "0", "toState": "A" },
+    { "fromState": "C", "input": "1", "toState": "B" }
+  ]
+}

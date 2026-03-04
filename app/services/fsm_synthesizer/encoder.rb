@@ -1,4 +1,5 @@
-# State Encoding Service
+# frozen_string_literal: true
+
 module FsmSynthesizer
   class Encoder
     # Binary state encoding

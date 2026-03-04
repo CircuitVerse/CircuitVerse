@@ -1,4 +1,5 @@
-# FSM Input Parser Service
+# frozen_string_literal: true
+
 module FsmSynthesizer
   class Parser
     # Parse FSM definition from JSON string
@@ -116,7 +117,9 @@ module FsmSynthesizer
           end
         end
       else
-        data['states'] = Array(data['states']).map { |s| { id: s, initial: false } }
+        states_array = Array(data['states']).map { |s| { id: s, initial: false } }
+        data['states'] = states_array
+        # Guard against empty array before accessing first element
         data['states'][0][:initial] = true if data['states'].any?
       end
 
@@ -131,7 +134,11 @@ module FsmSynthesizer
 
     def self.validate_required_keys(data)
       required = ['machine_type', 'inputs', 'outputs', 'states', 'transitions']
-      missing = required.select { |key| data[key].nil? || data[key].empty? }
+      missing = required.select do |key|
+        # Check both string and symbol keys
+        value = data[key] || data[key.to_sym]
+        value.nil? || (value.respond_to?(:empty?) && value.empty?)
+      end
 
       if missing.any?
         raise FsmSynthesizer::ValidationError, "Missing required fields: #{missing.join(', ')}"
@@ -181,7 +188,12 @@ module FsmSynthesizer
         state_outputs_data.transform_keys(&:to_s)
       when Array
         state_outputs_data.each_with_object({}) do |pair, hash|
-          hash[pair[0]] = pair[1]
+          # Validate pair format and normalize keys to strings
+          unless pair.is_a?(Array) && pair.size == 2
+            raise FsmSynthesizer::ValidationError, "Invalid state_outputs pair format: #{pair.inspect}"
+          end
+          key, value = pair
+          hash[key.to_s] = value
         end
       else
         {}

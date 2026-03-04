@@ -12,7 +12,7 @@ This PR fixes the GitHub Actions syntax error that's blocking CI on all your oth
 ### Steps:
 
 1. **Open this link in your browser:**
-   ```
+   ```text
    https://github.com/nusRying/CircuitVerse/compare/CircuitVerse:master...nusRying:master
    ```
 
@@ -73,7 +73,7 @@ This PR fixes the GitHub Actions syntax error that's blocking CI on all your oth
 Once workflow is merged and #7110, #7111 have green CI:
 
 1. **Open this link:**
-   ```
+   ```text
    https://github.com/nusRying/CircuitVerse/compare/CircuitVerse:master...nusRying:feat/fsm-synthesizer-phase1
    ```
 

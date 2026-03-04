@@ -1,4 +1,5 @@
-# FSM Data Model and Core Synthesizer
+# frozen_string_literal: true
+
 module FsmSynthesizer
   class Base
     # Machine type: :moore or :mealy
@@ -62,6 +63,19 @@ module FsmSynthesizer
       errors << "States must be provided" if @states.nil? || @states.empty?
       return errors if @states.nil? || @states.empty?
 
+      # Validate state IDs for presence and uniqueness
+      state_ids = []
+      @states.each_with_index do |state, idx|
+        errors << "State at index #{idx} is missing :id field" unless state.is_a?(Hash) && state[:id].present?
+        if state.is_a?(Hash) && state[:id].present?
+          if state_ids.include?(state[:id])
+            errors << "Duplicate state ID: #{state[:id]}"
+          else
+            state_ids << state[:id]
+          end
+        end
+      end
+
       initial_states = @states.select { |s| s[:initial] == true }
       if initial_states.empty?
         errors << "Exactly one initial state is required"
@@ -114,6 +128,9 @@ module FsmSynthesizer
       errors = []
 
       if @machine_type == :moore
+        # Guard against nil states and outputs to avoid NoMethodError
+        return errors if @states.nil? || @outputs.nil?
+
         state_ids = @states.map { |s| s[:id] }
         missing = state_ids - @state_outputs.keys
         errors << "Missing state_outputs for states: #{missing.join(', ')}" unless missing.empty?
