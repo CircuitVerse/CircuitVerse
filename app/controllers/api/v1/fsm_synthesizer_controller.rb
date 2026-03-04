@@ -13,10 +13,19 @@ module Api
       #   "encoding": "binary", "one_hot", or "gray" (optional, default: binary),
       #   "flip_flop_type": "d" or "jk" or "sr" (optional, default: d),
       #   "reset_type": "none", "synchronous", or "asynchronous" (optional, default: none),
-      #   "reset_state": "S0" (optional, default: initial state)
+      #   "reset_state": "S0" (optional, default: initial state),
+      #   "sync_inputs": [
+      #     {
+      #       "input_name": "external_input",
+      #       "src_clock": "clk_src",
+      #       "dest_clock": "clk_sys",
+      #       "sync_type": "two_flop|gray|pulse|handshake" (optional, default: two_flop),
+      #       "num_stages": 2 (optional, default: 2)
+      #     }
+      #   ] (optional)
       # }
       #
-      # Response:
+      # Response (includes new fields when sync_inputs are configured):
       # {
       #   "machine_type": "moore|mealy",
       #   "states": ["S0", "S1", ...],
@@ -26,11 +35,22 @@ module Api
       #   "flip_flop_type": "d",
       #   "excitation_equations": { "D0": "~Q0 & X", "D1": "Q0 & X", ... },
       #   "output_equations": { "z": "Q0 & Q1", ... },
-      #   "circuit": {
-      #     "version": 1,
-      #     "metadata": { ... },
-      #     "components": { ... },
-      #     "connections": { ... }
+      #   "circuit": { ... },
+      #   "synchronizers": {  # NEW if sync_inputs provided
+      #     "external_input": {
+      #       "type": "two_flop_synchronizer",
+      #       "sync_type": "two_flop",
+      #       "num_stages": 2,
+      #       "metastability_margin": 3.5,
+      #       ...
+      #     }
+      #   },
+      #   "metastability_analysis": {  # NEW if sync_inputs provided
+      #     "overall_risk": "low|medium|high",
+      #     "synchronized_inputs": ["external_input"],
+      #     "unsynchronized_inputs": [],
+      #     "at_risk_inputs": [],
+      #     ...
       #   }
       # }
       def synthesize
@@ -71,6 +91,40 @@ module Api
           FsmSynthesizer::ResetController.configure_reset(fsm, reset_type.to_sym, reset_state)
         end
 
+        # Configure input synchronizers if specified
+        synchronizers = {}
+        metastability_analysis = nil
+        sync_inputs = synthesis_params[:sync_inputs]
+        
+        if sync_inputs.present?
+          synchronizer_service = FsmSynthesizer::InputSynchronizer.new
+          synchronizer_service.configure_synchronizers(fsm, sync_inputs)
+          synchronizers = synchronizer_service.get_synchronizer_circuits
+
+          # Analyze metastability hazards
+          analyzer = FsmSynthesizer::MetastabilityAnalyzer.new
+          analysis_crossings = sync_inputs.map do |config|
+            {
+              input_name: config[:input_name],
+              src_clock: config[:src_clock],
+              dest_clock: config[:dest_clock],
+              freq_src_mhz: config.fetch(:freq_src_mhz, 100),
+              freq_dest_mhz: config.fetch(:freq_dest_mhz, 100)
+            }
+          end
+          analyzer.analyze_crossings(fsm, analysis_crossings)
+          
+          # Get synchronized equations if any inputs are configured
+          if synchronizers.any?
+            sync_eq_service = FsmSynthesizer::InputSynchronizer.new
+            sync_eq_service.synchronizers = synchronizer_service.synchronizers
+            # Note: In production, would apply sync equations to excitation_equations here
+          end
+          
+          # Build metastability analysis report
+          metastability_analysis = analyzer.assess_synchronizer_safety(fsm, synchronizer_service.synchronizers)
+        end
+
         # Generate circuit structure (with optional reset circuit)
         include_reset = reset_type != 'none'
         circuit = FsmSynthesizer::CircuitMapper.generate_circuit(fsm, flip_flop_type, include_reset)
@@ -96,6 +150,12 @@ module Api
           }
         end
 
+        # Add synchronizer info if configured
+        if synchronizers.any?
+          response_data[:synchronizers] = synchronizers
+          response_data[:metastability_analysis] = metastability_analysis
+        end
+
         render json: response_data, status: :ok
       rescue FsmSynthesizer::ValidationError => e
         api_error(status: 422, errors: e.message)
@@ -111,7 +171,7 @@ module Api
 
       def synthesis_params
         params.require(:fsm_data)
-        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding, :flip_flop_type, :reset_type, :reset_state)
+        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding, :flip_flop_type, :reset_type, :reset_state, sync_inputs: [:input_name, :src_clock, :dest_clock, :sync_type, :num_stages, :freq_src_mhz, :freq_dest_mhz])
       end
 
       def validate_synthesis_params
@@ -120,6 +180,7 @@ module Api
         flip_flop_type = synthesis_params[:flip_flop_type]
         encoding = synthesis_params[:encoding]
         reset_type = synthesis_params[:reset_type]
+        sync_inputs = synthesis_params[:sync_inputs]
 
         raise FsmSynthesizer::ValidationError, 'fsm_data is required' if fsm_data.blank?
         raise FsmSynthesizer::ValidationError, 'format is required' if format.blank?
@@ -132,6 +193,33 @@ module Api
         end
         if reset_type && !%w[none synchronous asynchronous].include?(reset_type)
           raise FsmSynthesizer::ValidationError, "Invalid reset type: #{reset_type}"
+        end
+        if sync_inputs.present?
+          validate_sync_inputs(sync_inputs)
+        end
+      end
+
+      def validate_sync_inputs(sync_inputs)
+        valid_sync_types = ['two_flop', 'gray', 'pulse', 'handshake']
+
+        sync_inputs.each_with_index do |config, index|
+          unless config[:input_name].present?
+            raise FsmSynthesizer::ValidationError, "sync_inputs[#{index}]: input_name is required"
+          end
+          unless config[:src_clock].present?
+            raise FsmSynthesizer::ValidationError, "sync_inputs[#{index}]: src_clock is required"
+          end
+          unless config[:dest_clock].present?
+            raise FsmSynthesizer::ValidationError, "sync_inputs[#{index}]: dest_clock is required"
+          end
+          if config[:sync_type] && !valid_sync_types.include?(config[:sync_type])
+            raise FsmSynthesizer::ValidationError, 
+                  "sync_inputs[#{index}]: invalid sync_type '#{config[:sync_type]}'. Must be: #{valid_sync_types.join(', ')}"
+          end
+          if config[:num_stages] && (!config[:num_stages].is_a?(Integer) || config[:num_stages] < 2)
+            raise FsmSynthesizer::ValidationError,
+                  "sync_inputs[#{index}]: num_stages must be integer >= 2"
+          end
         end
       end
 

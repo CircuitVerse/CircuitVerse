@@ -863,5 +863,349 @@ RSpec.describe 'Api::V1::FsmSynthesizer', type: :request do
         expect(json['state_encoding']).to be_present
       end
     end
+
+    context 'with async input synchronization' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['X', 'external_input'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }, { id: 'S2' }],
+          transitions: [
+            { from: 'S0', input: 'X', to: 'S1' },
+            { from: 'S1', input: 'external_input', to: 'S2' },
+            { from: 'S2', input: 'X', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z', 'S2' => 'z' }
+        }.to_json
+      end
+
+      it 'configures single input synchronizer with two_flop type' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'binary',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'two_flop',
+              num_stages: 2
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['synchronizers']).to be_present
+        expect(json['synchronizers']).to have_key('external_input')
+        expect(json['metastability_analysis']).to be_present
+      end
+
+      it 'includes synchronizer circuit specifications' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'two_flop'
+            }
+          ]
+        }, as: :json
+
+        json = response.parsed_body
+        sync_circuit = json['synchronizers']['external_input']
+        
+        expect(sync_circuit[:type]).to eq('two_flop_synchronizer')
+        expect(sync_circuit[:description]).to be_present
+        expect(sync_circuit[:components]).to be_present
+        expect(sync_circuit[:timing]).to be_present
+      end
+
+      it 'configures gray_code synchronizer for multi-bit signals' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'gray',
+              num_stages: 3
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        sync_circuit = json['synchronizers']['external_input']
+        
+        expect(sync_circuit[:type]).to eq('gray_code_synchronizer')
+        expect(sync_circuit[:components].length).to eq(3)
+      end
+
+      it 'configures pulse synchronizer for strobe signals' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'pulse'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        sync_circuit = json['synchronizers']['external_input']
+        
+        expect(sync_circuit[:type]).to eq('pulse_synchronizer')
+      end
+
+      it 'configures handshake (async FIFO) synchronizer' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'handshake',
+              num_stages: 2
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        sync_circuit = json['synchronizers']['external_input']
+        
+        expect(sync_circuit[:type]).to eq('handshake_fifo')
+      end
+
+      it 'synchronizes multiple inputs' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'X',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'two_flop'
+            },
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'gray'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['synchronizers']).to have_key('X')
+        expect(json['synchronizers']).to have_key('external_input')
+        expect(json['synchronizers']['X'][:type]).to eq('two_flop_synchronizer')
+        expect(json['synchronizers']['external_input'][:type]).to eq('gray_code_synchronizer')
+      end
+
+      it 'provides metastability analysis' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys'
+            }
+          ]
+        }, as: :json
+
+        json = response.parsed_body
+        analysis = json['metastability_analysis']
+        
+        expect(analysis).to be_present
+        expect(analysis[:overall_risk]).to be_present
+        expect(analysis[:synchronized_inputs]).to be_present
+        expect(analysis[:unsynchronized_inputs]).to be_present
+      end
+
+      it 'identifies unsynchronized inputs in analysis' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys'
+            }
+          ]
+        }, as: :json
+
+        json = response.parsed_body
+        analysis = json['metastability_analysis']
+        
+        # X is not synchronized, so should appear in unsynchronized_inputs
+        expect(analysis[:unsynchronized_inputs]).to include('X')
+      end
+
+      it 'supports custom clock frequencies' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              freq_src_mhz: 200,
+              freq_dest_mhz: 100
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'works with async inputs and reset together' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          reset_type: 'asynchronous',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['reset_config']).to be_present
+        expect(json['synchronizers']).to be_present
+      end
+
+      it 'works with async inputs, reset, and encoding' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'gray',
+          flip_flop_type: 'jk',
+          reset_type: 'synchronous',
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'gray'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['flip_flop_type']).to eq('jk')
+        expect(json['reset_config']).to be_present
+        expect(json['synchronizers']).to be_present
+      end
+    end
+
+    context 'with invalid async input configuration' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['X'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }],
+          transitions: [],
+          state_outputs: { 'S0' => 'z' }
+        }.to_json
+      end
+
+      it 'rejects missing input_name in sync_inputs' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = response.parsed_body
+        expect(json['errors']).to include('required')
+      end
+
+      it 'rejects missing src_clock in sync_inputs' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'X',
+              dest_clock: 'clk_sys'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'rejects invalid sync_type' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'X',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              sync_type: 'invalid_type'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = response.parsed_body
+        expect(json['errors']).to include('invalid sync_type')
+      end
+
+      it 'rejects invalid num_stages' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          sync_inputs: [
+            {
+              input_name: 'X',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys',
+              num_stages: 1
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = response.parsed_body
+        expect(json['errors']).to include('num_stages')
+      end
+    end
   end
 end
