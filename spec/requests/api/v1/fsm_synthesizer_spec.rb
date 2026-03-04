@@ -1207,5 +1207,378 @@ RSpec.describe 'Api::V1::FsmSynthesizer', type: :request do
         expect(json['errors']).to include('num_stages')
       end
     end
+
+    context 'with state diagram generation' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'generates diagram with hierarchy layout by default' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'binary'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['diagram']).to be_present
+        expect(json['diagram']['states']).to be_present
+        expect(json['diagram']['transitions']).to be_present
+        expect(json['diagram']['metadata']).to be_present
+      end
+
+      it 'generates diagram with circular layout' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          diagram_layout: 'circle'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        diagram = json['diagram']
+        expect(diagram['metadata']['layout']).to eq('circle')
+        expect(diagram['states'].all? { |s| s.key?('x') && s.key?('y') }).to be true
+      end
+
+      it 'generates diagram with grid layout' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          diagram_layout: 'grid'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['diagram']['metadata']['layout']).to eq('grid')
+      end
+
+      it 'skips diagram generation when include_diagram is false' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          include_diagram: false
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['diagram']).to be_nil
+      end
+
+      it 'includes diagram metadata' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json'
+        }, as: :json
+
+        json = response.parsed_body
+        metadata = json['diagram']['metadata']
+        expect(metadata['deterministic']).to be_in([true, false])
+        expect(metadata['complete']).to be_in([true, false])
+        expect(metadata['state_count']).to eq(2)
+        expect(metadata['transition_count']).to be >= 4
+      end
+    end
+
+    context 'with equation optimization' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'skips optimization when optimization_level is none' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          optimization_level: 'none'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['optimization_report']).to be_nil
+      end
+
+      it 'optimizes with basic level' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          optimization_level: 'basic'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['optimization_report']).to be_present
+        report = json['optimization_report']
+        expect(report['statistics']).to be_present
+        expect(report['statistics']['original_gate_count']).to be_an(Integer)
+        expect(report['statistics']['optimized_gate_count']).to be_an(Integer)
+      end
+
+      it 'optimizes with aggressive level' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          optimization_level: 'aggressive'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        report = json['optimization_report']
+        # Aggressive optimization should provide more reduction
+        expect(report['statistics']['reduction_percent']).to be >= 0
+      end
+
+      it 'skips optimization when include_optimization is false' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          include_optimization: false
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['optimization_report']).to be_nil
+      end
+
+      it 'includes optimization statistics' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          optimization_level: 'basic'
+        }, as: :json
+
+        json = response.parsed_body
+        stats = json['optimization_report']['statistics']
+        expect(stats['original_gate_count']).to be > 0
+        expect(stats['optimized_gate_count']).to be > 0
+        expect(stats['reduction_percent']).to be_between(0, 100)
+      end
+    end
+
+    context 'with timing analysis' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'performs timing analysis with default frequency' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['timing_analysis']).to be_present
+        timing = json['timing_analysis']
+        expect(timing['summary']).to be_present
+      end
+
+      it 'performs timing analysis at specified frequency' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          clock_freq_mhz: 200
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        timing = json['timing_analysis']
+        expect(timing['summary']['target_frequency_mhz']).to eq(200)
+      end
+
+      it 'skips timing analysis when include_timing is false' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          include_timing: false
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['timing_analysis']).to be_nil
+      end
+
+      it 'includes timing summary with closure status' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          clock_freq_mhz: 100
+        }, as: :json
+
+        json = response.parsed_body
+        summary = json['timing_analysis']['summary']
+        expect(summary['timing_closure']).to be_in(['PASS', 'FAIL'])
+        expect(summary['num_violations']).to be >= 0
+      end
+
+      it 'identifies critical paths' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          clock_freq_mhz: 100
+        }, as: :json
+
+        json = response.parsed_body
+        timing = json['timing_analysis']
+        expect(timing['critical_paths']).to be_present
+        expect(timing['critical_paths']).to be_an(Array)
+      end
+
+      it 'provides timing recommendations' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          clock_freq_mhz: 500
+        }, as: :json
+
+        json = response.parsed_body
+        timing = json['timing_analysis']
+        expect(timing['recommendations']).to be_present
+        expect(timing['recommendations']).to be_an(Array)
+      end
+
+      it 'rejects invalid clock frequency' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          clock_freq_mhz: -100
+        }, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = response.parsed_body
+        expect(json['errors']).to include('positive')
+      end
+
+      it 'rejects invalid diagram layout' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          diagram_layout: 'invalid_layout'
+        }, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'rejects invalid optimization level' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          optimization_level: 'invalid_level'
+        }, as: :json
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'with all features combined' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'combines diagram, optimization, and timing' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'gray',
+          flip_flop_type: 'jk',
+          reset_type: 'synchronous',
+          diagram_layout: 'hierarchy',
+          optimization_level: 'aggressive',
+          clock_freq_mhz: 100
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        
+        # Check basic synthesis
+        expect(json['machine_type']).to eq('moore')
+        expect(json['flip_flop_type']).to eq('jk')
+        
+        # Check diagram
+        expect(json['diagram']).to be_present
+        expect(json['diagram']['metadata']['layout']).to eq('hierarchy')
+        
+        # Check optimization
+        expect(json['optimization_report']).to be_present
+        
+        # Check timing
+        expect(json['timing_analysis']).to be_present
+        expect(json['timing_analysis']['summary']['target_frequency_mhz']).to eq(100)
+      end
+
+      it 'combines with async inputs, diagram, and timing' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'binary',
+          diagram_layout: 'circle',
+          optimization_level: 'basic',
+          clock_freq_mhz: 150,
+          sync_inputs: [
+            {
+              input_name: 'external_input',
+              src_clock: 'clk_src',
+              dest_clock: 'clk_sys'
+            }
+          ]
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        
+        expect(json['synchronizers']).to be_present
+        expect(json['diagram']).to be_present
+        expect(json['optimization_report']).to be_present
+        expect(json['timing_analysis']).to be_present
+      end
+    end
   end
 end

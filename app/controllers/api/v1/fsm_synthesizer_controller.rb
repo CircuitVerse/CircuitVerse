@@ -129,6 +129,35 @@ module Api
         include_reset = reset_type != 'none'
         circuit = FsmSynthesizer::CircuitMapper.generate_circuit(fsm, flip_flop_type, include_reset)
 
+        # Generate state diagram if requested
+        diagram = nil
+        diagram_data = nil
+        if synthesis_params[:include_diagram] != false
+          diagram_layout = synthesis_params[:diagram_layout] || 'hierarchy'
+          diagram_generator = FsmSynthesizer::StateDiagramGenerator.new
+          diagram = diagram_generator.generate_diagram(fsm, layout: diagram_layout)
+          diagram_data = diagram_generator.to_hash(diagram)
+        end
+
+        # Optimize equations if requested
+        optimization_report = nil
+        optimized_excitation_equations = excitation_equations
+        if synthesis_params[:include_optimization] != false && synthesis_params[:optimization_level] != 'none'
+          optimization_level = synthesis_params[:optimization_level] || 'basic'
+          optimizer = FsmSynthesizer::EquationOptimizer.new
+          optimized_excitation_equations = optimizer.optimize_equations(fsm, excitation_equations, aggressive: optimization_level == 'aggressive')
+          optimization_report = optimizer.get_optimization_report
+        end
+
+        # Analyze timing if requested
+        timing_analysis_report = nil
+        if synthesis_params[:include_timing] != false
+          clock_freq_mhz = (synthesis_params[:clock_freq_mhz] || 100).to_f
+          timing_analyzer = FsmSynthesizer::TimingAnalyzer.new
+          timing_analyzer.analyze_timing(fsm, optimized_excitation_equations, clock_freq_mhz)
+          timing_analysis_report = timing_analyzer.get_timing_report
+        end
+
         # Build response
         response_data = {
           machine_type: fsm.machine_type,
@@ -137,10 +166,19 @@ module Api
           outputs: fsm.outputs,
           state_encoding: fsm.state_encoding,
           flip_flop_type: flip_flop_type,
-          excitation_equations:,
+          excitation_equations: optimized_excitation_equations,
           output_equations: fsm.output_equations,
           circuit:
         }
+
+        # Add diagram data if generated
+        response_data[:diagram] = diagram_data if diagram_data.present?
+
+        # Add optimization report if generated
+        response_data[:optimization_report] = optimization_report if optimization_report.present?
+
+        # Add timing analysis if performed
+        response_data[:timing_analysis] = timing_analysis_report if timing_analysis_report.present?
 
         # Add reset info if configured
         if include_reset
@@ -171,7 +209,7 @@ module Api
 
       def synthesis_params
         params.require(:fsm_data)
-        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding, :flip_flop_type, :reset_type, :reset_state, sync_inputs: [:input_name, :src_clock, :dest_clock, :sync_type, :num_stages, :freq_src_mhz, :freq_dest_mhz])
+        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding, :flip_flop_type, :reset_type, :reset_state, :clock_freq_mhz, :diagram_layout, :optimization_level, :include_diagram, :include_optimization, :include_timing, sync_inputs: [:input_name, :src_clock, :dest_clock, :sync_type, :num_stages, :freq_src_mhz, :freq_dest_mhz])
       end
 
       def validate_synthesis_params
@@ -181,6 +219,9 @@ module Api
         encoding = synthesis_params[:encoding]
         reset_type = synthesis_params[:reset_type]
         sync_inputs = synthesis_params[:sync_inputs]
+        clock_freq_mhz = synthesis_params[:clock_freq_mhz]
+        diagram_layout = synthesis_params[:diagram_layout]
+        optimization_level = synthesis_params[:optimization_level]
 
         raise FsmSynthesizer::ValidationError, 'fsm_data is required' if fsm_data.blank?
         raise FsmSynthesizer::ValidationError, 'format is required' if format.blank?
@@ -193,6 +234,15 @@ module Api
         end
         if reset_type && !%w[none synchronous asynchronous].include?(reset_type)
           raise FsmSynthesizer::ValidationError, "Invalid reset type: #{reset_type}"
+        end
+        if clock_freq_mhz && (!clock_freq_mhz.to_f.positive?)
+          raise FsmSynthesizer::ValidationError, "clock_freq_mhz must be a positive number"
+        end
+        if diagram_layout && !%w[hierarchy circle grid].include?(diagram_layout)
+          raise FsmSynthesizer::ValidationError, "Invalid diagram_layout: #{diagram_layout}. Must be: hierarchy, circle, or grid"
+        end
+        if optimization_level && !%w[none basic aggressive].include?(optimization_level)
+          raise FsmSynthesizer::ValidationError, "Invalid optimization_level: #{optimization_level}. Must be: none, basic, or aggressive"
         end
         if sync_inputs.present?
           validate_sync_inputs(sync_inputs)
