@@ -285,5 +285,237 @@ RSpec.describe 'Api::V1::FsmSynthesizer', type: :request do
         expect(response).to have_http_status(400)
       end
     end
+
+    context 'with D flip-flop (default)' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'synthesizes with D flip-flops by default' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['flip_flop_type']).to eq('d')
+        expect(json['excitation_equations']).to have_key('D0')
+      end
+
+      it 'synthesizes with explicit D flip-flop selection' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          flip_flop_type: 'd'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['flip_flop_type']).to eq('d')
+        expect(json['excitation_equations']).to be_a(Hash)
+        expect(json['excitation_equations']).to have_key('D0')
+      end
+    end
+
+    context 'with JK flip-flop' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'synthesizes with JK flip-flops' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          flip_flop_type: 'jk'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['flip_flop_type']).to eq('jk')
+        expect(json['excitation_equations']).to have_key('J0')
+        expect(json['excitation_equations']).to have_key('K0')
+      end
+
+      it 'generates correct number of JK equations' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          flip_flop_type: 'jk'
+        }, as: :json
+
+        json = response.parsed_body
+        # 2 bits for 2 states, so 4 equations (J0, K0, J1, K1)
+        expect(json['excitation_equations'].size).to eq(4)
+      end
+
+      it 'includes output equations alongside JK excitation' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          flip_flop_type: 'jk'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['output_equations']).to be_present
+        expect(json['output_equations']).to have_key('z')
+      end
+    end
+
+    context 'with SR flip-flop' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'synthesizes with SR flip-flops' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          flip_flop_type: 'sr'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['flip_flop_type']).to eq('sr')
+        expect(json['excitation_equations']).to have_key('S0')
+        expect(json['excitation_equations']).to have_key('R0')
+      end
+
+      it 'generates correct number of SR equations' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          flip_flop_type: 'sr'
+        }, as: :json
+
+        json = response.parsed_body
+        # 2 bits for 2 states, so 4 equations (S0, R0, S1, R1)
+        expect(json['excitation_equations'].size).to eq(4)
+      end
+    end
+
+    context 'with invalid flip-flop type' do
+      let(:fsm_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'returns 422 for invalid flip-flop type' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: fsm_json,
+          format: 'json',
+          flip_flop_type: 'invalid'
+        }, as: :json
+
+        expect(response).to have_http_status(422)
+        expect(response.parsed_body['errors']).to include('flip-flop')
+      end
+    end
+
+    context 'flip-flop type with 3-state FSM' do
+      let(:three_state_fsm) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [
+            { id: 'S0', initial: true },
+            { id: 'S1' },
+            { id: 'S2' }
+          ],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S2' },
+            { from: 'S1', input: '1', to: 'S0' },
+            { from: 'S2', input: '0', to: 'S1' },
+            { from: 'S2', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z', 'S2' => 'z' }
+        }.to_json
+      end
+
+      it 'generates D equations with 2 bits for 3 states' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: three_state_fsm,
+          format: 'json',
+          flip_flop_type: 'd'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['excitation_equations'].size).to eq(2) # 2 bits
+        expect(json['excitation_equations']).to have_key('D0')
+        expect(json['excitation_equations']).to have_key('D1')
+      end
+
+      it 'generates JK equations with 2 bits for 3 states' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: three_state_fsm,
+          format: 'json',
+          flip_flop_type: 'jk'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['excitation_equations'].size).to eq(4) # J0, K0, J1, K1
+      end
+
+      it 'generates SR equations with 2 bits for 3 states' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: three_state_fsm,
+          format: 'json',
+          flip_flop_type: 'sr'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['excitation_equations'].size).to eq(4) # S0, R0, S1, R1
+      end
+    end
   end
 end

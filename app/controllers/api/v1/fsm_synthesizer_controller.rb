@@ -10,7 +10,8 @@ module Api
       # {
       #   "fsm_data": "JSON or CSV FSM definition",
       #   "format": "json" or "csv",
-      #   "encoding": "binary" or "one_hot" (optional, default: binary)
+      #   "encoding": "binary" or "one_hot" (optional, default: binary),
+      #   "flip_flop_type": "d" or "jk" or "sr" (optional, default: d)
       # }
       #
       # Response:
@@ -20,7 +21,8 @@ module Api
       #   "inputs": ["0", "1", ...],
       #   "outputs": ["z", "w", ...],
       #   "state_encoding": { "S0": [0, 0], "S1": [0, 1], ... },
-      #   "next_state_equations": { "D0": "~Q0 & X", "D1": "Q0 & X", ... },
+      #   "flip_flop_type": "d",
+      #   "excitation_equations": { "D0": "~Q0 & X", "D1": "Q0 & X", ... },
       #   "output_equations": { "z": "Q0 & Q1", ... },
       #   "circuit": {
       #     "version": 1,
@@ -54,8 +56,12 @@ module Api
         FsmSynthesizer::EquationGenerator.generate_next_state_equations(fsm)
         FsmSynthesizer::EquationGenerator.generate_output_equations(fsm)
 
+        # Select flip-flop type and generate excitation equations
+        flip_flop_type = synthesis_params[:flip_flop_type] || 'd'
+        excitation_equations = FsmSynthesizer::FlipFlopEncoder.generate_excitation_equations(fsm, flip_flop_type)
+
         # Generate circuit structure
-        circuit = FsmSynthesizer::CircuitMapper.generate_circuit(fsm)
+        circuit = FsmSynthesizer::CircuitMapper.generate_circuit(fsm, flip_flop_type)
 
         # Return synthesis results
         render json: {
@@ -64,7 +70,8 @@ module Api
           inputs: fsm.inputs,
           outputs: fsm.outputs,
           state_encoding: fsm.state_encoding,
-          next_state_equations: fsm.next_state_equations,
+          flip_flop_type: flip_flop_type,
+          excitation_equations:,
           output_equations: fsm.output_equations,
           circuit:
         }, status: :ok
@@ -82,16 +89,20 @@ module Api
 
       def synthesis_params
         params.require(:fsm_data)
-        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding)
+        @synthesis_params ||= params.permit(:fsm_data, :format, :encoding, :flip_flop_type)
       end
 
       def validate_synthesis_params
         fsm_data = synthesis_params[:fsm_data]
         format = synthesis_params[:format]
+        flip_flop_type = synthesis_params[:flip_flop_type]
 
         raise FsmSynthesizer::ValidationError, 'fsm_data is required' if fsm_data.blank?
         raise FsmSynthesizer::ValidationError, 'format is required' if format.blank?
         raise FsmSynthesizer::ValidationError, "Invalid format: #{format}" unless %w[json csv].include?(format)
+        if flip_flop_type && !%w[d jk sr].include?(flip_flop_type)
+          raise FsmSynthesizer::ValidationError, "Invalid flip-flop type: #{flip_flop_type}"
+        end
       end
 
       def parse_fsm_input
