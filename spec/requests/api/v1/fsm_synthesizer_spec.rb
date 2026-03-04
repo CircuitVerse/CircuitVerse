@@ -517,5 +517,202 @@ RSpec.describe 'Api::V1::FsmSynthesizer', type: :request do
         expect(json['excitation_equations'].size).to eq(4) # S0, R0, S1, R1
       end
     end
+
+    context 'with gray code encoding' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [
+            { id: 'S0', initial: true },
+            { id: 'S1' },
+            { id: 'S2' },
+            { id: 'S3' }
+          ],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S2' },
+            { from: 'S1', input: '1', to: 'S3' },
+            { from: 'S2', input: '0', to: 'S0' },
+            { from: 'S2', input: '1', to: 'S3' },
+            { from: 'S3', input: '0', to: 'S2' },
+            { from: 'S3', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z', 'S2' => 'z', 'S3' => 'z' }
+        }.to_json
+      end
+
+      it 'synthesizes with gray code encoding' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'gray'
+        }, as: :json
+
+        expect(response).to have_http_status(:ok)
+        json = response.parsed_body
+        expect(json['state_encoding']).to be_present
+        expect(json['state_encoding']['S0']).to eq([0, 0])
+        expect(json['state_encoding']['S1']).to eq([0, 1])
+        expect(json['state_encoding']['S2']).to eq([1, 1])
+        expect(json['state_encoding']['S3']).to eq([1, 0])
+      end
+
+      it 'returns 2 bits for 4 states with gray encoding' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'gray'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['state_encoding']['S0'].size).to eq(2)
+        expect(json['state_encoding']['S3'].size).to eq(2)
+      end
+
+      it 'generates correct equations with gray encoding' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'gray'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['excitation_equations']).to be_present
+        # Gray encoding should produce valid Boolean expressions
+        json['excitation_equations'].each do |_eq_id, expr|
+          expect(expr).to be_a(String)
+          expect(expr).not_to be_empty
+        end
+      end
+    end
+
+    context 'with invalid encoding type' do
+      let(:fsm_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S1' },
+            { from: 'S1', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+      end
+
+      it 'returns 422 for invalid encoding type' do
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: fsm_json,
+          format: 'json',
+          encoding: 'invalid'
+        }, as: :json
+
+        expect(response).to have_http_status(422)
+        expect(response.parsed_body['errors']).to include('encoding')
+      end
+    end
+
+    context 'gray encoding with different state counts' do
+      it 'encodes 2 states with 1 bit' do
+        two_state_fsm = {
+          machine_type: 'moore',
+          inputs: ['x'],
+          outputs: ['z'],
+          states: [{ id: 'S0', initial: true }, { id: 'S1' }],
+          transitions: [
+            { from: 'S0', input: 'x', to: 'S1' },
+            { from: 'S1', input: 'x', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z' }
+        }.to_json
+
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: two_state_fsm,
+          format: 'json',
+          encoding: 'gray'
+        }, as: :json
+
+        json = response.parsed_body
+        expect(json['state_encoding']['S0']).to eq([0])
+        expect(json['state_encoding']['S1']).to eq([1])
+      end
+
+      it 'encodes 8 states with 3 bits' do
+        eight_state_fsm = {
+          machine_type: 'moore',
+          inputs: ['x'],
+          outputs: ['z'],
+          states: Array.new(8) { |i| { id: "S#{i}", initial: i == 0 } },
+          transitions: (0...7).map { |i| { from: "S#{i}", input: 'x', to: "S#{i + 1}" } }
+                            .append({ from: 'S7', input: 'x', to: 'S0' }),
+          state_outputs: Hash[Array.new(8) { |i| ["S#{i}", 'z'] }]
+        }.to_json
+
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: eight_state_fsm,
+          format: 'json',
+          encoding: 'gray'
+        }, as: :json
+
+        json = response.parsed_body
+        # Verify all 8 states are encoded
+        expect(json['state_encoding'].size).to eq(8)
+        # Verify each state has 3 bits
+        json['state_encoding'].each do |_state, bits|
+          expect(bits.size).to eq(3)
+        end
+      end
+    end
+
+    context 'gray vs binary encoding comparison' do
+      let(:moore_json) do
+        {
+          machine_type: 'moore',
+          inputs: ['0', '1'],
+          outputs: ['z'],
+          states: [
+            { id: 'S0', initial: true },
+            { id: 'S1' },
+            { id: 'S2' },
+            { id: 'S3' }
+          ],
+          transitions: [
+            { from: 'S0', input: '0', to: 'S0' },
+            { from: 'S0', input: '1', to: 'S1' },
+            { from: 'S1', input: '0', to: 'S2' },
+            { from: 'S1', input: '1', to: 'S3' },
+            { from: 'S2', input: '0', to: 'S0' },
+            { from: 'S2', input: '1', to: 'S3' },
+            { from: 'S3', input: '0', to: 'S2' },
+            { from: 'S3', input: '1', to: 'S0' }
+          ],
+          state_outputs: { 'S0' => 'z', 'S1' => 'z', 'S2' => 'z', 'S3' => 'z' }
+        }.to_json
+      end
+
+      it 'both binary and gray encodings produce valid synthesis results' do
+        # Test binary
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'binary'
+        }, as: :json
+        expect(response).to have_http_status(:ok)
+
+        # Test gray
+        post '/api/v1/fsm_synthesize', params: {
+          fsm_data: moore_json,
+          format: 'json',
+          encoding: 'gray'
+        }, as: :json
+        expect(response).to have_http_status(:ok)
+      end
+    end
   end
 end

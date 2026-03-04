@@ -10,7 +10,7 @@ module Api
       # {
       #   "fsm_data": "JSON or CSV FSM definition",
       #   "format": "json" or "csv",
-      #   "encoding": "binary" or "one_hot" (optional, default: binary),
+      #   "encoding": "binary", "one_hot", or "gray" (optional, default: binary),
       #   "flip_flop_type": "d" or "jk" or "sr" (optional, default: d)
       # }
       #
@@ -48,6 +48,8 @@ module Api
           FsmSynthesizer::Encoder.encode_binary(fsm)
         when 'one_hot'
           FsmSynthesizer::Encoder.encode_one_hot(fsm)
+        when 'gray'
+          FsmSynthesizer::Encoder.encode_gray(fsm)
         else
           raise FsmSynthesizer::ValidationError, "Unknown encoding type: #{encoding_type}"
         end
@@ -96,12 +98,16 @@ module Api
         fsm_data = synthesis_params[:fsm_data]
         format = synthesis_params[:format]
         flip_flop_type = synthesis_params[:flip_flop_type]
+        encoding = synthesis_params[:encoding]
 
         raise FsmSynthesizer::ValidationError, 'fsm_data is required' if fsm_data.blank?
         raise FsmSynthesizer::ValidationError, 'format is required' if format.blank?
         raise FsmSynthesizer::ValidationError, "Invalid format: #{format}" unless %w[json csv].include?(format)
         if flip_flop_type && !%w[d jk sr].include?(flip_flop_type)
           raise FsmSynthesizer::ValidationError, "Invalid flip-flop type: #{flip_flop_type}"
+        end
+        if encoding && !%w[binary one_hot gray].include?(encoding)
+          raise FsmSynthesizer::ValidationError, "Invalid encoding type: #{encoding}"
         end
       end
 

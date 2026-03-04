@@ -45,5 +45,23 @@ module FsmSynthesizer
 
       encoding
     end
+
+    # Gray code encoding
+    # Adjacent state codes differ by exactly one bit
+    # Reduces hazards and simplifies logic
+    def self.encode_gray(fsm)
+      num_states = fsm.states.size
+      raise FsmSynthesizer::EncodingError, 'FSM must have at least one state' if num_states.zero?
+
+      num_bits = Math.log2(num_states).ceil
+
+      # First compute binary state_bits value
+      fsm.state_bits = num_bits
+
+      # Use GrayCodeEncoder to generate Gray code assignments
+      FsmSynthesizer::GrayCodeEncoder.encode(fsm)
+
+      fsm.state_encoding
+    end
   end
 end
