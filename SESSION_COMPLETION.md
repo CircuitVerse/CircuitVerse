@@ -60,14 +60,14 @@
 ## Test Coverage Summary
 
 ### New Unit Tests: 75+ tests
-```
+```text
 StateDiagramGenerator:      30+ tests
 EquationOptimizer:          20+ tests
 TimingAnalyzer:             25+ tests
 ```
 
 ### New API Tests: 38+ tests
-```
+```text
 Diagram generation:         10+ tests
 Equation optimization:       8+ tests
 Timing analysis:            10+ tests

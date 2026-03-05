@@ -245,7 +245,7 @@ RSpec.describe 'Api::V1::FsmSynthesizer', type: :request do
         }, as: :json
 
         expect(response).to have_http_status(422)
-        expect(response.parsed_body['errors']).to include('conflict' || 'duplicate')
+        expect(response.parsed_body['errors'].to_s.downcase).to match(/conflict|duplicate/)
       end
     end
 
@@ -271,7 +271,7 @@ RSpec.describe 'Api::V1::FsmSynthesizer', type: :request do
         }, as: :json
 
         expect(response).to have_http_status(422)
-        expect(response.parsed_body['errors']).to include('complete' || 'missing')
+        expect(response.parsed_body['errors'].to_s.downcase).to match(/complete|missing/)
       end
     end
 

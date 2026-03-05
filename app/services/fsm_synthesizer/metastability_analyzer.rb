@@ -18,8 +18,8 @@ module FsmSynthesizer
   #   report = analyzer.generate_report(fsm, synchronizers)
 
   class MetastabilityAnalyzer
-    attr_accessor :hazards
-    attr_accessor :recommendations
+    attr_reader :hazards
+    attr_reader :recommendations
 
     def initialize
       @hazards = []
@@ -243,7 +243,7 @@ module FsmSynthesizer
     def critical_in_state_machine?(fsm, input_name)
       # Check transitions - if many transitions depend on this input, it's critical
       count = fsm.transitions.count do |t|
-        t[:condition].to_s.include?(input_name)
+        t[:condition].to_s.match?(/\b#{Regexp.escape(input_name)}\b/)
       end
       
       # If more than 50% of transitions use this input, it's timing-critical
@@ -256,7 +256,7 @@ module FsmSynthesizer
     end
 
     def transitions_depend_on_input?(fsm, input_name)
-      fsm.transitions.any? { |t| t[:condition].to_s.include?(input_name) }
+      fsm.transitions.any? { |t| t[:condition].to_s.match?(/\b#{Regexp.escape(input_name)}\b/) }
     end
 
     def generate_recommendations(synchronizers)

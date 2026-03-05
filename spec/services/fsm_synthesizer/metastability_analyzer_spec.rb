@@ -90,7 +90,8 @@ RSpec.describe FsmSynthesizer::MetastabilityAnalyzer do
         50, 100
       )
 
-      # Different frequency ratios may affect severity
+      # Different frequency ratios should be correctly computed
+      expect(hazard1[:clock_frequency_ratio]).to eq(1.0)
       expect(hazard2[:clock_frequency_ratio]).to eq(0.5)
     end
   end

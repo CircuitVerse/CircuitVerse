@@ -451,7 +451,7 @@ Week 12:   Final Integration
 ## Project Structure
 
 ```
-ciruitverse/
+circuitverse/
 ├── app/
 │   ├── controllers/
 │   │   └── api/v1/

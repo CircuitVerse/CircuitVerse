@@ -190,7 +190,7 @@ Testing:
 ### Run New Tests
 ```bash
 # All new service tests
-cd /workspace && rspec spec/services/fsm_synthesizer/{state_diagram,equation_optimizer,timing_analyzer}_spec.rb
+cd /workspace && rspec spec/services/fsm_synthesizer/{state_diagram_generator,equation_optimizer,timing_analyzer}_spec.rb
 
 # All API tests (including new ones)
 cd /workspace && rspec spec/requests/api/v1/fsm_synthesizer_spec.rb

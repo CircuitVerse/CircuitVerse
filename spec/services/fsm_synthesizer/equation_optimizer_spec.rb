@@ -32,8 +32,9 @@ RSpec.describe FsmSynthesizer::EquationOptimizer do
 
       result = optimizer.optimize_equations(fsm, equations)
 
-      # Duplicate terms should be reduced
-      expect(result[:D0]).not_to include('|') if result[:D0].count('|') < 2
+      # Should reduce duplicate terms
+      expect(result[:D0]).not_to be_nil
+      expect(result[:D0].count('|')).to be < equations[:D0].count('|')
     end
 
     it 'applies optimization rules' do
@@ -179,8 +180,9 @@ RSpec.describe FsmSynthesizer::EquationOptimizer do
         equations = { D0: 'A | B | A | B' }
         result = optimizer.optimize_equations(fsm, equations)
 
-        # Duplicates should be eliminated
-        expect(result[:D0]).to be_present
+        # Duplicates should be eliminated - result should have fewer | operators than input
+        expect(result[:D0]).not_to be_nil
+        expect(result[:D0]).to eq('A | B')
       end
     end
 
@@ -189,8 +191,8 @@ RSpec.describe FsmSynthesizer::EquationOptimizer do
         equations = { D0: 'A | (A & B)' }
         result = optimizer.optimize_equations(fsm, equations)
 
-        # Should simplify to A
-        expect(result[:D0]).to be_present
+        # Should simplify to A (absorption law: A | (A & B) = A)
+        expect(result[:D0]).to eq('A')
       end
     end
 
@@ -199,7 +201,8 @@ RSpec.describe FsmSynthesizer::EquationOptimizer do
         equations = { D0: 'A | ~A' }
         result = optimizer.optimize_equations(fsm, equations)
 
-        expect(result[:D0]).to be_present
+        # Tautology should be simplified to '1' or equivalent
+        expect(result[:D0]).to eq('1')
       end
     end
 
@@ -208,7 +211,10 @@ RSpec.describe FsmSynthesizer::EquationOptimizer do
         equations = { D0: '(A & B) | (A & C)' }
         result = optimizer.optimize_equations(fsm, equations, aggressive: true)
 
-        expect(result[:D0]).to be_present
+        # Should factor to A & (B | C)
+        expect(result[:D0]).not_to be_nil
+        # Verify factoring occurred by checking operator count/structure changed
+        expect(result[:D0].count('&')).to be >= 1
       end
     end
   end

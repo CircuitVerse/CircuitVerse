@@ -70,16 +70,20 @@ RSpec.describe FsmSynthesizer::TimingAnalyzer do
     it 'identifies timing violations' do
       result = analyzer.analyze_timing(fsm, equations, 1000)  # Very high frequency
 
-      if result[:violations].any?
-        expect(result[:timing_met]).to be false
-      end
+      # High frequency (1000 MHz = 1ns period) should definitely cause violations
+      expect(result[:timing_met]).to be false
+      expect(result[:violations]).to be_an(Array)
+      expect(result[:violations].length).to be > 0
     end
 
     it 'identifies critical path' do
       result = analyzer.analyze_timing(fsm, equations, 100)
 
-      expect(result[:critical_path]).to be_present
-      critical_eq = result[:critical_path][0]
+      expect(result[:critical_path]).not_to be_nil
+      expect(result[:critical_path]).to be_an(Array)
+      expect(result[:critical_path].length).to be > 0
+      # Critical path should contain valid equation names
+      critical_eq = result[:critical_path].first
       expect(equations).to have_key(critical_eq.to_sym)
     end
 
@@ -99,9 +103,9 @@ RSpec.describe FsmSynthesizer::TimingAnalyzer do
     it 'includes recommendations when requested' do
       result = analyzer.analyze_timing(fsm, equations, 100, report_paths: true)
 
-      if result[:recommendations]
-        expect(result[:recommendations]).to be_an(Array)
-      end
+      # Should have recommendations when high report_paths flag set
+      expect(result).to have_key(:recommendations)
+      expect(result[:recommendations]).to be_an(Array)
     end
 
     it 'reports multiple critical paths' do
@@ -134,11 +138,13 @@ RSpec.describe FsmSynthesizer::TimingAnalyzer do
     it 'includes violation details' do
       report = analyzer.get_timing_report
 
+      # For complete reports, violations should be properly structured if they exist
       if report[:violations].any?
         violation = report[:violations].first
         expect(violation).to have_key(:path)
         expect(violation).to have_key(:delay_ns)
         expect(violation).to have_key(:slack_ns)
+        expect(violation[:slack_ns]).to be < 0  # Violations have negative slack
       end
     end
 
@@ -276,10 +282,9 @@ RSpec.describe FsmSynthesizer::TimingAnalyzer do
       it 'identifies timing violations' do
         report = analyzer.get_timing_report
 
-        # At very high frequency, should have violations
-        unless report[:violations].empty?
-          expect(report[:summary][:timing_closure]).to eq('FAIL')
-        end
+        # At very high frequency (5000 MHz = 0.2ns period), should always have violations
+        expect(report[:violations]).not_to be_empty
+        expect(report[:summary][:timing_closure]).to eq('FAIL')
       end
 
       it 'provides violation recommendations' do
