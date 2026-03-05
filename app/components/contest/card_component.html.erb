@@ -23,7 +23,7 @@
         </span>
       </div>
       <div class="contest-container-details-entries">
-        <%= image_tag "svgs/user.svg", alt: t("contest.contest_container.entries_alt"),class:"entries-image" %>
+        <%= helpers.image_tag(helpers.image_path("svgs/user.svg"), alt: t("contest.contest_container.entries_alt"), class: "entries-image") %>
         <span>
           <%= @contest.submissions_count %> <%= t("contest.contest_container.entries") %>
         </span>
