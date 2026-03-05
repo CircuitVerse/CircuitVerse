@@ -4,4 +4,3 @@
 //= link_tree ../images/svgs
 //= link_directory ../javascripts .js
 //= link_tree ../builds
-//= link default_contest_card.png
