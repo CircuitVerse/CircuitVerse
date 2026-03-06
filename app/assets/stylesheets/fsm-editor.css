@@ -1,0 +1,184 @@
+/**
+ * FSM Editor Styles
+ * @category FSM Editor
+ */
+
+/* FSM Container */
+#fsmContainer {
+    background: white;
+    border-left: 1px solid #ddd;
+    font-family: 'Roboto', 'Arial', sans-serif;
+}
+
+/* FSM Toolbar */
+.fsm-toolbar-btn {
+    padding: 8px 16px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    margin: 2px;
+    min-width: 100px;
+}
+
+.fsm-toolbar-btn:hover {
+    background: #1976D2;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.fsm-toolbar-btn:active {
+    background: #1565C0;
+    transform: scale(0.98);
+}
+
+.fsm-toolbar-btn[data-active="true"] {
+    background: #1565C0;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* FSM Canvas */
+#fsmCanvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: #FAFAFA;
+    cursor: crosshair;
+}
+
+/* FSM Status Messages */
+.fsm-status {
+    padding: 8px 12px;
+    background: #E3F2FD;
+    color: #1976D2;
+    border-radius: 4px;
+    font-size: 12px;
+    margin: 4px 8px;
+}
+
+.fsm-status.success {
+    background: #E8F5E9;
+    color: #388E3C;
+}
+
+.fsm-status.error {
+    background: #FFEBEE;
+    color: #D32F2F;
+}
+
+.fsm-status.info {
+    background: #E3F2FD;
+    color: #1976D2;
+}
+
+/* FSM Statistics */
+.fsm-stats {
+    display: flex;
+    gap: 20px;
+    padding: 8px 12px;
+    background: #F5F5F5;
+    border-top: 1px solid #ddd;
+    font-size: 12px;
+    color: #666;
+}
+
+.fsm-stat-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fsm-stat-label {
+    font-weight: 500;
+    color: #333;
+}
+
+.fsm-stat-value {
+    background: #E0E0E0;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-family: 'Courier New', monospace;
+}
+
+/* FSM Info Panel */
+.fsm-info-panel {
+    padding: 12px;
+    background: #FAFAFA;
+    border: 1px solid #EEE;
+    border-radius: 4px;
+    font-size: 12px;
+    line-height: 1.6;
+    color: #666;
+    margin: 8px;
+}
+
+.fsm-info-panel h4 {
+    margin: 0 0 8px 0;
+    color: #333;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.fsm-info-panel ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.fsm-info-panel li {
+    margin: 4px 0;
+}
+
+/* FSM Mode Indicator */
+.fsm-mode-indicator {
+    display: inline-block;
+    padding: 4px 12px;
+    background: #4CAF50;
+    color: white;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 4px 8px;
+}
+
+.fsm-mode-indicator.select {
+    background: #2196F3;
+}
+
+.fsm-mode-indicator.add {
+    background: #FF9800;
+}
+
+.fsm-mode-indicator.connect {
+    background: #F44336;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #fsmContainer {
+        top: 120px;
+        left: 0;
+        right: unset;
+        width: 100vw;
+    }
+
+    .fsm-toolbar-btn {
+        min-width: 80px;
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+
+    .fsm-stats {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+}
+
+/* Print styles */
+@media print {
+    #fsmContainer {
+        display: none !important;
+    }
+}

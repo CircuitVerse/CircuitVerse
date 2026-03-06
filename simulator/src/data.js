@@ -21,10 +21,16 @@ import { generateVerilog } from './verilog';
 import { bitConverterDialog } from './utils';
 import ExportCircuitFiles from './file/SaveAs';
 import ImportCircuitFiles from './file/Open';
+import fsmTool from './fsmTool';
 
 // Hack to restart tour guide
 function showTourGuideHelper() {
     setTimeout(() => { showTourGuide(); }, 100);
+}
+
+// Open FSM Editor
+function openFSMEditor() {
+    fsmTool.open();
 }
 
 const logixFunction = {};
@@ -51,4 +57,5 @@ logixFunction.bitconverter = bitConverterDialog;
 logixFunction.createNewCircuitScope = createNewCircuitScope;
 logixFunction.ExportCircuitFiles = ExportCircuitFiles;
 logixFunction.ImportCircuitFiles = ImportCircuitFiles;
+logixFunction.openFSMEditor = openFSMEditor;
 export default logixFunction;
