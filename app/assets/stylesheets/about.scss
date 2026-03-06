@@ -1,9 +1,9 @@
 .about-social-anchor {
-  color: var(--text-color);
+  color: $black;
   text-decoration: none;
 
   &:hover {
-    color: var(--text-color);
+    color: $black;
     text-decoration: none;
   }
 
@@ -28,7 +28,7 @@
 }
 
 .about-contributor-image {
-  border: 2px solid var(--primary-green);
+  border: 2px solid $primary-green;
   border-radius: 50%;
   transition: all .3s ease-in;
   width: 100%;
@@ -43,8 +43,7 @@
   padding: 12px 30px;
 }
 
-/* Breakpoints */
-
+// Breakpoints
 @media (max-width: 576px) {
   .about-social-card-1 {
     margin-top: 50px;
@@ -80,7 +79,7 @@
 }
 
 .team-footer {
-  color: var(--text-color);
+  color: $black;
   margin-top: 10px;
   text-align: center;
 }
@@ -94,7 +93,7 @@
 }
 
 .team-underline::before {
-  background-color: var(--primary-green);
+  background-color: $primary-green;
   bottom: 0;
   content: '';
   height: 2px;
