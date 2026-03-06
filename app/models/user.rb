@@ -9,23 +9,26 @@ class User < ApplicationRecord
   self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size
                              profile_picture_updated_at]
 
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # Include default devise modules.
+  devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
+         :validatable, :omniauthable, :saml_authenticatable,
+         omniauth_providers: %i[google_oauth2 facebook github gitlab]
+
+  # Associations
   has_many :projects, foreign_key: "author_id", dependent: :destroy
   has_many :stars
   has_many :votes, class_name: "ActsAsVotable::Vote", as: :voter, dependent: :destroy
   has_many :rated_projects, through: :stars, dependent: :destroy, source: "project"
   has_many :groups_owned, class_name: "Group", foreign_key: "primary_mentor_id", dependent: :destroy
-  devise :confirmable, :database_authenticatable, :registerable, :recoverable, :rememberable, :trackable,
-         :validatable, :omniauthable, :saml_authenticatable,
-         omniauth_providers: %i[google_oauth2 facebook github gitlab]
 
-  # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
   has_many :grades
+
   acts_as_commontator
+
   has_many :submissions, dependent: :destroy
+  has_many :submission_votes, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: "project", through: :collaborations
 
@@ -69,13 +72,16 @@ class User < ApplicationRecord
     data = access_token.info
     user = User.where(email: data["email"]).first
     name = data["name"] || data["nickname"]
-    # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: name,
-                         email: data["email"],
-                         password: Devise.friendly_token[0, 20],
-                         provider: access_token.provider,
-                         confirmed_at: Time.zone.now,
-                         uid: access_token.uid)
+
+    user ||= User.create(
+      name: name,
+      email: data["email"],
+      password: Devise.friendly_token[0, 20],
+      provider: access_token.provider,
+      confirmed_at: Time.zone.now,
+      uid: access_token.uid
+    )
+
     user
   end
 
@@ -107,11 +113,11 @@ class User < ApplicationRecord
 
   private
 
-    def send_welcome_mail
-      UserMailer.welcome_email(self).deliver_later
-    end
+  def send_welcome_mail
+    UserMailer.welcome_email(self).deliver_later
+  end
 
-    def purge_profile_picture
-      profile_picture.purge if profile_picture.attached?
-    end
+  def purge_profile_picture
+    profile_picture.purge if profile_picture.attached?
+  end
 end

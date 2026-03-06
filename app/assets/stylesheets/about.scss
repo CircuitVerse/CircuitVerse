@@ -43,7 +43,7 @@
   padding: 12px 30px;
 }
 
-//breakpoints
+// breakpoints
 @media (max-width: 576px) {
   .about-social-card-1 {
     margin-top: 50px;
@@ -109,4 +109,38 @@
     right: auto;
     width: 100%;
   }
+}
+
+/* ================= DARK MODE ================= */
+
+body.dark-mode {
+
+  .about-social-anchor {
+    color: #ffffff;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+
+  .about-contributor-image {
+    border: 2px solid #4caf50;
+  }
+
+  .team-footer {
+    color: #ffffff;
+  }
+
+  .team-link a {
+    color: #ffffff;
+  }
+
+  .team-underline::before {
+    background-color: #4caf50;
+  }
+
+  body{
+  background:red;
+}
+
 }
