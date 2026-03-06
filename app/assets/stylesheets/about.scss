@@ -106,3 +106,18 @@
     width: 100%;
   }
 }
+
+/* Dark mode support */
+
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .navbar {
+  background-color: #1c1c1c;
+}
+
+.dark-mode a {
+  color: #ffffff;
+}
