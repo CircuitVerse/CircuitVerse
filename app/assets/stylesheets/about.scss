@@ -108,16 +108,20 @@
 }
 
 /* Dark mode support */
-
-.dark-mode {
+body.dark-mode {
   background-color: #121212;
-  color: #ffffff;
+  color: #eaeaea;
 }
 
-.dark-mode .navbar {
-  background-color: #1c1c1c;
+body.dark-mode .navbar {
+  background-color: #1c1c1c !important;
 }
 
-.dark-mode a {
-  color: #ffffff;
+body.dark-mode a {
+  color: #eaeaea !important;
+}
+
+body.dark-mode .about-social-anchor,
+body.dark-mode .team-footer {
+  color: #eaeaea;
 }
