@@ -20,8 +20,8 @@ class Api::V1::SimulatorController < Api::V1::BaseController
 
     response = HTTP.post(url, json: { text: text })
     unless response.code == 200
-      render json: { error: "Failed to submit issue to Slack" },
-             status: :unprocessable_content and return
+      return render json: { error: "Failed to submit issue to Slack" },
+      status: :unprocessable_content
     end
 
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok
