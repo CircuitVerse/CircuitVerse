@@ -55,6 +55,17 @@ export function resetScopeList() {
     Object.keys(scopeList).forEach(key => delete scopeList[key]);
 }
 
+export function changeCircuitName(newName, scopeId = globalScope.id) {
+    const scope = scopeList[scopeId];
+    let name = escapeHtml(stripTags(newName));
+    name = getUniqueCircuitName(name.trim());
+    scope.name = name;
+    $(`#${scope.id} .circuitName`).text(truncateString(name, 18));
+    if (!embed && simulationArea.lastSelected === scope.root) {
+        showProperties(scope.root);
+    }
+}
+
 function normalizeCircuitNames() {
     const used = {};
 
