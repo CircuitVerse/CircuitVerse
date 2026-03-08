@@ -1,5 +1,4 @@
 <script type="text/javascript">
-  // 🛑 IMMEDIATE EMERGENCY BRAKE
   (function() {
     const isSimulator = window.location.pathname.includes('/simulator') || 
                         window.location.pathname.includes('/editor');
@@ -126,12 +125,12 @@
     const isSimulator = window.location.pathname.includes('/simulator') || 
                         window.location.pathname.includes('/editor');
     
-    // --- 1. THEME TOGGLE LOGIC ---
+    //   TOGGLE LOGIC 
     const darkModeToggle = document.getElementById('dark-mode-toggle');
     const themeIcon = document.getElementById('theme-icon');
 
     if (isSimulator && darkModeToggle) {
-      darkModeToggle.style.display = 'none'; // Hide toggle on simulator
+      darkModeToggle.style.display = 'none'; 
     }
 
     if (darkModeToggle && !isSimulator) {
@@ -150,17 +149,17 @@
       });
     }
 
-    // --- 2. ORIGINAL NAVBAR FUNCTIONS ---
+    
     const searchIcons = document.querySelectorAll(".fa-search");
     const searchBar = document.querySelector(".navbar-search-active");
     const navbar = document.querySelector('.navbar');
 
-    // Scroll Shadow
+    
     window.addEventListener('scroll', () => {
       window.scrollY > 0 ? navbar.classList.add('affix') : navbar.classList.remove('affix');
     });
 
-    // Search Toggle
+   
     searchIcons.forEach(icon => {
       icon.addEventListener("click", () => {
         const isActive = icon.classList.contains("active");
@@ -169,13 +168,13 @@
       });
     });
 
-    // Dropdown Arrow Rotation
+   
     document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(trigger => {
       trigger.addEventListener("show.bs.dropdown", () => trigger.classList.add("rotate180"));
       trigger.addEventListener("hide.bs.dropdown", () => trigger.classList.remove("rotate180"));
     });
 
-    // Mobile Menu Toggle
+    
     const dropBtn = document.getElementById('dropdownButton');
     if (dropBtn) {
       dropBtn.addEventListener('click', (e) => {
