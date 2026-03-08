@@ -1,0 +1,303 @@
+
+/*body.dark-mode {
+ 
+  .navbar, .navbar.bg-white, .navbar-search-active {
+    background-color: #161b22 ; 
+    border-bottom: 1px solid #30363d ;
+  }
+
+  
+  .navbar-nav .nav-link, .navbar-brand, .navbar-text, .navbar-item {
+    color: #c9d1d9 ;
+  }
+
+  .container-fluid, .container, .card, .list-group-item, .footer {
+    background-color: #0d1117; 
+    border-color: #30363d ;
+    color: #c9d1d9 ;
+  }
+  .navbar-search-active, .search-bar-container {
+    background-color: #0d1117 ;
+  }
+  input.search-input {
+    background-color: #161b22 ;
+    color: #c9d1d9 ;
+    border: 1px solid #30363d ;
+  }
+}
+body.dark-mode .navbar.affix {
+  background-color: #161b22;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+ }
+*/
+/*
+html,body.dark-mode{
+  background-color: #0d1117;
+}
+
+
+body.dark-mode {
+  // 1. Force the Navbar and Search Bar
+  // We include .bg-white to override the Bootstrap class on the nav tag
+  .navbar, .navbar.bg-white, .navbar-search-active {
+    background-color: #161b22 !important;
+    border-bottom: 1px solid #30363d !important;
+  }
+
+  // 2. The Hero Section (The "Dive into the world" part)
+  // These are the specific sections seen in your screenshot
+  .hero-section, .home-features-section, section {
+    background-color: #0d1117 !important;
+  }
+
+  // 3. Fix the Navbar Text and Icons
+  .nav-link, .navbar-text, .navbar-item, .search-icon {
+    color: #c9d1d9 !important;
+  }
+
+  // 4. Target the "White" Containers
+  // This targets cards and any general container that might stay white
+  .container, .container-fluid, .card, .list-group-item {
+    background-color: #0d1117 !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+  }
+
+  // 5. Buttons (Ensure contrast)
+  .btn-signup, .btn-outline-primary {
+    background-color: transparent !important;
+    color: #c9d1d9 !important;
+    border-color: #c9d1d9 !important;
+
+    &:hover {
+      background-color: #30363d !important;
+    }
+  }
+  .footer, 
+  .footer-section, 
+  footer,
+  .bottom-content-wrapper {
+    background-color: #f8f9fa !important; // Off-white/Light grey for contrast
+    border-top: 1px solid #dee2e6 !important;
+    color: #212529 !important; // Dark text for readability
+  }
+  .copyright, 
+  .footer-links,
+  .social-icons {
+    background-color: transparent !important;
+    color: #8b949e !important; // Subtle grey for secondary text
+  }
+  footer a, 
+  .footer a {
+    color: #58a6ff !important;
+    
+    &:hover {
+      text-decoration: underline !important;
+    }
+  }
+}*/
+/* app/assets/stylesheets/dark_mode.scss */
+
+// 1. Root Level - This kills the "White Sides"
+/*html.dark-mode, 
+body.dark-mode {
+  background-color: #0d1117 !important;
+}
+
+body.dark-mode {
+  // 2. Navbar & Search (Fixed & Sticky states)
+  .navbar, 
+  .navbar.bg-white, 
+  .navbar.affix,
+  .navbar-search-active {
+    background-color: #161b22 !important;
+    border-bottom: 1px solid #30363d !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  // 3. Global Text & Icon Colors
+  .nav-link, 
+  .navbar-text, 
+  .navbar-item, 
+  .search-icon,
+  .navbar-brand {
+    color: #c9d1d9 !important;
+  }
+
+  // 4. Main Content Sections
+  // Targets the hero section and any other main white blocks
+  #main-content,
+  .hero-section, 
+  .home-features-section, 
+  section,
+  .container, 
+  .container-fluid, 
+  .card, 
+  .list-group-item {
+    background-color: #0d1117 !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+  }
+
+  // 5. Search Input Styling
+  input.search-input {
+    background-color: #161b22 !important;
+    color: #c9d1d9 !important;
+    border: 1px solid #30363d !important;
+  }
+
+  // 6. Interactive Elements (Buttons)
+  .btn-signup, 
+  .btn-outline-primary,
+  .btn-login {
+    background-color: transparent !important;
+    color: #c9d1d9 !important;
+    border-color: #30363d !important;
+
+    &:hover {
+      background-color: #30363d !important;
+    }
+  }
+
+  // 7. HIGH CONTRAST FOOTER
+  // This stays light to provide the inverted look you wanted
+  footer,
+  .footer, 
+  .footer-section, 
+  .bottom-content-wrapper {
+    background-color: #f8f9fa !important; 
+    border-top: 1px solid #dee2e6 !important;
+    color: #212529 !important;
+
+    // Darker text for links on the light footer
+    a, .nav-link {
+      color: #0366d6 !important;
+      background-color: transparent !important;
+      
+      &:hover {
+        color: #0056b3 !important;
+        text-decoration: underline !important;
+      }
+    }
+
+    .copyright, 
+    .footer-links,
+    .social-icons,
+    .text-muted {
+      background-color: transparent !important;
+      color: #6a737d !important; 
+    }
+  }
+}*/
+/* Total Dark Mode Overrides */
+
+// 1. Root Level - Kills the "White Sides"
+/*html.dark-mode, 
+body.dark-mode {
+  background-color: #0d1117 !important;
+}
+
+body.dark-mode {
+  // 2. Navbar & Search Bar
+  .navbar, 
+  .navbar.bg-white, 
+  .navbar.affix,
+  .navbar-search-active {
+    background-color: #161b22 !important;
+    border-bottom: 1px solid #30363d !important;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5) !important;
+  }
+
+  // 3. Text and Link Colors
+  .nav-link, .navbar-text, .navbar-item, .search-icon, .navbar-brand {
+    color: #c9d1d9 !important;
+  }
+
+  // 4. Main Content Areas (Hero, Cards, Containers)
+  #main-content,
+  .hero-section, 
+  .home-features-section, 
+  section,
+  .container, 
+  .card {
+    background-color: #0d1117 !important;
+    border-color: #30363d !important;
+    color: #c9d1d9 !important;
+  }
+
+  // 5. Buttons
+  .btn-signup, .btn-login, .btn-outline-primary {
+    background-color: transparent !important;
+    color: #c9d1d9 !important;
+    border: 1px solid #30363d !important;
+
+    &:hover {
+      background-color: #30363d !important;
+    }
+  }
+
+  // 6. HIGH-CONTRAST FOOTER
+  // Keeps the footer light with specific Dark Blue links
+  footer,
+  .footer, 
+  .footer-section, 
+  .bottom-content-wrapper {
+    background-color: #f8f9fa !important; 
+    border-top: 1px solid #dee2e6 !important;
+    color: #212529 !important;
+
+    // Force Dark Blue Links in the Footer
+    a, 
+    .nav-link,
+    .footer-links a {
+      color: #00008B !important; // Deep Dark Blue
+      background-color: transparent !important;
+      font-weight: 500 !important;
+      
+      &:hover {
+        color: #FFFFFF !important;
+        text-decoration: underline !important;
+      }
+    }
+
+    .copyright, .social-icons, .text-muted {
+      color: #6a737d !important; 
+    }
+  }
+}*/
+/* app/assets/stylesheets/dark_mode.scss */
+
+// 1. Force the root background to remove "white sides"
+html, html.dark-mode, 
+body, body.dark-mode {
+    &.dark-mode {
+        background-color: #0d1117 !important;
+        color: green;
+    }
+}
+
+body.dark-mode {
+    // 2. Target by ID to win the specificity war
+    #main-navbar, .navbar, .navbar.bg-white {
+        background-color: #161b22 !important;
+        border-bottom: 1px solid #30363d !important;
+    }
+    .navbar-nav .nav-link, 
+  .navbar-item, 
+  .navbar-text {
+    color: #c9d1d9 !important; // Light grey/white for readability
+    transition: color 0.2s ease-in-out;
+
+    &:hover, &:focus {
+      color: #58a6ff !important; // A nice neon blue on hover
+    }
+  }
+
+
+    // 4. Hero & Main Content
+    .hero-section, #home-features-section, section, .card {
+        background-color: #0d1117 !important;
+        color: green !important;
+
+    }
+}

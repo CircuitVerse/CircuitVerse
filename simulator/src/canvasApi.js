@@ -110,7 +110,8 @@ export function dots(dots = true, transparentBackground = false, force = false) 
     var ctx = backgroundArea.context;
     ctx.beginPath();
     backgroundArea.clear();
-    ctx.strokeStyle = colors["canvas_stroke"];
+    ctx.strokeStyle = "eeeeee";
+    ctx.fillStyle = "#ffffff";
     ctx.lineWidth = 1;
     if (!transparentBackground) {
         ctx.fillStyle = colors["canvas_fill"];
