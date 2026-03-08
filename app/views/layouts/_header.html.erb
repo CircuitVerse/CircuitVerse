@@ -32,6 +32,8 @@
 
    
     function setupNavbarFeatures() {
+    if (window.__navbarFeaturesInitialized) return;
+    window.__navbarFeaturesInitialized = true;
       const navbar = document.querySelector('.navbar');
       const searchIcons = document.querySelectorAll(".fa-search");
       const searchBar = document.querySelector(".navbar-search-active");
