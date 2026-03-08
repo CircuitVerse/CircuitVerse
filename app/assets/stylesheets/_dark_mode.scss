@@ -1,0 +1,42 @@
+
+
+
+html, html.dark-mode, 
+body, body.dark-mode {
+    &.dark-mode {
+        background-color: #0d1117 !important;
+        color: #c9d1d9 !important;
+    }
+}
+
+body.dark-mode {
+    
+    #main-navbar, .navbar, .navbar.bg-white {
+        background-color: #161b22 !important;
+        border-bottom: 1px solid #30363d !important;
+    }
+    .navbar-nav .nav-link, 
+  .navbar-item, 
+  .navbar-text {
+    color: #c9d1d9 !important; 
+    transition: color 0.2s ease-in-out;
+
+    &:hover, &:focus {
+      color: #58a6ff !important; 
+    }
+  }
+
+
+    
+    .hero-section, #home-features-section, section, .card {
+        background-color: #0d1117 !important;
+        color: #c9d1d9 !important;
+
+    }
+    h1, h2, h3, h4, .navbar-brand {
+        color: #f0f6fc !important; 
+    }
+    .text-muted, p.small {
+        color: #8b949e !important; 
+    }
+}
