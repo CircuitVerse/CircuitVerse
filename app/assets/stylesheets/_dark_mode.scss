@@ -5,7 +5,7 @@ html, html.dark-mode,
 body, body.dark-mode {
     &.dark-mode {
         background-color: #0d1117 !important;
-        color: green;
+        color: #c9d1d9 !important;
     }
 }
 
@@ -30,7 +30,13 @@ body.dark-mode {
     
     .hero-section, #home-features-section, section, .card {
         background-color: #0d1117 !important;
-        color: green !important;
+        color: #c9d1d9 !important;
 
+    }
+    h1, h2, h3, h4, .navbar-brand {
+        color: #f0f6fc !important; 
+    }
+    .text-muted, p.small {
+        color: #8b949e !important; 
     }
 }
