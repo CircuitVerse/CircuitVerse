@@ -49,7 +49,7 @@ class CollaborationsController < ApplicationController
     respond_to do |format|
       if @collaboration.update(collaboration_params)
         format.html do
-          redirect_to @collaboration, notice: "Collaboration was successfully updated."
+          redirect_to @collaboration, notice: I18n.t("collaborations.update.success")
         end
         format.json { render :show, status: :ok, location: @collaboration }
       else
@@ -68,7 +68,7 @@ class CollaborationsController < ApplicationController
     respond_to do |format|
       format.html do
         redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id),
-                    notice: "Collaboration was successfully destroyed."
+                    notice: I18n.t("collaborations.destroy.success")
       end
       format.json { head :no_content }
     end
