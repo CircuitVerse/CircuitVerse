@@ -9,6 +9,5 @@ class Avo::Resources::Subgroup < Avo::BaseResource
     field :id, as: :id
     field :name, as: :text
     field :group, as: :belongs_to
-    field :mentor, as: :belongs_to
   end
 end
