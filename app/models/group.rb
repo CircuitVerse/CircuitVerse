@@ -6,6 +6,7 @@ class Group < ApplicationRecord
   belongs_to :primary_mentor, class_name: "User"
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
+  has_many :subgroups, dependent: :destroy
 
   has_many :assignments, dependent: :destroy
   has_many :pending_invitations, dependent: :destroy
