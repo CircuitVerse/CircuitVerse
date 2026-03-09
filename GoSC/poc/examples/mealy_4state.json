@@ -1,0 +1,21 @@
+{
+  "machineType": "mealy",
+  "inputs": ["0", "1"],
+  "outputs": ["z"],
+  "states": [
+    { "id": "S0", "isInitial": true },
+    { "id": "S1", "isInitial": false },
+    { "id": "S2", "isInitial": false },
+    { "id": "S3", "isInitial": false }
+  ],
+  "transitions": [
+    { "fromState": "S0", "input": "0", "toState": "S0", "output": { "z": 0 } },
+    { "fromState": "S0", "input": "1", "toState": "S1", "output": { "z": 0 } },
+    { "fromState": "S1", "input": "0", "toState": "S2", "output": { "z": 0 } },
+    { "fromState": "S1", "input": "1", "toState": "S1", "output": { "z": 1 } },
+    { "fromState": "S2", "input": "0", "toState": "S0", "output": { "z": 0 } },
+    { "fromState": "S2", "input": "1", "toState": "S3", "output": { "z": 0 } },
+    { "fromState": "S3", "input": "0", "toState": "S2", "output": { "z": 1 } },
+    { "fromState": "S3", "input": "1", "toState": "S1", "output": { "z": 1 } }
+  ]
+}
