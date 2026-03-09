@@ -20,6 +20,9 @@ en:
         You can find the documentation <a class='anchor-text' href='https://docs.circuitverse.org/chapter2/chapter2-cvforeducators' target='_blank'>here</a>."
     show:
       edit_name_btn: "Edit Name"
+      integrations_btn: "Integrations"
+      google_classroom: "Google Classroom"
+      lms_info: "LMS credentials are available per assignment"
       primary_mentor_heading: "Primary Mentor:"
       mentor_name_heading: "MENTORS:"
       group_members_heading: "MEMBERS:"

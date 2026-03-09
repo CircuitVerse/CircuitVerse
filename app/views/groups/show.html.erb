@@ -17,10 +17,30 @@
           <span class="tooltiptext"><%= @group.name %></span>
         </p>
         <% if policy(@group).admin_access? %>
-          <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
-            <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
-            <span><%= t("groups.show.edit_name_btn") %></span>
-          <% end %>
+          <div class="d-flex gap-2 flex-wrap">
+            <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
+              <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
+              <span><%= t("groups.show.edit_name_btn") %></span>
+            <% end %>
+            <div class="dropdown">
+              <button class="btn primary-button groups-editname-primary-button dropdown-toggle" type="button" id="integrationsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fas fa-plug"></i>
+                <span><%= t("groups.show.integrations_btn") %></span>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="integrationsDropdown">
+                <li>
+                  <%= link_to google_classroom_index_path, class: "dropdown-item" do %>
+                    <i class="fab fa-google me-2"></i> <%= t("groups.show.google_classroom") %>
+                  <% end %>
+                </li>
+                <% if Flipper.enabled?(:lms_integration, current_user) %>
+                <li><hr class="dropdown-divider"></li>
+                <li class="dropdown-item-text text-muted small"><%= t("groups.show.lms_info") %></li>
+                <!-- TODO: LMS integration - add link_to or button for LTI launch here -->
+                <% end %>
+              </ul>
+            </div>
+          </div>
         <% end %>
       </h1>
       <h4 class="group-mentor-heading">
