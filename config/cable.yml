@@ -8,3 +8,6 @@ production:
   adapter: redis
   url: redis://localhost:6379/1
   channel_prefix: logix_production
+  connect_timeout: 15
+  read_timeout: 15
+  write_timeout: 15
