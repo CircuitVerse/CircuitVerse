@@ -80,7 +80,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     if circuit_data
       render json: circuit_data.data
     else
-      render json: { error: "Circuit data unavailabe for the project!" }, status: :not_found
+      render json: { error: "Circuit data unavailable for the project!" }, status: :not_found
     end
   end
 
