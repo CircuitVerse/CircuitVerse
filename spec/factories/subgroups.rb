@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :subgroup do
-    name { "MyString" }
-    group { nil }
-    mentor { nil }
+    name { "Test Subgroup" }
+    association :group
   end
 end
