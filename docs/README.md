@@ -1,26 +1,50 @@
-## Setup CircuitVerse API documentation
+## Setup CircuitVerse API Documentation
 
 ### Prerequisites
+Make sure the following tools are installed before continuing:
 
-You're going to need:
+- **Linux or macOS**  
+  Windows may work but is not officially supported.
+- **Ruby** (version 3.1.0 or newer)
+- **Bundler**
 
-- **Linux or macOS** — Windows may work, but is unsupported.
-- **Ruby, version 2.3.1 or newer**
-- **Bundler** — If Ruby is already installed, but the `bundle` command doesn't work, just run `gem install bundler` in a terminal.
+Install Bundler if it is not already available:
 
-### Getting Set Up
+```bash
+gem install bundler
+```
 
-1. Setup CircuitVerse, refer [`SETUP.md`](../SETUP.md)
-2. `cd CircuitVerse/docs`
-3. Initialize and start Slate. You can either do this locally, or with Vagrant:
+---
 
-```shell
-# either run this to run locally
+### Getting Started
+
+1. Complete the main CircuitVerse setup first by following the instructions in `SETUP.md`.
+
+2. Navigate to the API documentation directory:
+
+```bash
+cd CircuitVerse/docs
+```
+
+3. Initialize and start the Slate documentation server.
+
+#### Run Locally
+
+```bash
 bundle install
 bundle exec middleman server
+```
 
-# OR run this to run with vagrant
+#### Run with Vagrant (Optional)
+
+```
 vagrant up
 ```
 
-You can now see the docs at http://localhost:4567.
+4. Open your browser and visit:
+
+```text
+http://localhost:4567
+
+> ⚠️ **Note:** If `bundle exec middleman server` fails, ensure dependencies are installed by running `bundle install` again.
+
