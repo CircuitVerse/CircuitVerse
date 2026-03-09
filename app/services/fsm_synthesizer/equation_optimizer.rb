@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require 'set'
+
 module FsmSynthesizer
   # EquationOptimizer: Simplifies and optimizes FSM equations using Boolean algebra
   #
@@ -158,7 +162,10 @@ module FsmSynthesizer
       if terms.length >= 2 && aggressive
         common = find_common_factor(terms)
         if common
-          return "#{common} & (#{terms.map { |t| remove_factor(t, common) }.join(' | ')})"
+          residuals = terms.map { |t| remove_factor(t, common) }
+          # Guard: only factor if residuals are non-empty
+          return expression if residuals.any?(&:blank?)
+          return "#{common} & (#{residuals.join(' | ')})"
         end
       end
 
@@ -220,8 +227,14 @@ module FsmSynthesizer
       # Remove redundant 0 and 1
       expression = expression.gsub(/\(\s*0\s*\)/, '0')
       expression = expression.gsub(/\(\s*1\s*\)/, '1')
-      expression = expression.gsub(/1\s*\|\s*/, '') if aggressive
-      expression = expression.gsub(/0\s*&\s*/, '') if aggressive
+      
+      # Guard aggressive simplification: check for full expression reduction first
+      if aggressive
+        # 1 | X = 1 (entire expression becomes true)
+        return '1' if expression.match?(/(^|\W)1\s*\|/) || expression.match?(/\|\s*1(\W|$)/)
+        # 0 & X = 0 (entire expression becomes false)
+        return '0' if expression.match?(/(^|\W)0\s*&/) || expression.match?(/&\s*0(\W|$)/)
+      end
 
       expression
     end
