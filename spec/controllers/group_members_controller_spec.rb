@@ -69,7 +69,7 @@ describe GroupMembersController, type: :request do
         sign_in @primary_mentor
         @group_member.update(mentor: true)
         expect do
-          patch group_member_path(@group_member), params: { group_member: { mentor: false } }
+          patch group_member_path(@group_member), params: { group_member: { mentor: "false" } }
         end.to change { @group_member.reload.mentor }.from(true).to(false)
       end
     end
