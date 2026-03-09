@@ -14,8 +14,8 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     if url.nil? || !url.start_with?(
       "http://", "https://"
     )
-      render json: { error: "Invalid or missing Slack webhook URL" },
-             status: :unprocessable_content and return
+      return render json: { error: "Invalid or missing Slack webhook URL" },
+             status: :unprocessable_content return
     end
 
     response = HTTP.post(url, json: { text: text })
