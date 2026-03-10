@@ -10,7 +10,7 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
 
   # GET /api/v1/groups/:group_id/members/
   def index
-    @group_members = paginate(@group.group_members)
+    @group_members = paginate(@group.group_members.includes(:user))
     @options = { links: link_attrs(@group_members, api_v1_group_members_url(@group.id)) }
     render json: Api::V1::GroupMemberSerializer.new(@group_members, @options)
   end
