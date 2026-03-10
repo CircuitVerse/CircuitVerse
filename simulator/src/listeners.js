@@ -1311,8 +1311,6 @@ function onTapSmallNavbar(i) {
         break;
     case 16: window.open('https://learn.circuitverse.org');
         break;
-    case 17: window.open('https://circuitverse.org/forum');
-        break;
     default:
         closeNavmenu();
         break;
