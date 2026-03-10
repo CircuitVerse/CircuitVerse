@@ -12,6 +12,7 @@ import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
 import C2S from '../canvas2svg';
+import { CIRCUIT_DATA_VERSION } from './constants';
 
 var projectName = undefined;
 
@@ -85,6 +86,7 @@ export function generateSaveData(name, setName = true) {
     data.projectId = projectId;
     data.focussedCircuit = globalScope.id;
     data.orderedTabs = getTabsOrder();
+    data.version = CIRCUIT_DATA_VERSION;
 
     // Project Circuits, each scope is one circuit
     data.scopes = [];

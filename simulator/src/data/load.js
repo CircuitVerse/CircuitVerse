@@ -1,7 +1,7 @@
 import { resetScopeList, newCircuit, switchCircuit } from '../circuit';
 import { setProjectName } from './save';
 import {
- scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet 
+ scheduleUpdate, update, updateSimulationSet, updateCanvasSet, gridUpdateSet
 } from '../engine';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import simulationArea from '../simulationArea';
@@ -15,6 +15,7 @@ import modules from '../modules';
 import { oppositeDirection } from '../canvasApi';
 import plotArea from '../plotArea';
 import { updateTestbenchUI, TestbenchData } from '../testbench';
+import { CIRCUIT_DATA_VERSION } from './constants';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -171,8 +172,13 @@ export function loadScope(scope, data) {
 
 // Function to load project from data
 /**
- * loads a saved project
- * @param {JSON} data - the json data of the
+ * Loads a saved project from JSON data into the simulator.
+ * Checks the data version for compatibility before loading.
+ * Legacy files without a version field are loaded normally.
+ *
+ * @param {Object} data - The parsed JSON circuit data object
+ * @param {string} [data.version] - Format version string (absent in legacy files)
+ * @param {Array}  data.scopes   - Array of circuit scopes to restore
  * @category data
  * @exports load
  */
@@ -181,6 +187,25 @@ export default function load(data) {
     if (!data) {
         setProjectName(__projectName);
         return;
+    }
+
+    // VERSION CHECK
+    if (!data.version) {
+        // Legacy format: saved before versioning was introduced.
+
+        console.info(
+            '[CircuitVerse] Loading legacy circuit data (no version field). ' +
+            'This file was saved before format versioning was introduced.'
+        );
+    } else if (data.version === CIRCUIT_DATA_VERSION) {
+        // Current version: everything is as expected.
+    } else {
+        // Unknown or future version: warn but still attempt to load.
+        console.warn(
+            `[CircuitVerse] Circuit data version mismatch. ` +
+            `Expected: ${CIRCUIT_DATA_VERSION}, Found: ${data.version}. ` +
+            `Attempting to load anyway — some features may not work correctly.`
+        );
     }
 
     var { projectId } = data;
@@ -232,11 +257,11 @@ export default function load(data) {
         var unorderedTabs = $('.circuits').detach();
         var plusButton = $('#tabsBar').children().detach();
         for (const tab of data.orderedTabs) { $('#tabsBar').append(unorderedTabs.filter(`#${tab}`)); }
-        $('#tabsBar').append(plusButton); 
+        $('#tabsBar').append(plusButton);
     }
 
     // Switch to last focussedCircuit
-    if (data.focussedCircuit) 
+    if (data.focussedCircuit)
         switchCircuit(data.focussedCircuit);
 
     // Update the testbench UI
