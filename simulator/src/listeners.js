@@ -221,7 +221,6 @@ function panStart(e) {
     simulationArea.oldx = globalScope.ox;
     simulationArea.oldy = globalScope.oy;
     e.preventDefault();
-    scheduleBackup();
     scheduleUpdate(1);
     $('.dropdown.open').removeClass('open');
 }
