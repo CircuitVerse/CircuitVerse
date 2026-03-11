@@ -5,7 +5,7 @@ rm -rf /circuitverse/tmp
 
 
 # Install ruby dependencies
-gem install bundler
+gem install bundler -v '~>2.5'
 bundle config set --local without "production"
 bundle config set --local path "/home/vendor/bundle"
 bundle install
