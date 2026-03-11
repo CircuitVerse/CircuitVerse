@@ -21,7 +21,7 @@ class ExploreController < ApplicationController
     def redirect_unless_enabled!
       return if Flipper.enabled?(:circuit_explore_page, current_user)
 
-      return redirect_to root_path
+      redirect_to root_path
     end
 
     def circuit_of_the_week
