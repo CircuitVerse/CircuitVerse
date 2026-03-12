@@ -1,4 +1,6 @@
 ja:
+  notifications:
+    not_found: "通知が見つかりません"
   edit: "編集"
   show: "表示"
   delete: "削除"
