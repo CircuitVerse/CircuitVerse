@@ -24,18 +24,13 @@ class Avo::Resources::ActiveStorageBlob < Avo::BaseResource
     field :checksum, as: :text
     field :metadata, as: :code, language: :json
 
-    # ✅ WORKING IMAGE PREVIEW
-    field :image_preview, as: :text, only_on: :show do
+    # Image preview using external_image field type
+    field :image_preview, as: :external_image, only_on: :show do
       if record.image?
-        ActionController::Base.helpers.image_tag(
-          Rails.application.routes.url_helpers.rails_blob_path(
-            record,
-            only_path: true
-          ),
-          class: "max-w-xs rounded border"
+        Rails.application.routes.url_helpers.rails_blob_path(
+          record,
+          only_path: true
         )
-      else
-        "Not an image"
       end
     end
 
