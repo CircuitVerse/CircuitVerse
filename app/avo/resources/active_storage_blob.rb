@@ -17,7 +17,7 @@ class Avo::Resources::ActiveStorageBlob < Avo::BaseResource
     field :content_type, as: :text
     field :service_name, as: :text
 
-    field :byte_size, as: :number do
+    field :byte_size, as: :text do
       ActionController::Base.helpers.number_to_human_size(record.byte_size)
     end
 
@@ -53,15 +53,4 @@ class Avo::Resources::ActiveStorageBlob < Avo::BaseResource
     field :variant_records, as: :has_many
   end
   # rubocop:enable Metrics/MethodLength
-
-  def filters
-    filter Avo::Filters::BlobByContentType
-    filter Avo::Filters::BlobByServiceName
-    filter Avo::Filters::BlobCreatedAt
-  end
-
-  def actions
-    action Avo::Actions::DownloadBlob
-    action Avo::Actions::ExportBlobs
-  end
 end

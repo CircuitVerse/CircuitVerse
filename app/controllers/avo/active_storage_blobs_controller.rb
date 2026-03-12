@@ -11,6 +11,6 @@ class Avo::ActiveStorageBlobsController < Avo::ResourcesController
       # rubocop:disable Rails/I18nLocaleTexts
       flash[:alert] = "Blobs are created automatically when files are uploaded. Cannot create manually."
       # rubocop:enable Rails/I18nLocaleTexts
-      redirect_to "/admin2/resources/active_storage_blobs"
+      redirect_to avo.resources_active_storage_blobs_path
     end
 end

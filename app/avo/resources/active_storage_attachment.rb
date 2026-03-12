@@ -24,9 +24,4 @@ class Avo::Resources::ActiveStorageAttachment < Avo::BaseResource
     field :blob, as: :belongs_to, searchable: true
     field :created_at, as: :date_time, hide_on: %i[new edit]
   end
-
-  def filters
-    filter Avo::Filters::AttachmentByRecordType
-    filter Avo::Filters::AttachmentByName
-  end
 end

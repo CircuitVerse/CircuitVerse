@@ -13,16 +13,13 @@ class Avo::Resources::ActiveStorageVariantRecord < Avo::BaseResource
     field :blob, as: :belongs_to, searchable: true
     field :variation_digest, as: :text
 
-    # Image field for variant
-    field :image, as: :file, is_image: true
-  end
-
-  def filters
-    filter Avo::Filters::BlobIdFilter
-    filter Avo::Filters::VariationDigestFilter
-  end
-
-  def actions
-    action Avo::Actions::ExportVariantRecords
+    # Preview of the variant through its blob
+    field :variant_preview, as: :text, only_on: :show do
+      if record.blob&.image?
+        "Variant of blob ##{record.blob_id} (digest: #{record.variation_digest})"
+      else
+        "Not an image variant"
+      end
+    end
   end
 end
