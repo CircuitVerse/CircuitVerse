@@ -1,12 +1,12 @@
 function handleMainCheckbox() {
-    $('#restrict-elements').change(function (e) {
+    $('#restrict-elements').change((e) => {
         e.preventDefault();
         var radio = $(e.currentTarget);
 
         if (radio.is(':checked')) {
-            $('.restricted-elements-list').css("display", "block");
+            $('.restricted-elements-list').css('display', 'block');
         } else {
-            $('.restricted-elements-list').css("display", "none");
+            $('.restricted-elements-list').css('display', 'none');
         }
     });
     $('#restrict-elements').trigger('change');
@@ -21,7 +21,7 @@ function restrictionsMap(restrictions) {
 }
 
 function htmlRowName(name) {
-    return "<h6 class=\"circuit-element-category\"> ".concat(name, " </h6>");
+    return '<h6 class="circuit-element-category"> '.concat(name, ' </h6>');
 }
 
 function htmlInlineCheckbox(elementName, checked) {
@@ -31,9 +31,10 @@ function htmlInlineCheckbox(elementName, checked) {
         .concat('<input class="form-check-input element-restriction" type="checkbox" id="checkbox-')
         .concat(elementName, '" value="')
         .concat(elementName, '" ')
+        .concat(checked)
         .concat('>\n')
         .concat('<div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
-        .concat(elementName, "</span></label>\n</div>");
+        .concat(elementName, '</span></label>\n</div>');
 }
 
 function generateRow(name, elements, restrictionMap) {
@@ -46,7 +47,15 @@ function generateRow(name, elements, restrictionMap) {
     return html;
 }
 
+function isElementRestricted(restrictionMap) {
+    return Object.values(restrictionMap).includes(true);
+}
+
 function loadHtml(elementHierarchy, restrictionMap) {
+    if (isElementRestricted(restrictionMap)) {
+        $('#restrict-elements').prop('checked', true);
+        $('#restrict-elements').trigger('change');
+    }
     for (var i = 0; i < Object.entries(elementHierarchy).length; i++) {
         var category = Object.entries(elementHierarchy)[i];
         var html = generateRow(category[0], category[1], restrictionMap);
@@ -56,8 +65,7 @@ function loadHtml(elementHierarchy, restrictionMap) {
 
 function loadRestrictions(restrictions) {
     handleMainCheckbox();
-    var _metadata = metadata;
-    var elementHierarchy = _metadata.elementHierarchy;
+    var { elementHierarchy } = metadata;
     var restrictionMap = restrictionsMap(restrictions);
     loadHtml(elementHierarchy, restrictionMap);
 }
