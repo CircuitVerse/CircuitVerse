@@ -139,6 +139,10 @@ class Project < ApplicationRecord
   private
 
     def check_validity
+      # Assignment submissions are represented as Projects.
+      # When a project is linked to an assignment, it must remain private to
+      # preserve academic integrity and prevent public sharing before grading.
+      # This validation enforces that assignment-linked projects cannot be public.
       return unless (project_access_type != "Private") && !assignment_id.nil?
 
       errors.add(:project_access_type, "Assignment has to be private")
