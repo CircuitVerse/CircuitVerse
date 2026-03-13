@@ -746,6 +746,57 @@
   }
 }
 
+// Mobile landscape orientation fixes
+@media screen and (max-width: 991px) and (max-height: 500px) and (orientation: landscape) {
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+
+  .navbar-collapse {
+    max-height: calc(100vh - 80px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    
+    &.show {
+      position: fixed;
+      top: 70px;
+      left: 0;
+      right: 0;
+      background-color: $white;
+      border-top: 1px solid $shadow-grey;
+      box-shadow: 0 4px 6px rgba($black, 0.1);
+      padding: 1rem;
+    }
+  }
+
+  .main-nav-items {
+    max-height: calc(100vh - 140px);
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    
+    .nav-item {
+      padding: 0.25rem 0;
+    }
+  }
+
+  .navbar-logo {
+    height: 50px;
+    padding-top: 5px;
+  }
+
+  // Ensure dropdowns are accessible in landscape
+  .dropdown-menu {
+    position: static !important;
+    float: none;
+    box-shadow: none;
+    border: none;
+    margin-left: 1rem;
+  }
+}
+
 // Utility classes
 .hidden {
   display: none !important;
