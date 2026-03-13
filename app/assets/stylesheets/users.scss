@@ -49,13 +49,48 @@
   padding-left: 4px;
   padding-top: 4px;
   position: relative;
-  text-align: center;
+  text-align: left; // Explicit left alignment for Firefox
+  display: inline-flex; // Use flexbox for better cross-browser support
+  align-items: center;
+  justify-content: flex-start;
   top: 6px;
 
   &:hover {
     border-color: $primary-green;
     opacity: 1;
     transition: 0.2s ease-in-out;
+  }
+  
+  // Firefox-specific fix
+  @-moz-document url-prefix() {
+    text-align: left;
+  }
+}
+
+// Firefox-specific checkbox input fix
+input[type="checkbox"] {
+  @-moz-document url-prefix() {
+    text-align: left;
+  }
+}
+
+// Firefox checkbox container fix
+.users-edit-primary-checkpoint {
+  margin-bottom: 20px;
+  padding-top: 40px;
+  text-align: left; // Ensure container is left-aligned
+  
+  // Firefox-specific alignment fix
+  @-moz-document url-prefix() {
+    text-align: left;
+  }
+  
+  label {
+    text-align: left;
+    
+    @-moz-document url-prefix() {
+      text-align: left;
+    }
   }
 }
 
@@ -221,6 +256,11 @@
 .users-edit-primary-checkpoint {
   margin-bottom: 20px;
   padding-top: 40px;
+  
+  // Firefox-specific alignment fix
+  @-moz-document url-prefix() {
+    text-align: left;
+  }
 }
 
 .users-edit-primary-button {
