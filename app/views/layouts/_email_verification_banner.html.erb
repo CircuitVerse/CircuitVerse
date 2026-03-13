@@ -1,0 +1,16 @@
+<% if current_user && !current_user.confirmed? %>
+  <div id="email-verification-banner" class="alert alert-warning alert-dismissible fade show mb-0 alert-permanent email-verification-banner" role="alert">
+    <div class="container">
+      <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center">
+          <i class="fas fa-exclamation-triangle me-2"></i>
+          <span>
+            <%= t("layout.email_verification_banner.message") %>
+            <%= link_to t("layout.email_verification_banner.verify_now"), profile_edit_path(current_user), class: "alert-link ms-1" %>
+          </span>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="dismissVerificationBanner()"></button>
+      </div>
+    </div>
+  </div>
+<% end %>
