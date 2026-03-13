@@ -8,7 +8,7 @@ class ContestsController < ApplicationController
 
   def index
     @contests = Contest.order(id: :desc)
-                       .paginate(page: params[:page])
+                       .paginate(page: sanitize_page)
                        .limit(Contest.per_page)
 
     respond_to do |format|
@@ -22,7 +22,7 @@ class ContestsController < ApplicationController
     @user_submission = @contest.submissions.where(user_id: current_user&.id)
     @submissions     = @contest.submissions
                                .where.not(user_id: current_user&.id)
-                               .paginate(page: params[:page])
+                               .paginate(page: sanitize_page)
                                .limit(6)
 
     return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
