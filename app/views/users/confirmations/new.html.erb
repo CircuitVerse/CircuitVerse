@@ -16,9 +16,7 @@
             </div>
           </div>
           <div class="field mb-3">
-            <div class="input-group">
-              <%= f.submit t("users.confirmations.resend_confirmation_instructions"), class:"btn primary-button users-primary-button" %>
-            </div>
+            <%= f.submit t("users.confirmations.resend_confirmation_instructions"), class:"btn primary-button users-primary-button" %>
           </div>
           <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
         <% end %>
