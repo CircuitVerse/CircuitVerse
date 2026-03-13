@@ -27,6 +27,7 @@ export default class extends Controller {
         document.addEventListener('click', this.boundOutside);
         this.setupTagInput();
         this.setupFormInputs();
+        this.checkActiveFilters();
     }
 
     disconnect() {
@@ -37,6 +38,7 @@ export default class extends Controller {
         const { resource } = event.detail;
         this.currentResourceValue = resource;
         this.showFiltersForResource();
+        this.checkActiveFilters();
     }
 
     showFiltersForResource() {
@@ -54,6 +56,52 @@ export default class extends Controller {
         } else if (this.currentResourceValue === 'Users' && this.hasUserFiltersTarget) {
             this.userFiltersTarget.classList.remove('hidden');
         }
+    }
+
+    checkActiveFilters() {
+        // Check if any filters are currently active
+        const hasActiveFilters = this.hasActiveProjectFilters() || this.hasActiveUserFilters();
+        
+        // Update button appearance based on filter state
+        if (hasActiveFilters) {
+            this.buttonTarget.classList.add('filters-active');
+            this.buttonTarget.setAttribute('aria-label', 'Filters active - Click to modify');
+        } else {
+            this.buttonTarget.classList.remove('filters-active');
+            this.buttonTarget.setAttribute('aria-label', 'Filters - Click to apply');
+        }
+    }
+
+    hasActiveProjectFilters() {
+        if (!this.hasProjectFiltersTarget) return false;
+        
+        // Check for active tags
+        if (this.hasTagHiddenTarget && this.tagHiddenTarget.value.trim() !== '') {
+            return true;
+        }
+        
+        // Check for active tag input
+        if (this.hasTagInputTarget && this.tagInputTarget.value.trim() !== '') {
+            return true;
+        }
+        
+        return false;
+    }
+
+    hasActiveUserFilters() {
+        if (!this.hasUserFiltersTarget) return false;
+        
+        // Check for active country filter
+        if (this.hasCountrySelectTarget && this.countrySelectTarget.value.trim() !== '') {
+            return true;
+        }
+        
+        // Check for active institute filter
+        if (this.hasInstituteInputTarget && this.instituteInputTarget.value.trim() !== '') {
+            return true;
+        }
+        
+        return false;
     }
 
     setupTagInput() {
@@ -112,6 +160,7 @@ export default class extends Controller {
         currentTags.push(tagText);
         this.updateTags(currentTags);
         this.tagInputTarget.value = '';
+        this.checkActiveFilters(); // Check filters after adding tag
     }
 
     removeTag(tagToRemove) {
@@ -120,6 +169,7 @@ export default class extends Controller {
         const currentTags = this.getCurrentTags();
         const updatedTags = currentTags.filter((tag) => tag !== tagToRemove);
         this.updateTags(updatedTags);
+        this.checkActiveFilters(); // Check filters after removing tag
     }
 
     getCurrentTags() {
@@ -215,6 +265,7 @@ export default class extends Controller {
             return;
         }
 
+        this.checkActiveFilters(); // Check filters after clearing
         this.applyFilters();
     }
 
