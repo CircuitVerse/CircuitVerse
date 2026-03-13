@@ -25,7 +25,8 @@ RSpec.describe Adapters::PgAdapter do
 
       it "performs text search and returns paginated results" do
         allow(project_relation).to receive(:text_search).with("test").and_return(mock_results)
-        allow(mock_results).to receive(:includes).with(:tags, :author).and_return(mock_results)
+        allow(mock_results).to receive(:includes)
+          .with(:tags, :author, { circuit_preview_attachment: :blob }).and_return(mock_results)
         allow(mock_results).to receive(:paginate).with(page: 1, per_page: 9).and_return(paginated_results)
 
         result = adapter.search_project(project_relation, query_params)
@@ -39,7 +40,8 @@ RSpec.describe Adapters::PgAdapter do
 
       it "returns public projects and applies pagination" do
         allow(Project).to receive(:public_and_not_forked).and_return(mock_results)
-        allow(mock_results).to receive(:includes).with(:tags, :author).and_return(mock_results)
+        allow(mock_results).to receive(:includes)
+          .with(:tags, :author, { circuit_preview_attachment: :blob }).and_return(mock_results)
         allow(mock_results).to receive(:paginate).with(page: 1, per_page: 9).and_return(paginated_results)
 
         result = adapter.search_project(project_relation, query_params)
