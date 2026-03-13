@@ -21,19 +21,17 @@ function restrictionsMap(restrictions) {
 }
 
 function htmlRowName(name) {
-    return "<h6 class=\"circuit-element-category\"> ".concat(name, " </h6>");
+    return '<h6 class="circuit-element-category"> '.concat(name, ' </h6><div class="restriction-grid">');
 }
 
 function htmlInlineCheckbox(elementName, checked) {
-    return '\n <div class="form-check form-check-inline"> \n <label class="form-check-label primary-checkpoint-container" id = "label-'
-        .concat(elementName, '" for="checkbox-')
-        .concat(elementName, '">')
-        .concat('<input class="form-check-input element-restriction" type="checkbox" id="checkbox-')
-        .concat(elementName, '" value="')
-        .concat(elementName, '" ')
-        .concat('>\n')
-        .concat('<div class="primary-checkpoint"></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;')
-        .concat(elementName, "</span></label>\n</div>");
+    return '<div class="restriction-grid-item">' +
+        '<label class="primary-checkpoint-container" id="label-' + elementName + '" for="checkbox-' + elementName + '">' +
+        '<input class="form-check-input element-restriction" type="checkbox" id="checkbox-' + elementName + '" value="' + elementName + '">' +
+        '<div class="primary-checkpoint"></div>' +
+        '</label>' +
+        '<span class="restriction-label">' + elementName + '</span>' +
+        '</div>';
 }
 
 function generateRow(name, elements, restrictionMap) {
@@ -43,6 +41,7 @@ function generateRow(name, elements, restrictionMap) {
         var checked = restrictionMap[element] ? 'checked' : '';
         html += htmlInlineCheckbox(element, checked);
     }
+    html += '</div>';
     return html;
 }
 
