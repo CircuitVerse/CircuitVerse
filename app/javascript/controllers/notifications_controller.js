@@ -2,21 +2,53 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
+    static targets = ['allNotifications', 'unreadNotifications', 'allNotificationsDiv', 'unreadNotificationsDiv'];
+
+    connect() {
+        // Check URL params for active tab
+        const urlParams = new URLSearchParams(window.location.search);
+        const tab = urlParams.get('tab');
+        
+        if (tab === 'unread') {
+            this.activeUnreadNotifications();
+        } else {
+            this.activeAllNotifications();
+        }
+    }
+
     activeAllNotifications() {
-        document.getElementById('unread-notifications').classList.remove('active');
-        document.getElementById('all-notifications').classList.add('active');
-        document.getElementById('all-notifications-div').classList.remove('d-none');
-        document.getElementById('unread-notifications-div').classList.remove('d-flex');
-        document.getElementById('all-notifications-div').classList.add('d-flex');
-        document.getElementById('unread-notifications-div').classList.add('d-none');
+        // Update tab styles
+        this.unreadNotificationsTarget.classList.remove('active');
+        this.allNotificationsTarget.classList.add('active');
+        
+        // Update content visibility
+        this.allNotificationsDivTarget.classList.remove('d-none');
+        this.unreadNotificationsDivTarget.classList.remove('d-flex');
+        this.allNotificationsDivTarget.classList.add('d-flex');
+        this.unreadNotificationsDivTarget.classList.add('d-none');
+        
+        // Update URL without page reload
+        this.updateUrlParam('tab', 'all');
     }
 
     activeUnreadNotifications() {
-        document.getElementById('all-notifications').classList.remove('active');
-        document.getElementById('unread-notifications').classList.add('active');
-        document.getElementById('all-notifications-div').classList.add('d-none');
-        document.getElementById('unread-notifications-div').classList.add('d-flex');
-        document.getElementById('all-notifications-div').classList.remove('d-flex');
-        document.getElementById('unread-notifications-div').classList.remove('d-none');
+        // Update tab styles
+        this.allNotificationsTarget.classList.remove('active');
+        this.unreadNotificationsTarget.classList.add('active');
+        
+        // Update content visibility
+        this.allNotificationsDivTarget.classList.add('d-none');
+        this.unreadNotificationsDivTarget.classList.add('d-flex');
+        this.allNotificationsDivTarget.classList.remove('d-flex');
+        this.unreadNotificationsDivTarget.classList.remove('d-none');
+        
+        // Update URL without page reload
+        this.updateUrlParam('tab', 'unread');
+    }
+
+    updateUrlParam(key, value) {
+        const url = new URL(window.location);
+        url.searchParams.set(key, value);
+        window.history.replaceState({}, '', url);
     }
 }
