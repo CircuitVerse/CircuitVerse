@@ -14,6 +14,10 @@ describe SimulatorHelper do
       expect(check_to_delete(data_url(""))).to be false
       expect(check_to_delete(data_url(Faker::Alphanumeric.alpha(number: 20)))).to be true
     end
+
+    it "returns false when data_url is nil" do
+      expect(check_to_delete(nil)).to be false
+    end
   end
 
   describe "#return_image_url" do
@@ -24,6 +28,14 @@ describe SimulatorHelper do
 
       it "returns the default image file" do
         file = return_image_file("")
+        expect(file.path).to eq(Rails.public_path.join("images/default.png").to_s)
+      end
+    end
+
+    context "when data_url is nil" do
+      it "returns the default image file" do
+        file = return_image_file(nil)
+        expect(file).to be_a(File)
         expect(file.path).to eq(Rails.public_path.join("images/default.png").to_s)
       end
     end
@@ -49,6 +61,12 @@ describe SimulatorHelper do
     context "circuit is empty" do
       it "returns nil" do
         expect(parse_image_data_url(data_url(""))).to be_nil
+      end
+    end
+
+    context "when data_url is nil" do
+      it "returns nil" do
+        expect(parse_image_data_url(nil)).to be_nil
       end
     end
 
