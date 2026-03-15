@@ -618,6 +618,12 @@
   top: 90%;
 }
 
+[dir="rtl"] .dropdown-menu.dropdown-menu-end {
+  left: 0;
+  right: auto;
+}
+
+
 //breakpoints
 
 // Ensure stacked search layout takes full width on extra-small screens
