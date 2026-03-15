@@ -21,6 +21,7 @@ import { generateVerilog } from './verilog';
 import { bitConverterDialog } from './utils';
 import ExportCircuitFiles from './file/SaveAs';
 import ImportCircuitFiles from './file/Open';
+import ImportOnlineCircuit from './file/ImportOnline';
 
 // Hack to restart tour guide
 function showTourGuideHelper() {
@@ -51,4 +52,5 @@ logixFunction.bitconverter = bitConverterDialog;
 logixFunction.createNewCircuitScope = createNewCircuitScope;
 logixFunction.ExportCircuitFiles = ExportCircuitFiles;
 logixFunction.ImportCircuitFiles = ImportCircuitFiles;
+logixFunction.ImportOnlineCircuit = ImportOnlineCircuit;
 export default logixFunction;
