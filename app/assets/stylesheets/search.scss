@@ -229,3 +229,35 @@
   gap: 40px;
   width: 100%;
 }
+
+.filters-button {
+  position: relative;
+  transition: all 0.2s ease;
+
+  &.filters-active {
+    background-color: #10b981; 
+    color: white;
+    border-color: #059669;
+    font-weight: 600;
+
+    &:hover {
+      background-color: #059669; 
+    }
+  }
+}
+
+.filter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #ef4444; 
+  color: white;
+  border-radius: 50%;
+  min-width: 20px;
+  height: 20px;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: 700;
+  margin-left: 8px;
+  line-height: 1;
+}

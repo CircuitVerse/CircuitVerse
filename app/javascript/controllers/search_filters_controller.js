@@ -27,6 +27,7 @@ export default class extends Controller {
         document.addEventListener('click', this.boundOutside);
         this.setupTagInput();
         this.setupFormInputs();
+        this.updateButtonState();
     }
 
     disconnect() {
@@ -37,6 +38,7 @@ export default class extends Controller {
         const { resource } = event.detail;
         this.currentResourceValue = resource;
         this.showFiltersForResource();
+        this.updateButtonState();
     }
 
     showFiltersForResource() {
@@ -86,6 +88,13 @@ export default class extends Controller {
                 }
             });
         });
+    
+    if (this.hasCountrySelectTarget) {
+        this.countrySelectTarget.addEventListener('change', () => this.updateButtonState());
+    }
+    if (this.hasInstituteInputTarget) {
+        this.instituteInputTarget.addEventListener('input', () => this.updateButtonState());
+    }
     }
 
     setupTagRemoveButtons() {
@@ -160,6 +169,7 @@ export default class extends Controller {
 
             this.tagsDisplayTarget.appendChild(tagElement);
         });
+        this.updateButtonState();
     }
 
     toggleDropdown() {
@@ -222,6 +232,94 @@ export default class extends Controller {
         const searchForm = this.element.closest('form') || document.getElementById('search-box');
         if (searchForm) {
             searchForm.submit();
+        }
+    }
+    
+    updateButtonState() {
+        if (!this.hasButtonTarget) return;
+
+        const hasFilters = this.hasActiveFilters();
+        const filterCount = this.getActiveFiltersCount();
+
+        if (hasFilters) {
+            this.buttonTarget.classList.add('filters-active');
+            this.updateFilterBadge(filterCount);
+        } else {
+            this.buttonTarget.classList.remove('filters-active');
+            this.removeFilterBadge();
+        }
+    }
+
+    /**
+     * Check if there are any active filters
+     * @returns {boolean}
+     */
+    hasActiveFilters() {
+        if (this.hasTagHiddenTarget && this.tagHiddenTarget.value.trim()) {
+            return true;
+        }
+
+        if (this.hasCountrySelectTarget && this.countrySelectTarget.value) {
+            return true;
+        }
+
+        if (this.hasInstituteInputTarget && this.instituteInputTarget.value.trim()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the count of active filters
+     * @returns {number}
+     */
+    getActiveFiltersCount() {
+        let count = 0;
+
+        if (this.hasTagHiddenTarget && this.tagHiddenTarget.value.trim()) {
+            const tags = this.tagHiddenTarget.value.split(',').filter((tag) => tag.trim());
+            count += tags.length;
+        }
+
+        if (this.hasCountrySelectTarget && this.countrySelectTarget.value) {
+            count += 1;
+        }
+
+        if (this.hasInstituteInputTarget && this.instituteInputTarget.value.trim()) {
+            count += 1;
+        }
+
+        return count;
+    }
+
+    /**
+     * Add or update the filter count badge
+     * @param {number} count
+     */
+    updateFilterBadge(count) {
+        if (!this.hasButtonTarget || count === 0) return;
+
+        let badge = this.buttonTarget.querySelector('.filter-badge');
+
+        if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'filter-badge';
+            this.buttonTarget.appendChild(badge);
+        }
+
+        badge.textContent = count;
+    }
+
+    /**
+     * Remove the filter count badge
+     */
+    removeFilterBadge() {
+        if (!this.hasButtonTarget) return;
+
+        const badge = this.buttonTarget.querySelector('.filter-badge');
+        if (badge) {
+            badge.remove();
         }
     }
 }
