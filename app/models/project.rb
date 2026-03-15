@@ -20,9 +20,9 @@ class Project < ApplicationRecord
 
   has_noticed_notifications model_name: "NoticedNotification"
   has_many :noticed_notifications, through: :author
-  has_many :collaborations, dependent: :destroy
+  has_many :collaborations, dependent: :delete_all
   has_many :collaborators, source: "user", through: :collaborations
-  has_many :taggings, dependent: :destroy
+  has_many :taggings, dependent: :delete_all
   has_many :tags, -> { where.not(name: "") }, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
   has_one_attached :circuit_preview
