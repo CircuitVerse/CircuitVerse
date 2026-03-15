@@ -16,47 +16,10 @@ cd CircuitVerse
 
 #### Dependencies
 > Installation guide link and commands has been added to each dependency. You can skip the installation of the dependency if it is already installed.
+
 - [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
      ```bash
      sudo apt install git
-     ```
-- [RVM](https://rvm.io/rvm/install) 
-     ```bash
-     sudo apt install curl gnupg
-     gpg --keyserver keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
-     curl -sSL https://get.rvm.io | bash -s stable
-     ```
-- Ruby 3.2.1
-     ```bash
-     rvm install 3.2.1
-     rvm use 3.2.1
-     ```
-- [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
-     ```bash
-     sudo apt install lsb-release curl gpg
-     curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
-     echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/redis.list
-     sudo apt-get update
-     sudo apt-get install redis
-     ```
-- [ImageMagick](https://imagemagick.org/) - Image manipulation library
-     ```bash
-     sudo apt install imagemagick
-     ```
-- [Node.js 22.x](https://nodejs.org/it/download)
-     ```bash
-     curl -sL https://deb.nodesource.com/setup_22.x | sudo bash
-     sudo apt-get update && sudo apt-get install -y nodejs
-     ```
-- [Yarn](https://yarnpkg.com/getting-started/install)
-     ```bash
-     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-     sudo apt update && sudo apt install -y yarn
-     ```
-- [CMAKE](https://cmake.org/install/)
-     ```bash
-     sudo apt install cmake
      ```
 - OpenSSL
      ```bash
@@ -72,8 +35,47 @@ cd CircuitVerse
      sudo systemctl start postgresql.service
      sudo systemctl enable postgresql.service
      ```
+- [Mise Setup Tool](https://mise.jdx.dev/) :  
+     ```bash
+     # Download mise installer (use a specific release tag, e.g., v2025.1.1)
+     curl -fsSLO https://github.com/jdx/mise/releases/download/v2025.1.1/install.sh
+     
+     # Verify against the sha256 shown on the GitHub release page
+     sha256sum install.sh
+     sh install.sh
+        
+     # Add mise to shell (choose your shell)
+     
+     # For bash:
+        echo 'eval "$(~/.local/bin/mise activate bash)"' >> ~/.bashrc
+     # For zsh:
+        echo 'eval "$(~/.local/bin/mise activate zsh)"' >> ~/.zshrc
+     # For fish:
+        echo 'mise activate fish | source' >> ~/.config/fish/config.fish
+        
+     # Reload shell configuration or restart your terminal
+        source ~/.bashrc  # or ~/.zshrc for zsh
+        
+     # Install all tools specified in .tool-versions
+        mise install  # This will install: ruby, node, redis, postgres, cmake, imagemagick, yarn.
+     ``` 
 
+#### Mise-managed Dependencies
 
+Mise automatically manages the following development tools based on the versions specified in `.tool-versions`:
+
+- Ruby  
+- Node.js  
+- Redis  
+- PostgreSQL (client)  
+- ImageMagick  
+- CMake  
+
+To view currently managed tools and their versions:
+
+```bash
+mise ls
+```
 #### Setup
 > **Note**: PostgreSQL and Redis *must* be running. PostgreSQL must be configured with a default user
 
