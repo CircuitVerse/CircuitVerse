@@ -3,7 +3,8 @@
             data:  { contest_id: @contest.id },
             id:    "contest-#{@contest.id}" do %>
   <div class="contest-container h-100">
-    <div class="contest-container-header">
+    <div class="contest-container-card-image">
+       <%= helpers.image_tag(helpers.image_path("default_contest_card.png"), alt: t("contest.contest_container.default_contest_card_img_alt"), class: "contest-card-image" ) %>
       <% if @contest.live? %>
         <div class="contest-container-status-live">
           <span class="contest-container-status-dot"></span>
@@ -11,18 +12,25 @@
         </div>
       <% else %>
         <div class="contest-container-status">
-          <span class="contest-container-status-dot"></span>
           <span class="contest-container-status-text"><%= t("contest.status.completed") %></span>
         </div>
       <% end %>
     </div>
     <div class="contest-container-details">
-      <h5 class="contest-container-details-number">
-        <%= t("contest.contest_container.contest_id") %> #<%= @contest.id %>
-      </h5>
-      <h5 class="contest-container-details-entries">
-        <%= t("contest.contest_container.entries") %>: <%= @contest.submissions.count %>
-      </h5>
+      <div class="contest-container-details-number">
+        <span class="contest-container-details-number-link">
+          <%= t("contest.contest_container.contest_id") %> #<%= @contest.id %>
+        </span>
+      </div>
+      <div class="contest-container-details-entries">
+        <%= helpers.image_tag(helpers.image_path("svgs/user.svg"), alt: t("contest.contest_container.entries_alt"), class: "entries-image") %>
+        <span>
+          <%= @contest.submissions_count %> <%= t("contest.contest_container.entries") %>
+        </span>
+      </div>
+      <div class="contest-container-details-description">
+        <span> <%= t("contest.contest_container.description") %> </span>
+      </div>
     </div>
   </div>
 <% end %>
