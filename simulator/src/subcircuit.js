@@ -664,7 +664,7 @@ export default class SubCircuit extends CircuitElement {
                 );
             }
         } else {
-            // Unknown version encountered
+           console.log("Unknown Version: ", this.version);
         }
 
         for (var i = 0; i < subcircuitScope.Input.length; i++) {
