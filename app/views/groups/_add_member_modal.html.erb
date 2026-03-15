@@ -7,12 +7,19 @@
       </div>
       <div class="modal-body">
         <p><%= t("groups.add_member_description") %></p>
+        <% if group_member.group.allowed_domain.present? %>
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle"></i>
+            <strong><%= t("groups.allowed_domain_note_label") %></strong>
+            <%= t("groups.allowed_domain_invite_requirement_html", domain: sanitize(group_member.group.allowed_domain)) %>
+          </div>
+        <% end %>
         <%= form_with(model: group_member, local: true) do |form| %>
           <% if group_member.errors.any? %>
             <div class="error-message">
               <ul>
                 <% group_member.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
+                  <li><%= message %></li>
                 <% end %>
               </ul>
             </div>
@@ -47,12 +54,12 @@
   </div>
 </div>
 <script>
-function copyToClipboard(){
-  var copyText=document.getElementById("embedInviteLink");
-  var copyIcon=document.getElementById("copyIcon");
-  copyIcon.classList.add("text-success");
-  copyText.select();
-  document.execCommand('copy');
-  alert("Invite link copied to clipboard");
-}
+  function copyToClipboard(){
+    var copyText=document.getElementById("embedInviteLink");
+    var copyIcon=document.getElementById("copyIcon");
+    copyIcon.classList.add("text-success");
+    copyText.select();
+    document.execCommand('copy');
+    alert("Invite link copied to clipboard");
+  }
 </script>

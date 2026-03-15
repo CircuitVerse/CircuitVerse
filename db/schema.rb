@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2026_02_16_215814) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -277,6 +277,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at", precision: nil
+    t.string "allowed_domain"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end

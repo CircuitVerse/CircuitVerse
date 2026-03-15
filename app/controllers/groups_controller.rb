@@ -29,6 +29,8 @@ class GroupsController < ApplicationController
         notice = "Member is already present in the group."
       elsif current_user.id == @group.primary_mentor_id
         notice = "You cannot join this group because you are its primary mentor."
+      elsif !@group.can_join?(current_user.email)
+        notice = "This group is restricted to users with #{@group.allowed_domain} email addresses only."
       else
         current_user.group_members.create!(group: @group)
         notice = "Group member was successfully added."
@@ -100,7 +102,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.expect(group: %i[name primary_mentor_id])
+      params.expect(group: %i[name primary_mentor_id allowed_domain])
     end
 
     def check_show_access
