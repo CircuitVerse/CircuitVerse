@@ -161,4 +161,54 @@ RSpec.describe Adapters::PgAdapter do
       expect(mock_relation).to have_received(:order).with(created_at: :asc)
     end
   end
+
+  describe "timeout handling" do
+    context "when search_user times out" do
+      let(:user_relation) { double }
+      let(:query_params) { { q: "test", page: 1 } }
+      let(:empty_paginated_results) { double }
+
+      before do
+        allow(user_relation).to receive(:text_search).and_raise(ActiveRecord::QueryCanceled.new("timeout"))
+        allow(User).to receive(:none).and_return(double(paginate: empty_paginated_results))
+        allow(Rails.logger).to receive(:error)
+      end
+
+      it "returns empty paginated results" do
+        result = adapter.search_user(user_relation, query_params)
+
+        expect(result).to eq(empty_paginated_results)
+      end
+
+      it "logs the error" do
+        adapter.search_user(user_relation, query_params)
+
+        expect(Rails.logger).to have_received(:error).with(/User search query timeout/)
+      end
+    end
+
+    context "when search_project times out" do
+      let(:project_relation) { double }
+      let(:query_params) { { q: "test", page: 1 } }
+      let(:empty_paginated_results) { double }
+
+      before do
+        allow(project_relation).to receive(:text_search).and_raise(ActiveRecord::QueryCanceled.new("timeout"))
+        allow(Project).to receive(:none).and_return(double(paginate: empty_paginated_results))
+        allow(Rails.logger).to receive(:error)
+      end
+
+      it "returns empty paginated results" do
+        result = adapter.search_project(project_relation, query_params)
+
+        expect(result).to eq(empty_paginated_results)
+      end
+
+      it "logs the error" do
+        adapter.search_project(project_relation, query_params)
+
+        expect(Rails.logger).to have_received(:error).with(/Project search query timeout/)
+      end
+    end
+  end
 end
