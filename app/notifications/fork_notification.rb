@@ -4,9 +4,13 @@ class ForkNotification < Noticed::Base
   deliver_by :database, association: :noticed_notifications
 
   def message
-    user = params[:user]
-    project = params[:project]
-    t("users.notifications.fork_notification", user: user&.name, project: project&.name)
+    user = record.params.with_indifferent_access[:user]
+    project = record.params.with_indifferent_access[:project]
+    t(
+      "users.notifications.fork_notification",
+      user: user&.name,
+      project: project&.name
+    )
   end
 
   def icon
