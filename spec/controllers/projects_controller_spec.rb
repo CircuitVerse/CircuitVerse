@@ -173,7 +173,7 @@ describe ProjectsController, type: :request do
         end
       end
 
-      context "user other than author is singed in" do
+      context "user other than author is signed in" do
         it "throws project access error" do
           sign_in_random_user
           put user_project_path(@author, @project), params: update_params

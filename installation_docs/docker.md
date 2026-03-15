@@ -24,7 +24,7 @@
 6. Wait for the docker container to be prepared
 7. Navigate to `http://localhost:3000` in your browser
 
-If you required to restart the server
+If you are required to restart the server
 - Type `Ctrl+C` in terminal to stop the server
 - Run `./bin/dev` to start the server again
 
@@ -63,7 +63,7 @@ After removing Docker Desktop, proceed with the installation of Docker Engine as
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
 
-If you required to restart the server
+If you are required to restart the server
 - Type `Ctrl+C` in terminal to stop the server
 - Run `./bin/dev` to start the server again
 
@@ -87,7 +87,7 @@ If you required to restart the server
 4. Open `Terminal` in the current directory
 5. Run `./bin/docker_run`
 
-If you required to restart the server
+If you are required to restart the server
 - Type `Ctrl+C` in terminal to stop the server
 - Run `./bin/dev` to start the server again
 

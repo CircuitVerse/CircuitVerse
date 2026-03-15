@@ -31,7 +31,7 @@ cd CircuitVerse
      rvm install 3.2.1
      rvm use 3.2.1
      ```
-- [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
+- [Redis 7.0 [at least]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
      ```bash
      sudo apt install lsb-release curl gpg
      curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg

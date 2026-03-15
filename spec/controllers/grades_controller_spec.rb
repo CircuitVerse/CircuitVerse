@@ -25,7 +25,7 @@ describe GradesController, type: :request do
       }
     end
 
-    context "when primary_mentor is singed in" do
+    context "when primary_mentor is signed in" do
       before do
         sign_in @primary_mentor
       end
@@ -52,7 +52,7 @@ describe GradesController, type: :request do
       end
     end
 
-    context "when a mentor is singed in" do
+    context "when a mentor is signed in" do
       before do
         sign_in_group_mentor(@group)
       end
