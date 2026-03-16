@@ -39,4 +39,10 @@ class UserMailer < ApplicationMailer
     @project = project
     mail(to: [@user.email], subject: "Your project is now featured!")
   end
+
+def group_invitation_email(email, group)
+  @group = group
+  @join_url = invite_group_url(group, token: group.group_token)
+  mail(to: email, subject: "You've been invited to join #{group.name} on CircuitVerse")
+end
 end

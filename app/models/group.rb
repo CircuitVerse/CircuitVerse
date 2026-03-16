@@ -4,7 +4,7 @@ class Group < ApplicationRecord
   has_secure_token :group_token
   validates :name, length: { minimum: 1 }, presence: true
   validates :allowed_domain,
-            format: { with: /\A[a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.[a-zA-Z]{2,}\z/,
+            format: { with: /\A[a-zA-Z0-9]([a-zA-Z0-9\-]*\.)+[a-zA-Z]{2,}\z/,
                       allow_blank: true,
                       message: "must be a valid domain (e.g., example.com)" }
 

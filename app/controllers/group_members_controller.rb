@@ -35,7 +35,13 @@ class GroupMembersController < ApplicationController
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
-    group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
+    all_emails = group_member_params[:emails].map(&:strip).reject(&:blank?)
+    invalid_emails = all_emails.reject { |e| e.match?(Devise.email_regexp) }
+    group_member_emails = all_emails - invalid_emails
+
+    if invalid_emails.any?
+      flash[:alert] = "Invalid email(s) skipped: #{invalid_emails.join(', ')}"
+    end
 
     present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
     newly_added = group_member_emails - present_members - [current_user&.email]
@@ -44,13 +50,10 @@ class GroupMembersController < ApplicationController
       user = User.find_by(email: email)
       if user.nil?
         PendingInvitation.where(group_id: @group.id, email: email).first_or_create
-        # @group.pending_invitations.create(email:email)
+        UserMailer.group_invitation_email(email, @group).deliver_later
       else
         GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create
-
-        # group_member = @group.group_members.new
-        # group_member.user_id = user.id
-        # group_member.save
+        UserMailer.group_invitation_email(email, @group).deliver_later
       end
     end
 
