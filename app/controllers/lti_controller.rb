@@ -5,7 +5,7 @@ class LtiController < ApplicationController
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
   after_action :allow_iframe_lti, only: %i[launch]
-  skip_before_action :authenticate_user!, only: %i[launch oidc_login jwks],
+  skip_before_action :authenticate_user!, only: %i[launch oidc_login jwks config],
                                           raise: false
 
   def launch
@@ -37,6 +37,17 @@ class LtiController < ApplicationController
 
   def jwks
     render json: { keys: [Lti::KeyManager.jwk] }
+  end
+
+
+  def tool_config
+    render json: {
+      title: "CircuitVerse",
+      description: "Digital circuit simulator for education",
+      target_link_uri: request.base_url + "/lti/launch",
+      oidc_initiation_url: request.base_url + "/lti/login",
+      public_jwk_url: request.base_url + "/lti/jwks"
+    }
   end
 
   private

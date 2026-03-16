@@ -70,148 +70,37 @@ Tagging.create([{ tag_id: tag.id,
                 { tag_id: tag.id,
                   project_id: projects.third.id }])
 
-# ============================================================
-# GSoC 2026 Demo Data — Assignment Suite Features
-# ============================================================
 if Rails.env.development?
   puts "Seeding GSoC demo data..."
-
-  mentor = User.first
-  group  = Group.first
-
-  if mentor && group
-    # Multi-level hierarchy
-    child_group = Group.find_or_create_by!(
-      name: "Section A — Digital Logic",
-      primary_mentor: mentor
-    ) do |g|
-      g.parent_group = group
-    end
-    puts "Created child group: #{child_group.name}"
-
-    # Subgroup
-    subgroup = Subgroup.find_or_create_by!(
-      name: "Team Alpha",
-      group: group
-    ) do |s|
-      s.max_size = 4
-    end
-    puts "Created subgroup: #{subgroup.name}"
-
-    # Circuit template
-    template = CircuitTemplate.find_or_create_by!(
-      name: "AND Gate Lab",
-      created_by: mentor
-    ) do |t|
-      t.description  = "Basic AND gate verification exercise"
-      t.circuit_data = {
-        components: [{ type: "AND", inputs: 2 }],
-        inputs:     [{ name: "A" }, { name: "B" }],
-        outputs:    [{ name: "Y" }]
-      }
-      t.public = true
-    end
-    puts "Created circuit template: #{template.name}"
-
-    # Test cases on first assignment
-    assignment = Assignment.first
-    if assignment
-      AssignmentTestCase.find_or_create_by!(
-        assignment:      assignment,
-        description:     "Both inputs HIGH → output HIGH"
-      ) do |tc|
-        tc.input_pins      = { "A" => 1, "B" => 1 }
-        tc.expected_output = { "Y" => 1 }
-        tc.position        = 1
-      end
-      AssignmentTestCase.find_or_create_by!(
-        assignment:      assignment,
-        description:     "Both inputs LOW → output LOW"
-      ) do |tc|
-        tc.input_pins      = { "A" => 0, "B" => 0 }
-        tc.expected_output = { "Y" => 0 }
-        tc.position        = 2
-      end
-      puts "Created 2 test cases on assignment: #{assignment.name}"
-    end
-
-    # Assignments
-    assignment1 = Assignment.find_or_create_by!(
-      name:  "AND Gate Lab",
-      group: group
-    ) do |a|
-      a.deadline         = 4.weeks.from_now
-      a.status           = "open"
-      a.grading_scale    = :percent
-      a.circuit_template = template
-    end
-    puts "Created assignment: #{assignment1.name}"
-
-    assignment2 = Assignment.find_or_create_by!(
-      name:  "OR Gate Exercise",
-      group: group
-    ) do |a|
-      a.deadline      = 2.weeks.from_now
-      a.status        = "open"
-      a.grading_scale = :no_scale
-    end
-    puts "Created assignment: #{assignment2.name}"
-
-    # Test cases on assignment 1
-    AssignmentTestCase.find_or_create_by!(
-      assignment:  assignment1,
-      description: "Both inputs HIGH → output HIGH"
-    ) do |tc|
-      tc.input_pins      = { "A" => 1, "B" => 1 }
-      tc.expected_output = { "Y" => 1 }
-      tc.position        = 1
-    end
-
-    AssignmentTestCase.find_or_create_by!(
-      assignment:  assignment1,
-      description: "Both inputs LOW → output LOW"
-    ) do |tc|
-      tc.input_pins      = { "A" => 0, "B" => 0 }
-      tc.expected_output = { "Y" => 0 }
-      tc.position        = 2
-    end
-
-    AssignmentTestCase.find_or_create_by!(
-      assignment:  assignment1,
-      description: "A HIGH, B LOW → output LOW"
-    ) do |tc|
-      tc.input_pins      = { "A" => 1, "B" => 0 }
-      tc.expected_output = { "Y" => 0 }
-      tc.position        = 3
-    end
-    puts "Created 3 test cases on assignment: #{assignment1.name}"
-
-    # Submission
-    student = User.find_by(email: "user2@circuitverse.org")
-    if student
-      student_project = Project.find_or_create_by!(
-        name:   "#{student.name}/#{assignment1.name}",
-        author: student
-      ) do |p|
-        p.project_access_type = "Private"
-        p.description         = "Student submission for AND Gate Lab"
-        p.assignment          = assignment1
-      end
-
-      AssignmentSubmission.find_or_create_by!(
-        assignment: assignment1,
-        user:       student,
-        project:    student_project
-      ) do |s|
-        s.status       = :submitted
-        s.submitted_at = Time.zone.now
-        s.score        = 66.67
-      end
-      puts "Created submission for #{student.name}"
-    end
-
-    puts "Classroom data seeded successfully!"
-  else
-    puts "No users or groups found — sign up at localhost:3000 first"
+  mentor = User.find_or_create_by!(email: "mentor@college.edu") do |u|
+    u.name         = "Demo Mentor"
+    u.password     = "password123"
+    u.confirmed_at = Time.zone.now
   end
+  parent = Group.find_or_create_by!(name: "CS101 - Digital Design") do |g|
+    g.primary_mentor = mentor
+  end
+  child = Group.find_or_create_by!(name: "Team A") do |g|
+    g.primary_mentor = mentor
+    g.parent_group   = parent
+  end
+  assignment = parent.assignments.find_or_create_by!(name: "Half Adder Lab") do |a|
+    a.deadline    = 1.week.from_now
+    a.description = "Build a half adder using XOR and AND gates"
+    a.status      = "open"
+  end
+  TestCase.find_or_create_by!(assignment: assignment, description: "Both inputs HIGH — output HIGH") do |tc|
+    tc.input = "A=1, B=1"
+    tc.expected_output = "Y=1"
+  end
+  TestCase.find_or_create_by!(assignment: assignment, description: "Both inputs LOW — output LOW") do |tc|
+    tc.input = "A=0, B=0"
+    tc.expected_output = "Y=0"
+  end
+  TestCase.find_or_create_by!(assignment: assignment, description: "A HIGH, B LOW — output LOW") do |tc|
+    tc.input = "A=1, B=0"
+    tc.expected_output = "Y=0"
+  end
+  puts "Seeded: Group #{parent.id}, Subgroup #{child.id}, Assignment #{assignment.id}"
+  puts "Test cases: #{assignment.test_cases.count}"
 end

@@ -21,6 +21,7 @@ belongs_to :lti_deployment, optional: true
   belongs_to :circuit_template, optional: true
   has_many   :assignment_test_cases, dependent: :destroy
   has_many   :assignment_submissions, dependent: :destroy
+  has_many :test_cases, dependent: :destroy
 
   enum :lti_version, { v1_1: 0, v1_3: 1 }, prefix: :lti
   enum :submission_type, { individual: 0, group: 1 }, prefix: :submission
