@@ -4,6 +4,7 @@ class Group < ApplicationRecord
   has_secure_token :group_token
   validates :name, length: { minimum: 1 }, presence: true
   belongs_to :primary_mentor, class_name: "User"
+  belongs_to :organization, optional: true
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
 
