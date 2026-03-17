@@ -14,12 +14,16 @@
 
   <% if Flipper.enabled?(:lms_integration, current_user) %>
     <div id="lms-integration-field" class="field mb-3">
-      <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements"><h6>Integrate with LMS</h6>
-       <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
-       <div class="primary-checkpoint"></div>
+      <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements">
+        <h6>Integrate with LMS</h6>
+        <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
+        <div class="primary-checkpoint"></div>
       </label>
-      <div class="lms-integration-message"> <!-- Operated by script -->
-       <p>We will generate the required keys for integration after assignment creation.<a href=<%= lms_integration_tutorial %>>Learn how to integrate CircuitVerse assignments with any LMS</a></p>
+      <div class="lms-integration-message">
+        <p>
+          We will generate the required keys for integration after assignment creation.
+          <a href=<%= lms_integration_tutorial %>>Learn how to integrate CircuitVerse assignments with any LMS</a>
+        </p>
       </div>
     </div>
   <% end %>
@@ -28,21 +32,25 @@
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :assignment_name, class: "form-control form-input" %>
   </div>
+
   <div id="description" class="field mb-3">
     <h6><%= form.label :description %></h6>
     <%= render partial: "editor/index", locals: { content: @assignment.description } %>
   </div>
+
   <div id="deadline-field" class="field form-group projects-tag-mb-3">
-    <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
+    <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6>
+    (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
   </div>
-<div id="grade-field" class="form-group projects-tag-mb-3" style="margin-top: 15px;">
+
+  <div id="grade-field" class="form-group projects-tag-mb-3" style="margin-top: 15px;">
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span><%= t("assignments.form.grade_scale_cant_change") %></span>
       <% if Flipper.enabled?(:lms_integration, current_user) %>
-        <div class="lms-grade-fixed-message"> <!-- Operated by script -->
-          <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</a></p>
+        <div class="lms-grade-fixed-message">
+          <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</p>
         </div>
       <% end %>
       <%= form.select :grading_scale, [[t("assignments.form.no_grade"), :no_scale], [t("assignments.form.letter"), :letter], [t("assignments.form.percent"), :percent], [t("assignments.form.custom"), :custom]], {}, class: "form-control form-input" %>
@@ -52,27 +60,26 @@
       </div>
     <% end %>
   </div>
+
+  <!-- Restricted Elements -->
 <div id="restrictions-field" class="field mb-3">
   <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2">
-    <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
+    <%= check_box_tag "restrict-elements", nil, @assignment.elements_restricted?, data: { action: "assignment#handleElementMainCheckbox" } %>
     <span><%= t("assignments.form.enable_element_restriction") %></span>
     <div class="primary-checkpoint"></div>
   </label>
-
   <div class="restricted-elements-list"></div>
 </div>
 
-<div id="feature-restrictions-field" class="field mb-3" data-controller="assignment">
-  <label for="restrict-feature" class="primary-checkpoint-container d-flex align-items-center gap-2">
-    <%= check_box_tag "restrict-feature" %>
-    <span data-action="click->assignment#handleFeatureMainCheckbox">
-      <%= t("assignments.form.enable_feature_restriction") %>
-    </span>
-    <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
-  </label>
-
-  <div class="restricted-feature-list"></div>
-</div>
+  <!-- Feature Restrictions -->
+  <div id="feature-restrictions-field" class="field mb-3">
+    <label for="restrict-feature" class="primary-checkpoint-container d-flex align-items-center gap-2">
+      <%= check_box_tag "restrict-feature", nil, @assignment.feature_restricted?, data: { action: "assignment#handleFeatureMainCheckbox" } %>
+      <span><%= t("assignments.form.enable_feature_restriction") %></span>
+      <div class="primary-checkpoint"></div>
+    </label>
+    <div class="restricted-feature-list"></div>
+  </div>
 
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
@@ -85,22 +92,21 @@
     loadRestrictions(JSON.parse('<%= raw @assignment.clean_restricted_elements %>'));
     loadDeadlinePicker();
     loadltiIntegration();
-  })
+  });
 
   function loadltiIntegration(){
     $('#lms-integration-check').change(function (e) {
-        e.preventDefault();
-        var radio = $(e.currentTarget);
-        if (radio.is(':checked')) {
-          $('.lms-integration-message').css("display", "block");
-          $('.lms-grade-fixed-message').css("display", "block");
-          $('#assignment_grading_scale').attr('readonly', 'readonly');
-          $('#assignment_grading_scale').val('percent');
-        } else {
-          $('.lms-integration-message').css("display", "none");
-          $('.lms-grade-fixed-message').css("display", "none");
-          $('#assignment_grading_scale').removeAttr('readonly');
-        }
+      e.preventDefault();
+      var radio = $(e.currentTarget);
+      if (radio.is(':checked')) {
+        $('.lms-integration-message').show();
+        $('.lms-grade-fixed-message').show();
+        $('#assignment_grading_scale').attr('readonly', 'readonly').val('percent');
+      } else {
+        $('.lms-integration-message').hide();
+        $('.lms-grade-fixed-message').hide();
+        $('#assignment_grading_scale').removeAttr('readonly');
+      }
     });
     $('#lms-integration-check').trigger('change');
   }
@@ -113,8 +119,8 @@
       step: 30,
       value: defaultAssignmentDate()
     });
-    $('#assignment_deadline').change(function()
-    {
+
+    $('#assignment_deadline').change(function() {
       const newDate = Date.parseDate($('#assignment_deadline').val(),'d/m/Y H:i');
       const remainingTimeLabel = $('#remaining-time');
       const remainingSeconds = (newDate - Date.now()) / 1000;
@@ -129,10 +135,12 @@
     });
     $('#assignment_deadline').change();
   }
+
   function updateRemainingTime(label,toDate) {
     const timeString = convertSecondsToReadableString((toDate - Date.now()) / 1000);
     label.html(`Time remaining: ${timeString}`);
   }
+
   function defaultAssignmentDate() {
     const splittedDate = "<%= assignment.deadline.strftime("%d/%m/%Y %H:%M") %>".split(/[\s,/:]+/);
     let pickerDate = new Date(splittedDate[2], splittedDate[1]-1, splittedDate[0], splittedDate[3], splittedDate[4]);
@@ -140,28 +148,28 @@
     const pickerUnixWithTimezone = new Date(pickerUnix - new Date().getTimezoneOffset()*60*1000);
     return formatDate(pickerUnixWithTimezone,"dd/MM/yyyy HH:mm");
   }
+
   function beforeSubmit() {
-      cleanEditor();
-      generateRestrictions();
-      generateDate();
-      generateFeatureRestrictions();
+    cleanEditor();
+    generateRestrictions();
+    generateDate();
+    generateFeatureRestrictions();
   }
+
   function generateFeatureRestrictions() {
     let new_feature_restriction = [];
     if ($('#restrict-feature').is(':checked')) {
       let restricted_feature = $('.feature-restriction');
-      for (let i = 0; i < restricted_feature.length; i++) {
-        let temp = $(restricted_feature[i]);
-        if (temp.is(':checked')) {
-          new_feature_restriction.push(temp.val());
-        }
-      }
+      restricted_feature.each(function() {
+        if ($(this).is(':checked')) new_feature_restriction.push($(this).val());
+      });
     }
     $('<input />').attr('type', 'hidden')
       .attr('name', 'assignment[feature_restrictions]')
       .attr('value', new_feature_restriction)
       .appendTo('#assignmentForm');
   }
+
   function generateDate() {
     const splittedDate = $('#assignment_deadline').val().split(/[\s,/:]+/);
     let pickerDate = new Date(splittedDate[2], splittedDate[1]-1, splittedDate[0], splittedDate[3], splittedDate[4]);
@@ -169,27 +177,27 @@
     const pickerUnixWithTimezone = new Date(pickerUnix + new Date().getTimezoneOffset()*60*1000);
     $('#assignment_deadline').val(formatDate(pickerUnixWithTimezone,"yyyy-MM-ddTHH:mm"));
   }
+
   function cleanEditor() {
     $('<input />').attr('type', 'hidden')
       .attr('name', 'description')
       .attr('value', $("#trumbowyg-editor").cleanHtml())
       .appendTo('#assignmentForm');
   }
+
   function generateRestrictions() {
     let updated_restrictions = [];
     if ($('#restrict-elements').is(":checked")) {
-      let restricted_elements = $('.element-restriction');
-      for (let i = 0; i < restricted_elements.length; i++) {
-        let temp = $(restricted_elements[i]);
-        if (temp.is(":checked"))
-          updated_restrictions.push(temp.val());
-      }
+      $('.element-restriction').each(function() {
+        if ($(this).is(":checked")) updated_restrictions.push($(this).val());
+      });
     }
     $('<input />').attr('type', 'hidden')
-        .attr('name', 'assignment[restrictions]')
-        .attr('value', JSON.stringify(updated_restrictions))
-        .appendTo('#assignmentForm');
+      .attr('name', 'assignment[restrictions]')
+      .attr('value', JSON.stringify(updated_restrictions))
+      .appendTo('#assignmentForm');
   }
 </script>
+
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>
