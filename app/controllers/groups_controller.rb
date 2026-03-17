@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   # GET /groups/1.json
   def show
     @group_member = @group.group_members.new
+    @child_groups = @group.child_groups.includes(:primary_mentor, :group_members)
     @group.assignments.each do |assignment|
       if (assignment.status == "reopening") && (assignment.deadline < Time.zone.now)
         assignment.status = "closed"

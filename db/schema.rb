@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_03_12_220008) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_16_171315) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -559,6 +559,16 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_12_220008) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
+  create_table "test_cases", force: :cascade do |t|
+    t.bigint "assignment_id", null: false
+    t.text "input"
+    t.text "expected_output"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_test_cases_on_assignment_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -651,4 +661,5 @@ ActiveRecord::Schema[8.0].define(version: 2026_03_12_220008) do
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "test_cases", "assignments"
 end

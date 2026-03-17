@@ -69,6 +69,21 @@
     <div class="restricted-feature-list"> <!-- Operated by script --> </div>
   </div>
 
+  <div id="submission-type-field" class="field mb-3">
+    <h6><%= form.label :submission_type, "Submission Mode" %></h6>
+    <div class="d-flex gap-3">
+      <div class="form-check">
+        <%= form.radio_button :submission_type, :individual, class: "form-check-input", id: "submission_individual" %>
+        <%= form.label :submission_type, "Individual", value: :individual, class: "form-check-label", for: "submission_individual" %>
+      </div>
+      <div class="form-check">
+        <%= form.radio_button :submission_type, :group, class: "form-check-input", id: "submission_group" %>
+        <%= form.label :submission_type, "Group", value: :group, class: "form-check-label", for: "submission_group" %>
+      </div>
+    </div>
+    <small class="form-text text-muted">Individual: each student submits separately. Group: one submission per subgroup.</small>
+  </div>
+
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
     <%= link_to t("back"), :back, class: "anchor-text" %>

@@ -1,38 +1,66 @@
-<div id="add-mentor-to-modal" class="modal fade" role="dialog">
-  <div class="modal-dialog primary-modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header primary-modal-header">
-        <h4 class="modal-title"><%= t("add_mentors") %></h4>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
-      </div>
-      <div class="modal-body">
-        <p><%= t("groups.add_member_description") %></p>
-        <%= t("groups.add_mentor_description_html") %>
-        <%= form_with(model: group_member, local: true) do |form| %>
-          <% if group_member.errors.any? %>
-            <div class="error-message">
-              <ul>
-                <% group_member.errors.full_messages.each do |message| %>
-                    <li><%= message %></li>
-                <% end %>
-              </ul>
-            </div>
-          <% end %>
-          <div class="field">
-            <%= form.hidden_field :group_id, id: :group_member_group_id %>
-          </div>
-          <div class="field">
-            <%= form.hidden_field :mentor, value: true %>
-          </div>
-          <div class="mb-3 d-flex flex-column">
-            <%= form.label :emails %>
-            <%= form.select :emails, [], {}, { class: "form-select", id: "group_mentor_emails", multiple: true } %>
-          </div>
-          <div class="modal-footer">
-            <%= form.submit "Add mentors", class: "btn primary-button", id: "add-mentor-button" %>
-          </div>
-        <% end %>
-      </div>
+<div id="add-mentor-panel" class="cv-inline-panel" role="region" aria-label="<%= t('add_mentors') %>">
+  <div class="cv-inline-panel-inner">
+    <div class="cv-panel-header">
+      <strong style="color:#0F6E56; font-size:0.9rem;"><%= t("add_mentors") %></strong>
+      <button type="button" class="cv-panel-close" onclick="closeCvPanel('add-mentor-panel')" aria-label="Close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
     </div>
+
+    <p style="font-size:0.85rem; color:#555; margin-bottom:10px;"><%= t("groups.add_member_description") %></p>
+    <%= t("groups.add_mentor_description_html") %>
+
+    <%= form_with(model: group_member, local: true) do |form| %>
+      <% if group_member.errors.any? %>
+        <div class="error-message" style="margin-bottom:8px;">
+          <ul style="margin:0; padding-left:20px;">
+            <% group_member.errors.full_messages.each do |message| %>
+              <li style="font-size:0.85rem;"><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%= form.hidden_field :group_id, id: :group_member_group_id %>
+      <%= form.hidden_field :mentor, value: true %>
+
+      <div class="cv-panel-input-row" style="margin-top:10px;">
+        <div style="flex:1; min-width:0;">
+          <%= form.select :emails, [], {},
+              { class: "form-select", id: "group_mentor_emails", multiple: true,
+                style: "font-size:0.9rem;" } %>
+          <div id="mentor-email-error" style="color:#DC2626; font-size:0.78rem; margin-top:4px; display:none;">
+            Enter a valid email address.
+          </div>
+        </div>
+        <%= form.submit t("add_mentors", default: "Add Mentors"), class: "btn primary-button",
+            id: "add-mentor-button",
+            style: "height:38px; white-space:nowrap; flex-shrink:0; align-self:flex-start;" %>
+      </div>
+    <% end %>
   </div>
 </div>
+
+<script>
+(function() {
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  var panel = document.getElementById('add-mentor-panel');
+  if (!panel) return;
+
+  panel.addEventListener('focusout', function(e) {
+    if (e.target.id !== 'group_email_input_mentor') return;
+    var val = e.target.value.trim();
+    var errorDiv = document.getElementById('mentor-email-error');
+    if (val !== '' && !emailRegex.test(val)) {
+      errorDiv.style.display = 'block';
+    } else {
+      errorDiv.style.display = 'none';
+    }
+  });
+
+  panel.addEventListener('input', function(e) {
+    if (e.target.id !== 'group_email_input_mentor') return;
+    document.getElementById('mentor-email-error').style.display = 'none';
+  });
+})();
+</script>

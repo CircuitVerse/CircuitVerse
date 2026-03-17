@@ -36,7 +36,7 @@
     <h3 class="mb-0">Circuit Data</h3>
   </div>
   <hr>
-  <% if @template.circuit_data.present? && @template.circuit_data.any? %>
+  <% if @template.circuit_data.present? %>
     <table class="table table-borderless groups-table">
       <thead class="groups-table-heading">
         <tr>
@@ -45,7 +45,7 @@
         </tr>
       </thead>
       <tbody>
-        <% @template.circuit_data.each do |key, value| %>
+        <% begin; parsed_data = @template.circuit_data.is_a?(String) ? JSON.parse(@template.circuit_data) : @template.circuit_data; rescue; parsed_data = {}; end; parsed_data.each do |key, value| %>
           <tr class="groups-table-rows">
             <td><strong><%= key.to_s.humanize %></strong></td>
             <td>

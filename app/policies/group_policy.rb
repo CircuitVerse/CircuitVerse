@@ -13,6 +13,10 @@ class GroupPolicy < ApplicationPolicy
     @admin_access || group.group_members.exists?(user_id: user.id)
   end
 
+  def show?
+    show_access?
+  end
+
   def admin_access?
     @admin_access
   end

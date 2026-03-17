@@ -8,25 +8,121 @@
       </ul>
     </div>
   <% end %>
+
   <div class="my-3 groups-form-text-container">
-    <div class="field mb-3">
+    <div class="field mb-4">
       <h5><%= form.label :name %></h5>
       <div class="input-group groups-input-group">
-        <%= form.text_field :name, id: :group_name, class: "form-control form-input", autofocus: true %>
+        <%= form.text_field :name, id: :group_name,
+            class: "form-control form-input",
+            autofocus: true,
+            placeholder: "e.g. CS101 Fall 2026" %>
       </div>
     </div>
+
     <div class="field mb-3">
       <h5><%= form.label :allowed_domain, "Allowed Email Domain (Optional)" %></h5>
-      <div class="input-group groups-input-group">
-        <%= form.text_field :allowed_domain, id: :group_allowed_domain, class: "form-control form-input", placeholder: "e.g., sjec.ac.in" %>
+      <div class="cv-domain-wrapper" id="domain-wrapper">
+        <span class="cv-domain-prefix" id="domain-prefix">@</span>
+        <%= form.text_field :allowed_domain,
+            id: :group_allowed_domain,
+            class: "cv-domain-input",
+            placeholder: "sjec.ac.in" %>
       </div>
+      <div id="domain-feedback" style="font-size:0.875em; margin-top:0.25rem;"></div>
       <small class="form-text text-muted">
-        Only users with email addresses from this domain will be able to join the group via invite link. Leave blank to allow any domain.
+        Accepts any domain — .com, .edu, .ac.in, .ac.uk etc. Leave blank to allow all.
       </small>
     </div>
   </div>
+
   <div class="groups-form-text-container">
     <%= form.submit class: "btn primary-button groups-form-primary-button" %>
     <%= link_to t("back"), :back, class: "groups-form-anchor-text anchor-text" %>
   </div>
 <% end %>
+
+<style>
+.cv-domain-wrapper {
+  display: flex;
+  align-items: stretch;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  background: white;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.cv-domain-wrapper:focus-within {
+  border-color: #1D9E75;
+  box-shadow: 0 0 0 3px rgba(29,158,117,0.15);
+}
+.cv-domain-wrapper.is-valid-wrap {
+  border-color: #1D9E75;
+}
+.cv-domain-wrapper.is-invalid-wrap {
+  border-color: #dc3545;
+}
+.cv-domain-prefix {
+  background: #f0f2f5;
+  color: #555;
+  font-weight: 700;
+  font-size: 1.05rem;
+  padding: 8px 14px;
+  border-right: 1px solid #ced4da;
+  display: flex;
+  align-items: center;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+  user-select: none;
+}
+.cv-domain-prefix.valid { background: #E1F5EE; color: #0F6E56; border-right-color: #1D9E75; }
+.cv-domain-prefix.invalid { background: #FEE2E2; color: #dc3545; border-right-color: #dc3545; }
+.cv-domain-input {
+  border: none;
+  outline: none;
+  padding: 8px 10px;
+  flex: 1;
+  background: transparent;
+  font-size: 0.95rem;
+  color: inherit;
+  min-width: 0;
+}
+</style>
+
+<script>
+(function() {
+  var wrapper   = document.getElementById('domain-wrapper');
+  var prefix    = document.getElementById('domain-prefix');
+  var input     = document.getElementById('group_allowed_domain');
+  var feedback  = document.getElementById('domain-feedback');
+  var domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9\-]*\.)+[a-zA-Z]{2,}$/;
+
+  if (!input || !feedback) return;
+
+  input.addEventListener('input', function() {
+    var val = this.value.trim();
+    if (val === '') {
+      feedback.innerHTML = '';
+      wrapper.classList.remove('is-valid-wrap', 'is-invalid-wrap');
+      prefix.classList.remove('valid', 'invalid');
+      this.classList.remove('is-valid', 'is-invalid');
+    } else if (domainRegex.test(val)) {
+      feedback.innerHTML = '<span style="color:#1D9E75;">&#10003; Looks good!</span>';
+      wrapper.classList.add('is-valid-wrap');
+      wrapper.classList.remove('is-invalid-wrap');
+      prefix.classList.add('valid');
+      prefix.classList.remove('invalid');
+      this.classList.add('is-valid');
+      this.classList.remove('is-invalid');
+    } else {
+      feedback.innerHTML = '<span style="color:#dc3545;">Enter a valid domain (e.g. sjec.ac.in)</span>';
+      wrapper.classList.add('is-invalid-wrap');
+      wrapper.classList.remove('is-valid-wrap');
+      prefix.classList.add('invalid');
+      prefix.classList.remove('valid');
+      this.classList.add('is-invalid');
+      this.classList.remove('is-valid');
+    }
+  });
+})();
+</script>

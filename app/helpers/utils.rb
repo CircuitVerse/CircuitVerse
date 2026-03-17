@@ -22,7 +22,7 @@ module Utils
   # @param newly_added array of emails that have been newly added
   # @return notice string
   def self.mail_notice(input_mails, parsed_mails, newly_added)
-    total_emails = input_mails.count(&:present?)
+    total_emails = Array(input_mails).flat_map { |e| e.split(",") }.map(&:strip).count(&:present?)
     valid_emails = parsed_mails.count
     invalid_emails = total_emails - valid_emails
     already_present_count = (parsed_mails - newly_added).count

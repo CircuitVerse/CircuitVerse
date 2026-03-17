@@ -35,7 +35,12 @@ class GroupMembersController < ApplicationController
     @group = Group.find(group_member_params[:group_id])
     is_mentor = false
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
-    all_emails = group_member_params[:emails].map(&:strip).reject(&:blank?)
+    raw_emails = group_member_params[:emails]
+    all_emails = if raw_emails.is_a?(Array)
+      raw_emails.flat_map { |e| e.split(',') }.map(&:strip).reject(&:blank?)
+    else
+      raw_emails.to_s.split(',').map(&:strip).reject(&:blank?)
+    end
     invalid_emails = all_emails.reject { |e| e.match?(Devise.email_regexp) }
     group_member_emails = all_emails - invalid_emails
 
