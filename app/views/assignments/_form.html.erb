@@ -54,21 +54,21 @@
   </div>
 
   <div id="restrictions-field" class="field mb-3">
-    <label for="restrict-elements" class="primary-checkpoint-container" id="label-restrict-elements"><h6><%= t("assignments.form.enable_element_restriction") %></h6>
-      <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
-      <div class="primary-checkpoint"></div>
-    </label>
+    <span><%= t("assignments.form.enable_element_restriction") %></span>
     <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-elements">
   <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
-  <h6 class="mb-0"><%= t("assignments.form.enable_element_restriction") %></h6>
+  <span><%= t("assignments.form.enable_element_restriction") %></span>
   <div class="primary-checkpoint"></div>
 </label>
 
   <div id="restrictions-field" class="field mb-3" data-controller="assignment">
-    <label for="restrict-feature" class="primary-checkpoint-container" id="label-restrict-feature"><h6 data-action="click->assignment#handleFeatureMainCheckbox"><%= t("assignments.form.enable_feature_restriction") %></h6>
-      <%= check_box_tag "restrict-feature" %>
-      <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
-    </label>
+    <label for="restrict-feature" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-feature">
+  <%= check_box_tag "restrict-feature" %>
+  <span data-action="click->assignment#handleFeatureMainCheckbox">
+    <%= t("assignments.form.enable_feature_restriction") %>
+  </span>
+  <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
+</label>
     <div class="restricted-feature-list"> <!-- Operated by script --> </div>
   </div>
 
