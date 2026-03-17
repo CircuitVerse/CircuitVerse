@@ -55,11 +55,13 @@
 
   <div id="restrictions-field" class="field mb-3">
     <span><%= t("assignments.form.enable_element_restriction") %></span>
-    <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-elements">
+   <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-elements">
   <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
   <span><%= t("assignments.form.enable_element_restriction") %></span>
   <div class="primary-checkpoint"></div>
 </label>
+
+<div class="restricted-elements-list"></div>
 
   <div id="restrictions-field" class="field mb-3" data-controller="assignment">
     <label for="restrict-feature" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-feature">
