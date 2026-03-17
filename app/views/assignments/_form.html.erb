@@ -52,27 +52,27 @@
       </div>
     <% end %>
   </div>
-
-  <div id="restrictions-field" class="field mb-3">
+<div id="restrictions-field" class="field mb-3">
+  <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2">
+    <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
     <span><%= t("assignments.form.enable_element_restriction") %></span>
-   <label for="restrict-elements" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-elements">
-  <%= check_box_tag "restrict-elements", checked: @assignment.elements_restricted? %>
-  <span><%= t("assignments.form.enable_element_restriction") %></span>
-  <div class="primary-checkpoint"></div>
-</label>
+    <div class="primary-checkpoint"></div>
+  </label>
 
-<div class="restricted-elements-list"></div>
+  <div class="restricted-elements-list"></div>
+</div>
 
-  <div id="restrictions-field" class="field mb-3" data-controller="assignment">
-    <label for="restrict-feature" class="primary-checkpoint-container d-flex align-items-center gap-2" id="label-restrict-feature">
-  <%= check_box_tag "restrict-feature" %>
-  <span data-action="click->assignment#handleFeatureMainCheckbox">
-    <%= t("assignments.form.enable_feature_restriction") %>
-  </span>
-  <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
-</label>
-    <div class="restricted-feature-list"> <!-- Operated by script --> </div>
-  </div>
+<div id="feature-restrictions-field" class="field mb-3" data-controller="assignment">
+  <label for="restrict-feature" class="primary-checkpoint-container d-flex align-items-center gap-2">
+    <%= check_box_tag "restrict-feature" %>
+    <span data-action="click->assignment#handleFeatureMainCheckbox">
+      <%= t("assignments.form.enable_feature_restriction") %>
+    </span>
+    <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
+  </label>
+
+  <div class="restricted-feature-list"></div>
+</div>
 
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
