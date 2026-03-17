@@ -14,12 +14,11 @@ jobs:
   percy-tests:
     
     if: >
-      github.event_name == 'push'
-      OR (
-        github.event_name == 'pull_request_target'
-        AND
-        contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')
-      )
+  github.event_name == 'push' ||
+  (
+    github.event_name == 'pull_request_target' &&
+    contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')
+  )
 
     runs-on: ubuntu-latest
 
