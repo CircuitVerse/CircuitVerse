@@ -12,7 +12,6 @@ branches:
 
 jobs:
 percy-tests:
-# Run on push OR when PR has label "check-visual-regression"
 if: ${{ github.event_name == 'push' || contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"') }}
 
 ```
