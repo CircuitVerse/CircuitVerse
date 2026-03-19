@@ -1,3 +1,15 @@
+name: "Percy Visual Tests"
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  pull_request_target:
+    branches:
+      - master
+      - main
+
 jobs:
   percy-tests:
     if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request_target' && contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')) }}
@@ -49,14 +61,16 @@ jobs:
           node-version: "22"
           cache: "yarn"
 
-      - name: Install Dependencies for canvas
+      - name: Install system dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
 
+      - name: Install JS dependencies
+        run: yarn install
+
       - name: Install Percy CLI
-        run: |
-          npm install @percy/cli --legacy-peer-deps
+        run: npm install --save-dev @percy/cli
 
       - name: Install Gems
         run: bundle install
