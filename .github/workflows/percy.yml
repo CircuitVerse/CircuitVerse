@@ -13,13 +13,8 @@ on:
 jobs:
   percy-tests:
 
-    # Fixed syntax: use || for OR and && for AND
-    if: >
-      github.event_name == 'push' ||
-      (
-        github.event_name == 'pull_request_target' &&
-        contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')
-      )
+    # ✅ correct position
+    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request_target' && contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')) }}
 
     runs-on: ubuntu-latest
 
