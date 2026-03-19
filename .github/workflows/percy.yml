@@ -1,94 +1,89 @@
 name: "Percy Visual Tests"
 
 on:
-  push:
-    branches:
-      - master
-      - main
-  pull_request:
-    branches:
-      - master
-      - main
+push:
+branches:
+- master
+- main
+pull_request:
+branches:
+- master
+- main
 
 jobs:
-  percy-tests:
-    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request_target' && contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"')) }}
+percy-tests:
+# Run on push OR when PR has label "check-visual-regression"
+if: ${{ github.event_name == 'push' || contains(toJson(github.event.pull_request.labels), '"name":"check-visual-regression"') }}
 
-    runs-on: ubuntu-latest
+```
+runs-on: ubuntu-latest
 
-    services:
-      postgres:
-        image: postgres:16-alpine
-        ports:
-          - "5432:5432"
-        env:
-          POSTGRES_DB: rails_test
-          POSTGRES_USER: rails
-          POSTGRES_PASSWORD: password
-
-      redis:
-        image: redis:alpine
-        ports:
-          - "6379:6379"
-        options: --entrypoint redis-server
-
+services:
+  postgres:
+    image: postgres:16-alpine
+    ports:
+      - "5432:5432"
     env:
-      RAILS_ENV: test
-      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+      POSTGRES_DB: rails_test
+      POSTGRES_USER: rails
+      POSTGRES_PASSWORD: password
 
-    steps:
-      - name: Check out base repo code
-        uses: actions/checkout@v3
-        with:
-          submodules: recursive
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    options: --entrypoint redis-server
 
-      - name: Check out PR code (fork)
-        if: ${{ github.event_name == 'pull_request_target' }}
-        uses: actions/checkout@v3
-        with:
-          repository: ${{ github.event.pull_request.head.repo.full_name }}
-          ref: ${{ github.event.pull_request.head.ref }}
-          submodules: recursive
+env:
+  RAILS_ENV: test
+  DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
+steps:
+  - name: Check out code
+    uses: actions/checkout@v4
+    with:
+      submodules: recursive
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          cache: "yarn"
+  - name: Set up Ruby
+    uses: ruby/setup-ruby@v1
+    with:
+      bundler-cache: true
 
-      - name: Install system dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev libgif-dev build-essential g++
+  - name: Set up Node.js
+    uses: actions/setup-node@v4
+    with:
+      node-version: "22"
+      cache: "yarn"
 
-      - name: Install JS dependencies
-        run: yarn install
+  - name: Install system dependencies
+    run: |
+      sudo apt-get update
+      sudo apt-get install -y libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++
 
-      - name: Install Percy CLI
-        run: npm install --save-dev @percy/cli
+  - name: Install JS dependencies
+    run: yarn install
 
-      - name: Install Gems
-        run: bundle install
+  - name: Install Percy CLI
+    run: npm install --save-dev @percy/cli
 
-      - name: Prepare DB
-        run: |
-          bin/rails db:schema:load
-          bin/rails data:migrate
+  - name: Install Gems
+    run: bundle install
 
-      - name: Configure RSA keys
-        run: |
-          openssl genrsa -out config/private.pem 2048
-          openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
+  - name: Prepare DB
+    run: |
+      bin/rails db:schema:load
+      bin/rails data:migrate
 
-      - name: Build assets
-        run: yarn run build
+  - name: Configure RSA keys
+    run: |
+      openssl genrsa -out config/private.pem 2048
+      openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 
-      - name: Run tests with Percy
-        env:
-          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
-        run: npx percy exec -- bundle exec rspec
+  - name: Build assets
+    run: yarn run build
+
+  - name: Run tests with Percy
+    env:
+      PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+    run: npx percy exec -- bundle exec rspec
+```
