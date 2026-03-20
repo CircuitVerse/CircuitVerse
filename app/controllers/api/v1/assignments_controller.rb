@@ -36,7 +36,6 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
   # PATCH /api/v1/assignments/:id
   def update
-    @assignment.update!(assignment_update_params)
     if @assignment.update(assignment_update_params)
       render json: Api::V1::AssignmentSerializer.new(@assignment, @options), status: :accepted
     else
