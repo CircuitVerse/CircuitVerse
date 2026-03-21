@@ -92,7 +92,7 @@
         <div id="no-results-message" class="col-12" style="display:none;">
           <div class="search-no-results-image">
             <%= image_tag "svgs/noProject.svg", alt: "No result image" %>
-            <h6>No circuits found. Try a different keyword.</h6>
+            <h6><%= t("users.circuitverse.index.no_circuits_found_try_different_keyword") %></h6>
           </div>
         </div>
       <% end %>
@@ -204,7 +204,7 @@
       // Sort cards
       var dashboards = $('.circuit-page');
       dashboards.each((i, dashboard) => {
-        var circuitCards = $(dashboard).children();
+        var circuitCards = $(dashboard).children('.circuit-card-js');
         circuitCards.detach().sort((a, b) => {
           a = getSortIndex(a);
           b = getSortIndex(b);
