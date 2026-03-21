@@ -83,6 +83,29 @@ The `.env` file only needs to be used if you would like to link to third party s
    1.  Update the `site url` field with the URL of your instance, and update the `callback url` field with `<url>/users/auth/google`, `<url>/users/auth/facebook`, `<url>/users/auth/github` or `<url>/users/auth/gitlab`  respectively.
 3. Configure your `id` and `secret` environment variables in `.env`. If `.env` does not exist, copy the template from `.env.example`.
 4. After adding the environment variables, run `dotenv rails server` to start the application.
+## Web Push Notifications (VAPID Keys)
+
+CircuitVerse uses [Web Push](https://github.com/zaru/webpush) for browser notifications. You need to generate VAPID keys and add them to your `.env` file.
+
+### Generating VAPID Keys
+
+Run the following in your Rails console:
+
+```ruby
+vapid_key = Webpush.generate_key
+puts vapid_key.public_key
+puts vapid_key.private_key
+```
+
+Then add these to your `.env` file:
+
+```
+VAPID_PUBLIC_KEY=<your_public_key>
+VAPID_PRIVATE_KEY=<your_private_key>
+```
+
+> **Note:** Keep your `VAPID_PRIVATE_KEY` secret. Never commit it to version control.
+
 
 ## (Optional) Yosys Installation for Verilog RTL Synthesis
 If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to install the `yosys` binary.
