@@ -89,6 +89,12 @@
       </div>
       <% else %>
         <%= render partial: "dashboard", locals: { projects: @user_projects } %>
+        <div id="no-results-message" class="col-12" style="display:none;">
+          <div class="search-no-results-image">
+            <%= image_tag "svgs/noProject.svg", alt: "No result image" %>
+            <h6>No circuits found. Try a different keyword.</h6>
+          </div>
+        </div>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
@@ -186,6 +192,8 @@
           // mark matches as visible
           $(match.item.domObj).show();
       })
+      // Show empty state message if no circuits match the search
+      $('#no-results-message').toggle(matches.length === 0);
       // Helper function used for sorting cards
       function getSortIndex(circuitDiv) {
         var title = getTitle(circuitDiv);
@@ -207,6 +215,7 @@
       });
     } else { // if searchQuery is empty -> display everything
       projects.show();
+      $('#no-results-message').hide();
     }
   })
 
