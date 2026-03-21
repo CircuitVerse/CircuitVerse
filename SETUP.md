@@ -99,7 +99,7 @@ puts vapid_key.private_key
 
 Then add these to your `.env` file:
 
-```
+```dotenv
 VAPID_PUBLIC_KEY=<your_public_key>
 VAPID_PRIVATE_KEY=<your_private_key>
 ```
