@@ -6,7 +6,9 @@
     <div class="error-message">
       <ul>
         <% @assignment.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+         <ul>
+  <li>Some text</li>
+</ul>
         <% end %>
       </ul>
     </div>
@@ -14,10 +16,13 @@
 
   <% if Flipper.enabled?(:lms_integration, current_user) %>
     <div id="lms-integration-field" class="field mb-3">
-      <label for="lms-integration-check" class="primary-checkpoint-container" id="lms-integration-check-elements"><h6>Integrate with LMS</h6>
-       <%= check_box_tag "lms-integration-check", checked: @assignment.lti_integrated? %>
-       <div class="primary-checkpoint"></div>
-      </label>
+      <div class="form-check">
+  <%= check_box_tag "lms-integration-check", "1", @assignment.lti_integrated?, class: "form-check-input", id: "lms-integration-check" %>
+
+  <label for="lms-integration-check" class="form-check-label fw-semibold">
+    Integrate with LMS
+  </label>
+</div>
       <div class="lms-integration-message"> <!-- Operated by script -->
        <p>We will generate the required keys for integration after assignment creation.<a href=<%= lms_integration_tutorial %>>Learn how to integrate CircuitVerse assignments with any LMS</a></p>
       </div>
@@ -28,10 +33,11 @@
     <h6><%= form.label :name %></h6>
     <%= form.text_field :name, id: :assignment_name, class: "form-control form-input" %>
   </div>
-  <div id="description" class="field mb-3">
-    <h6><%= form.label :description %></h6>
-    <%= render partial: "editor/index", locals: { content: @assignment.description } %>
-  </div>
+ <div id="description" class="field mb-3">
+  <%= form.label :description, "Description", class: "form-label fw-semibold" %>
+
+  <%= render partial: "editor/index", locals: { content: @assignment.description } %>
+</div>
   <div id="deadline-field" class="field form-group projects-tag-mb-3">
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
