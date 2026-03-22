@@ -21,42 +21,54 @@
   <% if Flipper.enabled?(:lms_integration, current_user) %>
     <div id="lms-integration-field" class="field mb-3">
       <div class="form-check">
-        <%= check_box_tag "lms-integration-check", "1", @assignment.lti_integrated?,
-          class: "form-check-input", id: "lms-integration-check" %>
+        <%= check_box_tag "lms-integration-check", "1",
+          @assignment.lti_integrated?,
+          class: "form-check-input",
+          id: "lms-integration-check" %>
 
         <label for="lms-integration-check" class="form-check-label fw-semibold">
           Integrate with LMS
-        </label>
-      </div>
+        </label      </div>
 
       <div class="lms-integration-message">
         <p>
           We will generate the required keys for integration after assignment creation.
-          <a href="<%= lms_integration_tutorial %>">Learn how to integrate CircuitVerse assignments with any LMS</a>
+          <a href="<%= lms_integration_tutorial %>">
+            Learn how to integrate CircuitVerse assignments with any LMS
+          </a>
         </p>
       </div>
     </div>
   <% end %>
 
-  <div id="name-field" class="field mb-3">
+  <!-- NAME -->
+  <div class="field mb-3">
     <%= form.label :name, class: "form-label fw-semibold" %>
-    <%= form.text_field :name, id: :assignment_name, class: "form-control form-input" %>
+    <%= form.text_field :name, class: "form-control form-input" %>
   </div>
 
-  <div id="description" class="field mb-3">
+  <!-- DESCRIPTION -->
+  <div class="field mb-3">
     <%= form.label :description, "Description", class: "form-label fw-semibold" %>
     <%= render partial: "editor/index", locals: { content: @assignment.description } %>
   </div>
 
-  <div id="deadline-field" class="field form-group projects-tag-mb-3">
+  <!-- DEADLINE -->
+  <div class="field mb-3">
     <label for="assignment_deadline" class="form-label fw-semibold">
       <%= t("assignments.deadline") %>
     </label>
-    (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
-    <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
+    (<span id="remaining-time">
+      <b><%= t("assignments.remaining_time_error") %></b>
+    </span>)
+    <input id="assignment_deadline"
+           name="assignment[deadline]"
+           type="text"
+           class="form-control form-input">
   </div>
 
-  <div id="grade-field" class="form-group projects-tag-mb-3">
+  <!-- GRADING -->
+  <div class="field mb-3" style="margin-top: 15px;">
     <%= form.label :grading_scale, class: "form-label fw-semibold" %>
 
     <% if @assignment.new_record? %>
@@ -64,7 +76,7 @@
 
       <% if Flipper.enabled?(:lms_integration, current_user) %>
         <div class="lms-grade-fixed-message">
-          <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</p>
+          <p>Grading Scale needs to be fixed at 1-100 for LMS</p>
         </div>
       <% end %>
 
@@ -78,32 +90,41 @@
 
     <% else %>
       <div class="assignments-noedit-grade-field">
-        <p><%= t("assignments.form.cannot_be_edited",
-          graded: AssignmentDecorator.new(@assignment).graded) %></p>
+        <p>
+          <%= t("assignments.form.cannot_be_edited",
+          graded: AssignmentDecorator.new(@assignment).graded) %>
+        </p>
       </div>
     <% end %>
   </div>
 
-  <!-- Element Restrictions -->
-  <div id="element-restrictions-field" class="field mb-3">
-    <label for="restrict-elements" class="primary-checkpoint-container">
-      <%= t("assignments.form.enable_element_restriction") %>
-      <%= check_box_tag "restrict-elements", "1", @assignment.elements_restricted? %>
+  <!-- ELEMENT RESTRICTION -->
+  <div class="field mb-3">
+    <label class="primary-checkpoint-container d-flex align-items-center gap-2">
+      <%= check_box_tag "restrict-elements", "1",
+        @assignment.elements_restricted?,
+        id: "restrict-elements" %>
+
+      <span><%= t("assignments.form.enable_element_restriction") %></span>
       <div class="primary-checkpoint"></div>
     </label>
     <div class="restricted-elements-list"></div>
   </div>
 
-  <!-- Feature Restrictions -->
-  <div id="feature-restrictions-field" class="field mb-3">
-    <label for="restrict-feature" class="primary-checkpoint-container">
-      <%= t("assignments.form.enable_feature_restriction") %>
-      <%= check_box_tag "restrict-feature" %>
+  <!-- FEATURE RESTRICTION -->
+  <div class="field mb-3">
+    <label class="primary-checkpoint-container d-flex align-items-center gap-2">
+      <%= check_box_tag "restrict-feature", "1",
+        false,
+        id: "restrict-feature" %>
+
+      <span><%= t("assignments.form.enable_feature_restriction") %></span>
       <div class="primary-checkpoint"></div>
     </label>
     <div class="restricted-feature-list"></div>
   </div>
 
+  <!-- SUBMIT -->
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %>
     <%= link_to t("back"), :back, class: "anchor-text" %>
@@ -149,5 +170,6 @@
   }
 </script>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
+<link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.4.5/jquery.datetimepicker.min.js"></script>
