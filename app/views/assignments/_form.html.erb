@@ -106,9 +106,10 @@
   <!-- ELEMENT RESTRICTION -->
   <div class="field mb-3">
     <label class="primary-checkpoint-container d-flex align-items-center gap-2">
-      <%= check_box_tag "restrict-elements", "1",
-        @assignment.elements_restricted?,
-        id: "restrict-elements" %>
+<%= check_box_tag "restrict-feature", "1",
+  @assignment.feature_restricted?,
+  id: "restrict-feature",
+  data: { action: "assignment#handleFeatureMainCheckbox" } %>
 
       <span><%= t("assignments.form.enable_element_restriction") %></span>
       <div class="primary-checkpoint"></div>
