@@ -51,7 +51,11 @@
   <!-- DESCRIPTION -->
   <div class="field mb-3">
     <%= form.label :description, "Description", class: "form-label fw-semibold" %>
-    <%= render partial: "editor/index", locals: { content: @assignment.description } %>
+<%= render partial: "editor/index",
+  locals: {
+    content: @assignment.description,
+    field_id: "assignment_description"
+  } %>
   </div>
 
   <!-- DEADLINE -->
