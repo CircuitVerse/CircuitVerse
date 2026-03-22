@@ -27,9 +27,9 @@
           id: "lms-integration-check" %>
 
         <label for="lms-integration-check" class="form-check-label fw-semibold">
-  Integrate with LMS
-</label>
-</div>
+          Integrate with LMS
+        </label>
+      </div>
 
       <div class="lms-integration-message">
         <p>
@@ -51,11 +51,11 @@
   <!-- DESCRIPTION -->
   <div class="field mb-3">
     <%= form.label :description, "Description", class: "form-label fw-semibold" %>
-<%= render partial: "editor/index",
-  locals: {
-    content: @assignment.description,
-    field_id: "assignment_description"
-  } %>
+    <%= render partial: "editor/index",
+      locals: {
+        content: @assignment.description,
+        field_id: "assignment_description"
+      } %>
   </div>
 
   <!-- DEADLINE -->
@@ -106,14 +106,15 @@
   <!-- ELEMENT RESTRICTION -->
   <div class="field mb-3">
     <label class="primary-checkpoint-container d-flex align-items-center gap-2">
-<%= check_box_tag "restrict-feature", "1",
-  @assignment.feature_restricted?,
-  id: "restrict-feature",
-  data: { action: "assignment#handleFeatureMainCheckbox" } %>
+      <%= check_box_tag "restrict-elements", "1",
+        @assignment.elements_restricted?,
+        id: "restrict-elements",
+        data: { action: "assignment#handleElementMainCheckbox" } %>
 
       <span><%= t("assignments.form.enable_element_restriction") %></span>
       <div class="primary-checkpoint"></div>
     </label>
+
     <div class="restricted-elements-list"></div>
   </div>
 
@@ -121,12 +122,14 @@
   <div class="field mb-3">
     <label class="primary-checkpoint-container d-flex align-items-center gap-2">
       <%= check_box_tag "restrict-feature", "1",
-        false,
-        id: "restrict-feature" %>
+        @assignment.feature_restricted?,
+        id: "restrict-feature",
+        data: { action: "assignment#handleFeatureMainCheckbox" } %>
 
       <span><%= t("assignments.form.enable_feature_restriction") %></span>
       <div class="primary-checkpoint"></div>
     </label>
+
     <div class="restricted-feature-list"></div>
   </div>
 
@@ -140,7 +143,7 @@
 
 <script>
   $(document).ready(function() {
-    loadRestrictions(JSON.parse('<%= raw @assignment.clean_restricted_elements %>'));
+    loadRestrictions(JSON.parse('<%= j @assignment.clean_restricted_elements %>'));
     loadDeadlinePicker();
     loadltiIntegration();
   });
@@ -166,6 +169,29 @@
       step: 30,
       value: defaultAssignmentDate()
     });
+  }
+
+  function defaultAssignmentDate() {
+    <% if @assignment.deadline.present? %>
+      const splittedDate = "<%= @assignment.deadline.strftime('%d/%m/%Y %H:%M') %>".split(/[\s,/:]+/);
+
+      let pickerDate = new Date(
+        splittedDate[2],
+        splittedDate[1] - 1,
+        splittedDate[0],
+        splittedDate[3],
+        splittedDate[4]
+      );
+
+      const pickerUnix = pickerDate.getTime();
+      const pickerUnixWithTimezone = new Date(
+        pickerUnix - new Date().getTimezoneOffset()*60*1000
+      );
+
+      return formatDate(pickerUnixWithTimezone,"dd/MM/yyyy HH:mm");
+    <% else %>
+      return formatDate(new Date(),"dd/MM/yyyy HH:mm");
+    <% end %>
   }
 
   function beforeSubmit() {
