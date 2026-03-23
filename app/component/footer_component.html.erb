@@ -2,7 +2,7 @@
 </div>
 <div class="container-fluid footer-container-fluid">
   <div class="container footer-container mb-4">
-    <div class="col gap-4">
+    <div class="gap-4">
       <div class="footer-column">
         <div class="d-flex align-items-center justify-content-between">
           <!-- Added inline style here to shift logo more to the left -->
@@ -11,17 +11,15 @@
               <%= helpers.image_tag("CircuitVerse.png", class: "footer-logo", alt: "CircuitVerse Logo") %>
             </a>
           </div>
-          <div class="text-start" >
+          <div class="text-start">
             <%= render(SocialLinksComponent.new) %>
           </div>
         </div>
       </div>
       <div class="row mt-4">
         <%= render(FooterLinksComponent.new(@current_user)) %>
-
         <div class="col-12 col-sm-6">
           <div class="row">
-          
             <div class="col-6 footer-sponsor-logo-div d-flex flex-column align-items-start">
               <small class="text-start footer-sponsor-logo-text footer-heading-text max-w-200">
                 <%= t("layout.footer.sponsor_logo_text.incubated_from") %>
@@ -31,7 +29,7 @@
               </a>
             </div>
 
-            <div class="col-6 footer-sponsor-logo-div d-flex flex-column align-items-sm-end align-items-start" >
+            <div class="col-6 footer-sponsor-logo-div d-flex flex-column align-items-sm-end align-items-start">
               <small class="text-start footer-sponsor-logo-text footer-heading-text max-w-200">
                 <%= t("layout.footer.sponsor_logo_text.infrastructure_sponsor") %>
               </small>
