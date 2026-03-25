@@ -69,7 +69,7 @@ class Admin::ContestsController < ApplicationController
 
     def parse_deadline_or_redirect(str)
       parsed = Time.zone.parse(str)
-      redirect_to(admin_contests_path, alert: t(".invalid_deadline")) and return if parsed.nil?
+      return redirect_to(admin_contests_path, alert: t(".invalid_deadline")) if parsed.nil?
 
       parsed
     end
