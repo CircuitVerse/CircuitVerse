@@ -70,11 +70,15 @@
   delete_path: "#"
 )) %>
 <script type="text/javascript">
-  $(document).ready(function() {
-    $("#deleteuserModal").on("show.bs.modal", function(e) {
-        let user = $(e.relatedTarget).data('currentuser');
-        $(e.currentTarget).find('#users-user-delete-button').attr("href",
-        "/users/");
+  $(document).ready(function () {
+    $("#deleteuserModal").on("show.bs.modal", function (e) {
+      const user = $(e.relatedTarget).data("currentuser");
+
+      if (user) {
+        $(e.currentTarget)
+          .find("#users-user-delete-button")
+          .attr("href", `/users/${user}`);
+      }
     });
   });
 </script>
