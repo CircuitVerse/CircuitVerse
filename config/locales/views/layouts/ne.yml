@@ -10,6 +10,8 @@ ne:
     link_to_about: "बारेमा"
     link_to_faq: "सामान्य प्रश्न"
     footer:
+      community: "समुदाय"
+      resources: "संसाधन"
       social_icon_text: "हामीलाई फलो गर्नुहोस्:"
       link_to_examples: "उदाहरणहरू"
       my_circuits: "मेरा सर्किटहरू"

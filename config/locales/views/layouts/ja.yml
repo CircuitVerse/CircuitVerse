@@ -12,6 +12,8 @@ ja:
     link_to_contests: "コンテスト"
     link_to_explore: "探索"
     footer:
+      community: "リソース"
+      resources: "コミュニティ"
       social_icon_text: "フォローしてください："
       link_to_examples: "例"
       link_to_explore: "探索"
