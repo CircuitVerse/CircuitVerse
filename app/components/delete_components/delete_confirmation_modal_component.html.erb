@@ -8,7 +8,7 @@
       <div class="modal-body">
         <p><%= t(@message_key) %></p>
       </div>
-      <div class="modal-footer" <% if @footer_dismiss %>data-bs-dismiss="modal"<% end %>>
+      <div class="modal-footer" <%= 'data-bs-dismiss="modal"' if @footer_dismiss %>>
         <% link_options = { method: @method, class: "btn primary-delete-button", id: @button_id } %>
         <% link_options[:remote] = true if @remote %>
         <%= link_to @delete_path, **link_options do %>
