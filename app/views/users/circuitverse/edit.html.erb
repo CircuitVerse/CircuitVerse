@@ -63,7 +63,12 @@
     </div>
   </div>
 </div>
-<%= render partial: "users/circuitverse/delete_user_confirmation_modal" %>
+<%= render(DeleteComponents::DeleteConfirmationModalComponent.new(
+  modal_id: "deleteuserModal",
+  message_key: "users.circuitverse.delete_user_confirmation",
+  button_id: "users-user-delete-button",
+  delete_path: "#"
+)) %>
 <script type="text/javascript">
   $(document).ready(function() {
     $("#deleteuserModal").on("show.bs.modal", function(e) {

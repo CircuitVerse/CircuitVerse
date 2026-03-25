@@ -199,8 +199,18 @@
     <% end %>
 
     <%= render partial: "add_collaborator_modal" %>
-    <%= render(ProjectComponents::DeleteProjectConfirmationModelComponent.new) %>
-    <%= render partial: "delete_collaboration_confirmation_modal" %>
+    <%= render(DeleteComponents::DeleteConfirmationModalComponent.new(
+      modal_id: "deleteprojectModal",
+      message_key: "projects.delete_project_message",
+      button_id: "projects-delete-button",
+      delete_path: "#"
+    )) %>
+    <%= render(DeleteComponents::DeleteConfirmationModalComponent.new(
+      modal_id: "deletecollaborationModal",
+      message_key: "projects.remove_collaborator_message",
+      button_id: "projects-collaboration-delete-button",
+      delete_path: "#"
+    )) %>
     <%= render(ProjectEmbedComponent.new(@project)) %>
 
 </div>
