@@ -164,6 +164,4 @@ For a production deployment beyond this POC:
 
 ---
 
-## Screenshots
 
-_Add screenshots of successful saLTIre launch here_
