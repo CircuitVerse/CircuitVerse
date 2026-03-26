@@ -15,4 +15,9 @@ UserPolicy = Struct.new(:user, :requested_user) do
   def edit?
     current_user && requested_user.id == current_user.id
   end
+
+  def destroy?
+    # Only allow users to delete their own account
+    requested_user.id == current_user.id
+  end
 end

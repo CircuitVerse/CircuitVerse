@@ -8,7 +8,6 @@ class Users::CircuitverseController < ApplicationController
   before_action :authenticate_user!, only: %i[edit update groups destroy]
   before_action :set_user, except: [:typeahead_educational_institute]
   before_action :remove_previous_profile_picture, only: [:update]
-  before_action :authorize_user_deletion, only: [:destroy]
 
   def index
     @profile = ProfileDecorator.new(@user)
@@ -46,11 +45,9 @@ class Users::CircuitverseController < ApplicationController
   end
 
   def destroy
+    authorize @user
     @user.destroy!
     redirect_to root_path, status: :see_other, notice: t("users.circuitverse.account_deleted")
-  rescue StandardError => e
-    Rails.logger.error("User deletion failed for user #{@user.id}: #{e.message}")
-    redirect_to profile_edit_path(@user), alert: t("users.circuitverse.error_deleting_account")
   end
 
   private
@@ -67,12 +64,5 @@ class Users::CircuitverseController < ApplicationController
 
     def remove_previous_profile_picture
       @profile.profile_picture.purge if params[:user][:profile_picture].present? && @profile.profile_picture.attached?
-    end
-
-    def authorize_user_deletion
-      # Safety check: Only allow users to delete their own account
-      return if current_user.id == @user.id
-
-      redirect_to profile_path(@user), alert: t("users.circuitverse.unauthorized_deletion")
     end
 end
