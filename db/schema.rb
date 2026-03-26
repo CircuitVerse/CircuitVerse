@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2026_03_26_040001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -104,7 +104,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.string "lti_consumer_key"
     t.string "lti_shared_secret"
     t.jsonb "feature_restrictions", default: {}
+    t.string "lti_deployment_id"
     t.index ["group_id"], name: "index_assignments_on_group_id"
+    t.index ["lti_deployment_id"], name: "index_assignments_on_lti_deployment_id"
   end
 
   create_table "collaborations", force: :cascade do |t|
@@ -285,6 +287,18 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lti_platforms", force: :cascade do |t|
+    t.string "issuer", null: false
+    t.string "client_id", null: false
+    t.string "auth_url", null: false
+    t.string "token_url", null: false
+    t.string "jwks_url", null: false
+    t.string "deployment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["issuer", "client_id"], name: "index_lti_platforms_on_issuer_and_client_id", unique: true
   end
 
   create_table "mailkick_opt_outs", force: :cascade do |t|

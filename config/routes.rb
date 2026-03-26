@@ -132,6 +132,13 @@ Rails.application.routes.draw do
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]
+
+    # LTI 1.3 OIDC launch flow (alongside existing LTI 1.1)
+    namespace :v1p3, module: 'lti/v1p3' do
+      get  'jwks',          to: 'launches#jwks'
+      post 'oidc/login',    to: 'launches#oidc_login',    as: :oidc_login
+      post 'oidc/callback', to: 'launches#oidc_callback', as: :oidc_callback
+    end
   end
 
   mount Commontator::Engine => "/commontator"
