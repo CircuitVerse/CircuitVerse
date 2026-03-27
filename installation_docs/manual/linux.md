@@ -15,7 +15,7 @@ cd CircuitVerse
 - Use `git submodule update --init` to get the contents of the submodule if you missed using the `--recursive` option while cloning the repository or if you have already done so.
 
 #### Dependencies
-> Installation guide link and commands has been added to each dependency. You can skip the installation of the dependency if it is already installed.
+> Installation guide link and commands have been added to each dependency. You can skip the installation of the dependency if it is already installed.
 - [Git](https://git-scm.com/) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
      ```bash
      sudo apt install git
@@ -31,7 +31,7 @@ cd CircuitVerse
      rvm install 3.2.1
      rvm use 3.2.1
      ```
-- [Redis 7.0 [atleast]](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
+- [Redis 7.0 (at least)](https://redis.io/docs/getting-started/installation/install-redis-on-linux/)
      ```bash
      sudo apt install lsb-release curl gpg
      curl -fsSL https://packages.redis.io/gpg | sudo gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
@@ -43,7 +43,7 @@ cd CircuitVerse
      ```bash
      sudo apt install imagemagick
      ```
-- [Node.js 22.x](https://nodejs.org/it/download)
+- [Node.js 22.x](https://nodejs.org/en/download)
      ```bash
      curl -sL https://deb.nodesource.com/setup_22.x | sudo bash
      sudo apt-get update && sudo apt-get install -y nodejs
@@ -80,7 +80,7 @@ cd CircuitVerse
 1. Install Ruby bundler : `gem install bundler`
 2. Install Ruby dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
-4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` for the template): 
+4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` to create the template): 
      * **(macOS/linux):** `cp config/database.example.yml config/database.yml`
      * **Note:** The Postgres credentials need to be updated to your currently running database
 5. Create database: `bundle exec rails db:create`
