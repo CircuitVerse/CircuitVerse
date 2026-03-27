@@ -49,12 +49,22 @@ module Adapters
       end
 
       def base_project_results(relation, query_params)
-        query_params[:q].present? ? relation.text_search(query_params[:q]) : Project.public_and_not_forked
+       q = query_params[:q]
+
+       return Project.public_and_not_forked if q.blank?
+       return Project.none if q.include?("\0")
+
+        relation.text_search(q)
       end
 
-      def base_user_results(relation, query_params)
-        query_params[:q].present? ? relation.text_search(query_params[:q]) : User.all
-      end
+     def base_user_results(relation, query_params)
+       q = query_params[:q]
+
+       return relation if q.blank?
+       return User.none if q.include?("\0")
+  
+       relation.text_search(q)
+     end
 
       def apply_sorting(relation, query_params, type)
         sort_field = sanitize_sort_field(query_params[:sort_by], type)
