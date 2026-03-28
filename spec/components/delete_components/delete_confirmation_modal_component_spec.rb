@@ -39,6 +39,7 @@ RSpec.describe DeleteComponents::DeleteConfirmationModalComponent, type: :compon
     ))
 
     expect(page).to have_link("", href: "/test/delete", class: "btn primary-delete-button")
+    expect(page).to have_selector("a.primary-delete-button[data-method='put']")
   end
 
   it "renders with remote option" do
