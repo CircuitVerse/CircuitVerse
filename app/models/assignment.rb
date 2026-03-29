@@ -20,9 +20,10 @@ class Assignment < ApplicationRecord
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
   
-  validate :deadline_cannot_be_in_the_past
+  validate :deadline_cannot_be_in_the_past, if: :deadline_changed?
 
   private
+  
   def deadline_cannot_be_in_the_past
     return if deadline.blank?
 
