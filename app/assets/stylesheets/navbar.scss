@@ -750,3 +750,14 @@
 .hidden {
   display: none !important;
 }
+
+/* RTL fix for notification dropdown */
+html[dir="rtl"] .dropdown-menu.dropdown-notification {
+  right: 0 !important;
+  left: auto !important;
+  text-align: right;
+}
+
+html[dir="rtl"] .dropdown-notification {
+  direction: rtl;
+}
