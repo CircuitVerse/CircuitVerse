@@ -19,7 +19,18 @@ class Assignment < ApplicationRecord
   has_many :grades, dependent: :destroy
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
+  
+  validate :deadline_cannot_be_in_the_past
 
+  private
+  def deadline_cannot_be_in_the_past
+    return if deadline.blank?
+
+    if deadline < Time.current
+      errors.add(:deadline, "cannot be in the past")
+    end  
+  end
+  
   def notify_recipient
     group.group_members.each do |group_member|
       NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)
