@@ -28,15 +28,15 @@
           <p>
             <% case @assignment.deadline_status %>
             <% when :passed %>
-              <span class="badge badge-danger">❌ Deadline Passed</span>
+              <span class="badge bg-danger">❌ Deadline Passed</span>
             <% when :due_soon %>
-              <span class="badge badge-warning">⚠️ Due Soon</span>
+              <span class="badge bg-warning">⚠️ Due Soon</span>
             <% when :active %>
-              <span class="badge badge-success">✅ Active</span>
+              <span class="badge bg-success">✅ Active</span>
             <% end %>
           </p>
 
-          <% if @assignment.deadline > Time.current %>
+          <% if @assignment.deadline_status == :active || @assignment.deadline_status == :due_soon %>
             <p><%= t("assignments.assignment_data.time_remaining_html", time_remaining: AssignmentDecorator.new(@assignment).time_remaining) %></p>
           <% end %>
           <p><%= t("assignments.assignment_data.graded_html", graded: @assignment.graded) %></p>
