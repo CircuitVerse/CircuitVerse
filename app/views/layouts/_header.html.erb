@@ -32,17 +32,20 @@
             </li>
           <% end %>
           <li class="nav-item dropdown">
-            <button id="getting-started-dropdown"
-              class="nav-link dropdown-toggle navbar-item navbar-text"
-              type="button"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="true"
-              aria-haspopup="true"
-              aria-expanded="false"
-              aria-label="<%= t('layout.getting_started_dropdown') %>">
-              <%= t("layout.getting_started_dropdown") %>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
+       <button id="getting-started-dropdown"
+  class="nav-link dropdown-toggle navbar-item navbar-text"
+  type="button"
+  data-bs-toggle="dropdown"
+  data-bs-auto-close="true"
+  aria-haspopup="true"
+  aria-expanded="false"
+  aria-label="<%= t('layout.getting_started_dropdown') %>"
+  tabindex="0"
+  role="button">
+  <%= t("layout.getting_started_dropdown") %>
+</button>
+
+<div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
               <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_learn_more") %></a>
               <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_docs") %></a>
             </div>
@@ -155,13 +158,12 @@
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
 
-    document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
-      trigger.addEventListener("show.bs.dropdown", function() {
-        trigger.classList.add("rotate180");
-      });
-      trigger.addEventListener("hide.bs.dropdown", function() {
-        trigger.classList.remove("rotate180");
-      });
+   document.querySelectorAll('.dropdown-toggle').forEach(element => {
+  element.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      element.click();
     });
   });
+});
 </script>
