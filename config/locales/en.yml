@@ -1,4 +1,6 @@
 en:
+  notifications:
+    not_found: "Notification not found"
   edit: "Edit"
   show: "Show"
   delete: "Delete"
