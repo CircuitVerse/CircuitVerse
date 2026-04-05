@@ -24,9 +24,6 @@ RUN mkdir /home/vendor/bundle
 # set up workdir
 WORKDIR /circuitverse
 
-# install bundler
-RUN gem install bundler -v '~> 2.5'
-
 # Set shell to bash
 SHELL ["/bin/bash", "-c"]
 
