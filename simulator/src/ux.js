@@ -25,6 +25,18 @@ import { currentScreen } from './listeners';
 import { updateTestbenchUI, setupTestbenchUI } from './testbench';
 import { applyVerilogTheme } from './Verilog2CV';
 
+
+// Map of component objectTypes → documentation URLs
+const helpLinks = {
+    Resistor: "https://docs.circuitverse.org/components/resistor",
+    Capacitor: "https://docs.circuitverse.org/components/capacitor",
+    LED: "https://docs.circuitverse.org/components/led",
+    Switch: "https://docs.circuitverse.org/components/switch",
+    Battery: "https://docs.circuitverse.org/components/battery",
+    // Add more components as needed
+};
+
+
 export const uxvar = {
     smartDropXX: 50,
     smartDropYY: 80,
@@ -389,13 +401,18 @@ export function showProperties(obj) {
         }
     }
 
-    var helplink = obj && (obj.helplink);
-    if (helplink) {
-        $(moduleProperty.modulePropertyInner).append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
-        $('#HelpButton').on('click',() => {
-            window.open(helplink);
-        });
-    }
+    if (obj) {
+    $(moduleProperty.modulePropertyInner).append('<p class="btn-parent"><button id="HelpButton" class="btn btn-primary btn-xs" type="button" >&#9432 Help</button></p>');
+    $('#HelpButton').on('click', () => {
+        const docUrl = helpLinks[obj.objectType]; // Lookup URL by component type
+        if (docUrl) {
+            window.open(docUrl, "_blank");
+        } else {
+            alert("Documentation not found for: " + obj.objectType);
+        }
+    });
+}
+
 
     function checkValidBitWidth() {
         const selector = $("[name='newBitWidth']");
