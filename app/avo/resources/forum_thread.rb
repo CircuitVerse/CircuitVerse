@@ -27,7 +27,7 @@ class Avo::Resources::ForumThread < Avo::BaseResource
     end
 
     def status_fields
-      field :forum_posts_count, as: :number, label: "Posts count"
+      field :forum_posts_count, as: :number, label: "Posts count", readonly: true
       field :pinned, as: :boolean, sortable: true
       field :solved, as: :boolean, sortable: true
     end
