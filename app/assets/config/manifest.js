@@ -1,6 +1,5 @@
 //= link commontator/manifest.js
 //= link application.css
-//= link favicon.ico
 //= link_tree ../images
 //= link_tree ../images/svgs
 //= link_directory ../javascripts .js
