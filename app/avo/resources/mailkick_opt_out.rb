@@ -2,7 +2,6 @@
 
 class Avo::Resources::MailkickOptOut < Avo::BaseResource
   self.title = :email
-  self.includes = [:user]
   self.model_class = ::Mailkick::OptOut
 
   def fields
