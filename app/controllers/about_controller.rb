@@ -71,6 +71,27 @@ class AboutController < ApplicationController
         img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" }
     ]
 
-    @issues_triaging = []
+    @issues_triaging = [
+      { name: "Yashvant Singh",
+        img: "https://avatars.githubusercontent.com/u/146776812?v=4", link: "https://github.com/JatsuAkaYashvant" },
+      { name: "Ghanshyam Singh",
+        img: "https://avatars.githubusercontent.com/u/56252619?v=4", link: "https://github.com/ghanshyam2005singh" },
+      { name: "Harsh Bhadu",
+        img: "https://avatars.githubusercontent.com/u/102225113?v=4", link: "https://github.com/senbo1" },
+      { name: "Supreeth C",
+        img: "https://avatars.githubusercontent.com/u/141218988?v=4", link: "https://github.com/ShinichiShi" },
+      { name: "Radhika Chauhan",
+        img: "https://avatars.githubusercontent.com/u/148184013?v=4", link: "https://github.com/Radhikaa-chauhan" },
+      { name: "ANIRUDDH",
+        img: "https://avatars.githubusercontent.com/u/149250431?v=4", link: "https://github.com/blazethunderstorm" },
+      { name: "Himanshu Jayswal",
+        img: "https://avatars.githubusercontent.com/u/158487820?v=4", link: "https://github.com/himanshujays29" },
+      { name: "Naman Chhabra",
+        img: "https://avatars.githubusercontent.com/u/159947791?v=4", link: "https://github.com/naman79820" },
+      { name: "Yana Pandey",
+        img: "https://avatars.githubusercontent.com/u/173885830?v=4", link: "https://github.com/Yana-do-code" },
+      { name: "Himanshu Soni",
+        img: "https://avatars.githubusercontent.com/u/183348352?v=4", link: "https://github.com/h30s" }
+    ]
   end
 end
