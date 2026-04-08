@@ -131,9 +131,9 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
         get "/api/v1/projects/#{empty_project.id}/circuit_data", as: :json
       end
 
-      it "returns Circuit data unavailabe for the project!" do
+      it "returns Circuit data unavailable for the project!" do
         expect(response).to have_http_status(:not_found)
-        expect(response.parsed_body["error"]).to eq("Circuit data unavailabe for the project!")
+        expect(response.parsed_body["error"]).to eq("Circuit data unavailable for the project!")
       end
     end
   end
