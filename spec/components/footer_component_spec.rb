@@ -11,7 +11,7 @@ RSpec.describe FooterComponent, type: :component do
     allow(Flipper).to receive(:enabled?).and_return(false)
   end
 
-  it "renders the footer with all components" do
+  it "renders footer with all components" do
     render_inline(described_class.new(current_user: user))
 
     expect(page).to have_css(".footer-container")
@@ -21,13 +21,23 @@ RSpec.describe FooterComponent, type: :component do
     expect(page).to have_css(".footer-copyright-text")
   end
 
-  it "renders the current year in the copyright text" do
+  it "renders footer with modern structure" do
+    render_inline(described_class.new(current_user: user))
+
+    expect(page).to have_css(".footer-main-row")
+    expect(page).to have_css(".footer-brand-section")
+    expect(page).to have_css(".footer-links-section")
+    expect(page).to have_css(".footer-sponsors-section")
+    expect(page).to have_css(".footer-copyright-row")
+  end
+
+  it "renders current year in copyright text" do
     render_inline(described_class.new(current_user: nil))
 
     expect(page).to have_text(Time.current.year.to_s)
   end
 
-  it "renders SocialLinksComponent" do
+  it "renders SocialLinksComponent with hover effects" do
     social_links_component = instance_double(SocialLinksComponent)
     allow(SocialLinksComponent).to receive(:new).and_return(social_links_component)
     allow(social_links_component).to receive(:render_in)
@@ -41,5 +51,30 @@ RSpec.describe FooterComponent, type: :component do
     allow(footer_links_component).to receive(:render_in)
 
     render_inline(described_class.new(current_user: user))
+  end
+
+  it "includes proper CSS classes for hover effects" do
+    render_inline(described_class.new(current_user: user))
+
+    expect(page).to have_css(".footer-logo-link")
+    expect(page).to have_css(".footer-social-link")
+    expect(page).to have_css(".footer-link-item")
+    expect(page).to have_css(".footer-sponsor-link")
+    expect(page).to have_css(".footer-social-icons-container")
+  end
+
+  it "has responsive design classes" do
+    render_inline(described_class.new(current_user: user))
+
+    expect(page).to have_css(".footer-links-grid")
+    expect(page).to have_css(".footer-sponsors-grid")
+    expect(page).to have_css(".footer-sponsors-item")
+  end
+
+  it "has proper spacing between sections" do
+    render_inline(described_class.new(current_user: user))
+
+    expect(page).to have_css(".footer-main-row")
+    expect(page).to have_css(".footer-copyright-row")
   end
 end
