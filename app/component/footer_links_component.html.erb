@@ -13,9 +13,9 @@
           <h6><%= t(link[:text]) %></h6>
         <% end %>
       <% end %>
-      <% if forum_enabled? %>
-        <h6><%= link_to t("layout.footer.link_to_forum"), simple_discussion_path %></h6>
-      <% end %>
+      <h6>
+  <%= link_to t("layout.footer.link_to_forum"), "https://beta.circuitverse.org/forum", target: "_blank" %>
+</h6>
     </div>
   </div>
 </div>
