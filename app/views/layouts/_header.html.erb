@@ -32,16 +32,9 @@
             </li>
           <% end %>
           <li class="nav-item dropdown">
-            <button id="getting-started-dropdown"
-              class="nav-link dropdown-toggle navbar-item navbar-text"
-              type="button"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="true"
-              aria-haspopup="true"
-              aria-expanded="false"
-              aria-label="<%= t('layout.getting_started_dropdown') %>">
+            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="getting started">
               <%= t("layout.getting_started_dropdown") %>
-            </button>
+            </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
               <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_learn_more") %></a>
               <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_docs") %></a>
@@ -54,23 +47,16 @@
             <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+            <i class="fa fa-search search-icon" tabindex="0" aria-label="search" aria-expanded="false" aria-controls="navbar-search-active"></i>
           </li>
         </ul>
         <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <button class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center"
-                id="navbar-dropdown-2"
-                type="button"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="true"
-                aria-haspopup="true"
-                aria-expanded="false"
-                aria-label="<%= current_user.name %>">
+              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-label="user">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
-              </button>
+              </a>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
                 <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
                 <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
@@ -89,7 +75,7 @@
     </div>
   </div>
 </nav>
-<div class="navbar-search-active">
+<div class="navbar-search-active" id="navbar-search-active">
   <%= render(Search::SearchBarComponent.new(
     resource: params[:resource],
     query: params[:q],
@@ -119,17 +105,73 @@
     }
     window.addEventListener('scroll', handleNavbarShadow);
 
-    function activeSearchBar() {
+    if (gettingStartedLink) {
+      const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
+      gettingStartedLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        if (gettingStartedLink.classList.contains("rotate180")) {
+          gettingStartedLink.classList.remove("rotate180");
+          gettingStartedDropdown.hide();
+        } else {
+          gettingStartedLink.classList.add("rotate180");
+          gettingStartedDropdown.show();
+        }
+        e.stopPropagation();
+      });
+      gettingStartedLink.addEventListener("keydown", function (e) {
+        if (e.key === " ") {
+          e.preventDefault();
+          if (gettingStartedLink.classList.contains("rotate180")) {
+            gettingStartedLink.classList.remove("rotate180");
+            gettingStartedDropdown.hide();
+          } else {
+            gettingStartedLink.classList.add("rotate180");
+            gettingStartedDropdown.show();
+          }
+        }
+      });
+      document.addEventListener("click", function () {
+        gettingStartedLink.classList.remove("rotate180");
+        gettingStartedDropdown.hide();
+      });
+    }
+
+    let lastActiveSearchIcon = null;
+
+    function activeSearchBar(e) {
+      if (e && e.currentTarget && e.currentTarget.classList && e.currentTarget.classList.contains("search-icon")) {
+        lastActiveSearchIcon = e.currentTarget;
+      }
       const icons = Array.from(searchIcons);
       const isActive = icons.some(icon => icon.classList.contains("active"));
       if (isActive) {
-        icons.forEach(icon => icon.classList.remove("active"));
+        icons.forEach(icon => {
+          icon.classList.remove("active");
+          icon.setAttribute("aria-expanded", "false");
+        });
         searchBar.style.display = "none";
+        if (lastActiveSearchIcon) {
+          lastActiveSearchIcon.focus();
+        } else if (icons[0]) {
+          icons[0].focus();
+        }
       } else {
-        icons.forEach(icon => icon.classList.add("active"));
+        icons.forEach(icon => {
+          icon.classList.add("active");
+          icon.setAttribute("aria-expanded", "true");
+        });
         searchBar.style.display = "block";
+        const searchInput = searchBar.querySelector(".search-bar-input");
+        if (searchInput) {
+          searchInput.focus();
+        }
       }
-      collapseElement.classList.remove("show");
+      
+      if (collapseElement && collapseElement.classList.contains("show")) {
+        const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+        if (bsCollapse) bsCollapse.hide();
+        else collapseElement.classList.remove("show");
+      }
     }
 
     if (dropdownButton && collapseElement && dropdownIcon) {
@@ -148,11 +190,42 @@
       });
     }
 
-    Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
+    Array.from(searchIcons).forEach(icon => {
+      icon.addEventListener("click", activeSearchBar);
+      icon.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activeSearchBar(e);
+        }
+      });
+    });
+    
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape") {
+        if (document.activeElement && !searchBar.contains(document.activeElement)) return;
+
+        const icons = Array.from(searchIcons);
+        if (icons.some(icon => icon.classList.contains("active"))) {
+          icons.forEach(icon => {
+            icon.classList.remove("active");
+            icon.setAttribute("aria-expanded", "false");
+          });
+          searchBar.style.display = "none";
+          if (lastActiveSearchIcon) {
+            lastActiveSearchIcon.focus();
+          } else if (icons[0]) {
+            icons[0].focus();
+          }
+        }
+      }
+    });
 
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
-      Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
+      Array.from(searchIcons).forEach(icon => {
+        icon.classList.add("active");
+        icon.setAttribute("aria-expanded", "true");
+      });
     }
 
     document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
