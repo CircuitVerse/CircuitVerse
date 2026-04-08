@@ -20,9 +20,12 @@ Devise.setup do |config|
   # config.parent_mailer = 'ActionMailer::Base'
   config.omniauth :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET'], {
     :skip_jwt => true,
-    :scope => 'email, profile',
-    prompt: 'select_account',
+    :scope => 'email, profile, https://www.googleapis.com/auth/classroom.courses.readonly, https://www.googleapis.com/auth/classroom.coursework.students, https://www.googleapis.com/auth/classroom.coursework.students.readonly',
+    prompt: 'consent',
+    access_type: 'offline',
+    include_granted_scopes: true
   }
+
   config.omniauth :facebook, ENV['FACEBOOK_CLIENT_ID'], ENV['FACEBOOK_CLIENT_SECRET'],  {
     :info_fields => 'email,name'
   }

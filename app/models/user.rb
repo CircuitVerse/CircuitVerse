@@ -20,6 +20,11 @@ class User < ApplicationRecord
          :validatable, :omniauthable, :saml_authenticatable,
          omniauth_providers: %i[google_oauth2 facebook github gitlab]
 
+  # Encrypt OAuth tokens at rest for security
+  # Requires Rails ActiveRecord encryption keys to be configured
+  encrypts :google_access_token
+  encrypts :google_refresh_token
+
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
   has_many :groups, through: :group_members
