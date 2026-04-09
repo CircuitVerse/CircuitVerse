@@ -16,6 +16,8 @@ RSpec.describe FooterLinksComponent, type: :component do
 
     expect(page).to have_link(I18n.t("layout.link_to_simulator"), href: "/simulator")
     expect(page).to have_link(I18n.t("layout.link_to_learn_more"), href: "/learn")
+    expect(page).to have_link(I18n.t("layout.link_to_faq"),
+                              href: "https://docs.circuitverse.org/chapter8/chapter8-cvfaq")
     expect(page).to have_link(I18n.t("login"), href: "/users/sign_in")
     expect(page).not_to have_link(I18n.t("layout.footer.my_circuits"))
   end
