@@ -15,7 +15,9 @@
 
 .comments-comment {
   background-color: $card-green;
+  hyphens: auto;
   margin-top: 15px;
+  overflow-wrap: break-word;
   padding: 10px 20px;
   overflow-wrap: break-word;
   .body {
