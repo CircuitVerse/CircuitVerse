@@ -61,10 +61,4 @@ class Avo::Resources::Assignment < Avo::BaseResource
                        hide_on: %i[edit new]
   end
   # rubocop:enable Metrics/MethodLength
-
-  def filters
-    filter Avo::Filters::AssignmentByGroup
-    filter Avo::Filters::AssignmentByGradingScale
-    filter Avo::Filters::AssignmentByStatus
-  end
 end

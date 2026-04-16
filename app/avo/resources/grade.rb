@@ -40,7 +40,7 @@ class Avo::Resources::Grade < Avo::BaseResource
                       # rubocop:disable Style/HashLikeCase
                       case record.assignment.grading_scale
                       when "no_scale"
-                        "⚠️ This assignment cannot be graded (no_scale)"
+                        "This assignment cannot be graded (no_scale)"
                       when "letter"
                         "Enter a letter grade: A, B, C, D, E, or F"
                       when "percent"
@@ -71,23 +71,13 @@ class Avo::Resources::Grade < Avo::BaseResource
                                format_using: lambda {
                                  assignment = record.assignment
                                  case assignment&.grading_scale
-                                 when "no_scale" then "🚫 No Scale"
-                                 when "letter" then "🔤 Letter (A-F)"
-                                 when "percent" then "📊 Percent (0-100)"
-                                 when "custom" then "✏️ Custom"
+                                 when "no_scale" then "No Scale"
+                                 when "letter" then "Letter (A-F)"
+                                 when "percent" then "Percent (0-100)"
+                                 when "custom" then "Custom"
                                  else "Unknown"
                                  end
                                }
   end
   # rubocop:enable Metrics/MethodLength
-
-  def filters
-    filter Avo::Filters::GradeByAssignment
-    filter Avo::Filters::GradeByGrader
-    filter Avo::Filters::GradeByScale
-  end
-
-  def actions
-    action Avo::Actions::ExportGradesToCsv
-  end
 end
