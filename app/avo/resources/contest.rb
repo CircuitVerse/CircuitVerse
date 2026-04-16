@@ -36,6 +36,7 @@ class Avo::Resources::Contest < Avo::BaseResource
     live_exists = Contest.live.exists?
 
     return { "Completed" => "completed" } if (view == :new) && live_exists
+
     if view == :edit && record&.live?
       return {
         "Live" => "live",
