@@ -70,15 +70,26 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   private
+   
 
+  #
     def check_captcha
-      return unless Flipper.enabled?(:recaptcha) && !verify_recaptcha
+  return unless Flipper.enabled?(:recaptcha)
 
-      self.resource = resource_class.new sign_up_params
-      resource.validate # Look for any other validation errors besides reCAPTCHA
-      set_minimum_password_length
-      respond_with_navigational(resource) { render :new }
-    end
+  begin
+    return if verify_recaptcha
+  rescue JSON::ParserError, Recaptcha::RecaptchaError => e
+    Rails.logger.error("[Recaptcha Error] #{e.class}: #{e.message}")
+
+    # Fail-open: allow request if captcha service fails
+    return true
+  end
+
+  self.resource = resource_class.new sign_up_params
+  resource.validate # Look for any other validation errors besides reCAPTCHA
+  set_minimum_password_length
+  respond_with_navigational(resource) { render :new }
+end
 
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_account_update_params
