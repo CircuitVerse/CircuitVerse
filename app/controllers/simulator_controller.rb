@@ -8,12 +8,15 @@ class SimulatorController < ApplicationController
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
-  before_action :check_edit_access, only: %i[edit update]
-  skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
+
+  skip_before_action :verify_authenticity_token,
+                   only: %i[get_data verilog_cv]
+
   after_action :allow_iframe, only: %i[embed]
-  after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
-    Flipper.enabled?(:lms_integration, current_user)
-  }
+  after_action :allow_iframe_lti, only: %i[show],
+               if: -> { Flipper.enabled?(:lms_integration, current_user) }
+
+  MAX_CODE_SIZE = 10_000
 
   def self.policy_class
     ProjectPolicy
@@ -22,6 +25,7 @@ class SimulatorController < ApplicationController
   def show
     @logix_project_id = params[:id]
     @external_embed = false
+
     if Flipper.enabled?(:vuesim, current_user)
       render "embed_vue", layout: false
     else
@@ -32,6 +36,7 @@ class SimulatorController < ApplicationController
   def new
     @logix_project_id = 0
     @projectName = ""
+
     if Flipper.enabled?(:vuesim, current_user)
       render "edit_vue", layout: false
     else
@@ -42,6 +47,7 @@ class SimulatorController < ApplicationController
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
+
     if Flipper.enabled?(:vuesim, current_user)
       render :edit_vue, layout: false
     else
@@ -51,10 +57,11 @@ class SimulatorController < ApplicationController
 
   def embed
     authorize @project
+
     @logix_project_id = params[:id]
-    @project = Project.friendly.find(params[:id])
-    @author = @project.author_id
     @external_embed = true
+    @author = @project.author_id
+
     if Flipper.enabled?(:vuesim, current_user)
       render :embed_vue, layout: false
     else
@@ -68,38 +75,42 @@ class SimulatorController < ApplicationController
 
   def create
     @project = Project.new
-    @project.build_project_datum.data = sanitize_data(@project, params[:data])
-    @project.name = sanitize(params[:name])
     @project.author = current_user
-    # ActiveStorage
+    @project.name = sanitize(params[:name])
+
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
+
     io_image_file = parse_image_data_url(params[:image])
     attach_circuit_preview(io_image_file)
-    # CarrierWave
+
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
     image_file.close
-    @project.save!
 
-    # render plain: simulator_path(@project)
-    # render plain: user_project_url(current_user,@project)
+    @project.save!
     redirect_to edit_user_project_url(current_user, @project)
   end
 
   def update
-    @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
-    @project.project_datum.data = sanitize_data(@project, params[:data])
-    # ActiveStorage
-    @project.circuit_preview.purge if @project.circuit_preview.attached?
-    io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(io_image_file)
-    # CarrierWave
-    image_file = return_image_file(params[:image])
-    @project.image_preview = image_file
-    image_file.close
-    File.delete(image_file) if check_to_delete(params[:image])
-    @project.name = sanitize(params[:name])
-    @project.save
-    @project.project_datum.save
+    ActiveRecord::Base.transaction do
+      @project.project_datum ||= ProjectDatum.new(project: @project)
+      @project.project_datum.data = ensure_unique_circuit_names!(
+        @project, 
+        sanitize_data(@project, params[:data])
+      )
+      @project.project_datum.save!
+
+      @project.circuit_preview.purge if @project.circuit_preview.attached?
+      attach_circuit_preview(parse_image_data_url(params[:image]))
+
+      image_file = return_image_file(params[:image])
+      @project.image_preview = image_file
+      image_file.close
+      File.delete(image_file) if check_to_delete(params[:image])
+
+      @project.update!(name: sanitize(params[:name]))
+    end
+
     render plain: "success"
   end
 
@@ -115,26 +126,20 @@ class SimulatorController < ApplicationController
 
   def post_issue
     url = ENV.fetch("SLACK_ISSUE_HOOK_URL", nil)
+    issue = IssueCircuitDatum.create!(data: params[:circuit_data])
+    circuit_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue.id}"
 
-    # Post the issue circuit data
-    issue_circuit_data = IssueCircuitDatum.new
-    issue_circuit_data.data = params[:circuit_data]
-    issue_circuit_data.save!
+    if Flipper.enabled?(:slack_issue_notification) && url.present?
+      http_client.post(url, json: { text: "#{params[:text]}\nCircuit Data: #{circuit_url}" })
+    end
 
-    issue_circuit_data_id = issue_circuit_data.id
-
-    # Send it over to slack hook
-    circuit_data_url = "#{request.base_url}/simulator/issue_circuit_data/#{issue_circuit_data_id}"
-    text = "#{params[:text]}\nCircuit Data: #{circuit_data_url}"
-    HTTP.post(url, json: { text: text }) if Flipper.enabled?(:slack_issue_notification)
-    head :ok, content_type: "text/html"
+    head :ok
   end
-
-  MAX_CODE_SIZE = 10_000 # 10KB limit
 
   def verilog_cv
     if params[:code].to_s.bytesize > MAX_CODE_SIZE
-      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" }, status: :payload_too_large
+      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" },
+             status: :payload_too_large
       return
     end
 
@@ -145,75 +150,103 @@ class SimulatorController < ApplicationController
     end
   end
 
+  private
+
+  def ensure_unique_circuit_names!(_project, data)
+    return data if data.blank?
+
+    begin
+      parsed = JSON.parse(data)
+    rescue JSON::ParserError
+      raise ActionController::BadRequest, "Invalid circuit data JSON"
+    end
+
+    return data unless parsed["scopes"].is_a?(Array)
+
+    existing_names = []
+    parsed["scopes"].each do |scope|
+      base_name = scope["name"].to_s.gsub(/\s\(\d+\)$/, "").strip
+      base_name = "Untitled-Circuit" if base_name.empty?
+
+      unique_name = get_unique_circuit_name(base_name, existing_names)
+      
+      scope["name"] = unique_name
+      existing_names << unique_name
+    end
+
+    parsed.to_json
+  end
+
+  # Helper to find the first available name slot
+  def get_unique_circuit_name(base_name, existing_names)
+    return base_name unless existing_names.include?(base_name)
+
+    counter = 1
+    new_name = "#{base_name} (#{counter})"
+    
+    while existing_names.include?(new_name)
+      counter += 1
+      new_name = "#{base_name} (#{counter})"
+    end
+    
+    new_name
+  end
+
+  def allow_iframe
+    response.headers.except!("X-Frame-Options")
+  end
+
   def allow_iframe_lti
     return unless session[:is_lti]
 
     response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
   end
 
-  private
+  def http_client
+    HTTP.timeout(connect: 5, write: 10, read: 30)
+  end
 
-    def allow_iframe
-      response.headers.except! "X-Frame-Options"
-    end
+  def compile_with_local_gem
+    result = Yosys2Digitaljs::Runner.compile(params[:code].to_s)
+    render json: result
+  rescue StandardError => e
+    Rails.logger.error(e)
+    render json: { message: "Compilation failed" }, status: :unprocessable_entity
+  end
 
-    # HTTP client with reasonable timeouts to prevent hanging
-    def http_client
-      HTTP.timeout(connect: 5, write: 10, read: 30)
-    end
+  def compile_with_external_api
+    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+    response = http_client.post(url, json: { code: params[:code].to_s })
+    render json: JSON.parse(response.to_s), status: response.code
+  rescue StandardError => e
+    Rails.logger.error("Yosys API error: #{e.message}")
+    render json: { message: "Yosys service unavailable" }, status: :service_unavailable
+  end
 
-    def compile_with_local_gem
-      code = params[:code].to_s
-      result = Yosys2Digitaljs::Runner.compile(code)
-      render json: result
-    rescue Yosys2Digitaljs::SyntaxError => e
-      render json: { message: "Syntax Error: #{e.message}" }, status: :unprocessable_entity
-    rescue Yosys2Digitaljs::Runner::TimeoutError => e
-      render json: { message: e.message }, status: :service_unavailable
-    rescue Yosys2Digitaljs::Error => e
-      render json: { message: e.message }, status: :unprocessable_entity
-    rescue StandardError => e
-      Rails.logger.error("[Yosys Compilation Error] #{e.class}: #{e.message}\n#{e.backtrace&.first(5)&.join("\n")}")
-      render json: { message: "Compilation failed" }, status: :internal_server_error
-    end
+  def set_project
+    @project = Project.friendly.find(params[:id])
+  end
 
-    def compile_with_external_api
-      yosys_url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-      response = http_client.post(yosys_url, json: { code: params[:code].to_s })
-      render json: JSON.parse(response.to_s), status: response.code
-    rescue HTTP::TimeoutError
-      render json: { message: "Yosys service timed out" }, status: :gateway_timeout
-    rescue HTTP::Error => e
-      Rails.logger.error("[Yosys External API Error] #{e.class}: #{e.message}")
-      render json: { message: "External API unavailable" }, status: :service_unavailable
-    rescue JSON::ParserError
-      render json: { message: "Invalid response from Yosys API" }, status: :internal_server_error
-    end
+  def set_user_project
+    @project = Project.friendly.find(params[:id])
+    authorize @project, :edit_access?
+  end
 
-    def set_project
-      @project = Project.friendly.find(params[:id])
-    end
+  def check_edit_access
+    authorize @project, :edit_access? 
+  end
 
-    def set_user_project
-      @project = Project.friendly.find(params[:id])
-      authorize @project, :edit_access?
-    end
+  def check_view_access
+    authorize @project, :view_access?
+  end
 
-    def check_edit_access
-      authorize @project, :edit_access?
-    end
+  def attach_circuit_preview(image_file)
+    return unless image_file
 
-    def check_view_access
-      authorize @project, :view_access?
-    end
-
-    def attach_circuit_preview(image_file)
-      return unless image_file
-
-      @project.circuit_preview.attach(
-        io: image_file,
-        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
-        content_type: "img/jpeg"
-      )
-    end
+    @project.circuit_preview.attach(
+      io: image_file,
+      filename: "preview_#{Time.zone.now.to_f.to_s.tr('.', '')}.jpeg",
+      content_type: "image/jpeg"
+    )
+  end
 end
