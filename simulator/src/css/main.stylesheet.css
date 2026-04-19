@@ -1279,6 +1279,8 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
+    padding: 0 10px;
 }
 
 .download-dialog-section-3 {
@@ -1529,11 +1531,13 @@ input:checked + .slider:before {
 
 .disable::after {
     content: "";
+    background-color: var(--bg-primary-chr);
     position: absolute;
     height: 100%;
     width: 100%;
     cursor: not-allowed;
     left: 0;
+    z-index: 100;
 }
 
 #bitconverterprompt {
