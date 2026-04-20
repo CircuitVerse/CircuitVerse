@@ -89,6 +89,30 @@ RSpec.describe Project, type: :model do
           @project.increase_views(@viewer)
         end.to change { @project.view }.by(1)
       end
+      it "does not increase views if the viewer is the author" do
+        expect do
+          @project.increase_views(@user)
+        end.not_to change { @project.view }
+      end
+    end
+    describe "#fork" do
+      it "creates a fork with 1 view and correct associations" do
+        @forker = FactoryBot.create(:user)
+        @project = FactoryBot.create(:project, author: @user)
+        FactoryBot.create(:project_datum, project: @project, data: "{}")
+        
+        @project.circuit_preview.attach(
+          io: File.open(Rails.root.join("spec/fixtures/files/profile.png")),
+          filename: "test.png",
+          content_type: "image/png"
+        )
+
+        forked_project = @project.fork(@forker)
+        
+        expect(forked_project.view).to eq(1)
+        expect(forked_project.forked_project_id).to eq(@project.id)
+        expect(forked_project.author_id).to eq(@forker.id)
+      end
     end
 
     describe "#check_and_remove_featured" do
