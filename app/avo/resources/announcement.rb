@@ -14,11 +14,13 @@ class Avo::Resources::Announcement < Avo::BaseResource
   }
 
   def fields
-    field :id, as: :id, link_to_resource: true
-    field :body, as: :textarea, required: true
+    field :id, as: :id, link_to_record: true
+    field :body, as: :textarea
     field :link, as: :text
+    field :start_date, as: :date_time
+    field :end_date, as: :date_time
 
     field :created_at, as: :date_time, readonly: true, sortable: true, hide_on: %i[new edit]
-    field :updated_at, as: :date_time, readonly: true, sortable:true, hide_on: %i[new edit]
+    field :updated_at, as: :date_time, readonly: true, sortable: true, hide_on: %i[new edit]
   end
 end
