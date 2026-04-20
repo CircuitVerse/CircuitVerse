@@ -24,8 +24,8 @@ class Avo::Resources::Grade < Avo::BaseResource
   self.search = {
     query: lambda {
       query.joins(:grader, :project)
-           .where("users.name ILIKE ? OR users.email ILIKE ? OR projects.name ILIKE ?",
-                  "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
+      .where("users.name ILIKE ? OR users.email ILIKE ? OR projects.name ILIKE ?",
+             "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
     }
   }
 
