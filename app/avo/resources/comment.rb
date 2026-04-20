@@ -14,13 +14,13 @@ class Avo::Resources::Comment < Avo::BaseResource
     field :parent, as: :belongs_to
 
     field :body, as: :textarea, required: true
-    field :deleted_at, as: :date_time
+    field :deleted_at, as: :date_time, readonly: true
     field :cached_votes_up, as: :number
     field :cached_votes_down, as: :number
 
     field :created_at, as: :date_time, readonly: true, sortable: true, hide_on: %i[edit new]
     field :updated_at, as: :date_time, readonly: true, hide_on: %i[edit new]
 
-    field :children, as: :has_many
+    field :children, as: :has_many, readonly: true
   end
 end

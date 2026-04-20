@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Avo::Resources::CommentatorThread < Avo::BaseResource
+class Avo::Resources::CommontatorThread < Avo::BaseResource
   self.title = :id
   self.includes = %i[commontable comments subscriptions]
   self.model_class = ::Commontator::Thread
