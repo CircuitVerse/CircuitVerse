@@ -6,7 +6,7 @@ class Avo::Resources::PendingInvitation < Avo::BaseResource
   self.model_class = ::PendingInvitation
 
   def fields
-    field :id, as: :id, link_to_resource: true
+    field :id, as: :id, link_to_record: true
     field :email, as: :text, required: true
     field :group, as: :belongs_to, required: true, searchable: true
 

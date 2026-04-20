@@ -35,7 +35,7 @@ class Avo::Resources::Contest < Avo::BaseResource
   def status_options
     live_exists = Contest.live.exists?
 
-    return { "Completed" => "completed" } if (view == :new) && live_exists
+    return { "Completed" => "completed" } if view == :new && live_exists
 
     if view == :edit && record&.live?
       return {
@@ -43,6 +43,8 @@ class Avo::Resources::Contest < Avo::BaseResource
         "Completed" => "completed"
       }
     end
+
+    return { "Completed" => "completed" } if view == :edit && live_exists
 
     {
       "Completed" => "completed",

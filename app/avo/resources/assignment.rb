@@ -39,6 +39,7 @@ class Avo::Resources::Assignment < Avo::BaseResource
                              help: "LTI consumer key for LMS integration"
 
     field :lti_shared_secret, as: :password,
+                              hide_on: %i[index show],
                               help: "LTI shared secret for LMS integration"
 
     # Associations
