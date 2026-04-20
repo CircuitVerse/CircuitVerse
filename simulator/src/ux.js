@@ -3,7 +3,7 @@
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
-
+import { showMessage } from './utils';
 import { layoutModeGet } from './layoutMode';
 import {
     scheduleUpdate, wireToBeCheckedSet, updateCanvasSet, update, updateSimulationSet,
@@ -283,8 +283,17 @@ export function prevPropertyObjGet() {
 
 var moduleProperty = currentScreen();
 /**
- * show properties of an object.
- * @param {CircuiElement} obj - the object whose properties we want to be shown in sidebar
+ * Display and populate the module/property sidebar for a given selection.
+ *
+ * Shows the appropriate property panel depending on layout mode and current selection:
+ * - In layout mode, shows layout dialog or the selected element's layout-related properties.
+ * - In normal mode, shows project/circuit properties when no element is selected, or the selected element's editable properties.
+ *
+ * The panel is populated with form controls for mutable properties, binds change/click handlers that update either the selected object or circuit properties, enforces bit-width and project-name validation, and adds a Help button when the element provides a helplink.
+ *
+ * If the same object is already displayed, the function returns without changes.
+ *
+ * @param {CircuitElement} obj - The element (or context) whose properties should be shown in the sidebar.
  * @category ux
  */
 export function showProperties(obj) {
@@ -331,7 +340,7 @@ export function showProperties(obj) {
     else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
         $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}' aria-label='project'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>Project Name:</span> <input id='projname' class='objectPropertyAttribute' type='text' maxlength="50" autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}' aria-label='project'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}' aria-label='clock time'></p>`);
         $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' aria-label='clock enabled'> <span class='slider'></span></label></p>`);
@@ -397,6 +406,11 @@ export function showProperties(obj) {
         });
     }
 
+    /**
+     * Validate and enforce the bit-width input named "newBitWidth".
+     *
+     * If the input's value is not a numeric integer between 1 and 32 (inclusive), this function restores the input's value from its `old-val` attribute; if the value is valid, it updates the `old-val` attribute to the current value.
+     */
     function checkValidBitWidth() {
         const selector = $("[name='newBitWidth']");
         if (selector === undefined
@@ -411,22 +425,30 @@ export function showProperties(obj) {
     }
 
     $('.objectPropertyAttribute').on('change keyup paste click', function () {
-        checkValidBitWidth();
-        scheduleUpdate();
-        updateCanvasSet(true);
-        wireToBeCheckedSet(1);
-        let { value } = this;
-        if (this.type === 'number') {
-            value = parseFloat(value);
-        }
-        if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
-            simulationArea.lastSelected[this.name](value);
-            // Commented out due to property menu refresh bug
-            // prevPropertyObjSet(simulationArea.lastSelected[this.name](this.value)) || prevPropertyObjGet();
+    checkValidBitWidth();
+    scheduleUpdate();
+    updateCanvasSet(true);
+    wireToBeCheckedSet(1);
+    if (this.id === 'projname') {
+        if (this.value.length >= 50) {
+            // Standard simulator message for character limit
+            showMessage("Character limit reached (50 characters max)");
+            $(this).css('border-color', 'red'); 
         } else {
-            circuitProperty[this.name](value);
+            $(this).css('border-color', ''); 
         }
-    });
+    }
+
+    let { value } = this;
+    if (this.type === 'number') {
+        value = parseFloat(value);
+    }
+    if (simulationArea.lastSelected && simulationArea.lastSelected[this.name]) {
+        simulationArea.lastSelected[this.name](value);
+    } else {
+        circuitProperty[this.name](value);
+    }
+});
 
     $('.objectPropertyAttributeChecked').on('change keyup paste click', function () {
         if(this.name === "toggleLabelInLayoutMode") return; // Hack to prevent toggleLabelInLayoutMode from toggling twice
