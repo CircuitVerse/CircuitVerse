@@ -14,6 +14,10 @@ html {
 body {
   font-family: 'Inter';
   padding-top: 90px;
+  
+  &.has-verification-banner {
+    padding-top: 140px; // 90px navbar + ~50px banner
+  }
 }
 
 .noSelect {
