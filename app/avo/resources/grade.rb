@@ -1,6 +1,22 @@
 # frozen_string_literal: true
 
 class Avo::Resources::Grade < Avo::BaseResource
+  GRADE_HELP_MESSAGES = {
+    "no_scale" => "This assignment cannot be graded (no_scale)",
+    "letter" => "Enter a letter grade: A, B, C, D, E, or F",
+    "percent" => "Enter a percentage: 0-100",
+    "custom" => "Enter any custom grade value"
+  }.freeze
+
+  GRADING_SCALE_LABELS = {
+    "no_scale" => "No Scale",
+    "letter" => "Letter (A-F)",
+    "percent" => "Percent (0-100)",
+    "custom" => "Custom"
+  }.freeze
+
+  DEFAULT_GRADE_HELP = "Grade value (format depends on assignment's grading scale)"
+
   self.model_class = ::Grade
   self.title = :id
   self.includes = %i[project grader assignment]
@@ -12,11 +28,17 @@ class Avo::Resources::Grade < Avo::BaseResource
                   "%#{params[:q]}%", "%#{params[:q]}%", "%#{params[:q]}%")
     }
   }
-  # rubocop:disable Metrics/MethodLength
+
   def fields
     field :id, as: :id, link_to_record: true
 
-    # Associations
+    association_fields
+    grade_fields
+    timestamp_fields
+    grading_scale_info_field
+  end
+
+  def association_fields
     field :assignment, as: :belongs_to,
                        required: true,
                        sortable: true,
@@ -31,53 +53,39 @@ class Avo::Resources::Grade < Avo::BaseResource
                    required: true,
                    sortable: true,
                    help: "User who assigned this grade"
+  end
 
-    # Grade fields with dynamic help based on assignment
+  def grade_fields
     field :grade, as: :text,
                   required: true,
-                  help: lambda {
-                    if record.assignment.present?
-                      # rubocop:disable Style/HashLikeCase
-                      case record.assignment.grading_scale
-                      when "no_scale"
-                        "This assignment cannot be graded (no_scale)"
-                      when "letter"
-                        "Enter a letter grade: A, B, C, D, E, or F"
-                      when "percent"
-                        "Enter a percentage: 0-100"
-                      when "custom"
-                        "Enter any custom grade value"
-                      end
-                      # rubocop:enable Style/HashLikeCase
-                    else
-                      "Grade value (format depends on assignment's grading scale)"
-                    end
-                  }
+                  help: -> { resource.grade_help_text }
 
     field :remarks, as: :textarea,
                     help: "Additional comments or feedback for the student"
+  end
 
-    # Timestamps
+  def timestamp_fields
     field :created_at, as: :date_time,
                        hide_on: %i[edit new],
                        sortable: true
 
     field :updated_at, as: :date_time,
                        hide_on: %i[edit new]
+  end
 
-    # Display grading scale info
+  def grading_scale_info_field
     field :grading_scale_info, as: :text,
                                hide_on: %i[edit new],
-                               format_using: lambda {
-                                 assignment = record.assignment
-                                 case assignment&.grading_scale
-                                 when "no_scale" then "No Scale"
-                                 when "letter" then "Letter (A-F)"
-                                 when "percent" then "Percent (0-100)"
-                                 when "custom" then "Custom"
-                                 else "Unknown"
-                                 end
-                               }
+                               format_using: -> { resource.grading_scale_info_text }
   end
-  # rubocop:enable Metrics/MethodLength
+
+  def grade_help_text
+    scale = record.assignment&.grading_scale
+    GRADE_HELP_MESSAGES.fetch(scale, DEFAULT_GRADE_HELP)
+  end
+
+  def grading_scale_info_text
+    scale = record.assignment&.grading_scale
+    GRADING_SCALE_LABELS.fetch(scale, "Unknown")
+  end
 end
