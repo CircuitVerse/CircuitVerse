@@ -15,8 +15,11 @@
         </div>
         <%= hidden_field_tag :resource, resource || RESOURCE_OPTIONS.first, data: { search_bar_target: "hiddenSelect" } %>
       </div>
-      <%= text_field_tag :q, query, autocomplete: "off", class: "search-bar-input h-100", data: { search_bar_target: "input" } %>
-      <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
+     <%= text_field_tag :q, query,
+  autocomplete: "off",
+  class: "search-bar-input h-100",
+  aria: { label: "Search" },
+  data: { search_bar_target: "input" } %>      <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
         <%= helpers.image_tag "svgs/search_icon.svg", alt: "Search Icon" %>
       </button>
     </div>

@@ -9,15 +9,22 @@
         <h2 class="users-main-heading"><%= t("users.confirmations.resend_confirmation_instructions") %></h2>
         <%= form_with(model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, local: true) do |f| %>
           <%= devise_error_messages! %>
+          <p class="text-muted fw-semibold">
+  Didn’t receive the confirmation email? Enter your email and resend it.
+</p>
+
+<div class="field mb-3">
+  <div class="input-group">
+    <%= f.submit t("users.confirmations.resend_confirmation_instructions"),
+    class: "btn btn-warning btn-lg fw-bold w-100 mt-3 users-primary-button",
+    style: "letter-spacing: 0.5px;" %>
+  </div>
+</div>
           <div class="field mb-3">
-            <h6><%= f.label :email %></h6>
             <div class="input-group">
-              <%= f.email_field :email, autofocus: true, value: (resource.pending_reconfirmation? ? resource.unconfirmed_email : resource.email), class: "form-control form-input" %>
-            </div>
-          </div>
-          <div class="field mb-3">
-            <div class="input-group">
-              <%= f.submit t("users.confirmations.resend_confirmation_instructions"), class:"btn primary-button users-primary-button" %>
+             <%= f.submit t("users.confirmations.resend_confirmation_instructions"),
+class: "btn btn-warning btn-lg fw-bold w-100 mt-3 users-primary-button",
+style: "letter-spacing: 0.5px;" %>
             </div>
           </div>
           <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
