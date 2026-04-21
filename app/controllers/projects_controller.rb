@@ -1,164 +1,273 @@
 # frozen_string_literal: true
 
-class ProjectsController < ApplicationController
+class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
-  include SanitizeDescription
-  include UsersCircuitverseHelper
+  include SimulatorHelper
 
-  before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
-  before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
+  before_action :authenticate_user!, only: %i[
+    check_edit_access
+    create
+    update
+    update_circuit
+    destroy
+    toggle_star
+    create_fork
+  ]
+  before_action :load_index_projects, only: %i[index]
+  before_action :load_user_projects, only: %i[user_projects]
+  before_action :load_featured_circuits, only: %i[featured_circuits]
+  before_action :load_user_favourites, only: %i[user_favourites]
+  before_action :search_projects, only: %i[search]
+  before_action :set_project, only: %i[
+    check_edit_access
+    show circuit_data
+    update
+    destroy
+    toggle_star
+    create_fork
+  ]
+  before_action :set_user_project, only: %i[update_circuit]
+  before_action :set_options, except: %i[destroy toggle_star image_preview]
+  before_action :filter, only: %i[index user_projects featured_circuits user_favourites]
+  before_action :sort, only: %i[index user_projects featured_circuits user_favourites]
 
-  before_action :check_access, only: %i[edit update destroy]
-  before_action :check_delete_access, only: [:destroy]
-  before_action :check_view_access, only: %i[show create_fork]
-  before_action :sanitize_name, only: %i[create update]
-  before_action :sanitize_project_description, only: %i[show edit]
+  SORTABLE_FIELDS = %i[view created_at].freeze
+  WHITELISTED_INCLUDE_ATTRIBUTES = %i[author collaborators].freeze
 
-  # GET /projects
-  # GET /projects.json
+  # GET /api/v1/projects
   def index
-    @author = User.find(params[:user_id])
+    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
   end
 
-  # GET /projects/1
-  # GET /projects/1.json
+  # GET /api/v1/projects/search?q=:query
+  def search
+    base_url = "#{api_v1_projects_search_url}?q=#{params[:q]}"
+    @options[:links] = link_attrs(paginate(@projects), base_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
+  # GET /api/v1/users/:id/projects/
+  def user_projects
+    @options[:links] = link_attrs(paginate(@projects), projects_api_v1_user_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
+  # GET /api/v1/users/:id/favourites
+  def user_favourites
+    @options[:links] = link_attrs(paginate(@projects), favourites_api_v1_user_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
+  # GET /api/v1/projects/:id/check_edit_access
+  def check_edit_access
+    current_user.admin? || authorize(@project, :check_edit_access?)
+    @options = { params: { has_details_access: true } }
+    render json: Api::V1::UserSerializer.new(current_user, @options)
+  end
+
+  # GET /api/v1/projects/:id
   def show
-    if current_visit && !Ahoy::Event.exists?(visit_id: current_visit.id,
-                                             name: "Visited project #{@project.id}")
-      ahoy.track("Visited project #{@project.id}")
-      @project.increase_views(current_user)
-    end
-    @collaboration = @project.collaborations.new
-    @admin_access = true
-    commontator_thread_show(@project)
-
-    # Resolve simulator embed path
-    @embed_path =
-      # if @project.uses_vue_simulator?
-      # simulatorvue_path(@project)
-      # else
-      simulator_path(@project)
-    # end
+    authorize @project, :check_view_access?
+    @project.increase_views(current_user)
+    render json: Api::V1::ProjectSerializer.new(@project, @options)
   end
 
-  # GET /projects/1/edit
-  def edit; end
-
-  def change_stars
-    star = Star.find_by(user_id: current_user.id, project_id: @project.id)
-    if star.nil?
-      @star = Star.new
-      @star.user_id = current_user.id
-      @star.project_id = @project.id
-      @star.save
-      render js: "2"
+  # GET /api/v1/projects/:id/circuit_data
+  def circuit_data
+    authorize @project, :check_view_access?
+    circuit_data = ProjectDatum.find_by(project: @project)
+    if circuit_data
+      render json: circuit_data.data
     else
-      star.destroy
-      render js: "1"
+      render json: { error: "Circuit data unavailabe for the project!" }, status: :not_found
     end
   end
 
-  def create_fork
-    authorize @project
-    @project_new = @project.fork(current_user)
-    @project_new.save!
-    redirect_to user_project_path(current_user, @project_new)
+  def image_preview
+    @project = Project.open.friendly.find(params[:id])
+    render json: { project_preview: request.base_url + @project.image_preview.url }
   end
 
-  # POST /projects
-  # POST /projects.json
+  # POST api/v1/projects
   def create
-    @project = current_user.projects.create(project_params)
+    @project = Project.new
+    @project.build_project_datum.data = sanitize_data(@project, params[:data])
+    @project.name = sanitize(params[:name])
+    @project.author = current_user
 
-    respond_to do |format|
-      if @project.save
-        format.html do
-          redirect_to user_project_path(@project.author_id, @project),
-                      notice: "Project was successfully created."
-        end
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_content }
-      end
+    image_file = return_image_file(params[:image])
+
+    @project.image_preview = image_file
+    if @project.save
+      image_file.close
+      File.delete(image_file) if check_to_delete(params[:image])
+      render json: { status: "success", project: @project }, status: :created
+    else
+      render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
     end
   end
 
-  # PATCH/PUT /projects/1
-  # PATCH/PUT /projects/1.json
+  # PATCH /api/v1/projects/:id
   def update
-    @project.description = params["description"]
-    set_name_project_datum(project_params)
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html do
-          redirect_to user_project_path(@project.author_id, @project),
-                      notice: "Project was successfully updated."
-        end
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_content }
-      end
+    authorize @project, :check_edit_access?
+    params[:project][:name] = sanitize(project_params[:name])
+    @project.update!(project_params)
+    if @project.update(project_params)
+      render json: Api::V1::ProjectSerializer.new(@project, @options), status: :accepted
+    else
+      invalid_resource!(@project.errors)
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.json
+  # PATCH /api/v1/projects/update_circuit
+  def update_circuit
+    authorize @project, :check_edit_access?
+
+    build_project_datum
+    update_project_params
+
+    if @project.save && @project.project_datum.save
+      handle_image_file_cleanup
+      render json: { status: "success", project: @project }, status: :ok
+    else
+      render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
+    end
+  end
+
+  # DELETE /api/v1/projects/:id
   def destroy
-    @project.destroy
-    respond_to do |format|
-      format.html do
-        redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed."
-      end
-      format.json { head :no_content }
+    authorize @project, :author_access?
+    @project.destroy!
+    head :no_content
+  end
+
+  # GET /api/v1/projects/featured
+  def featured_circuits
+    @options[:links] = link_attrs(paginate(@projects), api_v1_projects_featured_url)
+    render json: Api::V1::ProjectSerializer.new(paginate(@projects), @options)
+  end
+
+  # GET /api/v1/projects/:id/toggle-star
+  def toggle_star
+    if @project.toggle_star(current_user)
+      render json: { message: "Starred successfully!" }, status: :ok
+    else
+      render json: { message: "Unstarred successfully!" }, status: :ok
+    end
+  end
+
+  # /api/v1/projects/:id/fork
+  def create_fork
+    if current_user.id == @project.author_id
+      api_error(status: 409, errors: "Cannot fork your own project!")
+    else
+      @forked_project = @project.fork(current_user)
+      render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
     end
   end
 
   private
-
-    # Use callbacks to share common setup or constraints between actions.
-    def set_project
-      if params[:user_id]
-        @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.with_attached_circuit_preview.find(params[:id])
-      else
-        @project = Project.friendly.with_attached_circuit_preview.find(params[:id])
-        @author = @project.author
-      end
+  def set_project
+    if params[:user_id]
+      @author = User.find(params[:user_id])
+      @project = @author.projects.friendly.find(params[:id])
+    else
+      @project = Project.friendly.find(params[:id])
+      @author = @project.author
     end
+  end
 
-    def check_access
-      authorize @project, :edit_access?
+  # Update circuit data Related methods
+
+  def set_user_project
+    @project = Project.friendly.find(params[:id])
+    authorize @project, :edit_access?
+  end
+
+  def build_project_datum
+    @project.build_project_datum unless ProjectDatum.exists?(project_id: @project.id)
+    @project.project_datum.data = sanitize_data(@project, params[:data])
+  end
+
+  def update_project_params
+    @image_file = return_image_file(params[:image])
+    @project.image_preview = @image_file
+    @project.name = sanitize(params[:name])
+  end
+
+  def handle_image_file_cleanup
+    @image_file.close
+    File.delete(@image_file) if check_to_delete(params[:image])
+  end
+
+  def load_index_projects
+    @projects = if current_user.nil?
+      Project.open
+    else
+      Project.open.or(Project.by(current_user.id))
     end
+  end
 
-    def check_delete_access
-      authorize @project, :author_access?
+  def load_user_projects
+    # if user is not authenticated or authenticated as some other user
+    # return only user's public projects else all
+    @projects = if current_user.nil? || current_user.id != params[:id].to_i
+      Project.open.by(params[:id])
+    else
+      current_user.projects
     end
+  end
 
-    def check_view_access
-      authorize @project, :view_access?
+  def load_user_favourites
+    @projects = Project.joins(:stars)
+                       .where(stars: { user_id: params[:id].to_i })
+
+    # if user is not authenticated or authenticated as some other user
+    # return only user's public favourites else all
+    @projects = if current_user.nil? || current_user.id != params[:id].to_i
+      @projects.open
+    else
+      @projects
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
-      params.expect(project: %i[name project_access_type description tag_list tags])
-    end
+  def load_featured_circuits
+    @projects = Project.joins(:featured_circuit).all
+  end
 
-    def sanitize_name
-      params[:project][:name] = sanitize(project_params[:name])
-    end
+  def search_projects
+    query_params = { q: params[:q], page: params[:page][:number], per_page: params[:page][:size] }
+    @projects = ProjectsQuery.new(query_params, Project.public_and_not_forked).results
+  end
 
-    # Sanitize description before passing to view
-    def sanitize_project_description
-      @project.description = sanitize_description(@project.description)
-    end
+  # include=author
+  def include_resource
+    params[:include].split(",")
+                     .map { |resource| resource.strip.to_sym }
+                     .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
+  end
 
-    def set_name_project_datum(project_params)
-      return unless @project.project_datum
+  def set_options
+    @options = {}
+    @options[:include] = include_resource if params.key?(:include)
+    @options[:params] = {
+      current_user: current_user,
+      only_name: true
+    }
+  end
 
-      datum_data = JSON.parse(@project.project_datum.data)
-      datum_data["name"] = project_params["name"]
-      @project.project_datum.data = JSON.generate(datum_data)
-    end
+  def filter
+    @projects = @projects.tagged_with(params[:filter][:tag]) if params.key?(:filter)
+  end
+
+  def sort
+    return unless params.key?(:sort)
+
+    @projects = @projects.order(SortingHelper.sort_fields(params[:sort], SORTABLE_FIELDS))
+  end
+
+  def project_params
+    params.expect(project: %i[name project_access_type description tag_list])
+  end
 end
