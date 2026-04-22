@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-brew "node@22"
-brew "redis"
-brew "imagemagick"
-brew "yarn"
+tap "homebrew/core"
+tap "homebrew/bundle"
+tap "homebrew/services"
+tap "homebrew/cask"
+
 brew "vips"
-brew "cmake"
 brew "openssl"
-brew "postgresql"

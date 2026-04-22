@@ -1,0 +1,86 @@
+name: mise
+
+on:
+  pull_request:
+    branches:
+      - master
+      - main
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  mise:
+    runs-on: ubuntu-latest
+
+    env:
+      # checkov:skip=CKV_SECRET_4: test-only credentials for CI
+      RAILS_ENV: test
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: circuitverse_test
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/circuitverse_test
+      REDIS_URL: redis://localhost:6379/0
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+          submodules: recursive
+
+      - name: Install Mise
+        uses: jdx/mise-action@v2
+        with:
+          install: true
+          cache: true
+      
+      - name: Install PostgreSQL build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            libreadline-dev \
+            zlib1g-dev \
+            libssl-dev \
+            uuid-dev
+      
+      - name: Install development tools
+        run: |
+            mise install postgres redis
+            mise run postgres -- pg_ctl start
+            mise run redis -- redis-server --daemonize yes
+            pg_ready=0
+            for i in {1..30}; do
+              mise run postgres -- pg_isready -h localhost -p 5432 && pg_ready=1 && break
+              sleep 1
+            done
+            [ "$pg_ready" -eq 1 ] || { echo "Postgres not ready" >&2; exit 1; }
+
+            redis_ready=0
+            for i in {1..30}; do
+              mise run redis -- redis-cli ping | grep -q PONG && redis_ready=1 && break
+              sleep 1
+            done
+            [ "$redis_ready" -eq 1 ] || { echo "Redis not ready" >&2; exit 1; }
+
+      - name: Setup database.yml
+        run: |
+            cp config/database.example.yml config/database.yml
+
+      - name: Install Ruby dependencies
+        run: |
+            bundle install
+
+      - name: Validate Rails environment
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgres://postgres:postgres@localhost:5432/circuitverse_test
+          REDIS_URL: redis://localhost:6379/0
+        run: |
+            bin/rails db:setup
+            bin/rails test:prepare
+            bin/rails runner 'require "redis"; Redis.new.ping'
+            bin/rails runner 'ActiveRecord::Base.connection.execute("SELECT 1")'
+            bin/rails runner 'puts "Hello CircuitVerse!"'
