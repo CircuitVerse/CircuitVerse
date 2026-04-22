@@ -1,11 +1,19 @@
-# frozen_string_literal: true
-
 class Rack::Attack
+  
+  # it safely handle email input to avoid encoding errors
+  def self.safe_email(value)
+    return nil if value.nil?
+
+    value.to_s
+         .encode("UTF-8", invalid: :replace, undef: :replace, replace: "")
+         .downcase
+  end
+
   class Request < ::Rack::Request
-    # Take remote IP from Cloudfare's headers instead of rev proxy IP
+   # Take remote IP from Cloudfare's headers instead of rev proxy IP
     def remote_ip
       if ENV["CF_PROXY_ENABLED"]
-      # Cloudflare stores remote IP in CF_CONNECTING_IP header
+     # Cloudflare stores remote IP in CF_CONNECTING_IP header
         @remote_ip ||= (env["HTTP_CF_CONNECTING_IP"] ||
                         env["action_dispatch.remote_ip"] ||
                         ip).to_s
@@ -14,7 +22,7 @@ class Rack::Attack
       end
     end
 
-    # Hack to get JSON request params
+    # Hack to get JSON request params 
     # Reads from the IO stream and resets the stream
     def json_params
       unless @json_params
@@ -25,7 +33,7 @@ class Rack::Attack
     end
   end
 
-  # Disable if DISABLE_RACK_ATTACK and if env is not production
+  # Disable if DISABLE_RACK_ATTACK and if env is not production 
   # Disabled in test env in environments/test.rb
   Rack::Attack.enabled = !ENV["DISABLE_RACK_ATTACK"] unless Rails.env.production?
 
@@ -45,7 +53,8 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle logins by email", limit: 5, period: 20.seconds) do |req|
-    req.params.dig("user", "email")&.to_s&.downcase if req.path == "/users/sign_in" && req.post?
+    # prevent crash from invalid email encoding
+    Rack::Attack.safe_email(req.params.dig("user", "email")) if req.path == "/users/sign_in" && req.post?
   end
 
   ### Throttle password resets ###
@@ -57,7 +66,8 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle password resets by email", limit: 5, period: 20.seconds) do |req|
-    req.params.dig("user", "email")&.to_s&.downcase if req.path == "/users/password" && req.post?
+    # prevent crash from invalid email encoding
+    Rack::Attack.safe_email(req.params.dig("user", "email")) if req.path == "/users/password" && req.post?
   end
 
   ### Throttle logins on API ###
@@ -69,7 +79,7 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle api logins by email", limit: 5, period: 20.seconds) do |req|
-    req.json_params["email"].to_s.downcase if req.path == "/api/v1/auth/login" && req.post?
+    Rack::Attack.safe_email(req.json_params["email"]) if req.path == "/api/v1/auth/login" && req.post?
   end
 
   ### Throttle password resets on API ###
@@ -81,7 +91,8 @@ class Rack::Attack
 
   # Throttle by email
   throttle("throttle api password resets by email", limit: 5, period: 20.seconds) do |req|
-    req.json_params["email"].to_s.downcase if req.path == "/api/v1/password/forgot" && req.post?
+    # prevent crash from invalid email encoding
+    Rack::Attack.safe_email(req.json_params["email"]) if req.path == "/api/v1/password/forgot" && req.post?
   end
 
   self.throttled_responder = lambda do |_env|
