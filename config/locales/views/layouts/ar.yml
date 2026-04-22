@@ -12,6 +12,8 @@ ar:
     link_to_contests: "مسابقات"
     link_to_explore: "استكشف"
     footer:
+      community: "مجتمع"
+      resources: "موارد"
       social_icon_text: "تابعنا على:"
       link_to_examples: "أمثلة"
       link_to_explore: "استكشف"

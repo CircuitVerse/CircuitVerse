@@ -12,6 +12,8 @@ de:
     link_to_contests: "Wettbewerbe"
     link_to_explore: "Erforschen"
     footer:
+      community: "Gemeinschaft"
+      resources: "Ressourcen"
       social_icon_text: "Folgen Sie uns auf:"
       link_to_examples: "Beispiele"
       link_to_explore: "Erforschen"

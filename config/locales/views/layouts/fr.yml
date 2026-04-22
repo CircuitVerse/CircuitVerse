@@ -12,6 +12,8 @@ fr:
     link_to_contests: "Concours"
     link_to_explore: "Explorer"
     footer:
+      community: "Communauté"
+      resources: "Ressources"
       social_icon_text: "Suivez-nous sur:"
       link_to_examples: "Exemples"
       link_to_explore: "Explorer"

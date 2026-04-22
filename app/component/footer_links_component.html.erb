@@ -1,6 +1,7 @@
-<div class="col-12 col-sm-12 col-md-4 col-lg-4 footer-column">
+<div class="col-12 col-sm-6 footer-links-column">
   <div class="row text-start">
-    <div class="col-5 footer-links">
+    <div class="col-6 footer-links">
+    <small class="footer-heading-text"><%= t("layout.footer.community") %></small>
       <% left_column_links.each do |link| %>
         <%= link_to link[:url], target: link[:target] do %>
           <h6><%= t(link[:text]) %></h6>
@@ -8,6 +9,7 @@
       <% end %>
     </div>
     <div class="col-6 footer-links">
+    <small class="footer-heading-text"><%= t("layout.footer.resources") %></small>
       <% right_column_links.each do |link| %>
         <%= link_to link[:url], target: link[:target] do %>
           <h6><%= t(link[:text]) %></h6>

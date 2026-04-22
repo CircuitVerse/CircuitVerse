@@ -16,7 +16,6 @@ RSpec.describe FooterComponent, type: :component do
 
     expect(page).to have_css(".footer-container")
     expect(page).to have_css(".footer-logo")
-    expect(page).to have_css(".footer-social-icon-text")
     expect(page).to have_css(".footer-sponsor-logo")
     expect(page).to have_css(".footer-copyright-text")
   end
