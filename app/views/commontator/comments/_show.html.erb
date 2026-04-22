@@ -108,7 +108,15 @@
                                 id: comment.id } %>
   </div>
 </div>
-<%= render partial: 'commontator/comments/delete_comment_confirmation_modal' %>
+<%= render(DeleteComponents::DeleteConfirmationModalComponent.new(
+  modal_id: "deletecommentModal",
+  message_key: "commontator.comment.actions.confirm_delete",
+  button_id: "projects-comment-delete-button",
+  delete_path: "#",
+  method: :put,
+  remote: true,
+  footer_dismiss: false
+)) %>
 <script>
   $(document).ready(function() {
     $("#deletecommentModal").on("show.bs.modal", function(e) {

@@ -91,6 +91,7 @@ Rails.application.routes.draw do
     get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
     get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
     patch "/:id/update", to: "users/circuitverse#update", as: "profile_update"
+    delete "/:id", to: "users/circuitverse#destroy", as: "destroy_user"
     get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
     get "/:id/", to: "users/circuitverse#index", as: "user_projects"
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
@@ -157,7 +158,7 @@ Rails.application.routes.draw do
   end
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
-  resources :users do
+  resources :users, except: %i[destroy] do
     resources :projects, except: %i[index new]
   end
   resources :collaborations, only: %i[create destroy update]

@@ -71,7 +71,12 @@
       <% end %>
     </div>
   <% end %>
-  <%= render partial: "delete_group_confirmation_modal" %>
+  <%= render(DeleteComponents::DeleteConfirmationModalComponent.new(
+    modal_id: "deletegroupModal",
+    message_key: "users.circuitverse.delete_group_confirmation",
+    button_id: "groups-group-delete-button",
+    delete_path: "#"
+  )) %>
 </div>
 
 <script type="text/javascript">

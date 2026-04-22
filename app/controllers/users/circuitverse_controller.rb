@@ -5,7 +5,7 @@ class Users::CircuitverseController < ApplicationController
 
   include UsersCircuitverseHelper
 
-  before_action :authenticate_user!, only: %i[edit update groups]
+  before_action :authenticate_user!, only: %i[edit update groups destroy]
   before_action :set_user, except: [:typeahead_educational_institute]
   before_action :remove_previous_profile_picture, only: [:update]
 
@@ -42,6 +42,12 @@ class Users::CircuitverseController < ApplicationController
                          .select("groups.*, COUNT(group_members.id) as group_member_count")
                          .left_outer_joins(:group_members)
                          .group("groups.id")
+  end
+
+  def destroy
+    authorize @user
+    @user.destroy!
+    redirect_to root_path, status: :see_other, notice: t("users.circuitverse.account_deleted")
   end
 
   private
