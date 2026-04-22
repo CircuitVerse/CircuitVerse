@@ -153,7 +153,29 @@ export function createNewCircuitScope() {
 export function newCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     if (layoutModeGet()) { toggleLayoutMode(); }
     if (verilogModeGet()) { verilogModeSet(false); }
-    name = name || prompt('Enter circuit name:', 'Untitled-Circuit');
+
+    if (name) {
+        return finalizeNewCircuit(name, id, isVerilog, isVerilogMain);
+    }
+
+    $('#circuitNameInput').val('Untitled-Circuit');
+    $('#circuitNameDialog').dialog({
+        resizable: false,
+        modal: true,
+        buttons: {
+            'OK': function() {
+                const enteredName = $('#circuitNameInput').val();
+                $(this).dialog('close');
+                finalizeNewCircuit(enteredName, id, isVerilog, isVerilogMain);
+            },
+            'Cancel': function() {
+                $(this).dialog('close');
+            }
+        }
+    });
+}
+
+export function finalizeNewCircuit(name, id, isVerilog = false, isVerilogMain = false) {
     name = escapeHtml(stripTags(name));
     if (!name) return;
     const scope = new Scope(name);
