@@ -7,22 +7,31 @@
       <p class="main-description"><%= t("featured_circuits.main_description") %></p>
     </div>
   </div>
+
   <div class="row center-row examples-container">
     <% @projects.each do |project| %>
       <div class="col-12 col-sm-12 col-md-6 col-lg-4">
         <div class="card circuit-card">
+
           <%= image_tag(
                 project.circuit_preview.attached? ? project.circuit_preview : image_path("empty_project/default.png"),
                 alt: project.name,
                 class: "card-img-top circuit-card-image"
               ) %>
-          <div class="card-footer circuit-card-footer">
-            <div class="circuit-card-name">
-              <p><%= project.name %></p>
+
+          <div class="card-footer circuit-card-footer d-flex justify-content-between align-items-center">
+            <div class="circuit-card-name text-truncate" style="max-width: 70%;">
+              <p class="mb-0 text-truncate"><%= project.name %></p>
               <span class="tooltiptext"><%= project.name %></span>
             </div>
-            <a class="btn primary-button circuit-card-primary-button" target="_blank" href="<%= user_project_url(project.author, project) %>"><%= t("view") %></a>
+
+            <a class="btn primary-button circuit-card-primary-button"
+               target="_blank"
+               href="<%= user_project_url(project.author, project) %>">
+              <%= t("view") %>
+            </a>
           </div>
+
         </div>
       </div>
     <% end %>
