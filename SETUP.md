@@ -1,3 +1,4 @@
+
 # Setting up CircuitVerse
 [Back to `README.md`](README.md)
 
@@ -114,3 +115,23 @@ That's it! The CircuitVerse application will automatically use the `yosys` binar
 ## Distributed Tracing using OpenTelemetry
 
 Refer [otel docs](./.otel)
+
+## Web Push Notifications (VAPID Keys)
+
+CircuitVerse uses Web Push notifications which require VAPID keys.
+
+To generate the keys run:
+
+bundle exec rake webpush:generate_keys
+
+This command will generate two keys:
+
+- VAPID_PUBLIC_KEY
+- VAPID_PRIVATE_KEY
+
+Add these keys to your environment variables:
+
+VAPID_PUBLIC_KEY=your_public_key  
+VAPID_PRIVATE_KEY=your_private_key
+
+These keys are used for enabling push notifications in the application.
