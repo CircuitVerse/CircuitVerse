@@ -41,12 +41,12 @@ RUN rm -rf node_modules spec
 # Precompile the Bootsnap cache for the specified directories to optimize boot time in production.
 RUN bundle exec bootsnap precompile --gemfile app/ lib/
 
-# Build stage for the Vue simualtor
+# Build stage for the Vue simulator
 FROM --platform=$BUILDPLATFORM node:lts-slim as simulator_vue_build
 
 WORKDIR /app
 
-# Copy package files and install Vue simulator dependecies
+# Copy package files and install Vue simulator dependencies
 COPY cv-frontend-vue/package.json cv-frontend-vue/package-lock.json ./
 RUN npm install --ignore-scripts
 COPY cv-frontend-vue/ ./
@@ -57,7 +57,7 @@ RUN mkdir -p /output/simulatorvue
 # Set environment to ensure consistent build output
 ENV DESKTOP_MODE=false
 
-# Build Vue simualtor
+# Build Vue simulator
 RUN npm run build
 
 # Copy built files to a known location
