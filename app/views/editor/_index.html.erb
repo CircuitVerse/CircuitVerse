@@ -1,8 +1,8 @@
-<textarea id="trumbowyg"> <%= content %> </textarea>
+<textarea id="<%= field_id %>"><%= content.to_s %></textarea>
 
-<script type="text/javascript">
+<script>
   $(document).ready(function() {
-    $('#trumbowyg').trumbowyg({
+    $('#<%= field_id %>').trumbowyg({
       svgPath: "https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg",
       btnsDef: {
         image: {
@@ -33,16 +33,13 @@
             'Authorization': 'Client-ID 9a33b3b370f1054'
           },
           urlPropertyName: 'data.link',
-        },
-        resizimg: {
-          minSize: 64,
-          step: 16,
         }
       }
     });
   });
+
   $.fn.cleanHtml = function () {
-      var html = $('#trumbowyg').trumbowyg('html');
-      return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');
-    };
+    var html = $('#<%= field_id %>').trumbowyg('html');
+    return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');
+  };
 </script>
