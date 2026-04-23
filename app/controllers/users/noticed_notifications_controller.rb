@@ -2,10 +2,17 @@
 
 class Users::NoticedNotificationsController < ApplicationController
   before_action :authenticate_user!
+  NOTIFICATIONS_PER_PAGE = 10
 
   def index
-    @notifications = NoticedNotification.where(recipient: current_user).newest_first
-    @unread = NoticedNotification.where(recipient: current_user).newest_first.unread
+    @page = params[:page] || 1
+    @notifications = NoticedNotification.where(recipient: current_user)
+                                          .newest_first
+                                          .paginate(page: @page, per_page: NOTIFICATIONS_PER_PAGE)
+    @unread = NoticedNotification.where(recipient: current_user)
+                               .newest_first
+                               .unread
+                               .paginate(page: @page, per_page: NOTIFICATIONS_PER_PAGE)
   end
 
   def mark_as_read

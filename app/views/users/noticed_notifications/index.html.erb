@@ -8,8 +8,8 @@
   <h1 class="notification-heading"><%= t("users.notifications.heading") %></h1>
   <div class="d-flex justify-content-between mt-3">
     <div class="tab-container">
-      <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
-      <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
+      <span id="all-notifications" class="active notifications-tab" data-target="notifications.allNotifications" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
+      <span id="unread-notifications" class="notifications-tab" data-target="notifications.unreadNotifications" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
     </div>
     <% if @unread.count.positive? %>
       <div>
@@ -17,7 +17,9 @@
       </div>
     <% end %>
   </div>
-  <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-10 mt-3 notifications_container">
+  
+  <!-- All Notifications Section -->
+  <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-10 mt-3 notifications_container" data-target="notifications.allNotificationsDiv">
     <% @notifications.each do |notification| %>
       <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: "mb-2 mt-2 notification" do %>
         <div class="d-flex align-items-center notification-div">
@@ -37,6 +39,7 @@
         </div>
       <% end %>
     <% end %>
+    
     <% if @notifications.empty? %>
       <div class="col-12 row center-row">
         <div class="search-no-results-image">
@@ -45,8 +48,20 @@
         </div>
       </div>
     <% end %>
+    
+    <!-- Pagination for All Notifications -->
+    <% if @notifications.total_pages > 1 %>
+      <div class="d-flex justify-content-center mt-4">
+        <%= will_paginate @notifications, renderer: PaginateRenderer, 
+                          previous_label: "<i class='fas fa-chevron-left'></i>", 
+                          next_label: "<i class='fas fa-chevron-right'></i>",
+                          params: { tab: 'all' } %>
+      </div>
+    <% end %>
   </div>
-  <div id="unread-notifications-div" class="d-none flex-column bd-highlight mb-3 mt-3 notifications_container">
+  
+  <!-- Unread Notifications Section -->
+  <div id="unread-notifications-div" class="d-none flex-column bd-highlight mb-3 mt-3 notifications_container" data-target="notifications.unreadNotificationsDiv">
     <% @unread.each do |notification| %>
       <% if notification.unread? %>
         <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post, class: "mb-2 mt-2 notification" do %>
@@ -61,12 +76,23 @@
         <% end %>
       <% end %>
     <% end %>
+    
     <% if @unread.empty? %>
       <div class="col-12 row center-row">
         <div class="search-no-results-image">
           <%= image_tag "svgs/noProject.svg", alt: "No result image" %>
           <h6><%= t("users.notifications.no_unread_notifications") %></h6>
         </div>
+      </div>
+    <% end %>
+    
+    <!-- Pagination for Unread Notifications -->
+    <% if @unread.total_pages > 1 %>
+      <div class="d-flex justify-content-center mt-4">
+        <%= will_paginate @unread, renderer: PaginateRenderer, 
+                          previous_label: "<i class='fas fa-chevron-left'></i>", 
+                          next_label: "<i class='fas fa-chevron-right'></i>",
+                          params: { tab: 'unread' } %>
       </div>
     <% end %>
   </div>
