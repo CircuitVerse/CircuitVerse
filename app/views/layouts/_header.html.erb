@@ -1,167 +1,114 @@
-<nav class="navbar navbar-expand-lg bg-white">
-  <div class="container">
-    <a class="navbar-brand" href="/">
-      <%= image_tag("CircuitVerse.svg", class: "navbar-logo", alt: "CircuitVerse Logo") %>
-    </a>
-    <div class="d-flex d-lg-none align-items-center">
-      <button class="navbar-toggler navbar-light" type="button" id="dropdownButton"
-        aria-controls="collapsed-navbar" aria-expanded="false" aria-label="Toggle navigation">
-        <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
-      </button>
-    </div>
-    <div class="collapse navbar-collapse" id="collapsed-navbar">
-      <div class="d-flex justify-content-between align-items-start align-items-lg-center w-100 flex-column flex-lg-row gap-3 px-2 px-lg-0">
-        <ul class="navbar-nav main-nav-items mx-auto d-flex flex-lg-row flex-column gap-lg-3 margin-lg-0">
-          <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/simulator"><%= t("layout.link_to_simulator") %></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
-          </li>
-          <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
-            <li class="nav-item">
-              <a class="nav-link navbar-item navbar-text <%= request.path == "/explore" ? "active" : "" %>" href="/explore"><%= t("layout.link_to_explore") %></a>
-            </li>
-          <% end %>
-          <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/teachers"><%= t("layout.link_to_teachers") %></a>
-          </li>
-          <% if Flipper.enabled?(:contests, current_user) %>
-            <li class="nav-item">
-              <a class="nav-link navbar-item navbar-text <%= request.path == "/contests" ? "active" : "" %>" href="/contests"><%= t("layout.link_to_contests") %></a>
-            </li>
-          <% end %>
-          <li class="nav-item dropdown">
-            <button id="getting-started-dropdown"
-              class="nav-link dropdown-toggle navbar-item navbar-text"
-              type="button"
-              data-bs-toggle="dropdown"
-              data-bs-auto-close="true"
-              aria-haspopup="true"
-              aria-expanded="false"
-              aria-label="<%= t('layout.getting_started_dropdown') %>">
-              <%= t("layout.getting_started_dropdown") %>
-            </button>
-            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
-              <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_learn_more") %></a>
-              <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_docs") %></a>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="https://blog.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_blog") %></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
-          </li>
-          <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
-          </li>
-        </ul>
-        <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
-          <%= render "layouts/notifications" %>
-          <% if user_signed_in? %>
-            <div class="navbar-nav nav-item dropdown ms-2">
-              <button class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center"
-                id="navbar-dropdown-2"
-                type="button"
-                data-bs-toggle="dropdown"
-                data-bs-auto-close="true"
-                aria-haspopup="true"
-                aria-expanded="false"
-                aria-label="<%= current_user.name %>">
-                <div class="navbar-username-truncate"><%= current_user.name %></div>
-              </button>
-              <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
-                <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
-                <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>"><%= t("sign_out") %></a>
-              </div>
-            </div>
-          <% else %>
-            <div class="navbar-auth-buttons d-flex flex-lg-row flex-column gap-2">
-              <a class="btn btn-login px-3 d-flex align-items-center justify-content-center" href="/users/sign_in"><%= t("login") %></a>
-              <a class="btn btn-signup px-3 d-flex align-items-center justify-content-center" href="/users/sign_up"><%= t("sign_up") %></a>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
-</nav>
-<div class="navbar-search-active">
-  <%= render(Search::SearchBarComponent.new(
-    resource: params[:resource],
-    query: params[:q],
-    sorting: {
-      sort_by: params[:sort_by],
-      sort_direction: params[:sort_direction]
-    },
-    countries: @search_countries,
-    current_filters: @current_filters
-  )) %>
-</div>
 <script type="text/javascript">
-  document.addEventListener("DOMContentLoaded", function() {
-    const searchIcons = document.getElementsByClassName("fa-search");
-    const searchBar = document.getElementsByClassName("navbar-search-active")[0];
-    const dropdownButton = document.getElementById('dropdownButton');
-    const dropdownIcon = document.getElementById('dropdownIcon');
-    const collapseElement = document.getElementById("collapsed-navbar");
-    const navbar = document.querySelector('.navbar');
+  (function() {
+    function initializeTheme() {
+      const body = document.body;
+      const html = document.documentElement;
+      const themeIcon = document.getElementById('theme-icon');
+      const darkModeToggle = document.getElementById('dark-mode-toggle');
+      
+      const isSimulator = window.location.pathname.includes('/simulator') || 
+                          window.location.pathname.includes('/editor');
+      const savedTheme = localStorage.getItem('theme');
 
-    function handleNavbarShadow() {
-      if (window.scrollY > 0) {
-        navbar.classList.add('affix');
+      if (isSimulator) {
+        
+        html.classList.remove('dark-mode');
+        body.classList.remove('dark-mode');
+        if (themeIcon) themeIcon.classList.replace('fa-sun', 'fa-moon');
+        if (darkModeToggle) darkModeToggle.style.display = 'none';
       } else {
-        navbar.classList.remove('affix');
+        if (savedTheme === 'dark') {
+          html.classList.add('dark-mode');
+          body.classList.add('dark-mode');
+          if (themeIcon) themeIcon.classList.replace('fa-moon', 'fa-sun');
+        } else {
+          html.classList.remove('dark-mode');
+          body.classList.remove('dark-mode');
+          if (themeIcon) themeIcon.classList.replace('fa-sun', 'fa-moon');
+        }
+        if (darkModeToggle) darkModeToggle.style.display = 'flex';
       }
     }
-    window.addEventListener('scroll', handleNavbarShadow);
 
-    function activeSearchBar() {
-      const icons = Array.from(searchIcons);
-      const isActive = icons.some(icon => icon.classList.contains("active"));
-      if (isActive) {
-        icons.forEach(icon => icon.classList.remove("active"));
-        searchBar.style.display = "none";
-      } else {
-        icons.forEach(icon => icon.classList.add("active"));
-        searchBar.style.display = "block";
+   
+    function setupNavbarFeatures() {
+    if (window.__navbarFeaturesInitialized) return;
+    window.__navbarFeaturesInitialized = true;
+      const navbar = document.querySelector('.navbar');
+      const searchIcons = document.querySelectorAll(".fa-search");
+      const searchBar = document.querySelector(".navbar-search-active");
+
+   
+      window.addEventListener('scroll', () => {
+        if (navbar) {
+          window.scrollY > 0 ? navbar.classList.add('affix') : navbar.classList.remove('affix');
+        }
+      }, { passive: true });
+
+      
+      searchIcons.forEach(icon => {
+        icon.addEventListener("click", () => {
+          const isActive = icon.classList.contains("active");
+          searchIcons.forEach(i => i.classList.toggle("active", !isActive));
+          if (searchBar) searchBar.style.display = isActive ? "none" : "block";
+        });
+      });
+
+    
+      document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(trigger => {
+        trigger.addEventListener("show.bs.dropdown", () => trigger.classList.add("rotate180"));
+        trigger.addEventListener("hide.bs.dropdown", () => trigger.classList.remove("rotate180"));
+      });
+
+     
+      const dropBtn = document.getElementById('dropdownButton');
+      const collapseEl = document.getElementById("collapsed-navbar");
+      if (dropBtn && collapseEl) {
+        dropBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+         +const collapse = bootstrap.Collapse.getOrCreateInstance(collapseEl, { toggle: false });
+          collapse.toggle();
+        });
       }
-      collapseElement.classList.remove("show");
     }
 
-    if (dropdownButton && collapseElement && dropdownIcon) {
-      const bsCollapse = new bootstrap.Collapse(collapseElement, { toggle: false });
-      collapseElement.addEventListener('show.bs.collapse', function() {
-        dropdownIcon.classList.replace('fa-bars','fa-times');
-        dropdownButton.setAttribute('aria-expanded','true');
-      });
-      collapseElement.addEventListener('hide.bs.collapse', function() {
-        dropdownIcon.classList.replace('fa-times','fa-bars');
-        dropdownButton.setAttribute('aria-expanded','false');
-      });
-      dropdownButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        bsCollapse.toggle();
-      });
-    }
+  
+    
+  
+    document.addEventListener("click", function(e) {
+      const toggle = e.target.closest('#dark-mode-toggle');
+      if (!toggle || window.location.pathname.includes('/simulator')) return;
+      
+      e.preventDefault();
+      document.body.classList.toggle('dark-mode');
+      document.documentElement.classList.toggle('dark-mode');
+      
+      const isDark = document.body.classList.contains('dark-mode');
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
 
-    Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
-
-    if (window.location.href.includes('search')) {
-      searchBar.style.display = "block";
-      Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
-    }
-
-    document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
-      trigger.addEventListener("show.bs.dropdown", function() {
-        trigger.classList.add("rotate180");
-      });
-      trigger.addEventListener("hide.bs.dropdown", function() {
-        trigger.classList.remove("rotate180");
-      });
+      const icon = document.getElementById('theme-icon');
+      if (icon) {
+        isDark ? icon.classList.replace('fa-moon', 'fa-sun') : 
+                 icon.classList.replace('fa-sun', 'fa-moon');
+      }
     });
-  });
+
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      initializeTheme();
+      setupNavbarFeatures();
+    });
+    
+    document.addEventListener("turbolinks:load", () => {
+      initializeTheme();
+      setupNavbarFeatures();
+    });
+    
+    
+    document.addEventListener("turbo:load", () => {
+      initializeTheme();
+      setupNavbarFeatures();
+    });
+
+  })();
 </script>
