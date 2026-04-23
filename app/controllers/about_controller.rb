@@ -73,4 +73,7 @@ class AboutController < ApplicationController
 
     @issues_triaging = []
   end
+
+  def test
+  end
 end
