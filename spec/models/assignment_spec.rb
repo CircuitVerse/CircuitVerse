@@ -13,6 +13,20 @@ RSpec.describe Assignment, type: :model do
     it { is_expected.to have_many(:projects) }
   end
 
+  describe "validations" do
+    it "validates presence of name" do
+      assignment = Assignment.new(deadline: 1.week.from_now, group: @group)
+      expect(assignment).not_to be_valid
+      expect(assignment.errors[:name]).to be_present
+    end
+
+    it "validates presence of deadline" do
+      assignment = Assignment.new(name: "Test Assignment", group: @group)
+      expect(assignment).not_to be_valid
+      expect(assignment.errors[:deadline]).to include("can't be blank")
+    end
+  end
+
   describe "callbacks" do
     it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_new_assignment_mail)
