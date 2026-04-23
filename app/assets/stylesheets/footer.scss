@@ -139,3 +139,23 @@
   content: '';
   width: 10px;
 }
+
+/* Fix footer social icons responsiveness on tablets - Issue #6658 */
+@media (max-width: 1024px) {
+  .footer-social-icons-row {
+    flex-wrap: wrap !important;
+    gap: 12px;
+    justify-content: center;
+    row-gap: 10px;
+  }
+  .footer-social-icon {
+    margin-right: 0 !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer-social-icons-row {
+    gap: 10px;
+    row-gap: 8px;
+  }
+}
