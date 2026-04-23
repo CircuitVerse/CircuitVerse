@@ -5,12 +5,45 @@
 .circuit-element-category {
   border-bottom: 1px solid #026e57;
   font-weight: 500;
-  margin: 20px 0 5px;
+  margin: 20px 0 10px;
   padding-bottom: 5px;
 }
 
-.restricted-elements-list {
+.restricted-elements-list,
+.restricted-feature-list {
   margin: 10px 0 25px;
+}
+
+.restricted-elements-list .restriction-grid,
+.restricted-feature-list .restriction-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 8px 16px;
+  padding: 8px 0;
+}
+
+.restricted-elements-list .restriction-grid-item,
+.restricted-feature-list .restriction-grid-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 0;
+}
+
+.restricted-elements-list .restriction-grid-item .primary-checkpoint,
+.restricted-feature-list .restriction-grid-item .primary-checkpoint {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.restricted-elements-list .restriction-grid-item .restriction-label,
+.restricted-feature-list .restriction-grid-item .restriction-label {
+  font-size: 14px;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .form-check-label {
