@@ -1113,13 +1113,15 @@ function zoomSliderListeners() {
     // here length-2 is done because last two button are used for diff purpose
     for(var quickmenui = 0; quickmenui < quickMenu.length - 2; quickmenui++) {
         (function(index) {
-            quickMenu[index].addEventListener('click', (e) => {
+            const touchClick = function (e) {
                 onTapColor(quickMenu, index, buttoncolor);
                 onQuickmenuTap(index);
                 setTimeout(() => {
-                    onTapColor(quickMenu, index, ''); }, 100);
+                    onTapColor(quickMenu, index, '');
+                }, 100);
                 e.preventDefault();
-            });
+            }
+            quickMenu[index].addEventListener('touchend', e => touchClick(e) );
         }(quickmenui));
     }
     quickMenu[6].addEventListener('click', (e) => {
