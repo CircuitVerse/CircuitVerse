@@ -21,37 +21,37 @@
           <% end %>
           <div class="field mb-3">
             <h6><%= f.label :name %></h6>
-              <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
+            <%= f.text_field :name, placeholder: t('enter_name'), autofocus: true, class: "form-control form-input" %>
           </div>
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>
-              <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
+            <%= f.email_field :email, placeholder: t('enter_email'), class: "form-control form-input" %>
           </div>
           <div class="field mb-3">
-          <h6 class="password-length">
-            <%= f.label :password %>
-            <% if @minimum_password_length %>
-              <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
-            <% end %>
-          </h6>
-          <div class="input-group form-input">
-            <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
-            <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
-              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            <h6 class="password-length">
+              <%= f.label :password %>
+              <% if @minimum_password_length %>
+                <span> <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %></span>
+              <% end %>
+            </h6>
+            <div class="input-group form-input">
+              <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
+              <div class="input-group-addon ms-3 mt-2" onclick="togglePassword()">
+                <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+              </div>
             </div>
           </div>
-        </div>
           <div class="field mb-3">
-            <div class="input-group">
-              <% if Flipper.enabled?(:recaptcha) %>
+            <% if Flipper.enabled?(:recaptcha) %>
+              <div class="mb-3">
                 <%= flash[:recaptcha_error] %>
                 <%= recaptcha_tags %>
-              <% end %>
-              <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
-              <div class="users-text-container">
-                <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
-                <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
               </div>
+            <% end %>
+            <%= f.submit t("sign_up"), class: "btn primary-button users-login-primary-button" %>
+            <div class="users-text-container">
+              <span class="users-text"><%= t("users.registrations.ask_already_registered") %></span>
+              <%= link_to t("login"), new_user_session_path, class: "anchor-text" %>
             </div>
           </div>
           <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
