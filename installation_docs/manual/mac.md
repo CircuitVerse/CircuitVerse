@@ -43,6 +43,11 @@ cd CircuitVerse
      - [CMAKE](https://cmake.org/install/)
      - OpenSSL
      - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`12`) - Database
+- **Start required services (if installed via Homebrew)**
+     ```bash
+     brew services start redis
+     brew services start postgresql
+     ```
 
 
 #### Setup
