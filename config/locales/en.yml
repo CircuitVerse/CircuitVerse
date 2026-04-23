@@ -1,4 +1,16 @@
 en:
+  assignments:
+    create:
+      success: "Assignment was successfully created."
+    update:
+      success: "Assignment was successfully updated."
+    destroy:
+      success: "Assignment was successfully deleted."
+  collaborations:
+    update:
+      success: "Collaboration was successfully updated."
+    destroy:
+      success: "Collaboration was successfully removed."
   notifications:
     not_found: "Notification not found"
   edit: "Edit"
