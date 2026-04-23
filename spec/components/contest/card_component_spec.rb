@@ -10,7 +10,7 @@ RSpec.describe Contest::CardComponent, type: :component do
     render_inline described_class.new(contest: contest)
 
     expect(page).to have_link("Contest ##{contest.id}")
-    expect(page).to have_text("Entries: 3")
+    expect(page).to have_text("3 Entries")
     expect(page).to have_text("Completed")
   end
 
@@ -20,7 +20,7 @@ RSpec.describe Contest::CardComponent, type: :component do
     render_inline described_class.new(contest: contest)
 
     expect(page).to have_link("Contest ##{contest.id}")
-    expect(page).to have_text("Entries: 0")
+    expect(page).to have_text("0 Entries")
     expect(page).to have_text("LIVE")
   end
 end
