@@ -7,8 +7,7 @@
 }
 
 .navbar-logo {
-  height: 70px;
-  padding-top: 5px;
+  height: 45px;
 }
 
 .fa-search {
@@ -661,8 +660,8 @@
 
 @media (max-width: 400px) {
  .navbar-logo {
-    height: 60px;
-    padding-top: 10px;
+    height: 40px;
+    padding-inline: 0.5rem;
   }
 }
 
