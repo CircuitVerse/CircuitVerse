@@ -19,6 +19,14 @@ class Assignment < ApplicationRecord
   has_many :grades, dependent: :destroy
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
+  
+  def deadline_status
+    return :none if deadline.blank?
+    return :passed if deadline < Time.current
+    return :due_soon if deadline <= 2.days.from_now
+
+    :active
+  end
 
   def notify_recipient
     group.group_members.each do |group_member|
