@@ -24,6 +24,21 @@ There are several ways to run a local instance of CircuitVerse:
 | Windows | WSL Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows-wsl.md) |
 | Windows | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
 
+## Common Windows Setup Pitfalls
+
+If you are setting up CircuitVerse on Windows, the following common issues may cause confusion during local development.
+
+### Mixing Windows Ruby and WSL
+If you are using WSL, ensure that Ruby, Rails, and Redis are installed and run entirely inside the WSL environment.
+Mixing Windows-installed Ruby with WSL can lead to runtime and execution errors.
+
+### Redis already running
+If you encounter an error indicating that port `6379` is already in use, Redis may already be running.
+In this case, Redis does not need to be started again.
+
+### JavaScript tooling expectations
+CircuitVerse uses Rails’ default JavaScript setup.
+Commands such as `yarn start` or `webpack-dev-server` may not be present and are not required for running the application.
 
 ## Tools Setup
 | Tool | Documentation Link |
@@ -46,7 +61,7 @@ CircuitVerse API documentation is available at - https://api.circuitverse.org/
 If you would like to set up CircuitVerse API documentation locally, refer to [docs/README.md](docs/README.md)
 
 
-### Enabling/Disabling features with Flipper 
+### Enabling/Disabling features with Flipper
 By default `:forum` and `:recaptcha` features are set to false. These can be enabled either via rails console or Flipper dashboard.
 ```ruby
 rails c
