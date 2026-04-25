@@ -17,7 +17,8 @@ class I18nSupport
       %w[Japanese ja],
       %w[Malayalam ml],
       %w[Marathi mr],
-      %w[Nepali ne]
+      %w[Nepali ne],
+      ["Portugues (BR)", "pt"]
     ]
   end
 

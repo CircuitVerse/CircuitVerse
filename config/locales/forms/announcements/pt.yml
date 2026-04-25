@@ -1,0 +1,12 @@
+pt:
+  helpers:
+    label:
+      announcement:
+        body: "Corpo do Anúncio"
+        link: "Link do Anúncio"
+        start_date: "Data de Início"
+        end_date: "Data de Término"
+    submit:
+      announcement:
+        create: "Novo Anúncio"
+        update: "Atualizar Anúncio"

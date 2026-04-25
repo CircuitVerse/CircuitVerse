@@ -1,0 +1,40 @@
+pt:
+  assignments:
+    group_name: "Grupo: %{name}"
+    deadline: "Prazo:"
+    remaining_time_error: "(algo deu errado ao carregar o script)"
+    form:
+      grade_scale_cant_change: "(Não pode ser alterado uma vez definido)"
+      cannot_be_edited: "%{graded} - Não pode ser editado"
+      enable_element_restriction: "Ativar restrição de elementos:"
+      enable_feature_restriction: "Ativar restrição de funcionalidades:"
+      time_remaining: "Tempo restante: %{time}"
+      no_grade: "Sem Nota"
+      letter: "Letra(A-F)"
+      percent: "Porcentagem(1-100)"
+      custom: "Personalizado"
+    edit:
+      edit_assignment: "Editar Tarefa"
+    new:
+      title: "%{name} - Nova Tarefa"
+      new_assignment_heading: "Nova Tarefa"
+    show:
+      title: "%{name} - Detalhes da Tarefa"
+      assignment_details_heading: "DETALHES DA TAREFA"
+    assignment_data:
+      name_html: "<strong>Nome:</strong> %{name}"
+      group_html: "<strong>Grupo:</strong> %{group_name}"
+      time_remaining_html: "<strong>Tempo Restante:</strong> %{time_remaining}"
+      graded_html: "<strong>Avaliado:</strong> %{graded}"
+      description: "Descrição:"
+      restricted_elements_html: "<strong>Elementos de Circuito Restritos:<strong> %{restricted_circuit_elements}"
+      export_grades: "Exportar Notas"
+      submissions: "Submissões :"
+      restricted_features_html: "<strong>Funcionalidades Restritas:</strong> %{restricted_features}"
+      no_submissions: "Ainda não há submissões!"
+      grades_and_remarks: "Notas & Observações"
+      grade: "Nota"
+      remarks: "Observações"
+      grading_scale_percent: "As tarefas podem ser avaliadas com porcentagem (1-100)"
+      grading_scale_letter: "As tarefas podem ser avaliadas com qualquer uma das letras A/B/C/D/E/F"
+      remove: "Remover"

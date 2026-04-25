@@ -30,9 +30,10 @@ module Logix
         config.view_component.default_preview_layout = "lookbook_preview"
 
         config.i18n.load_path += Dir[Rails.root.join("config", "locales", "**", "*.{rb,yml}")]
-        config.i18n.available_locales = [:ar, :bn, :de, :en, :es, :fr, :hi, :ja, :ml, :mr, :ne]
+        config.i18n.available_locales = [:ar, :bn, :de, :en, :es, :fr, :hi, :ja, :ml, :mr, :ne, :pt]
         config.i18n.default_locale = :en
         config.i18n.fallbacks = true
+
 
         # configuring middleware
         config.middleware.use Rack::Attack

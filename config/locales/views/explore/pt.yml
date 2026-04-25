@@ -1,0 +1,24 @@
+pt:
+  explore:
+    title: "CircuitVerse - Explorar"
+    main_heading: "Explorar Circuitos"
+    main_description: "Navegue por circuitos escolhidos a dedo, clássicos, criações recentes e tags populares."
+    tabs:
+      cotw: "Circuito da semana"
+      picks: "Escolhas dos Editores"
+      recent: "Circuitos Recentes"
+      tags: "Navegar por Tags"
+    sections:
+      cotw:
+        heading: "Circuito da semana"
+        description: "Um circuito em destaque escolhido entre os designs em destaque e tendências."
+      picks:
+        heading: "Escolhas dos Editores"
+        description: "Curado por nossos autores por sua excelência."
+      recent:
+        heading: "Circuitos Recentes"
+        description: "Os últimos circuitos públicos da nossa comunidade."
+      tags:
+        heading: "Navegar por Tags"
+        description: "Pule para os tópicos que lhe interessam."
+    empty: "Nada para mostrar ainda."

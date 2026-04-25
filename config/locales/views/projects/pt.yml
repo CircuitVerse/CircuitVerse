@@ -1,0 +1,53 @@
+pt:
+  projects:
+    add_collaborator_description:
+      "Insira os IDs de e-mail separados por vírgulas, espaços ou enter. Os usuários já precisam estar cadastrados na plataforma.
+      Observe que a colaboração não é em tempo real por enquanto. Cada salvamento sobrescreve os dados anteriores."
+    remove_collaborator_message: "Tem certeza de que deseja remover este colaborador?"
+    delete_project_message: "Tem certeza de que deseja excluir este projeto?"
+    form:
+      feature_circuit_checkpoint: "Destaque (Apenas Administrador)"
+      tag_list_description: "(Insira as Tags do seu Projeto divididas por vírgula[,])"
+      project_is_featured_message: "(Este projeto está em destaque. Ele não estará mais em destaque se o acesso público for removido.)"
+      public: "Público"
+      private: "Privado"
+      limited_access: "Acesso limitado"
+    edit:
+      title: "%{name} - Editar Projeto"
+      main_heading: "Editar Projeto"
+    get_projects:
+      searched_projects_heading: "Projetos Pesquisados"
+      searched_tags_heading: "Tags:"
+    stars_count: "Estrelas"
+    views_count: "Visualizações"
+    project_user: "Usuário:"
+    user_image: "Imagem do Usuário"
+    show:
+      project_author: "Autor:"
+      project_forked_from: "Forked de:"
+      project_access_type: "Tipo de acesso ao projeto:"
+      project_description: "Descrição:"
+      project_created_at: "Criado em:"
+      project_updated_at: "Atualizado em:"
+      project_embed: "Incorporar"
+      project_copy: "Criar Cópia"
+      project_collaborator_add: "+ Adicionar um Colaborador"
+      copied_to_clipboard: "Copiado para a área de transferência!"
+      collaborators: "Colaboradores"
+    search:
+      no_result_found: "Nenhum Resultado Encontrado"
+    modal:
+      embed_circuit_heading: "Incorpore seu Circuito"
+      height: "Altura"
+      width: "Largura"
+      url: "URL"
+      border: "Borda"
+      border_style: "Estilo da Borda"
+      publish_button: "Publicar"
+      advance:
+        advance_option: "Opção Avançada"
+        clock_time: "Relógio/Tempo"
+        display_title: "Exibir Título"
+        fullscreen: "Tela Cheia"
+        zoom_in_out: "Zoom In/Out"
+        theme: "Tema"

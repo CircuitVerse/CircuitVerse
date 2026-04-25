@@ -4,12 +4,10 @@ class ApplicationController < ActionController::Base
   include Pundit::Authorization
   include SearchHelper
 
-  protect_from_forgery with: :exception
-
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications, if: :current_user
-  before_action :prepare_search_data
   around_action :switch_locale
+  before_action :prepare_search_data
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
@@ -27,12 +25,15 @@ class ApplicationController < ActionController::Base
     render "errors/not_found", status: :not_found
   end
 
-  def switch_locale(&)
-    logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = params[:locale]&.to_sym || current_user&.locale&.to_sym || extract_locale_from_accept_language_header
+  def switch_locale(&action)
+    locale = params[:locale] || current_user&.locale || extract_locale_from_accept_language_header
+    locale = locale.to_s.split("-").first.to_sym if locale
+    
+    # Strictly allow only available locales
     locale = I18n.default_locale unless I18n.available_locales.include?(locale)
-    logger.debug "* Locale set to '#{locale}'"
-    I18n.with_locale(locale, &)
+    
+    I18n.locale = locale
+    I18n.with_locale(locale, &action)
   end
 
   # Overrides Devise::Controller::StoreLocation.store_location_for to check if

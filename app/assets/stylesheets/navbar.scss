@@ -508,8 +508,12 @@
 
 .select-wrapper {
   position: relative;
-  width: 110px;
+  width: 130px;
   height: 100%;
+
+  html[lang="pt"] & {
+    width: 150px;
+  }
 }
 
 .select-button {
@@ -616,6 +620,11 @@
   border: 0;
   box-shadow: 0 0 10px 1px $shadow-grey;
   top: 90%;
+  min-width: 200px;
+
+  html[lang="pt"] & {
+    min-width: 220px !important;
+  }
 }
 
 //breakpoints

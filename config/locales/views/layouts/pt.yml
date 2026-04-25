@@ -1,0 +1,41 @@
+pt:
+  layout:
+    link_to_simulator: "Simulador"
+    getting_started_dropdown: "Primeiros Passos"
+    link_to_learn_more: "Aprender"
+    link_to_docs: "Documentação"
+    link_to_features: "Funcionalidades"
+    link_to_teachers: "Professores"
+    link_to_blog: "Blog"
+    link_to_about: "Sobre"
+    link_to_faq: "FAQ"
+    link_to_contests: "Concursos"
+    link_to_explore: "Explorar"
+    footer:
+      social_icon_text: "Siga-nos em:"
+      link_to_examples: "Exemplos"
+      link_to_explore: "Explorar"
+      my_circuits: "Meus Circuitos"
+      link_to_contribute: "Contribua"
+      link_to_forum: "Fórum"
+      sponsor_logo_text:
+        brought_by: "Trazido a você por:"
+        hosting_sponsor: "Patrocinador de Hospedagem:"
+        marketed_by: "Comercializado por:"
+        incubated_from: "Incubado de:"
+        infrastructure_sponsor: "Patrocinador de Infraestrutura:" 
+      copyright_text: "Direitos Autorais © %{time_current_year} CircuitVerse, Todos os direitos reservados."
+    header:
+      dashboard: "Painel"
+      my_groups: "Meus Grupos"
+      notifications: "Notificações"
+      language: "Idioma"
+    mailer:
+      join_us: "Junte-se a nós"
+      copyright_text: "Direitos Autorais © %{time_current_year} CircuitVerse. Todos os direitos reservados. Para quaisquer problemas, entre em contato conosco em support@circuitverse.org"
+      unsubscribe_email_notifications: "Cancelar inscrição de notificações por e-mail"
+    simulator:
+      title: "CircuitVerse - Simulador de Circuitos Digitais online"
+  contest:
+    index:
+      manage_button: "Gerenciar Concurso"

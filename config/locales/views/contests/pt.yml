@@ -1,0 +1,133 @@
+pt:
+  contest:
+    leaderboard:
+      title: "Concurso #%{id} — Classificação"
+      subtitle: "Classificação final por votos; empates resolvidos por submissão antecipada."
+      back_to_contest: "Voltar ao Concurso"
+      no_submissions: "Nenhuma submissão"
+      columns:
+        rank: "Classificação"
+        project: "Projeto"
+        author: "Autor"
+        votes: "Votos"
+        submitted_at: "Enviado em"
+      winner_badge: "Vencedor"
+    heading: "CONCURSO"
+    index:
+      subtitle: "Concursos onde os alunos mostram seus circuitos incríveis e os melhores são destacados em nossa página inicial!"
+      manage_button: "Gerenciar Concursos"
+    admin:
+      subtitle: "Esta página é para administradores, você pode hospedar um novo concurso clicando no botão 'Hospedar novo concurso'!"
+      new_contest_button: "Hospedar novo concurso"
+    show:
+      subtitle: "Tenha a chance de aparecer em nosso site e mostre seu circuito para %{user_count} usuários!"
+      remaining_votes: "Seus Votos Restantes:"
+      register_button: "Registre seu circuito"
+      disable_button: "Concurso Encerrado!"
+      winners: "Vencedores"
+      winners_description: "Os projetos vencedores aparecerão em nosso site e serão premiados com a tag especial do CircuitVerse."
+      user_submissions: "Suas Submissões"
+      user_submissions_description: "Você pode retirar sua submissão do concurso."
+      contest_entries: "Entradas do Concurso(%{submission_count})"
+      contest_entries_description: "Vote em suas entradas favoritas e ajude-nos a escolher nossos vencedores para esta semana! Um usuário recebe 3 votos."
+      view_leaderboard: "Ver Classificação"
+    votes: "Votos"
+    votes_count:
+      one: "%{count} voto"
+      other: "%{count} votos"
+    close: "Fechar"
+    no_contest: "Não há concursos ativos ou concluídos."
+    contest_container:
+      contest_id: "Concurso"
+      entries: "Entradas"
+      contest_id_with_number: "Concurso #%{id}"
+    status:
+      live: "AO VIVO"
+      completed: "Concluído"
+    withdraw: "Retirar"
+    vote: "Votar"
+    view: "Ver"
+    no_result_image_alt: "Sem imagem de resultado"
+    timer:
+      expired: "EXPIRADO"
+    new_submission_page:
+      heading: "Submissão de Projeto"
+      select_your_circuit: "Selecione seu circuito"
+      select_your_circuit_description: "Apenas projetos públicos são permitidos no concurso."
+    close_contest_modal:
+      heading: "Fechar um Concurso"
+      description: "Tem certeza de que deseja fechar este concurso?"
+      confirm_button: "Confirmar"
+    host_new_contest_modal:
+      heading: "Hospedar um novo Concurso"
+      description: "Tem certeza de que deseja iniciar um novo concurso?"
+      description_html: "<p>Hospedar um novo concurso pode:</p><ul><li>Encerrar o concurso em andamento (se houver)</li><li>Fazer um anúncio para todos os usuários participarem</li></ul>"
+      confirm_button: "Confirmar"
+    update_contest_modal:
+      heading: "Atualizar Prazo do Concurso"
+      sub_heading: "Definir Prazo do Concurso"
+      description: "Certifique-se de que o Prazo do Concurso seja definido no futuro. Não é permitido definir o Prazo do Concurso no passado."
+      update_deadline: "Atualizar Prazo"
+    withdraw_submission_modal:
+      heading: "Retirar Submissão"
+      description: "Tem certeza de que deseja retirar sua submissão do concurso?"
+    header:
+      time_left_label: "Tempo Restante:"
+    buttons:
+      submit: "Enviar"
+      update_deadline: "Atualizar Prazo"
+  contests:
+    index:
+      title: "Concursos"
+    show:
+      title: "Concurso"
+    new_submission:
+      title: "Nova Submissão"
+    create_submission:
+      success: "A submissão foi adicionada com sucesso."
+      unauthorized_project: "Você não pode enviar o projeto de outra pessoa."
+      duplicate_submission: "Este projeto já foi enviado no Concurso #%{contest_id}"
+    upvote:
+      voting_closed: "A votação está encerrada."
+      all_votes_used: "Você usou todos os seus votos!"
+      already_voted: "Você já votou nesta submissão!"
+      success: "Você votou com sucesso na submissão, obrigado! Votos restantes: %{votes_remaining}"
+    submissions:
+      create:
+        success: "A submissão foi adicionada com sucesso."
+        unauthorized_project: "Você não pode enviar o projeto de outra pessoa."
+        duplicate_submission: "Este projeto já foi enviado no Concurso #%{contest_id}"
+      destroy:
+        success: "A submissão foi removida com sucesso."
+        withdraw_closed: "As retiradas estão encerradas, pois o concurso terminou."
+      votes:
+        create:
+          voting_closed: "A votação está encerrada."
+          all_votes_used: "Você usou todos os seus votos!"
+          already_voted: "Você já votou nesta submissão!"
+          success: "Você votou com sucesso na submissão, obrigado! Votos restantes: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "Administração de Concursos"
+        edit_deadline_alt: "Editar prazo"
+      create:
+        concurrent_contests: "Concursos simultâneos não são permitidos. Feche outros concursos antes de criar um novo."
+        success: "O concurso foi iniciado com sucesso."
+      update:
+        contest_closed: "O concurso foi encerrado com sucesso."
+        deadline_in_future: "O prazo deve ser no futuro."
+        deadline_updated: "O prazo do concurso foi atualizado com sucesso."
+        deadline_update_failed: "Falha ao atualizar o prazo do concurso: %{errors}"
+        invalid_deadline: "Formato de prazo inválido."
+      parse_deadline_or_redirect:
+        invalid_deadline: "Formato de prazo inválido."
+
+  layout:
+    link_to_contests: "Concursos"
+
+  user:
+    circuitverse:
+      preview_project: "Prévia do Projeto"
+
+  feature_not_available: "O recurso de concurso não está disponível."

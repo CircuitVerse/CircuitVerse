@@ -6,6 +6,7 @@
 import * as metadata from './metadata.json';
 import { generateId, showMessage } from './utils';
 import backgroundArea from './backgroundArea';
+import banana from './i18n';
 import plotArea from './plotArea';
 import simulationArea from './simulationArea';
 import { dots } from './canvasApi';
@@ -128,11 +129,13 @@ function setupElementLists() {
             }
         }
 
-        const accordionData = `<div class="panelHeader">${category}</div>
+        const localizedCategory = banana.i18n(`simulator.panel_body.circuit_elements.expansion_panel_title.${category}`) || category;
+
+        const accordionData = `<div class="panelHeader">${localizedCategory}</div>
         <div class="panel customScroll">
         ${htmlIcons}
         </div>`;
-        const touchaccordionData = `<div class="mobilepanelHeader">${category}</div>
+        const touchaccordionData = `<div class="mobilepanelHeader">${localizedCategory}</div>
         <div class="panel customScroll">
         ${htmlIcons}
         </div>`;

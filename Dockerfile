@@ -38,6 +38,9 @@ RUN mkdir -p /etc/apt/keyrings \
  && apt-get update && apt-get install -y nodejs && apt-get autoremove && apt-get clean && apt-get autoremove && rm -rf /var/lib/apt/lists/* \
  && npm install -g yarn
 
+# Install bundler version specified in Gemfile.lock
+RUN gem install bundler -v 2.5.3
+
 # If OPERATING_SYSTEM is Linux, create non-root user
 RUN if [[ "$OPERATING_SYSTEM" == "linux" ]]; then \
     # Check if the uid or gid is not 0
