@@ -1,0 +1,16 @@
+pt:
+  helpers:
+    label:
+      collaboration:
+        emails: "IDs de E-mail:"
+      project:
+        name: "Nome"
+        tag_list: "Lista de Tags"
+        project_access_type: "Tipo de acesso ao projeto"
+        description: "Descrição"
+    submit:
+      collaboration:
+        create: "Adicionar Colaboradores"
+      project:
+        create: "Criar Projeto"
+        update: "Atualizar Projeto"

@@ -58,6 +58,22 @@
           </li>
         </ul>
         <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
+          <div class="nav-item dropdown">
+            <button class="nav-link dropdown-toggle navbar-item navbar-text d-flex align-items-center"
+              id="language-dropdown"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false">
+              <i class="fas fa-globe me-1"></i>
+              <div class="d-none d-lg-block"><%= I18nSupport.locale_names.find { |l| l[1] == I18n.locale.to_s }&.first || "Language" %></div>
+            </button>
+            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="language-dropdown">
+              <% I18nSupport.locale_names.each do |name, code| %>
+                <a class="dropdown-item" href="?locale=<%= code %>"><%= name %></a>
+              <% end %>
+            </div>
+          </div>
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">

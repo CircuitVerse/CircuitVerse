@@ -1,0 +1,22 @@
+pt:
+  about:
+    title: "CircuitVerse - Sobre nós"
+    main_heading: "SOBRE"
+    main_description: "Conheça as pessoas incríveis por trás do CircuitVerse"
+    product_details: "O CircuitVerse é uma plataforma de simulação de circuitos digitais.
+          Visa fornecer uma plataforma onde os circuitos possam ser projetados e simulados usando uma interface gráfica de usuário.
+          Embora os usuários possam projetar implementações completas de CPU dentro do simulador, o software foi projetado principalmente para uso educacional.
+          O CircuitVerse é um projeto de código aberto com uma comunidade ativa. Confira a página de contribuição para mais detalhes."
+    terms_of_service: "Termos de Serviço"
+    privacy_policy: "Política de Privacidade"
+    core_team_heading: "EQUIPE PRINCIPAL"
+    core_team_description: "O CircuitVerse é liderado por uma equipe experiente dedicada à inovação e excelência."
+    mentors_team_heading: "MENTORES"
+    mentors_team_description: "Nossos mentores apoiam e incentivam o desenvolvimento profissional dos mentorados e fornecem orientação ativa para ajudá-los no desenvolvimento frutífero de nossa comunidade."
+    alumni_team_heading: "ALUNOS"
+    alumni_team_description: "Também queremos agradecer a todos os membros passados por suas contribuições inestimáveis!"
+    contributors_heading: "COLABORADORES"
+    contributors_description: "Conheça as pessoas incríveis da comunidade CircuitVerse que tornaram esta plataforma o que ela é agora."
+    become_contributor: "Torne-se um Colaborador"
+    issues_triaging_team: "EQUIPE DE TRIAGEM DE PROBLEMAS"
+    issues_triaging_team_description: "Classificando, priorizando e roteando problemas para manter o circuito fluindo suavemente"

@@ -1,0 +1,44 @@
+pt:
+  groups:
+    add_member_description: "Insira os IDs de e-mail separados por vírgulas/espaços ou em linhas separadas. Se os usuários não estiverem cadastrados, um e-mail será enviado solicitando que se inscrevam."
+    add_mentor_description_html: "<p>Mentores podem:</p><ul><li>Criar e excluir tarefas</li><li>Avaliar tarefas</li><li>Reabrir tarefas encerradas</li></ul>"
+    promote_member_confirmation: "Tem certeza de que deseja promover este membro a mentor?"
+    demote_mentor_confirmation: "Tem certeza de que deseja rebaixar este mentor a membro?"
+    use_alternative: "OU USE"
+    invite_link_btn: "Link de Convite do Grupo"
+    remove_assignment_message: "Tem certeza de que deseja excluir esta tarefa?"
+    remove_member_message: "Tem certeza de que deseja remover este membro?"
+    make_member: "Tornar membro"
+    make_mentor: "Tornar mentor"
+    edit:
+      title: "%{name} - Editar Nome do Grupo"
+      main_heading: "EDITAR NOME DO GRUPO"
+    new:
+      title: "CircuitVerse - Novo Grupo"
+      main_heading: "NEW GROUP"
+      main_description_html: "Os grupos podem ser usados por mentores para definir projetos e dar notas aos alunos.
+        Você pode encontrar a documentação <a class='anchor-text' href='https://docs.circuitverse.org/chapter2/chapter2-cvforeducators' target='_blank'>aqui</a>."
+    show:
+      edit_name_btn: "Editar Nome"
+      primary_mentor_heading: "Mentor Principal:"
+      mentor_name_heading: "MENTORES:"
+      group_members_heading: "MEMBROS:"
+      add_members_btn: "+ Adicionar Membros"
+      add_mentors_btn: "+ Adicionar Mentores"
+      no_mentors_html: "Não há mentores neste grupo, clique no botão <strong>+ Adicionar Mentores</strong> para adicionar mentores."
+      no_members_html: "Não há membros neste grupo, clique no botão <strong>+ Adicionar Membros</strong> para adicionar membros."
+      no_assignments_html: "Não há tarefas no grupo, clique no botão <strong>+ Adicionar Tarefa</strong> para iniciar uma tarefa."
+      assignment:
+        heading: "TAREFAS:"
+        add_assignment_btn: "+ Adicionar Tarefa"
+        assignment_table_head:
+          name: "Nome"
+          deadline: "Prazo"
+          grading: "Avaliação"
+          actions: "Ações"
+          grade: "Nota"
+        time_remaining_html: "<strong>Tempo restante:</strong> %{time_remaining}"
+        start_working_btn: "Começar a Trabalhar"
+        see_work_done: "Ver seu Trabalho"
+        not_submitted: "Não enviado!"
+        show_submission: "Ver Submissão"

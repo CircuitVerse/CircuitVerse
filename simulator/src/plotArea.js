@@ -162,7 +162,7 @@ const plotArea = {
     calibrate() {
         var recommendedUnit = Math.max(20, Math.round(this.unitUsed * 3));
         this.cycleUnit = recommendedUnit;
-        $('#timing-diagram-units').val(recommendedUnit);
+        $('.timing-diagram-units').val(recommendedUnit);
         this.reset();
     },
     // Get current time in clock cycles
@@ -447,7 +447,7 @@ export function setupTimingListeners() {
     $('.timing-diagram-zoom-out').on('click', () => {
         plotArea.zoomOut();
     })
-    $('#timing-diagram-units').on('change paste keyup', function() {
+    $('.timing-diagram-units').on('change paste keyup', function() {
         var timeUnits = parseInt($(this).val(), 10);
         if (isNaN(timeUnits) || timeUnits < 1) return;
         plotArea.cycleUnit = timeUnits;

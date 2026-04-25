@@ -13,7 +13,12 @@ class ProfileDecorator < SimpleDelegator
 
   def country_name
     country = ISO3166::Country[profile.country]
-    country ? country.translations[I18n.locale.to_s] || country.name : nil
+    return nil if country.nil?
+
+    country.translations[I18n.locale.to_s.downcase] ||
+      country.translations[I18n.locale.to_s.split("-").first] ||
+      country.common_name ||
+      country.iso_short_name
   end
 
   def mail_subscription

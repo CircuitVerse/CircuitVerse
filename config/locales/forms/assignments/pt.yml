@@ -1,0 +1,11 @@
+pt:
+  helpers:
+    label:
+      assignment:
+        name: "Nome"
+        description: "Descrição"
+        grading_scale: "Escala de notas"
+    submit:
+      assignment:
+        create: "Criar Tarefa"
+        update: "Atualizar Tarefa"

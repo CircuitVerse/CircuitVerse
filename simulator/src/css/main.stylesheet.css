@@ -160,12 +160,24 @@ input[type="text"]:focus {
 .acc-caret {
     right: -17px;
 }
+
+.lang-caret {
+    background: url(./assets/small-components/chevron-down.svg) center/cover no-repeat;
+    display: inline-block;
+    height: 5px;
+    width: 5px;
+    padding: 4px;
+    flex-shrink: 0;
+    transition: all 0.2s ease-in-out;
+}
+
 .navbar-menu > li > a:hover {
     border-bottom: 1px solid white;
 }
 
 .navbar-menu > li > a:hover span,
-.acc-drop:hover .acc-caret {
+.acc-drop:hover .acc-caret,
+.acc-drop:hover .lang-caret {
     background: none;
 }
 
@@ -193,9 +205,6 @@ input[type="text"]:focus {
     transition: all 0.2s ease-in-out;
 }
 
-.account-btn:hover {
-    border-bottom: 1px solid white;
-}
 
 .user-field {
     display: inline-block;
@@ -213,17 +222,26 @@ input[type="text"]:focus {
     }
 }
 
-.signIn-btn {
-    color: var(--text-primary);
-}
-
 .cur-user,
+.acc-drop,
 .signIn-btn {
     color: #fff;
 }
 
+.acc-drop,
+.signIn-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 8px;
+    border: 1px solid transparent;
+    border-radius: 1px;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap;
+}
+
+.acc-drop:hover,
 .signIn-btn:hover {
-    color: var(--text-primary);
+    border-bottom: 1px solid white;
 }
 
 .logo {
@@ -330,7 +348,15 @@ input[type="text"]:focus {
 }
 
 .mw-override {
-    min-width: 110px;
+    min-width: 150px;
+}
+
+html[lang='pt'] .mw-override {
+    min-width: 200px !important;
+}
+
+html[lang='pt'] .dropdown-menu {
+    min-width: 220px !important;
 }
 
 .dropdown > ul::before {
@@ -375,7 +401,7 @@ input[type="text"]:focus {
 }
 
 #contextMenu {
-    width: 150px;
+    width: 170px;
     visibility: hidden;
     position: fixed;
     z-index: 1000;
@@ -421,7 +447,7 @@ input[type="text"]:focus {
 
 .ce-panel {
     font: inherit;
-    width: 240px;
+    width: 260px;
     top: 90px;
     left: 10px;
 }
@@ -679,13 +705,13 @@ div.icon img {
 
 .moduleProperty {
     font: inherit;
-    width: 250px;
+    width: 270px;
     top: 90px;
     right: 10px;
 }
 
 .layoutElementPanel {
-    width: 220px;
+    width: 240px;
     font: inherit;
     display: none;
     top: 90px;
@@ -915,7 +941,7 @@ div.icon img {
 }
 
 #verilogEditorPanel {
-    width: 220px;
+    width: 240px;
     font: inherit;
     display: none;
     top: 90px;

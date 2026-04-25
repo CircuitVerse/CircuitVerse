@@ -28,7 +28,10 @@ module SearchHelper
     def build_country_list
       ISO3166::Country.all.map do |country|
         {
-          name: country.translations[I18n.locale.to_s] || country.name,
+          name: country.translations[I18n.locale.to_s.downcase] ||
+                country.translations[I18n.locale.to_s.split("-").first] ||
+                country.common_name ||
+                country.iso_short_name,
           code: country.alpha2
         }
       end

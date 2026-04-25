@@ -1,0 +1,8 @@
+pt:
+  lti:
+    launch:
+      notice_no_assignment: "Nenhuma Tarefa desse tipo está presente no CircuitVerse, por favor entre em contato com seu Administrador/Professor do LMS"
+      notice_lms_auth_success_teacher: "Logado como %{email_from_lms} via %{lms_type} para o curso %{course_title_from_lms}"
+      notice_students_open_in_cv: "Por favor, abra a Tarefa no CircuitVerse"
+      notice_ask_teacher: "Por favor, peça ao seu professor para adicioná-lo no grupo do CircuitVerse associado a este curso."
+      notice_no_account_in_cv: "Você não tem nenhuma conta associada ao e-mail %{email_from_lms}, por favor crie uma primeiro e tente novamente."

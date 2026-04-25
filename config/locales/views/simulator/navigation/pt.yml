@@ -1,0 +1,35 @@
+pt:
+  simulator:
+    nav_item:
+      project: "Projeto"
+      circuit: "Circuito"
+      tools: "Ferramentas"
+      help: "Ajuda"
+    project_options:
+      project_page: "Página do Projeto"
+      new_project: "Novo Projeto"
+      save_online: "Salvar Online"
+      save_offline: "Salvar Offline"
+      open_offline: "Abrir Offline"
+      export_as_file: "Exportar como arquivo"
+      import_file: "Importar arquivo"
+      clear_project: "Limpar Projeto"
+      recover_project: "Recuperar Projeto"
+      preview_circuit: "Visualizar Circuito"
+    circuit_options:
+      new_circuit: "Novo Circuito + "
+      new_verilog_module: "Novo Módulo Verilog"
+      insert_subcircuit: "Inserir Subcircuito"
+    tool_options:
+      combinational_analysis: "Análise Combinacional"
+      hex_bin_dec_converter: "Conversor Hex-Bin-Dec"
+      download_image: "Baixar Imagem"
+      themes: "Temas"
+      custom_shortcut: "Atalho Personalizado"
+      export_verilog: "Exportar Verilog"
+    help_options:
+      tutorial_guide: "Guia do Tutorial"
+      user_manual: "Manual do Usuário"
+      learn_digital_logic: "Aprenda Lógica Digital"
+      discussion_forum: "Fórum de Discussão"
+    insert_Subcircuitcontent: " Parece que não há outros circuitos que não tenham este circuito como dependência. Crie um novo!"

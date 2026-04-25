@@ -17,6 +17,7 @@ import { updateRestrictedElementsInScope } from './restrictedElementDiv';
 import { paste } from './events';
 import { setProjectName, getProjectName } from './data/save';
 import { changeScale } from './canvasApi';
+import banana from './i18n';
 import updateTheme from "./themer/themer";
 import { generateImage, generateSaveData } from './data/save';
 import { setupVerilogExportCodeWindow } from './verilog';
@@ -194,7 +195,8 @@ export function setupUI() {
     $('.logixModules').mousedown(createElement);
 
     $('.logixButton').on('click',function () {
-        logixFunction[this.id]();
+        var funcId = $(this).attr('data-logix-id') || this.id;
+        logixFunction[funcId]();
     });
     // var dummyCounter=0;
 
@@ -208,9 +210,14 @@ export function setupUI() {
         // Tooltip can be statically defined in the prototype.
         var { tooltipText } = modules[this.id].prototype;
         if (!tooltipText) return;
+
+        // Try to get translation
+        const localizedTooltip = banana.i18n(`simulator.tooltips.${this.id}`);
+        const finalTooltip = localizedTooltip === `simulator.tooltips.${this.id}` ? tooltipText : localizedTooltip;
+
         $('#Help').addClass('show');
         $('#Help').empty();
-        $('#Help').append(tooltipText);
+        $('#Help').append(finalTooltip);
     }); // code goes in document ready fn only
     $('.logixModules').mouseleave(() => {
         $('#Help').removeClass('show');
@@ -330,42 +337,42 @@ export function showProperties(obj) {
     }
     else if (simulationArea.lastSelected === undefined || ['Wire', 'CircuitElement', 'Node'].indexOf(simulationArea.lastSelected.objectType) !== -1) {
         $('#moduleProperty').show();
-        $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + 'Project Properties' + '</div>');
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Project:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}' aria-label='project'></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Circuit:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Time (ms):</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}' aria-label='clock time'></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Clock Enabled:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' aria-label='clock enabled'> <span class='slider'></span></label></p>`);
-        $(moduleProperty.modulePropertyInner).append(`<p><span>Lite Mode:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' aria-label='lite mode'> <span class='slider'></span> </label></p>`);
-        $(moduleProperty.modulePropertyInner).append("<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >Edit Layout</button><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >Delete Circuit</button> </p>");
+        $(moduleProperty.modulePropertyInner).append("<div class='moduleProperty-header'>" + banana.i18n('simulator.panel_body.project_properties.header') + '</div>');
+        $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.project_properties.project')}:</span> <input id='projname' class='objectPropertyAttribute' type='text' autocomplete='off' name='setProjectName'  value='${getProjectName() || 'Untitled'}' aria-label='project'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.project_properties.circuit')}:</span> <input id='circname' class='objectPropertyAttribute' type='text' autocomplete='off' name='changeCircuitName'  value='${globalScope.name || 'Untitled'}' aria-label='circuit'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.project_properties.clock_time')}:</span> <input class='objectPropertyAttribute' min='50' type='number' style='width:100px' step='10' name='changeClockTime'  value='${simulationArea.timePeriod}' aria-label='clock time'></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.project_properties.clock_enabled')}:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][simulationArea.clockEnabled + 0]} class='objectPropertyAttributeChecked' name='changeClockEnable' aria-label='clock enabled'> <span class='slider'></span></label></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.project_properties.lite_mode')}:</span> <label class='switch'> <input type='checkbox' ${['', 'checked'][lightMode + 0]} class='objectPropertyAttributeChecked' name='changeLightMode' aria-label='lite mode'> <span class='slider'></span> </label></p>`);
+        $(moduleProperty.modulePropertyInner).append(`<p><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--primary' name='toggleLayoutMode' >${banana.i18n('simulator.panel_body.project_properties.edit_layout')}</button><button type='button' class='objectPropertyAttributeChecked btn btn-xs custom-btn--tertiary' name='deleteCurrentCircuit' >${banana.i18n('simulator.panel_body.project_properties.delete_circuit')}</button> </p>`);
         // $('#moduleProperty-inner').append("<p>  ");
     } else {
         $('#moduleProperty').show();
 
         $(moduleProperty.modulePropertyInner).append(`<div class='moduleProperty-header'>${obj.objectType}</div>`);
         // $('#moduleProperty').append("<input type='range' name='points' min='1' max='32' value="+obj.bitWidth+">");
-        if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>BitWidth:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth} aria-label='bitwidth'></p>`); }
+        if (!obj.fixedBitWidth) { $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.element_properties.bit_width')}:</span> <input class='objectPropertyAttribute' type='number'  name='newBitWidth' min='1' max='32' value=${obj.bitWidth} aria-label='bitwidth'></p>`); }
 
-        if (obj.changeInputSize) { $(moduleProperty.modulePropertyInner).append(`<p><span>Input Size:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize} aria-label='InputSize'></p>`); }
+        if (obj.changeInputSize) { $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.element_properties.input_size')}:</span> <input class='objectPropertyAttribute' type='number'  name='changeInputSize' min='2' max='10' value=${obj.inputSize} aria-label='InputSize'></p>`); }
 
-        if (!obj.propagationDelayFixed) { $(moduleProperty.modulePropertyInner).append(`<p><span>Delay:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay} aria-label='propagation Delay'></p>`); }
+        if (!obj.propagationDelayFixed) { $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.element_properties.delay')}:</span> <input class='objectPropertyAttribute' type='number'  name='changePropagationDelay' min='0' max='100000' value=${obj.propagationDelay} aria-label='propagation Delay'></p>`); }
 
         if (!obj.disableLabel)
-            $(moduleProperty.modulePropertyInner).append(`<p><span>Label:</span> <input class='objectPropertyAttribute' type='text' name='setLabel' autocomplete='off' value='${escapeHtml(obj.label)}' aria-label='label'></p>`);
+            $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.element_properties.label')}:</span> <input class='objectPropertyAttribute' type='text' name='setLabel' autocomplete='off' value='${escapeHtml(obj.label)}' aria-label='label'></p>`);
 
         var s;
         if (!obj.labelDirectionFixed) {
-            s = $(`${"<select class='objectPropertyAttribute' name='newLabelDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.labelDirection === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.labelDirection === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.labelDirection === 'UP')]} >UP</option>` + '</select>');
+            s = $(`${"<select class='objectPropertyAttribute' name='newLabelDirection'>" + `<option value='RIGHT' ${['', 'selected'][+(obj.labelDirection === 'RIGHT')]}>${banana.i18n('simulator.directions.right')}</option>` + `<option value='DOWN' ${['', 'selected'][+(obj.labelDirection === 'DOWN')]}>${banana.i18n('simulator.directions.down')}</option>` + `<option value='LEFT' ${['', 'selected'][+(obj.labelDirection === 'LEFT')]}>${banana.i18n('simulator.directions.left')}</option>` + `<option value='UP' ${['', 'selected'][+(obj.labelDirection === 'UP')]}>${banana.i18n('simulator.directions.up')}</option>`}` + '</select>');
             s.val(obj.labelDirection);
-            $(moduleProperty.modulePropertyInner).append(`<p><span>Label Direction:</span> ${$(s).prop('outerHTML')}</p>`);
+            $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.element_properties.label_direction')}:</span> ${$(s).prop('outerHTML')}</p>`);
         }
 
 
         if (!obj.directionFixed) {
-            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP</option>` + '</select>');
-            $(moduleProperty.modulePropertyInner).append(`<p><span>Direction:</span> ${$(s).prop('outerHTML')}</p>`);
+            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + `<option value='RIGHT' ${['', 'selected'][+(obj.direction === 'RIGHT')]}>${banana.i18n('simulator.directions.right')}</option>` + `<option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]}>${banana.i18n('simulator.directions.down')}</option>` + `<option value='LEFT' ${['', 'selected'][+(obj.direction === 'LEFT')]}>${banana.i18n('simulator.directions.left')}</option>` + `<option value='UP' ${['', 'selected'][+(obj.direction === 'UP')]}>${banana.i18n('simulator.directions.up')}</option>`}` + '</select>');
+            $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.element_properties.direction')}:</span> ${$(s).prop('outerHTML')}</p>`);
         } else if (!obj.orientationFixed) {
-            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + "<option value='RIGHT' "}${['', 'selected'][+(obj.direction === 'RIGHT')]} >RIGHT</option><option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]} >DOWN</option><option value='LEFT' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'LEFT')]} >LEFT</option><option value='UP' ` + `<option value='RIGHT'${['', 'selected'][+(obj.direction === 'UP')]} >UP</option>` + '</select>');
-            $(moduleProperty.modulePropertyInner).append(`<p><span>Orientation:</span> ${$(s).prop('outerHTML')}</p>`);
+            s = $(`${"<select class='objectPropertyAttribute' name='newDirection'>" + `<option value='RIGHT' ${['', 'selected'][+(obj.direction === 'RIGHT')]}>${banana.i18n('simulator.directions.right')}</option>` + `<option value='DOWN' ${['', 'selected'][+(obj.direction === 'DOWN')]}>${banana.i18n('simulator.directions.down')}</option>` + `<option value='LEFT' ${['', 'selected'][+(obj.direction === 'LEFT')]}>${banana.i18n('simulator.directions.left')}</option>` + `<option value='UP' ${['', 'selected'][+(obj.direction === 'UP')]}>${banana.i18n('simulator.directions.up')}</option>`}` + '</select>');
+            $(moduleProperty.modulePropertyInner).append(`<p><span>${banana.i18n('simulator.panel_body.element_properties.orientation')}:</span> ${$(s).prop('outerHTML')}</p>`);
         }
 
         if (obj.mutableProperties) {
