@@ -8,6 +8,15 @@ class Avo::Resources::Project < Avo::BaseResource
     query: -> { query.text_search(params[:q]) }
   }
 
+  # Exclude heavy columns on index to prevent statement timeouts
+  self.index_query = lambda {
+    query.select(
+      :id, :name, :author_id, :forked_project_id, :project_access_type,
+      :assignment_id, :project_submission, :image_preview, :view,
+      :slug, :stars_count, :created_at, :updated_at
+    )
+  }
+
   # rubocop:disable Metrics/MethodLength
   def fields
     field :id, as: :id, link_to_record: true
@@ -27,11 +36,11 @@ class Avo::Resources::Project < Avo::BaseResource
     field :image_preview, as: :external_image, hide_on: %i[edit new] do
       record.image_preview.url if record.image_preview.present?
     end
-    field :description, as: :textarea
+    field :description, as: :textarea, hide_on: %i[index]
     field :view, as: :number, sortable: true
     field :slug, as: :text, readonly: true, help: "Auto-generated from name"
-    field :lis_result_sourced_id, as: :text
-    field :version, as: :text
+    field :lis_result_sourced_id, as: :text, hide_on: %i[index]
+    field :version, as: :text, hide_on: %i[index]
     field :stars_count, as: :number, readonly: true, sortable: true
 
     field :forks, as: :has_many
@@ -42,10 +51,10 @@ class Avo::Resources::Project < Avo::BaseResource
     field :taggings, as: :has_many
     field :tags, as: :has_many
     field :tag_list, as: :tags
-    field :circuit_preview, as: :file
+    field :circuit_preview, as: :file, hide_on: %i[index]
 
     field :featured_circuit, as: :has_one
-    field :grade, as: :has_one
+    field :grade, as: :has_one, hide_on: %i[index]
     field :project_datum, as: :has_one
     field :contest_winner, as: :has_one
     field :submissions, as: :has_many
