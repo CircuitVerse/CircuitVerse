@@ -8,6 +8,19 @@ describe CircuitverseController, type: :request do
     expect(response.status).to eq(200)
   end
 
+  context "when user is signed in" do
+    let(:user) { FactoryBot.create(:user) }
+
+    before do
+      sign_in user
+    end
+
+    it "redirects to user projects page" do
+      get root_path
+      expect(response).to redirect_to(user_projects_path(user))
+    end
+  end
+
   it "gets examples page" do
     get examples_path
     expect(response.status).to eq(200)
