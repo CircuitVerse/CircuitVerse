@@ -142,6 +142,46 @@ describe GroupsController, type: :request do
         expect(response.status).to eq(302)
       end
     end
+
+    context "when group has allowed_domain restriction" do
+      before do
+        @user_with_correct_domain = FactoryBot.create(:user, email: "student@sjec.ac.in")
+        @user_with_wrong_domain = FactoryBot.create(:user, email: "user@gmail.com")
+        @group.update(allowed_domain: "sjec.ac.in")
+      end
+
+      it "allows users with matching domain to join" do
+        sign_in @user_with_correct_domain
+        expect do
+          get invite_group_path(id: @group.id, token: @group.group_token)
+        end.to change(GroupMember, :count).by(1)
+        expect(flash[:notice]).to eq("Group member was successfully added.")
+      end
+
+      it "rejects users with different domain" do
+        sign_in @user_with_wrong_domain
+        expect do
+          get invite_group_path(id: @group.id, token: @group.group_token)
+        end.not_to change(GroupMember, :count)
+        expect(flash[:notice])
+          .to eq("This group is restricted to users with sjec.ac.in email addresses only.")
+      end
+    end
+
+    context "when group has no allowed_domain restriction" do
+      before do
+        @user_with_any_domain = FactoryBot.create(:user, email: "user@anydomain.com")
+        @group.update(allowed_domain: nil)
+      end
+
+      it "allows users with any domain to join" do
+        sign_in @user_with_any_domain
+        expect do
+          get invite_group_path(id: @group.id, token: @group.group_token)
+        end.to change(GroupMember, :count).by(1)
+        expect(flash[:notice]).to eq("Group member was successfully added.")
+      end
+    end
   end
 
   describe "#generate_token" do

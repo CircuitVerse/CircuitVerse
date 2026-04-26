@@ -37,5 +37,66 @@ RSpec.describe Group, type: :model do
       end.to change(group, :group_token)
         .and change(group, :token_expires_at)
     end
+
+    describe "#can_join?" do
+      context "when allowed_domain is blank" do
+        it "allows any email to join" do
+          group = FactoryBot.create(:group, primary_mentor: @primary_mentor, allowed_domain: nil)
+          expect(group.can_join?("user@example.com")).to be true
+          expect(group.can_join?("user@sjec.ac.in")).to be true
+        end
+      end
+
+      context "when allowed_domain is set" do
+        it "allows users with matching domain to join" do
+          group = FactoryBot.create(:group, primary_mentor: @primary_mentor, allowed_domain: "sjec.ac.in")
+          expect(group.can_join?("user@sjec.ac.in")).to be true
+          expect(group.can_join?("student@sjec.ac.in")).to be true
+        end
+
+        it "rejects users with different domain" do
+          group = FactoryBot.create(:group, primary_mentor: @primary_mentor, allowed_domain: "sjec.ac.in")
+          expect(group.can_join?("user@example.com")).to be false
+          expect(group.can_join?("user@gmail.com")).to be false
+        end
+
+        it "is case-insensitive" do
+          group = FactoryBot.create(:group, primary_mentor: @primary_mentor, allowed_domain: "sjec.ac.in")
+          expect(group.can_join?("user@SJEC.AC.IN")).to be true
+          expect(group.can_join?("user@Sjec.ac.in")).to be true
+        end
+      end
+    end
+  end
+
+  describe "validations" do
+    it "validates allowed_domain format correctly" do
+      group = FactoryBot.build(:group, primary_mentor: @primary_mentor, allowed_domain: "sjec.ac.in")
+      expect(group).to be_valid
+    end
+
+    it "normalizes allowed_domain before validation" do
+      group = FactoryBot.build(:group, primary_mentor: @primary_mentor, allowed_domain: "  SJEC.AC.IN  ")
+
+      group.validate
+
+      expect(group.allowed_domain).to eq("sjec.ac.in")
+    end
+
+    it "rejects invalid domain formats" do
+      group = FactoryBot.build(:group, primary_mentor: @primary_mentor, allowed_domain: "invalid")
+      expect(group).not_to be_valid
+      expect(group.errors[:allowed_domain]).to include("must be a valid domain (e.g., example.com)")
+    end
+
+    it "allows blank allowed_domain" do
+      group = FactoryBot.build(:group, primary_mentor: @primary_mentor, allowed_domain: nil)
+      expect(group).to be_valid
+    end
+
+    it "rejects domain without TLD" do
+      group = FactoryBot.build(:group, primary_mentor: @primary_mentor, allowed_domain: "example")
+      expect(group).not_to be_valid
+    end
   end
 end
