@@ -89,6 +89,10 @@ class AssignmentsController < ApplicationController
     @assignment.description = description
     @assignment.status = "open"
     @assignment.deadline = 1.year.from_now if @assignment.deadline.nil?
+    if @assignment.deadline.present? && @assignment.deadline < Time.current
+      flash[:error] = "Deadline cannot be in the past"
+      render :new, status: :unprocessable_entity and return
+    end
 
     if Flipper.enabled?(:lms_integration, current_user)
       @assignment.lti_consumer_key = lti_consumer_key
