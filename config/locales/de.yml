@@ -1,4 +1,6 @@
 de:
+  notifications:
+    not_found: "Benachrichtigung nicht gefunden"
   edit: "Bearbeiten"
   show: "Zeigen"
   delete: "Löschen"
