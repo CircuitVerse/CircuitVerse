@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class StarsController < ApplicationController
-  before_action :set_star, only: %i[destroy]
   before_action :authenticate_user!, only: %i[destroy create]
+  before_action :set_star, only: %i[destroy]
   # GET /stars
   # GET /stars.json
   # def index
@@ -26,18 +26,12 @@ class StarsController < ApplicationController
   # POST /stars
   # POST /stars.json
   def create
-    @star = Star.new(star_params)
-    @star.save
-    render plain: "Star added!"
-    # respond_to do |format|
-    #   if @star.save
-    #     format.html { redirect_to @star, notice: 'Star was successfully created.' }
-    #     format.json { render :show, status: :created, location: @star }
-    #   else
-    #     format.html { render :new }
-    #     format.json { render json: @star.errors, status: :unprocessable_entity }
-    #   end
-    # end
+    @star = current_user.stars.build(star_params)
+    if @star.save
+      render plain: "Star added!"
+    else
+      render plain: "Failed to add star", status: :unprocessable_entity
+    end
   end
 
   # PATCH/PUT /stars/1
@@ -59,21 +53,16 @@ class StarsController < ApplicationController
   def destroy
     @star.destroy
     render plain: "Star removed!"
-    # respond_to do |format|
-    #   format.html { redirect_to stars_url, notice: 'Star was successfully destroyed.' }
-    #   format.json { head :no_content }
-    # end
   end
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_star
-      @star = Star.find(params[:id])
+      @star = current_user.stars.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def star_params
-      params.expect(star: %i[user_id project_id])
+      params.expect(star: [:project_id])
     end
 end
