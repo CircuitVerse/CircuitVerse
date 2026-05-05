@@ -76,7 +76,7 @@
   </div>
   <div class="users-circuits-container">
     <div id="my-circuits-div" class="row center-row circuit-page">
-      <% if @user.projects.blank? %>
+      <% if @user_projects.blank? %>
       <div class="col-12">
         <div class="search-no-results-image">
           <%= image_tag "svgs/noProject.svg", alt: "No result image" %>
@@ -88,7 +88,7 @@
         </div>
       </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: @user.projects } %>
+        <%= render partial: "dashboard", locals: { projects: @user_projects } %>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
@@ -108,8 +108,7 @@
       <% end %>
     </div>
     <div id="collaborator-circuits-div" class="row center-row circuit-page">
-      <% collaborated_projects = @user.collaborated_projects %>
-      <% if collaborated_projects.count == 0 %>
+      <% if @collaborated_projects.count == 0 %>
         <div class="col-12">
           <div class="search-no-results-image">
             <%= image_tag "svgs/noProject.svg", alt: "No result image" %>
@@ -121,7 +120,7 @@
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
+        <%= render partial: "dashboard", locals: { projects: @collaborated_projects } %>
       <% end %>
     </div>
 

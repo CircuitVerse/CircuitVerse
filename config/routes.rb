@@ -2,9 +2,10 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
-
+  authenticate :user, ->(u) { u.admin? } do
+    mount Avo::Engine, at: "/admin"
+  end
   require "sidekiq/web"
 
   authenticate :user, ->(u) { u.admin? } do
@@ -135,12 +136,6 @@ Rails.application.routes.draw do
 
   mount Commontator::Engine => "/commontator"
 
-  # Default route for Vue simulator
-  get 'simulatorvue', to: 'static#simulatorvue', as: 'default_simulatorvue'
-
-  # Vue simulaltor Route with catchall
-  get 'simulatorvue/*path', to: 'static#simulatorvue', as: 'simulatorvue'
-
   # simulator
   scope "/simulator" do
     get "/:id", to: "simulator#show", as: "simulator"
@@ -171,9 +166,9 @@ Rails.application.routes.draw do
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
-  get "/youtube", to: redirect("https://www.youtube.com/@circuitverse4457")
+  get "/youtube", to: redirect("https://www.youtube.com/@circuitverse-official")
   get "/slack", to: redirect(
-    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-3lv1zk5h1-xRhrjvQdUsYp1lAWVhuOrg"
+    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-3spixgmk0-v601OQMWVEIH8nKseQpzXw"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")
