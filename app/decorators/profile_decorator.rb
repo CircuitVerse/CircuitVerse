@@ -29,6 +29,7 @@ class ProfileDecorator < SimpleDelegator
 
   def localize_number(text)
     return text unless I18n.locale == :ar
+
     text.tr("0-9", "٠-٩")
   end
 end
