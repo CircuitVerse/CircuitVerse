@@ -8,7 +8,8 @@ class ProfileDecorator < SimpleDelegator
   end
 
   def member_since
-    distance_of_time_in_words(Time.now.to_i, profile.created_at.to_i, include_seconds: true)
+    text = distance_of_time_in_words(Time.now.to_i, profile.created_at.to_i, include_seconds: true)
+    localize_number(text)
   end
 
   def country_name
@@ -22,5 +23,13 @@ class ProfileDecorator < SimpleDelegator
 
   def total_circuits
     profile.projects_count
+  end
+
+  private
+
+  def localize_number(text)
+    return text unless I18n.locale == :ar
+
+    text.tr("0-9", "٠-٩")
   end
 end
