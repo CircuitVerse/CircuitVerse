@@ -76,7 +76,7 @@ You can add members to your group in `/api/v1/groups/:group_id/members`. Authent
 | ---------- | ------------------------------------------------------------------ |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.     |
 | 403        | When non-primary mentor user tries to add members to the group     |
-| 404        | When the requested group identified by `group_id` does not exists. |
+| 404        | When the requested group identified by `group_id` does not exist. |
 
 ```http
 POST /api/v1/groups/:group_id/members HTTP/1.1
@@ -123,7 +123,7 @@ Group's primary mentor can DELETE a group member (identified by `:id`) in `/api/
 | ---------- | ------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
 | 403        | When non-primary mentor user tries to delete the group member       |
-| 404        | When the requested group member identified by `id` does not exists. |
+| 404        | When the requested group member identified by `id` does not exist. |
 
 ```http
 DELETE /api/v1/group/members/:id HTTP/1.1
@@ -163,7 +163,7 @@ Group's primary mentor can UPDATE a group member (identified by `:id`) in `/api/
 | 400        | When invalid parameters are used                                    |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
 | 403        | When non-primary mentor user tries to update the group member       |
-| 404        | When the requested group member identified by `id` does not exists. |
+| 404        | When the requested group member identified by `id` does not exist. |
 
 ```http
 PATCH /api/v1/group/members/:id HTTP/1.1

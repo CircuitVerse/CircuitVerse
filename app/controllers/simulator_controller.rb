@@ -4,7 +4,6 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :redirect_to_vue_simulator_if_enabled
   before_action :authenticate_user!, only: %i[create update edit]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
@@ -23,18 +22,31 @@ class SimulatorController < ApplicationController
   def show
     @logix_project_id = params[:id]
     @external_embed = false
-    render "embed"
+    if Flipper.enabled?(:vuesim, current_user)
+      render "embed_vue", layout: false
+    else
+      render "embed"
+    end
   end
 
   def new
     @logix_project_id = 0
     @projectName = ""
-    render "edit"
+    if Flipper.enabled?(:vuesim, current_user)
+      render "edit_vue", layout: false
+    else
+      render "edit"
+    end
   end
 
   def edit
     @logix_project_id = params[:id]
     @projectName = @project.name
+    if Flipper.enabled?(:vuesim, current_user)
+      render :edit_vue, layout: false
+    else
+      render :edit
+    end
   end
 
   def embed
@@ -43,7 +55,11 @@ class SimulatorController < ApplicationController
     @project = Project.friendly.find(params[:id])
     @author = @project.author_id
     @external_embed = true
-    render "embed"
+    if Flipper.enabled?(:vuesim, current_user)
+      render :embed_vue, layout: false
+    else
+      render :embed
+    end
   end
 
   def get_data
@@ -114,10 +130,19 @@ class SimulatorController < ApplicationController
     head :ok, content_type: "text/html"
   end
 
+  MAX_CODE_SIZE = 10_000 # 10KB limit
+
   def verilog_cv
-    url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-    response = HTTP.post(url, json: { code: params[:code] })
-    render json: response.to_s, status: response.code
+    if params[:code].to_s.bytesize > MAX_CODE_SIZE
+      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" }, status: :payload_too_large
+      return
+    end
+
+    if Flipper.enabled?(:yosys_local_gem, current_user)
+      compile_with_local_gem
+    else
+      compile_with_external_api
+    end
   end
 
   def allow_iframe_lti
@@ -132,13 +157,46 @@ class SimulatorController < ApplicationController
       response.headers.except! "X-Frame-Options"
     end
 
+    # HTTP client with reasonable timeouts to prevent hanging
+    def http_client
+      HTTP.timeout(connect: 5, write: 10, read: 30)
+    end
+
+    def compile_with_local_gem
+      code = params[:code].to_s
+      result = Yosys2Digitaljs::Runner.compile(code)
+      render json: result
+    rescue Yosys2Digitaljs::SyntaxError => e
+      render json: { message: "Syntax Error: #{e.message}" }, status: :unprocessable_entity
+    rescue Yosys2Digitaljs::Runner::TimeoutError => e
+      render json: { message: e.message }, status: :service_unavailable
+    rescue Yosys2Digitaljs::Error => e
+      render json: { message: e.message }, status: :unprocessable_entity
+    rescue StandardError => e
+      Rails.logger.error("[Yosys Compilation Error] #{e.class}: #{e.message}\n#{e.backtrace&.first(5)&.join("\n")}")
+      render json: { message: "Compilation failed" }, status: :internal_server_error
+    end
+
+    def compile_with_external_api
+      yosys_url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
+      response = http_client.post(yosys_url, json: { code: params[:code].to_s })
+      render json: JSON.parse(response.to_s), status: response.code
+    rescue HTTP::TimeoutError
+      render json: { message: "Yosys service timed out" }, status: :gateway_timeout
+    rescue HTTP::Error => e
+      Rails.logger.error("[Yosys External API Error] #{e.class}: #{e.message}")
+      render json: { message: "External API unavailable" }, status: :service_unavailable
+    rescue JSON::ParserError
+      render json: { message: "Invalid response from Yosys API" }, status: :internal_server_error
+    end
+
     def set_project
       @project = Project.friendly.find(params[:id])
     end
 
-    # FIXME: remove this logic after fixing production data
     def set_user_project
-      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
+      @project = Project.friendly.find(params[:id])
+      authorize @project, :edit_access?
     end
 
     def check_edit_access
@@ -157,16 +215,5 @@ class SimulatorController < ApplicationController
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
         content_type: "img/jpeg"
       )
-    end
-
-    def redirect_to_vue_simulator_if_enabled
-      return unless Flipper.enabled?(:vuesim, current_user)
-
-      new_path = request.fullpath.gsub(%r{^/simulator}, "")
-      if new_path.blank? || new_path == "/"
-        redirect_to default_simulatorvue_path
-      else
-        redirect_to simulatorvue_path(path: new_path.sub(%r{^/}, ""))
-      end
     end
 end

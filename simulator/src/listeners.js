@@ -409,8 +409,8 @@ export default function startListeners() {
         panStop(e);
     });
 
-    // Implementating touch listerners
-    //    *All Main basic touch listerners are
+    // Implementating touch Listeners
+    //    *All Main basic touch Listeners are
     //     present here
     //
     document.getElementById('simulationArea').addEventListener('touchstart', (e) => {
@@ -815,7 +815,7 @@ export default function startListeners() {
     }
 
     /**
- * Listerners of CircuitElement panel ,properties panel,time diagram, quichbtn
+ * Listeners of CircuitElement panel ,properties panel,time diagram, quickbtn
  * Some users use touch on laptop so to scroll imp panel on desktop UI
  */
     const modulePropertyListners = document.getElementById('moduleProperty');
@@ -1108,9 +1108,9 @@ function zoomSliderListeners() {
         }(touchi));
     }
 
-    /** Function for QuicKMenu */
+    /** Function for QuickMenu */
     var quickMenu = document.getElementsByClassName('quicMenu-align');
-    // here lenght-2 is done because last two button are used for diff purpose
+    // here length-2 is done because last two button are used for diff purpose
     for(var quickmenui = 0; quickmenui < quickMenu.length - 2; quickmenui++) {
         (function(index) {
             quickMenu[index].addEventListener('click', (e) => {

@@ -190,7 +190,7 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.176"
+gem "aws-sdk-s3", "~> 1.208"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.8"
@@ -231,3 +231,7 @@ gem 'mutex_m'
 gem "observer", "~> 0.1.2"
 
 gem "drb", "~> 2.2"
+
+# Verilog to DigitalJS conversion gem (Internal)
+gem "yosys2digitaljs", path: "vendor/gems/yosys2digitaljs"
+gem "avo", ">= 3.2.1"

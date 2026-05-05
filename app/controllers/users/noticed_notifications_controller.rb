@@ -9,10 +9,12 @@ class Users::NoticedNotificationsController < ApplicationController
   end
 
   def mark_as_read
-    notification = NoticedNotification.find(params[:notification_id])
+    notification = current_user.noticed_notifications.find(params[:notification_id])
     notification.update(read_at: Time.zone.now)
-    answer = NotifyUser.new(params).call
+    answer = NotifyUser.new(notification).call
     redirect_to redirect_path_for(answer)
+  rescue ActiveRecord::RecordNotFound
+    redirect_to notifications_path(current_user), alert: t("notifications.not_found")
   end
 
   def mark_all_as_read
@@ -22,7 +24,7 @@ class Users::NoticedNotificationsController < ApplicationController
 
   def read_all_notifications
     NoticedNotification.where(recipient: current_user, read_at: nil).update_all(read_at: Time.zone.now) # rubocop:disable Rails/SkipsModelValidations
-    redirect_back(fallback_location: root_path)
+    redirect_back_or_to(root_path)
   end
 
   private
