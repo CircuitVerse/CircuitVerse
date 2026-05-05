@@ -45,7 +45,20 @@ module Adapters
         results = apply_filters(results, query_params, type)
         results = apply_sorting(results, query_params, type)
 
-        results.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
+        # Sanitize page parameter to handle empty strings and invalid values
+        page = sanitize_page_param(query_params[:page])
+        results.paginate(page: page, per_page: MAX_RESULTS_PER_PAGE)
+      end
+
+      def sanitize_page_param(page_value)
+        # Handle nil, empty string, or invalid values
+        return 1 if page_value.blank?
+
+        # Convert to integer safely
+        page_num = page_value.to_i
+
+        # Ensure it's a positive number, default to 1 if not
+        page_num.positive? ? page_num : 1
       end
 
       def base_project_results(relation, query_params)
