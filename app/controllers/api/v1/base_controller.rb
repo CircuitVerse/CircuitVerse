@@ -89,7 +89,7 @@ class Api::V1::BaseController < ActionController::API
   private
 
     def paginated_url(base_url, page)
-      seperator = base_url.index("?").nil? ? "?" : "&"
-      "#{base_url}#{seperator}page[number]=#{page}" if page
+      separator = base_url.index("?").nil? ? "?" : "&"
+      "#{base_url}#{separator}page[number]=#{page}" if page
     end
 end
