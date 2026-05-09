@@ -1,5 +1,44 @@
 import { Controller } from '@hotwired/stimulus';
 
+// Search keyword suggestions for the advanced search input (Issue #7340)
+const SUGGESTIONS = [
+    {
+        keyword: 'AND',
+        description: 'Combine search terms (both must match)',
+        category: 'Operators',
+    },
+    {
+        keyword: 'OR',
+        description: 'Match either search term',
+        category: 'Operators',
+    },
+    {
+        keyword: 'NOT',
+        description: 'Exclude a search term',
+        category: 'Operators',
+    },
+    {
+        keyword: 'UNIQUE',
+        description: 'Show only unique results',
+        category: 'Operators',
+    },
+    {
+        keyword: 'tag:',
+        description: 'Filter by project tag',
+        category: 'Filters',
+    },
+    {
+        keyword: 'author:',
+        description: 'Filter by author name',
+        category: 'Filters',
+    },
+    {
+        keyword: 'project:',
+        description: 'Filter by project name',
+        category: 'Filters',
+    },
+];
+
 export default class extends Controller {
     static get targets() {
         return [
@@ -9,6 +48,7 @@ export default class extends Controller {
             'dropdown',
             'hiddenSelect',
             'input',
+            'suggestionsPanel',
         ];
     }
 
@@ -35,11 +75,23 @@ export default class extends Controller {
         this.changePlaceholder();
         this.boundHandleOutsideClick = this.handleOutsideClick.bind(this);
         this.boundHandleKeydown = this.handleKeydown.bind(this);
+        this.boundHandleInputKeydown = this.handleInputKeydown.bind(this);
+        this.boundHandleInput = this.handleInput.bind(this);
+        this.boundHandleInputFocus = this.handleInputFocus.bind(this);
+        this.activeSuggestionIndex = -1;
+
         document.addEventListener('click', this.boundHandleOutsideClick);
         this.selectWrapperTarget.addEventListener(
             'keydown',
             this.boundHandleKeydown,
         );
+
+        // Suggestions event listeners on the search input
+        if (this.hasInputTarget) {
+            this.inputTarget.addEventListener('input', this.boundHandleInput);
+            this.inputTarget.addEventListener('focus', this.boundHandleInputFocus);
+            this.inputTarget.addEventListener('keydown', this.boundHandleInputKeydown);
+        }
 
         // Dispatch initial resource change event on connect
         this.dispatch('resource-changed', { detail: { resource: this.hiddenSelectTarget.value } });
@@ -51,6 +103,12 @@ export default class extends Controller {
             'keydown',
             this.boundHandleKeydown,
         );
+
+        if (this.hasInputTarget) {
+            this.inputTarget.removeEventListener('input', this.boundHandleInput);
+            this.inputTarget.removeEventListener('focus', this.boundHandleInputFocus);
+            this.inputTarget.removeEventListener('keydown', this.boundHandleInputKeydown);
+        }
     }
 
     changePlaceholder() {
@@ -94,6 +152,11 @@ export default class extends Controller {
     handleOutsideClick(event) {
         if (!this.selectWrapperTarget.contains(event.target)) {
             this.closeDropdown();
+        }
+
+        // Close suggestions if click is outside the search bar container
+        if (this.hasSuggestionsPanelTarget && !this.element.contains(event.target)) {
+            this.hideSuggestions();
         }
     }
 
@@ -200,5 +263,221 @@ export default class extends Controller {
         setTimeout(() => {
             this.submitForm();
         }, 0);
+    }
+
+    // =========================================================================
+    // Suggestions / Autocomplete (Issue #7340)
+    // =========================================================================
+
+    /**
+     * Returns the last word (token) being typed in the input, i.e. text after
+     * the last space character.  Used to filter suggestions contextually.
+     */
+    getLastWord() {
+        const value = this.inputTarget.value;
+        const cursorPos = this.inputTarget.selectionStart || value.length;
+        const textBeforeCursor = value.substring(0, cursorPos);
+        const words = textBeforeCursor.split(/\s+/);
+        return words[words.length - 1] || '';
+    }
+
+    /**
+     * Filter the static SUGGESTIONS list against the user's current partial
+     * word.  Returns all suggestions when the partial word is empty.
+     */
+    filterSuggestions(partial) {
+        if (!partial) return SUGGESTIONS;
+
+        const lower = partial.toLowerCase();
+        return SUGGESTIONS.filter(
+            (s) => s.keyword.toLowerCase().startsWith(lower),
+        );
+    }
+
+    /**
+     * Build the suggestions panel DOM from a filtered list of suggestions.
+     */
+    renderSuggestions(filtered) {
+        if (!this.hasSuggestionsPanelTarget) return;
+
+        const panel = this.suggestionsPanelTarget;
+        panel.innerHTML = '';
+
+        if (filtered.length === 0) {
+            this.hideSuggestions();
+            return;
+        }
+
+        // Group by category
+        const grouped = {};
+        filtered.forEach((s) => {
+            if (!grouped[s.category]) grouped[s.category] = [];
+            grouped[s.category].push(s);
+        });
+
+        Object.keys(grouped).forEach((category) => {
+            // Category header
+            const header = document.createElement('div');
+            header.className = 'search-suggestion-category';
+            header.textContent = category;
+            panel.appendChild(header);
+
+            grouped[category].forEach((suggestion) => {
+                const item = document.createElement('div');
+                item.className = 'search-suggestion-item';
+                item.setAttribute('role', 'option');
+                item.dataset.keyword = suggestion.keyword;
+
+                const keywordEl = document.createElement('span');
+                keywordEl.className = 'search-suggestion-keyword';
+                keywordEl.textContent = suggestion.keyword;
+
+                const descEl = document.createElement('span');
+                descEl.className = 'search-suggestion-description';
+                descEl.textContent = suggestion.description;
+
+                item.appendChild(keywordEl);
+                item.appendChild(descEl);
+
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    this.insertSuggestion(suggestion.keyword);
+                });
+
+                panel.appendChild(item);
+            });
+        });
+
+        this.activeSuggestionIndex = -1;
+        panel.classList.add('show');
+    }
+
+    /**
+     * Insert a suggestion keyword into the input, replacing the partial word
+     * that the user was typing.  Adds a trailing space for operators, keeps
+     * cursor tight for filter prefixes (e.g. "tag:").
+     */
+    insertSuggestion(keyword) {
+        const value = this.inputTarget.value;
+        const cursorPos = this.inputTarget.selectionStart || value.length;
+        const textBeforeCursor = value.substring(0, cursorPos);
+        const textAfterCursor = value.substring(cursorPos);
+
+        // Find the start of the last word
+        const lastSpaceIndex = textBeforeCursor.lastIndexOf(' ');
+        const beforeLastWord = textBeforeCursor.substring(0, lastSpaceIndex + 1);
+
+        // Add trailing space for operators (not for filter prefixes like "tag:")
+        const suffix = keyword.endsWith(':') ? '' : ' ';
+
+        this.inputTarget.value = beforeLastWord + keyword + suffix + textAfterCursor;
+
+        // Position cursor right after the inserted keyword + suffix
+        const newCursorPos = (beforeLastWord + keyword + suffix).length;
+        this.inputTarget.setSelectionRange(newCursorPos, newCursorPos);
+        this.inputTarget.focus();
+
+        this.hideSuggestions();
+    }
+
+    showSuggestions() {
+        const partial = this.getLastWord();
+        const filtered = this.filterSuggestions(partial);
+        this.renderSuggestions(filtered);
+    }
+
+    hideSuggestions() {
+        if (!this.hasSuggestionsPanelTarget) return;
+        this.suggestionsPanelTarget.classList.remove('show');
+        this.activeSuggestionIndex = -1;
+    }
+
+    /**
+     * Handle the "input" event — filter suggestions as the user types.
+     */
+    handleInput() {
+        this.showSuggestions();
+    }
+
+    /**
+     * Handle the "focus" event — show suggestions when input is focused.
+     */
+    handleInputFocus() {
+        this.showSuggestions();
+    }
+
+    /**
+     * Handle keydown events on the input for suggestion navigation.
+     * Arrow keys, Enter, and Escape are intercepted only when the
+     * suggestions panel is visible.
+     */
+    handleInputKeydown(event) {
+        if (!this.hasSuggestionsPanelTarget) return;
+
+        const isVisible = this.suggestionsPanelTarget.classList.contains('show');
+        if (!isVisible) return;
+
+        const items = this.getSuggestionItems();
+        if (items.length === 0) return;
+
+        switch (event.key) {
+        case 'ArrowDown':
+            event.preventDefault();
+            this.navigateSuggestions('down', items);
+            break;
+        case 'ArrowUp':
+            event.preventDefault();
+            this.navigateSuggestions('up', items);
+            break;
+        case 'Enter':
+            if (this.activeSuggestionIndex >= 0 && this.activeSuggestionIndex < items.length) {
+                event.preventDefault();
+                const activeItem = items[this.activeSuggestionIndex];
+                this.insertSuggestion(activeItem.dataset.keyword);
+            }
+            // If no suggestion is highlighted, let the form submit normally
+            break;
+        case 'Escape':
+            event.preventDefault();
+            this.hideSuggestions();
+            break;
+        default:
+            break;
+        }
+    }
+
+    /**
+     * Get all suggestion item elements from the panel.
+     */
+    getSuggestionItems() {
+        if (!this.hasSuggestionsPanelTarget) return [];
+        return Array.from(
+            this.suggestionsPanelTarget.querySelectorAll('.search-suggestion-item'),
+        );
+    }
+
+    /**
+     * Navigate through suggestion items with arrow keys.
+     */
+    navigateSuggestions(direction, items) {
+        // Remove active class from current
+        if (this.activeSuggestionIndex >= 0 && this.activeSuggestionIndex < items.length) {
+            items[this.activeSuggestionIndex].classList.remove('active');
+        }
+
+        if (direction === 'down') {
+            this.activeSuggestionIndex = (this.activeSuggestionIndex + 1) % items.length;
+        } else {
+            this.activeSuggestionIndex = this.activeSuggestionIndex <= 0
+                ? items.length - 1
+                : this.activeSuggestionIndex - 1;
+        }
+
+        const activeItem = items[this.activeSuggestionIndex];
+        activeItem.classList.add('active');
+
+        // Scroll into view if needed
+        activeItem.scrollIntoView({ block: 'nearest' });
     }
 }
