@@ -79,6 +79,7 @@ export default class extends Controller {
         this.boundHandleInput = this.handleInput.bind(this);
         this.boundHandleInputFocus = this.handleInputFocus.bind(this);
         this.activeSuggestionIndex = -1;
+        this._suppressNextFocus = false;
 
         document.addEventListener('click', this.boundHandleOutsideClick);
         this.selectWrapperTarget.addEventListener(
@@ -376,6 +377,9 @@ export default class extends Controller {
         // Position cursor right after the inserted keyword + suffix
         const newCursorPos = (beforeLastWord + keyword + suffix).length;
         this.inputTarget.setSelectionRange(newCursorPos, newCursorPos);
+
+        // Prevent the programmatic focus() from reopening the suggestions panel
+        this._suppressNextFocus = true;
         this.inputTarget.focus();
 
         this.hideSuggestions();
@@ -404,6 +408,10 @@ export default class extends Controller {
      * Handle the "focus" event — show suggestions when input is focused.
      */
     handleInputFocus() {
+        if (this._suppressNextFocus) {
+            this._suppressNextFocus = false;
+            return;
+        }
         this.showSuggestions();
     }
 
