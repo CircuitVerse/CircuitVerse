@@ -87,11 +87,18 @@ export default class extends Controller {
             this.boundHandleKeydown,
         );
 
-        // Suggestions event listeners on the search input
+        // Suggestions event listeners and ARIA attributes on the search input
         if (this.hasInputTarget) {
             this.inputTarget.addEventListener('input', this.boundHandleInput);
             this.inputTarget.addEventListener('focus', this.boundHandleInputFocus);
             this.inputTarget.addEventListener('keydown', this.boundHandleInputKeydown);
+
+            if (this.hasSuggestionsPanelTarget) {
+                this.inputTarget.setAttribute('role', 'combobox');
+                this.inputTarget.setAttribute('aria-autocomplete', 'list');
+                this.inputTarget.setAttribute('aria-controls', 'search-suggestions-listbox');
+                this.inputTarget.setAttribute('aria-expanded', 'false');
+            }
         }
 
         // Dispatch initial resource change event on connect
@@ -276,7 +283,7 @@ export default class extends Controller {
      */
     getLastWord() {
         const value = this.inputTarget.value;
-        const cursorPos = this.inputTarget.selectionStart || value.length;
+        const cursorPos = this.inputTarget.selectionStart ?? value.length;
         const textBeforeCursor = value.substring(0, cursorPos);
         const words = textBeforeCursor.split(/\s+/);
         return words[words.length - 1] || '';
@@ -323,10 +330,12 @@ export default class extends Controller {
             header.textContent = category;
             panel.appendChild(header);
 
-            grouped[category].forEach((suggestion) => {
+            grouped[category].forEach((suggestion, index) => {
                 const item = document.createElement('div');
                 item.className = 'search-suggestion-item';
                 item.setAttribute('role', 'option');
+                item.setAttribute('aria-selected', 'false');
+                item.id = `search-suggestion-${suggestion.keyword.replace(/[^a-zA-Z]/g, '')}`;
                 item.dataset.keyword = suggestion.keyword;
 
                 const keywordEl = document.createElement('span');
@@ -352,6 +361,7 @@ export default class extends Controller {
 
         this.activeSuggestionIndex = -1;
         panel.classList.add('show');
+        this.inputTarget.setAttribute('aria-expanded', 'true');
     }
 
     /**
@@ -361,7 +371,7 @@ export default class extends Controller {
      */
     insertSuggestion(keyword) {
         const value = this.inputTarget.value;
-        const cursorPos = this.inputTarget.selectionStart || value.length;
+        const cursorPos = this.inputTarget.selectionStart ?? value.length;
         const textBeforeCursor = value.substring(0, cursorPos);
         const textAfterCursor = value.substring(cursorPos);
 
@@ -395,6 +405,12 @@ export default class extends Controller {
         if (!this.hasSuggestionsPanelTarget) return;
         this.suggestionsPanelTarget.classList.remove('show');
         this.activeSuggestionIndex = -1;
+
+        // Reset ARIA state when suggestions are hidden
+        if (this.hasInputTarget) {
+            this.inputTarget.setAttribute('aria-expanded', 'false');
+            this.inputTarget.removeAttribute('aria-activedescendant');
+        }
     }
 
     /**
@@ -469,9 +485,10 @@ export default class extends Controller {
      * Navigate through suggestion items with arrow keys.
      */
     navigateSuggestions(direction, items) {
-        // Remove active class from current
+        // Remove active class and aria-selected from current
         if (this.activeSuggestionIndex >= 0 && this.activeSuggestionIndex < items.length) {
             items[this.activeSuggestionIndex].classList.remove('active');
+            items[this.activeSuggestionIndex].setAttribute('aria-selected', 'false');
         }
 
         if (direction === 'down') {
@@ -484,6 +501,10 @@ export default class extends Controller {
 
         const activeItem = items[this.activeSuggestionIndex];
         activeItem.classList.add('active');
+        activeItem.setAttribute('aria-selected', 'true');
+
+        // Update aria-activedescendant so screen readers announce the active option
+        this.inputTarget.setAttribute('aria-activedescendant', activeItem.id);
 
         // Scroll into view if needed
         activeItem.scrollIntoView({ block: 'nearest' });
