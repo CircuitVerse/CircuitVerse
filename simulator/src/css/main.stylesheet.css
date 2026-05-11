@@ -429,7 +429,7 @@ input[type="text"]:focus {
 }
 
 .ce-panel .panel-body {
-    max-height: 85vh;
+    max-height: calc(100vh - 110px);
     overflow-y: auto;
     scrollbar-width: thin;
 }
