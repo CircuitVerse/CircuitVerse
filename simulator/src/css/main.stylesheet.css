@@ -428,17 +428,12 @@ input[type="text"]:focus {
     left: 10px;
 }
 
-/* AdityaOP007 added feature #7234 */
 .ce-panel .panel-body {
     max-height: 85vh;
-    /* AdityaOP007 added feature #7234 */
     overflow-y: auto;
-    /* AdityaOP007 added feature #7234 */
     scrollbar-width: thin;
-    /* AdityaOP007 added feature #7234 */
 }
 
-/* AdityaOP007 added feature #7234 */
 .ce-panel .panel-body::-webkit-scrollbar {
     width: 6px;
 }
