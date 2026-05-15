@@ -13,7 +13,7 @@ class Users::CircuitverseController < ApplicationController
     @profile = ProfileDecorator.new(@user)
     @projects = @user.rated_projects.with_attached_circuit_preview
     @user_projects = @user.projects.with_attached_circuit_preview
-    @collaborated_projects = @user.collaborated_projects.with_attached_circuit_preview
+    @collaborated_projects = @user.collaborated_projects.with_attached_circuit_preview.includes(:collaborations)
   end
 
   def edit; end
