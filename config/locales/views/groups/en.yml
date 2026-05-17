@@ -1,6 +1,11 @@
 en:
   groups:
     add_member_description: "Enter Email IDs separated by commas/spaces or in separate lines. If users are not registered, an email will be sent requesting them to sign up."
+    allowed_domain_label: "Allowed Email Domain (Optional)"
+    allowed_domain_placeholder: "e.g., sjec.ac.in"
+    allowed_domain_help: "Only users with email addresses from this domain will be able to join the group via invite link. Leave blank to allow any domain."
+    allowed_domain_note_label: "Note:"
+    allowed_domain_invite_requirement_html: "Users joining via invite link must have a <code>%{domain}</code> email address."
     add_mentor_description_html: "<p>Mentors can:</p><ul><li>Create and delete assignments</li><li>Grade assignments</li><li>Reopen closed assignments</li></ul>"
     promote_member_confirmation: "Are you sure, you want to promote this member to a mentor?"
     demote_mentor_confirmation: "Are you sure, you want to demote this mentor to a member?"
@@ -20,6 +25,8 @@ en:
         You can find the documentation <a class='anchor-text' href='https://docs.circuitverse.org/chapter2/chapter2-cvforeducators' target='_blank'>here</a>."
     show:
       edit_name_btn: "Edit Name"
+      email_domain_restriction_label: "Email Domain Restriction:"
+      only_users_with_domain_html: "Only users with <code>%{domain}</code> email addresses can join this group via invite link."
       primary_mentor_heading: "Primary Mentor:"
       mentor_name_heading: "MENTORS:"
       group_members_heading: "MEMBERS:"

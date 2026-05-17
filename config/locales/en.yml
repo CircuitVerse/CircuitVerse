@@ -109,3 +109,6 @@ en:
       almost_x_years:
         one: "1 year" # default was: "almost 1 year"
         other: "%{count} years" # default was: "almost %{count} years"
+  errors:
+    messages:
+      invalid_domain: "must be a valid domain (e.g., example.com)"

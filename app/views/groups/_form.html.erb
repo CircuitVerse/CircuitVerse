@@ -15,6 +15,15 @@
         <%= form.text_field :name, id: :group_name, class: "form-control form-input", autofocus: true %>
       </div>
     </div>
+    <div class="field mb-3">
+      <h5><%= form.label :allowed_domain, t("groups.allowed_domain_label") %></h5>
+      <div class="input-group groups-input-group">
+        <%= form.text_field :allowed_domain, id: :group_allowed_domain, class: "form-control form-input", placeholder: t("groups.allowed_domain_placeholder") %>
+      </div>
+      <small class="form-text text-muted">
+        <%= t("groups.allowed_domain_help") %>
+      </small>
+    </div>
   </div>
   <div class="groups-form-text-container">
     <%= form.submit class: "btn primary-button groups-form-primary-button" %>
