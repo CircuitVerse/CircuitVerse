@@ -20,6 +20,12 @@
     border-radius: 4px;
 }
 
+.lower-button:hover{
+    background-color: #a5dfc5;
+    color: #ffffff;
+    font-size: 18px;
+}
+
 .table-button {
     height: 20px;
     width: 20px;
@@ -33,20 +39,36 @@
     border-radius: 5px;
 }
 
+.table-button:hover{
+    background-color: #a5dfc5;
+    color: #ffffff;
+}
 
 .plus-button {
     font-size: 25px;
+}
+
+.plus-button:hover{
+    font-size: 28px;
 }
 
 .tb-minus {
     color: red;
 }
 
+.tb-minus:hover{
+    font-size: larger;
+}
+
 .save-buton {
-    background-color: #42b983;
+    background-color: #a5dfc5;
     color: white;
     border: 1px solid gray;
     min-width: 70px;
+}
+
+.save-buton:hover{
+    background-color: #42b983;
 }
 
 .latest-button {
