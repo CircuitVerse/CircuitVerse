@@ -95,7 +95,9 @@ class GroupsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params[:id])
+      @group = Group
+               .includes(group_members: { user: { profile_picture_attachment: :blob } })
+               .find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
