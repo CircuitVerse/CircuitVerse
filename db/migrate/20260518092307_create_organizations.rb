@@ -23,7 +23,7 @@ class CreateOrganizations < ActiveRecord::Migration[8.0]
               "lower(email_domain)",
               unique: true,
               where: "email_domain IS NOT NULL AND deleted_at IS NULL",
-              name: "index_organizations_on_lower_email_domain_active"
+              name: "index_organizations_on_lower_email_domain_active_unique"
 
     add_index :organizations, :deleted_at
   end
