@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_18_092307) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -277,7 +277,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_092307) do
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at", precision: nil
+    t.bigint "organization_id"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
+    t.index ["organization_id"], name: "index_groups_on_organization_id"
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end
 
@@ -565,6 +567,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_092307) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "organizations", on_delete: :nullify
   add_foreign_key "groups", "users", column: "primary_mentor_id"
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
