@@ -12,8 +12,18 @@ class CreateOrganizations < ActiveRecord::Migration[8.0]
       t.timestamps null: false
     end
 
-    add_index :organizations, :slug,         unique: true
-    add_index :organizations, :email_domain
+    add_check_constraint :organizations, "char_length(trim(name)) > 0", name: "organizations_name_not_blank"
+    add_check_constraint :organizations, "char_length(trim(slug)) > 0", name: "organizations_slug_not_blank"
+
+    add_index :organizations, :slug,
+              unique: true,
+              where: "deleted_at IS NULL"
+
+    add_index :organizations,
+              "lower(email_domain)",
+              where: "email_domain IS NOT NULL AND deleted_at IS NULL",
+              name: "index_organizations_on_lower_email_domain_active"
+
     add_index :organizations, :deleted_at
   end
 end
