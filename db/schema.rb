@@ -369,7 +369,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
     t.datetime "deleted_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index "lower((email_domain)::text)", name: "index_organizations_on_lower_email_domain_active", unique: true, where: "((email_domain IS NOT NULL) AND (deleted_at IS NULL))"
+    t.index "lower((email_domain)::text)", name: "index_organizations_on_lower_email_domain_active_unique", unique: true, where: "((email_domain IS NOT NULL) AND (deleted_at IS NULL))"
     t.index ["deleted_at"], name: "index_organizations_on_deleted_at"
     t.index ["slug"], name: "index_organizations_on_slug", unique: true, where: "(deleted_at IS NULL)"
     t.check_constraint "char_length(TRIM(BOTH FROM name)) > 0", name: "organizations_name_not_blank"
