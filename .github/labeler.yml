@@ -24,6 +24,7 @@ docker:
       - any-glob-to-any-file:
           - 'Dockerfile'
           - 'docker-compose*.yml'
+          - 'docker-compose*.yaml'
           - '.docker/**'
 
 dependencies:
