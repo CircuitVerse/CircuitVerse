@@ -6,7 +6,6 @@ module SimulatorHelper
     if str.to_s.empty?
       path = Rails.public_path.join("images/default.png")
       image_file = File.open(path, "rb")
-
     else
       jpeg       = Base64.decode64(str)
       image_file = File.new("tmp/preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg", "wb")
@@ -16,15 +15,18 @@ module SimulatorHelper
   end
 
   def parse_image_data_url(data_url)
-    str = data_url[("data:image/jpeg;base64,".length)..]
-    if str.to_s.empty?
-      image_file = nil
-    else
-      jpeg       = Base64.decode64(str)
-      image_file = StringIO.new(jpeg)
-    end
+    return nil if data_url.nil?
 
-    image_file
+    str = data_url[("data:image/jpeg;base64,".length)..]
+    return nil if str.to_s.empty?
+
+    begin
+      decoded_data = Base64.decode64(str)
+      StringIO.new(decoded_data)
+    rescue ArgumentError => e
+      Rails.logger.error("Failed to decode base64 image: #{e.message}")
+      nil
+    end
   end
 
   def check_to_delete(data_url)
@@ -32,7 +34,8 @@ module SimulatorHelper
   end
 
   def sanitize_data(project, data)
-    return data if project&.assignment_id.blank? || data.blank?
+    return data if project&.assignment_id.blank? || data.blank?git 
+
 
     data = Oj.safe_load(data)
     saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
