@@ -119,7 +119,7 @@ GEM
       device_detector (>= 1)
       safely_block (>= 0.4)
     ast (2.4.3)
-    avo (3.31.0)
+    avo (3.31.2)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -134,7 +134,7 @@ GEM
       turbo_power (>= 0.6.0)
       view_component (>= 3.7.0)
       zeitwerk (>= 2.6.12)
-    avo-icons (0.1.2)
+    avo-icons (0.1.4)
       inline_svg
     aws-actionmailer-ses (1.0.0)
       actionmailer (>= 7.1.0)
@@ -655,7 +655,7 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     prettyprint (0.2.0)
     prism (1.9.0)
-    prop_initializer (0.3.0)
+    prop_initializer (0.4.0)
       zeitwerk (>= 2.6.18)
     pry (0.16.0)
       coderay (~> 1.1)
@@ -1015,7 +1015,7 @@ GEM
       yard (>= 0.8)
     yard-solargraph (0.1.0)
       yard (~> 0.9)
-    zeitwerk (2.8.0)
+    zeitwerk (2.8.1)
 
 PLATFORMS
   arm64-darwin-21
