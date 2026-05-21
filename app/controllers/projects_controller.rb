@@ -146,7 +146,7 @@ class ProjectsController < ApplicationController
     end
 
     def sanitize_name
-      params.expect(:project)[:name] = sanitize(project_params[:name])
+      params.permit(:project)[:name] = sanitize(project_params[:name])
     end
 
     # Sanitize description before passing to view
