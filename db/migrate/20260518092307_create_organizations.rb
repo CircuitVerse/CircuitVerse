@@ -4,7 +4,12 @@ class CreateOrganizations < ActiveRecord::Migration[8.0]
       t.string   :name,                         null: false
       t.string   :slug,                         null: false
       t.text     :description
-      t.string   :email_domain
+      t.jsonb :links, default: []
+      t.boolean :private, default: true, null: false
+      t.string   :logo_file_name
+      t.string   :logo_content_type
+      t.bigint   :logo_file_size
+      t.datetime :logo_updated_at
       t.string   :oidc_issuer_url
       t.string   :oidc_client_id
       t.string   :oidc_client_secret_digest
@@ -14,12 +19,11 @@ class CreateOrganizations < ActiveRecord::Migration[8.0]
     add_check_constraint :organizations, "char_length(trim(name)) > 0", name: "organizations_name_not_blank"
     add_check_constraint :organizations, "char_length(trim(slug)) > 0", name: "organizations_slug_not_blank"
 
-    add_index :organizations, :slug, unique: true
-
     add_index :organizations,
-              "lower(email_domain)",
+              "lower(name)",
               unique: true,
-              where: "email_domain IS NOT NULL",
-              name: "index_organizations_on_lower_email_domain_active_unique"
+              name: "index_organizations_on_lower_name_unique"
+
+    add_index :organizations, :slug, unique: true
   end
 end

@@ -362,13 +362,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
     t.string "name", null: false
     t.string "slug", null: false
     t.text "description"
-    t.string "email_domain"
+    t.jsonb "links", default: []
+    t.boolean "private", default: true, null: false
+    t.string "logo_file_name"
+    t.string "logo_content_type"
+    t.bigint "logo_file_size"
+    t.datetime "logo_updated_at"
     t.string "oidc_issuer_url"
     t.string "oidc_client_id"
     t.string "oidc_client_secret_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index "lower((email_domain)::text)", name: "index_organizations_on_lower_email_domain_active_unique", unique: true, where: "(email_domain IS NOT NULL)"
+    t.index "lower((name)::text)", name: "index_organizations_on_lower_name_unique", unique: true
     t.index ["slug"], name: "index_organizations_on_slug", unique: true
     t.check_constraint "char_length(TRIM(BOTH FROM name)) > 0", name: "organizations_name_not_blank"
     t.check_constraint "char_length(TRIM(BOTH FROM slug)) > 0", name: "organizations_slug_not_blank"
