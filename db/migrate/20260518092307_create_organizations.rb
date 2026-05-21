@@ -1,11 +1,11 @@
 class CreateOrganizations < ActiveRecord::Migration[8.0]
   def change
     create_table :organizations do |t|
-      t.string   :name,                         null: false
-      t.string   :slug,                         null: false
+      t.string   :name,                    null: false
+      t.string   :slug,                    null: false
       t.text     :description
-      t.jsonb :links, default: []
-      t.boolean :private, default: true, null: false
+      t.jsonb    :links,                   default: []
+      t.boolean  :private,                 default: true, null: false
       t.string   :logo_file_name
       t.string   :logo_content_type
       t.bigint   :logo_file_size
@@ -13,7 +13,7 @@ class CreateOrganizations < ActiveRecord::Migration[8.0]
       t.string   :oidc_issuer_url
       t.string   :oidc_client_id
       t.string   :oidc_client_secret_digest
-      t.timestamps null: false
+      t.timestamps                         null: false
     end
 
     add_check_constraint :organizations, "char_length(trim(name)) > 0", name: "organizations_name_not_blank"
