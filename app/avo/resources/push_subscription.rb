@@ -4,6 +4,9 @@ class Avo::Resources::PushSubscription < Avo::BaseResource
   self.title = :id
   self.includes = %i[user]
   self.model_class = ::PushSubscription
+  self.pagination = {
+    type: :countless
+  }
 
   def fields
     field :id, as: :id, link_to_resource: true
