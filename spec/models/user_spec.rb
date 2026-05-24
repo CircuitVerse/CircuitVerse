@@ -2,6 +2,8 @@
 
 require "rails_helper"
 
+FakeAccessToken = Struct.new(:uid, :provider, :info)
+
 RSpec.describe User, type: :model do
   describe "associations" do
     it { is_expected.to have_many(:projects) }
@@ -70,11 +72,10 @@ RSpec.describe User, type: :model do
       let(:email) { "testuser@gmail.com" }
 
       let(:access_token) do
-        double( # rubocop:disable RSpec/VerifiedDoubles
-          "OmniAuth::AuthHash",
-          uid: uid,
-          provider: provider,
-          info: { "email" => email, "name" => "Test User" }
+        FakeAccessToken.new(
+          uid,
+          provider,
+          { "email" => email, "name" => "Test User" }
         )
       end
 
