@@ -155,11 +155,36 @@
     }
 
     document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
+      const dropdown = new bootstrap.Dropdown(trigger);
+      
+      trigger.addEventListener("click", function(e) {
+        if (trigger.classList.contains("rotate180")) {
+          trigger.classList.remove("rotate180");
+          dropdown.hide();
+        } else {
+          trigger.classList.add("rotate180");
+          dropdown.show();
+        }
+        e.stopPropagation();
+      });
+
       trigger.addEventListener("show.bs.dropdown", function() {
         trigger.classList.add("rotate180");
       });
+
       trigger.addEventListener("hide.bs.dropdown", function() {
         trigger.classList.remove("rotate180");
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener("click", function(e) {
+      document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
+        if (!trigger.contains(e.target)) {
+          trigger.classList.remove("rotate180");
+          const dropdown = bootstrap.Dropdown.getInstance(trigger);
+          if (dropdown) dropdown.hide();
+        }
       });
     });
   });
