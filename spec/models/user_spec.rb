@@ -63,5 +63,57 @@ RSpec.describe User, type: :model do
     it "user is not moderator by default" do
       expect(@user).not_to be_moderator
     end
+
+    describe ".from_omniauth" do
+      let(:provider) { "google_oauth2" }
+      let(:uid) { "google-uid-12345" }
+      let(:email) { "testuser@gmail.com" }
+
+      let(:access_token) do
+        double(
+          uid: uid,
+          provider: provider,
+          info: { "email" => email, "name" => "Test User" }
+        )
+      end
+
+      context "when user exists with matching uid and provider" do
+        it "returns the existing user without creating a new one" do
+          existing_user = FactoryBot.create(:user, uid: uid, provider: provider, email: email)
+          expect {
+            result = User.from_omniauth(access_token)
+            expect(result.id).to eq(existing_user.id)
+          }.not_to change(User, :count)
+        end
+      end
+
+      context "when user renames Gmail but uid stays the same" do
+        it "finds user by uid and does not create a duplicate account" do
+          existing_user = FactoryBot.create(:user, uid: uid, provider: provider, email: "old@gmail.com")
+          expect {
+            result = User.from_omniauth(access_token)
+            expect(result.id).to eq(existing_user.id)
+          }.not_to change(User, :count)
+        end
+      end
+
+      context "when user exists by email but has no uid stored" do
+        it "finds user by email and backfills the uid" do
+          existing_user = FactoryBot.create(:user, uid: nil, provider: nil, email: email)
+          result = User.from_omniauth(access_token)
+          expect(result.id).to eq(existing_user.id)
+          expect(result.reload.uid).to eq(uid)
+        end
+      end
+
+      context "when user does not exist at all" do
+        it "creates a new user" do
+          expect {
+            User.from_omniauth(access_token)
+          }.to change(User, :count).by(1)
+        end
+      end
+    end
+
   end
 end
