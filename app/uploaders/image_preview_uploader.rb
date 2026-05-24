@@ -42,9 +42,11 @@ class ImagePreviewUploader < CarrierWave::Uploader::Base
   #   %w(jpg jpeg gif png)
   # end
 
-  # Override the filename of the uploaded files:
-  # Avoid using model.id or version_name here, see uploader/store.rb for details.
-  # def filename
-  #   "something.jpg" if original_filename
-  # end
+  def filename
+    return unless original_filename
+
+    ext = File.extname(original_filename)
+    base = File.basename(original_filename, ext)
+    "#{base.first(240)}#{ext}"
+  end
 end
