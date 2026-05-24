@@ -87,7 +87,10 @@ module Adapters
         tags = extract_tags(query_params[:tag])
         return relation if tags.empty?
 
-        relation.joins(:tags).where(tags: { name: tags }).distinct
+        relation.where(
+          id: Project.joins(:tags)
+                     .where(tags: { name: tags })
+        )
       end
 
       def apply_user_filters(relation, query_params)
