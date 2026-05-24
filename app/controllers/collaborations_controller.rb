@@ -78,7 +78,7 @@ class CollaborationsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_collaboration
-      @collaboration = Collaboration.find(params[:id])
+      @collaboration = Collaboration.find(params.expect(:id))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
