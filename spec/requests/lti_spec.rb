@@ -8,6 +8,7 @@ unless CGI.respond_to?(:parse)
   def CGI.parse(query_string)
     params = {}
     query_string.split("&").each do |pair|
+      next if pair.empty?
       key, value = pair.split("=", 2)
       key = CGI.unescape(key.to_s)
       value = CGI.unescape(value.to_s)
