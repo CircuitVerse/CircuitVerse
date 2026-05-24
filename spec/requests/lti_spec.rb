@@ -2,23 +2,6 @@
 
 require "rails_helper"
 
-# Ruby 4.0 removed CGI.parse which is used internally by the ims-lti gem.
-# This patch restores CGI.parse for test compatibility.
-unless CGI.respond_to?(:parse)
-  def CGI.parse(query_string)
-    params = {}
-    query_string.split("&").each do |pair|
-      next if pair.empty?
-      key, value = pair.split("=", 2)
-      key = CGI.unescape(key.to_s)
-      value = CGI.unescape(value.to_s)
-      params[key] ||= []
-      params[key] << value
-    end
-    params
-  end
-end
-
 describe LtiController, type: :request do
   before do
     Flipper.enable(:lms_integration)
