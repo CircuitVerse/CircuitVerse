@@ -98,11 +98,12 @@ RSpec.describe User, type: :model do
       end
 
       context "when user exists by email but has no uid stored" do
-        it "finds user by email and backfills the uid" do
+        it "finds user by email and backfills the uid and provider" do
           existing_user = FactoryBot.create(:user, uid: nil, provider: nil, email: email)
           result = User.from_omniauth(access_token)
           expect(result.id).to eq(existing_user.id)
           expect(result.reload.uid).to eq(uid)
+          expect(result.reload.provider).to eq(provider)
         end
       end
 
