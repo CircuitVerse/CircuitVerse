@@ -571,7 +571,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "organizations", on_delete: :nullify
-  add_foreign_key "groups", "users", column: "primary_mentor_id", name: "fk_rails_groups_primary_mentor"
+  add_foreign_key "groups", "users", column: "primary_mentor_id"
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
