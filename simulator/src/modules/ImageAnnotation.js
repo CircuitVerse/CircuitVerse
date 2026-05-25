@@ -123,7 +123,7 @@ export default class ImageAnnotation extends CircuitElement {
     async uploadImage() {
         var file = await promptFile("image/*", false);
         var apiUrl = 'https://api.imgur.com/3/image';
-        var apiKey = process.env.IMGUR_CLIENT_ID;
+        var apiKey = window.circuitverseConfig ? window.circuitverseConfig.imgurClientId : null;
 
         if (!apiKey) {
             console.error('Error: IMGUR_CLIENT_ID is not defined in the environment variables.');
@@ -150,11 +150,12 @@ export default class ImageAnnotation extends CircuitElement {
         // Response contains stringified JSON
         // Image URL available at response.data.link
         showMessage('Uploading Image');
-        try {
-            var response = await $.ajax(settings);
-            showMessage('Image Uploaded');
-            this.imageUrl = JSON.parse(response).data.link;
-            this.loadImage();
+        var response = await $.ajax(settings);
+        showMessage('Image Uploaded');
+        this.imageUrl = JSON.parse(response).data.link;
+        this.loadImage();
+    }
+
         } catch (error) {
             console.error('Imgur upload failed:', error);
             showMessage('Error uploading image to Imgur. Check console for details.');
