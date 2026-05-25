@@ -53,7 +53,7 @@ class Users::CircuitverseController < ApplicationController
 
     def set_user
       @profile = current_user
-      @user = User.find(params[:id])
+      @user = User.find(params.expect(:id))
     end
 
     def remove_previous_profile_picture
