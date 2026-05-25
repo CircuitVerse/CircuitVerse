@@ -132,13 +132,13 @@
         if (searchInput) {
           setTimeout(() => searchInput.focus(), 50);
         }
-      }
-      if (collapseElement && collapseElement.classList.contains("show")) {
-        const bsCollapseInstance = bootstrap.Collapse.getInstance(collapseElement);
-        if (bsCollapseInstance) {
-          bsCollapseInstance.hide();
-        } else {
-          collapseElement.classList.remove("show");
+        if (collapseElement && collapseElement.classList.contains("show")) {
+          const bsCollapseInstance = bootstrap.Collapse.getInstance(collapseElement);
+          if (bsCollapseInstance) {
+            bsCollapseInstance.hide();
+          } else {
+            collapseElement.classList.remove("show");
+          }
         }
       }
     }
