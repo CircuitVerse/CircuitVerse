@@ -14,7 +14,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def edit
-    @announcement = Announcement.find(params[:id])
+    @announcement = Announcement.find(params.expect(:id))
   end
 
   def create
@@ -27,7 +27,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def update
-    @announcement = Announcement.find(params[:id])
+    @announcement = Announcement.find(params.expect(:id))
     if @announcement.update(announcement_params)
       redirect_to "/announcements"
     else
@@ -36,7 +36,7 @@ class AnnouncementsController < ApplicationController
   end
 
   def destroy
-    @announcement = Announcement.find(params[:id])
+    @announcement = Announcement.find(params.expect(:id))
     @announcement.destroy
     redirect_to announcements_path
   end
