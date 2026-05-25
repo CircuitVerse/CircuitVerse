@@ -1,15 +1,15 @@
 <% if user_signed_in? %>
   <div class="navbar-nav nav-item dropdown">
-  <div class="nav-item navbar-3 flex justify-content-center align-items-center" id="navbar-dropdown-3" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="notification-dropdown-menu" tabindex="0" aria-label="Notifications" data-bs-auto-close="outside">
+  <button type="button" class="nav-item navbar-3 flex justify-content-center align-items-center" id="navbar-dropdown-3" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-controls="notification-dropdown-menu" aria-label="Notifications" data-bs-auto-close="outside">
       <i class="fas fa-bell notification-icon" id="notification-button"></i>
       <% if @unread&.count&.positive? %>
         <span class="notification-count"><%= @unread.count %></span>
       <% end %>
-    </div>
+  </button>
     <div class="dropdown-menu dropdown-menu-end dropdown-notification" aria-labelledby="navbar-dropdown-3">
       <div class="d-flex align-items-center justify-content-between">
         <strong><h4><%= t("users.notifications.heading") %></h4></strong>
-        <button class="cancel-button" data-bs-dismiss="dropdown">&#10005;</button>
+        <button type="button" class="cancel-button" data-bs-dismiss="dropdown" aria-label="<%= t('close') %>">&#10005;</button>
       </div>
       <% (@notification || []).each do |notification| %>
         <%= link_to mark_as_read_path(id: current_user, notification_id: notification.id), method: :post do %>
