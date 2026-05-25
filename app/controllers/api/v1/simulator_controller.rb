@@ -33,7 +33,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   # POST /api/v1/simulator/verilogcv
   def verilog_cv
     if params[:code].to_s.bytesize > MAX_CODE_SIZE
-      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" }, status: :payload_too_large
+      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" }, status: :content_too_large
       return
     end
 
@@ -56,11 +56,11 @@ class Api::V1::SimulatorController < Api::V1::BaseController
       result = Yosys2Digitaljs::Runner.compile(code)
       render json: result
     rescue Yosys2Digitaljs::SyntaxError => e
-      render json: { message: "Syntax Error: #{e.message}" }, status: :unprocessable_entity
+      render json: { message: "Syntax Error: #{e.message}" }, status: :unprocessable_content
     rescue Yosys2Digitaljs::Runner::TimeoutError => e
       render json: { message: e.message }, status: :service_unavailable
     rescue Yosys2Digitaljs::Error => e
-      render json: { message: e.message }, status: :unprocessable_entity
+      render json: { message: e.message }, status: :unprocessable_content
     rescue StandardError => e
       Rails.logger.error("[Yosys Compilation Error] #{e.class}: #{e.message}\n#{e.backtrace&.first(5)&.join("\n")}")
       render json: { message: "Compilation failed" }, status: :internal_server_error
