@@ -79,6 +79,6 @@ class GradesController < ApplicationController
     end
 
     def set_assignment
-      @assignment = Assignment.find(params[:assignment_id])
+      @assignment = Assignment.find(params.expect(:assignment_id))
     end
 end
