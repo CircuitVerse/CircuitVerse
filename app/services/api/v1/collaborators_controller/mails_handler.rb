@@ -4,7 +4,7 @@ class Api::V1::CollaboratorsController
   class MailsHandler
     # @return [Array<String>]
     attr_reader :valid_mails
-    # @return [Array<String>]
+    # @return [Array<Hash>] each hash has :email and :reason keys
     attr_reader :invalid_mails
     # @return [Array<String>]
     attr_reader :existing_mails
@@ -27,10 +27,12 @@ class Api::V1::CollaboratorsController
     def parse
       @mails.split(",").each do |email|
         email = email.strip
-        if email.present? && email != @current_user.email && Devise.email_regexp.match?(email)
-          @valid_mails.push(email)
+        if email.blank? || !Devise.email_regexp.match?(email)
+          @invalid_mails.push({ email: email, reason: "Invalid email" }) if email.present?
+        elsif email == @current_user.email
+          @invalid_mails.push({ email: email, reason: "Cannot add yourself" })
         else
-          @invalid_mails.push(email)
+          @valid_mails.push(email)
         end
       end
 
@@ -50,6 +52,8 @@ class Api::V1::CollaboratorsController
         if user.present?
           added_mails.push(email)
           Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
+        else
+          @invalid_mails.push({ email: email, reason: "User is not registered" })
         end
       end
       # returns added_mails
