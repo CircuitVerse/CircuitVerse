@@ -88,13 +88,13 @@ export default class extends Controller {
                 }
             });
         });
-    
-    if (this.hasCountrySelectTarget) {
-        this.countrySelectTarget.addEventListener('change', () => this.updateButtonState());
-    }
-    if (this.hasInstituteInputTarget) {
-        this.instituteInputTarget.addEventListener('input', () => this.updateButtonState());
-    }
+
+        if (this.hasCountrySelectTarget) {
+            this.countrySelectTarget.addEventListener('change', () => this.updateButtonState());
+        }
+        if (this.hasInstituteInputTarget) {
+            this.instituteInputTarget.addEventListener('input', () => this.updateButtonState());
+        }
     }
 
     setupTagRemoveButtons() {
@@ -234,7 +234,7 @@ export default class extends Controller {
             searchForm.submit();
         }
     }
-    
+
     updateButtonState() {
         if (!this.hasButtonTarget) return;
 
@@ -255,19 +255,7 @@ export default class extends Controller {
      * @returns {boolean}
      */
     hasActiveFilters() {
-        if (this.hasTagHiddenTarget && this.tagHiddenTarget.value.trim()) {
-            return true;
-        }
-
-        if (this.hasCountrySelectTarget && this.countrySelectTarget.value) {
-            return true;
-        }
-
-        if (this.hasInstituteInputTarget && this.instituteInputTarget.value.trim()) {
-            return true;
-        }
-
-        return false;
+        return this.getActiveFiltersCount() > 0;
     }
 
     /**
@@ -275,12 +263,30 @@ export default class extends Controller {
      * @returns {number}
      */
     getActiveFiltersCount() {
-        let count = 0;
+        const currentResource = this.currentResourceValue || 'Projects';
 
+        if (currentResource === 'Projects') {
+            return this.getProjectFiltersCount();
+        }
+
+        if (currentResource === 'Users') {
+            return this.getUserFiltersCount();
+        }
+
+        return 0;
+    }
+
+    getProjectFiltersCount() {
         if (this.hasTagHiddenTarget && this.tagHiddenTarget.value.trim()) {
             const tags = this.tagHiddenTarget.value.split(',').filter((tag) => tag.trim());
-            count += tags.length;
+            return tags.length;
         }
+
+        return 0;
+    }
+
+    getUserFiltersCount() {
+        let count = 0;
 
         if (this.hasCountrySelectTarget && this.countrySelectTarget.value) {
             count += 1;

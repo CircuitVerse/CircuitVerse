@@ -46,6 +46,47 @@ RSpec.describe Search::SearchBarComponent, type: :component do
     end
   end
 
+  describe "#active_filters_count" do
+    it "counts only project filters for project searches" do
+      component = described_class.new(
+        resource: "Projects",
+        current_filters: {
+          "tag" => "cpu, alu, ",
+          "country" => "IN",
+          "institute" => "CircuitVerse"
+        }
+      )
+
+      expect(component.active_filters_count).to eq(2)
+    end
+
+    it "counts only user filters for user searches" do
+      component = described_class.new(
+        resource: "Users",
+        current_filters: {
+          "tag" => "cpu,alu",
+          "country" => "IN",
+          "institute" => "CircuitVerse"
+        }
+      )
+
+      expect(component.active_filters_count).to eq(2)
+    end
+
+    it "does not mark filters active when only another resource's filters are present" do
+      component = described_class.new(
+        resource: "Users",
+        current_filters: {
+          "tag" => "cpu,alu",
+          "country" => nil,
+          "institute" => nil
+        }
+      )
+
+      expect(component).not_to be_active_filters
+    end
+  end
+
   describe "sorting options by resource type" do
     let(:component) { described_class.new }
 
