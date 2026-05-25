@@ -128,8 +128,19 @@
       } else {
         icons.forEach(icon => icon.classList.add("active"));
         searchBar.style.display = "block";
+        const searchInput = searchBar.querySelector(".search-bar-input");
+        if (searchInput) {
+          setTimeout(() => searchInput.focus(), 50);
+        }
       }
-      collapseElement.classList.remove("show");
+      if (collapseElement && collapseElement.classList.contains("show")) {
+        const bsCollapseInstance = bootstrap.Collapse.getInstance(collapseElement);
+        if (bsCollapseInstance) {
+          bsCollapseInstance.hide();
+        } else {
+          collapseElement.classList.remove("show");
+        }
+      }
     }
 
     if (dropdownButton && collapseElement && dropdownIcon) {
@@ -148,7 +159,15 @@
       });
     }
 
-    Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
+    Array.from(searchIcons).forEach(icon => {
+      icon.addEventListener("click", activeSearchBar);
+      icon.addEventListener("keydown", function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activeSearchBar();
+        }
+      });
+    });
 
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
