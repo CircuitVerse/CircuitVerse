@@ -1,6 +1,6 @@
 <script>
   window.circuitverseConfig = {
-    imgurClientId: '<%= ENV['IMGUR_CLIENT_ID'] %>'
+    imgurClientId: <%= ENV.fetch('IMGUR_CLIENT_ID', '').to_json %>
   };
 </script>
 <textarea id="trumbowyg"> <%= content %> </textarea>
@@ -46,7 +46,7 @@
     });
   });
 </script>
-
+<script type="text/javascript">
   $.fn.cleanHtml = function () {
       var html = $('#trumbowyg').trumbowyg('html');
       return html && html.replace(/(<br>|\s|<div><br><\/div>|&nbsp;)*$/, '');

@@ -121,41 +121,40 @@ export default class ImageAnnotation extends CircuitElement {
     }
 
     async uploadImage() {
-        var file = await promptFile("image/*", false);
-        var apiUrl = 'https://api.imgur.com/3/image';
-        var apiKey = window.circuitverseConfig ? window.circuitverseConfig.imgurClientId : null;
+        try {
+            var file = await promptFile("image/*", false);
+            var apiUrl = 'https://api.imgur.com/3/image';
+            var apiKey = window.circuitverseConfig ? window.circuitverseConfig.imgurClientId : null;
 
-        if (!apiKey) {
-            console.error('Error: IMGUR_CLIENT_ID is not defined in the environment variables.');
-            showMessage('Error: Imgur API key not configured. Please contact an administrator.');
-            return;
-        }
+            if (!apiKey) {
+                console.error('Error: IMGUR_CLIENT_ID is not defined in the environment variables.');
+                showMessage('Error: Imgur API key not configured. Please contact an administrator.');
+                return;
+            }
 
-        var settings = {
-            crossDomain: true,
-            processData: false,
-            contentType: false,
-            type: 'POST',
-            url: apiUrl,
-            headers: {
-            Authorization: 'Client-ID ' + apiKey,
-            Accept: 'application/json',
-            },
-            mimeType: 'multipart/form-data',
-        };
-        var formData = new FormData();
-        formData.append('image', file);
-        settings.data = formData;
+            var settings = {
+                crossDomain: true,
+                processData: false,
+                contentType: false,
+                type: 'POST',
+                url: apiUrl,
+                headers: {
+                Authorization: 'Client-ID ' + apiKey,
+                Accept: 'application/json',
+                },
+                mimeType: 'multipart/form-data',
+            };
+            var formData = new FormData();
+            formData.append('image', file);
+            settings.data = formData;
 
-        // Response contains stringified JSON
-        // Image URL available at response.data.link
-        showMessage('Uploading Image');
-        var response = await $.ajax(settings);
-        showMessage('Image Uploaded');
-        this.imageUrl = JSON.parse(response).data.link;
-        this.loadImage();
-    }
-
+            // Response contains stringified JSON
+            // Image URL available at response.data.link
+            showMessage('Uploading Image');
+            var response = await $.ajax(settings);
+            showMessage('Image Uploaded');
+            this.imageUrl = JSON.parse(response).data.link;
+            this.loadImage();
         } catch (error) {
             console.error('Imgur upload failed:', error);
             showMessage('Error uploading image to Imgur. Check console for details.');
