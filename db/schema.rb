@@ -364,10 +364,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
     t.text "description"
     t.jsonb "links", default: []
     t.boolean "private", default: true, null: false
-    t.string "logo_file_name"
-    t.string "logo_content_type"
-    t.bigint "logo_file_size"
-    t.datetime "logo_updated_at"
     t.string "oidc_issuer_url"
     t.string "oidc_client_id"
     t.string "oidc_client_secret_digest"
