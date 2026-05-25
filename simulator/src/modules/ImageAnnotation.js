@@ -123,7 +123,14 @@ export default class ImageAnnotation extends CircuitElement {
     async uploadImage() {
         var file = await promptFile("image/*", false);
         var apiUrl = 'https://api.imgur.com/3/image';
-        var apiKey = '9a33b3b370f1054';
+        var apiKey = process.env.IMGUR_CLIENT_ID;
+
+        if (!apiKey) {
+            console.error('Error: IMGUR_CLIENT_ID is not defined in the environment variables.');
+            showMessage('Error: Imgur API key not configured. Please contact an administrator.');
+            return;
+        }
+
         var settings = {
             crossDomain: true,
             processData: false,
@@ -143,10 +150,15 @@ export default class ImageAnnotation extends CircuitElement {
         // Response contains stringified JSON
         // Image URL available at response.data.link
         showMessage('Uploading Image');
-        var response = await $.ajax(settings);
-        showMessage('Image Uploaded');
-        this.imageUrl = JSON.parse(response).data.link;
-        this.loadImage();
+        try {
+            var response = await $.ajax(settings);
+            showMessage('Image Uploaded');
+            this.imageUrl = JSON.parse(response).data.link;
+            this.loadImage();
+        } catch (error) {
+            console.error('Imgur upload failed:', error);
+            showMessage('Error uploading image to Imgur. Check console for details.');
+        }
     }
 
     async loadImage() {
