@@ -10,7 +10,7 @@
       svgPath: 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.20.0/ui/icons.svg',
       btnsDef: {
         image: {
-          dropdown: ['insertImage', 'upload'],
+          dropdown: window.circuitverseConfig.imgurClientId ? ['insertImage', 'upload'] : ['insertImage'],
           ico: 'insertImage'
         }
       },
@@ -30,14 +30,14 @@
         ['fullscreen']
       ],
       plugins: {
-        upload: {
+        upload: window.circuitverseConfig.imgurClientId ? {
           serverPath: 'https://api.imgur.com/3/image',
           fileFieldName: 'image',
           headers: {
             'Authorization': 'Client-ID ' + window.circuitverseConfig.imgurClientId
           },
           urlPropertyName: 'data.link',
-        },
+        } : undefined,
         resizimg: {
           minSize: 64,
           step: 16,

@@ -123,6 +123,9 @@ export default class ImageAnnotation extends CircuitElement {
     async uploadImage() {
         try {
             var file = await promptFile("image/*", false);
+            if (!file) {
+                return; // User cancelled
+            }
             var apiUrl = 'https://api.imgur.com/3/image';
             var apiKey = window.circuitverseConfig ? window.circuitverseConfig.imgurClientId : null;
 
@@ -139,7 +142,7 @@ export default class ImageAnnotation extends CircuitElement {
                 type: 'POST',
                 url: apiUrl,
                 headers: {
-                Authorization: 'Client-ID ' + apiKey,
+                Authorization: `Client-ID ${apiKey}`,
                 Accept: 'application/json',
                 },
                 mimeType: 'multipart/form-data',
