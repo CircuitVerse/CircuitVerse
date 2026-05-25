@@ -8,7 +8,7 @@ class ExploreController < ApplicationController
   EDITOR_PICKS_MAX  = 12
 
   def index
-    redirect_to explore_path(section: "picks") and return if params[:section] == "examples"
+    return redirect_to explore_path(section: "picks") if params[:section] == "examples"
 
     @circuit_of_the_week = circuit_of_the_week
     @editor_picks        = editor_picks
@@ -21,7 +21,7 @@ class ExploreController < ApplicationController
     def redirect_unless_enabled!
       return if Flipper.enabled?(:circuit_explore_page, current_user)
 
-      redirect_to root_path and return
+      redirect_to root_path
     end
 
     def circuit_of_the_week

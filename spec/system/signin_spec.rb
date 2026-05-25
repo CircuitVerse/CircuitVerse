@@ -18,7 +18,7 @@ describe "Sign In", type: :system do
     # Percy snapshot here to see the error state
     page.percy_snapshot("Sign In - No Credentials")
 
-    expect(page).to have_text("Invalid Email or password.")
+    expect(page).to have_text("Invalid email or password")
   end
 
   it "sign-ins when valid credentials" do
@@ -39,7 +39,7 @@ describe "Sign In", type: :system do
     # Percy snapshot of the invalid password state
     page.percy_snapshot("Sign In - Empty Password")
 
-    expect(page).to have_text("Invalid Email or password.")
+    expect(page).to have_text("Invalid email or password")
   end
 
   it "does not sign-in when email is empty" do
@@ -49,6 +49,6 @@ describe "Sign In", type: :system do
     # Percy snapshot of the invalid email state
     page.percy_snapshot("Sign In - Empty Email")
 
-    expect(page).to have_text("Invalid Email or password.")
+    expect(page).to have_text("Invalid email or password")
   end
 end
