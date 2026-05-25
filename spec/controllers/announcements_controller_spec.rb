@@ -27,7 +27,7 @@ RSpec.describe AnnouncementsController, type: :request do
       end
 
       it "creates a new announcement" do
-        expect { (post announcements_path, params: create_params) }
+        expect { post announcements_path, params: create_params }
           .to change(Announcement, :count).by(1)
       end
     end
