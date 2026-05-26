@@ -160,7 +160,7 @@
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
 
-    // 🔹 Features navbar active state logic
+    // Features navbar active state logic
     const featuresLink = document.getElementById("features-nav-link");
     const mainNav = document.querySelector(".main-nav-items");
 
@@ -181,5 +181,15 @@
         featuresLink.classList.add("active");
       });
     }
+
+    document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
+      trigger.addEventListener("show.bs.dropdown", function() {
+        trigger.classList.add("rotate180");
+      });
+
+      trigger.addEventListener("hide.bs.dropdown", function() {
+        trigger.classList.remove("rotate180");
+      });
+    });
   });
 </script>

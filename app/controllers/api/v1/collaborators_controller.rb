@@ -42,7 +42,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
   private
 
     def set_project
-      @project = Project.find(params[:project_id])
+      @project = Project.find(params.expect(:project_id))
     end
 
     def check_author_access
@@ -54,7 +54,7 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
     end
 
     def set_collaborator
-      @collaborator = @project.collaborators.find(params[:id])
+      @collaborator = @project.collaborators.find(params.expect(:id))
     end
 
     def collaborator_params
