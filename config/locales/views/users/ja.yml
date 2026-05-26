@@ -52,7 +52,6 @@ ja:
         no_user_favourites: "%{name} にはお気に入りがありません。"
         not_a_collaborator: "あなたはどのプロジェクトの共同編集者でもありません。"
         user_not_a_collaborator: "%{name} はどのプロジェクトの共同作業者でもありません。"
-        no_search_results: "回路が見つかりません"
       search:
         no_results: "結果が見つかりませんでした"
     mailer:
