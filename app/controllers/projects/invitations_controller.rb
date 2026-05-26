@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 class Projects::InvitationsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @project = Project.friendly.find(params[:id])
+    @project = Project.friendly.find(params.expect(:id))
     redirect_to user_project_path(user_id: params[:user_id], project_id: params[:project_id]),
                 notice: invitation_notice
   end

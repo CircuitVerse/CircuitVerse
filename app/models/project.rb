@@ -4,6 +4,7 @@ require "pg_search"
 
 class Project < ApplicationRecord
   extend FriendlyId
+
   has_secure_token :collaboration_token
   friendly_id :name, use: %i[slugged history]
   self.ignored_columns += %w[data searchable]
@@ -33,7 +34,7 @@ class Project < ApplicationRecord
   has_one :contest_winner, dependent: :destroy
   has_many :submissions, dependent: :destroy
 
-  scope :with_project_token, -> { where("token_expires_at >= ?", Time.zone.now) }
+  scope :with_project_token, -> { where(token_expires_at: Time.zone.now..) }
   TOKEN_DURATION = 12.days
 
   scope :public_and_not_forked,
@@ -61,7 +62,7 @@ class Project < ApplicationRecord
   acts_as_commontable
   # after_commit :send_mail, on: :create
 
-  def has_valid_token?
+  def valid_token?
     token_expires_at.present? && token_expires_at > Time.zone.now
   end
 
