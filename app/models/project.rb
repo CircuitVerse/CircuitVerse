@@ -94,7 +94,7 @@ class Project < ApplicationRecord
     forked_project.build_project_datum.data = project_datum&.data
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
-    forked_project.regenerate_collaboration_token
+    forked_project.collaboration_token = SecureRandom.base58(24)
     forked_project.update!(
       view: 1, author_id: user.id, forked_project_id: id, name: name, token_expires_at: Time.zone.now + TOKEN_DURATION
     )

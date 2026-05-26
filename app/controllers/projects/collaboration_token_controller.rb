@@ -5,6 +5,8 @@ class Projects::CollaborationTokenController < ApplicationController
 
   def create
     @project = Project.friendly.find(params.expect(:id))
+    return head :forbidden unless current_user == @project.author
+
     @project.reset_project_token unless @project.valid_token?
   end
 end

@@ -34,6 +34,13 @@ hi:
     search:
       no_result_found: "कोई परिणाम नहीं मिला"
     invite_link_btn: "लिंक के माध्यम से आमंत्रित करें"
+    invite_link_invalid: "अमान्य या समाप्त निमंत्रण लिंक।"
+    invitations:
+      author_cannot_be_invited: "लेखक को आमंत्रित नहीं किया जा सकता।"
+      already_collaborator: "सहयोगी पहले से ही परियोजना में मौजूद है।"
+      collaborator_added: "सहयोगी सफलतापूर्वक जोड़ा गया।"
+      url_expired: "यूआरएल समाप्त हो गया है, परियोजना के मालिक से नया मांगें।"
+      invalid_url: "अमान्य यूआरएल"
     modal:
       embed_circuit_heading: "अपना सर्किट एम्बेड करें"
       height: "ऊंचाई"

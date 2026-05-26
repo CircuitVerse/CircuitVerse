@@ -135,14 +135,6 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users do
-    resources :projects do
-      member do
-        get "/invite/:token", to: "projects/invitations#create", as: "invite"
-      end
-    end
-  end
-  
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]
@@ -172,7 +164,12 @@ Rails.application.routes.draw do
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, except: %i[index new]
+    resources :projects, except: %i[index new] do
+      member do
+        get  "/invite/:token", to: "projects/invitations#show",   as: "invite"
+        post "/invite/:token", to: "projects/invitations#create", as: "accept_invite"
+      end
+    end
   end
   resources :collaborations, only: %i[create destroy update]
 

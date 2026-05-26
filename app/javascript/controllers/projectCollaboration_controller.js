@@ -1,11 +1,17 @@
 import { Controller } from 'stimulus';
-import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
 
 export default class extends Controller {
-    embedInviteLink() {
-        setTimeout(() => {
-            $('#embedInviteLink').select();
-            document.execCommand('copy');
-        }, 100);
+    async embedInviteLink() {
+        const text = document.getElementById('embedInviteLink').value;
+        if (navigator.clipboard) {
+            try {
+                await navigator.clipboard.writeText(text);
+                return;
+            } catch {
+                // fall through to execCommand fallback
+            }
+        }
+        document.getElementById('embedInviteLink').select();
+        document.execCommand('copy');
     }
 }

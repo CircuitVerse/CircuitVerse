@@ -1,0 +1,8 @@
+<div class="container mt-4">
+  <p class="h4"><%= t("projects.invite_link_btn") %></p>
+  <p><%= @project.name %></p>
+  <%= button_to t("projects.invite_link_btn"),
+                accept_invite_user_project_path(@project.author, @project, token: params[:token]),
+                method: :post,
+                class: "btn primary-button" %>
+</div>

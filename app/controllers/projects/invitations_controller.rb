@@ -3,32 +3,51 @@
 class Projects::InvitationsController < ApplicationController
   before_action :authenticate_user!
 
+  def show
+    @project = Project.friendly.find(params.expect(:id))
+    return if token_valid?
+
+    redirect_to root_path, alert: t("projects.invite_link_invalid")
+  end
+
   def create
     @project = Project.friendly.find(params.expect(:id))
-    redirect_to user_project_path(user_id: params[:user_id], project_id: params[:project_id]),
-                notice: invitation_notice
+
+    if token_valid?
+      process_collaboration
+    elsif token_matches?
+      redirect_to user_project_path(@project.author, @project),
+                  alert: t("projects.invitations.url_expired")
+    else
+      redirect_to user_project_path(@project.author, @project),
+                  alert: t("projects.invitations.invalid_url")
+    end
   end
 
   private
 
-    def invitation_notice
-      if Project.with_project_token.exists?(collaboration_token: params[:token])
-        collaborator_notice
-      elsif Project.exists?(collaboration_token: params[:token])
-        "Url is expired, request a new one from owner of the Project."
-      else
-        "Invalid url"
-      end
+    def token_valid?
+      token_matches? && @project.valid_token?
     end
 
-    def collaborator_notice
+    def token_matches?
+      ActiveSupport::SecurityUtils.secure_compare(
+        @project.collaboration_token.to_s,
+        params[:token].to_s
+      )
+    end
+
+    def process_collaboration
       if current_user.email == @project.author.email
-        "Author can not be invited."
+        redirect_to user_project_path(@project.author, @project),
+                    alert: t("projects.invitations.author_cannot_be_invited")
       elsif current_user.collaborations.exists?(project: @project)
-        "Collaborator is already present in the project."
+        redirect_to user_project_path(@project.author, @project),
+                    notice: t("projects.invitations.already_collaborator")
       else
         current_user.collaborations.create!(project: @project)
-        "Collaborator was successfully added."
+        redirect_to user_project_path(@project.author, @project),
+                    notice: t("projects.invitations.collaborator_added")
       end
     end
 end
