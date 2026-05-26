@@ -49,7 +49,6 @@ ar:
         no_user_projects: "لا يملك %{name} أي مشاريع."
         no_favourites_heading_html: "ليس لديك أي مفضلة. أنشئ %{simulator_new_url}"
         not_a_collaborator: "أنت لست متعاوناً مع أي مشروع."
-        no_search_results: "لم يتم العثور على دوائر"
       search:
         no_results: "لم يتم العثور على نتائج"
     mailer:
