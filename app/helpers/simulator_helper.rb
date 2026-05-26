@@ -5,7 +5,7 @@ module SimulatorHelper
     str = data_url[("data:image/jpeg;base64,".length)..]
     if str.to_s.empty?
       path = Rails.public_path.join("images/default.png")
-      image_file = File.open(path, "rb")
+      image_file = File.open(path, "rb") # rubocop:disable Style/FileOpen
 
     else
       jpeg       = Base64.decode64(str)
