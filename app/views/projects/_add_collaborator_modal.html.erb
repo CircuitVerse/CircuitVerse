@@ -12,7 +12,7 @@
         <% if @collaboration.errors.any? %>
           <div class="error-message">
             <ul>
-            <% @collaborator.errors.full_messages.each do |message| %>
+            <% @collaboration.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
             </ul>

@@ -35,7 +35,7 @@ class Project < ApplicationRecord
 
   scope :with_project_token, -> { where("token_expires_at >= ?", Time.zone.now) }
   TOKEN_DURATION = 12.days
-  
+
   scope :public_and_not_forked,
         -> { where(project_access_type: "Public", forked_project_id: nil) }
 
