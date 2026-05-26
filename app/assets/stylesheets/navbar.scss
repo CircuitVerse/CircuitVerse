@@ -26,7 +26,14 @@
     color: $secondary-green;
   }
 
-  &:focus {
+  &:focus-visible {
+    color: $primary-green;
+    outline: 2px solid $primary-green;
+    outline-offset: 4px;
+    border-radius: 2px;
+  }
+
+  &:focus:not(:focus-visible) {
     outline: none;
   }
 }
