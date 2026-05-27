@@ -48,7 +48,6 @@ mr:
         no_user_favourites: "%{name} ला आवडलेले कोणतेही प्रकल्प नाहीत."
         not_a_collaborator: "तुम्ही प्रकल्प सहयोगी नाही."
         user_not_a_collaborator: "%{name} कोणत्याही प्रकल्पासाठी योगदानकर्ता नाही."
-        no_search_results: "कोणतेही सर्किट आढळले नाही"
       search:
         no_results: "कोणताही परिणाम आढळला नाही"
     mailer:

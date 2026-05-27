@@ -49,7 +49,6 @@ bn:
         no_user_favourites: "%{name} -এর কোনো প্রিয় সার্কিট নেই।"
         not_a_collaborator: "আপনি কোনো প্রকল্পের সহযোগী নন।"
         user_not_a_collaborator: "%{name} কোনো প্রকল্পের সহযোগী নয়।"
-        no_search_results: "কোনো সার্কিট পাওয়া যায়নি"
       search:
         no_results: "কোন ফলাফল পাওয়া যায়নি"
     mailer:

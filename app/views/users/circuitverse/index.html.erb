@@ -197,12 +197,11 @@
           // mark matches as visible
           $(match.item.domObj).show();
       })
-      if(matches.length === 0) {
-        const activeTab = $('.users-circuits-tab.active').attr('id');
-        const activeDiv = $(`#${activeTab}-div`);
-        if(activeDiv.find('.circuit-card-js').length > 0) {
-          $('#search-no-results').show();
-        }
+      const activeTab = $('.users-circuits-tab.active').attr('id');
+      const activeDiv = $(`#${activeTab}-div`);
+      const activeCards = activeDiv.find('.circuit-card-js');
+      if(activeCards.length > 0 && activeCards.filter(':visible').length === 0) {
+        $('#search-no-results').show();
       }
       // Helper function used for sorting cards
       function getSortIndex(circuitDiv) {
