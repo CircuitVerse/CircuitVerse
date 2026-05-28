@@ -52,7 +52,6 @@ fr:
         no_user_favourites: "%{name} n'a aucun favori."
         not_a_collaborator: "Vous n'êtes pas un collaborateur d'aucun projet."
         user_not_a_collaborator: "%{name} n'est pas un collaborateur d'aucun projet."
-        no_search_results: "Aucun circuit trouvé"
       search:
         no_results: "Aucun résultat trouvé"
     mailer:

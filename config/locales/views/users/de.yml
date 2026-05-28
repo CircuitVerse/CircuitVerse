@@ -52,7 +52,6 @@ de:
         no_user_favourites: "%{name} hat keine Favoriten."
         not_a_collaborator: "Sie sind kein Mitarbeiter eines Projekts."
         user_not_a_collaborator: "%{name} ist kein Mitarbeiter eines Projekts."
-        no_search_results: "Keine Schaltkreise gefunden"
       search:
         no_results: "Keine Ergebnisse gefunden"
     mailer:

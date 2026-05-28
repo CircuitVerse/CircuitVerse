@@ -49,7 +49,6 @@ ne:
         no_user_favourites: "%{name}सँग कुनै मनपर्ने छैन।"
         not_a_collaborator: "तपाईं कुनै परियोजनाको सहयोगी हुनुहुन्न।"
         user_not_a_collaborator: "%{name} कुनै परियोजनाको सहयोगी होइन।"
-        no_search_results: "कुनै सर्किट फेला परेन"
       search:
         no_results: "कुनै परिणाम फेला परेन"
     mailer:
