@@ -14,6 +14,7 @@ class CreateOrganizations < ActiveRecord::Migration[8.0]
 
     add_check_constraint :organizations, "char_length(trim(name)) > 0", name: "organizations_name_not_blank"
     add_check_constraint :organizations, "char_length(trim(slug)) > 0", name: "organizations_slug_not_blank"
+    add_check_constraint :organizations, "jsonb_array_length(links) <= 5", name: "organizations_links_max_5"
 
     add_index :organizations,
               "lower(name)",

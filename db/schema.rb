@@ -373,6 +373,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
     t.index ["slug"], name: "index_organizations_on_slug", unique: true
     t.check_constraint "char_length(TRIM(BOTH FROM name)) > 0", name: "organizations_name_not_blank"
     t.check_constraint "char_length(TRIM(BOTH FROM slug)) > 0", name: "organizations_slug_not_blank"
+    t.check_constraint "jsonb_array_length(links) <= 5", name: "organizations_links_max_5"
   end
 
   create_table "pending_invitations", force: :cascade do |t|
@@ -566,9 +567,9 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
-  add_foreign_key "groups", "organizations", on_delete: :nullify
-  add_foreign_key "groups", "users", column: "primary_mentor_id"
+  add_foreign_key "groups", "users", column: "primary_mentor_id", name: "groups_primary_mentor_id_fkey"
   add_foreign_key "pending_invitations", "groups"
+  add_foreign_key "pending_invitations", "groups", name: "pending_invitations_group_id_fkey"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
