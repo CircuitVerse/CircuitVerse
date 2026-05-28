@@ -36,7 +36,6 @@
               class="nav-link dropdown-toggle navbar-item navbar-text"
               type="button"
               data-bs-toggle="dropdown"
-              data-bs-auto-close="true"
               aria-haspopup="true"
               aria-expanded="false"
               aria-label="<%= t('layout.getting_started_dropdown') %>">
@@ -155,12 +154,16 @@
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
 
-    document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
-      trigger.addEventListener("show.bs.dropdown", function() {
-        trigger.classList.add("rotate180");
+    ["#getting-started-dropdown", "#navbar-dropdown-2"].forEach((selector) => {
+      const toggle = document.querySelector(selector);
+      if (!toggle) return;
+
+      toggle.addEventListener("show.bs.dropdown", function () {
+        toggle.classList.add("rotate180");
       });
-      trigger.addEventListener("hide.bs.dropdown", function() {
-        trigger.classList.remove("rotate180");
+
+      toggle.addEventListener("hide.bs.dropdown", function () {
+        toggle.classList.remove("rotate180");
       });
     });
   });
