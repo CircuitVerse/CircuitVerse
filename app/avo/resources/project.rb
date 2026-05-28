@@ -7,6 +7,9 @@ class Avo::Resources::Project < Avo::BaseResource
   self.search = {
     query: -> { query.text_search(params[:q]) }
   }
+  self.pagination = {
+    type: :countless
+  }
 
   # rubocop:disable Metrics/MethodLength
   def fields
@@ -25,7 +28,7 @@ class Avo::Resources::Project < Avo::BaseResource
     field :project_submission, as: :boolean
 
     field :image_preview, as: :external_image, hide_on: %i[edit new] do
-      record.image_preview.url if record.image_preview.present?
+      record.image_preview.presence&.url
     end
     field :description, as: :textarea
     field :view, as: :number, sortable: true
