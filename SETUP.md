@@ -84,53 +84,32 @@ The `.env` file only needs to be used if you would like to link to third party s
 3. Configure your `id` and `secret` environment variables in `.env`. If `.env` does not exist, copy the template from `.env.example`.
 4. After adding the environment variables, run `dotenv rails server` to start the application.
 
-## (Optional) yosys installation for Verilog RTL Synthesis
-If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to:
-1. Install yosys
-2. Setup and run CircuitVerse's yosys2digitaljs-server.
+## (Optional) Yosys Installation for Verilog RTL Synthesis
+If you wish to do Verilog RTL Synthesis/create CircuitVerse Verilog Circuits in your local development environment, you need to install the `yosys` binary.
+
+> **Note:** The Verilog-to-DigitalJS conversion logic is now bundled as a vendored Ruby Gem (`yosys2digitaljs`). You no longer need to run a separate server.
 
 ### Installation steps
+
 1. **Install yosys**
-   - Many Linux distributions provide yosys binaries which is easy to install & small in package size. For Example,
-**For Debian/Ubuntu**:
-  ```sudo apt install yosys```
-   - For other linux distributions, MacOS, & Windows OS, you need to install the OSS CAD Suite
-      1. Download an archive matching your OS from [the releases page](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
-      2. Extract the archive to a location of your choice (for Windows it is recommended that path does not contain spaces)
-      3. To use OSS CAD Suite
+   - **Docker Users:** `yosys` is pre-installed in the Docker image. No action needed.
+   - **Debian/Ubuntu:**
+     ```sh
+     sudo apt install yosys
+     ```
+   - **macOS (Homebrew):**
+     ```sh
+     brew install yosys
+     ```
+   - **Other Platforms:** Download and install the [OSS CAD Suite](https://github.com/YosysHQ/oss-cad-suite-build/releases/latest).
 
-      **Other Linux distros and macOS**
-      ```shell
-      export PATH="<extracted_location>/oss-cad-suite/bin:$PATH"
+2. **Verify Installation:**
+   ```sh
+   yosys -V
+   # Should output version info, e.g., "Yosys 0.9+..."
+   ```
 
-      or
-
-      source <extracted_location>/oss-cad-suite/environment
-      ```
-      **Windows**
-      ```
-      from existing shell:
-      <extracted_location>\oss-cad-suite\environment.bat
-
-      to create new shell window:
-      <extracted_location>\oss-cad-suite\start.bat
-      ```
-
-2. **Setup CircuitVerse yosys2digitaljs-server**
-    - In your local CircuitVerse Repository:
-      ```sh
-      git clone https://github.com/CircuitVerse/yosys2digitaljs-server.git
-
-      cd yosys2digitaljs-server
-
-      yarn
-
-      cd ..
-      ```
-    - To use CircuitVerse yosys2digitaljs-server:
-      ```sh
-      bin/yosys
-      ```
+That's it! The CircuitVerse application will automatically use the `yosys` binary via the bundled gem.
 
 ## Distributed Tracing using OpenTelemetry
 
