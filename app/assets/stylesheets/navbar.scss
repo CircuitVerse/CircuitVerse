@@ -619,6 +619,23 @@
 }
 
 //breakpoints
+// collapse navbar earlier between 1080px and 992px
+@media (max-width: 1080px) and (min-width: 992px) {
+  // show the mobile toggler container even though it's d-lg-none
+  .navbar .d-lg-none {
+    display: flex !important;
+  }
+
+  // hide the expanded navbar so it doesn't overflow
+  .navbar-expand-lg .navbar-collapse {
+    display: none !important;
+  }
+
+  // ensure the toggler button is visible
+  .navbar-expand-lg .navbar-toggler {
+    display: block !important;
+  }
+}
 
 // Ensure stacked search layout takes full width on extra-small screens
 @media (max-width: 576px) {
