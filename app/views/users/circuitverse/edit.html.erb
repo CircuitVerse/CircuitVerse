@@ -26,30 +26,36 @@
             <h6><%= f.label :name %><sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup></h6>
             <%= f.text_field :name, required: true, class: "form-control form-input", autofocus: true %>
           </div>
-          <div class="field mb-3">
+         <div class="field mb-3">
             <h6><%= t("users.circuitverse.edit_profile.profile_picture") %></h6>
+
             <p>
               <%= image_tag user_profile_picture(@profile.profile_picture),
-                id: "imgedit",
-                class: "users-edit-image",
-                alt: "User Profile Image" %>
+                 id: "imgedit",
+                 class: "users-edit-image",
+                 alt: "User Profile Image" %>
             </p>
-            <label for="profile_picture" class="users-edit-image-button">
-                <%= t("users.circuitverse.edit_profile.choose_file") %>
-            </label>
-              <input
-                tabindex="0"
-                type="file"
-                accept="image/png, .jpeg, .jpg"
-                class="users-edit-image-button-hidden"
-                id="profile_picture"
-                name="user[profile_picture]"
-                onchange="readURL(this);"
-                value="<%= @profile.profile_picture %>"
-              >
-               <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
-            <label for="remove_pic" class="users-remove-image-button"><%= t("users.circuitverse.edit_profile.remove_picture") %></label>
-          </div>
+
+           <label for="profile_picture" class="users-edit-image-button">
+             <%= t("users.circuitverse.edit_profile.choose_file") %>
+           </label>
+
+           <input
+             tabindex="0"
+             type="file"
+             accept="image/png, .jpeg, .jpg"
+             class="users-edit-image-button-hidden"
+             id="profile_picture"
+             name="user[profile_picture]"
+             onchange="readURL(this);"
+             value="<%= @profile.profile_picture %>">
+
+           <%= f.check_box :remove_picture, id: "remove_pic", class: "remove-pic" %>
+
+           <label for="remove_pic" class="users-remove-image-button">
+             <%= t("users.circuitverse.edit_profile.remove_picture") %>
+           </label>
+        </div>
           <div class="field mb-3">
             <h6><%= f.label :country %></h6>
             <%= f.country_select :country, { include_blank: t("users.circuitverse.edit_profile.country_select_placeholder"), priority_countries: get_priority_countries }, class: "form-control form-input" %>
@@ -151,3 +157,4 @@
       document.querySelector('#imgedit').src = '<%= image_path('thumb/Default.jpg') %>';
   });
 </script>
+
