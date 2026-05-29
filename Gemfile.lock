@@ -380,7 +380,7 @@ GEM
       bigdecimal (~> 3.1)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
-    jwt (2.10.2)
+    jwt (2.10.3)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -1073,7 +1073,7 @@ DEPENDENCIES
   jsbundling-rails (~> 1.0)
   json-schema
   jsonapi-serializer
-  jwt
+  jwt (~> 2.10.3)
   kt-paperclip
   language_filter
   listen (>= 3.0.5, < 3.10)
