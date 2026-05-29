@@ -25,8 +25,8 @@ class Contests::Submissions::VotesController < ApplicationController
   private
 
     def set_contest_and_submission
-      @contest = Contest.find(params[:contest_id])
-      @submission = @contest.submissions.find(params[:submission_id])
+      @contest = Contest.find(params.expect(:contest_id))
+      @submission = @contest.submissions.find(params.expect(:submission_id))
     end
 
     def check_contests_feature_flag

@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def auth_error
-    render plain: "You are not authorized to do the requested operation"
+    render plain: "You are not authorized to do the requested operation", status: :forbidden
   end
 
   def custom_auth_error(exception)
@@ -29,7 +29,8 @@ class ApplicationController < ActionController::Base
 
   def switch_locale(&)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = params[:locale]&.to_sym || current_user&.locale&.to_sym || extract_locale_from_accept_language_header
+    locale = params.permit(:locale)[:locale]&.to_sym || current_user&.locale&.to_sym ||
+             extract_locale_from_accept_language_header
     locale = I18n.default_locale unless I18n.available_locales.include?(locale)
     logger.debug "* Locale set to '#{locale}'"
     I18n.with_locale(locale, &)

@@ -8,7 +8,15 @@
       <div class="users-form-container">
         <h2 class="users-main-heading"><%= t("users.confirmations.resend_confirmation_instructions") %></h2>
         <%= form_with(model: resource, as: resource_name, url: confirmation_path(resource_name), method: :post, local: true) do |f| %>
-          <%= devise_error_messages! %>
+          <% if resource.errors.any? %>
+            <div class="alert alert-danger" role="alert">
+              <ul class="mb-0">
+                <% resource.errors.full_messages.each do |msg| %>
+                  <li><%= msg %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
           <div class="field mb-3">
             <h6><%= f.label :email %></h6>
             <div class="input-group">

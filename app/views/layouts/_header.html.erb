@@ -32,9 +32,16 @@
             </li>
           <% end %>
           <li class="nav-item dropdown">
-            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">
+            <button id="getting-started-dropdown"
+              class="nav-link dropdown-toggle navbar-item navbar-text"
+              type="button"
+              data-bs-toggle="dropdown"
+              data-bs-auto-close="true"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="<%= t('layout.getting_started_dropdown') %>">
               <%= t("layout.getting_started_dropdown") %>
-            </a>
+            </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
               <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_learn_more") %></a>
               <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_docs") %></a>
@@ -54,9 +61,16 @@
           <%= render "layouts/notifications" %>
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+              <button class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center"
+                id="navbar-dropdown-2"
+                type="button"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="true"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-label="<%= current_user.name %>">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
-              </a>
+              </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
                 <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
                 <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
@@ -94,7 +108,6 @@
     const dropdownButton = document.getElementById('dropdownButton');
     const dropdownIcon = document.getElementById('dropdownIcon');
     const collapseElement = document.getElementById("collapsed-navbar");
-    const gettingStartedLink = document.querySelector("#getting-started-dropdown");
     const navbar = document.querySelector('.navbar');
 
     function handleNavbarShadow() {
@@ -105,24 +118,6 @@
       }
     }
     window.addEventListener('scroll', handleNavbarShadow);
-
-    if (gettingStartedLink) {
-      const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
-      gettingStartedLink.addEventListener("click", function (e) {
-        if (gettingStartedLink.classList.contains("rotate180")) {
-          gettingStartedLink.classList.remove("rotate180");
-          gettingStartedDropdown.hide();
-        } else {
-          gettingStartedLink.classList.add("rotate180");
-          gettingStartedDropdown.show();
-        }
-        e.stopPropagation();
-      });
-      document.addEventListener("click", function () {
-        gettingStartedLink.classList.remove("rotate180");
-        gettingStartedDropdown.hide();
-      });
-    }
 
     function activeSearchBar() {
       const icons = Array.from(searchIcons);
@@ -159,5 +154,14 @@
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
     }
+
+    document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
+      trigger.addEventListener("show.bs.dropdown", function() {
+        trigger.classList.add("rotate180");
+      });
+      trigger.addEventListener("hide.bs.dropdown", function() {
+        trigger.classList.remove("rotate180");
+      });
+    });
   });
 </script>

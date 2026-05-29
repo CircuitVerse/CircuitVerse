@@ -101,7 +101,7 @@ class AssignmentsController < ApplicationController
         format.json { render :show, status: :created, location: @assignment }
       else
         format.html { render :new }
-        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+        format.json { render json: @assignment.errors, status: :unprocessable_content }
       end
     end
   end
@@ -131,7 +131,7 @@ class AssignmentsController < ApplicationController
         format.json { render :show, status: :ok }
       else
         format.html { render :edit }
-        format.json { render json: @assignment.errors, status: :unprocessable_entity }
+        format.json { render json: @assignment.errors, status: :unprocessable_content }
       end
     end
   end
@@ -156,11 +156,11 @@ class AssignmentsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-      @assignment = Assignment.find(params[:id])
+      @assignment = Assignment.find(params.expect(:id))
     end
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.find(params.expect(:group_id))
     end
 
     def check_reopening_status
