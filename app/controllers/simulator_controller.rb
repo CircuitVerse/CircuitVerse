@@ -52,7 +52,7 @@ class SimulatorController < ApplicationController
   def embed
     authorize @project
     @logix_project_id = params[:id]
-    @project = Project.friendly.find(params[:id])
+    @project = Project.friendly.find(params.expect(:id))
     @author = @project.author_id
     @external_embed = true
     if Flipper.enabled?(:vuesim, current_user)
@@ -109,7 +109,7 @@ class SimulatorController < ApplicationController
       return
     end
 
-    issue_circuit_data = IssueCircuitDatum.find(params[:id])
+    issue_circuit_data = IssueCircuitDatum.find(params.expect(:id))
     render plain: issue_circuit_data.data
   end
 
@@ -134,7 +134,7 @@ class SimulatorController < ApplicationController
 
   def verilog_cv
     if params[:code].to_s.bytesize > MAX_CODE_SIZE
-      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" }, status: :payload_too_large
+      render json: { message: "Code too large (max #{MAX_CODE_SIZE} bytes)" }, status: :content_too_large
       return
     end
 
@@ -167,11 +167,11 @@ class SimulatorController < ApplicationController
       result = Yosys2Digitaljs::Runner.compile(code)
       render json: result
     rescue Yosys2Digitaljs::SyntaxError => e
-      render json: { message: "Syntax Error: #{e.message}" }, status: :unprocessable_entity
+      render json: { message: "Syntax Error: #{e.message}" }, status: :unprocessable_content
     rescue Yosys2Digitaljs::Runner::TimeoutError => e
       render json: { message: e.message }, status: :service_unavailable
     rescue Yosys2Digitaljs::Error => e
-      render json: { message: e.message }, status: :unprocessable_entity
+      render json: { message: e.message }, status: :unprocessable_content
     rescue StandardError => e
       Rails.logger.error("[Yosys Compilation Error] #{e.class}: #{e.message}\n#{e.backtrace&.first(5)&.join("\n")}")
       render json: { message: "Compilation failed" }, status: :internal_server_error
@@ -191,11 +191,11 @@ class SimulatorController < ApplicationController
     end
 
     def set_project
-      @project = Project.friendly.find(params[:id])
+      @project = Project.friendly.find(params.expect(:id))
     end
 
     def set_user_project
-      @project = Project.friendly.find(params[:id])
+      @project = Project.friendly.find(params.expect(:id))
       authorize @project, :edit_access?
     end
 

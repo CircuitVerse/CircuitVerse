@@ -30,7 +30,7 @@ class StarsController < ApplicationController
     if @star.save
       render plain: "Star added!"
     else
-      render plain: "Failed to add star", status: :unprocessable_entity
+      render plain: "Failed to add star", status: :unprocessable_content
     end
   end
 
@@ -58,7 +58,7 @@ class StarsController < ApplicationController
   private
 
     def set_star
-      @star = current_user.stars.find(params[:id])
+      @star = current_user.stars.find(params.expect(:id))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
