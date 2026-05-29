@@ -1,5 +1,5 @@
 # Use a multi stage build for the builder
-FROM --platform=$BUILDPLATFORM ruby:3.4 as builder
+FROM --platform=$BUILDPLATFORM ruby:4.0.5 as builder
 
 # Set production environment
 ARG BUILDPLATFORM
@@ -23,7 +23,7 @@ ENV BUNDLE_DEPLOYMENT=true
 ENV BUNDLE_WITHOUT=development:test
 
 RUN bundle install \
-   && rm -rf vendor/bundle/ruby/3.4.0/cache/*
+   && rm -rf vendor/bundle/ruby/4.0.0/cache/*
 
 COPY . .
 # Remove the Vue simulator directory (since it's being handled separately in another stage)
@@ -70,7 +70,7 @@ RUN ls -laR /output/
 
 # The files should now be in /app/public/simulatorvue/
 
-FROM --platform=$BUILDPLATFORM ruby:3.4-slim as app
+FROM --platform=$BUILDPLATFORM ruby:4.0.5-slim as app
 
 # Copy compiled assets and application from builder and Vue simulator build stages
 COPY --from=builder /usr/src/app /usr/src/app
