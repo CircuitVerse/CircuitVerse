@@ -14,6 +14,8 @@ class Organization < ApplicationRecord
   private
 
     def links_count_within_limit
+      return if links.blank?
+
       errors.add(:links, "cannot have more than 5 links") if links.size > 5
     end
 end
