@@ -1,23 +1,23 @@
-<%= form_with(model: announcement, local: true,  id:"AnnouncementForm")  do |form| %>
-  <div class="field form-group">
+<%= form_with(model: announcement, local: true, id: "AnnouncementForm")  do |form| %>
+  <div class="field mb-3">
     <h6><%= form.label :body %></h6>
     <div class="input-group">
-      <%= render partial: 'editor/index', locals: {content: announcement.body} %>
+      <%= render partial: "editor/index", locals: { content: announcement.body } %>
     </div>
   </div>
-  <div class="field form-group">
+  <div class="field mb-3">
     <h6><%= form.label :link %></h6>
     <div class="input-group">
       <%= form.text_field :link, class: "form-control form-input" %>
     </div>
   </div>
-  <div class="field form-group">
+  <div class="field mb-3">
     <h6><%= form.label :start_date %></h6>
     <div class="input-group">
       <%= form.date_field :start_date, class: "form-control form-input", required: true %>
     </div>
   </div>
-  <div class="field form-group">
+  <div class="field mb-3">
     <h6><%= form.label :end_date %></h6>
     <div class="input-group">
       <%= form.date_field :end_date, class: "form-control form-input", required: true %>

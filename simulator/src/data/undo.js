@@ -32,6 +32,7 @@ export default function undo(scope = globalScope) {
     tempScope.history = scope.history;
     tempScope.id = scope.id;
     tempScope.name = scope.name;
+    tempScope.testbenchData = scope.testbenchData;
     scopeList[scope.id] = tempScope;
     globalScope = tempScope;
     globalScope.ox = backupOx;

@@ -43,7 +43,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
       before do
         token = get_auth_token(user_one)
         get "/api/v1/users/#{user_one.id}/projects",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns user's all projects" do
@@ -69,7 +69,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
       before do
         token = get_auth_token(user_one)
         get "/api/v1/users/#{user_two.id}/projects",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns other user's public only projects" do
@@ -95,7 +95,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
       before do
         token = get_auth_token(user_one)
         get "/api/v1/users/#{user_one.id}/projects?include=author",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns user's all projects including author details" do
@@ -109,7 +109,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
       before do
         token = get_auth_token(user_one)
         get "/api/v1/users/#{user_one.id}/projects",
-            headers: { "Authorization": "Token #{token}" },
+            headers: { Authorization: "Token #{token}" },
             params: { sort: "view" }, as: :json
       end
 
@@ -123,7 +123,7 @@ RSpec.describe Api::V1::ProjectsController, "#user_projects", type: :request do
       before do
         token = get_auth_token(user_one)
         get "/api/v1/users/#{user_one.id}/projects",
-            headers: { "Authorization": "Token #{token}" },
+            headers: { Authorization: "Token #{token}" },
             params: { sort: "-view" }, as: :json
       end
 

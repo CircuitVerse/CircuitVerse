@@ -9,6 +9,7 @@ import { backUp } from './data/backupCircuit';
 import { getNextPosition } from './modules';
 import { generateId } from './utils';
 import simulationArea from './simulationArea';
+import { TestbenchData } from './testbench';
 
 /**
  * Helper function to paste
@@ -204,6 +205,7 @@ export function copy(copyList, cutflag = false) {
     var oldOy = globalScope.oy;
     var oldScale = globalScope.scale;
     var d = backUp(globalScope);
+    const oldTestbenchData = globalScope.testbenchData;
 
     loadScope(tempScope, d);
     scopeList[tempScope.id] = tempScope;
@@ -265,6 +267,7 @@ export function copy(copyList, cutflag = false) {
     }
     for (let i = 0; i < requiredDependencies.length; i++) { saveScope(requiredDependencies[i]); }
     data.logixClipBoardData = true;
+    data.testbenchData = undefined // Don't copy testbench data
     data = JSON.stringify(data);
     simulationArea.multipleObjectSelections = []; // copyList.slice();
     simulationArea.copyList = []; // copyList.slice();
@@ -275,6 +278,15 @@ export function copy(copyList, cutflag = false) {
     globalScope.ox = oldOx;
     globalScope.oy = oldOy;
     globalScope.scale = oldScale;
+    // Restore testbench data
+    if (oldTestbenchData) {
+        globalScope.testbenchData = new TestbenchData(
+            oldTestbenchData.testData,
+            oldTestbenchData.currentGroup,
+            oldTestbenchData.currentCase
+        );
+    }
+
     forceResetNodesSet(true);
     // needs to be fixed
     // eslint-disable-next-line consistent-return

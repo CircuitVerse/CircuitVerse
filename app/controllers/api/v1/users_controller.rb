@@ -38,7 +38,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   private
 
     def set_user
-      @user = User.find(params[:id])
+      @user = User.find(params.expect(:id))
     end
 
     def check_access
@@ -50,6 +50,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     end
 
     def user_params
-      params.permit(:name, :locale, :educational_institute, :country, :subscribed)
+      params.permit(:name, :locale, :educational_institute, :country, :subscribed,
+                    :profile_picture, :remove_picture)
     end
 end

@@ -36,13 +36,13 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
   def destroy
     @collaboration = Collaboration.find_by(user: @collaborator, project: @project)
     @collaboration.destroy!
-    render json: {}, status: :no_content
+    head :no_content
   end
 
   private
 
     def set_project
-      @project = Project.find(params[:project_id])
+      @project = Project.find(params.expect(:project_id))
     end
 
     def check_author_access
@@ -54,10 +54,10 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
     end
 
     def set_collaborator
-      @collaborator = @project.collaborators.find(params[:id])
+      @collaborator = @project.collaborators.find(params.expect(:id))
     end
 
     def collaborator_params
-      params.require(:collaborator).permit(:project_id, :emails)
+      params.expect(collaborator: %i[project_id emails])
     end
 end

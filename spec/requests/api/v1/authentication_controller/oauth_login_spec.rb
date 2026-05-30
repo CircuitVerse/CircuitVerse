@@ -9,8 +9,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
         post "/api/v1/oauth/login", params: oauth_params, as: :json
       end
 
-      it "return status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(:not_found)
+      it "return status 401 and should have jsonapi errors" do
+        expect(response).to have_http_status(:unauthorized)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -18,8 +18,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
     context "with invalid access token" do
       before do
         post "/api/v1/oauth/login", params: {
-          "access_token": "invalid_access_token",
-          "provider": "google"
+          access_token: "invalid_access_token",
+          provider: "google"
         }, as: :json
       end
 
@@ -32,8 +32,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
     context "with unsupported provider type" do
       before do
         post "/api/v1/oauth/login", params: {
-          "access_token": "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
-          "provider": "unsupported_provider"
+          access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+          provider: "unsupported_provider"
         }, as: :json
       end
 
@@ -57,8 +57,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_login", type: :request
 
     def oauth_params
       {
-        "access_token": "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
-        "provider": "google"
+        access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+        provider: "google"
       }
     end
   end

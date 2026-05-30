@@ -34,6 +34,7 @@ export default class Power extends CircuitElement {
     resolve() {
         this.output1.value = ~0 >>> (32 - this.bitWidth);
         simulationArea.simulationQueue.add(this.output1);
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -101,7 +102,7 @@ Power.prototype.tooltipText = "Power: All bits are High(1).";
  * @category modules
  */
 Power.prototype.helplink =
-    "https://docs.circuitverse.org/#/inputElements?id=power";
+    "https://docs.circuitverse.org/#/chapter4/2input?id=power";
 
 /**
  * @memberof Power

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import Driver from 'driver.js';
 
 export const tour = [
@@ -25,7 +26,7 @@ export const tour = [
         element: '.quick-btn',
         popover: {
             title: 'Quick Access Panel',
-            description: "This movable panel offers to perform some actions like Save Online, Open, Download quickly. Hover over the icons and see for yourself",
+            description: 'This movable panel offers to perform some actions like Save Online, Open, Download quickly. Hover over the icons and see for yourself',
             position: 'bottom',
             // offset: 750,
         },
@@ -44,7 +45,7 @@ export const tour = [
         element: '#tabsBar',
         popover: {
             title: 'Circuit Tabs',
-            description: "This section displays all the circuits you have in your project. You can easily add and delete circuits.",
+            description: 'This section displays all the circuits you have in your project. You can easily add and delete circuits.',
             position: 'bottom',
             offset: 250,
         },
@@ -53,13 +54,21 @@ export const tour = [
         element: '.timing-diagram-panel',
         popover: {
             title: 'Timing Diagram Panel (Waveform)',
-            description: "This panel displays the waveform created by circuits and can be used for resolving race conditions and debugging circuits.",
+            description: 'This panel displays the waveform created by circuits and can be used for resolving race conditions and debugging circuits.',
             position: 'bottom',
             offset: 0,
         },
     },
-    
-    
+    {
+        element: '.testbench-manual-panel',
+        popover: {
+            title: 'Test Bench Panel',
+            description: 'This panel helps you test your circuit correctness by observing how your circuit responds under different test cases, ensuring a thorough and effective validation process.',
+            position: 'right',
+            offset: 0,
+        },
+    },
+
     // {
     //     element: '#delCirGuide',
     //     popover: {
@@ -72,9 +81,9 @@ export const tour = [
     {
         element: '.fa-bug',
         popover: {
-            className: "bug-guide",
+            className: 'bug-guide',
             title: 'Report System',
-            description: "You can report any issues/bugs you face through this issue reporting button there and then quickly.",
+            description: 'You can report any issues/bugs you face through this issue reporting button there and then quickly.',
             position: 'left',
             offset: -105,
         },
@@ -90,14 +99,58 @@ export const tour = [
         },
     },
 
+];
 
-]
+export const touchTour = [
+    {
+        element: '#touchMenu',
+        className: 'touchMenuIcon',
+        popover: {
+            className: '',
+            title: 'Menu Buttons',
+            description: 'This are the button help you to access the following tools 1.CircuitElement 2.PropertiesPanel 3.TimeDiagram 4.QuickMenu',
+            position: 'left',
+            offset: 50,
+        },
+    },
+    {
+        element: '#liveMenu',
+        className: 'liveMenuIcon',
+        popover: {
+            className: '',
+            title: 'Quick Tools',
+            description: 'This are Quick Tools 1.Fit to screen 2.Delete 3.Undo',
+            position: 'down',
+            offset: 1,
+        },
+    },
+    {
+        element: '#tabsBar',
+        popover: {
+            title: 'Circuit Tabs',
+            description: 'This section displays all the circuits you have in your project. You can easily add and delete circuits.',
+            position: 'bottom',
+            offset: 250,
+        },
+    },
+    {
+        element: '#smallNavbarMenu-btn',
+        className: '',
+        popover: {
+            className: '',
+            title: 'Navmenu Button',
+            description: 'This button is use to access Navmenu',
+            position: 'left',
+            offset: 0,
+        },
+    },
+];
 
 // Not used currently
 export const tutorialWrapper = () => {
     const panelHighlight = new Driver();
     $('.panelHeader').one('click', (e) => {
-        if (localStorage.tutorials === "next") {
+        if (localStorage.tutorials === 'next') {
             panelHighlight.highlight({
                 element: '#guide_1',
                 showButtons: false,
@@ -106,15 +159,15 @@ export const tutorialWrapper = () => {
                     description: 'Select any element by clicking on it & then click anywhere on the grid to place the element.',
                     position: 'right',
                     offset: $($(e.target).next()).height() + $(e.target).offset().top - 45,
-                }
-            })
+                },
+            });
             localStorage.setItem('tutorials', 'done');
         }
-    })
-    $('.icon').on('click',() => {
+    });
+    $('.icon').on('click', () => {
         panelHighlight.reset(true);
     });
-}
+};
 
 const animatedTourDriver = new Driver({
     animate: true,
@@ -125,9 +178,13 @@ const animatedTourDriver = new Driver({
 
 export function showTourGuide() {
     $('.draggable-panel .maximize').trigger('click');
-    animatedTourDriver.defineSteps(tour);
+    if (window.screen.width > 1000) {
+        animatedTourDriver.defineSteps(tour);
+    } else {
+        animatedTourDriver.defineSteps(touchTour);
+    }
     animatedTourDriver.start();
     localStorage.setItem('tutorials_tour_done', true);
 }
 
-export default showTourGuide; 
+export default showTourGuide;

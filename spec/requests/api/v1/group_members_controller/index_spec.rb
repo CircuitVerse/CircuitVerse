@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
   describe "list all groups members" do
-    let!(:mentor) { FactoryBot.create(:user) }
-    let!(:group) { FactoryBot.create(:group, mentor: mentor) }
+    let!(:primary_mentor) { FactoryBot.create(:user) }
+    let!(:group) { FactoryBot.create(:group, primary_mentor: primary_mentor) }
 
     context "when not authenticated" do
       before do
@@ -18,17 +18,15 @@ RSpec.describe Api::V1::GroupMembersController, "#index", type: :request do
       end
     end
 
-    context "when authenticated as mentor and has group members" do
+    context "when authenticated as primary_mentor and has group members" do
       before do
         # create 3 groups members for the defined group
-        # rubocop:disable FactoryBot/CreateList
         3.times do
           FactoryBot.create(:group_member, group: group, user: FactoryBot.create(:user))
         end
-        # rubocop:enable FactoryBot/CreateList
-        token = get_auth_token(mentor)
+        token = get_auth_token(primary_mentor)
         get "/api/v1/groups/#{group.id}/members",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns all groups members" do

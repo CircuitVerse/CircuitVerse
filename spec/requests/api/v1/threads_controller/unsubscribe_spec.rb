@@ -20,7 +20,7 @@ RSpec.describe Api::V1::ThreadsController, "#unsubscribe", type: :request do
       before do
         token = get_auth_token(user)
         put "/api/v1/threads/#{project.commontator_thread.id}/unsubscribe",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status conflict & 'thread not subscribed' error" do
@@ -34,7 +34,7 @@ RSpec.describe Api::V1::ThreadsController, "#unsubscribe", type: :request do
         project.commontator_thread.subscribe(user)
         token = get_auth_token(user)
         put "/api/v1/threads/#{project.commontator_thread.id}/unsubscribe",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status success & 'thread unsubscribed' message" do

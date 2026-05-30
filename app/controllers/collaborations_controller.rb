@@ -18,8 +18,7 @@ class CollaborationsController < ApplicationController
     authorize @project, :author_access?
 
     already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
-    collaboration_emails = Utils.parse_mails_except_current_user(collaboration_params[:emails],
-                                                                 current_user)
+    collaboration_emails = collaboration_params[:emails].grep(Devise.email_regexp)
 
     newly_added = collaboration_emails - already_present
 
@@ -35,9 +34,7 @@ class CollaborationsController < ApplicationController
 
     notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
 
-    if collaboration_params[:emails].include?(current_user.email)
-      notice = "You can't invite yourself. #{notice}"
-    end
+    notice = "You can't invite yourself. #{notice}" if collaboration_params[:emails].include?(current_user.email)
 
     respond_to do |format|
       format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: notice }
@@ -51,11 +48,13 @@ class CollaborationsController < ApplicationController
 
     respond_to do |format|
       if @collaboration.update(collaboration_params)
-        format.html { redirect_to @collaboration, notice: "Collaboration was successfully updated." }
+        format.html do
+          redirect_to @collaboration, notice: "Collaboration was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @collaboration }
       else
         format.html { render :edit }
-        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
+        format.json { render json: @collaboration.errors, status: :unprocessable_content }
       end
     end
   end
@@ -67,7 +66,10 @@ class CollaborationsController < ApplicationController
 
     @collaboration.destroy
     respond_to do |format|
-      format.html { redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id), notice: "Collaboration was successfully destroyed." }
+      format.html do
+        redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id),
+                    notice: "Collaboration was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
@@ -76,11 +78,11 @@ class CollaborationsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_collaboration
-      @collaboration = Collaboration.find(params[:id])
+      @collaboration = Collaboration.find(params.expect(:id))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collaboration_params
-      params.require(:collaboration).permit(:user_id, :project_id, :emails)
+      params.expect(collaboration: [:user_id, :project_id, { emails: [] }])
     end
 end

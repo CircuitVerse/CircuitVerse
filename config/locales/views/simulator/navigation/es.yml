@@ -1,0 +1,8 @@
+es:
+  simulator:
+    nav_item:
+      project: "Projekt"
+      circuit: "Circuito"
+      tools: "Herramientas"
+      help: "Ayuda"
+    insert_Subcircuitcontent: " Parece que no hay otros circuitos que no tengan este circuito como dependencia. ¡Crea uno nuevo!"

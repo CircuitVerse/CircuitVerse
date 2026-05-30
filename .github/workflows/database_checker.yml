@@ -1,0 +1,43 @@
+name: "DBChecker"
+on:
+  [push, pull_request, workflow_dispatch]
+jobs:
+  db_check:
+    name: DB Check
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:alpine
+        ports: ["6379:6379"]
+        options: --entrypoint redis-server
+        env:
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
+      postgres:
+        image: postgres:16-alpine
+        ports:
+          - "5432:5432"
+        env:
+          POSTGRES_DB: rails_test
+          POSTGRES_USER: rails
+          POSTGRES_PASSWORD: password
+    env:
+      RAILS_ENV: test
+      DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"      
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Install Ruby and Gems
+        uses: ruby/setup-ruby@v1 # v1.115.3
+        with:
+          bundler-cache: true
+      - name: Copy the sample ENV Config
+        run: cp .env.example .env
+      - name: Set up database schema
+        run: bin/rails db:schema:load
+      - name: Run data migration tasks
+        run: bin/rails data:migrate    
+      - name: DB Check
+        run: bundle exec database_consistency

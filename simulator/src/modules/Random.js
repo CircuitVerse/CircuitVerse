@@ -68,6 +68,8 @@ export default class Random extends CircuitElement {
             this.output.value = this.currentRandomNo;
             simulationArea.simulationQueue.add(this.output);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customSave() {
@@ -147,7 +149,7 @@ export default class Random extends CircuitElement {
 
 Random.prototype.tooltipText = 'Random ToolTip : Random Selected.';
 
-Random.prototype.helplink = 'https://docs.circuitverse.org/#/inputElements?id=random';
+Random.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/2input?id=random';
 
 Random.prototype.objectType = 'Random';
 

@@ -45,7 +45,7 @@
     border-radius: 6px;
     opacity: 0.1;
     transition: .4s;
-    height: 109px;
+    height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -246,4 +246,17 @@ button:focus {outline:0;}
 
 .embed-fullscreen-btn {
     border-radius: 20px;
+}
+
+#bottom_right_circuit_heading {
+    display: none;
+    text-decoration: none;
+    position: fixed;
+    bottom: 4px;
+    right: 22px;
+    padding: 8px;
+    font-family: Verdana;
+    font-size: 12px;
+    color: var(--text-panel);
+    z-index: 2;
 }

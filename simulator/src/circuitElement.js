@@ -1,5 +1,6 @@
 /* eslint-disable no-multi-assign */
 /* eslint-disable no-bitwise */
+/* eslint-disable */
 import { scheduleUpdate } from './engine';
 import simulationArea from './simulationArea';
 import {
@@ -182,7 +183,7 @@ export default class CircuitElement {
      * check hover over the element
      * @return {boolean}
      */
-    checkHover() {
+    checkHover () {
         if (simulationArea.mouseDown) return;
         for (let i = 0; i < this.nodeList.length; i++) {
             this.nodeList[i].checkHover();
@@ -434,8 +435,8 @@ export default class CircuitElement {
      * NOT OVERRIDABLE
     */
     isHover() {
-        var mX = simulationArea.mouseXf - this.x;
-        var mY = this.y - simulationArea.mouseYf;
+        var mX = simulationArea.touch ? simulationArea.mouseDownX - this.x : simulationArea.mouseXf - this.x;
+        var mY = simulationArea.touch ? this.y - simulationArea.mouseDownY : this.y - simulationArea.mouseYf;
 
         var rX = this.rightDimensionX;
         var lX = this.leftDimensionX;
@@ -795,6 +796,18 @@ export default class CircuitElement {
                     this.nodeList[i].value = undefined;
                     simulationArea.simulationQueue.add(this.nodeList[i]);
                 }
+            }
+        }
+    }
+
+    /**
+     * Sets isValueUpstream for all output nodes of the
+     * element.
+     * */
+    setOutputsUpstream(bool) {
+        for (let i = 0; i < this.nodeList.length; i++) {
+            if (this.nodeList[i].type === NODE_OUTPUT) {
+                this.nodeList[i].isValueUpstream = bool;
             }
         }
     }

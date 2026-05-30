@@ -14,6 +14,7 @@ import { generateId } from '../utils';
 import modules from '../modules';
 import { oppositeDirection } from '../canvasApi';
 import plotArea from '../plotArea';
+import { updateTestbenchUI, TestbenchData } from '../testbench';
 
 /**
  * Backward compatibility - needs to be deprecated
@@ -42,7 +43,11 @@ function loadModule(data, scope) {
     obj.labelDirection = data.labelDirection || oppositeDirection[fixDirection[obj.direction]];
 
     // Sets delay
-    obj.propagationDelay = data.propagationDelay || obj.propagationDelay;
+    if (data.propagationDelay === 0) {
+        obj.propagationDelay = 0;
+    } else {
+        obj.propagationDelay = data.propagationDelay || obj.propagationDelay;
+    }
     obj.fixDirection();
 
     // Restore other values
@@ -123,6 +128,15 @@ export function loadScope(scope, data) {
     // If Verilog Circuit Metadata exists, then restore
     if (data.verilogMetadata) {
         scope.verilogMetadata = data.verilogMetadata;
+    }
+
+    // If Test exists, then restore
+    if (data.testbenchData) {
+        globalScope.testbenchData = new TestbenchData(
+            data.testbenchData.testData,
+            data.testbenchData.currentGroup,
+            data.testbenchData.currentCase
+        );
     }
 
     // If layout exists, then restore
@@ -224,6 +238,9 @@ export default function load(data) {
     // Switch to last focussedCircuit
     if (data.focussedCircuit) 
         switchCircuit(data.focussedCircuit);
+
+    // Update the testbench UI
+    updateTestbenchUI();
 
     updateSimulationSet(true);
     updateCanvasSet(true);

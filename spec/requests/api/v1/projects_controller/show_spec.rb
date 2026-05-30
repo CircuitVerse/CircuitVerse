@@ -62,7 +62,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{public_project.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns project details" do
@@ -75,7 +75,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{private_project.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns project details" do
@@ -88,7 +88,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       before do
         token = get_auth_token(random_user)
         get "/api/v1/projects/#{public_project.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns project details" do
@@ -101,7 +101,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       before do
         token = get_auth_token(random_user)
         get "/api/v1/projects/#{private_project.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :forbidden" do
@@ -115,7 +115,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
         token = get_auth_token(user)
         FactoryBot.create(:star, user_id: user.id, project_id: public_project.id)
         get "/api/v1/projects/#{public_project.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns project details with is_starred attr to be true" do
@@ -129,7 +129,7 @@ RSpec.describe Api::V1::ProjectsController, "#show", type: :request do
       before do
         token = get_auth_token(user)
         get "/api/v1/projects/#{public_project.id}",
-            headers: { "Authorization": "Token #{token}" }, as: :json
+            headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns project details with is_starred attr to be false" do

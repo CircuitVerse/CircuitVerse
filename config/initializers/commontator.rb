@@ -66,7 +66,11 @@ Commontator.configure do |config|
     # image_tag(user.profile_picture.url(:thumb), { alt: user.name,
     #                  title: user.name,
     #                  border: 1 })
-    return ActionController::Base.helpers.image_tag(user.profile_picture.url(:thumb));
+    if user.profile_picture.attached?
+      return ActionController::Base.helpers.image_tag(user.profile_picture.url)
+    else
+      return ActionController::Base.helpers.image_tag("thumb/Default.jpg")
+    end
     # puts view.commontator_gravatar_image_tag(user, 1, s: 60, d: 'mm')
     # view.commontator_gravatar_image_tag(user, 1, s: 60, d: 'mm')
   }
@@ -200,6 +204,18 @@ Commontator.configure do |config|
   #   :n (link to the form; opens in a new window)
   # Default: :l
   config.new_comment_style = :l
+
+  # comment_reply_style
+  # Type: Symbol
+  # How to handle replies to comments
+  # Valid options:
+  #   :n (no replies, though users can still manually add <blockquote>s)
+  #   :q (copies the comment being replied to into a <blockquote>)
+  #   :i (indents each reply under the comment being replied to)
+  #   :b (both <blockquote> the original comment and indent replies)
+  # It might be a good idea to add some CSS to hide <blockquote>s when converting from :q to :i
+  # Default: :n
+  config.comment_reply_style = :i
 
   # comments_per_page
   # Type: Array

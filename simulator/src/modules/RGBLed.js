@@ -24,6 +24,7 @@ export default class RGBLed extends CircuitElement {
         this.rectangleObject = false;
         this.inp = [];
         this.setDimensions(10, 10);
+        this.downDimensionY = 40;
         this.inp1 = new Node(-40, -10, 0, this, 8);
         this.inp2 = new Node(-40, 0, 0, this, 8);
         this.inp3 = new Node(-40, 10, 0, this, 8);
@@ -165,6 +166,6 @@ RGBLed.prototype.tooltipText =
  * @category modules
  */
 RGBLed.prototype.helplink =
-    "https://docs.circuitverse.org/#/outputs?id=rgb-led";
+    "https://docs.circuitverse.org/#/chapter4/3output?id=rgbled";
 RGBLed.prototype.objectType = "RGBLed";
 RGBLed.prototype.canShowInSubcircuit = true;

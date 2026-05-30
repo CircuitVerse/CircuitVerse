@@ -10,15 +10,17 @@ class ErrorsController < ApplicationController
 
   def unacceptable
     respond_to do |format|
-      format.html { render status: :unprocessable_entity }
-      format.json { render json: { error: "Params unacceptable" }, status: :unprocessable_entity }
+      format.html { render status: :unprocessable_content }
+      format.json { render json: { error: "Params unacceptable" }, status: :unprocessable_content }
     end
   end
 
   def internal_error
     respond_to do |format|
       format.html { render status: :internal_server_error }
-      format.json { render json: { error: "Internal server error" }, status: :internal_server_error }
+      format.json do
+        render json: { error: "Internal server error" }, status: :internal_server_error
+      end
     end
   end
 end

@@ -26,7 +26,6 @@ test:
   database: circuitverse_test
 
 production:
-  username: <%= ENV['DB_USERNAME']%>
-  password: <%= ENV['DB_PASSWORD']%>
-  host: localhost
+  <<: *default
+  url : <%= ENV["POSTGRES_URL"] %>
   database: circuitverse_production

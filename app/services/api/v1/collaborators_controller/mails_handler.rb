@@ -2,9 +2,17 @@
 
 class Api::V1::CollaboratorsController
   class MailsHandler
-    attr_reader :valid_mails, :invalid_mails, :existing_mails
+    # @return [Array<String>]
+    attr_reader :valid_mails
+    # @return [Array<String>]
+    attr_reader :invalid_mails
+    # @return [Array<String>]
+    attr_reader :existing_mails
 
     # initialize the class with mails, project and current_user to be used in class
+    # @param [String] mails
+    # @param [Project] project
+    # @param [User] current_user
     def initialize(mails, project, current_user)
       @mails = mails
       @project = project
@@ -15,6 +23,7 @@ class Api::V1::CollaboratorsController
     end
 
     # parse emails as valid, invalid or existing mails
+    # @return [void]
     def parse
       @mails.split(",").each do |email|
         email = email.strip
@@ -30,6 +39,8 @@ class Api::V1::CollaboratorsController
       ).pluck(:email)
     end
 
+    # returns added mails
+    # @return [Array<String>]
     def added_mails
       newly_added = valid_mails - existing_mails
       added_mails = []

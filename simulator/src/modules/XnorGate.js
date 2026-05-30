@@ -103,6 +103,8 @@ export default class XnorGate extends CircuitElement {
             ((~result >>> 0) << (32 - this.bitWidth)) >>> (32 - this.bitWidth);
         this.output1.value = result;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -195,5 +197,5 @@ XnorGate.prototype.changeInputSize = changeInputSize;
  */
 XnorGate.prototype.verilogType = "xnor";
 XnorGate.prototype.helplink =
-    "https://docs.circuitverse.org/#/gates?id=xnor-gate";
+    "https://docs.circuitverse.org/#/chapter4/4gates?id=xnor-gate";
 XnorGate.prototype.objectType = "XnorGate";

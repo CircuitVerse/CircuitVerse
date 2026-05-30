@@ -77,6 +77,8 @@ export default class verilogShiftLeft extends CircuitElement {
 
         this.output1.value = ((output1) << (32 - this.outputBitWidth)) >>> (32 - this.outputBitWidth);
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 }
 

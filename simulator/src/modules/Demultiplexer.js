@@ -135,6 +135,8 @@ export default class Demultiplexer extends CircuitElement {
         for (let i = 0; i < this.output1.length; i++) {
             simulationArea.simulationQueue.add(this.output1[i]);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -320,5 +322,5 @@ export default class Demultiplexer extends CircuitElement {
 Demultiplexer.prototype.tooltipText =
     "DeMultiplexer ToolTip : Multiple outputs and a single line input.";
 Demultiplexer.prototype.helplink =
-    "https://docs.circuitverse.org/#/decodersandplexers?id=demultiplexer";
+    "https://docs.circuitverse.org/#/chapter4/5muxandplex?id=demultiplexer";
 Demultiplexer.prototype.objectType = "Demultiplexer";

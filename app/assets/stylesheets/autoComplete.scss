@@ -1,0 +1,65 @@
+$slight-grey: rgba(123, 123, 123, .1);
+
+.autoComplete_wrapper {
+  position: relative;
+}
+
+.autocomplete {
+  border: 1px solid $black;
+  border-radius: 4px;
+  font-size: 1rem;
+  outline: 0;
+  padding-left: 10px;
+}
+
+.autocomplete-list {
+  background-color: $white;
+  border: 1px solid $black;
+  border-radius: 4px;
+  left: 0;
+  margin: .5rem 0 0;
+  outline: 0;
+  overflow-y: scroll;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  z-index: 1000;
+}
+
+.autocomplete-list-item {
+  background-color: $white;
+  border-radius: 3px;
+  color: footer-dark-grey;
+  font-size: 16px;
+  list-style: none;
+  overflow: hidden;
+  padding: 10px 20px;
+  text-align: left;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &::selection {
+    background-color: rgba($white, 0);
+    color: rgba($white, 0);
+  }
+
+  &:hover {
+    background-color: $slight-grey;
+    cursor: pointer;
+  }
+
+  &[aria-selected="true"] {
+    background-color: $slight-grey;
+  }
+
+  mark {
+    background-color: transparent;
+    color: $primary-green;
+    font-weight: 700;
+
+    &::selection {
+      background-color: rgba($white, 0);
+      color: rgba($white, 0);
+    }
+  }
+}

@@ -3,6 +3,7 @@ import Node, { findNode } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText, oppositeDirection } from "../canvasApi";
 import { colors } from "../themer/themer";
+import { showMessage } from '../utils';
 
 function bin2dec(binString) {
     return parseInt(binString, 2);
@@ -81,6 +82,7 @@ export default class ConstantVal extends CircuitElement {
     resolve() {
         this.output1.value = bin2dec(this.state);
         simulationArea.simulationQueue.add(this.output1);
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -88,8 +90,21 @@ export default class ConstantVal extends CircuitElement {
      * updates state using a prompt when dbl clicked
      */
     dblclick() {
-        this.state = prompt("Re enter the value") || "0";
+        const state_ = prompt("Re enter the value") || "0";
+        if (!this.isValidState(state_)) {
+            showMessage("Invalid constant value. Please only input binary values");
+            return;
+        }
+
+        this.state = state_;
         this.newBitWidth(this.state.toString().length);
+    }
+
+    isValidState(state) {
+        for (const c of state)
+            if (c != "0" && c != "1") return false;
+
+        return true;
     }
 
     /**
@@ -203,7 +218,7 @@ ConstantVal.prototype.tooltipText =
  * @category modules
  */
 ConstantVal.prototype.helplink =
-    "https://docs.circuitverse.org/#/inputElements?id=constantval";
+    "https://docs.circuitverse.org/#/chapter4/2input?id=constantval";
 
 /**
  * @memberof ConstantVal

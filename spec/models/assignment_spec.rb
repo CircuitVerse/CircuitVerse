@@ -4,8 +4,8 @@ require "rails_helper"
 
 RSpec.describe Assignment, type: :model do
   before do
-    @mentor = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @mentor)
+    @primary_mentor = FactoryBot.create(:user)
+    @group = FactoryBot.create(:group, primary_mentor: @primary_mentor)
   end
 
   describe "associations" do
@@ -13,7 +13,7 @@ RSpec.describe Assignment, type: :model do
     it { is_expected.to have_many(:projects) }
   end
 
-  describe "callbacks", :focus do
+  describe "callbacks" do
     it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_new_assignment_mail)
       expect_any_instance_of(described_class).to receive(:send_update_mail)

@@ -71,7 +71,7 @@ describe Users::CircuitverseController, type: :request do
   end
 
   it "does not remember session redirect for long URLs" do
-    get "/?x=" + "x" * 300
+    get "/?x=#{'x' * 300}"
     expect(session[:user_return_to]).to eq("/")
   end
 end

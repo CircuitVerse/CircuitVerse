@@ -2,6 +2,8 @@
 
 class ProjectsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
+  include SanitizeDescription
+  include UsersCircuitverseHelper
 
   before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
   before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
@@ -15,12 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @author = User.find(params[:user_id])
-  end
-
-  # GET /projects/tags/[tag]
-  def get_projects
-    @projects = Project.tagged_with(params[:tag]).open.includes(:tags, :author)
+    @author = User.find(params.expect(:user_id))
   end
 
   # GET /projects/1
@@ -34,6 +31,14 @@ class ProjectsController < ApplicationController
     @collaboration = @project.collaborations.new
     @admin_access = true
     commontator_thread_show(@project)
+
+    # Resolve simulator embed path
+    @embed_path =
+      # if @project.uses_vue_simulator?
+      # simulatorvue_path(@project)
+      # else
+      simulator_path(@project)
+    # end
   end
 
   # GET /projects/1/edit
@@ -46,7 +51,6 @@ class ProjectsController < ApplicationController
       @star.user_id = current_user.id
       @star.project_id = @project.id
       @star.save
-      @star.notify :users
       render js: "2"
     else
       star.destroy
@@ -58,7 +62,6 @@ class ProjectsController < ApplicationController
     authorize @project
     @project_new = @project.fork(current_user)
     @project_new.save!
-    @project_new.notify :users, key: "project.fork"
     redirect_to user_project_path(current_user, @project_new)
   end
 
@@ -69,11 +72,14 @@ class ProjectsController < ApplicationController
 
     respond_to do |format|
       if @project.save
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully created." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully created."
+        end
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -82,13 +88,17 @@ class ProjectsController < ApplicationController
   # PATCH/PUT /projects/1.json
   def update
     @project.description = params["description"]
+    set_name_project_datum(project_params)
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to user_project_path(@project.author_id, @project), notice: "Project was successfully updated." }
+        format.html do
+          redirect_to user_project_path(@project.author_id, @project),
+                      notice: "Project was successfully updated."
+        end
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -98,7 +108,9 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed." }
+      format.html do
+        redirect_to user_path(@project.author_id), notice: "Project was successfully destroyed."
+      end
       format.json { head :no_content }
     end
   end
@@ -108,10 +120,10 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       if params[:user_id]
-        @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @author = User.find(params.expect(:user_id))
+        @project = @author.projects.friendly.with_attached_circuit_preview.find(params.expect(:id))
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.with_attached_circuit_preview.find(params.expect(:id))
         @author = @project.author
       end
     end
@@ -130,19 +142,23 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :project_access_type, :description, :tag_list, :tags)
+      params.expect(project: %i[name project_access_type description tag_list tags])
     end
 
     def sanitize_name
-      params[:project][:name] = sanitize(project_params[:name])
+      params.permit(:project)[:name] = sanitize(project_params[:name])
     end
 
     # Sanitize description before passing to view
     def sanitize_project_description
-      @project.description = sanitize(
-        @project.description,
-        tags: %w[img p strong em a sup sub del u span h1 h2 h3 h4 hr li ol ul blockquote],
-        attributes: %w[style src href alt title target]
-      )
+      @project.description = sanitize_description(@project.description)
+    end
+
+    def set_name_project_datum(project_params)
+      return unless @project.project_datum
+
+      datum_data = JSON.parse(@project.project_datum.data)
+      datum_data["name"] = project_params["name"]
+      @project.project_datum.data = JSON.generate(datum_data)
     end
 end

@@ -1,0 +1,44 @@
+<% content_for :title, "#{t('explore.sections.tags.heading')} - #{@tag.name}" %>
+
+<div class="container">
+  <div class="row center-row">
+    <div class="col-12">
+      <h1 class="main-heading"><%= t("explore.sections.tags.heading") %></h1>
+      <p class="main-description">
+        <%= t("explore.sections.tags.description") %>
+        <span class="badge search-tag" style="vertical-align: baseline;"><%= @tag.name %></span>
+      </p>
+    </div>
+  </div>
+
+  <% if @projects.any? %>
+    <div class="project-cards-grid">
+      <%= render(Project::ProjectCardComponent.with_collection(@projects)) %>
+    </div>
+
+    <div class="container pagination-cont">
+      <ul class="pagination justify-content-center">
+        <li class="page-item <%= 'disabled' unless @has_prev %>">
+          <% if @has_prev %>
+            <%= link_to t("pagination.previous", default: "Previous"),
+                        "#{tag_path(@tag.name)}?before=#{@prev_cursor}",
+                        class: "page-link" %>
+          <% else %>
+            <span class="page-link"><%= t("pagination.previous", default: "Previous") %></span>
+          <% end %>
+        </li>
+        <li class="page-item <%= 'disabled' unless @has_next %>">
+          <% if @has_next %>
+            <%= link_to t("pagination.next", default: "Next"),
+                        "#{tag_path(@tag.name)}?after=#{@next_cursor}",
+                        class: "page-link" %>
+          <% else %>
+            <span class="page-link"><%= t("pagination.next", default: "Next") %></span>
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  <% else %>
+    <p class="text-muted"><%= t("explore.empty") %></p>
+  <% end %>
+</div>

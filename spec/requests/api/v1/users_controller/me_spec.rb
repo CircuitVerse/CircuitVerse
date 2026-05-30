@@ -20,7 +20,7 @@ RSpec.describe Api::V1::UsersController, "#me", type: :request do
     context "when authenticated" do
       before do
         token = get_auth_token(user)
-        get "/api/v1/me", headers: { "Authorization": "Token #{token}" }, as: :json
+        get "/api/v1/me", headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns the logged in user" do

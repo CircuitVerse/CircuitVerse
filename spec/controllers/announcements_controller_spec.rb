@@ -27,7 +27,7 @@ RSpec.describe AnnouncementsController, type: :request do
       end
 
       it "creates a new announcement" do
-        expect { (post announcements_path, params: create_params) }
+        expect { post announcements_path, params: create_params }
           .to change(Announcement, :count).by(1)
       end
     end
@@ -63,6 +63,21 @@ RSpec.describe AnnouncementsController, type: :request do
         get announcements_path(@announcement)
         expect(response.status).to eq(200)
         expect(response.body).to include(@announcement.body)
+      end
+    end
+
+    describe "#edit" do
+      it "shows the details of the announcement for edit" do
+        get edit_announcement_path(@announcement)
+        expect(response.status).to eq(200)
+        expect(response.body).to include(@announcement.body)
+      end
+    end
+
+    describe "#destroy" do
+      it "deletes the announcement" do
+        expect { delete announcement_path(@announcement) }
+          .to change(Announcement, :count).by(-1)
       end
     end
   end

@@ -1,0 +1,814 @@
+{
+    "name": "SubCircuit",
+    "timePeriod": 500,
+    "clockEnabled": true,
+    "projectId": "KXmhGDZlwFlzVjPmxY8g",
+    "focussedCircuit": 69980799589,
+    "orderedTabs": [
+        "69980799589",
+        "98622262167"
+    ],
+    "scopes": [
+        {
+            "layout": {
+                "width": 100,
+                "height": 60,
+                "title_x": 50,
+                "title_y": 13,
+                "titleEnabled": true
+            },
+            "verilogMetadata": {
+                "isVerilogCircuit": false,
+                "isMainCircuit": false,
+                "code": "// Write Some Verilog Code Here!",
+                "subCircuitScopeIds": []
+            },
+            "allNodes": [
+                {
+                    "x": -20,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        8
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        6
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        12
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        7
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        9
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        13
+                    ]
+                },
+                {
+                    "x": 660,
+                    "y": 250,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        1,
+                        7,
+                        11
+                    ]
+                },
+                {
+                    "x": 660,
+                    "y": 370,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        3,
+                        6
+                    ]
+                },
+                {
+                    "x": 620,
+                    "y": 230,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        0,
+                        9,
+                        10
+                    ]
+                },
+                {
+                    "x": 620,
+                    "y": 390,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        4,
+                        8
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        8
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        6
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        2
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        5
+                    ]
+                }
+            ],
+            "id": 98622262167,
+            "name": "Half-adder",
+            "Input": [
+                {
+                    "x": 580,
+                    "y": 230,
+                    "objectType": "Input",
+                    "label": "inp1",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 10
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 20,
+                                "id": "yDbVL6dY6nnuOp5jcZ95"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 580,
+                    "y": 250,
+                    "objectType": "Input",
+                    "label": "inp2",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 11
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 40,
+                                "id": "xQoyxdS12E5xJ9dmz35B"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Output": [
+                {
+                    "x": 990,
+                    "y": 240,
+                    "objectType": "Output",
+                    "label": "sum",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 12
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 20,
+                                "id": "dzWcRuJoJdE8Bg2MY1KI"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 1010,
+                    "y": 380,
+                    "objectType": "Output",
+                    "label": "carry",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 13
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 40,
+                                "id": "MxBKygipJq4eP2ofPb14"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "AndGate": [
+                {
+                    "x": 740,
+                    "y": 380,
+                    "objectType": "AndGate",
+                    "label": "AND",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            2,
+                            1
+                        ],
+                        "nodes": {
+                            "inp": [
+                                3,
+                                4
+                            ],
+                            "output1": 5
+                        }
+                    }
+                }
+            ],
+            "XorGate": [
+                {
+                    "x": 750,
+                    "y": 240,
+                    "objectType": "XorGate",
+                    "label": "Xor",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            2,
+                            1
+                        ],
+                        "nodes": {
+                            "inp": [
+                                0,
+                                1
+                            ],
+                            "output1": 2
+                        }
+                    }
+                }
+            ],
+            "restrictedCircuitElementsUsed": [],
+            "nodes": [
+                6,
+                7,
+                8,
+                9
+            ]
+        },
+        {
+            "layout": {
+                "width": 100,
+                "height": 80,
+                "title_x": 50,
+                "title_y": 13,
+                "titleEnabled": true
+            },
+            "verilogMetadata": {
+                "isVerilogCircuit": false,
+                "isMainCircuit": false,
+                "code": "// Write Some Verilog Code Here!",
+                "subCircuitScopeIds": []
+            },
+            "allNodes": [
+                {
+                    "x": 100,
+                    "y": 20,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        6
+                    ]
+                },
+                {
+                    "x": 100,
+                    "y": 40,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        21
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        16
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 40,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        17
+                    ]
+                },
+                {
+                    "x": 100,
+                    "y": 20,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        14
+                    ]
+                },
+                {
+                    "x": 100,
+                    "y": 40,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        8
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 20,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        0
+                    ]
+                },
+                {
+                    "x": 0,
+                    "y": 40,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        20
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": -10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        5
+                    ]
+                },
+                {
+                    "x": -10,
+                    "y": 10,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        24
+                    ]
+                },
+                {
+                    "x": 20,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        15
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        17
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        16
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 1,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        18
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        4
+                    ]
+                },
+                {
+                    "x": 10,
+                    "y": 0,
+                    "type": 0,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        10
+                    ]
+                },
+                {
+                    "x": -270,
+                    "y": 0,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        2,
+                        12
+                    ]
+                },
+                {
+                    "x": -310,
+                    "y": 20,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        3,
+                        11
+                    ]
+                },
+                {
+                    "x": -240,
+                    "y": 110,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        13,
+                        19
+                    ]
+                },
+                {
+                    "x": 40,
+                    "y": 110,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        18,
+                        20
+                    ]
+                },
+                {
+                    "x": 40,
+                    "y": 20,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        7,
+                        19
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 20,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        1,
+                        22
+                    ]
+                },
+                {
+                    "x": -20,
+                    "y": 70,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        21,
+                        23
+                    ]
+                },
+                {
+                    "x": 270,
+                    "y": 70,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        22,
+                        24
+                    ]
+                },
+                {
+                    "x": 270,
+                    "y": 40,
+                    "type": 2,
+                    "bitWidth": 1,
+                    "label": "",
+                    "connections": [
+                        9,
+                        23
+                    ]
+                }
+            ],
+            "id": 69980799589,
+            "name": "Main",
+            "Input": [
+                {
+                    "x": -320,
+                    "y": -140,
+                    "objectType": "Input",
+                    "label": "x",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 11
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 40,
+                                "id": "TzPoFqkKRnczSlQMidjq"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": -280,
+                    "y": -140,
+                    "objectType": "Input",
+                    "label": "y",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 12
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 60,
+                                "id": "XBpwBuRDlldQywdEHsgz"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": -250,
+                    "y": -140,
+                    "objectType": "Input",
+                    "label": "cin",
+                    "direction": "RIGHT",
+                    "labelDirection": "UP",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "output1": 13
+                        },
+                        "values": {
+                            "state": 1
+                        },
+                        "constructorParamaters": [
+                            "RIGHT",
+                            1,
+                            {
+                                "x": 0,
+                                "y": 20,
+                                "id": "HQYLk2tHMKI6uYYikApo"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "Output": [
+                {
+                    "x": 420,
+                    "y": 0,
+                    "objectType": "Output",
+                    "label": "sum",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 14
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 40,
+                                "id": "GOiOE9VzXMlMW1txqFEb"
+                            }
+                        ]
+                    }
+                },
+                {
+                    "x": 420,
+                    "y": 30,
+                    "objectType": "Output",
+                    "label": "carry",
+                    "direction": "LEFT",
+                    "labelDirection": "RIGHT",
+                    "propagationDelay": 0,
+                    "customData": {
+                        "nodes": {
+                            "inp1": 15
+                        },
+                        "constructorParamaters": [
+                            "LEFT",
+                            1,
+                            {
+                                "x": 100,
+                                "y": 60,
+                                "id": "ASuCOL13vtFBub8uPD7N"
+                            }
+                        ]
+                    }
+                }
+            ],
+            "OrGate": [
+                {
+                    "x": 320,
+                    "y": 30,
+                    "objectType": "OrGate",
+                    "label": "",
+                    "direction": "RIGHT",
+                    "labelDirection": "LEFT",
+                    "propagationDelay": 10,
+                    "customData": {
+                        "constructorParamaters": [
+                            "RIGHT",
+                            2,
+                            1
+                        ],
+                        "nodes": {
+                            "inp": [
+                                8,
+                                9
+                            ],
+                            "output1": 10
+                        }
+                    }
+                }
+            ],
+            "SubCircuit": [
+                {
+                    "x": -180,
+                    "y": -20,
+                    "id": "98622262167",
+                    "label": "half-adder",
+                    "labelDirection": "UP",
+                    "inputNodes": [
+                        2,
+                        3
+                    ],
+                    "outputNodes": [
+                        0,
+                        1
+                    ],
+                    "version": "2.0"
+                },
+                {
+                    "x": 110,
+                    "y": -20,
+                    "id": "98622262167",
+                    "label": "half-adder",
+                    "labelDirection": "UP",
+                    "inputNodes": [
+                        6,
+                        7
+                    ],
+                    "outputNodes": [
+                        4,
+                        5
+                    ],
+                    "version": "2.0"
+                }
+            ],
+            "restrictedCircuitElementsUsed": [],
+            "nodes": [
+                16,
+                17,
+                18,
+                19,
+                20,
+                21,
+                22,
+                23,
+                24
+            ]
+        }
+    ]
+}

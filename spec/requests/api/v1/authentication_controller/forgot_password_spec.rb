@@ -9,23 +9,29 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
         post "/api/v1/password/forgot", params: { email: "test@test.com" }, as: :json
       end
 
-      it "returns status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(:not_found)
-        expect(response.parsed_body).to have_jsonapi_errors
+      it "returns status 200 with generic message to prevent user enumeration" do
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["message"]).to eq(
+          "If this email is registered, reset instructions have been sent."
+        )
       end
     end
 
     context "when user who forgot his/her password exists" do
+      let(:user) { FactoryBot.create(:user, confirmed_at: Time.zone.now) }
+
       before do
-        # creates a test user
-        user = FactoryBot.create(:user)
-        post "/api/v1/password/forgot", params: { email: user.email }, as: :json
+        ActionMailer::Base.deliveries.clear
       end
 
       it "returns status 200 and should send reset password instructions" do
+        perform_enqueued_jobs do
+          expect do
+            post "/api/v1/password/forgot", params: { email: user.email }, as: :json
+          end.to change(ActionMailer::Base.deliveries, :count).by(2)
+        end
         expect(response).to have_http_status(:ok)
-        # checks if the last mail sent contains reset password instructions
-        expect(ActionMailer::Base.deliveries.last.subject).to eq("Reset password instructions")
+        expect(ActionMailer::Base.deliveries.last.to).to include(user.email)
       end
     end
   end

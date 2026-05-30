@@ -20,8 +20,8 @@ describe LtiController, type: :request do
   describe "CircuitVerse as LTI Provider" do
     before do
       # creation of assignment and required users
-      @mentor = FactoryBot.create(:user)
-      @group = FactoryBot.create(:group, mentor: mentor)
+      @primary_mentor = FactoryBot.create(:user)
+      @group = FactoryBot.create(:group, primary_mentor: primary_mentor)
       @member = FactoryBot.create(:user)
       @not_member = FactoryBot.create(:user)
       FactoryBot.create(:group_member, user: member, group: group)
@@ -43,8 +43,8 @@ describe LtiController, type: :request do
         expect(response.code).to eq("200")
       end
 
-      it "redirect (302) to assignment page if user is teacher" do
-        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, mentor.email)
+      it "redirect (302) to assignment page if user is primary mentor" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, primary_mentor.email)
         expect(response.code).to eq("302")
       end
     end
@@ -103,7 +103,7 @@ describe LtiController, type: :request do
     private
 
       attr_reader :oauth_consumer_key_fromlms, :oauth_shared_secret_fromlms,
-                  :lti_launch_path, :host, :port, :member, :not_member, :mentor,
+                  :lti_launch_path, :host, :port, :member, :not_member, :primary_mentor,
                   :group, :assignment, :group
   end
 end

@@ -1,0 +1,111 @@
+<div id="embedProjectCircuit" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("projects.modal.embed_circuit_heading") %></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="field mb-3 embed-input-fields">
+            <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.height") %></b></label></div>
+            <input type="text" class="form-control form-input" id="height" placeholder="Height" value="500">
+        </div>
+        <div class="field mb-3 embed-input-fields">
+        <div><label for="height" class="col-sm-2 col-form-label"><b><%= t("projects.modal.width") %></b></label></div>
+          <input type="text" class="form-control form-input" id="width" placeholder="Width" value="500">
+        </div>
+        <div class="field mb-3 embed-input-fields">
+            <div><label for="url" class="col-sm-2 col-form-label"><b><%= t("projects.modal.url") %></b></label></div>
+            <input type="text" class="form-control form-input" id="url" value="<%= simulator_embed_url(@project) %>" readonly><br>
+        </div>
+        <div class="field mb-3 embed-input-fields">
+            <div><label for="border_px" class="col-sm-2 col-form-label"><b><%= t("projects.modal.border") %></b></label></div>
+            <input type="text" class="form-control form-input" id="border_px" placeholder="Width (e.g. 2px)">&nbsp;&nbsp;
+            <input type="color" class="w-25 h-auto" name="color_picker" id="color_picker">
+            <input type="text" class="form-control form-input" id="border_color" placeholder="Color (e.g. #FFF)">
+        </div>
+        <div class="field mb-3 embed-input-fields">
+            <div><label for="border_style" class="col-sm-3 col-form-label"><b><%= t("projects.modal.border_style") %></b></label></div>
+              <select class="form-select form-input" id="border_style">
+                  <option value="" disabled selected>Select a style</option> <!-- Placeholder option -->
+                  <option>solid</option>
+                  <option>dashed</option>
+                  <option>dotted</option>
+                  <option>double</option>
+                  <option>groove</option>
+                  <option>ridge</option>
+                  <option>inset</option>
+                  <option>outset</option>
+                  <option>none</option>
+                  <option>hidden</option>
+                  <option>dotted dashed solid double</option>
+              </select>
+        </div>
+        <div class="advance-embed-field field mb-3">
+          <details>
+            <summary><%= t("projects.modal.advance.advance_option") %></summary>
+            <div class="advance-embed-option">
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-clock-time" value="Clock Time" checked="true">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.clock_time") %></h6>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-display-title" value="Display Title">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.display_title") %></h6>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-fullscreen" value="Fullscreen" checked="true">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.fullscreen") %></h6>
+                </label>
+              </div>
+              <div class="form-check form-check-inline">
+                <label class="form-check-label primary-checkpoint-container">
+                  <input class="form-check-input element-restriction" type="checkbox" id="checkbox-zoom-in-out" value="Zoom In Out" checked="true">
+                  <div class="primary-checkpoint"></div>
+                  <h6><%= t("projects.modal.advance.zoom_in_out") %></h6>
+                </label>
+              </div>
+              <div class="field mb-3 embed-input-fields">
+                <div><label for="theme" class="col-sm-3 col-form-label"><b><%= t("projects.modal.advance.theme") %></b></label></div>
+                <select class="form-select form-input" id="theme">
+                    <option value="" disabled selected>Select a style</option> <!-- Placeholder option -->
+                    <option value="default">Default</option>
+                    <option value="night-sky">Night Sky</option>
+                    <option value="lite-born-spring">Lite-born Spring</option>
+                    <option value="g-and-w">G&W</option>
+                    <option value="high-contrast">High Contrast</option>
+                    <option value="color-blind">Color Blind</option>
+                </select>
+              </div>
+            </div>
+          </details>
+        </div>
+        <div>
+            <button class="btn primary-button projects-primary-button embed-button" data-action="click->projects#showEmbedLink"><%= t("projects.modal.publish_button") %></button>
+        </div>
+        <div class="collapse show">
+            <textarea name='embed-textarea' class="form-control form-input embed-link-textarea" rows="5px" column="115px" id="result" readonly></textarea>
+            <small class="projectshow-embed-text-confirmation"><%= t("projects.show.copied_to_clipboard") %></small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const color_picker = document.getElementById('color_picker');
+  const colorDisplay = document.getElementById('border_color');
+  color_picker.addEventListener('input', function() {
+      colorDisplay.value = color_picker.value;
+  });
+  document.getElementById('border_color').addEventListener('input', (e) => {
+    color_picker.value = e.target.value
+  })
+</script>

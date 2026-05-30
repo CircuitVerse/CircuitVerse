@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe GroupMember, type: :model do
   before do
     @user = FactoryBot.create(:user)
-    @group = FactoryBot.create(:group, mentor: @user)
+    @group = FactoryBot.create(:group, primary_mentor: @user)
   end
 
   describe "associations" do

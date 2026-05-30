@@ -73,16 +73,19 @@ export default class TriState extends CircuitElement {
             if (this.output1.value !== this.inp1.value) {
                 this.output1.value = this.inp1.value; // >>>0)<<(32-this.bitWidth))>>>(32-this.bitWidth);
                 simulationArea.simulationQueue.add(this.output1);
+                this.setOutputsUpstream(true);
             }
-            simulationArea.contentionPending.clean(this);
         } else if (
             this.output1.value !== undefined &&
-            !simulationArea.contentionPending.contains(this)
+            !simulationArea.contentionPending.has(this.output1)
         ) {
             this.output1.value = undefined;
             simulationArea.simulationQueue.add(this.output1);
+            this.setOutputsUpstream(false);
+        } else {
+            this.setOutputsUpstream(false);
         }
-        simulationArea.contentionPending.clean(this);
+        simulationArea.contentionPending.removeAllContentionsForNode(this.output1);
     }
 
     /**
@@ -125,5 +128,5 @@ export default class TriState extends CircuitElement {
 TriState.prototype.tooltipText =
     "TriState ToolTip : Effectively removes the output from the circuit.";
 TriState.prototype.helplink =
-    "https://docs.circuitverse.org/#/miscellaneous?id=tri-state-buffer";
+    "https://docs.circuitverse.org/#/chapter4/8misc?id=tristate-buffer";
 TriState.prototype.objectType = "TriState";

@@ -1,0 +1,50 @@
+DatabaseConsistencySettings:
+  color: true
+  log_level: DEBUG
+
+# Configures database connections.
+DatabaseConsistencyDatabases:
+  # Database connection name listed in database.yml.
+  secondary:
+    enabled: false # disables any check for +secondary+ database.
+
+# Everything is enabled by default.
+DatabaseConsistencyCheckers:
+  All:
+    enabled: true # You can disable everything until you explicitly enable it with any option below.
+  MissingIndexChecker: # Enables/disables the checker entirely/globally. If disabled here, nothing can enable it back.
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  MissingUniqueIndexChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ColumnPresenceChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  NullConstraintChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ThreeStateBooleanChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  MissingAssociationClassChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyTypeChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  ForeignKeyCascadeChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  UniqueIndexChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+  RedundantIndexChecker:
+    enabled: false # Disabling this flag as currently there are issues reported on the project regarding this key.
+
+Ahoy::Event:
+  visit:
+    ForeignKeyChecker:
+      enabled: false
+  user:
+    ForeignKeyChecker:
+      enabled: false
+Ahoy::Visit:
+  user:
+    ForeignKeyChecker:
+      enabled: false
+PushSubscription:
+  user:
+    ForeignKeyChecker:
+      enabled: false

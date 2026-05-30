@@ -1,12 +1,16 @@
 # frozen_string_literal: true
 
 class Api::V1::BaseController < ActionController::API
-  include Pundit
+  include Pundit::Authorization
   include CustomErrors
   include ActionController::RequestForgeryProtection
-  protect_from_forgery with: :exception, if: -> { request.headers["Authorization"].blank? && current_user }
+  include ActiveStorage::SetCurrent
 
-  DEFAULT_PER_PAGE = 5
+  protect_from_forgery with: :exception, if: lambda {
+    request.headers["Authorization"].blank? && current_user
+  }
+
+  DEFAULT_PER_PAGE = 9
 
   rescue_from ActionController::ParameterMissing do
     api_error(status: 400, errors: "invalid parameters")
@@ -14,6 +18,10 @@ class Api::V1::BaseController < ActionController::API
 
   rescue_from Pundit::NotAuthorizedError do
     unauthorized!
+  end
+
+  rescue_from ApplicationPolicy::CustomAuthException do |exception|
+    api_error(status: 403, errors: exception.custom_message)
   end
 
   rescue_from InvalidOAuthToken do
@@ -52,8 +60,8 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 404, errors: "resource not found")
   end
 
-  def invalid_resource!(errors = [])
-    api_error(status: 422, errors: errors)
+  def invalid_resource!(_errors = [])
+    api_error(status: 422, errors: "invalid resource")
   end
 
   def paginate(resource)
@@ -81,6 +89,7 @@ class Api::V1::BaseController < ActionController::API
   private
 
     def paginated_url(base_url, page)
-      page ? "#{base_url}?page[number]=#{page}" : nil
+      separator = base_url.index("?").nil? ? "?" : "&"
+      "#{base_url}#{separator}page[number]=#{page}" if page
     end
 end

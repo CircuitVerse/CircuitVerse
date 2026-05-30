@@ -42,6 +42,7 @@ HTTP/1.1 200 OK
         "user_id": 1,
         "created_at": "2020-02-25T18:15:52.890Z",
         "updated_at": "2020-02-25T18:15:52.890Z",
+        "mentor": false,
         "name": "Test User 1",
         "email": "test@test.com"
       }
@@ -74,8 +75,8 @@ You can add members to your group in `/api/v1/groups/:group_id/members`. Authent
 | Error Code | Description                                                        |
 | ---------- | ------------------------------------------------------------------ |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.     |
-| 403        | When non-mentor user tries to add members to the group             |
-| 404        | When the requested group identified by `group_id` does not exists. |
+| 403        | When non-primary mentor user tries to add members to the group     |
+| 404        | When the requested group identified by `group_id` does not exist. |
 
 ```http
 POST /api/v1/groups/:group_id/members HTTP/1.1
@@ -106,7 +107,7 @@ HTTP/1.1 200 OK
 
 ## DELETE Group Member
 
-Group mentor can DELETE a group member (identified by `:id`) in `/api/v1/group/members/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
+Group's primary mentor can DELETE a group member (identified by `:id`) in `/api/v1/group/members/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 
@@ -114,15 +115,15 @@ Group mentor can DELETE a group member (identified by `:id`) in `/api/v1/group/m
 | --------- | ------------------------------------------ |
 | `id`      | The `id` of the group member to be deleted |
 
-<aside class="warning">User with mentor or admin access can only delete the group member</aside>
+<aside class="warning">User with primary mentor or admin access can only delete the group member</aside>
 
 ### Possible exceptions
 
 | Error Code | Description                                                         |
 | ---------- | ------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
-| 403        | When non-mentor user tries to delete the group member               |
-| 404        | When the requested group member identified by `id` does not exists. |
+| 403        | When non-primary mentor user tries to delete the group member       |
+| 404        | When the requested group member identified by `id` does not exist. |
 
 ```http
 DELETE /api/v1/group/members/:id HTTP/1.1
@@ -133,5 +134,52 @@ Host: localhost
 
 ```http
 HTTP/1.1 204 NO CONTENT
+Content-Type: application/json
+```
+
+## UPDATE Group Member
+
+Group's primary mentor can UPDATE a group member (identified by `:id`) in `/api/v1/group/members/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
+
+### List of acceptable params for put/patch requests include:
+
+| Name          | Type     | Description                       |
+| ------------- | -------- | --------------------------------- |
+| `mentor`      | `String` | Updated mentor status for member  |
+
+
+### URL Parameters
+
+| Parameter | Description                                |
+| --------- | ------------------------------------------ |
+| `id`      | The `id` of the group member to be updated |
+
+<aside class="warning">User with primary mentor or admin access can only update the group member</aside>
+
+### Possible exceptions
+
+| Error Code | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+| 400        | When invalid parameters are used                                    |
+| 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
+| 403        | When non-primary mentor user tries to update the group member       |
+| 404        | When the requested group member identified by `id` does not exist. |
+
+```http
+PATCH /api/v1/group/members/:id HTTP/1.1
+Accept: application/json
+Authorization: Token {token}
+Host: localhost
+```
+```json
+{
+  "group_member": {
+    "mentor": "true"
+  }
+}
+```
+
+```http
+HTTP/1.1 202 ACCEPTED
 Content-Type: application/json
 ```
