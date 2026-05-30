@@ -1,0 +1,24 @@
+fr:
+  explore:
+    title: "CircuitVerset - Explorer"
+    main_heading: "Explorer les Circuits"
+    main_description: "Parcourez les circuits, les classiques, les créations récentes et les tags populaires."
+    tabs:
+      cotw: "Circuit de la semaine"
+      picks: "Sélections de l'éditeur"
+      recent: "Circuits récents"
+      tags: "Parcourir par Tags"
+    sections:
+      cotw:
+        heading: "Circuit de la semaine"
+        description: "Un circuit éclairé choisi parmi des modèles à la mode et à la mode."
+      picks:
+        heading: "Sélections de l'éditeur"
+        description: "Organisé par nos auteurs pour leur impressionnance."
+      recent:
+        heading: "Circuits récents"
+        description: "Les derniers circuits publics de notre communauté."
+      tags:
+        heading: "Parcourir par Tags"
+        description: "Accédez à des sujets qui vous intéressent."
+    empty: "Rien à afficher pour l'instant."

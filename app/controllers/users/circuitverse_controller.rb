@@ -11,7 +11,9 @@ class Users::CircuitverseController < ApplicationController
 
   def index
     @profile = ProfileDecorator.new(@user)
-    @projects = @user.rated_projects
+    @projects = @user.rated_projects.with_attached_circuit_preview
+    @user_projects = @user.projects.with_attached_circuit_preview
+    @collaborated_projects = @user.collaborated_projects.with_attached_circuit_preview
   end
 
   def edit; end
@@ -45,13 +47,13 @@ class Users::CircuitverseController < ApplicationController
   private
 
     def profile_params
-      params.require(:user).permit(:name, :profile_picture, :country, :educational_institute,
-                                   :subscribed, :locale, :remove_picture, :avatar, :vuesim)
+      params.expect(user: %i[name profile_picture country educational_institute
+                             subscribed locale remove_picture avatar vuesim])
     end
 
     def set_user
       @profile = current_user
-      @user = User.find(params[:id])
+      @user = User.find(params.expect(:id))
     end
 
     def remove_previous_profile_picture

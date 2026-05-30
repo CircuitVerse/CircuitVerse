@@ -54,7 +54,7 @@ class CollaborationsController < ApplicationController
         format.json { render :show, status: :ok, location: @collaboration }
       else
         format.html { render :edit }
-        format.json { render json: @collaboration.errors, status: :unprocessable_entity }
+        format.json { render json: @collaboration.errors, status: :unprocessable_content }
       end
     end
   end
@@ -78,11 +78,11 @@ class CollaborationsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_collaboration
-      @collaboration = Collaboration.find(params[:id])
+      @collaboration = Collaboration.find(params.expect(:id))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collaboration_params
-      params.require(:collaboration).permit(:user_id, :project_id, emails: [])
+      params.expect(collaboration: [:user_id, :project_id, { emails: [] }])
     end
 end

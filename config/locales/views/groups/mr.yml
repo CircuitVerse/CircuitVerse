@@ -16,8 +16,7 @@ mr:
     new:
       title: "सर्किटवर्स - नवीन गट"
       main_heading: "नवीन गट"
-      main_description_html: "विद्यार्थ्‍यांसाठी प्रोजेक्‍ट सेट करण्‍यासाठी आणि ग्रेड देण्‍यासाठी मार्गदर्शकांद्वारे गटांचा वापर केला जाऊ शकतो.
-          तुम्ही <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>येथे</a> दस्तऐवज वाचू शकता."
+      main_description_html: "विद्यार्थ्‍यांसाठी प्रोजेक्‍ट सेट करण्‍यासाठी आणि ग्रेड देण्‍यासाठी मार्गदर्शकांद्वारे गटांचा वापर केला जाऊ शकतो. तुम्ही <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>येथे</a> दस्तऐवज वाचू शकता."
     show:
       edit_name_btn: "नाव संपादित करा"
       primary_mentor_heading: "प्राथमिक मार्गदर्शक:"

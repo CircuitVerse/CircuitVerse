@@ -6,7 +6,7 @@ class GroupPolicy < ApplicationPolicy
   def initialize(user, group)
     @user = user
     @group = group
-    @admin_access = ((group.primary_mentor_id == user.id) || user.admin?)
+    @admin_access = (group.primary_mentor_id == user.id) || user.admin?
   end
 
   def show_access?

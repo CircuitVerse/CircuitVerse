@@ -11,8 +11,9 @@
     "watch:docs": "npm run watch:doc-output & npm run watch:doc-src",
     "lint": "eslint ./simulator",
     "postinstall": "opencollective-postinstall || true",
-    "prepare": "husky install",
-    "build": "node esbuild.config.js"
+    "prepare": "husky .",
+    "build": "node esbuild.config.js",
+    "build-vue-simulator": "cd cv-frontend-vue && VITE_BASE=/simulator-v0/ npm run build && cd .."
   },
   "devDependencies": {
     "@babel/preset-env": "^7.26.7",
@@ -33,11 +34,12 @@
     "lint-staged": ">=15.4.2",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.21",
+    "playwright": "1.55.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
     "postcss-preset-env": "^8.4.2",
-    "vite": "^5.4.14",
-    "vite-plugin-ruby": "^5.1.1"
+    "vite": "^5.0.0",
+    "vite-plugin-ruby": "^5.1.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
@@ -51,7 +53,7 @@
     "canvas2svg": "1.0.16",
     "codemirror": "^5.65.1",
     "dom-to-image": "^2.6.0",
-    "dompurify": "^3.2.3",
+    "dompurify": "^3.2.4",
     "driver.js": "^0.9.8",
     "esbuild": "^0.25.0",
     "esbuild-plugin-sass": "^1.0.1",
