@@ -119,7 +119,7 @@ GEM
       device_detector (>= 1)
       safely_block (>= 0.4)
     ast (2.4.3)
-    avo (3.31.0)
+    avo (3.31.2)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -134,7 +134,7 @@ GEM
       turbo_power (>= 0.6.0)
       view_component (>= 3.7.0)
       zeitwerk (>= 2.6.12)
-    avo-icons (0.1.2)
+    avo-icons (0.1.4)
       inline_svg
     aws-actionmailer-ses (1.0.0)
       actionmailer (>= 7.1.0)
@@ -200,7 +200,7 @@ GEM
       addressable
       capybara
       playwright-ruby-client (>= 1.16.0)
-    carrierwave (3.1.2)
+    carrierwave (3.1.3)
       activemodel (>= 6.0.0)
       activesupport (>= 6.0.0)
       addressable (~> 2.6)
@@ -236,7 +236,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.6)
-    css_parser (1.21.1)
+    css_parser (1.22.0)
       addressable
     csv (3.3.5)
     database_consistency (2.0.5)
@@ -287,7 +287,10 @@ GEM
       logger
     faraday-net_http (3.4.2)
       net-http (~> 0.5)
-    ffi (1.17.2)
+    ffi (1.17.4-arm64-darwin)
+    ffi (1.17.4-x64-mingw-ucrt)
+    ffi (1.17.4-x86_64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
     ffi-compiler (1.3.2)
       ffi (>= 1.15.5)
       rake
@@ -380,7 +383,7 @@ GEM
       bigdecimal (~> 3.1)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
-    jwt (2.10.2)
+    jwt (2.10.3)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -819,7 +822,7 @@ GEM
     ruby-saml (1.18.1)
       nokogiri (>= 1.13.10)
       rexml
-    ruby-vips (2.2.5)
+    ruby-vips (2.3.0)
       ffi (~> 1.12)
       logger
     rugged (1.9.0)
@@ -903,7 +906,7 @@ GEM
       actionpack (>= 6.1)
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
-    ssrf_filter (1.3.0)
+    ssrf_filter (1.5.0)
     stackprof (0.2.27)
     steep (1.10.0)
       activesupport (>= 5.1)
@@ -1039,7 +1042,7 @@ DEPENDENCIES
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
   capybara-playwright-driver
-  carrierwave (~> 3.0)
+  carrierwave (~> 3.1)
   coffee-rails (~> 5.0)
   commontator (~> 7.0.0)
   concurrent-ruby (= 1.3.5)
@@ -1073,7 +1076,7 @@ DEPENDENCIES
   jsbundling-rails (~> 1.0)
   json-schema
   jsonapi-serializer
-  jwt
+  jwt (~> 2.10.3)
   kt-paperclip
   language_filter
   listen (>= 3.0.5, < 3.10)

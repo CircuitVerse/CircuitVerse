@@ -54,7 +54,9 @@
             <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+            <button class="btn search-button p-0 d-flex align-items-center justify-content-center" aria-label="search" type="button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
           </li>
         </ul>
         <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
@@ -110,6 +112,8 @@
     const dropdownIcon = document.getElementById('dropdownIcon');
     const collapseElement = document.getElementById("collapsed-navbar");
     const navbar = document.querySelector('.navbar');
+    const searchButton = document.querySelector('.search-button');
+    const searchInput = searchBar ? searchBar.querySelector('.search-bar-input') : null;
 
     function handleNavbarShadow() {
       if (window.scrollY > 0) {
@@ -120,6 +124,23 @@
     }
     window.addEventListener('scroll', handleNavbarShadow);
 
+    if (searchButton) {
+      const searchIcon = searchButton.querySelector('.fa-search');
+      if (searchIcon) {
+        searchIcon.addEventListener('click', function() {
+          activeSearchBar();
+          searchButton.blur();
+        });
+      }
+      searchButton.addEventListener('keydown', function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activeSearchBar();
+          searchButton.blur();
+        }
+      });
+    }
+
     function activeSearchBar() {
       const icons = Array.from(searchIcons);
       const isActive = icons.some(icon => icon.classList.contains("active"));
@@ -129,6 +150,9 @@
       } else {
         icons.forEach(icon => icon.classList.add("active"));
         searchBar.style.display = "block";
+        if (searchInput) {
+          searchInput.focus();
+        }
       }
       collapseElement.classList.remove("show");
     }
@@ -148,12 +172,12 @@
         bsCollapse.toggle();
       });
     }
-
-    Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
-
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
+      if (searchInput) {
+        searchInput.focus();
+      }
     }
 
     document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
