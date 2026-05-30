@@ -55,6 +55,9 @@ We expect all contributors to abide by our [Code of Conduct](https://github.com/
 
 Your issue will get the `pending triage` label. Once maintainers verify and remove it, contributors can claim the issue.
 
+> [!NOTE]  
+If the issue is about minor spelling mistakes, you may create pull request directly, do not create separate issue for that
+
 ## Contributing Code
 
 ### Setup and Workflow
