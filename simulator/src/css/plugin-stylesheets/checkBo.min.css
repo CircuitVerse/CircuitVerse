@@ -53,6 +53,7 @@
 }
 .cb-checkbox,
 .cb-radio {
+    margin: 0;
     padding: 3px 0;
     color: inherit;
     cursor: pointer;
