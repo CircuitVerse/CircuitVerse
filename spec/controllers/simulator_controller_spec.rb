@@ -124,6 +124,34 @@ describe SimulatorController, type: :request do
       end
     end
 
+    describe "#edit" do
+      context "when author is signed in" do
+        it "allows access to edit page" do
+          sign_in @user
+          get simulator_edit_path(@project)
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context "when collaborator is signed in" do
+        it "allows access to edit page" do
+          @collaborator = FactoryBot.create(:user)
+          FactoryBot.create(:collaboration, project: @project, user: @collaborator)
+          sign_in @collaborator
+          get simulator_edit_path(@project)
+          expect(response).to have_http_status(:success)
+        end
+      end
+
+      context "when user other than author is signed in" do
+        it "denies access to edit page" do
+          sign_in_random_user
+          get simulator_edit_path(@project)
+          expect(response.status).to eq(403)
+        end
+      end
+    end
+
     describe "#embed" do
       context "project is private" do
         before do

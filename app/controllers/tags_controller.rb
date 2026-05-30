@@ -12,7 +12,7 @@ class TagsController < ApplicationController
   private
 
     def set_tag!
-      @tag = Tag.find_by!(name: params[:tag])
+      @tag = Tag.find_by!(name: params.expect(:tag))
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -61,5 +61,6 @@ class TagsController < ApplicationController
         .joins(:tags)
         .where(tags: { id: @tag.id })
         .includes(:author, :stars)
+        .with_attached_circuit_preview
     end
 end
