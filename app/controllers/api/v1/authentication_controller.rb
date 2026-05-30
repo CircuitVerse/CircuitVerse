@@ -2,16 +2,18 @@
 
 class Api::V1::AuthenticationController < Api::V1::BaseController
   before_action :set_oauth_user, only: %i[oauth_signup oauth_login]
+  before_action :check_block_registration, only: %i[signup oauth_signup]
 
   # POST api/v1/auth/login
   def login
-    @user = User.find_by!(email: params[:email])
+    @user = User.find_by(email: params[:email])
     if @user&.valid_password?(params[:password])
       token = JsonWebToken.encode(
         user_id: @user.id, username: @user.name, email: @user.email
       )
       render json: { token: token }, status: :accepted
-    elsif @user
+    else
+      Devise::Encryptor.digest(User, params[:password]) unless @user
       api_error(status: 401, errors: "invalid credentials")
     end
   end
@@ -31,11 +33,15 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/oauth/login
   def oauth_login
-    @user = User.find_by!(email: @oauth_user["email"])
-    token = JsonWebToken.encode(
-      user_id: @user.id, username: @user.name, email: @user.email
-    )
-    render json: { token: token }, status: :accepted
+    @user = User.find_by(email: @oauth_user["email"])
+    if @user
+      token = JsonWebToken.encode(
+        user_id: @user.id, username: @user.name, email: @user.email
+      )
+      render json: { token: token }, status: :accepted
+    else
+      api_error(status: 401, errors: "invalid credentials")
+    end
   end
 
   # POST api/v1/oauth/signup
@@ -58,15 +64,14 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
   # POST api/v1/forgot_password
   def forgot_password
-    @user = User.find_by!(email: params[:email])
-    # sends reset password instructions to the user's mail if exists
-    @user.send_reset_password_instructions
-    render json: { message: "password reset instructions sent to #{@user.email}" }
+    @user = User.find_by(email: params[:email])
+    @user&.send_reset_password_instructions
+    render json: { message: "If this email is registered, reset instructions have been sent." }
   end
 
   # GET /public_key.pem
   def public_key
-    public_key = File.open(Rails.root.join("config", "public.pem"), "r:UTF-8")
+    public_key = Rails.root.join("config/public.pem").open("r:UTF-8")
     send_file public_key
   end
 
@@ -86,5 +91,11 @@ class Api::V1::AuthenticationController < Api::V1::BaseController
 
     def oauth_params
       params.permit(:access_token, :provider)
+    end
+
+    def check_block_registration
+      return unless Flipper.enabled?(:block_registration)
+
+      api_error(status: 403, errors: "Registration is currently blocked")
     end
 end

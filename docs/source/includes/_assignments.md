@@ -51,7 +51,7 @@ HTTP/1.1 200 OK
         "updated_at": "2020-05-24T11:47:40.244Z",
         "status": "open",
         "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false
@@ -86,7 +86,7 @@ HTTP/1.1 200 OK
         "updated_at": "2020-05-24T11:47:40.244Z",
         "status": "open",
         "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-        "has_mentor_access": true,
+        "has_primary_mentor_access": true,
         "current_user_project_id": null,
         "grading_scale": "no_scale",
         "grades_finalized": false
@@ -235,7 +235,7 @@ You can GET assignment details (identified by `:id`) in `/api/v1/assignments/:id
 | ---------- | ----------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.    |
 | 403        | When authenticated user is neither mentor nor user of the Group   |
-| 404        | When the requested assignment identified by `id` does not exists. |
+| 404        | When the requested assignment identified by `id` does not exist. |
 
 ```http
 GET /api/v1/assignments/:id?include=grades,projects HTTP/1.1
@@ -263,7 +263,7 @@ HTTP/1.1 200 OK
       "updated_at": "2020-05-24T11:47:40.244Z",
       "status": "open",
       "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-      "has_mentor_access": true,
+      "has_primary_mentor_access": true,
       "current_user_project_id": null,
       "grading_scale": "no_scale",
       "grades_finalized": false
@@ -373,7 +373,7 @@ You can POST assignment in `/api/v1/groups/:group_id/assignments`. Authenticatio
 | 400        | When invalid parameters are used.                                  |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.     |
 | 403        | When non-mentor user tries to add the assignment                   |
-| 404        | When the requested group identified by `group_id` does not exists. |
+| 404        | When the requested group identified by `group_id` does not exist. |
 
 ```http
 POST /api/v1/groups/:group_id/assignments HTTP/1.1
@@ -410,7 +410,7 @@ Content-Type: application/json
       "description": "",
       "status": "open",
       "restrictions": "[\"Input\",\"ConstantVal\",\"Splitter\",\"Random\"]",
-      "has_mentor_access": true,
+      "has_primary_mentor_access": true,
       "current_user_project_id": null,
       "created_at": "2020-06-11T10:34:55.009Z",
       "updated_at": "2020-06-25T16:55:42.317Z",
@@ -455,7 +455,7 @@ You can PATCH assignment details in `/api/v1/assignments/:id`. Authentication `t
 | 400        | When invalid parameters are used.                                 |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.    |
 | 403        | When non-mentor user tries to update the assignment               |
-| 404        | When the requested assignment identified by `id` does not exists. |
+| 404        | When the requested assignment identified by `id` does not exist. |
 
 ```http
 PATCH /api/v1/assignments/:id HTTP/1.1
@@ -491,7 +491,7 @@ Content-Type: application/json
       "description": "Test description",
       "status": "open",
       "restrictions": "[\"Input\",\"Splitter\",\"Random\"]",
-      "has_mentor_access": true,
+      "has_primary_mentor_access": true,
       "current_user_project_id": null,
       "created_at": "2020-06-11T10:34:55.009Z",
       "updated_at": "2020-06-25T16:55:42.317Z",
@@ -512,7 +512,7 @@ Content-Type: application/json
 
 ## DELETE Assignment
 
-Group mentor can DELETE a assignment (identified by `:id`) in `/api/v1/assignments/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
+Any Group mentor can DELETE an assignment (identified by `:id`) in `/api/v1/assignments/:id/`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 
@@ -528,7 +528,7 @@ Group mentor can DELETE a assignment (identified by `:id`) in `/api/v1/assignmen
 | ---------- | ----------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.    |
 | 403        | When non-mentor user tries to delete the assignment               |
-| 404        | When the requested assignment identified by `id` does not exists. |
+| 404        | When the requested assignment identified by `id` does not exist. |
 
 ```http
 DELETE /api/v1/assignment/:id HTTP/1.1
@@ -544,7 +544,7 @@ Content-Type: application/json
 
 ## REOPEN Assignment
 
-Mentor can REOPEN a closed assignment to extend the deadline by 1 day in `/api/v1/assignments/:id/reopen`. Authentication `token` is passed through `Authorization` header and is **required**.
+A Mentor can REOPEN a closed assignment to extend the deadline by 1 day in `/api/v1/assignments/:id/reopen`. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 
@@ -560,7 +560,7 @@ Mentor can REOPEN a closed assignment to extend the deadline by 1 day in `/api/v
 | ---------- | ------------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
 | 403        | When authenticated user is neither mentor nor user of the Group     |
-| 404        | When the requested assignment identified by `id` does not exists.   |
+| 404        | When the requested assignment identified by `id` does not exist.   |
 | 409        | When the requested assignment identified by `id` is already opened. |
 
 ```http
@@ -582,6 +582,46 @@ HTTP/1.1 202 ACCEPTED
 }
 ```
 
+## CLOSE Assignment
+
+Mentor can CLOSE a assignment immediately in `/api/v1/assignments/:id/close`. Authentication `token` is passed through `Authorization` header and is **required**.
+
+### URL Parameters
+
+| Parameter | Description                               |
+| --------- | ----------------------------------------- |
+| `id`      | The `id` of the assignment to be closed   |
+
+<aside class="notice">User with mentor or admin access can only close the assignment</aside>
+
+### Possible exceptions
+
+| Error Code | Description                                                         |
+| ---------- | ------------------------------------------------------------------- |
+| 401        | When user is not authenticated i.e invalid or corrupt `token`.      |
+| 403        | When non-mentor user tries to close the assignment                  |
+| 404        | When the requested assignment identified by `id` does not exist.   |
+| 409        | When the requested assignment identified by `id` is already closed. |
+
+```http
+PATCH /api/v1/assignments/:id/close HTTP/1.1
+Accept: application/json
+Authorization: Token {token}
+Host: localhost
+```
+
+```http
+HTTP/1.1 202 ACCEPTED
+```
+
+> JSON response example:
+
+```json
+{
+  "message": "Assignment has been closed!"
+}
+```
+
 ## START Assignment
 
 Group Members can start working on the assignment in`/api/v1/assignments/:id/start`. This creates a new private project for he user to work upon. Authentication `token` is passed through `Authorization` header and is **required**.
@@ -600,7 +640,7 @@ Group Members can start working on the assignment in`/api/v1/assignments/:id/sta
 | ---------- | ------------------------------------------------------------------------ |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.           |
 | 403        | When authenticated user isn't a user of the Group, assignment is part of |
-| 404        | When the requested assignment identified by `id` does not exists.        |
+| 404        | When the requested assignment identified by `id` does not exist.        |
 
 ```http
 PATCH /api/v1/assignments/:id/start HTTP/1.1

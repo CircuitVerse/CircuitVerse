@@ -3,7 +3,7 @@
 class Api::V1::GroupMemberSerializer
   include FastJsonapi::ObjectSerializer
 
-  attributes :group_id, :user_id, :created_at, :updated_at
+  attributes :group_id, :user_id, :created_at, :updated_at, :mentor
 
   attribute :name do |object|
     object.user.name

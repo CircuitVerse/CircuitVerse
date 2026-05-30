@@ -23,7 +23,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         post "/api/v1/projects/#{project.id}/collaborators/",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
       before do
         token = get_auth_token(author)
         post "/api/v1/projects/0/collaborators/",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
         FactoryBot.create(:collaboration, user: existing, project: project)
         token = get_auth_token(author)
         post "/api/v1/projects/#{project.id}/collaborators/",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -64,7 +64,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
 
       it "returns the added, already_existing & invalid mails (author being invalid)" do
         expect(response.parsed_body["added"]).to eq([user.email])
-        puts user.email
+
         expect(response.parsed_body["existing"]).to eq(["existing@test.com"])
         expect(response.parsed_body["invalid"]).to eq(["invalid", author.email])
       end
@@ -72,7 +72,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
 
     def create_params
       {
-        "emails": "#{user.email}, existing@test.com, invalid, #{author.email}"
+        emails: "#{user.email}, existing@test.com, invalid, #{author.email}"
       }
     end
   end

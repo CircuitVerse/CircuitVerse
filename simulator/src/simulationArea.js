@@ -1,9 +1,10 @@
-/* eslint-disable import/no-cycle */
+/* eslint-disable no-alert */
+/* eslint-disable no-undef */
 import EventQueue from './eventQueue';
 import { clockTick } from './utils';
 
 /**
- * simulation environment object - holds simulation canvas
+ * Simulation environment object - holds simulation canvas
  * @type {Object} simulationArea
  * @property {HTMLCanvasElement} canvas
  * @property {boolean} selected
@@ -65,8 +66,9 @@ const simulationArea = {
     mouseDownY: 0,
     simulationQueue: undefined,
     multiAddElement: false,
+    touch: false,
 
-    clickCount: 0, // double click
+    clickCount: 0, // Double click
     lock: 'unlocked',
     timer() {
         ckickTimer = setTimeout(() => {
@@ -84,14 +86,21 @@ const simulationArea = {
         this.mouseDown = false;
     },
     changeClockTime(t) {
-        if (t < 50) return;
+        if (t < 50) {
+            return;
+        }
+
         clearInterval(simulationArea.ClockInterval);
+        // eslint-disable-next-line no-param-reassign
         t = t || prompt('Enter Time Period:');
         simulationArea.timePeriod = t;
         simulationArea.ClockInterval = setInterval(clockTick, t);
     },
     clear() {
-        if (!this.context) return;
+        if (!this.context) {
+            return;
+        }
+
         this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
     },
 };

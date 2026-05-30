@@ -9,7 +9,7 @@
 %>
 <div class="container comments-container">
   <div class="row">
-    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12">
       <% if !thread.nil? && thread.can_be_read_by?(user) %>
         <div id="commontator-thread-<%= thread.id %>" class="commontator thread">
           <% if @commontator_thread_show %>

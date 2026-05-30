@@ -1,9 +1,19 @@
+:root {
+  --shadow-color: rgba(0, 0, 0, .2);
+}
+
 .contribute-card {
   border: 0;
-  display: inline-block;
-  margin-bottom: 30px;
-  margin-top: 30px;
-  width: 300px;
+  box-shadow: 0 10px 10px var(--shadow-color), 0 0 20px var(--shadow-color);
+  height: 500px;
+  margin: 30px 0;
+  padding-top: 20px;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 15px 15px var(--shadow-color), 0 0 30px var(--shadow-color);
+    transform: scale(1.05);
+  }
 }
 
 .contribute-card-image {
@@ -50,20 +60,37 @@
   img {
     height: 70px;
     width: 160px;
+    object-fit: contain;
+    padding: 5px;
   }
+}
+
+.centered-paragraph {
+  text-align: center;
 }
 
 //breakpoints
-@media (max-width: 400px) {
-  .contribute-card {
-    padding-left: 0;
-    width: 250px;
-  }
-}
-
 @media (max-width: 1199px) {
   .contribute-social-card {
     margin-bottom: 10px;
     margin-top: 10px;
+  }
+
+  .contribute-card {
+    height: 100%;
+  }
+}
+
+@media (min-width: 401px) and (max-width: 590px) {
+  .contribute-card {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+@media (max-width: 400px) {
+  .contribute-card {
+    height: 100%;
+    width: 100%;
   }
 }

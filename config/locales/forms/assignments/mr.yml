@@ -1,0 +1,11 @@
+mr:
+  helpers:
+    label:
+      assignment:
+        name: "नाव"
+        description: "वर्णन"
+        grading_scale: "ग्रेडिंग स्केल"
+    submit:
+      assignment:
+        create: "असाइनमेंट तयार करा"
+        update: "असाइनमेंट अद्यतनित करा"

@@ -70,6 +70,8 @@ export default class Dlatch extends CircuitElement {
             simulationArea.simulationQueue.add(this.qOutput);
             simulationArea.simulationQueue.add(this.qInvOutput);
         }
+
+        this.setOutputsUpstream(true);
     }
 
     customSave() {
@@ -113,6 +115,6 @@ export default class Dlatch extends CircuitElement {
 }
 
 Dlatch.prototype.tooltipText = 'D Latch : Single input Flip flop or D FlipFlop';
-Dlatch.prototype.helplink = 'https://docs.circuitverse.org/#/Sequential?id=d-latch';
+Dlatch.prototype.helplink = 'https://docs.circuitverse.org/#/chapter4/6sequentialelements?id=d-latch';
 
 Dlatch.prototype.objectType = 'Dlatch';

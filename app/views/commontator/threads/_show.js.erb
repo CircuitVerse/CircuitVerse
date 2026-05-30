@@ -6,7 +6,6 @@
   show_all
 %>
 
-
 $("#commontator-thread-<%= thread.id %>").html("<%= escape_javascript(
   render partial: 'commontator/threads/show', formats: [ :html ], locals: {
     user: user, thread: thread, page: page, show_all: show_all

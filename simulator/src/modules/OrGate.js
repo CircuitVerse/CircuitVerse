@@ -96,6 +96,8 @@ export default class OrGate extends CircuitElement {
             result |= this.inp[i].value || 0;
         this.output1.value = result >>> 0;
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**
@@ -149,7 +151,7 @@ export default class OrGate extends CircuitElement {
  * @category modules
  */
 OrGate.prototype.tooltipText =
-    "Or Gate Tooltip : Implements logical disjunction";
+    "Or Gate ToolTip : Implements logical disjunction";
 
 /**
  * @memberof OrGate
@@ -171,5 +173,5 @@ OrGate.prototype.alwaysResolve = true;
  * @category modules
  */
 OrGate.prototype.verilogType = "or";
-OrGate.prototype.helplink = "https://docs.circuitverse.org/#/gates?id=or-gate";
+OrGate.prototype.helplink = "https://docs.circuitverse.org/#/chapter4/4gates?id=or-gate";
 OrGate.prototype.objectType = "OrGate";

@@ -1,0 +1,12 @@
+de:
+  helpers:
+    label:
+      announcement:
+        body: "Ankündigungskörper"
+        link: "Link zur Ankündigung"
+        start_date: "Startdatum"
+        end_date: "Enddatum"
+    submit:
+      announcement:
+        create: "Neue Ankündigung"
+        update: "Ankündigung aktualisieren"

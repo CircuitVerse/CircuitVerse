@@ -1,4 +1,8 @@
 ---
+glob: "**/*.{html,text,js}{+*,}.erb"
+exclude:
+  - '**/vendor/**/*'
+  - '**/node_modules/**/*'
 linters:
   ErbSafety:
     enabled: true
@@ -10,4 +14,8 @@ linters:
       Style/FrozenStringLiteralComment:
         Enabled: false
       Metrics/LineLength:
+        Enabled: false
+      Layout/TrailingEmptyLines:
+        Enabled: false
+      Layout/InitialIndentation:
         Enabled: false

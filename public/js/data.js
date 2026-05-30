@@ -783,7 +783,7 @@ deleteOfflineProject = function (projectId) {
         localStorage.setItem("projectList", JSON.stringify(projectList));
         $('#openProjectDialog').empty();
         for (id in projectList) {
-            $('#openProjectDialog').append('<label class="option"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<i class="fa fa-times deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
+            $('#openProjectDialog').append('<label class="option custom-radio"><input type="radio" name="projectId" value="' + id + '" />' + projectList[id] + '<span></span><i class="fa fa-trash deleteOfflineProject" onclick="deleteOfflineProject(\'' + id + '\')"></i></label>');
         }
     }
 }
@@ -813,7 +813,7 @@ createOpenLocalPrompt = function() {
 
 }
 
-// Prompt to create subcircuit, shows list of circuits which dont depend on the current circuit
+// Prompt to create subcircuit, shows list of circuits which don't depend on the current circuit
 createSubCircuitPrompt = function(scope = globalScope) {
     $('#insertSubcircuitDialog').empty();
     var flag = true;
@@ -979,13 +979,13 @@ function generateImage(imgType, view, transparent, resolution, down = true) {
 
 }
 
-if (logix_project_id == 0)
+if (logix_project_id && logix_project_id == 0)
 setTimeout(promptSave,120000);
 
-function promptSave(){
-    console.log("PROMPT")
-    if(confirm("You have not saved your creation! Would you like save your project online? "))
-    save()
+function promptSave() {
+    if (confirm("You have not saved your creation! Would you like save your project online? ")){
+    save();
+    }
 }
 
 async function postUserIssue(message) {

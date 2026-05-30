@@ -20,8 +20,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
     context "with invalid access token" do
       before do
         post "/api/v1/oauth/signup", params: {
-          "access_token": "invalid_access_token",
-          "provider": "google"
+          access_token: "invalid_access_token",
+          provider: "google"
         }, as: :json
       end
 
@@ -34,8 +34,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
     context "with unsupported provider type" do
       before do
         post "/api/v1/oauth/signup", params: {
-          "access_token": "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
-          "provider": "unsupported_provider"
+          access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+          provider: "unsupported_provider"
         }, as: :json
       end
 
@@ -48,8 +48,8 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
     context "with empty email & valid provider" do
       before do
         post "/api/v1/oauth/signup", params: {
-          "access_token": "empty_email_token",
-          "provider": "google"
+          access_token: "empty_email_token",
+          provider: "google"
         }, as: :json
       end
 
@@ -72,9 +72,28 @@ RSpec.describe Api::V1::AuthenticationController, "#oauth_signup", type: :reques
 
     def oauth_params
       {
-        "access_token": "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
-        "provider": "google"
+        access_token: "ya29.a0AfH6SMB5cyjrwei-oi_TJ8Z4hTfw9v1tz-Ubm30AeWdzCpX9UHFY",
+        provider: "google"
       }
+    end
+
+    context "when registration is blocked" do
+      before do
+        allow(Flipper).to receive(:enabled?).with(:block_registration).and_return(true)
+        post "/api/v1/oauth/signup", params: oauth_params, as: :json
+      end
+
+      it "returns an error with status 403 and a message" do
+        expect(response).to have_http_status(:forbidden)
+        parsed_response = response.parsed_body
+        expect(parsed_response["errors"]).to eq([
+                                                  {
+                                                    "detail" => "Registration is currently blocked",
+                                                    "status" => 403,
+                                                    "title" => "Registration is currently blocked"
+                                                  }
+                                                ])
+      end
     end
   end
 end

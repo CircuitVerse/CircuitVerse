@@ -23,7 +23,7 @@ RSpec.describe Api::V1::ProjectsController, "#destroy", type: :request do
       before do
         token = get_auth_token(random_user)
         delete "/api/v1/projects/#{project.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :forbidden" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::ProjectsController, "#destroy", type: :request do
       before do
         token = get_auth_token(user)
         delete "/api/v1/projects/#{project.id}",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "deletes project & return status :no_content" do
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::ProjectsController, "#destroy", type: :request do
       before do
         token = get_auth_token(random_user)
         delete "/api/v1/projects/0",
-               headers: { "Authorization": "Token #{token}" }, as: :json
+               headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status :not_found" do

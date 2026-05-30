@@ -1,0 +1,13 @@
+mr:
+  helpers:
+    label:
+      group_member:
+        emails: "ई-मेल आयडी:"
+      group:
+        name: "गटाचे नाव:"
+    submit:
+      group_member:
+        create: "सदस्य जोडा"
+      group:
+        create: "ते जतन करा"
+        update: "सेव करा"

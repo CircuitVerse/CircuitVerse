@@ -1,7 +1,8 @@
 en:
   simulator:
-    nav_item: 
+    nav_item:
       project: "Project"
       circuit: "Circuit"
       tools: "Tools"
       help: "Help"
+    insert_Subcircuitcontent: " Looks like there are no other circuits which doesn't have this circuit as a dependency. Create a new one!"

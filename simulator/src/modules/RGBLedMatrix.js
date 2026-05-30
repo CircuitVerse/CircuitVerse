@@ -232,6 +232,8 @@ export default class RGBLedMatrix extends CircuitElement {
                 colors[rowNodeValue][columnNodeValue] = colorValue;
             }
         }
+        
+        this.setOutputsUpstream(true);
     }
 
     customDraw() {

@@ -1,4 +1,0 @@
-#!/bin/bash
-
-echo "Starting webpacker development server" \
-&& /circuitverse/bin/webpack-dev-server

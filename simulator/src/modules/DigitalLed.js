@@ -24,7 +24,9 @@ export default class DigitalLed extends CircuitElement {
         this.scope['DigitalLed'].push(this);
         */
         this.rectangleObject = false;
-        this.setDimensions(10, 20);
+        this.setWidth(10);
+        this.upDimensionY = 20;
+        this.downDimensionY = 40;
         this.inp1 = new Node(-40, 0, 0, this, 1);
         this.directionFixed = true;
         this.fixedBitWidth = true;
@@ -155,7 +157,7 @@ DigitalLed.prototype.tooltipText =
  * @category modules
  */
 DigitalLed.prototype.helplink =
-    "https://docs.circuitverse.org/#/outputs?id=digital-led";
+    "https://docs.circuitverse.org/#/chapter4/3output?id=digital-led";
 
 /**
  * @memberof DigitalLed

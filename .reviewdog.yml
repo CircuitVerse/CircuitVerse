@@ -1,0 +1,5 @@
+runner:
+  undercover:
+    cmd: bundle exec undercover-checkstyle --compare origin/master
+    level: warning
+    format: checkstyle

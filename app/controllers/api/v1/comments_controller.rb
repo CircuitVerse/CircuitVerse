@@ -44,7 +44,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
     security_transgression_unless @comment.can_be_deleted_by?(current_user)
 
     if @comment.delete_by(current_user)
-      render json: {}, status: :no_content
+      head :no_content
     else
       api_error(status: 409, errors: "already deleted")
     end
@@ -66,16 +66,16 @@ class Api::V1::CommentsController < Api::V1::BaseController
     security_transgression_unless @comment.can_be_voted_on_by?(current_user)
 
     @comment.upvote_from current_user
-    render json: { "message": "comment upvoted" }
+    render json: { message: "comment upvoted" }
   end
 
   # PUT /api/v1/comments/:id/downvote
   def downvote
-    security_transgression_unless @comment.can_be_voted_on_by?(current_user) && \
+    security_transgression_unless @comment.can_be_voted_on_by?(current_user) &&
                                   @comment.thread.config.comment_voting.to_sym == :ld
 
     @comment.downvote_from current_user
-    render json: { "message": "comment downvoted" }
+    render json: { message: "comment downvoted" }
   end
 
   # PUT /api/v1/comments/:id/unvote
@@ -83,21 +83,21 @@ class Api::V1::CommentsController < Api::V1::BaseController
     security_transgression_unless @comment.can_be_voted_on_by?(current_user)
 
     @comment.unvote voter: current_user
-    render json: { "message": "comment unvoted" }
+    render json: { message: "comment unvoted" }
   end
 
   private
 
     def load_index_resource
-      @commontator_thread = Commontator::Thread.find(params[:thread_id])
+      @commontator_thread = Commontator::Thread.find(params.expect(:thread_id))
       @project = @commontator_thread.commontable
-      security_transgression_unless @project.project_access_type == "Public"\
-                                    || current_user && @project.author == current_user\
-                                    && @commontator_thread.can_be_read_by?(current_user)
+      security_transgression_unless @project.project_access_type == "Public" \
+                                    || (current_user && @project.author == current_user \
+                                    && @commontator_thread.can_be_read_by?(current_user))
     end
 
     def load_create_resource
-      @commontator_thread = Commontator::Thread.find(params[:thread_id])
+      @commontator_thread = Commontator::Thread.find(params.expect(:thread_id))
       security_transgression_unless @commontator_thread.can_be_read_by? current_user
 
       @comment = Commontator::Comment.new(
@@ -107,7 +107,7 @@ class Api::V1::CommentsController < Api::V1::BaseController
     end
 
     def set_comment_and_thread
-      @comment = Commontator::Comment.find(params[:id])
+      @comment = Commontator::Comment.find(params.expect(:id))
       @commontator_thread = @comment.thread
     end
 

@@ -1,0 +1,401 @@
+{
+    "Multiplexers": {
+      "type": "comb",
+      "title": "Decoders And Plexers",
+      "groups": [
+        {
+          "label": "Multiplexers",
+          "inputs": [
+            {
+              "label": "inp1",
+              "bitWidth": 1,
+              "values": [
+                "0",
+                "0",
+                "1",
+                "1",
+                "0",
+                "0",
+                "1",
+                "1"
+              ]
+            },
+            {
+              "label": "inp2",
+              "bitWidth": 1,
+              "values": [
+                "0",
+                "1",
+                "0",
+                "1",
+                "0",
+                "1",
+                "0",
+                "1"
+              ]
+            },
+            {
+                "label": "s",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "0",
+                  "0",
+                  "0",
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ]
+              }
+          ],
+          "outputs": [
+            {
+              "label": "out1",
+              "bitWidth": 1,
+              "values": [
+                "0",
+                "0",
+                "1",
+                "1",
+                "0",
+                "1",
+                "0",
+                "1"
+              ]
+            }
+          ],
+          "n": 8
+        }
+      ]
+    },
+    "Demultiplexer":{
+        "type": "comb",
+        "title": "Decoders And Plexers",
+        "groups": [
+          {
+            "label": "Demultiplexer",
+            "inputs": [
+              {
+                "label": "inp1",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "1",
+                  "0",
+                  "1"
+                ]
+              },
+              {
+                  "label": "s",
+                  "bitWidth": 1,
+                  "values": [
+                    "0",
+                    "0",
+                    "1",
+                    "1"
+                  ]
+                }
+            ],
+            "outputs": [
+              {
+                "label": "out2",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "1",
+                  "0",
+                  "0"
+                ]
+              },
+              {
+                "label": "out3",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ]
+              }
+            ],
+            "n": 4
+          }
+        ]
+    },
+    "Decoder":{
+        "type": "comb",
+        "title": "Decoders And Plexers",
+        "groups": [
+          {
+            "label": "Decoder",
+            "inputs": [
+              {
+                "label": "inp1",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "1"
+                ]
+              }
+            ],
+            "outputs": [
+              {
+                "label": "out11",
+                "bitWidth": 1,
+                "values": [
+                  "1",
+                  "0"
+                ]
+              },
+              {
+                "label": "out12",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "1"
+                ]
+              }
+            ],
+            "n": 2
+          }
+        ]
+    },
+    "priority-encoder":{
+        "type": "comb",
+        "title": "Decoders And Plexers",
+        "groups": [
+          {
+            "label": "priority-encoder",
+            "inputs": [
+              {
+                "label": "inp1",
+                "bitWidth": 1,
+                "values": [
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ]
+              },
+              {
+                "label": "inp2",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "1",
+                  "1",
+                  "1"
+                ]
+              },
+              {
+                "label": "inp3",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "0",
+                  "1",
+                  "1"
+                ]
+              },
+              {
+                "label": "inp4",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "0",
+                  "0",
+                  "1"
+                ]
+              }
+            ],
+            "outputs": [
+              {
+                "label": "out9",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "1",
+                  "0",
+                  "1"
+                ]
+              },
+              {
+                "label": "out10",
+                "bitWidth": 1,
+                "values": [
+                  "0",
+                  "0",
+                  "1",
+                  "1"
+                ]
+              },
+              {
+                "label": "en",
+                "bitWidth": 1,
+                "values": [
+                  "1",
+                  "1",
+                  "1",
+                  "1"
+                ]
+              }
+            ],
+            "n": 4
+          }
+        ]
+    },
+    "bit-selector": {
+      "type": "comb",
+      "title": "Decoders And Plexers",
+      "groups": [
+        {
+          "label": "bit-selector",
+          "inputs": [
+            {
+              "label": "inp5",
+              "bitWidth": 4,
+              "values": [
+                "0001",
+                "0010",
+                "0100",
+                "1000"
+              ]
+            },
+            {
+                "label": "CS",
+                "bitWidth": 2,
+                "values": [
+                  "00",
+                  "01",
+                  "10",
+                  "11"
+                ]
+              }
+          ],
+          "outputs": [
+            {
+              "label": "out13",
+              "bitWidth": 1,
+              "values": [
+                "1",
+                "1",
+                "1",
+                "1"
+              ]
+            }
+          ],
+          "n": 4
+        }
+      ]
+    },
+    "msb": {
+      "type": "comb",
+      "title": "Decoders And Plexers",
+      "groups": [
+        {
+          "label": "msb",
+          "inputs": [
+            {
+              "label": "inp5",
+              "bitWidth": 4,
+              "values": [
+                "0000",
+                "0001",
+                "0010",
+                "0100",
+                "1000"
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "label": "out4",
+              "bitWidth": 4,
+              "values": [
+                "0000",
+                "0000",
+                "0001",
+                "0010",
+                "0011"
+              ]
+            },
+            {
+              "label": "out5",
+              "bitWidth": 1,
+              "values": [
+                "0",
+                "1",
+                "1",
+                "1",
+                "1"
+              ]
+            }
+          ],
+          "n": 5
+        }
+      ]
+    },
+    "lsb": {
+      "type": "comb",
+      "title": "Decoders And Plexers",
+      "groups": [
+        {
+          "label": "lsb",
+          "inputs": [
+            {
+              "label": "inp5",
+              "bitWidth": 4,
+              "values": [
+                "0000",
+                "0001",
+                "0011",
+                "0111",
+                "1111",
+                "1000",
+                "1100",
+                "1110",
+                "0100",
+                "0010"
+              ]
+            }
+          ],
+          "outputs": [
+            {
+              "label": "out6",
+              "bitWidth": 4,
+              "values": [
+                "0000",
+                "0000",
+                "0000",
+                "0000",
+                "0000",
+                "0011",
+                "0010",
+                "0001",
+                "0010",
+                "0001"
+              ]
+            },
+            {
+              "label": "out7",
+              "bitWidth": 1,
+              "values": [
+                "0",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1",
+                "1"
+              ]
+            }
+          ],
+          "n": 10
+        }
+      ]
+    }
+  }

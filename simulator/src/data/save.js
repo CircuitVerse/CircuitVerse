@@ -1,6 +1,6 @@
 import { scopeList } from '../circuit';
 import { resetup } from '../setup';
-import { update } from '../engine';
+import { update, updateSubcircuitSet } from '../engine';
 import { stripTags, showMessage } from '../utils';
 import { backUp } from './backupCircuit';
 import simulationArea from '../simulationArea';
@@ -11,7 +11,7 @@ import { colors } from '../themer/themer';
 import {layoutModeGet, toggleLayoutMode} from '../layoutMode';
 import {verilogModeGet} from '../Verilog2CV';
 import domtoimage from 'dom-to-image';
-import C2S from '../../vendor/canvas2svg';
+import C2S from '../canvas2svg';
 
 var projectName = undefined;
 
@@ -71,13 +71,13 @@ export function getTabsOrder() {
  * @return {JSON}
  * @category data
  */
-export function generateSaveData(name) {
+export function generateSaveData(name, setName = true) {
     data = {};
 
     // Prompts for name, defaults to Untitled
     name = getProjectName() || name || prompt('Enter Project Name:') || 'Untitled';
     data.name = stripTags(name);
-    setProjectName(data.name);
+    if (setName) setProjectName(data.name);
 
     // Save project details
     data.timePeriod = simulationArea.timePeriod;
@@ -104,6 +104,13 @@ export function generateSaveData(name) {
         }
 
         completed[id] = true;
+
+
+        // This update is very important.
+        // if a scope's input/output changes and the user saves without going
+        // to circuits where this circuit is used as a subcircuit. It will
+        // break the code since the Subcircuit will have different number of
+        // in/out nodes compared to the localscope input/output objects.
         update(scopeList[id], true); // For any pending integrity checks on subcircuits
         data.scopes.push(backUp(scopeList[id]));
     }
@@ -117,7 +124,7 @@ export function generateSaveData(name) {
 }
 
 // Helper function to download text
-function download(filename, text) {
+export function download(filename, text) {
     var pom = document.createElement('a');
     pom.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     pom.setAttribute('download', filename);
@@ -285,7 +292,7 @@ async function generateImageForOnline() {
         var baseHeight = Math.round(baseWidth / ratio);
         $(node).css('height', baseHeight);
         $(node).css('width', baseWidth);
-        
+
         var data = await domtoimage.toJpeg(node);
         $(node).css('width', prevWidth);
         $(node).css('height', prevHeight);
@@ -313,7 +320,7 @@ async function generateImageForOnline() {
     // Restores Focus
     globalScope.centerFocus(false);
     return data;
-    
+
 }
 /**
  * Function called when you save acircuit online
@@ -407,3 +414,26 @@ export default async function save() {
     // Restore everything
     resetup();
 }
+
+/**
+ * Function to autosave the data of circuit
+ * @category data
+ * @exports save
+ */
+var checkForAutosave = 1;
+
+export function autosave() {
+    var circuitData = generateSaveData('Untitled');
+    localStorage.setItem('autosave', circuitData);
+}
+
+export function checkBackups() {
+    if (checkForAutosave < globalScope.backups.length) {
+        autosave();
+        checkForAutosave = globalScope.backups.length;
+    }
+}
+
+// Please do not enable autosave. It will not work
+// in the current state and breaks other things.
+// setInterval(checkBackups, 3000); // disabled

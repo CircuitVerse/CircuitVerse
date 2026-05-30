@@ -17,10 +17,10 @@ describe CollaborationsController, type: :request do
     let(:create_params) do
       { collaboration:
       { project_id: @project.id,
-        emails: "#{@new_collaboration.email} #{@user.email}" } }
+        emails: [@new_collaboration.email, @user.email] } }
     end
 
-    context "author is logged in", :focus do
+    context "author is logged in" do
       before do
         FactoryBot.create(:collaboration, project: @project, user: @user)
         sign_in @author

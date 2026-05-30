@@ -21,8 +21,8 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
       before do
         token = get_auth_token(user)
         post "/api/v1/groups",
-             headers: { "Authorization": "Token #{token}" },
-             params: { "invalid": "invalid" }, as: :json
+             headers: { Authorization: "Token #{token}" },
+             params: { invalid: "invalid" }, as: :json
       end
 
       it "returns status bad_request" do
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
       before do
         token = get_auth_token(user)
         post "/api/v1/groups",
-             headers: { "Authorization": "Token #{token}" },
+             headers: { Authorization: "Token #{token}" },
              params: create_params, as: :json
       end
 
@@ -48,7 +48,7 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
 
     def create_params
       {
-        "name": "Test Group"
+        name: "Test Group"
       }
     end
   end

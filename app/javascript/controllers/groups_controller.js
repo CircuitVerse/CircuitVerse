@@ -1,26 +1,86 @@
 import { Controller } from 'stimulus';
-import 'bootstrap-tagsinput/dist/bootstrap-tagsinput.js';
-import * as $ from 'jquery/dist/jquery';
-import 'bootstrap/dist/js/bootstrap';
 
 export default class extends Controller {
-    addMemberToGroup() {
-        $('#group_member_emails').tagsinput({
-            trimValue: true,
-            confirmKeys: [13, 44, 32],
+    connect() {
+        $('#promote-member-modal').on('show.bs.modal', (e) => {
+            const groupmember = $(e.relatedTarget).data('currentgroupmember');
+            $(e.currentTarget).find('#groups-member-promote-button').parent().attr('action',
+                `/group_members/${groupmember.toString()}`);
         });
+        $('#demote-member-modal').on('show.bs.modal', (e) => {
+            const groupmember = $(e.relatedTarget).data('currentgroupmember');
+            $(e.currentTarget).find('#groups-member-demote-button').parent().attr('action',
+                `/group_members/${groupmember.toString()}`);
+        });
+    }
 
-        $('.bootstrap-tagsinput input').attr('maxlength', '30');
-        $('.bootstrap-tagsinput input').attr('id', 'group_email_input');
-        $('.add-members-button').attr('disabled', true);
-        $('.bootstrap-tagsinput input').on('keyup click', () => {
-            if ($('.bootstrap-tagsinput').children().length > 1) {
-                $('.add-members-button').attr('disabled', false);
-            } else {
-                $('.add-members-button').attr('disabled', true);
-            }
+    toggleButtonBasedOnEmails(emailSelector, buttonSelector) {
+        if ($(emailSelector).select2('data').length > 0) {
+            $(buttonSelector).attr('disabled', false);
+        } else {
+            $(buttonSelector).attr('disabled', true);
+        }
+    }
+
+    mentorInputPaste(e) {
+        e.preventDefault();
+        let pastedEmails = '';
+        if (window.clipboardData && window.clipboardData.getData) {
+            pastedEmails = window.clipboardData.getData('Text');
+        } else if (e.clipboardData && e.clipboardData.getData) {
+            pastedEmails = e.clipboardData.getData('text/plain');
+        }
+
+        if (pastedEmails.includes('\n')) {
+            const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
+            const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
+            this.value = pastedEmails.replace(/./g, '');
+            newLinesIntoSpacesSplit.forEach((value) => {
+                var tags = $('<option/>', { text: value });
+                $('#group_mentor_emails').append(tags);
+                $('#group_mentor_emails option').prop('selected', true);
+            });
+            $('#add-mentor-button').attr('disabled', false);
+        } else {
+            const pastedEmailsSplitBySpace = pastedEmails.split(' ');
+            this.value = pastedEmails.replace(/./g, '');
+            pastedEmailsSplitBySpace.forEach((value) => {
+                var tags = $('<option/>', { text: value });
+                $('#group_mentor_emails').append(tags);
+                $('#group_mentor_emails option').prop('selected', true);
+            });
+            $('#add-mentor-button').attr('disabled', false);
+        }
+    }
+
+    addMentorToGroup() {
+        $('#group_mentor_emails').select2({
+            tags: true,
+            multiple: true,
+            tokenSeparators: [',', ' '],
         });
-        document.querySelector('.bootstrap-tagsinput input').addEventListener('paste', (e) => {
+        $('.select2-selection input').attr('maxlength', '30');
+        $('.select2-selection input').attr('id', 'group_email_input_mentor');
+        this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
+        $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
+        $('#group_mentor_emails').on('select2:select select2:unselect', () => {
+            this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
+        });
+    }
+
+    addMemberToGroup() {
+        $('#group_member_emails').select2({
+            tags: true,
+            multiple: true,
+            tokenSeparators: [',', ' '],
+        });
+        $('.select2-selection input').attr('maxlength', '30');
+        $('.select2-selection input').attr('id', 'group_email_input');
+        this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
+        $('#group_member_emails').on('select2:select select2:unselect', () => {
+            this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
+        });
+        document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
             e.preventDefault();
             let pastedEmails = '';
             if (window.clipboardData && window.clipboardData.getData) {
@@ -31,15 +91,23 @@ export default class extends Controller {
 
             if (pastedEmails.includes('\n')) {
                 const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
-                const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' ');
+                const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                newLinesIntoSpacesSplitted.forEach(value => $('#group_member_emails').tagsinput('add', value));
-                $('.add-members-button').attr('disabled', false);
+                newLinesIntoSpacesSplit.forEach((value) => {
+                    var tags = $('<option/>', { text: value });
+                    $('#group_member_emails').append(tags);
+                    $('#group_member_emails option').prop('selected', true);
+                });
+                $('#add-members-button').attr('disabled', false);
             } else {
-                const pastedEmailsSplittedBySpace = pastedEmails.split(' ');
+                const pastedEmailsSplitBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
-                pastedEmailsSplittedBySpace.forEach(value => $('#group_member_emails').tagsinput('add', value));
-                $('.add-members-button').attr('disabled', false);
+                pastedEmailsSplitBySpace.forEach((value) => {
+                    var tags = $('<option/>', { text: value });
+                    $('#group_member_emails').append(tags);
+                    $('#group_member_emails option').prop('selected', true);
+                });
+                $('#add-members-button').attr('disabled', false);
             }
         });
     }

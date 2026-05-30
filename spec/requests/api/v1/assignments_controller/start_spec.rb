@@ -7,13 +7,13 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
     let!(:user) { FactoryBot.create(:user) }
     let!(:assignment) do
       FactoryBot.create(
-        :assignment, group: FactoryBot.create(:group, mentor: FactoryBot.create(:user))
+        :assignment, group: FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
       )
     end
     let!(:closed_assignment) do
       FactoryBot.create(
         :assignment, group: FactoryBot.create(
-          :group, mentor: FactoryBot.create(:user)
+          :group, primary_mentor: FactoryBot.create(:user)
         ), status: "closed"
       )
     end
@@ -33,7 +33,7 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/assignments/#{closed_assignment.id}/start",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status unauthorized" do
@@ -46,7 +46,7 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
       before do
         token = get_auth_token(FactoryBot.create(:user))
         patch "/api/v1/assignments/0/start",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "returns status not_found" do
@@ -59,7 +59,7 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
       before do
         token = get_auth_token(user)
         patch "/api/v1/assignments/#{assignment.id}/start",
-              headers: { "Authorization": "Token #{token}" }, as: :json
+              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
       it "starts a new project & return status created" do

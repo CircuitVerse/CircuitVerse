@@ -1,0 +1,25 @@
+name: Docker compose build
+
+on: [push]
+
+jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: Run docker compose
+        run: |
+          export CURRENT_GID=$(id -g)
+          export CURRENT_UID=$(id -u)
+          export NON_ROOT_USERNAME="user"
+          export NON_ROOT_GROUPNAME="user"
+          export OPERATING_SYSTEM="linux"
+          docker compose up -d --build
+          docker compose exec web bash -c "bin/docker/setup"
+          docker compose down

@@ -17,9 +17,9 @@
   }
 
   .actions {
-    float: right;
-
-    margin-left: 10px;
+    align-items: center;
+    display: flex;
+    justify-content: flex-end;
   }
 
   .status {
