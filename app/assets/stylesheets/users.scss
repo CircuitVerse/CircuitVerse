@@ -722,3 +722,19 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+/* Edit Profile Page UI improvements (#4470) */
+.edit-profile-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: $project-card-grey;
+  padding: 24px;
+  border-radius: 8px;
+}
+
+.edit-profile-card .field {
+  margin-bottom: 16px;
+}
+
+.edit-profile-card .primary-delete-button {
+  margin-top: 24px;
+}
