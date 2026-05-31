@@ -3,9 +3,14 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
 
-      <div class="modal-header">
-        <h5 class="modal-title"><%= t("contest.withdraw_submission_modal.heading") %></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      <div class="modal-header d-flex align-items-center">
+        <h5 id="withdrawModalLabel" class="modal-title flex-grow-1 text-center">
+          <%= t("contest.withdraw_submission_modal.heading") %>
+        </h5>
+        <button type="button"
+                class="btn-close ms-auto"
+                data-bs-dismiss="modal"
+                aria-label="<%= t('contest.close') %>"></button>
       </div>
 
       <div class="modal-body">

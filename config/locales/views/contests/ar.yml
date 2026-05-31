@@ -1,5 +1,17 @@
 ar:
   contest:
+    leaderboard:
+      title: "مسابقة #%{id} — لوحة المتصدرين"
+      subtitle: "المواقف النهائية للأصوات؛ والروابط التي كسرها تقرير سابق."
+      back_to_contest: "العودة إلى المنافسة"
+      no_submissions: "لا توجد عروض"
+      columns:
+        rank: "الرتبة"
+        project: "مشروع"
+        author: "المؤلف"
+        votes: "التصويت"
+        submitted_at: "تم تقديمه في"
+      winner_badge: "الفائز"
     heading: "المواجهة"
     index:
       subtitle: "المسابقات حيث يظهر الطلاب دوائرهم المدهشة وأفضل الدوائر تظهر على صفحتنا!"
@@ -18,17 +30,23 @@ ar:
       user_submissions_description: "يمكنك سحب رسالتك من المسابقة."
       contest_entries: "مسابقة إدخالات (%{submission_count})"
       contest_entries_description: "قم بالتصويت على المواد المفضلة لديك وساعدنا على اختيار الفائزين لهذا الأسبوع! يحصل مستخدم واحد على 3 أصوات."
+      view_leaderboard: "عرض لائحة المتصدرين"
     votes: "التصويت"
     close: "أغلق"
     no_contest: "ولا توجد مسابقات حية أو مكتملة."
     contest_container:
       contest_id: "مسابقة"
       entries: "إدخالات"
+      contest_id_with_number: "مسابقة #%{id}"
     status:
       live: "ليبي"
       completed: "مكتمل"
     withdraw: "سحب"
     vote: "التصويت"
+    view: "عرض"
+    no_result_image_alt: "لا توجد صورة نتيجة"
+    timer:
+      expired: "اكتشف"
     new_submission_page:
       heading: "تقديم المشروع"
       select_your_circuit: "حدد الدائرة الخاصة بك"
@@ -88,6 +106,7 @@ ar:
     contests:
       index:
         title: "مسابقات المدير"
+        edit_deadline_alt: "تحرير الموعد النهائي"
       create:
         concurrent_contests: "المسابقات المتزامنة غير مسموح بها. أغلق المسابقات الأخرى قبل إنشاء مسابقة جديدة."
         success: "بدأت المنافسة بنجاح."
@@ -101,7 +120,7 @@ ar:
         invalid_deadline: "تنسيق الموعد النهائي غير صالح."
   layout:
     link_to_contests: "مسابقات"
-  users:
+  user:
     circuitverse:
       preview_project: "معاينة المشروع"
   feature_not_available: "ميزة التنافس غير متوفرة."

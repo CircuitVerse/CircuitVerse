@@ -17,12 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @author = User.find(params[:user_id])
-  end
-
-  # GET /projects/tags/[tag]
-  def get_projects
-    @projects = Project.tagged_with(params[:tag]).open.includes(:tags, :author)
+    @author = User.find(params.expect(:user_id))
   end
 
   # GET /projects/1
@@ -36,6 +31,14 @@ class ProjectsController < ApplicationController
     @collaboration = @project.collaborations.new
     @admin_access = true
     commontator_thread_show(@project)
+
+    # Resolve simulator embed path
+    @embed_path =
+      # if @project.uses_vue_simulator?
+      # simulatorvue_path(@project)
+      # else
+      simulator_path(@project)
+    # end
   end
 
   # GET /projects/1/edit
@@ -76,7 +79,7 @@ class ProjectsController < ApplicationController
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -95,7 +98,7 @@ class ProjectsController < ApplicationController
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
+        format.json { render json: @project.errors, status: :unprocessable_content }
       end
     end
   end
@@ -117,10 +120,10 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       if params[:user_id]
-        @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @author = User.find(params.expect(:user_id))
+        @project = @author.projects.friendly.with_attached_circuit_preview.find(params.expect(:id))
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.with_attached_circuit_preview.find(params.expect(:id))
         @author = @project.author
       end
     end
@@ -139,11 +142,11 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.require(:project).permit(:name, :project_access_type, :description, :tag_list, :tags)
+      params.expect(project: %i[name project_access_type description tag_list tags])
     end
 
     def sanitize_name
-      params[:project][:name] = sanitize(project_params[:name])
+      params.permit(:project)[:name] = sanitize(project_params[:name])
     end
 
     # Sanitize description before passing to view

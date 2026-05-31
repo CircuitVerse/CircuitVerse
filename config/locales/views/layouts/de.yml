@@ -10,9 +10,11 @@ de:
     link_to_about: "Über"
     link_to_faq: "FAQ"
     link_to_contests: "Wettbewerbe"
+    link_to_explore: "Erforschen"
     footer:
       social_icon_text: "Folgen Sie uns auf:"
       link_to_examples: "Beispiele"
+      link_to_explore: "Erforschen"
       my_circuits: "Meine Schaltkreise"
       link_to_contribute: "Mitwirken"
       link_to_forum: "Forum"

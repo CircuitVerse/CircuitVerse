@@ -18,7 +18,7 @@ RSpec.describe "Contest submissions create guards", type: :request do
     end.not_to change(Submission, :count)
 
     expect(response).to redirect_to(contest_path(contest))
-    expect(flash[:alert]).to eq(I18n.t("contests.submissions.create.unauthorized_project"))
+    expect(flash[:alert]).to eq("You can't submit someone else's project.")
   end
 
   it "redirects when submitting a duplicate project to the same contest" do
@@ -34,8 +34,6 @@ RSpec.describe "Contest submissions create guards", type: :request do
     end.not_to change(Submission, :count)
 
     expect(response).to redirect_to(new_contest_submission_path(contest))
-    expect(flash[:notice]).to eq(
-      I18n.t("contests.submissions.create.duplicate_submission", contest_id: contest.id)
-    )
+    expect(flash[:notice]).to eq("This project is already submitted in Contest ##{contest.id}")
   end
 end

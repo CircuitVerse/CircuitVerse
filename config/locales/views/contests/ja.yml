@@ -1,5 +1,17 @@
 ja:
   contest:
+    leaderboard:
+      title: "コンテスト #%{id} — Leaderboard"
+      subtitle: "投票による最終順位; 以前の提出によって破られた結びつき。"
+      back_to_contest: "コンテストに戻る"
+      no_submissions: "提出物がありません"
+      columns:
+        rank: "ランク"
+        project: "プロジェクト"
+        author: "作成者"
+        votes: "投票"
+        submitted_at: "提出日時"
+      winner_badge: "入賞者"
     heading: "コンテスト"
     index:
       subtitle: "生徒たちが素晴らしい回路を披露し、最高の回路をホームページで紹介するコンテスト!"
@@ -18,17 +30,25 @@ ja:
       user_submissions_description: "提出物はコンテストから撤回できます。"
       contest_entries: "コンテストエントリー(%{submission_count})"
       contest_entries_description: "あなたのお気に入りのエントリに投票して、今週の受賞者を選ぶのを手伝ってください! 1人のユーザーは3票を獲得します。"
+      view_leaderboard: "リーダーボードを表示"
     votes: "投票"
+    votes_count:
+      other: "%{count} 投票"
     close: "閉じる"
     no_contest: "ライブコンテストやコンテストはありません。"
     contest_container:
       contest_id: "コンテスト"
       entries: "項目"
+      contest_id_with_number: "コンテスト #%{id}"
     status:
       live: "ライブ"
       completed: "完了"
     withdraw: "出金する"
     vote: "投票"
+    view: "表示"
+    no_result_image_alt: "結果画像がありません"
+    timer:
+      expired: "期限切れ"
     new_submission_page:
       heading: "プロジェクト提出"
       select_your_circuit: "回路を選択"
@@ -89,6 +109,7 @@ ja:
     contests:
       index:
         title: "コンテスト管理"
+        edit_deadline_alt: "期限を編集"
       create:
         concurrent_contests: "コンテストを同時に作成することはできません。新しいコンテストを作成する前に他のコンテストを閉じてください。"
         success: "コンテストは正常に開始されました。"
@@ -102,7 +123,7 @@ ja:
         invalid_deadline: "期限の形式が無効です。"
   layout:
     link_to_contests: "コンテスト"
-  users:
+  user:
     circuitverse:
       preview_project: "プロジェクトをプレビュー"
   feature_not_available: "コンテスト機能は利用できません。"

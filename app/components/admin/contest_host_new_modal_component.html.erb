@@ -6,15 +6,14 @@
 
   <div class="modal-dialog">
     <div class="modal-content">
-
-      <div class="modal-header">
-        <h4 id="hostNewContestModalLabel" class="modal-title">
+      <div class="modal-header d-flex align-items-center">
+        <h4 id="hostNewContestModalLabel" class="modal-title flex-grow-1 text-center">
           <%= t("contest.host_new_contest_modal.heading") %>
         </h4>
         <button type="button"
-                class="btn-close"
+                class="btn-close ms-auto"
                 data-bs-dismiss="modal"
-                aria-label="Close"></button>
+                aria-label="<%= t('contest.close') %>"></button>
       </div>
 
       <div class="modal-body">

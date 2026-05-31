@@ -8,7 +8,7 @@ describe "Contests", type: :system do
     @user    = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)
     Flipper.enable(:contests)
-    sign_in @user
+    system_sign_in @user
   end
 
   let(:create_params) do
@@ -84,7 +84,12 @@ describe "Contests", type: :system do
       visit new_contest_submission_path(@contest.id)
       page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
-      sign_in_random_user
+
+      visit destroy_user_session_path
+
+      voter_user = FactoryBot.create(:user)
+      system_sign_in(voter_user)
+
       visit contest_path(@contest.id)
     end
 
@@ -100,7 +105,12 @@ describe "Contests", type: :system do
       visit new_contest_submission_path(@contest.id)
       page.find(".submission-card[data-project-id='#{@project.id}']").click
       page.find("#submission-submit-button").click
-      sign_in_random_user
+
+      visit destroy_user_session_path
+
+      voter_user = FactoryBot.create(:user)
+      system_sign_in(voter_user)
+
       visit contest_path(@contest.id)
       page.find(".vote-button[data-submission-id='#{@contest.submissions.last.id}']").click
     end
@@ -114,7 +124,9 @@ describe "Contests", type: :system do
 
   def check_submission_container(submission, project)
     expect(page).to have_text(project.name)
-    expect(page).to have_text("Votes: #{submission.submission_votes_count}")
+    votes = submission.submission_votes_count
+    expected_votes_text = votes == 1 ? "1 vote" : "#{votes} votes"
+    expect(page).to have_text(expected_votes_text)
   end
 
   def check_contest_page(id)
@@ -125,6 +137,6 @@ describe "Contests", type: :system do
   def check_contest_container(id, status, entries)
     expect(page).to have_text("Contest ##{id}")
     expect(page).to have_text(status)
-    expect(page).to have_text("Entries: #{entries}")
+    expect(page).to have_text("#{entries} Entries")
   end
 end

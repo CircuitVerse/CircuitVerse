@@ -4,85 +4,134 @@
     flex-direction: column;
     padding-top: 2rem;
     text-align: center;
-  
+
     .contests-header-title {
       color: $secondary-green;
     }
-  
+
     .contests-header-description {
       width: 60%;
     }
   }
-  
+
   .contests-list-wrapper {
     margin-top: 2rem;
     margin-bottom: 2rem;
   }
-  
+
   .contest-container {
     background: $contest-card-container;
     border: 1px solid $primary-green;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
-    min-height: 285px;
-    margin-bottom: 2rem;
+    min-height: 315px;
+    height:100%;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
     position: relative;
     transition: .2s ease-in-out;
     width: 100%;
-  
+
     &:hover {
-      background: $shadow-grey;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transform: translateY(-2px);
     }
-  
-    .contest-container-details {
-      align-items: center;
-      background: $white;
-      border-top: 1px solid $primary-green;
-      bottom: 0;
-      color: $black;
+
+    .contest-container-card-image {
+      width:100%;
+      height:150px;
+      position:relative;
       display: flex;
-      height: 46px;
-      justify-content: space-between;
-      padding: 0 10px;
-      position: absolute;
-      width: 100%;
+      align-items: center;
+      justify-content: center;
+      border-bottom: 2px solid $primary-green;
+      flex-shrink: 0;
+
+      .contest-card-image {
+        width:100%;
+        height:100%;
+        object-fit:cover;
+      }
+
     }
-  
+
+    .contest-container-details {
+      background: $white;
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      gap:10px;
+      flex-grow: 1;
+    }
+
     .contest-container-details-number {
-      font-size: 14px;
+      font-size: 20px;
       font-weight: 600;
       line-height: 22px;
       margin-bottom: 0;
+
+
+      .contest-container-details-number-link {
+        color: $black;
+        text-decoration: none;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
     }
-  
+
     .contest-container-details-entries {
       font-size: 14px;
-      font-weight: 400;
-      margin-bottom: 0;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: $black;
+
+      .entries-image {
+        width:18px;
+        height: 18px;
+      }
     }
-  
+
+    .contest-container-details-description {
+      color:$contest-header-description-color;
+      font-size: 14px;
+      font-weight: 400;
+    }
+
+    .contest-container-action-buttons {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .contest-container-status {
       align-items: center;
-      background: $secondary-green;
+      background: $contest-ended-button-bg;
+      color: $primary-green;
       border-radius: 8px;
       display: flex;
       padding: 2px 6px;
       position: absolute;
       right: 10px;
       top: 10px;
+      z-index: 10;
     }
-  
+
     .contest-container-status-live {
       align-items: center;
       background: $contest-container-status-live-bg;
+      color: $white;
       border-radius: 8px;
       display: flex;
       padding: 2px 6px;
       position: absolute;
       right: 10px;
       top: 10px;
-  
+      z-index: 10;
+
       .contest-container-status-dot {
         background: $contest-container-status-dot-bg;
         border-radius: 50%;
@@ -91,21 +140,20 @@
         width: 8px;
       }
     }
-  
+
     .contest-container-status-text {
-      color: $white;
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 400;
     }
   }
-  
+
   .contest-header-timer {
     color: $contest-header-timer;
     font-size: 14px;
     font-weight: 400;
     line-height: 22px;
   }
-  
+
   .contest-ended-button {
     background: $contest-ended-button-bg;
     border: 1px solid $contest-ended-button-border-color;
@@ -117,7 +165,7 @@
     padding: 9px 16px;
     transition: .2s ease-in-out;
   }
-  
+
   .contest-submission-button {
     background: $primary-green;
     border: 1px solid $primary-green;
@@ -127,53 +175,51 @@
     font-weight: 500;
     padding: 9px 16px;
     transition: .2s ease-in-out;
-  
+    text-decoration: none;
+
     &:hover {
       background: $secondary-green;
       color: $white;
-      text-decoration: none;
     }
   }
-  
+
   .contest-page-line {
     border-bottom: 1px solid $contest-page-line-border;
     margin: 1rem 0;
     width: 100%;
   }
-  
+
   .submission-card-header {
     background-color: $card-green;
     border-bottom: 1px solid $primary-green;
   }
-  
+
   .contest-header-title {
     color: $secondary-green;
   }
-  
+
   .contest-header-description {
     color: $contest-header-description-color;
   }
-  
+
   .contest-header-sub-description {
     color: $contest-header-description-color;
     font-size: 14px;
   }
-  
+
   .contest-container-close-button {
     background: $primary-red;
     border: 0;
     border-radius: 5px;
     color: $white;
     font-size: 14px;
-    left: 10px;
     padding: 2px 5px;
-    position: absolute;
-    top: 10px;
-  
+    text-decoration: none;
+
     &:hover {
       box-shadow: 0 0 5px 0 #0000004d;
       color: $white;
-      text-decoration: none;
+      text-decoration: underline;
     }
   }
   .contest-container-update-button {
@@ -183,11 +229,12 @@
     color: $white;
     font-size: 14px;
     padding: 2px 5px;
-  
+    text-decoration: none;
+
     &:hover {
       box-shadow: 0 0 5px 0 #0000004d;
       color: $white;
-      text-decoration: none;
+      text-decoration: underline;
     }
   }
   .project-submission {
@@ -199,12 +246,21 @@
     margin-bottom: 1rem;
     padding: 10px;
   }
-  
+
   .danger-primary-button {
     background: $contest-danger-primary-button;
     margin-right: 0;
-  
+
     &:hover {
       background-color: $contest-danger-primary-button-hover;
     }
   }
+
+.leaderboard-button {
+  display: inline-block;
+}
+
+.leaderboard-rank .emoji-badge {
+  font-size: 1.1rem;
+  vertical-align: middle;
+}

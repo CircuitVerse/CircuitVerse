@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -92,7 +92,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
 
   create_table "assignments", force: :cascade do |t|
     t.string "name"
-    t.datetime "deadline", precision: nil, null: false
+    t.datetime "deadline", null: false
     t.text "description"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -186,6 +186,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
     t.index ["user_id"], name: "index_custom_mails_on_user_id"
   end
 
+  create_table "data_migrations", primary_key: "version", id: :string, force: :cascade do |t|
+  end
+
   create_table "featured_circuits", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
@@ -274,7 +277,9 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at", precision: nil
+    t.bigint "organization_id"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
+    t.index ["organization_id"], name: "index_groups_on_organization_id"
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end
 
@@ -353,6 +358,24 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
     t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
   end
 
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.text "description"
+    t.jsonb "links", default: []
+    t.boolean "private", default: true, null: false
+    t.string "oidc_issuer_url"
+    t.string "oidc_client_id"
+    t.string "oidc_client_secret_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((name)::text)", name: "index_organizations_on_lower_name_unique", unique: true
+    t.index ["slug"], name: "index_organizations_on_slug", unique: true
+    t.check_constraint "char_length(TRIM(BOTH FROM name)) > 0", name: "organizations_name_not_blank"
+    t.check_constraint "char_length(TRIM(BOTH FROM slug)) > 0", name: "organizations_slug_not_blank"
+    t.check_constraint "jsonb_array_length(links) <= 5", name: "organizations_links_max_5"
+  end
+
   create_table "pending_invitations", force: :cascade do |t|
     t.bigint "group_id"
     t.string "email"
@@ -383,8 +406,10 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
     t.text "description"
     t.bigint "view", default: 1
     t.string "slug"
-    t.tsvector "searchable"
     t.string "lis_result_sourced_id"
+    t.string "version", default: "1.0", null: false
+    t.integer "stars_count", default: 0, null: false
+    t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))", stored: true
     t.index ["assignment_id"], name: "index_projects_on_assignment_id"
     t.index ["author_id"], name: "index_projects_on_author_id"
     t.index ["forked_project_id"], name: "index_projects_on_forked_project_id"
@@ -500,6 +525,7 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
     t.datetime "confirmation_sent_at"
     t.string "unconfirmed_email"
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(educational_institute, ''::character varying))::text), 'B'::\"char\"))", stored: true
+    t.integer "projects_count", default: 0, null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["searchable"], name: "index_users_on_searchable", using: :gin
@@ -557,24 +583,4 @@ ActiveRecord::Schema[7.0].define(version: 2025_07_27_105116) do
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
-  # no candidate create_trigger statement could be found, creating an adapter-specific one
-  execute(<<-SQL)
-CREATE OR REPLACE FUNCTION pg_catalog.tsvector_update_trigger()
- RETURNS trigger
- LANGUAGE internal
- PARALLEL SAFE
-AS $function$tsvector_update_trigger_byid$function$
-  SQL
-
-  create_trigger("projects_after_insert_update_row_tr", :generated => true, :compatibility => 1).
-      on("projects").
-      before(:insert, :update).
-      nowrap(true) do
-    <<-SQL_ACTIONS
-tsvector_update_trigger(
-  searchable, 'pg_catalog.english', description, name
-);
-    SQL_ACTIONS
-  end
-
 end

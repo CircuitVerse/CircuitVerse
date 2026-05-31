@@ -5,6 +5,7 @@ class Api::V1::BaseController < ActionController::API
   include CustomErrors
   include ActionController::RequestForgeryProtection
   include ActiveStorage::SetCurrent
+
   protect_from_forgery with: :exception, if: lambda {
     request.headers["Authorization"].blank? && current_user
   }
@@ -17,6 +18,10 @@ class Api::V1::BaseController < ActionController::API
 
   rescue_from Pundit::NotAuthorizedError do
     unauthorized!
+  end
+
+  rescue_from ApplicationPolicy::CustomAuthException do |exception|
+    api_error(status: 403, errors: exception.custom_message)
   end
 
   rescue_from InvalidOAuthToken do
@@ -84,7 +89,7 @@ class Api::V1::BaseController < ActionController::API
   private
 
     def paginated_url(base_url, page)
-      seperator = base_url.index("?").nil? ? "?" : "&"
-      "#{base_url}#{seperator}page[number]=#{page}" if page
+      separator = base_url.index("?").nil? ? "?" : "&"
+      "#{base_url}#{separator}page[number]=#{page}" if page
     end
 end

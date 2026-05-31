@@ -12,8 +12,21 @@ module FlipperHelpers
   def enable_contests!
     flipper_enable(:contests)
   end
+
+  def enable_explore!
+    flipper_enable(:circuit_explore_page)
+  end
+
+  def enable_yosys_local_gem!
+    flipper_enable(:yosys_local_gem)
+  end
 end
 
 RSpec.configure do |config|
   config.include FlipperHelpers
+
+  config.before do
+    Flipper[:circuit_explore_page].enable
+    Flipper[:yosys_local_gem].enable
+  end
 end

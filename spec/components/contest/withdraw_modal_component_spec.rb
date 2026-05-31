@@ -10,6 +10,6 @@ RSpec.describe Contest::WithdrawModalComponent, type: :component do
     render_inline(described_class.new(contest: contest, submission: submission))
 
     expect(page).to have_css("#withdraw-submission-button")
-    expect(page).to have_text(I18n.t("contest.withdraw_submission_modal.heading"))
+    expect(page).to have_text("Withdraw Submission")
   end
 end

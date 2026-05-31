@@ -1,21 +1,27 @@
 <div class="container"
-     data-controller="contest"
-     data-contest-timeleft-value="<%= @contest.deadline %>">
+     data-controller="contest">
 
   <% if flash[:notice].present? %>
     <%= render "shared/notice", message: flash[:notice] %>
   <% end %>
 
-  <div class="pt-4 d-flex justify-content-between align-items-center">
+  <div class="pt-4 d-flex justify-content-between align-items-start">
     <div>
-      <h3 class="contest-header-title">Contest #<%= @contest.id %></h3>
+      <h3 class="contest-header-title">
+        <%= t("contest.contest_container.contest_id_with_number", id: @contest.id) %>
+      </h3>
 
       <p class="mb-0 contest-header-description">
         <%= t("contest.show.subtitle", user_count: @user_count) %>
       </p>
 
+      <%= link_to leaderboard_contest_path(@contest.id),
+                  class: "contest-submission-button text-decoration-none d-inline-block mt-3" do %>
+        <span><%= t("contest.show.view_leaderboard", default: "View Leaderboard") %></span>
+      <% end %>
+
       <% if @contest.live? && current_user.present? %>
-        <p class="mb-0 contest-header-description">
+        <p class="mb-0 contest-header-description mt-2">
           <%= t("contest.show.remaining_votes") %>
           <%= 3 - current_user.votes_for_contest(@contest.id) %>
         </p>
@@ -23,10 +29,14 @@
     </div>
 
     <% if @contest.live? %>
-      <div class="d-flex flex-column align-items-center">
-        <span class="contest-header-timer">
+      <div class="d-flex flex-column align-items-center align-items-md-end">
+        <span class="contest-header-timer mb-2">
           <%= t("contest.header.time_left_label") %>
-          <span id="timeLeftCounter">...</span>
+          <% if @contest.deadline.before?(Time.current) %>
+            <span><%= t("contest.timer.expired") %></span>
+          <% else %>
+            <span><%= distance_of_time_in_words(Time.current, @contest.deadline) %></span>
+          <% end %>
         </span>
 
         <%= link_to new_contest_submission_path(@contest.id),
@@ -35,8 +45,8 @@
         <% end %>
       </div>
     <% else %>
-      <div class="d-flex flex-column align-items-center">
-        <button class="contest-ended-button" disabled>
+      <div class="d-flex flex-column align-items-center align-items-md-end">
+        <button type="button" class="contest-ended-button" disabled>
           <%= t("contest.show.disable_button") %>
         </button>
       </div>

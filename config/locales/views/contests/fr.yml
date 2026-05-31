@@ -1,5 +1,17 @@
 fr:
   contest:
+    leaderboard:
+      title: "Concours #%{id} — Classement"
+      subtitle: "Le classement final par les votes; les liens rompus par la soumission précédente."
+      back_to_contest: "Retour au concours"
+      no_submissions: "Aucune remise"
+      columns:
+        rank: "Rang"
+        project: "Projet"
+        author: "Auteur"
+        votes: "Votes"
+        submitted_at: "Soumis le"
+      winner_badge: "Gagnant"
     heading: "CONCOURS"
     index:
       subtitle: "Des concours où les élèves présentent leurs circuits incroyables et les meilleurs sont présentés sur notre page d'accueil!"
@@ -18,17 +30,26 @@ fr:
       user_submissions_description: "Vous pouvez retirer votre candidature du concours."
       contest_entries: "Entrées au Concours (%{submission_count})"
       contest_entries_description: "Votez pour vos participations favorites et aidez-nous à choisir nos gagnants pour cette semaine! Un utilisateur reçoit 3 voix."
+      view_leaderboard: "Voir le Classement"
     votes: "Votes"
+    votes_count:
+      one: "Vote %{count}"
+      other: "Votes %{count}"
     close: "Fermer"
     no_contest: "Il n'y a pas de concours en direct ou complet."
     contest_container:
       contest_id: "Concours"
       entries: "Entrées"
+      contest_id_with_number: "Concours #%{id}"
     status:
       live: "EN DIRECT"
       completed: "Terminé"
     withdraw: "Retirer"
     vote: "Voter"
+    view: "Voir"
+    no_result_image_alt: "Aucune image de résultat"
+    timer:
+      expired: "EXPIRÉ"
     new_submission_page:
       heading: "Soumission du projet"
       select_your_circuit: "Sélectionnez votre circuit"
@@ -89,6 +110,7 @@ fr:
     contests:
       index:
         title: "Administrateur des concours"
+        edit_deadline_alt: "Modifier la date limite"
       create:
         concurrent_contests: "Les concours simultanés ne sont pas autorisés. Fermez les autres concours avant d'en créer un nouveau."
         success: "Le concours a été lancé avec succès."
@@ -102,7 +124,7 @@ fr:
         invalid_deadline: "Format de date limite invalide."
   layout:
     link_to_contests: "Concours"
-  users:
+  user:
     circuitverse:
       preview_project: "Aperçu du projet"
   feature_not_available: "La fonctionnalité du concours n'est pas disponible."

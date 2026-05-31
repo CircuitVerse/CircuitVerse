@@ -9,7 +9,6 @@
         <i class="fas fa-bars text-secondary" id="dropdownIcon"></i>
       </button>
     </div>
-
     <div class="collapse navbar-collapse" id="collapsed-navbar">
       <div class="d-flex justify-content-between align-items-start align-items-lg-center w-100 flex-column flex-lg-row gap-3 px-2 px-lg-0">
         <ul class="navbar-nav main-nav-items mx-auto d-flex flex-lg-row flex-column gap-lg-3 margin-lg-0">
@@ -19,6 +18,11 @@
           <li class="nav-item">
             <a class="nav-link navbar-item navbar-text" href="/#home-features-section"><%= t("layout.link_to_features") %></a>
           </li>
+          <% if Flipper.enabled?(:circuit_explore_page, current_user) %>
+            <li class="nav-item">
+              <a class="nav-link navbar-item navbar-text <%= request.path == "/explore" ? "active" : "" %>" href="/explore"><%= t("layout.link_to_explore") %></a>
+            </li>
+          <% end %>
           <li class="nav-item">
             <a class="nav-link navbar-item navbar-text" href="/teachers"><%= t("layout.link_to_teachers") %></a>
           </li>
@@ -28,9 +32,16 @@
             </li>
           <% end %>
           <li class="nav-item dropdown">
-            <a id="getting-started-dropdown" class="nav-link dropdown-toggle navbar-item navbar-text" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="getting started">
+            <button id="getting-started-dropdown"
+              class="nav-link dropdown-toggle navbar-item navbar-text"
+              type="button"
+              data-bs-toggle="dropdown"
+              data-bs-auto-close="true"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="<%= t('layout.getting_started_dropdown') %>">
               <%= t("layout.getting_started_dropdown") %>
-            </a>
+            </button>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="getting-started-dropdown">
               <a class="dropdown-item" href="https://learn.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_learn_more") %></a>
               <a class="dropdown-item" href="https://docs.circuitverse.org/" target="_blank" rel="noopener"><%= t("layout.link_to_docs") %></a>
@@ -43,17 +54,25 @@
             <a class="nav-link navbar-item navbar-text" href="/about"><%= t("layout.link_to_about") %></a>
           </li>
           <li class="nav-item d-flex align-items-center">
-            <i class="fa fa-search search-icon" tabindex="0" aria-label="search"></i>
+            <button class="btn search-button p-0 d-flex align-items-center justify-content-center" aria-label="search" type="button">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
           </li>
         </ul>
         <div class="d-flex align-items-lg-center justify-content-center flex-column flex-lg-row gap-2 auth-buttons-container">
           <%= render "layouts/notifications" %>
-
           <% if user_signed_in? %>
             <div class="navbar-nav nav-item dropdown ms-2">
-              <a class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center" id="navbar-dropdown-2" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-label="user">
+              <button class="nav-link dropdown-toggle navbar-item navbar-text navbar-user-dropdown d-flex align-items-center"
+                id="navbar-dropdown-2"
+                type="button"
+                data-bs-toggle="dropdown"
+                data-bs-auto-close="true"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-label="<%= current_user.name %>">
                 <div class="navbar-username-truncate"><%= current_user.name %></div>
-              </a>
+              </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
                 <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
                 <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
@@ -72,14 +91,18 @@
     </div>
   </div>
 </nav>
-
 <div class="navbar-search-active">
   <%= render(Search::SearchBarComponent.new(
     resource: params[:resource],
-    query: params[:q]
+    query: params[:q],
+    sorting: {
+      sort_by: params[:sort_by],
+      sort_direction: params[:sort_direction]
+    },
+    countries: @search_countries,
+    current_filters: @current_filters
   )) %>
 </div>
-
 <script type="text/javascript">
   document.addEventListener("DOMContentLoaded", function() {
     const searchIcons = document.getElementsByClassName("fa-search");
@@ -87,8 +110,9 @@
     const dropdownButton = document.getElementById('dropdownButton');
     const dropdownIcon = document.getElementById('dropdownIcon');
     const collapseElement = document.getElementById("collapsed-navbar");
-    const gettingStartedLink = document.querySelector("#getting-started-dropdown");
     const navbar = document.querySelector('.navbar');
+    const searchButton = document.querySelector('.search-button');
+    const searchInput = searchBar ? searchBar.querySelector('.search-bar-input') : null;
 
     function handleNavbarShadow() {
       if (window.scrollY > 0) {
@@ -99,21 +123,20 @@
     }
     window.addEventListener('scroll', handleNavbarShadow);
 
-    if (gettingStartedLink) {
-      const gettingStartedDropdown = new bootstrap.Dropdown(gettingStartedLink);
-      gettingStartedLink.addEventListener("click", function (e) {
-        if (gettingStartedLink.classList.contains("rotate180")) {
-          gettingStartedLink.classList.remove("rotate180");
-          gettingStartedDropdown.hide();
-        } else {
-          gettingStartedLink.classList.add("rotate180");
-          gettingStartedDropdown.show();
+    if (searchButton) {
+      const searchIcon = searchButton.querySelector('.fa-search');
+      if (searchIcon) {
+        searchIcon.addEventListener('click', function() {
+          activeSearchBar();
+          searchButton.blur();
+        });
+      }
+      searchButton.addEventListener('keydown', function(e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          activeSearchBar();
+          searchButton.blur();
         }
-        e.stopPropagation();
-      });
-      document.addEventListener("click", function () {
-        gettingStartedLink.classList.remove("rotate180");
-        gettingStartedDropdown.hide();
       });
     }
 
@@ -126,6 +149,9 @@
       } else {
         icons.forEach(icon => icon.classList.add("active"));
         searchBar.style.display = "block";
+        if (searchInput) {
+          searchInput.focus();
+        }
       }
       collapseElement.classList.remove("show");
     }
@@ -145,12 +171,21 @@
         bsCollapse.toggle();
       });
     }
-
-    Array.from(searchIcons).forEach(icon => icon.addEventListener("click", activeSearchBar));
-
     if (window.location.href.includes('search')) {
       searchBar.style.display = "block";
       Array.from(searchIcons).forEach(icon => icon.classList.add("active"));
+      if (searchInput) {
+        searchInput.focus();
+      }
     }
+
+    document.querySelectorAll("[data-bs-toggle='dropdown']").forEach(function(trigger) {
+      trigger.addEventListener("show.bs.dropdown", function() {
+        trigger.classList.add("rotate180");
+      });
+      trigger.addEventListener("hide.bs.dropdown", function() {
+        trigger.classList.remove("rotate180");
+      });
+    });
   });
 </script>

@@ -10,9 +10,11 @@ ar:
     link_to_about: "حول"
     link_to_faq: "أسئلة متكررة"
     link_to_contests: "مسابقات"
+    link_to_explore: "استكشف"
     footer:
       social_icon_text: "تابعنا على:"
       link_to_examples: "أمثلة"
+      link_to_explore: "استكشف"
       my_circuits: "دوائري"
       link_to_contribute: "المساهمة"
       link_to_forum: "المنتدى"

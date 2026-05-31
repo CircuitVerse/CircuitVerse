@@ -22,19 +22,19 @@ class Admin::ContestsController < ApplicationController
       redirect_to contest_path(@contest), notice: t(".success")
     else
       @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
-      render :index, status: :unprocessable_entity
+      render :index, status: :unprocessable_content
     end
   end
 
   # rubocop:disable Metrics/MethodLength
   def update
-    @contest = Contest.find(params[:id])
+    @contest = Contest.find(params.expect(:id))
     if params[:contest][:status] == "completed"
       ShortlistContestWinner.new(@contest.id).call
       if @contest.update(deadline: Time.zone.now, status: :completed)
         redirect_to contest_path(@contest), notice: t(".contest_closed")
       else
-        render :index, status: :unprocessable_entity
+        render :index, status: :unprocessable_content
       end
     else
       parsed_deadline = parse_deadline_or_redirect(params[:contest][:deadline])
@@ -64,12 +64,12 @@ class Admin::ContestsController < ApplicationController
     end
 
     def contest_params
-      params.require(:contest).permit(:name, :title, :description, :deadline, :status)
+      params.expect(contest: %i[name title description deadline status])
     end
 
     def parse_deadline_or_redirect(str)
       parsed = Time.zone.parse(str)
-      redirect_to(admin_contests_path, alert: t(".invalid_deadline")) and return if parsed.nil?
+      return redirect_to(admin_contests_path, alert: t(".invalid_deadline")) if parsed.nil?
 
       parsed
     end

@@ -247,7 +247,7 @@ This endpoint sends an email to the user with specified `email` in POST params w
 
 | Error Code | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 404        | User associated with given `email` does not exists |
+| 404        | User associated with given `email` does not exist |
 
 ```http
 POST /api/v1/password/forgot HTTP/1.1
@@ -279,13 +279,13 @@ Content-Type: application/json
 This endpoint GETs you the `public_key.pem` required to decode the token to fetch authenticated user's `id`, `name` & `email`.
 
 ```http
-POST /api/v1/public_key.pem HTTP/1.1
+GET /api/v1/public_key.pem HTTP/1.1
 Host: localhost
 ```
 
 ```http
 HTTP/1.1 200 OK
-Content-Type: application/json
+Content-Type: text/plain
 ```
 
 > TEXT response example:

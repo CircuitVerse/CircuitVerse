@@ -4,13 +4,14 @@ require "pg_search"
 
 class Project < ApplicationRecord
   extend FriendlyId
+
   friendly_id :name, use: %i[slugged history]
-  self.ignored_columns += ["data"]
+  self.ignored_columns += %w[data searchable]
 
   validates :name, length: { minimum: 1 }
   validates :slug, uniqueness: true
 
-  belongs_to :author, class_name: "User"
+  belongs_to :author, class_name: "User", counter_cache: true
   has_many :forks, class_name: "Project", foreign_key: "forked_project_id", dependent: :nullify
   belongs_to :forked_project, class_name: "Project", optional: true
   has_many :stars, dependent: :destroy
@@ -22,7 +23,7 @@ class Project < ApplicationRecord
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
-  has_many :tags, through: :taggings
+  has_many :tags, -> { where.not(name: "") }, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
   has_one_attached :circuit_preview
   has_one :featured_circuit
@@ -40,32 +41,13 @@ class Project < ApplicationRecord
   scope :by, ->(author_id) { where(author_id: author_id) }
 
   include PgSearch::Model
+
   accepts_nested_attributes_for :project_datum
   pg_search_scope :text_search, against: %i[name description], using: {
     tsearch: {
       dictionary: "english", tsvector_column: "searchable"
     }
   }
-
-  trigger.before(:insert, :update) do
-    "tsvector_update_trigger(
-        searchable, 'pg_catalog.english', description, name
-      );"
-  end
-
-  searchable do
-    text :name
-
-    text :description
-
-    text :author do
-      author.name
-    end
-
-    text :tags do
-      tags.map(&:name)
-    end
-  end
 
   after_update :check_and_remove_featured
 
@@ -128,7 +110,7 @@ class Project < ApplicationRecord
   end
 
   def tag_list=(names)
-    self.tags = names.split(",").map(&:strip).uniq.map do |n|
+    self.tags = names.split(",").map(&:strip).uniq.compact_blank.map do |n|
       Tag.where(name: n.strip).first_or_create!
     end
   end
@@ -143,6 +125,16 @@ class Project < ApplicationRecord
 
   validate :check_validity
   validate :clean_description
+
+  def sim_version
+    raw_data = project_datum&.data
+    parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
+    parsed_data["simulatorVersion"] || "legacy"
+  end
+
+  def uses_vue_simulator?
+    %w[v0 v1].include?(sim_version)
+  end
 
   private
 

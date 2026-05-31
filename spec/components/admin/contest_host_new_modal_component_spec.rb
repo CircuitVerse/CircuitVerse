@@ -9,10 +9,7 @@ RSpec.describe Admin::ContestHostNewModalComponent, type: :component do
     render_inline(described_class.new(default_deadline: default_deadline))
 
     expect(page).to have_css("#host-new-contest-modal")
-    expect(page).to have_css(
-      "h4.modal-title",
-      text: I18n.t("contest.host_new_contest_modal.heading")
-    )
+    expect(page).to have_css("h4.modal-title", text: "Host a new Contest")
 
     expect(page).to have_css(
       "input[name='contest[status]'][value='live']",
@@ -25,8 +22,6 @@ RSpec.describe Admin::ContestHostNewModalComponent, type: :component do
       visible: :hidden
     )
 
-    expect(page).to have_button(
-      I18n.t("contest.host_new_contest_modal.confirm_button")
-    )
+    expect(page).to have_button("Confirm")
   end
 end
