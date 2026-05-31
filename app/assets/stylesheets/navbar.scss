@@ -100,10 +100,18 @@
 }
 
 .dropdown-item {
-  &:hover {
+display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
     background-color: $primary-green;
     color: $white;
   }
+
+
 }
 
 .navbar-text {
@@ -659,6 +667,10 @@
   top: 90%;
 }
 
+[dir="rtl"] .dropdown-menu.dropdown-menu-end {
+  left: 0;
+  right: auto;
+}
 //breakpoints
 // collapse navbar earlier between 1080px and 992px
 @media (max-width: 1080px) and (min-width: 992px) {
