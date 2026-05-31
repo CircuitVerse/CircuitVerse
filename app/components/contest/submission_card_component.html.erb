@@ -8,7 +8,7 @@
       </div>
     </div>
     <div class="card-body users-card-body">
-      <%= image_tag @submission.project.image_preview.url,
+      <%= helpers.image_tag @submission.project.image_preview.url,
                     class: "users-card-image",
                     alt:   @submission.project.name %>
     </div>

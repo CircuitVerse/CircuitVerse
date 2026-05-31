@@ -76,7 +76,7 @@
   </div>
   <div class="users-circuits-container">
     <div id="my-circuits-div" class="row center-row circuit-page">
-      <% if @user.projects.blank? %>
+      <% if @user_projects.blank? %>
       <div class="col-12">
         <div class="search-no-results-image">
           <%= image_tag "svgs/noProject.svg", alt: "No result image" %>
@@ -88,7 +88,7 @@
         </div>
       </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: @user.projects } %>
+        <%= render partial: "dashboard", locals: { projects: @user_projects } %>
       <% end %>
     </div>
     <div id="favourite-circuits-div" class="row center-row circuit-page">
@@ -108,8 +108,7 @@
       <% end %>
     </div>
     <div id="collaborator-circuits-div" class="row center-row circuit-page">
-      <% collaborated_projects = @user.collaborated_projects %>
-      <% if collaborated_projects.count == 0 %>
+      <% if @collaborated_projects.count == 0 %>
         <div class="col-12">
           <div class="search-no-results-image">
             <%= image_tag "svgs/noProject.svg", alt: "No result image" %>
@@ -121,9 +120,19 @@
           </div>
         </div>
       <% else %>
-        <%= render partial: "dashboard", locals: { projects: collaborated_projects } %>
+        <%= render partial: "dashboard", locals: { projects: @collaborated_projects } %>
       <% end %>
     </div>
+    <div id="search-no-results" class="search-no-results-container" style="display:none;">
+  <div class="row center-row">
+    <div class="col-12">
+      <div class="search-no-results-image">
+        <%= image_tag "svgs/noResult.svg", alt: "No result image" %>
+        <h6><%= t("users.circuitverse.index.no_search_results") %></h6>
+      </div>
+    </div>
+  </div>
+</div>
 
   </div>
 </div>
@@ -179,6 +188,7 @@
     if(searchQuery) {
       // Mark everything as hidden initially
       projects.hide();
+      $('#search-no-results').hide();
       // Find matches
       var matches = fuse.search(searchQuery);
       var matchMap = {}
@@ -187,6 +197,12 @@
           // mark matches as visible
           $(match.item.domObj).show();
       })
+      const activeTab = $('.users-circuits-tab.active').attr('id');
+      const activeDiv = $(`#${activeTab}-div`);
+      const activeCards = activeDiv.find('.circuit-card-js');
+      if(activeCards.length > 0 && activeCards.filter(':visible').length === 0) {
+        $('#search-no-results').show();
+      }
       // Helper function used for sorting cards
       function getSortIndex(circuitDiv) {
         var title = getTitle(circuitDiv);
@@ -208,6 +224,7 @@
       });
     } else { // if searchQuery is empty -> display everything
       projects.show();
+      $('#search-no-results').hide();
     }
   })
 
@@ -219,20 +236,24 @@
     $('#collaborator-circuits-div').hide();
     var circuitTabs = ['favourite-circuits', 'my-circuits', 'collaborator-circuits'];
     $('.users-circuits-tab').on('click', function (e) {
-      if(!$(this).hasClass("active")) {
-        var id = this.id;
-        $(this).addClass("active");
-        circuitTabs.forEach(element => {
-          var div = `#${element}-div`;
-          if(element == id) {
-            $(div).css("display", "flex");
-          }
-          else {
-            $('#' + element).removeClass("active");
-            $(div).css("display", "none");
-          }
-        });
-      }});
+  if(!$(this).hasClass("active")) {
+    var id = this.id;
+    $(this).addClass("active");
+    circuitTabs.forEach(element => {
+      var div = `#${element}-div`;
+      if(element == id) {
+        $(div).css("display", "flex");
+      }
+      else {
+        $('#' + element).removeClass("active");
+        $(div).css("display", "none");
+      }
+    });
+    // Reset search state on tab switch
+    $('.users-circuits-search').val('');
+    projects.show();
+    $('#search-no-results').hide();
+  }});
     $('.previewButton').on('click', function (e) {
         e.preventDefault()
         let project = $(e.currentTarget).data('currentproject').id;

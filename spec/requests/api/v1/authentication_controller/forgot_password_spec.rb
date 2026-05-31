@@ -9,9 +9,11 @@ RSpec.describe Api::V1::AuthenticationController, "#forgot_password", type: :req
         post "/api/v1/password/forgot", params: { email: "test@test.com" }, as: :json
       end
 
-      it "returns status 404 and should have jsonapi errors" do
-        expect(response).to have_http_status(:not_found)
-        expect(response.parsed_body).to have_jsonapi_errors
+      it "returns status 200 with generic message to prevent user enumeration" do
+        expect(response).to have_http_status(:ok)
+        expect(response.parsed_body["message"]).to eq(
+          "If this email is registered, reset instructions have been sent."
+        )
       end
     end
 
