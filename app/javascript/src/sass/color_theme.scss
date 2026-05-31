@@ -196,6 +196,14 @@ $touch-menu:#454545;
   color: #fff !important;
 }
 
+.dropdown-menu .dropdown-item:focus {
+  background-color: var(--bg-text) !important;
+  color: var(--text-navbar--alt) !important;
+  outline: 1px solid var(--primary);
+  outline-offset: 1px;
+  border-radius: 5px;
+}
+
 .signIn-btn {
   color: #fff !important;
 }
