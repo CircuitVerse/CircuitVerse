@@ -51,6 +51,20 @@ de:
           created_date: "Erstellungsdatum"
           views: "Aufrufe"
           stars: "Sterne"
+      filters:
+        button_text: "Filter"
+        apply_button_text: "Anwenden"
+        projects:
+          tags:
+            label: "Tags"
+            placeholder: "Tag hinzufügen..."
+        users:
+          country:
+            label: "Land"
+            placeholder: "Land auswählen..."
+          institute:
+            label: "Institut"
+            placeholder: "Institut eingeben..."
     project:
       show_more: "Mehr anzeigen"
       options:

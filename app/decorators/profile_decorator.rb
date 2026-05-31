@@ -21,6 +21,6 @@ class ProfileDecorator < SimpleDelegator
   end
 
   def total_circuits
-    profile.projects.count
+    profile.projects_count
   end
 end

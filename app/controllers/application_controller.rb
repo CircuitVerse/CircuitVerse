@@ -2,11 +2,13 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include SearchHelper
 
   protect_from_forgery with: :exception
 
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications, if: :current_user
+  before_action :prepare_search_data
   around_action :switch_locale
 
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
@@ -14,7 +16,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
 
   def auth_error
-    render plain: "You are not authorized to do the requested operation"
+    render plain: "You are not authorized to do the requested operation", status: :forbidden
   end
 
   def custom_auth_error(exception)
@@ -27,7 +29,8 @@ class ApplicationController < ActionController::Base
 
   def switch_locale(&)
     logger.debug "* Accept-Language: #{request.env['HTTP_ACCEPT_LANGUAGE']}"
-    locale = params[:locale]&.to_sym || current_user&.locale&.to_sym || extract_locale_from_accept_language_header
+    locale = params.permit(:locale)[:locale]&.to_sym || current_user&.locale&.to_sym ||
+             extract_locale_from_accept_language_header
     locale = I18n.default_locale unless I18n.available_locales.include?(locale)
     logger.debug "* Locale set to '#{locale}'"
     I18n.with_locale(locale, &)
@@ -65,5 +68,14 @@ class ApplicationController < ActionController::Base
 
     def after_sign_in_path_for(resource_or_scope)
       stored_location_for(resource_or_scope) || super
+    end
+
+    def prepare_search_data
+      @search_countries = countries_for_search_filters(request)
+      @current_filters = {
+        "country" => params[:country],
+        "institute" => params[:institute],
+        "tag" => params[:tag]
+      }
     end
 end

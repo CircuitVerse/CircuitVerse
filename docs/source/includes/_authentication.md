@@ -247,7 +247,7 @@ This endpoint sends an email to the user with specified `email` in POST params w
 
 | Error Code | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 404        | User associated with given `email` does not exists |
+| 404        | User associated with given `email` does not exist |
 
 ```http
 POST /api/v1/password/forgot HTTP/1.1

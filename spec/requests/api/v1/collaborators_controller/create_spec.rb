@@ -64,7 +64,7 @@ RSpec.describe Api::V1::CollaboratorsController, "#create", type: :request do
 
       it "returns the added, already_existing & invalid mails (author being invalid)" do
         expect(response.parsed_body["added"]).to eq([user.email])
-        puts user.email
+
         expect(response.parsed_body["existing"]).to eq(["existing@test.com"])
         expect(response.parsed_body["invalid"]).to eq(["invalid", author.email])
       end
