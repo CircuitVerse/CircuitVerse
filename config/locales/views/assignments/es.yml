@@ -22,7 +22,9 @@ es:
       title: "%{name} - Detalles de la tarea"
       assignment_details_heading: "DETALLES DE ASIGNMENTE"
     assignment_data:
+      name_html: "<strong>Nombre:</strong> %{name}"
       group_html: "<strong>Grupo:</strong> %{group_name}"
+      time_remaining_html: "<strong>Tiempo Restante</strong> %{time_remaining}"
       graded_html: "<strong>Calificado:</strong> %{graded}"
       description: "Descripción:"
       restricted_elements_html: "<strong>Elementos circuitos restringidos:<strong> %{restricted_circuit_elements}"
