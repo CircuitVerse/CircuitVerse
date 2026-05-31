@@ -1,0 +1,24 @@
+de:
+  explore:
+    title: "CircuitVerse - Entdecken"
+    main_heading: "Kreise erkunden"
+    main_description: "Durchsuchen Sie handverlesene Schaltungen, Klassiker, neuere Kreationen und beliebte Tags."
+    tabs:
+      cotw: "Schaltkreis der Woche"
+      picks: "Editorauswahl"
+      recent: "Aktuelle Schaltkreise"
+      tags: "Nach Tags durchsuchen"
+    sections:
+      cotw:
+        heading: "Schaltkreis der Woche"
+        description: "Ein beleuchteter Schalter, der aus den vorgestellten und trendigen Designs ausgewählt wurde."
+      picks:
+        heading: "Editorauswahl"
+        description: "Kuratiert von unseren Autoren für ihre Großzügigkeit."
+      recent:
+        heading: "Aktuelle Schaltkreise"
+        description: "Die neuesten öffentlichen Rundgänge aus unserer Gemeinschaft."
+      tags:
+        heading: "Nach Tags durchsuchen"
+        description: "Springe zu Themen, die dich interessieren."
+    empty: "Noch nichts zu zeigen."

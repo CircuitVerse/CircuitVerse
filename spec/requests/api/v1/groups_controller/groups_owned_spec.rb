@@ -40,11 +40,9 @@ RSpec.describe Api::V1::GroupsController, "#groups_owned", type: :request do
         # create 3 groups with 4 group_members for each
         FactoryBot.create_list(:group, 3, primary_mentor: primary_mentor).each do |g|
           # creates three random group members
-          # rubocop:disable RSpec/FactoryBot/CreateList
           3.times do
             FactoryBot.create(:group_member, group: g, user: FactoryBot.create(:user))
           end
-          # rubocop:enable RSpec/FactoryBot/CreateList
         end
         token = get_auth_token(primary_mentor)
         get "/api/v1/groups/owned?include=group_members",

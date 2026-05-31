@@ -29,7 +29,7 @@ module Utils
 
     if total_emails.positive? && valid_emails.positive?
       "Out of #{total_emails} Email(s), #{valid_emails} #{valid_emails == 1 ? 'was' : 'were'} \
-valid and #{invalid_emails} #{invalid_emails == 1 ? 'was' : 'were'} invalid. \
+valid and #{invalid_emails} #{invalid_emails == 1 ? 'was' : 'were'} invalid.
 #{newly_added.count} user(s) will be invited. " +
         (if already_present_count.zero?
            "No users were already present."

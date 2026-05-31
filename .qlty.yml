@@ -1,0 +1,43 @@
+version: "1"
+
+analyzers:
+  rubocop:
+    enabled: true
+  eslint:
+    enabled: true
+  stylelint:
+    enabled: true
+  duplication:
+    enabled: true
+    exclude:
+      - spec/
+
+filters:
+  exclude:
+    - config/
+    - db/
+    - vendor/
+    - node_modules/
+    - public/packs/
+    - public/bootstrap-3.3.7/
+    - public/external/
+    - test/
+    - tmp/
+    - apidoc/v1/javascripts/
+    - docs/source/javascripts/
+    - app/tasks/maintenance/
+
+ratings:
+  include:
+    - Gemfile.lock
+    - "**/*.erb"
+    - "**/*.rb"
+    - "**/*.css"
+    - "**/*.coffee"
+    - "**/*.inc"
+    - "**/*.js"
+    - "**/*.module"
+
+checks:
+  method-lines:
+    max: 100
