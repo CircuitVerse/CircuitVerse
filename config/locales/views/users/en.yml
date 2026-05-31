@@ -52,6 +52,7 @@ en:
         no_user_favourites: "%{name} doesn't have any favourites."
         not_a_collaborator: "You are not a collaborator of any project."
         user_not_a_collaborator: "%{name} is not a collaborator of any project."
+        no_search_results: "No circuits found"
       search:
         no_results: "No Results Found"
     mailer:
