@@ -41,6 +41,9 @@ fr:
       contest_id: "Concours"
       entries: "Entrées"
       contest_id_with_number: "Concours #%{id}"
+      default_contest_card_img_alt: "Image de la carte de concours par défaut"
+      entries_alt: "Nombre de participants au concours image"
+      description: "Bienvenue au Concours CircuitVerse! Montrez votre créativité d'ingénierie et montez le classement de la communauté."
     status:
       live: "EN DIRECT"
       completed: "Terminé"

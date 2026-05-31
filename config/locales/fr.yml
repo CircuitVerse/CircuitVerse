@@ -1,4 +1,6 @@
 fr:
+  notifications:
+    not_found: "Notification introuvable"
   edit: "Modifier"
   show: "Afficher"
   delete: "Supprimez"
