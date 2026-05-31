@@ -15,7 +15,7 @@ import { changeInputSize } from "../modules";
 import { colors } from "../themer/themer";
 
 export default class HexDisplay extends CircuitElement {
-    constructor(x, y, scope = globalScope, color = "Red") {
+    constructor(x, y, scope = globalScope, color = "#ff0000") {
         super(x, y, scope, "RIGHT", 4);
         /* this is done in this.baseSetup() now
         this.scope['HexDisplay'].push(this);
