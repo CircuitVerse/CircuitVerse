@@ -375,10 +375,6 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_22_202006) do
     t.text "description"
     t.jsonb "links", default: []
     t.boolean "private", default: true, null: false
-    t.string "logo_file_name"
-    t.string "logo_content_type"
-    t.bigint "logo_file_size"
-    t.datetime "logo_updated_at"
     t.string "oidc_issuer_url"
     t.string "oidc_client_id"
     t.string "oidc_client_secret_digest"
@@ -388,6 +384,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_22_202006) do
     t.index ["slug"], name: "index_organizations_on_slug", unique: true
     t.check_constraint "char_length(TRIM(BOTH FROM name)) > 0", name: "organizations_name_not_blank"
     t.check_constraint "char_length(TRIM(BOTH FROM slug)) > 0", name: "organizations_slug_not_blank"
+    t.check_constraint "jsonb_array_length(links) <= 5", name: "organizations_links_max_5"
   end
 
   create_table "pending_invitations", force: :cascade do |t|
