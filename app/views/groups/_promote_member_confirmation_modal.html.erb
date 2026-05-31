@@ -30,7 +30,7 @@
         <%= t("groups.add_mentor_description_html") %>
       </div>
       <div class="modal-footer">
-        <%= button_to "#", params: { group_member: { mentor: false } }, method: :patch, class: "btn primary-button", id: "groups-member-demote-button" do %>
+        <%= button_to "#", params: { group_member: { mentor: "false" } }, method: :patch, class: "btn primary-button", id: "groups-member-demote-button" do %>
           <%= t("groups.make_member") %>
         <% end %>
       </div>
