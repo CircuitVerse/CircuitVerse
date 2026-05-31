@@ -2,6 +2,7 @@ ja:
   users:
     minimum_password_length: "(最低 %{minimum_password_length} 文字)"
     ask_new_user: "新しいユーザーですか？"
+    not_specified: "指定されていない"
     confirmations:
       resend_confirmation_instructions: "確認の手順を再送信する"
     circuitverse:
@@ -9,13 +10,15 @@ ja:
       delete_user_confirmation: "アカウントを削除してもよろしいですか？この操作は元に戻すことはできません。"
       preview_project: "プロジェクトのプレビュー"
       member_since_html: "<strong>メンバー:</strong> %{member_since}"
+      member_since: "メンバー登録日"
       educational_institutes_html: "<strong>教育機関:</strong> %{educational_institute}"
       country_html: "<strong>国:</strong> %{country_name}"
-      total_circuits_made_html: "<strong>作られた全回路: </strong> %{total_circuits}"
+      total_circuits_made_html: '<strong>作られた全回路: </strong> %{total_circuits}'
+      total_circuits: "回路の合計"
       edit_profile:
         title: "%{name} - プロフィールを編集"
         heading: "プロフィールを編集"
-        description_html: "<sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> でマークされたフィールドは必須です"
+        description_html: '<sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> でマークされたフィールドは必須です'
         profile_picture: "プロフィール写真"
         choose_file: "ファイルを選択"
         remove_picture: "画像を削除"

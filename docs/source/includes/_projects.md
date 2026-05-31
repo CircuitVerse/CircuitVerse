@@ -236,7 +236,7 @@ This endpoint fetches user specific `public projects` if the user is _not authen
 | Error Code | Description                                                   |
 | ---------- | ------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token` |
-| 404        | When user associated with `:id` does not exists               |
+| 404        | When user associated with `:id` does not exist               |
 
 ```http
 GET /api/v1/users/:id/projects?include=author HTTP/1.1
@@ -446,7 +446,7 @@ This endpoint fetches user specific `public favourites` if the user is _not auth
 | Error Code | Description                                                   |
 | ---------- | ------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token` |
-| 404        | When user associated with `:id` does not exists               |
+| 404        | When user associated with `:id` does not exist               |
 
 ```http
 GET /api/v1/users/:id/favourites?include=author HTTP/1.1
@@ -644,7 +644,7 @@ You can GET project details (identified by `:id`) in `/api/v1/projects/:id/`. Au
 | ---------- | ------------------------------------------------------------------------ |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`.           |
 | 403        | When Project is `private` or `authenticated user` doesn't have access to |
-| 404        | When the requested project identified by `id` does not exists.           |
+| 404        | When the requested project identified by `id` does not exist.           |
 
 ```http
 GET /api/v1/projects/:id?include=author HTTP/1.1
@@ -738,7 +738,7 @@ You can UPDATE project details (identified by `:id`) in `/api/v1/projects/:id/`.
 | 400        | When invalid parameters are used.                              |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When Project `author` differs from `authenticated user`        |
-| 404        | When the requested project identified by `id` does not exists. |
+| 404        | When the requested project identified by `id` does not exist. |
 
 ```http
 PATCH /api/v1/projects/:id?include=author HTTP/1.1
@@ -831,7 +831,7 @@ You can DELETE project (identified by `:id`) in `/api/v1/projects/:id/`. Authent
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
 | 403        | When Project `author` differs from `authenticated user`        |
-| 404        | When the requested project identified by `id` does not exists. |
+| 404        | When the requested project identified by `id` does not exist. |
 
 ```http
 DELETE /api/v1/projects/:id HTTP/1.1
@@ -956,7 +956,7 @@ You can star or unstar a project in `/api/v1/projects/:id/toggle-star`. Authenti
 | Error Code | Description                                                    |
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
-| 404        | When the requested project identified by `id` does not exists. |
+| 404        | When the requested project identified by `id` does not exist. |
 
 ```http
 GET /api/v1/projects/:id/toggle-star HTTP/1.1
@@ -993,8 +993,8 @@ You can FORK a project (identified by `:id`) in `/api/v1/projects/:id/fork`. Aut
 | Error Code | Description                                                    |
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
-| 409        | When user tries ot fork his/her own project                    |
-| 404        | When the requested project identified by `id` does not exists. |
+| 409        | When user tries to fork his/her own project                    |
+| 404        | When the requested project identified by `id` does not exist. |
 
 ```http
 GET /api/v1/projects/:id/fork HTTP/1.1

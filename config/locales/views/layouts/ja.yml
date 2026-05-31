@@ -9,9 +9,12 @@ ja:
     link_to_blog: "ブログ"
     link_to_about: "About"
     link_to_faq: "FAQ"
+    link_to_contests: "コンテスト"
+    link_to_explore: "探索"
     footer:
       social_icon_text: "フォローしてください："
       link_to_examples: "例"
+      link_to_explore: "探索"
       my_circuits: "自分の回路"
       link_to_contribute: "貢献"
       link_to_forum: "フォーラム"
@@ -33,3 +36,6 @@ ja:
       unsubscribe_email_notifications: "メール通知の購読を解除"
     simulator:
       title: "CircuitVerse - オンライン 回路シミュレーション"
+  contest:
+    index:
+      manage_button: "コンテストの管理"

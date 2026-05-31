@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
   end
 
   def generate_token
-    @group = Group.find(params[:id])
+    @group = Group.find(params.expect(:id))
     @group.reset_group_token unless @group.has_valid_token?
   end
 
@@ -60,7 +60,7 @@ class GroupsController < ApplicationController
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.json { render json: @group.errors, status: :unprocessable_content }
       end
     end
   end
@@ -74,7 +74,7 @@ class GroupsController < ApplicationController
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
-        format.json { render json: @group.errors, status: :unprocessable_entity }
+        format.json { render json: @group.errors, status: :unprocessable_content }
       end
     end
   end
@@ -95,12 +95,12 @@ class GroupsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params[:id])
+      @group = Group.find(params.expect(:id))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:name, :primary_mentor_id)
+      params.expect(group: %i[name primary_mentor_id])
     end
 
     def check_show_access

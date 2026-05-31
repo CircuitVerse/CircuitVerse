@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-tap "homebrew/core"
-tap "homebrew/bundle"
-tap "homebrew/services"
-tap "homebrew/cask"
-brew "node@16"
+brew "node@22"
 brew "redis"
 brew "imagemagick"
 brew "yarn"

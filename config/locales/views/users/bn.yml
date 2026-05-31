@@ -11,11 +11,11 @@ bn:
       member_since_html: "<strong>সদস্য:</strong> %{member_since} দিন থেকে"
       educational_institutes_html: "<strong>শিক্ষা প্রতিষ্ঠান:</strong> %{educational_institute}"
       country_html: "<strong>দেশ:</strong> %{country_name}"
-      total_circuits_made_html: "<strong>মোট সার্কিট তৈরি: </strong> %{total_circuits}"
+      total_circuits_made_html: '<strong>মোট সার্কিট তৈরি: </strong> %{total_circuits}'
       edit_profile:
         title: "%{name} - প্রোফাইল সম্পাদনা করুন"
         heading: "প্রোফাইল সম্পাদনা করুন"
-        description_html: "<sup><i class=\"fa fa-asterisk users-edit-asterisk\"></i></sup> দিয়ে চিহ্নিত ক্ষেত্রগুলি বাধ্যতামূলক"
+        description_html: '<sup><i class="fa fa-asterisk users-edit-asterisk"></i></sup> দিয়ে চিহ্নিত ক্ষেত্রগুলি বাধ্যতামূলক'
         profile_picture: "প্রোফাইল ছবি"
         choose_file: "ছবি আপলোড"
         remove_picture: "ছবি সরান"

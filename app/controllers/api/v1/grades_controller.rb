@@ -39,7 +39,7 @@ class Api::V1::GradesController < Api::V1::BaseController
     end
 
     def set_grade
-      @grade = Grade.find(params[:id])
+      @grade = Grade.find(params.expect(:id))
     end
 
     def check_access
@@ -47,6 +47,6 @@ class Api::V1::GradesController < Api::V1::BaseController
     end
 
     def grade_params
-      params.require(:grade).permit(:grade, :remarks)
+      params.expect(grade: %i[grade remarks])
     end
 end

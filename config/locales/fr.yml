@@ -35,6 +35,41 @@ fr:
   facebook: "Facebook"
   github: "Github"
   gitlab: "Gitlab"
+  components:
+    search_bar:
+      placeholders:
+        users: "Rechercher des utilisateurs"
+        projects: "Rechercher des projets"
+      options:
+        users: "Utilisateurs"
+        projects: "Projets"
+      sorting:
+        users:
+          join_date: "Date d'inscription"
+          total_circuits: "Circuits totaux"
+        projects:
+          created_date: "Date de création"
+          views: "Vues"
+          stars: "Étoiles"
+      filters:
+        button_text: "Filtres"
+        apply_button_text: "Appliquer"
+        projects:
+          tags:
+            label: "Tags"
+            placeholder: "Ajouter un tag..."
+        users:
+          country:
+            label: "Pays"
+            placeholder: "Sélectionner le pays..."
+          institute:
+            label: "Institut"
+            placeholder: "Entrez l'institut..."
+    project:
+      show_more: "Afficher plus"
+      options:
+        users: "Utilisateurs"
+        projects: "Projets"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

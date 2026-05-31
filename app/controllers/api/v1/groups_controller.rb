@@ -59,13 +59,13 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
     # include=group_members,assignments
     def include_resource
-      params[:include].split(",")
-                      .map { |resource| resource.strip.to_sym }
-                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
+      params.expect(:include).split(",")
+            .map { |resource| resource.strip.to_sym }
+            .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
     def set_group
-      @group = Group.find(params[:id])
+      @group = Group.find(params.expect(:id))
     end
 
     def set_options
@@ -75,7 +75,7 @@ class Api::V1::GroupsController < Api::V1::BaseController
     end
 
     def group_params
-      params.require(:group).permit(:name, :primary_mentor_id)
+      params.expect(group: %i[name primary_mentor_id])
     end
 
     def check_show_access

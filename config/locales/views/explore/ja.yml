@@ -1,0 +1,24 @@
+ja:
+  explore:
+    title: "CircuitVerse - Explore"
+    main_heading: "回路を探索"
+    main_description: "手作業で選んだ回路、古典、最近の作品、人気のタグを閲覧できます。"
+    tabs:
+      cotw: "週のサーキット"
+      picks: "エディターのピック"
+      recent: "最近の回路"
+      tags: "タグで閲覧する"
+    sections:
+      cotw:
+        heading: "週のサーキット"
+        description: "注目デザインとトレンドデザインから選ばれたスポットライトされたサーキット。"
+      picks:
+        heading: "エディターのピック"
+        description: "彼らの素晴らしさのために私たちの著者によってキュレーション."
+      recent:
+        heading: "最近の回路"
+        description: "私たちのコミュニティからの最新の公共回路。"
+      tags:
+        heading: "タグで閲覧する"
+        description: "興味のあるトピックに飛び込みましょう。"
+    empty: "まだ表示するものはありません。"
