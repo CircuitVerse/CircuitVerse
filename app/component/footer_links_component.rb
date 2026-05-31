@@ -27,7 +27,7 @@ class FooterLinksComponent < ViewComponent::Base
       { url: "/teachers", text: "layout.link_to_teachers" },
       { url: "/about", text: "layout.link_to_about" },
       { url: "https://api.circuitverse.org", text: "API", target: "_blank" },
-      { url: "https://docs.circuitverse.org/#/chapter8/2cvfaq", text: "layout.link_to_faq" }
+      { url: "https://docs.circuitverse.org/chapter8/chapter8-cvfaq", text: "layout.link_to_faq" }
     ]
   end
 
