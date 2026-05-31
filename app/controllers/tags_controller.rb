@@ -12,7 +12,7 @@ class TagsController < ApplicationController
   private
 
     def set_tag!
-      @tag = Tag.find_by!(name: params[:tag])
+      @tag = Tag.find_by!(name: params.expect(:tag))
     end
 
     # rubocop:disable Metrics/MethodLength

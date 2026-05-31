@@ -4,6 +4,9 @@ class Avo::Resources::NoticedNotification < Avo::BaseResource
   self.title = :type
   self.includes = [:recipient]
   self.model_class = ::NoticedNotification
+  self.pagination = {
+    type: :countless
+  }
 
   def fields
     field :id, as: :id, link_to_resource: true

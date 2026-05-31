@@ -19,7 +19,7 @@ class GroupsController < ApplicationController
   end
 
   def generate_token
-    @group = Group.find(params[:id])
+    @group = Group.find(params.expect(:id))
     @group.reset_group_token unless @group.has_valid_token?
   end
 
@@ -95,7 +95,7 @@ class GroupsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params[:id])
+      @group = Group.find(params.expect(:id))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
