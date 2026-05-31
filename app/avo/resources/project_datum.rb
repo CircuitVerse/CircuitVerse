@@ -4,6 +4,9 @@ class Avo::Resources::ProjectDatum < Avo::BaseResource
   self.title = :id
   self.includes = %i[project]
   self.model_class = ::ProjectDatum
+  self.pagination = {
+    type: :countless
+  }
 
   def fields
     field :id, as: :id, link_to_resource: true
