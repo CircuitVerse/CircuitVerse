@@ -22,7 +22,7 @@ class Contests::SubmissionsController < ApplicationController
       redirect_to contest_path(@contest), notice: t(".success")
     else
       @projects = current_user.projects
-      render :new, status: :unprocessable_entity
+      render :new, status: :unprocessable_content
     end
   end
 
@@ -38,7 +38,7 @@ class Contests::SubmissionsController < ApplicationController
   private
 
     def set_contest
-      @contest = Contest.find(params[:contest_id])
+      @contest = Contest.find(params.expect(:contest_id))
     end
 
     def project_owner?(project_id)
@@ -59,9 +59,9 @@ class Contests::SubmissionsController < ApplicationController
 
     def find_withdrawable_submission
       scope = @contest.submissions
-      return scope.find(params[:id]) if current_user.admin?
+      return scope.find(params.expect(:id)) if current_user.admin?
 
-      scope.joins(:project).where(projects: { author_id: current_user.id }).find(params[:id])
+      scope.joins(:project).where(projects: { author_id: current_user.id }).find(params.expect(:id))
     end
 
     def check_contests_feature_flag

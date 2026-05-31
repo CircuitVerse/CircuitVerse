@@ -3,8 +3,8 @@
 module UsersCircuitverseHelper
   def get_priority_countries
     priority_countries = ["IN"]
-    geo_contry = Geocoder.search(request.remote_ip).first&.country
-    priority_countries.prepend(geo_contry) if priority_countries.exclude?(geo_contry) && !geo_contry.nil?
+    geo_country = Geocoder.search(request.remote_ip).first&.country
+    priority_countries.prepend(geo_country) if priority_countries.exclude?(geo_country) && !geo_country.nil?
     priority_countries
   end
 

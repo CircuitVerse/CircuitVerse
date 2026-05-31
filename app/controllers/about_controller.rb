@@ -30,7 +30,9 @@ class AboutController < ApplicationController
       { name: "Harsh Bhadu",
         img: "https://avatars.githubusercontent.com/u/102225113?v=4", link: "https://github.com/senbo1" },
       { name: "Aman Asrani",
-        img: "https://avatars.githubusercontent.com/u/96644946?v=4", link: "https://github.com/Asrani-Aman" }
+        img: "https://avatars.githubusercontent.com/u/96644946?v=4", link: "https://github.com/Asrani-Aman" },
+      { name: "Hardik Sachdeva",
+        img: "https://avatars.githubusercontent.com/u/85028179?v=4", link: "https://github.com/hardik17771" }
     ]
 
     @mentors = []
