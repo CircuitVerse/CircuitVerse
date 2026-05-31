@@ -64,15 +64,18 @@ class Project < ApplicationRecord
 
   # returns true if starred, false if unstarred
   def toggle_star(user)
-    star = Star.find_by(user_id: user.id, project_id: id)
+  with_lock do
+    star = stars.find_by(user_id: user.id)
+
     if star.nil?
-      @star = Star.create!(user_id: user.id, project_id: id)
+      stars.create!(user_id: user.id)
       true
     else
       star.destroy!
       false
     end
   end
+end
 
   def fork(user)
     forked_project = dup
