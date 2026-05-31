@@ -4,6 +4,14 @@ class Avo::Resources::User < Avo::BaseResource
   self.title = :name
   self.includes = %i[projects groups_owned group_members]
   self.model_class = ::User
+
+  self.search = {
+    query: -> { query.text_search(params[:q]) }
+  }
+  self.pagination = {
+    type: :countless
+  }
+
   def fields
     basic_fields
     authentication_fields
