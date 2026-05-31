@@ -49,6 +49,7 @@ hi:
         no_user_favourites: "%{name} के द्वारा पसंद की गयी कोई परियोजना नहीं है।"
         not_a_collaborator: "आप किसी परियोजना के सहयोगी नहीं हैं।"
         user_not_a_collaborator: "%{name} किसी भी परियोजना के सहयोगी नहीं है।"
+        no_search_results: "कोई सर्किट नहीं मिला"
       search:
         no_results: "कोई परिणाम नहीं मिला"
     mailer:

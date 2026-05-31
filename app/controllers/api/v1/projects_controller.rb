@@ -85,7 +85,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   end
 
   def image_preview
-    @project = Project.open.friendly.find(params[:id])
+    @project = Project.open.friendly.find(params.expect(:id))
     render json: { project_preview: request.base_url + @project.image_preview.url }
   end
 
@@ -170,10 +170,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def set_project
       if params[:user_id]
-        @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @author = User.find(params.expect(:user_id))
+        @project = @author.projects.friendly.find(params.expect(:id))
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.find(params.expect(:id))
         @author = @project.author
       end
     end
@@ -181,7 +181,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     # Update circuit data Related methods
 
     def set_user_project
-      @project = Project.friendly.find(params[:id])
+      @project = Project.friendly.find(params.expect(:id))
       authorize @project, :edit_access?
     end
 
@@ -243,9 +243,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     # include=author
     def include_resource
-      params[:include].split(",")
-                      .map { |resource| resource.strip.to_sym }
-                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
+      params.expect(:include).split(",")
+            .map { |resource| resource.strip.to_sym }
+            .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
     def set_options

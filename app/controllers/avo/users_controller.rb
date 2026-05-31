@@ -12,7 +12,7 @@ class Avo::UsersController < Avo::ResourcesController
 
     def strip_blank_password_params
       %i[resource user].each do |key|
-        next unless params[key].respond_to?(:delete)
+        next unless params.expect(key).respond_to?(:delete)
 
         params[key].delete(:password) if params[key][:password].blank?
         params[key].delete(:password_confirmation) if params[key][:password_confirmation].blank?

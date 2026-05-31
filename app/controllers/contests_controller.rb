@@ -41,7 +41,7 @@ class ContestsController < ApplicationController
   private
 
     def set_contest
-      @contest = Contest.find(params[:id])
+      @contest = Contest.find(params.expect(:id))
     end
 
     def check_contests_feature_flag
