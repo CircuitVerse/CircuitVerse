@@ -667,6 +667,10 @@ display: block;
   top: 90%;
 }
 
+[dir="rtl"] .dropdown-menu.dropdown-menu-end {
+  left: 0;
+  right: auto;
+}
 //breakpoints
 // collapse navbar earlier between 1080px and 992px
 @media (max-width: 1080px) and (min-width: 992px) {
