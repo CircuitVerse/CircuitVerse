@@ -21,13 +21,13 @@ class Assignment < ApplicationRecord
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
   def notify_recipient
-    group.group_members.each do |group_member|
+    group.group_members.includes(:user).each do |group_member|
       NewAssignmentNotification.with(assignment: self).deliver_later(group_member.user)
     end
   end
 
   def send_new_assignment_mail
-    group.group_members.each do |group_member|
+    group.group_members.includes(:user).each do |group_member|
       AssignmentMailer.new_assignment_email(group_member.user, self).deliver_later
     end
   end
@@ -35,7 +35,7 @@ class Assignment < ApplicationRecord
   def send_update_mail
     return unless status != "closed"
 
-    group.group_members.each do |group_member|
+    group.group_members.includes(:user).each do |group_member|
       AssignmentMailer.update_assignment_email(group_member.user, self).deliver_later
     end
   end
