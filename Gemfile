@@ -52,7 +52,7 @@ gem "jquery-rails"
 
 # gem 'acts_as_votable', '~> 0.11.1'
 
-gem "carrierwave", "~> 3.0"
+gem "carrierwave", "~> 3.1"
 
 gem "rails_admin", [">= 3.0.0.rc3", "< 4"]
 
@@ -110,7 +110,7 @@ gem "flipper-ui"
 gem "friendly_id", "~> 5.5.1"
 gem "inline_svg"
 gem "jsonapi-serializer"
-gem "jwt"
+gem "jwt", "~> 2.10.3"
 gem "rails-i18n", "~> 8.0.0"
 gem "recaptcha"
 gem "simple_discussion", github: "CircuitVerse/simple_discussion"
@@ -231,3 +231,7 @@ gem 'mutex_m'
 gem "observer", "~> 0.1.2"
 
 gem "drb", "~> 2.2"
+
+# Verilog to DigitalJS conversion gem (Internal)
+gem "yosys2digitaljs", path: "vendor/gems/yosys2digitaljs"
+gem "avo", ">= 3.2.1"
