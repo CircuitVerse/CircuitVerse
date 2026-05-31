@@ -81,7 +81,7 @@ class AboutController < ApplicationController
       { name: "Naman Chhabra",
         img: "https://avatars.githubusercontent.com/u/159947791?v=4", link: "https://github.com/naman79820" },
       { name: "Yana Pandey",
-        img: "https://avatars.githubusercontent.com/u/173885830?v=4", link: "https://github.com/Yana-do-code" },
+        img: "https://avatars.githubusercontent.com/u/173885830?v=4", link: "https://github.com/Yana-do-code" }
     ]
   end
 end
