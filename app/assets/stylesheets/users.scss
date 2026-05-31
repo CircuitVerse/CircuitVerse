@@ -3,8 +3,7 @@
   --grey: rgb(108, 117, 125);
 }
 
-//passwords
-
+/* passwords */
 .users-image {
   margin-bottom: 15px;
   margin-top: 30px;
@@ -65,7 +64,7 @@
   padding-top: 9px;
 }
 
-//breakpoints
+/* breakpoints */
 @media (max-width: 766px) {
   .users-image,
   .users-image-text {
@@ -86,9 +85,8 @@
     max-width: 90%;
   }
 }
-//passwords ends
 
-//shared
+/* shared */
 .users-shared {
   margin-bottom: 30px;
   margin-top: 40px;
@@ -131,9 +129,7 @@
   height: 18px;
 }
 
-//shared ends
-
-//login-register
+/* login-register */
 .users-remember-me-text {
   display: inline-block;
 }
@@ -157,13 +153,13 @@
   margin-top: 20px;
   padding: 8px 25px;
 }
+
 .password-length {
   display: flex;
   flex-direction: row;
 }
-//login-register ends
 
-//user edit
+/* user edit */
 .users-edit-asterisk {
   color: $primary-red;
   font-size: 10px;
@@ -233,9 +229,8 @@
   margin-left: auto;
   text-align: right;
 }
-//user edit ends
 
-//user profile (WIP)
+/* user profile (WIP) */
 .no-projects {
   padding-top: 20px;
   text-align: center;
@@ -244,7 +239,7 @@
 .no-projects-here {
   color: $primary;
 }
-//////////////
+
 .users-details-container {
   border: 1px solid $form-border-grey;
   margin-top: 20px;
@@ -334,6 +329,7 @@
   border: 1px solid $secondary-green;
   border-radius: 0;
 }
+
 .users-card-footer {
   background-color: $card-green;
   border-top: 1px solid $primary-green;
@@ -428,7 +424,7 @@
   width: 100%;
 }
 
-//breakpoints
+/* breakpoints (cards) */
 @media (max-width: 400px) {
   .users-card {
     max-width: 140px;
@@ -454,6 +450,7 @@
   }
 }
 
+/* typeahead dropdown */
 .tt-dropdown-menu {
   background-color: $white;
   border-right: 1px solid var(--black);
@@ -463,7 +460,8 @@
   overflow-y: scroll;
   padding: 10px;
 }
-// notification dropdown
+
+/* notification dropdown */
 .navbar-3 {
   position: relative;
 
@@ -479,6 +477,17 @@
     text-align: center;
     top: 4px;
     width: 15px;
+  }
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav .navbar-3 {
+    position: relative;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: max-content !important;
+    flex: 0 0 auto !important;
   }
 }
 
@@ -504,23 +513,39 @@
   }
 }
 
+@media (min-width: 769px) {
+  .dropdown-notification {
+    left: auto !important;
+    right: 0 !important;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 768px) {
   .dropdown-notification {
-    max-width: 95vw;
+    left: 15px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: calc(100vw - 30px);
+    right: 15px !important;
+    transform: none !important;
     width: auto;
-    left: 50% !important;
-    transform: translateX(-50%);
   }
 }
 
 @media (max-width: 480px) {
   .dropdown-notification {
-    max-width: 98vw;
+    left: 10px !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    max-width: calc(100vw - 20px);
     padding: 10px 12px;
+    right: 10px !important;
+    transform: none !important;
   }
 }
 
-// notification page
+/* notification page */
 .notification-icon {
   font-size: 20px;
   margin-left: 10px;
@@ -540,17 +565,20 @@
 .notification-container {
   max-width: 558px;
 }
+
 .notification-heading {
   font-size: 30px;
   font-style: normal;
   font-weight: 600;
   margin-top: 10px;
 }
+
 .tab-container span {
   cursor: pointer;
   margin-right: 20px;
   padding-bottom: 5px;
 }
+
 .tab-container .active {
   border-bottom: 3px solid $notification-icons;
   font-weight: bold;
@@ -566,7 +594,8 @@
     margin-right: 15px;
   }
 
-  .fa-star, .fa-trophy {
+  .fa-star,
+  .fa-trophy {
     padding: 12px 10px;
   }
 
@@ -630,6 +659,7 @@
   text-decoration: none;
 }
 
+/* search user card */
 .search-user-card {
   background: $white;
   border: 1px solid $border-light-grey;
