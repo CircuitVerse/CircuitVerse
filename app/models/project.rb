@@ -23,7 +23,7 @@ class Project < ApplicationRecord
   has_many :collaborations, dependent: :destroy
   has_many :collaborators, source: "user", through: :collaborations
   has_many :taggings, dependent: :destroy
-  has_many :tags, through: :taggings
+  has_many :tags, -> { where.not(name: "") }, through: :taggings
   mount_uploader :image_preview, ImagePreviewUploader
   has_one_attached :circuit_preview
   has_one :featured_circuit

@@ -12,7 +12,7 @@ class PushSubscriptionController < ApplicationController
         status: "ok"
       }, status: :created
     else
-      render json: @subscription.errors, status: :unprocessable_entity
+      render json: @subscription.errors, status: :unprocessable_content
     end
   end
 
