@@ -71,7 +71,7 @@ class CustomMailsController < ApplicationController
     end
 
     def set_mail
-      @mail = CustomMail.find(params[:id])
+      @mail = CustomMail.find(params.expect(:id))
     end
 
     def custom_mails_params
