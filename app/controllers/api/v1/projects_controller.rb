@@ -85,7 +85,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   end
 
   def image_preview
-    @project = Project.open.friendly.find(params[:id])
+    @project = Project.open.friendly.find(params.expect(:id))
     render json: { project_preview: request.base_url + @project.image_preview.url }
   end
 
@@ -111,7 +111,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # PATCH /api/v1/projects/:id
   def update
     authorize @project, :check_edit_access?
-    params[:project][:name] = sanitize(project_params[:name])
+    params.permit(:project)[:name] = sanitize(project_params[:name])
     @project.update!(project_params)
     if @project.update(project_params)
       render json: Api::V1::ProjectSerializer.new(@project, @options), status: :accepted
@@ -171,19 +171,19 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     def set_project
       if params[:user_id]
-        @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @author = User.find(params.expect(:user_id))
+        @project = @author.projects.friendly.find(params.expect(:id))
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.find(params.expect(:id))
         @author = @project.author
       end
     end
 
     # Update circuit data Related methods
 
-    # FIXME: remove this logic after fixing production data
     def set_user_project
-      @project = current_user.projects.friendly.find_by(id: params[:id]) || Project.friendly.find(params[:id])
+      @project = Project.friendly.find(params.expect(:id))
+      authorize @project, :edit_access?
     end
 
     def build_project_datum
@@ -244,9 +244,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
     # include=author
     def include_resource
-      params[:include].split(",")
-                      .map { |resource| resource.strip.to_sym }
-                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
+      params.expect(:include).split(",")
+            .map { |resource| resource.strip.to_sym }
+            .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
     def set_options
