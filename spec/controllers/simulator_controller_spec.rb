@@ -167,7 +167,7 @@ describe SimulatorController, type: :request do
     end
 
     describe "#redirect_to_vue_simulator_if_enabled" do
-      context "when vuesim is enabled for user and user opens black simualtor" do
+      context "when vuesim is enabled for user and user opens blank simulator" do
         before do
           allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(true)
           get simulator_new_path

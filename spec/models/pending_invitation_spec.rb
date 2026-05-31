@@ -13,7 +13,7 @@ RSpec.describe PendingInvitation, type: :model do
   end
 
   describe "callbacks" do
-    it "alls respective callbacks" do
+    it "calls respective callbacks" do
       expect_any_instance_of(described_class).to receive(:send_pending_invitation_mail)
       FactoryBot.create(:pending_invitation, group: @group)
     end

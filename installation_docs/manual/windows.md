@@ -21,7 +21,7 @@ cd CircuitVerse
 - [Git](https://git-scm.com/download/win) - using a GUI such as [SourceTree](https://www.sourcetreeapp.com/) or [GitHub Desktop](https://desktop.github.com/) can help
 - [Ruby 3.2.1](https://www.ruby-lang.org/en/) (Install from this [link](https://github.com/oneclick/rubyinstaller2/releases/download/RubyInstaller-3.2.1-1/rubyinstaller-devkit-3.2.1-1-x64.exe))
     > During installation, you will be prompted to install MSYS2 & MINGW. Make sure to install those 
-- Redis 7.0 [atleast]
+- Redis 7.0 [at least]
     > Note : Redis 7.0 is not officially supported on Windows. Please note that any suggestions for unofficial software are provided solely for informational purposes, and their use is at your own risk.
     - Unofficial Windows port of Redis 7.0 
         - Clone the repository 

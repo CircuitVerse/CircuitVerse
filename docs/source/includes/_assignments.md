@@ -221,7 +221,7 @@ You can GET assignment details (identified by `:id`) in `/api/v1/assignments/:id
 | --------- | ----------------------------------------- |
 | `id`      | The `id` of the assignment to be detailed |
 
-### URL Query Paramters
+### URL Query Parameters
 
 | Parameter | Description                              |
 | --------- | ---------------------------------------- |
@@ -345,7 +345,7 @@ You can POST assignment in `/api/v1/groups/:group_id/assignments`. Authenticatio
 | Name            | Type                 | Description                                 |
 | --------------- | -------------------- | ------------------------------------------- |
 | `name`          | `String`             | Name of the Assignment                      |
-| `deadline`      | `String`             | Updated name of the group                   |
+| `deadline`      | `String`             | Deadline for the assignment                 |
 | `description`   | `String`             | Description of the assignment               |
 | `grading_scale` | `String`             | grading scale for the assignment            |
 | `restrictions`  | `JSON encoded array` | restrictions for assignments in json string |
@@ -356,7 +356,7 @@ You can POST assignment in `/api/v1/groups/:group_id/assignments`. Authenticatio
 | ---------- | ------------------------------------------------ |
 | `group_id` | The `id` of the group, assignment is to be added |
 
-### URL Query Paramters
+### URL Query Parameters
 
 | Parameter | Description                              |
 | --------- | ---------------------------------------- |
@@ -624,7 +624,7 @@ HTTP/1.1 202 ACCEPTED
 
 ## START Assignment
 
-Group Members can start working on the assignment in`/api/v1/assignments/:id/start`. This creates a new private project for he user to work upon. Authentication `token` is passed through `Authorization` header and is **required**.
+Group Members can start working on the assignment in`/api/v1/assignments/:id/start`. This creates a new private project for the user to work upon. Authentication `token` is passed through `Authorization` header and is **required**.
 
 ### URL Parameters
 

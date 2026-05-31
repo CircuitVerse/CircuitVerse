@@ -294,7 +294,7 @@ Host: localhost
 HTTP/1.1 200 OK
 ```
 
-> JSON response will be similiar as above
+> JSON response will be similar to above
 
 ## GET Group Details
 
@@ -527,7 +527,7 @@ Group's primary mentor can DELETE a group (identified by `:id`) in `/api/v1/grou
 | Error Code | Description                                                    |
 | ---------- | -------------------------------------------------------------- |
 | 401        | When user is not authenticated i.e invalid or corrupt `token`. |
-| 403        | When non-primary mentor user tries to update the group         |
+| 403        | When non-primary mentor user tries to delete the group         |
 | 404        | When the requested group identified by `id` does not exist.   |
 
 ```http

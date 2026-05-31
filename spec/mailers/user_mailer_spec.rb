@@ -57,6 +57,7 @@ RSpec.describe UserMailer, type: :mailer do
     it "sends featured circuit mail" do
       expect(mail.to).to eq([@user.email])
       expect(mail.subject).to eq("Your project is now featured!")
+      expect(mail.body.encoded).to include("Yay! Your project")
     end
   end
 end

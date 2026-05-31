@@ -12,7 +12,7 @@
 4. Click on `Create Codespace`
 5. Wait for the codespace to be prepared
 
-If you required to restart the server 
+If you are required to restart the server
 - Type `Ctrl+C` in terminal to stop the server
 - Run `./bin/dev` to start the server again
 

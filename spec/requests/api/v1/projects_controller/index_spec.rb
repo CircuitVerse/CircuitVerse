@@ -67,7 +67,7 @@ RSpec.describe Api::V1::ProjectsController, "#index", type: :request do
         get "/api/v1/projects", headers: { Authorization: "Token #{token}" }, as: :json
       end
 
-      it "returns all public projects in additon to projects user is author of" do
+      it "returns all public projects in addition to projects user is author of" do
         expect(response).to have_http_status(:ok)
         expect(response).to match_response_schema("projects")
         expect(response.parsed_body["data"].length).to eq(3)
