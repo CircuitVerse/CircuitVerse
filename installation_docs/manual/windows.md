@@ -49,7 +49,8 @@ cd CircuitVerse
 2. Install Ruby dependencies: `bundle install`
 3. Install Yarn dependencies: `yarn`
 4. Configure your PostgreSQL database in `config/database.yml` (copy `config/database.example.yml` to create the configuration file): 
-     * **(Windows):** `copy config\database.example.yml config\database.yml`
+     * **Windows (Command Prompt):** `copy config\database.example.yml config\database.yml`
+     * **Windows (PowerShell):** `Copy-Item config\database.example.yml config\database.yml`
      * **Note:** The Postgres credentials need to be updated to match your currently running database.
 5. Create database: `bundle exec rails db:create`
 6. Run database migrations: `bundle exec rails db:migrate`
