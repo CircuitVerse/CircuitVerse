@@ -44,6 +44,7 @@ services:
       NODE_ENV: "development"
       HOST_CURRENT_DIRECTORY: $PWD
       OPERATING_SYSTEM: $OPERATING_SYSTEM
+      DEV_CONTAINER: "true"
     restart: unless-stopped
   sidekiq:
     <<: *common_build

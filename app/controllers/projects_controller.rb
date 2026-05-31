@@ -17,7 +17,7 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-    @author = User.find(params[:user_id])
+    @author = User.find(params.expect(:user_id))
   end
 
   # GET /projects/1
@@ -120,10 +120,10 @@ class ProjectsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_project
       if params[:user_id]
-        @author = User.find(params[:user_id])
-        @project = @author.projects.friendly.find(params[:id])
+        @author = User.find(params.expect(:user_id))
+        @project = @author.projects.friendly.with_attached_circuit_preview.find(params.expect(:id))
       else
-        @project = Project.friendly.find(params[:id])
+        @project = Project.friendly.with_attached_circuit_preview.find(params.expect(:id))
         @author = @project.author
       end
     end
@@ -146,7 +146,7 @@ class ProjectsController < ApplicationController
     end
 
     def sanitize_name
-      params[:project][:name] = sanitize(project_params[:name])
+      params.permit(:project)[:name] = sanitize(project_params[:name])
     end
 
     # Sanitize description before passing to view
