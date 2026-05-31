@@ -11,7 +11,7 @@ class Group < ApplicationRecord
   has_many :pending_invitations, dependent: :destroy
 
   after_commit :send_creation_mail, on: :create
-  scope :with_valid_token, -> { where("token_expires_at >= ?", Time.zone.now) }
+  scope :with_valid_token, -> { where(token_expires_at: Time.zone.now..) }
   TOKEN_DURATION = 12.days
 
   def send_creation_mail

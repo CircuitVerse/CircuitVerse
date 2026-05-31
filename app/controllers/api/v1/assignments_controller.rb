@@ -93,17 +93,17 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
 
     # include=projects,grades
     def include_resource
-      params[:include].split(",")
-                      .map { |resource| resource.strip.to_sym }
-                      .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
+      params.expect(:include).split(",")
+            .map { |resource| resource.strip.to_sym }
+            .select { |resource| WHITELISTED_INCLUDE_ATTRIBUTES.include?(resource) }
     end
 
     def set_assignment
-      @assignment = Assignment.find(params[:id])
+      @assignment = Assignment.find(params.expect(:id))
     end
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.find(params.expect(:group_id))
     end
 
     # sets @current_user as params to be used in assignment serializer
@@ -118,14 +118,14 @@ class Api::V1::AssignmentsController < Api::V1::BaseController
     end
 
     def assignment_create_params
-      params.require(:assignment).permit(
-        :name, :deadline, :description, :grading_scale, :restrictions
+      params.expect(
+        assignment: %i[name deadline description grading_scale restrictions]
       )
     end
 
     def assignment_update_params
-      params.require(:assignment).permit(
-        :name, :deadline, :description, :restrictions
+      params.expect(
+        assignment: %i[name deadline description restrictions]
       )
     end
 

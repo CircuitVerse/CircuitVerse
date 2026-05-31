@@ -5,7 +5,7 @@
     <div class="mb-3 projects-primary-checkpoint">
       <label for="featured_checkbox" class="primary-checkpoint-container"><h6><%= t("projects.form.feature_circuit_checkpoint") %></h6>
         <%= form.check_box :featured, checked: @project.featured?, id: "featured_checkbox" %>
-        <div class="primary-checkpoint"></div>
+        <div class="rounded"></div>
       </label>
     </div>
   <% end %>
@@ -31,7 +31,7 @@
     <%= form.text_field :tag_list, class: "form-control form-input" %>
   </div>
   <div class="field mb-3">
-    <h6 class="projects-type-field-heading"><%= form.label :project_access_type %></h6>
+    <h6 class="mb-0"><%= form.label :project_access_type %></h6>
     <% if @project.featured? %>
       <div class="alert alert-warning d-flex align-items-center" role="alert">
 +        <i class="fa fa-exclamation-triangle me-2"></i>
@@ -91,9 +91,9 @@
       nameCounter.textContent = `${currentLength} / ${maxLength}`;
 
       if (currentLength >= maxLength) {
-        nameCounter.classList.add('is-invalid');
+        nameCounter.classList.add('text-danger');
       } else {
-        nameCounter.classList.remove('is-invalid');
+        nameCounter.classList.remove('text-danger');
       }
     });
   });

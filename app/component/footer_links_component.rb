@@ -2,7 +2,7 @@
 
 class FooterLinksComponent < ViewComponent::Base
   def initialize(current_user)
-    super
+    super()
     @current_user = current_user.is_a?(Hash) ? current_user[:current_user] : current_user
   end
 
@@ -11,7 +11,11 @@ class FooterLinksComponent < ViewComponent::Base
       { url: "/simulator", text: "layout.link_to_simulator" },
       { url: "/learn", text: "layout.link_to_learn_more", target: "_blank" },
       { url: "https://blog.circuitverse.org", text: "layout.link_to_blog", target: "_blank" },
-      { url: "/examples", text: "layout.footer.link_to_examples" },
+      (if Flipper.enabled?(:circuit_explore_page, @current_user)
+         { url: "/explore", text: "layout.footer.link_to_explore" }
+       else
+         { url: "/examples", text: "layout.footer.link_to_examples" }
+       end),
       user_specific_link
     ]
   end
@@ -22,8 +26,8 @@ class FooterLinksComponent < ViewComponent::Base
       { url: "/contribute", text: "layout.footer.link_to_contribute" },
       { url: "/teachers", text: "layout.link_to_teachers" },
       { url: "/about", text: "layout.link_to_about" },
-      { url: "https://api.circuitverse.org", text: "layout.api", target: "_blank" },
-      { url: "https://docs.circuitverse.org/#/chapter8/2cvfaq", text: "layout.link_to_faq" }
+      { url: "https://api.circuitverse.org", text: "API", target: "_blank" },
+      { url: "https://docs.circuitverse.org/chapter8/chapter8-cvfaq", text: "layout.link_to_faq" }
     ]
   end
 

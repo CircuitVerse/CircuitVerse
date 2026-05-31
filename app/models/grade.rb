@@ -44,9 +44,8 @@ class Grade < ApplicationRecord
 
         group_members.each do |member|
           submission = submissions.find do |s|
-            (
             s.author_id == member.id &&
-            s.assignment_id == assignment_id)
+              s.assignment_id == assignment_id
           end
           grade = submission&.grade&.grade
           remarks = submission&.grade&.remarks
