@@ -51,15 +51,9 @@ export default class extends Controller {
         }
 
         // Show the appropriate filter section
-        if (
-            this.currentResourceValue === 'Projects' &&
-            this.hasProjectFiltersTarget
-        ) {
+        if (this.currentResourceValue === 'Projects' && this.hasProjectFiltersTarget) {
             this.projectFiltersTarget.classList.remove('hidden');
-        } else if (
-            this.currentResourceValue === 'Users' &&
-            this.hasUserFiltersTarget
-        ) {
+        } else if (this.currentResourceValue === 'Users' && this.hasUserFiltersTarget) {
             this.userFiltersTarget.classList.remove('hidden');
         }
     }
@@ -94,24 +88,19 @@ export default class extends Controller {
                 }
             });
         });
-
-        if (this.hasCountrySelectTarget) {
-            this.countrySelectTarget.addEventListener('change', () =>
-                this.updateButtonState(),
-            );
-        }
-        if (this.hasInstituteInputTarget) {
-            this.instituteInputTarget.addEventListener('input', () =>
-                this.updateButtonState(),
-            );
-        }
+    
+    if (this.hasCountrySelectTarget) {
+        this.countrySelectTarget.addEventListener('change', () => this.updateButtonState());
+    }
+    if (this.hasInstituteInputTarget) {
+        this.instituteInputTarget.addEventListener('input', () => this.updateButtonState());
+    }
     }
 
     setupTagRemoveButtons() {
         if (!this.hasTagsDisplayTarget) return;
 
-        const removeButtons =
-            this.tagsDisplayTarget.querySelectorAll('.tag-remove');
+        const removeButtons = this.tagsDisplayTarget.querySelectorAll('.tag-remove');
         removeButtons.forEach((button) => {
             button.addEventListener('click', (event) => {
                 event.stopPropagation();
@@ -121,12 +110,7 @@ export default class extends Controller {
     }
 
     addTag() {
-        if (
-            !this.hasTagInputTarget ||
-            !this.hasTagHiddenTarget ||
-            !this.hasTagsDisplayTarget
-        )
-            return;
+        if (!this.hasTagInputTarget || !this.hasTagHiddenTarget || !this.hasTagsDisplayTarget) return;
 
         const tagText = this.tagInputTarget.value.trim();
         if (!tagText) return;
@@ -151,12 +135,7 @@ export default class extends Controller {
         if (!this.hasTagHiddenTarget) return [];
 
         const { value } = this.tagHiddenTarget;
-        return value
-            ? value
-                  .split(',')
-                  .map((tag) => tag.trim())
-                  .filter((tag) => tag)
-            : [];
+        return value ? value.split(',').map((tag) => tag.trim()).filter((tag) => tag) : [];
     }
 
     updateTags(tags) {
@@ -223,10 +202,7 @@ export default class extends Controller {
             didAffectParams = true;
         }
         // Project filters (UI only)
-        if (
-            this.hasTagsDisplayTarget &&
-            this.tagsDisplayTarget.innerHTML.trim() !== ''
-        ) {
+        if (this.hasTagsDisplayTarget && this.tagsDisplayTarget.innerHTML.trim() !== '') {
             this.tagsDisplayTarget.innerHTML = '';
         }
         if (this.hasTagInputTarget && this.tagInputTarget.value !== '') {
@@ -234,17 +210,11 @@ export default class extends Controller {
         }
 
         // User filters (affect params)
-        if (
-            this.hasCountrySelectTarget &&
-            this.countrySelectTarget.value !== ''
-        ) {
+        if (this.hasCountrySelectTarget && this.countrySelectTarget.value !== '') {
             this.countrySelectTarget.value = '';
             didAffectParams = true;
         }
-        if (
-            this.hasInstituteInputTarget &&
-            this.instituteInputTarget.value !== ''
-        ) {
+        if (this.hasInstituteInputTarget && this.instituteInputTarget.value !== '') {
             this.instituteInputTarget.value = '';
             didAffectParams = true;
         }
@@ -259,14 +229,12 @@ export default class extends Controller {
     }
 
     submitForm() {
-        const searchForm =
-            this.element.closest('form') ||
-            document.getElementById('search-box');
+        const searchForm = this.element.closest('form') || document.getElementById('search-box');
         if (searchForm) {
             searchForm.submit();
         }
     }
-
+    
     updateButtonState() {
         if (!this.hasButtonTarget) return;
 
@@ -295,11 +263,16 @@ export default class extends Controller {
             return true;
         }
 
-        if (this.hasCountrySelectTarget && this.countrySelectTarget.value) {
+        if (
+            this.currentResourceValue === 'Users' &&
+            this.hasCountrySelectTarget &&
+            this.countrySelectTarget.value
+        ) {
             return true;
         }
 
         if (
+            this.currentResourceValue === 'Users' &&
             this.hasInstituteInputTarget &&
             this.instituteInputTarget.value.trim()
         ) {
@@ -321,17 +294,20 @@ export default class extends Controller {
             this.hasTagHiddenTarget &&
             this.tagHiddenTarget.value.trim()
         ) {
-            const tags = this.tagHiddenTarget.value
-                .split(',')
-                .filter((tag) => tag.trim());
+            const tags = this.tagHiddenTarget.value.split(',').filter((tag) => tag.trim());
             count += tags.length;
         }
 
-        if (this.hasCountrySelectTarget && this.countrySelectTarget.value) {
+        if (
+            this.currentResourceValue === 'Users' &&
+            this.hasCountrySelectTarget &&
+            this.countrySelectTarget.value
+        ) {
             count += 1;
         }
 
         if (
+            this.currentResourceValue === 'Users' &&
             this.hasInstituteInputTarget &&
             this.instituteInputTarget.value.trim()
         ) {
