@@ -106,7 +106,7 @@ class GroupMembersController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group_member
-      @group_member = GroupMember.find(params[:id])
+      @group_member = GroupMember.find(params.expect(:id))
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

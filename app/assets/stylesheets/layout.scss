@@ -215,5 +215,6 @@ body {
   #collapsed-navbar {
     max-height: calc(100vh - 90px);
     overflow-y: auto;
+    scrollbar-width: none;
   }
 }
