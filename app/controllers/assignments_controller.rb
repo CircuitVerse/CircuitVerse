@@ -17,7 +17,7 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all
+    @assignments = policy_scope(Assignment)
   end
 
   # GET /assignments/1
