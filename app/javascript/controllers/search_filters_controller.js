@@ -1,18 +1,18 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from '@hotwired/stimulus';
 
 export default class extends Controller {
     static get targets() {
         return [
-            "button",
-            "dropdown",
-            "projectFilters",
-            "userFilters",
-            "tagInput",
-            "tagHidden",
-            "tagsDisplay",
-            "countrySelect",
-            "instituteInput",
-            "applyButton",
+            'button',
+            'dropdown',
+            'projectFilters',
+            'userFilters',
+            'tagInput',
+            'tagHidden',
+            'tagsDisplay',
+            'countrySelect',
+            'instituteInput',
+            'applyButton',
         ];
     }
 
@@ -24,14 +24,14 @@ export default class extends Controller {
 
     connect() {
         this.boundOutside = this.handleOutsideClick.bind(this);
-        document.addEventListener("click", this.boundOutside);
+        document.addEventListener('click', this.boundOutside);
         this.setupTagInput();
         this.setupFormInputs();
         this.updateButtonState();
     }
 
     disconnect() {
-        document.removeEventListener("click", this.boundOutside);
+        document.removeEventListener('click', this.boundOutside);
     }
 
     updateFiltersForResource(event) {
@@ -44,23 +44,23 @@ export default class extends Controller {
     showFiltersForResource() {
         // Hide all filter sections first
         if (this.hasProjectFiltersTarget) {
-            this.projectFiltersTarget.classList.add("hidden");
+            this.projectFiltersTarget.classList.add('hidden');
         }
         if (this.hasUserFiltersTarget) {
-            this.userFiltersTarget.classList.add("hidden");
+            this.userFiltersTarget.classList.add('hidden');
         }
 
         // Show the appropriate filter section
         if (
-            this.currentResourceValue === "Projects" &&
+            this.currentResourceValue === 'Projects' &&
             this.hasProjectFiltersTarget
         ) {
-            this.projectFiltersTarget.classList.remove("hidden");
+            this.projectFiltersTarget.classList.remove('hidden');
         } else if (
-            this.currentResourceValue === "Users" &&
+            this.currentResourceValue === 'Users' &&
             this.hasUserFiltersTarget
         ) {
-            this.userFiltersTarget.classList.remove("hidden");
+            this.userFiltersTarget.classList.remove('hidden');
         }
     }
 
@@ -68,15 +68,15 @@ export default class extends Controller {
         if (!this.hasTagInputTarget) return;
 
         // Add tag on Enter key
-        this.tagInputTarget.addEventListener("keydown", (event) => {
-            if (event.key === "Enter") {
+        this.tagInputTarget.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
                 event.preventDefault();
                 this.addTag();
             }
         });
 
         // Add tag on blur
-        this.tagInputTarget.addEventListener("blur", () => {
+        this.tagInputTarget.addEventListener('blur', () => {
             this.addTag();
         });
 
@@ -86,22 +86,22 @@ export default class extends Controller {
 
     setupFormInputs() {
         // Prevent form submission on Enter key for all filter inputs
-        const inputs = this.element.querySelectorAll("input, select");
+        const inputs = this.element.querySelectorAll('input, select');
         inputs.forEach((input) => {
-            input.addEventListener("keydown", (event) => {
-                if (event.key === "Enter" && input !== this.tagInputTarget) {
+            input.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' && input !== this.tagInputTarget) {
                     event.preventDefault();
                 }
             });
         });
 
         if (this.hasCountrySelectTarget) {
-            this.countrySelectTarget.addEventListener("change", () =>
+            this.countrySelectTarget.addEventListener('change', () =>
                 this.updateButtonState(),
             );
         }
         if (this.hasInstituteInputTarget) {
-            this.instituteInputTarget.addEventListener("input", () =>
+            this.instituteInputTarget.addEventListener('input', () =>
                 this.updateButtonState(),
             );
         }
@@ -111,9 +111,9 @@ export default class extends Controller {
         if (!this.hasTagsDisplayTarget) return;
 
         const removeButtons =
-            this.tagsDisplayTarget.querySelectorAll(".tag-remove");
+            this.tagsDisplayTarget.querySelectorAll('.tag-remove');
         removeButtons.forEach((button) => {
-            button.addEventListener("click", (event) => {
+            button.addEventListener('click', (event) => {
                 event.stopPropagation();
                 this.removeTag(button.dataset.tag);
             });
@@ -136,7 +136,7 @@ export default class extends Controller {
 
         currentTags.push(tagText);
         this.updateTags(currentTags);
-        this.tagInputTarget.value = "";
+        this.tagInputTarget.value = '';
     }
 
     removeTag(tagToRemove) {
@@ -153,7 +153,7 @@ export default class extends Controller {
         const { value } = this.tagHiddenTarget;
         return value
             ? value
-                  .split(",")
+                  .split(',')
                   .map((tag) => tag.trim())
                   .filter((tag) => tag)
             : [];
@@ -163,26 +163,26 @@ export default class extends Controller {
         if (!this.hasTagHiddenTarget || !this.hasTagsDisplayTarget) return;
 
         // Update hidden input
-        this.tagHiddenTarget.value = tags.join(",");
+        this.tagHiddenTarget.value = tags.join(',');
 
         // Update display
-        this.tagsDisplayTarget.innerHTML = "";
+        this.tagsDisplayTarget.innerHTML = '';
         tags.forEach((tag) => {
-            const tagElement = document.createElement("span");
-            tagElement.className = "tag-item";
+            const tagElement = document.createElement('span');
+            tagElement.className = 'tag-item';
             // Safely append tag text and remove button without using innerHTML
-            const textSpan = document.createElement("span");
-            textSpan.className = "tag-text";
+            const textSpan = document.createElement('span');
+            textSpan.className = 'tag-text';
             textSpan.textContent = tag;
             tagElement.appendChild(textSpan);
 
-            const removeBtn = document.createElement("button");
-            removeBtn.type = "button";
-            removeBtn.className = "tag-remove";
+            const removeBtn = document.createElement('button');
+            removeBtn.type = 'button';
+            removeBtn.className = 'tag-remove';
             removeBtn.dataset.tag = tag;
-            removeBtn.setAttribute("aria-label", `Remove ${tag}`);
-            removeBtn.textContent = "×";
-            removeBtn.addEventListener("click", (event) => {
+            removeBtn.setAttribute('aria-label', `Remove ${tag}`);
+            removeBtn.textContent = '×';
+            removeBtn.addEventListener('click', (event) => {
                 event.stopPropagation();
                 this.removeTag(tag);
             });
@@ -194,13 +194,13 @@ export default class extends Controller {
     }
 
     toggleDropdown() {
-        this.dropdownTarget.classList.toggle("show");
-        this.element.classList.toggle("open");
+        this.dropdownTarget.classList.toggle('show');
+        this.element.classList.toggle('open');
     }
 
     close() {
-        this.dropdownTarget.classList.remove("show");
-        this.element.classList.remove("open");
+        this.dropdownTarget.classList.remove('show');
+        this.element.classList.remove('open');
     }
 
     handleOutsideClick(event) {
@@ -218,34 +218,34 @@ export default class extends Controller {
         let didAffectParams = false;
 
         // Project filters (affect params)
-        if (this.hasTagHiddenTarget && this.tagHiddenTarget.value !== "") {
-            this.tagHiddenTarget.value = "";
+        if (this.hasTagHiddenTarget && this.tagHiddenTarget.value !== '') {
+            this.tagHiddenTarget.value = '';
             didAffectParams = true;
         }
         // Project filters (UI only)
         if (
             this.hasTagsDisplayTarget &&
-            this.tagsDisplayTarget.innerHTML.trim() !== ""
+            this.tagsDisplayTarget.innerHTML.trim() !== ''
         ) {
-            this.tagsDisplayTarget.innerHTML = "";
+            this.tagsDisplayTarget.innerHTML = '';
         }
-        if (this.hasTagInputTarget && this.tagInputTarget.value !== "") {
-            this.tagInputTarget.value = "";
+        if (this.hasTagInputTarget && this.tagInputTarget.value !== '') {
+            this.tagInputTarget.value = '';
         }
 
         // User filters (affect params)
         if (
             this.hasCountrySelectTarget &&
-            this.countrySelectTarget.value !== ""
+            this.countrySelectTarget.value !== ''
         ) {
-            this.countrySelectTarget.value = "";
+            this.countrySelectTarget.value = '';
             didAffectParams = true;
         }
         if (
             this.hasInstituteInputTarget &&
-            this.instituteInputTarget.value !== ""
+            this.instituteInputTarget.value !== ''
         ) {
-            this.instituteInputTarget.value = "";
+            this.instituteInputTarget.value = '';
             didAffectParams = true;
         }
 
@@ -260,8 +260,8 @@ export default class extends Controller {
 
     submitForm() {
         const searchForm =
-            this.element.closest("form") ||
-            document.getElementById("search-box");
+            this.element.closest('form') ||
+            document.getElementById('search-box');
         if (searchForm) {
             searchForm.submit();
         }
@@ -274,10 +274,10 @@ export default class extends Controller {
         const filterCount = this.getActiveFiltersCount();
 
         if (hasFilters) {
-            this.buttonTarget.classList.add("filters-active");
+            this.buttonTarget.classList.add('filters-active');
             this.updateFilterBadge(filterCount);
         } else {
-            this.buttonTarget.classList.remove("filters-active");
+            this.buttonTarget.classList.remove('filters-active');
             this.removeFilterBadge();
         }
     }
@@ -288,7 +288,7 @@ export default class extends Controller {
      */
     hasActiveFilters() {
         if (
-            this.currentResourceValue === "Projects" &&
+            this.currentResourceValue === 'Projects' &&
             this.hasTagHiddenTarget &&
             this.tagHiddenTarget.value.trim()
         ) {
@@ -309,16 +309,20 @@ export default class extends Controller {
         return false;
     }
 
+    /**
+     * Get the count of active filters
+     * @returns {number}
+     */
     getActiveFiltersCount() {
         let count = 0;
 
         if (
-            this.currentResourceValue === "Projects" &&
+            this.currentResourceValue === 'Projects' &&
             this.hasTagHiddenTarget &&
             this.tagHiddenTarget.value.trim()
         ) {
             const tags = this.tagHiddenTarget.value
-                .split(",")
+                .split(',')
                 .filter((tag) => tag.trim());
             count += tags.length;
         }
@@ -344,11 +348,11 @@ export default class extends Controller {
     updateFilterBadge(count) {
         if (!this.hasButtonTarget || count === 0) return;
 
-        let badge = this.buttonTarget.querySelector(".filter-badge");
+        let badge = this.buttonTarget.querySelector('.filter-badge');
 
         if (!badge) {
-            badge = document.createElement("span");
-            badge.className = "filter-badge";
+            badge = document.createElement('span');
+            badge.className = 'filter-badge';
             this.buttonTarget.appendChild(badge);
         }
 
@@ -361,7 +365,7 @@ export default class extends Controller {
     removeFilterBadge() {
         if (!this.hasButtonTarget) return;
 
-        const badge = this.buttonTarget.querySelector(".filter-badge");
+        const badge = this.buttonTarget.querySelector('.filter-badge');
         if (badge) {
             badge.remove();
         }
