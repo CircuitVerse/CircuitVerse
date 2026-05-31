@@ -4,7 +4,7 @@
       <div class="select-wrapper" data-search-bar-target="selectWrapper">
         <button type="button" class="select-button" data-search-bar-target="selectButton" data-action="click->search-bar#toggleDropdown">
           <span data-search-bar-target="selectedOption"><%= option_labels[resource || RESOURCE_OPTIONS.first] %></span>
-          <%= image_tag "svgs/dropdown_arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
+          <%= helpers.image_tag "svgs/dropdown_arrow.svg", class: "select-arrow", alt: "Dropdown arrow" %>
         </button>
         <div class="select-dropdown" data-search-bar-target="dropdown">
           <% RESOURCE_OPTIONS.each do |option| %>
@@ -17,7 +17,7 @@
       </div>
       <%= text_field_tag :q, query, autocomplete: "off", class: "search-bar-input h-100", data: { search_bar_target: "input" } %>
       <button class="search-bar-button rounded-end" type="submit" name="button" value="Submit" aria-label="Search">
-        <%= image_tag "svgs/search_icon.svg", alt: "Search Icon" %>
+        <%= helpers.image_tag "svgs/search_icon.svg", alt: "Search Icon" %>
       </button>
     </div>
     <div class="d-flex justify-content-between gap-2">
@@ -58,7 +58,7 @@
                       <option value="<%= country[:code] %>" <%= 'selected' if current_filter_values["country"] == country[:code] %>><%= country[:name] %></option>
                       <% end %>
                     </select>
-                    <%= image_tag "svgs/dropdown_arrow.svg", class: "filter-select-arrow", alt: "Dropdown arrow" %>
+                    <%= helpers.image_tag "svgs/dropdown_arrow.svg", class: "filter-select-arrow", alt: "Dropdown arrow" %>
                 </div>
                 </div>
                 <div class="filter-field">
@@ -84,11 +84,11 @@
           <div class="d-flex sorting-buttons justify-content-center h-100">
             <button type="button" data-search-sorting-target="sorting" data-action="click->search-sorting#toggleOptions">
               <span data-search-sorting-target="sortingText"><%= sort_by %></span>
-              <%= image_tag "svgs/dropdown_arrow.svg", class: "select-arrow black-arrow", alt: "Dropdown arrow" %>
+              <%= helpers.image_tag "svgs/dropdown_arrow.svg", class: "select-arrow black-arrow", alt: "Dropdown arrow" %>
             </button>
             <button type="button" data-search-sorting-target="sortingDirection" data-action="click->search-sorting#toggleSortingDirection">
-              <%= image_tag "svgs/sort_asc.svg", class: "sort-arrow", alt: "Sort ascending", data: { search_sorting_target: "ascIcon" } %>
-              <%= image_tag "svgs/sort_desc.svg", class: "sort-arrow d-none", alt: "Sort descending", data: { search_sorting_target: "descIcon" } %>
+              <%= helpers.image_tag "svgs/sort_asc.svg", class: "sort-arrow", alt: "Sort ascending", data: { search_sorting_target: "ascIcon" } %>
+              <%= helpers.image_tag "svgs/sort_desc.svg", class: "sort-arrow d-none", alt: "Sort descending", data: { search_sorting_target: "descIcon" } %>
             </button>
           </div>
           <ul class="sorting-options" data-search-sorting-target="optionsList">
