@@ -62,7 +62,8 @@ class Search::SearchBarComponent < ViewComponent::Base
 
   def active_filters_count
     count = 0
-    current_filter_values.each_value do |value|
+    filter_keys_for_resource.each do |key|
+      value = current_filter_values[key]
       next if value.blank?
 
       count += if value.is_a?(String) && value.include?(",")
@@ -77,6 +78,14 @@ class Search::SearchBarComponent < ViewComponent::Base
   private
 
     attr_reader :resource, :query, :sort_by, :sort_direction, :countries, :current_filters
+
+    def filter_keys_for_resource
+      case (resource || RESOURCE_OPTIONS.first)
+      when "Projects" then ["tag"]
+      when "Users" then ["country", "institute"]
+      else []
+      end
+    end
 
     def placeholders
       {
