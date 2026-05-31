@@ -62,7 +62,7 @@
                     id: "commontator-comment-#{comment.id}-edit",
                     remote: true,
                     class: 'edit btn edit-action' do %>
-          <%= image_tag("SVGs/editGroup.svg", alt: "Edit Comment") %>
+          <%= image_tag("svgs/editGroup.svg", alt: "Edit Comment") %>
         <% end %>
       <% end %>
 
@@ -71,9 +71,9 @@
         <% del_string = is_deleted ? 'undelete' : 'delete' %>
         <% unless is_deleted %>
           <%= link_to '#',
-                      data: is_deleted ? {} : { toggle: "modal", target: "#deletecommentModal", href: commontator.polymorphic_path([del_string.to_sym, comment]) },
+                      data: is_deleted ? {} : { bs_toggle: "modal", bs_target: "#deletecommentModal", href: commontator.polymorphic_path([del_string.to_sym, comment]) },
                       class: "del_string btn delete-action" do %>
-            <%= image_tag("SVGs/deleteGroup.svg", alt: "Delete Comment") %>
+            <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Comment") %>
           <% end %>
         <% end %>
       <% end %>

@@ -2,9 +2,10 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
-
+  authenticate :user, ->(u) { u.admin? } do
+    mount Avo::Engine, at: "/admin"
+  end
   require "sidekiq/web"
 
   authenticate :user, ->(u) { u.admin? } do
@@ -19,6 +20,9 @@ Rails.application.routes.draw do
 
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
+    get '/users/saml/sign_in', to: 'users/saml_sessions#new'
+    post '/users/saml/auth', to: 'users/saml_sessions#create'
+    get '/users/saml/metadata', to: 'users/saml_sessions#metadata'
   end
 
   # resources :assignment_submissions
@@ -75,6 +79,9 @@ Rails.application.routes.draw do
   get  "/teachers", to: "circuitverse#teachers"
   get  "/contribute", to: "circuitverse#contribute"
 
+  # Explore
+  get "/explore", to: "explore#index", as: :explore
+
   #announcements
   resources :announcements, except: %i[show]
 
@@ -100,7 +107,26 @@ Rails.application.routes.draw do
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
-    get "tags/:tag", to: "projects#get_projects", as: "tag"
+    get "tags/:tag", to: redirect('/tags/%{tag}'), as: "legacy_tag"
+  end
+
+  get "/tags/:tag", to: "tags#show", as: "tag"
+
+  resources :contests, only: %i[index show] do
+    resources :submissions, only: %i[new create destroy], controller: "contests/submissions" do
+      resources :votes, only: %i[create], controller: "contests/submissions/votes"
+      member do
+        post :withdraw, to: "contests/submissions#destroy"
+      end
+    end
+
+      member do
+        get :leaderboard
+    end
+  end
+
+  namespace :admin, path: "admins" do
+    resources :contests, only: %i[index create update]
   end
 
   # lti
@@ -109,12 +135,6 @@ Rails.application.routes.draw do
   end
 
   mount Commontator::Engine => "/commontator"
-
-  # Default route for Vue simulator
-  get 'simulatorvue', to: 'static#simulatorvue', as: 'default_simulatorvue'
-
-  # Vue simulaltor Route with catchall
-  get 'simulatorvue/*path', to: 'static#simulatorvue', as: 'simulatorvue'
 
   # simulator
   scope "/simulator" do
@@ -146,9 +166,9 @@ Rails.application.routes.draw do
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")
   get "/linkedin", to: redirect("https://www.linkedin.com/company/circuitverse")
-  get "/youtube", to: redirect("https://www.youtube.com/@circuitverse4457")
+  get "/youtube", to: redirect("https://www.youtube.com/@circuitverse-official")
   get "/slack", to: redirect(
-    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-2axe9h7hy-GwM~nL7pq1Jh1hSZYB~n1A"
+    "https://join.slack.com/t/circuitverse-team/shared_invite/zt-3spixgmk0-v601OQMWVEIH8nKseQpzXw"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
   get "/github", to: redirect("https://github.com/CircuitVerse")
@@ -217,7 +237,7 @@ Rails.application.routes.draw do
           patch "start"
         end
       end
-      resources :threads, only: %i[close reopen] do
+      resources :threads do
         resources :comments, only: %i[index create update], shallow: true do
           member do
             put "upvote"

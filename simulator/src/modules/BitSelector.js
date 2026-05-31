@@ -98,6 +98,8 @@ export default class BitSelector extends CircuitElement {
             this.bitSelectorInp.value + 1
         ); // (this.inp1.value^(1<<this.bitSelectorInp.value))==(1<<this.bitSelectorInp.value);
         simulationArea.simulationQueue.add(this.output1);
+
+        this.setOutputsUpstream(true);
     }
 
     /**

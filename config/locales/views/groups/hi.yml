@@ -16,8 +16,7 @@ hi:
     new:
       title: "सर्किटवर्स - नया समूह"
       main_heading: "नया समूह"
-      main_description_html: "छात्रों के लिए प्रोजेक्ट सेट करने और ग्रेड देने के लिए मेंटर्स द्वारा समूहों का उपयोग किया जा सकता है।
-         आप डॉक्यूमेंटेशन <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>यहां</a> पढ़ सकते हैं।"
+      main_description_html: "छात्रों के लिए प्रोजेक्ट सेट करने और ग्रेड देने के लिए मेंटर्स द्वारा समूहों का उपयोग किया जा सकता है। आप डॉक्यूमेंटेशन <a class='anchor-text' href='https://docs.circuitverse.org/#/chapter2/2cvforeducators' target='_blank'>यहां</a> पढ़ सकते हैं।"
     show:
       edit_name_btn: "नाम एडिट करें"
       primary_mentor_heading: "प्राथमिक मेंटर:"

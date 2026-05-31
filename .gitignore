@@ -70,6 +70,7 @@ yarn-debug.log*
 # Private key
 config/private.pem
 config/public.pem
+*.pem
 
 .env
 .eslintcache
@@ -99,9 +100,6 @@ node_modules
 
 # ignore rbs collection
 .gem_rbs_collection
-
-# Ignore vendor folder generated in Gitpod Environment
-vendor/
 
 # Ignore .vscode/settings.json
 .vscode/settings.json

@@ -23,16 +23,28 @@
 }
 
 .footer-social-icon-text {
-  margin-left: 15px;
+  margin-left: 0;
+  margin-bottom: 0.25rem;
 }
-
 .footer-social-icon {
   width: 28px;
+  height: auto;
+  display: inline-block;
+
+  @media (max-width: 576px) {
+    width: 24px;
+  }
 }
 
+
 .footer-social-icons-row {
-  column-gap: 5px;
+  column-gap: 2px;
   margin: inherit;
+  align-items: center;
+}
+
+.footer-social-wrap {
+  padding-left: 0;
 }
 
 .bounce-out-on-hover {
@@ -69,6 +81,12 @@
   }
 }
 
+.footer-sponsor-logos {
+  display: flex;
+  align-items: center;
+  justify-content: space-around; 
+}
+
 .footer-sponsor-logo-text {
   margin-bottom: 0;
   padding-bottom: 0;
@@ -78,12 +96,45 @@
 .footer-sponsor-logo-div{
   padding-left: 12px;
   padding-right: 12px;
+  text-align: center;
 }
 
 .footer-sponsor-logo {
   border: solid $footer-dark-grey 1px;
   border-radius: 5px;
+  max-width: 150px; 
   width: 100%;
+  height: auto;
+}
+
+// Responsive adjustments for footer layout to avoid overlap on smaller screens
+@media (max-width: 991px) {
+  .footer-container {
+    text-align: left;
+  }
+
+  .footer-column {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .footer-social-icons-row {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 576px) {
+  .footer-empty-div {
+    height: 120px;
+  }
+
+  .footer-container {
+    padding-top: 20px;
+  }
+
+  .footer-logo {
+    max-height: 60px;
+  }
 }
 
 .footer-copyright-text {

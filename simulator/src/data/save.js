@@ -1,6 +1,6 @@
 import { scopeList } from '../circuit';
 import { resetup } from '../setup';
-import { update } from '../engine';
+import { update, updateSubcircuitSet } from '../engine';
 import { stripTags, showMessage } from '../utils';
 import { backUp } from './backupCircuit';
 import simulationArea from '../simulationArea';
@@ -104,7 +104,14 @@ export function generateSaveData(name, setName = true) {
         }
 
         completed[id] = true;
-        update(scopeList[id]); // For any pending integrity checks on subcircuits
+
+
+        // This update is very important.
+        // if a scope's input/output changes and the user saves without going
+        // to circuits where this circuit is used as a subcircuit. It will
+        // break the code since the Subcircuit will have different number of
+        // in/out nodes compared to the localscope input/output objects.
+        update(scopeList[id], true); // For any pending integrity checks on subcircuits
         data.scopes.push(backUp(scopeList[id]));
     }
 
@@ -427,4 +434,6 @@ export function checkBackups() {
     }
 }
 
-setInterval(checkBackups, 3000);
+// Please do not enable autosave. It will not work
+// in the current state and breaks other things.
+// setInterval(checkBackups, 3000); // disabled

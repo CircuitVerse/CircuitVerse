@@ -7,14 +7,17 @@ class FeaturedCircuitsController < ApplicationController
   before_action :set_and_authorize_featured, except: [:index]
 
   def index
-    @projects = Project.joins(:featured_circuit)
+    @projects = Project
+                .joins(:featured_circuit)
+                .includes(:author, :stars)
+                .with_attached_circuit_preview
   end
 
   def create
-    if @featured_circuit.nil? && featured_circuit_params[:featured] == "1"
-      # featured_circuit doesn't exist and checkbox is marked
-      FeaturedCircuit.create(project_id: featured_circuit_params[:project_id])
-    end
+    return unless @featured_circuit.nil? && featured_circuit_params[:featured] == "1"
+
+    # featured_circuit doesn't exist and checkbox is marked
+    FeaturedCircuit.create(project_id: featured_circuit_params[:project_id])
   end
 
   def destroy
@@ -30,6 +33,6 @@ class FeaturedCircuitsController < ApplicationController
     end
 
     def featured_circuit_params
-      params.require(:featured_circuit).permit(:project_id, :featured)
+      params.expect(featured_circuit: %i[project_id featured])
     end
 end

@@ -77,7 +77,7 @@ export default class Keyboard extends CircuitElement {
 
     /**
      * @memberof Keyboard
-     * Whenever clock is enabled (1) then one charecter
+     * Whenever clock is enabled (1) then one character
      * from the buffer is converted to ascii and transmitted 
      * through the output nodes.
      */
@@ -125,6 +125,10 @@ export default class Keyboard extends CircuitElement {
             this.available.value = 1; // this.bufferOutValue;
             simulationArea.simulationQueue.add(this.available);
         }
+
+        if (this.asciiOutput.value !== undefined) this.asciiOutput.isValueUpstream = true;
+        else this.asciiOutput.isValueUpstream = false;
+
     }
 
     customSave() {

@@ -1,0 +1,16 @@
+ne:
+  helpers:
+    label:
+      collaboration:
+        emails: "इमेल आईडीहरू:"
+      project:
+        name: "नाम"
+        tag_list: "ट्याग सूची"
+        project_access_type: "प्रोजेक्ट पहुँच प्रकार"
+        description: "वर्णन"
+    submit:
+      collaboration:
+        create: "सहयोगीहरू थप्नुहोस्"
+      project:
+        create: "प्रोजेक्ट सिर्जना गर्नुहोस्"
+        update: "प्रोजेक्ट अपडेट गर्नुहोस्"

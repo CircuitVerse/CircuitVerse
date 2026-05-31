@@ -26,7 +26,7 @@ Harassment may include but not limited to the following:
 - Unwelcome sexual attention
 
 ## Reporting and Enforcement
-- If you are the subject of, or witness to any violations of this Code of Conduct, inform us @ <support@circuitverse.org>.
+- If you are the subject of, or witness to any violations of this Code of Conduct, inform us at <support@circuitverse.org>.
 - The project lead’s word is final. If the community chooses to question the wisdom of the actions of a committer, the project lead can review their decisions, and either uphold or reverse them.
 
 Portions derived from the [Slack Developer Community Code of Conduct][1], [The Ada Initiative][2], [geekfeminism.org][3], [Drupal Events][4], and [Code of Conduct Contributor Covenant][6].

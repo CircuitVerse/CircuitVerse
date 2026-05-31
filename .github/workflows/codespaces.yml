@@ -26,4 +26,4 @@ jobs:
         run: jq . < .devcontainer/devcontainer.json
 
       - name: Validate docker-compose.yml
-        run: docker-compose -f .devcontainer/docker-compose.yml config
+        run: docker compose -f .devcontainer/docker-compose.yml config

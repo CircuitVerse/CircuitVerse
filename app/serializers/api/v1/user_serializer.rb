@@ -19,7 +19,8 @@ class Api::V1::UserSerializer
 
   attribute :profile_picture do |profile_picture|
     if profile_picture.profile_picture.attached?
-      Rails.application.routes.url_helpers.rails_blob_url(profile_picture.profile_picture, only_path: true)
+      Rails.application.routes.url_helpers.rails_blob_url(profile_picture.profile_picture,
+                                                          only_path: true)
     end
   end
 end

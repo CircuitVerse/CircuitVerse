@@ -3,9 +3,11 @@
  */
 
 import Array from './simulator/src/arrayHelpers';
-import 'codemirror/addon/hint/show-hint.js';
+import 'codemirror/addon/hint/show-hint';
 
+// This line makes "global.window" the same as "window"
 global.window = window;
+
 window.Jquery = require('jquery');
 window.$ = require('jquery');
 global.jQuery = require('jquery');
@@ -19,5 +21,8 @@ window.Array = Array;
 const fs = require('fs');
 const path = require('path');
 
-const html = fs.readFileSync(path.resolve(`${__dirname}/app/views/simulator/edit.html.erb`), 'utf8');
+const html = fs.readFileSync(
+    path.resolve(`${__dirname}/app/views/simulator/edit.html.erb`),
+    'utf8',
+);
 document.documentElement.innerHTML = html.toString();

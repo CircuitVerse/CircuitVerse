@@ -3,8 +3,9 @@
 require "coveralls"
 require "paperclip/matchers"
 require "support/spec_utils"
-require "sunspot/rails/spec_helper"
+
 require "webmock/rspec"
+require "percy/capybara"
 
 Coveralls.wear!("rails")
 WebMock.disable_net_connect!({
@@ -28,9 +29,6 @@ WebMock.disable_net_connect!({
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 RSpec.configure do |config|
   config.before do
-    # To stub sunspot indexers during testing
-    Sunspot.session = Sunspot::Rails::StubSessionProxy.new(Sunspot.session)
-
     # To stub google oauth fetch user response with valid access token
     stub_request(:get, "https://www.googleapis.com/oauth2/v3/userinfo")
       .with(
@@ -87,10 +85,6 @@ RSpec.configure do |config|
         error: "invalid_request",
         error_description: "Invalid Credentials"
       }.to_json, headers: {})
-  end
-
-  config.after do
-    Sunspot.session = Sunspot.session.original_session
   end
 
   # rspec-expectations config goes here. You can use an alternate
