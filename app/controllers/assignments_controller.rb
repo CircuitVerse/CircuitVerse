@@ -156,11 +156,11 @@ class AssignmentsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-      @assignment = Assignment.find(params[:id])
+      @assignment = Assignment.find(params.expect(:id))
     end
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.find(params.expect(:group_id))
     end
 
     def check_reopening_status
