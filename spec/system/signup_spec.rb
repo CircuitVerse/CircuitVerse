@@ -59,6 +59,8 @@ describe "Sign up", type: :system do
     fill_in "Password", with: "secret"
     click_button "Sign up"
 
-    expect(page).to have_text("Welcome! You have signed up successfully.")
+    # With devise :confirmable enabled, users must confirm their email before logging in.
+    # Devise shows a confirmation notice instead of an immediate welcome message.
+    expect(page).to have_text("A message with a confirmation link has been sent to your email address.")
   end
 end
