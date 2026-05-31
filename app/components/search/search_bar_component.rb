@@ -80,9 +80,9 @@ class Search::SearchBarComponent < ViewComponent::Base
     attr_reader :resource, :query, :sort_by, :sort_direction, :countries, :current_filters
 
     def filter_keys_for_resource
-      case (resource || RESOURCE_OPTIONS.first)
+      case resource || RESOURCE_OPTIONS.first
       when "Projects" then ["tag"]
-      when "Users" then ["country", "institute"]
+      when "Users" then %w[country institute]
       else []
       end
     end
