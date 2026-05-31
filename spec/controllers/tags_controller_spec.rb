@@ -7,8 +7,8 @@ describe TagsController, type: :request do
     before do
       @tag = FactoryBot.create(:tag)
       @author = FactoryBot.create(:user)
-      @projects = [FactoryBot.create(:project, author: author),
-                   FactoryBot.create(:project, author: author)]
+      @projects = [FactoryBot.create(:project, :public, author: author),
+                   FactoryBot.create(:project, :public, author: author)]
       @projects.each { |project| FactoryBot.create(:tagging, project: project, tag: @tag) }
     end
 
