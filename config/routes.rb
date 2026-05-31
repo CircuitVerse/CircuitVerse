@@ -2,6 +2,9 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  resources :reports, only: [:new, :create]
+
+
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
   authenticate :user, ->(u) { u.admin? } do
     mount Avo::Engine, at: "/admin"
@@ -127,6 +130,13 @@ Rails.application.routes.draw do
 
   namespace :admin, path: "admins" do
     resources :contests, only: %i[index create update]
+    resources :reports, only: [:index]
+    resources :users, only: [] do
+      member do
+        post :ban, to: 'bans#ban'
+        post :unban, to: 'bans#unban'
+      end
+    end
   end
 
   # lti
