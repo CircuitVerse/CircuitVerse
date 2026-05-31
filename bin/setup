@@ -321,6 +321,8 @@ chdir APP_ROOT do
   print_substep "Removing old logs and temporary files..."
   system! 'bin/rails log:clear tmp:clear'
 
+system! 'gem install mailcatcher'
+
   print_section "Final Steps"
 
   # Check for process management and development tools

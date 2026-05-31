@@ -19,6 +19,7 @@ fr:
     stars_count: "Étoiles"
     views_count: "Vues"
     project_user: "Utilisateur :"
+    user_image: "Image de l'utilisateur"
     show:
       project_author: "Auteur :"
       project_forked_from: "Fourché à partir de :"

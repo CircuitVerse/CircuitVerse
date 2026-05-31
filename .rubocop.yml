@@ -289,7 +289,7 @@ RSpec/AnyInstance:
   Enabled: false
 
 Rails/I18nLocaleTexts:
-  Enabled: false
+  Enabled: true
 
 Metrics/CyclomaticComplexity:
   Enabled: false
@@ -309,4 +309,7 @@ RSpec/SpecFilePathFormat:
   Enabled: false
 
 Naming/BlockForwarding:
+  Enabled: false
+
+Metrics/ClassLength:
   Enabled: false

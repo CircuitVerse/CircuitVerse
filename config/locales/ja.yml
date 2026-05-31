@@ -38,8 +38,38 @@ ja:
   components:
     search_bar:
       placeholders:
-        users: 'ユーザーを検索'
-        projects: 'プロジェクトを検索'
+        users: "ユーザーを検索"
+        projects: "プロジェクトを検索"
+      options:
+        users: "ユーザー"
+        projects: "プロジェクト"
+      sorting:
+        users:
+          join_date: "参加日"
+          total_circuits: "回路の合計"
+        projects:
+          created_date: "作成日"
+          views: "ビュー"
+          stars: "星"
+      filters:
+        button_text: "フィルタ"
+        apply_button_text: "適用"
+        projects:
+          tags:
+            label: "タグ"
+            placeholder: "タグを追加..."
+        users:
+          country:
+            label: "国"
+            placeholder: "国を選択..."
+          institute:
+            label: "研究所"
+            placeholder: "研究所に入ります..."
+    project:
+      show_more: "詳細を表示"
+      options:
+        users: "ユーザー"
+        projects: "プロジェクト"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

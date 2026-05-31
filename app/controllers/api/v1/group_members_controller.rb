@@ -48,11 +48,11 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
   private
 
     def set_group
-      @group = Group.find(params[:group_id])
+      @group = Group.find(params.expect(:group_id))
     end
 
     def set_group_member
-      @group_member = GroupMember.find(params[:id])
+      @group_member = GroupMember.find(params.expect(:id))
     end
 
     def check_show_access
@@ -76,6 +76,6 @@ class Api::V1::GroupMembersController < Api::V1::BaseController
     end
 
     def group_member_params
-      params.require(:group_member).permit(:mentor)
+      params.expect(group_member: [:mentor])
     end
 end

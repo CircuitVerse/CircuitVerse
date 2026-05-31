@@ -38,8 +38,38 @@ ar:
   components:
     search_bar:
       placeholders:
-        users: 'البحث عن المستخدمين'
-        projects: 'البحث عن مشاريع'
+        users: "البحث عن المستخدمين"
+        projects: "البحث عن مشاريع"
+      options:
+        users: "المستخدمون"
+        projects: "مشاريع"
+      sorting:
+        users:
+          join_date: "تاريخ الانضمام"
+          total_circuits: "مجموع الدوائر"
+        projects:
+          created_date: "تاريخ الإنشاء"
+          views: "المشاهدات"
+          stars: "النجوم"
+      filters:
+        button_text: "فلاتر"
+        apply_button_text: "تطبيق"
+        projects:
+          tags:
+            label: "الوسوم"
+            placeholder: "إضافة علامة..."
+        users:
+          country:
+            label: "البلد"
+            placeholder: "حدد البلد..."
+          institute:
+            label: "المعهد"
+            placeholder: "أدخل المعهد..."
+    project:
+      show_more: "إظهار المزيد"
+      options:
+        users: "المستخدمون"
+        projects: "المشاريع"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

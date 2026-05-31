@@ -19,6 +19,7 @@ ar:
     stars_count: "النجوم"
     views_count: "المشاهدات"
     project_user: "المستخدم:"
+    user_image: "صورة المستخدم"
     show:
       project_author: "المؤلف:"
       project_forked_from: "تم فرضه من:"

@@ -1,13 +1,13 @@
 # OpenTelemetry ~ CircuitVerse: Jaeger and New Relic
 
-CircuitVerse employes Distributed tracing using [Jaeger service](https://www.jaegertracing.io/) and New Relic. Comprehensive documentation is available in the [Runbook](https://github.com/CircuitVerse/infra/tree/main/runbooks/docs/opentelemetry)
+CircuitVerse employs Distributed tracing using [Jaeger service](https://www.jaegertracing.io/) and New Relic. Comprehensive documentation is available in the [Runbook](https://github.com/CircuitVerse/infra/tree/main/runbooks/docs/opentelemetry)
 
 ## Setup
 
 Before starting the containers, following environment variables need to be set as mentioned in [env.example](./env.example):
 
 1. `ENABLE_OTEL=true` - in order to generate spans
-2. `NEW_RELIC_API_KEY=<new-relic-license-key-here>` - API key to aunthenticate to New Relic endpoint (optional)
+2. `NEW_RELIC_API_KEY=<new-relic-license-key-here>` - API key to authenticate to New Relic endpoint (optional)
 
 ```bash
 export ENABLE_OTEL=true

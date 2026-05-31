@@ -19,6 +19,7 @@ es:
     stars_count: "Estrellas"
     views_count: "Vistas"
     project_user: "Usuario:"
+    user_image: "Imagen del usuario"
     show:
       project_author: "Autor:"
       project_forked_from: "Bifurcado de:"
