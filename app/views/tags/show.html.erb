@@ -4,10 +4,11 @@
   <div class="row center-row">
     <div class="col-12">
       <h1 class="main-heading"><%= t("explore.sections.tags.heading") %></h1>
-      <p class="main-description">
-        <%= t("explore.sections.tags.description") %>
-        <span class="badge search-tag" style="vertical-align: baseline;"><%= @tag.name %></span>
-      </p>
+      <div class="tag-context d-flex align-items-center justify-content-center gap-2">
+        <span><%= t("explore.sections.tags.showing_tagged_with") %>:</span>
+        <span class="badge search-tag"><%= @tag.name %></span>
+        <%= link_to t("explore.sections.tags.clear_filter"), explore_path(section: "tags"), class: "ms-2" %>
+      </div>
     </div>
   </div>
 
@@ -15,7 +16,6 @@
     <div class="project-cards-grid">
       <%= render(Project::ProjectCardComponent.with_collection(@projects)) %>
     </div>
-
     <div class="container pagination-cont">
       <ul class="pagination justify-content-center">
         <li class="page-item <%= 'disabled' unless @has_prev %>">
