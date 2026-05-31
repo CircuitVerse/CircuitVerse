@@ -71,6 +71,17 @@ class AboutController < ApplicationController
         img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" }
     ]
 
-    @issues_triaging = []
+    @issues_triaging = [
+      { name: "Yashvant Singh",
+        img: "https://avatars.githubusercontent.com/u/146776812?v=4", link: "https://github.com/JatsuAkaYashvant" },
+      { name: "Supreeth C",
+        img: "https://avatars.githubusercontent.com/u/141218988?v=4", link: "https://github.com/ShinichiShi" },
+      { name: "Radhika Chauhan",
+        img: "https://avatars.githubusercontent.com/u/148184013?v=4", link: "https://github.com/Radhikaa-chauhan" },
+      { name: "Naman Chhabra",
+        img: "https://avatars.githubusercontent.com/u/159947791?v=4", link: "https://github.com/naman79820" },
+      { name: "Yana Pandey",
+        img: "https://avatars.githubusercontent.com/u/173885830?v=4", link: "https://github.com/Yana-do-code" }
+    ]
   end
 end
