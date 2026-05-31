@@ -4,20 +4,20 @@
     <div class="text-center">
       <div class="d-flex flex-column flex-md-row align-items-center justify-content-center">
       <%= link_to user_google_oauth2_omniauth_authorize_path, method: :post, class: 'text-decoration-none oauth-button' do %>
-          <%= image_tag("svgs/google_plus.svg", alt: "Google Icon", class: "users-social-icon") %>
+          <%= helpers.image_tag("svgs/google_plus.svg", alt: "Google Icon", class: "users-social-icon") %>
           <span><%= t('google') %></span>
       <% end %>
       <%= link_to user_facebook_omniauth_authorize_path, method: :post, class: 'text-decoration-none oauth-button' do %>
-        <%= image_tag("svgs/facebook.svg", alt: "Facebook Icon", class: "users-social-icon") %>
+        <%= helpers.image_tag("svgs/facebook.svg", alt: "Facebook Icon", class: "users-social-icon") %>
         <span><%= t('facebook') %></span>
       <% end %>
       <%= link_to user_github_omniauth_authorize_path, method: :post, class: 'text-decoration-none oauth-button' do %>
-        <%= image_tag("svgs/github.svg", alt: "Github Icon", class: "users-social-icon") %>
+        <%= helpers.image_tag("svgs/github.svg", alt: "Github Icon", class: "users-social-icon") %>
         <span><%= t('github') %></span>
       <% end %>
       <% if Flipper.enabled?(:gitlab_integration) %>
         <%= link_to user_gitlab_omniauth_authorize_path, method: :post, class: 'text-decoration-none oauth-button' do %>
-          <%= image_tag("svgs/gitlab.svg", alt: "Gitlab Icon", class: "users-social-icon") %>
+          <%= helpers.image_tag("svgs/gitlab.svg", alt: "Gitlab Icon", class: "users-social-icon") %>
           <span><%= t('gitlab') %></span>
         <% end %>
       <% end %>

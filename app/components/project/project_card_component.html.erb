@@ -2,8 +2,8 @@
      data-project-id="<%= project.id %>"
      style="position: relative;">
   <div class="project-card-image-container">
-    <%= image_tag(
-          project.circuit_preview.attached? ? project.circuit_preview : image_path("empty_project/default.png"),
+    <%= helpers.image_tag(
+          project.circuit_preview.attached? ? project.circuit_preview : helpers.image_path("empty_project/default.png"),
           alt: project.name,
           class: "project-card-image"
         ) %>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="project-card-author">
-      <%= image_tag("svgs/user.svg", alt: "User") %> <%= project.author.name %>
+      <%= helpers.image_tag("svgs/user.svg", alt: "User") %> <%= project.author.name %>
     </div>
     <div class="project-card-description">
       <%= sanitize project.description %>
