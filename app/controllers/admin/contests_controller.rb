@@ -28,7 +28,7 @@ class Admin::ContestsController < ApplicationController
 
   # rubocop:disable Metrics/MethodLength
   def update
-    @contest = Contest.find(params[:id])
+    @contest = Contest.find(params.expect(:id))
     if params[:contest][:status] == "completed"
       ShortlistContestWinner.new(@contest.id).call
       if @contest.update(deadline: Time.zone.now, status: :completed)

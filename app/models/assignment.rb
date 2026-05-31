@@ -70,7 +70,7 @@ class Assignment < ApplicationRecord
 
   def project_order
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
-            .map { |project| ProjectDecorator.new(project) }
+                                      .map { |project| ProjectDecorator.new(project) }
   end
 
   def check_reopening_status
