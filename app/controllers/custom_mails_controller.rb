@@ -32,7 +32,7 @@ class CustomMailsController < ApplicationController
         format.json { render json: { message: "Mail created" }, status: :ok }
       else
         format.html { render :new }
-        format.json { render json: @mail.errors, status: :unprocessable_entity }
+        format.json { render json: @mail.errors, status: :unprocessable_content }
       end
     end
   end
@@ -44,7 +44,7 @@ class CustomMailsController < ApplicationController
         format.json { render json: { message: "Mail updated" }, status: :ok }
       else
         format.html { render :edit }
-        format.json { render json: @mail.errors, status: :unprocessable_entity }
+        format.json { render json: @mail.errors, status: :unprocessable_content }
       end
     end
   end
@@ -71,7 +71,7 @@ class CustomMailsController < ApplicationController
     end
 
     def set_mail
-      @mail = CustomMail.find(params[:id])
+      @mail = CustomMail.find(params.expect(:id))
     end
 
     def custom_mails_params

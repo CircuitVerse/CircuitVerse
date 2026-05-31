@@ -8,7 +8,7 @@ class ExploreController < ApplicationController
   EDITOR_PICKS_MAX  = 12
 
   def index
-    redirect_to explore_path(section: "picks") and return if params[:section] == "examples"
+    return redirect_to explore_path(section: "picks") if params[:section] == "examples"
 
     @circuit_of_the_week = circuit_of_the_week
     @editor_picks        = editor_picks
@@ -21,7 +21,7 @@ class ExploreController < ApplicationController
     def redirect_unless_enabled!
       return if Flipper.enabled?(:circuit_explore_page, current_user)
 
-      redirect_to root_path and return
+      redirect_to root_path
     end
 
     def circuit_of_the_week
@@ -89,7 +89,7 @@ class ExploreController < ApplicationController
     end
 
     def recent_base_scope
-      Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description)
+      Project.select(:id, :author_id, :image_preview, :name, :slug, :view, :description, :stars_count)
              .public_and_not_forked
              .includes(:author, :stars)
              .with_attached_circuit_preview
@@ -100,6 +100,7 @@ class ExploreController < ApplicationController
         Tag
           .joins(:projects)
           .merge(Project.open)
+          .where.not(name: "")
           .group("tags.id")
           .order(Arel.sql("COUNT(taggings.id) DESC"))
           .limit(MAX_TAGS)

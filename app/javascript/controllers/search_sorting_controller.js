@@ -15,7 +15,13 @@ export default class extends Controller {
     }
 
     connect() {
+        this.boundOutside = this.handleOutsideClick.bind(this);
+        document.addEventListener('click', this.boundOutside);
         this.buildSortingOptions();
+    }
+
+    disconnect() {
+        document.removeEventListener('click', this.boundOutside);
     }
 
     updateOptionsForResource(event) {
@@ -42,6 +48,17 @@ export default class extends Controller {
         this.element.classList.toggle('open');
     }
 
+    close() {
+        this.optionsListTarget.classList.remove('show');
+        this.element.classList.remove('open');
+    }
+
+    handleOutsideClick(event) {
+        if (!this.element.contains(event.target)) {
+            this.close();
+        }
+    }
+
     selectOption(event) {
         const option = event.currentTarget;
         const { value } = option.dataset;
@@ -49,8 +66,7 @@ export default class extends Controller {
         // update the selectedSortValue
         this.selectedSortValue = value;
 
-        this.optionsListTarget.classList.remove('show');
-        this.element.classList.remove('open');
+        this.close();
 
         // Ensure hidden fields are updated before form submission
         this.updateHiddenFields();

@@ -9,6 +9,7 @@ FactoryBot.define do
     name   { Faker::Name.name }
     locale { "en" }
     admin  { false }
+    confirmed_at { Time.current }
 
     trait :admin do
       admin { true }

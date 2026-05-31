@@ -17,12 +17,22 @@ class AboutController < ApplicationController
         img: "https://avatars.githubusercontent.com/u/76155456?v=4", link: "https://github.com/pulkit-30" },
       { name: "Vaibhav Upreti",
         img: "https://avatars.githubusercontent.com/u/85568177?v=4", link: "https://github.com/VaibhavUpreti" },
-      { name: "Prerna Sharma",
-        img: "https://avatars.githubusercontent.com/u/89515816?v=4", link: "https://github.com/Prerna-0202" },
-      { name: "Tanmoy Sarkar",
-        img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" },
       { name: "Arnabdaz",
-        img: "https://avatars.githubusercontent.com/u/96580571?v=4", link: "https://github.com/Arnabdaz" }
+        img: "https://avatars.githubusercontent.com/u/96580571?v=4", link: "https://github.com/Arnabdaz" },
+      { name: "Aditya Umesh Singh",
+        img: "https://avatars.githubusercontent.com/u/177742943?v=4", link: "https://github.com/salmoneatenbybear" },
+      { name: "Harsh Rao",
+        img: "https://avatars.githubusercontent.com/u/166894150?v=4", link: "https://github.com/ThatDeparted2061" },
+      { name: "Nihal Rajpal",
+        img: "https://avatars.githubusercontent.com/u/65150640?v=4", link: "https://github.com/nihal4777" },
+      { name: "Yashvant Singh",
+        img: "https://avatars.githubusercontent.com/u/146776812?v=4", link: "https://github.com/JatsuAkaYashvant" },
+      { name: "Harsh Bhadu",
+        img: "https://avatars.githubusercontent.com/u/102225113?v=4", link: "https://github.com/senbo1" },
+      { name: "Aman Asrani",
+        img: "https://avatars.githubusercontent.com/u/96644946?v=4", link: "https://github.com/Asrani-Aman" },
+      { name: "Hardik Sachdeva",
+        img: "https://avatars.githubusercontent.com/u/85028179?v=4", link: "https://github.com/hardik17771" }
     ]
 
     @mentors = []
@@ -54,21 +64,13 @@ class AboutController < ApplicationController
       { name: "Devjit Choudhury",
         img: "https://avatars.githubusercontent.com/u/61665451?v=4", link: "https://github.com/devartstar" },
       { name: "Aman Singh",
-        img: "https://avatars.githubusercontent.com/u/77198905?v=4", link: "https://github.com/aman-singh7" }
+        img: "https://avatars.githubusercontent.com/u/77198905?v=4", link: "https://github.com/aman-singh7" },
+      { name: "Prerna Sharma",
+        img: "https://avatars.githubusercontent.com/u/89515816?v=4", link: "https://github.com/Prerna-0202" },
+      { name: "Tanmoy Sarkar",
+        img: "https://avatars.githubusercontent.com/u/57363826?v=4", link: "https://github.com/tanmoysrt" }
     ]
-    @issues_triaging = [
-      { name: "Sannidhi Nair",
-        img: "https://avatars.githubusercontent.com/u/165994623?v=4",
-        link: "https://github.com/SannidhiNair" },
-      { name: "Aditya Singh",
-        img: "https://avatars.githubusercontent.com/u/177742943?v=4",
-        link: "https://github.com/salmoneatenbybear" },
-      { name: "Harsh Rao",
-        img: "https://avatars.githubusercontent.com/u/166894150?v=4",
-        link: "https://github.com/ThatDeparted2061" },
-      { name: "Neeraj Pathak",
-        img: "https://avatars.githubusercontent.com/u/171167348?v=4",
-        link: "https://github.com/Neerajpathak07" }
-    ]
+
+    @issues_triaging = []
   end
 end

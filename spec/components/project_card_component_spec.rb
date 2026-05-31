@@ -21,7 +21,7 @@ RSpec.describe Project::ProjectCardComponent, type: :component do
     expect(rendered_component.to_html).to include(project.name)
     expect(rendered_component.to_html).to include(project.author.name)
     expect(rendered_component.to_html).to include(project.description)
-    expect(rendered_component.css(".project-card-stat").to_html).to include(project.stars.count.to_s)
+    expect(rendered_component.css(".project-card-stat").to_html).to include(project.stars_count.to_s)
     expect(rendered_component.css(".project-card-stat").to_html).to include(project.view.to_s)
   end
 
