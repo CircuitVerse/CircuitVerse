@@ -1,4 +1,4 @@
-FROM ruby:3.2.1
+FROM ruby:4.0.2
 
 # Args
 ARG NON_ROOT_USER_ID
@@ -29,7 +29,7 @@ SHELL ["/bin/bash", "-c"]
 
 # install dependencies
 RUN apt-get update -qq && \
- apt-get install -y libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev imagemagick shared-mime-info libvips sudo make cmake netcat libnotify-dev git chromium-driver chromium --fix-missing && apt-get clean
+ apt-get install -y libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev imagemagick shared-mime-info libvips sudo make cmake netcat-openbsd libnotify-dev git chromium-driver chromium yosys --fix-missing && apt-get clean
 
 # Setup nodejs and yarn
 RUN mkdir -p /etc/apt/keyrings \

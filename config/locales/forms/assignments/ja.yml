@@ -1,0 +1,11 @@
+ja:
+  helpers:
+    label:
+      assignment:
+        name: "名前"
+        description: "説明"
+        grading_scale: "採点スケール"
+    submit:
+      assignment:
+        create: "課題を作成"
+        update: "課題を更新"

@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable guard-for-in */
+/* eslint-disable camelcase */
 
 import * as metadata from './metadata.json';
 import { generateId, showMessage } from './utils';
@@ -155,20 +156,26 @@ export function setup() {
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
-        if (__logix_project_id != 0) {
+        if (__logix_project_id != 0) { // eslint-disable-line eqeqeq, camelcase
             $('.loadingIcon').fadeIn();
             $.ajax({
-                url: `/simulator/get_data/${__logix_project_id}`,
+                url: `/simulator/get_data/${__logix_project_id}`, // eslint-disable-line camelcase
                 type: 'GET',
                 success(response) {
                     var data = (response);
                     if (data) {
                         load(data);
+                        const { simulatorVersion } = data;
+                        if (simulatorVersion) {
+                            window.location.href = `/simulatorvue/edit/${__logix_project_id}?simver=${simulatorVersion}`; // eslint-disable-line camelcase
+                        }
+                        // eslint-disable-next-line import/no-named-as-default-member
                         simulationArea.changeClockTime(data.timePeriod || 500);
                     }
                     $('.loadingIcon').fadeOut();
                 },
                 failure() {
+                    // eslint-disable-next-line no-alert
                     alert('Error: could not load ');
                     $('.loadingIcon').fadeOut();
                 },
