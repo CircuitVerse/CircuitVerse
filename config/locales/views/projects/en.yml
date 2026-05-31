@@ -36,6 +36,14 @@ en:
       collaborators: "Collaborators"
     search:
       no_result_found: "No Results Found"
+    invite_link_btn: "Collaborator Invite Link"
+    invite_link_invalid: "Invalid or expired invitation link."
+    invitations:
+      author_cannot_be_invited: "Author can not be invited."
+      already_collaborator: "Collaborator is already present in the project."
+      collaborator_added: "Collaborator was successfully added."
+      url_expired: "Url is expired, request a new one from owner of the Project."
+      invalid_url: "Invalid url"
     modal:
       embed_circuit_heading: "Embed Your Circuit"
       height: "Height"
