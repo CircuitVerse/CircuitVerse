@@ -10,6 +10,9 @@ class Organization < ApplicationRecord
   has_many :groups, dependent: :nullify
 
   has_one_attached :logo
+  attr_accessor :remove_logo
+
+  before_validation { logo.purge if remove_logo == "1" }
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
