@@ -2,6 +2,7 @@
 
 class Organization < ApplicationRecord
   extend FriendlyId
+
   friendly_id :name, use: :slugged
 
   has_many :organization_members, dependent: :destroy
