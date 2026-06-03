@@ -15,7 +15,13 @@ class Organization < ApplicationRecord
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
   validate :links_count_within_limit
 
+  before_destroy :purge_logo
+
   private
+
+    def purge_logo
+      logo.purge if logo.attached?
+    end
 
     def links_count_within_limit
       return if links.blank?
