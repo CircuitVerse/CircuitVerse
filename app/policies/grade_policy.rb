@@ -9,6 +9,8 @@ class GradePolicy < ApplicationPolicy
   end
 
   def mentor?
+    return false if grade.assignment&.grades_finalized?
+
     grade.assignment&.group&.primary_mentor_id == user.id \
     || grade.assignment&.group&.group_members&.exists?(user_id: user.id, mentor: true)
   end
