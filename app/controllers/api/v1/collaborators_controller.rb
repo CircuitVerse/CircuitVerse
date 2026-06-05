@@ -24,10 +24,12 @@ class Api::V1::CollaboratorsController < Api::V1::BaseController
     # parse mails as valid or invalid
     mails_handler.parse
 
+    added = mails_handler.added_mails
     render json: {
-      added: mails_handler.added_mails,
+      message: "#{added.length} collaborator#{'s' if added.length != 1} added",
+      added: added,
       existing: mails_handler.existing_mails,
-      invalid: mails_handler.invalid_mails
+      not_added: mails_handler.invalid_mails
     }
   end
 
