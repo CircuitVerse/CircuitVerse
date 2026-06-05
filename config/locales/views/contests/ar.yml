@@ -38,6 +38,9 @@ ar:
       contest_id: "مسابقة"
       entries: "إدخالات"
       contest_id_with_number: "مسابقة #%{id}"
+      default_contest_card_img_alt: "صورة بطاقة المسابقة الافتراضية"
+      entries_alt: "عدد صور المشاركين في المسابقة"
+      description: "مرحبا بكم في مسابقة CircuitVerse ! اظهر إبداعك الهندسي وتسلق قادة المجتمع."
     status:
       live: "ليبي"
       completed: "مكتمل"
