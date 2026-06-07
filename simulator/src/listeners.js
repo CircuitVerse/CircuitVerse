@@ -416,7 +416,6 @@ export default function startListeners() {
     document.getElementById('simulationArea').addEventListener('touchstart', (e) => {
         simulationArea.touch = true;
         if (e.touches.length === 2) {
-            // Reset pinch tracking so the new gesture starts from the current scale
             pinchZ = globalScope.scale / 3;
             currDistance = Math.sqrt(
                 (e.touches[1].clientX - e.touches[0].clientX) ** 2 +
