@@ -17,6 +17,14 @@ class Assignment < ApplicationRecord
   enum :grading_scale, { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
+belongs_to :lti_deployment, optional: true
+  belongs_to :circuit_template, optional: true
+  has_many   :assignment_test_cases, dependent: :destroy
+  has_many   :assignment_submissions, dependent: :destroy
+  has_many :test_cases, dependent: :destroy
+
+  enum :lti_version, { v1_1: 0, v1_3: 1 }, prefix: :lti
+  enum :submission_type, { individual: 0, group: 1 }, prefix: :submission
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
@@ -68,7 +76,11 @@ class Assignment < ApplicationRecord
     lti_consumer_key.present? && lti_shared_secret.present?
   end
 
-  def project_order
+def lti_enabled?
+    lti_deployment.present?
+  end  
+
+def project_order
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
                                       .map { |project| ProjectDecorator.new(project) }
   end
