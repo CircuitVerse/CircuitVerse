@@ -21,4 +21,6 @@ de:
       tags:
         heading: "Nach Tags durchsuchen"
         description: "Springe zu Themen, die dich interessieren."
+        showing_tagged_with: "Zeige Schaltkreise mit getaggt"
+        clear_filter: "Filter löschen"
     empty: "Noch nichts zu zeigen."
