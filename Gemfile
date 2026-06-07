@@ -73,7 +73,7 @@ gem "geocoder"
 gem "pundit"
 
 # for analytics
-gem "ahoy_matey"
+gem "ahoy_matey", "~> 5.4.0"
 gem "i18n-js"
 
 # for lti provider
@@ -193,8 +193,8 @@ gem "noticed", "~> 1.6"
 gem "aws-sdk-s3", "~> 1.224"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.12"
-gem "opentelemetry-exporter-otlp", "~> 0.34.0"
+gem "opentelemetry-sdk", "~> 1.10.0"
+gem "opentelemetry-exporter-otlp", "~> 0.32.0"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
