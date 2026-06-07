@@ -4,16 +4,20 @@ module Lti
   class GradePassbackService
     def self.send_score(submission)
       assignment = submission.assignment
-      return unless assignment.lti_enabled?
+      return unless assignment.lti_v1_3? || assignment.lti_integrated?
 
       if assignment.lti_v1_3?
         send_ags_score(submission)
       else
+        lis_outcome_service_url = assignment.lis_outcome_service_url
+        lis_result_sourced_id   = submission.project.lis_result_sourced_id
+        return if lis_outcome_service_url.blank? || lis_result_sourced_id.blank?
+
         LtiScoreSubmission.new(
           assignment:              assignment,
-          lis_result_sourced_id:   submission.project.lis_result_sourced_id,
+          lis_result_sourced_id:   lis_result_sourced_id,
           score:                   submission.verification_score,
-          lis_outcome_service_url: assignment.lis_outcome_service_url
+          lis_outcome_service_url: lis_outcome_service_url
         ).call
       end
     end

@@ -3,9 +3,15 @@
 require "rails_helper"
 
 RSpec.describe Lti::GradePassbackService do
+  let(:mentor) { create(:user) }
+  let(:group)  { create(:group, primary_mentor: mentor) }
+
   describe ".send_score" do
     context "when assignment is not LTI-enabled" do
-      let(:assignment) { create(:assignment, lti_deployment: nil, lti_consumer_key: nil, lti_shared_secret: nil) }
+      let(:assignment) do
+        create(:assignment, group: group, lti_deployment: nil,
+               lti_consumer_key: nil, lti_shared_secret: nil)
+      end
       let(:submission) { create(:assignment_submission, assignment: assignment) }
 
       it "returns early without calling any score service" do
@@ -18,6 +24,8 @@ RSpec.describe Lti::GradePassbackService do
     context "LTI 1.1 path" do
       let(:assignment) do
         create(:assignment,
+               group:                   group,
+               grading_scale:           :percent,
                lti_version:             :v1_1,
                lti_consumer_key:        "key",
                lti_shared_secret:       "secret",
@@ -38,7 +46,7 @@ RSpec.describe Lti::GradePassbackService do
       end
 
       it "skips when lis_outcome_service_url is blank" do
-        assignment.update!(lis_outcome_service_url: nil)
+        assignment.update_column(:lis_outcome_service_url, nil)
         allow(LtiScoreSubmission).to receive(:new)
         described_class.send_score(submission)
         expect(LtiScoreSubmission).not_to have_received(:new)
