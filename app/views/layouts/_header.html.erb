@@ -187,5 +187,14 @@
         trigger.classList.remove("rotate180");
       });
     });
+
+    const gettingStartedDropdownBtn = document.getElementById('getting-started-dropdown');
+    if (gettingStartedDropdownBtn) {
+      const gettingStartedDropdown = bootstrap.Dropdown.getOrCreateInstance(gettingStartedDropdownBtn);
+      gettingStartedDropdownBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        gettingStartedDropdown.toggle();
+      });
+    }
   });
 </script>
