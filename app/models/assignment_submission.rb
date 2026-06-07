@@ -15,6 +15,12 @@ class AssignmentSubmission < ApplicationRecord
   validates :project_id, uniqueness: { scope: :assignment_id }
   validate  :subgroup_required_for_group_submission
 
+  def verification_score
+    return 0.0 if score.nil?
+
+    (score / 100.0).clamp(0.0, 1.0)
+  end
+
   private
 
   def subgroup_required_for_group_submission

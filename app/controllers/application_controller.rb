@@ -6,6 +6,8 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
 
+  after_action :allow_lti_iframe
+
   before_action :store_user_location!, if: :storable_location?
   before_action :set_notifications, if: :current_user
   before_action :prepare_search_data
@@ -77,5 +79,12 @@ class ApplicationController < ActionController::Base
         "institute" => params[:institute],
         "tag" => params[:tag]
       }
+    end
+
+    def allow_lti_iframe
+      return unless session[:is_lti]
+      lms_domain = session[:lms_domain].presence || "canvas.docker"
+      response.headers.delete("X-Frame-Options")
+      response.headers["Content-Security-Policy"] = "frame-ancestors 'self' #{lms_domain}"
     end
 end

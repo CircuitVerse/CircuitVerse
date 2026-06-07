@@ -171,6 +171,10 @@ class LtiController < ApplicationController
       session[:lis_outcome_service_url] = params[:lis_outcome_service_url]
       session[:oauth_consumer_key]      = params[:oauth_consumer_key]
       session[:lms_domain] = URI.join(lms_domain, "/") if lms_domain
+
+      if @assignment.present? && params[:lis_outcome_service_url].present?
+        @assignment.update_column(:lis_outcome_service_url, params[:lis_outcome_service_url])
+      end
     end
 
     def create_project_if_student_present
@@ -191,6 +195,8 @@ class LtiController < ApplicationController
 
     def allow_iframe_lti
       return unless session[:is_lti]
-      response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
+      lms_domain = session[:lms_domain].presence || "*"
+      response.headers.delete("X-Frame-Options")
+      response.headers["Content-Security-Policy"] = "frame-ancestors 'self' #{lms_domain}"
     end
 end
