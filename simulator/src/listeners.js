@@ -179,8 +179,8 @@ export function pinchZoom(e, globalScope) {
     const RawX = (centreX - rect.left) * DPR;
     const RawY = (centreY - rect.top) * DPR;
 
-    const xx = (RawX - globalScope.ox) / globalScope.scale;
-    const yy = (RawY - globalScope.oy) / globalScope.scale;
+    const xx = (RawX - globalScope.ox) / oldScale;
+    const yy = (RawY - globalScope.oy) / oldScale;
 
     globalScope.ox -= Math.round(xx * (globalScope.scale - oldScale));
     globalScope.oy -= Math.round(yy * (globalScope.scale - oldScale));
