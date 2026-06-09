@@ -162,3 +162,30 @@ RSpec.describe Adapters::PgAdapter do
     end
   end
 end
+
+RSpec.describe Adapters::PgAdapter, '#sanitize_page_param' do
+  let(:adapter) { described_class.new }
+
+  it 'returns 1 for nil or blank' do
+    expect(adapter.send(:sanitize_page_param, nil)).to eq(1)
+    expect(adapter.send(:sanitize_page_param, '')).to eq(1)
+  end
+
+  it 'returns 1 for non-digit strings' do
+    expect(adapter.send(:sanitize_page_param, 'abc')).to eq(1)
+  end
+
+  it 'strips non-digits and converts to integer' do
+    expect(adapter.send(:sanitize_page_param, "2' OR 1=1")).to eq(2)
+  end
+
+  it 'returns integer for numeric string or Fixnum' do
+    expect(adapter.send(:sanitize_page_param, '3')).to eq(3)
+    expect(adapter.send(:sanitize_page_param, 4)).to eq(4)
+  end
+
+  it 'normalizes zero or negative to 1' do
+    expect(adapter.send(:sanitize_page_param, '0')).to eq(1)
+    expect(adapter.send(:sanitize_page_param, -1)).to eq(1)
+  end
+end

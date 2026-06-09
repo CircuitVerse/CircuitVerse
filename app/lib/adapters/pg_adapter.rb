@@ -45,7 +45,8 @@ module Adapters
         results = apply_filters(results, query_params, type)
         results = apply_sorting(results, query_params, type)
 
-        results.paginate(page: query_params[:page], per_page: MAX_RESULTS_PER_PAGE)
+        page = sanitize_page_param(query_params[:page])
+        results.paginate(page: page, per_page: MAX_RESULTS_PER_PAGE)
       end
 
       def base_project_results(relation, query_params)
@@ -115,6 +116,24 @@ module Adapters
         return relation if institute.blank?
 
         relation.where("educational_institute ILIKE ?", "%#{institute}%")
+      end
+
+      def sanitize_page_param(page_param)
+        # Accept integers or strings containing digits. Return 1 for nil/blank/malformed values.
+        return 1 if page_param.blank?
+        # If already an Integer, return it (but ensure >= 1)
+        if page_param.is_a?(Integer)
+          return page_param >= 1 ? page_param : 1
+        end
+
+        # Remove non-digit characters and convert
+        cleaned = page_param.to_s.gsub(/[^0-9]/, '')
+        return 1 if cleaned.blank?
+
+        page = cleaned.to_i
+        page >= 1 ? page : 1
+      rescue StandardError
+        1
       end
   end
 end
