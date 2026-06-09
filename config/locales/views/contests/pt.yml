@@ -1,0 +1,6 @@
+pt:
+  contest:
+    contest_container:
+      default_contest_card_img_alt: "Imagem de cartão padrão do concurso"
+      entries_alt: "Número de imagens de participantes"
+      description: "Bem-vindo ao Concurso CircuitVersículo! Exiba sua criatividade de engenharia e sobe a liderança da comunidade."
