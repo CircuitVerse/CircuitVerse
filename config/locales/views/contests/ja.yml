@@ -40,6 +40,9 @@ ja:
       contest_id: "コンテスト"
       entries: "項目"
       contest_id_with_number: "コンテスト #%{id}"
+      default_contest_card_img_alt: "デフォルトのコンテストカード画像"
+      entries_alt: "コンテスト参加者の画像数"
+      description: "CircuitVerseコンテストへようこそ! エンジニアリングの創造性を披露し、コミュニティのリーダーボードを登りましょう。"
     status:
       live: "ライブ"
       completed: "完了"

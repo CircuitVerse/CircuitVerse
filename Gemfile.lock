@@ -400,7 +400,7 @@ GEM
       bigdecimal (>= 3.1, < 5)
     jsonapi-serializer (2.2.0)
       activesupport (>= 4.2)
-    jwt (2.10.3)
+    jwt (3.2.0)
       base64
     kaminari (1.2.2)
       activesupport (>= 4.1.0)
@@ -1005,9 +1005,9 @@ GEM
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
-    webpush (1.1.0)
+    webpush (0.3.2)
       hkdf (~> 0.2)
-      jwt (~> 2.0)
+      jwt
     websocket-driver (0.8.0)
       base64
       websocket-extensions (>= 0.1.0)
@@ -1080,7 +1080,7 @@ DEPENDENCIES
   jsbundling-rails (~> 1.0)
   json-schema
   jsonapi-serializer
-  jwt (~> 2.10.3)
+  jwt (~> 3.2.0)
   kt-paperclip
   language_filter
   listen (>= 3.0.5, < 3.11)
