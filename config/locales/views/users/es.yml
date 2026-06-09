@@ -52,6 +52,7 @@ es:
         no_user_favourites: "%{name} no tiene ningún favorito."
         not_a_collaborator: "No eres un colaborador de ningún proyecto."
         user_not_a_collaborator: "%{name} no es un colaborador de ningún proyecto."
+        no_search_results: "No se encontraron circuitos"
       search:
         no_results: "No se encontraron resultados"
     mailer:
