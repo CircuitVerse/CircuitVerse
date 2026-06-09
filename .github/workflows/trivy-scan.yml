@@ -1,0 +1,226 @@
+name: Trivy security scan
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  trivy-scan:
+    name: Trivy scan (fs + image)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Trivy DB
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/trivy
+          key: ${{ runner.os }}-trivy-db-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-trivy-db-
+
+      - name: Build Docker image
+        run: |
+          docker build -t circuitverse:pr-${{ github.sha }} .
+
+      - name: Trivy image scan
+        uses: aquasecurity/trivy-action@v0.3.0
+        with:
+          image-ref: circuitverse:pr-${{ github.sha }}
+          format: json
+          output: trivy-image-results.json
+          # Also produce SARIF for GitHub code scanning
+          format-args: '--format sarif --output trivy-image-results.sarif'
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '1' # fail the job on findings of the configured severities
+
+      - name: Trivy filesystem scan
+        uses: aquasecurity/trivy-action@v0.3.0
+        with:
+          scan-type: 'fs'
+          format: json
+          output: trivy-fs-results.json
+          # Also produce SARIF for GitHub code scanning
+          format-args: '--format sarif --output trivy-fs-results.sarif'
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '1'
+
+      - name: Upload Trivy results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-results-${{ github.run_id }}
+          path: |
+            trivy-image-results.json
+            trivy-fs-results.json
+            trivy-image-results.sarif
+            trivy-fs-results.sarif
+
+      - name: Upload SARIF to GitHub Code Scanning
+        if: ${{ always() }}
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: trivy-image-results.sarif
+        # If you want to upload multiple SARIFs, run this step multiple times for each file
+
+      - name: Upload additional SARIF (fs)
+        if: ${{ always() }}
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: trivy-fs-results.sarif
+
+      - name: Post summary (logs)
+        if: ${{ always() }}
+        run: |
+          echo "Trivy image vul counts by severity:"
+          jq -r '[.Results[]?.Vulnerabilities[]? | .Severity] | group_by(.) | map({severity: .[0], count: length})' trivy-image-results.json || true
+          echo "Trivy fs vul counts by severity:"
+          jq -r '[.Results[]?.Vulnerabilities[]? | .Severity] | group_by(.) | map({severity: .[0], count: length})' trivy-fs-results.json || true
+
+      - name: Comment on PR with Trivy summary
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            let img = {critical:0,high:0,medium:0,low:0};
+            let fsres = {critical:0,high:0,medium:0,low:0};
+            try {
+              const imgJson = JSON.parse(fs.readFileSync('trivy-image-results.json','utf8'))
+              const vulns = (imgJson.Results || []).flatMap(r => r.Vulnerabilities || [])
+              for (const v of vulns) { const s = (v.Severity||'').toLowerCase(); img[s] = (img[s]||0)+1 }
+            } catch(e) { /* ignore */ }
+            try {
+              const fsJson = JSON.parse(fs.readFileSync('trivy-fs-results.json','utf8'))
+              const vulns = (fsJson.Results || []).flatMap(r => r.Vulnerabilities || [])
+              for (const v of vulns) { const s = (v.Severity||'').toLowerCase(); fsres[s] = (fsres[s]||0)+1 }
+            } catch(e) { /* ignore */ }
+            const body = `### Trivy security scan results\n\n**Image:** critical=${img.critical||0}, high=${img.high||0}, medium=${img.medium||0}, low=${img.low||0}\n**Filesystem:** critical=${fsres.critical||0}, high=${fsres.high||0}, medium=${fsres.medium||0}, low=${fsres.low||0}\n\nArtifacts: attached to workflow run.`
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body
+            })
+name: Trivy security scan
+
+on:
+  pull_request:
+    branches: [ master ]
+  push:
+    branches: [ master ]
+
+jobs:
+  trivy-scan:
+    name: Trivy scan (fs + image)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Cache Trivy DB
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/trivy
+          key: ${{ runner.os }}-trivy-db-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-trivy-db-
+
+      - name: Build Docker image
+        run: |
+          docker build -t circuitverse:pr-${{ github.sha }} .
+
+      - name: Trivy image scan
+        uses: aquasecurity/trivy-action@v0.3.0
+        with:
+          image-ref: circuitverse:pr-${{ github.sha }}
+          format: json
+          output: trivy-image-results.json
+          # Also produce SARIF for GitHub code scanning
+          format-args: '--format sarif --output trivy-image-results.sarif'
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '1' # fail the job on findings of the configured severities
+
+      - name: Trivy filesystem scan
+        uses: aquasecurity/trivy-action@v0.3.0
+        with:
+          scan-type: 'fs'
+          format: json
+          output: trivy-fs-results.json
+          # Also produce SARIF for GitHub code scanning
+          format-args: '--format sarif --output trivy-fs-results.sarif'
+          severity: CRITICAL,HIGH,MEDIUM
+          exit-code: '1'
+
+      - name: Upload Trivy results
+        if: ${{ always() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-results-${{ github.run_id }}
+          path: |
+            trivy-image-results.json
+            trivy-fs-results.json
+            trivy-image-results.sarif
+            trivy-fs-results.sarif
+
+      - name: Upload SARIF to GitHub Code Scanning
+        if: ${{ always() }}
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: trivy-image-results.sarif
+        # If you want to upload multiple SARIFs, run this step multiple times for each file
+
+      - name: Upload additional SARIF (fs)
+        if: ${{ always() }}
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: trivy-fs-results.sarif
+
+      - name: Post summary (logs)
+        if: ${{ always() }}
+        run: |
+          echo "Trivy image vul counts by severity:"
+          jq -r '[.Results[]?.Vulnerabilities[]? | .Severity] | group_by(.) | map({severity: .[0], count: length})' trivy-image-results.json || true
+          echo "Trivy fs vul counts by severity:"
+          jq -r '[.Results[]?.Vulnerabilities[]? | .Severity] | group_by(.) | map({severity: .[0], count: length})' trivy-fs-results.json || true
+
+      - name: Comment on PR with Trivy summary
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const fs = require('fs');
+            let img = {critical:0,high:0,medium:0,low:0};
+            let fsres = {critical:0,high:0,medium:0,low:0};
+            try {
+              const imgJson = JSON.parse(fs.readFileSync('trivy-image-results.json','utf8'))
+              const vulns = (imgJson.Results || []).flatMap(r => r.Vulnerabilities || [])
+              for (const v of vulns) { const s = (v.Severity||'').toLowerCase(); img[s] = (img[s]||0)+1 }
+            } catch(e) { /* ignore */ }
+            try {
+              const fsJson = JSON.parse(fs.readFileSync('trivy-fs-results.json','utf8'))
+              const vulns = (fsJson.Results || []).flatMap(r => r.Vulnerabilities || [])
+              for (const v of vulns) { const s = (v.Severity||'').toLowerCase(); fsres[s] = (fsres[s]||0)+1 }
+            } catch(e) { /* ignore */ }
+            const body = `### Trivy security scan results\n\n**Image:** critical=${img.critical||0}, high=${img.high||0}, medium=${img.medium||0}, low=${img.low||0}\n**Filesystem:** critical=${fsres.critical||0}, high=${fsres.high||0}, medium=${fsres.medium||0}, low=${fsres.low||0}\n\nArtifacts: attached to workflow run.`
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body
+            })

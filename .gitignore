@@ -107,3 +107,17 @@ node_modules
 # Ignore yarn
 .yarn
 vendor
+# Trivy cache and artifacts
+.trivy-cache/
+# image tar
+*.tar
+circuitverse.tar
+# Trivy outputs
+trivy-*.json
+trivy-*.sarif
+trivy-image.json
+trivy-image.sarif
+trivy-fs.json
+trivy-fs.sarif
+# other artifacts
+node_modules/
