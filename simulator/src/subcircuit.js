@@ -349,6 +349,7 @@ export default class SubCircuit extends CircuitElement {
             ];
         }
         for (var i = 0; i < this.inputNodes.length; i++) {
+            if (!this.inputNodes[i]) continue;
             if (temp_map_inp.hasOwnProperty(this.inputNodes[i].layout_id)) {
                 temp_map_inp[this.inputNodes[i].layout_id][1] = this.inputNodes[
                     i
@@ -414,6 +415,7 @@ export default class SubCircuit extends CircuitElement {
             ];
         }
         for (var i = 0; i < this.outputNodes.length; i++) {
+            if (!this.outputNodes[i]) continue;
             if (temp_map_out.hasOwnProperty(this.outputNodes[i].layout_id)) {
                 temp_map_out[
                     this.outputNodes[i].layout_id
