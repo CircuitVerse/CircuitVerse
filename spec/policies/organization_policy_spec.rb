@@ -42,6 +42,14 @@ describe OrganizationPolicy do
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.to permit(:create_group) }
     it { is_expected.to permit(:leave) }
+
+    context "when the mentor owns a group in the organization" do
+      before do
+        FactoryBot.create(:group, primary_mentor: @mentor, organization: @organization)
+      end
+
+      it { is_expected.not_to permit(:leave) }
+    end
   end
 
   context "when the user is a member" do

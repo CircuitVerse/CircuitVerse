@@ -14,6 +14,7 @@ class OrganizationPolicy < ApplicationPolicy
   def leave?
     return false unless member?
     return false if org_admin? && sole_admin?
+    return false if record.groups.where(primary_mentor_id: user.id).exists?
 
     true
   end
