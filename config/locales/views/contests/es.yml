@@ -41,6 +41,9 @@ es:
       contest_id: "Concurso"
       entries: "Entradas"
       contest_id_with_number: "Concurso #%{id}"
+      default_contest_card_img_alt: "Imagen predeterminada de la tarjeta de concurso"
+      entries_alt: "Número de imágenes de participantes del concurso"
+      description: "¡Bienvenido al Concurso CircuitVerse! Muestra tu creatividad en ingeniería y sube al tablero de líderes de la comunidad."
     status:
       live: "VIVO"
       completed: "Completado"
