@@ -21,7 +21,9 @@ class OrganizationMemberPolicy < ApplicationPolicy
   private
 
     def org_membership
-      @org_membership ||= record.organization.organization_members.find_by(user: user)
+      return @org_membership if defined?(@org_membership)
+
+      @org_membership = record.organization.organization_members.find_by(user: user)
     end
 
     def org_admin?
@@ -34,7 +36,7 @@ class OrganizationMemberPolicy < ApplicationPolicy
 
     def sole_admin?
       record.role == "admin" &&
-        record.organization.organization_members.where(role: :admin).count == 1
+        record.organization.organization_members.where(role: :admin).one?
     end
 
     def demoting_sole_admin?

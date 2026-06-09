@@ -42,7 +42,8 @@ describe OrganizationMemberPolicy do
   context "when the user is a mentor" do
     before do
       @mentor = FactoryBot.create(:user)
-      @mentor_membership = FactoryBot.create(:organization_member, organization: @organization, user: @mentor, role: :mentor)
+      @mentor_membership = FactoryBot.create(:organization_member, organization: @organization, user: @mentor,
+                                                                   role: :mentor)
       @member = FactoryBot.create(:user)
       @membership = FactoryBot.create(:organization_member, organization: @organization, user: @member, role: :member)
     end
@@ -85,7 +86,8 @@ describe OrganizationMemberPolicy do
   context "when there are multiple admins and one demotes the other" do
     before do
       @second_admin = FactoryBot.create(:user)
-      @second_admin_membership = FactoryBot.create(:organization_member, organization: @organization, user: @second_admin, role: :admin)
+      @second_admin_membership = FactoryBot.create(:organization_member, organization: @organization,
+                                                                         user: @second_admin, role: :admin)
     end
 
     let(:user) { @admin }

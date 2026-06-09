@@ -18,10 +18,16 @@ class OrganizationPolicy < ApplicationPolicy
     true
   end
 
+  def create_group?
+    org_admin? || org_mentor? || user.admin?
+  end
+
   private
 
     def membership
-      @membership ||= record.organization_members.find_by(user: user)
+      return @membership if defined?(@membership)
+
+      @membership = record.organization_members.find_by(user: user)
     end
 
     def member?
@@ -32,7 +38,11 @@ class OrganizationPolicy < ApplicationPolicy
       membership&.role == "admin"
     end
 
+    def org_mentor?
+      membership&.role == "mentor"
+    end
+
     def sole_admin?
-      record.organization_members.where(role: :admin).count == 1
+      record.organization_members.where(role: :admin).one?
     end
 end
