@@ -71,6 +71,7 @@ class LtiController < ApplicationController
       session[:lis_outcome_service_url] = params[:lis_outcome_service_url] # grading parameters
       session[:oauth_consumer_key] = params[:oauth_consumer_key] # grading parameters
       session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
+      @assignment.update_column(:lis_outcome_service_url, params[:lis_outcome_service_url]) if @assignment.present? && params[:lis_outcome_service_url].present?
     end
 
     def create_project_if_student_present
