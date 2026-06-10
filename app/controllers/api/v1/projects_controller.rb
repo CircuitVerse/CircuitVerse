@@ -259,7 +259,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def filter
-      @projects = @projects.tagged_with(params[:filter][:tag]) if params.key?(:filter)
+      return unless params[:filter].is_a?(ActionController::Parameters)
+
+      tag = params[:filter][:tag]
+      @projects = @projects.tagged_with(tag) if tag.present?
     end
 
     def sort
