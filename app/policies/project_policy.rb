@@ -72,6 +72,6 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def author_access?
-    (user.present? && user.admin?) || project.author_id == user&.id
+    user.present? && (user.admin? || project.author_id == user.id)
   end
 end
