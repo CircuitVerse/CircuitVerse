@@ -124,6 +124,7 @@ gem 'vite_rails'
 group :development, :test do
   # Adds support for debug
   gem "debug"
+  gem "ruby-lsp", require: false
   gem "coveralls_reborn", "~> 0.29.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
