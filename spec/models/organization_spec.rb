@@ -52,17 +52,19 @@ RSpec.describe Organization, type: :model do
       it "purges the logo attachment when the organization is destroyed" do
         org = FactoryBot.create(:organization)
         allow(org.logo).to receive(:attached?).and_return(true)
-        expect(org.logo).to receive(:purge)
+        allow(org.logo).to receive(:purge)
         org.destroy
+        expect(org.logo).to have_received(:purge)
       end
     end
 
     describe "#remove_logo before_validation" do
       it "purges logo when remove_logo is set to '1'" do
         org = FactoryBot.create(:organization)
+        allow(org.logo).to receive(:purge)
         org.remove_logo = "1"
-        expect(org.logo).to receive(:purge)
         org.valid?
+        expect(org.logo).to have_received(:purge)
       end
     end
   end
