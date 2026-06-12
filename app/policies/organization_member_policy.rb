@@ -6,7 +6,7 @@ class OrganizationMemberPolicy < ApplicationPolicy
   end
 
   def update?
-    return false unless org_admin?
+    return false unless org_admin? || user.admin?
     return false if demoting_sole_admin?
 
     true
@@ -15,7 +15,7 @@ class OrganizationMemberPolicy < ApplicationPolicy
   def destroy?
     return false if leaving_self? && sole_admin?
 
-    org_admin? || leaving_self?
+    org_admin? || leaving_self? || user.admin?
   end
 
   private
@@ -27,7 +27,7 @@ class OrganizationMemberPolicy < ApplicationPolicy
     end
 
     def org_admin?
-      org_membership&.role == "admin" || user.admin?
+      org_membership&.role == "admin"
     end
 
     def leaving_self?
