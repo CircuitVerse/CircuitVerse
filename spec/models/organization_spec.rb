@@ -24,9 +24,9 @@ RSpec.describe Organization, type: :model do
 
       it "is invalid with more than 5 links" do
         org = FactoryBot.build(:organization, links: [
-          "https://a.com", "https://b.com", "https://c.com",
-          "https://d.com", "https://e.com", "https://f.com"
-        ])
+                                 "https://a.com", "https://b.com", "https://c.com",
+                                 "https://d.com", "https://e.com", "https://f.com"
+                               ])
         expect(org).not_to be_valid
         expect(org.errors[:links]).to include("cannot have more than 5 links")
       end
