@@ -3980,10 +3980,10 @@ dot-prop@^5.1.0:
   dependencies:
     is-obj "^2.0.0"
 
-driver.js@^0.9.8:
-  version "0.9.8"
-  resolved "https://registry.npmjs.org/driver.js/-/driver.js-0.9.8.tgz"
-  integrity sha512-bczjyKdX6XmFyCDkwtRmlaORDwfBk1xXmRO0CAe5VwNQTM98aWaG2LAIiIdTe53iV/B7W5lXlIy2xYtf0JRb7Q==
+driver.js@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/driver.js/-/driver.js-1.4.0.tgz#02886248cd82f5475b6bd5eb9743502f88879038"
+  integrity sha512-Gm64jm6PmcU+si21sQhBrTAM1JvUrR0QhNmjkprNLxohOBzul9+pNHXgQaT9lW84gwg9GMLB3NZGuGolsz5uew==
 
 dunder-proto@^1.0.1:
   version "1.0.1"
