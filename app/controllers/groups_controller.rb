@@ -3,6 +3,7 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
+  before_action :check_organizations_feature_flag, only: %i[new create], if: -> { params[:organization_id].present? }
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
 
@@ -54,6 +55,8 @@ class GroupsController < ApplicationController
   def create
     @group = current_user.groups_owned.new(group_params)
 
+    authorize @group.organization, :create_group? if @group.organization_id.present?
+
     respond_to do |format|
       if @group.save
         format.html { redirect_to @group, notice: "Group was successfully created." }
@@ -100,7 +103,7 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.expect(group: %i[name primary_mentor_id])
+      params.expect(group: %i[name primary_mentor_id organization_id])
     end
 
     def check_show_access
@@ -108,6 +111,14 @@ class GroupsController < ApplicationController
     end
 
     def check_edit_access
-      authorize @group, :admin_access?
+      if @group.organization_id.present?
+        authorize @group, :manage?, policy_class: OrganizationGroupPolicy
+      else
+        authorize @group, :admin_access?
+      end
+    end
+
+    def check_organizations_feature_flag
+      redirect_to root_path, alert: "Feature not available" unless Flipper.enabled?(:organizations)
     end
 end
