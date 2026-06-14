@@ -3,7 +3,9 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
-  before_action :check_organizations_feature_flag, only: %i[new create], if: -> { params[:organization_id].present? }
+  before_action :check_organizations_feature_flag, only: %i[new create], if: lambda {
+    params[:organization_id].present? || params.dig(:group, :organization_id).present?
+  }
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
 
@@ -103,7 +105,11 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.expect(group: %i[name primary_mentor_id organization_id])
+      if action_name == "create"
+        params.expect(group: %i[name primary_mentor_id organization_id])
+      else
+        params.expect(group: %i[name primary_mentor_id])
+      end
     end
 
     def check_show_access
@@ -119,6 +125,6 @@ class GroupsController < ApplicationController
     end
 
     def check_organizations_feature_flag
-      redirect_to root_path, alert: "Feature not available" unless Flipper.enabled?(:organizations)
+      redirect_to root_path, alert: t("feature_not_available") unless Flipper.enabled?(:organizations, current_user)
     end
 end
