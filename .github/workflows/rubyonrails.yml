@@ -7,6 +7,23 @@ jobs:
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        test_group:
+          - name: unit
+            paths: spec/models spec/policies spec/helpers spec/mailers spec/services spec/components spec/decorators spec/jobs spec/lib spec/tasks spec/views
+            needs_playwright: false
+          - name: integration
+            paths: spec/requests spec/controllers
+            needs_playwright: false
+          - name: system
+            paths: spec/system
+            needs_playwright: true
+
+    name: test (${{ matrix.test_group.name }})
+
     services:
       postgres:
         image: postgres:16-alpine
@@ -43,6 +60,7 @@ jobs:
           node-version: "22"
           cache: "yarn"
 
+
       - name: Install Dependencies for canvas
         run: |
           sudo apt-get update
@@ -55,11 +73,30 @@ jobs:
 
       - run: yarn install
 
-      - name: Install Playwright and browsers
+      - name: Get Playwright version
+        if: matrix.test_group.needs_playwright
+        id: playwright-version
         run: |
-          export PLAYWRIGHT_CLI_VERSION=$(bundle exec ruby -e 'require "playwright"; puts Playwright::COMPATIBLE_PLAYWRIGHT_VERSION.strip')
-          yarn add -D "playwright@$PLAYWRIGHT_CLI_VERSION"
-          npx playwright install --with-deps
+          PLAYWRIGHT_VERSION=$(bundle exec ruby -e 'require "playwright"; puts Playwright::COMPATIBLE_PLAYWRIGHT_VERSION.strip')
+          echo "version=$PLAYWRIGHT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        if: matrix.test_group.needs_playwright
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright and browsers
+        if: matrix.test_group.needs_playwright
+        run: |
+          yarn add -D "playwright@${{ steps.playwright-version.outputs.version }}"
+          if [ "${{ steps.playwright-cache.outputs.cache-hit }}" != "true" ]; then
+            npx playwright install --with-deps
+          else
+            npx playwright install-deps
+          fi
 
       - name: Copy the sample ENV Config
         run: cp .env.example .env
@@ -69,6 +106,16 @@ jobs:
 
       - name: Run data migration tasks
         run: bin/rails data:migrate
+
+      - name: Cache compiled assets
+        uses: actions/cache@v4
+        with:
+          path: |
+            public/assets
+            tmp/cache
+          key: assets-${{ runner.os }}-${{ hashFiles('app/assets/**', 'app/javascript/**', 'config/initializers/assets.rb', 'yarn.lock') }}
+          restore-keys: |
+            assets-${{ runner.os }}-
 
       - name: Build assets
         run: |
@@ -82,11 +129,11 @@ jobs:
           openssl rsa -in config/private.pem -outform PEM -pubout -out config/public.pem
 
       - name: Run tests
-        run: bundle exec rspec
+        run: bundle exec rspec ${{ matrix.test_group.paths }}
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
-        if: failure()
+        if: failure() && matrix.test_group.name == 'system'
         with:
           name: screenshots
           path: ${{ github.workspace }}/tmp/capybara
@@ -98,15 +145,29 @@ jobs:
           bodyContains: "[undercover]"
           noReply: "true"
 
+  type-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+
       - name: Static type checking
         run: |
           bundle exec rbs collection install
           bundle exec steep check
+
   lint:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           submodules: recursive
 
