@@ -162,6 +162,7 @@ class ProjectsController < ApplicationController
         datum_data["name"] = project_params["name"]
         @project.project_datum.data = JSON.generate(datum_data)
       rescue JSON::ParserError, TypeError
+        # Skip name sync on corrupted datum; corrected on next full save
       end
     end
 end

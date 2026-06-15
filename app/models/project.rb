@@ -76,12 +76,7 @@ class Project < ApplicationRecord
 
   def fork(user)
     forked_project = dup
-    raw = project_datum&.data
-    forked_project.build_project_datum.data = begin
-      raw.present? ? JSON.generate(JSON.parse(raw)) : raw
-    rescue JSON::ParserError
-      raw
-    end
+    forked_project.build_project_datum.data = normalized_datum_data
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
     forked_project.update!(
@@ -146,6 +141,13 @@ class Project < ApplicationRecord
   end
 
   private
+
+    def normalized_datum_data
+      raw = project_datum&.data
+      raw.present? ? JSON.generate(JSON.parse(raw)) : raw
+    rescue JSON::ParserError
+      raw
+    end
 
     def check_validity
       return unless (project_access_type != "Private") && !assignment_id.nil?
