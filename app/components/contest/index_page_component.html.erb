@@ -29,8 +29,8 @@
   </div>
 
   <div class="container pagination-cont">
-    <%= render Pagination::PaginationComponent.new(collection: contests,
-                                                   renderer: PaginateRenderer) %>
+    <%= render ::Pagination::PaginationComponent.new(collection: contests,
+                                                     renderer: PaginateRenderer) %>
   </div>
 
   <% if contests.empty? %>

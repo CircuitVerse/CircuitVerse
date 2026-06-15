@@ -10,20 +10,24 @@ RSpec.describe Pagination::PaginationComponent, type: :component do
   end
 
   it "renders pagination for a paginated collection" do
-    render_inline(described_class.new(collection: collection, renderer: PaginateRenderer))
+    with_request_url "/search" do
+      render_inline(described_class.new(collection: collection, renderer: PaginateRenderer))
 
-    expect(page).to have_css(".pagination.justify-content-center")
-    expect(page).to have_css(".page-item.active", text: "2")
+      expect(page).to have_css(".pagination.justify-content-center")
+      expect(page).to have_css(".page-item.active", text: "2")
+    end
   end
 
   it "passes options to will_paginate" do
-    render_inline(described_class.new(collection: collection,
-                                      renderer: SearchPaginateRenderer,
-                                      page_links: false))
+    with_request_url "/search" do
+      render_inline(described_class.new(collection: collection,
+                                        renderer: SearchPaginateRenderer,
+                                        page_links: false))
 
-    expect(page).to have_css(".pagination")
-    expect(page).to have_css(".page-link", text: "Previous")
-    expect(page).to have_css(".page-link", text: "Next")
-    expect(page).to have_no_css(".page-item.active")
+      expect(page).to have_css(".pagination")
+      expect(page).to have_css(".page-link", text: "Previous")
+      expect(page).to have_css(".page-link", text: "Next")
+      expect(page).to have_no_css(".page-item.active")
+    end
   end
 end
