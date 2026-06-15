@@ -9,6 +9,7 @@ ar:
       delete_group_confirmation: "هل أنت متأكد من أنك تريد حذف هذه المجموعة؟"
       delete_user_confirmation: "هل أنت متأكد من أنك تريد حذف الحساب الخاص بك؟ لا يمكن العودة إلى هذا الإجراء."
       preview_project: "معاينة المشروع"
+      member_since_html: "<strong>عضو منذ:</strong> %{member_since}"
       member_since: "عضو منذ"
       educational_institutes_html: "<strong>المؤسسة التعليمية:</strong> %{educational_institute}"
       country_html: "<strong>البلد:</strong> %{country_name}"
@@ -49,6 +50,7 @@ ar:
         no_user_projects: "لا يملك %{name} أي مشاريع."
         no_favourites_heading_html: "ليس لديك أي مفضلة. أنشئ %{simulator_new_url}"
         not_a_collaborator: "أنت لست متعاوناً مع أي مشروع."
+        no_search_results: "لم يتم العثور على دوائر"
       search:
         no_results: "لم يتم العثور على نتائج"
     mailer:

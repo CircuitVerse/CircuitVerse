@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
+ActiveRecord::Schema[8.0].define(version: 2026_05_22_202006) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -277,7 +277,9 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.integer "group_members_count"
     t.string "group_token"
     t.datetime "token_expires_at", precision: nil
+    t.bigint "organization_id"
     t.index ["group_token"], name: "index_groups_on_group_token", unique: true
+    t.index ["organization_id"], name: "index_groups_on_organization_id"
     t.index ["primary_mentor_id"], name: "index_groups_on_primary_mentor_id"
   end
 
@@ -354,6 +356,35 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
     t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable_type_and_notifiable_id"
     t.index ["notifier_type", "notifier_id"], name: "index_notifications_on_notifier_type_and_notifier_id"
     t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
+  end
+
+  create_table "organization_members", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "role", default: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id", "user_id"], name: "index_organization_members_on_org_and_user_unique", unique: true
+    t.index ["organization_id"], name: "index_organization_members_on_organization_id"
+    t.index ["user_id"], name: "index_organization_members_on_user_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.text "description"
+    t.jsonb "links", default: []
+    t.boolean "private", default: true, null: false
+    t.string "oidc_issuer_url"
+    t.string "oidc_client_id"
+    t.string "oidc_client_secret_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index "lower((name)::text)", name: "index_organizations_on_lower_name_unique", unique: true
+    t.index ["slug"], name: "index_organizations_on_slug", unique: true
+    t.check_constraint "char_length(TRIM(BOTH FROM name)) > 0", name: "organizations_name_not_blank"
+    t.check_constraint "char_length(TRIM(BOTH FROM slug)) > 0", name: "organizations_slug_not_blank"
+    t.check_constraint "jsonb_array_length(links) <= 5", name: "organizations_links_max_5"
   end
 
   create_table "pending_invitations", force: :cascade do |t|
@@ -547,7 +578,10 @@ ActiveRecord::Schema[8.0].define(version: 2025_08_31_010356) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "organizations", on_delete: :nullify
   add_foreign_key "groups", "users", column: "primary_mentor_id"
+  add_foreign_key "organization_members", "organizations", on_delete: :cascade
+  add_foreign_key "organization_members", "users", on_delete: :cascade
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"

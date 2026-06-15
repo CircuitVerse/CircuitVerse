@@ -7,8 +7,7 @@
 }
 
 .navbar-logo {
-  height: 70px;
-  padding-top: 5px;
+  height: 45px;
 }
 
 .fa-search {
@@ -26,8 +25,49 @@
     color: $secondary-green;
   }
 
+  &.active:hover {
+    color: $primary-green;
+  }
+
   &:focus {
     outline: none;
+  }
+}
+
+.search-button {
+  border: none;
+  min-width: 32px;
+  min-height: 32px;
+  cursor: default;
+
+  &:hover {
+    cursor: default;
+  }
+
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  &:focus-visible {
+    outline: 1px solid $primary-green;
+    outline-offset: 2px;
+    border-radius: 4px;
+    box-shadow: none;
+  }
+
+  &:active {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .fa-search {
+    cursor: pointer;
+    margin-right: 0;
+
+    &:hover {
+      cursor: pointer;
+    }
   }
 }
 
@@ -59,10 +99,18 @@
 }
 
 .dropdown-item {
-  &:hover {
+display: block;
+  width: 100%;
+  padding: 0.5rem 1rem;
+
+  &:hover,
+  &:focus,
+  &:focus-visible {
     background-color: $primary-green;
     color: $white;
   }
+
+
 }
 
 .navbar-text {
@@ -159,17 +207,17 @@
     padding: 8px 12px;
     font-size: 14px;
     min-width: 0;
-    
+
     &:focus {
       outline: 1px solid $primary-green;
       border-radius: 8px;
     }
-    
+
     &:first-child {
       border-right: 1px solid $shadow-grey;
       flex: 1;
     }
-    
+
     span {
       overflow: hidden;
       text-overflow: ellipsis;
@@ -239,7 +287,7 @@
   position: relative;
 
   button {
-    background: none; 
+    background: none;
     border: 1px solid $shadow-grey;
     border-radius: 8px;
     cursor: pointer;
@@ -297,12 +345,12 @@
     padding: 8px 10px;
     font-size: 14px;
     transition: border-color 0.2s ease;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-green;
     }
-    
+
     &::placeholder {
       color: lighten($navbar-dark-grey, 20%);
     }
@@ -411,12 +459,12 @@
     appearance: none;
     width: 100%;
     cursor: pointer;
-    
+
     &:focus {
       outline: none;
       border-color: $primary-green;
     }
-    
+
     &:hover {
       border-color: darken($shadow-grey, 10%);
     }
@@ -618,6 +666,10 @@
   top: 90%;
 }
 
+[dir="rtl"] .dropdown-menu.dropdown-menu-end {
+  left: 0;
+  right: auto;
+}
 //breakpoints
 // collapse navbar earlier between 1080px and 992px
 @media (max-width: 1080px) and (min-width: 992px) {
@@ -678,8 +730,8 @@
 
 @media (max-width: 400px) {
  .navbar-logo {
-    height: 60px;
-    padding-top: 10px;
+    height: 40px;
+    padding-inline: 0.5rem;
   }
 }
 
