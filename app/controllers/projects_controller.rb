@@ -161,7 +161,7 @@ class ProjectsController < ApplicationController
         datum_data = JSON.parse(@project.project_datum.data)
         datum_data["name"] = project_params["name"]
         @project.project_datum.data = JSON.generate(datum_data)
-      rescue JSON::ParserError
+      rescue JSON::ParserError, TypeError
       end
     end
 end

@@ -80,7 +80,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     if circuit_data
       begin
         render json: JSON.parse(circuit_data.data)
-      rescue JSON::ParserError
+      rescue JSON::ParserError, TypeError
         render json: { error: "Circuit data is corrupted. Please re-save the project." }, status: :unprocessable_content
       end
     else

@@ -32,8 +32,9 @@ module SimulatorHelper
   end
 
   def sanitize_data(project, data)
-    data = data.to_json if data.is_a?(Hash) || data.is_a?(ActionController::Parameters)
     return data if project&.assignment_id.blank? || data.blank?
+
+    data = data.to_json if data.is_a?(Hash) || data.is_a?(ActionController::Parameters)
 
     data = Oj.safe_load(data)
     saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
