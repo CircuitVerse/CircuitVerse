@@ -31,7 +31,18 @@ module SimulatorHelper
     !data_url[("data:image/jpeg;base64,".length)..].to_s.empty?
   end
 
+  def attach_circuit_preview(project, image_file)
+    return unless image_file
+
+    project.circuit_preview.attach(
+      io: image_file,
+      filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
+      content_type: "image/jpeg"
+    )
+  end
+
   def sanitize_data(project, data)
+    data = data.to_json if data.is_a?(Hash) || data.is_a?(ActionController::Parameters)
     return data if project&.assignment_id.blank? || data.blank?
 
     data = Oj.safe_load(data)
