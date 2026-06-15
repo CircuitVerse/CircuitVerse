@@ -78,7 +78,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     authorize @project, :check_view_access?
     circuit_data = ProjectDatum.find_by(project: @project)
     if circuit_data
-      render json: circuit_data.data
+      begin
+        render json: JSON.parse(circuit_data.data)
+      rescue JSON::ParserError
+        render json: { error: "Circuit data is corrupted. Please re-save the project." }, status: :unprocessable_content
+      end
     else
       render json: { error: "Circuit data unavailabe for the project!" }, status: :not_found
     end

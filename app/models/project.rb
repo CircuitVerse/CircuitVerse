@@ -76,7 +76,12 @@ class Project < ApplicationRecord
 
   def fork(user)
     forked_project = dup
-    forked_project.build_project_datum.data = project_datum&.data
+    raw = project_datum&.data
+    forked_project.build_project_datum.data = begin
+      raw.present? ? JSON.generate(JSON.parse(raw)) : raw
+    rescue JSON::ParserError
+      raw
+    end
     forked_project.circuit_preview.attach(circuit_preview.blob)
     forked_project.image_preview = image_preview
     forked_project.update!(
@@ -128,7 +133,11 @@ class Project < ApplicationRecord
 
   def sim_version
     raw_data = project_datum&.data
-    parsed_data = raw_data.present? ? JSON.parse(raw_data) : {}
+    parsed_data = begin
+      raw_data.present? ? JSON.parse(raw_data) : {}
+    rescue JSON::ParserError
+      {}
+    end
     parsed_data["simulatorVersion"] || "legacy"
   end
 
