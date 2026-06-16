@@ -1,124 +1,57 @@
-Segurança — Scan com Trivy (resumo)
-
-Este documento contém instruções rápidas para rodar o scanner Trivy localmente e gerar os artefatos JSON/SARIF usados pela pipeline.
-
-Comando recomendado (PowerShell):
-
-```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\run-trivy.ps1
-```
-
-Observação: o comando acima executa o script `scripts/run-trivy.ps1`, que irá construir a imagem Docker `circuitverse:local` e executar scans (imagem + filesystem). Use esse comando se quiser reproduzir localmente o comportamento da Action.
-
-# Security scan guide (Trivy)
 # Security scan guide (Trivy)
 
-This document explains how the repository's Trivy GitHub Action works, how to interpret its results, and how maintainers should triage findings.
+This document explains how the Trivy workflow scans the project, where the reports are published, and how maintainers can reproduce the scan locally.
 
 ## What the workflow does
 
-- Runs two scans on PRs and pushes to `master`:
-  - `trivy image` — scans the Docker image built from the repository.
-  - `trivy fs` — scans the repository filesystem for vulnerable packages and IaC issues.
-- Produces JSON and SARIF outputs, uploads artifacts and (for PRs) comments a small summary.
+- Runs on pull requests, pushes to `master`, and manual dispatches.
+- Builds the CircuitVerse Docker image with the required Dockerfile build arguments.
+- Scans both the Docker image and repository filesystem with Trivy.
+- Produces JSON and SARIF reports for image and filesystem scans.
+- Uploads reports as workflow artifacts and uploads SARIF to GitHub Code Scanning when the event has permission.
+- Comments a short vulnerability summary on same-repository pull requests.
 
-## How to interpret results
+The workflow is intentionally report-only for now: Trivy uses `exit-code: "0"` so existing vulnerabilities do not block unrelated pull requests while the project establishes a baseline. After the team triages current findings, the workflow can be tightened to fail on `CRITICAL,HIGH`.
 
-- Severity levels: `CRITICAL` > `HIGH` > `MEDIUM` > `LOW`.
-- The workflow is configured to fail the job for findings at or above the configured severities. By default this repository treats `CRITICAL` and `HIGH` as actionable — adjust `severity` in `.github/workflows/trivy-scan.yml` if you prefer.
-- SARIF files are uploaded to GitHub Code Scanning so findings appear under the repository Security tab (if allowed for the event context).
+## Local PowerShell run
 
-### Quick rules for triage
-
-1. CRITICAL: investigate immediately. If confirmed, patch or upgrade the affected dependency/image layer and open a follow-up PR.
-2. HIGH: assign to a maintainer to triage within 48 hours.
-3. MEDIUM: review and plan for the next maintenance window (can be allowed to remain for a short time with justification).
-4. LOW: document as accepted or ignore if false positive.
-
-When a finding is fixed, update the PR or issue with the remediation and close the related alert. If a finding is a false positive, add a short justification comment and consider adding it to `.trivyignore` (see below).
-
-## Acceptable mitigations
-
-- Upgrading the vulnerable package to a patched version.
-- Rebuilding the image with a patched base image / different package.
-- Adding `.trivyignore` entries for tracked/known false positives with justification.
-
-## Adding `.trivyignore`
-
-Create a file named `.trivyignore` in the repo root. Each line should contain a CVE ID or pattern. Example:
-
-```
-# Ignore a known false positive CVE
-CVE-2020-12345
-```
-
-Always justify ignored CVEs in PR description.
-
-## How to test Trivy locally (Windows PowerShell)
-
-1. Install Trivy (choose one):
+From the repository root:
 
 ```powershell
-# Chocolatey
-choco install aquasecurity-trivy -y
-
-# or Scoop
-scoop install trivy
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File ./scripts/run-trivy.ps1
 ```
 
-2. Build the Docker image locally:
+The script builds `circuitverse:local`, runs image and filesystem scans, and writes:
+
+- `trivy-image.json`
+- `trivy-image.sarif`
+- `trivy-fs.json`
+- `trivy-fs.sarif`
+
+## Manual Trivy commands
+
+Install Trivy, build the Docker image, and run the scans:
 
 ```powershell
-docker build -t circuitverse:local .
+docker build `
+  --build-arg NON_ROOT_USER_ID=1000 `
+  --build-arg NON_ROOT_GROUP_ID=1000 `
+  --build-arg NON_ROOT_USERNAME=cvuser `
+  --build-arg NON_ROOT_GROUPNAME=cvgroup `
+  --build-arg OPERATING_SYSTEM=linux `
+  -t circuitverse:local .
+
+trivy image --severity CRITICAL,HIGH,MEDIUM --format json -o trivy-image.json circuitverse:local
+trivy image --severity CRITICAL,HIGH,MEDIUM --format sarif -o trivy-image.sarif circuitverse:local
+trivy fs --severity CRITICAL,HIGH,MEDIUM --format json -o trivy-fs.json .
+trivy fs --severity CRITICAL,HIGH,MEDIUM --format sarif -o trivy-fs.sarif .
 ```
 
-3. Run image scan (JSON + SARIF):
+## Triage guidelines
 
-```powershell
-# JSON
-trivy image --severity CRITICAL,HIGH --format json -o trivy-image.json circuitverse:local
-# SARIF (for GitHub upload)
-trivy image --format sarif -o trivy-image.sarif circuitverse:local
-```
+1. `CRITICAL`: patch or mitigate immediately.
+2. `HIGH`: triage quickly and open a follow-up issue or pull request.
+3. `MEDIUM`: review and schedule in the next maintenance window.
+4. `LOW`: document or accept when appropriate.
 
-4. Run filesystem scan (repo):
-
-```powershell
-trivy fs --severity CRITICAL,HIGH --format json -o trivy-fs.json .
-trivy fs --format sarif -o trivy-fs.sarif .
-```
-
-5. Inspect results (PowerShell):
-
-```powershell
-# show top-level counts
-Get-Content trivy-image.json | ConvertFrom-Json | Select-Object -ExpandProperty Results | ForEach-Object { $_.Vulnerabilities.Count }
-Get-Content trivy-fs.json | ConvertFrom-Json | Select-Object -ExpandProperty Results | ForEach-Object { $_.Vulnerabilities.Count }
-```
-
-## Running the GitHub Action locally (optional)
-
-You can use `act` (https://github.com/nektos/act) to run workflows locally. Install `act` and then run:
-
-```powershell
-# install act (scoop or download release)
-# example using scoop:
-# scoop install act
-
-# run the workflow (may require Docker and extra environment variables)
-act -j trivy-scan
-```
-
-Note: `act` has limitations (permissions, runners) and PR events from forks are restricted on GitHub; test critical cases by building the image locally and running Trivy directly.
-
-## Policy suggestion
-
-- Start with failing on `CRITICAL,HIGH` (recommended). Keep `MEDIUM` as informational initially.
-- Keep `.trivyignore` under review and require justification in PRs when new ignores are added.
-
-## Contact / escalation
-
-If you find a critical vulnerability you cannot fix quickly, notify maintainers via the project Slack or open an issue with the tag `security` and link the Trivy output.
-
----
-Generated by an automated contribution to help triage Trivy reports. Adjust severity policies in `.github/workflows/trivy-scan.yml` as needed.
+If a finding is a false positive, document the reason in the pull request and add a justified `.trivyignore` entry.
