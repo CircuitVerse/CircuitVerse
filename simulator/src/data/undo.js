@@ -9,6 +9,7 @@ import Scope, { scopeList } from '../circuit';
 import { loadScope } from './load';
 import { updateRestrictedElementsInScope } from '../restrictedElementDiv';
 import { forceResetNodesSet } from '../engine';
+import { scheduleBackup } from './backupCircuit';
 /**
  * Function called to generate a prompt to save an image
  * @param {Scope=} - the circuit in which we want to call undo
@@ -18,6 +19,8 @@ import { forceResetNodesSet } from '../engine';
 export default function undo(scope = globalScope) {
     if (layoutModeGet()) return;
     if (scope.backups.length < 2) return;
+    // backup upto last state of simulator
+    scheduleBackup();
     const backupOx = globalScope.ox;
     const backupOy = globalScope.oy;
     const backupScale = globalScope.scale;
