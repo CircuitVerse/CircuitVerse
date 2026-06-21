@@ -7,7 +7,7 @@ RSpec.describe Contest::CardComponent, type: :component do
     contest = create(:contest, :completed)
     create_list(:submission, 3, contest: contest)
 
-    render_inline described_class.new(contest: contest)
+    render_inline described_class.new(contest: contest.reload)
 
     expect(page).to have_link("Contest ##{contest.id}")
     expect(page).to have_text("3 Entries")
