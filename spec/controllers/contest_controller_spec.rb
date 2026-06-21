@@ -16,11 +16,21 @@ RSpec.describe ContestsController, type: :controller do
       get :index
       expect(response).to be_successful
     end
+
+    it "returns a success response for an invalid page param" do
+      get :index, params: { page: "JJJ2QQQ" }
+      expect(response).to be_successful
+    end
   end
 
   describe "GET #show" do
     it "returns a success response" do
       get :show, params: { id: contest.to_param }
+      expect(response).to be_successful
+    end
+
+    it "returns a success response for an invalid page param" do
+      get :show, params: { id: contest.to_param, page: "JJJ2QQQ" }
       expect(response).to be_successful
     end
   end

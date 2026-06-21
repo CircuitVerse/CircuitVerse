@@ -8,7 +8,7 @@ class ContestsController < ApplicationController
 
   def index
     @contests = Contest.order(id: :desc)
-                       .paginate(page: params[:page])
+                       .paginate(page: page_number)
                        .limit(Contest.per_page)
 
     respond_to do |format|
@@ -22,7 +22,7 @@ class ContestsController < ApplicationController
     @user_submission = @contest.submissions.where(user_id: current_user&.id)
     @submissions     = @contest.submissions
                                .where.not(user_id: current_user&.id)
-                               .paginate(page: params[:page])
+                               .paginate(page: page_number)
                                .limit(6)
 
     return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
@@ -52,5 +52,9 @@ class ContestsController < ApplicationController
 
     def set_user_count
       @user_count = Rails.cache.fetch("users/total_count", expires_in: 10.minutes) { User.count }
+    end
+
+    def page_number
+      params[:page].to_s.match?(/\A[1-9]\d*\z/) ? params[:page] : 1
     end
 end
