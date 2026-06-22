@@ -827,6 +827,13 @@ GEM
       rubocop (~> 1.81)
     ruby-graphviz (1.2.5)
       rexml
+    ruby-lsp (0.26.9)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 5)
+    ruby-lsp-refactor (0.1.2)
+      prism (>= 0.29)
+      ruby-lsp (>= 0.17, < 2)
     ruby-progressbar (1.13.0)
     ruby-saml (1.18.1)
       nokogiri (>= 1.13.10)
@@ -1147,6 +1154,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  ruby-lsp-refactor (~> 0.1.2)
   sass-rails (~> 6.0)
   sassc-rails
   select2-rails
@@ -1180,4 +1188,4 @@ DEPENDENCIES
   yosys2digitaljs!
 
 BUNDLED WITH
-   2.5.3
+  4.0.10
