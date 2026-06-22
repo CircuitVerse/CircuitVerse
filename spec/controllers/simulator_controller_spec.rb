@@ -37,6 +37,7 @@ describe SimulatorController, type: :request do
             end.to change(Project, :count).by(1)
             created_project = Project.order(:created_at).last
             expect(created_project.circuit_preview.blob.filename.to_s).to start_with("preview_")
+            expect(created_project.circuit_preview.blob.content_type).to eq("image/jpeg")
             expect(created_project.image_preview.file.filename).to start_with("preview_")
           end
         end
