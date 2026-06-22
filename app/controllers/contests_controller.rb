@@ -19,8 +19,11 @@ class ContestsController < ApplicationController
   end
 
   def show
-    @user_submission = @contest.submissions.where(user_id: current_user&.id)
+    @user_submission = @contest.submissions
+                               .includes(project: :author)
+                               .where(user_id: current_user&.id)
     @submissions     = @contest.submissions
+                               .includes(project: :author)
                                .where.not(user_id: current_user&.id)
                                .paginate(page: params[:page])
                                .limit(6)
@@ -28,7 +31,7 @@ class ContestsController < ApplicationController
     return unless @contest.completed? && Submission.exists?(contest_id: @contest.id)
 
     if (contest_winner = ContestWinner.find_by(contest_id: @contest.id))
-      @winner = contest_winner.submission
+      @winner = Submission.includes(project: :author).find(contest_winner.submission_id)
     end
   end
 
