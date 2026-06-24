@@ -188,7 +188,7 @@ gem "jsbundling-rails", "~> 1.0"
 gem "sassc-rails"
 gem "stimulus-rails", "~> 1.0"
 
-gem "noticed", "~> 1.6"
+gem "noticed", "~> 3.0"
 
 # ActiveStorage AWS S3 + Variant Processing
 gem "aws-sdk-s3", "~> 1.224"
