@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Check Out Code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Configure SSH
         uses: webfactory/ssh-agent@v0.7.0
