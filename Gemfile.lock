@@ -453,8 +453,8 @@ GEM
       net-imap
       net-pop
       net-smtp
-    mailkick (0.4.3)
-      activesupport (>= 5)
+    mailkick (2.0.0)
+      activesupport (>= 7.1)
     maintenance_tasks (2.16.0)
       actionpack (>= 7.1)
       activejob (>= 7.1)
@@ -1097,7 +1097,7 @@ DEPENDENCIES
   language_filter
   listen (>= 3.0.5, < 3.11)
   lookbook (>= 2.2.0)
-  mailkick (~> 0.4.3)
+  mailkick (~> 2.0.0)
   maintenance_tasks (~> 2.16)
   meta-tags
   mutex_m
