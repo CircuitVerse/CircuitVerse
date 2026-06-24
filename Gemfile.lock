@@ -246,7 +246,7 @@ GEM
     css_parser (2.2.0)
       addressable
     csv (3.3.5)
-    database_consistency (2.0.5)
+    database_consistency (3.0.5)
       activerecord (>= 3.2)
     date (3.5.1)
     debug (1.11.1)
