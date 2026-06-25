@@ -81,6 +81,10 @@ describe LtiController, type: :request do
   end
 
   describe "POST /lti/launch with id_token (LTI 1.3)" do
+    before do
+      stub_request(:get, deployment.jwks_url).to_return(status: 404, body: "")
+    end
+
     context "with a valid token and no prior OIDC state" do
       it "signs the user in and redirects to root" do
         post lti_launch_path, params: { id_token: id_token }
