@@ -16,6 +16,16 @@ GIT
       will_paginate (>= 3.1.0)
 
 GIT
+  remote: https://github.com/instructure/canvas-lms
+  revision: 1c9f0bb8013ed69c4f2efe11fd483025469b7e6c
+  branch: master
+  glob: gems/lti-advantage/*.gemspec
+  specs:
+    lti-advantage (0.1.0)
+      activemodel (>= 5.1)
+      json-jwt (~> 1.5)
+
+GIT
   remote: https://github.com/notarize/rails-data-migrations.git
   revision: 1ec8bf92275f5e31fd2820ea39025b25620db7ef
   specs:
@@ -117,6 +127,7 @@ GEM
     acts_as_votable (0.14.0)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
+    aes_key_wrap (1.1.0)
     ahoy_matey (5.5.0)
       activesupport (>= 7.2)
       cgi
@@ -186,6 +197,7 @@ GEM
       parser (>= 2.4)
       smart_properties
     bigdecimal (4.1.2)
+    bindata (2.5.1)
     bindex (0.8.1)
     bootsnap (1.24.5)
       msgpack (~> 1.2)
@@ -293,6 +305,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
+    faraday-follow_redirects (0.5.0)
+      faraday (>= 1, < 3)
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
     ffi (1.17.4-arm64-darwin)
@@ -367,10 +381,6 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     imagen (0.2.0)
       parser (>= 2.5, != 2.5.1.1)
-    ims-lti (1.2.9)
-      builder (>= 1.0, < 4.0)
-      oauth (>= 0.4.5)
-      rexml
     inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -396,6 +406,13 @@ GEM
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
     json (2.20.0)
+    json-jwt (1.17.1)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      base64
+      bindata
+      faraday (~> 2.0)
+      faraday-follow_redirects
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -507,17 +524,6 @@ GEM
     noticed (1.6.3)
       http (>= 4.0.0)
       rails (>= 5.2.0)
-    oauth (1.1.6)
-      auth-sanitizer (~> 0.2, >= 0.2.1)
-      base64 (~> 0.1)
-      cgi
-      oauth-tty (~> 1.0, >= 1.0.8)
-      snaky_hash (~> 2.0, >= 2.0.5)
-      version_gem (~> 1.1, >= 1.1.11)
-    oauth-tty (1.0.8)
-      auth-sanitizer (~> 0.1, >= 0.1.3)
-      cgi
-      version_gem (~> 1.1, >= 1.1.9)
     oauth2 (2.0.22)
       auth-sanitizer (~> 0.2, >= 0.2.1)
       faraday (>= 0.17.3, < 4.0)
@@ -1085,12 +1091,12 @@ DEPENDENCIES
   http (~> 4.4)
   i18n-js
   image_processing (~> 1.12)
-  ims-lti (~> 1.2, < 2.0)
   inline_svg
   invisible_captcha (~> 2.0)
   jbuilder (~> 2.15)
   jquery-rails
   jsbundling-rails (~> 1.0)
+  json-jwt
   json-schema
   jsonapi-serializer
   jwt (~> 3.2.0)
@@ -1098,6 +1104,7 @@ DEPENDENCIES
   language_filter
   listen (>= 3.0.5, < 3.11)
   lookbook (>= 2.2.0)
+  lti-advantage!
   mailkick (~> 0.4.3)
   maintenance_tasks (~> 2.16)
   meta-tags

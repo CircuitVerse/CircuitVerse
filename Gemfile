@@ -77,7 +77,12 @@ gem "ahoy_matey"
 gem "i18n-js"
 
 # for lti provider
-gem "ims-lti", "~> 1.2", "< 2.0"
+gem "lti-advantage",
+    git:    "https://github.com/instructure/canvas-lms",
+    branch: "master",
+    glob:   "gems/lti-advantage/*.gemspec"
+
+gem "json-jwt"
 
 # Use Redis adapter to run Action Cable in production
 gem "hiredis"
