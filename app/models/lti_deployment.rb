@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LtiDeployment < ApplicationRecord
-  has_many :assignments
+  has_many :assignments, dependent: :destroy
 
   validates :platform_id,
             :deployment_id,

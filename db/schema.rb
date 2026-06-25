@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_22_202006) do
+ActiveRecord::Schema[8.0].define(version: 2026_06_09_110056) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -287,6 +287,20 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_22_202006) do
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "lti_deployments", force: :cascade do |t|
+    t.string "platform_id", null: false
+    t.string "deployment_id", null: false
+    t.string "client_id", null: false
+    t.string "issuer", null: false
+    t.string "jwks_url", null: false
+    t.string "access_token_url", null: false
+    t.string "auth_login_url", null: false
+    t.text "platform_public_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform_id", "deployment_id"], name: "index_lti_deployments_unique", unique: true
   end
 
   create_table "mailkick_opt_outs", force: :cascade do |t|

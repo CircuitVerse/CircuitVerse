@@ -5,6 +5,7 @@ module Lti
     def self.private_key
       raw = Rails.application.credentials.dig(:lti, :private_key)
       raise "LTI private key missing from credentials" if raw.blank?
+
       OpenSSL::PKey::RSA.new(raw)
     end
 

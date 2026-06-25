@@ -8,32 +8,33 @@ module Lti
     end
 
     def report_outcomes(submission, verification_result)
-      return unless @deployment.present?
+      return if @deployment.blank?
+
       outcomes = build_outcome_results(submission, verification_result)
       post_to_canvas(outcomes)
     end
 
     private
 
-    def build_outcome_results(submission, result)
-      {
-        outcome_results: result.failed_cases.map do |tc|
-          {
-            association_type: "Assignment",
-            association_id:   @assignment.canvas_assignment_id,
-            score:            0,
-            possible:         1,
-            mastery:          false,
-            title:            tc.description
-          }
-        end
-      }
-    end
+      def build_outcome_results(_submission, result)
+        {
+          outcome_results: result.failed_cases.map do |tc|
+            {
+              association_type: "Assignment",
+              association_id: @assignment.canvas_assignment_id,
+              score: 0,
+              possible: 1,
+              mastery: false,
+              title: tc.description
+            }
+          end
+        }
+      end
 
-    def post_to_canvas(outcomes)
-      # Full implementation during GSoC
-      # Requires Canvas API token from LTI launch claims
-      Rails.logger.info "Canvas Outcomes: #{outcomes.to_json}"
-    end
+      def post_to_canvas(outcomes)
+        # Full implementation during GSoC
+        # Requires Canvas API token from LTI launch claims
+        Rails.logger.info "Canvas Outcomes: #{outcomes.to_json}"
+      end
   end
 end
