@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class LtiController < ApplicationController
+  # LTI launches and the OIDC login initiation are cross-origin POSTs sent by the
+  # LMS platform; they carry no CV session cookie or CSRF token and are instead
+  # authenticated by the platform-signed JWT (launch) and the iss/client_id
+  # deployment lookup (oidc_login), so Rails' CSRF token check does not apply.
   skip_before_action :verify_authenticity_token, only: %i[launch oidc_login]
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
@@ -132,8 +136,9 @@ class LtiController < ApplicationController
 
     def find_or_create_user_from_lti13(payload)
       User.find_or_create_by(email: payload["email"]) do |u|
-        u.name     = payload["name"] || payload["email"]
-        u.password = SecureRandom.hex(16)
+        u.name         = payload["name"] || payload["email"]
+        u.password     = SecureRandom.hex(16)
+        u.confirmed_at = Time.zone.now
       end
     end
 
