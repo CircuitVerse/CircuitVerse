@@ -289,6 +289,20 @@ ActiveRecord::Schema[8.1].define(version: 2026_06_25_102515) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "lti_deployments", force: :cascade do |t|
+    t.string "platform_id", null: false
+    t.string "deployment_id", null: false
+    t.string "client_id", null: false
+    t.string "issuer", null: false
+    t.string "jwks_url", null: false
+    t.string "access_token_url", null: false
+    t.string "auth_login_url", null: false
+    t.text "platform_public_key"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["platform_id", "deployment_id"], name: "index_lti_deployments_unique", unique: true
+  end
+
   create_table "mailkick_opt_outs", force: :cascade do |t|
     t.string "email"
     t.string "user_type"

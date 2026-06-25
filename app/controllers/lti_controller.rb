@@ -18,8 +18,8 @@ class LtiController < ApplicationController
 
   def oidc_login
     deployment = LtiDeployment.find_by!(
-      platform_id: params[:iss],
-      client_id:   params[:client_id]
+      platform_id: params.expect(:iss),
+      client_id: params.expect(:client_id)
     )
 
     nonce = SecureRandom.hex(16)
@@ -30,7 +30,6 @@ class LtiController < ApplicationController
 
     redirect_to build_oidc_redirect(deployment, nonce, state),
                 allow_other_host: true
-
   rescue ActiveRecord::RecordNotFound
     render json: { error: "Unknown LTI platform" }, status: :not_found
   end
@@ -39,14 +38,13 @@ class LtiController < ApplicationController
     render json: { keys: [Lti::KeyManager.jwk] }
   end
 
-
   def tool_config
     render json: {
       title: "CircuitVerse",
       description: "Digital circuit simulator for education",
-      target_link_uri: request.base_url + "/lti/launch",
-      oidc_initiation_url: request.base_url + "/lti/login",
-      public_jwk_url: request.base_url + "/lti/jwks"
+      target_link_uri: "#{request.base_url}/lti/launch",
+      oidc_initiation_url: "#{request.base_url}/lti/login",
+      public_jwk_url: "#{request.base_url}/lti/jwks"
     }
   end
 
@@ -62,7 +60,7 @@ class LtiController < ApplicationController
       payload    = Lti::JwtValidator.validate!(
         params[:id_token],
         deployment: deployment,
-        nonce:      session[:lti_nonce]
+        nonce: session[:lti_nonce]
       )
 
       @user = find_or_create_user_from_lti13(payload)
@@ -73,7 +71,6 @@ class LtiController < ApplicationController
       session[:is_lti] = true
 
       redirect_to root_path
-
     rescue ActiveRecord::RecordNotFound
       render json: { error: "Unknown deployment" }, status: :not_found
     rescue SecurityError, JWT::DecodeError => e
@@ -128,7 +125,7 @@ class LtiController < ApplicationController
     def find_lti_13_deployment(token)
       payload, _header = JWT.decode(token, nil, false)
       LtiDeployment.find_by!(
-        issuer:    payload["iss"],
+        issuer: payload["iss"],
         client_id: Array(payload["aud"]).first
       )
     end
@@ -143,15 +140,15 @@ class LtiController < ApplicationController
     def build_oidc_redirect(deployment, nonce, state)
       uri = URI(deployment.auth_login_url)
       uri.query = URI.encode_www_form(
-        response_type:    "id_token",
-        response_mode:    "form_post",
-        scope:            "openid",
-        client_id:        deployment.client_id,
-        redirect_uri:     lti_launch_url,
-        login_hint:       params[:login_hint],
+        response_type: "id_token",
+        response_mode: "form_post",
+        scope: "openid",
+        client_id: deployment.client_id,
+        redirect_uri: lti_launch_url,
+        login_hint: params[:login_hint],
         lti_message_hint: params[:lti_message_hint],
-        nonce:            nonce,
-        state:            state
+        nonce: nonce,
+        state: state
       )
       uri.to_s
     end
@@ -180,9 +177,9 @@ class LtiController < ApplicationController
       return if @project.present?
 
       @project = @user.projects.create(
-        name:                  "#{@user.name}/#{@assignment.name}",
-        assignment_id:         @assignment.id,
-        project_access_type:   "Private",
+        name: "#{@user.name}/#{@assignment.name}",
+        assignment_id: @assignment.id,
+        project_access_type: "Private",
         lis_result_sourced_id: params[:lis_result_sourcedid]
       )
       @project.build_project_datum
@@ -191,6 +188,7 @@ class LtiController < ApplicationController
 
     def allow_iframe_lti
       return unless session[:is_lti]
+
       response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM #{session[:lms_domain]}"
     end
 end

@@ -10,14 +10,14 @@ describe LtiController, type: :request do
   def id_token(overrides = {})
     now = Time.current.to_i
     payload = {
-      "iss"   => deployment.issuer,
-      "aud"   => deployment.client_id,
-      "sub"   => SecureRandom.uuid,
+      "iss" => deployment.issuer,
+      "aud" => deployment.client_id,
+      "sub" => SecureRandom.uuid,
       "nonce" => "test-nonce",
-      "iat"   => now,
-      "exp"   => now + 3600,
+      "iat" => now,
+      "exp" => now + 3600,
       "email" => "student@example.com",
-      "name"  => "Test Student"
+      "name" => "Test Student"
     }.merge(overrides)
     JWT.encode(payload, private_key, "RS256")
   end
@@ -32,7 +32,7 @@ describe LtiController, type: :request do
     it "returns the tool public JWK set" do
       get lti_jwks_path
       expect(response).to have_http_status(:ok)
-      body = JSON.parse(response.body)
+      body = response.parsed_body
       expect(body["keys"]).to be_an(Array)
       expect(body["keys"].first["kty"]).to eq("RSA")
     end
@@ -42,7 +42,7 @@ describe LtiController, type: :request do
     it "returns the tool configuration JSON" do
       get lti_config_path
       expect(response).to have_http_status(:ok)
-      body = JSON.parse(response.body)
+      body = response.parsed_body
       expect(body["title"]).to eq("CircuitVerse")
       expect(body).to have_key("oidc_initiation_url")
       expect(body).to have_key("target_link_uri")
@@ -52,9 +52,9 @@ describe LtiController, type: :request do
   describe "POST /lti/login (OIDC initiation)" do
     let(:login_params) do
       {
-        iss:             deployment.issuer,
-        client_id:       deployment.client_id,
-        login_hint:      "hint_abc",
+        iss: deployment.issuer,
+        client_id: deployment.client_id,
+        login_hint: "hint_abc",
         target_link_uri: "http://www.example.com/lti/launch"
       }
     end
@@ -88,16 +88,16 @@ describe LtiController, type: :request do
       end
 
       it "creates the user when they do not exist in CircuitVerse" do
-        expect {
+        expect do
           post lti_launch_path, params: { id_token: id_token("email" => "newuser@example.com") }
-        }.to change(User, :count).by(1)
+        end.to change(User, :count).by(1)
       end
 
       it "reuses an existing CircuitVerse account matched by email" do
         existing = FactoryBot.create(:user, email: "existing@example.com")
-        expect {
+        expect do
           post lti_launch_path, params: { id_token: id_token("email" => existing.email) }
-        }.not_to change(User, :count)
+        end.not_to change(User, :count)
       end
 
       it "sets is_lti in the session" do
@@ -109,9 +109,9 @@ describe LtiController, type: :request do
     context "with state mismatch after OIDC login" do
       it "returns 401" do
         post lti_login_path, params: {
-          iss:             deployment.issuer,
-          client_id:       deployment.client_id,
-          login_hint:      "hint",
+          iss: deployment.issuer,
+          client_id: deployment.client_id,
+          login_hint: "hint",
           target_link_uri: "http://www.example.com/lti/launch"
         }
         post lti_launch_path, params: { id_token: id_token, state: "wrong-state" }
