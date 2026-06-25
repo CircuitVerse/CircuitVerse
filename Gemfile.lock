@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/instructure/canvas-lms
+  revision: 1c9f0bb8013ed69c4f2efe11fd483025469b7e6c
+  branch: master
+  glob: gems/lti-advantage/*.gemspec
+  specs:
+    lti-advantage (0.1.0)
+      activemodel (>= 5.1)
+      json-jwt (~> 1.5)
+
+GIT
   remote: https://github.com/CircuitVerse/disposable_email.git
   revision: 8201be7d13531a736488141863c23a53a1789030
   specs:
@@ -123,9 +133,9 @@ GEM
       device_detector (>= 1)
       safely_block (>= 0.4)
     ast (2.4.3)
-    auth-sanitizer (0.1.4)
-      version_gem (~> 1.1, >= 1.1.9)
-    avo (3.31.2)
+    auth-sanitizer (0.2.1)
+      version_gem (~> 1.1, >= 1.1.10)
+    avo (3.32.1)
       actionview (>= 6.1)
       active_link_to
       activerecord (>= 6.1)
@@ -140,7 +150,7 @@ GEM
       turbo_power (>= 0.6.0)
       view_component (>= 3.7.0)
       zeitwerk (>= 2.6.12)
-    avo-icons (0.1.4)
+    avo-icons (0.1.5)
       inline_svg
     aws-actionmailer-ses (1.2.0)
       actionmailer (>= 7.1.0)
@@ -228,7 +238,7 @@ GEM
       rails (>= 6.0)
       sprockets-rails
       will_paginate
-    concurrent-ruby (1.3.6)
+    concurrent-ruby (1.3.7)
     connection_pool (3.0.2)
     countries (5.7.2)
       unaccent (~> 0.3)
@@ -288,11 +298,11 @@ GEM
       railties (>= 6.1.0)
     faker (3.8.0)
       i18n (>= 1.8.11, < 2)
-    faraday (2.14.2)
+    faraday (2.14.3)
       faraday-net_http (>= 2.0, < 3.5)
       json
       logger
-    faraday-net_http (3.4.3)
+    faraday-net_http (3.4.4)
       net-http (~> 0.5)
     ffi (1.17.4-arm64-darwin)
     ffi (1.17.4-x64-mingw-ucrt)
@@ -356,7 +366,7 @@ GEM
     http-form_data (2.3.0)
     http-parser (1.2.3)
       ffi-compiler (>= 1.0, < 2.0)
-    i18n (1.14.8)
+    i18n (1.15.2)
       concurrent-ruby (~> 1.0)
     i18n-js (4.2.4)
       glob (>= 0.4.0)
@@ -366,10 +376,17 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     imagen (0.2.0)
       parser (>= 2.5, != 2.5.1.1)
-    ims-lti (1.2.9)
-      builder (>= 1.0, < 4.0)
-      oauth (>= 0.4.5)
-      rexml
+    aes_key_wrap (1.1.0)
+    bindata (2.5.1)
+    faraday-follow_redirects (0.5.0)
+      faraday (>= 1, < 3)
+    json-jwt (1.17.1)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      base64
+      bindata
+      faraday (~> 2.0)
+      faraday-follow_redirects
     inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -394,7 +411,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.19.7)
+    json (2.20.0)
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -495,34 +512,28 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
-    nokogiri (1.19.3-arm64-darwin)
+    nokogiri (1.19.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.19.3-x64-mingw-ucrt)
+    nokogiri (1.19.4-x64-mingw-ucrt)
       racc (~> 1.4)
-    nokogiri (1.19.3-x86_64-darwin)
+    nokogiri (1.19.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.19.3-x86_64-linux-gnu)
+    nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     noticed (1.6.3)
       http (>= 4.0.0)
       rails (>= 5.2.0)
-    oauth (1.1.0)
-      oauth-tty (~> 1.0, >= 1.0.1)
-      snaky_hash (~> 2.0)
-      version_gem (~> 1.1)
-    oauth-tty (1.0.5)
-      version_gem (~> 1.1, >= 1.1.1)
-    oauth2 (2.0.20)
-      auth-sanitizer (~> 0.1, >= 0.1.3)
+    oauth2 (2.0.22)
+      auth-sanitizer (~> 0.2, >= 0.2.1)
       faraday (>= 0.17.3, < 4.0)
       jwt (>= 1.0, < 4.0)
       logger (~> 1.2)
       multi_xml (~> 0.5)
       rack (>= 1.2, < 4)
-      snaky_hash (~> 2.0, >= 2.0.4)
-      version_gem (~> 1.1, >= 1.1.9)
+      snaky_hash (~> 2.0, >= 2.0.5)
+      version_gem (~> 1.1, >= 1.1.11)
     observer (0.1.2)
-    oj (3.17.1)
+    oj (3.17.3)
       bigdecimal (>= 3.0)
       ostruct (>= 0.2)
     omniauth (2.1.4)
@@ -661,7 +672,7 @@ GEM
       premailer (~> 1.7, >= 1.7.9)
     prettyprint (0.2.0)
     prism (1.9.0)
-    prop_initializer (0.3.0)
+    prop_initializer (0.4.0)
       zeitwerk (>= 2.6.18)
     pry (0.16.0)
       coderay (~> 1.1)
@@ -669,7 +680,7 @@ GEM
       reline (>= 0.6.0)
     pry-rails (0.3.11)
       pry (>= 0.13.0)
-    psych (5.3.1)
+    psych (5.4.0)
       date
       stringio
     public_suffix (7.0.5)
@@ -822,6 +833,13 @@ GEM
       rubocop (~> 1.81)
     ruby-graphviz (1.2.5)
       rexml
+    ruby-lsp (0.26.9)
+      language_server-protocol (~> 3.17.0)
+      prism (>= 1.2, < 2.0)
+      rbs (>= 3, < 5)
+    ruby-lsp-refactor (0.1.2)
+      prism (>= 0.29)
+      ruby-lsp (>= 0.17, < 2)
     ruby-progressbar (1.13.0)
     ruby-saml (1.18.1)
       nokogiri (>= 1.13.10)
@@ -873,7 +891,7 @@ GEM
     sitemap_generator (6.3.0)
       builder (~> 3.0)
     smart_properties (1.17.0)
-    snaky_hash (2.0.4)
+    snaky_hash (2.0.6)
       hashie (>= 0.1.0, < 6)
       version_gem (>= 1.1.8, < 3)
     solargraph (0.59.1)
@@ -981,7 +999,7 @@ GEM
     unicode-emoji (4.2.0)
     uri (1.1.1)
     useragent (0.16.11)
-    version_gem (1.1.9)
+    version_gem (1.1.11)
     view_component (4.11.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
@@ -1049,7 +1067,7 @@ DEPENDENCIES
   carrierwave (~> 3.1)
   coffee-rails (~> 5.0)
   commontator (~> 7.0.0)
-  concurrent-ruby (= 1.3.6)
+  concurrent-ruby (>= 1.3.7)
   country_select (~> 8.0)
   coveralls_reborn (~> 0.29.0)
   database_consistency
@@ -1072,7 +1090,8 @@ DEPENDENCIES
   http (~> 4.4)
   i18n-js
   image_processing (~> 1.12)
-  ims-lti (~> 1.2, < 2.0)
+  json-jwt
+  lti-advantage!
   inline_svg
   invisible_captcha (~> 2.0)
   jbuilder (~> 2.15)
@@ -1142,6 +1161,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  ruby-lsp-refactor (~> 0.1.2)
   sass-rails (~> 6.0)
   sassc-rails
   select2-rails
@@ -1175,4 +1195,4 @@ DEPENDENCIES
   yosys2digitaljs!
 
 BUNDLED WITH
-   2.5.3
+  4.0.10
