@@ -61,13 +61,15 @@ class AssignmentsController < ApplicationController
   end
 
   # Close assignment
+    # Close assignment
   def close
     authorize @assignment
     @assignment.status = "closed"
     @assignment.deadline = Time.zone.now
     @assignment.save
 
-    redirect_to group_assignment_path(@group, @assignment)
+    redirect_to group_assignment_path(@group, @assignment),
+                notice: "Assignment closed successfully."
   end
 
   # POST /assignments
