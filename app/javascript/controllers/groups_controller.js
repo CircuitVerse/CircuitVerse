@@ -4,12 +4,12 @@ export default class extends Controller {
     connect() {
         $('#promote-member-modal').on('show.bs.modal', (e) => {
             const groupmember = $(e.relatedTarget).data('currentgroupmember');
-            $(e.currentTarget).find('#groups-member-promote-button').parent().attr('action',
+            $('#promote-member-form').attr('action',
                 `/group_members/${groupmember.toString()}`);
         });
         $('#demote-member-modal').on('show.bs.modal', (e) => {
             const groupmember = $(e.relatedTarget).data('currentgroupmember');
-            $(e.currentTarget).find('#groups-member-demote-button').parent().attr('action',
+            $('#demote-member-form').attr('action',
                 `/group_members/${groupmember.toString()}`);
         });
     }
