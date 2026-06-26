@@ -10,9 +10,9 @@ class OrganizationsController < ApplicationController
   # GET /organizations
   def index
     @organizations = if params[:explore].present?
-      Organization.where(private: false).paginate(page: params[:page])
+      Organization.where(private: false).order(created_at: :desc).paginate(page: params[:page])
     else
-      current_user.organizations.paginate(page: params[:page])
+      current_user.organizations.order(created_at: :desc).paginate(page: params[:page])
     end
   end
 

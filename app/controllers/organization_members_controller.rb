@@ -68,7 +68,7 @@ class OrganizationMembersController < ApplicationController
   private
 
     def set_organization
-      @organization = Organization.find(params.expect(:organization_id))
+      @organization = Organization.friendly.find(params.expect(:organization_id))
     end
 
     def set_organization_member
