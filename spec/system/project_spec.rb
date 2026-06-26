@@ -142,14 +142,14 @@ describe "Project", type: :system do
     end
 
     it "add a collaborator" do
-      email = Faker::Internet.email
+      new_collaborator = FactoryBot.create(:user)
       visit user_project_path(private_project.author, private_project)
       click_on "+ Add a Collaborator"
       project_input_field_id = "#project_email_input_collaborator"
-      fill_in_input project_input_field_id, with: email
+      fill_in_input project_input_field_id, with: new_collaborator.email
       fill_in_input project_input_field_id, with: :enter
       click_on "Add Collaborators"
-      expect(page).to have_text("1 user(s) will be invited")
+      expect(page).to have_text("1 collaborator(s) added.")
     end
   end
 
