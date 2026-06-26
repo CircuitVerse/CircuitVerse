@@ -54,7 +54,7 @@
               </div>
             </div>
           </div>
-          <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name)) %>
+          <%= render(AuthComponents::SocialLoginComponent.new(devise_mapping: devise_mapping, resource_name: resource_name, controller_name: controller_name)) %>
         <% end %>
       </div>
     </div>
