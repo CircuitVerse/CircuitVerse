@@ -152,3 +152,19 @@ en:
       no_waiver:
         main_heading: "15. No Waiver"
         description1: "No waiver of any term of these Terms of Use shall be deemed a further or continuing waiver of such term or any other term, and the CircuitVerse Team's failure to assert any right or provision under these Terms of Use shall not constitute a waiver of such right or provision."
+      
+    user_mailer:
+      welcome_email:
+        heading: "Welcome to CircuitVerse%{name}"
+        intro: "Thanks for signing up! With CircuitVerse you can explore simple gates to complex sequential circuits, plot timing diagrams, automatic circuit generation, explore standard ICs, design digital logic circuits, and much more – for free!"
+        launch_button: "Launch Simulator →"
+        features_heading: "Features"
+        features_text: "Design circuits quickly and easily with a modern and intuitive user interface with drag-and-drop, copy/paste, zoom, and more."
+        design_heading: "Design"
+        design_text: "Don't know how to design? CircuitVerse is easy to use for beginners. This documentation will help you get started quickly."
+        learn_heading: "Learn"
+        learn_text: "Want to know more about digital circuits? This interactive book gives you a complete understanding of how digital circuits work."
+        footer_join_us: "Join Us"
+        footer_copyright: "Copyright © %{year} CircuitVerse. All rights reserved."
+        footer_support: "For any issues, reach out to us at %{email}"
+        footer_unsubscribe: "Unsubscribe from email notifications"
