@@ -67,18 +67,26 @@ describe AssignmentsController, type: :request do
       sign_in @member
     end
 
-    context "when assignment is closed or project already exists" do
+    context "when assignment is closed" do
       before do
         @closed_assignment = create(:assignment, group: @group, status: "closed")
-        create(:project, assignment: @assignment, author: @member)
       end
 
       it "restricts access" do
         get assignment_start_path(@group, @closed_assignment)
         expect(response.body).to include("You are not authorized to do the requested operation")
+      end
+    end
 
+    context "when project already exists" do
+      before do
+        create(:project, assignment: @assignment, author: @member)
+      end
+
+      it "redirects to existing project" do
         get assignment_start_path(@group, @assignment)
-        expect(response.body).to include("You are not authorized to do the requested operation")
+        expect(response.status).to eq(302)
+        expect(flash[:notice]).to match(/existing assignment project/i)
       end
     end
 
