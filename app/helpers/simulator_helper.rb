@@ -32,11 +32,11 @@ module SimulatorHelper
   end
 
   def sanitize_data(project, data)
-    return data if project&.assignment_id.blank? || data.blank?
+    return (data.is_a?(String) ? data : data.to_json) if project&.assignment_id.blank? || data.blank?
 
-    data = Oj.safe_load(data)
+    data_hash = data.is_a?(String) ? Oj.safe_load(data) : data
     saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
-    scopes = data["scopes"] || []
+    scopes = data_hash["scopes"] || []
 
     parsed_scopes = scopes.each_with_object([]) do |scope, new_scopes|
       restricted_elements_used = []
@@ -49,7 +49,7 @@ module SimulatorHelper
       new_scopes.push(scope)
     end
 
-    data["scopes"] = parsed_scopes
-    data.to_json
+    data_hash["scopes"] = parsed_scopes
+    data_hash.to_json
   end
 end
