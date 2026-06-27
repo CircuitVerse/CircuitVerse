@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class AssignmentMailer < ApplicationMailer
+  # @param [User] user
+  # @param [Assignment] assignment
+  # @return [void]
   def new_assignment_email(user, assignment)
     return if user.opted_out?
 
@@ -10,6 +13,9 @@ class AssignmentMailer < ApplicationMailer
          subject: "New Assignment in #{Group.find_by(id: @assignment.group_id).name}")
   end
 
+  # @param [User] user
+  # @param [Assignment] assignment
+  # @return [void]
   def update_assignment_email(user, assignment)
     return if user.opted_out?
 
