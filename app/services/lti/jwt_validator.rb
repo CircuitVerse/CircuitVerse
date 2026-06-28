@@ -19,7 +19,8 @@ module Lti
           verify_aud: true
         )
 
-        raise SecurityError, "Nonce mismatch" if nonce.present? && payload["nonce"] != nonce
+        raise SecurityError, "Missing nonce" if nonce.blank?
+        raise SecurityError, "Nonce mismatch" if payload["nonce"] != nonce
         raise ArgumentError, "Missing required claims" \
           unless REQUIRED_CLAIMS.all? { |c| payload.key?(c) }
 
