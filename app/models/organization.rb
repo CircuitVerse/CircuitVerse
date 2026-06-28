@@ -40,7 +40,12 @@ class Organization < ApplicationRecord
     def links_must_be_valid_http_urls
       return if links.blank?
 
-      invalid = links.reject { |link| link.to_s.match?(%r{\Ahttps?://}i) }
+      invalid = links.reject do |link|
+        uri = URI.parse(link.to_s)
+        uri.is_a?(URI::HTTP) && uri.host.present?
+      rescue URI::InvalidURIError
+        false
+      end
       errors.add(:links, "must be valid http or https URLs") if invalid.any?
     end
 
