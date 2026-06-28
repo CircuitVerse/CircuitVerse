@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class LtiController < ApplicationController
+  DEPLOYMENT_ID_CLAIM = "https://purl.imsglobal.org/spec/lti/claim/deployment_id"
+
   skip_before_action :verify_authenticity_token, only: %i[launch oidc_login]
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
@@ -51,7 +53,7 @@ class LtiController < ApplicationController
   private
 
     def handle_lti_13_launch
-      if session[:lti_state].present? && params[:state] != session[:lti_state]
+      if session[:lti_state].blank? || params[:state] != session[:lti_state]
         render json: { error: "State mismatch" }, status: :unauthorized
         return
       end
@@ -126,7 +128,8 @@ class LtiController < ApplicationController
       payload, _header = JWT.decode(token, nil, false)
       LtiDeployment.find_by!(
         issuer: payload["iss"],
-        client_id: Array(payload["aud"]).first
+        client_id: Array(payload["aud"]).first,
+        deployment_id: payload[DEPLOYMENT_ID_CLAIM]
       )
     end
 
