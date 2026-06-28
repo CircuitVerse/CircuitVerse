@@ -366,6 +366,10 @@ GEM
       ruby-vips (>= 2.0.17, < 3)
     imagen (0.2.0)
       parser (>= 2.5, != 2.5.1.1)
+    ims-lti (1.2.9)
+      builder (>= 1.0, < 4.0)
+      oauth (>= 0.4.5)
+      rexml
     aes_key_wrap (1.1.0)
     bindata (2.5.1)
     faraday-follow_redirects (0.5.0)
@@ -1091,6 +1095,7 @@ DEPENDENCIES
   http (~> 4.4)
   i18n-js
   image_processing (~> 1.12)
+  ims-lti (~> 1.2, < 2.0)
   json-jwt
   inline_svg
   invisible_captcha (~> 2.0)
