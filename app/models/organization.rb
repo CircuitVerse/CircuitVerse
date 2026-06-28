@@ -19,6 +19,7 @@ class Organization < ApplicationRecord
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
   validates :location, length: { maximum: 100 }, allow_blank: true
   validate :links_count_within_limit
+  validate :links_must_be_valid_http_urls
 
   before_destroy :purge_logo
 
@@ -31,13 +32,16 @@ class Organization < ApplicationRecord
     def sanitize_links
       return if links.blank?
 
-      self.links = links.compact_blank.map(&:strip).filter_map do |link|
-        if link.match?(%r{\Ahttps?://}i)
-          link
-        elsif !link.match?(/\A[a-z]+:/i)
-          "https://#{link}"
-        end
+      self.links = links.compact_blank.map(&:strip).map do |link|
+        link.match?(/\A[a-z]+:/i) ? link : "https://#{link}"
       end
+    end
+
+    def links_must_be_valid_http_urls
+      return if links.blank?
+
+      invalid = links.reject { |link| link.to_s.match?(%r{\Ahttps?://}i) }
+      errors.add(:links, "must be valid http or https URLs") if invalid.any?
     end
 
     def links_count_within_limit

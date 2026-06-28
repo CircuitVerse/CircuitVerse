@@ -13,7 +13,7 @@ module OrganizationsHelper
 
   # Returns the FontAwesome class based on the URL domain
   def icon_for_url(url)
-    return "fas fa-link" if url.blank? || !url.match?(/\Ahttps?:\/\//i)
+    return "fas fa-link" if url.blank? || !url.match?(%r{\Ahttps?://}i)
 
     domain = url.downcase
     case domain
@@ -31,7 +31,7 @@ module OrganizationsHelper
 
   # Cleans up the URL for display (removes https:// and trailing slashes)
   def format_url_text(url)
-    return "" if url.blank? || !url.match?(/\Ahttps?:\/\//i)
+    return "" if url.blank? || !url.match?(%r{\Ahttps?://}i)
 
     url.sub(%r{^https?://(www\.)?}, "").chomp("/")
   end
