@@ -10,6 +10,7 @@ module OrganizationsHelper
       image_path("/images/thumb/Default.jpg")
     end
   end
+
   # Returns the FontAwesome class based on the URL domain
   def icon_for_url(url)
     return "fas fa-link" if url.blank?
@@ -31,7 +32,7 @@ module OrganizationsHelper
   # Cleans up the URL for display (removes https:// and trailing slashes)
   def format_url_text(url)
     return "" if url.blank?
-    
+
     url.sub(%r{^https?://(www\.)?}, "").chomp("/")
   end
 end

@@ -26,9 +26,7 @@ class OrganizationsController < ApplicationController
       @members = @members.where(role: params[:role])
     end
 
-    if params[:q].present?
-      @members = @members.where("users.name ILIKE ?", "%#{params[:q]}%")
-    end
+    @members = @members.where("users.name ILIKE ?", "%#{params[:q]}%") if params[:q].present?
 
     @members = @members.order(role: :asc, "users.name" => :asc).paginate(page: params[:members_page], per_page: 10)
   end

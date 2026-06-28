@@ -339,21 +339,37 @@
     }
 
     function updateLinkIcon(input) {
-      const url = input.value.toLowerCase();
+      const urlString = input.value.trim();
       const icon = input.closest(".organizations-link-item").querySelector(".organizations-input-icon");
       
       if (!icon) return;
-      
       icon.className = "organizations-input-icon"; // reset base class
       
-      if (url.includes("github.com")) icon.classList.add("fab", "fa-github");
-      else if (url.includes("instagram.com")) icon.classList.add("fab", "fa-instagram");
-      else if (url.includes("twitter.com") || url.includes("x.com")) icon.classList.add("custom-icon-x");
-      else if (url.includes("linkedin.com")) icon.classList.add("fab", "fa-linkedin");
-      else if (url.includes("youtube.com") || url.includes("youtu.be")) icon.classList.add("fab", "fa-youtube");
-      else if (url.includes("discord.com") || url.includes("discord.gg")) icon.classList.add("fab", "fa-discord");
-      else if (url.includes("facebook.com")) icon.classList.add("fab", "fa-facebook");
-      else if (url.includes("slack.com")) icon.classList.add("fab", "fa-slack");
+      if (!urlString) {
+        icon.classList.add("fas", "fa-link");
+        return;
+      }
+      
+      let hostname = "";
+      try {
+        // Prefix with http:// if missing so URL parser doesn't throw on valid domains
+        const parsedUrl = new URL(urlString.startsWith('http') ? urlString : 'https://' + urlString);
+        hostname = parsedUrl.hostname.toLowerCase();
+      } catch (e) {
+        icon.classList.add("fas", "fa-link");
+        return;
+      }
+      
+      const isDomain = (host, domain) => host === domain || host.endsWith('.' + domain);
+      
+      if (isDomain(hostname, "github.com")) icon.classList.add("fab", "fa-github");
+      else if (isDomain(hostname, "instagram.com")) icon.classList.add("fab", "fa-instagram");
+      else if (isDomain(hostname, "twitter.com") || isDomain(hostname, "x.com")) icon.classList.add("custom-icon-x");
+      else if (isDomain(hostname, "linkedin.com")) icon.classList.add("fab", "fa-linkedin");
+      else if (isDomain(hostname, "youtube.com") || isDomain(hostname, "youtu.be")) icon.classList.add("fab", "fa-youtube");
+      else if (isDomain(hostname, "discord.com") || isDomain(hostname, "discord.gg")) icon.classList.add("fab", "fa-discord");
+      else if (isDomain(hostname, "facebook.com")) icon.classList.add("fab", "fa-facebook");
+      else if (isDomain(hostname, "slack.com")) icon.classList.add("fab", "fa-slack");
       else icon.classList.add("fas", "fa-link");
     }
 
