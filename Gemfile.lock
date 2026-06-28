@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/instructure/canvas-lms
-  revision: 1c9f0bb8013ed69c4f2efe11fd483025469b7e6c
-  branch: master
-  glob: gems/lti-advantage/*.gemspec
-  specs:
-    lti-advantage (0.1.0)
-      activemodel (>= 5.1)
-      json-jwt (~> 1.5)
-
-GIT
   remote: https://github.com/CircuitVerse/disposable_email.git
   revision: 8201be7d13531a736488141863c23a53a1789030
   specs:
@@ -1102,7 +1092,6 @@ DEPENDENCIES
   i18n-js
   image_processing (~> 1.12)
   json-jwt
-  lti-advantage!
   inline_svg
   invisible_captcha (~> 2.0)
   jbuilder (~> 2.15)
