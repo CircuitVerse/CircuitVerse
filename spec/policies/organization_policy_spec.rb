@@ -18,6 +18,7 @@ describe OrganizationPolicy do
     it { is_expected.to permit(:show_access) }
     it { is_expected.to permit(:admin_access) }
     it { is_expected.to permit(:create_group) }
+    it { is_expected.to permit(:destroy) }
   end
 
   context "when the user is an org admin" do
@@ -27,6 +28,7 @@ describe OrganizationPolicy do
     it { is_expected.to permit(:show_access) }
     it { is_expected.to permit(:admin_access) }
     it { is_expected.to permit(:create_group) }
+    it { is_expected.to permit(:destroy) }
   end
 
   context "when the user is a mentor" do
@@ -42,6 +44,7 @@ describe OrganizationPolicy do
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.to permit(:create_group) }
     it { is_expected.to permit(:leave) }
+    it { is_expected.not_to permit(:destroy) }
 
     context "when the mentor owns a group in the organization" do
       before do
@@ -65,6 +68,7 @@ describe OrganizationPolicy do
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.not_to permit(:create_group) }
     it { is_expected.to permit(:leave) }
+    it { is_expected.not_to permit(:destroy) }
   end
 
   context "when the user is not a member" do
@@ -74,6 +78,7 @@ describe OrganizationPolicy do
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.not_to permit(:create_group) }
     it { is_expected.not_to permit(:leave) }
+    it { is_expected.not_to permit(:destroy) }
 
     context "when the organization is public" do
       before { @organization.update!(private: false) }

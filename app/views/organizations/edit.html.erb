@@ -1,0 +1,503 @@
+<% content_for :title, "Edit Organization" %>
+
+<div class="organizations-page-wrapper">
+
+  <%# Back link + Page header %>
+  <div class="organizations-page-header">
+    <%= link_to organization_path(@organization), class: "organizations-back-link" do %>
+      <i class="fas fa-arrow-left"></i>
+      <%= t("back") %>
+    <% end %>
+    <h1 class="organizations-page-title">Edit Organization</h1>
+    <p class="organizations-page-subtitle">Update your organization's profile and settings.</p>
+  </div>
+
+  <%# Main card %>
+  <div class="organizations-form-card">
+    <%= form_with(model: @organization, local: true,
+                  html: { enctype: "multipart/form-data", id: "edit-organization-form" }) do |form| %>
+
+      <%# Validation errors banner %>
+      <% if @organization.errors.any? %>
+        <div class="organizations-error-banner" role="alert">
+          <i class="fas fa-exclamation-circle"></i>
+          <ul class="organizations-error-list">
+            <% @organization.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <%# Section heading %>
+      <div class="organizations-form-section-header">
+        <h2 class="organizations-form-section-title">Organization Details</h2>
+        <p class="organizations-form-section-subtitle">Basic information about your organization.</p>
+      </div>
+
+      <%# Organization Name %>
+      <div class="organizations-field">
+        <label class="organizations-field-label" for="organization_name">
+          <%= t("organizations.new.name_label") %>
+          <span class="organizations-required-asterisk" aria-hidden="true">*</span>
+        </label>
+        <p class="organizations-field-hint"><%= t("organizations.new.name_hint") %></p>
+        <div class="organizations-input-wrapper">
+          <i class="fas fa-building organizations-input-icon"></i>
+          <%= form.text_field :name,
+              id: "organization_name",
+              class: "organizations-text-input organizations-text-input--with-icon",
+              placeholder: t("organizations.new.name_placeholder"),
+              required: true,
+              maxlength: 50 %>
+        </div>
+        <div style="text-align: right; margin-top: 6px;">
+          <span id="org-name-counter" style="font-size: 12px; color: #6b7280; font-weight: 500;">
+            50 characters remaining
+          </span>
+        </div>
+      </div>
+
+      <%# Organization URL / Slug Preview %>
+      <div class="organizations-field">
+        <label class="organizations-field-label">
+          Organization URL
+        </label>
+        <div class="organizations-url-preview" id="org-slug-preview-box" style="display: flex; align-items: center; gap: 4px; padding: 10px 14px; background-color: #f9fafb; border: 1px solid #e5e7eb; border-radius: 6px; color: #6b7280; margin-top: 8px; flex-wrap: wrap;">
+          <span>circuitverse.org/organizations/</span><span id="organization-slug-preview" style="color: <%= @organization.slug.present? ? '#111827' : '#9ca3af' %>;"><%= @organization.slug.presence || 'your-org-name' %></span>
+          <span id="org-slug-status" style="display: none; font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 12px;"></span>
+        </div>
+        <p id="org-slug-hint" class="organizations-field-hint" style="margin-top: 6px; display: none;"></p>
+      </div>
+
+      <%# Description %>
+      <div class="organizations-field">
+        <%= form.label :description, class: "organizations-field-label" do %>
+          <%= t("organizations.new.description_label") %>
+        <% end %>
+        <p class="organizations-field-hint"><%= t("organizations.new.description_hint") %></p>
+        
+        <%= form.text_area :description,
+            class: "organizations-textarea",
+            id: "org-description-input",
+            maxlength: 160,
+            rows: 3,
+            placeholder: t("organizations.new.description_placeholder") %>
+            
+        <div style="text-align: right; margin-top: 6px;">
+          <span id="org-description-counter" style="font-size: 12px; color: #6b7280; font-weight: 500;">
+            160 characters remaining
+          </span>
+        </div>
+      </div>
+
+      <%# Location %>
+      <div class="organizations-field">
+        <label class="organizations-field-label" for="organization_location">
+          Location
+        </label>
+        <p class="organizations-field-hint">Where is your organization based?</p>
+        <div class="organizations-input-wrapper">
+          <i class="fas fa-map-marker-alt organizations-input-icon"></i>
+          <%= form.text_field :location,
+              id: "organization_location",
+              class: "organizations-text-input organizations-text-input--with-icon",
+              placeholder: "e.g. San Francisco, CA",
+              maxlength: 100 %>
+        </div>
+      </div>
+
+      <%# Visibility %>
+      <div class="organizations-field">
+        <%= form.label :private, t("organizations.new.visibility_label"), class: "organizations-field-label" %>
+        <p class="organizations-field-hint"><%= t("organizations.new.visibility_hint") %></p>
+        <div class="organizations-select-wrapper">
+          <%= form.select :private,
+              [
+                [t("organizations.new.visibility_private"), true],
+                [t("organizations.new.visibility_public"), false]
+              ],
+              {},
+              { id: "organization_private", class: "organizations-select" } %>
+        </div>
+      </div>
+
+      <%# External Links %>
+      <div class="organizations-field">
+        <label class="organizations-field-label"><%= t("organizations.new.links_label") %></label>
+        <p class="organizations-field-hint"><%= t("organizations.new.links_hint") %></p>
+        
+        <div id="organizations-links-container">
+          <% if @organization.respond_to?(:links) && @organization.links.present? && @organization.links.is_a?(Array) && @organization.links.reject(&:blank?).any? %>
+            <% @organization.links.reject(&:blank?).each do |link| %>
+              <div class="organizations-input-wrapper organizations-link-item">
+                <i class="fas fa-link organizations-input-icon"></i>
+                <input type="url" name="organization[links][]" class="organizations-text-input organizations-text-input--with-icon" value="<%= link %>" placeholder="<%= t('organizations.new.links_placeholder') %>">
+                <button type="button" class="organizations-remove-link-btn" title="Remove link" style="display: none;">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            <% end %>
+          <% else %>
+            <div class="organizations-input-wrapper organizations-link-item">
+              <i class="fas fa-link organizations-input-icon"></i>
+              <input type="url" name="organization[links][]" class="organizations-text-input organizations-text-input--with-icon" placeholder="<%= t('organizations.new.links_placeholder') %>">
+              <button type="button" class="organizations-remove-link-btn" title="Remove link" style="display: none;">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+          <% end %>
+        </div>
+        
+        <button type="button" id="organizations-add-link-btn" class="organizations-add-link-btn">
+          <%= t("organizations.new.add_link") %>
+        </button>
+      </div>
+
+      <%# Logo Upload %>
+      <div class="organizations-field">
+        <%= form.label :logo, t("organizations.new.logo_label"), class: "organizations-field-label" %>
+        <p class="organizations-field-hint"><%= t("organizations.new.logo_hint") %></p>
+
+        <% if @organization.logo.attached? %>
+          <div style="margin-bottom: 12px; display: flex; align-items: center; gap: 12px; padding: 12px; border: 1px solid #e5e7eb; border-radius: 8px; background: #f9fafb;">
+            <%= image_tag @organization.logo, style: "width: 48px; height: 48px; border-radius: 8px; object-fit: cover; border: 1px solid #d1d5db;" %>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 14px; font-weight: 600; color: #374151;">Current Logo</span>
+              <span style="font-size: 12px; color: #6b7280;">Upload a new image below to replace</span>
+            </div>
+          </div>
+        <% end %>
+
+        <div class="organizations-upload-zone"
+             id="organization-upload-zone"
+             role="button"
+             tabindex="0"
+             onclick="document.getElementById('organization_logo').click()"
+             onkeydown="if(event.key==='Enter')this.click()">
+          <div class="organizations-upload-zone__content">
+            <i class="fas fa-cloud-upload-alt organizations-upload-zone__icon"></i>
+            <p class="organizations-upload-zone__text">
+              <span class="organizations-upload-zone__link"><%= t("organizations.new.upload_click") %></span>
+              <%= t("organizations.new.upload_drag") %>
+            </p>
+            <p class="organizations-upload-zone__hint"><%= t("organizations.new.upload_hint") %></p>
+          </div>
+          <%= form.file_field :logo,
+              id: "organization_logo",
+              class: "organizations-upload-zone__input",
+              accept: "image/png,image/jpeg,image/svg+xml" %>
+        </div>
+
+        <%# Show filename after file is selected %>
+        <p class="organizations-upload-filename" id="organization-upload-filename"></p>
+      </div>
+
+      <%# Form actions %>
+      <div class="organizations-form-actions">
+        <%= link_to t("cancel"), organization_path(@organization), class: "btn organizations-btn-secondary" %>
+        <%= form.submit "Update Organization",
+            id: "organization-submit-btn",
+            class: "btn organizations-btn-primary" %>
+      </div>
+
+    <% end %>
+  </div>
+
+  <%# Danger Zone - Delete Organization %>
+  <% if policy(@organization).destroy? %>
+    <div class="organizations-form-card" style="margin-top: 24px; border-color: #ff5959; background-color: #fffafa;">
+      <div class="organizations-form-section-header" style="border-bottom-color: #fca5a5;">
+        <h2 class="organizations-form-section-title" style="color: #ff5959;">Danger Zone</h2>
+        <p class="organizations-form-section-subtitle">Irreversible actions for this organization.</p>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <div>
+          <strong style="color: #111; font-size: 15px;">Delete this organization</strong>
+          <p style="color: #6b7280; font-size: 13px; margin: 4px 0 0 0; max-width: 400px;">
+            Once you delete an organization, all its member associations will be permanently removed. Any groups inside this organization will not be deleted, but will become standard standalone groups. There is no going back.
+          </p>
+        </div>
+        <button type="button" class="btn org-btn-danger-outline" data-bs-toggle="modal" data-bs-target="#deleteOrgModal">
+          <i class="fas fa-trash-alt"></i> <%= t("organizations.show.delete_btn") %>
+        </button>
+      </div>
+    </div>
+  <% end %>
+
+</div>
+
+<%# ── Delete Organization Modal (Bootstrap) ───────────────────────── %>
+<div class="modal fade" id="deleteOrgModal" tabindex="-1" aria-labelledby="deleteOrgModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius: 12px; overflow: hidden; border: none; box-shadow: 0 10px 25px rgba(0,0,0,0.15);">
+      <div class="modal-header" style="background-color: #fee2e2; border-bottom: 1px solid #fca5a5; padding: 16px 24px;">
+        <h5 class="modal-title" id="deleteOrgModalLabel" style="color: #b91c1c; font-weight: 700; font-size: 16px;">
+          <i class="fas fa-exclamation-triangle" style="margin-right: 8px;"></i> Delete Organization
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" style="padding: 24px;">
+        <div style="background-color: #fffafa; border-left: 4px solid #ef4444; padding: 12px 16px; margin-bottom: 20px; font-size: 14px; color: #374151;">
+          This action <strong>cannot</strong> be undone. This will permanently delete the <strong><%= @organization.name %></strong> organization. Any groups inside this organization will not be deleted, but will become standard standalone groups.
+        </div>
+        
+        <p style="font-size: 14px; color: #4b5563; margin-bottom: 8px; font-weight: 500;">
+          Please type <strong><%= @organization.name %></strong> to confirm.
+        </p>
+        <input type="text" id="deleteOrgConfirmInput" class="organizations-text-input" autocomplete="off" style="width: 100%; margin-bottom: 24px;">
+        
+        <%= form_with url: organization_path(@organization), method: :delete, local: true do |f| %>
+          <button type="submit" id="deleteOrgSubmitBtn" class="btn" style="width: 100%; background-color: #ef4444; color: white; font-weight: 500; font-size: 15px; padding: 10px;" disabled>
+            I understand the consequences, delete this organization
+          </button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# JS: update filename label + drag-and-drop highlight + dynamic links + modal validation %>
+<script>
+  (function () {
+    // --- Delete Organization Modal Logic ---
+    const deleteInput = document.getElementById('deleteOrgConfirmInput');
+    const deleteBtn = document.getElementById('deleteOrgSubmitBtn');
+    const orgName = "<%= j @organization.name %>";
+
+    if (deleteInput && deleteBtn) {
+      deleteInput.addEventListener('input', function() {
+        if (this.value === orgName) {
+          deleteBtn.disabled = false;
+          deleteBtn.style.opacity = '1';
+        } else {
+          deleteBtn.disabled = true;
+          deleteBtn.style.opacity = '0.5';
+        }
+      });
+      
+      const modalEl = document.getElementById('deleteOrgModal');
+      if (modalEl) {
+        modalEl.addEventListener('show.bs.modal', function () {
+          deleteInput.value = '';
+          deleteBtn.disabled = true;
+          deleteBtn.style.opacity = '0.5';
+        });
+      }
+    }
+
+    // --- File Upload Logic ---
+    const zone     = document.getElementById("organization-upload-zone");
+    const input    = document.getElementById("organization_logo");
+    const label    = document.getElementById("organization-upload-filename");
+
+    input.addEventListener("change", function () {
+      if (this.files && this.files[0]) {
+        label.textContent = this.files[0].name;
+      }
+    });
+
+    ["dragover", "dragenter"].forEach(function (evt) {
+      zone.addEventListener(evt, function (e) {
+        e.preventDefault();
+        zone.classList.add("organizations-upload-zone--active");
+      });
+    });
+
+    ["dragleave", "drop"].forEach(function (evt) {
+      zone.addEventListener(evt, function () {
+        zone.classList.remove("organizations-upload-zone--active");
+      });
+    });
+
+    zone.addEventListener("drop", function (e) {
+      e.preventDefault();
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        input.files = e.dataTransfer.files;
+        label.textContent = e.dataTransfer.files[0].name;
+      }
+    });
+
+    // --- Dynamic Links Logic ---
+    const linksContainer = document.getElementById("organizations-links-container");
+    const addLinkBtn     = document.getElementById("organizations-add-link-btn");
+    const MAX_LINKS      = 5;
+
+    function updateRemoveButtons() {
+      const items = linksContainer.querySelectorAll(".organizations-link-item");
+      items.forEach((item, index) => {
+        const btn = item.querySelector(".organizations-remove-link-btn");
+        // Show remove button if there is more than 1 item
+        if (items.length > 1) {
+          btn.style.display = "block";
+        } else {
+          btn.style.display = "none";
+        }
+      });
+      // Hide add button if max reached
+      addLinkBtn.style.display = items.length >= MAX_LINKS ? "none" : "inline-block";
+    }
+
+    function updateLinkIcon(input) {
+      const url = input.value.toLowerCase();
+      const icon = input.closest(".organizations-link-item").querySelector(".organizations-input-icon");
+      
+      if (!icon) return;
+      
+      icon.className = "organizations-input-icon"; // reset base class
+      
+      if (url.includes("github.com")) icon.classList.add("fab", "fa-github");
+      else if (url.includes("instagram.com")) icon.classList.add("fab", "fa-instagram");
+      else if (url.includes("twitter.com") || url.includes("x.com")) icon.classList.add("custom-icon-x");
+      else if (url.includes("linkedin.com")) icon.classList.add("fab", "fa-linkedin");
+      else if (url.includes("youtube.com") || url.includes("youtu.be")) icon.classList.add("fab", "fa-youtube");
+      else if (url.includes("discord.com") || url.includes("discord.gg")) icon.classList.add("fab", "fa-discord");
+      else if (url.includes("facebook.com")) icon.classList.add("fab", "fa-facebook");
+      else if (url.includes("slack.com")) icon.classList.add("fab", "fa-slack");
+      else icon.classList.add("fas", "fa-link");
+    }
+
+    linksContainer.addEventListener("input", function (e) {
+      if (e.target.tagName === "INPUT" && e.target.type === "url") {
+        updateLinkIcon(e.target);
+      }
+    });
+
+    // Run on load for existing inputs
+    linksContainer.querySelectorAll('input[type="url"]').forEach(updateLinkIcon);
+
+    // Call once on init to handle pre-populated links
+    updateRemoveButtons();
+
+    addLinkBtn.addEventListener("click", function () {
+      const items = linksContainer.querySelectorAll(".organizations-link-item");
+      if (items.length < MAX_LINKS) {
+        const newItem = items[0].cloneNode(true);
+        const input = newItem.querySelector("input");
+        input.value = "";
+        linksContainer.appendChild(newItem);
+        updateRemoveButtons();
+        updateLinkIcon(input);
+      }
+    });
+
+    linksContainer.addEventListener("click", function (e) {
+      const removeBtn = e.target.closest(".organizations-remove-link-btn");
+      if (removeBtn) {
+        const items = linksContainer.querySelectorAll(".organizations-link-item");
+        if (items.length > 1) {
+          removeBtn.closest(".organizations-link-item").remove();
+          updateRemoveButtons();
+        }
+      }
+    });
+
+    // --- Character Counter Helper ---
+    function setupCounter(inputId, counterId, maxLen) {
+      const input = document.getElementById(inputId);
+      const counter = document.getElementById(counterId);
+
+      if (input && counter) {
+        const updateCounter = () => {
+          const remaining = maxLen - input.value.length;
+          counter.textContent = `${remaining} characters remaining`;
+          
+          if (remaining <= Math.floor(maxLen * 0.15)) {
+            counter.style.color = "#ff5959"; // primary red
+          } else {
+            counter.style.color = "#6b7280"; // gray
+          }
+        };
+        
+        updateCounter(); // run once on load
+        input.addEventListener("input", updateCounter);
+      }
+    }
+
+    // Initialize Counters
+    setupCounter("organization_name", "org-name-counter", 50);
+    setupCounter("org-description-input", "org-description-counter", 160);
+
+    // --- Slug Preview + Availability Check Logic ---
+    const nameInput = document.getElementById('organization_name');
+    const slugPreview = document.getElementById('organization-slug-preview');
+    const slugStatus = document.getElementById('org-slug-status');
+    const slugHint   = document.getElementById('org-slug-hint');
+    const slugBox    = document.getElementById('org-slug-preview-box');
+    const currentSlug = '<%= @organization.slug %>';
+
+    let slugDebounce = null;
+
+    function setSlugStatus(state, slug) {
+      if (state === 'idle') {
+        slugStatus.style.display = 'none';
+        slugHint.style.display = 'none';
+        slugBox.style.borderColor = '#e5e7eb';
+        slugPreview.style.color = slugPreview.textContent === 'your-org-name' ? '#9ca3af' : '#111827';
+      } else if (state === 'checking') {
+        slugStatus.style.display = 'inline-block';
+        slugStatus.textContent = 'Checking...';
+        slugStatus.style.background = '#f3f4f6';
+        slugStatus.style.color = '#6b7280';
+        slugHint.style.display = 'none';
+        slugBox.style.borderColor = '#e5e7eb';
+        slugPreview.style.color = '#111827';
+      } else if (state === 'available') {
+        slugStatus.style.display = 'inline-block';
+        slugStatus.textContent = '✓ Available';
+        slugStatus.style.background = '#d1fae5';
+        slugStatus.style.color = '#065f46';
+        slugBox.style.borderColor = '#34d399';
+        slugPreview.style.color = '#065f46';
+        slugHint.style.display = 'none';
+      } else if (state === 'taken') {
+        slugStatus.style.display = 'inline-block';
+        slugStatus.textContent = '✗ Already taken';
+        slugStatus.style.background = '#fee2e2';
+        slugStatus.style.color = '#991b1b';
+        slugBox.style.borderColor = '#f87171';
+        slugPreview.style.color = '#991b1b';
+        slugHint.style.display = 'block';
+        slugHint.style.color = '#991b1b';
+        slugHint.textContent = 'This URL is taken. FriendlyId will append a unique number (e.g. ' + slug + '-1) when you save.';
+      }
+    }
+
+    if (nameInput && slugPreview) {
+      nameInput.addEventListener('input', function() {
+        const rawName = nameInput.value.trim();
+        if (!rawName) {
+          slugPreview.textContent = currentSlug || 'your-org-name';
+          setSlugStatus('idle', '');
+          return;
+        }
+
+        const localSlug = rawName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        slugPreview.textContent = localSlug || 'your-org-name';
+
+        // If the slug hasn't changed from the current saved slug, no need to check
+        if (localSlug === currentSlug) {
+          setSlugStatus('idle', '');
+          return;
+        }
+
+        setSlugStatus('checking', localSlug);
+        clearTimeout(slugDebounce);
+        slugDebounce = setTimeout(function() {
+          fetch('/organizations/check_slug?name=' + encodeURIComponent(rawName), {
+            headers: { 'X-Requested-With': 'XMLHttpRequest' }
+          })
+          .then(function(res) { return res.json(); })
+          .then(function(data) {
+            slugPreview.textContent = data.slug || currentSlug;
+            // If the returned slug matches the org's own current slug, it's effectively available
+            setSlugStatus((data.available || data.slug === currentSlug) ? 'available' : 'taken', data.slug);
+          })
+          .catch(function() {
+            setSlugStatus('idle', '');
+          });
+        }, 350);
+      });
+    }
+  })();
+</script>

@@ -1,0 +1,281 @@
+<% content_for :title, @organization.name %>
+
+<div class="org-dashboard-wrapper">
+
+  <%# Flash notice %>
+  <% if notice %>
+    <div class="organizations-flash-success" role="alert" id="organizations-flash-notice">
+      <i class="fas fa-check-circle"></i>
+      <%= notice %>
+      <button class="organizations-flash-close" onclick="this.parentElement.remove()" aria-label="Close">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  <% end %>
+
+  <%# Header Section %>
+  <div class="org-dashboard-header-v2">
+    <div class="org-header-v2-left">
+      <%= image_tag organization_logo(@organization.logo), alt: "#{@organization.name} logo", class: "org-header-v2-logo" %>
+      <div class="org-header-v2-text">
+        <h1 class="org-header-v2-title">
+          <%= @organization.name %>
+        </h1>
+        
+        <p class="org-header-v2-description">
+          <% if @organization.description.present? %>
+            <%= truncate(@organization.description, length: 160, separator: ' ') %>
+          <% else %>
+            Manage your organization's members, groups, and settings.
+          <% end %>
+        </p>
+        
+        <div class="org-header-v2-meta">
+          <% if @organization.links.present? && @organization.links.any?(&:present?) %>
+            <div class="org-header-v2-links">
+              <% @organization.links.reject(&:blank?).each do |link| %>
+                <%= link_to link, target: "_blank", rel: "noopener noreferrer", class: "org-header-v2-link-icon", title: format_url_text(link) do %>
+                  <i class="<%= icon_for_url(link) %>"></i>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+
+          <% if @organization.location.present? %>
+            <% if @organization.links.present? && @organization.links.any?(&:present?) %>
+              <div class="org-header-v2-divider"></div>
+            <% end %>
+            <div class="org-header-v2-location">
+              <i class="fas fa-map-marker-alt"></i>
+              <span><%= @organization.location %></span>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+    
+    <div class="org-header-v2-right">
+      <% if current_user.organizations.count > 1 %>
+        <%= link_to organizations_path, class: "btn org-btn-outline" do %>
+          <i class="fas fa-exchange-alt"></i> Switch Organization
+        <% end %>
+      <% else %>
+        <%= link_to organizations_path, class: "btn org-btn-outline" do %>
+          <i class="fas fa-building"></i> All Organizations
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Tabs Navigation %>
+  <div class="org-tabs-container">
+    <button class="org-tab-btn active" data-tab-target="groups">Groups</button>
+    <button class="org-tab-btn" data-tab-target="members">Members</button>
+    <% if policy(@organization).admin_access? %>
+      <%= link_to edit_organization_path(@organization), class: "org-tab-btn org-tab-link" do %>
+        Settings
+      <% end %>
+    <% end %>
+  </div>
+
+  <%# Tabs Content %>
+  <div class="org-tabs-content">
+    
+    <%# Groups Tab Content %>
+    <div class="org-tab-pane active" id="tab-groups">
+      <div class="org-panel-header">
+        <h2 class="org-panel-title">Groups</h2>
+        <div style="display: flex; gap: 16px; align-items: center;">
+          <% if policy(@organization).create_group? %>
+            <%= link_to "+ Create Group", new_organization_group_path(@organization), class: "org-panel-link" %>
+          <% end %>
+        </div>
+      </div>
+      
+      <% if @groups.empty? %>
+        <div class="org-empty-state">
+          <p style="margin-bottom: 16px;"><%= t("organizations.show.no_groups") %></p>
+          <% if policy(@organization).create_group? %>
+            <%= link_to "+ Create your first group", new_organization_group_path(@organization), class: "btn org-btn-primary" %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="org-groups-grid">
+          <% @groups.each do |group| %>
+            <%= link_to group_path(group), class: "org-group-card" do %>
+              <div class="org-group-card-top">
+                <div class="org-group-icon">
+                  <i class="fas fa-desktop"></i>
+                </div>
+                <div class="org-group-menu">
+                  <i class="fas fa-ellipsis-h"></i>
+                </div>
+              </div>
+              <div class="org-group-card-body">
+                <h3 class="org-group-name"><%= group.name %></h3>
+                <p class="org-group-members"><%= group.group_members.count %> members</p>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        
+        <div class="org-index-pagination">
+          <%= will_paginate @groups, param_name: :groups_page, renderer: PaginateRenderer %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Members Tab Content %>
+    <div class="org-tab-pane" id="tab-members">
+      <div class="org-panel-header" style="margin-bottom: 16px; border-bottom: none; padding-bottom: 0;">
+        <h2 class="org-panel-title">Organization Members</h2>
+        <% if policy(@organization).admin_access? %>
+          <%= link_to "Manage Members", organization_organization_members_path(@organization), class: "org-panel-link" %>
+        <% end %>
+      </div>
+      
+      <div class="org-panel-toolbar">
+        <%= form_with url: organization_path(@organization), method: :get, local: true, class: "org-search-form" do |f| %>
+          <div class="org-search-input-wrapper">
+            <i class="fas fa-search org-search-icon"></i>
+            <%= f.text_field :q, value: params[:q], placeholder: "Search members by name...", class: "org-search-input" %>
+          </div>
+          
+          <%= f.select :role, options_for_select([['All Roles', ''], ['Admin', 'admin'], ['Mentor', 'mentor'], ['Member', 'member']], params[:role]), {}, class: "org-filter-select" %>
+        <% end %>
+      </div>
+      
+      <div class="org-members-list-full">
+        <% if @members.empty? %>
+          <p class="org-empty-state"><%= t("organizations.show.no_members") %></p>
+        <% else %>
+          <div class="org-members-list-header">
+            <span>User</span>
+            <span>Role</span>
+          </div>
+          <% @members.each do |membership| %>
+            <div class="org-member-item">
+              <div class="org-member-item-left">
+                <div class="org-member-avatar-wrapper">
+                  <%= image_tag user_profile_picture(membership.user.profile_picture), alt: membership.user.name, class: "org-member-avatar" %>
+                  <div class="org-member-role-icon" title="<%= membership.role.titleize %>">
+                    <% if membership.role == 'admin' %>
+                      <i class="fas fa-crown text-danger"></i>
+                    <% elsif membership.role == 'mentor' %>
+                      <i class="fas fa-chalkboard-teacher text-success"></i>
+                    <% else %>
+                      <i class="fas fa-user text-primary"></i>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="org-member-info">
+                  <span class="org-member-name"><strong><%= membership.user.name %></strong></span>
+                  <span class="org-member-email"><%= membership.user.email %></span>
+                </div>
+              </div>
+              <div class="org-member-item-right">
+                <span class="org-badge org-badge-<%= membership.role %>">
+                  <%= membership.role.titleize %>
+                </span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+      
+      <div class="org-index-pagination">
+        <%= will_paginate @members, param_name: :members_page, renderer: PaginateRenderer %>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const tabBtns = document.querySelectorAll('.org-tab-btn[data-tab-target]');
+    const tabPanes = document.querySelectorAll('.org-tab-pane');
+
+    function activateTab(targetId) {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      tabPanes.forEach(p => p.classList.remove('active'));
+      
+      const btn = document.querySelector(`.org-tab-btn[data-tab-target="${targetId}"]`);
+      const pane = document.getElementById('tab-' + targetId);
+      
+      if (btn) btn.classList.add('active');
+      if (pane) pane.classList.add('active');
+    }
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        activateTab(btn.getAttribute('data-tab-target'));
+      });
+    });
+
+    // On load, check URL params to open the right tab
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('members_page') || urlParams.has('q') || urlParams.has('role')) {
+      activateTab('members');
+    } else if (urlParams.has('groups_page')) {
+      activateTab('groups');
+    }
+
+    // Live Search Logic
+    const searchForm = document.querySelector('.org-search-form');
+    const searchInput = document.querySelector('.org-search-input');
+    const roleSelect = document.querySelector('.org-filter-select');
+    let debounceTimeout;
+
+    function fetchResults() {
+      const url = new URL(searchForm.action);
+      url.searchParams.set('q', searchInput.value);
+      url.searchParams.set('role', roleSelect.value);
+      // Ensure we stay on members tab when pagination link is clicked later
+      url.searchParams.set('tab', 'members'); 
+
+      fetch(url, { headers: { 'Accept': 'text/html' } })
+        .then(response => response.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          
+          const newMembersList = doc.querySelector('.org-members-list-full');
+          const newPagination = doc.querySelector('#tab-members .org-index-pagination');
+          
+          const currentMembersList = document.querySelector('.org-members-list-full');
+          const currentPagination = document.querySelector('#tab-members .org-index-pagination');
+          
+          if (currentMembersList && newMembersList) {
+            currentMembersList.innerHTML = newMembersList.innerHTML;
+          }
+          
+          if (currentPagination && newPagination) {
+            currentPagination.innerHTML = newPagination.innerHTML;
+          } else if (currentPagination && !newPagination) {
+            currentPagination.innerHTML = '';
+          }
+          
+          window.history.replaceState({}, '', url);
+        });
+    }
+
+    if (searchForm) {
+      if (searchInput) {
+        searchInput.addEventListener('input', () => {
+          clearTimeout(debounceTimeout);
+          debounceTimeout = setTimeout(fetchResults, 300);
+        });
+      }
+
+      if (roleSelect) {
+        roleSelect.addEventListener('change', fetchResults);
+      }
+      
+      searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        fetchResults();
+      });
+    }
+  });
+</script>
