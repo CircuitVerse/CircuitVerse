@@ -32,6 +32,7 @@
           <% if @organization.links.present? && @organization.links.any?(&:present?) %>
             <div class="org-header-v2-links">
               <% @organization.links.reject(&:blank?).each do |link| %>
+                <% next unless link.match?(/\Ahttps?:\/\//i) %>
                 <%= link_to link, target: "_blank", rel: "noopener noreferrer", class: "org-header-v2-link-icon", title: format_url_text(link) do %>
                   <i class="<%= icon_for_url(link) %>"></i>
                 <% end %>

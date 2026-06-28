@@ -393,9 +393,9 @@
   max-width: 1200px;
   padding: 30px 20px 0;
   color: #2c3e50;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 }
-@keyframes slideDownFade {
+@keyframes slide-down-fade {
   from {
     opacity: 0;
     transform: translateY(-20px);
@@ -418,7 +418,7 @@
   gap: 12px;
   margin-bottom: 24px;
   padding: 16px 20px;
-  animation: slideDownFade 0.4s ease-out forwards;
+  animation: slide-down-fade 0.4s ease-out forwards;
   i:first-child {
     color: $primary-green;
     font-size: 20px;
@@ -533,7 +533,7 @@
   font-weight: 700;
   color: #1f2937;
   margin: 0 0 8px 0;
-  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 .org-header-v2-description {
   color: #4b5563;
@@ -639,12 +639,12 @@
 }
 .org-tab-pane {
   display: none;
-  animation: fadeInTab 0.3s ease-out forwards;
+  animation: fade-in-tab 0.3s ease-out forwards;
   &.active {
     display: block;
   }
 }
-@keyframes fadeInTab {
+@keyframes fade-in-tab {
   from {
     opacity: 0;
     transform: translateY(4px);

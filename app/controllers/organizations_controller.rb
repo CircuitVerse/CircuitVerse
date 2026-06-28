@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrganizationsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: %i[show check_slug]
   before_action :check_organizations_feature_flag
   before_action :set_organization, only: %i[show edit update destroy]
   before_action :check_show_access, only: %i[show]
@@ -20,7 +20,7 @@ class OrganizationsController < ApplicationController
   def show
     @groups = @organization.groups.order(created_at: :desc).paginate(page: params[:groups_page], per_page: 9)
 
-    @members = @organization.organization_members.joins(:user)
+    @members = @organization.organization_members.includes(:user).references(:user)
 
     if params[:role].present? && OrganizationMember.roles.key?(params[:role])
       @members = @members.where(role: params[:role])
@@ -38,8 +38,7 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations/check_slug
   def check_slug
-    name = params[:name].to_s.strip
-    base_slug = name.parameterize
+    base_slug = params[:slug].presence || params[:name].to_s.strip.parameterize
     is_taken = base_slug.present? && Organization.exists?(slug: base_slug)
 
     render json: { slug: base_slug, available: base_slug.present? && !is_taken }
@@ -96,7 +95,7 @@ class OrganizationsController < ApplicationController
     end
 
     def organization_params
-      params.expect(organization: [:name, :description, :location, :private, :logo, :remove_logo, { links: [] }])
+      params.expect(organization: [:name, :slug, :description, :location, :private, :logo, :remove_logo, { links: [] }])
     end
 
     def check_organizations_feature_flag

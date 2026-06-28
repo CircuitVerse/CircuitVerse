@@ -17,7 +17,10 @@ class GroupsController < ApplicationController
         redirect_to root_path, alert: "Organization not found."
         return
       end
-      @groups = @organization.groups.paginate(page: params[:page], per_page: 15)
+
+      authorize @organization, :show_access?
+
+      @groups = @organization.groups.paginate(page: params[:page], per_page: 9)
     else
       redirect_to root_path, alert: "Not found."
     end

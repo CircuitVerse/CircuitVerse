@@ -57,6 +57,7 @@ en:
   organization_members:
     create:
       success: "Member was successfully added."
+      invalid_role: "Invalid role specified."
     update:
       success: "Member role was successfully updated."
     destroy:

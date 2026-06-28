@@ -13,6 +13,7 @@ class Organization < ApplicationRecord
   attr_accessor :remove_logo
 
   before_validation { logo.purge if remove_logo == "1" }
+  before_validation :sanitize_links
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 50 }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
@@ -25,6 +26,18 @@ class Organization < ApplicationRecord
 
     def purge_logo
       logo.purge if logo.attached?
+    end
+
+    def sanitize_links
+      return if links.blank?
+
+      self.links = links.compact_blank.map(&:strip).filter_map do |link|
+        if link.match?(%r{\Ahttps?://}i)
+          link
+        elsif !link.match?(/\A[a-z]+:/i)
+          "https://#{link}"
+        end
+      end
     end
 
     def links_count_within_limit

@@ -11,27 +11,37 @@ class OrganizationMembersController < ApplicationController
   before_action :check_index_access, only: %i[index]
 
   def index
-    @organization_members = @organization.organization_members.includes(:user)
+    @organization_members = @organization.organization_members.includes(:user).references(:user)
 
     if params[:role].present? && OrganizationMember.roles.key?(params[:role])
       @organization_members = @organization_members.where(role: params[:role])
     end
+
+    @organization_members = @organization_members.where("users.name ILIKE ?", "%#{params[:q]}%") if params[:q].present?
 
     @organization_members = if params[:sort] == "newest"
       @organization_members.order(created_at: :desc)
     elsif params[:sort] == "oldest"
       @organization_members.order(created_at: :asc)
     else
-      @organization_members.joins(:user).order(role: :asc, "users.name" => :asc)
+      @organization_members.order(role: :asc, "users.name" => :asc)
     end
 
-    @organization_members = @organization_members.paginate(page: params[:page], per_page: 15)
+    @organization_members = @organization_members.paginate(page: params[:page], per_page: 10)
   end
 
   # POST /organizations/1/organization_members
   # POST /organizations/1/organization_members.json
   def create
-    role   = params.dig(:organization_member, :role).presence || "member"
+    role = params.dig(:organization_member, :role).presence || "member"
+    unless OrganizationMember.roles.key?(role)
+      respond_to do |format|
+        format.html { redirect_to organization_organization_members_path(@organization), alert: t(".invalid_role") }
+        format.json { render json: { error: t(".invalid_role") }, status: :unprocessable_content }
+      end
+      return
+    end
+
     notice = process_member_emails(role)
 
     respond_to do |format|

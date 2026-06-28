@@ -444,6 +444,8 @@
 
     let slugDebounce = null;
 
+    let slugRequestId = 0;
+    
     function setSlugStatus(state, slug) {
       if (state === 'idle') {
         slugStatus.style.display = 'none';
@@ -500,16 +502,19 @@
         setSlugStatus('checking', localSlug);
         clearTimeout(slugDebounce);
         slugDebounce = setTimeout(function() {
+          const requestId = ++slugRequestId;
           fetch('/organizations/check_slug?name=' + encodeURIComponent(rawName), {
             headers: { 'X-Requested-With': 'XMLHttpRequest' }
           })
           .then(function(res) { return res.json(); })
           .then(function(data) {
+            if (requestId !== slugRequestId) return;
             slugPreview.textContent = data.slug || currentSlug;
             // If the returned slug matches the org's own current slug, it's effectively available
             setSlugStatus((data.available || data.slug === currentSlug) ? 'available' : 'taken', data.slug);
           })
           .catch(function() {
+            if (requestId !== slugRequestId) return;
             setSlugStatus('idle', '');
           });
         }, 350);
