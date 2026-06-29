@@ -114,14 +114,16 @@ describe LtiController, type: :request do
         end.to change(User, :count).by(1)
       end
 
-      it "reuses an existing CircuitVerse account matched by email" do
-        existing = FactoryBot.create(:user, email: "existing@example.com")
+      it "reuses the same account across launches with the same sub" do
         complete_oidc_login
-        nonce = session[:lti_nonce]
-        state = session[:lti_state]
+        post lti_launch_path,
+             params: { id_token: id_token("sub" => "lti-subject-123", "nonce" => session[:lti_nonce]),
+                       state: session[:lti_state] }
         expect do
+          complete_oidc_login
           post lti_launch_path,
-               params: { id_token: id_token("email" => existing.email, "nonce" => nonce), state: state }
+               params: { id_token: id_token("sub" => "lti-subject-123", "nonce" => session[:lti_nonce]),
+                         state: session[:lti_state] }
         end.not_to change(User, :count)
       end
 
@@ -129,6 +131,36 @@ describe LtiController, type: :request do
         complete_oidc_login
         post lti_launch_path, params: { id_token: id_token("nonce" => session[:lti_nonce]), state: session[:lti_state] }
         expect(session[:is_lti]).to be true
+      end
+    end
+
+    context "when the email claim belongs to a different existing account" do
+      it "rejects the launch instead of signing in as that account" do
+        FactoryBot.create(:user, email: "existing@example.com")
+        complete_oidc_login
+        nonce = session[:lti_nonce]
+        state = session[:lti_state]
+        expect do
+          post lti_launch_path,
+               params: { id_token: id_token("email" => "existing@example.com", "nonce" => nonce), state: state }
+        end.not_to change(User, :count)
+        expect(response).to have_http_status(:conflict)
+      end
+    end
+
+    context "when the token omits the email claim" do
+      it "returns 401 rather than 500" do
+        complete_oidc_login
+        now = Time.current.to_i
+        token = JWT.encode(
+          { "iss" => deployment.issuer, "aud" => deployment.client_id,
+            LtiController::DEPLOYMENT_ID_CLAIM => deployment.deployment_id,
+            "sub" => "no-email-sub", "nonce" => session[:lti_nonce],
+            "iat" => now, "exp" => now + 3600 },
+          private_key, "RS256"
+        )
+        post lti_launch_path, params: { id_token: token, state: session[:lti_state] }
+        expect(response).to have_http_status(:unauthorized)
       end
     end
 

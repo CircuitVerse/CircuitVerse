@@ -2,7 +2,7 @@
 
 module Lti
   class JwtValidator
-    REQUIRED_CLAIMS = %w[sub iss aud nonce].freeze
+    REQUIRED_CLAIMS = %w[sub iss aud nonce email].freeze
 
     class << self
       def validate!(token, deployment:, nonce:)
