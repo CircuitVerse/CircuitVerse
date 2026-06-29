@@ -193,6 +193,21 @@ describe LtiController, type: :request do
         expect(response).to have_http_status(:unauthorized)
       end
     end
+
+    context "with a token missing a required claim" do
+      it "returns 401 rather than 500" do
+        complete_oidc_login
+        now = Time.current.to_i
+        token = JWT.encode(
+          { "iss" => deployment.issuer, "aud" => deployment.client_id,
+            LtiController::DEPLOYMENT_ID_CLAIM => deployment.deployment_id,
+            "nonce" => session[:lti_nonce], "iat" => now, "exp" => now + 3600 },
+          private_key, "RS256"
+        )
+        post lti_launch_path, params: { id_token: token, state: session[:lti_state] }
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
   end
 
   describe "POST /lti/launch without id_token (no LTI 1.1 assignment found)" do
