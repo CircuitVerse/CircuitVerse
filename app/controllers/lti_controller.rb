@@ -65,7 +65,7 @@ class LtiController < ApplicationController
         nonce: session[:lti_nonce]
       )
 
-      @user = find_or_create_user_from_lti13(payload)
+      @user = find_or_create_user_from_lti13(payload, deployment)
       sign_in(@user)
 
       session.delete(:lti_nonce)
@@ -75,6 +75,8 @@ class LtiController < ApplicationController
       redirect_to root_path
     rescue ActiveRecord::RecordNotFound
       render json: { error: "Unknown deployment" }, status: :not_found
+    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique
+      render json: { error: "Email already associated with another account" }, status: :conflict
     rescue SecurityError, JWT::DecodeError => e
       render json: { error: e.message }, status: :unauthorized
     end
@@ -133,9 +135,13 @@ class LtiController < ApplicationController
       )
     end
 
-    def find_or_create_user_from_lti13(payload)
-      User.find_or_create_by(email: payload["email"]) do |u|
-        u.name         = payload["name"] || payload["email"]
+    # Identify the user by the validated, deployment-scoped LTI subject (sub)
+    # rather than the self-asserted email claim, which is unverified and
+    # spoofable. Email is only used when provisioning a new account.
+    def find_or_create_user_from_lti13(payload, deployment)
+      User.find_or_create_by!(provider: "lti", uid: "#{deployment.id}:#{payload['sub']}") do |u|
+        u.email        = payload["email"]
+        u.name         = payload["name"].presence || payload["email"]
         u.password     = SecureRandom.hex(16)
         u.confirmed_at = Time.zone.now
       end
