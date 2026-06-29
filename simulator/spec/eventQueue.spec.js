@@ -42,6 +42,15 @@ describe('EventQueue', () => {
         expect(element.queueProperties.time).toBe(3);
     });
 
+    test('add() falls back to propagationDelay when the explicit delay is 0', () => {
+        const queue = new EventQueue(10);
+        const element = makeElement(5);
+        // `delay || obj.propagationDelay` treats a falsy 0 as "no override",
+        // so the element is scheduled using its propagationDelay instead.
+        queue.add(element, 0);
+        expect(element.queueProperties.time).toBe(5);
+    });
+
     test('pop() returns elements in ascending time order and advances the clock', () => {
         const queue = new EventQueue(10);
         const early = makeElement(2);
