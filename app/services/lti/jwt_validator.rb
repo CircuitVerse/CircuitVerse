@@ -21,7 +21,7 @@ module Lti
 
         raise SecurityError, "Missing nonce" if nonce.blank?
         raise SecurityError, "Nonce mismatch" if payload["nonce"] != nonce
-        raise ArgumentError, "Missing required claims" \
+        raise JWT::DecodeError, "Missing required claims" \
           unless REQUIRED_CLAIMS.all? { |c| payload.key?(c) }
 
         payload
