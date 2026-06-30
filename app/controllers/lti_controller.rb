@@ -7,7 +7,7 @@ class LtiController < ApplicationController
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
   after_action :allow_iframe_lti, only: %i[launch]
-  skip_before_action :authenticate_user!, only: %i[launch oidc_login jwks config],
+  skip_before_action :authenticate_user!, only: %i[launch oidc_login jwks tool_config],
                                           raise: false
 
   def launch
