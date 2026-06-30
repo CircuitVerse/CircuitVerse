@@ -8,16 +8,7 @@ module Lti
       def validate!(token, deployment:, nonce:)
         platform_key = fetch_platform_key(deployment, token)
 
-        payload, _header = JWT.decode(
-          token,
-          platform_key,
-          true,
-          algorithms: ["RS256"],
-          iss: deployment.issuer,
-          aud: deployment.client_id,
-          verify_iss: true,
-          verify_aud: true
-        )
+        payload, _header = decode_token(token, platform_key, deployment)
 
         raise SecurityError, "Missing nonce" if nonce.blank?
         raise SecurityError, "Nonce mismatch" if payload["nonce"] != nonce
@@ -28,6 +19,19 @@ module Lti
       end
 
       private
+
+        def decode_token(token, platform_key, deployment)
+          JWT.decode(
+            token,
+            platform_key,
+            true,
+            algorithms: ["RS256"],
+            iss: deployment.issuer,
+            aud: deployment.client_id,
+            verify_iss: true,
+            verify_aud: true
+          )
+        end
 
         def fetch_platform_key(deployment, token)
           _payload, header = JWT.decode(token, nil, false)
