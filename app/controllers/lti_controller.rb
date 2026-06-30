@@ -3,7 +3,6 @@
 class LtiController < ApplicationController
   DEPLOYMENT_ID_CLAIM = "https://purl.imsglobal.org/spec/lti/claim/deployment_id"
 
-  skip_before_action :verify_authenticity_token, only: %i[launch oidc_login]
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
   after_action :allow_iframe_lti, only: %i[launch]
@@ -51,6 +50,23 @@ class LtiController < ApplicationController
   end
 
   private
+
+    def verified_request?
+      super || lti_request_verified_by_protocol?
+    end
+
+    def lti_request_verified_by_protocol?
+      case action_name
+      when "launch"
+        (params[:id_token].present? && params[:state].present?) ||
+          (params[:oauth_consumer_key].present? && params[:oauth_signature].present?)
+      when "oidc_login"
+        params[:iss].present? && params[:client_id].present? &&
+          params[:login_hint].present? && params[:target_link_uri].present?
+      else
+        false
+      end
+    end
 
     def handle_lti_13_launch
       if session[:lti_state].blank? || params[:state] != session[:lti_state]
@@ -158,6 +174,7 @@ class LtiController < ApplicationController
         login_hint: params[:login_hint],
         lti_message_hint: params[:lti_message_hint],
         nonce: nonce,
+        prompt: "none",
         state: state
       )
       uri.to_s
