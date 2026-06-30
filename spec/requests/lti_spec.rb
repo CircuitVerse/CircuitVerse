@@ -77,6 +77,18 @@ describe LtiController, type: :request do
         expect(response).to redirect_to(/#{Regexp.escape(deployment.auth_login_url)}/)
       end
 
+      it "supports GET-based OIDC login initiation" do
+        get lti_login_path, params: login_params
+        expect(response).to redirect_to(/#{Regexp.escape(deployment.auth_login_url)}/)
+      end
+
+      it "requests a form_post id_token without an interactive prompt" do
+        post lti_login_path, params: login_params
+        redirect_params = Rack::Utils.parse_query(URI(response.location).query)
+        expect(redirect_params["response_mode"]).to eq("form_post")
+        expect(redirect_params["prompt"]).to eq("none")
+      end
+
       it "stores lti_nonce and lti_state in the session" do
         post lti_login_path, params: login_params
         expect(session[:lti_nonce]).to be_present
