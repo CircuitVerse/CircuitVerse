@@ -78,6 +78,7 @@ gem "i18n-js"
 
 # for lti provider
 gem "ims-lti", "~> 1.2", "< 2.0"
+gem "json-jwt"
 
 # Use Redis adapter to run Action Cable in production
 gem "hiredis"

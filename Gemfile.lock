@@ -242,9 +242,10 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.6)
-    css_parser (2.2.0)
+    crass (1.0.7)
+    css_parser (3.0.0)
       addressable
+      ssrf_filter (~> 1.5)
     csv (3.3.5)
     database_consistency (2.0.5)
       activerecord (>= 3.2)
@@ -370,6 +371,17 @@ GEM
       builder (>= 1.0, < 4.0)
       oauth (>= 0.4.5)
       rexml
+    aes_key_wrap (1.1.0)
+    bindata (2.5.1)
+    faraday-follow_redirects (0.5.0)
+      faraday (>= 1, < 3)
+    json-jwt (1.17.1)
+      activesupport (>= 4.2)
+      aes_key_wrap
+      base64
+      bindata
+      faraday (~> 2.0)
+      faraday-follow_redirects
     inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
@@ -478,7 +490,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.1)
+    msgpack (1.8.3)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
@@ -1085,6 +1097,7 @@ DEPENDENCIES
   i18n-js
   image_processing (~> 1.12)
   ims-lti (~> 1.2, < 2.0)
+  json-jwt
   inline_svg
   invisible_captcha (~> 2.0)
   jbuilder (~> 2.15)
