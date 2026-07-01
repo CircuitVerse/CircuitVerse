@@ -62,23 +62,18 @@ RSpec.describe Adapters::PgAdapter do
 
     context "with tag filters" do
       let(:query_params) { { tag: "electronics,circuit", page: 1 } }
-      let(:tag_filtered_results) do
-        instance_double(ActiveRecord::Relation).tap do |results|
-          allow(results).to receive_messages(includes: results, paginate: paginated_results)
-        end
-      end
+      let(:tag_subquery) { double }
 
       before do
-        allow(mock_results).to receive(:joins).with(:tags).and_return(mock_results)
-        allow(mock_results).to receive_messages(where: mock_results, distinct: tag_filtered_results)
+        allow(Project).to receive(:joins).with(:tags).and_return(tag_subquery)
+        allow(tag_subquery).to receive(:where).with(tags: { name: %w[electronics circuit] }).and_return(tag_subquery)
+        allow(mock_results).to receive(:where).with(id: tag_subquery).and_return(mock_results)
       end
 
-      it "filters by tags" do
+      it "filters using a subquery to avoid DISTINCT conflict with pg_search ordering" do
         adapter.search_project(project_relation, query_params)
 
-        expect(mock_results).to have_received(:joins).with(:tags)
-        expect(mock_results).to have_received(:where).with(tags: { name: %w[electronics circuit] })
-        expect(mock_results).to have_received(:distinct)
+        expect(mock_results).to have_received(:where).with(id: tag_subquery)
       end
     end
   end
