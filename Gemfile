@@ -159,10 +159,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
-  
+
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"
+  gem "ruby-lsp-refactor", "~> 0.1.2", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -225,7 +226,7 @@ gem 'devise_saml_authenticatable'
 
 gem 'activerecord_cursor_paginate'
 
-gem 'concurrent-ruby', '1.3.6'
+gem "concurrent-ruby", ">= 1.3.7"
 gem 'mutex_m'
 
 gem "observer", "~> 0.1.2"
@@ -235,3 +236,4 @@ gem "drb", "~> 2.2"
 # Verilog to DigitalJS conversion gem (Internal)
 gem "yosys2digitaljs", path: "vendor/gems/yosys2digitaljs"
 gem "avo", ">= 3.2.1"
+

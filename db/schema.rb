@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_22_202006) do
+ActiveRecord::Schema[8.1].define(version: 2026_06_25_102515) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -373,6 +373,7 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_22_202006) do
     t.string "name", null: false
     t.string "slug", null: false
     t.text "description"
+    t.string "location"
     t.jsonb "links", default: []
     t.boolean "private", default: true, null: false
     t.string "oidc_issuer_url"
