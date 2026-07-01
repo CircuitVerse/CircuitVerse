@@ -13,6 +13,7 @@ RSpec.describe Organization, type: :model do
     subject { FactoryBot.build(:organization) }
 
     it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_length_of(:name).is_at_least(2).is_at_most(50) }
     it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
     it { is_expected.to validate_uniqueness_of(:slug).case_insensitive }
 

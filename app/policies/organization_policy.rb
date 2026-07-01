@@ -11,6 +11,10 @@ class OrganizationPolicy < ApplicationPolicy
     org_admin? || user.admin?
   end
 
+  def destroy?
+    admin_access?
+  end
+
   def leave?
     return false unless member?
     return false if org_admin? && sole_admin?

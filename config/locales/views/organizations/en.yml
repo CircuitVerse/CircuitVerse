@@ -1,0 +1,66 @@
+en:
+  organizations:
+    new:
+      title: "Create New Organization"
+      subtitle: "Set up a new organization to manage groups and members."
+      section_title: "Organization Information"
+      section_subtitle: "Provide the basic details for your new organization."
+      name_label: "Organization Name"
+      name_hint: "Enter the full name of your organization or institution."
+      name_placeholder: "e.g. Indian Institute of Technology Bombay"
+      slug_label: "Organization URL"
+      slug_hint: "Choose a unique URL slug for your organization."
+      slug_placeholder: "e.g. iitb"
+      description_label: "Description"
+      description_hint: "A short description of the organization and its focus."
+      description_placeholder: "e.g. This organization covers digital logic courses for undergraduate students."
+      visibility_label: "Visibility"
+      visibility_hint: "Control who can discover and view your organization."
+      visibility_private: "Private — only members can view"
+      visibility_public: "Public — anyone can view"
+      logo_label: "Organization Logo"
+      logo_hint: "Upload an optional logo for your organization."
+      upload_click: "Click to upload"
+      upload_drag: "or drag and drop"
+      upload_hint: "PNG, JPG, SVG up to 2MB"
+      links_label: "External Links"
+      links_hint: "Add up to 5 external links (e.g., your institution website or LinkedIn)."
+      links_placeholder: "https://..."
+      add_link: "+ Add another link"
+      submit: "+ Create Organization"
+    show:
+      edit_btn: "Edit Organization"
+      delete_btn: "Delete Organization"
+      delete_confirm: "Are you sure you want to delete this organization? This action cannot be undone."
+      members_heading: "Members"
+      groups_heading: "Groups"
+      no_members: "No members yet."
+      no_groups: "No groups linked to this organization yet."
+      links_heading: "External Links"
+      role_admin: "Admin"
+      role_mentor: "Mentor"
+      role_member: "Member"
+      your_role: "Your role"
+      stat_members: "Members"
+      stat_groups: "Groups"
+      visibility_private: "Private"
+      visibility_public: "Public"
+      leave_btn: "Leave Organization"
+      leave_confirm: "Are you sure you want to leave this organization?"
+    create:
+      success: "Organization was successfully created."
+      failure: "Organization could not be created."
+    update:
+      success: "Organization was successfully updated."
+    destroy:
+      success: "Organization was successfully deleted."
+  organization_members:
+    create:
+      success: "Member was successfully added."
+      invalid_role: "Invalid role specified."
+    update:
+      success: "Member role was successfully updated."
+    destroy:
+      success: "Member was successfully removed."
+    leave:
+      success: "You have successfully left the organization."

@@ -3,8 +3,28 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
+  before_action :check_organizations_feature_flag, only: %i[index new create], if: lambda {
+    params[:organization_id].present? || params.dig(:group, :organization_id).present?
+  }
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
+
+  # GET /organizations/:organization_id/groups
+  def index
+    if params[:organization_id].present?
+      @organization = find_organization_by_param(params[:organization_id])
+      if @organization.nil?
+        redirect_to root_path, alert: "Organization not found."
+        return
+      end
+
+      authorize @organization, :show_access?
+
+      @groups = @organization.groups.paginate(page: params[:page], per_page: 9)
+    else
+      redirect_to root_path, alert: "Not found."
+    end
+  end
 
   # GET /groups/1
   # GET /groups/1.json
@@ -43,7 +63,12 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
-    @group = Group.new
+    if params[:organization_id].present?
+      organization = find_organization_by_param(params[:organization_id])
+      @group = Group.new(organization_id: organization&.id)
+    else
+      @group = Group.new
+    end
   end
 
   # GET /groups/1/edit
@@ -53,10 +78,11 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = current_user.groups_owned.new(group_params)
+    return if org_group_invalid?
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: "Group was successfully created." }
+        format.html { redirect_to_after_group_create }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -82,10 +108,15 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+    organization_id = @group.organization_id
     @group.destroy
     respond_to do |format|
       format.html do
-        redirect_to user_groups_path(current_user), notice: "Group was successfully deleted."
+        if organization_id.present?
+          redirect_to organization_path(organization_id), notice: "Group was successfully deleted."
+        else
+          redirect_to user_groups_path(current_user), notice: "Group was successfully deleted."
+        end
       end
       format.json { head :no_content }
     end
@@ -100,7 +131,11 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.expect(group: %i[name primary_mentor_id])
+      if action_name == "create"
+        params.expect(group: %i[name primary_mentor_id organization_id])
+      else
+        params.expect(group: %i[name primary_mentor_id])
+      end
     end
 
     def check_show_access
@@ -108,6 +143,39 @@ class GroupsController < ApplicationController
     end
 
     def check_edit_access
-      authorize @group, :admin_access?
+      if @group.organization_id.present?
+        authorize @group, :manage?, policy_class: OrganizationGroupPolicy
+      else
+        authorize @group, :admin_access?
+      end
+    end
+
+    def check_organizations_feature_flag
+      redirect_to root_path, alert: t("feature_not_available") unless Flipper.enabled?(:organizations, current_user)
+    end
+
+    def find_organization_by_param(param)
+      Organization.friendly.find_by(slug: param) ||
+        Organization.find_by(id: param)
+    end
+
+    def org_group_invalid?
+      return false if @group.organization_id.blank?
+
+      if @group.organization.nil?
+        redirect_to user_groups_path(current_user), alert: "Invalid organization."
+        return true
+      end
+      authorize @group.organization, :create_group?
+      false
+    end
+
+    def redirect_to_after_group_create
+      if @group.organization_id.present?
+        redirect_to organization_path(@group.organization),
+                    notice: "Group was successfully created within the organization."
+      else
+        redirect_to @group, notice: "Group was successfully created."
+      end
     end
 end
