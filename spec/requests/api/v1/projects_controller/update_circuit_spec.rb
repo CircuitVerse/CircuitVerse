@@ -73,6 +73,69 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         end
       end
 
+      context "when image data is provided", :skip_windows do
+        let(:update_params_with_image) do
+          {
+            id: project.id,
+            name: "Updated Name",
+            image: "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}"
+          }
+        end
+
+        it "attaches a circuit preview to the project" do
+          token = get_auth_token(user)
+          patch "/api/v1/projects/update_circuit",
+                headers: { Authorization: "Token #{token}" },
+                params: update_params_with_image, as: :json
+
+          project.reload
+          expect(response).to have_http_status(:ok)
+          expect(project.circuit_preview).to be_attached
+          expect(project.circuit_preview.filename.to_s).to start_with("preview_")
+          expect(project.circuit_preview.content_type).to eq("image/jpeg")
+        end
+
+        it "purges the previously attached circuit preview before attaching the new one" do
+          token = get_auth_token(user)
+          patch "/api/v1/projects/update_circuit",
+                headers: { Authorization: "Token #{token}" },
+                params: update_params_with_image, as: :json
+          project.reload
+          first_blob_id = project.circuit_preview.blob.id
+
+          patch "/api/v1/projects/update_circuit",
+                headers: { Authorization: "Token #{token}" },
+                params: update_params_with_image, as: :json
+          project.reload
+
+          expect(project.circuit_preview).to be_attached
+          expect(project.circuit_preview.blob.id).not_to eq(first_blob_id)
+          expect(ActiveStorage::Blob.exists?(first_blob_id)).to be false
+        end
+      end
+
+      context "when image data is blank but a circuit preview is already attached" do
+        before do
+          project.circuit_preview.attach(
+            io: StringIO.new(Base64.decode64(Faker::Alphanumeric.alpha(number: 20))),
+            filename: "preview_existing.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        it "keeps the existing circuit preview instead of purging it" do
+          token = get_auth_token(user)
+          patch "/api/v1/projects/update_circuit",
+                headers: { Authorization: "Token #{token}" },
+                params: update_params, as: :json
+
+          project.reload
+          expect(response).to have_http_status(:ok)
+          expect(project.circuit_preview).to be_attached
+          expect(project.circuit_preview.filename.to_s).to eq("preview_existing.jpeg")
+        end
+      end
+
       context "when project does not exist" do
         before do
           token = get_auth_token(user)

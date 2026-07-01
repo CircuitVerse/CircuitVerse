@@ -199,8 +199,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @image_file = return_image_file(params[:image])
       @project.image_preview = @image_file
       @project.name = sanitize(params[:name])
-      @project.circuit_preview.purge if @project.circuit_preview.attached?
       io_image_file = parse_image_data_url(params[:image])
+      return unless io_image_file
+
+      @project.circuit_preview.purge if @project.circuit_preview.attached?
       attach_circuit_preview(@project, io_image_file)
     end
 
