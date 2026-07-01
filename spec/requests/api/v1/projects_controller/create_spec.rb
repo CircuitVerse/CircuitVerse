@@ -47,11 +47,12 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         expect(response).to have_http_status(:created)
         created_project = Project.order(:created_at).last
         expect(created_project.image_preview.path.split("/")[-1]).to eq("default.png")
+        expect(created_project.circuit_preview).not_to be_attached
       end
     end
 
     context "when there is image data", :skip_windows do
-      it "creates project with its own image file" do
+      it "creates project with its own image file and attaches a circuit preview" do
         expect do
           token = get_auth_token(user)
           post "/api/v1/projects",
@@ -62,6 +63,9 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
 
         created_project = Project.order(:created_at).last
         expect(created_project.image_preview.path.split("/")[-1]).to start_with("preview_")
+        expect(created_project.circuit_preview).to be_attached
+        expect(created_project.circuit_preview.filename.to_s).to start_with("preview_")
+        expect(created_project.circuit_preview.content_type).to eq("image/jpeg")
       end
     end
 
