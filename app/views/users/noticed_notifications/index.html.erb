@@ -19,7 +19,7 @@
       <% end %>
       <% if @notifications.count.positive? %>
         <div class="ms-3">
-          <a href="#" data-bs-toggle="modal" data-bs-target="#clearAllNotificationsModal" class="anchor-text text-danger">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#clearAllNotificationsModal" class="anchor-text text-danger" aria-label="<%= t("users.notifications.clear_all_button") %>">
             <%= t("users.notifications.clear_all_button") %>
           </a>
         </div>
@@ -85,7 +85,7 @@
   <div class="modal-dialog primary-modal-dialog">
     <div class="modal-content">
       <div class="modal-header secondary-modal-header">
-        <h4 class="modal-title"><%= t("users.notifications.clear_all_button") %></h4>
+        <h4 class="modal-title" aria-label="<%= t("users.notifications.clear_all_button") %>"><%= t("users.notifications.clear_all_button") %></h4>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
       </div>
       <div class="modal-body">
