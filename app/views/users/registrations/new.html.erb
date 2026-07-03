@@ -36,8 +36,8 @@
           </h6>
           <div class="input-group form-input">
             <%= password_field_tag "#{f.object_name}[password]", nil, autocomplete: "off", placeholder: t('enter_password'), class: "form-control users-password-input" %>
-            <button type="button" class="input-group-addon ms-3 mt-2 border-0 bg-transparent" onclick="togglePassword(this)" aria-label="Toggle password visibility">
-              <i class="far fa-eye-slash password-icon" aria-hidden="true" id="toggle-icon"></i>
+            <button type="button" class="input-group-addon ms-3 mt-2 border-0 bg-transparent" onclick="togglePassword(this)" aria-label="<%= t('toggle_password_visibility') %>">
+              <i class="far fa-eye-slash password-icon" aria-hidden="true"></i>
             </button>
           </div>
         </div>

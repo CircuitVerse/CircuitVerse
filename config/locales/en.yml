@@ -37,6 +37,7 @@ en:
   facebook: "Facebook"
   github: "Github"
   gitlab: "Gitlab"
+  toggle_password_visibility: "Toggle password visibility"
   components:
     search_bar:
       placeholders:
