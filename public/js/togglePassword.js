@@ -1,11 +1,15 @@
-function togglePassword() {
-    if ($('.users-password-input').attr('type') === 'text') {
-        $('.users-password-input').attr('type', 'password');
-        $('.password-icon').addClass('fa-eye-slash');
-        $('.password-icon').removeClass('fa-eye');
+function togglePassword(element) {
+    const $button = $(element);
+    const $input = $button.siblings('.users-password-input');
+    const $icon = $button.find('.password-icon');
+
+    if ($input.attr('type') === 'text') {
+        $input.attr('type', 'password');
+        $icon.addClass('fa-eye-slash');
+        $icon.removeClass('fa-eye');
     } else {
-        $('.users-password-input').attr('type', 'text');
-        $('.password-icon').addClass('fa-eye');
-        $('.password-icon').removeClass('fa-eye-slash');
+        $input.attr('type', 'text');
+        $icon.addClass('fa-eye');
+        $icon.removeClass('fa-eye-slash');
     }
 }
