@@ -1,0 +1,8 @@
+en:
+  subgroups:
+    create:
+      notice_created: "Subgroup was successfully created."
+    destroy:
+      notice_deleted: "Subgroup was successfully deleted."
+    update_members:
+      notice_updated: "Subgroup members were successfully updated."

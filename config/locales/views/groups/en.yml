@@ -27,6 +27,27 @@ en:
       add_mentors_btn: "+ Add Mentors"
       no_mentors_html: "There are no mentors in this group, click <strong>+ Add Mentors</strong> button to add mentors."
       no_members_html: "There are no members in this group, click <strong>+ Add Members</strong> button to add members."
+      subgroups:
+        heading: "SUBGROUPS:"
+        subgroup_of: "Subgroup of:"
+        add_subgroup_btn: "+ Create Subgroup"
+        manage_members_btn: "Manage Members"
+        create_modal_heading: "Create Subgroup"
+        create_modal_description: "Subgroups let you split this group into smaller teams. Assignments created inside a subgroup are only visible to its members."
+        create_subgroup_btn: "Create Subgroup"
+        manage_members_heading: "Manage Subgroup Members"
+        manage_members_description: "Select members of %{parent_name} to include in this subgroup."
+        update_members_btn: "Update Members"
+        no_parent_members: "The parent group has no members yet. Add members to the parent group first."
+        no_subgroups_html: "There are no subgroups in this group, click <strong>+ Create Subgroup</strong> button to create one."
+        not_in_any_subgroup: "You are not part of any subgroup in this group."
+        remove_subgroup_message: "Are you sure you want to delete this subgroup? Its assignments will also be deleted. Members remain in the parent group."
+        member_count:
+          one: "1 member"
+          other: "%{count} members"
+        assignment_count:
+          one: "1 assignment"
+          other: "%{count} assignments"
       no_assignments_html: "There are no assignments in the group, click <strong>+ Add Assignment</strong> button to start an assignment."
       assignment:
         heading: "ASSIGNMENTS:"

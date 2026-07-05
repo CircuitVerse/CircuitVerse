@@ -10,6 +10,7 @@ class GroupsController < ApplicationController
   # GET /groups/1.json
   def show
     @group_member = @group.group_members.new
+    @subgroups = visible_subgroups
     @group.assignments.each do |assignment|
       if (assignment.status == "reopening") && (assignment.deadline < Time.zone.now)
         assignment.status = "closed"
@@ -20,6 +21,10 @@ class GroupsController < ApplicationController
 
   def generate_token
     @group = Group.find(params.expect(:id))
+    # Subgroup membership is instructor-assigned from the parent's roster,
+    # never via invite links.
+    head :forbidden and return if @group.subgroup?
+
     @group.reset_group_token unless @group.has_valid_token?
   end
 
@@ -109,5 +114,15 @@ class GroupsController < ApplicationController
 
     def check_edit_access
       authorize @group, :admin_access?
+    end
+
+    # Mentors manage every subgroup; students only see the ones they belong to.
+    def visible_subgroups
+      return Group.none if @group.subgroup?
+
+      subgroups = @group.subgroups.includes(:group_members)
+      return subgroups if policy(@group).mentor_access?
+
+      subgroups.joins(:group_members).where(group_members: { user_id: current_user.id })
     end
 end

@@ -11,7 +11,7 @@ class Api::V1::GroupSerializer
     group.primary_mentor.name
   end
 
-  attributes :name, :primary_mentor_id, :created_at, :updated_at
+  attributes :name, :primary_mentor_id, :parent_group_id, :created_at, :updated_at
 
   has_many :group_members
   has_many :assignments

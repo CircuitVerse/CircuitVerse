@@ -14,21 +14,24 @@ Rails.application.routes.draw do
     mount MaintenanceTasks::Engine => "/maintenance_tasks"
   end
 
-  if Rails.env.development?
-    mount Lookbook::Engine, at: "/lookbook"
-  end
+  mount Lookbook::Engine, at: "/lookbook" if Rails.env.development?
 
   devise_scope :user do
-    get '/users/sign_out' => 'devise/sessions#destroy'
-    get '/users/saml/sign_in', to: 'users/saml_sessions#new'
-    post '/users/saml/auth', to: 'users/saml_sessions#create'
-    get '/users/saml/metadata', to: 'users/saml_sessions#metadata'
+    get "/users/sign_out" => "devise/sessions#destroy"
+    get "/users/saml/sign_in", to: "users/saml_sessions#new"
+    post "/users/saml/auth", to: "users/saml_sessions#create"
+    get "/users/saml/metadata", to: "users/saml_sessions#metadata"
   end
 
   # resources :assignment_submissions
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
+    resources :subgroups, only: %i[create destroy], controller: "subgroups" do
+      member do
+        patch :update_members
+      end
+    end
     member do
       get "invite/:token", to: "groups#group_invite", as: "invite"
       put :generate_token
@@ -66,10 +69,10 @@ Rails.application.routes.draw do
   resources :featured_circuits, only: %i[index create]
   delete "/featured_circuits", to: "featured_circuits#destroy"
 
-  get "/users/edit", to: redirect('/')
+  get "/users/edit", to: redirect("/")
   devise_for :users, controllers: {
     registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks",
-    sessions: "users/sessions", :saml_sessions => "users/saml_sessions"
+    sessions: "users/sessions", saml_sessions: "users/saml_sessions"
   }
 
   # Circuitverse web pages resources
@@ -82,22 +85,25 @@ Rails.application.routes.draw do
   # Explore
   get "/explore", to: "explore#index", as: :explore
 
-  #announcements
+  # announcements
   resources :announcements, except: %i[show]
 
   # users
 
   scope "/users" do
-    get "/:id/profile", to: redirect('/users/%{id}'), as: "profile"
+    get "/:id/profile", to: redirect("/users/%{id}"), as: "profile"
     get "/:id/profile/edit", to: "users/circuitverse#edit", as: "profile_edit"
     patch "/:id/update", to: "users/circuitverse#update", as: "profile_update"
     get "/:id/groups", to: "users/circuitverse#groups", as: "user_groups"
     get "/:id/", to: "users/circuitverse#index", as: "user_projects"
     get "/educational_institute/typeahead/:query" => "users/circuitverse#typeahead_educational_institute"
     get "/:id/notifications", to: "users/noticed_notifications#index", as: "notifications"
-    patch "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read", as: "mark_all_as_read"
-    patch "/:id/notifications/read_all_notifications", to: "users/noticed_notifications#read_all_notifications", as: "read_all_notifications"
-    post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read", as: "mark_as_read"
+    patch "/:id/notifications/mark_all_as_read", to: "users/noticed_notifications#mark_all_as_read",
+                                                 as: "mark_all_as_read"
+    patch "/:id/notifications/read_all_notifications", to: "users/noticed_notifications#read_all_notifications",
+                                                       as: "read_all_notifications"
+    post "/:id/notifications/mark_as_read/:notification_id", to: "users/noticed_notifications#mark_as_read",
+                                                             as: "mark_as_read"
   end
 
   post "/push/subscription/new", to: "push_subscription#create"
@@ -107,7 +113,7 @@ Rails.application.routes.draw do
   scope "/projects" do
     post "/create_fork/:id", to: "projects#create_fork", as: "create_fork_project"
     get "/change_stars/:id", to: "projects#change_stars", as: "change_stars"
-    get "tags/:tag", to: redirect('/tags/%{tag}'), as: "legacy_tag"
+    get "tags/:tag", to: redirect("/tags/%{tag}"), as: "legacy_tag"
   end
 
   get "/tags/:tag", to: "tags#show", as: "tag"
@@ -120,8 +126,8 @@ Rails.application.routes.draw do
       end
     end
 
-      member do
-        get :leaderboard
+    member do
+      get :leaderboard
     end
   end
 
@@ -130,8 +136,8 @@ Rails.application.routes.draw do
   end
 
   # lti
-  scope "lti"  do
-    match 'launch', to: 'lti#launch', via: [:get, :post]
+  scope "lti" do
+    match "launch", to: "lti#launch", via: %i[get post]
   end
 
   mount Commontator::Engine => "/commontator"
@@ -177,7 +183,7 @@ Rails.application.routes.draw do
   get "/features", to: redirect("/#home-features-section")
 
   # Health Check at /up ~> will be default in rails 7.1
-  get '/up', to: ->(_env) { [200, {}, ['']] }
+  get "/up", to: ->(_env) { [200, {}, [""]] }
 
   # get 'comments/create_reply/:id', to: 'comments#create_reply', as: 'reply_comment'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

@@ -1,0 +1,35 @@
+<div id="managesubgroupmembersModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("groups.show.subgroups.manage_members_heading") %></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+      </div>
+      <div class="modal-body">
+        <p><%= t("groups.show.subgroups.manage_members_description", parent_name: subgroup.parent_group.name) %></p>
+        <%= form_with(url: update_members_group_subgroup_path(subgroup.parent_group, subgroup),
+                      method: :patch, local: true) do |form| %>
+          <% subgroup_member_ids = subgroup.group_members.member.pluck(:user_id) %>
+          <% parent_members = subgroup.parent_group.group_members.member.includes(:user) %>
+          <% if parent_members.blank? %>
+            <span class="null-text"><%= t("groups.show.subgroups.no_parent_members") %></span>
+          <% end %>
+          <div class="mb-3 d-flex flex-column">
+            <% parent_members.each do |member| %>
+              <div class="form-check">
+                <%= check_box_tag "user_ids[]", member.user_id,
+                      subgroup_member_ids.include?(member.user_id),
+                      id: "subgroup-member-#{member.user_id}", class: "form-check-input" %>
+                <%= label_tag "subgroup-member-#{member.user_id}",
+                      "#{member.user.name} (#{member.user.email})", class: "form-check-label" %>
+              </div>
+            <% end %>
+          </div>
+          <div class="modal-footer">
+            <%= form.submit t("groups.show.subgroups.update_members_btn"), class: "btn primary-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

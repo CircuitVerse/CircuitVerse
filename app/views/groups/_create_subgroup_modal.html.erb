@@ -1,0 +1,22 @@
+<div id="createsubgroupModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header primary-modal-header">
+        <h4 class="modal-title"><%= t("groups.show.subgroups.create_modal_heading") %></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+      </div>
+      <div class="modal-body">
+        <p><%= t("groups.show.subgroups.create_modal_description") %></p>
+        <%= form_with(model: Group.new, url: group_subgroups_path(group), local: true) do |form| %>
+          <div class="mb-3 d-flex flex-column">
+            <%= form.label :name %>
+            <%= form.text_field :name, class: "form-control", required: true %>
+          </div>
+          <div class="modal-footer">
+            <%= form.submit t("groups.show.subgroups.create_subgroup_btn"), class: "btn primary-button" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

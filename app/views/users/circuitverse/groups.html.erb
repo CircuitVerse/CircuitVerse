@@ -50,10 +50,10 @@
     </div>
   <% end %>
   <br>
-  <% if @user.groups.count!=0 %>
+  <% if @user.groups.top_level.count != 0 %>
     <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_belong_to") %></h4>
     <div class="row center-row">
-      <% @user.groups.each do |group| %>
+      <% @user.groups.top_level.each do |group| %>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4">
           <div class="groups-card groups-member-card">
             <div class="groups-member-card-details">

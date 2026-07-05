@@ -27,6 +27,12 @@
         <strong><%= t("groups.show.primary_mentor_heading") %></strong>
         <%= @group.primary_mentor.name %>
       </h4>
+      <% if @group.subgroup? %>
+        <h4 class="group-mentor-heading">
+          <strong><%= t("groups.show.subgroups.subgroup_of") %></strong>
+          <%= link_to @group.parent_group.name, group_path(@group.parent_group), class: "anchor-text" %>
+        </h4>
+      <% end %>
     </div>
   </div>
   <!-- Mentor Section -->
@@ -52,7 +58,15 @@
 <!-- Members Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
   <h3 class="mb-0"><%= t("groups.show.group_members_heading") %></h3>
-  <% if policy(@group).admin_access? %>
+  <% if @group.subgroup? %>
+    <% if policy(@group.parent_group).manage_subgroups? %>
+      <button type="button" class="btn primary-button groups-primary-button"
+        data-bs-toggle="modal"
+        data-bs-target="#managesubgroupmembersModal">
+        <%= t("groups.show.subgroups.manage_members_btn") %>
+      </button>
+    <% end %>
+  <% elsif policy(@group).admin_access? %>
     <button type="button" class="btn primary-button groups-primary-button"
       data-bs-toggle="modal"
       data-bs-target="#addmemberModal"
@@ -68,6 +82,33 @@
   <%= render partial: "group_members", locals: { group: @group } %>
 </div>
 <hr>
+
+<% unless @group.subgroup? %>
+  <!-- Subgroups Section -->
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <h3 class="mb-0"><%= t("groups.show.subgroups.heading") %></h3>
+    <% if policy(@group).manage_subgroups? %>
+      <button type="button" class="btn primary-button groups-primary-button"
+        data-bs-toggle="modal"
+        data-bs-target="#createsubgroupModal">
+        <%= t("groups.show.subgroups.add_subgroup_btn") %>
+      </button>
+    <% end %>
+  </div>
+  <% if @subgroups.blank? %>
+    <span class="null-text">
+      <% if policy(@group).manage_subgroups? %>
+        <%= t("groups.show.subgroups.no_subgroups_html") %>
+      <% else %>
+        <%= t("groups.show.subgroups.not_in_any_subgroup") %>
+      <% end %>
+    </span>
+  <% end %>
+  <div class="row">
+    <%= render partial: "subgroups", locals: { group: @group, subgroups: @subgroups } %>
+  </div>
+  <hr>
+<% end %>
 
 <!-- Assignments Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
@@ -363,7 +404,17 @@
   </div>
   <%= render partial: "delete_member_confirmation_modal" %>
   <%= render partial: "delete_assignment_confirmation_modal" %>
-  <%= render partial: "add_member_modal", locals: { group_member: @group_member } %>
+  <% if @group.subgroup? %>
+    <% if policy(@group.parent_group).manage_subgroups? %>
+      <%= render partial: "manage_subgroup_members_modal", locals: { subgroup: @group } %>
+    <% end %>
+  <% else %>
+    <%= render partial: "add_member_modal", locals: { group_member: @group_member } %>
+    <% if policy(@group).manage_subgroups? %>
+      <%= render partial: "create_subgroup_modal", locals: { group: @group } %>
+      <%= render partial: "delete_subgroup_confirmation_modal" %>
+    <% end %>
+  <% end %>
   <%= render partial: "add_mentor_modal", locals: { group_member: @group_member } %>
   <%= render partial: "promote_member_confirmation_modal" %>
 </div>

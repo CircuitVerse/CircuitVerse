@@ -20,4 +20,9 @@ class GroupPolicy < ApplicationPolicy
   def mentor_access?
     @admin_access || @group.group_members.exists?(user_id: user.id, mentor: true)
   end
+
+  # Subgroups are managed from their top-level parent by its mentors.
+  def manage_subgroups?
+    !group.subgroup? && mentor_access?
+  end
 end

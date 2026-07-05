@@ -1,0 +1,25 @@
+<% subgroups.each do |subgroup| %>
+  <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+    <div class="groups-card groups-mentor-card">
+      <div class="groups-mentor-card-name"><%= subgroup.name %></div>
+      <div>
+        <p><%= t("groups.show.subgroups.member_count", count: subgroup.group_members.size) %></p>
+        <p><%= t("groups.show.subgroups.assignment_count", count: subgroup.assignments.size) %></p>
+      </div>
+      <div class="groups-mentor-card-mini-buttons">
+        <%= link_to group_path(subgroup), class: "mini-button groups-mentor-card-view-mini-button" do %>
+          <%= image_tag("svgs/viewGroup.svg", alt: "View Subgroup") %>
+          <span><%= t("view") %></span>
+        <% end %>
+        <% if policy(group).manage_subgroups? %>
+          <%= link_to "#", class: "mini-button groups-mentor-card-delete-mini-button",
+                data: { bs_toggle: "modal", bs_target: "#deletesubgroupModal",
+                        currentgroup: group.id, currentsubgroup: subgroup.id } do %>
+            <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Subgroup") %>
+            <span><%= t("delete") %></span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
