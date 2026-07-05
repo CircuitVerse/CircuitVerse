@@ -122,4 +122,11 @@ Rails.application.configure do
   config.hosts.clear
   config.hosts << /.*\Z/
 
+  # LTI 1.3 launches return via a cross-site POST from the platform (Canvas)
+  # to /lti/launch, so the session cookie carrying the nonce/state must be
+  # SameSite=None; Secure to survive. Requires HTTPS (served via ngrok).
+  config.action_dispatch.cookies_same_site_protection = :none
+  config.session_store :cookie_store, key: "_circuitverse_session",
+                                      same_site: :none, secure: true
+
 end

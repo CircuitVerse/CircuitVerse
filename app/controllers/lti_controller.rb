@@ -40,12 +40,36 @@ class LtiController < ApplicationController
   end
 
   def tool_config
+    base = request.base_url
     render json: {
       title: "CircuitVerse",
       description: "Digital circuit simulator for education",
-      target_link_uri: "#{request.base_url}/lti/launch",
-      oidc_initiation_url: "#{request.base_url}/lti/login",
-      public_jwk_url: "#{request.base_url}/lti/jwks"
+      oidc_initiation_url: "#{base}/lti/login",
+      target_link_uri: "#{base}/lti/launch",
+      scopes: [],
+      extensions: [
+        {
+          domain: request.host_with_port,
+          platform: "canvas.instructure.com",
+          privacy_level: "public",
+          settings: {
+            text: "CircuitVerse",
+            placements: [
+              {
+                placement: "course_navigation",
+                message_type: "LtiResourceLinkRequest",
+                target_link_uri: "#{base}/lti/launch"
+              },
+              {
+                placement: "link_selection",
+                message_type: "LtiResourceLinkRequest",
+                target_link_uri: "#{base}/lti/launch"
+              }
+            ]
+          }
+        }
+      ],
+      public_jwk_url: "#{base}/lti/jwks"
     }
   end
 

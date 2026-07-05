@@ -107,3 +107,7 @@ node_modules
 # Ignore yarn
 .yarn
 vendor
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
