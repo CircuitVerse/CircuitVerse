@@ -83,6 +83,24 @@ describe OrganizationMemberPolicy do
     it { is_expected.not_to permit(:destroy) }
   end
 
+  context "when the user is the primary mentor of a group in the org" do
+    before do
+      @mentor = FactoryBot.create(:user)
+      @mentor_membership = FactoryBot.create(
+        :organization_member,
+        organization: @organization,
+        user: @mentor,
+        role: :member
+      )
+      FactoryBot.create(:group, name: "Mentored Group", primary_mentor: @mentor, organization: @organization)
+    end
+
+    let(:user) { @mentor }
+    let(:organization_member) { @mentor_membership }
+
+    it { is_expected.not_to permit(:destroy) }
+  end
+
   context "when there are multiple admins and one demotes the other" do
     before do
       @second_admin = FactoryBot.create(:user)
