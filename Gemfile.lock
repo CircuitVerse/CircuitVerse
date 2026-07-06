@@ -242,9 +242,10 @@ GEM
     crack (1.0.1)
       bigdecimal
       rexml
-    crass (1.0.6)
-    css_parser (2.2.0)
+    crass (1.0.7)
+    css_parser (3.0.0)
       addressable
+      ssrf_filter (~> 1.5)
     csv (3.3.5)
     database_consistency (2.0.5)
       activerecord (>= 3.2)
@@ -478,7 +479,7 @@ GEM
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    msgpack (1.8.1)
+    msgpack (1.8.3)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
     mutex_m (0.3.0)
