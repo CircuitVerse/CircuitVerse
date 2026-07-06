@@ -236,6 +236,12 @@ Rails.application.routes.draw do
       resources :groups do
         resources :members, controller: "group_members", shallow: true, only: %i[index create]
         resources :assignments, shallow: true
+        resources :subgroups, only: %i[index create], shallow: true
+      end
+      resources :subgroups, only: %i[show destroy] do
+        member do
+          patch :members, to: "subgroups#update_members"
+        end
       end
       resources :assignments do
         member do
