@@ -32,10 +32,13 @@ class SubgroupsController < ApplicationController
     allowed_ids = @parent_group.group_members.pluck(:user_id)
     target_ids = user_ids & allowed_ids
 
-    current_ids = @subgroup.group_members.member.pluck(:user_id)
+    current_member_ids = @subgroup.group_members.member.pluck(:user_id)
+    # Mentor rows are managed via the mentors flow, so the checkbox sync must
+    # neither remove them nor try to insert a duplicate row for them.
+    existing_ids = @subgroup.group_members.pluck(:user_id)
 
-    @subgroup.group_members.member.where(user_id: current_ids - target_ids).destroy_all
-    (target_ids - current_ids).each do |user_id|
+    @subgroup.group_members.member.where(user_id: current_member_ids - target_ids).destroy_all
+    (target_ids - existing_ids).each do |user_id|
       @subgroup.group_members.create(user_id: user_id)
     end
 

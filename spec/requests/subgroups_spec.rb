@@ -132,6 +132,26 @@ describe SubgroupsController, type: :request do
       expect(@subgroup.reload.group_members.pluck(:user_id))
         .to contain_exactly(@student.id)
     end
+
+    it "does not duplicate or demote a user who is already a subgroup mentor" do
+      FactoryBot.create(:group_member, group: @subgroup, user: @student, mentor: true)
+      patch update_members_group_subgroup_path(@group, @subgroup),
+            params: { user_ids: [@student.id, @other_student.id] }
+      expect(response).to redirect_to(group_path(@subgroup))
+      rows = @subgroup.reload.group_members.where(user_id: @student.id)
+      expect(rows.count).to eq(1)
+      expect(rows.first.mentor).to be(true)
+      expect(@subgroup.group_members.pluck(:user_id))
+        .to contain_exactly(@student.id, @other_student.id)
+    end
+
+    it "keeps mentor rows when their checkbox is not submitted" do
+      FactoryBot.create(:group_member, group: @subgroup, user: @student, mentor: true)
+      patch update_members_group_subgroup_path(@group, @subgroup),
+            params: { user_ids: [@other_student.id] }
+      expect(@subgroup.reload.group_members.mentor.pluck(:user_id))
+        .to contain_exactly(@student.id)
+    end
   end
 
   describe "invite token" do

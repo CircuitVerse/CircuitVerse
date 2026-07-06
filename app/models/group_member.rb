@@ -5,6 +5,9 @@ class GroupMember < ApplicationRecord
   belongs_to :user
   has_many :assignments, through: :group
 
+  # Mirrors the unique DB index so duplicates fail validation instead of
+  # raising PG::UniqueViolation.
+  validates :user_id, uniqueness: { scope: :group_id }
   validate :user_must_belong_to_parent_group, if: -> { group&.subgroup? }
 
   after_commit :send_welcome_email, on: :create, unless: -> { group.subgroup? }
