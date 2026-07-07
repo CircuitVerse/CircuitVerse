@@ -69,15 +69,20 @@ class User < ApplicationRecord
 
   def self.from_omniauth(access_token)
     data = access_token.info
-    user = User.where(email: data["email"]).first
-    name = data["name"] || data["nickname"]
-    # Uncomment the section below if you want users to be created if they don't exist
-    user ||= User.create(name: name,
+    user = User.find_by(uid: access_token.uid, provider: access_token.provider)
+    user ||= User.find_by(email: data["email"])
+    
+    if user
+      user.update(uid: access_token.uid) if user.uid.blank?
+    else
+      name = data["name"] || data["nickname"]
+      user = User.create(name: name,
                          email: data["email"],
                          password: Devise.friendly_token[0, 20],
                          provider: access_token.provider,
                          confirmed_at: Time.zone.now,
                          uid: access_token.uid)
+    end
     user
   end
 
