@@ -155,7 +155,7 @@ class ProjectsController < ApplicationController
     end
 
     def set_name_project_datum(project_params)
-      return unless @project.project_datum&.data.present?
+      return unless @project.project_datum&.data&.present?
 
       datum_data = JSON.parse(@project.project_datum.data)
       datum_data["name"] = project_params["name"]
