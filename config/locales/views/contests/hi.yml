@@ -1,1 +1,133 @@
 hi:
+  contest:
+    leaderboard:
+      title: "प्रतियोगिता #%{id} — लीडरबोर्ड"
+      subtitle: "वोट्स के अनुसार अंतिम परिणाम; टाई होने पर पहले सबमिट किए गए एंट्री को प्राथमिकता।"
+      back_to_contest: "प्रतियोगिता पर वापस जाएं"
+      no_submissions: "कोई सबमिशन नहीं"
+      columns:
+        rank: "रैंक"
+        project: "प्रोजेक्ट"
+        author: "लेखक"
+        votes: "वोट्स"
+        submitted_at: "सबमिट किया गया"
+      winner_badge: "विजेता"
+    heading: "प्रतियोगिताएं"
+    index:
+      subtitle: "ऐसी प्रतियोगिताएं जहां स्टूडेंट्स अपने शानदार सर्किट्स दिखाते हैं और सबसे अच्छे सर्किट्स हमारी होमपेज पर दिखाए जाते हैं!"
+      manage_button: "प्रतियोगिताएं मैनेज करें"
+    admin:
+      subtitle: "यह पेज एडमिनिस्ट्रेटर्स के लिए है, आप 'नई प्रतियोगिता होस्ट करें' बटन पर क्लिक करके एक नई प्रतियोगिता शुरू कर सकते हैं!"
+      new_contest_button: "नई प्रतियोगिता होस्ट करें"
+    show:
+      subtitle: "हमारी वेबसाइट पर फीचर होने और अपने सर्किट को %{user_count} यूज़र्स तक दिखाने का मौका पाएं!"
+      remaining_votes: "आपके बचे हुए वोट्स:"
+      register_button: "सर्किट रजिस्टर करें"
+      disable_button: "प्रतियोगिता समाप्त हो गई है!"
+      winners: "विजेता"
+      winners_description: "जीतने वाले प्रोजेक्ट्स को हमारी वेबसाइट पर फीचर किया जाएगा और उन्हें CircuitVerse स्पेशल टैग दिया जाएगा।"
+      user_submissions: "आपके सबमिशन"
+      user_submissions_description: "आप प्रतियोगिता से अपना सबमिशन वापस ले सकते हैं।"
+      contest_entries: "प्रतियोगिता एंट्रीज़ (%{submission_count})"
+      contest_entries_description: "अपनी पसंदीदा एंट्रीज़ को वोट दें और इस हफ्ते के विजेता चुनने में हमारी मदद करें! हर यूज़र को 3 वोट्स मिलते हैं।"
+      view_leaderboard: "लीडरबोर्ड देखें"
+    votes: "वोट्स"
+    votes_count:
+      one: "%{count} वोट"
+      other: "%{count} वोट्स"
+    close: "बंद करें"
+    no_contest: "कोई लाइव या समाप्त हुई प्रतियोगिता मौजूद नहीं है।"
+    contest_container:
+      contest_id: "प्रतियोगिता"
+      entries: "एंट्रीज़"
+      contest_id_with_number: "प्रतियोगिता #%{id}"
+      default_contest_card_img_alt: "डिफ़ॉल्ट प्रतियोगिता कार्ड इमेज"
+      entries_alt: "प्रतियोगिता के प्रतिभागियों की संख्या वाली इमेज"
+      description: "CircuitVerse प्रतियोगिता में आपका स्वागत है! अपनी इंजीनियरिंग स्किल्स दिखाएं और कम्युनिटी लीडरबोर्ड में ऊपर चढ़ें।"
+    status:
+      live: "लाइव"
+      completed: "समाप्त"
+    withdraw: "वापस लें"
+    vote: "वोट"
+    view: "देखें"
+    no_result_image_alt: "कोई रिज़ल्ट इमेज नहीं"
+    timer:
+      expired: "समय समाप्त"
+    new_submission_page:
+      heading: "प्रोजेक्ट सबमिशन"
+      select_your_circuit: "अपना सर्किट चुनें"
+      select_your_circuit_description: "प्रतियोगिता में सिर्फ़ पब्लिक प्रोजेक्ट्स की अनुमति है।"
+    close_contest_modal:
+      heading: "प्रतियोगिता बंद करें"
+      description: "क्या आप वाकई इस प्रतियोगिता को बंद करना चाहते हैं?"
+      confirm_button: "कन्फर्म करें"
+    host_new_contest_modal:
+      heading: "एक नई प्रतियोगिता होस्ट करें"
+      description: "क्या आप वाकई एक नई प्रतियोगिता शुरू करना चाहते हैं?"
+      description_html: "<p>नई प्रतियोगिता होस्ट करने से:</p><ul><li>चल रही प्रतियोगिता (अगर कोई हो) खत्म हो जाएगी</li><li>सभी यूज़र्स को एक अनाउंसमेंट भेजा जाएगा</li></ul>"
+      confirm_button: "कन्फर्म करें"
+    update_contest_modal:
+      heading: "प्रतियोगिता की डेडलाइन अपडेट करें"
+      sub_heading: "प्रतियोगिता के लिए डेडलाइन सेट करें"
+      description: "कृपया सुनिश्चित करें कि प्रतियोगिता की डेडलाइन भविष्य की तारीख में सेट की गई है। पिछली तारीख में डेडलाइन सेट करने की अनुमति नहीं है।"
+      update_deadline: "डेडलाइन अपडेट करें"
+    withdraw_submission_modal:
+      heading: "सबमिशन वापस लें"
+      description: "क्या आप वाकई अपना सबमिशन प्रतियोगिता से वापस लेना चाहते हैं?"
+    header:
+      time_left_label: "बचा हुआ समय:"
+    buttons:
+      submit: "सबमिट करें"
+      update_deadline: "डेडलाइन अपडेट करें"
+  contests:
+    index:
+      title: "प्रतियोगिताएं"
+    show:
+      title: "प्रतियोगिता"
+    new_submission:
+      title: "नया सबमिशन"
+    create_submission:
+      success: "सबमिशन सफलतापूर्वक जोड़ दिया गया है।"
+      unauthorized_project: "आप किसी और के प्रोजेक्ट को सबमिट नहीं कर सकते।"
+      duplicate_submission: "यह प्रोजेक्ट पहले से ही प्रतियोगिता #%{contest_id} में सबमिट किया जा चुका है"
+    upvote:
+      voting_closed: "वोटिंग बंद हो चुकी है।"
+      all_votes_used: "आपने अपने सभी वोट्स इस्तेमाल कर लिए हैं!"
+      already_voted: "आप पहले ही इस सबमिशन को वोट दे चुके हैं!"
+      success: "आपने सफलतापूर्वक सबमिशन को वोट दे दिया है, धन्यवाद! बचे हुए वोट्स: %{votes_remaining}"
+    submissions:
+      create:
+        success: "सबमिशन सफलतापूर्वक जोड़ दिया गया है।"
+        unauthorized_project: "आप किसी और के प्रोजेक्ट को सबमिट नहीं कर सकते।"
+        duplicate_submission: "यह प्रोजेक्ट पहले से ही प्रतियोगिता #%{contest_id} में सबमिट किया जा चुका है"
+      destroy:
+        success: "सबमिशन सफलतापूर्वक हटा दिया गया है।"
+        withdraw_closed: "प्रतियोगिता खत्म होते ही सबमिशन वापस लेना बंद कर दिया जाएगा।"
+      votes:
+        create:
+          voting_closed: "वोटिंग बंद हो चुकी है।"
+          all_votes_used: "आपने अपने सभी वोट्स इस्तेमाल कर लिए हैं!"
+          already_voted: "आप पहले ही इस सबमिशन को वोट दे चुके हैं!"
+          success: "आपने सफलतापूर्वक सबमिशन को वोट दे दिया है, धन्यवाद! बचे हुए वोट्स: %{votes_remaining}"
+  admin:
+    contests:
+      index:
+        title: "प्रतियोगिता एडमिन"
+        edit_deadline_alt: "डेडलाइन एडिट करें"
+      create:
+        concurrent_contests: "एक साथ कई प्रतियोगिताओं की अनुमति नहीं है। नई प्रतियोगिता बनाने से पहले दूसरी प्रतियोगिताओं को बंद करें।"
+        success: "प्रतियोगिता सफलतापूर्वक शुरू कर दी गई है।"
+      update:
+        contest_closed: "प्रतियोगिता सफलतापूर्वक बंद कर दी गई है।"
+        deadline_in_future: "डेडलाइन भविष्य की तारीख में होनी चाहिए।"
+        deadline_updated: "प्रतियोगिता की डेडलाइन सफलतापूर्वक अपडेट कर दी गई है।"
+        deadline_update_failed: "प्रतियोगिता की डेडलाइन अपडेट करने में गड़बड़ी हुई: %{errors}"
+        invalid_deadline: "अमान्य डेडलाइन फॉर्मेट।"
+      parse_deadline_or_redirect:
+        invalid_deadline: "अमान्य डेडलाइन फॉर्मेट।"
+  layout:
+    link_to_contests: "प्रतियोगिताएं"
+  user:
+    circuitverse:
+      preview_project: "प्रोजेक्ट प्रीव्यू"
+  feature_not_available: "प्रतियोगिता फ़ीचर उपलब्ध नहीं है।"

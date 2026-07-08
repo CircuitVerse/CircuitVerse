@@ -1,0 +1,19 @@
+es:
+  organizations:
+    create:
+      success: "La organización se ha creado correctamente."
+      failure: "La organización no pudo ser creada."
+    update:
+      success: "La organización se ha actualizado correctamente."
+    destroy:
+      success: "La organización se ha eliminado correctamente."
+  organization_members:
+    create:
+      success: "Miembro añadido correctamente."
+    update:
+      success: "El rol de miembro se ha actualizado correctamente."
+    destroy:
+      success: "Miembro eliminado correctamente."
+    leave:
+      success: "Has abandonado con éxito la organización."
+      not_a_member: "Usted no es miembro de esta organización."
