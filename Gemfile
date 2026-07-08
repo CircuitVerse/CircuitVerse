@@ -11,7 +11,6 @@ gem "aws-sdk-rails"
 gem "aws-actionmailer-ses"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
-gem "kt-paperclip"
 gem "language_filter"
 gem "mailkick", "~> 0.4.3"
 gem "omniauth"
