@@ -1,0 +1,19 @@
+ja:
+  organizations:
+    create:
+      success: "組織は正常に作成されました。"
+      failure: "組織を作成できませんでした。"
+    update:
+      success: "組織が正常に更新されました。"
+    destroy:
+      success: "組織が正常に削除されました。"
+  organization_members:
+    create:
+      success: "メンバーが正常に追加されました。"
+    update:
+      success: "メンバーの役割が正常に更新されました。"
+    destroy:
+      success: "メンバーを削除しました。"
+    leave:
+      success: "組織から脱退しました。"
+      not_a_member: "あなたはこの組織のメンバーではありません。"
