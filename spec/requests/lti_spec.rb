@@ -23,8 +23,9 @@ describe LtiController, type: :request do
     JWT.encode(payload, private_key, "RS256")
   end
 
-  # Performs the OIDC login initiation so the session holds a valid
-  # lti_state / lti_nonce, mirroring a real LTI 1.3 launch.
+  # Performs the OIDC login initiation and returns the signed state and nonce
+  # from the resulting redirect, mirroring what a real platform echoes back on
+  # the launch (state as-is, nonce inside the id_token).
   def complete_oidc_login
     post lti_login_path, params: {
       iss: deployment.issuer,
@@ -32,6 +33,8 @@ describe LtiController, type: :request do
       login_hint: "hint_abc",
       target_link_uri: "http://www.example.com/lti/launch"
     }
+    redirect = Rack::Utils.parse_query(URI(response.location).query)
+    { state: redirect["state"], nonce: redirect["nonce"] }
   end
 
   describe "GET /lti/jwks" do
@@ -89,10 +92,15 @@ describe LtiController, type: :request do
         expect(redirect_params["prompt"]).to eq("none")
       end
 
-      it "stores lti_nonce and lti_state in the session" do
+      it "returns a signed state and nonce in the redirect" do
         post lti_login_path, params: login_params
-        expect(session[:lti_nonce]).to be_present
-        expect(session[:lti_state]).to be_present
+        redirect = Rack::Utils.parse_query(URI(response.location).query)
+        expect(redirect["state"]).to be_present
+        expect(redirect["nonce"]).to be_present
+        # state is signed, not raw random data, so it round-trips through the verifier
+        verifier = Rails.application.message_verifier(LtiController::LTI_STATE_PURPOSE)
+        data = verifier.verified(redirect["state"], purpose: LtiController::LTI_STATE_PURPOSE)
+        expect(data["nonce"]).to eq(redirect["nonce"])
       end
     end
 
@@ -111,37 +119,36 @@ describe LtiController, type: :request do
 
     context "with a completed OIDC login and matching state/nonce" do
       it "signs the user in and redirects to root" do
-        complete_oidc_login
-        post lti_launch_path, params: { id_token: id_token("nonce" => session[:lti_nonce]), state: session[:lti_state] }
+        login = complete_oidc_login
+        post lti_launch_path, params: { id_token: id_token("nonce" => login[:nonce]), state: login[:state] }
         expect(response).to redirect_to(root_path)
       end
 
       it "creates the user when they do not exist in CircuitVerse" do
-        complete_oidc_login
-        nonce = session[:lti_nonce]
-        state = session[:lti_state]
+        login = complete_oidc_login
         expect do
           post lti_launch_path,
-               params: { id_token: id_token("email" => "newuser@example.com", "nonce" => nonce), state: state }
+               params: { id_token: id_token("email" => "newuser@example.com", "nonce" => login[:nonce]),
+                         state: login[:state] }
         end.to change(User, :count).by(1)
       end
 
       it "reuses the same account across launches with the same sub" do
-        complete_oidc_login
+        login = complete_oidc_login
         post lti_launch_path,
-             params: { id_token: id_token("sub" => "lti-subject-123", "nonce" => session[:lti_nonce]),
-                       state: session[:lti_state] }
+             params: { id_token: id_token("sub" => "lti-subject-123", "nonce" => login[:nonce]),
+                       state: login[:state] }
         expect do
-          complete_oidc_login
+          relogin = complete_oidc_login
           post lti_launch_path,
-               params: { id_token: id_token("sub" => "lti-subject-123", "nonce" => session[:lti_nonce]),
-                         state: session[:lti_state] }
+               params: { id_token: id_token("sub" => "lti-subject-123", "nonce" => relogin[:nonce]),
+                         state: relogin[:state] }
         end.not_to change(User, :count)
       end
 
       it "sets is_lti in the session" do
-        complete_oidc_login
-        post lti_launch_path, params: { id_token: id_token("nonce" => session[:lti_nonce]), state: session[:lti_state] }
+        login = complete_oidc_login
+        post lti_launch_path, params: { id_token: id_token("nonce" => login[:nonce]), state: login[:state] }
         expect(session[:is_lti]).to be true
       end
     end
@@ -149,12 +156,11 @@ describe LtiController, type: :request do
     context "when the email claim belongs to a different existing account" do
       it "rejects the launch instead of signing in as that account" do
         FactoryBot.create(:user, email: "existing@example.com")
-        complete_oidc_login
-        nonce = session[:lti_nonce]
-        state = session[:lti_state]
+        login = complete_oidc_login
         expect do
           post lti_launch_path,
-               params: { id_token: id_token("email" => "existing@example.com", "nonce" => nonce), state: state }
+               params: { id_token: id_token("email" => "existing@example.com", "nonce" => login[:nonce]),
+                         state: login[:state] }
         end.not_to change(User, :count)
         expect(response).to have_http_status(:conflict)
       end
@@ -162,16 +168,16 @@ describe LtiController, type: :request do
 
     context "when the token omits the email claim" do
       it "returns 401 rather than 500" do
-        complete_oidc_login
+        login = complete_oidc_login
         now = Time.current.to_i
         token = JWT.encode(
           { "iss" => deployment.issuer, "aud" => deployment.client_id,
             LtiController::DEPLOYMENT_ID_CLAIM => deployment.deployment_id,
-            "sub" => "no-email-sub", "nonce" => session[:lti_nonce],
+            "sub" => "no-email-sub", "nonce" => login[:nonce],
             "iat" => now, "exp" => now + 3600 },
           private_key, "RS256"
         )
-        post lti_launch_path, params: { id_token: token, state: session[:lti_state] }
+        post lti_launch_path, params: { id_token: token, state: login[:state] }
         expect(response).to have_http_status(:unauthorized)
       end
     end
@@ -189,66 +195,78 @@ describe LtiController, type: :request do
       end
     end
 
-    context "with a state that does not match the session" do
+    context "with a forged state not signed by the tool" do
       it "returns 401" do
-        complete_oidc_login
-        post lti_launch_path, params: { id_token: id_token, state: "wrong-state" }
+        post lti_launch_path, params: { id_token: id_token, state: "forged-unsigned-state" }
+        expect(response).to have_http_status(:unauthorized)
+      end
+    end
+
+    context "with a state that has expired" do
+      it "returns 401" do
+        verifier = Rails.application.message_verifier(LtiController::LTI_STATE_PURPOSE)
+        expired_state = verifier.generate(
+          { "nonce" => "test-nonce" },
+          purpose: LtiController::LTI_STATE_PURPOSE,
+          expires_at: 1.minute.ago
+        )
+        post lti_launch_path, params: { id_token: id_token("nonce" => "test-nonce"), state: expired_state }
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
     context "with a deployment_id that matches no registered deployment" do
       it "returns 404" do
-        complete_oidc_login
+        login = complete_oidc_login
         token = id_token(LtiController::DEPLOYMENT_ID_CLAIM => "unregistered-deployment",
-                         "nonce" => session[:lti_nonce])
-        post lti_launch_path, params: { id_token: token, state: session[:lti_state] }
+                         "nonce" => login[:nonce])
+        post lti_launch_path, params: { id_token: token, state: login[:state] }
         expect(response).to have_http_status(:not_found)
       end
     end
 
     context "with an unknown issuer in the token" do
       it "returns 404" do
-        complete_oidc_login
+        login = complete_oidc_login
         token = JWT.encode(
           { "iss" => "https://unknown.edu", "aud" => "unknown-client", "sub" => "u1",
             LtiController::DEPLOYMENT_ID_CLAIM => "deploy-unknown",
             "iat" => Time.current.to_i, "exp" => 1.hour.from_now.to_i },
           private_key, "RS256"
         )
-        post lti_launch_path, params: { id_token: token, state: session[:lti_state] }
+        post lti_launch_path, params: { id_token: token, state: login[:state] }
         expect(response).to have_http_status(:not_found)
       end
     end
 
     context "with a malformed token" do
       it "returns 401" do
-        complete_oidc_login
-        post lti_launch_path, params: { id_token: "not.a.jwt", state: session[:lti_state] }
+        login = complete_oidc_login
+        post lti_launch_path, params: { id_token: "not.a.jwt", state: login[:state] }
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
     context "with an expired token" do
       it "returns 401" do
-        complete_oidc_login
-        expired = id_token("exp" => 1.hour.ago.to_i, "nonce" => session[:lti_nonce])
-        post lti_launch_path, params: { id_token: expired, state: session[:lti_state] }
+        login = complete_oidc_login
+        expired = id_token("exp" => 1.hour.ago.to_i, "nonce" => login[:nonce])
+        post lti_launch_path, params: { id_token: expired, state: login[:state] }
         expect(response).to have_http_status(:unauthorized)
       end
     end
 
     context "with a token missing a required claim" do
       it "returns 401 rather than 500" do
-        complete_oidc_login
+        login = complete_oidc_login
         now = Time.current.to_i
         token = JWT.encode(
           { "iss" => deployment.issuer, "aud" => deployment.client_id,
             LtiController::DEPLOYMENT_ID_CLAIM => deployment.deployment_id,
-            "nonce" => session[:lti_nonce], "iat" => now, "exp" => now + 3600 },
+            "nonce" => login[:nonce], "iat" => now, "exp" => now + 3600 },
           private_key, "RS256"
         )
-        post lti_launch_path, params: { id_token: token, state: session[:lti_state] }
+        post lti_launch_path, params: { id_token: token, state: login[:state] }
         expect(response).to have_http_status(:unauthorized)
       end
     end

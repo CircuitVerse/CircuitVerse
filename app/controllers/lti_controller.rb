@@ -3,6 +3,14 @@
 class LtiController < ApplicationController
   DEPLOYMENT_ID_CLAIM = "https://purl.imsglobal.org/spec/lti/claim/deployment_id"
 
+  # The OIDC "state" is a signed, self-contained token rather than a value
+  # stashed in the session. The LTI 1.3 launch returns via a cross-site POST,
+  # which a SameSite cookie would not survive; keeping the round-trip data in
+  # the signed state avoids weakening the session cookie. The signature is the
+  # CSRF protection: only this tool can mint a valid state.
+  LTI_STATE_PURPOSE = "lti.launch.state"
+  LTI_STATE_TTL = 5.minutes
+
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
   after_action :allow_iframe_lti, only: %i[launch]
@@ -24,10 +32,11 @@ class LtiController < ApplicationController
     )
 
     nonce = SecureRandom.hex(16)
-    state = SecureRandom.hex(16)
-
-    session[:lti_nonce] = nonce
-    session[:lti_state] = state
+    state = lti_state_verifier.generate(
+      { "nonce" => nonce, "deployment_id" => deployment.id },
+      purpose: LTI_STATE_PURPOSE,
+      expires_in: LTI_STATE_TTL
+    )
 
     redirect_to build_oidc_redirect(deployment, nonce, state),
                 allow_other_host: true
@@ -75,6 +84,12 @@ class LtiController < ApplicationController
 
   private
 
+    # Signs/verifies the OIDC state with the app secret so the launch round-trip
+    # needs no server-side session state and no SameSite=None cookie.
+    def lti_state_verifier
+      Rails.application.message_verifier(LTI_STATE_PURPOSE)
+    end
+
     def verified_request?
       super || lti_request_verified_by_protocol?
     end
@@ -93,8 +108,9 @@ class LtiController < ApplicationController
     end
 
     def handle_lti_13_launch
-      if session[:lti_state].blank? || params[:state] != session[:lti_state]
-        render json: { error: "State mismatch" }, status: :unauthorized
+      state_data = lti_state_verifier.verified(params[:state].to_s, purpose: LTI_STATE_PURPOSE)
+      if state_data.blank?
+        render json: { error: "Invalid or expired state" }, status: :unauthorized
         return
       end
 
@@ -102,14 +118,12 @@ class LtiController < ApplicationController
       payload    = Lti::JwtValidator.validate!(
         params[:id_token],
         deployment: deployment,
-        nonce: session[:lti_nonce]
+        nonce: state_data["nonce"]
       )
 
       @user = find_or_create_user_from_lti13(payload, deployment)
       sign_in(@user)
 
-      session.delete(:lti_nonce)
-      session.delete(:lti_state)
       session[:is_lti] = true
 
       redirect_to root_path
