@@ -995,7 +995,7 @@ GEM
     uri (1.1.1)
     useragent (0.16.11)
     version_gem (1.1.11)
-    view_component (4.11.0)
+    view_component (4.12.0)
       actionview (>= 7.1.0)
       activesupport (>= 7.1.0)
       concurrent-ruby (~> 1)
@@ -1021,7 +1021,7 @@ GEM
     webpush (0.3.2)
       hkdf (~> 0.2)
       jwt
-    websocket-driver (0.8.0)
+    websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
