@@ -3,11 +3,17 @@
 class LtiController < ApplicationController
   DEPLOYMENT_ID_CLAIM = "https://purl.imsglobal.org/spec/lti/claim/deployment_id"
 
-
+  # The OIDC "state" is a signed, self-contained token rather than a value
+  # stashed in the session. The LTI 1.3 launch returns via a cross-site POST,
+  # which a SameSite cookie would not survive; keeping the round-trip data in
+  # the signed state avoids weakening the session cookie. The signature is the
+  # CSRF protection: only this tool can mint a valid state.
   LTI_STATE_PURPOSE = "lti.launch.state"
   LTI_STATE_TTL = 5.minutes
 
-
+  # LTI 1.3 (OIDC) is gated behind an admin-controlled, default-off flag so
+  # auto-provisioning of confirmed users cannot be reached until an operator
+  # opts in. The LTI 1.1 launch path is unaffected.
   before_action :require_lti_advantage_feature, only: %i[oidc_login jwks tool_config]
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
