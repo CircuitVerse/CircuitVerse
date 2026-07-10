@@ -9,6 +9,7 @@ default_flipper_features = {
   forum: false,
   project_comments: true,
   lms_integration: true,
+  lti_advantage: false,
   vuesim: false,
   block_registration: false,
   active_storage_s3: true,

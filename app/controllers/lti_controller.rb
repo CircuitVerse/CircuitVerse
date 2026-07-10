@@ -11,6 +11,10 @@ class LtiController < ApplicationController
   LTI_STATE_PURPOSE = "lti.launch.state"
   LTI_STATE_TTL = 5.minutes
 
+  # LTI 1.3 (OIDC) is gated behind an admin-controlled, default-off flag so
+  # auto-provisioning of confirmed users cannot be reached until an operator
+  # opts in. The LTI 1.1 launch path is unaffected.
+  before_action :require_lti_advantage_feature, only: %i[oidc_login jwks tool_config]
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
   after_action :allow_iframe_lti, only: %i[launch]
@@ -19,6 +23,8 @@ class LtiController < ApplicationController
 
   def launch
     if params[:id_token].present?
+      return lti_advantage_unavailable unless lti_advantage_enabled?
+
       handle_lti_13_launch
     else
       handle_lti_11_launch
@@ -83,6 +89,18 @@ class LtiController < ApplicationController
   end
 
   private
+
+    def lti_advantage_enabled?
+      Flipper.enabled?(:lti_advantage)
+    end
+
+    def require_lti_advantage_feature
+      lti_advantage_unavailable unless lti_advantage_enabled?
+    end
+
+    def lti_advantage_unavailable
+      render json: { error: "LTI 1.3 is not enabled" }, status: :not_found
+    end
 
     # Signs/verifies the OIDC state with the app secret so the launch round-trip
     # needs no server-side session state and no SameSite=None cookie.

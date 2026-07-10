@@ -7,6 +7,9 @@ describe LtiController, type: :request do
   let(:public_key_pem) { private_key.public_key.to_pem }
   let!(:deployment)    { FactoryBot.create(:lti_deployment, platform_public_key: public_key_pem) }
 
+  before { Flipper.enable(:lti_advantage) }
+  after  { Flipper.disable(:lti_advantage) }
+
   def id_token(overrides = {})
     now = Time.current.to_i
     payload = {
@@ -274,6 +277,43 @@ describe LtiController, type: :request do
 
   describe "POST /lti/launch without id_token (no LTI 1.1 assignment found)" do
     it "returns 401 when no matching assignment exists" do
+      post lti_launch_path
+      expect(response).to have_http_status(:unauthorized)
+    end
+  end
+
+  describe "when the lti_advantage feature flag is disabled" do
+    before { Flipper.disable(:lti_advantage) }
+
+    it "returns 404 for the tool configuration" do
+      get lti_config_path
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "returns 404 for the JWKS endpoint" do
+      get lti_jwks_path
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "returns 404 for OIDC login initiation" do
+      post lti_login_path, params: {
+        iss: deployment.issuer, client_id: deployment.client_id,
+        login_hint: "hint_abc", target_link_uri: "http://www.example.com/lti/launch"
+      }
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "does not provision a user from a 1.3 launch and returns 404" do
+      verifier = Rails.application.message_verifier(LtiController::LTI_STATE_PURPOSE)
+      state = verifier.generate({ "nonce" => "test-nonce" },
+                                purpose: LtiController::LTI_STATE_PURPOSE, expires_in: 5.minutes)
+      expect do
+        post lti_launch_path, params: { id_token: id_token("nonce" => "test-nonce"), state: state }
+      end.not_to change(User, :count)
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "still allows the LTI 1.1 launch path" do
       post lti_launch_path
       expect(response).to have_http_status(:unauthorized)
     end
