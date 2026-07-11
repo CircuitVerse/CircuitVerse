@@ -402,8 +402,12 @@ export function runAll(data, scope = globalScope) {
     let passedCases = 0;
 
     data.groups.forEach((group) => {
-        // for (const output of group.outputs) output.results = [];
-        group.outputs.forEach((output) => output.results = []);
+        const outputMap = new Map();
+        group.outputs.forEach((output) => {
+            output.results = [];
+            outputMap.set(output.label.trim(), output);
+        });
+        
         for (let case_i = 0; case_i < group.n; case_i++) {
             totalCases++;
             // Set and propagate the inputs
@@ -417,11 +421,11 @@ export function runAll(data, scope = globalScope) {
             let casePassed = true; // Tracks if current case passed or failed
 
             caseResult.forEach((_, outName) => {
-                // TODO: find() is not the best idea because of O(n)
-                const output = group.outputs.find((dataOutput) => dataOutput.label.trim() === outName);
-                output.results.push(caseResult.get(outName));
-
-                if (output.values[case_i] !== caseResult.get(outName)) casePassed = false;
+                const output = outputMap.get(outName);
+                if (output) {
+                    output.results.push(caseResult.get(outName));
+                    if (output.values[case_i] !== caseResult.get(outName)) casePassed = false;
+                }
             });
 
             // If current case passed, then increment passedCases
