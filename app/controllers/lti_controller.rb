@@ -64,13 +64,25 @@ class LtiController < ApplicationController
 
     def set_lti_params
       # get some of the parameters from the lti request
+      clear_lti_11_grade_context
       @email_from_lms = params[:lis_person_contact_email_primary] # user email
       @lms_type = params[:tool_consumer_info_product_family_code] # lms type
       @course_title_from_lms = params[:context_title] # course title
       lms_domain = params[:launch_presentation_return_url]
-      session[:lis_outcome_service_url] = params[:lis_outcome_service_url] # grading parameters
-      session[:oauth_consumer_key] = params[:oauth_consumer_key] # grading parameters
+      # store the grading context only when the launch matched an assignment,
+      # and remember which assignment it belongs to
+      if @assignment.present? && params[:lis_outcome_service_url].present?
+        session[:lis_outcome_service_url] = params[:lis_outcome_service_url]
+        session[:oauth_consumer_key] = params[:oauth_consumer_key]
+        session[:lti_11_assignment_id] = @assignment.id
+      end
       session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
+    end
+
+    def clear_lti_11_grade_context
+      session.delete(:lis_outcome_service_url)
+      session.delete(:oauth_consumer_key)
+      session.delete(:lti_11_assignment_id)
     end
 
     def create_project_if_student_present

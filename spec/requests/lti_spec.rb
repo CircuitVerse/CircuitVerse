@@ -62,6 +62,36 @@ describe LtiController, type: :request do
       end
     end
 
+    context "when storing the grading context in the session" do
+      it "records the outcome context and the matched assignment" do
+        post lti_launch_path, params: { oauth_consumer_key: oauth_consumer_key_fromlms,
+                                        oauth_signature: "invalid",
+                                        lis_outcome_service_url: "https://lms.example.test/outcomes" }
+        expect(session[:lis_outcome_service_url]).to eq("https://lms.example.test/outcomes")
+        expect(session[:lti_11_assignment_id]).to eq(assignment.id)
+      end
+
+      it "does not store an outcome context when no assignment matches the consumer key" do
+        post lti_launch_path, params: { oauth_consumer_key: "unknown-key",
+                                        oauth_signature: "invalid",
+                                        lis_outcome_service_url: "https://lms.example.test/outcomes" }
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+
+      it "clears a stale outcome context on the next launch" do
+        post lti_launch_path, params: { oauth_consumer_key: oauth_consumer_key_fromlms,
+                                        oauth_signature: "invalid",
+                                        lis_outcome_service_url: "https://lms.example.test/outcomes" }
+        expect(session[:lti_11_assignment_id]).to eq(assignment.id)
+
+        post lti_launch_path, params: { oauth_consumer_key: "unknown-key",
+                                        oauth_signature: "invalid" }
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+    end
+
     def launch_uri
       # required for generation of LTI parameters
       launch_url = "http://#{host}:#{port}/lti/launch"

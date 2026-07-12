@@ -88,6 +88,80 @@ describe GradesController, type: :request do
     end
   end
 
+  describe "LTI 1.1 grade passback" do
+    let(:consumer_key) { "passback-consumer-key" }
+    let(:outcome_url)  { "https://lms.example.test/outcomes" }
+
+    before do
+      Flipper.enable(:lms_integration)
+      @lti_assignment = FactoryBot.create(:assignment, group: @group, grading_scale: :percent,
+                                                       lti_consumer_key: consumer_key,
+                                                       lti_shared_secret: "secret")
+      @lti_project = FactoryBot.create(:project, assignment: @lti_assignment,
+                                                 author: FactoryBot.create(:user),
+                                                 lis_result_sourced_id: "result-123")
+      sign_in @primary_mentor
+    end
+
+    after { Flipper.disable(:lms_integration) }
+
+    # An LTI launch request populates the session's outcome context via
+    # before_actions even though the OAuth signature is rejected, which is
+    # exactly the state a graded LTI session is in.
+    def prime_lti_session(key)
+      post "/lti/launch", params: { oauth_consumer_key: key, oauth_signature: "invalid",
+                                    lis_outcome_service_url: outcome_url }
+    end
+
+    def lti_grade_params(assignment, project, grade)
+      { grade: { project_id: project.id, assignment_id: assignment.id,
+                 grade: grade, remarks: "" }, format: :json }
+    end
+
+    it "pushes the saved grade to the LMS for the launched assignment" do
+      submission = instance_double(LtiScoreSubmission, call: true)
+      allow(LtiScoreSubmission).to receive(:new).and_return(submission)
+
+      prime_lti_session(consumer_key)
+      post grades_path, params: lti_grade_params(@lti_assignment, @lti_project, "80")
+
+      expect(LtiScoreSubmission).to have_received(:new)
+        .with(hash_including(score: 0.8, lis_outcome_service_url: outcome_url))
+      expect(submission).to have_received(:call)
+    end
+
+    it "does not push the grade to the LMS when the grade fails to save" do
+      allow(LtiScoreSubmission).to receive(:new)
+
+      prime_lti_session(consumer_key)
+      post grades_path, params: lti_grade_params(@lti_assignment, @lti_project, "abc")
+
+      expect(response).to have_http_status(:bad_request)
+      expect(LtiScoreSubmission).not_to have_received(:new)
+    end
+
+    it "does not push the grade when the launch context belongs to another assignment" do
+      FactoryBot.create(:assignment, group: @group, grading_scale: :percent,
+                                     lti_consumer_key: "other-key", lti_shared_secret: "secret")
+      allow(LtiScoreSubmission).to receive(:new)
+
+      prime_lti_session("other-key")
+      post grades_path, params: lti_grade_params(@lti_assignment, @lti_project, "80")
+
+      expect(LtiScoreSubmission).not_to have_received(:new)
+    end
+
+    it "does not push the grade when the project has no LMS result id" do
+      @lti_project.update!(lis_result_sourced_id: nil)
+      allow(LtiScoreSubmission).to receive(:new)
+
+      prime_lti_session(consumer_key)
+      post grades_path, params: lti_grade_params(@lti_assignment, @lti_project, "80")
+
+      expect(LtiScoreSubmission).not_to have_received(:new)
+    end
+  end
+
   describe "#destroy" do
     let(:destroy_params) do
       {
