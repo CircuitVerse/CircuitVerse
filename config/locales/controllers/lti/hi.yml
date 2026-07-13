@@ -6,3 +6,4 @@ hi:
       notice_students_open_in_cv: "कृपया असाइनमेंट को CircuitVerse में खोलें"
       notice_ask_teacher: "कृपया अपने टीचर से कहें कि वे आपको इस कोर्स से जुड़े CircuitVerse ग्रुप में जोड़ें।"
       notice_no_account_in_cv: "%{email_from_lms} ईमेल से जुड़ा कोई अकाउंट मौजूद नहीं है, कृपया पहले अकाउंट बनाएं और फिर कोशिश करें।"
+      notice_no_account_in_cv: "%{email_from_lms} ईमेल से जुड़ा कोई अकाउंट मौजूद नहीं है, कृपया पहले अकाउंट बनाएं और फिर कोशिश करें।"

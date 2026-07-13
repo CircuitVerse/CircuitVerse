@@ -1,0 +1,19 @@
+ar:
+  organizations:
+    create:
+      success: "تم إنشاء المنظمة بنجاح."
+      failure: "لا يمكن إنشاء المنظمة."
+    update:
+      success: "تم تحديث المنظمة بنجاح."
+    destroy:
+      success: "تم حذف المنظمة بنجاح."
+  organization_members:
+    create:
+      success: "تمت إضافة العضو بنجاح."
+    update:
+      success: "تم تحديث دور العضو بنجاح."
+    destroy:
+      success: "تمت إزالة العضو بنجاح."
+    leave:
+      success: "لقد غادرت المنظمة بنجاح."
+      not_a_member: "أنت لست عضوا في هذه المنظمة."
