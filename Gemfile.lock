@@ -147,8 +147,8 @@ GEM
       aws-sdk-ses (~> 1, >= 1.50.0)
       aws-sdk-sesv2 (~> 1, >= 1.34.0)
     aws-eventstream (1.4.0)
-    aws-partitions (1.1254.0)
-    aws-sdk-core (3.250.0)
+    aws-partitions (1.1268.0)
+    aws-sdk-core (3.254.0)
       aws-eventstream (~> 1, >= 1.3.0)
       aws-partitions (~> 1, >= 1.992.0)
       aws-sigv4 (~> 1.9)
@@ -156,14 +156,14 @@ GEM
       bigdecimal
       jmespath (~> 1, >= 1.6.1)
       logger
-    aws-sdk-kms (1.128.0)
-      aws-sdk-core (~> 3, >= 3.248.0)
+    aws-sdk-kms (1.130.0)
+      aws-sdk-core (~> 3, >= 3.254.0)
       aws-sigv4 (~> 1.5)
     aws-sdk-rails (5.1.0)
       aws-sdk-core (~> 3)
       railties (>= 7.1.0)
-    aws-sdk-s3 (1.224.0)
-      aws-sdk-core (~> 3, >= 3.248.0)
+    aws-sdk-s3 (1.227.0)
+      aws-sdk-core (~> 3, >= 3.254.0)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.5)
     aws-sdk-ses (1.100.0)
@@ -187,7 +187,7 @@ GEM
       smart_properties
     bigdecimal (4.1.2)
     bindex (0.8.1)
-    bootsnap (1.24.5)
+    bootsnap (1.24.6)
       msgpack (~> 1.2)
     builder (3.3.0)
     bundler-audit (0.9.3)
@@ -202,7 +202,7 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
-    capybara-playwright-driver (0.5.9)
+    capybara-playwright-driver (0.5.10)
       addressable
       capybara
       playwright-ruby-client (>= 1.16.0)
@@ -234,7 +234,7 @@ GEM
       unaccent (~> 0.3)
     country_select (8.0.3)
       countries (~> 5.0)
-    coveralls_reborn (0.29.0)
+    coveralls_reborn (0.29.1)
       simplecov (~> 0.22.0)
       term-ansicolor (~> 1.7)
       thor (~> 1.2)
@@ -323,18 +323,18 @@ GEM
       base64 (>= 0.1.0)
       csv (>= 3.0.0)
     glob (0.4.1)
-    globalid (1.3.0)
+    globalid (1.4.0)
       activesupport (>= 6.1)
-    google-protobuf (4.35.0-arm64-darwin)
+    google-protobuf (4.35.1-arm64-darwin)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.35.0-x64-mingw-ucrt)
+    google-protobuf (4.35.1-x64-mingw-ucrt)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.35.0-x86_64-darwin)
+    google-protobuf (4.35.1-x86_64-darwin)
       bigdecimal
       rake (~> 13.3)
-    google-protobuf (4.35.0-x86_64-linux-gnu)
+    google-protobuf (4.35.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
     googleapis-common-protos-types (1.23.0)
@@ -387,7 +387,7 @@ GEM
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
     jmespath (1.6.2)
-    job-iteration (1.14.0)
+    job-iteration (1.15.0)
       activejob (>= 7.1)
     jquery-rails (4.6.1)
       rails-dom-testing (>= 1, < 3)
@@ -395,7 +395,7 @@ GEM
       thor (>= 0.14, < 2.0)
     jsbundling-rails (1.3.1)
       railties (>= 6.0.0)
-    json (2.20.0)
+    json (2.21.1)
     json-schema (6.2.0)
       addressable (~> 2.8)
       bigdecimal (>= 3.1, < 5)
@@ -426,7 +426,7 @@ GEM
       mime-types
       terrapin (>= 0.6.0, < 2.0)
     language_filter (0.3.01)
-    language_server-protocol (3.17.0.5)
+    language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
     listen (3.10.0)
       logger
@@ -456,13 +456,13 @@ GEM
       net-smtp
     mailkick (0.4.3)
       activesupport (>= 5)
-    maintenance_tasks (2.16.0)
-      actionpack (>= 7.1)
-      activejob (>= 7.1)
-      activerecord (>= 7.1)
+    maintenance_tasks (2.17.0)
+      actionpack (>= 7.2)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
       csv
       job-iteration (>= 1.3.6)
-      railties (>= 7.1)
+      railties (>= 7.2)
       zeitwerk (>= 2.6.2)
     marcel (1.0.4)
     matrix (0.4.3)
@@ -472,13 +472,14 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2026.0414)
+    mime-types-data (3.2026.0701)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
     minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
+    mize (0.6.1)
     msgpack (1.8.3)
     multi_xml (0.9.1)
       bigdecimal (>= 3.1, < 5)
@@ -560,11 +561,11 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     open3 (0.2.1)
-    opentelemetry-api (1.10.0)
+    opentelemetry-api (1.10.1)
       logger
-    opentelemetry-common (0.25.0)
+    opentelemetry-common (0.25.1)
       opentelemetry-api (~> 1.0)
-    opentelemetry-exporter-otlp (0.34.0)
+    opentelemetry-exporter-otlp (0.34.1)
       google-protobuf (>= 3.18)
       googleapis-common-protos-types (~> 1.3)
       opentelemetry-api (~> 1.1)
@@ -582,7 +583,7 @@ GEM
       opentelemetry-instrumentation-rack (~> 0.29)
     opentelemetry-instrumentation-action_view (0.13.0)
       opentelemetry-instrumentation-active_support (~> 0.10)
-    opentelemetry-instrumentation-active_job (0.12.0)
+    opentelemetry-instrumentation-active_job (0.13.0)
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-active_model_serializers (0.25.0)
       opentelemetry-instrumentation-active_support (>= 0.7.0)
@@ -625,15 +626,15 @@ GEM
       opentelemetry-instrumentation-base (~> 0.25)
     opentelemetry-instrumentation-sidekiq (0.29.0)
       opentelemetry-instrumentation-base (~> 0.25)
-    opentelemetry-registry (0.6.0)
+    opentelemetry-registry (0.6.1)
       opentelemetry-api (~> 1.1)
-    opentelemetry-sdk (1.12.0)
+    opentelemetry-sdk (1.12.1)
       logger
       opentelemetry-api (~> 1.1)
       opentelemetry-common (~> 0.20)
       opentelemetry-registry (~> 0.2)
       opentelemetry-semantic_conventions
-    opentelemetry-semantic_conventions (1.38.0)
+    opentelemetry-semantic_conventions (1.43.0)
       opentelemetry-api (~> 1.0)
     orm_adapter (0.5.0)
     ostruct (0.6.3)
@@ -642,7 +643,7 @@ GEM
     parser (3.3.11.1)
       ast (~> 2.4.1)
       racc
-    percy-capybara (5.0.0)
+    percy-capybara (5.0.1)
       capybara (>= 3)
     pg (1.6.3-arm64-darwin)
     pg (1.6.3-x64-mingw-ucrt)
@@ -651,11 +652,11 @@ GEM
     pg_search (2.3.7)
       activerecord (>= 6.1)
       activesupport (>= 6.1)
-    playwright-ruby-client (1.60.0)
+    playwright-ruby-client (1.61.0)
       base64
       concurrent-ruby (>= 1.1.6)
       mime-types (>= 3.0)
-    pp (0.6.3)
+    pp (0.6.4)
       prettyprint
     premailer (1.27.0)
       addressable
@@ -765,6 +766,8 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
+    readline (0.0.4)
+      reline
     recaptcha (5.21.2)
     redcarpet (3.6.1)
     redis (4.8.1)
@@ -799,7 +802,7 @@ GEM
     rspec-support (3.13.7)
     rspec_junit_formatter (0.6.0)
       rspec-core (>= 2, < 4, != 2.12.0)
-    rubocop (1.86.2)
+    rubocop (1.88.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -810,22 +813,23 @@ GEM
       rubocop-ast (>= 1.49.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.49.1)
+    rubocop-ast (1.50.0)
       parser (>= 3.3.7.2)
       prism (~> 1.7)
     rubocop-performance (1.26.1)
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
-    rubocop-rails (2.35.3)
+    rubocop-rails (2.36.0)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.44.0, < 2.0)
-    rubocop-rspec (3.9.0)
+    rubocop-rspec (3.10.2)
       lint_roller (~> 1.1)
-      rubocop (~> 1.81)
+      regexp_parser (>= 2.0)
+      rubocop (~> 1.86, >= 1.86.2)
     ruby-graphviz (1.2.5)
       rexml
     ruby-lsp (0.26.9)
@@ -949,19 +953,21 @@ GEM
       activerecord (>= 7.2)
     strscan (3.1.5)
     sync (0.5.0)
-    term-ansicolor (1.11.2)
-      tins (~> 1.0)
+    term-ansicolor (1.11.3)
+      tins (~> 1)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     terrapin (1.1.1)
       climate_control
-    terser (1.2.7)
+    terser (1.2.8)
       execjs (>= 0.3.0, < 3)
     thor (1.5.0)
     tilt (2.6.1)
     timeout (0.6.1)
-    tins (1.42.0)
+    tins (1.54.0)
       bigdecimal
+      mize (~> 0.6)
+      readline
       sync
     tsort (0.2.0)
     turbo-rails (2.0.23)
@@ -1054,7 +1060,7 @@ DEPENDENCIES
   avo (>= 3.2.1)
   aws-actionmailer-ses
   aws-sdk-rails
-  aws-sdk-s3 (~> 1.224)
+  aws-sdk-s3 (~> 1.227)
   bootsnap
   bundler-audit (~> 0.9.1)
   capybara (~> 3.39)
@@ -1064,7 +1070,7 @@ DEPENDENCIES
   commontator (~> 7.0.0)
   concurrent-ruby (>= 1.3.7)
   country_select (~> 8.0)
-  coveralls_reborn (~> 0.29.0)
+  coveralls_reborn (~> 0.29.1)
   database_consistency
   debug
   devise
@@ -1099,7 +1105,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.11)
   lookbook (>= 2.2.0)
   mailkick (~> 0.4.3)
-  maintenance_tasks (~> 2.16)
+  maintenance_tasks (~> 2.17)
   meta-tags
   mutex_m
   noticed (~> 1.6)
@@ -1112,7 +1118,7 @@ DEPENDENCIES
   omniauth-google-oauth2
   omniauth-microsoft-office365
   omniauth-rails_csrf_protection
-  opentelemetry-exporter-otlp (~> 0.34.0)
+  opentelemetry-exporter-otlp (~> 0.34.1)
   opentelemetry-instrumentation-action_pack
   opentelemetry-instrumentation-action_view
   opentelemetry-instrumentation-active_job
