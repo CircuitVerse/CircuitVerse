@@ -58,7 +58,6 @@ class GradesController < ApplicationController
 
   private
 
-   
     def submit_grade_to_lms(project, assignment, grade)
       return if project.lis_result_sourced_id.blank?
       return if project.assignment_id != assignment.id

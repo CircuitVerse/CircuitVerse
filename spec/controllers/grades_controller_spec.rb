@@ -105,7 +105,6 @@ describe GradesController, type: :request do
 
     after { Flipper.disable(:lms_integration) }
 
-   
     def prime_lti_session(key, secret = "secret")
       get "/" # capture the host request specs run against
       launch_params = {
