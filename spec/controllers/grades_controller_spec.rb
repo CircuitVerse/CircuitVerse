@@ -105,8 +105,7 @@ describe GradesController, type: :request do
 
     after { Flipper.disable(:lms_integration) }
 
-    # Performs a signed LTI 1.1 launch so the session carries a verified
-    # outcome context, which is the state a graded LTI session is in.
+   
     def prime_lti_session(key, secret = "secret")
       get "/" # capture the host request specs run against
       launch_params = {
