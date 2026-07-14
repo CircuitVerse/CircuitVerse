@@ -37,7 +37,7 @@ class LtiController < ApplicationController
                                     email_from_lms: @email_from_lms,
                                     lms_type: @lms_type,
                                     course_title_from_lms: @course_title_from_lms)
-        # if auth_success send to group page
+        
         redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice
       elsif GroupMember.exists?(
         user_id: @user.id,
@@ -73,8 +73,7 @@ class LtiController < ApplicationController
       session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
     end
 
-    # the outcome URL is only trustworthy once the launch signature has been
-    # verified, so this must not run before valid_request? succeeds
+   
     def store_lti_11_grade_context
       return unless @assignment.present? && params[:lis_outcome_service_url].present?
 
