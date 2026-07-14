@@ -105,12 +105,22 @@ describe GradesController, type: :request do
 
     after { Flipper.disable(:lms_integration) }
 
-    # An LTI launch request populates the session's outcome context via
-    # before_actions even though the OAuth signature is rejected, which is
-    # exactly the state a graded LTI session is in.
-    def prime_lti_session(key)
-      post "/lti/launch", params: { oauth_consumer_key: key, oauth_signature: "invalid",
-                                    lis_outcome_service_url: outcome_url }
+    # Performs a signed LTI 1.1 launch so the session carries a verified
+    # outcome context, which is the state a graded LTI session is in.
+    def prime_lti_session(key, secret = "secret")
+      get "/" # capture the host request specs run against
+      launch_params = {
+        "launch_url" => "http://#{request.host}:#{request.port}/lti/launch",
+        "lti_version" => "LTI-1p0",
+        "lti_message_type" => "basic-lti-launch-request",
+        "resource_link_id" => "res-link-1",
+        "lis_person_contact_email_primary" => @primary_mentor.email,
+        "lis_outcome_service_url" => outcome_url
+      }
+      consumer = IMS::LTI::ToolConsumer.new(key, secret, launch_params)
+      allow(consumer).to receive(:to_params).and_return(launch_params)
+      post "/lti/launch", params: consumer.generate_launch_data,
+                          headers: { "Content-Type": "application/x-www-form-urlencoded" }
     end
 
     def lti_grade_params(assignment, project, grade)
@@ -128,6 +138,19 @@ describe GradesController, type: :request do
       expect(LtiScoreSubmission).to have_received(:new)
         .with(hash_including(score: 0.8, lis_outcome_service_url: outcome_url))
       expect(submission).to have_received(:call)
+    end
+
+    it "keeps the grade saved and succeeds when the LMS passback raises" do
+      submission = instance_double(LtiScoreSubmission)
+      allow(submission).to receive(:call).and_raise(SocketError, "connection refused")
+      allow(LtiScoreSubmission).to receive(:new).and_return(submission)
+
+      prime_lti_session(consumer_key)
+      expect do
+        post grades_path, params: lti_grade_params(@lti_assignment, @lti_project, "80")
+      end.to change(Grade, :count).by(1)
+
+      expect(response).to have_http_status(:ok)
     end
 
     it "does not push the grade to the LMS when the grade fails to save" do

@@ -72,6 +72,11 @@ class GradesController < ApplicationController
         score: score,
         lis_outcome_service_url: session[:lis_outcome_service_url]
       ).call
+    rescue StandardError => e
+      # the grade is already persisted; a failed passback must not fail the request
+      Rails.logger.error(
+        "LTI grade passback failed for assignment #{assignment.id}: #{e.class} #{e.message}"
+      )
     end
 
     def lti_11_context_for_project?(project)

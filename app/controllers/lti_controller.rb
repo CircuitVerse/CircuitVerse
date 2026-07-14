@@ -25,6 +25,7 @@ class LtiController < ApplicationController
       render :launch_error, status: :unauthorized
       return
     end
+    store_lti_11_grade_context
     # find user by matching email with circuitverse and lms
     @user = User.find_by(email: @email_from_lms)
 
@@ -69,14 +70,17 @@ class LtiController < ApplicationController
       @lms_type = params[:tool_consumer_info_product_family_code] # lms type
       @course_title_from_lms = params[:context_title] # course title
       lms_domain = params[:launch_presentation_return_url]
-      # store the grading context only when the launch matched an assignment,
-      # and remember which assignment it belongs to
-      if @assignment.present? && params[:lis_outcome_service_url].present?
-        session[:lis_outcome_service_url] = params[:lis_outcome_service_url]
-        session[:oauth_consumer_key] = params[:oauth_consumer_key]
-        session[:lti_11_assignment_id] = @assignment.id
-      end
       session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
+    end
+
+    # the outcome URL is only trustworthy once the launch signature has been
+    # verified, so this must not run before valid_request? succeeds
+    def store_lti_11_grade_context
+      return unless @assignment.present? && params[:lis_outcome_service_url].present?
+
+      session[:lis_outcome_service_url] = params[:lis_outcome_service_url]
+      session[:oauth_consumer_key] = params[:oauth_consumer_key]
+      session[:lti_11_assignment_id] = @assignment.id
     end
 
     def clear_lti_11_grade_context
