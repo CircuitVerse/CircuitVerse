@@ -58,8 +58,7 @@ class GradesController < ApplicationController
 
   private
 
-    # Pushes the saved grade to the LMS via LTI 1.1 Basic Outcomes, but only
-    # when the session's launch context belongs to the assignment being graded.
+   
     def submit_grade_to_lms(project, assignment, grade)
       return if project.lis_result_sourced_id.blank?
       return if project.assignment_id != assignment.id
