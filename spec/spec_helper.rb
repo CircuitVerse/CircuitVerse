@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require "coveralls"
-require "paperclip/matchers"
+
 require "support/spec_utils"
 
 require "webmock/rspec"
@@ -120,8 +120,7 @@ RSpec.configure do |config|
   # Setting default formatter for tests
   config.formatter = :documentation
 
-  # To check for attached files in models
-  config.include Paperclip::Shoulda::Matchers
+  
 
   # include spec utils
   config.include SpecUtils
