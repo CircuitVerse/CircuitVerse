@@ -78,7 +78,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     authorize @project, :check_view_access?
     circuit_data = ProjectDatum.find_by(project: @project)
     if circuit_data
-      render json: circuit_data.data
+      parsed_data = begin
+                      Oj.safe_load(circuit_data.data)
+                    rescue StandardError
+                      circuit_data.data
+                    end
+      render json: parsed_data
     else
       render json: { error: "Circuit data unavailabe for the project!" }, status: :not_found
     end
