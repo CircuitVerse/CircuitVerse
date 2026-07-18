@@ -11,7 +11,7 @@ RSpec.describe "Admin::Contests#update", type: :request do
   context "invalid date format" do
     it "redirects with alert" do
       patch admin_contest_path(contest), params: { contest: { deadline: "not-a-date" } }
-      expect(flash[:alert]).to match(/Invalid deadline format/)
+      expect(flash[:alert]).to include("Invalid deadline format")
       expect(response).to redirect_to(admin_contests_path)
     end
   end
@@ -19,7 +19,7 @@ RSpec.describe "Admin::Contests#update", type: :request do
   context "past date" do
     it "rejects and redirects" do
       patch admin_contest_path(contest), params: { contest: { deadline: 1.day.ago.iso8601 } }
-      expect(flash[:alert]).to match(/Deadline must be in the future/)
+      expect(flash[:alert]).to include("Deadline must be in the future")
       expect(response).to redirect_to(admin_contests_path)
     end
   end
@@ -29,7 +29,7 @@ RSpec.describe "Admin::Contests#update", type: :request do
       new_deadline = 1.week.from_now
       patch admin_contest_path(contest), params: { contest: { deadline: new_deadline.iso8601 } }
       expect(response).to redirect_to(contest_path(contest))
-      expect(flash[:notice]).to match(/successfully updated/)
+      expect(flash[:notice]).to include("successfully updated")
       expect(contest.reload.deadline.to_i).to eq(new_deadline.to_i)
     end
   end
@@ -39,7 +39,7 @@ RSpec.describe "Admin::Contests#update", type: :request do
       allow_any_instance_of(Contest).to receive(:update).and_return(false)
       patch admin_contest_path(contest), params: { contest: { deadline: 1.week.from_now.iso8601 } }
       expect(response).to redirect_to(admin_contests_path)
-      expect(flash[:alert]).to match(/Failed to update/)
+      expect(flash[:alert]).to include("Failed to update")
     end
   end
 end
