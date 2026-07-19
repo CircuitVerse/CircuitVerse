@@ -120,8 +120,6 @@ RSpec.configure do |config|
   # Setting default formatter for tests
   config.formatter = :documentation
 
-  
-
   # include spec utils
   config.include SpecUtils
 
