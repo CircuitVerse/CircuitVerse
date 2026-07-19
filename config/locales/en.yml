@@ -67,11 +67,18 @@ en:
           institute:
             label: "Institute"
             placeholder: "Enter institute..."
-    project:
+      project:
       show_more: "Show More"
       options:
         users: "Users"
         projects: "Projects"
+  doorkeeper:
+    authorizations:
+      title: "Authorize Application"
+      description: "%{application_name} is requesting permission to access your CircuitVerse account."
+      scope_intro: "This application will be able to:"
+      authorize: "Authorize"
+      deny: "Deny"
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:

@@ -3,15 +3,15 @@
     <div class="col-md-8">
       <div class="card">
         <div class="card-header">
-          <h3 class="mb-0">Authorize Application</h3>
+          <h3 class="mb-0"><%= t("doorkeeper.authorizations.title") %></h3>
         </div>
         <div class="card-body">
           <p>
-            <strong><%= @application.name %></strong> is requesting permission to access your CircuitVerse account.
+            <%= t("doorkeeper.authorizations.description", application_name: @application.name) %>
           </p>
 
           <% if @pre_auth.scopes.present? %>
-            <p>This application will be able to:</p>
+            <p><%= t("doorkeeper.authorizations.scope_intro") %></p>
             <ul>
               <% @pre_auth.scopes.each do |scope| %>
                 <li><%= scope %></li>
@@ -25,8 +25,8 @@
             <% end %>
 
             <div class="d-flex justify-content-between mt-3">
-              <%= submit_tag "Authorize", name: "commit", class: "btn btn-success" %>
-              <%= submit_tag "Deny", name: "cancel", class: "btn btn-outline-secondary" %>
+              <%= submit_tag t("doorkeeper.authorizations.authorize"), name: "commit", class: "btn btn-success" %>
+              <%= submit_tag t("doorkeeper.authorizations.deny"), name: "cancel", class: "btn btn-outline-secondary" %>
             </div>
           <% end %>
         </div>

@@ -120,7 +120,7 @@ class Api::V1::BaseController < ActionController::API
     end
 
     def user_from_doorkeeper
-      return nil unless defined?(Doorkeeper) && doorkeeper_token&.resource_owner_id
+      return nil unless doorkeeper_token&.resource_owner_id
 
       User.find_by(id: doorkeeper_token.resource_owner_id)
     end
@@ -129,7 +129,7 @@ class Api::V1::BaseController < ActionController::API
     # This keeps existing JWT clients working while still applying OAuth scopes
     # for OAuth/OIDC consumers.
     def require_doorkeeper_scopes(*scopes)
-      return unless defined?(Doorkeeper) && doorkeeper_token.present?
+      return if doorkeeper_token.blank?
 
       doorkeeper_authorize!(*scopes)
     end
