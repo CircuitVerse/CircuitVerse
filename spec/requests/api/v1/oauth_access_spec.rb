@@ -11,7 +11,7 @@ RSpec.describe "API V1 OAuth access", type: :request do
       resource_owner_id: resource_owner.id,
       application_id: application.id,
       scopes: scopes,
-      expires_in: 2.hours.from_now.to_i
+      expires_in: 2.hours
     )
   end
 
