@@ -1,5 +1,45 @@
 <div class="org-dash mx-auto text-body pt-4 px-3 pb-5">
-  <h1 class="org-dash-name fw-semibold mb-3 fs-5"><%= @organization.name %></h1>
+  <div class="org-dash-title-row">
+    <h1 class="org-dash-name fw-semibold mb-3 fs-5"><%= @organization.name %></h1>
+
+    <div class="dropdown org-switcher">
+      <button class="btn dropdown-toggle org-switcher-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <i class="fa fa-exchange-alt" aria-hidden="true"></i> Switch
+      </button>
+
+      <div class="dropdown-menu org-switcher-menu">
+        <h6 class="dropdown-header">Switch organization</h6>
+
+        <% @user_organizations.each do |item| %>
+          <% org = item[:organization] %>
+          <%= link_to overview_organization_path(org),
+                      class: "dropdown-item org-switcher-item #{'is-current' if current_org?(org)}" do %>
+            <span class="org-switcher-badge">
+              <% if org.logo.attached? %>
+                <%= image_tag org.logo, alt: "" %>
+              <% else %>
+                <%= initials(org) %>
+              <% end %>
+            </span>
+            <span class="org-switcher-info">
+              <span class="org-switcher-name"><%= org.name %></span>
+              <span class="org-switcher-meta"><%= item[:role].capitalize %> · <%= pluralize(item[:group_count], "group") %></span>
+            </span>
+            <% if current_org?(org) %>
+              <i class="fa fa-check org-switcher-check" aria-hidden="true"></i>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <div class="dropdown-divider"></div>
+
+        <%= link_to new_organization_path, class: "dropdown-item org-switcher-create" do %>
+          <i class="fa fa-plus" aria-hidden="true"></i> Create organization
+        <% end %>
+      </div>
+    </div>
+  </div>
+
   <nav aria-label="<%= t('organizations.tabs.nav_label') %>">
     <ul class="nav nav-pills gap-2 flex-wrap mb-3">
       <li class="nav-item">
@@ -15,6 +55,8 @@
       <% end %>
     </ul>
   </nav>
+
   <hr class="mt-3 mb-4">
+
   <%= tab_content %>
 </div>

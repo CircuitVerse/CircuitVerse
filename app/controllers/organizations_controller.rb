@@ -6,6 +6,7 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show overview members settings update destroy]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
+  before_action :set_user_organizations, only: %i[overview members settings]
 
   PER_PAGE = 9
 
@@ -109,6 +110,12 @@ class OrganizationsController < ApplicationController
 
     def organization_params
       params.expect(organization: [:name, :slug, :description, :location, :private, :logo, :remove_logo, { links: [] }])
+    end
+
+    def set_user_organizations
+      @user_organizations = current_user.organization_members.includes(:organization).map do |m|
+        { organization: m.organization, role: m.role, group_count: m.organization.groups.count }
+      end
     end
 
     def check_organizations_feature_flag
