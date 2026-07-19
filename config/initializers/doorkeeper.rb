@@ -80,8 +80,7 @@ Doorkeeper.configure do
   #
   # use_polymorphic_resource_owner
 
-  # Use API mode so Doorkeeper responds with JSON only.
-  api_only
+  # Use default Doorkeeper controller behavior (HTML + JSON).
 
   # Enforce token request content type to application/x-www-form-urlencoded.
   # It is not enabled by default to not break prior versions of the gem.

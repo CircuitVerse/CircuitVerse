@@ -6,8 +6,12 @@
           <h3 class="mb-0"><%= t("doorkeeper.authorizations.title") %></h3>
         </div>
         <div class="card-body">
+          <% client = @pre_auth&.client %>
           <p>
-            <%= t("doorkeeper.authorizations.description", application_name: @application.name) %>
+            <%= t(
+                  "doorkeeper.authorizations.description",
+                  application_name: client&.name || t("doorkeeper.authorizations.unknown_app")
+                ) %>
           </p>
 
           <% if @pre_auth.scopes.present? %>
@@ -20,10 +24,6 @@
           <% end %>
 
           <%= form_with url: oauth_authorization_path, method: :post do %>
-            <% @pre_auth.to_params.each do |name, value| %>
-              <%= hidden_field_tag name, value %>
-            <% end %>
-
             <div class="d-flex justify-content-between mt-3">
               <%= submit_tag t("doorkeeper.authorizations.authorize"), name: "commit", class: "btn btn-success" %>
               <%= submit_tag t("doorkeeper.authorizations.deny"), name: "cancel", class: "btn btn-outline-secondary" %>

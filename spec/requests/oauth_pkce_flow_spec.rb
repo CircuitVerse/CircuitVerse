@@ -22,10 +22,10 @@ RSpec.describe "OAuth PKCE flow", type: :request do
     [verifier, challenge]
   end
 
-  it "returns an authorization code via the UI" do
+  def authorize_with_pkce
     sign_in user
 
-    _code_verifier, code_challenge = generate_pkce_pair
+    code_verifier, code_challenge = generate_pkce_pair
 
     auth_params = {
       response_type: "code",
@@ -46,27 +46,23 @@ RSpec.describe "OAuth PKCE flow", type: :request do
     expect(body["status"]).to eq("redirect")
     redirect_uri = body["redirect_uri"]
     expect(redirect_uri).to include("code=")
+
+    code = Rack::Utils.parse_query(URI.parse(redirect_uri).query)["code"]
+    expect(code).to be_present
+
+    [code_verifier, code]
+  end
+
+  it "returns an authorization code via the UI" do
+    _code_verifier, _code = authorize_with_pkce
   end
 
   it "exchanges an authorization code + PKCE verifier for an access token" do
-    sign_in user
-
-    code_verifier, code_challenge = generate_pkce_pair
-
-    # Pre-create a valid access grant as if the UI flow had completed.
-    grant = Doorkeeper::AccessGrant.create!(
-      resource_owner_id: user.id,
-      application_id: application.id,
-      redirect_uri: application.redirect_uri,
-      expires_in: 600,
-      scopes: "public",
-      code_challenge: code_challenge,
-      code_challenge_method: "S256"
-    )
+    code_verifier, code = authorize_with_pkce
 
     post "/oauth/token", params: {
       grant_type: "authorization_code",
-      code: grant.token,
+      code: code,
       redirect_uri: application.redirect_uri,
       client_id: application.uid,
       code_verifier: code_verifier
