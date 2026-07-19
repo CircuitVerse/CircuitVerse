@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0">Authorize Application</h3>
+        </div>
+        <div class="card-body">
+          <p>
+            <strong><%= @application.name %></strong> is requesting permission to access your CircuitVerse account.
+          </p>
+
+          <% if @pre_auth.scopes.present? %>
+            <p>This application will be able to:</p>
+            <ul>
+              <% @pre_auth.scopes.each do |scope| %>
+                <li><%= scope %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <%= form_with url: oauth_authorization_path, method: :post do %>
+            <% @pre_auth.to_params.each do |name, value| %>
+              <%= hidden_field_tag name, value %>
+            <% end %>
+
+            <div class="d-flex justify-content-between mt-3">
+              <%= submit_tag "Authorize", name: "commit", class: "btn btn-success" %>
+              <%= submit_tag "Deny", name: "cancel", class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

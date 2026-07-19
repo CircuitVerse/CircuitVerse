@@ -237,3 +237,6 @@ gem "drb", "~> 2.2"
 gem "yosys2digitaljs", path: "vendor/gems/yosys2digitaljs"
 gem "avo", ">= 3.2.1"
 
+# OAuth 2 provider with OpenID Connect support
+gem "doorkeeper", "~> 5.6"
+gem "doorkeeper-openid_connect", "~> 1.8"

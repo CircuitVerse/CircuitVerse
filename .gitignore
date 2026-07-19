@@ -107,3 +107,5 @@ node_modules
 # Ignore yarn
 .yarn
 vendor
+
+.opencode
