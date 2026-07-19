@@ -8,6 +8,12 @@ const JSONSchema = ['name', 'timePeriod', 'clockEnabled', 'projectId', 'focussed
 var circuitData = null;
 const GetDialogData = () => '<div><label for="CircuitDataFile">Choose file</label><div id="message-box"><i class="fas fa-plus"></i><br/>Browse files or Drag & Drop files here<div id="message">No file chosen!!</div><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
 
+// Checks that every key in `schema` is present on `data`, regardless of key order
+// or extra/unrecognized keys (kept for forward compatibility with newer save files).
+export const hasSchemaKeys = (data, schema) => Boolean(data)
+    && typeof data === 'object'
+    && schema.every((key) => Object.prototype.hasOwnProperty.call(data, key));
+
 const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').empty();
     $('#ImportCircuitFilesDialog').append(GetDialogData());
@@ -30,12 +36,9 @@ const ImportCircuitFiles = () => {
     function ValidateData(fileData) {
         try {
             const parsedFileDate = JSON.parse(fileData);
-            if (JSON.stringify(Object.keys(parsedFileDate)) !== JSON.stringify(JSONSchema)) throw new Error('Invalid JSON data');
+            if (!hasSchemaKeys(parsedFileDate, JSONSchema)) throw new Error('Invalid JSON data');
             parsedFileDate.scopes.forEach((scope) => {
-                const keys = Object.keys(scope); // get scope keys
-                scopeSchema.forEach((key) => {
-                    if (!keys.includes(key)) throw new Error('Invalid Scope data');
-                });
+                if (!hasSchemaKeys(scope, scopeSchema)) throw new Error('Invalid Scope data');
             });
             load(parsedFileDate);
             return true;
