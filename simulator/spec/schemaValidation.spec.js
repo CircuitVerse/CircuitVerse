@@ -1,4 +1,4 @@
-import { hasSchemaKeys } from '../src/file/Open';
+import { hasSchemaKeys } from '../src/file/schemaValidation';
 
 describe('hasSchemaKeys', () => {
     const schema = ['name', 'timePeriod', 'clockEnabled'];

@@ -1,18 +1,13 @@
 import load from '../data/load';
 import { generateSaveData } from '../data/save';
 import { escapeHtml } from '../ux';
+import { hasSchemaKeys } from './schemaValidation';
 
 const scopeSchema = ['layout', 'verilogMetadata', 'allNodes', 'id', 'name', 'restrictedCircuitElementsUsed', 'nodes'];
 const JSONSchema = ['name', 'timePeriod', 'clockEnabled', 'projectId', 'focussedCircuit', 'orderedTabs', 'scopes'];
 
 var circuitData = null;
 const GetDialogData = () => '<div><label for="CircuitDataFile">Choose file</label><div id="message-box"><i class="fas fa-plus"></i><br/>Browse files or Drag & Drop files here<div id="message">No file chosen!!</div><input style="background:none;" type="file" id="CircuitDataFile"/></div></div>';
-
-// Checks that every key in `schema` is present on `data`, regardless of key order
-// or extra/unrecognized keys (kept for forward compatibility with newer save files).
-export const hasSchemaKeys = (data, schema) => Boolean(data)
-    && typeof data === 'object'
-    && schema.every((key) => Object.prototype.hasOwnProperty.call(data, key));
 
 const ImportCircuitFiles = () => {
     $('#ImportCircuitFilesDialog').empty();
