@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header">
+          <h3 class="mb-0"><%= t("doorkeeper.authorizations.title") %></h3>
+        </div>
+        <div class="card-body">
+          <% client = @pre_auth&.client %>
+          <p>
+            <%= t(
+                  "doorkeeper.authorizations.description",
+                  application_name: client&.name || t("doorkeeper.authorizations.unknown_app")
+                ) %>
+          </p>
+
+          <% if @pre_auth.scopes.present? %>
+            <p><%= t("doorkeeper.authorizations.scope_intro") %></p>
+            <ul>
+              <% @pre_auth.scopes.each do |scope| %>
+                <li><%= scope %></li>
+              <% end %>
+            </ul>
+          <% end %>
+
+          <%= form_with url: oauth_authorization_path, method: :post do %>
+            <div class="d-flex justify-content-between mt-3">
+              <%= submit_tag t("doorkeeper.authorizations.authorize"), name: "commit", class: "btn btn-success" %>
+              <%= submit_tag t("doorkeeper.authorizations.deny"), name: "cancel", class: "btn btn-outline-secondary" %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

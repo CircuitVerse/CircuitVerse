@@ -88,6 +88,52 @@ class Api::V1::BaseController < ActionController::API
 
   private
 
+    # Hybrid authentication: support existing JWT and Doorkeeper access tokens.
+    # - If the request has a valid JsonWebToken, use that.
+    # - Otherwise, if there's a valid Doorkeeper token, use it.
+    # - If neither is present/valid, return 401.
+    def authenticate_user!
+      return if current_user
+
+      api_error(status: 401, errors: "authentication required")
+    end
+
+    def current_user
+      return @current_user if defined?(@current_user)
+
+      @current_user = user_from_jwt || user_from_doorkeeper
+    end
+
+    def user_from_jwt
+      auth_header = request.headers["Authorization"]
+      return nil if auth_header.blank?
+
+      scheme, token = auth_header.split(" ", 2)
+      return nil unless scheme&.casecmp("Bearer")&.zero?
+
+      payload = JsonWebToken.decode(token)
+      return nil unless payload.is_a?(Hash) && payload["user_id"]
+
+      User.find_by(id: payload["user_id"])
+    rescue JWT::DecodeError, JWT::VerificationError, JWT::ExpiredSignature, JWT::InvalidIssuerError
+      nil
+    end
+
+    def user_from_doorkeeper
+      return nil unless doorkeeper_token&.resource_owner_id
+
+      User.find_by(id: doorkeeper_token.resource_owner_id)
+    end
+
+    # Enforce Doorkeeper scopes only when a Doorkeeper access token is used.
+    # This keeps existing JWT clients working while still applying OAuth scopes
+    # for OAuth/OIDC consumers.
+    def require_doorkeeper_scopes(*scopes)
+      return if doorkeeper_token.blank?
+
+      doorkeeper_authorize!(*scopes)
+    end
+
     def paginated_url(base_url, page)
       separator = base_url.index("?").nil? ? "?" : "&"
       "#{base_url}#{separator}page[number]=#{page}" if page

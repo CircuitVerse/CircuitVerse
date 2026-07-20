@@ -2,6 +2,7 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
+  use_doorkeeper_openid_connect
   mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
   authenticate :user, ->(u) { u.admin? } do
     mount Avo::Engine, at: "/admin"
@@ -140,6 +141,9 @@ Rails.application.routes.draw do
   end
 
   mount Commontator::Engine => "/commontator"
+
+  # OAuth 2 / OpenID Connect provider
+  use_doorkeeper
 
   # simulator
   scope "/simulator" do

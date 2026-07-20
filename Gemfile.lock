@@ -266,6 +266,12 @@ GEM
     diff-lcs (1.6.2)
     docile (1.4.1)
     domain_name (0.6.20240107)
+    doorkeeper (5.9.3)
+      railties (>= 5)
+    doorkeeper-openid_connect (1.10.5)
+      doorkeeper (>= 5.5, < 6.0)
+      jwt (>= 2.5)
+      ostruct (>= 0.5)
     dotenv (3.2.0)
     dotenv-rails (3.2.0)
       dotenv (= 3.2.0)
@@ -1076,6 +1082,8 @@ DEPENDENCIES
   devise
   devise_saml_authenticatable
   disposable_mail!
+  doorkeeper (~> 5.6)
+  doorkeeper-openid_connect (~> 1.8)
   dotenv-rails
   drb (~> 2.2)
   erb_lint
