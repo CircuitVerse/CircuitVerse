@@ -113,8 +113,17 @@ class OrganizationsController < ApplicationController
     end
 
     def set_user_organizations
-      @user_organizations = current_user.organization_members.includes(:organization).map do |m|
-        { organization: m.organization, role: m.role, group_count: m.organization.groups.count }
+      memberships = current_user.organization_members.includes(:organization)
+      group_counts = Group.where(organization_id: memberships.map(&:organization_id))
+                          .group(:organization_id)
+                          .count
+
+      @user_organizations = memberships.map do |membership|
+        {
+          organization: membership.organization,
+          role: membership.role,
+          group_count: group_counts.fetch(membership.organization_id, 0)
+        }
       end
     end
 
