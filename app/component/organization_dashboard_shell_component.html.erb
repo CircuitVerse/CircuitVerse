@@ -23,7 +23,7 @@
             </span>
             <span class="org-switcher-info">
               <span class="org-switcher-name"><%= org.name %></span>
-              <span class="org-switcher-meta"><%= item[:role].capitalize %> · <%= pluralize(item[:group_count], "group") %></span>
+              <span class="org-switcher-meta"><%= item[:role].capitalize %> · <%= pluralize(item[:group_count], "group") %> · <%= pluralize(item[:member_count], "member") %></span>
             </span>
             <% if current_org?(org) %>
               <i class="fa fa-check org-switcher-check" aria-hidden="true"></i>
