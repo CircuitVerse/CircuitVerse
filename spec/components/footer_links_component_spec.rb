@@ -28,9 +28,9 @@ RSpec.describe FooterLinksComponent, type: :component do
     expect(page).not_to have_link(I18n.t("login"))
   end
 
- it "renders forum link when enabled" do
-  allow(Flipper).to receive(:enabled?).with(:forum).and_return(true)
-  render_inline(described_class.new(nil))
+  it "renders forum link when enabled" do
+    allow(Flipper).to receive(:enabled?).with(:forum).and_return(true)
+    render_inline(described_class.new(nil))
 
     expect(page).to have_link(I18n.t("layout.footer.link_to_forum"), href: "https://circuitverse.discourse.group")
   end
