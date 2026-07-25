@@ -1,13 +1,10 @@
 .org-dash {
-  --org-primary-green: #42b983;
-  --org-secondary-green: #026e57;
-  --org-light-green-bg: #eef7f3;
-
   max-width: 1080px;
 }
 
 .org-dash-name {
-  color: var(--org-primary-green);
+  font-size: 20px;
+  color: var(--cv-primary-green);
 }
 
 .org-social-icon {
@@ -17,10 +14,10 @@
 }
 
 .org-dash .nav-pills {
-  --bs-nav-pills-link-active-bg: var(--org-primary-green);
+  --bs-nav-pills-link-active-bg: var(--cv-primary-green);
   --bs-nav-pills-link-active-color: var(--bs-white);
   --bs-nav-link-color: var(--bs-gray-900);
-  --bs-nav-link-hover-color: var(--org-primary-green);
+  --bs-nav-link-hover-color: var(--cv-primary-green);
 }
 
 .org-dash .nav-pills .nav-link {
@@ -28,7 +25,7 @@
 }
 
 .org-dash .nav-pills .nav-link.active {
-  border-color: var(--org-primary-green);
+  border-color: var(--cv-primary-green);
 }
 
 .org-dash-logo {
@@ -38,7 +35,7 @@
 
 .org-dash-logo-fallback {
   font-size: 52px;
-  color: var(--org-primary-green);
+  color: var(--cv-primary-green);
 }
 
 .org-dash-info {
@@ -66,7 +63,7 @@
 }
 
 .org-dash-social:focus-visible {
-  outline: 2px solid var(--org-primary-green);
+  outline: 2px solid var(--cv-primary-green);
   outline-offset: 2px;
   transform: translateY(-2px);
 }
@@ -82,40 +79,40 @@
 }
 
 .org-dash-location i {
-  color: var(--org-primary-green);
+  color: var(--cv-primary-green);
   font-size: 25px;
 }
 
 .org-dash-group-card {
   min-height: 150px;
   color: var(--bs-gray-900);
-  background: var(--org-light-green-bg);
-  border: 1px solid var(--org-primary-green);
+  background: var(--cv-light-green-bg);
+  border: 1px solid var(--cv-primary-green);
   transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .org-dash-group-card:hover {
   color: var(--bs-gray-900);
-  box-shadow: 0 8px 20px rgba(66, 185, 131, 0.18);
+  box-shadow: 0 8px 20px var(--cv-primary-green-shadow);
   transform: translateY(-3px);
   text-decoration: none;
 }
 
 .org-dash-group-card:focus-visible {
-  outline: 2px solid var(--org-primary-green);
+  outline: 2px solid var(--cv-primary-green);
   outline-offset: 2px;
-  box-shadow: 0 8px 20px rgba(66, 185, 131, 0.18);
+  box-shadow: 0 8px 20px var(--cv-primary-green-shadow);
   transform: translateY(-3px);
 }
 
 .org-dash-group-name {
-  color: var(--org-secondary-green);
+  color: var(--cv-secondary-green);
   font-size: 17px;
   overflow-wrap: break-word;
 }
 
 .org-dash-group-meta {
-  color: var(--org-secondary-green);
+  color: var(--cv-secondary-green);
   font-size: 13px;
 }
 
