@@ -26,11 +26,44 @@ describe CollaborationsController, type: :request do
         sign_in @author
       end
 
-      it "creates collaboration" do
-        expect(Utils).to receive(:mail_notice)
+      it "creates collaboration for valid registered user" do
         expect do
           post collaborations_path, params: create_params
         end.to change(Collaboration, :count).by(1)
+        expect(response).to redirect_to(user_project_path(@author, @project))
+        expect(flash[:notice]).to include("1 collaborator(s) added.")
+      end
+
+      it "prevents self-invite and shows correct message" do
+        params = { collaboration: { project_id: @project.id, emails: [@author.email] } }
+        expect do
+          post collaborations_path, params: params
+        end.not_to change(Collaboration, :count)
+        expect(flash[:notice]).to include("You can't add yourself.")
+      end
+
+      it "shows 'not authorized with circuitverse' for unregistered email" do
+        params = { collaboration: { project_id: @project.id, emails: ["unregistered@example.com"] } }
+        expect do
+          post collaborations_path, params: params
+        end.not_to change(Collaboration, :count)
+        expect(flash[:notice]).to include("unregistered@example.com: not authorized with circuitverse.")
+      end
+
+      it "shows 'invalid credentials' for invalid email format" do
+        params = { collaboration: { project_id: @project.id, emails: ["not-an-email"] } }
+        expect do
+          post collaborations_path, params: params
+        end.not_to change(Collaboration, :count)
+        expect(flash[:notice]).to include("not-an-email: invalid credentials.")
+      end
+
+      it "reports already present collaborators" do
+        params = { collaboration: { project_id: @project.id, emails: [@user.email] } }
+        expect do
+          post collaborations_path, params: params
+        end.not_to change(Collaboration, :count)
+        expect(flash[:notice]).to include("1 user(s) already collaborator(s).")
       end
     end
 
