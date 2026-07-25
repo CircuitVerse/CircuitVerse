@@ -74,21 +74,6 @@
     font-size: 25px;
   }
 }
-.org-dash-add-btn {
-  --bs-btn-bg: #{$primary-green};
-  --bs-btn-border-color: #{$primary-green};
-  --bs-btn-color: #{$white};
-  --bs-btn-hover-bg: #{$primary-green};
-  --bs-btn-hover-border-color: #{$primary-green};
-  --bs-btn-hover-color: #{$white};
-  --bs-btn-active-bg: #{$primary-green};
-  --bs-btn-active-border-color: #{$primary-green};
-  --bs-btn-active-color: #{$white};
-
-  &:hover {
-    filter: brightness(1.05);
-  }
-}
 .org-dash-group-card {
   min-height: 150px;
   background: $light-green-bg;
@@ -120,7 +105,6 @@
 }
 
 .org-dash-empty {
-  color: $gray-500;
   border: 1px dashed $gray-400;
   i { font-size: 36px; }
 }

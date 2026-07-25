@@ -37,14 +37,14 @@
       <div class="d-flex align-items-center justify-content-between mb-3">
         <h3 class="org-dash-section-title fw-semibold m-0 fs-5"><%= t(".groups_heading") %></h3>
         <% if policy(@organization).admin_access? %>
-          <%= link_to new_group_path(organization_id: @organization.slug), class: "btn btn-success org-dash-add-btn d-inline-flex align-items-center gap-1" do %>
+          <%= link_to new_group_path(organization_id: @organization.slug), class: "btn primary-button d-inline-flex align-items-center gap-1" do %>
             <i class="fa fa-plus" aria-hidden="true"></i> <%= t(".new_group_button") %>
-        <% end %>
+          <% end %>
         <% end %>
       </div>
 
       <% if @groups.blank? %>
-        <div class="org-dash-empty text-center rounded-4 py-5 px-3">
+        <div class="org-dash-empty text-center rounded-4 py-5 px-3 text-secondary">
           <i class="fa fa-layer-group d-block mb-2 opacity-50" aria-hidden="true"></i>
           <p class="m-0 fw-medium"><%= t("organizations.show.no_groups") %></p>
         </div>
