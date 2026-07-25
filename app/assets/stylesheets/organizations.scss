@@ -1,6 +1,5 @@
 .org-dash {
   max-width: 1080px;
-  padding: 28px 20px 60px;
 }
 
 .org-dash-name {
@@ -13,38 +12,20 @@
   height: 25px;
   object-fit: contain;
 }
+.org-dash .nav-pills {
+  --bs-nav-pills-link-active-bg: #{$primary-green};
+  --bs-nav-pills-link-active-color: #{$white};
+  --bs-nav-link-color: #{$gray-900};
+  --bs-nav-link-hover-color: #{$primary-green};
 
-.org-dash-tab {
-  padding: 7px 18px;
-  border: 1px solid $gray-400;
-  background: $white;
-  font-size: 14px;
-  color: $navbar-dark-grey;
-  transition: all 0.15s;
+  .nav-link {
+    border: 1px solid #{$gray-400};
+  }
 
-  &:hover {
-    border-color: $primary-green;
-    color: $primary-green;
-    text-decoration: none;
-  }
-  &:focus-visible {
-    border-color: $primary-green;
-    color: $primary-green;
-    outline: 2px solid $primary-green;
-    outline-offset: 2px;
-  }
-  &.is-active {
-    background: $primary-green;
-    border-color: $primary-green;
-    color: $white;
+  .nav-link.active {
+    border-color: #{$primary-green};
   }
 }
-
-.org-dash-divider {
-  border: 0;
-  border-top: 1px solid $gray-400;
-}
-
 .org-dash-logo {
   width: 130px;
   height: 130px;
@@ -88,29 +69,26 @@
 }
 .org-dash-location {
   font-size: 18px;
-  color: $gray-700;
-
   i {
     color: $primary-green;
     font-size: 25px;
   }
 }
-.org-dash-section-title {
-  font-size: 20px;
-}
 .org-dash-add-btn {
-  padding: 7px 14px;
-  background: $primary-green;
-  font-size: 14px;
-  transition: filter 0.15s;
+  --bs-btn-bg: #{$primary-green};
+  --bs-btn-border-color: #{$primary-green};
+  --bs-btn-color: #{$white};
+  --bs-btn-hover-bg: #{$primary-green};
+  --bs-btn-hover-border-color: #{$primary-green};
+  --bs-btn-hover-color: #{$white};
+  --bs-btn-active-bg: #{$primary-green};
+  --bs-btn-active-border-color: #{$primary-green};
+  --bs-btn-active-color: #{$white};
 
-  &:hover { filter: brightness(1.05); text-decoration: none; }
-  &:focus-visible {
-    outline: 2px solid $secondary-green;
-    outline-offset: 2px;
+  &:hover {
+    filter: brightness(1.05);
   }
 }
-
 .org-dash-group-card {
   min-height: 150px;
   background: $light-green-bg;
@@ -142,10 +120,8 @@
 }
 
 .org-dash-empty {
-  padding: 56px 20px;
   color: $gray-500;
   border: 1px dashed $gray-400;
-
   i { font-size: 36px; }
 }
 

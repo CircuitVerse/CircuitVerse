@@ -24,7 +24,7 @@
           <% end %>
           <% if @organization.location.present? %>
             <% if has_links %><span class="org-dash-meta-sep" aria-hidden="true"></span><% end %>
-            <span class="org-dash-location d-inline-flex align-items-center gap-2">
+            <span class="org-dash-location d-inline-flex align-items-center gap-2 text-secondary">
               <i class="fa fa-map-marker-alt lh-1" aria-hidden="true"></i>
               <%= @organization.location %>
             </span>
@@ -35,16 +35,16 @@
 
     <section>
       <div class="d-flex align-items-center justify-content-between mb-3">
-        <h3 class="org-dash-section-title fw-semibold m-0"><%= t(".groups_heading") %></h3>
+        <h3 class="org-dash-section-title fw-semibold m-0 fs-5"><%= t(".groups_heading") %></h3>
         <% if policy(@organization).admin_access? %>
-          <%= link_to new_group_path(organization_id: @organization.slug), class: "org-dash-add-btn d-inline-flex align-items-center gap-1 text-decoration-none rounded-3 fw-medium text-white" do %>
+          <%= link_to new_group_path(organization_id: @organization.slug), class: "btn btn-success org-dash-add-btn d-inline-flex align-items-center gap-1" do %>
             <i class="fa fa-plus" aria-hidden="true"></i> <%= t(".new_group_button") %>
-          <% end %>
+        <% end %>
         <% end %>
       </div>
 
       <% if @groups.blank? %>
-        <div class="org-dash-empty text-center rounded-4">
+        <div class="org-dash-empty text-center rounded-4 py-5 px-3">
           <i class="fa fa-layer-group d-block mb-2 opacity-50" aria-hidden="true"></i>
           <p class="m-0 fw-medium"><%= t("organizations.show.no_groups") %></p>
         </div>
