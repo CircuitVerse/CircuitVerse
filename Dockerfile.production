@@ -1,5 +1,5 @@
 # Use a multi stage build for the builder
-FROM --platform=$BUILDPLATFORM ruby:4.0.5 as builder
+FROM --platform=$BUILDPLATFORM ruby:4.0.6 as builder
 
 # Set production environment
 ARG BUILDPLATFORM
@@ -70,7 +70,7 @@ RUN ls -laR /output/
 
 # The files should now be in /app/public/simulatorvue/
 
-FROM --platform=$BUILDPLATFORM ruby:4.0.5-slim as app
+FROM --platform=$BUILDPLATFORM ruby:4.0.6-slim as app
 
 # Copy compiled assets and application from builder and Vue simulator build stages
 COPY --from=builder /usr/src/app /usr/src/app
