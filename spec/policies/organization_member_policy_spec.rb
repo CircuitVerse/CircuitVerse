@@ -110,4 +110,45 @@ describe OrganizationMemberPolicy do
     it { is_expected.not_to permit(:update) }
     it { is_expected.not_to permit(:destroy) }
   end
+
+  context "when the primary mentor of a group tries to delete their own membership" do
+    before do
+      @mentor = FactoryBot.create(:user)
+      @mentor_membership = FactoryBot.create(:organization_member, organization: @organization, user: @mentor,
+                                                                   role: :member)
+      FactoryBot.create(:group, name: "Mentored Group", primary_mentor: @mentor, organization: @organization)
+    end
+
+    let(:user) { @mentor }
+    let(:organization_member) { @mentor_membership }
+
+    it { is_expected.not_to permit(:destroy) }
+  end
+
+  context "when an admin removes a member who is the primary mentor of a group" do
+    before do
+      @mentor = FactoryBot.create(:user)
+      @mentor_membership = FactoryBot.create(:organization_member, organization: @organization, user: @mentor,
+                                                                   role: :member)
+      FactoryBot.create(:group, name: "Mentored Group", primary_mentor: @mentor, organization: @organization)
+    end
+
+    let(:user) { @admin }
+    let(:organization_member) { @mentor_membership }
+
+    it { is_expected.not_to permit(:destroy) }
+  end
+
+  context "when a member who mentors no group deletes their own membership" do
+    before do
+      @plain_member = FactoryBot.create(:user)
+      @plain_membership = FactoryBot.create(:organization_member, organization: @organization, user: @plain_member,
+                                                                  role: :member)
+    end
+
+    let(:user) { @plain_member }
+    let(:organization_member) { @plain_membership }
+
+    it { is_expected.to permit(:destroy) }
+  end
 end
