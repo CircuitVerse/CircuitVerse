@@ -2,7 +2,6 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
   authenticate :user, ->(u) { u.admin? } do
     mount Avo::Engine, at: "/admin"
   end
@@ -176,6 +175,7 @@ Rails.application.routes.draw do
     "https://join.slack.com/t/circuitverse-team/shared_invite/zt-3spixgmk0-v601OQMWVEIH8nKseQpzXw"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
+  get "/forum", to: redirect("https://circuitverse.discourse.group")
   get "/github", to: redirect("https://github.com/CircuitVerse")
   get "/learn", to: redirect("https://learn.circuitverse.org")
   get "/docs", to: redirect("https://docs.circuitverse.org")
