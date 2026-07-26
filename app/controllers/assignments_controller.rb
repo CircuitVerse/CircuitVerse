@@ -73,20 +73,16 @@ class AssignmentsController < ApplicationController
   # POST /assignments
   # POST /assignments.json
   def create
-    description = params["description"]
-
     if Flipper.enabled?(:lms_integration, current_user) && params["lms-integration-check"]
       lti_consumer_key = SecureRandom.hex(4)
       lti_shared_secret = SecureRandom.hex(4)
     end
 
-    params = assignment_create_params
-    # params[:deadline] = params[:deadline].to_time
+    assignment_params = assignment_create_params
 
-    @assignment = @group.assignments.new(params)
+    @assignment = @group.assignments.new(assignment_params)
     authorize @assignment, :mentor_access?
 
-    @assignment.description = description
     @assignment.status = "open"
     @assignment.deadline = 1.year.from_now if @assignment.deadline.nil?
 
@@ -109,24 +105,20 @@ class AssignmentsController < ApplicationController
   # PATCH/PUT /assignments/1
   # PATCH/PUT /assignments/1.json
   def update
-    description = params["description"]
-
     if Flipper.enabled?(:lms_integration, current_user) && params["lms-integration-check"]
       lti_consumer_key = @assignment.lti_consumer_key.presence || SecureRandom.hex(4)
       lti_shared_secret = @assignment.lti_shared_secret.presence || SecureRandom.hex(4)
     end
 
-    params = assignment_update_params
-    @assignment.description = description
+    assignment_params = assignment_update_params
 
     if Flipper.enabled?(:lms_integration, current_user)
       @assignment.lti_consumer_key = lti_consumer_key
       @assignment.lti_shared_secret = lti_shared_secret
     end
-    # params[:deadline] = params[:deadline].to_time
 
     respond_to do |format|
-      if @assignment.update(params)
+      if @assignment.update(assignment_params)
         format.html { redirect_to @group, notice: "Assignment was successfully updated." }
         format.json { render :show, status: :ok }
       else
