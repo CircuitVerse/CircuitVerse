@@ -36,13 +36,13 @@
     <h6><label for="assignment_deadline"><%= t("assignments.deadline") %></label></h6> (<span id='remaining-time'><b><%= t("assignments.remaining_time_error") %></b></span>)
     <input id="assignment_deadline" name="assignment[deadline]" type="text" class="form-control form-input">
   </div>
-  <div id="grade-field" class="form-group projects-tag-mb-3">
+  <div id="grade-field" class="form-group mb-4">
     <h6><%= form.label :grading_scale %></h6>
     <% if @assignment.new_record? %>
       <span><%= t("assignments.form.grade_scale_cant_change") %></span>
       <% if Flipper.enabled?(:lms_integration, current_user) %>
         <div class="lms-grade-fixed-message"> <!-- Operated by script -->
-          <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</a></p>
+          <p>Grading Scale needs to be fixed at 1-100 for passing the grade back to LMS</p>
         </div>
       <% end %>
       <%= form.select :grading_scale, [[t("assignments.form.no_grade"), :no_scale], [t("assignments.form.letter"), :letter], [t("assignments.form.percent"), :percent], [t("assignments.form.custom"), :custom]], {}, class: "form-control form-input" %>
