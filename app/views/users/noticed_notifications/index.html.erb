@@ -11,11 +11,20 @@
       <span id="all-notifications" class="active notifications-tab" data-action="click->notifications#activeAllNotifications"><%= t("users.notifications.all") %></span>
       <span id="unread-notifications" class="notifications-tab" data-action="click->notifications#activeUnreadNotifications"><%= t("users.notifications.unread") %></span>
     </div>
-    <% if @unread.count.positive? %>
-      <div>
-        <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), method: :patch, class: "anchor-text" %>
-      </div>
-    <% end %>
+    <div class="d-flex align-items-center">
+      <% if @unread.count.positive? %>
+        <div>
+          <%= link_to t("users.notifications.mark_as_read_button"), mark_all_as_read_url(current_user), method: :patch, class: "anchor-text" %>
+        </div>
+      <% end %>
+      <% if @notifications.count.positive? %>
+        <div class="ms-3">
+          <a href="#" data-bs-toggle="modal" data-bs-target="#clearAllNotificationsModal" class="anchor-text text-danger" aria-label="<%= t("users.notifications.clear_all_button") %>">
+            <%= t("users.notifications.clear_all_button") %>
+          </a>
+        </div>
+      <% end %>
+    </div>
   </div>
   <div id="all-notifications-div" class="d-flex flex-column bd-highlight mb-10 mt-3 notifications_container">
     <% @notifications.each do |notification| %>
@@ -69,5 +78,24 @@
         </div>
       </div>
     <% end %>
+  </div>
+</div>
+
+<div id="clearAllNotificationsModal" class="modal fade" role="dialog">
+  <div class="modal-dialog primary-modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header secondary-modal-header">
+        <h4 class="modal-title" aria-label="<%= t("users.notifications.clear_all_button") %>"><%= t("users.notifications.clear_all_button") %></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="close"></button>
+      </div>
+      <div class="modal-body">
+        <p><%= t("users.notifications.clear_all_confirm") %></p>
+      </div>
+      <div class="modal-footer">
+        <%= link_to clear_all_notifications_url(current_user), method: :delete, class: "btn primary-delete-button" do %>
+          <%= t("users.notifications.clear_all_button") %>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
