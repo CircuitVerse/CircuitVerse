@@ -32,6 +32,7 @@ module SimulatorHelper
   end
 
   def sanitize_data(project, data)
+    data = data.to_json if data.is_a?(ActionController::Parameters)
     return data if project&.assignment_id.blank? || data.blank?
 
     data = Oj.safe_load(data)

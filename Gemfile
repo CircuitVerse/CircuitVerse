@@ -124,7 +124,7 @@ gem 'vite_rails'
 group :development, :test do
   # Adds support for debug
   gem "debug"
-  gem "coveralls_reborn", "~> 0.29.0", require: false
+  gem "coveralls_reborn", "~> 0.29.1", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
@@ -191,11 +191,11 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.224"
+gem "aws-sdk-s3", "~> 1.227"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
 gem "opentelemetry-sdk", "~> 1.12"
-gem "opentelemetry-exporter-otlp", "~> 0.34.0"
+gem "opentelemetry-exporter-otlp", "~> 0.34.1"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
@@ -213,7 +213,7 @@ gem "opentelemetry-instrumentation-sidekiq"
 gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
-gem "maintenance_tasks", "~> 2.16"
+gem "maintenance_tasks", "~> 2.17"
 
 
 gem "stackprof"
