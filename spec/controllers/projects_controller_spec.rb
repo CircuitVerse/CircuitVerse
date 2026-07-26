@@ -146,6 +146,15 @@ describe ProjectsController, type: :request do
         expect(project.name).to eq("Test Project")
         expect(project.project_access_type).to eq("Public")
       end
+
+      it "sanitizes the project name before saving" do
+        post "/users/#{@user.id}/projects", params: {
+          project: { name: "<script>alert(1)</script>Hello", project_access_type: "Public" }
+        }
+
+        project = Project.order(:created_at).last
+        expect(project.name).not_to include("<script>")
+      end
     end
 
     describe "#update" do
@@ -170,6 +179,14 @@ describe ProjectsController, type: :request do
           put user_project_path(@author, @project), params: update_params
           @project.reload
           expect(@project.name).to eq("Updated Name")
+        end
+
+        it "sanitizes the project name before saving" do
+          put user_project_path(@author, @project), params: {
+            project: { name: "<script>alert(1)</script>Hello" }
+          }
+          @project.reload
+          expect(@project.name).not_to include("<script>")
         end
       end
 

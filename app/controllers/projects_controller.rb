@@ -11,7 +11,6 @@ class ProjectsController < ApplicationController
   before_action :check_access, only: %i[edit update destroy]
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork]
-  before_action :sanitize_name, only: %i[create update]
   before_action :sanitize_project_description, only: %i[show edit]
 
   # GET /projects
@@ -142,11 +141,9 @@ class ProjectsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def project_params
-      params.expect(project: %i[name project_access_type description tag_list tags])
-    end
-
-    def sanitize_name
-      params.permit(:project)[:name] = sanitize(project_params[:name])
+      project = params.expect(project: %i[name project_access_type description tag_list tags])
+      project[:name] = sanitize(project[:name]) if project[:name]
+      project
     end
 
     # Sanitize description before passing to view
