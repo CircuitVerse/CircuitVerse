@@ -8,10 +8,12 @@
         <p class="centered-paragraph"><%= t("about.product_details") %></p>
     </div>
   </div>
-  <div class="col col-sm col-md col-lg div-flex-center">
-    <a class="btn primary-button" href="/tos" target="_blank"><%= t("about.terms_of_service") %></a>
-    <a class="btn primary-button" href="/privacy" target="_blank"><%= t("about.privacy_policy") %></a>
-  </div>
+  <div class="row center-row"> <!-- Added row wrapper -->
+    <div class="col col-sm col-md col-lg div-flex-center">
+      <a class="btn primary-button" href="/tos" target="_blank"><%= t("about.terms_of_service") %></a>
+      <a class="btn primary-button" href="/privacy" target="_blank"><%= t("about.privacy_policy") %></a>
+    </div>
+  </div> <!-- End of added row wrapper -->
   <div class="row center-row">
     <div class="col col-sm col-md col-lg">
       <div class="social-card about-social-card-1">
