@@ -33,7 +33,7 @@
     "jsdoc": "3.6.10",
     "lint-staged": ">=15.4.2",
     "livereload": "^0.9.3",
-    "nodemon": "^2.0.21",
+    "nodemon": "^3.1.14",
     "playwright": "1.55.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^15.1.0",
