@@ -6,7 +6,8 @@
     <script src="/js/pace.js"></script>
     <%= javascript_include_tag "testbench", "data-turbolinks-track": "reload" %>
     <%= stylesheet_link_tag "testbench", media: "all", "data-turbolinks-track": "reload" %>
-    <%= favicon_link_tag "favicon.ico" %>
+    <%= favicon_link_tag "CircuitVerse-cropped.svg", rel: "icon", type: "image/svg+xml" %>
+    <%= favicon_link_tag "favicon.ico", rel: "alternate icon", type: "image/x-icon" %>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <%= render partial: "layouts/google_analytics" if Rails.env.production? %>
