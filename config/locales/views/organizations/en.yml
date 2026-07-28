@@ -12,6 +12,10 @@ en:
       overview: "Overview"
       members: "Members"
       settings: "Settings"
+    switcher:
+      button: "Switch"
+      heading: "Switch organization"
+      create: "Create organization"
     overview:
       groups_heading: "Groups"
       new_group_button: "New Group"
