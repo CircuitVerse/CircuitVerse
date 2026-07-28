@@ -1081,6 +1081,7 @@ DEPENDENCIES
   erb_lint
   factory_bot_rails
   faker
+  faraday
   flipper-redis
   flipper-ui
   font-awesome-sass (~> 5.13.1)
