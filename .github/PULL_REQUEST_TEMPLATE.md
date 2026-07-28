@@ -11,7 +11,7 @@ Fixes #
 
 ## Code Understanding and AI Usage
 
-**Did you use AI assistance (ChatGPT, Claude, Copilot, etc.) to write any part of this code?**
+**Did you use AI generated code (ChatGPT, Claude, Copilot, etc.) in any part of this PR? **
 - [ ] No, I wrote all the code myself
 - [ ] Yes, I used AI assistance (continue below)
 

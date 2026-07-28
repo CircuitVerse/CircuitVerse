@@ -62,13 +62,52 @@ describe LtiController, type: :request do
       end
     end
 
+    context "when storing the grading context in the session" do
+      let(:outcome_url) { "https://lms.example.test/outcomes" }
+
+      it "records the outcome context and the matched assignment after a verified launch" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "lis_outcome_service_url" => outcome_url)
+        expect(session[:lis_outcome_service_url]).to eq(outcome_url)
+        expect(session[:lti_11_assignment_id]).to eq(assignment.id)
+      end
+
+      it "does not store an outcome context when the launch signature is invalid" do
+        post lti_launch_path, params: { oauth_consumer_key: oauth_consumer_key_fromlms,
+                                        oauth_signature: "invalid",
+                                        lis_outcome_service_url: outcome_url }
+        expect(response.code).to eq("401")
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+
+      it "does not store an outcome context when no assignment matches the consumer key" do
+        post lti_launch_path, params: { oauth_consumer_key: "unknown-key",
+                                        oauth_signature: "invalid",
+                                        lis_outcome_service_url: outcome_url }
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+
+      it "clears a stale outcome context on the next launch" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "lis_outcome_service_url" => outcome_url)
+        expect(session[:lti_11_assignment_id]).to eq(assignment.id)
+
+        post lti_launch_path, params: { oauth_consumer_key: "unknown-key",
+                                        oauth_signature: "invalid" }
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+    end
+
     def launch_uri
       # required for generation of LTI parameters
       launch_url = "http://#{host}:#{port}/lti/launch"
       URI(launch_url)
     end
 
-    def parameters(member_email)
+    def parameters(member_email, extra_params = {})
       {
         "launch_url" => launch_uri.to_s,
         "user_id" => SecureRandom.hex(4),
@@ -80,7 +119,7 @@ describe LtiController, type: :request do
         "tool_consumer_info_product_family_code" => "moodle",
         "context_title" => "sample Course",
         "lis_result_sourcedid" => SecureRandom.hex(10)
-      }
+      }.merge(extra_params)
     end
 
     def consumer_data(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, parameters)
@@ -93,8 +132,8 @@ describe LtiController, type: :request do
       consumer.generate_launch_data
     end
 
-    def lti_request(consumer_key, shared_secret, email)
-      data = consumer_data(consumer_key, shared_secret, parameters(email))
+    def lti_request(consumer_key, shared_secret, email, extra_params = {})
+      data = consumer_data(consumer_key, shared_secret, parameters(email, extra_params))
       post lti_launch_path, params: data, headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
