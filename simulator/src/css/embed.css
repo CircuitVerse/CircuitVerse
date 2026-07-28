@@ -38,23 +38,34 @@
     top: 25px;
     z-index: 100;
     border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: var(--bg-primary-white, rgba(255, 255, 255, 0.95));
+    color: var(--text-panel, inherit);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
 }
 
 #clockProperty {
-    padding: 10px;
+    padding: 8px 10px;
     border-radius: 6px;
-    opacity: 0.7;
-    transition: opacity .4s ease;
+    opacity: 0.85;
+    transition: opacity 0.3s ease;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    background-color: var(--bg-primary-white, transparent);
 }
 
 #clockProperty:hover {
     opacity: 1;
+}
+
+@media screen and (max-width: 768px) {
+    .clockPropertyHeader {
+        top: 60px;
+        right: 10px;
+    }
 }
 input:checked + .slider {
     /* background-color: #2196F3; */
