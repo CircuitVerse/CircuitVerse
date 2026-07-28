@@ -3,7 +3,8 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
-  before_action :check_organizations_feature_flag, only: %i[new create], if: lambda {
+  before_action :verify_organization_scope, only: %i[show]
+  before_action :check_organizations_feature_flag, only: %i[new create show], if: lambda {
     params[:organization_id].present? || params.dig(:group, :organization_id).present?
   }
   before_action :check_show_access, only: %i[show edit update destroy]
@@ -46,7 +47,7 @@ class GroupsController < ApplicationController
 
   # GET /groups/new
   def new
-    @group = Group.new
+    @group = Group.new(organization: organization_from_params)
   end
 
   # GET /groups/1/edit
@@ -56,12 +57,12 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = current_user.groups_owned.new(group_params)
-
+    @group.organization = organization_from_params  
     authorize @group.organization, :create_group? if @group.organization
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: "Group was successfully created." }
+        format.html { redirect_to group_redirect_path(@group), notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -75,7 +76,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: "Group was successfully updated." }
+        format.html { redirect_to group_redirect_path(@group), notice: "Group was successfully updated." }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -106,7 +107,6 @@ class GroupsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
       permitted = %i[name primary_mentor_id]
-      permitted << :organization_id if action_name == "create" && Flipper.enabled?(:organizations, current_user)
       params.expect(group: permitted)
     end
 
@@ -121,6 +121,24 @@ class GroupsController < ApplicationController
         authorize @group, :admin_access?
       end
     end
+
+    def verify_organization_scope
+      return if params[:organization_id].blank?
+      return if @group.organization&.to_param == params[:organization_id]
+      redirect_to group_path(@group)
+    end
+
+    def group_redirect_path(group)
+      if group.organization && Flipper.enabled?(:organizations, current_user)
+        return organization_group_path(group.organization, group)
+      end
+      group_path(group)
+    end
+
+  def organization_from_params
+    return if params[:organization_id].blank?
+    Organization.friendly.find(params[:organization_id])
+  end
 
     def check_organizations_feature_flag
       redirect_to root_path, alert: t("feature_not_available") unless Flipper.enabled?(:organizations, current_user)

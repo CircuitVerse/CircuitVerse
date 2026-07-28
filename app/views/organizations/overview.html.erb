@@ -37,7 +37,7 @@
       <div class="d-flex align-items-center justify-content-between mb-3">
         <h3 class="org-dash-section-title fw-semibold m-0 fs-5"><%= t(".groups_heading") %></h3>
         <% if policy(@organization).admin_access? %>
-          <%= link_to new_group_path(organization_id: @organization.slug), class: "btn primary-button d-inline-flex align-items-center gap-1" do %>
+          <%= link_to new_organization_group_path(@organization), class: "btn primary-button d-inline-flex align-items-center gap-1" do %>
             <i class="fa fa-plus" aria-hidden="true"></i> <%= t(".new_group_button") %>
           <% end %>
         <% end %>
@@ -52,7 +52,7 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           <% @groups.each do |group| %>
             <div class="col">
-              <%= link_to group_path(group), class: "org-dash-group-card d-flex flex-column justify-content-between text-decoration-none rounded-4 h-100 p-3" do %>
+              <%= link_to organization_group_path(@organization, group), class: "org-dash-group-card d-flex flex-column justify-content-between text-decoration-none rounded-4 h-100 p-3" do %>
                 <span class="org-dash-group-name fw-semibold"><%= group.name %></span>
                 <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
                   <i class="fa fa-user" aria-hidden="true"></i>

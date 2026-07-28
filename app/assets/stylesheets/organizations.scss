@@ -124,6 +124,14 @@
   font-size: 36px;
 }
 
+.org-back-link {
+  color: var(--cv-primary-green);
+}
+
+.org-back-link:hover {
+  color: var(--cv-secondary-green);
+}
+
 @media (max-width: 600px) {
   .org-dash-logo {
     width: 96px;

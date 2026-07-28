@@ -9,6 +9,16 @@
     </div>
   </div>
   <% end %>
+  <% if @group.organization && Flipper.enabled?(:organizations, current_user) %>
+    <div class="row">
+      <div class="col">
+        <%= link_to overview_organization_path(@group.organization), class: "d-inline-flex align-items-center gap-2 text-decoration-none mb-3 fw-semibold fs-5 org-back-link" do %>
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          <%= t("groups.show.back_to_organization", organization: @group.organization.name) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
   <div class="row center-row">
     <div class="col col-sm col-md col-lg">
       <h1 class="submain-heading">
