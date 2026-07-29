@@ -1,0 +1,219 @@
+import { Controller } from 'stimulus';
+
+const MAX_LINKS = 5;
+
+export default class extends Controller {
+    connect() {
+        this.setupCounters();
+        this.setupLinks();
+        this.setupLogo();
+        this.setupSlug();
+        this.setupDeleteModal();
+    }
+
+    setupCounters() {
+        this.bindCounter('organization_name', 'org-name-counter', 50);
+        this.bindCounter('org-description-input', 'org-description-counter', 160);
+    }
+
+    bindCounter(inputId, counterId, maxLen) {
+        const el = document.getElementById(inputId);
+        const counter = document.getElementById(counterId);
+        if (!el || !counter) return;
+        const update = () => {
+            const remaining = maxLen - el.value.length;
+            counter.textContent = `${remaining} characters remaining`;
+            counter.classList.toggle('text-danger', remaining <= Math.floor(maxLen * 0.15));
+        };
+        update();
+        el.addEventListener('input', update);
+    }
+
+    setupLinks() {
+        this.linksContainer = document.getElementById('organizations-links-container');
+        this.addLinkBtn = document.getElementById('organizations-add-link-btn');
+        if (!this.linksContainer || !this.addLinkBtn) return;
+
+        this.linksContainer.addEventListener('input', (e) => {
+            if (e.target.tagName === 'INPUT' && e.target.type === 'url') {
+                this.updateLinkIcon(e.target);
+            }
+        });
+
+        this.linksContainer.querySelectorAll('input[type="url"]').forEach((field) => {
+            this.updateLinkIcon(field);
+        });
+
+        this.updateRemoveButtons();
+
+        this.addLinkBtn.addEventListener('click', () => {
+            const items = this.linksContainer.querySelectorAll('.organizations-link-item');
+            if (items.length < MAX_LINKS) {
+                const newItem = items[0].cloneNode(true);
+                const field = newItem.querySelector('input');
+                field.value = '';
+                this.linksContainer.appendChild(newItem);
+                this.updateRemoveButtons();
+                this.updateLinkIcon(field);
+            }
+        });
+
+        this.linksContainer.addEventListener('click', (e) => {
+            const removeBtn = e.target.closest('.organizations-remove-link-btn');
+            if (removeBtn && this.linksContainer.querySelectorAll('.organizations-link-item').length > 1) {
+                removeBtn.closest('.organizations-link-item').remove();
+                this.updateRemoveButtons();
+            }
+        });
+    }
+
+    updateRemoveButtons() {
+        const items = this.linksContainer.querySelectorAll('.organizations-link-item');
+        items.forEach((item) => {
+            const btn = item.querySelector('.organizations-remove-link-btn');
+            btn.style.display = items.length > 1 ? 'block' : 'none';
+        });
+        this.addLinkBtn.style.display = items.length >= MAX_LINKS ? 'none' : 'inline-block';
+    }
+
+    updateLinkIcon(field) {
+        const item = field.closest('.organizations-link-item');
+        const img = item.querySelector('.organizations-input-icon');
+        if (!img) return;
+
+        const logos = this.linksContainer.dataset;
+        const urlString = field.value.trim();
+        if (!urlString) {
+            img.src = logos.logoDefault;
+            return;
+        }
+
+        let hostname = '';
+        try {
+            const parsed = new URL(urlString.startsWith('http') ? urlString : `https://${urlString}`);
+            hostname = parsed.hostname.toLowerCase().replace(/^www\./, '');
+        } catch (e) {
+            img.src = logos.logoDefault;
+            return;
+        }
+
+        const is = (host, domain) => host === domain || host.endsWith(`.${domain}`);
+        if (is(hostname, 'github.com')) img.src = logos.logoGithub;
+        else if (is(hostname, 'twitter.com') || is(hostname, 'x.com')) img.src = logos.logoX;
+        else if (is(hostname, 'linkedin.com')) img.src = logos.logoLinkedin;
+        else if (is(hostname, 'facebook.com')) img.src = logos.logoFacebook;
+        else if (is(hostname, 'youtube.com') || is(hostname, 'youtu.be')) img.src = logos.logoYoutube;
+        else img.src = logos.logoDefault;
+    }
+
+    setupLogo() {
+        const zone = document.getElementById('organization-upload-zone');
+        const input = document.getElementById('organization_logo');
+        const label = document.getElementById('organization-upload-filename');
+        if (input) {
+            input.addEventListener('change', function () {
+                if (this.files && this.files[0]) label.textContent = this.files[0].name;
+            });
+        }
+        if (zone) {
+            ['dragover', 'dragenter'].forEach((evt) => {
+                zone.addEventListener(evt, (e) => {
+                    e.preventDefault();
+                    zone.classList.add('org-upload-zone--active');
+                });
+            });
+            ['dragleave', 'drop'].forEach((evt) => {
+                zone.addEventListener(evt, () => {
+                    zone.classList.remove('org-upload-zone--active');
+                });
+            });
+            zone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    input.files = e.dataTransfer.files;
+                    label.textContent = e.dataTransfer.files[0].name;
+                }
+            });
+        }
+    }
+
+    setupSlug() {
+        const nameInput = document.getElementById('organization_name');
+        const slugPreview = document.getElementById('organization-slug-preview');
+        const slugStatus = document.getElementById('org-slug-status');
+        const slugHint = document.getElementById('org-slug-hint');
+        if (!nameInput || !slugPreview) return;
+
+        const currentSlug = slugPreview.dataset.currentSlug || '';
+        let slugDebounce = null;
+        let slugRequestId = 0;
+
+        const setSlugStatus = (state, slug) => {
+            slugStatus.className = 'badge';
+            slugHint.classList.add('d-none');
+            if (state === 'idle') {
+                slugStatus.classList.add('d-none');
+            } else if (state === 'checking') {
+                slugStatus.classList.add('text-bg-secondary');
+                slugStatus.textContent = slugStatus.dataset.checkingText;
+            } else if (state === 'available') {
+                slugStatus.classList.add('text-bg-success');
+                slugStatus.textContent = slugStatus.dataset.availableText;
+            } else if (state === 'taken') {
+                slugStatus.classList.add('text-bg-danger');
+                slugStatus.textContent = slugStatus.dataset.takenText;
+                slugHint.classList.remove('d-none');
+                slugHint.textContent = slugHint.dataset.takenHint.replace('%{slug}', slug);
+            }
+        };
+
+        nameInput.addEventListener('input', () => {
+            const rawName = nameInput.value.trim();
+            if (!rawName) {
+                slugPreview.textContent = currentSlug || slugPreview.dataset.placeholder;
+                setSlugStatus('idle', '');
+                return;
+            }
+            const localSlug = rawName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+            slugPreview.textContent = localSlug || slugPreview.dataset.placeholder;
+            if (localSlug === currentSlug) {
+                setSlugStatus('idle', '');
+                return;
+            }
+            setSlugStatus('checking', localSlug);
+            clearTimeout(slugDebounce);
+            slugDebounce = setTimeout(() => {
+                const requestId = ++slugRequestId;
+                fetch(`/organizations/check_slug?name=${encodeURIComponent(rawName)}`, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                })
+                    .then((r) => r.json())
+                    .then((data) => {
+                        if (requestId !== slugRequestId) return;
+                        slugPreview.textContent = data.slug || currentSlug;
+                        setSlugStatus((data.available || data.slug === currentSlug) ? 'available' : 'taken', data.slug);
+                    })
+                    .catch(() => {
+                        if (requestId === slugRequestId) setSlugStatus('idle', '');
+                    });
+            }, 350);
+        });
+    }
+
+    setupDeleteModal() {
+        const deleteInput = document.getElementById('deleteOrgConfirmInput');
+        const deleteBtn = document.getElementById('deleteOrgSubmitBtn');
+        if (!deleteInput || !deleteBtn) return;
+        const orgName = deleteInput.dataset.orgName;
+        deleteInput.addEventListener('input', function () {
+            deleteBtn.disabled = this.value !== orgName;
+        });
+        const modalEl = document.getElementById('deleteOrgModal');
+        if (modalEl) {
+            modalEl.addEventListener('show.bs.modal', () => {
+                deleteInput.value = '';
+                deleteBtn.disabled = true;
+            });
+        }
+    }
+}

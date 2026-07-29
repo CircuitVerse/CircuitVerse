@@ -123,7 +123,44 @@
 .org-dash-empty i {
   font-size: 36px;
 }
+.org-settings {
+  max-width: 720px;
+}
 
+.org-settings-danger-text {
+  max-width: 420px;
+}
+
+.org-settings-logo-preview {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.org-form-icon {
+  color: var(--cv-primary-green);
+}
+
+.org-upload-zone {
+  border: 2px dashed var(--bs-gray-400);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.org-upload-zone:hover,
+.org-upload-zone--active {
+  border-color: var(--cv-primary-green);
+  background-color: var(--cv-light-green-bg);
+}
+
+.org-upload-zone__icon {
+  font-size: 28px;
+  color: var(--cv-primary-green);
+  margin-bottom: 8px;
+}
 @media (max-width: 600px) {
   .org-dash-logo {
     width: 96px;

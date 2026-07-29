@@ -55,4 +55,8 @@ class Organization < ApplicationRecord
 
       errors.add(:links, "cannot have more than #{MAX_LINKS} links") if links.size > MAX_LINKS
     end
+
+    def should_generate_new_friendly_id?
+      name_changed? || super
+    end
 end
