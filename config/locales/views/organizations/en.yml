@@ -16,6 +16,12 @@ en:
       button: "Switch"
       heading: "Switch organization"
       create: "Create organization"
+      group_count:
+        one: "1 group"
+        other: "%{count} groups"
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
     overview:
       groups_heading: "Groups"
       new_group_button: "New Group"
