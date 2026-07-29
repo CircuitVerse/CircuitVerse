@@ -94,11 +94,11 @@ class GroupsController < ApplicationController
     @group.destroy
     respond_to do |format|
       format.html do
-      redirect_to group_parent_redirect_path(organization), notice: "Group was successfully deleted."
+        redirect_to group_parent_redirect_path(organization), notice: "Group was successfully deleted."
       end
-    format.json { head :no_content }
+      format.json { head :no_content }
+    end
   end
-end
 
   private
 

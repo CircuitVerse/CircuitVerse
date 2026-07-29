@@ -5,19 +5,17 @@ module OrganizationScopedRedirect
 
   private
 
-  def group_redirect_path(group)
-    if group.organization && Flipper.enabled?(:organizations, current_user)
-      return organization_group_path(group.organization, group)
+    def group_redirect_path(group)
+      if group.organization && Flipper.enabled?(:organizations, current_user)
+        return organization_group_path(group.organization, group)
+      end
+
+      group_path(group)
     end
 
-    group_path(group)
-  end
+    def group_parent_redirect_path(organization)
+      return overview_organization_path(organization) if organization && Flipper.enabled?(:organizations, current_user)
 
-  def group_parent_redirect_path(organization)
-    if organization && Flipper.enabled?(:organizations, current_user)
-      return overview_organization_path(organization)
+      user_groups_path(current_user)
     end
-
-    user_groups_path(current_user)
-  end
 end

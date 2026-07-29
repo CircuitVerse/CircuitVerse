@@ -36,7 +36,7 @@ Rails.application.routes.draw do
     end
     resources :organization_members, only: %i[create update destroy]
     delete :leave, to: "organization_members#leave"
-    resources :groups, only: %i[new create show edit]
+    resources :groups, only: %i[new create show edit update]
   end
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do

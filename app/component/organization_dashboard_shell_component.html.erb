@@ -1,4 +1,16 @@
 <div class="org-dash mx-auto text-body pt-4 px-3 pb-5">
+  <% if helpers.flash[:notice].present? %>
+    <div class="alert alert-success alert-dismissible" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+      <%= helpers.flash[:notice] %>
+    </div>
+  <% end %>
+  <% if helpers.flash[:alert].present? %>
+    <div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="close"></button>
+      <%= helpers.flash[:alert] %>
+    </div>
+  <% end %>
   <h1 class="org-dash-name fw-semibold mb-3 fs-5"><%= @organization.name %></h1>
   <nav aria-label="<%= t('organizations.tabs.nav_label') %>">
     <ul class="nav nav-pills gap-2 flex-wrap mb-3">
