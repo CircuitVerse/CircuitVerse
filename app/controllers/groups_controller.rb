@@ -90,14 +90,15 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+    organization = @group.organization
     @group.destroy
     respond_to do |format|
       format.html do
-        redirect_to user_groups_path(current_user), notice: "Group was successfully deleted."
+      redirect_to group_parent_redirect_path(organization), notice: "Group was successfully deleted."
       end
-      format.json { head :no_content }
-    end
+    format.json { head :no_content }
   end
+end
 
   private
 

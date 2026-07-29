@@ -132,6 +132,29 @@
   color: var(--cv-secondary-green);
 }
 
+.org-dash-group-icon {
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.org-dash-group-icon-edit {
+  color: var(--cv-primary-green);
+}
+
+.org-dash-group-icon-edit:hover {
+  color: var(--cv-secondary-green);
+}
+
+.org-dash-group-icon-delete {
+  color: var(--bs-danger);
+  opacity: 0.8;
+}
+
+.org-dash-group-icon-delete:hover {
+  opacity: 1;
+  color: var(--bs-danger);
+}
+
 @media (max-width: 600px) {
   .org-dash-logo {
     width: 96px;

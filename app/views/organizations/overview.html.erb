@@ -52,15 +52,45 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           <% @groups.each do |group| %>
             <div class="col">
-              <%= link_to organization_group_path(@organization, group), class: "org-dash-group-card d-flex flex-column justify-content-between text-decoration-none rounded-4 h-100 p-3" do %>
-                <span class="org-dash-group-name fw-semibold"><%= group.name %></span>
-                <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <%= t(".member_count", count: group.group_members_count) %>
-                </span>
-              <% end %>
-            </div>
+  <div class="org-dash-group-card d-flex flex-column justify-content-between rounded-4 h-100 p-3">
+    <div class="d-flex justify-content-between align-items-start gap-2">
+      <%= link_to group.name, organization_group_path(@organization, group),
+            class: "org-dash-group-name fw-semibold text-decoration-none" %>
+      <% if OrganizationGroupPolicy.new(current_user, group).manage? %>
+       <%= link_to edit_organization_group_path(@organization, group),
+      class: "org-dash-group-icon org-dash-group-icon-edit", aria: { label: t("edit") } do %>
+  <i class="fas fa-pencil-alt" aria-hidden="true"></i>
+<% end %>
+      <% end %>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-end gap-2 mt-3">
+      <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
+        <i class="fa fa-user" aria-hidden="true"></i>
+        <%= t(".member_count", count: group.group_members_count) %>
+      </span>
+      <% if OrganizationGroupPolicy.new(current_user, group).manage? %>
+       <%= link_to "#", class: "org-dash-group-icon org-dash-group-icon-delete",
+      data: { bs_toggle: "modal", bs_target: "#deletegroupModal", currentgroup: group.id },
+      aria: { label: t("delete") } do %>
+  <i class="fas fa-trash-alt" aria-hidden="true"></i>
+<% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
           <% end %>
+          <%= render partial: "users/circuitverse/delete_group_confirmation_modal" %>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $("#deletegroupModal").on("show.bs.modal", function(e) {
+      let group = $(e.relatedTarget).data('currentgroup');
+      $(e.currentTarget).find('#groups-group-delete-button').attr("href",
+        "/groups/" + group.toString());
+    });
+  });
+</script>
         </div>
         <div class="org-index-pagination mt-4">
           <%= will_paginate @groups, param_name: "groups_page", renderer: PaginateRenderer %>
