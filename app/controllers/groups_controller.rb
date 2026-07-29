@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
+  include OrganizationScopedRedirect
+
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
-  before_action :verify_organization_scope, only: %i[show]
-  before_action :check_organizations_feature_flag, only: %i[new create show], if: lambda {
+  before_action :verify_organization_scope, only: %i[show edit update]
+  before_action :check_organizations_feature_flag, only: %i[new create show edit update], if: lambda {
     params[:organization_id].present? || params.dig(:group, :organization_id).present?
   }
   before_action :check_show_access, only: %i[show edit update destroy]
@@ -57,7 +59,7 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = current_user.groups_owned.new(group_params)
-    @group.organization = organization_from_params  
+    @group.organization = organization_from_params
     authorize @group.organization, :create_group? if @group.organization
 
     respond_to do |format|
@@ -125,20 +127,15 @@ class GroupsController < ApplicationController
     def verify_organization_scope
       return if params[:organization_id].blank?
       return if @group.organization&.to_param == params[:organization_id]
+
       redirect_to group_path(@group)
     end
 
-    def group_redirect_path(group)
-      if group.organization && Flipper.enabled?(:organizations, current_user)
-        return organization_group_path(group.organization, group)
-      end
-      group_path(group)
-    end
+    def organization_from_params
+      return if params[:organization_id].blank?
 
-  def organization_from_params
-    return if params[:organization_id].blank?
-    Organization.friendly.find(params[:organization_id])
-  end
+      Organization.friendly.find(params.expect(:organization_id))
+    end
 
     def check_organizations_feature_flag
       redirect_to root_path, alert: t("feature_not_available") unless Flipper.enabled?(:organizations, current_user)
