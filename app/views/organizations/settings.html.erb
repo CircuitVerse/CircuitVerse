@@ -42,6 +42,9 @@
               </div>
               <p class="small mb-2"><%= t("organizations.settings.modal_confirm_prompt_html", organization: @organization.name) %></p>
               <%= form_with url: organization_path(@organization), method: :delete, local: true do %>
+                <label class="visually-hidden" for="deleteOrgConfirmInput">
+                  <%= t("organizations.settings.modal_confirm_label") %>
+                </label>
                 <input type="text" id="deleteOrgConfirmInput" name="confirmation" class="form-control mb-3" autocomplete="off"
                       data-org-name="<%= @organization.name %>">
                 <button type="submit" id="deleteOrgSubmitBtn" class="btn btn-danger w-100" disabled>

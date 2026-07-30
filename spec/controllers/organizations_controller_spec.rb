@@ -164,6 +164,11 @@ RSpec.describe OrganizationsController, type: :controller do
         expect(response).to redirect_to(organizations_path)
       end
 
+      it "returns unprocessable for JSON when confirmation does not match" do
+        delete :destroy, params: { id: organization.id, confirmation: "wrong name" }, format: :json
+        expect(response).to have_http_status(:unprocessable_content)
+      end
+
       it "does not destroy the organization when confirmation does not match" do
         expect do
           delete :destroy, params: { id: organization.id, confirmation: "wrong name" }

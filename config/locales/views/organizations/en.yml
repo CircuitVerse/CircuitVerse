@@ -32,12 +32,6 @@ en:
       name_label: "Name"
       name_hint: "The name of your organization."
       name_placeholder: "e.g. Acme University"
-      url_label: "Organization URL"
-      slug_placeholder: "your-org-name"
-      slug_checking: "Checking..."
-      slug_available: "✓ Available"
-      slug_taken: "✗ Already taken"
-      slug_taken_hint: "This URL is taken. A unique number will be appended (e.g. %{slug}-1) when you save."
       description_label: "Description"
       description_hint: "A short description of your organization."
       description_placeholder: "What is your organization about?"
@@ -72,6 +66,7 @@ en:
       modal_warning: "This action cannot be undone. This will permanently delete the %{organization} organization. Any groups inside will become standalone groups."
       modal_confirm_prompt_html: "Please type <strong>%{organization}</strong> to confirm."
       modal_confirm_btn: "I understand the consequences, delete this organization"
+      modal_confirm_label: "Type the organization name to confirm deletion"
       link_aria_label: "External link"
   organization_members:
     create:
