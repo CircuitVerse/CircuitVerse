@@ -8,11 +8,11 @@ class OrganizationFormComponent < ViewComponent::Base
 
   private
 
-  attr_reader :organization
+    attr_reader :organization
 
-  def existing_links
-    return [] unless organization.links.is_a?(Array)
+    def existing_links
+      return [] unless organization.links.is_a?(Array)
 
-    organization.links.reject(&:blank?)
-  end
+      organization.links.compact_blank
+    end
 end

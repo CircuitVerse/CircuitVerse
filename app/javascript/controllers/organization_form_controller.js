@@ -34,6 +34,14 @@ export default class extends Controller {
         this.addLinkBtn = document.getElementById('organizations-add-link-btn');
         if (!this.linksContainer || !this.addLinkBtn) return;
 
+        // Stash a template of a link row (for re-adding after all are removed)
+        const firstItem = this.linksContainer.querySelector('.organizations-link-item');
+        if (firstItem) {
+            this.linkTemplate = firstItem.cloneNode(true);
+            const templateField = this.linkTemplate.querySelector('input');
+            if (templateField) templateField.value = '';
+        }
+
         this.linksContainer.addEventListener('input', (e) => {
             if (e.target.tagName === 'INPUT' && e.target.type === 'url') {
                 this.updateLinkIcon(e.target);
@@ -48,8 +56,8 @@ export default class extends Controller {
 
         this.addLinkBtn.addEventListener('click', () => {
             const items = this.linksContainer.querySelectorAll('.organizations-link-item');
-            if (items.length < MAX_LINKS) {
-                const newItem = items[0].cloneNode(true);
+            if (items.length < MAX_LINKS && this.linkTemplate) {
+                const newItem = this.linkTemplate.cloneNode(true);
                 const field = newItem.querySelector('input');
                 field.value = '';
                 this.linksContainer.appendChild(newItem);
@@ -60,7 +68,7 @@ export default class extends Controller {
 
         this.linksContainer.addEventListener('click', (e) => {
             const removeBtn = e.target.closest('.organizations-remove-link-btn');
-            if (removeBtn && this.linksContainer.querySelectorAll('.organizations-link-item').length > 1) {
+            if (removeBtn) {
                 removeBtn.closest('.organizations-link-item').remove();
                 this.updateRemoveButtons();
             }
@@ -71,7 +79,7 @@ export default class extends Controller {
         const items = this.linksContainer.querySelectorAll('.organizations-link-item');
         items.forEach((item) => {
             const btn = item.querySelector('.organizations-remove-link-btn');
-            btn.style.display = items.length > 1 ? 'block' : 'none';
+            if (btn) btn.style.display = 'block';
         });
         this.addLinkBtn.style.display = items.length >= MAX_LINKS ? 'none' : 'inline-block';
     }

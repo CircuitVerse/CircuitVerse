@@ -32,24 +32,6 @@
     <div class="text-end"><small id="org-name-counter" class="form-text"></small></div>
   </div>
 
-  <%# Slug preview %>
-  <div class="mb-3">
-    <label class="form-label fw-semibold"><%= t("organizations.settings.url_label") %></label>
-    <div class="d-flex align-items-center flex-wrap gap-1 p-2 bg-light border rounded text-secondary">
-      <span>circuitverse.org/organizations/</span>
-      <span id="organization-slug-preview"
-            data-current-slug="<%= @organization.slug %>"
-            data-placeholder="<%= t('organizations.settings.slug_placeholder') %>"
-            class="<%= @organization.slug.present? ? 'text-dark' : 'text-secondary' %>"><%= @organization.slug.presence || t("organizations.settings.slug_placeholder") %></span>
-      <span id="org-slug-status" class="badge d-none"
-            data-checking-text="<%= t('organizations.settings.slug_checking') %>"
-            data-available-text="<%= t('organizations.settings.slug_available') %>"
-            data-taken-text="<%= t('organizations.settings.slug_taken') %>"></span>
-    </div>
-    <div id="org-slug-hint" class="form-text text-danger d-none"
-         data-taken-hint="<%= t('organizations.settings.slug_taken_hint') %>"></div>
-  </div>
-
   <%# Description %>
   <div class="mb-3">
     <%= form.label :description, t("organizations.settings.description_label"),
