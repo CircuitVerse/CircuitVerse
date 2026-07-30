@@ -13,14 +13,34 @@ class OrganizationDashboardShellComponentPreview < ViewComponent::Preview
 
     def render_shell(active_tab:, show_settings_tab:)
       organization = Organization.new(
+        id: 1,
         name: "CircuitVerse Community",
         slug: "circuitverse-community"
       )
+      user_organizations = [
+        {
+          organization: organization,
+          role: "admin",
+          group_count: 3,
+          member_count: 12
+        },
+        {
+          organization: Organization.new(
+            id: 2,
+            name: "Robotics Club",
+            slug: "robotics-club"
+          ),
+          role: "mentor",
+          group_count: 1,
+          member_count: 5
+        }
+      ]
       render(OrganizationDashboardShellComponent.new(
-               organization: organization,
-               active_tab: active_tab,
-               show_settings_tab: show_settings_tab
-             )) do |component|
+        organization: organization,
+        active_tab: active_tab,
+        user_organizations: user_organizations,
+        show_settings_tab: show_settings_tab
+      )) do |component|
         component.with_tab_content do
           tag.p("Preview content for the #{active_tab.titleize} tab.")
         end
