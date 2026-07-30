@@ -14,11 +14,16 @@ class OrganizationMemberPolicy < ApplicationPolicy
 
   def destroy?
     return false if leaving_self? && sole_admin?
+    return false if leaving_self? && primary_mentor_of_any_group?
 
     org_admin? || leaving_self? || user.admin?
   end
 
   private
+
+    def primary_mentor_of_any_group?
+      record.organization.groups.exists?(primary_mentor_id: user.id)
+    end
 
     def org_membership
       return @org_membership if defined?(@org_membership)
