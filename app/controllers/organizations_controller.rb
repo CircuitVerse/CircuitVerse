@@ -6,7 +6,7 @@ class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show overview members settings update destroy]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
-  before_action :set_user_organizations, only: %i[overview members settings]
+  before_action :set_user_organizations, only: %i[overview members settings update]
 
   PER_PAGE = 9
 
