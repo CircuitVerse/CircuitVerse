@@ -1,6 +1,6 @@
 <% content_for :title, t("organizations.members.page_title", organization: @organization.name) %>
 
-<%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "members")) do |shell| %>
+<%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "members", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
     <div class="org-dash-empty">
       <i class="fa fa-users" aria-hidden="true"></i>

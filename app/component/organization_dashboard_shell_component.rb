@@ -3,10 +3,11 @@
 class OrganizationDashboardShellComponent < ViewComponent::Base
   renders_one :tab_content
 
-  def initialize(organization:, active_tab:)
+  def initialize(organization:, active_tab:, show_settings_tab:)
     super()
     @organization = organization
     @active_tab = active_tab
+    @show_settings_tab = show_settings_tab
   end
 
   def tab_class(tab)
@@ -14,6 +15,6 @@ class OrganizationDashboardShellComponent < ViewComponent::Base
   end
 
   def show_settings_tab?
-    helpers.policy(@organization).admin_access?
+    @show_settings_tab
   end
 end
