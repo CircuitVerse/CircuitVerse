@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import { Controller } from 'stimulus';
 
 const MAX_LINKS = 5;
@@ -7,7 +8,6 @@ export default class extends Controller {
         this.setupCounters();
         this.setupLinks();
         this.setupLogo();
-        this.setupSlug();
         this.setupDeleteModal();
     }
 
@@ -143,69 +143,6 @@ export default class extends Controller {
                 }
             });
         }
-    }
-
-    setupSlug() {
-        const nameInput = document.getElementById('organization_name');
-        const slugPreview = document.getElementById('organization-slug-preview');
-        const slugStatus = document.getElementById('org-slug-status');
-        const slugHint = document.getElementById('org-slug-hint');
-        if (!nameInput || !slugPreview) return;
-
-        const currentSlug = slugPreview.dataset.currentSlug || '';
-        let slugDebounce = null;
-        let slugRequestId = 0;
-
-        const setSlugStatus = (state, slug) => {
-            slugStatus.className = 'badge';
-            slugHint.classList.add('d-none');
-            if (state === 'idle') {
-                slugStatus.classList.add('d-none');
-            } else if (state === 'checking') {
-                slugStatus.classList.add('text-bg-secondary');
-                slugStatus.textContent = slugStatus.dataset.checkingText;
-            } else if (state === 'available') {
-                slugStatus.classList.add('text-bg-success');
-                slugStatus.textContent = slugStatus.dataset.availableText;
-            } else if (state === 'taken') {
-                slugStatus.classList.add('text-bg-danger');
-                slugStatus.textContent = slugStatus.dataset.takenText;
-                slugHint.classList.remove('d-none');
-                slugHint.textContent = slugHint.dataset.takenHint.replace('%{slug}', slug);
-            }
-        };
-
-        nameInput.addEventListener('input', () => {
-            const rawName = nameInput.value.trim();
-            if (!rawName) {
-                slugPreview.textContent = currentSlug || slugPreview.dataset.placeholder;
-                setSlugStatus('idle', '');
-                return;
-            }
-            const localSlug = rawName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-            slugPreview.textContent = localSlug || slugPreview.dataset.placeholder;
-            if (localSlug === currentSlug) {
-                setSlugStatus('idle', '');
-                return;
-            }
-            setSlugStatus('checking', localSlug);
-            clearTimeout(slugDebounce);
-            slugDebounce = setTimeout(() => {
-                const requestId = ++slugRequestId;
-                fetch(`/organizations/check_slug?name=${encodeURIComponent(rawName)}`, {
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
-                })
-                    .then((r) => r.json())
-                    .then((data) => {
-                        if (requestId !== slugRequestId) return;
-                        slugPreview.textContent = data.slug || currentSlug;
-                        setSlugStatus((data.available || data.slug === currentSlug) ? 'available' : 'taken', data.slug);
-                    })
-                    .catch(() => {
-                        if (requestId === slugRequestId) setSlugStatus('idle', '');
-                    });
-            }, 350);
-        });
     }
 
     setupDeleteModal() {

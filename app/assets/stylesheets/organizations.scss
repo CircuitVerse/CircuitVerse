@@ -151,9 +151,15 @@
 }
 
 .org-upload-zone:hover,
-.org-upload-zone--active {
+.org-upload-zone--active,
+.org-upload-zone:focus-visible {
   border-color: var(--cv-primary-green);
   background-color: var(--cv-light-green-bg);
+}
+
+.org-upload-zone:focus-visible {
+  outline: 2px solid var(--cv-primary-green);
+  outline-offset: 2px;
 }
 
 .org-upload-zone__icon {

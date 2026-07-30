@@ -155,13 +155,20 @@ RSpec.describe OrganizationsController, type: :controller do
 
       it "destroys the requested organization" do
         expect do
-          delete :destroy, params: { id: organization.id }
+          delete :destroy, params: { id: organization.id, confirmation: organization.name }
         end.to change(Organization, :count).by(-1)
       end
 
       it "redirects to the organizations list" do
-        delete :destroy, params: { id: organization.id }
+        delete :destroy, params: { id: organization.id, confirmation: organization.name }
         expect(response).to redirect_to(organizations_path)
+      end
+
+      it "does not destroy the organization when confirmation does not match" do
+        expect do
+          delete :destroy, params: { id: organization.id, confirmation: "wrong name" }
+        end.not_to change(Organization, :count)
+        expect(response).to redirect_to(settings_organization_path(organization))
       end
     end
   end

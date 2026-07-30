@@ -7,6 +7,7 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
+      confirmation_mismatch: "The organization name you entered did not match. Deletion cancelled."
     tabs:
       nav_label: "Organization sections"
       overview: "Overview"
@@ -71,6 +72,7 @@ en:
       modal_warning: "This action cannot be undone. This will permanently delete the %{organization} organization. Any groups inside will become standalone groups."
       modal_confirm_prompt_html: "Please type <strong>%{organization}</strong> to confirm."
       modal_confirm_btn: "I understand the consequences, delete this organization"
+      link_aria_label: "External link"
   organization_members:
     create:
       success: "Member was successfully added."

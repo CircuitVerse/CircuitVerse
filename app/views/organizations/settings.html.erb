@@ -1,10 +1,8 @@
 <% content_for :title, t("organizations.settings.page_title", organization: @organization.name) %>
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "settings", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
-
     <div class="org-settings">
       <%= render(OrganizationFormComponent.new(organization: @organization)) %>
-
       <% if policy(@organization).destroy? %>
         <div class="card border-danger mt-4">
           <div class="card-body p-4">
@@ -28,9 +26,8 @@
         </div>
       <% end %>
     </div>
-
     <% if policy(@organization).destroy? %>
-      <div class="modal fade" id="deleteOrgModal" tabindex="-1" aria-labelledby="deleteOrgModalLabel" aria-hidden="true"
+      <div class="modal fade" id="deleteOrgModal" tabindex="-1" aria-labelledby="deleteOrgModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
           <div class="modal-content">
             <div class="modal-header bg-danger-subtle">
@@ -44,9 +41,9 @@
                 <%= t("organizations.settings.modal_warning", organization: @organization.name) %>
               </div>
               <p class="small mb-2"><%= t("organizations.settings.modal_confirm_prompt_html", organization: @organization.name) %></p>
-              <input type="text" id="deleteOrgConfirmInput" class="form-control mb-3" autocomplete="off"
-                     data-org-name="<%= @organization.name %>">
               <%= form_with url: organization_path(@organization), method: :delete, local: true do %>
+                <input type="text" id="deleteOrgConfirmInput" name="confirmation" class="form-control mb-3" autocomplete="off"
+                      data-org-name="<%= @organization.name %>">
                 <button type="submit" id="deleteOrgSubmitBtn" class="btn btn-danger w-100" disabled>
                   <%= t("organizations.settings.modal_confirm_btn") %>
                 </button>
@@ -56,6 +53,5 @@
         </div>
       </div>
     <% end %>
-
   <% end %>
 <% end %>

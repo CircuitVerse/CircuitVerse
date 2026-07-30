@@ -77,7 +77,8 @@
         <div class="input-group organizations-link-item">
           <span class="input-group-text"><img class="organizations-input-icon org-social-icon" src="<%= helpers.asset_path('logos/link-logo.png') %>" alt=""></span>
           <input type="url" name="organization[links][]" class="form-control"
-                 value="<%= link %>" placeholder="<%= t('organizations.settings.links_placeholder') %>">
+                 value="<%= link %>" placeholder="<%= t('organizations.settings.links_placeholder') %>"
+                 aria-label="<%= t('organizations.settings.link_aria_label') %>">
           <button type="button" class="btn organizations-remove-link-btn"
                   aria-label="<%= t('organizations.settings.remove_link') %>" style="display: none;">
             <i class="fa fa-times" aria-hidden="true"></i>
