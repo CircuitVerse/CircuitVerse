@@ -120,7 +120,7 @@ class Api::V1::BaseController < ActionController::API
     end
 
     def user_from_doorkeeper
-      return nil unless doorkeeper_token&.resource_owner_id
+      return nil unless doorkeeper_token&.accessible? && doorkeeper_token.resource_owner_id
 
       User.find_by(id: doorkeeper_token.resource_owner_id)
     end
