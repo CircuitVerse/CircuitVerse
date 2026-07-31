@@ -6,6 +6,7 @@ module Lti
   class JwtValidator
     LEEWAY = 30
     JWKS_TIMEOUT = 5
+    JWKS_CACHE_TTL = 5.minutes
 
     class ValidationError < StandardError; end
 
@@ -53,21 +54,44 @@ module Lti
         end
 
         def key_from_jwks(deployment, kid)
+          return if deployment.jwks_url.blank?
+
+          jwk = find_jwk(deployment, kid)
+          JWT::JWK.import(jwk).public_key if jwk
+        end
+
+        # A kid missing from the cached set means the platform may have rotated,
+        # so refetch rather than waiting for the cache to expire.
+        def find_jwk(deployment, kid)
+          cache_key = "lti/jwks:v1:#{deployment.jwks_url}"
+          cached = Array(Rails.cache.read(cache_key)).find { |k| k["kid"] == kid }
+          return cached if cached
+
+          keys = fetch_jwks(deployment)
+          Rails.cache.write(cache_key, keys, expires_in: JWKS_CACHE_TTL) if keys
+          Array(keys).find { |k| k["kid"] == kid }
+        end
+
+        def fetch_jwks(deployment)
           response = Faraday.get(deployment.jwks_url) do |req|
             req.options.open_timeout = JWKS_TIMEOUT
             req.options.timeout = JWKS_TIMEOUT
           end
           return unless response.success? && response.headers["content-type"]&.include?("json")
 
-          key = Array(JSON.parse(response.body)["keys"]).find { |k| k["kid"] == kid }
-          JWT::JWK.import(key).public_key if key
+          Array(JSON.parse(response.body)["keys"])
         rescue Faraday::Error, JSON::ParserError => e
           Rails.logger.warn("LTI JWKS fetch failed for #{deployment.jwks_url}: #{e.message}")
           nil
         end
 
         def key_from_stored(deployment)
-          OpenSSL::PKey::RSA.new(deployment.platform_public_key) if deployment.platform_public_key.present?
+          return if deployment.platform_public_key.blank?
+
+          OpenSSL::PKey::RSA.new(deployment.platform_public_key)
+        rescue OpenSSL::PKey::RSAError => e
+          Rails.logger.warn("LTI stored key invalid: #{e.message}")
+          nil
         end
     end
   end
