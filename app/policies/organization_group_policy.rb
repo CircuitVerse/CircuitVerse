@@ -5,6 +5,10 @@ class OrganizationGroupPolicy < ApplicationPolicy
     org_admin? || assigned_mentor? || user.admin?
   end
 
+  def show?
+    org_admin? || assigned_mentor? || group_member? || user.admin?
+  end
+
   private
 
     def org_membership
@@ -21,5 +25,9 @@ class OrganizationGroupPolicy < ApplicationPolicy
       org_membership&.role == "mentor" &&
         (record.primary_mentor_id == user.id ||
          record.group_members.exists?(user_id: user.id, mentor: true))
+    end
+
+    def group_member?
+      record.group_members.exists?(user_id: user.id)
     end
 end

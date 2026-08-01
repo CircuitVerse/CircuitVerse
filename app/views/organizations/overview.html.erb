@@ -32,7 +32,7 @@
     <section>
       <div class="d-flex align-items-center justify-content-between mb-3">
         <h3 class="org-dash-section-title fw-semibold m-0 fs-5"><%= t(".groups_heading") %></h3>
-        <% if policy(@organization).admin_access? %>
+        <% if policy(@organization).create_group? %>
           <%= link_to new_organization_group_path(@organization), class: "btn primary-button d-inline-flex align-items-center gap-1" do %>
             <i class="fa fa-plus" aria-hidden="true"></i> <%= t(".new_group_button") %>
           <% end %>
@@ -50,7 +50,7 @@
               <div class="org-dash-group-card d-flex flex-column justify-content-between rounded-4 h-100 p-3">
                 <div class="d-flex justify-content-between align-items-start gap-2">
                   <%= link_to group.name, organization_group_path(@organization, group),
-            class: "org-dash-group-name fw-semibold text-decoration-none" %>
+            class: "org-dash-group-name fw-semibold text-decoration-none stretched-link" %>
                   <% if OrganizationGroupPolicy.new(current_user, group).manage? %>
                     <%= link_to edit_organization_group_path(@organization, group),
       class: "org-dash-group-icon org-dash-group-icon-edit", aria: { label: t("edit") } do %>

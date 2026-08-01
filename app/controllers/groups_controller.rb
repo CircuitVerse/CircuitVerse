@@ -36,7 +36,7 @@ class GroupsController < ApplicationController
       elsif current_user.id == @group.primary_mentor_id
         notice = "You cannot join this group because you are its primary mentor."
       else
-        current_user.group_members.create!(group: @group)
+        join_group_and_organization
         notice = "Group member was successfully added."
       end
     elsif Group.exists?(group_token: params[:token])
@@ -44,7 +44,7 @@ class GroupsController < ApplicationController
     else
       notice = "Invalid url"
     end
-    redirect_to group_path(@group), notice: notice
+    redirect_to group_redirect_path(@group), notice: notice
   end
 
   # GET /groups/new
@@ -114,7 +114,11 @@ class GroupsController < ApplicationController
     end
 
     def check_show_access
-      authorize @group, :show_access?
+      if @group.organization_id.present?
+        authorize @group, :show?, policy_class: OrganizationGroupPolicy
+      else
+        authorize @group, :show_access?
+      end
     end
 
     def check_edit_access
@@ -136,6 +140,15 @@ class GroupsController < ApplicationController
       return if params[:organization_id].blank?
 
       Organization.friendly.find(params.expect(:organization_id))
+    end
+
+    def join_group_and_organization
+      current_user.group_members.create!(group: @group)
+      return if @group.organization.blank?
+
+      @group.organization.organization_members.find_or_create_by(user: current_user) do |member|
+        member.role = :member
+      end
     end
 
     def check_organizations_feature_flag

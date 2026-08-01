@@ -84,6 +84,7 @@
 }
 
 .org-dash-group-card {
+  position: relative;
   min-height: 150px;
   color: var(--bs-gray-900);
   background: var(--cv-light-green-bg);
@@ -133,6 +134,8 @@
 }
 
 .org-dash-group-icon {
+  position: relative;
+  z-index: 2;
   font-size: 14px;
   text-decoration: none;
 }
