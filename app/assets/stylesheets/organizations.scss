@@ -109,7 +109,12 @@
 .org-dash-group-name {
   color: var(--cv-secondary-green);
   font-size: 17px;
-  overflow-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
 }
 
 .org-dash-group-meta {

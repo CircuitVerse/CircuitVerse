@@ -1,14 +1,19 @@
 # frozen_string_literal: true
-
 module OrganizationScopedRedirect
   extend ActiveSupport::Concern
+
+  included do
+    helper_method :organization_scoped_group?
+  end
+
+  def organization_scoped_group?(group)
+    group.organization.present? && Flipper.enabled?(:organizations, current_user)
+  end
 
   private
 
     def group_redirect_path(group)
-      if group.organization && Flipper.enabled?(:organizations, current_user)
-        return organization_group_path(group.organization, group)
-      end
+      return organization_group_path(group.organization, group) if organization_scoped_group?(group)
 
       group_path(group)
     end

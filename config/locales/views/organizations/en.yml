@@ -15,6 +15,7 @@ en:
     overview:
       groups_heading: "Groups"
       new_group_button: "New Group"
+      no_groups: "No groups yet"
       logo_alt: "%{organization} logo"
       member_count:
         one: "1 member"

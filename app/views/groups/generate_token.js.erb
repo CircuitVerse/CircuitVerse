@@ -1,2 +1,2 @@
-<% invite_link = @group.organization ? invite_organization_group_url(@group.organization, @group, token: @group.group_token) : "#{group_url(@group)}/invite/#{@group.group_token}" %>
+<% invite_link = organization_scoped_group?(@group) ? invite_organization_group_url(@group.organization, @group, token: @group.group_token) : "#{group_url(@group)}/invite/#{@group.group_token}" %>
 $("#embedInviteLink").html("<%= invite_link %> ");

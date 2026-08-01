@@ -9,7 +9,7 @@
     </div>
   </div>
   <% end %>
-  <% if @group.organization && Flipper.enabled?(:organizations, current_user) %>
+  <% if organization_scoped_group?(@group) %>
     <div class="row">
       <div class="col">
         <%= link_to overview_organization_path(@group.organization), class: "d-inline-flex align-items-center gap-2 text-decoration-none mb-3 fw-semibold fs-5 org-back-link" do %>
@@ -27,7 +27,7 @@
           <span class="tooltiptext"><%= @group.name %></span>
         </p>
         <% if policy(@group).admin_access? %>
-          <%= link_to (@group.organization && Flipper.enabled?(:organizations, current_user) ? edit_organization_group_path(@group.organization, @group) : edit_group_path(@group)), class: "btn primary-button groups-editname-primary-button" do %>
+          <%= link_to (organization_scoped_group?(@group) ? edit_organization_group_path(@group.organization, @group) : edit_group_path(@group)), class: "btn primary-button groups-editname-primary-button" do %>
             <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
             <span><%= t("groups.show.edit_name_btn") %></span>
           <% end %>
