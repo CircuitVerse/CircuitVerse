@@ -36,11 +36,11 @@ class OrganizationDashboardShellComponentPreview < ViewComponent::Preview
         }
       ]
       render(OrganizationDashboardShellComponent.new(
-        organization: organization,
-        active_tab: active_tab,
-        user_organizations: user_organizations,
-        show_settings_tab: show_settings_tab
-      )) do |component|
+               organization: organization,
+               active_tab: active_tab,
+               user_organizations: user_organizations,
+               show_settings_tab: show_settings_tab
+             )) do |component|
         component.with_tab_content do
           tag.p("Preview content for the #{active_tab.titleize} tab.")
         end
