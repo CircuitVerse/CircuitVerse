@@ -50,4 +50,13 @@ class AssignmentPolicy < ApplicationPolicy
   def show_grades?
     assignment.graded? && Time.current > assignment.deadline
   end
+
+  private
+
+    def org_manage?
+      group = assignment.group
+      return false unless group&.organization
+
+      OrganizationGroupPolicy.new(user, group).manage?
+    end
 end

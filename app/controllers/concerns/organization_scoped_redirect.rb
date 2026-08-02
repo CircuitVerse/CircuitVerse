@@ -17,51 +17,51 @@ module OrganizationScopedRedirect
     group.organization.present? && Flipper.enabled?(:organizations, current_user)
   end
 
-  def group_assignment_redirect_path(group, assignment)
+  def group_assignment_redirect_path(group, assignment, **)
     if organization_scoped_group?(group)
-      organization_group_assignment_path(group.organization, group, assignment)
+      organization_group_assignment_path(group.organization, group, assignment, **)
     else
-      group_assignment_path(group, assignment)
+      group_assignment_path(group, assignment, **)
     end
   end
 
-  def edit_group_assignment_redirect_path(group, assignment)
+  def edit_group_assignment_redirect_path(group, assignment, **)
     if organization_scoped_group?(group)
-      edit_organization_group_assignment_path(group.organization, group, assignment)
+      edit_organization_group_assignment_path(group.organization, group, assignment, **)
     else
-      edit_group_assignment_path(group, assignment)
+      edit_group_assignment_path(group, assignment, **)
     end
   end
 
-  def new_group_assignment_redirect_path(group)
+  def new_group_assignment_redirect_path(group, **)
     if organization_scoped_group?(group)
-      new_organization_group_assignment_path(group.organization, group)
+      new_organization_group_assignment_path(group.organization, group, **)
     else
-      new_group_assignment_path(group)
+      new_group_assignment_path(group, **)
     end
   end
 
-  def reopen_group_assignment_redirect_path(group, assignment)
+  def reopen_group_assignment_redirect_path(group, assignment, **)
     if organization_scoped_group?(group)
-      reopen_organization_group_assignment_path(group.organization, group, assignment)
+      reopen_organization_group_assignment_path(group.organization, group, assignment, **)
     else
-      reopen_group_assignment_path(group, assignment)
+      reopen_group_assignment_path(group, assignment, **)
     end
   end
 
-  def close_group_assignment_redirect_path(group, assignment)
+  def close_group_assignment_redirect_path(group, assignment, **)
     if organization_scoped_group?(group)
-      close_organization_group_assignment_path(group.organization, group, assignment)
+      close_organization_group_assignment_path(group.organization, group, assignment, **)
     else
-      close_group_assignment_path(group, assignment)
+      close_group_assignment_path(group, assignment, **)
     end
   end
 
-  def start_group_assignment_redirect_path(group, assignment)
+  def start_group_assignment_redirect_path(group, assignment, **)
     if organization_scoped_group?(group)
-      start_organization_group_assignment_path(group.organization, group, assignment)
+      start_organization_group_assignment_path(group.organization, group, assignment, **)
     else
-      assignment_start_path(group, assignment)
+      assignment_start_path(group, assignment, **)
     end
   end
 
