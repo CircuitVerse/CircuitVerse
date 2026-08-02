@@ -6,7 +6,7 @@ class GroupsController < ApplicationController
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
   before_action :verify_organization_scope, only: %i[show edit update]
-  before_action :check_organizations_feature_flag, only: %i[new create show edit update], if: lambda {
+  before_action :check_organizations_feature_flag, only: %i[new create show edit update group_invite], if: lambda {
     params[:organization_id].present? || params.dig(:group, :organization_id).present?
   }
   before_action :check_show_access, only: %i[show edit update destroy]
@@ -50,6 +50,7 @@ class GroupsController < ApplicationController
   # GET /groups/new
   def new
     @group = Group.new(organization: organization_from_params)
+    authorize @group.organization, :create_group? if @group.organization
   end
 
   # GET /groups/1/edit

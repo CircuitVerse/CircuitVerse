@@ -40,7 +40,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def close?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin? || org_manage?
+    admin_access?
   end
 
   def can_be_graded?

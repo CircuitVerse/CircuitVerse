@@ -166,7 +166,7 @@
               </div>
               <% end %>
               <div class="groups-assignment-details">
-                <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
+                <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", deleteurl: group_assignment_redirect_path(@group, assignment) } do %>
                   <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Assignment") %>
                   <span><%= t("delete") %></span>
                 <% end %>
@@ -294,7 +294,7 @@
                     </div>
                   <% end %>
                   <div class="groups-assignment-details">
-                    <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", currentgroup: @group.id, currentassignment: assignment.id } do %>
+                    <%= link_to "#", class: "mini-button groups-delete-mini-button", data: { bs_toggle: "modal", bs_target: "#deleteassignmentModal", deleteurl: group_assignment_redirect_path(@group, assignment) } do %>
                       <%= image_tag("svgs/deleteGroup.svg", alt: "Delete Assignment") %>
                       <span><%= t("delete") %></span>
                     <% end %>
@@ -388,10 +388,8 @@
       this.innerHTML = localTime;
     });
     $("#deleteassignmentModal").on("show.bs.modal", function(e) {
-        let group = $(e.relatedTarget).data('currentgroup');
-        let assignment = $(e.relatedTarget).data('currentassignment');
-        $(e.currentTarget).find('#groups-assignment-delete-button').attr("href",
-        "/groups/" + group.toString() + "/assignments/" + assignment.toString());
+        let deleteUrl = $(e.relatedTarget).data('deleteurl');
+        $(e.currentTarget).find('#groups-assignment-delete-button').attr("href", deleteUrl);
     });
     $("#deletememberModal").on("show.bs.modal", function(e) {
         let groupmember = $(e.relatedTarget).data('currentgroupmember');

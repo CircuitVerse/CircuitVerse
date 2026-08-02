@@ -146,9 +146,12 @@ describe AssignmentPolicy do
 
     context "user is an assigned org mentor" do
       let(:user) { FactoryBot.create(:user) }
-      let(:org_group) { FactoryBot.create(:group, organization: organization, primary_mentor: user) }
+      let(:org_group) { FactoryBot.create(:group, organization: organization, primary_mentor: @primary_mentor) }
 
-      before { FactoryBot.create(:organization_member, organization: organization, user: user, role: :mentor) }
+      before do
+        FactoryBot.create(:organization_member, organization: organization, user: user, role: :mentor)
+        FactoryBot.create(:group_member, group: org_group, user: user, mentor: true)
+      end
 
       it { is_expected.to permit(:admin_access) }
     end

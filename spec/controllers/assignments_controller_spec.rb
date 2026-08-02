@@ -321,7 +321,25 @@ describe AssignmentsController, type: :request do
 
       it "denies deleting the assignment" do
         delete organization_group_assignment_path(@organization, @org_group, @org_assignment)
-        expect(response).to have_http_status(:redirect).or have_http_status(:forbidden)
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context "when IDs are mismatched across organizations" do
+      before { sign_in @org_admin }
+
+      it "returns 404 when the group belongs to a different organization" do
+        other_org = FactoryBot.create(:organization)
+        FactoryBot.create(:organization_member, organization: other_org, user: @org_admin, role: :admin)
+        get organization_group_assignment_path(other_org, @org_group, @org_assignment)
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns 404 when the assignment belongs to a different group" do
+        other_group = FactoryBot.create(:group, organization: @organization, primary_mentor: @primary_mentor)
+        other_assignment = FactoryBot.create(:assignment, group: other_group)
+        get organization_group_assignment_path(@organization, @org_group, other_assignment)
+        expect(response).to have_http_status(:not_found)
       end
     end
   end

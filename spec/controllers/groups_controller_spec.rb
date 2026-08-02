@@ -151,6 +151,7 @@ describe GroupsController, type: :request do
                                              primary_mentor: @primary_mentor,
                                              organization: @organization)
       @org_group.update(token_expires_at: 12.days.from_now)
+      Flipper.enable(:organizations)
     end
 
     context "when a user joins an organization-owned group" do
@@ -193,6 +194,22 @@ describe GroupsController, type: :request do
         expect do
           get invite_group_path(id: @group.id, token: @group.group_token)
         end.not_to change(OrganizationMember, :count)
+      end
+    end
+  end
+
+  describe "#new for organization-scoped groups" do
+    before do
+      @organization = FactoryBot.create(:organization)
+    end
+
+    context "when a non-member views the org-scoped new group form" do
+      it "throws not authorized error" do
+        random = FactoryBot.create(:user)
+        sign_in random
+        Flipper.enable(:organizations)
+        get new_organization_group_path(@organization)
+        check_not_authorized(response)
       end
     end
   end

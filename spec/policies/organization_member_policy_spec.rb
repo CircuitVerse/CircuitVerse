@@ -87,8 +87,8 @@ describe OrganizationMemberPolicy do
     let(:user) { FactoryBot.create(:user, admin: true) }
     let(:organization_member) { @admin_membership }
 
-    it { is_expected.to permit(:update) }
-    it { is_expected.to permit(:destroy) }
+    it { is_expected.not_to permit(:update) }
+    it { is_expected.not_to permit(:destroy) }
   end
 
   context "when the member is a primary mentor of a group" do

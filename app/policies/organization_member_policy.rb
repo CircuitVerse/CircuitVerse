@@ -6,14 +6,14 @@ class OrganizationMemberPolicy < ApplicationPolicy
   end
 
   def update?
-    return false unless org_admin? || user&.admin?
+    return false unless admin_access?
     return false if demoting_sole_admin?
 
     true
   end
 
   def destroy?
-    return false if leaving_self? && sole_admin?
+    return false if sole_admin?
     return false if member_primary_mentor_of_any_group?
 
     org_admin? || leaving_self? || user&.admin?
@@ -41,7 +41,7 @@ class OrganizationMemberPolicy < ApplicationPolicy
     end
 
     def demoting_sole_admin?
-      sole_admin? && !user&.admin?
+      sole_admin?
     end
 
     def member_primary_mentor_of_any_group?

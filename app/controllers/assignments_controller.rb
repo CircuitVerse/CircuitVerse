@@ -6,8 +6,8 @@ class AssignmentsController < ApplicationController
   include OrganizationScopedRedirect
 
   before_action :authenticate_user!
-  before_action :set_assignment, only: %i[show edit update destroy start reopen close]
   before_action :set_group
+  before_action :set_assignment, only: %i[show edit update destroy start reopen close]
   before_action :check_access, only: %i[edit update destroy reopen close]
   before_action :sanitize_assignment_description, only: %i[show edit]
   after_action :check_reopening_status, only: [:update]
@@ -157,11 +157,16 @@ class AssignmentsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
-      @assignment = Assignment.find(params.expect(:id))
+      @assignment = @group.assignments.find(params.expect(:id))
     end
 
     def set_group
-      @group = Group.find(params.expect(:group_id))
+      @group =
+        if params[:organization_id].present?
+          Organization.friendly.find(params.expect(:organization_id)).groups.find(params.expect(:group_id))
+        else
+          Group.find(params.expect(:group_id))
+        end
     end
 
     def check_reopening_status
