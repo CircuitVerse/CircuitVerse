@@ -131,6 +131,19 @@ RSpec.describe OrganizationMembersController, type: :controller do
         expect(response).to have_http_status(:forbidden)
       end
     end
+
+    context "sole-admin protection" do
+      it "does not allow removing the last admin after another admin is removed" do
+        second_admin = create(:user)
+        second_admin_member = create(:organization_member, user: second_admin, organization: organization, role: :admin)
+
+        delete :destroy, params: { organization_id: organization.id, id: second_admin_member.id }
+        expect(organization.organization_members.where(role: :admin).count).to eq(1)
+
+        delete :destroy, params: { organization_id: organization.id, id: admin_member.id }
+        expect(organization.organization_members.where(role: :admin).count).to eq(1)
+      end
+    end
   end
 
   describe "DELETE #leave" do

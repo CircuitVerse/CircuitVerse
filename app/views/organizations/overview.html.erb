@@ -65,7 +65,7 @@
                   </span>
                   <% if OrganizationGroupPolicy.new(current_user, group).manage? %>
                     <%= link_to "#", class: "org-dash-group-icon org-dash-group-icon-delete",
-      data: { bs_toggle: "modal", bs_target: "#deletegroupModal", currentgroup: group.id },
+      data: { bs_toggle: "modal", bs_target: "#deletegroupModal", deletegroupurl: organization_group_path(@organization, group) },
       aria: { label: t("delete") } do %>
                       <i class="fas fa-trash-alt" aria-hidden="true"></i>
                     <% end %>
@@ -78,8 +78,8 @@
           <script type="text/javascript">
             $(document).ready(function() {
               $("#deletegroupModal").on("show.bs.modal", function(e) {
-                let group = $(e.relatedTarget).data('currentgroup');
-                $(e.currentTarget).find('#groups-group-delete-button').attr("href",
+                let deleteUrl = $(e.relatedTarget).data('deletegroupurl');
+                $(e.currentTarget).find('#groups-group-delete-button').attr("href", deleteUrl);
                   "/groups/" + group.toString());
               });
             });

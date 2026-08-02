@@ -30,27 +30,36 @@ class OrganizationMembersController < ApplicationController
   # PATCH/PUT /organizations/1/organization_members/1
   # PATCH/PUT /organizations/1/organization_members/1.json
   def update
+    @organization.with_lock do
+      authorize @organization_member, :update?
+      @organization_member.update!(organization_member_update_params)
+    end
     respond_to do |format|
-      if @organization_member.update(organization_member_update_params)
-        format.html { redirect_to @organization, notice: t(".success") }
-        format.json { head :no_content }
-      else
-        format.html do
-          redirect_to @organization, alert: @organization_member.errors.full_messages.to_sentence
-        end
-        format.json { render json: @organization_member.errors, status: :unprocessable_content }
-      end
+      format.html { redirect_to @organization, notice: t(".success") }
+      format.json { head :no_content }
+    end
+  rescue Pundit::NotAuthorizedError
+    auth_error
+  rescue ActiveRecord::RecordInvalid
+    respond_to do |format|
+      format.html { redirect_to @organization, alert: @organization_member.errors.full_messages.to_sentence }
+      format.json { render json: @organization_member.errors, status: :unprocessable_content }
     end
   end
 
   # DELETE /organizations/1/organization_members/1
   # DELETE /organizations/1/organization_members/1.json
   def destroy
-    @organization_member.destroy
+    @organization.with_lock do
+      authorize @organization_member, :destroy?
+      @organization_member.destroy!
+    end
     respond_to do |format|
       format.html { redirect_to @organization, notice: t(".success") }
       format.json { head :no_content }
     end
+  rescue Pundit::NotAuthorizedError
+    auth_error
   end
 
   # DELETE /organizations/1/leave
@@ -63,13 +72,16 @@ class OrganizationMembersController < ApplicationController
       return
     end
 
-    authorize @organization, :leave?
-
-    @organization_member.destroy
+    @organization.with_lock do
+      authorize @organization, :leave?
+      @organization_member.destroy!
+    end
     respond_to do |format|
       format.html { redirect_to organizations_path, notice: t(".success") }
       format.json { head :no_content }
     end
+  rescue Pundit::NotAuthorizedError
+    auth_error
   end
 
   private
