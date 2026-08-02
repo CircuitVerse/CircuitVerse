@@ -22,10 +22,13 @@ RSpec.describe "Admin::Contests#update edge-cases", type: :request do
     let(:contest) { create(:contest, status: :live) }
 
     before do
-      allow_any_instance_of(Contest).to receive(:update).and_return(false)
+      allow(Contest).to receive(:find).and_return(contest)
+      allow(contest).to receive(:update).and_return(false)
 
-      allow_any_instance_of(Admin::ContestsController).to receive(:render) do |controller, *|
-        controller.head :unprocessable_entity
+      allow(Admin::ContestsController).to receive(:new).and_wrap_original do |m, *args, **kwargs|
+        controller = m.call(*args, **kwargs)
+        allow(controller).to receive(:render) { controller.head :unprocessable_entity }
+        controller
       end
     end
 

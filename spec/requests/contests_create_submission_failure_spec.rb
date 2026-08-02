@@ -10,7 +10,11 @@ RSpec.describe "Contests::Submissions#create save failure", type: :request do
   before { sign_in user; enable_contests! }
 
   it "re-renders the new_submission form with 422 when save fails" do
-    allow_any_instance_of(Submission).to receive(:save).and_return(false)
+    allow(Submission).to receive(:new).and_wrap_original do |m, *args, **kwargs|
+      submission = m.call(*args, **kwargs)
+      allow(submission).to receive(:save).and_return(false)
+      submission
+    end
 
     post contest_submissions_path(contest),
          params: { submission: { project_id: project.id } }

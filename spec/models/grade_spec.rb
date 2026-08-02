@@ -12,8 +12,10 @@ RSpec.describe Grade, type: :model do
   end
 
   describe "associations" do
+    subject { FactoryBot.build(:grade, assignment: @assignment, project: @assignment_project, grader: @primary_mentor) }
+
     before do
-      allow_any_instance_of(described_class).to receive(:assignment).and_return(@assignment)
+      allow(subject).to receive(:assignment).and_return(@assignment)
     end
 
     it { is_expected.to belong_to(:project) }

@@ -6,6 +6,11 @@ require "redis"
 module Maintenance
   RSpec.describe MigrateImagePreviewTask do
     let(:task) { described_class.new }
+    let(:redis_double) { instance_double(Redis, get: "0", set: nil) }
+
+    before do
+      allow(Redis).to receive(:new).and_return(redis_double)
+    end
 
     describe "#collection" do
       it "returns a collection of projects" do
@@ -15,8 +20,6 @@ module Maintenance
 
     describe "#process" do
       it "attaches circuit preview for projects with image_preview attached" do
-        # Explicitly declare redis counter to prevent potential errors in local environment
-        allow_any_instance_of(Redis).to receive(:get).with("last_migrated_project_id").and_return("0")
         project_with_preview = FactoryBot.create(:project)
         image_file = Rails.root.join("spec/fixtures/files/profile.png").open
         project_with_preview.image_preview = image_file
@@ -43,7 +46,6 @@ module Maintenance
       let(:project) { create(:project) }
 
       it "attaches circuit_preview to the project" do
-        allow_any_instance_of(Redis).to receive(:get).with("last_migrated_project_id").and_return("0")
         image_file = Rails.root.join("spec/fixtures/files/profile.png").open
         project.image_preview = image_file
         expect(project.circuit_preview).to receive(:attach)
