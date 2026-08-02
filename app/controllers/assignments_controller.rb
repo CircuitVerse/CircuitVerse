@@ -3,6 +3,7 @@
 class AssignmentsController < ApplicationController
   include ActionView::Helpers::SanitizeHelper
   include SanitizeDescription
+  include OrganizationScopedRedirect
 
   before_action :authenticate_user!
   before_action :set_assignment, only: %i[show edit update destroy start reopen close]
@@ -57,7 +58,7 @@ class AssignmentsController < ApplicationController
     @assignment.deadline = 1.day.from_now
     @assignment.save
 
-    redirect_to edit_group_assignment_path(@group, @assignment)
+    redirect_to edit_group_assignment_redirect_path(@group, @assignment)
   end
 
   # Close assignment
@@ -67,7 +68,7 @@ class AssignmentsController < ApplicationController
     @assignment.deadline = Time.zone.now
     @assignment.save
 
-    redirect_to group_assignment_path(@group, @assignment)
+    redirect_to group_assignment_redirect_path(@group, @assignment)
   end
 
   # POST /assignments
@@ -97,7 +98,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.save
-        format.html { redirect_to @group, notice: "Assignment was successfully created." }
+        format.html { redirect_to group_redirect_path(@group), notice: "Assignment was successfully created." }
         format.json { render :show, status: :created, location: @assignment }
       else
         format.html { render :new }
@@ -127,7 +128,7 @@ class AssignmentsController < ApplicationController
 
     respond_to do |format|
       if @assignment.update(params)
-        format.html { redirect_to @group, notice: "Assignment was successfully updated." }
+        format.html { redirect_to group_redirect_path(@group), notice: "Assignment was successfully updated." }
         format.json { render :show, status: :ok }
       else
         format.html { render :edit }
@@ -141,7 +142,7 @@ class AssignmentsController < ApplicationController
   def destroy
     @assignment.destroy
     respond_to do |format|
-      format.html { redirect_to @group, notice: "Assignment was successfully deleted." }
+      format.html { redirect_to group_redirect_path(@group), notice: "Assignment was successfully deleted." }
       format.json { head :no_content }
     end
   end

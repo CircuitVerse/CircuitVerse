@@ -84,7 +84,7 @@
   <h3 class="mb-0"><%= t("groups.show.assignment.heading") %></h3>
   <% if policy(@group).mentor_access? %>
     <%= link_to t("groups.show.assignment.add_assignment_btn"),
-      new_group_assignment_path(@group),
+      new_group_assignment_redirect_path(@group),
       class: "btn primary-button groups-primary-button" %>
   <% end %>
 </div>
@@ -139,7 +139,7 @@
           </td>
           <td class="groups-assignment-button-container">
             <div class="groups-assignment-details">
-              <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
+              <%= link_to group_assignment_redirect_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
                 <%= image_tag("svgs/viewGroup.svg", alt: "View Assignment") %>
                 <span><%= t("view") %></span>
               <% end %>
@@ -147,20 +147,20 @@
             <% if policy(@group).mentor_access? %>
               <% if AssignmentDecorator.new(assignment).closed? %>
                 <div class="groups-assignment-details">
-                  <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                  <%= link_to reopen_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
                     <%= image_tag("svgs/reopenAssignment.svg", alt: "Reopen Assignment") %>
                     <span><%= t("reopen") %></span>
                   <% end %>
                 </div>
               <% else %>
                 <div class="groups-assignment-details">
-                  <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                  <%= link_to edit_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
                     <%= image_tag("svgs/editGroup.svg", alt: "Edit Assignment") %>
                     <span><%= t("edit") %></span>
                   <% end %>
                 </div>
               <div class="groups-assignment-details">
-                <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
+                <%= link_to close_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
                   <span><%= t("close") %></span>
                 <% end %>
               </div>
@@ -176,7 +176,7 @@
                 <% if(assignment.deadline > Time.current) %>
                   <% if project_assignment.nil? %>
                     <div class="groups-assignment-details">
-                      <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                      <%= link_to start_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
                         <%= image_tag("svgs/editGroup.svg", alt: "Start Assignment") %>
                         <span><%= t("groups.show.assignment.start_working_btn") %></span>
                       <% end %>
@@ -267,7 +267,7 @@
               <th class="groups-collapsed-table-head groups-assignment-details"><%= t("groups.show.assignment.assignment_table_head.actions") %></th>
               <td class="groups-assignment-button-container">
                 <div class="groups-assignment-details">
-                  <%= link_to group_assignment_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
+                  <%= link_to group_assignment_redirect_path(@group, assignment), class: "mini-button groups-view-mini-button" do %>
                     <%= image_tag("svgs/viewGroup.svg", alt: "View Assignment") %>
                     <span><%= t("view") %></span>
                   <% end %>
@@ -275,20 +275,20 @@
                 <% if policy(@group).admin_access? %>
                   <% if AssignmentDecorator.new(assignment).closed? %>
                     <div class="groups-assignment-details">
-                      <%= link_to reopen_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                      <%= link_to reopen_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
                         <%= image_tag("svgs/reopenAssignment.svg", alt: "Reopen Assignment") %>
                         <span><%= t("reopen") %></span>
                       <% end %>
                     </div>
                   <% else %>
                     <div class="groups-assignment-details">
-                      <%= link_to edit_group_assignment_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                      <%= link_to edit_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
                         <%= image_tag("svgs/editGroup.svg", alt: "Edit Assignment") %>
                         <span><%= t("edit") %></span>
                       <% end %>
                     </div>
                     <div class="groups-assignment-details">
-                      <%= link_to close_group_assignment_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
+                      <%= link_to close_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-close-mini-button", method: :put do %>
                         <span><%= t("close") %></span>
                     <% end %>
                     </div>
@@ -304,7 +304,7 @@
                     <% if(assignment.deadline > Time.current) %>
                       <% if project_assignment.nil? %>
                         <div class="groups-assignment-details">
-                          <%= link_to assignment_start_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
+                          <%= link_to start_group_assignment_redirect_path(@group, assignment), class: "mini-button groups-reopen-mini-button" do %>
                             <%= image_tag("svgs/editGroup.svg", alt: "Start Assignment") %>
                             <span><%= t("groups.show.assignment.start_working_btn") %></span>
                           <% end %>

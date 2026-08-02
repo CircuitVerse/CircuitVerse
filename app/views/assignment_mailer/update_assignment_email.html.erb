@@ -5,6 +5,8 @@
     The assignment <span class="mailer-highlighted-text"><%= @assignment.name %> (<%= @assignment.deadline %>)</span> has been updated. <br>
     Assignment is mentored by <span class="mailer-highlighted-text">@assignment.group.primary_mentor.name</span>
   </p>
-  <a href="<%= group_assignment_url(@assignment.group, @assignment) %>" class="mailer-button">View Assignment</a>
+  <% group = @assignment.group %>
+  <% assignment_url = group&.organization && Flipper.enabled?(:organizations) ? organization_group_assignment_url(group.organization, group, @assignment) : group_assignment_url(group, @assignment) %>
+  <a href="<%= assignment_url %>" class="mailer-button">View Assignment</a>
   <p class="mailer-text">Keep building!</p>
 </div>

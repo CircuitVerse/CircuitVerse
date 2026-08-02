@@ -5,6 +5,8 @@
     A new assignment named <span class="mailer-highlighted-text"><%= @assignment.name %> (<%= @assignment.deadline %>)</span> has been assigned in <span class="mailer-highlighted-text"><%= Group.find_by(id: @assignment.group_id).name %></span>. <br>
     Assignment is mentored by <span class="mailer-highlighted-text"><%= User.find_by(id: Group.find_by(id: @assignment.group_id).primary_mentor_id).name %></span>
   </p>
-  <a href="<%= group_assignment_url(Group.find_by(id: @assignment.group_id), @assignment) %>" class="mailer-button">View Assignment</a>
+  <% group = Group.find_by(id: @assignment.group_id) %>
+  <% assignment_url = group&.organization && Flipper.enabled?(:organizations) ? organization_group_assignment_url(group.organization, group, @assignment) : group_assignment_url(group, @assignment) %>
+  <a href="<%= assignment_url %>" class="mailer-button">View Assignment</a>
   <p class="mailer-text">Keep building!</p>
 </div>
