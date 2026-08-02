@@ -35,10 +35,7 @@ class OrganizationMembersController < ApplicationController
       authorize @organization_member, :update?
       @organization_member.update!(organization_member_update_params)
     end
-    respond_to do |format|
-      format.html { redirect_to @organization, notice: t(".success") }
-      format.json { head :no_content }
-    end
+    respond_with_success(@organization)
   rescue Pundit::NotAuthorizedError
     auth_error
   rescue ActiveRecord::RecordInvalid
@@ -56,10 +53,7 @@ class OrganizationMembersController < ApplicationController
       authorize @organization_member, :destroy?
       @organization_member.destroy!
     end
-    respond_to do |format|
-      format.html { redirect_to @organization, notice: t(".success") }
-      format.json { head :no_content }
-    end
+    respond_with_success(@organization)
   rescue Pundit::NotAuthorizedError
     auth_error
   end
@@ -68,21 +62,16 @@ class OrganizationMembersController < ApplicationController
   # DELETE /organizations/1/leave.json
   def leave
     @organization_member = @organization.organization_members.find_by(user: current_user)
-
     if @organization_member.nil?
       redirect_to organizations_path, alert: t(".not_a_member")
       return
     end
-
     @organization.with_lock do
       @organization_member.reload
       authorize @organization, :leave?
       @organization_member.destroy!
     end
-    respond_to do |format|
-      format.html { redirect_to organizations_path, notice: t(".success") }
-      format.json { head :no_content }
-    end
+    respond_with_success(organizations_path)
   rescue Pundit::NotAuthorizedError
     auth_error
   end
@@ -103,6 +92,13 @@ class OrganizationMembersController < ApplicationController
 
     def organization_member_update_params
       params.expect(organization_member: [:role])
+    end
+
+    def respond_with_success(redirect_path)
+      respond_to do |format|
+        format.html { redirect_to redirect_path, notice: t(".success") }
+        format.json { head :no_content }
+      end
     end
 
     def check_organizations_feature_flag
