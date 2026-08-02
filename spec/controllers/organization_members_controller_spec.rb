@@ -141,6 +141,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
         expect(organization.organization_members.where(role: :admin).count).to eq(1)
 
         delete :destroy, params: { organization_id: organization.id, id: admin_member.id }
+        expect(response).to have_http_status(:forbidden)
         expect(organization.organization_members.where(role: :admin).count).to eq(1)
       end
     end

@@ -31,6 +31,7 @@ class OrganizationMembersController < ApplicationController
   # PATCH/PUT /organizations/1/organization_members/1.json
   def update
     @organization.with_lock do
+      @organization_member.reload
       authorize @organization_member, :update?
       @organization_member.update!(organization_member_update_params)
     end
@@ -51,6 +52,7 @@ class OrganizationMembersController < ApplicationController
   # DELETE /organizations/1/organization_members/1.json
   def destroy
     @organization.with_lock do
+      @organization_member.reload
       authorize @organization_member, :destroy?
       @organization_member.destroy!
     end
@@ -73,6 +75,7 @@ class OrganizationMembersController < ApplicationController
     end
 
     @organization.with_lock do
+      @organization_member.reload
       authorize @organization, :leave?
       @organization_member.destroy!
     end
