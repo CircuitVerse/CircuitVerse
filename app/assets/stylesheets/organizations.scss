@@ -4,7 +4,7 @@
 
 .org-dash-name {
   font-size: 20px;
-  color: var(--cv-primary-green);
+  color: $primary-green;
 }
 
 .org-social-icon {
@@ -14,10 +14,10 @@
 }
 
 .org-dash .nav-pills {
-  --bs-nav-pills-link-active-bg: var(--cv-primary-green);
+  --bs-nav-pills-link-active-bg: #{$primary-green};
   --bs-nav-pills-link-active-color: var(--bs-white);
   --bs-nav-link-color: var(--bs-gray-900);
-  --bs-nav-link-hover-color: var(--cv-primary-green);
+  --bs-nav-link-hover-color: #{$primary-green};
 }
 
 .org-dash .nav-pills .nav-link {
@@ -25,7 +25,7 @@
 }
 
 .org-dash .nav-pills .nav-link.active {
-  border-color: var(--cv-primary-green);
+  border-color: $primary-green;
 }
 
 .org-dash-logo {
@@ -35,7 +35,7 @@
 
 .org-dash-logo-fallback {
   font-size: 52px;
-  color: var(--cv-primary-green);
+  color: $primary-green;
 }
 
 .org-dash-info {
@@ -63,7 +63,7 @@
 }
 
 .org-dash-social:focus-visible {
-  outline: 2px solid var(--cv-primary-green);
+  outline: 2px solid $primary-green;
   outline-offset: 2px;
   transform: translateY(-2px);
 }
@@ -79,40 +79,40 @@
 }
 
 .org-dash-location i {
-  color: var(--cv-primary-green);
+  color: $primary-green;
   font-size: 25px;
 }
 
 .org-dash-group-card {
   min-height: 150px;
   color: var(--bs-gray-900);
-  background: var(--cv-light-green-bg);
-  border: 1px solid var(--cv-primary-green);
+  background: $light-green-bg;
+  border: 1px solid $primary-green;
   transition: transform 0.15s, box-shadow 0.15s;
 }
 
 .org-dash-group-card:hover {
   color: var(--bs-gray-900);
-  box-shadow: 0 8px 20px var(--cv-primary-green-shadow);
+  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
   transform: translateY(-3px);
   text-decoration: none;
 }
 
 .org-dash-group-card:focus-visible {
-  outline: 2px solid var(--cv-primary-green);
+  outline: 2px solid $primary-green;
   outline-offset: 2px;
-  box-shadow: 0 8px 20px var(--cv-primary-green-shadow);
+  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
   transform: translateY(-3px);
 }
 
 .org-dash-group-name {
-  color: var(--cv-secondary-green);
+  color: $secondary-green;
   font-size: 17px;
   overflow-wrap: break-word;
 }
 
 .org-dash-group-meta {
-  color: var(--cv-secondary-green);
+  color: $secondary-green;
   font-size: 13px;
 }
 

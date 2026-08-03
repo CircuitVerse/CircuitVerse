@@ -47,11 +47,4 @@ $contest-page-line-border: #d9d9d9;
 $contest-header-description-color: #4f4f4f;
 $contest-danger-primary-button: #dc5656;
 $contest-danger-primary-button-hover: #ae4141;
-
-// Custom properties for theme colors
-:root {
-  --cv-primary-green: #{$primary-green};
-  --cv-secondary-green: #{$secondary-green};
-  --cv-light-green-bg: #{$light-green-bg};
-  --cv-primary-green-shadow: #{rgba($primary-green, 0.18)};
-}
+  
