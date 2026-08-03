@@ -69,7 +69,11 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
       it "returns status unprocessable_entity" do
         expect do
           token = get_auth_token(user)
-          allow_any_instance_of(Project).to receive(:save).and_return(false)
+          allow(Project).to receive(:new).and_wrap_original do |m, *args, **kwargs|
+            project = m.call(*args, **kwargs)
+            allow(project).to receive(:save).and_return(false)
+            project
+          end
           post "/api/v1/projects",
                headers: { Authorization: "Token #{token}" },
                params: { image: "", name: "Test Name" }, as: :json

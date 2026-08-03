@@ -8,7 +8,11 @@ RSpec.describe "Admin::Contests#create failure path", type: :request do
   before { sign_in admin; enable_contests! }
 
   it "re-renders the admin page with 422 when the save fails" do
-    allow_any_instance_of(Contest).to receive(:save).and_return(false)
+    allow(Contest).to receive(:new).and_wrap_original do |m, *args, **kwargs|
+      contest = m.call(*args, **kwargs)
+      allow(contest).to receive(:save).and_return(false)
+      contest
+    end
 
     post admin_contests_path,
          params: { contest: { deadline: 1.month.from_now } }
