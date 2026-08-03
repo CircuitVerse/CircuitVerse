@@ -151,11 +151,11 @@
 }
 
 .org-switcher-item.dropdown-item.is-current {
-  background: var(--cv-light-green-bg);
+  background: $light-green-bg;
 }
 
 .org-switcher-item.dropdown-item.is-current .org-switcher-meta {
-  color: var(--cv-secondary-green);
+  color: $secondary-green;
 }
 
 .org-switcher-item.dropdown-item:hover,
@@ -168,7 +168,7 @@
 .org-switcher-badge {
   width: 32px;
   height: 32px;
-  background: var(--cv-primary-green);
+  background: $primary-green;
   font-size: 12px;
 }
 
@@ -187,20 +187,20 @@
 }
 
 .org-switcher-check {
-  color: var(--cv-primary-green);
+  color: $primary-green;
   font-size: 15px;
 }
 
 .org-switcher-create.dropdown-item {
   padding: 9px 10px;
-  color: var(--cv-primary-green);
+  color: $primary-green;
   font-size: 13px;
 }
 
 .org-switcher-create.dropdown-item:hover,
 .org-switcher-create.dropdown-item:focus {
   background-color: var(--bs-gray-100);
-  color: var(--cv-primary-green);
+  color: $primary-green;
 }
 
 @media (max-width: 900px) {
