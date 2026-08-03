@@ -67,11 +67,8 @@ en:
           institute:
             label: "Institute"
             placeholder: "Enter institute..."
-      project:
+    project:
       show_more: "Show More"
-      options:
-        users: "Users"
-        projects: "Projects"
   doorkeeper:
     authorizations:
       title: "Authorize Application"
