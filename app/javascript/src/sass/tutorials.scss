@@ -50,3 +50,7 @@
   color: white !important;
   background-color: #42b983 !important;
 }
+/* Hide the 'Previous' button only when it is disabled (on the first step) */
+.driver-prev-btn.driver-disabled {
+    display: none !important;
+}

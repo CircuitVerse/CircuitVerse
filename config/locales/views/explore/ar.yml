@@ -21,4 +21,6 @@ ar:
       tags:
         heading: "تصفح حسب العلامات"
         description: "انتقل إلى المواضيع التي تهمك."
+        showing_tagged_with: "عرض الدوائر المعلمة مع"
+        clear_filter: "مسح الفلتر"
     empty: "لا شيء لإظهاره حتى الآن."

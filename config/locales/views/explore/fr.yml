@@ -21,4 +21,6 @@ fr:
       tags:
         heading: "Parcourir par Tags"
         description: "Accédez à des sujets qui vous intéressent."
+        showing_tagged_with: "Affichage des circuits taggés avec"
+        clear_filter: "Effacer le filtre"
     empty: "Rien à afficher pour l'instant."

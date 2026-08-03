@@ -25,14 +25,14 @@ RSpec.describe Project, type: :model do
 
   describe "validity" do
     it "doesn't validate with public access type" do
-      project = FactoryBot.build(:project, assignment: @assignment, author: @user)
+      project = FactoryBot.create(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.project_access_type = "Public"
       expect(project).to be_invalid
     end
 
     it "doesn't allow profanities in description" do
-      project = FactoryBot.build(:project, assignment: @assignment, author: @user)
+      project = FactoryBot.create(:project, assignment: @assignment, author: @user)
       expect(project).to be_valid
       project.description = "Ass"
       expect(project).to be_invalid
@@ -80,7 +80,7 @@ RSpec.describe Project, type: :model do
 
     describe "#increase_views" do
       before do
-        @project = FactoryBot.build(:project, assignment: @assignment, author: @user)
+        @project = FactoryBot.create(:project, assignment: @assignment, author: @user)
         @viewer = FactoryBot.create(:user)
       end
 

@@ -183,3 +183,11 @@ Navigate to `localhost:3000` in your web browser to access the website.
    sudo apt install libssl-dev
    ```
 - If you face issues with file permissions or file changes not reflecting, ensure you are using WSL2 and the project directory is located within the WSL filesystem (`/home`), not the Windows file system (`C:\`).
+
+#### Common Pitfalls
+
+**Mixing Windows-installed Ruby with WSL.** Install and run Ruby, Rails, and Redis entirely inside WSL. A Ruby installed on the Windows side does not see the WSL environment and produces confusing path and runtime errors.
+
+**`port 6379 already in use` when starting Redis.** Redis is likely already running. Check with `redis-cli ping`; if it returns `PONG`, you don't need to start a new instance.
+
+**`yarn start` or `webpack-dev-server` not found.** CircuitVerse uses Rails' default JavaScript setup; those commands are not part of the workflow. Run the app with `bin/dev` (step 9 of Setup), which handles the server, background jobs, and asset compilation.

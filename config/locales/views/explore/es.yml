@@ -21,4 +21,6 @@ es:
       tags:
         heading: "Navegar por etiquetas"
         description: "Salta a temas que te interesen."
+        showing_tagged_with: "Mostrar circuitos etiquetados con"
+        clear_filter: "Limpiar filtro"
     empty: "Nada que mostrar aún."

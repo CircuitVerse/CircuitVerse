@@ -41,6 +41,9 @@ de:
       contest_id: "Wettbewerb"
       entries: "Einträge"
       contest_id_with_number: "Wettbewerb #%{id}"
+      default_contest_card_img_alt: "Standard-Wettbewerbskartenbild"
+      entries_alt: "Anzahl der Teilnehmer des Wettbewerbs Bild"
+      description: "Willkommen beim CircuitVerse Contest! Schau deine Ingenieurskunst auf und erklimme die Community Leaderboard."
     status:
       live: "LIVE"
       completed: "Abgeschlossen"

@@ -8,9 +8,10 @@ RSpec.describe FeaturedCircuit, type: :model do
   end
 
   describe "associations" do
+    subject { FactoryBot.build(:featured_circuit) }
+
     before do
-      # hacky solution for bypassing validation
-      allow_any_instance_of(described_class).to receive(:project_public).and_return(true)
+      allow(subject).to receive(:project_public)
     end
 
     it { is_expected.to belong_to(:project) }

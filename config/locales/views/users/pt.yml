@@ -1,0 +1,5 @@
+pt:
+  users:
+    circuitverse:
+      index:
+        no_search_results: "Nenhum circuito encontrado"

@@ -1,0 +1,6 @@
+pt:
+  explore:
+    sections:
+      tags:
+        showing_tagged_with: "Mostrando circuitos marcados com"
+        clear_filter: "Limpar filtro"

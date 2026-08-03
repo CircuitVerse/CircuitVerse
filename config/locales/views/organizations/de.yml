@@ -1,0 +1,19 @@
+de:
+  organizations:
+    create:
+      success: "Organisation wurde erfolgreich erstellt."
+      failure: "Organisation konnte nicht erstellt werden."
+    update:
+      success: "Organisation wurde erfolgreich aktualisiert."
+    destroy:
+      success: "Organisation wurde erfolgreich gelöscht."
+  organization_members:
+    create:
+      success: "Mitglied wurde erfolgreich hinzugefügt."
+    update:
+      success: "Rolle des Mitglieds wurde erfolgreich aktualisiert."
+    destroy:
+      success: "Mitglied wurde erfolgreich entfernt."
+    leave:
+      success: "Sie haben die Organisation erfolgreich verlassen."
+      not_a_member: "Sie sind kein Mitglied dieser Organisation."

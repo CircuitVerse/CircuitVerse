@@ -1,4 +1,6 @@
 ar:
+  notifications:
+    not_found: "لم يتم العثور على الإشعار"
   edit: "تحرير"
   show: "إظهار"
   delete: "حذف"

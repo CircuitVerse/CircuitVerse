@@ -21,4 +21,6 @@ ja:
       tags:
         heading: "タグで閲覧する"
         description: "興味のあるトピックに飛び込みましょう。"
+        showing_tagged_with: "でタグ付けされた回路を表示"
+        clear_filter: "フィルターをクリア"
     empty: "まだ表示するものはありません。"
