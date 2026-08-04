@@ -12,7 +12,7 @@ describe ProjectsController, type: :request do
       before do
         @project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
         @visit = FactoryBot.create(:ahoy_visit)
-        allow(ProjectsController).to receive(:new).and_wrap_original do |m, *args, **kwargs|
+        allow(described_class).to receive(:new).and_wrap_original do |m, *args, **kwargs|
           controller = m.call(*args, **kwargs)
           allow(controller).to receive(:current_visit).and_return(@visit)
           controller
