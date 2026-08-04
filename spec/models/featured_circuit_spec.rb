@@ -8,10 +8,12 @@ RSpec.describe FeaturedCircuit, type: :model do
   end
 
   describe "associations" do
-    subject { FactoryBot.build(:featured_circuit) }
+    subject { featured_circuit }
+
+    let(:featured_circuit) { FactoryBot.build(:featured_circuit) }
 
     before do
-      allow(subject).to receive(:project_public)
+      allow(featured_circuit).to receive(:project_public)
     end
 
     it { is_expected.to belong_to(:project) }
