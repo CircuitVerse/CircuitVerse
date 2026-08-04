@@ -58,9 +58,9 @@ RSpec.describe OrganizationsController, type: :controller do
         create(:organization_member, user: user, organization: organization)
       end
 
-      it "returns a success response" do
+      it "redirects to the overview tab" do
         get :show, params: { id: organization.id }
-        expect(response).to be_successful
+        expect(response).to redirect_to(overview_organization_path(organization))
       end
     end
 
@@ -79,14 +79,14 @@ RSpec.describe OrganizationsController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe "GET #settings" do
     context "when user has edit access" do
       before do
         create(:organization_member, user: user, organization: organization, role: :admin)
       end
 
       it "returns a success response" do
-        get :edit, params: { id: organization.id }
+        get :settings, params: { id: organization.id }
         expect(response).to be_successful
       end
     end
@@ -110,7 +110,7 @@ RSpec.describe OrganizationsController, type: :controller do
 
       it "redirects to the created organization" do
         post :create, params: { organization: valid_attributes }
-        expect(response).to redirect_to(Organization.last)
+        expect(response).to redirect_to(overview_organization_path(Organization.last))
       end
     end
 
@@ -141,7 +141,7 @@ RSpec.describe OrganizationsController, type: :controller do
 
         it "redirects to the organization" do
           patch :update, params: { id: organization.id, organization: new_attributes }
-          expect(response).to redirect_to(organization)
+          expect(response).to redirect_to(overview_organization_path(organization))
         end
       end
     end

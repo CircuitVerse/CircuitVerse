@@ -7,6 +7,35 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
+    tabs:
+      nav_label: "Organization sections"
+      overview: "Overview"
+      members: "Members"
+      settings: "Settings"
+    switcher:
+      button: "Switch"
+      heading: "Switch organization"
+      create: "Create organization"
+      group_count:
+        one: "1 group"
+        other: "%{count} groups"
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
+    overview:
+      groups_heading: "Groups"
+      new_group_button: "New Group"
+      logo_alt: "%{organization} logo"
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
+    social_links:
+      logo_alt: "%{provider} logo"
+      website: "Website"
+    members:
+      page_title: "Members - %{organization}"
+    settings:
+      page_title: "Settings - %{organization}"
   organization_members:
     create:
       success: "Member was successfully added."

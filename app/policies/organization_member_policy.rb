@@ -2,11 +2,11 @@
 
 class OrganizationMemberPolicy < ApplicationPolicy
   def admin_access?
-    org_admin? || user.admin?
+    org_admin? || user&.admin?
   end
 
   def update?
-    return false unless org_admin? || user.admin?
+    return false unless org_admin? || user&.admin?
     return false if demoting_sole_admin?
 
     true
@@ -14,8 +14,9 @@ class OrganizationMemberPolicy < ApplicationPolicy
 
   def destroy?
     return false if leaving_self? && sole_admin?
+    return false if member_primary_mentor_of_any_group?
 
-    org_admin? || leaving_self? || user.admin?
+    org_admin? || leaving_self? || user&.admin?
   end
 
   private
@@ -40,6 +41,10 @@ class OrganizationMemberPolicy < ApplicationPolicy
     end
 
     def demoting_sole_admin?
-      sole_admin?
+      sole_admin? && !user&.admin?
+    end
+
+    def member_primary_mentor_of_any_group?
+      record.organization.groups.exists?(primary_mentor_id: record.user_id)
     end
 end

@@ -1,0 +1,29 @@
+# frozen_string_literal: true
+
+class OrganizationDashboardShellComponent < ViewComponent::Base
+  renders_one :tab_content
+
+  def initialize(organization:, active_tab:, user_organizations:, show_settings_tab:)
+    super()
+    @organization = organization
+    @active_tab = active_tab
+    @user_organizations = user_organizations
+    @show_settings_tab = show_settings_tab
+  end
+
+  def tab_class(tab)
+    "nav-link #{'active' if @active_tab == tab}"
+  end
+
+  def show_settings_tab?
+    @show_settings_tab
+  end
+
+  def initials(organization)
+    organization.name.split.pluck(0).first(2).join.upcase
+  end
+
+  def current_org?(organization)
+    organization.id == @organization.id
+  end
+end
