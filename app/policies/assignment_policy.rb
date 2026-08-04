@@ -23,9 +23,9 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def start?
-    # assignment should not be closed and not submitted
-    assignment.status != "closed" \
-      && !Project.exists?(author_id: user.id, assignment_id: assignment.id)
+    # assignment should not be closed and user should have access to the assignment
+    # If a project already exists, the controller will find and redirect to it
+    assignment.status != "closed" && show?
   end
 
   def edit?
