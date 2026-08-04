@@ -25,7 +25,15 @@ Rails.application.routes.draw do
   end
 
   # resources :assignment_submissions
-  resources :organizations do
+  resources :organizations, except: %i[edit] do
+    member do
+      get :overview
+      get :members
+      get :settings
+    end
+    collection do
+      get :check_slug
+    end
     resources :organization_members, only: %i[create update destroy]
     delete :leave, to: "organization_members#leave"
     resources :groups, only: %i[new create]

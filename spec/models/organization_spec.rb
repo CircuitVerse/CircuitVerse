@@ -31,6 +31,31 @@ RSpec.describe Organization, type: :model do
         expect(org.errors[:links]).to include("cannot have more than 5 links")
       end
     end
+
+    describe "links scheme" do
+      it "accepts http and https links" do
+        org = FactoryBot.build(:organization, links: ["http://a.com", "https://b.com"])
+        expect(org).to be_valid
+      end
+
+      it "prepends https:// to bare domains" do
+        org = FactoryBot.build(:organization, links: ["example.com"])
+        org.validate
+        expect(org.links).to include("https://example.com")
+      end
+
+      it "rejects javascript: links" do
+        org = FactoryBot.build(:organization, links: ["javascript:alert(1)"])
+        expect(org).not_to be_valid
+        expect(org.errors[:links]).to include("must be valid http or https URLs")
+      end
+
+      it "rejects data: links" do
+        org = FactoryBot.build(:organization, links: ["data:text/html,<script>alert(1)</script>"])
+        expect(org).not_to be_valid
+        expect(org.errors[:links]).to include("must be valid http or https URLs")
+      end
+    end
   end
 
   describe "slug generation" do
