@@ -58,6 +58,7 @@ en:
       upload_hint: "PNG, JPG or SVG"
       link_aria_label: "External link"
       submit: "Create Organization"
+      update: "Save changes"
     new:
       page_title: "Create Organization"
       heading: "Create a new organization"

@@ -18,7 +18,7 @@ class Organization < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 50 }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
-  validates :location, length: { maximum: 100 }, allow_blank: true
+  validates :location, length: { maximum: 50 }, allow_blank: true
   validate :links_count_within_limit
   validate :links_must_be_valid_http_urls
 

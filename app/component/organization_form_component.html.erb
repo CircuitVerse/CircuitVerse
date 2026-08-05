@@ -48,7 +48,7 @@
     <div class="input-group">
       <span class="input-group-text"><i class="fa fa-map-marker-alt org-form-icon" aria-hidden="true"></i></span>
       <%= form.text_field :location, id: "organization_location", class: "form-control",
-            placeholder: t("organizations.form.location_placeholder"), maxlength: 30 %>
+            placeholder: t("organizations.form.location_placeholder"), maxlength: 50 %>
     </div>
     <div class="text-end"><small id="org-location-counter" class="form-text"></small></div>
   </div>
@@ -128,6 +128,6 @@
   <%# Actions %>
   <div class="d-flex justify-content-end gap-2 border-top pt-3 mt-4">
     <%= link_to t("cancel"), cancel_path, class: "btn btn-outline-secondary" %>
-    <%= form.submit t("organizations.form.submit"), class: "btn primary-button" %>
+    <%= form.submit organization.persisted? ? t("organizations.form.update") : t("organizations.form.submit"), class: "btn primary-button" %>
   </div>
 <% end %>

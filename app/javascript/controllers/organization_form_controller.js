@@ -5,15 +5,28 @@ const MAX_LINKS = 5;
 
 export default class extends Controller {
     connect() {
+        this.listeners = [];
         this.setupCounters();
         this.setupLinks();
         this.setupLogo();
     }
 
+    disconnect() {
+        this.listeners.forEach(({ element, eventName, handler }) => {
+            element.removeEventListener(eventName, handler);
+        });
+        this.listeners = [];
+    }
+
+    listen(element, eventName, handler) {
+        element.addEventListener(eventName, handler);
+        this.listeners.push({ element, eventName, handler });
+    }
+
     setupCounters() {
         this.bindCounter('organization_name', 'org-name-counter', 50);
         this.bindCounter('org-description-input', 'org-description-counter', 160);
-        this.bindCounter('organization_location', 'org-location-counter', 30);
+        this.bindCounter('organization_location', 'org-location-counter', 50);
     }
 
     bindCounter(inputId, counterId, maxLen) {
@@ -26,7 +39,7 @@ export default class extends Controller {
             counter.classList.toggle('text-danger', remaining <= Math.floor(maxLen * 0.15));
         };
         update();
-        el.addEventListener('input', update);
+        this.listen(el, 'input', update);
     }
 
     setupLinks() {
@@ -41,7 +54,7 @@ export default class extends Controller {
             if (templateField) templateField.value = '';
         }
 
-        this.linksContainer.addEventListener('input', (e) => {
+        this.listen(this.linksContainer, 'input', (e) => {
             if (e.target.tagName === 'INPUT' && e.target.type === 'url') {
                 this.updateLinkIcon(e.target);
             }
@@ -53,7 +66,7 @@ export default class extends Controller {
 
         this.updateRemoveButtons();
 
-        this.addLinkBtn.addEventListener('click', () => {
+        this.listen(this.addLinkBtn, 'click', () => {
             const items = this.linksContainer.querySelectorAll('.organizations-link-item');
             if (items.length < MAX_LINKS && this.linkTemplate) {
                 const newItem = this.linkTemplate.cloneNode(true);
@@ -65,7 +78,7 @@ export default class extends Controller {
             }
         });
 
-        this.linksContainer.addEventListener('click', (e) => {
+        this.listen(this.linksContainer, 'click', (e) => {
             const removeBtn = e.target.closest('.organizations-remove-link-btn');
             if (removeBtn) {
                 removeBtn.closest('.organizations-link-item').remove();
@@ -114,24 +127,26 @@ export default class extends Controller {
         const zone = document.getElementById('organization-upload-zone');
         const input = document.getElementById('organization_logo');
         const label = document.getElementById('organization-upload-filename');
+
         if (input) {
-            input.addEventListener('change', function () {
+            this.listen(input, 'change', function () {
                 if (this.files && this.files[0]) label.textContent = this.files[0].name;
             });
         }
+
         if (zone) {
             ['dragover', 'dragenter'].forEach((evt) => {
-                zone.addEventListener(evt, (e) => {
+                this.listen(zone, evt, (e) => {
                     e.preventDefault();
                     zone.classList.add('org-upload-zone--active');
                 });
             });
             ['dragleave', 'drop'].forEach((evt) => {
-                zone.addEventListener(evt, () => {
+                this.listen(zone, evt, () => {
                     zone.classList.remove('org-upload-zone--active');
                 });
             });
-            zone.addEventListener('drop', (e) => {
+            this.listen(zone, 'drop', (e) => {
                 e.preventDefault();
                 if (e.dataTransfer.files && e.dataTransfer.files[0]) {
                     input.files = e.dataTransfer.files;
