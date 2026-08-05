@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
       // Project setup
-      window.logixProjectId = "<%= @project&.id || 0 %>";
+      window.logixProjectId = <%= @project&.id || 'null' %>;
       window.isUserLoggedIn = <%= user_signed_in? %>;
       window.embed = false;
     </script>

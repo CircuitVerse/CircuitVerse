@@ -1,0 +1,8 @@
+<% content_for :title, t("organizations.new.page_title") %>
+<div class="org-new mx-auto text-body pt-4 px-3 pb-5">
+  <div class="mb-4">
+    <h1 class="org-new-heading fw-semibold mb-2 fs-4"><%= t("organizations.new.heading") %></h1>
+    <p class="text-secondary mb-0"><%= t("organizations.new.subheading") %></p>
+  </div>
+  <%= render(OrganizationFormComponent.new(organization: @organization)) %>
+</div>

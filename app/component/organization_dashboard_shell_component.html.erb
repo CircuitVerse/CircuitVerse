@@ -1,0 +1,20 @@
+<div class="org-dash mx-auto text-body pt-4 px-3 pb-5">
+  <h1 class="org-dash-name fw-semibold mb-3 fs-5"><%= @organization.name %></h1>
+  <nav aria-label="<%= t('organizations.tabs.nav_label') %>">
+    <ul class="nav nav-pills gap-2 flex-wrap mb-3">
+      <li class="nav-item">
+        <%= link_to t("organizations.tabs.overview"), overview_organization_path(@organization), class: tab_class("overview") %>
+      </li>
+      <li class="nav-item">
+        <%= link_to t("organizations.tabs.members"), members_organization_path(@organization), class: tab_class("members") %>
+      </li>
+      <% if show_settings_tab? %>
+        <li class="nav-item">
+          <%= link_to t("organizations.tabs.settings"), settings_organization_path(@organization), class: tab_class("settings") %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+  <hr class="mt-3 mb-4">
+  <%= tab_content %>
+</div>

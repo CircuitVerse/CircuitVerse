@@ -125,7 +125,7 @@ group :development, :test do
   # Adds support for debug
   gem "debug"
   gem "ruby-lsp", require: false
-  gem "coveralls_reborn", "~> 0.29.0", require: false
+  gem "coveralls_reborn", "~> 0.29.1", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
@@ -160,10 +160,11 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem "rails-erd"
   gem "rubocop"
-  
+
   gem "bundler-audit", "~> 0.9.1"
   gem 'database_consistency', require: false
   gem "lookbook", ">= 2.2.0"
+  gem "ruby-lsp-refactor", "~> 0.1.2", require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -191,11 +192,11 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.224"
+gem "aws-sdk-s3", "~> 1.228"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.12"
-gem "opentelemetry-exporter-otlp", "~> 0.34.0"
+gem "opentelemetry-sdk", "~> 1.13"
+gem "opentelemetry-exporter-otlp", "~> 0.34.1"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"
 gem "opentelemetry-instrumentation-active_record"
@@ -213,7 +214,7 @@ gem "opentelemetry-instrumentation-sidekiq"
 gem "opentelemetry-instrumentation-action_pack"
 gem "opentelemetry-instrumentation-action_view"
 
-gem "maintenance_tasks", "~> 2.16"
+gem "maintenance_tasks", "~> 2.17"
 
 
 gem "stackprof"
@@ -226,7 +227,7 @@ gem 'devise_saml_authenticatable'
 
 gem 'activerecord_cursor_paginate'
 
-gem 'concurrent-ruby', '1.3.6'
+gem "concurrent-ruby", ">= 1.3.7"
 gem 'mutex_m'
 
 gem "observer", "~> 0.1.2"
@@ -236,3 +237,4 @@ gem "drb", "~> 2.2"
 # Verilog to DigitalJS conversion gem (Internal)
 gem "yosys2digitaljs", path: "vendor/gems/yosys2digitaljs"
 gem "avo", ">= 3.2.1"
+

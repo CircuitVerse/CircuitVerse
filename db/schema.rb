@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
+ActiveRecord::Schema[8.1].define(version: 2026_07_14_113243) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -289,6 +289,18 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "lti_deployments", force: :cascade do |t|
+    t.string "issuer", null: false
+    t.string "client_id", null: false
+    t.string "deployment_id", null: false
+    t.string "auth_login_url", null: false
+    t.string "access_token_url", null: false
+    t.string "jwks_url", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["issuer", "client_id", "deployment_id"], name: "index_lti_deployments_on_platform_and_deployment", unique: true
+  end
+
   create_table "mailkick_opt_outs", force: :cascade do |t|
     t.string "email"
     t.string "user_type"
@@ -358,10 +370,22 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
     t.index ["target_type", "target_id"], name: "index_notifications_on_target_type_and_target_id"
   end
 
+  create_table "organization_members", force: :cascade do |t|
+    t.bigint "organization_id", null: false
+    t.bigint "user_id", null: false
+    t.integer "role", default: 2, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organization_id", "user_id"], name: "index_organization_members_on_org_and_user_unique", unique: true
+    t.index ["organization_id"], name: "index_organization_members_on_organization_id"
+    t.index ["user_id"], name: "index_organization_members_on_user_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
     t.string "slug", null: false
     t.text "description"
+    t.string "location"
     t.jsonb "links", default: []
     t.boolean "private", default: true, null: false
     t.string "oidc_issuer_url"
@@ -567,7 +591,10 @@ ActiveRecord::Schema[8.0].define(version: 2026_05_18_220320) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "organizations", on_delete: :nullify
   add_foreign_key "groups", "users", column: "primary_mentor_id"
+  add_foreign_key "organization_members", "organizations", on_delete: :cascade
+  add_foreign_key "organization_members", "users", on_delete: :cascade
   add_foreign_key "pending_invitations", "groups"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
