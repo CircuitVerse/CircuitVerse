@@ -145,4 +145,149 @@ describe LtiController, type: :request do
                   :lti_launch_path, :host, :port, :member, :not_member, :primary_mentor,
                   :group, :assignment, :group
   end
+
+  describe "LTI 1.3 OIDC login initiation" do
+    include ActiveSupport::Testing::TimeHelpers
+
+    let(:deployment) { FactoryBot.create(:lti_deployment) }
+    let(:login_params) do
+      {
+        iss: deployment.issuer,
+        client_id: deployment.client_id,
+        login_hint: "lms-user-42",
+        lti_message_hint: "message-hint-abc",
+        target_link_uri: "http://www.example.com/lti/launch"
+      }
+    end
+
+    context "when the lti_advantage flag is disabled" do
+      it "returns not found" do
+        get "/lti/login", params: login_params
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context "when the lti_advantage flag is enabled" do
+      before { Flipper.enable(:lti_advantage) }
+
+      after { Flipper.disable(:lti_advantage) }
+
+      it "redirects to the platform's authorization endpoint with the OIDC parameters" do
+        get "/lti/login", params: login_params
+
+        expect(response).to have_http_status(:found)
+        redirect = URI(response.location)
+        expect(redirect.to_s).to start_with(deployment.auth_login_url)
+        expect(redirect_params(redirect)).to include(
+          "scope" => "openid",
+          "response_type" => "id_token",
+          "response_mode" => "form_post",
+          "prompt" => "none",
+          "client_id" => deployment.client_id,
+          "redirect_uri" => "#{request.base_url}/lti/launch",
+          "login_hint" => "lms-user-42",
+          "lti_message_hint" => "message-hint-abc"
+        )
+      end
+
+      it "signs a state carrying the nonce and the resolved deployment" do
+        get "/lti/login", params: login_params
+
+        query = redirect_params(URI(response.location))
+        expect(verified_state(query["state"]))
+          .to eq("nonce" => query["nonce"], "deployment_id" => deployment.id)
+      end
+
+      it "issues a fresh nonce and state for every initiation" do
+        get "/lti/login", params: login_params
+        first = redirect_params(URI(response.location))
+        get "/lti/login", params: login_params
+        second = redirect_params(URI(response.location))
+
+        expect(second["nonce"]).not_to eq(first["nonce"])
+        expect(second["state"]).not_to eq(first["state"])
+      end
+
+      it "expires the state after five minutes" do
+        get "/lti/login", params: login_params
+        state = redirect_params(URI(response.location))["state"]
+
+        travel_to 6.minutes.from_now do
+          expect(verified_state(state)).to be_nil
+        end
+      end
+
+      it "accepts the cross-site POST the platform sends without a CSRF token" do
+        with_forgery_protection { post "/lti/login", params: login_params }
+        expect(response).to have_http_status(:found)
+      end
+
+      it "resolves the deployment without a client_id when the platform omits it" do
+        get "/lti/login", params: login_params.except(:client_id)
+
+        expect(response).to have_http_status(:found)
+        expect(verified_state(redirect_params(URI(response.location))["state"]))
+          .to include("deployment_id" => deployment.id)
+      end
+
+      it "picks the registration matching the client_id when a platform has several" do
+        other = FactoryBot.create(:lti_deployment, issuer: deployment.issuer)
+
+        get "/lti/login", params: login_params.merge(client_id: other.client_id)
+
+        expect(verified_state(redirect_params(URI(response.location))["state"]))
+          .to include("deployment_id" => other.id)
+      end
+
+      it "narrows to the registration matching lti_deployment_id" do
+        other = FactoryBot.create(:lti_deployment,
+                                  issuer: deployment.issuer, client_id: deployment.client_id)
+
+        get "/lti/login", params: login_params.merge(lti_deployment_id: other.deployment_id)
+
+        expect(verified_state(redirect_params(URI(response.location))["state"]))
+          .to include("deployment_id" => other.id)
+      end
+
+      it "returns not found for an unregistered issuer" do
+        get "/lti/login", params: login_params.merge(iss: "https://attacker.example.com")
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns not found when the client_id does not belong to the issuer" do
+        get "/lti/login", params: login_params.merge(client_id: "not-our-client")
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns not found when iss is missing" do
+        get "/lti/login", params: login_params.except(:iss)
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns not found when login_hint is missing" do
+        get "/lti/login", params: login_params.except(:login_hint)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    def redirect_params(uri)
+      URI.decode_www_form(uri.query).to_h
+    end
+
+    def verified_state(state)
+      Rails.application
+           .message_verifier(LtiController::LTI_STATE_PURPOSE)
+           .verified(state.to_s, purpose: LtiController::LTI_STATE_PURPOSE)
+    end
+
+    # The test environment disables forgery protection; turn it on so the
+    # token-less POST is actually exercised.
+    def with_forgery_protection
+      original = ActionController::Base.allow_forgery_protection
+      ActionController::Base.allow_forgery_protection = true
+      yield
+    ensure
+      ActionController::Base.allow_forgery_protection = original
+    end
+  end
 end

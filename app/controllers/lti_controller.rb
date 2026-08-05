@@ -1,10 +1,33 @@
 # frozen_string_literal: true
 
 class LtiController < ApplicationController
-  skip_before_action :verify_authenticity_token, only: :launch # for lti integration
+  # The state is signed rather than kept in the session: the launch returns as a
+  # cross-site POST that a SameSite cookie would not survive, and the signature
+  # is what proves the launch answers an initiation we made.
+  LTI_STATE_PURPOSE = "lti.launch.state"
+  LTI_STATE_TTL = 5.minutes
+
+  # The LMS initiates the login, so it cannot send a CSRF token of ours.
+  skip_before_action :verify_authenticity_token, only: %i[launch oidc_login] # for lti integration
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
+  before_action :verify_lti_advantage_enabled, only: %i[oidc_login]
   after_action :allow_iframe_lti, only: %i[launch]
+
+  # Step 1 of the LTI 1.3 handshake; the launch verifies the nonce and state.
+  def oidc_login
+    deployment = find_oidc_deployment
+    return head :not_found if deployment.blank?
+
+    nonce = SecureRandom.hex(16)
+    state = lti_state_verifier.generate(
+      { "nonce" => nonce, "deployment_id" => deployment.id },
+      purpose: LTI_STATE_PURPOSE,
+      expires_in: LTI_STATE_TTL
+    )
+
+    redirect_to oidc_authorize_url(deployment, nonce, state), allow_other_host: true
+  end
 
   def launch
     session[:is_lti] = true # the lti session starting
@@ -57,6 +80,43 @@ class LtiController < ApplicationController
   end
 
   private
+
+    # LTI 1.3 stays dark until an operator opts in; LTI 1.1 is unaffected.
+    def verify_lti_advantage_enabled
+      head :not_found unless Flipper.enabled?(:lti_advantage)
+    end
+
+    # iss and login_hint are required on every initiation; the optional claims
+    # only narrow the lookup when a platform registers CircuitVerse twice.
+    def find_oidc_deployment
+      return nil if params[:iss].blank? || params[:login_hint].blank?
+
+      scope = LtiDeployment.where(issuer: params[:iss])
+      scope = scope.where(client_id: params[:client_id]) if params[:client_id].present?
+      scope = scope.where(deployment_id: params[:lti_deployment_id]) if params[:lti_deployment_id].present?
+      scope.order(:id).first
+    end
+
+    def oidc_authorize_url(deployment, nonce, state)
+      uri = URI(deployment.auth_login_url)
+      uri.query = URI.encode_www_form(
+        scope: "openid",
+        response_type: "id_token",
+        response_mode: "form_post",
+        prompt: "none",
+        client_id: deployment.client_id,
+        redirect_uri: "#{request.base_url}/lti/launch",
+        login_hint: params[:login_hint],
+        lti_message_hint: params[:lti_message_hint],
+        nonce: nonce,
+        state: state
+      )
+      uri.to_s
+    end
+
+    def lti_state_verifier
+      Rails.application.message_verifier(LTI_STATE_PURPOSE)
+    end
 
     def set_group_and_assignment
       @assignment = Assignment.find_by(lti_consumer_key: params[:oauth_consumer_key])
