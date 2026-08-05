@@ -18,9 +18,11 @@ class Organization < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 50 }
   validates :slug, presence: true, uniqueness: { case_sensitive: false }
-  validates :location, length: { maximum: 100 }, allow_blank: true
+  validates :location, length: { maximum: 50 }, allow_blank: true
+  validates :description, length: { maximum: 160 }, allow_blank: true
   validate :links_count_within_limit
   validate :links_must_be_valid_http_urls
+  validate :logo_must_be_valid_image
 
   before_destroy :purge_logo
 
@@ -47,12 +49,21 @@ class Organization < ApplicationRecord
       rescue URI::InvalidURIError
         false
       end
-      errors.add(:links, "must be valid http or https URLs") if invalid.any?
+      errors.add(:links, :invalid_urls) if invalid.any?
     end
 
     def links_count_within_limit
       return if links.blank?
 
-      errors.add(:links, "cannot have more than #{MAX_LINKS} links") if links.size > MAX_LINKS
+      errors.add(:links, :too_many, count: MAX_LINKS) if links.size > MAX_LINKS
+    end
+
+    def logo_must_be_valid_image
+      return unless logo.attached?
+
+      acceptable_types = ["image/png", "image/jpeg", "image/svg+xml"]
+      errors.add(:logo, :invalid_content_type) unless acceptable_types.include?(logo.content_type)
+
+      errors.add(:logo, :file_size_exceeded) if logo.byte_size > 2.megabytes
     end
 end
