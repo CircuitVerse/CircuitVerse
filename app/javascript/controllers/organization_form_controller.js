@@ -60,6 +60,15 @@ export default class extends Controller {
             }
         });
 
+        this.listen(this.linksContainer, 'change', (e) => {
+            if (e.target.tagName === 'INPUT' && e.target.type === 'url') {
+                const value = e.target.value.trim();
+                if (value && !/^https?:\/\//i.test(value)) {
+                    e.target.value = `https://${value}`;
+                }
+            }
+        });
+
         this.linksContainer.querySelectorAll('input[type="url"]').forEach((field) => {
             this.updateLinkIcon(field);
         });
