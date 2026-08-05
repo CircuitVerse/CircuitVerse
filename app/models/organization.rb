@@ -48,21 +48,21 @@ class Organization < ApplicationRecord
       rescue URI::InvalidURIError
         false
       end
-      errors.add(:links, "must be valid http or https URLs") if invalid.any?
+      errors.add(:links, :invalid_urls) if invalid.any?
     end
 
     def links_count_within_limit
       return if links.blank?
 
-      errors.add(:links, "cannot have more than #{MAX_LINKS} links") if links.size > MAX_LINKS
+      errors.add(:links, :too_many, count: MAX_LINKS) if links.size > MAX_LINKS
     end
 
     def logo_must_be_valid_image
       return unless logo.attached?
 
       acceptable_types = ["image/png", "image/jpeg", "image/svg+xml"]
-      errors.add(:logo, "must be a PNG, JPEG, or SVG image") unless acceptable_types.include?(logo.content_type)
+      errors.add(:logo, :invalid_content_type) unless acceptable_types.include?(logo.content_type)
 
-      errors.add(:logo, "must be smaller than 2 MB") if logo.byte_size > 2.megabytes
+      errors.add(:logo, :file_size_exceeded) if logo.byte_size > 2.megabytes
     end
 end
