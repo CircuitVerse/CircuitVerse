@@ -21,6 +21,7 @@ class Organization < ApplicationRecord
   validates :location, length: { maximum: 50 }, allow_blank: true
   validate :links_count_within_limit
   validate :links_must_be_valid_http_urls
+  validate :logo_must_be_valid_image
 
   before_destroy :purge_logo
 
@@ -54,5 +55,14 @@ class Organization < ApplicationRecord
       return if links.blank?
 
       errors.add(:links, "cannot have more than #{MAX_LINKS} links") if links.size > MAX_LINKS
+    end
+
+    def logo_must_be_valid_image
+      return unless logo.attached?
+
+      acceptable_types = ["image/png", "image/jpeg", "image/svg+xml"]
+      errors.add(:logo, "must be a PNG, JPEG, or SVG image") unless acceptable_types.include?(logo.content_type)
+
+      errors.add(:logo, "must be smaller than 2 MB") if logo.byte_size > 2.megabytes
     end
 end

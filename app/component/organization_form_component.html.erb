@@ -96,10 +96,10 @@
   <div class="mb-3">
     <%= form.label :logo, t("organizations.form.logo_label"), class: "form-label fw-semibold" %>
     <div class="form-text mt-0 mb-2"><%= t("organizations.form.logo_hint") %></div>
-    <% if @organization.logo.attached? %>
+    <% if @organization.persisted? && @organization.logo.attached? %>
       <div class="d-flex align-items-center gap-3 p-2 mb-2 border rounded bg-light">
         <%= image_tag @organization.logo, class: "rounded border org-settings-logo-preview",
-              alt: t("organizations.form.current_logo_alt", organization: @organization.name) %>
+          alt: t("organizations.form.current_logo_alt", organization: @organization.name) %>
         <div class="d-flex flex-column">
           <span class="fw-semibold small"><%= t("organizations.form.current_logo") %></span>
           <span class="text-secondary small"><%= t("organizations.form.replace_logo_hint") %></span>
