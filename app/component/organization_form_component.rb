@@ -23,6 +23,7 @@ class OrganizationFormComponent < ViewComponent::Base
         organizations_path
       end
     end
+
     def persisted_logo
       return unless organization.persisted?
       return unless organization.logo_attachment&.persisted?
