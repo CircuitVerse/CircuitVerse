@@ -6,7 +6,7 @@ class GroupPolicy < ApplicationPolicy
   def initialize(user, group)
     @user = user
     @group = group
-    @admin_access = (group.primary_mentor_id == user.id) || user.admin?
+    @admin_access = (group.primary_mentor_id == user.id) || user.admin? || org_admin?
   end
 
   def show_access?
@@ -20,4 +20,12 @@ class GroupPolicy < ApplicationPolicy
   def mentor_access?
     @admin_access || @group.group_members.exists?(user_id: user.id, mentor: true)
   end
+
+  private
+
+    def org_admin?
+      return false unless group.organization_id.present?
+
+      group.organization.organization_members.exists?(user_id: user.id, role: :admin)
+    end
 end
