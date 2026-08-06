@@ -12,15 +12,10 @@ module Lti
 
     class << self
       def validate!(token, deployment:, nonce:)
-        key = fetch_platform_key(deployment, token)
-        payload, = JWT.decode(
-          token, key, true,
-          algorithms: ["RS256"],
-          iss: deployment.issuer, verify_iss: true,
-          aud: deployment.client_id, verify_aud: true,
-          verify_expiration: true, leeway: LEEWAY
-        )
+        encoded_token = JWT::EncodedToken.new(token)
+        verify_token!(encoded_token, deployment)
 
+        payload = encoded_token.payload
         verify_nonce!(payload, nonce)
         verify_audience!(payload, deployment)
         raise ValidationError, "Missing sub claim" if payload["sub"].blank?
@@ -31,6 +26,21 @@ module Lti
       end
 
       private
+
+        # The header is read unverified only to pick a candidate key; the
+        # signature is then checked against an explicit RS256 allow-list, and
+        # #payload refuses to decode until both it and the claims have passed.
+        def verify_token!(encoded_token, deployment)
+          encoded_token.verify_signature!(
+            algorithm: "RS256",
+            key: fetch_platform_key(deployment, encoded_token.header["kid"])
+          )
+          encoded_token.verify_claims!(
+            iss: deployment.issuer,
+            aud: deployment.client_id,
+            exp: { leeway: LEEWAY }
+          )
+        end
 
         def verify_nonce!(payload, nonce)
           raise ValidationError, "Missing nonce" if nonce.blank?
@@ -46,9 +56,8 @@ module Lti
           raise ValidationError, "azp does not match client_id"
         end
 
-        def fetch_platform_key(deployment, token)
-          _, header = JWT.decode(token, nil, false)
-          key_from_jwks(deployment, header["kid"]) ||
+        def fetch_platform_key(deployment, kid)
+          key_from_jwks(deployment, kid) ||
             key_from_stored(deployment) ||
             raise(ValidationError, "Could not obtain platform public key")
         end

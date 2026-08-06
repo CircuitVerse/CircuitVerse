@@ -91,6 +91,12 @@ RSpec.describe Lti::JwtValidator do
           .to raise_error(described_class::ValidationError)
       end
 
+      it "accepts a token that expired within the clock-skew leeway" do
+        stub_jwks
+        expect(validate(token(claims("exp" => 10.seconds.ago.to_i))))
+          .to include("sub" => "lms-user-1")
+      end
+
       it "rejects a token missing the sub claim" do
         expect { validate(token(claims.except("sub"))) }
           .to raise_error(described_class::ValidationError, /Missing sub/)
