@@ -7,6 +7,21 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
+    index:
+      page_title: "Organizations"
+      heading: "Organizations"
+      create_button: "Create Organization"
+      tab_mine: "My Organizations"
+      tab_explore: "Explore"
+      tabs_nav_label: "Organization views"
+      empty_mine: "You're not part of any organizations yet. Create one or explore public organizations."
+      empty_explore: "No public organizations to explore yet."
+      logo_alt: "%{organization} logo"
+      badge_public: "Public"
+      badge_private: "Private"
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
     tabs:
       nav_label: "Organization sections"
       overview: "Overview"

@@ -11,6 +11,7 @@ en:
     link_to_faq: "FAQ"
     link_to_contests: "Contests"
     link_to_explore: "Explore"
+    link_to_organizations: "Organizations"
     footer:
       social_icon_text: "Follow us on:"
       link_to_examples: "Examples"

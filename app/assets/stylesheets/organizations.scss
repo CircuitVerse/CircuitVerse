@@ -13,18 +13,19 @@
   object-fit: contain;
 }
 
-.org-dash .nav-pills {
+.org-dash .nav-pills,
+.org-index-page .nav-pills {
   --bs-nav-pills-link-active-bg: #{$primary-green};
   --bs-nav-pills-link-active-color: var(--bs-white);
   --bs-nav-link-color: var(--bs-gray-900);
   --bs-nav-link-hover-color: #{$primary-green};
 }
-
-.org-dash .nav-pills .nav-link {
+.org-dash .nav-pills .nav-link,
+.org-index-page .nav-pills .nav-link {
   border: 1px solid var(--bs-gray-400);
 }
-
-.org-dash .nav-pills .nav-link.active {
+.org-dash .nav-pills .nav-link.active,
+.org-index-page .nav-pills .nav-link.active {
   border-color: $primary-green;
 }
 
@@ -175,6 +176,78 @@
 .org-dash-group-card--locked:hover {
   box-shadow: none;
   transform: none;
+}
+
+.org-index-card {
+  height: 220px;
+  overflow: hidden;
+  color: var(--bs-gray-900);
+  background: $light-green-bg;
+  border: 1px solid $primary-green;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.org-index-card:hover {
+  color: var(--bs-gray-900);
+  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+.org-index-card:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
+  transform: translateY(-3px);
+}
+
+.org-index-card-logo {
+  width: 64px;
+  height: 64px;
+}
+
+.org-index-card-logo-fallback {
+  font-size: 1.6rem;
+  color: $primary-green;
+}
+
+.org-index-card-name {
+  min-width: 0;
+  color: $secondary-green;
+  font-size: 16px;
+  line-height: 1.3;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.org-index-card-desc {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.org-index-card-meta {
+  color: $secondary-green;
+  font-size: 13px;
+}
+
+.org-index-badge-public {
+  background: $primary-green;
+  color: #fff;
+}
+
+.org-index-badge-private {
+  background: $secondary-green;
+  color: #fff;
 }
 
 @media (max-width: 600px) {

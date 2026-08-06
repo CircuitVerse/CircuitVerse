@@ -11,11 +11,19 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
-    @organizations = if params[:explore].present?
-      Organization.where(private: false).order(created_at: :desc).paginate(page: params[:page], per_page: PER_PAGE)
+    scope = if params[:explore].present?
+      Organization.where(private: false)
     else
-      current_user.organizations.order(created_at: :desc).paginate(page: params[:page], per_page: PER_PAGE)
+      current_user.organizations
     end
+
+    @explore = params[:explore].present?
+    @organizations = scope
+      .left_joins(:organization_members)
+      .select("organizations.*, COUNT(organization_members.id) AS members_count")
+      .group("organizations.id")
+      .order(created_at: :desc)
+      .paginate(page: params[:page], per_page: PER_PAGE, total_entries: scope.count)
   end
 
   # GET /organizations/1  → redirect to overview tab
