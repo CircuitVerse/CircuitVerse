@@ -105,6 +105,7 @@ gem 'rexml', '>= 3.3.9'
 gem "font-awesome-sass", "~> 5.13.1"
 
 gem "disposable_mail", github: 'CircuitVerse/disposable_email'
+gem "faraday"
 gem "flipper-redis"
 gem "flipper-ui"
 gem "friendly_id", "~> 5.7.0"
