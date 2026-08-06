@@ -239,6 +239,46 @@ describe LtiController, type: :request do
           .to include("deployment_id" => other.id)
       end
 
+      it "refuses an ambiguous match rather than guessing a registration" do
+        FactoryBot.create(:lti_deployment, issuer: deployment.issuer)
+
+        get "/lti/login", params: login_params.except(:client_id)
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "refuses when only lti_deployment_id could disambiguate and it is absent" do
+        FactoryBot.create(:lti_deployment,
+                          issuer: deployment.issuer, client_id: deployment.client_id)
+
+        get "/lti/login", params: login_params
+
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "keeps query parameters already registered on the authorization endpoint" do
+        deployment.update!(auth_login_url: "https://lms.example.com/auth?tenant=acme")
+
+        get "/lti/login", params: login_params
+
+        expect(redirect_params(URI(response.location)))
+          .to include("tenant" => "acme", "scope" => "openid")
+      end
+
+      it "omits lti_message_hint when the platform does not send one" do
+        get "/lti/login", params: login_params.except(:lti_message_hint)
+
+        expect(redirect_params(URI(response.location))).not_to have_key("lti_message_hint")
+      end
+
+      it "refuses a registration whose authorization endpoint is not http(s)" do
+        deployment.update!(auth_login_url: "javascript:alert(1)")
+
+        get "/lti/login", params: login_params
+
+        expect(response).to have_http_status(:not_found)
+      end
+
       it "narrows to the registration matching lti_deployment_id" do
         other = FactoryBot.create(:lti_deployment,
                                   issuer: deployment.issuer, client_id: deployment.client_id)

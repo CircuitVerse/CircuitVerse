@@ -7,8 +7,7 @@ class LtiController < ApplicationController
   LTI_STATE_PURPOSE = "lti.launch.state"
   LTI_STATE_TTL = 5.minutes
 
-  # The LMS initiates the login, so it cannot send a CSRF token of ours.
-  skip_before_action :verify_authenticity_token, only: %i[launch oidc_login] # for lti integration
+  skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
   before_action :verify_lti_advantage_enabled, only: %i[oidc_login]
@@ -86,37 +85,66 @@ class LtiController < ApplicationController
       head :not_found unless Flipper.enabled?(:lti_advantage)
     end
 
+    # An LMS-initiated login cannot carry a CSRF token of ours. Rather than
+    # disabling the check for the action, treat a well-formed initiation as
+    # verified: it reads no session and writes nothing, and the signed state it
+    # hands back is what protects the launch that follows.
+    def verified_request?
+      super || (action_name == "oidc_login" && params[:iss].present? && params[:login_hint].present?)
+    end
+
     # iss and login_hint are required on every initiation; the optional claims
-    # only narrow the lookup when a platform registers CircuitVerse twice.
+    # only narrow the lookup when a platform registers CircuitVerse twice. An
+    # ambiguous match is refused rather than guessed at, since the wrong pick
+    # would send the launch to another registration's client_id.
     def find_oidc_deployment
       return nil if params[:iss].blank? || params[:login_hint].blank?
 
       scope = LtiDeployment.where(issuer: params[:iss])
       scope = scope.where(client_id: params[:client_id]) if params[:client_id].present?
       scope = scope.where(deployment_id: params[:lti_deployment_id]) if params[:lti_deployment_id].present?
-      scope.order(:id).first
+
+      matches = scope.limit(2).to_a
+      matches.first if matches.one? && valid_auth_endpoint?(matches.first.auth_login_url)
     end
 
-def oidc_authorize_url(deployment, nonce, state)
-  uri = URI(deployment.auth_login_url)
+    # OIDC requires TLS on the authorization endpoint. Plain http is tolerated
+    # outside production so local LMS containers keep working, but anything that
+    # is not http(s) must never reach redirect_to with allow_other_host.
+    def valid_auth_endpoint?(url)
+      uri = URI.parse(url.to_s)
+      return false if uri.host.blank?
 
-  existing = URI.decode_www_form(uri.query.to_s).to_h
-  query = existing.merge(
-    scope: "openid",
-    response_type: "id_token",
-    response_mode: "form_post",
-    prompt: "none",
-    client_id: deployment.client_id,
-    redirect_uri: "#{request.base_url}/lti/launch",
-    login_hint: params[:login_hint],
-    lti_message_hint: params[:lti_message_hint],
-    nonce: nonce,
-    state: state
-  ).compact
+      uri.is_a?(URI::HTTPS) || (uri.is_a?(URI::HTTP) && !Rails.env.production?)
+    rescue URI::InvalidURIError
+      false
+    end
 
-  uri.query = URI.encode_www_form(query)
-  uri.to_s
-end
+    # Some platforms register an authorization endpoint that already carries
+    # query parameters, so merge rather than replace. String keys throughout,
+    # or a platform's own "scope" would survive alongside ours as a duplicate.
+    def oidc_authorize_url(deployment, nonce, state)
+      uri = URI(deployment.auth_login_url)
+      query = URI.decode_www_form(uri.query.to_s).to_h
+                 .merge(oidc_request_params(deployment, nonce, state)).compact
+      uri.query = URI.encode_www_form(query)
+      uri.to_s
+    end
+
+    def oidc_request_params(deployment, nonce, state)
+      {
+        "scope" => "openid",
+        "response_type" => "id_token",
+        "response_mode" => "form_post",
+        "prompt" => "none",
+        "client_id" => deployment.client_id,
+        "redirect_uri" => "#{request.base_url}/lti/launch",
+        "login_hint" => params[:login_hint],
+        "lti_message_hint" => params[:lti_message_hint],
+        "nonce" => nonce,
+        "state" => state
+      }
+    end
 
     def lti_state_verifier
       Rails.application.message_verifier(LTI_STATE_PURPOSE)
