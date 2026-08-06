@@ -34,6 +34,22 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
       end
     end
 
+    context "when image is omitted" do
+      it "creates project with default image" do
+        expect do
+          token = get_auth_token(user)
+          post "/api/v1/projects",
+               headers: { Authorization: "Token #{token}" },
+               params: { name: "Test Name" }, as: :json
+        end.to change(Project, :count).by(1)
+
+        expect(response).to have_http_status(:created)
+        created_project = Project.order(:created_at).last
+        expect(created_project.image_preview.path.split("/")[-1]).to eq("default.png")
+        expect(created_project.circuit_preview).not_to be_attached
+      end
+    end
+
     context "when image is empty" do
       it "creates project with default image" do
         expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
