@@ -97,19 +97,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     @project.author = current_user
 
     image_file = return_image_file(params[:image])
-
     @project.image_preview = image_file
-
-    io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(@project, io_image_file)
+    attach_circuit_preview(@project, parse_image_data_url(params[:image]))
 
     if @project.save
-      image_file.close
-      File.delete(image_file) if check_to_delete(params[:image])
       render json: { status: "success", project: @project }, status: :created
     else
       render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
     end
+  ensure
+    handle_image_file_cleanup(image_file)
   end
 
   # PATCH /api/v1/projects/:id
@@ -132,11 +129,12 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     update_project_params
 
     if @project.save && @project.project_datum.save
-      handle_image_file_cleanup
       render json: { status: "success", project: @project }, status: :ok
     else
       render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
     end
+  ensure
+    handle_image_file_cleanup(@image_file)
   end
 
   # DELETE /api/v1/projects/:id
@@ -206,9 +204,11 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       attach_circuit_preview(@project, io_image_file)
     end
 
-    def handle_image_file_cleanup
-      @image_file.close
-      File.delete(@image_file) if check_to_delete(params[:image])
+    def handle_image_file_cleanup(image_file)
+      return unless image_file
+
+      image_file.close
+      File.delete(image_file) if check_to_delete(params[:image])
     end
 
     def load_index_projects
