@@ -3,38 +3,73 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
-  before_action :set_organization, only: %i[show edit update destroy]
-  before_action :check_show_access, only: %i[show]
-  before_action :check_edit_access, only: %i[edit update destroy]
+  before_action :set_organization, only: %i[show overview members settings update destroy]
+  before_action :check_show_access, only: %i[show overview members]
+  before_action :check_edit_access, only: %i[settings update destroy]
+
+  PER_PAGE = 9
 
   # GET /organizations
   def index
     @organizations = if params[:explore].present?
-      Organization.where(private: false).order(created_at: :desc).paginate(page: params[:page])
+      Organization.where(private: false).order(created_at: :desc).paginate(page: params[:page], per_page: PER_PAGE)
     else
-      current_user.organizations.order(created_at: :desc).paginate(page: params[:page])
+      current_user.organizations.order(created_at: :desc).paginate(page: params[:page], per_page: PER_PAGE)
     end
   end
 
-  # GET /organizations/1
-  def show; end
+  # GET /organizations/1  → redirect to overview tab
+  def show
+    redirect_to overview_organization_path(@organization)
+  end
+
+  # GET /organizations/1/overview
+  def overview
+    @active_tab = "overview"
+    @groups = @organization.groups
+                           .left_joins(:group_members)
+                           .select("groups.*, COUNT(group_members.id) AS group_members_count")
+                           .group("groups.id")
+                           .order(created_at: :desc)
+                           .paginate(
+                             page: params[:groups_page],
+                             per_page: PER_PAGE,
+                             total_entries: @organization.groups.count
+                           )
+  end
+
+  # GET /organizations/1/members
+  # (members tab content is added in a follow-up PR)
+  def members
+    @active_tab = "members"
+  end
+
+  # GET /organizations/1/settings
+  # (settings tab content is added in a follow-up PR)
+  def settings
+    @active_tab = "settings"
+  end
 
   # GET /organizations/new
   def new
     @organization = Organization.new
   end
 
-  # GET /organizations/1/edit
-  def edit; end
+  # GET /organizations/check_slug
+  def check_slug
+    base_slug = (params[:slug].presence || params[:name]).to_s.strip.parameterize
+    is_taken = base_slug.present? && Organization.exists?(slug: base_slug)
+
+    render json: { slug: base_slug, available: base_slug.present? && !is_taken }
+  end
 
   # POST /organizations
-  # POST /organizations.json
   def create
     @organization = Organization.new(organization_params)
 
     respond_to do |format|
       if create_organization
-        format.html { redirect_to @organization, notice: t(".success") }
+        format.html { redirect_to overview_organization_path(@organization), notice: t(".success") }
         format.json { render :show, status: :created, location: @organization }
       else
         flash.now[:alert] = t(".failure")
@@ -45,21 +80,19 @@ class OrganizationsController < ApplicationController
   end
 
   # PATCH/PUT /organizations/1
-  # PATCH/PUT /organizations/1.json
   def update
     respond_to do |format|
       if @organization.update(organization_params)
-        format.html { redirect_to @organization, notice: t(".success") }
+        format.html { redirect_to overview_organization_path(@organization), notice: t(".success") }
         format.json { render :show, status: :ok, location: @organization }
       else
-        format.html { render :edit }
+        format.html { render :settings, status: :unprocessable_content }
         format.json { render json: @organization.errors, status: :unprocessable_content }
       end
     end
   end
 
   # DELETE /organizations/1
-  # DELETE /organizations/1.json
   def destroy
     @organization.destroy
     respond_to do |format|

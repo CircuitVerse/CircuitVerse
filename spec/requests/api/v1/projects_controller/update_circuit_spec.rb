@@ -131,7 +131,9 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
       context "when project saving fails" do
         before do
           token = get_auth_token(user)
-          allow_any_instance_of(Project).to receive(:save).and_return(false)
+          friendly_finder = class_double(Project, find: project)
+          allow(Project).to receive(:friendly).and_return(friendly_finder)
+          allow(project).to receive(:save).and_return(false)
           patch "/api/v1/projects/update_circuit",
                 headers: { Authorization: "Token #{token}" },
                 params: update_params, as: :json

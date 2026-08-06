@@ -1,0 +1,10 @@
+<% content_for :title, t("organizations.settings.page_title", organization: @organization.name) %>
+
+<%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "settings", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
+  <% shell.with_tab_content do %>
+    <div class="org-dash-empty">
+      <i class="fa fa-cog" aria-hidden="true"></i>
+      <p>Settings are coming soon.</p>
+    </div>
+  <% end %>
+<% end %>
