@@ -1,0 +1,178 @@
+.org-dash {
+  max-width: 1080px;
+}
+
+.org-dash-name {
+  font-size: 20px;
+  color: $primary-green;
+}
+
+.org-social-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.org-dash .nav-pills {
+  --bs-nav-pills-link-active-bg: #{$primary-green};
+  --bs-nav-pills-link-active-color: var(--bs-white);
+  --bs-nav-link-color: var(--bs-gray-900);
+  --bs-nav-link-hover-color: #{$primary-green};
+}
+
+.org-dash .nav-pills .nav-link {
+  border: 1px solid var(--bs-gray-400);
+}
+
+.org-dash .nav-pills .nav-link.active {
+  border-color: $primary-green;
+}
+
+.org-dash-logo {
+  width: 130px;
+  height: 130px;
+}
+
+.org-dash-logo-fallback {
+  font-size: 52px;
+  color: $primary-green;
+}
+
+.org-dash-info {
+  min-width: 0;
+}
+
+.org-dash-info-name {
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.org-dash-info-desc {
+  max-width: 640px;
+  font-size: 15px;
+  overflow-wrap: break-word;
+}
+
+.org-dash-social {
+  transition: transform 0.15s, filter 0.15s;
+}
+
+.org-dash-social:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.org-dash-social:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+  transform: translateY(-2px);
+}
+
+.org-dash-meta-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--bs-gray-400);
+}
+
+.org-dash-location {
+  font-size: 18px;
+}
+
+.org-dash-location i {
+  color: $primary-green;
+  font-size: 25px;
+}
+
+.org-dash-group-card {
+  min-height: 150px;
+  color: var(--bs-gray-900);
+  background: $light-green-bg;
+  border: 1px solid $primary-green;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.org-dash-group-card:hover {
+  color: var(--bs-gray-900);
+  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+.org-dash-group-card:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
+  transform: translateY(-3px);
+}
+
+.org-dash-group-name {
+  color: $secondary-green;
+  font-size: 17px;
+  overflow-wrap: break-word;
+}
+
+.org-dash-group-meta {
+  color: $secondary-green;
+  font-size: 13px;
+}
+
+.org-dash-empty {
+  border: 1px dashed var(--bs-gray-400);
+}
+
+.org-dash-empty i {
+  font-size: 36px;
+}
+
+.org-new {
+  max-width: 720px;
+}
+
+.org-form-icon {
+  color: $primary-green;
+}
+
+.org-upload-zone {
+  border: 2px dashed var(--bs-gray-400);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.org-upload-zone:hover,
+.org-upload-zone--active,
+.org-upload-zone:focus-visible {
+  border-color: $primary-green;
+  background-color: $light-green-bg;
+}
+
+.org-upload-zone:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+}
+
+.org-upload-zone__icon {
+  font-size: 28px;
+  color: $primary-green;
+  margin-bottom: 8px;
+}
+
+.org-settings-logo-preview {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+@media (max-width: 600px) {
+  .org-dash-logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .org-dash-info-name {
+    font-size: 24px;
+  }
+}

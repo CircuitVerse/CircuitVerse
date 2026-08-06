@@ -1,0 +1,133 @@
+<%= form_with(model: @organization, local: true,
+              html: { enctype: "multipart/form-data", id: "organization-form" },
+              data: { controller: "organization-form" }) do |form| %>
+  <% if @organization.errors.any? %>
+    <div class="alert alert-danger d-flex align-items-start gap-2" role="alert">
+      <i class="fa fa-exclamation-circle mt-1" aria-hidden="true"></i>
+      <ul class="list-unstyled mb-0">
+        <% @organization.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="border-bottom pb-3 mb-4">
+    <h2 class="h5 fw-semibold mb-1"><%= t("organizations.form.details_heading") %></h2>
+    <p class="text-secondary small mb-0"><%= t("organizations.form.details_subheading") %></p>
+  </div>
+
+  <%# Name %>
+  <div class="mb-3">
+    <label class="form-label fw-semibold" for="organization_name">
+      <%= t("organizations.form.name_label") %> <span class="text-danger">*</span>
+    </label>
+    <div class="form-text mt-0 mb-2"><%= t("organizations.form.name_hint") %></div>
+    <div class="input-group">
+      <span class="input-group-text"><i class="fa fa-building org-form-icon" aria-hidden="true"></i></span>
+      <%= form.text_field :name, id: "organization_name", class: "form-control",
+            placeholder: t("organizations.form.name_placeholder"), required: true, maxlength: 50 %>
+    </div>
+    <div class="text-end"><small id="org-name-counter" class="form-text"></small></div>
+  </div>
+
+  <%# Description %>
+  <div class="mb-3">
+    <%= form.label :description, t("organizations.form.description_label"),
+          class: "form-label fw-semibold", for: "org-description-input" %>
+    <div class="form-text mt-0 mb-2"><%= t("organizations.form.description_hint") %></div>
+    <%= form.text_area :description, class: "form-control", id: "org-description-input",
+          maxlength: 160, rows: 3, placeholder: t("organizations.form.description_placeholder") %>
+    <div class="text-end"><small id="org-description-counter" class="form-text"></small></div>
+  </div>
+
+  <%# Location %>
+  <div class="mb-3">
+    <label class="form-label fw-semibold" for="organization_location"><%= t("organizations.form.location_label") %></label>
+    <div class="form-text mt-0 mb-2"><%= t("organizations.form.location_hint") %></div>
+    <div class="input-group">
+      <span class="input-group-text"><i class="fa fa-map-marker-alt org-form-icon" aria-hidden="true"></i></span>
+      <%= form.text_field :location, id: "organization_location", class: "form-control",
+            placeholder: t("organizations.form.location_placeholder"), maxlength: 50 %>
+    </div>
+    <div class="text-end"><small id="org-location-counter" class="form-text"></small></div>
+  </div>
+
+  <%# Visibility %>
+  <div class="mb-3">
+    <%= form.label :private, t("organizations.form.visibility_label"), class: "form-label fw-semibold" %>
+    <div class="form-text mt-0 mb-2"><%= t("organizations.form.visibility_hint") %></div>
+    <%= form.select :private,
+          [[t("organizations.form.visibility_private"), true], [t("organizations.form.visibility_public"), false]],
+          {}, { id: "organization_private", class: "form-select" } %>
+  </div>
+
+  <%# External Links %>
+  <div class="mb-3">
+    <label class="form-label fw-semibold"><%= t("organizations.form.links_label") %></label>
+    <div class="form-text mt-0 mb-2"><%= t("organizations.form.links_hint") %></div>
+    <div id="organizations-links-container" class="d-flex flex-column gap-2 mb-2"
+     data-logo-github="<%= helpers.asset_path('logos/github-logo-circle.png') %>"
+     data-logo-x="<%= helpers.asset_path('logos/twitter-x.png') %>"
+     data-logo-linkedin="<%= helpers.asset_path('logos/linkedin-logo.png') %>"
+     data-logo-facebook="<%= helpers.asset_path('logos/facebook-logo.png') %>"
+     data-logo-youtube="<%= helpers.asset_path('logos/youtube-logo.png') %>"
+     data-logo-default="<%= helpers.asset_path('logos/link-logo.png') %>">
+      <% (existing_links.presence || [nil]).each do |link| %>
+        <div class="input-group organizations-link-item">
+          <span class="input-group-text"><img class="organizations-input-icon org-social-icon" src="<%= helpers.asset_path('logos/link-logo.png') %>" alt=""></span>
+          <input type="url" name="organization[links][]" class="form-control"
+                 value="<%= link %>" placeholder="<%= t('organizations.form.links_placeholder') %>"
+                 aria-label="<%= t('organizations.form.link_aria_label') %>">
+          <button type="button" class="btn organizations-remove-link-btn"
+                  aria-label="<%= t('organizations.form.remove_link') %>" style="display: none;">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+      <% end %>
+    </div>
+    <button type="button" id="organizations-add-link-btn" class="btn btn-sm btn-outline-success"
+            aria-label="<%= t('organizations.form.add_link') %>">
+      <i class="fa fa-plus me-1" aria-hidden="true"></i> <%= t("organizations.form.add_link") %>
+    </button>
+  </div>
+
+  <%# Logo %>
+  <div class="mb-3">
+    <%= form.label :logo, t("organizations.form.logo_label"), class: "form-label fw-semibold" %>
+    <div class="form-text mt-0 mb-2"><%= t("organizations.form.logo_hint") %></div>
+    <% if persisted_logo %>
+      <div class="d-flex align-items-center gap-3 p-2 mb-2 border rounded bg-light">
+        <%= image_tag persisted_logo, class: "rounded border org-settings-logo-preview",
+          alt: t("organizations.form.current_logo_alt", organization: @organization.name) %>
+        <div class="d-flex flex-column">
+          <span class="fw-semibold small"><%= t("organizations.form.current_logo") %></span>
+          <span class="text-secondary small"><%= t("organizations.form.replace_logo_hint") %></span>
+        </div>
+      </div>
+      <div class="form-check mb-2">
+        <%= form.check_box :remove_logo, class: "form-check-input", id: "organization_remove_logo" %>
+        <%= form.label :remove_logo, t("organizations.form.remove_logo"), class: "form-check-label small", for: "organization_remove_logo" %>
+      </div>
+    <% end %>
+    <div class="org-upload-zone" id="organization-upload-zone" role="button" tabindex="0"
+         onclick="document.getElementById('organization_logo').click()"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
+      <i class="fa fa-cloud-upload-alt org-upload-zone__icon" aria-hidden="true"></i>
+      <p class="mb-1">
+        <span class="text-success fw-semibold"><%= t("organizations.form.upload_click") %></span>
+        <%= t("organizations.form.upload_drag") %>
+      </p>
+      <p class="text-secondary small mb-0"><%= t("organizations.form.upload_hint") %></p>
+      <%= form.file_field :logo, id: "organization_logo", class: "d-none",
+            accept: "image/png,image/jpeg,image/svg+xml" %>
+    </div>
+    <p class="text-success small fw-semibold mt-2 mb-0" id="organization-upload-filename"></p>
+  </div>
+
+  <%# Actions %>
+  <div class="d-flex justify-content-end gap-2 border-top pt-3 mt-4">
+    <%= link_to t("cancel"), cancel_path, class: "btn btn-outline-secondary" %>
+    <%= form.submit organization.persisted? ? t("organizations.form.update") : t("organizations.form.submit"), class: "btn primary-button" %>
+  </div>
+<% end %>

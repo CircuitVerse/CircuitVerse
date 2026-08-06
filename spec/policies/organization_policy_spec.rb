@@ -88,6 +88,15 @@ describe OrganizationPolicy do
     end
   end
 
+  context "when the user is not signed in (anonymous)" do
+    let(:user) { nil }
+    let(:organization) { @organization }
+
+    it "raises NotAuthorizedError at construction (Pundit guards nil users)" do
+      expect { described_class.new(user, organization) }.to raise_error(Pundit::NotAuthorizedError)
+    end
+  end
+
   context "when the org admin is the sole admin" do
     let(:user) { @admin }
     let(:organization) { @organization }

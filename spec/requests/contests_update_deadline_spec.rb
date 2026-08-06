@@ -36,7 +36,8 @@ RSpec.describe "Admin::Contests#update", type: :request do
 
   context "save failure branch" do
     it "renders admin with alert" do
-      allow_any_instance_of(Contest).to receive(:update).and_return(false)
+      allow(Contest).to receive(:find).with(contest.id.to_s).and_return(contest)
+      allow(contest).to receive(:update).and_return(false)
       patch admin_contest_path(contest), params: { contest: { deadline: 1.week.from_now.iso8601 } }
       expect(response).to redirect_to(admin_contests_path)
       expect(flash[:alert]).to include("Failed to update")
