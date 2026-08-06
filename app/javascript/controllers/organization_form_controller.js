@@ -171,7 +171,7 @@ export default class extends Controller {
         const deleteBtn = document.getElementById('deleteOrgSubmitBtn');
         if (!deleteInput || !deleteBtn) return;
 
-        const orgName = deleteInput.dataset.orgName;
+        const { orgName } = deleteInput.dataset;
         this.listen(deleteInput, 'input', function () {
             deleteBtn.disabled = this.value !== orgName;
         });
