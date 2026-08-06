@@ -19,11 +19,11 @@ class OrganizationsController < ApplicationController
 
     @explore = params[:explore].present?
     @organizations = scope
-      .left_joins(:organization_members)
-      .select("organizations.*, COUNT(organization_members.id) AS members_count")
-      .group("organizations.id")
-      .order(created_at: :desc)
-      .paginate(page: params[:page], per_page: PER_PAGE, total_entries: scope.count)
+                     .left_joins(:organization_members)
+                     .select("organizations.*, COUNT(organization_members.id) AS members_count")
+                     .group("organizations.id")
+                     .order(created_at: :desc)
+                     .paginate(page: params[:page], per_page: PER_PAGE, total_entries: scope.count)
   end
 
   # GET /organizations/1  → redirect to overview tab
