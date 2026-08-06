@@ -7,7 +7,7 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
-      confirmation_mismatch: "Organization name did not match. Deletion cancelled."
+      confirmation_mismatch: "Organization name did not match."
     tabs:
       nav_label: "Organization sections"
       overview: "Overview"
