@@ -189,8 +189,13 @@ RSpec.describe OrganizationsController, type: :controller do
 
       context "when confirmation does not match (JSON)" do
         it "returns an unprocessable_content error" do
-          delete :destroy, params: { id: organization.id, confirmation: "wrong" }, format: :json
+          expect do
+            delete :destroy, params: { id: organization.id, confirmation: "wrong" }, format: :json
+          end.not_to change(Organization, :count)
+
           expect(response).to have_http_status(:unprocessable_content)
+          expect(response.media_type).to eq("application/json")
+          expect(response.parsed_body).to include("error")
         end
       end
     end
