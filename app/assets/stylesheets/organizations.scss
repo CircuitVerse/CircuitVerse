@@ -166,6 +166,17 @@
   object-fit: cover;
 }
 
+.org-dash-group-card--locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: $light-green-bg;
+}
+
+.org-dash-group-card--locked:hover {
+  box-shadow: none;
+  transform: none;
+}
+
 @media (max-width: 600px) {
   .org-dash-logo {
     width: 96px;

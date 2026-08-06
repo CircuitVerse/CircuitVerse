@@ -14,6 +14,7 @@ en:
       settings: "Settings"
     overview:
       groups_heading: "Groups"
+      group_locked: "Members only"
       new_group_button: "New Group"
       logo_alt: "%{organization} logo"
       member_count:
