@@ -102,6 +102,18 @@ RSpec.describe Lti::JwtValidator do
           .to raise_error(described_class::ValidationError, /Missing sub/)
       end
 
+      it "rejects a non-string sub claim" do
+        expect { validate(token(claims("sub" => { "id" => "lms-user-1" }))) }
+          .to raise_error(described_class::ValidationError, /Missing sub/)
+      end
+
+      it "rejects a missing or non-string token" do
+        [nil, 123].each do |bad_token|
+          expect { validate(bad_token) }
+            .to raise_error(described_class::ValidationError, /Missing id_token/)
+        end
+      end
+
       it "rejects a blank expected nonce" do
         expect { validate(nonce: "") }.to raise_error(described_class::ValidationError, /Missing nonce/)
       end

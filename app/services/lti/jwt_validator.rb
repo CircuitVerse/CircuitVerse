@@ -12,20 +12,17 @@ module Lti
 
     class << self
       def validate!(token, deployment:, nonce:)
+        # EncodedToken raises ArgumentError, not a JWT error, on a missing or
+        # non-String token, so reject that here rather than widening the rescue.
+        raise ValidationError, "Missing id_token" unless token.is_a?(String)
+
         encoded_token = JWT::EncodedToken.new(token)
         verify_token!(encoded_token, deployment)
 
         payload = encoded_token.payload
         verify_nonce!(payload, nonce)
         verify_audience!(payload, deployment)
-        raise ValidationError, "Missing sub claim" if payload["sub"].blank?
-
-        payload
-      rescue JWT::DecodeError, ArgumentError => e
-        raise ValidationError, e.message
-        verify_nonce!(payload, nonce)
-        verify_audience!(payload, deployment)
-        raise ValidationError, "Missing sub claim" if payload["sub"].blank?
+        verify_subject!(payload)
 
         payload
       rescue JWT::DecodeError => e
@@ -47,6 +44,13 @@ module Lti
             aud: deployment.client_id,
             exp: { leeway: LEEWAY }
           )
+        end
+
+        # OpenID Core requires sub to be a string identifier, so a structured
+        # value must not be allowed through as the launching user's identity.
+        def verify_subject!(payload)
+          sub = payload["sub"]
+          raise ValidationError, "Missing sub claim" unless sub.is_a?(String) && sub.present?
         end
 
         def verify_nonce!(payload, nonce)
