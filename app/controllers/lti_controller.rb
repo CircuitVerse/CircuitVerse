@@ -97,22 +97,26 @@ class LtiController < ApplicationController
       scope.order(:id).first
     end
 
-    def oidc_authorize_url(deployment, nonce, state)
-      uri = URI(deployment.auth_login_url)
-      uri.query = URI.encode_www_form(
-        scope: "openid",
-        response_type: "id_token",
-        response_mode: "form_post",
-        prompt: "none",
-        client_id: deployment.client_id,
-        redirect_uri: "#{request.base_url}/lti/launch",
-        login_hint: params[:login_hint],
-        lti_message_hint: params[:lti_message_hint],
-        nonce: nonce,
-        state: state
-      )
-      uri.to_s
-    end
+def oidc_authorize_url(deployment, nonce, state)
+  uri = URI(deployment.auth_login_url)
+
+  existing = URI.decode_www_form(uri.query.to_s).to_h
+  query = existing.merge(
+    scope: "openid",
+    response_type: "id_token",
+    response_mode: "form_post",
+    prompt: "none",
+    client_id: deployment.client_id,
+    redirect_uri: "#{request.base_url}/lti/launch",
+    login_hint: params[:login_hint],
+    lti_message_hint: params[:lti_message_hint],
+    nonce: nonce,
+    state: state
+  ).compact
+
+  uri.query = URI.encode_www_form(query)
+  uri.to_s
+end
 
     def lti_state_verifier
       Rails.application.message_verifier(LTI_STATE_PURPOSE)
