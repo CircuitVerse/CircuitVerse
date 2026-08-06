@@ -186,6 +186,7 @@ RSpec.describe OrganizationsController, type: :controller do
           end.not_to change(Organization, :count)
         end
       end
+
       context "when confirmation does not match (JSON)" do
         it "returns an unprocessable_content error" do
           delete :destroy, params: { id: organization.id, confirmation: "wrong" }, format: :json
