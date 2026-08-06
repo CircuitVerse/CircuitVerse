@@ -160,5 +160,24 @@ RSpec.describe OrganizationMembersController, type: :controller do
         expect(response).to have_http_status(:forbidden)
       end
     end
+
+    context "when user is not a member" do
+      let(:non_member_user) { create(:user) }
+
+      before do
+        sign_in non_member_user
+      end
+
+      it "redirects to organizations list for HTML request" do
+        delete :leave, params: { organization_id: organization.id }
+        expect(response).to redirect_to(organizations_path)
+      end
+
+      it "returns unprocessable content JSON error for JSON request" do
+        delete :leave, params: { organization_id: organization.id }, format: :json
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(JSON.parse(response.body)["error"]).to eq(I18n.t("organization_members.leave.not_a_member"))
+      end
+    end
   end
 end
