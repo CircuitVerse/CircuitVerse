@@ -21,6 +21,13 @@ module Lti
         raise ValidationError, "Missing sub claim" if payload["sub"].blank?
 
         payload
+      rescue JWT::DecodeError, ArgumentError => e
+        raise ValidationError, e.message
+        verify_nonce!(payload, nonce)
+        verify_audience!(payload, deployment)
+        raise ValidationError, "Missing sub claim" if payload["sub"].blank?
+
+        payload
       rescue JWT::DecodeError => e
         raise ValidationError, e.message
       end
