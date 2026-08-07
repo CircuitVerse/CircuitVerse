@@ -1,10 +1,60 @@
 <% content_for :title, t("organizations.settings.page_title", organization: @organization.name) %>
-
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "settings", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
-    <div class="org-dash-empty">
-      <i class="fa fa-cog" aria-hidden="true"></i>
-      <p>Settings are coming soon.</p>
+    <div class="org-settings">
+      <%= render(OrganizationFormComponent.new(organization: @organization)) %>
+      <% if policy(@organization).destroy? %>
+        <div class="card border-danger mt-4">
+          <div class="card-body p-4">
+            <div class="border-bottom pb-3 mb-3">
+              <h2 class="h5 fw-semibold text-danger mb-1"><%= t("organizations.settings.danger_heading") %></h2>
+              <p class="text-secondary small mb-0"><%= t("organizations.settings.danger_subheading") %></p>
+            </div>
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div>
+                <strong><%= t("organizations.settings.delete_title") %></strong>
+                <p class="text-secondary small mb-0 org-settings-danger-text">
+                  <%= t("organizations.settings.delete_description") %>
+                </p>
+              </div>
+              <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteOrgModal"
+                      aria-label="<%= t('organizations.settings.delete_btn') %>">
+                <i class="fa fa-trash-alt me-1" aria-hidden="true"></i> <%= t("organizations.settings.delete_btn") %>
+              </button>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
+    <% if policy(@organization).destroy? %>
+      <div class="modal fade" id="deleteOrgModal" tabindex="-1" aria-labelledby="deleteOrgModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header bg-danger-subtle">
+              <h5 class="modal-title text-danger fw-bold" id="deleteOrgModalLabel">
+                <i class="fa fa-exclamation-triangle me-2" aria-hidden="true"></i><%= t("organizations.settings.modal_title") %>
+              </h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t('close') %>"></button>
+            </div>
+            <div class="modal-body p-4">
+              <div class="alert alert-danger py-2 small">
+                <%= t("organizations.settings.modal_warning", organization: @organization.name) %>
+              </div>
+              <p class="small mb-2"><%= t("organizations.settings.modal_confirm_prompt_html", organization: @organization.name) %></p>
+              <%= form_with url: organization_path(@organization), method: :delete, local: true do %>
+                <label class="visually-hidden" for="deleteOrgConfirmInput">
+                  <%= t("organizations.settings.modal_confirm_label") %>
+                </label>
+                <input type="text" id="deleteOrgConfirmInput" name="confirmation" class="form-control mb-3" autocomplete="off"
+                      data-org-name="<%= @organization.name %>">
+                <button type="submit" id="deleteOrgSubmitBtn" class="btn btn-danger w-100" disabled>
+                  <%= t("organizations.settings.modal_confirm_btn") %>
+                </button>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

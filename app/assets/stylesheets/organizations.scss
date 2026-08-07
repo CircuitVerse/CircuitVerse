@@ -235,6 +235,12 @@
 .org-index-card-meta {
   color: $secondary-green;
   font-size: 13px;
+.org-settings {
+  max-width: 720px;
+}
+
+.org-settings-danger-text {
+  max-width: 420px;
 }
 
 @media (max-width: 600px) {
