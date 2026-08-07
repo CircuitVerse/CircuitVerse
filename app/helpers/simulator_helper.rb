@@ -2,7 +2,7 @@
 
 module SimulatorHelper
   def return_image_file(data_url)
-    str = data_url[("data:image/jpeg;base64,".length)..]
+    str = data_url.to_s[("data:image/jpeg;base64,".length)..]
     if str.to_s.empty?
       path = Rails.public_path.join("images/default.png")
       image_file = File.open(path, "rb") # rubocop:disable Style/FileOpen
@@ -16,7 +16,7 @@ module SimulatorHelper
   end
 
   def parse_image_data_url(data_url)
-    str = data_url[("data:image/jpeg;base64,".length)..]
+    str = data_url.to_s[("data:image/jpeg;base64,".length)..]
     if str.to_s.empty?
       image_file = nil
     else
@@ -28,7 +28,17 @@ module SimulatorHelper
   end
 
   def check_to_delete(data_url)
-    !data_url[("data:image/jpeg;base64,".length)..].to_s.empty?
+    !data_url.to_s[("data:image/jpeg;base64,".length)..].to_s.empty?
+  end
+
+  def attach_circuit_preview(project, image_file)
+    return unless image_file
+
+    project.circuit_preview.attach(
+      io: image_file,
+      filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
+      content_type: "image/jpeg"
+    )
   end
 
   def sanitize_data(project, data)
