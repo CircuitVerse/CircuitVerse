@@ -44,12 +44,6 @@ RSpec.describe OrganizationsController, type: :controller do
       get :index
       expect(controller.instance_variable_get(:@organizations)).to include(organization)
     end
-
-    it "assigns public organizations when explore parameter is present" do
-      public_org = create(:organization, private: false)
-      get :index, params: { explore: "true" }
-      expect(controller.instance_variable_get(:@organizations)).to include(public_org)
-    end
   end
 
   describe "GET #show" do

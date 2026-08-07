@@ -6,22 +6,11 @@
       <i class="fa fa-plus" aria-hidden="true"></i> <%= t("organizations.index.create_button") %>
     <% end %>
   </div>
-  <nav aria-label="<%= t('organizations.index.tabs_nav_label') %>">
-    <ul class="nav nav-pills gap-2 flex-wrap mb-4">
-      <li class="nav-item">
-        <%= link_to t("organizations.index.tab_mine"), organizations_path,
-              class: "nav-link #{'active' unless @explore}" %>
-      </li>
-      <li class="nav-item">
-        <%= link_to t("organizations.index.tab_explore"), organizations_path(explore: true),
-              class: "nav-link #{'active' if @explore}" %>
-      </li>
-    </ul>
-  </nav>
+
   <% if @organizations.blank? %>
     <div class="org-index-empty text-center rounded-4 py-5 px-3 text-secondary">
       <p class="m-0 fw-medium">
-        <%= @explore ? t("organizations.index.empty_explore") : t("organizations.index.empty_mine") %>
+        <%= t("organizations.index.empty_mine") %>
       </p>
     </div>
   <% else %>
@@ -40,13 +29,6 @@
               </div>
               <div class="flex-grow-1 min-w-0 d-flex flex-column gap-1">
                 <span class="org-index-card-name fw-semibold"><%= organization.name %></span>
-                <div>
-                  <% if organization.private %>
-                    <span class="badge org-index-badge-private"><i class="fa fa-lock me-1" aria-hidden="true"></i><%= t("organizations.index.badge_private") %></span>
-                  <% else %>
-                    <span class="badge org-index-badge-public"><%= t("organizations.index.badge_public") %></span>
-                  <% end %>
-                </div>
               </div>
             </div>
             <% if organization.description.present? %>
