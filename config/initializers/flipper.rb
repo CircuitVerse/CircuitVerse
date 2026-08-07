@@ -15,7 +15,8 @@ default_flipper_features = {
   contests: false,
   circuit_explore_page: false,
   yosys_local_gem: false,
-  organizations: false
+  organizations: false,
+  lti_advantage: false
 }
 
 Flipper.configure do |config|
