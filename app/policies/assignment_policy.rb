@@ -3,6 +3,16 @@
 class AssignmentPolicy < ApplicationPolicy
   attr_reader :user, :assignment
 
+  class Scope < Scope
+    def resolve
+      if user.admin?
+        scope.all
+      else
+        scope.where(group_id: user.groups.select(:id))
+      end
+    end
+  end
+
   def initialize(user, assignment)
     super
     @user = user
