@@ -7,6 +7,7 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
+      confirmation_mismatch: "Organization name did not match."
     tabs:
       nav_label: "Organization sections"
       overview: "Overview"
@@ -26,6 +27,16 @@ en:
       page_title: "Members - %{organization}"
     settings:
       page_title: "Settings - %{organization}"
+      danger_heading: "Danger Zone"
+      danger_subheading: "Irreversible actions for this organization."
+      delete_title: "Delete this organization"
+      delete_description: "Once you delete an organization, all its member associations will be permanently removed. Any groups inside will become standalone groups. There is no going back."
+      delete_btn: "Delete Organization"
+      modal_title: "Delete Organization"
+      modal_warning: "This action cannot be undone. This will permanently delete the %{organization} organization. Any groups inside will become standalone groups."
+      modal_confirm_prompt_html: "Please type <strong>%{organization}</strong> to confirm."
+      modal_confirm_btn: "I understand the consequences, delete this organization"
+      modal_confirm_label: "Type the organization name to confirm deletion"
     form:
       details_heading: "Organization Details"
       details_subheading: "Basic information about your organization."

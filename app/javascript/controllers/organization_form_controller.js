@@ -9,6 +9,7 @@ export default class extends Controller {
         this.setupCounters();
         this.setupLinks();
         this.setupLogo();
+        this.setupDeleteModal();
     }
 
     disconnect() {
@@ -161,6 +162,25 @@ export default class extends Controller {
                     input.files = e.dataTransfer.files;
                     label.textContent = e.dataTransfer.files[0].name;
                 }
+            });
+        }
+    }
+
+    setupDeleteModal() {
+        const deleteInput = document.getElementById('deleteOrgConfirmInput');
+        const deleteBtn = document.getElementById('deleteOrgSubmitBtn');
+        if (!deleteInput || !deleteBtn) return;
+
+        const { orgName } = deleteInput.dataset;
+        this.listen(deleteInput, 'input', function () {
+            deleteBtn.disabled = this.value !== orgName;
+        });
+
+        const modalEl = document.getElementById('deleteOrgModal');
+        if (modalEl) {
+            this.listen(modalEl, 'show.bs.modal', () => {
+                deleteInput.value = '';
+                deleteBtn.disabled = true;
             });
         }
     }
