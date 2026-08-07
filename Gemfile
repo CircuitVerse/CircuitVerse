@@ -23,7 +23,7 @@ gem "omniauth-microsoft-office365"
 gem 'omniauth-rails_csrf_protection'
 gem "view_component"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem "rails", "~> 8.1.3"
+gem "rails", "~> 8.1.3", ">= 8.1.3.1"
 # Use Puma as the app server
 gem "puma", "~> 8.0.2"
 # Use SCSS for stylesheets
