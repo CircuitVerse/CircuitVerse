@@ -1161,6 +1161,7 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   rubocop-rspec
+  ruby-lsp
   ruby-lsp-refactor (~> 0.1.2)
   sass-rails (~> 6.0)
   sassc-rails
