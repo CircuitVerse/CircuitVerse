@@ -23,6 +23,10 @@ class OrganizationPolicy < ApplicationPolicy
     org_admin? || org_mentor? || user&.admin?
   end
 
+  def destroy?
+    admin_access?
+  end
+
   private
 
     def membership

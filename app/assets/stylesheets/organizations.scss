@@ -166,6 +166,14 @@
   object-fit: cover;
 }
 
+.org-settings {
+  max-width: 720px;
+}
+
+.org-settings-danger-text {
+  max-width: 420px;
+}
+
 @media (max-width: 600px) {
   .org-dash-logo {
     width: 96px;

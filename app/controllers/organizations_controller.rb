@@ -94,6 +94,14 @@ class OrganizationsController < ApplicationController
 
   # DELETE /organizations/1
   def destroy
+    if params[:confirmation] != @organization.name
+      respond_to do |format|
+        format.html { redirect_to settings_organization_path(@organization), alert: t(".confirmation_mismatch") }
+        format.json { render json: { error: t(".confirmation_mismatch") }, status: :unprocessable_content }
+      end
+      return
+    end
+
     @organization.destroy
     respond_to do |format|
       format.html { redirect_to organizations_path, notice: t(".success") }
