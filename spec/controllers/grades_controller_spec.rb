@@ -50,6 +50,20 @@ describe GradesController, type: :request do
           expect(response.parsed_body["error"]).to eq("Grade is invalid")
         end
       end
+
+      context "when LTI integration is enabled" do
+        before do
+          Flipper.enable(:lms_integration)
+          @assignment_project.update!(lis_result_sourced_id: "sourced_id_123")
+        end
+
+        it "does not submit LTI score for letter grading scale" do
+          expect(LtiScoreSubmission).not_to receive(:new)
+
+          post grades_path, params: create_params,
+                            session: { is_lti: true, lis_outcome_service_url: "http://example.com/outcome" }
+        end
+      end
     end
 
     context "when a mentor is singed in" do
