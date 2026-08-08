@@ -11,7 +11,6 @@ gem "aws-sdk-rails"
 gem "aws-actionmailer-ses"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
-gem "kt-paperclip"
 gem "language_filter"
 gem "mailkick", "~> 0.4.3"
 gem "omniauth"
@@ -191,10 +190,10 @@ gem "stimulus-rails", "~> 1.0"
 gem "noticed", "~> 1.6"
 
 # ActiveStorage AWS S3 + Variant Processing
-gem "aws-sdk-s3", "~> 1.227"
+gem "aws-sdk-s3", "~> 1.228"
 gem "image_processing", "~> 1.12"
 # Distributed Tracing OTEL ruby
-gem "opentelemetry-sdk", "~> 1.12"
+gem "opentelemetry-sdk", "~> 1.13"
 gem "opentelemetry-exporter-otlp", "~> 0.34.1"
 gem "opentelemetry-instrumentation-active_job"
 gem "opentelemetry-instrumentation-active_model_serializers"

@@ -13,6 +13,7 @@ import ProjectsController from './projects_controller';
 import SearchBarController from './search_bar_controller';
 import SearchSortingController from './search_sorting_controller';
 import SearchFiltersController from './search_filters_controller';
+import OrganizationFormController from "./organization_form_controller";
 
 application.register('assignment', AssignmentController);
 application.register('contest', ContestController);
@@ -23,3 +24,4 @@ application.register('projects', ProjectsController);
 application.register('search-bar', SearchBarController);
 application.register('search-sorting', SearchSortingController);
 application.register('search-filters', SearchFiltersController);
+application.register("organization-form", OrganizationFormController);
