@@ -3,4 +3,66 @@
     margin-right: auto;
     margin-left: 0;
   }
+
+  .navbar-brand {
+    margin-right: initial;
+    margin-left: 16px;
+  }
+
+  .sorting-buttons button:first-child {
+    border-right: 0;
+    border-left: 1px solid #d5d5d5;
+  }
+
+  .text-start,
+  .text-lg-start {
+    text-align: right !important;
+  }
+
+  .ms-2 {
+    margin: initial !important;
+    margin-inline-start: 0.5rem !important;
+  }
+
+  .me-1 {
+    margin: initial !important;
+    margin-inline-end: 0.25rem !important;
+  }
+
+  .users-circuits-navbar input {
+    padding: 7px 35px 10px 7px;
+  }
+
+  .users-details-container > .row,
+  .projects-views-count-container {
+    flex-direction: row-reverse;
+  }
+
+  .groups-form-text-container,
+  .search-userdetails-container {
+    text-align: initial;
+  }
+
+  .users-user-name {
+    text-align: initial;
+  }
+
+  .dropdown-item {
+    text-align: initial;
+  }
+
+  .form-container {
+    text-align: initial;
+  }
+
+  .primary-checkpoint-container {
+    display: inline-flex;
+    flex-direction: row-reverse;
+    align-items: end;
+  }
+
+  .users-edit-primary-button {
+    margin-right: auto;
+    margin-left: 15px;
+  }
 }
