@@ -175,66 +175,163 @@
   transform: none;
 }
 
+.org-index-header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  text-align: center;
+
+  .org-index-header-title {
+    color: $secondary-green;
+    font-size: 40px;
+    font-weight: 700;
+  }
+
+  .org-index-header-description {
+    width: 60%;
+    color: var(--bs-gray-700);
+  }
+
+  .org-index-header-action {
+    margin-top: 0.5rem;
+  }
+}
+
+.org-index-page-line {
+  border-bottom: 1px solid var(--bs-gray-300);
+  margin-top: 1rem;
+}
+
+.org-index-list-wrapper {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.org-index-card-link {
+  display: block;
+  height: 100%;
+}
+
 .org-index-card {
-  height: 220px;
-  overflow: hidden;
-  color: var(--bs-gray-900);
-  background: $light-green-bg;
+  background: $white;
   border: 1px solid $primary-green;
-  transition: transform 0.15s, box-shadow 0.15s;
+  border-radius: 10px;
+  cursor: pointer;
+  min-height: 315px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: 0.2s ease-in-out;
+  width: 100%;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
 }
 
-.org-index-card:hover {
-  color: var(--bs-gray-900);
-  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
-  transform: translateY(-3px);
-  text-decoration: none;
-}
+.org-index-card-banner {
+  position: relative;
+  width: 100%;
+  height: 110px;
+  flex-shrink: 0;
+  border-bottom: 2px solid $primary-green;
 
-.org-index-card:focus-visible {
-  outline: 2px solid $primary-green;
-  outline-offset: 2px;
-  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
-  transform: translateY(-3px);
+  .org-index-card-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 }
 
 .org-index-card-logo {
-  width: 64px;
-  height: 64px;
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 66px;
+  height: 66px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: $white;
+  border: 2px solid $primary-green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .org-index-card-logo-img {
+    width: 120%;
+    height: 120%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .org-index-card-logo-fallback {
+    font-size: 28px;
+    font-weight: 700;
+    color: $primary-green;
+  }
 }
 
-.org-index-card-logo-fallback {
-  font-size: 1.6rem;
-  color: $primary-green;
+.org-index-card-details {
+  background: $white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 15px;
+  padding-top: 46px;
+  gap: 8px;
+  flex-grow: 1;
 }
 
 .org-index-card-name {
-  min-width: 0;
-  color: $secondary-green;
-  font-size: 16px;
-  line-height: 1.3;
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+  margin-bottom: 0;
 
-.org-index-card-desc {
-  overflow-wrap: anywhere;
-  word-break: break-word;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  .org-index-card-name-link {
+    color: $black;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
 }
 
 .org-index-card-meta {
-  color: $secondary-green;
-  font-size: 13px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 400;
+  color: $black;
+  line-height: 1.6;
+
+  .org-index-card-meta-text {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  i {
+    color: $primary-green;
+    font-size: 16px;
+    margin-right: 6px;
+  }
+}
+
+.org-index-card-description {
+  color: var(--bs-gray-600);
+  font-size: 14px;
+  font-weight: 400;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
 }
 
 .org-settings {

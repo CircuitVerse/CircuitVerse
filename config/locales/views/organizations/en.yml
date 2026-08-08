@@ -10,6 +10,7 @@ en:
     index:
       page_title: "Organizations"
       heading: "Organizations"
+      subtitle: "Manage your groups, mentors, and students all in one place."
       create_button: "Create Organization"
       empty_mine: "You're not part of any organizations yet. Create one to get started."
       logo_alt: "%{organization} logo"  

@@ -31,11 +31,6 @@
               <a class="nav-link navbar-item navbar-text <%= request.path == "/contests" ? "active" : "" %>" href="/contests"><%= t("layout.link_to_contests") %></a>
             </li>
           <% end %>
-          <% if user_signed_in? && Flipper.enabled?(:organizations, current_user) %>
-            <li class="nav-item">
-              <a class="nav-link navbar-item navbar-text <%= request.path.start_with?("/organizations") ? "active" : "" %>" href="<%= organizations_path %>"><%= t("layout.link_to_organizations") %></a>
-            </li>
-          <% end %>
           <li class="nav-item dropdown">
             <button id="getting-started-dropdown"
               class="nav-link dropdown-toggle navbar-item navbar-text"
@@ -80,6 +75,9 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-2">
                 <a class="dropdown-item" href="<%= user_path(current_user) %>"><%= t("layout.header.dashboard") %></a>
+                <% if Flipper.enabled?(:organizations, current_user) %>
+                  <a class="dropdown-item" href="<%= organizations_path %>"><%= t("layout.header.organizations") %></a>
+                <% end %>
                 <a class="dropdown-item" href="<%= user_groups_path(current_user) %>"><%= t("layout.header.my_groups") %></a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" rel="nofollow" data-method="delete" href="<%= destroy_user_session_path %>"><%= t("sign_out") %></a>

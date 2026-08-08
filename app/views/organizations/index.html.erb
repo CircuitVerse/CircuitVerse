@@ -1,57 +1,64 @@
 <% content_for :title, t("organizations.index.page_title") %>
-<div class="org-index-page container py-4">
-  <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-4">
-    <h1 class="org-index-title fw-bold m-0"><%= t("organizations.index.heading") %></h1>
-    <%= link_to new_organization_path, class: "btn primary-button d-inline-flex align-items-center gap-1" do %>
-      <i class="fa fa-plus" aria-hidden="true"></i> <%= t("organizations.index.create_button") %>
-    <% end %>
-  </div>
-
-  <% if @organizations.blank? %>
-    <div class="org-index-empty text-center rounded-4 py-5 px-3 text-secondary">
-      <p class="m-0 fw-medium">
-        <%= t("organizations.index.empty_mine") %>
-      </p>
-    </div>
-  <% else %>
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-      <% @organizations.each do |organization| %>
-        <div class="col">
-          <%= link_to overview_organization_path(organization),
-                class: "org-index-card d-flex flex-column text-decoration-none rounded-4 p-3" do %>
-            <div class="d-flex align-items-center gap-3 mb-3">
-              <div class="org-index-card-logo d-flex align-items-center justify-content-center flex-shrink-0 overflow-hidden rounded-3 border bg-light">
-                <% if organization.logo.attached? %>
-                  <%= image_tag organization.logo, alt: t("organizations.index.logo_alt", organization: organization.name), class: "w-100 h-100 object-fit-cover" %>
-                <% else %>
-                  <span class="org-index-card-logo-fallback fw-bold"><%= organization.name.first.upcase %></span>
-                <% end %>
-              </div>
-              <div class="flex-grow-1 min-w-0 d-flex flex-column gap-1">
-                <span class="org-index-card-name fw-semibold"><%= organization.name %></span>
-              </div>
-            </div>
-            <% if organization.description.present? %>
-              <p class="org-index-card-desc text-secondary small mb-2"><%= truncate(organization.description, length: 100) %></p>
-            <% end %>
-            <div class="org-index-card-meta d-flex flex-column gap-1 mt-auto">
-              <% if organization.location.present? %>
-                <span class="d-inline-flex align-items-center gap-1">
-                  <i class="fa fa-map-marker-alt" aria-hidden="true"></i>
-                  <span class="text-truncate"><%= organization.location %></span>
-                </span>
-              <% end %>
-              <span class="d-inline-flex align-items-center gap-1">
-                <i class="fa fa-user" aria-hidden="true"></i>
-                <%= t("organizations.index.member_count", count: organization.members_count) %>
-              </span>
-            </div>
-          <% end %>
-        </div>
+<div class="container org-index">
+  <div class="column org-index-header">
+    <h2 class="org-index-header-title"><%= t("organizations.index.heading") %></h2>
+    <p class="org-index-header-description"><%= t("organizations.index.subtitle") %></p>
+    <div class="org-index-header-action">
+      <%= link_to new_organization_path, class: "btn primary-button d-inline-flex align-items-center gap-1" do %>
+        <i class="fa fa-plus" aria-hidden="true"></i> <%= t("organizations.index.create_button") %>
       <% end %>
     </div>
-
-    <div class="org-index-pagination mt-4">
+  </div>
+  <div class="org-index-page-line"></div>
+  <% if @organizations.blank? %>
+    <%= render "shared/no_results", message: t("organizations.index.empty_mine") %>
+  <% else %>
+    <div class="org-index-list-wrapper">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <% @organizations.each do |organization| %>
+          <div class="col">
+            <%= link_to overview_organization_path(organization),
+                        class: "text-decoration-none org-index-card-link" do %>
+              <div class="org-index-card h-100">
+                <div class="org-index-card-banner">
+                  <%= image_tag "organization_banner.png", alt: "", class: "org-index-card-banner-img" %>
+                  <div class="org-index-card-logo">
+                    <% if organization.logo.attached? %>
+                      <%= image_tag organization.logo, alt: t("organizations.index.logo_alt", organization: organization.name), class: "org-index-card-logo-img" %>
+                    <% else %>
+                      <span class="org-index-card-logo-fallback"><%= organization.name.first.upcase %></span>
+                    <% end %>
+                  </div>
+                </div>
+                <div class="org-index-card-details">
+                  <div class="org-index-card-name">
+                    <span class="org-index-card-name-link"><%= organization.name %></span>
+                  </div>
+                  <div class="org-index-card-meta">
+                    <span class="org-index-card-meta-text">
+                      <i class="fa fa-user" aria-hidden="true"></i><%= t("organizations.index.member_count", count: organization.members_count) %>
+                    </span>
+                  </div>
+                  <% if organization.location.present? %>
+                    <div class="org-index-card-meta">
+                      <span class="org-index-card-meta-text">
+                        <i class="fa fa-map-marker-alt" aria-hidden="true"></i><%= organization.location %>
+                      </span>
+                    </div>
+                  <% end %>
+                  <% if organization.description.present? %>
+                    <div class="org-index-card-description">
+                      <span><%= truncate(organization.description, length: 100) %></span>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    <div class="container pagination-cont">
       <%= will_paginate @organizations, renderer: PaginateRenderer %>
     </div>
   <% end %>
