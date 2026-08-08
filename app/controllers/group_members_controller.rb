@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class GroupMembersController < ApplicationController
+  include OrganizationScopedRedirect
+
   before_action :set_group_member, only: %i[update destroy]
   before_action :check_access, only: %i[update destroy]
   before_action :authenticate_user!
@@ -58,7 +60,7 @@ class GroupMembersController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to group_path(@group), notice: notice
+        redirect_to group_redirect_path(@group), notice: notice
       end
     end
     # redirect_to group_path(@group)
@@ -82,7 +84,7 @@ class GroupMembersController < ApplicationController
     @group_member.update(group_member_update_params)
     respond_to do |format|
       format.html do
-        redirect_to group_path(@group_member.group),
+        redirect_to group_redirect_path(@group_member.group),
                     notice: "Group member was successfully updated."
       end
       format.json { head :no_content }
@@ -95,7 +97,7 @@ class GroupMembersController < ApplicationController
     @group_member.destroy
     respond_to do |format|
       format.html do
-        redirect_to group_path(@group_member.group),
+        redirect_to group_redirect_path(@group_member.group),
                     notice: "Group member was successfully removed."
       end
       format.json { head :no_content }

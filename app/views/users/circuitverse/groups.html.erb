@@ -31,11 +31,11 @@
               <p><%= t("users.circuitverse.groups.total_members", group_member_count: group.group_member_count) %> </p>
             </div>
             <div class="groups-mentor-card-mini-buttons">
-              <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button" do %>
+              <%= link_to (group.organization ? organization_group_path(group.organization, group) : group), class: "mini-button groups-mentor-card-view-mini-button" do %>
                 <%= image_tag("svgs/viewGroup.svg", alt: "View Group") %>
                 <span><%= t("view") %></span>
               <% end %>
-              <%= link_to edit_group_path(group), class: "mini-button groups-mentor-card-edit-mini-button" do %>
+              <%= link_to (group.organization ? edit_organization_group_path(group.organization, group) : edit_group_path(group)), class: "mini-button groups-mentor-card-edit-mini-button" do %>
                 <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
                 <span><%= t("edit") %></span>
               <% end %>
@@ -50,10 +50,10 @@
     </div>
   <% end %>
   <br>
-  <% if @user.groups.count!=0 %>
+  <% if @groups_member.present? %>
     <h4 class="submain-heading"><%= t("users.circuitverse.groups.groups_user_belong_to") %></h4>
     <div class="row center-row">
-      <% @user.groups.each do |group| %>
+      <% @groups_member.each do |group| %>
         <div class="col-12 col-sm-12 col-md-6 col-lg-4">
           <div class="groups-card groups-member-card">
             <div class="groups-member-card-details">
@@ -61,7 +61,7 @@
               <p><%= t("users.circuitverse.groups.total_members", group_member_count: group.group_members.count) %></p>
             </div>
             <div class="groups-mentor-card-buttons">
-              <%= link_to group, class: "mini-button groups-mentor-card-view-mini-button groups-member-card-button" do %>
+              <%= link_to (group.organization ? organization_group_path(group.organization, group) : group), class: "mini-button groups-mentor-card-view-mini-button groups-member-card-button" do %>
                 <%= image_tag("svgs/viewGroup.svg", alt: "View Group") %>
                 <span><%= t("view") %></span>
               <% end %>

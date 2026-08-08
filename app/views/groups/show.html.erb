@@ -9,6 +9,16 @@
     </div>
   </div>
   <% end %>
+  <% if organization_scoped_group?(@group) %>
+    <div class="row">
+      <div class="col">
+        <%= link_to overview_organization_path(@group.organization), class: "d-inline-flex align-items-center gap-2 text-decoration-none mb-3 fw-semibold fs-5 org-back-link" do %>
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          <%= t("groups.show.back_to_organization", organization: @group.organization.name) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
   <div class="row center-row">
     <div class="col col-sm col-md col-lg">
       <h1 class="submain-heading">
@@ -17,7 +27,7 @@
           <span class="tooltiptext"><%= @group.name %></span>
         </p>
         <% if policy(@group).admin_access? %>
-          <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
+          <%= link_to (organization_scoped_group?(@group) ? edit_organization_group_path(@group.organization, @group) : edit_group_path(@group)), class: "btn primary-button groups-editname-primary-button" do %>
             <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
             <span><%= t("groups.show.edit_name_btn") %></span>
           <% end %>

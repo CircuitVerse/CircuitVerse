@@ -144,6 +144,59 @@ describe GroupsController, type: :request do
     end
   end
 
+  describe "#invite for organization-owned groups" do
+    before do
+      @organization = FactoryBot.create(:organization)
+      @org_group = FactoryBot.create(:group, name: "org group",
+                                             primary_mentor: @primary_mentor,
+                                             organization: @organization)
+      @org_group.update(token_expires_at: 12.days.from_now)
+    end
+
+    context "when a user joins an organization-owned group" do
+      it "adds the user to the organization as a member" do
+        sign_in @user
+        expect do
+          get invite_group_path(id: @org_group.id, token: @org_group.group_token)
+        end.to change { @organization.organization_members.where(user: @user).count }.by(1)
+        expect(@organization.organization_members.find_by(user: @user).role).to eq("member")
+      end
+
+      it "does not downgrade an existing admin who joins a group" do
+        FactoryBot.create(:organization_member, organization: @organization, user: @user, role: :admin)
+        sign_in @user
+        get invite_group_path(id: @org_group.id, token: @org_group.group_token)
+        expect(@organization.organization_members.find_by(user: @user).role).to eq("admin")
+        expect(@organization.organization_members.where(user: @user).count).to eq(1)
+      end
+
+      it "does not downgrade an existing mentor who joins a group" do
+        FactoryBot.create(:organization_member, organization: @organization, user: @user, role: :mentor)
+        sign_in @user
+        get invite_group_path(id: @org_group.id, token: @org_group.group_token)
+        expect(@organization.organization_members.find_by(user: @user).role).to eq("mentor")
+        expect(@organization.organization_members.where(user: @user).count).to eq(1)
+      end
+
+      it "adds the user via the org-scoped invite URL" do
+        sign_in @user
+        expect do
+          get invite_organization_group_path(@organization, @org_group, token: @org_group.group_token)
+        end.to change { @organization.organization_members.where(user: @user).count }.by(1)
+      end
+    end
+
+    context "when a user joins a standalone group" do
+      it "does not create an organization membership" do
+        @group.update(token_expires_at: 12.days.from_now)
+        sign_in @user
+        expect do
+          get invite_group_path(id: @group.id, token: @group.group_token)
+        end.not_to change(OrganizationMember, :count)
+      end
+    end
+  end
+
   describe "#generate_token" do
     before do
       @group.update(token_expires_at: 1.day.ago, group_token: nil)
