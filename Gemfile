@@ -218,7 +218,7 @@ gem "maintenance_tasks", "~> 2.17"
 gem "stackprof"
 gem "sentry-ruby"
 gem "sentry-rails"
-gem "sentry-sidekiq", "~> 5.17"
+gem "sentry-sidekiq", "~> 6.6"
 
 # for SAML based SSO
 gem 'devise_saml_authenticatable'
