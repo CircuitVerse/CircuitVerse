@@ -123,7 +123,7 @@ gem 'vite_rails'
 group :development, :test do
   # Adds support for debug
   gem "debug"
-  gem "coveralls_reborn", "~> 0.29.1", require: false
+  gem "coveralls_reborn", "~> 1.0.0", require: false
   gem "erb_lint", require: false
   gem "factory_bot_rails"
   gem "faker"
