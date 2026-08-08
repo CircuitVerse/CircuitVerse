@@ -83,6 +83,30 @@ describe OrganizationMemberPolicy do
     it { is_expected.not_to permit(:destroy) }
   end
 
+  context "when a site admin demotes a sole org admin" do
+    let(:user) { FactoryBot.create(:user, admin: true) }
+    let(:organization_member) { @admin_membership }
+
+    it { is_expected.to permit(:update) }
+    it { is_expected.to permit(:destroy) }
+  end
+
+  context "when the member is a primary mentor of a group" do
+    before do
+      @mentor = FactoryBot.create(:user)
+      @mentor_membership = FactoryBot.create(:organization_member, organization: @organization,
+                                                                   user: @mentor, role: :mentor)
+      FactoryBot.create(:group, primary_mentor: @mentor, organization: @organization)
+    end
+
+    let(:user) { @admin }
+    let(:organization_member) { @mentor_membership }
+
+    it "does not permit destroy (would orphan the group)" do
+      expect(subject).not_to permit(:destroy)
+    end
+  end
+
   context "when there are multiple admins and one demotes the other" do
     before do
       @second_admin = FactoryBot.create(:user)
