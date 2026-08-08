@@ -2,7 +2,7 @@
 
 class OrganizationGroupPolicy < ApplicationPolicy
   def manage?
-    org_admin? || assigned_mentor? || user.admin?
+    org_admin? || primary_mentor? || user.admin?
   end
 
   def view?
@@ -19,6 +19,10 @@ class OrganizationGroupPolicy < ApplicationPolicy
 
     def org_admin?
       org_membership&.role == "admin"
+    end
+
+    def primary_mentor?
+      record.primary_mentor_id == user.id
     end
 
     def assigned_mentor?

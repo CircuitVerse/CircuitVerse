@@ -84,45 +84,20 @@
   font-size: 25px;
 }
 
-.org-dash-group-card {
-  min-height: 150px;
-  color: var(--bs-gray-900);
-  background: $light-green-bg;
-  border: 1px solid $primary-green;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-
-.org-dash-group-card:hover {
-  color: var(--bs-gray-900);
-  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
-  transform: translateY(-3px);
-  text-decoration: none;
-}
-
-.org-dash-group-card:focus-visible {
-  outline: 2px solid $primary-green;
-  outline-offset: 2px;
-  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
-  transform: translateY(-3px);
-}
-
-.org-dash-group-name {
-  color: $secondary-green;
-  font-size: 17px;
-  overflow-wrap: break-word;
-}
-
-.org-dash-group-meta {
-  color: $secondary-green;
-  font-size: 13px;
-}
-
 .org-dash-empty {
   border: 1px dashed var(--bs-gray-400);
 }
 
 .org-dash-empty i {
   font-size: 36px;
+}
+
+.org-back-link {
+  color: $primary-green;
+}
+
+.org-back-link:hover {
+  color: $primary-green;
 }
 
 .org-new {
