@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+# Kamal 2.0 — Pre-deploy Hook
+# ============================
+# Runs before deploying containers. Use this for final validation checks.
+# A non-zero exit code will abort the deployment.
+#
+# Available KAMAL_* environment variables:
+#   KAMAL_RECORDED_AT, KAMAL_PERFORMER, KAMAL_SERVICE, KAMAL_VERSION,
+#   KAMAL_SERVICE_VERSION, KAMAL_HOSTS, KAMAL_COMMAND, KAMAL_DESTINATION, KAMAL_ROLE
+
+set -e
+
+echo "[pre-deploy] Starting pre-deploy checks for ${KAMAL_SERVICE_VERSION}..."
+
+# --- Check 1: Ensure the git working directory is clean ---
+if [ -n "$(git status --porcelain)" ]; then
+  echo "[pre-deploy] ERROR: Git working directory is not clean."
+  echo "[pre-deploy] Please commit or stash your changes before deploying."
+  exit 1
+fi
+
+# --- Check 2: Verify deployment branch (default: master) ---
+DEPLOY_BRANCH="${DEPLOY_BRANCH:-master}"
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+if [ "$CURRENT_BRANCH" != "$DEPLOY_BRANCH" ]; then
+  echo "[pre-deploy] WARNING: Deploying from branch '${CURRENT_BRANCH}' (expected '${DEPLOY_BRANCH}')."
+  # Uncomment the following lines to enforce branch restriction:
+  # echo "[pre-deploy] ERROR: Deployment only allowed from '${DEPLOY_BRANCH}' branch."
+  # exit 1
+fi
+
+# --- Check 3: Verify the Docker image version matches the git SHA ---
+EXPECTED_VERSION=$(git rev-parse HEAD)
+if [ -n "$KAMAL_VERSION" ] && [ "$KAMAL_VERSION" != "$EXPECTED_VERSION" ]; then
+  echo "[pre-deploy] WARNING: KAMAL_VERSION (${KAMAL_VERSION}) differs from current HEAD (${EXPECTED_VERSION})."
+fi
+
+echo "[pre-deploy] All pre-deploy checks passed."
+echo "[pre-deploy] Deploying ${KAMAL_SERVICE_VERSION} to ${KAMAL_HOSTS}"
+echo "[pre-deploy] Performer: ${KAMAL_PERFORMER}"
+echo "[pre-deploy] Timestamp: ${KAMAL_RECORDED_AT}"
