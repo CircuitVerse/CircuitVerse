@@ -1,4 +1,5 @@
 <% content_for :title, @group.name %>
+<% can_manage = @group.organization ? OrganizationGroupPolicy.new(current_user, @group).manage? : policy(@group).admin_access? %>
 
 <div class="container" data-controller="groups">
   <% if notice %>
@@ -26,7 +27,7 @@
           <%= @group.name %>
           <span class="tooltiptext"><%= @group.name %></span>
         </p>
-        <% if policy(@group).admin_access? %>
+        <% if can_manage %>
           <%= link_to (organization_scoped_group?(@group) ? edit_organization_group_path(@group.organization, @group) : edit_group_path(@group)), class: "btn primary-button groups-editname-primary-button" do %>
             <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
             <span><%= t("groups.show.edit_name_btn") %></span>
@@ -42,7 +43,7 @@
   <!-- Mentor Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
   <h3 class="mb-0"><%= t("groups.show.mentor_name_heading") %></h3>
-  <% if policy(@group).admin_access? %>
+  <% if can_manage %>
     <button type="button" class="btn primary-button groups-primary-button"
       data-bs-toggle="modal"
       data-bs-target="#add-mentor-to-modal"
@@ -62,7 +63,7 @@
 <!-- Members Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
   <h3 class="mb-0"><%= t("groups.show.group_members_heading") %></h3>
-  <% if policy(@group).admin_access? %>
+  <% if can_manage %>
     <button type="button" class="btn primary-button groups-primary-button"
       data-bs-toggle="modal"
       data-bs-target="#addmemberModal"

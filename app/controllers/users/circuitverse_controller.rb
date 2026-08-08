@@ -4,6 +4,7 @@ class Users::CircuitverseController < ApplicationController
   TYPEAHEAD_INSTITUTE_LIMIT = 50
 
   include UsersCircuitverseHelper
+  include OrganizationScopedRedirect
 
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
