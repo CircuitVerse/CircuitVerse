@@ -10,7 +10,7 @@ class LtiController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
-  before_action :verify_lti_advantage_enabled, only: %i[oidc_login]
+  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config oidc_login]
   after_action :allow_iframe_lti, only: %i[launch]
 
   # Step 1 of the LTI 1.3 handshake; the launch verifies the nonce and state.
@@ -26,8 +26,7 @@ class LtiController < ApplicationController
     )
 
     redirect_to oidc_authorize_url(deployment, nonce, state), allow_other_host: true
-  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config]
-  after_action :allow_iframe_lti, only: %i[launch]
+  end
 
   def jwks
     render json: { keys: [Lti::KeyManager.public_jwk] }

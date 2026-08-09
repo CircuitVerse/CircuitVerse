@@ -146,6 +146,45 @@ describe LtiController, type: :request do
                   :group, :assignment, :group
   end
 
+  describe "LTI 1.3 tool registration endpoints" do
+    context "when the lti_advantage flag is disabled" do
+      it "returns not found for the jwks endpoint" do
+        get "/lti/jwks"
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns not found for the tool config endpoint" do
+        get "/lti/tool_config"
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context "when the lti_advantage flag is enabled" do
+      before { Flipper.enable(:lti_advantage) }
+
+      after { Flipper.disable(:lti_advantage) }
+
+      it "serves the tool's public key set" do
+        get "/lti/jwks"
+        expect(response).to have_http_status(:ok)
+        key = response.parsed_body["keys"].sole
+        expect(key).to include("kty" => "RSA", "use" => "sig", "alg" => "RS256")
+        expect(key["kid"]).to be_present
+        expect(key).not_to have_key("d")
+      end
+
+      it "serves the tool configuration for platform registration" do
+        get "/lti/tool_config"
+        expect(response).to have_http_status(:ok)
+        config = response.parsed_body
+        expect(config["oidc_initiation_url"]).to eq("#{request.base_url}/lti/login")
+        expect(config["target_link_uri"]).to eq("#{request.base_url}/lti/launch")
+        expect(config["public_jwk_url"]).to eq("#{request.base_url}/lti/jwks")
+        expect(config["scopes"]).to include("https://purl.imsglobal.org/spec/lti-ags/scope/score")
+      end
+    end
+  end
+
   describe "LTI 1.3 OIDC login initiation" do
     include ActiveSupport::Testing::TimeHelpers
 
@@ -163,15 +202,6 @@ describe LtiController, type: :request do
     context "when the lti_advantage flag is disabled" do
       it "returns not found" do
         get "/lti/login", params: login_params
-  describe "LTI 1.3 tool registration endpoints" do
-    context "when the lti_advantage flag is disabled" do
-      it "returns not found for the jwks endpoint" do
-        get "/lti/jwks"
-        expect(response).to have_http_status(:not_found)
-      end
-
-      it "returns not found for the tool config endpoint" do
-        get "/lti/tool_config"
         expect(response).to have_http_status(:not_found)
       end
     end
@@ -337,24 +367,6 @@ describe LtiController, type: :request do
       yield
     ensure
       ActionController::Base.allow_forgery_protection = original
-      it "serves the tool's public key set" do
-        get "/lti/jwks"
-        expect(response).to have_http_status(:ok)
-        key = response.parsed_body["keys"].sole
-        expect(key).to include("kty" => "RSA", "use" => "sig", "alg" => "RS256")
-        expect(key["kid"]).to be_present
-        expect(key).not_to have_key("d")
-      end
-
-      it "serves the tool configuration for platform registration" do
-        get "/lti/tool_config"
-        expect(response).to have_http_status(:ok)
-        config = response.parsed_body
-        expect(config["oidc_initiation_url"]).to eq("#{request.base_url}/lti/login")
-        expect(config["target_link_uri"]).to eq("#{request.base_url}/lti/launch")
-        expect(config["public_jwk_url"]).to eq("#{request.base_url}/lti/jwks")
-        expect(config["scopes"]).to include("https://purl.imsglobal.org/spec/lti-ags/scope/score")
-      end
     end
   end
 end
