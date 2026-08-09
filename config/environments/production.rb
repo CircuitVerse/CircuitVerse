@@ -95,8 +95,7 @@ Rails.application.configure do
   # CSRF origin check (preserved from Rails 7)
   config.action_controller.forgery_protection_origin_check = false
 
-  # Paperclip configuration (if still using - consider migrating to Active Storage)
-  Paperclip.options[:command_path] = "/usr/bin/" if defined?(Paperclip)
+ 
 
   # Enable locale fallbacks for I18n
   config.i18n.fallbacks = true

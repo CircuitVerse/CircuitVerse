@@ -26,6 +26,15 @@ class LtiController < ApplicationController
     )
 
     redirect_to oidc_authorize_url(deployment, nonce, state), allow_other_host: true
+  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config]
+  after_action :allow_iframe_lti, only: %i[launch]
+
+  def jwks
+    render json: { keys: [Lti::KeyManager.public_jwk] }
+  end
+
+  def tool_config
+    render json: tool_configuration
   end
 
   def launch
@@ -148,6 +157,40 @@ class LtiController < ApplicationController
 
     def lti_state_verifier
       Rails.application.message_verifier(LTI_STATE_PURPOSE)
+    end
+
+    def tool_configuration
+      {
+        title: "CircuitVerse",
+        description: "Build and simulate digital logic circuits",
+        oidc_initiation_url: "#{request.base_url}/lti/login",
+        target_link_uri: "#{request.base_url}/lti/launch",
+        public_jwk_url: "#{request.base_url}/lti/jwks",
+        scopes: [
+          "https://purl.imsglobal.org/spec/lti-ags/scope/lineitem",
+          "https://purl.imsglobal.org/spec/lti-ags/scope/score",
+          "https://purl.imsglobal.org/spec/lti-nrps/scope/contextmembership.readonly"
+        ],
+        extensions: [
+          {
+            platform: "canvas.instructure.com",
+            settings: {
+              placements: [
+                {
+                  placement: "course_navigation",
+                  message_type: "LtiResourceLinkRequest",
+                  target_link_uri: "#{request.base_url}/lti/launch"
+                },
+                {
+                  placement: "assignment_selection",
+                  message_type: "LtiDeepLinkingRequest",
+                  target_link_uri: "#{request.base_url}/lti/launch"
+                }
+              ]
+            }
+          }
+        ]
+      }
     end
 
     def set_group_and_assignment

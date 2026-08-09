@@ -50,6 +50,7 @@
 .org-dash-info-desc {
   max-width: 640px;
   font-size: 15px;
+  overflow-wrap: break-word;
 }
 
 .org-dash-social {
@@ -122,6 +123,55 @@
 
 .org-dash-empty i {
   font-size: 36px;
+}
+
+.org-new {
+  max-width: 720px;
+}
+
+.org-form-icon {
+  color: $primary-green;
+}
+
+.org-upload-zone {
+  border: 2px dashed var(--bs-gray-400);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.org-upload-zone:hover,
+.org-upload-zone--active,
+.org-upload-zone:focus-visible {
+  border-color: $primary-green;
+  background-color: $light-green-bg;
+}
+
+.org-upload-zone:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+}
+
+.org-upload-zone__icon {
+  font-size: 28px;
+  color: $primary-green;
+  margin-bottom: 8px;
+}
+
+.org-settings-logo-preview {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.org-settings {
+  max-width: 720px;
+}
+
+.org-settings-danger-text {
+  max-width: 420px;
 }
 
 @media (max-width: 600px) {
