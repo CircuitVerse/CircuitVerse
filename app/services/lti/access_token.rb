@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 module Lti
-  # Exchanges a signed client assertion for a platform access token, as required
-  # before calling any LTI Advantage service. The signing key is passed in so the
-  # service stays independent of how the tool stores its key.
+
   class AccessToken
     ASSERTION_TYPE = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
     ASSERTION_TTL = 300
