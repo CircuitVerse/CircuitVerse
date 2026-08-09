@@ -111,7 +111,11 @@ class GroupsController < ApplicationController
     end
 
     def check_show_access
-      authorize @group, :show_access?
+      if @group.organization
+        authorize @group, :view?, policy_class: OrganizationGroupPolicy
+      else
+        authorize @group, :show_access?
+      end
     end
 
     def check_edit_access

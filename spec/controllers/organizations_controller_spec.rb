@@ -58,9 +58,9 @@ RSpec.describe OrganizationsController, type: :controller do
         create(:organization_member, user: user, organization: organization)
       end
 
-      it "returns a success response" do
+      it "redirects to the overview tab" do
         get :show, params: { id: organization.id }
-        expect(response).to be_successful
+        expect(response).to redirect_to(overview_organization_path(organization))
       end
     end
 
@@ -79,14 +79,14 @@ RSpec.describe OrganizationsController, type: :controller do
     end
   end
 
-  describe "GET #edit" do
+  describe "GET #settings" do
     context "when user has edit access" do
       before do
         create(:organization_member, user: user, organization: organization, role: :admin)
       end
 
       it "returns a success response" do
-        get :edit, params: { id: organization.id }
+        get :settings, params: { id: organization.id }
         expect(response).to be_successful
       end
     end
@@ -110,7 +110,7 @@ RSpec.describe OrganizationsController, type: :controller do
 
       it "redirects to the created organization" do
         post :create, params: { organization: valid_attributes }
-        expect(response).to redirect_to(Organization.last)
+        expect(response).to redirect_to(overview_organization_path(Organization.last))
       end
     end
 
@@ -141,7 +141,7 @@ RSpec.describe OrganizationsController, type: :controller do
 
         it "redirects to the organization" do
           patch :update, params: { id: organization.id, organization: new_attributes }
-          expect(response).to redirect_to(organization)
+          expect(response).to redirect_to(overview_organization_path(organization))
         end
       end
     end
@@ -153,15 +153,50 @@ RSpec.describe OrganizationsController, type: :controller do
         create(:organization_member, user: user, organization: organization, role: :admin)
       end
 
-      it "destroys the requested organization" do
-        expect do
-          delete :destroy, params: { id: organization.id }
-        end.to change(Organization, :count).by(-1)
+      context "when confirmation matches the organization name" do
+        it "destroys the requested organization" do
+          expect do
+            delete :destroy, params: { id: organization.id, confirmation: organization.name }
+          end.to change(Organization, :count).by(-1)
+        end
+
+        it "redirects to the organizations list" do
+          delete :destroy, params: { id: organization.id, confirmation: organization.name }
+          expect(response).to redirect_to(organizations_path)
+        end
       end
 
-      it "redirects to the organizations list" do
-        delete :destroy, params: { id: organization.id }
-        expect(response).to redirect_to(organizations_path)
+      context "when confirmation does not match the organization name" do
+        it "does not destroy the organization" do
+          expect do
+            delete :destroy, params: { id: organization.id, confirmation: "wrong name" }
+          end.not_to change(Organization, :count)
+        end
+
+        it "redirects back to the settings page" do
+          delete :destroy, params: { id: organization.id, confirmation: "wrong name" }
+          expect(response).to redirect_to(settings_organization_path(organization))
+        end
+      end
+
+      context "when confirmation is missing" do
+        it "does not destroy the organization" do
+          expect do
+            delete :destroy, params: { id: organization.id }
+          end.not_to change(Organization, :count)
+        end
+      end
+
+      context "when confirmation does not match (JSON)" do
+        it "returns an unprocessable_content error" do
+          expect do
+            delete :destroy, params: { id: organization.id, confirmation: "wrong" }, format: :json
+          end.not_to change(Organization, :count)
+
+          expect(response).to have_http_status(:unprocessable_content)
+          expect(response.media_type).to eq("application/json")
+          expect(response.parsed_body).to include("error")
+        end
       end
     end
   end
