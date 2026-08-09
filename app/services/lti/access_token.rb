@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 module Lti
-
   class AccessToken
     ASSERTION_TYPE = "urn:ietf:params:oauth:client-assertion-type:jwt-bearer"
     ASSERTION_TTL = 300
