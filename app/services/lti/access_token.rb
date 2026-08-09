@@ -54,7 +54,7 @@ module Lti
         end
 
         def scope_list(scopes)
-          Array(scopes).sort.join(" ")
+          Array(scopes).uniq.sort.join(" ")
         end
 
         def cache_key(deployment, scopes)
