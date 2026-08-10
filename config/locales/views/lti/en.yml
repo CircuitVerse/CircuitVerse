@@ -3,6 +3,14 @@ en:
     title: "CircuitVerse - LTI Error"
     main-heading: "Content not available"
     main-description: "The content you are requesting is not available at this moment, or you are not authorized to access the content."
+  deep_link:
+    title: "Add CircuitVerse content"
+    description: "Choose what to embed in your course."
+    circuits: "Circuits"
+    assignments: "Assignments"
+    no_circuits: "You have no circuits yet."
+    no_assignments: "You are not mentoring any assignments yet."
+    embed: "Embed"
   open_incv:
     notice_wait_in_open_incv: "Please wait while we open this assignment in CircuitVerse..."
     notice_redirection_error: "If it doesn't work, please click the button below."

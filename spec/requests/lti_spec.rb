@@ -184,4 +184,67 @@ describe LtiController, type: :request do
       end
     end
   end
+
+  describe "LTI 1.3 deep linking picker" do
+    let(:instructor) { FactoryBot.create(:user) }
+    let(:settings) { "signed-deep-linking-settings" }
+
+    before { Flipper.enable(:lti_advantage) }
+
+    after { Flipper.disable(:lti_advantage) }
+
+    it "returns not found when the flag is disabled" do
+      Flipper.disable(:lti_advantage)
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "sends an anonymous instructor to sign in" do
+      get "/lti/deep_link", params: { settings: settings }
+      expect(response).to redirect_to(new_user_session_path)
+    end
+
+    it "lists the instructor's own circuits" do
+      project = FactoryBot.create(:project, author: instructor, name: "Half Adder")
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).to include("Half Adder", "project:#{project.id}")
+    end
+
+    it "lists assignments the instructor mentors" do
+      group = FactoryBot.create(:group, primary_mentor: instructor)
+      assignment = FactoryBot.create(:assignment, group: group, name: "Week 1 Lab")
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).to include("Week 1 Lab", "assignment:#{assignment.id}")
+    end
+
+    it "does not offer another author's circuits" do
+      FactoryBot.create(:project, author: FactoryBot.create(:user), name: "Someone Elses")
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).not_to include("Someone Elses")
+    end
+
+    it "does not offer assignments from groups the instructor does not mentor" do
+      other_group = FactoryBot.create(:group, primary_mentor: FactoryBot.create(:user))
+      FactoryBot.create(:assignment, group: other_group, name: "Not Mine")
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).not_to include("Not Mine")
+    end
+
+    it "carries the settings through to the submission" do
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).to include(settings)
+    end
+  end
 end
