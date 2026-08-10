@@ -54,6 +54,12 @@ en:
           mentor: "Mentor"
           member: "Member"
         empty: "No members yet."
+      join:
+        confirm_title: "Join %{organization}"
+        confirm_heading: "Join %{organization}?"
+        confirm_body: "You've been invited to join this organization. Click the button below to accept and become a member."
+        confirm_button: "Join organization"
+        confirm_cancel: "Cancel"  
     settings:
       page_title: "Settings - %{organization}"
       danger_heading: "Danger Zone"
@@ -118,8 +124,3 @@ en:
       already_member: "You are already a member of this organization."
       expired: "This invite link has expired. Ask an organization admin for a new one."
       invalid: "Invalid invite link." 
-      confirm_title: "Join %{organization}"
-      confirm_heading: "Join %{organization}?"
-      confirm_body: "You've been invited to join this organization. Click below to accept."
-      confirm_button: "Join organization"
-      confirm_cancel: "Cancel" 
