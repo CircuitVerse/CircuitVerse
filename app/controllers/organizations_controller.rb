@@ -129,11 +129,9 @@ class OrganizationsController < ApplicationController
 
   def confirm_join
     # GET just show a confirmation page, no mutation
-    return if Organization.exists?(id: @organization.id, invite_token: params[:token])
+    return if Organization.with_valid_invite_token.exists?(id: @organization.id, invite_token: params[:token])
 
     redirect_to root_path, alert: t("organization_members.join.invalid") and return
-
-    # renders confirm_join.html.erb with a "Join" button that POSTs
   end
 
   def join

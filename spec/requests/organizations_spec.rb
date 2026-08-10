@@ -91,6 +91,14 @@ RSpec.describe "Organization invite and member management", type: :request do
       end.not_to change(OrganizationMember, :count)
     end
 
+    it "redirects for an expired token" do
+      organization.reset_invite_token(role: :member)
+      organization.update!(invite_token_expires_at: 1.day.ago)
+      sign_in outsider
+      get confirm_join_organization_path(organization, token: organization.invite_token)
+      expect(response).to redirect_to(root_path)
+    end
+
     it "renders the confirmation page for a valid token" do
       sign_in outsider
       get confirm_join_organization_path(organization, token: organization.invite_token)
