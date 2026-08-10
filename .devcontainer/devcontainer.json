@@ -2,8 +2,11 @@
     "hostRequirements": {
       "cpus": 4
     },
-    "workspaceFolder": "/workspaces/CircuitVerse/",
-    "dockerComposeFile": "docker-compose.yml",
+    "workspaceFolder": "/circuitverse",
+    "dockerComposeFile": [
+      "../docker-compose.yml",
+      "docker-compose.extend.yml"
+    ],
     "service": "web",
     "features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
