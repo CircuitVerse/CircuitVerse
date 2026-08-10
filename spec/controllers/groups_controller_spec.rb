@@ -168,91 +168,102 @@ describe GroupsController, type: :request do
         sign_in @user
         get invite_group_path(id: @org_group.id, token: @org_group.group_token)
         expect(@organization.organization_members.find_by(user: @user).role).to eq("admin")
-        expect(@organization.organization_members.where(user: @user).count).to eq(1)
+          expect(@organization.organization_members.where(user: @user).count).to eq(1)
+        end
+
+        it "does not downgrade an existing mentor who joins a group" do
+          FactoryBot.create(:organization_member, organization: @organization, user: @user, role: :mentor)
+          sign_in @user
+          get invite_group_path(id: @org_group.id, token: @org_group.group_token)
+          expect(@organization.organization_members.find_by(user: @user).role).to eq("mentor")
+          expect(@organization.organization_members.where(user: @user).count).to eq(1)
+        end
+
+        it "adds the user via the org-scoped invite URL" do
+          sign_in @user
+          expect do
+            get invite_organization_group_path(@organization, @org_group, token: @org_group.group_token)
+          end.to change { @organization.organization_members.where(user: @user).count }.by(1)
+        end
       end
 
-      it "does not downgrade an existing mentor who joins a group" do
-        FactoryBot.create(:organization_member, organization: @organization, user: @user, role: :mentor)
-        sign_in @user
-        get invite_group_path(id: @org_group.id, token: @org_group.group_token)
-        expect(@organization.organization_members.find_by(user: @user).role).to eq("mentor")
-        expect(@organization.organization_members.where(user: @user).count).to eq(1)
-      end
-
-      it "adds the user via the org-scoped invite URL" do
-        sign_in @user
-        expect do
-          get invite_organization_group_path(@organization, @org_group, token: @org_group.group_token)
-        end.to change { @organization.organization_members.where(user: @user).count }.by(1)
+      context "when a user joins a standalone group" do
+        it "does not create an organization membership" do
+          @group.update(token_expires_at: 12.days.from_now)
+          sign_in @user
+          expect do
+            get invite_group_path(id: @group.id, token: @group.group_token)
+          end.not_to change(OrganizationMember, :count)
+        end
       end
     end
 
-    context "when a user joins a standalone group" do
-      it "does not create an organization membership" do
-        @group.update(token_expires_at: 12.days.from_now)
-        sign_in @user
-        expect do
-          get invite_group_path(id: @group.id, token: @group.group_token)
-        end.not_to change(OrganizationMember, :count)
+    describe "pending invitation to an organization-owned group" do
+      it "adds a new user to the organization when they accept the invitation" do
+        organization = FactoryBot.create(:organization)
+        org_group = FactoryBot.create(:group, organization: organization, primary_mentor: @primary_mentor)
+        PendingInvitation.create!(group: org_group, email: "newuser@example.com")
+        user = FactoryBot.create(:user, email: "newuser@example.com")
+        expect(organization.organization_members.find_by(user: user)&.role).to eq("member")
+        expect(GroupMember.exists?(group: org_group, user: user)).to be(true)
+      end
+    end
+
+    describe "#show org-scoped group lookup" do
+      before do
+        @organization = FactoryBot.create(:organization)
+        @org_group = FactoryBot.create(:group, name: "org group",
+                                              primary_mentor: @primary_mentor,
+                                              organization: @organization)
+        Flipper.enable(:organizations)
+      end
+
+      context "when the organization does not exist" do
+        it "redirects to the plain group path" do
+          sign_in @primary_mentor
+          get organization_group_path(organization_id: "nonexistent-org-slug", id: @org_group.id)
+          expect(response).to redirect_to(group_path(@org_group))
+        end
+      end
+
+      context "when the group does not belong to the organization" do
+        it "redirects to the plain group path" do
+          other_organization = FactoryBot.create(:organization)
+          sign_in @primary_mentor
+          get organization_group_path(other_organization, @org_group)
+          expect(response).to redirect_to(group_path(@org_group))
+        end
+      end
+
+      context "when the group does not exist at all" do
+        it "redirects to root path" do
+          sign_in @primary_mentor
+          get organization_group_path(organization_id: @organization.to_param, id: 999_999)
+          expect(response).to redirect_to(root_path)
+        end
+      end
+
+      context "when accessed via the correct organization" do
+        it "loads the group successfully" do
+          FactoryBot.create(:organization_member, organization: @organization, user: @primary_mentor, role: :admin)
+          sign_in @primary_mentor
+          get organization_group_path(@organization, @org_group)
+          expect(response).to have_http_status(:ok)
+        end
+      end
+    end
+
+    describe "#generate_token" do
+      before do
+        @group.update(token_expires_at: 1.day.ago, group_token: nil)
+      end
+
+      context "when group does not have any token or token is expired" do
+        it "regenerates the group token" do
+          sign_in @primary_mentor
+          put generate_token_group_path(id: @group.id), xhr: true
+          expect(response.status).to eq(200)
+        end
       end
     end
   end
-
-  describe "#show org-scoped group lookup" do
-    before do
-      @organization = FactoryBot.create(:organization)
-      @org_group = FactoryBot.create(:group, name: "org group",
-                                             primary_mentor: @primary_mentor,
-                                             organization: @organization)
-      Flipper.enable(:organizations)
-    end
-
-    context "when the organization does not exist" do
-      it "redirects to the plain group path" do
-        sign_in @primary_mentor
-        get organization_group_path(organization_id: "nonexistent-org-slug", id: @org_group.id)
-        expect(response).to redirect_to(group_path(@org_group))
-      end
-    end
-
-    context "when the group does not belong to the organization" do
-      it "redirects to the plain group path" do
-        other_organization = FactoryBot.create(:organization)
-        sign_in @primary_mentor
-        get organization_group_path(other_organization, @org_group)
-        expect(response).to redirect_to(group_path(@org_group))
-      end
-    end
-
-    context "when the group does not exist at all" do
-      it "redirects to root path" do
-        sign_in @primary_mentor
-        get organization_group_path(organization_id: @organization.to_param, id: 999_999)
-        expect(response).to redirect_to(root_path)
-      end
-    end
-
-    context "when accessed via the correct organization" do
-      it "loads the group successfully" do
-        FactoryBot.create(:organization_member, organization: @organization, user: @primary_mentor, role: :admin)
-        sign_in @primary_mentor
-        get organization_group_path(@organization, @org_group)
-        expect(response).to have_http_status(:ok)
-      end
-    end
-  end
-
-  describe "#generate_token" do
-    before do
-      @group.update(token_expires_at: 1.day.ago, group_token: nil)
-    end
-
-    context "when group does not have any token or token is expired" do
-      it "regenerates the group token" do
-        sign_in @primary_mentor
-        put generate_token_group_path(id: @group.id), xhr: true
-        expect(response.status).to eq(200)
-      end
-    end
-  end
-end
