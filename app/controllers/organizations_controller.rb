@@ -45,8 +45,8 @@ class OrganizationsController < ApplicationController
   # (members tab content is added in a follow-up PR)
   def members
     @active_tab = "members"
-    @sort_column = params[:sort].presence_in(%w[name role created_at]) || "role"
-    @sort_direction = params[:direction].presence_in(%w[asc desc]) || "asc"
+    @sort_column = params[:sort].presence_in(%w[name role created_at]) || "role" # rubocop:disable Rails/StrongParametersExpect
+    @sort_direction = params[:direction].presence_in(%w[asc desc]) || "asc" # rubocop:disable Rails/StrongParametersExpect
 
     members = @organization.organization_members.includes(:user)
     sorted =
@@ -147,7 +147,7 @@ class OrganizationsController < ApplicationController
   end
 
   def generate_invite_token
-    role = params[:role].presence_in(%w[admin mentor member]) || "member"
+    role = params[:role].presence_in(%w[admin mentor member]) || "member" # rubocop:disable Rails/StrongParametersExpect
     @organization.reset_invite_token(role: role)
     respond_to do |format|
       format.js
