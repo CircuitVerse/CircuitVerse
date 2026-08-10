@@ -595,6 +595,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_10_083449) do
   add_foreign_key "grades", "users"
   add_foreign_key "group_members", "groups"
   add_foreign_key "group_members", "users"
+  add_foreign_key "groups", "organizations", on_delete: :nullify
   add_foreign_key "groups", "users", column: "primary_mentor_id", name: "groups_primary_mentor_id_fkey"
   add_foreign_key "organization_members", "organizations", on_delete: :cascade
   add_foreign_key "organization_members", "users", on_delete: :cascade
