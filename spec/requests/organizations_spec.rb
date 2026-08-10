@@ -71,13 +71,13 @@ RSpec.describe "Organization invite and member management", type: :request do
       FactoryBot.create(:organization_member, organization: organization, user: member, role: :member)
       sign_in member
       put generate_invite_token_organization_path(organization, role: "admin")
-      expect(response).not_to have_http_status(:ok)
+      expect(response).to have_http_status(:forbidden)
     end
 
     it "forbids a non-member from generating a token" do
       sign_in outsider
       put generate_invite_token_organization_path(organization, role: "member")
-      expect(response).not_to have_http_status(:ok)
+      expect(response).to have_http_status(:forbidden)
     end
   end
 
