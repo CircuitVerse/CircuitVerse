@@ -36,9 +36,11 @@ module Lti
     end
 
     def initialize(settings)
-      settings = settings.to_h.stringify_keys
+      raise Error, "malformed deep linking settings" unless settings.is_a?(Hash)
+
+      settings = settings.stringify_keys
       @return_url = settings["deep_link_return_url"]
-      raise Error, "missing deep_link_return_url" if @return_url.blank?
+      raise Error, "invalid deep_link_return_url" unless valid_return_url?(@return_url)
 
       @accept_types = Array(settings["accept_types"])
       @document_targets = Array(settings["accept_presentation_document_targets"])
@@ -59,5 +61,18 @@ module Lti
         "accept_presentation_document_targets" => document_targets,
         "accept_multiple" => @accept_multiple, "data" => data }
     end
+
+    private
+
+      # The response carries a JWT we signed, so it must never be posted to a
+      # scheme-less, relative or non-http target.
+      def valid_return_url?(url)
+        uri = URI.parse(url.to_s)
+        return false unless uri.is_a?(URI::HTTP) && uri.host.present?
+
+        uri.is_a?(URI::HTTPS) || !Rails.env.production?
+      rescue URI::InvalidURIError
+        false
+      end
   end
 end

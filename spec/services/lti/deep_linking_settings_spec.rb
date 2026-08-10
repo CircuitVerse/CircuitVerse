@@ -55,6 +55,38 @@ RSpec.describe Lti::DeepLinkingSettings do
     it "refuses a request with no settings at all" do
       expect { described_class.from_claim({}) }.to raise_error(described_class::Error)
     end
+
+    it "refuses a settings claim that is not an object" do
+      expect { described_class.from_claim(described_class::SETTINGS_CLAIM => "nonsense") }
+        .to raise_error(described_class::Error, /malformed/)
+    end
+
+    it "refuses a return url that is not absolute" do
+      settings["deep_link_return_url"] = "/courses/1/deep_link"
+      expect { parsed }.to raise_error(described_class::Error, /return_url/)
+    end
+
+    it "refuses a return url with a scheme we would never post to" do
+      settings["deep_link_return_url"] = "javascript:alert(1)"
+      expect { parsed }.to raise_error(described_class::Error, /return_url/)
+    end
+
+    it "refuses a malformed return url" do
+      settings["deep_link_return_url"] = "https://exa mple.com/%%"
+      expect { parsed }.to raise_error(described_class::Error, /return_url/)
+    end
+
+    it "refuses a plain http return url in production" do
+      settings["deep_link_return_url"] = "http://canvas.example.com/deep_link"
+      allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production"))
+
+      expect { parsed }.to raise_error(described_class::Error, /return_url/)
+    end
+
+    it "allows a plain http return url outside production" do
+      settings["deep_link_return_url"] = "http://canvas.docker/deep_link"
+      expect(parsed.return_url).to eq("http://canvas.docker/deep_link")
+    end
   end
 
   describe "stashing" do
