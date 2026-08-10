@@ -10,7 +10,7 @@ class GroupMemberPolicy < ApplicationPolicy
 
   def primary_mentor?
     group = group_member.group
-    return true if group.primary_mentor_id == user.id || user.admin?
+    return true if group&.primary_mentor_id == user.id || user.admin?
     return OrganizationGroupPolicy.new(user, group).manage? if group&.organization
 
     false

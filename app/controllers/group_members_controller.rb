@@ -134,7 +134,7 @@ class GroupMembersController < ApplicationController
     def add_to_organization(user)
       return if @group.organization.blank?
 
-      @group.organization.organization_members.find_or_create_by(user: user) do |member|
+      @group.organization.organization_members.find_or_create_by!(user: user) do |member|
         member.role = :member
       end
     end
