@@ -32,11 +32,12 @@ class OrganizationMembersController < ApplicationController
   def update
     respond_to do |format|
       if @organization_member.update(organization_member_update_params)
-        format.html { redirect_to @organization, notice: t(".success") }
+        format.html { redirect_to members_organization_path(@organization), notice: t(".success") }
         format.json { head :no_content }
       else
         format.html do
-          redirect_to @organization, alert: @organization_member.errors.full_messages.to_sentence
+          redirect_to members_organization_path(@organization),
+                      alert: @organization_member.errors.full_messages.to_sentence
         end
         format.json { render json: @organization_member.errors, status: :unprocessable_content }
       end
@@ -48,7 +49,7 @@ class OrganizationMembersController < ApplicationController
   def destroy
     @organization_member.destroy
     respond_to do |format|
-      format.html { redirect_to @organization, notice: t(".success") }
+      format.html { redirect_to members_organization_path(@organization), notice: t(".success") }
       format.json { head :no_content }
     end
   end

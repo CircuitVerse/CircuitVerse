@@ -2,9 +2,173 @@
 
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "members", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
-    <div class="org-dash-empty">
-      <i class="fa fa-users" aria-hidden="true"></i>
-      <p>Members management is coming soon.</p>
-    </div>
+
+    <% is_admin = policy(@organization).admin_access? %>
+
+    <% if is_admin %>
+      <section class="org-invite-card rounded-4 border p-4 mb-4">
+        <div class="d-flex align-items-center gap-2 mb-2">
+          <i class="fa fa-user-plus text-secondary lh-1" aria-hidden="true"></i>
+          <h3 class="org-dash-section-title fw-semibold m-0 fs-5"><%= t("organizations.members.invite.heading") %></h3>
+        </div>
+        <p class="text-secondary lh-base mb-4"><%= t("organizations.members.invite.description") %></p>
+
+        <%= form_with url: generate_invite_token_organization_path(@organization),
+              method: :put, remote: true, local: false do %>
+          <div class="d-flex flex-column flex-sm-row gap-3 align-items-stretch align-items-sm-end">
+            <div class="flex-grow-1" style="max-width: 260px;">
+              <label for="invite_role" class="form-label fw-medium"><%= t("organizations.members.invite.role_label") %></label>
+              <%= select_tag :role,
+                    options_for_select(
+                      [
+                        [t("organizations.members.invite.roles.member"), "member"],
+                        [t("organizations.members.invite.roles.mentor"), "mentor"],
+                        [t("organizations.members.invite.roles.admin"), "admin"]
+                      ],
+                      "member"
+                    ),
+                    id: "invite_role", class: "form-select org-invite-role-select" %>
+            </div>
+            <%= submit_tag t("organizations.members.invite.generate_btn"),
+                  class: "btn primary-button d-inline-flex align-items-center justify-content-center gap-1" %>
+          </div>
+        <% end %>
+
+        <div id="orgInviteLinkContainer" class="d-none mt-4">
+          <div class="d-flex align-items-center justify-content-between mb-2">
+            <label class="form-label fw-medium m-0"><%= t("organizations.members.invite.link_label") %></label>
+            <button type="button" class="org-invite-close btn-close" aria-label="<%= t('organizations.members.invite.close') %>" onclick="hideOrgInviteLink()"></button>
+          </div>
+          <div class="input-group">
+            <span class="input-group-text org-invite-link-icon">
+              <i class="fa fa-link lh-1" aria-hidden="true"></i>
+            </span>
+            <input type="text" id="embedOrgInviteLink" class="form-control org-invite-link-input" readonly>
+            <button type="button" class="btn org-copy-btn d-inline-flex align-items-center gap-2" onclick="copyOrgInviteLink(this)">
+              <i class="fa fa-copy lh-1" aria-hidden="true"></i>
+              <span class="org-copy-label"><%= t("organizations.members.invite.copy_btn") %></span>
+            </button>
+          </div>
+          <small class="org-invite-hint d-inline-flex align-items-center gap-1 mt-2">
+            <i class="fa fa-info-circle lh-1" aria-hidden="true"></i>
+            <%= t("organizations.members.invite.link_hint") %>
+          </small>
+        </div>
+      </section>
+    <% end %>
+
+    <section>
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <h3 class="org-dash-section-title fw-semibold m-0 fs-5"><%= t("organizations.members.list.heading") %></h3>
+        <span class="badge rounded-pill org-role-member">
+          <%= t("organizations.overview.member_count", count: @organization_members.total_entries) %>
+        </span>
+      </div>
+
+      <% if @organization_members.present? %>
+        <div class="org-members-table-wrapper rounded-4 border overflow-hidden">
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <thead>
+                <tr class="org-members-thead">
+                  <th scope="col" class="fw-medium border-0 px-4 py-3">
+                    <%= org_member_sort_link("name", t("organizations.members.list.name"), @organization) %>
+                  </th>
+                  <th scope="col" class="fw-medium border-0 px-4 py-3"><%= t("organizations.members.list.email") %></th>
+                  <th scope="col" class="fw-medium border-0 px-4 py-3">
+                    <%= org_member_sort_link("role", t("organizations.members.list.role"), @organization) %>
+                  </th>
+                  <th scope="col" class="fw-medium border-0 px-4 py-3">
+                    <%= org_member_sort_link("created_at", t("organizations.members.list.joined"), @organization) %>
+                  </th>
+                  <% if is_admin %>
+                    <th scope="col" class="fw-medium border-0 px-4 py-3 text-end"><%= t("organizations.members.list.actions") %></th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% @organization_members.each do |member| %>
+                  <tr>
+                    <td class="px-4 py-3 fw-medium"><%= member.user.name %></td>
+                    <td class="px-4 py-3 text-secondary"><%= member.user.email %></td>
+                    <td class="px-4 py-3">
+                      <span class="org-role-pill org-role-<%= member.role %>">
+                        <%= t("organizations.members.list.roles.#{member.role}") %>
+                      </span>
+                    </td>
+                    <td class="px-4 py-3 text-secondary">
+                      <%= member.created_at.strftime("%b %-d, %Y") %>
+                    </td>
+                    <% if is_admin %>
+                      <td class="px-4 py-3 text-end">
+                        <% if member.user_id != current_user.id %>
+                          <div class="dropdown">
+                            <button class="btn btn-sm org-member-action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                              <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                              <li class="dropdown-header"><%= t("organizations.members.list.change_role") %></li>
+                              <% (%w[admin mentor member] - [member.role]).each do |role| %>
+                                <li>
+                                  <%= button_to t("organizations.members.list.make_role", role: t("organizations.members.list.roles.#{role}")),
+                                        organization_organization_member_path(@organization, member),
+                                        method: :patch,
+                                        params: { organization_member: { role: role } },
+                                        class: "dropdown-item" %>
+                                </li>
+                              <% end %>
+                              <li><hr class="dropdown-divider"></li>
+                              <li>
+                                <%= button_to organization_organization_member_path(@organization, member),
+                                      method: :delete,
+                                      class: "dropdown-item text-danger",
+                                      form: { data: { turbo_confirm: t("organizations.members.list.remove_confirm", name: member.user.name) } } do %>
+                                  <i class="fa fa-user-times me-2" aria-hidden="true"></i><%= t("organizations.members.list.remove") %>
+                                <% end %>
+                              </li>
+                            </ul>
+                          </div>
+                        <% end %>
+                      </td>
+                    <% end %>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="org-index-pagination mt-4">
+          <%= will_paginate @organization_members, param_name: "members_page", renderer: PaginateRenderer %>
+        </div>
+      <% else %>
+        <div class="org-dash-empty text-center rounded-4 py-5 px-3 text-secondary">
+          <i class="fa fa-users d-block mb-2 opacity-50" aria-hidden="true"></i>
+          <p class="m-0 fw-medium"><%= t("organizations.members.list.empty") %></p>
+        </div>
+      <% end %>
+    </section>
+
   <% end %>
 <% end %>
+
+<script>
+  function copyOrgInviteLink(btn) {
+    const input = document.getElementById("embedOrgInviteLink");
+    input.select();
+    navigator.clipboard.writeText(input.value).then(function() {
+      const label = btn.querySelector(".org-copy-label");
+      const original = label.textContent;
+      label.textContent = "<%= j t('organizations.members.invite.copied', default: 'Copied!') %>";
+      btn.classList.add("org-copy-done");
+      setTimeout(function() {
+        label.textContent = original;
+        btn.classList.remove("org-copy-done");
+      }, 2000);
+    });
+  }
+
+  function hideOrgInviteLink() {
+    document.getElementById("orgInviteLinkContainer").classList.add("d-none");
+  }
+</script>

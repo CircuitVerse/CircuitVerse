@@ -25,6 +25,40 @@ en:
       website: "Website"
     members:
       page_title: "Members - %{organization}"
+      invite:
+        heading: "Invite members"
+        description: "Generate an invite link and share it. Anyone with the link can join with the role you select."
+        copied: "Copied!"
+        close: "Close"
+        role_label: "Role"
+        roles:
+          member: "Member"
+          mentor: "Mentor"
+          admin: "Admin"
+        generate_btn: "Generate invite link"
+        link_label: "Invite link"
+        copy_btn: "Copy"
+        link_hint: "Anyone with this link can join with the selected role. The link expires in 7 days."
+      list:
+        heading: "Current members"
+        name: "Name"
+        email: "Email"
+        actions: "Actions"
+        change_role: "Change role"
+        make_role: "Make %{role}"
+        remove: "Remove from organization"
+        remove_confirm: "Remove %{name} from this organization?"
+        actions: "Actions"
+        change_role: "Change role"
+        make_role: "Make %{role}"
+        remove: "Remove from organization"
+        remove_confirm: "Remove %{name} from this organization?"
+        role: "Role"
+        roles:
+          admin: "Admin"
+          mentor: "Mentor"
+          member: "Member"
+        empty: "No members yet."
     settings:
       page_title: "Settings - %{organization}"
       danger_heading: "Danger Zone"
@@ -84,3 +118,8 @@ en:
     leave:
       success: "You have successfully left the organization."
       not_a_member: "You are not a member of this organization."
+    join:
+      success: "You have joined the organization."
+      already_member: "You are already a member of this organization."
+      expired: "This invite link has expired. Ask an organization admin for a new one."
+      invalid: "Invalid invite link."  

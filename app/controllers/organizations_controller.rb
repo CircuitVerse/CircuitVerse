@@ -3,11 +3,13 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
-  before_action :set_organization, only: %i[show overview members settings update destroy]
+  before_action :set_organization, only: %i[show overview members settings update destroy generate_invite_token join]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
+  before_action :check_admin_access, only: %i[generate_invite_token]
 
   PER_PAGE = 9
+  MEMBERS_PER_PAGE = 20
 
   # GET /organizations
   def index
@@ -42,6 +44,21 @@ class OrganizationsController < ApplicationController
   # (members tab content is added in a follow-up PR)
   def members
     @active_tab = "members"
+    @sort_column = params.expect(:sort).presence_in(%w[name role created_at]) || "role"
+    @sort_direction = params.expect(:direction).presence_in(%w[asc desc]) || "asc"
+
+    members = @organization.organization_members.includes(:user)
+    sorted =
+      case @sort_column
+      when "name"
+        members.joins(:user).order("users.name #{@sort_direction}")
+      when "created_at"
+        members.order("organization_members.created_at #{@sort_direction}")
+      else
+        members.order("organization_members.role #{@sort_direction}")
+      end
+
+    @organization_members = sorted.paginate(page: params[:members_page], per_page: MEMBERS_PER_PAGE)
   end
 
   # GET /organizations/1/settings
@@ -109,6 +126,31 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def join
+    if Organization.with_valid_invite_token.exists?(id: @organization.id, invite_token: params[:token])
+      if @organization.organization_members.exists?(user: current_user)
+        notice = t("organization_members.join.already_member")
+      else
+        @organization.add_member_from_invite(current_user)
+        notice = t("organization_members.join.success")
+      end
+    elsif Organization.exists?(id: @organization.id, invite_token: params[:token])
+      notice = t("organization_members.join.expired")
+    else
+      notice = t("organization_members.join.invalid")
+    end
+    redirect_to overview_organization_path(@organization), notice: notice
+  end
+
+  def generate_invite_token
+    role = params.expect(:role).presence_in(%w[admin mentor member]) || "member"
+    @organization.reset_invite_token(role: role)
+    respond_to do |format|
+      format.js
+      format.html { redirect_to members_organization_path(@organization) }
+    end
+  end
+
   private
 
     def set_organization
@@ -130,6 +172,10 @@ class OrganizationsController < ApplicationController
     end
 
     def check_edit_access
+      authorize @organization, :admin_access?
+    end
+
+    def check_admin_access
       authorize @organization, :admin_access?
     end
 

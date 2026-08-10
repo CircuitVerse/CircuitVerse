@@ -30,6 +30,8 @@ Rails.application.routes.draw do
       get :overview
       get :members
       get :settings
+      get "join/:token", to: "organizations#join", as: "join"
+      put :generate_invite_token
     end
     collection do
       get :check_slug

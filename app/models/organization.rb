@@ -10,6 +10,29 @@ class Organization < ApplicationRecord
   has_many :users, through: :organization_members
   has_many :groups, dependent: :nullify
 
+  has_secure_token :invite_token
+
+  INVITE_TOKEN_DURATION = 7.days
+
+  scope :with_valid_invite_token, -> { where(invite_token_expires_at: Time.zone.now..) }
+
+  def valid_invite_token?
+    invite_token_expires_at.present? && invite_token_expires_at > Time.zone.now
+  end
+
+  def reset_invite_token(role:)
+    regenerate_invite_token
+    update!(invite_token_expires_at: Time.zone.now + INVITE_TOKEN_DURATION,
+            invite_token_role: OrganizationMember.roles.fetch(role.to_s))
+  end
+
+  def add_member_from_invite(user)
+    role = invite_token_role || OrganizationMember.roles[:member]
+    organization_members.find_or_create_by!(user: user) do |member|
+      member.role = role
+    end
+  end
+
   has_one_attached :logo
   attr_accessor :remove_logo
 
