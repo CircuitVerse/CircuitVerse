@@ -1,0 +1,24 @@
+<% content_for :title, t("organizations.members.join.confirm_title", organization: @organization.name) %>
+
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-5 text-center">
+          <i class="fa fa-users fa-2x text-secondary mb-3" aria-hidden="true"></i>
+          <h3 class="fw-semibold mb-2"><%= t("organizations.members.join.confirm_heading", organization: @organization.name) %></h3>
+          <p class="text-secondary mb-4"><%= t("organizations.members.join.confirm_body") %></p>
+
+          <%= button_to t("organizations.members.join.confirm_button"),
+                join_organization_path(@organization, token: params[:token]),
+                method: :post,
+                class: "btn primary-button" %>
+
+          <div class="mt-3">
+            <%= link_to t("organizations.members.join.confirm_cancel"), root_path, class: "text-secondary text-decoration-none" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

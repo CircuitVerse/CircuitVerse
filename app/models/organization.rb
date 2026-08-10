@@ -26,10 +26,18 @@ class Organization < ApplicationRecord
             invite_token_role: OrganizationMember.roles.fetch(role.to_s))
   end
 
-  def add_member_from_invite(user)
-    role = invite_token_role || OrganizationMember.roles[:member]
-    organization_members.find_or_create_by!(user: user) do |member|
-      member.role = role
+  def add_member_from_invite(user, token)
+    organization_members.transaction do
+      locked = self.class.with_valid_invite_token
+                   .lock
+                   .find_by(id: id, invite_token: token)
+      return :invalid_or_expired unless locked
+
+      return :already_member if organization_members.exists?(user: user)
+
+      role = locked.invite_token_role || OrganizationMember.roles[:member]
+      organization_members.create!(user: user, role: role)
+      :joined
     end
   end
 

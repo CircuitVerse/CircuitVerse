@@ -81,14 +81,37 @@ RSpec.describe "Organization invite and member management", type: :request do
     end
   end
 
-  describe "GET #join" do
+  describe "GET #confirm_join" do
+    before { organization.reset_invite_token(role: :admin) }
+
+    it "does not create membership on GET" do
+      sign_in outsider
+      expect do
+        get confirm_join_organization_path(organization, token: organization.invite_token)
+      end.not_to change(OrganizationMember, :count)
+    end
+
+    it "renders the confirmation page for a valid token" do
+      sign_in outsider
+      get confirm_join_organization_path(organization, token: organization.invite_token)
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "redirects for an invalid token" do
+      sign_in outsider
+      get confirm_join_organization_path(organization, token: "wrongtoken")
+      expect(response).to redirect_to(root_path)
+    end
+  end
+
+  describe "POST #join" do
     context "with a valid invite token" do
       before { organization.reset_invite_token(role: :mentor) }
 
       it "adds the user with the token's role" do
         sign_in outsider
         expect do
-          get join_organization_path(organization, token: organization.invite_token)
+          post join_organization_path(organization, token: organization.invite_token)
         end.to change { organization.organization_members.where(user: outsider).count }.by(1)
         expect(organization.organization_members.find_by(user: outsider).role).to eq("mentor")
       end
@@ -97,14 +120,14 @@ RSpec.describe "Organization invite and member management", type: :request do
         FactoryBot.create(:organization_member, organization: organization, user: outsider, role: :member)
         sign_in outsider
         expect do
-          get join_organization_path(organization, token: organization.invite_token)
+          post join_organization_path(organization, token: organization.invite_token)
         end.not_to(change { organization.organization_members.where(user: outsider).count })
       end
 
       it "keeps the existing role for an existing member" do
         FactoryBot.create(:organization_member, organization: organization, user: outsider, role: :admin)
         sign_in outsider
-        get join_organization_path(organization, token: organization.invite_token)
+        post join_organization_path(organization, token: organization.invite_token)
         expect(organization.organization_members.find_by(user: outsider).role).to eq("admin")
       end
     end
@@ -118,7 +141,7 @@ RSpec.describe "Organization invite and member management", type: :request do
       it "does not add the user" do
         sign_in outsider
         expect do
-          get join_organization_path(organization, token: organization.invite_token)
+          post join_organization_path(organization, token: organization.invite_token)
         end.not_to change(OrganizationMember, :count)
       end
     end
@@ -129,7 +152,7 @@ RSpec.describe "Organization invite and member management", type: :request do
       it "does not add the user" do
         sign_in outsider
         expect do
-          get join_organization_path(organization, token: "wrongtoken")
+          post join_organization_path(organization, token: "wrongtoken")
         end.not_to change(OrganizationMember, :count)
       end
     end
@@ -142,8 +165,21 @@ RSpec.describe "Organization invite and member management", type: :request do
       it "does not add the user to this organization" do
         sign_in outsider
         expect do
-          get join_organization_path(organization, token: other_org.invite_token)
+          post join_organization_path(organization, token: other_org.invite_token)
         end.not_to(change { organization.organization_members.where(user: outsider).count })
+      end
+    end
+
+    context "when the token was regenerated with a different role" do
+      it "does not grant the new role through an old token" do
+        organization.reset_invite_token(role: :member)
+        old_token = organization.invite_token
+        organization.reset_invite_token(role: :admin)
+
+        sign_in outsider
+        expect do
+          post join_organization_path(organization, token: old_token)
+        end.not_to change(OrganizationMember, :count)
       end
     end
   end

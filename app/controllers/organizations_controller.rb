@@ -3,7 +3,8 @@
 class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
-  before_action :set_organization, only: %i[show overview members settings update destroy generate_invite_token join]
+  before_action :set_organization,
+                only: %i[show overview members settings update destroy generate_invite_token confirm_join join]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
   before_action :check_admin_access, only: %i[generate_invite_token]
@@ -126,18 +127,23 @@ class OrganizationsController < ApplicationController
     end
   end
 
+  def confirm_join
+    # GET just show a confirmation page, no mutation
+    return if Organization.exists?(id: @organization.id, invite_token: params[:token])
+
+    redirect_to root_path, alert: t("organization_members.join.invalid") and return
+
+    # renders confirm_join.html.erb with a "Join" button that POSTs
+  end
+
   def join
-    if Organization.with_valid_invite_token.exists?(id: @organization.id, invite_token: params[:token])
-      if @organization.organization_members.exists?(user: current_user)
-        notice = t("organization_members.join.already_member")
-      else
-        @organization.add_member_from_invite(current_user)
-        notice = t("organization_members.join.success")
-      end
-    elsif Organization.exists?(id: @organization.id, invite_token: params[:token])
-      notice = t("organization_members.join.expired")
-    else
-      notice = t("organization_members.join.invalid")
+    case @organization.add_member_from_invite(current_user, params[:token])
+    when :joined
+      notice = t("organization_members.join.success")
+    when :already_member
+      notice = t("organization_members.join.already_member")
+    when :invalid_or_expired
+      notice = invite_token_error_notice
     end
     redirect_to overview_organization_path(@organization), notice: notice
   end
@@ -177,6 +183,14 @@ class OrganizationsController < ApplicationController
 
     def check_admin_access
       authorize @organization, :admin_access?
+    end
+
+    def invite_token_error_notice
+      if Organization.exists?(id: @organization.id, invite_token: params[:token])
+        t("organization_members.join.expired")
+      else
+        t("organization_members.join.invalid")
+      end
     end
 
     def create_organization

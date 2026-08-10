@@ -81,10 +81,10 @@ RSpec.describe OrganizationMembersController, type: :controller do
         expect(target_member.role).to eq("mentor")
       end
 
-      it "redirects to the organization" do
+      it "redirects to the members page" do
         patch :update,
               params: { organization_id: organization.id, id: target_member.id, organization_member: new_attributes }
-        expect(response).to redirect_to(organization)
+        expect(response).to redirect_to(members_organization_path(organization))
       end
 
       it "returns a forbidden status when demoting sole admin" do
@@ -113,9 +113,9 @@ RSpec.describe OrganizationMembersController, type: :controller do
         end.to change(OrganizationMember, :count).by(-1)
       end
 
-      it "redirects to the organization" do
+      it "redirects to the members page" do
         delete :destroy, params: { organization_id: organization.id, id: target_member.id }
-        expect(response).to redirect_to(organization)
+        expect(response).to redirect_to(members_organization_path(organization))
       end
     end
 

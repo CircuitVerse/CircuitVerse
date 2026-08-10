@@ -30,7 +30,8 @@ Rails.application.routes.draw do
       get :overview
       get :members
       get :settings
-      get "join/:token", to: "organizations#join", as: "join"
+      get "join/:token", to: "organizations#confirm_join", as: "confirm_join"
+      post "join/:token", to: "organizations#join", as: "join"
       put :generate_invite_token
     end
     collection do

@@ -97,7 +97,7 @@
                       </span>
                     </td>
                     <td class="px-4 py-3 text-secondary">
-                      <%= member.created_at.strftime("%b %-d, %Y") %>
+                      <%= l member.created_at.to_date, format: :long %>
                     </td>
                     <% if is_admin %>
                       <td class="px-4 py-3 text-end">
