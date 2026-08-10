@@ -130,4 +130,12 @@ class GroupMembersController < ApplicationController
     def check_access
       authorize @group_member, :primary_mentor?
     end
+
+    def add_to_organization(user)
+      return if @group.organization.blank?
+
+      @group.organization.organization_members.find_or_create_by(user: user) do |member|
+        member.role = :member
+      end
+    end
 end
