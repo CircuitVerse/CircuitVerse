@@ -23,7 +23,9 @@
             "LoranKloeze.ruby-rubocop-revived",
             "rebornix.Ruby",
             "wingrunr21.vscode-ruby",
-            "KoichiSasada.vscode-rdbg"
+            "KoichiSasada.vscode-rdbg",
+            "EditorConfig.EditorConfig",
+            "stylelint.vscode-stylelint"
         ],
         "settings": {
             "remote.autoForwardPorts": true,
@@ -37,7 +39,15 @@
       "3000": {
         "label": "Application",
         "onAutoForward": "notify"
+      },
+      "3036": {
+        "label": "Vite dev server",
+        "onAutoForward": "silent"
+      },
+      "1080": {
+        "label": "Mailcatcher",
+        "onAutoForward": "silent"
       }
     },
-    "forwardPorts": [3000]
+    "forwardPorts": [3000, 3036, 1080]
   }
