@@ -106,11 +106,13 @@ class GroupsController < ApplicationController
     def set_group
       @group =
         if params[:organization_id].present?
-          Organization.friendly.find(params.expect(:organization_id))
-                      .groups.find(params.expect(:id))
+          Organization.friendly.find(params.expect(:organization_id)).groups.find(params.expect(:id))
         else
           Group.find(params.expect(:id))
         end
+    rescue ActiveRecord::RecordNotFound
+      @group = Group.find_by(id: params[:id])
+      redirect_to(@group ? group_path(@group) : root_path)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

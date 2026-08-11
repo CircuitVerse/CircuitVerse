@@ -197,6 +197,50 @@ describe GroupsController, type: :request do
     end
   end
 
+  describe "#show org-scoped group lookup" do
+    before do
+      @organization = FactoryBot.create(:organization)
+      @org_group = FactoryBot.create(:group, name: "org group",
+                                             primary_mentor: @primary_mentor,
+                                             organization: @organization)
+      Flipper.enable(:organizations)
+    end
+
+    context "when the organization does not exist" do
+      it "redirects to the plain group path" do
+        sign_in @primary_mentor
+        get organization_group_path(organization_id: "nonexistent-org-slug", id: @org_group.id)
+        expect(response).to redirect_to(group_path(@org_group))
+      end
+    end
+
+    context "when the group does not belong to the organization" do
+      it "redirects to the plain group path" do
+        other_organization = FactoryBot.create(:organization)
+        sign_in @primary_mentor
+        get organization_group_path(other_organization, @org_group)
+        expect(response).to redirect_to(group_path(@org_group))
+      end
+    end
+
+    context "when the group does not exist at all" do
+      it "redirects to root path" do
+        sign_in @primary_mentor
+        get organization_group_path(organization_id: @organization.to_param, id: 999_999)
+        expect(response).to redirect_to(root_path)
+      end
+    end
+
+    context "when accessed via the correct organization" do
+      it "loads the group successfully" do
+        FactoryBot.create(:organization_member, organization: @organization, user: @primary_mentor, role: :admin)
+        sign_in @primary_mentor
+        get organization_group_path(@organization, @org_group)
+        expect(response).to have_http_status(:ok)
+      end
+    end
+  end
+
   describe "#generate_token" do
     before do
       @group.update(token_expires_at: 1.day.ago, group_token: nil)
