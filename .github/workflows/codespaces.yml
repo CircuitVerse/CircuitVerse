@@ -11,7 +11,9 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
 
       - name: Lint Shell Scripts
         run: |
@@ -24,3 +26,32 @@ jobs:
 
       - name: Validate Dev Container compose config
         run: docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml config
+
+      - name: Build and boot the Dev Container
+        run: |
+          export CURRENT_UID=$(id -u)
+          export CURRENT_GID=$(id -g)
+          export NON_ROOT_USERNAME="user"
+          export NON_ROOT_GROUPNAME="user"
+          export OPERATING_SYSTEM="linux"
+          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml up -d --build
+          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -T web .devcontainer/setup.sh
+          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -d web bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -p 3000 -b 0.0.0.0"
+
+      - name: Smoke test the web service on port 3000
+        run: |
+          for i in $(seq 1 40); do
+            code=$(curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/ || true)
+            if [ -n "$code" ] && [ "$code" != "000" ]; then
+              echo "Web service responded with HTTP $code"
+              exit 0
+            fi
+            sleep 6
+          done
+          echo "Web service did not respond on port 3000"
+          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml logs web
+          exit 1
+
+      - name: Tear down
+        if: always()
+        run: docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml down
