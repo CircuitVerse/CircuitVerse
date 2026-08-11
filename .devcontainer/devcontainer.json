@@ -8,6 +8,7 @@
       "docker-compose.extend.yml"
     ],
     "service": "web",
+    "remoteUser": "user",
     "features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
