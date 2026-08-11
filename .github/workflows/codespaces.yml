@@ -13,9 +13,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker Image
-        run: docker build .devcontainer/
-
       - name: Lint Shell Scripts
         run: |
           sudo apt-get install -y shellcheck
@@ -25,5 +22,5 @@ jobs:
       - name: Validate devcontainer.json
         run: jq . < .devcontainer/devcontainer.json
 
-      - name: Validate docker-compose.yml
-        run: docker compose -f .devcontainer/docker-compose.yml config
+      - name: Validate Dev Container compose config
+        run: docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml config
