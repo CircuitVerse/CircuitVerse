@@ -14,7 +14,7 @@ class LtiController < ApplicationController
     @projects = current_user.projects.order(updated_at: :desc).limit(PICKER_LIMIT)
     @assignments = Assignment.joins(:group)
                              .where(groups: { primary_mentor_id: current_user.id })
-                             .limit(PICKER_LIMIT)
+                             .reorder(updated_at: :desc).limit(PICKER_LIMIT)
   end
 
   def jwks

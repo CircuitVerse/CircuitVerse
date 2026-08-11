@@ -223,6 +223,18 @@ describe LtiController, type: :request do
       expect(response.body).to include("Week 1 Lab", "assignment:#{assignment.id}")
     end
 
+    it "offers the most recently updated assignments first" do
+      group = FactoryBot.create(:group, primary_mentor: instructor)
+      FactoryBot.create(:assignment, group: group, name: "Older", deadline: 1.day.from_now,
+                                     updated_at: 2.days.ago)
+      FactoryBot.create(:assignment, group: group, name: "Newer", deadline: 9.days.from_now,
+                                     updated_at: 1.minute.ago)
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body.index("Newer")).to be < response.body.index("Older")
+    end
+
     it "does not offer another author's circuits" do
       FactoryBot.create(:project, author: FactoryBot.create(:user), name: "Someone Elses")
       sign_in instructor

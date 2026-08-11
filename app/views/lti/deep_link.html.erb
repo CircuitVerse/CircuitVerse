@@ -6,7 +6,7 @@
   <%= form_with url: deep_link_path, method: :post do |form| %>
     <%= hidden_field_tag :settings, params[:settings] %>
 
-    <h4><%= t("deep_link.circuits") %></h4>
+    <h3><%= t("deep_link.circuits") %></h3>
     <% if @projects.any? %>
       <% @projects.each do |project| %>
         <div class="form-check">
@@ -18,7 +18,7 @@
       <p><%= t("deep_link.no_circuits") %></p>
     <% end %>
 
-    <h4><%= t("deep_link.assignments") %></h4>
+    <h3><%= t("deep_link.assignments") %></h3>
     <% if @assignments.any? %>
       <% @assignments.each do |assignment| %>
         <div class="form-check">
