@@ -48,11 +48,14 @@ class GroupMembersController < ApplicationController
         PendingInvitation.where(group_id: @group.id, email: email).first_or_create
         # @group.pending_invitations.create(email:email)
       else
-        GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create
+        ActiveRecord::Base.transaction do
+          GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create!
+          @group.add_member_to_organization(user)
 
-        # group_member = @group.group_members.new
-        # group_member.user_id = user.id
-        # group_member.save
+          # group_member = @group.group_members.new
+          # group_member.user_id = user.id
+          # group_member.save
+        end
       end
     end
 

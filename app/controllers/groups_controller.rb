@@ -5,8 +5,6 @@ class GroupsController < ApplicationController
 
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
-  before_action :verify_organization_scope,
-                only: %i[show edit update destroy group_invite generate_token]
   before_action :check_organizations_feature_flag, only: %i[new create show edit update], if: lambda {
     params[:organization_id].present? || params.dig(:group, :organization_id).present?
   }
@@ -31,7 +29,7 @@ class GroupsController < ApplicationController
   end
 
   def group_invite
-    if Group.with_valid_token.exists?(group_token: params[:token])
+    if Group.with_valid_token.exists?(id: @group.id, group_token: params[:token])
       if current_user.groups.exists?(id: @group)
         notice = "Member is already present in the group."
       elsif current_user.id == @group.primary_mentor_id
@@ -40,7 +38,7 @@ class GroupsController < ApplicationController
         join_group_and_organization
         notice = "Group member was successfully added."
       end
-    elsif Group.exists?(group_token: params[:token])
+    elsif Group.exists?(id: @group.id, group_token: params[:token])
       notice = "Url is expired, request a new one from the primary mentor of the group."
     else
       notice = "Invalid url"
@@ -106,7 +104,13 @@ class GroupsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params.expect(:id))
+      @group =
+        if params[:organization_id].present?
+          Organization.friendly.find(params.expect(:organization_id))
+                      .groups.find(params.expect(:id))
+        else
+          Group.find(params.expect(:id))
+        end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
@@ -131,13 +135,6 @@ class GroupsController < ApplicationController
       end
     end
 
-    def verify_organization_scope
-      return if params[:organization_id].blank?
-      return if @group.organization&.to_param == params[:organization_id]
-
-      redirect_to group_path(@group)
-    end
-
     def organization_from_params
       return if params[:organization_id].blank?
 
@@ -145,11 +142,9 @@ class GroupsController < ApplicationController
     end
 
     def join_group_and_organization
-      current_user.group_members.create!(group: @group)
-      return if @group.organization.blank?
-
-      @group.organization.organization_members.find_or_create_by(user: current_user) do |member|
-        member.role = :member
+      ActiveRecord::Base.transaction do
+        current_user.group_members.create!(group: @group)
+        @group.add_member_to_organization(current_user)
       end
     end
 
