@@ -6,16 +6,14 @@ RSpec.describe Lti::JwtValidator do
   let(:rsa_key)    { OpenSSL::PKey::RSA.generate(2048) }
   let(:jwk)        { JWT::JWK.new(rsa_key) }
   let(:kid)        { jwk.kid }
-  let(:stored_key) { nil }
   let(:jwks_url)   { "https://canvas.example.com/jwks" }
 
   # A Struct keeps this unit isolated from the LtiDeployment model.
   let(:deployment) do
-    Struct.new(:issuer, :client_id, :jwks_url, :platform_public_key, keyword_init: true).new(
+    Struct.new(:issuer, :client_id, :jwks_url, keyword_init: true).new(
       issuer: "https://canvas.example.com",
       client_id: "client-123",
-      jwks_url: jwks_url,
-      platform_public_key: stored_key
+      jwks_url: jwks_url
     )
   end
 
@@ -31,10 +29,22 @@ RSpec.describe Lti::JwtValidator do
   end
 
   def stub_jwks(keys: [jwk.export], content_type: "application/json")
-    response = instance_double(Faraday::Response, success?: true,
-                                                  headers: { "content-type" => content_type },
-                                                  body: { keys: keys }.to_json)
-    allow(Faraday).to receive(:get).and_return(response)
+    response = instance_double(
+      HTTP::Response,
+      status: instance_double(HTTP::Response::Status, success?: true),
+      content_type: instance_double(HTTP::ContentType, mime_type: content_type),
+      body: { keys: keys }.to_json
+    )
+    client = instance_double(HTTP::Client, get: response)
+    allow(HTTP).to receive(:timeout).and_return(client)
+    client
+  end
+
+  def stub_jwks_failure(error = HTTP::ConnectionError.new("boom"))
+    client = instance_double(HTTP::Client)
+    allow(HTTP).to receive(:timeout).and_return(client)
+    allow(client).to receive(:get).and_raise(error)
+    client
   end
 
   def validate(jwt = token, nonce: "nonce-1")
@@ -141,55 +151,56 @@ RSpec.describe Lti::JwtValidator do
     context "platform key resolution" do
       before { allow(Rails.logger).to receive(:warn) }
 
-      context "with a stored key" do
-        let(:stored_key) { rsa_key.public_key.to_pem }
-
-        it "falls back to the stored key when the JWKS fetch fails" do
-          allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed.new("boom"))
-          expect(validate).to include("sub" => "lms-user-1")
-        end
-
-        it "logs a warning when the JWKS fetch fails" do
-          allow(Faraday).to receive(:get).and_raise(Faraday::TimeoutError.new("slow"))
-          validate
-          expect(Rails.logger).to have_received(:warn).with(/JWKS fetch failed/)
-        end
-
-        it "falls back when no JWKS key matches the kid" do
-          stub_jwks(keys: [JWT::JWK.new(OpenSSL::PKey::RSA.generate(2048)).export])
-          expect(validate).to include("sub" => "lms-user-1")
-        end
-      end
-
-      it "raises when the JWKS fails and no stored key exists" do
-        allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed.new("boom"))
+      it "raises when the JWKS fetch fails" do
+        stub_jwks_failure
         expect { validate }.to raise_error(described_class::ValidationError, /Could not obtain platform public key/)
       end
 
-      context "with a blank jwks_url" do
-        let(:jwks_url)   { "" }
-        let(:stored_key) { rsa_key.public_key.to_pem }
+      it "logs a warning when the JWKS fetch fails" do
+        stub_jwks_failure(HTTP::TimeoutError.new("slow"))
+        expect { validate }.to raise_error(described_class::ValidationError)
+        expect(Rails.logger).to have_received(:warn).with(/JWKS fetch failed/)
+      end
 
-        it "uses the stored key without calling the JWKS endpoint" do
-          allow(Faraday).to receive(:get)
-          expect(validate).to include("sub" => "lms-user-1")
-          expect(Faraday).not_to have_received(:get)
+      it "raises when no JWKS key matches the kid" do
+        stub_jwks(keys: [JWT::JWK.new(OpenSSL::PKey::RSA.generate(2048)).export])
+        expect { validate }.to raise_error(described_class::ValidationError, /Could not obtain platform public key/)
+      end
+
+      it "raises when the key set is not served as json" do
+        stub_jwks(content_type: "text/html")
+        expect { validate }.to raise_error(described_class::ValidationError)
+      end
+    end
+
+    context "when the jwks_url cannot be fetched safely" do
+      shared_examples "refuses to call out" do
+        it "raises without reaching the platform" do
+          client = stub_jwks
+          expect { validate }.to raise_error(described_class::ValidationError,
+                                             /Could not obtain platform public key/)
+          expect(client).not_to have_received(:get)
         end
       end
 
-      context "with a malformed stored key" do
-        let(:stored_key) { "-----BEGIN PUBLIC KEY-----\nnot-a-key\n-----END PUBLIC KEY-----" }
+      context "with a blank url" do
+        let(:jwks_url) { "" }
 
-        before { allow(Faraday).to receive(:get).and_raise(Faraday::ConnectionFailed.new("boom")) }
+        it_behaves_like "refuses to call out"
+      end
 
-        it "raises ValidationError rather than an OpenSSL error" do
-          expect { validate }.to raise_error(described_class::ValidationError, /Could not obtain platform public key/)
-        end
+      context "with a non-http url" do
+        let(:jwks_url) { "javascript:alert(1)" }
 
-        it "logs the invalid stored key" do
-          expect { validate }.to raise_error(described_class::ValidationError)
-          expect(Rails.logger).to have_received(:warn).with(/stored key invalid/)
-        end
+        it_behaves_like "refuses to call out"
+      end
+
+      context "with a plain http url in production" do
+        let(:jwks_url) { "http://canvas.example.com/jwks" }
+
+        before { allow(Rails).to receive(:env).and_return(ActiveSupport::StringInquirer.new("production")) }
+
+        it_behaves_like "refuses to call out"
       end
     end
 
@@ -203,9 +214,9 @@ RSpec.describe Lti::JwtValidator do
       end
 
       it "reuses the cached key set on a second launch" do
-        stub_jwks
+        client = stub_jwks
         2.times { validate }
-        expect(Faraday).to have_received(:get).once
+        expect(client).to have_received(:get).once
       end
 
       it "picks up a rotated key without waiting for the cache to expire" do

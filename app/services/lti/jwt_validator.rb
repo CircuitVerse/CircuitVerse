@@ -69,12 +69,11 @@ module Lti
 
         def fetch_platform_key(deployment, kid)
           key_from_jwks(deployment, kid) ||
-            key_from_stored(deployment) ||
             raise(ValidationError, "Could not obtain platform public key")
         end
 
         def key_from_jwks(deployment, kid)
-          return if deployment.jwks_url.blank?
+          return unless fetchable_jwks_url?(deployment.jwks_url)
 
           jwk = find_jwk(deployment, kid)
           JWT::JWK.import(jwk).public_key if jwk
@@ -93,25 +92,25 @@ module Lti
         end
 
         def fetch_jwks(deployment)
-          response = Faraday.get(deployment.jwks_url) do |req|
-            req.options.open_timeout = JWKS_TIMEOUT
-            req.options.timeout = JWKS_TIMEOUT
-          end
-          return unless response.success? && response.headers["content-type"]&.include?("json")
+          response = HTTP.timeout(JWKS_TIMEOUT).get(deployment.jwks_url)
+          return unless response.status.success? && response.content_type.mime_type&.include?("json")
 
-          Array(JSON.parse(response.body)["keys"])
-        rescue Faraday::Error, JSON::ParserError => e
+          Array(JSON.parse(response.body.to_s)["keys"])
+        rescue HTTP::Error, JSON::ParserError => e
           Rails.logger.warn("LTI JWKS fetch failed for #{deployment.jwks_url}: #{e.message}")
           nil
         end
 
-        def key_from_stored(deployment)
-          return if deployment.platform_public_key.blank?
+        # The url is fetched server-side, so anything that is not an http(s)
+        # host must never reach the client. Plain http is tolerated outside
+        # production so local LMS containers keep working.
+        def fetchable_jwks_url?(url)
+          uri = URI.parse(url.to_s)
+          return false if uri.host.blank?
 
-          OpenSSL::PKey::RSA.new(deployment.platform_public_key)
-        rescue OpenSSL::PKey::RSAError => e
-          Rails.logger.warn("LTI stored key invalid: #{e.message}")
-          nil
+          uri.is_a?(URI::HTTPS) || (uri.is_a?(URI::HTTP) && !Rails.env.production?)
+        rescue URI::InvalidURIError
+          false
         end
     end
   end
