@@ -17,5 +17,8 @@ while ! check_postgres; do
   sleep 1
 done
 
+# Clear a stale PID from a previous run so the server can start on re-attach
+rm -f tmp/pids/server.pid
+
 # Start web server
 bin/dev
