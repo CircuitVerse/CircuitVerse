@@ -28,10 +28,6 @@ module Lti
       end
 
       private
-
-        # The header is read unverified only to pick a candidate key; the
-        # signature is then checked against an explicit RS256 allow-list, and
-        # #payload refuses to decode until both it and the claims have passed.
         def verify_token!(encoded_token, deployment)
           encoded_token.verify_signature!(
             algorithm: "RS256",
@@ -44,8 +40,6 @@ module Lti
           )
         end
 
-        # OpenID Core requires sub to be a string identifier, so a structured
-        # value must not be allowed through as the launching user's identity.
         def verify_subject!(payload)
           sub = payload["sub"]
           raise ValidationError, "Missing sub claim" unless sub.is_a?(String) && sub.present?
@@ -56,7 +50,7 @@ module Lti
           raise ValidationError, "Nonce mismatch" if payload["nonce"] != nonce
         end
 
-        # When aud is an array of more than one value, azp must name our client_id.
+        
         def verify_audience!(payload, deployment)
           aud = payload["aud"]
           return unless aud.is_a?(Array) && aud.size > 1
@@ -77,8 +71,6 @@ module Lti
           JWT::JWK.import(jwk).public_key if jwk
         end
 
-        # A kid missing from the cached set means the platform may have rotated,
-        # so refetch rather than waiting for the cache to expire.
         def find_jwk(deployment, kid)
           cache_key = "lti/jwks:v1:#{deployment.jwks_url}"
           cached = Array(Rails.cache.read(cache_key)).find { |k| k["kid"] == kid }
@@ -99,9 +91,6 @@ module Lti
           nil
         end
 
-        # The url is fetched server-side, so anything that is not an http(s)
-        # host must never reach the client. Plain http is tolerated outside
-        # production so local LMS containers keep working.
         def fetchable_jwks_url?(url)
           uri = URI.parse(url.to_s)
           return false if uri.host.blank?
