@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 module Lti
-  # Verifies an LTI 1.3 id_token against a registered platform deployment.
-  # LTI message-level claims are validated by the launch controller.
   class JwtValidator
     LEEWAY = 30
     JWKS_TIMEOUT = 5
