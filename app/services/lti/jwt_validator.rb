@@ -28,6 +28,7 @@ module Lti
       end
 
       private
+
         def verify_token!(encoded_token, deployment)
           encoded_token.verify_signature!(
             algorithm: "RS256",
@@ -50,7 +51,6 @@ module Lti
           raise ValidationError, "Nonce mismatch" if payload["nonce"] != nonce
         end
 
-        
         def verify_audience!(payload, deployment)
           aud = payload["aud"]
           return unless aud.is_a?(Array) && aud.size > 1
