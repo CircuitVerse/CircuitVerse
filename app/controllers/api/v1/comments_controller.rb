@@ -18,7 +18,11 @@ class Api::V1::CommentsController < Api::V1::BaseController
   def create
     if @comment.save
       sub = @commontator_thread.config.thread_subscription.to_sym
-      @commontator_thread.subscribe(current_user) if %i[a b].include? sub
+      begin
+        @commontator_thread.subscribe(current_user) if %i[a b].include? sub
+      rescue ActiveRecord::RecordNotUnique
+        # ignore duplicate subscription from concurrent request
+      end
       Commontator::Subscription.comment_created(@comment)
       render json: Api::V1::CommentSerializer.new(@comment, @options), status: :created
     else

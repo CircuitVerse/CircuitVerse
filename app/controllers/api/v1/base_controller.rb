@@ -40,6 +40,10 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "resource invalid!")
   end
 
+  rescue_from ActiveRecord::RecordNotUnique do
+    api_error(status: 409, errors: "resource already exists")
+  end
+
   rescue_from Commontator::SecurityTransgression do
     api_error(status: 403, errors: "not authorized for this action")
   end
