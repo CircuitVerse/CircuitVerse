@@ -15,6 +15,8 @@ class LtiController < ApplicationController
     @assignments = Assignment.joins(:group)
                              .where(groups: { primary_mentor_id: current_user.id })
                              .reorder(updated_at: :desc).limit(PICKER_LIMIT)
+    @templates = Project.joins(:featured_circuit).where.not(author: current_user)
+                        .order(updated_at: :desc).limit(PICKER_LIMIT)
   end
 
   def jwks

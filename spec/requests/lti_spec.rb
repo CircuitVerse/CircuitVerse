@@ -235,6 +235,31 @@ describe LtiController, type: :request do
       expect(response.body.index("Newer")).to be < response.body.index("Older")
     end
 
+    it "offers featured circuits as templates" do
+      featured = FactoryBot.create(:featured_circuit)
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).to include(featured.project.name, "project:#{featured.project.id}")
+    end
+
+    it "does not offer an unfeatured public circuit as a template" do
+      FactoryBot.create(:project, :public, author: FactoryBot.create(:user), name: "Not Featured")
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).not_to include("Not Featured")
+    end
+
+    it "does not repeat the instructor's own featured circuit under templates" do
+      own = FactoryBot.create(:project, :public, author: instructor, name: "My Featured")
+      FactoryBot.create(:featured_circuit, project: own)
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body.scan(%(value="project:#{own.id}")).size).to eq(1)
+    end
+
     it "does not offer another author's circuits" do
       FactoryBot.create(:project, author: FactoryBot.create(:user), name: "Someone Elses")
       sign_in instructor

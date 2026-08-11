@@ -30,6 +30,18 @@
       <p><%= t("deep_link.no_assignments") %></p>
     <% end %>
 
+    <h3><%= t("deep_link.templates") %></h3>
+    <% if @templates.any? %>
+      <% @templates.each do |template| %>
+        <div class="form-check">
+          <%= radio_button_tag :content, "project:#{template.id}", false, class: "form-check-input" %>
+          <%= label_tag "content_project:#{template.id}", template.name, class: "form-check-label" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= t("deep_link.no_templates") %></p>
+    <% end %>
+
     <%= form.submit t("deep_link.embed"), class: "btn primary-button mt-3" %>
   <% end %>
 </div>
