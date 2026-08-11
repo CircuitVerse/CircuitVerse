@@ -17,7 +17,7 @@ while ! check_postgres; do
   sleep 1
 done
 
-if [ -f tmp/pids/server.pid ] && kill -0 "$(cat tmp/pids/server.pid)" 2>/dev/null; then
+if nc -z 127.0.0.1 3000 >/dev/null 2>&1; then
   echo "Rails server already running; skipping start."
   exit 0
 fi
