@@ -16,6 +16,16 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
+      - name: Set Dev Container build arguments
+        run: |
+          {
+            echo "CURRENT_UID=$(id -u)"
+            echo "CURRENT_GID=$(id -g)"
+            echo "NON_ROOT_USERNAME=user"
+            echo "NON_ROOT_GROUPNAME=user"
+            echo "OPERATING_SYSTEM=linux"
+          } >> "$GITHUB_ENV"
+
       - name: Lint Shell Scripts
         run: |
           sudo apt-get install -y shellcheck
@@ -30,11 +40,6 @@ jobs:
 
       - name: Build and boot the Dev Container
         run: |
-          export CURRENT_UID=$(id -u)
-          export CURRENT_GID=$(id -g)
-          export NON_ROOT_USERNAME="user"
-          export NON_ROOT_GROUPNAME="user"
-          export OPERATING_SYSTEM="linux"
           docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml up -d --build
           docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -T web .devcontainer/setup.sh
           docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -d web bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -p 3000 -b 0.0.0.0"
