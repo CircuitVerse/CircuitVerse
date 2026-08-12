@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_07_14_113243) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_09_030000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -299,6 +299,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_113243) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["issuer", "client_id", "deployment_id"], name: "index_lti_deployments_on_platform_and_deployment", unique: true
+  end
+
+  create_table "lti_resource_links", force: :cascade do |t|
+    t.string "context_id"
+    t.string "context_memberships_url"
+    t.datetime "created_at", null: false
+    t.string "lineitem_url"
+    t.string "lineitems_url"
+    t.bigint "lti_deployment_id", null: false
+    t.string "resource_link_id", null: false
+    t.string "title"
+    t.datetime "updated_at", null: false
+    t.index ["lti_deployment_id", "resource_link_id"], name: "index_lti_resource_links_on_deployment_and_link", unique: true
   end
 
   create_table "mailkick_opt_outs", force: :cascade do |t|
@@ -593,6 +606,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_07_14_113243) do
   add_foreign_key "group_members", "users"
   add_foreign_key "groups", "organizations", on_delete: :nullify
   add_foreign_key "groups", "users", column: "primary_mentor_id"
+  add_foreign_key "lti_resource_links", "lti_deployments"
   add_foreign_key "organization_members", "organizations", on_delete: :cascade
   add_foreign_key "organization_members", "users", on_delete: :cascade
   add_foreign_key "pending_invitations", "groups"

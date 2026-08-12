@@ -11,11 +11,13 @@ class OrganizationsController < ApplicationController
 
   # GET /organizations
   def index
-    @organizations = if params[:explore].present?
-      Organization.where(private: false).order(created_at: :desc).paginate(page: params[:page], per_page: PER_PAGE)
-    else
-      current_user.organizations.order(created_at: :desc).paginate(page: params[:page], per_page: PER_PAGE)
-    end
+    organizations = current_user.organizations
+    @organizations = organizations
+                     .left_joins(:organization_members)
+                     .select("organizations.*, COUNT(organization_members.id) AS members_count")
+                     .group("organizations.id")
+                     .order(created_at: :desc)
+                     .paginate(page: params[:page], per_page: PER_PAGE, total_entries: organizations.count)
   end
 
   # GET /organizations/1  → redirect to overview tab
@@ -116,7 +118,7 @@ class OrganizationsController < ApplicationController
     end
 
     def organization_params
-      params.expect(organization: [:name, :slug, :description, :location, :private, :logo, :remove_logo, { links: [] }])
+      params.expect(organization: [:name, :slug, :description, :location, :logo, :remove_logo, { links: [] }])
     end
 
     def check_organizations_feature_flag
