@@ -52,12 +52,26 @@
         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
           <% @groups.each do |group| %>
             <div class="col">
-              <%= link_to group_path(group), class: "org-dash-group-card d-flex flex-column justify-content-between text-decoration-none rounded-4 h-100 p-3" do %>
-                <span class="org-dash-group-name fw-semibold"><%= group.name %></span>
-                <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
-                  <i class="fa fa-user" aria-hidden="true"></i>
-                  <%= t(".member_count", count: group.group_members_count) %>
-                </span>
+              <% if OrganizationGroupPolicy.new(current_user, group).view? %>
+                <%= link_to group_path(group), class: "org-dash-group-card d-flex flex-column justify-content-between text-decoration-none rounded-4 h-100 p-3" do %>
+                  <span class="org-dash-group-name fw-semibold"><%= group.name %></span>
+                  <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <%= t(".member_count", count: group.group_members_count) %>
+                  </span>
+                <% end %>
+              <% else %>
+                <div class="org-dash-group-card org-dash-group-card--locked d-flex flex-column justify-content-between rounded-4 h-100 p-3"
+                     aria-disabled="true"
+                     title="<%= t(".group_locked") %>">
+                  <span class="org-dash-group-name fw-semibold">
+                    <i class="fa fa-lock me-1" aria-hidden="true"></i><%= group.name %>
+                  </span>
+                  <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <%= t(".member_count", count: group.group_members_count) %>
+                  </span>
+                </div>
               <% end %>
             </div>
           <% end %>
