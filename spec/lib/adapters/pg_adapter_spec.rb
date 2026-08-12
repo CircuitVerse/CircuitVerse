@@ -34,6 +34,20 @@ RSpec.describe Adapters::PgAdapter do
       end
     end
 
+    context "with search query containing null bytes" do
+      let(:query_params) { { q: "test\u0000query", page: 1 } }
+
+      it "strips null bytes from search query" do
+        allow(project_relation).to receive(:text_search).with("testquery").and_return(mock_results)
+        allow(mock_results).to receive(:includes).with(:tags, :author).and_return(mock_results)
+        allow(mock_results).to receive(:paginate).with(page: 1, per_page: 9).and_return(paginated_results)
+
+        result = adapter.search_project(project_relation, query_params)
+
+        expect(result).to eq(paginated_results)
+      end
+    end
+
     context "without search query" do
       let(:query_params) { { page: 1 } }
 
