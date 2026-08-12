@@ -15,7 +15,7 @@ module Lti
       def find_or_create(lineitems_url, access_token, resource_id:, label:, score_maximum:)
         existing(lineitems_url, access_token, resource_id) ||
           create(lineitems_url, access_token, resource_id, label, score_maximum)
-      rescue HTTP::Error, JSON::ParserError, KeyError => e
+      rescue HTTP::Error, JSON::ParserError => e
         raise Error, e.message
       end
 
@@ -23,7 +23,10 @@ module Lti
 
         def existing(url, token, resource_id)
           items = parse(client(token, CONTAINER_TYPE).get(url, params: { resource_id: resource_id }))
-          items.first["id"] if items.is_a?(Array) && items.any?
+          raise Error, "line item container was not a list" unless items.is_a?(Array)
+          return if items.empty?
+
+          item_url(items.first)
         end
 
         def create(url, token, resource_id, label, score_maximum)
@@ -31,7 +34,17 @@ module Lti
           response = client(token, ITEM_TYPE)
                      .headers("Content-Type" => ITEM_TYPE)
                      .post(url, body: body.to_json)
-          parse(response).fetch("id")
+          item_url(parse(response))
+        end
+
+        # A line item we cannot address is worse than none at all: returning nil
+        # here would fall through to create and add a second gradebook column
+        # for a resource the platform already holds one for.
+        def item_url(item)
+          id = item["id"] if item.is_a?(Hash)
+          raise Error, "line item carried no id" unless id.is_a?(String) && id.present?
+
+          id
         end
 
         def client(token, accept)

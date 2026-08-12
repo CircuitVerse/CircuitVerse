@@ -87,6 +87,32 @@ RSpec.describe Lti::LineItem do
         expect { find_or_create }.to raise_error(described_class::Error)
       end
 
+      it "raises when the created line item's url is not a string" do
+        stub_http(get_body: [], post_body: { id: { href: item_url } })
+        expect { find_or_create }.to raise_error(described_class::Error, /no id/)
+      end
+
+      it "raises rather than duplicating the column when an existing item has no id" do
+        client = stub_http(get_body: [{ label: "Half Adder" }])
+
+        expect { find_or_create }.to raise_error(described_class::Error, /no id/)
+        expect(client).not_to have_received(:post)
+      end
+
+      it "raises rather than duplicating the column when an existing id is blank" do
+        client = stub_http(get_body: [{ id: "" }])
+
+        expect { find_or_create }.to raise_error(described_class::Error, /no id/)
+        expect(client).not_to have_received(:post)
+      end
+
+      it "raises when the container is not a list" do
+        client = stub_http(get_body: { id: item_url })
+
+        expect { find_or_create }.to raise_error(described_class::Error, /not a list/)
+        expect(client).not_to have_received(:post)
+      end
+
       it "raises when the response is not json" do
         html = instance_double(HTTP::Response, body: "<html>",
                                                status: instance_double(HTTP::Response::Status,
