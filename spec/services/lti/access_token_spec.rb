@@ -61,7 +61,18 @@ RSpec.describe Lti::AccessToken do
       expect(payload).to include("iss" => deployment.client_id, "sub" => deployment.client_id,
                                  "aud" => deployment.access_token_url)
       expect(payload["jti"]).to be_present
-      expect(header["kid"]).to eq(JWT::JWK.new(signing_key).kid)
+      expect(header["kid"]).to be_present
+    end
+
+    it "names the key by the kid the tool publishes in its jwks" do
+      allow(Lti::KeyManager).to receive(:private_key).and_return(signing_key)
+      stub_token
+      fetch
+
+      _payload, header = JWT.decode(posted[:client_assertion], signing_key.public_key, true,
+                                    algorithms: ["RS256"])
+
+      expect(header["kid"]).to eq(Lti::KeyManager.public_jwk[:kid])
     end
 
     it "reuses a cached token instead of asking again" do
@@ -84,6 +95,13 @@ RSpec.describe Lti::AccessToken do
       expect(client).to have_received(:post).twice
     end
 
+    it "treats a repeated scope as the same scope set" do
+      client = stub_token
+      fetch(%w[a])
+      fetch(%w[a a])
+      expect(client).to have_received(:post).once
+    end
+
     it "refreshes once the cached token has expired" do
       client = stub_token(body: { access_token: "tok-1", expires_in: 60 })
       fetch
@@ -103,9 +121,27 @@ RSpec.describe Lti::AccessToken do
       expect { fetch }.to raise_error(described_class::Error, /401/)
     end
 
+    it "does not cache a token the platform gave no lifetime for" do
+      client = stub_token(body: { access_token: "tok-1" })
+      2.times { fetch }
+
+      expect(client).to have_received(:post).twice
+    end
+
     it "raises when the response carries no access token" do
       stub_token(body: { expires_in: 3600 })
       expect { fetch }.to raise_error(described_class::Error)
+    end
+
+    it "raises rather than caching a blank access token" do
+      stub_token(body: { access_token: "", expires_in: 3600 })
+      expect { fetch }.to raise_error(described_class::Error, /access_token/)
+      expect(Rails.cache.read(["lti/access_token", deployment.id, scopes.first])).to be_nil
+    end
+
+    it "raises when the access token is not a string" do
+      stub_token(body: { access_token: { value: "tok-1" }, expires_in: 3600 })
+      expect { fetch }.to raise_error(described_class::Error, /access_token/)
     end
 
     it "raises when the platform is unreachable" do
