@@ -11,7 +11,6 @@ gem "aws-sdk-rails"
 gem "aws-actionmailer-ses"
 gem "dotenv-rails", groups: %i[development test]
 gem "hirb"
-gem "kt-paperclip"
 gem "language_filter"
 gem "mailkick", "~> 0.4.3"
 gem "omniauth"
@@ -78,6 +77,7 @@ gem "i18n-js"
 
 # for lti provider
 gem "ims-lti", "~> 1.2", "< 2.0"
+gem "json-jwt"
 
 # Use Redis adapter to run Action Cable in production
 gem "hiredis"
