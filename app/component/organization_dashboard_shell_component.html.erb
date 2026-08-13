@@ -6,7 +6,7 @@
         <i class="fa fa-exchange-alt" aria-hidden="true"></i> <%= t("organizations.switcher.button") %>
       </button>
       <div class="dropdown-menu org-switcher-menu p-2 rounded-4 shadow">
-        <h6 class="dropdown-header"><%= t("organizations.switcher.heading") %></h6>
+        <div class="dropdown-header"><%= t("organizations.switcher.heading") %></div>
         <% @user_organizations.each do |item| %>
           <% org = item[:organization] %>
           <%= link_to overview_organization_path(org),
