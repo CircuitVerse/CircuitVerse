@@ -7,6 +7,17 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
+    index:
+      page_title: "Organizations"
+      heading: "Organizations"
+      subtitle: "Manage your groups, mentors, and students all in one place."
+      create_button: "Create Organization"
+      empty_mine: "You're not part of any organizations yet. Create one to get started."
+      logo_alt: "%{organization} logo"  
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
+      confirmation_mismatch: "Organization name did not match."
     tabs:
       nav_label: "Organization sections"
       overview: "Overview"
@@ -14,6 +25,7 @@ en:
       settings: "Settings"
     overview:
       groups_heading: "Groups"
+      group_locked: "Members only"
       new_group_button: "New Group"
       logo_alt: "%{organization} logo"
       member_count:
@@ -26,6 +38,16 @@ en:
       page_title: "Members - %{organization}"
     settings:
       page_title: "Settings - %{organization}"
+      danger_heading: "Danger Zone"
+      danger_subheading: "Irreversible actions for this organization."
+      delete_title: "Delete this organization"
+      delete_description: "Once you delete an organization, all its member associations will be permanently removed. Any groups inside will become standalone groups. There is no going back."
+      delete_btn: "Delete Organization"
+      modal_title: "Delete Organization"
+      modal_warning: "This action cannot be undone. This will permanently delete the %{organization} organization. Any groups inside will become standalone groups."
+      modal_confirm_prompt_html: "Please type <strong>%{organization}</strong> to confirm."
+      modal_confirm_btn: "I understand the consequences, delete this organization"
+      modal_confirm_label: "Type the organization name to confirm deletion"
     form:
       details_heading: "Organization Details"
       details_subheading: "Basic information about your organization."
@@ -38,10 +60,6 @@ en:
       location_label: "Location"
       location_hint: "Where is your organization based?"
       location_placeholder: "e.g. India, Delhi"
-      visibility_label: "Visibility"
-      visibility_hint: "Control who can view your organization."
-      visibility_private: "Private"
-      visibility_public: "Public"
       links_label: "External Links"
       links_hint: "Add up to 5 links to your organization's website or social profiles."
       links_placeholder: "https://example.com"
