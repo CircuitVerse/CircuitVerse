@@ -7,6 +7,16 @@ en:
       success: "Organization was successfully updated."
     destroy:
       success: "Organization was successfully deleted."
+    index:
+      page_title: "Organizations"
+      heading: "Organizations"
+      subtitle: "Manage your groups, mentors, and students all in one place."
+      create_button: "Create Organization"
+      empty_mine: "You're not part of any organizations yet. Create one to get started."
+      logo_alt: "%{organization} logo"  
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
       confirmation_mismatch: "Organization name did not match."
     tabs:
       nav_label: "Organization sections"
@@ -15,6 +25,7 @@ en:
       settings: "Settings"
     overview:
       groups_heading: "Groups"
+      group_locked: "Members only"
       new_group_button: "New Group"
       logo_alt: "%{organization} logo"
       member_count:
@@ -84,10 +95,6 @@ en:
       location_label: "Location"
       location_hint: "Where is your organization based?"
       location_placeholder: "e.g. India, Delhi"
-      visibility_label: "Visibility"
-      visibility_hint: "Control who can view your organization."
-      visibility_private: "Private"
-      visibility_public: "Public"
       links_label: "External Links"
       links_hint: "Add up to 5 links to your organization's website or social profiles."
       links_placeholder: "https://example.com"
