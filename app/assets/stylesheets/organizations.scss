@@ -1,5 +1,5 @@
 .org-dash {
-  max-width: 1080px;
+  max-width: 1320px;
 }
 
 .org-dash-name {
@@ -8,8 +8,8 @@
 }
 
 .org-social-icon {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
@@ -27,8 +27,8 @@
 }
 
 .org-dash-logo {
-  width: 130px;
-  height: 130px;
+  width: 160px;
+  height: 160px;
 }
 
 .org-dash-logo-fallback {
@@ -46,7 +46,7 @@
 }
 
 .org-dash-info-desc {
-  max-width: 640px;
+  max-width: 1080px;
   font-size: 15px;
   overflow-wrap: break-word;
 }
@@ -74,7 +74,7 @@
 }
 
 .org-dash-location {
-  font-size: 18px;
+  font-size: 19px;
 }
 
 .org-dash-location i {
@@ -123,12 +123,46 @@
   font-size: 36px;
 }
 
+.org-form-cancel-button {
+  background-color: $grey;
+  outline: gray solid 1px;
+  color: $black;
+
+  &:hover {
+    background-color: $border-light-grey;
+    color: $black;
+  }
+}
+
+.groups-add-primary-button {
+  margin-top: 20px;
+  padding: 10px 40px;
+}
+
+.org-upload-preview-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.btn.org-form-add-link-button {
+  transition: transform 0.15s ease;
+  &:hover {
+    background-color: $primary-green;
+    box-shadow: none;
+    color: $white;
+    transform: translateY(-2px);
+  }
+}
+
 .org-new {
   max-width: 720px;
 }
 
 .org-form-icon {
   color: $primary-green;
+  font-size: 20px;
+  text-align: center;
 }
 
 .org-upload-zone {
