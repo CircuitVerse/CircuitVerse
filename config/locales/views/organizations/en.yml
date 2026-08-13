@@ -23,6 +23,16 @@ en:
       overview: "Overview"
       members: "Members"
       settings: "Settings"
+    switcher:
+      button: "Switch"
+      heading: "Your Organizations"
+      group_count:
+        one: "1 group"
+        other: "%{count} groups"
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
+      create: "Create Organization"  
     overview:
       groups_heading: "Groups"
       group_locked: "Members only"

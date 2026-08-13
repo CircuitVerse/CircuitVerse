@@ -4,6 +4,7 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
   before_action :set_organization, only: %i[show overview members settings update destroy]
+  before_action :set_user_organizations, only: %i[overview members settings]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
 
@@ -115,6 +116,27 @@ class OrganizationsController < ApplicationController
 
     def set_organization
       @organization = Organization.friendly.find(params.expect(:id))
+    end
+
+    def set_user_organizations
+      memberships = current_user.organization_members.includes(:organization)
+      group_counts = counts_by_organization(Group, memberships)
+      member_counts = counts_by_organization(OrganizationMember, memberships)
+
+      @user_organizations = memberships.map do |membership|
+        {
+          organization: membership.organization,
+          role: membership.role,
+          group_count: group_counts.fetch(membership.organization_id, 0),
+          member_count: member_counts.fetch(membership.organization_id, 0)
+        }
+      end
+    end
+
+    def counts_by_organization(model, memberships)
+      model.where(organization_id: memberships.map(&:organization_id))
+           .group(:organization_id)
+           .count
     end
 
     def organization_params
