@@ -325,6 +325,11 @@
   background: $light-green-bg;
 }
 
+.org-switcher-meta {
+  font-size: 11px;
+  color: var(--bs-gray-600);
+}
+
 .org-switcher-item.dropdown-item.is-current .org-switcher-meta {
   color: $secondary-green;
 }
@@ -350,11 +355,6 @@
 .org-switcher-name {
   font-size: 13px;
   color: var(--bs-gray-900);
-}
-
-.org-switcher-meta {
-  font-size: 11px;
-  color: var(--bs-gray-600);
 }
 
 .org-switcher-check {

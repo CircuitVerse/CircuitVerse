@@ -10,7 +10,8 @@
         <% @user_organizations.each do |item| %>
           <% org = item[:organization] %>
           <%= link_to overview_organization_path(org),
-                      class: "dropdown-item org-switcher-item d-flex align-items-center gap-2 rounded-3 #{'is-current' if current_org?(org)}" do %>
+            class: "dropdown-item org-switcher-item d-flex align-items-center gap-2 rounded-3 #{'is-current' if current_org?(org)}",
+            aria: { current: current_org?(org) ? "true" : nil } do %>
             <span class="org-switcher-badge d-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-3 overflow-hidden fw-semibold text-white">
               <% if org.logo.attached? %>
                 <%= image_tag org.logo, alt: "", class: "w-100 h-100 object-fit-cover" %>

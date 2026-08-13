@@ -4,7 +4,7 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
   before_action :set_organization, only: %i[show overview members settings update destroy]
-  before_action :set_user_organizations, only: %i[overview members settings]
+  before_action :set_user_organizations, only: %i[overview members settings update]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
 
