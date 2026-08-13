@@ -57,7 +57,7 @@
                   <span class="org-dash-group-name fw-semibold"><%= group.name %></span>
                   <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <%= t(".member_count", count: group.group_members_count) %>
+                    <%= capped_member_count(group.group_members_count, "organizations.overview.member_count") %>
                   </span>
                 <% end %>
               <% else %>
@@ -69,7 +69,7 @@
                   </span>
                   <span class="org-dash-group-meta d-inline-flex align-items-center gap-1">
                     <i class="fa fa-user" aria-hidden="true"></i>
-                    <%= t(".member_count", count: group.group_members_count) %>
+                    <%= capped_member_count(group.group_members_count, "organizations.overview.member_count") %>
                   </span>
                 </div>
               <% end %>

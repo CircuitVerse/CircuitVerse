@@ -17,7 +17,7 @@
       </div>
       <div class="org-index-card-meta text-center">
         <span class="org-index-card-meta-text">
-          <i class="fa fa-user" aria-hidden="true"></i><%= t("organizations.index.member_count", count: @organization.members_count) %>
+          <i class="fa fa-user" aria-hidden="true"></i><%= helpers.capped_member_count(@organization.members_count, "organizations.index.member_count") %>
         </span>
       </div>
       <% if @organization.location.present? %>
