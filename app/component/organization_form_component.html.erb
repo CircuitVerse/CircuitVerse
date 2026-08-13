@@ -99,12 +99,14 @@
     <div id="organization-upload-preview-box" class="d-none align-items-center gap-3 p-2 mb-2 border rounded bg-light">
       <img id="organization-upload-preview" class="rounded border org-upload-preview-img" alt="" />
       <div class="d-flex flex-column">
-        <span class="fw-semibold small"><%= t("organizations.form.current_logo") %></span>
-        <span class="text-secondary small"><%= t("organizations.form.replace_logo_hint") %></span>
+        <span class="fw-semibold small"><%= t("organizations.form.selected_logo") %></span>
+        <span class="text-secondary small"><%= t("organizations.form.selected_logo_hint") %></span>
       </div>
     </div>
 
     <div class="org-upload-zone" id="organization-upload-zone" role="button" tabindex="0"
+         data-logo-invalid-type="<%= t('organizations.form.logo_invalid_type') %>"
+         data-logo-too-large="<%= t('organizations.form.logo_too_large') %>"
          onclick="document.getElementById('organization_logo').click()"
          onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();this.click();}">
       <i class="fa fa-cloud-upload-alt org-upload-zone__icon" aria-hidden="true"></i>
@@ -116,6 +118,7 @@
       <%= form.file_field :logo, id: "organization_logo", class: "d-none",
             accept: "image/png,image/jpeg,image/svg+xml" %>
     </div>
+    <p id="organization-upload-error" class="text-danger small mt-2 mb-0 d-none" role="alert"></p>
   </div>
   <%# Actions %>
   <div class="d-flex justify-content-end gap-2 border-top pt-3 mt-4">

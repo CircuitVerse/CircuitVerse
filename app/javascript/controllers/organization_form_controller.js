@@ -128,21 +128,49 @@ export default class extends Controller {
             'github.com': logos.logoGithub,
             'twitter.com': logos.logoX,
             'x.com': logos.logoX,
-            'linkedin.com': logos.logoLinkedin,
             'facebook.com': logos.logoFacebook,
             'youtube.com': logos.logoYoutube,
             'youtu.be': logos.logoYoutube,
         };
-        const baseDomain = hostname.split('.').slice(-2).join('.');
-        img.src = providerLogos[baseDomain] || logos.logoDefault;
+        const isLinkedin = hostname === 'linkedin.com' || hostname.endsWith('.linkedin.com');
+        img.src = isLinkedin ? logos.logoLinkedin : (providerLogos[hostname] || logos.logoDefault);
     }
 
     setupLogo() {
         const zone = document.getElementById('organization-upload-zone');
         const input = document.getElementById('organization_logo');
+        const errorEl = document.getElementById('organization-upload-error');
+
+        const showLogoError = (file) => {
+            input.value = '';
+            if (!errorEl) return;
+            const tooBig = file.size > 2 * 1024 * 1024;
+            errorEl.textContent = tooBig
+                ? (zone?.dataset.logoTooLarge || 'File is too large. Maximum size is 2 MB.')
+                : (zone?.dataset.logoInvalidType || 'Invalid file type. Please upload a PNG, JPG, or SVG.');
+            errorEl.classList.remove('d-none');
+        };
+
+        const clearLogoError = () => {
+            if (errorEl) errorEl.classList.add('d-none');
+        };
 
         const showPreview = (file) => {
             if (!file) return;
+
+            const acceptedTypes = ['image/png', 'image/jpeg', 'image/svg+xml'];
+            const maxBytes = 2 * 1024 * 1024;
+
+            if (!acceptedTypes.includes(file.type) || file.size > maxBytes) {
+                input.value = '';
+                showLogoError(file);
+                return;
+            }
+            clearLogoError();
+
+            const removeLogo = document.getElementById('organization_remove_logo');
+            if (removeLogo) removeLogo.checked = false;
+
             const preview = document.getElementById('organization-upload-preview');
             const previewBox = document.getElementById('organization-upload-preview-box');
             if (preview && previewBox) {

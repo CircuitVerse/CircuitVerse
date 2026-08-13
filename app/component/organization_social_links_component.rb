@@ -38,14 +38,17 @@ class OrganizationSocialLinksComponent < ViewComponent::Base
     end
 
     def provider_for(host)
-      PROVIDERS[base_domain(host)] || default_provider
+      return default_provider if host.blank?
+      return PROVIDERS["linkedin.com"] if linkedin_host?(host)
+
+      PROVIDERS[host] || default_provider
+    end
+
+    def linkedin_host?(host)
+      host == "linkedin.com" || host.end_with?(".linkedin.com")
     end
 
     def default_provider
       { name: I18n.t("organizations.social_links.website"), logo: "logos/link-logo.png" }
-    end
-
-    def base_domain(host)
-      host.to_s.split(".").last(2).join(".")
     end
 end
