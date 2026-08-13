@@ -163,6 +163,13 @@ export default class extends Controller {
 
             if (!acceptedTypes.includes(file.type) || file.size > maxBytes) {
                 input.value = '';
+                const preview = document.getElementById('organization-upload-preview');
+                const previewBox = document.getElementById('organization-upload-preview-box');
+                if (preview && previewBox) {
+                    preview.removeAttribute('src');
+                    previewBox.classList.add('d-none');
+                    previewBox.classList.remove('d-flex');
+                }
                 showLogoError(file);
                 return;
             }
