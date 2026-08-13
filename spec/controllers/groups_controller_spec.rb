@@ -151,6 +151,7 @@ describe GroupsController, type: :request do
                                              primary_mentor: @primary_mentor,
                                              organization: @organization)
       @org_group.update(token_expires_at: 12.days.from_now)
+      Flipper.enable(:organizations)
     end
 
     context "when a user joins an organization-owned group" do
