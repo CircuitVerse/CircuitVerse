@@ -17,7 +17,7 @@ en:
       member_count:
         one: "1 member"
         other: "%{count} members"
-        member_count_capped: "%{count}+ members"
+      member_count_capped: "%{count}+ members"
       confirmation_mismatch: "Organization name did not match."
     tabs:
       nav_label: "Organization sections"
@@ -32,7 +32,7 @@ en:
       member_count:
         one: "1 member"
         other: "%{count} members"
-        member_count_capped: "%{count}+ members"
+      member_count_capped: "%{count}+ members"
     social_links:
       logo_alt: "%{provider} logo"
       website: "Website"
