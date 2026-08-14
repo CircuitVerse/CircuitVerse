@@ -42,6 +42,9 @@
       <p><%= t("deep_link.no_templates") %></p>
     <% end %>
 
-    <%= form.submit t("deep_link.embed"), class: "btn primary-button mt-3" %>
+    <%# The response endpoint that receives this selection lands in a follow-up
+        PR; until it is routed there is nowhere for the form to post. %>
+    <%= form.submit t("deep_link.embed"), class: "btn primary-button mt-3", disabled: true %>
+    <p class="mt-2"><%= t("deep_link.embed_unavailable") %></p>
   <% end %>
 </div>

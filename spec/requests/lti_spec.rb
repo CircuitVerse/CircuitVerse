@@ -277,6 +277,13 @@ describe LtiController, type: :request do
       expect(response.body).not_to include("Not Mine")
     end
 
+    it "does not offer a submit while the response endpoint is unrouted" do
+      sign_in instructor
+      get "/lti/deep_link", params: { settings: settings }
+
+      expect(response.body).to match(/name="commit"[^>]*disabled/)
+    end
+
     it "carries the settings through to the submission" do
       sign_in instructor
       get "/lti/deep_link", params: { settings: settings }

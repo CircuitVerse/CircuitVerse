@@ -13,6 +13,7 @@ en:
     no_templates: "No featured circuits are available yet."
     no_assignments: "You are not mentoring any assignments yet."
     embed: "Embed"
+    embed_unavailable: "Embedding becomes available once the response step is enabled."
   open_incv:
     notice_wait_in_open_incv: "Please wait while we open this assignment in CircuitVerse..."
     notice_redirection_error: "If it doesn't work, please click the button below."
