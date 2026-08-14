@@ -87,7 +87,7 @@ RSpec.describe Lti::LineItem do
         expect { find_or_create }.to raise_error(described_class::Error)
       end
 
-      it "raises when the created line item's url is not a string" do
+      it "raises when the created line item id is not a string" do
         stub_http(get_body: [], post_body: { id: { href: item_url } })
         expect { find_or_create }.to raise_error(described_class::Error, /no id/)
       end
