@@ -1,4 +1,5 @@
 <% content_for :title, @group.name %>
+<% can_manage = @group.organization ? OrganizationGroupPolicy.new(current_user, @group).manage? : policy(@group).admin_access? %>
 
 <div class="container" data-controller="groups">
   <% if notice %>
@@ -9,6 +10,16 @@
     </div>
   </div>
   <% end %>
+  <% if organization_scoped_group?(@group) %>
+    <div class="row">
+      <div class="col">
+        <%= link_to overview_organization_path(@group.organization), class: "d-inline-flex align-items-center gap-2 text-decoration-none mb-3 fw-semibold fs-5 org-back-link" do %>
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+          <%= t("groups.show.back_to_organization", organization: @group.organization.name) %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
   <div class="row center-row">
     <div class="col col-sm col-md col-lg">
       <h1 class="submain-heading">
@@ -16,8 +27,8 @@
           <%= @group.name %>
           <span class="tooltiptext"><%= @group.name %></span>
         </p>
-        <% if policy(@group).admin_access? %>
-          <%= link_to edit_group_path(@group), class: "btn primary-button groups-editname-primary-button" do %>
+        <% if can_manage %>
+          <%= link_to (organization_scoped_group?(@group) ? edit_organization_group_path(@group.organization, @group) : edit_group_path(@group)), class: "btn primary-button groups-editname-primary-button" do %>
             <%= image_tag("svgs/editGroup.svg", alt: "Edit Group") %>
             <span><%= t("groups.show.edit_name_btn") %></span>
           <% end %>
@@ -32,7 +43,7 @@
   <!-- Mentor Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
   <h3 class="mb-0"><%= t("groups.show.mentor_name_heading") %></h3>
-  <% if policy(@group).admin_access? %>
+  <% if can_manage %>
     <button type="button" class="btn primary-button groups-primary-button"
       data-bs-toggle="modal"
       data-bs-target="#add-mentor-to-modal"
@@ -52,7 +63,7 @@
 <!-- Members Section -->
 <div class="d-flex justify-content-between align-items-center mb-2">
   <h3 class="mb-0"><%= t("groups.show.group_members_heading") %></h3>
-  <% if policy(@group).admin_access? %>
+  <% if can_manage %>
     <button type="button" class="btn primary-button groups-primary-button"
       data-bs-toggle="modal"
       data-bs-target="#addmemberModal"
