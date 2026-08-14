@@ -114,6 +114,19 @@ export default class extends Controller {
         this.tagInputTarget.value = '';
     }
 
+    addSuggestedTag(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const tagText = event.currentTarget.dataset.tag;
+        if (!tagText) return;
+
+        const currentTags = this.getCurrentTags();
+        if (!currentTags.includes(tagText)) {
+            currentTags.push(tagText);
+            this.updateTags(currentTags);
+        }
+    }
+
     removeTag(tagToRemove) {
         if (!this.hasTagHiddenTarget || !this.hasTagsDisplayTarget) return;
 

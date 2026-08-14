@@ -44,6 +44,14 @@
                 <div class="tag-input-container">
                   <input class="tag-input" type="text" placeholder="<%= filter_labels["projects"]["tags"]["placeholder"] %>" data-search-filters-target="tagInput">
                 </div>
+                <div class="suggested-tags">
+                  <span class="suggested-tag-label">Popular:</span>
+                  <% %w[CPU RAM ALU Gate FlipFlop Counter Adder Multiplexer].each do |suggested_tag| %>
+                    <button type="button" class="suggested-tag-btn" data-action="click->search-filters#addSuggestedTag" data-tag="<%= suggested_tag %>">
+                      + <%= suggested_tag %>
+                    </button>
+                  <% end %>
+                </div>
                 <input type="hidden" name="tag" id="filter_tag" value="<%= current_filter_values["tag"] %>" data-search-filters-target="tagHidden">
               </div>
             </div>
