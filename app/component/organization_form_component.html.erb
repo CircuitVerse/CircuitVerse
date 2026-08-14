@@ -53,15 +53,6 @@
     <div class="text-end"><small id="org-location-counter" class="form-text"></small></div>
   </div>
 
-  <%# Visibility %>
-  <div class="mb-3">
-    <%= form.label :private, t("organizations.form.visibility_label"), class: "form-label fw-semibold" %>
-    <div class="form-text mt-0 mb-2"><%= t("organizations.form.visibility_hint") %></div>
-    <%= form.select :private,
-          [[t("organizations.form.visibility_private"), true], [t("organizations.form.visibility_public"), false]],
-          {}, { id: "organization_private", class: "form-select" } %>
-  </div>
-
   <%# External Links %>
   <div class="mb-3">
     <label class="form-label fw-semibold"><%= t("organizations.form.links_label") %></label>
