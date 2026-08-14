@@ -55,10 +55,39 @@ RSpec.describe Lti::Membership do
       expect(requested).to eq([url, "#{url}?page=2", "#{url}?page=3"])
     end
 
-    it "stops rather than looping when a platform keeps pointing at itself" do
+    it "raises rather than returning a partial roster when a platform never stops paginating" do
       stub_pages(page([member("u1")], next_url: url))
 
-      expect(described_class.fetch(url, token).size).to eq(described_class::MAX_PAGES)
+      expect { described_class.fetch(url, token) }
+        .to raise_error(described_class::Error, /did not end within/)
+    end
+
+    it "follows a next link given as a bare token relation" do
+      first = page([member("u1")])
+      allow(first).to receive(:headers).and_return({ "Link" => "<#{url}?page=2>; rel=next" })
+      stub_pages(first, page([member("u2")]))
+
+      expect(described_class.fetch(url, token).pluck("user_id")).to eq(%w[u1 u2])
+    end
+
+    it "finds the next link among other relations and parameters" do
+      first = page([member("u1")])
+      allow(first).to receive(:headers).and_return(
+        { "Link" => %(<#{url}?page=1>; rel="first", <#{url}?page=2>; type="application/json"; rel="next") }
+      )
+      stub_pages(first, page([member("u2")]))
+      described_class.fetch(url, token)
+
+      expect(requested.last).to eq("#{url}?page=2")
+    end
+
+    it "resolves a relative next link against the page it came from" do
+      first = page([member("u1")])
+      allow(first).to receive(:headers).and_return({ "Link" => %(</api/lti/courses/1/nrps?page=2>; rel="next") })
+      stub_pages(first, page([member("u2")]))
+      described_class.fetch(url, token)
+
+      expect(requested.last).to eq("https://canvas.example.com/api/lti/courses/1/nrps?page=2")
     end
 
     it "sends the bearer token and the nrps media type" do
@@ -69,10 +98,24 @@ RSpec.describe Lti::Membership do
       expect(client).to have_received(:headers).with("Accept" => described_class::MEDIA_TYPE)
     end
 
-    it "tolerates a page with no members" do
-      stub_pages(page(nil, body: { "id" => url }))
+    it "reads an empty roster as no members" do
+      stub_pages(page([]))
 
       expect(described_class.fetch(url, token)).to eq([])
+    end
+
+    it "raises rather than reading a page with no members list as an empty class" do
+      stub_pages(page(nil, body: { "id" => url }))
+
+      expect { described_class.fetch(url, token) }
+        .to raise_error(described_class::Error, /no members list/)
+    end
+
+    it "raises when the page is not an object" do
+      stub_pages(page(nil, body: [{ "user_id" => "u1" }]))
+
+      expect { described_class.fetch(url, token) }
+        .to raise_error(described_class::Error, /no members list/)
     end
 
     it "raises when the platform refuses the request" do

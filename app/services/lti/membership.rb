@@ -20,10 +20,11 @@ module Lti
 
         MAX_PAGES.times do
           response = request(url, access_token)
-          members.concat(Array(parse(response)["members"]))
-          url = next_page(response)
+          members.concat(page_members(parse(response)))
+          url = next_page(response, url)
           break if url.blank?
         end
+        raise Error, "roster did not end within #{MAX_PAGES} pages" if url.present?
 
         members
       rescue HTTP::Error, JSON::ParserError => e
@@ -42,8 +43,34 @@ module Lti
           JSON.parse(response.body.to_s)
         end
 
-        def next_page(response)
-          response.headers["Link"].to_s[/<([^>]+)>\s*;\s*rel="next"/, 1]
+        # An empty roster is "members": []. A page without the list is a broken
+        # response, and treating it as empty would tell a full-replace sync that
+        # the whole class has left.
+        def page_members(payload)
+          members = payload["members"] if payload.is_a?(Hash)
+          raise Error, "roster page carried no members list" unless members.is_a?(Array)
+
+          members
+        end
+
+        # RFC 8288 allows the relation as a bare token or a quoted string, more
+        # than one relation per link, other parameters alongside it, and a
+        # relative target that has to be resolved against the page it came from.
+        def next_page(response, current_url)
+          target = link_entries(response).find { |_target, params| relations(params).include?("next") }&.first
+          return if target.blank?
+
+          URI.join(current_url, target).to_s
+        rescue URI::InvalidURIError
+          nil
+        end
+
+        def link_entries(response)
+          response.headers["Link"].to_s.scan(/<([^>]*)>((?:\s*;[^,<]*)*)/)
+        end
+
+        def relations(params)
+          params[/;\s*rel\s*=\s*("[^"]*"|'[^']*'|[^;,\s]*)/i, 1].to_s.delete(%q("')).downcase.split
         end
     end
   end
