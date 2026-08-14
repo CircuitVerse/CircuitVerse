@@ -81,6 +81,38 @@ RSpec.describe Lti::Membership do
       expect(requested.last).to eq("#{url}?page=2")
     end
 
+    it "finds the next link when another parameter contains a comma" do
+      first = page([member("u1")])
+      allow(first).to receive(:headers).and_return(
+        { "Link" => %(<#{url}?page=2>; title="page, two"; rel="next") }
+      )
+      stub_pages(first, page([member("u2")]))
+      described_class.fetch(url, token)
+
+      expect(requested.last).to eq("#{url}?page=2")
+    end
+
+    it "refuses to carry the token to a next link on another origin" do
+      first = page([member("u1")])
+      allow(first).to receive(:headers).and_return(
+        { "Link" => %(<https://attacker.example.com/roster>; rel="next") }
+      )
+      stub_pages(first, page([member("u2")]))
+
+      expect { described_class.fetch(url, token) }
+        .to raise_error(described_class::Error, /left the platform origin/)
+      expect(requested).to eq([url])
+    end
+
+    it "raises rather than ending the roster on a next link it cannot resolve" do
+      first = page([member("u1")])
+      allow(first).to receive(:headers).and_return({ "Link" => %(<http://exa mple.com/%%>; rel="next") })
+      stub_pages(first, page([member("u2")]))
+
+      expect { described_class.fetch(url, token) }
+        .to raise_error(described_class::Error, /could not be resolved/)
+    end
+
     it "resolves a relative next link against the page it came from" do
       first = page([member("u1")])
       allow(first).to receive(:headers).and_return({ "Link" => %(</api/lti/courses/1/nrps?page=2>; rel="next") })

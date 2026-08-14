@@ -21,7 +21,7 @@ module Lti
         MAX_PAGES.times do
           response = request(url, access_token)
           members.concat(page_members(parse(response)))
-          url = next_page(response, url)
+          url = next_page(response, url, memberships_url)
           break if url.blank?
         end
         raise Error, "roster did not end within #{MAX_PAGES} pages" if url.present?
@@ -56,17 +56,36 @@ module Lti
         # RFC 8288 allows the relation as a bare token or a quoted string, more
         # than one relation per link, other parameters alongside it, and a
         # relative target that has to be resolved against the page it came from.
-        def next_page(response, current_url)
+        def next_page(response, current_url, origin_url)
           target = link_entries(response).find { |_target, params| relations(params).include?("next") }&.first
           return if target.blank?
 
-          URI.join(current_url, target).to_s
-        rescue URI::InvalidURIError
-          nil
+          resolve_next(target, current_url, origin_url)
         end
 
+        # A link we cannot follow must not read as the end of the roster, or a
+        # full-replace sync treats the members we never fetched as departed.
+        # The bearer token rides on every page, so a target that leaves the
+        # platform's origin is refused rather than requested.
+        def resolve_next(target, current_url, origin_url)
+          resolved = URI.join(current_url, target)
+          origin = URI.parse(origin_url)
+          raise Error, "roster next link left the platform origin: #{resolved}" unless same_origin?(resolved, origin)
+
+          resolved.to_s
+        rescue URI::InvalidURIError, ArgumentError
+          raise Error, "roster next link could not be resolved: #{target}"
+        end
+
+        def same_origin?(resolved, origin)
+          resolved.scheme == origin.scheme && resolved.host == origin.host &&
+            resolved.port == origin.port
+        end
+
+        # A parameter value may itself contain a comma, so entries are split on
+        # the angle-bracketed target rather than on the separator.
         def link_entries(response)
-          response.headers["Link"].to_s.scan(/<([^>]*)>((?:\s*;[^,<]*)*)/)
+          response.headers["Link"].to_s.scan(/<([^>]*)>([^<]*)/)
         end
 
         def relations(params)
