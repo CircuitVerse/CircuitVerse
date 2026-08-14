@@ -42,6 +42,13 @@ RSpec.describe Lti::Score do
       expect(posted[:url]).to eq("#{lineitem_url}/scores?type=assignment")
     end
 
+    it "does not double the separator when the line item url ends in a slash" do
+      stub_http
+      publish("#{lineitem_url}/")
+
+      expect(posted[:url]).to eq("#{lineitem_url}/scores")
+    end
+
     it "sends the score against the maximum for the user" do
       stub_http
       publish
@@ -77,6 +84,30 @@ RSpec.describe Lti::Score do
       travel_to(Time.utc(2026, 8, 9, 10, 30, 0)) { publish }
 
       expect(posted[:body]["timestamp"]).to eq("2026-08-09T10:30:00.000Z")
+    end
+
+    it "refuses a score with nobody to attribute it to" do
+      client = stub_http
+      ["", nil, 42].each do |bad_user|
+        expect { publish(user_id: bad_user) }.to raise_error(described_class::Error, /userId/)
+      end
+      expect(client).not_to have_received(:post)
+    end
+
+    it "refuses a negative or non-numeric score" do
+      client = stub_http
+      [-1, "8", nil].each do |bad_score|
+        expect { publish(score_given: bad_score) }.to raise_error(described_class::Error, /scoreGiven/)
+      end
+      expect(client).not_to have_received(:post)
+    end
+
+    it "refuses a maximum the score cannot be read against" do
+      client = stub_http
+      [0, -10, nil, "10"].each do |bad_maximum|
+        expect { publish(score_maximum: bad_maximum) }.to raise_error(described_class::Error, /scoreMaximum/)
+      end
+      expect(client).not_to have_received(:post)
     end
 
     it "raises when the platform rejects the score" do

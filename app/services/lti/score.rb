@@ -10,6 +10,8 @@ module Lti
 
     class << self
       def publish(lineitem_url, access_token, user_id:, score_given:, score_maximum:)
+        validate!(user_id, score_given, score_maximum)
+
         response = HTTP.timeout(TIMEOUT)
                        .auth("Bearer #{access_token}")
                        .headers("Content-Type" => MEDIA_TYPE)
@@ -24,11 +26,25 @@ module Lti
 
       private
 
+        # A grade the platform would reject is worth catching before the write:
+        # a rejected score is silently absent from the gradebook, and nobody is
+        # watching when this runs from the autograder.
+        def validate!(user_id, given, maximum)
+          raise Error, "userId is required" unless user_id.is_a?(String) && user_id.present?
+          raise Error, "scoreGiven must not be negative" unless numeric?(given) && given >= 0
+          raise Error, "scoreMaximum must be positive" unless numeric?(maximum) && maximum.positive?
+        end
+
+        def numeric?(value)
+          value.is_a?(Numeric) && !value.is_a?(Complex)
+        end
+
         # /scores goes on the line item path, leaving any query the platform put
-        # on the line item url intact.
+        # on the line item url intact. A terminal slash is dropped first, since
+        # some platforms 404 on the doubled separator.
         def scores_url(lineitem_url)
           uri = URI.parse(lineitem_url)
-          uri.path = "#{uri.path}/scores"
+          uri.path = "#{uri.path.sub(%r{/+\z}, '')}/scores"
           uri.to_s
         end
 
