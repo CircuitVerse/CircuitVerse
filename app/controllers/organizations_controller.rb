@@ -137,15 +137,15 @@ class OrganizationsController < ApplicationController
   end
 
   def join
-    case @organization.add_member_from_invite(current_user, params[:token])
+    result = @organization.add_member_from_invite(current_user, params[:token])
+    case result
     when :joined
-      notice = t("organization_members.join.success")
+      redirect_to overview_organization_path(@organization), notice: t("organization_members.join.success")
     when :already_member
-      notice = t("organization_members.join.already_member")
+      redirect_to overview_organization_path(@organization), alert: t("organization_members.join.already_member")
     when :invalid_or_expired
-      notice = invite_token_error_notice
+      redirect_to overview_organization_path(@organization), alert: invite_token_error_notice
     end
-    redirect_to overview_organization_path(@organization), notice: notice
   end
 
   def generate_invite_token

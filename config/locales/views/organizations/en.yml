@@ -38,6 +38,7 @@ en:
       page_title: "Members - %{organization}"
       invite:
         heading: "Invite members"
+        invite_btn: "Invite Member"
         description: "Generate an invite link and share it. Anyone with the link can join with the role you select."
         copied: "Copied!"
         close: "Close"
@@ -56,6 +57,7 @@ en:
         email: "Email"
         actions: "Actions"
         change_role: "Change role"
+        change_role_confirm: "Change %{name}'s role to %{role}?"
         make_role: "Make %{role}"
         remove: "Remove from organization"
         remove_confirm: "Remove %{name} from this organization?"
