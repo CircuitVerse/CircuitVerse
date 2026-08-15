@@ -4,6 +4,7 @@ class Users::CircuitverseController < ApplicationController
   TYPEAHEAD_INSTITUTE_LIMIT = 50
 
   include UsersCircuitverseHelper
+  include OrganizationScopedRedirect
 
   before_action :authenticate_user!, only: %i[edit update groups]
   before_action :set_user, except: [:typeahead_educational_institute]
@@ -42,6 +43,8 @@ class Users::CircuitverseController < ApplicationController
                          .select("groups.*, COUNT(group_members.id) as group_member_count")
                          .left_outer_joins(:group_members)
                          .group("groups.id")
+                         .preload(:organization)
+    @groups_member = @user.groups.preload(:organization)
   end
 
   private
