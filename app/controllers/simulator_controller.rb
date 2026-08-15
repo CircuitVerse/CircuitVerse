@@ -72,7 +72,8 @@ class SimulatorController < ApplicationController
     @project.name = sanitize(params[:name])
     @project.author = current_user
     # ActiveStorage
-    attach_circuit_preview(@project, parse_image_data_url(params[:image]))
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(@project, io_image_file)
     # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
@@ -89,7 +90,8 @@ class SimulatorController < ApplicationController
     @project.project_datum.data = sanitize_data(@project, params[:data])
     # ActiveStorage
     @project.circuit_preview.purge if @project.circuit_preview.attached?
-    attach_circuit_preview(@project, parse_image_data_url(params[:image]))
+    io_image_file = parse_image_data_url(params[:image])
+    attach_circuit_preview(@project, io_image_file)
     # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
