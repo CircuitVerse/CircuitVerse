@@ -1,11 +1,26 @@
 <div class="org-dash mx-auto text-body pt-4 px-3 pb-5">
-  <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
-    <h1 class="org-dash-name fw-semibold m-0 fs-5"><%= @organization.name %></h1>
+  <h1 class="org-dash-name fw-semibold m-0 mb-3 fs-5"><%= @organization.name %></h1>
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+    <nav aria-label="<%= t('organizations.tabs.nav_label') %>">
+      <ul class="nav nav-pills gap-2 flex-wrap m-0">
+        <li class="nav-item">
+          <%= link_to t("organizations.tabs.overview"), overview_organization_path(@organization), class: tab_class("overview") %>
+        </li>
+        <li class="nav-item">
+          <%= link_to t("organizations.tabs.members"), members_organization_path(@organization), class: tab_class("members") %>
+        </li>
+        <% if show_settings_tab? %>
+          <li class="nav-item">
+            <%= link_to t("organizations.tabs.settings"), settings_organization_path(@organization), class: tab_class("settings") %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
     <div class="dropdown org-switcher">
-      <button class="btn btn-sm btn-light dropdown-toggle org-switcher-btn d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-        <i class="fa fa-exchange-alt" aria-hidden="true"></i> <%= t("organizations.switcher.button") %>
-      </button>
-      <div class="dropdown-menu org-switcher-menu p-2 rounded-4 shadow">
+      <button class="btn org-switcher-btn dropdown-toggle d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+  <i class="fa fa-exchange-alt" aria-hidden="true"></i> <%= t("organizations.switcher.button") %>
+</button>
+      <div class="dropdown-menu org-switcher-menu dropdown-menu-end p-2 rounded-4 shadow">
         <div class="dropdown-header"><%= t("organizations.switcher.heading") %></div>
         <% @user_organizations.each do |item| %>
           <% org = item[:organization] %>
@@ -35,21 +50,6 @@
       </div>
     </div>
   </div>
-  <nav aria-label="<%= t('organizations.tabs.nav_label') %>">
-    <ul class="nav nav-pills gap-2 flex-wrap mb-3">
-      <li class="nav-item">
-        <%= link_to t("organizations.tabs.overview"), overview_organization_path(@organization), class: tab_class("overview") %>
-      </li>
-      <li class="nav-item">
-        <%= link_to t("organizations.tabs.members"), members_organization_path(@organization), class: tab_class("members") %>
-      </li>
-      <% if show_settings_tab? %>
-        <li class="nav-item">
-          <%= link_to t("organizations.tabs.settings"), settings_organization_path(@organization), class: tab_class("settings") %>
-        </li>
-      <% end %>
-    </ul>
-  </nav>
   <hr class="mt-3 mb-4">
   <%= tab_content %>
 </div>

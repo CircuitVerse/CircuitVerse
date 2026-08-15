@@ -137,6 +137,8 @@ class OrganizationsController < ApplicationController
       model.where(organization_id: memberships.map(&:organization_id))
            .group(:organization_id)
            .count
+    end
+
     def visible_groups
       @visible_groups ||=
         if policy(@organization).admin_access?
