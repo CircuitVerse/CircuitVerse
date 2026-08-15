@@ -67,7 +67,8 @@
                       <td class="px-4 py-3 text-end">
                         <% if member.user_id != current_user.id %>
                           <div class="dropdown">
-                            <button class="btn btn-sm org-member-action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="btn btn-sm org-member-action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+        aria-label="<%= t('organizations.members.list.member_actions', name: member.user.name) %>">
                               <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end">

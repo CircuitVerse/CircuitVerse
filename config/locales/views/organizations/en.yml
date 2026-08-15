@@ -56,6 +56,7 @@ en:
         name: "Name"
         email: "Email"
         actions: "Actions"
+        member_actions: "Actions for %{name}"
         change_role: "Change role"
         change_role_confirm: "Change %{name}'s role to %{role}?"
         make_role: "Make %{role}"
