@@ -63,6 +63,20 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
     end
 
+    context "when authenticated user updates own project with an unsafe name" do
+      before do
+        token = get_auth_token(user)
+        patch "/api/v1/projects/#{project.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: { project: { name: "<script>alert(1)</script>Hello" } }, as: :json
+      end
+
+      it "sanitizes the project name before saving" do
+        expect(response).to have_http_status(:accepted)
+        expect(project.reload.name).not_to include("<script>")
+      end
+    end
+
     context "when authenticated user tries to update non existent project details" do
       before do
         token = get_auth_token(random_user)

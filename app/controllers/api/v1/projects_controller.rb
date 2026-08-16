@@ -111,7 +111,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # PATCH /api/v1/projects/:id
   def update
     authorize @project, :check_edit_access?
-    params.permit(:project)[:name] = sanitize(project_params[:name])
     @project.update!(project_params)
     if @project.update(project_params)
       render json: Api::V1::ProjectSerializer.new(@project, @options), status: :accepted
@@ -269,7 +268,9 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     end
 
     def project_params
-      params.expect(project: %i[name project_access_type description tag_list])
+      project = params.expect(project: %i[name project_access_type description tag_list])
+      project[:name] = sanitize(project[:name]) if project[:name]
+      project
     end
 end
 # rubocop:enable Metrics/ClassLength
