@@ -48,7 +48,7 @@ RSpec.configure do |config|
   config.include SystemTestHelpers, type: :system
 
   config.before(:suite) do
-    ActiveRecord::Tasks::DatabaseTasks.truncate_all
+    ActiveRecord::Tasks::DatabaseTasks.truncate_all if Rails.env.test?
   end
 
   config.before do
