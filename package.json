@@ -30,7 +30,7 @@
     "identity-obj-proxy": "^3.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "jsdoc": "3.6.10",
+    "jsdoc": "4.0.5",
     "lint-staged": ">=15.4.2",
     "livereload": "^0.9.3",
     "nodemon": "^2.0.21",
