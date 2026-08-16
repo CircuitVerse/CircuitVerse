@@ -14,10 +14,10 @@ module SimulatorHelper
   end
 
   def cleanup_image_file(image_file)
-    return unless image_file.is_a?(Tempfile)
+    return unless image_file.respond_to?(:close)
 
-    image_file.close
-    image_file.unlink
+    image_file.close unless image_file.closed?
+    image_file.unlink if image_file.is_a?(Tempfile)
   end
 
   def parse_image_data_url(data_url)

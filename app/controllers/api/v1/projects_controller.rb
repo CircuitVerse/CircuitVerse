@@ -129,7 +129,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     update_project_params
 
     if @project.save && @project.project_datum.save
-      @project.circuit_preview.purge if @project.circuit_preview.attached?
       attach_circuit_preview(@project, parse_image_data_url(params[:image]))
       render json: { status: "success", project: @project }, status: :ok
     else
@@ -199,6 +198,14 @@ class Api::V1::ProjectsController < Api::V1::BaseController
       @image_file = return_image_file(params[:image])
       @project.image_preview = @image_file
       @project.name = sanitize(params[:name])
+    end
+
+    def attach_circuit_preview(project, image_file)
+      return unless image_file
+
+      previous_blob = project.circuit_preview.blob if project.circuit_preview.attached?
+      super
+      previous_blob&.purge
     end
 
     def load_index_projects
