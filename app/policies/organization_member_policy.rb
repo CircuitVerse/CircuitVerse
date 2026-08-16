@@ -35,6 +35,10 @@ class OrganizationMemberPolicy < ApplicationPolicy
       record.user == user
     end
 
+    def member_primary_mentor_of_any_group?
+      record.organization.groups.exists?(primary_mentor_id: record.user_id)
+    end
+
     def sole_admin?
       record.role == "admin" &&
         record.organization.organization_members.where(role: :admin).one?
