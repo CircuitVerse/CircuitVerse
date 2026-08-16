@@ -128,4 +128,42 @@ describe AssignmentPolicy do
       it { is_expected.not_to permit(:edit) }
     end
   end
+
+  context "for an organization-owned group's assignment" do
+    let(:organization) { FactoryBot.create(:organization) }
+    let(:assignment) { FactoryBot.create(:assignment, group: org_group) }
+
+    context "user is an org admin" do
+      let(:user) { FactoryBot.create(:user) }
+      let(:org_group) { FactoryBot.create(:group, organization: organization, primary_mentor: @primary_mentor) }
+
+      before { FactoryBot.create(:organization_member, organization: organization, user: user, role: :admin) }
+
+      it { is_expected.to permit(:admin_access) }
+      it { is_expected.to permit(:show) }
+      it { is_expected.to permit(:mentor_access) }
+    end
+
+    context "user is an assigned org mentor" do
+      let(:user) { FactoryBot.create(:user) }
+      let(:org_group) { FactoryBot.create(:group, organization: organization, primary_mentor: @primary_mentor) }
+
+      before do
+        FactoryBot.create(:organization_member, organization: organization, user: user, role: :mentor)
+        FactoryBot.create(:group_member, group: org_group, user: user, mentor: true)
+      end
+
+      it { is_expected.to permit(:admin_access) }
+    end
+
+    context "user is an unrelated org member" do
+      let(:user) { FactoryBot.create(:user) }
+      let(:org_group) { FactoryBot.create(:group, organization: organization, primary_mentor: @primary_mentor) }
+
+      before { FactoryBot.create(:organization_member, organization: organization, user: user, role: :member) }
+
+      it { is_expected.not_to permit(:admin_access) }
+      it { is_expected.not_to permit(:mentor_access) }
+    end
+  end
 end
