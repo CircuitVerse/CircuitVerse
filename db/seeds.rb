@@ -15,10 +15,13 @@ User.create(name: "Admin",
             password: "password",
             admin: true,
             locale: "en",
-            confirmed_at: Time.current
-)
-users = User.create([{ name: "user1", email: "user1@circuitverse.org", password: "password", locale: "en", confirmed_at: Time.current },
-                     { name: "user2", email: "user2@circuitverse.org", password: "password", locale: "en", confirmed_at: Time.current }])
+            confirmed_at: Time.current)
+users = User.create([
+                      { name: "user1", email: "user1@circuitverse.org", password: "password", locale: "en",
+                        confirmed_at: Time.current },
+                      { name: "user2", email: "user2@circuitverse.org", password: "password", locale: "en",
+                        confirmed_at: Time.current }
+                    ])
 
 # private,public,limited access
 Rails.logger.debug "Creating Projects"
@@ -53,11 +56,10 @@ Project.create([{ name: "Full Adder",
                   project_access_type: "Public",
                   description: "description" }])
 
-#groups
-puts "Creating Groups"
-group = Group.create(name: 'group1',
-  primary_mentor_id: users.first.id,
-)
+# groups
+Rails.logger.debug "Creating Groups"
+group = Group.create(name: "group1",
+                     primary_mentor_id: users.first.id)
 GroupMember.create(group_id: group.id,
                    user_id: users.second.id)
 
