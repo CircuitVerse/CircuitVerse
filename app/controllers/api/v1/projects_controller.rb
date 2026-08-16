@@ -205,7 +205,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
       previous_blob = project.circuit_preview.blob if project.circuit_preview.attached?
       super
-      previous_blob&.purge
+      previous_blob&.purge if project.circuit_preview.attached?
     end
 
     def load_index_projects
