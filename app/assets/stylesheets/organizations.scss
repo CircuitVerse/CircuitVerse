@@ -279,6 +279,17 @@
   display: none;
 }
 
+.org-switcher-load-more {
+  text-decoration: none;
+  color: $black;
+}
+
+.org-switcher-load-more:hover,
+.org-switcher-load-more:focus {
+  text-decoration: none;
+  color: $black;
+}
+
 .org-switcher-menu.dropdown-menu {
   min-width: 300px;
   max-height: 360px;
@@ -287,7 +298,7 @@
 
 .org-switcher-menu .dropdown-header {
   font-size: 14px;
-  color: var(--bs-black);
+  color: $black;
   letter-spacing: 0.4px;
 }
 

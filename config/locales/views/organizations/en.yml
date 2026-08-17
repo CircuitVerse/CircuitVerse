@@ -26,6 +26,7 @@ en:
     switcher:
       button: "Switch"
       heading: "Your Organizations"
+      load_more: "Load more..."
       group_count:
         one: "1 group"
         other: "%{count} groups"

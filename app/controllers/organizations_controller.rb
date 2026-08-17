@@ -9,6 +9,7 @@ class OrganizationsController < ApplicationController
   before_action :check_edit_access, only: %i[settings update destroy]
 
   PER_PAGE = 9
+  SWITCHER_PER_PAGE = 10
 
   # GET /organizations
   def index
@@ -66,6 +67,15 @@ class OrganizationsController < ApplicationController
     render json: { slug: base_slug, available: base_slug.present? && !is_taken }
   end
 
+  def switcher_organizations
+    page = params[:page].to_i
+    organizations = switcher_page(page)
+    has_more = current_user.organization_members.count > (page + 1) * SWITCHER_PER_PAGE
+    html = render_to_string(partial: "organizations/switcher_item", collection: organizations, as: :item,
+                            formats: [:html])
+    render json: { html: html, has_more: has_more }
+  end
+
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
@@ -119,16 +129,24 @@ class OrganizationsController < ApplicationController
     end
 
     def set_user_organizations
-      memberships = current_user.organization_members.includes(:organization)
+      @user_organizations = switcher_page(0)
+      @user_organizations_has_more = current_user.organization_members.count > SWITCHER_PER_PAGE
+    end
+
+    def switcher_page(page)
+      memberships = current_user.organization_members
+                                .includes(organization: { logo_attachment: :blob })
+                                .order(:id)
+                                .offset(page * SWITCHER_PER_PAGE)
+                                .limit(SWITCHER_PER_PAGE)
       group_counts = counts_by_organization(Group, memberships)
       member_counts = counts_by_organization(OrganizationMember, memberships)
-
-      @user_organizations = memberships.map do |membership|
+      memberships.map do |m|
         {
-          organization: membership.organization,
-          role: membership.role,
-          group_count: group_counts.fetch(membership.organization_id, 0),
-          member_count: member_counts.fetch(membership.organization_id, 0)
+          organization: m.organization,
+          role: m.role,
+          group_count: group_counts.fetch(m.organization_id, 0),
+          member_count: member_counts.fetch(m.organization_id, 0)
         }
       end
     end

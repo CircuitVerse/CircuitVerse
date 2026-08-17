@@ -3,11 +3,12 @@
 class OrganizationDashboardShellComponent < ViewComponent::Base
   renders_one :tab_content
 
-  def initialize(organization:, active_tab:, user_organizations:, show_settings_tab:)
+  def initialize(organization:, active_tab:, user_organizations:, user_organizations_has_more:, show_settings_tab:)
     super()
     @organization = organization
     @active_tab = active_tab
     @user_organizations = user_organizations
+    @user_organizations_has_more = user_organizations_has_more
     @show_settings_tab = show_settings_tab
   end
 
