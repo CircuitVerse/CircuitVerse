@@ -7,6 +7,10 @@ class OrganizationsController < ApplicationController
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
 
+  rescue_from Pundit::NotAuthorizedError do
+    raise ActiveRecord::RecordNotFound
+  end
+
   PER_PAGE = 9
 
   # GET /organizations
@@ -28,16 +32,16 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1/overview
   def overview
     @active_tab = "overview"
-    @groups = @organization.groups
-                           .left_joins(:group_members)
-                           .select("groups.*, COUNT(group_members.id) AS group_members_count")
-                           .group("groups.id")
-                           .order(created_at: :desc)
-                           .paginate(
-                             page: params[:groups_page],
-                             per_page: PER_PAGE,
-                             total_entries: @organization.groups.count
-                           )
+    @groups = visible_groups
+              .left_joins(:group_members)
+              .select("groups.*, COUNT(group_members.id) AS group_members_count")
+              .group("groups.id")
+              .order(created_at: :desc)
+              .paginate(
+                page: params[:groups_page],
+                per_page: PER_PAGE,
+                total_entries: visible_groups.count
+              )
   end
 
   # GET /organizations/1/members
@@ -115,6 +119,17 @@ class OrganizationsController < ApplicationController
 
     def set_organization
       @organization = Organization.friendly.find(params.expect(:id))
+    end
+
+    def visible_groups
+      @visible_groups ||=
+        if policy(@organization).admin_access?
+          @organization.groups
+        else
+          member_ids = current_user.groups.where(organization: @organization).select(:id)
+          owned_ids = current_user.groups_owned.where(organization: @organization).select(:id)
+          @organization.groups.where(id: member_ids).or(@organization.groups.where(id: owned_ids))
+        end
     end
 
     def organization_params

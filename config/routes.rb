@@ -36,7 +36,19 @@ Rails.application.routes.draw do
     end
     resources :organization_members, only: %i[create update destroy]
     delete :leave, to: "organization_members#leave"
-    resources :groups, only: %i[new create]
+    resources :groups, only: %i[index new create show edit update destroy] do
+      resources :assignments, except: %i[index] do
+        member do
+          get :reopen
+          put :close
+          get :start
+        end
+      end  
+      member do
+        get "invite/:token", to: "groups#group_invite", as: "invite"
+        put :generate_token
+      end
+    end
   end
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do

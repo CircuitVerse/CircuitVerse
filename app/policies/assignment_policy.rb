@@ -11,11 +11,12 @@ class AssignmentPolicy < ApplicationPolicy
 
   def show?
     assignment.group.primary_mentor_id == user.id || user.groups.exists?(id: assignment.group.id) \
-    || user.admin?
+    || user.admin? ||
+      org_manage?
   end
 
   def admin_access?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin?
+    (assignment.group&.primary_mentor_id == user.id) || user.admin? || org_manage?
   end
 
   def mentor_access?
@@ -39,7 +40,7 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def close?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin?
+    admin_access?
   end
 
   def can_be_graded?
@@ -49,4 +50,13 @@ class AssignmentPolicy < ApplicationPolicy
   def show_grades?
     assignment.graded? && Time.current > assignment.deadline
   end
+
+  private
+
+    def org_manage?
+      group = assignment.group
+      return false unless group&.organization
+
+      OrganizationGroupPolicy.new(user, group).manage_assignments?
+    end
 end
