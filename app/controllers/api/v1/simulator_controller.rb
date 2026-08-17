@@ -28,7 +28,7 @@ class Api::V1::SimulatorController < Api::V1::BaseController
   end
   # rubocop:enable Metrics/MethodLength
 
-  MAX_CODE_SIZE = 10_000 # 10KB limit
+  MAX_CODE_SIZE = 100_000 # 100KB limit
 
   # POST /api/v1/simulator/verilogcv
   def verilog_cv
