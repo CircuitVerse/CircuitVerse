@@ -1,37 +1,38 @@
 <%= link_to overview_organization_path(@organization),
             class: "text-decoration-none d-block h-100" do %>
-  <div class="org-index-card d-flex flex-column overflow-hidden w-100 h-100">
+  <div class="org-index-card d-flex flex-column overflow-hidden w-100 h-100 bg-white">
     <div class="org-index-card-banner position-relative w-100 flex-shrink-0">
-      <%= image_tag "organization_banner.png", alt: "", class: "org-index-card-banner-img" %>
-      <div class="org-index-card-logo d-flex align-items-center justify-content-center overflow-hidden">
+      <%= image_tag "organization_banner.png", alt: "", class: "org-index-card-banner-img w-100 h-100" %>
+      <div class="org-index-card-logo position-absolute top-100 start-0 translate-middle-y ms-3 d-flex align-items-center justify-content-center overflow-hidden bg-white">
         <% if @organization.logo.attached? %>
-          <%= image_tag @organization.logo, alt: t("organizations.index.logo_alt", organization: @organization.name), class: "org-index-card-logo-img" %>
+          <%= image_tag @organization.logo, alt: t("organizations.index.logo_alt", organization: @organization.name), class: "d-block w-100 h-100 org-index-card-logo-img" %>
         <% else %>
-          <span class="org-index-card-logo-fallback"><%= logo_fallback %></span>
+          <span class="org-index-card-logo-fallback fw-bold"><%= logo_fallback %></span>
         <% end %>
       </div>
     </div>
-    <div class="org-index-card-details d-flex flex-column align-items-center text-center flex-grow-1">
-      <div class="org-index-card-name">
+
+    <div class="d-flex flex-column flex-grow-1 p-3 pt-2 gap-2">
+      <div class="org-index-card-name d-flex align-items-center fw-semibold text-black">
         <span class="org-index-card-name-link"><%= @organization.name %></span>
       </div>
-      <div class="org-index-card-meta text-center">
-        <span class="org-index-card-meta-text">
-          <i class="fa fa-user" aria-hidden="true"></i><%= helpers.capped_member_count(@organization.members_count, "organizations.index.member_count") %>
-        </span>
-      </div>
-      <% if @organization.location.present? %>
-        <div class="org-index-card-meta text-center">
-          <span class="org-index-card-meta-text">
-            <i class="fa fa-map-marker-alt" aria-hidden="true"></i><%= @organization.location %>
-          </span>
-        </div>
-      <% end %>
+
       <% if @organization.description.present? %>
-        <div class="org-index-card-description text-body-secondary">
+        <div class="org-index-card-description small text-body-secondary">
           <span><%= truncated_description %></span>
         </div>
       <% end %>
+
+      <div class="org-index-card-footer d-flex align-items-center justify-content-between gap-2 mt-auto pt-1 small text-black">
+        <span class="d-inline-flex align-items-center flex-shrink-0 text-nowrap">
+          <i class="fa fa-user" aria-hidden="true"></i><%= helpers.capped_member_count(@organization.members_count, "organizations.index.member_count") %>
+        </span>
+        <% if @organization.location.present? %>
+          <span class="d-inline-flex align-items-center text-nowrap" title="<%= @organization.location %>">
+            <i class="fa fa-map-marker-alt" aria-hidden="true"></i><%= truncated_location %>
+          </span>
+        <% end %>
+      </div>
     </div>
   </div>
 <% end %>

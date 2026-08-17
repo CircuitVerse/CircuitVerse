@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class OrganizationCardComponent < ViewComponent::Base
-  DESCRIPTION_LENGTH = 100
+  DESCRIPTION_LENGTH = 150
+  LOCATION_LENGTH = 20
 
   def initialize(organization:)
     super()
@@ -12,7 +13,11 @@ class OrganizationCardComponent < ViewComponent::Base
     truncate(@organization.description, length: DESCRIPTION_LENGTH)
   end
 
+  def truncated_location
+    truncate(@organization.location, length: LOCATION_LENGTH)
+  end
+
   def logo_fallback
-    @organization.name.first.upcase
+    @organization.name.to_s.strip.first.to_s.upcase
   end
 end
