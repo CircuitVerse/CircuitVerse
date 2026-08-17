@@ -9,6 +9,10 @@ class OrganizationGroupPolicy < ApplicationPolicy
     org_admin? || assigned_mentor? || group_member? || user.admin?
   end
 
+  def manage_assignments?
+    org_admin? || assigned_mentor? || user.admin?
+  end
+
   private
 
     def org_membership

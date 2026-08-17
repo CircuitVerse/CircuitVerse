@@ -198,6 +198,17 @@ describe GroupsController, type: :request do
     end
   end
 
+  describe "pending invitation to an organization-owned group" do
+    it "adds a new user to the organization when they accept the invitation" do
+      organization = FactoryBot.create(:organization)
+      org_group = FactoryBot.create(:group, organization: organization, primary_mentor: @primary_mentor)
+      PendingInvitation.create!(group: org_group, email: "newuser@example.com")
+      user = FactoryBot.create(:user, email: "newuser@example.com")
+      expect(organization.organization_members.find_by(user: user)&.role).to eq("member")
+      expect(GroupMember.exists?(group: org_group, user: user)).to be(true)
+    end
+  end
+
   describe "#show org-scoped group lookup" do
     before do
       @organization = FactoryBot.create(:organization)
