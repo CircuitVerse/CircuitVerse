@@ -101,12 +101,7 @@ class verilogUnaryGate{
 class verilogInput extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
-        if (deviceJSON["net"] == "clk" || deviceJSON["net"] == "clock") {
-            this.element = new Clock(0, 0);
-        } 
-        else {
-            this.element = new Input(0, 0, undefined, undefined, this.bitWidth);
-        }
+        this.element = new Input(0, 0, undefined, undefined, this.bitWidth);
         this.output = this.element.output1;
         this.element.label = deviceJSON["net"];
     }
