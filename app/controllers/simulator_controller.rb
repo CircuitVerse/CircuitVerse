@@ -213,7 +213,7 @@ class SimulatorController < ApplicationController
       @project.circuit_preview.attach(
         io: image_file,
         filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
-        content_type: "img/jpeg"
+        content_type: "image/jpeg"
       )
     end
 end
