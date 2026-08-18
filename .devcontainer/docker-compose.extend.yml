@@ -1,0 +1,20 @@
+x-devcontainer-build-args: &devcontainer_build_args
+  - NON_ROOT_USER_ID=${CURRENT_UID:-1000}
+  - NON_ROOT_GROUP_ID=${CURRENT_GID:-1000}
+  - OPERATING_SYSTEM=${OPERATING_SYSTEM:-linux}
+  - NON_ROOT_USERNAME=${NON_ROOT_USERNAME:-user}
+  - NON_ROOT_GROUPNAME=${NON_ROOT_GROUPNAME:-user}
+
+services:
+  web:
+    build:
+      args: *devcontainer_build_args
+  sidekiq:
+    build:
+      args: *devcontainer_build_args
+  solargraph:
+    build:
+      args: *devcontainer_build_args
+  asset_build:
+    build:
+      args: *devcontainer_build_args
