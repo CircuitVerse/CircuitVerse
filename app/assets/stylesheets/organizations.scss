@@ -222,13 +222,12 @@
 }
 
 .org-index-card-name {
-  // Clears the 60px logo + 12px gutter; min-height covers its 30px overhang.
-  margin-left: 72px;
-  min-height: 32px;
   font-size: 18px;
+  font-weight: 600;
   line-height: 22px;
 
   .org-index-card-name-link {
+    color: $black;
     display: -webkit-box;
     -webkit-line-clamp: 2;
     line-clamp: 2;

@@ -24,6 +24,8 @@ en:
       overview: "Overview"
       members: "Members"
       settings: "Settings"
+    dashboard:
+      page_title: "Organizations / %{organization} - %{tab}"  
     overview:
       groups_heading: "Groups"
       group_locked: "Members only"
@@ -36,10 +38,7 @@ en:
     social_links:
       logo_alt: "%{provider} logo"
       website: "Website"
-    members:
-      page_title: "Members - %{organization}"
     settings:
-      page_title: "Settings - %{organization}"
       danger_heading: "Danger Zone"
       danger_subheading: "Irreversible actions for this organization."
       delete_title: "Delete this organization"

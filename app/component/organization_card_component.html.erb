@@ -11,18 +11,15 @@
         <% end %>
       </div>
     </div>
-
-    <div class="d-flex flex-column flex-grow-1 p-3 pt-2 gap-2">
-      <div class="org-index-card-name d-flex align-items-center fw-semibold text-black">
+    <div class="d-flex flex-column flex-grow-1 p-3 pt-5 gap-2">
+      <div class="org-index-card-name fw-semibold text-black">
         <span class="org-index-card-name-link"><%= @organization.name %></span>
       </div>
-
       <% if @organization.description.present? %>
         <div class="org-index-card-description small text-body-secondary">
           <span><%= truncated_description %></span>
         </div>
       <% end %>
-
       <div class="org-index-card-footer d-flex align-items-center justify-content-between gap-2 mt-auto pt-1 small text-black">
         <span class="d-inline-flex align-items-center flex-shrink-0 text-nowrap">
           <i class="fa fa-user" aria-hidden="true"></i><%= helpers.capped_member_count(@organization.members_count, "organizations.index.member_count") %>
