@@ -33,6 +33,7 @@ Rails.application.routes.draw do
     end
     collection do
       get :check_slug
+      get :switcher_organizations
     end
     resources :organization_members, only: %i[create update destroy]
     delete :leave, to: "organization_members#leave"

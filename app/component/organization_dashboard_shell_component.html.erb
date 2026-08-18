@@ -1,20 +1,69 @@
 <div class="org-dash mx-auto text-body pt-4 px-3 pb-5">
-  <h1 class="org-dash-name fw-semibold mb-3 fs-5"><%= @organization.name %></h1>
-  <nav aria-label="<%= t('organizations.tabs.nav_label') %>">
-    <ul class="nav nav-pills gap-2 flex-wrap mb-3">
-      <li class="nav-item">
-        <%= link_to t("organizations.tabs.overview"), overview_organization_path(@organization), class: tab_class("overview") %>
-      </li>
-      <li class="nav-item">
-        <%= link_to t("organizations.tabs.members"), members_organization_path(@organization), class: tab_class("members") %>
-      </li>
-      <% if show_settings_tab? %>
+  <h1 class="org-dash-name fw-semibold m-0 mb-3 fs-5"><%= @organization.name %></h1>
+  <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+    <nav aria-label="<%= t('organizations.tabs.nav_label') %>">
+      <ul class="nav nav-pills gap-2 flex-wrap m-0">
         <li class="nav-item">
-          <%= link_to t("organizations.tabs.settings"), settings_organization_path(@organization), class: tab_class("settings") %>
+          <%= link_to t("organizations.tabs.overview"), overview_organization_path(@organization), class: tab_class("overview") %>
         </li>
-      <% end %>
-    </ul>
-  </nav>
+        <li class="nav-item">
+          <%= link_to t("organizations.tabs.members"), members_organization_path(@organization), class: tab_class("members") %>
+        </li>
+        <% if show_settings_tab? %>
+          <li class="nav-item">
+            <%= link_to t("organizations.tabs.settings"), settings_organization_path(@organization), class: tab_class("settings") %>
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+    <div class="dropdown org-switcher">
+      <button class="btn org-switcher-btn dropdown-toggle d-inline-flex align-items-center gap-2" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+        <i class="fa fa-exchange-alt" aria-hidden="true"></i> <%= t("organizations.switcher.button") %>
+      </button>
+      <div class="dropdown-menu org-switcher-menu dropdown-menu-end p-2 rounded-4 shadow">
+        <div class="dropdown-header"><%= t("organizations.switcher.heading") %></div>
+        <div id="org-switcher-list">
+          <% @user_organizations.each do |item| %>
+            <%= render "organizations/switcher_item", item: item, is_current: current_org?(item[:organization]) %>
+          <% end %>
+        </div>
+        <% if @user_organizations_has_more %>
+            <a href="#" class="org-switcher-load-more d-block text-center small py-2" data-next-page="1" data-url="<%= switcher_organizations_organizations_path %>">
+              <%= t("organizations.switcher.load_more") %>
+            </a>
+        <% end %>
+        <div class="dropdown-divider"></div>
+        <%= link_to new_organization_path, class: "dropdown-item org-switcher-create d-flex align-items-center gap-2 rounded-3 fw-semibold" do %>
+          <i class="fa fa-plus" aria-hidden="true"></i> <%= t("organizations.switcher.create") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
   <hr class="mt-3 mb-4">
   <%= tab_content %>
 </div>
+
+<script>
+  document.addEventListener('click', async function (e) {
+    const link = e.target.closest('.org-switcher-load-more');
+    if (!link) return;
+    e.preventDefault();
+    e.stopPropagation();
+    const page = link.dataset.nextPage;
+    const original = link.textContent;
+    link.textContent = "...";
+    try {
+      const res = await fetch(`${link.dataset.url}?page=${page}`, { headers: { 'Accept': 'application/json' } });
+      const data = await res.json();
+      document.getElementById('org-switcher-list').insertAdjacentHTML('beforeend', data.html);
+      if (data.has_more) {
+        link.dataset.nextPage = String(parseInt(page) + 1);
+        link.textContent = original;
+      } else {
+        link.remove();
+      }
+    } catch (err) {
+      link.textContent = original;
+    }
+  });
+</script>
