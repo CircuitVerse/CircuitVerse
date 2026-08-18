@@ -10,37 +10,6 @@ class Organization < ApplicationRecord
   has_many :users, through: :organization_members
   has_many :groups, dependent: :nullify
 
-  has_secure_token :invite_token
-
-  INVITE_TOKEN_DURATION = 7.days
-
-  scope :with_valid_invite_token, -> { where(invite_token_expires_at: Time.zone.now..) }
-
-  def valid_invite_token?
-    invite_token_expires_at.present? && invite_token_expires_at > Time.zone.now
-  end
-
-  def reset_invite_token(role:)
-    regenerate_invite_token
-    update!(invite_token_expires_at: Time.zone.now + INVITE_TOKEN_DURATION,
-            invite_token_role: OrganizationMember.roles.fetch(role.to_s))
-  end
-
-  def add_member_from_invite(user, token)
-    organization_members.transaction do
-      locked = self.class.with_valid_invite_token
-                   .lock
-                   .find_by(id: id, invite_token: token)
-      return :invalid_or_expired unless locked
-
-      return :already_member if organization_members.exists?(user: user)
-
-      role = locked.invite_token_role || OrganizationMember.roles[:member]
-      organization_members.create!(user: user, role: role)
-      :joined
-    end
-  end
-
   has_one_attached :logo
   attr_accessor :remove_logo
 

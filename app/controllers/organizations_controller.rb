@@ -4,10 +4,9 @@ class OrganizationsController < ApplicationController
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
   before_action :set_organization,
-                only: %i[show overview members settings update destroy generate_invite_token confirm_join join]
+                only: %i[show overview members settings update destroy]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
-  before_action :check_admin_access, only: %i[generate_invite_token]
 
   PER_PAGE = 9
   MEMBERS_PER_PAGE = 20
@@ -129,34 +128,6 @@ class OrganizationsController < ApplicationController
     end
   end
 
-  def confirm_join
-    # GET just show a confirmation page, no mutation
-    return if Organization.with_valid_invite_token.exists?(id: @organization.id, invite_token: params[:token])
-
-    redirect_to root_path, alert: t("organization_members.join.invalid") and return
-  end
-
-  def join
-    result = @organization.add_member_from_invite(current_user, params[:token])
-    case result
-    when :joined
-      redirect_to overview_organization_path(@organization), notice: t("organization_members.join.success")
-    when :already_member
-      redirect_to overview_organization_path(@organization), alert: t("organization_members.join.already_member")
-    when :invalid_or_expired
-      redirect_to overview_organization_path(@organization), alert: invite_token_error_notice
-    end
-  end
-
-  def generate_invite_token
-    role = params[:role].presence_in(%w[admin mentor member]) || "member" # rubocop:disable Rails/StrongParametersExpect
-    @organization.reset_invite_token(role: role)
-    respond_to do |format|
-      format.js
-      format.html { redirect_to members_organization_path(@organization) }
-    end
-  end
-
   private
 
     def set_organization
@@ -194,14 +165,6 @@ class OrganizationsController < ApplicationController
 
     def check_admin_access
       authorize @organization, :admin_access?
-    end
-
-    def invite_token_error_notice
-      if Organization.exists?(id: @organization.id, invite_token: params[:token])
-        t("organization_members.join.expired")
-      else
-        t("organization_members.join.invalid")
-      end
     end
 
     def create_organization
