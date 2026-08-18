@@ -54,4 +54,20 @@ describe GroupPolicy do
     it { is_expected.not_to permit(:admin_access) }
     it { is_expected.not_to permit(:mentor_access) }
   end
+
+  context "when the user is an organization admin" do
+    before do
+      @organization = FactoryBot.create(:organization)
+      @org_admin = FactoryBot.create(:user)
+      FactoryBot.create(:organization_member, organization: @organization, user: @org_admin, role: :admin)
+      @group.update!(organization: @organization)
+    end
+
+    let(:user) { @org_admin }
+    let(:group) { @group }
+
+    it { is_expected.to permit(:show_access) }
+    it { is_expected.to permit(:admin_access) }
+    it { is_expected.to permit(:mentor_access) }
+  end
 end
