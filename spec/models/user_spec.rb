@@ -2,6 +2,8 @@
 
 require "rails_helper"
 
+FakeAccessToken = Struct.new(:uid, :provider, :info)
+
 RSpec.describe User, type: :model do
   describe "associations" do
     it { is_expected.to have_many(:projects) }
@@ -62,6 +64,58 @@ RSpec.describe User, type: :model do
 
     it "user is not moderator by default" do
       expect(@user).not_to be_moderator
+    end
+
+    describe ".from_omniauth" do
+      let(:provider) { "google_oauth2" }
+      let(:uid) { "google-uid-12345" }
+      let(:email) { "testuser@gmail.com" }
+
+      let(:access_token) do
+        FakeAccessToken.new(
+          uid,
+          provider,
+          { "email" => email, "name" => "Test User" }
+        )
+      end
+
+      context "when user exists with matching uid and provider" do
+        it "returns the existing user without creating a new one" do
+          existing_user = FactoryBot.create(:user, uid: uid, provider: provider, email: email)
+          expect do
+            result = described_class.from_omniauth(access_token)
+            expect(result.id).to eq(existing_user.id)
+          end.not_to change(described_class, :count)
+        end
+      end
+
+      context "when user renames Gmail but uid stays the same" do
+        it "finds user by uid and does not create a duplicate account" do
+          existing_user = FactoryBot.create(:user, uid: uid, provider: provider, email: "old@gmail.com")
+          expect do
+            result = described_class.from_omniauth(access_token)
+            expect(result.id).to eq(existing_user.id)
+          end.not_to change(described_class, :count)
+        end
+      end
+
+      context "when user exists by email but has no uid stored" do
+        it "finds user by email and backfills the uid and provider" do
+          existing_user = FactoryBot.create(:user, uid: nil, provider: nil, email: email)
+          result = described_class.from_omniauth(access_token)
+          expect(result.id).to eq(existing_user.id)
+          expect(result.reload.uid).to eq(uid)
+          expect(result.reload.provider).to eq(provider)
+        end
+      end
+
+      context "when user does not exist at all" do
+        it "creates a new user" do
+          expect do
+            described_class.from_omniauth(access_token)
+          end.to change(described_class, :count).by(1)
+        end
+      end
     end
   end
 end
