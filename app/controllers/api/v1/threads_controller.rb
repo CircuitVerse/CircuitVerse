@@ -31,6 +31,8 @@ class Api::V1::ThreadsController < Api::V1::BaseController
     else
       api_error(status: 409, errors: "thread already subscribed")
     end
+  rescue ActiveRecord::RecordNotUnique
+    api_error(status: 409, errors: "thread already subscribed")
   end
 
   # PUT /api/v1/threads/:id/unsubscribe

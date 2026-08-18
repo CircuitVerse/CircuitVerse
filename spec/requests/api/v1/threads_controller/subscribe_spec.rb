@@ -42,5 +42,19 @@ RSpec.describe Api::V1::ThreadsController, "#subscribe", type: :request do
         expect(response.parsed_body["message"]).to eq("thread subscribed")
       end
     end
+
+    context "when a duplicate subscription race condition occurs" do
+      before do
+        allow_any_instance_of(Commontator::Thread).to receive(:subscribe).and_raise(ActiveRecord::RecordNotUnique)
+        token = get_auth_token(user)
+        put "/api/v1/threads/#{project.commontator_thread.id}/subscribe",
+            headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status conflict & 'thread already subscribed' error" do
+        expect(response).to have_http_status(:conflict)
+        expect(response.parsed_body).to have_jsonapi_error("thread already subscribed")
+      end
+    end
   end
 end
