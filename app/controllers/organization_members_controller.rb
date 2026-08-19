@@ -13,11 +13,11 @@ class OrganizationMembersController < ApplicationController
   # POST /organizations/1/organization_members.json
   def create
     role = organization_member_params[:role].presence_in(%w[admin mentor member]) || "member"
-    emails = organization_member_params[:emails].grep(Devise.email_regexp)
+    emails = Array(organization_member_params[:emails]).grep(Devise.email_regexp)
     present_members = User.where(id: @organization.organization_members.pluck(:user_id)).pluck(:email)
     newly_added = emails - present_members - [current_user&.email]
     newly_added.each { |email| invite_by_email(email.strip, role) }
-    notice = Utils.mail_notice(organization_member_params[:emails], emails, newly_added)
+    notice = Utils.mail_notice(Array(organization_member_params[:emails]), emails, newly_added)
     redirect_to members_organization_path(@organization), notice: notice
   end
 
