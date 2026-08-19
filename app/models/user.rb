@@ -62,14 +62,23 @@ class User < ApplicationRecord
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
-      if invitation.group_id.present?
-        GroupMember.where(group_id: invitation.group_id, user_id: id).first_or_create
-      elsif invitation.organization_id.present?
-        OrganizationMember.where(organization_id: invitation.organization_id, user_id: id)
-                          .first_or_create(role: invitation.role || OrganizationMember.roles[:member])
-      end
-      invitation.destroy
+      ActiveRecord::Base.transaction { accept_invitation(invitation) }
     end
+  end
+
+  def accept_invitation(invitation)
+    if invitation.group_id.present?
+      group = invitation.group
+      GroupMember.where(group_id: group.id, user_id: id).first_or_create!
+      group.add_member_to_organization(self)
+    elsif invitation.organization_id.present?
+      membership = OrganizationMember.find_or_initialize_by(
+        organization_id: invitation.organization_id, user_id: id
+      )
+      membership.role = invitation.role || OrganizationMember.roles[:member]
+      membership.save!
+    end
+    invitation.destroy!
   end
 
   def self.from_omniauth(access_token)

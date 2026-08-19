@@ -13,11 +13,12 @@ class OrganizationMembersController < ApplicationController
   # POST /organizations/1/organization_members.json
   def create
     role = organization_member_params[:role].presence_in(%w[admin mentor member]) || "member"
-    emails = Array(organization_member_params[:emails]).grep(Devise.email_regexp)
+    submitted = Array(organization_member_params[:emails]).map { |e| e.to_s.strip.downcase }
+    emails = submitted.grep(Devise.email_regexp)
     present_members = User.where(id: @organization.organization_members.pluck(:user_id)).pluck(:email)
-    newly_added = emails - present_members - [current_user&.email]
-    newly_added.each { |email| invite_by_email(email.strip, role) }
-    notice = Utils.mail_notice(Array(organization_member_params[:emails]), emails, newly_added)
+    newly_added = emails - present_members - [current_user&.email&.downcase]
+    newly_added.each { |email| invite_by_email(email, role) }
+    notice = Utils.mail_notice(submitted, emails, newly_added)
     redirect_to members_organization_path(@organization), notice: notice
   end
 
@@ -94,8 +95,9 @@ class OrganizationMembersController < ApplicationController
     def invite_by_email(email, role)
       user = User.find_by(email: email)
       if user.nil?
-        PendingInvitation.where(organization_id: @organization.id, email: email)
-                         .first_or_create(role: OrganizationMember.roles[role])
+        PendingInvitation.create_or_find_by!(organization_id: @organization.id, email: email) do |invite|
+          invite.role = OrganizationMember.roles[role]
+        end
       else
         @organization.organization_members
                      .where(user_id: user.id)
