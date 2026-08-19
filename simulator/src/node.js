@@ -72,6 +72,24 @@ export function findNode(x) {
 }
 
 /**
+ * Propagates updated bitWidth across connected intermediate wire nodes.
+ * @param {Node} startNode
+ * @param {number} bitWidth
+ * @param {Set} visited
+ */
+export function propagateBitWidth(startNode, bitWidth, visited = new Set()) {
+    if (!startNode || visited.has(startNode)) return;
+    visited.add(startNode);
+    startNode.bitWidth = bitWidth;
+    for (var i = 0; i < startNode.connections.length; i++) {
+        var neighbor = startNode.connections[i];
+        if (neighbor && neighbor.type === 2) {
+            propagateBitWidth(neighbor, bitWidth, visited);
+        }
+    }
+}
+
+/**
  * function makes a node according to data providede
  * @param {JSON} data - the data used to load a Project
  * @param {Scope} scope - scope to which node has to be loaded

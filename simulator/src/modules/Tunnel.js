@@ -1,5 +1,5 @@
 import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
+import Node, { findNode, propagateBitWidth } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText } from "../canvasApi";
 import plotArea from "../plotArea";
@@ -309,7 +309,10 @@ export default class Tunnel extends CircuitElement {
             if (tunnel.bitWidth === undefined) continue;
             if (tunnel.bitWidth < 1) continue;
             tunnel.bitWidth = bitWidth;
-            for (let i = 0; i < tunnel.nodeList.length; i++) { tunnel.nodeList[i].bitWidth = bitWidth; }
+            for (let i = 0; i < tunnel.nodeList.length; i++) {
+                tunnel.nodeList[i].bitWidth = bitWidth;
+                propagateBitWidth(tunnel.nodeList[i], bitWidth);
+            }
         }
     }
 }
@@ -336,7 +339,7 @@ Tunnel.prototype.mutableProperties = {
     identifier: {
         name: "Debug Flag identifier",
         type: "text",
-        maxlength: "5",
+        maxlength: "50",
         func: "setIdentifier",
     },
 };

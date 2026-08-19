@@ -111,7 +111,7 @@ class verilogSubCircuit {
     }
 }
 
-export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCircuit", subCircuitScope = {}, root = false) {
+export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCircuit", subCircuitScope = {}, root = false, rootScope = parentScope) {
     var parentID = (parentScope.id);
     var subScope;
     if (root) {
@@ -119,11 +119,14 @@ export function YosysJSON2CV(JSON, parentScope = globalScope, name = "verilogCir
     }
     else {
         subScope = newCircuit(name, undefined, true, false);
+        if (rootScope && rootScope.verilogMetadata && rootScope.verilogMetadata.subCircuitScopeIds) {
+            rootScope.verilogMetadata.subCircuitScopeIds.push(subScope.id);
+        }
     }
     var circuitDevices = {};
 
     for (var subCircuitName in JSON.subcircuits) {
-        var scope = YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope);
+        var scope = YosysJSON2CV(JSON.subcircuits[subCircuitName], subScope, subCircuitName, subCircuitScope, false, rootScope);
         subCircuitScope[subCircuitName] = scope.id;
     }
 
@@ -172,12 +175,15 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
         success: function (response) {
             var circuitData = response;
             scope.initialize();
-            for (var id in scope.verilogMetadata.subCircuitScopeIds)
-                delete scopeList[id];
+            if (scope.verilogMetadata && scope.verilogMetadata.subCircuitScopeIds) {
+                for (var id of scope.verilogMetadata.subCircuitScopeIds) {
+                    delete scopeList[id];
+                }
+            }
             scope.verilogMetadata.subCircuitScopeIds = [];
             scope.verilogMetadata.code = verilogCode;
             var subCircuitScope = {};
-            YosysJSON2CV(circuitData, globalScope, "verilogCircuit", subCircuitScope, true);
+            YosysJSON2CV(circuitData, scope, "verilogCircuit", subCircuitScope, true, scope);
             changeCircuitName(circuitData.name);
             showMessage('Verilog Circuit Successfully Created');
             $('#verilogOutput').empty();
