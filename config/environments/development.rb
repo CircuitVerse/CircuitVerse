@@ -96,15 +96,27 @@ Rails.application.configure do
 
   # SMTP settings with fallback to mailcatcher for local development
   if ENV["SMTP_ADDRESS"].present?
+    raise ArgumentError, "SMTP_PORT environment variable is missing" if ENV["SMTP_PORT"].blank?
+
+    smtp_port = Integer(ENV["SMTP_PORT"])
+    if smtp_port <= 0 || smtp_port > 65535
+      raise ArgumentError, "SMTP_PORT must be a valid port number (1-65535)"
+    end
+
     config.action_mailer.smtp_settings = {
       address:              ENV["SMTP_ADDRESS"],
-      port:                 ENV["SMTP_PORT"],
+      port:                 smtp_port,
       user_name:            ENV["CIRCUITVERSE_EMAIL_ID"],
       password:             ENV["CIRCUITVERSE_EMAIL_PASSWORD"],
-      ssl:                  true,
       authentication:       :login,
-      enable_starttls_auto: true,
     }
+
+    if smtp_port == 465
+      config.action_mailer.smtp_settings[:ssl] = true
+    else
+      config.action_mailer.smtp_settings[:enable_starttls] = true
+    end
+
     config.action_mailer.delivery_method = :smtp
   elsif ENV['DOCKER_ENVIRONMENT']
     config.action_mailer.smtp_settings = { address: "mailcatcher", port: 1025 }
