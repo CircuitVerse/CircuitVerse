@@ -32,29 +32,20 @@
     transition: .4s;
 }
 
-#clockProperty{
-    padding: 10px;
+.clockPropertyHeader {
+    position: absolute;
+    right: 10px;
+    top: 25px;
+    z-index: 100;
 }
 
-#clockPropertyHeader{
-    border-radius: 3px;
-
-}
-#clockProperty{
+#clockProperty {
     padding: 10px;
     border-radius: 6px;
-    opacity: 0.1;
-    transition: .4s;
     height: auto;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-}
-#clockProperty:hover{
-    opacity: 1;
-    -webkit-transition: .4s;
-    transition: .4s;
 }
 input:checked + .slider {
     /* background-color: #2196F3; */
