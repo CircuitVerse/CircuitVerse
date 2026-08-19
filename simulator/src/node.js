@@ -79,10 +79,11 @@ export function findNode(x) {
  */
 export function propagateBitWidth(startNode, bitWidth, visited = new Set()) {
     if (!startNode || visited.has(startNode)) return;
-    visited.add(startNode);
-    startNode.bitWidth = bitWidth;
-    for (var i = 0; i < startNode.connections.length; i++) {
-        var neighbor = startNode.connections[i];
+    const node = startNode;
+    visited.add(node);
+    node.bitWidth = bitWidth;
+    for (var i = 0; i < node.connections.length; i++) {
+        var neighbor = node.connections[i];
         if (neighbor && neighbor.type === 2) {
             propagateBitWidth(neighbor, bitWidth, visited);
         }

@@ -195,7 +195,7 @@ export default function generateVerilogCircuit(verilogCode, scope = globalScope)
             }
             else {
                 var errorMessage = XMLHttpRequest.responseJSON;
-                var msg = errorMessage?.message || "There is some issue with the code";
+                var msg = (errorMessage && errorMessage.message) || "There is some issue with the code";
                 showError(msg);
                 $('#verilogOutput').text(msg);
             }

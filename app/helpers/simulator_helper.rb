@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module SimulatorHelper
+  MAX_CODE_SIZE = 250_000 # 250KB limit
+
   def return_image_file(data_url)
     str = data_url[("data:image/jpeg;base64,".length)..]
     if str.to_s.empty?

@@ -94,15 +94,22 @@ export function switchCircuit(id) {
  * Switched to a random circuit
   * @category circuit
 */
-function deleteCurrentCircuit(scopeId = globalScope.id) {
+export function deleteCurrentCircuit(scopeId = globalScope.id) {
     const scope = scopeList[scopeId];
-    if (Object.keys(scopeList).length <= 1) {
+    if (!scope) return;
+    const subScopeIds = (scope.verilogMetadata && scope.verilogMetadata.isVerilogCircuit && scope.verilogMetadata.subCircuitScopeIds)
+        ? scope.verilogMetadata.subCircuitScopeIds
+        : [];
+    const scopesToDelete = new Set([String(scope.id), ...subScopeIds.map(String)]);
+    const remainingScopeIds = Object.keys(scopeList).filter((id) => !scopesToDelete.has(String(id)));
+
+    if (remainingScopeIds.length === 0) {
         showError('At least 2 circuits need to be there in order to delete a circuit.');
         return;
     }
     let dependencies = '';
-    for (id in scopeList) {
-        if (id != scope.id && scopeList[id].checkDependency(scope.id)) {
+    for (const id in scopeList) {
+        if (String(id) !== String(scope.id) && !scopesToDelete.has(String(id)) && scopeList[id].checkDependency(scope.id)) {
             if (dependencies === '') {
                 dependencies = scopeList[id].name;
             } else {
@@ -118,19 +125,22 @@ function deleteCurrentCircuit(scopeId = globalScope.id) {
 
     const confirmation = confirm(`Are you sure want to close: ${scope.name}\nThis cannot be undone.`);
     if (confirmation) {
-        if (scope.verilogMetadata.isVerilogCircuit) {
+        if (scope.verilogMetadata && scope.verilogMetadata.isVerilogCircuit) {
             scope.initialize();
             if (scope.verilogMetadata.subCircuitScopeIds) {
-                for (var id of scope.verilogMetadata.subCircuitScopeIds) {
+                scope.verilogMetadata.subCircuitScopeIds.forEach((id) => {
+                    $(`#${id}`).remove();
                     delete scopeList[id];
-                }
+                });
             }
         }
         $(`#${scope.id}`).remove();
         delete scopeList[scope.id];
-        switchCircuit(Object.keys(scopeList)[0]);
+        switchCircuit(remainingScopeIds[0]);
         showMessage('Circuit was successfully closed');
-    } else { showMessage('Circuit was not closed'); }
+    } else {
+        showMessage('Circuit was not closed');
+    }
 }
 
 /**
@@ -325,7 +335,7 @@ export default class Scope {
         if (id === this.id) return true;
         for (let i = 0; i < this.SubCircuit.length; i++) { if (this.SubCircuit[i].id === id) return true; }
 
-        for (let i = 0; i < this.SubCircuit.length; i++) { if (scopeList[this.SubCircuit[i].id].checkDependency(id)) return true; }
+        for (let i = 0; i < this.SubCircuit.length; i++) { if (scopeList[this.SubCircuit[i].id] && scopeList[this.SubCircuit[i].id].checkDependency(id)) return true; }
 
         return false;
     }

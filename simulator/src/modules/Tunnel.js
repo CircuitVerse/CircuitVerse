@@ -182,7 +182,13 @@ export default class Tunnel extends CircuitElement {
 
         // Change the bitwidth to be same as the other elements with this.identifier
         if (this.scope.tunnelList[this.identifier] && this.scope.tunnelList[this.identifier].length > 1) {
-            this.bitWidth = this.inp1.bitWidth = this.scope.tunnelList[this.identifier][0].bitWidth;
+            const targetBitWidth = this.scope.tunnelList[this.identifier][0].bitWidth;
+            this.bitWidth = targetBitWidth;
+            this.inp1.bitWidth = targetBitWidth;
+            for (let i = 0; i < this.nodeList.length; i++) {
+                this.nodeList[i].bitWidth = targetBitWidth;
+                propagateBitWidth(this.nodeList[i], targetBitWidth);
+            }
         }
 
         const len = this.identifier.length;

@@ -66,27 +66,26 @@ import { newCircuit, switchCircuit, changeCircuitName} from './circuit'
 import SubCircuit from './subcircuit';
 
 function getBitWidth(bitsJSON) {
-    if (typeof bitsJSON === "number") {
+    if (typeof bitsJSON === 'number') {
         return bitsJSON;
     }
     if (Array.isArray(bitsJSON)) {
         return bitsJSON.length;
     }
-    if (bitsJSON && typeof bitsJSON === "object") {
-        var widths = [];
-        for (var key in bitsJSON) {
-            var val = bitsJSON[key];
-            if (typeof val === "number") {
+    if (bitsJSON && typeof bitsJSON === 'object') {
+        const widths = [];
+        Object.values(bitsJSON).forEach((val) => {
+            if (typeof val === 'number') {
                 widths.push(val);
             } else if (Array.isArray(val)) {
                 widths.push(val.length);
             }
-        }
+        });
         return widths.length > 0 ? Math.max(...widths) : 1;
     }
-    if (typeof bitsJSON === "string") {
-        var parsed = parseInt(bitsJSON, 10);
-        return isNaN(parsed) ? 1 : parsed;
+    if (typeof bitsJSON === 'string') {
+        const parsed = parseInt(bitsJSON, 10);
+        return Number.isNaN(parsed) ? 1 : parsed;
     }
     return 1;
 }
@@ -500,21 +499,21 @@ class verilogMathGate extends verilogBinaryGate {
         this.in2BitWidth = 1;
         this.outBitWidth = 1;
 
-        if (deviceJSON["bits"]) {
-            if (deviceJSON["bits"]["in1"] !== undefined) {
-                this.in1BitWidth = getBitWidth(deviceJSON["bits"]["in1"]);
+        if (deviceJSON.bits) {
+            if (deviceJSON.bits.in1 !== undefined) {
+                this.in1BitWidth = getBitWidth(deviceJSON.bits.in1);
             }
-            if (deviceJSON["bits"]["in2"] !== undefined) {
-                this.in2BitWidth = getBitWidth(deviceJSON["bits"]["in2"]);
+            if (deviceJSON.bits.in2 !== undefined) {
+                this.in2BitWidth = getBitWidth(deviceJSON.bits.in2);
             }
-            if (deviceJSON["bits"]["out"] !== undefined) {
-                this.outBitWidth = getBitWidth(deviceJSON["bits"]["out"]);
+            if (deviceJSON.bits.out !== undefined) {
+                this.outBitWidth = getBitWidth(deviceJSON.bits.out);
             }
         }
 
         this.bitWidth = Math.max(this.in1BitWidth, this.in2BitWidth);
 
-        if(includeOutBitWidth) {
+        if (includeOutBitWidth) {
             this.bitWidth = Math.max(this.outBitWidth, this.bitWidth);
         }
 
@@ -522,12 +521,11 @@ class verilogMathGate extends verilogBinaryGate {
 
         var extraBits = this.bitWidth - this.in1BitWidth;
 
-        if(extraBits > 0) {
+        if (extraBits > 0) {
             this.in1Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.in1BitWidth, extraBits]);
             
             var zeroState = '';
-            for(var i = 0; i < extraBits; i++)
-            {
+            for (var i = 0; i < extraBits; i++) {
                 zeroState += '0';
             }
             this.in1ZeroConstant = new ConstantVal(0, 0, undefined, undefined, extraBits, zeroState);
@@ -538,11 +536,10 @@ class verilogMathGate extends verilogBinaryGate {
         }
 
         var extraBits = this.bitWidth - this.in2BitWidth;
-        if(extraBits > 0) {
+        if (extraBits > 0) {
             this.in2Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.in2BitWidth, extraBits]);
             var zeroState = '';
-            for(var i = 0; i < extraBits; i++)
-            {
+            for (var i = 0; i < extraBits; i++) {
                 zeroState += '0';
             }
 
@@ -685,8 +682,8 @@ class verilogAdditionGate extends verilogMathGate {
         super(deviceJSON, false);
 
         this.outBitWidth = this.bitWidth;
-        if (deviceJSON["bits"] && deviceJSON["bits"]["out"] !== undefined) {
-            this.outBitWidth = getBitWidth(deviceJSON["bits"]["out"]);
+        if (deviceJSON.bits && deviceJSON.bits.out !== undefined) {
+            this.outBitWidth = getBitWidth(deviceJSON.bits.out);
         }
 
         this.adder = new Adder(0, 0, undefined, undefined, this.bitWidth);
@@ -694,9 +691,9 @@ class verilogAdditionGate extends verilogMathGate {
         this.in1Splitter.inp1.connect(this.adder.inpA);
         this.in2Splitter.inp1.connect(this.adder.inpB);
 
-        if (this.outBitWidth == this.bitWidth) {
+        if (this.outBitWidth === this.bitWidth) {
             this.output = this.adder.sum;
-        } else if (this.outBitWidth == this.bitWidth + 1) {
+        } else if (this.outBitWidth === this.bitWidth + 1) {
             this.outputSplitter = new Splitter(0, 0, undefined, undefined, this.outBitWidth, [this.bitWidth, 1]);
             this.adder.sum.connect(this.outputSplitter.outputs[0]);
             this.adder.carryOut.connect(this.outputSplitter.outputs[1]);

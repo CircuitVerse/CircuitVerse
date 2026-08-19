@@ -9,12 +9,12 @@ import yosysTypeMap from '../src/VerilogClasses';
 import Input from '../src/modules/Input';
 import Tunnel from '../src/modules/Tunnel';
 import Node, { propagateBitWidth } from '../src/node';
-import { scopeList } from '../src/circuit';
+import { scopeList, newCircuit, deleteCurrentCircuit } from '../src/circuit';
 
 jest.mock('codemirror');
 
 describe('Verilog Import and Synthesis Fixes', () => {
-    CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: (text) => {} });
+    CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: () => {} });
     setup();
 
     test('verilogInput keeps clk and clock as Input element and retains port label', () => {
@@ -119,14 +119,32 @@ describe('Verilog Import and Synthesis Fixes', () => {
         expect(scopeList[subId]).toBeDefined();
 
         // Clean up created scopes
-        for (const id of rootScope.verilogMetadata.subCircuitScopeIds) {
+        rootScope.verilogMetadata.subCircuitScopeIds.forEach((id) => {
             delete scopeList[id];
-        }
+        });
         rootScope.verilogMetadata.subCircuitScopeIds = [];
     });
 
     test('Tunnel identifier maxlength allows long identifiers', () => {
         expect(parseInt(Tunnel.prototype.mutableProperties.identifier.maxlength, 10)).toBeGreaterThanOrEqual(50);
+    });
+
+    test('Tunnel setIdentifier synchronizes bitWidth and propagates across intermediate wire nodes', () => {
+        const t1 = new Tunnel(0, 0, globalScope, 'LEFT', 8, 'BUS_SIG');
+        const t2 = new Tunnel(100, 0, globalScope, 'RIGHT', 1, 'OTHER_SIG');
+        const inter = new Node(120, 0, 2, globalScope.root, 1);
+        t2.inp1.connect(inter);
+
+        expect(t2.bitWidth).toBe(1);
+        expect(inter.bitWidth).toBe(1);
+
+        t2.setIdentifier('BUS_SIG');
+        expect(t2.bitWidth).toBe(8);
+        expect(t2.inp1.bitWidth).toBe(8);
+        expect(inter.bitWidth).toBe(8);
+
+        t1.delete();
+        t2.delete();
     });
 
     test('propagateBitWidth propagates bitWidth across intermediate wire nodes', () => {
@@ -146,5 +164,44 @@ describe('Verilog Import and Synthesis Fixes', () => {
         expect(n1.bitWidth).toBe(8);
         expect(inter1.bitWidth).toBe(8);
         expect(inter2.bitWidth).toBe(8);
+    });
+
+    test('deleteCurrentCircuit prevents deleting the last visible circuit when it has subcircuits', () => {
+        const mainScope = newCircuit('MainVerilogCircuit', undefined, true, true);
+        const subScope = newCircuit('SubModule', undefined, true, false);
+        mainScope.verilogMetadata.subCircuitScopeIds = [subScope.id];
+
+        const originalScopeList = { ...scopeList };
+        Object.keys(scopeList).forEach((id) => {
+            if (String(id) !== String(mainScope.id) && String(id) !== String(subScope.id)) {
+                delete scopeList[id];
+            }
+        });
+
+        deleteCurrentCircuit(mainScope.id);
+
+        expect(scopeList[mainScope.id]).toBeDefined();
+        expect(scopeList[subScope.id]).toBeDefined();
+
+        Object.assign(scopeList, originalScopeList);
+        delete scopeList[mainScope.id];
+        delete scopeList[subScope.id];
+    });
+
+    test('deleteCurrentCircuit deletes main Verilog circuit and its generated subcircuits when another circuit exists', () => {
+        const extraScope = newCircuit('ExtraCircuit');
+        const mainScope = newCircuit('MainVerilogCircuit', undefined, true, true);
+        const subScope = newCircuit('SubModule', undefined, true, false);
+        mainScope.verilogMetadata.subCircuitScopeIds = [subScope.id];
+
+        window.confirm = () => true;
+
+        deleteCurrentCircuit(mainScope.id);
+
+        expect(scopeList[mainScope.id]).toBeUndefined();
+        expect(scopeList[subScope.id]).toBeUndefined();
+        expect(scopeList[extraScope.id]).toBeDefined();
+
+        delete scopeList[extraScope.id];
     });
 });
