@@ -84,6 +84,16 @@ describe('Verilog Import and Synthesis Fixes', () => {
         // outBitWidth < bitWidth
         const addNarrower = new yosysTypeMap.Addition({ bits: { in1: 8, in2: 8, out: 4 } });
         expect(addNarrower.outputSplitter).toBeDefined();
+
+        // outBitWidth > bitWidth + 1 (e.g. 4-bit addition with 8-bit output)
+        const addMuchWider = new yosysTypeMap.Addition({ bits: { in1: 4, in2: 4, out: 8 } });
+        expect(addMuchWider.outputSplitter).toBeDefined();
+        expect(addMuchWider.zeroConstant).toBeDefined();
+        expect(addMuchWider.zeroConstant.state).toBe('000');
+        expect(addMuchWider.outputSplitter.bitWidthSplit).toEqual([4, 1, 3]);
+        expect(addMuchWider.outputSplitter.outputs[2].connections)
+            .toContain(addMuchWider.zeroConstant.output1);
+        expect(addMuchWider.output.bitWidth).toBe(8);
     });
 
     test('YosysJSON2CV tracks subcircuit scopes in rootScope.verilogMetadata.subCircuitScopeIds', () => {

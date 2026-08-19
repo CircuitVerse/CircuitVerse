@@ -698,6 +698,18 @@ class verilogAdditionGate extends verilogMathGate {
             this.adder.sum.connect(this.outputSplitter.outputs[0]);
             this.adder.carryOut.connect(this.outputSplitter.outputs[1]);
             this.output = this.outputSplitter.inp1;
+        } else if (this.outBitWidth > this.bitWidth + 1) {
+            const extraZeroBits = this.outBitWidth - (this.bitWidth + 1);
+            let zeroState = '';
+            for (let i = 0; i < extraZeroBits; i++) {
+                zeroState += '0';
+            }
+            this.zeroConstant = new ConstantVal(0, 0, undefined, undefined, extraZeroBits, zeroState);
+            this.outputSplitter = new Splitter(0, 0, undefined, undefined, this.outBitWidth, [this.bitWidth, 1, extraZeroBits]);
+            this.adder.sum.connect(this.outputSplitter.outputs[0]);
+            this.adder.carryOut.connect(this.outputSplitter.outputs[1]);
+            this.zeroConstant.output1.connect(this.outputSplitter.outputs[2]);
+            this.output = this.outputSplitter.inp1;
         } else if (this.outBitWidth < this.bitWidth) {
             this.outputSplitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.outBitWidth, this.bitWidth - this.outBitWidth]);
             this.adder.sum.connect(this.outputSplitter.inp1);
