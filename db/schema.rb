@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_18_201325) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_19_064741) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -423,6 +423,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_18_201325) do
     t.index ["group_id", "email"], name: "index_pending_invitations_on_group_id_and_email", unique: true
     t.index ["group_id"], name: "index_pending_invitations_on_group_id"
     t.index ["organization_id"], name: "index_pending_invitations_on_organization_id"
+    t.index ["organization_id", "email"], name: "index_pending_invitations_on_organization_id_and_email", unique: true
   end
 
   create_table "project_data", force: :cascade do |t|

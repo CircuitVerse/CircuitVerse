@@ -93,8 +93,9 @@ class OrganizationMembersController < ApplicationController
     def invite_by_email(email, role)
       user = User.find_by(email: email)
       if user.nil?
-        PendingInvitation.where(organization_id: @organization.id, email: email)
-                         .first_or_create(role: OrganizationMember.roles[role])
+        PendingInvitation.create_or_find_by!(organization_id: @organization.id, email: email) do |invite|
+          invite.role = OrganizationMember.roles[role]
+        end
       else
         @organization.organization_members
                      .where(user_id: user.id)
