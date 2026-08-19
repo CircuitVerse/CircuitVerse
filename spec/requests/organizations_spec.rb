@@ -123,7 +123,7 @@ RSpec.describe "Organization invite and member management", type: :request do
       sign_in member.user
       post organization_organization_members_path(organization),
            params: { organization_member: { role: "member", emails: ["x@example.com"] } }
-      expect(response).to have_http_status(:not_found)
+      expect(response).to have_http_status(:forbidden)
     end
   end
 
