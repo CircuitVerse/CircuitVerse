@@ -8,6 +8,10 @@ class OrganizationsController < ApplicationController
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
 
+  rescue_from Pundit::NotAuthorizedError do
+    raise ActiveRecord::RecordNotFound
+  end
+
   PER_PAGE = 9
   MEMBERS_PER_PAGE = 20
 

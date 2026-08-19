@@ -39,6 +39,23 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe "#create_members_from_invitations" do
+    it "creates an organization membership with the invited role on signup" do
+      org = FactoryBot.create(:organization)
+      PendingInvitation.create!(organization: org, email: "invited@example.com",
+                                role: OrganizationMember.roles[:mentor])
+      user = FactoryBot.create(:user, email: "invited@example.com")
+      expect(org.organization_members.find_by(user: user).role).to eq("mentor")
+    end
+
+    it "creates a group membership on signup (existing behavior)" do
+      group = FactoryBot.create(:group)
+      PendingInvitation.create!(group: group, email: "grouped@example.com")
+      user = FactoryBot.create(:user, email: "grouped@example.com")
+      expect(GroupMember.find_by(group: group, user: user)).to be_present
+    end
+  end
+
   describe "public methods" do
     before do
       primary_mentor = FactoryBot.create(:user)

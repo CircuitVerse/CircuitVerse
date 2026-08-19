@@ -62,7 +62,12 @@ class User < ApplicationRecord
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
-      GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
+      if invitation.group_id.present?
+        GroupMember.where(group_id: invitation.group_id, user_id: id).first_or_create
+      elsif invitation.organization_id.present?
+        OrganizationMember.where(organization_id: invitation.organization_id, user_id: id)
+                          .first_or_create(role: invitation.role || OrganizationMember.roles[:member])
+      end
       invitation.destroy
     end
   end

@@ -78,6 +78,55 @@ RSpec.describe "Organization invite and member management", type: :request do
     end
   end
 
+  describe "POST #create (invite by email)" do
+    before { Flipper.enable(:organizations) }
+
+    context "as an admin" do
+      before { sign_in admin }
+
+      it "adds an existing user with the chosen role" do
+        existing = FactoryBot.create(:user)
+        post organization_organization_members_path(organization),
+             params: { organization_member: { role: "mentor", emails: [existing.email] } }
+        expect(organization.organization_members.find_by(user: existing).role).to eq("mentor")
+      end
+
+      it "creates a pending invitation for a new email" do
+        expect do
+          post organization_organization_members_path(organization),
+               params: { organization_member: { role: "member", emails: ["new@example.com"] } }
+        end.to change(PendingInvitation, :count).by(1)
+        invite = PendingInvitation.last
+        expect(invite.organization_id).to eq(organization.id)
+        expect(invite.role).to eq(OrganizationMember.roles["member"])
+      end
+
+      it "ignores invalid emails" do
+        post organization_organization_members_path(organization),
+             params: { organization_member: { role: "member", emails: ["notanemail"] } }
+        expect(PendingInvitation.count).to eq(0)
+      end
+
+      it "does not duplicate an existing member" do
+        existing = FactoryBot.create(:organization_member, organization: organization, role: :member)
+        expect do
+          post organization_organization_members_path(organization),
+               params: { organization_member: { role: "mentor", emails: [existing.user.email] } }
+        end.not_to(change { organization.organization_members.count })
+      end
+    end
+  end
+
+  context "as a non-admin" do
+    it "forbids inviting" do
+      member = FactoryBot.create(:organization_member, organization: organization, role: :member)
+      sign_in member.user
+      post organization_organization_members_path(organization),
+           params: { organization_member: { role: "member", emails: ["x@example.com"] } }
+      expect(response).to have_http_status(:not_found)
+    end
+  end
+
   describe "DELETE #destroy (remove member)" do
     let!(:target) { FactoryBot.create(:organization_member, organization: organization, user: member, role: :member) }
 
