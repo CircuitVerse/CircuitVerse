@@ -286,6 +286,8 @@ export default class SubCircuit extends CircuitElement {
                 a.layout_id = subcircuitScope.Input[i].layoutProperties.id;
                 this.inputNodes.push(a);
             }
+            this.nodeList.extend(this.inputNodes);
+            this.nodeList.extend(this.outputNodes);
         }
     }
 
