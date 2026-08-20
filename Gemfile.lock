@@ -689,7 +689,7 @@ GEM
     pundit (2.5.2)
       activesupport (>= 3.0.0)
     racc (1.8.1)
-    rack (3.2.6)
+    rack (3.2.7)
     rack-attack (6.8.0)
       rack (>= 1.0, < 4)
     rack-protection (4.2.1)
@@ -775,7 +775,7 @@ GEM
     recaptcha (5.21.2)
     redcarpet (3.6.1)
     redis (4.8.1)
-    redis-client (0.29.0)
+    redis-client (0.30.1)
       connection_pool
     regexp_parser (2.12.0)
     reline (0.6.3)
@@ -867,15 +867,16 @@ GEM
       tilt
     securerandom (0.4.1)
     select2-rails (4.0.13)
-    sentry-rails (5.26.0)
-      railties (>= 5.0)
-      sentry-ruby (~> 5.26.0)
-    sentry-ruby (5.26.0)
+    sentry-rails (6.7.0)
+      railties (>= 5.2.0)
+      sentry-ruby (~> 6.7.0)
+    sentry-ruby (6.7.0)
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.0.2)
-    sentry-sidekiq (5.26.0)
-      sentry-ruby (~> 5.26.0)
-      sidekiq (>= 3.0)
+      logger
+    sentry-sidekiq (6.7.0)
+      sentry-ruby (~> 6.7.0)
+      sidekiq (>= 5.0)
     shoulda-matchers (6.5.0)
       activesupport (>= 5.2.0)
     sidekiq (8.1.6)
@@ -1169,7 +1170,7 @@ DEPENDENCIES
   select2-rails
   sentry-rails
   sentry-ruby
-  sentry-sidekiq (~> 5.17)
+  sentry-sidekiq (~> 6.7)
   shoulda-matchers
   sidekiq
   simple_discussion!
