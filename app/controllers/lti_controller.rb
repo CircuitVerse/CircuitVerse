@@ -4,7 +4,16 @@ class LtiController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
+  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config]
   after_action :allow_iframe_lti, only: %i[launch]
+
+  def jwks
+    render json: { keys: [Lti::KeyManager.public_jwk] }
+  end
+
+  def tool_config
+    render json: tool_configuration
+  end
 
   def launch
     session[:is_lti] = true # the lti session starting
@@ -25,6 +34,7 @@ class LtiController < ApplicationController
       render :launch_error, status: :unauthorized
       return
     end
+    store_lti_11_grade_context
     # find user by matching email with circuitverse and lms
     @user = User.find_by(email: @email_from_lms)
 
@@ -36,7 +46,7 @@ class LtiController < ApplicationController
                                     email_from_lms: @email_from_lms,
                                     lms_type: @lms_type,
                                     course_title_from_lms: @course_title_from_lms)
-        # if auth_success send to group page
+
         redirect_to group_assignment_path(@group, @assignment), notice: lms_auth_success_notice
       elsif GroupMember.exists?(
         user_id: @user.id,
@@ -57,6 +67,44 @@ class LtiController < ApplicationController
 
   private
 
+    def verify_lti_advantage_enabled
+      head :not_found unless Flipper.enabled?(:lti_advantage)
+    end
+
+    def tool_configuration
+      {
+        title: "CircuitVerse",
+        description: "Build and simulate digital logic circuits",
+        oidc_initiation_url: "#{request.base_url}/lti/login",
+        target_link_uri: "#{request.base_url}/lti/launch",
+        public_jwk_url: "#{request.base_url}/lti/jwks",
+        scopes: [
+          "https://purl.imsglobal.org/spec/lti-ags/scope/lineitem",
+          "https://purl.imsglobal.org/spec/lti-ags/scope/score",
+          "https://purl.imsglobal.org/spec/lti-nrps/scope/contextmembership.readonly"
+        ],
+        extensions: [
+          {
+            platform: "canvas.instructure.com",
+            settings: {
+              placements: [
+                {
+                  placement: "course_navigation",
+                  message_type: "LtiResourceLinkRequest",
+                  target_link_uri: "#{request.base_url}/lti/launch"
+                },
+                {
+                  placement: "assignment_selection",
+                  message_type: "LtiDeepLinkingRequest",
+                  target_link_uri: "#{request.base_url}/lti/launch"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    end
+
     def set_group_and_assignment
       @assignment = Assignment.find_by(lti_consumer_key: params[:oauth_consumer_key])
       @group = @assignment.group if @assignment.present?
@@ -64,13 +112,26 @@ class LtiController < ApplicationController
 
     def set_lti_params
       # get some of the parameters from the lti request
+      clear_lti_11_grade_context
       @email_from_lms = params[:lis_person_contact_email_primary] # user email
       @lms_type = params[:tool_consumer_info_product_family_code] # lms type
       @course_title_from_lms = params[:context_title] # course title
       lms_domain = params[:launch_presentation_return_url]
-      session[:lis_outcome_service_url] = params[:lis_outcome_service_url] # grading parameters
-      session[:oauth_consumer_key] = params[:oauth_consumer_key] # grading parameters
       session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
+    end
+
+    def store_lti_11_grade_context
+      return unless @assignment.present? && params[:lis_outcome_service_url].present?
+
+      session[:lis_outcome_service_url] = params[:lis_outcome_service_url]
+      session[:oauth_consumer_key] = params[:oauth_consumer_key]
+      session[:lti_11_assignment_id] = @assignment.id
+    end
+
+    def clear_lti_11_grade_context
+      session.delete(:lis_outcome_service_url)
+      session.delete(:oauth_consumer_key)
+      session.delete(:lti_11_assignment_id)
     end
 
     def create_project_if_student_present

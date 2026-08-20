@@ -2,7 +2,6 @@
 
 # rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
-  mount SimpleDiscussion::Engine => "/forum", constraints: -> { Flipper.enabled?(:forum) }
   authenticate :user, ->(u) { u.admin? } do
     mount Avo::Engine, at: "/admin"
   end
@@ -26,6 +25,31 @@ Rails.application.routes.draw do
   end
 
   # resources :assignment_submissions
+  resources :organizations, except: %i[edit] do
+    member do
+      get :overview
+      get :members
+      get :settings
+    end
+    collection do
+      get :check_slug
+    end
+    resources :organization_members, only: %i[create update destroy]
+    delete :leave, to: "organization_members#leave"
+    resources :groups, only: %i[index new create show edit update destroy] do
+      resources :assignments, except: %i[index] do
+        member do
+          get :reopen
+          put :close
+          get :start
+        end
+      end  
+      member do
+        get "invite/:token", to: "groups#group_invite", as: "invite"
+        put :generate_token
+      end
+    end
+  end
   resources :group_members, only: %i[create destroy update]
   resources :groups, except: %i[index] do
     resources :assignments, except: %i[index]
@@ -132,6 +156,8 @@ Rails.application.routes.draw do
   # lti
   scope "lti"  do
     match 'launch', to: 'lti#launch', via: [:get, :post]
+    get 'jwks', to: 'lti#jwks'
+    get 'tool_config', to: 'lti#tool_config'
   end
 
   mount Commontator::Engine => "/commontator"
@@ -171,6 +197,7 @@ Rails.application.routes.draw do
     "https://join.slack.com/t/circuitverse-team/shared_invite/zt-3spixgmk0-v601OQMWVEIH8nKseQpzXw"
   )
   get "/discord", to: redirect("https://discord.gg/8G6TpmM")
+  get "/forum", to: redirect("https://circuitverse.discourse.group")
   get "/github", to: redirect("https://github.com/CircuitVerse")
   get "/learn", to: redirect("https://learn.circuitverse.org")
   get "/docs", to: redirect("https://docs.circuitverse.org")

@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 
 class GroupsController < ApplicationController
+  include OrganizationScopedRedirect
+
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
+  before_action :check_organizations_feature_flag,
+                only: %i[new create show edit update destroy group_invite generate_token],
+                if: lambda {
+                  params[:organization_id].present? || params.dig(:group, :organization_id).present?
+                }
   before_action :check_show_access, only: %i[show edit update destroy]
   before_action :check_edit_access, only: %i[edit update destroy generate_token]
 
@@ -24,26 +31,26 @@ class GroupsController < ApplicationController
   end
 
   def group_invite
-    if Group.with_valid_token.exists?(group_token: params[:token])
+    if Group.with_valid_token.exists?(id: @group.id, group_token: params[:token])
       if current_user.groups.exists?(id: @group)
         notice = "Member is already present in the group."
       elsif current_user.id == @group.primary_mentor_id
         notice = "You cannot join this group because you are its primary mentor."
       else
-        current_user.group_members.create!(group: @group)
+        join_group_and_organization
         notice = "Group member was successfully added."
       end
-    elsif Group.exists?(group_token: params[:token])
+    elsif Group.exists?(id: @group.id, group_token: params[:token])
       notice = "Url is expired, request a new one from the primary mentor of the group."
     else
       notice = "Invalid url"
     end
-    redirect_to group_path(@group), notice: notice
+    redirect_to group_redirect_path(@group), notice: notice
   end
 
   # GET /groups/new
   def new
-    @group = Group.new
+    @group = Group.new(organization: organization_from_params)
   end
 
   # GET /groups/1/edit
@@ -53,10 +60,13 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = current_user.groups_owned.new(group_params)
+    @group.organization = organization_from_params
+
+    authorize @group.organization, :create_group? if @group.organization
 
     respond_to do |format|
       if @group.save
-        format.html { redirect_to @group, notice: "Group was successfully created." }
+        format.html { redirect_to group_redirect_path(@group), notice: "Group was successfully created." }
         format.json { render :show, status: :created, location: @group }
       else
         format.html { render :new }
@@ -70,7 +80,7 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        format.html { redirect_to @group, notice: "Group was successfully updated." }
+        format.html { redirect_to group_redirect_path(@group), notice: "Group was successfully updated." }
         format.json { render :show, status: :ok, location: @group }
       else
         format.html { render :edit }
@@ -82,10 +92,11 @@ class GroupsController < ApplicationController
   # DELETE /groups/1
   # DELETE /groups/1.json
   def destroy
+    organization = @group.organization
     @group.destroy
     respond_to do |format|
       format.html do
-        redirect_to user_groups_path(current_user), notice: "Group was successfully deleted."
+        redirect_to group_parent_redirect_path(organization), notice: "Group was successfully deleted."
       end
       format.json { head :no_content }
     end
@@ -95,19 +106,53 @@ class GroupsController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_group
-      @group = Group.find(params.expect(:id))
+      @group =
+        if params[:organization_id].present?
+          Organization.friendly.find(params.expect(:organization_id)).groups.find(params.expect(:id))
+        else
+          Group.find(params.expect(:id))
+        end
+    rescue ActiveRecord::RecordNotFound
+      @group = Group.find_by(id: params[:id])
+      redirect_to(@group ? group_path(@group) : root_path)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.expect(group: %i[name primary_mentor_id])
+      permitted = %i[name primary_mentor_id]
+      params.expect(group: permitted)
     end
 
     def check_show_access
-      authorize @group, :show_access?
+      if @group.organization
+        authorize @group, :view?, policy_class: OrganizationGroupPolicy
+      else
+        authorize @group, :show_access?
+      end
     end
 
     def check_edit_access
-      authorize @group, :admin_access?
+      if @group.organization_id.present?
+        authorize @group, :manage?, policy_class: OrganizationGroupPolicy
+      else
+        authorize @group, :admin_access?
+      end
+    end
+
+    def organization_from_params
+      return if params[:organization_id].blank?
+
+      Organization.friendly.find(params.expect(:organization_id))
+    end
+
+    def join_group_and_organization
+      ActiveRecord::Base.transaction do
+        current_user.group_members.create!(group: @group)
+        @group.add_member_to_organization(current_user)
+      end
+    end
+
+    def check_organizations_feature_flag
+      redirect_to root_path, alert: t("feature_not_available") unless Flipper.enabled?(:organizations, current_user)
     end
 end

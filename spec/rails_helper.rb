@@ -49,7 +49,6 @@ RSpec.configure do |config|
 
   config.before do
     Flipper.adapter.features.each { |name| Flipper[name].remove }
-    Flipper.enable(:active_storage_s3)
     Flipper.enable(:contests)
     stub_request(:get, "https://fonts.googleapis.com/css?display=swap&family=Open%20Sans")
       .with(headers: {

@@ -4,6 +4,7 @@ class Group < ApplicationRecord
   has_secure_token :group_token
   validates :name, length: { minimum: 1 }, presence: true
   belongs_to :primary_mentor, class_name: "User"
+  belongs_to :organization, optional: true
   has_many :group_members, dependent: :destroy
   has_many :users, through: :group_members
 
@@ -20,6 +21,14 @@ class Group < ApplicationRecord
 
   def has_valid_token?
     token_expires_at.present? && token_expires_at > Time.zone.now
+  end
+
+  def add_member_to_organization(user)
+    return if organization.blank?
+
+    organization.organization_members.find_or_create_by!(user: user) do |member|
+      member.role = :member
+    end
   end
 
   def reset_group_token

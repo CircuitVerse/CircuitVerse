@@ -22,6 +22,8 @@ class User < ApplicationRecord
 
   # has_many :assignments, foreign_key: 'mentor_id', dependent: :destroy
   has_many :group_members, dependent: :destroy
+  has_many :organization_members, dependent: :destroy
+  has_many :organizations, through: :organization_members
   has_many :groups, through: :group_members
   has_many :grades
   acts_as_commontator
@@ -60,8 +62,12 @@ class User < ApplicationRecord
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
-      GroupMember.where(group_id: invitation.group.id, user_id: id).first_or_create
-      invitation.destroy
+      group = invitation.group
+      ActiveRecord::Base.transaction do
+        GroupMember.where(group_id: group.id, user_id: id).first_or_create!
+        group.add_member_to_organization(self)
+        invitation.destroy!
+      end
     end
   end
 

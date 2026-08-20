@@ -1,0 +1,282 @@
+.org-dash {
+  max-width: 1320px;
+}
+
+.org-dash-name {
+  font-size: 20px;
+  color: $primary-green;
+}
+
+.org-social-icon {
+  width: 25px;
+  height: 25px;
+  object-fit: contain;
+}
+
+.org-dash .nav-pills{
+  --bs-nav-pills-link-active-bg: #{$primary-green};
+  --bs-nav-pills-link-active-color: var(--bs-white);
+  --bs-nav-link-color: var(--bs-gray-900);
+  --bs-nav-link-hover-color: #{$primary-green};
+}
+.org-dash .nav-pills .nav-link{
+  border: 1px solid var(--bs-gray-400);
+}
+.org-dash .nav-pills .nav-link.active{
+  border-color: $primary-green;
+}
+
+.org-dash-logo {
+  width: 130px;
+  height: 130px;
+}
+
+.org-dash-logo-fallback {
+  font-size: 52px;
+  color: $primary-green;
+}
+
+.org-dash-info {
+  min-width: 0;
+}
+
+.org-dash-info-name {
+  font-size: 30px;
+  line-height: 1.15;
+}
+
+.org-dash-info-desc {
+  max-width: 640px;
+  font-size: 15px;
+  overflow-wrap: break-word;
+}
+
+.org-dash-social {
+  transition: transform 0.15s, filter 0.15s;
+}
+
+.org-dash-social:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.org-dash-social:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+  transform: translateY(-2px);
+}
+
+.org-dash-meta-sep {
+  width: 1px;
+  height: 20px;
+  background: var(--bs-gray-400);
+}
+
+.org-dash-location {
+  font-size: 18px;
+}
+
+.org-dash-location i {
+  color: $primary-green;
+  font-size: 25px;
+}
+
+.org-dash-empty {
+  border: 1px dashed var(--bs-gray-400);
+}
+
+.org-dash-empty i {
+  font-size: 36px;
+}
+
+.org-back-link {
+  color: $primary-green;
+}
+
+.org-back-link:hover {
+  color: $primary-green;
+}
+
+.org-new {
+  max-width: 720px;
+}
+
+.org-form-icon {
+  color: $primary-green;
+}
+
+.org-upload-zone {
+  border: 2px dashed var(--bs-gray-400);
+  border-radius: 8px;
+  padding: 24px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.org-upload-zone:hover,
+.org-upload-zone--active,
+.org-upload-zone:focus-visible {
+  border-color: $primary-green;
+  background-color: $light-green-bg;
+}
+
+.org-upload-zone:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+}
+
+.org-upload-zone__icon {
+  font-size: 28px;
+  color: $primary-green;
+  margin-bottom: 8px;
+}
+
+.org-settings-logo-preview {
+  width: 48px;
+  height: 48px;
+  object-fit: cover;
+}
+
+.org-dash-group-card--locked {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: $light-green-bg;
+}
+
+.org-dash-group-card--locked:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+.org-index-header-title {
+  color: $secondary-green;
+  font-size: 40px;
+  font-weight: 700;
+}
+
+.org-index-header-description {
+  width: 60%;
+}
+
+.org-index-page-line {
+  border-bottom: 1px solid var(--bs-gray-300);
+}
+
+.org-index-card {
+  background: $white;
+  border: 1px solid $primary-green;
+  border-radius: 10px;
+  cursor: pointer;
+  min-height: 315px;
+  transition: 0.2s ease-in-out;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+  }
+}
+
+.org-index-card-banner {
+  height: 110px;
+  border-bottom: 2px solid $primary-green;
+
+  .org-index-card-banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.org-index-card-logo {
+  position: absolute;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 66px;
+  height: 66px;
+  border-radius: 14px;
+  background: $white;
+  border: 2px solid $primary-green;
+
+  .org-index-card-logo-img {
+    width: 120%;
+    height: 120%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .org-index-card-logo-fallback {
+    font-size: 28px;
+    font-weight: 700;
+    color: $primary-green;
+  }
+}
+
+.org-index-card-details {
+  padding: 46px 15px 15px;
+  gap: 8px;
+}
+
+.org-index-card-name {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 22px;
+
+  .org-index-card-name-link {
+    color: $black;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    overflow-wrap: anywhere;
+  }
+}
+
+.org-index-card-meta {
+  font-size: 14px;
+  line-height: 1.6;
+  color: $black;
+
+  .org-index-card-meta-text {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  i {
+    color: $primary-green;
+    font-size: 16px;
+    margin-right: 6px;
+  }
+}
+
+.org-index-card-description {
+  font-size: 14px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+}
+
+.org-settings {
+  max-width: 720px;
+}
+
+.org-settings-danger-text {
+  max-width: 420px;
+}
+
+@media (max-width: 600px) {
+  .org-dash-logo {
+    width: 96px;
+    height: 96px;
+  }
+
+  .org-dash-info-name {
+    font-size: 24px;
+  }
+}

@@ -280,4 +280,67 @@ describe AssignmentsController, type: :request do
       end
     end
   end
+
+  describe "organization-scoped assignments" do
+    before do
+      @organization = FactoryBot.create(:organization)
+      @org_group = FactoryBot.create(:group, organization: @organization, primary_mentor: @primary_mentor)
+      @org_assignment = FactoryBot.create(:assignment, group: @org_group)
+      @org_admin = FactoryBot.create(:user)
+      FactoryBot.create(:organization_member, organization: @organization, user: @org_admin, role: :admin)
+      Flipper.enable(:organizations)
+    end
+
+    context "when an org admin manages an org-group's assignment" do
+      before { sign_in @org_admin }
+
+      it "allows viewing via the org-scoped route" do
+        get organization_group_assignment_path(@organization, @org_group, @org_assignment)
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "allows creating an assignment via the org-scoped route" do
+        expect do
+          post organization_group_assignments_path(@organization, @org_group),
+               params: { assignment: { name: "New Org Assignment", deadline: 1.week.from_now } }
+        end.to change(Assignment, :count).by(1)
+      end
+
+      it "allows deleting an org-group's assignment" do
+        expect do
+          delete organization_group_assignment_path(@organization, @org_group, @org_assignment)
+        end.to change(Assignment, :count).by(-1)
+      end
+    end
+
+    context "when an unrelated user tries to manage an org-group's assignment" do
+      before do
+        @random = FactoryBot.create(:user)
+        sign_in @random
+      end
+
+      it "denies deleting the assignment" do
+        delete organization_group_assignment_path(@organization, @org_group, @org_assignment)
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context "when IDs are mismatched across organizations" do
+      before { sign_in @org_admin }
+
+      it "returns 404 when the group belongs to a different organization" do
+        other_org = FactoryBot.create(:organization)
+        FactoryBot.create(:organization_member, organization: other_org, user: @org_admin, role: :admin)
+        get organization_group_assignment_path(other_org, @org_group, @org_assignment)
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns 404 when the assignment belongs to a different group" do
+        other_group = FactoryBot.create(:group, organization: @organization, primary_mentor: @primary_mentor)
+        other_assignment = FactoryBot.create(:assignment, group: other_group)
+        get organization_group_assignment_path(@organization, @org_group, other_assignment)
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end

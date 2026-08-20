@@ -62,13 +62,52 @@ describe LtiController, type: :request do
       end
     end
 
+    context "when storing the grading context in the session" do
+      let(:outcome_url) { "https://lms.example.test/outcomes" }
+
+      it "records the outcome context and the matched assignment after a verified launch" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "lis_outcome_service_url" => outcome_url)
+        expect(session[:lis_outcome_service_url]).to eq(outcome_url)
+        expect(session[:lti_11_assignment_id]).to eq(assignment.id)
+      end
+
+      it "does not store an outcome context when the launch signature is invalid" do
+        post lti_launch_path, params: { oauth_consumer_key: oauth_consumer_key_fromlms,
+                                        oauth_signature: "invalid",
+                                        lis_outcome_service_url: outcome_url }
+        expect(response.code).to eq("401")
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+
+      it "does not store an outcome context when no assignment matches the consumer key" do
+        post lti_launch_path, params: { oauth_consumer_key: "unknown-key",
+                                        oauth_signature: "invalid",
+                                        lis_outcome_service_url: outcome_url }
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+
+      it "clears a stale outcome context on the next launch" do
+        lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, member.email,
+                    "lis_outcome_service_url" => outcome_url)
+        expect(session[:lti_11_assignment_id]).to eq(assignment.id)
+
+        post lti_launch_path, params: { oauth_consumer_key: "unknown-key",
+                                        oauth_signature: "invalid" }
+        expect(session[:lis_outcome_service_url]).to be_nil
+        expect(session[:lti_11_assignment_id]).to be_nil
+      end
+    end
+
     def launch_uri
       # required for generation of LTI parameters
       launch_url = "http://#{host}:#{port}/lti/launch"
       URI(launch_url)
     end
 
-    def parameters(member_email)
+    def parameters(member_email, extra_params = {})
       {
         "launch_url" => launch_uri.to_s,
         "user_id" => SecureRandom.hex(4),
@@ -80,7 +119,7 @@ describe LtiController, type: :request do
         "tool_consumer_info_product_family_code" => "moodle",
         "context_title" => "sample Course",
         "lis_result_sourcedid" => SecureRandom.hex(10)
-      }
+      }.merge(extra_params)
     end
 
     def consumer_data(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, parameters)
@@ -93,8 +132,8 @@ describe LtiController, type: :request do
       consumer.generate_launch_data
     end
 
-    def lti_request(consumer_key, shared_secret, email)
-      data = consumer_data(consumer_key, shared_secret, parameters(email))
+    def lti_request(consumer_key, shared_secret, email, extra_params = {})
+      data = consumer_data(consumer_key, shared_secret, parameters(email, extra_params))
       post lti_launch_path, params: data, headers: {
         "Content-Type": "application/x-www-form-urlencoded"
       }
@@ -105,5 +144,44 @@ describe LtiController, type: :request do
       attr_reader :oauth_consumer_key_fromlms, :oauth_shared_secret_fromlms,
                   :lti_launch_path, :host, :port, :member, :not_member, :primary_mentor,
                   :group, :assignment, :group
+  end
+
+  describe "LTI 1.3 tool registration endpoints" do
+    context "when the lti_advantage flag is disabled" do
+      it "returns not found for the jwks endpoint" do
+        get "/lti/jwks"
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns not found for the tool config endpoint" do
+        get "/lti/tool_config"
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+
+    context "when the lti_advantage flag is enabled" do
+      before { Flipper.enable(:lti_advantage) }
+
+      after { Flipper.disable(:lti_advantage) }
+
+      it "serves the tool's public key set" do
+        get "/lti/jwks"
+        expect(response).to have_http_status(:ok)
+        key = response.parsed_body["keys"].sole
+        expect(key).to include("kty" => "RSA", "use" => "sig", "alg" => "RS256")
+        expect(key["kid"]).to be_present
+        expect(key).not_to have_key("d")
+      end
+
+      it "serves the tool configuration for platform registration" do
+        get "/lti/tool_config"
+        expect(response).to have_http_status(:ok)
+        config = response.parsed_body
+        expect(config["oidc_initiation_url"]).to eq("#{request.base_url}/lti/login")
+        expect(config["target_link_uri"]).to eq("#{request.base_url}/lti/launch")
+        expect(config["public_jwk_url"]).to eq("#{request.base_url}/lti/jwks")
+        expect(config["scopes"]).to include("https://purl.imsglobal.org/spec/lti-ags/scope/score")
+      end
+    end
   end
 end
