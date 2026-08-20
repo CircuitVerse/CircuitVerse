@@ -1,122 +1,122 @@
-  en:
-    organizations:
-      create:
-        success: "Organization was successfully created."
-        failure: "Organization could not be created."
-      update:
-        success: "Organization was successfully updated."
-      destroy:
-        success: "Organization was successfully deleted."
-      index:
-        page_title: "Organizations"
-        heading: "Organizations"
-        subtitle: "Manage your groups, mentors, and students all in one place."
-        create_button: "Create Organization"
-        empty_mine: "You're not part of any organizations yet. Create one to get started."
-        logo_alt: "%{organization} logo"  
-        member_count:
-          one: "1 member"
-          other: "%{count} members"
-        confirmation_mismatch: "Organization name did not match."
-      tabs:
-        nav_label: "Organization sections"
-        overview: "Overview"
-        members: "Members"
-        settings: "Settings"
-      overview:
-        groups_heading: "Groups"
-        group_locked: "Members only"
-        new_group_button: "New Group"
-        logo_alt: "%{organization} logo"
-        member_count:
-          one: "1 member"
-          other: "%{count} members"
-      social_links:
-        logo_alt: "%{provider} logo"
-        website: "Website"
-      members:
-        page_title: "Members - %{organization}"
-        invite:
-          heading: "Invite members"
-          invite_btn: "Add People"
-          description: "Add members by email. Existing users are added right away; others are invited to join."
-          role_label: "Role"
-          roles:
-            member: "Member"
-            mentor: "Mentor"
-            admin: "Admin"
-          emails_label: "Email addresses"
-          emails_hint: "Type an email and press Enter or comma. Add as many as you like."
-          submit_btn: "Send invites"
-          cancel: "Cancel"
-        list:
-          heading: "Current members"
-          name: "Name"
-          email: "Email"
-          actions: "Actions"
-          member_actions: "Actions for %{name}"
-          change_role: "Change role"
-          change_role_confirm: "Change %{name}'s role to %{role}?"
-          make_role: "Make %{role}"
-          remove: "Remove from organization"
-          remove_confirm: "Remove %{name} from this organization?"
-          role: "Role"
-          roles:
-            admin: "Admin"
-            mentor: "Mentor"
-            member: "Member"
-          empty: "No members yet." 
-      settings:
-        page_title: "Settings - %{organization}"
-        danger_heading: "Danger Zone"
-        danger_subheading: "Irreversible actions for this organization."
-        delete_title: "Delete this organization"
-        delete_description: "Once you delete an organization, all its member associations will be permanently removed. Any groups inside will become standalone groups. There is no going back."
-        delete_btn: "Delete Organization"
-        modal_title: "Delete Organization"
-        modal_warning: "This action cannot be undone. This will permanently delete the %{organization} organization. Any groups inside will become standalone groups."
-        modal_confirm_prompt_html: "Please type <strong>%{organization}</strong> to confirm."
-        modal_confirm_btn: "I understand the consequences, delete this organization"
-        modal_confirm_label: "Type the organization name to confirm deletion"
-      form:
-        details_heading: "Organization Details"
-        details_subheading: "Basic information about your organization."
-        name_label: "Name"
-        name_hint: "The name of your organization."
-        name_placeholder: "e.g. Indian Institute Of Technology"
-        description_label: "Description"
-        description_hint: "A short description of your organization."
-        description_placeholder: "What is your organization about?"
-        location_label: "Location"
-        location_hint: "Where is your organization based?"
-        location_placeholder: "e.g. India, Delhi"
-        links_label: "External Links"
-        links_hint: "Add up to 5 links to your organization's website or social profiles."
-        links_placeholder: "https://example.com"
-        add_link: "Add link"
-        remove_link: "Remove link"
-        logo_label: "Logo"
-        logo_hint: "Upload a square image for best results."
-        current_logo: "Current Logo"
-        current_logo_alt: "%{organization} logo"
-        replace_logo_hint: "Upload a new image below to replace"
-        remove_logo: "Remove current logo"
-        upload_click: "Click to upload"
-        upload_drag: "or drag and drop"
-        upload_hint: "PNG, JPG or SVG"
-        link_aria_label: "External link"
-        submit: "Create Organization"
-        update: "Save changes"
-      new:
-        page_title: "Create Organization"
-        heading: "Create a new organization"
-        subheading: "Set up your organization to manage groups, assignments, and members."
-    organization_members:
-      create:
-        success: "Member was successfully added."
-      update:
-        success: "Member role was successfully updated."
-      destroy:
-        success: "Member was successfully removed."
-      leave:
-        success: "You have successfully left the organization."
+en:
+  organizations:
+    create:
+      success: "Organization was successfully created."
+      failure: "Organization could not be created."
+    update:
+      success: "Organization was successfully updated."
+    destroy:
+      success: "Organization was successfully deleted."
+    index:
+      page_title: "Organizations"
+      heading: "Organizations"
+      subtitle: "Manage your groups, mentors, and students all in one place."
+      create_button: "Create Organization"
+      empty_mine: "You're not part of any organizations yet. Create one to get started."
+      logo_alt: "%{organization} logo"
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
+      confirmation_mismatch: "Organization name did not match."
+    tabs:
+      nav_label: "Organization sections"
+      overview: "Overview"
+      members: "Members"
+      settings: "Settings"
+    overview:
+      groups_heading: "Groups"
+      group_locked: "Members only"
+      new_group_button: "New Group"
+      logo_alt: "%{organization} logo"
+      member_count:
+        one: "1 member"
+        other: "%{count} members"
+    social_links:
+      logo_alt: "%{provider} logo"
+      website: "Website"
+    members:
+      page_title: "Members - %{organization}"
+      invite:
+        heading: "Invite members"
+        invite_btn: "Add People"
+        description: "Add members by email. Existing users are added right away; others are invited to join."
+        role_label: "Role"
+        roles:
+          member: "Member"
+          mentor: "Mentor"
+          admin: "Admin"
+        emails_label: "Email addresses"
+        emails_hint: "Type an email and press Enter or comma. Add as many as you like."
+        submit_btn: "Send invites"
+        cancel: "Cancel"
+      list:
+        heading: "Current members"
+        name: "Name"
+        email: "Email"
+        actions: "Actions"
+        member_actions: "Actions for %{name}"
+        change_role: "Change role"
+        change_role_confirm: "Change %{name}'s role to %{role}?"
+        make_role: "Make %{role}"
+        remove: "Remove from organization"
+        remove_confirm: "Remove %{name} from this organization?"
+        role: "Role"
+        roles:
+          admin: "Admin"
+          mentor: "Mentor"
+          member: "Member"
+        empty: "No members yet."
+    settings:
+      page_title: "Settings - %{organization}"
+      danger_heading: "Danger Zone"
+      danger_subheading: "Irreversible actions for this organization."
+      delete_title: "Delete this organization"
+      delete_description: "Once you delete an organization, all its member associations will be permanently removed. Any groups inside will become standalone groups. There is no going back."
+      delete_btn: "Delete Organization"
+      modal_title: "Delete Organization"
+      modal_warning: "This action cannot be undone. This will permanently delete the %{organization} organization. Any groups inside will become standalone groups."
+      modal_confirm_prompt_html: "Please type <strong>%{organization}</strong> to confirm."
+      modal_confirm_btn: "I understand the consequences, delete this organization"
+      modal_confirm_label: "Type the organization name to confirm deletion"
+    form:
+      details_heading: "Organization Details"
+      details_subheading: "Basic information about your organization."
+      name_label: "Name"
+      name_hint: "The name of your organization."
+      name_placeholder: "e.g. Indian Institute Of Technology"
+      description_label: "Description"
+      description_hint: "A short description of your organization."
+      description_placeholder: "What is your organization about?"
+      location_label: "Location"
+      location_hint: "Where is your organization based?"
+      location_placeholder: "e.g. India, Delhi"
+      links_label: "External Links"
+      links_hint: "Add up to 5 links to your organization's website or social profiles."
+      links_placeholder: "https://example.com"
+      add_link: "Add link"
+      remove_link: "Remove link"
+      logo_label: "Logo"
+      logo_hint: "Upload a square image for best results."
+      current_logo: "Current Logo"
+      current_logo_alt: "%{organization} logo"
+      replace_logo_hint: "Upload a new image below to replace"
+      remove_logo: "Remove current logo"
+      upload_click: "Click to upload"
+      upload_drag: "or drag and drop"
+      upload_hint: "PNG, JPG or SVG"
+      link_aria_label: "External link"
+      submit: "Create Organization"
+      update: "Save changes"
+    new:
+      page_title: "Create Organization"
+      heading: "Create a new organization"
+      subheading: "Set up your organization to manage groups, assignments, and members."
+  organization_members:
+    create:
+      success: "Member was successfully added."
+    update:
+      success: "Member role was successfully updated."
+    destroy:
+      success: "Member was successfully removed."
+    leave:
+      success: "You have successfully left the organization."

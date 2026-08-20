@@ -50,7 +50,7 @@ class OrganizationsController < ApplicationController
   # (members tab content is added in a follow-up PR)
   def members
     @active_tab = "members"
-    @sort_column = params[:sort].presence_in(%w[name role created_at]) || "role" # rubocop:disable Rails/StrongParametersExpect
+    @sort_column = params[:sort].presence_in(%w[name role created_at]) || "name" # rubocop:disable Rails/StrongParametersExpect
     @sort_direction = params[:direction].presence_in(%w[asc desc]) || "asc" # rubocop:disable Rails/StrongParametersExpect
 
     members = @organization.organization_members.includes(:user)

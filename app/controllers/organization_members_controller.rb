@@ -20,6 +20,8 @@ class OrganizationMembersController < ApplicationController
     newly_added.each { |email| invite_by_email(email, role) }
     notice = Utils.mail_notice(submitted, emails, newly_added)
     redirect_to members_organization_path(@organization), notice: notice
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to members_organization_path(@organization), alert: e.message
   end
 
   # PATCH/PUT /organizations/1/organization_members/1
