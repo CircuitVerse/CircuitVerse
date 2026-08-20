@@ -16,7 +16,7 @@ export default class EventQueue {
     */
     add(obj, delay) {
         if (obj.queueProperties.inQueue) {
-            obj.queueProperties.time = this.time + (delay || obj.propagationDelay);
+            obj.queueProperties.time = this.time + (delay !== undefined ? delay : obj.propagationDelay);
             let i = obj.queueProperties.index;
             while (i > 0 && obj.queueProperties.time > this.queue[i - 1].queueProperties.time) {
                 this.swap(i, i - 1);
@@ -33,7 +33,7 @@ export default class EventQueue {
         if (this.frontIndex == this.size) throw 'EventQueue size exceeded';
         this.queue[this.frontIndex] = obj;
         // obj.queueProperties.time=obj.propagationDelay;
-        obj.queueProperties.time = this.time + (delay || obj.propagationDelay);
+        obj.queueProperties.time = this.time + (delay !== undefined ? delay : obj.propagationDelay);
         obj.queueProperties.index = this.frontIndex;
         this.frontIndex++;
         obj.queueProperties.inQueue = true;
