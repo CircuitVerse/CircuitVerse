@@ -12,19 +12,16 @@ class OrganizationMembersController < ApplicationController
   # POST /organizations/1/organization_members
   # POST /organizations/1/organization_members.json
   def create
-    @organization_member = @organization.organization_members.new(organization_member_params)
-
-    respond_to do |format|
-      if @organization_member.save
-        format.html { redirect_to @organization, notice: t(".success") }
-        format.json { render :show, status: :created, location: @organization }
-      else
-        format.html do
-          redirect_to @organization, alert: @organization_member.errors.full_messages.to_sentence
-        end
-        format.json { render json: @organization_member.errors, status: :unprocessable_content }
-      end
-    end
+    role = organization_member_params[:role].presence_in(%w[admin mentor member]) || "member"
+    submitted = Array(organization_member_params[:emails]).map { |e| e.to_s.strip.downcase }
+    emails = submitted.grep(Devise.email_regexp)
+    present_members = User.where(id: @organization.organization_members.pluck(:user_id)).pluck(:email)
+    newly_added = emails - present_members - [current_user&.email&.downcase]
+    newly_added.each { |email| invite_by_email(email, role) }
+    notice = Utils.mail_notice(submitted, emails, newly_added)
+    redirect_to members_organization_path(@organization), notice: notice
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to members_organization_path(@organization), alert: e.message
   end
 
   # PATCH/PUT /organizations/1/organization_members/1
@@ -83,7 +80,7 @@ class OrganizationMembersController < ApplicationController
     end
 
     def organization_member_params
-      params.expect(organization_member: %i[user_id role])
+      params.expect(organization_member: [:role, { emails: [] }])
     end
 
     def organization_member_update_params
@@ -94,6 +91,19 @@ class OrganizationMembersController < ApplicationController
       return if Flipper.enabled?(:organizations, current_user)
 
       redirect_to root_path, alert: t("feature_not_available")
+    end
+
+    def invite_by_email(email, role)
+      user = User.find_by(email: email)
+      if user.nil?
+        PendingInvitation.create_or_find_by!(organization_id: @organization.id, email: email) do |invite|
+          invite.role = OrganizationMember.roles[role]
+        end
+      else
+        @organization.organization_members
+                     .where(user_id: user.id)
+                     .first_or_create!(role: OrganizationMember.roles[role])
+      end
     end
 
     def check_create_access
