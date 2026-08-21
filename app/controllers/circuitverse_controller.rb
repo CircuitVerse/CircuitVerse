@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class CircuitverseController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :set_homepage_data, only: [:index]
 
   def index; end

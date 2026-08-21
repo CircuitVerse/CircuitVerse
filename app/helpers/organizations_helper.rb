@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module OrganizationsHelper
+  MEMBER_DISPLAY_CAP = 1000
   def org_member_sort_link(column, label, organization)
     new_direction, icon = org_sort_state(column)
 
@@ -10,6 +11,14 @@ module OrganizationsHelper
                   content_tag(:span, label),
                   content_tag(:i, "", class: "fa #{icon} org-sort-icon", "aria-hidden": true)
                 ])
+    end
+  end
+
+  def capped_member_count(count, i18n_key)
+    if count.to_i > MEMBER_DISPLAY_CAP
+      t("#{i18n_key}_capped", count: MEMBER_DISPLAY_CAP)
+    else
+      t(i18n_key, count: count)
     end
   end
 

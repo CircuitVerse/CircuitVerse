@@ -1,4 +1,5 @@
-<% content_for :title, t("organizations.members.page_title", organization: @organization.name) %>
+<% content_for :title, t("organizations.dashboard.page_title", organization: @organization.name, tab: t("organizations.tabs.members")) %>
+
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "members", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
     <% if flash[:notice].present? %>

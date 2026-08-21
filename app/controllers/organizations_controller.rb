@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OrganizationsController < ApplicationController
+  skip_after_action :verify_authorized, only: %i[index new create]
+
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
   before_action :set_organization,

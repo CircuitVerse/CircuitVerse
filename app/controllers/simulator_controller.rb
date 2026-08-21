@@ -4,6 +4,8 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
+  skip_after_action :verify_authorized, only: %i[new create post_issue verilog_cv]
+
   before_action :authenticate_user!, only: %i[create update edit]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
@@ -104,12 +106,8 @@ class SimulatorController < ApplicationController
   end
 
   def view_issue_circuit_data
-    unless current_user&.admin?
-      render plain: "Only admins can view issue circuit data", status: :unauthorized
-      return
-    end
-
     issue_circuit_data = IssueCircuitDatum.find(params.expect(:id))
+    authorize issue_circuit_data, :admin?, policy_class: IssueCircuitDatumPolicy
     render plain: issue_circuit_data.data
   end
 

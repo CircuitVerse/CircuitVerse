@@ -17,12 +17,15 @@ en:
       member_count:
         one: "1 member"
         other: "%{count} members"
+      member_count_capped: "%{count}+ members"
       confirmation_mismatch: "Organization name did not match."
     tabs:
       nav_label: "Organization sections"
       overview: "Overview"
       members: "Members"
       settings: "Settings"
+    dashboard:
+      page_title: "Organizations / %{organization} - %{tab}"  
     overview:
       groups_heading: "Groups"
       group_locked: "Members only"
@@ -31,6 +34,7 @@ en:
       member_count:
         one: "1 member"
         other: "%{count} members"
+      member_count_capped: "%{count}+ members"
     social_links:
       logo_alt: "%{provider} logo"
       website: "Website"
@@ -67,7 +71,6 @@ en:
           member: "Member"
         empty: "No members yet."
     settings:
-      page_title: "Settings - %{organization}"
       danger_heading: "Danger Zone"
       danger_subheading: "Irreversible actions for this organization."
       delete_title: "Delete this organization"
@@ -101,6 +104,10 @@ en:
       current_logo_alt: "%{organization} logo"
       replace_logo_hint: "Upload a new image below to replace"
       remove_logo: "Remove current logo"
+      selected_logo: "Selected Logo"
+      selected_logo_hint: "Preview of your selected logo. It will be saved when you submit."
+      logo_invalid_type: "Invalid file type. Please upload a PNG, JPG, or SVG."
+      logo_too_large: "File is too large. Maximum size is 2 MB."
       upload_click: "Click to upload"
       upload_drag: "or drag and drop"
       upload_hint: "PNG, JPG or SVG"
