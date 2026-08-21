@@ -60,9 +60,9 @@ Rails.application.routes.draw do
   end
 
   resources :custom_mails, except: %i[destroy]
-  get "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
-  get "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
-                                             as: "send_custom_mail_self"
+  post "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
+  post "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
+                                              as: "send_custom_mail_self"
 
   # grades
   scope "/grades" do

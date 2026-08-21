@@ -55,8 +55,22 @@ RSpec.describe Api::V1::AssignmentsController, "#start", type: :request do
       end
     end
 
+    context "when authorized but not a member of the assignment's group" do
+      before do
+        token = get_auth_token(user)
+        patch "/api/v1/assignments/#{assignment.id}/start",
+              headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status forbidden" do
+        expect(response).to have_http_status(:forbidden)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     context "when authorized and starts assignment" do
       before do
+        FactoryBot.create(:group_member, group: assignment.group, user: user)
         token = get_auth_token(user)
         patch "/api/v1/assignments/#{assignment.id}/start",
               headers: { Authorization: "Token #{token}" }, as: :json

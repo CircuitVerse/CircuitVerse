@@ -63,7 +63,7 @@ describe CustomMailsController, type: :request do
 
       it "sends all mails" do
         expect do
-          get send_custom_mail_path(@mail)
+          post send_custom_mail_path(@mail)
         end.to have_enqueued_job.on_queue("mailers")
         expect(response.body).to eq("The mails were queued for sending!")
       end
@@ -76,7 +76,7 @@ describe CustomMailsController, type: :request do
 
       it "sends mail to send only" do
         expect do
-          get send_custom_mail_self_path(@mail)
+          post send_custom_mail_self_path(@mail)
         end.to have_enqueued_job.on_queue("mailers")
         expect(response.body).to eq("A mail has been sent to your email!")
       end
@@ -94,7 +94,7 @@ describe CustomMailsController, type: :request do
   context "user is not admin" do
     it "returns not authorized for all routes" do
       sign_in FactoryBot.create(:user)
-      get send_custom_mail_path(@mail)
+      post send_custom_mail_path(@mail)
       check_not_authorized(response)
       put custom_mail_path(@mail), params: { custom_mail: {} }
       check_not_authorized(response)
