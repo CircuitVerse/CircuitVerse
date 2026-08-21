@@ -104,12 +104,8 @@ class SimulatorController < ApplicationController
   end
 
   def view_issue_circuit_data
-    unless current_user&.admin?
-      render plain: "Only admins can view issue circuit data", status: :unauthorized
-      return
-    end
-
     issue_circuit_data = IssueCircuitDatum.find(params.expect(:id))
+    authorize issue_circuit_data, :admin?, policy_class: IssueCircuitDatumPolicy
     render plain: issue_circuit_data.data
   end
 

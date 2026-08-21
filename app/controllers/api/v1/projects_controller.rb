@@ -61,7 +61,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/check_edit_access
   def check_edit_access
-    current_user.admin? || authorize(@project, :check_edit_access?)
+    authorize @project, :user_access?
     @options = { params: { has_details_access: true } }
     render json: Api::V1::UserSerializer.new(current_user, @options)
   end

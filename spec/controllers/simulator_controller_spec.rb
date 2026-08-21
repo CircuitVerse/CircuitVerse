@@ -153,4 +153,40 @@ describe SimulatorController, type: :request do
       end
     end
   end
+
+  describe "#view_issue_circuit_data" do
+    before do
+      @issue_circuit_datum = IssueCircuitDatum.create!(data: "issue data")
+    end
+
+    context "when user is an admin" do
+      before do
+        sign_in FactoryBot.create(:user, admin: true)
+      end
+
+      it "renders the issue circuit data" do
+        get "/simulator/issue_circuit_data/#{@issue_circuit_datum.id}"
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("issue data")
+      end
+    end
+
+    context "when user is not an admin" do
+      before do
+        sign_in @user
+      end
+
+      it "returns forbidden" do
+        get "/simulator/issue_circuit_data/#{@issue_circuit_datum.id}"
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context "when user is not signed in" do
+      it "returns forbidden" do
+        get "/simulator/issue_circuit_data/#{@issue_circuit_datum.id}"
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+  end
 end
