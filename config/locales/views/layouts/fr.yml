@@ -28,6 +28,7 @@ fr:
     header:
       dashboard: "Tableau de bord"
       my_groups: "Mes Groupes"
+      link_to_organizations: "Organisations"
       notifications: "Notifications"
       language: "Langue"
     mailer:
