@@ -63,15 +63,11 @@ class OrganizationMembersController < ApplicationController
 
     authorize @organization, :leave?
 
-    unless destroy_membership_safely
+    if destroy_membership_safely?
+      respond_with_left_organization
+    else
       redirect_to members_organization_path(@organization),
                   alert: t("organizations.members.list.leave_blocked_sole_admin")
-      return
-    end
-
-    respond_to do |format|
-      format.html { redirect_to organizations_path, notice: t(".success") }
-      format.json { head :no_content }
     end
   rescue Pundit::NotAuthorizedError
     redirect_to members_organization_path(@organization), alert: leave_blocked_reason
@@ -110,7 +106,7 @@ class OrganizationMembersController < ApplicationController
       end
     end
 
-    def destroy_membership_safely
+    def destroy_membership_safely?
       @organization.with_lock do
         return false if @organization_member.admin? &&
                         @organization.organization_members.where(role: :admin).count <= 1
@@ -118,6 +114,13 @@ class OrganizationMembersController < ApplicationController
         @organization_member.destroy!
       end
       true
+    end
+
+    def respond_with_left_organization
+      respond_to do |format|
+        format.html { redirect_to organizations_path, notice: t("organization_members.leave.success") }
+        format.json { head :no_content }
+      end
     end
 
     def invite_by_email(email, role)
