@@ -5,7 +5,8 @@ class OrganizationsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
-  before_action :set_organization, only: %i[show overview members settings update destroy]
+  before_action :set_organization,
+                only: %i[show overview members settings update destroy]
   before_action :check_show_access, only: %i[show overview members]
   before_action :check_edit_access, only: %i[settings update destroy]
 
@@ -14,6 +15,7 @@ class OrganizationsController < ApplicationController
   end
 
   PER_PAGE = 9
+  MEMBERS_PER_PAGE = 20
 
   # GET /organizations
   def index
@@ -50,6 +52,21 @@ class OrganizationsController < ApplicationController
   # (members tab content is added in a follow-up PR)
   def members
     @active_tab = "members"
+    @sort_column = params[:sort].presence_in(%w[name role created_at]) || "name" # rubocop:disable Rails/StrongParametersExpect
+    @sort_direction = params[:direction].presence_in(%w[asc desc]) || "asc" # rubocop:disable Rails/StrongParametersExpect
+
+    members = @organization.organization_members.includes(:user)
+    sorted =
+      case @sort_column
+      when "name"
+        members.joins(:user).order("users.name #{@sort_direction}")
+      when "created_at"
+        members.order("organization_members.created_at #{@sort_direction}")
+      else
+        members.order("organization_members.role #{@sort_direction}")
+      end
+
+    @organization_members = sorted.paginate(page: params[:members_page], per_page: MEMBERS_PER_PAGE)
   end
 
   # GET /organizations/1/settings
@@ -149,6 +166,10 @@ class OrganizationsController < ApplicationController
     end
 
     def check_edit_access
+      authorize @organization, :admin_access?
+    end
+
+    def check_admin_access
       authorize @organization, :admin_access?
     end
 

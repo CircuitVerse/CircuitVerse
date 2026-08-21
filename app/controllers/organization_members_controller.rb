@@ -12,19 +12,16 @@ class OrganizationMembersController < ApplicationController
   # POST /organizations/1/organization_members
   # POST /organizations/1/organization_members.json
   def create
-    @organization_member = @organization.organization_members.new(organization_member_params)
-
-    respond_to do |format|
-      if @organization_member.save
-        format.html { redirect_to @organization, notice: t(".success") }
-        format.json { render :show, status: :created, location: @organization }
-      else
-        format.html do
-          redirect_to @organization, alert: @organization_member.errors.full_messages.to_sentence
-        end
-        format.json { render json: @organization_member.errors, status: :unprocessable_content }
-      end
-    end
+    role = organization_member_params[:role].presence_in(%w[admin mentor member]) || "member"
+    submitted = Array(organization_member_params[:emails]).map { |e| e.to_s.strip.downcase }
+    emails = submitted.grep(Devise.email_regexp)
+    present_members = User.where(id: @organization.organization_members.pluck(:user_id)).pluck(:email)
+    newly_added = emails - present_members - [current_user&.email&.downcase]
+    newly_added.each { |email| invite_by_email(email, role) }
+    notice = Utils.mail_notice(submitted, emails, newly_added)
+    redirect_to members_organization_path(@organization), notice: notice
+  rescue ActiveRecord::RecordInvalid => e
+    redirect_to members_organization_path(@organization), alert: e.message
   end
 
   # PATCH/PUT /organizations/1/organization_members/1
@@ -32,11 +29,12 @@ class OrganizationMembersController < ApplicationController
   def update
     respond_to do |format|
       if @organization_member.update(organization_member_update_params)
-        format.html { redirect_to @organization, notice: t(".success") }
+        format.html { redirect_to members_organization_path(@organization), notice: t(".success") }
         format.json { head :no_content }
       else
         format.html do
-          redirect_to @organization, alert: @organization_member.errors.full_messages.to_sentence
+          redirect_to members_organization_path(@organization),
+                      alert: @organization_member.errors.full_messages.to_sentence
         end
         format.json { render json: @organization_member.errors, status: :unprocessable_content }
       end
@@ -48,7 +46,7 @@ class OrganizationMembersController < ApplicationController
   def destroy
     @organization_member.destroy
     respond_to do |format|
-      format.html { redirect_to @organization, notice: t(".success") }
+      format.html { redirect_to members_organization_path(@organization), notice: t(".success") }
       format.json { head :no_content }
     end
   end
@@ -65,11 +63,14 @@ class OrganizationMembersController < ApplicationController
 
     authorize @organization, :leave?
 
-    @organization_member.destroy
-    respond_to do |format|
-      format.html { redirect_to organizations_path, notice: t(".success") }
-      format.json { head :no_content }
+    if destroy_membership_safely?
+      respond_with_left_organization
+    else
+      redirect_to members_organization_path(@organization),
+                  alert: t("organizations.members.list.leave_blocked_sole_admin")
     end
+  rescue Pundit::NotAuthorizedError
+    redirect_to members_organization_path(@organization), alert: leave_blocked_reason
   end
 
   private
@@ -83,7 +84,7 @@ class OrganizationMembersController < ApplicationController
     end
 
     def organization_member_params
-      params.expect(organization_member: %i[user_id role])
+      params.expect(organization_member: [:role, { emails: [] }])
     end
 
     def organization_member_update_params
@@ -94,6 +95,45 @@ class OrganizationMembersController < ApplicationController
       return if Flipper.enabled?(:organizations, current_user)
 
       redirect_to root_path, alert: t("feature_not_available")
+    end
+
+    def leave_blocked_reason
+      membership = @organization.organization_members.find_by(user: current_user)
+      if membership&.admin? && @organization.organization_members.where(role: :admin).count <= 1
+        t("organizations.members.list.leave_blocked_sole_admin")
+      else
+        t("organizations.members.list.leave_blocked_primary_mentor")
+      end
+    end
+
+    def destroy_membership_safely?
+      @organization.with_lock do
+        return false if @organization_member.admin? &&
+                        @organization.organization_members.where(role: :admin).count <= 1
+
+        @organization_member.destroy!
+      end
+      true
+    end
+
+    def respond_with_left_organization
+      respond_to do |format|
+        format.html { redirect_to organizations_path, notice: t("organization_members.leave.success") }
+        format.json { head :no_content }
+      end
+    end
+
+    def invite_by_email(email, role)
+      user = User.find_by(email: email)
+      if user.nil?
+        PendingInvitation.create_or_find_by!(organization_id: @organization.id, email: email) do |invite|
+          invite.role = OrganizationMember.roles[role]
+        end
+      else
+        @organization.organization_members
+                     .where(user_id: user.id)
+                     .first_or_create!(role: OrganizationMember.roles[role])
+      end
     end
 
     def check_create_access

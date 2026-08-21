@@ -130,6 +130,179 @@
   color: $primary-green;
 }
 
+.org-sort-link {
+  color: inherit;
+  cursor: pointer;
+}
+
+.org-sort-link:hover {
+  color: $secondary-green;
+}
+
+.org-sort-icon {
+  font-size: 0.75rem;
+  opacity: 0.6;
+}
+
+.org-sort-link:hover .org-sort-icon {
+  opacity: 1;
+}
+
+.dropdown-item:hover {
+  background-color: $light-green-bg;
+  color: $secondary-green;
+}
+
+.dropdown-item.text-danger:hover {
+  background-color: $error-red;
+  color: $secondary-red;
+}
+
+.org-invite-link-icon {
+  background-color: $grey;
+  border-color: $border-light-grey;
+  color: $black;
+}
+
+.org-copy-btn {
+  background-color: $primary-green;
+  border: 1px solid $primary-green;
+  color: $white;
+  font-weight: 500;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.org-copy-btn:hover {
+  background-color: $secondary-green;
+  border-color: $secondary-green;
+  color: $white;
+}
+
+.org-copy-btn.org-copy-done {
+  background-color: $secondary-green;
+  border-color: $secondary-green;
+  color: $white;
+}
+
+.org-invite-close {
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.org-invite-close:hover {
+  opacity: 1;
+}
+
+.org-member-action-btn {
+  background-color: transparent;
+  border: 1px solid $border-light-grey;
+  color: $navbar-dark-grey;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.org-member-action-btn:hover {
+  background-color: $light-green-bg;
+  border-color: $primary-green;
+  color: $secondary-green;
+}
+
+.org-invite-card {
+  background-color: $card-green;
+  border-color: $border-light-grey;
+}
+
+.org-invite-role-select:focus {
+  border-color: $form-input-green;
+  box-shadow: 0 0 0 0.2rem $form-input-focus-green;
+}
+
+.org-members-table-wrapper {
+  background-color: $white;
+  border-color: $border-light-grey;
+}
+
+.org-members-thead {
+  background-color: $grey;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.org-members-table-wrapper tbody tr {
+  border-top: 1px solid $border-light-grey;
+}
+
+.org-members-table-wrapper tbody tr:hover {
+  background-color: $light-green-bg;
+}
+
+.org-tooltip-wrap {
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: attr(data-org-tooltip);
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 1080;
+    width: max-content;
+    max-width: 260px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    background: #f8f9fa;
+    color: #495057;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+    white-space: normal;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease-in-out;
+    pointer-events: none;
+  }
+
+  &:hover::after,
+  &:focus-within::after {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.org-role-pill {
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.org-role-admin {
+  background-color: $error-red;
+  color: $secondary-red;
+}
+
+.org-role-mentor {
+  background-color: $badge-green;
+  color: $secondary-green;
+}
+
+.org-role-member {
+  background-color: $border-light-grey;
+  color: $navbar-dark-grey;
+}
+
+.org-invite-link-input {
+  background-color: $grey;
+  border-color: $border-light-grey;
+}
+
+.org-invite-hint {
+  color: $iframe-container-grey;
+}
+
 .org-new {
   max-width: 720px;
 }

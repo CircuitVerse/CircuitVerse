@@ -13,7 +13,7 @@ en:
       subtitle: "Manage your groups, mentors, and students all in one place."
       create_button: "Create Organization"
       empty_mine: "You're not part of any organizations yet. Create one to get started."
-      logo_alt: "%{organization} logo"  
+      logo_alt: "%{organization} logo"
       member_count:
         one: "1 member"
         other: "%{count} members"
@@ -38,6 +38,42 @@ en:
     social_links:
       logo_alt: "%{provider} logo"
       website: "Website"
+    members:
+      page_title: "Members - %{organization}"
+      invite:
+        heading: "Invite members"
+        invite_btn: "Add People"
+        description: "Add members by email. Existing users are added right away; others are invited to join."
+        role_label: "Role"
+        roles:
+          member: "Member"
+          mentor: "Mentor"
+          admin: "Admin"
+        emails_label: "Email addresses"
+        emails_hint: "Type an email and press Enter or comma. Add as many as you like."
+        submit_btn: "Send invites"
+        cancel: "Cancel"
+      list:
+        heading: "Current members"
+        name: "Name"
+        email: "Email"
+        actions: "Actions"
+        member_actions: "Actions for %{name}"
+        change_role: "Change role"
+        change_role_confirm: "Change %{name}'s role to %{role}?"
+        make_role: "Make %{role}"
+        leave: "Leave organization"
+        leave_confirm: "Leave %{organization}? You will lose access to its groups and assignments."
+        leave_blocked_sole_admin: "You are the only admin. Promote another member to admin first, or delete the organization from Settings."
+        leave_blocked_primary_mentor: "You are the primary mentor of a group in this organization. Transfer or delete those groups before leaving."
+        remove: "Remove from organization"
+        remove_confirm: "Remove %{name} from this organization?"
+        role: "Role"
+        roles:
+          admin: "Admin"
+          mentor: "Mentor"
+          member: "Member"
+        empty: "No members yet."
     settings:
       danger_heading: "Danger Zone"
       danger_subheading: "Irreversible actions for this organization."
@@ -95,4 +131,3 @@ en:
       success: "Member was successfully removed."
     leave:
       success: "You have successfully left the organization."
-      not_a_member: "You are not a member of this organization."
