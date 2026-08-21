@@ -40,5 +40,13 @@ RSpec.describe Api::V1::SimulatorController, type: :request do
         expect(response.status).to eq(500)
       end
     end
+
+    context "when code exceeds MAX_CODE_SIZE" do
+      it "returns 413 content_too_large status" do
+        post "/api/v1/simulator/verilogcv", params: { code: "a" * (described_class::MAX_CODE_SIZE + 1) }
+        expect(response.status).to eq(413)
+        expect(response.parsed_body["message"]).to include("Code too large")
+      end
+    end
   end
 end
