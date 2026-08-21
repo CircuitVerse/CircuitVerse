@@ -63,11 +63,18 @@ class OrganizationMembersController < ApplicationController
 
     authorize @organization, :leave?
 
-    @organization_member.destroy
+    unless destroy_membership_safely
+      redirect_to members_organization_path(@organization),
+                  alert: t("organizations.members.list.leave_blocked_sole_admin")
+      return
+    end
+
     respond_to do |format|
       format.html { redirect_to organizations_path, notice: t(".success") }
       format.json { head :no_content }
     end
+  rescue Pundit::NotAuthorizedError
+    redirect_to members_organization_path(@organization), alert: leave_blocked_reason
   end
 
   private
@@ -92,6 +99,25 @@ class OrganizationMembersController < ApplicationController
       return if Flipper.enabled?(:organizations, current_user)
 
       redirect_to root_path, alert: t("feature_not_available")
+    end
+
+    def leave_blocked_reason
+      membership = @organization.organization_members.find_by(user: current_user)
+      if membership&.admin? && @organization.organization_members.where(role: :admin).count <= 1
+        t("organizations.members.list.leave_blocked_sole_admin")
+      else
+        t("organizations.members.list.leave_blocked_primary_mentor")
+      end
+    end
+
+    def destroy_membership_safely
+      @organization.with_lock do
+        return false if @organization_member.admin? &&
+                        @organization.organization_members.where(role: :admin).count <= 1
+
+        @organization_member.destroy!
+      end
+      true
     end
 
     def invite_by_email(email, role)

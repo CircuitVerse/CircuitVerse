@@ -236,6 +236,42 @@
   background-color: $light-green-bg;
 }
 
+.org-tooltip-wrap {
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: attr(data-org-tooltip);
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    z-index: 1080;
+    width: max-content;
+    max-width: 260px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    background: #f8f9fa;
+    color: #495057;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    line-height: 1.45;
+    text-align: left;
+    white-space: normal;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.15s ease-in-out;
+    pointer-events: none;
+  }
+
+  &:hover::after,
+  &:focus-within::after {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
 .org-role-pill {
   padding: 0.35rem 0.85rem;
   border-radius: 999px;

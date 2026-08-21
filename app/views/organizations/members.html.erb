@@ -1,5 +1,4 @@
 <% content_for :title, t("organizations.dashboard.page_title", organization: @organization.name, tab: t("organizations.tabs.members")) %>
-
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "members", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
     <% if flash[:notice].present? %>
@@ -22,13 +21,40 @@
             <%= t("organizations.overview.member_count", count: @organization_members.total_entries) %>
           </span>
         </div>
-        <% if is_admin %>
-          <button type="button" class="btn primary-button d-inline-flex align-items-center gap-1"
-                  data-bs-toggle="modal" data-bs-target="#inviteMemberModal">
-            <i class="fa fa-user-plus" aria-hidden="true"></i>
-            <%= t("organizations.members.invite.invite_btn") %>
-          </button>
-        <% end %>
+        <div class="d-flex align-items-center gap-2">
+          <% if is_admin %>
+            <button type="button" class="btn primary-button d-inline-flex align-items-center gap-1"
+                    data-bs-toggle="modal" data-bs-target="#inviteMemberModal">
+              <i class="fa fa-user-plus" aria-hidden="true"></i>
+              <%= t("organizations.members.invite.invite_btn") %>
+            </button>
+          <% end %>
+          <% if @organization.organization_members.exists?(user_id: current_user.id) %>
+            <% if policy(@organization).leave? %>
+              <%= button_to organization_leave_path(@organization),
+                            method: :delete,
+                            class: "btn btn-outline-danger d-inline-flex align-items-center gap-1",
+                            form: { class: "d-inline-block m-0", data: { confirm: t("organizations.members.list.leave_confirm", organization: @organization.name) } } do %>
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <%= t("organizations.members.list.leave") %>
+              <% end %>
+            <% else %>
+              <% current_membership = @organization.organization_members.find_by(user_id: current_user.id) %>
+              <% blocked_hint = if current_membership&.admin? && @organization.organization_members.admin.count == 1
+                                  t("organizations.members.list.leave_blocked_sole_admin")
+                                else
+                                  t("organizations.members.list.leave_blocked_primary_mentor")
+                                end %>
+              <span class="org-tooltip-wrap" data-org-tooltip="<%= blocked_hint %>">
+                <button type="button" class="btn btn-outline-secondary d-inline-flex align-items-center gap-1"
+                        disabled style="pointer-events: none;">
+                  <i class="fa fa-sign-out" aria-hidden="true"></i>
+                  <%= t("organizations.members.list.leave") %>
+                </button>
+              </span>
+            <% end %>
+          <% end %>
+        </div>
       </div>
       <% if @organization_members.present? %>
         <div class="org-members-table-wrapper rounded-4 border">
