@@ -162,7 +162,7 @@ Rails.application.routes.draw do
 
   mount Commontator::Engine => "/commontator"
 
-  # simulator
+  # simulator (legacy URLs, redirected to canonical /users/:user_id/projects/:id/simulator)
   scope "/simulator" do
     get "/:id", to: "simulator#show", as: "simulator"
     get "/edit/:id", to: "simulator#edit", as: "simulator_edit"
@@ -184,7 +184,13 @@ Rails.application.routes.draw do
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, except: %i[index new]
+    resources :projects, except: %i[index new] do
+      member do
+        get "simulator", to: "simulator#show", as: "simulator"
+        get "simulator/edit", to: "simulator#edit", as: "simulator_edit"
+        get "simulator/embed", to: "simulator#embed", as: "simulator_embed"
+      end
+    end
   end
   resources :collaborations, only: %i[create destroy update]
 
