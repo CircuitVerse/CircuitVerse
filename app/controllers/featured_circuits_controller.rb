@@ -4,6 +4,8 @@ class FeaturedCircuitsController < ApplicationController
   include UsersCircuitverseHelper
   include AdminAuthorizable
 
+  skip_after_action :verify_authorized, only: [:index]
+
   before_action :authenticate_user!, except: [:index]
   before_action :authorize_admin, except: [:index]
   before_action :set_featured, except: [:index]

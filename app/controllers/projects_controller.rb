@@ -8,6 +8,8 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy create_fork change_stars]
   before_action :authenticate_user!, only: %i[edit update destroy create_fork change_stars]
 
+  skip_after_action :verify_authorized, only: %i[index create]
+
   before_action :check_access, only: %i[edit update destroy]
   before_action :check_delete_access, only: [:destroy]
   before_action :check_view_access, only: %i[show create_fork change_stars]

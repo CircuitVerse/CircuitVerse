@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::ThreadsController < Api::V1::BaseController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!
   before_action :load_resource
 

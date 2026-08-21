@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class TagsController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :set_tag!
 
   PER_PAGE = ExploreController::RECENT_LIMIT

@@ -4,6 +4,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
   include SimulatorHelper
 
+  skip_after_action :verify_authorized, only: %i[
+    index
+    search
+    user_projects
+    user_favourites
+    featured_circuits
+    image_preview
+    create
+  ]
+
   before_action :authenticate_user!, only: %i[
     check_edit_access
     create

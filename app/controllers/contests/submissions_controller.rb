@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Contests::SubmissionsController < ApplicationController
+  skip_after_action :verify_authorized, only: %i[new create]
+
   before_action :authenticate_user!
   before_action :set_contest
   before_action :check_contests_feature_flag
