@@ -4,6 +4,7 @@ class GradePolicy < ApplicationPolicy
   attr_reader :user, :grade
 
   def initialize(user, grade)
+    super
     @user = user
     @grade = grade
   end

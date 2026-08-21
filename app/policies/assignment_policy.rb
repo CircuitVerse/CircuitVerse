@@ -15,6 +15,7 @@ class AssignmentPolicy < ApplicationPolicy
       org_manage?
   end
 
+  # "admin" here means the group's primary mentor or a site admin.
   def admin_access?
     (assignment.group&.primary_mentor_id == user.id) || user.admin? || org_manage?
   end
