@@ -56,6 +56,35 @@ describe AssignmentPolicy do
         expect { subject.reopen? }.to raise_error(ApplicationPolicy::CustomAuthException)
       end
     end
+
+    context "assignment is open" do
+      let(:assignment) { FactoryBot.create(:assignment, group: @group, status: "open") }
+
+      it { is_expected.to permit(:edit) }
+      it { is_expected.not_to permit(:start) }
+    end
+  end
+
+  context "user is an admin who is not part of the group" do
+    let(:user) { FactoryBot.create(:user, admin: true) }
+    let(:assignment) { FactoryBot.create(:assignment, group: @group) }
+
+    it { is_expected.to permit(:admin_access) }
+    it { is_expected.to permit(:mentor_access) }
+    it { is_expected.to permit(:edit) }
+    it { is_expected.not_to permit(:start) }
+  end
+
+  context "user is not part of the group" do
+    let(:user) { FactoryBot.create(:user) }
+    let(:assignment) do
+      FactoryBot.create(:assignment, group: @group, status: "open",
+                                     grading_scale: :letter, deadline: 1.day.ago)
+    end
+
+    it { is_expected.not_to permit(:edit) }
+    it { is_expected.not_to permit(:start) }
+    it { is_expected.not_to permit(:show_grades) }
   end
 
   context "user is a mentor" do
@@ -123,7 +152,7 @@ describe AssignmentPolicy do
       let(:assignment) { FactoryBot.create(:assignment, group: @group, status: "open") }
 
       it { is_expected.not_to permit(:admin_access) }
-      it { is_expected.to permit(:edit) }
+      it { is_expected.not_to permit(:edit) }
       it { is_expected.to permit(:start) }
 
       context "project is already submitted" do
