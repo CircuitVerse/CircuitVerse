@@ -27,6 +27,7 @@ class StarsController < ApplicationController
   # POST /stars.json
   def create
     @star = current_user.stars.build(star_params)
+    authorize @star.project, :check_view_access? if @star.project
     if @star.save
       render plain: "Star added!"
     else

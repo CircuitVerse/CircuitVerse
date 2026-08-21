@@ -150,6 +150,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
+    authorize @project, :check_view_access?
     if @project.toggle_star(current_user)
       render json: { message: "Starred successfully!" }, status: :ok
     else

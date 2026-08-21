@@ -10,7 +10,7 @@ class ProjectsController < ApplicationController
 
   before_action :check_access, only: %i[edit update destroy]
   before_action :check_delete_access, only: [:destroy]
-  before_action :check_view_access, only: %i[show create_fork]
+  before_action :check_view_access, only: %i[show create_fork change_stars]
   before_action :sanitize_name, only: %i[create update]
   before_action :sanitize_project_description, only: %i[show edit]
 
