@@ -42,6 +42,20 @@ describe AssignmentPolicy do
 
       it { is_expected.not_to permit(:can_be_graded) }
     end
+
+    context "assignment is closed" do
+      let(:assignment) { FactoryBot.create(:assignment, group: @group, status: "closed") }
+
+      it { is_expected.to permit(:reopen) }
+    end
+
+    context "assignment is already open" do
+      let(:assignment) { FactoryBot.create(:assignment, group: @group, status: "open") }
+
+      it "raises CustomAuthException on reopen" do
+        expect { subject.reopen? }.to raise_error(ApplicationPolicy::CustomAuthException)
+      end
+    end
   end
 
   context "user is a mentor" do
