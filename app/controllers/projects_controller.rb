@@ -39,7 +39,7 @@ class ProjectsController < ApplicationController
       # if @project.uses_vue_simulator?
       # simulatorvue_path(@project)
       # else
-      simulator_path(@project)
+      simulator_user_project_path(@project.author_id, @project)
     # end
   end
 

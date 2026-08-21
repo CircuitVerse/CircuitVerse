@@ -11,6 +11,7 @@ class SimulatorController < ApplicationController
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update]
+  before_action :redirect_to_canonical_url, only: %i[show edit]
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
@@ -150,6 +151,18 @@ class SimulatorController < ApplicationController
   end
 
   private
+
+    def redirect_to_canonical_url
+      canonical_path = case action_name
+                       when "show" then simulator_user_project_path(@project.author_id, @project)
+                       when "edit" then simulator_edit_user_project_path(@project.author_id, @project)
+                       when "embed" then simulator_embed_user_project_path(@project.author_id, @project)
+      end
+      return if canonical_path.nil? || request.path == canonical_path
+
+      redirect_to "#{canonical_path}#{"?#{request.query_string}" if request.query_string.present?}",
+                  status: :moved_permanently
+    end
 
     def allow_iframe
       response.headers.except! "X-Frame-Options"
