@@ -14,7 +14,8 @@ class TagsController < ApplicationController
   private
 
     def set_tag!
-      @tag = Tag.find_by!(name: params.expect(:tag))
+      @tag = Tag.named(params.expect(:tag))
+      raise ActiveRecord::RecordNotFound if @tag.nil?
     end
 
     # rubocop:disable Metrics/MethodLength
