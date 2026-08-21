@@ -159,6 +159,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # /api/v1/projects/:id/fork
   def create_fork
+    authorize @project, :check_view_access?
+    authorize @project, :create_fork?
     if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
