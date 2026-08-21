@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ErrorsController < ApplicationController
+  skip_after_action :verify_authorized
+
   def not_found
     respond_to do |format|
       format.html { render status: :not_found }

@@ -3,6 +3,8 @@
 class GroupsController < ApplicationController
   include OrganizationScopedRedirect
 
+  skip_after_action :verify_authorized, only: %i[new create group_invite]
+
   before_action :set_group, only: %i[show edit update destroy group_invite generate_token]
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag,
