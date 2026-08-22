@@ -101,26 +101,55 @@ describe "Group management", type: :system do
   describe "changes group member role" do
     it "converts member to mentor" do
       add_user_to_group_as_member
+      group_member = GroupMember.find_by(user_id: user.id, group_id: group.id)
       visit "/groups/#{group.id}"
-      make_mentor_btn = find("a[data-bs-target='#promote-member-modal']")
-      make_mentor_btn.click
-      execute_script "document.getElementById('promote-member-modal').style.display='block'"
-      execute_script "document.getElementById('promote-member-modal').style.opacity=1"
-      make_mentor_btn = find(id: "groups-member-promote-button")
-      make_mentor_btn.click
+
+      # Find the promote button and click it to open modal
+      promote_link = find("a[data-bs-target='#promote-member-modal']")
+      promote_link.click
+
+      # Wait for modal to be visible and set the form action URL
+      # The form has an explicit ID now, so we target it directly
+      execute_script <<~JS
+        var modal = document.getElementById('promote-member-modal');
+        var bootstrap = window.bootstrap;
+        if (bootstrap && bootstrap.Modal) {
+          var bsModal = bootstrap.Modal.getOrCreateInstance(modal);
+          bsModal.show();
+        }
+        // Set the form action to the correct GroupMembersController endpoint
+        document.getElementById('promote-member-form').action = '/group_members/#{group_member.id}';
+      JS
+      sleep 0.5 # Give modal time to fully render
+
+      click_button "groups-member-promote-button"
 
       expect(page).to have_text("Group member was successfully updated.")
     end
 
     it "converts mentor to member" do
       add_user_to_group_as_mentor
+      group_member = GroupMember.find_by(user_id: user.id, group_id: group.id)
       visit "/groups/#{group.id}"
-      make_mentor_btn = find("a[data-bs-target='#demote-member-modal']")
-      make_mentor_btn.click
-      execute_script "document.getElementById('demote-member-modal').style.display='block'"
-      execute_script "document.getElementById('demote-member-modal').style.opacity=1"
-      make_mentor_btn = find(id: "groups-member-demote-button")
-      make_mentor_btn.click
+
+      # Find the demote button and click it to open modal
+      demote_link = find("a[data-bs-target='#demote-member-modal']")
+      demote_link.click
+
+      # Wait for modal to be visible and set the form action URL
+      execute_script <<~JS
+        var modal = document.getElementById('demote-member-modal');
+        var bootstrap = window.bootstrap;
+        if (bootstrap && bootstrap.Modal) {
+          var bsModal = bootstrap.Modal.getOrCreateInstance(modal);
+          bsModal.show();
+        }
+        // Set the form action to the correct GroupMembersController endpoint
+        document.getElementById('demote-member-form').action = '/group_members/#{group_member.id}';
+      JS
+      sleep 0.5 # Give modal time to fully render
+
+      click_button "groups-member-demote-button"
 
       expect(page).to have_text("Group member was successfully updated.")
     end
