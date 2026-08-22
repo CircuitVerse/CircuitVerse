@@ -1,5 +1,5 @@
 import CircuitElement from "../circuitElement";
-import Node, { findNode } from "../node";
+import Node, { findNode, propagateBitWidth } from "../node";
 import simulationArea from "../simulationArea";
 import { correctWidth, rect2, fillText } from "../canvasApi";
 import plotArea from "../plotArea";
@@ -182,7 +182,13 @@ export default class Tunnel extends CircuitElement {
 
         // Change the bitwidth to be same as the other elements with this.identifier
         if (this.scope.tunnelList[this.identifier] && this.scope.tunnelList[this.identifier].length > 1) {
-            this.bitWidth = this.inp1.bitWidth = this.scope.tunnelList[this.identifier][0].bitWidth;
+            const targetBitWidth = this.scope.tunnelList[this.identifier][0].bitWidth;
+            this.bitWidth = targetBitWidth;
+            this.inp1.bitWidth = targetBitWidth;
+            for (let i = 0; i < this.nodeList.length; i++) {
+                this.nodeList[i].bitWidth = targetBitWidth;
+                propagateBitWidth(this.nodeList[i], targetBitWidth);
+            }
         }
 
         const len = this.identifier.length;
@@ -309,7 +315,10 @@ export default class Tunnel extends CircuitElement {
             if (tunnel.bitWidth === undefined) continue;
             if (tunnel.bitWidth < 1) continue;
             tunnel.bitWidth = bitWidth;
-            for (let i = 0; i < tunnel.nodeList.length; i++) { tunnel.nodeList[i].bitWidth = bitWidth; }
+            for (let i = 0; i < tunnel.nodeList.length; i++) {
+                tunnel.nodeList[i].bitWidth = bitWidth;
+                propagateBitWidth(tunnel.nodeList[i], bitWidth);
+            }
         }
     }
 }
@@ -336,7 +345,7 @@ Tunnel.prototype.mutableProperties = {
     identifier: {
         name: "Debug Flag identifier",
         type: "text",
-        maxlength: "5",
+        maxlength: "50",
         func: "setIdentifier",
     },
 };

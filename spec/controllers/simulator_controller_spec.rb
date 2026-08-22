@@ -152,6 +152,55 @@ describe SimulatorController, type: :request do
         end
       end
     end
+
+    describe "#verilog_cv" do
+      let(:code) { "sample_code" }
+      let(:yosys_response) { { "data" => "response_from_yosys" } }
+
+      context "when YOSYS_PATH is valid and returns a successful response" do
+        let(:response_double) { instance_double(HTTP::Response, code: 200, to_s: yosys_response.to_json) }
+
+        before do
+          allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
+          http_client = instance_double(HTTP::Client)
+          allow(HTTP).to receive(:timeout).and_return(http_client)
+          allow(http_client).to receive(:post).and_return(response_double)
+        end
+
+        it "returns a successful response with correct JSON" do
+          post "/simulator/verilogcv", params: { code: code }
+          expect(response.status).to eq(200)
+          expect(response.parsed_body).to eq(yosys_response.with_indifferent_access)
+        end
+      end
+
+      context "when code size is exactly MAX_CODE_SIZE (250KB)" do
+        let(:exact_limit_code) { "a" * 250_000 }
+        let(:response_double) { instance_double(HTTP::Response, code: 200, to_s: yosys_response.to_json) }
+
+        before do
+          allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
+          http_client = instance_double(HTTP::Client)
+          allow(HTTP).to receive(:timeout).and_return(http_client)
+          allow(http_client).to receive(:post).and_return(response_double)
+        end
+
+        it "accepts the code and returns 200" do
+          post "/simulator/verilogcv", params: { code: exact_limit_code }
+          expect(response.status).to eq(200)
+        end
+      end
+
+      context "when code size exceeds MAX_CODE_SIZE" do
+        let(:too_large_code) { "a" * 250_001 }
+
+        it "returns content_too_large status" do
+          post "/simulator/verilogcv", params: { code: too_large_code }
+          expect(response.status).to eq(413)
+          expect(response.parsed_body["message"]).to include("Code too large")
+        end
+      end
+    end
   end
 
   describe "canonical URL redirection" do

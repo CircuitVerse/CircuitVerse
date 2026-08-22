@@ -10,6 +10,7 @@ import { colors } from './themer/themer';
 import { layoutModeGet, tempBuffer } from './layoutMode';
 import { fillSubcircuitElements } from './ux';
 import { generateNodeName } from './verilogHelpers';
+import { propagateBitWidth } from './node';
 
 /**
  * Base class for circuit elements.
@@ -708,7 +709,10 @@ export default class CircuitElement {
         if (this.bitWidth === undefined) return;
         if (this.bitWidth < 1) return;
         this.bitWidth = bitWidth;
-        for (let i = 0; i < this.nodeList.length; i++) { this.nodeList[i].bitWidth = bitWidth; }
+        for (let i = 0; i < this.nodeList.length; i++) {
+            this.nodeList[i].bitWidth = bitWidth;
+            propagateBitWidth(this.nodeList[i], bitWidth);
+        }
     }
 
     /**

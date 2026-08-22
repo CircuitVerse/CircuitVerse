@@ -66,16 +66,28 @@ import { newCircuit, switchCircuit, changeCircuitName} from './circuit'
 import SubCircuit from './subcircuit';
 
 function getBitWidth(bitsJSON) {
-    if (Number.isInteger(bitsJSON)) {
+    if (typeof bitsJSON === 'number') {
         return bitsJSON;
     }
-    else {
-        var ans = 1;
-        for (var i in bitsJSON) {
-            ans = Math.max(ans, bitsJSON[i]);
-        }
-        return ans;
+    if (Array.isArray(bitsJSON)) {
+        return bitsJSON.length;
     }
+    if (bitsJSON && typeof bitsJSON === 'object') {
+        const widths = [];
+        Object.values(bitsJSON).forEach((val) => {
+            if (typeof val === 'number') {
+                widths.push(val);
+            } else if (Array.isArray(val)) {
+                widths.push(val.length);
+            }
+        });
+        return widths.length > 0 ? Math.max(...widths) : 1;
+    }
+    if (typeof bitsJSON === 'string') {
+        const parsed = parseInt(bitsJSON, 10);
+        return Number.isNaN(parsed) ? 1 : parsed;
+    }
+    return 1;
 }
 
 
@@ -101,12 +113,7 @@ class verilogUnaryGate{
 class verilogInput extends verilogUnaryGate {
     constructor(deviceJSON) {
         super(deviceJSON);
-        if (deviceJSON["net"] == "clk" || deviceJSON["net"] == "clock") {
-            this.element = new Clock(0, 0);
-        } 
-        else {
-            this.element = new Input(0, 0, undefined, undefined, this.bitWidth);
-        }
+        this.element = new Input(0, 0, undefined, undefined, this.bitWidth);
         this.output = this.element.output1;
         this.element.label = deviceJSON["net"];
     }
@@ -488,27 +495,37 @@ class verilogMathGate extends verilogBinaryGate {
     constructor(deviceJSON, includeOutBitWidth){
         super(deviceJSON);
 
-        this.bitWidth = Math.max(deviceJSON["bits"]["in1"], deviceJSON["bits"]["in2"]);
+        this.in1BitWidth = 1;
+        this.in2BitWidth = 1;
+        this.outBitWidth = 1;
 
-        if(includeOutBitWidth) {
-            this.bitWidth = Math.max(deviceJSON["bits"]["out"], this.bitWidth);
+        if (deviceJSON.bits) {
+            if (deviceJSON.bits.in1 !== undefined) {
+                this.in1BitWidth = getBitWidth(deviceJSON.bits.in1);
+            }
+            if (deviceJSON.bits.in2 !== undefined) {
+                this.in2BitWidth = getBitWidth(deviceJSON.bits.in2);
+            }
+            if (deviceJSON.bits.out !== undefined) {
+                this.outBitWidth = getBitWidth(deviceJSON.bits.out);
+            }
         }
 
-        if (!Number.isInteger(deviceJSON["bits"])) {
-            this.in1BitWidth = deviceJSON["bits"]["in1"];
-            this.in2BitWidth = deviceJSON["bits"]["in2"];
+        this.bitWidth = Math.max(this.in1BitWidth, this.in2BitWidth);
+
+        if (includeOutBitWidth) {
+            this.bitWidth = Math.max(this.outBitWidth, this.bitWidth);
         }
 
         this.input = [];
 
         var extraBits = this.bitWidth - this.in1BitWidth;
 
-        if(extraBits != 0) {
+        if (extraBits > 0) {
             this.in1Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.in1BitWidth, extraBits]);
             
             var zeroState = '';
-            for(var i = 0; i < extraBits; i++)
-            {
+            for (var i = 0; i < extraBits; i++) {
                 zeroState += '0';
             }
             this.in1ZeroConstant = new ConstantVal(0, 0, undefined, undefined, extraBits, zeroState);
@@ -519,11 +536,10 @@ class verilogMathGate extends verilogBinaryGate {
         }
 
         var extraBits = this.bitWidth - this.in2BitWidth;
-        if(extraBits != 0) {
+        if (extraBits > 0) {
             this.in2Splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.in2BitWidth, extraBits]);
             var zeroState = '';
-            for(var i = 0; i < extraBits; i++)
-            {
+            for (var i = 0; i < extraBits; i++) {
                 zeroState += '0';
             }
 
@@ -613,8 +629,8 @@ class verilogGtGate extends verilogMathGate {
         this.alu = new ALU(0, 0, undefined, undefined, this.bitWidth);
         this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [1]);
 
-        this.in1Splitter.inp1.connect(this.alu.inp1);
-        this.in2Splitter.inp1.connect(this.alu.inp2);
+        this.in1Splitter.inp1.connect(this.alu.inp2);
+        this.in2Splitter.inp1.connect(this.alu.inp1);
 
         this.constant7.output1.connect(this.alu.controlSignalInput);
         this.alu.output.connect(this.splitter.inp1);
@@ -650,8 +666,8 @@ class verilogLeGate extends verilogMathGate {
         this.splitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [1]);
         this.notGate = new NotGate(0, 0);
 
-        this.in1Splitter.inp1.connect(this.alu.inp1);
-        this.in2Splitter.inp1.connect(this.alu.inp2);
+        this.in1Splitter.inp1.connect(this.alu.inp2);
+        this.in2Splitter.inp1.connect(this.alu.inp1);
 
         this.constant7.output1.connect(this.alu.controlSignalInput);
         this.alu.output.connect(this.splitter.inp1);
@@ -665,23 +681,41 @@ class verilogAdditionGate extends verilogMathGate {
     constructor(deviceJSON) {
         super(deviceJSON, false);
 
-        this.outBitWidth = deviceJSON["bits"]["out"];
+        this.outBitWidth = this.bitWidth;
+        if (deviceJSON.bits && deviceJSON.bits.out !== undefined) {
+            this.outBitWidth = getBitWidth(deviceJSON.bits.out);
+        }
 
         this.adder = new Adder(0, 0, undefined, undefined, this.bitWidth);
 
         this.in1Splitter.inp1.connect(this.adder.inpA);
         this.in2Splitter.inp1.connect(this.adder.inpB);
 
-        if(this.outBitWidth == this.bitWidth)
-        {
+        if (this.outBitWidth === this.bitWidth) {
             this.output = this.adder.sum;
-        }
-        else if(this.outBitWidth == this.bitWidth + 1)
-        {
+        } else if (this.outBitWidth === this.bitWidth + 1) {
             this.outputSplitter = new Splitter(0, 0, undefined, undefined, this.outBitWidth, [this.bitWidth, 1]);
             this.adder.sum.connect(this.outputSplitter.outputs[0]);
             this.adder.carryOut.connect(this.outputSplitter.outputs[1]);
             this.output = this.outputSplitter.inp1;
+        } else if (this.outBitWidth > this.bitWidth + 1) {
+            const extraZeroBits = this.outBitWidth - (this.bitWidth + 1);
+            let zeroState = '';
+            for (let i = 0; i < extraZeroBits; i++) {
+                zeroState += '0';
+            }
+            this.zeroConstant = new ConstantVal(0, 0, undefined, undefined, extraZeroBits, zeroState);
+            this.outputSplitter = new Splitter(0, 0, undefined, undefined, this.outBitWidth, [this.bitWidth, 1, extraZeroBits]);
+            this.adder.sum.connect(this.outputSplitter.outputs[0]);
+            this.adder.carryOut.connect(this.outputSplitter.outputs[1]);
+            this.zeroConstant.output1.connect(this.outputSplitter.outputs[2]);
+            this.output = this.outputSplitter.inp1;
+        } else if (this.outBitWidth < this.bitWidth) {
+            this.outputSplitter = new Splitter(0, 0, undefined, undefined, this.bitWidth, [this.outBitWidth, this.bitWidth - this.outBitWidth]);
+            this.adder.sum.connect(this.outputSplitter.inp1);
+            this.output = this.outputSplitter.outputs[0];
+        } else {
+            this.output = this.adder.sum;
         }
     }
 }

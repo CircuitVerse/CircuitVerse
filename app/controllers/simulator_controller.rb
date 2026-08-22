@@ -129,7 +129,7 @@ class SimulatorController < ApplicationController
     head :ok, content_type: "text/html"
   end
 
-  MAX_CODE_SIZE = 10_000 # 10KB limit
+  MAX_CODE_SIZE = SimulatorHelper::MAX_CODE_SIZE
 
   def verilog_cv
     if params[:code].to_s.bytesize > MAX_CODE_SIZE

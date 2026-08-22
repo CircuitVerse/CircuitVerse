@@ -29,8 +29,9 @@ class Api::V1::SimulatorController < Api::V1::BaseController
     render json: { success: true, message: "Issue submitted successfully" }, status: :ok
   end
   # rubocop:enable Metrics/MethodLength
+  include SimulatorHelper
 
-  MAX_CODE_SIZE = 10_000 # 10KB limit
+  MAX_CODE_SIZE = SimulatorHelper::MAX_CODE_SIZE
 
   # POST /api/v1/simulator/verilogcv
   def verilog_cv
