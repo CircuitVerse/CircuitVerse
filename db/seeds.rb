@@ -14,10 +14,14 @@ User.create(name: "Admin",
             email: "admin@circuitverse.org",
             password: "password",
             admin: true,
-            confirmed_at: Time.now
-)
-users = User.create([{ name: "user1", email: "user1@circuitverse.org", password: "password" },
-                     { name: "user2", email: "user2@circuitverse.org", password: "password" }])
+            locale: "en",
+            confirmed_at: Time.current)
+users = User.create([
+                      { name: "user1", email: "user1@circuitverse.org", password: "password", locale: "en",
+                        confirmed_at: Time.current },
+                      { name: "user2", email: "user2@circuitverse.org", password: "password", locale: "en",
+                        confirmed_at: Time.current }
+                    ])
 
 # private,public,limited access
 Rails.logger.debug "Creating Projects"
