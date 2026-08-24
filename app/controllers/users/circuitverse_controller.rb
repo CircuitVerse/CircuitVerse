@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::CircuitverseController < ApplicationController
+  skip_after_action :verify_authorized, except: %i[groups]
+
   TYPEAHEAD_INSTITUTE_LIMIT = 50
 
   include UsersCircuitverseHelper

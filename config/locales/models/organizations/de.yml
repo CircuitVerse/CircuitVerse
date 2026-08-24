@@ -1,0 +1,12 @@
+de:
+  activerecord:
+    errors:
+      models:
+        organization:
+          attributes:
+            logo:
+              invalid_content_type: "muss ein PNG, JPEG oder SVG Bild sein"
+              file_size_exceeded: "darf 2 MB nicht überschreiten"
+            links:
+              invalid_urls: "muss gültige http oder https URLs sein"
+              too_many: "kann nicht mehr als %{count} Links haben"
