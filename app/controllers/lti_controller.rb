@@ -6,8 +6,20 @@ class LtiController < ApplicationController
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_and_assignment, only: %i[launch]
   before_action :set_lti_params, only: %i[launch]
-  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config]
+  before_action :verify_lti_advantage_enabled, only: %i[jwks tool_config deep_link]
+  before_action :authenticate_user!, only: %i[deep_link]
   after_action :allow_iframe_lti, only: %i[launch]
+
+  PICKER_LIMIT = 50
+
+  def deep_link
+    @projects = current_user.projects.order(updated_at: :desc).limit(PICKER_LIMIT)
+    @assignments = Assignment.joins(:group)
+                             .where(groups: { primary_mentor_id: current_user.id })
+                             .reorder(updated_at: :desc).limit(PICKER_LIMIT)
+    @templates = Project.joins(:featured_circuit).where.not(author: current_user)
+                        .order(updated_at: :desc).limit(PICKER_LIMIT)
+  end
 
   def jwks
     render json: { keys: [Lti::KeyManager.public_jwk] }
