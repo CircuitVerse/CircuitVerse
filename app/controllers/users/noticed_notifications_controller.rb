@@ -29,6 +29,11 @@ class Users::NoticedNotificationsController < ApplicationController
     redirect_back_or_to(root_path)
   end
 
+  def clear_all
+    NoticedNotification.where(recipient: current_user).destroy_all
+    redirect_to notifications_path(current_user), notice: t("notifications.cleared_all")
+  end
+
   private
 
     def redirect_path_for(answer) # rubocop:disable Metrics/MethodLength
