@@ -86,4 +86,7 @@ class AboutController < ApplicationController
         img: "https://avatars.githubusercontent.com/u/173885830?v=4", link: "https://github.com/Yana-do-code" }
     ]
   end
+
+  def test
+  end
 end
