@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrganizationsController < ApplicationController
-  skip_after_action :verify_authorized, only: %i[index new create]
+  skip_after_action :verify_authorized, only: %i[index new create check_slug switcher_organizations]
 
   before_action :authenticate_user!
   before_action :check_organizations_feature_flag
@@ -74,12 +74,13 @@ class OrganizationsController < ApplicationController
   end
 
   def switcher_organizations
-    page = params[:page].to_i
+    switcher_params = params.permit(:page, :current_organization_id)
+    page = switcher_params[:page].to_i
     organizations = switcher_page(page)
+    current_organization_id = switcher_params[:current_organization_id].to_i
     has_more = current_user.organization_members.count > (page + 1) * SWITCHER_PER_PAGE
-    html = render_to_string(partial: "organizations/switcher_item", collection: organizations, as: :item,
-                            formats: [:html])
-    render json: { html: html, has_more: has_more }
+
+    render json: { html: switcher_items_html(organizations, current_organization_id), has_more: has_more }
   end
 
   # POST /organizations
@@ -155,6 +156,16 @@ class OrganizationsController < ApplicationController
           member_count: member_counts.fetch(m.organization_id, 0)
         }
       end
+    end
+
+    def switcher_items_html(organizations, current_organization_id)
+      organizations.map do |item|
+        render_to_string(
+          partial: "organizations/switcher_item",
+          locals: { item: item, is_current: item[:organization].id == current_organization_id },
+          formats: [:html]
+        )
+      end.join
     end
 
     def counts_by_organization(model, memberships)

@@ -2,26 +2,37 @@
 // Run that command whenever you add a new controller or create them with
 // ./bin/rails generate stimulus controllerName
 
-import { application } from './application';
+import { application } from "./application"
 
-import AssignmentController from './assignment_controller';
-import ContestController from './contest_controller';
-import ExploreController from './explore_controller';
-import GroupsController from './groups_controller';
-import NotificationsController from './notifications_controller';
-import ProjectsController from './projects_controller';
-import SearchBarController from './search_bar_controller';
-import SearchSortingController from './search_sorting_controller';
-import SearchFiltersController from './search_filters_controller';
-import OrganizationFormController from "./organization_form_controller";
+import AssignmentController from "./assignment_controller"
+application.register("assignment", AssignmentController)
 
-application.register('assignment', AssignmentController);
-application.register('contest', ContestController);
-application.register('explore', ExploreController);
-application.register('groups', GroupsController);
-application.register('notifications', NotificationsController);
-application.register('projects', ProjectsController);
-application.register('search-bar', SearchBarController);
-application.register('search-sorting', SearchSortingController);
-application.register('search-filters', SearchFiltersController);
-application.register("organization-form", OrganizationFormController);
+import ContestController from "./contest_controller"
+application.register("contest", ContestController)
+
+import ExploreController from "./explore_controller"
+application.register("explore", ExploreController)
+
+import GroupsController from "./groups_controller"
+application.register("groups", GroupsController)
+
+import LoadMoreController from "./load_more_controller"
+application.register("load-more", LoadMoreController)
+
+import NotificationsController from "./notifications_controller"
+application.register("notifications", NotificationsController)
+
+import OrganizationFormController from "./organization_form_controller"
+application.register("organization-form", OrganizationFormController)
+
+import ProjectsController from "./projects_controller"
+application.register("projects", ProjectsController)
+
+import SearchBarController from "./search_bar_controller"
+application.register("search-bar", SearchBarController)
+
+import SearchFiltersController from "./search_filters_controller"
+application.register("search-filters", SearchFiltersController)
+
+import SearchSortingController from "./search_sorting_controller"
+application.register("search-sorting", SearchSortingController)
