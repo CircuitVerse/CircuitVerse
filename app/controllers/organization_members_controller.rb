@@ -9,19 +9,24 @@ class OrganizationMembersController < ApplicationController
   before_action :check_update_access, only: %i[update]
   before_action :check_destroy_access, only: %i[destroy]
 
+  MAX_INVITES_PER_REQUEST = 50
+
   # POST /organizations/1/organization_members
   # POST /organizations/1/organization_members.json
   def create
     role = organization_member_params[:role].presence_in(%w[admin mentor member]) || "member"
     submitted = Array(organization_member_params[:emails]).map { |e| e.to_s.strip.downcase }
-    emails = submitted.grep(Devise.email_regexp)
-    present_members = User.where(id: @organization.organization_members.pluck(:user_id)).pluck(:email)
+    valid_emails = submitted.grep(Devise.email_regexp).uniq
+    emails = valid_emails.first(MAX_INVITES_PER_REQUEST)
+    present_members = User.where(id: @organization.organization_members.select(:user_id)).pluck(:email)
     newly_added = emails - present_members - [current_user&.email&.downcase]
-    newly_added.each { |email| invite_by_email(email, role) }
-    notice = Utils.mail_notice(submitted, emails, newly_added)
-    redirect_to members_organization_path(@organization), notice: notice
+    invite_all(newly_added, role)
+    redirect_to members_organization_path(@organization),
+                notice: invite_notice(submitted, emails, newly_added, valid_emails.size)
   rescue ActiveRecord::RecordInvalid => e
     redirect_to members_organization_path(@organization), alert: e.message
+  rescue ActiveRecord::RecordNotUnique
+    redirect_to members_organization_path(@organization), alert: t(".invite_failed")
   end
 
   # PATCH/PUT /organizations/1/organization_members/1
@@ -123,17 +128,47 @@ class OrganizationMembersController < ApplicationController
       end
     end
 
-    def invite_by_email(email, role)
-      user = User.find_by(email: email)
-      if user.nil?
-        PendingInvitation.create_or_find_by!(organization_id: @organization.id, email: email) do |invite|
-          invite.role = OrganizationMember.roles[role]
+    def invite_all(emails, role)
+      return if emails.empty?
+
+      users_by_email = User.where(email: emails).index_by(&:email)
+      role_value = OrganizationMember.roles[role]
+
+      emails.each do |email|
+        user = users_by_email[email]
+        if user.nil?
+          upsert_pending_invitation(email, role_value)
+        else
+          upsert_membership(user, role_value)
         end
-      else
-        @organization.organization_members
-                     .where(user_id: user.id)
-                     .first_or_create!(role: OrganizationMember.roles[role])
       end
+    end
+
+    def upsert_pending_invitation(email, role_value)
+      invitation = PendingInvitation.find_or_initialize_by(organization_id: @organization.id, email: email)
+      invitation.role = role_value
+      invitation.save!
+    end
+
+    def upsert_membership(user, role_value)
+      membership = @organization.organization_members.find_or_initialize_by(user_id: user.id)
+      membership.role = role_value
+      membership.save!
+    end
+
+    def invite_notice(submitted, emails, newly_added, valid_count)
+      total = submitted.count(&:present?)
+      notice = t(
+        "organization_members.create.invite_summary",
+        count: total,
+        invited: newly_added.size,
+        invalid: total - valid_count,
+        already: emails.size - newly_added.size
+      )
+      skipped = valid_count - emails.size
+      return notice if skipped.zero?
+
+      "#{notice} #{t('organization_members.create.limit_exceeded', limit: MAX_INVITES_PER_REQUEST, skipped: skipped)}"
     end
 
     def check_create_access

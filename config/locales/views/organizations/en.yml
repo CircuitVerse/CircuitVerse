@@ -125,6 +125,12 @@ en:
   organization_members:
     create:
       success: "Member was successfully added."
+      invite_summary:
+        zero: "No valid email addresses were entered."
+        one: "1 email address processed: %{invited} invited, %{invalid} invalid, %{already} already a member."
+        other: "%{count} email addresses processed: %{invited} invited, %{invalid} invalid, %{already} already members."
+      limit_exceeded: "Only %{limit} invitations can be sent at once, so %{skipped} address(es) were not processed. Please invite them in another batch."
+      invite_failed: "Some invitations could not be sent. Please try again."
     update:
       success: "Member role was successfully updated."
     destroy:
