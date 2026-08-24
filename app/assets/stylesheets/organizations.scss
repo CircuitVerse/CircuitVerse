@@ -270,14 +270,34 @@
 }
 
 .org-switcher-load-more {
-  text-decoration: none;
+  border: 1px dashed var(--bs-gray-400);
+  border-radius: 8px;
   color: $black;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 4px;
+  text-decoration: none;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
 }
 
 .org-switcher-load-more:hover,
 .org-switcher-load-more:focus {
+  background-color: $light-green-bg;
+  border-color: $primary-green;
+  color: $primary-green;
   text-decoration: none;
-  color: $black;
+}
+
+.org-switcher-load-more:focus-visible {
+  outline: 2px solid $primary-green;
+  outline-offset: 2px;
+}
+
+.org-switcher-load-more[aria-disabled="true"] {
+  cursor: default;
+  opacity: 0.6;
+  pointer-events: none;
 }
 
 .org-switcher-menu.dropdown-menu {
