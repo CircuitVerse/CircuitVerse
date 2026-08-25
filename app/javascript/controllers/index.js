@@ -3,6 +3,7 @@
 // ./bin/rails generate stimulus controllerName
 
 import { application } from './application';
+
 import AssignmentController from './assignment_controller';
 import ContestController from './contest_controller';
 import ExploreController from './explore_controller';
