@@ -81,7 +81,7 @@ class OrganizationMembersController < ApplicationController
   private
 
     def set_organization
-      @organization = Organization.friendly.find(params.expect(:organization_id))
+      @organization = Organization.find_by!(uuid: params.expect(:organization_id))
     end
 
     def set_organization_member

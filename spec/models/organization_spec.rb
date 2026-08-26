@@ -14,7 +14,6 @@ RSpec.describe Organization, type: :model do
 
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name).case_insensitive }
-    it { is_expected.to validate_uniqueness_of(:slug).case_insensitive }
 
     describe "links count" do
       it "is valid with 5 or fewer links" do
@@ -58,17 +57,21 @@ RSpec.describe Organization, type: :model do
     end
   end
 
-  describe "slug generation" do
-    it "automatically generates a slug from the name" do
-      org = FactoryBot.create(:organization, name: "My Test Org")
-      expect(org.slug).to be_present
-      expect(org.slug).to eq("my-test-org")
+  describe "uuid" do
+    it "generates a uuid on creation" do
+      org = FactoryBot.create(:organization)
+      expect(org.uuid).to be_present
     end
 
-    it "generates a unique slug when names would collide" do
-      org1 = FactoryBot.create(:organization, name: "Collision Org")
-      org2 = FactoryBot.create(:organization, name: "Collision Org 2")
-      expect(org1.slug).not_to eq(org2.slug)
+    it "generates a distinct uuid per organization" do
+      org1 = FactoryBot.create(:organization)
+      org2 = FactoryBot.create(:organization)
+      expect(org1.uuid).not_to eq(org2.uuid)
+    end
+
+    it "uses the uuid as the route parameter" do
+      org = FactoryBot.create(:organization)
+      expect(org.to_param).to eq(org.uuid)
     end
   end
 
