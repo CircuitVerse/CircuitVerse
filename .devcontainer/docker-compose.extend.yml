@@ -9,6 +9,9 @@ services:
   web:
     build:
       args: *devcontainer_build_args
+    environment:
+      OPERATING_SYSTEM: ${OPERATING_SYSTEM:-linux}
+      HOST_CURRENT_DIRECTORY: ${PWD:-/circuitverse}
   sidekiq:
     build:
       args: *devcontainer_build_args

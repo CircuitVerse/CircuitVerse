@@ -8,6 +8,7 @@ on:
 jobs:
   test-config:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -31,6 +32,8 @@ jobs:
           sudo apt-get install -y shellcheck
           shellcheck .devcontainer/boot.sh
           shellcheck .devcontainer/setup.sh
+          shellcheck .devcontainer/initialize.sh
+          shellcheck bin/docker/setup
 
       - name: Validate devcontainer.json
         run: jq . < .devcontainer/devcontainer.json
@@ -40,9 +43,9 @@ jobs:
 
       - name: Build and boot the Dev Container
         run: |
-          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml up -d --build
+          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml up -d --build web
           docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -T web .devcontainer/setup.sh
-          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -d web bash -c "rm -f tmp/pids/server.pid && bundle exec rails server -p 3000 -b 0.0.0.0"
+          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -d web .devcontainer/boot.sh
 
       - name: Smoke test the web service on port 3000
         run: |
@@ -55,7 +58,7 @@ jobs:
             sleep 6
           done
           echo "Web service did not respond on port 3000"
-          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml logs web
+          docker compose -f docker-compose.yml -f .devcontainer/docker-compose.extend.yml exec -T web sh -c "tail -n 100 log/development.log 2>/dev/null || echo 'no log/development.log found'"
           exit 1
 
       - name: Tear down

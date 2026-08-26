@@ -8,7 +8,9 @@
       "docker-compose.extend.yml"
     ],
     "service": "web",
+    "runServices": ["web", "db", "redis"],
     "remoteUser": "user",
+    "initializeCommand": "sh .devcontainer/initialize.sh",
     "features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
@@ -45,10 +47,10 @@
         "label": "Vite dev server",
         "onAutoForward": "silent"
       },
-      "1080": {
+      "mailcatcher:1080": {
         "label": "Mailcatcher",
         "onAutoForward": "silent"
       }
     },
-    "forwardPorts": [3000, 3036, 1080]
+    "forwardPorts": [3000, 3036, "mailcatcher:1080"]
   }
