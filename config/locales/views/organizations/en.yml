@@ -69,6 +69,7 @@ en:
         remove: "Remove from organization"
         remove_confirm: "Remove %{name} from this organization?"
         role: "Role"
+        joined: "Joined"
         roles:
           admin: "Admin"
           mentor: "Mentor"
