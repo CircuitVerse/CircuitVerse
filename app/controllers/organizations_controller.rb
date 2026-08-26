@@ -144,7 +144,7 @@ class OrganizationsController < ApplicationController
     end
 
     def organization_params
-      params.expect(organization: [:name, :slug, :description, :location, :logo, :remove_logo, { links: [] }])
+      params.expect(organization: [:name, :description, :location, :logo, :remove_logo, { links: [] }])
     end
 
     def check_organizations_feature_flag

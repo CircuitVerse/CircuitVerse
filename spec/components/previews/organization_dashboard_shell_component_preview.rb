@@ -14,7 +14,7 @@ class OrganizationDashboardShellComponentPreview < ViewComponent::Preview
     def render_shell(active_tab:, show_settings_tab:)
       organization = Organization.new(
         name: "CircuitVerse Community",
-        slug: "circuitverse-community"
+        uuid: SecureRandom.uuid
       )
       render(OrganizationDashboardShellComponent.new(
                organization: organization,
