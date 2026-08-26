@@ -8,6 +8,5 @@ export default class extends Controller {
       tokenSeparators: [',', ' '],
       dropdownParent: $('#inviteMemberModal'),
     });
-    $('#inviteMemberModal .select2-selection input').attr('maxlength', '30');
   }
 }
