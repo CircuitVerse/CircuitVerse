@@ -9,6 +9,7 @@ class Organization < ApplicationRecord
   has_many :organization_members, dependent: :destroy
   has_many :users, through: :organization_members
   has_many :groups, dependent: :nullify
+  has_many :pending_invitations, dependent: :destroy
 
   has_one_attached :logo
   attr_accessor :remove_logo
