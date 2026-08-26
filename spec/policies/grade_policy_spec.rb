@@ -51,4 +51,10 @@ describe GradePolicy do
 
     it { is_expected.not_to permit(:mentor) }
   end
+
+  context "when the user is a site admin" do
+    let(:user) { FactoryBot.create(:user, admin: true) }
+
+    it { is_expected.to permit(:mentor) }
+  end
 end

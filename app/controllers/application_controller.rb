@@ -11,6 +11,8 @@ class ApplicationController < ActionController::Base
   before_action :prepare_search_data
   around_action :switch_locale
 
+  after_action :verify_authorized, unless: :skip_authorization_verification?
+
   rescue_from Pundit::NotAuthorizedError, with: :auth_error
   rescue_from ApplicationPolicy::CustomAuthException, with: :custom_auth_error
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
@@ -48,6 +50,12 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+    # Engine controllers (RailsAdmin, SimpleDiscussion) and Devise inherit from
+    # ApplicationController but manage their own access control.
+    def skip_authorization_verification?
+      devise_controller? || self.class.name.start_with?("RailsAdmin::", "SimpleDiscussion::")
+    end
 
     def extract_locale_from_accept_language_header
       request.env["HTTP_ACCEPT_LANGUAGE"]&.scan(/^[a-z]{2}/)&.first

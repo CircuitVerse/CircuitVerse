@@ -26,7 +26,7 @@ export default class extends Controller {
 
     setupCounters() {
         this.bindCounter('organization_name', 'org-name-counter', 50);
-        this.bindCounter('org-description-input', 'org-description-counter', 160);
+        this.bindCounter('org-description-input', 'org-description-counter', 350);
         this.bindCounter('organization_location', 'org-location-counter', 50);
     }
 
@@ -124,23 +124,72 @@ export default class extends Controller {
             img.src = logos.logoDefault;
             return;
         }
-        const is = (host, domain) => host === domain || host.endsWith(`.${domain}`);
-        if (is(hostname, 'github.com')) img.src = logos.logoGithub;
-        else if (is(hostname, 'twitter.com') || is(hostname, 'x.com')) img.src = logos.logoX;
-        else if (is(hostname, 'linkedin.com')) img.src = logos.logoLinkedin;
-        else if (is(hostname, 'facebook.com')) img.src = logos.logoFacebook;
-        else if (is(hostname, 'youtube.com') || is(hostname, 'youtu.be')) img.src = logos.logoYoutube;
-        else img.src = logos.logoDefault;
+        const providerLogos = {
+            'github.com': logos.logoGithub,
+            'twitter.com': logos.logoX,
+            'x.com': logos.logoX,
+            'facebook.com': logos.logoFacebook,
+            'youtube.com': logos.logoYoutube,
+            'youtu.be': logos.logoYoutube,
+        };
+        const isLinkedin = hostname === 'linkedin.com' || hostname.endsWith('.linkedin.com');
+        img.src = isLinkedin ? logos.logoLinkedin : (providerLogos[hostname] || logos.logoDefault);
     }
 
     setupLogo() {
         const zone = document.getElementById('organization-upload-zone');
         const input = document.getElementById('organization_logo');
-        const label = document.getElementById('organization-upload-filename');
+        const errorEl = document.getElementById('organization-upload-error');
+
+        const showLogoError = (file) => {
+            input.value = '';
+            if (!errorEl) return;
+            const tooBig = file.size > 2 * 1024 * 1024;
+            errorEl.textContent = tooBig
+                ? (zone?.dataset.logoTooLarge || 'File is too large. Maximum size is 2 MB.')
+                : (zone?.dataset.logoInvalidType || 'Invalid file type. Please upload a PNG, JPG, or SVG.');
+            errorEl.classList.remove('d-none');
+        };
+
+        const clearLogoError = () => {
+            if (errorEl) errorEl.classList.add('d-none');
+        };
+
+        const showPreview = (file) => {
+            if (!file) return;
+
+            const acceptedTypes = ['image/png', 'image/jpeg', 'image/svg+xml'];
+            const maxBytes = 2 * 1024 * 1024;
+
+            if (!acceptedTypes.includes(file.type) || file.size > maxBytes) {
+                input.value = '';
+                const preview = document.getElementById('organization-upload-preview');
+                const previewBox = document.getElementById('organization-upload-preview-box');
+                if (preview && previewBox) {
+                    preview.removeAttribute('src');
+                    previewBox.classList.add('d-none');
+                    previewBox.classList.remove('d-flex');
+                }
+                showLogoError(file);
+                return;
+            }
+            clearLogoError();
+
+            const removeLogo = document.getElementById('organization_remove_logo');
+            if (removeLogo) removeLogo.checked = false;
+
+            const preview = document.getElementById('organization-upload-preview');
+            const previewBox = document.getElementById('organization-upload-preview-box');
+            if (preview && previewBox) {
+                preview.src = URL.createObjectURL(file);
+                previewBox.classList.remove('d-none');
+                previewBox.classList.add('d-flex');
+            }
+        };
 
         if (input) {
             this.listen(input, 'change', function () {
-                if (this.files && this.files[0]) label.textContent = this.files[0].name;
+                if (this.files && this.files[0]) showPreview(this.files[0]);
             });
         }
 
@@ -160,7 +209,7 @@ export default class extends Controller {
                 e.preventDefault();
                 if (e.dataTransfer.files && e.dataTransfer.files[0]) {
                     input.files = e.dataTransfer.files;
-                    label.textContent = e.dataTransfer.files[0].name;
+                    showPreview(e.dataTransfer.files[0]);
                 }
             });
         }
