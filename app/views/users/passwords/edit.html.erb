@@ -26,14 +26,20 @@
                 <%= t("users.minimum_password_length", minimum_password_length: @minimum_password_length) %>
               <% end %>
             </h6>
-            <div class="input-group">
-              <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control form-input" %>
+            <div class="input-group form-input">
+              <%= f.password_field :password, autofocus: true, autocomplete: "off", class: "form-control users-password-input" %>
+              <button type="button" class="input-group-addon ms-3 mt-2 border-0 bg-transparent" onclick="togglePassword(this)" aria-label="<%= t('toggle_password_visibility') %>">
+                <i class="far fa-eye-slash password-icon" aria-hidden="true"></i>
+              </button>
             </div>
           </div>
           <div class="field mb-3">
             <h6><%= f.label :password_confirmation %></h6>
-            <div class="input-group">
-              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-input #{'is-invalid' if resource.errors[:password_confirmation].any?}" %>
+            <div class="input-group form-input">
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control users-password-input #{'is-invalid' if resource.errors[:password_confirmation].any?}" %>
+              <button type="button" class="input-group-addon ms-3 mt-2 border-0 bg-transparent" onclick="togglePassword(this)" aria-label="<%= t('toggle_password_visibility') %>">
+                <i class="far fa-eye-slash password-icon" aria-hidden="true"></i>
+              </button>
               <% if resource.errors[:password_confirmation].any? %>
                 <div class="invalid-feedback">
                   <%= resource.errors[:password_confirmation].first %>
@@ -42,9 +48,9 @@
             </div>
           </div>
           <div class="field mb-3">
-            <div class="d-flex align-items-center">
-              <%= f.submit t("users.passwords.change_password"), class: "btn primary-button users-primary-button" %>
-              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text ms-3" %>
+            <div class="d-flex flex-column align-items-start">
+              <%= f.submit t("users.passwords.change_password"), class: "btn primary-button users-primary-button mb-3" %>
+              <%= link_to t("users.passwords.link_to_login_page"), new_user_session_path, class: "anchor-text" %>
             </div>
           </div>
           <div class="field mb-3">
@@ -59,3 +65,4 @@
     </div>
   </div>
 </div>
+<script src="/js/togglePassword.js"></script>
