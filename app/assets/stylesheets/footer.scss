@@ -68,6 +68,10 @@
   a {
     color: $white;
     text-decoration: none;
+    // Shrink the anchor to its text so the pointer cursor and hover
+    // area don't extend into the empty space beside each link.
+    display: block;
+    width: fit-content;
 
     h6 {
       margin-bottom: 10px;
