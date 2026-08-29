@@ -35,9 +35,11 @@ module SimulatorHelper
     data = data.to_json if data.is_a?(ActionController::Parameters)
     return data if project&.assignment_id.blank? || data.blank?
 
-    data = Oj.safe_load(data)
-    saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
-    scopes = data["scopes"] || []
+    parsed_data = safe_parse_json(data)
+    return data if parsed_data.nil?
+
+    saved_restricted_elements = safe_parse_json(project.assignment.restrictions) || []
+    scopes = parsed_data["scopes"] || []
 
     parsed_scopes = scopes.each_with_object([]) do |scope, new_scopes|
       restricted_elements_used = []
@@ -50,7 +52,33 @@ module SimulatorHelper
       new_scopes.push(scope)
     end
 
-    data["scopes"] = parsed_scopes
-    data.to_json
+    parsed_data["scopes"] = parsed_scopes
+    parsed_data.to_json
   end
+
+  private
+
+    # Attempts to parse a JSON string using Oj first, falling back to the
+    # standard JSON library. Returns nil (and logs a warning) if both fail,
+    # so callers can return the raw data unmodified rather than raising.
+    def safe_parse_json(json_string)
+      sanitized = sanitize_json_string(json_string.to_s)
+      Oj.safe_load(sanitized)
+    rescue Oj::ParseError, Oj::Error
+      begin
+        JSON.parse(sanitized)
+      rescue JSON::ParserError => e
+        Rails.logger.warn("[SimulatorHelper] Could not parse JSON: #{e.message.truncate(200)}")
+        nil
+      end
+    end
+
+    # Replaces invalid JSON escape sequences (backslash not followed by a
+    # recognised escape character) with an escaped backslash so that
+    # downstream JSON parsers do not reject the payload.
+    # Valid single-char escapes: \" \\ \/ \b \f \n \r \t
+    # Valid Unicode escapes:     \uXXXX
+    def sanitize_json_string(str)
+      str.gsub(/\\(?!["\\/bfnrtu]|u[0-9a-fA-F]{4})/, "\\\\\\\\")
+    end
 end
