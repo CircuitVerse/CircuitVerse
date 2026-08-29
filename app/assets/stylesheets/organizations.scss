@@ -1,15 +1,15 @@
 .org-dash {
-  max-width: 1080px;
+  max-width: 1320px;
 }
 
 .org-dash-name {
   font-size: 20px;
-  color: $primary-green;
+  color: $black;
 }
 
 .org-social-icon {
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   object-fit: contain;
 }
 
@@ -27,8 +27,8 @@
 }
 
 .org-dash-logo {
-  width: 130px;
-  height: 130px;
+  width: 160px;
+  height: 160px;
 }
 
 .org-dash-logo-fallback {
@@ -46,7 +46,7 @@
 }
 
 .org-dash-info-desc {
-  max-width: 640px;
+  max-width: 1080px;
   font-size: 15px;
   overflow-wrap: break-word;
 }
@@ -74,45 +74,12 @@
 }
 
 .org-dash-location {
-  font-size: 18px;
+  font-size: 19px;
 }
 
 .org-dash-location i {
   color: $primary-green;
   font-size: 25px;
-}
-
-.org-dash-group-card {
-  min-height: 150px;
-  color: var(--bs-gray-900);
-  background: $light-green-bg;
-  border: 1px solid $primary-green;
-  transition: transform 0.15s, box-shadow 0.15s;
-}
-
-.org-dash-group-card:hover {
-  color: var(--bs-gray-900);
-  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
-  transform: translateY(-3px);
-  text-decoration: none;
-}
-
-.org-dash-group-card:focus-visible {
-  outline: 2px solid $primary-green;
-  outline-offset: 2px;
-  box-shadow: 0 8px 20px rgba($primary-green, 0.18);
-  transform: translateY(-3px);
-}
-
-.org-dash-group-name {
-  color: $secondary-green;
-  font-size: 17px;
-  overflow-wrap: break-word;
-}
-
-.org-dash-group-meta {
-  color: $secondary-green;
-  font-size: 13px;
 }
 
 .org-dash-empty {
@@ -123,12 +90,54 @@
   font-size: 36px;
 }
 
+.org-form-cancel-button {
+  background-color: $grey;
+  outline: gray solid 1px;
+  color: $black;
+
+  &:hover {
+    background-color: $border-light-grey;
+    color: $black;
+  }
+}
+
+.groups-add-primary-button {
+  margin-top: 20px;
+  padding: 10px 40px;
+}
+
+.org-upload-preview-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.btn.org-form-add-link-button {
+  transition: transform 0.15s ease;
+  &:hover {
+    background-color: $primary-green;
+    box-shadow: none;
+    color: $white;
+    transform: translateY(-2px);
+  }
+}
+
+.org-back-link {
+  color: $primary-green;
+}
+
+.org-back-link:hover {
+  color: $primary-green;
+}
+
 .org-new {
   max-width: 720px;
 }
 
 .org-form-icon {
   color: $primary-green;
+  font-size: 20px;
+  text-align: center;
 }
 
 .org-upload-zone {
@@ -175,26 +184,11 @@
   transform: none;
 }
 
-.org-index-header-title {
-  color: $secondary-green;
-  font-size: 40px;
-  font-weight: 700;
-}
-
-.org-index-header-description {
-  width: 60%;
-}
-
-.org-index-page-line {
-  border-bottom: 1px solid var(--bs-gray-300);
-}
-
 .org-index-card {
-  background: $white;
   border: 1px solid $primary-green;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
-  min-height: 315px;
+  min-height: 230px;
   transition: 0.2s ease-in-out;
 
   &:hover {
@@ -205,43 +199,26 @@
 
 .org-index-card-banner {
   height: 110px;
-  border-bottom: 2px solid $primary-green;
 
   .org-index-card-banner-img {
-    width: 100%;
-    height: 100%;
     object-fit: cover;
   }
 }
 
 .org-index-card-logo {
-  position: absolute;
-  bottom: -40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 66px;
-  height: 66px;
-  border-radius: 14px;
-  background: $white;
+  width: 60px;
+  height: 60px;
+  border-radius: 13px;
   border: 2px solid $primary-green;
 
   .org-index-card-logo-img {
-    width: 120%;
-    height: 120%;
     object-fit: cover;
-    display: block;
   }
 
   .org-index-card-logo-fallback {
-    font-size: 28px;
-    font-weight: 700;
+    font-size: 24px;
     color: $primary-green;
   }
-}
-
-.org-index-card-details {
-  padding: 46px 15px 15px;
-  gap: 8px;
 }
 
 .org-index-card-name {
@@ -260,31 +237,19 @@
   }
 }
 
-.org-index-card-meta {
-  font-size: 14px;
-  line-height: 1.6;
-  color: $black;
-
-  .org-index-card-meta-text {
-    overflow-wrap: anywhere;
-    word-break: break-word;
-  }
-
-  i {
-    color: $primary-green;
-    font-size: 16px;
-    margin-right: 6px;
-  }
-}
-
 .org-index-card-description {
-  font-size: 14px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   overflow-wrap: anywhere;
+}
+
+.org-index-card-footer i {
+  color: $primary-green;
+  font-size: 16px;
+  margin-right: 6px;
 }
 
 .org-settings {

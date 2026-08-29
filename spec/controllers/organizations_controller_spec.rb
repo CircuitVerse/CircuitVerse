@@ -59,9 +59,57 @@ RSpec.describe OrganizationsController, type: :controller do
     end
 
     context "when user does not have show access" do
-      it "returns a forbidden status" do
-        get :show, params: { id: organization.id }
-        expect(response).to have_http_status(:forbidden)
+      it "raises a not found error" do
+        expect do
+          get :show, params: { id: organization.id }
+        end.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+
+  describe "GET #overview group visibility" do
+    let(:other_mentor) { create(:user) }
+    let!(:group_user_is_in) { create(:group, organization: organization, primary_mentor: other_mentor) }
+    let!(:other_group) { create(:group, organization: organization, primary_mentor: other_mentor) }
+
+    context "when the user is an org admin" do
+      before do
+        create(:organization_member, organization: organization, user: user, role: :admin)
+      end
+
+      it "shows all groups in the organization" do
+        get :overview, params: { id: organization.id }
+        visible = controller.instance_variable_get(:@groups)
+        expect(visible).to include(group_user_is_in, other_group)
+      end
+    end
+
+    context "when the user is a member of only one group" do
+      before do
+        create(:organization_member, organization: organization, user: user, role: :member)
+        create(:group_member, user: user, group: group_user_is_in)
+      end
+
+      it "shows only the groups the user belongs to" do
+        get :overview, params: { id: organization.id }
+        visible = controller.instance_variable_get(:@groups)
+        expect(visible).to include(group_user_is_in)
+        expect(visible).not_to include(other_group)
+      end
+    end
+
+    context "when the user is a mentor who owns a group" do
+      let!(:owned_group) { create(:group, organization: organization, primary_mentor: user) }
+
+      before do
+        create(:organization_member, organization: organization, user: user, role: :mentor)
+      end
+
+      it "shows groups they own but not groups they are not part of" do
+        get :overview, params: { id: organization.id }
+        visible = controller.instance_variable_get(:@groups)
+        expect(visible).to include(owned_group)
+        expect(visible).not_to include(other_group)
       end
     end
   end

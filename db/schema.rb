@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_09_030000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -418,8 +418,12 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_030000) do
     t.string "email"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.bigint "organization_id"
+    t.integer "role"
     t.index ["group_id", "email"], name: "index_pending_invitations_on_group_id_and_email", unique: true
     t.index ["group_id"], name: "index_pending_invitations_on_group_id"
+    t.index ["organization_id"], name: "index_pending_invitations_on_organization_id"
+    t.index ["organization_id", "email"], name: "index_pending_invitations_on_organization_id_and_email", unique: true
   end
 
   create_table "project_data", force: :cascade do |t|
@@ -522,6 +526,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_030000) do
     t.bigint "tag_id"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index ["project_id", "tag_id"], name: "index_taggings_on_project_id_and_tag_id", unique: true
     t.index ["project_id"], name: "index_taggings_on_project_id"
     t.index ["tag_id"], name: "index_taggings_on_tag_id"
   end
@@ -530,6 +535,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_030000) do
     t.string "name"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
+    t.index "lower((name)::text)", name: "index_tags_on_lower_name", unique: true
+    t.check_constraint "name IS NOT NULL", name: "tags_name_null"
   end
 
   create_table "users", force: :cascade do |t|
@@ -610,6 +617,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_09_030000) do
   add_foreign_key "organization_members", "organizations", on_delete: :cascade
   add_foreign_key "organization_members", "users", on_delete: :cascade
   add_foreign_key "pending_invitations", "groups"
+  add_foreign_key "pending_invitations", "organizations"
   add_foreign_key "project_data", "projects"
   add_foreign_key "projects", "assignments"
   add_foreign_key "projects", "projects", column: "forked_project_id"
