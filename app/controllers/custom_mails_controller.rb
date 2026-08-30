@@ -2,6 +2,7 @@
 
 class CustomMailsController < ApplicationController
   include CustomMailsHelper
+  include AdminAuthorizable
 
   before_action :authenticate_user!
   before_action :authorize_admin
@@ -65,10 +66,6 @@ class CustomMailsController < ApplicationController
   end
 
   private
-
-    def authorize_admin
-      authorize CustomMail.new, :admin?
-    end
 
     def set_mail
       @mail = CustomMail.find(params.expect(:id))
