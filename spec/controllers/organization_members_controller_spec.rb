@@ -90,14 +90,16 @@ RSpec.describe OrganizationMembersController, type: :controller do
 
       it "updates the requested member" do
         patch :update,
-              params: { organization_id: organization.to_param, id: target_member.id, organization_member: new_attributes }
+              params: { organization_id: organization.to_param, id: target_member.id,
+                        organization_member: new_attributes }
         target_member.reload
         expect(target_member.role).to eq("mentor")
       end
 
       it "redirects to the organization" do
         patch :update,
-              params: { organization_id: organization.to_param, id: target_member.id, organization_member: new_attributes }
+              params: { organization_id: organization.to_param, id: target_member.id,
+                        organization_member: new_attributes }
         expect(response).to redirect_to(organization)
       end
 
