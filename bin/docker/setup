@@ -1,11 +1,17 @@
-# !/bin/sh
+#!/bin/sh
+set -e
 
-# Remove tmp folder
-rm -rf /circuitverse/tmp
+# Remove tmp folder (sudo: a prior run may have left files owned by a
+# different container uid, e.g. after switching hosts)
+sudo rm -rf /circuitverse/tmp
+# Rails writes to log/ from the first command below; reclaim it for the
+# same reason, without touching the tracked log/.keep file
+sudo chown -R "$(id -un):$(id -gn)" /circuitverse/log
 
 
 # Install ruby dependencies
 gem install bundler
+gem install mailcatcher
 bundle config set --local without "production"
 bundle config set --local path "/home/vendor/bundle"
 bundle install
@@ -29,8 +35,15 @@ if [ ! -f "/circuitverse/cv-frontend-vue/package.json" ]; then
   exit 1
 fi
 
+# Reclaim node_modules if a prior run under a different container uid left
+# root-owned files here, e.g. after upgrading this dev container
+if [ -d /circuitverse/cv-frontend-vue/node_modules ]; then
+  sudo chown -R "$(id -un):$(id -gn)" /circuitverse/cv-frontend-vue/node_modules
+fi
+
 # Run `npm install` in `cv-frontend-vue` folder
 cd /circuitverse/cv-frontend-vue && npm install && cd /circuitverse
 
 # Write a tmp file to indicate that setup is complete
+mkdir -p /circuitverse/tmp
 touch /circuitverse/tmp/setup_complete

@@ -17,5 +17,11 @@ while ! check_postgres; do
   sleep 1
 done
 
+if nc -z 127.0.0.1 3000 >/dev/null 2>&1; then
+  echo "Rails server already running; skipping start."
+  exit 0
+fi
+rm -f tmp/pids/server.pid
+
 # Start web server
 bin/dev
