@@ -81,6 +81,13 @@ describe GroupMembersController, type: :request do
         check_not_authorized(response)
       end
     end
+
+    context "when unauthenticated user attempts to update" do
+      it "redirects to sign in page" do
+        patch group_member_path(@group_member), params: { group_member: { mentor: true } }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
   end
 
   describe "#destroy" do
@@ -111,6 +118,13 @@ describe GroupMembersController, type: :request do
         sign_in_random_user
         delete group_member_path(@group_member)
         check_not_authorized(response)
+      end
+    end
+
+    context "when unauthenticated user attempts to destroy" do
+      it "redirects to sign in page" do
+        delete group_member_path(@group_member)
+        expect(response).to redirect_to(new_user_session_path)
       end
     end
   end
