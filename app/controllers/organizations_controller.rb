@@ -75,7 +75,7 @@ class OrganizationsController < ApplicationController
 
   def switcher_organizations
     switcher_params = params.permit(:page, :current_organization_id)
-    page = switcher_params[:page].to_i
+    page = [switcher_params[:page].to_i, 0].max
     organizations = switcher_page(page)
     current_organization_id = switcher_params[:current_organization_id].to_i
     has_more = current_user.organization_members.count > (page + 1) * SWITCHER_PER_PAGE
