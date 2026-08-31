@@ -157,7 +157,7 @@ class AssignmentsController < ApplicationController
     def set_group
       @group =
         if params[:organization_id].present?
-          Organization.friendly.find(params.expect(:organization_id)).groups.find(params.expect(:group_id))
+          Organization.find_by!(uuid: params.expect(:organization_id)).groups.find(params.expect(:group_id))
         else
           Group.find(params.expect(:group_id))
         end

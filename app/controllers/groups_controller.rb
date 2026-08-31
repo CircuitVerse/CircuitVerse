@@ -110,7 +110,7 @@ class GroupsController < ApplicationController
     def set_group
       @group =
         if params[:organization_id].present?
-          Organization.friendly.find(params.expect(:organization_id)).groups.find(params.expect(:id))
+          Organization.find_by!(uuid: params.expect(:organization_id)).groups.find(params.expect(:id))
         else
           Group.find(params.expect(:id))
         end
@@ -144,7 +144,7 @@ class GroupsController < ApplicationController
     def organization_from_params
       return if params[:organization_id].blank?
 
-      Organization.friendly.find(params.expect(:organization_id))
+      Organization.find_by!(uuid: params.expect(:organization_id))
     end
 
     def join_group_and_organization
