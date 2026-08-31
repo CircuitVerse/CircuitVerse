@@ -13,6 +13,9 @@ export default class extends Controller {
         event.preventDefault();
         event.stopPropagation();
 
+        if (this.loading) return;
+        this.loading = true;
+
         const button = this.buttonTarget;
         const originalText = button.textContent;
 
@@ -42,6 +45,8 @@ export default class extends Controller {
         } catch {
             button.textContent = originalText;
             button.removeAttribute('aria-disabled');
+        } finally {
+            this.loading = false;
         }
     }
 }
