@@ -53,7 +53,7 @@ RSpec.describe OrganizationsController, type: :controller do
       end
 
       it "redirects to the overview tab" do
-        get :show, params: { id: organization.id }
+        get :show, params: { id: organization.to_param }
         expect(response).to redirect_to(overview_organization_path(organization))
       end
     end
@@ -61,7 +61,7 @@ RSpec.describe OrganizationsController, type: :controller do
     context "when user does not have show access" do
       it "raises a not found error" do
         expect do
-          get :show, params: { id: organization.id }
+          get :show, params: { id: organization.to_param }
         end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
@@ -78,7 +78,7 @@ RSpec.describe OrganizationsController, type: :controller do
       end
 
       it "shows all groups in the organization" do
-        get :overview, params: { id: organization.id }
+        get :overview, params: { id: organization.to_param }
         visible = controller.instance_variable_get(:@groups)
         expect(visible).to include(group_user_is_in, other_group)
       end
@@ -91,7 +91,7 @@ RSpec.describe OrganizationsController, type: :controller do
       end
 
       it "shows only the groups the user belongs to" do
-        get :overview, params: { id: organization.id }
+        get :overview, params: { id: organization.to_param }
         visible = controller.instance_variable_get(:@groups)
         expect(visible).to include(group_user_is_in)
         expect(visible).not_to include(other_group)
@@ -106,7 +106,7 @@ RSpec.describe OrganizationsController, type: :controller do
       end
 
       it "shows groups they own but not groups they are not part of" do
-        get :overview, params: { id: organization.id }
+        get :overview, params: { id: organization.to_param }
         visible = controller.instance_variable_get(:@groups)
         expect(visible).to include(owned_group)
         expect(visible).not_to include(other_group)
@@ -128,7 +128,7 @@ RSpec.describe OrganizationsController, type: :controller do
       end
 
       it "returns a success response" do
-        get :settings, params: { id: organization.id }
+        get :settings, params: { id: organization.to_param }
         expect(response).to be_successful
       end
     end
@@ -176,13 +176,13 @@ RSpec.describe OrganizationsController, type: :controller do
         let(:new_attributes) { { name: "Updated Org" } }
 
         it "updates the requested organization" do
-          patch :update, params: { id: organization.id, organization: new_attributes }
+          patch :update, params: { id: organization.to_param, organization: new_attributes }
           organization.reload
           expect(organization.name).to eq("Updated Org")
         end
 
         it "redirects to the organization" do
-          patch :update, params: { id: organization.id, organization: new_attributes }
+          patch :update, params: { id: organization.to_param, organization: new_attributes }
           expect(response).to redirect_to(overview_organization_path(organization))
         end
       end
@@ -198,12 +198,12 @@ RSpec.describe OrganizationsController, type: :controller do
       context "when confirmation matches the organization name" do
         it "destroys the requested organization" do
           expect do
-            delete :destroy, params: { id: organization.id, confirmation: organization.name }
+            delete :destroy, params: { id: organization.to_param, confirmation: organization.name }
           end.to change(Organization, :count).by(-1)
         end
 
         it "redirects to the organizations list" do
-          delete :destroy, params: { id: organization.id, confirmation: organization.name }
+          delete :destroy, params: { id: organization.to_param, confirmation: organization.name }
           expect(response).to redirect_to(organizations_path)
         end
       end
@@ -211,12 +211,12 @@ RSpec.describe OrganizationsController, type: :controller do
       context "when confirmation does not match the organization name" do
         it "does not destroy the organization" do
           expect do
-            delete :destroy, params: { id: organization.id, confirmation: "wrong name" }
+            delete :destroy, params: { id: organization.to_param, confirmation: "wrong name" }
           end.not_to change(Organization, :count)
         end
 
         it "redirects back to the settings page" do
-          delete :destroy, params: { id: organization.id, confirmation: "wrong name" }
+          delete :destroy, params: { id: organization.to_param, confirmation: "wrong name" }
           expect(response).to redirect_to(settings_organization_path(organization))
         end
       end
@@ -224,7 +224,7 @@ RSpec.describe OrganizationsController, type: :controller do
       context "when confirmation is missing" do
         it "does not destroy the organization" do
           expect do
-            delete :destroy, params: { id: organization.id }
+            delete :destroy, params: { id: organization.to_param }
           end.not_to change(Organization, :count)
         end
       end
@@ -232,7 +232,7 @@ RSpec.describe OrganizationsController, type: :controller do
       context "when confirmation does not match (JSON)" do
         it "returns an unprocessable_content error" do
           expect do
-            delete :destroy, params: { id: organization.id, confirmation: "wrong" }, format: :json
+            delete :destroy, params: { id: organization.to_param, confirmation: "wrong" }, format: :json
           end.not_to change(Organization, :count)
 
           expect(response).to have_http_status(:unprocessable_content)

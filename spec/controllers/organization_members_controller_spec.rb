@@ -19,7 +19,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
     end
 
     it "redirects to root" do
-      get :create, params: { organization_id: organization.id }
+      get :create, params: { organization_id: organization.to_param }
       expect(response).to redirect_to(root_path)
     end
   end
@@ -30,7 +30,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
     end
 
     it "redirects to login" do
-      get :create, params: { organization_id: organization.id }
+      get :create, params: { organization_id: organization.to_param }
       expect(response).to redirect_to(new_user_session_path)
     end
   end
@@ -40,7 +40,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
       it "adds an existing user as a member with the chosen role" do
         expect do
           post :create, params: {
-            organization_id: organization.id,
+            organization_id: organization.to_param,
             organization_member: { role: "mentor", emails: [target_user.email] }
           }
         end.to change(OrganizationMember, :count).by(1)
@@ -50,7 +50,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
       it "creates a pending invitation for an email with no account" do
         expect do
           post :create, params: {
-            organization_id: organization.id,
+            organization_id: organization.to_param,
             organization_member: { role: "member", emails: ["newperson@example.com"] }
           }
         end.to change(PendingInvitation, :count).by(1)
@@ -58,7 +58,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
 
       it "redirects to the members page" do
         post :create, params: {
-          organization_id: organization.id,
+          organization_id: organization.to_param,
           organization_member: { role: "member", emails: [target_user.email] }
         }
         expect(response).to redirect_to(members_organization_path(organization))
@@ -75,7 +75,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
 
       it "returns a forbidden status" do
         post :create,
-             params: { organization_id: organization.id,
+             params: { organization_id: organization.to_param,
                        organization_member: { role: "member", emails: [target_user.email] } }
         expect(response).to have_http_status(:forbidden)
       end
@@ -90,14 +90,16 @@ RSpec.describe OrganizationMembersController, type: :controller do
 
       it "updates the requested member" do
         patch :update,
-              params: { organization_id: organization.id, id: target_member.id, organization_member: new_attributes }
+              params: { organization_id: organization.to_param, id: target_member.id,
+                        organization_member: new_attributes }
         target_member.reload
         expect(target_member.role).to eq("mentor")
       end
 
       it "redirects to the organization" do
         patch :update,
-              params: { organization_id: organization.id, id: target_member.id, organization_member: new_attributes }
+              params: { organization_id: organization.to_param, id: target_member.id,
+                        organization_member: new_attributes }
         expect(response).to redirect_to(organization)
       end
 
@@ -110,7 +112,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
         sign_in target_user
 
         patch :update,
-              params: { organization_id: organization.id, id: target_member.id,
+              params: { organization_id: organization.to_param, id: target_member.id,
                         organization_member: { role: "member" } }
         expect(response).to have_http_status(:forbidden)
       end
@@ -123,12 +125,12 @@ RSpec.describe OrganizationMembersController, type: :controller do
     context "when user has admin access" do
       it "destroys the requested member" do
         expect do
-          delete :destroy, params: { organization_id: organization.id, id: target_member.id }
+          delete :destroy, params: { organization_id: organization.to_param, id: target_member.id }
         end.to change(OrganizationMember, :count).by(-1)
       end
 
       it "redirects to the organization" do
-        delete :destroy, params: { organization_id: organization.id, id: target_member.id }
+        delete :destroy, params: { organization_id: organization.to_param, id: target_member.id }
         expect(response).to redirect_to(organization)
       end
     end
@@ -141,7 +143,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
       end
 
       it "returns a forbidden status" do
-        delete :destroy, params: { organization_id: organization.id, id: target_member.id }
+        delete :destroy, params: { organization_id: organization.to_param, id: target_member.id }
         expect(response).to have_http_status(:forbidden)
       end
     end
@@ -158,19 +160,19 @@ RSpec.describe OrganizationMembersController, type: :controller do
 
       it "destroys their own membership" do
         expect do
-          delete :leave, params: { organization_id: organization.id }
+          delete :leave, params: { organization_id: organization.to_param }
         end.to change(OrganizationMember, :count).by(-1)
       end
 
       it "redirects to organizations list" do
-        delete :leave, params: { organization_id: organization.id }
+        delete :leave, params: { organization_id: organization.to_param }
         expect(response).to redirect_to(organizations_path)
       end
     end
 
     context "when user is the sole admin" do
       it "returns a forbidden status" do
-        delete :leave, params: { organization_id: organization.id }
+        delete :leave, params: { organization_id: organization.to_param }
         expect(response).to have_http_status(:forbidden)
       end
     end

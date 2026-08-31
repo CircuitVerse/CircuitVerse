@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_08_26_101823) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -396,7 +396,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
 
   create_table "organizations", force: :cascade do |t|
     t.string "name", null: false
-    t.string "slug", null: false
+    t.uuid "uuid", default: -> { "gen_random_uuid()" }, null: false
     t.text "description"
     t.string "location"
     t.jsonb "links", default: []
@@ -407,9 +407,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index "lower((name)::text)", name: "index_organizations_on_lower_name_unique", unique: true
-    t.index ["slug"], name: "index_organizations_on_slug", unique: true
+    t.index ["uuid"], name: "index_organizations_on_uuid", unique: true
     t.check_constraint "char_length(TRIM(BOTH FROM name)) > 0", name: "organizations_name_not_blank"
-    t.check_constraint "char_length(TRIM(BOTH FROM slug)) > 0", name: "organizations_slug_not_blank"
     t.check_constraint "jsonb_array_length(links) <= 5", name: "organizations_links_max_5"
   end
 
