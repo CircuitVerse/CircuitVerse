@@ -174,6 +174,14 @@ const animatedTourDriver = new Driver({
     opacity: 0.8,
     padding: 5,
     showButtons: true,
+    allowClose: true,
+    doneBtnText: 'Done',
+    onReset: () => {
+        const overlay = document.getElementById('driver-page-overlay');
+        if (overlay) {
+            overlay.remove();
+        }
+    },
 });
 
 export function showTourGuide() {
