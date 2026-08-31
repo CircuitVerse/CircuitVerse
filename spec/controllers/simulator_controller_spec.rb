@@ -203,4 +203,40 @@ describe SimulatorController, type: :request do
       end
     end
   end
+
+  describe "#view_issue_circuit_data" do
+    let(:issue_circuit_datum) { IssueCircuitDatum.create!(data: "sample circuit data") }
+
+    context "when user is not signed in" do
+      it "redirects to sign in page" do
+        get "/simulator/issue_circuit_data/#{issue_circuit_datum.id}"
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context "when signed in user is not admin" do
+      before do
+        sign_in @user
+      end
+
+      it "throws unauthorized error before finding record" do
+        get "/simulator/issue_circuit_data/#{issue_circuit_datum.id}"
+        check_not_authorized(response)
+      end
+    end
+
+    context "when admin user is signed in" do
+      let(:admin_user) { FactoryBot.create(:user, admin: true) }
+
+      before do
+        sign_in admin_user
+      end
+
+      it "renders the issue circuit data" do
+        get "/simulator/issue_circuit_data/#{issue_circuit_datum.id}"
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("sample circuit data")
+      end
+    end
+  end
 end

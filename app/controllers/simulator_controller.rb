@@ -4,7 +4,7 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
-  before_action :authenticate_user!, only: %i[create update edit]
+  before_action :authenticate_user!, only: %i[create update edit view_issue_circuit_data]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
@@ -104,11 +104,7 @@ class SimulatorController < ApplicationController
   end
 
   def view_issue_circuit_data
-    unless current_user&.admin?
-      render plain: "Only admins can view issue circuit data", status: :unauthorized
-      return
-    end
-
+    authorize IssueCircuitDatum, :admin?, policy_class: IssueCircuitDatumPolicy
     issue_circuit_data = IssueCircuitDatum.find(params.expect(:id))
     render plain: issue_circuit_data.data
   end
