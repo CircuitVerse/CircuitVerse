@@ -54,6 +54,21 @@ RSpec.describe Comment, type: :model do
       expect(reply).not_to be_valid
       expect(reply.errors[:parent]).to be_present
     end
+
+    it "rejects a comment that is its own parent" do
+      comment = create(:comment, comment_thread: thread, user: author)
+      comment.parent = comment
+
+      expect(comment).not_to be_valid
+    end
+
+    it "rejects a cycle between two comments" do
+      first  = create(:comment, comment_thread: thread, user: author)
+      second = create(:comment, comment_thread: thread, user: author, parent: first)
+      first.parent = second
+
+      expect(first).not_to be_valid
+    end
   end
 
   describe "scopes" do

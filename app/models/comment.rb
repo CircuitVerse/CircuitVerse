@@ -18,6 +18,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true, length: { maximum: BODY_MAX_LENGTH }
   validate :parent_shares_thread
+  validate :parent_is_not_cyclic
 
   scope :kept, -> { where(deleted_at: nil) }
   scope :roots, -> { where(parent_id: nil) }
@@ -48,5 +49,30 @@ class Comment < ApplicationRecord
       return if parent.comment_thread_id == comment_thread_id
 
       errors.add(:parent, "must belong to the same thread")
+    end
+
+    # Walk up the ancestor chain so a comment cannot be its own parent, nor
+    # part of a reply cycle. Without this, `replies` recurses forever during
+    # dependent: :destroy.
+    def parent_is_not_cyclic
+      return if parent.nil?
+
+      if parent == self
+        errors.add(:parent, "cannot be the comment itself")
+        return
+      end
+
+      # A new record has no id, so nothing can point back at it yet.
+      return if id.nil?
+
+      ancestor = parent
+      while ancestor
+        if ancestor.parent_id == id
+          errors.add(:parent, "cannot create a cycle")
+          return
+        end
+
+        ancestor = ancestor.parent
+      end
     end
 end
