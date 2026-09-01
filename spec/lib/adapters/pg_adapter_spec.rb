@@ -161,4 +161,37 @@ RSpec.describe Adapters::PgAdapter do
       expect(mock_relation).to have_received(:order).with(created_at: :asc)
     end
   end
+
+  describe "pagination sanitization" do
+    let(:mock_relation) { double }
+
+    before do
+      allow(Project).to receive(:public_and_not_forked).and_return(mock_relation)
+      allow(mock_relation).to receive_messages(includes: mock_relation, paginate: double)
+    end
+
+    it "sanitizes invalid non-integer string page parameters to 1" do
+      query_params = { page: "1' AND 1=1 UNION SELECT NULL-- -" }
+
+      adapter.search_project(mock_relation, query_params)
+
+      expect(mock_relation).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "sanitizes non-positive or negative page parameters to 1" do
+      query_params = { page: -5 }
+
+      adapter.search_project(mock_relation, query_params)
+
+      expect(mock_relation).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "sanitizes string numbers correctly" do
+      query_params = { page: "3" }
+
+      adapter.search_project(mock_relation, query_params)
+
+      expect(mock_relation).to have_received(:paginate).with(page: 3, per_page: 9)
+    end
+  end
 end
