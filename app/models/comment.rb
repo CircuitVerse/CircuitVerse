@@ -54,6 +54,11 @@ class Comment < ApplicationRecord
     # Walk up the ancestor chain so a comment cannot be its own parent, nor
     # part of a reply cycle. Without this, `replies` recurses forever during
     # dependent: :destroy.
+    #
+    # NOTE: application-level guard only. It does not run for update_column,
+    # insert_all, or raw SQL, and does not protect against concurrent writes.
+    # The invariant must be re-checked wherever rows are written outside the
+    # model, in particular the Commontator data migration.
     def parent_is_not_cyclic
       return if parent.nil?
 
