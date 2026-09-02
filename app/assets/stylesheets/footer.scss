@@ -68,10 +68,6 @@
   a {
     color: $white;
     text-decoration: none;
-    // Shrink the anchor to its text so the pointer cursor and hover
-    // area don't extend into the empty space beside each link.
-    display: block;
-    width: fit-content;
 
     h6 {
       margin-bottom: 10px;
@@ -82,6 +78,16 @@
       color: $white;
       text-decoration: underline;
     }
+  }
+
+  // Shrink the anchor to its text so the pointer cursor and hover area
+  // don't extend into the empty space beside the link text. Scoped to the
+  // direct-child anchors (simulator, Log in, Documentation, FAQ, …), which
+  // wrap a block-level <h6>. The Forum link nests its anchor inside an
+  // <h6>, so it is not a direct child and is intentionally left untouched.
+  > a {
+    display: block;
+    width: fit-content;
   }
 }
 
