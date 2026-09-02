@@ -6,7 +6,7 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
   describe "forkes a particular project" do
     let!(:user) { FactoryBot.create(:user) }
     let!(:random_user) { FactoryBot.create(:user) }
-    let!(:project) { FactoryBot.create(:project, author: user) }
+    let!(:project) { FactoryBot.create(:project, :public, author: user) }
 
     context "when not authenticated" do
       before do
@@ -28,6 +28,42 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
 
       it "returns status :not_found" do
         expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when forks other user's private project" do
+      let!(:private_project) do
+        FactoryBot.create(:project, author: user, project_access_type: "Private")
+      end
+
+      before do
+        token = get_auth_token(random_user)
+        post "/api/v1/projects/#{private_project.id}/fork",
+             headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status :forbidden" do
+        expect(response).to have_http_status(:forbidden)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when forks an assignment project" do
+      let!(:assignment_project) do
+        group = FactoryBot.create(:group, primary_mentor: random_user)
+        assignment = FactoryBot.create(:assignment, group: group)
+        FactoryBot.create(:project, author: user, assignment: assignment)
+      end
+
+      before do
+        token = get_auth_token(random_user)
+        post "/api/v1/projects/#{assignment_project.id}/fork",
+             headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status :forbidden" do
+        expect(response).to have_http_status(:forbidden)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end

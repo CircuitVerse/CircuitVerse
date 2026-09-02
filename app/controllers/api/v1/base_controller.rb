@@ -10,6 +10,8 @@ class Api::V1::BaseController < ActionController::API
     request.headers["Authorization"].blank? && current_user
   }
 
+  after_action :verify_authorized
+
   DEFAULT_PER_PAGE = 9
 
   rescue_from ActionController::ParameterMissing do

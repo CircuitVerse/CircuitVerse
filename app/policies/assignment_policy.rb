@@ -11,11 +11,13 @@ class AssignmentPolicy < ApplicationPolicy
 
   def show?
     assignment.group.primary_mentor_id == user.id || user.groups.exists?(id: assignment.group.id) \
-    || user.admin?
+    || user.admin? ||
+      org_manage?
   end
 
+  # "admin" here means the group's primary mentor or a site admin.
   def admin_access?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin?
+    (assignment.group&.primary_mentor_id == user.id) || user.admin? || org_manage?
   end
 
   def mentor_access?
@@ -23,23 +25,24 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def start?
-    # assignment should not be closed and not submitted
-    assignment.status != "closed" \
+    # user should be a group member, assignment should not be closed and not submitted
+    assignment.group.group_members.exists?(user_id: user.id) \
+      && assignment.status != "closed" \
       && !Project.exists?(author_id: user.id, assignment_id: assignment.id)
   end
 
   def edit?
-    assignment.status != "closed"
+    mentor_access? && assignment.status != "closed"
   end
 
   def reopen?
-    raise CustomAuthError, "Project is already open" if assignment.status == "open"
+    raise CustomAuthException, "Project is already open" if assignment.status == "open"
 
     true
   end
 
   def close?
-    (assignment.group&.primary_mentor_id == user.id) || user.admin?
+    admin_access?
   end
 
   def can_be_graded?
@@ -47,6 +50,15 @@ class AssignmentPolicy < ApplicationPolicy
   end
 
   def show_grades?
-    assignment.graded? && Time.current > assignment.deadline
+    show? && assignment.graded? && Time.current > assignment.deadline
   end
+
+  private
+
+    def org_manage?
+      group = assignment.group
+      return false unless group&.organization
+
+      OrganizationGroupPolicy.new(user, group).manage_assignments?
+    end
 end

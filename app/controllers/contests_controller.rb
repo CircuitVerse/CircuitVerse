@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ContestsController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!, except: %i[index show leaderboard]
   before_action :check_contests_feature_flag
   before_action :set_contest, only: %i[show leaderboard]

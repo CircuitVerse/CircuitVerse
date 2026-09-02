@@ -28,6 +28,7 @@ es:
     header:
       dashboard: "Tablero"
       my_groups: "Mis grupos"
+      link_to_organizations: "Organizaciones"
       notifications: "Notificaciones"
       language: "Idioma"
     mailer:
