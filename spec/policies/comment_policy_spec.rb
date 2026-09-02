@@ -37,6 +37,10 @@ describe CommentPolicy do
     # moderator_permissions is :d, so moderators delete but do not edit.
     it { is_expected.to permit(:destroy) }
     it { is_expected.not_to permit(:update) }
+
+    it "does not permit restoring a comment that is not deleted" do
+      expect(subject).not_to permit(:restore)
+    end
   end
 
   context "when the user is anonymous" do

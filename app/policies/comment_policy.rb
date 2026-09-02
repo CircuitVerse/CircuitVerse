@@ -36,7 +36,6 @@ class CommentPolicy < ApplicationPolicy
 
   # Commontator#can_be_deleted_by?: the moderator branch returns before the
   # closed-thread check, so moderators may still delete in a closed thread.
-  # An author may undelete only a comment they deleted themselves.
   def destroy?
     return true if thread_policy.moderator?
 
@@ -47,16 +46,13 @@ class CommentPolicy < ApplicationPolicy
   end
 
   # Commontator routes undelete through can_be_deleted_by?, so moderators may
-  # restore any comment, while an author may only restore one they deleted
-  # themselves.
+  # restore any deleted comment, while an author may only restore one they
+  # deleted themselves.
   def restore?
+    return false unless comment.deleted?
     return true if thread_policy.moderator?
 
-    author? &&
-      comment.deleted? &&
-      comment.editor_id == user.id &&
-      !thread_closed? &&
-      show?
+    author? && comment.editor_id == user.id && !thread_closed? && show?
   end
 
   # Commontator#can_be_voted_on_by?: a user may not vote on their own comment,
