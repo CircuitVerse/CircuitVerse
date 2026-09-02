@@ -71,6 +71,11 @@ describe CommentPolicy do
     it "does not let the author undelete it" do
       expect(subject).not_to permit(:restore)
     end
+
+    it "lets a moderator restore it" do
+      admin = FactoryBot.create(:user, admin: true)
+      expect(described_class.new(admin, comment)).to permit(:restore)
+    end
   end
 
   context "when the thread is closed" do
