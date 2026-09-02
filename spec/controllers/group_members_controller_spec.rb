@@ -32,6 +32,31 @@ describe GroupMembersController, type: :request do
                                           .and change(PendingInvitation, :count).by(1)
         expect(GroupMember.last.user).not_to eq(@primary_mentor)
       end
+
+      context "when adding mentors" do
+        let(:existing_member_user) { FactoryBot.create(:user) }
+        let!(:existing_member) do
+          FactoryBot.create(:group_member, user: existing_member_user, group: @group, mentor: false)
+        end
+        let(:mentor_params) do
+          {
+            group_member: {
+              group_id: @group.id,
+              mentor: "true",
+              emails: [existing_member_user.email, Faker::Internet.email]
+            }
+          }
+        end
+
+        it "promotes existing group member to mentor and creates pending invitations for new emails" do
+          expect do
+            post group_members_path, params: mentor_params
+          end.to change(PendingInvitation, :count).by(1)
+             .and not_change(GroupMember, :count)
+
+          expect(existing_member.reload.mentor).to be true
+        end
+      end
     end
 
     context "when a mentor is logged in" do

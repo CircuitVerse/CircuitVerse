@@ -37,20 +37,31 @@ class GroupMembersController < ApplicationController
     is_mentor = group_member_params[:mentor] == "true" if group_member_params[:mentor]
     group_member_emails = group_member_params[:emails].grep(Devise.email_regexp)
 
-    present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
-    newly_added = group_member_emails - present_members - [current_user&.email]
-    newly_added.each do |email|
-      email = email.strip
-      user = User.find_by(email: email)
-      if user.nil?
-        PendingInvitation.where(group_id: @group.id, email: email).first_or_create
-        # @group.pending_invitations.create(email:email)
-      else
-        GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create
-
-        # group_member = @group.group_members.new
-        # group_member.user_id = user.id
-        # group_member.save
+    if is_mentor
+      already_mentors = User.where(id: @group.group_members.mentor.pluck(:user_id)).pluck(:email)
+      newly_added = group_member_emails - already_mentors - [@group.primary_mentor.email] - [current_user&.email]
+      newly_added.each do |email|
+        email = email.strip
+        user = User.find_by(email: email)
+        if user.nil?
+          PendingInvitation.where(group_id: @group.id, email: email).first_or_create
+        else
+          group_member = GroupMember.find_or_initialize_by(group_id: @group.id, user_id: user.id)
+          group_member.mentor = true
+          group_member.save
+        end
+      end
+    else
+      present_members = User.where(id: @group.group_members.pluck(:user_id)).pluck(:email)
+      newly_added = group_member_emails - present_members - [current_user&.email]
+      newly_added.each do |email|
+        email = email.strip
+        user = User.find_by(email: email)
+        if user.nil?
+          PendingInvitation.where(group_id: @group.id, email: email).first_or_create
+        else
+          GroupMember.where(group_id: @group.id, user_id: user.id, mentor: is_mentor).first_or_create
+        end
       end
     end
 
