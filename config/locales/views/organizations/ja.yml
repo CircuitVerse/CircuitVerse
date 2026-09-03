@@ -87,6 +87,10 @@ ja:
   organization_members:
     create:
       success: "メンバーが正常に追加されました。"
+      invite_summary:
+        other: "%{count} のメールアドレスが処理されました： %{invited} 招待、 %{invalid} は無効です、 %{already} はすでにメンバーです。"
+      limit_exceeded: "%{limit} の招待状のみ一度に送信できます。そのため、 %{skipped} アドレスは処理されませんでした。別のバッチで招待してください。"
+      invite_failed: "いくつかの招待状を送信できませんでした。もう一度やり直してください。"
     update:
       success: "メンバーの役割が正常に更新されました。"
     destroy:
