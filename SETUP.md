@@ -13,6 +13,15 @@ If you are facing any issues with the setup, first check out the [troubleshootin
 ## Installation
 There are several ways to run a local instance of CircuitVerse:
 
+### Node.js Version
+
+**Recommended:**
+```bash
+node >= 20
+```
+> Tested locally with **Node.js 22**.  
+> Older versions (for example Node 18) may cause yarn dependency or engine issues.
+
 | Operating System | Method | Documentation |
 | --- | --- | --- |
 | Any | GitHub Codespaces | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/remote_development.md#github-codespaces) |
@@ -24,6 +33,18 @@ There are several ways to run a local instance of CircuitVerse:
 | Windows | WSL Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows-wsl.md) |
 | Windows | Native Setup | [Click Here](https://github.com/CircuitVerse/CircuitVerse/tree/master/installation_docs/manual/windows.md) |
 
+### JWT RSA Keys (Required for Login/Signup)
+
+⚠️ **Important:** Authentication (login/signup) will fail if RSA keys are missing.
+
+Generate the required keys:
+
+```bash
+openssl genrsa -out config/private.pem 2048
+openssl rsa -in config/private.pem -pubout -out config/public.pem
+```
+
+> These keys are required for JWT encoding during authentication.
 
 ## Tools Setup
 | Tool | Documentation Link |
