@@ -131,6 +131,92 @@ RSpec.describe Adapters::PgAdapter do
     end
   end
 
+  describe "#search_project page sanitization" do
+    let(:mock_results) do
+      double.tap do |results|
+        allow(results).to receive_messages(includes: results, paginate: double, text_search: results, order: results)
+      end
+    end
+
+    before do
+      allow(Project).to receive(:public_and_not_forked).and_return(mock_results)
+    end
+
+    it "defaults a non-numeric page to 1" do
+      query_params = { page: "1' AND 1=1 UNION SELECT NULL-- -" }
+
+      expect { adapter.search_project(mock_results, query_params) }.not_to raise_error
+      expect(mock_results).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "defaults a nil page to 1" do
+      query_params = {}
+
+      adapter.search_project(mock_results, query_params)
+
+      expect(mock_results).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "defaults a non-positive page to 1" do
+      query_params = { page: "0" }
+
+      adapter.search_project(mock_results, query_params)
+
+      expect(mock_results).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "coerces a numeric string page to an integer" do
+      query_params = { page: "3" }
+
+      adapter.search_project(mock_results, query_params)
+
+      expect(mock_results).to have_received(:paginate).with(page: 3, per_page: 9)
+    end
+  end
+
+  describe "#search_user page sanitization" do
+    let(:mock_results) do
+      double.tap do |results|
+        allow(results).to receive_messages(paginate: double, text_search: results, where: results, order: results)
+      end
+    end
+
+    before do
+      allow(User).to receive(:all).and_return(mock_results)
+    end
+
+    it "defaults a non-numeric page to 1" do
+      query_params = { page: "1' AND 1=1 UNION SELECT NULL-- -" }
+
+      expect { adapter.search_user(mock_results, query_params) }.not_to raise_error
+      expect(mock_results).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "defaults a nil page to 1" do
+      query_params = {}
+
+      adapter.search_user(mock_results, query_params)
+
+      expect(mock_results).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "defaults a non-positive page to 1" do
+      query_params = { page: "0" }
+
+      adapter.search_user(mock_results, query_params)
+
+      expect(mock_results).to have_received(:paginate).with(page: 1, per_page: 9)
+    end
+
+    it "coerces a numeric string page to an integer" do
+      query_params = { page: "3" }
+
+      adapter.search_user(mock_results, query_params)
+
+      expect(mock_results).to have_received(:paginate).with(page: 3, per_page: 9)
+    end
+  end
+
   describe "sorting validation" do
     let(:mock_relation) { double }
 
