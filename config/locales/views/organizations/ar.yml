@@ -97,6 +97,8 @@ ar:
   organization_members:
     create:
       success: "تمت إضافة العضو بنجاح."
+      limit_exceeded: "يمكن إرسال الدعوات %{limit} فقط في وقت واحد، لذلك لم تتم معالجة عناوين %{skipped} . الرجاء دعوتهم في دفعة أخرى."
+      invite_failed: "تعذر إرسال بعض الدعوات. الرجاء المحاولة مرة أخرى."
     update:
       success: "تم تحديث دور العضو بنجاح."
     destroy:
