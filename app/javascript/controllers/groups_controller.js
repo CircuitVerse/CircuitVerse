@@ -59,7 +59,7 @@ export default class extends Controller {
             multiple: true,
             tokenSeparators: [',', ' '],
         });
-        $('.select2-selection input').attr('maxlength', '30');
+        $('.select2-selection input').attr('maxlength', '254');
         $('.select2-selection input').attr('id', 'group_email_input_mentor');
         this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
         $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
@@ -74,7 +74,7 @@ export default class extends Controller {
             multiple: true,
             tokenSeparators: [',', ' '],
         });
-        $('.select2-selection input').attr('maxlength', '30');
+        $('.select2-selection input').attr('maxlength', '254');
         $('.select2-selection input').attr('id', 'group_email_input');
         this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
         $('#group_member_emails').on('select2:select select2:unselect', () => {
