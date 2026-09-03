@@ -76,11 +76,11 @@ class SimulatorController < ApplicationController
     @project.author = current_user
     # ActiveStorage
     io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(io_image_file)
+    attach_circuit_preview(@project, io_image_file)
     # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
-    image_file.close
+    cleanup_image_file(image_file)
     @project.save!
 
     # render plain: simulator_path(@project)
@@ -94,12 +94,11 @@ class SimulatorController < ApplicationController
     # ActiveStorage
     @project.circuit_preview.purge if @project.circuit_preview.attached?
     io_image_file = parse_image_data_url(params[:image])
-    attach_circuit_preview(io_image_file)
+    attach_circuit_preview(@project, io_image_file)
     # CarrierWave
     image_file = return_image_file(params[:image])
     @project.image_preview = image_file
-    image_file.close
-    File.delete(image_file) if check_to_delete(params[:image])
+    cleanup_image_file(image_file)
     @project.name = sanitize(params[:name])
     @project.save
     @project.project_datum.save
@@ -216,15 +215,5 @@ class SimulatorController < ApplicationController
 
     def check_view_access
       authorize @project, :view_access?
-    end
-
-    def attach_circuit_preview(image_file)
-      return unless image_file
-
-      @project.circuit_preview.attach(
-        io: image_file,
-        filename: "preview_#{Time.zone.now.to_f.to_s.sub('.', '')}.jpeg",
-        content_type: "img/jpeg"
-      )
     end
 end
