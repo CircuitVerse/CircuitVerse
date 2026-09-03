@@ -16,7 +16,6 @@
 //= require commontator/application
 //= require @tarekraafat/autocomplete.js/dist/autoComplete.min.js
 //= require dompurify/dist/purify.min.js
-//= require bootstrap/dist/js/bootstrap.min.js
 //= require restrictElements.js
 //= require time.js
 //= require scroll.js
