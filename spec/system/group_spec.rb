@@ -49,8 +49,9 @@ describe "Group management", type: :system do
   it "allows typing up to 254 characters for a member email" do
     visit "/groups/#{group.id}"
     click_button "+ Add Members"
-    domain = "@gmail.com"
-    long_email = "#{"a" * (254 - domain.length)}#{domain}"
+    local_part = "a" * 64
+    domain = "#{"b" * 185}.com"
+    long_email = "#{local_part}@#{domain}"
     expect(find("#group_email_input")[:maxlength]).to eq("254")
     fill_in_input "#group_email_input", with: long_email
     fill_in_input "#group_email_input", with: :enter

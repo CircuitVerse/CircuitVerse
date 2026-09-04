@@ -153,8 +153,9 @@ describe "Project", type: :system do
     end
 
     it "allows 254-character email for collaborator input" do
-      domain = "@example.com"
-      long_email = "#{"a" * (254 - domain.length)}#{domain}"
+      local_part = "a" * 64
+      domain = "#{"b" * 185}.com"
+      long_email = "#{local_part}@#{domain}"
       visit user_project_path(private_project.author, private_project)
       click_on "+ Add a Collaborator"
       project_input_field_id = "#project_email_input_collaborator"
