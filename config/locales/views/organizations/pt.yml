@@ -89,6 +89,11 @@ pt:
   organization_members:
     create:
       success: "Membro foi adicionado com sucesso."
+      invite_summary:
+        one: "1 endereço de e-mail processado: %{invited} convidado, %{invalid} inválido, %{already} já é um membro."
+        other: "Endereços de e-mail %{count} processados: %{invited} convidados, %{invalid} inválidos, %{already} já membros."
+      limit_exceeded: "Apenas convites %{limit} podem ser enviados de uma vez, então endereços %{skipped} não foram processados. Por favor, convide-os em outro lote."
+      invite_failed: "Não foi possível enviar alguns convites. Por favor, tente novamente."
     update:
       success: "A função do membro foi atualizada com sucesso."
     destroy:
