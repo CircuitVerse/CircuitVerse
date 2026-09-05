@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Contests::SubmissionsController < ApplicationController
+  skip_after_action :verify_authorized, only: %i[new create]
+
   before_action :authenticate_user!
   before_action :set_contest
   before_action :check_contests_feature_flag
@@ -13,10 +15,10 @@ class Contests::SubmissionsController < ApplicationController
   def create
     project_id = params[:submission][:project_id]
 
-    return redirect_unauthorized_project unless project_owner?(project_id)
-    return redirect_duplicate_submission if duplicate_submission?(project_id)
-
     @submission = @contest.submissions.new(project_id: project_id, user_id: current_user.id)
+
+    return redirect_unauthorized_project unless policy(@submission).create?
+    return redirect_duplicate_submission if duplicate_submission?(project_id)
 
     if @submission.save
       redirect_to contest_path(@contest), notice: t(".success")
@@ -27,7 +29,8 @@ class Contests::SubmissionsController < ApplicationController
   end
 
   def destroy
-    submission = find_withdrawable_submission
+    submission = @contest.submissions.find(params.expect(:id))
+    authorize submission, :destroy?
 
     return redirect_to contest_path(submission.contest), alert: t(".withdraw_closed") if submission.contest.completed?
 
@@ -41,10 +44,6 @@ class Contests::SubmissionsController < ApplicationController
       @contest = Contest.find(params.expect(:contest_id))
     end
 
-    def project_owner?(project_id)
-      current_user.projects.exists?(id: project_id)
-    end
-
     def duplicate_submission?(project_id)
       @contest.submissions.exists?(project_id: project_id)
     end
@@ -55,13 +54,6 @@ class Contests::SubmissionsController < ApplicationController
 
     def redirect_duplicate_submission
       redirect_to new_contest_submission_path(@contest), notice: t(".duplicate_submission", contest_id: @contest.id)
-    end
-
-    def find_withdrawable_submission
-      scope = @contest.submissions
-      return scope.find(params.expect(:id)) if current_user.admin?
-
-      scope.joins(:project).where(projects: { author_id: current_user.id }).find(params.expect(:id))
     end
 
     def check_contests_feature_flag

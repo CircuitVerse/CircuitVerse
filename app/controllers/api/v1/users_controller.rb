@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::UsersController < Api::V1::BaseController
+  skip_after_action :verify_authorized, only: %i[index show me]
+
   before_action :set_user, only: %i[show update]
   before_action :authenticate_user!
   before_action :check_access, only: [:update]

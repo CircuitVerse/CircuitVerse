@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::CommentsController < Api::V1::BaseController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!, except: %i[index]
   before_action :load_index_resource, only: %i[index]
   before_action :load_create_resource, only: %i[create]
