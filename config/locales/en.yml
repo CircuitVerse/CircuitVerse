@@ -37,6 +37,7 @@ en:
   facebook: "Facebook"
   github: "Github"
   gitlab: "Gitlab"
+  API: "API"
   components:
     search_bar:
       placeholders:
