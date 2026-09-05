@@ -63,14 +63,6 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new
   end
 
-  # GET /organizations/check_slug
-  def check_slug
-    base_slug = (params[:slug].presence || params[:name]).to_s.strip.parameterize
-    is_taken = base_slug.present? && Organization.exists?(slug: base_slug)
-
-    render json: { slug: base_slug, available: base_slug.present? && !is_taken }
-  end
-
   # POST /organizations
   def create
     @organization = Organization.new(organization_params)
@@ -120,7 +112,7 @@ class OrganizationsController < ApplicationController
   private
 
     def set_organization
-      @organization = Organization.friendly.find(params.expect(:id))
+      @organization = Organization.find_by!(uuid: params.expect(:id))
     end
 
     def visible_groups
@@ -135,7 +127,7 @@ class OrganizationsController < ApplicationController
     end
 
     def organization_params
-      params.expect(organization: [:name, :slug, :description, :location, :logo, :remove_logo, { links: [] }])
+      params.expect(organization: [:name, :description, :location, :logo, :remove_logo, { links: [] }])
     end
 
     def check_organizations_feature_flag

@@ -31,9 +31,6 @@ Rails.application.routes.draw do
       get :members
       get :settings
     end
-    collection do
-      get :check_slug
-    end
     resources :organization_members, only: %i[create update destroy]
     delete :leave, to: "organization_members#leave"
     resources :groups, only: %i[index new create show edit update destroy] do

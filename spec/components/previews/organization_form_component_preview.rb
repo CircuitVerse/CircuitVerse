@@ -4,7 +4,6 @@ class OrganizationFormComponentPreview < ViewComponent::Preview
   def default
     organization = Organization.new(
       name: "CircuitVerse Community",
-      slug: "circuitverse-community",
       description: "A community platform for designing and simulating digital logic circuits.",
       location: "Bengaluru, India",
       links: [

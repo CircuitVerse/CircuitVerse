@@ -2,9 +2,6 @@
 
 class Organization < ApplicationRecord
   MAX_LINKS = 5
-  extend FriendlyId
-
-  friendly_id :name, use: :slugged
 
   has_many :organization_members, dependent: :destroy
   has_many :users, through: :organization_members
@@ -18,7 +15,6 @@ class Organization < ApplicationRecord
   before_validation :sanitize_links
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }, length: { minimum: 2, maximum: 50 }
-  validates :slug, presence: true, uniqueness: { case_sensitive: false }
   validates :location, length: { maximum: 50 }, allow_blank: true
   validates :description, length: { maximum: 350 }, allow_blank: true
   validate :links_count_within_limit
@@ -26,6 +22,10 @@ class Organization < ApplicationRecord
   validate :logo_must_be_valid_image
 
   before_destroy :purge_logo
+
+  def to_param
+    uuid
+  end
 
   private
 
