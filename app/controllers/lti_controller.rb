@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
 class LtiController < ApplicationController
+  # Scopes the message verifier so a state signed for OIDC login can't be replayed
+  # against any other purpose that ends up using Rails.application.message_verifier.
+  LTI_STATE_PURPOSE = "lti_oidc_state"
+  LTI_STATE_TTL = 5.minutes
+
   skip_after_action :verify_authorized
 
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
