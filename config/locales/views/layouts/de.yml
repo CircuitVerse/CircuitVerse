@@ -28,6 +28,7 @@ de:
     header:
       dashboard: "Dashboard"
       my_groups: "Meine Gruppen"
+      link_to_organizations: "Organisationen"
       notifications: "Benachrichtigungen"
       language: "Sprache"
     mailer:

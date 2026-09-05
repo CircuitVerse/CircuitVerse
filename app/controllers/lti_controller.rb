@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class LtiController < ApplicationController
-  # The state is signed rather than kept in the session: the launch returns as a
-  # cross-site POST that a SameSite cookie would not survive, and the signature
-  # is what proves the launch answers an initiation we made.
-  LTI_STATE_PURPOSE = "lti.launch.state"
-  LTI_STATE_TTL = 5.minutes
+  skip_after_action :verify_authorized
 
   skip_before_action :verify_authenticity_token, only: :launch # for lti integration
   before_action :set_group_and_assignment, only: %i[launch]
