@@ -89,6 +89,11 @@ es:
   organization_members:
     create:
       success: "Miembro añadido correctamente."
+      invite_summary:
+        one: "1 dirección de correo electrónico procesada: %{invited} invitada, %{invalid} no válida, %{already} ya es miembro."
+        other: "%{count} direcciones de correo electrónico procesadas: %{invited} invitadas, %{invalid} no válidas, %{already} ya miembros."
+      limit_exceeded: "Solo las invitaciones %{limit} pueden ser enviadas a la vez, por lo que las direcciones %{skipped} no fueron procesadas. Por favor, invítalas en otro lote."
+      invite_failed: "Algunas invitaciones no pudieron ser enviadas. Por favor, inténtalo de nuevo."
     update:
       success: "El rol de miembro se ha actualizado correctamente."
     destroy:
