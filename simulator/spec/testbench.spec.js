@@ -58,6 +58,20 @@ describe('TestbenchData', () => {
             const tb = new TestbenchData({ type: 'comb', groups: [] });
             expect(tb.caseCount()).toBe(0);
         });
+
+        test('returns 0 when groups is a non-array object', () => {
+            const tb = new TestbenchData({ type: 'comb', groups: {} });
+            expect(tb.caseCount(0)).toBe(0);
+        });
+
+        test('returns 0 when inputs values is a non-array object', () => {
+            const malformedData = {
+                type: 'comb',
+                groups: [{ n: 0, inputs: [{ values: {} }], outputs: [] }],
+            };
+            const tb = new TestbenchData(malformedData);
+            expect(tb.caseCount(0)).toBe(0);
+        });
     });
 
     describe('isCaseValid', () => {
@@ -207,6 +221,11 @@ describe('TestbenchData', () => {
             expect(tb.groupPrev()).toBe(false);
             expect(tb.currentGroup).toBe(0);
         });
+
+        test('groupNext returns false instead of looping forever when groups is a non-array object', () => {
+            const tb = new TestbenchData({ type: 'comb', groups: {} }, 0, 0);
+            expect(tb.groupNext()).toBe(false);
+        });
     });
 
     describe('goToFirstValidGroup', () => {
@@ -250,6 +269,11 @@ describe('TestbenchData', () => {
         test('returns false when groups array is empty', () => {
             const emptyData = { type: 'comb', groups: [] };
             const tb = new TestbenchData(emptyData);
+            expect(tb.goToFirstValidGroup()).toBe(false);
+        });
+
+        test('returns false when groups is a non-array object', () => {
+            const tb = new TestbenchData({ type: 'comb', groups: {} });
             expect(tb.goToFirstValidGroup()).toBe(false);
         });
     });

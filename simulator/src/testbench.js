@@ -56,8 +56,11 @@ export class TestbenchData {
      * @param {number=} groupIndex - Index of the group
      */
     caseCount(groupIndex = this.currentGroup) {
-        const group = this.testData && this.testData.groups && this.testData.groups[groupIndex];
-        return (group && group.inputs && group.inputs[0] && group.inputs[0].values) ? group.inputs[0].values.length : 0;
+        const groups = this.testData && this.testData.groups;
+        if (!Array.isArray(groups)) return 0;
+        const group = groups[groupIndex];
+        if (!group || !Array.isArray(group.inputs) || !group.inputs[0] || !Array.isArray(group.inputs[0].values)) return 0;
+        return group.inputs[0].values.length;
     }
 
     /**
@@ -65,7 +68,7 @@ export class TestbenchData {
      */
     isCaseValid() {
         const groups = this.testData && this.testData.groups;
-        if (!groups || this.currentGroup >= groups.length || this.currentGroup < 0) return false;
+        if (!Array.isArray(groups) || this.currentGroup >= groups.length || this.currentGroup < 0) return false;
         const count = this.caseCount(this.currentGroup);
         if (this.currentCase >= count || this.currentCase < 0) return false;
 
@@ -94,7 +97,8 @@ export class TestbenchData {
      */
     groupNext() {
         const newCase = new TestbenchData(this.testData, this.currentGroup, 0);
-        const groupCount = (newCase.testData && newCase.testData.groups) ? newCase.testData.groups.length : 0;
+        const groups = newCase.testData && newCase.testData.groups;
+        const groupCount = Array.isArray(groups) ? groups.length : 0;
         let caseCount = newCase.caseCount(newCase.currentGroup);
 
         while (caseCount === 0 || this.currentGroup === newCase.currentGroup) {
@@ -157,7 +161,7 @@ export class TestbenchData {
      */
     goToFirstValidGroup() {
         const groups = this.testData && this.testData.groups;
-        if (!groups || groups.length === 0) return false;
+        if (!Array.isArray(groups) || groups.length === 0) return false;
 
         const newCase = new TestbenchData(this.testData, 0, 0);
         const caseCount = newCase.caseCount(0);
