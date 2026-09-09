@@ -27,6 +27,8 @@ class Api::V1::GroupMembersController
     # parse emails as valid, invalid or existing mails
     # @return [void]
     def parse
+      return if @mails.blank?
+
       @mails.split(",").each do |email|
         email = email.strip
         if email.present? && Devise.email_regexp.match?(email)
