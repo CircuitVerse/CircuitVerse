@@ -189,6 +189,20 @@
                       <% end %>
                     </div>
                   </div>
+                <% elsif current_user == user %>
+                  <div class="col-8 col-sm-8 col-md-5 col-lg-5">
+                    <div class="projects-collaborators-data">
+                      <%= user.email %>
+                    </div>
+                  </div>
+                  <div class="col-4 col-sm-4 col-md-3 col-lg-3">
+                    <div class="projects-collaborators-button-container">
+                      <%= link_to "#", data: { bs_toggle: "modal", bs_target: "#deletecollaborationModal", currentcollaboration: Collaboration.find_by(user_id: user.id, project_id: @project.id).id }, class: "btn primary-delete-button" do %>
+                        <%= image_tag("svgs/deleteGroup.svg", alt: "Leave Project") %>
+                        <span><%= t("projects.show.leave_project") %></span>
+                      <% end %>
+                    </div>
+                  </div>
                 <% end %>
                 <hr class="w-75">
               </div>

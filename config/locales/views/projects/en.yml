@@ -34,6 +34,7 @@ en:
       project_collaborator_add: "+ Add a Collaborator"
       copied_to_clipboard: "Copied to Clipboard!"
       collaborators: "Collaborators"
+      leave_project: "Leave"
     search:
       no_result_found: "No Results Found"
     modal:

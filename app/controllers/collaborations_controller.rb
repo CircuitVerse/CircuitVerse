@@ -62,7 +62,9 @@ class CollaborationsController < ApplicationController
   # DELETE /collaborations/1
   # DELETE /collaborations/1.json
   def destroy
-    authorize @collaboration.project, :author_access?
+    unless current_user&.admin? || @collaboration.project.author_id == current_user&.id || @collaboration.user_id == current_user&.id
+      authorize @collaboration.project, :author_access?
+    end
 
     @collaboration.destroy
     respond_to do |format|
