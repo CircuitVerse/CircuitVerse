@@ -91,6 +91,8 @@ en:
       all: "All"
       unread: "Unread"
       mark_as_read_button: "Mark all as read"
+      clear_all_button: "Clear all"
+      clear_all_confirm: "Are you sure you want to clear all notifications?"
       no_notifications: "You do not have any notifications!"
       no_unread_notifications: "You do not have any unread notifications!"
       see_all: "See All"

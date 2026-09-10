@@ -1,6 +1,7 @@
 en:
   notifications:
     not_found: "Notification not found"
+    cleared_all: "Successfully cleared all notifications."
   edit: "Edit"
   show: "Show"
   delete: "Delete"
