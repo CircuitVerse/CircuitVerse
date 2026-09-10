@@ -11,6 +11,7 @@ de:
     link_to_faq: "FAQ"
     link_to_contests: "Wettbewerbe"
     link_to_explore: "Erforschen"
+    link_to_api: "API"
     footer:
       social_icon_text: "Folgen Sie uns auf:"
       link_to_examples: "Beispiele"
