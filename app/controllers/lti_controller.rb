@@ -70,7 +70,13 @@ class LtiController < ApplicationController
       lms_domain = params[:launch_presentation_return_url]
       session[:lis_outcome_service_url] = params[:lis_outcome_service_url] # grading parameters
       session[:oauth_consumer_key] = params[:oauth_consumer_key] # grading parameters
-      session[:lms_domain] = URI.join lms_domain, "/" if lms_domain # set in session
+      if lms_domain.present?
+        session[:lms_domain] = begin
+          URI.join(lms_domain, "/").to_s
+        rescue URI::Error
+          nil
+        end
+      end
     end
 
     def create_project_if_student_present

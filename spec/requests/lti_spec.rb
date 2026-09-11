@@ -47,6 +47,15 @@ describe LtiController, type: :request do
         lti_request(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, primary_mentor.email)
         expect(response.code).to eq("302")
       end
+
+      it "handles malformed launch_presentation_return_url without error" do
+        params_with_bad_url = parameters(member.email).merge("launch_presentation_return_url" => "not a valid url")
+        data = consumer_data(oauth_consumer_key_fromlms, oauth_shared_secret_fromlms, params_with_bad_url)
+        post lti_launch_path, params: data, headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+        expect(response.code).to eq("200")
+      end
     end
 
     context "when lti parameters are invalid" do
