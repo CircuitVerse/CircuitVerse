@@ -368,9 +368,19 @@ input[type="text"]:focus {
 }
 
 @media (max-width: 991px) {
+    .dropdown > ul,
     .navbar-nav .dropdown-menu {
-        position: absolute;
+        position: static;
         float: none;
+        left: auto;
+        transform: none;
+        max-width: 100%;
+        text-align: left;
+    }
+
+    .dropdown > ul::before,
+    .dropdown > ul::after {
+        display: none;
     }
 }
 
