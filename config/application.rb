@@ -35,9 +35,9 @@ module Logix
         config.i18n.fallbacks = true
 
         # configuring middleware
+        require_relative "../app/lib/request_encoding_sanitizer"
+        config.middleware.insert_before 0, RequestEncodingSanitizer
         config.middleware.use Rack::Attack
-        # configuring middleware
-           config.middleware.use Rack::Attack
 
            # configuring forum
            overrides = "#{Rails.root}/app/overrides"
