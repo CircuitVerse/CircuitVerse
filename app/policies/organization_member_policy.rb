@@ -6,7 +6,7 @@ class OrganizationMemberPolicy < ApplicationPolicy
   end
 
   def update?
-    return false unless org_admin? || user&.admin?
+    return false unless admin_access?
     return false if demoting_sole_admin?
 
     true

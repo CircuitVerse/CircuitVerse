@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Contests::Submissions::VotesController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!
   before_action :set_contest_and_submission
   before_action :check_contests_feature_flag

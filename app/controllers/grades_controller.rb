@@ -48,6 +48,8 @@ class GradesController < ApplicationController
       raise ApplicationPolicy::CustomAuthException, "Assignment cannot be graded yet"
     end
 
+    skip_authorization
+
     respond_to do |format|
       format.csv do
         send_data Grade.to_csv(@assignment.id),

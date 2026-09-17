@@ -104,7 +104,7 @@
             <p class="d-block mb-2 text-start w-75">
               <hr class="w-100">
               <% if policy(@project).user_access? %>
-                <a href="<%= simulator_edit_path(@project) %>" class="btn primary-button ms-0 py-1 px-2" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
+                <a href="<%= simulator_edit_user_project_path(@project.author_id, @project) %>" class="btn primary-button ms-0 py-1 px-2" target="_blank" rel="noopener noreferrer"><%= t("launch_simulator") %></a>
               <% else %>
                 <a class="btn primary-button projects-self-embed-button" class="embed-trigger" href="#" data-bs-target="#embedProjectCircuit" data-bs-toggle="modal">
                 <i class="fas fa-code"></i>

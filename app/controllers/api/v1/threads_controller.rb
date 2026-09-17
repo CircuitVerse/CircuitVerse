@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class Api::V1::ThreadsController < Api::V1::BaseController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!
   before_action :load_resource
 
   # PUT /api/v1/threads/:id/close
   def close
+    security_transgression_unless @commontator_thread.can_be_edited_by?(current_user)
+
     if @commontator_thread.close(current_user)
       render json: { message: "thread closed" }
     else
@@ -15,6 +19,8 @@ class Api::V1::ThreadsController < Api::V1::BaseController
 
   # PUT /api/v1/threads/:id/reopen
   def reopen
+    security_transgression_unless @commontator_thread.can_be_edited_by?(current_user)
+
     if @commontator_thread.reopen
       render json: { message: "thread reopened" }
     else

@@ -8,8 +8,8 @@
   <div class="row center-row">
     <div class="col col-sm col-md col-lg">
       <%= link_to "Edit", edit_custom_mail_path(@mail), class: "btn primary-button" %>
-      <%= link_to "Send", send_custom_mail_path(@mail), class: "btn primary-button" %>
-      <%= link_to "Send to self", send_custom_mail_self_path(@mail), class: "btn primary-button" %>
+      <%= button_to "Send", send_custom_mail_path(@mail), method: :post, class: "btn primary-button", form_class: "d-inline" %>
+      <%= button_to "Send to self", send_custom_mail_self_path(@mail), method: :post, class: "btn primary-button", form_class: "d-inline" %>
     </div>
   </div>
   <div class="row center-row">

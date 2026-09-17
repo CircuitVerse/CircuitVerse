@@ -41,34 +41,6 @@ describe SimulatorController, type: :request do
           end
         end
       end
-
-      describe "when Flipper is disabled" do
-        Flipper.disable(:active_storage_s3)
-        context "image is empty" do
-          it "creates project with default image" do
-            expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
-            expect do
-              post "/simulator/create_data", params: { image: "", name: "Test Name" }
-            end.to change(Project, :count).by(1)
-            expect(response.status).to eq(302)
-            created_project = Project.order(:created_at).last
-            expect(created_project.circuit_preview.blob).to be_nil
-            expect(created_project.image_preview.file.filename).to eq("default.png")
-          end
-        end
-
-        context "there is image data", :skip_windows do
-          it "creates project with its own image file" do
-            expect do
-              post "/simulator/create_data", params: { image:
-                "data:image/jpeg;base64,#{Faker::Alphanumeric.alpha(number: 20)}", name: "Test Name" }
-            end.to change(Project, :count).by(1)
-            created_project = Project.order(:created_at).last
-            expect(created_project.circuit_preview.blob.filename.to_s).to start_with("preview_")
-            expect(created_project.image_preview.file.filename).to start_with("preview_")
-          end
-        end
-      end
     end
 
     describe "#update" do
@@ -100,35 +72,13 @@ describe SimulatorController, type: :request do
           end
         end
       end
-
-      describe "when Flipper is disabled" do
-        Flipper.disable(:active_storage_s3)
-        context "author is signed in" do
-          it "updates project" do
-            sign_in @user
-            expect_any_instance_of(SimulatorHelper).to receive(:sanitize_data)
-            post "/simulator/update_data", params: update_params
-            @project.reload
-            expect(@project.name).to eq("Updated Name")
-            expect(response.status).to eq(200)
-          end
-        end
-
-        context "user other than author is signed in" do
-          it "throws project access error" do
-            sign_in_random_user
-            post "/simulator/update_data", params: update_params
-            expect(response.status).to eq(403)
-          end
-        end
-      end
     end
 
     describe "#edit" do
       context "when author is signed in" do
         it "allows access to edit page" do
           sign_in @user
-          get simulator_edit_path(@project)
+          get simulator_edit_user_project_path(@user, @project)
           expect(response).to have_http_status(:success)
         end
       end
@@ -138,7 +88,7 @@ describe SimulatorController, type: :request do
           @collaborator = FactoryBot.create(:user)
           FactoryBot.create(:collaboration, project: @project, user: @collaborator)
           sign_in @collaborator
-          get simulator_edit_path(@project)
+          get simulator_edit_user_project_path(@user, @project)
           expect(response).to have_http_status(:success)
         end
       end
@@ -146,7 +96,7 @@ describe SimulatorController, type: :request do
       context "when user other than author is signed in" do
         it "denies access to edit page" do
           sign_in_random_user
-          get simulator_edit_path(@project)
+          get simulator_edit_user_project_path(@user, @project)
           expect(response.status).to eq(403)
         end
       end
@@ -182,7 +132,7 @@ describe SimulatorController, type: :request do
       context "when vuesim is enabled for user and user tries to edit a circuit" do
         before do
           allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(true)
-          get simulator_edit_path(@project)
+          get simulator_edit_user_project_path(@user, @project)
         end
 
         it "renders the vue simulator" do
@@ -194,12 +144,98 @@ describe SimulatorController, type: :request do
       context "when vuesim is not enabled for user" do
         before do
           allow(Flipper).to receive(:enabled?).with(:vuesim, @user).and_return(false)
-          get simulator_path(@project)
+          get simulator_user_project_path(@user, @project)
         end
 
         it "does not render the vue simulator" do
           expect(response.body).not_to include("simulator-v0.js")
         end
+      end
+    end
+  end
+
+  describe "canonical URL redirection" do
+    context "when legacy /simulator/:id is visited" do
+      it "redirects permanently to the canonical user project simulator URL" do
+        get simulator_path(@project)
+        expect(response).to redirect_to(simulator_user_project_path(@user, @project))
+        expect(response).to have_http_status(:moved_permanently)
+      end
+
+      it "preserves the query string" do
+        get "#{simulator_path(@project)}?clock_time=true"
+        expect(response.headers["Location"])
+          .to end_with("#{simulator_user_project_path(@user, @project)}?clock_time=true")
+      end
+    end
+
+    context "when legacy /simulator/edit/:id is visited" do
+      it "redirects permanently to the canonical edit URL" do
+        sign_in @user
+        get simulator_edit_path(@project)
+        expect(response).to redirect_to(simulator_edit_user_project_path(@user, @project))
+        expect(response).to have_http_status(:moved_permanently)
+      end
+    end
+
+    context "when canonical URLs are visited" do
+      it "renders show without redirecting" do
+        get simulator_user_project_path(@user, @project)
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders edit without redirecting" do
+        sign_in @user
+        get simulator_edit_user_project_path(@user, @project)
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context "when embed URLs are visited" do
+      it "renders legacy embed without redirecting" do
+        get simulator_embed_path(@project)
+        expect(response).to have_http_status(:success)
+      end
+
+      it "renders canonical embed without redirecting" do
+        get simulator_embed_user_project_path(@user, @project)
+        expect(response).to have_http_status(:success)
+      end
+    end
+  end
+
+  describe "#view_issue_circuit_data" do
+    before do
+      @issue_circuit_datum = IssueCircuitDatum.create!(data: "issue data")
+    end
+
+    context "when user is an admin" do
+      before do
+        sign_in FactoryBot.create(:user, admin: true)
+      end
+
+      it "renders the issue circuit data" do
+        get "/simulator/issue_circuit_data/#{@issue_circuit_datum.id}"
+        expect(response.status).to eq(200)
+        expect(response.body).to eq("issue data")
+      end
+    end
+
+    context "when user is not an admin" do
+      before do
+        sign_in @user
+      end
+
+      it "returns forbidden" do
+        get "/simulator/issue_circuit_data/#{@issue_circuit_datum.id}"
+        expect(response).to have_http_status(:forbidden)
+      end
+    end
+
+    context "when user is not signed in" do
+      it "returns forbidden" do
+        get "/simulator/issue_circuit_data/#{@issue_circuit_datum.id}"
+        expect(response).to have_http_status(:forbidden)
       end
     end
   end

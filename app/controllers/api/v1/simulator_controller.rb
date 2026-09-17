@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::SimulatorController < Api::V1::BaseController
+  skip_after_action :verify_authorized
+
   # POST /api/v1/simulator/post_issue
   # rubocop:disable Metrics/MethodLength
   def post_issue

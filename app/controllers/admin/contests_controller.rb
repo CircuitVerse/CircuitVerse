@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Admin::ContestsController < ApplicationController
+  include AdminAuthorizable
+
   before_action :authenticate_user!
   before_action :check_contests_feature_flag
   before_action :authorize_admin
@@ -54,10 +56,6 @@ class Admin::ContestsController < ApplicationController
   # rubocop:enable Metrics/MethodLength
 
   private
-
-    def authorize_admin
-      authorize Contest, :admin?
-    end
 
     def concurrent_contest_exists?
       Contest.exists?(status: :live)

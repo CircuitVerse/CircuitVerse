@@ -28,6 +28,7 @@ ar:
     header:
       dashboard: "لوحة التحكم"
       my_groups: "مجموعاتي"
+      link_to_organizations: "المنظمات"
       notifications: "الإشعارات"
       language: "اللغة"
     mailer:

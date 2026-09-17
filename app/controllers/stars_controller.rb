@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class StarsController < ApplicationController
+  skip_after_action :verify_authorized, only: %i[destroy]
+
   before_action :authenticate_user!, only: %i[destroy create]
   before_action :set_star, only: %i[destroy]
   # GET /stars
@@ -26,7 +28,9 @@ class StarsController < ApplicationController
   # POST /stars
   # POST /stars.json
   def create
-    @star = current_user.stars.build(star_params)
+    project = Project.find(star_params[:project_id])
+    authorize project, :check_view_access?
+    @star = current_user.stars.build(project: project)
     if @star.save
       render plain: "Star added!"
     else

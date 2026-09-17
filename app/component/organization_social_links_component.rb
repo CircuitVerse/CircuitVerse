@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 class OrganizationSocialLinksComponent < ViewComponent::Base
+  PROVIDERS = {
+    "github.com" => { name: "GitHub", logo: "logos/github-logo-circle.png" },
+    "facebook.com" => { name: "Facebook", logo: "logos/facebook-logo.png" },
+    "twitter.com" => { name: "X", logo: "logos/twitter-x.png" },
+    "x.com" => { name: "X", logo: "logos/twitter-x.png" },
+    "youtube.com" => { name: "YouTube", logo: "logos/youtube-logo.png" },
+    "linkedin.com" => { name: "LinkedIn", logo: "logos/linkedin-logo.png" }
+  }.freeze
+
   def initialize(links:)
     super()
     @links = links
@@ -29,17 +38,17 @@ class OrganizationSocialLinksComponent < ViewComponent::Base
     end
 
     def provider_for(host)
-      case base_domain(host)
-      when "github.com" then { name: "GitHub", logo: "logos/github-logo-circle.png" }
-      when "facebook.com" then { name: "Facebook", logo: "logos/facebook-logo.png" }
-      when "twitter.com", "x.com" then { name: "X", logo: "logos/twitter-x.png" }
-      when "youtube.com" then { name: "YouTube", logo: "logos/youtube-logo.png" }
-      when "linkedin.com" then { name: "LinkedIn", logo: "logos/linkedin-logo.png" }
-      else { name: I18n.t("organizations.social_links.website"), logo: "logos/link-logo.png" }
-      end
+      return default_provider if host.blank?
+      return PROVIDERS["linkedin.com"] if linkedin_host?(host)
+
+      PROVIDERS[host] || default_provider
     end
 
-    def base_domain(host)
-      host.to_s.split(".").last(2).join(".")
+    def linkedin_host?(host)
+      host == "linkedin.com" || host.end_with?(".linkedin.com")
+    end
+
+    def default_provider
+      { name: I18n.t("organizations.social_links.website"), logo: "logos/link-logo.png" }
     end
 end

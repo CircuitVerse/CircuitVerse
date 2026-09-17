@@ -60,7 +60,20 @@ describe ProjectsController, type: :request do
   describe "#change_stars" do
     before do
       @user = sign_in_random_user
-      @project = FactoryBot.create(:project, author: @author)
+      @project = FactoryBot.create(:project, author: @author, project_access_type: "Public")
+    end
+
+    context "project is private and user has no view access" do
+      before do
+        @private_project = FactoryBot.create(:project, author: @author, project_access_type: "Private")
+      end
+
+      it "does not create a star" do
+        expect do
+          get change_stars_path(@private_project), xhr: true
+        end.not_to change(Star, :count)
+        check_project_access_error(response)
+      end
     end
 
     context "user has not already starred" do

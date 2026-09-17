@@ -4,6 +4,16 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   include ActionView::Helpers::SanitizeHelper
   include SimulatorHelper
 
+  skip_after_action :verify_authorized, only: %i[
+    index
+    search
+    user_projects
+    user_favourites
+    featured_circuits
+    image_preview
+    create
+  ]
+
   before_action :authenticate_user!, only: %i[
     check_edit_access
     create
@@ -61,7 +71,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/check_edit_access
   def check_edit_access
-    current_user.admin? || authorize(@project, :check_edit_access?)
+    authorize @project, :user_access?
     @options = { params: { has_details_access: true } }
     render json: Api::V1::UserSerializer.new(current_user, @options)
   end
@@ -150,6 +160,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # GET /api/v1/projects/:id/toggle-star
   def toggle_star
+    authorize @project, :check_view_access?
     if @project.toggle_star(current_user)
       render json: { message: "Starred successfully!" }, status: :ok
     else
@@ -159,6 +170,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
 
   # /api/v1/projects/:id/fork
   def create_fork
+    authorize @project, :check_view_access?
+    authorize @project, :create_fork?
     if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else

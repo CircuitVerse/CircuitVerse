@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class ExploreController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :redirect_unless_enabled!
 
   MAX_TAGS          = 30

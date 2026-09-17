@@ -102,7 +102,10 @@ class Project < ApplicationRecord
   end
 
   def self.tagged_with(name)
-    Tag.find_by!(name: name).projects
+    tag = Tag.named(name)
+    raise ActiveRecord::RecordNotFound, "Couldn't find Tag with name #{name}" if tag.nil?
+
+    tag.projects
   end
 
   def tag_list
@@ -110,9 +113,11 @@ class Project < ApplicationRecord
   end
 
   def tag_list=(names)
-    self.tags = names.split(",").map(&:strip).uniq.compact_blank.map do |n|
-      Tag.where(name: n.strip).first_or_create!
-    end
+    self.tags = names.split(",")
+                     .map(&:strip)
+                     .compact_blank
+                     .uniq(&:downcase)
+                     .map { |n| Tag.find_or_create_with_name!(n) }
   end
 
   def public?

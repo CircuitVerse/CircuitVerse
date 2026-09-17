@@ -4,12 +4,17 @@ class GroupMemberPolicy < ApplicationPolicy
   attr_reader :user, :group_member
 
   def initialize(user, group_member)
+    super
     @user = user
     @group_member = group_member
   end
 
   def primary_mentor?
-    group_member.group.primary_mentor_id == user.id || user.admin?
+    group = group_member.group
+    return true if group&.primary_mentor_id == user.id || user.admin?
+    return OrganizationGroupPolicy.new(user, group).manage? if group&.organization
+
+    false
   end
 
   def mentor?
