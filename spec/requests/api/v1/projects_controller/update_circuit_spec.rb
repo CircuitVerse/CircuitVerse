@@ -97,7 +97,7 @@ RSpec.describe Api::V1::ProjectsController, "#update_circuit", type: :request do
         end
 
         it "returns status unprocessable entity" do
-          expect(response).to have_http_status(:unprocessable_entity)
+          expect(response).to have_http_status(:unprocessable_content)
           expect(response.parsed_body["status"]).to eq("error")
           expect(response.parsed_body["status"]["error"]).not_to be_empty
         end

@@ -15,7 +15,7 @@ RSpec.describe "Contests::Submissions#create save failure", type: :request do
     post contest_submissions_path(contest),
          params: { submission: { project_id: project.id } }
 
-    expect(response).to have_http_status(:unprocessable_entity)
+    expect(response).to have_http_status(:unprocessable_content)
     expect(response.body).to include("contest-submission-button")
   end
 end

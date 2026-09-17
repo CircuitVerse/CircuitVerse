@@ -61,7 +61,7 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
       end
 
       it "returns status unprocessable_identity" do
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
@@ -75,7 +75,7 @@ RSpec.describe Api::V1::GradesController, "#create", type: :request do
       end
 
       it "returns status unprocessable_identity" do
-        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response).to have_http_status(:unprocessable_content)
         expect(response.parsed_body).to have_jsonapi_errors
       end
     end
