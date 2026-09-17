@@ -60,10 +60,13 @@ class OrganizationMembersController < ApplicationController
   def leave
     @organization_member = @organization.organization_members.find_by(user: current_user)
 
-    if @organization_member.nil?
-      redirect_to organizations_path, alert: t(".not_a_member")
-      return
-    end
+if @organization_member.nil?
+  respond_to do |format|
+    format.html { redirect_to organizations_path, alert: t(".not_a_member") }
+    format.json { render json: { error: t(".not_a_member") }, status: :unprocessable_content }
+  end
+  return
+end
 
     authorize @organization, :leave?
 
