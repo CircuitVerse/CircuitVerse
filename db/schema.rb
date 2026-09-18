@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_01_000000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -114,6 +114,33 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["project_id"], name: "index_collaborations_on_project_id"
     t.index ["user_id"], name: "index_collaborations_on_user_id"
+  end
+
+  create_table "comment_threads", force: :cascade do |t|
+    t.datetime "closed_at"
+    t.bigint "closer_id"
+    t.bigint "commentable_id", null: false
+    t.string "commentable_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["closer_id"], name: "index_comment_threads_on_closer_id"
+    t.index ["commentable_type", "commentable_id"], name: "index_comment_threads_on_commentable", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.bigint "comment_thread_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "deleted_at"
+    t.bigint "editor_id"
+    t.bigint "parent_id"
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["comment_thread_id", "created_at"], name: "index_comments_on_comment_thread_id_and_created_at"
+    t.index ["deleted_at"], name: "index_comments_on_deleted_at"
+    t.index ["editor_id"], name: "index_comments_on_editor_id"
+    t.index ["parent_id"], name: "index_comments_on_parent_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "commontator_comments", id: :serial, force: :cascade do |t|
@@ -594,6 +621,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
   add_foreign_key "assignments", "groups"
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
+  add_foreign_key "comment_threads", "users", column: "closer_id"
+  add_foreign_key "comments", "comment_threads"
+  add_foreign_key "comments", "comments", column: "parent_id"
+  add_foreign_key "comments", "users"
+  add_foreign_key "comments", "users", column: "editor_id"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
   add_foreign_key "contest_winners", "contests"
   add_foreign_key "contest_winners", "projects"
