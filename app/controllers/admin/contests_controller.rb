@@ -28,11 +28,16 @@ class Admin::ContestsController < ApplicationController
     end
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength, Metrics/PerceivedComplexity
   def update
     @contest = Contest.find(params.expect(:id))
     if params[:contest][:status] == "completed"
-      ShortlistContestWinner.new(@contest.id).call
+      result = ShortlistContestWinner.new(@contest.id).call
+      @contest.reload
+      if !result[:success] && result[:message] != "No submissions found" && !@contest.completed?
+        redirect_to admin_contests_path, alert: t(".winner_selection_failed", errors: result[:message])
+        return
+      end
       if @contest.update(deadline: Time.zone.now, status: :completed)
         redirect_to contest_path(@contest), notice: t(".contest_closed")
       else
@@ -53,7 +58,7 @@ class Admin::ContestsController < ApplicationController
       end
     end
   end
-  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
   private
 
