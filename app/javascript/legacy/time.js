@@ -102,3 +102,7 @@ function convertSecondsToReadableString(input) {
     var minutes = Math.floor((input - (days * daySeconds + hours * hourSeconds)) / minuteSeconds);
     return "".concat(days, " days, ").concat(hours, " hours, ").concat(minutes, " minutes");
 }
+
+// Exported for inline <script> blocks (previously Sprockets globals).
+window.formatDate = formatDate;
+window.convertSecondsToReadableString = convertSecondsToReadableString;

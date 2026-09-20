@@ -44,13 +44,9 @@ Rails.application.configure do
   # Disable serving static files from `/public` by default since Apache or NGINX already handles this
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
-  # Asset compression (adjust based on whether you use Sprockets or Propshaft)
-  # For Sprockets (if still using):
-  if defined?(Sprockets)
-    config.assets.js_compressor = :terser
-    config.assets.css_compressor = nil
-    config.assets.compile = false
-  end
+  # App JS/CSS is bundled by esbuild/dart-sass into app/assets/builds and served
+  # precompiled; never compile live in production.
+  config.assets.compile = false
 
   # Log configuration
   config.log_tags = [:request_id]
