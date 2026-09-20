@@ -106,7 +106,6 @@ gem "jsonapi-serializer"
 gem "jwt", "~> 3.2.0"
 gem "rails-i18n", "~> 8.1.0"
 gem "recaptcha"
-gem "simple_discussion", github: "CircuitVerse/simple_discussion"
 # NOTE: sprockets-rails is gone. App JS/CSS is bundled with
 # jsbundling-rails (esbuild) + cssbundling-rails (dart-sass) into
 # app/assets/builds and served by propshaft.
