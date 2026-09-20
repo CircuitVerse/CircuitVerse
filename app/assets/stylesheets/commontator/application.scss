@@ -1,8 +1,6 @@
-/*
- *= require mentionsInput/jquery.mentionsInput
- *= require_self
- *= require_tree .
- */
+// Compiled with dart-sass (previously Sprockets). mentionsInput styles are
+// vendored in _mentions_input.scss (from commontator 7.0.1) and imported here.
+@import "mentions_input";
 
 .commontator {
 

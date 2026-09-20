@@ -61,3 +61,6 @@ function loadRestrictions(restrictions) {
     var restrictionMap = restrictionsMap(restrictions);
     loadHtml(elementHierarchy, restrictionMap);
 }
+
+// Exported for inline <script> blocks (previously Sprockets globals).
+window.loadRestrictions = loadRestrictions;
