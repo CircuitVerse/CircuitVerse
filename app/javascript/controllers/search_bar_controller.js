@@ -185,6 +185,16 @@ export default class extends Controller {
 
     closeDropdown() {
         this.toggleDropdownState('close');
+        this.highlightSelectedOption();
+    }
+
+    highlightSelectedOption() {
+        const selected = this.getSelectOptions().find(
+            (option) => option.dataset.value === this.hiddenSelectTarget.value,
+        );
+        if (selected) {
+            this.updateActiveOption(selected);
+        }
     }
 
     submitForm() {
