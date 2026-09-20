@@ -1,6 +1,11 @@
 en:
   notifications:
     not_found: "Notification not found"
+  comments:
+    deleted_by: "Comment deleted by %{deleter_name}."
+  errors:
+    messages:
+      double_posted: "is a duplicate of another comment."
   edit: "Edit"
   show: "Show"
   delete: "Delete"

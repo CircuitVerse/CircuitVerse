@@ -27,6 +27,7 @@ class User < ApplicationRecord
   has_many :groups, through: :group_members
   has_many :grades
   acts_as_commontator
+  has_many :comment_subscriptions, as: :subscriber, dependent: :destroy
   has_many :submissions, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: "project", through: :collaborations
