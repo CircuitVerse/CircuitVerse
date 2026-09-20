@@ -191,7 +191,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
         delete :leave, params: { organization_id: organization.id }, format: :json
 
         expect(response).to have_http_status(:unprocessable_content)
-        expect(response.parsed_body).to include("error" => I18n.t("organizations.leave.not_a_member"))
+        expect(response.parsed_body).to include("error" => I18n.t("organization_members.leave.not_a_member"))
       end
     end
   end

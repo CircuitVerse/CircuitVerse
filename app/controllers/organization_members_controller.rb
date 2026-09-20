@@ -65,6 +65,7 @@ if @organization_member.nil?
     format.html { redirect_to organizations_path, alert: t(".not_a_member") }
     format.json { render json: { error: t(".not_a_member") }, status: :unprocessable_content }
   end
+  skip_authorization
   return
 end
 
