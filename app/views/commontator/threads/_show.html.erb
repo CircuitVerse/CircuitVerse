@@ -84,17 +84,14 @@
   <div id="commontator-thread-<%= thread.id %>-pagination" class="pagination">
 
     <div id="commontator-thread-<%= thread.id %>-will-paginate" class="will-paginate">
-      <%=
-        name = t('commontator.thread.status.pages') \
-          if [ :i, :b ].include?(thread.config.comment_reply_style)
-        will_paginate comments,
-                      renderer: Commontator::LinkRenderer,
-                      name: name,
-                      remote: true,
-                      params: { controller: 'commontator/threads',
-                                action: 'show',
-                                id: thread.id }
-      %>
+      <% name = t('commontator.thread.status.pages') if [:i, :b].include?(thread.config.comment_reply_style) %>
+      <%= render Pagination::PaginationComponent.new(collection: comments,
+                                                     renderer: Commontator::LinkRenderer,
+                                                     name: name,
+                                                     remote: true,
+                                                     params: { controller: 'commontator/threads',
+                                                               action: 'show',
+                                                               id: thread.id }) %>
     </div>
   </div>
 

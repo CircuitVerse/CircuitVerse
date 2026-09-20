@@ -18,7 +18,9 @@
       <% end %>
     </div>
     <% unless @results.empty? %>
-      <%= will_paginate(@results, renderer: SearchPaginateRenderer, page_links: false) %>
+      <%= render Pagination::PaginationComponent.new(collection: @results,
+                                                     renderer: SearchPaginateRenderer,
+                                                     page_links: false) %>
     <% end %>
   </div>
 <% end %>

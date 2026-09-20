@@ -112,7 +112,8 @@
   </div>
 
   <div class="container pagination-cont">
-    <%= will_paginate @submissions, renderer: PaginateRenderer %>
+    <%= render Pagination::PaginationComponent.new(collection: @submissions,
+                                                   renderer: PaginateRenderer) %>
   </div>
 
   <%= render Contest::PreviewModalComponent.new %>
