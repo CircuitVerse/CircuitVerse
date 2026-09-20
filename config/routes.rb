@@ -160,8 +160,6 @@ Rails.application.routes.draw do
     get 'tool_config', to: 'lti#tool_config'
   end
 
-  mount Commontator::Engine => "/commontator"
-
   # simulator (legacy URLs, redirected to canonical /users/:user_id/projects/:id/simulator)
   scope "/simulator" do
     get "/:id", to: "simulator#show", as: "simulator"

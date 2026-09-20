@@ -16,6 +16,13 @@ module Logix
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+    # Propshaft serves app/assets (no Sprockets directives or manifest).
+    # Compat: font-awesome-sass (pulled in by the simple_discussion fork)
+    # appends to config.assets.precompile in its engine initializer, an API
+    # Propshaft does not provide. Stub the list so that engine keeps booting;
+    # nothing reads it. Remove once the fork drops the font-awesome-sass dep.
+    config.assets.precompile = []
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files
