@@ -3,6 +3,10 @@ en:
     not_found: "Notification not found"
   comments:
     deleted_by: "Comment deleted by %{deleter_name}."
+    thread_closed: "Comment thread closed."
+    thread_reopened: "Comment thread reopened."
+    thread_already_closed: "Comment thread is already closed."
+    thread_already_open: "Comment thread is already open."
   errors:
     messages:
       double_posted: "is a duplicate of another comment."

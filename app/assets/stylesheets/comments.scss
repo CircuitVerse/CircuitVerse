@@ -35,22 +35,6 @@
   }
 }
 
-.votes {
-  display: inline-block;
-  width: 60px;
-}
-
-.upvote,
-.downvote {
-  display: block;
-}
-
-.vote-count {
-  display: block;
-  margin-bottom: 5px;
-  margin-top: 5px;
-}
-
 .timestamp {
   opacity: .7;
 }
@@ -120,11 +104,6 @@
 .new-comment {
   display: block;
   margin-top: 0.3rem;
-}
-
-.new-comment-link{
-  position: relative;
-  top: -3.3em;
 }
 
 //breakpoints

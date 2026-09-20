@@ -194,6 +194,15 @@ Rails.application.routes.draw do
   end
   resources :collaborations, only: %i[create destroy update]
 
+  resources :comment_threads, only: [] do
+    resources :comments, only: %i[create]
+    member do
+      patch :close
+      patch :reopen
+    end
+  end
+  resources :comments, only: %i[update destroy]
+
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")
   get "/twitter", to: redirect("https://www.twitter.com/CircuitVerse")

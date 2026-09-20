@@ -205,7 +205,7 @@
 
 </div>
 
-<%= commontator_thread(@project) if Flipper.enabled?(:project_comments) %>
+<%= render partial: "comments/thread", locals: { comment_thread: @project.comment_thread } if Flipper.enabled?(:project_comments) %>
 
 <script>
   $(document).ready(function() {
