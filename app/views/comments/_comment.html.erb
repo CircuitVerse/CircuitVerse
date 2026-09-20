@@ -1,0 +1,54 @@
+<% creator = comment.creator %>
+<article class="row comments-comment" id="comment-<%= comment.id %>" data-comment-id="<%= comment.id %>">
+  <div class="col-9">
+    <div class="section top">
+      <span class="avatar">
+        <% if creator&.profile_picture&.attached? %>
+          <%= image_tag creator.profile_picture, alt: creator.name %>
+        <% else %>
+          <%= image_tag "thumb/Default.jpg", alt: creator&.name %>
+        <% end %>
+      </span>
+      <span class="author">
+        <% if creator.present? %>
+          <%= link_to creator.name, user_path(creator), class: "anchor-text" %>
+        <% end %>
+      </span>
+    </div>
+    <div class="section middle">
+      <div class="body" data-comments-target="body">
+        <%= sanitize comment.body %>
+      </div>
+      <% if !comment.is_deleted? && comment.can_be_edited_by?(current_user) %>
+        <form class="d-none" data-comments-target="editForm" data-action="submit->comments#update">
+          <textarea name="comment[body]" rows="3" class="form-control"><%= comment.body %></textarea>
+          <button type="submit" class="btn primary-button btn-sm mt-2"><%= t("save") %></button>
+        </form>
+      <% end %>
+    </div>
+    <div class="section bottom">
+      <span class="timestamp">
+        <small><%= l comment.created_at, format: :short %></small>
+      </span>
+      <% if comment.editor_id.present? && !comment.is_deleted? %>
+        <span class="timestamp">
+          <small>(edited)</small>
+        </span>
+      <% end %>
+    </div>
+  </div>
+  <div class="col-3 actions">
+    <% unless comment.is_deleted? %>
+      <% if comment.can_be_edited_by?(current_user) %>
+        <button type="button" class="edit-action" data-action="click->comments#showEdit" aria-label="<%= t("edit") %>">
+          <%= image_tag "svgs/edit.svg", alt: t("edit") %>
+        </button>
+      <% end %>
+      <% if comment.can_be_deleted_by?(current_user) %>
+        <button type="button" class="delete-action" data-action="click->comments#destroy" aria-label="<%= t("delete") %>">
+          <%= image_tag "svgs/delete.svg", alt: t("delete") %>
+        </button>
+      <% end %>
+    <% end %>
+  </div>
+</article>
