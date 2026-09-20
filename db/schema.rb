@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_20_070000) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -114,6 +114,47 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
     t.datetime "updated_at", precision: nil, null: false
     t.index ["project_id"], name: "index_collaborations_on_project_id"
     t.index ["user_id"], name: "index_collaborations_on_user_id"
+  end
+
+
+  create_table "comment_subscriptions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "subscriber_id", null: false
+    t.string "subscriber_type", null: false
+    t.bigint "thread_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["subscriber_id", "subscriber_type", "thread_id"], name: "index_comment_subscriptions_on_subscriber_and_thread", unique: true
+    t.index ["thread_id"], name: "index_comment_subscriptions_on_thread_id"
+  end
+
+  create_table "comment_threads", force: :cascade do |t|
+    t.datetime "closed_at", precision: nil
+    t.integer "closer_id"
+    t.string "closer_type"
+    t.integer "commontable_id"
+    t.string "commontable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["commontable_id", "commontable_type"], name: "index_comment_threads_on_commontable", unique: true
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "body", null: false
+    t.integer "cached_votes_down", default: 0
+    t.integer "cached_votes_up", default: 0
+    t.datetime "created_at", null: false
+    t.integer "creator_id"
+    t.string "creator_type"
+    t.datetime "deleted_at", precision: nil
+    t.integer "editor_id"
+    t.string "editor_type"
+    t.bigint "thread_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cached_votes_down"], name: "index_comments_on_cached_votes_down"
+    t.index ["cached_votes_up"], name: "index_comments_on_cached_votes_up"
+    t.index ["creator_id", "creator_type", "thread_id"], name: "index_comments_on_creator_and_thread"
+    t.index ["thread_id", "created_at"], name: "index_comments_on_thread_id_and_created_at"
+    t.index ["thread_id"], name: "index_comments_on_thread_id"
   end
 
   create_table "commontator_comments", id: :serial, force: :cascade do |t|
@@ -594,6 +635,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_08_21_000000) do
   add_foreign_key "assignments", "groups"
   add_foreign_key "collaborations", "projects"
   add_foreign_key "collaborations", "users"
+  add_foreign_key "comment_subscriptions", "comment_threads", column: "thread_id"
+  add_foreign_key "comments", "comment_threads", column: "thread_id"
   add_foreign_key "commontator_comments", "commontator_comments", column: "parent_id", on_update: :restrict, on_delete: :cascade
   add_foreign_key "contest_winners", "contests"
   add_foreign_key "contest_winners", "projects"
