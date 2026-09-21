@@ -58,7 +58,16 @@ describe CollaborationsController, type: :request do
       end
     end
 
-    context "user other than author is logged in" do
+    context "collaborator themselves is logged in" do
+      it "destroys collaboration allowing collaborator to leave" do
+        sign_in @collaboration.user
+        expect do
+          delete collaboration_path(@collaboration)
+        end.to change(Collaboration, :count).by(-1)
+      end
+    end
+
+    context "user other than author or collaborator is logged in" do
       it "throws unauthorized error" do
         sign_in_random_user
         delete collaboration_path(@collaboration)
