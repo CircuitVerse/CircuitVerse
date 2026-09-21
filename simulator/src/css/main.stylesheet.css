@@ -568,12 +568,19 @@ div.icon img {
     display: inline-block;
 }
 
-.custom-tooltip-styling {
+[data-title]:after{
     box-shadow: none;
     border-radius: 3px;
     font: inherit;
     font-size: 14px;
     font-weight: 100;
+    padding: 5px;
+    margin: 1px;
+    position: fixed;
+    text-align: center;
+    opacity: 0;
+    z-index: 99;
+    visibility: hidden;
 }
 
 .icon:hover {
