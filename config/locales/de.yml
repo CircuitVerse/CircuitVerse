@@ -7,6 +7,10 @@ de:
     thread_reopened: "Kommentar-Thread wieder geöffnet."
     thread_already_closed: "Kommentar-Thread ist bereits geschlossen."
     thread_already_open: "Kommentar-Thread ist bereits geöffnet."
+  activerecord:
+    attributes:
+      comment:
+        body: Kommentar
   errors:
     messages:
       double_posted: "ist ein Duplikat eines anderen Kommentars."

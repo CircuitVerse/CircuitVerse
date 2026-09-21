@@ -7,6 +7,10 @@ ar:
     thread_reopened: "تم إعادة فتح موضوع التعليق."
     thread_already_closed: "موضوع التعليق مغلق بالفعل."
     thread_already_open: "موضوع التعليق مفتوح بالفعل."
+  activerecord:
+    attributes:
+      comment:
+        body: تعليق
   errors:
     messages:
       double_posted: "هو تكرار لتعليق آخر."

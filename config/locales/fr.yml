@@ -7,6 +7,10 @@ fr:
     thread_reopened: "Sujet de commentaire réouvert."
     thread_already_closed: "Le sujet de commentaire est déjà fermé."
     thread_already_open: "Le sujet de commentaire est déjà ouvert."
+  activerecord:
+    attributes:
+      comment:
+        body: Commenter
   errors:
     messages:
       double_posted: "est un doublon d'un autre commentaire."
