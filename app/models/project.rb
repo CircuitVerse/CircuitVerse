@@ -55,7 +55,6 @@ class Project < ApplicationRecord
 
   self.per_page = 9
 
-  acts_as_commontable
   has_one :comment_thread, as: :commontable, dependent: :destroy
 
   # Mirrors the old commontator behavior: reading the thread builds one
