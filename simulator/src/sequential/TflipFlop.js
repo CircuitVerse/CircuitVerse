@@ -3,6 +3,7 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { colors } from '../themer/themer';
+import { showWarning } from '../utils';
 
 /**
  * @class
@@ -45,6 +46,9 @@ export default class TflipFlop extends CircuitElement {
      * returns true if clock is defined
      */
     isResolvable() {
+        if (this.reset.value === 1 && this.preset.value === 1) {
+            showWarning('Both reset and preset are active, avoid this conditon.');
+        }
         if (this.reset.value == 1) return true;
         if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;
         return false;
