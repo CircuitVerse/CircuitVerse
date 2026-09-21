@@ -50,6 +50,16 @@ RSpec.describe User, type: :model do
       expect(org.organization_members.find_by(user: user).role).to eq("mentor")
     end
 
+    it "creates a group membership on signup (existing behavior)" do
+      primary_mentor = FactoryBot.create(:user)
+      group = FactoryBot.create(:group, primary_mentor: primary_mentor)
+      PendingInvitation.create!(group: group, email: "grouped@example.com")
+
+      user = FactoryBot.create(:user, email: "grouped@example.com")
+
+      expect(GroupMember.find_by(group: group, user: user)).to be_present
+    end
+
     it "applies the organization invitation role even when a membership already exists" do
       org = FactoryBot.create(:organization)
       primary_mentor = FactoryBot.create(:user)
