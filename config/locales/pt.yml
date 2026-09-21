@@ -1,1 +1,10 @@
 pt:
+  comments:
+    deleted_by: "Comentário excluído por %{deleter_name}."
+    thread_closed: "Comentário fechado."
+    thread_reopened: "Comentário reaberto."
+    thread_already_closed: "Comentário já está fechado."
+    thread_already_open: "Tópico de comentário já está aberto."
+  errors:
+    messages:
+      double_posted: "é uma duplicação de um outro comentário."

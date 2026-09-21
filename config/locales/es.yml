@@ -1,6 +1,15 @@
 es:
   notifications:
     not_found: "Notificación no encontrada"
+  comments:
+    deleted_by: "Comentario eliminado por %{deleter_name}."
+    thread_closed: "Hilo de comentario cerrado."
+    thread_reopened: "Hilo de comentario reabierto."
+    thread_already_closed: "El hilo del comentario ya está cerrado."
+    thread_already_open: "El hilo del comentario ya está abierto."
+  errors:
+    messages:
+      double_posted: "es un duplicado de otro comentario."
   edit: "Editar"
   show: "Mostrar"
   delete: "Eliminar"
