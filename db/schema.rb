@@ -579,6 +579,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.check_constraint "name IS NOT NULL", name: "tags_name_null"
   end
 
+  create_table "testbenches", force: :cascade do |t|
+    t.bigint "assignment_id", null: false
+    t.jsonb "data", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["assignment_id"], name: "index_testbenches_on_assignment_id", unique: true
+  end
+
   create_table "users", force: :cascade do |t|
     t.boolean "admin", default: false
     t.datetime "confirmation_sent_at"
@@ -674,4 +682,5 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   add_foreign_key "submissions", "users"
   add_foreign_key "taggings", "projects"
   add_foreign_key "taggings", "tags"
+  add_foreign_key "testbenches", "assignments"
 end
