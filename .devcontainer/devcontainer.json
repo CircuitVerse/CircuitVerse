@@ -2,9 +2,15 @@
     "hostRequirements": {
       "cpus": 4
     },
-    "workspaceFolder": "/workspaces/CircuitVerse/",
-    "dockerComposeFile": "docker-compose.yml",
+    "workspaceFolder": "/circuitverse",
+    "dockerComposeFile": [
+      "../docker-compose.yml",
+      "docker-compose.extend.yml"
+    ],
     "service": "web",
+    "runServices": ["web", "db", "redis"],
+    "remoteUser": "user",
+    "initializeCommand": "sh .devcontainer/initialize.sh",
     "features": {
 		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
 	},
@@ -20,7 +26,9 @@
             "LoranKloeze.ruby-rubocop-revived",
             "rebornix.Ruby",
             "wingrunr21.vscode-ruby",
-            "KoichiSasada.vscode-rdbg"
+            "KoichiSasada.vscode-rdbg",
+            "EditorConfig.EditorConfig",
+            "stylelint.vscode-stylelint"
         ],
         "settings": {
             "remote.autoForwardPorts": true,
@@ -34,7 +42,15 @@
       "3000": {
         "label": "Application",
         "onAutoForward": "notify"
+      },
+      "3036": {
+        "label": "Vite dev server",
+        "onAutoForward": "silent"
+      },
+      "mailcatcher:1080": {
+        "label": "Mailcatcher",
+        "onAutoForward": "silent"
       }
     },
-    "forwardPorts": [3000]
+    "forwardPorts": [3000, 3036, "mailcatcher:1080"]
   }
