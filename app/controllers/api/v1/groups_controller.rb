@@ -33,7 +33,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
   # POST /api/v1/groups/
   def create
     @group = current_user.groups_owned.new(group_params)
-    @group.save!
     if @group.save
       render json: Api::V1::GroupSerializer.new(@group, @options), status: :created
     else
@@ -43,7 +42,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # PATCH /api/v1/groups/:id
   def update
-    @group.update!(group_params)
     if @group.update(group_params)
       render json: Api::V1::GroupSerializer.new(@group), status: :accepted
     else

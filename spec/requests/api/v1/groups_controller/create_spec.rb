@@ -31,6 +31,20 @@ RSpec.describe Api::V1::GroupsController, "#create", type: :request do
       end
     end
 
+    context "when authorized but group validation fails" do
+      before do
+        token = get_auth_token(user)
+        post "/api/v1/groups",
+             headers: { Authorization: "Token #{token}" },
+             params: { group: { name: "" } }, as: :json
+      end
+
+      it "returns status unprocessable_entity" do
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     context "when authenticated to create a group" do
       before do
         token = get_auth_token(user)
