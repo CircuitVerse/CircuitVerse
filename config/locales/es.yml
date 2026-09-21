@@ -7,6 +7,10 @@ es:
     thread_reopened: "Hilo de comentario reabierto."
     thread_already_closed: "El hilo del comentario ya está cerrado."
     thread_already_open: "El hilo del comentario ya está abierto."
+  activerecord:
+    attributes:
+      comment:
+        body: Comentario
   errors:
     messages:
       double_posted: "es un duplicado de otro comentario."

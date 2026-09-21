@@ -7,6 +7,10 @@ ja:
     thread_reopened: "コメントスレッドが再開されました。"
     thread_already_closed: "コメントスレッドは既に閉じられています。"
     thread_already_open: "コメントスレッドはすでに開いています。"
+  activerecord:
+    attributes:
+      comment:
+        body: コメント
   errors:
     messages:
       double_posted: "は別のコメントと重複しています。"
