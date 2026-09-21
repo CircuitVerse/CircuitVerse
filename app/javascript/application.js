@@ -1,12 +1,11 @@
 // Application bundle (esbuild). Replaces app/assets/javascripts/application_sprockets.js.
 // Loaded synchronously in the layout so inline <script> blocks can use these globals.
 //
-// NOTE: './jquery' and './underscore' must stay the first imports. ES modules
-// evaluate imports before the importing module's body, so globals they set
-// (window.$, window._, ...) have to be assigned in a dependency module, not in
-// this file's body, otherwise libraries evaluated earlier would see undefined.
+// NOTE: './jquery' must stay the first import. ES modules evaluate imports
+// before the importing module's body, so globals it sets (window.$, ...)
+// have to be assigned in a dependency module, not in this file's body,
+// otherwise libraries evaluated earlier would see undefined.
 import './jquery';
-
 import Rails from '@rails/ujs';
 
 Rails.start();
@@ -39,11 +38,6 @@ import select2 from 'select2';
 select2(window, jquery);
 
 import 'jquery-resizable-dom/dist/jquery-resizable.min.js';
-
-import './underscore';
-
-import './third_party/commontator/jquery.mentionsInput';
-import './third_party/commontator/mentions';
 
 import './legacy/scroll';
 import './legacy/time';
