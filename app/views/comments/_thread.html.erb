@@ -18,7 +18,7 @@
     <% end %>
   </div>
 
-  <% new_comment = comment_thread.comments.build %>
+  <% new_comment = comment_thread.comments.build(creator: current_user) %>
   <% if user_signed_in? && new_comment.can_be_created_by?(current_user) %>
     <div class="new-comment">
       <form data-comments-target="form" data-action="submit->comments#create">
