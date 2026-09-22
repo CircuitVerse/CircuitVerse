@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Admin::Contests#create failure path", type: :request do
   let(:admin) { create(:user, admin: true) }
 
-  before { sign_in admin; enable_contests! }
+  before { sign_in admin }
 
   it "re-renders the admin page with 422 when the save fails" do
     allow(Contest).to receive(:new).and_wrap_original do |m, *args, **kwargs|

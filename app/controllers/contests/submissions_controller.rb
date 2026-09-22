@@ -5,7 +5,6 @@ class Contests::SubmissionsController < ApplicationController
 
   before_action :authenticate_user!
   before_action :set_contest
-  before_action :check_contests_feature_flag
 
   def new
     @projects = current_user.projects
@@ -54,11 +53,5 @@ class Contests::SubmissionsController < ApplicationController
 
     def redirect_duplicate_submission
       redirect_to new_contest_submission_path(@contest), notice: t(".duplicate_submission", contest_id: @contest.id)
-    end
-
-    def check_contests_feature_flag
-      return if Flipper.enabled?(:contests, current_user)
-
-      redirect_to root_path, alert: t("feature_not_available")
     end
 end

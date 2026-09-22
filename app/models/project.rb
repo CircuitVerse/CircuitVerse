@@ -55,7 +55,18 @@ class Project < ApplicationRecord
 
   self.per_page = 9
 
-  acts_as_commontable
+  has_one :comment_thread, as: :commontable, dependent: :destroy
+
+  # Mirrors the old commontator behavior: reading the thread builds one
+  # on demand for persisted projects.
+  def comment_thread
+    @comment_thread ||= super
+    return @comment_thread unless @comment_thread.nil?
+
+    @comment_thread = build_comment_thread.tap do |thread|
+      thread.save! if persisted?
+    end
+  end
   # after_commit :send_mail, on: :create
 
   def increase_views(user)
