@@ -1,0 +1,284 @@
+{
+  "name": "counter-circuitdata",
+  "timePeriod": 500,
+  "clockEnabled": true,
+  "projectId": "test_counter_proj",
+  "focussedCircuit": 27443181679,
+  "orderedTabs": [
+    "27443181679"
+  ],
+  "scopes": [
+    {
+      "layout": {
+        "width": 100,
+        "height": 60,
+        "title_x": 50,
+        "title_y": 13,
+        "titleEnabled": true
+      },
+      "verilogMetadata": {
+        "isVerilogCircuit": false,
+        "isMainCircuit": false,
+        "code": "// Write Some Verilog Code Here!",
+        "subCircuitScopeIds": []
+      },
+      "allNodes": [
+        {
+          "x": -20,
+          "y": -10,
+          "type": 0,
+          "bitWidth": 4,
+          "label": "MaxValue",
+          "connections": [
+            6
+          ]
+        },
+        {
+          "x": -20,
+          "y": 10,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "Clock",
+          "connections": [
+            5
+          ]
+        },
+        {
+          "x": 0,
+          "y": 20,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "Reset",
+          "connections": [
+            7
+          ]
+        },
+        {
+          "x": 20,
+          "y": -10,
+          "type": 1,
+          "bitWidth": 4,
+          "label": "Value",
+          "connections": [
+            8
+          ]
+        },
+        {
+          "x": 20,
+          "y": 10,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "Zero",
+          "connections": [
+            9
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            1
+          ]
+        },
+        {
+          "x": 40,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 4,
+          "label": "",
+          "connections": [
+            0
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            2
+          ]
+        },
+        {
+          "x": 40,
+          "y": 0,
+          "type": 0,
+          "bitWidth": 4,
+          "label": "",
+          "connections": [
+            3
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            4
+          ]
+        }
+      ],
+      "id": 27443181679,
+      "name": "Main",
+      "Input": [
+        {
+          "x": 100,
+          "y": 150,
+          "objectType": "Input",
+          "label": "max",
+          "direction": "RIGHT",
+          "labelDirection": "LEFT",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 6
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "RIGHT",
+              4,
+              {
+                "x": 0,
+                "y": 20,
+                "id": "QttVCpMRNeV4Qtyma8DA"
+              }
+            ]
+          }
+        },
+        {
+          "x": 200,
+          "y": 300,
+          "objectType": "Input",
+          "label": "RST",
+          "direction": "UP",
+          "labelDirection": "DOWN",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 7
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "UP",
+              1,
+              {
+                "x": 0,
+                "y": 40,
+                "id": "4ahIQIB2cUejSCd9m8Aq"
+              }
+            ]
+          }
+        }
+      ],
+      "Output": [
+        {
+          "x": 320,
+          "y": 150,
+          "objectType": "Output",
+          "label": "val",
+          "direction": "LEFT",
+          "labelDirection": "RIGHT",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "inp1": 8
+            },
+            "constructorParamaters": [
+              "LEFT",
+              4,
+              {
+                "x": 100,
+                "y": 20,
+                "id": "BIFVWgGBsI9BA5ZzCv9R"
+              }
+            ]
+          }
+        },
+        {
+          "x": 320,
+          "y": 250,
+          "objectType": "Output",
+          "label": "zero",
+          "direction": "LEFT",
+          "labelDirection": "RIGHT",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "inp1": 9
+            },
+            "constructorParamaters": [
+              "LEFT",
+              1,
+              {
+                "x": 100,
+                "y": 40,
+                "id": "M92qMihYT1EcCLuZpPpM"
+              }
+            ]
+          }
+        }
+      ],
+      "Clock": [
+        {
+          "x": 100,
+          "y": 210,
+          "objectType": "Clock",
+          "label": "CLK",
+          "direction": "RIGHT",
+          "labelDirection": "LEFT",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 5
+            },
+            "constructorParamaters": [
+              "RIGHT"
+            ]
+          }
+        }
+      ],
+      "Counter": [
+        {
+          "x": 200,
+          "y": 200,
+          "objectType": "Counter",
+          "label": "",
+          "direction": "RIGHT",
+          "labelDirection": "LEFT",
+          "propagationDelay": 10,
+          "customData": {
+            "nodes": {
+              "maxValue": 0,
+              "clock": 1,
+              "reset": 2,
+              "output": 3,
+              "zero": 4
+            },
+            "constructorParamaters": [
+              4
+            ]
+          },
+          "subcircuitMetadata": {
+            "showInSubcircuit": false,
+            "showLabelInSubcircuit": true,
+            "labelDirection": "LEFT",
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "restrictedCircuitElementsUsed": [],
+      "nodes": []
+    }
+  ]
+}
