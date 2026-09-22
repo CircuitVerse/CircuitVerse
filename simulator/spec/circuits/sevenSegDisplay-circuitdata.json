@@ -1,0 +1,436 @@
+{
+  "name": "sevenSegDisplay-circuitdata",
+  "timePeriod": 500,
+  "clockEnabled": true,
+  "projectId": "test_sevenseg_proj",
+  "focussedCircuit": 82542693346,
+  "orderedTabs": [
+    "82542693346"
+  ],
+  "scopes": [
+    {
+      "layout": {
+        "width": 100,
+        "height": 180,
+        "title_x": 50,
+        "title_y": 13,
+        "titleEnabled": true
+      },
+      "verilogMetadata": {
+        "isVerilogCircuit": false,
+        "isMainCircuit": false,
+        "code": "// Write Some Verilog Code Here!",
+        "subCircuitScopeIds": []
+      },
+      "allNodes": [
+        {
+          "x": -20,
+          "y": -50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            8
+          ]
+        },
+        {
+          "x": -10,
+          "y": -50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            9
+          ]
+        },
+        {
+          "x": 10,
+          "y": -50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            10
+          ]
+        },
+        {
+          "x": 20,
+          "y": -50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            11
+          ]
+        },
+        {
+          "x": -20,
+          "y": 50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            12
+          ]
+        },
+        {
+          "x": -10,
+          "y": 50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            13
+          ]
+        },
+        {
+          "x": 10,
+          "y": 50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            14
+          ]
+        },
+        {
+          "x": 20,
+          "y": 50,
+          "type": 0,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            15
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            0
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            1
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            2
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            3
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            4
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            5
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            6
+          ]
+        },
+        {
+          "x": 10,
+          "y": 0,
+          "type": 1,
+          "bitWidth": 1,
+          "label": "",
+          "connections": [
+            7
+          ]
+        }
+      ],
+      "id": 82542693346,
+      "name": "Main",
+      "Input": [
+        {
+          "x": 180,
+          "y": 50,
+          "objectType": "Input",
+          "label": "in_g",
+          "direction": "DOWN",
+          "labelDirection": "UP",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 8
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "DOWN",
+              1,
+              {
+                "x": 0,
+                "y": 20,
+                "id": "ftpH24JdgZpSuLqbgqqw"
+              }
+            ]
+          }
+        },
+        {
+          "x": 190,
+          "y": 70,
+          "objectType": "Input",
+          "label": "in_f",
+          "direction": "DOWN",
+          "labelDirection": "UP",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 9
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "DOWN",
+              1,
+              {
+                "x": 0,
+                "y": 40,
+                "id": "8f3TTtpTWafiD7nUj1TU"
+              }
+            ]
+          }
+        },
+        {
+          "x": 210,
+          "y": 70,
+          "objectType": "Input",
+          "label": "in_a",
+          "direction": "DOWN",
+          "labelDirection": "UP",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 10
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "DOWN",
+              1,
+              {
+                "x": 0,
+                "y": 60,
+                "id": "WOsWplcOboI1NKXcX7tw"
+              }
+            ]
+          }
+        },
+        {
+          "x": 220,
+          "y": 50,
+          "objectType": "Input",
+          "label": "in_b",
+          "direction": "DOWN",
+          "labelDirection": "UP",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 11
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "DOWN",
+              1,
+              {
+                "x": 0,
+                "y": 80,
+                "id": "rWrL2dTbRL41nWhpjx0n"
+              }
+            ]
+          }
+        },
+        {
+          "x": 180,
+          "y": 350,
+          "objectType": "Input",
+          "label": "in_e",
+          "direction": "UP",
+          "labelDirection": "DOWN",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 12
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "UP",
+              1,
+              {
+                "x": 0,
+                "y": 100,
+                "id": "WgiGGvgh1Ey5oxcTfJBs"
+              }
+            ]
+          }
+        },
+        {
+          "x": 190,
+          "y": 330,
+          "objectType": "Input",
+          "label": "in_d",
+          "direction": "UP",
+          "labelDirection": "DOWN",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 13
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "UP",
+              1,
+              {
+                "x": 0,
+                "y": 120,
+                "id": "UhTLOShWG2nsYQfWkNHh"
+              }
+            ]
+          }
+        },
+        {
+          "x": 210,
+          "y": 330,
+          "objectType": "Input",
+          "label": "in_c",
+          "direction": "UP",
+          "labelDirection": "DOWN",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 14
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "UP",
+              1,
+              {
+                "x": 0,
+                "y": 140,
+                "id": "GemOUcvCOIDpiJnP2ccg"
+              }
+            ]
+          }
+        },
+        {
+          "x": 220,
+          "y": 350,
+          "objectType": "Input",
+          "label": "in_dot",
+          "direction": "UP",
+          "labelDirection": "DOWN",
+          "propagationDelay": 0,
+          "customData": {
+            "nodes": {
+              "output1": 15
+            },
+            "values": {
+              "state": 0
+            },
+            "constructorParamaters": [
+              "UP",
+              1,
+              {
+                "x": 0,
+                "y": 160,
+                "id": "Eb2E1kC0JPQ9G7UhkhEI"
+              }
+            ]
+          }
+        }
+      ],
+      "SevenSegDisplay": [
+        {
+          "x": 200,
+          "y": 200,
+          "objectType": "SevenSegDisplay",
+          "label": "",
+          "direction": "RIGHT",
+          "labelDirection": "LEFT",
+          "propagationDelay": 10,
+          "customData": {
+            "constructorParamaters": [
+              "Red"
+            ],
+            "nodes": {
+              "g": 0,
+              "f": 1,
+              "a": 2,
+              "b": 3,
+              "d": 5,
+              "e": 4,
+              "c": 6,
+              "dot": 7
+            }
+          },
+          "subcircuitMetadata": {
+            "showInSubcircuit": false,
+            "showLabelInSubcircuit": true,
+            "labelDirection": "LEFT",
+            "x": 0,
+            "y": 0
+          }
+        }
+      ],
+      "restrictedCircuitElementsUsed": [],
+      "nodes": []
+    }
+  ]
+}
