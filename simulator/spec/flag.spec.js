@@ -5,6 +5,8 @@
 import CodeMirror from 'codemirror';
 import { setup } from '../src/setup';
 import Flag from '../src/modules/Flag';
+import simulationArea from '../src/simulationArea';
+import plotArea from '../src/plotArea';
 
 jest.mock('codemirror');
 
@@ -31,8 +33,23 @@ describe('Simulator Flag Testing', () => {
         const flag = new Flag(120, 120, globalScope, 'RIGHT', 1, 'F2');
         flag.inp1.value = 0;
         flag.resolve();
+        const initialPlotTime = flag.plotValues[0][0];
+
+        // Advance simulation time until plot time changes before second resolve()
+        simulationArea.simulationQueue.time++;
+        const newPlotTime = plotArea.getPlotTime(simulationArea.simulationQueue.time);
+        expect(newPlotTime).not.toBe(initialPlotTime);
+
         flag.resolve();
         expect(flag.plotValues.length).toBe(1);
+        expect(flag.plotValues[0][0]).toBe(initialPlotTime);
+
+        // Verify that changing value at a new plot time appends
+        simulationArea.simulationQueue.time++;
+        flag.inp1.value = 1;
+        flag.resolve();
+        expect(flag.plotValues.length).toBe(2);
+        expect(flag.plotValues[1][1]).toBe(1);
     });
 
     test('Flag setIdentifier updates identifier and adjusts xSize', () => {

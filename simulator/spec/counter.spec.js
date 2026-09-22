@@ -16,7 +16,7 @@ describe('Simulator Counter Testing', () => {
     CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: () => {} });
     setup();
 
-    test('load circuitData', () => {
+    beforeAll(() => {
         expect(() => load(circuitData)).not.toThrow();
     });
 

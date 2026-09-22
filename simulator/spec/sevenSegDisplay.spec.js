@@ -34,8 +34,12 @@ describe('Simulator SevenSegDisplay Testing', () => {
     CodeMirror.fromTextArea.mockReturnValueOnce({ setValue: () => {} });
     setup();
 
+    beforeAll(() => {
+        load(circuitData);
+    });
+
     test('load circuitData', () => {
-        expect(() => load(circuitData)).not.toThrow();
+        expect(globalScope.SevenSegDisplay).toHaveLength(1);
     });
 
     test('SevenSegDisplay digit 0 pattern', () => {
