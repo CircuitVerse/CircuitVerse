@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class SearchController < ApplicationController
+  skip_after_action :verify_authorized
+
   include SearchHelper
 
   def search

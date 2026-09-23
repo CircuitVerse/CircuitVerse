@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ExploreController < ApplicationController
-  before_action :redirect_unless_enabled!
+  skip_after_action :verify_authorized
 
   MAX_TAGS          = 30
   RECENT_LIMIT      = 12
@@ -17,12 +17,6 @@ class ExploreController < ApplicationController
   end
 
   private
-
-    def redirect_unless_enabled!
-      return if Flipper.enabled?(:circuit_explore_page, current_user)
-
-      redirect_to root_path
-    end
 
     def circuit_of_the_week
       Project

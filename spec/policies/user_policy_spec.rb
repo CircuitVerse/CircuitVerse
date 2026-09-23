@@ -30,5 +30,34 @@ describe UserPolicy do
 
       it { is_expected.not_to permit(:groups) }
     end
+
+    context "user is not logged in" do
+      let(:user) { nil }
+      let(:requested_user) { @user }
+
+      it { is_expected.not_to permit(:groups) }
+    end
+  end
+
+  describe "#edit" do
+    let(:requested_user) { @user }
+
+    context "user is same as requested_user" do
+      let(:user) { @user }
+
+      it { is_expected.to permit(:edit) }
+    end
+
+    context "user is not same as requested user" do
+      let(:user) { FactoryBot.create(:user) }
+
+      it { is_expected.not_to permit(:edit) }
+    end
+
+    context "user is not logged in" do
+      let(:user) { nil }
+
+      it { is_expected.not_to permit(:edit) }
+    end
   end
 end

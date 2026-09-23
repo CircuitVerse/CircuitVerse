@@ -27,6 +27,7 @@ es:
       no_mentors_html: "No hay mentores en este grupo, haga clic en <strong>+ Añadir Mentores</strong> botón para añadir mentores."
       no_members_html: "No hay miembros en este grupo, haga clic en <strong>+ Añadir Miembros</strong> botón para añadir miembros."
       no_assignments_html: "No hay asignaciones en el grupo, haga clic en <strong>+ Añadir asignación</strong> botón para iniciar una asignación."
+      back_to_organization: "Volver a %{organization}"
       assignment:
         heading: "EJERCICIOS:"
         add_assignment_btn: "+ Añadir ejercicio"

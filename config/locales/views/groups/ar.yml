@@ -27,6 +27,7 @@ ar:
       no_mentors_html: "لا يوجد موجهون في هذه المجموعة، انقر فوق <strong>+ إضافة موجهين</strong> لإضافة موجهين."
       no_members_html: "لا يوجد أعضاء في هذه المجموعة، انقر فوق <strong>+ إضافة أعضاء</strong> لإضافة أعضاء."
       no_assignments_html: "لا توجد مهام في المجموعة، انقر فوق <strong>+ إضافة الواجب</strong> لبدء الواجب."
+      back_to_organization: "العودة إلى %{organization}"
       assignment:
         heading: "التعدادات:"
         add_assignment_btn: "+ إضافة تعيين"

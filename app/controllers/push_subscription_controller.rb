@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PushSubscriptionController < ApplicationController
+  skip_after_action :verify_authorized
+
   before_action :authenticate_user!, only: %i[create test]
   skip_before_action :verify_authenticity_token, only: %i[create test]
 

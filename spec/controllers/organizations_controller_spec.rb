@@ -59,9 +59,10 @@ RSpec.describe OrganizationsController, type: :controller do
     end
 
     context "when user does not have show access" do
-      it "returns a forbidden status" do
-        get :show, params: { id: organization.id }
-        expect(response).to have_http_status(:forbidden)
+      it "raises a not found error" do
+        expect do
+          get :show, params: { id: organization.id }
+        end.to raise_error(ActiveRecord::RecordNotFound)
       end
     end
   end

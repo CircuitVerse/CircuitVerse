@@ -28,6 +28,7 @@ ja:
     header:
       dashboard: "ダッシュボード"
       my_groups: "私のグループ"
+      link_to_organizations: "組織"
       notifications: "通知"
       language: "言語"
     mailer:

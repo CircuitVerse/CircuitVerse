@@ -37,6 +37,13 @@ Rails.application.routes.draw do
     resources :organization_members, only: %i[create update destroy]
     delete :leave, to: "organization_members#leave"
     resources :groups, only: %i[index new create show edit update destroy] do
+      resources :assignments, except: %i[index] do
+        member do
+          get :reopen
+          put :close
+          get :start
+        end
+      end  
       member do
         get "invite/:token", to: "groups#group_invite", as: "invite"
         put :generate_token
@@ -53,9 +60,9 @@ Rails.application.routes.draw do
   end
 
   resources :custom_mails, except: %i[destroy]
-  get "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
-  get "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
-                                             as: "send_custom_mail_self"
+  post "/custom_mails/send_mail/:id", to: "custom_mails#send_mail", as: "send_custom_mail"
+  post "/custom_mails/send_mail_to_self/:id", to: "custom_mails#send_mail_self",
+                                              as: "send_custom_mail_self"
 
   # grades
   scope "/grades" do
@@ -153,9 +160,7 @@ Rails.application.routes.draw do
     get 'tool_config', to: 'lti#tool_config'
   end
 
-  mount Commontator::Engine => "/commontator"
-
-  # simulator
+  # simulator (legacy URLs, redirected to canonical /users/:user_id/projects/:id/simulator)
   scope "/simulator" do
     get "/:id", to: "simulator#show", as: "simulator"
     get "/edit/:id", to: "simulator#edit", as: "simulator_edit"
@@ -177,9 +182,24 @@ Rails.application.routes.draw do
   # get 'simulator/embed_cross/:id', to: 'simulator#embed_cross', as: 'simulator_embed_cross'
 
   resources :users do
-    resources :projects, except: %i[index new]
+    resources :projects, except: %i[index new] do
+      member do
+        get "simulator", to: "simulator#show", as: "simulator"
+        get "simulator/edit", to: "simulator#edit", as: "simulator_edit"
+        get "simulator/embed", to: "simulator#embed", as: "simulator_embed"
+      end
+    end
   end
   resources :collaborations, only: %i[create destroy update]
+
+  resources :comment_threads, only: [] do
+    resources :comments, only: %i[create]
+    member do
+      patch :close
+      patch :reopen
+    end
+  end
+  resources :comments, only: %i[update destroy]
 
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")

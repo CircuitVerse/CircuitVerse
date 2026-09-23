@@ -31,6 +31,21 @@ RSpec.describe Api::V1::ProjectsController, "#toggle_star", type: :request do
       end
     end
 
+    context "when stars another user's private project" do
+      let!(:private_project) { FactoryBot.create(:project) }
+
+      before do
+        token = get_auth_token(user)
+        get "/api/v1/projects/#{private_project.id}/toggle-star",
+            headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status :forbidden" do
+        expect(response).to have_http_status(:forbidden)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     context "when stars an unstarred project" do
       before do
         token = get_auth_token(user)

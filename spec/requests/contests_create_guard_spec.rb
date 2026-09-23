@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Admin::Contests#create guard", type: :request do
   let(:admin) { create(:user, admin: true) }
 
-  before { sign_in admin; enable_contests! }
+  before { sign_in admin }
 
   it "redirects when another live contest exists" do
     create(:contest, status: :live)

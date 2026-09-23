@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::GroupsController < Api::V1::BaseController
+  skip_after_action :verify_authorized, only: %i[index groups_owned create]
+
   before_action :authenticate_user!
   before_action :set_group, except: %i[index groups_owned create]
   before_action :set_options, only: %i[index groups_owned create show update]

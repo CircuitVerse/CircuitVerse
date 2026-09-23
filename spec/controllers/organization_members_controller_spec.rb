@@ -37,17 +37,31 @@ RSpec.describe OrganizationMembersController, type: :controller do
 
   describe "POST #create" do
     context "when user has admin access" do
-      let(:valid_attributes) { { user_id: target_user.id, role: "member" } }
-
-      it "creates a new OrganizationMember" do
+      it "adds an existing user as a member with the chosen role" do
         expect do
-          post :create, params: { organization_id: organization.id, organization_member: valid_attributes }
+          post :create, params: {
+            organization_id: organization.id,
+            organization_member: { role: "mentor", emails: [target_user.email] }
+          }
         end.to change(OrganizationMember, :count).by(1)
+        expect(organization.organization_members.find_by(user: target_user).role).to eq("mentor")
       end
 
-      it "redirects to the organization" do
-        post :create, params: { organization_id: organization.id, organization_member: valid_attributes }
-        expect(response).to redirect_to(organization)
+      it "creates a pending invitation for an email with no account" do
+        expect do
+          post :create, params: {
+            organization_id: organization.id,
+            organization_member: { role: "member", emails: ["newperson@example.com"] }
+          }
+        end.to change(PendingInvitation, :count).by(1)
+      end
+
+      it "redirects to the members page" do
+        post :create, params: {
+          organization_id: organization.id,
+          organization_member: { role: "member", emails: [target_user.email] }
+        }
+        expect(response).to redirect_to(members_organization_path(organization))
       end
     end
 
@@ -62,7 +76,7 @@ RSpec.describe OrganizationMembersController, type: :controller do
       it "returns a forbidden status" do
         post :create,
              params: { organization_id: organization.id,
-                       organization_member: { user_id: target_user.id, role: "member" } }
+                       organization_member: { role: "member", emails: [target_user.email] } }
         expect(response).to have_http_status(:forbidden)
       end
     end

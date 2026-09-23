@@ -4,11 +4,14 @@ class SimulatorController < ApplicationController
   include SimulatorHelper
   include ActionView::Helpers::SanitizeHelper
 
+  skip_after_action :verify_authorized, only: %i[new create post_issue verilog_cv]
+
   before_action :authenticate_user!, only: %i[create update edit]
   before_action :set_project, only: %i[show embed get_data]
   before_action :set_user_project, only: %i[update edit]
   before_action :check_view_access, only: %i[show embed get_data]
   before_action :check_edit_access, only: %i[edit update]
+  before_action :redirect_to_canonical_url, only: %i[show edit]
   skip_before_action :verify_authenticity_token, only: %i[get_data create update verilog_cv]
   after_action :allow_iframe, only: %i[embed]
   after_action :allow_iframe_lti, only: %i[show], constraints: lambda {
@@ -103,12 +106,8 @@ class SimulatorController < ApplicationController
   end
 
   def view_issue_circuit_data
-    unless current_user&.admin?
-      render plain: "Only admins can view issue circuit data", status: :unauthorized
-      return
-    end
-
     issue_circuit_data = IssueCircuitDatum.find(params.expect(:id))
+    authorize issue_circuit_data, :admin?, policy_class: IssueCircuitDatumPolicy
     render plain: issue_circuit_data.data
   end
 
@@ -137,11 +136,7 @@ class SimulatorController < ApplicationController
       return
     end
 
-    if Flipper.enabled?(:yosys_local_gem, current_user)
-      compile_with_local_gem
-    else
-      compile_with_external_api
-    end
+    compile_with_local_gem
   end
 
   def allow_iframe_lti
@@ -152,13 +147,20 @@ class SimulatorController < ApplicationController
 
   private
 
-    def allow_iframe
-      response.headers.except! "X-Frame-Options"
+    def redirect_to_canonical_url
+      canonical_path = case action_name
+                       when "show" then simulator_user_project_path(@project.author_id, @project)
+                       when "edit" then simulator_edit_user_project_path(@project.author_id, @project)
+                       when "embed" then simulator_embed_user_project_path(@project.author_id, @project)
+      end
+      return if canonical_path.nil? || request.path == canonical_path
+
+      redirect_to "#{canonical_path}#{"?#{request.query_string}" if request.query_string.present?}",
+                  status: :moved_permanently
     end
 
-    # HTTP client with reasonable timeouts to prevent hanging
-    def http_client
-      HTTP.timeout(connect: 5, write: 10, read: 30)
+    def allow_iframe
+      response.headers.except! "X-Frame-Options"
     end
 
     def compile_with_local_gem
@@ -174,19 +176,6 @@ class SimulatorController < ApplicationController
     rescue StandardError => e
       Rails.logger.error("[Yosys Compilation Error] #{e.class}: #{e.message}\n#{e.backtrace&.first(5)&.join("\n")}")
       render json: { message: "Compilation failed" }, status: :internal_server_error
-    end
-
-    def compile_with_external_api
-      yosys_url = "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON"
-      response = http_client.post(yosys_url, json: { code: params[:code].to_s })
-      render json: JSON.parse(response.to_s), status: response.code
-    rescue HTTP::TimeoutError
-      render json: { message: "Yosys service timed out" }, status: :gateway_timeout
-    rescue HTTP::Error => e
-      Rails.logger.error("[Yosys External API Error] #{e.class}: #{e.message}")
-      render json: { message: "External API unavailable" }, status: :service_unavailable
-    rescue JSON::ParserError
-      render json: { message: "Invalid response from Yosys API" }, status: :internal_server_error
     end
 
     def set_project

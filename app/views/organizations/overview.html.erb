@@ -1,4 +1,4 @@
-<% content_for :title, @organization.name %>
+<% content_for :title, t("organizations.dashboard.page_title", organization: @organization.name, tab: t("organizations.tabs.overview")) %>
 <%= render(OrganizationDashboardShellComponent.new(organization: @organization, active_tab: "overview", show_settings_tab: policy(@organization).admin_access?)) do |shell| %>
   <% shell.with_tab_content do %>
     <header class="d-flex flex-column flex-sm-row gap-4 align-items-start mb-4">

@@ -1,1 +1,4 @@
 pt:
+  layout:
+    header:
+      link_to_organizations: "Organizações"

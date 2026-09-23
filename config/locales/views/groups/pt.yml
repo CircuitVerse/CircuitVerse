@@ -1,1 +1,4 @@
 pt:
+  groups:
+    show:
+      back_to_organization: "Voltar para %{organization}"

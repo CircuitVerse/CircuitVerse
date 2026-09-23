@@ -10,7 +10,6 @@ RSpec.describe "Admin::Contests#update", type: :request do
 
   before do
     sign_in admin
-    enable_contests!
   end
 
   it "marks the contest completed and redirects" do

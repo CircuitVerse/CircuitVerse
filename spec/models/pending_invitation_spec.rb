@@ -9,7 +9,8 @@ RSpec.describe PendingInvitation, type: :model do
   end
 
   describe "associations" do
-    it { is_expected.to belong_to(:group) }
+    it { is_expected.to belong_to(:group).optional }
+    it { is_expected.to belong_to(:organization).optional }
   end
 
   describe "callbacks" do
