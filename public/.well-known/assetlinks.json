@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "org.circuitverse.mobile_app",
+      "sha256_cert_fingerprints": [
+        "1B:ED:CE:99:DD:7C:68:11:82:90:95:9C:97:CD:60:7B:74:63:85:9D:7F:FD:BF:87:56:C1:6E:44:B6:9E:93:59"     
+      ]
+    }
+  }
+]
