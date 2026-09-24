@@ -25,40 +25,40 @@
           <% if not @project.nil? %>
              <li><a class="dropdown-item logixButton text-start ps-1" href="<%= user_project_url(@project.author, @project) %>" target="_blank">Project Page</a></li>
           <% end %>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="newProject">New Project</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="save">Save Online</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="saveOffline">Save Offline</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="createOpenLocalPrompt">Open Offline</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="ExportCircuitFiles">Export as file</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="ImportCircuitFiles">Import file</a></li>
-           <li><a class="dropdown-item logixButton text-start ps-1" id="clearProject">Clear Project</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="recoverProject">Recover Project</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="fullViewOption">Preview Circuit</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="newProject" href="javascript:void(0)">New Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="save" href="javascript:void(0)">Save Online</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="saveOffline" href="javascript:void(0)">Save Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createOpenLocalPrompt" href="javascript:void(0)">Open Offline</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ExportCircuitFiles" href="javascript:void(0)">Export as file</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="ImportCircuitFiles" href="javascript:void(0)">Import file</a></li>
+           <li><a class="dropdown-item logixButton text-start ps-1" id="clearProject" href="javascript:void(0)">Clear Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="recoverProject" href="javascript:void(0)">Recover Project</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="fullViewOption" href="javascript:void(0)">Preview Circuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.circuit") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-start logixButton ps-1" id="createNewCircuitScope">New Circuit + </a></li>
-          <li><a class="dropdown-item text-start logixButton ps-1" id="newVerilogModule">New Verilog <br> Module</a></li>
-          <li><a class="dropdown-item logixButton text-start ps-1" id="createSubCircuitPrompt">Insert SubCircuit</a></li>
+          <li><a class="dropdown-item text-start logixButton ps-1" id="createNewCircuitScope" href="javascript:void(0)">New Circuit + </a></li>
+          <li><a class="dropdown-item text-start logixButton ps-1" id="newVerilogModule" href="javascript:void(0)">New Verilog <br> Module</a></li>
+          <li><a class="dropdown-item logixButton text-start ps-1" id="createSubCircuitPrompt" href="javascript:void(0)">Insert SubCircuit</a></li>
         </ul>
       </li>
       <li class="dropdown nav-dropdown d-flex">
         <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.tools") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-          <li><a class="dropdown-item text-start ps-1 logixButton" id="createCombinationalAnalysisPrompt">Combinational<br>Analysis</a></li>
-          <li><a class="dropdown-item text-start ps-1 logixButton" id="bitconverter">Hex-Bin-Dec<br>Converter</a></li>
-          <li><a class="dropdown-item text-start ps-1 logixButton" id="createSaveAsImgPrompt">Download Image</a>
-          <li><a class="dropdown-item text-start ps-1 logixButton" id="colorThemes">Themes</a>
-          <li><a class="dropdown-item text-start ps-1" id="customShortcut">Custom Shortcut</a></li>
-          <li><a class="dropdown-item text-start ps-1 logixButton" id="generateVerilog">Export Verilog</a>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createCombinationalAnalysisPrompt" href="javascript:void(0)">Combinational<br>Analysis</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="bitconverter" href="javascript:void(0)">Hex-Bin-Dec<br>Converter</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="createSaveAsImgPrompt" href="javascript:void(0)">Download Image</a>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="colorThemes" href="javascript:void(0)">Themes</a>
+          <li><a class="dropdown-item text-start ps-1" id="customShortcut" href="javascript:void(0)">Custom Shortcut</a></li>
+          <li><a class="dropdown-item text-start ps-1 logixButton" id="generateVerilog" href="javascript:void(0)">Export Verilog</a>
         </ul>
       </li>
       <li class="dropdown tour-help nav-dropdown d-flex">
         <a href="#" class="" data-bs-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= t("simulator.nav_item.help") %><span class="caret"></span></a>
         <ul class="dropdown-menu">
-            <li><a class="dropdown-item text-start ps-1 logixButton" id="showTourGuide">Tutorial Guide</a></li>
+            <li><a class="dropdown-item text-start ps-1 logixButton " href="javascript:void(0)" id="showTourGuide">Tutorial Guide</a></li>
             <li><a class="dropdown-item text-start ps-1" href="https://docs.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">User Manual</a></li>
             <li><a class="dropdown-item text-start ps-1" href="https://learn.circuitverse.org" class="" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Learn Digital Logic</a></li>
             <li><a class="dropdown-item text-start ps-1" href="https://circuitverse.org/forum" class="forum-tab" target="_blank" role="button" aria-haspopup="true" aria-expanded="false">Discussion Forum</a></li>
