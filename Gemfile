@@ -27,6 +27,8 @@ gem "rails", "~> 8.1.3"
 gem "puma", "~> 8.0.2"
 # Use SCSS for stylesheets (compiled via cssbundling-rails + dart-sass, see package.json build:css)
 gem "cssbundling-rails", "~> 1.0"
+# Static asset server (fingerprints + serves app/assets). Replaces sprockets-rails.
+gem "propshaft"
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
@@ -36,8 +38,6 @@ gem 'redcarpet', '~> 3.3', '>= 3.3.4'
 gem "jbuilder", "~> 2.15"
 
 gem "devise"
-
-gem "commontator", "~> 7.0.0"
 
 # To generate sitemap.xml
 gem "sitemap_generator"
@@ -106,11 +106,9 @@ gem "jsonapi-serializer"
 gem "jwt", "~> 3.2.0"
 gem "rails-i18n", "~> 8.1.0"
 gem "recaptcha"
-gem "simple_discussion", github: "CircuitVerse/simple_discussion"
-# NOTE: sprockets-rails is intentionally not a direct dependency anymore. App JS/CSS
-# is bundled with jsbundling-rails (esbuild) + cssbundling-rails (dart-sass) into
-# app/assets/builds. sprockets-rails remains in the bundle only as a transitive
-# dependency of commontator until that engine supports propshaft.
+# NOTE: sprockets-rails is gone. App JS/CSS is bundled with
+# jsbundling-rails (esbuild) + cssbundling-rails (dart-sass) into
+# app/assets/builds and served by propshaft.
 gem "strong_migrations"
 gem 'rails-data-migrations', github: 'notarize/rails-data-migrations'
 

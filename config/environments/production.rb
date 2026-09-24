@@ -45,8 +45,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # App JS/CSS is bundled by esbuild/dart-sass into app/assets/builds and served
-  # precompiled; never compile live in production.
-  config.assets.compile = false
+  # precompiled by Propshaft.
 
   # Log configuration
   config.log_tags = [:request_id]

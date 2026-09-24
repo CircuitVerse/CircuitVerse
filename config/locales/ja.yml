@@ -1,6 +1,19 @@
 ja:
   notifications:
     not_found: "通知が見つかりません"
+  comments:
+    deleted_by: "%{deleter_name} によって削除されたコメント"
+    thread_closed: "コメントスレッドが閉じられました。"
+    thread_reopened: "コメントスレッドが再開されました。"
+    thread_already_closed: "コメントスレッドは既に閉じられています。"
+    thread_already_open: "コメントスレッドはすでに開いています。"
+  activerecord:
+    attributes:
+      comment:
+        body: コメント
+  errors:
+    messages:
+      double_posted: "は別のコメントと重複しています。"
   edit: "編集"
   show: "表示"
   delete: "削除"

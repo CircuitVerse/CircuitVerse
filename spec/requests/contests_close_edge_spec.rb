@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Admin::Contests#update edge-cases", type: :request do
   let(:admin) { create(:user, admin: true) }
 
-  before { sign_in admin; enable_contests! }
+  before { sign_in admin }
 
   context "when the contest is already completed" do
     let(:contest) { create(:contest, status: :completed) }

@@ -4,7 +4,6 @@ class Admin::ContestsController < ApplicationController
   include AdminAuthorizable
 
   before_action :authenticate_user!
-  before_action :check_contests_feature_flag
   before_action :authorize_admin
 
   def index
@@ -75,11 +74,5 @@ class Admin::ContestsController < ApplicationController
       return redirect_to(admin_contests_path, alert: t(".invalid_deadline")) if parsed.nil?
 
       parsed
-    end
-
-    def check_contests_feature_flag
-      return if Flipper.enabled?(:contests, current_user)
-
-      redirect_to root_path, alert: t("feature_not_available")
     end
 end

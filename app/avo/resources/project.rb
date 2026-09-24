@@ -52,7 +52,7 @@ class Avo::Resources::Project < Avo::BaseResource
     field :project_datum, as: :has_one
     field :contest_winner, as: :has_one
     field :submissions, as: :has_many
-    field :commontator_thread, as: :has_one
+    field :comment_thread, as: :has_one
 
     field :created_at, as: :date_time, readonly: true, sortable: true, hide_on: %i[new edit]
     field :updated_at, as: :date_time, readonly: true, sortable: true, hide_on: %i[new edit]
