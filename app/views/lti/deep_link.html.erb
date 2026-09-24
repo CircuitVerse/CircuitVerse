@@ -1,0 +1,50 @@
+<% content_for :title, t("deep_link.title") %>
+<div class="container">
+  <h2 class="main-heading"><%= t("deep_link.title") %></h2>
+  <p class="main-description"><%= t("deep_link.description") %></p>
+
+  <%= form_with url: deep_link_path, method: :post do |form| %>
+    <%= hidden_field_tag :settings, params[:settings] %>
+
+    <h3><%= t("deep_link.circuits") %></h3>
+    <% if @projects.any? %>
+      <% @projects.each do |project| %>
+        <div class="form-check">
+          <%= radio_button_tag :content, "project:#{project.id}", false, class: "form-check-input" %>
+          <%= label_tag "content_project:#{project.id}", project.name, class: "form-check-label" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= t("deep_link.no_circuits") %></p>
+    <% end %>
+
+    <h3><%= t("deep_link.assignments") %></h3>
+    <% if @assignments.any? %>
+      <% @assignments.each do |assignment| %>
+        <div class="form-check">
+          <%= radio_button_tag :content, "assignment:#{assignment.id}", false, class: "form-check-input" %>
+          <%= label_tag "content_assignment:#{assignment.id}", assignment.name, class: "form-check-label" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= t("deep_link.no_assignments") %></p>
+    <% end %>
+
+    <h3><%= t("deep_link.templates") %></h3>
+    <% if @templates.any? %>
+      <% @templates.each do |template| %>
+        <div class="form-check">
+          <%= radio_button_tag :content, "project:#{template.id}", false, class: "form-check-input" %>
+          <%= label_tag "content_project:#{template.id}", template.name, class: "form-check-label" %>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= t("deep_link.no_templates") %></p>
+    <% end %>
+
+    <%# The response endpoint that receives this selection lands in a follow-up
+        PR; until it is routed there is nowhere for the form to post. %>
+    <%= form.submit t("deep_link.embed"), class: "btn primary-button mt-3", disabled: true %>
+    <p class="mt-2"><%= t("deep_link.embed_unavailable") %></p>
+  <% end %>
+</div>

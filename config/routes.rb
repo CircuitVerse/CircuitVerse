@@ -158,6 +158,7 @@ Rails.application.routes.draw do
     match 'launch', to: 'lti#launch', via: [:get, :post]
     get 'jwks', to: 'lti#jwks'
     get 'tool_config', to: 'lti#tool_config'
+    get 'deep_link', to: 'lti#deep_link'
   end
 
   # simulator (legacy URLs, redirected to canonical /users/:user_id/projects/:id/simulator)
