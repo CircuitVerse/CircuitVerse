@@ -11,33 +11,13 @@ class CollaborationsController < ApplicationController
   # POST /collaborations.json
   def create
     @project = Project.find(collaboration_params[:project_id])
-
-    # if(not @project.assignment_id.nil?)
-    #   render plain: "Assignments cannot have collaborators. Please contact admin." and return
-    # end
     authorize @project, :author_access?
 
-    already_present = User.where(id: @project.collaborations.pluck(:user_id)).pluck(:email)
-    collaboration_emails = collaboration_params[:emails].grep(Devise.email_regexp)
-
-    newly_added = collaboration_emails - already_present
-
-    newly_added.each do |email|
-      email = email.strip
-      user = User.find_by(email: email)
-      if user.nil?
-        # PendingInvitation.where(group_id:@group.id,email:email).first_or_create
-      else
-        Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
-      end
-    end
-
-    notice = Utils.mail_notice(collaboration_params[:emails], collaboration_emails, newly_added)
-
-    notice = "You can't invite yourself. #{notice}" if collaboration_params[:emails].include?(current_user.email)
+    results = process_collaboration_emails(collaboration_params[:emails])
+    notice = build_collaboration_notice(results)
 
     respond_to do |format|
-      format.html { redirect_to user_project_path(@project.author_id, @project.id), notice: notice }
+      format.html { redirect_to user_project_path(@project.author, @project), notice: notice }
     end
   end
 
@@ -67,7 +47,7 @@ class CollaborationsController < ApplicationController
     @collaboration.destroy
     respond_to do |format|
       format.html do
-        redirect_to user_project_path(@collaboration.project.author_id, @collaboration.project_id),
+        redirect_to user_project_path(@collaboration.project.author, @collaboration.project),
                     notice: "Collaboration was successfully destroyed."
       end
       format.json { head :no_content }
@@ -84,5 +64,78 @@ class CollaborationsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def collaboration_params
       params.expect(collaboration: [:user_id, :project_id, { emails: [] }])
+    end
+
+    def process_collaboration_emails(input_emails)
+      results = {
+        added: 0,
+        not_registered: [],
+        invalid_emails: [],
+        already_present: 0,
+        self_invite: false
+      }
+
+      return results if input_emails.blank?
+
+      already_collaborator_emails = User.where(id: @project.collaborations.pluck(:user_id))
+                                        .pluck(:email).map(&:downcase)
+
+      input_emails.each do |raw_email|
+        email = raw_email.to_s.strip.downcase
+
+        # Check for invalid email format
+        unless email.match?(Devise.email_regexp)
+          results[:invalid_emails] << raw_email if raw_email.present?
+          next
+        end
+
+        # Check for self-invite (MUST NOT add to collaborators)
+        if email == current_user.email.downcase
+          results[:self_invite] = true
+          next
+        end
+
+        # Check if already a collaborator
+        if already_collaborator_emails.include?(email)
+          results[:already_present] += 1
+          next
+        end
+
+        # Look up user in database
+        user = User.find_by(email: email)
+        if user.nil?
+          results[:not_registered] << email
+        else
+          Collaboration.where(project_id: @project.id, user_id: user.id).first_or_create
+          results[:added] += 1
+          already_collaborator_emails << email # Prevent duplicates in same batch
+        end
+      end
+
+      results
+    end
+
+    def build_collaboration_notice(results)
+      parts = []
+
+      parts << "#{results[:added]} collaborator(s) added." if results[:added].positive?
+
+      if results[:not_registered].any?
+        results[:not_registered].each do |email|
+          parts << "#{email}: not authorized with circuitverse."
+        end
+      end
+
+      if results[:invalid_emails].any?
+        results[:invalid_emails].each do |email|
+          parts << "#{email}: invalid credentials."
+        end
+      end
+
+      parts << "You can't add yourself." if results[:self_invite]
+
+      parts << "#{results[:already_present]} user(s) already collaborator(s)." if results[:already_present].positive?
+
+      parts.empty? ? "No changes made." : parts.join(" ")
     end
 end
