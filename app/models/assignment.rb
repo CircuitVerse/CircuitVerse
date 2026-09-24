@@ -17,6 +17,7 @@ class Assignment < ApplicationRecord
   enum :grading_scale, { no_scale: 0, letter: 1, percent: 2, custom: 3 }
   default_scope { order(deadline: :asc) }
   has_many :grades, dependent: :destroy
+  has_one :testbench, dependent: :destroy, autosave: true
 
   has_noticed_notifications model_name: "NoticedNotification", dependent: :destroy
 
@@ -68,6 +69,26 @@ class Assignment < ApplicationRecord
     lti_consumer_key.present? && lti_shared_secret.present?
   end
 
+  # Blank clears the suite; nil (field absent) leaves it untouched.
+  def testbench_data=(json)
+    return if json.nil?
+
+    if !json.is_a?(String)
+      invalidate_testbench_data!
+    elsif json.blank?
+      testbench&.mark_for_destruction
+    else
+      parsed = parse_testbench_suite(json)
+      (testbench || build_testbench).data = parsed if parsed
+    end
+  end
+
+  validate :testbench_data_parsed
+
+  def testbench_data_parsed
+    errors.add(:testbench, "must be valid JSON with a groups array") if @testbench_data_invalid
+  end
+
   def project_order
     projects.includes(:grade, :author).sort_by { |p| p.author.name }
                                       .map { |project| ProjectDecorator.new(project) }
@@ -86,4 +107,27 @@ class Assignment < ApplicationRecord
       end
     end
   end
+
+  private
+
+    def parse_testbench_suite(json)
+      parsed = JSON.parse(json)
+      groups = parsed["groups"] if parsed.is_a?(Hash)
+      return parsed if groups.is_a?(Array) && valid_testbench_groups?(groups)
+
+      invalidate_testbench_data!
+      nil
+    rescue JSON::ParserError
+      invalidate_testbench_data!
+      nil
+    end
+
+    def valid_testbench_groups?(groups)
+      valid_pins = ->(pins) { pins.is_a?(Array) && pins.all? { |p| p.is_a?(Hash) && p["label"].is_a?(String) } }
+      groups.all? { |g| g.is_a?(Hash) && valid_pins.call(g["inputs"]) && valid_pins.call(g["outputs"]) }
+    end
+
+    def invalidate_testbench_data!
+      @testbench_data_invalid = true
+    end
 end

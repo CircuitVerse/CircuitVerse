@@ -64,5 +64,43 @@ RSpec.describe Assignment, type: :model do
           .to eq(@projects.map { |p| p.author.name }.sort)
       end
     end
+
+    describe "#testbench_data=" do
+      let(:suite) do
+        { "type" => "comb",
+          "groups" => [{ "label" => "Case 1", "n" => 1,
+                         "inputs" => [{ "label" => "a", "bitWidth" => 1, "values" => ["1"] }],
+                         "outputs" => [{ "label" => "out", "bitWidth" => 1, "values" => ["1"] }] }] }
+      end
+
+      it "builds a testbench from serialised JSON" do
+        @assignment.testbench_data = suite.to_json
+        expect(@assignment).to be_valid
+        expect(@assignment.testbench.data).to eq(suite)
+      end
+
+      it "leaves the testbench untouched when the field is absent" do
+        @assignment.testbench_data = suite.to_json
+        @assignment.save!
+        @assignment.testbench_data = nil
+        expect(@assignment.testbench).to be_present
+      end
+
+      it "removes the testbench when serialised as blank" do
+        @assignment.testbench_data = suite.to_json
+        @assignment.save!
+        @assignment.testbench_data = ""
+        @assignment.save!
+        expect(@assignment.reload.testbench).to be_nil
+      end
+
+      it "rejects malformed or invalid testbench data" do
+        ["{not json", { "groups" => [nil] }.to_json].each do |input|
+          @assignment.testbench_data = input
+          expect(@assignment).not_to be_valid
+          expect(@assignment.errors[:testbench]).to include("must be valid JSON with a groups array")
+        end
+      end
+    end
   end
 end
