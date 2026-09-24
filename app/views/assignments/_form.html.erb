@@ -69,6 +69,20 @@
     <div class="restricted-feature-list"> <!-- Operated by script --> </div>
   </div>
 
+  <div id="autograde-settings-field" class="field mb-3">
+    <label class="primary-checkpoint-container"><h6><%= t("assignments.form.partial_credit") %></h6>
+      <%= form.check_box :partial_credit %>
+      <div class="primary-checkpoint"></div>
+    </label>
+    <label class="primary-checkpoint-container"><h6><%= t("assignments.form.reveal_test_cases") %></h6>
+      <%= form.check_box :reveal_test_cases %>
+      <div class="primary-checkpoint"></div>
+    </label>
+    <h6><%= form.label :max_attempts, t("assignments.form.max_attempts") %></h6>
+    <%= form.number_field :max_attempts, min: 1, class: "form-control form-input" %>
+  </div>
+
+
   <div class="field mb-3">
     <%= form.submit class: "btn primary-button" %> &nbsp;
     <%= link_to t("back"), :back, class: "anchor-text" %>

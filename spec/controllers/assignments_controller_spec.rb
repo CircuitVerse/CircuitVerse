@@ -168,6 +168,23 @@ describe AssignmentsController, type: :request do
         expect(response.body).to eq("You are not authorized to do the requested operation")
       end
     end
+
+    it "updates the autograde settings" do
+      sign_in @primary_mentor
+      put group_assignment_path(@group, @assignment), params: {
+        assignment: { partial_credit: true, max_attempts: 3, reveal_test_cases: true }
+      }
+      @assignment.reload
+      expect(@assignment.partial_credit).to be(true)
+      expect(@assignment.max_attempts).to eq(3)
+      expect(@assignment.reveal_test_cases).to be(true)
+    end
+
+    it "rejects a non-positive max_attempts" do
+      sign_in @primary_mentor
+      put group_assignment_path(@group, @assignment), params: { assignment: { max_attempts: 0 } }
+      expect(@assignment.reload.max_attempts).to be_nil
+    end
   end
 
   describe "#check_reopening_status" do
@@ -203,6 +220,20 @@ describe AssignmentsController, type: :request do
           { description: "new description" } }
         @project.reload
         expect(@project.project_submission).to be(false)
+      end
+    end
+
+    context "when the update fails validation" do
+      before do
+        @project = create(:project, author: @member)
+        @forked_project = create(:project,
+                                 author: @member, forked_project: @project, assignment:
+                                  @assignment, project_submission: true)
+      end
+
+      it "does not touch the forked project" do
+        put group_assignment_path(@group, @assignment), params: { assignment: { max_attempts: 0 } }
+        expect(Project.find_by(id: @forked_project.id)).to be_present
       end
     end
   end
