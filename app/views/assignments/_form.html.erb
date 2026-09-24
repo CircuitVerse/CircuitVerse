@@ -1,7 +1,15 @@
 <link rel="stylesheet" type="text/css" href="/css/restrictedElements.css">
 <script src="/js/metadata.json"></script>
 
-<%= form_with(model: [group, @assignment], local: true, html: { onsubmit: "beforeSubmit()" }, multipart: true, id: "assignmentForm", "data-controller": "assignment") do |form| %>
+<%= form_with(model: [group, @assignment], local: true, multipart: true, id: "assignmentForm",
+              html: {
+                onsubmit: "beforeSubmit()",
+                data: {
+                  controller: "assignment test-cases",
+                  action: "submit->test-cases#serialize",
+                  "test-cases-type-value": test_case_suite_type(@assignment)
+                }
+              }) do |form| %>
   <% if @assignment.errors.any? %>
     <div class="error-message">
       <ul>
@@ -67,6 +75,42 @@
       <div class="primary-checkpoint" data-action="click->assignment#handleFeatureMainCheckbox"></div>
     </label>
     <div class="restricted-feature-list"> <!-- Operated by script --> </div>
+  </div>
+
+  <div id="test-cases-field" class="field mb-3">
+    <h6><%= t("assignments.form.test_cases") %></h6>
+    <% if test_case_editable?(@assignment) %>
+      <small class="form-text text-muted"><%= t("assignments.form.test_cases_help") %></small>
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th scope="col"><%= t("assignments.form.test_case_name") %></th>
+            <th scope="col"><%= t("assignments.form.test_case_inputs") %></th>
+            <th scope="col"><%= t("assignments.form.test_case_outputs") %></th>
+            <th scope="col"><%= t("assignments.form.test_case_hidden") %></th>
+            <th scope="col"><span class="visually-hidden"><%= t("assignments.form.test_case_actions") %></span></th>
+          </tr>
+        </thead>
+        <tbody data-test-cases-target="list">
+          <% (test_case_groups(@assignment).presence || [nil]).each do |test_case| %>
+            <tr>
+              <td><input type="text" class="form-control test-case-label" aria-label="<%= t("assignments.form.test_case_name") %>" value="<%= test_case&.dig("label") %>"></td>
+              <td><input type="text" class="form-control test-case-inputs" aria-label="<%= t("assignments.form.test_case_inputs") %>" value="<%= test_case_pins_to_text(test_case&.dig("inputs")) %>" placeholder="a=1,b:2=3"></td>
+              <td><input type="text" class="form-control test-case-outputs" aria-label="<%= t("assignments.form.test_case_outputs") %>" value="<%= test_case_pins_to_text(test_case&.dig("outputs")) %>" placeholder="sum=1"></td>
+              <td class="text-center"><input type="checkbox" class="test-case-hidden" aria-label="<%= t("assignments.form.test_case_hidden") %>" <%= "checked" if test_case&.dig("hidden") %>></td>
+              <td><button type="button" class="btn btn-sm btn-outline-danger" aria-label="<%= t("assignments.form.remove_test_case") %>" data-action="test-cases#remove">&times;</button></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <p class="text-danger d-none" role="alert" data-test-cases-target="error"><%= t("assignments.form.test_case_incomplete") %></p>
+      <button type="button" class="btn btn-sm btn-outline-secondary" data-action="test-cases#add">
+        <%= t("assignments.form.add_test_case") %>
+      </button>
+      <%= hidden_field_tag "assignment[testbench_data]", nil, data: { "test-cases-target": "output" } %>
+    <% else %>
+      <small class="form-text text-muted"><%= t("assignments.form.test_cases_not_editable") %></small>
+    <% end %>
   </div>
 
   <div class="field mb-3">
