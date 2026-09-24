@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+# Kamal 2.0 — Post-deploy Hook
+# =============================
+# Runs after a deploy, redeploy, or rollback completes successfully.
+# Use this for deployment notifications, APM registration, etc.
+#
+# Additional variable available:
+#   KAMAL_RUNTIME — Total deployment time in seconds
+#
+# Available KAMAL_* environment variables:
+#   KAMAL_RECORDED_AT, KAMAL_PERFORMER, KAMAL_SERVICE, KAMAL_VERSION,
+#   KAMAL_SERVICE_VERSION, KAMAL_HOSTS, KAMAL_COMMAND, KAMAL_SUBCOMMAND,
+#   KAMAL_DESTINATION, KAMAL_ROLE, KAMAL_RUNTIME
+
+set -e
+
+echo "=============================================="
+echo "[post-deploy] Deployment Complete!"
+echo "=============================================="
+echo "[post-deploy] Service:   ${KAMAL_SERVICE_VERSION}"
+echo "[post-deploy] Command:   ${KAMAL_COMMAND} ${KAMAL_SUBCOMMAND}"
+echo "[post-deploy] Hosts:     ${KAMAL_HOSTS}"
+echo "[post-deploy] Performer: ${KAMAL_PERFORMER}"
+echo "[post-deploy] Runtime:   ${KAMAL_RUNTIME}s"
+echo "[post-deploy] Timestamp: ${KAMAL_RECORDED_AT}"
+echo "=============================================="
+
+# --- Optional: Slack Notification ---
+# Set SLACK_DEPLOY_HOOK_URL in your environment to enable Slack notifications.
+if [ -n "$SLACK_DEPLOY_HOOK_URL" ]; then
+  echo "[post-deploy] Sending Slack notification..."
+  curl -s --show-error --connect-timeout 5 --max-time 15 \
+    -X POST "$SLACK_DEPLOY_HOOK_URL" \
+    -H 'Content-type: application/json' \
+    -d "{\"text\":\"[CircuitVerse] ${KAMAL_PERFORMER} deployed ${KAMAL_SERVICE_VERSION} to ${KAMAL_HOSTS} in ${KAMAL_RUNTIME}s\"}" \
+    || echo "[post-deploy] WARNING: Slack notification failed (non-critical)."
+fi
+
+# --- Optional: Sentry Release Tracking ---
+# Set SENTRY_AUTH_TOKEN and SENTRY_ORG/SENTRY_PROJECT in your environment to enable.
+if [ -n "$SENTRY_AUTH_TOKEN" ] && command -v sentry-cli &> /dev/null; then
+  echo "[post-deploy] Registering release with Sentry..."
+  sentry-cli releases new "${KAMAL_VERSION}" \
+    --org "${SENTRY_ORG:-circuitverse}" \
+    --project "${SENTRY_PROJECT:-circuitverse}" \
+    || echo "[post-deploy] WARNING: Sentry release registration failed (non-critical)."
+  sentry-cli releases set-commits "${KAMAL_VERSION}" --auto \
+    || echo "[post-deploy] WARNING: Sentry set-commits failed (non-critical)."
+  sentry-cli releases finalize "${KAMAL_VERSION}" \
+    || echo "[post-deploy] WARNING: Sentry finalize failed (non-critical)."
+fi
+
+echo "[post-deploy] All post-deploy actions finished."

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+# Kamal 2.0 — Pre-app-boot Hook
+# ==============================
+# Runs before the app container boots (via `kamal app boot` or `kamal deploy`).
+# With grouped boot strategy, this runs once per group with KAMAL_HOSTS
+# containing the servers in that group.
+#
+# Note: Database migrations are handled by bin/docker-entrypoint (db:prepare),
+# so no migration logic is needed here.
+#
+# Available KAMAL_* environment variables:
+#   KAMAL_RECORDED_AT, KAMAL_PERFORMER, KAMAL_SERVICE, KAMAL_VERSION,
+#   KAMAL_SERVICE_VERSION, KAMAL_HOSTS, KAMAL_COMMAND, KAMAL_DESTINATION, KAMAL_ROLE
+
+set -e
+
+echo "[pre-app-boot] Preparing to boot ${KAMAL_SERVICE_VERSION}..."
+echo "[pre-app-boot] Target hosts: ${KAMAL_HOSTS}"
+echo "[pre-app-boot] Role: ${KAMAL_ROLE:-all}"
+echo "[pre-app-boot] Performer: ${KAMAL_PERFORMER}"
+
+# Add any pre-boot checks here. For example:
+# - Verify external services are reachable
+# - Run pre-boot data validation
+# - Check required env vars are set
+
+echo "[pre-app-boot] Pre-boot checks complete. Proceeding to boot..."
