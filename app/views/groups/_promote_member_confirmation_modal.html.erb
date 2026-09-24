@@ -10,8 +10,11 @@
         <%= t("groups.add_mentor_description_html") %>
       </div>
       <div class="modal-footer">
-        <%= button_to "#", params: { group_member: { mentor: true } }, method: :patch, class: "btn primary-button", id: "groups-member-promote-button" do %>
-          <%= t("groups.make_mentor") %>
+        <%# Form action is set dynamically by JavaScript when modal opens %>
+        <%# The action MUST point to /group_members/:id for GroupMembersController#update %>
+        <%= form_with url: "#", method: :patch, id: "promote-member-form", local: true, data: { turbo: false } do |f| %>
+          <%= hidden_field_tag "group_member[mentor]", "true" %>
+          <%= f.submit t("groups.make_mentor"), class: "btn primary-button", id: "groups-member-promote-button" %>
         <% end %>
       </div>
     </div>
@@ -30,8 +33,11 @@
         <%= t("groups.add_mentor_description_html") %>
       </div>
       <div class="modal-footer">
-        <%= button_to "#", params: { group_member: { mentor: false } }, method: :patch, class: "btn primary-button", id: "groups-member-demote-button" do %>
-          <%= t("groups.make_member") %>
+        <%# Form action is set dynamically by JavaScript when modal opens %>
+        <%# The action MUST point to /group_members/:id for GroupMembersController#update %>
+        <%= form_with url: "#", method: :patch, id: "demote-member-form", local: true, data: { turbo: false } do |f| %>
+          <%= hidden_field_tag "group_member[mentor]", "false" %>
+          <%= f.submit t("groups.make_member"), class: "btn primary-button", id: "groups-member-demote-button" %>
         <% end %>
       </div>
     </div>
