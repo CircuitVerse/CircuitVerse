@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_25_065304) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -95,7 +95,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.datetime "deadline", null: false
     t.text "description"
     t.jsonb "feature_restrictions", default: {}
-    t.boolean "grades_finalized", default: false
+    t.boolean "grades_finalized", default: false, null: false
     t.integer "grading_scale", default: 0
     t.bigint "group_id"
     t.string "lti_consumer_key"
@@ -219,7 +219,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   create_table "custom_mails", force: :cascade do |t|
     t.text "content"
     t.datetime "created_at", precision: nil, null: false
-    t.boolean "sent", default: false
+    t.boolean "sent", default: false, null: false
     t.text "subject"
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
@@ -301,7 +301,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   create_table "group_members", force: :cascade do |t|
     t.datetime "created_at", precision: nil, null: false
     t.bigint "group_id"
-    t.boolean "mentor", default: false
+    t.boolean "mentor", default: false, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.bigint "user_id"
     t.index ["group_id", "user_id"], name: "index_group_members_on_group_id_and_user_id", unique: true
@@ -484,7 +484,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.string "lis_result_sourced_id"
     t.string "name"
     t.string "project_access_type", default: "Public"
-    t.boolean "project_submission", default: false
+    t.boolean "project_submission", default: false, null: false
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, COALESCE(description, ''::text)), 'B'::\"char\"))", stored: true
     t.string "slug"
     t.integer "stars_count", default: 0, null: false
@@ -537,7 +537,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.bigint "submission_votes_count", default: 0
     t.datetime "updated_at", null: false
     t.bigint "user_id"
-    t.boolean "winner", default: false
+    t.boolean "winner", default: false, null: false
     t.index ["contest_id"], name: "index_submissions_on_contest_id"
     t.index ["project_id"], name: "index_submissions_on_project_id"
     t.index ["user_id"], name: "index_submissions_on_user_id"
@@ -580,7 +580,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.boolean "admin", default: false
+    t.boolean "admin", default: false, null: false
     t.datetime "confirmation_sent_at"
     t.string "confirmation_token"
     t.datetime "confirmed_at"
@@ -606,7 +606,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_20_080000) do
     t.string "reset_password_token"
     t.virtual "searchable", type: :tsvector, as: "(setweight(to_tsvector('english'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('english'::regconfig, (COALESCE(educational_institute, ''::character varying))::text), 'B'::\"char\"))", stored: true
     t.integer "sign_in_count", default: 0, null: false
-    t.boolean "subscribed", default: true
+    t.boolean "subscribed", default: true, null: false
     t.string "uid"
     t.string "unconfirmed_email"
     t.datetime "updated_at", precision: nil, null: false
