@@ -27,7 +27,7 @@ describe('Hotkey Binder Utils', () => {
         expect(getOS()).toBe('Windows');
 
         Object.defineProperty(global, 'navigator', {
-            value: { appVersion: 'Mozilla/5.0 (X11; Linux x86_64)' },
+            value: { appVersion: 'Mozilla/5.0 (X11; FreeBSD amd64)' },
             writable: true,
             configurable: true,
         });
