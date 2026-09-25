@@ -160,8 +160,6 @@ Rails.application.routes.draw do
     get 'tool_config', to: 'lti#tool_config'
   end
 
-  mount Commontator::Engine => "/commontator"
-
   # simulator (legacy URLs, redirected to canonical /users/:user_id/projects/:id/simulator)
   scope "/simulator" do
     get "/:id", to: "simulator#show", as: "simulator"
@@ -193,6 +191,15 @@ Rails.application.routes.draw do
     end
   end
   resources :collaborations, only: %i[create destroy update]
+
+  resources :comment_threads, only: [] do
+    resources :comments, only: %i[create]
+    member do
+      patch :close
+      patch :reopen
+    end
+  end
+  resources :comments, only: %i[update destroy]
 
   # redirects
   get "/facebook", to: redirect("https://www.facebook.com/CircuitVerse")

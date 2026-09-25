@@ -3,7 +3,6 @@
 class User < ApplicationRecord
   mailkick_user
   require "pg_search"
-  include SimpleDiscussion::ForumUser
 
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
   self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size
@@ -26,7 +25,7 @@ class User < ApplicationRecord
   has_many :organizations, through: :organization_members
   has_many :groups, through: :group_members
   has_many :grades
-  acts_as_commontator
+  has_many :comment_subscriptions, as: :subscriber, dependent: :destroy
   has_many :submissions, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: "project", through: :collaborations
@@ -62,13 +61,23 @@ class User < ApplicationRecord
 
   def create_members_from_invitations
     pending_invitations.reload.each do |invitation|
-      group = invitation.group
-      ActiveRecord::Base.transaction do
-        GroupMember.where(group_id: group.id, user_id: id).first_or_create!
-        group.add_member_to_organization(self)
-        invitation.destroy!
-      end
+      ActiveRecord::Base.transaction { accept_invitation(invitation) }
     end
+  end
+
+  def accept_invitation(invitation)
+    if invitation.group_id.present?
+      group = invitation.group
+      GroupMember.where(group_id: group.id, user_id: id).first_or_create!
+      group.add_member_to_organization(self)
+    elsif invitation.organization_id.present?
+      membership = OrganizationMember.find_or_initialize_by(
+        organization_id: invitation.organization_id, user_id: id
+      )
+      membership.role = invitation.role || OrganizationMember.roles[:member]
+      membership.save!
+    end
+    invitation.destroy!
   end
 
   def self.from_omniauth(access_token)

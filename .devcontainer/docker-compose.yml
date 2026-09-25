@@ -1,26 +1,54 @@
-version: "3.1"
 services:
   db:
-    image: postgres
+    image: postgres:17-alpine
     environment:
       POSTGRES_DB: circuitverse_development
       POSTGRES_PASSWORD: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   web:
     build:
       context: .
       dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+      mailcatcher:
+        condition: service_started
     environment:
       REDIS_URL: "redis://redis:6379/0"
       CIRCUITVERSE_USE_SOLR: "false"
       DOCKER_ENVIRONMENT: "true"
       DEV_CONTAINER: "true"
+      BUNDLE_PATH: /usr/local/bundle
+      YARN_CACHE_FOLDER: /usr/local/share/yarn-cache
     volumes:
-    - ..:/workspaces/CircuitVerse
+      - ..:/workspaces/CircuitVerse
+      - bundle-cache:/usr/local/bundle
+      - yarn-cache:/usr/local/share/yarn-cache
     command: sleep infinity
   redis:
-    image: redis:7.0-alpine
+    image: redis:8-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+  mailcatcher:
+    # Mailpit binary is ~20MB; service name keeps
+    # config/environments/development.rb address "mailcatcher" working.
+    image: axllent/mailpit
+    expose:
+      - "8025"
+      - "1025"
+volumes:
+  postgres-data:
+  bundle-cache:
+  yarn-cache:
