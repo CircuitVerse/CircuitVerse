@@ -62,13 +62,14 @@ cd CircuitVerse
      ```bash
      sudo apt install openssl
      ```
-- libpq-dev
-     ```bash
-     sudo apt-get install libpq-dev
-     ```
 - [PostgreSQL](https://www.postgresql.org/) (`17`) - Database
+
+     Add the official PostgreSQL apt repository to ensure version 17 is installed:
      ```bash
-     sudo apt install postgresql postgresql-contrib
+     sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+     wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo tee /etc/apt/trusted.gpg.d/postgresql.asc
+     sudo apt update
+     sudo apt install postgresql-17 postgresql-contrib libpq-dev
      sudo systemctl start postgresql.service
      sudo systemctl enable postgresql.service
      ```

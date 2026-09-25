@@ -14,6 +14,7 @@ x-common-build: &common_build
     - ruby_bundle:/home/vendor/bundle:rw
 
 services:
+  # NOTE: If upgrading from PostgreSQL 14, see installation_docs/docker.md for data migration guidance.
   db:
     image: postgres:17
     environment:

@@ -2,6 +2,43 @@
 
 ---
 
+> **Note: Upgrading from PostgreSQL 14 to 17**
+>
+> PostgreSQL major-version data directories are **not directly interchangeable**. If you have an
+> existing `postgres_data` Docker volume created with PostgreSQL 14, you must migrate your data
+> before switching to the `postgres:17` image in `docker-compose.yml`.
+>
+> Two supported approaches:
+>
+> **Option 1 — `pg_dump` / `pg_restore`** (recommended for most users)
+> 1. With the PostgreSQL 14 container still running, dump your database:
+>    ```bash
+>    docker compose exec db pg_dump -U postgres circuitverse_development > cv_backup.sql
+>    ```
+> 2. Stop the stack, confirm the volume name, then remove the old volume:
+>    ```bash
+>    docker compose down
+>    docker volume ls | grep postgres_data   # confirm the exact volume name (typically circuitverse_postgres_data)
+>    docker volume rm circuitverse_postgres_data
+>    ```
+> 3. Start the stack with the new PostgreSQL 17 image (creates a fresh volume):
+>    ```bash
+>    docker compose up -d db
+>    ```
+> 4. Restore your data:
+>    ```bash
+>    docker compose exec -T db psql -U postgres circuitverse_development < cv_backup.sql
+>    ```
+>
+> **Option 2 — `pg_upgrade`**
+> Use the [tianon/docker-postgres-upgrade](https://github.com/tianon/docker-postgres-upgrade)
+> image to perform an in-place major-version upgrade without losing your existing volume.
+>
+> Do **not** simply point the new `postgres:17` image at an existing PostgreSQL 14 data directory —
+> the server will refuse to start.
+
+---
+
 ### Windows
 **Prerequisites**
 |  Name | Version | Installation |
