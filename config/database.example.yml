@@ -1,22 +1,20 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
   adapter: postgresql
   encoding: unicode
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  pool: <%= ENV.fetch("DB_POOL") { ENV.fetch("RAILS_MAX_THREADS", 5) } %>
+  checkout_timeout: <%= ENV.fetch("DB_CHECKOUT_TIMEOUT", 5.0) %>
+  reaping_frequency: <%= ENV.fetch("DB_REAPING_FREQUENCY", 10) %>
+  variables:
+    lock_timeout: <%= ENV.fetch("DB_LOCK_TIMEOUT", "3000") %>
+    idle_in_transaction_session_timeout: <%= ENV.fetch("DB_IDLE_TX_TIMEOUT", "10000") %>
   username: postgres
   password: postgres
-  host: localhost
-
+  host: <%= ENV.fetch("DB_HOST", "localhost") %>
+  port: <%= ENV.fetch("DB_PORT", 5432) %>
 
 development:
   <<: *default
   database: circuitverse_development
-
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,8 +22,14 @@ development:
 test:
   <<: *default
   database: circuitverse_test
+  pool: <%= ENV.fetch("TEST_DB_POOL", 5) %>
 
 production:
   <<: *default
-  url : <%= ENV["POSTGRES_URL"] %>
+  url: <%= ENV["POSTGRES_URL"] %>
   database: circuitverse_production
+  sslmode: <%= ENV.fetch("DB_SSL_MODE", "require") %>
+  variables:
+    lock_timeout: <%= ENV.fetch("DB_LOCK_TIMEOUT", "3000") %>
+    idle_in_transaction_session_timeout: <%= ENV.fetch("DB_IDLE_TX_TIMEOUT", "10000") %>
+    statement_timeout: <%= ENV.fetch("DB_STATEMENT_TIMEOUT", "5000") %>
