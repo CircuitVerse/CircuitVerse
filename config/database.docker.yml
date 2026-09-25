@@ -9,7 +9,6 @@ default: &default
   checkout_timeout: <%= ENV.fetch("DB_CHECKOUT_TIMEOUT", 5.0) %>
   reaping_frequency: <%= ENV.fetch("DB_REAPING_FREQUENCY", 10) %>
   variables:
-    statement_timeout: <%= ENV.fetch("DB_STATEMENT_TIMEOUT", "5000") %>
     lock_timeout: <%= ENV.fetch("DB_LOCK_TIMEOUT", "3000") %>
     idle_in_transaction_session_timeout: <%= ENV.fetch("DB_IDLE_TX_TIMEOUT", "10000") %>
 
