@@ -375,8 +375,17 @@ export function showProperties(obj) {
                     s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='number'  name='${prop.func}' min='${prop.min || 0}' max='${prop.max || 200}' value=${obj[attr]}></p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
                 } else if (obj.mutableProperties[attr].type === 'text') {
-                    s = `<p><span>${prop.name}</span><input class='objectPropertyAttribute' type='text' autocomplete='off'  name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}></p>`;
+                    s = `<p><label for="color-picker">${prop.name}</label> <div id='color-picker-container'>
+                    <input class='objectPropertyAttribute' id='color-picker-text' type='text' aria-labelledby="color-picker-label" autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
+                    <input class='objectPropertyAttribute' type='color' id='color-picker' aria-label="Color Picker" autocomplete='off' name='${prop.func}' maxlength='${prop.maxlength || 200}' value=${obj[attr]}>
+                    </div> </p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
+                    const colorPicker = document.querySelector('#color-picker-container input[type=color]');
+                    const colorText = document.querySelector('#color-picker-container input[type=text]');
+                    colorPicker.addEventListener('input', (e) => {
+                        obj.changeColor(e.target.value);
+                        colorText.value = e.target.value;
+                });
                 } else if (obj.mutableProperties[attr].type === 'button') {
                     s = `<p class='btn-parent'><button class='objectPropertyAttribute btn custom-btn--secondary' type='button'  name='${prop.func}'>${prop.name}</button></p>`;
                     $(moduleProperty.modulePropertyInner).append(s);
