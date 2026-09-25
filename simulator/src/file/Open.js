@@ -1,6 +1,7 @@
 import load from '../data/load';
 import { generateSaveData } from '../data/save';
 import { escapeHtml } from '../ux';
+import { hasSchemaKeys } from './schemaValidation';
 
 const scopeSchema = ['layout', 'verilogMetadata', 'allNodes', 'id', 'name', 'restrictedCircuitElementsUsed', 'nodes'];
 const JSONSchema = ['name', 'timePeriod', 'clockEnabled', 'projectId', 'focussedCircuit', 'orderedTabs', 'scopes'];
@@ -30,12 +31,9 @@ const ImportCircuitFiles = () => {
     function ValidateData(fileData) {
         try {
             const parsedFileDate = JSON.parse(fileData);
-            if (JSON.stringify(Object.keys(parsedFileDate)) !== JSON.stringify(JSONSchema)) throw new Error('Invalid JSON data');
+            if (!hasSchemaKeys(parsedFileDate, JSONSchema)) throw new Error('Invalid JSON data');
             parsedFileDate.scopes.forEach((scope) => {
-                const keys = Object.keys(scope); // get scope keys
-                scopeSchema.forEach((key) => {
-                    if (!keys.includes(key)) throw new Error('Invalid Scope data');
-                });
+                if (!hasSchemaKeys(scope, scopeSchema)) throw new Error('Invalid Scope data');
             });
             load(parsedFileDate);
             return true;
