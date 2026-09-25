@@ -66,7 +66,7 @@ cd CircuitVerse
      ```bash
      sudo apt-get install libpq-dev
      ```
-- [PostgreSQL](https://www.postgresql.org/) (`12`) - Database
+- [PostgreSQL](https://www.postgresql.org/) (`17`) - Database
      ```bash
      sudo apt install postgresql postgresql-contrib
      sudo systemctl start postgresql.service
