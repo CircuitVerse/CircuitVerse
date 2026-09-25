@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_09_25_065304) do
+ActiveRecord::Schema[8.1].define(version: 2026_09_25_075427) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -204,8 +204,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_25_065304) do
     t.bigint "submission_id"
     t.datetime "updated_at", null: false
     t.index ["contest_id"], name: "index_contest_winners_on_contest_id", unique: true
-    t.index ["project_id"], name: "index_contest_winners_on_project_id"
-    t.index ["submission_id"], name: "index_contest_winners_on_submission_id"
+    t.index ["project_id"], name: "index_contest_winners_on_project_id", unique: true
+    t.index ["submission_id"], name: "index_contest_winners_on_submission_id", unique: true
   end
 
   create_table "contests", force: :cascade do |t|
@@ -233,7 +233,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_25_065304) do
     t.datetime "created_at", precision: nil, null: false
     t.bigint "project_id"
     t.datetime "updated_at", precision: nil, null: false
-    t.index ["project_id"], name: "index_featured_circuits_on_project_id"
+    t.index ["project_id"], name: "index_featured_circuits_on_project_id", unique: true
   end
 
   create_table "forum_categories", id: :serial, force: :cascade do |t|
@@ -294,7 +294,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_09_25_065304) do
     t.bigint "user_id"
     t.index ["assignment_id"], name: "index_grades_on_assignment_id"
     t.index ["project_id", "assignment_id"], name: "index_grades_on_project_id_and_assignment_id", unique: true
-    t.index ["project_id"], name: "index_grades_on_project_id"
+    t.index ["project_id"], name: "index_grades_on_project_id", unique: true
     t.index ["user_id"], name: "index_grades_on_user_id"
   end
 
