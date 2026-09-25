@@ -38,3 +38,7 @@ en:
       grading_scale_percent: "Assignments can be graded with percentage (1-100)"
       grading_scale_letter: "Assignments can be graded with any of letters A/B/C/D/E/F"
       remove: "Remove"
+      start_working: "Start Working"
+      view_work: "View Your Work"
+      view_submission: "View Submission"
+      not_submitted: "You did not submit before the deadline."
