@@ -32,7 +32,6 @@ class ProjectsController < ApplicationController
     end
     @collaboration = @project.collaborations.new
     @admin_access = true
-    commontator_thread_show(@project)
 
     # Resolve simulator embed path
     @embed_path =

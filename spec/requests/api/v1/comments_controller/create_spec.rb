@@ -8,7 +8,7 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
 
     context "when not authenticated" do
       before do
-        post "/api/v1/threads/#{project.commontator_thread.id}/comments", as: :json
+        post "/api/v1/threads/#{project.comment_thread.id}/comments", as: :json
       end
 
       it "returns status unauthorized" do
@@ -19,10 +19,10 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
 
     context "when authenticated but thread is closed" do
       before do
-        project.commontator_thread.close(FactoryBot.create(:user))
+        project.comment_thread.close(FactoryBot.create(:user))
 
         token = get_auth_token(FactoryBot.create(:user))
-        post "/api/v1/threads/#{project.commontator_thread.id}/comments",
+        post "/api/v1/threads/#{project.comment_thread.id}/comments",
              headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -35,7 +35,7 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
     context "when authenticated with thread opened but empty body" do
       before do
         token = get_auth_token(FactoryBot.create(:user))
-        post "/api/v1/threads/#{project.commontator_thread.id}/comments",
+        post "/api/v1/threads/#{project.comment_thread.id}/comments",
              headers: { Authorization: "Token #{token}" },
              params: { body: "" }, as: :json
       end
@@ -49,7 +49,7 @@ RSpec.describe Api::V1::CommentsController, "#create", type: :request do
     context "when authenticated with thread open & valid params" do
       before do
         token = get_auth_token(FactoryBot.create(:user))
-        post "/api/v1/threads/#{project.commontator_thread.id}/comments",
+        post "/api/v1/threads/#{project.comment_thread.id}/comments",
              headers: { Authorization: "Token #{token}" },
              params: { body: "new_comment" }, as: :json
       end
