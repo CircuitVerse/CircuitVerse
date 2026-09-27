@@ -51,12 +51,26 @@ export class TestbenchData {
     }
 
     /**
+     * Gets number of test cases in a given group (defaults to currentGroup).
+     * Returns 0 if group or inputs are empty/undefined.
+     * @param {number=} groupIndex - Index of the group
+     */
+    caseCount(groupIndex = this.currentGroup) {
+        const groups = this.testData && this.testData.groups;
+        if (!Array.isArray(groups)) return 0;
+        const group = groups[groupIndex];
+        if (!group || !Array.isArray(group.inputs) || !group.inputs[0] || !Array.isArray(group.inputs[0].values)) return 0;
+        return group.inputs[0].values.length;
+    }
+
+    /**
      * Checks whether given case-group pair exists in the test
      */
     isCaseValid() {
-        if (this.currentGroup >= this.data.groups.length || this.currentGroup < 0) return false;
-        const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
-        if (this.currentCase >= caseCount || this.currentCase < 0) return false;
+        const groups = this.testData && this.testData.groups;
+        if (!Array.isArray(groups) || this.currentGroup >= groups.length || this.currentGroup < 0) return false;
+        const count = this.caseCount(this.currentGroup);
+        if (this.currentCase >= count || this.currentCase < 0) return false;
 
         return true;
     }
@@ -83,13 +97,14 @@ export class TestbenchData {
      */
     groupNext() {
         const newCase = new TestbenchData(this.testData, this.currentGroup, 0);
-        const groupCount = newCase.testData.groups.length;
-        let caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
+        const groups = newCase.testData && newCase.testData.groups;
+        const groupCount = Array.isArray(groups) ? groups.length : 0;
+        let caseCount = newCase.caseCount(newCase.currentGroup);
 
         while (caseCount === 0 || this.currentGroup === newCase.currentGroup) {
             newCase.currentGroup++;
             if (newCase.currentGroup >= groupCount) return false;
-            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
+            caseCount = newCase.caseCount(newCase.currentGroup);
         }
 
         this.currentGroup = newCase.currentGroup;
@@ -103,13 +118,12 @@ export class TestbenchData {
      */
     groupPrev() {
         const newCase = new TestbenchData(this.testData, this.currentGroup, 0);
-        const groupCount = newCase.testData.groups.length;
-        let caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
+        let caseCount = newCase.caseCount(newCase.currentGroup);
 
         while (caseCount === 0 || this.currentGroup === newCase.currentGroup) {
             newCase.currentGroup--;
             if (newCase.currentGroup < 0) return false;
-            caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
+            caseCount = newCase.caseCount(newCase.currentGroup);
         }
 
         this.currentGroup = newCase.currentGroup;
@@ -121,8 +135,8 @@ export class TestbenchData {
      * Validate and go to the next case
      */
     caseNext() {
-        const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
-        if (this.currentCase >= caseCount - 1) return this.groupNext();
+        const count = this.caseCount(this.currentGroup);
+        if (this.currentCase >= count - 1) return this.groupNext();
         this.currentCase++;
         return true;
     }
@@ -133,8 +147,8 @@ export class TestbenchData {
     casePrev() {
         if (this.currentCase <= 0) {
             if (!this.groupPrev()) return false;
-            const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
-            this.currentCase = caseCount - 1;
+            const count = this.caseCount(this.currentGroup);
+            this.currentCase = count - 1;
             return true;
         }
 
@@ -146,11 +160,18 @@ export class TestbenchData {
      * Finds and switches to the first non empty group to start the test from
      */
     goToFirstValidGroup() {
+        const groups = this.testData && this.testData.groups;
+        if (!Array.isArray(groups) || groups.length === 0) return false;
+
         const newCase = new TestbenchData(this.testData, 0, 0);
-        const caseCount = newCase.testData.groups[this.currentGroup].inputs[0].values.length;
+        const caseCount = newCase.caseCount(0);
 
         // If the first group is not empty, do nothing
-        if (caseCount > 0) return true;
+        if (caseCount > 0) {
+            this.currentGroup = 0;
+            this.currentCase = 0;
+            return true;
+        }
 
         // Otherwise go next until non empty group
         const validExists = newCase.groupNext();
