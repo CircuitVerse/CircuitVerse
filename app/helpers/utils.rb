@@ -7,13 +7,11 @@ module Utils
   def self.parse_mails(mails)
     mails.split(/[\s,]/).select do |email|
       email.present? && Devise.email_regexp.match?(email)
-    end.uniq.map(&:downcase)
+    end.map(&:downcase).uniq
   end
 
   def self.parse_mails_except_current_user(mails, current)
-    mails.split(/[\s,]/).select do |email|
-      email.present? && email != current.email && Devise.email_regexp.match?(email)
-    end.uniq.map(&:downcase)
+    parse_mails(mails) - [current.email.downcase]
   end
 
   # Forms notice string for given email input

@@ -24,6 +24,18 @@ describe Utils do
       valid_emails = @valid_emails + [current_user.email]
       expect(described_class.parse_mails_except_current_user(valid_emails.join(" "), current_user)).to eq(@valid_emails)
     end
+
+    it "removes emails that differ only in case" do
+      emails = "Jane@Example.com jane@example.com JANE@EXAMPLE.COM"
+      expect(described_class.parse_mails(emails)).to eq(["jane@example.com"])
+    end
+
+    it "excludes the current user's mail regardless of case" do
+      current_user = create(:user)
+      emails = [@valid_emails.first, current_user.email.upcase].join(",")
+      parsed = described_class.parse_mails_except_current_user(emails, current_user)
+      expect(parsed).to eq([@valid_emails.first.downcase])
+    end
   end
 
   describe "#mail_notice" do
