@@ -1,0 +1,34 @@
+// Overrides for tom-select, used for email-tag inputs (group mentors/members,
+// project collaborators). Replaces select2_overrides.scss.
+
+.ts-wrapper {
+  width: 100%; // Make the container take up the full available width
+
+  // Rails' form.select helper adds the "form-select" class, whose Bootstrap
+  // background-image arrow visually clashes with tom-select's own control.
+  &.form-select {
+    background-image: none;
+  }
+}
+
+.ts-wrapper.multi .ts-control {
+  min-height: 150px;
+  width: 100%;
+}
+
+.ts-wrapper .item {
+  background-color: $green;
+  border-radius: .25rem;
+  color: $white;
+  display: inline-block;
+  margin-bottom: .4em;
+  padding: 0 .4em .15em;
+}
+
+.ts-wrapper .item .remove {
+  color: $white;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  margin-left: .4em;
+}

@@ -29,13 +29,12 @@ import 'trumbowyg/dist/plugins/upload/trumbowyg.upload.min.js';
 import 'trumbowyg/dist/plugins/resizimg/trumbowyg.resizimg.min.js';
 import 'trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js';
 
-// Select2's npm build exports an uninvoked (root, jQuery) factory instead of
-// self-registering (unlike the old select2-rails asset), so invoke it
-// explicitly with our jQuery instance.
-import jquery from 'jquery';
-import select2 from 'select2';
+// Exposed globally so inline <script> blocks in .erb views (which aren't
+// part of the esbuild module graph) can initialize email-tag inputs
+// without duplicating this logic per view.
+import { initEmailTagSelect } from './utils/emailTagSelect';
 
-select2(window, jquery);
+window.initEmailTagSelect = initEmailTagSelect;
 
 import 'jquery-resizable-dom/dist/jquery-resizable.min.js';
 
