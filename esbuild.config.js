@@ -28,14 +28,15 @@ const watchPlugin = {
 };
 
 async function run() {
+    const isProd = process.env.NODE_ENV === 'production';
     const context = await esbuild.context({
         entryPoints: ['application.js', 'testbench.js', 'simulator.js', 'vendor.js'],
         bundle: true,
         outdir: path.join(process.cwd(), 'app/assets/builds'),
         absWorkingDir: path.join(process.cwd(), 'app/javascript'),
         // Match previous production behavior (Sprockets + terser minified JS).
-        minify: process.env.NODE_ENV === 'production',
-        sourcemap: 'inline',
+        minify: isProd,
+        sourcemap: isProd ? 'linked' : 'inline',   // ← changed 'external' to 'linked'
         loader: {
             '.png': 'file',
             '.svg': 'file',
