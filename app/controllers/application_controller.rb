@@ -2,6 +2,7 @@
 
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  include Pagy::Backend
   include SearchHelper
 
   protect_from_forgery with: :exception
