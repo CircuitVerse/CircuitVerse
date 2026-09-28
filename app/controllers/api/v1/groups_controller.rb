@@ -41,7 +41,6 @@ class Api::V1::GroupsController < Api::V1::BaseController
 
   # PATCH /api/v1/groups/:id
   def update
-    @group.update!(group_params)
     if @group.update(group_params)
       render json: Api::V1::GroupSerializer.new(@group), status: :accepted
     else
