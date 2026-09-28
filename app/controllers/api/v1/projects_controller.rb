@@ -106,6 +106,10 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     else
       render json: { status: "error", errors: @project.errors.full_messages }, status: :unprocessable_content
     end
+  rescue ActiveRecord::RecordNotUnique
+    image_file&.close
+    File.delete(image_file) if image_file && check_to_delete(params[:image])
+    render json: { status: "error", errors: ["Project already exists or duplicate slug"] }, status: :conflict
   end
 
   # PATCH /api/v1/projects/:id

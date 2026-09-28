@@ -80,5 +80,21 @@ RSpec.describe Api::V1::ProjectsController, "#create", type: :request do
         expect(response.parsed_body["status"]["error"]).not_to be_empty
       end
     end
+
+    context "when a duplicate slug or record not unique error occurs" do
+      it "returns status conflict and error message" do
+        token = get_auth_token(user)
+        allow_any_instance_of(Project).to receive(:save).and_raise(
+          ActiveRecord::RecordNotUnique.new("duplicate key value violates unique constraint")
+        )
+        post "/api/v1/projects",
+             headers: { Authorization: "Token #{token}" },
+             params: { image: "", name: "Test Name" }, as: :json
+
+        expect(response).to have_http_status(:conflict)
+        expect(response.parsed_body["status"]).to eq("error")
+        expect(response.parsed_body["errors"]).to include("Project already exists or duplicate slug")
+      end
+    end
   end
 end
