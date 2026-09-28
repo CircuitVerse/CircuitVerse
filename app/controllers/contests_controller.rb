@@ -18,6 +18,7 @@ class ContestsController < ApplicationController
   end
 
   def show
+    @user_submission = @contest.submissions.where(user_id: current_user&.id)
     submissions = @contest.submissions.where.not(user_id: current_user&.id)
     @pagy, @submissions = pagy(submissions, limit: 6)
 
