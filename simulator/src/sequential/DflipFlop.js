@@ -3,6 +3,8 @@ import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
 import { colors } from '../themer/themer';
+import { showWarning } from '../utils';
+
 /**
  * @class
  * DflipFlop
@@ -42,6 +44,9 @@ export default class DflipFlop extends CircuitElement {
      * WIP always resolvable?
      */
     isResolvable() {
+        if (this.reset.value === 1 && this.preset.value === 1) {
+            showWarning('Both Reset and Preset are active. Avoid using this state');
+        }
         return true;
         // if (this.reset.value == 1) return true;
         // if (this.clockInp.value != undefined && this.dInp.value != undefined) return true;

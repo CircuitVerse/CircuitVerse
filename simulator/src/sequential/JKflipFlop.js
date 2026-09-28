@@ -2,6 +2,8 @@ import CircuitElement from '../circuitElement';
 import Node, { findNode } from '../node';
 import simulationArea from '../simulationArea';
 import { correctWidth, lineTo, moveTo, fillText } from '../canvasApi';
+import { showWarning } from '../utils';
+
 /**
  * @class
  * JKflipFlop
@@ -46,6 +48,12 @@ export default class JKflipFlop extends CircuitElement {
      * if none of the predefined nodes have been deleted it isresolvable
      */
     isResolvable() {
+        if ((this.reset.value === 1 && this.preset.value === 1)) {
+            showWarning('Reset and Preset are active simultaneously. Avoid this state.');
+        }
+        if ((this.J.value === 1 && this.K.value === 1)) {
+            showWarning('J and K inputs are high simultaneously this leads to toggling on each clock signal.');
+        }
         if (this.reset.value == 1) return true;
         if (this.clockInp.value != undefined && this.J.value != undefined && this.K.value != undefined) return true;
         return false;
