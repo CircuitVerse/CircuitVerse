@@ -22,8 +22,7 @@ class ProjectPolicy < ApplicationPolicy
   def check_edit_access?
     return false if user.nil? || project.project_submission
 
-    project.author_id == user.id ||
-      Collaboration.exists?(project_id: project.id, user_id: user.id)
+    project.author_id == user.id || collaborator?
   end
 
   def check_view_access?
@@ -32,14 +31,14 @@ class ProjectPolicy < ApplicationPolicy
       (!user.nil? && !project.assignment_id.nil? &&
       ((project.assignment.group.primary_mentor_id == user.id) ||
       project.assignment.group.group_members.exists?(user_id: user.id, mentor: true))) ||
-      (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) ||
+      collaborator? ||
       (!user.nil? && user.admin?)
   end
 
   def check_direct_view_access?
     project.project_access_type == "Public" ||
       (project.project_submission == false && !user.nil? && project.author_id == user.id) ||
-      (!user.nil? && Collaboration.exists?(project_id: project.id, user_id: user.id)) ||
+      collaborator? ||
       (!user.nil? && user.admin?)
   end
 
@@ -74,4 +73,18 @@ class ProjectPolicy < ApplicationPolicy
   def author_access?
     (user.present? && user.admin?) || project.author_id == (user.present? && user.id)
   end
+
+  private
+
+    def collaborator?
+      return false if user.nil?
+
+      if project.association(:collaborations).loaded?
+        project.collaborations.any? { |c| c.user_id == user.id }
+      elsif user.association(:collaborations).loaded?
+        user.collaborations.any? { |c| c.project_id == project.id }
+      else
+        Collaboration.exists?(project_id: project.id, user_id: user.id)
+      end
+    end
 end

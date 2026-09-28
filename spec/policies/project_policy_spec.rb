@@ -108,5 +108,30 @@ describe ProjectPolicy do
         check_auth_exception(subject, :embed)
       end
     end
+
+    context "for a collaborator" do
+      let(:user) { FactoryBot.create(:user) }
+
+      before do
+        FactoryBot.create(:collaboration, project: project, user: user)
+      end
+
+      it "permits edit, view, and direct view access" do
+        expect(subject).to permit(:edit_access)
+        expect(subject).to permit(:view_access)
+        expect(subject).to permit(:direct_view_access)
+      end
+
+      context "when collaborations association is preloaded" do
+        it "resolves without extra queries when loaded" do
+          preloaded_project = Project.includes(:collaborations).find(project.id)
+          preloaded_policy = described_class.new(user, preloaded_project)
+          expect(preloaded_project.association(:collaborations)).to be_loaded
+          expect(preloaded_policy).to permit(:edit_access)
+          expect(preloaded_policy).to permit(:view_access)
+          expect(preloaded_policy).to permit(:direct_view_access)
+        end
+      end
+    end
   end
 end
