@@ -1,0 +1,18 @@
+<%= link_to overview_organization_path(item[:organization]),
+    class: "dropdown-item org-switcher-item d-flex align-items-center gap-2 rounded-3 #{'is-current' if local_assigns[:is_current]}",
+    aria: { current: local_assigns[:is_current] ? "true" : nil } do %>
+  <span class="org-switcher-badge d-inline-flex align-items-center justify-content-center flex-shrink-0 rounded-3 overflow-hidden fw-semibold text-white">
+    <% if item[:organization].logo.attached? %>
+      <%= image_tag item[:organization].logo, alt: "", class: "w-100 h-100 object-fit-cover" %>
+    <% else %>
+      <%= item[:organization].name.first.upcase %>
+    <% end %>
+  </span>
+  <span class="org-switcher-info d-flex flex-column flex-fill min-w-0">
+    <span class="org-switcher-name fw-semibold"><%= item[:organization].name %></span>
+    <span class="org-switcher-meta"><%= item[:role].capitalize %> · <%= t("organizations.switcher.group_count", count: item[:group_count]) %> · <%= t("organizations.switcher.member_count", count: item[:member_count]) %></span>
+  </span>
+  <% if local_assigns[:is_current] %>
+    <i class="fa fa-check org-switcher-check ms-auto" aria-hidden="true"></i>
+  <% end %>
+<% end %>

@@ -67,6 +67,14 @@ RSpec.describe OrganizationsController, type: :controller do
     end
   end
 
+  describe "GET #switcher_organizations" do
+    it "clamps a negative page to the first page" do
+      get :switcher_organizations, params: { page: -1 }, format: :json
+
+      expect(response).to have_http_status(:ok)
+    end
+  end
+
   describe "GET #overview group visibility" do
     let(:other_mentor) { create(:user) }
     let!(:group_user_is_in) { create(:group, organization: organization, primary_mentor: other_mentor) }
