@@ -57,6 +57,7 @@ gem "sidekiq"
 # For home page pagination
 gem "will_paginate", "~> 4.0.1"
 gem "will_paginate-bootstrap"
+gem "pagy", "~> 9.4"
 
 gem "country_select", "~> 8.0"
 gem "geocoder"
