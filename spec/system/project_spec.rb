@@ -145,7 +145,7 @@ describe "Project", type: :system do
       email = Faker::Internet.email
       visit user_project_path(private_project.author, private_project)
       click_on "+ Add a Collaborator"
-      project_input_field_id = "#project_email_input_collaborator"
+      project_input_field_id = "#collaboration_emails-ts-control"
       fill_in_input project_input_field_id, with: email
       fill_in_input project_input_field_id, with: :enter
       click_on "Add Collaborators"
