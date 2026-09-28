@@ -64,6 +64,20 @@ RSpec.describe Api::V1::AssignmentsController, "#update", type: :request do
       end
     end
 
+    context "when authorized but validation fails" do
+      before do
+        token = get_auth_token(primary_mentor)
+        patch "/api/v1/assignments/#{assignment.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: { assignment: { name: "" } }, as: :json
+      end
+
+      it "returns status unprocessable_entity" do
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     context "when authorized and has access to update assignment" do
       before do
         token = get_auth_token(primary_mentor)
