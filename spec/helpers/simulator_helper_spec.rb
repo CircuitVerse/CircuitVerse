@@ -91,5 +91,18 @@ describe SimulatorHelper do
       expect(JSON.parse(sanitized_data)["scopes"][0]["restrictedCircuitElementsUsed"])
         .to eq(["Element"])
     end
+
+    it "safely returns raw data when data contains invalid JSON or escape characters without raising error" do
+      invalid_json = '{"scopes":[{"Text":[{"label":"\invalid_escape"}]}]}'
+      expect { sanitize_data(@project, invalid_json) }.not_to raise_error
+      expect(sanitize_data(@project, invalid_json)).to eq(invalid_json)
+    end
+
+    it "safely handles assignment restrictions containing invalid JSON" do
+      @project.assignment.update_column(:restrictions, "invalid json")
+      expect { sanitize_data(@project, data.to_json) }.not_to raise_error
+      sanitized = sanitize_data(@project, data.to_json)
+      expect(JSON.parse(sanitized)["scopes"][0]["restrictedCircuitElementsUsed"]).to eq([])
+    end
   end
 end

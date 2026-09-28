@@ -35,11 +35,26 @@ module SimulatorHelper
     data = data.to_json if data.is_a?(ActionController::Parameters)
     return data if project&.assignment_id.blank? || data.blank?
 
-    data = Oj.safe_load(data)
-    saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
-    scopes = data["scopes"] || []
+    begin
+      parsed_data = Oj.safe_load(data)
+    rescue Oj::ParseError, JSON::ParserError
+      return data
+    end
+    return data unless parsed_data.is_a?(Hash)
+
+    begin
+      saved_restricted_elements = Oj.safe_load(project.assignment.restrictions)
+    rescue Oj::ParseError, JSON::ParserError
+      saved_restricted_elements = []
+    end
+    saved_restricted_elements = [] unless saved_restricted_elements.is_a?(Array)
+
+    scopes = parsed_data["scopes"] || []
+    return data unless scopes.is_a?(Array)
 
     parsed_scopes = scopes.each_with_object([]) do |scope, new_scopes|
+      next new_scopes.push(scope) unless scope.is_a?(Hash)
+
       restricted_elements_used = []
 
       saved_restricted_elements.each do |element|
@@ -50,7 +65,7 @@ module SimulatorHelper
       new_scopes.push(scope)
     end
 
-    data["scopes"] = parsed_scopes
-    data.to_json
+    parsed_data["scopes"] = parsed_scopes
+    parsed_data.to_json
   end
 end
