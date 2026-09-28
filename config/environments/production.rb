@@ -84,6 +84,7 @@ Rails.application.configure do
     credentials: aws_credentials,
     http_open_timeout: 5,
     http_read_timeout: 15,
+    retry_mode: "standard",
     max_attempts: 3
   )
   config.action_mailer.delivery_method = :ses_v2

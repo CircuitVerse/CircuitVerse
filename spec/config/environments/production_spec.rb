@@ -59,6 +59,7 @@ RSpec.describe "Production Mailer Configuration", type: :mailer do
     expect(client).to be_an_instance_of(Aws::SESV2::Client)
     expect(client.config.http_open_timeout).to eq(5)
     expect(client.config.http_read_timeout).to eq(15)
+    expect(client.config.retry_mode).to eq("standard")
     expect(client.config.max_attempts).to eq(3)
   end
 end
