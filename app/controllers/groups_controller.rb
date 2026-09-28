@@ -149,7 +149,7 @@ class GroupsController < ApplicationController
 
     def join_group_and_organization
       ActiveRecord::Base.transaction do
-        current_user.group_members.create!(group: @group)
+        current_user.group_members.create_or_find_by!(group: @group)
         @group.add_member_to_organization(current_user)
       end
     end
