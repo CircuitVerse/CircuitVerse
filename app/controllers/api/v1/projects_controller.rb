@@ -76,7 +76,7 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   # GET /api/v1/projects/:id/circuit_data
   def circuit_data
     authorize @project, :check_view_access?
-    circuit_data = ProjectDatum.find_by(project: @project)
+    circuit_data = @project.project_datum || ProjectDatum.find_by(project_id: @project.id)
     if circuit_data
       render json: circuit_data.data
     else

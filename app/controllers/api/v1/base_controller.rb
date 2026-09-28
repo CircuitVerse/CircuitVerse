@@ -40,6 +40,10 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "resource invalid!")
   end
 
+  rescue_from ActiveRecord::QueryCanceled do
+    api_error(status: 504, errors: "database query timed out")
+  end
+
   rescue_from Commontator::SecurityTransgression do
     api_error(status: 403, errors: "not authorized for this action")
   end

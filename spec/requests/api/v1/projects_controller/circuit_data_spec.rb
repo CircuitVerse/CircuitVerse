@@ -136,5 +136,19 @@ RSpec.describe Api::V1::ProjectsController, "#circuit_data", type: :request do
         expect(response.parsed_body["error"]).to eq("Circuit data unavailabe for the project!")
       end
     end
+
+    context "when database query times out" do
+      before do
+        allow_any_instance_of(Project).to receive(:project_datum).and_raise(
+          ActiveRecord::QueryCanceled.new("canceling statement due to statement timeout")
+        )
+        get "/api/v1/projects/#{public_project.id}/circuit_data", as: :json
+      end
+
+      it "returns status gateway_timeout" do
+        expect(response).to have_http_status(:gateway_timeout)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
   end
 end
