@@ -1,24 +1,22 @@
+import TomSelect from 'tom-select';
+
 /**
  * Lightweight wrapper around tom-select for "type an email, press
- * comma/space/enter to tag it" inputs. Replaces the select2 tags:true
+ * space/comma/enter to tag it" inputs. Replaces the select2 tags:true
  * pattern used across the groups and project-collaborator forms.
  *
- * `delimiter` handles splitting on typed commas; `splitOn` handles
- * splitting pasted text on spaces or commas, so no manual paste
- * handler is needed for either case.
- * `onChange` fires on every add/remove, covering the old
- * select2:select/select2:unselect toggle logic in one place.
+ * `delimiter` splits on typed commas, `splitOn` splits pasted text on
+ * spaces/newlines/commas, and a keydown handler turns a typed space
+ * into a tag (select2's old tokenSeparators behaviour).
+ * `onChange` is called with the current tag count on every add/remove
+ * and once after init, so callers can set their initial button state.
  *
  * @param {string} selector - CSS selector for the <select multiple> element
  * @param {Object} [opts]
- * @param {(count: number) => void} [opts.onChange] - called with the
- *   current number of tags whenever the selection changes
- * @param {number} [opts.maxLength=30] - max characters per typed email
+ * @param {(count: number) => void} [opts.onChange]
  * @returns {TomSelect|null}
  */
-import TomSelect from 'tom-select';
-
-export function initEmailTagSelect(selector, { onChange, maxLength = 30 } = {}) {
+export default function initEmailTagSelect(selector, { onChange } = {}) {
     const el = document.querySelector(selector);
     if (!el) return null;
 
@@ -29,14 +27,18 @@ export function initEmailTagSelect(selector, { onChange, maxLength = 30 } = {}) 
         splitOn: /[\s,]+/,
         maxItems: null,
         plugins: ['remove_button'],
-        onChange: (value) => {
-            if (onChange) onChange(Array.isArray(value) ? value.length : (value ? 1 : 0));
+        onChange: () => {
+            if (onChange) onChange(instance.items.length);
         },
     });
 
-    if (instance.control_input) {
-        instance.control_input.setAttribute('maxlength', String(maxLength));
-    }
+    instance.control_input.addEventListener('keydown', (e) => {
+        if (e.key !== ' ') return;
+        e.preventDefault();
+        const value = instance.control_input.value.trim();
+        if (value) instance.createItem(value);
+    });
 
+    if (onChange) onChange(instance.items.length);
     return instance;
 }

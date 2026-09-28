@@ -1,17 +1,22 @@
+/* eslint-disable class-methods-use-this */
 import { Controller } from 'stimulus';
-import { initEmailTagSelect } from '../utils/emailTagSelect';
+import initEmailTagSelect from '../utils/emailTagSelect';
 
 export default class extends Controller {
     connect() {
         $('#promote-member-modal').on('show.bs.modal', (e) => {
             const groupmember = $(e.relatedTarget).data('currentgroupmember');
-            $(e.currentTarget).find('#groups-member-promote-button').parent().attr('action',
-                `/group_members/${groupmember.toString()}`);
+            $(e.currentTarget).find('#groups-member-promote-button').parent().attr(
+                'action',
+                `/group_members/${groupmember.toString()}`,
+            );
         });
         $('#demote-member-modal').on('show.bs.modal', (e) => {
             const groupmember = $(e.relatedTarget).data('currentgroupmember');
-            $(e.currentTarget).find('#groups-member-demote-button').parent().attr('action',
-                `/group_members/${groupmember.toString()}`);
+            $(e.currentTarget).find('#groups-member-demote-button').parent().attr(
+                'action',
+                `/group_members/${groupmember.toString()}`,
+            );
         });
     }
 

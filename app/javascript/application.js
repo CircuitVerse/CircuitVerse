@@ -32,7 +32,7 @@ import 'trumbowyg/dist/plugins/fontfamily/trumbowyg.fontfamily.min.js';
 // Exposed globally so inline <script> blocks in .erb views (which aren't
 // part of the esbuild module graph) can initialize email-tag inputs
 // without duplicating this logic per view.
-import { initEmailTagSelect } from './utils/emailTagSelect';
+import initEmailTagSelect from './utils/emailTagSelect';
 
 window.initEmailTagSelect = initEmailTagSelect;
 
