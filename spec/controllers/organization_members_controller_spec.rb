@@ -152,6 +152,31 @@ RSpec.describe OrganizationMembersController, type: :controller do
         delete :leave, params: { organization_id: organization.id }
         expect(response).to redirect_to(organizations_path)
       end
+
+      it "returns no_content for json request" do
+        delete :leave, params: { organization_id: organization.id }, format: :json
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context "when user is not a member" do
+      let(:non_member_user) { create(:user) }
+
+      before do
+        sign_in non_member_user
+      end
+
+      it "redirects to organizations list with alert for html request" do
+        delete :leave, params: { organization_id: organization.id }
+        expect(response).to redirect_to(organizations_path)
+        expect(flash[:alert]).to be_present
+      end
+
+      it "returns not_found status with error json for json request" do
+        delete :leave, params: { organization_id: organization.id }, format: :json
+        expect(response).to have_http_status(:not_found)
+        expect(response.parsed_body).to eq("error" => I18n.t("organization_members.leave.not_a_member"))
+      end
     end
 
     context "when user is the sole admin" do
