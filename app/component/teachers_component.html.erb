@@ -1,0 +1,17 @@
+<section class="<%= teacher_feature_section %>">
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <div class="col-12 col-md-6 <%= feature_content %>">
+        <div class="feature-content">
+          <h3 class="feature-heading"><%= feature[:heading] %></h3>
+          <p class="feature-description"><%= feature[:description] %></p>
+        </div>
+      </div>
+      <div class="col-12 col-md-6 <%= feature_image %>">
+        <div class="feature-image-wrapper">
+          <img class="feature-image img-fluid rounded shadow" src="<%= feature[:image_path] %>" alt="<%= feature[:image_alt] %>">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
