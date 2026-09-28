@@ -63,6 +63,20 @@ RSpec.describe Api::V1::ProjectsController, "#update", type: :request do
       end
     end
 
+    context "when authenticated user tries to update own project with invalid details" do
+      before do
+        token = get_auth_token(user)
+        patch "/api/v1/projects/#{project.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: { project: { name: "" } }, as: :json
+      end
+
+      it "returns status unprocessable_entity" do
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     context "when authenticated user tries to update non existent project details" do
       before do
         token = get_auth_token(random_user)

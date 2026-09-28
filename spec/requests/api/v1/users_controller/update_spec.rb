@@ -58,6 +58,20 @@ RSpec.describe Api::V1::UsersController, "#update", type: :request do
       end
     end
 
+    context "when authenticated as the user but validation fails" do
+      before do
+        token = get_auth_token(user)
+        patch "/api/v1/users/#{user.id}",
+              params: { name: "" },
+              headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status unprocessable_entity" do
+        expect(response).to have_http_status(:unprocessable_content)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     # There is a image data
     context "when authenticated as the user and update the profile picture", :skip_windows do
       before do
