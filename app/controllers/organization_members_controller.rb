@@ -34,11 +34,12 @@ class OrganizationMembersController < ApplicationController
   def update
     respond_to do |format|
       if @organization_member.update(organization_member_update_params)
-        format.html { redirect_to @organization, notice: t(".success") }
+        format.html { redirect_to members_organization_path(@organization), notice: t(".success") }
         format.json { head :no_content }
       else
         format.html do
-          redirect_to @organization, alert: @organization_member.errors.full_messages.to_sentence
+          redirect_to members_organization_path(@organization),
+                      alert: @organization_member.errors.full_messages.to_sentence
         end
         format.json { render json: @organization_member.errors, status: :unprocessable_content }
       end
@@ -50,7 +51,7 @@ class OrganizationMembersController < ApplicationController
   def destroy
     @organization_member.destroy
     respond_to do |format|
-      format.html { redirect_to @organization, notice: t(".success") }
+      format.html { redirect_to members_organization_path(@organization), notice: t(".success") }
       format.json { head :no_content }
     end
   end
@@ -67,11 +68,14 @@ class OrganizationMembersController < ApplicationController
 
     authorize @organization, :leave?
 
-    @organization_member.destroy
-    respond_to do |format|
-      format.html { redirect_to organizations_path, notice: t(".success") }
-      format.json { head :no_content }
+    if destroy_membership_safely?
+      respond_with_left_organization
+    else
+      redirect_to members_organization_path(@organization),
+                  alert: t("organizations.members.list.leave_blocked_sole_admin")
     end
+  rescue Pundit::NotAuthorizedError
+    redirect_to members_organization_path(@organization), alert: leave_blocked_reason
   end
 
   private
@@ -96,6 +100,32 @@ class OrganizationMembersController < ApplicationController
       return if Flipper.enabled?(:organizations, current_user)
 
       redirect_to root_path, alert: t("feature_not_available")
+    end
+
+    def leave_blocked_reason
+      membership = @organization.organization_members.find_by(user: current_user)
+      if membership&.admin? && @organization.organization_members.where(role: :admin).count <= 1
+        t("organizations.members.list.leave_blocked_sole_admin")
+      else
+        t("organizations.members.list.leave_blocked_primary_mentor")
+      end
+    end
+
+    def destroy_membership_safely?
+      @organization.with_lock do
+        return false if @organization_member.admin? &&
+                        @organization.organization_members.where(role: :admin).count <= 1
+
+        @organization_member.destroy!
+      end
+      true
+    end
+
+    def respond_with_left_organization
+      respond_to do |format|
+        format.html { redirect_to organizations_path, notice: t("organization_members.leave.success") }
+        format.json { head :no_content }
+      end
     end
 
     def invite_all(emails, role)
