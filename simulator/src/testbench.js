@@ -54,7 +54,7 @@ export class TestbenchData {
      * Checks whether given case-group pair exists in the test
      */
     isCaseValid() {
-        if (this.currentGroup >= this.data.groups.length || this.currentGroup < 0) return false;
+        if (this.currentGroup >= this.testData.groups.length || this.currentGroup < 0) return false;
         const caseCount = this.testData.groups[this.currentGroup].inputs[0].values.length;
         if (this.currentCase >= caseCount || this.currentCase < 0) return false;
 
@@ -147,7 +147,7 @@ export class TestbenchData {
      */
     goToFirstValidGroup() {
         const newCase = new TestbenchData(this.testData, 0, 0);
-        const caseCount = newCase.testData.groups[this.currentGroup].inputs[0].values.length;
+        const caseCount = newCase.testData.groups[newCase.currentGroup].inputs[0].values.length;
 
         // If the first group is not empty, do nothing
         if (caseCount > 0) return true;
