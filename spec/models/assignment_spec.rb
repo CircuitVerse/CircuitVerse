@@ -101,6 +101,13 @@ RSpec.describe Assignment, type: :model do
           expect(@assignment.errors[:testbench]).to include("must be valid JSON with a groups array")
         end
       end
+
+      it "keeps other keys on the existing suite when updating groups" do
+        @assignment.testbench_data = suite.merge("title" => "AND Gate").to_json
+        @assignment.save!
+        @assignment.testbench_data = suite.to_json
+        expect(@assignment.testbench.data["title"]).to eq("AND Gate")
+      end
     end
   end
 end

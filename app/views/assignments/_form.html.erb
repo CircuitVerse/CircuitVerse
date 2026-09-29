@@ -95,7 +95,7 @@
           <% (test_case_groups(@assignment).presence || [nil]).each do |test_case| %>
             <tr>
               <td><input type="text" class="form-control test-case-label" aria-label="<%= t("assignments.form.test_case_name") %>" value="<%= test_case&.dig("label") %>"></td>
-              <td><input type="text" class="form-control test-case-inputs" aria-label="<%= t("assignments.form.test_case_inputs") %>" value="<%= test_case_pins_to_text(test_case&.dig("inputs")) %>" placeholder="a=1,b:2=3"></td>
+              <td><input type="text" class="form-control test-case-inputs" aria-label="<%= t("assignments.form.test_case_inputs") %>" value="<%= test_case_pins_to_text(test_case&.dig("inputs")) %>" placeholder="a=1,b:2=01"</td>
               <td><input type="text" class="form-control test-case-outputs" aria-label="<%= t("assignments.form.test_case_outputs") %>" value="<%= test_case_pins_to_text(test_case&.dig("outputs")) %>" placeholder="sum=1"></td>
               <td class="text-center"><input type="checkbox" class="test-case-hidden" aria-label="<%= t("assignments.form.test_case_hidden") %>" <%= "checked" if test_case&.dig("hidden") %>></td>
               <td><button type="button" class="btn btn-sm btn-outline-danger" aria-label="<%= t("assignments.form.remove_test_case") %>" data-action="test-cases#remove">&times;</button></td>

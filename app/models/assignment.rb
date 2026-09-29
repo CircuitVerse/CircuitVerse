@@ -79,7 +79,10 @@ class Assignment < ApplicationRecord
       testbench&.mark_for_destruction
     else
       parsed = parse_testbench_suite(json)
-      (testbench || build_testbench).data = parsed if parsed
+      return unless parsed
+
+      tb = testbench || build_testbench
+      tb.data = (tb.data || {}).merge(parsed)
     end
   end
 

@@ -2,7 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import { Controller } from '@hotwired/stimulus';
 
-const PIN_PATTERN = /^([A-Za-z_]\w*)(?::(\d+))?=(.+)$/;
+const PIN_PATTERN = /^([A-Za-z_]\w*)(?::(\d+))?=([01]+)$/;
 
 export default class extends Controller {
     static get targets() {
@@ -33,19 +33,30 @@ export default class extends Controller {
         const rows = Array.from(this.listTarget.querySelectorAll('tr'));
 
         if (rows.some((row) => this.rowState(row) === 'partial')) {
-            // stopPropagation too: rails-ujs still disables the submit button
-            // on a merely-prevented submit as it bubbles to its document listener.
-            event.preventDefault();
-            event.stopPropagation();
-            this.toggleError(true);
+            this.blockSubmit(event);
             return;
         }
 
         const groups = rows.map((row) => this.rowToGroup(row)).filter((group) => group !== null);
+        if (!this.sameShape(groups)) {
+            this.blockSubmit(event);
+            return;
+        }
 
         this.outputTarget.value = groups.length > 0
             ? JSON.stringify({ type: this.typeValue || 'comb', groups })
             : '';
+    }
+
+    blockSubmit(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        this.toggleError(true);
+    }
+
+    sameShape(groups) {
+        const shape = (group) => JSON.stringify(['inputs', 'outputs'].map((side) => group[side].map((p) => [p.label, p.bitWidth])));
+        return groups.every((group) => shape(group) === shape(groups[0]));
     }
 
     appendRow(testCase) {
@@ -61,7 +72,7 @@ export default class extends Controller {
         const hidden = testCase && testCase.hidden ? 'checked' : '';
         return `
       <td><input type="text" class="form-control test-case-label" aria-label="Test case name" value="${this.escape(label)}"></td>
-      <td><input type="text" class="form-control test-case-inputs" aria-label="Input pins" value="${this.escape(inputs)}" placeholder="a=1,b:2=3"></td>
+      <td><input type="text" class="form-control test-case-inputs" aria-label="Input pins" value="${this.escape(inputs)}" placeholder="a=1,b:2=01"></td>
       <td><input type="text" class="form-control test-case-outputs" aria-label="Expected output pins" value="${this.escape(outputs)}" placeholder="sum=1"></td>
       <td class="text-center"><input type="checkbox" class="test-case-hidden" aria-label="Hidden from student" ${hidden}></td>
       <td><button type="button" class="btn btn-sm btn-outline-danger" aria-label="Remove this test case" data-action="test-cases#remove">&times;</button></td>
@@ -114,7 +125,8 @@ export default class extends Controller {
                 label,
                 bitWidth: bitWidth ? parseInt(bitWidth, 10) : 1,
                 values: [value],
-            }));
+            }))
+            .filter((pin) => pin.values[0].length === pin.bitWidth);
     }
 
     pinsToText(pins) {
