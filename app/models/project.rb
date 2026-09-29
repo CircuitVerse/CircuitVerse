@@ -28,6 +28,7 @@ class Project < ApplicationRecord
   has_one_attached :circuit_preview
   has_one :featured_circuit
   has_one :grade, dependent: :destroy
+  has_many :grading_results, dependent: :destroy
   has_one :project_datum, dependent: :destroy
   has_many :notifications, as: :notifiable
   has_one :contest_winner, dependent: :destroy
