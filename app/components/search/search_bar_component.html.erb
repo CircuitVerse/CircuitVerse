@@ -22,8 +22,11 @@
     </div>
     <div class="d-flex justify-content-between gap-2">
               <div class="filters-container" data-controller="search-filters" data-search-filters-current-resource-value="<%= resource || RESOURCE_OPTIONS.first %>" data-action="search-bar:resource-changed@window->search-filters#updateFiltersForResource">
-        <button type="button" class="filters-button" data-search-filters-target="button" data-action="click->search-filters#toggleDropdown">
-          <%= filter_labels["button_text"] %>
+        <button type="button" class="filters-button <%= 'filters-active' if active_filters? %>" data-search-filters-target="button" data-action="click->search-filters#toggleDropdown">
+        <%= filter_labels["button_text"] %>
+        <% if active_filters? %>
+        <span class="filter-badge"><%= active_filters_count %></span>
+        <% end %>
         </button>
         <div class="filters-dropdown" data-search-filters-target="dropdown">
           <div class="filters-content">

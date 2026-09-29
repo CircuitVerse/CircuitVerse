@@ -56,9 +56,36 @@ class Search::SearchBarComponent < ViewComponent::Base
     }.freeze
   end
 
+  def active_filters?
+    active_filters_count.positive?
+  end
+
+  def active_filters_count
+    count = 0
+    filter_keys_for_resource.each do |key|
+      value = current_filter_values[key]
+      next if value.blank?
+
+      count += if value.is_a?(String) && value.include?(",")
+        value.split(",").map(&:strip).compact_blank.length
+      else
+        1
+      end
+    end
+    count
+  end
+
   private
 
     attr_reader :resource, :query, :sort_by, :sort_direction, :countries, :current_filters
+
+    def filter_keys_for_resource
+      case resource || RESOURCE_OPTIONS.first
+      when "Projects" then ["tag"]
+      when "Users" then %w[country institute]
+      else []
+      end
+    end
 
     def placeholders
       {
