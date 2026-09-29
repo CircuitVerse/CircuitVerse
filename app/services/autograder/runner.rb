@@ -4,7 +4,6 @@ module Autograder
   class Runner
     class RunnerError < StandardError; end
 
-    DEFAULT_URL = "http://127.0.0.1:3050"
     TIMEOUTS = { connect: 5, write: 10, read: 60 }.freeze
 
     Result = Struct.new(:passed, :total, :groups) do
@@ -32,6 +31,7 @@ module Autograder
 
       def run
         response = HTTP.timeout(**TIMEOUTS)
+                       .auth("Bearer #{ENV.fetch('SIMULATOR_RUNNER_TOKEN')}")
                        .post(endpoint, json: { circuit: circuit, testbench: testbench.data })
         raise RunnerError, "Runner returned #{response.status}" unless response.status.success?
 
@@ -49,7 +49,7 @@ module Autograder
       end
 
       def endpoint
-        "#{ENV.fetch('SIMULATOR_RUNNER_URL', DEFAULT_URL)}/run"
+        "#{ENV.fetch('SIMULATOR_RUNNER_URL')}/run"
       end
 
       def summarise(payload)

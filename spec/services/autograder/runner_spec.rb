@@ -36,6 +36,14 @@ RSpec.describe Autograder::Runner do
     expect(sent).to have_been_made
   end
 
+  it "authenticates with the runner's shared secret" do
+    stub_runner
+    run
+
+    header = { "Authorization" => "Bearer #{ENV.fetch('SIMULATOR_RUNNER_TOKEN')}" }
+    expect(a_request(:post, endpoint).with(headers: header)).to have_been_made
+  end
+
   it "counts every case across the groups" do
     stub_runner
 
