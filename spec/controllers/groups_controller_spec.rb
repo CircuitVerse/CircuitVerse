@@ -121,6 +121,23 @@ describe GroupsController, type: :request do
       end
     end
 
+    context "when membership is created concurrently before joining" do
+      it "resolves existing membership idempotently without error" do
+        sign_in @user
+        groups = @user.groups
+        allow(groups).to receive(:exists?).with(id: @group).and_return(false)
+        allow_any_instance_of(User).to receive(:groups).and_return(groups)
+        FactoryBot.create(:group_member, user: @user, group: @group)
+
+        expect do
+          get invite_group_path(id: @group.id, token: @group.group_token)
+        end.not_to change(GroupMember, :count)
+
+        expect(response).to redirect_to(group_path(@group))
+        expect(flash[:notice]).to eq("Group member was successfully added.")
+      end
+    end
+
     context "when user enters a expired url" do
       before do
         @group.update(token_expires_at: 1.day.ago)
@@ -184,6 +201,23 @@ describe GroupsController, type: :request do
         expect do
           get invite_organization_group_path(@organization, @org_group, token: @org_group.group_token)
         end.to change { @organization.organization_members.where(user: @user).count }.by(1)
+      end
+    end
+
+    context "when a user concurrently joins an organization-owned group" do
+      it "resolves existing membership and still creates organization membership" do
+        sign_in @user
+        groups = @user.groups
+        allow(groups).to receive(:exists?).with(id: @org_group).and_return(false)
+        allow_any_instance_of(User).to receive(:groups).and_return(groups)
+        FactoryBot.create(:group_member, user: @user, group: @org_group)
+
+        expect do
+          get invite_group_path(id: @org_group.id, token: @org_group.group_token)
+        end.to change { @organization.organization_members.where(user: @user).count }.by(1)
+
+        expect(@organization.organization_members.find_by(user: @user).role).to eq("member")
+        expect(response).to redirect_to(organization_group_path(@organization, @org_group))
       end
     end
 
