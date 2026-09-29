@@ -13,6 +13,17 @@ en:
       letter: "Letter(A-F)"
       percent: "Percent(1-100)"
       custom: "Custom"
+      test_cases: "Autograder Test Cases"
+      test_cases_help: "Each row is one test case. Declare pins as name=value or name:bits=value, comma-separated."
+      test_case_name: "Name"
+      test_case_inputs: "Inputs"
+      test_case_outputs: "Expected Outputs"
+      test_case_hidden: "Hidden"
+      test_case_actions: "Actions"
+      remove_test_case: "Remove this test case"
+      add_test_case: "Add Test Case"
+      test_case_incomplete: "Each test case needs a name, inputs, and expected outputs, with pins written as name=value or name:bits=value, before you can save."
+      test_cases_not_editable: "This suite has cases with multiple input/output vectors, which can't be edited here yet. It's kept as-is."
     edit:
       edit_assignment: "Edit Assignment"
     new:
