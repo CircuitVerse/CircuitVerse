@@ -63,7 +63,22 @@ RSpec.describe Testbench, type: :model do
     testbench = build_with(with_group("outputs" => [short]))
     testbench.validate
 
-    expect(testbench.errors[:data]).to include("carry needs 2 values")
+    expect(testbench.errors[:data]).to include("carry needs 2 1-bit binary values")
+  end
+
+  it "rejects a numeric label" do
+    expect(build_with(with_group("inputs" => [{ "label" => 1, "bitWidth" => 1, "values" => %w[0 1] }]))).not_to be_valid
+  end
+
+  it "rejects values that are not exact-width binary strings" do
+    bad = { "label" => "out1", "bitWidth" => 2, "values" => %w[0 2] }
+    expect(build_with(with_group("outputs" => [bad]))).not_to be_valid
+  end
+
+  it "rejects a later group whose signals do not match the first group's" do
+    first = FactoryBot.build(:testbench).data["groups"].first
+    mismatched = first.merge("inputs" => [{ "label" => "different", "bitWidth" => 1, "values" => %w[0 1] }])
+    expect(build_with(FactoryBot.build(:testbench).data.merge("groups" => [first, mismatched]))).not_to be_valid
   end
 
   it "exposes the groups the autograder runs" do
