@@ -22,7 +22,7 @@ describe ErrorsController, type: :controller do
   describe "#unacceptable" do
     it "returns 422" do
       get :unacceptable
-      expect(response).to have_http_status(:unprocessable_entity)
+      expect(response).to have_http_status(:unprocessable_content)
     end
   end
 end
