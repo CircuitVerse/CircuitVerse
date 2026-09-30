@@ -3,9 +3,9 @@
 class GroupMembersController < ApplicationController
   include OrganizationScopedRedirect
 
+  before_action :authenticate_user!
   before_action :set_group_member, only: %i[update destroy]
   before_action :check_access, only: %i[update destroy]
-  before_action :authenticate_user!
 
   # GET /group_members
   # GET /group_members.json
