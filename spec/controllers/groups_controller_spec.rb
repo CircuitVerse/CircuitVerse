@@ -77,6 +77,14 @@ describe GroupsController, type: :request do
         @group.reload
         expect(@group.name).to eq("updated group")
       end
+
+      it "does not allow updating primary_mentor_id" do
+        other_user = FactoryBot.create(:user)
+        sign_in @primary_mentor
+        put group_path(@group), params: { group: { name: "updated group", primary_mentor_id: other_user.id } }
+        @group.reload
+        expect(@group.primary_mentor_id).to eq(@primary_mentor.id)
+      end
     end
 
     context "when a mentor is signed in" do

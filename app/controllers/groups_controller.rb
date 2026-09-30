@@ -105,8 +105,11 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      permitted = %i[name primary_mentor_id]
-      permitted << :organization_id if action_name == "create" && Flipper.enabled?(:organizations, current_user)
+      permitted = %i[name]
+      if action_name == "create"
+        permitted << :primary_mentor_id
+        permitted << :organization_id if Flipper.enabled?(:organizations, current_user)
+      end
       params.expect(group: permitted)
     end
 
