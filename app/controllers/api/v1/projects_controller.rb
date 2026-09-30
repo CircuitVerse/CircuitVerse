@@ -162,6 +162,8 @@ class Api::V1::ProjectsController < Api::V1::BaseController
     if current_user.id == @project.author_id
       api_error(status: 409, errors: "Cannot fork your own project!")
     else
+      authorize @project, :check_view_access?
+      authorize @project, :create_fork?
       @forked_project = @project.fork(current_user)
       render json: Api::V1::ProjectSerializer.new(@forked_project, @options)
     end

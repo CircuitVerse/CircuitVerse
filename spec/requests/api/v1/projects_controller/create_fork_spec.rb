@@ -86,5 +86,37 @@ RSpec.describe Api::V1::ProjectsController, "#create_fork", type: :request do
         expect(response).to match_response_schema("project_with_collaborators")
       end
     end
+
+    context "when forks private project without view access" do
+      let!(:private_project) { FactoryBot.create(:project, author: user, project_access_type: "Private") }
+
+      before do
+        token = get_auth_token(random_user)
+        post "/api/v1/projects/#{private_project.id}/fork",
+             headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status :forbidden" do
+        expect(response).to have_http_status(:forbidden)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
+    context "when forks assignment project" do
+      let!(:group) { FactoryBot.create(:group, primary_mentor: user) }
+      let!(:assignment) { FactoryBot.create(:assignment, group: group) }
+      let!(:assignment_project) { FactoryBot.create(:project, author: user, assignment: assignment) }
+
+      before do
+        token = get_auth_token(random_user)
+        post "/api/v1/projects/#{assignment_project.id}/fork",
+             headers: { Authorization: "Token #{token}" }, as: :json
+      end
+
+      it "returns status :forbidden" do
+        expect(response).to have_http_status(:forbidden)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
   end
 end
