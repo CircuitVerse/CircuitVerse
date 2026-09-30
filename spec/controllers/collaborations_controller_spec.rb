@@ -32,6 +32,20 @@ describe CollaborationsController, type: :request do
           post collaborations_path, params: create_params
         end.to change(Collaboration, :count).by(1)
       end
+
+      it "does not add author as collaborator when author email is provided" do
+        self_invite_params = {
+          collaboration: {
+            project_id: @project.id,
+            emails: [@author.email]
+          }
+        }
+        expect do
+          post collaborations_path, params: self_invite_params
+        end.not_to change(Collaboration, :count)
+        expect(response).to redirect_to(user_project_path(@project.author_id, @project.id))
+        expect(flash[:notice]).to include("You can't invite yourself.")
+      end
     end
 
     context "author is not logged in" do
