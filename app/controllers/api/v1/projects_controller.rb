@@ -112,7 +112,6 @@ class Api::V1::ProjectsController < Api::V1::BaseController
   def update
     authorize @project, :check_edit_access?
     params.permit(:project)[:name] = sanitize(project_params[:name])
-    @project.update!(project_params)
     if @project.update(project_params)
       render json: Api::V1::ProjectSerializer.new(@project, @options), status: :accepted
     else
