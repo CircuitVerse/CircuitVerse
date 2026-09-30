@@ -75,7 +75,7 @@ $(document).ready(() => {
     if(pastedEmails.includes('\n')) {
       const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' '); // converting new lines in to spaces
       const newLinesIntoSpacesSplitted = newLinesIntoSpaces.split(' '); // splitting emails by space
-      this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
+      e.currentTarget.value = ''; // removing the pasted values from input box
       newLinesIntoSpacesSplitted.forEach(value => {
         const trimmedEmail = value.trim().slice(0, 254);
         if (trimmedEmail.length > 0) {
@@ -87,7 +87,7 @@ $(document).ready(() => {
       $('.add-collaborators-button').attr('disabled', false)
     } else {
       const pastedEmailsSplittedBySpace = pastedEmails.split(' '); // splitting emails by space
-      this.value = pastedEmails.replace(/./g, ''); // removing the pasted values from input box
+      e.currentTarget.value = ''; // removing the pasted values from input box
       pastedEmailsSplittedBySpace.forEach(value => {
         const trimmedEmail = value.trim().slice(0, 254);
         if (trimmedEmail.length > 0) {

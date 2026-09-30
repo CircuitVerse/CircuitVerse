@@ -49,7 +49,7 @@ export default class extends Controller {
         if (pastedEmails.includes('\n')) {
             const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
             const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
-            this.value = pastedEmails.replace(/./g, '');
+            e.currentTarget.value = '';
             newLinesIntoSpacesSplit.forEach((value) => {
                 const trimmedEmail = value.trim().slice(0, 254);
                 if (trimmedEmail.length > 0) {
@@ -61,7 +61,7 @@ export default class extends Controller {
             $('#add-mentor-button').attr('disabled', false);
         } else {
             const pastedEmailsSplitBySpace = pastedEmails.split(' ');
-            this.value = pastedEmails.replace(/./g, '');
+            e.currentTarget.value = '';
             pastedEmailsSplitBySpace.forEach((value) => {
                 const trimmedEmail = value.trim().slice(0, 254);
                 if (trimmedEmail.length > 0) {
@@ -123,7 +123,7 @@ export default class extends Controller {
             if (pastedEmails.includes('\n')) {
                 const newLinesIntoSpaces = pastedEmails.replace(/\n/g, ' ');
                 const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
-                this.value = pastedEmails.replace(/./g, '');
+                e.currentTarget.value = '';
                 newLinesIntoSpacesSplit.forEach((value) => {
                     const trimmedEmail = value.trim().slice(0, 254);
                     if (trimmedEmail.length > 0) {
@@ -135,7 +135,7 @@ export default class extends Controller {
                 $('#add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplitBySpace = pastedEmails.split(' ');
-                this.value = pastedEmails.replace(/./g, '');
+                e.currentTarget.value = '';
                 pastedEmailsSplitBySpace.forEach((value) => {
                     const trimmedEmail = value.trim().slice(0, 254);
                     if (trimmedEmail.length > 0) {
