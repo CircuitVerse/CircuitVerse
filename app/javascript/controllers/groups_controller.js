@@ -36,18 +36,24 @@ export default class extends Controller {
             const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
             this.value = pastedEmails.replace(/./g, '');
             newLinesIntoSpacesSplit.forEach((value) => {
-                var tags = $('<option/>', { text: value });
-                $('#group_mentor_emails').append(tags);
-                $('#group_mentor_emails option').prop('selected', true);
+                const trimmedEmail = value.trim().slice(0, 254);
+                if (trimmedEmail.length > 0) {
+                    var tags = $('<option/>', { text: trimmedEmail });
+                    $('#group_mentor_emails').append(tags);
+                    $('#group_mentor_emails option').prop('selected', true);
+                }
             });
             $('#add-mentor-button').attr('disabled', false);
         } else {
             const pastedEmailsSplitBySpace = pastedEmails.split(' ');
             this.value = pastedEmails.replace(/./g, '');
             pastedEmailsSplitBySpace.forEach((value) => {
-                var tags = $('<option/>', { text: value });
-                $('#group_mentor_emails').append(tags);
-                $('#group_mentor_emails option').prop('selected', true);
+                const trimmedEmail = value.trim().slice(0, 254);
+                if (trimmedEmail.length > 0) {
+                    var tags = $('<option/>', { text: trimmedEmail });
+                    $('#group_mentor_emails').append(tags);
+                    $('#group_mentor_emails option').prop('selected', true);
+                }
             });
             $('#add-mentor-button').attr('disabled', false);
         }
@@ -80,7 +86,7 @@ export default class extends Controller {
         $('#group_member_emails').on('select2:select select2:unselect', () => {
             this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
         });
-        document.querySelector('.select2-selection input').addEventListener('paste', (e) => {
+        document.querySelector('#group_email_input').addEventListener('paste', (e) => {
             e.preventDefault();
             let pastedEmails = '';
             if (window.clipboardData && window.clipboardData.getData) {
@@ -94,18 +100,24 @@ export default class extends Controller {
                 const newLinesIntoSpacesSplit = newLinesIntoSpaces.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
                 newLinesIntoSpacesSplit.forEach((value) => {
-                    var tags = $('<option/>', { text: value });
-                    $('#group_member_emails').append(tags);
-                    $('#group_member_emails option').prop('selected', true);
+                    const trimmedEmail = value.trim().slice(0, 254);
+                    if (trimmedEmail.length > 0) {
+                        var tags = $('<option/>', { text: trimmedEmail });
+                        $('#group_member_emails').append(tags);
+                        $('#group_member_emails option').prop('selected', true);
+                    }
                 });
                 $('#add-members-button').attr('disabled', false);
             } else {
                 const pastedEmailsSplitBySpace = pastedEmails.split(' ');
                 this.value = pastedEmails.replace(/./g, '');
                 pastedEmailsSplitBySpace.forEach((value) => {
-                    var tags = $('<option/>', { text: value });
-                    $('#group_member_emails').append(tags);
-                    $('#group_member_emails option').prop('selected', true);
+                    const trimmedEmail = value.trim().slice(0, 254);
+                    if (trimmedEmail.length > 0) {
+                        var tags = $('<option/>', { text: trimmedEmail });
+                        $('#group_member_emails').append(tags);
+                        $('#group_member_emails option').prop('selected', true);
+                    }
                 });
                 $('#add-members-button').attr('disabled', false);
             }
