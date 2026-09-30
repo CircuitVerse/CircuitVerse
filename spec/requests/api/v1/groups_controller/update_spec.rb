@@ -77,6 +77,21 @@ RSpec.describe Api::V1::GroupsController, "#update", type: :request do
       end
     end
 
+    context "when authorized but validation fails" do
+      before do
+        FactoryBot.create(:group_member, user: user, group: group)
+        token = get_auth_token(primary_mentor)
+        patch "/api/v1/groups/#{group.id}",
+              headers: { Authorization: "Token #{token}" },
+              params: { name: "" }, as: :json
+      end
+
+      it "returns status unprocessable_entity" do
+        expect(response).to have_http_status(:unprocessable_entity)
+        expect(response.parsed_body).to have_jsonapi_errors
+      end
+    end
+
     def update_params
       {
         name: "Test Group Updated"
