@@ -22,6 +22,12 @@ export default class extends Controller {
         }
     }
 
+    /**
+     * Handles the paste event for the mentor email input.
+     * Trims and truncates pasted emails to a maximum of 254 characters
+     * to prevent bypassing backend limits.
+     * @param {ClipboardEvent} e - The paste event object
+     */
     mentorInputPaste(e) {
         e.preventDefault();
         let pastedEmails = '';
@@ -59,6 +65,10 @@ export default class extends Controller {
         }
     }
 
+    /**
+     * Initializes the Select2 input for adding mentors to a group.
+     * Sets up length limits and custom paste event listeners.
+     */
     addMentorToGroup() {
         $('#group_mentor_emails').select2({
             tags: true,
@@ -74,6 +84,10 @@ export default class extends Controller {
         });
     }
 
+    /**
+     * Initializes the Select2 input for adding members to a group.
+     * Sets up length limits and inline paste event listeners for members.
+     */
     addMemberToGroup() {
         $('#group_member_emails').select2({
             tags: true,
