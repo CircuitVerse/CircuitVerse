@@ -1,6 +1,10 @@
 import { Controller } from 'stimulus';
 
 export default class extends Controller {
+    /**
+     * Initializes modal event listeners when the controller is connected.
+     * Sets up dynamic action URLs for promote and demote member modals.
+     */
     connect() {
         $('#promote-member-modal').on('show.bs.modal', (e) => {
             const groupmember = $(e.relatedTarget).data('currentgroupmember');
@@ -14,6 +18,11 @@ export default class extends Controller {
         });
     }
 
+    /**
+     * Toggles the disabled state of a button based on whether emails are selected.
+     * @param {string} emailSelector - The jQuery selector for the Select2 email input
+     * @param {string} buttonSelector - The jQuery selector for the button to toggle
+     */
     toggleButtonBasedOnEmails(emailSelector, buttonSelector) {
         if ($(emailSelector).select2('data').length > 0) {
             $(buttonSelector).attr('disabled', false);
@@ -75,10 +84,11 @@ export default class extends Controller {
             multiple: true,
             tokenSeparators: [',', ' '],
         });
-        $('.select2-selection input').attr('maxlength', '30');
-        $('.select2-selection input').attr('id', 'group_email_input_mentor');
+        const mentorInput = $('#group_mentor_emails').next('.select2-container').find('.select2-selection input');
+        mentorInput.attr('maxlength', '30');
+        mentorInput.attr('id', 'group_email_input_mentor');
         this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
-        $('.select2-selection input').attr('data-action', 'paste->groups#mentorInputPaste');
+        mentorInput.attr('data-action', 'paste->groups#mentorInputPaste');
         $('#group_mentor_emails').on('select2:select select2:unselect', () => {
             this.toggleButtonBasedOnEmails('#group_mentor_emails', '#add-mentor-button');
         });
@@ -94,13 +104,14 @@ export default class extends Controller {
             multiple: true,
             tokenSeparators: [',', ' '],
         });
-        $('.select2-selection input').attr('maxlength', '30');
-        $('.select2-selection input').attr('id', 'group_email_input');
+        const memberInput = $('#group_member_emails').next('.select2-container').find('.select2-selection input');
+        memberInput.attr('maxlength', '30');
+        memberInput.attr('id', 'group_email_input');
         this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
         $('#group_member_emails').on('select2:select select2:unselect', () => {
             this.toggleButtonBasedOnEmails('#group_member_emails', '#add-members-button');
         });
-        document.querySelector('#group_email_input').addEventListener('paste', (e) => {
+        memberInput[0].addEventListener('paste', (e) => {
             e.preventDefault();
             let pastedEmails = '';
             if (window.clipboardData && window.clipboardData.getData) {

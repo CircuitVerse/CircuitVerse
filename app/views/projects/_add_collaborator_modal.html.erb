@@ -42,8 +42,9 @@ $(document).ready(() => {
     tokenSeparators: [',', ' '],
   });
 
-  $('.select2-selection input').attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
-  $('.select2-selection input').attr('id', 'project_email_input_collaborator');
+  const collabInput = $('#collaboration_emails').next('.select2-container').find('.select2-selection input');
+  collabInput.attr('maxlength', '30'); // to limit the no. of chars entered in input box to avoid the overflow
+  collabInput.attr('id', 'project_email_input_collaborator');
   $('.add-collaborators-button').attr('disabled', true); // setting submit button to disabled initially
 
   $('.select2-container').on('keyup', () => {
@@ -54,7 +55,7 @@ $(document).ready(() => {
     }
   });
 
-  $('.select2-selection input').on('click', () => { //checking for 1 because there is already a child (input tag)
+  collabInput.on('click', () => { //checking for 1 because there is already a child (input tag)
   if($('.select2-selection__rendered').children().length > 1) {
       $('.add-collaborators-button').attr('disabled', false);
     } else {
@@ -62,7 +63,7 @@ $(document).ready(() => {
     }
   })
 
-  document.querySelector('.select2-selection input').addEventListener('paste', (e) => { // listening for paste event
+  collabInput[0].addEventListener('paste', (e) => { // listening for paste event
     e.preventDefault();
     let pastedEmails = '';
     if (window.clipboardData && window.clipboardData.getData) { // IE
