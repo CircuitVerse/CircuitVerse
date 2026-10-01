@@ -81,6 +81,19 @@ describe GroupMembersController, type: :request do
         check_not_authorized(response)
       end
     end
+
+    context "when no user is signed in" do
+      it "redirects to sign in instead of raising or authorizing" do
+        patch group_member_path(@group_member), params: { group_member: { mentor: true } }
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "does not update the group member" do
+        expect do
+          patch group_member_path(@group_member), params: { group_member: { mentor: true } }
+        end.not_to(change { @group_member.reload.mentor })
+      end
+    end
   end
 
   describe "#destroy" do
@@ -111,6 +124,19 @@ describe GroupMembersController, type: :request do
         sign_in_random_user
         delete group_member_path(@group_member)
         check_not_authorized(response)
+      end
+    end
+
+    context "when no user is signed in" do
+      it "redirects to sign in instead of raising or authorizing" do
+        delete group_member_path(@group_member)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "does not destroy the group member" do
+        expect do
+          delete group_member_path(@group_member)
+        end.not_to change(GroupMember, :count)
       end
     end
   end
