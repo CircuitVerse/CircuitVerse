@@ -8,7 +8,7 @@
 > existing `postgres_data` Docker volume created with PostgreSQL 14, you must migrate your data
 > before switching to the `postgres:17` image in `docker-compose.yml`.
 >
-> Two supported approaches:
+> Two approaches:
 >
 > **Option 1 — `pg_dump` / `pg_restore`** (recommended for most users)
 > 1. With the PostgreSQL 14 container still running, dump your database:
@@ -19,7 +19,7 @@
 >    ```bash
 >    docker compose down
 >    docker volume ls | grep postgres_data   # confirm the exact volume name (typically circuitverse_postgres_data)
->    docker volume rm circuitverse_postgres_data
+>    docker volume rm <confirmed-volume-name>
 >    ```
 > 3. Start the stack with the new PostgreSQL 17 image (creates a fresh volume):
 >    ```bash
@@ -30,9 +30,26 @@
 >    docker compose exec -T db psql -U postgres circuitverse_development < cv_backup.sql
 >    ```
 >
-> **Option 2 — `pg_upgrade`**
-> Use the [tianon/docker-postgres-upgrade](https://github.com/tianon/docker-postgres-upgrade)
-> image to perform an in-place major-version upgrade without losing your existing volume.
+> **Option 2 — `pg_upgrade`** (advanced)
+> The [tianon/docker-postgres-upgrade](https://github.com/tianon/docker-postgres-upgrade) image
+> can perform an in-place major-version upgrade. Read its README carefully before proceeding —
+> it is a proof of concept and requires both the old and new data directories to be mounted.
+>
+> This project's `docker-compose.yml` sets `PGDATA=/var/lib/postgresql/data/pgdata`. A skeleton
+> command for a 14-to-17 upgrade (adapt volume names using `docker volume ls | grep postgres_data`):
+>    ```bash
+>    docker compose stop db
+>    docker run --rm \
+>      -v <old-volume-name>:/var/lib/postgresql/old \
+>      -v <new-volume-name>:/var/lib/postgresql/new \
+>      -e PGDATAOLD=/var/lib/postgresql/old/pgdata \
+>      -e PGDATANEW=/var/lib/postgresql/new \
+>      tianon/postgres-upgrade:14-to-17 \
+>      --link
+>    ```
+> Replace `<old-volume-name>` with your confirmed existing volume and `<new-volume-name>` with a
+> freshly created volume (`docker volume create <new-volume-name>`). After a successful upgrade,
+> update `docker-compose.yml` to mount the new volume at `postgres_data`.
 >
 > Do **not** simply point the new `postgres:17` image at an existing PostgreSQL 14 data directory —
 > the server will refuse to start.
