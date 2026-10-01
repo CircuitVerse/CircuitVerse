@@ -32,9 +32,20 @@ class Rack::Attack
   ### Throttle Non Asset requests sitewide ###
 
   # Throttle by ip. Limit/period are tunable via ENV (audited defaults).
+  # Parse strictly so a typo can't silently become 0, which would
+  # throttle every request or break Rack::Attack's cache math.
+  positive_int = lambda do |name, default|
+    value = Integer(ENV.fetch(name, default))
+    raise ArgumentError, "#{name} must be a positive integer" if value < 1
+
+    value
+  rescue ArgumentError, TypeError
+    raise ArgumentError, "#{name} must be a positive integer"
+  end
+
   throttle('throttle non asset requests by ip',
-           limit: ENV.fetch("RACK_ATTACK_SITEWIDE_LIMIT", 300).to_i,
-           period: ENV.fetch("RACK_ATTACK_SITEWIDE_PERIOD", 5.minutes).to_i) do |req|
+           limit: positive_int.call("RACK_ATTACK_SITEWIDE_LIMIT", 300),
+           period: positive_int.call("RACK_ATTACK_SITEWIDE_PERIOD", 5.minutes)) do |req|
     req.remote_ip unless (req.path.start_with?('/assets') or req.path.start_with?('/uploads'))
   end
 
@@ -86,8 +97,10 @@ class Rack::Attack
     req.json_params["email"].to_s.downcase if req.path == "/api/v1/password/forgot" && req.post?
   end
 
-  self.throttled_responder = lambda do |env|
-    match_data = env["rack.attack.match_data"] || {}
+  # Rack::Attack 6.x passes a Rack::Attack::Request to the
+  # throttled responder; the throttle metadata lives on its env.
+  self.throttled_responder = lambda do |request|
+    match_data = request.env["rack.attack.match_data"] || {}
     retry_after = (match_data[:period] || match_data["period"] || 0).to_i
     [429, # status
      { "Content-Type" => "text/plain", "Retry-After" => retry_after.to_s }, # headers
