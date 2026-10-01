@@ -17,4 +17,12 @@ Sentry.init do |config|
   config.profiles_sample_rate = 1.0
 
   config.excluded_exceptions += ['ActionController::RoutingError', 'ActiveRecord::RecordNotFound']
+
+  # Puma races a client disconnect against its own request read loop: the socket
+  # fd is already closed when Puma::Client#eagerly_finish calls wait_readable, so
+  # the error is raised before any application code runs and cannot be handled
+  # here. Puma rescues Errno::EBADF elsewhere in its own I/O paths (server.rb),
+  # and sentry-ruby reports this one only through its Puma lowlevel_error patch,
+  # which turns a benign dead connection into a Sentry issue (#7943).
+  config.excluded_exceptions += ['Errno::EBADF']
 end
