@@ -4,6 +4,7 @@ on:
   pull_request:
     types:
       - opened
+      - synchronize
   issues:
     types:
       - opened
@@ -19,6 +20,7 @@ jobs:
 
     steps:
       - name: Welcome new contributors
+        if: github.event.action == 'opened'
         uses: actions/first-interaction@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -45,3 +47,4 @@ jobs:
             * Double-check that all CI tests pass.
             
             We'll get back to you as soon as possible. In the meantime, feel free to join the conversation on [Slack](http://circuitverse.org/slack). Happy coding! 🛠️
+        continue-on-error: true
