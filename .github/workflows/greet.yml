@@ -4,6 +4,7 @@ on:
   pull_request:
     types:
       - opened
+      - synchronize
   issues:
     types:
       - opened
@@ -19,6 +20,8 @@ jobs:
 
     steps:
       - name: Welcome new contributors
+        if: github.event.action == 'opened'
+        continue-on-error: true
         uses: actions/first-interaction@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
