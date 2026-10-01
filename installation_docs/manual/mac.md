@@ -42,7 +42,7 @@ cd CircuitVerse
      - [Yarn](https://yarnpkg.com/getting-started/install)
      - [CMAKE](https://cmake.org/install/)
      - OpenSSL
-     - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`12`) - Database
+     - [PostgreSQL](https://www.postgresql.org/download/macosx/) (`17`) - Database
 
 
 #### Setup
