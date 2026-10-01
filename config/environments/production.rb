@@ -49,15 +49,14 @@ Rails.application.configure do
 
   # Log configuration
   config.log_tags = [:request_id]
-  config.log_level = :debug  # Keep debug level as per original config
+  # Default to :info in production; override with RAILS_LOG_LEVEL (e.g. "debug")
+  # when troubleshooting.
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # If logging to STDOUT
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     config.logger = ActiveSupport::TaggedLogging.logger(STDOUT)
   end
-
-  # Change to "info" in production for less verbose logging
-  # config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Prevent health checks from clogging up the logs (Rails 8 feature)
   config.silence_healthcheck_path = "/up"
@@ -79,9 +78,14 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: "https://circuitverse.org/" }
   config.action_mailer.asset_host = "https://circuitverse.org"
 
-  aws_credentials = Aws::Credentials.new(ENV['AWS_ACCESS_KEY_ID_SES'], ENV['AWS_SECRET_ACCESS_KEY_SES'])
-  config.action_mailer.delivery_method = :ses_v2
-  config.action_mailer.ses_v2_settings = { credentials: aws_credentials }
+  # Amazon SES email delivery. Presence of credentials is validated at boot
+  # (see config/initializers/secrets_validation.rb).
+  if ENV["AWS_ACCESS_KEY_ID_SES"].present? && ENV["AWS_SECRET_ACCESS_KEY_SES"].present?
+    config.action_mailer.delivery_method = :ses_v2
+    config.action_mailer.ses_v2_settings = {
+      credentials: Aws::Credentials.new(ENV["AWS_ACCESS_KEY_ID_SES"], ENV["AWS_SECRET_ACCESS_KEY_SES"])
+    }
+  end
 
   # Web Push (VAPID) configuration (preserved from Rails 7)
   config.vapid_public_key = ENV["VAPID_PUBLIC_KEY"] || ""
@@ -113,23 +117,7 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  # ============================================================================
-  # LOGSTASH CONFIGURATION (preserved from Rails 7 - commented out)
-  # ============================================================================
-  # Uncomment and configure if using Logstash
-
-  # config.lograge.enabled = true
-  # config.lograge.keep_original_rails_log = true
-
-  # config.lograge.custom_payload do |controller|
-  #   {
-  #     host: "Logix",
-  #     user_id: controller.current_user.try(:id)
-  #   }
-  # end
-
-  # config.lograge.formatter = Lograge::Formatters::Logstash.new
-  # config.logstash.host = '192.168.11.25'  # Optional, defaults to '0.0.0.0'
-  # config.logstash.port = 5000             # Required, the port to connect to
-  # config.logstash.type = :tcp             # Required
+  # Structured logging: every log line is already tagged with the request ID
+  # via config.log_tags above. For lograge-style request-level structured
+  # logging, add the `lograge` gem to the Gemfile and enable it here.
 end

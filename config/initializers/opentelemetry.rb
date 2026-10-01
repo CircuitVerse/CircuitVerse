@@ -3,10 +3,13 @@
 if ENV["ENABLE_OTEL"] == "true"
   require "opentelemetry/sdk"
   require "opentelemetry/exporter/otlp"
-  require "opentelemetry/instrumentation/all"
 
   OpenTelemetry::SDK.configure do |c|
-    c.service_name = "CircuitVerse"
+    c.service_name = ENV.fetch("OTEL_SERVICE_NAME", "CircuitVerse")
+    # Sampling follows the standard OTEL_TRACES_SAMPLER and
+    # OTEL_TRACES_SAMPLER_ARG environment variables (e.g.
+    # parentbased_traceidratio with OTEL_TRACES_SAMPLER_ARG=0.1).
+    # The SDK defaults to always-on sampling when they are unset.
     # c.use_all
     c.use "OpenTelemetry::Instrumentation::ActionJob"
     c.use "OpenTelemetry::Instrumentation::ActionPack"

@@ -31,8 +31,10 @@ class Rack::Attack
 
   ### Throttle Non Asset requests sitewide ###
 
-  # Throttle by ip
-  throttle('throttle non asset requests by ip', limit: 300, period: 5.minutes) do |req|
+  # Throttle by ip. Limit/period are tunable via ENV (audited defaults).
+  throttle('throttle non asset requests by ip',
+           limit: ENV.fetch("RACK_ATTACK_SITEWIDE_LIMIT", 300).to_i,
+           period: ENV.fetch("RACK_ATTACK_SITEWIDE_PERIOD", 5.minutes).to_i) do |req|
     req.remote_ip unless (req.path.start_with?('/assets') or req.path.start_with?('/uploads'))
   end
 
@@ -84,9 +86,11 @@ class Rack::Attack
     req.json_params["email"].to_s.downcase if req.path == "/api/v1/password/forgot" && req.post?
   end
 
-  self.throttled_responder = lambda do |_env|
+  self.throttled_responder = lambda do |env|
+    match_data = env["rack.attack.match_data"] || {}
+    retry_after = (match_data[:period] || match_data["period"] || 0).to_i
     [429, # status
-     {}, # headers
+     { "Content-Type" => "text/plain", "Retry-After" => retry_after.to_s }, # headers
      ["Too many requests, please try again later"]] # body
   end
 end
