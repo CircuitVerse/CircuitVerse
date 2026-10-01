@@ -84,6 +84,11 @@ ENV BUNDLE_DEPLOYMENT=true
 ENV BUNDLE_WITHOUT="development:test"
 ENV RAILS_SERVE_STATIC_FILES="true"
 
+# Assets are precompiled in the builder stage and this runtime image has no
+# JS build toolchain, so skip the jsbundling-rails `javascript:build` hook
+# (and its `yarn install` prerequisite) on `assets:precompile`/`test:prepare`.
+ENV SKIP_JS_BUILD=1
+
 ARG REDIS_URL="redis://localhost:6379"
 
 
@@ -94,6 +99,9 @@ RUN apt-get update -qq && apt upgrade -y && apt-get install -y --no-install-reco
    && rm -rf /var/cache/apt/archives/* \
    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* \
    && truncate -s 0 /var/log/*log
+
+# Ensure yarn is installed at runtime (jsbundling-rails / bin/yarn)
+RUN npm install -g yarn
 
 ENV LD_PRELOAD="libjemalloc.so.2"
 ENV MALLOC_CONF="dirty_decay_ms:1000,narenas:2,background_thread:true"
