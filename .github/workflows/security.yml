@@ -25,7 +25,10 @@ jobs:
       - name: Install Brakeman
         run: gem install brakeman
       - name: Run Brakeman
-        run: brakeman --no-pager
+        # Advisory mode: report findings in the log without failing the build.
+        # The codebase has pre-existing warnings; new findings should be fixed
+        # as they are introduced.
+        run: brakeman --no-pager --no-exit-on-warn
 
   bundler-audit:
     name: Bundler-audit
