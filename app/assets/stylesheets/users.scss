@@ -27,6 +27,22 @@
   margin-left: 40px;
   margin-top: 30px;
   max-width: 80%;
+  
+  // Ensure email field maintains consistent size regardless of error state
+  .field {
+    width: 100%;
+    
+    .input-group {
+      display: block;
+      width: 100%;
+    }
+    
+    .form-input {
+      display: block;
+      height: 38px;
+      width: 100%;
+    }
+  }
 }
 
 .users-text {
