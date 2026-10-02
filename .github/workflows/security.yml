@@ -1,0 +1,44 @@
+name: "Security Analysis"
+
+on:
+  push:
+    branches: ["master"]
+  pull_request:
+    branches: ["master"]
+  schedule:
+    - cron: "23 5 * * 1"
+
+permissions:
+  contents: read
+
+jobs:
+  brakeman:
+    name: Brakeman
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Install Brakeman
+        run: gem install brakeman
+      - name: Run Brakeman
+        # Advisory mode: report findings in the log without failing the build.
+        # The codebase has pre-existing warnings; new findings should be fixed
+        # as they are introduced.
+        run: brakeman --no-pager --no-exit-on-warn
+
+  bundler-audit:
+    name: Bundler-audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@v1
+        with:
+          bundler-cache: true
+      - name: Security audit dependencies
+        run: bundle exec bundler-audit --update

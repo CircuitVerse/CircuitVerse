@@ -31,8 +31,21 @@ class Rack::Attack
 
   ### Throttle Non Asset requests sitewide ###
 
-  # Throttle by ip
-  throttle('throttle non asset requests by ip', limit: 300, period: 5.minutes) do |req|
+  # Throttle by ip. Limit/period are tunable via ENV (audited defaults).
+  # Parse strictly so a typo can't silently become 0, which would
+  # throttle every request or break Rack::Attack's cache math.
+  positive_int = lambda do |name, default|
+    value = Integer(ENV.fetch(name, default))
+    raise ArgumentError, "#{name} must be a positive integer" if value < 1
+
+    value
+  rescue ArgumentError, TypeError
+    raise ArgumentError, "#{name} must be a positive integer"
+  end
+
+  throttle('throttle non asset requests by ip',
+           limit: positive_int.call("RACK_ATTACK_SITEWIDE_LIMIT", 300),
+           period: positive_int.call("RACK_ATTACK_SITEWIDE_PERIOD", 5.minutes)) do |req|
     req.remote_ip unless (req.path.start_with?('/assets') or req.path.start_with?('/uploads'))
   end
 
@@ -84,9 +97,23 @@ class Rack::Attack
     req.json_params["email"].to_s.downcase if req.path == "/api/v1/password/forgot" && req.post?
   end
 
-  self.throttled_responder = lambda do |_env|
-    [429, # status
-     {}, # headers
-     ["Too many requests, please try again later"]] # body
+  # Rack::Attack 6.x passes a Rack::Attack::Request to the
+  # throttled responder; the throttle metadata lives on its env.
+  #
+  # Report the time left in the current window, not the whole period: a
+  # client that trips the limit near the end of a window should not be told
+  # to back off for the full period again. This mirrors Rack::Attack's own
+  # DEFAULT_THROTTLED_RESPONDER. If the metadata is missing we omit
+  # Retry-After entirely, since advertising 0 would tell the client to retry
+  # immediately and so defeat the throttle.
+  self.throttled_responder = lambda do |request|
+    match_data = request.env["rack.attack.match_data"] || {}
+    period = (match_data[:period] || 0).to_i
+    epoch_time = (match_data[:epoch_time] || 0).to_i
+
+    headers = { "Content-Type" => "text/plain" }
+    headers["Retry-After"] = (period - (epoch_time % period)).to_s if period.positive?
+
+    [429, headers, ["Too many requests, please try again later"]] # status, headers, body
   end
 end
