@@ -7,7 +7,6 @@ describe "Contests", type: :system do
     @contest = FactoryBot.create(:contest, status: :live)
     @user    = FactoryBot.create(:user)
     @project = FactoryBot.create(:project, author: @user)
-    Flipper.enable(:contests)
     system_sign_in @user
   end
 

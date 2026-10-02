@@ -1,6 +1,19 @@
 de:
   notifications:
     not_found: "Benachrichtigung nicht gefunden"
+  comments:
+    deleted_by: "Kommentar von %{deleter_name} gelöscht."
+    thread_closed: "Kommentar-Thread geschlossen."
+    thread_reopened: "Kommentar-Thread wieder geöffnet."
+    thread_already_closed: "Kommentar-Thread ist bereits geschlossen."
+    thread_already_open: "Kommentar-Thread ist bereits geöffnet."
+  activerecord:
+    attributes:
+      comment:
+        body: Kommentar
+  errors:
+    messages:
+      double_posted: "ist ein Duplikat eines anderen Kommentars."
   edit: "Bearbeiten"
   show: "Zeigen"
   delete: "Löschen"

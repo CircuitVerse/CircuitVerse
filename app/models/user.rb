@@ -3,7 +3,6 @@
 class User < ApplicationRecord
   mailkick_user
   require "pg_search"
-  include SimpleDiscussion::ForumUser
 
   validates :email, undisposable: { message: "Sorry, but we do not accept your mail provider." }
   self.ignored_columns += %w[profile_picture_file_name profile_picture_content_type profile_picture_file_size
@@ -26,7 +25,7 @@ class User < ApplicationRecord
   has_many :organizations, through: :organization_members
   has_many :groups, through: :group_members
   has_many :grades
-  acts_as_commontator
+  has_many :comment_subscriptions, as: :subscriber, dependent: :destroy
   has_many :submissions, dependent: :destroy
   has_many :collaborations, dependent: :destroy
   has_many :collaborated_projects, source: "project", through: :collaborations

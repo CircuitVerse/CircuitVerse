@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "Admin::Contests#create failure path", type: :request do
   let(:admin) { create(:user, admin: true) }
 
-  before { sign_in admin; enable_contests! }
+  before { sign_in admin }
 
   it "re-renders the admin page with 422 when the save fails" do
     allow(Contest).to receive(:new).and_wrap_original do |m, *args, **kwargs|
@@ -17,7 +17,7 @@ RSpec.describe "Admin::Contests#create failure path", type: :request do
     post admin_contests_path,
          params: { contest: { deadline: 1.month.from_now } }
 
-    expect(response).to have_http_status(:unprocessable_entity)
+    expect(response).to have_http_status(:unprocessable_content)
     expect(response.body).to include("Contests Admin")
   end
 end

@@ -195,6 +195,40 @@
     border-bottom: 1px solid $primary-green;
   }
 
+  #my-circuits-div {
+    align-items: stretch;
+  }
+
+  #my-circuits-div .users-circuits-column {
+    display: flex;
+    justify-content: center;
+  }
+
+  #my-circuits-div .users-card {
+    display: flex;
+    flex-direction: column;
+    height: calc(100% - 30px);
+  }
+
+  #my-circuits-div .users-card-body {
+    align-items: center;
+    background-color: #f8f9fa;
+    display: flex;
+    height: 200px;
+    justify-content: center;
+    min-height: 200px;
+    overflow: hidden;
+  }
+
+  #my-circuits-div .users-card-image {
+    height: 100%;
+    object-fit: cover;
+  }
+
+  #my-circuits-div .users-card-footer {
+    margin-top: auto;
+  }
+
   .contest-header-title {
     color: $secondary-green;
   }

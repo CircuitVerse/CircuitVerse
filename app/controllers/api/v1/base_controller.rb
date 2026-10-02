@@ -42,7 +42,7 @@ class Api::V1::BaseController < ActionController::API
     api_error(status: 422, errors: "resource invalid!")
   end
 
-  rescue_from Commontator::SecurityTransgression do
+  rescue_from Pundit::NotAuthorizedError do
     api_error(status: 403, errors: "not authorized for this action")
   end
 
@@ -51,7 +51,7 @@ class Api::V1::BaseController < ActionController::API
   end
 
   def security_transgression_unless(check)
-    raise Commontator::SecurityTransgression unless check
+    raise Pundit::NotAuthorizedError unless check
   end
 
   def unauthorized!

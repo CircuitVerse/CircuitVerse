@@ -215,12 +215,8 @@ chdir APP_ROOT do
     print_substep "cv-frontend-vue directory not found, skipping frontend dependencies"
   end
 
-  # Check if Vite is properly configured
-  if File.exist?('vite.config.ts')
-    print_substep "✓ Vite configuration found"
-  else
-    print_substep "⚠️  vite.config.ts not found"
-  end
+  # Frontend assets are bundled with esbuild (JS) and dart-sass (CSS);
+  # run `yarn build` or use Procfile.dev (`js`/`css` processes) to rebuild.
 
   print_section "Setting Up Configuration Files"
 
@@ -257,8 +253,7 @@ chdir APP_ROOT do
     'config/cable.yml' => 'WebSocket configuration',
     'config/storage.yml' => 'File storage settings',
     'config/puma.rb' => 'Web server configuration',
-    'config/sidekiq.yml' => 'Background job configuration',
-    'config/vite.json' => 'Vite asset configuration'
+    'config/sidekiq.yml' => 'Background job configuration'
   }
 
   important_configs.each do |config_file, description|
