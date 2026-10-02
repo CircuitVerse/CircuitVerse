@@ -27,9 +27,10 @@ RSpec.describe ProjectDatum, type: :model do
 
     it "serves the second read from the cache instead of the database" do
       described_class.cached_data(project.id)
+      allow(described_class).to receive(:find_by).and_call_original
 
-      expect(described_class).not_to receive(:find_by)
       expect(described_class.cached_data(project.id)).to eq(datum.data)
+      expect(described_class).not_to have_received(:find_by)
     end
 
     it "returns nil when the project has no circuit data" do
@@ -41,9 +42,10 @@ RSpec.describe ProjectDatum, type: :model do
     it "caches the absence of circuit data rather than re-querying" do
       empty_project = FactoryBot.create(:project)
       described_class.cached_data(empty_project.id)
+      allow(described_class).to receive(:find_by).and_call_original
 
-      expect(described_class).not_to receive(:find_by)
       expect(described_class.cached_data(empty_project.id)).to be_nil
+      expect(described_class).not_to have_received(:find_by)
     end
 
     context "when the cache is unavailable" do
