@@ -132,9 +132,9 @@ describe CollaborationsController, type: :request do
       end
 
       it "does not update the collaboration" do
-        expect do
-          put collaboration_path(@collaboration), params: update_params
-        end.not_to change { @collaboration.reload.project_id }
+        put collaboration_path(@collaboration), params: update_params
+
+        expect(@collaboration.reload.project_id).to eq(@project.id)
       end
     end
   end
