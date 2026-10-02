@@ -99,11 +99,21 @@ class Rack::Attack
 
   # Rack::Attack 6.x passes a Rack::Attack::Request to the
   # throttled responder; the throttle metadata lives on its env.
+  #
+  # Report the time left in the current window, not the whole period: a
+  # client that trips the limit near the end of a window should not be told
+  # to back off for the full period again. This mirrors Rack::Attack's own
+  # DEFAULT_THROTTLED_RESPONDER. If the metadata is missing we omit
+  # Retry-After entirely, since advertising 0 would tell the client to retry
+  # immediately and so defeat the throttle.
   self.throttled_responder = lambda do |request|
     match_data = request.env["rack.attack.match_data"] || {}
-    retry_after = (match_data[:period] || match_data["period"] || 0).to_i
-    [429, # status
-     { "Content-Type" => "text/plain", "Retry-After" => retry_after.to_s }, # headers
-     ["Too many requests, please try again later"]] # body
+    period = (match_data[:period] || 0).to_i
+    epoch_time = (match_data[:epoch_time] || 0).to_i
+
+    headers = { "Content-Type" => "text/plain" }
+    headers["Retry-After"] = (period - (epoch_time % period)).to_s if period.positive?
+
+    [429, headers, ["Too many requests, please try again later"]] # status, headers, body
   end
 end
