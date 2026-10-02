@@ -70,7 +70,7 @@ class Api::V1::BaseController < ActionController::API
   def paginate(resource)
     page = (params.to_unsafe_h.dig("page", "number") || 1).to_i
     limit = (params.to_unsafe_h.dig("page", "size") || DEFAULT_PER_PAGE).to_i
-    @pagy, records = pagy(resource, page: page, limit: limit)
+    @pagy, records = pagy(resource, page: page, limit: limit, overflow: :empty_page)
     records
   end
 
