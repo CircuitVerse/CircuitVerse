@@ -66,7 +66,10 @@ Rails.application.configure do
   config.active_support.report_deprecations = false
 
   # Redis cache store (preserved from Rails 7)
-  config.cache_store = :redis_cache_store
+  config.cache_store = :redis_cache_store, {
+    url: ENV.fetch("REDIS_URL", "redis://localhost:6379/0"),
+    pool_size: ENV.fetch("RAILS_MAX_THREADS", 5).to_i
+  }
 
   # Sidekiq for background jobs (preserved from Rails 7)
   config.active_job.queue_adapter = :sidekiq

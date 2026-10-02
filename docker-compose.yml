@@ -23,7 +23,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql@14/data/pgdata
   redis:
-    image: redis:7.0-alpine
+    image: redis:8.0-alpine
   web:
     <<: *common_build
     command: sleep infinity
