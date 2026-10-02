@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class CollaborationsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_collaboration, only: %i[update destroy]
 
   def self.policy_class

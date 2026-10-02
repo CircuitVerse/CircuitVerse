@@ -41,6 +41,19 @@ describe CollaborationsController, type: :request do
         check_not_authorized(response)
       end
     end
+
+    context "when no user is signed in" do
+      it "redirects to sign in instead of authorizing" do
+        post collaborations_path, params: create_params
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "does not create a collaboration" do
+        expect do
+          post collaborations_path, params: create_params
+        end.not_to change(Collaboration, :count)
+      end
+    end
   end
 
   describe "#destroy" do
@@ -63,6 +76,19 @@ describe CollaborationsController, type: :request do
         sign_in_random_user
         delete collaboration_path(@collaboration)
         check_not_authorized(response)
+      end
+    end
+
+    context "when no user is signed in" do
+      it "redirects to sign in instead of authorizing" do
+        delete collaboration_path(@collaboration)
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "does not destroy the collaboration" do
+        expect do
+          delete collaboration_path(@collaboration)
+        end.not_to change(Collaboration, :count)
       end
     end
   end
@@ -96,6 +122,19 @@ describe CollaborationsController, type: :request do
         sign_in_random_user
         put collaboration_path(@collaboration), params: update_params
         check_not_authorized(response)
+      end
+    end
+
+    context "when no user is signed in" do
+      it "redirects to sign in instead of authorizing" do
+        put collaboration_path(@collaboration), params: update_params
+        expect(response).to redirect_to(new_user_session_path)
+      end
+
+      it "does not update the collaboration" do
+        put collaboration_path(@collaboration), params: update_params
+
+        expect(@collaboration.reload.project_id).to eq(@project.id)
       end
     end
   end
