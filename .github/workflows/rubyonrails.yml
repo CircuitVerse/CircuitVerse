@@ -53,7 +53,7 @@ jobs:
         with:
           reviewdog_version: latest
 
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
 
       - name: Install Playwright and browsers
         run: |

@@ -62,6 +62,10 @@ services:
       - mailcatcher
   solargraph:
     <<: *common_build
+    # Opt-in: the language server is not needed for normal development.
+    # Start it explicitly with: docker compose --profile tools up solargraph
+    profiles:
+      - tools
     command: 
       - bash
       - -c
@@ -83,10 +87,14 @@ services:
         yarn build --watch
     ports:
       - "3035:3035"
+  # Service name stays "mailcatcher" because config/environments/development.rb
+  # points ActionMailer at the host "mailcatcher". schickling/mailcatcher is
+  # unmaintained; axllent/mailpit is the maintained drop-in replacement.
+  # Its web UI moved from 1080 (mailcatcher) to 8025 (mailpit).
   mailcatcher:
-    image: schickling/mailcatcher
+    image: axllent/mailpit
     ports:
-      - "1080:1080"
+      - "8025:8025"
       - "1025:1025"
 volumes:
   ruby_bundle:

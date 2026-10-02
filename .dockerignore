@@ -3,3 +3,5 @@ spec/
 docs/
 tmp/
 test/
+node_modules/
+cv-frontend-vue/node_modules/

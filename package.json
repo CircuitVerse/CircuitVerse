@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "repository": "git@github.com:CircuitVerse/CircuitVerse.git",
   "license": "MIT",
+  "packageManager": "yarn@1.22.22",
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
     "test": "jest",
     "build:docs": "jsdoc simulator/src/* -c conf.json -t ./node_modules/better-docs",

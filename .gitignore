@@ -29,7 +29,6 @@ tmp
 
 /node_modules
 /yarn-error.log
-/bun.lock
 
 .byebug_history
 

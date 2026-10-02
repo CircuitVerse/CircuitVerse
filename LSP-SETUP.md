@@ -7,6 +7,12 @@
 
 2. **Docker based Installation**
 
+    Solargraph runs behind the optional `tools` Compose profile, so start it explicitly:
+
+    ```bash
+    docker compose --profile tools up solargraph
+    ```
+
     - Go to Settings
     - Search "solargraph"
     - Look for "Solargraph: External Server"

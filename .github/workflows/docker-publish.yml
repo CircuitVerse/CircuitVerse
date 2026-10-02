@@ -33,7 +33,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: 'yarn' # Added caching for faster builds
+          cache: 'yarn'
 
       - name: Copy sample database configuration
         run: cp config/database.example.yml config/database.yml
@@ -89,9 +89,6 @@ jobs:
 
       - name: LowerCase repository name
         run: echo IMAGE_REPOSITORY=$(echo ${{ github.repository }} | tr '[:upper:]' '[:lower:]') >> $GITHUB_ENV
-
-      - name: Update yarn.lock if outdated
-        run: yarn install
 
       - name: Install dependencies with frozen lockfile
         run: yarn install --frozen-lockfile --network-timeout 1000000 && yarn cache clean
