@@ -120,3 +120,5 @@ jobs:
 
       - name: Lint Ruby files
         run: bundle exec rubocop --parallel
+      - name: Lint Erb files
+        run: bundle exec erblint --lint-all --enable-all-linters
