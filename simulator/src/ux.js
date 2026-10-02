@@ -455,8 +455,6 @@ export function showProperties(obj) {
                 circuitProperty[this.name](this.checked);
             }
     });
-
-    $(".moduleProperty input[type='number']").inputSpinner();
 }
 
 /**
