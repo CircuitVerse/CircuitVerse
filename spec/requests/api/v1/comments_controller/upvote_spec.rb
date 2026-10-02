@@ -8,7 +8,7 @@ RSpec.describe Api::V1::CommentsController, "#upvote", type: :request do
     let!(:project) { FactoryBot.create(:project, project_access_type: "Public") }
     let!(:comment) do
       FactoryBot.create(
-        :commontator_comment, creator: creator, thread: project.commontator_thread
+        :comment, creator: creator, thread: project.comment_thread
       )
     end
 

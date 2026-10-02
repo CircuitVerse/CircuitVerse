@@ -1,0 +1,33 @@
+<div class="comments-container" data-controller="comments" data-comments-thread-id-value="<%= comment_thread.id %>">
+  <div class="comments-status">
+    <% if comment_thread.is_closed? %>
+      <span class="badge bg-secondary">Closed for comments</span>
+      <% if comment_thread.can_be_edited_by?(current_user) %>
+        <%= button_to "Reopen", reopen_comment_thread_path(comment_thread),
+                      method: :patch, class: "btn primary-button btn-sm ms-2" %>
+      <% end %>
+    <% elsif comment_thread.can_be_edited_by?(current_user) %>
+      <%= button_to "Close", close_comment_thread_path(comment_thread),
+                    method: :patch, class: "btn primary-button btn-sm ms-2" %>
+    <% end %>
+  </div>
+
+  <div data-comments-target="list">
+    <% comment_thread.comments.order(:created_at).each do |comment| %>
+      <%= render partial: "comments/comment", locals: { comment: comment } %>
+    <% end %>
+  </div>
+
+  <% new_comment = comment_thread.comments.build(creator: current_user) %>
+  <% if user_signed_in? && new_comment.can_be_created_by?(current_user) %>
+    <div class="new-comment">
+      <form data-comments-target="form" data-action="submit->comments#create">
+        <div class="comments-field">
+          <textarea name="comment[body]" rows="3" placeholder="Write a comment..."></textarea>
+        </div>
+        <div data-comments-target="formErrors"></div>
+        <button type="submit" class="btn primary-button btn-sm mt-2"><%= t("comments.post", default: "Post") %></button>
+      </form>
+    </div>
+  <% end %>
+</div>

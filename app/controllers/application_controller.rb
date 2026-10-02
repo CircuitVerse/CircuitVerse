@@ -51,10 +51,10 @@ class ApplicationController < ActionController::Base
 
   private
 
-    # Engine controllers (RailsAdmin, SimpleDiscussion) and Devise inherit from
-    # ApplicationController but manage their own access control.
+    # Engine controllers and Devise inherit from ApplicationController but
+    # manage their own access control.
     def skip_authorization_verification?
-      devise_controller? || self.class.name.start_with?("RailsAdmin::", "SimpleDiscussion::")
+      devise_controller?
     end
 
     def extract_locale_from_accept_language_header

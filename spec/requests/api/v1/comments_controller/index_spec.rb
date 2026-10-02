@@ -11,7 +11,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
     context "when not authenticated & public project's comments are fetched" do
       before do
         create_comments_for(public_project)
-        get "/api/v1/threads/#{public_project.commontator_thread.id}/comments", as: :json
+        get "/api/v1/threads/#{public_project.comment_thread.id}/comments", as: :json
       end
 
       it "returns all comments" do
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
     context "when not authenticated & private project's comments are fetched" do
       before do
         create_comments_for(private_project)
-        get "/api/v1/threads/#{private_project.commontator_thread.id}/comments", as: :json
+        get "/api/v1/threads/#{private_project.comment_thread.id}/comments", as: :json
       end
 
       it "returns status forbidden" do
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       before do
         create_comments_for(public_project)
         token = get_auth_token(FactoryBot.create(:user))
-        get "/api/v1/threads/#{public_project.commontator_thread.id}/comments",
+        get "/api/v1/threads/#{public_project.comment_thread.id}/comments",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -52,7 +52,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       before do
         create_comments_for(private_project)
         token = get_auth_token(FactoryBot.create(:user))
-        get "/api/v1/threads/#{private_project.commontator_thread.id}/comments",
+        get "/api/v1/threads/#{private_project.comment_thread.id}/comments",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -66,7 +66,7 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
       before do
         create_comments_for(private_project)
         token = get_auth_token(private_project_author)
-        get "/api/v1/threads/#{private_project.commontator_thread.id}/comments",
+        get "/api/v1/threads/#{private_project.comment_thread.id}/comments",
             headers: { Authorization: "Token #{token}" }, as: :json
       end
 
@@ -79,9 +79,9 @@ RSpec.describe Api::V1::CommentsController, "#index", type: :request do
 
     def create_comments_for(project)
       FactoryBot.create_list(
-        :commontator_comment, 3,
+        :comment, 3,
         creator: FactoryBot.create(:user),
-        thread: project.commontator_thread
+        thread: project.comment_thread
       )
     end
   end

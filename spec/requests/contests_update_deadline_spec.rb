@@ -6,7 +6,7 @@ RSpec.describe "Admin::Contests#update", type: :request do
   let(:admin)   { create(:user, admin: true) }
   let(:contest) { create(:contest, status: :live, deadline: 2.days.from_now) }
 
-  before { sign_in admin; enable_contests! }
+  before { sign_in admin }
 
   context "invalid date format" do
     it "redirects with alert" do

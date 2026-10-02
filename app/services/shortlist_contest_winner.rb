@@ -30,10 +30,11 @@ class ShortlistContestWinner
         ContestWinner.create!(contest: @contest, submission: submission, project: submission.project)
 
         submission.update!(winner: true)
-        FeaturedCircuit.create!(project: submission.project)
 
         @contest.update!(status: :completed)
       end
+
+      feature_winner_project(submission)
 
       ContestWinnerNotification.with(project: submission.project)
                                .deliver_later(submission.project.author)
@@ -44,5 +45,14 @@ class ShortlistContestWinner
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error "ShortlistContestWinner failed: #{e.message}"
       { success: false, message: e.message }
+    end
+
+    def feature_winner_project(submission)
+      project = submission.project
+      return unless project.project_access_type == "Public"
+
+      FeaturedCircuit.find_or_create_by!(project: project)
+    rescue ActiveRecord::RecordInvalid, ActiveRecord::RecordNotUnique => e
+      Rails.logger.warn "ShortlistContestWinner: could not feature project #{project.id}: #{e.message}"
     end
 end

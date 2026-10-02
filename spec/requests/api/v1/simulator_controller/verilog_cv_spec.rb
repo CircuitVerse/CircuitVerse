@@ -4,40 +4,35 @@ require "rails_helper"
 
 RSpec.describe Api::V1::SimulatorController, type: :request do
   describe "POST /api/v1/simulator/verilogcv" do
-    let(:code) { "sample_code" }
-    let(:yosys_url) { "#{ENV.fetch('YOSYS_PATH', 'http://127.0.0.1:3040')}/getJSON" }
-    let(:yosys_response) { { "data" => "response_from_yosys" } }
+    let(:code) { "module top(input a, output y); assign y = a; endmodule" }
 
-    context "when YOSYS_PATH is valid and returns a successful response" do
-      let(:response_double) { instance_double(HTTP::Response, code: 200, to_s: yosys_response.to_json) }
-
+    context "when compilation succeeds" do
       before do
-        allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        http_client = instance_double(HTTP::Client)
-        allow(HTTP).to receive(:timeout).and_return(http_client)
-        allow(http_client).to receive(:post).and_return(response_double)
+        allow(Yosys2Digitaljs::Runner).to receive(:compile).with(code).and_return({ "devices" => {} })
       end
 
-      it "returns a successful response with correct JSON" do
+      it "returns a successful response with compiled JSON" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
         expect(response.status).to eq(200)
-        expect(response.parsed_body).to eq(yosys_response.with_indifferent_access)
+        expect(response.parsed_body).to eq({ "devices" => {} }.with_indifferent_access)
       end
     end
 
-    context "when YOSYS_PATH is valid but returns a failed response" do
-      let(:response_double) { instance_double(HTTP::Response, code: 500, to_s: "") }
+    context "when code is too large" do
+      it "returns 413" do
+        post "/api/v1/simulator/verilogcv", params: { code: "a" * (Api::V1::SimulatorController::MAX_CODE_SIZE + 1) }
+        expect(response.status).to eq(413)
+      end
+    end
 
+    context "when compilation raises a syntax error" do
       before do
-        allow(ENV).to receive(:fetch).with("YOSYS_PATH", "http://127.0.0.1:3040").and_return("http://127.0.0.1:3040")
-        http_client = instance_double(HTTP::Client)
-        allow(HTTP).to receive(:timeout).and_return(http_client)
-        allow(http_client).to receive(:post).and_return(response_double)
+        allow(Yosys2Digitaljs::Runner).to receive(:compile).and_raise(Yosys2Digitaljs::SyntaxError, "bad syntax")
       end
 
-      it "returns the failed status code" do
+      it "returns 422" do
         post "/api/v1/simulator/verilogcv", params: { code: code }
-        expect(response.status).to eq(500)
+        expect(response.status).to eq(422)
       end
     end
   end

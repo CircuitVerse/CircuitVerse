@@ -79,11 +79,6 @@ Rails.application.configure do
     config.action_controller.forgery_protection_origin_check = false
   end
 
-  # Debug mode for assets (Rails 8 uses Propshaft by default, adjust if using Sprockets)
-  # If you're still using Sprockets, uncomment these:
-  config.assets.debug = true
-  config.assets.quiet = true
-
   # Use an evented file watcher to asynchronously detect changes in source code
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 
