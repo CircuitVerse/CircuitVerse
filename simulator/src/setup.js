@@ -156,7 +156,7 @@ export function setup() {
 
     // Load project data after 1 second - needs to be improved, delay needs to be eliminated
     setTimeout(() => {
-        if (__logix_project_id != 0) { // eslint-disable-line eqeqeq, camelcase
+        if (logix_project_id != 0) { // eslint-disable-line eqeqeq, camelcase
             $('.loadingIcon').fadeIn();
             $.ajax({
                 url: `/simulator/get_data/${__logix_project_id}`, // eslint-disable-line camelcase
@@ -199,4 +199,6 @@ export function setup() {
     if (!localStorage.tutorials_tour_done && !embed) {
         setTimeout(() => { showTourGuide(); }, 2000);
     }
+    const loader = document.getElementById('loading-placeholder');
+    if (loader) loader.style.display = 'none';
 }
