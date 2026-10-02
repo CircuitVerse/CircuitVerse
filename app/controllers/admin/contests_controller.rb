@@ -7,7 +7,7 @@ class Admin::ContestsController < ApplicationController
   before_action :authorize_admin
 
   def index
-    @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
+    load_contests
   end
 
   def create
@@ -22,7 +22,7 @@ class Admin::ContestsController < ApplicationController
       ContestScheduler.call(@contest)
       redirect_to contest_path(@contest), notice: t(".success")
     else
-      @contests = Contest.order(id: :desc).paginate(page: params[:page]).limit(Contest.per_page)
+      load_contests
       render :index, status: :unprocessable_content
     end
   end
@@ -60,6 +60,10 @@ class Admin::ContestsController < ApplicationController
   # rubocop:enable Metrics/MethodLength, Metrics/PerceivedComplexity
 
   private
+
+    def load_contests
+      @pagy, @contests = pagy(Contest.order(id: :desc), limit: Contest::PER_PAGE)
+    end
 
     def concurrent_contest_exists?
       Contest.exists?(status: :live)

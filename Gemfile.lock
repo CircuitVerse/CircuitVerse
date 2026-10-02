@@ -1052,6 +1052,7 @@ DEPENDENCIES
   opentelemetry-instrumentation-redis
   opentelemetry-instrumentation-sidekiq
   opentelemetry-sdk (~> 1.13)
+  pagy (~> 9.4)
   percy-capybara
   pg (~> 1.6.3)
   pg_search

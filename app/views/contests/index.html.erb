@@ -1,3 +1,4 @@
 <%= render Contest::IndexPageComponent.new(contests: @contests,
+                                           pagy: @pagy,    
                                            current_user: current_user,
                                            notice: flash[:notice]) %>

@@ -14,14 +14,14 @@ class Api::V1::GroupsController < Api::V1::BaseController
   # GET /api/v1/groups
   def index
     @groups = paginate(current_user.groups)
-    @options[:links] = link_attrs(@groups, api_v1_groups_url)
+    @options[:links] = link_attrs(api_v1_groups_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
   # GET /api/v1/groups/owned
   def groups_owned
     @groups = paginate(current_user.groups_owned)
-    @options[:links] = link_attrs(@groups, api_v1_groups_owned_url)
+    @options[:links] = link_attrs(api_v1_groups_owned_url)
     render json: Api::V1::GroupSerializer.new(@groups, @options)
   end
 
