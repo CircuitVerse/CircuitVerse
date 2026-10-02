@@ -197,6 +197,18 @@ describe ProjectsController, type: :request do
           check_project_access_error(response)
         end
       end
+
+      context "name contains unsafe HTML" do
+        before { sign_in @author }
+
+        it "sanitizes the name before saving" do
+          put user_project_path(@author, @project),
+              params: { project: { name: "<script>alert(1)</script>Evil Name" } }
+          @project.reload
+          expect(@project.name).not_to include("<script>")
+          expect(@project.name).to include("Evil Name")
+        end
+      end
     end
 
     describe "#destroy" do
