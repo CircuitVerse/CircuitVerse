@@ -17,11 +17,20 @@ require "omniauth/strategies/github"
 # while leaving the resolved data untouched: #email still returns the primary
 # verified address, so account matching in User.from_omniauth is unaffected.
 module OmniauthGithubParallelProfileFetch
+  # Returns the raw user profile payload from GitHub's GET /user endpoint,
+  # ensuring profile data is prefetched concurrently if not already memoized.
+  #
+  # @return [Hash] the parsed JSON payload from GET /user
   def raw_info
     prefetch_github_profile!
     @raw_info
   end
 
+  # Returns the list of email hashes from GitHub's GET /user/emails endpoint,
+  # ensuring profile data is prefetched concurrently if not already memoized.
+  # Returns an empty array if email access is not allowed by the granted scopes.
+  #
+  # @return [Array<Hash>] list of parsed email objects, or [] if scope disallowed
   def emails
     return [] unless email_access_allowed?
 
@@ -31,6 +40,12 @@ module OmniauthGithubParallelProfileFetch
 
   private
 
+    # Initiates concurrent requests for the GitHub user profile and verified email list.
+    # If the user profile fetch raises an error, any active background email request
+    # is terminated to prevent orphaned in-flight requests. Results are memoized only
+    # after both requests complete successfully.
+    #
+    # @return [void]
     def prefetch_github_profile!
       return if @github_profile_prefetched
 
@@ -42,18 +57,35 @@ module OmniauthGithubParallelProfileFetch
       token.options[:mode] = :header
 
       emails_request = Thread.new { fetch_github_emails(token) } if email_access_allowed?
-      @raw_info = fetch_github_user(token)
-      @emails = emails_request ? emails_request.value : []
+      begin
+        user_info = fetch_github_user(token)
+        user_emails = emails_request ? emails_request.value : []
+      rescue StandardError
+        emails_request&.kill
+        raise
+      end
+
+      @raw_info = user_info
+      @emails = user_emails
       @github_profile_prefetched = true
     end
 
+    # Fetches and parses the authenticated user profile from GitHub.
+    #
+    # @param token [OAuth2::AccessToken] the OAuth access token
+    # @return [Hash] the parsed user profile hash
     def fetch_github_user(token)
       token.get("user").parsed
     end
 
+    # Fetches and parses the verified email addresses from GitHub.
+    #
+    # @param token [OAuth2::AccessToken] the OAuth access token
+    # @return [Array<Hash>] the list of email hashes
     def fetch_github_emails(token)
       token.get("user/emails", headers: { "Accept" => "application/vnd.github.v3" }).parsed
     end
 end
 
 OmniAuth::Strategies::GitHub.prepend(OmniauthGithubParallelProfileFetch)
+
